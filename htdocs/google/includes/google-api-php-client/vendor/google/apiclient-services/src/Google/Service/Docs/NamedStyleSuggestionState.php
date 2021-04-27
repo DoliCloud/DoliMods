@@ -17,46 +17,46 @@
 
 class Google_Service_Docs_NamedStyleSuggestionState extends Google_Model
 {
-  public $namedStyleType;
-  protected $paragraphStyleSuggestionStateType = 'Google_Service_Docs_ParagraphStyleSuggestionState';
-  protected $paragraphStyleSuggestionStateDataType = '';
-  protected $textStyleSuggestionStateType = 'Google_Service_Docs_TextStyleSuggestionState';
-  protected $textStyleSuggestionStateDataType = '';
+	public $namedStyleType;
+	protected $paragraphStyleSuggestionStateType = 'Google_Service_Docs_ParagraphStyleSuggestionState';
+	protected $paragraphStyleSuggestionStateDataType = '';
+	protected $textStyleSuggestionStateType = 'Google_Service_Docs_TextStyleSuggestionState';
+	protected $textStyleSuggestionStateDataType = '';
 
-  public function setNamedStyleType($namedStyleType)
-  {
-    $this->namedStyleType = $namedStyleType;
-  }
-  public function getNamedStyleType()
-  {
-    return $this->namedStyleType;
-  }
-  /**
-   * @param Google_Service_Docs_ParagraphStyleSuggestionState
-   */
-  public function setParagraphStyleSuggestionState(Google_Service_Docs_ParagraphStyleSuggestionState $paragraphStyleSuggestionState)
-  {
-    $this->paragraphStyleSuggestionState = $paragraphStyleSuggestionState;
-  }
-  /**
-   * @return Google_Service_Docs_ParagraphStyleSuggestionState
-   */
-  public function getParagraphStyleSuggestionState()
-  {
-    return $this->paragraphStyleSuggestionState;
-  }
-  /**
-   * @param Google_Service_Docs_TextStyleSuggestionState
-   */
-  public function setTextStyleSuggestionState(Google_Service_Docs_TextStyleSuggestionState $textStyleSuggestionState)
-  {
-    $this->textStyleSuggestionState = $textStyleSuggestionState;
-  }
-  /**
-   * @return Google_Service_Docs_TextStyleSuggestionState
-   */
-  public function getTextStyleSuggestionState()
-  {
-    return $this->textStyleSuggestionState;
-  }
+	public function setNamedStyleType($namedStyleType)
+	{
+		$this->namedStyleType = $namedStyleType;
+	}
+	public function getNamedStyleType()
+	{
+		return $this->namedStyleType;
+	}
+	/**
+	 * @param Google_Service_Docs_ParagraphStyleSuggestionState
+	 */
+	public function setParagraphStyleSuggestionState(Google_Service_Docs_ParagraphStyleSuggestionState $paragraphStyleSuggestionState)
+	{
+		$this->paragraphStyleSuggestionState = $paragraphStyleSuggestionState;
+	}
+	/**
+	 * @return Google_Service_Docs_ParagraphStyleSuggestionState
+	 */
+	public function getParagraphStyleSuggestionState()
+	{
+		return $this->paragraphStyleSuggestionState;
+	}
+	/**
+	 * @param Google_Service_Docs_TextStyleSuggestionState
+	 */
+	public function setTextStyleSuggestionState(Google_Service_Docs_TextStyleSuggestionState $textStyleSuggestionState)
+	{
+		$this->textStyleSuggestionState = $textStyleSuggestionState;
+	}
+	/**
+	 * @return Google_Service_Docs_TextStyleSuggestionState
+	 */
+	public function getTextStyleSuggestionState()
+	{
+		return $this->textStyleSuggestionState;
+	}
 }

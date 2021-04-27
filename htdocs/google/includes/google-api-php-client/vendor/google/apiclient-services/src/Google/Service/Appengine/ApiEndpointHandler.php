@@ -17,14 +17,14 @@
 
 class Google_Service_Appengine_ApiEndpointHandler extends Google_Model
 {
-  public $scriptPath;
+	public $scriptPath;
 
-  public function setScriptPath($scriptPath)
-  {
-    $this->scriptPath = $scriptPath;
-  }
-  public function getScriptPath()
-  {
-    return $this->scriptPath;
-  }
+	public function setScriptPath($scriptPath)
+	{
+		$this->scriptPath = $scriptPath;
+	}
+	public function getScriptPath()
+	{
+		return $this->scriptPath;
+	}
 }

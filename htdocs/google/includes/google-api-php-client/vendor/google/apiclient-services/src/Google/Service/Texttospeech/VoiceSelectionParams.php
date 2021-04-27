@@ -17,32 +17,32 @@
 
 class Google_Service_Texttospeech_VoiceSelectionParams extends Google_Model
 {
-  public $languageCode;
-  public $name;
-  public $ssmlGender;
+	public $languageCode;
+	public $name;
+	public $ssmlGender;
 
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSsmlGender($ssmlGender)
-  {
-    $this->ssmlGender = $ssmlGender;
-  }
-  public function getSsmlGender()
-  {
-    return $this->ssmlGender;
-  }
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSsmlGender($ssmlGender)
+	{
+		$this->ssmlGender = $ssmlGender;
+	}
+	public function getSsmlGender()
+	{
+		return $this->ssmlGender;
+	}
 }

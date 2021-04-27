@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_Name extends Google_Model
 {
-  public $displayName;
+	public $displayName;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
 }

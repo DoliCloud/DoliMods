@@ -17,30 +17,30 @@
 
 class Google_Service_CloudDebugger_RepoId extends Google_Model
 {
-  protected $projectRepoIdType = 'Google_Service_CloudDebugger_ProjectRepoId';
-  protected $projectRepoIdDataType = '';
-  public $uid;
+	protected $projectRepoIdType = 'Google_Service_CloudDebugger_ProjectRepoId';
+	protected $projectRepoIdDataType = '';
+	public $uid;
 
-  /**
-   * @param Google_Service_CloudDebugger_ProjectRepoId
-   */
-  public function setProjectRepoId(Google_Service_CloudDebugger_ProjectRepoId $projectRepoId)
-  {
-    $this->projectRepoId = $projectRepoId;
-  }
-  /**
-   * @return Google_Service_CloudDebugger_ProjectRepoId
-   */
-  public function getProjectRepoId()
-  {
-    return $this->projectRepoId;
-  }
-  public function setUid($uid)
-  {
-    $this->uid = $uid;
-  }
-  public function getUid()
-  {
-    return $this->uid;
-  }
+	/**
+	 * @param Google_Service_CloudDebugger_ProjectRepoId
+	 */
+	public function setProjectRepoId(Google_Service_CloudDebugger_ProjectRepoId $projectRepoId)
+	{
+		$this->projectRepoId = $projectRepoId;
+	}
+	/**
+	 * @return Google_Service_CloudDebugger_ProjectRepoId
+	 */
+	public function getProjectRepoId()
+	{
+		return $this->projectRepoId;
+	}
+	public function setUid($uid)
+	{
+		$this->uid = $uid;
+	}
+	public function getUid()
+	{
+		return $this->uid;
+	}
 }

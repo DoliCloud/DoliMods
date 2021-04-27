@@ -17,56 +17,56 @@
 
 class Google_Service_Script_Deployment extends Google_Collection
 {
-  protected $collection_key = 'entryPoints';
-  protected $deploymentConfigType = 'Google_Service_Script_DeploymentConfig';
-  protected $deploymentConfigDataType = '';
-  public $deploymentId;
-  protected $entryPointsType = 'Google_Service_Script_EntryPoint';
-  protected $entryPointsDataType = 'array';
-  public $updateTime;
+	protected $collection_key = 'entryPoints';
+	protected $deploymentConfigType = 'Google_Service_Script_DeploymentConfig';
+	protected $deploymentConfigDataType = '';
+	public $deploymentId;
+	protected $entryPointsType = 'Google_Service_Script_EntryPoint';
+	protected $entryPointsDataType = 'array';
+	public $updateTime;
 
-  /**
-   * @param Google_Service_Script_DeploymentConfig
-   */
-  public function setDeploymentConfig(Google_Service_Script_DeploymentConfig $deploymentConfig)
-  {
-    $this->deploymentConfig = $deploymentConfig;
-  }
-  /**
-   * @return Google_Service_Script_DeploymentConfig
-   */
-  public function getDeploymentConfig()
-  {
-    return $this->deploymentConfig;
-  }
-  public function setDeploymentId($deploymentId)
-  {
-    $this->deploymentId = $deploymentId;
-  }
-  public function getDeploymentId()
-  {
-    return $this->deploymentId;
-  }
-  /**
-   * @param Google_Service_Script_EntryPoint
-   */
-  public function setEntryPoints($entryPoints)
-  {
-    $this->entryPoints = $entryPoints;
-  }
-  /**
-   * @return Google_Service_Script_EntryPoint
-   */
-  public function getEntryPoints()
-  {
-    return $this->entryPoints;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	/**
+	 * @param Google_Service_Script_DeploymentConfig
+	 */
+	public function setDeploymentConfig(Google_Service_Script_DeploymentConfig $deploymentConfig)
+	{
+		$this->deploymentConfig = $deploymentConfig;
+	}
+	/**
+	 * @return Google_Service_Script_DeploymentConfig
+	 */
+	public function getDeploymentConfig()
+	{
+		return $this->deploymentConfig;
+	}
+	public function setDeploymentId($deploymentId)
+	{
+		$this->deploymentId = $deploymentId;
+	}
+	public function getDeploymentId()
+	{
+		return $this->deploymentId;
+	}
+	/**
+	 * @param Google_Service_Script_EntryPoint
+	 */
+	public function setEntryPoints($entryPoints)
+	{
+		$this->entryPoints = $entryPoints;
+	}
+	/**
+	 * @return Google_Service_Script_EntryPoint
+	 */
+	public function getEntryPoints()
+	{
+		return $this->entryPoints;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

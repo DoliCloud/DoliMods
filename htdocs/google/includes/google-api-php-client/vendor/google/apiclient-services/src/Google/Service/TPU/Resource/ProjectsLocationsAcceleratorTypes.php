@@ -25,37 +25,37 @@
  */
 class Google_Service_TPU_Resource_ProjectsLocationsAcceleratorTypes extends Google_Service_Resource
 {
-  /**
-   * Gets AcceleratorType. (acceleratorTypes.get)
-   *
-   * @param string $name The resource name.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_TPU_AcceleratorType
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_TPU_AcceleratorType");
-  }
-  /**
-   * Lists accelerator types supported by this API.
-   * (acceleratorTypes.listProjectsLocationsAcceleratorTypes)
-   *
-   * @param string $parent The parent resource name.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string filter List filter.
-   * @opt_param string pageToken The next_page_token value returned from a
-   * previous List request, if any.
-   * @opt_param string orderBy Sort results.
-   * @opt_param int pageSize The maximum number of items to return.
-   * @return Google_Service_TPU_ListAcceleratorTypesResponse
-   */
-  public function listProjectsLocationsAcceleratorTypes($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_TPU_ListAcceleratorTypesResponse");
-  }
+	/**
+	 * Gets AcceleratorType. (acceleratorTypes.get)
+	 *
+	 * @param string $name The resource name.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_TPU_AcceleratorType
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_TPU_AcceleratorType");
+	}
+	/**
+	 * Lists accelerator types supported by this API.
+	 * (acceleratorTypes.listProjectsLocationsAcceleratorTypes)
+	 *
+	 * @param string $parent The parent resource name.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string filter List filter.
+	 * @opt_param string pageToken The next_page_token value returned from a
+	 * previous List request, if any.
+	 * @opt_param string orderBy Sort results.
+	 * @opt_param int pageSize The maximum number of items to return.
+	 * @return Google_Service_TPU_ListAcceleratorTypesResponse
+	 */
+	public function listProjectsLocationsAcceleratorTypes($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_TPU_ListAcceleratorTypesResponse");
+	}
 }

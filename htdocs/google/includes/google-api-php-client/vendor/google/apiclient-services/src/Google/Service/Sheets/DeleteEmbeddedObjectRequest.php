@@ -17,14 +17,14 @@
 
 class Google_Service_Sheets_DeleteEmbeddedObjectRequest extends Google_Model
 {
-  public $objectId;
+	public $objectId;
 
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
 }

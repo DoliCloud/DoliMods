@@ -17,21 +17,21 @@
 
 class Google_Service_CloudTalentSolution_CreateJobRequest extends Google_Model
 {
-  protected $jobType = 'Google_Service_CloudTalentSolution_Job';
-  protected $jobDataType = '';
+	protected $jobType = 'Google_Service_CloudTalentSolution_Job';
+	protected $jobDataType = '';
 
-  /**
-   * @param Google_Service_CloudTalentSolution_Job
-   */
-  public function setJob(Google_Service_CloudTalentSolution_Job $job)
-  {
-    $this->job = $job;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_Job
-   */
-  public function getJob()
-  {
-    return $this->job;
-  }
+	/**
+	 * @param Google_Service_CloudTalentSolution_Job
+	 */
+	public function setJob(Google_Service_CloudTalentSolution_Job $job)
+	{
+		$this->job = $job;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_Job
+	 */
+	public function getJob()
+	{
+		return $this->job;
+	}
 }

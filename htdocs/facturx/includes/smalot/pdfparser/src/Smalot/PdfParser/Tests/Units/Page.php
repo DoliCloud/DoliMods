@@ -39,74 +39,74 @@ use mageekguy\atoum;
  */
 class Page extends atoum\test
 {
-    public function testGetFonts()
-    {
-        // Document with text.
-        $filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
-        $parser   = new \Smalot\PdfParser\Parser();
-        $document = $parser->parseFile($filename);
-        $pages    = $document->getPages();
-        $page     = $pages[0];
+	public function testGetFonts()
+	{
+		// Document with text.
+		$filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
+		$parser   = new \Smalot\PdfParser\Parser();
+		$document = $parser->parseFile($filename);
+		$pages    = $document->getPages();
+		$page     = $pages[0];
 
-        // the first to load data.
-        $fonts = $page->getFonts();
-        $this->assert->array($fonts)->isNotEmpty();
-        foreach ($fonts as $font) {
-            $this->assert->object($font)->isInstanceOf('\Smalot\PdfParser\Font');
-        }
-        // the second to use cache.
-        $fonts = $page->getFonts();
-        $this->assert->array($fonts)->isNotEmpty();
+		// the first to load data.
+		$fonts = $page->getFonts();
+		$this->assert->array($fonts)->isNotEmpty();
+		foreach ($fonts as $font) {
+			$this->assert->object($font)->isInstanceOf('\Smalot\PdfParser\Font');
+		}
+		// the second to use cache.
+		$fonts = $page->getFonts();
+		$this->assert->array($fonts)->isNotEmpty();
 
-        // ------------------------------------------------------
-        // Document without text.
-        $filename = __DIR__ . '/../../../../../samples/Document3_pdfcreator_nocompressed.pdf';
-        $document = $parser->parseFile($filename);
-        $pages    = $document->getPages();
-        $page     = $pages[0];
+		// ------------------------------------------------------
+		// Document without text.
+		$filename = __DIR__ . '/../../../../../samples/Document3_pdfcreator_nocompressed.pdf';
+		$document = $parser->parseFile($filename);
+		$pages    = $document->getPages();
+		$page     = $pages[0];
 
-        // the first to load data.
-        $fonts = $page->getFonts();
-        $this->assert->array($fonts)->isEmpty();
-        // the second to use cache.
-        $fonts = $page->getFonts();
-        $this->assert->array($fonts)->isEmpty();
-    }
+		// the first to load data.
+		$fonts = $page->getFonts();
+		$this->assert->array($fonts)->isEmpty();
+		// the second to use cache.
+		$fonts = $page->getFonts();
+		$this->assert->array($fonts)->isEmpty();
+	}
 
-    public function testGetFont()
-    {
-        // Document with text.
-        $filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
-        $parser   = new \Smalot\PdfParser\Parser();
-        $document = $parser->parseFile($filename);
-        $pages    = $document->getPages();
-        $page     = $pages[0];
+	public function testGetFont()
+	{
+		// Document with text.
+		$filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
+		$parser   = new \Smalot\PdfParser\Parser();
+		$document = $parser->parseFile($filename);
+		$pages    = $document->getPages();
+		$page     = $pages[0];
 
-        // the first to load data.
-        $font = $page->getFont('R7');
-        $this->assert->object($font)->isInstanceOf('\Smalot\PdfParser\Font');
-        $font = $page->getFont('ABC7');
-        $this->assert->object($font)->isInstanceOf('\Smalot\PdfParser\Font');
-    }
+		// the first to load data.
+		$font = $page->getFont('R7');
+		$this->assert->object($font)->isInstanceOf('\Smalot\PdfParser\Font');
+		$font = $page->getFont('ABC7');
+		$this->assert->object($font)->isInstanceOf('\Smalot\PdfParser\Font');
+	}
 
-    public function testGetText()
-    {
-        // Document with text.
-        $filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
-        $parser   = new \Smalot\PdfParser\Parser();
-        $document = $parser->parseFile($filename);
-        $pages    = $document->getPages();
-        $page     = $pages[0];
-        $text     = $page->getText();
+	public function testGetText()
+	{
+		// Document with text.
+		$filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
+		$parser   = new \Smalot\PdfParser\Parser();
+		$document = $parser->parseFile($filename);
+		$pages    = $document->getPages();
+		$page     = $pages[0];
+		$text     = $page->getText();
 
-        $this->assert->string($text)->hasLengthGreaterThan(150);
-        $this->assert->string($text)->contains('Document title');
-        $this->assert->string($text)->contains('Lorem ipsum');
+		$this->assert->string($text)->hasLengthGreaterThan(150);
+		$this->assert->string($text)->contains('Document title');
+		$this->assert->string($text)->contains('Lorem ipsum');
 
-        $this->assert->string($text)->contains('Calibri');
-        $this->assert->string($text)->contains('Arial');
-        $this->assert->string($text)->contains('Times');
-        $this->assert->string($text)->contains('Courier New');
-        $this->assert->string($text)->contains('Verdana');
-    }
+		$this->assert->string($text)->contains('Calibri');
+		$this->assert->string($text)->contains('Arial');
+		$this->assert->string($text)->contains('Times');
+		$this->assert->string($text)->contains('Courier New');
+		$this->assert->string($text)->contains('Verdana');
+	}
 }

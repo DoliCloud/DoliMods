@@ -17,91 +17,91 @@
 
 class Google_Service_ShoppingContent_AccountsCustomBatchRequestEntry extends Google_Model
 {
-  protected $accountType = 'Google_Service_ShoppingContent_Account';
-  protected $accountDataType = '';
-  public $accountId;
-  public $batchId;
-  public $force;
-  protected $linkRequestType = 'Google_Service_ShoppingContent_AccountsCustomBatchRequestEntryLinkRequest';
-  protected $linkRequestDataType = '';
-  public $merchantId;
-  public $method;
-  public $overwrite;
+	protected $accountType = 'Google_Service_ShoppingContent_Account';
+	protected $accountDataType = '';
+	public $accountId;
+	public $batchId;
+	public $force;
+	protected $linkRequestType = 'Google_Service_ShoppingContent_AccountsCustomBatchRequestEntryLinkRequest';
+	protected $linkRequestDataType = '';
+	public $merchantId;
+	public $method;
+	public $overwrite;
 
-  /**
-   * @param Google_Service_ShoppingContent_Account
-   */
-  public function setAccount(Google_Service_ShoppingContent_Account $account)
-  {
-    $this->account = $account;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Account
-   */
-  public function getAccount()
-  {
-    return $this->account;
-  }
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  public function setForce($force)
-  {
-    $this->force = $force;
-  }
-  public function getForce()
-  {
-    return $this->force;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_AccountsCustomBatchRequestEntryLinkRequest
-   */
-  public function setLinkRequest(Google_Service_ShoppingContent_AccountsCustomBatchRequestEntryLinkRequest $linkRequest)
-  {
-    $this->linkRequest = $linkRequest;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_AccountsCustomBatchRequestEntryLinkRequest
-   */
-  public function getLinkRequest()
-  {
-    return $this->linkRequest;
-  }
-  public function setMerchantId($merchantId)
-  {
-    $this->merchantId = $merchantId;
-  }
-  public function getMerchantId()
-  {
-    return $this->merchantId;
-  }
-  public function setMethod($method)
-  {
-    $this->method = $method;
-  }
-  public function getMethod()
-  {
-    return $this->method;
-  }
-  public function setOverwrite($overwrite)
-  {
-    $this->overwrite = $overwrite;
-  }
-  public function getOverwrite()
-  {
-    return $this->overwrite;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_Account
+	 */
+	public function setAccount(Google_Service_ShoppingContent_Account $account)
+	{
+		$this->account = $account;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Account
+	 */
+	public function getAccount()
+	{
+		return $this->account;
+	}
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	public function setForce($force)
+	{
+		$this->force = $force;
+	}
+	public function getForce()
+	{
+		return $this->force;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_AccountsCustomBatchRequestEntryLinkRequest
+	 */
+	public function setLinkRequest(Google_Service_ShoppingContent_AccountsCustomBatchRequestEntryLinkRequest $linkRequest)
+	{
+		$this->linkRequest = $linkRequest;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_AccountsCustomBatchRequestEntryLinkRequest
+	 */
+	public function getLinkRequest()
+	{
+		return $this->linkRequest;
+	}
+	public function setMerchantId($merchantId)
+	{
+		$this->merchantId = $merchantId;
+	}
+	public function getMerchantId()
+	{
+		return $this->merchantId;
+	}
+	public function setMethod($method)
+	{
+		$this->method = $method;
+	}
+	public function getMethod()
+	{
+		return $this->method;
+	}
+	public function setOverwrite($overwrite)
+	{
+		$this->overwrite = $overwrite;
+	}
+	public function getOverwrite()
+	{
+		return $this->overwrite;
+	}
 }

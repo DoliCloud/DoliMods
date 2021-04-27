@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_MoveDimensionRequest extends Google_Model
 {
-  public $destinationIndex;
-  protected $sourceType = 'Google_Service_Sheets_DimensionRange';
-  protected $sourceDataType = '';
+	public $destinationIndex;
+	protected $sourceType = 'Google_Service_Sheets_DimensionRange';
+	protected $sourceDataType = '';
 
-  public function setDestinationIndex($destinationIndex)
-  {
-    $this->destinationIndex = $destinationIndex;
-  }
-  public function getDestinationIndex()
-  {
-    return $this->destinationIndex;
-  }
-  /**
-   * @param Google_Service_Sheets_DimensionRange
-   */
-  public function setSource(Google_Service_Sheets_DimensionRange $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_Sheets_DimensionRange
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
+	public function setDestinationIndex($destinationIndex)
+	{
+		$this->destinationIndex = $destinationIndex;
+	}
+	public function getDestinationIndex()
+	{
+		return $this->destinationIndex;
+	}
+	/**
+	 * @param Google_Service_Sheets_DimensionRange
+	 */
+	public function setSource(Google_Service_Sheets_DimensionRange $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_Sheets_DimensionRange
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

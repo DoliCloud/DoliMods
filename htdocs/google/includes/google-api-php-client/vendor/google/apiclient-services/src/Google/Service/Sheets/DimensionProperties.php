@@ -17,49 +17,49 @@
 
 class Google_Service_Sheets_DimensionProperties extends Google_Collection
 {
-  protected $collection_key = 'developerMetadata';
-  protected $developerMetadataType = 'Google_Service_Sheets_DeveloperMetadata';
-  protected $developerMetadataDataType = 'array';
-  public $hiddenByFilter;
-  public $hiddenByUser;
-  public $pixelSize;
+	protected $collection_key = 'developerMetadata';
+	protected $developerMetadataType = 'Google_Service_Sheets_DeveloperMetadata';
+	protected $developerMetadataDataType = 'array';
+	public $hiddenByFilter;
+	public $hiddenByUser;
+	public $pixelSize;
 
-  /**
-   * @param Google_Service_Sheets_DeveloperMetadata
-   */
-  public function setDeveloperMetadata($developerMetadata)
-  {
-    $this->developerMetadata = $developerMetadata;
-  }
-  /**
-   * @return Google_Service_Sheets_DeveloperMetadata
-   */
-  public function getDeveloperMetadata()
-  {
-    return $this->developerMetadata;
-  }
-  public function setHiddenByFilter($hiddenByFilter)
-  {
-    $this->hiddenByFilter = $hiddenByFilter;
-  }
-  public function getHiddenByFilter()
-  {
-    return $this->hiddenByFilter;
-  }
-  public function setHiddenByUser($hiddenByUser)
-  {
-    $this->hiddenByUser = $hiddenByUser;
-  }
-  public function getHiddenByUser()
-  {
-    return $this->hiddenByUser;
-  }
-  public function setPixelSize($pixelSize)
-  {
-    $this->pixelSize = $pixelSize;
-  }
-  public function getPixelSize()
-  {
-    return $this->pixelSize;
-  }
+	/**
+	 * @param Google_Service_Sheets_DeveloperMetadata
+	 */
+	public function setDeveloperMetadata($developerMetadata)
+	{
+		$this->developerMetadata = $developerMetadata;
+	}
+	/**
+	 * @return Google_Service_Sheets_DeveloperMetadata
+	 */
+	public function getDeveloperMetadata()
+	{
+		return $this->developerMetadata;
+	}
+	public function setHiddenByFilter($hiddenByFilter)
+	{
+		$this->hiddenByFilter = $hiddenByFilter;
+	}
+	public function getHiddenByFilter()
+	{
+		return $this->hiddenByFilter;
+	}
+	public function setHiddenByUser($hiddenByUser)
+	{
+		$this->hiddenByUser = $hiddenByUser;
+	}
+	public function getHiddenByUser()
+	{
+		return $this->hiddenByUser;
+	}
+	public function setPixelSize($pixelSize)
+	{
+		$this->pixelSize = $pixelSize;
+	}
+	public function getPixelSize()
+	{
+		return $this->pixelSize;
+	}
 }

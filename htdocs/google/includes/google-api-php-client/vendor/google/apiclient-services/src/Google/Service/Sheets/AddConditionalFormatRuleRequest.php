@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_AddConditionalFormatRuleRequest extends Google_Model
 {
-  public $index;
-  protected $ruleType = 'Google_Service_Sheets_ConditionalFormatRule';
-  protected $ruleDataType = '';
+	public $index;
+	protected $ruleType = 'Google_Service_Sheets_ConditionalFormatRule';
+	protected $ruleDataType = '';
 
-  public function setIndex($index)
-  {
-    $this->index = $index;
-  }
-  public function getIndex()
-  {
-    return $this->index;
-  }
-  /**
-   * @param Google_Service_Sheets_ConditionalFormatRule
-   */
-  public function setRule(Google_Service_Sheets_ConditionalFormatRule $rule)
-  {
-    $this->rule = $rule;
-  }
-  /**
-   * @return Google_Service_Sheets_ConditionalFormatRule
-   */
-  public function getRule()
-  {
-    return $this->rule;
-  }
+	public function setIndex($index)
+	{
+		$this->index = $index;
+	}
+	public function getIndex()
+	{
+		return $this->index;
+	}
+	/**
+	 * @param Google_Service_Sheets_ConditionalFormatRule
+	 */
+	public function setRule(Google_Service_Sheets_ConditionalFormatRule $rule)
+	{
+		$this->rule = $rule;
+	}
+	/**
+	 * @return Google_Service_Sheets_ConditionalFormatRule
+	 */
+	public function getRule()
+	{
+		return $this->rule;
+	}
 }

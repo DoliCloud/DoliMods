@@ -17,39 +17,39 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CreateStoredInfoTypeRequest extends Google_Model
 {
-  protected $configType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig';
-  protected $configDataType = '';
-  public $locationId;
-  public $storedInfoTypeId;
+	protected $configType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig';
+	protected $configDataType = '';
+	public $locationId;
+	public $storedInfoTypeId;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
-   */
-  public function setConfig(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig $config)
-  {
-    $this->config = $config;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
-   */
-  public function getConfig()
-  {
-    return $this->config;
-  }
-  public function setLocationId($locationId)
-  {
-    $this->locationId = $locationId;
-  }
-  public function getLocationId()
-  {
-    return $this->locationId;
-  }
-  public function setStoredInfoTypeId($storedInfoTypeId)
-  {
-    $this->storedInfoTypeId = $storedInfoTypeId;
-  }
-  public function getStoredInfoTypeId()
-  {
-    return $this->storedInfoTypeId;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
+	 */
+	public function setConfig(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig $config)
+	{
+		$this->config = $config;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
+	 */
+	public function getConfig()
+	{
+		return $this->config;
+	}
+	public function setLocationId($locationId)
+	{
+		$this->locationId = $locationId;
+	}
+	public function getLocationId()
+	{
+		return $this->locationId;
+	}
+	public function setStoredInfoTypeId($storedInfoTypeId)
+	{
+		$this->storedInfoTypeId = $storedInfoTypeId;
+	}
+	public function getStoredInfoTypeId()
+	{
+		return $this->storedInfoTypeId;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_CmTrackingAd extends Google_Model
 {
-  public $cmAdId;
-  public $cmCreativeId;
-  public $cmPlacementId;
+	public $cmAdId;
+	public $cmCreativeId;
+	public $cmPlacementId;
 
-  public function setCmAdId($cmAdId)
-  {
-    $this->cmAdId = $cmAdId;
-  }
-  public function getCmAdId()
-  {
-    return $this->cmAdId;
-  }
-  public function setCmCreativeId($cmCreativeId)
-  {
-    $this->cmCreativeId = $cmCreativeId;
-  }
-  public function getCmCreativeId()
-  {
-    return $this->cmCreativeId;
-  }
-  public function setCmPlacementId($cmPlacementId)
-  {
-    $this->cmPlacementId = $cmPlacementId;
-  }
-  public function getCmPlacementId()
-  {
-    return $this->cmPlacementId;
-  }
+	public function setCmAdId($cmAdId)
+	{
+		$this->cmAdId = $cmAdId;
+	}
+	public function getCmAdId()
+	{
+		return $this->cmAdId;
+	}
+	public function setCmCreativeId($cmCreativeId)
+	{
+		$this->cmCreativeId = $cmCreativeId;
+	}
+	public function getCmCreativeId()
+	{
+		return $this->cmCreativeId;
+	}
+	public function setCmPlacementId($cmPlacementId)
+	{
+		$this->cmPlacementId = $cmPlacementId;
+	}
+	public function getCmPlacementId()
+	{
+		return $this->cmPlacementId;
+	}
 }

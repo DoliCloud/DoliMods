@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceConsumerManagement_TenantResource extends Google_Model
 {
-  public $resource;
-  public $status;
-  public $tag;
+	public $resource;
+	public $status;
+	public $tag;
 
-  public function setResource($resource)
-  {
-    $this->resource = $resource;
-  }
-  public function getResource()
-  {
-    return $this->resource;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  public function setTag($tag)
-  {
-    $this->tag = $tag;
-  }
-  public function getTag()
-  {
-    return $this->tag;
-  }
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
+	public function getResource()
+	{
+		return $this->resource;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	public function setTag($tag)
+	{
+		$this->tag = $tag;
+	}
+	public function getTag()
+	{
+		return $this->tag;
+	}
 }

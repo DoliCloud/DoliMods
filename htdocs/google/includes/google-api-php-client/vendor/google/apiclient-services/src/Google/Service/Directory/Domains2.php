@@ -17,40 +17,40 @@
 
 class Google_Service_Directory_Domains2 extends Google_Collection
 {
-  protected $collection_key = 'domains';
-  protected $domainsType = 'Google_Service_Directory_Domains';
-  protected $domainsDataType = 'array';
-  public $etag;
-  public $kind;
+	protected $collection_key = 'domains';
+	protected $domainsType = 'Google_Service_Directory_Domains';
+	protected $domainsDataType = 'array';
+	public $etag;
+	public $kind;
 
-  /**
-   * @param Google_Service_Directory_Domains
-   */
-  public function setDomains($domains)
-  {
-    $this->domains = $domains;
-  }
-  /**
-   * @return Google_Service_Directory_Domains
-   */
-  public function getDomains()
-  {
-    return $this->domains;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Directory_Domains
+	 */
+	public function setDomains($domains)
+	{
+		$this->domains = $domains;
+	}
+	/**
+	 * @return Google_Service_Directory_Domains
+	 */
+	public function getDomains()
+	{
+		return $this->domains;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

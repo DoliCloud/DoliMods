@@ -17,30 +17,30 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2OutputDirectory extends Google_Model
 {
-  public $path;
-  protected $treeDigestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $treeDigestDataType = '';
+	public $path;
+	protected $treeDigestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $treeDigestDataType = '';
 
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setTreeDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $treeDigest)
-  {
-    $this->treeDigest = $treeDigest;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getTreeDigest()
-  {
-    return $this->treeDigest;
-  }
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setTreeDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $treeDigest)
+	{
+		$this->treeDigest = $treeDigest;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getTreeDigest()
+	{
+		return $this->treeDigest;
+	}
 }

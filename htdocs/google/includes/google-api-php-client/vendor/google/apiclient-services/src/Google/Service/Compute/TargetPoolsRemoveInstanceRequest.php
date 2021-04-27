@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_TargetPoolsRemoveInstanceRequest extends Google_Collection
 {
-  protected $collection_key = 'instances';
-  protected $instancesType = 'Google_Service_Compute_InstanceReference';
-  protected $instancesDataType = 'array';
+	protected $collection_key = 'instances';
+	protected $instancesType = 'Google_Service_Compute_InstanceReference';
+	protected $instancesDataType = 'array';
 
-  /**
-   * @param Google_Service_Compute_InstanceReference
-   */
-  public function setInstances($instances)
-  {
-    $this->instances = $instances;
-  }
-  /**
-   * @return Google_Service_Compute_InstanceReference
-   */
-  public function getInstances()
-  {
-    return $this->instances;
-  }
+	/**
+	 * @param Google_Service_Compute_InstanceReference
+	 */
+	public function setInstances($instances)
+	{
+		$this->instances = $instances;
+	}
+	/**
+	 * @return Google_Service_Compute_InstanceReference
+	 */
+	public function getInstances()
+	{
+		return $this->instances;
+	}
 }

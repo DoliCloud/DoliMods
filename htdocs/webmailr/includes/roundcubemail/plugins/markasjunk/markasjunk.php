@@ -11,46 +11,45 @@
  */
 class markasjunk extends rcube_plugin
 {
-  public $task = 'mail';
+	public $task = 'mail';
 
-  function init()
-  {
-    $rcmail = rcmail::get_instance();
+	function init()
+	{
+		$rcmail = rcmail::get_instance();
 
-    $this->register_action('plugin.markasjunk', array($this, 'request_action'));
-      
-    if ($rcmail->action == '' || $rcmail->action == 'show') {
-      $skin_path = $this->local_skin_path();
-      $this->include_script('markasjunk.js');
-      $this->add_texts('localization', true);
-      $this->add_button(array(
-        'command' => 'plugin.markasjunk',
-        'imagepas' => $skin_path.'/junk_pas.png',
-        'imageact' => $skin_path.'/junk_act.png',
-	'title' => 'markasjunk.buttontitle'), 'toolbar');
-    }
-  }
+		$this->register_action('plugin.markasjunk', array($this, 'request_action'));
 
-  function request_action()
-  {
-    $this->add_texts('localization');
+		if ($rcmail->action == '' || $rcmail->action == 'show') {
+			$skin_path = $this->local_skin_path();
+			$this->include_script('markasjunk.js');
+			$this->add_texts('localization', true);
+			$this->add_button(array(
+			'command' => 'plugin.markasjunk',
+			'imagepas' => $skin_path.'/junk_pas.png',
+			'imageact' => $skin_path.'/junk_act.png',
+			'title' => 'markasjunk.buttontitle'), 'toolbar');
+		}
+	}
 
-    $GLOBALS['IMAP_FLAGS']['JUNK'] = 'Junk';
-    $GLOBALS['IMAP_FLAGS']['NONJUNK'] = 'NonJunk';
-    
-    $uids = get_input_value('_uid', RCUBE_INPUT_POST);
-    $mbox = get_input_value('_mbox', RCUBE_INPUT_POST);
-    
-    $rcmail = rcmail::get_instance();
-    $rcmail->imap->unset_flag($uids, 'NONJUNK');
-    $rcmail->imap->set_flag($uids, 'JUNK');
-    
-    if (($junk_mbox = $rcmail->config->get('junk_mbox')) && $mbox != $junk_mbox) {
-      $rcmail->output->command('move_messages', $junk_mbox);
-    }
-    
-    $rcmail->output->command('display_message', $this->gettext('reportedasjunk'), 'confirmation');
-    $rcmail->output->send();
-  }
+	function request_action()
+	{
+		$this->add_texts('localization');
 
+		$GLOBALS['IMAP_FLAGS']['JUNK'] = 'Junk';
+		$GLOBALS['IMAP_FLAGS']['NONJUNK'] = 'NonJunk';
+
+		$uids = get_input_value('_uid', RCUBE_INPUT_POST);
+		$mbox = get_input_value('_mbox', RCUBE_INPUT_POST);
+
+		$rcmail = rcmail::get_instance();
+		$rcmail->imap->unset_flag($uids, 'NONJUNK');
+		$rcmail->imap->set_flag($uids, 'JUNK');
+
+		if (($junk_mbox = $rcmail->config->get('junk_mbox')) && $mbox != $junk_mbox) {
+			$rcmail->output->command('move_messages', $junk_mbox);
+		}
+
+		$rcmail->output->command('display_message', $this->gettext('reportedasjunk'), 'confirmation');
+		$rcmail->output->send();
+	}
 }

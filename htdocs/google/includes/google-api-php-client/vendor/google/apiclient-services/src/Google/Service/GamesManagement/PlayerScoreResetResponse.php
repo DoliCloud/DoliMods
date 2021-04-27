@@ -17,33 +17,33 @@
 
 class Google_Service_GamesManagement_PlayerScoreResetResponse extends Google_Collection
 {
-  protected $collection_key = 'resetScoreTimeSpans';
-  public $definitionId;
-  public $kind;
-  public $resetScoreTimeSpans;
+	protected $collection_key = 'resetScoreTimeSpans';
+	public $definitionId;
+	public $kind;
+	public $resetScoreTimeSpans;
 
-  public function setDefinitionId($definitionId)
-  {
-    $this->definitionId = $definitionId;
-  }
-  public function getDefinitionId()
-  {
-    return $this->definitionId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setResetScoreTimeSpans($resetScoreTimeSpans)
-  {
-    $this->resetScoreTimeSpans = $resetScoreTimeSpans;
-  }
-  public function getResetScoreTimeSpans()
-  {
-    return $this->resetScoreTimeSpans;
-  }
+	public function setDefinitionId($definitionId)
+	{
+		$this->definitionId = $definitionId;
+	}
+	public function getDefinitionId()
+	{
+		return $this->definitionId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setResetScoreTimeSpans($resetScoreTimeSpans)
+	{
+		$this->resetScoreTimeSpans = $resetScoreTimeSpans;
+	}
+	public function getResetScoreTimeSpans()
+	{
+		return $this->resetScoreTimeSpans;
+	}
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_CommentAnalyzer_Context extends Google_Collection
 {
-  protected $collection_key = 'entries';
-  protected $articleAndParentCommentType = 'Google_Service_CommentAnalyzer_ArticleAndParentComment';
-  protected $articleAndParentCommentDataType = '';
-  protected $entriesType = 'Google_Service_CommentAnalyzer_TextEntry';
-  protected $entriesDataType = 'array';
+	protected $collection_key = 'entries';
+	protected $articleAndParentCommentType = 'Google_Service_CommentAnalyzer_ArticleAndParentComment';
+	protected $articleAndParentCommentDataType = '';
+	protected $entriesType = 'Google_Service_CommentAnalyzer_TextEntry';
+	protected $entriesDataType = 'array';
 
-  /**
-   * @param Google_Service_CommentAnalyzer_ArticleAndParentComment
-   */
-  public function setArticleAndParentComment(Google_Service_CommentAnalyzer_ArticleAndParentComment $articleAndParentComment)
-  {
-    $this->articleAndParentComment = $articleAndParentComment;
-  }
-  /**
-   * @return Google_Service_CommentAnalyzer_ArticleAndParentComment
-   */
-  public function getArticleAndParentComment()
-  {
-    return $this->articleAndParentComment;
-  }
-  /**
-   * @param Google_Service_CommentAnalyzer_TextEntry
-   */
-  public function setEntries($entries)
-  {
-    $this->entries = $entries;
-  }
-  /**
-   * @return Google_Service_CommentAnalyzer_TextEntry
-   */
-  public function getEntries()
-  {
-    return $this->entries;
-  }
+	/**
+	 * @param Google_Service_CommentAnalyzer_ArticleAndParentComment
+	 */
+	public function setArticleAndParentComment(Google_Service_CommentAnalyzer_ArticleAndParentComment $articleAndParentComment)
+	{
+		$this->articleAndParentComment = $articleAndParentComment;
+	}
+	/**
+	 * @return Google_Service_CommentAnalyzer_ArticleAndParentComment
+	 */
+	public function getArticleAndParentComment()
+	{
+		return $this->articleAndParentComment;
+	}
+	/**
+	 * @param Google_Service_CommentAnalyzer_TextEntry
+	 */
+	public function setEntries($entries)
+	{
+		$this->entries = $entries;
+	}
+	/**
+	 * @return Google_Service_CommentAnalyzer_TextEntry
+	 */
+	public function getEntries()
+	{
+		return $this->entries;
+	}
 }

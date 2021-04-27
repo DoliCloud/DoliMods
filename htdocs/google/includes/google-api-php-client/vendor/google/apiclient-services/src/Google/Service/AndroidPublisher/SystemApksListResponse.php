@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidPublisher_SystemApksListResponse extends Google_Collection
 {
-  protected $collection_key = 'variants';
-  protected $variantsType = 'Google_Service_AndroidPublisher_Variant';
-  protected $variantsDataType = 'array';
+	protected $collection_key = 'variants';
+	protected $variantsType = 'Google_Service_AndroidPublisher_Variant';
+	protected $variantsDataType = 'array';
 
-  /**
-   * @param Google_Service_AndroidPublisher_Variant
-   */
-  public function setVariants($variants)
-  {
-    $this->variants = $variants;
-  }
-  /**
-   * @return Google_Service_AndroidPublisher_Variant
-   */
-  public function getVariants()
-  {
-    return $this->variants;
-  }
+	/**
+	 * @param Google_Service_AndroidPublisher_Variant
+	 */
+	public function setVariants($variants)
+	{
+		$this->variants = $variants;
+	}
+	/**
+	 * @return Google_Service_AndroidPublisher_Variant
+	 */
+	public function getVariants()
+	{
+		return $this->variants;
+	}
 }

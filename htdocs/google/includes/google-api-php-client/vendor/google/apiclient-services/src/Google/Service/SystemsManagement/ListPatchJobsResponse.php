@@ -17,31 +17,31 @@
 
 class Google_Service_SystemsManagement_ListPatchJobsResponse extends Google_Collection
 {
-  protected $collection_key = 'patchJobs';
-  public $nextPageToken;
-  protected $patchJobsType = 'Google_Service_SystemsManagement_PatchJob';
-  protected $patchJobsDataType = 'array';
+	protected $collection_key = 'patchJobs';
+	public $nextPageToken;
+	protected $patchJobsType = 'Google_Service_SystemsManagement_PatchJob';
+	protected $patchJobsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_SystemsManagement_PatchJob
-   */
-  public function setPatchJobs($patchJobs)
-  {
-    $this->patchJobs = $patchJobs;
-  }
-  /**
-   * @return Google_Service_SystemsManagement_PatchJob
-   */
-  public function getPatchJobs()
-  {
-    return $this->patchJobs;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_SystemsManagement_PatchJob
+	 */
+	public function setPatchJobs($patchJobs)
+	{
+		$this->patchJobs = $patchJobs;
+	}
+	/**
+	 * @return Google_Service_SystemsManagement_PatchJob
+	 */
+	public function getPatchJobs()
+	{
+		return $this->patchJobs;
+	}
 }

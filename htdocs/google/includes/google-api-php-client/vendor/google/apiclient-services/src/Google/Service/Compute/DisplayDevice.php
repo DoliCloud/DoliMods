@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_DisplayDevice extends Google_Model
 {
-  public $enableDisplay;
+	public $enableDisplay;
 
-  public function setEnableDisplay($enableDisplay)
-  {
-    $this->enableDisplay = $enableDisplay;
-  }
-  public function getEnableDisplay()
-  {
-    return $this->enableDisplay;
-  }
+	public function setEnableDisplay($enableDisplay)
+	{
+		$this->enableDisplay = $enableDisplay;
+	}
+	public function getEnableDisplay()
+	{
+		return $this->enableDisplay;
+	}
 }

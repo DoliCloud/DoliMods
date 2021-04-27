@@ -17,65 +17,65 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2OutputFile extends Google_Collection
 {
-  protected $collection_key = 'nodeProperties';
-  public $contents;
-  protected $digestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $digestDataType = '';
-  public $isExecutable;
-  protected $nodePropertiesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2NodeProperty';
-  protected $nodePropertiesDataType = 'array';
-  public $path;
+	protected $collection_key = 'nodeProperties';
+	public $contents;
+	protected $digestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $digestDataType = '';
+	public $isExecutable;
+	protected $nodePropertiesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2NodeProperty';
+	protected $nodePropertiesDataType = 'array';
+	public $path;
 
-  public function setContents($contents)
-  {
-    $this->contents = $contents;
-  }
-  public function getContents()
-  {
-    return $this->contents;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $digest)
-  {
-    $this->digest = $digest;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getDigest()
-  {
-    return $this->digest;
-  }
-  public function setIsExecutable($isExecutable)
-  {
-    $this->isExecutable = $isExecutable;
-  }
-  public function getIsExecutable()
-  {
-    return $this->isExecutable;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2NodeProperty
-   */
-  public function setNodeProperties($nodeProperties)
-  {
-    $this->nodeProperties = $nodeProperties;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2NodeProperty
-   */
-  public function getNodeProperties()
-  {
-    return $this->nodeProperties;
-  }
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
+	public function setContents($contents)
+	{
+		$this->contents = $contents;
+	}
+	public function getContents()
+	{
+		return $this->contents;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $digest)
+	{
+		$this->digest = $digest;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getDigest()
+	{
+		return $this->digest;
+	}
+	public function setIsExecutable($isExecutable)
+	{
+		$this->isExecutable = $isExecutable;
+	}
+	public function getIsExecutable()
+	{
+		return $this->isExecutable;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2NodeProperty
+	 */
+	public function setNodeProperties($nodeProperties)
+	{
+		$this->nodeProperties = $nodeProperties;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2NodeProperty
+	 */
+	public function getNodeProperties()
+	{
+		return $this->nodeProperties;
+	}
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
 }

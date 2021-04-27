@@ -17,32 +17,32 @@
 
 class Google_Service_Genomics_WorkerAssignedEvent extends Google_Model
 {
-  public $instance;
-  public $machineType;
-  public $zone;
+	public $instance;
+	public $machineType;
+	public $zone;
 
-  public function setInstance($instance)
-  {
-    $this->instance = $instance;
-  }
-  public function getInstance()
-  {
-    return $this->instance;
-  }
-  public function setMachineType($machineType)
-  {
-    $this->machineType = $machineType;
-  }
-  public function getMachineType()
-  {
-    return $this->machineType;
-  }
-  public function setZone($zone)
-  {
-    $this->zone = $zone;
-  }
-  public function getZone()
-  {
-    return $this->zone;
-  }
+	public function setInstance($instance)
+	{
+		$this->instance = $instance;
+	}
+	public function getInstance()
+	{
+		return $this->instance;
+	}
+	public function setMachineType($machineType)
+	{
+		$this->machineType = $machineType;
+	}
+	public function getMachineType()
+	{
+		return $this->machineType;
+	}
+	public function setZone($zone)
+	{
+		$this->zone = $zone;
+	}
+	public function getZone()
+	{
+		return $this->zone;
+	}
 }

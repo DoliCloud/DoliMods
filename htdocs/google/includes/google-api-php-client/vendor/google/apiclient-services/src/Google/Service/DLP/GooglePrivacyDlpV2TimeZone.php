@@ -17,14 +17,14 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2TimeZone extends Google_Model
 {
-  public $offsetMinutes;
+	public $offsetMinutes;
 
-  public function setOffsetMinutes($offsetMinutes)
-  {
-    $this->offsetMinutes = $offsetMinutes;
-  }
-  public function getOffsetMinutes()
-  {
-    return $this->offsetMinutes;
-  }
+	public function setOffsetMinutes($offsetMinutes)
+	{
+		$this->offsetMinutes = $offsetMinutes;
+	}
+	public function getOffsetMinutes()
+	{
+		return $this->offsetMinutes;
+	}
 }

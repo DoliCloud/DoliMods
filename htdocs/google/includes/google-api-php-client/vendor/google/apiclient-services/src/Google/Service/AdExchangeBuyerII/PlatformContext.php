@@ -17,15 +17,15 @@
 
 class Google_Service_AdExchangeBuyerII_PlatformContext extends Google_Collection
 {
-  protected $collection_key = 'platforms';
-  public $platforms;
+	protected $collection_key = 'platforms';
+	public $platforms;
 
-  public function setPlatforms($platforms)
-  {
-    $this->platforms = $platforms;
-  }
-  public function getPlatforms()
-  {
-    return $this->platforms;
-  }
+	public function setPlatforms($platforms)
+	{
+		$this->platforms = $platforms;
+	}
+	public function getPlatforms()
+	{
+		return $this->platforms;
+	}
 }

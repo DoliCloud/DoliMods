@@ -17,30 +17,30 @@
 
 class Google_Service_Testing_ObbFile extends Google_Model
 {
-  protected $obbType = 'Google_Service_Testing_FileReference';
-  protected $obbDataType = '';
-  public $obbFileName;
+	protected $obbType = 'Google_Service_Testing_FileReference';
+	protected $obbDataType = '';
+	public $obbFileName;
 
-  /**
-   * @param Google_Service_Testing_FileReference
-   */
-  public function setObb(Google_Service_Testing_FileReference $obb)
-  {
-    $this->obb = $obb;
-  }
-  /**
-   * @return Google_Service_Testing_FileReference
-   */
-  public function getObb()
-  {
-    return $this->obb;
-  }
-  public function setObbFileName($obbFileName)
-  {
-    $this->obbFileName = $obbFileName;
-  }
-  public function getObbFileName()
-  {
-    return $this->obbFileName;
-  }
+	/**
+	 * @param Google_Service_Testing_FileReference
+	 */
+	public function setObb(Google_Service_Testing_FileReference $obb)
+	{
+		$this->obb = $obb;
+	}
+	/**
+	 * @return Google_Service_Testing_FileReference
+	 */
+	public function getObb()
+	{
+		return $this->obb;
+	}
+	public function setObbFileName($obbFileName)
+	{
+		$this->obbFileName = $obbFileName;
+	}
+	public function getObbFileName()
+	{
+		return $this->obbFileName;
+	}
 }

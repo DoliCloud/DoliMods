@@ -17,31 +17,31 @@
 
 class Google_Service_FirebaseManagement_SearchFirebaseAppsResponse extends Google_Collection
 {
-  protected $collection_key = 'apps';
-  protected $appsType = 'Google_Service_FirebaseManagement_FirebaseAppInfo';
-  protected $appsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'apps';
+	protected $appsType = 'Google_Service_FirebaseManagement_FirebaseAppInfo';
+	protected $appsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_FirebaseManagement_FirebaseAppInfo
-   */
-  public function setApps($apps)
-  {
-    $this->apps = $apps;
-  }
-  /**
-   * @return Google_Service_FirebaseManagement_FirebaseAppInfo
-   */
-  public function getApps()
-  {
-    return $this->apps;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_FirebaseManagement_FirebaseAppInfo
+	 */
+	public function setApps($apps)
+	{
+		$this->apps = $apps;
+	}
+	/**
+	 * @return Google_Service_FirebaseManagement_FirebaseAppInfo
+	 */
+	public function getApps()
+	{
+		return $this->apps;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

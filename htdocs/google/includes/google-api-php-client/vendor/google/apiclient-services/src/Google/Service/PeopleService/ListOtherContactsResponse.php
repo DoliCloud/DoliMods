@@ -17,40 +17,40 @@
 
 class Google_Service_PeopleService_ListOtherContactsResponse extends Google_Collection
 {
-  protected $collection_key = 'otherContacts';
-  public $nextPageToken;
-  public $nextSyncToken;
-  protected $otherContactsType = 'Google_Service_PeopleService_Person';
-  protected $otherContactsDataType = 'array';
+	protected $collection_key = 'otherContacts';
+	public $nextPageToken;
+	public $nextSyncToken;
+	protected $otherContactsType = 'Google_Service_PeopleService_Person';
+	protected $otherContactsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setNextSyncToken($nextSyncToken)
-  {
-    $this->nextSyncToken = $nextSyncToken;
-  }
-  public function getNextSyncToken()
-  {
-    return $this->nextSyncToken;
-  }
-  /**
-   * @param Google_Service_PeopleService_Person
-   */
-  public function setOtherContacts($otherContacts)
-  {
-    $this->otherContacts = $otherContacts;
-  }
-  /**
-   * @return Google_Service_PeopleService_Person
-   */
-  public function getOtherContacts()
-  {
-    return $this->otherContacts;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setNextSyncToken($nextSyncToken)
+	{
+		$this->nextSyncToken = $nextSyncToken;
+	}
+	public function getNextSyncToken()
+	{
+		return $this->nextSyncToken;
+	}
+	/**
+	 * @param Google_Service_PeopleService_Person
+	 */
+	public function setOtherContacts($otherContacts)
+	{
+		$this->otherContacts = $otherContacts;
+	}
+	/**
+	 * @return Google_Service_PeopleService_Person
+	 */
+	public function getOtherContacts()
+	{
+		return $this->otherContacts;
+	}
 }

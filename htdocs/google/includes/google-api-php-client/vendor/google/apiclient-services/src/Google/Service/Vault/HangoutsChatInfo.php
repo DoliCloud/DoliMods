@@ -17,15 +17,15 @@
 
 class Google_Service_Vault_HangoutsChatInfo extends Google_Collection
 {
-  protected $collection_key = 'roomId';
-  public $roomId;
+	protected $collection_key = 'roomId';
+	public $roomId;
 
-  public function setRoomId($roomId)
-  {
-    $this->roomId = $roomId;
-  }
-  public function getRoomId()
-  {
-    return $this->roomId;
-  }
+	public function setRoomId($roomId)
+	{
+		$this->roomId = $roomId;
+	}
+	public function getRoomId()
+	{
+		return $this->roomId;
+	}
 }

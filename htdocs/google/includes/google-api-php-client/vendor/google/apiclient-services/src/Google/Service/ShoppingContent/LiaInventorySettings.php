@@ -17,41 +17,41 @@
 
 class Google_Service_ShoppingContent_LiaInventorySettings extends Google_Model
 {
-  public $inventoryVerificationContactEmail;
-  public $inventoryVerificationContactName;
-  public $inventoryVerificationContactStatus;
-  public $status;
+	public $inventoryVerificationContactEmail;
+	public $inventoryVerificationContactName;
+	public $inventoryVerificationContactStatus;
+	public $status;
 
-  public function setInventoryVerificationContactEmail($inventoryVerificationContactEmail)
-  {
-    $this->inventoryVerificationContactEmail = $inventoryVerificationContactEmail;
-  }
-  public function getInventoryVerificationContactEmail()
-  {
-    return $this->inventoryVerificationContactEmail;
-  }
-  public function setInventoryVerificationContactName($inventoryVerificationContactName)
-  {
-    $this->inventoryVerificationContactName = $inventoryVerificationContactName;
-  }
-  public function getInventoryVerificationContactName()
-  {
-    return $this->inventoryVerificationContactName;
-  }
-  public function setInventoryVerificationContactStatus($inventoryVerificationContactStatus)
-  {
-    $this->inventoryVerificationContactStatus = $inventoryVerificationContactStatus;
-  }
-  public function getInventoryVerificationContactStatus()
-  {
-    return $this->inventoryVerificationContactStatus;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setInventoryVerificationContactEmail($inventoryVerificationContactEmail)
+	{
+		$this->inventoryVerificationContactEmail = $inventoryVerificationContactEmail;
+	}
+	public function getInventoryVerificationContactEmail()
+	{
+		return $this->inventoryVerificationContactEmail;
+	}
+	public function setInventoryVerificationContactName($inventoryVerificationContactName)
+	{
+		$this->inventoryVerificationContactName = $inventoryVerificationContactName;
+	}
+	public function getInventoryVerificationContactName()
+	{
+		return $this->inventoryVerificationContactName;
+	}
+	public function setInventoryVerificationContactStatus($inventoryVerificationContactStatus)
+	{
+		$this->inventoryVerificationContactStatus = $inventoryVerificationContactStatus;
+	}
+	public function getInventoryVerificationContactStatus()
+	{
+		return $this->inventoryVerificationContactStatus;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

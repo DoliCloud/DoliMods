@@ -17,60 +17,60 @@
 
 class Google_Service_ShoppingContent_SettlementTransactionIdentifiers extends Google_Collection
 {
-  protected $collection_key = 'shipmentIds';
-  public $adjustmentId;
-  public $merchantOrderId;
-  public $orderItemId;
-  public $settlementEntryId;
-  public $shipmentIds;
-  public $transactionId;
+	protected $collection_key = 'shipmentIds';
+	public $adjustmentId;
+	public $merchantOrderId;
+	public $orderItemId;
+	public $settlementEntryId;
+	public $shipmentIds;
+	public $transactionId;
 
-  public function setAdjustmentId($adjustmentId)
-  {
-    $this->adjustmentId = $adjustmentId;
-  }
-  public function getAdjustmentId()
-  {
-    return $this->adjustmentId;
-  }
-  public function setMerchantOrderId($merchantOrderId)
-  {
-    $this->merchantOrderId = $merchantOrderId;
-  }
-  public function getMerchantOrderId()
-  {
-    return $this->merchantOrderId;
-  }
-  public function setOrderItemId($orderItemId)
-  {
-    $this->orderItemId = $orderItemId;
-  }
-  public function getOrderItemId()
-  {
-    return $this->orderItemId;
-  }
-  public function setSettlementEntryId($settlementEntryId)
-  {
-    $this->settlementEntryId = $settlementEntryId;
-  }
-  public function getSettlementEntryId()
-  {
-    return $this->settlementEntryId;
-  }
-  public function setShipmentIds($shipmentIds)
-  {
-    $this->shipmentIds = $shipmentIds;
-  }
-  public function getShipmentIds()
-  {
-    return $this->shipmentIds;
-  }
-  public function setTransactionId($transactionId)
-  {
-    $this->transactionId = $transactionId;
-  }
-  public function getTransactionId()
-  {
-    return $this->transactionId;
-  }
+	public function setAdjustmentId($adjustmentId)
+	{
+		$this->adjustmentId = $adjustmentId;
+	}
+	public function getAdjustmentId()
+	{
+		return $this->adjustmentId;
+	}
+	public function setMerchantOrderId($merchantOrderId)
+	{
+		$this->merchantOrderId = $merchantOrderId;
+	}
+	public function getMerchantOrderId()
+	{
+		return $this->merchantOrderId;
+	}
+	public function setOrderItemId($orderItemId)
+	{
+		$this->orderItemId = $orderItemId;
+	}
+	public function getOrderItemId()
+	{
+		return $this->orderItemId;
+	}
+	public function setSettlementEntryId($settlementEntryId)
+	{
+		$this->settlementEntryId = $settlementEntryId;
+	}
+	public function getSettlementEntryId()
+	{
+		return $this->settlementEntryId;
+	}
+	public function setShipmentIds($shipmentIds)
+	{
+		$this->shipmentIds = $shipmentIds;
+	}
+	public function getShipmentIds()
+	{
+		return $this->shipmentIds;
+	}
+	public function setTransactionId($transactionId)
+	{
+		$this->transactionId = $transactionId;
+	}
+	public function getTransactionId()
+	{
+		return $this->transactionId;
+	}
 }

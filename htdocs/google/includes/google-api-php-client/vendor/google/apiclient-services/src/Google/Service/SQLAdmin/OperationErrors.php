@@ -17,31 +17,31 @@
 
 class Google_Service_SQLAdmin_OperationErrors extends Google_Collection
 {
-  protected $collection_key = 'errors';
-  protected $errorsType = 'Google_Service_SQLAdmin_OperationError';
-  protected $errorsDataType = 'array';
-  public $kind;
+	protected $collection_key = 'errors';
+	protected $errorsType = 'Google_Service_SQLAdmin_OperationError';
+	protected $errorsDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_SQLAdmin_OperationError
-   */
-  public function setErrors($errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_SQLAdmin_OperationError
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_SQLAdmin_OperationError
+	 */
+	public function setErrors($errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_SQLAdmin_OperationError
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

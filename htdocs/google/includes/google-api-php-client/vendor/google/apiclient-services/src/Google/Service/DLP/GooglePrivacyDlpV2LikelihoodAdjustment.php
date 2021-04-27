@@ -17,23 +17,23 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment extends Google_Model
 {
-  public $fixedLikelihood;
-  public $relativeLikelihood;
+	public $fixedLikelihood;
+	public $relativeLikelihood;
 
-  public function setFixedLikelihood($fixedLikelihood)
-  {
-    $this->fixedLikelihood = $fixedLikelihood;
-  }
-  public function getFixedLikelihood()
-  {
-    return $this->fixedLikelihood;
-  }
-  public function setRelativeLikelihood($relativeLikelihood)
-  {
-    $this->relativeLikelihood = $relativeLikelihood;
-  }
-  public function getRelativeLikelihood()
-  {
-    return $this->relativeLikelihood;
-  }
+	public function setFixedLikelihood($fixedLikelihood)
+	{
+		$this->fixedLikelihood = $fixedLikelihood;
+	}
+	public function getFixedLikelihood()
+	{
+		return $this->fixedLikelihood;
+	}
+	public function setRelativeLikelihood($relativeLikelihood)
+	{
+		$this->relativeLikelihood = $relativeLikelihood;
+	}
+	public function getRelativeLikelihood()
+	{
+		return $this->relativeLikelihood;
+	}
 }

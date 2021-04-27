@@ -1,16 +1,16 @@
 <?php
-include("./pre.inc.php");
-require_once("funcsv2.php");
+include "./pre.inc.php";
+require_once "funcsv2.php";
 
 $tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
-llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
+llxHeader('', 'BitTorrent', $website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
 print_fiche_titre('Informations of an external torrent file');
 
-require_once("torrent_functions.php");
+require_once "torrent_functions.php";
 ?>
 <table width="50%" border=0><tr><td>
 This script parses a torrent file and displays detailed information about it.
@@ -38,4 +38,3 @@ Output type: <select name="output">
 <?php
 llxFooter();
 ?>
-

@@ -17,22 +17,22 @@
 
 class Google_Service_ToolResults_BatchCreatePerfSamplesResponse extends Google_Collection
 {
-  protected $collection_key = 'perfSamples';
-  protected $perfSamplesType = 'Google_Service_ToolResults_PerfSample';
-  protected $perfSamplesDataType = 'array';
+	protected $collection_key = 'perfSamples';
+	protected $perfSamplesType = 'Google_Service_ToolResults_PerfSample';
+	protected $perfSamplesDataType = 'array';
 
-  /**
-   * @param Google_Service_ToolResults_PerfSample
-   */
-  public function setPerfSamples($perfSamples)
-  {
-    $this->perfSamples = $perfSamples;
-  }
-  /**
-   * @return Google_Service_ToolResults_PerfSample
-   */
-  public function getPerfSamples()
-  {
-    return $this->perfSamples;
-  }
+	/**
+	 * @param Google_Service_ToolResults_PerfSample
+	 */
+	public function setPerfSamples($perfSamples)
+	{
+		$this->perfSamples = $perfSamples;
+	}
+	/**
+	 * @return Google_Service_ToolResults_PerfSample
+	 */
+	public function getPerfSamples()
+	{
+		return $this->perfSamples;
+	}
 }

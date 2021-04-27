@@ -17,24 +17,24 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStats extends Google_Model
 {
-  protected $internal_gapi_mappings = array(
-        "response" => "Response",
-  );
-  protected $responseType = 'Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse';
-  protected $responseDataType = '';
+	protected $internal_gapi_mappings = array(
+		"response" => "Response",
+	);
+	protected $responseType = 'Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse';
+	protected $responseDataType = '';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse
-   */
-  public function setResponse(Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse $response)
-  {
-    $this->response = $response;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse
-   */
-  public function getResponse()
-  {
-    return $this->response;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse
+	 */
+	public function setResponse(Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse $response)
+	{
+		$this->response = $response;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse
+	 */
+	public function getResponse()
+	{
+		return $this->response;
+	}
 }

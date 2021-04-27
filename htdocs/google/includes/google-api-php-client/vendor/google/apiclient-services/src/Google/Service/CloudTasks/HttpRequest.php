@@ -17,73 +17,73 @@
 
 class Google_Service_CloudTasks_HttpRequest extends Google_Model
 {
-  public $body;
-  public $headers;
-  public $httpMethod;
-  protected $oauthTokenType = 'Google_Service_CloudTasks_OAuthToken';
-  protected $oauthTokenDataType = '';
-  protected $oidcTokenType = 'Google_Service_CloudTasks_OidcToken';
-  protected $oidcTokenDataType = '';
-  public $url;
+	public $body;
+	public $headers;
+	public $httpMethod;
+	protected $oauthTokenType = 'Google_Service_CloudTasks_OAuthToken';
+	protected $oauthTokenDataType = '';
+	protected $oidcTokenType = 'Google_Service_CloudTasks_OidcToken';
+	protected $oidcTokenDataType = '';
+	public $url;
 
-  public function setBody($body)
-  {
-    $this->body = $body;
-  }
-  public function getBody()
-  {
-    return $this->body;
-  }
-  public function setHeaders($headers)
-  {
-    $this->headers = $headers;
-  }
-  public function getHeaders()
-  {
-    return $this->headers;
-  }
-  public function setHttpMethod($httpMethod)
-  {
-    $this->httpMethod = $httpMethod;
-  }
-  public function getHttpMethod()
-  {
-    return $this->httpMethod;
-  }
-  /**
-   * @param Google_Service_CloudTasks_OAuthToken
-   */
-  public function setOauthToken(Google_Service_CloudTasks_OAuthToken $oauthToken)
-  {
-    $this->oauthToken = $oauthToken;
-  }
-  /**
-   * @return Google_Service_CloudTasks_OAuthToken
-   */
-  public function getOauthToken()
-  {
-    return $this->oauthToken;
-  }
-  /**
-   * @param Google_Service_CloudTasks_OidcToken
-   */
-  public function setOidcToken(Google_Service_CloudTasks_OidcToken $oidcToken)
-  {
-    $this->oidcToken = $oidcToken;
-  }
-  /**
-   * @return Google_Service_CloudTasks_OidcToken
-   */
-  public function getOidcToken()
-  {
-    return $this->oidcToken;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setBody($body)
+	{
+		$this->body = $body;
+	}
+	public function getBody()
+	{
+		return $this->body;
+	}
+	public function setHeaders($headers)
+	{
+		$this->headers = $headers;
+	}
+	public function getHeaders()
+	{
+		return $this->headers;
+	}
+	public function setHttpMethod($httpMethod)
+	{
+		$this->httpMethod = $httpMethod;
+	}
+	public function getHttpMethod()
+	{
+		return $this->httpMethod;
+	}
+	/**
+	 * @param Google_Service_CloudTasks_OAuthToken
+	 */
+	public function setOauthToken(Google_Service_CloudTasks_OAuthToken $oauthToken)
+	{
+		$this->oauthToken = $oauthToken;
+	}
+	/**
+	 * @return Google_Service_CloudTasks_OAuthToken
+	 */
+	public function getOauthToken()
+	{
+		return $this->oauthToken;
+	}
+	/**
+	 * @param Google_Service_CloudTasks_OidcToken
+	 */
+	public function setOidcToken(Google_Service_CloudTasks_OidcToken $oidcToken)
+	{
+		$this->oidcToken = $oidcToken;
+	}
+	/**
+	 * @return Google_Service_CloudTasks_OidcToken
+	 */
+	public function getOidcToken()
+	{
+		return $this->oidcToken;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

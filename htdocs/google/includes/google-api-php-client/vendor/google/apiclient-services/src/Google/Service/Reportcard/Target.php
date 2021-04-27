@@ -17,68 +17,68 @@
 
 class Google_Service_Reportcard_Target extends Google_Model
 {
-  public $documentationUrl;
-  public $kind;
-  public $location;
-  public $monitoringUrl;
-  public $note;
-  public $reportUrl;
-  public $type;
+	public $documentationUrl;
+	public $kind;
+	public $location;
+	public $monitoringUrl;
+	public $note;
+	public $reportUrl;
+	public $type;
 
-  public function setDocumentationUrl($documentationUrl)
-  {
-    $this->documentationUrl = $documentationUrl;
-  }
-  public function getDocumentationUrl()
-  {
-    return $this->documentationUrl;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setMonitoringUrl($monitoringUrl)
-  {
-    $this->monitoringUrl = $monitoringUrl;
-  }
-  public function getMonitoringUrl()
-  {
-    return $this->monitoringUrl;
-  }
-  public function setNote($note)
-  {
-    $this->note = $note;
-  }
-  public function getNote()
-  {
-    return $this->note;
-  }
-  public function setReportUrl($reportUrl)
-  {
-    $this->reportUrl = $reportUrl;
-  }
-  public function getReportUrl()
-  {
-    return $this->reportUrl;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setDocumentationUrl($documentationUrl)
+	{
+		$this->documentationUrl = $documentationUrl;
+	}
+	public function getDocumentationUrl()
+	{
+		return $this->documentationUrl;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setMonitoringUrl($monitoringUrl)
+	{
+		$this->monitoringUrl = $monitoringUrl;
+	}
+	public function getMonitoringUrl()
+	{
+		return $this->monitoringUrl;
+	}
+	public function setNote($note)
+	{
+		$this->note = $note;
+	}
+	public function getNote()
+	{
+		return $this->note;
+	}
+	public function setReportUrl($reportUrl)
+	{
+		$this->reportUrl = $reportUrl;
+	}
+	public function getReportUrl()
+	{
+		return $this->reportUrl;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

@@ -42,15 +42,15 @@ $error=0;
 
 // Include Dolibarr environment
 $res=0;
-if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
-if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
-if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
-if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
-if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include($path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
-if (! $res) die ("Failed to include master.inc.php file\n");
-require_once(DOL_DOCUMENT_ROOT ."/product.class.php");
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include $path."../../master.inc.php";
+if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include $path."../../htdocs/master.inc.php";
+if (! $res && file_exists("../master.inc.php")) $res=@include "../master.inc.php";
+if (! $res && file_exists("../../master.inc.php")) $res=@include "../../master.inc.php";
+if (! $res && file_exists("../../../master.inc.php")) $res=@include "../../../master.inc.php";
+if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include $path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
+if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
+if (! $res) die("Failed to include master.inc.php file\n");
+require_once DOL_DOCUMENT_ROOT ."/product.class.php";
 
 /*
  *
@@ -61,14 +61,13 @@ $opt = getopt("f:u:");
 $userid = $opt['u'];
 $file = $opt['f'];
 
-if (strlen(trim($file)) == 0 || strlen(trim($userid)) == 0)
-{
-  print "Usage :\n php import-product.php -f <filename> -i <id_fournisseur> -u <login>\n";
-  exit;
+if (strlen(trim($file)) == 0 || strlen(trim($userid)) == 0) {
+	print "Usage :\n php import-product.php -f <filename> -i <id_fournisseur> -u <login>\n";
+	exit;
 }
 
 $user = new User($db);
-$result = $user->fetch('',$userid);
+$result = $user->fetch('', $userid);
 if ($user->id == 0)
   die("Identifiant utilisateur incorrect : $userid\n");
 
@@ -84,40 +83,35 @@ $current = '';
 $xml_parser = xml_parser_create();
 
 xml_set_element_handler($xml_parser, "debutElement", "finElement");
-xml_set_character_data_handler($xml_parser,"charData");
+xml_set_character_data_handler($xml_parser, "charData");
 
-if (!($fp = fopen($file, "r")))
-{
-  die("Impossible d'ouvrir le fichier XML");
+if (!($fp = fopen($file, "r"))) {
+	die("Impossible d'ouvrir le fichier XML");
 }
 
-while ($data = fread($fp, 4096) )
-{
-  if (!xml_parse($xml_parser, $data, feof($fp)))
-    {
-      die(sprintf("erreur XML : %s a la ligne %d", xml_error_string(xml_get_error_code($xml_parser)), xml_get_current_line_number($xml_parser)));
-    }
+while ($data = fread($fp, 4096) ) {
+	if (!xml_parse($xml_parser, $data, feof($fp))) {
+		die(sprintf("erreur XML : %s a la ligne %d", xml_error_string(xml_get_error_code($xml_parser)), xml_get_current_line_number($xml_parser)));
+	}
 }
 xml_parser_free($xml_parser);
 
 /*
  * Traite les donnees du tableau
  */
-if (count($items) > 0)
-{
-  while ($item = array_pop($items) )
-    {
-      $product = new Product($db);
-      $product->price_base_type = 'TTC';
-      $product->price           = $item["price"];
-      $product->ref             = $item["code"];
-      $product->type            = 0;              // 0 produit, 1 service
-      $product->libelle         = $item["code"];
-      $product->description     = $item["code"];
-      $product->status          = 1;              // 1 en vente, 0 hors vente
-      $product->tva_tx          = '19.6';
-      $product->Create($user);
-    }
+if (count($items) > 0) {
+	while ($item = array_pop($items) ) {
+		$product = new Product($db);
+		$product->price_base_type = 'TTC';
+		$product->price           = $item["price"];
+		$product->ref             = $item["code"];
+		$product->type            = 0;              // 0 produit, 1 service
+		$product->libelle         = $item["code"];
+		$product->description     = $item["code"];
+		$product->status          = 1;              // 1 en vente, 0 hors vente
+		$product->tva_tx          = '19.6';
+		$product->Create($user);
+	}
 }
 
 exit ;
@@ -129,15 +123,14 @@ exit ;
 
 function charData($parser, $data)
 {
-  global $index, $current, $items;
-  $char_data = trim($data);
+	global $index, $current, $items;
+	$char_data = trim($data);
 
-  if($char_data)
-    $char_data = preg_replace('/  */',' ',$data);
+	if ($char_data)
+	$char_data = preg_replace('/  */', ' ', $data);
 
-  if ($current <> '')
-    $items[$index][$current] = $char_data;
-
+	if ($current <> '')
+	$items[$index][$current] = $char_data;
 }
 
 /**
@@ -150,35 +143,24 @@ function charData($parser, $data)
  */
 function debutElement($parser, $name, $attrs)
 {
-  global $depth, $index, $items, $current;
+	global $depth, $index, $items, $current;
 
-  $depth[$parser]++;
+	$depth[$parser]++;
 
-  if ($name == 'ITEM')
-    {
-      $index++;
-      $current = '';
-    }
-  elseif ($name == 'NAME')
-    {
-      $current = "name";
-    }
-  elseif ($name == 'CODE')
-    {
-      $current = "code";
-    }
-  elseif ($name == 'PRICE')
-    {
-      $current = "price";
-    }
-  elseif ($name == 'GENRE')
-    {
-      $current = "genre";
-    }
-  else
-    {
-      $current = '';
-    }
+	if ($name == 'ITEM') {
+		$index++;
+		$current = '';
+	} elseif ($name == 'NAME') {
+		$current = "name";
+	} elseif ($name == 'CODE') {
+		$current = "code";
+	} elseif ($name == 'PRICE') {
+		$current = "price";
+	} elseif ($name == 'GENRE') {
+		$current = "genre";
+	} else {
+		$current = '';
+	}
 }
 
 /**
@@ -190,6 +172,6 @@ function debutElement($parser, $name, $attrs)
  */
 function finElement($parser, $name)
 {
-  global $depth;
-  $depth[$parser]--;
+	global $depth;
+	$depth[$parser]--;
 }

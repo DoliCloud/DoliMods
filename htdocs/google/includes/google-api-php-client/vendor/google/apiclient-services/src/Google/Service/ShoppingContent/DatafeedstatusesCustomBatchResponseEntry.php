@@ -17,46 +17,46 @@
 
 class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponseEntry extends Google_Model
 {
-  public $batchId;
-  protected $datafeedStatusType = 'Google_Service_ShoppingContent_DatafeedStatus';
-  protected $datafeedStatusDataType = '';
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
-  protected $errorsDataType = '';
+	public $batchId;
+	protected $datafeedStatusType = 'Google_Service_ShoppingContent_DatafeedStatus';
+	protected $datafeedStatusDataType = '';
+	protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+	protected $errorsDataType = '';
 
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_DatafeedStatus
-   */
-  public function setDatafeedStatus(Google_Service_ShoppingContent_DatafeedStatus $datafeedStatus)
-  {
-    $this->datafeedStatus = $datafeedStatus;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_DatafeedStatus
-   */
-  public function getDatafeedStatus()
-  {
-    return $this->datafeedStatus;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Errors
-   */
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Errors
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_DatafeedStatus
+	 */
+	public function setDatafeedStatus(Google_Service_ShoppingContent_DatafeedStatus $datafeedStatus)
+	{
+		$this->datafeedStatus = $datafeedStatus;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_DatafeedStatus
+	 */
+	public function getDatafeedStatus()
+	{
+		return $this->datafeedStatus;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Errors
+	 */
+	public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Errors
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
 }

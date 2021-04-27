@@ -17,37 +17,37 @@
 
 class Google_Service_BigQueryReservation_SplitCapacityCommitmentResponse extends Google_Model
 {
-  protected $firstType = 'Google_Service_BigQueryReservation_CapacityCommitment';
-  protected $firstDataType = '';
-  protected $secondType = 'Google_Service_BigQueryReservation_CapacityCommitment';
-  protected $secondDataType = '';
+	protected $firstType = 'Google_Service_BigQueryReservation_CapacityCommitment';
+	protected $firstDataType = '';
+	protected $secondType = 'Google_Service_BigQueryReservation_CapacityCommitment';
+	protected $secondDataType = '';
 
-  /**
-   * @param Google_Service_BigQueryReservation_CapacityCommitment
-   */
-  public function setFirst(Google_Service_BigQueryReservation_CapacityCommitment $first)
-  {
-    $this->first = $first;
-  }
-  /**
-   * @return Google_Service_BigQueryReservation_CapacityCommitment
-   */
-  public function getFirst()
-  {
-    return $this->first;
-  }
-  /**
-   * @param Google_Service_BigQueryReservation_CapacityCommitment
-   */
-  public function setSecond(Google_Service_BigQueryReservation_CapacityCommitment $second)
-  {
-    $this->second = $second;
-  }
-  /**
-   * @return Google_Service_BigQueryReservation_CapacityCommitment
-   */
-  public function getSecond()
-  {
-    return $this->second;
-  }
+	/**
+	 * @param Google_Service_BigQueryReservation_CapacityCommitment
+	 */
+	public function setFirst(Google_Service_BigQueryReservation_CapacityCommitment $first)
+	{
+		$this->first = $first;
+	}
+	/**
+	 * @return Google_Service_BigQueryReservation_CapacityCommitment
+	 */
+	public function getFirst()
+	{
+		return $this->first;
+	}
+	/**
+	 * @param Google_Service_BigQueryReservation_CapacityCommitment
+	 */
+	public function setSecond(Google_Service_BigQueryReservation_CapacityCommitment $second)
+	{
+		$this->second = $second;
+	}
+	/**
+	 * @return Google_Service_BigQueryReservation_CapacityCommitment
+	 */
+	public function getSecond()
+	{
+		return $this->second;
+	}
 }

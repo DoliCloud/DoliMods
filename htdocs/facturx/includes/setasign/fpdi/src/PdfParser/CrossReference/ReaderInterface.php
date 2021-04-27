@@ -18,18 +18,18 @@ use setasign\Fpdi\PdfParser\Type\PdfDictionary;
  */
 interface ReaderInterface
 {
-    /**
-     * Get an offset by an object number.
-     *
-     * @param int $objectNumber
-     * @return int|bool False if the offset was not found.
-     */
-    public function getOffsetFor($objectNumber);
+	/**
+	 * Get an offset by an object number.
+	 *
+	 * @param int $objectNumber
+	 * @return int|bool False if the offset was not found.
+	 */
+	public function getOffsetFor($objectNumber);
 
-    /**
-     * Get the trailer related to this cross reference.
-     *
-     * @return PdfDictionary
-     */
-    public function getTrailer();
+	/**
+	 * Get the trailer related to this cross reference.
+	 *
+	 * @return PdfDictionary
+	 */
+	public function getTrailer();
 }

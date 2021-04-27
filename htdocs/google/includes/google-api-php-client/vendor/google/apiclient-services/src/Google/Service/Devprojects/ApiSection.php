@@ -17,25 +17,25 @@
 
 class Google_Service_Devprojects_ApiSection extends Google_Collection
 {
-  protected $collection_key = 'api';
-  protected $apiType = 'Google_Service_Devprojects_ActiveApi';
-  protected $apiDataType = 'array';
-  public $kind;
+	protected $collection_key = 'api';
+	protected $apiType = 'Google_Service_Devprojects_ActiveApi';
+	protected $apiDataType = 'array';
+	public $kind;
 
-  public function setApi($api)
-  {
-    $this->api = $api;
-  }
-  public function getApi()
-  {
-    return $this->api;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setApi($api)
+	{
+		$this->api = $api;
+	}
+	public function getApi()
+	{
+		return $this->api;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_ServiceUser_Page extends Google_Collection
 {
-  protected $collection_key = 'subpages';
-  public $content;
-  public $name;
-  protected $subpagesType = 'Google_Service_ServiceUser_Page';
-  protected $subpagesDataType = 'array';
+	protected $collection_key = 'subpages';
+	public $content;
+	public $name;
+	protected $subpagesType = 'Google_Service_ServiceUser_Page';
+	protected $subpagesDataType = 'array';
 
-  public function setContent($content)
-  {
-    $this->content = $content;
-  }
-  public function getContent()
-  {
-    return $this->content;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_ServiceUser_Page
-   */
-  public function setSubpages($subpages)
-  {
-    $this->subpages = $subpages;
-  }
-  /**
-   * @return Google_Service_ServiceUser_Page
-   */
-  public function getSubpages()
-  {
-    return $this->subpages;
-  }
+	public function setContent($content)
+	{
+		$this->content = $content;
+	}
+	public function getContent()
+	{
+		return $this->content;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_ServiceUser_Page
+	 */
+	public function setSubpages($subpages)
+	{
+		$this->subpages = $subpages;
+	}
+	/**
+	 * @return Google_Service_ServiceUser_Page
+	 */
+	public function getSubpages()
+	{
+		return $this->subpages;
+	}
 }

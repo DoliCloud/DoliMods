@@ -17,23 +17,23 @@
 
 class Google_Service_AdMob_LocalizationSettings extends Google_Model
 {
-  public $currencyCode;
-  public $languageCode;
+	public $currencyCode;
+	public $languageCode;
 
-  public function setCurrencyCode($currencyCode)
-  {
-    $this->currencyCode = $currencyCode;
-  }
-  public function getCurrencyCode()
-  {
-    return $this->currencyCode;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
+	public function setCurrencyCode($currencyCode)
+	{
+		$this->currencyCode = $currencyCode;
+	}
+	public function getCurrencyCode()
+	{
+		return $this->currencyCode;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
 }

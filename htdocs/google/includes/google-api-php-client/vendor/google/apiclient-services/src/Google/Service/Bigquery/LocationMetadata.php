@@ -17,14 +17,14 @@
 
 class Google_Service_Bigquery_LocationMetadata extends Google_Model
 {
-  public $legacyLocationId;
+	public $legacyLocationId;
 
-  public function setLegacyLocationId($legacyLocationId)
-  {
-    $this->legacyLocationId = $legacyLocationId;
-  }
-  public function getLegacyLocationId()
-  {
-    return $this->legacyLocationId;
-  }
+	public function setLegacyLocationId($legacyLocationId)
+	{
+		$this->legacyLocationId = $legacyLocationId;
+	}
+	public function getLegacyLocationId()
+	{
+		return $this->legacyLocationId;
+	}
 }

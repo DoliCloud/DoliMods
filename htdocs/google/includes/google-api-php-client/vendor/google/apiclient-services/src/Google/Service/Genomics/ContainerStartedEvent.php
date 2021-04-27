@@ -17,32 +17,32 @@
 
 class Google_Service_Genomics_ContainerStartedEvent extends Google_Model
 {
-  public $actionId;
-  public $ipAddress;
-  public $portMappings;
+	public $actionId;
+	public $ipAddress;
+	public $portMappings;
 
-  public function setActionId($actionId)
-  {
-    $this->actionId = $actionId;
-  }
-  public function getActionId()
-  {
-    return $this->actionId;
-  }
-  public function setIpAddress($ipAddress)
-  {
-    $this->ipAddress = $ipAddress;
-  }
-  public function getIpAddress()
-  {
-    return $this->ipAddress;
-  }
-  public function setPortMappings($portMappings)
-  {
-    $this->portMappings = $portMappings;
-  }
-  public function getPortMappings()
-  {
-    return $this->portMappings;
-  }
+	public function setActionId($actionId)
+	{
+		$this->actionId = $actionId;
+	}
+	public function getActionId()
+	{
+		return $this->actionId;
+	}
+	public function setIpAddress($ipAddress)
+	{
+		$this->ipAddress = $ipAddress;
+	}
+	public function getIpAddress()
+	{
+		return $this->ipAddress;
+	}
+	public function setPortMappings($portMappings)
+	{
+		$this->portMappings = $portMappings;
+	}
+	public function getPortMappings()
+	{
+		return $this->portMappings;
+	}
 }

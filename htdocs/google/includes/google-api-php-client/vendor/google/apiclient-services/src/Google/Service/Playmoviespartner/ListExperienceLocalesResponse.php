@@ -17,25 +17,25 @@
 
 class Google_Service_Playmoviespartner_ListExperienceLocalesResponse extends Google_Collection
 {
-  protected $collection_key = 'experienceLocales';
-  protected $experienceLocalesType = 'Google_Service_Playmoviespartner_ExperienceLocale';
-  protected $experienceLocalesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'experienceLocales';
+	protected $experienceLocalesType = 'Google_Service_Playmoviespartner_ExperienceLocale';
+	protected $experienceLocalesDataType = 'array';
+	public $nextPageToken;
 
-  public function setExperienceLocales($experienceLocales)
-  {
-    $this->experienceLocales = $experienceLocales;
-  }
-  public function getExperienceLocales()
-  {
-    return $this->experienceLocales;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setExperienceLocales($experienceLocales)
+	{
+		$this->experienceLocales = $experienceLocales;
+	}
+	public function getExperienceLocales()
+	{
+		return $this->experienceLocales;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

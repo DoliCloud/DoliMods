@@ -17,68 +17,68 @@
 
 class Google_Service_FirebaseDynamicLinks_DeviceInfo extends Google_Model
 {
-  public $deviceModelName;
-  public $languageCode;
-  public $languageCodeFromWebview;
-  public $languageCodeRaw;
-  public $screenResolutionHeight;
-  public $screenResolutionWidth;
-  public $timezone;
+	public $deviceModelName;
+	public $languageCode;
+	public $languageCodeFromWebview;
+	public $languageCodeRaw;
+	public $screenResolutionHeight;
+	public $screenResolutionWidth;
+	public $timezone;
 
-  public function setDeviceModelName($deviceModelName)
-  {
-    $this->deviceModelName = $deviceModelName;
-  }
-  public function getDeviceModelName()
-  {
-    return $this->deviceModelName;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  public function setLanguageCodeFromWebview($languageCodeFromWebview)
-  {
-    $this->languageCodeFromWebview = $languageCodeFromWebview;
-  }
-  public function getLanguageCodeFromWebview()
-  {
-    return $this->languageCodeFromWebview;
-  }
-  public function setLanguageCodeRaw($languageCodeRaw)
-  {
-    $this->languageCodeRaw = $languageCodeRaw;
-  }
-  public function getLanguageCodeRaw()
-  {
-    return $this->languageCodeRaw;
-  }
-  public function setScreenResolutionHeight($screenResolutionHeight)
-  {
-    $this->screenResolutionHeight = $screenResolutionHeight;
-  }
-  public function getScreenResolutionHeight()
-  {
-    return $this->screenResolutionHeight;
-  }
-  public function setScreenResolutionWidth($screenResolutionWidth)
-  {
-    $this->screenResolutionWidth = $screenResolutionWidth;
-  }
-  public function getScreenResolutionWidth()
-  {
-    return $this->screenResolutionWidth;
-  }
-  public function setTimezone($timezone)
-  {
-    $this->timezone = $timezone;
-  }
-  public function getTimezone()
-  {
-    return $this->timezone;
-  }
+	public function setDeviceModelName($deviceModelName)
+	{
+		$this->deviceModelName = $deviceModelName;
+	}
+	public function getDeviceModelName()
+	{
+		return $this->deviceModelName;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	public function setLanguageCodeFromWebview($languageCodeFromWebview)
+	{
+		$this->languageCodeFromWebview = $languageCodeFromWebview;
+	}
+	public function getLanguageCodeFromWebview()
+	{
+		return $this->languageCodeFromWebview;
+	}
+	public function setLanguageCodeRaw($languageCodeRaw)
+	{
+		$this->languageCodeRaw = $languageCodeRaw;
+	}
+	public function getLanguageCodeRaw()
+	{
+		return $this->languageCodeRaw;
+	}
+	public function setScreenResolutionHeight($screenResolutionHeight)
+	{
+		$this->screenResolutionHeight = $screenResolutionHeight;
+	}
+	public function getScreenResolutionHeight()
+	{
+		return $this->screenResolutionHeight;
+	}
+	public function setScreenResolutionWidth($screenResolutionWidth)
+	{
+		$this->screenResolutionWidth = $screenResolutionWidth;
+	}
+	public function getScreenResolutionWidth()
+	{
+		return $this->screenResolutionWidth;
+	}
+	public function setTimezone($timezone)
+	{
+		$this->timezone = $timezone;
+	}
+	public function getTimezone()
+	{
+		return $this->timezone;
+	}
 }

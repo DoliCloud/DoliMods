@@ -27,98 +27,98 @@
 
 class uprecords extends PSI_Plugin
 {
-    private $_lines;
+	private $_lines;
 
-    public function __construct($enc)
-    {
-        parent::__construct(__CLASS__, $enc);
+	public function __construct($enc)
+	{
+		parent::__construct(__CLASS__, $enc);
 
-        $this->_lines = array();
-    }
+		$this->_lines = array();
+	}
 
-    /**
-     * get uprecords information
-     *
-     * @return array uprecords in array with label
-     */
+	/**
+	 * get uprecords information
+	 *
+	 * @return array uprecords in array with label
+	 */
 
-    private function uprecords()
-    {
-        $result = array();
-        $i = 0;
+	private function uprecords()
+	{
+		$result = array();
+		$i = 0;
 
-        foreach ($this->_lines as $line) {
-            if (($i > 1) and (strpos($line, '---') === false)) {
-                $buffer = preg_split("/\s*[ |]\s+/", ltrim(ltrim($line, '->'), ' '));
-                if (strpos($line, '->') !== false) {
-                    $buffer[0] = '-> '.$buffer[0];
-                }
+		foreach ($this->_lines as $line) {
+			if (($i > 1) and (strpos($line, '---') === false)) {
+				$buffer = preg_split("/\s*[ |]\s+/", ltrim(ltrim($line, '->'), ' '));
+				if (strpos($line, '->') !== false) {
+					$buffer[0] = '-> '.$buffer[0];
+				}
 
-                if (count($buffer) > 4) {
-                    $buffer[3] = $buffer[3].' '.$buffer[4];
-                }
+				if (count($buffer) > 4) {
+					$buffer[3] = $buffer[3].' '.$buffer[4];
+				}
 
-                $result[$i]['hash'] = $buffer[0];
-                $result[$i]['Uptime'] = $buffer[1];
-                $result[$i]['System'] = $buffer[2];
-                //Date formating
-                $result[$i]['Bootup'] = preg_replace("/^(\S+)(\s+)/", "$1,$2", preg_replace("/^(\S+\s+\S+\s+)(\d)(\s+)/", "$1 0$2$3", $buffer[3]." GMT"));
-            }
-            $i++;
-        }
+				$result[$i]['hash'] = $buffer[0];
+				$result[$i]['Uptime'] = $buffer[1];
+				$result[$i]['System'] = $buffer[2];
+				//Date formating
+				$result[$i]['Bootup'] = preg_replace("/^(\S+)(\s+)/", "$1,$2", preg_replace("/^(\S+\s+\S+\s+)(\d)(\s+)/", "$1 0$2$3", $buffer[3]." GMT"));
+			}
+			$i++;
+		}
 
-        return $result;
-    }
+		return $result;
+	}
 
-    public function execute()
-    {
-        $this->_lines = array();
-        switch (strtolower(PSI_PLUGIN_UPRECORDS_ACCESS)) {
-            case 'command':
-                $lines = "";
-                $oldtz=getenv("TZ");
-                putenv("TZ=GMT");
-                $options = "";
-                if (defined('PSI_PLUGIN_UPRECORDS_MAX_ENTRIES')) {
-                    if (PSI_PLUGIN_UPRECORDS_MAX_ENTRIES === false) {
-                        $options=" -m 0";
-                    } elseif (PSI_PLUGIN_UPRECORDS_MAX_ENTRIES === true) {
-                        $options=" -m 1";
-                    } elseif ((PSI_PLUGIN_UPRECORDS_MAX_ENTRIES > 1) && (PSI_PLUGIN_UPRECORDS_MAX_ENTRIES != 10)) {
-                        $options=" -m ".PSI_PLUGIN_UPRECORDS_MAX_ENTRIES;
-                    }
-                }
-                if (CommonFunctions::executeProgram('uprecords', '-a -w'.$options, $lines) && !empty($lines))
-                    $this->_lines = preg_split("/\n/", $lines, -1, PREG_SPLIT_NO_EMPTY);
-                putenv("TZ=".$oldtz);
-                break;
-            case 'data':
-                if (CommonFunctions::rfts(APP_ROOT."/data/uprecords.txt", $lines) && !empty($lines))
-                    $this->_lines = preg_split("/\n/", $lines, -1, PREG_SPLIT_NO_EMPTY);
-                break;
-            default:
-                $this->error->addConfigError('__construct()', 'PSI_PLUGIN_UPRECORDS_ACCESS');
-                break;
-        }
-    }
+	public function execute()
+	{
+		$this->_lines = array();
+		switch (strtolower(PSI_PLUGIN_UPRECORDS_ACCESS)) {
+			case 'command':
+				$lines = "";
+				$oldtz=getenv("TZ");
+				putenv("TZ=GMT");
+				$options = "";
+				if (defined('PSI_PLUGIN_UPRECORDS_MAX_ENTRIES')) {
+					if (PSI_PLUGIN_UPRECORDS_MAX_ENTRIES === false) {
+						$options=" -m 0";
+					} elseif (PSI_PLUGIN_UPRECORDS_MAX_ENTRIES === true) {
+						$options=" -m 1";
+					} elseif ((PSI_PLUGIN_UPRECORDS_MAX_ENTRIES > 1) && (PSI_PLUGIN_UPRECORDS_MAX_ENTRIES != 10)) {
+						$options=" -m ".PSI_PLUGIN_UPRECORDS_MAX_ENTRIES;
+					}
+				}
+				if (CommonFunctions::executeProgram('uprecords', '-a -w'.$options, $lines) && !empty($lines))
+					$this->_lines = preg_split("/\n/", $lines, -1, PREG_SPLIT_NO_EMPTY);
+				putenv("TZ=".$oldtz);
+				break;
+			case 'data':
+				if (CommonFunctions::rfts(APP_ROOT."/data/uprecords.txt", $lines) && !empty($lines))
+					$this->_lines = preg_split("/\n/", $lines, -1, PREG_SPLIT_NO_EMPTY);
+				break;
+			default:
+				$this->error->addConfigError('__construct()', 'PSI_PLUGIN_UPRECORDS_ACCESS');
+				break;
+		}
+	}
 
-    public function xml()
-    {
-        if (empty($this->_lines))
-        return $this->xml->getSimpleXmlElement();
+	public function xml()
+	{
+		if (empty($this->_lines))
+		return $this->xml->getSimpleXmlElement();
 
-        $arrBuff = $this->uprecords();
-        if (sizeof($arrBuff) > 0) {
-            $uprecords = $this->xml->addChild("Uprecords");
-            foreach ($arrBuff as $arrValue) {
-                $item = $uprecords->addChild('Item');
-                $item->addAttribute('hash', $arrValue['hash']);
-                $item->addAttribute('Uptime', $arrValue['Uptime']);
-                $item->addAttribute('System', $arrValue['System']);
-                $item->addAttribute('Bootup', $arrValue['Bootup']);
-            }
-        }
+		$arrBuff = $this->uprecords();
+		if (sizeof($arrBuff) > 0) {
+			$uprecords = $this->xml->addChild("Uprecords");
+			foreach ($arrBuff as $arrValue) {
+				$item = $uprecords->addChild('Item');
+				$item->addAttribute('hash', $arrValue['hash']);
+				$item->addAttribute('Uptime', $arrValue['Uptime']);
+				$item->addAttribute('System', $arrValue['System']);
+				$item->addAttribute('Bootup', $arrValue['Bootup']);
+			}
+		}
 
-        return $this->xml->getSimpleXmlElement();
-    }
+		return $this->xml->getSimpleXmlElement();
+	}
 }

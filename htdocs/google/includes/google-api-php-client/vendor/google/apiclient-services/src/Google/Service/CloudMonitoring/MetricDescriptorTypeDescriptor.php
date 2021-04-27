@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor extends Google_Model
 {
-  public $metricType;
-  public $valueType;
+	public $metricType;
+	public $valueType;
 
-  public function setMetricType($metricType)
-  {
-    $this->metricType = $metricType;
-  }
-  public function getMetricType()
-  {
-    return $this->metricType;
-  }
-  public function setValueType($valueType)
-  {
-    $this->valueType = $valueType;
-  }
-  public function getValueType()
-  {
-    return $this->valueType;
-  }
+	public function setMetricType($metricType)
+	{
+		$this->metricType = $metricType;
+	}
+	public function getMetricType()
+	{
+		return $this->metricType;
+	}
+	public function setValueType($valueType)
+	{
+		$this->valueType = $valueType;
+	}
+	public function getValueType()
+	{
+		return $this->valueType;
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_TPU_ListTensorFlowVersionsResponse extends Google_Collection
 {
-  protected $collection_key = 'unreachable';
-  public $nextPageToken;
-  protected $tensorflowVersionsType = 'Google_Service_TPU_TensorFlowVersion';
-  protected $tensorflowVersionsDataType = 'array';
-  public $unreachable;
+	protected $collection_key = 'unreachable';
+	public $nextPageToken;
+	protected $tensorflowVersionsType = 'Google_Service_TPU_TensorFlowVersion';
+	protected $tensorflowVersionsDataType = 'array';
+	public $unreachable;
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_TPU_TensorFlowVersion
-   */
-  public function setTensorflowVersions($tensorflowVersions)
-  {
-    $this->tensorflowVersions = $tensorflowVersions;
-  }
-  /**
-   * @return Google_Service_TPU_TensorFlowVersion
-   */
-  public function getTensorflowVersions()
-  {
-    return $this->tensorflowVersions;
-  }
-  public function setUnreachable($unreachable)
-  {
-    $this->unreachable = $unreachable;
-  }
-  public function getUnreachable()
-  {
-    return $this->unreachable;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_TPU_TensorFlowVersion
+	 */
+	public function setTensorflowVersions($tensorflowVersions)
+	{
+		$this->tensorflowVersions = $tensorflowVersions;
+	}
+	/**
+	 * @return Google_Service_TPU_TensorFlowVersion
+	 */
+	public function getTensorflowVersions()
+	{
+		return $this->tensorflowVersions;
+	}
+	public function setUnreachable($unreachable)
+	{
+		$this->unreachable = $unreachable;
+	}
+	public function getUnreachable()
+	{
+		return $this->unreachable;
+	}
 }

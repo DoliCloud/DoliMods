@@ -17,32 +17,32 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p1beta1OperationMetadata extends Google_Model
 {
-  public $createTime;
-  public $state;
-  public $updateTime;
+	public $createTime;
+	public $state;
+	public $updateTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

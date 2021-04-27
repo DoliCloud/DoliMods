@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyer_CreateOrdersRequest extends Google_Collection
 {
-  protected $collection_key = 'proposals';
-  protected $proposalsType = 'Google_Service_AdExchangeBuyer_Proposal';
-  protected $proposalsDataType = 'array';
-  public $webPropertyCode;
+	protected $collection_key = 'proposals';
+	protected $proposalsType = 'Google_Service_AdExchangeBuyer_Proposal';
+	protected $proposalsDataType = 'array';
+	public $webPropertyCode;
 
-  /**
-   * @param Google_Service_AdExchangeBuyer_Proposal
-   */
-  public function setProposals($proposals)
-  {
-    $this->proposals = $proposals;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_Proposal
-   */
-  public function getProposals()
-  {
-    return $this->proposals;
-  }
-  public function setWebPropertyCode($webPropertyCode)
-  {
-    $this->webPropertyCode = $webPropertyCode;
-  }
-  public function getWebPropertyCode()
-  {
-    return $this->webPropertyCode;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyer_Proposal
+	 */
+	public function setProposals($proposals)
+	{
+		$this->proposals = $proposals;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_Proposal
+	 */
+	public function getProposals()
+	{
+		return $this->proposals;
+	}
+	public function setWebPropertyCode($webPropertyCode)
+	{
+		$this->webPropertyCode = $webPropertyCode;
+	}
+	public function getWebPropertyCode()
+	{
+		return $this->webPropertyCode;
+	}
 }

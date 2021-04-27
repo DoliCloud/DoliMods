@@ -26,7 +26,7 @@
  *      \ingroup    scanner
  *      \brief      Description and activation file for module Scanner
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -53,11 +53,11 @@ class modScanner extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "interface";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Add menu entry to pilot a scanner plugged to a Dolibarr server (Linux server only)";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -184,16 +184,16 @@ class modScanner extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
+	function init($options = '')
 	{
 		$sql = array();
 
 		$result=$this->load_tables();
 
-		return $this->_init($sql,$options);
+		return $this->_init($sql, $options);
 	}
 
 	/**
@@ -201,14 +201,14 @@ class modScanner extends DolibarrModules
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options='')
+	function remove($options = '')
 	{
 		$sql = array();
 
-		return $this->_remove($sql,$options);
+		return $this->_remove($sql, $options);
 	}
 
 

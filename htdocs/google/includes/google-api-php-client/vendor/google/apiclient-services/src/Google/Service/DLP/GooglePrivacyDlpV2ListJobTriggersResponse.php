@@ -17,31 +17,31 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ListJobTriggersResponse extends Google_Collection
 {
-  protected $collection_key = 'jobTriggers';
-  protected $jobTriggersType = 'Google_Service_DLP_GooglePrivacyDlpV2JobTrigger';
-  protected $jobTriggersDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'jobTriggers';
+	protected $jobTriggersType = 'Google_Service_DLP_GooglePrivacyDlpV2JobTrigger';
+	protected $jobTriggersDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
-   */
-  public function setJobTriggers($jobTriggers)
-  {
-    $this->jobTriggers = $jobTriggers;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
-   */
-  public function getJobTriggers()
-  {
-    return $this->jobTriggers;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
+	 */
+	public function setJobTriggers($jobTriggers)
+	{
+		$this->jobTriggers = $jobTriggers;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
+	 */
+	public function getJobTriggers()
+	{
+		return $this->jobTriggers;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_GameServices_TargetState extends Google_Collection
 {
-  protected $collection_key = 'details';
-  protected $detailsType = 'Google_Service_GameServices_TargetDetails';
-  protected $detailsDataType = 'array';
+	protected $collection_key = 'details';
+	protected $detailsType = 'Google_Service_GameServices_TargetDetails';
+	protected $detailsDataType = 'array';
 
-  /**
-   * @param Google_Service_GameServices_TargetDetails
-   */
-  public function setDetails($details)
-  {
-    $this->details = $details;
-  }
-  /**
-   * @return Google_Service_GameServices_TargetDetails
-   */
-  public function getDetails()
-  {
-    return $this->details;
-  }
+	/**
+	 * @param Google_Service_GameServices_TargetDetails
+	 */
+	public function setDetails($details)
+	{
+		$this->details = $details;
+	}
+	/**
+	 * @return Google_Service_GameServices_TargetDetails
+	 */
+	public function getDetails()
+	{
+		return $this->details;
+	}
 }

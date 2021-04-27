@@ -17,22 +17,22 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaListInstancesResponse extends Google_Collection
 {
-  protected $collection_key = 'instances';
-  protected $instancesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance';
-  protected $instancesDataType = 'array';
+	protected $collection_key = 'instances';
+	protected $instancesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance';
+	protected $instancesDataType = 'array';
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
-   */
-  public function setInstances($instances)
-  {
-    $this->instances = $instances;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
-   */
-  public function getInstances()
-  {
-    return $this->instances;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
+	 */
+	public function setInstances($instances)
+	{
+		$this->instances = $instances;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
+	 */
+	public function getInstances()
+	{
+		return $this->instances;
+	}
 }

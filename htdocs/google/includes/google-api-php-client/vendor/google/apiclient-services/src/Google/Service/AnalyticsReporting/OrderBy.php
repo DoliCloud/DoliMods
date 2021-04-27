@@ -17,32 +17,32 @@
 
 class Google_Service_AnalyticsReporting_OrderBy extends Google_Model
 {
-  public $fieldName;
-  public $orderType;
-  public $sortOrder;
+	public $fieldName;
+	public $orderType;
+	public $sortOrder;
 
-  public function setFieldName($fieldName)
-  {
-    $this->fieldName = $fieldName;
-  }
-  public function getFieldName()
-  {
-    return $this->fieldName;
-  }
-  public function setOrderType($orderType)
-  {
-    $this->orderType = $orderType;
-  }
-  public function getOrderType()
-  {
-    return $this->orderType;
-  }
-  public function setSortOrder($sortOrder)
-  {
-    $this->sortOrder = $sortOrder;
-  }
-  public function getSortOrder()
-  {
-    return $this->sortOrder;
-  }
+	public function setFieldName($fieldName)
+	{
+		$this->fieldName = $fieldName;
+	}
+	public function getFieldName()
+	{
+		return $this->fieldName;
+	}
+	public function setOrderType($orderType)
+	{
+		$this->orderType = $orderType;
+	}
+	public function getOrderType()
+	{
+		return $this->orderType;
+	}
+	public function setSortOrder($sortOrder)
+	{
+		$this->sortOrder = $sortOrder;
+	}
+	public function getSortOrder()
+	{
+		return $this->sortOrder;
+	}
 }

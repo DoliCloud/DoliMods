@@ -17,21 +17,21 @@
 
 class Google_Service_CloudSearch_StructuredResult extends Google_Model
 {
-  protected $personType = 'Google_Service_CloudSearch_Person';
-  protected $personDataType = '';
+	protected $personType = 'Google_Service_CloudSearch_Person';
+	protected $personDataType = '';
 
-  /**
-   * @param Google_Service_CloudSearch_Person
-   */
-  public function setPerson(Google_Service_CloudSearch_Person $person)
-  {
-    $this->person = $person;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Person
-   */
-  public function getPerson()
-  {
-    return $this->person;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_Person
+	 */
+	public function setPerson(Google_Service_CloudSearch_Person $person)
+	{
+		$this->person = $person;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Person
+	 */
+	public function getPerson()
+	{
+		return $this->person;
+	}
 }

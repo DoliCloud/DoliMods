@@ -17,49 +17,49 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SuggestTrialsResponse extends Google_Collection
 {
-  protected $collection_key = 'trials';
-  public $endTime;
-  public $startTime;
-  public $studyState;
-  protected $trialsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial';
-  protected $trialsDataType = 'array';
+	protected $collection_key = 'trials';
+	public $endTime;
+	public $startTime;
+	public $studyState;
+	protected $trialsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial';
+	protected $trialsDataType = 'array';
 
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  public function setStudyState($studyState)
-  {
-    $this->studyState = $studyState;
-  }
-  public function getStudyState()
-  {
-    return $this->studyState;
-  }
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial
-   */
-  public function setTrials($trials)
-  {
-    $this->trials = $trials;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial
-   */
-  public function getTrials()
-  {
-    return $this->trials;
-  }
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	public function setStudyState($studyState)
+	{
+		$this->studyState = $studyState;
+	}
+	public function getStudyState()
+	{
+		return $this->studyState;
+	}
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial
+	 */
+	public function setTrials($trials)
+	{
+		$this->trials = $trials;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial
+	 */
+	public function getTrials()
+	{
+		return $this->trials;
+	}
 }

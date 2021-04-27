@@ -34,12 +34,12 @@ class modIFTTT extends DolibarrModules
 	 *  Constructor. Define names, constants, directories, boxes, permissions
 	 *
 	 *  @param      DoliDB		$db      Database handler
-     */
-    public function __construct($db)
-    {
-        global $langs,$conf;
+	 */
+	public function __construct($db)
+	{
+		global $langs,$conf;
 
-        $this->db = $db;
+		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
@@ -91,8 +91,8 @@ class modIFTTT extends DolibarrModules
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@api:$user->rights->ifttt->read:/api/mynewtab1.php?id=__ID__',  					// To add a new tab identified by code tabname1
-        //                              'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@api:$user->rights->othermodule->read:/api/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
-        //                              'objecttype:-tabname:NU:conditiontoremove');                                                     										// To remove an existing tab identified by code tabname
+		//                              'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@api:$user->rights->othermodule->read:/api/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
+		//                              'objecttype:-tabname:NU:conditiontoremove');                                                     										// To remove an existing tab identified by code tabname
 		// where objecttype can be
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
 		// 'contact'          to add a tab in contact view
@@ -113,19 +113,18 @@ class modIFTTT extends DolibarrModules
 		// 'stock'            to add a tab in stock view
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
-        $this->tabs = array();
+		$this->tabs = array();
 
-        // Dictionaries
-        if (! isset($conf->ifttt->enabled))
-        {
-        	$conf->ifttt=new stdClass();
-        	$conf->ifttt->enabled=0;
-        }
-        $this->dictionaries=array();
+		// Dictionaries
+		if (! isset($conf->ifttt->enabled)) {
+			$conf->ifttt=new stdClass();
+			$conf->ifttt->enabled=0;
+		}
+		$this->dictionaries=array();
 
-        // Boxes
+		// Boxes
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
-        $this->boxes = array();			// List of boxes
+		$this->boxes = array();			// List of boxes
 		// Example:
 		//$this->boxes=array(array(0=>array('file'=>'myboxa.php','note'=>'','enabledbydefaulton'=>'Home'),1=>array('file'=>'myboxb.php','note'=>''),2=>array('file'=>'myboxc.php','note'=>'')););
 
@@ -189,7 +188,7 @@ class modIFTTT extends DolibarrModules
 	 *  The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *  It also creates data directories
 	 *
-     *  @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *  @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *  @return     int             	1 if OK, 0 if KO
 	 */
 	public function init($options = '')
@@ -201,22 +200,22 @@ class modIFTTT extends DolibarrModules
 		return $this->_init($sql, $options);
 	}
 
-    /**
-     *  Function called when module is disabled.
-     *  Remove from database constants, boxes and permissions from Dolibarr database.
-     *  Data directories are not deleted.
-     *
-     *  @param string $options Options when enabling module ('', 'noboxes')
-     *  @return int 1 if OK, 0 if KO
-     */
-    public function remove($options = '')
-    {
-        // Remove old constants with entity fields different of 0
-        $sql = array(
-            "DELETE FROM ".MAIN_DB_PREFIX."const WHERE name = ".$this->db->encrypt('MAIN_MODULE_IFTTT', 1),
-            "DELETE FROM ".MAIN_DB_PREFIX."const WHERE name = ".$this->db->encrypt('IFTTT_PRODUCTION_MODE', 1)
-        );
+	/**
+	 *  Function called when module is disabled.
+	 *  Remove from database constants, boxes and permissions from Dolibarr database.
+	 *  Data directories are not deleted.
+	 *
+	 *  @param string $options Options when enabling module ('', 'noboxes')
+	 *  @return int 1 if OK, 0 if KO
+	 */
+	public function remove($options = '')
+	{
+		// Remove old constants with entity fields different of 0
+		$sql = array(
+			"DELETE FROM ".MAIN_DB_PREFIX."const WHERE name = ".$this->db->encrypt('MAIN_MODULE_IFTTT', 1),
+			"DELETE FROM ".MAIN_DB_PREFIX."const WHERE name = ".$this->db->encrypt('IFTTT_PRODUCTION_MODE', 1)
+		);
 
-        return $this->_remove($sql, $options);
-    }
+		return $this->_remove($sql, $options);
+	}
 }

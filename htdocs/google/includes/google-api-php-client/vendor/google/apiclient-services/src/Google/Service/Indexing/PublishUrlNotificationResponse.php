@@ -17,21 +17,21 @@
 
 class Google_Service_Indexing_PublishUrlNotificationResponse extends Google_Model
 {
-  protected $urlNotificationMetadataType = 'Google_Service_Indexing_UrlNotificationMetadata';
-  protected $urlNotificationMetadataDataType = '';
+	protected $urlNotificationMetadataType = 'Google_Service_Indexing_UrlNotificationMetadata';
+	protected $urlNotificationMetadataDataType = '';
 
-  /**
-   * @param Google_Service_Indexing_UrlNotificationMetadata
-   */
-  public function setUrlNotificationMetadata(Google_Service_Indexing_UrlNotificationMetadata $urlNotificationMetadata)
-  {
-    $this->urlNotificationMetadata = $urlNotificationMetadata;
-  }
-  /**
-   * @return Google_Service_Indexing_UrlNotificationMetadata
-   */
-  public function getUrlNotificationMetadata()
-  {
-    return $this->urlNotificationMetadata;
-  }
+	/**
+	 * @param Google_Service_Indexing_UrlNotificationMetadata
+	 */
+	public function setUrlNotificationMetadata(Google_Service_Indexing_UrlNotificationMetadata $urlNotificationMetadata)
+	{
+		$this->urlNotificationMetadata = $urlNotificationMetadata;
+	}
+	/**
+	 * @return Google_Service_Indexing_UrlNotificationMetadata
+	 */
+	public function getUrlNotificationMetadata()
+	{
+		return $this->urlNotificationMetadata;
+	}
 }

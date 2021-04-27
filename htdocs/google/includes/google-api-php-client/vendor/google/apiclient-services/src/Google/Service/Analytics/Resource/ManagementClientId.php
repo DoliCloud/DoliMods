@@ -25,17 +25,17 @@
  */
 class Google_Service_Analytics_Resource_ManagementClientId extends Google_Service_Resource
 {
-  /**
-   * Hashes the given Client ID. (clientId.hashClientId)
-   *
-   * @param Google_Service_Analytics_HashClientIdRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Analytics_HashClientIdResponse
-   */
-  public function hashClientId(Google_Service_Analytics_HashClientIdRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('hashClientId', array($params), "Google_Service_Analytics_HashClientIdResponse");
-  }
+	/**
+	 * Hashes the given Client ID. (clientId.hashClientId)
+	 *
+	 * @param Google_Service_Analytics_HashClientIdRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Analytics_HashClientIdResponse
+	 */
+	public function hashClientId(Google_Service_Analytics_HashClientIdRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('hashClientId', array($params), "Google_Service_Analytics_HashClientIdResponse");
+	}
 }

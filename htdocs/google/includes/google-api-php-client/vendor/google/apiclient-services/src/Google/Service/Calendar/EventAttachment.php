@@ -17,50 +17,50 @@
 
 class Google_Service_Calendar_EventAttachment extends Google_Model
 {
-  public $fileId;
-  public $fileUrl;
-  public $iconLink;
-  public $mimeType;
-  public $title;
+	public $fileId;
+	public $fileUrl;
+	public $iconLink;
+	public $mimeType;
+	public $title;
 
-  public function setFileId($fileId)
-  {
-    $this->fileId = $fileId;
-  }
-  public function getFileId()
-  {
-    return $this->fileId;
-  }
-  public function setFileUrl($fileUrl)
-  {
-    $this->fileUrl = $fileUrl;
-  }
-  public function getFileUrl()
-  {
-    return $this->fileUrl;
-  }
-  public function setIconLink($iconLink)
-  {
-    $this->iconLink = $iconLink;
-  }
-  public function getIconLink()
-  {
-    return $this->iconLink;
-  }
-  public function setMimeType($mimeType)
-  {
-    $this->mimeType = $mimeType;
-  }
-  public function getMimeType()
-  {
-    return $this->mimeType;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setFileId($fileId)
+	{
+		$this->fileId = $fileId;
+	}
+	public function getFileId()
+	{
+		return $this->fileId;
+	}
+	public function setFileUrl($fileUrl)
+	{
+		$this->fileUrl = $fileUrl;
+	}
+	public function getFileUrl()
+	{
+		return $this->fileUrl;
+	}
+	public function setIconLink($iconLink)
+	{
+		$this->iconLink = $iconLink;
+	}
+	public function getIconLink()
+	{
+		return $this->iconLink;
+	}
+	public function setMimeType($mimeType)
+	{
+		$this->mimeType = $mimeType;
+	}
+	public function getMimeType()
+	{
+		return $this->mimeType;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

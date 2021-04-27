@@ -17,31 +17,31 @@
 
 class Google_Service_TagManager_ZoneBoundary extends Google_Collection
 {
-  protected $collection_key = 'customEvaluationTriggerId';
-  protected $conditionType = 'Google_Service_TagManager_Condition';
-  protected $conditionDataType = 'array';
-  public $customEvaluationTriggerId;
+	protected $collection_key = 'customEvaluationTriggerId';
+	protected $conditionType = 'Google_Service_TagManager_Condition';
+	protected $conditionDataType = 'array';
+	public $customEvaluationTriggerId;
 
-  /**
-   * @param Google_Service_TagManager_Condition
-   */
-  public function setCondition($condition)
-  {
-    $this->condition = $condition;
-  }
-  /**
-   * @return Google_Service_TagManager_Condition
-   */
-  public function getCondition()
-  {
-    return $this->condition;
-  }
-  public function setCustomEvaluationTriggerId($customEvaluationTriggerId)
-  {
-    $this->customEvaluationTriggerId = $customEvaluationTriggerId;
-  }
-  public function getCustomEvaluationTriggerId()
-  {
-    return $this->customEvaluationTriggerId;
-  }
+	/**
+	 * @param Google_Service_TagManager_Condition
+	 */
+	public function setCondition($condition)
+	{
+		$this->condition = $condition;
+	}
+	/**
+	 * @return Google_Service_TagManager_Condition
+	 */
+	public function getCondition()
+	{
+		return $this->condition;
+	}
+	public function setCustomEvaluationTriggerId($customEvaluationTriggerId)
+	{
+		$this->customEvaluationTriggerId = $customEvaluationTriggerId;
+	}
+	public function getCustomEvaluationTriggerId()
+	{
+		return $this->customEvaluationTriggerId;
+	}
 }

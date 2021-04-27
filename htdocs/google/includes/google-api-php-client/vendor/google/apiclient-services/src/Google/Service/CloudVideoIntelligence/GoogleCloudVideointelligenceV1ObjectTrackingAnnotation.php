@@ -17,81 +17,81 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1ObjectTrackingAnnotation extends Google_Collection
 {
-  protected $collection_key = 'frames';
-  public $confidence;
-  protected $entityType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1Entity';
-  protected $entityDataType = '';
-  protected $framesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1ObjectTrackingFrame';
-  protected $framesDataType = 'array';
-  protected $segmentType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoSegment';
-  protected $segmentDataType = '';
-  public $trackId;
-  public $version;
+	protected $collection_key = 'frames';
+	public $confidence;
+	protected $entityType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1Entity';
+	protected $entityDataType = '';
+	protected $framesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1ObjectTrackingFrame';
+	protected $framesDataType = 'array';
+	protected $segmentType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoSegment';
+	protected $segmentDataType = '';
+	public $trackId;
+	public $version;
 
-  public function setConfidence($confidence)
-  {
-    $this->confidence = $confidence;
-  }
-  public function getConfidence()
-  {
-    return $this->confidence;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1Entity
-   */
-  public function setEntity(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1Entity $entity)
-  {
-    $this->entity = $entity;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1Entity
-   */
-  public function getEntity()
-  {
-    return $this->entity;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1ObjectTrackingFrame
-   */
-  public function setFrames($frames)
-  {
-    $this->frames = $frames;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1ObjectTrackingFrame
-   */
-  public function getFrames()
-  {
-    return $this->frames;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoSegment
-   */
-  public function setSegment(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoSegment $segment)
-  {
-    $this->segment = $segment;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoSegment
-   */
-  public function getSegment()
-  {
-    return $this->segment;
-  }
-  public function setTrackId($trackId)
-  {
-    $this->trackId = $trackId;
-  }
-  public function getTrackId()
-  {
-    return $this->trackId;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setConfidence($confidence)
+	{
+		$this->confidence = $confidence;
+	}
+	public function getConfidence()
+	{
+		return $this->confidence;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1Entity
+	 */
+	public function setEntity(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1Entity $entity)
+	{
+		$this->entity = $entity;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1Entity
+	 */
+	public function getEntity()
+	{
+		return $this->entity;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1ObjectTrackingFrame
+	 */
+	public function setFrames($frames)
+	{
+		$this->frames = $frames;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1ObjectTrackingFrame
+	 */
+	public function getFrames()
+	{
+		return $this->frames;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoSegment
+	 */
+	public function setSegment(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoSegment $segment)
+	{
+		$this->segment = $segment;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoSegment
+	 */
+	public function getSegment()
+	{
+		return $this->segment;
+	}
+	public function setTrackId($trackId)
+	{
+		$this->trackId = $trackId;
+	}
+	public function getTrackId()
+	{
+		return $this->trackId;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

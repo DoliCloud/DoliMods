@@ -17,31 +17,31 @@
 
 class Google_Service_ToolResults_ListPerfSamplesResponse extends Google_Collection
 {
-  protected $collection_key = 'perfSamples';
-  public $nextPageToken;
-  protected $perfSamplesType = 'Google_Service_ToolResults_PerfSample';
-  protected $perfSamplesDataType = 'array';
+	protected $collection_key = 'perfSamples';
+	public $nextPageToken;
+	protected $perfSamplesType = 'Google_Service_ToolResults_PerfSample';
+	protected $perfSamplesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_ToolResults_PerfSample
-   */
-  public function setPerfSamples($perfSamples)
-  {
-    $this->perfSamples = $perfSamples;
-  }
-  /**
-   * @return Google_Service_ToolResults_PerfSample
-   */
-  public function getPerfSamples()
-  {
-    return $this->perfSamples;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_ToolResults_PerfSample
+	 */
+	public function setPerfSamples($perfSamples)
+	{
+		$this->perfSamples = $perfSamples;
+	}
+	/**
+	 * @return Google_Service_ToolResults_PerfSample
+	 */
+	public function getPerfSamples()
+	{
+		return $this->perfSamples;
+	}
 }

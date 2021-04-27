@@ -17,23 +17,23 @@
 
 class Google_Service_Dns_PolicyNetwork extends Google_Model
 {
-  public $kind;
-  public $networkUrl;
+	public $kind;
+	public $networkUrl;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNetworkUrl($networkUrl)
-  {
-    $this->networkUrl = $networkUrl;
-  }
-  public function getNetworkUrl()
-  {
-    return $this->networkUrl;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNetworkUrl($networkUrl)
+	{
+		$this->networkUrl = $networkUrl;
+	}
+	public function getNetworkUrl()
+	{
+		return $this->networkUrl;
+	}
 }

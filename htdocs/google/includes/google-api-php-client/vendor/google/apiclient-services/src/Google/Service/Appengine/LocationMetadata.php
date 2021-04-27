@@ -17,23 +17,23 @@
 
 class Google_Service_Appengine_LocationMetadata extends Google_Model
 {
-  public $flexibleEnvironmentAvailable;
-  public $standardEnvironmentAvailable;
+	public $flexibleEnvironmentAvailable;
+	public $standardEnvironmentAvailable;
 
-  public function setFlexibleEnvironmentAvailable($flexibleEnvironmentAvailable)
-  {
-    $this->flexibleEnvironmentAvailable = $flexibleEnvironmentAvailable;
-  }
-  public function getFlexibleEnvironmentAvailable()
-  {
-    return $this->flexibleEnvironmentAvailable;
-  }
-  public function setStandardEnvironmentAvailable($standardEnvironmentAvailable)
-  {
-    $this->standardEnvironmentAvailable = $standardEnvironmentAvailable;
-  }
-  public function getStandardEnvironmentAvailable()
-  {
-    return $this->standardEnvironmentAvailable;
-  }
+	public function setFlexibleEnvironmentAvailable($flexibleEnvironmentAvailable)
+	{
+		$this->flexibleEnvironmentAvailable = $flexibleEnvironmentAvailable;
+	}
+	public function getFlexibleEnvironmentAvailable()
+	{
+		return $this->flexibleEnvironmentAvailable;
+	}
+	public function setStandardEnvironmentAvailable($standardEnvironmentAvailable)
+	{
+		$this->standardEnvironmentAvailable = $standardEnvironmentAvailable;
+	}
+	public function getStandardEnvironmentAvailable()
+	{
+		return $this->standardEnvironmentAvailable;
+	}
 }

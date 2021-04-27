@@ -17,37 +17,37 @@
 
 class Google_Service_AlertCenter_MatchInfo extends Google_Model
 {
-  protected $predefinedDetectorType = 'Google_Service_AlertCenter_PredefinedDetectorInfo';
-  protected $predefinedDetectorDataType = '';
-  protected $userDefinedDetectorType = 'Google_Service_AlertCenter_UserDefinedDetectorInfo';
-  protected $userDefinedDetectorDataType = '';
+	protected $predefinedDetectorType = 'Google_Service_AlertCenter_PredefinedDetectorInfo';
+	protected $predefinedDetectorDataType = '';
+	protected $userDefinedDetectorType = 'Google_Service_AlertCenter_UserDefinedDetectorInfo';
+	protected $userDefinedDetectorDataType = '';
 
-  /**
-   * @param Google_Service_AlertCenter_PredefinedDetectorInfo
-   */
-  public function setPredefinedDetector(Google_Service_AlertCenter_PredefinedDetectorInfo $predefinedDetector)
-  {
-    $this->predefinedDetector = $predefinedDetector;
-  }
-  /**
-   * @return Google_Service_AlertCenter_PredefinedDetectorInfo
-   */
-  public function getPredefinedDetector()
-  {
-    return $this->predefinedDetector;
-  }
-  /**
-   * @param Google_Service_AlertCenter_UserDefinedDetectorInfo
-   */
-  public function setUserDefinedDetector(Google_Service_AlertCenter_UserDefinedDetectorInfo $userDefinedDetector)
-  {
-    $this->userDefinedDetector = $userDefinedDetector;
-  }
-  /**
-   * @return Google_Service_AlertCenter_UserDefinedDetectorInfo
-   */
-  public function getUserDefinedDetector()
-  {
-    return $this->userDefinedDetector;
-  }
+	/**
+	 * @param Google_Service_AlertCenter_PredefinedDetectorInfo
+	 */
+	public function setPredefinedDetector(Google_Service_AlertCenter_PredefinedDetectorInfo $predefinedDetector)
+	{
+		$this->predefinedDetector = $predefinedDetector;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_PredefinedDetectorInfo
+	 */
+	public function getPredefinedDetector()
+	{
+		return $this->predefinedDetector;
+	}
+	/**
+	 * @param Google_Service_AlertCenter_UserDefinedDetectorInfo
+	 */
+	public function setUserDefinedDetector(Google_Service_AlertCenter_UserDefinedDetectorInfo $userDefinedDetector)
+	{
+		$this->userDefinedDetector = $userDefinedDetector;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_UserDefinedDetectorInfo
+	 */
+	public function getUserDefinedDetector()
+	{
+		return $this->userDefinedDetector;
+	}
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_YouTube_ActivityContentDetailsPlaylistItem extends Google_Model
 {
-  public $playlistId;
-  public $playlistItemId;
-  protected $resourceIdType = 'Google_Service_YouTube_ResourceId';
-  protected $resourceIdDataType = '';
+	public $playlistId;
+	public $playlistItemId;
+	protected $resourceIdType = 'Google_Service_YouTube_ResourceId';
+	protected $resourceIdDataType = '';
 
-  public function setPlaylistId($playlistId)
-  {
-    $this->playlistId = $playlistId;
-  }
-  public function getPlaylistId()
-  {
-    return $this->playlistId;
-  }
-  public function setPlaylistItemId($playlistItemId)
-  {
-    $this->playlistItemId = $playlistItemId;
-  }
-  public function getPlaylistItemId()
-  {
-    return $this->playlistItemId;
-  }
-  /**
-   * @param Google_Service_YouTube_ResourceId
-   */
-  public function setResourceId(Google_Service_YouTube_ResourceId $resourceId)
-  {
-    $this->resourceId = $resourceId;
-  }
-  /**
-   * @return Google_Service_YouTube_ResourceId
-   */
-  public function getResourceId()
-  {
-    return $this->resourceId;
-  }
+	public function setPlaylistId($playlistId)
+	{
+		$this->playlistId = $playlistId;
+	}
+	public function getPlaylistId()
+	{
+		return $this->playlistId;
+	}
+	public function setPlaylistItemId($playlistItemId)
+	{
+		$this->playlistItemId = $playlistItemId;
+	}
+	public function getPlaylistItemId()
+	{
+		return $this->playlistItemId;
+	}
+	/**
+	 * @param Google_Service_YouTube_ResourceId
+	 */
+	public function setResourceId(Google_Service_YouTube_ResourceId $resourceId)
+	{
+		$this->resourceId = $resourceId;
+	}
+	/**
+	 * @return Google_Service_YouTube_ResourceId
+	 */
+	public function getResourceId()
+	{
+		return $this->resourceId;
+	}
 }

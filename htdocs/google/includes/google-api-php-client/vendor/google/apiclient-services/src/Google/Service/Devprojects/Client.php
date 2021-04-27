@@ -17,33 +17,33 @@
 
 class Google_Service_Devprojects_Client extends Google_Model
 {
-  public $clientId;
-  protected $clientInfoType = 'Google_Service_Devprojects_ClientInfo';
-  protected $clientInfoDataType = '';
-  public $kind;
+	public $clientId;
+	protected $clientInfoType = 'Google_Service_Devprojects_ClientInfo';
+	protected $clientInfoDataType = '';
+	public $kind;
 
-  public function setClientId($clientId)
-  {
-    $this->clientId = $clientId;
-  }
-  public function getClientId()
-  {
-    return $this->clientId;
-  }
-  public function setClientInfo(Google_Service_Devprojects_ClientInfo $clientInfo)
-  {
-    $this->clientInfo = $clientInfo;
-  }
-  public function getClientInfo()
-  {
-    return $this->clientInfo;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setClientId($clientId)
+	{
+		$this->clientId = $clientId;
+	}
+	public function getClientId()
+	{
+		return $this->clientId;
+	}
+	public function setClientInfo(Google_Service_Devprojects_ClientInfo $clientInfo)
+	{
+		$this->clientInfo = $clientInfo;
+	}
+	public function getClientInfo()
+	{
+		return $this->clientInfo;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1RoutingRule extends Google_Model
 {
-  public $basepath;
-  public $environment;
+	public $basepath;
+	public $environment;
 
-  public function setBasepath($basepath)
-  {
-    $this->basepath = $basepath;
-  }
-  public function getBasepath()
-  {
-    return $this->basepath;
-  }
-  public function setEnvironment($environment)
-  {
-    $this->environment = $environment;
-  }
-  public function getEnvironment()
-  {
-    return $this->environment;
-  }
+	public function setBasepath($basepath)
+	{
+		$this->basepath = $basepath;
+	}
+	public function getBasepath()
+	{
+		return $this->basepath;
+	}
+	public function setEnvironment($environment)
+	{
+		$this->environment = $environment;
+	}
+	public function getEnvironment()
+	{
+		return $this->environment;
+	}
 }

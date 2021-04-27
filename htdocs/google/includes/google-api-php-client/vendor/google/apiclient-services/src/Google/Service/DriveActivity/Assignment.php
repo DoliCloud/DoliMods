@@ -17,30 +17,30 @@
 
 class Google_Service_DriveActivity_Assignment extends Google_Model
 {
-  protected $assignedUserType = 'Google_Service_DriveActivity_User';
-  protected $assignedUserDataType = '';
-  public $subtype;
+	protected $assignedUserType = 'Google_Service_DriveActivity_User';
+	protected $assignedUserDataType = '';
+	public $subtype;
 
-  /**
-   * @param Google_Service_DriveActivity_User
-   */
-  public function setAssignedUser(Google_Service_DriveActivity_User $assignedUser)
-  {
-    $this->assignedUser = $assignedUser;
-  }
-  /**
-   * @return Google_Service_DriveActivity_User
-   */
-  public function getAssignedUser()
-  {
-    return $this->assignedUser;
-  }
-  public function setSubtype($subtype)
-  {
-    $this->subtype = $subtype;
-  }
-  public function getSubtype()
-  {
-    return $this->subtype;
-  }
+	/**
+	 * @param Google_Service_DriveActivity_User
+	 */
+	public function setAssignedUser(Google_Service_DriveActivity_User $assignedUser)
+	{
+		$this->assignedUser = $assignedUser;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_User
+	 */
+	public function getAssignedUser()
+	{
+		return $this->assignedUser;
+	}
+	public function setSubtype($subtype)
+	{
+		$this->subtype = $subtype;
+	}
+	public function getSubtype()
+	{
+		return $this->subtype;
+	}
 }

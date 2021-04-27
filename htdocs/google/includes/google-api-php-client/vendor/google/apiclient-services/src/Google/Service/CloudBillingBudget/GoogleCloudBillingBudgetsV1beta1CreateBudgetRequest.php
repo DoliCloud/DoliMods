@@ -17,21 +17,21 @@
 
 class Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1CreateBudgetRequest extends Google_Model
 {
-  protected $budgetType = 'Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget';
-  protected $budgetDataType = '';
+	protected $budgetType = 'Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget';
+	protected $budgetDataType = '';
 
-  /**
-   * @param Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
-   */
-  public function setBudget(Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget $budget)
-  {
-    $this->budget = $budget;
-  }
-  /**
-   * @return Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
-   */
-  public function getBudget()
-  {
-    return $this->budget;
-  }
+	/**
+	 * @param Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
+	 */
+	public function setBudget(Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget $budget)
+	{
+		$this->budget = $budget;
+	}
+	/**
+	 * @return Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
+	 */
+	public function getBudget()
+	{
+		return $this->budget;
+	}
 }

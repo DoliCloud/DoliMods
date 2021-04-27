@@ -17,49 +17,49 @@
 
 class Google_Service_ServiceManagement_OperationMetadata extends Google_Collection
 {
-  protected $collection_key = 'steps';
-  public $progressPercentage;
-  public $resourceNames;
-  public $startTime;
-  protected $stepsType = 'Google_Service_ServiceManagement_Step';
-  protected $stepsDataType = 'array';
+	protected $collection_key = 'steps';
+	public $progressPercentage;
+	public $resourceNames;
+	public $startTime;
+	protected $stepsType = 'Google_Service_ServiceManagement_Step';
+	protected $stepsDataType = 'array';
 
-  public function setProgressPercentage($progressPercentage)
-  {
-    $this->progressPercentage = $progressPercentage;
-  }
-  public function getProgressPercentage()
-  {
-    return $this->progressPercentage;
-  }
-  public function setResourceNames($resourceNames)
-  {
-    $this->resourceNames = $resourceNames;
-  }
-  public function getResourceNames()
-  {
-    return $this->resourceNames;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  /**
-   * @param Google_Service_ServiceManagement_Step
-   */
-  public function setSteps($steps)
-  {
-    $this->steps = $steps;
-  }
-  /**
-   * @return Google_Service_ServiceManagement_Step
-   */
-  public function getSteps()
-  {
-    return $this->steps;
-  }
+	public function setProgressPercentage($progressPercentage)
+	{
+		$this->progressPercentage = $progressPercentage;
+	}
+	public function getProgressPercentage()
+	{
+		return $this->progressPercentage;
+	}
+	public function setResourceNames($resourceNames)
+	{
+		$this->resourceNames = $resourceNames;
+	}
+	public function getResourceNames()
+	{
+		return $this->resourceNames;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	/**
+	 * @param Google_Service_ServiceManagement_Step
+	 */
+	public function setSteps($steps)
+	{
+		$this->steps = $steps;
+	}
+	/**
+	 * @return Google_Service_ServiceManagement_Step
+	 */
+	public function getSteps()
+	{
+		return $this->steps;
+	}
 }

@@ -40,13 +40,13 @@ use Smalot\PdfParser\Page;
  */
 class Image extends PDFObject
 {
-    /**
-     * @param Page $page
-     *
-     * @return string
-     */
-    public function getText(Page $page = null)
-    {
-        return '';
-    }
+	/**
+	 * @param Page $page
+	 *
+	 * @return string
+	 */
+	public function getText(Page $page = null)
+	{
+		return '';
+	}
 }

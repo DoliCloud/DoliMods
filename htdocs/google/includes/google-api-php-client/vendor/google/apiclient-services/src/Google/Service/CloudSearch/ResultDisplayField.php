@@ -17,39 +17,39 @@
 
 class Google_Service_CloudSearch_ResultDisplayField extends Google_Model
 {
-  public $label;
-  public $operatorName;
-  protected $propertyType = 'Google_Service_CloudSearch_NamedProperty';
-  protected $propertyDataType = '';
+	public $label;
+	public $operatorName;
+	protected $propertyType = 'Google_Service_CloudSearch_NamedProperty';
+	protected $propertyDataType = '';
 
-  public function setLabel($label)
-  {
-    $this->label = $label;
-  }
-  public function getLabel()
-  {
-    return $this->label;
-  }
-  public function setOperatorName($operatorName)
-  {
-    $this->operatorName = $operatorName;
-  }
-  public function getOperatorName()
-  {
-    return $this->operatorName;
-  }
-  /**
-   * @param Google_Service_CloudSearch_NamedProperty
-   */
-  public function setProperty(Google_Service_CloudSearch_NamedProperty $property)
-  {
-    $this->property = $property;
-  }
-  /**
-   * @return Google_Service_CloudSearch_NamedProperty
-   */
-  public function getProperty()
-  {
-    return $this->property;
-  }
+	public function setLabel($label)
+	{
+		$this->label = $label;
+	}
+	public function getLabel()
+	{
+		return $this->label;
+	}
+	public function setOperatorName($operatorName)
+	{
+		$this->operatorName = $operatorName;
+	}
+	public function getOperatorName()
+	{
+		return $this->operatorName;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_NamedProperty
+	 */
+	public function setProperty(Google_Service_CloudSearch_NamedProperty $property)
+	{
+		$this->property = $property;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_NamedProperty
+	 */
+	public function getProperty()
+	{
+		return $this->property;
+	}
 }

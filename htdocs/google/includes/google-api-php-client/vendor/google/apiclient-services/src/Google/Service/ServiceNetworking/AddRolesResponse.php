@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceNetworking_AddRolesResponse extends Google_Collection
 {
-  protected $collection_key = 'policyBinding';
-  protected $policyBindingType = 'Google_Service_ServiceNetworking_PolicyBinding';
-  protected $policyBindingDataType = 'array';
+	protected $collection_key = 'policyBinding';
+	protected $policyBindingType = 'Google_Service_ServiceNetworking_PolicyBinding';
+	protected $policyBindingDataType = 'array';
 
-  /**
-   * @param Google_Service_ServiceNetworking_PolicyBinding
-   */
-  public function setPolicyBinding($policyBinding)
-  {
-    $this->policyBinding = $policyBinding;
-  }
-  /**
-   * @return Google_Service_ServiceNetworking_PolicyBinding
-   */
-  public function getPolicyBinding()
-  {
-    return $this->policyBinding;
-  }
+	/**
+	 * @param Google_Service_ServiceNetworking_PolicyBinding
+	 */
+	public function setPolicyBinding($policyBinding)
+	{
+		$this->policyBinding = $policyBinding;
+	}
+	/**
+	 * @return Google_Service_ServiceNetworking_PolicyBinding
+	 */
+	public function getPolicyBinding()
+	{
+		return $this->policyBinding;
+	}
 }

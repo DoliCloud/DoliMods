@@ -17,41 +17,41 @@
 
 class Google_Service_CloudLifeSciences_Disk extends Google_Model
 {
-  public $name;
-  public $sizeGb;
-  public $sourceImage;
-  public $type;
+	public $name;
+	public $sizeGb;
+	public $sourceImage;
+	public $type;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSizeGb($sizeGb)
-  {
-    $this->sizeGb = $sizeGb;
-  }
-  public function getSizeGb()
-  {
-    return $this->sizeGb;
-  }
-  public function setSourceImage($sourceImage)
-  {
-    $this->sourceImage = $sourceImage;
-  }
-  public function getSourceImage()
-  {
-    return $this->sourceImage;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSizeGb($sizeGb)
+	{
+		$this->sizeGb = $sizeGb;
+	}
+	public function getSizeGb()
+	{
+		return $this->sizeGb;
+	}
+	public function setSourceImage($sourceImage)
+	{
+		$this->sourceImage = $sourceImage;
+	}
+	public function getSourceImage()
+	{
+		return $this->sourceImage;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

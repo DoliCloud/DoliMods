@@ -17,51 +17,51 @@
 
 class Google_Service_NetworkManagement_LoadBalancerBackend extends Google_Collection
 {
-  protected $collection_key = 'healthCheckBlockingFirewallRules';
-  public $displayName;
-  public $healthCheckAllowingFirewallRules;
-  public $healthCheckBlockingFirewallRules;
-  public $healthCheckFirewallState;
-  public $uri;
+	protected $collection_key = 'healthCheckBlockingFirewallRules';
+	public $displayName;
+	public $healthCheckAllowingFirewallRules;
+	public $healthCheckBlockingFirewallRules;
+	public $healthCheckFirewallState;
+	public $uri;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setHealthCheckAllowingFirewallRules($healthCheckAllowingFirewallRules)
-  {
-    $this->healthCheckAllowingFirewallRules = $healthCheckAllowingFirewallRules;
-  }
-  public function getHealthCheckAllowingFirewallRules()
-  {
-    return $this->healthCheckAllowingFirewallRules;
-  }
-  public function setHealthCheckBlockingFirewallRules($healthCheckBlockingFirewallRules)
-  {
-    $this->healthCheckBlockingFirewallRules = $healthCheckBlockingFirewallRules;
-  }
-  public function getHealthCheckBlockingFirewallRules()
-  {
-    return $this->healthCheckBlockingFirewallRules;
-  }
-  public function setHealthCheckFirewallState($healthCheckFirewallState)
-  {
-    $this->healthCheckFirewallState = $healthCheckFirewallState;
-  }
-  public function getHealthCheckFirewallState()
-  {
-    return $this->healthCheckFirewallState;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setHealthCheckAllowingFirewallRules($healthCheckAllowingFirewallRules)
+	{
+		$this->healthCheckAllowingFirewallRules = $healthCheckAllowingFirewallRules;
+	}
+	public function getHealthCheckAllowingFirewallRules()
+	{
+		return $this->healthCheckAllowingFirewallRules;
+	}
+	public function setHealthCheckBlockingFirewallRules($healthCheckBlockingFirewallRules)
+	{
+		$this->healthCheckBlockingFirewallRules = $healthCheckBlockingFirewallRules;
+	}
+	public function getHealthCheckBlockingFirewallRules()
+	{
+		return $this->healthCheckBlockingFirewallRules;
+	}
+	public function setHealthCheckFirewallState($healthCheckFirewallState)
+	{
+		$this->healthCheckFirewallState = $healthCheckFirewallState;
+	}
+	public function getHealthCheckFirewallState()
+	{
+		return $this->healthCheckFirewallState;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

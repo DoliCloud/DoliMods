@@ -17,49 +17,49 @@
 
 class Google_Service_ToolResults_NonSdkApiUsageViolationReport extends Google_Collection
 {
-  protected $collection_key = 'exampleApis';
-  protected $exampleApisType = 'Google_Service_ToolResults_NonSdkApi';
-  protected $exampleApisDataType = 'array';
-  public $minSdkVersion;
-  public $targetSdkVersion;
-  public $uniqueApis;
+	protected $collection_key = 'exampleApis';
+	protected $exampleApisType = 'Google_Service_ToolResults_NonSdkApi';
+	protected $exampleApisDataType = 'array';
+	public $minSdkVersion;
+	public $targetSdkVersion;
+	public $uniqueApis;
 
-  /**
-   * @param Google_Service_ToolResults_NonSdkApi
-   */
-  public function setExampleApis($exampleApis)
-  {
-    $this->exampleApis = $exampleApis;
-  }
-  /**
-   * @return Google_Service_ToolResults_NonSdkApi
-   */
-  public function getExampleApis()
-  {
-    return $this->exampleApis;
-  }
-  public function setMinSdkVersion($minSdkVersion)
-  {
-    $this->minSdkVersion = $minSdkVersion;
-  }
-  public function getMinSdkVersion()
-  {
-    return $this->minSdkVersion;
-  }
-  public function setTargetSdkVersion($targetSdkVersion)
-  {
-    $this->targetSdkVersion = $targetSdkVersion;
-  }
-  public function getTargetSdkVersion()
-  {
-    return $this->targetSdkVersion;
-  }
-  public function setUniqueApis($uniqueApis)
-  {
-    $this->uniqueApis = $uniqueApis;
-  }
-  public function getUniqueApis()
-  {
-    return $this->uniqueApis;
-  }
+	/**
+	 * @param Google_Service_ToolResults_NonSdkApi
+	 */
+	public function setExampleApis($exampleApis)
+	{
+		$this->exampleApis = $exampleApis;
+	}
+	/**
+	 * @return Google_Service_ToolResults_NonSdkApi
+	 */
+	public function getExampleApis()
+	{
+		return $this->exampleApis;
+	}
+	public function setMinSdkVersion($minSdkVersion)
+	{
+		$this->minSdkVersion = $minSdkVersion;
+	}
+	public function getMinSdkVersion()
+	{
+		return $this->minSdkVersion;
+	}
+	public function setTargetSdkVersion($targetSdkVersion)
+	{
+		$this->targetSdkVersion = $targetSdkVersion;
+	}
+	public function getTargetSdkVersion()
+	{
+		return $this->targetSdkVersion;
+	}
+	public function setUniqueApis($uniqueApis)
+	{
+		$this->uniqueApis = $uniqueApis;
+	}
+	public function getUniqueApis()
+	{
+		return $this->uniqueApis;
+	}
 }

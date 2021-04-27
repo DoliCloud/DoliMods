@@ -17,14 +17,14 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource extends Google_Model
 {
-  public $uri;
+	public $uri;
 
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

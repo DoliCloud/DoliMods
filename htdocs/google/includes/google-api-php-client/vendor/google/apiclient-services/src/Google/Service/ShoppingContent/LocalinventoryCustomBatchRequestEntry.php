@@ -17,57 +17,57 @@
 
 class Google_Service_ShoppingContent_LocalinventoryCustomBatchRequestEntry extends Google_Model
 {
-  public $batchId;
-  protected $localInventoryType = 'Google_Service_ShoppingContent_LocalInventory';
-  protected $localInventoryDataType = '';
-  public $merchantId;
-  public $method;
-  public $productId;
+	public $batchId;
+	protected $localInventoryType = 'Google_Service_ShoppingContent_LocalInventory';
+	protected $localInventoryDataType = '';
+	public $merchantId;
+	public $method;
+	public $productId;
 
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_LocalInventory
-   */
-  public function setLocalInventory(Google_Service_ShoppingContent_LocalInventory $localInventory)
-  {
-    $this->localInventory = $localInventory;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_LocalInventory
-   */
-  public function getLocalInventory()
-  {
-    return $this->localInventory;
-  }
-  public function setMerchantId($merchantId)
-  {
-    $this->merchantId = $merchantId;
-  }
-  public function getMerchantId()
-  {
-    return $this->merchantId;
-  }
-  public function setMethod($method)
-  {
-    $this->method = $method;
-  }
-  public function getMethod()
-  {
-    return $this->method;
-  }
-  public function setProductId($productId)
-  {
-    $this->productId = $productId;
-  }
-  public function getProductId()
-  {
-    return $this->productId;
-  }
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_LocalInventory
+	 */
+	public function setLocalInventory(Google_Service_ShoppingContent_LocalInventory $localInventory)
+	{
+		$this->localInventory = $localInventory;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_LocalInventory
+	 */
+	public function getLocalInventory()
+	{
+		return $this->localInventory;
+	}
+	public function setMerchantId($merchantId)
+	{
+		$this->merchantId = $merchantId;
+	}
+	public function getMerchantId()
+	{
+		return $this->merchantId;
+	}
+	public function setMethod($method)
+	{
+		$this->method = $method;
+	}
+	public function getMethod()
+	{
+		return $this->method;
+	}
+	public function setProductId($productId)
+	{
+		$this->productId = $productId;
+	}
+	public function getProductId()
+	{
+		return $this->productId;
+	}
 }

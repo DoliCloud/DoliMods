@@ -17,21 +17,21 @@
 
 class Google_Service_Script_ExecuteStreamResponse extends Google_Model
 {
-  protected $resultType = 'Google_Service_Script_ScriptExecutionResult';
-  protected $resultDataType = '';
+	protected $resultType = 'Google_Service_Script_ScriptExecutionResult';
+	protected $resultDataType = '';
 
-  /**
-   * @param Google_Service_Script_ScriptExecutionResult
-   */
-  public function setResult(Google_Service_Script_ScriptExecutionResult $result)
-  {
-    $this->result = $result;
-  }
-  /**
-   * @return Google_Service_Script_ScriptExecutionResult
-   */
-  public function getResult()
-  {
-    return $this->result;
-  }
+	/**
+	 * @param Google_Service_Script_ScriptExecutionResult
+	 */
+	public function setResult(Google_Service_Script_ScriptExecutionResult $result)
+	{
+		$this->result = $result;
+	}
+	/**
+	 * @return Google_Service_Script_ScriptExecutionResult
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
 }

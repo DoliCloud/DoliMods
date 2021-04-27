@@ -35,99 +35,97 @@
  ************************************************************************************/
 
 $language_data = array (
-    'LANG_NAME' => 'RPM Specification File',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
-    'QUOTEMARKS' => array('"','`'),
-    'ESCAPE_CHAR' => '\\',
-    'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'CASE_SENSITIVE' => array(
-        GESHI_COMMENTS => false,
-        ),
-    'KEYWORDS' => array(
-        ),
-    'SYMBOLS' => array(
-        '<', '>', '=',
-        '!', '@', '~', '&', '|', '^',
-        '+','-', '*', '/', '%',
-        ',', ';', '?', '.', ':'
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            ),
-        'COMMENTS' => array(
-            1 => 'color: #666666; font-style: italic;',
-            'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
-            0 => 'color: #000099; font-weight: bold;',
-            'HARD' => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
-            0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
-            0 => 'color: #ff0000;',
-            ),
-        'NUMBERS' => array(
-            0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
-            1 => 'color: #006600;',
-            2 => 'color: #006600;'
-            ),
-        'SYMBOLS' => array(
-            0 => 'color: #339933;'
-            ),
-        'REGEXPS' => array(
-            1 => 'color: #0000ff;',
-            2 => 'color: #009999;',
-            3 => 'color: #000000; font-weight: bold;',
-            4 => 'color: #ff6600; font-style: italic;',
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'REGEXPS' => array(
-        1 => array(
-            // search for generic macros
-            GESHI_SEARCH => '(%{?[a-zA-Z0-9_]+}?)',
-            GESHI_REPLACE => '\\1',
-            GESHI_MODIFIERS => '',
-            GESHI_BEFORE => '',
-            GESHI_AFTER => '',
-            ),
-        2 => array(
-            // search for special macros
-            GESHI_SEARCH => '(%(?:define|patch\d*|mklibname|mkrel|configure\S+|makeinstall\S+|make_session|make|defattr|config|doc|setup))',
-            GESHI_REPLACE => '\\1',
-            GESHI_MODIFIERS => 'i',
-            GESHI_BEFORE => '',
-            GESHI_AFTER => '',
-            ),
-        3 => array (
-            // special definitions
-            GESHI_SEARCH => '((?:summary|license|buildroot|buildrequires|provides|version|release|source\d*|group|buildarch|autoreqprov|provides|obsoletes|vendor|distribution|suggests|autoreq|autoprov|conflicts|name|url|requires|patch\d*):)',
-            GESHI_REPLACE => '\\1',
-            GESHI_MODIFIERS => 'i',
-            GESHI_BEFORE => '',
-            GESHI_AFTER => '',
-            ),
-        4 => array (
-            // section delimiting words
-            GESHI_SEARCH => '(%(?:description|package|prep|build|install|clean|postun|preun|post|pre|files|changelog))',
-            GESHI_REPLACE => '\\1',
-            GESHI_MODIFIERS => 'i',
-            GESHI_BEFORE => '',
-            GESHI_AFTER => '',
-            ),
-        ),
-    'URLS' => array(),
-    'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(),
-    'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
+	'LANG_NAME' => 'RPM Specification File',
+	'COMMENT_SINGLE' => array(1 => '#'),
+	'COMMENT_MULTI' => array(),
+	'QUOTEMARKS' => array('"','`'),
+	'ESCAPE_CHAR' => '\\',
+	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
+	'CASE_SENSITIVE' => array(
+		GESHI_COMMENTS => false,
+		),
+	'KEYWORDS' => array(
+		),
+	'SYMBOLS' => array(
+		'<', '>', '=',
+		'!', '@', '~', '&', '|', '^',
+		'+','-', '*', '/', '%',
+		',', ';', '?', '.', ':'
+		),
+	'STYLES' => array(
+		'KEYWORDS' => array(
+			),
+		'COMMENTS' => array(
+			1 => 'color: #666666; font-style: italic;',
+			'MULTI' => 'color: #666666; font-style: italic;'
+			),
+		'ESCAPE_CHAR' => array(
+			0 => 'color: #000099; font-weight: bold;',
+			'HARD' => 'color: #000099; font-weight: bold;'
+			),
+		'BRACKETS' => array(
+			0 => 'color: #009900;'
+			),
+		'STRINGS' => array(
+			0 => 'color: #ff0000;',
+			),
+		'NUMBERS' => array(
+			0 => 'color: #cc66cc;'
+			),
+		'METHODS' => array(
+			1 => 'color: #006600;',
+			2 => 'color: #006600;'
+			),
+		'SYMBOLS' => array(
+			0 => 'color: #339933;'
+			),
+		'REGEXPS' => array(
+			1 => 'color: #0000ff;',
+			2 => 'color: #009999;',
+			3 => 'color: #000000; font-weight: bold;',
+			4 => 'color: #ff6600; font-style: italic;',
+			),
+		'SCRIPT' => array(
+			)
+		),
+	'REGEXPS' => array(
+		1 => array(
+			// search for generic macros
+			GESHI_SEARCH => '(%{?[a-zA-Z0-9_]+}?)',
+			GESHI_REPLACE => '\\1',
+			GESHI_MODIFIERS => '',
+			GESHI_BEFORE => '',
+			GESHI_AFTER => '',
+			),
+		2 => array(
+			// search for special macros
+			GESHI_SEARCH => '(%(?:define|patch\d*|mklibname|mkrel|configure\S+|makeinstall\S+|make_session|make|defattr|config|doc|setup))',
+			GESHI_REPLACE => '\\1',
+			GESHI_MODIFIERS => 'i',
+			GESHI_BEFORE => '',
+			GESHI_AFTER => '',
+			),
+		3 => array (
+			// special definitions
+			GESHI_SEARCH => '((?:summary|license|buildroot|buildrequires|provides|version|release|source\d*|group|buildarch|autoreqprov|provides|obsoletes|vendor|distribution|suggests|autoreq|autoprov|conflicts|name|url|requires|patch\d*):)',
+			GESHI_REPLACE => '\\1',
+			GESHI_MODIFIERS => 'i',
+			GESHI_BEFORE => '',
+			GESHI_AFTER => '',
+			),
+		4 => array (
+			// section delimiting words
+			GESHI_SEARCH => '(%(?:description|package|prep|build|install|clean|postun|preun|post|pre|files|changelog))',
+			GESHI_REPLACE => '\\1',
+			GESHI_MODIFIERS => 'i',
+			GESHI_BEFORE => '',
+			GESHI_AFTER => '',
+			),
+		),
+	'URLS' => array(),
+	'OOLANG' => false,
+	'OBJECT_SPLITTERS' => array(),
+	'HIGHLIGHT_STRICT_BLOCK' => array(),
+	'STRICT_MODE_APPLIES' => GESHI_NEVER,
+	'SCRIPT_DELIMITERS' => array(),
 );
-
-?>

@@ -17,77 +17,77 @@
 
 class Google_Service_YouTube_LiveChatMessageAuthorDetails extends Google_Model
 {
-  public $channelId;
-  public $channelUrl;
-  public $displayName;
-  public $isChatModerator;
-  public $isChatOwner;
-  public $isChatSponsor;
-  public $isVerified;
-  public $profileImageUrl;
+	public $channelId;
+	public $channelUrl;
+	public $displayName;
+	public $isChatModerator;
+	public $isChatOwner;
+	public $isChatSponsor;
+	public $isVerified;
+	public $profileImageUrl;
 
-  public function setChannelId($channelId)
-  {
-    $this->channelId = $channelId;
-  }
-  public function getChannelId()
-  {
-    return $this->channelId;
-  }
-  public function setChannelUrl($channelUrl)
-  {
-    $this->channelUrl = $channelUrl;
-  }
-  public function getChannelUrl()
-  {
-    return $this->channelUrl;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setIsChatModerator($isChatModerator)
-  {
-    $this->isChatModerator = $isChatModerator;
-  }
-  public function getIsChatModerator()
-  {
-    return $this->isChatModerator;
-  }
-  public function setIsChatOwner($isChatOwner)
-  {
-    $this->isChatOwner = $isChatOwner;
-  }
-  public function getIsChatOwner()
-  {
-    return $this->isChatOwner;
-  }
-  public function setIsChatSponsor($isChatSponsor)
-  {
-    $this->isChatSponsor = $isChatSponsor;
-  }
-  public function getIsChatSponsor()
-  {
-    return $this->isChatSponsor;
-  }
-  public function setIsVerified($isVerified)
-  {
-    $this->isVerified = $isVerified;
-  }
-  public function getIsVerified()
-  {
-    return $this->isVerified;
-  }
-  public function setProfileImageUrl($profileImageUrl)
-  {
-    $this->profileImageUrl = $profileImageUrl;
-  }
-  public function getProfileImageUrl()
-  {
-    return $this->profileImageUrl;
-  }
+	public function setChannelId($channelId)
+	{
+		$this->channelId = $channelId;
+	}
+	public function getChannelId()
+	{
+		return $this->channelId;
+	}
+	public function setChannelUrl($channelUrl)
+	{
+		$this->channelUrl = $channelUrl;
+	}
+	public function getChannelUrl()
+	{
+		return $this->channelUrl;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setIsChatModerator($isChatModerator)
+	{
+		$this->isChatModerator = $isChatModerator;
+	}
+	public function getIsChatModerator()
+	{
+		return $this->isChatModerator;
+	}
+	public function setIsChatOwner($isChatOwner)
+	{
+		$this->isChatOwner = $isChatOwner;
+	}
+	public function getIsChatOwner()
+	{
+		return $this->isChatOwner;
+	}
+	public function setIsChatSponsor($isChatSponsor)
+	{
+		$this->isChatSponsor = $isChatSponsor;
+	}
+	public function getIsChatSponsor()
+	{
+		return $this->isChatSponsor;
+	}
+	public function setIsVerified($isVerified)
+	{
+		$this->isVerified = $isVerified;
+	}
+	public function getIsVerified()
+	{
+		return $this->isVerified;
+	}
+	public function setProfileImageUrl($profileImageUrl)
+	{
+		$this->profileImageUrl = $profileImageUrl;
+	}
+	public function getProfileImageUrl()
+	{
+		return $this->profileImageUrl;
+	}
 }

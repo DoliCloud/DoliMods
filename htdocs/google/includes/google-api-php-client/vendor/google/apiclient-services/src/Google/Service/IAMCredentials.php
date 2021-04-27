@@ -30,76 +30,76 @@
  */
 class Google_Service_IAMCredentials extends Google_Service
 {
-  /** View and manage your data across Google Cloud Platform services. */
-  const CLOUD_PLATFORM =
-      "https://www.googleapis.com/auth/cloud-platform";
+	/** View and manage your data across Google Cloud Platform services. */
+	const CLOUD_PLATFORM =
+	  "https://www.googleapis.com/auth/cloud-platform";
 
-  public $projects_serviceAccounts;
-  
-  /**
-   * Constructs the internal representation of the IAMCredentials service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://iamcredentials.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'iamcredentials';
+	public $projects_serviceAccounts;
 
-    $this->projects_serviceAccounts = new Google_Service_IAMCredentials_Resource_ProjectsServiceAccounts(
-        $this,
-        $this->serviceName,
-        'serviceAccounts',
-        array(
-          'methods' => array(
-            'generateAccessToken' => array(
-              'path' => 'v1/{+name}:generateAccessToken',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'generateIdToken' => array(
-              'path' => 'v1/{+name}:generateIdToken',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'signBlob' => array(
-              'path' => 'v1/{+name}:signBlob',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'signJwt' => array(
-              'path' => 'v1/{+name}:signJwt',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the IAMCredentials service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://iamcredentials.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'iamcredentials';
+
+		$this->projects_serviceAccounts = new Google_Service_IAMCredentials_Resource_ProjectsServiceAccounts(
+		$this,
+		$this->serviceName,
+		'serviceAccounts',
+		array(
+		  'methods' => array(
+			'generateAccessToken' => array(
+			  'path' => 'v1/{+name}:generateAccessToken',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'generateIdToken' => array(
+			  'path' => 'v1/{+name}:generateIdToken',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'signBlob' => array(
+			  'path' => 'v1/{+name}:signBlob',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'signJwt' => array(
+			  'path' => 'v1/{+name}:signJwt',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

@@ -17,49 +17,49 @@
 
 class Google_Service_CloudSearch_FacetResult extends Google_Collection
 {
-  protected $collection_key = 'buckets';
-  protected $bucketsType = 'Google_Service_CloudSearch_FacetBucket';
-  protected $bucketsDataType = 'array';
-  public $objectType;
-  public $operatorName;
-  public $sourceName;
+	protected $collection_key = 'buckets';
+	protected $bucketsType = 'Google_Service_CloudSearch_FacetBucket';
+	protected $bucketsDataType = 'array';
+	public $objectType;
+	public $operatorName;
+	public $sourceName;
 
-  /**
-   * @param Google_Service_CloudSearch_FacetBucket
-   */
-  public function setBuckets($buckets)
-  {
-    $this->buckets = $buckets;
-  }
-  /**
-   * @return Google_Service_CloudSearch_FacetBucket
-   */
-  public function getBuckets()
-  {
-    return $this->buckets;
-  }
-  public function setObjectType($objectType)
-  {
-    $this->objectType = $objectType;
-  }
-  public function getObjectType()
-  {
-    return $this->objectType;
-  }
-  public function setOperatorName($operatorName)
-  {
-    $this->operatorName = $operatorName;
-  }
-  public function getOperatorName()
-  {
-    return $this->operatorName;
-  }
-  public function setSourceName($sourceName)
-  {
-    $this->sourceName = $sourceName;
-  }
-  public function getSourceName()
-  {
-    return $this->sourceName;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_FacetBucket
+	 */
+	public function setBuckets($buckets)
+	{
+		$this->buckets = $buckets;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_FacetBucket
+	 */
+	public function getBuckets()
+	{
+		return $this->buckets;
+	}
+	public function setObjectType($objectType)
+	{
+		$this->objectType = $objectType;
+	}
+	public function getObjectType()
+	{
+		return $this->objectType;
+	}
+	public function setOperatorName($operatorName)
+	{
+		$this->operatorName = $operatorName;
+	}
+	public function getOperatorName()
+	{
+		return $this->operatorName;
+	}
+	public function setSourceName($sourceName)
+	{
+		$this->sourceName = $sourceName;
+	}
+	public function getSourceName()
+	{
+		return $this->sourceName;
+	}
 }

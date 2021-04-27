@@ -17,41 +17,41 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1BuiltInAlgorithmOutput extends Google_Model
 {
-  public $framework;
-  public $modelPath;
-  public $pythonVersion;
-  public $runtimeVersion;
+	public $framework;
+	public $modelPath;
+	public $pythonVersion;
+	public $runtimeVersion;
 
-  public function setFramework($framework)
-  {
-    $this->framework = $framework;
-  }
-  public function getFramework()
-  {
-    return $this->framework;
-  }
-  public function setModelPath($modelPath)
-  {
-    $this->modelPath = $modelPath;
-  }
-  public function getModelPath()
-  {
-    return $this->modelPath;
-  }
-  public function setPythonVersion($pythonVersion)
-  {
-    $this->pythonVersion = $pythonVersion;
-  }
-  public function getPythonVersion()
-  {
-    return $this->pythonVersion;
-  }
-  public function setRuntimeVersion($runtimeVersion)
-  {
-    $this->runtimeVersion = $runtimeVersion;
-  }
-  public function getRuntimeVersion()
-  {
-    return $this->runtimeVersion;
-  }
+	public function setFramework($framework)
+	{
+		$this->framework = $framework;
+	}
+	public function getFramework()
+	{
+		return $this->framework;
+	}
+	public function setModelPath($modelPath)
+	{
+		$this->modelPath = $modelPath;
+	}
+	public function getModelPath()
+	{
+		return $this->modelPath;
+	}
+	public function setPythonVersion($pythonVersion)
+	{
+		$this->pythonVersion = $pythonVersion;
+	}
+	public function getPythonVersion()
+	{
+		return $this->pythonVersion;
+	}
+	public function setRuntimeVersion($runtimeVersion)
+	{
+		$this->runtimeVersion = $runtimeVersion;
+	}
+	public function getRuntimeVersion()
+	{
+		return $this->runtimeVersion;
+	}
 }

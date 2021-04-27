@@ -17,24 +17,24 @@
 
 class Google_Service_CloudNaturalLanguageAPI_AnalyzeSentimentResponse extends Google_Model
 {
-  protected $documentSentimentType = 'Google_Service_CloudNaturalLanguageAPI_Sentiment';
-  protected $documentSentimentDataType = '';
-  public $language;
+	protected $documentSentimentType = 'Google_Service_CloudNaturalLanguageAPI_Sentiment';
+	protected $documentSentimentDataType = '';
+	public $language;
 
-  public function setDocumentSentiment(Google_Service_CloudNaturalLanguageAPI_Sentiment $documentSentiment)
-  {
-    $this->documentSentiment = $documentSentiment;
-  }
-  public function getDocumentSentiment()
-  {
-    return $this->documentSentiment;
-  }
-  public function setLanguage($language)
-  {
-    $this->language = $language;
-  }
-  public function getLanguage()
-  {
-    return $this->language;
-  }
+	public function setDocumentSentiment(Google_Service_CloudNaturalLanguageAPI_Sentiment $documentSentiment)
+	{
+		$this->documentSentiment = $documentSentiment;
+	}
+	public function getDocumentSentiment()
+	{
+		return $this->documentSentiment;
+	}
+	public function setLanguage($language)
+	{
+		$this->language = $language;
+	}
+	public function getLanguage()
+	{
+		return $this->language;
+	}
 }

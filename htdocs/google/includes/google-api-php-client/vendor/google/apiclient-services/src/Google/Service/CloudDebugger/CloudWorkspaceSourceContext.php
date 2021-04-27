@@ -17,30 +17,30 @@
 
 class Google_Service_CloudDebugger_CloudWorkspaceSourceContext extends Google_Model
 {
-  public $snapshotId;
-  protected $workspaceIdType = 'Google_Service_CloudDebugger_CloudWorkspaceId';
-  protected $workspaceIdDataType = '';
+	public $snapshotId;
+	protected $workspaceIdType = 'Google_Service_CloudDebugger_CloudWorkspaceId';
+	protected $workspaceIdDataType = '';
 
-  public function setSnapshotId($snapshotId)
-  {
-    $this->snapshotId = $snapshotId;
-  }
-  public function getSnapshotId()
-  {
-    return $this->snapshotId;
-  }
-  /**
-   * @param Google_Service_CloudDebugger_CloudWorkspaceId
-   */
-  public function setWorkspaceId(Google_Service_CloudDebugger_CloudWorkspaceId $workspaceId)
-  {
-    $this->workspaceId = $workspaceId;
-  }
-  /**
-   * @return Google_Service_CloudDebugger_CloudWorkspaceId
-   */
-  public function getWorkspaceId()
-  {
-    return $this->workspaceId;
-  }
+	public function setSnapshotId($snapshotId)
+	{
+		$this->snapshotId = $snapshotId;
+	}
+	public function getSnapshotId()
+	{
+		return $this->snapshotId;
+	}
+	/**
+	 * @param Google_Service_CloudDebugger_CloudWorkspaceId
+	 */
+	public function setWorkspaceId(Google_Service_CloudDebugger_CloudWorkspaceId $workspaceId)
+	{
+		$this->workspaceId = $workspaceId;
+	}
+	/**
+	 * @return Google_Service_CloudDebugger_CloudWorkspaceId
+	 */
+	public function getWorkspaceId()
+	{
+		return $this->workspaceId;
+	}
 }

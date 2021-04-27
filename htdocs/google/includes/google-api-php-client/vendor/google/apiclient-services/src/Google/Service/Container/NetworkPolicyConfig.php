@@ -17,14 +17,14 @@
 
 class Google_Service_Container_NetworkPolicyConfig extends Google_Model
 {
-  public $disabled;
+	public $disabled;
 
-  public function setDisabled($disabled)
-  {
-    $this->disabled = $disabled;
-  }
-  public function getDisabled()
-  {
-    return $this->disabled;
-  }
+	public function setDisabled($disabled)
+	{
+		$this->disabled = $disabled;
+	}
+	public function getDisabled()
+	{
+		return $this->disabled;
+	}
 }

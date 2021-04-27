@@ -17,51 +17,51 @@
 
 class Google_Service_People_EmailAddress extends Google_Model
 {
-  public $displayName;
-  public $formattedType;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
-  protected $metadataDataType = '';
-  public $type;
-  public $value;
+	public $displayName;
+	public $formattedType;
+	protected $metadataType = 'Google_Service_People_FieldMetadata';
+	protected $metadataDataType = '';
+	public $type;
+	public $value;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setFormattedType($formattedType)
-  {
-    $this->formattedType = $formattedType;
-  }
-  public function getFormattedType()
-  {
-    return $this->formattedType;
-  }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setFormattedType($formattedType)
+	{
+		$this->formattedType = $formattedType;
+	}
+	public function getFormattedType()
+	{
+		return $this->formattedType;
+	}
+	public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

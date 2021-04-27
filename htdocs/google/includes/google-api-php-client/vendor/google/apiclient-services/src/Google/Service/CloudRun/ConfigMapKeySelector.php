@@ -17,48 +17,48 @@
 
 class Google_Service_CloudRun_ConfigMapKeySelector extends Google_Model
 {
-  public $key;
-  protected $localObjectReferenceType = 'Google_Service_CloudRun_LocalObjectReference';
-  protected $localObjectReferenceDataType = '';
-  public $name;
-  public $optional;
+	public $key;
+	protected $localObjectReferenceType = 'Google_Service_CloudRun_LocalObjectReference';
+	protected $localObjectReferenceDataType = '';
+	public $name;
+	public $optional;
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  /**
-   * @param Google_Service_CloudRun_LocalObjectReference
-   */
-  public function setLocalObjectReference(Google_Service_CloudRun_LocalObjectReference $localObjectReference)
-  {
-    $this->localObjectReference = $localObjectReference;
-  }
-  /**
-   * @return Google_Service_CloudRun_LocalObjectReference
-   */
-  public function getLocalObjectReference()
-  {
-    return $this->localObjectReference;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOptional($optional)
-  {
-    $this->optional = $optional;
-  }
-  public function getOptional()
-  {
-    return $this->optional;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	/**
+	 * @param Google_Service_CloudRun_LocalObjectReference
+	 */
+	public function setLocalObjectReference(Google_Service_CloudRun_LocalObjectReference $localObjectReference)
+	{
+		$this->localObjectReference = $localObjectReference;
+	}
+	/**
+	 * @return Google_Service_CloudRun_LocalObjectReference
+	 */
+	public function getLocalObjectReference()
+	{
+		return $this->localObjectReference;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOptional($optional)
+	{
+		$this->optional = $optional;
+	}
+	public function getOptional()
+	{
+		return $this->optional;
+	}
 }

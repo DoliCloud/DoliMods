@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_CitiesListResponse extends Google_Collection
 {
-  protected $collection_key = 'cities';
-  protected $citiesType = 'Google_Service_Dfareporting_City';
-  protected $citiesDataType = 'array';
-  public $kind;
+	protected $collection_key = 'cities';
+	protected $citiesType = 'Google_Service_Dfareporting_City';
+	protected $citiesDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_Dfareporting_City
-   */
-  public function setCities($cities)
-  {
-    $this->cities = $cities;
-  }
-  /**
-   * @return Google_Service_Dfareporting_City
-   */
-  public function getCities()
-  {
-    return $this->cities;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_City
+	 */
+	public function setCities($cities)
+	{
+		$this->cities = $cities;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_City
+	 */
+	public function getCities()
+	{
+		return $this->cities;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

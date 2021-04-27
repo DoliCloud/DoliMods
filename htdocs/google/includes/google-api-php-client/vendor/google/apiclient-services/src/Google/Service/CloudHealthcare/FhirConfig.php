@@ -17,22 +17,22 @@
 
 class Google_Service_CloudHealthcare_FhirConfig extends Google_Collection
 {
-  protected $collection_key = 'fieldMetadataList';
-  protected $fieldMetadataListType = 'Google_Service_CloudHealthcare_FieldMetadata';
-  protected $fieldMetadataListDataType = 'array';
+	protected $collection_key = 'fieldMetadataList';
+	protected $fieldMetadataListType = 'Google_Service_CloudHealthcare_FieldMetadata';
+	protected $fieldMetadataListDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudHealthcare_FieldMetadata
-   */
-  public function setFieldMetadataList($fieldMetadataList)
-  {
-    $this->fieldMetadataList = $fieldMetadataList;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_FieldMetadata
-   */
-  public function getFieldMetadataList()
-  {
-    return $this->fieldMetadataList;
-  }
+	/**
+	 * @param Google_Service_CloudHealthcare_FieldMetadata
+	 */
+	public function setFieldMetadataList($fieldMetadataList)
+	{
+		$this->fieldMetadataList = $fieldMetadataList;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_FieldMetadata
+	 */
+	public function getFieldMetadataList()
+	{
+		return $this->fieldMetadataList;
+	}
 }

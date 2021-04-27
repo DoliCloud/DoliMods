@@ -17,21 +17,21 @@
 
 class Google_Service_ToolResults_ToolExecutionStep extends Google_Model
 {
-  protected $toolExecutionType = 'Google_Service_ToolResults_ToolExecution';
-  protected $toolExecutionDataType = '';
+	protected $toolExecutionType = 'Google_Service_ToolResults_ToolExecution';
+	protected $toolExecutionDataType = '';
 
-  /**
-   * @param Google_Service_ToolResults_ToolExecution
-   */
-  public function setToolExecution(Google_Service_ToolResults_ToolExecution $toolExecution)
-  {
-    $this->toolExecution = $toolExecution;
-  }
-  /**
-   * @return Google_Service_ToolResults_ToolExecution
-   */
-  public function getToolExecution()
-  {
-    return $this->toolExecution;
-  }
+	/**
+	 * @param Google_Service_ToolResults_ToolExecution
+	 */
+	public function setToolExecution(Google_Service_ToolResults_ToolExecution $toolExecution)
+	{
+		$this->toolExecution = $toolExecution;
+	}
+	/**
+	 * @return Google_Service_ToolResults_ToolExecution
+	 */
+	public function getToolExecution()
+	{
+		return $this->toolExecution;
+	}
 }

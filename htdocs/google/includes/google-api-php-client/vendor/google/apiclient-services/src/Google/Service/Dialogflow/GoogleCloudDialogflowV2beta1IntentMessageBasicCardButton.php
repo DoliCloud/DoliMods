@@ -17,30 +17,30 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton extends Google_Model
 {
-  protected $openUriActionType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction';
-  protected $openUriActionDataType = '';
-  public $title;
+	protected $openUriActionType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction';
+	protected $openUriActionDataType = '';
+	public $title;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction
-   */
-  public function setOpenUriAction(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction $openUriAction)
-  {
-    $this->openUriAction = $openUriAction;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction
-   */
-  public function getOpenUriAction()
-  {
-    return $this->openUriAction;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction
+	 */
+	public function setOpenUriAction(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction $openUriAction)
+	{
+		$this->openUriAction = $openUriAction;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction
+	 */
+	public function getOpenUriAction()
+	{
+		return $this->openUriAction;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

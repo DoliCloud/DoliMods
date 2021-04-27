@@ -17,49 +17,49 @@
 
 class Google_Service_Safebrowsing_ThreatInfo extends Google_Collection
 {
-  protected $collection_key = 'threatTypes';
-  public $platformTypes;
-  protected $threatEntriesType = 'Google_Service_Safebrowsing_ThreatEntry';
-  protected $threatEntriesDataType = 'array';
-  public $threatEntryTypes;
-  public $threatTypes;
+	protected $collection_key = 'threatTypes';
+	public $platformTypes;
+	protected $threatEntriesType = 'Google_Service_Safebrowsing_ThreatEntry';
+	protected $threatEntriesDataType = 'array';
+	public $threatEntryTypes;
+	public $threatTypes;
 
-  public function setPlatformTypes($platformTypes)
-  {
-    $this->platformTypes = $platformTypes;
-  }
-  public function getPlatformTypes()
-  {
-    return $this->platformTypes;
-  }
-  /**
-   * @param Google_Service_Safebrowsing_ThreatEntry
-   */
-  public function setThreatEntries($threatEntries)
-  {
-    $this->threatEntries = $threatEntries;
-  }
-  /**
-   * @return Google_Service_Safebrowsing_ThreatEntry
-   */
-  public function getThreatEntries()
-  {
-    return $this->threatEntries;
-  }
-  public function setThreatEntryTypes($threatEntryTypes)
-  {
-    $this->threatEntryTypes = $threatEntryTypes;
-  }
-  public function getThreatEntryTypes()
-  {
-    return $this->threatEntryTypes;
-  }
-  public function setThreatTypes($threatTypes)
-  {
-    $this->threatTypes = $threatTypes;
-  }
-  public function getThreatTypes()
-  {
-    return $this->threatTypes;
-  }
+	public function setPlatformTypes($platformTypes)
+	{
+		$this->platformTypes = $platformTypes;
+	}
+	public function getPlatformTypes()
+	{
+		return $this->platformTypes;
+	}
+	/**
+	 * @param Google_Service_Safebrowsing_ThreatEntry
+	 */
+	public function setThreatEntries($threatEntries)
+	{
+		$this->threatEntries = $threatEntries;
+	}
+	/**
+	 * @return Google_Service_Safebrowsing_ThreatEntry
+	 */
+	public function getThreatEntries()
+	{
+		return $this->threatEntries;
+	}
+	public function setThreatEntryTypes($threatEntryTypes)
+	{
+		$this->threatEntryTypes = $threatEntryTypes;
+	}
+	public function getThreatEntryTypes()
+	{
+		return $this->threatEntryTypes;
+	}
+	public function setThreatTypes($threatTypes)
+	{
+		$this->threatTypes = $threatTypes;
+	}
+	public function getThreatTypes()
+	{
+		return $this->threatTypes;
+	}
 }

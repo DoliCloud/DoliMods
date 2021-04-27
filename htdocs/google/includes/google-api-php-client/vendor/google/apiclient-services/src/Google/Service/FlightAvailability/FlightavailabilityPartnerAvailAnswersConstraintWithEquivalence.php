@@ -17,31 +17,31 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence extends Google_Collection
 {
-  protected $collection_key = 'segmentIndices';
-  protected $equivalentBookingCodesType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersEquivalentBookingCodes';
-  protected $equivalentBookingCodesDataType = 'array';
-  public $segmentIndices;
+	protected $collection_key = 'segmentIndices';
+	protected $equivalentBookingCodesType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersEquivalentBookingCodes';
+	protected $equivalentBookingCodesDataType = 'array';
+	public $segmentIndices;
 
-  /**
-   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersEquivalentBookingCodes
-   */
-  public function setEquivalentBookingCodes($equivalentBookingCodes)
-  {
-    $this->equivalentBookingCodes = $equivalentBookingCodes;
-  }
-  /**
-   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersEquivalentBookingCodes
-   */
-  public function getEquivalentBookingCodes()
-  {
-    return $this->equivalentBookingCodes;
-  }
-  public function setSegmentIndices($segmentIndices)
-  {
-    $this->segmentIndices = $segmentIndices;
-  }
-  public function getSegmentIndices()
-  {
-    return $this->segmentIndices;
-  }
+	/**
+	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersEquivalentBookingCodes
+	 */
+	public function setEquivalentBookingCodes($equivalentBookingCodes)
+	{
+		$this->equivalentBookingCodes = $equivalentBookingCodes;
+	}
+	/**
+	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersEquivalentBookingCodes
+	 */
+	public function getEquivalentBookingCodes()
+	{
+		return $this->equivalentBookingCodes;
+	}
+	public function setSegmentIndices($segmentIndices)
+	{
+		$this->segmentIndices = $segmentIndices;
+	}
+	public function getSegmentIndices()
+	{
+		return $this->segmentIndices;
+	}
 }

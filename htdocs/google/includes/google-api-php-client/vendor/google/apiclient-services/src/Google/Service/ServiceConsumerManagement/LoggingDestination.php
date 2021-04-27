@@ -17,24 +17,24 @@
 
 class Google_Service_ServiceConsumerManagement_LoggingDestination extends Google_Collection
 {
-  protected $collection_key = 'logs';
-  public $logs;
-  public $monitoredResource;
+	protected $collection_key = 'logs';
+	public $logs;
+	public $monitoredResource;
 
-  public function setLogs($logs)
-  {
-    $this->logs = $logs;
-  }
-  public function getLogs()
-  {
-    return $this->logs;
-  }
-  public function setMonitoredResource($monitoredResource)
-  {
-    $this->monitoredResource = $monitoredResource;
-  }
-  public function getMonitoredResource()
-  {
-    return $this->monitoredResource;
-  }
+	public function setLogs($logs)
+	{
+		$this->logs = $logs;
+	}
+	public function getLogs()
+	{
+		return $this->logs;
+	}
+	public function setMonitoredResource($monitoredResource)
+	{
+		$this->monitoredResource = $monitoredResource;
+	}
+	public function getMonitoredResource()
+	{
+		return $this->monitoredResource;
+	}
 }

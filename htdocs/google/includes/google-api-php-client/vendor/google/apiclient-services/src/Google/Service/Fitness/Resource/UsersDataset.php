@@ -25,22 +25,22 @@
  */
 class Google_Service_Fitness_Resource_UsersDataset extends Google_Service_Resource
 {
-  /**
-   * Aggregates data of a certain type or stream into buckets divided by a given
-   * type of boundary. Multiple data sets of multiple types and from multiple
-   * sources can be aggregated into exactly one bucket type per request.
-   * (dataset.aggregate)
-   *
-   * @param string $userId Aggregate data for the person identified. Use me to
-   * indicate the authenticated user. Only me is supported at this time.
-   * @param Google_Service_Fitness_AggregateRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Fitness_AggregateResponse
-   */
-  public function aggregate($userId, Google_Service_Fitness_AggregateRequest $postBody, $optParams = array())
-  {
-    $params = array('userId' => $userId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('aggregate', array($params), "Google_Service_Fitness_AggregateResponse");
-  }
+	/**
+	 * Aggregates data of a certain type or stream into buckets divided by a given
+	 * type of boundary. Multiple data sets of multiple types and from multiple
+	 * sources can be aggregated into exactly one bucket type per request.
+	 * (dataset.aggregate)
+	 *
+	 * @param string $userId Aggregate data for the person identified. Use me to
+	 *                       indicate the authenticated user. Only me is supported at this time.
+	 * @param Google_Service_Fitness_AggregateRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Fitness_AggregateResponse
+	 */
+	public function aggregate($userId, Google_Service_Fitness_AggregateRequest $postBody, $optParams = array())
+	{
+		$params = array('userId' => $userId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('aggregate', array($params), "Google_Service_Fitness_AggregateResponse");
+	}
 }

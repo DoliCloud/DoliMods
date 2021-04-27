@@ -25,177 +25,177 @@
  */
 class MBInfo
 {
-    /**
-     * array with SensorDevices for temperatures
-     *
-     * @see SensorDevice
-     *
-     * @var Array
-     */
-    private $_mbTemp = array();
+	/**
+	 * array with SensorDevices for temperatures
+	 *
+	 * @see SensorDevice
+	 *
+	 * @var Array
+	 */
+	private $_mbTemp = array();
 
-    /**
-     * array with SensorDevices for fans
-     *
-     * @see SensorDevice
-     *
-     * @var Array
-     */
-    private $_mbFan = array();
+	/**
+	 * array with SensorDevices for fans
+	 *
+	 * @see SensorDevice
+	 *
+	 * @var Array
+	 */
+	private $_mbFan = array();
 
-    /**
-     * array with SensorDevices for voltages
-     *
-     * @see SensorDevice
-     *
-     * @var Array
-     */
-    private $_mbVolt = array();
+	/**
+	 * array with SensorDevices for voltages
+	 *
+	 * @see SensorDevice
+	 *
+	 * @var Array
+	 */
+	private $_mbVolt = array();
 
-    /**
-     * array with SensorDevices for power
-     *
-     * @see SensorDevice
-     *
-     * @var Array
-     */
-    private $_mbPower = array();
+	/**
+	 * array with SensorDevices for power
+	 *
+	 * @see SensorDevice
+	 *
+	 * @var Array
+	 */
+	private $_mbPower = array();
 
-    /**
-     * array with SensorDevices for apmers
-     *
-     * @see SensorDevice
-     *
-     * @var Array
-     */
-    private $_mbCurrent = array();
+	/**
+	 * array with SensorDevices for apmers
+	 *
+	 * @see SensorDevice
+	 *
+	 * @var Array
+	 */
+	private $_mbCurrent = array();
 
-    /**
-     * Returns $_mbFan.
-     *
-     * @see System::$_mbFan
-     *
-     * @return Array
-     */
-    public function getMbFan()
-    {
-        return $this->_mbFan;
-    }
+	/**
+	 * Returns $_mbFan.
+	 *
+	 * @see System::$_mbFan
+	 *
+	 * @return Array
+	 */
+	public function getMbFan()
+	{
+		return $this->_mbFan;
+	}
 
-    /**
-     * Sets $_mbFan.
-     *
-     * @param SensorDevice $mbFan fan device
-     *
-     * @see System::$_mbFan
-     *
-     * @return Void
-     */
-    public function setMbFan($mbFan)
-    {
-        array_push($this->_mbFan, $mbFan);
-    }
+	/**
+	 * Sets $_mbFan.
+	 *
+	 * @param SensorDevice $mbFan fan device
+	 *
+	 * @see System::$_mbFan
+	 *
+	 * @return Void
+	 */
+	public function setMbFan($mbFan)
+	{
+		array_push($this->_mbFan, $mbFan);
+	}
 
-    /**
-     * Returns $_mbTemp.
-     *
-     * @see System::$_mbTemp
-     *
-     * @return Array
-     */
-    public function getMbTemp()
-    {
-        return $this->_mbTemp;
-    }
+	/**
+	 * Returns $_mbTemp.
+	 *
+	 * @see System::$_mbTemp
+	 *
+	 * @return Array
+	 */
+	public function getMbTemp()
+	{
+		return $this->_mbTemp;
+	}
 
-    /**
-     * Sets $_mbTemp.
-     *
-     * @param Sensor $mbTemp temp device
-     *
-     * @see System::$_mbTemp
-     *
-     * @return Void
-     */
-    public function setMbTemp($mbTemp)
-    {
-        array_push($this->_mbTemp, $mbTemp);
-    }
+	/**
+	 * Sets $_mbTemp.
+	 *
+	 * @param Sensor $mbTemp temp device
+	 *
+	 * @see System::$_mbTemp
+	 *
+	 * @return Void
+	 */
+	public function setMbTemp($mbTemp)
+	{
+		array_push($this->_mbTemp, $mbTemp);
+	}
 
-    /**
-     * Returns $_mbVolt.
-     *
-     * @see System::$_mbVolt
-     *
-     * @return Array
-     */
-    public function getMbVolt()
-    {
-        return $this->_mbVolt;
-    }
+	/**
+	 * Returns $_mbVolt.
+	 *
+	 * @see System::$_mbVolt
+	 *
+	 * @return Array
+	 */
+	public function getMbVolt()
+	{
+		return $this->_mbVolt;
+	}
 
-    /**
-     * Sets $_mbVolt.
-     *
-     * @param Sensor $mbVolt voltage device
-     *
-     * @see System::$_mbVolt
-     *
-     * @return Void
-     */
-    public function setMbVolt($mbVolt)
-    {
-        array_push($this->_mbVolt, $mbVolt);
-    }
+	/**
+	 * Sets $_mbVolt.
+	 *
+	 * @param Sensor $mbVolt voltage device
+	 *
+	 * @see System::$_mbVolt
+	 *
+	 * @return Void
+	 */
+	public function setMbVolt($mbVolt)
+	{
+		array_push($this->_mbVolt, $mbVolt);
+	}
 
-    /**
-     * Returns $_mbPower.
-     *
-     * @see System::$_mbPower
-     *
-     * @return Array
-     */
-    public function getMbPower()
-    {
-        return $this->_mbPower;
-    }
+	/**
+	 * Returns $_mbPower.
+	 *
+	 * @see System::$_mbPower
+	 *
+	 * @return Array
+	 */
+	public function getMbPower()
+	{
+		return $this->_mbPower;
+	}
 
-    /**
-     * Sets $_mbPower.
-     *
-     * @param Sensor $mbPower power device
-     *
-     * @see System::$_mbPower
-     *
-     * @return Void
-     */
-    public function setMbPower($mbPower)
-    {
-        array_push($this->_mbPower, $mbPower);
-    }
-    /**
-     * Returns $_mbCurrent.
-     *
-     * @see System::$_mbCurrent
-     *
-     * @return Array
-     */
-    public function getMbCurrent()
-    {
-        return $this->_mbCurrent;
-    }
+	/**
+	 * Sets $_mbPower.
+	 *
+	 * @param Sensor $mbPower power device
+	 *
+	 * @see System::$_mbPower
+	 *
+	 * @return Void
+	 */
+	public function setMbPower($mbPower)
+	{
+		array_push($this->_mbPower, $mbPower);
+	}
+	/**
+	 * Returns $_mbCurrent.
+	 *
+	 * @see System::$_mbCurrent
+	 *
+	 * @return Array
+	 */
+	public function getMbCurrent()
+	{
+		return $this->_mbCurrent;
+	}
 
-    /**
-     * Sets $_mbCurrent.
-     *
-     * @param Sensor $mbCurrent current device
-     *
-     * @see System::$_mbCurrent
-     *
-     * @return Void
-     */
-    public function setMbCurrent($mbCurrent)
-    {
-        array_push($this->_mbCurrent, $mbCurrent);
-    }
+	/**
+	 * Sets $_mbCurrent.
+	 *
+	 * @param Sensor $mbCurrent current device
+	 *
+	 * @see System::$_mbCurrent
+	 *
+	 * @return Void
+	 */
+	public function setMbCurrent($mbCurrent)
+	{
+		array_push($this->_mbCurrent, $mbCurrent);
+	}
 }

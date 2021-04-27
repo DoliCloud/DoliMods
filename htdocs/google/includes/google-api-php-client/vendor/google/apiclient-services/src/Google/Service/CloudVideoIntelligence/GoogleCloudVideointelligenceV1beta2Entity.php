@@ -17,32 +17,32 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2Entity extends Google_Model
 {
-  public $description;
-  public $entityId;
-  public $languageCode;
+	public $description;
+	public $entityId;
+	public $languageCode;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setEntityId($entityId)
-  {
-    $this->entityId = $entityId;
-  }
-  public function getEntityId()
-  {
-    return $this->entityId;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setEntityId($entityId)
+	{
+		$this->entityId = $entityId;
+	}
+	public function getEntityId()
+	{
+		return $this->entityId;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
 }

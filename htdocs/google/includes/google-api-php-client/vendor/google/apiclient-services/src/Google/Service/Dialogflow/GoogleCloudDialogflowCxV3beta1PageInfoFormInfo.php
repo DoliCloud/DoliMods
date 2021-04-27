@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo extends Google_Collection
 {
-  protected $collection_key = 'parameterInfo';
-  protected $parameterInfoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo';
-  protected $parameterInfoDataType = 'array';
+	protected $collection_key = 'parameterInfo';
+	protected $parameterInfoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo';
+	protected $parameterInfoDataType = 'array';
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo
-   */
-  public function setParameterInfo($parameterInfo)
-  {
-    $this->parameterInfo = $parameterInfo;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo
-   */
-  public function getParameterInfo()
-  {
-    return $this->parameterInfo;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo
+	 */
+	public function setParameterInfo($parameterInfo)
+	{
+		$this->parameterInfo = $parameterInfo;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo
+	 */
+	public function getParameterInfo()
+	{
+		return $this->parameterInfo;
+	}
 }

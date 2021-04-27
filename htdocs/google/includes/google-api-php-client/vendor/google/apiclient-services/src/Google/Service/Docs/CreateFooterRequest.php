@@ -17,30 +17,30 @@
 
 class Google_Service_Docs_CreateFooterRequest extends Google_Model
 {
-  protected $sectionBreakLocationType = 'Google_Service_Docs_Location';
-  protected $sectionBreakLocationDataType = '';
-  public $type;
+	protected $sectionBreakLocationType = 'Google_Service_Docs_Location';
+	protected $sectionBreakLocationDataType = '';
+	public $type;
 
-  /**
-   * @param Google_Service_Docs_Location
-   */
-  public function setSectionBreakLocation(Google_Service_Docs_Location $sectionBreakLocation)
-  {
-    $this->sectionBreakLocation = $sectionBreakLocation;
-  }
-  /**
-   * @return Google_Service_Docs_Location
-   */
-  public function getSectionBreakLocation()
-  {
-    return $this->sectionBreakLocation;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_Docs_Location
+	 */
+	public function setSectionBreakLocation(Google_Service_Docs_Location $sectionBreakLocation)
+	{
+		$this->sectionBreakLocation = $sectionBreakLocation;
+	}
+	/**
+	 * @return Google_Service_Docs_Location
+	 */
+	public function getSectionBreakLocation()
+	{
+		return $this->sectionBreakLocation;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

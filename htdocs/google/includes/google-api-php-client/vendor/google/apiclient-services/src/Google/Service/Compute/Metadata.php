@@ -17,40 +17,40 @@
 
 class Google_Service_Compute_Metadata extends Google_Collection
 {
-  protected $collection_key = 'items';
-  public $fingerprint;
-  protected $itemsType = 'Google_Service_Compute_MetadataItems';
-  protected $itemsDataType = 'array';
-  public $kind;
+	protected $collection_key = 'items';
+	public $fingerprint;
+	protected $itemsType = 'Google_Service_Compute_MetadataItems';
+	protected $itemsDataType = 'array';
+	public $kind;
 
-  public function setFingerprint($fingerprint)
-  {
-    $this->fingerprint = $fingerprint;
-  }
-  public function getFingerprint()
-  {
-    return $this->fingerprint;
-  }
-  /**
-   * @param Google_Service_Compute_MetadataItems
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Compute_MetadataItems
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setFingerprint($fingerprint)
+	{
+		$this->fingerprint = $fingerprint;
+	}
+	public function getFingerprint()
+	{
+		return $this->fingerprint;
+	}
+	/**
+	 * @param Google_Service_Compute_MetadataItems
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Compute_MetadataItems
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

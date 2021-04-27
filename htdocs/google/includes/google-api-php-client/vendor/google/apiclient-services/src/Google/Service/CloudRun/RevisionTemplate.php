@@ -17,37 +17,37 @@
 
 class Google_Service_CloudRun_RevisionTemplate extends Google_Model
 {
-  protected $metadataType = 'Google_Service_CloudRun_ObjectMeta';
-  protected $metadataDataType = '';
-  protected $specType = 'Google_Service_CloudRun_RevisionSpec';
-  protected $specDataType = '';
+	protected $metadataType = 'Google_Service_CloudRun_ObjectMeta';
+	protected $metadataDataType = '';
+	protected $specType = 'Google_Service_CloudRun_RevisionSpec';
+	protected $specDataType = '';
 
-  /**
-   * @param Google_Service_CloudRun_ObjectMeta
-   */
-  public function setMetadata(Google_Service_CloudRun_ObjectMeta $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_CloudRun_ObjectMeta
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  /**
-   * @param Google_Service_CloudRun_RevisionSpec
-   */
-  public function setSpec(Google_Service_CloudRun_RevisionSpec $spec)
-  {
-    $this->spec = $spec;
-  }
-  /**
-   * @return Google_Service_CloudRun_RevisionSpec
-   */
-  public function getSpec()
-  {
-    return $this->spec;
-  }
+	/**
+	 * @param Google_Service_CloudRun_ObjectMeta
+	 */
+	public function setMetadata(Google_Service_CloudRun_ObjectMeta $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_CloudRun_ObjectMeta
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	/**
+	 * @param Google_Service_CloudRun_RevisionSpec
+	 */
+	public function setSpec(Google_Service_CloudRun_RevisionSpec $spec)
+	{
+		$this->spec = $spec;
+	}
+	/**
+	 * @return Google_Service_CloudRun_RevisionSpec
+	 */
+	public function getSpec()
+	{
+		return $this->spec;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_CloudTalentSolution_CompensationHistogramResult extends Google_Model
 {
-  protected $resultType = 'Google_Service_CloudTalentSolution_NumericBucketingResult';
-  protected $resultDataType = '';
-  public $type;
+	protected $resultType = 'Google_Service_CloudTalentSolution_NumericBucketingResult';
+	protected $resultDataType = '';
+	public $type;
 
-  /**
-   * @param Google_Service_CloudTalentSolution_NumericBucketingResult
-   */
-  public function setResult(Google_Service_CloudTalentSolution_NumericBucketingResult $result)
-  {
-    $this->result = $result;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_NumericBucketingResult
-   */
-  public function getResult()
-  {
-    return $this->result;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_CloudTalentSolution_NumericBucketingResult
+	 */
+	public function setResult(Google_Service_CloudTalentSolution_NumericBucketingResult $result)
+	{
+		$this->result = $result;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_NumericBucketingResult
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

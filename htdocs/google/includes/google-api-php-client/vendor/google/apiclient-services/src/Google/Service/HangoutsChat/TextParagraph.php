@@ -17,14 +17,14 @@
 
 class Google_Service_HangoutsChat_TextParagraph extends Google_Model
 {
-  public $text;
+	public $text;
 
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

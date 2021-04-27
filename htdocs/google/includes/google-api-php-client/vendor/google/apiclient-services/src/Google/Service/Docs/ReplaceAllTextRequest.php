@@ -17,30 +17,30 @@
 
 class Google_Service_Docs_ReplaceAllTextRequest extends Google_Model
 {
-  protected $containsTextType = 'Google_Service_Docs_SubstringMatchCriteria';
-  protected $containsTextDataType = '';
-  public $replaceText;
+	protected $containsTextType = 'Google_Service_Docs_SubstringMatchCriteria';
+	protected $containsTextDataType = '';
+	public $replaceText;
 
-  /**
-   * @param Google_Service_Docs_SubstringMatchCriteria
-   */
-  public function setContainsText(Google_Service_Docs_SubstringMatchCriteria $containsText)
-  {
-    $this->containsText = $containsText;
-  }
-  /**
-   * @return Google_Service_Docs_SubstringMatchCriteria
-   */
-  public function getContainsText()
-  {
-    return $this->containsText;
-  }
-  public function setReplaceText($replaceText)
-  {
-    $this->replaceText = $replaceText;
-  }
-  public function getReplaceText()
-  {
-    return $this->replaceText;
-  }
+	/**
+	 * @param Google_Service_Docs_SubstringMatchCriteria
+	 */
+	public function setContainsText(Google_Service_Docs_SubstringMatchCriteria $containsText)
+	{
+		$this->containsText = $containsText;
+	}
+	/**
+	 * @return Google_Service_Docs_SubstringMatchCriteria
+	 */
+	public function getContainsText()
+	{
+		return $this->containsText;
+	}
+	public function setReplaceText($replaceText)
+	{
+		$this->replaceText = $replaceText;
+	}
+	public function getReplaceText()
+	{
+		return $this->replaceText;
+	}
 }

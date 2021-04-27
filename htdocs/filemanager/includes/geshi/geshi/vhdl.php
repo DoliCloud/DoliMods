@@ -41,104 +41,102 @@
  ************************************************************************************/
 
 $language_data = array (
-    'LANG_NAME' => 'VHDL',
-    'COMMENT_SINGLE' => array(1 => '--'),
-    'COMMENT_MULTI' => array('%' => '%'),
-    'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
-    'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        /*keywords*/
-        1 => array(
-            'access','after','alias','all','assert','attribute','architecture','begin',
-            'block','body','buffer','bus','case','component','configuration','constant',
-            'disconnect','downto','else','elsif','end','entity','exit','file','for',
-            'function','generate','generic','group','guarded','if','impure','in',
-            'inertial','inout','is','label','library','linkage','literal','loop',
-            'map','new','next','null','of','on','open','others','out','package',
-            'port','postponed','procedure','process','pure','range','record','register',
-            'reject','report','return','select','severity','signal','shared','subtype',
-            'then','to','transport','type','unaffected','units','until','use','variable',
-            'wait','when','while','with','note','warning','error','failure','and',
-            'or','xor','not','nor','used','memory','segments','dff','dffe','help_id',
-            'mod','info','latch','rising_edge','falling_edge'
-        ),
-        /*types*/
-        2 => array(
-            'bit','bit_vector','character','boolean','integer','real','time','string',
-            'severity_level','positive','natural','signed','unsigned','line','text',
-            'std_logic','std_logic_vector','std_ulogic','std_ulogic_vector','qsim_state',
-            'qsim_state_vector','qsim_12state','qsim_12state_vector','qsim_strength',
-            'mux_bit','mux_vector','reg_bit','reg_vector','wor_bit','wor_vector',
-            'work','ieee','std_logic_signed','std_logic_1164','std_logic_arith',
-            'numeric_std'
+	'LANG_NAME' => 'VHDL',
+	'COMMENT_SINGLE' => array(1 => '--'),
+	'COMMENT_MULTI' => array('%' => '%'),
+	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
+	'QUOTEMARKS' => array('"'),
+	'ESCAPE_CHAR' => '',
+	'KEYWORDS' => array(
+		/*keywords*/
+		1 => array(
+			'access','after','alias','all','assert','attribute','architecture','begin',
+			'block','body','buffer','bus','case','component','configuration','constant',
+			'disconnect','downto','else','elsif','end','entity','exit','file','for',
+			'function','generate','generic','group','guarded','if','impure','in',
+			'inertial','inout','is','label','library','linkage','literal','loop',
+			'map','new','next','null','of','on','open','others','out','package',
+			'port','postponed','procedure','process','pure','range','record','register',
+			'reject','report','return','select','severity','signal','shared','subtype',
+			'then','to','transport','type','unaffected','units','until','use','variable',
+			'wait','when','while','with','note','warning','error','failure','and',
+			'or','xor','not','nor','used','memory','segments','dff','dffe','help_id',
+			'mod','info','latch','rising_edge','falling_edge'
+		),
+		/*types*/
+		2 => array(
+			'bit','bit_vector','character','boolean','integer','real','time','string',
+			'severity_level','positive','natural','signed','unsigned','line','text',
+			'std_logic','std_logic_vector','std_ulogic','std_ulogic_vector','qsim_state',
+			'qsim_state_vector','qsim_12state','qsim_12state_vector','qsim_strength',
+			'mux_bit','mux_vector','reg_bit','reg_vector','wor_bit','wor_vector',
+			'work','ieee','std_logic_signed','std_logic_1164','std_logic_arith',
+			'numeric_std'
 
-        ),
-        /*operators*/
-    ),
-    'SYMBOLS' => array(
-        '[', ']', '(', ')',
-        ';',':',
-        '<','>','=','<=',':=','=>','=='
-    ),
-    'CASE_SENSITIVE' => array(
-        GESHI_COMMENTS => false,
-        1 => false,
-        2 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            1 => 'color: #000080; font-weight: bold;',
-            2 => 'color: #0000ff;'
-            ),
-        'COMMENTS' => array(
-            1 => 'color: #008000; font-style: italic;',
-            'MULTI' => 'color: #008000; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
-            0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
-            0 => 'color: #000066;'
-            ),
-        'STRINGS' => array(
-            0 => 'color: #7f007f;'
-            ),
-        'NUMBERS' => array(
-            0 => 'color: #ff0000;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
-            0 => 'color: #000066;'
-            ),
-        'REGEXPS' => array(
-            0 => 'color: #ff0000;',
-            1 => 'color: #ff0000;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
-        1 => '',
-        2 => ''
-    ),
-    'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        //Hex numbers and scientific notation for numbers
-        0 => '(\b0x[0-9a-fA-F]+|\b\d[0-9a-fA-F]+[hH])|'.
-            '(\b\d+?(\.\d+?)?E[+\-]?\d+)|(\bns)|'.
-            "('[0-9a-zA-Z]+(?!'))",
-        //Number characters?
-        1 => "\b(''\d'')"
-        ),
-    'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
+		),
+		/*operators*/
+	),
+	'SYMBOLS' => array(
+		'[', ']', '(', ')',
+		';',':',
+		'<','>','=','<=',':=','=>','=='
+	),
+	'CASE_SENSITIVE' => array(
+		GESHI_COMMENTS => false,
+		1 => false,
+		2 => false
+		),
+	'STYLES' => array(
+		'KEYWORDS' => array(
+			1 => 'color: #000080; font-weight: bold;',
+			2 => 'color: #0000ff;'
+			),
+		'COMMENTS' => array(
+			1 => 'color: #008000; font-style: italic;',
+			'MULTI' => 'color: #008000; font-style: italic;'
+			),
+		'ESCAPE_CHAR' => array(
+			0 => 'color: #000099; font-weight: bold;'
+			),
+		'BRACKETS' => array(
+			0 => 'color: #000066;'
+			),
+		'STRINGS' => array(
+			0 => 'color: #7f007f;'
+			),
+		'NUMBERS' => array(
+			0 => 'color: #ff0000;'
+			),
+		'METHODS' => array(
+			),
+		'SYMBOLS' => array(
+			0 => 'color: #000066;'
+			),
+		'REGEXPS' => array(
+			0 => 'color: #ff0000;',
+			1 => 'color: #ff0000;'
+			),
+		'SCRIPT' => array(
+			)
+		),
+	'URLS' => array(
+		1 => '',
+		2 => ''
+	),
+	'OOLANG' => false,
+	'OBJECT_SPLITTERS' => array(
+		),
+	'REGEXPS' => array(
+		//Hex numbers and scientific notation for numbers
+		0 => '(\b0x[0-9a-fA-F]+|\b\d[0-9a-fA-F]+[hH])|'.
+			'(\b\d+?(\.\d+?)?E[+\-]?\d+)|(\bns)|'.
+			"('[0-9a-zA-Z]+(?!'))",
+		//Number characters?
+		1 => "\b(''\d'')"
+		),
+	'STRICT_MODE_APPLIES' => GESHI_NEVER,
+	'SCRIPT_DELIMITERS' => array(
+		),
+	'HIGHLIGHT_STRICT_BLOCK' => array(
+		)
 );
-
-?>

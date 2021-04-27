@@ -17,73 +17,73 @@
 
 class Google_Service_GamesConfiguration_AchievementConfigurationDetail extends Google_Model
 {
-  protected $descriptionType = 'Google_Service_GamesConfiguration_LocalizedStringBundle';
-  protected $descriptionDataType = '';
-  public $iconUrl;
-  public $kind;
-  protected $nameType = 'Google_Service_GamesConfiguration_LocalizedStringBundle';
-  protected $nameDataType = '';
-  public $pointValue;
-  public $sortRank;
+	protected $descriptionType = 'Google_Service_GamesConfiguration_LocalizedStringBundle';
+	protected $descriptionDataType = '';
+	public $iconUrl;
+	public $kind;
+	protected $nameType = 'Google_Service_GamesConfiguration_LocalizedStringBundle';
+	protected $nameDataType = '';
+	public $pointValue;
+	public $sortRank;
 
-  /**
-   * @param Google_Service_GamesConfiguration_LocalizedStringBundle
-   */
-  public function setDescription(Google_Service_GamesConfiguration_LocalizedStringBundle $description)
-  {
-    $this->description = $description;
-  }
-  /**
-   * @return Google_Service_GamesConfiguration_LocalizedStringBundle
-   */
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setIconUrl($iconUrl)
-  {
-    $this->iconUrl = $iconUrl;
-  }
-  public function getIconUrl()
-  {
-    return $this->iconUrl;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_GamesConfiguration_LocalizedStringBundle
-   */
-  public function setName(Google_Service_GamesConfiguration_LocalizedStringBundle $name)
-  {
-    $this->name = $name;
-  }
-  /**
-   * @return Google_Service_GamesConfiguration_LocalizedStringBundle
-   */
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPointValue($pointValue)
-  {
-    $this->pointValue = $pointValue;
-  }
-  public function getPointValue()
-  {
-    return $this->pointValue;
-  }
-  public function setSortRank($sortRank)
-  {
-    $this->sortRank = $sortRank;
-  }
-  public function getSortRank()
-  {
-    return $this->sortRank;
-  }
+	/**
+	 * @param Google_Service_GamesConfiguration_LocalizedStringBundle
+	 */
+	public function setDescription(Google_Service_GamesConfiguration_LocalizedStringBundle $description)
+	{
+		$this->description = $description;
+	}
+	/**
+	 * @return Google_Service_GamesConfiguration_LocalizedStringBundle
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setIconUrl($iconUrl)
+	{
+		$this->iconUrl = $iconUrl;
+	}
+	public function getIconUrl()
+	{
+		return $this->iconUrl;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_GamesConfiguration_LocalizedStringBundle
+	 */
+	public function setName(Google_Service_GamesConfiguration_LocalizedStringBundle $name)
+	{
+		$this->name = $name;
+	}
+	/**
+	 * @return Google_Service_GamesConfiguration_LocalizedStringBundle
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPointValue($pointValue)
+	{
+		$this->pointValue = $pointValue;
+	}
+	public function getPointValue()
+	{
+		return $this->pointValue;
+	}
+	public function setSortRank($sortRank)
+	{
+		$this->sortRank = $sortRank;
+	}
+	public function getSortRank()
+	{
+		return $this->sortRank;
+	}
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Partners_Certification extends Google_Model
 {
-  public $achieved;
-  public $certificationType;
-  public $expiration;
-  public $lastAchieved;
-  public $warning;
+	public $achieved;
+	public $certificationType;
+	public $expiration;
+	public $lastAchieved;
+	public $warning;
 
-  public function setAchieved($achieved)
-  {
-    $this->achieved = $achieved;
-  }
-  public function getAchieved()
-  {
-    return $this->achieved;
-  }
-  public function setCertificationType($certificationType)
-  {
-    $this->certificationType = $certificationType;
-  }
-  public function getCertificationType()
-  {
-    return $this->certificationType;
-  }
-  public function setExpiration($expiration)
-  {
-    $this->expiration = $expiration;
-  }
-  public function getExpiration()
-  {
-    return $this->expiration;
-  }
-  public function setLastAchieved($lastAchieved)
-  {
-    $this->lastAchieved = $lastAchieved;
-  }
-  public function getLastAchieved()
-  {
-    return $this->lastAchieved;
-  }
-  public function setWarning($warning)
-  {
-    $this->warning = $warning;
-  }
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	public function setAchieved($achieved)
+	{
+		$this->achieved = $achieved;
+	}
+	public function getAchieved()
+	{
+		return $this->achieved;
+	}
+	public function setCertificationType($certificationType)
+	{
+		$this->certificationType = $certificationType;
+	}
+	public function getCertificationType()
+	{
+		return $this->certificationType;
+	}
+	public function setExpiration($expiration)
+	{
+		$this->expiration = $expiration;
+	}
+	public function getExpiration()
+	{
+		return $this->expiration;
+	}
+	public function setLastAchieved($lastAchieved)
+	{
+		$this->lastAchieved = $lastAchieved;
+	}
+	public function getLastAchieved()
+	{
+		return $this->lastAchieved;
+	}
+	public function setWarning($warning)
+	{
+		$this->warning = $warning;
+	}
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

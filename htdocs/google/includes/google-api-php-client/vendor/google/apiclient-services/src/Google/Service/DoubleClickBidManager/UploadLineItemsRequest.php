@@ -17,32 +17,32 @@
 
 class Google_Service_DoubleClickBidManager_UploadLineItemsRequest extends Google_Model
 {
-  public $dryRun;
-  public $format;
-  public $lineItems;
+	public $dryRun;
+	public $format;
+	public $lineItems;
 
-  public function setDryRun($dryRun)
-  {
-    $this->dryRun = $dryRun;
-  }
-  public function getDryRun()
-  {
-    return $this->dryRun;
-  }
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
-  public function setLineItems($lineItems)
-  {
-    $this->lineItems = $lineItems;
-  }
-  public function getLineItems()
-  {
-    return $this->lineItems;
-  }
+	public function setDryRun($dryRun)
+	{
+		$this->dryRun = $dryRun;
+	}
+	public function getDryRun()
+	{
+		return $this->dryRun;
+	}
+	public function setFormat($format)
+	{
+		$this->format = $format;
+	}
+	public function getFormat()
+	{
+		return $this->format;
+	}
+	public function setLineItems($lineItems)
+	{
+		$this->lineItems = $lineItems;
+	}
+	public function getLineItems()
+	{
+		return $this->lineItems;
+	}
 }

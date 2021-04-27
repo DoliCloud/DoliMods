@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListCustomListsResponse extends Google_Collection
 {
-  protected $collection_key = 'customLists';
-  protected $customListsType = 'Google_Service_DisplayVideo_CustomList';
-  protected $customListsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'customLists';
+	protected $customListsType = 'Google_Service_DisplayVideo_CustomList';
+	protected $customListsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_CustomList
-   */
-  public function setCustomLists($customLists)
-  {
-    $this->customLists = $customLists;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_CustomList
-   */
-  public function getCustomLists()
-  {
-    return $this->customLists;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_CustomList
+	 */
+	public function setCustomLists($customLists)
+	{
+		$this->customLists = $customLists;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_CustomList
+	 */
+	public function getCustomLists()
+	{
+		return $this->customLists;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

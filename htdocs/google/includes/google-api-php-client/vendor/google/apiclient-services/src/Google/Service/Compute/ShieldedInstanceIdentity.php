@@ -17,46 +17,46 @@
 
 class Google_Service_Compute_ShieldedInstanceIdentity extends Google_Model
 {
-  protected $encryptionKeyType = 'Google_Service_Compute_ShieldedInstanceIdentityEntry';
-  protected $encryptionKeyDataType = '';
-  public $kind;
-  protected $signingKeyType = 'Google_Service_Compute_ShieldedInstanceIdentityEntry';
-  protected $signingKeyDataType = '';
+	protected $encryptionKeyType = 'Google_Service_Compute_ShieldedInstanceIdentityEntry';
+	protected $encryptionKeyDataType = '';
+	public $kind;
+	protected $signingKeyType = 'Google_Service_Compute_ShieldedInstanceIdentityEntry';
+	protected $signingKeyDataType = '';
 
-  /**
-   * @param Google_Service_Compute_ShieldedInstanceIdentityEntry
-   */
-  public function setEncryptionKey(Google_Service_Compute_ShieldedInstanceIdentityEntry $encryptionKey)
-  {
-    $this->encryptionKey = $encryptionKey;
-  }
-  /**
-   * @return Google_Service_Compute_ShieldedInstanceIdentityEntry
-   */
-  public function getEncryptionKey()
-  {
-    return $this->encryptionKey;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Compute_ShieldedInstanceIdentityEntry
-   */
-  public function setSigningKey(Google_Service_Compute_ShieldedInstanceIdentityEntry $signingKey)
-  {
-    $this->signingKey = $signingKey;
-  }
-  /**
-   * @return Google_Service_Compute_ShieldedInstanceIdentityEntry
-   */
-  public function getSigningKey()
-  {
-    return $this->signingKey;
-  }
+	/**
+	 * @param Google_Service_Compute_ShieldedInstanceIdentityEntry
+	 */
+	public function setEncryptionKey(Google_Service_Compute_ShieldedInstanceIdentityEntry $encryptionKey)
+	{
+		$this->encryptionKey = $encryptionKey;
+	}
+	/**
+	 * @return Google_Service_Compute_ShieldedInstanceIdentityEntry
+	 */
+	public function getEncryptionKey()
+	{
+		return $this->encryptionKey;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Compute_ShieldedInstanceIdentityEntry
+	 */
+	public function setSigningKey(Google_Service_Compute_ShieldedInstanceIdentityEntry $signingKey)
+	{
+		$this->signingKey = $signingKey;
+	}
+	/**
+	 * @return Google_Service_Compute_ShieldedInstanceIdentityEntry
+	 */
+	public function getSigningKey()
+	{
+		return $this->signingKey;
+	}
 }

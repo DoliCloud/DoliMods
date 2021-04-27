@@ -17,50 +17,50 @@
 
 class Google_Service_Gmail_SmtpMsa extends Google_Model
 {
-  public $host;
-  public $password;
-  public $port;
-  public $securityMode;
-  public $username;
+	public $host;
+	public $password;
+	public $port;
+	public $securityMode;
+	public $username;
 
-  public function setHost($host)
-  {
-    $this->host = $host;
-  }
-  public function getHost()
-  {
-    return $this->host;
-  }
-  public function setPassword($password)
-  {
-    $this->password = $password;
-  }
-  public function getPassword()
-  {
-    return $this->password;
-  }
-  public function setPort($port)
-  {
-    $this->port = $port;
-  }
-  public function getPort()
-  {
-    return $this->port;
-  }
-  public function setSecurityMode($securityMode)
-  {
-    $this->securityMode = $securityMode;
-  }
-  public function getSecurityMode()
-  {
-    return $this->securityMode;
-  }
-  public function setUsername($username)
-  {
-    $this->username = $username;
-  }
-  public function getUsername()
-  {
-    return $this->username;
-  }
+	public function setHost($host)
+	{
+		$this->host = $host;
+	}
+	public function getHost()
+	{
+		return $this->host;
+	}
+	public function setPassword($password)
+	{
+		$this->password = $password;
+	}
+	public function getPassword()
+	{
+		return $this->password;
+	}
+	public function setPort($port)
+	{
+		$this->port = $port;
+	}
+	public function getPort()
+	{
+		return $this->port;
+	}
+	public function setSecurityMode($securityMode)
+	{
+		$this->securityMode = $securityMode;
+	}
+	public function getSecurityMode()
+	{
+		return $this->securityMode;
+	}
+	public function setUsername($username)
+	{
+		$this->username = $username;
+	}
+	public function getUsername()
+	{
+		return $this->username;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig extends Google_Model
 {
-  public $duration;
+	public $duration;
 
-  public function setDuration($duration)
-  {
-    $this->duration = $duration;
-  }
-  public function getDuration()
-  {
-    return $this->duration;
-  }
+	public function setDuration($duration)
+	{
+		$this->duration = $duration;
+	}
+	public function getDuration()
+	{
+		return $this->duration;
+	}
 }

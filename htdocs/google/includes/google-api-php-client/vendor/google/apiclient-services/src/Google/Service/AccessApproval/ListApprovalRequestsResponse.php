@@ -17,31 +17,31 @@
 
 class Google_Service_AccessApproval_ListApprovalRequestsResponse extends Google_Collection
 {
-  protected $collection_key = 'approvalRequests';
-  protected $approvalRequestsType = 'Google_Service_AccessApproval_ApprovalRequest';
-  protected $approvalRequestsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'approvalRequests';
+	protected $approvalRequestsType = 'Google_Service_AccessApproval_ApprovalRequest';
+	protected $approvalRequestsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_AccessApproval_ApprovalRequest
-   */
-  public function setApprovalRequests($approvalRequests)
-  {
-    $this->approvalRequests = $approvalRequests;
-  }
-  /**
-   * @return Google_Service_AccessApproval_ApprovalRequest
-   */
-  public function getApprovalRequests()
-  {
-    return $this->approvalRequests;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_AccessApproval_ApprovalRequest
+	 */
+	public function setApprovalRequests($approvalRequests)
+	{
+		$this->approvalRequests = $approvalRequests;
+	}
+	/**
+	 * @return Google_Service_AccessApproval_ApprovalRequest
+	 */
+	public function getApprovalRequests()
+	{
+		return $this->approvalRequests;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

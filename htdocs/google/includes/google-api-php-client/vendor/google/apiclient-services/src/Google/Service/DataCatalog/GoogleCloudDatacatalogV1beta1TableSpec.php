@@ -17,14 +17,14 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec extends Google_Model
 {
-  public $groupedEntry;
+	public $groupedEntry;
 
-  public function setGroupedEntry($groupedEntry)
-  {
-    $this->groupedEntry = $groupedEntry;
-  }
-  public function getGroupedEntry()
-  {
-    return $this->groupedEntry;
-  }
+	public function setGroupedEntry($groupedEntry)
+	{
+		$this->groupedEntry = $groupedEntry;
+	}
+	public function getGroupedEntry()
+	{
+		return $this->groupedEntry;
+	}
 }

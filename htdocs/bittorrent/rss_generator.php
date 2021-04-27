@@ -1,6 +1,6 @@
 <?php
 
-require_once ("funcsv2.php");
+require_once "funcsv2.php";
 
 //This script runs whenever:
 //1) a torrent is added to the database
@@ -15,12 +15,10 @@ $query = "SELECT filename,url,size,pubDate FROM ".$prefix."namemap";
 $results = mysql_query($query) or die(errorMessage() . "Can't do SQL query - " . mysql_error() . "</p>");
 
 //if there are no entries in database or RSS feed is disabled in config.php file, delete rss.xml file
-if (mysql_num_rows($results) == 0 || $enablerss == false)
-{
+if (mysql_num_rows($results) == 0 || $enablerss == false) {
 	if (file_exists(DOL_DATA_ROOT."/bittorrent/rss/rss.xml")) //make sure file exists before trying to delete
-		unlink(DOL_DATA_ROOT."/bittorrent/rss/rss.xml") or die ("Can't delete rss.xml file using unlink().  Are you running the server under Windows?");
-}
-else //otherwise, generate new rss.xml file
+		unlink(DOL_DATA_ROOT."/bittorrent/rss/rss.xml") or die("Can't delete rss.xml file using unlink().  Are you running the server under Windows?");
+} else //otherwise, generate new rss.xml file
 {
 	$fd = fopen(DOL_DATA_ROOT."/bittorrent/rss/rss.xml", "w") or die(errorMessage() . "Error: Unable to write to rss.xml file!</p>");
 	$start_text =
@@ -32,8 +30,7 @@ else //otherwise, generate new rss.xml file
 	"<description>" . clean($rss_description) . "</description>\n" .
 	"<lastBuildDate>" . date('D, j M Y h:i:s') . " " . $timezone . "</lastBuildDate>\n";
 
-	while ($row = mysql_fetch_row($results))
-	{
+	while ($row = mysql_fetch_row($results)) {
 		//figure out full torrent URL
 		$url = $website_url;
 		$url = str_replace("newtorrents.php", "", $url);
@@ -60,7 +57,4 @@ else //otherwise, generate new rss.xml file
 
 	fwrite($fd, $start_text . $middle_text . $end_text);
 	fclose($fd);
-
 }
-
-?>

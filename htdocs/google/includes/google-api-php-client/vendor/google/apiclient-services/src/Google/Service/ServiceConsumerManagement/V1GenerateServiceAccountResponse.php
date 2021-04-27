@@ -17,21 +17,21 @@
 
 class Google_Service_ServiceConsumerManagement_V1GenerateServiceAccountResponse extends Google_Model
 {
-  protected $accountType = 'Google_Service_ServiceConsumerManagement_V1ServiceAccount';
-  protected $accountDataType = '';
+	protected $accountType = 'Google_Service_ServiceConsumerManagement_V1ServiceAccount';
+	protected $accountDataType = '';
 
-  /**
-   * @param Google_Service_ServiceConsumerManagement_V1ServiceAccount
-   */
-  public function setAccount(Google_Service_ServiceConsumerManagement_V1ServiceAccount $account)
-  {
-    $this->account = $account;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_V1ServiceAccount
-   */
-  public function getAccount()
-  {
-    return $this->account;
-  }
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_V1ServiceAccount
+	 */
+	public function setAccount(Google_Service_ServiceConsumerManagement_V1ServiceAccount $account)
+	{
+		$this->account = $account;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_V1ServiceAccount
+	 */
+	public function getAccount()
+	{
+		return $this->account;
+	}
 }

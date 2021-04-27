@@ -17,32 +17,32 @@
 
 class Google_Service_Classroom_StateHistory extends Google_Model
 {
-  public $actorUserId;
-  public $state;
-  public $stateTimestamp;
+	public $actorUserId;
+	public $state;
+	public $stateTimestamp;
 
-  public function setActorUserId($actorUserId)
-  {
-    $this->actorUserId = $actorUserId;
-  }
-  public function getActorUserId()
-  {
-    return $this->actorUserId;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setStateTimestamp($stateTimestamp)
-  {
-    $this->stateTimestamp = $stateTimestamp;
-  }
-  public function getStateTimestamp()
-  {
-    return $this->stateTimestamp;
-  }
+	public function setActorUserId($actorUserId)
+	{
+		$this->actorUserId = $actorUserId;
+	}
+	public function getActorUserId()
+	{
+		return $this->actorUserId;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setStateTimestamp($stateTimestamp)
+	{
+		$this->stateTimestamp = $stateTimestamp;
+	}
+	public function getStateTimestamp()
+	{
+		return $this->stateTimestamp;
+	}
 }

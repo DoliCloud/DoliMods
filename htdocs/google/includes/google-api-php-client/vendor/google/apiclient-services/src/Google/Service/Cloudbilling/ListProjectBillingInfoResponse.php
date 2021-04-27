@@ -17,31 +17,31 @@
 
 class Google_Service_Cloudbilling_ListProjectBillingInfoResponse extends Google_Collection
 {
-  protected $collection_key = 'projectBillingInfo';
-  public $nextPageToken;
-  protected $projectBillingInfoType = 'Google_Service_Cloudbilling_ProjectBillingInfo';
-  protected $projectBillingInfoDataType = 'array';
+	protected $collection_key = 'projectBillingInfo';
+	public $nextPageToken;
+	protected $projectBillingInfoType = 'Google_Service_Cloudbilling_ProjectBillingInfo';
+	protected $projectBillingInfoDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Cloudbilling_ProjectBillingInfo
-   */
-  public function setProjectBillingInfo($projectBillingInfo)
-  {
-    $this->projectBillingInfo = $projectBillingInfo;
-  }
-  /**
-   * @return Google_Service_Cloudbilling_ProjectBillingInfo
-   */
-  public function getProjectBillingInfo()
-  {
-    return $this->projectBillingInfo;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Cloudbilling_ProjectBillingInfo
+	 */
+	public function setProjectBillingInfo($projectBillingInfo)
+	{
+		$this->projectBillingInfo = $projectBillingInfo;
+	}
+	/**
+	 * @return Google_Service_Cloudbilling_ProjectBillingInfo
+	 */
+	public function getProjectBillingInfo()
+	{
+		return $this->projectBillingInfo;
+	}
 }

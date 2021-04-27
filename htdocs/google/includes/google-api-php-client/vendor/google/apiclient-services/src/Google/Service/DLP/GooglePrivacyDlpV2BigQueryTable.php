@@ -17,32 +17,32 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable extends Google_Model
 {
-  public $datasetId;
-  public $projectId;
-  public $tableId;
+	public $datasetId;
+	public $projectId;
+	public $tableId;
 
-  public function setDatasetId($datasetId)
-  {
-    $this->datasetId = $datasetId;
-  }
-  public function getDatasetId()
-  {
-    return $this->datasetId;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setTableId($tableId)
-  {
-    $this->tableId = $tableId;
-  }
-  public function getTableId()
-  {
-    return $this->tableId;
-  }
+	public function setDatasetId($datasetId)
+	{
+		$this->datasetId = $datasetId;
+	}
+	public function getDatasetId()
+	{
+		return $this->datasetId;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setTableId($tableId)
+	{
+		$this->tableId = $tableId;
+	}
+	public function getTableId()
+	{
+		return $this->tableId;
+	}
 }

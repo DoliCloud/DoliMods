@@ -17,23 +17,23 @@
 
 class Google_Service_Container_DailyMaintenanceWindow extends Google_Model
 {
-  public $duration;
-  public $startTime;
+	public $duration;
+	public $startTime;
 
-  public function setDuration($duration)
-  {
-    $this->duration = $duration;
-  }
-  public function getDuration()
-  {
-    return $this->duration;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
+	public function setDuration($duration)
+	{
+		$this->duration = $duration;
+	}
+	public function getDuration()
+	{
+		return $this->duration;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
 }

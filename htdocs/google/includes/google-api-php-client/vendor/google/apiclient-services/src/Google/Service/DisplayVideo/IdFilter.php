@@ -17,60 +17,60 @@
 
 class Google_Service_DisplayVideo_IdFilter extends Google_Collection
 {
-  protected $collection_key = 'mediaProductIds';
-  public $adGroupAdIds;
-  public $adGroupIds;
-  public $campaignIds;
-  public $insertionOrderIds;
-  public $lineItemIds;
-  public $mediaProductIds;
+	protected $collection_key = 'mediaProductIds';
+	public $adGroupAdIds;
+	public $adGroupIds;
+	public $campaignIds;
+	public $insertionOrderIds;
+	public $lineItemIds;
+	public $mediaProductIds;
 
-  public function setAdGroupAdIds($adGroupAdIds)
-  {
-    $this->adGroupAdIds = $adGroupAdIds;
-  }
-  public function getAdGroupAdIds()
-  {
-    return $this->adGroupAdIds;
-  }
-  public function setAdGroupIds($adGroupIds)
-  {
-    $this->adGroupIds = $adGroupIds;
-  }
-  public function getAdGroupIds()
-  {
-    return $this->adGroupIds;
-  }
-  public function setCampaignIds($campaignIds)
-  {
-    $this->campaignIds = $campaignIds;
-  }
-  public function getCampaignIds()
-  {
-    return $this->campaignIds;
-  }
-  public function setInsertionOrderIds($insertionOrderIds)
-  {
-    $this->insertionOrderIds = $insertionOrderIds;
-  }
-  public function getInsertionOrderIds()
-  {
-    return $this->insertionOrderIds;
-  }
-  public function setLineItemIds($lineItemIds)
-  {
-    $this->lineItemIds = $lineItemIds;
-  }
-  public function getLineItemIds()
-  {
-    return $this->lineItemIds;
-  }
-  public function setMediaProductIds($mediaProductIds)
-  {
-    $this->mediaProductIds = $mediaProductIds;
-  }
-  public function getMediaProductIds()
-  {
-    return $this->mediaProductIds;
-  }
+	public function setAdGroupAdIds($adGroupAdIds)
+	{
+		$this->adGroupAdIds = $adGroupAdIds;
+	}
+	public function getAdGroupAdIds()
+	{
+		return $this->adGroupAdIds;
+	}
+	public function setAdGroupIds($adGroupIds)
+	{
+		$this->adGroupIds = $adGroupIds;
+	}
+	public function getAdGroupIds()
+	{
+		return $this->adGroupIds;
+	}
+	public function setCampaignIds($campaignIds)
+	{
+		$this->campaignIds = $campaignIds;
+	}
+	public function getCampaignIds()
+	{
+		return $this->campaignIds;
+	}
+	public function setInsertionOrderIds($insertionOrderIds)
+	{
+		$this->insertionOrderIds = $insertionOrderIds;
+	}
+	public function getInsertionOrderIds()
+	{
+		return $this->insertionOrderIds;
+	}
+	public function setLineItemIds($lineItemIds)
+	{
+		$this->lineItemIds = $lineItemIds;
+	}
+	public function getLineItemIds()
+	{
+		return $this->lineItemIds;
+	}
+	public function setMediaProductIds($mediaProductIds)
+	{
+		$this->mediaProductIds = $mediaProductIds;
+	}
+	public function getMediaProductIds()
+	{
+		return $this->mediaProductIds;
+	}
 }

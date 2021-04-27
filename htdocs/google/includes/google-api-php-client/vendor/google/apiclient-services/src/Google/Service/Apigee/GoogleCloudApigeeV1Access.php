@@ -17,58 +17,58 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Access extends Google_Model
 {
-  protected $internal_gapi_mappings = array(
-        "get" => "Get",
-        "remove" => "Remove",
-        "set" => "Set",
-  );
-  protected $getType = 'Google_Service_Apigee_GoogleCloudApigeeV1AccessGet';
-  protected $getDataType = '';
-  protected $removeType = 'Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove';
-  protected $removeDataType = '';
-  protected $setType = 'Google_Service_Apigee_GoogleCloudApigeeV1AccessSet';
-  protected $setDataType = '';
+	protected $internal_gapi_mappings = array(
+		"get" => "Get",
+		"remove" => "Remove",
+		"set" => "Set",
+	);
+	protected $getType = 'Google_Service_Apigee_GoogleCloudApigeeV1AccessGet';
+	protected $getDataType = '';
+	protected $removeType = 'Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove';
+	protected $removeDataType = '';
+	protected $setType = 'Google_Service_Apigee_GoogleCloudApigeeV1AccessSet';
+	protected $setDataType = '';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1AccessGet
-   */
-  public function setGet(Google_Service_Apigee_GoogleCloudApigeeV1AccessGet $get)
-  {
-    $this->get = $get;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1AccessGet
-   */
-  public function getGet()
-  {
-    return $this->get;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove
-   */
-  public function setRemove(Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove $remove)
-  {
-    $this->remove = $remove;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove
-   */
-  public function getRemove()
-  {
-    return $this->remove;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1AccessSet
-   */
-  public function setSet(Google_Service_Apigee_GoogleCloudApigeeV1AccessSet $set)
-  {
-    $this->set = $set;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1AccessSet
-   */
-  public function getSet()
-  {
-    return $this->set;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1AccessGet
+	 */
+	public function setGet(Google_Service_Apigee_GoogleCloudApigeeV1AccessGet $get)
+	{
+		$this->get = $get;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1AccessGet
+	 */
+	public function getGet()
+	{
+		return $this->get;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove
+	 */
+	public function setRemove(Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove $remove)
+	{
+		$this->remove = $remove;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove
+	 */
+	public function getRemove()
+	{
+		return $this->remove;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1AccessSet
+	 */
+	public function setSet(Google_Service_Apigee_GoogleCloudApigeeV1AccessSet $set)
+	{
+		$this->set = $set;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1AccessSet
+	 */
+	public function getSet()
+	{
+		return $this->set;
+	}
 }

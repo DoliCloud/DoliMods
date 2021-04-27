@@ -17,30 +17,30 @@
 
 class Google_Service_BigtableAdmin_RestoreInfo extends Google_Model
 {
-  protected $backupInfoType = 'Google_Service_BigtableAdmin_BackupInfo';
-  protected $backupInfoDataType = '';
-  public $sourceType;
+	protected $backupInfoType = 'Google_Service_BigtableAdmin_BackupInfo';
+	protected $backupInfoDataType = '';
+	public $sourceType;
 
-  /**
-   * @param Google_Service_BigtableAdmin_BackupInfo
-   */
-  public function setBackupInfo(Google_Service_BigtableAdmin_BackupInfo $backupInfo)
-  {
-    $this->backupInfo = $backupInfo;
-  }
-  /**
-   * @return Google_Service_BigtableAdmin_BackupInfo
-   */
-  public function getBackupInfo()
-  {
-    return $this->backupInfo;
-  }
-  public function setSourceType($sourceType)
-  {
-    $this->sourceType = $sourceType;
-  }
-  public function getSourceType()
-  {
-    return $this->sourceType;
-  }
+	/**
+	 * @param Google_Service_BigtableAdmin_BackupInfo
+	 */
+	public function setBackupInfo(Google_Service_BigtableAdmin_BackupInfo $backupInfo)
+	{
+		$this->backupInfo = $backupInfo;
+	}
+	/**
+	 * @return Google_Service_BigtableAdmin_BackupInfo
+	 */
+	public function getBackupInfo()
+	{
+		return $this->backupInfo;
+	}
+	public function setSourceType($sourceType)
+	{
+		$this->sourceType = $sourceType;
+	}
+	public function getSourceType()
+	{
+		return $this->sourceType;
+	}
 }

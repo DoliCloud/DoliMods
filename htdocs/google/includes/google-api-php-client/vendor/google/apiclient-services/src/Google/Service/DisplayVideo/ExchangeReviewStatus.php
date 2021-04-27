@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_ExchangeReviewStatus extends Google_Model
 {
-  public $exchange;
-  public $status;
+	public $exchange;
+	public $status;
 
-  public function setExchange($exchange)
-  {
-    $this->exchange = $exchange;
-  }
-  public function getExchange()
-  {
-    return $this->exchange;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setExchange($exchange)
+	{
+		$this->exchange = $exchange;
+	}
+	public function getExchange()
+	{
+		return $this->exchange;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

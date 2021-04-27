@@ -17,41 +17,41 @@
 
 class Google_Service_CloudTrace_MessageEvent extends Google_Model
 {
-  public $compressedSizeBytes;
-  public $id;
-  public $type;
-  public $uncompressedSizeBytes;
+	public $compressedSizeBytes;
+	public $id;
+	public $type;
+	public $uncompressedSizeBytes;
 
-  public function setCompressedSizeBytes($compressedSizeBytes)
-  {
-    $this->compressedSizeBytes = $compressedSizeBytes;
-  }
-  public function getCompressedSizeBytes()
-  {
-    return $this->compressedSizeBytes;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setUncompressedSizeBytes($uncompressedSizeBytes)
-  {
-    $this->uncompressedSizeBytes = $uncompressedSizeBytes;
-  }
-  public function getUncompressedSizeBytes()
-  {
-    return $this->uncompressedSizeBytes;
-  }
+	public function setCompressedSizeBytes($compressedSizeBytes)
+	{
+		$this->compressedSizeBytes = $compressedSizeBytes;
+	}
+	public function getCompressedSizeBytes()
+	{
+		return $this->compressedSizeBytes;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setUncompressedSizeBytes($uncompressedSizeBytes)
+	{
+		$this->uncompressedSizeBytes = $uncompressedSizeBytes;
+	}
+	public function getUncompressedSizeBytes()
+	{
+		return $this->uncompressedSizeBytes;
+	}
 }

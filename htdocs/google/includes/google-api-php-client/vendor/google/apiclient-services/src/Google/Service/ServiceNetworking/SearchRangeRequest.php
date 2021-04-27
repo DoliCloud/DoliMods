@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceNetworking_SearchRangeRequest extends Google_Model
 {
-  public $ipPrefixLength;
-  public $network;
+	public $ipPrefixLength;
+	public $network;
 
-  public function setIpPrefixLength($ipPrefixLength)
-  {
-    $this->ipPrefixLength = $ipPrefixLength;
-  }
-  public function getIpPrefixLength()
-  {
-    return $this->ipPrefixLength;
-  }
-  public function setNetwork($network)
-  {
-    $this->network = $network;
-  }
-  public function getNetwork()
-  {
-    return $this->network;
-  }
+	public function setIpPrefixLength($ipPrefixLength)
+	{
+		$this->ipPrefixLength = $ipPrefixLength;
+	}
+	public function getIpPrefixLength()
+	{
+		return $this->ipPrefixLength;
+	}
+	public function setNetwork($network)
+	{
+		$this->network = $network;
+	}
+	public function getNetwork()
+	{
+		return $this->network;
+	}
 }

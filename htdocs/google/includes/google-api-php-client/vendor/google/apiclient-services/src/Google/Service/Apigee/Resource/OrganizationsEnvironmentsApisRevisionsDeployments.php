@@ -25,56 +25,56 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsEnvironmentsApisRevisionsDeployments extends Google_Service_Resource
 {
-  /**
-   * Generates a report for a dry run analysis of a DeployApiProxy request without
-   * committing the deployment.
-   *
-   * In addition to the standard validations performed when adding deployments,
-   * additional analysis will be done to detect possible traffic routing changes
-   * that would result from this deployment being created. Any potential routing
-   * conflicts or unsafe changes will be reported in the response. This routing
-   * analysis is not performed for a non-dry-run DeployApiProxy request.
-   * (deployments.generateDeployChangeReport)
-   *
-   * @param string $name Name of the API proxy revision deployment in the
-   * following format:
-   * `organizations/{org}/environments/{env}/apis/{api}/revisions/{rev}`
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string basepath Base path where the API proxy revision should be
-   * deployed. Defaults to '/' if not provided.
-   * @opt_param bool override Flag that specifies whether to force the deployment
-   * of the new revision over the currently deployed revision by overriding
-   * conflict checks.
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport
-   */
-  public function generateDeployChangeReport($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('generateDeployChangeReport', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport");
-  }
-  /**
-   * Generates a report for a dry run analysis of an UndeployApiProxy request
-   * without committing the undeploy.
-   *
-   * In addition to the standard validations performed when removing deployments,
-   * additional analysis will be done to detect possible traffic routing changes
-   * that would result from this deployment being removed. Any potential routing
-   * conflicts or unsafe changes will be reported in the response. This routing
-   * analysis is not performed for a non-dry-run UndeployApiProxy request.
-   * (deployments.generateUndeployChangeReport)
-   *
-   * @param string $name Name of the API proxy revision deployment in the
-   * following format:
-   * `organizations/{org}/environments/{env}/apis/{api}/revisions/{rev}`
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport
-   */
-  public function generateUndeployChangeReport($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('generateUndeployChangeReport', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport");
-  }
+	/**
+	 * Generates a report for a dry run analysis of a DeployApiProxy request without
+	 * committing the deployment.
+	 *
+	 * In addition to the standard validations performed when adding deployments,
+	 * additional analysis will be done to detect possible traffic routing changes
+	 * that would result from this deployment being created. Any potential routing
+	 * conflicts or unsafe changes will be reported in the response. This routing
+	 * analysis is not performed for a non-dry-run DeployApiProxy request.
+	 * (deployments.generateDeployChangeReport)
+	 *
+	 * @param string $name Name of the API proxy revision deployment in the
+	 *                     following format:
+	 *                     `organizations/{org}/environments/{env}/apis/{api}/revisions/{rev}`
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string basepath Base path where the API proxy revision should be
+	 * deployed. Defaults to '/' if not provided.
+	 * @opt_param bool override Flag that specifies whether to force the deployment
+	 * of the new revision over the currently deployed revision by overriding
+	 * conflict checks.
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport
+	 */
+	public function generateDeployChangeReport($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('generateDeployChangeReport', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport");
+	}
+	/**
+	 * Generates a report for a dry run analysis of an UndeployApiProxy request
+	 * without committing the undeploy.
+	 *
+	 * In addition to the standard validations performed when removing deployments,
+	 * additional analysis will be done to detect possible traffic routing changes
+	 * that would result from this deployment being removed. Any potential routing
+	 * conflicts or unsafe changes will be reported in the response. This routing
+	 * analysis is not performed for a non-dry-run UndeployApiProxy request.
+	 * (deployments.generateUndeployChangeReport)
+	 *
+	 * @param string $name Name of the API proxy revision deployment in the
+	 *                     following format:
+	 *                     `organizations/{org}/environments/{env}/apis/{api}/revisions/{rev}`
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport
+	 */
+	public function generateUndeployChangeReport($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('generateUndeployChangeReport', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport");
+	}
 }

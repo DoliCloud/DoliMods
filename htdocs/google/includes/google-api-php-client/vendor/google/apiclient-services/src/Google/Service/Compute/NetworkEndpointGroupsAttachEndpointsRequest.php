@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_NetworkEndpointGroupsAttachEndpointsRequest extends Google_Collection
 {
-  protected $collection_key = 'networkEndpoints';
-  protected $networkEndpointsType = 'Google_Service_Compute_NetworkEndpoint';
-  protected $networkEndpointsDataType = 'array';
+	protected $collection_key = 'networkEndpoints';
+	protected $networkEndpointsType = 'Google_Service_Compute_NetworkEndpoint';
+	protected $networkEndpointsDataType = 'array';
 
-  /**
-   * @param Google_Service_Compute_NetworkEndpoint
-   */
-  public function setNetworkEndpoints($networkEndpoints)
-  {
-    $this->networkEndpoints = $networkEndpoints;
-  }
-  /**
-   * @return Google_Service_Compute_NetworkEndpoint
-   */
-  public function getNetworkEndpoints()
-  {
-    return $this->networkEndpoints;
-  }
+	/**
+	 * @param Google_Service_Compute_NetworkEndpoint
+	 */
+	public function setNetworkEndpoints($networkEndpoints)
+	{
+		$this->networkEndpoints = $networkEndpoints;
+	}
+	/**
+	 * @return Google_Service_Compute_NetworkEndpoint
+	 */
+	public function getNetworkEndpoints()
+	{
+		return $this->networkEndpoints;
+	}
 }

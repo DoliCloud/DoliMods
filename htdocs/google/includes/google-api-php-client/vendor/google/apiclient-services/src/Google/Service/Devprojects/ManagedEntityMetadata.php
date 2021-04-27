@@ -17,60 +17,60 @@
 
 class Google_Service_Devprojects_ManagedEntityMetadata extends Google_Model
 {
-  public $adminUrl;
-  public $entityId;
-  public $kind;
-  public $label;
-  public $robot;
-  protected $robotToCreateType = 'Google_Service_Devprojects_RobotCreationParameters';
-  protected $robotToCreateDataType = '';
+	public $adminUrl;
+	public $entityId;
+	public $kind;
+	public $label;
+	public $robot;
+	protected $robotToCreateType = 'Google_Service_Devprojects_RobotCreationParameters';
+	protected $robotToCreateDataType = '';
 
-  public function setAdminUrl($adminUrl)
-  {
-    $this->adminUrl = $adminUrl;
-  }
-  public function getAdminUrl()
-  {
-    return $this->adminUrl;
-  }
-  public function setEntityId($entityId)
-  {
-    $this->entityId = $entityId;
-  }
-  public function getEntityId()
-  {
-    return $this->entityId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLabel($label)
-  {
-    $this->label = $label;
-  }
-  public function getLabel()
-  {
-    return $this->label;
-  }
-  public function setRobot($robot)
-  {
-    $this->robot = $robot;
-  }
-  public function getRobot()
-  {
-    return $this->robot;
-  }
-  public function setRobotToCreate(Google_Service_Devprojects_RobotCreationParameters $robotToCreate)
-  {
-    $this->robotToCreate = $robotToCreate;
-  }
-  public function getRobotToCreate()
-  {
-    return $this->robotToCreate;
-  }
+	public function setAdminUrl($adminUrl)
+	{
+		$this->adminUrl = $adminUrl;
+	}
+	public function getAdminUrl()
+	{
+		return $this->adminUrl;
+	}
+	public function setEntityId($entityId)
+	{
+		$this->entityId = $entityId;
+	}
+	public function getEntityId()
+	{
+		return $this->entityId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLabel($label)
+	{
+		$this->label = $label;
+	}
+	public function getLabel()
+	{
+		return $this->label;
+	}
+	public function setRobot($robot)
+	{
+		$this->robot = $robot;
+	}
+	public function getRobot()
+	{
+		return $this->robot;
+	}
+	public function setRobotToCreate(Google_Service_Devprojects_RobotCreationParameters $robotToCreate)
+	{
+		$this->robotToCreate = $robotToCreate;
+	}
+	public function getRobotToCreate()
+	{
+		return $this->robotToCreate;
+	}
 }

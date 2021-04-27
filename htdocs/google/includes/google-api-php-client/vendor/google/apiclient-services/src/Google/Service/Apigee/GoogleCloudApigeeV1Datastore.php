@@ -17,75 +17,75 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Datastore extends Google_Model
 {
-  public $createTime;
-  protected $datastoreConfigType = 'Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig';
-  protected $datastoreConfigDataType = '';
-  public $displayName;
-  public $lastUpdateTime;
-  public $org;
-  public $self;
-  public $targetType;
+	public $createTime;
+	protected $datastoreConfigType = 'Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig';
+	protected $datastoreConfigDataType = '';
+	public $displayName;
+	public $lastUpdateTime;
+	public $org;
+	public $self;
+	public $targetType;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig
-   */
-  public function setDatastoreConfig(Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig $datastoreConfig)
-  {
-    $this->datastoreConfig = $datastoreConfig;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig
-   */
-  public function getDatastoreConfig()
-  {
-    return $this->datastoreConfig;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setLastUpdateTime($lastUpdateTime)
-  {
-    $this->lastUpdateTime = $lastUpdateTime;
-  }
-  public function getLastUpdateTime()
-  {
-    return $this->lastUpdateTime;
-  }
-  public function setOrg($org)
-  {
-    $this->org = $org;
-  }
-  public function getOrg()
-  {
-    return $this->org;
-  }
-  public function setSelf($self)
-  {
-    $this->self = $self;
-  }
-  public function getSelf()
-  {
-    return $this->self;
-  }
-  public function setTargetType($targetType)
-  {
-    $this->targetType = $targetType;
-  }
-  public function getTargetType()
-  {
-    return $this->targetType;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig
+	 */
+	public function setDatastoreConfig(Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig $datastoreConfig)
+	{
+		$this->datastoreConfig = $datastoreConfig;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig
+	 */
+	public function getDatastoreConfig()
+	{
+		return $this->datastoreConfig;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setLastUpdateTime($lastUpdateTime)
+	{
+		$this->lastUpdateTime = $lastUpdateTime;
+	}
+	public function getLastUpdateTime()
+	{
+		return $this->lastUpdateTime;
+	}
+	public function setOrg($org)
+	{
+		$this->org = $org;
+	}
+	public function getOrg()
+	{
+		return $this->org;
+	}
+	public function setSelf($self)
+	{
+		$this->self = $self;
+	}
+	public function getSelf()
+	{
+		return $this->self;
+	}
+	public function setTargetType($targetType)
+	{
+		$this->targetType = $targetType;
+	}
+	public function getTargetType()
+	{
+		return $this->targetType;
+	}
 }

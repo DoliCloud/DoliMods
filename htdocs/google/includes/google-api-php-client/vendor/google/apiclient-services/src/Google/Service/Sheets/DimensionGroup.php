@@ -17,39 +17,39 @@
 
 class Google_Service_Sheets_DimensionGroup extends Google_Model
 {
-  public $collapsed;
-  public $depth;
-  protected $rangeType = 'Google_Service_Sheets_DimensionRange';
-  protected $rangeDataType = '';
+	public $collapsed;
+	public $depth;
+	protected $rangeType = 'Google_Service_Sheets_DimensionRange';
+	protected $rangeDataType = '';
 
-  public function setCollapsed($collapsed)
-  {
-    $this->collapsed = $collapsed;
-  }
-  public function getCollapsed()
-  {
-    return $this->collapsed;
-  }
-  public function setDepth($depth)
-  {
-    $this->depth = $depth;
-  }
-  public function getDepth()
-  {
-    return $this->depth;
-  }
-  /**
-   * @param Google_Service_Sheets_DimensionRange
-   */
-  public function setRange(Google_Service_Sheets_DimensionRange $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Sheets_DimensionRange
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
+	public function setCollapsed($collapsed)
+	{
+		$this->collapsed = $collapsed;
+	}
+	public function getCollapsed()
+	{
+		return $this->collapsed;
+	}
+	public function setDepth($depth)
+	{
+		$this->depth = $depth;
+	}
+	public function getDepth()
+	{
+		return $this->depth;
+	}
+	/**
+	 * @param Google_Service_Sheets_DimensionRange
+	 */
+	public function setRange(Google_Service_Sheets_DimensionRange $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Sheets_DimensionRange
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
 }

@@ -8,4 +8,6 @@ namespace GuzzleHttp\Stream;
  *
  * @deprecated
  */
-interface MetadataStreamInterface extends StreamInterface {}
+interface MetadataStreamInterface extends StreamInterface
+{
+}

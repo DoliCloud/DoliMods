@@ -17,56 +17,56 @@
 
 class Google_Service_Container_OperationProgress extends Google_Collection
 {
-  protected $collection_key = 'stages';
-  protected $metricsType = 'Google_Service_Container_Metric';
-  protected $metricsDataType = 'array';
-  public $name;
-  protected $stagesType = 'Google_Service_Container_OperationProgress';
-  protected $stagesDataType = 'array';
-  public $status;
+	protected $collection_key = 'stages';
+	protected $metricsType = 'Google_Service_Container_Metric';
+	protected $metricsDataType = 'array';
+	public $name;
+	protected $stagesType = 'Google_Service_Container_OperationProgress';
+	protected $stagesDataType = 'array';
+	public $status;
 
-  /**
-   * @param Google_Service_Container_Metric
-   */
-  public function setMetrics($metrics)
-  {
-    $this->metrics = $metrics;
-  }
-  /**
-   * @return Google_Service_Container_Metric
-   */
-  public function getMetrics()
-  {
-    return $this->metrics;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Container_OperationProgress
-   */
-  public function setStages($stages)
-  {
-    $this->stages = $stages;
-  }
-  /**
-   * @return Google_Service_Container_OperationProgress
-   */
-  public function getStages()
-  {
-    return $this->stages;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_Container_Metric
+	 */
+	public function setMetrics($metrics)
+	{
+		$this->metrics = $metrics;
+	}
+	/**
+	 * @return Google_Service_Container_Metric
+	 */
+	public function getMetrics()
+	{
+		return $this->metrics;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Container_OperationProgress
+	 */
+	public function setStages($stages)
+	{
+		$this->stages = $stages;
+	}
+	/**
+	 * @return Google_Service_Container_OperationProgress
+	 */
+	public function getStages()
+	{
+		return $this->stages;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

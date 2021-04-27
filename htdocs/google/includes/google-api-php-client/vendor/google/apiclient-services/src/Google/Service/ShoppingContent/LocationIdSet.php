@@ -17,15 +17,15 @@
 
 class Google_Service_ShoppingContent_LocationIdSet extends Google_Collection
 {
-  protected $collection_key = 'locationIds';
-  public $locationIds;
+	protected $collection_key = 'locationIds';
+	public $locationIds;
 
-  public function setLocationIds($locationIds)
-  {
-    $this->locationIds = $locationIds;
-  }
-  public function getLocationIds()
-  {
-    return $this->locationIds;
-  }
+	public function setLocationIds($locationIds)
+	{
+		$this->locationIds = $locationIds;
+	}
+	public function getLocationIds()
+	{
+		return $this->locationIds;
+	}
 }

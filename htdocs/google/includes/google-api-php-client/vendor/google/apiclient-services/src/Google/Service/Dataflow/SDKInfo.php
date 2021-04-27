@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_SDKInfo extends Google_Model
 {
-  public $language;
-  public $version;
+	public $language;
+	public $version;
 
-  public function setLanguage($language)
-  {
-    $this->language = $language;
-  }
-  public function getLanguage()
-  {
-    return $this->language;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setLanguage($language)
+	{
+		$this->language = $language;
+	}
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

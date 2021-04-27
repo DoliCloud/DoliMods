@@ -17,41 +17,41 @@
 
 class Google_Service_Games_PlayerLevel extends Google_Model
 {
-  public $kind;
-  public $level;
-  public $maxExperiencePoints;
-  public $minExperiencePoints;
+	public $kind;
+	public $level;
+	public $maxExperiencePoints;
+	public $minExperiencePoints;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLevel($level)
-  {
-    $this->level = $level;
-  }
-  public function getLevel()
-  {
-    return $this->level;
-  }
-  public function setMaxExperiencePoints($maxExperiencePoints)
-  {
-    $this->maxExperiencePoints = $maxExperiencePoints;
-  }
-  public function getMaxExperiencePoints()
-  {
-    return $this->maxExperiencePoints;
-  }
-  public function setMinExperiencePoints($minExperiencePoints)
-  {
-    $this->minExperiencePoints = $minExperiencePoints;
-  }
-  public function getMinExperiencePoints()
-  {
-    return $this->minExperiencePoints;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLevel($level)
+	{
+		$this->level = $level;
+	}
+	public function getLevel()
+	{
+		return $this->level;
+	}
+	public function setMaxExperiencePoints($maxExperiencePoints)
+	{
+		$this->maxExperiencePoints = $maxExperiencePoints;
+	}
+	public function getMaxExperiencePoints()
+	{
+		return $this->maxExperiencePoints;
+	}
+	public function setMinExperiencePoints($minExperiencePoints)
+	{
+		$this->minExperiencePoints = $minExperiencePoints;
+	}
+	public function getMinExperiencePoints()
+	{
+		return $this->minExperiencePoints;
+	}
 }

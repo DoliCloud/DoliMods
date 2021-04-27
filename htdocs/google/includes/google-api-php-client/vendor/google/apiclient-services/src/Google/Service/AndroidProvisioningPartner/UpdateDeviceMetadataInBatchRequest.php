@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidProvisioningPartner_UpdateDeviceMetadataInBatchRequest extends Google_Collection
 {
-  protected $collection_key = 'updates';
-  protected $updatesType = 'Google_Service_AndroidProvisioningPartner_UpdateMetadataArguments';
-  protected $updatesDataType = 'array';
+	protected $collection_key = 'updates';
+	protected $updatesType = 'Google_Service_AndroidProvisioningPartner_UpdateMetadataArguments';
+	protected $updatesDataType = 'array';
 
-  /**
-   * @param Google_Service_AndroidProvisioningPartner_UpdateMetadataArguments
-   */
-  public function setUpdates($updates)
-  {
-    $this->updates = $updates;
-  }
-  /**
-   * @return Google_Service_AndroidProvisioningPartner_UpdateMetadataArguments
-   */
-  public function getUpdates()
-  {
-    return $this->updates;
-  }
+	/**
+	 * @param Google_Service_AndroidProvisioningPartner_UpdateMetadataArguments
+	 */
+	public function setUpdates($updates)
+	{
+		$this->updates = $updates;
+	}
+	/**
+	 * @return Google_Service_AndroidProvisioningPartner_UpdateMetadataArguments
+	 */
+	public function getUpdates()
+	{
+		return $this->updates;
+	}
 }

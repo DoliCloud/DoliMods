@@ -17,33 +17,33 @@
 
 class Google_Service_Compute_ReservationAffinity extends Google_Collection
 {
-  protected $collection_key = 'values';
-  public $consumeReservationType;
-  public $key;
-  public $values;
+	protected $collection_key = 'values';
+	public $consumeReservationType;
+	public $key;
+	public $values;
 
-  public function setConsumeReservationType($consumeReservationType)
-  {
-    $this->consumeReservationType = $consumeReservationType;
-  }
-  public function getConsumeReservationType()
-  {
-    return $this->consumeReservationType;
-  }
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  public function setValues($values)
-  {
-    $this->values = $values;
-  }
-  public function getValues()
-  {
-    return $this->values;
-  }
+	public function setConsumeReservationType($consumeReservationType)
+	{
+		$this->consumeReservationType = $consumeReservationType;
+	}
+	public function getConsumeReservationType()
+	{
+		return $this->consumeReservationType;
+	}
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	public function setValues($values)
+	{
+		$this->values = $values;
+	}
+	public function getValues()
+	{
+		return $this->values;
+	}
 }

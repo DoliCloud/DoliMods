@@ -17,15 +17,15 @@
 
 class Google_Service_Speech_SpeechContext extends Google_Collection
 {
-  protected $collection_key = 'phrases';
-  public $phrases;
+	protected $collection_key = 'phrases';
+	public $phrases;
 
-  public function setPhrases($phrases)
-  {
-    $this->phrases = $phrases;
-  }
-  public function getPhrases()
-  {
-    return $this->phrases;
-  }
+	public function setPhrases($phrases)
+	{
+		$this->phrases = $phrases;
+	}
+	public function getPhrases()
+	{
+		return $this->phrases;
+	}
 }

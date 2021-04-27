@@ -17,22 +17,22 @@
 
 class Google_Service_AdExperienceReport_ViolatingSitesResponse extends Google_Collection
 {
-  protected $collection_key = 'violatingSites';
-  protected $violatingSitesType = 'Google_Service_AdExperienceReport_SiteSummaryResponse';
-  protected $violatingSitesDataType = 'array';
+	protected $collection_key = 'violatingSites';
+	protected $violatingSitesType = 'Google_Service_AdExperienceReport_SiteSummaryResponse';
+	protected $violatingSitesDataType = 'array';
 
-  /**
-   * @param Google_Service_AdExperienceReport_SiteSummaryResponse
-   */
-  public function setViolatingSites($violatingSites)
-  {
-    $this->violatingSites = $violatingSites;
-  }
-  /**
-   * @return Google_Service_AdExperienceReport_SiteSummaryResponse
-   */
-  public function getViolatingSites()
-  {
-    return $this->violatingSites;
-  }
+	/**
+	 * @param Google_Service_AdExperienceReport_SiteSummaryResponse
+	 */
+	public function setViolatingSites($violatingSites)
+	{
+		$this->violatingSites = $violatingSites;
+	}
+	/**
+	 * @return Google_Service_AdExperienceReport_SiteSummaryResponse
+	 */
+	public function getViolatingSites()
+	{
+		return $this->violatingSites;
+	}
 }

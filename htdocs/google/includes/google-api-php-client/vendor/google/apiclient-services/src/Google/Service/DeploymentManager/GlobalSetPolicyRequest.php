@@ -17,47 +17,47 @@
 
 class Google_Service_DeploymentManager_GlobalSetPolicyRequest extends Google_Collection
 {
-  protected $collection_key = 'bindings';
-  protected $bindingsType = 'Google_Service_DeploymentManager_Binding';
-  protected $bindingsDataType = 'array';
-  public $etag;
-  protected $policyType = 'Google_Service_DeploymentManager_Policy';
-  protected $policyDataType = '';
+	protected $collection_key = 'bindings';
+	protected $bindingsType = 'Google_Service_DeploymentManager_Binding';
+	protected $bindingsDataType = 'array';
+	public $etag;
+	protected $policyType = 'Google_Service_DeploymentManager_Policy';
+	protected $policyDataType = '';
 
-  /**
-   * @param Google_Service_DeploymentManager_Binding
-   */
-  public function setBindings($bindings)
-  {
-    $this->bindings = $bindings;
-  }
-  /**
-   * @return Google_Service_DeploymentManager_Binding
-   */
-  public function getBindings()
-  {
-    return $this->bindings;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  /**
-   * @param Google_Service_DeploymentManager_Policy
-   */
-  public function setPolicy(Google_Service_DeploymentManager_Policy $policy)
-  {
-    $this->policy = $policy;
-  }
-  /**
-   * @return Google_Service_DeploymentManager_Policy
-   */
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
+	/**
+	 * @param Google_Service_DeploymentManager_Binding
+	 */
+	public function setBindings($bindings)
+	{
+		$this->bindings = $bindings;
+	}
+	/**
+	 * @return Google_Service_DeploymentManager_Binding
+	 */
+	public function getBindings()
+	{
+		return $this->bindings;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	/**
+	 * @param Google_Service_DeploymentManager_Policy
+	 */
+	public function setPolicy(Google_Service_DeploymentManager_Policy $policy)
+	{
+		$this->policy = $policy;
+	}
+	/**
+	 * @return Google_Service_DeploymentManager_Policy
+	 */
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
 }

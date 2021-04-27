@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_CombinedAudienceTargetingSetting extends Google_Model
 {
-  public $combinedAudienceId;
+	public $combinedAudienceId;
 
-  public function setCombinedAudienceId($combinedAudienceId)
-  {
-    $this->combinedAudienceId = $combinedAudienceId;
-  }
-  public function getCombinedAudienceId()
-  {
-    return $this->combinedAudienceId;
-  }
+	public function setCombinedAudienceId($combinedAudienceId)
+	{
+		$this->combinedAudienceId = $combinedAudienceId;
+	}
+	public function getCombinedAudienceId()
+	{
+		return $this->combinedAudienceId;
+	}
 }

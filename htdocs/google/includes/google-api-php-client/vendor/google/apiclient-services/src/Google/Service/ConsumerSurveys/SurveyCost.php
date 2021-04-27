@@ -17,41 +17,41 @@
 
 class Google_Service_ConsumerSurveys_SurveyCost extends Google_Model
 {
-  public $costPerResponseNanos;
-  public $currencyCode;
-  public $maxCostPerResponseNanos;
-  public $nanos;
+	public $costPerResponseNanos;
+	public $currencyCode;
+	public $maxCostPerResponseNanos;
+	public $nanos;
 
-  public function setCostPerResponseNanos($costPerResponseNanos)
-  {
-    $this->costPerResponseNanos = $costPerResponseNanos;
-  }
-  public function getCostPerResponseNanos()
-  {
-    return $this->costPerResponseNanos;
-  }
-  public function setCurrencyCode($currencyCode)
-  {
-    $this->currencyCode = $currencyCode;
-  }
-  public function getCurrencyCode()
-  {
-    return $this->currencyCode;
-  }
-  public function setMaxCostPerResponseNanos($maxCostPerResponseNanos)
-  {
-    $this->maxCostPerResponseNanos = $maxCostPerResponseNanos;
-  }
-  public function getMaxCostPerResponseNanos()
-  {
-    return $this->maxCostPerResponseNanos;
-  }
-  public function setNanos($nanos)
-  {
-    $this->nanos = $nanos;
-  }
-  public function getNanos()
-  {
-    return $this->nanos;
-  }
+	public function setCostPerResponseNanos($costPerResponseNanos)
+	{
+		$this->costPerResponseNanos = $costPerResponseNanos;
+	}
+	public function getCostPerResponseNanos()
+	{
+		return $this->costPerResponseNanos;
+	}
+	public function setCurrencyCode($currencyCode)
+	{
+		$this->currencyCode = $currencyCode;
+	}
+	public function getCurrencyCode()
+	{
+		return $this->currencyCode;
+	}
+	public function setMaxCostPerResponseNanos($maxCostPerResponseNanos)
+	{
+		$this->maxCostPerResponseNanos = $maxCostPerResponseNanos;
+	}
+	public function getMaxCostPerResponseNanos()
+	{
+		return $this->maxCostPerResponseNanos;
+	}
+	public function setNanos($nanos)
+	{
+		$this->nanos = $nanos;
+	}
+	public function getNanos()
+	{
+		return $this->nanos;
+	}
 }

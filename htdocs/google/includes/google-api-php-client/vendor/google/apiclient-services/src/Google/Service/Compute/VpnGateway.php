@@ -17,112 +17,112 @@
 
 class Google_Service_Compute_VpnGateway extends Google_Collection
 {
-  protected $collection_key = 'vpnInterfaces';
-  public $creationTimestamp;
-  public $description;
-  public $id;
-  public $kind;
-  public $labelFingerprint;
-  public $labels;
-  public $name;
-  public $network;
-  public $region;
-  public $selfLink;
-  protected $vpnInterfacesType = 'Google_Service_Compute_VpnGatewayVpnGatewayInterface';
-  protected $vpnInterfacesDataType = 'array';
+	protected $collection_key = 'vpnInterfaces';
+	public $creationTimestamp;
+	public $description;
+	public $id;
+	public $kind;
+	public $labelFingerprint;
+	public $labels;
+	public $name;
+	public $network;
+	public $region;
+	public $selfLink;
+	protected $vpnInterfacesType = 'Google_Service_Compute_VpnGatewayVpnGatewayInterface';
+	protected $vpnInterfacesDataType = 'array';
 
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLabelFingerprint($labelFingerprint)
-  {
-    $this->labelFingerprint = $labelFingerprint;
-  }
-  public function getLabelFingerprint()
-  {
-    return $this->labelFingerprint;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNetwork($network)
-  {
-    $this->network = $network;
-  }
-  public function getNetwork()
-  {
-    return $this->network;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  /**
-   * @param Google_Service_Compute_VpnGatewayVpnGatewayInterface
-   */
-  public function setVpnInterfaces($vpnInterfaces)
-  {
-    $this->vpnInterfaces = $vpnInterfaces;
-  }
-  /**
-   * @return Google_Service_Compute_VpnGatewayVpnGatewayInterface
-   */
-  public function getVpnInterfaces()
-  {
-    return $this->vpnInterfaces;
-  }
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLabelFingerprint($labelFingerprint)
+	{
+		$this->labelFingerprint = $labelFingerprint;
+	}
+	public function getLabelFingerprint()
+	{
+		return $this->labelFingerprint;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNetwork($network)
+	{
+		$this->network = $network;
+	}
+	public function getNetwork()
+	{
+		return $this->network;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	/**
+	 * @param Google_Service_Compute_VpnGatewayVpnGatewayInterface
+	 */
+	public function setVpnInterfaces($vpnInterfaces)
+	{
+		$this->vpnInterfaces = $vpnInterfaces;
+	}
+	/**
+	 * @return Google_Service_Compute_VpnGatewayVpnGatewayInterface
+	 */
+	public function getVpnInterfaces()
+	{
+		return $this->vpnInterfaces;
+	}
 }

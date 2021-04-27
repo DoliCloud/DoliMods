@@ -17,48 +17,48 @@
 
 class Google_Service_Firestore_PartitionQueryRequest extends Google_Model
 {
-  public $pageSize;
-  public $pageToken;
-  public $partitionCount;
-  protected $structuredQueryType = 'Google_Service_Firestore_StructuredQuery';
-  protected $structuredQueryDataType = '';
+	public $pageSize;
+	public $pageToken;
+	public $partitionCount;
+	protected $structuredQueryType = 'Google_Service_Firestore_StructuredQuery';
+	protected $structuredQueryDataType = '';
 
-  public function setPageSize($pageSize)
-  {
-    $this->pageSize = $pageSize;
-  }
-  public function getPageSize()
-  {
-    return $this->pageSize;
-  }
-  public function setPageToken($pageToken)
-  {
-    $this->pageToken = $pageToken;
-  }
-  public function getPageToken()
-  {
-    return $this->pageToken;
-  }
-  public function setPartitionCount($partitionCount)
-  {
-    $this->partitionCount = $partitionCount;
-  }
-  public function getPartitionCount()
-  {
-    return $this->partitionCount;
-  }
-  /**
-   * @param Google_Service_Firestore_StructuredQuery
-   */
-  public function setStructuredQuery(Google_Service_Firestore_StructuredQuery $structuredQuery)
-  {
-    $this->structuredQuery = $structuredQuery;
-  }
-  /**
-   * @return Google_Service_Firestore_StructuredQuery
-   */
-  public function getStructuredQuery()
-  {
-    return $this->structuredQuery;
-  }
+	public function setPageSize($pageSize)
+	{
+		$this->pageSize = $pageSize;
+	}
+	public function getPageSize()
+	{
+		return $this->pageSize;
+	}
+	public function setPageToken($pageToken)
+	{
+		$this->pageToken = $pageToken;
+	}
+	public function getPageToken()
+	{
+		return $this->pageToken;
+	}
+	public function setPartitionCount($partitionCount)
+	{
+		$this->partitionCount = $partitionCount;
+	}
+	public function getPartitionCount()
+	{
+		return $this->partitionCount;
+	}
+	/**
+	 * @param Google_Service_Firestore_StructuredQuery
+	 */
+	public function setStructuredQuery(Google_Service_Firestore_StructuredQuery $structuredQuery)
+	{
+		$this->structuredQuery = $structuredQuery;
+	}
+	/**
+	 * @return Google_Service_Firestore_StructuredQuery
+	 */
+	public function getStructuredQuery()
+	{
+		return $this->structuredQuery;
+	}
 }

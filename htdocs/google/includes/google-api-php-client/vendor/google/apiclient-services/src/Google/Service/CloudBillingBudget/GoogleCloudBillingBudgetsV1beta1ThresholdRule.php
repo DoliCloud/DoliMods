@@ -17,23 +17,23 @@
 
 class Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1ThresholdRule extends Google_Model
 {
-  public $spendBasis;
-  public $thresholdPercent;
+	public $spendBasis;
+	public $thresholdPercent;
 
-  public function setSpendBasis($spendBasis)
-  {
-    $this->spendBasis = $spendBasis;
-  }
-  public function getSpendBasis()
-  {
-    return $this->spendBasis;
-  }
-  public function setThresholdPercent($thresholdPercent)
-  {
-    $this->thresholdPercent = $thresholdPercent;
-  }
-  public function getThresholdPercent()
-  {
-    return $this->thresholdPercent;
-  }
+	public function setSpendBasis($spendBasis)
+	{
+		$this->spendBasis = $spendBasis;
+	}
+	public function getSpendBasis()
+	{
+		return $this->spendBasis;
+	}
+	public function setThresholdPercent($thresholdPercent)
+	{
+		$this->thresholdPercent = $thresholdPercent;
+	}
+	public function getThresholdPercent()
+	{
+		return $this->thresholdPercent;
+	}
 }

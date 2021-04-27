@@ -17,48 +17,48 @@
 
 class Google_Service_SecretManager_Secret extends Google_Model
 {
-  public $createTime;
-  public $labels;
-  public $name;
-  protected $replicationType = 'Google_Service_SecretManager_Replication';
-  protected $replicationDataType = '';
+	public $createTime;
+	public $labels;
+	public $name;
+	protected $replicationType = 'Google_Service_SecretManager_Replication';
+	protected $replicationDataType = '';
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_SecretManager_Replication
-   */
-  public function setReplication(Google_Service_SecretManager_Replication $replication)
-  {
-    $this->replication = $replication;
-  }
-  /**
-   * @return Google_Service_SecretManager_Replication
-   */
-  public function getReplication()
-  {
-    return $this->replication;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_SecretManager_Replication
+	 */
+	public function setReplication(Google_Service_SecretManager_Replication $replication)
+	{
+		$this->replication = $replication;
+	}
+	/**
+	 * @return Google_Service_SecretManager_Replication
+	 */
+	public function getReplication()
+	{
+		return $this->replication;
+	}
 }

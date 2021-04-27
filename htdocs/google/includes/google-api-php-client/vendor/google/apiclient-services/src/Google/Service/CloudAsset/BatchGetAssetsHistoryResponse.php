@@ -17,22 +17,22 @@
 
 class Google_Service_CloudAsset_BatchGetAssetsHistoryResponse extends Google_Collection
 {
-  protected $collection_key = 'assets';
-  protected $assetsType = 'Google_Service_CloudAsset_TemporalAsset';
-  protected $assetsDataType = 'array';
+	protected $collection_key = 'assets';
+	protected $assetsType = 'Google_Service_CloudAsset_TemporalAsset';
+	protected $assetsDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudAsset_TemporalAsset
-   */
-  public function setAssets($assets)
-  {
-    $this->assets = $assets;
-  }
-  /**
-   * @return Google_Service_CloudAsset_TemporalAsset
-   */
-  public function getAssets()
-  {
-    return $this->assets;
-  }
+	/**
+	 * @param Google_Service_CloudAsset_TemporalAsset
+	 */
+	public function setAssets($assets)
+	{
+		$this->assets = $assets;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_TemporalAsset
+	 */
+	public function getAssets()
+	{
+		return $this->assets;
+	}
 }

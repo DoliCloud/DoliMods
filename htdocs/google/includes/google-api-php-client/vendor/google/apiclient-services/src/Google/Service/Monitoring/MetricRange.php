@@ -17,30 +17,30 @@
 
 class Google_Service_Monitoring_MetricRange extends Google_Model
 {
-  protected $rangeType = 'Google_Service_Monitoring_GoogleMonitoringV3Range';
-  protected $rangeDataType = '';
-  public $timeSeries;
+	protected $rangeType = 'Google_Service_Monitoring_GoogleMonitoringV3Range';
+	protected $rangeDataType = '';
+	public $timeSeries;
 
-  /**
-   * @param Google_Service_Monitoring_GoogleMonitoringV3Range
-   */
-  public function setRange(Google_Service_Monitoring_GoogleMonitoringV3Range $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Monitoring_GoogleMonitoringV3Range
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
-  public function setTimeSeries($timeSeries)
-  {
-    $this->timeSeries = $timeSeries;
-  }
-  public function getTimeSeries()
-  {
-    return $this->timeSeries;
-  }
+	/**
+	 * @param Google_Service_Monitoring_GoogleMonitoringV3Range
+	 */
+	public function setRange(Google_Service_Monitoring_GoogleMonitoringV3Range $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Monitoring_GoogleMonitoringV3Range
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
+	public function setTimeSeries($timeSeries)
+	{
+		$this->timeSeries = $timeSeries;
+	}
+	public function getTimeSeries()
+	{
+		return $this->timeSeries;
+	}
 }

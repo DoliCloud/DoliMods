@@ -7,5 +7,5 @@ use GuzzleHttp\Tests\Server;
 Server::start();
 
 register_shutdown_function(function () {
-    Server::stop();
+	Server::stop();
 });

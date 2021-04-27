@@ -17,41 +17,41 @@
 
 class Google_Service_AndroidProvisioningPartner_PerDeviceStatusInBatch extends Google_Model
 {
-  public $deviceId;
-  public $errorIdentifier;
-  public $errorMessage;
-  public $status;
+	public $deviceId;
+	public $errorIdentifier;
+	public $errorMessage;
+	public $status;
 
-  public function setDeviceId($deviceId)
-  {
-    $this->deviceId = $deviceId;
-  }
-  public function getDeviceId()
-  {
-    return $this->deviceId;
-  }
-  public function setErrorIdentifier($errorIdentifier)
-  {
-    $this->errorIdentifier = $errorIdentifier;
-  }
-  public function getErrorIdentifier()
-  {
-    return $this->errorIdentifier;
-  }
-  public function setErrorMessage($errorMessage)
-  {
-    $this->errorMessage = $errorMessage;
-  }
-  public function getErrorMessage()
-  {
-    return $this->errorMessage;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setDeviceId($deviceId)
+	{
+		$this->deviceId = $deviceId;
+	}
+	public function getDeviceId()
+	{
+		return $this->deviceId;
+	}
+	public function setErrorIdentifier($errorIdentifier)
+	{
+		$this->errorIdentifier = $errorIdentifier;
+	}
+	public function getErrorIdentifier()
+	{
+		return $this->errorIdentifier;
+	}
+	public function setErrorMessage($errorMessage)
+	{
+		$this->errorMessage = $errorMessage;
+	}
+	public function getErrorMessage()
+	{
+		return $this->errorMessage;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

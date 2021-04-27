@@ -17,38 +17,38 @@
 
 class Google_Service_Testing_AndroidRuntimeConfiguration extends Google_Collection
 {
-  protected $collection_key = 'orientations';
-  protected $localesType = 'Google_Service_Testing_Locale';
-  protected $localesDataType = 'array';
-  protected $orientationsType = 'Google_Service_Testing_Orientation';
-  protected $orientationsDataType = 'array';
+	protected $collection_key = 'orientations';
+	protected $localesType = 'Google_Service_Testing_Locale';
+	protected $localesDataType = 'array';
+	protected $orientationsType = 'Google_Service_Testing_Orientation';
+	protected $orientationsDataType = 'array';
 
-  /**
-   * @param Google_Service_Testing_Locale
-   */
-  public function setLocales($locales)
-  {
-    $this->locales = $locales;
-  }
-  /**
-   * @return Google_Service_Testing_Locale
-   */
-  public function getLocales()
-  {
-    return $this->locales;
-  }
-  /**
-   * @param Google_Service_Testing_Orientation
-   */
-  public function setOrientations($orientations)
-  {
-    $this->orientations = $orientations;
-  }
-  /**
-   * @return Google_Service_Testing_Orientation
-   */
-  public function getOrientations()
-  {
-    return $this->orientations;
-  }
+	/**
+	 * @param Google_Service_Testing_Locale
+	 */
+	public function setLocales($locales)
+	{
+		$this->locales = $locales;
+	}
+	/**
+	 * @return Google_Service_Testing_Locale
+	 */
+	public function getLocales()
+	{
+		return $this->locales;
+	}
+	/**
+	 * @param Google_Service_Testing_Orientation
+	 */
+	public function setOrientations($orientations)
+	{
+		$this->orientations = $orientations;
+	}
+	/**
+	 * @return Google_Service_Testing_Orientation
+	 */
+	public function getOrientations()
+	{
+		return $this->orientations;
+	}
 }

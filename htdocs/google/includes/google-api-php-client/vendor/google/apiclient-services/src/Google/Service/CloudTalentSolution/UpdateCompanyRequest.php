@@ -17,30 +17,30 @@
 
 class Google_Service_CloudTalentSolution_UpdateCompanyRequest extends Google_Model
 {
-  protected $companyType = 'Google_Service_CloudTalentSolution_Company';
-  protected $companyDataType = '';
-  public $updateMask;
+	protected $companyType = 'Google_Service_CloudTalentSolution_Company';
+	protected $companyDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_CloudTalentSolution_Company
-   */
-  public function setCompany(Google_Service_CloudTalentSolution_Company $company)
-  {
-    $this->company = $company;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_Company
-   */
-  public function getCompany()
-  {
-    return $this->company;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_CloudTalentSolution_Company
+	 */
+	public function setCompany(Google_Service_CloudTalentSolution_Company $company)
+	{
+		$this->company = $company;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_Company
+	 */
+	public function getCompany()
+	{
+		return $this->company;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

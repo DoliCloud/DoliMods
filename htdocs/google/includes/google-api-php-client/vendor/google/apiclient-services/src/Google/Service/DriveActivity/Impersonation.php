@@ -17,21 +17,21 @@
 
 class Google_Service_DriveActivity_Impersonation extends Google_Model
 {
-  protected $impersonatedUserType = 'Google_Service_DriveActivity_User';
-  protected $impersonatedUserDataType = '';
+	protected $impersonatedUserType = 'Google_Service_DriveActivity_User';
+	protected $impersonatedUserDataType = '';
 
-  /**
-   * @param Google_Service_DriveActivity_User
-   */
-  public function setImpersonatedUser(Google_Service_DriveActivity_User $impersonatedUser)
-  {
-    $this->impersonatedUser = $impersonatedUser;
-  }
-  /**
-   * @return Google_Service_DriveActivity_User
-   */
-  public function getImpersonatedUser()
-  {
-    return $this->impersonatedUser;
-  }
+	/**
+	 * @param Google_Service_DriveActivity_User
+	 */
+	public function setImpersonatedUser(Google_Service_DriveActivity_User $impersonatedUser)
+	{
+		$this->impersonatedUser = $impersonatedUser;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_User
+	 */
+	public function getImpersonatedUser()
+	{
+		return $this->impersonatedUser;
+	}
 }

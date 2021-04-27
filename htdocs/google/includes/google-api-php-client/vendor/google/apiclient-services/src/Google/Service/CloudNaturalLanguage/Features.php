@@ -17,50 +17,50 @@
 
 class Google_Service_CloudNaturalLanguage_Features extends Google_Model
 {
-  public $classifyText;
-  public $extractDocumentSentiment;
-  public $extractEntities;
-  public $extractEntitySentiment;
-  public $extractSyntax;
+	public $classifyText;
+	public $extractDocumentSentiment;
+	public $extractEntities;
+	public $extractEntitySentiment;
+	public $extractSyntax;
 
-  public function setClassifyText($classifyText)
-  {
-    $this->classifyText = $classifyText;
-  }
-  public function getClassifyText()
-  {
-    return $this->classifyText;
-  }
-  public function setExtractDocumentSentiment($extractDocumentSentiment)
-  {
-    $this->extractDocumentSentiment = $extractDocumentSentiment;
-  }
-  public function getExtractDocumentSentiment()
-  {
-    return $this->extractDocumentSentiment;
-  }
-  public function setExtractEntities($extractEntities)
-  {
-    $this->extractEntities = $extractEntities;
-  }
-  public function getExtractEntities()
-  {
-    return $this->extractEntities;
-  }
-  public function setExtractEntitySentiment($extractEntitySentiment)
-  {
-    $this->extractEntitySentiment = $extractEntitySentiment;
-  }
-  public function getExtractEntitySentiment()
-  {
-    return $this->extractEntitySentiment;
-  }
-  public function setExtractSyntax($extractSyntax)
-  {
-    $this->extractSyntax = $extractSyntax;
-  }
-  public function getExtractSyntax()
-  {
-    return $this->extractSyntax;
-  }
+	public function setClassifyText($classifyText)
+	{
+		$this->classifyText = $classifyText;
+	}
+	public function getClassifyText()
+	{
+		return $this->classifyText;
+	}
+	public function setExtractDocumentSentiment($extractDocumentSentiment)
+	{
+		$this->extractDocumentSentiment = $extractDocumentSentiment;
+	}
+	public function getExtractDocumentSentiment()
+	{
+		return $this->extractDocumentSentiment;
+	}
+	public function setExtractEntities($extractEntities)
+	{
+		$this->extractEntities = $extractEntities;
+	}
+	public function getExtractEntities()
+	{
+		return $this->extractEntities;
+	}
+	public function setExtractEntitySentiment($extractEntitySentiment)
+	{
+		$this->extractEntitySentiment = $extractEntitySentiment;
+	}
+	public function getExtractEntitySentiment()
+	{
+		return $this->extractEntitySentiment;
+	}
+	public function setExtractSyntax($extractSyntax)
+	{
+		$this->extractSyntax = $extractSyntax;
+	}
+	public function getExtractSyntax()
+	{
+		return $this->extractSyntax;
+	}
 }

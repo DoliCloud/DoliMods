@@ -41,7 +41,7 @@ class FilemanagerRoots // extends CommonObject
 	//var $element='filemanager_roots';			//!< Id that identify managed objects
 	//var $table_element='filemanager_roots';	//!< Name of table without prefix where object is stored
 
-    var $id;
+	var $id;
 
 	var $datec='';
 	var $rootlabel;
@@ -54,27 +54,27 @@ class FilemanagerRoots // extends CommonObject
 
 
 	/**
-     *	Constructor
-     *
-     * 	@param	DoliDB	$db		Database handler
-     */
+	 *	Constructor
+	 *
+	 * 	@param	DoliDB	$db		Database handler
+	 */
 	function __construct($db)
 	{
-        $this->db = $db;
-        return 1;
-    }
+		$this->db = $db;
+		return 1;
+	}
 
 
-    /**
-     *   Create in database
-     *
-     *   @param		User	$user        	User that create
-     *   @param     int		$notrigger	    0=launch triggers after, 1=disable triggers
-     *   @return    int         			<0 if KO, Id of created object if OK
-     */
-    function create($user, $notrigger=0)
-    {
-    	global $conf, $langs;
+	/**
+	 *   Create in database
+	 *
+	 *   @param		User	$user        	User that create
+	 *   @param     int		$notrigger	    0=launch triggers after, 1=disable triggers
+	 *   @return    int         			<0 if KO, Id of created object if OK
+	 */
+	function create($user, $notrigger = 0)
+	{
+		global $conf, $langs;
 		$error=0;
 
 		// Clean parameters
@@ -90,7 +90,7 @@ class FilemanagerRoots // extends CommonObject
 		// Check parameters
 		// Put here code to add control on parameters values
 
-        // Insert request
+		// Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."filemanager_roots(";
 
 		$sql.= "datec,";
@@ -101,7 +101,7 @@ class FilemanagerRoots // extends CommonObject
 		$sql.= "entity";
 
 
-        $sql.= ") VALUES (";
+		$sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->datec) || strlen($this->datec)==0?'NULL':$this->db->idate($this->datec)).",";
 		$sql.= " ".(! isset($this->rootlabel)?'NULL':"'".addslashes($this->rootlabel)."'").",";
@@ -115,44 +115,39 @@ class FilemanagerRoots // extends CommonObject
 
 		$this->db->begin();
 
-	   	dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
-        $resql=$this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
+		$resql=$this->db->query($sql);
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
-		if (! $error)
-        {
-            $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."filemanager_roots");
-        }
+		if (! $error) {
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."filemanager_roots");
+		}
 
-        // Commit or rollback
-        if ($error)
-		{
-			foreach($this->errors as $errmsg)
-			{
-	            dol_syslog(get_class($this)."::create ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+		// Commit or rollback
+		if ($error) {
+			foreach ($this->errors as $errmsg) {
+				dol_syslog(get_class($this)."::create ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
-		}
-		else
-		{
+		} else {
 			$this->db->commit();
-            return $this->id;
+			return $this->id;
 		}
-    }
+	}
 
 
-    /**
-     *  Load object in memory from database
-     *
-     *  @param	int		$id         id object
-     *  @return int         		<0 if KO, >0 if OK
-     */
-    function fetch($id)
-    {
-    	global $langs;
-        $sql = "SELECT";
+	/**
+	 *  Load object in memory from database
+	 *
+	 *  @param	int		$id         id object
+	 *  @return int         		<0 if KO, >0 if OK
+	 */
+	function fetch($id)
+	{
+		global $langs;
+		$sql = "SELECT";
 		$sql.= " t.rowid,";
 
 		$sql.= " t.datec,";
@@ -163,18 +158,16 @@ class FilemanagerRoots // extends CommonObject
 		$sql.= " t.entity";
 
 
-        $sql.= " FROM ".MAIN_DB_PREFIX."filemanager_roots as t";
-        $sql.= " WHERE t.rowid = ".((int) $id);
+		$sql.= " FROM ".MAIN_DB_PREFIX."filemanager_roots as t";
+		$sql.= " WHERE t.rowid = ".((int) $id);
 
-    	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
-        $resql=$this->db->query($sql);
-        if ($resql)
-        {
-            if ($this->db->num_rows($resql))
-            {
-                $obj = $this->db->fetch_object($resql);
+		dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
+		$resql=$this->db->query($sql);
+		if ($resql) {
+			if ($this->db->num_rows($resql)) {
+				$obj = $this->db->fetch_object($resql);
 
-                $this->id    = $obj->rowid;
+				$this->id    = $obj->rowid;
 
 				$this->datec = $this->db->jdate($obj->datec);
 				$this->rootlabel = $obj->rootlabel;
@@ -182,32 +175,28 @@ class FilemanagerRoots // extends CommonObject
 				$this->note = $obj->note;
 				$this->position = $obj->position;
 				$this->entity = $obj->entity;
+			}
+			$this->db->free($resql);
+
+			return 1;
+		} else {
+			$this->error="Error ".$this->db->lasterror();
+			dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
+			return -1;
+		}
+	}
 
 
-            }
-            $this->db->free($resql);
-
-            return 1;
-        }
-        else
-        {
-      	    $this->error="Error ".$this->db->lasterror();
-            dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
-            return -1;
-        }
-    }
-
-
-    /**
-     *   Update database
-     *
-     *   @param		User	$user        	User that modify
-     *   @param     int		$notrigger	    0=launch triggers after, 1=disable triggers
-     *   @return    int         			<0 if KO, >0 if OK
-     */
-    function update($user=null, $notrigger=0)
-    {
-    	global $conf, $langs;
+	/**
+	 *   Update database
+	 *
+	 *   @param		User	$user        	User that modify
+	 *   @param     int		$notrigger	    0=launch triggers after, 1=disable triggers
+	 *   @return    int         			<0 if KO, >0 if OK
+	 */
+	function update($user = null, $notrigger = 0)
+	{
+		global $conf, $langs;
 		$error=0;
 
 		// Clean parameters
@@ -223,8 +212,8 @@ class FilemanagerRoots // extends CommonObject
 		// Check parameters
 		// Put here code to add control on parameters values
 
-        // Update request
-        $sql = "UPDATE ".MAIN_DB_PREFIX."filemanager_roots SET";
+		// Update request
+		$sql = "UPDATE ".MAIN_DB_PREFIX."filemanager_roots SET";
 
 		$sql.= " datec=".(strlen($this->datec)!=0 ? "'".$this->db->idate($this->datec)."'" : 'null').",";
 		$sql.= " rootlabel=".(isset($this->rootlabel)?"'".addslashes($this->rootlabel)."'":"null").",";
@@ -234,41 +223,37 @@ class FilemanagerRoots // extends CommonObject
 		$sql.= " entity=".(isset($this->entity)?$this->entity:"null")."";
 
 
-        $sql.= " WHERE rowid=".((int) $this->id);
+		$sql.= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
 
 		dol_syslog(get_class($this)."::update sql=".$sql, LOG_DEBUG);
-        $resql = $this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		$resql = $this->db->query($sql);
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
-        // Commit or rollback
-		if ($error)
-		{
-			foreach($this->errors as $errmsg)
-			{
-	            dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+		// Commit or rollback
+		if ($error) {
+			foreach ($this->errors as $errmsg) {
+				dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
-		}
-		else
-		{
+		} else {
 			$this->db->commit();
 			return 1;
 		}
-    }
+	}
 
 
- 	/**
+	/**
 	 *  Delete object in database
 	 *
-     *	@param		User	$user        	User that delete
-     *  @param      int		$notrigger	    0=launch triggers after, 1=disable triggers
+	 *	@param		User	$user        	User that delete
+	 *  @param      int		$notrigger	    0=launch triggers after, 1=disable triggers
 	 *	@return		int						<0 if KO, >0 if OK
 	 */
-	function delete($user, $notrigger=0)
+	function delete($user, $notrigger = 0)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -280,21 +265,17 @@ class FilemanagerRoots // extends CommonObject
 
 		dol_syslog(get_class($this)."::delete sql=".$sql);
 		$resql = $this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
-        // Commit or rollback
-		if ($error)
-		{
-			foreach($this->errors as $errmsg)
-			{
-	            dol_syslog(get_class($this)."::delete ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+		// Commit or rollback
+		if ($error) {
+			foreach ($this->errors as $errmsg) {
+				dol_syslog(get_class($this)."::delete ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
-		}
-		else
-		{
+		} else {
 			$this->db->commit();
 			return 1;
 		}
@@ -330,27 +311,19 @@ class FilemanagerRoots // extends CommonObject
 		$result=$object->create($user);
 
 		// Other options
-		if ($result < 0)
-		{
+		if ($result < 0) {
 			$this->error=$object->error;
 			$error++;
 		}
 
-		if (! $error)
-		{
-
-
-
+		if (! $error) {
 		}
 
 		// End
-		if (! $error)
-		{
+		if (! $error) {
 			$this->db->commit();
 			return $object->id;
-		}
-		else
-		{
+		} else {
 			$this->db->rollback();
 			return -1;
 		}
@@ -373,8 +346,5 @@ class FilemanagerRoots // extends CommonObject
 		$this->note='';
 		$this->position='';
 		$this->entity='';
-
-
 	}
-
 }

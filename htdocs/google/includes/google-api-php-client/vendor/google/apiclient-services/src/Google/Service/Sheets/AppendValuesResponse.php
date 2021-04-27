@@ -17,39 +17,39 @@
 
 class Google_Service_Sheets_AppendValuesResponse extends Google_Model
 {
-  public $spreadsheetId;
-  public $tableRange;
-  protected $updatesType = 'Google_Service_Sheets_UpdateValuesResponse';
-  protected $updatesDataType = '';
+	public $spreadsheetId;
+	public $tableRange;
+	protected $updatesType = 'Google_Service_Sheets_UpdateValuesResponse';
+	protected $updatesDataType = '';
 
-  public function setSpreadsheetId($spreadsheetId)
-  {
-    $this->spreadsheetId = $spreadsheetId;
-  }
-  public function getSpreadsheetId()
-  {
-    return $this->spreadsheetId;
-  }
-  public function setTableRange($tableRange)
-  {
-    $this->tableRange = $tableRange;
-  }
-  public function getTableRange()
-  {
-    return $this->tableRange;
-  }
-  /**
-   * @param Google_Service_Sheets_UpdateValuesResponse
-   */
-  public function setUpdates(Google_Service_Sheets_UpdateValuesResponse $updates)
-  {
-    $this->updates = $updates;
-  }
-  /**
-   * @return Google_Service_Sheets_UpdateValuesResponse
-   */
-  public function getUpdates()
-  {
-    return $this->updates;
-  }
+	public function setSpreadsheetId($spreadsheetId)
+	{
+		$this->spreadsheetId = $spreadsheetId;
+	}
+	public function getSpreadsheetId()
+	{
+		return $this->spreadsheetId;
+	}
+	public function setTableRange($tableRange)
+	{
+		$this->tableRange = $tableRange;
+	}
+	public function getTableRange()
+	{
+		return $this->tableRange;
+	}
+	/**
+	 * @param Google_Service_Sheets_UpdateValuesResponse
+	 */
+	public function setUpdates(Google_Service_Sheets_UpdateValuesResponse $updates)
+	{
+		$this->updates = $updates;
+	}
+	/**
+	 * @return Google_Service_Sheets_UpdateValuesResponse
+	 */
+	public function getUpdates()
+	{
+		return $this->updates;
+	}
 }

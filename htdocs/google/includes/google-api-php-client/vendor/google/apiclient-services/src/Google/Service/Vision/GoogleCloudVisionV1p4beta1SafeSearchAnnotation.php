@@ -17,50 +17,50 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p4beta1SafeSearchAnnotation extends Google_Model
 {
-  public $adult;
-  public $medical;
-  public $racy;
-  public $spoof;
-  public $violence;
+	public $adult;
+	public $medical;
+	public $racy;
+	public $spoof;
+	public $violence;
 
-  public function setAdult($adult)
-  {
-    $this->adult = $adult;
-  }
-  public function getAdult()
-  {
-    return $this->adult;
-  }
-  public function setMedical($medical)
-  {
-    $this->medical = $medical;
-  }
-  public function getMedical()
-  {
-    return $this->medical;
-  }
-  public function setRacy($racy)
-  {
-    $this->racy = $racy;
-  }
-  public function getRacy()
-  {
-    return $this->racy;
-  }
-  public function setSpoof($spoof)
-  {
-    $this->spoof = $spoof;
-  }
-  public function getSpoof()
-  {
-    return $this->spoof;
-  }
-  public function setViolence($violence)
-  {
-    $this->violence = $violence;
-  }
-  public function getViolence()
-  {
-    return $this->violence;
-  }
+	public function setAdult($adult)
+	{
+		$this->adult = $adult;
+	}
+	public function getAdult()
+	{
+		return $this->adult;
+	}
+	public function setMedical($medical)
+	{
+		$this->medical = $medical;
+	}
+	public function getMedical()
+	{
+		return $this->medical;
+	}
+	public function setRacy($racy)
+	{
+		$this->racy = $racy;
+	}
+	public function getRacy()
+	{
+		return $this->racy;
+	}
+	public function setSpoof($spoof)
+	{
+		$this->spoof = $spoof;
+	}
+	public function getSpoof()
+	{
+		return $this->spoof;
+	}
+	public function setViolence($violence)
+	{
+		$this->violence = $violence;
+	}
+	public function getViolence()
+	{
+		return $this->violence;
+	}
 }

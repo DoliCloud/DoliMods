@@ -17,58 +17,58 @@
 
 class Google_Service_Fitness_Dataset extends Google_Collection
 {
-  protected $collection_key = 'point';
-  public $dataSourceId;
-  public $maxEndTimeNs;
-  public $minStartTimeNs;
-  public $nextPageToken;
-  protected $pointType = 'Google_Service_Fitness_DataPoint';
-  protected $pointDataType = 'array';
+	protected $collection_key = 'point';
+	public $dataSourceId;
+	public $maxEndTimeNs;
+	public $minStartTimeNs;
+	public $nextPageToken;
+	protected $pointType = 'Google_Service_Fitness_DataPoint';
+	protected $pointDataType = 'array';
 
-  public function setDataSourceId($dataSourceId)
-  {
-    $this->dataSourceId = $dataSourceId;
-  }
-  public function getDataSourceId()
-  {
-    return $this->dataSourceId;
-  }
-  public function setMaxEndTimeNs($maxEndTimeNs)
-  {
-    $this->maxEndTimeNs = $maxEndTimeNs;
-  }
-  public function getMaxEndTimeNs()
-  {
-    return $this->maxEndTimeNs;
-  }
-  public function setMinStartTimeNs($minStartTimeNs)
-  {
-    $this->minStartTimeNs = $minStartTimeNs;
-  }
-  public function getMinStartTimeNs()
-  {
-    return $this->minStartTimeNs;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Fitness_DataPoint
-   */
-  public function setPoint($point)
-  {
-    $this->point = $point;
-  }
-  /**
-   * @return Google_Service_Fitness_DataPoint
-   */
-  public function getPoint()
-  {
-    return $this->point;
-  }
+	public function setDataSourceId($dataSourceId)
+	{
+		$this->dataSourceId = $dataSourceId;
+	}
+	public function getDataSourceId()
+	{
+		return $this->dataSourceId;
+	}
+	public function setMaxEndTimeNs($maxEndTimeNs)
+	{
+		$this->maxEndTimeNs = $maxEndTimeNs;
+	}
+	public function getMaxEndTimeNs()
+	{
+		return $this->maxEndTimeNs;
+	}
+	public function setMinStartTimeNs($minStartTimeNs)
+	{
+		$this->minStartTimeNs = $minStartTimeNs;
+	}
+	public function getMinStartTimeNs()
+	{
+		return $this->minStartTimeNs;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Fitness_DataPoint
+	 */
+	public function setPoint($point)
+	{
+		$this->point = $point;
+	}
+	/**
+	 * @return Google_Service_Fitness_DataPoint
+	 */
+	public function getPoint()
+	{
+		return $this->point;
+	}
 }

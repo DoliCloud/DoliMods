@@ -17,32 +17,32 @@
 
 class Google_Service_YouTube_SuperStickerMetadata extends Google_Model
 {
-  public $altText;
-  public $altTextLanguage;
-  public $stickerId;
+	public $altText;
+	public $altTextLanguage;
+	public $stickerId;
 
-  public function setAltText($altText)
-  {
-    $this->altText = $altText;
-  }
-  public function getAltText()
-  {
-    return $this->altText;
-  }
-  public function setAltTextLanguage($altTextLanguage)
-  {
-    $this->altTextLanguage = $altTextLanguage;
-  }
-  public function getAltTextLanguage()
-  {
-    return $this->altTextLanguage;
-  }
-  public function setStickerId($stickerId)
-  {
-    $this->stickerId = $stickerId;
-  }
-  public function getStickerId()
-  {
-    return $this->stickerId;
-  }
+	public function setAltText($altText)
+	{
+		$this->altText = $altText;
+	}
+	public function getAltText()
+	{
+		return $this->altText;
+	}
+	public function setAltTextLanguage($altTextLanguage)
+	{
+		$this->altTextLanguage = $altTextLanguage;
+	}
+	public function getAltTextLanguage()
+	{
+		return $this->altTextLanguage;
+	}
+	public function setStickerId($stickerId)
+	{
+		$this->stickerId = $stickerId;
+	}
+	public function getStickerId()
+	{
+		return $this->stickerId;
+	}
 }

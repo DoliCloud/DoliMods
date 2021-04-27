@@ -17,39 +17,39 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleCriterion extends Google_Model
 {
-  public $fieldsToReturn;
-  protected $filterType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter';
-  protected $filterDataType = '';
-  public $gameObjectType;
+	public $fieldsToReturn;
+	protected $filterType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter';
+	protected $filterDataType = '';
+	public $gameObjectType;
 
-  public function setFieldsToReturn($fieldsToReturn)
-  {
-    $this->fieldsToReturn = $fieldsToReturn;
-  }
-  public function getFieldsToReturn()
-  {
-    return $this->fieldsToReturn;
-  }
-  /**
-   * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter
-   */
-  public function setFilter(Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter $filter)
-  {
-    $this->filter = $filter;
-  }
-  /**
-   * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter
-   */
-  public function getFilter()
-  {
-    return $this->filter;
-  }
-  public function setGameObjectType($gameObjectType)
-  {
-    $this->gameObjectType = $gameObjectType;
-  }
-  public function getGameObjectType()
-  {
-    return $this->gameObjectType;
-  }
+	public function setFieldsToReturn($fieldsToReturn)
+	{
+		$this->fieldsToReturn = $fieldsToReturn;
+	}
+	public function getFieldsToReturn()
+	{
+		return $this->fieldsToReturn;
+	}
+	/**
+	 * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter
+	 */
+	public function setFilter(Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter $filter)
+	{
+		$this->filter = $filter;
+	}
+	/**
+	 * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter
+	 */
+	public function getFilter()
+	{
+		return $this->filter;
+	}
+	public function setGameObjectType($gameObjectType)
+	{
+		$this->gameObjectType = $gameObjectType;
+	}
+	public function getGameObjectType()
+	{
+		return $this->gameObjectType;
+	}
 }

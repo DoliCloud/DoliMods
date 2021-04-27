@@ -17,21 +17,21 @@
 
 class Google_Service_PlusDomains_ActivityActorClientSpecificActorInfo extends Google_Model
 {
-  protected $youtubeActorInfoType = 'Google_Service_PlusDomains_ActivityActorClientSpecificActorInfoYoutubeActorInfo';
-  protected $youtubeActorInfoDataType = '';
+	protected $youtubeActorInfoType = 'Google_Service_PlusDomains_ActivityActorClientSpecificActorInfoYoutubeActorInfo';
+	protected $youtubeActorInfoDataType = '';
 
-  /**
-   * @param Google_Service_PlusDomains_ActivityActorClientSpecificActorInfoYoutubeActorInfo
-   */
-  public function setYoutubeActorInfo(Google_Service_PlusDomains_ActivityActorClientSpecificActorInfoYoutubeActorInfo $youtubeActorInfo)
-  {
-    $this->youtubeActorInfo = $youtubeActorInfo;
-  }
-  /**
-   * @return Google_Service_PlusDomains_ActivityActorClientSpecificActorInfoYoutubeActorInfo
-   */
-  public function getYoutubeActorInfo()
-  {
-    return $this->youtubeActorInfo;
-  }
+	/**
+	 * @param Google_Service_PlusDomains_ActivityActorClientSpecificActorInfoYoutubeActorInfo
+	 */
+	public function setYoutubeActorInfo(Google_Service_PlusDomains_ActivityActorClientSpecificActorInfoYoutubeActorInfo $youtubeActorInfo)
+	{
+		$this->youtubeActorInfo = $youtubeActorInfo;
+	}
+	/**
+	 * @return Google_Service_PlusDomains_ActivityActorClientSpecificActorInfoYoutubeActorInfo
+	 */
+	public function getYoutubeActorInfo()
+	{
+		return $this->youtubeActorInfo;
+	}
 }

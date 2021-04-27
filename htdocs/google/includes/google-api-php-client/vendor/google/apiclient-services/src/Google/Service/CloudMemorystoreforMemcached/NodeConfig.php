@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMemorystoreforMemcached_NodeConfig extends Google_Model
 {
-  public $cpuCount;
-  public $memorySizeMb;
+	public $cpuCount;
+	public $memorySizeMb;
 
-  public function setCpuCount($cpuCount)
-  {
-    $this->cpuCount = $cpuCount;
-  }
-  public function getCpuCount()
-  {
-    return $this->cpuCount;
-  }
-  public function setMemorySizeMb($memorySizeMb)
-  {
-    $this->memorySizeMb = $memorySizeMb;
-  }
-  public function getMemorySizeMb()
-  {
-    return $this->memorySizeMb;
-  }
+	public function setCpuCount($cpuCount)
+	{
+		$this->cpuCount = $cpuCount;
+	}
+	public function getCpuCount()
+	{
+		return $this->cpuCount;
+	}
+	public function setMemorySizeMb($memorySizeMb)
+	{
+		$this->memorySizeMb = $memorySizeMb;
+	}
+	public function getMemorySizeMb()
+	{
+		return $this->memorySizeMb;
+	}
 }

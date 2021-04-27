@@ -17,50 +17,50 @@
 
 class Google_Service_CloudUserAccounts_PublicKey extends Google_Model
 {
-  public $creationTimestamp;
-  public $description;
-  public $expirationTimestamp;
-  public $fingerprint;
-  public $key;
+	public $creationTimestamp;
+	public $description;
+	public $expirationTimestamp;
+	public $fingerprint;
+	public $key;
 
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setExpirationTimestamp($expirationTimestamp)
-  {
-    $this->expirationTimestamp = $expirationTimestamp;
-  }
-  public function getExpirationTimestamp()
-  {
-    return $this->expirationTimestamp;
-  }
-  public function setFingerprint($fingerprint)
-  {
-    $this->fingerprint = $fingerprint;
-  }
-  public function getFingerprint()
-  {
-    return $this->fingerprint;
-  }
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setExpirationTimestamp($expirationTimestamp)
+	{
+		$this->expirationTimestamp = $expirationTimestamp;
+	}
+	public function getExpirationTimestamp()
+	{
+		return $this->expirationTimestamp;
+	}
+	public function setFingerprint($fingerprint)
+	{
+		$this->fingerprint = $fingerprint;
+	}
+	public function getFingerprint()
+	{
+		return $this->fingerprint;
+	}
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
 }

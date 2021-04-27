@@ -17,50 +17,50 @@
 
 class Google_Service_Vault_HeldAccount extends Google_Model
 {
-  public $accountId;
-  public $email;
-  public $firstName;
-  public $holdTime;
-  public $lastName;
+	public $accountId;
+	public $email;
+	public $firstName;
+	public $holdTime;
+	public $lastName;
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setFirstName($firstName)
-  {
-    $this->firstName = $firstName;
-  }
-  public function getFirstName()
-  {
-    return $this->firstName;
-  }
-  public function setHoldTime($holdTime)
-  {
-    $this->holdTime = $holdTime;
-  }
-  public function getHoldTime()
-  {
-    return $this->holdTime;
-  }
-  public function setLastName($lastName)
-  {
-    $this->lastName = $lastName;
-  }
-  public function getLastName()
-  {
-    return $this->lastName;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setFirstName($firstName)
+	{
+		$this->firstName = $firstName;
+	}
+	public function getFirstName()
+	{
+		return $this->firstName;
+	}
+	public function setHoldTime($holdTime)
+	{
+		$this->holdTime = $holdTime;
+	}
+	public function getHoldTime()
+	{
+		return $this->holdTime;
+	}
+	public function setLastName($lastName)
+	{
+		$this->lastName = $lastName;
+	}
+	public function getLastName()
+	{
+		return $this->lastName;
+	}
 }

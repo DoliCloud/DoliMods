@@ -25,22 +25,22 @@
  */
 class Google_Service_CloudTalentSolution_Resource_ProjectsClientEvents extends Google_Service_Resource
 {
-  /**
-   * Report events issued when end user interacts with customer's application that
-   * uses Cloud Talent Solution. You may inspect the created events in [self
-   * service tools](https://console.cloud.google.com/talent-solution/overview).
-   * [Learn more](https://cloud.google.com/talent-solution/docs/management-tools)
-   * about self service tools. (clientEvents.create)
-   *
-   * @param string $parent Parent project name.
-   * @param Google_Service_CloudTalentSolution_CreateClientEventRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_CloudTalentSolution_ClientEvent
-   */
-  public function create($parent, Google_Service_CloudTalentSolution_CreateClientEventRequest $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_CloudTalentSolution_ClientEvent");
-  }
+	/**
+	 * Report events issued when end user interacts with customer's application that
+	 * uses Cloud Talent Solution. You may inspect the created events in [self
+	 * service tools](https://console.cloud.google.com/talent-solution/overview).
+	 * [Learn more](https://cloud.google.com/talent-solution/docs/management-tools)
+	 * about self service tools. (clientEvents.create)
+	 *
+	 * @param string $parent Parent project name.
+	 * @param Google_Service_CloudTalentSolution_CreateClientEventRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_CloudTalentSolution_ClientEvent
+	 */
+	public function create($parent, Google_Service_CloudTalentSolution_CreateClientEventRequest $postBody, $optParams = array())
+	{
+		$params = array('parent' => $parent, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_CloudTalentSolution_ClientEvent");
+	}
 }

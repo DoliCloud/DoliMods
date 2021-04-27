@@ -17,40 +17,40 @@
 
 class Google_Service_AppState_ListResponse extends Google_Collection
 {
-  protected $collection_key = 'items';
-  protected $itemsType = 'Google_Service_AppState_GetResponse';
-  protected $itemsDataType = 'array';
-  public $kind;
-  public $maximumKeyCount;
+	protected $collection_key = 'items';
+	protected $itemsType = 'Google_Service_AppState_GetResponse';
+	protected $itemsDataType = 'array';
+	public $kind;
+	public $maximumKeyCount;
 
-  /**
-   * @param Google_Service_AppState_GetResponse
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_AppState_GetResponse
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setMaximumKeyCount($maximumKeyCount)
-  {
-    $this->maximumKeyCount = $maximumKeyCount;
-  }
-  public function getMaximumKeyCount()
-  {
-    return $this->maximumKeyCount;
-  }
+	/**
+	 * @param Google_Service_AppState_GetResponse
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_AppState_GetResponse
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setMaximumKeyCount($maximumKeyCount)
+	{
+		$this->maximumKeyCount = $maximumKeyCount;
+	}
+	public function getMaximumKeyCount()
+	{
+		return $this->maximumKeyCount;
+	}
 }

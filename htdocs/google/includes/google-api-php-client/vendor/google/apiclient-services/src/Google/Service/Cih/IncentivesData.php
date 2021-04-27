@@ -17,41 +17,41 @@
 
 class Google_Service_Cih_IncentivesData extends Google_Model
 {
-  public $campaignId;
-  public $couponId;
-  public $incentiveBatchId;
-  public $incentiveId;
+	public $campaignId;
+	public $couponId;
+	public $incentiveBatchId;
+	public $incentiveId;
 
-  public function setCampaignId($campaignId)
-  {
-    $this->campaignId = $campaignId;
-  }
-  public function getCampaignId()
-  {
-    return $this->campaignId;
-  }
-  public function setCouponId($couponId)
-  {
-    $this->couponId = $couponId;
-  }
-  public function getCouponId()
-  {
-    return $this->couponId;
-  }
-  public function setIncentiveBatchId($incentiveBatchId)
-  {
-    $this->incentiveBatchId = $incentiveBatchId;
-  }
-  public function getIncentiveBatchId()
-  {
-    return $this->incentiveBatchId;
-  }
-  public function setIncentiveId($incentiveId)
-  {
-    $this->incentiveId = $incentiveId;
-  }
-  public function getIncentiveId()
-  {
-    return $this->incentiveId;
-  }
+	public function setCampaignId($campaignId)
+	{
+		$this->campaignId = $campaignId;
+	}
+	public function getCampaignId()
+	{
+		return $this->campaignId;
+	}
+	public function setCouponId($couponId)
+	{
+		$this->couponId = $couponId;
+	}
+	public function getCouponId()
+	{
+		return $this->couponId;
+	}
+	public function setIncentiveBatchId($incentiveBatchId)
+	{
+		$this->incentiveBatchId = $incentiveBatchId;
+	}
+	public function getIncentiveBatchId()
+	{
+		return $this->incentiveBatchId;
+	}
+	public function setIncentiveId($incentiveId)
+	{
+		$this->incentiveId = $incentiveId;
+	}
+	public function getIncentiveId()
+	{
+		return $this->incentiveId;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo extends Google_Model
 {
-  public $parameters;
-  public $session;
+	public $parameters;
+	public $session;
 
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
-  public function setSession($session)
-  {
-    $this->session = $session;
-  }
-  public function getSession()
-  {
-    return $this->session;
-  }
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
+	public function setSession($session)
+	{
+		$this->session = $session;
+	}
+	public function getSession()
+	{
+		return $this->session;
+	}
 }

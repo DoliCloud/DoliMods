@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_NodeGroupsAddNodesRequest extends Google_Model
 {
-  public $additionalNodeCount;
+	public $additionalNodeCount;
 
-  public function setAdditionalNodeCount($additionalNodeCount)
-  {
-    $this->additionalNodeCount = $additionalNodeCount;
-  }
-  public function getAdditionalNodeCount()
-  {
-    return $this->additionalNodeCount;
-  }
+	public function setAdditionalNodeCount($additionalNodeCount)
+	{
+		$this->additionalNodeCount = $additionalNodeCount;
+	}
+	public function getAdditionalNodeCount()
+	{
+		return $this->additionalNodeCount;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Firestore_GoogleFirestoreAdminV1IndexField extends Google_Model
 {
-  public $arrayConfig;
-  public $fieldPath;
-  public $order;
+	public $arrayConfig;
+	public $fieldPath;
+	public $order;
 
-  public function setArrayConfig($arrayConfig)
-  {
-    $this->arrayConfig = $arrayConfig;
-  }
-  public function getArrayConfig()
-  {
-    return $this->arrayConfig;
-  }
-  public function setFieldPath($fieldPath)
-  {
-    $this->fieldPath = $fieldPath;
-  }
-  public function getFieldPath()
-  {
-    return $this->fieldPath;
-  }
-  public function setOrder($order)
-  {
-    $this->order = $order;
-  }
-  public function getOrder()
-  {
-    return $this->order;
-  }
+	public function setArrayConfig($arrayConfig)
+	{
+		$this->arrayConfig = $arrayConfig;
+	}
+	public function getArrayConfig()
+	{
+		return $this->arrayConfig;
+	}
+	public function setFieldPath($fieldPath)
+	{
+		$this->fieldPath = $fieldPath;
+	}
+	public function getFieldPath()
+	{
+		return $this->fieldPath;
+	}
+	public function setOrder($order)
+	{
+		$this->order = $order;
+	}
+	public function getOrder()
+	{
+		return $this->order;
+	}
 }

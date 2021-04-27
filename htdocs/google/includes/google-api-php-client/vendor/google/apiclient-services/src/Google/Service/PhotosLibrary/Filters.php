@@ -17,62 +17,62 @@
 
 class Google_Service_PhotosLibrary_Filters extends Google_Model
 {
-  protected $contentFilterType = 'Google_Service_PhotosLibrary_ContentFilter';
-  protected $contentFilterDataType = '';
-  protected $dateFilterType = 'Google_Service_PhotosLibrary_DateFilter';
-  protected $dateFilterDataType = '';
-  public $includeArchivedMedia;
-  protected $mediaTypeFilterType = 'Google_Service_PhotosLibrary_MediaTypeFilter';
-  protected $mediaTypeFilterDataType = '';
+	protected $contentFilterType = 'Google_Service_PhotosLibrary_ContentFilter';
+	protected $contentFilterDataType = '';
+	protected $dateFilterType = 'Google_Service_PhotosLibrary_DateFilter';
+	protected $dateFilterDataType = '';
+	public $includeArchivedMedia;
+	protected $mediaTypeFilterType = 'Google_Service_PhotosLibrary_MediaTypeFilter';
+	protected $mediaTypeFilterDataType = '';
 
-  /**
-   * @param Google_Service_PhotosLibrary_ContentFilter
-   */
-  public function setContentFilter(Google_Service_PhotosLibrary_ContentFilter $contentFilter)
-  {
-    $this->contentFilter = $contentFilter;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_ContentFilter
-   */
-  public function getContentFilter()
-  {
-    return $this->contentFilter;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_DateFilter
-   */
-  public function setDateFilter(Google_Service_PhotosLibrary_DateFilter $dateFilter)
-  {
-    $this->dateFilter = $dateFilter;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_DateFilter
-   */
-  public function getDateFilter()
-  {
-    return $this->dateFilter;
-  }
-  public function setIncludeArchivedMedia($includeArchivedMedia)
-  {
-    $this->includeArchivedMedia = $includeArchivedMedia;
-  }
-  public function getIncludeArchivedMedia()
-  {
-    return $this->includeArchivedMedia;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_MediaTypeFilter
-   */
-  public function setMediaTypeFilter(Google_Service_PhotosLibrary_MediaTypeFilter $mediaTypeFilter)
-  {
-    $this->mediaTypeFilter = $mediaTypeFilter;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_MediaTypeFilter
-   */
-  public function getMediaTypeFilter()
-  {
-    return $this->mediaTypeFilter;
-  }
+	/**
+	 * @param Google_Service_PhotosLibrary_ContentFilter
+	 */
+	public function setContentFilter(Google_Service_PhotosLibrary_ContentFilter $contentFilter)
+	{
+		$this->contentFilter = $contentFilter;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_ContentFilter
+	 */
+	public function getContentFilter()
+	{
+		return $this->contentFilter;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_DateFilter
+	 */
+	public function setDateFilter(Google_Service_PhotosLibrary_DateFilter $dateFilter)
+	{
+		$this->dateFilter = $dateFilter;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_DateFilter
+	 */
+	public function getDateFilter()
+	{
+		return $this->dateFilter;
+	}
+	public function setIncludeArchivedMedia($includeArchivedMedia)
+	{
+		$this->includeArchivedMedia = $includeArchivedMedia;
+	}
+	public function getIncludeArchivedMedia()
+	{
+		return $this->includeArchivedMedia;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_MediaTypeFilter
+	 */
+	public function setMediaTypeFilter(Google_Service_PhotosLibrary_MediaTypeFilter $mediaTypeFilter)
+	{
+		$this->mediaTypeFilter = $mediaTypeFilter;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_MediaTypeFilter
+	 */
+	public function getMediaTypeFilter()
+	{
+		return $this->mediaTypeFilter;
+	}
 }

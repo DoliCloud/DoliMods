@@ -17,21 +17,21 @@
 
 class Google_Service_Sheets_AddChartRequest extends Google_Model
 {
-  protected $chartType = 'Google_Service_Sheets_EmbeddedChart';
-  protected $chartDataType = '';
+	protected $chartType = 'Google_Service_Sheets_EmbeddedChart';
+	protected $chartDataType = '';
 
-  /**
-   * @param Google_Service_Sheets_EmbeddedChart
-   */
-  public function setChart(Google_Service_Sheets_EmbeddedChart $chart)
-  {
-    $this->chart = $chart;
-  }
-  /**
-   * @return Google_Service_Sheets_EmbeddedChart
-   */
-  public function getChart()
-  {
-    return $this->chart;
-  }
+	/**
+	 * @param Google_Service_Sheets_EmbeddedChart
+	 */
+	public function setChart(Google_Service_Sheets_EmbeddedChart $chart)
+	{
+		$this->chart = $chart;
+	}
+	/**
+	 * @return Google_Service_Sheets_EmbeddedChart
+	 */
+	public function getChart()
+	{
+		return $this->chart;
+	}
 }

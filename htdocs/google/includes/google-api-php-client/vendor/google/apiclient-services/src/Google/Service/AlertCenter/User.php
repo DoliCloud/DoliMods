@@ -17,23 +17,23 @@
 
 class Google_Service_AlertCenter_User extends Google_Model
 {
-  public $displayName;
-  public $emailAddress;
+	public $displayName;
+	public $emailAddress;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEmailAddress($emailAddress)
-  {
-    $this->emailAddress = $emailAddress;
-  }
-  public function getEmailAddress()
-  {
-    return $this->emailAddress;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEmailAddress($emailAddress)
+	{
+		$this->emailAddress = $emailAddress;
+	}
+	public function getEmailAddress()
+	{
+		return $this->emailAddress;
+	}
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_CloudSearch_SearchItemsByViewUrlRequest extends Google_Model
 {
-  protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
-  protected $debugOptionsDataType = '';
-  public $pageToken;
-  public $viewUrl;
+	protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
+	protected $debugOptionsDataType = '';
+	public $pageToken;
+	public $viewUrl;
 
-  /**
-   * @param Google_Service_CloudSearch_DebugOptions
-   */
-  public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
-  {
-    $this->debugOptions = $debugOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DebugOptions
-   */
-  public function getDebugOptions()
-  {
-    return $this->debugOptions;
-  }
-  public function setPageToken($pageToken)
-  {
-    $this->pageToken = $pageToken;
-  }
-  public function getPageToken()
-  {
-    return $this->pageToken;
-  }
-  public function setViewUrl($viewUrl)
-  {
-    $this->viewUrl = $viewUrl;
-  }
-  public function getViewUrl()
-  {
-    return $this->viewUrl;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_DebugOptions
+	 */
+	public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
+	{
+		$this->debugOptions = $debugOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DebugOptions
+	 */
+	public function getDebugOptions()
+	{
+		return $this->debugOptions;
+	}
+	public function setPageToken($pageToken)
+	{
+		$this->pageToken = $pageToken;
+	}
+	public function getPageToken()
+	{
+		return $this->pageToken;
+	}
+	public function setViewUrl($viewUrl)
+	{
+		$this->viewUrl = $viewUrl;
+	}
+	public function getViewUrl()
+	{
+		return $this->viewUrl;
+	}
 }

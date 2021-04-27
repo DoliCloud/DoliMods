@@ -1,6 +1,6 @@
 <?php
-include("./pre.inc.php");
-require_once("funcsv2.php");
+include "./pre.inc.php";
+require_once "funcsv2.php";
 
 $summaryupdate = array();
 
@@ -15,19 +15,16 @@ $results = mysql_query("SELECT ".$prefix."summary.info_hash, seeds, leechers, dl
 
 $i = 0;
 
-while ($row = mysql_fetch_row($results))
-{
+while ($row = mysql_fetch_row($results)) {
 	$writeout = "row" . $i % 2;
 	list($hash, $seeders, $leechers, $bytes, $filename) = $row;
-	if ($locking)
-	{
+	if ($locking) {
 		//peercaching ALWAYS on
 		quickQuery("LOCK TABLES ".$prefix."x$hash WRITE, ".$prefix."y$hash WRITE, ".$prefix."summary WRITE");
 	}
 	$results2 = mysql_query("SELECT status, COUNT(status) FROM ".$prefix."x$hash GROUP BY status");
 
-	if (!$results2)
-	{
+	if (!$results2) {
 		//unable to process
 		continue;
 	}
@@ -46,8 +43,7 @@ while ($row = mysql_fetch_row($results))
 	if ($counts["seeder"] != $seeders)
 		quickQuery("UPDATE ".$prefix."summary SET seeds=".$counts["seeder"]." WHERE info_hash=\"$hash\"");
 
-	if ($counts["leecher"] == 0)
-	{
+	if ($counts["leecher"] == 0) {
 		//If there are no leechers, set the speed to zero
 		quickQuery("UPDATE ".$prefix."summary set speed=0 WHERE info_hash=\"$hash\"");
 	}
@@ -59,8 +55,7 @@ while ($row = mysql_fetch_row($results))
 	myTrashCollector($hash, $report_interval, time(), $writeout);
 
 	$result = mysql_query("SELECT ".$prefix."x$hash.sequence FROM ".$prefix."x$hash LEFT JOIN ".$prefix."y$hash ON ".$prefix."x$hash.sequence = ".$prefix."y$hash.sequence WHERE ".$prefix."y$hash.sequence IS NULL") or die(errorMessage() . "" . mysql_error() . "</p>");
-	if (mysql_num_rows($result) > 0)
-	{
+	if (mysql_num_rows($result) > 0) {
 		$row = array();
 
 		while ($data = mysql_fetch_row($result))
@@ -68,8 +63,7 @@ while ($row = mysql_fetch_row($results))
 		$where = implode(" OR ", $row);
 		$query = mysql_query("SELECT * FROM ".$prefix."x$hash WHERE $where");
 
-		while ($row = mysql_fetch_assoc($query))
-		{
+		while ($row = mysql_fetch_assoc($query)) {
 			$compact = mysql_escape_string(pack('Nn', ip2long($row["ip"]), $row["port"]));
 				$peerid = mysql_escape_string('2:ip' . strlen($row["ip"]) . ':' . $row["ip"] . '7:peer id20:' . bt_hex2bin($row["peer_id"]) . "4:porti{$row["port"]}e");
 			$no_peerid = mysql_escape_string('2:ip' . strlen($row["ip"]) . ':' . $row["ip"] . "4:porti{$row["port"]}e");
@@ -78,8 +72,7 @@ while ($row = mysql_fetch_row($results))
 	}
 
 	$result = mysql_query("SELECT ".$prefix."y$hash.sequence FROM ".$prefix."y$hash LEFT JOIN ".$prefix."x$hash ON ".$prefix."y$hash.sequence = ".$prefix."x$hash.sequence WHERE ".$prefix."x$hash.sequence IS NULL");
-	if (mysql_num_rows($result) > 0)
-	{
+	if (mysql_num_rows($result) > 0) {
 		$row = array();
 
 		while ($data = mysql_fetch_row($result))
@@ -99,17 +92,14 @@ while ($row = mysql_fetch_row($results))
 	//quickQuery("REPAIR Table y$hash");
 
 	// Finally, it's time to do stuff to the summary table.
-	if (!empty($summaryupdate))
-	{
+	if (!empty($summaryupdate)) {
 		$stuff = "";
-		foreach ($summaryupdate as $column => $value)
-		{
+		foreach ($summaryupdate as $column => $value) {
 			$stuff .= ', '.$column. ($value[1] ? "=" : "=$column+") . $value[0];
 		}
 		mysql_query("UPDATE ".$prefix."summary SET ".substr($stuff, 1)." WHERE info_hash=\"$hash\"");
 		$summaryupdate = array();
 	}
-
 }
 
 
@@ -117,10 +107,8 @@ function myTrashCollector($hash, $timeout, $now, $writeout)
 {
 	global $prefix;
 
- 	$peers = loadLostPeers($hash, $timeout);
- 	for ($i=0; $i < $peers["size"]; $i++)
-	        killPeer($peers[$i]["peer_id"], $hash, $peers[$i]["bytes"], $peers[$i]);
- 	quickQuery("UPDATE ".$prefix."summary SET lastcycle='$now' WHERE info_hash='$hash'");
+	$peers = loadLostPeers($hash, $timeout);
+	for ($i=0; $i < $peers["size"]; $i++)
+			killPeer($peers[$i]["peer_id"], $hash, $peers[$i]["bytes"], $peers[$i]);
+	quickQuery("UPDATE ".$prefix."summary SET lastcycle='$now' WHERE info_hash='$hash'");
 }
-
-?>

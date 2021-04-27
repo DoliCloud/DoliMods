@@ -17,68 +17,68 @@
 
 class Google_Service_AndroidManagement_DeviceSettings extends Google_Model
 {
-  public $adbEnabled;
-  public $developmentSettingsEnabled;
-  public $encryptionStatus;
-  public $isDeviceSecure;
-  public $isEncrypted;
-  public $unknownSourcesEnabled;
-  public $verifyAppsEnabled;
+	public $adbEnabled;
+	public $developmentSettingsEnabled;
+	public $encryptionStatus;
+	public $isDeviceSecure;
+	public $isEncrypted;
+	public $unknownSourcesEnabled;
+	public $verifyAppsEnabled;
 
-  public function setAdbEnabled($adbEnabled)
-  {
-    $this->adbEnabled = $adbEnabled;
-  }
-  public function getAdbEnabled()
-  {
-    return $this->adbEnabled;
-  }
-  public function setDevelopmentSettingsEnabled($developmentSettingsEnabled)
-  {
-    $this->developmentSettingsEnabled = $developmentSettingsEnabled;
-  }
-  public function getDevelopmentSettingsEnabled()
-  {
-    return $this->developmentSettingsEnabled;
-  }
-  public function setEncryptionStatus($encryptionStatus)
-  {
-    $this->encryptionStatus = $encryptionStatus;
-  }
-  public function getEncryptionStatus()
-  {
-    return $this->encryptionStatus;
-  }
-  public function setIsDeviceSecure($isDeviceSecure)
-  {
-    $this->isDeviceSecure = $isDeviceSecure;
-  }
-  public function getIsDeviceSecure()
-  {
-    return $this->isDeviceSecure;
-  }
-  public function setIsEncrypted($isEncrypted)
-  {
-    $this->isEncrypted = $isEncrypted;
-  }
-  public function getIsEncrypted()
-  {
-    return $this->isEncrypted;
-  }
-  public function setUnknownSourcesEnabled($unknownSourcesEnabled)
-  {
-    $this->unknownSourcesEnabled = $unknownSourcesEnabled;
-  }
-  public function getUnknownSourcesEnabled()
-  {
-    return $this->unknownSourcesEnabled;
-  }
-  public function setVerifyAppsEnabled($verifyAppsEnabled)
-  {
-    $this->verifyAppsEnabled = $verifyAppsEnabled;
-  }
-  public function getVerifyAppsEnabled()
-  {
-    return $this->verifyAppsEnabled;
-  }
+	public function setAdbEnabled($adbEnabled)
+	{
+		$this->adbEnabled = $adbEnabled;
+	}
+	public function getAdbEnabled()
+	{
+		return $this->adbEnabled;
+	}
+	public function setDevelopmentSettingsEnabled($developmentSettingsEnabled)
+	{
+		$this->developmentSettingsEnabled = $developmentSettingsEnabled;
+	}
+	public function getDevelopmentSettingsEnabled()
+	{
+		return $this->developmentSettingsEnabled;
+	}
+	public function setEncryptionStatus($encryptionStatus)
+	{
+		$this->encryptionStatus = $encryptionStatus;
+	}
+	public function getEncryptionStatus()
+	{
+		return $this->encryptionStatus;
+	}
+	public function setIsDeviceSecure($isDeviceSecure)
+	{
+		$this->isDeviceSecure = $isDeviceSecure;
+	}
+	public function getIsDeviceSecure()
+	{
+		return $this->isDeviceSecure;
+	}
+	public function setIsEncrypted($isEncrypted)
+	{
+		$this->isEncrypted = $isEncrypted;
+	}
+	public function getIsEncrypted()
+	{
+		return $this->isEncrypted;
+	}
+	public function setUnknownSourcesEnabled($unknownSourcesEnabled)
+	{
+		$this->unknownSourcesEnabled = $unknownSourcesEnabled;
+	}
+	public function getUnknownSourcesEnabled()
+	{
+		return $this->unknownSourcesEnabled;
+	}
+	public function setVerifyAppsEnabled($verifyAppsEnabled)
+	{
+		$this->verifyAppsEnabled = $verifyAppsEnabled;
+	}
+	public function getVerifyAppsEnabled()
+	{
+		return $this->verifyAppsEnabled;
+	}
 }

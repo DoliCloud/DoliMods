@@ -25,27 +25,27 @@
  */
 class Google_Service_DLP_Resource_ProjectsImage extends Google_Service_Resource
 {
-  /**
-   * Redacts potentially sensitive info from an image. This method has limits on
-   * input size, processing time, and output size. See
-   * https://cloud.google.com/dlp/docs/redacting-sensitive-data-images to learn
-   * more.
-   *
-   * When no InfoTypes or CustomInfoTypes are specified in this request, the
-   * system will automatically choose what detectors to run. By default this may
-   * be all types, but may change over time as detectors are updated.
-   * (image.redact)
-   *
-   * @param string $parent The parent resource name. - Format:projects/[PROJECT-
-   * ID] - Format:projects/[PROJECT-ID]/locations/[LOCATION-ID]
-   * @param Google_Service_DLP_GooglePrivacyDlpV2RedactImageRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_DLP_GooglePrivacyDlpV2RedactImageResponse
-   */
-  public function redact($parent, Google_Service_DLP_GooglePrivacyDlpV2RedactImageRequest $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('redact', array($params), "Google_Service_DLP_GooglePrivacyDlpV2RedactImageResponse");
-  }
+	/**
+	 * Redacts potentially sensitive info from an image. This method has limits on
+	 * input size, processing time, and output size. See
+	 * https://cloud.google.com/dlp/docs/redacting-sensitive-data-images to learn
+	 * more.
+	 *
+	 * When no InfoTypes or CustomInfoTypes are specified in this request, the
+	 * system will automatically choose what detectors to run. By default this may
+	 * be all types, but may change over time as detectors are updated.
+	 * (image.redact)
+	 *
+	 * @param string $parent The parent resource name. - Format:projects/[PROJECT-
+	 *                       ID] - Format:projects/[PROJECT-ID]/locations/[LOCATION-ID]
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2RedactImageRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2RedactImageResponse
+	 */
+	public function redact($parent, Google_Service_DLP_GooglePrivacyDlpV2RedactImageRequest $postBody, $optParams = array())
+	{
+		$params = array('parent' => $parent, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('redact', array($params), "Google_Service_DLP_GooglePrivacyDlpV2RedactImageResponse");
+	}
 }

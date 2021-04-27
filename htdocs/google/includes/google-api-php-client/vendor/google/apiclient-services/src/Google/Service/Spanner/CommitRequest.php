@@ -17,47 +17,47 @@
 
 class Google_Service_Spanner_CommitRequest extends Google_Collection
 {
-  protected $collection_key = 'mutations';
-  protected $mutationsType = 'Google_Service_Spanner_Mutation';
-  protected $mutationsDataType = 'array';
-  protected $singleUseTransactionType = 'Google_Service_Spanner_TransactionOptions';
-  protected $singleUseTransactionDataType = '';
-  public $transactionId;
+	protected $collection_key = 'mutations';
+	protected $mutationsType = 'Google_Service_Spanner_Mutation';
+	protected $mutationsDataType = 'array';
+	protected $singleUseTransactionType = 'Google_Service_Spanner_TransactionOptions';
+	protected $singleUseTransactionDataType = '';
+	public $transactionId;
 
-  /**
-   * @param Google_Service_Spanner_Mutation
-   */
-  public function setMutations($mutations)
-  {
-    $this->mutations = $mutations;
-  }
-  /**
-   * @return Google_Service_Spanner_Mutation
-   */
-  public function getMutations()
-  {
-    return $this->mutations;
-  }
-  /**
-   * @param Google_Service_Spanner_TransactionOptions
-   */
-  public function setSingleUseTransaction(Google_Service_Spanner_TransactionOptions $singleUseTransaction)
-  {
-    $this->singleUseTransaction = $singleUseTransaction;
-  }
-  /**
-   * @return Google_Service_Spanner_TransactionOptions
-   */
-  public function getSingleUseTransaction()
-  {
-    return $this->singleUseTransaction;
-  }
-  public function setTransactionId($transactionId)
-  {
-    $this->transactionId = $transactionId;
-  }
-  public function getTransactionId()
-  {
-    return $this->transactionId;
-  }
+	/**
+	 * @param Google_Service_Spanner_Mutation
+	 */
+	public function setMutations($mutations)
+	{
+		$this->mutations = $mutations;
+	}
+	/**
+	 * @return Google_Service_Spanner_Mutation
+	 */
+	public function getMutations()
+	{
+		return $this->mutations;
+	}
+	/**
+	 * @param Google_Service_Spanner_TransactionOptions
+	 */
+	public function setSingleUseTransaction(Google_Service_Spanner_TransactionOptions $singleUseTransaction)
+	{
+		$this->singleUseTransaction = $singleUseTransaction;
+	}
+	/**
+	 * @return Google_Service_Spanner_TransactionOptions
+	 */
+	public function getSingleUseTransaction()
+	{
+		return $this->singleUseTransaction;
+	}
+	public function setTransactionId($transactionId)
+	{
+		$this->transactionId = $transactionId;
+	}
+	public function getTransactionId()
+	{
+		return $this->transactionId;
+	}
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1GcsSource extends Google_Collection
 {
-  protected $collection_key = 'inputUris';
-  public $inputUris;
-  public $jsonSchema;
+	protected $collection_key = 'inputUris';
+	public $inputUris;
+	public $jsonSchema;
 
-  public function setInputUris($inputUris)
-  {
-    $this->inputUris = $inputUris;
-  }
-  public function getInputUris()
-  {
-    return $this->inputUris;
-  }
-  public function setJsonSchema($jsonSchema)
-  {
-    $this->jsonSchema = $jsonSchema;
-  }
-  public function getJsonSchema()
-  {
-    return $this->jsonSchema;
-  }
+	public function setInputUris($inputUris)
+	{
+		$this->inputUris = $inputUris;
+	}
+	public function getInputUris()
+	{
+		return $this->inputUris;
+	}
+	public function setJsonSchema($jsonSchema)
+	{
+		$this->jsonSchema = $jsonSchema;
+	}
+	public function getJsonSchema()
+	{
+		return $this->jsonSchema;
+	}
 }

@@ -17,58 +17,58 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2KAnonymityHistogramBucket extends Google_Collection
 {
-  protected $collection_key = 'bucketValues';
-  public $bucketSize;
-  public $bucketValueCount;
-  protected $bucketValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2KAnonymityEquivalenceClass';
-  protected $bucketValuesDataType = 'array';
-  public $equivalenceClassSizeLowerBound;
-  public $equivalenceClassSizeUpperBound;
+	protected $collection_key = 'bucketValues';
+	public $bucketSize;
+	public $bucketValueCount;
+	protected $bucketValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2KAnonymityEquivalenceClass';
+	protected $bucketValuesDataType = 'array';
+	public $equivalenceClassSizeLowerBound;
+	public $equivalenceClassSizeUpperBound;
 
-  public function setBucketSize($bucketSize)
-  {
-    $this->bucketSize = $bucketSize;
-  }
-  public function getBucketSize()
-  {
-    return $this->bucketSize;
-  }
-  public function setBucketValueCount($bucketValueCount)
-  {
-    $this->bucketValueCount = $bucketValueCount;
-  }
-  public function getBucketValueCount()
-  {
-    return $this->bucketValueCount;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2KAnonymityEquivalenceClass
-   */
-  public function setBucketValues($bucketValues)
-  {
-    $this->bucketValues = $bucketValues;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2KAnonymityEquivalenceClass
-   */
-  public function getBucketValues()
-  {
-    return $this->bucketValues;
-  }
-  public function setEquivalenceClassSizeLowerBound($equivalenceClassSizeLowerBound)
-  {
-    $this->equivalenceClassSizeLowerBound = $equivalenceClassSizeLowerBound;
-  }
-  public function getEquivalenceClassSizeLowerBound()
-  {
-    return $this->equivalenceClassSizeLowerBound;
-  }
-  public function setEquivalenceClassSizeUpperBound($equivalenceClassSizeUpperBound)
-  {
-    $this->equivalenceClassSizeUpperBound = $equivalenceClassSizeUpperBound;
-  }
-  public function getEquivalenceClassSizeUpperBound()
-  {
-    return $this->equivalenceClassSizeUpperBound;
-  }
+	public function setBucketSize($bucketSize)
+	{
+		$this->bucketSize = $bucketSize;
+	}
+	public function getBucketSize()
+	{
+		return $this->bucketSize;
+	}
+	public function setBucketValueCount($bucketValueCount)
+	{
+		$this->bucketValueCount = $bucketValueCount;
+	}
+	public function getBucketValueCount()
+	{
+		return $this->bucketValueCount;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2KAnonymityEquivalenceClass
+	 */
+	public function setBucketValues($bucketValues)
+	{
+		$this->bucketValues = $bucketValues;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2KAnonymityEquivalenceClass
+	 */
+	public function getBucketValues()
+	{
+		return $this->bucketValues;
+	}
+	public function setEquivalenceClassSizeLowerBound($equivalenceClassSizeLowerBound)
+	{
+		$this->equivalenceClassSizeLowerBound = $equivalenceClassSizeLowerBound;
+	}
+	public function getEquivalenceClassSizeLowerBound()
+	{
+		return $this->equivalenceClassSizeLowerBound;
+	}
+	public function setEquivalenceClassSizeUpperBound($equivalenceClassSizeUpperBound)
+	{
+		$this->equivalenceClassSizeUpperBound = $equivalenceClassSizeUpperBound;
+	}
+	public function getEquivalenceClassSizeUpperBound()
+	{
+		return $this->equivalenceClassSizeUpperBound;
+	}
 }

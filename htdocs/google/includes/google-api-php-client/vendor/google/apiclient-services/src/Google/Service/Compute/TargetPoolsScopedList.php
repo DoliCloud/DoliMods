@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_TargetPoolsScopedList extends Google_Collection
 {
-  protected $collection_key = 'targetPools';
-  protected $targetPoolsType = 'Google_Service_Compute_TargetPool';
-  protected $targetPoolsDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_TargetPoolsScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'targetPools';
+	protected $targetPoolsType = 'Google_Service_Compute_TargetPool';
+	protected $targetPoolsDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_TargetPoolsScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_TargetPool
-   */
-  public function setTargetPools($targetPools)
-  {
-    $this->targetPools = $targetPools;
-  }
-  /**
-   * @return Google_Service_Compute_TargetPool
-   */
-  public function getTargetPools()
-  {
-    return $this->targetPools;
-  }
-  /**
-   * @param Google_Service_Compute_TargetPoolsScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_TargetPoolsScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_TargetPoolsScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_TargetPool
+	 */
+	public function setTargetPools($targetPools)
+	{
+		$this->targetPools = $targetPools;
+	}
+	/**
+	 * @return Google_Service_Compute_TargetPool
+	 */
+	public function getTargetPools()
+	{
+		return $this->targetPools;
+	}
+	/**
+	 * @param Google_Service_Compute_TargetPoolsScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_TargetPoolsScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_TargetPoolsScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

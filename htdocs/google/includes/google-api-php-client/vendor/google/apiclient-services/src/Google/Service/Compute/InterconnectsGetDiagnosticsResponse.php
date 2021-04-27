@@ -17,21 +17,21 @@
 
 class Google_Service_Compute_InterconnectsGetDiagnosticsResponse extends Google_Model
 {
-  protected $resultType = 'Google_Service_Compute_InterconnectDiagnostics';
-  protected $resultDataType = '';
+	protected $resultType = 'Google_Service_Compute_InterconnectDiagnostics';
+	protected $resultDataType = '';
 
-  /**
-   * @param Google_Service_Compute_InterconnectDiagnostics
-   */
-  public function setResult(Google_Service_Compute_InterconnectDiagnostics $result)
-  {
-    $this->result = $result;
-  }
-  /**
-   * @return Google_Service_Compute_InterconnectDiagnostics
-   */
-  public function getResult()
-  {
-    return $this->result;
-  }
+	/**
+	 * @param Google_Service_Compute_InterconnectDiagnostics
+	 */
+	public function setResult(Google_Service_Compute_InterconnectDiagnostics $result)
+	{
+		$this->result = $result;
+	}
+	/**
+	 * @return Google_Service_Compute_InterconnectDiagnostics
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
 }

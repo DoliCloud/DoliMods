@@ -17,40 +17,40 @@
 
 class Google_Service_Spanner_InstanceConfig extends Google_Collection
 {
-  protected $collection_key = 'replicas';
-  public $displayName;
-  public $name;
-  protected $replicasType = 'Google_Service_Spanner_ReplicaInfo';
-  protected $replicasDataType = 'array';
+	protected $collection_key = 'replicas';
+	public $displayName;
+	public $name;
+	protected $replicasType = 'Google_Service_Spanner_ReplicaInfo';
+	protected $replicasDataType = 'array';
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Spanner_ReplicaInfo
-   */
-  public function setReplicas($replicas)
-  {
-    $this->replicas = $replicas;
-  }
-  /**
-   * @return Google_Service_Spanner_ReplicaInfo
-   */
-  public function getReplicas()
-  {
-    return $this->replicas;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Spanner_ReplicaInfo
+	 */
+	public function setReplicas($replicas)
+	{
+		$this->replicas = $replicas;
+	}
+	/**
+	 * @return Google_Service_Spanner_ReplicaInfo
+	 */
+	public function getReplicas()
+	{
+		return $this->replicas;
+	}
 }

@@ -17,94 +17,94 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1TlsInfo extends Google_Collection
 {
-  protected $collection_key = 'protocols';
-  public $ciphers;
-  public $clientAuthEnabled;
-  protected $commonNameType = 'Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName';
-  protected $commonNameDataType = '';
-  public $enabled;
-  public $ignoreValidationErrors;
-  public $keyAlias;
-  public $keyStore;
-  public $protocols;
-  public $trustStore;
+	protected $collection_key = 'protocols';
+	public $ciphers;
+	public $clientAuthEnabled;
+	protected $commonNameType = 'Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName';
+	protected $commonNameDataType = '';
+	public $enabled;
+	public $ignoreValidationErrors;
+	public $keyAlias;
+	public $keyStore;
+	public $protocols;
+	public $trustStore;
 
-  public function setCiphers($ciphers)
-  {
-    $this->ciphers = $ciphers;
-  }
-  public function getCiphers()
-  {
-    return $this->ciphers;
-  }
-  public function setClientAuthEnabled($clientAuthEnabled)
-  {
-    $this->clientAuthEnabled = $clientAuthEnabled;
-  }
-  public function getClientAuthEnabled()
-  {
-    return $this->clientAuthEnabled;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName
-   */
-  public function setCommonName(Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName $commonName)
-  {
-    $this->commonName = $commonName;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName
-   */
-  public function getCommonName()
-  {
-    return $this->commonName;
-  }
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  public function setIgnoreValidationErrors($ignoreValidationErrors)
-  {
-    $this->ignoreValidationErrors = $ignoreValidationErrors;
-  }
-  public function getIgnoreValidationErrors()
-  {
-    return $this->ignoreValidationErrors;
-  }
-  public function setKeyAlias($keyAlias)
-  {
-    $this->keyAlias = $keyAlias;
-  }
-  public function getKeyAlias()
-  {
-    return $this->keyAlias;
-  }
-  public function setKeyStore($keyStore)
-  {
-    $this->keyStore = $keyStore;
-  }
-  public function getKeyStore()
-  {
-    return $this->keyStore;
-  }
-  public function setProtocols($protocols)
-  {
-    $this->protocols = $protocols;
-  }
-  public function getProtocols()
-  {
-    return $this->protocols;
-  }
-  public function setTrustStore($trustStore)
-  {
-    $this->trustStore = $trustStore;
-  }
-  public function getTrustStore()
-  {
-    return $this->trustStore;
-  }
+	public function setCiphers($ciphers)
+	{
+		$this->ciphers = $ciphers;
+	}
+	public function getCiphers()
+	{
+		return $this->ciphers;
+	}
+	public function setClientAuthEnabled($clientAuthEnabled)
+	{
+		$this->clientAuthEnabled = $clientAuthEnabled;
+	}
+	public function getClientAuthEnabled()
+	{
+		return $this->clientAuthEnabled;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName
+	 */
+	public function setCommonName(Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName $commonName)
+	{
+		$this->commonName = $commonName;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName
+	 */
+	public function getCommonName()
+	{
+		return $this->commonName;
+	}
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	public function setIgnoreValidationErrors($ignoreValidationErrors)
+	{
+		$this->ignoreValidationErrors = $ignoreValidationErrors;
+	}
+	public function getIgnoreValidationErrors()
+	{
+		return $this->ignoreValidationErrors;
+	}
+	public function setKeyAlias($keyAlias)
+	{
+		$this->keyAlias = $keyAlias;
+	}
+	public function getKeyAlias()
+	{
+		return $this->keyAlias;
+	}
+	public function setKeyStore($keyStore)
+	{
+		$this->keyStore = $keyStore;
+	}
+	public function getKeyStore()
+	{
+		return $this->keyStore;
+	}
+	public function setProtocols($protocols)
+	{
+		$this->protocols = $protocols;
+	}
+	public function getProtocols()
+	{
+		return $this->protocols;
+	}
+	public function setTrustStore($trustStore)
+	{
+		$this->trustStore = $trustStore;
+	}
+	public function getTrustStore()
+	{
+		return $this->trustStore;
+	}
 }

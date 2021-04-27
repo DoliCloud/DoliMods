@@ -17,31 +17,31 @@
 
 class Google_Service_CloudSearch_ListItemsResponse extends Google_Collection
 {
-  protected $collection_key = 'items';
-  protected $itemsType = 'Google_Service_CloudSearch_Item';
-  protected $itemsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'items';
+	protected $itemsType = 'Google_Service_CloudSearch_Item';
+	protected $itemsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudSearch_Item
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Item
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_Item
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Item
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

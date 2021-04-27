@@ -17,30 +17,30 @@
 
 class Google_Service_ContainerAnalysis_BuildType extends Google_Model
 {
-  public $builderVersion;
-  protected $signatureType = 'Google_Service_ContainerAnalysis_BuildSignature';
-  protected $signatureDataType = '';
+	public $builderVersion;
+	protected $signatureType = 'Google_Service_ContainerAnalysis_BuildSignature';
+	protected $signatureDataType = '';
 
-  public function setBuilderVersion($builderVersion)
-  {
-    $this->builderVersion = $builderVersion;
-  }
-  public function getBuilderVersion()
-  {
-    return $this->builderVersion;
-  }
-  /**
-   * @param Google_Service_ContainerAnalysis_BuildSignature
-   */
-  public function setSignature(Google_Service_ContainerAnalysis_BuildSignature $signature)
-  {
-    $this->signature = $signature;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_BuildSignature
-   */
-  public function getSignature()
-  {
-    return $this->signature;
-  }
+	public function setBuilderVersion($builderVersion)
+	{
+		$this->builderVersion = $builderVersion;
+	}
+	public function getBuilderVersion()
+	{
+		return $this->builderVersion;
+	}
+	/**
+	 * @param Google_Service_ContainerAnalysis_BuildSignature
+	 */
+	public function setSignature(Google_Service_ContainerAnalysis_BuildSignature $signature)
+	{
+		$this->signature = $signature;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_BuildSignature
+	 */
+	public function getSignature()
+	{
+		return $this->signature;
+	}
 }

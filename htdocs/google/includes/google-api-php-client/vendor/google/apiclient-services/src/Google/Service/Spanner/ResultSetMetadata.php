@@ -17,37 +17,37 @@
 
 class Google_Service_Spanner_ResultSetMetadata extends Google_Model
 {
-  protected $rowTypeType = 'Google_Service_Spanner_StructType';
-  protected $rowTypeDataType = '';
-  protected $transactionType = 'Google_Service_Spanner_Transaction';
-  protected $transactionDataType = '';
+	protected $rowTypeType = 'Google_Service_Spanner_StructType';
+	protected $rowTypeDataType = '';
+	protected $transactionType = 'Google_Service_Spanner_Transaction';
+	protected $transactionDataType = '';
 
-  /**
-   * @param Google_Service_Spanner_StructType
-   */
-  public function setRowType(Google_Service_Spanner_StructType $rowType)
-  {
-    $this->rowType = $rowType;
-  }
-  /**
-   * @return Google_Service_Spanner_StructType
-   */
-  public function getRowType()
-  {
-    return $this->rowType;
-  }
-  /**
-   * @param Google_Service_Spanner_Transaction
-   */
-  public function setTransaction(Google_Service_Spanner_Transaction $transaction)
-  {
-    $this->transaction = $transaction;
-  }
-  /**
-   * @return Google_Service_Spanner_Transaction
-   */
-  public function getTransaction()
-  {
-    return $this->transaction;
-  }
+	/**
+	 * @param Google_Service_Spanner_StructType
+	 */
+	public function setRowType(Google_Service_Spanner_StructType $rowType)
+	{
+		$this->rowType = $rowType;
+	}
+	/**
+	 * @return Google_Service_Spanner_StructType
+	 */
+	public function getRowType()
+	{
+		return $this->rowType;
+	}
+	/**
+	 * @param Google_Service_Spanner_Transaction
+	 */
+	public function setTransaction(Google_Service_Spanner_Transaction $transaction)
+	{
+		$this->transaction = $transaction;
+	}
+	/**
+	 * @return Google_Service_Spanner_Transaction
+	 */
+	public function getTransaction()
+	{
+		return $this->transaction;
+	}
 }

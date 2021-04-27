@@ -17,47 +17,47 @@
 
 class Google_Service_Vision_AsyncBatchAnnotateImagesRequest extends Google_Collection
 {
-  protected $collection_key = 'requests';
-  protected $outputConfigType = 'Google_Service_Vision_OutputConfig';
-  protected $outputConfigDataType = '';
-  public $parent;
-  protected $requestsType = 'Google_Service_Vision_AnnotateImageRequest';
-  protected $requestsDataType = 'array';
+	protected $collection_key = 'requests';
+	protected $outputConfigType = 'Google_Service_Vision_OutputConfig';
+	protected $outputConfigDataType = '';
+	public $parent;
+	protected $requestsType = 'Google_Service_Vision_AnnotateImageRequest';
+	protected $requestsDataType = 'array';
 
-  /**
-   * @param Google_Service_Vision_OutputConfig
-   */
-  public function setOutputConfig(Google_Service_Vision_OutputConfig $outputConfig)
-  {
-    $this->outputConfig = $outputConfig;
-  }
-  /**
-   * @return Google_Service_Vision_OutputConfig
-   */
-  public function getOutputConfig()
-  {
-    return $this->outputConfig;
-  }
-  public function setParent($parent)
-  {
-    $this->parent = $parent;
-  }
-  public function getParent()
-  {
-    return $this->parent;
-  }
-  /**
-   * @param Google_Service_Vision_AnnotateImageRequest
-   */
-  public function setRequests($requests)
-  {
-    $this->requests = $requests;
-  }
-  /**
-   * @return Google_Service_Vision_AnnotateImageRequest
-   */
-  public function getRequests()
-  {
-    return $this->requests;
-  }
+	/**
+	 * @param Google_Service_Vision_OutputConfig
+	 */
+	public function setOutputConfig(Google_Service_Vision_OutputConfig $outputConfig)
+	{
+		$this->outputConfig = $outputConfig;
+	}
+	/**
+	 * @return Google_Service_Vision_OutputConfig
+	 */
+	public function getOutputConfig()
+	{
+		return $this->outputConfig;
+	}
+	public function setParent($parent)
+	{
+		$this->parent = $parent;
+	}
+	public function getParent()
+	{
+		return $this->parent;
+	}
+	/**
+	 * @param Google_Service_Vision_AnnotateImageRequest
+	 */
+	public function setRequests($requests)
+	{
+		$this->requests = $requests;
+	}
+	/**
+	 * @return Google_Service_Vision_AnnotateImageRequest
+	 */
+	public function getRequests()
+	{
+		return $this->requests;
+	}
 }

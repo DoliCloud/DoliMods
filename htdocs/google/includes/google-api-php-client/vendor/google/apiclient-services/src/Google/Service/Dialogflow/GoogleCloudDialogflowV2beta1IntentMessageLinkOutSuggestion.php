@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageLinkOutSuggestion extends Google_Model
 {
-  public $destinationName;
-  public $uri;
+	public $destinationName;
+	public $uri;
 
-  public function setDestinationName($destinationName)
-  {
-    $this->destinationName = $destinationName;
-  }
-  public function getDestinationName()
-  {
-    return $this->destinationName;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	public function setDestinationName($destinationName)
+	{
+		$this->destinationName = $destinationName;
+	}
+	public function getDestinationName()
+	{
+		return $this->destinationName;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

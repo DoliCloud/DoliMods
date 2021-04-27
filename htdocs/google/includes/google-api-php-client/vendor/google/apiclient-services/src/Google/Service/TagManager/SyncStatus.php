@@ -17,23 +17,23 @@
 
 class Google_Service_TagManager_SyncStatus extends Google_Model
 {
-  public $mergeConflict;
-  public $syncError;
+	public $mergeConflict;
+	public $syncError;
 
-  public function setMergeConflict($mergeConflict)
-  {
-    $this->mergeConflict = $mergeConflict;
-  }
-  public function getMergeConflict()
-  {
-    return $this->mergeConflict;
-  }
-  public function setSyncError($syncError)
-  {
-    $this->syncError = $syncError;
-  }
-  public function getSyncError()
-  {
-    return $this->syncError;
-  }
+	public function setMergeConflict($mergeConflict)
+	{
+		$this->mergeConflict = $mergeConflict;
+	}
+	public function getMergeConflict()
+	{
+		return $this->mergeConflict;
+	}
+	public function setSyncError($syncError)
+	{
+		$this->syncError = $syncError;
+	}
+	public function getSyncError()
+	{
+		return $this->syncError;
+	}
 }

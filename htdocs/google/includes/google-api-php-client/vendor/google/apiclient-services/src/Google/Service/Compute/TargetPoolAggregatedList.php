@@ -17,73 +17,73 @@
 
 class Google_Service_Compute_TargetPoolAggregatedList extends Google_Model
 {
-  public $id;
-  protected $itemsType = 'Google_Service_Compute_TargetPoolsScopedList';
-  protected $itemsDataType = 'map';
-  public $kind;
-  public $nextPageToken;
-  public $selfLink;
-  protected $warningType = 'Google_Service_Compute_TargetPoolAggregatedListWarning';
-  protected $warningDataType = '';
+	public $id;
+	protected $itemsType = 'Google_Service_Compute_TargetPoolsScopedList';
+	protected $itemsDataType = 'map';
+	public $kind;
+	public $nextPageToken;
+	public $selfLink;
+	protected $warningType = 'Google_Service_Compute_TargetPoolAggregatedListWarning';
+	protected $warningDataType = '';
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_Compute_TargetPoolsScopedList
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Compute_TargetPoolsScopedList
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  /**
-   * @param Google_Service_Compute_TargetPoolAggregatedListWarning
-   */
-  public function setWarning(Google_Service_Compute_TargetPoolAggregatedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_TargetPoolAggregatedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_Compute_TargetPoolsScopedList
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Compute_TargetPoolsScopedList
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	/**
+	 * @param Google_Service_Compute_TargetPoolAggregatedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_TargetPoolAggregatedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_TargetPoolAggregatedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

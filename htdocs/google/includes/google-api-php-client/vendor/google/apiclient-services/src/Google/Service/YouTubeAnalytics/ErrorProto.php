@@ -17,69 +17,69 @@
 
 class Google_Service_YouTubeAnalytics_ErrorProto extends Google_Collection
 {
-  protected $collection_key = 'argument';
-  public $argument;
-  public $code;
-  public $debugInfo;
-  public $domain;
-  public $externalErrorMessage;
-  public $location;
-  public $locationType;
+	protected $collection_key = 'argument';
+	public $argument;
+	public $code;
+	public $debugInfo;
+	public $domain;
+	public $externalErrorMessage;
+	public $location;
+	public $locationType;
 
-  public function setArgument($argument)
-  {
-    $this->argument = $argument;
-  }
-  public function getArgument()
-  {
-    return $this->argument;
-  }
-  public function setCode($code)
-  {
-    $this->code = $code;
-  }
-  public function getCode()
-  {
-    return $this->code;
-  }
-  public function setDebugInfo($debugInfo)
-  {
-    $this->debugInfo = $debugInfo;
-  }
-  public function getDebugInfo()
-  {
-    return $this->debugInfo;
-  }
-  public function setDomain($domain)
-  {
-    $this->domain = $domain;
-  }
-  public function getDomain()
-  {
-    return $this->domain;
-  }
-  public function setExternalErrorMessage($externalErrorMessage)
-  {
-    $this->externalErrorMessage = $externalErrorMessage;
-  }
-  public function getExternalErrorMessage()
-  {
-    return $this->externalErrorMessage;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setLocationType($locationType)
-  {
-    $this->locationType = $locationType;
-  }
-  public function getLocationType()
-  {
-    return $this->locationType;
-  }
+	public function setArgument($argument)
+	{
+		$this->argument = $argument;
+	}
+	public function getArgument()
+	{
+		return $this->argument;
+	}
+	public function setCode($code)
+	{
+		$this->code = $code;
+	}
+	public function getCode()
+	{
+		return $this->code;
+	}
+	public function setDebugInfo($debugInfo)
+	{
+		$this->debugInfo = $debugInfo;
+	}
+	public function getDebugInfo()
+	{
+		return $this->debugInfo;
+	}
+	public function setDomain($domain)
+	{
+		$this->domain = $domain;
+	}
+	public function getDomain()
+	{
+		return $this->domain;
+	}
+	public function setExternalErrorMessage($externalErrorMessage)
+	{
+		$this->externalErrorMessage = $externalErrorMessage;
+	}
+	public function getExternalErrorMessage()
+	{
+		return $this->externalErrorMessage;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setLocationType($locationType)
+	{
+		$this->locationType = $locationType;
+	}
+	public function getLocationType()
+	{
+		return $this->locationType;
+	}
 }

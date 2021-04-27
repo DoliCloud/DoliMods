@@ -17,30 +17,30 @@
 
 class Google_Service_Datastore_GqlQueryParameter extends Google_Model
 {
-  public $cursor;
-  protected $valueType = 'Google_Service_Datastore_Value';
-  protected $valueDataType = '';
+	public $cursor;
+	protected $valueType = 'Google_Service_Datastore_Value';
+	protected $valueDataType = '';
 
-  public function setCursor($cursor)
-  {
-    $this->cursor = $cursor;
-  }
-  public function getCursor()
-  {
-    return $this->cursor;
-  }
-  /**
-   * @param Google_Service_Datastore_Value
-   */
-  public function setValue(Google_Service_Datastore_Value $value)
-  {
-    $this->value = $value;
-  }
-  /**
-   * @return Google_Service_Datastore_Value
-   */
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setCursor($cursor)
+	{
+		$this->cursor = $cursor;
+	}
+	public function getCursor()
+	{
+		return $this->cursor;
+	}
+	/**
+	 * @param Google_Service_Datastore_Value
+	 */
+	public function setValue(Google_Service_Datastore_Value $value)
+	{
+		$this->value = $value;
+	}
+	/**
+	 * @return Google_Service_Datastore_Value
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

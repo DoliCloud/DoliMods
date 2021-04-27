@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_GenderAssignedTargetingOptionDetails extends Google_Model
 {
-  public $gender;
-  public $targetingOptionId;
+	public $gender;
+	public $targetingOptionId;
 
-  public function setGender($gender)
-  {
-    $this->gender = $gender;
-  }
-  public function getGender()
-  {
-    return $this->gender;
-  }
-  public function setTargetingOptionId($targetingOptionId)
-  {
-    $this->targetingOptionId = $targetingOptionId;
-  }
-  public function getTargetingOptionId()
-  {
-    return $this->targetingOptionId;
-  }
+	public function setGender($gender)
+	{
+		$this->gender = $gender;
+	}
+	public function getGender()
+	{
+		return $this->gender;
+	}
+	public function setTargetingOptionId($targetingOptionId)
+	{
+		$this->targetingOptionId = $targetingOptionId;
+	}
+	public function getTargetingOptionId()
+	{
+		return $this->targetingOptionId;
+	}
 }

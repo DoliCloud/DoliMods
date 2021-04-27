@@ -17,41 +17,41 @@
 
 class Google_Service_SQLAdmin_AclEntry extends Google_Model
 {
-  public $expirationTime;
-  public $kind;
-  public $name;
-  public $value;
+	public $expirationTime;
+	public $kind;
+	public $name;
+	public $value;
 
-  public function setExpirationTime($expirationTime)
-  {
-    $this->expirationTime = $expirationTime;
-  }
-  public function getExpirationTime()
-  {
-    return $this->expirationTime;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setExpirationTime($expirationTime)
+	{
+		$this->expirationTime = $expirationTime;
+	}
+	public function getExpirationTime()
+	{
+		return $this->expirationTime;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

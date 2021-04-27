@@ -17,95 +17,95 @@
 
 class Google_Service_Storage_HmacKeyMetadata extends Google_Model
 {
-  public $accessId;
-  public $etag;
-  public $id;
-  public $kind;
-  public $projectId;
-  public $selfLink;
-  public $serviceAccountEmail;
-  public $state;
-  public $timeCreated;
-  public $updated;
+	public $accessId;
+	public $etag;
+	public $id;
+	public $kind;
+	public $projectId;
+	public $selfLink;
+	public $serviceAccountEmail;
+	public $state;
+	public $timeCreated;
+	public $updated;
 
-  public function setAccessId($accessId)
-  {
-    $this->accessId = $accessId;
-  }
-  public function getAccessId()
-  {
-    return $this->accessId;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  public function setServiceAccountEmail($serviceAccountEmail)
-  {
-    $this->serviceAccountEmail = $serviceAccountEmail;
-  }
-  public function getServiceAccountEmail()
-  {
-    return $this->serviceAccountEmail;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setTimeCreated($timeCreated)
-  {
-    $this->timeCreated = $timeCreated;
-  }
-  public function getTimeCreated()
-  {
-    return $this->timeCreated;
-  }
-  public function setUpdated($updated)
-  {
-    $this->updated = $updated;
-  }
-  public function getUpdated()
-  {
-    return $this->updated;
-  }
+	public function setAccessId($accessId)
+	{
+		$this->accessId = $accessId;
+	}
+	public function getAccessId()
+	{
+		return $this->accessId;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	public function setServiceAccountEmail($serviceAccountEmail)
+	{
+		$this->serviceAccountEmail = $serviceAccountEmail;
+	}
+	public function getServiceAccountEmail()
+	{
+		return $this->serviceAccountEmail;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setTimeCreated($timeCreated)
+	{
+		$this->timeCreated = $timeCreated;
+	}
+	public function getTimeCreated()
+	{
+		return $this->timeCreated;
+	}
+	public function setUpdated($updated)
+	{
+		$this->updated = $updated;
+	}
+	public function getUpdated()
+	{
+		return $this->updated;
+	}
 }

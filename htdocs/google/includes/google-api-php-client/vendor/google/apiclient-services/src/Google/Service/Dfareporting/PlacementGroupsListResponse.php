@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_PlacementGroupsListResponse extends Google_Collection
 {
-  protected $collection_key = 'placementGroups';
-  public $kind;
-  public $nextPageToken;
-  protected $placementGroupsType = 'Google_Service_Dfareporting_PlacementGroup';
-  protected $placementGroupsDataType = 'array';
+	protected $collection_key = 'placementGroups';
+	public $kind;
+	public $nextPageToken;
+	protected $placementGroupsType = 'Google_Service_Dfareporting_PlacementGroup';
+	protected $placementGroupsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Dfareporting_PlacementGroup
-   */
-  public function setPlacementGroups($placementGroups)
-  {
-    $this->placementGroups = $placementGroups;
-  }
-  /**
-   * @return Google_Service_Dfareporting_PlacementGroup
-   */
-  public function getPlacementGroups()
-  {
-    return $this->placementGroups;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_PlacementGroup
+	 */
+	public function setPlacementGroups($placementGroups)
+	{
+		$this->placementGroups = $placementGroups;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_PlacementGroup
+	 */
+	public function getPlacementGroups()
+	{
+		return $this->placementGroups;
+	}
 }

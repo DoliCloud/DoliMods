@@ -17,79 +17,79 @@
 
 class Google_Service_CivicInfo_RepresentativeInfoResponse extends Google_Collection
 {
-  protected $collection_key = 'officials';
-  protected $divisionsType = 'Google_Service_CivicInfo_GeographicDivision';
-  protected $divisionsDataType = 'map';
-  public $kind;
-  protected $normalizedInputType = 'Google_Service_CivicInfo_SimpleAddressType';
-  protected $normalizedInputDataType = '';
-  protected $officesType = 'Google_Service_CivicInfo_Office';
-  protected $officesDataType = 'array';
-  protected $officialsType = 'Google_Service_CivicInfo_Official';
-  protected $officialsDataType = 'array';
+	protected $collection_key = 'officials';
+	protected $divisionsType = 'Google_Service_CivicInfo_GeographicDivision';
+	protected $divisionsDataType = 'map';
+	public $kind;
+	protected $normalizedInputType = 'Google_Service_CivicInfo_SimpleAddressType';
+	protected $normalizedInputDataType = '';
+	protected $officesType = 'Google_Service_CivicInfo_Office';
+	protected $officesDataType = 'array';
+	protected $officialsType = 'Google_Service_CivicInfo_Official';
+	protected $officialsDataType = 'array';
 
-  /**
-   * @param Google_Service_CivicInfo_GeographicDivision
-   */
-  public function setDivisions($divisions)
-  {
-    $this->divisions = $divisions;
-  }
-  /**
-   * @return Google_Service_CivicInfo_GeographicDivision
-   */
-  public function getDivisions()
-  {
-    return $this->divisions;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_CivicInfo_SimpleAddressType
-   */
-  public function setNormalizedInput(Google_Service_CivicInfo_SimpleAddressType $normalizedInput)
-  {
-    $this->normalizedInput = $normalizedInput;
-  }
-  /**
-   * @return Google_Service_CivicInfo_SimpleAddressType
-   */
-  public function getNormalizedInput()
-  {
-    return $this->normalizedInput;
-  }
-  /**
-   * @param Google_Service_CivicInfo_Office
-   */
-  public function setOffices($offices)
-  {
-    $this->offices = $offices;
-  }
-  /**
-   * @return Google_Service_CivicInfo_Office
-   */
-  public function getOffices()
-  {
-    return $this->offices;
-  }
-  /**
-   * @param Google_Service_CivicInfo_Official
-   */
-  public function setOfficials($officials)
-  {
-    $this->officials = $officials;
-  }
-  /**
-   * @return Google_Service_CivicInfo_Official
-   */
-  public function getOfficials()
-  {
-    return $this->officials;
-  }
+	/**
+	 * @param Google_Service_CivicInfo_GeographicDivision
+	 */
+	public function setDivisions($divisions)
+	{
+		$this->divisions = $divisions;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_GeographicDivision
+	 */
+	public function getDivisions()
+	{
+		return $this->divisions;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_CivicInfo_SimpleAddressType
+	 */
+	public function setNormalizedInput(Google_Service_CivicInfo_SimpleAddressType $normalizedInput)
+	{
+		$this->normalizedInput = $normalizedInput;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_SimpleAddressType
+	 */
+	public function getNormalizedInput()
+	{
+		return $this->normalizedInput;
+	}
+	/**
+	 * @param Google_Service_CivicInfo_Office
+	 */
+	public function setOffices($offices)
+	{
+		$this->offices = $offices;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_Office
+	 */
+	public function getOffices()
+	{
+		return $this->offices;
+	}
+	/**
+	 * @param Google_Service_CivicInfo_Official
+	 */
+	public function setOfficials($officials)
+	{
+		$this->officials = $officials;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_Official
+	 */
+	public function getOfficials()
+	{
+		return $this->officials;
+	}
 }

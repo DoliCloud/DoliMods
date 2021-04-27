@@ -17,39 +17,39 @@
 
 class Google_Service_Sheets_UpdateSlicerSpecRequest extends Google_Model
 {
-  public $fields;
-  public $slicerId;
-  protected $specType = 'Google_Service_Sheets_SlicerSpec';
-  protected $specDataType = '';
+	public $fields;
+	public $slicerId;
+	protected $specType = 'Google_Service_Sheets_SlicerSpec';
+	protected $specDataType = '';
 
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setSlicerId($slicerId)
-  {
-    $this->slicerId = $slicerId;
-  }
-  public function getSlicerId()
-  {
-    return $this->slicerId;
-  }
-  /**
-   * @param Google_Service_Sheets_SlicerSpec
-   */
-  public function setSpec(Google_Service_Sheets_SlicerSpec $spec)
-  {
-    $this->spec = $spec;
-  }
-  /**
-   * @return Google_Service_Sheets_SlicerSpec
-   */
-  public function getSpec()
-  {
-    return $this->spec;
-  }
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setSlicerId($slicerId)
+	{
+		$this->slicerId = $slicerId;
+	}
+	public function getSlicerId()
+	{
+		return $this->slicerId;
+	}
+	/**
+	 * @param Google_Service_Sheets_SlicerSpec
+	 */
+	public function setSpec(Google_Service_Sheets_SlicerSpec $spec)
+	{
+		$this->spec = $spec;
+	}
+	/**
+	 * @return Google_Service_Sheets_SlicerSpec
+	 */
+	public function getSpec()
+	{
+		return $this->spec;
+	}
 }

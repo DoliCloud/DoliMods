@@ -17,21 +17,21 @@
 
 class Google_Service_CloudOSLogin_ImportSshPublicKeyResponse extends Google_Model
 {
-  protected $loginProfileType = 'Google_Service_CloudOSLogin_LoginProfile';
-  protected $loginProfileDataType = '';
+	protected $loginProfileType = 'Google_Service_CloudOSLogin_LoginProfile';
+	protected $loginProfileDataType = '';
 
-  /**
-   * @param Google_Service_CloudOSLogin_LoginProfile
-   */
-  public function setLoginProfile(Google_Service_CloudOSLogin_LoginProfile $loginProfile)
-  {
-    $this->loginProfile = $loginProfile;
-  }
-  /**
-   * @return Google_Service_CloudOSLogin_LoginProfile
-   */
-  public function getLoginProfile()
-  {
-    return $this->loginProfile;
-  }
+	/**
+	 * @param Google_Service_CloudOSLogin_LoginProfile
+	 */
+	public function setLoginProfile(Google_Service_CloudOSLogin_LoginProfile $loginProfile)
+	{
+		$this->loginProfile = $loginProfile;
+	}
+	/**
+	 * @return Google_Service_CloudOSLogin_LoginProfile
+	 */
+	public function getLoginProfile()
+	{
+		return $this->loginProfile;
+	}
 }

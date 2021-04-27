@@ -17,23 +17,23 @@
 
 class Google_Service_Monitoring_BasicAuthentication extends Google_Model
 {
-  public $password;
-  public $username;
+	public $password;
+	public $username;
 
-  public function setPassword($password)
-  {
-    $this->password = $password;
-  }
-  public function getPassword()
-  {
-    return $this->password;
-  }
-  public function setUsername($username)
-  {
-    $this->username = $username;
-  }
-  public function getUsername()
-  {
-    return $this->username;
-  }
+	public function setPassword($password)
+	{
+		$this->password = $password;
+	}
+	public function getPassword()
+	{
+		return $this->password;
+	}
+	public function setUsername($username)
+	{
+		$this->username = $username;
+	}
+	public function getUsername()
+	{
+		return $this->username;
+	}
 }

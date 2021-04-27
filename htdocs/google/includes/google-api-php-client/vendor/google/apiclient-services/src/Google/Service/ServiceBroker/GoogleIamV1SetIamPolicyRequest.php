@@ -17,21 +17,21 @@
 
 class Google_Service_ServiceBroker_GoogleIamV1SetIamPolicyRequest extends Google_Model
 {
-  protected $policyType = 'Google_Service_ServiceBroker_GoogleIamV1Policy';
-  protected $policyDataType = '';
+	protected $policyType = 'Google_Service_ServiceBroker_GoogleIamV1Policy';
+	protected $policyDataType = '';
 
-  /**
-   * @param Google_Service_ServiceBroker_GoogleIamV1Policy
-   */
-  public function setPolicy(Google_Service_ServiceBroker_GoogleIamV1Policy $policy)
-  {
-    $this->policy = $policy;
-  }
-  /**
-   * @return Google_Service_ServiceBroker_GoogleIamV1Policy
-   */
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
+	/**
+	 * @param Google_Service_ServiceBroker_GoogleIamV1Policy
+	 */
+	public function setPolicy(Google_Service_ServiceBroker_GoogleIamV1Policy $policy)
+	{
+		$this->policy = $policy;
+	}
+	/**
+	 * @return Google_Service_ServiceBroker_GoogleIamV1Policy
+	 */
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
 }

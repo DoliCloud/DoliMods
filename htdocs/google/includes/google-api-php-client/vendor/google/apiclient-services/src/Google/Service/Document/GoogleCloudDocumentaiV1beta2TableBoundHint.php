@@ -17,30 +17,30 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2TableBoundHint extends Google_Model
 {
-  protected $boundingBoxType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly';
-  protected $boundingBoxDataType = '';
-  public $pageNumber;
+	protected $boundingBoxType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly';
+	protected $boundingBoxDataType = '';
+	public $pageNumber;
 
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly
-   */
-  public function setBoundingBox(Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly $boundingBox)
-  {
-    $this->boundingBox = $boundingBox;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly
-   */
-  public function getBoundingBox()
-  {
-    return $this->boundingBox;
-  }
-  public function setPageNumber($pageNumber)
-  {
-    $this->pageNumber = $pageNumber;
-  }
-  public function getPageNumber()
-  {
-    return $this->pageNumber;
-  }
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly
+	 */
+	public function setBoundingBox(Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly $boundingBox)
+	{
+		$this->boundingBox = $boundingBox;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly
+	 */
+	public function getBoundingBox()
+	{
+		return $this->boundingBox;
+	}
+	public function setPageNumber($pageNumber)
+	{
+		$this->pageNumber = $pageNumber;
+	}
+	public function getPageNumber()
+	{
+		return $this->pageNumber;
+	}
 }

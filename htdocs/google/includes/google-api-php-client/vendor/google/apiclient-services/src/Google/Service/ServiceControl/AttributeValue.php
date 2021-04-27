@@ -17,39 +17,39 @@
 
 class Google_Service_ServiceControl_AttributeValue extends Google_Model
 {
-  public $boolValue;
-  public $intValue;
-  protected $stringValueType = 'Google_Service_ServiceControl_TruncatableString';
-  protected $stringValueDataType = '';
+	public $boolValue;
+	public $intValue;
+	protected $stringValueType = 'Google_Service_ServiceControl_TruncatableString';
+	protected $stringValueDataType = '';
 
-  public function setBoolValue($boolValue)
-  {
-    $this->boolValue = $boolValue;
-  }
-  public function getBoolValue()
-  {
-    return $this->boolValue;
-  }
-  public function setIntValue($intValue)
-  {
-    $this->intValue = $intValue;
-  }
-  public function getIntValue()
-  {
-    return $this->intValue;
-  }
-  /**
-   * @param Google_Service_ServiceControl_TruncatableString
-   */
-  public function setStringValue(Google_Service_ServiceControl_TruncatableString $stringValue)
-  {
-    $this->stringValue = $stringValue;
-  }
-  /**
-   * @return Google_Service_ServiceControl_TruncatableString
-   */
-  public function getStringValue()
-  {
-    return $this->stringValue;
-  }
+	public function setBoolValue($boolValue)
+	{
+		$this->boolValue = $boolValue;
+	}
+	public function getBoolValue()
+	{
+		return $this->boolValue;
+	}
+	public function setIntValue($intValue)
+	{
+		$this->intValue = $intValue;
+	}
+	public function getIntValue()
+	{
+		return $this->intValue;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_TruncatableString
+	 */
+	public function setStringValue(Google_Service_ServiceControl_TruncatableString $stringValue)
+	{
+		$this->stringValue = $stringValue;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_TruncatableString
+	 */
+	public function getStringValue()
+	{
+		return $this->stringValue;
+	}
 }

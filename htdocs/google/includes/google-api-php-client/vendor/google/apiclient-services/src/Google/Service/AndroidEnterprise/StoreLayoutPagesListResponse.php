@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidEnterprise_StoreLayoutPagesListResponse extends Google_Collection
 {
-  protected $collection_key = 'page';
-  protected $pageType = 'Google_Service_AndroidEnterprise_StorePage';
-  protected $pageDataType = 'array';
+	protected $collection_key = 'page';
+	protected $pageType = 'Google_Service_AndroidEnterprise_StorePage';
+	protected $pageDataType = 'array';
 
-  /**
-   * @param Google_Service_AndroidEnterprise_StorePage
-   */
-  public function setPage($page)
-  {
-    $this->page = $page;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_StorePage
-   */
-  public function getPage()
-  {
-    return $this->page;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_StorePage
+	 */
+	public function setPage($page)
+	{
+		$this->page = $page;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_StorePage
+	 */
+	public function getPage()
+	{
+		return $this->page;
+	}
 }

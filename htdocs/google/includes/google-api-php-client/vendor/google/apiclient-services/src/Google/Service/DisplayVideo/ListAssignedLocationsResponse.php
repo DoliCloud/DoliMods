@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListAssignedLocationsResponse extends Google_Collection
 {
-  protected $collection_key = 'assignedLocations';
-  protected $assignedLocationsType = 'Google_Service_DisplayVideo_AssignedLocation';
-  protected $assignedLocationsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'assignedLocations';
+	protected $assignedLocationsType = 'Google_Service_DisplayVideo_AssignedLocation';
+	protected $assignedLocationsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_AssignedLocation
-   */
-  public function setAssignedLocations($assignedLocations)
-  {
-    $this->assignedLocations = $assignedLocations;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_AssignedLocation
-   */
-  public function getAssignedLocations()
-  {
-    return $this->assignedLocations;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_AssignedLocation
+	 */
+	public function setAssignedLocations($assignedLocations)
+	{
+		$this->assignedLocations = $assignedLocations;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_AssignedLocation
+	 */
+	public function getAssignedLocations()
+	{
+		return $this->assignedLocations;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

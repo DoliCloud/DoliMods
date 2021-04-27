@@ -25,32 +25,32 @@
  */
 class Google_Service_Sasportal_Resource_Installer extends Google_Service_Resource
 {
-  /**
-   * Generates a secret to be used with the ValidateInstaller method
-   * (installer.generateSecret)
-   *
-   * @param Google_Service_Sasportal_SasPortalGenerateSecretRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Sasportal_SasPortalGenerateSecretResponse
-   */
-  public function generateSecret(Google_Service_Sasportal_SasPortalGenerateSecretRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('generateSecret', array($params), "Google_Service_Sasportal_SasPortalGenerateSecretResponse");
-  }
-  /**
-   * Validates the identity of a Certified Professional Installer (CPI).
-   * (installer.validate)
-   *
-   * @param Google_Service_Sasportal_SasPortalValidateInstallerRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Sasportal_SasPortalValidateInstallerResponse
-   */
-  public function validate(Google_Service_Sasportal_SasPortalValidateInstallerRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('validate', array($params), "Google_Service_Sasportal_SasPortalValidateInstallerResponse");
-  }
+	/**
+	 * Generates a secret to be used with the ValidateInstaller method
+	 * (installer.generateSecret)
+	 *
+	 * @param Google_Service_Sasportal_SasPortalGenerateSecretRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Sasportal_SasPortalGenerateSecretResponse
+	 */
+	public function generateSecret(Google_Service_Sasportal_SasPortalGenerateSecretRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('generateSecret', array($params), "Google_Service_Sasportal_SasPortalGenerateSecretResponse");
+	}
+	/**
+	 * Validates the identity of a Certified Professional Installer (CPI).
+	 * (installer.validate)
+	 *
+	 * @param Google_Service_Sasportal_SasPortalValidateInstallerRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Sasportal_SasPortalValidateInstallerResponse
+	 */
+	public function validate(Google_Service_Sasportal_SasPortalValidateInstallerRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('validate', array($params), "Google_Service_Sasportal_SasPortalValidateInstallerResponse");
+	}
 }

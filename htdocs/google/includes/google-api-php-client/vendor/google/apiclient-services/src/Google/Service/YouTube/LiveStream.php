@@ -17,96 +17,96 @@
 
 class Google_Service_YouTube_LiveStream extends Google_Model
 {
-  protected $cdnType = 'Google_Service_YouTube_CdnSettings';
-  protected $cdnDataType = '';
-  protected $contentDetailsType = 'Google_Service_YouTube_LiveStreamContentDetails';
-  protected $contentDetailsDataType = '';
-  public $etag;
-  public $id;
-  public $kind;
-  protected $snippetType = 'Google_Service_YouTube_LiveStreamSnippet';
-  protected $snippetDataType = '';
-  protected $statusType = 'Google_Service_YouTube_LiveStreamStatus';
-  protected $statusDataType = '';
+	protected $cdnType = 'Google_Service_YouTube_CdnSettings';
+	protected $cdnDataType = '';
+	protected $contentDetailsType = 'Google_Service_YouTube_LiveStreamContentDetails';
+	protected $contentDetailsDataType = '';
+	public $etag;
+	public $id;
+	public $kind;
+	protected $snippetType = 'Google_Service_YouTube_LiveStreamSnippet';
+	protected $snippetDataType = '';
+	protected $statusType = 'Google_Service_YouTube_LiveStreamStatus';
+	protected $statusDataType = '';
 
-  /**
-   * @param Google_Service_YouTube_CdnSettings
-   */
-  public function setCdn(Google_Service_YouTube_CdnSettings $cdn)
-  {
-    $this->cdn = $cdn;
-  }
-  /**
-   * @return Google_Service_YouTube_CdnSettings
-   */
-  public function getCdn()
-  {
-    return $this->cdn;
-  }
-  /**
-   * @param Google_Service_YouTube_LiveStreamContentDetails
-   */
-  public function setContentDetails(Google_Service_YouTube_LiveStreamContentDetails $contentDetails)
-  {
-    $this->contentDetails = $contentDetails;
-  }
-  /**
-   * @return Google_Service_YouTube_LiveStreamContentDetails
-   */
-  public function getContentDetails()
-  {
-    return $this->contentDetails;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_YouTube_LiveStreamSnippet
-   */
-  public function setSnippet(Google_Service_YouTube_LiveStreamSnippet $snippet)
-  {
-    $this->snippet = $snippet;
-  }
-  /**
-   * @return Google_Service_YouTube_LiveStreamSnippet
-   */
-  public function getSnippet()
-  {
-    return $this->snippet;
-  }
-  /**
-   * @param Google_Service_YouTube_LiveStreamStatus
-   */
-  public function setStatus(Google_Service_YouTube_LiveStreamStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_YouTube_LiveStreamStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_YouTube_CdnSettings
+	 */
+	public function setCdn(Google_Service_YouTube_CdnSettings $cdn)
+	{
+		$this->cdn = $cdn;
+	}
+	/**
+	 * @return Google_Service_YouTube_CdnSettings
+	 */
+	public function getCdn()
+	{
+		return $this->cdn;
+	}
+	/**
+	 * @param Google_Service_YouTube_LiveStreamContentDetails
+	 */
+	public function setContentDetails(Google_Service_YouTube_LiveStreamContentDetails $contentDetails)
+	{
+		$this->contentDetails = $contentDetails;
+	}
+	/**
+	 * @return Google_Service_YouTube_LiveStreamContentDetails
+	 */
+	public function getContentDetails()
+	{
+		return $this->contentDetails;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_YouTube_LiveStreamSnippet
+	 */
+	public function setSnippet(Google_Service_YouTube_LiveStreamSnippet $snippet)
+	{
+		$this->snippet = $snippet;
+	}
+	/**
+	 * @return Google_Service_YouTube_LiveStreamSnippet
+	 */
+	public function getSnippet()
+	{
+		return $this->snippet;
+	}
+	/**
+	 * @param Google_Service_YouTube_LiveStreamStatus
+	 */
+	public function setStatus(Google_Service_YouTube_LiveStreamStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_YouTube_LiveStreamStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

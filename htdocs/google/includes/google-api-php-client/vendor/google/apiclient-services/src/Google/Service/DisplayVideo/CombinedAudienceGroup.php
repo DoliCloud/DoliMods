@@ -17,22 +17,22 @@
 
 class Google_Service_DisplayVideo_CombinedAudienceGroup extends Google_Collection
 {
-  protected $collection_key = 'settings';
-  protected $settingsType = 'Google_Service_DisplayVideo_CombinedAudienceTargetingSetting';
-  protected $settingsDataType = 'array';
+	protected $collection_key = 'settings';
+	protected $settingsType = 'Google_Service_DisplayVideo_CombinedAudienceTargetingSetting';
+	protected $settingsDataType = 'array';
 
-  /**
-   * @param Google_Service_DisplayVideo_CombinedAudienceTargetingSetting
-   */
-  public function setSettings($settings)
-  {
-    $this->settings = $settings;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_CombinedAudienceTargetingSetting
-   */
-  public function getSettings()
-  {
-    return $this->settings;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_CombinedAudienceTargetingSetting
+	 */
+	public function setSettings($settings)
+	{
+		$this->settings = $settings;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_CombinedAudienceTargetingSetting
+	 */
+	public function getSettings()
+	{
+		return $this->settings;
+	}
 }

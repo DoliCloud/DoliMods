@@ -25,19 +25,19 @@
  */
 class Google_Service_Vision_Resource_ProjectsOperations extends Google_Service_Resource
 {
-  /**
-   * Gets the latest state of a long-running operation.  Clients can use this
-   * method to poll the operation result at intervals as recommended by the API
-   * service. (operations.get)
-   *
-   * @param string $name The name of the operation resource.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Vision_Operation
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Vision_Operation");
-  }
+	/**
+	 * Gets the latest state of a long-running operation.  Clients can use this
+	 * method to poll the operation result at intervals as recommended by the API
+	 * service. (operations.get)
+	 *
+	 * @param string $name The name of the operation resource.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Vision_Operation
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Vision_Operation");
+	}
 }

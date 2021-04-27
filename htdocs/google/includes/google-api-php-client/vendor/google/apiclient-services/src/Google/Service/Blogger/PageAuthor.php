@@ -17,48 +17,48 @@
 
 class Google_Service_Blogger_PageAuthor extends Google_Model
 {
-  public $displayName;
-  public $id;
-  protected $imageType = 'Google_Service_Blogger_PageAuthorImage';
-  protected $imageDataType = '';
-  public $url;
+	public $displayName;
+	public $id;
+	protected $imageType = 'Google_Service_Blogger_PageAuthorImage';
+	protected $imageDataType = '';
+	public $url;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_Blogger_PageAuthorImage
-   */
-  public function setImage(Google_Service_Blogger_PageAuthorImage $image)
-  {
-    $this->image = $image;
-  }
-  /**
-   * @return Google_Service_Blogger_PageAuthorImage
-   */
-  public function getImage()
-  {
-    return $this->image;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_Blogger_PageAuthorImage
+	 */
+	public function setImage(Google_Service_Blogger_PageAuthorImage $image)
+	{
+		$this->image = $image;
+	}
+	/**
+	 * @return Google_Service_Blogger_PageAuthorImage
+	 */
+	public function getImage()
+	{
+		return $this->image;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

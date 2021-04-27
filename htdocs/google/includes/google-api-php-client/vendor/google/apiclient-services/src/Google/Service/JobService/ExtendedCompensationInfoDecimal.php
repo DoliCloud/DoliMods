@@ -17,23 +17,23 @@
 
 class Google_Service_JobService_ExtendedCompensationInfoDecimal extends Google_Model
 {
-  public $micros;
-  public $units;
+	public $micros;
+	public $units;
 
-  public function setMicros($micros)
-  {
-    $this->micros = $micros;
-  }
-  public function getMicros()
-  {
-    return $this->micros;
-  }
-  public function setUnits($units)
-  {
-    $this->units = $units;
-  }
-  public function getUnits()
-  {
-    return $this->units;
-  }
+	public function setMicros($micros)
+	{
+		$this->micros = $micros;
+	}
+	public function getMicros()
+	{
+		return $this->micros;
+	}
+	public function setUnits($units)
+	{
+		$this->units = $units;
+	}
+	public function getUnits()
+	{
+		return $this->units;
+	}
 }

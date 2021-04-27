@@ -17,87 +17,87 @@
 
 class Google_Service_CloudAsset_ResourceSearchResult extends Google_Collection
 {
-  protected $collection_key = 'networkTags';
-  public $additionalAttributes;
-  public $assetType;
-  public $description;
-  public $displayName;
-  public $labels;
-  public $location;
-  public $name;
-  public $networkTags;
-  public $project;
+	protected $collection_key = 'networkTags';
+	public $additionalAttributes;
+	public $assetType;
+	public $description;
+	public $displayName;
+	public $labels;
+	public $location;
+	public $name;
+	public $networkTags;
+	public $project;
 
-  public function setAdditionalAttributes($additionalAttributes)
-  {
-    $this->additionalAttributes = $additionalAttributes;
-  }
-  public function getAdditionalAttributes()
-  {
-    return $this->additionalAttributes;
-  }
-  public function setAssetType($assetType)
-  {
-    $this->assetType = $assetType;
-  }
-  public function getAssetType()
-  {
-    return $this->assetType;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNetworkTags($networkTags)
-  {
-    $this->networkTags = $networkTags;
-  }
-  public function getNetworkTags()
-  {
-    return $this->networkTags;
-  }
-  public function setProject($project)
-  {
-    $this->project = $project;
-  }
-  public function getProject()
-  {
-    return $this->project;
-  }
+	public function setAdditionalAttributes($additionalAttributes)
+	{
+		$this->additionalAttributes = $additionalAttributes;
+	}
+	public function getAdditionalAttributes()
+	{
+		return $this->additionalAttributes;
+	}
+	public function setAssetType($assetType)
+	{
+		$this->assetType = $assetType;
+	}
+	public function getAssetType()
+	{
+		return $this->assetType;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNetworkTags($networkTags)
+	{
+		$this->networkTags = $networkTags;
+	}
+	public function getNetworkTags()
+	{
+		return $this->networkTags;
+	}
+	public function setProject($project)
+	{
+		$this->project = $project;
+	}
+	public function getProject()
+	{
+		return $this->project;
+	}
 }

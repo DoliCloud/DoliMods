@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_AccountTax extends Google_Collection
 {
-  protected $collection_key = 'rules';
-  public $accountId;
-  public $kind;
-  protected $rulesType = 'Google_Service_ShoppingContent_AccountTaxTaxRule';
-  protected $rulesDataType = 'array';
+	protected $collection_key = 'rules';
+	public $accountId;
+	public $kind;
+	protected $rulesType = 'Google_Service_ShoppingContent_AccountTaxTaxRule';
+	protected $rulesDataType = 'array';
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_AccountTaxTaxRule
-   */
-  public function setRules($rules)
-  {
-    $this->rules = $rules;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_AccountTaxTaxRule
-   */
-  public function getRules()
-  {
-    return $this->rules;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_AccountTaxTaxRule
+	 */
+	public function setRules($rules)
+	{
+		$this->rules = $rules;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_AccountTaxTaxRule
+	 */
+	public function getRules()
+	{
+		return $this->rules;
+	}
 }

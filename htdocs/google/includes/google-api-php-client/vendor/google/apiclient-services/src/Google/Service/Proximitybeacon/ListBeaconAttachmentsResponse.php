@@ -17,22 +17,22 @@
 
 class Google_Service_Proximitybeacon_ListBeaconAttachmentsResponse extends Google_Collection
 {
-  protected $collection_key = 'attachments';
-  protected $attachmentsType = 'Google_Service_Proximitybeacon_BeaconAttachment';
-  protected $attachmentsDataType = 'array';
+	protected $collection_key = 'attachments';
+	protected $attachmentsType = 'Google_Service_Proximitybeacon_BeaconAttachment';
+	protected $attachmentsDataType = 'array';
 
-  /**
-   * @param Google_Service_Proximitybeacon_BeaconAttachment
-   */
-  public function setAttachments($attachments)
-  {
-    $this->attachments = $attachments;
-  }
-  /**
-   * @return Google_Service_Proximitybeacon_BeaconAttachment
-   */
-  public function getAttachments()
-  {
-    return $this->attachments;
-  }
+	/**
+	 * @param Google_Service_Proximitybeacon_BeaconAttachment
+	 */
+	public function setAttachments($attachments)
+	{
+		$this->attachments = $attachments;
+	}
+	/**
+	 * @return Google_Service_Proximitybeacon_BeaconAttachment
+	 */
+	public function getAttachments()
+	{
+		return $this->attachments;
+	}
 }

@@ -32,44 +32,44 @@ class Google_Service_PlayableLocations extends Google_Service
 {
 
 
-  public $v3;
-  
-  /**
-   * Constructs the internal representation of the PlayableLocations service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://playablelocations.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v3';
-    $this->serviceName = 'playablelocations';
+	public $v3;
 
-    $this->v3 = new Google_Service_PlayableLocations_Resource_V3(
-        $this,
-        $this->serviceName,
-        'v3',
-        array(
-          'methods' => array(
-            'logImpressions' => array(
-              'path' => 'v3:logImpressions',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),'logPlayerReports' => array(
-              'path' => 'v3:logPlayerReports',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),'samplePlayableLocations' => array(
-              'path' => 'v3:samplePlayableLocations',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the PlayableLocations service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://playablelocations.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v3';
+		$this->serviceName = 'playablelocations';
+
+		$this->v3 = new Google_Service_PlayableLocations_Resource_V3(
+		$this,
+		$this->serviceName,
+		'v3',
+		array(
+		  'methods' => array(
+			'logImpressions' => array(
+			  'path' => 'v3:logImpressions',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),'logPlayerReports' => array(
+			  'path' => 'v3:logPlayerReports',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),'samplePlayableLocations' => array(
+			  'path' => 'v3:samplePlayableLocations',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),
+		  )
+		)
+		);
+	}
 }

@@ -6,15 +6,15 @@ namespace GuzzleHttp\Event;
  */
 abstract class AbstractEvent implements EventInterface
 {
-    private $propagationStopped = false;
+	private $propagationStopped = false;
 
-    public function isPropagationStopped()
-    {
-        return $this->propagationStopped;
-    }
+	public function isPropagationStopped()
+	{
+		return $this->propagationStopped;
+	}
 
-    public function stopPropagation()
-    {
-        $this->propagationStopped = true;
-    }
+	public function stopPropagation()
+	{
+		$this->propagationStopped = true;
+	}
 }

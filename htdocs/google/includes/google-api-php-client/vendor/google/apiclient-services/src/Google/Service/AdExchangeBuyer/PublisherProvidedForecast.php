@@ -17,40 +17,40 @@
 
 class Google_Service_AdExchangeBuyer_PublisherProvidedForecast extends Google_Collection
 {
-  protected $collection_key = 'dimensions';
-  protected $dimensionsType = 'Google_Service_AdExchangeBuyer_Dimension';
-  protected $dimensionsDataType = 'array';
-  public $weeklyImpressions;
-  public $weeklyUniques;
+	protected $collection_key = 'dimensions';
+	protected $dimensionsType = 'Google_Service_AdExchangeBuyer_Dimension';
+	protected $dimensionsDataType = 'array';
+	public $weeklyImpressions;
+	public $weeklyUniques;
 
-  /**
-   * @param Google_Service_AdExchangeBuyer_Dimension
-   */
-  public function setDimensions($dimensions)
-  {
-    $this->dimensions = $dimensions;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_Dimension
-   */
-  public function getDimensions()
-  {
-    return $this->dimensions;
-  }
-  public function setWeeklyImpressions($weeklyImpressions)
-  {
-    $this->weeklyImpressions = $weeklyImpressions;
-  }
-  public function getWeeklyImpressions()
-  {
-    return $this->weeklyImpressions;
-  }
-  public function setWeeklyUniques($weeklyUniques)
-  {
-    $this->weeklyUniques = $weeklyUniques;
-  }
-  public function getWeeklyUniques()
-  {
-    return $this->weeklyUniques;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyer_Dimension
+	 */
+	public function setDimensions($dimensions)
+	{
+		$this->dimensions = $dimensions;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_Dimension
+	 */
+	public function getDimensions()
+	{
+		return $this->dimensions;
+	}
+	public function setWeeklyImpressions($weeklyImpressions)
+	{
+		$this->weeklyImpressions = $weeklyImpressions;
+	}
+	public function getWeeklyImpressions()
+	{
+		return $this->weeklyImpressions;
+	}
+	public function setWeeklyUniques($weeklyUniques)
+	{
+		$this->weeklyUniques = $weeklyUniques;
+	}
+	public function getWeeklyUniques()
+	{
+		return $this->weeklyUniques;
+	}
 }

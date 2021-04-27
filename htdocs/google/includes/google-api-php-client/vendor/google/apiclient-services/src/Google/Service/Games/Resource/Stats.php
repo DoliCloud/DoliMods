@@ -25,17 +25,17 @@
  */
 class Google_Service_Games_Resource_Stats extends Google_Service_Resource
 {
-  /**
-   * Returns engagement and spend statistics in this application for the currently
-   * authenticated user. (stats.get)
-   *
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Games_StatsResponse
-   */
-  public function get($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Games_StatsResponse");
-  }
+	/**
+	 * Returns engagement and spend statistics in this application for the currently
+	 * authenticated user. (stats.get)
+	 *
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Games_StatsResponse
+	 */
+	public function get($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Games_StatsResponse");
+	}
 }

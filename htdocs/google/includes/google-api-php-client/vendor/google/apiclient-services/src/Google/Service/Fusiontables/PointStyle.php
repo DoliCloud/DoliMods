@@ -17,30 +17,30 @@
 
 class Google_Service_Fusiontables_PointStyle extends Google_Model
 {
-  public $iconName;
-  protected $iconStylerType = 'Google_Service_Fusiontables_StyleFunction';
-  protected $iconStylerDataType = '';
+	public $iconName;
+	protected $iconStylerType = 'Google_Service_Fusiontables_StyleFunction';
+	protected $iconStylerDataType = '';
 
-  public function setIconName($iconName)
-  {
-    $this->iconName = $iconName;
-  }
-  public function getIconName()
-  {
-    return $this->iconName;
-  }
-  /**
-   * @param Google_Service_Fusiontables_StyleFunction
-   */
-  public function setIconStyler(Google_Service_Fusiontables_StyleFunction $iconStyler)
-  {
-    $this->iconStyler = $iconStyler;
-  }
-  /**
-   * @return Google_Service_Fusiontables_StyleFunction
-   */
-  public function getIconStyler()
-  {
-    return $this->iconStyler;
-  }
+	public function setIconName($iconName)
+	{
+		$this->iconName = $iconName;
+	}
+	public function getIconName()
+	{
+		return $this->iconName;
+	}
+	/**
+	 * @param Google_Service_Fusiontables_StyleFunction
+	 */
+	public function setIconStyler(Google_Service_Fusiontables_StyleFunction $iconStyler)
+	{
+		$this->iconStyler = $iconStyler;
+	}
+	/**
+	 * @return Google_Service_Fusiontables_StyleFunction
+	 */
+	public function getIconStyler()
+	{
+		return $this->iconStyler;
+	}
 }

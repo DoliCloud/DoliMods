@@ -29,83 +29,79 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 	var $picto='prestashopget@prestashopget';
 
 	/**
-     * @var DoliDB Database handler.
-     */
-    public $db;
+	 * @var DoliDB Database handler.
+	 */
+	public $db;
 
 
 	/**
-     *	Constructor
-     *
-     * 	@param	DoliDB	$db		Database handler
-     */
+	 *	Constructor
+	 *
+	 * 	@param	DoliDB	$db		Database handler
+	 */
 	function __construct($db)
 	{
 		global $conf;
 
 		$this->db=$db;
-		if (is_array($conf->modules))
-		{
-			$this->enabled=in_array('prestashopget',$conf->modules)?1:0;
+		if (is_array($conf->modules)) {
+			$this->enabled=in_array('prestashopget', $conf->modules)?1:0;
 		}
 	}
 
 
-    /**
-     *   Affiche formulaire de filtre qui apparait dans page de selection des destinataires de mailings
-     *
-     *   @return     string      Retourne zone select
-     */
-    function formFilter()
-    {
-        global $langs;
-        $langs->load("members");
+	/**
+	 *   Affiche formulaire de filtre qui apparait dans page de selection des destinataires de mailings
+	 *
+	 *   @return     string      Retourne zone select
+	 */
+	function formFilter()
+	{
+		global $langs;
+		$langs->load("members");
 
-        $form=new Form($this->db);
+		$form=new Form($this->db);
 
-        $arraystatus=array(1=>'1 - English', 2=>'2 - French', 3=>'3 - Spanish', 4=>'4 - Italian', 5=>'5 - German');        // TODO Get id of lang from Prestashop
+		$arraystatus=array(1=>'1 - English', 2=>'2 - French', 3=>'3 - Spanish', 4=>'4 - Italian', 5=>'5 - German');        // TODO Get id of lang from Prestashop
 
-        $s='';
+		$s='';
 
-        $s.=$langs->trans("Language").': ';
-        $s.='<select name="filter" class="flat">';
-        $s.='<option value="none">&nbsp;</option>';
-        foreach($arraystatus as $status)
-        {
-	        $s.='<option value="'.$status.'">'.$status.'</option>';
-        }
-        $s.='</select>';
-        $s.='<br>';
+		$s.=$langs->trans("Language").': ';
+		$s.='<select name="filter" class="flat">';
+		$s.='<option value="none">&nbsp;</option>';
+		foreach ($arraystatus as $status) {
+			$s.='<option value="'.$status.'">'.$status.'</option>';
+		}
+		$s.='</select>';
+		$s.='<br>';
 
-        $arraystatus=array(0=>'0', 1=>'1');
+		$arraystatus=array(0=>'0', 1=>'1');
 
-        $s.=$langs->trans("Newsletter").': ';
-        $s.='<select name="newsletter" class="flat">';
-        $s.='<option value="none">&nbsp;</option>';
-        foreach($arraystatus as $status)
-        {
-            $s.='<option value="'.$status.'">'.$status.'</option>';
-        }
-        $s.='</select>';
-        $s.='<br>';
+		$s.=$langs->trans("Newsletter").': ';
+		$s.='<select name="newsletter" class="flat">';
+		$s.='<option value="none">&nbsp;</option>';
+		foreach ($arraystatus as $status) {
+			$s.='<option value="'.$status.'">'.$status.'</option>';
+		}
+		$s.='</select>';
+		$s.='<br>';
 
-        $arraystatus=array(0=>'0', 1=>'1');
+		$arraystatus=array(0=>'0', 1=>'1');
 
-        $s.=$langs->trans("Optin").': ';
-        $s.='<select name="optin" class="flat">';
-        $s.='<option value="none">&nbsp;</option>';
-        foreach($arraystatus as $status)
-        {
-            $s.='<option value="'.$status.'">'.$status.'</option>';
-        }
-        $s.='</select>';
-        $s.='<br>';
+		$s.=$langs->trans("Optin").': ';
+		$s.='<select name="optin" class="flat">';
+		$s.='<option value="none">&nbsp;</option>';
+		foreach ($arraystatus as $status) {
+			$s.='<option value="'.$status.'">'.$status.'</option>';
+		}
+		$s.='</select>';
+		$s.='<br>';
 
-        return $s;
-    }
+		return $s;
+	}
 
 
-    /**
+	/**
 	 *  Renvoie url lien vers fiche de la source du destinataire du mailing
 	 *
 	 *  @param		int			$id		ID
@@ -113,7 +109,7 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 	 */
 	function url($id)
 	{
-		return '<a href="'.dol_buildpath('/prestashopget/myobject_card.php',1).'?id='.$id.'">'.img_object('',"generic").'</a>';
+		return '<a href="'.dol_buildpath('/prestashopget/myobject_card.php', 1).'?id='.$id.'">'.img_object('', "generic").'</a>';
 	}
 
 
@@ -124,9 +120,9 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 	 *  @param	array	$filtersarray   Requete sql de selection des destinataires
 	 *  @return int           			<0 if error, number of emails added if ok
 	 */
-	function addTargetsToDatabase($mailing_id, $filtersarray=array())
+	function addTargetsToDatabase($mailing_id, $filtersarray = array())
 	{
-	    return $this->add_to_target($mailing_id, $filtersarray);
+		return $this->add_to_target($mailing_id, $filtersarray);
 	}
 
     // phpcs:disable PEAR.NamingConventions.ValidFunctionName.NotCamelCaps
@@ -137,9 +133,9 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 	 *  @param	array	$filtersarray   Requete sql de selection des destinataires
 	 *  @return int           			<0 if error, number of emails added if ok
 	 */
-	function add_to_target($mailing_id, $filtersarray=array())
+	function add_to_target($mailing_id, $filtersarray = array())
 	{
-	    global $conf;
+		global $conf;
 
         // phpcs:enable
 		$target = array();
@@ -147,13 +143,12 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 		$j = 0;
 
 		$db2=getDoliDBInstance('mysqli', $conf->global->PRESTASHOPGET_DB_SERVER, $conf->global->PRESTASHOPGET_DB_USER, $conf->global->PRESTASHOPGET_DB_PASS, 'dolistore', 3306);
-		if (! $db2->connected)
-		{
-		    $this->error = 'Failed to connect to PrestaShop server';
-		    return -1;
+		if (! $db2->connected) {
+			$this->error = 'Failed to connect to PrestaShop server';
+			return -1;
 		}
 
-        $sql = 'SELECT
+		$sql = 'SELECT
 		a.id_customer,
 		firstname,
 		lastname,
@@ -178,8 +173,8 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 		    LEFT JOIN ps_gender_lang gl ON (a.id_gender = gl.id_gender AND gl.id_lang = 2)
 		    WHERE 1
 		    AND a.deleted = 0';
-        if (! empty($_POST['newsletter']) && $_POST['newsletter'] != 'none') $sql.= " AND newsletter = 1";
-        if (! empty($_POST['optin']) && $_POST['optin'] != 'none') $sql.= " AND optin = 1";
+		if (! empty($_POST['newsletter']) && $_POST['newsletter'] != 'none') $sql.= " AND newsletter = 1";
+		if (! empty($_POST['optin']) && $_POST['optin'] != 'none') $sql.= " AND optin = 1";
 
 
 		$sql.= " AND email IS NOT NULL AND email != ''";
@@ -188,25 +183,22 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 
 		// Stocke destinataires dans cibles
 		$result=$db2->query($sql);
-		if ($result)
-		{
+		if ($result) {
 			$num = $db2->num_rows($result);
 			$i = 0;
 
 			dol_syslog("mailinglist_prestashopget_myobject.modules.php: mailing ".$num." targets found");
 
 			$old = '';
-			while ($i < $num)
-			{
+			while ($i < $num) {
 				$obj = $db2->fetch_object($result);
-				if ($old <> $obj->email)
-				{
+				if ($old <> $obj->email) {
 					$cibles[$j] = array(
 						'email' => $obj->email,
 						'lastname' => $obj->lastname,
 						'id' => $obj->id_csutomer,
 						'firstname' => $obj->firstname,
-					    'other' => $obj->newsletter.';'.$obj->optin,
+						'other' => $obj->newsletter.';'.$obj->optin,
 						'source_url' => '',
 						'source_id' => $obj->id_customer,
 						'source_type' => 'prestashop'
@@ -217,9 +209,7 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 
 				$i++;
 			}
-		}
-		else
-		{
+		} else {
 			$this->error=$db2->lasterror();
 			dol_syslog($this->error);
 			return -1;
@@ -234,11 +224,9 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 
 		// ----- Your code end here -----
 		if (method_exists(get_parent_class($this), 'addTargetsToDatabase')) {
-		    return parent::addTargetsToDatabase($mailing_id, $cibles);
-		}
-		else
-		{
-		    return parent::add_to_target($mailing_id, $cibles);
+			return parent::addTargetsToDatabase($mailing_id, $cibles);
+		} else {
+			return parent::add_to_target($mailing_id, $cibles);
 		}
 	}
 
@@ -271,10 +259,10 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 	 *	@param	string	$option		Options
 	 *	@return	int					Nb of recipients or -1 if KO
 	 */
-	function getNbOfRecipients($filter=1,$option='')
+	function getNbOfRecipients($filter = 1, $option = '')
 	{
 		//$a=parent::getNbOfRecipients("select count(distinct(email)) as nb from ".MAIN_DB_PREFIX."ps_customer as p where email IS NOT NULL AND email != ''");
-        $a=0;
+		$a=0;
 
 		if ($a < 0) return -1;
 		return '';

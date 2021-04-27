@@ -17,33 +17,33 @@
 
 class Google_Service_SemanticTile_Vertex3DList extends Google_Collection
 {
-  protected $collection_key = 'zOffsets';
-  public $xOffsets;
-  public $yOffsets;
-  public $zOffsets;
+	protected $collection_key = 'zOffsets';
+	public $xOffsets;
+	public $yOffsets;
+	public $zOffsets;
 
-  public function setXOffsets($xOffsets)
-  {
-    $this->xOffsets = $xOffsets;
-  }
-  public function getXOffsets()
-  {
-    return $this->xOffsets;
-  }
-  public function setYOffsets($yOffsets)
-  {
-    $this->yOffsets = $yOffsets;
-  }
-  public function getYOffsets()
-  {
-    return $this->yOffsets;
-  }
-  public function setZOffsets($zOffsets)
-  {
-    $this->zOffsets = $zOffsets;
-  }
-  public function getZOffsets()
-  {
-    return $this->zOffsets;
-  }
+	public function setXOffsets($xOffsets)
+	{
+		$this->xOffsets = $xOffsets;
+	}
+	public function getXOffsets()
+	{
+		return $this->xOffsets;
+	}
+	public function setYOffsets($yOffsets)
+	{
+		$this->yOffsets = $yOffsets;
+	}
+	public function getYOffsets()
+	{
+		return $this->yOffsets;
+	}
+	public function setZOffsets($zOffsets)
+	{
+		$this->zOffsets = $zOffsets;
+	}
+	public function getZOffsets()
+	{
+		return $this->zOffsets;
+	}
 }

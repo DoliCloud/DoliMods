@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_HealthCheckReference extends Google_Model
 {
-  public $healthCheck;
+	public $healthCheck;
 
-  public function setHealthCheck($healthCheck)
-  {
-    $this->healthCheck = $healthCheck;
-  }
-  public function getHealthCheck()
-  {
-    return $this->healthCheck;
-  }
+	public function setHealthCheck($healthCheck)
+	{
+		$this->healthCheck = $healthCheck;
+	}
+	public function getHealthCheck()
+	{
+		return $this->healthCheck;
+	}
 }

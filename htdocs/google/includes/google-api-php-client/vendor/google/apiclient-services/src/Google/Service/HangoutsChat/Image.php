@@ -17,39 +17,39 @@
 
 class Google_Service_HangoutsChat_Image extends Google_Model
 {
-  public $aspectRatio;
-  public $imageUrl;
-  protected $onClickType = 'Google_Service_HangoutsChat_OnClick';
-  protected $onClickDataType = '';
+	public $aspectRatio;
+	public $imageUrl;
+	protected $onClickType = 'Google_Service_HangoutsChat_OnClick';
+	protected $onClickDataType = '';
 
-  public function setAspectRatio($aspectRatio)
-  {
-    $this->aspectRatio = $aspectRatio;
-  }
-  public function getAspectRatio()
-  {
-    return $this->aspectRatio;
-  }
-  public function setImageUrl($imageUrl)
-  {
-    $this->imageUrl = $imageUrl;
-  }
-  public function getImageUrl()
-  {
-    return $this->imageUrl;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_OnClick
-   */
-  public function setOnClick(Google_Service_HangoutsChat_OnClick $onClick)
-  {
-    $this->onClick = $onClick;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_OnClick
-   */
-  public function getOnClick()
-  {
-    return $this->onClick;
-  }
+	public function setAspectRatio($aspectRatio)
+	{
+		$this->aspectRatio = $aspectRatio;
+	}
+	public function getAspectRatio()
+	{
+		return $this->aspectRatio;
+	}
+	public function setImageUrl($imageUrl)
+	{
+		$this->imageUrl = $imageUrl;
+	}
+	public function getImageUrl()
+	{
+		return $this->imageUrl;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_OnClick
+	 */
+	public function setOnClick(Google_Service_HangoutsChat_OnClick $onClick)
+	{
+		$this->onClick = $onClick;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_OnClick
+	 */
+	public function getOnClick()
+	{
+		return $this->onClick;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_TagManager_ListUserPermissionsResponse extends Google_Collection
 {
-  protected $collection_key = 'userPermission';
-  public $nextPageToken;
-  protected $userPermissionType = 'Google_Service_TagManager_UserPermission';
-  protected $userPermissionDataType = 'array';
+	protected $collection_key = 'userPermission';
+	public $nextPageToken;
+	protected $userPermissionType = 'Google_Service_TagManager_UserPermission';
+	protected $userPermissionDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_TagManager_UserPermission
-   */
-  public function setUserPermission($userPermission)
-  {
-    $this->userPermission = $userPermission;
-  }
-  /**
-   * @return Google_Service_TagManager_UserPermission
-   */
-  public function getUserPermission()
-  {
-    return $this->userPermission;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_TagManager_UserPermission
+	 */
+	public function setUserPermission($userPermission)
+	{
+		$this->userPermission = $userPermission;
+	}
+	/**
+	 * @return Google_Service_TagManager_UserPermission
+	 */
+	public function getUserPermission()
+	{
+		return $this->userPermission;
+	}
 }

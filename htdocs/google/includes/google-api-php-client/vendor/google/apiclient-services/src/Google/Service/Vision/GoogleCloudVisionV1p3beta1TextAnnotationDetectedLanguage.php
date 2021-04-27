@@ -17,23 +17,23 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationDetectedLanguage extends Google_Model
 {
-  public $confidence;
-  public $languageCode;
+	public $confidence;
+	public $languageCode;
 
-  public function setConfidence($confidence)
-  {
-    $this->confidence = $confidence;
-  }
-  public function getConfidence()
-  {
-    return $this->confidence;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
+	public function setConfidence($confidence)
+	{
+		$this->confidence = $confidence;
+	}
+	public function getConfidence()
+	{
+		return $this->confidence;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
 }

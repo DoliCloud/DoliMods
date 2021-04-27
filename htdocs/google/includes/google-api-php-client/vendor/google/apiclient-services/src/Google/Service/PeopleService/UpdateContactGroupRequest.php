@@ -17,21 +17,21 @@
 
 class Google_Service_PeopleService_UpdateContactGroupRequest extends Google_Model
 {
-  protected $contactGroupType = 'Google_Service_PeopleService_ContactGroup';
-  protected $contactGroupDataType = '';
+	protected $contactGroupType = 'Google_Service_PeopleService_ContactGroup';
+	protected $contactGroupDataType = '';
 
-  /**
-   * @param Google_Service_PeopleService_ContactGroup
-   */
-  public function setContactGroup(Google_Service_PeopleService_ContactGroup $contactGroup)
-  {
-    $this->contactGroup = $contactGroup;
-  }
-  /**
-   * @return Google_Service_PeopleService_ContactGroup
-   */
-  public function getContactGroup()
-  {
-    return $this->contactGroup;
-  }
+	/**
+	 * @param Google_Service_PeopleService_ContactGroup
+	 */
+	public function setContactGroup(Google_Service_PeopleService_ContactGroup $contactGroup)
+	{
+		$this->contactGroup = $contactGroup;
+	}
+	/**
+	 * @return Google_Service_PeopleService_ContactGroup
+	 */
+	public function getContactGroup()
+	{
+		return $this->contactGroup;
+	}
 }

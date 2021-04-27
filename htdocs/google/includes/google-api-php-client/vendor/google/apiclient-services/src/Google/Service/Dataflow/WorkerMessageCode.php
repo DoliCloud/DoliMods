@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_WorkerMessageCode extends Google_Model
 {
-  public $code;
-  public $parameters;
+	public $code;
+	public $parameters;
 
-  public function setCode($code)
-  {
-    $this->code = $code;
-  }
-  public function getCode()
-  {
-    return $this->code;
-  }
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	public function setCode($code)
+	{
+		$this->code = $code;
+	}
+	public function getCode()
+	{
+		return $this->code;
+	}
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

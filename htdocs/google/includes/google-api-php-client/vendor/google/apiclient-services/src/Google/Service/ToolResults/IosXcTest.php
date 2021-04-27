@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_IosXcTest extends Google_Model
 {
-  public $bundleId;
-  public $xcodeVersion;
+	public $bundleId;
+	public $xcodeVersion;
 
-  public function setBundleId($bundleId)
-  {
-    $this->bundleId = $bundleId;
-  }
-  public function getBundleId()
-  {
-    return $this->bundleId;
-  }
-  public function setXcodeVersion($xcodeVersion)
-  {
-    $this->xcodeVersion = $xcodeVersion;
-  }
-  public function getXcodeVersion()
-  {
-    return $this->xcodeVersion;
-  }
+	public function setBundleId($bundleId)
+	{
+		$this->bundleId = $bundleId;
+	}
+	public function getBundleId()
+	{
+		return $this->bundleId;
+	}
+	public function setXcodeVersion($xcodeVersion)
+	{
+		$this->xcodeVersion = $xcodeVersion;
+	}
+	public function getXcodeVersion()
+	{
+		return $this->xcodeVersion;
+	}
 }

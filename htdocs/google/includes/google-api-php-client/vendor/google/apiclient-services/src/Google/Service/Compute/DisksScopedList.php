@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_DisksScopedList extends Google_Collection
 {
-  protected $collection_key = 'disks';
-  protected $disksType = 'Google_Service_Compute_Disk';
-  protected $disksDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_DisksScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'disks';
+	protected $disksType = 'Google_Service_Compute_Disk';
+	protected $disksDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_DisksScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_Disk
-   */
-  public function setDisks($disks)
-  {
-    $this->disks = $disks;
-  }
-  /**
-   * @return Google_Service_Compute_Disk
-   */
-  public function getDisks()
-  {
-    return $this->disks;
-  }
-  /**
-   * @param Google_Service_Compute_DisksScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_DisksScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_DisksScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_Disk
+	 */
+	public function setDisks($disks)
+	{
+		$this->disks = $disks;
+	}
+	/**
+	 * @return Google_Service_Compute_Disk
+	 */
+	public function getDisks()
+	{
+		return $this->disks;
+	}
+	/**
+	 * @param Google_Service_Compute_DisksScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_DisksScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_DisksScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

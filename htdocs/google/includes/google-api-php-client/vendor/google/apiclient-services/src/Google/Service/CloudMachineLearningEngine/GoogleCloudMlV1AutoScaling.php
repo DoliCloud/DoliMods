@@ -17,14 +17,14 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutoScaling extends Google_Model
 {
-  public $minNodes;
+	public $minNodes;
 
-  public function setMinNodes($minNodes)
-  {
-    $this->minNodes = $minNodes;
-  }
-  public function getMinNodes()
-  {
-    return $this->minNodes;
-  }
+	public function setMinNodes($minNodes)
+	{
+		$this->minNodes = $minNodes;
+	}
+	public function getMinNodes()
+	{
+		return $this->minNodes;
+	}
 }

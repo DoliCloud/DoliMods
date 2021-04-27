@@ -17,48 +17,48 @@
 
 class Google_Service_ShoppingContent_OrderreturnsRefundOperation extends Google_Model
 {
-  public $fullRefund;
-  protected $partialRefundType = 'Google_Service_ShoppingContent_OrderreturnsPartialRefund';
-  protected $partialRefundDataType = '';
-  public $reasonText;
-  public $returnRefundReason;
+	public $fullRefund;
+	protected $partialRefundType = 'Google_Service_ShoppingContent_OrderreturnsPartialRefund';
+	protected $partialRefundDataType = '';
+	public $reasonText;
+	public $returnRefundReason;
 
-  public function setFullRefund($fullRefund)
-  {
-    $this->fullRefund = $fullRefund;
-  }
-  public function getFullRefund()
-  {
-    return $this->fullRefund;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_OrderreturnsPartialRefund
-   */
-  public function setPartialRefund(Google_Service_ShoppingContent_OrderreturnsPartialRefund $partialRefund)
-  {
-    $this->partialRefund = $partialRefund;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderreturnsPartialRefund
-   */
-  public function getPartialRefund()
-  {
-    return $this->partialRefund;
-  }
-  public function setReasonText($reasonText)
-  {
-    $this->reasonText = $reasonText;
-  }
-  public function getReasonText()
-  {
-    return $this->reasonText;
-  }
-  public function setReturnRefundReason($returnRefundReason)
-  {
-    $this->returnRefundReason = $returnRefundReason;
-  }
-  public function getReturnRefundReason()
-  {
-    return $this->returnRefundReason;
-  }
+	public function setFullRefund($fullRefund)
+	{
+		$this->fullRefund = $fullRefund;
+	}
+	public function getFullRefund()
+	{
+		return $this->fullRefund;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_OrderreturnsPartialRefund
+	 */
+	public function setPartialRefund(Google_Service_ShoppingContent_OrderreturnsPartialRefund $partialRefund)
+	{
+		$this->partialRefund = $partialRefund;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderreturnsPartialRefund
+	 */
+	public function getPartialRefund()
+	{
+		return $this->partialRefund;
+	}
+	public function setReasonText($reasonText)
+	{
+		$this->reasonText = $reasonText;
+	}
+	public function getReasonText()
+	{
+		return $this->reasonText;
+	}
+	public function setReturnRefundReason($returnRefundReason)
+	{
+		$this->returnRefundReason = $returnRefundReason;
+	}
+	public function getReturnRefundReason()
+	{
+		return $this->returnRefundReason;
+	}
 }

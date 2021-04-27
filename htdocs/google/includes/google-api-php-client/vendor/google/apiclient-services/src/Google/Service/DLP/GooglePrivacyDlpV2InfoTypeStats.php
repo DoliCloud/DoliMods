@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2InfoTypeStats extends Google_Model
 {
-  public $count;
-  protected $infoTypeType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
-  protected $infoTypeDataType = '';
+	public $count;
+	protected $infoTypeType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
+	protected $infoTypeDataType = '';
 
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
-   */
-  public function setInfoType(Google_Service_DLP_GooglePrivacyDlpV2InfoType $infoType)
-  {
-    $this->infoType = $infoType;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
-   */
-  public function getInfoType()
-  {
-    return $this->infoType;
-  }
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
+	 */
+	public function setInfoType(Google_Service_DLP_GooglePrivacyDlpV2InfoType $infoType)
+	{
+		$this->infoType = $infoType;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
+	 */
+	public function getInfoType()
+	{
+		return $this->infoType;
+	}
 }

@@ -17,59 +17,59 @@
 
 class Google_Service_TagManager_BuiltInVariable extends Google_Model
 {
-  public $accountId;
-  public $containerId;
-  public $name;
-  public $path;
-  public $type;
-  public $workspaceId;
+	public $accountId;
+	public $containerId;
+	public $name;
+	public $path;
+	public $type;
+	public $workspaceId;
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setContainerId($containerId)
-  {
-    $this->containerId = $containerId;
-  }
-  public function getContainerId()
-  {
-    return $this->containerId;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setWorkspaceId($workspaceId)
-  {
-    $this->workspaceId = $workspaceId;
-  }
-  public function getWorkspaceId()
-  {
-    return $this->workspaceId;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setContainerId($containerId)
+	{
+		$this->containerId = $containerId;
+	}
+	public function getContainerId()
+	{
+		return $this->containerId;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setWorkspaceId($workspaceId)
+	{
+		$this->workspaceId = $workspaceId;
+	}
+	public function getWorkspaceId()
+	{
+		return $this->workspaceId;
+	}
 }

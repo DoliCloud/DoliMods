@@ -17,66 +17,66 @@
 
 class Google_Service_Dfareporting_OperatingSystemVersion extends Google_Model
 {
-  public $id;
-  public $kind;
-  public $majorVersion;
-  public $minorVersion;
-  public $name;
-  protected $operatingSystemType = 'Google_Service_Dfareporting_OperatingSystem';
-  protected $operatingSystemDataType = '';
+	public $id;
+	public $kind;
+	public $majorVersion;
+	public $minorVersion;
+	public $name;
+	protected $operatingSystemType = 'Google_Service_Dfareporting_OperatingSystem';
+	protected $operatingSystemDataType = '';
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setMajorVersion($majorVersion)
-  {
-    $this->majorVersion = $majorVersion;
-  }
-  public function getMajorVersion()
-  {
-    return $this->majorVersion;
-  }
-  public function setMinorVersion($minorVersion)
-  {
-    $this->minorVersion = $minorVersion;
-  }
-  public function getMinorVersion()
-  {
-    return $this->minorVersion;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Dfareporting_OperatingSystem
-   */
-  public function setOperatingSystem(Google_Service_Dfareporting_OperatingSystem $operatingSystem)
-  {
-    $this->operatingSystem = $operatingSystem;
-  }
-  /**
-   * @return Google_Service_Dfareporting_OperatingSystem
-   */
-  public function getOperatingSystem()
-  {
-    return $this->operatingSystem;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setMajorVersion($majorVersion)
+	{
+		$this->majorVersion = $majorVersion;
+	}
+	public function getMajorVersion()
+	{
+		return $this->majorVersion;
+	}
+	public function setMinorVersion($minorVersion)
+	{
+		$this->minorVersion = $minorVersion;
+	}
+	public function getMinorVersion()
+	{
+		return $this->minorVersion;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_OperatingSystem
+	 */
+	public function setOperatingSystem(Google_Service_Dfareporting_OperatingSystem $operatingSystem)
+	{
+		$this->operatingSystem = $operatingSystem;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_OperatingSystem
+	 */
+	public function getOperatingSystem()
+	{
+		return $this->operatingSystem;
+	}
 }

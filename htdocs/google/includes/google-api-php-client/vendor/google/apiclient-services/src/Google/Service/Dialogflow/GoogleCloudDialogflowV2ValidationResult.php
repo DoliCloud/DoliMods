@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2ValidationResult extends Google_Collection
 {
-  protected $collection_key = 'validationErrors';
-  protected $validationErrorsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2ValidationError';
-  protected $validationErrorsDataType = 'array';
+	protected $collection_key = 'validationErrors';
+	protected $validationErrorsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2ValidationError';
+	protected $validationErrorsDataType = 'array';
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2ValidationError
-   */
-  public function setValidationErrors($validationErrors)
-  {
-    $this->validationErrors = $validationErrors;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2ValidationError
-   */
-  public function getValidationErrors()
-  {
-    return $this->validationErrors;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2ValidationError
+	 */
+	public function setValidationErrors($validationErrors)
+	{
+		$this->validationErrors = $validationErrors;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2ValidationError
+	 */
+	public function getValidationErrors()
+	{
+		return $this->validationErrors;
+	}
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_Compute_RouterNatSubnetworkToNat extends Google_Collection
 {
-  protected $collection_key = 'sourceIpRangesToNat';
-  public $name;
-  public $secondaryIpRangeNames;
-  public $sourceIpRangesToNat;
+	protected $collection_key = 'sourceIpRangesToNat';
+	public $name;
+	public $secondaryIpRangeNames;
+	public $sourceIpRangesToNat;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSecondaryIpRangeNames($secondaryIpRangeNames)
-  {
-    $this->secondaryIpRangeNames = $secondaryIpRangeNames;
-  }
-  public function getSecondaryIpRangeNames()
-  {
-    return $this->secondaryIpRangeNames;
-  }
-  public function setSourceIpRangesToNat($sourceIpRangesToNat)
-  {
-    $this->sourceIpRangesToNat = $sourceIpRangesToNat;
-  }
-  public function getSourceIpRangesToNat()
-  {
-    return $this->sourceIpRangesToNat;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSecondaryIpRangeNames($secondaryIpRangeNames)
+	{
+		$this->secondaryIpRangeNames = $secondaryIpRangeNames;
+	}
+	public function getSecondaryIpRangeNames()
+	{
+		return $this->secondaryIpRangeNames;
+	}
+	public function setSourceIpRangesToNat($sourceIpRangesToNat)
+	{
+		$this->sourceIpRangesToNat = $sourceIpRangesToNat;
+	}
+	public function getSourceIpRangesToNat()
+	{
+		return $this->sourceIpRangesToNat;
+	}
 }

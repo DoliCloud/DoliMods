@@ -17,53 +17,53 @@
 
 class Google_Service_CloudSearch_SourceConfig extends Google_Model
 {
-  protected $crowdingConfigType = 'Google_Service_CloudSearch_SourceCrowdingConfig';
-  protected $crowdingConfigDataType = '';
-  protected $scoringConfigType = 'Google_Service_CloudSearch_SourceScoringConfig';
-  protected $scoringConfigDataType = '';
-  protected $sourceType = 'Google_Service_CloudSearch_Source';
-  protected $sourceDataType = '';
+	protected $crowdingConfigType = 'Google_Service_CloudSearch_SourceCrowdingConfig';
+	protected $crowdingConfigDataType = '';
+	protected $scoringConfigType = 'Google_Service_CloudSearch_SourceScoringConfig';
+	protected $scoringConfigDataType = '';
+	protected $sourceType = 'Google_Service_CloudSearch_Source';
+	protected $sourceDataType = '';
 
-  /**
-   * @param Google_Service_CloudSearch_SourceCrowdingConfig
-   */
-  public function setCrowdingConfig(Google_Service_CloudSearch_SourceCrowdingConfig $crowdingConfig)
-  {
-    $this->crowdingConfig = $crowdingConfig;
-  }
-  /**
-   * @return Google_Service_CloudSearch_SourceCrowdingConfig
-   */
-  public function getCrowdingConfig()
-  {
-    return $this->crowdingConfig;
-  }
-  /**
-   * @param Google_Service_CloudSearch_SourceScoringConfig
-   */
-  public function setScoringConfig(Google_Service_CloudSearch_SourceScoringConfig $scoringConfig)
-  {
-    $this->scoringConfig = $scoringConfig;
-  }
-  /**
-   * @return Google_Service_CloudSearch_SourceScoringConfig
-   */
-  public function getScoringConfig()
-  {
-    return $this->scoringConfig;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Source
-   */
-  public function setSource(Google_Service_CloudSearch_Source $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Source
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_SourceCrowdingConfig
+	 */
+	public function setCrowdingConfig(Google_Service_CloudSearch_SourceCrowdingConfig $crowdingConfig)
+	{
+		$this->crowdingConfig = $crowdingConfig;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_SourceCrowdingConfig
+	 */
+	public function getCrowdingConfig()
+	{
+		return $this->crowdingConfig;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_SourceScoringConfig
+	 */
+	public function setScoringConfig(Google_Service_CloudSearch_SourceScoringConfig $scoringConfig)
+	{
+		$this->scoringConfig = $scoringConfig;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_SourceScoringConfig
+	 */
+	public function getScoringConfig()
+	{
+		return $this->scoringConfig;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Source
+	 */
+	public function setSource(Google_Service_CloudSearch_Source $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Source
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

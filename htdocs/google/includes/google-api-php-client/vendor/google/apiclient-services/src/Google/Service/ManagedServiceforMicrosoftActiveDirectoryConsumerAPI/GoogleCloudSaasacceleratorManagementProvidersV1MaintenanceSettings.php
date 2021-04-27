@@ -17,14 +17,14 @@
 
 class Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1MaintenanceSettings extends Google_Model
 {
-  public $exclude;
+	public $exclude;
 
-  public function setExclude($exclude)
-  {
-    $this->exclude = $exclude;
-  }
-  public function getExclude()
-  {
-    return $this->exclude;
-  }
+	public function setExclude($exclude)
+	{
+		$this->exclude = $exclude;
+	}
+	public function getExclude()
+	{
+		return $this->exclude;
+	}
 }

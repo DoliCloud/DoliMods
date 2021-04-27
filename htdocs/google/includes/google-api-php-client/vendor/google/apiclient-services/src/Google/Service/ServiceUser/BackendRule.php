@@ -17,41 +17,41 @@
 
 class Google_Service_ServiceUser_BackendRule extends Google_Model
 {
-  public $address;
-  public $deadline;
-  public $minDeadline;
-  public $selector;
+	public $address;
+	public $deadline;
+	public $minDeadline;
+	public $selector;
 
-  public function setAddress($address)
-  {
-    $this->address = $address;
-  }
-  public function getAddress()
-  {
-    return $this->address;
-  }
-  public function setDeadline($deadline)
-  {
-    $this->deadline = $deadline;
-  }
-  public function getDeadline()
-  {
-    return $this->deadline;
-  }
-  public function setMinDeadline($minDeadline)
-  {
-    $this->minDeadline = $minDeadline;
-  }
-  public function getMinDeadline()
-  {
-    return $this->minDeadline;
-  }
-  public function setSelector($selector)
-  {
-    $this->selector = $selector;
-  }
-  public function getSelector()
-  {
-    return $this->selector;
-  }
+	public function setAddress($address)
+	{
+		$this->address = $address;
+	}
+	public function getAddress()
+	{
+		return $this->address;
+	}
+	public function setDeadline($deadline)
+	{
+		$this->deadline = $deadline;
+	}
+	public function getDeadline()
+	{
+		return $this->deadline;
+	}
+	public function setMinDeadline($minDeadline)
+	{
+		$this->minDeadline = $minDeadline;
+	}
+	public function getMinDeadline()
+	{
+		return $this->minDeadline;
+	}
+	public function setSelector($selector)
+	{
+		$this->selector = $selector;
+	}
+	public function getSelector()
+	{
+		return $this->selector;
+	}
 }

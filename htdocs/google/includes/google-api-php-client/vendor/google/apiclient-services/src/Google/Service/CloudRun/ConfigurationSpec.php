@@ -17,21 +17,21 @@
 
 class Google_Service_CloudRun_ConfigurationSpec extends Google_Model
 {
-  protected $templateType = 'Google_Service_CloudRun_RevisionTemplate';
-  protected $templateDataType = '';
+	protected $templateType = 'Google_Service_CloudRun_RevisionTemplate';
+	protected $templateDataType = '';
 
-  /**
-   * @param Google_Service_CloudRun_RevisionTemplate
-   */
-  public function setTemplate(Google_Service_CloudRun_RevisionTemplate $template)
-  {
-    $this->template = $template;
-  }
-  /**
-   * @return Google_Service_CloudRun_RevisionTemplate
-   */
-  public function getTemplate()
-  {
-    return $this->template;
-  }
+	/**
+	 * @param Google_Service_CloudRun_RevisionTemplate
+	 */
+	public function setTemplate(Google_Service_CloudRun_RevisionTemplate $template)
+	{
+		$this->template = $template;
+	}
+	/**
+	 * @return Google_Service_CloudRun_RevisionTemplate
+	 */
+	public function getTemplate()
+	{
+		return $this->template;
+	}
 }

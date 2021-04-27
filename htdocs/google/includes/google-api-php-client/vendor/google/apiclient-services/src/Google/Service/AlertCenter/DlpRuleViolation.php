@@ -17,21 +17,21 @@
 
 class Google_Service_AlertCenter_DlpRuleViolation extends Google_Model
 {
-  protected $ruleViolationInfoType = 'Google_Service_AlertCenter_RuleViolationInfo';
-  protected $ruleViolationInfoDataType = '';
+	protected $ruleViolationInfoType = 'Google_Service_AlertCenter_RuleViolationInfo';
+	protected $ruleViolationInfoDataType = '';
 
-  /**
-   * @param Google_Service_AlertCenter_RuleViolationInfo
-   */
-  public function setRuleViolationInfo(Google_Service_AlertCenter_RuleViolationInfo $ruleViolationInfo)
-  {
-    $this->ruleViolationInfo = $ruleViolationInfo;
-  }
-  /**
-   * @return Google_Service_AlertCenter_RuleViolationInfo
-   */
-  public function getRuleViolationInfo()
-  {
-    return $this->ruleViolationInfo;
-  }
+	/**
+	 * @param Google_Service_AlertCenter_RuleViolationInfo
+	 */
+	public function setRuleViolationInfo(Google_Service_AlertCenter_RuleViolationInfo $ruleViolationInfo)
+	{
+		$this->ruleViolationInfo = $ruleViolationInfo;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_RuleViolationInfo
+	 */
+	public function getRuleViolationInfo()
+	{
+		return $this->ruleViolationInfo;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_Source extends Google_Model
 {
-  public $name;
-  public $predefinedSource;
+	public $name;
+	public $predefinedSource;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPredefinedSource($predefinedSource)
-  {
-    $this->predefinedSource = $predefinedSource;
-  }
-  public function getPredefinedSource()
-  {
-    return $this->predefinedSource;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPredefinedSource($predefinedSource)
+	{
+		$this->predefinedSource = $predefinedSource;
+	}
+	public function getPredefinedSource()
+	{
+		return $this->predefinedSource;
+	}
 }

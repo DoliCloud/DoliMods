@@ -17,68 +17,68 @@
 
 class Google_Service_AlertCenter_DeviceCompromisedSecurityDetail extends Google_Model
 {
-  public $deviceCompromisedState;
-  public $deviceId;
-  public $deviceModel;
-  public $deviceType;
-  public $iosVendorId;
-  public $resourceId;
-  public $serialNumber;
+	public $deviceCompromisedState;
+	public $deviceId;
+	public $deviceModel;
+	public $deviceType;
+	public $iosVendorId;
+	public $resourceId;
+	public $serialNumber;
 
-  public function setDeviceCompromisedState($deviceCompromisedState)
-  {
-    $this->deviceCompromisedState = $deviceCompromisedState;
-  }
-  public function getDeviceCompromisedState()
-  {
-    return $this->deviceCompromisedState;
-  }
-  public function setDeviceId($deviceId)
-  {
-    $this->deviceId = $deviceId;
-  }
-  public function getDeviceId()
-  {
-    return $this->deviceId;
-  }
-  public function setDeviceModel($deviceModel)
-  {
-    $this->deviceModel = $deviceModel;
-  }
-  public function getDeviceModel()
-  {
-    return $this->deviceModel;
-  }
-  public function setDeviceType($deviceType)
-  {
-    $this->deviceType = $deviceType;
-  }
-  public function getDeviceType()
-  {
-    return $this->deviceType;
-  }
-  public function setIosVendorId($iosVendorId)
-  {
-    $this->iosVendorId = $iosVendorId;
-  }
-  public function getIosVendorId()
-  {
-    return $this->iosVendorId;
-  }
-  public function setResourceId($resourceId)
-  {
-    $this->resourceId = $resourceId;
-  }
-  public function getResourceId()
-  {
-    return $this->resourceId;
-  }
-  public function setSerialNumber($serialNumber)
-  {
-    $this->serialNumber = $serialNumber;
-  }
-  public function getSerialNumber()
-  {
-    return $this->serialNumber;
-  }
+	public function setDeviceCompromisedState($deviceCompromisedState)
+	{
+		$this->deviceCompromisedState = $deviceCompromisedState;
+	}
+	public function getDeviceCompromisedState()
+	{
+		return $this->deviceCompromisedState;
+	}
+	public function setDeviceId($deviceId)
+	{
+		$this->deviceId = $deviceId;
+	}
+	public function getDeviceId()
+	{
+		return $this->deviceId;
+	}
+	public function setDeviceModel($deviceModel)
+	{
+		$this->deviceModel = $deviceModel;
+	}
+	public function getDeviceModel()
+	{
+		return $this->deviceModel;
+	}
+	public function setDeviceType($deviceType)
+	{
+		$this->deviceType = $deviceType;
+	}
+	public function getDeviceType()
+	{
+		return $this->deviceType;
+	}
+	public function setIosVendorId($iosVendorId)
+	{
+		$this->iosVendorId = $iosVendorId;
+	}
+	public function getIosVendorId()
+	{
+		return $this->iosVendorId;
+	}
+	public function setResourceId($resourceId)
+	{
+		$this->resourceId = $resourceId;
+	}
+	public function getResourceId()
+	{
+		return $this->resourceId;
+	}
+	public function setSerialNumber($serialNumber)
+	{
+		$this->serialNumber = $serialNumber;
+	}
+	public function getSerialNumber()
+	{
+		return $this->serialNumber;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_ParentalStatusTargetingOptionDetails extends Google_Model
 {
-  public $parentalStatus;
+	public $parentalStatus;
 
-  public function setParentalStatus($parentalStatus)
-  {
-    $this->parentalStatus = $parentalStatus;
-  }
-  public function getParentalStatus()
-  {
-    return $this->parentalStatus;
-  }
+	public function setParentalStatus($parentalStatus)
+	{
+		$this->parentalStatus = $parentalStatus;
+	}
+	public function getParentalStatus()
+	{
+		return $this->parentalStatus;
+	}
 }

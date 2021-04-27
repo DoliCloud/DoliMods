@@ -17,42 +17,42 @@
 
 class Google_Service_Spanner_KeyRange extends Google_Collection
 {
-  protected $collection_key = 'startOpen';
-  public $endClosed;
-  public $endOpen;
-  public $startClosed;
-  public $startOpen;
+	protected $collection_key = 'startOpen';
+	public $endClosed;
+	public $endOpen;
+	public $startClosed;
+	public $startOpen;
 
-  public function setEndClosed($endClosed)
-  {
-    $this->endClosed = $endClosed;
-  }
-  public function getEndClosed()
-  {
-    return $this->endClosed;
-  }
-  public function setEndOpen($endOpen)
-  {
-    $this->endOpen = $endOpen;
-  }
-  public function getEndOpen()
-  {
-    return $this->endOpen;
-  }
-  public function setStartClosed($startClosed)
-  {
-    $this->startClosed = $startClosed;
-  }
-  public function getStartClosed()
-  {
-    return $this->startClosed;
-  }
-  public function setStartOpen($startOpen)
-  {
-    $this->startOpen = $startOpen;
-  }
-  public function getStartOpen()
-  {
-    return $this->startOpen;
-  }
+	public function setEndClosed($endClosed)
+	{
+		$this->endClosed = $endClosed;
+	}
+	public function getEndClosed()
+	{
+		return $this->endClosed;
+	}
+	public function setEndOpen($endOpen)
+	{
+		$this->endOpen = $endOpen;
+	}
+	public function getEndOpen()
+	{
+		return $this->endOpen;
+	}
+	public function setStartClosed($startClosed)
+	{
+		$this->startClosed = $startClosed;
+	}
+	public function getStartClosed()
+	{
+		return $this->startClosed;
+	}
+	public function setStartOpen($startOpen)
+	{
+		$this->startOpen = $startOpen;
+	}
+	public function getStartOpen()
+	{
+		return $this->startOpen;
+	}
 }

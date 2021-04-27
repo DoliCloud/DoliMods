@@ -17,31 +17,31 @@
 
 class Google_Service_TagManager_ListTemplatesResponse extends Google_Collection
 {
-  protected $collection_key = 'template';
-  public $nextPageToken;
-  protected $templateType = 'Google_Service_TagManager_CustomTemplate';
-  protected $templateDataType = 'array';
+	protected $collection_key = 'template';
+	public $nextPageToken;
+	protected $templateType = 'Google_Service_TagManager_CustomTemplate';
+	protected $templateDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_TagManager_CustomTemplate
-   */
-  public function setTemplate($template)
-  {
-    $this->template = $template;
-  }
-  /**
-   * @return Google_Service_TagManager_CustomTemplate
-   */
-  public function getTemplate()
-  {
-    return $this->template;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_TagManager_CustomTemplate
+	 */
+	public function setTemplate($template)
+	{
+		$this->template = $template;
+	}
+	/**
+	 * @return Google_Service_TagManager_CustomTemplate
+	 */
+	public function getTemplate()
+	{
+		return $this->template;
+	}
 }

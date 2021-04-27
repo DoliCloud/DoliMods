@@ -17,15 +17,15 @@
 
 class Google_Service_Compute_InstanceGroupManagersRecreateInstancesRequest extends Google_Collection
 {
-  protected $collection_key = 'instances';
-  public $instances;
+	protected $collection_key = 'instances';
+	public $instances;
 
-  public function setInstances($instances)
-  {
-    $this->instances = $instances;
-  }
-  public function getInstances()
-  {
-    return $this->instances;
-  }
+	public function setInstances($instances)
+	{
+		$this->instances = $instances;
+	}
+	public function getInstances()
+	{
+		return $this->instances;
+	}
 }

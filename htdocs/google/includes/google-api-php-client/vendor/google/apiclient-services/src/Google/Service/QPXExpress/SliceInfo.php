@@ -17,40 +17,40 @@
 
 class Google_Service_QPXExpress_SliceInfo extends Google_Collection
 {
-  protected $collection_key = 'segment';
-  public $duration;
-  public $kind;
-  protected $segmentType = 'Google_Service_QPXExpress_SegmentInfo';
-  protected $segmentDataType = 'array';
+	protected $collection_key = 'segment';
+	public $duration;
+	public $kind;
+	protected $segmentType = 'Google_Service_QPXExpress_SegmentInfo';
+	protected $segmentDataType = 'array';
 
-  public function setDuration($duration)
-  {
-    $this->duration = $duration;
-  }
-  public function getDuration()
-  {
-    return $this->duration;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_QPXExpress_SegmentInfo
-   */
-  public function setSegment($segment)
-  {
-    $this->segment = $segment;
-  }
-  /**
-   * @return Google_Service_QPXExpress_SegmentInfo
-   */
-  public function getSegment()
-  {
-    return $this->segment;
-  }
+	public function setDuration($duration)
+	{
+		$this->duration = $duration;
+	}
+	public function getDuration()
+	{
+		return $this->duration;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_QPXExpress_SegmentInfo
+	 */
+	public function setSegment($segment)
+	{
+		$this->segment = $segment;
+	}
+	/**
+	 * @return Google_Service_QPXExpress_SegmentInfo
+	 */
+	public function getSegment()
+	{
+		return $this->segment;
+	}
 }

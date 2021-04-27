@@ -17,72 +17,72 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1WebhookRequest extends Google_Collection
 {
-  protected $collection_key = 'alternativeQueryResults';
-  protected $alternativeQueryResultsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult';
-  protected $alternativeQueryResultsDataType = 'array';
-  protected $originalDetectIntentRequestType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest';
-  protected $originalDetectIntentRequestDataType = '';
-  protected $queryResultType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult';
-  protected $queryResultDataType = '';
-  public $responseId;
-  public $session;
+	protected $collection_key = 'alternativeQueryResults';
+	protected $alternativeQueryResultsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult';
+	protected $alternativeQueryResultsDataType = 'array';
+	protected $originalDetectIntentRequestType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest';
+	protected $originalDetectIntentRequestDataType = '';
+	protected $queryResultType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult';
+	protected $queryResultDataType = '';
+	public $responseId;
+	public $session;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult
-   */
-  public function setAlternativeQueryResults($alternativeQueryResults)
-  {
-    $this->alternativeQueryResults = $alternativeQueryResults;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult
-   */
-  public function getAlternativeQueryResults()
-  {
-    return $this->alternativeQueryResults;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest
-   */
-  public function setOriginalDetectIntentRequest(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest $originalDetectIntentRequest)
-  {
-    $this->originalDetectIntentRequest = $originalDetectIntentRequest;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest
-   */
-  public function getOriginalDetectIntentRequest()
-  {
-    return $this->originalDetectIntentRequest;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult
-   */
-  public function setQueryResult(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult $queryResult)
-  {
-    $this->queryResult = $queryResult;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult
-   */
-  public function getQueryResult()
-  {
-    return $this->queryResult;
-  }
-  public function setResponseId($responseId)
-  {
-    $this->responseId = $responseId;
-  }
-  public function getResponseId()
-  {
-    return $this->responseId;
-  }
-  public function setSession($session)
-  {
-    $this->session = $session;
-  }
-  public function getSession()
-  {
-    return $this->session;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult
+	 */
+	public function setAlternativeQueryResults($alternativeQueryResults)
+	{
+		$this->alternativeQueryResults = $alternativeQueryResults;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult
+	 */
+	public function getAlternativeQueryResults()
+	{
+		return $this->alternativeQueryResults;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest
+	 */
+	public function setOriginalDetectIntentRequest(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest $originalDetectIntentRequest)
+	{
+		$this->originalDetectIntentRequest = $originalDetectIntentRequest;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest
+	 */
+	public function getOriginalDetectIntentRequest()
+	{
+		return $this->originalDetectIntentRequest;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult
+	 */
+	public function setQueryResult(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult $queryResult)
+	{
+		$this->queryResult = $queryResult;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1QueryResult
+	 */
+	public function getQueryResult()
+	{
+		return $this->queryResult;
+	}
+	public function setResponseId($responseId)
+	{
+		$this->responseId = $responseId;
+	}
+	public function getResponseId()
+	{
+		return $this->responseId;
+	}
+	public function setSession($session)
+	{
+		$this->session = $session;
+	}
+	public function getSession()
+	{
+		return $this->session;
+	}
 }

@@ -17,59 +17,59 @@
 
 class Google_Service_Bigquery_BigtableColumn extends Google_Model
 {
-  public $encoding;
-  public $fieldName;
-  public $onlyReadLatest;
-  public $qualifierEncoded;
-  public $qualifierString;
-  public $type;
+	public $encoding;
+	public $fieldName;
+	public $onlyReadLatest;
+	public $qualifierEncoded;
+	public $qualifierString;
+	public $type;
 
-  public function setEncoding($encoding)
-  {
-    $this->encoding = $encoding;
-  }
-  public function getEncoding()
-  {
-    return $this->encoding;
-  }
-  public function setFieldName($fieldName)
-  {
-    $this->fieldName = $fieldName;
-  }
-  public function getFieldName()
-  {
-    return $this->fieldName;
-  }
-  public function setOnlyReadLatest($onlyReadLatest)
-  {
-    $this->onlyReadLatest = $onlyReadLatest;
-  }
-  public function getOnlyReadLatest()
-  {
-    return $this->onlyReadLatest;
-  }
-  public function setQualifierEncoded($qualifierEncoded)
-  {
-    $this->qualifierEncoded = $qualifierEncoded;
-  }
-  public function getQualifierEncoded()
-  {
-    return $this->qualifierEncoded;
-  }
-  public function setQualifierString($qualifierString)
-  {
-    $this->qualifierString = $qualifierString;
-  }
-  public function getQualifierString()
-  {
-    return $this->qualifierString;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setEncoding($encoding)
+	{
+		$this->encoding = $encoding;
+	}
+	public function getEncoding()
+	{
+		return $this->encoding;
+	}
+	public function setFieldName($fieldName)
+	{
+		$this->fieldName = $fieldName;
+	}
+	public function getFieldName()
+	{
+		return $this->fieldName;
+	}
+	public function setOnlyReadLatest($onlyReadLatest)
+	{
+		$this->onlyReadLatest = $onlyReadLatest;
+	}
+	public function getOnlyReadLatest()
+	{
+		return $this->onlyReadLatest;
+	}
+	public function setQualifierEncoded($qualifierEncoded)
+	{
+		$this->qualifierEncoded = $qualifierEncoded;
+	}
+	public function getQualifierEncoded()
+	{
+		return $this->qualifierEncoded;
+	}
+	public function setQualifierString($qualifierString)
+	{
+		$this->qualifierString = $qualifierString;
+	}
+	public function getQualifierString()
+	{
+		return $this->qualifierString;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

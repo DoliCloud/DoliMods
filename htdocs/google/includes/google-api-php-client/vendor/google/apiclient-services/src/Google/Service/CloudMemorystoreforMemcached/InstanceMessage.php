@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMemorystoreforMemcached_InstanceMessage extends Google_Model
 {
-  public $code;
-  public $message;
+	public $code;
+	public $message;
 
-  public function setCode($code)
-  {
-    $this->code = $code;
-  }
-  public function getCode()
-  {
-    return $this->code;
-  }
-  public function setMessage($message)
-  {
-    $this->message = $message;
-  }
-  public function getMessage()
-  {
-    return $this->message;
-  }
+	public function setCode($code)
+	{
+		$this->code = $code;
+	}
+	public function getCode()
+	{
+		return $this->code;
+	}
+	public function setMessage($message)
+	{
+		$this->message = $message;
+	}
+	public function getMessage()
+	{
+		return $this->message;
+	}
 }

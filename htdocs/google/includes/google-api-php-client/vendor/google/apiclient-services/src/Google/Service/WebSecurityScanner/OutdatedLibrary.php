@@ -17,33 +17,33 @@
 
 class Google_Service_WebSecurityScanner_OutdatedLibrary extends Google_Collection
 {
-  protected $collection_key = 'learnMoreUrls';
-  public $learnMoreUrls;
-  public $libraryName;
-  public $version;
+	protected $collection_key = 'learnMoreUrls';
+	public $learnMoreUrls;
+	public $libraryName;
+	public $version;
 
-  public function setLearnMoreUrls($learnMoreUrls)
-  {
-    $this->learnMoreUrls = $learnMoreUrls;
-  }
-  public function getLearnMoreUrls()
-  {
-    return $this->learnMoreUrls;
-  }
-  public function setLibraryName($libraryName)
-  {
-    $this->libraryName = $libraryName;
-  }
-  public function getLibraryName()
-  {
-    return $this->libraryName;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setLearnMoreUrls($learnMoreUrls)
+	{
+		$this->learnMoreUrls = $learnMoreUrls;
+	}
+	public function getLearnMoreUrls()
+	{
+		return $this->learnMoreUrls;
+	}
+	public function setLibraryName($libraryName)
+	{
+		$this->libraryName = $libraryName;
+	}
+	public function getLibraryName()
+	{
+		return $this->libraryName;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

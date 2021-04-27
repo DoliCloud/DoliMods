@@ -17,14 +17,14 @@
 
 class Google_Service_Vision_RemoveProductFromProductSetRequest extends Google_Model
 {
-  public $product;
+	public $product;
 
-  public function setProduct($product)
-  {
-    $this->product = $product;
-  }
-  public function getProduct()
-  {
-    return $this->product;
-  }
+	public function setProduct($product)
+	{
+		$this->product = $product;
+	}
+	public function getProduct()
+	{
+		return $this->product;
+	}
 }

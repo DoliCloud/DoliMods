@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_InventoryItemsListResponse extends Google_Collection
 {
-  protected $collection_key = 'inventoryItems';
-  protected $inventoryItemsType = 'Google_Service_Dfareporting_InventoryItem';
-  protected $inventoryItemsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
+	protected $collection_key = 'inventoryItems';
+	protected $inventoryItemsType = 'Google_Service_Dfareporting_InventoryItem';
+	protected $inventoryItemsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Dfareporting_InventoryItem
-   */
-  public function setInventoryItems($inventoryItems)
-  {
-    $this->inventoryItems = $inventoryItems;
-  }
-  /**
-   * @return Google_Service_Dfareporting_InventoryItem
-   */
-  public function getInventoryItems()
-  {
-    return $this->inventoryItems;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_InventoryItem
+	 */
+	public function setInventoryItems($inventoryItems)
+	{
+		$this->inventoryItems = $inventoryItems;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_InventoryItem
+	 */
+	public function getInventoryItems()
+	{
+		return $this->inventoryItems;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

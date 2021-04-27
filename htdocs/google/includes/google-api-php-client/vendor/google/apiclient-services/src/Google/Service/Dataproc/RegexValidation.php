@@ -17,15 +17,15 @@
 
 class Google_Service_Dataproc_RegexValidation extends Google_Collection
 {
-  protected $collection_key = 'regexes';
-  public $regexes;
+	protected $collection_key = 'regexes';
+	public $regexes;
 
-  public function setRegexes($regexes)
-  {
-    $this->regexes = $regexes;
-  }
-  public function getRegexes()
-  {
-    return $this->regexes;
-  }
+	public function setRegexes($regexes)
+	{
+		$this->regexes = $regexes;
+	}
+	public function getRegexes()
+	{
+		return $this->regexes;
+	}
 }

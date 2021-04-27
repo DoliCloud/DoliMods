@@ -17,67 +17,67 @@
 
 class Google_Service_Dfareporting_Pricing extends Google_Collection
 {
-  protected $collection_key = 'flights';
-  public $capCostType;
-  public $endDate;
-  protected $flightsType = 'Google_Service_Dfareporting_Flight';
-  protected $flightsDataType = 'array';
-  public $groupType;
-  public $pricingType;
-  public $startDate;
+	protected $collection_key = 'flights';
+	public $capCostType;
+	public $endDate;
+	protected $flightsType = 'Google_Service_Dfareporting_Flight';
+	protected $flightsDataType = 'array';
+	public $groupType;
+	public $pricingType;
+	public $startDate;
 
-  public function setCapCostType($capCostType)
-  {
-    $this->capCostType = $capCostType;
-  }
-  public function getCapCostType()
-  {
-    return $this->capCostType;
-  }
-  public function setEndDate($endDate)
-  {
-    $this->endDate = $endDate;
-  }
-  public function getEndDate()
-  {
-    return $this->endDate;
-  }
-  /**
-   * @param Google_Service_Dfareporting_Flight
-   */
-  public function setFlights($flights)
-  {
-    $this->flights = $flights;
-  }
-  /**
-   * @return Google_Service_Dfareporting_Flight
-   */
-  public function getFlights()
-  {
-    return $this->flights;
-  }
-  public function setGroupType($groupType)
-  {
-    $this->groupType = $groupType;
-  }
-  public function getGroupType()
-  {
-    return $this->groupType;
-  }
-  public function setPricingType($pricingType)
-  {
-    $this->pricingType = $pricingType;
-  }
-  public function getPricingType()
-  {
-    return $this->pricingType;
-  }
-  public function setStartDate($startDate)
-  {
-    $this->startDate = $startDate;
-  }
-  public function getStartDate()
-  {
-    return $this->startDate;
-  }
+	public function setCapCostType($capCostType)
+	{
+		$this->capCostType = $capCostType;
+	}
+	public function getCapCostType()
+	{
+		return $this->capCostType;
+	}
+	public function setEndDate($endDate)
+	{
+		$this->endDate = $endDate;
+	}
+	public function getEndDate()
+	{
+		return $this->endDate;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_Flight
+	 */
+	public function setFlights($flights)
+	{
+		$this->flights = $flights;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_Flight
+	 */
+	public function getFlights()
+	{
+		return $this->flights;
+	}
+	public function setGroupType($groupType)
+	{
+		$this->groupType = $groupType;
+	}
+	public function getGroupType()
+	{
+		return $this->groupType;
+	}
+	public function setPricingType($pricingType)
+	{
+		$this->pricingType = $pricingType;
+	}
+	public function getPricingType()
+	{
+		return $this->pricingType;
+	}
+	public function setStartDate($startDate)
+	{
+		$this->startDate = $startDate;
+	}
+	public function getStartDate()
+	{
+		return $this->startDate;
+	}
 }

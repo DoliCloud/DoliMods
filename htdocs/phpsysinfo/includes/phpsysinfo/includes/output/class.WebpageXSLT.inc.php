@@ -25,30 +25,30 @@
  */
 class WebpageXSLT extends WebpageXML implements PSI_Interface_Output
 {
-    /**
-     * call the parent constructor
-     */
-    public function __construct()
-    {
-        parent::__construct(false, null);
-    }
+	/**
+	 * call the parent constructor
+	 */
+	public function __construct()
+	{
+		parent::__construct(false, null);
+	}
 
-    /**
-     * generate the static page
-     *
-     * @return void
-     */
-    public function run()
-    {
-        CommonFunctions::checkForExtensions(array('xsl'));
-        $xmlfile = $this->getXMLString();
-        $xslfile = "phpsysinfo.xslt";
-        $domxml = new DOMDocument();
-        $domxml->loadXML($xmlfile);
-        $domxsl = new DOMDocument();
-        $domxsl->load($xslfile);
-        $xsltproc = new XSLTProcessor;
-        $xsltproc->importStyleSheet($domxsl);
-        echo $xsltproc->transformToXML($domxml);
-    }
+	/**
+	 * generate the static page
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		CommonFunctions::checkForExtensions(array('xsl'));
+		$xmlfile = $this->getXMLString();
+		$xslfile = "phpsysinfo.xslt";
+		$domxml = new DOMDocument();
+		$domxml->loadXML($xmlfile);
+		$domxsl = new DOMDocument();
+		$domxsl->load($xslfile);
+		$xsltproc = new XSLTProcessor;
+		$xsltproc->importStyleSheet($domxsl);
+		echo $xsltproc->transformToXML($domxml);
+	}
 }

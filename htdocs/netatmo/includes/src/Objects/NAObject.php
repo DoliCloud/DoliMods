@@ -17,5 +17,3 @@ class NAObject extends Netatmo\Objects\NAObject
 class NAObjectWithPicture extends Netatmo\Objects\NAObjectWithPicture
 {
 }
-
-?>

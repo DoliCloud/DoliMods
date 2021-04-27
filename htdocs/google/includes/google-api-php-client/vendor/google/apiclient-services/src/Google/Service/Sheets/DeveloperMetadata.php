@@ -17,57 +17,57 @@
 
 class Google_Service_Sheets_DeveloperMetadata extends Google_Model
 {
-  protected $locationType = 'Google_Service_Sheets_DeveloperMetadataLocation';
-  protected $locationDataType = '';
-  public $metadataId;
-  public $metadataKey;
-  public $metadataValue;
-  public $visibility;
+	protected $locationType = 'Google_Service_Sheets_DeveloperMetadataLocation';
+	protected $locationDataType = '';
+	public $metadataId;
+	public $metadataKey;
+	public $metadataValue;
+	public $visibility;
 
-  /**
-   * @param Google_Service_Sheets_DeveloperMetadataLocation
-   */
-  public function setLocation(Google_Service_Sheets_DeveloperMetadataLocation $location)
-  {
-    $this->location = $location;
-  }
-  /**
-   * @return Google_Service_Sheets_DeveloperMetadataLocation
-   */
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setMetadataId($metadataId)
-  {
-    $this->metadataId = $metadataId;
-  }
-  public function getMetadataId()
-  {
-    return $this->metadataId;
-  }
-  public function setMetadataKey($metadataKey)
-  {
-    $this->metadataKey = $metadataKey;
-  }
-  public function getMetadataKey()
-  {
-    return $this->metadataKey;
-  }
-  public function setMetadataValue($metadataValue)
-  {
-    $this->metadataValue = $metadataValue;
-  }
-  public function getMetadataValue()
-  {
-    return $this->metadataValue;
-  }
-  public function setVisibility($visibility)
-  {
-    $this->visibility = $visibility;
-  }
-  public function getVisibility()
-  {
-    return $this->visibility;
-  }
+	/**
+	 * @param Google_Service_Sheets_DeveloperMetadataLocation
+	 */
+	public function setLocation(Google_Service_Sheets_DeveloperMetadataLocation $location)
+	{
+		$this->location = $location;
+	}
+	/**
+	 * @return Google_Service_Sheets_DeveloperMetadataLocation
+	 */
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setMetadataId($metadataId)
+	{
+		$this->metadataId = $metadataId;
+	}
+	public function getMetadataId()
+	{
+		return $this->metadataId;
+	}
+	public function setMetadataKey($metadataKey)
+	{
+		$this->metadataKey = $metadataKey;
+	}
+	public function getMetadataKey()
+	{
+		return $this->metadataKey;
+	}
+	public function setMetadataValue($metadataValue)
+	{
+		$this->metadataValue = $metadataValue;
+	}
+	public function getMetadataValue()
+	{
+		return $this->metadataValue;
+	}
+	public function setVisibility($visibility)
+	{
+		$this->visibility = $visibility;
+	}
+	public function getVisibility()
+	{
+		return $this->visibility;
+	}
 }

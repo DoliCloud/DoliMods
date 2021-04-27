@@ -17,15 +17,15 @@
 
 class Google_Service_ServiceUsage_GoogleApiServiceusageV1OperationMetadata extends Google_Collection
 {
-  protected $collection_key = 'resourceNames';
-  public $resourceNames;
+	protected $collection_key = 'resourceNames';
+	public $resourceNames;
 
-  public function setResourceNames($resourceNames)
-  {
-    $this->resourceNames = $resourceNames;
-  }
-  public function getResourceNames()
-  {
-    return $this->resourceNames;
-  }
+	public function setResourceNames($resourceNames)
+	{
+		$this->resourceNames = $resourceNames;
+	}
+	public function getResourceNames()
+	{
+		return $this->resourceNames;
+	}
 }

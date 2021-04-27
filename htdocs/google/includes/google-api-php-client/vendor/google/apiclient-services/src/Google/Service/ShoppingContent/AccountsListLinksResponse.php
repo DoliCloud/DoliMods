@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_AccountsListLinksResponse extends Google_Collection
 {
-  protected $collection_key = 'links';
-  public $kind;
-  protected $linksType = 'Google_Service_ShoppingContent_LinkedAccount';
-  protected $linksDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'links';
+	public $kind;
+	protected $linksType = 'Google_Service_ShoppingContent_LinkedAccount';
+	protected $linksDataType = 'array';
+	public $nextPageToken;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_LinkedAccount
-   */
-  public function setLinks($links)
-  {
-    $this->links = $links;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_LinkedAccount
-   */
-  public function getLinks()
-  {
-    return $this->links;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_LinkedAccount
+	 */
+	public function setLinks($links)
+	{
+		$this->links = $links;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_LinkedAccount
+	 */
+	public function getLinks()
+	{
+		return $this->links;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

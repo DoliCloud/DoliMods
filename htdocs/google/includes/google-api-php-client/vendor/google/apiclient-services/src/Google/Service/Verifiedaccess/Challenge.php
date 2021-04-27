@@ -17,37 +17,37 @@
 
 class Google_Service_Verifiedaccess_Challenge extends Google_Model
 {
-  protected $alternativeChallengeType = 'Google_Service_Verifiedaccess_SignedData';
-  protected $alternativeChallengeDataType = '';
-  protected $challengeType = 'Google_Service_Verifiedaccess_SignedData';
-  protected $challengeDataType = '';
+	protected $alternativeChallengeType = 'Google_Service_Verifiedaccess_SignedData';
+	protected $alternativeChallengeDataType = '';
+	protected $challengeType = 'Google_Service_Verifiedaccess_SignedData';
+	protected $challengeDataType = '';
 
-  /**
-   * @param Google_Service_Verifiedaccess_SignedData
-   */
-  public function setAlternativeChallenge(Google_Service_Verifiedaccess_SignedData $alternativeChallenge)
-  {
-    $this->alternativeChallenge = $alternativeChallenge;
-  }
-  /**
-   * @return Google_Service_Verifiedaccess_SignedData
-   */
-  public function getAlternativeChallenge()
-  {
-    return $this->alternativeChallenge;
-  }
-  /**
-   * @param Google_Service_Verifiedaccess_SignedData
-   */
-  public function setChallenge(Google_Service_Verifiedaccess_SignedData $challenge)
-  {
-    $this->challenge = $challenge;
-  }
-  /**
-   * @return Google_Service_Verifiedaccess_SignedData
-   */
-  public function getChallenge()
-  {
-    return $this->challenge;
-  }
+	/**
+	 * @param Google_Service_Verifiedaccess_SignedData
+	 */
+	public function setAlternativeChallenge(Google_Service_Verifiedaccess_SignedData $alternativeChallenge)
+	{
+		$this->alternativeChallenge = $alternativeChallenge;
+	}
+	/**
+	 * @return Google_Service_Verifiedaccess_SignedData
+	 */
+	public function getAlternativeChallenge()
+	{
+		return $this->alternativeChallenge;
+	}
+	/**
+	 * @param Google_Service_Verifiedaccess_SignedData
+	 */
+	public function setChallenge(Google_Service_Verifiedaccess_SignedData $challenge)
+	{
+		$this->challenge = $challenge;
+	}
+	/**
+	 * @return Google_Service_Verifiedaccess_SignedData
+	 */
+	public function getChallenge()
+	{
+		return $this->challenge;
+	}
 }

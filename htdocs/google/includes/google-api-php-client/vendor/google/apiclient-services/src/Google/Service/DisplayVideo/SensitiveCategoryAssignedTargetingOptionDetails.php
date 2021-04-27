@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_SensitiveCategoryAssignedTargetingOptionDetails extends Google_Model
 {
-  public $excludedTargetingOptionId;
-  public $sensitiveCategory;
+	public $excludedTargetingOptionId;
+	public $sensitiveCategory;
 
-  public function setExcludedTargetingOptionId($excludedTargetingOptionId)
-  {
-    $this->excludedTargetingOptionId = $excludedTargetingOptionId;
-  }
-  public function getExcludedTargetingOptionId()
-  {
-    return $this->excludedTargetingOptionId;
-  }
-  public function setSensitiveCategory($sensitiveCategory)
-  {
-    $this->sensitiveCategory = $sensitiveCategory;
-  }
-  public function getSensitiveCategory()
-  {
-    return $this->sensitiveCategory;
-  }
+	public function setExcludedTargetingOptionId($excludedTargetingOptionId)
+	{
+		$this->excludedTargetingOptionId = $excludedTargetingOptionId;
+	}
+	public function getExcludedTargetingOptionId()
+	{
+		return $this->excludedTargetingOptionId;
+	}
+	public function setSensitiveCategory($sensitiveCategory)
+	{
+		$this->sensitiveCategory = $sensitiveCategory;
+	}
+	public function getSensitiveCategory()
+	{
+		return $this->sensitiveCategory;
+	}
 }

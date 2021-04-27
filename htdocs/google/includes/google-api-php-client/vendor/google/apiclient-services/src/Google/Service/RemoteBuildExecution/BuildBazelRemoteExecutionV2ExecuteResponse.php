@@ -17,71 +17,71 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ExecuteResponse extends Google_Model
 {
-  public $cachedResult;
-  public $message;
-  protected $resultType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionResult';
-  protected $resultDataType = '';
-  protected $serverLogsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2LogFile';
-  protected $serverLogsDataType = 'map';
-  protected $statusType = 'Google_Service_RemoteBuildExecution_GoogleRpcStatus';
-  protected $statusDataType = '';
+	public $cachedResult;
+	public $message;
+	protected $resultType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionResult';
+	protected $resultDataType = '';
+	protected $serverLogsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2LogFile';
+	protected $serverLogsDataType = 'map';
+	protected $statusType = 'Google_Service_RemoteBuildExecution_GoogleRpcStatus';
+	protected $statusDataType = '';
 
-  public function setCachedResult($cachedResult)
-  {
-    $this->cachedResult = $cachedResult;
-  }
-  public function getCachedResult()
-  {
-    return $this->cachedResult;
-  }
-  public function setMessage($message)
-  {
-    $this->message = $message;
-  }
-  public function getMessage()
-  {
-    return $this->message;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionResult
-   */
-  public function setResult(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionResult $result)
-  {
-    $this->result = $result;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionResult
-   */
-  public function getResult()
-  {
-    return $this->result;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2LogFile
-   */
-  public function setServerLogs($serverLogs)
-  {
-    $this->serverLogs = $serverLogs;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2LogFile
-   */
-  public function getServerLogs()
-  {
-    return $this->serverLogs;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleRpcStatus
-   */
-  public function setStatus(Google_Service_RemoteBuildExecution_GoogleRpcStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleRpcStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setCachedResult($cachedResult)
+	{
+		$this->cachedResult = $cachedResult;
+	}
+	public function getCachedResult()
+	{
+		return $this->cachedResult;
+	}
+	public function setMessage($message)
+	{
+		$this->message = $message;
+	}
+	public function getMessage()
+	{
+		return $this->message;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionResult
+	 */
+	public function setResult(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionResult $result)
+	{
+		$this->result = $result;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionResult
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2LogFile
+	 */
+	public function setServerLogs($serverLogs)
+	{
+		$this->serverLogs = $serverLogs;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2LogFile
+	 */
+	public function getServerLogs()
+	{
+		return $this->serverLogs;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleRpcStatus
+	 */
+	public function setStatus(Google_Service_RemoteBuildExecution_GoogleRpcStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleRpcStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Slides_TextContent extends Google_Collection
 {
-  protected $collection_key = 'textElements';
-  protected $listsType = 'Google_Service_Slides_SlidesList';
-  protected $listsDataType = 'map';
-  protected $textElementsType = 'Google_Service_Slides_TextElement';
-  protected $textElementsDataType = 'array';
+	protected $collection_key = 'textElements';
+	protected $listsType = 'Google_Service_Slides_SlidesList';
+	protected $listsDataType = 'map';
+	protected $textElementsType = 'Google_Service_Slides_TextElement';
+	protected $textElementsDataType = 'array';
 
-  /**
-   * @param Google_Service_Slides_SlidesList
-   */
-  public function setLists($lists)
-  {
-    $this->lists = $lists;
-  }
-  /**
-   * @return Google_Service_Slides_SlidesList
-   */
-  public function getLists()
-  {
-    return $this->lists;
-  }
-  /**
-   * @param Google_Service_Slides_TextElement
-   */
-  public function setTextElements($textElements)
-  {
-    $this->textElements = $textElements;
-  }
-  /**
-   * @return Google_Service_Slides_TextElement
-   */
-  public function getTextElements()
-  {
-    return $this->textElements;
-  }
+	/**
+	 * @param Google_Service_Slides_SlidesList
+	 */
+	public function setLists($lists)
+	{
+		$this->lists = $lists;
+	}
+	/**
+	 * @return Google_Service_Slides_SlidesList
+	 */
+	public function getLists()
+	{
+		return $this->lists;
+	}
+	/**
+	 * @param Google_Service_Slides_TextElement
+	 */
+	public function setTextElements($textElements)
+	{
+		$this->textElements = $textElements;
+	}
+	/**
+	 * @return Google_Service_Slides_TextElement
+	 */
+	public function getTextElements()
+	{
+		return $this->textElements;
+	}
 }

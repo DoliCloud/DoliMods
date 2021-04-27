@@ -17,49 +17,49 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ResourceStatus extends Google_Collection
 {
-  protected $collection_key = 'revisions';
-  public $resource;
-  protected $revisionsType = 'Google_Service_Apigee_GoogleCloudApigeeV1RevisionStatus';
-  protected $revisionsDataType = 'array';
-  public $totalReplicas;
-  public $uid;
+	protected $collection_key = 'revisions';
+	public $resource;
+	protected $revisionsType = 'Google_Service_Apigee_GoogleCloudApigeeV1RevisionStatus';
+	protected $revisionsDataType = 'array';
+	public $totalReplicas;
+	public $uid;
 
-  public function setResource($resource)
-  {
-    $this->resource = $resource;
-  }
-  public function getResource()
-  {
-    return $this->resource;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1RevisionStatus
-   */
-  public function setRevisions($revisions)
-  {
-    $this->revisions = $revisions;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1RevisionStatus
-   */
-  public function getRevisions()
-  {
-    return $this->revisions;
-  }
-  public function setTotalReplicas($totalReplicas)
-  {
-    $this->totalReplicas = $totalReplicas;
-  }
-  public function getTotalReplicas()
-  {
-    return $this->totalReplicas;
-  }
-  public function setUid($uid)
-  {
-    $this->uid = $uid;
-  }
-  public function getUid()
-  {
-    return $this->uid;
-  }
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
+	public function getResource()
+	{
+		return $this->resource;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1RevisionStatus
+	 */
+	public function setRevisions($revisions)
+	{
+		$this->revisions = $revisions;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1RevisionStatus
+	 */
+	public function getRevisions()
+	{
+		return $this->revisions;
+	}
+	public function setTotalReplicas($totalReplicas)
+	{
+		$this->totalReplicas = $totalReplicas;
+	}
+	public function getTotalReplicas()
+	{
+		return $this->totalReplicas;
+	}
+	public function setUid($uid)
+	{
+		$this->uid = $uid;
+	}
+	public function getUid()
+	{
+		return $this->uid;
+	}
 }

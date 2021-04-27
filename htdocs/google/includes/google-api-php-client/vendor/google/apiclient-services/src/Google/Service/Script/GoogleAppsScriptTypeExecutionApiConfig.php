@@ -17,14 +17,14 @@
 
 class Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig extends Google_Model
 {
-  public $access;
+	public $access;
 
-  public function setAccess($access)
-  {
-    $this->access = $access;
-  }
-  public function getAccess()
-  {
-    return $this->access;
-  }
+	public function setAccess($access)
+	{
+		$this->access = $access;
+	}
+	public function getAccess()
+	{
+		return $this->access;
+	}
 }

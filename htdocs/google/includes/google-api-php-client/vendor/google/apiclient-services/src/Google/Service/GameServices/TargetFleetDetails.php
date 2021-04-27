@@ -17,37 +17,37 @@
 
 class Google_Service_GameServices_TargetFleetDetails extends Google_Model
 {
-  protected $autoscalerType = 'Google_Service_GameServices_TargetFleetAutoscaler';
-  protected $autoscalerDataType = '';
-  protected $fleetType = 'Google_Service_GameServices_TargetFleet';
-  protected $fleetDataType = '';
+	protected $autoscalerType = 'Google_Service_GameServices_TargetFleetAutoscaler';
+	protected $autoscalerDataType = '';
+	protected $fleetType = 'Google_Service_GameServices_TargetFleet';
+	protected $fleetDataType = '';
 
-  /**
-   * @param Google_Service_GameServices_TargetFleetAutoscaler
-   */
-  public function setAutoscaler(Google_Service_GameServices_TargetFleetAutoscaler $autoscaler)
-  {
-    $this->autoscaler = $autoscaler;
-  }
-  /**
-   * @return Google_Service_GameServices_TargetFleetAutoscaler
-   */
-  public function getAutoscaler()
-  {
-    return $this->autoscaler;
-  }
-  /**
-   * @param Google_Service_GameServices_TargetFleet
-   */
-  public function setFleet(Google_Service_GameServices_TargetFleet $fleet)
-  {
-    $this->fleet = $fleet;
-  }
-  /**
-   * @return Google_Service_GameServices_TargetFleet
-   */
-  public function getFleet()
-  {
-    return $this->fleet;
-  }
+	/**
+	 * @param Google_Service_GameServices_TargetFleetAutoscaler
+	 */
+	public function setAutoscaler(Google_Service_GameServices_TargetFleetAutoscaler $autoscaler)
+	{
+		$this->autoscaler = $autoscaler;
+	}
+	/**
+	 * @return Google_Service_GameServices_TargetFleetAutoscaler
+	 */
+	public function getAutoscaler()
+	{
+		return $this->autoscaler;
+	}
+	/**
+	 * @param Google_Service_GameServices_TargetFleet
+	 */
+	public function setFleet(Google_Service_GameServices_TargetFleet $fleet)
+	{
+		$this->fleet = $fleet;
+	}
+	/**
+	 * @return Google_Service_GameServices_TargetFleet
+	 */
+	public function getFleet()
+	{
+		return $this->fleet;
+	}
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Compute_InstanceGroupManagerVersion extends Google_Model
 {
-  public $instanceTemplate;
-  public $name;
-  protected $targetSizeType = 'Google_Service_Compute_FixedOrPercent';
-  protected $targetSizeDataType = '';
+	public $instanceTemplate;
+	public $name;
+	protected $targetSizeType = 'Google_Service_Compute_FixedOrPercent';
+	protected $targetSizeDataType = '';
 
-  public function setInstanceTemplate($instanceTemplate)
-  {
-    $this->instanceTemplate = $instanceTemplate;
-  }
-  public function getInstanceTemplate()
-  {
-    return $this->instanceTemplate;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Compute_FixedOrPercent
-   */
-  public function setTargetSize(Google_Service_Compute_FixedOrPercent $targetSize)
-  {
-    $this->targetSize = $targetSize;
-  }
-  /**
-   * @return Google_Service_Compute_FixedOrPercent
-   */
-  public function getTargetSize()
-  {
-    return $this->targetSize;
-  }
+	public function setInstanceTemplate($instanceTemplate)
+	{
+		$this->instanceTemplate = $instanceTemplate;
+	}
+	public function getInstanceTemplate()
+	{
+		return $this->instanceTemplate;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Compute_FixedOrPercent
+	 */
+	public function setTargetSize(Google_Service_Compute_FixedOrPercent $targetSize)
+	{
+		$this->targetSize = $targetSize;
+	}
+	/**
+	 * @return Google_Service_Compute_FixedOrPercent
+	 */
+	public function getTargetSize()
+	{
+		return $this->targetSize;
+	}
 }

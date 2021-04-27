@@ -17,54 +17,54 @@
 
 class Google_Service_Sheets_ConditionalFormatRule extends Google_Collection
 {
-  protected $collection_key = 'ranges';
-  protected $booleanRuleType = 'Google_Service_Sheets_BooleanRule';
-  protected $booleanRuleDataType = '';
-  protected $gradientRuleType = 'Google_Service_Sheets_GradientRule';
-  protected $gradientRuleDataType = '';
-  protected $rangesType = 'Google_Service_Sheets_GridRange';
-  protected $rangesDataType = 'array';
+	protected $collection_key = 'ranges';
+	protected $booleanRuleType = 'Google_Service_Sheets_BooleanRule';
+	protected $booleanRuleDataType = '';
+	protected $gradientRuleType = 'Google_Service_Sheets_GradientRule';
+	protected $gradientRuleDataType = '';
+	protected $rangesType = 'Google_Service_Sheets_GridRange';
+	protected $rangesDataType = 'array';
 
-  /**
-   * @param Google_Service_Sheets_BooleanRule
-   */
-  public function setBooleanRule(Google_Service_Sheets_BooleanRule $booleanRule)
-  {
-    $this->booleanRule = $booleanRule;
-  }
-  /**
-   * @return Google_Service_Sheets_BooleanRule
-   */
-  public function getBooleanRule()
-  {
-    return $this->booleanRule;
-  }
-  /**
-   * @param Google_Service_Sheets_GradientRule
-   */
-  public function setGradientRule(Google_Service_Sheets_GradientRule $gradientRule)
-  {
-    $this->gradientRule = $gradientRule;
-  }
-  /**
-   * @return Google_Service_Sheets_GradientRule
-   */
-  public function getGradientRule()
-  {
-    return $this->gradientRule;
-  }
-  /**
-   * @param Google_Service_Sheets_GridRange
-   */
-  public function setRanges($ranges)
-  {
-    $this->ranges = $ranges;
-  }
-  /**
-   * @return Google_Service_Sheets_GridRange
-   */
-  public function getRanges()
-  {
-    return $this->ranges;
-  }
+	/**
+	 * @param Google_Service_Sheets_BooleanRule
+	 */
+	public function setBooleanRule(Google_Service_Sheets_BooleanRule $booleanRule)
+	{
+		$this->booleanRule = $booleanRule;
+	}
+	/**
+	 * @return Google_Service_Sheets_BooleanRule
+	 */
+	public function getBooleanRule()
+	{
+		return $this->booleanRule;
+	}
+	/**
+	 * @param Google_Service_Sheets_GradientRule
+	 */
+	public function setGradientRule(Google_Service_Sheets_GradientRule $gradientRule)
+	{
+		$this->gradientRule = $gradientRule;
+	}
+	/**
+	 * @return Google_Service_Sheets_GradientRule
+	 */
+	public function getGradientRule()
+	{
+		return $this->gradientRule;
+	}
+	/**
+	 * @param Google_Service_Sheets_GridRange
+	 */
+	public function setRanges($ranges)
+	{
+		$this->ranges = $ranges;
+	}
+	/**
+	 * @return Google_Service_Sheets_GridRange
+	 */
+	public function getRanges()
+	{
+		return $this->ranges;
+	}
 }

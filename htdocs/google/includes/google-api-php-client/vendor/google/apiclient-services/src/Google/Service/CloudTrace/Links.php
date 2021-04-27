@@ -17,31 +17,31 @@
 
 class Google_Service_CloudTrace_Links extends Google_Collection
 {
-  protected $collection_key = 'link';
-  public $droppedLinksCount;
-  protected $linkType = 'Google_Service_CloudTrace_Link';
-  protected $linkDataType = 'array';
+	protected $collection_key = 'link';
+	public $droppedLinksCount;
+	protected $linkType = 'Google_Service_CloudTrace_Link';
+	protected $linkDataType = 'array';
 
-  public function setDroppedLinksCount($droppedLinksCount)
-  {
-    $this->droppedLinksCount = $droppedLinksCount;
-  }
-  public function getDroppedLinksCount()
-  {
-    return $this->droppedLinksCount;
-  }
-  /**
-   * @param Google_Service_CloudTrace_Link
-   */
-  public function setLink($link)
-  {
-    $this->link = $link;
-  }
-  /**
-   * @return Google_Service_CloudTrace_Link
-   */
-  public function getLink()
-  {
-    return $this->link;
-  }
+	public function setDroppedLinksCount($droppedLinksCount)
+	{
+		$this->droppedLinksCount = $droppedLinksCount;
+	}
+	public function getDroppedLinksCount()
+	{
+		return $this->droppedLinksCount;
+	}
+	/**
+	 * @param Google_Service_CloudTrace_Link
+	 */
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
+	/**
+	 * @return Google_Service_CloudTrace_Link
+	 */
+	public function getLink()
+	{
+		return $this->link;
+	}
 }

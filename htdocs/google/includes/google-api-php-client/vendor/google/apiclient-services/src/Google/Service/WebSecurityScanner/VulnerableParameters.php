@@ -17,15 +17,15 @@
 
 class Google_Service_WebSecurityScanner_VulnerableParameters extends Google_Collection
 {
-  protected $collection_key = 'parameterNames';
-  public $parameterNames;
+	protected $collection_key = 'parameterNames';
+	public $parameterNames;
 
-  public function setParameterNames($parameterNames)
-  {
-    $this->parameterNames = $parameterNames;
-  }
-  public function getParameterNames()
-  {
-    return $this->parameterNames;
-  }
+	public function setParameterNames($parameterNames)
+	{
+		$this->parameterNames = $parameterNames;
+	}
+	public function getParameterNames()
+	{
+		return $this->parameterNames;
+	}
 }

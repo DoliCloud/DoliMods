@@ -17,67 +17,67 @@
 
 class Google_Service_Compute_NodeGroupNode extends Google_Collection
 {
-  protected $collection_key = 'instances';
-  public $instances;
-  public $name;
-  public $nodeType;
-  protected $serverBindingType = 'Google_Service_Compute_ServerBinding';
-  protected $serverBindingDataType = '';
-  public $serverId;
-  public $status;
+	protected $collection_key = 'instances';
+	public $instances;
+	public $name;
+	public $nodeType;
+	protected $serverBindingType = 'Google_Service_Compute_ServerBinding';
+	protected $serverBindingDataType = '';
+	public $serverId;
+	public $status;
 
-  public function setInstances($instances)
-  {
-    $this->instances = $instances;
-  }
-  public function getInstances()
-  {
-    return $this->instances;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNodeType($nodeType)
-  {
-    $this->nodeType = $nodeType;
-  }
-  public function getNodeType()
-  {
-    return $this->nodeType;
-  }
-  /**
-   * @param Google_Service_Compute_ServerBinding
-   */
-  public function setServerBinding(Google_Service_Compute_ServerBinding $serverBinding)
-  {
-    $this->serverBinding = $serverBinding;
-  }
-  /**
-   * @return Google_Service_Compute_ServerBinding
-   */
-  public function getServerBinding()
-  {
-    return $this->serverBinding;
-  }
-  public function setServerId($serverId)
-  {
-    $this->serverId = $serverId;
-  }
-  public function getServerId()
-  {
-    return $this->serverId;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setInstances($instances)
+	{
+		$this->instances = $instances;
+	}
+	public function getInstances()
+	{
+		return $this->instances;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNodeType($nodeType)
+	{
+		$this->nodeType = $nodeType;
+	}
+	public function getNodeType()
+	{
+		return $this->nodeType;
+	}
+	/**
+	 * @param Google_Service_Compute_ServerBinding
+	 */
+	public function setServerBinding(Google_Service_Compute_ServerBinding $serverBinding)
+	{
+		$this->serverBinding = $serverBinding;
+	}
+	/**
+	 * @return Google_Service_Compute_ServerBinding
+	 */
+	public function getServerBinding()
+	{
+		return $this->serverBinding;
+	}
+	public function setServerId($serverId)
+	{
+		$this->serverId = $serverId;
+	}
+	public function getServerId()
+	{
+		return $this->serverId;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

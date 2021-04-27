@@ -17,46 +17,46 @@
 
 class Google_Service_Docs_PositionedObjectPositioning extends Google_Model
 {
-  public $layout;
-  protected $leftOffsetType = 'Google_Service_Docs_Dimension';
-  protected $leftOffsetDataType = '';
-  protected $topOffsetType = 'Google_Service_Docs_Dimension';
-  protected $topOffsetDataType = '';
+	public $layout;
+	protected $leftOffsetType = 'Google_Service_Docs_Dimension';
+	protected $leftOffsetDataType = '';
+	protected $topOffsetType = 'Google_Service_Docs_Dimension';
+	protected $topOffsetDataType = '';
 
-  public function setLayout($layout)
-  {
-    $this->layout = $layout;
-  }
-  public function getLayout()
-  {
-    return $this->layout;
-  }
-  /**
-   * @param Google_Service_Docs_Dimension
-   */
-  public function setLeftOffset(Google_Service_Docs_Dimension $leftOffset)
-  {
-    $this->leftOffset = $leftOffset;
-  }
-  /**
-   * @return Google_Service_Docs_Dimension
-   */
-  public function getLeftOffset()
-  {
-    return $this->leftOffset;
-  }
-  /**
-   * @param Google_Service_Docs_Dimension
-   */
-  public function setTopOffset(Google_Service_Docs_Dimension $topOffset)
-  {
-    $this->topOffset = $topOffset;
-  }
-  /**
-   * @return Google_Service_Docs_Dimension
-   */
-  public function getTopOffset()
-  {
-    return $this->topOffset;
-  }
+	public function setLayout($layout)
+	{
+		$this->layout = $layout;
+	}
+	public function getLayout()
+	{
+		return $this->layout;
+	}
+	/**
+	 * @param Google_Service_Docs_Dimension
+	 */
+	public function setLeftOffset(Google_Service_Docs_Dimension $leftOffset)
+	{
+		$this->leftOffset = $leftOffset;
+	}
+	/**
+	 * @return Google_Service_Docs_Dimension
+	 */
+	public function getLeftOffset()
+	{
+		return $this->leftOffset;
+	}
+	/**
+	 * @param Google_Service_Docs_Dimension
+	 */
+	public function setTopOffset(Google_Service_Docs_Dimension $topOffset)
+	{
+		$this->topOffset = $topOffset;
+	}
+	/**
+	 * @return Google_Service_Docs_Dimension
+	 */
+	public function getTopOffset()
+	{
+		return $this->topOffset;
+	}
 }

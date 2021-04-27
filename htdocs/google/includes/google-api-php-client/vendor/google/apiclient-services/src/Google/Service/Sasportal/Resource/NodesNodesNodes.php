@@ -25,38 +25,38 @@
  */
 class Google_Service_Sasportal_Resource_NodesNodesNodes extends Google_Service_Resource
 {
-  /**
-   * Creates a new node. (nodes.create)
-   *
-   * @param string $parent Required. The parent resource name where the node is to
-   * be created.
-   * @param Google_Service_Sasportal_SasPortalNode $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Sasportal_SasPortalNode
-   */
-  public function create($parent, Google_Service_Sasportal_SasPortalNode $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Sasportal_SasPortalNode");
-  }
-  /**
-   * Lists nodes. (nodes.listNodesNodesNodes)
-   *
-   * @param string $parent Required. The parent resource name, for example,
-   * "nodes/1".
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string pageToken A pagination token returned from a previous call
-   * to ListNodes method that indicates where this listing should continue from.
-   * @opt_param int pageSize The maximum number of nodes to return in the
-   * response.
-   * @return Google_Service_Sasportal_SasPortalListNodesResponse
-   */
-  public function listNodesNodesNodes($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Sasportal_SasPortalListNodesResponse");
-  }
+	/**
+	 * Creates a new node. (nodes.create)
+	 *
+	 * @param string $parent Required. The parent resource name where the node is to
+	 *                       be created.
+	 * @param Google_Service_Sasportal_SasPortalNode $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Sasportal_SasPortalNode
+	 */
+	public function create($parent, Google_Service_Sasportal_SasPortalNode $postBody, $optParams = array())
+	{
+		$params = array('parent' => $parent, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_Sasportal_SasPortalNode");
+	}
+	/**
+	 * Lists nodes. (nodes.listNodesNodesNodes)
+	 *
+	 * @param string $parent Required. The parent resource name, for example,
+	 *                       "nodes/1".
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string pageToken A pagination token returned from a previous call
+	 * to ListNodes method that indicates where this listing should continue from.
+	 * @opt_param int pageSize The maximum number of nodes to return in the
+	 * response.
+	 * @return Google_Service_Sasportal_SasPortalListNodesResponse
+	 */
+	public function listNodesNodesNodes($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Sasportal_SasPortalListNodesResponse");
+	}
 }

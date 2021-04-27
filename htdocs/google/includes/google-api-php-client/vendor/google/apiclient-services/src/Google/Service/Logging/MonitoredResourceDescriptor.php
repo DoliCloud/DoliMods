@@ -17,67 +17,67 @@
 
 class Google_Service_Logging_MonitoredResourceDescriptor extends Google_Collection
 {
-  protected $collection_key = 'labels';
-  public $description;
-  public $displayName;
-  protected $labelsType = 'Google_Service_Logging_LabelDescriptor';
-  protected $labelsDataType = 'array';
-  public $launchStage;
-  public $name;
-  public $type;
+	protected $collection_key = 'labels';
+	public $description;
+	public $displayName;
+	protected $labelsType = 'Google_Service_Logging_LabelDescriptor';
+	protected $labelsDataType = 'array';
+	public $launchStage;
+	public $name;
+	public $type;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  /**
-   * @param Google_Service_Logging_LabelDescriptor
-   */
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  /**
-   * @return Google_Service_Logging_LabelDescriptor
-   */
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setLaunchStage($launchStage)
-  {
-    $this->launchStage = $launchStage;
-  }
-  public function getLaunchStage()
-  {
-    return $this->launchStage;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	/**
+	 * @param Google_Service_Logging_LabelDescriptor
+	 */
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	/**
+	 * @return Google_Service_Logging_LabelDescriptor
+	 */
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setLaunchStage($launchStage)
+	{
+		$this->launchStage = $launchStage;
+	}
+	public function getLaunchStage()
+	{
+		return $this->launchStage;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

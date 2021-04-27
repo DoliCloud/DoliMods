@@ -17,41 +17,41 @@
 
 class Google_Service_AdExchangeBuyer_AccountBidderLocation extends Google_Model
 {
-  public $bidProtocol;
-  public $maximumQps;
-  public $region;
-  public $url;
+	public $bidProtocol;
+	public $maximumQps;
+	public $region;
+	public $url;
 
-  public function setBidProtocol($bidProtocol)
-  {
-    $this->bidProtocol = $bidProtocol;
-  }
-  public function getBidProtocol()
-  {
-    return $this->bidProtocol;
-  }
-  public function setMaximumQps($maximumQps)
-  {
-    $this->maximumQps = $maximumQps;
-  }
-  public function getMaximumQps()
-  {
-    return $this->maximumQps;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setBidProtocol($bidProtocol)
+	{
+		$this->bidProtocol = $bidProtocol;
+	}
+	public function getBidProtocol()
+	{
+		return $this->bidProtocol;
+	}
+	public function setMaximumQps($maximumQps)
+	{
+		$this->maximumQps = $maximumQps;
+	}
+	public function getMaximumQps()
+	{
+		return $this->maximumQps;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

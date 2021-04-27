@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DateRange extends Google_Model
 {
-  public $end;
-  public $start;
+	public $end;
+	public $start;
 
-  public function setEnd($end)
-  {
-    $this->end = $end;
-  }
-  public function getEnd()
-  {
-    return $this->end;
-  }
-  public function setStart($start)
-  {
-    $this->start = $start;
-  }
-  public function getStart()
-  {
-    return $this->start;
-  }
+	public function setEnd($end)
+	{
+		$this->end = $end;
+	}
+	public function getEnd()
+	{
+		return $this->end;
+	}
+	public function setStart($start)
+	{
+		$this->start = $start;
+	}
+	public function getStart()
+	{
+		return $this->start;
+	}
 }

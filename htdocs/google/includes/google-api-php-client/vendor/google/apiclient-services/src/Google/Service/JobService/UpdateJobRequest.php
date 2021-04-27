@@ -17,55 +17,55 @@
 
 class Google_Service_JobService_UpdateJobRequest extends Google_Model
 {
-  public $disableStreetAddressResolution;
-  protected $jobType = 'Google_Service_JobService_Job';
-  protected $jobDataType = '';
-  protected $processingOptionsType = 'Google_Service_JobService_JobProcessingOptions';
-  protected $processingOptionsDataType = '';
-  public $updateJobFields;
+	public $disableStreetAddressResolution;
+	protected $jobType = 'Google_Service_JobService_Job';
+	protected $jobDataType = '';
+	protected $processingOptionsType = 'Google_Service_JobService_JobProcessingOptions';
+	protected $processingOptionsDataType = '';
+	public $updateJobFields;
 
-  public function setDisableStreetAddressResolution($disableStreetAddressResolution)
-  {
-    $this->disableStreetAddressResolution = $disableStreetAddressResolution;
-  }
-  public function getDisableStreetAddressResolution()
-  {
-    return $this->disableStreetAddressResolution;
-  }
-  /**
-   * @param Google_Service_JobService_Job
-   */
-  public function setJob(Google_Service_JobService_Job $job)
-  {
-    $this->job = $job;
-  }
-  /**
-   * @return Google_Service_JobService_Job
-   */
-  public function getJob()
-  {
-    return $this->job;
-  }
-  /**
-   * @param Google_Service_JobService_JobProcessingOptions
-   */
-  public function setProcessingOptions(Google_Service_JobService_JobProcessingOptions $processingOptions)
-  {
-    $this->processingOptions = $processingOptions;
-  }
-  /**
-   * @return Google_Service_JobService_JobProcessingOptions
-   */
-  public function getProcessingOptions()
-  {
-    return $this->processingOptions;
-  }
-  public function setUpdateJobFields($updateJobFields)
-  {
-    $this->updateJobFields = $updateJobFields;
-  }
-  public function getUpdateJobFields()
-  {
-    return $this->updateJobFields;
-  }
+	public function setDisableStreetAddressResolution($disableStreetAddressResolution)
+	{
+		$this->disableStreetAddressResolution = $disableStreetAddressResolution;
+	}
+	public function getDisableStreetAddressResolution()
+	{
+		return $this->disableStreetAddressResolution;
+	}
+	/**
+	 * @param Google_Service_JobService_Job
+	 */
+	public function setJob(Google_Service_JobService_Job $job)
+	{
+		$this->job = $job;
+	}
+	/**
+	 * @return Google_Service_JobService_Job
+	 */
+	public function getJob()
+	{
+		return $this->job;
+	}
+	/**
+	 * @param Google_Service_JobService_JobProcessingOptions
+	 */
+	public function setProcessingOptions(Google_Service_JobService_JobProcessingOptions $processingOptions)
+	{
+		$this->processingOptions = $processingOptions;
+	}
+	/**
+	 * @return Google_Service_JobService_JobProcessingOptions
+	 */
+	public function getProcessingOptions()
+	{
+		return $this->processingOptions;
+	}
+	public function setUpdateJobFields($updateJobFields)
+	{
+		$this->updateJobFields = $updateJobFields;
+	}
+	public function getUpdateJobFields()
+	{
+		return $this->updateJobFields;
+	}
 }

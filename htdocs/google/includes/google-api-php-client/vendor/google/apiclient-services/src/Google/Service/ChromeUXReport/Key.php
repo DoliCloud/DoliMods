@@ -17,41 +17,41 @@
 
 class Google_Service_ChromeUXReport_Key extends Google_Model
 {
-  public $effectiveConnectionType;
-  public $formFactor;
-  public $origin;
-  public $url;
+	public $effectiveConnectionType;
+	public $formFactor;
+	public $origin;
+	public $url;
 
-  public function setEffectiveConnectionType($effectiveConnectionType)
-  {
-    $this->effectiveConnectionType = $effectiveConnectionType;
-  }
-  public function getEffectiveConnectionType()
-  {
-    return $this->effectiveConnectionType;
-  }
-  public function setFormFactor($formFactor)
-  {
-    $this->formFactor = $formFactor;
-  }
-  public function getFormFactor()
-  {
-    return $this->formFactor;
-  }
-  public function setOrigin($origin)
-  {
-    $this->origin = $origin;
-  }
-  public function getOrigin()
-  {
-    return $this->origin;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setEffectiveConnectionType($effectiveConnectionType)
+	{
+		$this->effectiveConnectionType = $effectiveConnectionType;
+	}
+	public function getEffectiveConnectionType()
+	{
+		return $this->effectiveConnectionType;
+	}
+	public function setFormFactor($formFactor)
+	{
+		$this->formFactor = $formFactor;
+	}
+	public function getFormFactor()
+	{
+		return $this->formFactor;
+	}
+	public function setOrigin($origin)
+	{
+		$this->origin = $origin;
+	}
+	public function getOrigin()
+	{
+		return $this->origin;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidManagement_WebAppIcon extends Google_Model
 {
-  public $imageData;
+	public $imageData;
 
-  public function setImageData($imageData)
-  {
-    $this->imageData = $imageData;
-  }
-  public function getImageData()
-  {
-    return $this->imageData;
-  }
+	public function setImageData($imageData)
+	{
+		$this->imageData = $imageData;
+	}
+	public function getImageData()
+	{
+		return $this->imageData;
+	}
 }

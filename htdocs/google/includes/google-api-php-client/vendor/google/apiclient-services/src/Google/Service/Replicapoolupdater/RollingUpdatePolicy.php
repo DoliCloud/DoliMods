@@ -17,50 +17,50 @@
 
 class Google_Service_Replicapoolupdater_RollingUpdatePolicy extends Google_Model
 {
-  public $autoPauseAfterInstances;
-  public $instanceStartupTimeoutSec;
-  public $maxNumConcurrentInstances;
-  public $maxNumFailedInstances;
-  public $minInstanceUpdateTimeSec;
+	public $autoPauseAfterInstances;
+	public $instanceStartupTimeoutSec;
+	public $maxNumConcurrentInstances;
+	public $maxNumFailedInstances;
+	public $minInstanceUpdateTimeSec;
 
-  public function setAutoPauseAfterInstances($autoPauseAfterInstances)
-  {
-    $this->autoPauseAfterInstances = $autoPauseAfterInstances;
-  }
-  public function getAutoPauseAfterInstances()
-  {
-    return $this->autoPauseAfterInstances;
-  }
-  public function setInstanceStartupTimeoutSec($instanceStartupTimeoutSec)
-  {
-    $this->instanceStartupTimeoutSec = $instanceStartupTimeoutSec;
-  }
-  public function getInstanceStartupTimeoutSec()
-  {
-    return $this->instanceStartupTimeoutSec;
-  }
-  public function setMaxNumConcurrentInstances($maxNumConcurrentInstances)
-  {
-    $this->maxNumConcurrentInstances = $maxNumConcurrentInstances;
-  }
-  public function getMaxNumConcurrentInstances()
-  {
-    return $this->maxNumConcurrentInstances;
-  }
-  public function setMaxNumFailedInstances($maxNumFailedInstances)
-  {
-    $this->maxNumFailedInstances = $maxNumFailedInstances;
-  }
-  public function getMaxNumFailedInstances()
-  {
-    return $this->maxNumFailedInstances;
-  }
-  public function setMinInstanceUpdateTimeSec($minInstanceUpdateTimeSec)
-  {
-    $this->minInstanceUpdateTimeSec = $minInstanceUpdateTimeSec;
-  }
-  public function getMinInstanceUpdateTimeSec()
-  {
-    return $this->minInstanceUpdateTimeSec;
-  }
+	public function setAutoPauseAfterInstances($autoPauseAfterInstances)
+	{
+		$this->autoPauseAfterInstances = $autoPauseAfterInstances;
+	}
+	public function getAutoPauseAfterInstances()
+	{
+		return $this->autoPauseAfterInstances;
+	}
+	public function setInstanceStartupTimeoutSec($instanceStartupTimeoutSec)
+	{
+		$this->instanceStartupTimeoutSec = $instanceStartupTimeoutSec;
+	}
+	public function getInstanceStartupTimeoutSec()
+	{
+		return $this->instanceStartupTimeoutSec;
+	}
+	public function setMaxNumConcurrentInstances($maxNumConcurrentInstances)
+	{
+		$this->maxNumConcurrentInstances = $maxNumConcurrentInstances;
+	}
+	public function getMaxNumConcurrentInstances()
+	{
+		return $this->maxNumConcurrentInstances;
+	}
+	public function setMaxNumFailedInstances($maxNumFailedInstances)
+	{
+		$this->maxNumFailedInstances = $maxNumFailedInstances;
+	}
+	public function getMaxNumFailedInstances()
+	{
+		return $this->maxNumFailedInstances;
+	}
+	public function setMinInstanceUpdateTimeSec($minInstanceUpdateTimeSec)
+	{
+		$this->minInstanceUpdateTimeSec = $minInstanceUpdateTimeSec;
+	}
+	public function getMinInstanceUpdateTimeSec()
+	{
+		return $this->minInstanceUpdateTimeSec;
+	}
 }

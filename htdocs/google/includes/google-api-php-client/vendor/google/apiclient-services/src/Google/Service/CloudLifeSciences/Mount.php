@@ -17,32 +17,32 @@
 
 class Google_Service_CloudLifeSciences_Mount extends Google_Model
 {
-  public $disk;
-  public $path;
-  public $readOnly;
+	public $disk;
+	public $path;
+	public $readOnly;
 
-  public function setDisk($disk)
-  {
-    $this->disk = $disk;
-  }
-  public function getDisk()
-  {
-    return $this->disk;
-  }
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
-  public function setReadOnly($readOnly)
-  {
-    $this->readOnly = $readOnly;
-  }
-  public function getReadOnly()
-  {
-    return $this->readOnly;
-  }
+	public function setDisk($disk)
+	{
+		$this->disk = $disk;
+	}
+	public function getDisk()
+	{
+		return $this->disk;
+	}
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
+	public function setReadOnly($readOnly)
+	{
+		$this->readOnly = $readOnly;
+	}
+	public function getReadOnly()
+	{
+		return $this->readOnly;
+	}
 }

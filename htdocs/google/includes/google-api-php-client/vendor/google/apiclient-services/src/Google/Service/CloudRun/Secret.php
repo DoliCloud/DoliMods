@@ -17,48 +17,48 @@
 
 class Google_Service_CloudRun_Secret extends Google_Model
 {
-  public $data;
-  protected $metadataType = 'Google_Service_CloudRun_ObjectMeta';
-  protected $metadataDataType = '';
-  public $stringData;
-  public $type;
+	public $data;
+	protected $metadataType = 'Google_Service_CloudRun_ObjectMeta';
+	protected $metadataDataType = '';
+	public $stringData;
+	public $type;
 
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
-  /**
-   * @param Google_Service_CloudRun_ObjectMeta
-   */
-  public function setMetadata(Google_Service_CloudRun_ObjectMeta $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_CloudRun_ObjectMeta
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setStringData($stringData)
-  {
-    $this->stringData = $stringData;
-  }
-  public function getStringData()
-  {
-    return $this->stringData;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
+	/**
+	 * @param Google_Service_CloudRun_ObjectMeta
+	 */
+	public function setMetadata(Google_Service_CloudRun_ObjectMeta $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_CloudRun_ObjectMeta
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setStringData($stringData)
+	{
+		$this->stringData = $stringData;
+	}
+	public function getStringData()
+	{
+		return $this->stringData;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

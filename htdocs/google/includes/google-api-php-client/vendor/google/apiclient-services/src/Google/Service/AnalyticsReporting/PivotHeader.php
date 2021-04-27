@@ -17,31 +17,31 @@
 
 class Google_Service_AnalyticsReporting_PivotHeader extends Google_Collection
 {
-  protected $collection_key = 'pivotHeaderEntries';
-  protected $pivotHeaderEntriesType = 'Google_Service_AnalyticsReporting_PivotHeaderEntry';
-  protected $pivotHeaderEntriesDataType = 'array';
-  public $totalPivotGroupsCount;
+	protected $collection_key = 'pivotHeaderEntries';
+	protected $pivotHeaderEntriesType = 'Google_Service_AnalyticsReporting_PivotHeaderEntry';
+	protected $pivotHeaderEntriesDataType = 'array';
+	public $totalPivotGroupsCount;
 
-  /**
-   * @param Google_Service_AnalyticsReporting_PivotHeaderEntry
-   */
-  public function setPivotHeaderEntries($pivotHeaderEntries)
-  {
-    $this->pivotHeaderEntries = $pivotHeaderEntries;
-  }
-  /**
-   * @return Google_Service_AnalyticsReporting_PivotHeaderEntry
-   */
-  public function getPivotHeaderEntries()
-  {
-    return $this->pivotHeaderEntries;
-  }
-  public function setTotalPivotGroupsCount($totalPivotGroupsCount)
-  {
-    $this->totalPivotGroupsCount = $totalPivotGroupsCount;
-  }
-  public function getTotalPivotGroupsCount()
-  {
-    return $this->totalPivotGroupsCount;
-  }
+	/**
+	 * @param Google_Service_AnalyticsReporting_PivotHeaderEntry
+	 */
+	public function setPivotHeaderEntries($pivotHeaderEntries)
+	{
+		$this->pivotHeaderEntries = $pivotHeaderEntries;
+	}
+	/**
+	 * @return Google_Service_AnalyticsReporting_PivotHeaderEntry
+	 */
+	public function getPivotHeaderEntries()
+	{
+		return $this->pivotHeaderEntries;
+	}
+	public function setTotalPivotGroupsCount($totalPivotGroupsCount)
+	{
+		$this->totalPivotGroupsCount = $totalPivotGroupsCount;
+	}
+	public function getTotalPivotGroupsCount()
+	{
+		return $this->totalPivotGroupsCount;
+	}
 }

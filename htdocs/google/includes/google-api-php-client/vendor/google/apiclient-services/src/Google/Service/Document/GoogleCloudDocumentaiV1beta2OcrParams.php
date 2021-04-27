@@ -17,15 +17,15 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2OcrParams extends Google_Collection
 {
-  protected $collection_key = 'languageHints';
-  public $languageHints;
+	protected $collection_key = 'languageHints';
+	public $languageHints;
 
-  public function setLanguageHints($languageHints)
-  {
-    $this->languageHints = $languageHints;
-  }
-  public function getLanguageHints()
-  {
-    return $this->languageHints;
-  }
+	public function setLanguageHints($languageHints)
+	{
+		$this->languageHints = $languageHints;
+	}
+	public function getLanguageHints()
+	{
+		return $this->languageHints;
+	}
 }

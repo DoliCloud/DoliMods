@@ -17,33 +17,33 @@
 
 class Google_Service_CloudTalentSolution_ApplicationInfo extends Google_Collection
 {
-  protected $collection_key = 'uris';
-  public $emails;
-  public $instruction;
-  public $uris;
+	protected $collection_key = 'uris';
+	public $emails;
+	public $instruction;
+	public $uris;
 
-  public function setEmails($emails)
-  {
-    $this->emails = $emails;
-  }
-  public function getEmails()
-  {
-    return $this->emails;
-  }
-  public function setInstruction($instruction)
-  {
-    $this->instruction = $instruction;
-  }
-  public function getInstruction()
-  {
-    return $this->instruction;
-  }
-  public function setUris($uris)
-  {
-    $this->uris = $uris;
-  }
-  public function getUris()
-  {
-    return $this->uris;
-  }
+	public function setEmails($emails)
+	{
+		$this->emails = $emails;
+	}
+	public function getEmails()
+	{
+		return $this->emails;
+	}
+	public function setInstruction($instruction)
+	{
+		$this->instruction = $instruction;
+	}
+	public function getInstruction()
+	{
+		return $this->instruction;
+	}
+	public function setUris($uris)
+	{
+		$this->uris = $uris;
+	}
+	public function getUris()
+	{
+		return $this->uris;
+	}
 }

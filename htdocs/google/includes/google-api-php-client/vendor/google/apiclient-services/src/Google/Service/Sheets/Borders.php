@@ -17,69 +17,69 @@
 
 class Google_Service_Sheets_Borders extends Google_Model
 {
-  protected $bottomType = 'Google_Service_Sheets_Border';
-  protected $bottomDataType = '';
-  protected $leftType = 'Google_Service_Sheets_Border';
-  protected $leftDataType = '';
-  protected $rightType = 'Google_Service_Sheets_Border';
-  protected $rightDataType = '';
-  protected $topType = 'Google_Service_Sheets_Border';
-  protected $topDataType = '';
+	protected $bottomType = 'Google_Service_Sheets_Border';
+	protected $bottomDataType = '';
+	protected $leftType = 'Google_Service_Sheets_Border';
+	protected $leftDataType = '';
+	protected $rightType = 'Google_Service_Sheets_Border';
+	protected $rightDataType = '';
+	protected $topType = 'Google_Service_Sheets_Border';
+	protected $topDataType = '';
 
-  /**
-   * @param Google_Service_Sheets_Border
-   */
-  public function setBottom(Google_Service_Sheets_Border $bottom)
-  {
-    $this->bottom = $bottom;
-  }
-  /**
-   * @return Google_Service_Sheets_Border
-   */
-  public function getBottom()
-  {
-    return $this->bottom;
-  }
-  /**
-   * @param Google_Service_Sheets_Border
-   */
-  public function setLeft(Google_Service_Sheets_Border $left)
-  {
-    $this->left = $left;
-  }
-  /**
-   * @return Google_Service_Sheets_Border
-   */
-  public function getLeft()
-  {
-    return $this->left;
-  }
-  /**
-   * @param Google_Service_Sheets_Border
-   */
-  public function setRight(Google_Service_Sheets_Border $right)
-  {
-    $this->right = $right;
-  }
-  /**
-   * @return Google_Service_Sheets_Border
-   */
-  public function getRight()
-  {
-    return $this->right;
-  }
-  /**
-   * @param Google_Service_Sheets_Border
-   */
-  public function setTop(Google_Service_Sheets_Border $top)
-  {
-    $this->top = $top;
-  }
-  /**
-   * @return Google_Service_Sheets_Border
-   */
-  public function getTop()
-  {
-    return $this->top;
-  }
+	/**
+	 * @param Google_Service_Sheets_Border
+	 */
+	public function setBottom(Google_Service_Sheets_Border $bottom)
+	{
+		$this->bottom = $bottom;
+	}
+	/**
+	 * @return Google_Service_Sheets_Border
+	 */
+	public function getBottom()
+	{
+		return $this->bottom;
+	}
+	/**
+	 * @param Google_Service_Sheets_Border
+	 */
+	public function setLeft(Google_Service_Sheets_Border $left)
+	{
+		$this->left = $left;
+	}
+	/**
+	 * @return Google_Service_Sheets_Border
+	 */
+	public function getLeft()
+	{
+		return $this->left;
+	}
+	/**
+	 * @param Google_Service_Sheets_Border
+	 */
+	public function setRight(Google_Service_Sheets_Border $right)
+	{
+		$this->right = $right;
+	}
+	/**
+	 * @return Google_Service_Sheets_Border
+	 */
+	public function getRight()
+	{
+		return $this->right;
+	}
+	/**
+	 * @param Google_Service_Sheets_Border
+	 */
+	public function setTop(Google_Service_Sheets_Border $top)
+	{
+		$this->top = $top;
+	}
+	/**
+	 * @return Google_Service_Sheets_Border
+	 */
+	public function getTop()
+	{
+		return $this->top;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig extends Google_Model
 {
-  protected $gcsSourceType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1GcsSource';
-  protected $gcsSourceDataType = '';
-  public $mimeType;
+	protected $gcsSourceType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1GcsSource';
+	protected $gcsSourceDataType = '';
+	public $mimeType;
 
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1GcsSource
-   */
-  public function setGcsSource(Google_Service_Document_GoogleCloudDocumentaiV1beta1GcsSource $gcsSource)
-  {
-    $this->gcsSource = $gcsSource;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1GcsSource
-   */
-  public function getGcsSource()
-  {
-    return $this->gcsSource;
-  }
-  public function setMimeType($mimeType)
-  {
-    $this->mimeType = $mimeType;
-  }
-  public function getMimeType()
-  {
-    return $this->mimeType;
-  }
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1GcsSource
+	 */
+	public function setGcsSource(Google_Service_Document_GoogleCloudDocumentaiV1beta1GcsSource $gcsSource)
+	{
+		$this->gcsSource = $gcsSource;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1GcsSource
+	 */
+	public function getGcsSource()
+	{
+		return $this->gcsSource;
+	}
+	public function setMimeType($mimeType)
+	{
+		$this->mimeType = $mimeType;
+	}
+	public function getMimeType()
+	{
+		return $this->mimeType;
+	}
 }

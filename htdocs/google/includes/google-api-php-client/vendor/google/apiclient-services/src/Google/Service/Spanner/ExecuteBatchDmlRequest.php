@@ -17,47 +17,47 @@
 
 class Google_Service_Spanner_ExecuteBatchDmlRequest extends Google_Collection
 {
-  protected $collection_key = 'statements';
-  public $seqno;
-  protected $statementsType = 'Google_Service_Spanner_Statement';
-  protected $statementsDataType = 'array';
-  protected $transactionType = 'Google_Service_Spanner_TransactionSelector';
-  protected $transactionDataType = '';
+	protected $collection_key = 'statements';
+	public $seqno;
+	protected $statementsType = 'Google_Service_Spanner_Statement';
+	protected $statementsDataType = 'array';
+	protected $transactionType = 'Google_Service_Spanner_TransactionSelector';
+	protected $transactionDataType = '';
 
-  public function setSeqno($seqno)
-  {
-    $this->seqno = $seqno;
-  }
-  public function getSeqno()
-  {
-    return $this->seqno;
-  }
-  /**
-   * @param Google_Service_Spanner_Statement
-   */
-  public function setStatements($statements)
-  {
-    $this->statements = $statements;
-  }
-  /**
-   * @return Google_Service_Spanner_Statement
-   */
-  public function getStatements()
-  {
-    return $this->statements;
-  }
-  /**
-   * @param Google_Service_Spanner_TransactionSelector
-   */
-  public function setTransaction(Google_Service_Spanner_TransactionSelector $transaction)
-  {
-    $this->transaction = $transaction;
-  }
-  /**
-   * @return Google_Service_Spanner_TransactionSelector
-   */
-  public function getTransaction()
-  {
-    return $this->transaction;
-  }
+	public function setSeqno($seqno)
+	{
+		$this->seqno = $seqno;
+	}
+	public function getSeqno()
+	{
+		return $this->seqno;
+	}
+	/**
+	 * @param Google_Service_Spanner_Statement
+	 */
+	public function setStatements($statements)
+	{
+		$this->statements = $statements;
+	}
+	/**
+	 * @return Google_Service_Spanner_Statement
+	 */
+	public function getStatements()
+	{
+		return $this->statements;
+	}
+	/**
+	 * @param Google_Service_Spanner_TransactionSelector
+	 */
+	public function setTransaction(Google_Service_Spanner_TransactionSelector $transaction)
+	{
+		$this->transaction = $transaction;
+	}
+	/**
+	 * @return Google_Service_Spanner_TransactionSelector
+	 */
+	public function getTransaction()
+	{
+		return $this->transaction;
+	}
 }

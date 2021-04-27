@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_KeywordAssignedTargetingOptionDetails extends Google_Model
 {
-  public $keyword;
-  public $negative;
+	public $keyword;
+	public $negative;
 
-  public function setKeyword($keyword)
-  {
-    $this->keyword = $keyword;
-  }
-  public function getKeyword()
-  {
-    return $this->keyword;
-  }
-  public function setNegative($negative)
-  {
-    $this->negative = $negative;
-  }
-  public function getNegative()
-  {
-    return $this->negative;
-  }
+	public function setKeyword($keyword)
+	{
+		$this->keyword = $keyword;
+	}
+	public function getKeyword()
+	{
+		return $this->keyword;
+	}
+	public function setNegative($negative)
+	{
+		$this->negative = $negative;
+	}
+	public function getNegative()
+	{
+		return $this->negative;
+	}
 }

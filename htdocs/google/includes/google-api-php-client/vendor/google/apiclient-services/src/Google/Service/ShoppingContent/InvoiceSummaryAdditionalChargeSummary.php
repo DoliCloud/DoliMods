@@ -17,30 +17,30 @@
 
 class Google_Service_ShoppingContent_InvoiceSummaryAdditionalChargeSummary extends Google_Model
 {
-  protected $totalAmountType = 'Google_Service_ShoppingContent_Amount';
-  protected $totalAmountDataType = '';
-  public $type;
+	protected $totalAmountType = 'Google_Service_ShoppingContent_Amount';
+	protected $totalAmountDataType = '';
+	public $type;
 
-  /**
-   * @param Google_Service_ShoppingContent_Amount
-   */
-  public function setTotalAmount(Google_Service_ShoppingContent_Amount $totalAmount)
-  {
-    $this->totalAmount = $totalAmount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Amount
-   */
-  public function getTotalAmount()
-  {
-    return $this->totalAmount;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_Amount
+	 */
+	public function setTotalAmount(Google_Service_ShoppingContent_Amount $totalAmount)
+	{
+		$this->totalAmount = $totalAmount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Amount
+	 */
+	public function getTotalAmount()
+	{
+		return $this->totalAmount;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

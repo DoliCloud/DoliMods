@@ -17,39 +17,39 @@
 
 class Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails extends Google_Model
 {
-  public $action;
-  public $instance;
-  protected $versionType = 'Google_Service_Compute_ManagedInstanceVersion';
-  protected $versionDataType = '';
+	public $action;
+	public $instance;
+	protected $versionType = 'Google_Service_Compute_ManagedInstanceVersion';
+	protected $versionDataType = '';
 
-  public function setAction($action)
-  {
-    $this->action = $action;
-  }
-  public function getAction()
-  {
-    return $this->action;
-  }
-  public function setInstance($instance)
-  {
-    $this->instance = $instance;
-  }
-  public function getInstance()
-  {
-    return $this->instance;
-  }
-  /**
-   * @param Google_Service_Compute_ManagedInstanceVersion
-   */
-  public function setVersion(Google_Service_Compute_ManagedInstanceVersion $version)
-  {
-    $this->version = $version;
-  }
-  /**
-   * @return Google_Service_Compute_ManagedInstanceVersion
-   */
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setAction($action)
+	{
+		$this->action = $action;
+	}
+	public function getAction()
+	{
+		return $this->action;
+	}
+	public function setInstance($instance)
+	{
+		$this->instance = $instance;
+	}
+	public function getInstance()
+	{
+		return $this->instance;
+	}
+	/**
+	 * @param Google_Service_Compute_ManagedInstanceVersion
+	 */
+	public function setVersion(Google_Service_Compute_ManagedInstanceVersion $version)
+	{
+		$this->version = $version;
+	}
+	/**
+	 * @return Google_Service_Compute_ManagedInstanceVersion
+	 */
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

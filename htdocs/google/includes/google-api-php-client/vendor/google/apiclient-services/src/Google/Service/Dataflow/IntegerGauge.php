@@ -17,30 +17,30 @@
 
 class Google_Service_Dataflow_IntegerGauge extends Google_Model
 {
-  public $timestamp;
-  protected $valueType = 'Google_Service_Dataflow_SplitInt64';
-  protected $valueDataType = '';
+	public $timestamp;
+	protected $valueType = 'Google_Service_Dataflow_SplitInt64';
+	protected $valueDataType = '';
 
-  public function setTimestamp($timestamp)
-  {
-    $this->timestamp = $timestamp;
-  }
-  public function getTimestamp()
-  {
-    return $this->timestamp;
-  }
-  /**
-   * @param Google_Service_Dataflow_SplitInt64
-   */
-  public function setValue(Google_Service_Dataflow_SplitInt64 $value)
-  {
-    $this->value = $value;
-  }
-  /**
-   * @return Google_Service_Dataflow_SplitInt64
-   */
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setTimestamp($timestamp)
+	{
+		$this->timestamp = $timestamp;
+	}
+	public function getTimestamp()
+	{
+		return $this->timestamp;
+	}
+	/**
+	 * @param Google_Service_Dataflow_SplitInt64
+	 */
+	public function setValue(Google_Service_Dataflow_SplitInt64 $value)
+	{
+		$this->value = $value;
+	}
+	/**
+	 * @return Google_Service_Dataflow_SplitInt64
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

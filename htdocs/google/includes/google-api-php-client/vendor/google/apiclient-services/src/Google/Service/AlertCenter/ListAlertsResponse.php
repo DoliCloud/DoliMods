@@ -17,31 +17,31 @@
 
 class Google_Service_AlertCenter_ListAlertsResponse extends Google_Collection
 {
-  protected $collection_key = 'alerts';
-  protected $alertsType = 'Google_Service_AlertCenter_Alert';
-  protected $alertsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'alerts';
+	protected $alertsType = 'Google_Service_AlertCenter_Alert';
+	protected $alertsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_AlertCenter_Alert
-   */
-  public function setAlerts($alerts)
-  {
-    $this->alerts = $alerts;
-  }
-  /**
-   * @return Google_Service_AlertCenter_Alert
-   */
-  public function getAlerts()
-  {
-    return $this->alerts;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_AlertCenter_Alert
+	 */
+	public function setAlerts($alerts)
+	{
+		$this->alerts = $alerts;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_Alert
+	 */
+	public function getAlerts()
+	{
+		return $this->alerts;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

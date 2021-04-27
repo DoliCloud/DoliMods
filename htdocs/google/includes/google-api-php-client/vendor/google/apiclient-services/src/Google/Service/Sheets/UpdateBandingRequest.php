@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_UpdateBandingRequest extends Google_Model
 {
-  protected $bandedRangeType = 'Google_Service_Sheets_BandedRange';
-  protected $bandedRangeDataType = '';
-  public $fields;
+	protected $bandedRangeType = 'Google_Service_Sheets_BandedRange';
+	protected $bandedRangeDataType = '';
+	public $fields;
 
-  /**
-   * @param Google_Service_Sheets_BandedRange
-   */
-  public function setBandedRange(Google_Service_Sheets_BandedRange $bandedRange)
-  {
-    $this->bandedRange = $bandedRange;
-  }
-  /**
-   * @return Google_Service_Sheets_BandedRange
-   */
-  public function getBandedRange()
-  {
-    return $this->bandedRange;
-  }
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
+	/**
+	 * @param Google_Service_Sheets_BandedRange
+	 */
+	public function setBandedRange(Google_Service_Sheets_BandedRange $bandedRange)
+	{
+		$this->bandedRange = $bandedRange;
+	}
+	/**
+	 * @return Google_Service_Sheets_BandedRange
+	 */
+	public function getBandedRange()
+	{
+		return $this->bandedRange;
+	}
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
 }

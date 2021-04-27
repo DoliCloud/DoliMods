@@ -21,7 +21,7 @@
  *	\ingroup    dolicloud
  *	\brief      File to control actions
  */
-require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
 
 
 /**
@@ -29,38 +29,38 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
  */
 class ActionsDoliCloud
 {
-    var $db;
-    var $error;
-    var $errors=array();
+	var $db;
+	var $error;
+	var $errors=array();
 
-    /**
+	/**
 	 *	Constructor
 	 *
 	 *  @param		DoliDB		$db      Database handler
-     */
-    function ActionsDoliCloud($db)
-    {
-        $this->db = $db;
-    }
+	 */
+	function ActionsDoliCloud($db)
+	{
+		$this->db = $db;
+	}
 
-    /**
-     * Complete top right menu
-     *
-     * @param	array	$parameters		Array of parameters
-     * @return	string					HTML content to add by hook
-     */
-    function printTopRightMenu($parameters)
-    {
-        global $langs, $user, $conf;
+	/**
+	 * Complete top right menu
+	 *
+	 * @param	array	$parameters		Array of parameters
+	 * @return	string					HTML content to add by hook
+	 */
+	function printTopRightMenu($parameters)
+	{
+		global $langs, $user, $conf;
 
-        $url='https://www.on.dolicloud.com/';
-        if (! empty($conf->global->DOLICLOUD_FORCE_URL)) $url=$conf->global->DOLICLOUD_FORCE_URL;
-        //$out='<td>';
-        $out.='<div class="login_block_elem" id="linkdolicloud"><a href="'.$url.'" target="_blank">DoliCloud</a></div>';
-        //$out.='</td>';
+		$url='https://www.on.dolicloud.com/';
+		if (! empty($conf->global->DOLICLOUD_FORCE_URL)) $url=$conf->global->DOLICLOUD_FORCE_URL;
+		//$out='<td>';
+		$out.='<div class="login_block_elem" id="linkdolicloud"><a href="'.$url.'" target="_blank">DoliCloud</a></div>';
+		//$out.='</td>';
 
-        $this->resprints=$out;
+		$this->resprints=$out;
 
-        return 0;
-    }
+		return 0;
+	}
 }

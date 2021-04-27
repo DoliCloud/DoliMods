@@ -12,15 +12,15 @@ use GuzzleHttp\Message\ResponseInterface;
  */
 class BeforeEvent extends AbstractRequestEvent
 {
-    /**
-     * Intercept the request and associate a response
-     *
-     * @param ResponseInterface $response Response to set
-     */
-    public function intercept(ResponseInterface $response)
-    {
-        $this->transaction->response = $response;
-        $this->transaction->exception = null;
-        $this->stopPropagation();
-    }
+	/**
+	 * Intercept the request and associate a response
+	 *
+	 * @param ResponseInterface $response Response to set
+	 */
+	public function intercept(ResponseInterface $response)
+	{
+		$this->transaction->response = $response;
+		$this->transaction->exception = null;
+		$this->stopPropagation();
+	}
 }

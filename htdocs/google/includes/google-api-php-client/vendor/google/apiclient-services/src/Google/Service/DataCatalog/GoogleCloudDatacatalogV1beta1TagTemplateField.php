@@ -17,57 +17,57 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagTemplateField extends Google_Model
 {
-  public $displayName;
-  public $isRequired;
-  public $name;
-  public $order;
-  protected $typeType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType';
-  protected $typeDataType = '';
+	public $displayName;
+	public $isRequired;
+	public $name;
+	public $order;
+	protected $typeType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType';
+	protected $typeDataType = '';
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setIsRequired($isRequired)
-  {
-    $this->isRequired = $isRequired;
-  }
-  public function getIsRequired()
-  {
-    return $this->isRequired;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOrder($order)
-  {
-    $this->order = $order;
-  }
-  public function getOrder()
-  {
-    return $this->order;
-  }
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType
-   */
-  public function setType(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType $type)
-  {
-    $this->type = $type;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType
-   */
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setIsRequired($isRequired)
+	{
+		$this->isRequired = $isRequired;
+	}
+	public function getIsRequired()
+	{
+		return $this->isRequired;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOrder($order)
+	{
+		$this->order = $order;
+	}
+	public function getOrder()
+	{
+		return $this->order;
+	}
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType
+	 */
+	public function setType(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType $type)
+	{
+		$this->type = $type;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
 }

@@ -17,54 +17,54 @@
 
 class Google_Service_ShoppingContent_UnitInvoice extends Google_Collection
 {
-  protected $collection_key = 'unitPriceTaxes';
-  protected $additionalChargesType = 'Google_Service_ShoppingContent_UnitInvoiceAdditionalCharge';
-  protected $additionalChargesDataType = 'array';
-  protected $unitPriceType = 'Google_Service_ShoppingContent_Price';
-  protected $unitPriceDataType = '';
-  protected $unitPriceTaxesType = 'Google_Service_ShoppingContent_UnitInvoiceTaxLine';
-  protected $unitPriceTaxesDataType = 'array';
+	protected $collection_key = 'unitPriceTaxes';
+	protected $additionalChargesType = 'Google_Service_ShoppingContent_UnitInvoiceAdditionalCharge';
+	protected $additionalChargesDataType = 'array';
+	protected $unitPriceType = 'Google_Service_ShoppingContent_Price';
+	protected $unitPriceDataType = '';
+	protected $unitPriceTaxesType = 'Google_Service_ShoppingContent_UnitInvoiceTaxLine';
+	protected $unitPriceTaxesDataType = 'array';
 
-  /**
-   * @param Google_Service_ShoppingContent_UnitInvoiceAdditionalCharge
-   */
-  public function setAdditionalCharges($additionalCharges)
-  {
-    $this->additionalCharges = $additionalCharges;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_UnitInvoiceAdditionalCharge
-   */
-  public function getAdditionalCharges()
-  {
-    return $this->additionalCharges;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setUnitPrice(Google_Service_ShoppingContent_Price $unitPrice)
-  {
-    $this->unitPrice = $unitPrice;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getUnitPrice()
-  {
-    return $this->unitPrice;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_UnitInvoiceTaxLine
-   */
-  public function setUnitPriceTaxes($unitPriceTaxes)
-  {
-    $this->unitPriceTaxes = $unitPriceTaxes;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_UnitInvoiceTaxLine
-   */
-  public function getUnitPriceTaxes()
-  {
-    return $this->unitPriceTaxes;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_UnitInvoiceAdditionalCharge
+	 */
+	public function setAdditionalCharges($additionalCharges)
+	{
+		$this->additionalCharges = $additionalCharges;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_UnitInvoiceAdditionalCharge
+	 */
+	public function getAdditionalCharges()
+	{
+		return $this->additionalCharges;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setUnitPrice(Google_Service_ShoppingContent_Price $unitPrice)
+	{
+		$this->unitPrice = $unitPrice;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getUnitPrice()
+	{
+		return $this->unitPrice;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_UnitInvoiceTaxLine
+	 */
+	public function setUnitPriceTaxes($unitPriceTaxes)
+	{
+		$this->unitPriceTaxes = $unitPriceTaxes;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_UnitInvoiceTaxLine
+	 */
+	public function getUnitPriceTaxes()
+	{
+		return $this->unitPriceTaxes;
+	}
 }

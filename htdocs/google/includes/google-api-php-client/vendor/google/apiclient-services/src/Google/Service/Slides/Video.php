@@ -17,48 +17,48 @@
 
 class Google_Service_Slides_Video extends Google_Model
 {
-  public $id;
-  public $source;
-  public $url;
-  protected $videoPropertiesType = 'Google_Service_Slides_VideoProperties';
-  protected $videoPropertiesDataType = '';
+	public $id;
+	public $source;
+	public $url;
+	protected $videoPropertiesType = 'Google_Service_Slides_VideoProperties';
+	protected $videoPropertiesDataType = '';
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setSource($source)
-  {
-    $this->source = $source;
-  }
-  public function getSource()
-  {
-    return $this->source;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
-  /**
-   * @param Google_Service_Slides_VideoProperties
-   */
-  public function setVideoProperties(Google_Service_Slides_VideoProperties $videoProperties)
-  {
-    $this->videoProperties = $videoProperties;
-  }
-  /**
-   * @return Google_Service_Slides_VideoProperties
-   */
-  public function getVideoProperties()
-  {
-    return $this->videoProperties;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setSource($source)
+	{
+		$this->source = $source;
+	}
+	public function getSource()
+	{
+		return $this->source;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
+	/**
+	 * @param Google_Service_Slides_VideoProperties
+	 */
+	public function setVideoProperties(Google_Service_Slides_VideoProperties $videoProperties)
+	{
+		$this->videoProperties = $videoProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_VideoProperties
+	 */
+	public function getVideoProperties()
+	{
+		return $this->videoProperties;
+	}
 }

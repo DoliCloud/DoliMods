@@ -17,24 +17,24 @@
 
 class Google_Service_Docs_Equation extends Google_Collection
 {
-  protected $collection_key = 'suggestedInsertionIds';
-  public $suggestedDeletionIds;
-  public $suggestedInsertionIds;
+	protected $collection_key = 'suggestedInsertionIds';
+	public $suggestedDeletionIds;
+	public $suggestedInsertionIds;
 
-  public function setSuggestedDeletionIds($suggestedDeletionIds)
-  {
-    $this->suggestedDeletionIds = $suggestedDeletionIds;
-  }
-  public function getSuggestedDeletionIds()
-  {
-    return $this->suggestedDeletionIds;
-  }
-  public function setSuggestedInsertionIds($suggestedInsertionIds)
-  {
-    $this->suggestedInsertionIds = $suggestedInsertionIds;
-  }
-  public function getSuggestedInsertionIds()
-  {
-    return $this->suggestedInsertionIds;
-  }
+	public function setSuggestedDeletionIds($suggestedDeletionIds)
+	{
+		$this->suggestedDeletionIds = $suggestedDeletionIds;
+	}
+	public function getSuggestedDeletionIds()
+	{
+		return $this->suggestedDeletionIds;
+	}
+	public function setSuggestedInsertionIds($suggestedInsertionIds)
+	{
+		$this->suggestedInsertionIds = $suggestedInsertionIds;
+	}
+	public function getSuggestedInsertionIds()
+	{
+		return $this->suggestedInsertionIds;
+	}
 }

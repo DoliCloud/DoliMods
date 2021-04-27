@@ -17,55 +17,55 @@
 
 class Google_Service_ShoppingContent_OrderCustomer extends Google_Model
 {
-  public $fullName;
-  public $invoiceReceivingEmail;
-  protected $loyaltyInfoType = 'Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo';
-  protected $loyaltyInfoDataType = '';
-  protected $marketingRightsInfoType = 'Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo';
-  protected $marketingRightsInfoDataType = '';
+	public $fullName;
+	public $invoiceReceivingEmail;
+	protected $loyaltyInfoType = 'Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo';
+	protected $loyaltyInfoDataType = '';
+	protected $marketingRightsInfoType = 'Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo';
+	protected $marketingRightsInfoDataType = '';
 
-  public function setFullName($fullName)
-  {
-    $this->fullName = $fullName;
-  }
-  public function getFullName()
-  {
-    return $this->fullName;
-  }
-  public function setInvoiceReceivingEmail($invoiceReceivingEmail)
-  {
-    $this->invoiceReceivingEmail = $invoiceReceivingEmail;
-  }
-  public function getInvoiceReceivingEmail()
-  {
-    return $this->invoiceReceivingEmail;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo
-   */
-  public function setLoyaltyInfo(Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo $loyaltyInfo)
-  {
-    $this->loyaltyInfo = $loyaltyInfo;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo
-   */
-  public function getLoyaltyInfo()
-  {
-    return $this->loyaltyInfo;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo
-   */
-  public function setMarketingRightsInfo(Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo $marketingRightsInfo)
-  {
-    $this->marketingRightsInfo = $marketingRightsInfo;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo
-   */
-  public function getMarketingRightsInfo()
-  {
-    return $this->marketingRightsInfo;
-  }
+	public function setFullName($fullName)
+	{
+		$this->fullName = $fullName;
+	}
+	public function getFullName()
+	{
+		return $this->fullName;
+	}
+	public function setInvoiceReceivingEmail($invoiceReceivingEmail)
+	{
+		$this->invoiceReceivingEmail = $invoiceReceivingEmail;
+	}
+	public function getInvoiceReceivingEmail()
+	{
+		return $this->invoiceReceivingEmail;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo
+	 */
+	public function setLoyaltyInfo(Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo $loyaltyInfo)
+	{
+		$this->loyaltyInfo = $loyaltyInfo;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo
+	 */
+	public function getLoyaltyInfo()
+	{
+		return $this->loyaltyInfo;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo
+	 */
+	public function setMarketingRightsInfo(Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo $marketingRightsInfo)
+	{
+		$this->marketingRightsInfo = $marketingRightsInfo;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo
+	 */
+	public function getMarketingRightsInfo()
+	{
+		return $this->marketingRightsInfo;
+	}
 }

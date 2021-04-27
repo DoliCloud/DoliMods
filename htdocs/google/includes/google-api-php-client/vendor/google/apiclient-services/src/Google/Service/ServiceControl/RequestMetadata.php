@@ -17,64 +17,64 @@
 
 class Google_Service_ServiceControl_RequestMetadata extends Google_Model
 {
-  public $callerIp;
-  public $callerNetwork;
-  public $callerSuppliedUserAgent;
-  protected $destinationAttributesType = 'Google_Service_ServiceControl_Peer';
-  protected $destinationAttributesDataType = '';
-  protected $requestAttributesType = 'Google_Service_ServiceControl_Request';
-  protected $requestAttributesDataType = '';
+	public $callerIp;
+	public $callerNetwork;
+	public $callerSuppliedUserAgent;
+	protected $destinationAttributesType = 'Google_Service_ServiceControl_Peer';
+	protected $destinationAttributesDataType = '';
+	protected $requestAttributesType = 'Google_Service_ServiceControl_Request';
+	protected $requestAttributesDataType = '';
 
-  public function setCallerIp($callerIp)
-  {
-    $this->callerIp = $callerIp;
-  }
-  public function getCallerIp()
-  {
-    return $this->callerIp;
-  }
-  public function setCallerNetwork($callerNetwork)
-  {
-    $this->callerNetwork = $callerNetwork;
-  }
-  public function getCallerNetwork()
-  {
-    return $this->callerNetwork;
-  }
-  public function setCallerSuppliedUserAgent($callerSuppliedUserAgent)
-  {
-    $this->callerSuppliedUserAgent = $callerSuppliedUserAgent;
-  }
-  public function getCallerSuppliedUserAgent()
-  {
-    return $this->callerSuppliedUserAgent;
-  }
-  /**
-   * @param Google_Service_ServiceControl_Peer
-   */
-  public function setDestinationAttributes(Google_Service_ServiceControl_Peer $destinationAttributes)
-  {
-    $this->destinationAttributes = $destinationAttributes;
-  }
-  /**
-   * @return Google_Service_ServiceControl_Peer
-   */
-  public function getDestinationAttributes()
-  {
-    return $this->destinationAttributes;
-  }
-  /**
-   * @param Google_Service_ServiceControl_Request
-   */
-  public function setRequestAttributes(Google_Service_ServiceControl_Request $requestAttributes)
-  {
-    $this->requestAttributes = $requestAttributes;
-  }
-  /**
-   * @return Google_Service_ServiceControl_Request
-   */
-  public function getRequestAttributes()
-  {
-    return $this->requestAttributes;
-  }
+	public function setCallerIp($callerIp)
+	{
+		$this->callerIp = $callerIp;
+	}
+	public function getCallerIp()
+	{
+		return $this->callerIp;
+	}
+	public function setCallerNetwork($callerNetwork)
+	{
+		$this->callerNetwork = $callerNetwork;
+	}
+	public function getCallerNetwork()
+	{
+		return $this->callerNetwork;
+	}
+	public function setCallerSuppliedUserAgent($callerSuppliedUserAgent)
+	{
+		$this->callerSuppliedUserAgent = $callerSuppliedUserAgent;
+	}
+	public function getCallerSuppliedUserAgent()
+	{
+		return $this->callerSuppliedUserAgent;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_Peer
+	 */
+	public function setDestinationAttributes(Google_Service_ServiceControl_Peer $destinationAttributes)
+	{
+		$this->destinationAttributes = $destinationAttributes;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_Peer
+	 */
+	public function getDestinationAttributes()
+	{
+		return $this->destinationAttributes;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_Request
+	 */
+	public function setRequestAttributes(Google_Service_ServiceControl_Request $requestAttributes)
+	{
+		$this->requestAttributes = $requestAttributes;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_Request
+	 */
+	public function getRequestAttributes()
+	{
+		return $this->requestAttributes;
+	}
 }

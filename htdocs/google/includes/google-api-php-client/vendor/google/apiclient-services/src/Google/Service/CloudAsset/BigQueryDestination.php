@@ -17,32 +17,32 @@
 
 class Google_Service_CloudAsset_BigQueryDestination extends Google_Model
 {
-  public $dataset;
-  public $force;
-  public $table;
+	public $dataset;
+	public $force;
+	public $table;
 
-  public function setDataset($dataset)
-  {
-    $this->dataset = $dataset;
-  }
-  public function getDataset()
-  {
-    return $this->dataset;
-  }
-  public function setForce($force)
-  {
-    $this->force = $force;
-  }
-  public function getForce()
-  {
-    return $this->force;
-  }
-  public function setTable($table)
-  {
-    $this->table = $table;
-  }
-  public function getTable()
-  {
-    return $this->table;
-  }
+	public function setDataset($dataset)
+	{
+		$this->dataset = $dataset;
+	}
+	public function getDataset()
+	{
+		return $this->dataset;
+	}
+	public function setForce($force)
+	{
+		$this->force = $force;
+	}
+	public function getForce()
+	{
+		return $this->force;
+	}
+	public function setTable($table)
+	{
+		$this->table = $table;
+	}
+	public function getTable()
+	{
+		return $this->table;
+	}
 }

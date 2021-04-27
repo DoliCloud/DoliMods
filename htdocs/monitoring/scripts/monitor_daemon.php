@@ -23,16 +23,16 @@
  *	\brief      	Script to execute monitor daemon
  */
 
-if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
+if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER', '1');
 //if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
-if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
-if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
-if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');
-if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');
-if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1'); // If there is no menu to show
-if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1'); // If we don't need to load the html.form.class.php
-if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
-if (! defined("NOLOGIN"))        define("NOLOGIN",'1');       // If this page is public (can be called outside logged session)
+if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC', '1');
+if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN', '1');
+if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK', '1');
+if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL', '1');
+if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU', '1'); // If there is no menu to show
+if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML', '1'); // If we don't need to load the html.form.class.php
+if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX', '1');
+if (! defined("NOLOGIN"))        define("NOLOGIN", '1');       // If this page is public (can be called outside logged session)
 
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
@@ -49,20 +49,20 @@ $version='$Revision: 1.17 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
-if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
-if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
-if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
-if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
-if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include($path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
-if (! $res) die ("Failed to include master.inc.php file\n");
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include $path."../../master.inc.php";
+if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include $path."../../htdocs/master.inc.php";
+if (! $res && file_exists("../master.inc.php")) $res=@include "../master.inc.php";
+if (! $res && file_exists("../../master.inc.php")) $res=@include "../../master.inc.php";
+if (! $res && file_exists("../../../master.inc.php")) $res=@include "../../../master.inc.php";
+if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include $path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
+if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
+if (! $res) die("Failed to include master.inc.php file\n");
 
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
 
 // -------------------- START OF YOUR CODE HERE --------------------
-include_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+include_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 dol_include_once("/monitoring/lib/monitoring.lib.php");
 dol_include_once("/monitoring/class/monitoring_probes.class.php");
 
@@ -81,9 +81,9 @@ $user->getrights();
 // Activate error interceptions
 function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 {
-    if (error_reporting() & $code) {
-        throw new Exception($message, $code);
-    }
+	if (error_reporting() & $code) {
+		throw new Exception($message, $code);
+	}
 }
 set_error_handler('traitementErreur');
 
@@ -108,90 +108,77 @@ print '--- start'."\n";
 
 $verbose = 0;
 $nbofargs=count($argv);
-for ($i = 1; $i < $nbofargs; $i++)
-{
-	if ($argv[$i] == "-v")
-	{
+for ($i = 1; $i < $nbofargs; $i++) {
+	if ($argv[$i] == "-v") {
 		$verbose = 1;
 	}
-	if ($argv[$i] == "-vv")
-	{
+	if ($argv[$i] == "-vv") {
 		$verbose = 2;
 	}
-	if ($argv[$i] == "-vvv")
-	{
+	if ($argv[$i] == "-vvv") {
 		$verbose = 3;
 	}
-    if (preg_match('/-maxloops=(\d+)/i',$argv[$i],$reg))
-    {
-        $maxloops=$reg[1];
-    }
-    if (preg_match('/-probeid=(\d+)/i',$argv[$i],$reg))
-    {
-        $probeid=$reg[1];
-    }
+	if (preg_match('/-maxloops=(\d+)/i', $argv[$i], $reg)) {
+		$maxloops=$reg[1];
+	}
+	if (preg_match('/-probeid=(\d+)/i', $argv[$i], $reg)) {
+		$probeid=$reg[1];
+	}
 }
 
 if (empty($probeid) && ! function_exists('pcntl_fork')) die('PCNTL functions not available on this PHP installation');
 
 $dir = $conf->monitoring->dir_output;
 $result=dol_mkdir($dir);
-if ($result < 0)
-{
-	dol_print_error('','Failed to create dir '.$dir);
+if ($result < 0) {
+	dol_print_error('', 'Failed to create dir '.$dir);
 	exit;
 }
 
 // Define url to scan
-$listofurls=getListOfProbes(1,$probeid);
-if (! count($listofurls))
-{
-    print 'No enabled probe found. Please define at least one probe before running probe process.'."\n";
-    exit;
+$listofurls=getListOfProbes(1, $probeid);
+if (! count($listofurls)) {
+	print 'No enabled probe found. Please define at least one probe before running probe process.'."\n";
+	exit;
 }
 
 print 'Data will be saved into: '.$conf->monitoring->dir_output."\n";
 
 
 // Create rrd if not exists
-foreach($listofurls as $object)
-{
+foreach ($listofurls as $object) {
 	$fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
 
 	$error=0;
 	dol_mkdir($conf->monitoring->dir_output.'/'.$object['code']);
 
-	if (! dol_is_file($conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd'))
-	{
+	if (! dol_is_file($conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd')) {
 		$step=$object['frequency'];
 		$opts = array( "--step", $step,
-	           "DS:ds1:GAUGE:".($step*2).":0:100",
-	           "DS:ds2:GAUGE:".($step*2).":0:100",
-	           "RRA:AVERAGE:0.5:1:".(3600/$step),
-	           "RRA:AVERAGE:0.5:".(60/$step).":1440",
-	           "RRA:AVERAGE:0.5:".(3600/$step).":168",
-	           "RRA:AVERAGE:0.5:".(3600/$step).":744",
-	           "RRA:AVERAGE:0.5:".(86400/$step).":365",
-	           "RRA:MAX:0.5:1:".(3600/$step),
-	           "RRA:MAX:0.5:".(60/$step).":1440",
-	           "RRA:MAX:0.5:".(3600/$step).":168",
-	           "RRA:MAX:0.5:".(3600/$step).":744",
-	           "RRA:MAX:0.5:".(86400/$step).":365",
-	           "RRA:MIN:0.5:1:".(3600/$step),
-	           "RRA:MIN:0.5:".(60/$step).":1440",
-	           "RRA:MIN:0.5:".(3600/$step).":168",
-	           "RRA:MIN:0.5:".(3600/$step).":744",
-	           "RRA:MIN:0.5:".(86400/$step).":365",
+			   "DS:ds1:GAUGE:".($step*2).":0:100",
+			   "DS:ds2:GAUGE:".($step*2).":0:100",
+			   "RRA:AVERAGE:0.5:1:".(3600/$step),
+			   "RRA:AVERAGE:0.5:".(60/$step).":1440",
+			   "RRA:AVERAGE:0.5:".(3600/$step).":168",
+			   "RRA:AVERAGE:0.5:".(3600/$step).":744",
+			   "RRA:AVERAGE:0.5:".(86400/$step).":365",
+			   "RRA:MAX:0.5:1:".(3600/$step),
+			   "RRA:MAX:0.5:".(60/$step).":1440",
+			   "RRA:MAX:0.5:".(3600/$step).":168",
+			   "RRA:MAX:0.5:".(3600/$step).":744",
+			   "RRA:MAX:0.5:".(86400/$step).":365",
+			   "RRA:MIN:0.5:1:".(3600/$step),
+			   "RRA:MIN:0.5:".(60/$step).":1440",
+			   "RRA:MIN:0.5:".(3600/$step).":168",
+			   "RRA:MIN:0.5:".(3600/$step).":744",
+			   "RRA:MIN:0.5:".(86400/$step).":365",
 		);
 
 		$ret = rrd_create($fname, $opts, count($opts));
 		$resout=file_get_contents($fname.'.out');
-		if (strlen($resout) < 10)
-		{
+		if (strlen($resout) < 10) {
 			$mesg='<div class="ok">File '.$fname.' created.</div>';
-		}
-		else
-		{
+		} else {
 			$error++;
 			$err = rrd_error($fname);
 			$mesg="Create error: $err\n";
@@ -202,66 +189,55 @@ foreach($listofurls as $object)
 
 $pid=0;
 
-if (! $error)
-{
-    // Reload sometimes list of urls
+if (! $error) {
+	// Reload sometimes list of urls
 	//$listofurls=getListOfUrls(1);
-    $pid_arr = array();
-	foreach($listofurls as $key => $object)
-	{
+	$pid_arr = array();
+	foreach ($listofurls as $key => $object) {
 		if (empty($probeid)) $pid = pcntl_fork();	// We don't need forking if we scan one particular id.
-        if ($pid == 0)
-        {
-             // @child: Include() misbehaving code here
-             print (empty($probeid)?"":"FORK: ")."Child probe id ".$object['code']." preparing to nuke...\n";
-             $resarray=process_probe_x($object,$maxloops); //generate_fatal_error(); // Undefined function
-             $nbok+=$resarray['nbok'];
-             $nbko+=$resarray['nbko'];
-             break;
-        }
-		if ($pid == -1)
-		{
-             // @fail
-             die('Fork failed for process '.$key);
-             continue;
+		if ($pid == 0) {
+			 // @child: Include() misbehaving code here
+			 print (empty($probeid)?"":"FORK: ")."Child probe id ".$object['code']." preparing to nuke...\n";
+			 $resarray=process_probe_x($object, $maxloops); //generate_fatal_error(); // Undefined function
+			 $nbok+=$resarray['nbok'];
+			 $nbko+=$resarray['nbko'];
+			 break;
 		}
-		if ($pid > 0)
-		{
-             // @parent
-             print "FORK: Parent, letting the child with pid ".$pid." run amok...\n";
-             $pid_arr[$key] = $pid;
-             continue;
-        }
+		if ($pid == -1) {
+			 // @fail
+			 die('Fork failed for process '.$key);
+			 continue;
+		}
+		if ($pid > 0) {
+			 // @parent
+			 print "FORK: Parent, letting the child with pid ".$pid." run amok...\n";
+			 $pid_arr[$key] = $pid;
+			 continue;
+		}
 	}
 }
 
-if ($pid != 0)
-{
-    usleep(1000);
+if ($pid != 0) {
+	usleep(1000);
 
-    print 'Parent process has launched '.count($pid_arr)." processes. Waiting the end...\n";
+	print 'Parent process has launched '.count($pid_arr)." processes. Waiting the end...\n";
 
-    // Loop until end of all processes (array is empty for childs end)
-    while (count($pid_arr) > 0)
-    {
-            $myId = pcntl_waitpid(-1, $status, WNOHANG);
-            foreach($pid_arr as $key => $pid)
-            {
-                    if($myId == $pid) unset($pid_arr[$key]);
-            }
-            usleep(100);
-    }
+	// Loop until end of all processes (array is empty for childs end)
+	while (count($pid_arr) > 0) {
+			$myId = pcntl_waitpid(-1, $status, WNOHANG);
+		foreach ($pid_arr as $key => $pid) {
+				if ($myId == $pid) unset($pid_arr[$key]);
+		}
+			usleep(100);
+	}
 
 
-    if (! $error)
-    {
-    	//print "--- end ok:".$nbok.' ko:'.$nbko."\n";
-    	print "--- end\n";
-    }
-    else
-    {
-    	print '--- end error code='.$error."\n";
-    }
+	if (! $error) {
+		//print "--- end ok:".$nbok.' ko:'.$nbko."\n";
+		print "--- end\n";
+	} else {
+		print '--- end error code='.$error."\n";
+	}
 }
 
 exit(0);
@@ -275,166 +251,146 @@ exit(0);
  *	@param	int		$maxloops	End after maxloops
  *	@return void
  */
-function process_probe_x(&$object,$maxloops=0)
+function process_probe_x(&$object, $maxloops = 0)
 {
-    global $conf, $db;
+	global $conf, $db;
 
-    $nbok=$nbko=0;
-    $nbloop=0;
-    $timeout=10;    // TODO Manage this
+	$nbok=$nbko=0;
+	$nbloop=0;
+	$timeout=10;    // TODO Manage this
 
-    $fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
-
-
-    // Init objects ($ch, or $client)
-    $resinit=init_probe($object);
-    $ch=$resinit['ch'];
-    $client=$resinit['client'];
+	$fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
 
 
-    // Loops
-    while(! $error && (empty($maxloops) || ($nbloop < $maxloops)))
-    {
-        $nbloop++;
-
-        $value1='U';
-        $value2='U';
-        $errortext='';
-        $done=0;
-        $micro_start_time=$micro_end_time=$end_time='';
-        $delay=0;
+	// Init objects ($ch, or $client)
+	$resinit=init_probe($object);
+	$ch=$resinit['ch'];
+	$client=$resinit['client'];
 
 
-        // Each managed protocol must define $end_time, $delay, $value1, $value2 and increase $nbok or $nbko
+	// Loops
+	while (! $error && (empty($maxloops) || ($nbloop < $maxloops))) {
+		$nbloop++;
 
-        // Protocol GET, POST, SOAP (http or https)
-        if (in_array($object['typeprot'],array('GET','POST','SOAP')) && preg_match('/^http/i',$object['url']))
-        {
-            $result=execute_probe($object, $ch, $client);
+		$value1='U';
+		$value2='U';
+		$errortext='';
+		$done=0;
+		$micro_start_time=$micro_end_time=$end_time='';
+		$delay=0;
 
-            $delay=$result['delay'];
-            if (! empty($result['errorstr']))
-            {
-                print dol_print_date($result['end_time'],'dayhourlog').' Error id='.$object['code'].': '.$result['errorstr']."\n";
-            }
 
-            if (! empty($result['errorstr']))
-            {
-                $value1='U';
-                $value2=max(round($object['max']),1);
-                $nbko++;
-                $errortext='Failed to get response. Reason is: '.$result['errorstr'];
-            }
-            else
-            {
-                //var_dump($result);
-                if (empty($object['checkkey']) || preg_match('/'.preg_quote($object['checkkey']).'/',$result['content']))
-                {   // Test ok
-                    $value1=max(round($delay*1000),1);
-                    $value2='U';
-                    $nbok++;
-                    $errortext='';
-                }
-                else
-                {   // Test ko
-                    $value1='U';
-                    $value2=max(round($object['max']),1);
-                    $nbko++;
-                    $errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result['content'];
-                }
-            }
+		// Each managed protocol must define $end_time, $delay, $value1, $value2 and increase $nbok or $nbko
 
-            $done=1;
-        }
+		// Protocol GET, POST, SOAP (http or https)
+		if (in_array($object['typeprot'], array('GET','POST','SOAP')) && preg_match('/^http/i', $object['url'])) {
+			$result=execute_probe($object, $ch, $client);
 
-        // Protocol TCPIP
-        if ($object['typeprot'] == 'SOCKET' && preg_match('/^tcp/i',$object['url']))
-        {
-            $result=execute_probe($object, $ch, $client);
+			$delay=$result['delay'];
+			if (! empty($result['errorstr'])) {
+				print dol_print_date($result['end_time'], 'dayhourlog').' Error id='.$object['code'].': '.$result['errorstr']."\n";
+			}
 
-            $delay=$result['delay'];
-            if (! empty($result['errorstr']))
-            {
-                print dol_print_date($result['end_time'],'dayhourlog').' Error id='.$object['code'].': '.$result['errorstr']."\n";
-            }
+			if (! empty($result['errorstr'])) {
+				$value1='U';
+				$value2=max(round($object['max']), 1);
+				$nbko++;
+				$errortext='Failed to get response. Reason is: '.$result['errorstr'];
+			} else {
+				//var_dump($result);
+				if (empty($object['checkkey']) || preg_match('/'.preg_quote($object['checkkey']).'/', $result['content'])) {   // Test ok
+					$value1=max(round($delay*1000), 1);
+					$value2='U';
+					$nbok++;
+					$errortext='';
+				} else {   // Test ko
+					$value1='U';
+					$value2=max(round($object['max']), 1);
+					$nbko++;
+					$errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result['content'];
+				}
+			}
 
-            if (! empty($result['errorstr']))
-            {
-                $value1='U';
-                $value2=max(round($object['max']),1);
-                $nbko++;
-                $errortext=$result['errorstr'];
-            }
-            else
-            {
-                $value1=max(round($delay*1000),1);
-                $value2='U';
-                $nbok++;
-                $errortext='';
-            }
+			$done=1;
+		}
 
-            $done=1;
-        }
+		// Protocol TCPIP
+		if ($object['typeprot'] == 'SOCKET' && preg_match('/^tcp/i', $object['url'])) {
+			$result=execute_probe($object, $ch, $client);
 
-        // If no protocol found
-        if (! $done)
-        {
-            $result=execute_probe($object, $ch, $client);
+			$delay=$result['delay'];
+			if (! empty($result['errorstr'])) {
+				print dol_print_date($result['end_time'], 'dayhourlog').' Error id='.$object['code'].': '.$result['errorstr']."\n";
+			}
 
-            $delay=0;
-            $value1='U';
-            $value2=round($object['max']);
-            $nbko++;
-            $errortext='Url of probe has a not supported protocol or a not correctly defined url';
-        }
+			if (! empty($result['errorstr'])) {
+				$value1='U';
+				$value2=max(round($object['max']), 1);
+				$nbko++;
+				$errortext=$result['errorstr'];
+			} else {
+				$value1=max(round($delay*1000), 1);
+				$value2='U';
+				$nbok++;
+				$errortext='';
+			}
 
-        $micro_start_time=$result['micro_start_time'];
-        $micro_end_time=$result['micro_end_time'];
-        $end_time=$result['end_time'];
+			$done=1;
+		}
 
-        // Manage result
-        $newstatus=(empty($errortext)?1:-1);
+		// If no protocol found
+		if (! $done) {
+			$result=execute_probe($object, $ch, $client);
 
-        // Update RRD file
-        $ret = rrd_update($fname, $stringupdate);
-        if ($ret <= 0)
-        {
-            $nbko++;
-            $error++;
-            $err = rrd_error($fname);
-            $mesg="Update error: ".$err;
-            $errortext='Failed to update RRD file.\nRRD functions returns: '.$err;
-        }
+			$delay=0;
+			$value1='U';
+			$value2=round($object['max']);
+			$nbko++;
+			$errortext='Url of probe has a not supported protocol or a not correctly defined url';
+		}
 
-        print dol_print_date($end_time,'dayhourlog').' Probe id='.$object['code'].' prot='.$object['typeprot'].' loop='.$nbloop.': '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($newstatus==1?'OK':'KO').' -> '.$value1.':'.$value2." - now we wait ".$object['frequency']."\n";
-        $stringupdate='N:'.$value1.':'.$value2;
+		$micro_start_time=$result['micro_start_time'];
+		$micro_end_time=$result['micro_end_time'];
+		$end_time=$result['end_time'];
 
-        // Update database if status has changed
-        if ($object['status'] != $newstatus)
-        {
-            print dol_print_date($end_time,'dayhourlog').' Status change for probe '.$object['code'].' old='.$object['status'].' new='.$newstatus."\n";
-            if ($newstatus != -1 && empty($object['oldesterrortext'])) $errortext='';
-            if ($errortext) print dol_print_date($end_time,'dayhourlog').' We also set a new error text'."\n";
+		// Manage result
+		$newstatus=(empty($errortext)?1:-1);
 
-            $probestatic=new Monitoring_probes($db);
-            $probestatic->id=$object['code'];
-            $result=$probestatic->updateStatus($newstatus,$end_time,$errortext);
-            if ($result > 0)
-            {
-                $object['status']=$newstatus;
-                $object['lastreset']=$end_time;
-                if ($errortext) $object['oldesterrortext']=$errortext;
-            }
-            else
-            {
-                print dol_print_date($end_time,'dayhourlog').' Error to update database: '.$probestatic->error."\n";
-            }
-            unset($probestatic);
-        }
+		// Update RRD file
+		$ret = rrd_update($fname, $stringupdate);
+		if ($ret <= 0) {
+			$nbko++;
+			$error++;
+			$err = rrd_error($fname);
+			$mesg="Update error: ".$err;
+			$errortext='Failed to update RRD file.\nRRD functions returns: '.$err;
+		}
 
-        // Add delay
-        sleep($object['frequency']);
-    }
+		print dol_print_date($end_time, 'dayhourlog').' Probe id='.$object['code'].' prot='.$object['typeprot'].' loop='.$nbloop.': '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($newstatus==1?'OK':'KO').' -> '.$value1.':'.$value2." - now we wait ".$object['frequency']."\n";
+		$stringupdate='N:'.$value1.':'.$value2;
 
-    return array('nbok'=>$nbok,'nbko'=>$nbko);
+		// Update database if status has changed
+		if ($object['status'] != $newstatus) {
+			print dol_print_date($end_time, 'dayhourlog').' Status change for probe '.$object['code'].' old='.$object['status'].' new='.$newstatus."\n";
+			if ($newstatus != -1 && empty($object['oldesterrortext'])) $errortext='';
+			if ($errortext) print dol_print_date($end_time, 'dayhourlog').' We also set a new error text'."\n";
+
+			$probestatic=new Monitoring_probes($db);
+			$probestatic->id=$object['code'];
+			$result=$probestatic->updateStatus($newstatus, $end_time, $errortext);
+			if ($result > 0) {
+				$object['status']=$newstatus;
+				$object['lastreset']=$end_time;
+				if ($errortext) $object['oldesterrortext']=$errortext;
+			} else {
+				print dol_print_date($end_time, 'dayhourlog').' Error to update database: '.$probestatic->error."\n";
+			}
+			unset($probestatic);
+		}
+
+		// Add delay
+		sleep($object['frequency']);
+	}
+
+	return array('nbok'=>$nbok,'nbko'=>$nbko);
 }

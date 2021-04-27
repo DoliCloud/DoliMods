@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceControl_CheckInfo extends Google_Collection
 {
-  protected $collection_key = 'unusedArguments';
-  protected $consumerInfoType = 'Google_Service_ServiceControl_ConsumerInfo';
-  protected $consumerInfoDataType = '';
-  public $unusedArguments;
+	protected $collection_key = 'unusedArguments';
+	protected $consumerInfoType = 'Google_Service_ServiceControl_ConsumerInfo';
+	protected $consumerInfoDataType = '';
+	public $unusedArguments;
 
-  /**
-   * @param Google_Service_ServiceControl_ConsumerInfo
-   */
-  public function setConsumerInfo(Google_Service_ServiceControl_ConsumerInfo $consumerInfo)
-  {
-    $this->consumerInfo = $consumerInfo;
-  }
-  /**
-   * @return Google_Service_ServiceControl_ConsumerInfo
-   */
-  public function getConsumerInfo()
-  {
-    return $this->consumerInfo;
-  }
-  public function setUnusedArguments($unusedArguments)
-  {
-    $this->unusedArguments = $unusedArguments;
-  }
-  public function getUnusedArguments()
-  {
-    return $this->unusedArguments;
-  }
+	/**
+	 * @param Google_Service_ServiceControl_ConsumerInfo
+	 */
+	public function setConsumerInfo(Google_Service_ServiceControl_ConsumerInfo $consumerInfo)
+	{
+		$this->consumerInfo = $consumerInfo;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_ConsumerInfo
+	 */
+	public function getConsumerInfo()
+	{
+		return $this->consumerInfo;
+	}
+	public function setUnusedArguments($unusedArguments)
+	{
+		$this->unusedArguments = $unusedArguments;
+	}
+	public function getUnusedArguments()
+	{
+		return $this->unusedArguments;
+	}
 }

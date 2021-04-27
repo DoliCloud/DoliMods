@@ -17,48 +17,48 @@
 
 class Google_Service_SQLAdmin_DemoteMasterContext extends Google_Model
 {
-  public $kind;
-  public $masterInstanceName;
-  protected $replicaConfigurationType = 'Google_Service_SQLAdmin_DemoteMasterConfiguration';
-  protected $replicaConfigurationDataType = '';
-  public $verifyGtidConsistency;
+	public $kind;
+	public $masterInstanceName;
+	protected $replicaConfigurationType = 'Google_Service_SQLAdmin_DemoteMasterConfiguration';
+	protected $replicaConfigurationDataType = '';
+	public $verifyGtidConsistency;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setMasterInstanceName($masterInstanceName)
-  {
-    $this->masterInstanceName = $masterInstanceName;
-  }
-  public function getMasterInstanceName()
-  {
-    return $this->masterInstanceName;
-  }
-  /**
-   * @param Google_Service_SQLAdmin_DemoteMasterConfiguration
-   */
-  public function setReplicaConfiguration(Google_Service_SQLAdmin_DemoteMasterConfiguration $replicaConfiguration)
-  {
-    $this->replicaConfiguration = $replicaConfiguration;
-  }
-  /**
-   * @return Google_Service_SQLAdmin_DemoteMasterConfiguration
-   */
-  public function getReplicaConfiguration()
-  {
-    return $this->replicaConfiguration;
-  }
-  public function setVerifyGtidConsistency($verifyGtidConsistency)
-  {
-    $this->verifyGtidConsistency = $verifyGtidConsistency;
-  }
-  public function getVerifyGtidConsistency()
-  {
-    return $this->verifyGtidConsistency;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setMasterInstanceName($masterInstanceName)
+	{
+		$this->masterInstanceName = $masterInstanceName;
+	}
+	public function getMasterInstanceName()
+	{
+		return $this->masterInstanceName;
+	}
+	/**
+	 * @param Google_Service_SQLAdmin_DemoteMasterConfiguration
+	 */
+	public function setReplicaConfiguration(Google_Service_SQLAdmin_DemoteMasterConfiguration $replicaConfiguration)
+	{
+		$this->replicaConfiguration = $replicaConfiguration;
+	}
+	/**
+	 * @return Google_Service_SQLAdmin_DemoteMasterConfiguration
+	 */
+	public function getReplicaConfiguration()
+	{
+		return $this->replicaConfiguration;
+	}
+	public function setVerifyGtidConsistency($verifyGtidConsistency)
+	{
+		$this->verifyGtidConsistency = $verifyGtidConsistency;
+	}
+	public function getVerifyGtidConsistency()
+	{
+		return $this->verifyGtidConsistency;
+	}
 }

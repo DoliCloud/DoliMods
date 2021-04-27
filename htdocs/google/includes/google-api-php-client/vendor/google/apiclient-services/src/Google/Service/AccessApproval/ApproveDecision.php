@@ -17,23 +17,23 @@
 
 class Google_Service_AccessApproval_ApproveDecision extends Google_Model
 {
-  public $approveTime;
-  public $expireTime;
+	public $approveTime;
+	public $expireTime;
 
-  public function setApproveTime($approveTime)
-  {
-    $this->approveTime = $approveTime;
-  }
-  public function getApproveTime()
-  {
-    return $this->approveTime;
-  }
-  public function setExpireTime($expireTime)
-  {
-    $this->expireTime = $expireTime;
-  }
-  public function getExpireTime()
-  {
-    return $this->expireTime;
-  }
+	public function setApproveTime($approveTime)
+	{
+		$this->approveTime = $approveTime;
+	}
+	public function getApproveTime()
+	{
+		return $this->approveTime;
+	}
+	public function setExpireTime($expireTime)
+	{
+		$this->expireTime = $expireTime;
+	}
+	public function getExpireTime()
+	{
+		return $this->expireTime;
+	}
 }

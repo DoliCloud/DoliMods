@@ -17,30 +17,30 @@
 
 class Google_Service_YouTube_MembershipsLevelSnippet extends Google_Model
 {
-  public $creatorChannelId;
-  protected $levelDetailsType = 'Google_Service_YouTube_LevelDetails';
-  protected $levelDetailsDataType = '';
+	public $creatorChannelId;
+	protected $levelDetailsType = 'Google_Service_YouTube_LevelDetails';
+	protected $levelDetailsDataType = '';
 
-  public function setCreatorChannelId($creatorChannelId)
-  {
-    $this->creatorChannelId = $creatorChannelId;
-  }
-  public function getCreatorChannelId()
-  {
-    return $this->creatorChannelId;
-  }
-  /**
-   * @param Google_Service_YouTube_LevelDetails
-   */
-  public function setLevelDetails(Google_Service_YouTube_LevelDetails $levelDetails)
-  {
-    $this->levelDetails = $levelDetails;
-  }
-  /**
-   * @return Google_Service_YouTube_LevelDetails
-   */
-  public function getLevelDetails()
-  {
-    return $this->levelDetails;
-  }
+	public function setCreatorChannelId($creatorChannelId)
+	{
+		$this->creatorChannelId = $creatorChannelId;
+	}
+	public function getCreatorChannelId()
+	{
+		return $this->creatorChannelId;
+	}
+	/**
+	 * @param Google_Service_YouTube_LevelDetails
+	 */
+	public function setLevelDetails(Google_Service_YouTube_LevelDetails $levelDetails)
+	{
+		$this->levelDetails = $levelDetails;
+	}
+	/**
+	 * @return Google_Service_YouTube_LevelDetails
+	 */
+	public function getLevelDetails()
+	{
+		return $this->levelDetails;
+	}
 }

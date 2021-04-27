@@ -17,53 +17,53 @@
 
 class Google_Service_CloudRun_RunNamespace extends Google_Model
 {
-  protected $metadataType = 'Google_Service_CloudRun_ObjectMeta';
-  protected $metadataDataType = '';
-  protected $specType = 'Google_Service_CloudRun_NamespaceSpec';
-  protected $specDataType = '';
-  protected $statusType = 'Google_Service_CloudRun_NamespaceStatus';
-  protected $statusDataType = '';
+	protected $metadataType = 'Google_Service_CloudRun_ObjectMeta';
+	protected $metadataDataType = '';
+	protected $specType = 'Google_Service_CloudRun_NamespaceSpec';
+	protected $specDataType = '';
+	protected $statusType = 'Google_Service_CloudRun_NamespaceStatus';
+	protected $statusDataType = '';
 
-  /**
-   * @param Google_Service_CloudRun_ObjectMeta
-   */
-  public function setMetadata(Google_Service_CloudRun_ObjectMeta $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_CloudRun_ObjectMeta
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  /**
-   * @param Google_Service_CloudRun_NamespaceSpec
-   */
-  public function setSpec(Google_Service_CloudRun_NamespaceSpec $spec)
-  {
-    $this->spec = $spec;
-  }
-  /**
-   * @return Google_Service_CloudRun_NamespaceSpec
-   */
-  public function getSpec()
-  {
-    return $this->spec;
-  }
-  /**
-   * @param Google_Service_CloudRun_NamespaceStatus
-   */
-  public function setStatus(Google_Service_CloudRun_NamespaceStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_CloudRun_NamespaceStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_CloudRun_ObjectMeta
+	 */
+	public function setMetadata(Google_Service_CloudRun_ObjectMeta $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_CloudRun_ObjectMeta
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	/**
+	 * @param Google_Service_CloudRun_NamespaceSpec
+	 */
+	public function setSpec(Google_Service_CloudRun_NamespaceSpec $spec)
+	{
+		$this->spec = $spec;
+	}
+	/**
+	 * @return Google_Service_CloudRun_NamespaceSpec
+	 */
+	public function getSpec()
+	{
+		return $this->spec;
+	}
+	/**
+	 * @param Google_Service_CloudRun_NamespaceStatus
+	 */
+	public function setStatus(Google_Service_CloudRun_NamespaceStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_CloudRun_NamespaceStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

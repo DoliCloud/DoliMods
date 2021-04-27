@@ -17,87 +17,87 @@
 
 class Google_Service_ShoppingContent_PosCustomBatchResponseEntry extends Google_Model
 {
-  public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
-  protected $errorsDataType = '';
-  protected $inventoryType = 'Google_Service_ShoppingContent_PosInventory';
-  protected $inventoryDataType = '';
-  public $kind;
-  protected $saleType = 'Google_Service_ShoppingContent_PosSale';
-  protected $saleDataType = '';
-  protected $storeType = 'Google_Service_ShoppingContent_PosStore';
-  protected $storeDataType = '';
+	public $batchId;
+	protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+	protected $errorsDataType = '';
+	protected $inventoryType = 'Google_Service_ShoppingContent_PosInventory';
+	protected $inventoryDataType = '';
+	public $kind;
+	protected $saleType = 'Google_Service_ShoppingContent_PosSale';
+	protected $saleDataType = '';
+	protected $storeType = 'Google_Service_ShoppingContent_PosStore';
+	protected $storeDataType = '';
 
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Errors
-   */
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Errors
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_PosInventory
-   */
-  public function setInventory(Google_Service_ShoppingContent_PosInventory $inventory)
-  {
-    $this->inventory = $inventory;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_PosInventory
-   */
-  public function getInventory()
-  {
-    return $this->inventory;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_PosSale
-   */
-  public function setSale(Google_Service_ShoppingContent_PosSale $sale)
-  {
-    $this->sale = $sale;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_PosSale
-   */
-  public function getSale()
-  {
-    return $this->sale;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_PosStore
-   */
-  public function setStore(Google_Service_ShoppingContent_PosStore $store)
-  {
-    $this->store = $store;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_PosStore
-   */
-  public function getStore()
-  {
-    return $this->store;
-  }
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Errors
+	 */
+	public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Errors
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_PosInventory
+	 */
+	public function setInventory(Google_Service_ShoppingContent_PosInventory $inventory)
+	{
+		$this->inventory = $inventory;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_PosInventory
+	 */
+	public function getInventory()
+	{
+		return $this->inventory;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_PosSale
+	 */
+	public function setSale(Google_Service_ShoppingContent_PosSale $sale)
+	{
+		$this->sale = $sale;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_PosSale
+	 */
+	public function getSale()
+	{
+		return $this->sale;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_PosStore
+	 */
+	public function setStore(Google_Service_ShoppingContent_PosStore $store)
+	{
+		$this->store = $store;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_PosStore
+	 */
+	public function getStore()
+	{
+		return $this->store;
+	}
 }

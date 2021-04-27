@@ -17,56 +17,56 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent extends Google_Collection
 {
-  protected $collection_key = 'suggestions';
-  public $description;
-  protected $mediaType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia';
-  protected $mediaDataType = '';
-  protected $suggestionsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion';
-  protected $suggestionsDataType = 'array';
-  public $title;
+	protected $collection_key = 'suggestions';
+	public $description;
+	protected $mediaType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia';
+	protected $mediaDataType = '';
+	protected $suggestionsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion';
+	protected $suggestionsDataType = 'array';
+	public $title;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia
-   */
-  public function setMedia(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia $media)
-  {
-    $this->media = $media;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia
-   */
-  public function getMedia()
-  {
-    return $this->media;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion
-   */
-  public function setSuggestions($suggestions)
-  {
-    $this->suggestions = $suggestions;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion
-   */
-  public function getSuggestions()
-  {
-    return $this->suggestions;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia
+	 */
+	public function setMedia(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia $media)
+	{
+		$this->media = $media;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia
+	 */
+	public function getMedia()
+	{
+		return $this->media;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion
+	 */
+	public function setSuggestions($suggestions)
+	{
+		$this->suggestions = $suggestions;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion
+	 */
+	public function getSuggestions()
+	{
+		return $this->suggestions;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

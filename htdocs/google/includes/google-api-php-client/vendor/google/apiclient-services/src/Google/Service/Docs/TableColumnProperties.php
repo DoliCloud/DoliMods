@@ -17,29 +17,29 @@
 
 class Google_Service_Docs_TableColumnProperties extends Google_Model
 {
-  protected $widthDataType = '';
-  public $widthType;
+	protected $widthDataType = '';
+	public $widthType;
 
-  /**
-   * @param Google_Service_Docs_Dimension
-   */
-  public function setWidth(Google_Service_Docs_Dimension $width)
-  {
-    $this->width = $width;
-  }
-  /**
-   * @return Google_Service_Docs_Dimension
-   */
-  public function getWidth()
-  {
-    return $this->width;
-  }
-  public function setWidthType($widthType)
-  {
-    $this->widthType = $widthType;
-  }
-  public function getWidthType()
-  {
-    return $this->widthType;
-  }
+	/**
+	 * @param Google_Service_Docs_Dimension
+	 */
+	public function setWidth(Google_Service_Docs_Dimension $width)
+	{
+		$this->width = $width;
+	}
+	/**
+	 * @return Google_Service_Docs_Dimension
+	 */
+	public function getWidth()
+	{
+		return $this->width;
+	}
+	public function setWidthType($widthType)
+	{
+		$this->widthType = $widthType;
+	}
+	public function getWidthType()
+	{
+		return $this->widthType;
+	}
 }

@@ -17,53 +17,53 @@
 
 class Google_Service_DisplayVideo_ThirdPartyVerifierAssignedTargetingOptionDetails extends Google_Model
 {
-  protected $adlooxType = 'Google_Service_DisplayVideo_Adloox';
-  protected $adlooxDataType = '';
-  protected $doubleVerifyType = 'Google_Service_DisplayVideo_DoubleVerify';
-  protected $doubleVerifyDataType = '';
-  protected $integralAdScienceType = 'Google_Service_DisplayVideo_IntegralAdScience';
-  protected $integralAdScienceDataType = '';
+	protected $adlooxType = 'Google_Service_DisplayVideo_Adloox';
+	protected $adlooxDataType = '';
+	protected $doubleVerifyType = 'Google_Service_DisplayVideo_DoubleVerify';
+	protected $doubleVerifyDataType = '';
+	protected $integralAdScienceType = 'Google_Service_DisplayVideo_IntegralAdScience';
+	protected $integralAdScienceDataType = '';
 
-  /**
-   * @param Google_Service_DisplayVideo_Adloox
-   */
-  public function setAdloox(Google_Service_DisplayVideo_Adloox $adloox)
-  {
-    $this->adloox = $adloox;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_Adloox
-   */
-  public function getAdloox()
-  {
-    return $this->adloox;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_DoubleVerify
-   */
-  public function setDoubleVerify(Google_Service_DisplayVideo_DoubleVerify $doubleVerify)
-  {
-    $this->doubleVerify = $doubleVerify;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_DoubleVerify
-   */
-  public function getDoubleVerify()
-  {
-    return $this->doubleVerify;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_IntegralAdScience
-   */
-  public function setIntegralAdScience(Google_Service_DisplayVideo_IntegralAdScience $integralAdScience)
-  {
-    $this->integralAdScience = $integralAdScience;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_IntegralAdScience
-   */
-  public function getIntegralAdScience()
-  {
-    return $this->integralAdScience;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_Adloox
+	 */
+	public function setAdloox(Google_Service_DisplayVideo_Adloox $adloox)
+	{
+		$this->adloox = $adloox;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_Adloox
+	 */
+	public function getAdloox()
+	{
+		return $this->adloox;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_DoubleVerify
+	 */
+	public function setDoubleVerify(Google_Service_DisplayVideo_DoubleVerify $doubleVerify)
+	{
+		$this->doubleVerify = $doubleVerify;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_DoubleVerify
+	 */
+	public function getDoubleVerify()
+	{
+		return $this->doubleVerify;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_IntegralAdScience
+	 */
+	public function setIntegralAdScience(Google_Service_DisplayVideo_IntegralAdScience $integralAdScience)
+	{
+		$this->integralAdScience = $integralAdScience;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_IntegralAdScience
+	 */
+	public function getIntegralAdScience()
+	{
+		return $this->integralAdScience;
+	}
 }

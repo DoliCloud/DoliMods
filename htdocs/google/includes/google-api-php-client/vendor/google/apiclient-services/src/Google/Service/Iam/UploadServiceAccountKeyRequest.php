@@ -17,14 +17,14 @@
 
 class Google_Service_Iam_UploadServiceAccountKeyRequest extends Google_Model
 {
-  public $publicKeyData;
+	public $publicKeyData;
 
-  public function setPublicKeyData($publicKeyData)
-  {
-    $this->publicKeyData = $publicKeyData;
-  }
-  public function getPublicKeyData()
-  {
-    return $this->publicKeyData;
-  }
+	public function setPublicKeyData($publicKeyData)
+	{
+		$this->publicKeyData = $publicKeyData;
+	}
+	public function getPublicKeyData()
+	{
+		return $this->publicKeyData;
+	}
 }

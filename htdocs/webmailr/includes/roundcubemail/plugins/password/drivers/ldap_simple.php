@@ -5,26 +5,26 @@
  * Driver for passwords stored in LDAP
  * This driver is based on Edouard's LDAP Password Driver, but does not
  * require PEAR's Net_LDAP2 to be installed
- * 
+ *
  * @version 1.0 (2010-07-31)
  * @author Wout Decre <wout@canodus.be>
  */
 function password_save($curpass, $passwd)
 {
 	$rcmail = rcmail::get_instance();
-	
+
 	/* Connect */
 	if (!$ds = ldap_connect($rcmail->config->get('password_ldap_host'), $rcmail->config->get('password_ldap_port'))) {
 		ldap_unbind($ds);
 		return PASSWORD_CONNECT_ERROR;
 	}
 
-	/* Set protocol version */	
+	/* Set protocol version */
 	if (!ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, $rcmail->config->get('password_ldap_version'))) {
 		ldap_unbind($ds);
 		return PASSWORD_CONNECT_ERROR;
 	}
-	
+
 	/* Start TLS */
 	if ($rcmail->config->get('password_ldap_starttls')) {
 		if (!ldap_start_tls($ds)) {
@@ -39,12 +39,12 @@ function password_save($curpass, $passwd)
 	} else {
 		$user_dn = ldap_simple_search_userdn($rcmail, $ds);
 	}
-	
+
 	if (empty($user_dn)) {
 		ldap_unbind($ds);
 		return PASSWORD_CONNECT_ERROR;
 	}
-	
+
 	/* Connection method */
 	switch ($rcmail->config->get('password_ldap_method')) {
 		case 'admin':
@@ -63,21 +63,21 @@ function password_save($curpass, $passwd)
 		ldap_unbind($ds);
 		return PASSWORD_CONNECT_ERROR;
 	}
-	
+
 	/* Crypting new password */
 	$passwd = ldap_simple_hash_password($passwd, $rcmail->config->get('password_ldap_encodage'));
 	if (!$passwd) {
 		ldap_unbind($ds);
 		return PASSWORD_CRYPT_ERROR;
 	}
-	
+
 	$entree[$rcmail->config->get('password_ldap_pwattr')] = $passwd;
-	
+
 	if (!ldap_modify($ds, $user_dn, $entree)) {
 		ldap_unbind($ds);
 		return PASSWORD_CONNECT_ERROR;
 	}
-	
+
 	/* All done, no error */
 	ldap_unbind($ds);
 	return PASSWORD_SUCCESS;
@@ -94,17 +94,17 @@ function ldap_simple_search_userdn($rcmail, $ds)
 	if (!ldap_bind($ds, $rcmail->config->get('password_ldap_searchDN'), $rcmail->config->get('password_ldap_searchPW'))) {
 		return false;
 	}
-	
+
 	/* Search for the DN */
 	if (!$sr = ldap_search($ds, $rcmail->config->get('password_ldap_search_base'), ldap_simple_substitute_vars($rcmail->config->get('password_ldap_search_filter')))) {
 		return false;
 	}
-	
+
 	/* If no or more entries were found, return false */
 	if (ldap_count_entries($ds, $sr) != 1) {
 		return false;
 	}
-	
+
 	return ldap_get_dn($ds, ldap_first_entry($ds, $sr));
 }
 
@@ -116,12 +116,12 @@ function ldap_simple_substitute_vars($str)
 {
 	$str = str_replace('%login', $_SESSION['username'], $str);
 	$str = str_replace('%l', $_SESSION['username'], $str);
-	
+
 	$parts = explode('@', $_SESSION['username']);
 	if (count($parts) == 2) {
 		$str = str_replace('%name', $parts[0], $str);
 		$str = str_replace('%n', $parts[0], $str);
-		
+
 		$str = str_replace('%domain', $parts[1], $str);
 		$str = str_replace('%d', $parts[1], $str);
 	}
@@ -172,7 +172,7 @@ function ldap_simple_hash_password($password_clear, $encodage_type)
 			if (function_exists('sha1')) {
 				/* Use PHP 4.3.0+ sha1 function, if it is available */
 				$crypted_password = '{SHA}' . base64_encode(pack('H*', sha1($password_clear)));
-			} else if (function_exists('mhash')) {
+			} elseif (function_exists('mhash')) {
 				$crypted_password = '{SHA}' . base64_encode(mhash(MHASH_SHA1, $password_clear));
 			} else {
 				/* Your PHP install does not have the mhash() function */
@@ -181,7 +181,7 @@ function ldap_simple_hash_password($password_clear, $encodage_type)
 			break;
 		case 'ssha':
 			if (function_exists('mhash') && function_exists('mhash_keygen_s2k')) {
-				mt_srand((double) microtime() * 1000000 );
+				mt_srand((double) microtime() * 1000000);
 				$salt = mhash_keygen_s2k(MHASH_SHA1, $password_clear, substr(pack('h*', md5(mt_rand())), 0, 8), 4);
 				$crypted_password = '{SSHA}' . base64_encode(mhash(MHASH_SHA1, $password_clear . $salt) . $salt);
 			} else {
@@ -191,7 +191,7 @@ function ldap_simple_hash_password($password_clear, $encodage_type)
 			break;
 		case 'smd5':
 			if (function_exists('mhash') && function_exists('mhash_keygen_s2k')) {
-				mt_srand((double) microtime() * 1000000 );
+				mt_srand((double) microtime() * 1000000);
 				$salt = mhash_keygen_s2k(MHASH_MD5, $password_clear, substr(pack('h*', md5(mt_rand())), 0, 8), 4);
 				$crypted_password = '{SMD5}' . base64_encode(mhash(MHASH_MD5, $password_clear . $salt) . $salt);
 			} else {
@@ -221,6 +221,6 @@ function ldap_simple_random_salt($length)
 	while (strlen($str) < $length) {
 		$str .= substr($possible, (rand() % strlen($possible)), 1);
 	}
-	
+
 	return $str;
 }

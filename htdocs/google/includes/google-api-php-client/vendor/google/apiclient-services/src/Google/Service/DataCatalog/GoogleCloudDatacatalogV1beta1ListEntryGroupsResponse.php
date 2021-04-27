@@ -17,31 +17,31 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ListEntryGroupsResponse extends Google_Collection
 {
-  protected $collection_key = 'entryGroups';
-  protected $entryGroupsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1EntryGroup';
-  protected $entryGroupsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'entryGroups';
+	protected $entryGroupsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1EntryGroup';
+	protected $entryGroupsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1EntryGroup
-   */
-  public function setEntryGroups($entryGroups)
-  {
-    $this->entryGroups = $entryGroups;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1EntryGroup
-   */
-  public function getEntryGroups()
-  {
-    return $this->entryGroups;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1EntryGroup
+	 */
+	public function setEntryGroups($entryGroups)
+	{
+		$this->entryGroups = $entryGroups;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1EntryGroup
+	 */
+	public function getEntryGroups()
+	{
+		return $this->entryGroups;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

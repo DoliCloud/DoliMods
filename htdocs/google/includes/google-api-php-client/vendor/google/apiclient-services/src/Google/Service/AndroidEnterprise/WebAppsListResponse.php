@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidEnterprise_WebAppsListResponse extends Google_Collection
 {
-  protected $collection_key = 'webApp';
-  protected $webAppType = 'Google_Service_AndroidEnterprise_WebApp';
-  protected $webAppDataType = 'array';
+	protected $collection_key = 'webApp';
+	protected $webAppType = 'Google_Service_AndroidEnterprise_WebApp';
+	protected $webAppDataType = 'array';
 
-  /**
-   * @param Google_Service_AndroidEnterprise_WebApp
-   */
-  public function setWebApp($webApp)
-  {
-    $this->webApp = $webApp;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_WebApp
-   */
-  public function getWebApp()
-  {
-    return $this->webApp;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_WebApp
+	 */
+	public function setWebApp($webApp)
+	{
+		$this->webApp = $webApp;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_WebApp
+	 */
+	public function getWebApp()
+	{
+		return $this->webApp;
+	}
 }

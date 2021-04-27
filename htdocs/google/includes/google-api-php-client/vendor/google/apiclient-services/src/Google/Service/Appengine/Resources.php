@@ -17,49 +17,49 @@
 
 class Google_Service_Appengine_Resources extends Google_Collection
 {
-  protected $collection_key = 'volumes';
-  public $cpu;
-  public $diskGb;
-  public $memoryGb;
-  protected $volumesType = 'Google_Service_Appengine_Volume';
-  protected $volumesDataType = 'array';
+	protected $collection_key = 'volumes';
+	public $cpu;
+	public $diskGb;
+	public $memoryGb;
+	protected $volumesType = 'Google_Service_Appengine_Volume';
+	protected $volumesDataType = 'array';
 
-  public function setCpu($cpu)
-  {
-    $this->cpu = $cpu;
-  }
-  public function getCpu()
-  {
-    return $this->cpu;
-  }
-  public function setDiskGb($diskGb)
-  {
-    $this->diskGb = $diskGb;
-  }
-  public function getDiskGb()
-  {
-    return $this->diskGb;
-  }
-  public function setMemoryGb($memoryGb)
-  {
-    $this->memoryGb = $memoryGb;
-  }
-  public function getMemoryGb()
-  {
-    return $this->memoryGb;
-  }
-  /**
-   * @param Google_Service_Appengine_Volume
-   */
-  public function setVolumes($volumes)
-  {
-    $this->volumes = $volumes;
-  }
-  /**
-   * @return Google_Service_Appengine_Volume
-   */
-  public function getVolumes()
-  {
-    return $this->volumes;
-  }
+	public function setCpu($cpu)
+	{
+		$this->cpu = $cpu;
+	}
+	public function getCpu()
+	{
+		return $this->cpu;
+	}
+	public function setDiskGb($diskGb)
+	{
+		$this->diskGb = $diskGb;
+	}
+	public function getDiskGb()
+	{
+		return $this->diskGb;
+	}
+	public function setMemoryGb($memoryGb)
+	{
+		$this->memoryGb = $memoryGb;
+	}
+	public function getMemoryGb()
+	{
+		return $this->memoryGb;
+	}
+	/**
+	 * @param Google_Service_Appengine_Volume
+	 */
+	public function setVolumes($volumes)
+	{
+		$this->volumes = $volumes;
+	}
+	/**
+	 * @return Google_Service_Appengine_Volume
+	 */
+	public function getVolumes()
+	{
+		return $this->volumes;
+	}
 }

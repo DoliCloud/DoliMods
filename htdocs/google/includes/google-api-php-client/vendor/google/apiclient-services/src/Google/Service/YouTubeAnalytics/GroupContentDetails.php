@@ -17,23 +17,23 @@
 
 class Google_Service_YouTubeAnalytics_GroupContentDetails extends Google_Model
 {
-  public $itemCount;
-  public $itemType;
+	public $itemCount;
+	public $itemType;
 
-  public function setItemCount($itemCount)
-  {
-    $this->itemCount = $itemCount;
-  }
-  public function getItemCount()
-  {
-    return $this->itemCount;
-  }
-  public function setItemType($itemType)
-  {
-    $this->itemType = $itemType;
-  }
-  public function getItemType()
-  {
-    return $this->itemType;
-  }
+	public function setItemCount($itemCount)
+	{
+		$this->itemCount = $itemCount;
+	}
+	public function getItemCount()
+	{
+		return $this->itemCount;
+	}
+	public function setItemType($itemType)
+	{
+		$this->itemType = $itemType;
+	}
+	public function getItemType()
+	{
+		return $this->itemType;
+	}
 }

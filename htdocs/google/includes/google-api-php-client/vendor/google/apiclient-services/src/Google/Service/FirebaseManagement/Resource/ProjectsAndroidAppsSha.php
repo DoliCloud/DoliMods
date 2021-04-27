@@ -25,55 +25,55 @@
  */
 class Google_Service_FirebaseManagement_Resource_ProjectsAndroidAppsSha extends Google_Service_Resource
 {
-  /**
-   * Adds a SHA certificate to the specified AndroidApp. (sha.create)
-   *
-   * @param string $parent The parent App to which a SHA certificate will be
-   * added, in the format: projects/PROJECT_NUMBER/androidApps/APP_ID As an APP_ID
-   * is a unique identifier, the Unique Resource from Sub-Collection access
-   * pattern may be used here, in the format: projects/-/androidApps/APP_ID
-   * @param Google_Service_FirebaseManagement_ShaCertificate $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_FirebaseManagement_ShaCertificate
-   */
-  public function create($parent, Google_Service_FirebaseManagement_ShaCertificate $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_FirebaseManagement_ShaCertificate");
-  }
-  /**
-   * Removes a SHA certificate from the specified AndroidApp. (sha.delete)
-   *
-   * @param string $name The fully qualified resource name of the `sha-key`, in
-   * the format: projects/PROJECT_NUMBER/androidApps/APP_ID/sha/SHA_ID You can
-   * obtain the full name from the response of
-   * [`ListShaCertificates`](../projects.androidApps.sha/list) or the original
-   * [`CreateShaCertificate`](../projects.androidApps.sha/create).
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_FirebaseManagement_FirebaseEmpty
-   */
-  public function delete($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_FirebaseManagement_FirebaseEmpty");
-  }
-  /**
-   * Returns the list of SHA-1 and SHA-256 certificates for the specified
-   * AndroidApp. (sha.listProjectsAndroidAppsSha)
-   *
-   * @param string $parent The parent App for which to list SHA certificates, in
-   * the format: projects/PROJECT_NUMBER/androidApps/APP_ID As an APP_ID is a
-   * unique identifier, the Unique Resource from Sub-Collection access pattern may
-   * be used here, in the format: projects/-/androidApps/APP_ID
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_FirebaseManagement_ListShaCertificatesResponse
-   */
-  public function listProjectsAndroidAppsSha($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_FirebaseManagement_ListShaCertificatesResponse");
-  }
+	/**
+	 * Adds a SHA certificate to the specified AndroidApp. (sha.create)
+	 *
+	 * @param string $parent The parent App to which a SHA certificate will be
+	 *                       added, in the format: projects/PROJECT_NUMBER/androidApps/APP_ID As an APP_ID
+	 *                       is a unique identifier, the Unique Resource from Sub-Collection access
+	 *                       pattern may be used here, in the format: projects/-/androidApps/APP_ID
+	 * @param Google_Service_FirebaseManagement_ShaCertificate $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_FirebaseManagement_ShaCertificate
+	 */
+	public function create($parent, Google_Service_FirebaseManagement_ShaCertificate $postBody, $optParams = array())
+	{
+		$params = array('parent' => $parent, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_FirebaseManagement_ShaCertificate");
+	}
+	/**
+	 * Removes a SHA certificate from the specified AndroidApp. (sha.delete)
+	 *
+	 * @param string $name The fully qualified resource name of the `sha-key`, in
+	 *                     the format: projects/PROJECT_NUMBER/androidApps/APP_ID/sha/SHA_ID You can
+	 *                     obtain the full name from the response of
+	 *                     [`ListShaCertificates`](../projects.androidApps.sha/list) or the original
+	 *                     [`CreateShaCertificate`](../projects.androidApps.sha/create).
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_FirebaseManagement_FirebaseEmpty
+	 */
+	public function delete($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('delete', array($params), "Google_Service_FirebaseManagement_FirebaseEmpty");
+	}
+	/**
+	 * Returns the list of SHA-1 and SHA-256 certificates for the specified
+	 * AndroidApp. (sha.listProjectsAndroidAppsSha)
+	 *
+	 * @param string $parent The parent App for which to list SHA certificates, in
+	 *                       the format: projects/PROJECT_NUMBER/androidApps/APP_ID As an APP_ID is a
+	 *                       unique identifier, the Unique Resource from Sub-Collection access pattern may
+	 *                       be used here, in the format: projects/-/androidApps/APP_ID
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_FirebaseManagement_ListShaCertificatesResponse
+	 */
+	public function listProjectsAndroidAppsSha($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_FirebaseManagement_ListShaCertificatesResponse");
+	}
 }

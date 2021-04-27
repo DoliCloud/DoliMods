@@ -17,30 +17,30 @@
 
 class Google_Service_CloudHealthcare_IngestMessageResponse extends Google_Model
 {
-  public $hl7Ack;
-  protected $messageType = 'Google_Service_CloudHealthcare_Message';
-  protected $messageDataType = '';
+	public $hl7Ack;
+	protected $messageType = 'Google_Service_CloudHealthcare_Message';
+	protected $messageDataType = '';
 
-  public function setHl7Ack($hl7Ack)
-  {
-    $this->hl7Ack = $hl7Ack;
-  }
-  public function getHl7Ack()
-  {
-    return $this->hl7Ack;
-  }
-  /**
-   * @param Google_Service_CloudHealthcare_Message
-   */
-  public function setMessage(Google_Service_CloudHealthcare_Message $message)
-  {
-    $this->message = $message;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_Message
-   */
-  public function getMessage()
-  {
-    return $this->message;
-  }
+	public function setHl7Ack($hl7Ack)
+	{
+		$this->hl7Ack = $hl7Ack;
+	}
+	public function getHl7Ack()
+	{
+		return $this->hl7Ack;
+	}
+	/**
+	 * @param Google_Service_CloudHealthcare_Message
+	 */
+	public function setMessage(Google_Service_CloudHealthcare_Message $message)
+	{
+		$this->message = $message;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_Message
+	 */
+	public function getMessage()
+	{
+		return $this->message;
+	}
 }

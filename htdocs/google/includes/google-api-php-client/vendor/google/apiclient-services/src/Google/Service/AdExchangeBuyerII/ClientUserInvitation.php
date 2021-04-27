@@ -17,32 +17,32 @@
 
 class Google_Service_AdExchangeBuyerII_ClientUserInvitation extends Google_Model
 {
-  public $clientAccountId;
-  public $email;
-  public $invitationId;
+	public $clientAccountId;
+	public $email;
+	public $invitationId;
 
-  public function setClientAccountId($clientAccountId)
-  {
-    $this->clientAccountId = $clientAccountId;
-  }
-  public function getClientAccountId()
-  {
-    return $this->clientAccountId;
-  }
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setInvitationId($invitationId)
-  {
-    $this->invitationId = $invitationId;
-  }
-  public function getInvitationId()
-  {
-    return $this->invitationId;
-  }
+	public function setClientAccountId($clientAccountId)
+	{
+		$this->clientAccountId = $clientAccountId;
+	}
+	public function getClientAccountId()
+	{
+		return $this->clientAccountId;
+	}
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setInvitationId($invitationId)
+	{
+		$this->invitationId = $invitationId;
+	}
+	public function getInvitationId()
+	{
+		return $this->invitationId;
+	}
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_Spectrum_GeoLocationEllipse extends Google_Model
 {
-  protected $centerType = 'Google_Service_Spectrum_GeoLocationPoint';
-  protected $centerDataType = '';
-  public $orientation;
-  public $semiMajorAxis;
-  public $semiMinorAxis;
+	protected $centerType = 'Google_Service_Spectrum_GeoLocationPoint';
+	protected $centerDataType = '';
+	public $orientation;
+	public $semiMajorAxis;
+	public $semiMinorAxis;
 
-  /**
-   * @param Google_Service_Spectrum_GeoLocationPoint
-   */
-  public function setCenter(Google_Service_Spectrum_GeoLocationPoint $center)
-  {
-    $this->center = $center;
-  }
-  /**
-   * @return Google_Service_Spectrum_GeoLocationPoint
-   */
-  public function getCenter()
-  {
-    return $this->center;
-  }
-  public function setOrientation($orientation)
-  {
-    $this->orientation = $orientation;
-  }
-  public function getOrientation()
-  {
-    return $this->orientation;
-  }
-  public function setSemiMajorAxis($semiMajorAxis)
-  {
-    $this->semiMajorAxis = $semiMajorAxis;
-  }
-  public function getSemiMajorAxis()
-  {
-    return $this->semiMajorAxis;
-  }
-  public function setSemiMinorAxis($semiMinorAxis)
-  {
-    $this->semiMinorAxis = $semiMinorAxis;
-  }
-  public function getSemiMinorAxis()
-  {
-    return $this->semiMinorAxis;
-  }
+	/**
+	 * @param Google_Service_Spectrum_GeoLocationPoint
+	 */
+	public function setCenter(Google_Service_Spectrum_GeoLocationPoint $center)
+	{
+		$this->center = $center;
+	}
+	/**
+	 * @return Google_Service_Spectrum_GeoLocationPoint
+	 */
+	public function getCenter()
+	{
+		return $this->center;
+	}
+	public function setOrientation($orientation)
+	{
+		$this->orientation = $orientation;
+	}
+	public function getOrientation()
+	{
+		return $this->orientation;
+	}
+	public function setSemiMajorAxis($semiMajorAxis)
+	{
+		$this->semiMajorAxis = $semiMajorAxis;
+	}
+	public function getSemiMajorAxis()
+	{
+		return $this->semiMajorAxis;
+	}
+	public function setSemiMinorAxis($semiMinorAxis)
+	{
+		$this->semiMinorAxis = $semiMinorAxis;
+	}
+	public function getSemiMinorAxis()
+	{
+		return $this->semiMinorAxis;
+	}
 }

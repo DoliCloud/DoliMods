@@ -17,38 +17,38 @@
 
 class Google_Service_TagManager_SyncWorkspaceResponse extends Google_Collection
 {
-  protected $collection_key = 'mergeConflict';
-  protected $mergeConflictType = 'Google_Service_TagManager_MergeConflict';
-  protected $mergeConflictDataType = 'array';
-  protected $syncStatusType = 'Google_Service_TagManager_SyncStatus';
-  protected $syncStatusDataType = '';
+	protected $collection_key = 'mergeConflict';
+	protected $mergeConflictType = 'Google_Service_TagManager_MergeConflict';
+	protected $mergeConflictDataType = 'array';
+	protected $syncStatusType = 'Google_Service_TagManager_SyncStatus';
+	protected $syncStatusDataType = '';
 
-  /**
-   * @param Google_Service_TagManager_MergeConflict
-   */
-  public function setMergeConflict($mergeConflict)
-  {
-    $this->mergeConflict = $mergeConflict;
-  }
-  /**
-   * @return Google_Service_TagManager_MergeConflict
-   */
-  public function getMergeConflict()
-  {
-    return $this->mergeConflict;
-  }
-  /**
-   * @param Google_Service_TagManager_SyncStatus
-   */
-  public function setSyncStatus(Google_Service_TagManager_SyncStatus $syncStatus)
-  {
-    $this->syncStatus = $syncStatus;
-  }
-  /**
-   * @return Google_Service_TagManager_SyncStatus
-   */
-  public function getSyncStatus()
-  {
-    return $this->syncStatus;
-  }
+	/**
+	 * @param Google_Service_TagManager_MergeConflict
+	 */
+	public function setMergeConflict($mergeConflict)
+	{
+		$this->mergeConflict = $mergeConflict;
+	}
+	/**
+	 * @return Google_Service_TagManager_MergeConflict
+	 */
+	public function getMergeConflict()
+	{
+		return $this->mergeConflict;
+	}
+	/**
+	 * @param Google_Service_TagManager_SyncStatus
+	 */
+	public function setSyncStatus(Google_Service_TagManager_SyncStatus $syncStatus)
+	{
+		$this->syncStatus = $syncStatus;
+	}
+	/**
+	 * @return Google_Service_TagManager_SyncStatus
+	 */
+	public function getSyncStatus()
+	{
+		return $this->syncStatus;
+	}
 }

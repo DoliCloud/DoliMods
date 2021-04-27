@@ -17,15 +17,15 @@
 
 class Google_Service_Dataflow_StringList extends Google_Collection
 {
-  protected $collection_key = 'elements';
-  public $elements;
+	protected $collection_key = 'elements';
+	public $elements;
 
-  public function setElements($elements)
-  {
-    $this->elements = $elements;
-  }
-  public function getElements()
-  {
-    return $this->elements;
-  }
+	public function setElements($elements)
+	{
+		$this->elements = $elements;
+	}
+	public function getElements()
+	{
+		return $this->elements;
+	}
 }

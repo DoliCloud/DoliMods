@@ -17,14 +17,14 @@
 
 class Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1CopyProductRequest extends Google_Model
 {
-  public $destinationProductName;
+	public $destinationProductName;
 
-  public function setDestinationProductName($destinationProductName)
-  {
-    $this->destinationProductName = $destinationProductName;
-  }
-  public function getDestinationProductName()
-  {
-    return $this->destinationProductName;
-  }
+	public function setDestinationProductName($destinationProductName)
+	{
+		$this->destinationProductName = $destinationProductName;
+	}
+	public function getDestinationProductName()
+	{
+		return $this->destinationProductName;
+	}
 }

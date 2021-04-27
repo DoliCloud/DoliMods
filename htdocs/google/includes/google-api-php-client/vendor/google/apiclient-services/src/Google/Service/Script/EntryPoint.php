@@ -17,62 +17,62 @@
 
 class Google_Service_Script_EntryPoint extends Google_Model
 {
-  protected $addOnType = 'Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint';
-  protected $addOnDataType = '';
-  public $entryPointType;
-  protected $executionApiType = 'Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint';
-  protected $executionApiDataType = '';
-  protected $webAppType = 'Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint';
-  protected $webAppDataType = '';
+	protected $addOnType = 'Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint';
+	protected $addOnDataType = '';
+	public $entryPointType;
+	protected $executionApiType = 'Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint';
+	protected $executionApiDataType = '';
+	protected $webAppType = 'Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint';
+	protected $webAppDataType = '';
 
-  /**
-   * @param Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint
-   */
-  public function setAddOn(Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint $addOn)
-  {
-    $this->addOn = $addOn;
-  }
-  /**
-   * @return Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint
-   */
-  public function getAddOn()
-  {
-    return $this->addOn;
-  }
-  public function setEntryPointType($entryPointType)
-  {
-    $this->entryPointType = $entryPointType;
-  }
-  public function getEntryPointType()
-  {
-    return $this->entryPointType;
-  }
-  /**
-   * @param Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint
-   */
-  public function setExecutionApi(Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint $executionApi)
-  {
-    $this->executionApi = $executionApi;
-  }
-  /**
-   * @return Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint
-   */
-  public function getExecutionApi()
-  {
-    return $this->executionApi;
-  }
-  /**
-   * @param Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint
-   */
-  public function setWebApp(Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint $webApp)
-  {
-    $this->webApp = $webApp;
-  }
-  /**
-   * @return Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint
-   */
-  public function getWebApp()
-  {
-    return $this->webApp;
-  }
+	/**
+	 * @param Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint
+	 */
+	public function setAddOn(Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint $addOn)
+	{
+		$this->addOn = $addOn;
+	}
+	/**
+	 * @return Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint
+	 */
+	public function getAddOn()
+	{
+		return $this->addOn;
+	}
+	public function setEntryPointType($entryPointType)
+	{
+		$this->entryPointType = $entryPointType;
+	}
+	public function getEntryPointType()
+	{
+		return $this->entryPointType;
+	}
+	/**
+	 * @param Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint
+	 */
+	public function setExecutionApi(Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint $executionApi)
+	{
+		$this->executionApi = $executionApi;
+	}
+	/**
+	 * @return Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint
+	 */
+	public function getExecutionApi()
+	{
+		return $this->executionApi;
+	}
+	/**
+	 * @param Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint
+	 */
+	public function setWebApp(Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint $webApp)
+	{
+		$this->webApp = $webApp;
+	}
+	/**
+	 * @return Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint
+	 */
+	public function getWebApp()
+	{
+		return $this->webApp;
+	}
 }

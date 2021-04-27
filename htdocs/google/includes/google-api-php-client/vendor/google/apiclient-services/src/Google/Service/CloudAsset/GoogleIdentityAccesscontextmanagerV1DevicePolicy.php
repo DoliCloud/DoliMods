@@ -17,67 +17,67 @@
 
 class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy extends Google_Collection
 {
-  protected $collection_key = 'osConstraints';
-  public $allowedDeviceManagementLevels;
-  public $allowedEncryptionStatuses;
-  protected $osConstraintsType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1OsConstraint';
-  protected $osConstraintsDataType = 'array';
-  public $requireAdminApproval;
-  public $requireCorpOwned;
-  public $requireScreenlock;
+	protected $collection_key = 'osConstraints';
+	public $allowedDeviceManagementLevels;
+	public $allowedEncryptionStatuses;
+	protected $osConstraintsType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1OsConstraint';
+	protected $osConstraintsDataType = 'array';
+	public $requireAdminApproval;
+	public $requireCorpOwned;
+	public $requireScreenlock;
 
-  public function setAllowedDeviceManagementLevels($allowedDeviceManagementLevels)
-  {
-    $this->allowedDeviceManagementLevels = $allowedDeviceManagementLevels;
-  }
-  public function getAllowedDeviceManagementLevels()
-  {
-    return $this->allowedDeviceManagementLevels;
-  }
-  public function setAllowedEncryptionStatuses($allowedEncryptionStatuses)
-  {
-    $this->allowedEncryptionStatuses = $allowedEncryptionStatuses;
-  }
-  public function getAllowedEncryptionStatuses()
-  {
-    return $this->allowedEncryptionStatuses;
-  }
-  /**
-   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1OsConstraint
-   */
-  public function setOsConstraints($osConstraints)
-  {
-    $this->osConstraints = $osConstraints;
-  }
-  /**
-   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1OsConstraint
-   */
-  public function getOsConstraints()
-  {
-    return $this->osConstraints;
-  }
-  public function setRequireAdminApproval($requireAdminApproval)
-  {
-    $this->requireAdminApproval = $requireAdminApproval;
-  }
-  public function getRequireAdminApproval()
-  {
-    return $this->requireAdminApproval;
-  }
-  public function setRequireCorpOwned($requireCorpOwned)
-  {
-    $this->requireCorpOwned = $requireCorpOwned;
-  }
-  public function getRequireCorpOwned()
-  {
-    return $this->requireCorpOwned;
-  }
-  public function setRequireScreenlock($requireScreenlock)
-  {
-    $this->requireScreenlock = $requireScreenlock;
-  }
-  public function getRequireScreenlock()
-  {
-    return $this->requireScreenlock;
-  }
+	public function setAllowedDeviceManagementLevels($allowedDeviceManagementLevels)
+	{
+		$this->allowedDeviceManagementLevels = $allowedDeviceManagementLevels;
+	}
+	public function getAllowedDeviceManagementLevels()
+	{
+		return $this->allowedDeviceManagementLevels;
+	}
+	public function setAllowedEncryptionStatuses($allowedEncryptionStatuses)
+	{
+		$this->allowedEncryptionStatuses = $allowedEncryptionStatuses;
+	}
+	public function getAllowedEncryptionStatuses()
+	{
+		return $this->allowedEncryptionStatuses;
+	}
+	/**
+	 * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1OsConstraint
+	 */
+	public function setOsConstraints($osConstraints)
+	{
+		$this->osConstraints = $osConstraints;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1OsConstraint
+	 */
+	public function getOsConstraints()
+	{
+		return $this->osConstraints;
+	}
+	public function setRequireAdminApproval($requireAdminApproval)
+	{
+		$this->requireAdminApproval = $requireAdminApproval;
+	}
+	public function getRequireAdminApproval()
+	{
+		return $this->requireAdminApproval;
+	}
+	public function setRequireCorpOwned($requireCorpOwned)
+	{
+		$this->requireCorpOwned = $requireCorpOwned;
+	}
+	public function getRequireCorpOwned()
+	{
+		return $this->requireCorpOwned;
+	}
+	public function setRequireScreenlock($requireScreenlock)
+	{
+		$this->requireScreenlock = $requireScreenlock;
+	}
+	public function getRequireScreenlock()
+	{
+		return $this->requireScreenlock;
+	}
 }

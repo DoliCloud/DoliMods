@@ -17,40 +17,40 @@
 
 class Google_Service_Books_Discoveryclusters extends Google_Collection
 {
-  protected $collection_key = 'clusters';
-  protected $clustersType = 'Google_Service_Books_DiscoveryclustersClusters';
-  protected $clustersDataType = 'array';
-  public $kind;
-  public $totalClusters;
+	protected $collection_key = 'clusters';
+	protected $clustersType = 'Google_Service_Books_DiscoveryclustersClusters';
+	protected $clustersDataType = 'array';
+	public $kind;
+	public $totalClusters;
 
-  /**
-   * @param Google_Service_Books_DiscoveryclustersClusters
-   */
-  public function setClusters($clusters)
-  {
-    $this->clusters = $clusters;
-  }
-  /**
-   * @return Google_Service_Books_DiscoveryclustersClusters
-   */
-  public function getClusters()
-  {
-    return $this->clusters;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setTotalClusters($totalClusters)
-  {
-    $this->totalClusters = $totalClusters;
-  }
-  public function getTotalClusters()
-  {
-    return $this->totalClusters;
-  }
+	/**
+	 * @param Google_Service_Books_DiscoveryclustersClusters
+	 */
+	public function setClusters($clusters)
+	{
+		$this->clusters = $clusters;
+	}
+	/**
+	 * @return Google_Service_Books_DiscoveryclustersClusters
+	 */
+	public function getClusters()
+	{
+		return $this->clusters;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setTotalClusters($totalClusters)
+	{
+		$this->totalClusters = $totalClusters;
+	}
+	public function getTotalClusters()
+	{
+		return $this->totalClusters;
+	}
 }

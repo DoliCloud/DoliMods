@@ -17,55 +17,55 @@
 
 class Google_Service_ShoppingContent_ProductsCustomBatchResponseEntry extends Google_Model
 {
-  public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
-  protected $errorsDataType = '';
-  public $kind;
-  protected $productType = 'Google_Service_ShoppingContent_Product';
-  protected $productDataType = '';
+	public $batchId;
+	protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+	protected $errorsDataType = '';
+	public $kind;
+	protected $productType = 'Google_Service_ShoppingContent_Product';
+	protected $productDataType = '';
 
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Errors
-   */
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Errors
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Product
-   */
-  public function setProduct(Google_Service_ShoppingContent_Product $product)
-  {
-    $this->product = $product;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Product
-   */
-  public function getProduct()
-  {
-    return $this->product;
-  }
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Errors
+	 */
+	public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Errors
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Product
+	 */
+	public function setProduct(Google_Service_ShoppingContent_Product $product)
+	{
+		$this->product = $product;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Product
+	 */
+	public function getProduct()
+	{
+		return $this->product;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_GameServices_DataAccessOptions extends Google_Model
 {
-  public $logMode;
+	public $logMode;
 
-  public function setLogMode($logMode)
-  {
-    $this->logMode = $logMode;
-  }
-  public function getLogMode()
-  {
-    return $this->logMode;
-  }
+	public function setLogMode($logMode)
+	{
+		$this->logMode = $logMode;
+	}
+	public function getLogMode()
+	{
+		return $this->logMode;
+	}
 }

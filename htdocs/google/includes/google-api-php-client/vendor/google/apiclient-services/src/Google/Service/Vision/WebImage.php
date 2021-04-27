@@ -17,23 +17,23 @@
 
 class Google_Service_Vision_WebImage extends Google_Model
 {
-  public $score;
-  public $url;
+	public $score;
+	public $url;
 
-  public function setScore($score)
-  {
-    $this->score = $score;
-  }
-  public function getScore()
-  {
-    return $this->score;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setScore($score)
+	{
+		$this->score = $score;
+	}
+	public function getScore()
+	{
+		return $this->score;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

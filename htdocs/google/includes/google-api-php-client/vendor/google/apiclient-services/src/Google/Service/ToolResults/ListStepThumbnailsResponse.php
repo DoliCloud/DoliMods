@@ -17,31 +17,31 @@
 
 class Google_Service_ToolResults_ListStepThumbnailsResponse extends Google_Collection
 {
-  protected $collection_key = 'thumbnails';
-  public $nextPageToken;
-  protected $thumbnailsType = 'Google_Service_ToolResults_Image';
-  protected $thumbnailsDataType = 'array';
+	protected $collection_key = 'thumbnails';
+	public $nextPageToken;
+	protected $thumbnailsType = 'Google_Service_ToolResults_Image';
+	protected $thumbnailsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_ToolResults_Image
-   */
-  public function setThumbnails($thumbnails)
-  {
-    $this->thumbnails = $thumbnails;
-  }
-  /**
-   * @return Google_Service_ToolResults_Image
-   */
-  public function getThumbnails()
-  {
-    return $this->thumbnails;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_ToolResults_Image
+	 */
+	public function setThumbnails($thumbnails)
+	{
+		$this->thumbnails = $thumbnails;
+	}
+	/**
+	 * @return Google_Service_ToolResults_Image
+	 */
+	public function getThumbnails()
+	{
+		return $this->thumbnails;
+	}
 }

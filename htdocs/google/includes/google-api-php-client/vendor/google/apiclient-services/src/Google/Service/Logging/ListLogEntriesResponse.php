@@ -17,31 +17,31 @@
 
 class Google_Service_Logging_ListLogEntriesResponse extends Google_Collection
 {
-  protected $collection_key = 'entries';
-  protected $entriesType = 'Google_Service_Logging_LogEntry';
-  protected $entriesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'entries';
+	protected $entriesType = 'Google_Service_Logging_LogEntry';
+	protected $entriesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Logging_LogEntry
-   */
-  public function setEntries($entries)
-  {
-    $this->entries = $entries;
-  }
-  /**
-   * @return Google_Service_Logging_LogEntry
-   */
-  public function getEntries()
-  {
-    return $this->entries;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Logging_LogEntry
+	 */
+	public function setEntries($entries)
+	{
+		$this->entries = $entries;
+	}
+	/**
+	 * @return Google_Service_Logging_LogEntry
+	 */
+	public function getEntries()
+	{
+		return $this->entries;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

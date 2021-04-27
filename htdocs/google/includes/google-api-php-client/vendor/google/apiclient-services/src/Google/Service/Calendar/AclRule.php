@@ -17,57 +17,57 @@
 
 class Google_Service_Calendar_AclRule extends Google_Model
 {
-  public $etag;
-  public $id;
-  public $kind;
-  public $role;
-  protected $scopeType = 'Google_Service_Calendar_AclRuleScope';
-  protected $scopeDataType = '';
+	public $etag;
+	public $id;
+	public $kind;
+	public $role;
+	protected $scopeType = 'Google_Service_Calendar_AclRuleScope';
+	protected $scopeDataType = '';
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setRole($role)
-  {
-    $this->role = $role;
-  }
-  public function getRole()
-  {
-    return $this->role;
-  }
-  /**
-   * @param Google_Service_Calendar_AclRuleScope
-   */
-  public function setScope(Google_Service_Calendar_AclRuleScope $scope)
-  {
-    $this->scope = $scope;
-  }
-  /**
-   * @return Google_Service_Calendar_AclRuleScope
-   */
-  public function getScope()
-  {
-    return $this->scope;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setRole($role)
+	{
+		$this->role = $role;
+	}
+	public function getRole()
+	{
+		return $this->role;
+	}
+	/**
+	 * @param Google_Service_Calendar_AclRuleScope
+	 */
+	public function setScope(Google_Service_Calendar_AclRuleScope $scope)
+	{
+		$this->scope = $scope;
+	}
+	/**
+	 * @return Google_Service_Calendar_AclRuleScope
+	 */
+	public function getScope()
+	{
+		return $this->scope;
+	}
 }

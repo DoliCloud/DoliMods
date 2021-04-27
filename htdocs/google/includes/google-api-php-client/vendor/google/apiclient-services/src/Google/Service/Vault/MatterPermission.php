@@ -17,23 +17,23 @@
 
 class Google_Service_Vault_MatterPermission extends Google_Model
 {
-  public $accountId;
-  public $role;
+	public $accountId;
+	public $role;
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setRole($role)
-  {
-    $this->role = $role;
-  }
-  public function getRole()
-  {
-    return $this->role;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setRole($role)
+	{
+		$this->role = $role;
+	}
+	public function getRole()
+	{
+		return $this->role;
+	}
 }

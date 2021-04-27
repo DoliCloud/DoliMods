@@ -17,41 +17,41 @@
 
 class Google_Service_Compute_DiskInstantiationConfig extends Google_Model
 {
-  public $autoDelete;
-  public $customImage;
-  public $deviceName;
-  public $instantiateFrom;
+	public $autoDelete;
+	public $customImage;
+	public $deviceName;
+	public $instantiateFrom;
 
-  public function setAutoDelete($autoDelete)
-  {
-    $this->autoDelete = $autoDelete;
-  }
-  public function getAutoDelete()
-  {
-    return $this->autoDelete;
-  }
-  public function setCustomImage($customImage)
-  {
-    $this->customImage = $customImage;
-  }
-  public function getCustomImage()
-  {
-    return $this->customImage;
-  }
-  public function setDeviceName($deviceName)
-  {
-    $this->deviceName = $deviceName;
-  }
-  public function getDeviceName()
-  {
-    return $this->deviceName;
-  }
-  public function setInstantiateFrom($instantiateFrom)
-  {
-    $this->instantiateFrom = $instantiateFrom;
-  }
-  public function getInstantiateFrom()
-  {
-    return $this->instantiateFrom;
-  }
+	public function setAutoDelete($autoDelete)
+	{
+		$this->autoDelete = $autoDelete;
+	}
+	public function getAutoDelete()
+	{
+		return $this->autoDelete;
+	}
+	public function setCustomImage($customImage)
+	{
+		$this->customImage = $customImage;
+	}
+	public function getCustomImage()
+	{
+		return $this->customImage;
+	}
+	public function setDeviceName($deviceName)
+	{
+		$this->deviceName = $deviceName;
+	}
+	public function getDeviceName()
+	{
+		return $this->deviceName;
+	}
+	public function setInstantiateFrom($instantiateFrom)
+	{
+		$this->instantiateFrom = $instantiateFrom;
+	}
+	public function getInstantiateFrom()
+	{
+		return $this->instantiateFrom;
+	}
 }

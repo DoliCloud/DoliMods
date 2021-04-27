@@ -17,30 +17,30 @@
 
 class Google_Service_AndroidProvisioningPartner_DeviceReference extends Google_Model
 {
-  public $deviceId;
-  protected $deviceIdentifierType = 'Google_Service_AndroidProvisioningPartner_DeviceIdentifier';
-  protected $deviceIdentifierDataType = '';
+	public $deviceId;
+	protected $deviceIdentifierType = 'Google_Service_AndroidProvisioningPartner_DeviceIdentifier';
+	protected $deviceIdentifierDataType = '';
 
-  public function setDeviceId($deviceId)
-  {
-    $this->deviceId = $deviceId;
-  }
-  public function getDeviceId()
-  {
-    return $this->deviceId;
-  }
-  /**
-   * @param Google_Service_AndroidProvisioningPartner_DeviceIdentifier
-   */
-  public function setDeviceIdentifier(Google_Service_AndroidProvisioningPartner_DeviceIdentifier $deviceIdentifier)
-  {
-    $this->deviceIdentifier = $deviceIdentifier;
-  }
-  /**
-   * @return Google_Service_AndroidProvisioningPartner_DeviceIdentifier
-   */
-  public function getDeviceIdentifier()
-  {
-    return $this->deviceIdentifier;
-  }
+	public function setDeviceId($deviceId)
+	{
+		$this->deviceId = $deviceId;
+	}
+	public function getDeviceId()
+	{
+		return $this->deviceId;
+	}
+	/**
+	 * @param Google_Service_AndroidProvisioningPartner_DeviceIdentifier
+	 */
+	public function setDeviceIdentifier(Google_Service_AndroidProvisioningPartner_DeviceIdentifier $deviceIdentifier)
+	{
+		$this->deviceIdentifier = $deviceIdentifier;
+	}
+	/**
+	 * @return Google_Service_AndroidProvisioningPartner_DeviceIdentifier
+	 */
+	public function getDeviceIdentifier()
+	{
+		return $this->deviceIdentifier;
+	}
 }

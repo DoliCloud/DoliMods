@@ -17,32 +17,32 @@
 
 class Google_Service_AndroidEnterprise_AutoInstallConstraint extends Google_Model
 {
-  public $chargingStateConstraint;
-  public $deviceIdleStateConstraint;
-  public $networkTypeConstraint;
+	public $chargingStateConstraint;
+	public $deviceIdleStateConstraint;
+	public $networkTypeConstraint;
 
-  public function setChargingStateConstraint($chargingStateConstraint)
-  {
-    $this->chargingStateConstraint = $chargingStateConstraint;
-  }
-  public function getChargingStateConstraint()
-  {
-    return $this->chargingStateConstraint;
-  }
-  public function setDeviceIdleStateConstraint($deviceIdleStateConstraint)
-  {
-    $this->deviceIdleStateConstraint = $deviceIdleStateConstraint;
-  }
-  public function getDeviceIdleStateConstraint()
-  {
-    return $this->deviceIdleStateConstraint;
-  }
-  public function setNetworkTypeConstraint($networkTypeConstraint)
-  {
-    $this->networkTypeConstraint = $networkTypeConstraint;
-  }
-  public function getNetworkTypeConstraint()
-  {
-    return $this->networkTypeConstraint;
-  }
+	public function setChargingStateConstraint($chargingStateConstraint)
+	{
+		$this->chargingStateConstraint = $chargingStateConstraint;
+	}
+	public function getChargingStateConstraint()
+	{
+		return $this->chargingStateConstraint;
+	}
+	public function setDeviceIdleStateConstraint($deviceIdleStateConstraint)
+	{
+		$this->deviceIdleStateConstraint = $deviceIdleStateConstraint;
+	}
+	public function getDeviceIdleStateConstraint()
+	{
+		return $this->deviceIdleStateConstraint;
+	}
+	public function setNetworkTypeConstraint($networkTypeConstraint)
+	{
+		$this->networkTypeConstraint = $networkTypeConstraint;
+	}
+	public function getNetworkTypeConstraint()
+	{
+		return $this->networkTypeConstraint;
+	}
 }

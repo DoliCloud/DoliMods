@@ -17,37 +17,37 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap extends Google_Model
 {
-  protected $categoricalFeaturesType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapStringList';
-  protected $categoricalFeaturesDataType = 'map';
-  protected $numericalFeaturesType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapFloatList';
-  protected $numericalFeaturesDataType = 'map';
+	protected $categoricalFeaturesType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapStringList';
+	protected $categoricalFeaturesDataType = 'map';
+	protected $numericalFeaturesType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapFloatList';
+	protected $numericalFeaturesDataType = 'map';
 
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapStringList
-   */
-  public function setCategoricalFeatures($categoricalFeatures)
-  {
-    $this->categoricalFeatures = $categoricalFeatures;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapStringList
-   */
-  public function getCategoricalFeatures()
-  {
-    return $this->categoricalFeatures;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapFloatList
-   */
-  public function setNumericalFeatures($numericalFeatures)
-  {
-    $this->numericalFeatures = $numericalFeatures;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapFloatList
-   */
-  public function getNumericalFeatures()
-  {
-    return $this->numericalFeatures;
-  }
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapStringList
+	 */
+	public function setCategoricalFeatures($categoricalFeatures)
+	{
+		$this->categoricalFeatures = $categoricalFeatures;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapStringList
+	 */
+	public function getCategoricalFeatures()
+	{
+		return $this->categoricalFeatures;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapFloatList
+	 */
+	public function setNumericalFeatures($numericalFeatures)
+	{
+		$this->numericalFeatures = $numericalFeatures;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapFloatList
+	 */
+	public function getNumericalFeatures()
+	{
+		return $this->numericalFeatures;
+	}
 }

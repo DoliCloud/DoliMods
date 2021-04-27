@@ -17,23 +17,23 @@
 
 class Google_Service_AdExchangeBuyerII_MetricValue extends Google_Model
 {
-  public $value;
-  public $variance;
+	public $value;
+	public $variance;
 
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
-  public function setVariance($variance)
-  {
-    $this->variance = $variance;
-  }
-  public function getVariance()
-  {
-    return $this->variance;
-  }
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
+	public function setVariance($variance)
+	{
+		$this->variance = $variance;
+	}
+	public function getVariance()
+	{
+		return $this->variance;
+	}
 }

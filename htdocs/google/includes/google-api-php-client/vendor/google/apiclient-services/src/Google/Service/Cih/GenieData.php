@@ -17,50 +17,50 @@
 
 class Google_Service_Cih_GenieData extends Google_Model
 {
-  public $enteredText;
-  public $sessionId;
-  public $type;
-  public $userAgent;
-  public $userIp;
+	public $enteredText;
+	public $sessionId;
+	public $type;
+	public $userAgent;
+	public $userIp;
 
-  public function setEnteredText($enteredText)
-  {
-    $this->enteredText = $enteredText;
-  }
-  public function getEnteredText()
-  {
-    return $this->enteredText;
-  }
-  public function setSessionId($sessionId)
-  {
-    $this->sessionId = $sessionId;
-  }
-  public function getSessionId()
-  {
-    return $this->sessionId;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setUserAgent($userAgent)
-  {
-    $this->userAgent = $userAgent;
-  }
-  public function getUserAgent()
-  {
-    return $this->userAgent;
-  }
-  public function setUserIp($userIp)
-  {
-    $this->userIp = $userIp;
-  }
-  public function getUserIp()
-  {
-    return $this->userIp;
-  }
+	public function setEnteredText($enteredText)
+	{
+		$this->enteredText = $enteredText;
+	}
+	public function getEnteredText()
+	{
+		return $this->enteredText;
+	}
+	public function setSessionId($sessionId)
+	{
+		$this->sessionId = $sessionId;
+	}
+	public function getSessionId()
+	{
+		return $this->sessionId;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setUserAgent($userAgent)
+	{
+		$this->userAgent = $userAgent;
+	}
+	public function getUserAgent()
+	{
+		return $this->userAgent;
+	}
+	public function setUserIp($userIp)
+	{
+		$this->userIp = $userIp;
+	}
+	public function getUserIp()
+	{
+		return $this->userIp;
+	}
 }

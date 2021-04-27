@@ -17,56 +17,56 @@
 
 class Google_Service_Dns_ResourceRecordSetsListResponse extends Google_Collection
 {
-  protected $collection_key = 'rrsets';
-  protected $headerType = 'Google_Service_Dns_ResponseHeader';
-  protected $headerDataType = '';
-  public $kind;
-  public $nextPageToken;
-  protected $rrsetsType = 'Google_Service_Dns_ResourceRecordSet';
-  protected $rrsetsDataType = 'array';
+	protected $collection_key = 'rrsets';
+	protected $headerType = 'Google_Service_Dns_ResponseHeader';
+	protected $headerDataType = '';
+	public $kind;
+	public $nextPageToken;
+	protected $rrsetsType = 'Google_Service_Dns_ResourceRecordSet';
+	protected $rrsetsDataType = 'array';
 
-  /**
-   * @param Google_Service_Dns_ResponseHeader
-   */
-  public function setHeader(Google_Service_Dns_ResponseHeader $header)
-  {
-    $this->header = $header;
-  }
-  /**
-   * @return Google_Service_Dns_ResponseHeader
-   */
-  public function getHeader()
-  {
-    return $this->header;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Dns_ResourceRecordSet
-   */
-  public function setRrsets($rrsets)
-  {
-    $this->rrsets = $rrsets;
-  }
-  /**
-   * @return Google_Service_Dns_ResourceRecordSet
-   */
-  public function getRrsets()
-  {
-    return $this->rrsets;
-  }
+	/**
+	 * @param Google_Service_Dns_ResponseHeader
+	 */
+	public function setHeader(Google_Service_Dns_ResponseHeader $header)
+	{
+		$this->header = $header;
+	}
+	/**
+	 * @return Google_Service_Dns_ResponseHeader
+	 */
+	public function getHeader()
+	{
+		return $this->header;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Dns_ResourceRecordSet
+	 */
+	public function setRrsets($rrsets)
+	{
+		$this->rrsets = $rrsets;
+	}
+	/**
+	 * @return Google_Service_Dns_ResourceRecordSet
+	 */
+	public function getRrsets()
+	{
+		return $this->rrsets;
+	}
 }

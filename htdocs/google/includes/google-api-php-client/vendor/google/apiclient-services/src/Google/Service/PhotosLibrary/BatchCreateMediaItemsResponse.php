@@ -17,22 +17,22 @@
 
 class Google_Service_PhotosLibrary_BatchCreateMediaItemsResponse extends Google_Collection
 {
-  protected $collection_key = 'newMediaItemResults';
-  protected $newMediaItemResultsType = 'Google_Service_PhotosLibrary_NewMediaItemResult';
-  protected $newMediaItemResultsDataType = 'array';
+	protected $collection_key = 'newMediaItemResults';
+	protected $newMediaItemResultsType = 'Google_Service_PhotosLibrary_NewMediaItemResult';
+	protected $newMediaItemResultsDataType = 'array';
 
-  /**
-   * @param Google_Service_PhotosLibrary_NewMediaItemResult
-   */
-  public function setNewMediaItemResults($newMediaItemResults)
-  {
-    $this->newMediaItemResults = $newMediaItemResults;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_NewMediaItemResult
-   */
-  public function getNewMediaItemResults()
-  {
-    return $this->newMediaItemResults;
-  }
+	/**
+	 * @param Google_Service_PhotosLibrary_NewMediaItemResult
+	 */
+	public function setNewMediaItemResults($newMediaItemResults)
+	{
+		$this->newMediaItemResults = $newMediaItemResults;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_NewMediaItemResult
+	 */
+	public function getNewMediaItemResults()
+	{
+		return $this->newMediaItemResults;
+	}
 }

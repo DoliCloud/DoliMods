@@ -17,14 +17,14 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution extends Google_Model
 {
-  public $numPaths;
+	public $numPaths;
 
-  public function setNumPaths($numPaths)
-  {
-    $this->numPaths = $numPaths;
-  }
-  public function getNumPaths()
-  {
-    return $this->numPaths;
-  }
+	public function setNumPaths($numPaths)
+	{
+		$this->numPaths = $numPaths;
+	}
+	public function getNumPaths()
+	{
+		return $this->numPaths;
+	}
 }

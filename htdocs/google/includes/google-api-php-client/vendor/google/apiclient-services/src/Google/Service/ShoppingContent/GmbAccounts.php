@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_GmbAccounts extends Google_Collection
 {
-  protected $collection_key = 'gmbAccounts';
-  public $accountId;
-  protected $gmbAccountsType = 'Google_Service_ShoppingContent_GmbAccountsGmbAccount';
-  protected $gmbAccountsDataType = 'array';
+	protected $collection_key = 'gmbAccounts';
+	public $accountId;
+	protected $gmbAccountsType = 'Google_Service_ShoppingContent_GmbAccountsGmbAccount';
+	protected $gmbAccountsDataType = 'array';
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_GmbAccountsGmbAccount
-   */
-  public function setGmbAccounts($gmbAccounts)
-  {
-    $this->gmbAccounts = $gmbAccounts;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_GmbAccountsGmbAccount
-   */
-  public function getGmbAccounts()
-  {
-    return $this->gmbAccounts;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_GmbAccountsGmbAccount
+	 */
+	public function setGmbAccounts($gmbAccounts)
+	{
+		$this->gmbAccounts = $gmbAccounts;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_GmbAccountsGmbAccount
+	 */
+	public function getGmbAccounts()
+	{
+		return $this->gmbAccounts;
+	}
 }

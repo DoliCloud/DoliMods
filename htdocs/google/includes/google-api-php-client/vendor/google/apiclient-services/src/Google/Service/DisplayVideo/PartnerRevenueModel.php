@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_PartnerRevenueModel extends Google_Model
 {
-  public $markupAmount;
-  public $markupType;
+	public $markupAmount;
+	public $markupType;
 
-  public function setMarkupAmount($markupAmount)
-  {
-    $this->markupAmount = $markupAmount;
-  }
-  public function getMarkupAmount()
-  {
-    return $this->markupAmount;
-  }
-  public function setMarkupType($markupType)
-  {
-    $this->markupType = $markupType;
-  }
-  public function getMarkupType()
-  {
-    return $this->markupType;
-  }
+	public function setMarkupAmount($markupAmount)
+	{
+		$this->markupAmount = $markupAmount;
+	}
+	public function getMarkupAmount()
+	{
+		return $this->markupAmount;
+	}
+	public function setMarkupType($markupType)
+	{
+		$this->markupType = $markupType;
+	}
+	public function getMarkupType()
+	{
+		return $this->markupType;
+	}
 }

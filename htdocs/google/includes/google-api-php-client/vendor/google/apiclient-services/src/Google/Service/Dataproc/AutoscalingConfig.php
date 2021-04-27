@@ -17,14 +17,14 @@
 
 class Google_Service_Dataproc_AutoscalingConfig extends Google_Model
 {
-  public $policyUri;
+	public $policyUri;
 
-  public function setPolicyUri($policyUri)
-  {
-    $this->policyUri = $policyUri;
-  }
-  public function getPolicyUri()
-  {
-    return $this->policyUri;
-  }
+	public function setPolicyUri($policyUri)
+	{
+		$this->policyUri = $policyUri;
+	}
+	public function getPolicyUri()
+	{
+		return $this->policyUri;
+	}
 }

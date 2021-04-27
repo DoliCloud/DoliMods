@@ -17,39 +17,39 @@
 
 class Google_Service_Sheets_UpdateEmbeddedObjectPositionRequest extends Google_Model
 {
-  public $fields;
-  protected $newPositionType = 'Google_Service_Sheets_EmbeddedObjectPosition';
-  protected $newPositionDataType = '';
-  public $objectId;
+	public $fields;
+	protected $newPositionType = 'Google_Service_Sheets_EmbeddedObjectPosition';
+	protected $newPositionDataType = '';
+	public $objectId;
 
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  /**
-   * @param Google_Service_Sheets_EmbeddedObjectPosition
-   */
-  public function setNewPosition(Google_Service_Sheets_EmbeddedObjectPosition $newPosition)
-  {
-    $this->newPosition = $newPosition;
-  }
-  /**
-   * @return Google_Service_Sheets_EmbeddedObjectPosition
-   */
-  public function getNewPosition()
-  {
-    return $this->newPosition;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	/**
+	 * @param Google_Service_Sheets_EmbeddedObjectPosition
+	 */
+	public function setNewPosition(Google_Service_Sheets_EmbeddedObjectPosition $newPosition)
+	{
+		$this->newPosition = $newPosition;
+	}
+	/**
+	 * @return Google_Service_Sheets_EmbeddedObjectPosition
+	 */
+	public function getNewPosition()
+	{
+		return $this->newPosition;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
 }

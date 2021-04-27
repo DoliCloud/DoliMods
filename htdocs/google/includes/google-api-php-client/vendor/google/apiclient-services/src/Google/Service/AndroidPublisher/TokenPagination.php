@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidPublisher_TokenPagination extends Google_Model
 {
-  public $nextPageToken;
-  public $previousPageToken;
+	public $nextPageToken;
+	public $previousPageToken;
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setPreviousPageToken($previousPageToken)
-  {
-    $this->previousPageToken = $previousPageToken;
-  }
-  public function getPreviousPageToken()
-  {
-    return $this->previousPageToken;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setPreviousPageToken($previousPageToken)
+	{
+		$this->previousPageToken = $previousPageToken;
+	}
+	public function getPreviousPageToken()
+	{
+		return $this->previousPageToken;
+	}
 }

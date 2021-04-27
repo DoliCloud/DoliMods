@@ -17,38 +17,38 @@
 
 class Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1ImportArtifactsResponse extends Google_Collection
 {
-  protected $collection_key = 'packages';
-  protected $errorsType = 'Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1ErrorInfo';
-  protected $errorsDataType = 'array';
-  protected $packagesType = 'Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1Package';
-  protected $packagesDataType = 'array';
+	protected $collection_key = 'packages';
+	protected $errorsType = 'Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1ErrorInfo';
+	protected $errorsDataType = 'array';
+	protected $packagesType = 'Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1Package';
+	protected $packagesDataType = 'array';
 
-  /**
-   * @param Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1ErrorInfo
-   */
-  public function setErrors($errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1ErrorInfo
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  /**
-   * @param Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1Package
-   */
-  public function setPackages($packages)
-  {
-    $this->packages = $packages;
-  }
-  /**
-   * @return Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1Package
-   */
-  public function getPackages()
-  {
-    return $this->packages;
-  }
+	/**
+	 * @param Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1ErrorInfo
+	 */
+	public function setErrors($errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1ErrorInfo
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	/**
+	 * @param Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1Package
+	 */
+	public function setPackages($packages)
+	{
+		$this->packages = $packages;
+	}
+	/**
+	 * @return Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1Package
+	 */
+	public function getPackages()
+	{
+		return $this->packages;
+	}
 }

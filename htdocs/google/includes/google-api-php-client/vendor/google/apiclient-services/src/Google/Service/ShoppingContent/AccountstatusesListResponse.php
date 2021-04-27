@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_AccountstatusesListResponse extends Google_Collection
 {
-  protected $collection_key = 'resources';
-  public $kind;
-  public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_AccountStatus';
-  protected $resourcesDataType = 'array';
+	protected $collection_key = 'resources';
+	public $kind;
+	public $nextPageToken;
+	protected $resourcesType = 'Google_Service_ShoppingContent_AccountStatus';
+	protected $resourcesDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_AccountStatus
-   */
-  public function setResources($resources)
-  {
-    $this->resources = $resources;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_AccountStatus
-   */
-  public function getResources()
-  {
-    return $this->resources;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_AccountStatus
+	 */
+	public function setResources($resources)
+	{
+		$this->resources = $resources;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_AccountStatus
+	 */
+	public function getResources()
+	{
+		return $this->resources;
+	}
 }

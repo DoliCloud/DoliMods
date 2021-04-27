@@ -17,59 +17,59 @@
 
 class Google_Service_Cih_Participant extends Google_Model
 {
-  public $contactId;
-  public $email;
-  public $familyName;
-  public $gaiaId;
-  public $givenName;
-  public $name;
+	public $contactId;
+	public $email;
+	public $familyName;
+	public $gaiaId;
+	public $givenName;
+	public $name;
 
-  public function setContactId($contactId)
-  {
-    $this->contactId = $contactId;
-  }
-  public function getContactId()
-  {
-    return $this->contactId;
-  }
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setFamilyName($familyName)
-  {
-    $this->familyName = $familyName;
-  }
-  public function getFamilyName()
-  {
-    return $this->familyName;
-  }
-  public function setGaiaId($gaiaId)
-  {
-    $this->gaiaId = $gaiaId;
-  }
-  public function getGaiaId()
-  {
-    return $this->gaiaId;
-  }
-  public function setGivenName($givenName)
-  {
-    $this->givenName = $givenName;
-  }
-  public function getGivenName()
-  {
-    return $this->givenName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setContactId($contactId)
+	{
+		$this->contactId = $contactId;
+	}
+	public function getContactId()
+	{
+		return $this->contactId;
+	}
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setFamilyName($familyName)
+	{
+		$this->familyName = $familyName;
+	}
+	public function getFamilyName()
+	{
+		return $this->familyName;
+	}
+	public function setGaiaId($gaiaId)
+	{
+		$this->gaiaId = $gaiaId;
+	}
+	public function getGaiaId()
+	{
+		return $this->gaiaId;
+	}
+	public function setGivenName($givenName)
+	{
+		$this->givenName = $givenName;
+	}
+	public function getGivenName()
+	{
+		return $this->givenName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

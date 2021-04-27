@@ -17,22 +17,22 @@
 
 class Google_Service_Docs_TableStyle extends Google_Collection
 {
-  protected $collection_key = 'tableColumnProperties';
-  protected $tableColumnPropertiesType = 'Google_Service_Docs_TableColumnProperties';
-  protected $tableColumnPropertiesDataType = 'array';
+	protected $collection_key = 'tableColumnProperties';
+	protected $tableColumnPropertiesType = 'Google_Service_Docs_TableColumnProperties';
+	protected $tableColumnPropertiesDataType = 'array';
 
-  /**
-   * @param Google_Service_Docs_TableColumnProperties
-   */
-  public function setTableColumnProperties($tableColumnProperties)
-  {
-    $this->tableColumnProperties = $tableColumnProperties;
-  }
-  /**
-   * @return Google_Service_Docs_TableColumnProperties
-   */
-  public function getTableColumnProperties()
-  {
-    return $this->tableColumnProperties;
-  }
+	/**
+	 * @param Google_Service_Docs_TableColumnProperties
+	 */
+	public function setTableColumnProperties($tableColumnProperties)
+	{
+		$this->tableColumnProperties = $tableColumnProperties;
+	}
+	/**
+	 * @return Google_Service_Docs_TableColumnProperties
+	 */
+	public function getTableColumnProperties()
+	{
+		return $this->tableColumnProperties;
+	}
 }

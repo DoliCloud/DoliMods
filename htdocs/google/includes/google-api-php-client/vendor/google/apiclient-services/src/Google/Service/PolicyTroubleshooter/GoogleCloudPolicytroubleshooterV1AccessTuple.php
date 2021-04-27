@@ -17,32 +17,32 @@
 
 class Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1AccessTuple extends Google_Model
 {
-  public $fullResourceName;
-  public $permission;
-  public $principal;
+	public $fullResourceName;
+	public $permission;
+	public $principal;
 
-  public function setFullResourceName($fullResourceName)
-  {
-    $this->fullResourceName = $fullResourceName;
-  }
-  public function getFullResourceName()
-  {
-    return $this->fullResourceName;
-  }
-  public function setPermission($permission)
-  {
-    $this->permission = $permission;
-  }
-  public function getPermission()
-  {
-    return $this->permission;
-  }
-  public function setPrincipal($principal)
-  {
-    $this->principal = $principal;
-  }
-  public function getPrincipal()
-  {
-    return $this->principal;
-  }
+	public function setFullResourceName($fullResourceName)
+	{
+		$this->fullResourceName = $fullResourceName;
+	}
+	public function getFullResourceName()
+	{
+		return $this->fullResourceName;
+	}
+	public function setPermission($permission)
+	{
+		$this->permission = $permission;
+	}
+	public function getPermission()
+	{
+		return $this->permission;
+	}
+	public function setPrincipal($principal)
+	{
+		$this->principal = $principal;
+	}
+	public function getPrincipal()
+	{
+		return $this->principal;
+	}
 }

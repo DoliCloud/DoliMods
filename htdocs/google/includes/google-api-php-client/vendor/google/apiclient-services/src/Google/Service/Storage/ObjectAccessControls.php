@@ -17,31 +17,31 @@
 
 class Google_Service_Storage_ObjectAccessControls extends Google_Collection
 {
-  protected $collection_key = 'items';
-  protected $itemsType = 'Google_Service_Storage_ObjectAccessControl';
-  protected $itemsDataType = 'array';
-  public $kind;
+	protected $collection_key = 'items';
+	protected $itemsType = 'Google_Service_Storage_ObjectAccessControl';
+	protected $itemsDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_Storage_ObjectAccessControl
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Storage_ObjectAccessControl
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Storage_ObjectAccessControl
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Storage_ObjectAccessControl
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfigDelta extends Google_Model
 {
-  public $changeType;
-  protected $indexType = 'Google_Service_Firestore_GoogleFirestoreAdminV1Index';
-  protected $indexDataType = '';
+	public $changeType;
+	protected $indexType = 'Google_Service_Firestore_GoogleFirestoreAdminV1Index';
+	protected $indexDataType = '';
 
-  public function setChangeType($changeType)
-  {
-    $this->changeType = $changeType;
-  }
-  public function getChangeType()
-  {
-    return $this->changeType;
-  }
-  /**
-   * @param Google_Service_Firestore_GoogleFirestoreAdminV1Index
-   */
-  public function setIndex(Google_Service_Firestore_GoogleFirestoreAdminV1Index $index)
-  {
-    $this->index = $index;
-  }
-  /**
-   * @return Google_Service_Firestore_GoogleFirestoreAdminV1Index
-   */
-  public function getIndex()
-  {
-    return $this->index;
-  }
+	public function setChangeType($changeType)
+	{
+		$this->changeType = $changeType;
+	}
+	public function getChangeType()
+	{
+		return $this->changeType;
+	}
+	/**
+	 * @param Google_Service_Firestore_GoogleFirestoreAdminV1Index
+	 */
+	public function setIndex(Google_Service_Firestore_GoogleFirestoreAdminV1Index $index)
+	{
+		$this->index = $index;
+	}
+	/**
+	 * @return Google_Service_Firestore_GoogleFirestoreAdminV1Index
+	 */
+	public function getIndex()
+	{
+		return $this->index;
+	}
 }

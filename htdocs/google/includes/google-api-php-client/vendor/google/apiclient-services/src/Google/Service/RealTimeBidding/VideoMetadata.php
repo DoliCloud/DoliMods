@@ -17,67 +17,67 @@
 
 class Google_Service_RealTimeBidding_VideoMetadata extends Google_Collection
 {
-  protected $collection_key = 'mediaFiles';
-  public $duration;
-  public $isValidVast;
-  public $isVpaid;
-  protected $mediaFilesType = 'Google_Service_RealTimeBidding_MediaFile';
-  protected $mediaFilesDataType = 'array';
-  public $skipOffset;
-  public $vastVersion;
+	protected $collection_key = 'mediaFiles';
+	public $duration;
+	public $isValidVast;
+	public $isVpaid;
+	protected $mediaFilesType = 'Google_Service_RealTimeBidding_MediaFile';
+	protected $mediaFilesDataType = 'array';
+	public $skipOffset;
+	public $vastVersion;
 
-  public function setDuration($duration)
-  {
-    $this->duration = $duration;
-  }
-  public function getDuration()
-  {
-    return $this->duration;
-  }
-  public function setIsValidVast($isValidVast)
-  {
-    $this->isValidVast = $isValidVast;
-  }
-  public function getIsValidVast()
-  {
-    return $this->isValidVast;
-  }
-  public function setIsVpaid($isVpaid)
-  {
-    $this->isVpaid = $isVpaid;
-  }
-  public function getIsVpaid()
-  {
-    return $this->isVpaid;
-  }
-  /**
-   * @param Google_Service_RealTimeBidding_MediaFile
-   */
-  public function setMediaFiles($mediaFiles)
-  {
-    $this->mediaFiles = $mediaFiles;
-  }
-  /**
-   * @return Google_Service_RealTimeBidding_MediaFile
-   */
-  public function getMediaFiles()
-  {
-    return $this->mediaFiles;
-  }
-  public function setSkipOffset($skipOffset)
-  {
-    $this->skipOffset = $skipOffset;
-  }
-  public function getSkipOffset()
-  {
-    return $this->skipOffset;
-  }
-  public function setVastVersion($vastVersion)
-  {
-    $this->vastVersion = $vastVersion;
-  }
-  public function getVastVersion()
-  {
-    return $this->vastVersion;
-  }
+	public function setDuration($duration)
+	{
+		$this->duration = $duration;
+	}
+	public function getDuration()
+	{
+		return $this->duration;
+	}
+	public function setIsValidVast($isValidVast)
+	{
+		$this->isValidVast = $isValidVast;
+	}
+	public function getIsValidVast()
+	{
+		return $this->isValidVast;
+	}
+	public function setIsVpaid($isVpaid)
+	{
+		$this->isVpaid = $isVpaid;
+	}
+	public function getIsVpaid()
+	{
+		return $this->isVpaid;
+	}
+	/**
+	 * @param Google_Service_RealTimeBidding_MediaFile
+	 */
+	public function setMediaFiles($mediaFiles)
+	{
+		$this->mediaFiles = $mediaFiles;
+	}
+	/**
+	 * @return Google_Service_RealTimeBidding_MediaFile
+	 */
+	public function getMediaFiles()
+	{
+		return $this->mediaFiles;
+	}
+	public function setSkipOffset($skipOffset)
+	{
+		$this->skipOffset = $skipOffset;
+	}
+	public function getSkipOffset()
+	{
+		return $this->skipOffset;
+	}
+	public function setVastVersion($vastVersion)
+	{
+		$this->vastVersion = $vastVersion;
+	}
+	public function getVastVersion()
+	{
+		return $this->vastVersion;
+	}
 }

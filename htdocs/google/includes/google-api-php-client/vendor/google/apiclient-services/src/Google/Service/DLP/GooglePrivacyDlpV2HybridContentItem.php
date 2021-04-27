@@ -17,37 +17,37 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem extends Google_Model
 {
-  protected $findingDetailsType = 'Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails';
-  protected $findingDetailsDataType = '';
-  protected $itemType = 'Google_Service_DLP_GooglePrivacyDlpV2ContentItem';
-  protected $itemDataType = '';
+	protected $findingDetailsType = 'Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails';
+	protected $findingDetailsDataType = '';
+	protected $itemType = 'Google_Service_DLP_GooglePrivacyDlpV2ContentItem';
+	protected $itemDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails
-   */
-  public function setFindingDetails(Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails $findingDetails)
-  {
-    $this->findingDetails = $findingDetails;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails
-   */
-  public function getFindingDetails()
-  {
-    return $this->findingDetails;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2ContentItem
-   */
-  public function setItem(Google_Service_DLP_GooglePrivacyDlpV2ContentItem $item)
-  {
-    $this->item = $item;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2ContentItem
-   */
-  public function getItem()
-  {
-    return $this->item;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails
+	 */
+	public function setFindingDetails(Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails $findingDetails)
+	{
+		$this->findingDetails = $findingDetails;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails
+	 */
+	public function getFindingDetails()
+	{
+		return $this->findingDetails;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2ContentItem
+	 */
+	public function setItem(Google_Service_DLP_GooglePrivacyDlpV2ContentItem $item)
+	{
+		$this->item = $item;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2ContentItem
+	 */
+	public function getItem()
+	{
+		return $this->item;
+	}
 }

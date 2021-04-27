@@ -25,42 +25,42 @@
  */
 class Google_Service_DisplayVideo_Resource_FloodlightGroups extends Google_Service_Resource
 {
-  /**
-   * Gets a Floodlight group. (floodlightGroups.get)
-   *
-   * @param string $floodlightGroupId Required. The ID of the Floodlight group to
-   * fetch.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string partnerId Required. The partner context by which the
-   * Floodlight group is being accessed.
-   * @return Google_Service_DisplayVideo_FloodlightGroup
-   */
-  public function get($floodlightGroupId, $optParams = array())
-  {
-    $params = array('floodlightGroupId' => $floodlightGroupId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_DisplayVideo_FloodlightGroup");
-  }
-  /**
-   * Updates an existing Floodlight group. Returns the updated Floodlight group if
-   * successful. (floodlightGroups.patch)
-   *
-   * @param string $floodlightGroupId Output only. The unique ID of the Floodlight
-   * group. Assigned by the system.
-   * @param Google_Service_DisplayVideo_FloodlightGroup $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string partnerId Required. The partner context by which the
-   * Floodlight group is being accessed.
-   * @opt_param string updateMask Required. The mask to control which fields to
-   * update.
-   * @return Google_Service_DisplayVideo_FloodlightGroup
-   */
-  public function patch($floodlightGroupId, Google_Service_DisplayVideo_FloodlightGroup $postBody, $optParams = array())
-  {
-    $params = array('floodlightGroupId' => $floodlightGroupId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_DisplayVideo_FloodlightGroup");
-  }
+	/**
+	 * Gets a Floodlight group. (floodlightGroups.get)
+	 *
+	 * @param string $floodlightGroupId Required. The ID of the Floodlight group to
+	 *                                  fetch.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string partnerId Required. The partner context by which the
+	 * Floodlight group is being accessed.
+	 * @return Google_Service_DisplayVideo_FloodlightGroup
+	 */
+	public function get($floodlightGroupId, $optParams = array())
+	{
+		$params = array('floodlightGroupId' => $floodlightGroupId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_DisplayVideo_FloodlightGroup");
+	}
+	/**
+	 * Updates an existing Floodlight group. Returns the updated Floodlight group if
+	 * successful. (floodlightGroups.patch)
+	 *
+	 * @param string $floodlightGroupId Output only. The unique ID of the Floodlight
+	 *                                  group. Assigned by the system.
+	 * @param Google_Service_DisplayVideo_FloodlightGroup $postBody
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string partnerId Required. The partner context by which the
+	 * Floodlight group is being accessed.
+	 * @opt_param string updateMask Required. The mask to control which fields to
+	 * update.
+	 * @return Google_Service_DisplayVideo_FloodlightGroup
+	 */
+	public function patch($floodlightGroupId, Google_Service_DisplayVideo_FloodlightGroup $postBody, $optParams = array())
+	{
+		$params = array('floodlightGroupId' => $floodlightGroupId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('patch', array($params), "Google_Service_DisplayVideo_FloodlightGroup");
+	}
 }

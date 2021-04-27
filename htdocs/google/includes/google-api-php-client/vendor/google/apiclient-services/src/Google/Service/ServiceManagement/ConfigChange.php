@@ -17,58 +17,58 @@
 
 class Google_Service_ServiceManagement_ConfigChange extends Google_Collection
 {
-  protected $collection_key = 'advices';
-  protected $advicesType = 'Google_Service_ServiceManagement_Advice';
-  protected $advicesDataType = 'array';
-  public $changeType;
-  public $element;
-  public $newValue;
-  public $oldValue;
+	protected $collection_key = 'advices';
+	protected $advicesType = 'Google_Service_ServiceManagement_Advice';
+	protected $advicesDataType = 'array';
+	public $changeType;
+	public $element;
+	public $newValue;
+	public $oldValue;
 
-  /**
-   * @param Google_Service_ServiceManagement_Advice
-   */
-  public function setAdvices($advices)
-  {
-    $this->advices = $advices;
-  }
-  /**
-   * @return Google_Service_ServiceManagement_Advice
-   */
-  public function getAdvices()
-  {
-    return $this->advices;
-  }
-  public function setChangeType($changeType)
-  {
-    $this->changeType = $changeType;
-  }
-  public function getChangeType()
-  {
-    return $this->changeType;
-  }
-  public function setElement($element)
-  {
-    $this->element = $element;
-  }
-  public function getElement()
-  {
-    return $this->element;
-  }
-  public function setNewValue($newValue)
-  {
-    $this->newValue = $newValue;
-  }
-  public function getNewValue()
-  {
-    return $this->newValue;
-  }
-  public function setOldValue($oldValue)
-  {
-    $this->oldValue = $oldValue;
-  }
-  public function getOldValue()
-  {
-    return $this->oldValue;
-  }
+	/**
+	 * @param Google_Service_ServiceManagement_Advice
+	 */
+	public function setAdvices($advices)
+	{
+		$this->advices = $advices;
+	}
+	/**
+	 * @return Google_Service_ServiceManagement_Advice
+	 */
+	public function getAdvices()
+	{
+		return $this->advices;
+	}
+	public function setChangeType($changeType)
+	{
+		$this->changeType = $changeType;
+	}
+	public function getChangeType()
+	{
+		return $this->changeType;
+	}
+	public function setElement($element)
+	{
+		$this->element = $element;
+	}
+	public function getElement()
+	{
+		return $this->element;
+	}
+	public function setNewValue($newValue)
+	{
+		$this->newValue = $newValue;
+	}
+	public function getNewValue()
+	{
+		return $this->newValue;
+	}
+	public function setOldValue($oldValue)
+	{
+		$this->oldValue = $oldValue;
+	}
+	public function getOldValue()
+	{
+		return $this->oldValue;
+	}
 }

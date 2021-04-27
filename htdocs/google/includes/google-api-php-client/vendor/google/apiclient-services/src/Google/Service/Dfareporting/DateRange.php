@@ -17,41 +17,41 @@
 
 class Google_Service_Dfareporting_DateRange extends Google_Model
 {
-  public $endDate;
-  public $kind;
-  public $relativeDateRange;
-  public $startDate;
+	public $endDate;
+	public $kind;
+	public $relativeDateRange;
+	public $startDate;
 
-  public function setEndDate($endDate)
-  {
-    $this->endDate = $endDate;
-  }
-  public function getEndDate()
-  {
-    return $this->endDate;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setRelativeDateRange($relativeDateRange)
-  {
-    $this->relativeDateRange = $relativeDateRange;
-  }
-  public function getRelativeDateRange()
-  {
-    return $this->relativeDateRange;
-  }
-  public function setStartDate($startDate)
-  {
-    $this->startDate = $startDate;
-  }
-  public function getStartDate()
-  {
-    return $this->startDate;
-  }
+	public function setEndDate($endDate)
+	{
+		$this->endDate = $endDate;
+	}
+	public function getEndDate()
+	{
+		return $this->endDate;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setRelativeDateRange($relativeDateRange)
+	{
+		$this->relativeDateRange = $relativeDateRange;
+	}
+	public function getRelativeDateRange()
+	{
+		return $this->relativeDateRange;
+	}
+	public function setStartDate($startDate)
+	{
+		$this->startDate = $startDate;
+	}
+	public function getStartDate()
+	{
+		return $this->startDate;
+	}
 }

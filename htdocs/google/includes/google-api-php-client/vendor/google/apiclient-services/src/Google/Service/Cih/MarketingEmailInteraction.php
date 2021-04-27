@@ -17,68 +17,68 @@
 
 class Google_Service_Cih_MarketingEmailInteraction extends Google_Model
 {
-  public $bounced;
-  public $clicked;
-  public $emailAddressDigest;
-  public $fromAddress;
-  public $opened;
-  public $optoutClicked;
-  public $type;
+	public $bounced;
+	public $clicked;
+	public $emailAddressDigest;
+	public $fromAddress;
+	public $opened;
+	public $optoutClicked;
+	public $type;
 
-  public function setBounced($bounced)
-  {
-    $this->bounced = $bounced;
-  }
-  public function getBounced()
-  {
-    return $this->bounced;
-  }
-  public function setClicked($clicked)
-  {
-    $this->clicked = $clicked;
-  }
-  public function getClicked()
-  {
-    return $this->clicked;
-  }
-  public function setEmailAddressDigest($emailAddressDigest)
-  {
-    $this->emailAddressDigest = $emailAddressDigest;
-  }
-  public function getEmailAddressDigest()
-  {
-    return $this->emailAddressDigest;
-  }
-  public function setFromAddress($fromAddress)
-  {
-    $this->fromAddress = $fromAddress;
-  }
-  public function getFromAddress()
-  {
-    return $this->fromAddress;
-  }
-  public function setOpened($opened)
-  {
-    $this->opened = $opened;
-  }
-  public function getOpened()
-  {
-    return $this->opened;
-  }
-  public function setOptoutClicked($optoutClicked)
-  {
-    $this->optoutClicked = $optoutClicked;
-  }
-  public function getOptoutClicked()
-  {
-    return $this->optoutClicked;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setBounced($bounced)
+	{
+		$this->bounced = $bounced;
+	}
+	public function getBounced()
+	{
+		return $this->bounced;
+	}
+	public function setClicked($clicked)
+	{
+		$this->clicked = $clicked;
+	}
+	public function getClicked()
+	{
+		return $this->clicked;
+	}
+	public function setEmailAddressDigest($emailAddressDigest)
+	{
+		$this->emailAddressDigest = $emailAddressDigest;
+	}
+	public function getEmailAddressDigest()
+	{
+		return $this->emailAddressDigest;
+	}
+	public function setFromAddress($fromAddress)
+	{
+		$this->fromAddress = $fromAddress;
+	}
+	public function getFromAddress()
+	{
+		return $this->fromAddress;
+	}
+	public function setOpened($opened)
+	{
+		$this->opened = $opened;
+	}
+	public function getOpened()
+	{
+		return $this->opened;
+	}
+	public function setOptoutClicked($optoutClicked)
+	{
+		$this->optoutClicked = $optoutClicked;
+	}
+	public function getOptoutClicked()
+	{
+		return $this->optoutClicked;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

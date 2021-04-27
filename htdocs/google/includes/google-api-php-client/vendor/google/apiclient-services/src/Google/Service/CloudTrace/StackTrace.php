@@ -17,30 +17,30 @@
 
 class Google_Service_CloudTrace_StackTrace extends Google_Model
 {
-  protected $stackFramesType = 'Google_Service_CloudTrace_StackFrames';
-  protected $stackFramesDataType = '';
-  public $stackTraceHashId;
+	protected $stackFramesType = 'Google_Service_CloudTrace_StackFrames';
+	protected $stackFramesDataType = '';
+	public $stackTraceHashId;
 
-  /**
-   * @param Google_Service_CloudTrace_StackFrames
-   */
-  public function setStackFrames(Google_Service_CloudTrace_StackFrames $stackFrames)
-  {
-    $this->stackFrames = $stackFrames;
-  }
-  /**
-   * @return Google_Service_CloudTrace_StackFrames
-   */
-  public function getStackFrames()
-  {
-    return $this->stackFrames;
-  }
-  public function setStackTraceHashId($stackTraceHashId)
-  {
-    $this->stackTraceHashId = $stackTraceHashId;
-  }
-  public function getStackTraceHashId()
-  {
-    return $this->stackTraceHashId;
-  }
+	/**
+	 * @param Google_Service_CloudTrace_StackFrames
+	 */
+	public function setStackFrames(Google_Service_CloudTrace_StackFrames $stackFrames)
+	{
+		$this->stackFrames = $stackFrames;
+	}
+	/**
+	 * @return Google_Service_CloudTrace_StackFrames
+	 */
+	public function getStackFrames()
+	{
+		return $this->stackFrames;
+	}
+	public function setStackTraceHashId($stackTraceHashId)
+	{
+		$this->stackTraceHashId = $stackTraceHashId;
+	}
+	public function getStackTraceHashId()
+	{
+		return $this->stackTraceHashId;
+	}
 }

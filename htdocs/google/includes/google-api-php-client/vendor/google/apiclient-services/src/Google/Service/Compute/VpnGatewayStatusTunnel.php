@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_VpnGatewayStatusTunnel extends Google_Model
 {
-  public $localGatewayInterface;
-  public $peerGatewayInterface;
-  public $tunnelUrl;
+	public $localGatewayInterface;
+	public $peerGatewayInterface;
+	public $tunnelUrl;
 
-  public function setLocalGatewayInterface($localGatewayInterface)
-  {
-    $this->localGatewayInterface = $localGatewayInterface;
-  }
-  public function getLocalGatewayInterface()
-  {
-    return $this->localGatewayInterface;
-  }
-  public function setPeerGatewayInterface($peerGatewayInterface)
-  {
-    $this->peerGatewayInterface = $peerGatewayInterface;
-  }
-  public function getPeerGatewayInterface()
-  {
-    return $this->peerGatewayInterface;
-  }
-  public function setTunnelUrl($tunnelUrl)
-  {
-    $this->tunnelUrl = $tunnelUrl;
-  }
-  public function getTunnelUrl()
-  {
-    return $this->tunnelUrl;
-  }
+	public function setLocalGatewayInterface($localGatewayInterface)
+	{
+		$this->localGatewayInterface = $localGatewayInterface;
+	}
+	public function getLocalGatewayInterface()
+	{
+		return $this->localGatewayInterface;
+	}
+	public function setPeerGatewayInterface($peerGatewayInterface)
+	{
+		$this->peerGatewayInterface = $peerGatewayInterface;
+	}
+	public function getPeerGatewayInterface()
+	{
+		return $this->peerGatewayInterface;
+	}
+	public function setTunnelUrl($tunnelUrl)
+	{
+		$this->tunnelUrl = $tunnelUrl;
+	}
+	public function getTunnelUrl()
+	{
+		return $this->tunnelUrl;
+	}
 }

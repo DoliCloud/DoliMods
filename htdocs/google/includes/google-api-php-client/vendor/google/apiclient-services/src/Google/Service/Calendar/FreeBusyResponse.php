@@ -17,64 +17,64 @@
 
 class Google_Service_Calendar_FreeBusyResponse extends Google_Model
 {
-  protected $calendarsType = 'Google_Service_Calendar_FreeBusyCalendar';
-  protected $calendarsDataType = 'map';
-  protected $groupsType = 'Google_Service_Calendar_FreeBusyGroup';
-  protected $groupsDataType = 'map';
-  public $kind;
-  public $timeMax;
-  public $timeMin;
+	protected $calendarsType = 'Google_Service_Calendar_FreeBusyCalendar';
+	protected $calendarsDataType = 'map';
+	protected $groupsType = 'Google_Service_Calendar_FreeBusyGroup';
+	protected $groupsDataType = 'map';
+	public $kind;
+	public $timeMax;
+	public $timeMin;
 
-  /**
-   * @param Google_Service_Calendar_FreeBusyCalendar
-   */
-  public function setCalendars($calendars)
-  {
-    $this->calendars = $calendars;
-  }
-  /**
-   * @return Google_Service_Calendar_FreeBusyCalendar
-   */
-  public function getCalendars()
-  {
-    return $this->calendars;
-  }
-  /**
-   * @param Google_Service_Calendar_FreeBusyGroup
-   */
-  public function setGroups($groups)
-  {
-    $this->groups = $groups;
-  }
-  /**
-   * @return Google_Service_Calendar_FreeBusyGroup
-   */
-  public function getGroups()
-  {
-    return $this->groups;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setTimeMax($timeMax)
-  {
-    $this->timeMax = $timeMax;
-  }
-  public function getTimeMax()
-  {
-    return $this->timeMax;
-  }
-  public function setTimeMin($timeMin)
-  {
-    $this->timeMin = $timeMin;
-  }
-  public function getTimeMin()
-  {
-    return $this->timeMin;
-  }
+	/**
+	 * @param Google_Service_Calendar_FreeBusyCalendar
+	 */
+	public function setCalendars($calendars)
+	{
+		$this->calendars = $calendars;
+	}
+	/**
+	 * @return Google_Service_Calendar_FreeBusyCalendar
+	 */
+	public function getCalendars()
+	{
+		return $this->calendars;
+	}
+	/**
+	 * @param Google_Service_Calendar_FreeBusyGroup
+	 */
+	public function setGroups($groups)
+	{
+		$this->groups = $groups;
+	}
+	/**
+	 * @return Google_Service_Calendar_FreeBusyGroup
+	 */
+	public function getGroups()
+	{
+		return $this->groups;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setTimeMax($timeMax)
+	{
+		$this->timeMax = $timeMax;
+	}
+	public function getTimeMax()
+	{
+		return $this->timeMax;
+	}
+	public function setTimeMin($timeMin)
+	{
+		$this->timeMin = $timeMin;
+	}
+	public function getTimeMin()
+	{
+		return $this->timeMin;
+	}
 }

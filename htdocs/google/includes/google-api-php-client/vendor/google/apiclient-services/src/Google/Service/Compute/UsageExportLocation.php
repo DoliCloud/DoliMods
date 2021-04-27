@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_UsageExportLocation extends Google_Model
 {
-  public $bucketName;
-  public $reportNamePrefix;
+	public $bucketName;
+	public $reportNamePrefix;
 
-  public function setBucketName($bucketName)
-  {
-    $this->bucketName = $bucketName;
-  }
-  public function getBucketName()
-  {
-    return $this->bucketName;
-  }
-  public function setReportNamePrefix($reportNamePrefix)
-  {
-    $this->reportNamePrefix = $reportNamePrefix;
-  }
-  public function getReportNamePrefix()
-  {
-    return $this->reportNamePrefix;
-  }
+	public function setBucketName($bucketName)
+	{
+		$this->bucketName = $bucketName;
+	}
+	public function getBucketName()
+	{
+		return $this->bucketName;
+	}
+	public function setReportNamePrefix($reportNamePrefix)
+	{
+		$this->reportNamePrefix = $reportNamePrefix;
+	}
+	public function getReportNamePrefix()
+	{
+		return $this->reportNamePrefix;
+	}
 }

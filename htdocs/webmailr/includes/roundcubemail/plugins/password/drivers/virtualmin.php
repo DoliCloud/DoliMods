@@ -16,25 +16,22 @@
 
 function password_save($currpass, $newpass)
 {
-    $curdir = realpath(dirname(__FILE__));
-    $username = escapeshellcmd($_SESSION['username']);
-    $domain = substr(strrchr($username, "@"), 1);
+	$curdir = realpath(dirname(__FILE__));
+	$username = escapeshellcmd($_SESSION['username']);
+	$domain = substr(strrchr($username, "@"), 1);
 
-    exec("$curdir/chgvirtualminpasswd modify-user --domain $domain --user $username --pass $newpass", $output, $returnvalue);
+	exec("$curdir/chgvirtualminpasswd modify-user --domain $domain --user $username --pass $newpass", $output, $returnvalue);
 
-    if ($returnvalue == 0) {
-        return PASSWORD_SUCCESS;
-    }
-    else {
-        raise_error(array(
-            'code' => 600,
-            'type' => 'php',
-            'file' => __FILE__,
-            'message' => "Password plugin: Unable to execute $curdir/chgvirtualminpasswd"
-            ), true, false);
-    }
+	if ($returnvalue == 0) {
+		return PASSWORD_SUCCESS;
+	} else {
+		raise_error(array(
+			'code' => 600,
+			'type' => 'php',
+			'file' => __FILE__,
+			'message' => "Password plugin: Unable to execute $curdir/chgvirtualminpasswd"
+			), true, false);
+	}
 
-    return PASSWORD_ERROR;
+	return PASSWORD_ERROR;
 }
-
-?>

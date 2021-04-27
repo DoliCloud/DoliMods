@@ -17,31 +17,31 @@
 
 class Google_Service_GamesConfiguration_LocalizedStringBundle extends Google_Collection
 {
-  protected $collection_key = 'translations';
-  public $kind;
-  protected $translationsType = 'Google_Service_GamesConfiguration_LocalizedString';
-  protected $translationsDataType = 'array';
+	protected $collection_key = 'translations';
+	public $kind;
+	protected $translationsType = 'Google_Service_GamesConfiguration_LocalizedString';
+	protected $translationsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_GamesConfiguration_LocalizedString
-   */
-  public function setTranslations($translations)
-  {
-    $this->translations = $translations;
-  }
-  /**
-   * @return Google_Service_GamesConfiguration_LocalizedString
-   */
-  public function getTranslations()
-  {
-    return $this->translations;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_GamesConfiguration_LocalizedString
+	 */
+	public function setTranslations($translations)
+	{
+		$this->translations = $translations;
+	}
+	/**
+	 * @return Google_Service_GamesConfiguration_LocalizedString
+	 */
+	public function getTranslations()
+	{
+		return $this->translations;
+	}
 }

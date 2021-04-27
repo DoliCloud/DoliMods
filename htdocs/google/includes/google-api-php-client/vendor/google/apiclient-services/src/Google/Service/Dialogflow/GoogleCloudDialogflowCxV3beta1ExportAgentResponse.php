@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ExportAgentResponse extends Google_Model
 {
-  public $agentContent;
-  public $agentUri;
+	public $agentContent;
+	public $agentUri;
 
-  public function setAgentContent($agentContent)
-  {
-    $this->agentContent = $agentContent;
-  }
-  public function getAgentContent()
-  {
-    return $this->agentContent;
-  }
-  public function setAgentUri($agentUri)
-  {
-    $this->agentUri = $agentUri;
-  }
-  public function getAgentUri()
-  {
-    return $this->agentUri;
-  }
+	public function setAgentContent($agentContent)
+	{
+		$this->agentContent = $agentContent;
+	}
+	public function getAgentContent()
+	{
+		return $this->agentContent;
+	}
+	public function setAgentUri($agentUri)
+	{
+		$this->agentUri = $agentUri;
+	}
+	public function getAgentUri()
+	{
+		return $this->agentUri;
+	}
 }

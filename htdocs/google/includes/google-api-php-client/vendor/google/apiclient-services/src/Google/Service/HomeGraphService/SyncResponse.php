@@ -17,30 +17,30 @@
 
 class Google_Service_HomeGraphService_SyncResponse extends Google_Model
 {
-  protected $payloadType = 'Google_Service_HomeGraphService_SyncResponsePayload';
-  protected $payloadDataType = '';
-  public $requestId;
+	protected $payloadType = 'Google_Service_HomeGraphService_SyncResponsePayload';
+	protected $payloadDataType = '';
+	public $requestId;
 
-  /**
-   * @param Google_Service_HomeGraphService_SyncResponsePayload
-   */
-  public function setPayload(Google_Service_HomeGraphService_SyncResponsePayload $payload)
-  {
-    $this->payload = $payload;
-  }
-  /**
-   * @return Google_Service_HomeGraphService_SyncResponsePayload
-   */
-  public function getPayload()
-  {
-    return $this->payload;
-  }
-  public function setRequestId($requestId)
-  {
-    $this->requestId = $requestId;
-  }
-  public function getRequestId()
-  {
-    return $this->requestId;
-  }
+	/**
+	 * @param Google_Service_HomeGraphService_SyncResponsePayload
+	 */
+	public function setPayload(Google_Service_HomeGraphService_SyncResponsePayload $payload)
+	{
+		$this->payload = $payload;
+	}
+	/**
+	 * @return Google_Service_HomeGraphService_SyncResponsePayload
+	 */
+	public function getPayload()
+	{
+		return $this->payload;
+	}
+	public function setRequestId($requestId)
+	{
+		$this->requestId = $requestId;
+	}
+	public function getRequestId()
+	{
+		return $this->requestId;
+	}
 }

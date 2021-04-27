@@ -17,31 +17,31 @@
 
 class Google_Service_Logging_ListExclusionsResponse extends Google_Collection
 {
-  protected $collection_key = 'exclusions';
-  protected $exclusionsType = 'Google_Service_Logging_LogExclusion';
-  protected $exclusionsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'exclusions';
+	protected $exclusionsType = 'Google_Service_Logging_LogExclusion';
+	protected $exclusionsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Logging_LogExclusion
-   */
-  public function setExclusions($exclusions)
-  {
-    $this->exclusions = $exclusions;
-  }
-  /**
-   * @return Google_Service_Logging_LogExclusion
-   */
-  public function getExclusions()
-  {
-    return $this->exclusions;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Logging_LogExclusion
+	 */
+	public function setExclusions($exclusions)
+	{
+		$this->exclusions = $exclusions;
+	}
+	/**
+	 * @return Google_Service_Logging_LogExclusion
+	 */
+	public function getExclusions()
+	{
+		return $this->exclusions;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_Cih_GreenTeaData extends Google_Collection
 {
-  protected $collection_key = 'opportunityId';
-  public $meetingMethodDetail;
-  public $opportunityId;
+	protected $collection_key = 'opportunityId';
+	public $meetingMethodDetail;
+	public $opportunityId;
 
-  public function setMeetingMethodDetail($meetingMethodDetail)
-  {
-    $this->meetingMethodDetail = $meetingMethodDetail;
-  }
-  public function getMeetingMethodDetail()
-  {
-    return $this->meetingMethodDetail;
-  }
-  public function setOpportunityId($opportunityId)
-  {
-    $this->opportunityId = $opportunityId;
-  }
-  public function getOpportunityId()
-  {
-    return $this->opportunityId;
-  }
+	public function setMeetingMethodDetail($meetingMethodDetail)
+	{
+		$this->meetingMethodDetail = $meetingMethodDetail;
+	}
+	public function getMeetingMethodDetail()
+	{
+		return $this->meetingMethodDetail;
+	}
+	public function setOpportunityId($opportunityId)
+	{
+		$this->opportunityId = $opportunityId;
+	}
+	public function getOpportunityId()
+	{
+		return $this->opportunityId;
+	}
 }

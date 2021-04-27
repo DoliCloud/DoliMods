@@ -17,25 +17,25 @@
 
 class Google_Service_Manager_DeploymentsListResponse extends Google_Collection
 {
-  protected $collection_key = 'resources';
-  public $nextPageToken;
-  protected $resourcesType = 'Google_Service_Manager_Deployment';
-  protected $resourcesDataType = 'array';
+	protected $collection_key = 'resources';
+	public $nextPageToken;
+	protected $resourcesType = 'Google_Service_Manager_Deployment';
+	protected $resourcesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setResources($resources)
-  {
-    $this->resources = $resources;
-  }
-  public function getResources()
-  {
-    return $this->resources;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setResources($resources)
+	{
+		$this->resources = $resources;
+	}
+	public function getResources()
+	{
+		return $this->resources;
+	}
 }

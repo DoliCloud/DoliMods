@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListSharedFlowsResponse extends Google_Collection
 {
-  protected $collection_key = 'sharedFlows';
-  protected $sharedFlowsType = 'Google_Service_Apigee_GoogleCloudApigeeV1SharedFlow';
-  protected $sharedFlowsDataType = 'array';
+	protected $collection_key = 'sharedFlows';
+	protected $sharedFlowsType = 'Google_Service_Apigee_GoogleCloudApigeeV1SharedFlow';
+	protected $sharedFlowsDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1SharedFlow
-   */
-  public function setSharedFlows($sharedFlows)
-  {
-    $this->sharedFlows = $sharedFlows;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1SharedFlow
-   */
-  public function getSharedFlows()
-  {
-    return $this->sharedFlows;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1SharedFlow
+	 */
+	public function setSharedFlows($sharedFlows)
+	{
+		$this->sharedFlows = $sharedFlows;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1SharedFlow
+	 */
+	public function getSharedFlows()
+	{
+		return $this->sharedFlows;
+	}
 }

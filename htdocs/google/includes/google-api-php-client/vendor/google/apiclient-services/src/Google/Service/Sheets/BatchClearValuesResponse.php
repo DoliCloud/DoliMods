@@ -17,24 +17,24 @@
 
 class Google_Service_Sheets_BatchClearValuesResponse extends Google_Collection
 {
-  protected $collection_key = 'clearedRanges';
-  public $clearedRanges;
-  public $spreadsheetId;
+	protected $collection_key = 'clearedRanges';
+	public $clearedRanges;
+	public $spreadsheetId;
 
-  public function setClearedRanges($clearedRanges)
-  {
-    $this->clearedRanges = $clearedRanges;
-  }
-  public function getClearedRanges()
-  {
-    return $this->clearedRanges;
-  }
-  public function setSpreadsheetId($spreadsheetId)
-  {
-    $this->spreadsheetId = $spreadsheetId;
-  }
-  public function getSpreadsheetId()
-  {
-    return $this->spreadsheetId;
-  }
+	public function setClearedRanges($clearedRanges)
+	{
+		$this->clearedRanges = $clearedRanges;
+	}
+	public function getClearedRanges()
+	{
+		return $this->clearedRanges;
+	}
+	public function setSpreadsheetId($spreadsheetId)
+	{
+		$this->spreadsheetId = $spreadsheetId;
+	}
+	public function getSpreadsheetId()
+	{
+		return $this->spreadsheetId;
+	}
 }

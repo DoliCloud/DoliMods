@@ -17,107 +17,107 @@
 
 class Google_Service_DisplayVideo_Campaign extends Google_Model
 {
-  public $advertiserId;
-  protected $campaignFlightType = 'Google_Service_DisplayVideo_CampaignFlight';
-  protected $campaignFlightDataType = '';
-  protected $campaignGoalType = 'Google_Service_DisplayVideo_CampaignGoal';
-  protected $campaignGoalDataType = '';
-  public $campaignId;
-  public $displayName;
-  public $entityStatus;
-  protected $frequencyCapType = 'Google_Service_DisplayVideo_FrequencyCap';
-  protected $frequencyCapDataType = '';
-  public $name;
-  public $updateTime;
+	public $advertiserId;
+	protected $campaignFlightType = 'Google_Service_DisplayVideo_CampaignFlight';
+	protected $campaignFlightDataType = '';
+	protected $campaignGoalType = 'Google_Service_DisplayVideo_CampaignGoal';
+	protected $campaignGoalDataType = '';
+	public $campaignId;
+	public $displayName;
+	public $entityStatus;
+	protected $frequencyCapType = 'Google_Service_DisplayVideo_FrequencyCap';
+	protected $frequencyCapDataType = '';
+	public $name;
+	public $updateTime;
 
-  public function setAdvertiserId($advertiserId)
-  {
-    $this->advertiserId = $advertiserId;
-  }
-  public function getAdvertiserId()
-  {
-    return $this->advertiserId;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_CampaignFlight
-   */
-  public function setCampaignFlight(Google_Service_DisplayVideo_CampaignFlight $campaignFlight)
-  {
-    $this->campaignFlight = $campaignFlight;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_CampaignFlight
-   */
-  public function getCampaignFlight()
-  {
-    return $this->campaignFlight;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_CampaignGoal
-   */
-  public function setCampaignGoal(Google_Service_DisplayVideo_CampaignGoal $campaignGoal)
-  {
-    $this->campaignGoal = $campaignGoal;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_CampaignGoal
-   */
-  public function getCampaignGoal()
-  {
-    return $this->campaignGoal;
-  }
-  public function setCampaignId($campaignId)
-  {
-    $this->campaignId = $campaignId;
-  }
-  public function getCampaignId()
-  {
-    return $this->campaignId;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEntityStatus($entityStatus)
-  {
-    $this->entityStatus = $entityStatus;
-  }
-  public function getEntityStatus()
-  {
-    return $this->entityStatus;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_FrequencyCap
-   */
-  public function setFrequencyCap(Google_Service_DisplayVideo_FrequencyCap $frequencyCap)
-  {
-    $this->frequencyCap = $frequencyCap;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_FrequencyCap
-   */
-  public function getFrequencyCap()
-  {
-    return $this->frequencyCap;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setAdvertiserId($advertiserId)
+	{
+		$this->advertiserId = $advertiserId;
+	}
+	public function getAdvertiserId()
+	{
+		return $this->advertiserId;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_CampaignFlight
+	 */
+	public function setCampaignFlight(Google_Service_DisplayVideo_CampaignFlight $campaignFlight)
+	{
+		$this->campaignFlight = $campaignFlight;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_CampaignFlight
+	 */
+	public function getCampaignFlight()
+	{
+		return $this->campaignFlight;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_CampaignGoal
+	 */
+	public function setCampaignGoal(Google_Service_DisplayVideo_CampaignGoal $campaignGoal)
+	{
+		$this->campaignGoal = $campaignGoal;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_CampaignGoal
+	 */
+	public function getCampaignGoal()
+	{
+		return $this->campaignGoal;
+	}
+	public function setCampaignId($campaignId)
+	{
+		$this->campaignId = $campaignId;
+	}
+	public function getCampaignId()
+	{
+		return $this->campaignId;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEntityStatus($entityStatus)
+	{
+		$this->entityStatus = $entityStatus;
+	}
+	public function getEntityStatus()
+	{
+		return $this->entityStatus;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_FrequencyCap
+	 */
+	public function setFrequencyCap(Google_Service_DisplayVideo_FrequencyCap $frequencyCap)
+	{
+		$this->frequencyCap = $frequencyCap;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_FrequencyCap
+	 */
+	public function getFrequencyCap()
+	{
+		return $this->frequencyCap;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

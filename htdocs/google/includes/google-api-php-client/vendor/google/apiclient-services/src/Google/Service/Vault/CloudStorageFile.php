@@ -17,41 +17,41 @@
 
 class Google_Service_Vault_CloudStorageFile extends Google_Model
 {
-  public $bucketName;
-  public $md5Hash;
-  public $objectName;
-  public $size;
+	public $bucketName;
+	public $md5Hash;
+	public $objectName;
+	public $size;
 
-  public function setBucketName($bucketName)
-  {
-    $this->bucketName = $bucketName;
-  }
-  public function getBucketName()
-  {
-    return $this->bucketName;
-  }
-  public function setMd5Hash($md5Hash)
-  {
-    $this->md5Hash = $md5Hash;
-  }
-  public function getMd5Hash()
-  {
-    return $this->md5Hash;
-  }
-  public function setObjectName($objectName)
-  {
-    $this->objectName = $objectName;
-  }
-  public function getObjectName()
-  {
-    return $this->objectName;
-  }
-  public function setSize($size)
-  {
-    $this->size = $size;
-  }
-  public function getSize()
-  {
-    return $this->size;
-  }
+	public function setBucketName($bucketName)
+	{
+		$this->bucketName = $bucketName;
+	}
+	public function getBucketName()
+	{
+		return $this->bucketName;
+	}
+	public function setMd5Hash($md5Hash)
+	{
+		$this->md5Hash = $md5Hash;
+	}
+	public function getMd5Hash()
+	{
+		return $this->md5Hash;
+	}
+	public function setObjectName($objectName)
+	{
+		$this->objectName = $objectName;
+	}
+	public function getObjectName()
+	{
+		return $this->objectName;
+	}
+	public function setSize($size)
+	{
+		$this->size = $size;
+	}
+	public function getSize()
+	{
+		return $this->size;
+	}
 }

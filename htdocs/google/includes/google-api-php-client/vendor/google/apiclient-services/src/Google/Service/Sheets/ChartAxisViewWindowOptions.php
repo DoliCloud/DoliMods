@@ -17,32 +17,32 @@
 
 class Google_Service_Sheets_ChartAxisViewWindowOptions extends Google_Model
 {
-  public $viewWindowMax;
-  public $viewWindowMin;
-  public $viewWindowMode;
+	public $viewWindowMax;
+	public $viewWindowMin;
+	public $viewWindowMode;
 
-  public function setViewWindowMax($viewWindowMax)
-  {
-    $this->viewWindowMax = $viewWindowMax;
-  }
-  public function getViewWindowMax()
-  {
-    return $this->viewWindowMax;
-  }
-  public function setViewWindowMin($viewWindowMin)
-  {
-    $this->viewWindowMin = $viewWindowMin;
-  }
-  public function getViewWindowMin()
-  {
-    return $this->viewWindowMin;
-  }
-  public function setViewWindowMode($viewWindowMode)
-  {
-    $this->viewWindowMode = $viewWindowMode;
-  }
-  public function getViewWindowMode()
-  {
-    return $this->viewWindowMode;
-  }
+	public function setViewWindowMax($viewWindowMax)
+	{
+		$this->viewWindowMax = $viewWindowMax;
+	}
+	public function getViewWindowMax()
+	{
+		return $this->viewWindowMax;
+	}
+	public function setViewWindowMin($viewWindowMin)
+	{
+		$this->viewWindowMin = $viewWindowMin;
+	}
+	public function getViewWindowMin()
+	{
+		return $this->viewWindowMin;
+	}
+	public function setViewWindowMode($viewWindowMode)
+	{
+		$this->viewWindowMode = $viewWindowMode;
+	}
+	public function getViewWindowMode()
+	{
+		return $this->viewWindowMode;
+	}
 }

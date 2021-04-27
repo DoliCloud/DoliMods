@@ -17,15 +17,15 @@
 
 class Google_Service_StreetViewPublish_BatchDeletePhotosRequest extends Google_Collection
 {
-  protected $collection_key = 'photoIds';
-  public $photoIds;
+	protected $collection_key = 'photoIds';
+	public $photoIds;
 
-  public function setPhotoIds($photoIds)
-  {
-    $this->photoIds = $photoIds;
-  }
-  public function getPhotoIds()
-  {
-    return $this->photoIds;
-  }
+	public function setPhotoIds($photoIds)
+	{
+		$this->photoIds = $photoIds;
+	}
+	public function getPhotoIds()
+	{
+		return $this->photoIds;
+	}
 }

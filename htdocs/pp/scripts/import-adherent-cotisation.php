@@ -36,17 +36,17 @@ $error=0;
 
 // Include Dolibarr environment
 $res=0;
-if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
-if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
-if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
-if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
-if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include($path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
-if (! $res) die ("Failed to include master.inc.php file\n");
-require_once(DOL_DOCUMENT_ROOT ."/adherents/class/adherent.class.php");
-require_once(DOL_DOCUMENT_ROOT ."/adherents/class/cotisation.class.php");
-require_once(DOL_DOCUMENT_ROOT ."/core/lib/company.lib.php");
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include $path."../../master.inc.php";
+if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include $path."../../htdocs/master.inc.php";
+if (! $res && file_exists("../master.inc.php")) $res=@include "../master.inc.php";
+if (! $res && file_exists("../../master.inc.php")) $res=@include "../../master.inc.php";
+if (! $res && file_exists("../../../master.inc.php")) $res=@include "../../../master.inc.php";
+if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include $path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
+if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
+if (! $res) die("Failed to include master.inc.php file\n");
+require_once DOL_DOCUMENT_ROOT ."/adherents/class/adherent.class.php";
+require_once DOL_DOCUMENT_ROOT ."/adherents/class/cotisation.class.php";
+require_once DOL_DOCUMENT_ROOT ."/core/lib/company.lib.php";
 
 error_reporting(E_ALL);
 
@@ -63,25 +63,22 @@ $mode = isset($argv[1])?$argv[1]:'';
 $userid = isset($argv[2])?$argv[2]:'';
 $membertype = isset($argv[3])?$argv[3]:'';
 $file = isset($argv[4])?$argv[4]:'';
-if (strlen(trim($file)) == 0 || strlen(trim($userid)) == 0)
-{
+if (strlen(trim($file)) == 0 || strlen(trim($userid)) == 0) {
 	print "Usage:  php import-adherent-cotisation.php [test|confirm] <login_dolibarr> <membertyperef> <filename>\n";
 	exit;
 }
 
 // Load object user
 $user = new User($db);
-$result = $user->fetch('',$userid);
-if ($user->id == 0)
-{
+$result = $user->fetch('', $userid);
+if ($user->id == 0) {
 	print "Identifiant utilisateur Dolibarr incorrect : $userid\n";
 	exit;
 }
 
 // Open input file
-$filehandle=fopen($file,'r');
-if (empty($filehandle))
-{
+$filehandle=fopen($file, 'r');
+if (empty($filehandle)) {
 	print 'Failed to open file '.$file."\n";
 	exit;
 }
@@ -100,22 +97,19 @@ $nbmemberfailed=0;
 $nbsubadded=0;
 $nbsubupdated=0;
 $nbsubfailed=0;
-while (($buffer = fgets($filehandle, 4096)) !== false)
-{
+while (($buffer = fgets($filehandle, 4096)) !== false) {
 	$error=0;
 
 	$nbline++;
 	print "Process line ".$nbline.": ";
-	if ($nbline == 1)
-	{
+	if ($nbline == 1) {
 		print "Title of fields. Ignored.\n";
 		$nbignored++;
 		continue;
 	}
 
-	$fields=explode(';',$buffer);
-	if (count($fields) < 10)
-	{
+	$fields=explode(';', $buffer);
+	if (count($fields) < 10) {
 		print "Not correct number of fields on this line\n";
 		$nbignored++;
 		continue;
@@ -154,14 +148,13 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 	$urlpgp=$fields[43];
 	$declahonneur=$fields[44];
 	$option=$fields[45];
-	$datecrea=dol_stringtotime($fields[46],1);
+	$datecrea=dol_stringtotime($fields[46], 1);
 
 	$member_name=dolGetFirstLastname($firstname, $lastname);
 	print $member_name." (".$buffer.")\n";
 
 	// Check parameters
-	if (empty($paymenttype_code))
-	{
+	if (empty($paymenttype_code)) {
 		print 'Do not understand field "'.$paymenttype_label.'" as payment type'."\n";
 		$nbmemberfailed++;
 		continue;
@@ -175,8 +168,7 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 	$res=$memberstatic->fetch(0, '', '', $member_ref_ext);
 	if ($res < 0) $memberstatic->fetch_name($firstname, $lastname);
 
-	if ($memberstatic->id)
-	{
+	if ($memberstatic->id) {
 		$memberfound=1;
 
 		// Update member
@@ -186,19 +178,15 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 		$memberstatic->address=$address;
 		$memberstatic->zip=$zip;
 		$memberstatic->town=$town;
-		$tmparray=getCountry('','all',$db,'',0,($country?$country:$country2));
+		$tmparray=getCountry('', 'all', $db, '', 0, ($country?$country:$country2));
 		$memberstatic->country_code=$tmparray['code'];
 		$memberstatic->country_id=$tmparray['id'];
 
 		$res=$memberstatic->update($user);
-		if ($res >= 0) { $error++; $nbmemberupdated++; print "Record update success\n"; }
-		else { $error++; $nbmemberfailed++; print "Record update failed: ".$memberstatic->errorsToString()."\n"; }
-	}
-	else
-	{
+		if ($res >= 0) { $error++; $nbmemberupdated++; print "Record update success\n"; } else { $error++; $nbmemberfailed++; print "Record update failed: ".$memberstatic->errorsToString()."\n"; }
+	} else {
 		// Add warning if renew was checked
-		if ($renew)
-		{
+		if ($renew) {
 			print "Warning: Line should be a renew but member ".$member_name." was not found\n";
 		}
 
@@ -209,7 +197,7 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 		$memberstatic->address=$address;
 		$memberstatic->zip=$zip;
 		$memberstatic->town=$town;
-		$tmparray=getCountry('','all',$db,'',0,($country?$country:$country2));
+		$tmparray=getCountry('', 'all', $db, '', 0, ($country?$country:$country2));
 		$memberstatic->country_code=$tmparray['code'];
 		$memberstatic->country_id=$tmparray['id'];
 		$memberstatic->zip=$zip;
@@ -219,31 +207,24 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 		$memberstatic->datec=$datecrea;
 		$memberstatic->typeid=$membertype;
 		$res=$memberstatic->create($user);
-		if ($res >= 0) { $error++; $nbmemberadded++; print "Record creation success\n"; }
-		else { $error++; $nbmemberfailed++; print "Record creation failed: ".$memberstatic->errorsToString()."\n"; }
+		if ($res >= 0) { $error++; $nbmemberadded++; print "Record creation success\n"; } else { $error++; $nbmemberfailed++; print "Record creation failed: ".$memberstatic->errorsToString()."\n"; }
 	}
 
-	if (! $error && preg_match('/accept/',$sub_status))
-	{
-		if ($memberfound)
-		{
+	if (! $error && preg_match('/accept/', $sub_status)) {
+		if ($memberfound) {
 			$subscriptions=$memberstatic->fetch_subscriptions();
-			foreach($subscriptions as $val)
-			{
+			foreach ($subscriptions as $val) {
 				if ($val->dateh == $datecrea) $subfound++;
 			}
 		}
 
 		// Add subscription
-		if (! $subfound)
-		{
+		if (! $subfound) {
 			$subscriptionstatic->datec=$datepaiement;
 			$subscriptionstatic->fk_adherent=$memberstatic->id;
 			$subscriptionstatic->amount=$paymentamount;
 		}
 	}
-
-
 }
 if (!feof($filehandle)) {
 	echo "Erreur: fgets() a échoué\n";

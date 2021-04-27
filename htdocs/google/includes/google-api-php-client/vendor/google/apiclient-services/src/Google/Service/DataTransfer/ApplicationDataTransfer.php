@@ -17,40 +17,40 @@
 
 class Google_Service_DataTransfer_ApplicationDataTransfer extends Google_Collection
 {
-  protected $collection_key = 'applicationTransferParams';
-  public $applicationId;
-  protected $applicationTransferParamsType = 'Google_Service_DataTransfer_ApplicationTransferParam';
-  protected $applicationTransferParamsDataType = 'array';
-  public $applicationTransferStatus;
+	protected $collection_key = 'applicationTransferParams';
+	public $applicationId;
+	protected $applicationTransferParamsType = 'Google_Service_DataTransfer_ApplicationTransferParam';
+	protected $applicationTransferParamsDataType = 'array';
+	public $applicationTransferStatus;
 
-  public function setApplicationId($applicationId)
-  {
-    $this->applicationId = $applicationId;
-  }
-  public function getApplicationId()
-  {
-    return $this->applicationId;
-  }
-  /**
-   * @param Google_Service_DataTransfer_ApplicationTransferParam
-   */
-  public function setApplicationTransferParams($applicationTransferParams)
-  {
-    $this->applicationTransferParams = $applicationTransferParams;
-  }
-  /**
-   * @return Google_Service_DataTransfer_ApplicationTransferParam
-   */
-  public function getApplicationTransferParams()
-  {
-    return $this->applicationTransferParams;
-  }
-  public function setApplicationTransferStatus($applicationTransferStatus)
-  {
-    $this->applicationTransferStatus = $applicationTransferStatus;
-  }
-  public function getApplicationTransferStatus()
-  {
-    return $this->applicationTransferStatus;
-  }
+	public function setApplicationId($applicationId)
+	{
+		$this->applicationId = $applicationId;
+	}
+	public function getApplicationId()
+	{
+		return $this->applicationId;
+	}
+	/**
+	 * @param Google_Service_DataTransfer_ApplicationTransferParam
+	 */
+	public function setApplicationTransferParams($applicationTransferParams)
+	{
+		$this->applicationTransferParams = $applicationTransferParams;
+	}
+	/**
+	 * @return Google_Service_DataTransfer_ApplicationTransferParam
+	 */
+	public function getApplicationTransferParams()
+	{
+		return $this->applicationTransferParams;
+	}
+	public function setApplicationTransferStatus($applicationTransferStatus)
+	{
+		$this->applicationTransferStatus = $applicationTransferStatus;
+	}
+	public function getApplicationTransferStatus()
+	{
+		return $this->applicationTransferStatus;
+	}
 }

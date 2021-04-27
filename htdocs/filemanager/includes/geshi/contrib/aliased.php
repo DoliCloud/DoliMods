@@ -20,7 +20,7 @@
 define("SOURCE_ROOT", "/var/www/your/source/root/");
 
 // Assume you've put geshi in the include_path already
-require_once("geshi.php");
+require_once "geshi.php";
 
 // Get path info
 $path = SOURCE_ROOT.$_SERVER['PATH_INFO'];
@@ -28,12 +28,12 @@ $path = SOURCE_ROOT.$_SERVER['PATH_INFO'];
 // Check for dickheads trying to use '../' to get to sensitive areas
 $base_path_len = strlen(SOURCE_ROOT);
 $real_path = realpath($path);
-if(strncmp($real_path, SOURCE_ROOT, $base_path_len)) {
+if (strncmp($real_path, SOURCE_ROOT, $base_path_len)) {
 	exit("Stop that.");
 }
 
 // Check file exists
-if(!file_exists($path)) {
+if (!file_exists($path)) {
 	exit("File not found ($path).");
 }
 
@@ -57,14 +57,14 @@ $geshi->set_footer_content_style('font-family: Verdana, Arial, sans-serif; color
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<title>Source code viewer - <?php echo $path; ?></title>
 	<style type="text/css">
 	<!--
 	<?php
-        // Output the stylesheet. Note it doesn't output the <style> tag
+		// Output the stylesheet. Note it doesn't output the <style> tag
 	echo $geshi->get_stylesheet();
 	?>
 	html {

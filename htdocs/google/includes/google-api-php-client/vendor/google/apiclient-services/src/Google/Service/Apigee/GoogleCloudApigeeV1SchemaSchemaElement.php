@@ -17,30 +17,30 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement extends Google_Model
 {
-  public $name;
-  protected $propertiesType = 'Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty';
-  protected $propertiesDataType = '';
+	public $name;
+	protected $propertiesType = 'Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty';
+	protected $propertiesDataType = '';
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty
-   */
-  public function setProperties(Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty $properties)
-  {
-    $this->properties = $properties;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty
-   */
-  public function getProperties()
-  {
-    return $this->properties;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty
+	 */
+	public function setProperties(Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty $properties)
+	{
+		$this->properties = $properties;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty
+	 */
+	public function getProperties()
+	{
+		return $this->properties;
+	}
 }

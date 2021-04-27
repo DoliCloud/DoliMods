@@ -17,48 +17,48 @@
 
 class Google_Service_Slides_CreateTableRequest extends Google_Model
 {
-  public $columns;
-  protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
-  protected $elementPropertiesDataType = '';
-  public $objectId;
-  public $rows;
+	public $columns;
+	protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
+	protected $elementPropertiesDataType = '';
+	public $objectId;
+	public $rows;
 
-  public function setColumns($columns)
-  {
-    $this->columns = $columns;
-  }
-  public function getColumns()
-  {
-    return $this->columns;
-  }
-  /**
-   * @param Google_Service_Slides_PageElementProperties
-   */
-  public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
-  {
-    $this->elementProperties = $elementProperties;
-  }
-  /**
-   * @return Google_Service_Slides_PageElementProperties
-   */
-  public function getElementProperties()
-  {
-    return $this->elementProperties;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  public function setRows($rows)
-  {
-    $this->rows = $rows;
-  }
-  public function getRows()
-  {
-    return $this->rows;
-  }
+	public function setColumns($columns)
+	{
+		$this->columns = $columns;
+	}
+	public function getColumns()
+	{
+		return $this->columns;
+	}
+	/**
+	 * @param Google_Service_Slides_PageElementProperties
+	 */
+	public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
+	{
+		$this->elementProperties = $elementProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_PageElementProperties
+	 */
+	public function getElementProperties()
+	{
+		return $this->elementProperties;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	public function setRows($rows)
+	{
+		$this->rows = $rows;
+	}
+	public function getRows()
+	{
+		return $this->rows;
+	}
 }

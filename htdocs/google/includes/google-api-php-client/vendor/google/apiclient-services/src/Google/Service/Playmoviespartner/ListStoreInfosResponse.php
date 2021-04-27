@@ -17,25 +17,25 @@
 
 class Google_Service_Playmoviespartner_ListStoreInfosResponse extends Google_Collection
 {
-  protected $collection_key = 'storeInfos';
-  public $nextPageToken;
-  protected $storeInfosType = 'Google_Service_Playmoviespartner_StoreInfo';
-  protected $storeInfosDataType = 'array';
+	protected $collection_key = 'storeInfos';
+	public $nextPageToken;
+	protected $storeInfosType = 'Google_Service_Playmoviespartner_StoreInfo';
+	protected $storeInfosDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setStoreInfos($storeInfos)
-  {
-    $this->storeInfos = $storeInfos;
-  }
-  public function getStoreInfos()
-  {
-    return $this->storeInfos;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setStoreInfos($storeInfos)
+	{
+		$this->storeInfos = $storeInfos;
+	}
+	public function getStoreInfos()
+	{
+		return $this->storeInfos;
+	}
 }

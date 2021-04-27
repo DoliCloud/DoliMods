@@ -25,18 +25,18 @@
  */
 class Google_Service_Directory_Resource_Privileges extends Google_Service_Resource
 {
-  /**
-   * Retrieves a paginated list of all privileges for a customer.
-   * (privileges.listPrivileges)
-   *
-   * @param string $customer Immutable ID of the G Suite account.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Directory_Privileges
-   */
-  public function listPrivileges($customer, $optParams = array())
-  {
-    $params = array('customer' => $customer);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Directory_Privileges");
-  }
+	/**
+	 * Retrieves a paginated list of all privileges for a customer.
+	 * (privileges.listPrivileges)
+	 *
+	 * @param string $customer Immutable ID of the G Suite account.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Directory_Privileges
+	 */
+	public function listPrivileges($customer, $optParams = array())
+	{
+		$params = array('customer' => $customer);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Directory_Privileges");
+	}
 }

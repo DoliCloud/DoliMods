@@ -17,56 +17,56 @@
 
 class Google_Service_ServiceManagement_AuthenticationRule extends Google_Collection
 {
-  protected $collection_key = 'requirements';
-  public $allowWithoutCredential;
-  protected $oauthType = 'Google_Service_ServiceManagement_OAuthRequirements';
-  protected $oauthDataType = '';
-  protected $requirementsType = 'Google_Service_ServiceManagement_AuthRequirement';
-  protected $requirementsDataType = 'array';
-  public $selector;
+	protected $collection_key = 'requirements';
+	public $allowWithoutCredential;
+	protected $oauthType = 'Google_Service_ServiceManagement_OAuthRequirements';
+	protected $oauthDataType = '';
+	protected $requirementsType = 'Google_Service_ServiceManagement_AuthRequirement';
+	protected $requirementsDataType = 'array';
+	public $selector;
 
-  public function setAllowWithoutCredential($allowWithoutCredential)
-  {
-    $this->allowWithoutCredential = $allowWithoutCredential;
-  }
-  public function getAllowWithoutCredential()
-  {
-    return $this->allowWithoutCredential;
-  }
-  /**
-   * @param Google_Service_ServiceManagement_OAuthRequirements
-   */
-  public function setOauth(Google_Service_ServiceManagement_OAuthRequirements $oauth)
-  {
-    $this->oauth = $oauth;
-  }
-  /**
-   * @return Google_Service_ServiceManagement_OAuthRequirements
-   */
-  public function getOauth()
-  {
-    return $this->oauth;
-  }
-  /**
-   * @param Google_Service_ServiceManagement_AuthRequirement
-   */
-  public function setRequirements($requirements)
-  {
-    $this->requirements = $requirements;
-  }
-  /**
-   * @return Google_Service_ServiceManagement_AuthRequirement
-   */
-  public function getRequirements()
-  {
-    return $this->requirements;
-  }
-  public function setSelector($selector)
-  {
-    $this->selector = $selector;
-  }
-  public function getSelector()
-  {
-    return $this->selector;
-  }
+	public function setAllowWithoutCredential($allowWithoutCredential)
+	{
+		$this->allowWithoutCredential = $allowWithoutCredential;
+	}
+	public function getAllowWithoutCredential()
+	{
+		return $this->allowWithoutCredential;
+	}
+	/**
+	 * @param Google_Service_ServiceManagement_OAuthRequirements
+	 */
+	public function setOauth(Google_Service_ServiceManagement_OAuthRequirements $oauth)
+	{
+		$this->oauth = $oauth;
+	}
+	/**
+	 * @return Google_Service_ServiceManagement_OAuthRequirements
+	 */
+	public function getOauth()
+	{
+		return $this->oauth;
+	}
+	/**
+	 * @param Google_Service_ServiceManagement_AuthRequirement
+	 */
+	public function setRequirements($requirements)
+	{
+		$this->requirements = $requirements;
+	}
+	/**
+	 * @return Google_Service_ServiceManagement_AuthRequirement
+	 */
+	public function getRequirements()
+	{
+		return $this->requirements;
+	}
+	public function setSelector($selector)
+	{
+		$this->selector = $selector;
+	}
+	public function getSelector()
+	{
+		return $this->selector;
+	}
 }

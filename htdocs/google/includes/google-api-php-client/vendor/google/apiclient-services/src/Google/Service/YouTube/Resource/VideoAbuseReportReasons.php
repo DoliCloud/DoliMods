@@ -25,22 +25,22 @@
  */
 class Google_Service_YouTube_Resource_VideoAbuseReportReasons extends Google_Service_Resource
 {
-  /**
-   * Retrieves a list of resources, possibly filtered.
-   * (videoAbuseReportReasons.listVideoAbuseReportReasons)
-   *
-   * @param string|array $part The part parameter specifies the videoCategory
-   * resource parts that the API response will include. Supported values are id
-   * and snippet.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string hl
-   * @return Google_Service_YouTube_VideoAbuseReportReasonListResponse
-   */
-  public function listVideoAbuseReportReasons($part, $optParams = array())
-  {
-    $params = array('part' => $part);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_YouTube_VideoAbuseReportReasonListResponse");
-  }
+	/**
+	 * Retrieves a list of resources, possibly filtered.
+	 * (videoAbuseReportReasons.listVideoAbuseReportReasons)
+	 *
+	 * @param string|array $part The part parameter specifies the videoCategory
+	 *                           resource parts that the API response will include. Supported values are id
+	 *                           and snippet.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string hl
+	 * @return Google_Service_YouTube_VideoAbuseReportReasonListResponse
+	 */
+	public function listVideoAbuseReportReasons($part, $optParams = array())
+	{
+		$params = array('part' => $part);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_YouTube_VideoAbuseReportReasonListResponse");
+	}
 }

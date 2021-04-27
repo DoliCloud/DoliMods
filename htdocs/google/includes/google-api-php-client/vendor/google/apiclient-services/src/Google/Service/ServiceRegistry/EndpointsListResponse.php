@@ -17,25 +17,25 @@
 
 class Google_Service_ServiceRegistry_EndpointsListResponse extends Google_Collection
 {
-  protected $collection_key = 'endpoints';
-  protected $endpointsType = 'Google_Service_ServiceRegistry_Endpoint';
-  protected $endpointsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'endpoints';
+	protected $endpointsType = 'Google_Service_ServiceRegistry_Endpoint';
+	protected $endpointsDataType = 'array';
+	public $nextPageToken;
 
-  public function setEndpoints($endpoints)
-  {
-    $this->endpoints = $endpoints;
-  }
-  public function getEndpoints()
-  {
-    return $this->endpoints;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setEndpoints($endpoints)
+	{
+		$this->endpoints = $endpoints;
+	}
+	public function getEndpoints()
+	{
+		return $this->endpoints;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

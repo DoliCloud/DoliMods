@@ -25,20 +25,20 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
 $error = 0;
 
@@ -58,45 +58,36 @@ $actionsave=GETPOST("save");
  * Actions
  */
 
-if (preg_match('/^set/',$action))
-{
-    // This is to force to add a new param after css urls to force new file loading
-    // This set must be done before calling llxHeader().
-    $_SESSION['dol_resetcache']=dol_print_date(dol_now(),'dayhourlog');
+if (preg_match('/^set/', $action)) {
+	// This is to force to add a new param after css urls to force new file loading
+	// This set must be done before calling llxHeader().
+	$_SESSION['dol_resetcache']=dol_print_date(dol_now(), 'dayhourlog');
 }
 
-if ($action == 'set')
-{
+if ($action == 'set') {
 	$name = GETPOST("name");
 	$value = GETPOST("value");
-	$res = dolibarr_set_const($db, $name, $value,'chaine',0,'',$conf->entity);
+	$res = dolibarr_set_const($db, $name, $value, 'chaine', 0, '', $conf->entity);
 
 	if (! $res > 0) $error++;
- 	if (! $error)
-    {
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
-    }
-    else
-    {
-        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
-    }
+	if (! $error) {
+		$mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+	} else {
+		$mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+	}
 }
 
-if ($action == 'setcolor')
-{
-	$res = dolibarr_set_const($db, 'THEME_ELDY_RGB', GETPOST('THEME_ELDY_RGB'),'chaine',0,'',$conf->entity);
-	$res = dolibarr_set_const($db, 'THEME_ELDY_FONT_SIZE1', GETPOST('THEME_ELDY_FONT_SIZE1'),'chaine',0,'',$conf->entity);
-	$res = dolibarr_set_const($db, 'THEME_ELDY_USE_HOVER', GETPOST('THEME_ELDY_USE_HOVER'),'chaine',0,'',$conf->entity);
+if ($action == 'setcolor') {
+	$res = dolibarr_set_const($db, 'THEME_ELDY_RGB', GETPOST('THEME_ELDY_RGB'), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'THEME_ELDY_FONT_SIZE1', GETPOST('THEME_ELDY_FONT_SIZE1'), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'THEME_ELDY_USE_HOVER', GETPOST('THEME_ELDY_USE_HOVER'), 'chaine', 0, '', $conf->entity);
 
 	if (! $res > 0) $error++;
- 	if (! $error)
-    {
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
-    }
-    else
-    {
-        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
-    }
+	if (! $error) {
+		$mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+	} else {
+		$mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+	}
 }
 
 
@@ -107,10 +98,10 @@ if ($action == 'setcolor')
 
 $formother=new FormOther($db);
 
-llxHeader('','ZipAutoFill');
+llxHeader('', 'ZipAutoFill');
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("ZipAutoFillSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("ZipAutoFillSetup"), $linkback, 'setup');
 print '<br>';
 
 print $langs->trans("ZipAutoFillDesc").'<br>';
@@ -145,4 +136,3 @@ dol_fiche_end();
 llxFooter();
 
 if (is_object($db)) $db->close();
-

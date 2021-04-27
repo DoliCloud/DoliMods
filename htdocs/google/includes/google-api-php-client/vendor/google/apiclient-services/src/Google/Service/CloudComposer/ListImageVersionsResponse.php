@@ -17,31 +17,31 @@
 
 class Google_Service_CloudComposer_ListImageVersionsResponse extends Google_Collection
 {
-  protected $collection_key = 'imageVersions';
-  protected $imageVersionsType = 'Google_Service_CloudComposer_ImageVersion';
-  protected $imageVersionsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'imageVersions';
+	protected $imageVersionsType = 'Google_Service_CloudComposer_ImageVersion';
+	protected $imageVersionsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudComposer_ImageVersion
-   */
-  public function setImageVersions($imageVersions)
-  {
-    $this->imageVersions = $imageVersions;
-  }
-  /**
-   * @return Google_Service_CloudComposer_ImageVersion
-   */
-  public function getImageVersions()
-  {
-    return $this->imageVersions;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudComposer_ImageVersion
+	 */
+	public function setImageVersions($imageVersions)
+	{
+		$this->imageVersions = $imageVersions;
+	}
+	/**
+	 * @return Google_Service_CloudComposer_ImageVersion
+	 */
+	public function getImageVersions()
+	{
+		return $this->imageVersions;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

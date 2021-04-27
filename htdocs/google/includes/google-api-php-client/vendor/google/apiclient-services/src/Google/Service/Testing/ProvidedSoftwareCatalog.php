@@ -17,14 +17,14 @@
 
 class Google_Service_Testing_ProvidedSoftwareCatalog extends Google_Model
 {
-  public $orchestratorVersion;
+	public $orchestratorVersion;
 
-  public function setOrchestratorVersion($orchestratorVersion)
-  {
-    $this->orchestratorVersion = $orchestratorVersion;
-  }
-  public function getOrchestratorVersion()
-  {
-    return $this->orchestratorVersion;
-  }
+	public function setOrchestratorVersion($orchestratorVersion)
+	{
+		$this->orchestratorVersion = $orchestratorVersion;
+	}
+	public function getOrchestratorVersion()
+	{
+		return $this->orchestratorVersion;
+	}
 }

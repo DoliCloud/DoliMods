@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_MemoryInfo extends Google_Model
 {
-  public $memoryCapInKibibyte;
-  public $memoryTotalInKibibyte;
+	public $memoryCapInKibibyte;
+	public $memoryTotalInKibibyte;
 
-  public function setMemoryCapInKibibyte($memoryCapInKibibyte)
-  {
-    $this->memoryCapInKibibyte = $memoryCapInKibibyte;
-  }
-  public function getMemoryCapInKibibyte()
-  {
-    return $this->memoryCapInKibibyte;
-  }
-  public function setMemoryTotalInKibibyte($memoryTotalInKibibyte)
-  {
-    $this->memoryTotalInKibibyte = $memoryTotalInKibibyte;
-  }
-  public function getMemoryTotalInKibibyte()
-  {
-    return $this->memoryTotalInKibibyte;
-  }
+	public function setMemoryCapInKibibyte($memoryCapInKibibyte)
+	{
+		$this->memoryCapInKibibyte = $memoryCapInKibibyte;
+	}
+	public function getMemoryCapInKibibyte()
+	{
+		return $this->memoryCapInKibibyte;
+	}
+	public function setMemoryTotalInKibibyte($memoryTotalInKibibyte)
+	{
+		$this->memoryTotalInKibibyte = $memoryTotalInKibibyte;
+	}
+	public function getMemoryTotalInKibibyte()
+	{
+		return $this->memoryTotalInKibibyte;
+	}
 }

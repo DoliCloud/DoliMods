@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidManagement_PermissionGrant extends Google_Model
 {
-  public $permission;
-  public $policy;
+	public $permission;
+	public $policy;
 
-  public function setPermission($permission)
-  {
-    $this->permission = $permission;
-  }
-  public function getPermission()
-  {
-    return $this->permission;
-  }
-  public function setPolicy($policy)
-  {
-    $this->policy = $policy;
-  }
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
+	public function setPermission($permission)
+	{
+		$this->permission = $permission;
+	}
+	public function getPermission()
+	{
+		return $this->permission;
+	}
+	public function setPolicy($policy)
+	{
+		$this->policy = $policy;
+	}
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
 }

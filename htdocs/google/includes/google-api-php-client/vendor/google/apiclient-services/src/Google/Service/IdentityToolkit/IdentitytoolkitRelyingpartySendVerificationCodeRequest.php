@@ -17,41 +17,41 @@
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartySendVerificationCodeRequest extends Google_Model
 {
-  public $iosReceipt;
-  public $iosSecret;
-  public $phoneNumber;
-  public $recaptchaToken;
+	public $iosReceipt;
+	public $iosSecret;
+	public $phoneNumber;
+	public $recaptchaToken;
 
-  public function setIosReceipt($iosReceipt)
-  {
-    $this->iosReceipt = $iosReceipt;
-  }
-  public function getIosReceipt()
-  {
-    return $this->iosReceipt;
-  }
-  public function setIosSecret($iosSecret)
-  {
-    $this->iosSecret = $iosSecret;
-  }
-  public function getIosSecret()
-  {
-    return $this->iosSecret;
-  }
-  public function setPhoneNumber($phoneNumber)
-  {
-    $this->phoneNumber = $phoneNumber;
-  }
-  public function getPhoneNumber()
-  {
-    return $this->phoneNumber;
-  }
-  public function setRecaptchaToken($recaptchaToken)
-  {
-    $this->recaptchaToken = $recaptchaToken;
-  }
-  public function getRecaptchaToken()
-  {
-    return $this->recaptchaToken;
-  }
+	public function setIosReceipt($iosReceipt)
+	{
+		$this->iosReceipt = $iosReceipt;
+	}
+	public function getIosReceipt()
+	{
+		return $this->iosReceipt;
+	}
+	public function setIosSecret($iosSecret)
+	{
+		$this->iosSecret = $iosSecret;
+	}
+	public function getIosSecret()
+	{
+		return $this->iosSecret;
+	}
+	public function setPhoneNumber($phoneNumber)
+	{
+		$this->phoneNumber = $phoneNumber;
+	}
+	public function getPhoneNumber()
+	{
+		return $this->phoneNumber;
+	}
+	public function setRecaptchaToken($recaptchaToken)
+	{
+		$this->recaptchaToken = $recaptchaToken;
+	}
+	public function getRecaptchaToken()
+	{
+		return $this->recaptchaToken;
+	}
 }

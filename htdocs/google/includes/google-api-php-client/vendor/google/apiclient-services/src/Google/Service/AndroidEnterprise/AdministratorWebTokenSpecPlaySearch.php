@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidEnterprise_AdministratorWebTokenSpecPlaySearch extends Google_Model
 {
-  public $approveApps;
-  public $enabled;
+	public $approveApps;
+	public $enabled;
 
-  public function setApproveApps($approveApps)
-  {
-    $this->approveApps = $approveApps;
-  }
-  public function getApproveApps()
-  {
-    return $this->approveApps;
-  }
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
+	public function setApproveApps($approveApps)
+	{
+		$this->approveApps = $approveApps;
+	}
+	public function getApproveApps()
+	{
+		return $this->approveApps;
+	}
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
 }

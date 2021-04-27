@@ -17,24 +17,24 @@
 
 class Google_Service_Partners_EventData extends Google_Collection
 {
-  protected $collection_key = 'values';
-  public $key;
-  public $values;
+	protected $collection_key = 'values';
+	public $key;
+	public $values;
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  public function setValues($values)
-  {
-    $this->values = $values;
-  }
-  public function getValues()
-  {
-    return $this->values;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	public function setValues($values)
+	{
+		$this->values = $values;
+	}
+	public function getValues()
+	{
+		return $this->values;
+	}
 }

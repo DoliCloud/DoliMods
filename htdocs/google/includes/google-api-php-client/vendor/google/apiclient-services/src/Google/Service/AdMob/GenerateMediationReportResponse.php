@@ -17,53 +17,53 @@
 
 class Google_Service_AdMob_GenerateMediationReportResponse extends Google_Model
 {
-  protected $footerType = 'Google_Service_AdMob_ReportFooter';
-  protected $footerDataType = '';
-  protected $headerType = 'Google_Service_AdMob_ReportHeader';
-  protected $headerDataType = '';
-  protected $rowType = 'Google_Service_AdMob_ReportRow';
-  protected $rowDataType = '';
+	protected $footerType = 'Google_Service_AdMob_ReportFooter';
+	protected $footerDataType = '';
+	protected $headerType = 'Google_Service_AdMob_ReportHeader';
+	protected $headerDataType = '';
+	protected $rowType = 'Google_Service_AdMob_ReportRow';
+	protected $rowDataType = '';
 
-  /**
-   * @param Google_Service_AdMob_ReportFooter
-   */
-  public function setFooter(Google_Service_AdMob_ReportFooter $footer)
-  {
-    $this->footer = $footer;
-  }
-  /**
-   * @return Google_Service_AdMob_ReportFooter
-   */
-  public function getFooter()
-  {
-    return $this->footer;
-  }
-  /**
-   * @param Google_Service_AdMob_ReportHeader
-   */
-  public function setHeader(Google_Service_AdMob_ReportHeader $header)
-  {
-    $this->header = $header;
-  }
-  /**
-   * @return Google_Service_AdMob_ReportHeader
-   */
-  public function getHeader()
-  {
-    return $this->header;
-  }
-  /**
-   * @param Google_Service_AdMob_ReportRow
-   */
-  public function setRow(Google_Service_AdMob_ReportRow $row)
-  {
-    $this->row = $row;
-  }
-  /**
-   * @return Google_Service_AdMob_ReportRow
-   */
-  public function getRow()
-  {
-    return $this->row;
-  }
+	/**
+	 * @param Google_Service_AdMob_ReportFooter
+	 */
+	public function setFooter(Google_Service_AdMob_ReportFooter $footer)
+	{
+		$this->footer = $footer;
+	}
+	/**
+	 * @return Google_Service_AdMob_ReportFooter
+	 */
+	public function getFooter()
+	{
+		return $this->footer;
+	}
+	/**
+	 * @param Google_Service_AdMob_ReportHeader
+	 */
+	public function setHeader(Google_Service_AdMob_ReportHeader $header)
+	{
+		$this->header = $header;
+	}
+	/**
+	 * @return Google_Service_AdMob_ReportHeader
+	 */
+	public function getHeader()
+	{
+		return $this->header;
+	}
+	/**
+	 * @param Google_Service_AdMob_ReportRow
+	 */
+	public function setRow(Google_Service_AdMob_ReportRow $row)
+	{
+		$this->row = $row;
+	}
+	/**
+	 * @return Google_Service_AdMob_ReportRow
+	 */
+	public function getRow()
+	{
+		return $this->row;
+	}
 }

@@ -17,66 +17,66 @@
 
 class Google_Service_ShoppingContent_ReturnAddress extends Google_Model
 {
-  protected $addressType = 'Google_Service_ShoppingContent_ReturnAddressAddress';
-  protected $addressDataType = '';
-  public $country;
-  public $kind;
-  public $label;
-  public $phoneNumber;
-  public $returnAddressId;
+	protected $addressType = 'Google_Service_ShoppingContent_ReturnAddressAddress';
+	protected $addressDataType = '';
+	public $country;
+	public $kind;
+	public $label;
+	public $phoneNumber;
+	public $returnAddressId;
 
-  /**
-   * @param Google_Service_ShoppingContent_ReturnAddressAddress
-   */
-  public function setAddress(Google_Service_ShoppingContent_ReturnAddressAddress $address)
-  {
-    $this->address = $address;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_ReturnAddressAddress
-   */
-  public function getAddress()
-  {
-    return $this->address;
-  }
-  public function setCountry($country)
-  {
-    $this->country = $country;
-  }
-  public function getCountry()
-  {
-    return $this->country;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLabel($label)
-  {
-    $this->label = $label;
-  }
-  public function getLabel()
-  {
-    return $this->label;
-  }
-  public function setPhoneNumber($phoneNumber)
-  {
-    $this->phoneNumber = $phoneNumber;
-  }
-  public function getPhoneNumber()
-  {
-    return $this->phoneNumber;
-  }
-  public function setReturnAddressId($returnAddressId)
-  {
-    $this->returnAddressId = $returnAddressId;
-  }
-  public function getReturnAddressId()
-  {
-    return $this->returnAddressId;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_ReturnAddressAddress
+	 */
+	public function setAddress(Google_Service_ShoppingContent_ReturnAddressAddress $address)
+	{
+		$this->address = $address;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_ReturnAddressAddress
+	 */
+	public function getAddress()
+	{
+		return $this->address;
+	}
+	public function setCountry($country)
+	{
+		$this->country = $country;
+	}
+	public function getCountry()
+	{
+		return $this->country;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLabel($label)
+	{
+		$this->label = $label;
+	}
+	public function getLabel()
+	{
+		return $this->label;
+	}
+	public function setPhoneNumber($phoneNumber)
+	{
+		$this->phoneNumber = $phoneNumber;
+	}
+	public function getPhoneNumber()
+	{
+		return $this->phoneNumber;
+	}
+	public function setReturnAddressId($returnAddressId)
+	{
+		$this->returnAddressId = $returnAddressId;
+	}
+	public function getReturnAddressId()
+	{
+		return $this->returnAddressId;
+	}
 }

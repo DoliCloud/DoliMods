@@ -17,32 +17,32 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1FlowHookConfig extends Google_Model
 {
-  public $continueOnError;
-  public $name;
-  public $sharedFlowName;
+	public $continueOnError;
+	public $name;
+	public $sharedFlowName;
 
-  public function setContinueOnError($continueOnError)
-  {
-    $this->continueOnError = $continueOnError;
-  }
-  public function getContinueOnError()
-  {
-    return $this->continueOnError;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSharedFlowName($sharedFlowName)
-  {
-    $this->sharedFlowName = $sharedFlowName;
-  }
-  public function getSharedFlowName()
-  {
-    return $this->sharedFlowName;
-  }
+	public function setContinueOnError($continueOnError)
+	{
+		$this->continueOnError = $continueOnError;
+	}
+	public function getContinueOnError()
+	{
+		return $this->continueOnError;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSharedFlowName($sharedFlowName)
+	{
+		$this->sharedFlowName = $sharedFlowName;
+	}
+	public function getSharedFlowName()
+	{
+		return $this->sharedFlowName;
+	}
 }

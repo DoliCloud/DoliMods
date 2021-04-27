@@ -17,15 +17,15 @@
 
 class Google_Service_ServiceUsage_BatchEnableServicesRequest extends Google_Collection
 {
-  protected $collection_key = 'serviceIds';
-  public $serviceIds;
+	protected $collection_key = 'serviceIds';
+	public $serviceIds;
 
-  public function setServiceIds($serviceIds)
-  {
-    $this->serviceIds = $serviceIds;
-  }
-  public function getServiceIds()
-  {
-    return $this->serviceIds;
-  }
+	public function setServiceIds($serviceIds)
+	{
+		$this->serviceIds = $serviceIds;
+	}
+	public function getServiceIds()
+	{
+		return $this->serviceIds;
+	}
 }

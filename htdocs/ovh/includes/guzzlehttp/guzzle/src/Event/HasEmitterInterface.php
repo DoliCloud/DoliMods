@@ -6,10 +6,10 @@ namespace GuzzleHttp\Event;
  */
 interface HasEmitterInterface
 {
-    /**
-     * Get the event emitter of the object
-     *
-     * @return EmitterInterface
-     */
-    public function getEmitter();
+	/**
+	 * Get the event emitter of the object
+	 *
+	 * @return EmitterInterface
+	 */
+	public function getEmitter();
 }

@@ -17,67 +17,67 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictResponse extends Google_Collection
 {
-  protected $collection_key = 'results';
-  public $dryRun;
-  public $itemsMissingInCatalog;
-  public $metadata;
-  public $nextPageToken;
-  public $recommendationToken;
-  protected $resultsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictResponsePredictionResult';
-  protected $resultsDataType = 'array';
+	protected $collection_key = 'results';
+	public $dryRun;
+	public $itemsMissingInCatalog;
+	public $metadata;
+	public $nextPageToken;
+	public $recommendationToken;
+	protected $resultsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictResponsePredictionResult';
+	protected $resultsDataType = 'array';
 
-  public function setDryRun($dryRun)
-  {
-    $this->dryRun = $dryRun;
-  }
-  public function getDryRun()
-  {
-    return $this->dryRun;
-  }
-  public function setItemsMissingInCatalog($itemsMissingInCatalog)
-  {
-    $this->itemsMissingInCatalog = $itemsMissingInCatalog;
-  }
-  public function getItemsMissingInCatalog()
-  {
-    return $this->itemsMissingInCatalog;
-  }
-  public function setMetadata($metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setRecommendationToken($recommendationToken)
-  {
-    $this->recommendationToken = $recommendationToken;
-  }
-  public function getRecommendationToken()
-  {
-    return $this->recommendationToken;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictResponsePredictionResult
-   */
-  public function setResults($results)
-  {
-    $this->results = $results;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictResponsePredictionResult
-   */
-  public function getResults()
-  {
-    return $this->results;
-  }
+	public function setDryRun($dryRun)
+	{
+		$this->dryRun = $dryRun;
+	}
+	public function getDryRun()
+	{
+		return $this->dryRun;
+	}
+	public function setItemsMissingInCatalog($itemsMissingInCatalog)
+	{
+		$this->itemsMissingInCatalog = $itemsMissingInCatalog;
+	}
+	public function getItemsMissingInCatalog()
+	{
+		return $this->itemsMissingInCatalog;
+	}
+	public function setMetadata($metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setRecommendationToken($recommendationToken)
+	{
+		$this->recommendationToken = $recommendationToken;
+	}
+	public function getRecommendationToken()
+	{
+		return $this->recommendationToken;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictResponsePredictionResult
+	 */
+	public function setResults($results)
+	{
+		$this->results = $results;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictResponsePredictionResult
+	 */
+	public function getResults()
+	{
+		return $this->results;
+	}
 }

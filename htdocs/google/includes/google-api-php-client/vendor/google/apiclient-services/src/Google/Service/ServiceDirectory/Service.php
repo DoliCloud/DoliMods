@@ -17,40 +17,40 @@
 
 class Google_Service_ServiceDirectory_Service extends Google_Collection
 {
-  protected $collection_key = 'endpoints';
-  protected $endpointsType = 'Google_Service_ServiceDirectory_Endpoint';
-  protected $endpointsDataType = 'array';
-  public $metadata;
-  public $name;
+	protected $collection_key = 'endpoints';
+	protected $endpointsType = 'Google_Service_ServiceDirectory_Endpoint';
+	protected $endpointsDataType = 'array';
+	public $metadata;
+	public $name;
 
-  /**
-   * @param Google_Service_ServiceDirectory_Endpoint
-   */
-  public function setEndpoints($endpoints)
-  {
-    $this->endpoints = $endpoints;
-  }
-  /**
-   * @return Google_Service_ServiceDirectory_Endpoint
-   */
-  public function getEndpoints()
-  {
-    return $this->endpoints;
-  }
-  public function setMetadata($metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_ServiceDirectory_Endpoint
+	 */
+	public function setEndpoints($endpoints)
+	{
+		$this->endpoints = $endpoints;
+	}
+	/**
+	 * @return Google_Service_ServiceDirectory_Endpoint
+	 */
+	public function getEndpoints()
+	{
+		return $this->endpoints;
+	}
+	public function setMetadata($metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

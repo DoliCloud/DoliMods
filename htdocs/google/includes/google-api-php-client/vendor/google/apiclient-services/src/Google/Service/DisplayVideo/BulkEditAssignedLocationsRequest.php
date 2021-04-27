@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_BulkEditAssignedLocationsRequest extends Google_Collection
 {
-  protected $collection_key = 'deletedAssignedLocations';
-  protected $createdAssignedLocationsType = 'Google_Service_DisplayVideo_AssignedLocation';
-  protected $createdAssignedLocationsDataType = 'array';
-  public $deletedAssignedLocations;
+	protected $collection_key = 'deletedAssignedLocations';
+	protected $createdAssignedLocationsType = 'Google_Service_DisplayVideo_AssignedLocation';
+	protected $createdAssignedLocationsDataType = 'array';
+	public $deletedAssignedLocations;
 
-  /**
-   * @param Google_Service_DisplayVideo_AssignedLocation
-   */
-  public function setCreatedAssignedLocations($createdAssignedLocations)
-  {
-    $this->createdAssignedLocations = $createdAssignedLocations;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_AssignedLocation
-   */
-  public function getCreatedAssignedLocations()
-  {
-    return $this->createdAssignedLocations;
-  }
-  public function setDeletedAssignedLocations($deletedAssignedLocations)
-  {
-    $this->deletedAssignedLocations = $deletedAssignedLocations;
-  }
-  public function getDeletedAssignedLocations()
-  {
-    return $this->deletedAssignedLocations;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_AssignedLocation
+	 */
+	public function setCreatedAssignedLocations($createdAssignedLocations)
+	{
+		$this->createdAssignedLocations = $createdAssignedLocations;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_AssignedLocation
+	 */
+	public function getCreatedAssignedLocations()
+	{
+		return $this->createdAssignedLocations;
+	}
+	public function setDeletedAssignedLocations($deletedAssignedLocations)
+	{
+		$this->deletedAssignedLocations = $deletedAssignedLocations;
+	}
+	public function getDeletedAssignedLocations()
+	{
+		return $this->deletedAssignedLocations;
+	}
 }

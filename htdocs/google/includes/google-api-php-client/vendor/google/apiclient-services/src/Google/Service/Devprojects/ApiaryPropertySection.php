@@ -17,25 +17,25 @@
 
 class Google_Service_Devprojects_ApiaryPropertySection extends Google_Collection
 {
-  protected $collection_key = 'property';
-  public $kind;
-  protected $propertyType = 'Google_Service_Devprojects_ApiaryProperty';
-  protected $propertyDataType = 'array';
+	protected $collection_key = 'property';
+	public $kind;
+	protected $propertyType = 'Google_Service_Devprojects_ApiaryProperty';
+	protected $propertyDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setProperty($property)
-  {
-    $this->property = $property;
-  }
-  public function getProperty()
-  {
-    return $this->property;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setProperty($property)
+	{
+		$this->property = $property;
+	}
+	public function getProperty()
+	{
+		return $this->property;
+	}
 }

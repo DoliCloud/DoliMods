@@ -17,21 +17,21 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1LabelConversationResponse extends Google_Model
 {
-  protected $annotatedConversationDatasetType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AnnotatedConversationDataset';
-  protected $annotatedConversationDatasetDataType = '';
+	protected $annotatedConversationDatasetType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AnnotatedConversationDataset';
+	protected $annotatedConversationDatasetDataType = '';
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AnnotatedConversationDataset
-   */
-  public function setAnnotatedConversationDataset(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AnnotatedConversationDataset $annotatedConversationDataset)
-  {
-    $this->annotatedConversationDataset = $annotatedConversationDataset;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AnnotatedConversationDataset
-   */
-  public function getAnnotatedConversationDataset()
-  {
-    return $this->annotatedConversationDataset;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AnnotatedConversationDataset
+	 */
+	public function setAnnotatedConversationDataset(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AnnotatedConversationDataset $annotatedConversationDataset)
+	{
+		$this->annotatedConversationDataset = $annotatedConversationDataset;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AnnotatedConversationDataset
+	 */
+	public function getAnnotatedConversationDataset()
+	{
+		return $this->annotatedConversationDataset;
+	}
 }

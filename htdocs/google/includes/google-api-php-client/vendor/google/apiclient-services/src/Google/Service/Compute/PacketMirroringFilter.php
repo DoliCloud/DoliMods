@@ -17,27 +17,27 @@
 
 class Google_Service_Compute_PacketMirroringFilter extends Google_Collection
 {
-  protected $collection_key = 'cidrRanges';
-  protected $internal_gapi_mappings = array(
-        "iPProtocols" => "IPProtocols",
-  );
-  public $iPProtocols;
-  public $cidrRanges;
+	protected $collection_key = 'cidrRanges';
+	protected $internal_gapi_mappings = array(
+		"iPProtocols" => "IPProtocols",
+	);
+	public $iPProtocols;
+	public $cidrRanges;
 
-  public function setIPProtocols($iPProtocols)
-  {
-    $this->iPProtocols = $iPProtocols;
-  }
-  public function getIPProtocols()
-  {
-    return $this->iPProtocols;
-  }
-  public function setCidrRanges($cidrRanges)
-  {
-    $this->cidrRanges = $cidrRanges;
-  }
-  public function getCidrRanges()
-  {
-    return $this->cidrRanges;
-  }
+	public function setIPProtocols($iPProtocols)
+	{
+		$this->iPProtocols = $iPProtocols;
+	}
+	public function getIPProtocols()
+	{
+		return $this->iPProtocols;
+	}
+	public function setCidrRanges($cidrRanges)
+	{
+		$this->cidrRanges = $cidrRanges;
+	}
+	public function getCidrRanges()
+	{
+		return $this->cidrRanges;
+	}
 }

@@ -17,63 +17,63 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2TimestampedObject extends Google_Collection
 {
-  protected $collection_key = 'landmarks';
-  protected $attributesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedAttribute';
-  protected $attributesDataType = 'array';
-  protected $landmarksType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedLandmark';
-  protected $landmarksDataType = 'array';
-  protected $normalizedBoundingBoxType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2NormalizedBoundingBox';
-  protected $normalizedBoundingBoxDataType = '';
-  public $timeOffset;
+	protected $collection_key = 'landmarks';
+	protected $attributesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedAttribute';
+	protected $attributesDataType = 'array';
+	protected $landmarksType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedLandmark';
+	protected $landmarksDataType = 'array';
+	protected $normalizedBoundingBoxType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2NormalizedBoundingBox';
+	protected $normalizedBoundingBoxDataType = '';
+	public $timeOffset;
 
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedAttribute
-   */
-  public function setAttributes($attributes)
-  {
-    $this->attributes = $attributes;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedAttribute
-   */
-  public function getAttributes()
-  {
-    return $this->attributes;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedLandmark
-   */
-  public function setLandmarks($landmarks)
-  {
-    $this->landmarks = $landmarks;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedLandmark
-   */
-  public function getLandmarks()
-  {
-    return $this->landmarks;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2NormalizedBoundingBox
-   */
-  public function setNormalizedBoundingBox(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2NormalizedBoundingBox $normalizedBoundingBox)
-  {
-    $this->normalizedBoundingBox = $normalizedBoundingBox;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2NormalizedBoundingBox
-   */
-  public function getNormalizedBoundingBox()
-  {
-    return $this->normalizedBoundingBox;
-  }
-  public function setTimeOffset($timeOffset)
-  {
-    $this->timeOffset = $timeOffset;
-  }
-  public function getTimeOffset()
-  {
-    return $this->timeOffset;
-  }
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedAttribute
+	 */
+	public function setAttributes($attributes)
+	{
+		$this->attributes = $attributes;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedAttribute
+	 */
+	public function getAttributes()
+	{
+		return $this->attributes;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedLandmark
+	 */
+	public function setLandmarks($landmarks)
+	{
+		$this->landmarks = $landmarks;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2DetectedLandmark
+	 */
+	public function getLandmarks()
+	{
+		return $this->landmarks;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2NormalizedBoundingBox
+	 */
+	public function setNormalizedBoundingBox(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2NormalizedBoundingBox $normalizedBoundingBox)
+	{
+		$this->normalizedBoundingBox = $normalizedBoundingBox;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2NormalizedBoundingBox
+	 */
+	public function getNormalizedBoundingBox()
+	{
+		return $this->normalizedBoundingBox;
+	}
+	public function setTimeOffset($timeOffset)
+	{
+		$this->timeOffset = $timeOffset;
+	}
+	public function getTimeOffset()
+	{
+		return $this->timeOffset;
+	}
 }

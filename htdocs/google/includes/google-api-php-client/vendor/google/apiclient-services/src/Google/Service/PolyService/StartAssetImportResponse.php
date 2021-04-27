@@ -17,49 +17,49 @@
 
 class Google_Service_PolyService_StartAssetImportResponse extends Google_Collection
 {
-  protected $collection_key = 'assetImportMessages';
-  public $assetId;
-  public $assetImportId;
-  protected $assetImportMessagesType = 'Google_Service_PolyService_AssetImportMessage';
-  protected $assetImportMessagesDataType = 'array';
-  public $publishUrl;
+	protected $collection_key = 'assetImportMessages';
+	public $assetId;
+	public $assetImportId;
+	protected $assetImportMessagesType = 'Google_Service_PolyService_AssetImportMessage';
+	protected $assetImportMessagesDataType = 'array';
+	public $publishUrl;
 
-  public function setAssetId($assetId)
-  {
-    $this->assetId = $assetId;
-  }
-  public function getAssetId()
-  {
-    return $this->assetId;
-  }
-  public function setAssetImportId($assetImportId)
-  {
-    $this->assetImportId = $assetImportId;
-  }
-  public function getAssetImportId()
-  {
-    return $this->assetImportId;
-  }
-  /**
-   * @param Google_Service_PolyService_AssetImportMessage
-   */
-  public function setAssetImportMessages($assetImportMessages)
-  {
-    $this->assetImportMessages = $assetImportMessages;
-  }
-  /**
-   * @return Google_Service_PolyService_AssetImportMessage
-   */
-  public function getAssetImportMessages()
-  {
-    return $this->assetImportMessages;
-  }
-  public function setPublishUrl($publishUrl)
-  {
-    $this->publishUrl = $publishUrl;
-  }
-  public function getPublishUrl()
-  {
-    return $this->publishUrl;
-  }
+	public function setAssetId($assetId)
+	{
+		$this->assetId = $assetId;
+	}
+	public function getAssetId()
+	{
+		return $this->assetId;
+	}
+	public function setAssetImportId($assetImportId)
+	{
+		$this->assetImportId = $assetImportId;
+	}
+	public function getAssetImportId()
+	{
+		return $this->assetImportId;
+	}
+	/**
+	 * @param Google_Service_PolyService_AssetImportMessage
+	 */
+	public function setAssetImportMessages($assetImportMessages)
+	{
+		$this->assetImportMessages = $assetImportMessages;
+	}
+	/**
+	 * @return Google_Service_PolyService_AssetImportMessage
+	 */
+	public function getAssetImportMessages()
+	{
+		return $this->assetImportMessages;
+	}
+	public function setPublishUrl($publishUrl)
+	{
+		$this->publishUrl = $publishUrl;
+	}
+	public function getPublishUrl()
+	{
+		return $this->publishUrl;
+	}
 }

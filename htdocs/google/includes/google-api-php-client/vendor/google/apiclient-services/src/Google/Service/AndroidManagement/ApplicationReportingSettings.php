@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidManagement_ApplicationReportingSettings extends Google_Model
 {
-  public $includeRemovedApps;
+	public $includeRemovedApps;
 
-  public function setIncludeRemovedApps($includeRemovedApps)
-  {
-    $this->includeRemovedApps = $includeRemovedApps;
-  }
-  public function getIncludeRemovedApps()
-  {
-    return $this->includeRemovedApps;
-  }
+	public function setIncludeRemovedApps($includeRemovedApps)
+	{
+		$this->includeRemovedApps = $includeRemovedApps;
+	}
+	public function getIncludeRemovedApps()
+	{
+		return $this->includeRemovedApps;
+	}
 }

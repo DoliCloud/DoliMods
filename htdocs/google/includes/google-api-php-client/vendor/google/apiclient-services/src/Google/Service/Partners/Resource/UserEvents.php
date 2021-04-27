@@ -25,17 +25,17 @@
  */
 class Google_Service_Partners_Resource_UserEvents extends Google_Service_Resource
 {
-  /**
-   * Logs a user event. (userEvents.log)
-   *
-   * @param Google_Service_Partners_LogUserEventRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Partners_LogUserEventResponse
-   */
-  public function log(Google_Service_Partners_LogUserEventRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('log', array($params), "Google_Service_Partners_LogUserEventResponse");
-  }
+	/**
+	 * Logs a user event. (userEvents.log)
+	 *
+	 * @param Google_Service_Partners_LogUserEventRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Partners_LogUserEventResponse
+	 */
+	public function log(Google_Service_Partners_LogUserEventRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('log', array($params), "Google_Service_Partners_LogUserEventResponse");
+	}
 }

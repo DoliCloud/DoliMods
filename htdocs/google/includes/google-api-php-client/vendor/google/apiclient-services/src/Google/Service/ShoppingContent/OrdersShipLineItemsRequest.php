@@ -17,56 +17,56 @@
 
 class Google_Service_ShoppingContent_OrdersShipLineItemsRequest extends Google_Collection
 {
-  protected $collection_key = 'shipmentInfos';
-  protected $lineItemsType = 'Google_Service_ShoppingContent_OrderShipmentLineItemShipment';
-  protected $lineItemsDataType = 'array';
-  public $operationId;
-  public $shipmentGroupId;
-  protected $shipmentInfosType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo';
-  protected $shipmentInfosDataType = 'array';
+	protected $collection_key = 'shipmentInfos';
+	protected $lineItemsType = 'Google_Service_ShoppingContent_OrderShipmentLineItemShipment';
+	protected $lineItemsDataType = 'array';
+	public $operationId;
+	public $shipmentGroupId;
+	protected $shipmentInfosType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo';
+	protected $shipmentInfosDataType = 'array';
 
-  /**
-   * @param Google_Service_ShoppingContent_OrderShipmentLineItemShipment
-   */
-  public function setLineItems($lineItems)
-  {
-    $this->lineItems = $lineItems;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderShipmentLineItemShipment
-   */
-  public function getLineItems()
-  {
-    return $this->lineItems;
-  }
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  public function setShipmentGroupId($shipmentGroupId)
-  {
-    $this->shipmentGroupId = $shipmentGroupId;
-  }
-  public function getShipmentGroupId()
-  {
-    return $this->shipmentGroupId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo
-   */
-  public function setShipmentInfos($shipmentInfos)
-  {
-    $this->shipmentInfos = $shipmentInfos;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo
-   */
-  public function getShipmentInfos()
-  {
-    return $this->shipmentInfos;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_OrderShipmentLineItemShipment
+	 */
+	public function setLineItems($lineItems)
+	{
+		$this->lineItems = $lineItems;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderShipmentLineItemShipment
+	 */
+	public function getLineItems()
+	{
+		return $this->lineItems;
+	}
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	public function setShipmentGroupId($shipmentGroupId)
+	{
+		$this->shipmentGroupId = $shipmentGroupId;
+	}
+	public function getShipmentGroupId()
+	{
+		return $this->shipmentGroupId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo
+	 */
+	public function setShipmentInfos($shipmentInfos)
+	{
+		$this->shipmentInfos = $shipmentInfos;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo
+	 */
+	public function getShipmentInfos()
+	{
+		return $this->shipmentInfos;
+	}
 }

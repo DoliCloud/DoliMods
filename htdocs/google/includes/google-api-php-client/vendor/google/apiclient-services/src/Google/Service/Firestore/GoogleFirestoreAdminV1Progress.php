@@ -17,23 +17,23 @@
 
 class Google_Service_Firestore_GoogleFirestoreAdminV1Progress extends Google_Model
 {
-  public $completedWork;
-  public $estimatedWork;
+	public $completedWork;
+	public $estimatedWork;
 
-  public function setCompletedWork($completedWork)
-  {
-    $this->completedWork = $completedWork;
-  }
-  public function getCompletedWork()
-  {
-    return $this->completedWork;
-  }
-  public function setEstimatedWork($estimatedWork)
-  {
-    $this->estimatedWork = $estimatedWork;
-  }
-  public function getEstimatedWork()
-  {
-    return $this->estimatedWork;
-  }
+	public function setCompletedWork($completedWork)
+	{
+		$this->completedWork = $completedWork;
+	}
+	public function getCompletedWork()
+	{
+		return $this->completedWork;
+	}
+	public function setEstimatedWork($estimatedWork)
+	{
+		$this->estimatedWork = $estimatedWork;
+	}
+	public function getEstimatedWork()
+	{
+		return $this->estimatedWork;
+	}
 }

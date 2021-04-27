@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2UpdateJobTriggerRequest extends Google_Model
 {
-  protected $jobTriggerType = 'Google_Service_DLP_GooglePrivacyDlpV2JobTrigger';
-  protected $jobTriggerDataType = '';
-  public $updateMask;
+	protected $jobTriggerType = 'Google_Service_DLP_GooglePrivacyDlpV2JobTrigger';
+	protected $jobTriggerDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
-   */
-  public function setJobTrigger(Google_Service_DLP_GooglePrivacyDlpV2JobTrigger $jobTrigger)
-  {
-    $this->jobTrigger = $jobTrigger;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
-   */
-  public function getJobTrigger()
-  {
-    return $this->jobTrigger;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
+	 */
+	public function setJobTrigger(Google_Service_DLP_GooglePrivacyDlpV2JobTrigger $jobTrigger)
+	{
+		$this->jobTrigger = $jobTrigger;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
+	 */
+	public function getJobTrigger()
+	{
+		return $this->jobTrigger;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

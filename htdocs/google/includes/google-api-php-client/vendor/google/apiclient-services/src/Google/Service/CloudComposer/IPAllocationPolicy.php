@@ -17,50 +17,50 @@
 
 class Google_Service_CloudComposer_IPAllocationPolicy extends Google_Model
 {
-  public $clusterIpv4CidrBlock;
-  public $clusterSecondaryRangeName;
-  public $servicesIpv4CidrBlock;
-  public $servicesSecondaryRangeName;
-  public $useIpAliases;
+	public $clusterIpv4CidrBlock;
+	public $clusterSecondaryRangeName;
+	public $servicesIpv4CidrBlock;
+	public $servicesSecondaryRangeName;
+	public $useIpAliases;
 
-  public function setClusterIpv4CidrBlock($clusterIpv4CidrBlock)
-  {
-    $this->clusterIpv4CidrBlock = $clusterIpv4CidrBlock;
-  }
-  public function getClusterIpv4CidrBlock()
-  {
-    return $this->clusterIpv4CidrBlock;
-  }
-  public function setClusterSecondaryRangeName($clusterSecondaryRangeName)
-  {
-    $this->clusterSecondaryRangeName = $clusterSecondaryRangeName;
-  }
-  public function getClusterSecondaryRangeName()
-  {
-    return $this->clusterSecondaryRangeName;
-  }
-  public function setServicesIpv4CidrBlock($servicesIpv4CidrBlock)
-  {
-    $this->servicesIpv4CidrBlock = $servicesIpv4CidrBlock;
-  }
-  public function getServicesIpv4CidrBlock()
-  {
-    return $this->servicesIpv4CidrBlock;
-  }
-  public function setServicesSecondaryRangeName($servicesSecondaryRangeName)
-  {
-    $this->servicesSecondaryRangeName = $servicesSecondaryRangeName;
-  }
-  public function getServicesSecondaryRangeName()
-  {
-    return $this->servicesSecondaryRangeName;
-  }
-  public function setUseIpAliases($useIpAliases)
-  {
-    $this->useIpAliases = $useIpAliases;
-  }
-  public function getUseIpAliases()
-  {
-    return $this->useIpAliases;
-  }
+	public function setClusterIpv4CidrBlock($clusterIpv4CidrBlock)
+	{
+		$this->clusterIpv4CidrBlock = $clusterIpv4CidrBlock;
+	}
+	public function getClusterIpv4CidrBlock()
+	{
+		return $this->clusterIpv4CidrBlock;
+	}
+	public function setClusterSecondaryRangeName($clusterSecondaryRangeName)
+	{
+		$this->clusterSecondaryRangeName = $clusterSecondaryRangeName;
+	}
+	public function getClusterSecondaryRangeName()
+	{
+		return $this->clusterSecondaryRangeName;
+	}
+	public function setServicesIpv4CidrBlock($servicesIpv4CidrBlock)
+	{
+		$this->servicesIpv4CidrBlock = $servicesIpv4CidrBlock;
+	}
+	public function getServicesIpv4CidrBlock()
+	{
+		return $this->servicesIpv4CidrBlock;
+	}
+	public function setServicesSecondaryRangeName($servicesSecondaryRangeName)
+	{
+		$this->servicesSecondaryRangeName = $servicesSecondaryRangeName;
+	}
+	public function getServicesSecondaryRangeName()
+	{
+		return $this->servicesSecondaryRangeName;
+	}
+	public function setUseIpAliases($useIpAliases)
+	{
+		$this->useIpAliases = $useIpAliases;
+	}
+	public function getUseIpAliases()
+	{
+		return $this->useIpAliases;
+	}
 }

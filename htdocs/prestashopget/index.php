@@ -27,7 +27,7 @@ $res=0;
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
 if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
@@ -81,21 +81,17 @@ if (empty($page) || $page == -1 || GETPOST('button_search', 'alpha') || GETPOST(
 $offset = $limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
-if ($mode != 'groupbycountryandvatrate')
-{
-    if (! $sortfield) $sortfield="od.id_order_detail";
-    if (! $sortorder) $sortorder="DESC";
-}
-else
-{
-    if (! $sortfield) $sortfield="co.iso_code, o.module";
-    if (! $sortorder) $sortorder="ASC";
+if ($mode != 'groupbycountryandvatrate') {
+	if (! $sortfield) $sortfield="od.id_order_detail";
+	if (! $sortorder) $sortorder="DESC";
+} else {
+	if (! $sortfield) $sortfield="co.iso_code, o.module";
+	if (! $sortorder) $sortorder="ASC";
 }
 // Securite acces client
 if (! $user->rights->prestashopget->read) accessforbidden();
-$socid=GETPOST('socid','int');
-if (isset($user->societe_id) && $user->societe_id > 0)
-{
+$socid=GETPOST('socid', 'int');
+if (isset($user->societe_id) && $user->societe_id > 0) {
 	$action = '';
 	$socid = $user->societe_id;
 }
@@ -104,10 +100,9 @@ $max=5;
 $now=dol_now();
 
 $db2=getDoliDBInstance('mysqli', $conf->global->PRESTASHOPGET_DB_SERVER, $conf->global->PRESTASHOPGET_DB_USER, $conf->global->PRESTASHOPGET_DB_PASS, 'dolistore', 3306);
-if (! $db2->connected)
-{
-    print 'Failed to connect to PrestaShop server';
-    exit;
+if (! $db2->connected) {
+	print 'Failed to connect to PrestaShop server';
+	exit;
 }
 
 $product_id = GETPOST('product_id', 'int');
@@ -122,25 +117,24 @@ $arraylistofproducts = array();
 // None
 
 // Purge search criteria
-if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') ||GETPOST('button_removefilter', 'alpha')) // All tests are required to be compatible with all browsers
-{
-    $search_orderid='';
-    $search_orderlineid='';
-    $search_customer='';
-    $search_email='';
-    $search_country='';
-    $search_fromday='';
-    $search_frommonth='';
-    $search_fromyear='';
-    $search_from='';
-    $search_today='';
-    $search_tomonth='';
-    $search_toyear='';
-    $search_to='';
-    $search_paymentmode='';
-    $search_vatrate='';
-    $toselect='';
-    $search_array_options=array();
+if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') ||GETPOST('button_removefilter', 'alpha')) { // All tests are required to be compatible with all browsers
+	$search_orderid='';
+	$search_orderlineid='';
+	$search_customer='';
+	$search_email='';
+	$search_country='';
+	$search_fromday='';
+	$search_frommonth='';
+	$search_fromyear='';
+	$search_from='';
+	$search_today='';
+	$search_tomonth='';
+	$search_toyear='';
+	$search_to='';
+	$search_paymentmode='';
+	$search_vatrate='';
+	$toselect='';
+	$search_array_options=array();
 }
 
 
@@ -158,11 +152,11 @@ $help_url = '';
 $title = $langs->trans("ListOfPrestaShopSales");
 
 if ($mode == 'groupbycountryandvatrate') {
-    $title .= ' - '.$langs->trans("GroupByCountryAndVatRate");
+	$title .= ' - '.$langs->trans("GroupByCountryAndVatRate");
 }
 
 if ($mode == 'groupbyzoneandvatrate') {
-    $title .= ' - '.$langs->trans("GroupByZoneAndVatRate");
+	$title .= ' - '.$langs->trans("GroupByZoneAndVatRate");
 }
 
 
@@ -194,7 +188,7 @@ $sql.= " LEFT JOIN "._DB_PREFIX_."address as a ON o.id_address_invoice = a.id_ad
 $sql.= " LEFT JOIN "._DB_PREFIX_."country as co ON a.id_country = co.id_country,";
 $sql.= " "._DB_PREFIX_."customer as c";
 $sql.= " WHERE o.id_order = od.id_order AND c.id_customer = o.id_customer";
-if ($product_id > 0) $sql.=" AND od.product_id = ".(int)$product_id;
+if ($product_id > 0) $sql.=" AND od.product_id = ".(int) $product_id;
 if ($search_orderid) $sql.=natural_search("od.id_order_detail", $search_orderid);
 if ($search_customer) $sql.=natural_search(array('c.lastname', 'c.firstname'), $search_customer);
 if ($search_email) $sql.=natural_search('c.email', $search_email);
@@ -205,21 +199,18 @@ if ($search_from) $sql.=" AND o.date_add >= '".$db->idate($search_from)."'";
 if ($search_to) $sql.=" AND o.date_add <= '".$db->idate($search_to + 24 * 3600 - 1)."'";
 if ($search_paymentmode) $sql.=natural_search('o.module', $search_paymentmode);
 if ($search_vatrate) $sql.=natural_search('t.rate', $search_vatrate, 1);
-if ($mode == 'groupbyzoneandvatrate' || $mode == 'groupbycountryandvatrate')
-{
-    $sql.=" AND  o.valid = 1";
-    $sql.=" GROUP BY o.module, t.rate, odt.id_tax, co.iso_code";
-}
-else
-{
-    $sql.=" GROUP BY c.id_customer, c.email, c.lastname, c.firstname, c.date_add, c.date_upd,";
-    $sql.=" a.vat_number,";
-    $sql.=" od.id_order_detail, od.product_price, od.product_id,";
-    $sql.=" o.total_paid_tax_excl, o.total_paid_tax_incl, o.date_add,";
-    $sql.=" o.module, t.rate, odt.id_tax,";
-    $sql.=" co.iso_code,";
-    $sql.=" od.reduction_percent, od.reduction_amount, od.product_quantity, od.product_quantity_refunded,";
-    $sql.=" o.id_order, o.date_add, o.valid";
+if ($mode == 'groupbyzoneandvatrate' || $mode == 'groupbycountryandvatrate') {
+	$sql.=" AND  o.valid = 1";
+	$sql.=" GROUP BY o.module, t.rate, odt.id_tax, co.iso_code";
+} else {
+	$sql.=" GROUP BY c.id_customer, c.email, c.lastname, c.firstname, c.date_add, c.date_upd,";
+	$sql.=" a.vat_number,";
+	$sql.=" od.id_order_detail, od.product_price, od.product_id,";
+	$sql.=" o.total_paid_tax_excl, o.total_paid_tax_incl, o.date_add,";
+	$sql.=" o.module, t.rate, odt.id_tax,";
+	$sql.=" co.iso_code,";
+	$sql.=" od.reduction_percent, od.reduction_amount, od.product_quantity, od.product_quantity_refunded,";
+	$sql.=" o.id_order, o.date_add, o.valid";
 }
 
 $sql.=$db2->order($sortfield, $sortorder);
@@ -227,33 +218,27 @@ $sql.=$db2->order($sortfield, $sortorder);
 
 // Count total nb of records
 $nbtotalofrecords = '';
-if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
-{
-    $resql = $db2->query($sql);
-    $nbtotalofrecords = $db2->num_rows($resql);
-    if (($page * $limit) > $nbtotalofrecords)	// if total of record found is smaller than page * limit, goto and load page 0
-    {
-        $page = 0;
-        $offset = 0;
-    }
+if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST)) {
+	$resql = $db2->query($sql);
+	$nbtotalofrecords = $db2->num_rows($resql);
+	if (($page * $limit) > $nbtotalofrecords) {	// if total of record found is smaller than page * limit, goto and load page 0
+		$page = 0;
+		$offset = 0;
+	}
 }
 // if total of record found is smaller than limit, no need to do paging and to restart another select with limits set.
-if (is_numeric($nbtotalofrecords) && ($limit > $nbtotalofrecords || empty($limit)))
-{
-    $num = $nbtotalofrecords;
-}
-else
-{
-    if ($limit) $sql .= $db2->plimit($limit + 1, $offset);
+if (is_numeric($nbtotalofrecords) && ($limit > $nbtotalofrecords || empty($limit))) {
+	$num = $nbtotalofrecords;
+} else {
+	if ($limit) $sql .= $db2->plimit($limit + 1, $offset);
 
-    $resql = $db2->query($sql);
-    if (! $resql)
-    {
-        dol_print_error($db2);
-        exit;
-    }
+	$resql = $db2->query($sql);
+	if (! $resql) {
+		dol_print_error($db2);
+		exit;
+	}
 
-    $num = $db2->num_rows($resql);
+	$num = $db2->num_rows($resql);
 }
 
 $subresult = $db2->query($sql);
@@ -297,20 +282,15 @@ if ($mode == 'groupbyzoneandvatrate') {
 	print '<input type="hidden" name="page" value="'.$page.'">';
 }
 
-if ($mode == 'groupbyzoneandvatrate')
-{
-    $newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=list" class="eee">'.$langs->trans("FullList").'</a>';
-    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbycountryandvatrate" class="eee">'.$langs->trans("GroupByCountryAndVatRate").'</a>';
-}
-elseif ($mode == 'groupbycountryandvatrate')
-{
-    $newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=list" class="eee">'.$langs->trans("FullList").'</a>';
-    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate&sortfield=t.rate" class="eee" title="'.$labelbyzone.'">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
-}
-else
-{
-    $newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbycountryandvatrate" class="eee">'.$langs->trans("GroupByCountryAndVatRate").'</a>';
-    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate&sortfield=t.rate" class="eee" title="'.$labelbyzone.'">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
+if ($mode == 'groupbyzoneandvatrate') {
+	$newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=list" class="eee">'.$langs->trans("FullList").'</a>';
+	$newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbycountryandvatrate" class="eee">'.$langs->trans("GroupByCountryAndVatRate").'</a>';
+} elseif ($mode == 'groupbycountryandvatrate') {
+	$newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=list" class="eee">'.$langs->trans("FullList").'</a>';
+	$newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate&sortfield=t.rate" class="eee" title="'.$labelbyzone.'">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
+} else {
+	$newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbycountryandvatrate" class="eee">'.$langs->trans("GroupByCountryAndVatRate").'</a>';
+	$newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate&sortfield=t.rate" class="eee" title="'.$labelbyzone.'">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
 }
 $massactionbutton = '';
 
@@ -319,7 +299,7 @@ if ($mode) $param.= '&mode='.urlencode($mode);
 if ($mode == 'groupbyzoneandvatrate') {
 	print_barre_liste($title.' ('.$labelbyzone.')', $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, -1 * $num, '', 'title_companies', 0, $newcardbutton, '', -1, 1, 1);
 } else {
-    print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_companies', 0, $newcardbutton, '', $limit, 0, 0, 1);
+	print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_companies', 0, $newcardbutton, '', $limit, 0, 0, 1);
 }
 
 $moreforfilter = '';
@@ -329,11 +309,10 @@ $reshook=$hookmanager->executeHooks('printFieldPreListTitle', $parameters, $obje
 if (empty($reshook)) $moreforfilter .= $hookmanager->resPrint;
 else $moreforfilter = $hookmanager->resPrint;
 
-if (! empty($moreforfilter))
-{
-    print '<div class="liste_titre liste_titre_bydiv centpercent">';
-    print $moreforfilter;
-    print '</div>';
+if (! empty($moreforfilter)) {
+	print '<div class="liste_titre liste_titre_bydiv centpercent">';
+	print $moreforfilter;
+	print '</div>';
 }
 
 $varpage=empty($contextpage)?$_SERVER["PHP_SELF"]:$contextpage;
@@ -420,198 +399,178 @@ $arryofobj = array();
 
 //$num = $db2->num_rows($subresult);
 $cpt=0;
-while (($obj = $db2->fetch_object($subresult)) && (empty($limit) || ($cpt < min($num, $limit))))
-{
-    $cpt++;
+while (($obj = $db2->fetch_object($subresult)) && (empty($limit) || ($cpt < min($num, $limit)))) {
+	$cpt++;
 
-    $obj->country_code = $obj->iso_code;
+	$obj->country_code = $obj->iso_code;
 
-    $prodqty += $obj->product_quantity;
+	$prodqty += $obj->product_quantity;
 
-    $qtyvalidated = $obj->qtyvalidated;
+	$qtyvalidated = $obj->qtyvalidated;
 
-    //var_dump($obj->iso_code.' '.$mysoc->country_code);
-    $obj->isineec = (isInEEC($obj) ? 1 : 0);
-    if ($obj->isineec) {
-        $obj->ismysoccountry = ($obj->iso_code == $mysoc->country_code ? 1 : 0);
-    } else {
-        $obj->ismysoccountry = 0;
-    }
+	//var_dump($obj->iso_code.' '.$mysoc->country_code);
+	$obj->isineec = (isInEEC($obj) ? 1 : 0);
+	if ($obj->isineec) {
+		$obj->ismysoccountry = ($obj->iso_code == $mysoc->country_code ? 1 : 0);
+	} else {
+		$obj->ismysoccountry = 0;
+	}
 
-    if ($mode == 'groupbyzoneandvatrate') {
-        $tmp = new stdClass();
-        $tmp->isineec = $obj->isineec;
+	if ($mode == 'groupbyzoneandvatrate') {
+		$tmp = new stdClass();
+		$tmp->isineec = $obj->isineec;
 
-        $keyforarray = $obj->isineec.'_'.$obj->ismysoccountry.'_'.$obj->tax_rate.'_'.$obj->module;
+		$keyforarray = $obj->isineec.'_'.$obj->ismysoccountry.'_'.$obj->tax_rate.'_'.$obj->module;
 
-        //print $keyforarray.' '.$obj->qtyvalidated.'<br>';
-        $tmp->qtyvalidated = $obj->qtyvalidated + $arryofobj[$keyforarray]->qtyvalidated;
-        $tmp->tax_rate = $obj->tax_rate;
-        $tmp->amountvalidatedht = $obj->amountvalidatedht + $arryofobj[$keyforarray]->amountvalidatedht;
-        $tmp->amountvalidatedttc = $obj->amountvalidatedttc + $arryofobj[$keyforarray]->amountvalidatedttc;
-        $tmp->module = $obj->module;
+		//print $keyforarray.' '.$obj->qtyvalidated.'<br>';
+		$tmp->qtyvalidated = $obj->qtyvalidated + $arryofobj[$keyforarray]->qtyvalidated;
+		$tmp->tax_rate = $obj->tax_rate;
+		$tmp->amountvalidatedht = $obj->amountvalidatedht + $arryofobj[$keyforarray]->amountvalidatedht;
+		$tmp->amountvalidatedttc = $obj->amountvalidatedttc + $arryofobj[$keyforarray]->amountvalidatedttc;
+		$tmp->module = $obj->module;
 
-        $arryofobj[$keyforarray] = $tmp;
-    } else {
-        $arryofobj[] = $obj;
-    }
+		$arryofobj[$keyforarray] = $tmp;
+	} else {
+		$arryofobj[] = $obj;
+	}
 }
 
 foreach ($arryofobj as $key => $obj) {
-    $qtyvalidated = $obj->qtyvalidated;
+	$qtyvalidated = $obj->qtyvalidated;
 
-    print '<tr class="oddeven">';
+	print '<tr class="oddeven">';
 
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->id_order.'</td>';
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->id_order.'</td>';
 
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->id_order_detail.'</td>';
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->id_order_detail.'</td>';
 
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="tdoverflowmax100"><span title="'.dolGetFirstLastname($obj->firstname, $obj->lastname).'">'.dolGetFirstLastname($obj->firstname, $obj->lastname).'</span></td>';
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="tdoverflowmax100"><span title="'.dolGetFirstLastname($obj->firstname, $obj->lastname).'">'.dolGetFirstLastname($obj->firstname, $obj->lastname).'</span></td>';
 
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="nowraponall">'.dol_print_date($db->jdate($obj->cust_date_add), 'dayhour').'</td>';
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="nowraponall">'.dol_print_date($db->jdate($obj->cust_date_add), 'dayhour').'</td>';
 
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="tdoverflowmax150"><span title="'.$obj->email.'">'.$obj->email.'</span></td>';
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="tdoverflowmax150"><span title="'.$obj->email.'">'.$obj->email.'</span></td>';
 
-    // Country code
-    print '<td>';
-    if ($mode == 'groupbyzoneandvatrate') {
-        if (strpos($key, '1_1') === 0) print $langs->trans("Country".$mysoc->country_code);
-        elseif (strpos($key, '1_0') === 0) print $langs->trans("RestOfEurope");
-        else print $langs->trans("OutOfEurope");
-    } else {
-    	print $langs->trans("Country".$obj->iso_code);
-    }
-    print '</td>';
+	// Country code
+	print '<td>';
+	if ($mode == 'groupbyzoneandvatrate') {
+		if (strpos($key, '1_1') === 0) print $langs->trans("Country".$mysoc->country_code);
+		elseif (strpos($key, '1_0') === 0) print $langs->trans("RestOfEurope");
+		else print $langs->trans("OutOfEurope");
+	} else {
+		print $langs->trans("Country".$obj->iso_code);
+	}
+	print '</td>';
 
-    // Is in EEC
-    print '<td>';
-    print yn($obj->isineec);
-    print '</td>';
+	// Is in EEC
+	print '<td>';
+	print yn($obj->isineec);
+	print '</td>';
 
-    // VAT Number
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') {
-	    print '<td class="tdoverflowmax100">';
-	    print '<span title="'.$obj->vat_number.'">'.$obj->vat_number.'</span>';
-	    print '</td>';
-    }
+	// VAT Number
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') {
+		print '<td class="tdoverflowmax100">';
+		print '<span title="'.$obj->vat_number.'">'.$obj->vat_number.'</span>';
+		print '</td>';
+	}
 
-    // Date
-    print '<td class="nowraponall">'.dol_print_date($db->jdate($obj->order_date_add), 'dayhour').'</td>';
+	// Date
+	print '<td class="nowraponall">'.dol_print_date($db->jdate($obj->order_date_add), 'dayhour').'</td>';
 
-    // Product ID
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->product_id.'</td>';
-    //if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$arraylistofproducts[$obj->product_id]['name'].'</td>';
-    //if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$arraylistofproducts[$obj->product_id]['reference'].'</td>';
+	// Product ID
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->product_id.'</td>';
+	//if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$arraylistofproducts[$obj->product_id]['name'].'</td>';
+	//if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$arraylistofproducts[$obj->product_id]['reference'].'</td>';
 
-    // Valid ?
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->valid.'</td>';
+	// Valid ?
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->valid.'</td>';
 
-    // Qty validated
-    print '<td>'.$qtyvalidated.'</td>';
+	// Qty validated
+	print '<td>'.$qtyvalidated.'</td>';
 
-    $amountearnedunit=(float) ($obj->prod_amount_ht - $obj->reduction_amount + 0);
-    if ($obj->reduction_percent > 0) $amountearnedunit=round($amountearnedunit*(100-$obj->reduction_percent)/100, 5);
-    $amountearnedunitsql=$obj->prod_amount_ht_with_discount_abs_and_percent;
+	$amountearnedunit=(float) ($obj->prod_amount_ht - $obj->reduction_amount + 0);
+	if ($obj->reduction_percent > 0) $amountearnedunit=round($amountearnedunit*(100-$obj->reduction_percent)/100, 5);
+	$amountearnedunitsql=$obj->prod_amount_ht_with_discount_abs_and_percent;
 
-    //$amountearned=$amountearnedunit*$subrow['product_quantity'];
-    //$amountearned=$amountearnedunit*$qtyvalidated;
-    //if ($subrow['id_customer'] == 9824) var_dump($amountearned);
+	//$amountearned=$amountearnedunit*$subrow['product_quantity'];
+	//$amountearned=$amountearnedunit*$qtyvalidated;
+	//if ($subrow['id_customer'] == 9824) var_dump($amountearned);
 
-    $totalamountunit = ($qtyvalidated > 1 ? $obj->prod_amount_ht * $qtyvalidated : $obj->prod_amount_ht);
+	$totalamountunit = ($qtyvalidated > 1 ? $obj->prod_amount_ht * $qtyvalidated : $obj->prod_amount_ht);
 
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate')
-    {
-        if ($obj->reduction_amount > 0 || $obj->reduction_percent > 0)
-        {
-            print '<td class="right nowraponall">';
-            /*print $obj->reduction_amount;
-            print ' '.$obj->reduction_percent;
-            print ' '.$obj->prod_amount_ht_with_discount_abs_and_percent;*/
-            print ' '.round($amountearnedunitsql, 5).' ';
-            //print round($amountearnedunit,5);
-            print ' ('.($totalamountunit+0).')';
-            print '</td>';
-        }
-        else
-        {
-            print '<td class="right nowraponall">'.round($amountearnedunitsql,5).'</td>';
-        }
-    }
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') {
+		if ($obj->reduction_amount > 0 || $obj->reduction_percent > 0) {
+			print '<td class="right nowraponall">';
+			/*print $obj->reduction_amount;
+			print ' '.$obj->reduction_percent;
+			print ' '.$obj->prod_amount_ht_with_discount_abs_and_percent;*/
+			print ' '.round($amountearnedunitsql, 5).' ';
+			//print round($amountearnedunit,5);
+			print ' ('.($totalamountunit+0).')';
+			print '</td>';
+		} else {
+			print '<td class="right nowraponall">'.round($amountearnedunitsql, 5).'</td>';
+		}
+	}
 
-    // Vat rate
-    print '<td class="right nowraponall">'.vatrate($obj->tax_rate).'</td>';
+	// Vat rate
+	print '<td class="right nowraponall">'.vatrate($obj->tax_rate).'</td>';
 
-    // Final amount HT
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate')
-    {
-        if ($obj->amountvalidatedht > 0)
-        {
-            print '<td class="right nowraponall">';
-            print price($obj->amountvalidatedht).' ';
-            print '</td>';
-        }
-        else
-        {
-            print '<td>';
-            print $langs->trans('RefundedOrCancelled');
-            print '</td>';
-        }
-    }
-    else
-    {
-        print '<td class="right nowraponall">';
-        print price($obj->amountvalidatedht).' ';
-        print '</td>';
-    }
+	// Final amount HT
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') {
+		if ($obj->amountvalidatedht > 0) {
+			print '<td class="right nowraponall">';
+			print price($obj->amountvalidatedht).' ';
+			print '</td>';
+		} else {
+			print '<td>';
+			print $langs->trans('RefundedOrCancelled');
+			print '</td>';
+		}
+	} else {
+		print '<td class="right nowraponall">';
+		print price($obj->amountvalidatedht).' ';
+		print '</td>';
+	}
 
-    // Final amount VAT
-    print '<td class="right nowraponall">';
-    if ($obj->amountvalidatedttc > 0 || $obj->amountvalidatedht > 0)
-    {
-        print price($obj->amountvalidatedttc - $obj->amountvalidatedht);
-    }
-    else
-    {
-        print $langs->trans('RefundedOrCancelled');
-    }
-    print '</td>';
+	// Final amount VAT
+	print '<td class="right nowraponall">';
+	if ($obj->amountvalidatedttc > 0 || $obj->amountvalidatedht > 0) {
+		print price($obj->amountvalidatedttc - $obj->amountvalidatedht);
+	} else {
+		print $langs->trans('RefundedOrCancelled');
+	}
+	print '</td>';
 
-    // Final amount TTC
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate')
-    {
-        if ($obj->amountvalidatedttc > 0)
-        {
-            print '<td class="right nowraponall">';
-            print price($obj->amountvalidatedttc).' ';
-            print '</td>';
-        }
-        else
-        {
-            print '<td>';
-            print $langs->trans('RefundedOrCancelled');
-            print '</td>';
-        }
-    }
-    else
-    {
-        print '<td class="right nowraponall">';
-        print price($obj->amountvalidatedttc).' ';
-        print '</td>';
-    }
-    /*
-    print '<td class="right nowraponall">';
-    print price($obj->total_price_tax_incl);
-    print '</td>';*/
+	// Final amount TTC
+	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') {
+		if ($obj->amountvalidatedttc > 0) {
+			print '<td class="right nowraponall">';
+			print price($obj->amountvalidatedttc).' ';
+			print '</td>';
+		} else {
+			print '<td>';
+			print $langs->trans('RefundedOrCancelled');
+			print '</td>';
+		}
+	} else {
+		print '<td class="right nowraponall">';
+		print price($obj->amountvalidatedttc).' ';
+		print '</td>';
+	}
+	/*
+	print '<td class="right nowraponall">';
+	print price($obj->total_price_tax_incl);
+	print '</td>';*/
 
-    print '<td>'.$obj->module.'</td>';
+	print '<td>'.$obj->module.'</td>';
 
-    // Note
-    //if ($mode != 'groupbycountryandvatrate') print '<td></td>';
+	// Note
+	//if ($mode != 'groupbycountryandvatrate') print '<td></td>';
 
-    // Action
-    print '<td></td>';
+	// Action
+	print '<td></td>';
 
-    print '</tr>';
+	print '</tr>';
 }
 
 print '</table>';

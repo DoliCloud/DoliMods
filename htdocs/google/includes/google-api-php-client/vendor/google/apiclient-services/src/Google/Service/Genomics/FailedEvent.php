@@ -17,23 +17,23 @@
 
 class Google_Service_Genomics_FailedEvent extends Google_Model
 {
-  public $cause;
-  public $code;
+	public $cause;
+	public $code;
 
-  public function setCause($cause)
-  {
-    $this->cause = $cause;
-  }
-  public function getCause()
-  {
-    return $this->cause;
-  }
-  public function setCode($code)
-  {
-    $this->code = $code;
-  }
-  public function getCode()
-  {
-    return $this->code;
-  }
+	public function setCause($cause)
+	{
+		$this->cause = $cause;
+	}
+	public function getCause()
+	{
+		return $this->cause;
+	}
+	public function setCode($code)
+	{
+		$this->code = $code;
+	}
+	public function getCode()
+	{
+		return $this->code;
+	}
 }

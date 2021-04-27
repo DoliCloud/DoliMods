@@ -17,53 +17,53 @@
 
 class Google_Service_Partners_CreateLeadRequest extends Google_Model
 {
-  protected $leadType = 'Google_Service_Partners_Lead';
-  protected $leadDataType = '';
-  protected $recaptchaChallengeType = 'Google_Service_Partners_RecaptchaChallenge';
-  protected $recaptchaChallengeDataType = '';
-  protected $requestMetadataType = 'Google_Service_Partners_RequestMetadata';
-  protected $requestMetadataDataType = '';
+	protected $leadType = 'Google_Service_Partners_Lead';
+	protected $leadDataType = '';
+	protected $recaptchaChallengeType = 'Google_Service_Partners_RecaptchaChallenge';
+	protected $recaptchaChallengeDataType = '';
+	protected $requestMetadataType = 'Google_Service_Partners_RequestMetadata';
+	protected $requestMetadataDataType = '';
 
-  /**
-   * @param Google_Service_Partners_Lead
-   */
-  public function setLead(Google_Service_Partners_Lead $lead)
-  {
-    $this->lead = $lead;
-  }
-  /**
-   * @return Google_Service_Partners_Lead
-   */
-  public function getLead()
-  {
-    return $this->lead;
-  }
-  /**
-   * @param Google_Service_Partners_RecaptchaChallenge
-   */
-  public function setRecaptchaChallenge(Google_Service_Partners_RecaptchaChallenge $recaptchaChallenge)
-  {
-    $this->recaptchaChallenge = $recaptchaChallenge;
-  }
-  /**
-   * @return Google_Service_Partners_RecaptchaChallenge
-   */
-  public function getRecaptchaChallenge()
-  {
-    return $this->recaptchaChallenge;
-  }
-  /**
-   * @param Google_Service_Partners_RequestMetadata
-   */
-  public function setRequestMetadata(Google_Service_Partners_RequestMetadata $requestMetadata)
-  {
-    $this->requestMetadata = $requestMetadata;
-  }
-  /**
-   * @return Google_Service_Partners_RequestMetadata
-   */
-  public function getRequestMetadata()
-  {
-    return $this->requestMetadata;
-  }
+	/**
+	 * @param Google_Service_Partners_Lead
+	 */
+	public function setLead(Google_Service_Partners_Lead $lead)
+	{
+		$this->lead = $lead;
+	}
+	/**
+	 * @return Google_Service_Partners_Lead
+	 */
+	public function getLead()
+	{
+		return $this->lead;
+	}
+	/**
+	 * @param Google_Service_Partners_RecaptchaChallenge
+	 */
+	public function setRecaptchaChallenge(Google_Service_Partners_RecaptchaChallenge $recaptchaChallenge)
+	{
+		$this->recaptchaChallenge = $recaptchaChallenge;
+	}
+	/**
+	 * @return Google_Service_Partners_RecaptchaChallenge
+	 */
+	public function getRecaptchaChallenge()
+	{
+		return $this->recaptchaChallenge;
+	}
+	/**
+	 * @param Google_Service_Partners_RequestMetadata
+	 */
+	public function setRequestMetadata(Google_Service_Partners_RequestMetadata $requestMetadata)
+	{
+		$this->requestMetadata = $requestMetadata;
+	}
+	/**
+	 * @return Google_Service_Partners_RequestMetadata
+	 */
+	public function getRequestMetadata()
+	{
+		return $this->requestMetadata;
+	}
 }

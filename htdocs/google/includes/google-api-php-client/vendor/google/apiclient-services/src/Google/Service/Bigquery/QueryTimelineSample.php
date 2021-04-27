@@ -17,50 +17,50 @@
 
 class Google_Service_Bigquery_QueryTimelineSample extends Google_Model
 {
-  public $activeUnits;
-  public $completedUnits;
-  public $elapsedMs;
-  public $pendingUnits;
-  public $totalSlotMs;
+	public $activeUnits;
+	public $completedUnits;
+	public $elapsedMs;
+	public $pendingUnits;
+	public $totalSlotMs;
 
-  public function setActiveUnits($activeUnits)
-  {
-    $this->activeUnits = $activeUnits;
-  }
-  public function getActiveUnits()
-  {
-    return $this->activeUnits;
-  }
-  public function setCompletedUnits($completedUnits)
-  {
-    $this->completedUnits = $completedUnits;
-  }
-  public function getCompletedUnits()
-  {
-    return $this->completedUnits;
-  }
-  public function setElapsedMs($elapsedMs)
-  {
-    $this->elapsedMs = $elapsedMs;
-  }
-  public function getElapsedMs()
-  {
-    return $this->elapsedMs;
-  }
-  public function setPendingUnits($pendingUnits)
-  {
-    $this->pendingUnits = $pendingUnits;
-  }
-  public function getPendingUnits()
-  {
-    return $this->pendingUnits;
-  }
-  public function setTotalSlotMs($totalSlotMs)
-  {
-    $this->totalSlotMs = $totalSlotMs;
-  }
-  public function getTotalSlotMs()
-  {
-    return $this->totalSlotMs;
-  }
+	public function setActiveUnits($activeUnits)
+	{
+		$this->activeUnits = $activeUnits;
+	}
+	public function getActiveUnits()
+	{
+		return $this->activeUnits;
+	}
+	public function setCompletedUnits($completedUnits)
+	{
+		$this->completedUnits = $completedUnits;
+	}
+	public function getCompletedUnits()
+	{
+		return $this->completedUnits;
+	}
+	public function setElapsedMs($elapsedMs)
+	{
+		$this->elapsedMs = $elapsedMs;
+	}
+	public function getElapsedMs()
+	{
+		return $this->elapsedMs;
+	}
+	public function setPendingUnits($pendingUnits)
+	{
+		$this->pendingUnits = $pendingUnits;
+	}
+	public function getPendingUnits()
+	{
+		return $this->pendingUnits;
+	}
+	public function setTotalSlotMs($totalSlotMs)
+	{
+		$this->totalSlotMs = $totalSlotMs;
+	}
+	public function getTotalSlotMs()
+	{
+		return $this->totalSlotMs;
+	}
 }

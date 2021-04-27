@@ -17,41 +17,41 @@
 
 class Google_Service_Dns_DnsKeySpec extends Google_Model
 {
-  public $algorithm;
-  public $keyLength;
-  public $keyType;
-  public $kind;
+	public $algorithm;
+	public $keyLength;
+	public $keyType;
+	public $kind;
 
-  public function setAlgorithm($algorithm)
-  {
-    $this->algorithm = $algorithm;
-  }
-  public function getAlgorithm()
-  {
-    return $this->algorithm;
-  }
-  public function setKeyLength($keyLength)
-  {
-    $this->keyLength = $keyLength;
-  }
-  public function getKeyLength()
-  {
-    return $this->keyLength;
-  }
-  public function setKeyType($keyType)
-  {
-    $this->keyType = $keyType;
-  }
-  public function getKeyType()
-  {
-    return $this->keyType;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setAlgorithm($algorithm)
+	{
+		$this->algorithm = $algorithm;
+	}
+	public function getAlgorithm()
+	{
+		return $this->algorithm;
+	}
+	public function setKeyLength($keyLength)
+	{
+		$this->keyLength = $keyLength;
+	}
+	public function getKeyLength()
+	{
+		return $this->keyLength;
+	}
+	public function setKeyType($keyType)
+	{
+		$this->keyType = $keyType;
+	}
+	public function getKeyType()
+	{
+		return $this->keyType;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

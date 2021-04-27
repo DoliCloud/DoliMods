@@ -17,50 +17,50 @@
 
 class Google_Service_Compute_NetworkEndpoint extends Google_Model
 {
-  public $annotations;
-  public $fqdn;
-  public $instance;
-  public $ipAddress;
-  public $port;
+	public $annotations;
+	public $fqdn;
+	public $instance;
+	public $ipAddress;
+	public $port;
 
-  public function setAnnotations($annotations)
-  {
-    $this->annotations = $annotations;
-  }
-  public function getAnnotations()
-  {
-    return $this->annotations;
-  }
-  public function setFqdn($fqdn)
-  {
-    $this->fqdn = $fqdn;
-  }
-  public function getFqdn()
-  {
-    return $this->fqdn;
-  }
-  public function setInstance($instance)
-  {
-    $this->instance = $instance;
-  }
-  public function getInstance()
-  {
-    return $this->instance;
-  }
-  public function setIpAddress($ipAddress)
-  {
-    $this->ipAddress = $ipAddress;
-  }
-  public function getIpAddress()
-  {
-    return $this->ipAddress;
-  }
-  public function setPort($port)
-  {
-    $this->port = $port;
-  }
-  public function getPort()
-  {
-    return $this->port;
-  }
+	public function setAnnotations($annotations)
+	{
+		$this->annotations = $annotations;
+	}
+	public function getAnnotations()
+	{
+		return $this->annotations;
+	}
+	public function setFqdn($fqdn)
+	{
+		$this->fqdn = $fqdn;
+	}
+	public function getFqdn()
+	{
+		return $this->fqdn;
+	}
+	public function setInstance($instance)
+	{
+		$this->instance = $instance;
+	}
+	public function getInstance()
+	{
+		return $this->instance;
+	}
+	public function setIpAddress($ipAddress)
+	{
+		$this->ipAddress = $ipAddress;
+	}
+	public function getIpAddress()
+	{
+		return $this->ipAddress;
+	}
+	public function setPort($port)
+	{
+		$this->port = $port;
+	}
+	public function getPort()
+	{
+		return $this->port;
+	}
 }

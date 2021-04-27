@@ -17,30 +17,30 @@
 
 class Google_Service_ServiceConsumerManagement_ApplyTenantProjectConfigRequest extends Google_Model
 {
-  protected $projectConfigType = 'Google_Service_ServiceConsumerManagement_TenantProjectConfig';
-  protected $projectConfigDataType = '';
-  public $tag;
+	protected $projectConfigType = 'Google_Service_ServiceConsumerManagement_TenantProjectConfig';
+	protected $projectConfigDataType = '';
+	public $tag;
 
-  /**
-   * @param Google_Service_ServiceConsumerManagement_TenantProjectConfig
-   */
-  public function setProjectConfig(Google_Service_ServiceConsumerManagement_TenantProjectConfig $projectConfig)
-  {
-    $this->projectConfig = $projectConfig;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_TenantProjectConfig
-   */
-  public function getProjectConfig()
-  {
-    return $this->projectConfig;
-  }
-  public function setTag($tag)
-  {
-    $this->tag = $tag;
-  }
-  public function getTag()
-  {
-    return $this->tag;
-  }
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_TenantProjectConfig
+	 */
+	public function setProjectConfig(Google_Service_ServiceConsumerManagement_TenantProjectConfig $projectConfig)
+	{
+		$this->projectConfig = $projectConfig;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_TenantProjectConfig
+	 */
+	public function getProjectConfig()
+	{
+		return $this->projectConfig;
+	}
+	public function setTag($tag)
+	{
+		$this->tag = $tag;
+	}
+	public function getTag()
+	{
+		return $this->tag;
+	}
 }

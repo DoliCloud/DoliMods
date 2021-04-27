@@ -17,24 +17,24 @@
 
 class Google_Service_Testing_TestDetails extends Google_Collection
 {
-  protected $collection_key = 'progressMessages';
-  public $errorMessage;
-  public $progressMessages;
+	protected $collection_key = 'progressMessages';
+	public $errorMessage;
+	public $progressMessages;
 
-  public function setErrorMessage($errorMessage)
-  {
-    $this->errorMessage = $errorMessage;
-  }
-  public function getErrorMessage()
-  {
-    return $this->errorMessage;
-  }
-  public function setProgressMessages($progressMessages)
-  {
-    $this->progressMessages = $progressMessages;
-  }
-  public function getProgressMessages()
-  {
-    return $this->progressMessages;
-  }
+	public function setErrorMessage($errorMessage)
+	{
+		$this->errorMessage = $errorMessage;
+	}
+	public function getErrorMessage()
+	{
+		return $this->errorMessage;
+	}
+	public function setProgressMessages($progressMessages)
+	{
+		$this->progressMessages = $progressMessages;
+	}
+	public function getProgressMessages()
+	{
+		return $this->progressMessages;
+	}
 }

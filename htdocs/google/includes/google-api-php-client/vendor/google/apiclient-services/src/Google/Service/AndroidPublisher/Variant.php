@@ -17,30 +17,30 @@
 
 class Google_Service_AndroidPublisher_Variant extends Google_Model
 {
-  protected $deviceSpecType = 'Google_Service_AndroidPublisher_DeviceSpec';
-  protected $deviceSpecDataType = '';
-  public $variantId;
+	protected $deviceSpecType = 'Google_Service_AndroidPublisher_DeviceSpec';
+	protected $deviceSpecDataType = '';
+	public $variantId;
 
-  /**
-   * @param Google_Service_AndroidPublisher_DeviceSpec
-   */
-  public function setDeviceSpec(Google_Service_AndroidPublisher_DeviceSpec $deviceSpec)
-  {
-    $this->deviceSpec = $deviceSpec;
-  }
-  /**
-   * @return Google_Service_AndroidPublisher_DeviceSpec
-   */
-  public function getDeviceSpec()
-  {
-    return $this->deviceSpec;
-  }
-  public function setVariantId($variantId)
-  {
-    $this->variantId = $variantId;
-  }
-  public function getVariantId()
-  {
-    return $this->variantId;
-  }
+	/**
+	 * @param Google_Service_AndroidPublisher_DeviceSpec
+	 */
+	public function setDeviceSpec(Google_Service_AndroidPublisher_DeviceSpec $deviceSpec)
+	{
+		$this->deviceSpec = $deviceSpec;
+	}
+	/**
+	 * @return Google_Service_AndroidPublisher_DeviceSpec
+	 */
+	public function getDeviceSpec()
+	{
+		return $this->deviceSpec;
+	}
+	public function setVariantId($variantId)
+	{
+		$this->variantId = $variantId;
+	}
+	public function getVariantId()
+	{
+		return $this->variantId;
+	}
 }

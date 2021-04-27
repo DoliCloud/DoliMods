@@ -17,15 +17,15 @@
 
 class Google_Service_ContainerAnalysis_Deployable extends Google_Collection
 {
-  protected $collection_key = 'resourceUri';
-  public $resourceUri;
+	protected $collection_key = 'resourceUri';
+	public $resourceUri;
 
-  public function setResourceUri($resourceUri)
-  {
-    $this->resourceUri = $resourceUri;
-  }
-  public function getResourceUri()
-  {
-    return $this->resourceUri;
-  }
+	public function setResourceUri($resourceUri)
+	{
+		$this->resourceUri = $resourceUri;
+	}
+	public function getResourceUri()
+	{
+		return $this->resourceUri;
+	}
 }

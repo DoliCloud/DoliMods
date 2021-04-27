@@ -17,67 +17,67 @@
 
 class Google_Service_Sheets_BatchUpdateValuesByDataFilterResponse extends Google_Collection
 {
-  protected $collection_key = 'responses';
-  protected $responsesType = 'Google_Service_Sheets_UpdateValuesByDataFilterResponse';
-  protected $responsesDataType = 'array';
-  public $spreadsheetId;
-  public $totalUpdatedCells;
-  public $totalUpdatedColumns;
-  public $totalUpdatedRows;
-  public $totalUpdatedSheets;
+	protected $collection_key = 'responses';
+	protected $responsesType = 'Google_Service_Sheets_UpdateValuesByDataFilterResponse';
+	protected $responsesDataType = 'array';
+	public $spreadsheetId;
+	public $totalUpdatedCells;
+	public $totalUpdatedColumns;
+	public $totalUpdatedRows;
+	public $totalUpdatedSheets;
 
-  /**
-   * @param Google_Service_Sheets_UpdateValuesByDataFilterResponse
-   */
-  public function setResponses($responses)
-  {
-    $this->responses = $responses;
-  }
-  /**
-   * @return Google_Service_Sheets_UpdateValuesByDataFilterResponse
-   */
-  public function getResponses()
-  {
-    return $this->responses;
-  }
-  public function setSpreadsheetId($spreadsheetId)
-  {
-    $this->spreadsheetId = $spreadsheetId;
-  }
-  public function getSpreadsheetId()
-  {
-    return $this->spreadsheetId;
-  }
-  public function setTotalUpdatedCells($totalUpdatedCells)
-  {
-    $this->totalUpdatedCells = $totalUpdatedCells;
-  }
-  public function getTotalUpdatedCells()
-  {
-    return $this->totalUpdatedCells;
-  }
-  public function setTotalUpdatedColumns($totalUpdatedColumns)
-  {
-    $this->totalUpdatedColumns = $totalUpdatedColumns;
-  }
-  public function getTotalUpdatedColumns()
-  {
-    return $this->totalUpdatedColumns;
-  }
-  public function setTotalUpdatedRows($totalUpdatedRows)
-  {
-    $this->totalUpdatedRows = $totalUpdatedRows;
-  }
-  public function getTotalUpdatedRows()
-  {
-    return $this->totalUpdatedRows;
-  }
-  public function setTotalUpdatedSheets($totalUpdatedSheets)
-  {
-    $this->totalUpdatedSheets = $totalUpdatedSheets;
-  }
-  public function getTotalUpdatedSheets()
-  {
-    return $this->totalUpdatedSheets;
-  }
+	/**
+	 * @param Google_Service_Sheets_UpdateValuesByDataFilterResponse
+	 */
+	public function setResponses($responses)
+	{
+		$this->responses = $responses;
+	}
+	/**
+	 * @return Google_Service_Sheets_UpdateValuesByDataFilterResponse
+	 */
+	public function getResponses()
+	{
+		return $this->responses;
+	}
+	public function setSpreadsheetId($spreadsheetId)
+	{
+		$this->spreadsheetId = $spreadsheetId;
+	}
+	public function getSpreadsheetId()
+	{
+		return $this->spreadsheetId;
+	}
+	public function setTotalUpdatedCells($totalUpdatedCells)
+	{
+		$this->totalUpdatedCells = $totalUpdatedCells;
+	}
+	public function getTotalUpdatedCells()
+	{
+		return $this->totalUpdatedCells;
+	}
+	public function setTotalUpdatedColumns($totalUpdatedColumns)
+	{
+		$this->totalUpdatedColumns = $totalUpdatedColumns;
+	}
+	public function getTotalUpdatedColumns()
+	{
+		return $this->totalUpdatedColumns;
+	}
+	public function setTotalUpdatedRows($totalUpdatedRows)
+	{
+		$this->totalUpdatedRows = $totalUpdatedRows;
+	}
+	public function getTotalUpdatedRows()
+	{
+		return $this->totalUpdatedRows;
+	}
+	public function setTotalUpdatedSheets($totalUpdatedSheets)
+	{
+		$this->totalUpdatedSheets = $totalUpdatedSheets;
+	}
+	public function getTotalUpdatedSheets()
+	{
+		return $this->totalUpdatedSheets;
+	}
 }

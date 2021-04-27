@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidManagement_ApplicationEvent extends Google_Model
 {
-  public $createTime;
-  public $eventType;
+	public $createTime;
+	public $eventType;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setEventType($eventType)
-  {
-    $this->eventType = $eventType;
-  }
-  public function getEventType()
-  {
-    return $this->eventType;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setEventType($eventType)
+	{
+		$this->eventType = $eventType;
+	}
+	public function getEventType()
+	{
+		return $this->eventType;
+	}
 }

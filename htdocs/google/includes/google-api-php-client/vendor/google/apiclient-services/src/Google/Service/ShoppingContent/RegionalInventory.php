@@ -17,90 +17,90 @@
 
 class Google_Service_ShoppingContent_RegionalInventory extends Google_Collection
 {
-  protected $collection_key = 'customAttributes';
-  public $availability;
-  protected $customAttributesType = 'Google_Service_ShoppingContent_CustomAttribute';
-  protected $customAttributesDataType = 'array';
-  public $kind;
-  protected $priceType = 'Google_Service_ShoppingContent_Price';
-  protected $priceDataType = '';
-  public $regionId;
-  protected $salePriceType = 'Google_Service_ShoppingContent_Price';
-  protected $salePriceDataType = '';
-  public $salePriceEffectiveDate;
+	protected $collection_key = 'customAttributes';
+	public $availability;
+	protected $customAttributesType = 'Google_Service_ShoppingContent_CustomAttribute';
+	protected $customAttributesDataType = 'array';
+	public $kind;
+	protected $priceType = 'Google_Service_ShoppingContent_Price';
+	protected $priceDataType = '';
+	public $regionId;
+	protected $salePriceType = 'Google_Service_ShoppingContent_Price';
+	protected $salePriceDataType = '';
+	public $salePriceEffectiveDate;
 
-  public function setAvailability($availability)
-  {
-    $this->availability = $availability;
-  }
-  public function getAvailability()
-  {
-    return $this->availability;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_CustomAttribute
-   */
-  public function setCustomAttributes($customAttributes)
-  {
-    $this->customAttributes = $customAttributes;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_CustomAttribute
-   */
-  public function getCustomAttributes()
-  {
-    return $this->customAttributes;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setPrice(Google_Service_ShoppingContent_Price $price)
-  {
-    $this->price = $price;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getPrice()
-  {
-    return $this->price;
-  }
-  public function setRegionId($regionId)
-  {
-    $this->regionId = $regionId;
-  }
-  public function getRegionId()
-  {
-    return $this->regionId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setSalePrice(Google_Service_ShoppingContent_Price $salePrice)
-  {
-    $this->salePrice = $salePrice;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getSalePrice()
-  {
-    return $this->salePrice;
-  }
-  public function setSalePriceEffectiveDate($salePriceEffectiveDate)
-  {
-    $this->salePriceEffectiveDate = $salePriceEffectiveDate;
-  }
-  public function getSalePriceEffectiveDate()
-  {
-    return $this->salePriceEffectiveDate;
-  }
+	public function setAvailability($availability)
+	{
+		$this->availability = $availability;
+	}
+	public function getAvailability()
+	{
+		return $this->availability;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_CustomAttribute
+	 */
+	public function setCustomAttributes($customAttributes)
+	{
+		$this->customAttributes = $customAttributes;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_CustomAttribute
+	 */
+	public function getCustomAttributes()
+	{
+		return $this->customAttributes;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setPrice(Google_Service_ShoppingContent_Price $price)
+	{
+		$this->price = $price;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getPrice()
+	{
+		return $this->price;
+	}
+	public function setRegionId($regionId)
+	{
+		$this->regionId = $regionId;
+	}
+	public function getRegionId()
+	{
+		return $this->regionId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setSalePrice(Google_Service_ShoppingContent_Price $salePrice)
+	{
+		$this->salePrice = $salePrice;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getSalePrice()
+	{
+		return $this->salePrice;
+	}
+	public function setSalePriceEffectiveDate($salePriceEffectiveDate)
+	{
+		$this->salePriceEffectiveDate = $salePriceEffectiveDate;
+	}
+	public function getSalePriceEffectiveDate()
+	{
+		return $this->salePriceEffectiveDate;
+	}
 }

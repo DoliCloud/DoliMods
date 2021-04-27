@@ -17,76 +17,76 @@
 
 class Google_Service_ServiceConsumerManagement_Method extends Google_Collection
 {
-  protected $collection_key = 'options';
-  public $name;
-  protected $optionsType = 'Google_Service_ServiceConsumerManagement_Option';
-  protected $optionsDataType = 'array';
-  public $requestStreaming;
-  public $requestTypeUrl;
-  public $responseStreaming;
-  public $responseTypeUrl;
-  public $syntax;
+	protected $collection_key = 'options';
+	public $name;
+	protected $optionsType = 'Google_Service_ServiceConsumerManagement_Option';
+	protected $optionsDataType = 'array';
+	public $requestStreaming;
+	public $requestTypeUrl;
+	public $responseStreaming;
+	public $responseTypeUrl;
+	public $syntax;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_ServiceConsumerManagement_Option
-   */
-  public function setOptions($options)
-  {
-    $this->options = $options;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_Option
-   */
-  public function getOptions()
-  {
-    return $this->options;
-  }
-  public function setRequestStreaming($requestStreaming)
-  {
-    $this->requestStreaming = $requestStreaming;
-  }
-  public function getRequestStreaming()
-  {
-    return $this->requestStreaming;
-  }
-  public function setRequestTypeUrl($requestTypeUrl)
-  {
-    $this->requestTypeUrl = $requestTypeUrl;
-  }
-  public function getRequestTypeUrl()
-  {
-    return $this->requestTypeUrl;
-  }
-  public function setResponseStreaming($responseStreaming)
-  {
-    $this->responseStreaming = $responseStreaming;
-  }
-  public function getResponseStreaming()
-  {
-    return $this->responseStreaming;
-  }
-  public function setResponseTypeUrl($responseTypeUrl)
-  {
-    $this->responseTypeUrl = $responseTypeUrl;
-  }
-  public function getResponseTypeUrl()
-  {
-    return $this->responseTypeUrl;
-  }
-  public function setSyntax($syntax)
-  {
-    $this->syntax = $syntax;
-  }
-  public function getSyntax()
-  {
-    return $this->syntax;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_Option
+	 */
+	public function setOptions($options)
+	{
+		$this->options = $options;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_Option
+	 */
+	public function getOptions()
+	{
+		return $this->options;
+	}
+	public function setRequestStreaming($requestStreaming)
+	{
+		$this->requestStreaming = $requestStreaming;
+	}
+	public function getRequestStreaming()
+	{
+		return $this->requestStreaming;
+	}
+	public function setRequestTypeUrl($requestTypeUrl)
+	{
+		$this->requestTypeUrl = $requestTypeUrl;
+	}
+	public function getRequestTypeUrl()
+	{
+		return $this->requestTypeUrl;
+	}
+	public function setResponseStreaming($responseStreaming)
+	{
+		$this->responseStreaming = $responseStreaming;
+	}
+	public function getResponseStreaming()
+	{
+		return $this->responseStreaming;
+	}
+	public function setResponseTypeUrl($responseTypeUrl)
+	{
+		$this->responseTypeUrl = $responseTypeUrl;
+	}
+	public function getResponseTypeUrl()
+	{
+		return $this->responseTypeUrl;
+	}
+	public function setSyntax($syntax)
+	{
+		$this->syntax = $syntax;
+	}
+	public function getSyntax()
+	{
+		return $this->syntax;
+	}
 }

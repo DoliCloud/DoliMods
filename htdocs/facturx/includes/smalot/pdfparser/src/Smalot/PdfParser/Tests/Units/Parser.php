@@ -39,29 +39,29 @@ use mageekguy\atoum;
  */
 class Parser extends atoum\test
 {
-    public function testParseFile()
-    {
-        $directory = getcwd() . '/samples/bugs';
+	public function testParseFile()
+	{
+		$directory = getcwd() . '/samples/bugs';
 
-        if (is_dir($directory)) {
-            $files  = scandir($directory);
-            $parser = new \Smalot\PdfParser\Parser();
+		if (is_dir($directory)) {
+			$files  = scandir($directory);
+			$parser = new \Smalot\PdfParser\Parser();
 
-            foreach ($files as $file) {
-                if (preg_match('/^.*\.pdf$/i', $file)) {
-                    try {
-                        $document = $parser->parseFile($directory . '/' . $file);
-                        $pages    = $document->getPages();
-                        $page     = $pages[0];
-                        $content  = $page->getText();
-                        $this->assert->string($content);
-                    } catch (\Exception $e) {
-                        if ($e->getMessage() != 'Secured pdf file are currently not supported.' && strpos($e->getMessage(), 'TCPDF_PARSER') != 0) {
-                            throw $e;
-                        }
-                    }
-                }
-            }
-        }
-    }
+			foreach ($files as $file) {
+				if (preg_match('/^.*\.pdf$/i', $file)) {
+					try {
+						$document = $parser->parseFile($directory . '/' . $file);
+						$pages    = $document->getPages();
+						$page     = $pages[0];
+						$content  = $page->getText();
+						$this->assert->string($content);
+					} catch (\Exception $e) {
+						if ($e->getMessage() != 'Secured pdf file are currently not supported.' && strpos($e->getMessage(), 'TCPDF_PARSER') != 0) {
+							throw $e;
+						}
+					}
+				}
+			}
+		}
+	}
 }

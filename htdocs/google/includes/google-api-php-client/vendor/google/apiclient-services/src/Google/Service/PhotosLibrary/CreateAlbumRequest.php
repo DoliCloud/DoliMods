@@ -17,21 +17,21 @@
 
 class Google_Service_PhotosLibrary_CreateAlbumRequest extends Google_Model
 {
-  protected $albumType = 'Google_Service_PhotosLibrary_Album';
-  protected $albumDataType = '';
+	protected $albumType = 'Google_Service_PhotosLibrary_Album';
+	protected $albumDataType = '';
 
-  /**
-   * @param Google_Service_PhotosLibrary_Album
-   */
-  public function setAlbum(Google_Service_PhotosLibrary_Album $album)
-  {
-    $this->album = $album;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_Album
-   */
-  public function getAlbum()
-  {
-    return $this->album;
-  }
+	/**
+	 * @param Google_Service_PhotosLibrary_Album
+	 */
+	public function setAlbum(Google_Service_PhotosLibrary_Album $album)
+	{
+		$this->album = $album;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_Album
+	 */
+	public function getAlbum()
+	{
+		return $this->album;
+	}
 }

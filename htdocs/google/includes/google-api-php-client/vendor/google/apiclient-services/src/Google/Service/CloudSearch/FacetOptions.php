@@ -17,41 +17,41 @@
 
 class Google_Service_CloudSearch_FacetOptions extends Google_Model
 {
-  public $numFacetBuckets;
-  public $objectType;
-  public $operatorName;
-  public $sourceName;
+	public $numFacetBuckets;
+	public $objectType;
+	public $operatorName;
+	public $sourceName;
 
-  public function setNumFacetBuckets($numFacetBuckets)
-  {
-    $this->numFacetBuckets = $numFacetBuckets;
-  }
-  public function getNumFacetBuckets()
-  {
-    return $this->numFacetBuckets;
-  }
-  public function setObjectType($objectType)
-  {
-    $this->objectType = $objectType;
-  }
-  public function getObjectType()
-  {
-    return $this->objectType;
-  }
-  public function setOperatorName($operatorName)
-  {
-    $this->operatorName = $operatorName;
-  }
-  public function getOperatorName()
-  {
-    return $this->operatorName;
-  }
-  public function setSourceName($sourceName)
-  {
-    $this->sourceName = $sourceName;
-  }
-  public function getSourceName()
-  {
-    return $this->sourceName;
-  }
+	public function setNumFacetBuckets($numFacetBuckets)
+	{
+		$this->numFacetBuckets = $numFacetBuckets;
+	}
+	public function getNumFacetBuckets()
+	{
+		return $this->numFacetBuckets;
+	}
+	public function setObjectType($objectType)
+	{
+		$this->objectType = $objectType;
+	}
+	public function getObjectType()
+	{
+		return $this->objectType;
+	}
+	public function setOperatorName($operatorName)
+	{
+		$this->operatorName = $operatorName;
+	}
+	public function getOperatorName()
+	{
+		return $this->operatorName;
+	}
+	public function setSourceName($sourceName)
+	{
+		$this->sourceName = $sourceName;
+	}
+	public function getSourceName()
+	{
+		return $this->sourceName;
+	}
 }

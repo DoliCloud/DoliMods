@@ -17,22 +17,22 @@
 
 class Google_Service_Pubsub_PullResponse extends Google_Collection
 {
-  protected $collection_key = 'receivedMessages';
-  protected $receivedMessagesType = 'Google_Service_Pubsub_ReceivedMessage';
-  protected $receivedMessagesDataType = 'array';
+	protected $collection_key = 'receivedMessages';
+	protected $receivedMessagesType = 'Google_Service_Pubsub_ReceivedMessage';
+	protected $receivedMessagesDataType = 'array';
 
-  /**
-   * @param Google_Service_Pubsub_ReceivedMessage
-   */
-  public function setReceivedMessages($receivedMessages)
-  {
-    $this->receivedMessages = $receivedMessages;
-  }
-  /**
-   * @return Google_Service_Pubsub_ReceivedMessage
-   */
-  public function getReceivedMessages()
-  {
-    return $this->receivedMessages;
-  }
+	/**
+	 * @param Google_Service_Pubsub_ReceivedMessage
+	 */
+	public function setReceivedMessages($receivedMessages)
+	{
+		$this->receivedMessages = $receivedMessages;
+	}
+	/**
+	 * @return Google_Service_Pubsub_ReceivedMessage
+	 */
+	public function getReceivedMessages()
+	{
+		return $this->receivedMessages;
+	}
 }

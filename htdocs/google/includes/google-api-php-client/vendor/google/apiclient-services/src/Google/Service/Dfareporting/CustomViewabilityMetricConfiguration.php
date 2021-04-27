@@ -17,41 +17,41 @@
 
 class Google_Service_Dfareporting_CustomViewabilityMetricConfiguration extends Google_Model
 {
-  public $audible;
-  public $timeMillis;
-  public $timePercent;
-  public $viewabilityPercent;
+	public $audible;
+	public $timeMillis;
+	public $timePercent;
+	public $viewabilityPercent;
 
-  public function setAudible($audible)
-  {
-    $this->audible = $audible;
-  }
-  public function getAudible()
-  {
-    return $this->audible;
-  }
-  public function setTimeMillis($timeMillis)
-  {
-    $this->timeMillis = $timeMillis;
-  }
-  public function getTimeMillis()
-  {
-    return $this->timeMillis;
-  }
-  public function setTimePercent($timePercent)
-  {
-    $this->timePercent = $timePercent;
-  }
-  public function getTimePercent()
-  {
-    return $this->timePercent;
-  }
-  public function setViewabilityPercent($viewabilityPercent)
-  {
-    $this->viewabilityPercent = $viewabilityPercent;
-  }
-  public function getViewabilityPercent()
-  {
-    return $this->viewabilityPercent;
-  }
+	public function setAudible($audible)
+	{
+		$this->audible = $audible;
+	}
+	public function getAudible()
+	{
+		return $this->audible;
+	}
+	public function setTimeMillis($timeMillis)
+	{
+		$this->timeMillis = $timeMillis;
+	}
+	public function getTimeMillis()
+	{
+		return $this->timeMillis;
+	}
+	public function setTimePercent($timePercent)
+	{
+		$this->timePercent = $timePercent;
+	}
+	public function getTimePercent()
+	{
+		return $this->timePercent;
+	}
+	public function setViewabilityPercent($viewabilityPercent)
+	{
+		$this->viewabilityPercent = $viewabilityPercent;
+	}
+	public function getViewabilityPercent()
+	{
+		return $this->viewabilityPercent;
+	}
 }

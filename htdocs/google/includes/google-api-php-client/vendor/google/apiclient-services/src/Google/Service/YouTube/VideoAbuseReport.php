@@ -17,50 +17,50 @@
 
 class Google_Service_YouTube_VideoAbuseReport extends Google_Model
 {
-  public $comments;
-  public $language;
-  public $reasonId;
-  public $secondaryReasonId;
-  public $videoId;
+	public $comments;
+	public $language;
+	public $reasonId;
+	public $secondaryReasonId;
+	public $videoId;
 
-  public function setComments($comments)
-  {
-    $this->comments = $comments;
-  }
-  public function getComments()
-  {
-    return $this->comments;
-  }
-  public function setLanguage($language)
-  {
-    $this->language = $language;
-  }
-  public function getLanguage()
-  {
-    return $this->language;
-  }
-  public function setReasonId($reasonId)
-  {
-    $this->reasonId = $reasonId;
-  }
-  public function getReasonId()
-  {
-    return $this->reasonId;
-  }
-  public function setSecondaryReasonId($secondaryReasonId)
-  {
-    $this->secondaryReasonId = $secondaryReasonId;
-  }
-  public function getSecondaryReasonId()
-  {
-    return $this->secondaryReasonId;
-  }
-  public function setVideoId($videoId)
-  {
-    $this->videoId = $videoId;
-  }
-  public function getVideoId()
-  {
-    return $this->videoId;
-  }
+	public function setComments($comments)
+	{
+		$this->comments = $comments;
+	}
+	public function getComments()
+	{
+		return $this->comments;
+	}
+	public function setLanguage($language)
+	{
+		$this->language = $language;
+	}
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+	public function setReasonId($reasonId)
+	{
+		$this->reasonId = $reasonId;
+	}
+	public function getReasonId()
+	{
+		return $this->reasonId;
+	}
+	public function setSecondaryReasonId($secondaryReasonId)
+	{
+		$this->secondaryReasonId = $secondaryReasonId;
+	}
+	public function getSecondaryReasonId()
+	{
+		return $this->secondaryReasonId;
+	}
+	public function setVideoId($videoId)
+	{
+		$this->videoId = $videoId;
+	}
+	public function getVideoId()
+	{
+		return $this->videoId;
+	}
 }

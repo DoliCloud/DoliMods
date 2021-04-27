@@ -17,23 +17,23 @@
 
 class Google_Service_Storage_ObjectAccessControlProjectTeam extends Google_Model
 {
-  public $projectNumber;
-  public $team;
+	public $projectNumber;
+	public $team;
 
-  public function setProjectNumber($projectNumber)
-  {
-    $this->projectNumber = $projectNumber;
-  }
-  public function getProjectNumber()
-  {
-    return $this->projectNumber;
-  }
-  public function setTeam($team)
-  {
-    $this->team = $team;
-  }
-  public function getTeam()
-  {
-    return $this->team;
-  }
+	public function setProjectNumber($projectNumber)
+	{
+		$this->projectNumber = $projectNumber;
+	}
+	public function getProjectNumber()
+	{
+		return $this->projectNumber;
+	}
+	public function setTeam($team)
+	{
+		$this->team = $team;
+	}
+	public function getTeam()
+	{
+		return $this->team;
+	}
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_YouTube_SponsorSnippet extends Google_Model
 {
-  public $channelId;
-  public $cumulativeDurationMonths;
-  protected $sponsorDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
-  protected $sponsorDetailsDataType = '';
-  public $sponsorSince;
+	public $channelId;
+	public $cumulativeDurationMonths;
+	protected $sponsorDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
+	protected $sponsorDetailsDataType = '';
+	public $sponsorSince;
 
-  public function setChannelId($channelId)
-  {
-    $this->channelId = $channelId;
-  }
-  public function getChannelId()
-  {
-    return $this->channelId;
-  }
-  public function setCumulativeDurationMonths($cumulativeDurationMonths)
-  {
-    $this->cumulativeDurationMonths = $cumulativeDurationMonths;
-  }
-  public function getCumulativeDurationMonths()
-  {
-    return $this->cumulativeDurationMonths;
-  }
-  /**
-   * @param Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function setSponsorDetails(Google_Service_YouTube_ChannelProfileDetails $sponsorDetails)
-  {
-    $this->sponsorDetails = $sponsorDetails;
-  }
-  /**
-   * @return Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function getSponsorDetails()
-  {
-    return $this->sponsorDetails;
-  }
-  public function setSponsorSince($sponsorSince)
-  {
-    $this->sponsorSince = $sponsorSince;
-  }
-  public function getSponsorSince()
-  {
-    return $this->sponsorSince;
-  }
+	public function setChannelId($channelId)
+	{
+		$this->channelId = $channelId;
+	}
+	public function getChannelId()
+	{
+		return $this->channelId;
+	}
+	public function setCumulativeDurationMonths($cumulativeDurationMonths)
+	{
+		$this->cumulativeDurationMonths = $cumulativeDurationMonths;
+	}
+	public function getCumulativeDurationMonths()
+	{
+		return $this->cumulativeDurationMonths;
+	}
+	/**
+	 * @param Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function setSponsorDetails(Google_Service_YouTube_ChannelProfileDetails $sponsorDetails)
+	{
+		$this->sponsorDetails = $sponsorDetails;
+	}
+	/**
+	 * @return Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function getSponsorDetails()
+	{
+		return $this->sponsorDetails;
+	}
+	public function setSponsorSince($sponsorSince)
+	{
+		$this->sponsorSince = $sponsorSince;
+	}
+	public function getSponsorSince()
+	{
+		return $this->sponsorSince;
+	}
 }

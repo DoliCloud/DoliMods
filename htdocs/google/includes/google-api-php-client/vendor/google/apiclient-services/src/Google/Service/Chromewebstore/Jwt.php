@@ -17,41 +17,41 @@
 
 class Google_Service_Chromewebstore_Jwt extends Google_Model
 {
-  public $jwt;
-  public $kind;
-  public $paymentData;
-  public $signature;
+	public $jwt;
+	public $kind;
+	public $paymentData;
+	public $signature;
 
-  public function setJwt($jwt)
-  {
-    $this->jwt = $jwt;
-  }
-  public function getJwt()
-  {
-    return $this->jwt;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setPaymentData($paymentData)
-  {
-    $this->paymentData = $paymentData;
-  }
-  public function getPaymentData()
-  {
-    return $this->paymentData;
-  }
-  public function setSignature($signature)
-  {
-    $this->signature = $signature;
-  }
-  public function getSignature()
-  {
-    return $this->signature;
-  }
+	public function setJwt($jwt)
+	{
+		$this->jwt = $jwt;
+	}
+	public function getJwt()
+	{
+		return $this->jwt;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setPaymentData($paymentData)
+	{
+		$this->paymentData = $paymentData;
+	}
+	public function getPaymentData()
+	{
+		return $this->paymentData;
+	}
+	public function setSignature($signature)
+	{
+		$this->signature = $signature;
+	}
+	public function getSignature()
+	{
+		return $this->signature;
+	}
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_CommentAnalyzer_AttributeScores extends Google_Collection
 {
-  protected $collection_key = 'spanScores';
-  protected $spanScoresType = 'Google_Service_CommentAnalyzer_SpanScore';
-  protected $spanScoresDataType = 'array';
-  protected $summaryScoreType = 'Google_Service_CommentAnalyzer_Score';
-  protected $summaryScoreDataType = '';
+	protected $collection_key = 'spanScores';
+	protected $spanScoresType = 'Google_Service_CommentAnalyzer_SpanScore';
+	protected $spanScoresDataType = 'array';
+	protected $summaryScoreType = 'Google_Service_CommentAnalyzer_Score';
+	protected $summaryScoreDataType = '';
 
-  /**
-   * @param Google_Service_CommentAnalyzer_SpanScore
-   */
-  public function setSpanScores($spanScores)
-  {
-    $this->spanScores = $spanScores;
-  }
-  /**
-   * @return Google_Service_CommentAnalyzer_SpanScore
-   */
-  public function getSpanScores()
-  {
-    return $this->spanScores;
-  }
-  /**
-   * @param Google_Service_CommentAnalyzer_Score
-   */
-  public function setSummaryScore(Google_Service_CommentAnalyzer_Score $summaryScore)
-  {
-    $this->summaryScore = $summaryScore;
-  }
-  /**
-   * @return Google_Service_CommentAnalyzer_Score
-   */
-  public function getSummaryScore()
-  {
-    return $this->summaryScore;
-  }
+	/**
+	 * @param Google_Service_CommentAnalyzer_SpanScore
+	 */
+	public function setSpanScores($spanScores)
+	{
+		$this->spanScores = $spanScores;
+	}
+	/**
+	 * @return Google_Service_CommentAnalyzer_SpanScore
+	 */
+	public function getSpanScores()
+	{
+		return $this->spanScores;
+	}
+	/**
+	 * @param Google_Service_CommentAnalyzer_Score
+	 */
+	public function setSummaryScore(Google_Service_CommentAnalyzer_Score $summaryScore)
+	{
+		$this->summaryScore = $summaryScore;
+	}
+	/**
+	 * @return Google_Service_CommentAnalyzer_Score
+	 */
+	public function getSummaryScore()
+	{
+		return $this->summaryScore;
+	}
 }

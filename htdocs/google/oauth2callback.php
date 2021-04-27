@@ -6,24 +6,24 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php');
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
+require_once DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 dol_include_once("/google/lib/google.lib.php");
 
 
@@ -38,7 +38,7 @@ $client_secret=$conf->global->GOOGLE_API_CLIENT_SECRET;
 //$redirect_uri='http://localhost/dolibarrnew/custom/google/oauth2callback.php';
 $redirect_uri=dol_buildpath('/google/oauth2callback.php', 2);
 
-$jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/','\1',$redirect_uri);
+$jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
 
 // This is used only if we want to login from this page for test purpose.
 $completeoauthurl='https://accounts.google.com/o/oauth2/auth';
@@ -62,10 +62,8 @@ $scope = GETPOST('scope');
  */
 
 // Ask token (possible only if inside an oauth google session)
-if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code)		// We are not into a google session (google_web_token empty) or we come from a redirect of Google auth page
-{
-	if (! $code)	// If we are not coming from oauth page, we make a redirect to it
-	{
+if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code) {		// We are not into a google session (google_web_token empty) or we come from a redirect of Google auth page
+	if (! $code) {	// If we are not coming from oauth page, we make a redirect to it
 		//print 'We are not coming from an oauth page and are not logged into google oauth, so we redirect to it';
 		header("Location: ".$url);
 		exit;
@@ -86,38 +84,31 @@ if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code)		// We are not
 		'grant_type'=>  urlencode('authorization_code')
 	);
 	$post = '';
-	foreach($fields as $key=>$value)
-	{
+	foreach ($fields as $key=>$value) {
 		$post .= $key.'='.$value.'&';
 	}
-	$post = rtrim($post,'&');
+	$post = rtrim($post, '&');
 
 	$result = getURLContent('https://accounts.google.com/o/oauth2/token', 'POST', $post);
 
 	$response=json_decode($result['content'], true);
 
 	// response should be an array like array('access_token' => , 'token_type' => 'Bearer', 'expires_in' => int 3600)
-	if (empty($response['access_token']))
-	{
-
-	}
-	else
-	{
+	if (empty($response['access_token'])) {
+	} else {
 		// The token is the full string into $result['content'] like '{"access_token":"ya29.iQEPBPUAVLXeVq1-QnC6-SHydA9czPX3ySJ5SfYSo5ZIMfFEl5MTs62no8hZp5jUUsm3QVHTrBg7hw","expires_in":3600,"created":1433463453}';
 		//var_dump($response);
 
 		// Save token into database
-		require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+		require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 		$res=dolibarr_set_const($db, 'GOOGLE_WEB_TOKEN', trim($result['content']), 'chaine', 0, '', $conf->entity);
 		$_SESSION['google_web_token_'.$conf->entity]=trim($result['content']);
 		if (! $res > 0) $error++;
-
 	}
 
 	// Redirect to original page
-	if ($state == 'dolibarrtokenrequest-googleadmincontactsync')
-	{
-		header('Location: '.dol_buildpath('/google/admin/google_contactsync.php',1));
+	if ($state == 'dolibarrtokenrequest-googleadmincontactsync') {
+		header('Location: '.dol_buildpath('/google/admin/google_contactsync.php', 1));
 		exit;
 	}
 

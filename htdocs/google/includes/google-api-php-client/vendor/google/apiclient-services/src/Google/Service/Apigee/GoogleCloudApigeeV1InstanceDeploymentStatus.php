@@ -17,47 +17,47 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatus extends Google_Collection
 {
-  protected $collection_key = 'deployedRoutes';
-  protected $deployedRevisionsType = 'Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRevision';
-  protected $deployedRevisionsDataType = 'array';
-  protected $deployedRoutesType = 'Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRoute';
-  protected $deployedRoutesDataType = 'array';
-  public $instance;
+	protected $collection_key = 'deployedRoutes';
+	protected $deployedRevisionsType = 'Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRevision';
+	protected $deployedRevisionsDataType = 'array';
+	protected $deployedRoutesType = 'Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRoute';
+	protected $deployedRoutesDataType = 'array';
+	public $instance;
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRevision
-   */
-  public function setDeployedRevisions($deployedRevisions)
-  {
-    $this->deployedRevisions = $deployedRevisions;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRevision
-   */
-  public function getDeployedRevisions()
-  {
-    return $this->deployedRevisions;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRoute
-   */
-  public function setDeployedRoutes($deployedRoutes)
-  {
-    $this->deployedRoutes = $deployedRoutes;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRoute
-   */
-  public function getDeployedRoutes()
-  {
-    return $this->deployedRoutes;
-  }
-  public function setInstance($instance)
-  {
-    $this->instance = $instance;
-  }
-  public function getInstance()
-  {
-    return $this->instance;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRevision
+	 */
+	public function setDeployedRevisions($deployedRevisions)
+	{
+		$this->deployedRevisions = $deployedRevisions;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRevision
+	 */
+	public function getDeployedRevisions()
+	{
+		return $this->deployedRevisions;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRoute
+	 */
+	public function setDeployedRoutes($deployedRoutes)
+	{
+		$this->deployedRoutes = $deployedRoutes;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRoute
+	 */
+	public function getDeployedRoutes()
+	{
+		return $this->deployedRoutes;
+	}
+	public function setInstance($instance)
+	{
+		$this->instance = $instance;
+	}
+	public function getInstance()
+	{
+		return $this->instance;
+	}
 }

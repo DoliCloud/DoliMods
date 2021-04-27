@@ -17,40 +17,40 @@
 
 class Google_Service_ServiceUser_Usage extends Google_Collection
 {
-  protected $collection_key = 'rules';
-  public $producerNotificationChannel;
-  public $requirements;
-  protected $rulesType = 'Google_Service_ServiceUser_UsageRule';
-  protected $rulesDataType = 'array';
+	protected $collection_key = 'rules';
+	public $producerNotificationChannel;
+	public $requirements;
+	protected $rulesType = 'Google_Service_ServiceUser_UsageRule';
+	protected $rulesDataType = 'array';
 
-  public function setProducerNotificationChannel($producerNotificationChannel)
-  {
-    $this->producerNotificationChannel = $producerNotificationChannel;
-  }
-  public function getProducerNotificationChannel()
-  {
-    return $this->producerNotificationChannel;
-  }
-  public function setRequirements($requirements)
-  {
-    $this->requirements = $requirements;
-  }
-  public function getRequirements()
-  {
-    return $this->requirements;
-  }
-  /**
-   * @param Google_Service_ServiceUser_UsageRule
-   */
-  public function setRules($rules)
-  {
-    $this->rules = $rules;
-  }
-  /**
-   * @return Google_Service_ServiceUser_UsageRule
-   */
-  public function getRules()
-  {
-    return $this->rules;
-  }
+	public function setProducerNotificationChannel($producerNotificationChannel)
+	{
+		$this->producerNotificationChannel = $producerNotificationChannel;
+	}
+	public function getProducerNotificationChannel()
+	{
+		return $this->producerNotificationChannel;
+	}
+	public function setRequirements($requirements)
+	{
+		$this->requirements = $requirements;
+	}
+	public function getRequirements()
+	{
+		return $this->requirements;
+	}
+	/**
+	 * @param Google_Service_ServiceUser_UsageRule
+	 */
+	public function setRules($rules)
+	{
+		$this->rules = $rules;
+	}
+	/**
+	 * @return Google_Service_ServiceUser_UsageRule
+	 */
+	public function getRules()
+	{
+		return $this->rules;
+	}
 }

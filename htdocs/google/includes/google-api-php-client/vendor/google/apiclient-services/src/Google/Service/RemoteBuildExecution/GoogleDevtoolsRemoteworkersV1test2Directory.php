@@ -17,38 +17,38 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Directory extends Google_Collection
 {
-  protected $collection_key = 'files';
-  protected $directoriesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2DirectoryMetadata';
-  protected $directoriesDataType = 'array';
-  protected $filesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2FileMetadata';
-  protected $filesDataType = 'array';
+	protected $collection_key = 'files';
+	protected $directoriesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2DirectoryMetadata';
+	protected $directoriesDataType = 'array';
+	protected $filesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2FileMetadata';
+	protected $filesDataType = 'array';
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2DirectoryMetadata
-   */
-  public function setDirectories($directories)
-  {
-    $this->directories = $directories;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2DirectoryMetadata
-   */
-  public function getDirectories()
-  {
-    return $this->directories;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2FileMetadata
-   */
-  public function setFiles($files)
-  {
-    $this->files = $files;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2FileMetadata
-   */
-  public function getFiles()
-  {
-    return $this->files;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2DirectoryMetadata
+	 */
+	public function setDirectories($directories)
+	{
+		$this->directories = $directories;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2DirectoryMetadata
+	 */
+	public function getDirectories()
+	{
+		return $this->directories;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2FileMetadata
+	 */
+	public function setFiles($files)
+	{
+		$this->files = $files;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2FileMetadata
+	 */
+	public function getFiles()
+	{
+		return $this->files;
+	}
 }

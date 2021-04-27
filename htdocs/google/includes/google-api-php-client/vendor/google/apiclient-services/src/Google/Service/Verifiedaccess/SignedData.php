@@ -17,23 +17,23 @@
 
 class Google_Service_Verifiedaccess_SignedData extends Google_Model
 {
-  public $data;
-  public $signature;
+	public $data;
+	public $signature;
 
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
-  public function setSignature($signature)
-  {
-    $this->signature = $signature;
-  }
-  public function getSignature()
-  {
-    return $this->signature;
-  }
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
+	public function setSignature($signature)
+	{
+		$this->signature = $signature;
+	}
+	public function getSignature()
+	{
+		return $this->signature;
+	}
 }

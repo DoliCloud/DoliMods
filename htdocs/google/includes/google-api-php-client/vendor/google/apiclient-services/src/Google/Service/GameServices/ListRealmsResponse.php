@@ -17,40 +17,40 @@
 
 class Google_Service_GameServices_ListRealmsResponse extends Google_Collection
 {
-  protected $collection_key = 'unreachable';
-  public $nextPageToken;
-  protected $realmsType = 'Google_Service_GameServices_Realm';
-  protected $realmsDataType = 'array';
-  public $unreachable;
+	protected $collection_key = 'unreachable';
+	public $nextPageToken;
+	protected $realmsType = 'Google_Service_GameServices_Realm';
+	protected $realmsDataType = 'array';
+	public $unreachable;
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_GameServices_Realm
-   */
-  public function setRealms($realms)
-  {
-    $this->realms = $realms;
-  }
-  /**
-   * @return Google_Service_GameServices_Realm
-   */
-  public function getRealms()
-  {
-    return $this->realms;
-  }
-  public function setUnreachable($unreachable)
-  {
-    $this->unreachable = $unreachable;
-  }
-  public function getUnreachable()
-  {
-    return $this->unreachable;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_GameServices_Realm
+	 */
+	public function setRealms($realms)
+	{
+		$this->realms = $realms;
+	}
+	/**
+	 * @return Google_Service_GameServices_Realm
+	 */
+	public function getRealms()
+	{
+		return $this->realms;
+	}
+	public function setUnreachable($unreachable)
+	{
+		$this->unreachable = $unreachable;
+	}
+	public function getUnreachable()
+	{
+		return $this->unreachable;
+	}
 }

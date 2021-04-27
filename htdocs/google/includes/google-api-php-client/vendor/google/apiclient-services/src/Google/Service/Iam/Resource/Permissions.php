@@ -25,19 +25,19 @@
  */
 class Google_Service_Iam_Resource_Permissions extends Google_Service_Resource
 {
-  /**
-   * Lists every permission that you can test on a resource. A permission is
-   * testable if you can check whether a member has that permission on the
-   * resource. (permissions.queryTestablePermissions)
-   *
-   * @param Google_Service_Iam_QueryTestablePermissionsRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_QueryTestablePermissionsResponse
-   */
-  public function queryTestablePermissions(Google_Service_Iam_QueryTestablePermissionsRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('queryTestablePermissions', array($params), "Google_Service_Iam_QueryTestablePermissionsResponse");
-  }
+	/**
+	 * Lists every permission that you can test on a resource. A permission is
+	 * testable if you can check whether a member has that permission on the
+	 * resource. (permissions.queryTestablePermissions)
+	 *
+	 * @param Google_Service_Iam_QueryTestablePermissionsRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Iam_QueryTestablePermissionsResponse
+	 */
+	public function queryTestablePermissions(Google_Service_Iam_QueryTestablePermissionsRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('queryTestablePermissions', array($params), "Google_Service_Iam_QueryTestablePermissionsResponse");
+	}
 }

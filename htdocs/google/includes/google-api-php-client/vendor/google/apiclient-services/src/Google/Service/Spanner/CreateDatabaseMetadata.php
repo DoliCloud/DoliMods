@@ -17,14 +17,14 @@
 
 class Google_Service_Spanner_CreateDatabaseMetadata extends Google_Model
 {
-  public $database;
+	public $database;
 
-  public function setDatabase($database)
-  {
-    $this->database = $database;
-  }
-  public function getDatabase()
-  {
-    return $this->database;
-  }
+	public function setDatabase($database)
+	{
+		$this->database = $database;
+	}
+	public function getDatabase()
+	{
+		return $this->database;
+	}
 }

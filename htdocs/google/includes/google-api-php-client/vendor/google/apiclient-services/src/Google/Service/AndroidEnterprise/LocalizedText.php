@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidEnterprise_LocalizedText extends Google_Model
 {
-  public $locale;
-  public $text;
+	public $locale;
+	public $text;
 
-  public function setLocale($locale)
-  {
-    $this->locale = $locale;
-  }
-  public function getLocale()
-  {
-    return $this->locale;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	public function setLocale($locale)
+	{
+		$this->locale = $locale;
+	}
+	public function getLocale()
+	{
+		return $this->locale;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

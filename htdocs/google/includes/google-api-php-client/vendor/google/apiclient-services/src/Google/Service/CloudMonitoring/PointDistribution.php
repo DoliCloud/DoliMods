@@ -17,54 +17,54 @@
 
 class Google_Service_CloudMonitoring_PointDistribution extends Google_Collection
 {
-  protected $collection_key = 'buckets';
-  protected $bucketsType = 'Google_Service_CloudMonitoring_PointDistributionBucket';
-  protected $bucketsDataType = 'array';
-  protected $overflowBucketType = 'Google_Service_CloudMonitoring_PointDistributionOverflowBucket';
-  protected $overflowBucketDataType = '';
-  protected $underflowBucketType = 'Google_Service_CloudMonitoring_PointDistributionUnderflowBucket';
-  protected $underflowBucketDataType = '';
+	protected $collection_key = 'buckets';
+	protected $bucketsType = 'Google_Service_CloudMonitoring_PointDistributionBucket';
+	protected $bucketsDataType = 'array';
+	protected $overflowBucketType = 'Google_Service_CloudMonitoring_PointDistributionOverflowBucket';
+	protected $overflowBucketDataType = '';
+	protected $underflowBucketType = 'Google_Service_CloudMonitoring_PointDistributionUnderflowBucket';
+	protected $underflowBucketDataType = '';
 
-  /**
-   * @param Google_Service_CloudMonitoring_PointDistributionBucket
-   */
-  public function setBuckets($buckets)
-  {
-    $this->buckets = $buckets;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_PointDistributionBucket
-   */
-  public function getBuckets()
-  {
-    return $this->buckets;
-  }
-  /**
-   * @param Google_Service_CloudMonitoring_PointDistributionOverflowBucket
-   */
-  public function setOverflowBucket(Google_Service_CloudMonitoring_PointDistributionOverflowBucket $overflowBucket)
-  {
-    $this->overflowBucket = $overflowBucket;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_PointDistributionOverflowBucket
-   */
-  public function getOverflowBucket()
-  {
-    return $this->overflowBucket;
-  }
-  /**
-   * @param Google_Service_CloudMonitoring_PointDistributionUnderflowBucket
-   */
-  public function setUnderflowBucket(Google_Service_CloudMonitoring_PointDistributionUnderflowBucket $underflowBucket)
-  {
-    $this->underflowBucket = $underflowBucket;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_PointDistributionUnderflowBucket
-   */
-  public function getUnderflowBucket()
-  {
-    return $this->underflowBucket;
-  }
+	/**
+	 * @param Google_Service_CloudMonitoring_PointDistributionBucket
+	 */
+	public function setBuckets($buckets)
+	{
+		$this->buckets = $buckets;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_PointDistributionBucket
+	 */
+	public function getBuckets()
+	{
+		return $this->buckets;
+	}
+	/**
+	 * @param Google_Service_CloudMonitoring_PointDistributionOverflowBucket
+	 */
+	public function setOverflowBucket(Google_Service_CloudMonitoring_PointDistributionOverflowBucket $overflowBucket)
+	{
+		$this->overflowBucket = $overflowBucket;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_PointDistributionOverflowBucket
+	 */
+	public function getOverflowBucket()
+	{
+		return $this->overflowBucket;
+	}
+	/**
+	 * @param Google_Service_CloudMonitoring_PointDistributionUnderflowBucket
+	 */
+	public function setUnderflowBucket(Google_Service_CloudMonitoring_PointDistributionUnderflowBucket $underflowBucket)
+	{
+		$this->underflowBucket = $underflowBucket;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_PointDistributionUnderflowBucket
+	 */
+	public function getUnderflowBucket()
+	{
+		return $this->underflowBucket;
+	}
 }

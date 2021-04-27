@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_ProximityLocationListAssignedTargetingOptionDetails extends Google_Model
 {
-  public $proximityLocationListId;
-  public $proximityRadiusRange;
+	public $proximityLocationListId;
+	public $proximityRadiusRange;
 
-  public function setProximityLocationListId($proximityLocationListId)
-  {
-    $this->proximityLocationListId = $proximityLocationListId;
-  }
-  public function getProximityLocationListId()
-  {
-    return $this->proximityLocationListId;
-  }
-  public function setProximityRadiusRange($proximityRadiusRange)
-  {
-    $this->proximityRadiusRange = $proximityRadiusRange;
-  }
-  public function getProximityRadiusRange()
-  {
-    return $this->proximityRadiusRange;
-  }
+	public function setProximityLocationListId($proximityLocationListId)
+	{
+		$this->proximityLocationListId = $proximityLocationListId;
+	}
+	public function getProximityLocationListId()
+	{
+		return $this->proximityLocationListId;
+	}
+	public function setProximityRadiusRange($proximityRadiusRange)
+	{
+		$this->proximityRadiusRange = $proximityRadiusRange;
+	}
+	public function getProximityRadiusRange()
+	{
+		return $this->proximityRadiusRange;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_CloudIAP_CorsSettings extends Google_Model
 {
-  public $allowHttpOptions;
+	public $allowHttpOptions;
 
-  public function setAllowHttpOptions($allowHttpOptions)
-  {
-    $this->allowHttpOptions = $allowHttpOptions;
-  }
-  public function getAllowHttpOptions()
-  {
-    return $this->allowHttpOptions;
-  }
+	public function setAllowHttpOptions($allowHttpOptions)
+	{
+		$this->allowHttpOptions = $allowHttpOptions;
+	}
+	public function getAllowHttpOptions()
+	{
+		return $this->allowHttpOptions;
+	}
 }

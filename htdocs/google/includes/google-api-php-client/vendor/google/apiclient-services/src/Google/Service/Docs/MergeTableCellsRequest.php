@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_MergeTableCellsRequest extends Google_Model
 {
-  protected $tableRangeType = 'Google_Service_Docs_TableRange';
-  protected $tableRangeDataType = '';
+	protected $tableRangeType = 'Google_Service_Docs_TableRange';
+	protected $tableRangeDataType = '';
 
-  /**
-   * @param Google_Service_Docs_TableRange
-   */
-  public function setTableRange(Google_Service_Docs_TableRange $tableRange)
-  {
-    $this->tableRange = $tableRange;
-  }
-  /**
-   * @return Google_Service_Docs_TableRange
-   */
-  public function getTableRange()
-  {
-    return $this->tableRange;
-  }
+	/**
+	 * @param Google_Service_Docs_TableRange
+	 */
+	public function setTableRange(Google_Service_Docs_TableRange $tableRange)
+	{
+		$this->tableRange = $tableRange;
+	}
+	/**
+	 * @return Google_Service_Docs_TableRange
+	 */
+	public function getTableRange()
+	{
+		return $this->tableRange;
+	}
 }

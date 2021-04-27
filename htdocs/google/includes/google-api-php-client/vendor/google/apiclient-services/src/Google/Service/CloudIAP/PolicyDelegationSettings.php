@@ -17,55 +17,55 @@
 
 class Google_Service_CloudIAP_PolicyDelegationSettings extends Google_Model
 {
-  public $iamPermission;
-  public $iamServiceName;
-  protected $policyNameType = 'Google_Service_CloudIAP_PolicyName';
-  protected $policyNameDataType = '';
-  protected $resourceType = 'Google_Service_CloudIAP_IapResource';
-  protected $resourceDataType = '';
+	public $iamPermission;
+	public $iamServiceName;
+	protected $policyNameType = 'Google_Service_CloudIAP_PolicyName';
+	protected $policyNameDataType = '';
+	protected $resourceType = 'Google_Service_CloudIAP_IapResource';
+	protected $resourceDataType = '';
 
-  public function setIamPermission($iamPermission)
-  {
-    $this->iamPermission = $iamPermission;
-  }
-  public function getIamPermission()
-  {
-    return $this->iamPermission;
-  }
-  public function setIamServiceName($iamServiceName)
-  {
-    $this->iamServiceName = $iamServiceName;
-  }
-  public function getIamServiceName()
-  {
-    return $this->iamServiceName;
-  }
-  /**
-   * @param Google_Service_CloudIAP_PolicyName
-   */
-  public function setPolicyName(Google_Service_CloudIAP_PolicyName $policyName)
-  {
-    $this->policyName = $policyName;
-  }
-  /**
-   * @return Google_Service_CloudIAP_PolicyName
-   */
-  public function getPolicyName()
-  {
-    return $this->policyName;
-  }
-  /**
-   * @param Google_Service_CloudIAP_IapResource
-   */
-  public function setResource(Google_Service_CloudIAP_IapResource $resource)
-  {
-    $this->resource = $resource;
-  }
-  /**
-   * @return Google_Service_CloudIAP_IapResource
-   */
-  public function getResource()
-  {
-    return $this->resource;
-  }
+	public function setIamPermission($iamPermission)
+	{
+		$this->iamPermission = $iamPermission;
+	}
+	public function getIamPermission()
+	{
+		return $this->iamPermission;
+	}
+	public function setIamServiceName($iamServiceName)
+	{
+		$this->iamServiceName = $iamServiceName;
+	}
+	public function getIamServiceName()
+	{
+		return $this->iamServiceName;
+	}
+	/**
+	 * @param Google_Service_CloudIAP_PolicyName
+	 */
+	public function setPolicyName(Google_Service_CloudIAP_PolicyName $policyName)
+	{
+		$this->policyName = $policyName;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_PolicyName
+	 */
+	public function getPolicyName()
+	{
+		return $this->policyName;
+	}
+	/**
+	 * @param Google_Service_CloudIAP_IapResource
+	 */
+	public function setResource(Google_Service_CloudIAP_IapResource $resource)
+	{
+		$this->resource = $resource;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_IapResource
+	 */
+	public function getResource()
+	{
+		return $this->resource;
+	}
 }

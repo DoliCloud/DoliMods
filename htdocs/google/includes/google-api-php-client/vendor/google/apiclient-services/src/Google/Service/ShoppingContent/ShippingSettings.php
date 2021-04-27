@@ -17,47 +17,47 @@
 
 class Google_Service_ShoppingContent_ShippingSettings extends Google_Collection
 {
-  protected $collection_key = 'services';
-  public $accountId;
-  protected $postalCodeGroupsType = 'Google_Service_ShoppingContent_PostalCodeGroup';
-  protected $postalCodeGroupsDataType = 'array';
-  protected $servicesType = 'Google_Service_ShoppingContent_Service';
-  protected $servicesDataType = 'array';
+	protected $collection_key = 'services';
+	public $accountId;
+	protected $postalCodeGroupsType = 'Google_Service_ShoppingContent_PostalCodeGroup';
+	protected $postalCodeGroupsDataType = 'array';
+	protected $servicesType = 'Google_Service_ShoppingContent_Service';
+	protected $servicesDataType = 'array';
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_PostalCodeGroup
-   */
-  public function setPostalCodeGroups($postalCodeGroups)
-  {
-    $this->postalCodeGroups = $postalCodeGroups;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_PostalCodeGroup
-   */
-  public function getPostalCodeGroups()
-  {
-    return $this->postalCodeGroups;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Service
-   */
-  public function setServices($services)
-  {
-    $this->services = $services;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Service
-   */
-  public function getServices()
-  {
-    return $this->services;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_PostalCodeGroup
+	 */
+	public function setPostalCodeGroups($postalCodeGroups)
+	{
+		$this->postalCodeGroups = $postalCodeGroups;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_PostalCodeGroup
+	 */
+	public function getPostalCodeGroups()
+	{
+		return $this->postalCodeGroups;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Service
+	 */
+	public function setServices($services)
+	{
+		$this->services = $services;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Service
+	 */
+	public function getServices()
+	{
+		return $this->services;
+	}
 }

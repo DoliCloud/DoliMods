@@ -17,43 +17,43 @@
 
 class Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1HyperparameterSpec extends Google_Collection
 {
-  protected $collection_key = 'params';
-  public $goal;
-  public $maxParallelTrials;
-  public $maxTrials;
-  protected $paramsType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1ParameterSpec';
-  protected $paramsDataType = 'array';
+	protected $collection_key = 'params';
+	public $goal;
+	public $maxParallelTrials;
+	public $maxTrials;
+	protected $paramsType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1ParameterSpec';
+	protected $paramsDataType = 'array';
 
-  public function setGoal($goal)
-  {
-    $this->goal = $goal;
-  }
-  public function getGoal()
-  {
-    return $this->goal;
-  }
-  public function setMaxParallelTrials($maxParallelTrials)
-  {
-    $this->maxParallelTrials = $maxParallelTrials;
-  }
-  public function getMaxParallelTrials()
-  {
-    return $this->maxParallelTrials;
-  }
-  public function setMaxTrials($maxTrials)
-  {
-    $this->maxTrials = $maxTrials;
-  }
-  public function getMaxTrials()
-  {
-    return $this->maxTrials;
-  }
-  public function setParams($params)
-  {
-    $this->params = $params;
-  }
-  public function getParams()
-  {
-    return $this->params;
-  }
+	public function setGoal($goal)
+	{
+		$this->goal = $goal;
+	}
+	public function getGoal()
+	{
+		return $this->goal;
+	}
+	public function setMaxParallelTrials($maxParallelTrials)
+	{
+		$this->maxParallelTrials = $maxParallelTrials;
+	}
+	public function getMaxParallelTrials()
+	{
+		return $this->maxParallelTrials;
+	}
+	public function setMaxTrials($maxTrials)
+	{
+		$this->maxTrials = $maxTrials;
+	}
+	public function getMaxTrials()
+	{
+		return $this->maxTrials;
+	}
+	public function setParams($params)
+	{
+		$this->params = $params;
+	}
+	public function getParams()
+	{
+		return $this->params;
+	}
 }

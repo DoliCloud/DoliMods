@@ -17,59 +17,59 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DebugSession extends Google_Model
 {
-  public $count;
-  public $filter;
-  public $name;
-  public $timeout;
-  public $tracesize;
-  public $validity;
+	public $count;
+	public $filter;
+	public $name;
+	public $timeout;
+	public $tracesize;
+	public $validity;
 
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  public function setFilter($filter)
-  {
-    $this->filter = $filter;
-  }
-  public function getFilter()
-  {
-    return $this->filter;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setTimeout($timeout)
-  {
-    $this->timeout = $timeout;
-  }
-  public function getTimeout()
-  {
-    return $this->timeout;
-  }
-  public function setTracesize($tracesize)
-  {
-    $this->tracesize = $tracesize;
-  }
-  public function getTracesize()
-  {
-    return $this->tracesize;
-  }
-  public function setValidity($validity)
-  {
-    $this->validity = $validity;
-  }
-  public function getValidity()
-  {
-    return $this->validity;
-  }
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	public function setFilter($filter)
+	{
+		$this->filter = $filter;
+	}
+	public function getFilter()
+	{
+		return $this->filter;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setTimeout($timeout)
+	{
+		$this->timeout = $timeout;
+	}
+	public function getTimeout()
+	{
+		return $this->timeout;
+	}
+	public function setTracesize($tracesize)
+	{
+		$this->tracesize = $tracesize;
+	}
+	public function getTracesize()
+	{
+		return $this->tracesize;
+	}
+	public function setValidity($validity)
+	{
+		$this->validity = $validity;
+	}
+	public function getValidity()
+	{
+		return $this->validity;
+	}
 }

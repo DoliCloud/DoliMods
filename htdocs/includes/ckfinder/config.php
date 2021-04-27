@@ -12,7 +12,7 @@
  * advanced features of CKFinder.
  */
 
-require_once('../../../../../main.inc.php');
+require_once '../../../../../main.inc.php';
 
 /**
  * This function must check the user session to be sure that he/she is
@@ -31,9 +31,9 @@ function CheckAuthentication()
 	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
-    global $conf;
-    if ($conf->fckeditor->enabled && ! empty($_SESSION['dol_login'])) return true;
-    else return false;
+	global $conf;
+	if ($conf->fckeditor->enabled && ! empty($_SESSION['dol_login'])) return true;
+	else return false;
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be

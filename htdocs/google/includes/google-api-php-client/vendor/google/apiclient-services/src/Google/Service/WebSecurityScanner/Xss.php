@@ -17,24 +17,24 @@
 
 class Google_Service_WebSecurityScanner_Xss extends Google_Collection
 {
-  protected $collection_key = 'stackTraces';
-  public $errorMessage;
-  public $stackTraces;
+	protected $collection_key = 'stackTraces';
+	public $errorMessage;
+	public $stackTraces;
 
-  public function setErrorMessage($errorMessage)
-  {
-    $this->errorMessage = $errorMessage;
-  }
-  public function getErrorMessage()
-  {
-    return $this->errorMessage;
-  }
-  public function setStackTraces($stackTraces)
-  {
-    $this->stackTraces = $stackTraces;
-  }
-  public function getStackTraces()
-  {
-    return $this->stackTraces;
-  }
+	public function setErrorMessage($errorMessage)
+	{
+		$this->errorMessage = $errorMessage;
+	}
+	public function getErrorMessage()
+	{
+		return $this->errorMessage;
+	}
+	public function setStackTraces($stackTraces)
+	{
+		$this->stackTraces = $stackTraces;
+	}
+	public function getStackTraces()
+	{
+		return $this->stackTraces;
+	}
 }

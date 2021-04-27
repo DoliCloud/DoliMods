@@ -17,50 +17,50 @@
 
 class Google_Service_Sheets_FindReplaceResponse extends Google_Model
 {
-  public $formulasChanged;
-  public $occurrencesChanged;
-  public $rowsChanged;
-  public $sheetsChanged;
-  public $valuesChanged;
+	public $formulasChanged;
+	public $occurrencesChanged;
+	public $rowsChanged;
+	public $sheetsChanged;
+	public $valuesChanged;
 
-  public function setFormulasChanged($formulasChanged)
-  {
-    $this->formulasChanged = $formulasChanged;
-  }
-  public function getFormulasChanged()
-  {
-    return $this->formulasChanged;
-  }
-  public function setOccurrencesChanged($occurrencesChanged)
-  {
-    $this->occurrencesChanged = $occurrencesChanged;
-  }
-  public function getOccurrencesChanged()
-  {
-    return $this->occurrencesChanged;
-  }
-  public function setRowsChanged($rowsChanged)
-  {
-    $this->rowsChanged = $rowsChanged;
-  }
-  public function getRowsChanged()
-  {
-    return $this->rowsChanged;
-  }
-  public function setSheetsChanged($sheetsChanged)
-  {
-    $this->sheetsChanged = $sheetsChanged;
-  }
-  public function getSheetsChanged()
-  {
-    return $this->sheetsChanged;
-  }
-  public function setValuesChanged($valuesChanged)
-  {
-    $this->valuesChanged = $valuesChanged;
-  }
-  public function getValuesChanged()
-  {
-    return $this->valuesChanged;
-  }
+	public function setFormulasChanged($formulasChanged)
+	{
+		$this->formulasChanged = $formulasChanged;
+	}
+	public function getFormulasChanged()
+	{
+		return $this->formulasChanged;
+	}
+	public function setOccurrencesChanged($occurrencesChanged)
+	{
+		$this->occurrencesChanged = $occurrencesChanged;
+	}
+	public function getOccurrencesChanged()
+	{
+		return $this->occurrencesChanged;
+	}
+	public function setRowsChanged($rowsChanged)
+	{
+		$this->rowsChanged = $rowsChanged;
+	}
+	public function getRowsChanged()
+	{
+		return $this->rowsChanged;
+	}
+	public function setSheetsChanged($sheetsChanged)
+	{
+		$this->sheetsChanged = $sheetsChanged;
+	}
+	public function getSheetsChanged()
+	{
+		return $this->sheetsChanged;
+	}
+	public function setValuesChanged($valuesChanged)
+	{
+		$this->valuesChanged = $valuesChanged;
+	}
+	public function getValuesChanged()
+	{
+		return $this->valuesChanged;
+	}
 }

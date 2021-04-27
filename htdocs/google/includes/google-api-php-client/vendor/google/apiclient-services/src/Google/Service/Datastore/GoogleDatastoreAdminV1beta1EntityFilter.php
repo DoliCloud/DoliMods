@@ -17,24 +17,24 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1beta1EntityFilter extends Google_Collection
 {
-  protected $collection_key = 'namespaceIds';
-  public $kinds;
-  public $namespaceIds;
+	protected $collection_key = 'namespaceIds';
+	public $kinds;
+	public $namespaceIds;
 
-  public function setKinds($kinds)
-  {
-    $this->kinds = $kinds;
-  }
-  public function getKinds()
-  {
-    return $this->kinds;
-  }
-  public function setNamespaceIds($namespaceIds)
-  {
-    $this->namespaceIds = $namespaceIds;
-  }
-  public function getNamespaceIds()
-  {
-    return $this->namespaceIds;
-  }
+	public function setKinds($kinds)
+	{
+		$this->kinds = $kinds;
+	}
+	public function getKinds()
+	{
+		return $this->kinds;
+	}
+	public function setNamespaceIds($namespaceIds)
+	{
+		$this->namespaceIds = $namespaceIds;
+	}
+	public function getNamespaceIds()
+	{
+		return $this->namespaceIds;
+	}
 }

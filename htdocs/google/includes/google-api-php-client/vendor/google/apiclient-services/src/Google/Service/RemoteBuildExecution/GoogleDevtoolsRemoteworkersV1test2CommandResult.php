@@ -17,74 +17,74 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandResult extends Google_Collection
 {
-  protected $collection_key = 'metadata';
-  public $duration;
-  public $exitCode;
-  public $metadata;
-  protected $outputsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
-  protected $outputsDataType = '';
-  public $overhead;
-  protected $statusType = 'Google_Service_RemoteBuildExecution_GoogleRpcStatus';
-  protected $statusDataType = '';
+	protected $collection_key = 'metadata';
+	public $duration;
+	public $exitCode;
+	public $metadata;
+	protected $outputsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
+	protected $outputsDataType = '';
+	public $overhead;
+	protected $statusType = 'Google_Service_RemoteBuildExecution_GoogleRpcStatus';
+	protected $statusDataType = '';
 
-  public function setDuration($duration)
-  {
-    $this->duration = $duration;
-  }
-  public function getDuration()
-  {
-    return $this->duration;
-  }
-  public function setExitCode($exitCode)
-  {
-    $this->exitCode = $exitCode;
-  }
-  public function getExitCode()
-  {
-    return $this->exitCode;
-  }
-  public function setMetadata($metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-   */
-  public function setOutputs(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $outputs)
-  {
-    $this->outputs = $outputs;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-   */
-  public function getOutputs()
-  {
-    return $this->outputs;
-  }
-  public function setOverhead($overhead)
-  {
-    $this->overhead = $overhead;
-  }
-  public function getOverhead()
-  {
-    return $this->overhead;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleRpcStatus
-   */
-  public function setStatus(Google_Service_RemoteBuildExecution_GoogleRpcStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleRpcStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setDuration($duration)
+	{
+		$this->duration = $duration;
+	}
+	public function getDuration()
+	{
+		return $this->duration;
+	}
+	public function setExitCode($exitCode)
+	{
+		$this->exitCode = $exitCode;
+	}
+	public function getExitCode()
+	{
+		return $this->exitCode;
+	}
+	public function setMetadata($metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+	 */
+	public function setOutputs(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $outputs)
+	{
+		$this->outputs = $outputs;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+	 */
+	public function getOutputs()
+	{
+		return $this->outputs;
+	}
+	public function setOverhead($overhead)
+	{
+		$this->overhead = $overhead;
+	}
+	public function getOverhead()
+	{
+		return $this->overhead;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleRpcStatus
+	 */
+	public function setStatus(Google_Service_RemoteBuildExecution_GoogleRpcStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleRpcStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_AndroidEnterprise_ServiceAccountKey extends Google_Model
 {
-  public $data;
-  public $id;
-  public $publicData;
-  public $type;
+	public $data;
+	public $id;
+	public $publicData;
+	public $type;
 
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setPublicData($publicData)
-  {
-    $this->publicData = $publicData;
-  }
-  public function getPublicData()
-  {
-    return $this->publicData;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setPublicData($publicData)
+	{
+		$this->publicData = $publicData;
+	}
+	public function getPublicData()
+	{
+		return $this->publicData;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

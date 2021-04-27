@@ -17,15 +17,15 @@
 
 class Google_Service_ServiceConsumerManagement_V1AddVisibilityLabelsResponse extends Google_Collection
 {
-  protected $collection_key = 'labels';
-  public $labels;
+	protected $collection_key = 'labels';
+	public $labels;
 
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
 }

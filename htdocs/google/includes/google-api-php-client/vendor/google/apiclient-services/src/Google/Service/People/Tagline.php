@@ -17,24 +17,24 @@
 
 class Google_Service_People_Tagline extends Google_Model
 {
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
-  protected $metadataDataType = '';
-  public $value;
+	protected $metadataType = 'Google_Service_People_FieldMetadata';
+	protected $metadataDataType = '';
+	public $value;
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Docs_SizeSuggestionState extends Google_Model
 {
-  public $heightSuggested;
-  public $widthSuggested;
+	public $heightSuggested;
+	public $widthSuggested;
 
-  public function setHeightSuggested($heightSuggested)
-  {
-    $this->heightSuggested = $heightSuggested;
-  }
-  public function getHeightSuggested()
-  {
-    return $this->heightSuggested;
-  }
-  public function setWidthSuggested($widthSuggested)
-  {
-    $this->widthSuggested = $widthSuggested;
-  }
-  public function getWidthSuggested()
-  {
-    return $this->widthSuggested;
-  }
+	public function setHeightSuggested($heightSuggested)
+	{
+		$this->heightSuggested = $heightSuggested;
+	}
+	public function getHeightSuggested()
+	{
+		return $this->heightSuggested;
+	}
+	public function setWidthSuggested($widthSuggested)
+	{
+		$this->widthSuggested = $widthSuggested;
+	}
+	public function getWidthSuggested()
+	{
+		return $this->widthSuggested;
+	}
 }

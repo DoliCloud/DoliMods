@@ -17,32 +17,32 @@
 
 class Google_Service_CloudNaturalLanguageAPI_Features extends Google_Model
 {
-  public $extractDocumentSentiment;
-  public $extractEntities;
-  public $extractSyntax;
+	public $extractDocumentSentiment;
+	public $extractEntities;
+	public $extractSyntax;
 
-  public function setExtractDocumentSentiment($extractDocumentSentiment)
-  {
-    $this->extractDocumentSentiment = $extractDocumentSentiment;
-  }
-  public function getExtractDocumentSentiment()
-  {
-    return $this->extractDocumentSentiment;
-  }
-  public function setExtractEntities($extractEntities)
-  {
-    $this->extractEntities = $extractEntities;
-  }
-  public function getExtractEntities()
-  {
-    return $this->extractEntities;
-  }
-  public function setExtractSyntax($extractSyntax)
-  {
-    $this->extractSyntax = $extractSyntax;
-  }
-  public function getExtractSyntax()
-  {
-    return $this->extractSyntax;
-  }
+	public function setExtractDocumentSentiment($extractDocumentSentiment)
+	{
+		$this->extractDocumentSentiment = $extractDocumentSentiment;
+	}
+	public function getExtractDocumentSentiment()
+	{
+		return $this->extractDocumentSentiment;
+	}
+	public function setExtractEntities($extractEntities)
+	{
+		$this->extractEntities = $extractEntities;
+	}
+	public function getExtractEntities()
+	{
+		return $this->extractEntities;
+	}
+	public function setExtractSyntax($extractSyntax)
+	{
+		$this->extractSyntax = $extractSyntax;
+	}
+	public function getExtractSyntax()
+	{
+		return $this->extractSyntax;
+	}
 }

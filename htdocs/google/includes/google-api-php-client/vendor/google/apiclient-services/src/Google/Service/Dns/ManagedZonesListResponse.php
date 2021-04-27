@@ -17,56 +17,56 @@
 
 class Google_Service_Dns_ManagedZonesListResponse extends Google_Collection
 {
-  protected $collection_key = 'managedZones';
-  protected $headerType = 'Google_Service_Dns_ResponseHeader';
-  protected $headerDataType = '';
-  public $kind;
-  protected $managedZonesType = 'Google_Service_Dns_ManagedZone';
-  protected $managedZonesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'managedZones';
+	protected $headerType = 'Google_Service_Dns_ResponseHeader';
+	protected $headerDataType = '';
+	public $kind;
+	protected $managedZonesType = 'Google_Service_Dns_ManagedZone';
+	protected $managedZonesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Dns_ResponseHeader
-   */
-  public function setHeader(Google_Service_Dns_ResponseHeader $header)
-  {
-    $this->header = $header;
-  }
-  /**
-   * @return Google_Service_Dns_ResponseHeader
-   */
-  public function getHeader()
-  {
-    return $this->header;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Dns_ManagedZone
-   */
-  public function setManagedZones($managedZones)
-  {
-    $this->managedZones = $managedZones;
-  }
-  /**
-   * @return Google_Service_Dns_ManagedZone
-   */
-  public function getManagedZones()
-  {
-    return $this->managedZones;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Dns_ResponseHeader
+	 */
+	public function setHeader(Google_Service_Dns_ResponseHeader $header)
+	{
+		$this->header = $header;
+	}
+	/**
+	 * @return Google_Service_Dns_ResponseHeader
+	 */
+	public function getHeader()
+	{
+		return $this->header;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Dns_ManagedZone
+	 */
+	public function setManagedZones($managedZones)
+	{
+		$this->managedZones = $managedZones;
+	}
+	/**
+	 * @return Google_Service_Dns_ManagedZone
+	 */
+	public function getManagedZones()
+	{
+		return $this->managedZones;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

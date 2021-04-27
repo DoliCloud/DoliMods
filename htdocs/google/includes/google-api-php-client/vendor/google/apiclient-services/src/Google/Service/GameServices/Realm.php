@@ -17,68 +17,68 @@
 
 class Google_Service_GameServices_Realm extends Google_Model
 {
-  public $createTime;
-  public $description;
-  public $etag;
-  public $labels;
-  public $name;
-  public $timeZone;
-  public $updateTime;
+	public $createTime;
+	public $description;
+	public $etag;
+	public $labels;
+	public $name;
+	public $timeZone;
+	public $updateTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setTimeZone($timeZone)
-  {
-    $this->timeZone = $timeZone;
-  }
-  public function getTimeZone()
-  {
-    return $this->timeZone;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setTimeZone($timeZone)
+	{
+		$this->timeZone = $timeZone;
+	}
+	public function getTimeZone()
+	{
+		return $this->timeZone;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

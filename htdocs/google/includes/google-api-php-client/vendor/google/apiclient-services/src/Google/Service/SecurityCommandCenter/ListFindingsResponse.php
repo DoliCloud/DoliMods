@@ -17,49 +17,49 @@
 
 class Google_Service_SecurityCommandCenter_ListFindingsResponse extends Google_Collection
 {
-  protected $collection_key = 'listFindingsResults';
-  protected $listFindingsResultsType = 'Google_Service_SecurityCommandCenter_ListFindingsResult';
-  protected $listFindingsResultsDataType = 'array';
-  public $nextPageToken;
-  public $readTime;
-  public $totalSize;
+	protected $collection_key = 'listFindingsResults';
+	protected $listFindingsResultsType = 'Google_Service_SecurityCommandCenter_ListFindingsResult';
+	protected $listFindingsResultsDataType = 'array';
+	public $nextPageToken;
+	public $readTime;
+	public $totalSize;
 
-  /**
-   * @param Google_Service_SecurityCommandCenter_ListFindingsResult
-   */
-  public function setListFindingsResults($listFindingsResults)
-  {
-    $this->listFindingsResults = $listFindingsResults;
-  }
-  /**
-   * @return Google_Service_SecurityCommandCenter_ListFindingsResult
-   */
-  public function getListFindingsResults()
-  {
-    return $this->listFindingsResults;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setReadTime($readTime)
-  {
-    $this->readTime = $readTime;
-  }
-  public function getReadTime()
-  {
-    return $this->readTime;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
+	/**
+	 * @param Google_Service_SecurityCommandCenter_ListFindingsResult
+	 */
+	public function setListFindingsResults($listFindingsResults)
+	{
+		$this->listFindingsResults = $listFindingsResults;
+	}
+	/**
+	 * @return Google_Service_SecurityCommandCenter_ListFindingsResult
+	 */
+	public function getListFindingsResults()
+	{
+		return $this->listFindingsResults;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setReadTime($readTime)
+	{
+		$this->readTime = $readTime;
+	}
+	public function getReadTime()
+	{
+		return $this->readTime;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
 }

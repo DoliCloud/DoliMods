@@ -17,69 +17,69 @@
 
 class Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1OperationMetadata extends Google_Model
 {
-  public $createTime;
-  public $endTime;
-  public $isCancellationRequested;
-  public $modelName;
-  public $operationType;
-  public $startTime;
-  protected $versionType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version';
-  protected $versionDataType = '';
+	public $createTime;
+	public $endTime;
+	public $isCancellationRequested;
+	public $modelName;
+	public $operationType;
+	public $startTime;
+	protected $versionType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version';
+	protected $versionDataType = '';
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  public function setIsCancellationRequested($isCancellationRequested)
-  {
-    $this->isCancellationRequested = $isCancellationRequested;
-  }
-  public function getIsCancellationRequested()
-  {
-    return $this->isCancellationRequested;
-  }
-  public function setModelName($modelName)
-  {
-    $this->modelName = $modelName;
-  }
-  public function getModelName()
-  {
-    return $this->modelName;
-  }
-  public function setOperationType($operationType)
-  {
-    $this->operationType = $operationType;
-  }
-  public function getOperationType()
-  {
-    return $this->operationType;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  public function setVersion(Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version $version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	public function setIsCancellationRequested($isCancellationRequested)
+	{
+		$this->isCancellationRequested = $isCancellationRequested;
+	}
+	public function getIsCancellationRequested()
+	{
+		return $this->isCancellationRequested;
+	}
+	public function setModelName($modelName)
+	{
+		$this->modelName = $modelName;
+	}
+	public function getModelName()
+	{
+		return $this->modelName;
+	}
+	public function setOperationType($operationType)
+	{
+		$this->operationType = $operationType;
+	}
+	public function getOperationType()
+	{
+		return $this->operationType;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	public function setVersion(Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version $version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

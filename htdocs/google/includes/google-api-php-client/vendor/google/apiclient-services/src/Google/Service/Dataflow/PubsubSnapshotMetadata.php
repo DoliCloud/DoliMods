@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_PubsubSnapshotMetadata extends Google_Model
 {
-  public $expireTime;
-  public $snapshotName;
-  public $topicName;
+	public $expireTime;
+	public $snapshotName;
+	public $topicName;
 
-  public function setExpireTime($expireTime)
-  {
-    $this->expireTime = $expireTime;
-  }
-  public function getExpireTime()
-  {
-    return $this->expireTime;
-  }
-  public function setSnapshotName($snapshotName)
-  {
-    $this->snapshotName = $snapshotName;
-  }
-  public function getSnapshotName()
-  {
-    return $this->snapshotName;
-  }
-  public function setTopicName($topicName)
-  {
-    $this->topicName = $topicName;
-  }
-  public function getTopicName()
-  {
-    return $this->topicName;
-  }
+	public function setExpireTime($expireTime)
+	{
+		$this->expireTime = $expireTime;
+	}
+	public function getExpireTime()
+	{
+		return $this->expireTime;
+	}
+	public function setSnapshotName($snapshotName)
+	{
+		$this->snapshotName = $snapshotName;
+	}
+	public function getSnapshotName()
+	{
+		return $this->snapshotName;
+	}
+	public function setTopicName($topicName)
+	{
+		$this->topicName = $topicName;
+	}
+	public function getTopicName()
+	{
+		return $this->topicName;
+	}
 }

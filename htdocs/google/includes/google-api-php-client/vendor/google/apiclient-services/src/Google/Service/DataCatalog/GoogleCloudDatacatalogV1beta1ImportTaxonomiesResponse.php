@@ -17,22 +17,22 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ImportTaxonomiesResponse extends Google_Collection
 {
-  protected $collection_key = 'taxonomies';
-  protected $taxonomiesType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy';
-  protected $taxonomiesDataType = 'array';
+	protected $collection_key = 'taxonomies';
+	protected $taxonomiesType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy';
+	protected $taxonomiesDataType = 'array';
 
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy
-   */
-  public function setTaxonomies($taxonomies)
-  {
-    $this->taxonomies = $taxonomies;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy
-   */
-  public function getTaxonomies()
-  {
-    return $this->taxonomies;
-  }
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy
+	 */
+	public function setTaxonomies($taxonomies)
+	{
+		$this->taxonomies = $taxonomies;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy
+	 */
+	public function getTaxonomies()
+	{
+		return $this->taxonomies;
+	}
 }

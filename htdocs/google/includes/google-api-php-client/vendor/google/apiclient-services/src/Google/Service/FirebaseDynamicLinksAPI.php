@@ -31,39 +31,39 @@
  */
 class Google_Service_FirebaseDynamicLinksAPI extends Google_Service
 {
-  /** View and administer all your Firebase data and settings. */
-  const FIREBASE =
-      "https://www.googleapis.com/auth/firebase";
+	/** View and administer all your Firebase data and settings. */
+	const FIREBASE =
+	  "https://www.googleapis.com/auth/firebase";
 
-  public $shortDynamicLinks;
-  
-  /**
-   * Constructs the internal representation of the FirebaseDynamicLinksAPI
-   * service.
-   *
-   * @param Google_Client $client
-   */
-  public function __construct(Google_Client $client)
-  {
-    parent::__construct($client);
-    $this->rootUrl = 'https://firebasedynamiclinks.googleapis.com/';
-    $this->servicePath = '';
-    $this->version = 'v1';
-    $this->serviceName = 'firebasedynamiclinks';
+	public $shortDynamicLinks;
 
-    $this->shortDynamicLinks = new Google_Service_FirebaseDynamicLinksAPI_Resource_ShortDynamicLinks(
-        $this,
-        $this->serviceName,
-        'shortDynamicLinks',
-        array(
-          'methods' => array(
-            'create' => array(
-              'path' => 'v1/shortDynamicLinks',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the FirebaseDynamicLinksAPI
+	 * service.
+	 *
+	 * @param Google_Client $client
+	 */
+	public function __construct(Google_Client $client)
+	{
+		parent::__construct($client);
+		$this->rootUrl = 'https://firebasedynamiclinks.googleapis.com/';
+		$this->servicePath = '';
+		$this->version = 'v1';
+		$this->serviceName = 'firebasedynamiclinks';
+
+		$this->shortDynamicLinks = new Google_Service_FirebaseDynamicLinksAPI_Resource_ShortDynamicLinks(
+		$this,
+		$this->serviceName,
+		'shortDynamicLinks',
+		array(
+		  'methods' => array(
+			'create' => array(
+			  'path' => 'v1/shortDynamicLinks',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),
+		  )
+		)
+		);
+	}
 }

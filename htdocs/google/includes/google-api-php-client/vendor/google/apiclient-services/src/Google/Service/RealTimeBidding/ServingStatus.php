@@ -17,31 +17,31 @@
 
 class Google_Service_RealTimeBidding_ServingStatus extends Google_Collection
 {
-  protected $collection_key = 'topics';
-  public $status;
-  protected $topicsType = 'Google_Service_RealTimeBidding_PolicyTopicEntry';
-  protected $topicsDataType = 'array';
+	protected $collection_key = 'topics';
+	public $status;
+	protected $topicsType = 'Google_Service_RealTimeBidding_PolicyTopicEntry';
+	protected $topicsDataType = 'array';
 
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  /**
-   * @param Google_Service_RealTimeBidding_PolicyTopicEntry
-   */
-  public function setTopics($topics)
-  {
-    $this->topics = $topics;
-  }
-  /**
-   * @return Google_Service_RealTimeBidding_PolicyTopicEntry
-   */
-  public function getTopics()
-  {
-    return $this->topics;
-  }
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	/**
+	 * @param Google_Service_RealTimeBidding_PolicyTopicEntry
+	 */
+	public function setTopics($topics)
+	{
+		$this->topics = $topics;
+	}
+	/**
+	 * @return Google_Service_RealTimeBidding_PolicyTopicEntry
+	 */
+	public function getTopics()
+	{
+		return $this->topics;
+	}
 }

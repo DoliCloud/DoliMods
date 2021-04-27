@@ -17,40 +17,40 @@
 
 class Google_Service_PolyService_ListUserAssetsResponse extends Google_Collection
 {
-  protected $collection_key = 'userAssets';
-  public $nextPageToken;
-  public $totalSize;
-  protected $userAssetsType = 'Google_Service_PolyService_UserAsset';
-  protected $userAssetsDataType = 'array';
+	protected $collection_key = 'userAssets';
+	public $nextPageToken;
+	public $totalSize;
+	protected $userAssetsType = 'Google_Service_PolyService_UserAsset';
+	protected $userAssetsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
-  /**
-   * @param Google_Service_PolyService_UserAsset
-   */
-  public function setUserAssets($userAssets)
-  {
-    $this->userAssets = $userAssets;
-  }
-  /**
-   * @return Google_Service_PolyService_UserAsset
-   */
-  public function getUserAssets()
-  {
-    return $this->userAssets;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
+	/**
+	 * @param Google_Service_PolyService_UserAsset
+	 */
+	public function setUserAssets($userAssets)
+	{
+		$this->userAssets = $userAssets;
+	}
+	/**
+	 * @return Google_Service_PolyService_UserAsset
+	 */
+	public function getUserAssets()
+	{
+		return $this->userAssets;
+	}
 }

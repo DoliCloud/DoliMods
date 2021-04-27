@@ -17,23 +17,23 @@
 
 class Google_Service_CloudLifeSciences_UnexpectedExitStatusEvent extends Google_Model
 {
-  public $actionId;
-  public $exitStatus;
+	public $actionId;
+	public $exitStatus;
 
-  public function setActionId($actionId)
-  {
-    $this->actionId = $actionId;
-  }
-  public function getActionId()
-  {
-    return $this->actionId;
-  }
-  public function setExitStatus($exitStatus)
-  {
-    $this->exitStatus = $exitStatus;
-  }
-  public function getExitStatus()
-  {
-    return $this->exitStatus;
-  }
+	public function setActionId($actionId)
+	{
+		$this->actionId = $actionId;
+	}
+	public function getActionId()
+	{
+		return $this->actionId;
+	}
+	public function setExitStatus($exitStatus)
+	{
+		$this->exitStatus = $exitStatus;
+	}
+	public function getExitStatus()
+	{
+		return $this->exitStatus;
+	}
 }

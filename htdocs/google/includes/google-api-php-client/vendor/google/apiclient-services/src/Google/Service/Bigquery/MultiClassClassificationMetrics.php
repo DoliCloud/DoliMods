@@ -17,38 +17,38 @@
 
 class Google_Service_Bigquery_MultiClassClassificationMetrics extends Google_Collection
 {
-  protected $collection_key = 'confusionMatrixList';
-  protected $aggregateClassificationMetricsType = 'Google_Service_Bigquery_AggregateClassificationMetrics';
-  protected $aggregateClassificationMetricsDataType = '';
-  protected $confusionMatrixListType = 'Google_Service_Bigquery_ConfusionMatrix';
-  protected $confusionMatrixListDataType = 'array';
+	protected $collection_key = 'confusionMatrixList';
+	protected $aggregateClassificationMetricsType = 'Google_Service_Bigquery_AggregateClassificationMetrics';
+	protected $aggregateClassificationMetricsDataType = '';
+	protected $confusionMatrixListType = 'Google_Service_Bigquery_ConfusionMatrix';
+	protected $confusionMatrixListDataType = 'array';
 
-  /**
-   * @param Google_Service_Bigquery_AggregateClassificationMetrics
-   */
-  public function setAggregateClassificationMetrics(Google_Service_Bigquery_AggregateClassificationMetrics $aggregateClassificationMetrics)
-  {
-    $this->aggregateClassificationMetrics = $aggregateClassificationMetrics;
-  }
-  /**
-   * @return Google_Service_Bigquery_AggregateClassificationMetrics
-   */
-  public function getAggregateClassificationMetrics()
-  {
-    return $this->aggregateClassificationMetrics;
-  }
-  /**
-   * @param Google_Service_Bigquery_ConfusionMatrix
-   */
-  public function setConfusionMatrixList($confusionMatrixList)
-  {
-    $this->confusionMatrixList = $confusionMatrixList;
-  }
-  /**
-   * @return Google_Service_Bigquery_ConfusionMatrix
-   */
-  public function getConfusionMatrixList()
-  {
-    return $this->confusionMatrixList;
-  }
+	/**
+	 * @param Google_Service_Bigquery_AggregateClassificationMetrics
+	 */
+	public function setAggregateClassificationMetrics(Google_Service_Bigquery_AggregateClassificationMetrics $aggregateClassificationMetrics)
+	{
+		$this->aggregateClassificationMetrics = $aggregateClassificationMetrics;
+	}
+	/**
+	 * @return Google_Service_Bigquery_AggregateClassificationMetrics
+	 */
+	public function getAggregateClassificationMetrics()
+	{
+		return $this->aggregateClassificationMetrics;
+	}
+	/**
+	 * @param Google_Service_Bigquery_ConfusionMatrix
+	 */
+	public function setConfusionMatrixList($confusionMatrixList)
+	{
+		$this->confusionMatrixList = $confusionMatrixList;
+	}
+	/**
+	 * @return Google_Service_Bigquery_ConfusionMatrix
+	 */
+	public function getConfusionMatrixList()
+	{
+		return $this->confusionMatrixList;
+	}
 }

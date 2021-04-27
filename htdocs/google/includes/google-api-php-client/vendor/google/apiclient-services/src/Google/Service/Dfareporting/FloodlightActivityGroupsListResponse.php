@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_FloodlightActivityGroupsListResponse extends Google_Collection
 {
-  protected $collection_key = 'floodlightActivityGroups';
-  protected $floodlightActivityGroupsType = 'Google_Service_Dfareporting_FloodlightActivityGroup';
-  protected $floodlightActivityGroupsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
+	protected $collection_key = 'floodlightActivityGroups';
+	protected $floodlightActivityGroupsType = 'Google_Service_Dfareporting_FloodlightActivityGroup';
+	protected $floodlightActivityGroupsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Dfareporting_FloodlightActivityGroup
-   */
-  public function setFloodlightActivityGroups($floodlightActivityGroups)
-  {
-    $this->floodlightActivityGroups = $floodlightActivityGroups;
-  }
-  /**
-   * @return Google_Service_Dfareporting_FloodlightActivityGroup
-   */
-  public function getFloodlightActivityGroups()
-  {
-    return $this->floodlightActivityGroups;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_FloodlightActivityGroup
+	 */
+	public function setFloodlightActivityGroups($floodlightActivityGroups)
+	{
+		$this->floodlightActivityGroups = $floodlightActivityGroups;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_FloodlightActivityGroup
+	 */
+	public function getFloodlightActivityGroups()
+	{
+		return $this->floodlightActivityGroups;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

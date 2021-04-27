@@ -17,40 +17,40 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2BatchUpdateEntitiesRequest extends Google_Collection
 {
-  protected $collection_key = 'entities';
-  protected $entitiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity';
-  protected $entitiesDataType = 'array';
-  public $languageCode;
-  public $updateMask;
+	protected $collection_key = 'entities';
+	protected $entitiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity';
+	protected $entitiesDataType = 'array';
+	public $languageCode;
+	public $updateMask;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity
-   */
-  public function setEntities($entities)
-  {
-    $this->entities = $entities;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity
-   */
-  public function getEntities()
-  {
-    return $this->entities;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity
+	 */
+	public function setEntities($entities)
+	{
+		$this->entities = $entities;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity
+	 */
+	public function getEntities()
+	{
+		return $this->entities;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Classroom_ListGuardiansResponse extends Google_Collection
 {
-  protected $collection_key = 'guardians';
-  protected $guardiansType = 'Google_Service_Classroom_Guardian';
-  protected $guardiansDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'guardians';
+	protected $guardiansType = 'Google_Service_Classroom_Guardian';
+	protected $guardiansDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Classroom_Guardian
-   */
-  public function setGuardians($guardians)
-  {
-    $this->guardians = $guardians;
-  }
-  /**
-   * @return Google_Service_Classroom_Guardian
-   */
-  public function getGuardians()
-  {
-    return $this->guardians;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Classroom_Guardian
+	 */
+	public function setGuardians($guardians)
+	{
+		$this->guardians = $guardians;
+	}
+	/**
+	 * @return Google_Service_Classroom_Guardian
+	 */
+	public function getGuardians()
+	{
+		return $this->guardians;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

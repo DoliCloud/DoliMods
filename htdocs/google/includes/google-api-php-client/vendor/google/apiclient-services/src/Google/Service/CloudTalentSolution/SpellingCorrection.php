@@ -17,23 +17,23 @@
 
 class Google_Service_CloudTalentSolution_SpellingCorrection extends Google_Model
 {
-  public $corrected;
-  public $correctedText;
+	public $corrected;
+	public $correctedText;
 
-  public function setCorrected($corrected)
-  {
-    $this->corrected = $corrected;
-  }
-  public function getCorrected()
-  {
-    return $this->corrected;
-  }
-  public function setCorrectedText($correctedText)
-  {
-    $this->correctedText = $correctedText;
-  }
-  public function getCorrectedText()
-  {
-    return $this->correctedText;
-  }
+	public function setCorrected($corrected)
+	{
+		$this->corrected = $corrected;
+	}
+	public function getCorrected()
+	{
+		return $this->corrected;
+	}
+	public function setCorrectedText($correctedText)
+	{
+		$this->correctedText = $correctedText;
+	}
+	public function getCorrectedText()
+	{
+		return $this->correctedText;
+	}
 }

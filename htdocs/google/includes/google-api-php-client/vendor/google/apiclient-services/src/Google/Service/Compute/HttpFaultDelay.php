@@ -17,30 +17,30 @@
 
 class Google_Service_Compute_HttpFaultDelay extends Google_Model
 {
-  protected $fixedDelayType = 'Google_Service_Compute_Duration';
-  protected $fixedDelayDataType = '';
-  public $percentage;
+	protected $fixedDelayType = 'Google_Service_Compute_Duration';
+	protected $fixedDelayDataType = '';
+	public $percentage;
 
-  /**
-   * @param Google_Service_Compute_Duration
-   */
-  public function setFixedDelay(Google_Service_Compute_Duration $fixedDelay)
-  {
-    $this->fixedDelay = $fixedDelay;
-  }
-  /**
-   * @return Google_Service_Compute_Duration
-   */
-  public function getFixedDelay()
-  {
-    return $this->fixedDelay;
-  }
-  public function setPercentage($percentage)
-  {
-    $this->percentage = $percentage;
-  }
-  public function getPercentage()
-  {
-    return $this->percentage;
-  }
+	/**
+	 * @param Google_Service_Compute_Duration
+	 */
+	public function setFixedDelay(Google_Service_Compute_Duration $fixedDelay)
+	{
+		$this->fixedDelay = $fixedDelay;
+	}
+	/**
+	 * @return Google_Service_Compute_Duration
+	 */
+	public function getFixedDelay()
+	{
+		return $this->fixedDelay;
+	}
+	public function setPercentage($percentage)
+	{
+		$this->percentage = $percentage;
+	}
+	public function getPercentage()
+	{
+		return $this->percentage;
+	}
 }

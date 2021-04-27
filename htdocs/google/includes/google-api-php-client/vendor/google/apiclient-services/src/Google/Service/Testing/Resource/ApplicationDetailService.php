@@ -25,18 +25,18 @@
  */
 class Google_Service_Testing_Resource_ApplicationDetailService extends Google_Service_Resource
 {
-  /**
-   * Gets the details of an Android application APK.
-   * (applicationDetailService.getApkDetails)
-   *
-   * @param Google_Service_Testing_FileReference $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Testing_GetApkDetailsResponse
-   */
-  public function getApkDetails(Google_Service_Testing_FileReference $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('getApkDetails', array($params), "Google_Service_Testing_GetApkDetailsResponse");
-  }
+	/**
+	 * Gets the details of an Android application APK.
+	 * (applicationDetailService.getApkDetails)
+	 *
+	 * @param Google_Service_Testing_FileReference $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Testing_GetApkDetailsResponse
+	 */
+	public function getApkDetails(Google_Service_Testing_FileReference $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('getApkDetails', array($params), "Google_Service_Testing_GetApkDetailsResponse");
+	}
 }

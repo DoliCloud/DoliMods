@@ -17,33 +17,33 @@
 
 class Google_Service_CommentAnalyzer_SuggestCommentScoreResponse extends Google_Collection
 {
-  protected $collection_key = 'requestedLanguages';
-  public $clientToken;
-  public $detectedLanguages;
-  public $requestedLanguages;
+	protected $collection_key = 'requestedLanguages';
+	public $clientToken;
+	public $detectedLanguages;
+	public $requestedLanguages;
 
-  public function setClientToken($clientToken)
-  {
-    $this->clientToken = $clientToken;
-  }
-  public function getClientToken()
-  {
-    return $this->clientToken;
-  }
-  public function setDetectedLanguages($detectedLanguages)
-  {
-    $this->detectedLanguages = $detectedLanguages;
-  }
-  public function getDetectedLanguages()
-  {
-    return $this->detectedLanguages;
-  }
-  public function setRequestedLanguages($requestedLanguages)
-  {
-    $this->requestedLanguages = $requestedLanguages;
-  }
-  public function getRequestedLanguages()
-  {
-    return $this->requestedLanguages;
-  }
+	public function setClientToken($clientToken)
+	{
+		$this->clientToken = $clientToken;
+	}
+	public function getClientToken()
+	{
+		return $this->clientToken;
+	}
+	public function setDetectedLanguages($detectedLanguages)
+	{
+		$this->detectedLanguages = $detectedLanguages;
+	}
+	public function getDetectedLanguages()
+	{
+		return $this->detectedLanguages;
+	}
+	public function setRequestedLanguages($requestedLanguages)
+	{
+		$this->requestedLanguages = $requestedLanguages;
+	}
+	public function getRequestedLanguages()
+	{
+		return $this->requestedLanguages;
+	}
 }

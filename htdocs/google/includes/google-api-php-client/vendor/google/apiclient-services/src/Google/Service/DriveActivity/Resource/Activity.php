@@ -25,17 +25,17 @@
  */
 class Google_Service_DriveActivity_Resource_Activity extends Google_Service_Resource
 {
-  /**
-   * Query past activity in Google Drive. (activity.query)
-   *
-   * @param Google_Service_DriveActivity_QueryDriveActivityRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_DriveActivity_QueryDriveActivityResponse
-   */
-  public function query(Google_Service_DriveActivity_QueryDriveActivityRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('query', array($params), "Google_Service_DriveActivity_QueryDriveActivityResponse");
-  }
+	/**
+	 * Query past activity in Google Drive. (activity.query)
+	 *
+	 * @param Google_Service_DriveActivity_QueryDriveActivityRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_DriveActivity_QueryDriveActivityResponse
+	 */
+	public function query(Google_Service_DriveActivity_QueryDriveActivityRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('query', array($params), "Google_Service_DriveActivity_QueryDriveActivityResponse");
+	}
 }

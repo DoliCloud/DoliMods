@@ -17,31 +17,31 @@
 
 class Google_Service_Appengine_ListAuthorizedCertificatesResponse extends Google_Collection
 {
-  protected $collection_key = 'certificates';
-  protected $certificatesType = 'Google_Service_Appengine_AuthorizedCertificate';
-  protected $certificatesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'certificates';
+	protected $certificatesType = 'Google_Service_Appengine_AuthorizedCertificate';
+	protected $certificatesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Appengine_AuthorizedCertificate
-   */
-  public function setCertificates($certificates)
-  {
-    $this->certificates = $certificates;
-  }
-  /**
-   * @return Google_Service_Appengine_AuthorizedCertificate
-   */
-  public function getCertificates()
-  {
-    return $this->certificates;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Appengine_AuthorizedCertificate
+	 */
+	public function setCertificates($certificates)
+	{
+		$this->certificates = $certificates;
+	}
+	/**
+	 * @return Google_Service_Appengine_AuthorizedCertificate
+	 */
+	public function getCertificates()
+	{
+		return $this->certificates;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

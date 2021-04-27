@@ -17,57 +17,57 @@
 
 class Google_Service_FirebaseManagement_FirebaseProject extends Google_Model
 {
-  public $displayName;
-  public $name;
-  public $projectId;
-  public $projectNumber;
-  protected $resourcesType = 'Google_Service_FirebaseManagement_DefaultResources';
-  protected $resourcesDataType = '';
+	public $displayName;
+	public $name;
+	public $projectId;
+	public $projectNumber;
+	protected $resourcesType = 'Google_Service_FirebaseManagement_DefaultResources';
+	protected $resourcesDataType = '';
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setProjectNumber($projectNumber)
-  {
-    $this->projectNumber = $projectNumber;
-  }
-  public function getProjectNumber()
-  {
-    return $this->projectNumber;
-  }
-  /**
-   * @param Google_Service_FirebaseManagement_DefaultResources
-   */
-  public function setResources(Google_Service_FirebaseManagement_DefaultResources $resources)
-  {
-    $this->resources = $resources;
-  }
-  /**
-   * @return Google_Service_FirebaseManagement_DefaultResources
-   */
-  public function getResources()
-  {
-    return $this->resources;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setProjectNumber($projectNumber)
+	{
+		$this->projectNumber = $projectNumber;
+	}
+	public function getProjectNumber()
+	{
+		return $this->projectNumber;
+	}
+	/**
+	 * @param Google_Service_FirebaseManagement_DefaultResources
+	 */
+	public function setResources(Google_Service_FirebaseManagement_DefaultResources $resources)
+	{
+		$this->resources = $resources;
+	}
+	/**
+	 * @return Google_Service_FirebaseManagement_DefaultResources
+	 */
+	public function getResources()
+	{
+		return $this->resources;
+	}
 }

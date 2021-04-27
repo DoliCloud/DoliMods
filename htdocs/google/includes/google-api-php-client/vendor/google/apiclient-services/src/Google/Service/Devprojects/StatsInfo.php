@@ -17,59 +17,59 @@
 
 class Google_Service_Devprojects_StatsInfo extends Google_Model
 {
-  public $key;
-  public $kind;
-  public $legendName;
-  public $subkey;
-  public $type;
-  public $unit;
+	public $key;
+	public $kind;
+	public $legendName;
+	public $subkey;
+	public $type;
+	public $unit;
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLegendName($legendName)
-  {
-    $this->legendName = $legendName;
-  }
-  public function getLegendName()
-  {
-    return $this->legendName;
-  }
-  public function setSubkey($subkey)
-  {
-    $this->subkey = $subkey;
-  }
-  public function getSubkey()
-  {
-    return $this->subkey;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setUnit($unit)
-  {
-    $this->unit = $unit;
-  }
-  public function getUnit()
-  {
-    return $this->unit;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLegendName($legendName)
+	{
+		$this->legendName = $legendName;
+	}
+	public function getLegendName()
+	{
+		return $this->legendName;
+	}
+	public function setSubkey($subkey)
+	{
+		$this->subkey = $subkey;
+	}
+	public function getSubkey()
+	{
+		return $this->subkey;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setUnit($unit)
+	{
+		$this->unit = $unit;
+	}
+	public function getUnit()
+	{
+		return $this->unit;
+	}
 }

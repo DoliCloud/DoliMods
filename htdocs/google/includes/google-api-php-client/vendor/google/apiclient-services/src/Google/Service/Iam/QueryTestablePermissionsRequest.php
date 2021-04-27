@@ -17,32 +17,32 @@
 
 class Google_Service_Iam_QueryTestablePermissionsRequest extends Google_Model
 {
-  public $fullResourceName;
-  public $pageSize;
-  public $pageToken;
+	public $fullResourceName;
+	public $pageSize;
+	public $pageToken;
 
-  public function setFullResourceName($fullResourceName)
-  {
-    $this->fullResourceName = $fullResourceName;
-  }
-  public function getFullResourceName()
-  {
-    return $this->fullResourceName;
-  }
-  public function setPageSize($pageSize)
-  {
-    $this->pageSize = $pageSize;
-  }
-  public function getPageSize()
-  {
-    return $this->pageSize;
-  }
-  public function setPageToken($pageToken)
-  {
-    $this->pageToken = $pageToken;
-  }
-  public function getPageToken()
-  {
-    return $this->pageToken;
-  }
+	public function setFullResourceName($fullResourceName)
+	{
+		$this->fullResourceName = $fullResourceName;
+	}
+	public function getFullResourceName()
+	{
+		return $this->fullResourceName;
+	}
+	public function setPageSize($pageSize)
+	{
+		$this->pageSize = $pageSize;
+	}
+	public function getPageSize()
+	{
+		return $this->pageSize;
+	}
+	public function setPageToken($pageToken)
+	{
+		$this->pageToken = $pageToken;
+	}
+	public function getPageToken()
+	{
+		return $this->pageToken;
+	}
 }

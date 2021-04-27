@@ -17,14 +17,14 @@
 
 class Google_Service_DataFusion_Accelerator extends Google_Model
 {
-  public $acceleratorType;
+	public $acceleratorType;
 
-  public function setAcceleratorType($acceleratorType)
-  {
-    $this->acceleratorType = $acceleratorType;
-  }
-  public function getAcceleratorType()
-  {
-    return $this->acceleratorType;
-  }
+	public function setAcceleratorType($acceleratorType)
+	{
+		$this->acceleratorType = $acceleratorType;
+	}
+	public function getAcceleratorType()
+	{
+		return $this->acceleratorType;
+	}
 }

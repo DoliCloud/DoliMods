@@ -17,41 +17,41 @@
 
 class Google_Service_Dataflow_MemInfo extends Google_Model
 {
-  public $currentLimitBytes;
-  public $currentRssBytes;
-  public $timestamp;
-  public $totalGbMs;
+	public $currentLimitBytes;
+	public $currentRssBytes;
+	public $timestamp;
+	public $totalGbMs;
 
-  public function setCurrentLimitBytes($currentLimitBytes)
-  {
-    $this->currentLimitBytes = $currentLimitBytes;
-  }
-  public function getCurrentLimitBytes()
-  {
-    return $this->currentLimitBytes;
-  }
-  public function setCurrentRssBytes($currentRssBytes)
-  {
-    $this->currentRssBytes = $currentRssBytes;
-  }
-  public function getCurrentRssBytes()
-  {
-    return $this->currentRssBytes;
-  }
-  public function setTimestamp($timestamp)
-  {
-    $this->timestamp = $timestamp;
-  }
-  public function getTimestamp()
-  {
-    return $this->timestamp;
-  }
-  public function setTotalGbMs($totalGbMs)
-  {
-    $this->totalGbMs = $totalGbMs;
-  }
-  public function getTotalGbMs()
-  {
-    return $this->totalGbMs;
-  }
+	public function setCurrentLimitBytes($currentLimitBytes)
+	{
+		$this->currentLimitBytes = $currentLimitBytes;
+	}
+	public function getCurrentLimitBytes()
+	{
+		return $this->currentLimitBytes;
+	}
+	public function setCurrentRssBytes($currentRssBytes)
+	{
+		$this->currentRssBytes = $currentRssBytes;
+	}
+	public function getCurrentRssBytes()
+	{
+		return $this->currentRssBytes;
+	}
+	public function setTimestamp($timestamp)
+	{
+		$this->timestamp = $timestamp;
+	}
+	public function getTimestamp()
+	{
+		return $this->timestamp;
+	}
+	public function setTotalGbMs($totalGbMs)
+	{
+		$this->totalGbMs = $totalGbMs;
+	}
+	public function getTotalGbMs()
+	{
+		return $this->totalGbMs;
+	}
 }

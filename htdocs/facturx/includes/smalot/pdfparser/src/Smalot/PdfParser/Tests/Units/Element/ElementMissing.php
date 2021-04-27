@@ -39,33 +39,33 @@ use mageekguy\atoum;
  */
 class ElementMissing extends atoum\test
 {
-    public function testEquals()
-    {
-        $element = new \Smalot\PdfParser\Element\ElementMissing(null);
-        $this->assert->boolean($element->equals(null))->isEqualTo(false);
-        $this->assert->boolean($element->equals(true))->isEqualTo(false);
-        $this->assert->boolean($element->equals('A'))->isEqualTo(false);
-        $this->assert->boolean($element->equals(false))->isEqualTo(false);
-    }
+	public function testEquals()
+	{
+		$element = new \Smalot\PdfParser\Element\ElementMissing(null);
+		$this->assert->boolean($element->equals(null))->isEqualTo(false);
+		$this->assert->boolean($element->equals(true))->isEqualTo(false);
+		$this->assert->boolean($element->equals('A'))->isEqualTo(false);
+		$this->assert->boolean($element->equals(false))->isEqualTo(false);
+	}
 
-    public function testGetContent()
-    {
-        $element = new \Smalot\PdfParser\Element\ElementMissing(null);
-        $this->assert->boolean($element->getContent())->isEqualTo(false);
-    }
+	public function testGetContent()
+	{
+		$element = new \Smalot\PdfParser\Element\ElementMissing(null);
+		$this->assert->boolean($element->getContent())->isEqualTo(false);
+	}
 
-    public function testContains()
-    {
-        $element = new \Smalot\PdfParser\Element\ElementMissing(null);
-        $this->assert->boolean($element->contains(null))->isEqualTo(false);
-        $this->assert->boolean($element->contains(true))->isEqualTo(false);
-        $this->assert->boolean($element->contains('A'))->isEqualTo(false);
-        $this->assert->boolean($element->contains(false))->isEqualTo(false);
-    }
+	public function testContains()
+	{
+		$element = new \Smalot\PdfParser\Element\ElementMissing(null);
+		$this->assert->boolean($element->contains(null))->isEqualTo(false);
+		$this->assert->boolean($element->contains(true))->isEqualTo(false);
+		$this->assert->boolean($element->contains('A'))->isEqualTo(false);
+		$this->assert->boolean($element->contains(false))->isEqualTo(false);
+	}
 
-    public function test__toString()
-    {
-        $element = new \Smalot\PdfParser\Element\ElementMissing(null);
-        $this->assert->castToString($element)->isEqualTo('');
-    }
+	public function test__toString()
+	{
+		$element = new \Smalot\PdfParser\Element\ElementMissing(null);
+		$this->assert->castToString($element)->isEqualTo('');
+	}
 }

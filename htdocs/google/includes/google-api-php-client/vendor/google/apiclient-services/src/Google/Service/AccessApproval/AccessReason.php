@@ -17,23 +17,23 @@
 
 class Google_Service_AccessApproval_AccessReason extends Google_Model
 {
-  public $detail;
-  public $type;
+	public $detail;
+	public $type;
 
-  public function setDetail($detail)
-  {
-    $this->detail = $detail;
-  }
-  public function getDetail()
-  {
-    return $this->detail;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setDetail($detail)
+	{
+		$this->detail = $detail;
+	}
+	public function getDetail()
+	{
+		return $this->detail;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

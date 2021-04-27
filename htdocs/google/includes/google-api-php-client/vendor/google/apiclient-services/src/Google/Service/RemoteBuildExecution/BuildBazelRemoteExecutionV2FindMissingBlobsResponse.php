@@ -17,22 +17,22 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2FindMissingBlobsResponse extends Google_Collection
 {
-  protected $collection_key = 'missingBlobDigests';
-  protected $missingBlobDigestsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $missingBlobDigestsDataType = 'array';
+	protected $collection_key = 'missingBlobDigests';
+	protected $missingBlobDigestsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $missingBlobDigestsDataType = 'array';
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setMissingBlobDigests($missingBlobDigests)
-  {
-    $this->missingBlobDigests = $missingBlobDigests;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getMissingBlobDigests()
-  {
-    return $this->missingBlobDigests;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setMissingBlobDigests($missingBlobDigests)
+	{
+		$this->missingBlobDigests = $missingBlobDigests;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getMissingBlobDigests()
+	{
+		return $this->missingBlobDigests;
+	}
 }

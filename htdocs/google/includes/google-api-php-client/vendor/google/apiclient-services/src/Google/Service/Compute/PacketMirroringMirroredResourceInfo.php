@@ -17,47 +17,47 @@
 
 class Google_Service_Compute_PacketMirroringMirroredResourceInfo extends Google_Collection
 {
-  protected $collection_key = 'tags';
-  protected $instancesType = 'Google_Service_Compute_PacketMirroringMirroredResourceInfoInstanceInfo';
-  protected $instancesDataType = 'array';
-  protected $subnetworksType = 'Google_Service_Compute_PacketMirroringMirroredResourceInfoSubnetInfo';
-  protected $subnetworksDataType = 'array';
-  public $tags;
+	protected $collection_key = 'tags';
+	protected $instancesType = 'Google_Service_Compute_PacketMirroringMirroredResourceInfoInstanceInfo';
+	protected $instancesDataType = 'array';
+	protected $subnetworksType = 'Google_Service_Compute_PacketMirroringMirroredResourceInfoSubnetInfo';
+	protected $subnetworksDataType = 'array';
+	public $tags;
 
-  /**
-   * @param Google_Service_Compute_PacketMirroringMirroredResourceInfoInstanceInfo
-   */
-  public function setInstances($instances)
-  {
-    $this->instances = $instances;
-  }
-  /**
-   * @return Google_Service_Compute_PacketMirroringMirroredResourceInfoInstanceInfo
-   */
-  public function getInstances()
-  {
-    return $this->instances;
-  }
-  /**
-   * @param Google_Service_Compute_PacketMirroringMirroredResourceInfoSubnetInfo
-   */
-  public function setSubnetworks($subnetworks)
-  {
-    $this->subnetworks = $subnetworks;
-  }
-  /**
-   * @return Google_Service_Compute_PacketMirroringMirroredResourceInfoSubnetInfo
-   */
-  public function getSubnetworks()
-  {
-    return $this->subnetworks;
-  }
-  public function setTags($tags)
-  {
-    $this->tags = $tags;
-  }
-  public function getTags()
-  {
-    return $this->tags;
-  }
+	/**
+	 * @param Google_Service_Compute_PacketMirroringMirroredResourceInfoInstanceInfo
+	 */
+	public function setInstances($instances)
+	{
+		$this->instances = $instances;
+	}
+	/**
+	 * @return Google_Service_Compute_PacketMirroringMirroredResourceInfoInstanceInfo
+	 */
+	public function getInstances()
+	{
+		return $this->instances;
+	}
+	/**
+	 * @param Google_Service_Compute_PacketMirroringMirroredResourceInfoSubnetInfo
+	 */
+	public function setSubnetworks($subnetworks)
+	{
+		$this->subnetworks = $subnetworks;
+	}
+	/**
+	 * @return Google_Service_Compute_PacketMirroringMirroredResourceInfoSubnetInfo
+	 */
+	public function getSubnetworks()
+	{
+		return $this->subnetworks;
+	}
+	public function setTags($tags)
+	{
+		$this->tags = $tags;
+	}
+	public function getTags()
+	{
+		return $this->tags;
+	}
 }

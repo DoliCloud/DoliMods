@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceConsumerManagement_AuthRequirement extends Google_Model
 {
-  public $audiences;
-  public $providerId;
+	public $audiences;
+	public $providerId;
 
-  public function setAudiences($audiences)
-  {
-    $this->audiences = $audiences;
-  }
-  public function getAudiences()
-  {
-    return $this->audiences;
-  }
-  public function setProviderId($providerId)
-  {
-    $this->providerId = $providerId;
-  }
-  public function getProviderId()
-  {
-    return $this->providerId;
-  }
+	public function setAudiences($audiences)
+	{
+		$this->audiences = $audiences;
+	}
+	public function getAudiences()
+	{
+		return $this->audiences;
+	}
+	public function setProviderId($providerId)
+	{
+		$this->providerId = $providerId;
+	}
+	public function getProviderId()
+	{
+		return $this->providerId;
+	}
 }

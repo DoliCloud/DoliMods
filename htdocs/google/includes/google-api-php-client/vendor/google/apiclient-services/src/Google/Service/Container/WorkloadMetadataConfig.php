@@ -17,14 +17,14 @@
 
 class Google_Service_Container_WorkloadMetadataConfig extends Google_Model
 {
-  public $mode;
+	public $mode;
 
-  public function setMode($mode)
-  {
-    $this->mode = $mode;
-  }
-  public function getMode()
-  {
-    return $this->mode;
-  }
+	public function setMode($mode)
+	{
+		$this->mode = $mode;
+	}
+	public function getMode()
+	{
+		return $this->mode;
+	}
 }

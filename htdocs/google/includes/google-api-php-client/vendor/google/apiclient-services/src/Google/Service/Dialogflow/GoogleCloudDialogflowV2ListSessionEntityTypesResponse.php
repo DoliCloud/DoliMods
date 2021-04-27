@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2ListSessionEntityTypesResponse extends Google_Collection
 {
-  protected $collection_key = 'sessionEntityTypes';
-  public $nextPageToken;
-  protected $sessionEntityTypesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2SessionEntityType';
-  protected $sessionEntityTypesDataType = 'array';
+	protected $collection_key = 'sessionEntityTypes';
+	public $nextPageToken;
+	protected $sessionEntityTypesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2SessionEntityType';
+	protected $sessionEntityTypesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2SessionEntityType
-   */
-  public function setSessionEntityTypes($sessionEntityTypes)
-  {
-    $this->sessionEntityTypes = $sessionEntityTypes;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2SessionEntityType
-   */
-  public function getSessionEntityTypes()
-  {
-    return $this->sessionEntityTypes;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2SessionEntityType
+	 */
+	public function setSessionEntityTypes($sessionEntityTypes)
+	{
+		$this->sessionEntityTypes = $sessionEntityTypes;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2SessionEntityType
+	 */
+	public function getSessionEntityTypes()
+	{
+		return $this->sessionEntityTypes;
+	}
 }

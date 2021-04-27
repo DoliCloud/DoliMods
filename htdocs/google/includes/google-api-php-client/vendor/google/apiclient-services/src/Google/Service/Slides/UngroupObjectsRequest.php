@@ -17,15 +17,15 @@
 
 class Google_Service_Slides_UngroupObjectsRequest extends Google_Collection
 {
-  protected $collection_key = 'objectIds';
-  public $objectIds;
+	protected $collection_key = 'objectIds';
+	public $objectIds;
 
-  public function setObjectIds($objectIds)
-  {
-    $this->objectIds = $objectIds;
-  }
-  public function getObjectIds()
-  {
-    return $this->objectIds;
-  }
+	public function setObjectIds($objectIds)
+	{
+		$this->objectIds = $objectIds;
+	}
+	public function getObjectIds()
+	{
+		return $this->objectIds;
+	}
 }

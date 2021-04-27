@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_AuthorizedSellerStatusTargetingOptionDetails extends Google_Model
 {
-  public $authorizedSellerStatus;
+	public $authorizedSellerStatus;
 
-  public function setAuthorizedSellerStatus($authorizedSellerStatus)
-  {
-    $this->authorizedSellerStatus = $authorizedSellerStatus;
-  }
-  public function getAuthorizedSellerStatus()
-  {
-    return $this->authorizedSellerStatus;
-  }
+	public function setAuthorizedSellerStatus($authorizedSellerStatus)
+	{
+		$this->authorizedSellerStatus = $authorizedSellerStatus;
+	}
+	public function getAuthorizedSellerStatus()
+	{
+		return $this->authorizedSellerStatus;
+	}
 }

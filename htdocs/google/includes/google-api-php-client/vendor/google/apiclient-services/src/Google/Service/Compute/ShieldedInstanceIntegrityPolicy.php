@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_ShieldedInstanceIntegrityPolicy extends Google_Model
 {
-  public $updateAutoLearnPolicy;
+	public $updateAutoLearnPolicy;
 
-  public function setUpdateAutoLearnPolicy($updateAutoLearnPolicy)
-  {
-    $this->updateAutoLearnPolicy = $updateAutoLearnPolicy;
-  }
-  public function getUpdateAutoLearnPolicy()
-  {
-    return $this->updateAutoLearnPolicy;
-  }
+	public function setUpdateAutoLearnPolicy($updateAutoLearnPolicy)
+	{
+		$this->updateAutoLearnPolicy = $updateAutoLearnPolicy;
+	}
+	public function getUpdateAutoLearnPolicy()
+	{
+		return $this->updateAutoLearnPolicy;
+	}
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p3beta1ColorInfo extends Google_Model
 {
-  protected $colorType = 'Google_Service_Vision_Color';
-  protected $colorDataType = '';
-  public $pixelFraction;
-  public $score;
+	protected $colorType = 'Google_Service_Vision_Color';
+	protected $colorDataType = '';
+	public $pixelFraction;
+	public $score;
 
-  /**
-   * @param Google_Service_Vision_Color
-   */
-  public function setColor(Google_Service_Vision_Color $color)
-  {
-    $this->color = $color;
-  }
-  /**
-   * @return Google_Service_Vision_Color
-   */
-  public function getColor()
-  {
-    return $this->color;
-  }
-  public function setPixelFraction($pixelFraction)
-  {
-    $this->pixelFraction = $pixelFraction;
-  }
-  public function getPixelFraction()
-  {
-    return $this->pixelFraction;
-  }
-  public function setScore($score)
-  {
-    $this->score = $score;
-  }
-  public function getScore()
-  {
-    return $this->score;
-  }
+	/**
+	 * @param Google_Service_Vision_Color
+	 */
+	public function setColor(Google_Service_Vision_Color $color)
+	{
+		$this->color = $color;
+	}
+	/**
+	 * @return Google_Service_Vision_Color
+	 */
+	public function getColor()
+	{
+		return $this->color;
+	}
+	public function setPixelFraction($pixelFraction)
+	{
+		$this->pixelFraction = $pixelFraction;
+	}
+	public function getPixelFraction()
+	{
+		return $this->pixelFraction;
+	}
+	public function setScore($score)
+	{
+		$this->score = $score;
+	}
+	public function getScore()
+	{
+		return $this->score;
+	}
 }

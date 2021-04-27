@@ -17,49 +17,49 @@
 
 class Google_Service_AlertCenter_GoogleOperations extends Google_Collection
 {
-  protected $collection_key = 'affectedUserEmails';
-  public $affectedUserEmails;
-  protected $attachmentDataType = 'Google_Service_AlertCenter_Attachment';
-  protected $attachmentDataDataType = '';
-  public $description;
-  public $title;
+	protected $collection_key = 'affectedUserEmails';
+	public $affectedUserEmails;
+	protected $attachmentDataType = 'Google_Service_AlertCenter_Attachment';
+	protected $attachmentDataDataType = '';
+	public $description;
+	public $title;
 
-  public function setAffectedUserEmails($affectedUserEmails)
-  {
-    $this->affectedUserEmails = $affectedUserEmails;
-  }
-  public function getAffectedUserEmails()
-  {
-    return $this->affectedUserEmails;
-  }
-  /**
-   * @param Google_Service_AlertCenter_Attachment
-   */
-  public function setAttachmentData(Google_Service_AlertCenter_Attachment $attachmentData)
-  {
-    $this->attachmentData = $attachmentData;
-  }
-  /**
-   * @return Google_Service_AlertCenter_Attachment
-   */
-  public function getAttachmentData()
-  {
-    return $this->attachmentData;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setAffectedUserEmails($affectedUserEmails)
+	{
+		$this->affectedUserEmails = $affectedUserEmails;
+	}
+	public function getAffectedUserEmails()
+	{
+		return $this->affectedUserEmails;
+	}
+	/**
+	 * @param Google_Service_AlertCenter_Attachment
+	 */
+	public function setAttachmentData(Google_Service_AlertCenter_Attachment $attachmentData)
+	{
+		$this->attachmentData = $attachmentData;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_Attachment
+	 */
+	public function getAttachmentData()
+	{
+		return $this->attachmentData;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

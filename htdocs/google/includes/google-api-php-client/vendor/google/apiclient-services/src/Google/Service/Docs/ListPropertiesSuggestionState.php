@@ -17,22 +17,22 @@
 
 class Google_Service_Docs_ListPropertiesSuggestionState extends Google_Collection
 {
-  protected $collection_key = 'nestingLevelsSuggestionStates';
-  protected $nestingLevelsSuggestionStatesType = 'Google_Service_Docs_NestingLevelSuggestionState';
-  protected $nestingLevelsSuggestionStatesDataType = 'array';
+	protected $collection_key = 'nestingLevelsSuggestionStates';
+	protected $nestingLevelsSuggestionStatesType = 'Google_Service_Docs_NestingLevelSuggestionState';
+	protected $nestingLevelsSuggestionStatesDataType = 'array';
 
-  /**
-   * @param Google_Service_Docs_NestingLevelSuggestionState
-   */
-  public function setNestingLevelsSuggestionStates($nestingLevelsSuggestionStates)
-  {
-    $this->nestingLevelsSuggestionStates = $nestingLevelsSuggestionStates;
-  }
-  /**
-   * @return Google_Service_Docs_NestingLevelSuggestionState
-   */
-  public function getNestingLevelsSuggestionStates()
-  {
-    return $this->nestingLevelsSuggestionStates;
-  }
+	/**
+	 * @param Google_Service_Docs_NestingLevelSuggestionState
+	 */
+	public function setNestingLevelsSuggestionStates($nestingLevelsSuggestionStates)
+	{
+		$this->nestingLevelsSuggestionStates = $nestingLevelsSuggestionStates;
+	}
+	/**
+	 * @return Google_Service_Docs_NestingLevelSuggestionState
+	 */
+	public function getNestingLevelsSuggestionStates()
+	{
+		return $this->nestingLevelsSuggestionStates;
+	}
 }

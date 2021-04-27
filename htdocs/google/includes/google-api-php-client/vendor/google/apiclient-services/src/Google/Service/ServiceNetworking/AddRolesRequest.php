@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceNetworking_AddRolesRequest extends Google_Collection
 {
-  protected $collection_key = 'policyBinding';
-  public $consumerNetwork;
-  protected $policyBindingType = 'Google_Service_ServiceNetworking_PolicyBinding';
-  protected $policyBindingDataType = 'array';
+	protected $collection_key = 'policyBinding';
+	public $consumerNetwork;
+	protected $policyBindingType = 'Google_Service_ServiceNetworking_PolicyBinding';
+	protected $policyBindingDataType = 'array';
 
-  public function setConsumerNetwork($consumerNetwork)
-  {
-    $this->consumerNetwork = $consumerNetwork;
-  }
-  public function getConsumerNetwork()
-  {
-    return $this->consumerNetwork;
-  }
-  /**
-   * @param Google_Service_ServiceNetworking_PolicyBinding
-   */
-  public function setPolicyBinding($policyBinding)
-  {
-    $this->policyBinding = $policyBinding;
-  }
-  /**
-   * @return Google_Service_ServiceNetworking_PolicyBinding
-   */
-  public function getPolicyBinding()
-  {
-    return $this->policyBinding;
-  }
+	public function setConsumerNetwork($consumerNetwork)
+	{
+		$this->consumerNetwork = $consumerNetwork;
+	}
+	public function getConsumerNetwork()
+	{
+		return $this->consumerNetwork;
+	}
+	/**
+	 * @param Google_Service_ServiceNetworking_PolicyBinding
+	 */
+	public function setPolicyBinding($policyBinding)
+	{
+		$this->policyBinding = $policyBinding;
+	}
+	/**
+	 * @return Google_Service_ServiceNetworking_PolicyBinding
+	 */
+	public function getPolicyBinding()
+	{
+		return $this->policyBinding;
+	}
 }

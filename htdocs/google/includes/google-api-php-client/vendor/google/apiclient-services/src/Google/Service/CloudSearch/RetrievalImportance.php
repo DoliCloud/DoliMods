@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_RetrievalImportance extends Google_Model
 {
-  public $importance;
+	public $importance;
 
-  public function setImportance($importance)
-  {
-    $this->importance = $importance;
-  }
-  public function getImportance()
-  {
-    return $this->importance;
-  }
+	public function setImportance($importance)
+	{
+		$this->importance = $importance;
+	}
+	public function getImportance()
+	{
+		return $this->importance;
+	}
 }

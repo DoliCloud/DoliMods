@@ -17,14 +17,14 @@
 
 class Google_Service_CloudRun_SecurityContext extends Google_Model
 {
-  public $runAsUser;
+	public $runAsUser;
 
-  public function setRunAsUser($runAsUser)
-  {
-    $this->runAsUser = $runAsUser;
-  }
-  public function getRunAsUser()
-  {
-    return $this->runAsUser;
-  }
+	public function setRunAsUser($runAsUser)
+	{
+		$this->runAsUser = $runAsUser;
+	}
+	public function getRunAsUser()
+	{
+		return $this->runAsUser;
+	}
 }

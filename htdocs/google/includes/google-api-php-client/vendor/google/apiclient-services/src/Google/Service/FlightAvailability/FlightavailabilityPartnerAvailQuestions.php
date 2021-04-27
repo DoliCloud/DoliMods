@@ -17,38 +17,38 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestions extends Google_Collection
 {
-  protected $collection_key = 'questions';
-  protected $parametersType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters';
-  protected $parametersDataType = '';
-  protected $questionsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsQuestion';
-  protected $questionsDataType = 'array';
+	protected $collection_key = 'questions';
+	protected $parametersType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters';
+	protected $parametersDataType = '';
+	protected $questionsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsQuestion';
+	protected $questionsDataType = 'array';
 
-  /**
-   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters
-   */
-  public function setParameters(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters $parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  /**
-   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters
-   */
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
-  /**
-   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsQuestion
-   */
-  public function setQuestions($questions)
-  {
-    $this->questions = $questions;
-  }
-  /**
-   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsQuestion
-   */
-  public function getQuestions()
-  {
-    return $this->questions;
-  }
+	/**
+	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters
+	 */
+	public function setParameters(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters $parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	/**
+	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters
+	 */
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
+	/**
+	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsQuestion
+	 */
+	public function setQuestions($questions)
+	{
+		$this->questions = $questions;
+	}
+	/**
+	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsQuestion
+	 */
+	public function getQuestions()
+	{
+		return $this->questions;
+	}
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ServiceIssuersMapping extends Google_Collection
 {
-  protected $collection_key = 'emailIds';
-  public $emailIds;
-  public $service;
+	protected $collection_key = 'emailIds';
+	public $emailIds;
+	public $service;
 
-  public function setEmailIds($emailIds)
-  {
-    $this->emailIds = $emailIds;
-  }
-  public function getEmailIds()
-  {
-    return $this->emailIds;
-  }
-  public function setService($service)
-  {
-    $this->service = $service;
-  }
-  public function getService()
-  {
-    return $this->service;
-  }
+	public function setEmailIds($emailIds)
+	{
+		$this->emailIds = $emailIds;
+	}
+	public function getEmailIds()
+	{
+		return $this->emailIds;
+	}
+	public function setService($service)
+	{
+		$this->service = $service;
+	}
+	public function getService()
+	{
+		return $this->service;
+	}
 }

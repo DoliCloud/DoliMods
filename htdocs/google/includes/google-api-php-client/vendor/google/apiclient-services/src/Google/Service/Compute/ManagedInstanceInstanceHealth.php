@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_ManagedInstanceInstanceHealth extends Google_Model
 {
-  public $detailedHealthState;
-  public $healthCheck;
+	public $detailedHealthState;
+	public $healthCheck;
 
-  public function setDetailedHealthState($detailedHealthState)
-  {
-    $this->detailedHealthState = $detailedHealthState;
-  }
-  public function getDetailedHealthState()
-  {
-    return $this->detailedHealthState;
-  }
-  public function setHealthCheck($healthCheck)
-  {
-    $this->healthCheck = $healthCheck;
-  }
-  public function getHealthCheck()
-  {
-    return $this->healthCheck;
-  }
+	public function setDetailedHealthState($detailedHealthState)
+	{
+		$this->detailedHealthState = $detailedHealthState;
+	}
+	public function getDetailedHealthState()
+	{
+		return $this->detailedHealthState;
+	}
+	public function setHealthCheck($healthCheck)
+	{
+		$this->healthCheck = $healthCheck;
+	}
+	public function getHealthCheck()
+	{
+		return $this->healthCheck;
+	}
 }

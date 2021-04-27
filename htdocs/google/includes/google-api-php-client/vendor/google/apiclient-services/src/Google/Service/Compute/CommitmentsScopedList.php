@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_CommitmentsScopedList extends Google_Collection
 {
-  protected $collection_key = 'commitments';
-  protected $commitmentsType = 'Google_Service_Compute_Commitment';
-  protected $commitmentsDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_CommitmentsScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'commitments';
+	protected $commitmentsType = 'Google_Service_Compute_Commitment';
+	protected $commitmentsDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_CommitmentsScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_Commitment
-   */
-  public function setCommitments($commitments)
-  {
-    $this->commitments = $commitments;
-  }
-  /**
-   * @return Google_Service_Compute_Commitment
-   */
-  public function getCommitments()
-  {
-    return $this->commitments;
-  }
-  /**
-   * @param Google_Service_Compute_CommitmentsScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_CommitmentsScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_CommitmentsScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_Commitment
+	 */
+	public function setCommitments($commitments)
+	{
+		$this->commitments = $commitments;
+	}
+	/**
+	 * @return Google_Service_Compute_Commitment
+	 */
+	public function getCommitments()
+	{
+		return $this->commitments;
+	}
+	/**
+	 * @param Google_Service_Compute_CommitmentsScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_CommitmentsScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_CommitmentsScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature extends Google_Collection
 {
-  protected $collection_key = 'text';
-  protected $numericType = 'Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureNumeric';
-  protected $numericDataType = '';
-  protected $textType = 'Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureText';
-  protected $textDataType = 'array';
+	protected $collection_key = 'text';
+	protected $numericType = 'Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureNumeric';
+	protected $numericDataType = '';
+	protected $textType = 'Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureText';
+	protected $textDataType = 'array';
 
-  /**
-   * @param Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureNumeric
-   */
-  public function setNumeric(Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureNumeric $numeric)
-  {
-    $this->numeric = $numeric;
-  }
-  /**
-   * @return Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureNumeric
-   */
-  public function getNumeric()
-  {
-    return $this->numeric;
-  }
-  /**
-   * @param Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureText
-   */
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  /**
-   * @return Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureText
-   */
-  public function getText()
-  {
-    return $this->text;
-  }
+	/**
+	 * @param Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureNumeric
+	 */
+	public function setNumeric(Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureNumeric $numeric)
+	{
+		$this->numeric = $numeric;
+	}
+	/**
+	 * @return Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureNumeric
+	 */
+	public function getNumeric()
+	{
+		return $this->numeric;
+	}
+	/**
+	 * @param Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureText
+	 */
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	/**
+	 * @return Google_Service_Prediction_AnalyzeDataDescriptionOutputFeatureText
+	 */
+	public function getText()
+	{
+		return $this->text;
+	}
 }

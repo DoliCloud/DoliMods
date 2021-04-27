@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2BatchCreateEntitiesRequest extends Google_Collection
 {
-  protected $collection_key = 'entities';
-  protected $entitiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity';
-  protected $entitiesDataType = 'array';
-  public $languageCode;
+	protected $collection_key = 'entities';
+	protected $entitiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity';
+	protected $entitiesDataType = 'array';
+	public $languageCode;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity
-   */
-  public function setEntities($entities)
-  {
-    $this->entities = $entities;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity
-   */
-  public function getEntities()
-  {
-    return $this->entities;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity
+	 */
+	public function setEntities($entities)
+	{
+		$this->entities = $entities;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeEntity
+	 */
+	public function getEntities()
+	{
+		return $this->entities;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
 }

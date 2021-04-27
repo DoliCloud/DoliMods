@@ -17,59 +17,59 @@
 
 class Google_Service_TagManager_GalleryReference extends Google_Model
 {
-  public $host;
-  public $isModified;
-  public $owner;
-  public $repository;
-  public $signature;
-  public $version;
+	public $host;
+	public $isModified;
+	public $owner;
+	public $repository;
+	public $signature;
+	public $version;
 
-  public function setHost($host)
-  {
-    $this->host = $host;
-  }
-  public function getHost()
-  {
-    return $this->host;
-  }
-  public function setIsModified($isModified)
-  {
-    $this->isModified = $isModified;
-  }
-  public function getIsModified()
-  {
-    return $this->isModified;
-  }
-  public function setOwner($owner)
-  {
-    $this->owner = $owner;
-  }
-  public function getOwner()
-  {
-    return $this->owner;
-  }
-  public function setRepository($repository)
-  {
-    $this->repository = $repository;
-  }
-  public function getRepository()
-  {
-    return $this->repository;
-  }
-  public function setSignature($signature)
-  {
-    $this->signature = $signature;
-  }
-  public function getSignature()
-  {
-    return $this->signature;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setHost($host)
+	{
+		$this->host = $host;
+	}
+	public function getHost()
+	{
+		return $this->host;
+	}
+	public function setIsModified($isModified)
+	{
+		$this->isModified = $isModified;
+	}
+	public function getIsModified()
+	{
+		return $this->isModified;
+	}
+	public function setOwner($owner)
+	{
+		$this->owner = $owner;
+	}
+	public function getOwner()
+	{
+		return $this->owner;
+	}
+	public function setRepository($repository)
+	{
+		$this->repository = $repository;
+	}
+	public function getRepository()
+	{
+		return $this->repository;
+	}
+	public function setSignature($signature)
+	{
+		$this->signature = $signature;
+	}
+	public function getSignature()
+	{
+		return $this->signature;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

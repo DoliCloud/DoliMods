@@ -17,41 +17,41 @@
 
 class Google_Service_YouTube_LiveStreamConfigurationIssue extends Google_Model
 {
-  public $description;
-  public $reason;
-  public $severity;
-  public $type;
+	public $description;
+	public $reason;
+	public $severity;
+	public $type;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
-  public function setSeverity($severity)
-  {
-    $this->severity = $severity;
-  }
-  public function getSeverity()
-  {
-    return $this->severity;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
+	public function setSeverity($severity)
+	{
+		$this->severity = $severity;
+	}
+	public function getSeverity()
+	{
+		return $this->severity;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

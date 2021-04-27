@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_SubExchangeAssignedTargetingOptionDetails extends Google_Model
 {
-  public $targetingOptionId;
+	public $targetingOptionId;
 
-  public function setTargetingOptionId($targetingOptionId)
-  {
-    $this->targetingOptionId = $targetingOptionId;
-  }
-  public function getTargetingOptionId()
-  {
-    return $this->targetingOptionId;
-  }
+	public function setTargetingOptionId($targetingOptionId)
+	{
+		$this->targetingOptionId = $targetingOptionId;
+	}
+	public function getTargetingOptionId()
+	{
+		return $this->targetingOptionId;
+	}
 }

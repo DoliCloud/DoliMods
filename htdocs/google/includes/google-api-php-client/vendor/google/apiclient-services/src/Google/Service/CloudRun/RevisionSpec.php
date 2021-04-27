@@ -17,65 +17,65 @@
 
 class Google_Service_CloudRun_RevisionSpec extends Google_Collection
 {
-  protected $collection_key = 'volumes';
-  public $containerConcurrency;
-  protected $containersType = 'Google_Service_CloudRun_Container';
-  protected $containersDataType = 'array';
-  public $serviceAccountName;
-  public $timeoutSeconds;
-  protected $volumesType = 'Google_Service_CloudRun_Volume';
-  protected $volumesDataType = 'array';
+	protected $collection_key = 'volumes';
+	public $containerConcurrency;
+	protected $containersType = 'Google_Service_CloudRun_Container';
+	protected $containersDataType = 'array';
+	public $serviceAccountName;
+	public $timeoutSeconds;
+	protected $volumesType = 'Google_Service_CloudRun_Volume';
+	protected $volumesDataType = 'array';
 
-  public function setContainerConcurrency($containerConcurrency)
-  {
-    $this->containerConcurrency = $containerConcurrency;
-  }
-  public function getContainerConcurrency()
-  {
-    return $this->containerConcurrency;
-  }
-  /**
-   * @param Google_Service_CloudRun_Container
-   */
-  public function setContainers($containers)
-  {
-    $this->containers = $containers;
-  }
-  /**
-   * @return Google_Service_CloudRun_Container
-   */
-  public function getContainers()
-  {
-    return $this->containers;
-  }
-  public function setServiceAccountName($serviceAccountName)
-  {
-    $this->serviceAccountName = $serviceAccountName;
-  }
-  public function getServiceAccountName()
-  {
-    return $this->serviceAccountName;
-  }
-  public function setTimeoutSeconds($timeoutSeconds)
-  {
-    $this->timeoutSeconds = $timeoutSeconds;
-  }
-  public function getTimeoutSeconds()
-  {
-    return $this->timeoutSeconds;
-  }
-  /**
-   * @param Google_Service_CloudRun_Volume
-   */
-  public function setVolumes($volumes)
-  {
-    $this->volumes = $volumes;
-  }
-  /**
-   * @return Google_Service_CloudRun_Volume
-   */
-  public function getVolumes()
-  {
-    return $this->volumes;
-  }
+	public function setContainerConcurrency($containerConcurrency)
+	{
+		$this->containerConcurrency = $containerConcurrency;
+	}
+	public function getContainerConcurrency()
+	{
+		return $this->containerConcurrency;
+	}
+	/**
+	 * @param Google_Service_CloudRun_Container
+	 */
+	public function setContainers($containers)
+	{
+		$this->containers = $containers;
+	}
+	/**
+	 * @return Google_Service_CloudRun_Container
+	 */
+	public function getContainers()
+	{
+		return $this->containers;
+	}
+	public function setServiceAccountName($serviceAccountName)
+	{
+		$this->serviceAccountName = $serviceAccountName;
+	}
+	public function getServiceAccountName()
+	{
+		return $this->serviceAccountName;
+	}
+	public function setTimeoutSeconds($timeoutSeconds)
+	{
+		$this->timeoutSeconds = $timeoutSeconds;
+	}
+	public function getTimeoutSeconds()
+	{
+		return $this->timeoutSeconds;
+	}
+	/**
+	 * @param Google_Service_CloudRun_Volume
+	 */
+	public function setVolumes($volumes)
+	{
+		$this->volumes = $volumes;
+	}
+	/**
+	 * @return Google_Service_CloudRun_Volume
+	 */
+	public function getVolumes()
+	{
+		return $this->volumes;
+	}
 }

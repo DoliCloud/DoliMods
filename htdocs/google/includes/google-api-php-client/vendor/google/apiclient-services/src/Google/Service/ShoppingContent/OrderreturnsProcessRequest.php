@@ -17,56 +17,56 @@
 
 class Google_Service_ShoppingContent_OrderreturnsProcessRequest extends Google_Collection
 {
-  protected $collection_key = 'returnItems';
-  public $fullChargeReturnShippingCost;
-  public $operationId;
-  protected $refundShippingFeeType = 'Google_Service_ShoppingContent_OrderreturnsRefundOperation';
-  protected $refundShippingFeeDataType = '';
-  protected $returnItemsType = 'Google_Service_ShoppingContent_OrderreturnsReturnItem';
-  protected $returnItemsDataType = 'array';
+	protected $collection_key = 'returnItems';
+	public $fullChargeReturnShippingCost;
+	public $operationId;
+	protected $refundShippingFeeType = 'Google_Service_ShoppingContent_OrderreturnsRefundOperation';
+	protected $refundShippingFeeDataType = '';
+	protected $returnItemsType = 'Google_Service_ShoppingContent_OrderreturnsReturnItem';
+	protected $returnItemsDataType = 'array';
 
-  public function setFullChargeReturnShippingCost($fullChargeReturnShippingCost)
-  {
-    $this->fullChargeReturnShippingCost = $fullChargeReturnShippingCost;
-  }
-  public function getFullChargeReturnShippingCost()
-  {
-    return $this->fullChargeReturnShippingCost;
-  }
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_OrderreturnsRefundOperation
-   */
-  public function setRefundShippingFee(Google_Service_ShoppingContent_OrderreturnsRefundOperation $refundShippingFee)
-  {
-    $this->refundShippingFee = $refundShippingFee;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderreturnsRefundOperation
-   */
-  public function getRefundShippingFee()
-  {
-    return $this->refundShippingFee;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_OrderreturnsReturnItem
-   */
-  public function setReturnItems($returnItems)
-  {
-    $this->returnItems = $returnItems;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderreturnsReturnItem
-   */
-  public function getReturnItems()
-  {
-    return $this->returnItems;
-  }
+	public function setFullChargeReturnShippingCost($fullChargeReturnShippingCost)
+	{
+		$this->fullChargeReturnShippingCost = $fullChargeReturnShippingCost;
+	}
+	public function getFullChargeReturnShippingCost()
+	{
+		return $this->fullChargeReturnShippingCost;
+	}
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_OrderreturnsRefundOperation
+	 */
+	public function setRefundShippingFee(Google_Service_ShoppingContent_OrderreturnsRefundOperation $refundShippingFee)
+	{
+		$this->refundShippingFee = $refundShippingFee;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderreturnsRefundOperation
+	 */
+	public function getRefundShippingFee()
+	{
+		return $this->refundShippingFee;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_OrderreturnsReturnItem
+	 */
+	public function setReturnItems($returnItems)
+	{
+		$this->returnItems = $returnItems;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderreturnsReturnItem
+	 */
+	public function getReturnItems()
+	{
+		return $this->returnItems;
+	}
 }

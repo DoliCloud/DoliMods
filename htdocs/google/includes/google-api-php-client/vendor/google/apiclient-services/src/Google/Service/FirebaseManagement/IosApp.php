@@ -17,59 +17,59 @@
 
 class Google_Service_FirebaseManagement_IosApp extends Google_Model
 {
-  public $appId;
-  public $appStoreId;
-  public $bundleId;
-  public $displayName;
-  public $name;
-  public $projectId;
+	public $appId;
+	public $appStoreId;
+	public $bundleId;
+	public $displayName;
+	public $name;
+	public $projectId;
 
-  public function setAppId($appId)
-  {
-    $this->appId = $appId;
-  }
-  public function getAppId()
-  {
-    return $this->appId;
-  }
-  public function setAppStoreId($appStoreId)
-  {
-    $this->appStoreId = $appStoreId;
-  }
-  public function getAppStoreId()
-  {
-    return $this->appStoreId;
-  }
-  public function setBundleId($bundleId)
-  {
-    $this->bundleId = $bundleId;
-  }
-  public function getBundleId()
-  {
-    return $this->bundleId;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
+	public function setAppId($appId)
+	{
+		$this->appId = $appId;
+	}
+	public function getAppId()
+	{
+		return $this->appId;
+	}
+	public function setAppStoreId($appStoreId)
+	{
+		$this->appStoreId = $appStoreId;
+	}
+	public function getAppStoreId()
+	{
+		return $this->appStoreId;
+	}
+	public function setBundleId($bundleId)
+	{
+		$this->bundleId = $bundleId;
+	}
+	public function getBundleId()
+	{
+		return $this->bundleId;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
 }

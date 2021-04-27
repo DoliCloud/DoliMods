@@ -17,24 +17,24 @@
 
 class Google_Service_ToolResults_NonSdkApiUsageViolation extends Google_Collection
 {
-  protected $collection_key = 'apiSignatures';
-  public $apiSignatures;
-  public $uniqueApis;
+	protected $collection_key = 'apiSignatures';
+	public $apiSignatures;
+	public $uniqueApis;
 
-  public function setApiSignatures($apiSignatures)
-  {
-    $this->apiSignatures = $apiSignatures;
-  }
-  public function getApiSignatures()
-  {
-    return $this->apiSignatures;
-  }
-  public function setUniqueApis($uniqueApis)
-  {
-    $this->uniqueApis = $uniqueApis;
-  }
-  public function getUniqueApis()
-  {
-    return $this->uniqueApis;
-  }
+	public function setApiSignatures($apiSignatures)
+	{
+		$this->apiSignatures = $apiSignatures;
+	}
+	public function getApiSignatures()
+	{
+		return $this->apiSignatures;
+	}
+	public function setUniqueApis($uniqueApis)
+	{
+		$this->uniqueApis = $uniqueApis;
+	}
+	public function getUniqueApis()
+	{
+		return $this->uniqueApis;
+	}
 }

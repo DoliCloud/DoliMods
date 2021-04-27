@@ -17,32 +17,32 @@
 
 class Google_Service_GameServices_OperationStatus extends Google_Model
 {
-  public $done;
-  public $errorCode;
-  public $errorMessage;
+	public $done;
+	public $errorCode;
+	public $errorMessage;
 
-  public function setDone($done)
-  {
-    $this->done = $done;
-  }
-  public function getDone()
-  {
-    return $this->done;
-  }
-  public function setErrorCode($errorCode)
-  {
-    $this->errorCode = $errorCode;
-  }
-  public function getErrorCode()
-  {
-    return $this->errorCode;
-  }
-  public function setErrorMessage($errorMessage)
-  {
-    $this->errorMessage = $errorMessage;
-  }
-  public function getErrorMessage()
-  {
-    return $this->errorMessage;
-  }
+	public function setDone($done)
+	{
+		$this->done = $done;
+	}
+	public function getDone()
+	{
+		return $this->done;
+	}
+	public function setErrorCode($errorCode)
+	{
+		$this->errorCode = $errorCode;
+	}
+	public function getErrorCode()
+	{
+		return $this->errorCode;
+	}
+	public function setErrorMessage($errorMessage)
+	{
+		$this->errorMessage = $errorMessage;
+	}
+	public function getErrorMessage()
+	{
+		return $this->errorMessage;
+	}
 }

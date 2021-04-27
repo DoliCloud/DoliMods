@@ -17,16 +17,16 @@
 
 class Google_Service_CloudSpeechAPI_SyncRecognizeResponse extends Google_Collection
 {
-  protected $collection_key = 'results';
-  protected $resultsType = 'Google_Service_CloudSpeechAPI_SpeechRecognitionResult';
-  protected $resultsDataType = 'array';
+	protected $collection_key = 'results';
+	protected $resultsType = 'Google_Service_CloudSpeechAPI_SpeechRecognitionResult';
+	protected $resultsDataType = 'array';
 
-  public function setResults($results)
-  {
-    $this->results = $results;
-  }
-  public function getResults()
-  {
-    return $this->results;
-  }
+	public function setResults($results)
+	{
+		$this->results = $results;
+	}
+	public function getResults()
+	{
+		return $this->results;
+	}
 }

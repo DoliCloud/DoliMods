@@ -17,24 +17,24 @@
 
 class Google_Service_AnalyticsReporting_Dimension extends Google_Collection
 {
-  protected $collection_key = 'histogramBuckets';
-  public $histogramBuckets;
-  public $name;
+	protected $collection_key = 'histogramBuckets';
+	public $histogramBuckets;
+	public $name;
 
-  public function setHistogramBuckets($histogramBuckets)
-  {
-    $this->histogramBuckets = $histogramBuckets;
-  }
-  public function getHistogramBuckets()
-  {
-    return $this->histogramBuckets;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setHistogramBuckets($histogramBuckets)
+	{
+		$this->histogramBuckets = $histogramBuckets;
+	}
+	public function getHistogramBuckets()
+	{
+		return $this->histogramBuckets;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

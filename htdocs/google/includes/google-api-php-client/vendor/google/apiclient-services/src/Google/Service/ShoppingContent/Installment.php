@@ -17,30 +17,30 @@
 
 class Google_Service_ShoppingContent_Installment extends Google_Model
 {
-  protected $amountType = 'Google_Service_ShoppingContent_Price';
-  protected $amountDataType = '';
-  public $months;
+	protected $amountType = 'Google_Service_ShoppingContent_Price';
+	protected $amountDataType = '';
+	public $months;
 
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setAmount(Google_Service_ShoppingContent_Price $amount)
-  {
-    $this->amount = $amount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getAmount()
-  {
-    return $this->amount;
-  }
-  public function setMonths($months)
-  {
-    $this->months = $months;
-  }
-  public function getMonths()
-  {
-    return $this->months;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setAmount(Google_Service_ShoppingContent_Price $amount)
+	{
+		$this->amount = $amount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getAmount()
+	{
+		return $this->amount;
+	}
+	public function setMonths($months)
+	{
+		$this->months = $months;
+	}
+	public function getMonths()
+	{
+		return $this->months;
+	}
 }

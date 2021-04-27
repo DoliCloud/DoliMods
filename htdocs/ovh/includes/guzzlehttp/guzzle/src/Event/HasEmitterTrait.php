@@ -6,15 +6,15 @@ namespace GuzzleHttp\Event;
  */
 trait HasEmitterTrait
 {
-    /** @var EmitterInterface */
-    private $emitter;
+	/** @var EmitterInterface */
+	private $emitter;
 
-    public function getEmitter()
-    {
-        if (!$this->emitter) {
-            $this->emitter = new Emitter();
-        }
+	public function getEmitter()
+	{
+		if (!$this->emitter) {
+			$this->emitter = new Emitter();
+		}
 
-        return $this->emitter;
-    }
+		return $this->emitter;
+	}
 }

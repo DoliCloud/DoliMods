@@ -17,32 +17,32 @@
 
 class Google_Service_YouTube_PlaylistCard extends Google_Model
 {
-  public $customMessage;
-  public $playlistId;
-  public $startVideoId;
+	public $customMessage;
+	public $playlistId;
+	public $startVideoId;
 
-  public function setCustomMessage($customMessage)
-  {
-    $this->customMessage = $customMessage;
-  }
-  public function getCustomMessage()
-  {
-    return $this->customMessage;
-  }
-  public function setPlaylistId($playlistId)
-  {
-    $this->playlistId = $playlistId;
-  }
-  public function getPlaylistId()
-  {
-    return $this->playlistId;
-  }
-  public function setStartVideoId($startVideoId)
-  {
-    $this->startVideoId = $startVideoId;
-  }
-  public function getStartVideoId()
-  {
-    return $this->startVideoId;
-  }
+	public function setCustomMessage($customMessage)
+	{
+		$this->customMessage = $customMessage;
+	}
+	public function getCustomMessage()
+	{
+		return $this->customMessage;
+	}
+	public function setPlaylistId($playlistId)
+	{
+		$this->playlistId = $playlistId;
+	}
+	public function getPlaylistId()
+	{
+		return $this->playlistId;
+	}
+	public function setStartVideoId($startVideoId)
+	{
+		$this->startVideoId = $startVideoId;
+	}
+	public function getStartVideoId()
+	{
+		return $this->startVideoId;
+	}
 }

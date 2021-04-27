@@ -17,23 +17,23 @@
 
 class Google_Service_PolyService_FormatComplexity extends Google_Model
 {
-  public $lodHint;
-  public $triangleCount;
+	public $lodHint;
+	public $triangleCount;
 
-  public function setLodHint($lodHint)
-  {
-    $this->lodHint = $lodHint;
-  }
-  public function getLodHint()
-  {
-    return $this->lodHint;
-  }
-  public function setTriangleCount($triangleCount)
-  {
-    $this->triangleCount = $triangleCount;
-  }
-  public function getTriangleCount()
-  {
-    return $this->triangleCount;
-  }
+	public function setLodHint($lodHint)
+	{
+		$this->lodHint = $lodHint;
+	}
+	public function getLodHint()
+	{
+		return $this->lodHint;
+	}
+	public function setTriangleCount($triangleCount)
+	{
+		$this->triangleCount = $triangleCount;
+	}
+	public function getTriangleCount()
+	{
+		return $this->triangleCount;
+	}
 }

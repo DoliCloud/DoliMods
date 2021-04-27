@@ -17,15 +17,15 @@
 
 class Google_Service_Compute_SecurityPolicyRuleMatcherConfig extends Google_Collection
 {
-  protected $collection_key = 'srcIpRanges';
-  public $srcIpRanges;
+	protected $collection_key = 'srcIpRanges';
+	public $srcIpRanges;
 
-  public function setSrcIpRanges($srcIpRanges)
-  {
-    $this->srcIpRanges = $srcIpRanges;
-  }
-  public function getSrcIpRanges()
-  {
-    return $this->srcIpRanges;
-  }
+	public function setSrcIpRanges($srcIpRanges)
+	{
+		$this->srcIpRanges = $srcIpRanges;
+	}
+	public function getSrcIpRanges()
+	{
+		return $this->srcIpRanges;
+	}
 }

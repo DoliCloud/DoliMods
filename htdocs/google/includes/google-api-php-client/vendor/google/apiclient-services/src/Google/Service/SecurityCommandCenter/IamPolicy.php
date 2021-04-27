@@ -17,14 +17,14 @@
 
 class Google_Service_SecurityCommandCenter_IamPolicy extends Google_Model
 {
-  public $policyBlob;
+	public $policyBlob;
 
-  public function setPolicyBlob($policyBlob)
-  {
-    $this->policyBlob = $policyBlob;
-  }
-  public function getPolicyBlob()
-  {
-    return $this->policyBlob;
-  }
+	public function setPolicyBlob($policyBlob)
+	{
+		$this->policyBlob = $policyBlob;
+	}
+	public function getPolicyBlob()
+	{
+		return $this->policyBlob;
+	}
 }

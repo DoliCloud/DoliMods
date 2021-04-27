@@ -17,80 +17,80 @@
 
 class Google_Service_YouTube_PlaylistItem extends Google_Model
 {
-  protected $contentDetailsType = 'Google_Service_YouTube_PlaylistItemContentDetails';
-  protected $contentDetailsDataType = '';
-  public $etag;
-  public $id;
-  public $kind;
-  protected $snippetType = 'Google_Service_YouTube_PlaylistItemSnippet';
-  protected $snippetDataType = '';
-  protected $statusType = 'Google_Service_YouTube_PlaylistItemStatus';
-  protected $statusDataType = '';
+	protected $contentDetailsType = 'Google_Service_YouTube_PlaylistItemContentDetails';
+	protected $contentDetailsDataType = '';
+	public $etag;
+	public $id;
+	public $kind;
+	protected $snippetType = 'Google_Service_YouTube_PlaylistItemSnippet';
+	protected $snippetDataType = '';
+	protected $statusType = 'Google_Service_YouTube_PlaylistItemStatus';
+	protected $statusDataType = '';
 
-  /**
-   * @param Google_Service_YouTube_PlaylistItemContentDetails
-   */
-  public function setContentDetails(Google_Service_YouTube_PlaylistItemContentDetails $contentDetails)
-  {
-    $this->contentDetails = $contentDetails;
-  }
-  /**
-   * @return Google_Service_YouTube_PlaylistItemContentDetails
-   */
-  public function getContentDetails()
-  {
-    return $this->contentDetails;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_YouTube_PlaylistItemSnippet
-   */
-  public function setSnippet(Google_Service_YouTube_PlaylistItemSnippet $snippet)
-  {
-    $this->snippet = $snippet;
-  }
-  /**
-   * @return Google_Service_YouTube_PlaylistItemSnippet
-   */
-  public function getSnippet()
-  {
-    return $this->snippet;
-  }
-  /**
-   * @param Google_Service_YouTube_PlaylistItemStatus
-   */
-  public function setStatus(Google_Service_YouTube_PlaylistItemStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_YouTube_PlaylistItemStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_YouTube_PlaylistItemContentDetails
+	 */
+	public function setContentDetails(Google_Service_YouTube_PlaylistItemContentDetails $contentDetails)
+	{
+		$this->contentDetails = $contentDetails;
+	}
+	/**
+	 * @return Google_Service_YouTube_PlaylistItemContentDetails
+	 */
+	public function getContentDetails()
+	{
+		return $this->contentDetails;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_YouTube_PlaylistItemSnippet
+	 */
+	public function setSnippet(Google_Service_YouTube_PlaylistItemSnippet $snippet)
+	{
+		$this->snippet = $snippet;
+	}
+	/**
+	 * @return Google_Service_YouTube_PlaylistItemSnippet
+	 */
+	public function getSnippet()
+	{
+		return $this->snippet;
+	}
+	/**
+	 * @param Google_Service_YouTube_PlaylistItemStatus
+	 */
+	public function setStatus(Google_Service_YouTube_PlaylistItemStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_YouTube_PlaylistItemStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

@@ -17,15 +17,15 @@
 
 class Google_Service_Cih_AdvertiserExperienceData extends Google_Collection
 {
-  protected $collection_key = 'treatmentInstanceId';
-  public $treatmentInstanceId;
+	protected $collection_key = 'treatmentInstanceId';
+	public $treatmentInstanceId;
 
-  public function setTreatmentInstanceId($treatmentInstanceId)
-  {
-    $this->treatmentInstanceId = $treatmentInstanceId;
-  }
-  public function getTreatmentInstanceId()
-  {
-    return $this->treatmentInstanceId;
-  }
+	public function setTreatmentInstanceId($treatmentInstanceId)
+	{
+		$this->treatmentInstanceId = $treatmentInstanceId;
+	}
+	public function getTreatmentInstanceId()
+	{
+		return $this->treatmentInstanceId;
+	}
 }

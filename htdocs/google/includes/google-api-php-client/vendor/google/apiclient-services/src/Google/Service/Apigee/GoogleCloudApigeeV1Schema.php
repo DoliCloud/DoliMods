@@ -17,47 +17,47 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Schema extends Google_Collection
 {
-  protected $collection_key = 'metrics';
-  protected $dimensionsType = 'Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement';
-  protected $dimensionsDataType = 'array';
-  public $meta;
-  protected $metricsType = 'Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement';
-  protected $metricsDataType = 'array';
+	protected $collection_key = 'metrics';
+	protected $dimensionsType = 'Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement';
+	protected $dimensionsDataType = 'array';
+	public $meta;
+	protected $metricsType = 'Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement';
+	protected $metricsDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement
-   */
-  public function setDimensions($dimensions)
-  {
-    $this->dimensions = $dimensions;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement
-   */
-  public function getDimensions()
-  {
-    return $this->dimensions;
-  }
-  public function setMeta($meta)
-  {
-    $this->meta = $meta;
-  }
-  public function getMeta()
-  {
-    return $this->meta;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement
-   */
-  public function setMetrics($metrics)
-  {
-    $this->metrics = $metrics;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement
-   */
-  public function getMetrics()
-  {
-    return $this->metrics;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement
+	 */
+	public function setDimensions($dimensions)
+	{
+		$this->dimensions = $dimensions;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement
+	 */
+	public function getDimensions()
+	{
+		return $this->dimensions;
+	}
+	public function setMeta($meta)
+	{
+		$this->meta = $meta;
+	}
+	public function getMeta()
+	{
+		return $this->meta;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement
+	 */
+	public function setMetrics($metrics)
+	{
+		$this->metrics = $metrics;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaElement
+	 */
+	public function getMetrics()
+	{
+		return $this->metrics;
+	}
 }

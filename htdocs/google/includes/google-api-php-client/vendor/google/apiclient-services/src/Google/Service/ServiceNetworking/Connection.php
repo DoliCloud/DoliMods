@@ -17,42 +17,42 @@
 
 class Google_Service_ServiceNetworking_Connection extends Google_Collection
 {
-  protected $collection_key = 'reservedPeeringRanges';
-  public $network;
-  public $peering;
-  public $reservedPeeringRanges;
-  public $service;
+	protected $collection_key = 'reservedPeeringRanges';
+	public $network;
+	public $peering;
+	public $reservedPeeringRanges;
+	public $service;
 
-  public function setNetwork($network)
-  {
-    $this->network = $network;
-  }
-  public function getNetwork()
-  {
-    return $this->network;
-  }
-  public function setPeering($peering)
-  {
-    $this->peering = $peering;
-  }
-  public function getPeering()
-  {
-    return $this->peering;
-  }
-  public function setReservedPeeringRanges($reservedPeeringRanges)
-  {
-    $this->reservedPeeringRanges = $reservedPeeringRanges;
-  }
-  public function getReservedPeeringRanges()
-  {
-    return $this->reservedPeeringRanges;
-  }
-  public function setService($service)
-  {
-    $this->service = $service;
-  }
-  public function getService()
-  {
-    return $this->service;
-  }
+	public function setNetwork($network)
+	{
+		$this->network = $network;
+	}
+	public function getNetwork()
+	{
+		return $this->network;
+	}
+	public function setPeering($peering)
+	{
+		$this->peering = $peering;
+	}
+	public function getPeering()
+	{
+		return $this->peering;
+	}
+	public function setReservedPeeringRanges($reservedPeeringRanges)
+	{
+		$this->reservedPeeringRanges = $reservedPeeringRanges;
+	}
+	public function getReservedPeeringRanges()
+	{
+		return $this->reservedPeeringRanges;
+	}
+	public function setService($service)
+	{
+		$this->service = $service;
+	}
+	public function getService()
+	{
+		return $this->service;
+	}
 }

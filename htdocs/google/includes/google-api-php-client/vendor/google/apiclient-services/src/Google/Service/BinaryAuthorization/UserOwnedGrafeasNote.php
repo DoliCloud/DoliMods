@@ -17,40 +17,40 @@
 
 class Google_Service_BinaryAuthorization_UserOwnedGrafeasNote extends Google_Collection
 {
-  protected $collection_key = 'publicKeys';
-  public $delegationServiceAccountEmail;
-  public $noteReference;
-  protected $publicKeysType = 'Google_Service_BinaryAuthorization_AttestorPublicKey';
-  protected $publicKeysDataType = 'array';
+	protected $collection_key = 'publicKeys';
+	public $delegationServiceAccountEmail;
+	public $noteReference;
+	protected $publicKeysType = 'Google_Service_BinaryAuthorization_AttestorPublicKey';
+	protected $publicKeysDataType = 'array';
 
-  public function setDelegationServiceAccountEmail($delegationServiceAccountEmail)
-  {
-    $this->delegationServiceAccountEmail = $delegationServiceAccountEmail;
-  }
-  public function getDelegationServiceAccountEmail()
-  {
-    return $this->delegationServiceAccountEmail;
-  }
-  public function setNoteReference($noteReference)
-  {
-    $this->noteReference = $noteReference;
-  }
-  public function getNoteReference()
-  {
-    return $this->noteReference;
-  }
-  /**
-   * @param Google_Service_BinaryAuthorization_AttestorPublicKey
-   */
-  public function setPublicKeys($publicKeys)
-  {
-    $this->publicKeys = $publicKeys;
-  }
-  /**
-   * @return Google_Service_BinaryAuthorization_AttestorPublicKey
-   */
-  public function getPublicKeys()
-  {
-    return $this->publicKeys;
-  }
+	public function setDelegationServiceAccountEmail($delegationServiceAccountEmail)
+	{
+		$this->delegationServiceAccountEmail = $delegationServiceAccountEmail;
+	}
+	public function getDelegationServiceAccountEmail()
+	{
+		return $this->delegationServiceAccountEmail;
+	}
+	public function setNoteReference($noteReference)
+	{
+		$this->noteReference = $noteReference;
+	}
+	public function getNoteReference()
+	{
+		return $this->noteReference;
+	}
+	/**
+	 * @param Google_Service_BinaryAuthorization_AttestorPublicKey
+	 */
+	public function setPublicKeys($publicKeys)
+	{
+		$this->publicKeys = $publicKeys;
+	}
+	/**
+	 * @return Google_Service_BinaryAuthorization_AttestorPublicKey
+	 */
+	public function getPublicKeys()
+	{
+		return $this->publicKeys;
+	}
 }

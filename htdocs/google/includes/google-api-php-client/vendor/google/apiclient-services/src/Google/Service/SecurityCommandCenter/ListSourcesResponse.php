@@ -17,31 +17,31 @@
 
 class Google_Service_SecurityCommandCenter_ListSourcesResponse extends Google_Collection
 {
-  protected $collection_key = 'sources';
-  public $nextPageToken;
-  protected $sourcesType = 'Google_Service_SecurityCommandCenter_Source';
-  protected $sourcesDataType = 'array';
+	protected $collection_key = 'sources';
+	public $nextPageToken;
+	protected $sourcesType = 'Google_Service_SecurityCommandCenter_Source';
+	protected $sourcesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_SecurityCommandCenter_Source
-   */
-  public function setSources($sources)
-  {
-    $this->sources = $sources;
-  }
-  /**
-   * @return Google_Service_SecurityCommandCenter_Source
-   */
-  public function getSources()
-  {
-    return $this->sources;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_SecurityCommandCenter_Source
+	 */
+	public function setSources($sources)
+	{
+		$this->sources = $sources;
+	}
+	/**
+	 * @return Google_Service_SecurityCommandCenter_Source
+	 */
+	public function getSources()
+	{
+		return $this->sources;
+	}
 }

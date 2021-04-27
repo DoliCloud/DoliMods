@@ -17,63 +17,63 @@
 
 class Google_Service_HangoutsChat_Card extends Google_Collection
 {
-  protected $collection_key = 'sections';
-  protected $cardActionsType = 'Google_Service_HangoutsChat_CardAction';
-  protected $cardActionsDataType = 'array';
-  protected $headerType = 'Google_Service_HangoutsChat_CardHeader';
-  protected $headerDataType = '';
-  public $name;
-  protected $sectionsType = 'Google_Service_HangoutsChat_Section';
-  protected $sectionsDataType = 'array';
+	protected $collection_key = 'sections';
+	protected $cardActionsType = 'Google_Service_HangoutsChat_CardAction';
+	protected $cardActionsDataType = 'array';
+	protected $headerType = 'Google_Service_HangoutsChat_CardHeader';
+	protected $headerDataType = '';
+	public $name;
+	protected $sectionsType = 'Google_Service_HangoutsChat_Section';
+	protected $sectionsDataType = 'array';
 
-  /**
-   * @param Google_Service_HangoutsChat_CardAction
-   */
-  public function setCardActions($cardActions)
-  {
-    $this->cardActions = $cardActions;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_CardAction
-   */
-  public function getCardActions()
-  {
-    return $this->cardActions;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_CardHeader
-   */
-  public function setHeader(Google_Service_HangoutsChat_CardHeader $header)
-  {
-    $this->header = $header;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_CardHeader
-   */
-  public function getHeader()
-  {
-    return $this->header;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_Section
-   */
-  public function setSections($sections)
-  {
-    $this->sections = $sections;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_Section
-   */
-  public function getSections()
-  {
-    return $this->sections;
-  }
+	/**
+	 * @param Google_Service_HangoutsChat_CardAction
+	 */
+	public function setCardActions($cardActions)
+	{
+		$this->cardActions = $cardActions;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_CardAction
+	 */
+	public function getCardActions()
+	{
+		return $this->cardActions;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_CardHeader
+	 */
+	public function setHeader(Google_Service_HangoutsChat_CardHeader $header)
+	{
+		$this->header = $header;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_CardHeader
+	 */
+	public function getHeader()
+	{
+		return $this->header;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_Section
+	 */
+	public function setSections($sections)
+	{
+		$this->sections = $sections;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_Section
+	 */
+	public function getSections()
+	{
+		return $this->sections;
+	}
 }

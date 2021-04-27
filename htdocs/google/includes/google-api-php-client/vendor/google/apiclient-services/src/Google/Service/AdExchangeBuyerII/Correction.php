@@ -17,40 +17,40 @@
 
 class Google_Service_AdExchangeBuyerII_Correction extends Google_Collection
 {
-  protected $collection_key = 'details';
-  protected $contextsType = 'Google_Service_AdExchangeBuyerII_ServingContext';
-  protected $contextsDataType = 'array';
-  public $details;
-  public $type;
+	protected $collection_key = 'details';
+	protected $contextsType = 'Google_Service_AdExchangeBuyerII_ServingContext';
+	protected $contextsDataType = 'array';
+	public $details;
+	public $type;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_ServingContext
-   */
-  public function setContexts($contexts)
-  {
-    $this->contexts = $contexts;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_ServingContext
-   */
-  public function getContexts()
-  {
-    return $this->contexts;
-  }
-  public function setDetails($details)
-  {
-    $this->details = $details;
-  }
-  public function getDetails()
-  {
-    return $this->details;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_ServingContext
+	 */
+	public function setContexts($contexts)
+	{
+		$this->contexts = $contexts;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_ServingContext
+	 */
+	public function getContexts()
+	{
+		return $this->contexts;
+	}
+	public function setDetails($details)
+	{
+		$this->details = $details;
+	}
+	public function getDetails()
+	{
+		return $this->details;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

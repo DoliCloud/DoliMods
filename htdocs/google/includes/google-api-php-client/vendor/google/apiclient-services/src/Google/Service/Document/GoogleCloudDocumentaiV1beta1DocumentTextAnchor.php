@@ -17,22 +17,22 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor extends Google_Collection
 {
-  protected $collection_key = 'textSegments';
-  protected $textSegmentsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchorTextSegment';
-  protected $textSegmentsDataType = 'array';
+	protected $collection_key = 'textSegments';
+	protected $textSegmentsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchorTextSegment';
+	protected $textSegmentsDataType = 'array';
 
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchorTextSegment
-   */
-  public function setTextSegments($textSegments)
-  {
-    $this->textSegments = $textSegments;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchorTextSegment
-   */
-  public function getTextSegments()
-  {
-    return $this->textSegments;
-  }
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchorTextSegment
+	 */
+	public function setTextSegments($textSegments)
+	{
+		$this->textSegments = $textSegments;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchorTextSegment
+	 */
+	public function getTextSegments()
+	{
+		return $this->textSegments;
+	}
 }

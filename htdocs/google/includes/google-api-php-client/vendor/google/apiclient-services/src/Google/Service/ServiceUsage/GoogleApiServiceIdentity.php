@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceUsage_GoogleApiServiceIdentity extends Google_Model
 {
-  public $description;
-  public $displayName;
-  public $serviceAccountParent;
+	public $description;
+	public $displayName;
+	public $serviceAccountParent;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setServiceAccountParent($serviceAccountParent)
-  {
-    $this->serviceAccountParent = $serviceAccountParent;
-  }
-  public function getServiceAccountParent()
-  {
-    return $this->serviceAccountParent;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setServiceAccountParent($serviceAccountParent)
+	{
+		$this->serviceAccountParent = $serviceAccountParent;
+	}
+	public function getServiceAccountParent()
+	{
+		return $this->serviceAccountParent;
+	}
 }

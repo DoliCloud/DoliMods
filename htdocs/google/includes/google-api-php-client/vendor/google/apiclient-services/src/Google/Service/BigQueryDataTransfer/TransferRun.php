@@ -17,154 +17,154 @@
 
 class Google_Service_BigQueryDataTransfer_TransferRun extends Google_Model
 {
-  public $dataSourceId;
-  public $destinationDatasetId;
-  protected $emailPreferencesType = 'Google_Service_BigQueryDataTransfer_EmailPreferences';
-  protected $emailPreferencesDataType = '';
-  public $endTime;
-  protected $errorStatusType = 'Google_Service_BigQueryDataTransfer_Status';
-  protected $errorStatusDataType = '';
-  public $name;
-  public $notificationPubsubTopic;
-  public $params;
-  public $runTime;
-  public $schedule;
-  public $scheduleTime;
-  public $startTime;
-  public $state;
-  public $updateTime;
-  public $userId;
+	public $dataSourceId;
+	public $destinationDatasetId;
+	protected $emailPreferencesType = 'Google_Service_BigQueryDataTransfer_EmailPreferences';
+	protected $emailPreferencesDataType = '';
+	public $endTime;
+	protected $errorStatusType = 'Google_Service_BigQueryDataTransfer_Status';
+	protected $errorStatusDataType = '';
+	public $name;
+	public $notificationPubsubTopic;
+	public $params;
+	public $runTime;
+	public $schedule;
+	public $scheduleTime;
+	public $startTime;
+	public $state;
+	public $updateTime;
+	public $userId;
 
-  public function setDataSourceId($dataSourceId)
-  {
-    $this->dataSourceId = $dataSourceId;
-  }
-  public function getDataSourceId()
-  {
-    return $this->dataSourceId;
-  }
-  public function setDestinationDatasetId($destinationDatasetId)
-  {
-    $this->destinationDatasetId = $destinationDatasetId;
-  }
-  public function getDestinationDatasetId()
-  {
-    return $this->destinationDatasetId;
-  }
-  /**
-   * @param Google_Service_BigQueryDataTransfer_EmailPreferences
-   */
-  public function setEmailPreferences(Google_Service_BigQueryDataTransfer_EmailPreferences $emailPreferences)
-  {
-    $this->emailPreferences = $emailPreferences;
-  }
-  /**
-   * @return Google_Service_BigQueryDataTransfer_EmailPreferences
-   */
-  public function getEmailPreferences()
-  {
-    return $this->emailPreferences;
-  }
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  /**
-   * @param Google_Service_BigQueryDataTransfer_Status
-   */
-  public function setErrorStatus(Google_Service_BigQueryDataTransfer_Status $errorStatus)
-  {
-    $this->errorStatus = $errorStatus;
-  }
-  /**
-   * @return Google_Service_BigQueryDataTransfer_Status
-   */
-  public function getErrorStatus()
-  {
-    return $this->errorStatus;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNotificationPubsubTopic($notificationPubsubTopic)
-  {
-    $this->notificationPubsubTopic = $notificationPubsubTopic;
-  }
-  public function getNotificationPubsubTopic()
-  {
-    return $this->notificationPubsubTopic;
-  }
-  public function setParams($params)
-  {
-    $this->params = $params;
-  }
-  public function getParams()
-  {
-    return $this->params;
-  }
-  public function setRunTime($runTime)
-  {
-    $this->runTime = $runTime;
-  }
-  public function getRunTime()
-  {
-    return $this->runTime;
-  }
-  public function setSchedule($schedule)
-  {
-    $this->schedule = $schedule;
-  }
-  public function getSchedule()
-  {
-    return $this->schedule;
-  }
-  public function setScheduleTime($scheduleTime)
-  {
-    $this->scheduleTime = $scheduleTime;
-  }
-  public function getScheduleTime()
-  {
-    return $this->scheduleTime;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
-  public function setUserId($userId)
-  {
-    $this->userId = $userId;
-  }
-  public function getUserId()
-  {
-    return $this->userId;
-  }
+	public function setDataSourceId($dataSourceId)
+	{
+		$this->dataSourceId = $dataSourceId;
+	}
+	public function getDataSourceId()
+	{
+		return $this->dataSourceId;
+	}
+	public function setDestinationDatasetId($destinationDatasetId)
+	{
+		$this->destinationDatasetId = $destinationDatasetId;
+	}
+	public function getDestinationDatasetId()
+	{
+		return $this->destinationDatasetId;
+	}
+	/**
+	 * @param Google_Service_BigQueryDataTransfer_EmailPreferences
+	 */
+	public function setEmailPreferences(Google_Service_BigQueryDataTransfer_EmailPreferences $emailPreferences)
+	{
+		$this->emailPreferences = $emailPreferences;
+	}
+	/**
+	 * @return Google_Service_BigQueryDataTransfer_EmailPreferences
+	 */
+	public function getEmailPreferences()
+	{
+		return $this->emailPreferences;
+	}
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	/**
+	 * @param Google_Service_BigQueryDataTransfer_Status
+	 */
+	public function setErrorStatus(Google_Service_BigQueryDataTransfer_Status $errorStatus)
+	{
+		$this->errorStatus = $errorStatus;
+	}
+	/**
+	 * @return Google_Service_BigQueryDataTransfer_Status
+	 */
+	public function getErrorStatus()
+	{
+		return $this->errorStatus;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNotificationPubsubTopic($notificationPubsubTopic)
+	{
+		$this->notificationPubsubTopic = $notificationPubsubTopic;
+	}
+	public function getNotificationPubsubTopic()
+	{
+		return $this->notificationPubsubTopic;
+	}
+	public function setParams($params)
+	{
+		$this->params = $params;
+	}
+	public function getParams()
+	{
+		return $this->params;
+	}
+	public function setRunTime($runTime)
+	{
+		$this->runTime = $runTime;
+	}
+	public function getRunTime()
+	{
+		return $this->runTime;
+	}
+	public function setSchedule($schedule)
+	{
+		$this->schedule = $schedule;
+	}
+	public function getSchedule()
+	{
+		return $this->schedule;
+	}
+	public function setScheduleTime($scheduleTime)
+	{
+		$this->scheduleTime = $scheduleTime;
+	}
+	public function getScheduleTime()
+	{
+		return $this->scheduleTime;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+	}
+	public function getUserId()
+	{
+		return $this->userId;
+	}
 }

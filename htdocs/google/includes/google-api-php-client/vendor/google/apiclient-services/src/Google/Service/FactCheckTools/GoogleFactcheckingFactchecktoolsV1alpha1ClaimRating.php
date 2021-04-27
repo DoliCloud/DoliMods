@@ -17,59 +17,59 @@
 
 class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimRating extends Google_Model
 {
-  public $bestRating;
-  public $imageUrl;
-  public $ratingExplanation;
-  public $ratingValue;
-  public $textualRating;
-  public $worstRating;
+	public $bestRating;
+	public $imageUrl;
+	public $ratingExplanation;
+	public $ratingValue;
+	public $textualRating;
+	public $worstRating;
 
-  public function setBestRating($bestRating)
-  {
-    $this->bestRating = $bestRating;
-  }
-  public function getBestRating()
-  {
-    return $this->bestRating;
-  }
-  public function setImageUrl($imageUrl)
-  {
-    $this->imageUrl = $imageUrl;
-  }
-  public function getImageUrl()
-  {
-    return $this->imageUrl;
-  }
-  public function setRatingExplanation($ratingExplanation)
-  {
-    $this->ratingExplanation = $ratingExplanation;
-  }
-  public function getRatingExplanation()
-  {
-    return $this->ratingExplanation;
-  }
-  public function setRatingValue($ratingValue)
-  {
-    $this->ratingValue = $ratingValue;
-  }
-  public function getRatingValue()
-  {
-    return $this->ratingValue;
-  }
-  public function setTextualRating($textualRating)
-  {
-    $this->textualRating = $textualRating;
-  }
-  public function getTextualRating()
-  {
-    return $this->textualRating;
-  }
-  public function setWorstRating($worstRating)
-  {
-    $this->worstRating = $worstRating;
-  }
-  public function getWorstRating()
-  {
-    return $this->worstRating;
-  }
+	public function setBestRating($bestRating)
+	{
+		$this->bestRating = $bestRating;
+	}
+	public function getBestRating()
+	{
+		return $this->bestRating;
+	}
+	public function setImageUrl($imageUrl)
+	{
+		$this->imageUrl = $imageUrl;
+	}
+	public function getImageUrl()
+	{
+		return $this->imageUrl;
+	}
+	public function setRatingExplanation($ratingExplanation)
+	{
+		$this->ratingExplanation = $ratingExplanation;
+	}
+	public function getRatingExplanation()
+	{
+		return $this->ratingExplanation;
+	}
+	public function setRatingValue($ratingValue)
+	{
+		$this->ratingValue = $ratingValue;
+	}
+	public function getRatingValue()
+	{
+		return $this->ratingValue;
+	}
+	public function setTextualRating($textualRating)
+	{
+		$this->textualRating = $textualRating;
+	}
+	public function getTextualRating()
+	{
+		return $this->textualRating;
+	}
+	public function setWorstRating($worstRating)
+	{
+		$this->worstRating = $worstRating;
+	}
+	public function getWorstRating()
+	{
+		return $this->worstRating;
+	}
 }

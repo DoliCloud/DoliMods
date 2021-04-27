@@ -17,58 +17,58 @@
 
 class Google_Service_ToolResults_NonSdkApi extends Google_Collection
 {
-  protected $collection_key = 'insights';
-  public $apiSignature;
-  public $exampleStackTraces;
-  protected $insightsType = 'Google_Service_ToolResults_NonSdkApiInsight';
-  protected $insightsDataType = 'array';
-  public $invocationCount;
-  public $list;
+	protected $collection_key = 'insights';
+	public $apiSignature;
+	public $exampleStackTraces;
+	protected $insightsType = 'Google_Service_ToolResults_NonSdkApiInsight';
+	protected $insightsDataType = 'array';
+	public $invocationCount;
+	public $list;
 
-  public function setApiSignature($apiSignature)
-  {
-    $this->apiSignature = $apiSignature;
-  }
-  public function getApiSignature()
-  {
-    return $this->apiSignature;
-  }
-  public function setExampleStackTraces($exampleStackTraces)
-  {
-    $this->exampleStackTraces = $exampleStackTraces;
-  }
-  public function getExampleStackTraces()
-  {
-    return $this->exampleStackTraces;
-  }
-  /**
-   * @param Google_Service_ToolResults_NonSdkApiInsight
-   */
-  public function setInsights($insights)
-  {
-    $this->insights = $insights;
-  }
-  /**
-   * @return Google_Service_ToolResults_NonSdkApiInsight
-   */
-  public function getInsights()
-  {
-    return $this->insights;
-  }
-  public function setInvocationCount($invocationCount)
-  {
-    $this->invocationCount = $invocationCount;
-  }
-  public function getInvocationCount()
-  {
-    return $this->invocationCount;
-  }
-  public function setList($list)
-  {
-    $this->list = $list;
-  }
-  public function getList()
-  {
-    return $this->list;
-  }
+	public function setApiSignature($apiSignature)
+	{
+		$this->apiSignature = $apiSignature;
+	}
+	public function getApiSignature()
+	{
+		return $this->apiSignature;
+	}
+	public function setExampleStackTraces($exampleStackTraces)
+	{
+		$this->exampleStackTraces = $exampleStackTraces;
+	}
+	public function getExampleStackTraces()
+	{
+		return $this->exampleStackTraces;
+	}
+	/**
+	 * @param Google_Service_ToolResults_NonSdkApiInsight
+	 */
+	public function setInsights($insights)
+	{
+		$this->insights = $insights;
+	}
+	/**
+	 * @return Google_Service_ToolResults_NonSdkApiInsight
+	 */
+	public function getInsights()
+	{
+		return $this->insights;
+	}
+	public function setInvocationCount($invocationCount)
+	{
+		$this->invocationCount = $invocationCount;
+	}
+	public function getInvocationCount()
+	{
+		return $this->invocationCount;
+	}
+	public function setList($list)
+	{
+		$this->list = $list;
+	}
+	public function getList()
+	{
+		return $this->list;
+	}
 }

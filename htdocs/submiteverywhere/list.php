@@ -26,19 +26,19 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/comm/mailing/class/mailing.class.php");
+require_once DOL_DOCUMENT_ROOT."/comm/mailing/class/mailing.class.php";
 
 $langs->load("mails");
 $langs->load("submiteverywhere@submiteverywhere");
@@ -46,15 +46,14 @@ $langs->load("submiteverywhere@submiteverywhere");
 //if (!$user->rights->mailing->lire) accessforbidden();
 
 // Securite acces client
-if ($user->societe_id > 0)
-{
+if ($user->societe_id > 0) {
 	$action = '';
 	$socid = $user->societe_id;
 }
 
-$sortfield = GETPOST("sortfield",'alpha');
-$sortorder = GETPOST("sortorder",'alpha');
-$page = GETPOST("page",'int');
+$sortfield = GETPOST("sortfield", 'alpha');
+$sortorder = GETPOST("sortorder", 'alpha');
+$page = GETPOST("page", 'int');
 if ($page == -1) { $page = 0; }
 $offset = $conf->liste_limit * $page;
 $pageprev = $page - 1;
@@ -74,12 +73,11 @@ $filteremail=$_REQUEST["filteremail"]?$_REQUEST["filteremail"]:'';
  */
 
 $help_url='EN:Module_SubmitEveryWhere|FR:Module_SubmitEveryWhere_Fr|ES:M&oacute;dulo_SubmitEveryWhere';
-llxHeader('','SubmitEveryWhere',$help_url);
+llxHeader('', 'SubmitEveryWhere', $help_url);
 
 $html = new Form($db);
 
-if ($filteremail)
-{
+if ($filteremail) {
 	$sql = "SELECT m.rowid, m.title, m.nbemail, m.statut, m.date_creat as datec, m.date_envoi as date_envoi,";
 	$sql.= " mc.statut as sendstatut";
 	$sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m, ".MAIN_DB_PREFIX."submitew_targets as mc";
@@ -89,11 +87,9 @@ if ($filteremail)
 	if ($sall) $sql.= " AND (m.titre like '%".$sall."%' OR m.sujet like '%".$sall."%' OR m.body like '%".$sall."%')";
 	if (! $sortorder) $sortorder="ASC";
 	if (! $sortfield) $sortfield="m.rowid";
-	$sql.= $db->order($sortfield,$sortorder);
+	$sql.= $db->order($sortfield, $sortorder);
 	$sql.= $db->plimit($conf->liste_limit +1, $offset);
-}
-else
-{
+} else {
 	$sql = "SELECT m.rowid, m.title, m.nbemail, m.statut, m.date_creat as datec, m.date_envoi as date_envoi";
 	$sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m";
 	$sql.= " WHERE m.entity = ".$conf->entity;
@@ -101,20 +97,19 @@ else
 	if ($sall) $sql.= " AND (m.titre like '%".$sall."%' OR m.sujet like '%".$sall."%' OR m.body like '%".$sall."%')";
 	if (! $sortorder) $sortorder="ASC";
 	if (! $sortfield) $sortfield="m.rowid";
-	$sql.= $db->order($sortfield,$sortorder);
+	$sql.= $db->order($sortfield, $sortorder);
 	$sql.= $db->plimit($conf->liste_limit +1, $offset);
 }
 
 dol_syslog("sql=".$sql);
 //print $sql;
 $result = $db->query($sql);
-if ($result)
-{
+if ($result) {
 	$num = $db->num_rows($result);
 
 	$title=$langs->trans("ListOfMessage");
-	if ($filteremail) $title.=' ('.$langs->trans("SentTo",$filteremail).')';
-	print_barre_liste($title, $page, $_SERVER["PHP_SELF"],"",$sortfield,$sortorder,"",$num);
+	if ($filteremail) $title.=' ('.$langs->trans("SentTo", $filteremail).')';
+	print_barre_liste($title, $page, $_SERVER["PHP_SELF"], "", $sortfield, $sortorder, "", $num);
 
 	$i = 0;
 
@@ -123,13 +118,13 @@ if ($result)
 
 	print '<table class="liste">';
 	print '<tr class="liste_titre">';
-	print_liste_field_titre($langs->trans("Ref"),$_SERVER["PHP_SELF"],"m.rowid",$param,"","",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Title"),$_SERVER["PHP_SELF"],"m.titre",$param,"","",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("DateCreation"),$_SERVER["PHP_SELF"],"m.date_creat",$param,"",'align="center"',$sortfield,$sortorder);
-	if (! $filteremail) print_liste_field_titre($langs->trans("NbOfTargets"),$_SERVER["PHP_SELF"],"m.nbemail",$param,"",'align="center"',$sortfield,$sortorder);
-	if (! $filteremail) print_liste_field_titre($langs->trans("DateLastSend"),$_SERVER["PHP_SELF"],"m.date_envoi",$param,"",'align="center"',$sortfield,$sortorder);
-	else print_liste_field_titre($langs->trans("DateSending"),$_SERVER["PHP_SELF"],"mc.date_envoi",$param,"",'align="center"',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Status"),$_SERVER["PHP_SELF"],($filteremail?"mc.statut":"m.statut"),$param,"",'align="right"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Ref"), $_SERVER["PHP_SELF"], "m.rowid", $param, "", "", $sortfield, $sortorder);
+	print_liste_field_titre($langs->trans("Title"), $_SERVER["PHP_SELF"], "m.titre", $param, "", "", $sortfield, $sortorder);
+	print_liste_field_titre($langs->trans("DateCreation"), $_SERVER["PHP_SELF"], "m.date_creat", $param, "", 'align="center"', $sortfield, $sortorder);
+	if (! $filteremail) print_liste_field_titre($langs->trans("NbOfTargets"), $_SERVER["PHP_SELF"], "m.nbemail", $param, "", 'align="center"', $sortfield, $sortorder);
+	if (! $filteremail) print_liste_field_titre($langs->trans("DateLastSend"), $_SERVER["PHP_SELF"], "m.date_envoi", $param, "", 'align="center"', $sortfield, $sortorder);
+	else print_liste_field_titre($langs->trans("DateSending"), $_SERVER["PHP_SELF"], "mc.date_envoi", $param, "", 'align="center"', $sortfield, $sortorder);
+	print_liste_field_titre($langs->trans("Status"), $_SERVER["PHP_SELF"], ($filteremail?"mc.statut":"m.statut"), $param, "", 'align="right"', $sortfield, $sortorder);
 	print "</tr>\n";
 
 	print '<form method="GET" action="'.$_SERVER["PHP_SELF"].'">';
@@ -149,53 +144,45 @@ if ($result)
 	print "</tr>\n";
 	print '</form>';
 
-	$var=True;
+	$var=true;
 
 	$email=new Mailing($db);
 
-	while ($i < min($num,$conf->liste_limit))
-	{
+	while ($i < min($num, $conf->liste_limit)) {
 		$obj = $db->fetch_object($result);
 
 		$var=!$var;
 
 		print "<tr $bc[$var]>";
 		print '<td><a href="'.DOL_URL_ROOT.'/comm/mailing/card.php?id='.$obj->rowid.'">';
-		print img_object($langs->trans("ShowEMail"),"email").' '.stripslashes($obj->rowid).'</a></td>';
+		print img_object($langs->trans("ShowEMail"), "email").' '.stripslashes($obj->rowid).'</a></td>';
 		print '<td>'.$obj->titre.'</td>';
 		// Date creation
 		print '<td align="center">';
-		print dol_print_date($db->jdate($obj->datec),'day');
+		print dol_print_date($db->jdate($obj->datec), 'day');
 		print '</td>';
 		// Nb of email
-		if (! $filteremail)
-		{
+		if (! $filteremail) {
 			print '<td align="center">';
 			$nbemail = $obj->nbemail;
-			if (!empty($conf->global->MAILING_LIMIT_SENDBYWEB) && $conf->global->MAILING_LIMIT_SENDBYWEB < $nbemail)
-			{
-				$text=$langs->trans('LimitSendingEmailing',$conf->global->MAILING_LIMIT_SENDBYWEB);
-				print $html->textwithpicto($nbemail,$text,1,'warning');
-			}
-			else
-			{
+			if (!empty($conf->global->MAILING_LIMIT_SENDBYWEB) && $conf->global->MAILING_LIMIT_SENDBYWEB < $nbemail) {
+				$text=$langs->trans('LimitSendingEmailing', $conf->global->MAILING_LIMIT_SENDBYWEB);
+				print $html->textwithpicto($nbemail, $text, 1, 'warning');
+			} else {
 				print $nbemail;
 			}
 			print '</td>';
 		}
 		// Last send
-		print '<td align="center" nowrap="nowrap">'.dol_print_date($db->jdate($obj->date_envoi),'day').'</td>';
+		print '<td align="center" nowrap="nowrap">'.dol_print_date($db->jdate($obj->date_envoi), 'day').'</td>';
 		print '</td>';
 		// Status
 		print '<td align="right" nowrap="nowrap">';
-		if ($filteremail)
-		{
+		if ($filteremail) {
 			if ($obj->sendstatut==-1) print $langs->trans("MailingStatusError").' '.img_error();
-			if ($obj->sendstatut==1) print $langs->trans("MailingStatusSent").' '.img_picto($langs->trans("MailingStatusSent"),'statut6');
-		}
-		else
-		{
-			print $email->LibStatut($obj->statut,5);
+			if ($obj->sendstatut==1) print $langs->trans("MailingStatusSent").' '.img_picto($langs->trans("MailingStatusSent"), 'statut6');
+		} else {
+			print $email->LibStatut($obj->statut, 5);
 		}
 		print '</td>';
 		print "</tr>\n";
@@ -203,9 +190,7 @@ if ($result)
 	}
 	print "</table>";
 	$db->free($result);
-}
-else
-{
+} else {
 	dol_print_error($db);
 }
 
@@ -213,4 +198,3 @@ else
 llxFooter();
 
 $db->close();
-

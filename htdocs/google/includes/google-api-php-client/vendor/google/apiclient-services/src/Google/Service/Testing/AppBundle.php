@@ -17,21 +17,21 @@
 
 class Google_Service_Testing_AppBundle extends Google_Model
 {
-  protected $bundleLocationType = 'Google_Service_Testing_FileReference';
-  protected $bundleLocationDataType = '';
+	protected $bundleLocationType = 'Google_Service_Testing_FileReference';
+	protected $bundleLocationDataType = '';
 
-  /**
-   * @param Google_Service_Testing_FileReference
-   */
-  public function setBundleLocation(Google_Service_Testing_FileReference $bundleLocation)
-  {
-    $this->bundleLocation = $bundleLocation;
-  }
-  /**
-   * @return Google_Service_Testing_FileReference
-   */
-  public function getBundleLocation()
-  {
-    return $this->bundleLocation;
-  }
+	/**
+	 * @param Google_Service_Testing_FileReference
+	 */
+	public function setBundleLocation(Google_Service_Testing_FileReference $bundleLocation)
+	{
+		$this->bundleLocation = $bundleLocation;
+	}
+	/**
+	 * @return Google_Service_Testing_FileReference
+	 */
+	public function getBundleLocation()
+	{
+		return $this->bundleLocation;
+	}
 }

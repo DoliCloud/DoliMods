@@ -17,68 +17,68 @@
 
 class Google_Service_Appengine_StaticFilesHandler extends Google_Model
 {
-  public $applicationReadable;
-  public $expiration;
-  public $httpHeaders;
-  public $mimeType;
-  public $path;
-  public $requireMatchingFile;
-  public $uploadPathRegex;
+	public $applicationReadable;
+	public $expiration;
+	public $httpHeaders;
+	public $mimeType;
+	public $path;
+	public $requireMatchingFile;
+	public $uploadPathRegex;
 
-  public function setApplicationReadable($applicationReadable)
-  {
-    $this->applicationReadable = $applicationReadable;
-  }
-  public function getApplicationReadable()
-  {
-    return $this->applicationReadable;
-  }
-  public function setExpiration($expiration)
-  {
-    $this->expiration = $expiration;
-  }
-  public function getExpiration()
-  {
-    return $this->expiration;
-  }
-  public function setHttpHeaders($httpHeaders)
-  {
-    $this->httpHeaders = $httpHeaders;
-  }
-  public function getHttpHeaders()
-  {
-    return $this->httpHeaders;
-  }
-  public function setMimeType($mimeType)
-  {
-    $this->mimeType = $mimeType;
-  }
-  public function getMimeType()
-  {
-    return $this->mimeType;
-  }
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
-  public function setRequireMatchingFile($requireMatchingFile)
-  {
-    $this->requireMatchingFile = $requireMatchingFile;
-  }
-  public function getRequireMatchingFile()
-  {
-    return $this->requireMatchingFile;
-  }
-  public function setUploadPathRegex($uploadPathRegex)
-  {
-    $this->uploadPathRegex = $uploadPathRegex;
-  }
-  public function getUploadPathRegex()
-  {
-    return $this->uploadPathRegex;
-  }
+	public function setApplicationReadable($applicationReadable)
+	{
+		$this->applicationReadable = $applicationReadable;
+	}
+	public function getApplicationReadable()
+	{
+		return $this->applicationReadable;
+	}
+	public function setExpiration($expiration)
+	{
+		$this->expiration = $expiration;
+	}
+	public function getExpiration()
+	{
+		return $this->expiration;
+	}
+	public function setHttpHeaders($httpHeaders)
+	{
+		$this->httpHeaders = $httpHeaders;
+	}
+	public function getHttpHeaders()
+	{
+		return $this->httpHeaders;
+	}
+	public function setMimeType($mimeType)
+	{
+		$this->mimeType = $mimeType;
+	}
+	public function getMimeType()
+	{
+		return $this->mimeType;
+	}
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
+	public function setRequireMatchingFile($requireMatchingFile)
+	{
+		$this->requireMatchingFile = $requireMatchingFile;
+	}
+	public function getRequireMatchingFile()
+	{
+		return $this->requireMatchingFile;
+	}
+	public function setUploadPathRegex($uploadPathRegex)
+	{
+		$this->uploadPathRegex = $uploadPathRegex;
+	}
+	public function getUploadPathRegex()
+	{
+		return $this->uploadPathRegex;
+	}
 }

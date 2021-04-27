@@ -17,23 +17,23 @@
 
 class Google_Service_Sheets_LineStyle extends Google_Model
 {
-  public $type;
-  public $width;
+	public $type;
+	public $width;
 
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setWidth($width)
-  {
-    $this->width = $width;
-  }
-  public function getWidth()
-  {
-    return $this->width;
-  }
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setWidth($width)
+	{
+		$this->width = $width;
+	}
+	public function getWidth()
+	{
+		return $this->width;
+	}
 }

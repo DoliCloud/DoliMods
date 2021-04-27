@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_OrderreturnsRejectOperation extends Google_Model
 {
-  public $reason;
-  public $reasonText;
+	public $reason;
+	public $reasonText;
 
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
-  public function setReasonText($reasonText)
-  {
-    $this->reasonText = $reasonText;
-  }
-  public function getReasonText()
-  {
-    return $this->reasonText;
-  }
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
+	public function setReasonText($reasonText)
+	{
+		$this->reasonText = $reasonText;
+	}
+	public function getReasonText()
+	{
+		return $this->reasonText;
+	}
 }

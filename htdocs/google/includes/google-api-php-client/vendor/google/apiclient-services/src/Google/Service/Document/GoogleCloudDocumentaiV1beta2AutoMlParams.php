@@ -17,14 +17,14 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2AutoMlParams extends Google_Model
 {
-  public $model;
+	public $model;
 
-  public function setModel($model)
-  {
-    $this->model = $model;
-  }
-  public function getModel()
-  {
-    return $this->model;
-  }
+	public function setModel($model)
+	{
+		$this->model = $model;
+	}
+	public function getModel()
+	{
+		return $this->model;
+	}
 }

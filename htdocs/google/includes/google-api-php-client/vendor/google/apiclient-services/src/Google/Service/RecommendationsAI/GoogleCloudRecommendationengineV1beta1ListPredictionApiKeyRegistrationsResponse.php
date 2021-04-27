@@ -17,31 +17,31 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ListPredictionApiKeyRegistrationsResponse extends Google_Collection
 {
-  protected $collection_key = 'predictionApiKeyRegistrations';
-  public $nextPageToken;
-  protected $predictionApiKeyRegistrationsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration';
-  protected $predictionApiKeyRegistrationsDataType = 'array';
+	protected $collection_key = 'predictionApiKeyRegistrations';
+	public $nextPageToken;
+	protected $predictionApiKeyRegistrationsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration';
+	protected $predictionApiKeyRegistrationsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration
-   */
-  public function setPredictionApiKeyRegistrations($predictionApiKeyRegistrations)
-  {
-    $this->predictionApiKeyRegistrations = $predictionApiKeyRegistrations;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration
-   */
-  public function getPredictionApiKeyRegistrations()
-  {
-    return $this->predictionApiKeyRegistrations;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration
+	 */
+	public function setPredictionApiKeyRegistrations($predictionApiKeyRegistrations)
+	{
+		$this->predictionApiKeyRegistrations = $predictionApiKeyRegistrations;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration
+	 */
+	public function getPredictionApiKeyRegistrations()
+	{
+		return $this->predictionApiKeyRegistrations;
+	}
 }

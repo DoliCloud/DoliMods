@@ -17,40 +17,40 @@
 
 class Google_Service_Monitoring_ListUptimeCheckConfigsResponse extends Google_Collection
 {
-  protected $collection_key = 'uptimeCheckConfigs';
-  public $nextPageToken;
-  public $totalSize;
-  protected $uptimeCheckConfigsType = 'Google_Service_Monitoring_UptimeCheckConfig';
-  protected $uptimeCheckConfigsDataType = 'array';
+	protected $collection_key = 'uptimeCheckConfigs';
+	public $nextPageToken;
+	public $totalSize;
+	protected $uptimeCheckConfigsType = 'Google_Service_Monitoring_UptimeCheckConfig';
+	protected $uptimeCheckConfigsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
-  /**
-   * @param Google_Service_Monitoring_UptimeCheckConfig
-   */
-  public function setUptimeCheckConfigs($uptimeCheckConfigs)
-  {
-    $this->uptimeCheckConfigs = $uptimeCheckConfigs;
-  }
-  /**
-   * @return Google_Service_Monitoring_UptimeCheckConfig
-   */
-  public function getUptimeCheckConfigs()
-  {
-    return $this->uptimeCheckConfigs;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
+	/**
+	 * @param Google_Service_Monitoring_UptimeCheckConfig
+	 */
+	public function setUptimeCheckConfigs($uptimeCheckConfigs)
+	{
+		$this->uptimeCheckConfigs = $uptimeCheckConfigs;
+	}
+	/**
+	 * @return Google_Service_Monitoring_UptimeCheckConfig
+	 */
+	public function getUptimeCheckConfigs()
+	{
+		return $this->uptimeCheckConfigs;
+	}
 }

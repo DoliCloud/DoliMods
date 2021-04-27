@@ -17,21 +17,21 @@
 
 class Google_Service_SecretManager_AddSecretVersionRequest extends Google_Model
 {
-  protected $payloadType = 'Google_Service_SecretManager_SecretPayload';
-  protected $payloadDataType = '';
+	protected $payloadType = 'Google_Service_SecretManager_SecretPayload';
+	protected $payloadDataType = '';
 
-  /**
-   * @param Google_Service_SecretManager_SecretPayload
-   */
-  public function setPayload(Google_Service_SecretManager_SecretPayload $payload)
-  {
-    $this->payload = $payload;
-  }
-  /**
-   * @return Google_Service_SecretManager_SecretPayload
-   */
-  public function getPayload()
-  {
-    return $this->payload;
-  }
+	/**
+	 * @param Google_Service_SecretManager_SecretPayload
+	 */
+	public function setPayload(Google_Service_SecretManager_SecretPayload $payload)
+	{
+		$this->payload = $payload;
+	}
+	/**
+	 * @return Google_Service_SecretManager_SecretPayload
+	 */
+	public function getPayload()
+	{
+		return $this->payload;
+	}
 }

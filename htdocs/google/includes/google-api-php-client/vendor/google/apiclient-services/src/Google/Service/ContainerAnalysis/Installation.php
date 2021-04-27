@@ -17,31 +17,31 @@
 
 class Google_Service_ContainerAnalysis_Installation extends Google_Collection
 {
-  protected $collection_key = 'location';
-  protected $locationType = 'Google_Service_ContainerAnalysis_Location';
-  protected $locationDataType = 'array';
-  public $name;
+	protected $collection_key = 'location';
+	protected $locationType = 'Google_Service_ContainerAnalysis_Location';
+	protected $locationDataType = 'array';
+	public $name;
 
-  /**
-   * @param Google_Service_ContainerAnalysis_Location
-   */
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_Location
-   */
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_Location
+	 */
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_Location
+	 */
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

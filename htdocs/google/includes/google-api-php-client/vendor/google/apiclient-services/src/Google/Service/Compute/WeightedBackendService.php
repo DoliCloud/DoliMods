@@ -17,39 +17,39 @@
 
 class Google_Service_Compute_WeightedBackendService extends Google_Model
 {
-  public $backendService;
-  protected $headerActionType = 'Google_Service_Compute_HttpHeaderAction';
-  protected $headerActionDataType = '';
-  public $weight;
+	public $backendService;
+	protected $headerActionType = 'Google_Service_Compute_HttpHeaderAction';
+	protected $headerActionDataType = '';
+	public $weight;
 
-  public function setBackendService($backendService)
-  {
-    $this->backendService = $backendService;
-  }
-  public function getBackendService()
-  {
-    return $this->backendService;
-  }
-  /**
-   * @param Google_Service_Compute_HttpHeaderAction
-   */
-  public function setHeaderAction(Google_Service_Compute_HttpHeaderAction $headerAction)
-  {
-    $this->headerAction = $headerAction;
-  }
-  /**
-   * @return Google_Service_Compute_HttpHeaderAction
-   */
-  public function getHeaderAction()
-  {
-    return $this->headerAction;
-  }
-  public function setWeight($weight)
-  {
-    $this->weight = $weight;
-  }
-  public function getWeight()
-  {
-    return $this->weight;
-  }
+	public function setBackendService($backendService)
+	{
+		$this->backendService = $backendService;
+	}
+	public function getBackendService()
+	{
+		return $this->backendService;
+	}
+	/**
+	 * @param Google_Service_Compute_HttpHeaderAction
+	 */
+	public function setHeaderAction(Google_Service_Compute_HttpHeaderAction $headerAction)
+	{
+		$this->headerAction = $headerAction;
+	}
+	/**
+	 * @return Google_Service_Compute_HttpHeaderAction
+	 */
+	public function getHeaderAction()
+	{
+		return $this->headerAction;
+	}
+	public function setWeight($weight)
+	{
+		$this->weight = $weight;
+	}
+	public function getWeight()
+	{
+		return $this->weight;
+	}
 }

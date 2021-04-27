@@ -17,40 +17,40 @@
 
 class Google_Service_Sheets_AppendCellsRequest extends Google_Collection
 {
-  protected $collection_key = 'rows';
-  public $fields;
-  protected $rowsType = 'Google_Service_Sheets_RowData';
-  protected $rowsDataType = 'array';
-  public $sheetId;
+	protected $collection_key = 'rows';
+	public $fields;
+	protected $rowsType = 'Google_Service_Sheets_RowData';
+	protected $rowsDataType = 'array';
+	public $sheetId;
 
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  /**
-   * @param Google_Service_Sheets_RowData
-   */
-  public function setRows($rows)
-  {
-    $this->rows = $rows;
-  }
-  /**
-   * @return Google_Service_Sheets_RowData
-   */
-  public function getRows()
-  {
-    return $this->rows;
-  }
-  public function setSheetId($sheetId)
-  {
-    $this->sheetId = $sheetId;
-  }
-  public function getSheetId()
-  {
-    return $this->sheetId;
-  }
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	/**
+	 * @param Google_Service_Sheets_RowData
+	 */
+	public function setRows($rows)
+	{
+		$this->rows = $rows;
+	}
+	/**
+	 * @return Google_Service_Sheets_RowData
+	 */
+	public function getRows()
+	{
+		return $this->rows;
+	}
+	public function setSheetId($sheetId)
+	{
+		$this->sheetId = $sheetId;
+	}
+	public function getSheetId()
+	{
+		return $this->sheetId;
+	}
 }

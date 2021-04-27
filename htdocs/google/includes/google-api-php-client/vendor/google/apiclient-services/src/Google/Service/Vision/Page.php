@@ -17,65 +17,65 @@
 
 class Google_Service_Vision_Page extends Google_Collection
 {
-  protected $collection_key = 'blocks';
-  protected $blocksType = 'Google_Service_Vision_Block';
-  protected $blocksDataType = 'array';
-  public $confidence;
-  public $height;
-  protected $propertyType = 'Google_Service_Vision_TextProperty';
-  protected $propertyDataType = '';
-  public $width;
+	protected $collection_key = 'blocks';
+	protected $blocksType = 'Google_Service_Vision_Block';
+	protected $blocksDataType = 'array';
+	public $confidence;
+	public $height;
+	protected $propertyType = 'Google_Service_Vision_TextProperty';
+	protected $propertyDataType = '';
+	public $width;
 
-  /**
-   * @param Google_Service_Vision_Block
-   */
-  public function setBlocks($blocks)
-  {
-    $this->blocks = $blocks;
-  }
-  /**
-   * @return Google_Service_Vision_Block
-   */
-  public function getBlocks()
-  {
-    return $this->blocks;
-  }
-  public function setConfidence($confidence)
-  {
-    $this->confidence = $confidence;
-  }
-  public function getConfidence()
-  {
-    return $this->confidence;
-  }
-  public function setHeight($height)
-  {
-    $this->height = $height;
-  }
-  public function getHeight()
-  {
-    return $this->height;
-  }
-  /**
-   * @param Google_Service_Vision_TextProperty
-   */
-  public function setProperty(Google_Service_Vision_TextProperty $property)
-  {
-    $this->property = $property;
-  }
-  /**
-   * @return Google_Service_Vision_TextProperty
-   */
-  public function getProperty()
-  {
-    return $this->property;
-  }
-  public function setWidth($width)
-  {
-    $this->width = $width;
-  }
-  public function getWidth()
-  {
-    return $this->width;
-  }
+	/**
+	 * @param Google_Service_Vision_Block
+	 */
+	public function setBlocks($blocks)
+	{
+		$this->blocks = $blocks;
+	}
+	/**
+	 * @return Google_Service_Vision_Block
+	 */
+	public function getBlocks()
+	{
+		return $this->blocks;
+	}
+	public function setConfidence($confidence)
+	{
+		$this->confidence = $confidence;
+	}
+	public function getConfidence()
+	{
+		return $this->confidence;
+	}
+	public function setHeight($height)
+	{
+		$this->height = $height;
+	}
+	public function getHeight()
+	{
+		return $this->height;
+	}
+	/**
+	 * @param Google_Service_Vision_TextProperty
+	 */
+	public function setProperty(Google_Service_Vision_TextProperty $property)
+	{
+		$this->property = $property;
+	}
+	/**
+	 * @return Google_Service_Vision_TextProperty
+	 */
+	public function getProperty()
+	{
+		return $this->property;
+	}
+	public function setWidth($width)
+	{
+		$this->width = $width;
+	}
+	public function getWidth()
+	{
+		return $this->width;
+	}
 }

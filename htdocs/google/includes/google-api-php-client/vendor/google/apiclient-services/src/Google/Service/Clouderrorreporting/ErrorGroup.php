@@ -17,40 +17,40 @@
 
 class Google_Service_Clouderrorreporting_ErrorGroup extends Google_Collection
 {
-  protected $collection_key = 'trackingIssues';
-  public $groupId;
-  public $name;
-  protected $trackingIssuesType = 'Google_Service_Clouderrorreporting_TrackingIssue';
-  protected $trackingIssuesDataType = 'array';
+	protected $collection_key = 'trackingIssues';
+	public $groupId;
+	public $name;
+	protected $trackingIssuesType = 'Google_Service_Clouderrorreporting_TrackingIssue';
+	protected $trackingIssuesDataType = 'array';
 
-  public function setGroupId($groupId)
-  {
-    $this->groupId = $groupId;
-  }
-  public function getGroupId()
-  {
-    return $this->groupId;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Clouderrorreporting_TrackingIssue
-   */
-  public function setTrackingIssues($trackingIssues)
-  {
-    $this->trackingIssues = $trackingIssues;
-  }
-  /**
-   * @return Google_Service_Clouderrorreporting_TrackingIssue
-   */
-  public function getTrackingIssues()
-  {
-    return $this->trackingIssues;
-  }
+	public function setGroupId($groupId)
+	{
+		$this->groupId = $groupId;
+	}
+	public function getGroupId()
+	{
+		return $this->groupId;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Clouderrorreporting_TrackingIssue
+	 */
+	public function setTrackingIssues($trackingIssues)
+	{
+		$this->trackingIssues = $trackingIssues;
+	}
+	/**
+	 * @return Google_Service_Clouderrorreporting_TrackingIssue
+	 */
+	public function getTrackingIssues()
+	{
+		return $this->trackingIssues;
+	}
 }

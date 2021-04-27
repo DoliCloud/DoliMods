@@ -23,28 +23,28 @@
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
 //if (! defined('NOREQUIREDB'))   define('NOREQUIREDB','1');	// Not disabled to increase speed. Language code is found on url.
-if (! defined('NOREQUIRESOC'))    define('NOREQUIRESOC','1');
+if (! defined('NOREQUIRESOC'))    define('NOREQUIRESOC', '1');
 //if (! defined('NOREQUIRETRAN')) define('NOREQUIRETRAN','1');	// Not disabled cause need to do translations
-if (! defined('NOCSRFCHECK'))     define('NOCSRFCHECK',1);
-if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL',1);
-if (! defined('NOLOGIN'))         define('NOLOGIN',1);
-if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU',1);
-if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML',1);
-if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
+if (! defined('NOCSRFCHECK'))     define('NOCSRFCHECK', 1);
+if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL', 1);
+if (! defined('NOLOGIN'))         define('NOLOGIN', 1);
+if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU', 1);
+if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML', 1);
+if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX', '1');
 
 session_cache_limiter('public');
 
 $res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include "../../../../main.inc.php";
+if (! $res && file_exists("../../../../../main.inc.php")) $res=@include "../../../../../main.inc.php";
+if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"; // Used on dev env only
 if (! $res) die("Include of main fails");
 
 // Load user to have $user->conf loaded (not done into main because of NOLOGIN constant defined)
-if (empty($user->id) && ! empty($_SESSION['dol_login'])) $user->fetch('',$_SESSION['dol_login']);
+if (empty($user->id) && ! empty($_SESSION['dol_login'])) $user->fetch('', $_SESSION['dol_login']);
 
 // Define css type
 header('Content-type: text/css');
@@ -58,7 +58,7 @@ if (isset($conf->global->MAIN_OPTIMIZE_SPEED) && ($conf->global->MAIN_OPTIMIZE_S
 
 if (GETPOST('lang')) $langs->setDefaultLang(GETPOST('lang'));  // If language was forced on URL
 if (GETPOST('theme')) $conf->theme=GETPOST('theme');  // If theme was forced on URL
-$langs->load("main",0,1);
+$langs->load("main", 0, 1);
 $right=($langs->trans("DIRECTION")=='rtl'?'left':'right');
 $left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
 ?>
@@ -77,10 +77,10 @@ body {
 	color: #101010;
 	font-size: <?php print empty($conf->browser->phone)?'12':'9'; ?>px;
 	font-family: helvetica, verdana, arial, sans-serif;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-left: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: 0;
+	margin-left: 0;
 }
 
 a:link    { font-family: helvetica, verdana, arial, sans-serif; font-weight: bold; color: #000000; text-decoration: none; }
@@ -89,41 +89,41 @@ a:active  { font-family: helvetica, verdana, arial, sans-serif; font-weight: bol
 a:hover   { font-family: helvetica, verdana, arial, sans-serif; font-weight: bold; color: #000000; text-decoration: underline; }
 input
 {
-    font-size: <?php print empty($conf->browser->phone)?'12':'9'; ?>px;
-    font-family: helvetica, verdana, arial, sans-serif;
-    background: #FFFFFF;
-    border: 1px solid #8C9C9B;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	font-size: <?php print empty($conf->browser->phone)?'12':'9'; ?>px;
+	font-family: helvetica, verdana, arial, sans-serif;
+	background: #FFFFFF;
+	border: 1px solid #8C9C9B;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 input.flat
 {
 	font-size: <?php print empty($conf->browser->phone)?'12':'9'; ?>px;
-    font-family: helvetica, verdana, arial, sans-serif;
-    background: #FFFFFF;
-    border: 1px solid #8C9C9B;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	font-family: helvetica, verdana, arial, sans-serif;
+	background: #FFFFFF;
+	border: 1px solid #8C9C9B;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 input:disabled {
 background:#ddd;
 }
 textarea  {
 	font-size: <?php print empty($conf->browser->phone)?'12':'9'; ?>px;
-    font-family: helvetica, verdana, arial, sans-serif;
-    background: #FFFFFF;
-    border: 1px solid #8C9C9B;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	font-family: helvetica, verdana, arial, sans-serif;
+	background: #FFFFFF;
+	border: 1px solid #8C9C9B;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 textarea.flat
 {
 	font-size: <?php print empty($conf->browser->phone)?'12':'9'; ?>px;
-    font-family: helvetica, verdana, arial, sans-serif;
-    background: #FFFFFF;
-    border: 1px solid #8C9C9B;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	font-family: helvetica, verdana, arial, sans-serif;
+	background: #FFFFFF;
+	border: 1px solid #8C9C9B;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 textarea:disabled {
 background:#ddd;
@@ -131,17 +131,17 @@ background:#ddd;
 select.flat
 {
 	background: #FDFDFD;
-    font-size: <?php print empty($conf->browser->phone)?'12':'9'; ?>px;
+	font-size: <?php print empty($conf->browser->phone)?'12':'9'; ?>px;
 	font-family: helvetica, verdana, arial, sans-serif;
 	font-weight: normal;
-    border: 1px solid #ACBCBB;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	border: 1px solid #ACBCBB;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 .button  {
 	font-family: arial,verdana,heletica, sans-serif;
-    padding: 0px 2px 0px 2px;
-    margin: 0px 0px 0px 0px;
+	padding: 0px 2px 0px 2px;
+	margin: 0px 0px 0px 0px;
 	border-left: 1px solid #cccccc;
 	border-right: 1px solid #aaaaaa;
 	border-top: 1px solid #dddddd;
@@ -152,12 +152,12 @@ select.flat
 }
 form
 {
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 div.float
 {
-    float:<?php print $left; ?>;
+	float:<?php print $left; ?>;
 }
 
 /* ============================================================================== */
@@ -175,7 +175,7 @@ div.float
 /* ============================================================================== */
 
 .dragClass {
-    color: #002255;
+	color: #002255;
 }
 td.showDragHandle {
 	cursor: move;
@@ -229,49 +229,49 @@ div.tmenu
 <?php if (! empty($_GET["optioncss"]) && $_GET["optioncss"] == 'print') {  ?>
 	display:none;
 <?php } else { ?>
-    position: relative;
-    display: block;
-    white-space: nowrap;
-    border-top: 1px solid #D3E5EC;
-    border-left: 0px;
-    border-right: 0px solid #555555;
-    border-bottom: 1px solid #8B9999;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 2px 0px;
-    font-weight: bold;
-    height: 20px;
-    background: #dddddd;
-    color: #000000;
-    text-decoration: none;
+	position: relative;
+	display: block;
+	white-space: nowrap;
+	border-top: 1px solid #D3E5EC;
+	border-left: 0px;
+	border-right: 0px solid #555555;
+	border-bottom: 1px solid #8B9999;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 2px 0px;
+	font-weight: bold;
+	height: 20px;
+	background: #dddddd;
+	color: #000000;
+	text-decoration: none;
 <?php } ?>
 }
 
 a.tmenudisabled
 {
 	color: #757575;
-    padding: 0px 8px;
-    margin: 0px 0px 6px 0px;
+	padding: 0px 8px;
+	margin: 0px 0px 6px 0px;
 	cursor: not-allowed;
 }
 a.tmenudisabled:link
 {
 	color: #757575;
-    font-weight: normal;
+	font-weight: normal;
 }
 a.tmenudisabled:visited
 {
 	color: #757575;
-    font-weight: normal;
+	font-weight: normal;
 }
 a.tmenudisabled:hover
 {
 	color: #757575;
-    font-weight: normal;
+	font-weight: normal;
 }
 a.tmenudisabled:active
 {
 	color: #757575;
-    font-weight: normal;
+	font-weight: normal;
 }
 
 a.tmenu:link
@@ -323,8 +323,8 @@ a.tmenusel
 
 table.tmenu
 {
-    padding: 0px 0px 10px 0px;
-    margin: 0px 0px 0px 6px;
+	padding: 0px 0px 10px 0px;
+	margin: 0px 0px 0px 6px;
 }
 
 * html li.tmenu a
@@ -334,7 +334,7 @@ table.tmenu
 
 ul.tmenu {
 	padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 	list-style: none;
 
 }
@@ -348,7 +348,7 @@ li.tmenu {
 	padding:0;
 }
 li.tmenu a{
-  	font-size: 13px;
+	  font-size: 13px;
 	color:#000000;
 	text-decoration:none;
 	padding-left:10px;
@@ -387,8 +387,8 @@ li.tmenu a:link
 }
 
 .tmenuimage {
-    padding:0 0 0 0 !important;
-    margin:0 0px 0 0 !important;
+	padding:0 0 0 0 !important;
+	margin:0 0px 0 0 !important;
 }
 
 
@@ -444,16 +444,16 @@ img.printer
 
 <?php if (GETPOST("optioncss") == 'print') { ?>
 .vmenu {
-    display: none;
+	display: none;
 }
 <?php } ?>
 
 td.vmenu
 {
-    padding-right: 2px;
-    padding: 0px;
-    padding-bottom: 0px;
-    width: 180px;
+	padding-right: 2px;
+	padding: 0px;
+	padding-bottom: 0px;
+	width: 180px;
 }
 
 a.vmenu:link    { font-family: helvetica, verdana, arial, sans-serif; text-align:left; font-weight: bold; }
@@ -483,8 +483,8 @@ div.blockvmenupair, div.blockvmenuimpair
 	color: #202020;
 	text-align:left;
 	text-decoration: none;
-    padding: 3px;
-    margin: 1px 0px 0px 0px;
+	padding: 3px;
+	margin: 1px 0px 0px 0px;
 }
 
 div.blockvmenusearch
@@ -496,21 +496,21 @@ div.blockvmenusearch
 	color: #202020;
 	text-align:left;
 	text-decoration: none;
-    padding: 3px;
-    margin: 1px 0px 0px 0px;
+	padding: 3px;
+	margin: 1px 0px 0px 0px;
 }
 
 div.blockvmenubookmarks
 {
-    border-right: 1px solid #555555;
-    border-bottom: 1px solid #555555;
-    background: #dddddd;
-    font-family: helvetica, verdana, arial, sans-serif;
-    color: #202020;
-    text-align:left;
-    text-decoration: none;
-    padding: 3px;
-    margin: 1px 0px 0px 0px;
+	border-right: 1px solid #555555;
+	border-bottom: 1px solid #555555;
+	background: #dddddd;
+	font-family: helvetica, verdana, arial, sans-serif;
+	color: #202020;
+	text-align:left;
+	text-decoration: none;
+	padding: 3px;
+	margin: 1px 0px 0px 0px;
 }
 
 div.blockvmenuhelp
@@ -523,32 +523,32 @@ div.blockvmenuhelp
 	color: #000000;
 	text-align:left;
 	text-decoration: none;
-    padding: 3px;
-    margin: 1px 0px 0px 0px;
+	padding: 3px;
+	margin: 1px 0px 0px 0px;
 <?php } else { ?>
-    display: none;
+	display: none;
 <?php } ?>
 }
 
 td.barre {
-    border-right: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    background: #DDDDDD;
-    font-family: helvetica, verdana;
-    color: #000000;
-    text-align:left;
-    text-decoration: none
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	background: #DDDDDD;
+	font-family: helvetica, verdana;
+	color: #000000;
+	text-align:left;
+	text-decoration: none
 }
 
 td.barre_select {
-           background: #b3cccc;
-           color: #000000
+		   background: #b3cccc;
+		   color: #000000
 }
 
 td.photo {
 	background: #FCFCFC;
 	color: #000000;
-    border: 1px solid #b3c5cc;
+	border: 1px solid #b3c5cc;
 }
 
 
@@ -561,14 +561,14 @@ td.photo {
  */
 
 #mainContent, #leftContent .ui-layout-pane {
-    padding:    0px;
-    overflow:	auto;
+	padding:    0px;
+	overflow:	auto;
 }
 
 #mainContent, #leftContent .ui-layout-center {
 	padding:    0px;
 	position:   relative; /* contain floated or positioned elements */
-    overflow:   auto;  /* add scrolling to content-div */
+	overflow:   auto;  /* add scrolling to content-div */
 }
 
 /* ============================================================================== */
@@ -580,7 +580,7 @@ td.photo {
 }
 
 .ui-layout-north {
-        height: 57px !important;
+		height: 57px !important;
 }
 
 /* ============================================================================== */
@@ -588,17 +588,17 @@ td.photo {
 /* ============================================================================== */
 
 .toolbar {
-    background-image: url(<?php echo DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/tmenu2.png' ?>) !important;
-    background-repeat: repeat-x !important;
-    border: 1px solid #BBB !important;
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/tmenu2.png' ?>) !important;
+	background-repeat: repeat-x !important;
+	border: 1px solid #BBB !important;
 }
 
 .toolbarbutton {
-    margin-top: 2px;
-    margin-left: 4px;
+	margin-top: 2px;
+	margin-left: 4px;
 /*    border: solid 1px #AAAAAA;
-    width: 34px;*/
-    height: 34px;
+	width: 34px;*/
+	height: 34px;
 /*    background: #FFFFFF;*/
 }
 
@@ -608,25 +608,25 @@ td.photo {
 /* ============================================================================== */
 
 #containerlayout .layout-with-no-border {
-    border: 0 !important;
-    border-width: 0 !important;
+	border: 0 !important;
+	border-width: 0 !important;
 }
 
 #containerlayout .layout-padding {
-    padding: 2px !important;
+	padding: 2px !important;
 }
 
 /*
  *  PANES and CONTENT-DIVs
  */
 #containerlayout .ui-layout-pane { /* all 'panes' */
-    background: #FFF;
-    border:     1px solid #BBB;
-    /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
-       otherwise you may get double-scrollbars - on the pane AND on the content-div
-    */
-    padding:    0px;
-    overflow:   auto;
+	background: #FFF;
+	border:     1px solid #BBB;
+	/* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
+	   otherwise you may get double-scrollbars - on the pane AND on the content-div
+	*/
+	padding:    0px;
+	overflow:   auto;
 }
 /* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
 #containerlayout .ui-layout-content {
@@ -644,31 +644,31 @@ td.photo {
 .ui-layout-resizer-hover    {   /* affects both open and closed states */
 }
 /* NOTE: It looks best when 'hover' and 'dragging' are set to the same color,
-    otherwise color shifts while dragging when bar can't keep up with mouse */
+	otherwise color shifts while dragging when bar can't keep up with mouse */
 /*.ui-layout-resizer-open-hover ,*/ /* hover-color to 'resize' */
 .ui-layout-resizer-dragging {   /* resizer beging 'dragging' */
-    background: #DDD;
-    width: 8px;
+	background: #DDD;
+	width: 8px;
 }
 .ui-layout-resizer-dragging {   /* CLONED resizer being dragged */
-    border-left:  1px solid #BBB;
-    border-right: 1px solid #BBB;
+	border-left:  1px solid #BBB;
+	border-right: 1px solid #BBB;
 }
 /* NOTE: Add a 'dragging-limit' color to provide visual feedback when resizer hits min/max size limits */
 .ui-layout-resizer-dragging-limit { /* CLONED resizer at min or max size-limit */
-    background: #E1A4A4; /* red */
+	background: #E1A4A4; /* red */
 }
 .ui-layout-resizer-closed:hover {
-    background-color: #EEDDDD;
+	background-color: #EEDDDD;
 }
 .ui-layout-resizer-sliding {    /* resizer when pane is 'slid open' */
-    opacity: .10; /* show only a slight shadow */
-    filter:  alpha(opacity=10);
-    }
-    .ui-layout-resizer-sliding-hover {  /* sliding resizer - hover */
-        opacity: 1.00; /* on-hover, show the resizer-bar normally */
-        filter:  alpha(opacity=100);
-    }
+	opacity: .10; /* show only a slight shadow */
+	filter:  alpha(opacity=10);
+	}
+	.ui-layout-resizer-sliding-hover {  /* sliding resizer - hover */
+		opacity: 1.00; /* on-hover, show the resizer-bar normally */
+		filter:  alpha(opacity=100);
+	}
 /* sliding resizer - add 'outside-border' to resizer on-hover
  * this sample illustrates how to target specific panes and states */
 .ui-layout-resizer-north-sliding-hover  { border-bottom-width:  1px; }
@@ -680,37 +680,37 @@ td.photo {
  *  TOGGLER-BUTTONS
  */
 .ui-layout-toggler {
-    border-top: 1px solid #AAA; /* match pane-border */
-    border-right: 1px solid #AAA; /* match pane-border */
-    border-bottom: 1px solid #AAA; /* match pane-border */
-    background-color: #DDD;
-    top: 5px !important;
-    }
+	border-top: 1px solid #AAA; /* match pane-border */
+	border-right: 1px solid #AAA; /* match pane-border */
+	border-bottom: 1px solid #AAA; /* match pane-border */
+	background-color: #DDD;
+	top: 5px !important;
+	}
 .ui-layout-toggler-open {
 	height: 48px !important;
 	width: 5px !important;
-    -moz-border-radius:0px 10px 10px 0px;
+	-moz-border-radius:0px 10px 10px 0px;
 	-webkit-border-radius:0px 10px 10px 0px;
 	border-radius:0px 10px 10px 0px;
 }
 .ui-layout-toggler-closed {
 	height: 48px !important;
 	width: 5px !important;
-    -moz-border-radius:0px 10px 10px 0px;
+	-moz-border-radius:0px 10px 10px 0px;
 	-webkit-border-radius:0px 10px 10px 0px;
 	border-radius:0px 10px 10px 0px;
 }
 .ui-layout-toggler .content {	/* style the text we put INSIDE the togglers */
-    color:          #666;
-    font-size:      12px;
-    font-weight:    bold;
-    width:          100%;
-    padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+	color:          #666;
+	font-size:      12px;
+	font-weight:    bold;
+	width:          100%;
+	padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
 }
 
 /* hide the toggler-button when the pane is 'slid open' */
 .ui-layout-resizer-sliding  ui-layout-toggler {
-    display: none;
+	display: none;
 }
 
 .ui-layout-north {
@@ -720,13 +720,13 @@ td.photo {
 /* ECM */
 
 #containerlayout .ecm-layout-pane { /* all 'panes' */
-    background: #FFF;
-    border:     1px solid #BBB;
-    /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
-       otherwise you may get double-scrollbars - on the pane AND on the content-div
-    */
-    padding:    0px;
-    overflow:   auto;
+	background: #FFF;
+	border:     1px solid #BBB;
+	/* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
+	   otherwise you may get double-scrollbars - on the pane AND on the content-div
+	*/
+	padding:    0px;
+	overflow:   auto;
 }
 /* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
 #containerlayout .ecm-layout-content {
@@ -736,8 +736,8 @@ td.photo {
 }
 
 .ecm-layout-toggler {
-    background-color: #DDD;
-    }
+	background-color: #DDD;
+	}
 .ecm-layout-toggler-open {
 	height: 48px !important;
 	width: 6px !important;
@@ -747,33 +747,33 @@ td.photo {
 	width: 6px !important;
 }
 .ecm-layout-toggler .content {	/* style the text we put INSIDE the togglers */
-    color:          #666;
-    font-size:      12px;
-    font-weight:    bold;
-    width:          100%;
-    padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+	color:          #666;
+	font-size:      12px;
+	font-weight:    bold;
+	width:          100%;
+	padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
 }
 #ecm-layout-west-resizer {
 	width: 6px !important;
 }
 
 .ecm-layout-resizer  { /* all 'resizer-bars' */
-    background:     #EEE;
-    border:         1px solid #BBB;
-    border-width:   0;
-    }
+	background:     #EEE;
+	border:         1px solid #BBB;
+	border-width:   0;
+	}
 
 .ecm-in-layout-center {
-    border-left: 1px !important;
-    border-right: 0px !important;
-    border-top: 0px !important;
+	border-left: 1px !important;
+	border-right: 0px !important;
+	border-top: 0px !important;
 }
 
 .ecm-in-layout-south {
-    border-left: 0px !important;
-    border-right: 0px !important;
-    border-bottom: 0px !important;
-    padding: 4px 0 4px 4px !important;
+	border-left: 0px !important;
+	border-right: 0px !important;
+	border-bottom: 0px !important;
+	padding: 4px 0 4px 4px !important;
 }
 
 
@@ -782,38 +782,38 @@ td.photo {
 /* ============================================================================== */
 
 div.tabs {
-    top: 20px;
-    margin: 1px 0px 0px 0px;
-    padding: 0px 6px 0px 0px;
-    text-align: left;
+	top: 20px;
+	margin: 1px 0px 0px 0px;
+	padding: 0px 6px 0px 0px;
+	text-align: left;
 }
 
 div.tabBar {
-    background: #dcdcd0;
-    padding-top: 14px;
-    padding-left: 14px;
-    padding-right: 14px;
-    padding-bottom: 14px;
-    margin: 0px 0px 10px 0px;
-    border: 1px solid #9999BB;
-    border-top: 1px solid #9999BB;
+	background: #dcdcd0;
+	padding-top: 14px;
+	padding-left: 14px;
+	padding-right: 14px;
+	padding-bottom: 14px;
+	margin: 0px 0px 10px 0px;
+	border: 1px solid #9999BB;
+	border-top: 1px solid #9999BB;
 }
 
 div.tabsAction {
-    margin: 20px 0em 1px 0em;
-    padding: 0em 0em;
-    text-align: right;
+	margin: 20px 0em 1px 0em;
+	padding: 0em 0em;
+	text-align: right;
 }
 
 a.tabTitle {
-    background: #bbbbcc;
-    border: 1px solid #9999BB;
-    color: #000000;
-    font-weight: normal;
-    padding: 0em 0.5em;
-    margin: 0em 1em;
-    text-decoration: none;
-    white-space: nowrap;
+	background: #bbbbcc;
+	border: 1px solid #9999BB;
+	color: #000000;
+	font-weight: normal;
+	padding: 0em 0.5em;
+	margin: 0em 1em;
+	text-decoration: none;
+	white-space: nowrap;
 }
 
 a.tab:link {
@@ -845,25 +845,25 @@ a.tab:hover {
 }
 
 a.tabimage {
-    color: #436976;
-    text-decoration: none;
-    white-space: nowrap;
+	color: #436976;
+	text-decoration: none;
+	white-space: nowrap;
 }
 
 span.tabspan {
-    background: #dee7ec;
-    color: #436976;
+	background: #dee7ec;
+	color: #436976;
 	font-family: <?php print $fontlist ?>;
-    padding: 0px 6px;
-    margin: 0em 0.2em;
-    text-decoration: none;
-    white-space: nowrap;
-    -moz-border-radius-topleft:6px;
-    -moz-border-radius-topright:6px;
+	padding: 0px 6px;
+	margin: 0em 0.2em;
+	text-decoration: none;
+	white-space: nowrap;
+	-moz-border-radius-topleft:6px;
+	-moz-border-radius-topright:6px;
 
-    border-<?php print $right; ?>: 1px solid #555555;
-    border-<?php print $left; ?>: 1px solid #D8D8D8;
-    border-top: 1px solid #D8D8D8;
+	border-<?php print $right; ?>: 1px solid #555555;
+	border-<?php print $left; ?>: 1px solid #D8D8D8;
+	border-top: 1px solid #D8D8D8;
 }
 
 
@@ -881,43 +881,43 @@ a.butAction:hover   { font-family: helvetica, verdana, arial, sans-serif; backgr
 .butActionRefused         { font-family: helvetica, verdana, arial, sans-serif; background: white; border: 1px solid #AAAAAA; color: #AAAAAA !important; padding: 0em 0.7em; margin: 0em 0.5em; text-decoration: none !important; white-space: nowrap; cursor: not-allowed; }
 
 a.butActionDelete:link    { font-family: helvetica, verdana, arial, sans-serif;
-                      background: white;
-                      border: 1px solid #997777;
-                      color: #436976;
-                      padding: 0em 0.7em;
-                      margin: 0em 0.5em;
-                      text-decoration: none;
-                      white-space: nowrap; }
+					  background: white;
+					  border: 1px solid #997777;
+					  color: #436976;
+					  padding: 0em 0.7em;
+					  margin: 0em 0.5em;
+					  text-decoration: none;
+					  white-space: nowrap; }
 
 a.butActionDelete:active    { font-family: helvetica, verdana, arial, sans-serif;
-                      background: white;
-                      border: 1px solid #997777;
-                      color: #436976;
-                      padding: 0em 0.7em;
-                      margin: 0em 0.5em;
-                      text-decoration: none;
-                      white-space: nowrap; }
+					  background: white;
+					  border: 1px solid #997777;
+					  color: #436976;
+					  padding: 0em 0.7em;
+					  margin: 0em 0.5em;
+					  text-decoration: none;
+					  white-space: nowrap; }
 
 a.butActionDelete:visited    { font-family: helvetica, verdana, arial, sans-serif;
-                      background: white;
-                      border: 1px solid #997777;
-                      color: #436976;
-                      padding: 0em 0.7em;
-                      margin: 0em 0.5em;
-                      text-decoration: none;
-                      white-space: nowrap; }
+					  background: white;
+					  border: 1px solid #997777;
+					  color: #436976;
+					  padding: 0em 0.7em;
+					  margin: 0em 0.5em;
+					  text-decoration: none;
+					  white-space: nowrap; }
 
 a.butActionDelete:hover    { font-family: helvetica, verdana, arial, sans-serif;
-                      background: #FFe7ec;
-                      border: 1px solid #997777;
-                      color: #436976;
-                      padding: 0em 0.7em;
-                      margin: 0em 0.5em;
-                      text-decoration: none;
-                      white-space: nowrap; }
+					  background: #FFe7ec;
+					  border: 1px solid #997777;
+					  color: #436976;
+					  padding: 0em 0.7em;
+					  margin: 0em 0.5em;
+					  text-decoration: none;
+					  white-space: nowrap; }
 
 span.butAction, span.butActionDelete {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 
@@ -999,11 +999,11 @@ width: 100%;
 
 
 td.border {
-            border-top: 1px solid #000000;
-            border-right: 1px solid #000000;
-            border-bottom: 1px solid #000000;
-            border-left: 1px solid #000000;
-            }
+			border-top: 1px solid #000000;
+			border-right: 1px solid #000000;
+			border-bottom: 1px solid #000000;
+			border-left: 1px solid #000000;
+			}
 
 
 /*
@@ -1073,75 +1073,75 @@ border: 0px;
 }
 
 div.titre {
-    font-family: helvetica, verdana, arial, sans-serif;
-    font-weight: bold;
-    color: #777799;
-    text-decoration: none;
+	font-family: helvetica, verdana, arial, sans-serif;
+	font-weight: bold;
+	color: #777799;
+	text-decoration: none;
 }
 
 
 
 input.liste_titre {
-    background: #777799;
-    border: 0px;
+	background: #777799;
+	border: 0px;
 }
 
 tr.liste_titre {
-    color: #FFFFFF;
-    background: #777799;
-    font-family: helvetica, verdana, arial, sans-serif;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
-    border-top: 1px solid #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
-    white-space: nowrap;
+	color: #FFFFFF;
+	background: #777799;
+	font-family: helvetica, verdana, arial, sans-serif;
+	border-left: 1px solid #FFFFFF;
+	border-right: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	white-space: nowrap;
 }
 
 td.liste_titre {
-    color: #FFFFFF;
-    background: #777799;
-    font-family: helvetica, verdana, arial, sans-serif;
-    border-top: 1px solid #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
-    white-space: nowrap;
+	color: #FFFFFF;
+	background: #777799;
+	font-family: helvetica, verdana, arial, sans-serif;
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	white-space: nowrap;
 }
 
 .liste_titre_sel
 {
-    color: #DCCCBB;
-    background: #777799;
-    font-family: helvetica, verdana, arial, sans-serif;
-    border-top: 1px solid #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
-    white-space: nowrap;
+	color: #DCCCBB;
+	background: #777799;
+	font-family: helvetica, verdana, arial, sans-serif;
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	white-space: nowrap;
 }
 
 tr.liste_total td {
-    background: #F0F0F0;
-    font-weight: bold;
-    white-space: nowrap;
-    border-top: 1px solid #888888;
+	background: #F0F0F0;
+	font-weight: bold;
+	white-space: nowrap;
+	border-top: 1px solid #888888;
 }
 
 th {
-    color: #FFFFFF;
-    background: #777799;
-    font-family: helvetica, verdana, arial, sans-serif;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
-    border-top: 1px solid #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
-    white-space: nowrap;
+	color: #FFFFFF;
+	background: #777799;
+	font-family: helvetica, verdana, arial, sans-serif;
+	border-left: 1px solid #FFFFFF;
+	border-right: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	white-space: nowrap;
 }
 
 
 .pair {
-    background: #dcdcd0;
-    }
+	background: #dcdcd0;
+	}
 
 .impair {
-    background: #eeeedd;
-    }
+	background: #eeeedd;
+	}
 
 /*
  *  Boxes
@@ -1159,22 +1159,22 @@ box-shadow: 2px 4px 2px #AAA;
 }
 
 tr.box_titre {
-    color: #FFFFFF;
-    background: #777799;
-    font-family: Helvetica, Verdana;
+	color: #FFFFFF;
+	background: #777799;
+	font-family: Helvetica, Verdana;
 }
 
 tr.box_pair {
-    background: #dcdcd0;
+	background: #dcdcd0;
 }
 
 tr.box_impair {
-    background: #eeeedd;
-    font-family: Helvetica, Verdana;
+	background: #eeeedd;
+	font-family: Helvetica, Verdana;
 }
 
 tr.fiche {
-    font-family: Helvetica, Verdana;
+	font-family: Helvetica, Verdana;
 }
 
 
@@ -1186,7 +1186,7 @@ tr.fiche {
 .ui-dialog-titlebar {
 }
 .ui-dialog-content {
-    font-size: 12px !important;
+	font-size: 12px !important;
 }
 
 /* ============================================================================== */
@@ -1194,20 +1194,20 @@ tr.fiche {
 /* ============================================================================== */
 
 table.valid {
-    border-top: solid 1px #E6E6E6;
-    border-left: solid 1px #E6E6E6;
-    border-right: solid 1px #444444;
-    border-bottom: solid 1px #555555;
+	border-top: solid 1px #E6E6E6;
+	border-left: solid 1px #E6E6E6;
+	border-right: solid 1px #444444;
+	border-bottom: solid 1px #555555;
 	padding-top: 0px;
 	padding-left: 0px;
 	padding-right: 0px;
 	padding-bottom: 0px;
 	margin: 0px 0px;
-    background: #DC9999;
+	background: #DC9999;
 }
 
 .validtitre {
-    background: #DC9999;
+	background: #DC9999;
 	font-weight: bold;
 }
 
@@ -1221,7 +1221,7 @@ table.valid {
 
 #tooltip {
 position: absolute;
-width: <?php print dol_size(450,'width'); ?>px;
+width: <?php print dol_size(450, 'width'); ?>px;
 border-top: solid 1px #BBBBBB;
 border-<?php print $left; ?>: solid 1px #BBBBBB;
 border-<?php print $right; ?>: solid 1px #444444;
@@ -1246,12 +1246,12 @@ opacity: 1;
 	margin-bottom:5px;
 }
 table.dp {
-    width: 180px;
-    background-color: #FFFFFF;
-    border-top: solid 2px #DDDDDD;
-    border-left: solid 2px #DDDDDD;
-    border-right: solid 1px #222222;
-    border-bottom: solid 1px #222222;
+	width: 180px;
+	background-color: #FFFFFF;
+	border-top: solid 2px #DDDDDD;
+	border-left: solid 2px #DDDDDD;
+	border-right: solid 1px #222222;
+	border-bottom: solid 1px #222222;
 }
 .dp td, .tpHour td, .tpMinute td{padding:2px; font-size:10px;}
 /* Barre titre */
@@ -1312,19 +1312,19 @@ cursor: pointer;
 /* ============================================================================== */
 
 div.visible {
-    display: block;
+	display: block;
 }
 
 div.hidden {
-    display: none;
+	display: none;
 }
 
 tr.visible {
-    display: block;
+	display: block;
 }
 
 td.hidden {
-    display: none;
+	display: none;
 }
 
 
@@ -1354,47 +1354,47 @@ table.cal_event td { border: 0px; padding-left: 0px; padding-right: 2px; padding
 
 /* Lien plier /deplier tout */
 .arbre-switch {
-    text-align: right;
-    padding: 0 5px;
-    margin: 0 0 -18px 0;
+	text-align: right;
+	padding: 0 5px;
+	margin: 0 0 -18px 0;
 }
 
 /* Arbre */
 ul.arbre {
-    padding: 5px 10px;
+	padding: 5px 10px;
 }
 /* strong : A modifier en fonction de la balise choisie */
 ul.arbre strong {
-    font-weight: normal;
-    padding: 0 0 0 20px;
-    margin: 0 0 0 -7px;
-    background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/branch.gif' ?>);
-    background-repeat: no-repeat;
-    background-position: 1px 50%;
+	font-weight: normal;
+	padding: 0 0 0 20px;
+	margin: 0 0 0 -7px;
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/branch.gif' ?>);
+	background-repeat: no-repeat;
+	background-position: 1px 50%;
 }
 ul.arbre strong.arbre-plier {
-    background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/plus.gif' ?>);
-    cursor: pointer;
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/plus.gif' ?>);
+	cursor: pointer;
 }
 ul.arbre strong.arbre-deplier {
-    background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/minus.gif' ?>);
-    cursor: pointer;
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/minus.gif' ?>);
+	cursor: pointer;
 }
 ul.arbre ul {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 }
 ul.arbre li {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+	padding: 0;
+	margin: 0;
+	list-style: none;
 }
 ul.arbre li li {
-    margin: 0 0 0 16px;
+	margin: 0 0 0 16px;
 }
 /* Classe pour masquer */
 .hide {
-    display: none;
+	display: none;
 }
 
 img.menuNew
@@ -1543,25 +1543,25 @@ A.none, A.none:active, A.none:visited, A.none:hover {
 
 /* Style to overwrites JQuery styles */
 .ui-menu .ui-menu-item a {
-    text-decoration:none;
-    display:block;
-    padding:.2em .4em;
-    line-height:1.5;
-    zoom:1;
-    font-weight: normal;
-    font-family:<?php echo $fontlist; ?>;
-    font-size:1em;
+	text-decoration:none;
+	display:block;
+	padding:.2em .4em;
+	line-height:1.5;
+	zoom:1;
+	font-weight: normal;
+	font-family:<?php echo $fontlist; ?>;
+	font-size:1em;
 }
 .ui-widget {
-    font-family:<?php echo $fontlist; ?>;
-    font-size:<?php echo $fontsize; ?>px;
+	font-family:<?php echo $fontlist; ?>;
+	font-size:<?php echo $fontsize; ?>px;
 }
 .ui-button { margin-left: -1px; }
 .ui-button-icon-only .ui-button-text { height: 8px; }
 .ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: 3px 0px 8px 0px; }
 .ui-button-text
 {
-    line-height: 1em !important;
+	line-height: 1em !important;
 }
 .ui-autocomplete-input { margin: 0; padding: 1px; }
 
@@ -1572,24 +1572,24 @@ A.none, A.none:active, A.none:visited, A.none:hover {
 
 .cke_editor table, .cke_editor tr, .cke_editor td
 {
-    border: 0px solid #FF0000 !important;
+	border: 0px solid #FF0000 !important;
 }
 span.cke_skin_kama { padding: 0 ! important; }
 
 a.cke_dialog_ui_button
 {
-    font-family: <?php print $fontlist ?> !important;
+	font-family: <?php print $fontlist ?> !important;
 	background-image: url(<?php echo DOL_URL_ROOT.'/theme/freelug/img/button_bg.png' ?>) !important;
 	background-position: bottom !important;
-    border: 1px solid #ACBCBB !important;
+	border: 1px solid #ACBCBB !important;
 	padding: 0.1em 0.7em !important;
 	margin: 0em 0.5em !important;
-    -moz-border-radius:0px 5px 0px 5px !important;
+	-moz-border-radius:0px 5px 0px 5px !important;
 	-webkit-border-radius:0px 5px 0px 5px !important;
 	border-radius:0px 5px 0px 5px !important;
-    -moz-box-shadow: 4px 4px 4px #CCC !important;
-    -webkit-box-shadow: 4px 4px 4px #CCC !important;
-    box-shadow: 4px 4px 4px #CCC !important;
+	-moz-box-shadow: 4px 4px 4px #CCC !important;
+	-webkit-box-shadow: 4px 4px 4px #CCC !important;
+	box-shadow: 4px 4px 4px #CCC !important;
 }
 
 
@@ -1599,7 +1599,7 @@ a.cke_dialog_ui_button
 /* ============================================================================== */
 
 .template-upload {
-    height: 72px !important;
+	height: 72px !important;
 }
 
 <?php

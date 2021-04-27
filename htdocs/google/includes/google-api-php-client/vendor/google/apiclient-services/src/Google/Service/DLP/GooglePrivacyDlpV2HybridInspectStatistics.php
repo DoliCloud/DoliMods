@@ -17,32 +17,32 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2HybridInspectStatistics extends Google_Model
 {
-  public $abortedCount;
-  public $pendingCount;
-  public $processedCount;
+	public $abortedCount;
+	public $pendingCount;
+	public $processedCount;
 
-  public function setAbortedCount($abortedCount)
-  {
-    $this->abortedCount = $abortedCount;
-  }
-  public function getAbortedCount()
-  {
-    return $this->abortedCount;
-  }
-  public function setPendingCount($pendingCount)
-  {
-    $this->pendingCount = $pendingCount;
-  }
-  public function getPendingCount()
-  {
-    return $this->pendingCount;
-  }
-  public function setProcessedCount($processedCount)
-  {
-    $this->processedCount = $processedCount;
-  }
-  public function getProcessedCount()
-  {
-    return $this->processedCount;
-  }
+	public function setAbortedCount($abortedCount)
+	{
+		$this->abortedCount = $abortedCount;
+	}
+	public function getAbortedCount()
+	{
+		return $this->abortedCount;
+	}
+	public function setPendingCount($pendingCount)
+	{
+		$this->pendingCount = $pendingCount;
+	}
+	public function getPendingCount()
+	{
+		return $this->pendingCount;
+	}
+	public function setProcessedCount($processedCount)
+	{
+		$this->processedCount = $processedCount;
+	}
+	public function getProcessedCount()
+	{
+		return $this->processedCount;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_SASPortalTesting_SasPortalFrequencyRange extends Google_Model
 {
-  public $highFrequencyMhz;
-  public $lowFrequencyMhz;
+	public $highFrequencyMhz;
+	public $lowFrequencyMhz;
 
-  public function setHighFrequencyMhz($highFrequencyMhz)
-  {
-    $this->highFrequencyMhz = $highFrequencyMhz;
-  }
-  public function getHighFrequencyMhz()
-  {
-    return $this->highFrequencyMhz;
-  }
-  public function setLowFrequencyMhz($lowFrequencyMhz)
-  {
-    $this->lowFrequencyMhz = $lowFrequencyMhz;
-  }
-  public function getLowFrequencyMhz()
-  {
-    return $this->lowFrequencyMhz;
-  }
+	public function setHighFrequencyMhz($highFrequencyMhz)
+	{
+		$this->highFrequencyMhz = $highFrequencyMhz;
+	}
+	public function getHighFrequencyMhz()
+	{
+		return $this->highFrequencyMhz;
+	}
+	public function setLowFrequencyMhz($lowFrequencyMhz)
+	{
+		$this->lowFrequencyMhz = $lowFrequencyMhz;
+	}
+	public function getLowFrequencyMhz()
+	{
+		return $this->lowFrequencyMhz;
+	}
 }

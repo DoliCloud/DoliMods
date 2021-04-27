@@ -17,50 +17,50 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer extends Google_Model
 {
-  public $answer;
-  public $faqQuestion;
-  public $matchConfidence;
-  public $matchConfidenceLevel;
-  public $source;
+	public $answer;
+	public $faqQuestion;
+	public $matchConfidence;
+	public $matchConfidenceLevel;
+	public $source;
 
-  public function setAnswer($answer)
-  {
-    $this->answer = $answer;
-  }
-  public function getAnswer()
-  {
-    return $this->answer;
-  }
-  public function setFaqQuestion($faqQuestion)
-  {
-    $this->faqQuestion = $faqQuestion;
-  }
-  public function getFaqQuestion()
-  {
-    return $this->faqQuestion;
-  }
-  public function setMatchConfidence($matchConfidence)
-  {
-    $this->matchConfidence = $matchConfidence;
-  }
-  public function getMatchConfidence()
-  {
-    return $this->matchConfidence;
-  }
-  public function setMatchConfidenceLevel($matchConfidenceLevel)
-  {
-    $this->matchConfidenceLevel = $matchConfidenceLevel;
-  }
-  public function getMatchConfidenceLevel()
-  {
-    return $this->matchConfidenceLevel;
-  }
-  public function setSource($source)
-  {
-    $this->source = $source;
-  }
-  public function getSource()
-  {
-    return $this->source;
-  }
+	public function setAnswer($answer)
+	{
+		$this->answer = $answer;
+	}
+	public function getAnswer()
+	{
+		return $this->answer;
+	}
+	public function setFaqQuestion($faqQuestion)
+	{
+		$this->faqQuestion = $faqQuestion;
+	}
+	public function getFaqQuestion()
+	{
+		return $this->faqQuestion;
+	}
+	public function setMatchConfidence($matchConfidence)
+	{
+		$this->matchConfidence = $matchConfidence;
+	}
+	public function getMatchConfidence()
+	{
+		return $this->matchConfidence;
+	}
+	public function setMatchConfidenceLevel($matchConfidenceLevel)
+	{
+		$this->matchConfidenceLevel = $matchConfidenceLevel;
+	}
+	public function getMatchConfidenceLevel()
+	{
+		return $this->matchConfidenceLevel;
+	}
+	public function setSource($source)
+	{
+		$this->source = $source;
+	}
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

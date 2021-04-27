@@ -1,11 +1,11 @@
 <?php
 
-include("./pre.inc.php");
-require_once("funcsv2.php");
+include "./pre.inc.php";
+require_once "funcsv2.php";
 
 $tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
-llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
+llxHeader('', 'BitTorrent', $website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
@@ -18,8 +18,7 @@ This may be wildly inaccurate because when torrents are deleted, the bittorrent 
 <?php
 if ($GLOBALS["persist"])
 	$db = mysql_pconnect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - " . mysql_error() . "</p>");
-else
-	$db = mysql_connect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - " . mysql_error() . "</p>");
+else $db = mysql_connect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - " . mysql_error() . "</p>");
 mysql_select_db($database) or die(errorMessage() . "Tracker error: can't open database $database - " . mysql_error() . "</p>");
 
 $query = "SELECT SUM(".$prefix."summary.dlbytes) FROM ".$prefix."summary";
@@ -27,8 +26,7 @@ $results = mysql_query($query) or die(errorMessage() . "Can't do SQL query - " .
 $data = mysql_fetch_row($results);
 if ($data[0] == null)
 	$btuploaded = 0;
-else
-	$btuploaded = $data[0];
+else $btuploaded = $data[0];
 
 $query = "SELECT total_uploaded FROM ".$prefix."speedlimit";
 $results = mysql_query($query) or die(errorMessage() . "Can't do SQL query - " . mysql_error() . "</p>");
@@ -57,16 +55,14 @@ echo bytesToString($btuploaded);
 <?php
 if ($httpuploaded + $btuploaded != 0)
 	echo round(($httpuploaded / ($httpuploaded + $btuploaded))*100, 2) . "%";
-else
-	echo "0%";
+else echo "0%";
 ?>
 </td>
 <td align="center">
 <?php
 if ($httpuploaded + $btuploaded != 0)
 	echo round(($btuploaded / ($httpuploaded + $btuploaded))*100, 2) . "%";
-else
-	echo "0%";
+else echo "0%";
 ?>
 </td>
 </tr>

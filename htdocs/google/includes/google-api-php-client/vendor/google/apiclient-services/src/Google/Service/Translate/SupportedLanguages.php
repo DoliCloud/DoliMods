@@ -17,22 +17,22 @@
 
 class Google_Service_Translate_SupportedLanguages extends Google_Collection
 {
-  protected $collection_key = 'languages';
-  protected $languagesType = 'Google_Service_Translate_SupportedLanguage';
-  protected $languagesDataType = 'array';
+	protected $collection_key = 'languages';
+	protected $languagesType = 'Google_Service_Translate_SupportedLanguage';
+	protected $languagesDataType = 'array';
 
-  /**
-   * @param Google_Service_Translate_SupportedLanguage
-   */
-  public function setLanguages($languages)
-  {
-    $this->languages = $languages;
-  }
-  /**
-   * @return Google_Service_Translate_SupportedLanguage
-   */
-  public function getLanguages()
-  {
-    return $this->languages;
-  }
+	/**
+	 * @param Google_Service_Translate_SupportedLanguage
+	 */
+	public function setLanguages($languages)
+	{
+		$this->languages = $languages;
+	}
+	/**
+	 * @return Google_Service_Translate_SupportedLanguage
+	 */
+	public function getLanguages()
+	{
+		return $this->languages;
+	}
 }

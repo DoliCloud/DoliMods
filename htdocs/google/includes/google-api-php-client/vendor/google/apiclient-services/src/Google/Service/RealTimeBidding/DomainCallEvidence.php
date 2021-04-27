@@ -17,31 +17,31 @@
 
 class Google_Service_RealTimeBidding_DomainCallEvidence extends Google_Collection
 {
-  protected $collection_key = 'topHttpCallDomains';
-  protected $topHttpCallDomainsType = 'Google_Service_RealTimeBidding_DomainCalls';
-  protected $topHttpCallDomainsDataType = 'array';
-  public $totalHttpCallCount;
+	protected $collection_key = 'topHttpCallDomains';
+	protected $topHttpCallDomainsType = 'Google_Service_RealTimeBidding_DomainCalls';
+	protected $topHttpCallDomainsDataType = 'array';
+	public $totalHttpCallCount;
 
-  /**
-   * @param Google_Service_RealTimeBidding_DomainCalls
-   */
-  public function setTopHttpCallDomains($topHttpCallDomains)
-  {
-    $this->topHttpCallDomains = $topHttpCallDomains;
-  }
-  /**
-   * @return Google_Service_RealTimeBidding_DomainCalls
-   */
-  public function getTopHttpCallDomains()
-  {
-    return $this->topHttpCallDomains;
-  }
-  public function setTotalHttpCallCount($totalHttpCallCount)
-  {
-    $this->totalHttpCallCount = $totalHttpCallCount;
-  }
-  public function getTotalHttpCallCount()
-  {
-    return $this->totalHttpCallCount;
-  }
+	/**
+	 * @param Google_Service_RealTimeBidding_DomainCalls
+	 */
+	public function setTopHttpCallDomains($topHttpCallDomains)
+	{
+		$this->topHttpCallDomains = $topHttpCallDomains;
+	}
+	/**
+	 * @return Google_Service_RealTimeBidding_DomainCalls
+	 */
+	public function getTopHttpCallDomains()
+	{
+		return $this->topHttpCallDomains;
+	}
+	public function setTotalHttpCallCount($totalHttpCallCount)
+	{
+		$this->totalHttpCallCount = $totalHttpCallCount;
+	}
+	public function getTotalHttpCallCount()
+	{
+		return $this->totalHttpCallCount;
+	}
 }

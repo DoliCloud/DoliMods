@@ -17,59 +17,59 @@
 
 class Google_Service_SecurityCommandCenter_GroupFindingsRequest extends Google_Model
 {
-  public $compareDuration;
-  public $filter;
-  public $groupBy;
-  public $pageSize;
-  public $pageToken;
-  public $readTime;
+	public $compareDuration;
+	public $filter;
+	public $groupBy;
+	public $pageSize;
+	public $pageToken;
+	public $readTime;
 
-  public function setCompareDuration($compareDuration)
-  {
-    $this->compareDuration = $compareDuration;
-  }
-  public function getCompareDuration()
-  {
-    return $this->compareDuration;
-  }
-  public function setFilter($filter)
-  {
-    $this->filter = $filter;
-  }
-  public function getFilter()
-  {
-    return $this->filter;
-  }
-  public function setGroupBy($groupBy)
-  {
-    $this->groupBy = $groupBy;
-  }
-  public function getGroupBy()
-  {
-    return $this->groupBy;
-  }
-  public function setPageSize($pageSize)
-  {
-    $this->pageSize = $pageSize;
-  }
-  public function getPageSize()
-  {
-    return $this->pageSize;
-  }
-  public function setPageToken($pageToken)
-  {
-    $this->pageToken = $pageToken;
-  }
-  public function getPageToken()
-  {
-    return $this->pageToken;
-  }
-  public function setReadTime($readTime)
-  {
-    $this->readTime = $readTime;
-  }
-  public function getReadTime()
-  {
-    return $this->readTime;
-  }
+	public function setCompareDuration($compareDuration)
+	{
+		$this->compareDuration = $compareDuration;
+	}
+	public function getCompareDuration()
+	{
+		return $this->compareDuration;
+	}
+	public function setFilter($filter)
+	{
+		$this->filter = $filter;
+	}
+	public function getFilter()
+	{
+		return $this->filter;
+	}
+	public function setGroupBy($groupBy)
+	{
+		$this->groupBy = $groupBy;
+	}
+	public function getGroupBy()
+	{
+		return $this->groupBy;
+	}
+	public function setPageSize($pageSize)
+	{
+		$this->pageSize = $pageSize;
+	}
+	public function getPageSize()
+	{
+		return $this->pageSize;
+	}
+	public function setPageToken($pageToken)
+	{
+		$this->pageToken = $pageToken;
+	}
+	public function getPageToken()
+	{
+		return $this->pageToken;
+	}
+	public function setReadTime($readTime)
+	{
+		$this->readTime = $readTime;
+	}
+	public function getReadTime()
+	{
+		return $this->readTime;
+	}
 }

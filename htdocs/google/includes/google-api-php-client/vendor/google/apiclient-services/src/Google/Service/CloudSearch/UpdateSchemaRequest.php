@@ -17,46 +17,46 @@
 
 class Google_Service_CloudSearch_UpdateSchemaRequest extends Google_Model
 {
-  protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
-  protected $debugOptionsDataType = '';
-  protected $schemaType = 'Google_Service_CloudSearch_Schema';
-  protected $schemaDataType = '';
-  public $validateOnly;
+	protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
+	protected $debugOptionsDataType = '';
+	protected $schemaType = 'Google_Service_CloudSearch_Schema';
+	protected $schemaDataType = '';
+	public $validateOnly;
 
-  /**
-   * @param Google_Service_CloudSearch_DebugOptions
-   */
-  public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
-  {
-    $this->debugOptions = $debugOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DebugOptions
-   */
-  public function getDebugOptions()
-  {
-    return $this->debugOptions;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Schema
-   */
-  public function setSchema(Google_Service_CloudSearch_Schema $schema)
-  {
-    $this->schema = $schema;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Schema
-   */
-  public function getSchema()
-  {
-    return $this->schema;
-  }
-  public function setValidateOnly($validateOnly)
-  {
-    $this->validateOnly = $validateOnly;
-  }
-  public function getValidateOnly()
-  {
-    return $this->validateOnly;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_DebugOptions
+	 */
+	public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
+	{
+		$this->debugOptions = $debugOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DebugOptions
+	 */
+	public function getDebugOptions()
+	{
+		return $this->debugOptions;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Schema
+	 */
+	public function setSchema(Google_Service_CloudSearch_Schema $schema)
+	{
+		$this->schema = $schema;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Schema
+	 */
+	public function getSchema()
+	{
+		return $this->schema;
+	}
+	public function setValidateOnly($validateOnly)
+	{
+		$this->validateOnly = $validateOnly;
+	}
+	public function getValidateOnly()
+	{
+		return $this->validateOnly;
+	}
 }

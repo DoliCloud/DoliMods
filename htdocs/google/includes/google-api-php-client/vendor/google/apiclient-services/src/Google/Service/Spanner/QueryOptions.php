@@ -17,14 +17,14 @@
 
 class Google_Service_Spanner_QueryOptions extends Google_Model
 {
-  public $optimizerVersion;
+	public $optimizerVersion;
 
-  public function setOptimizerVersion($optimizerVersion)
-  {
-    $this->optimizerVersion = $optimizerVersion;
-  }
-  public function getOptimizerVersion()
-  {
-    return $this->optimizerVersion;
-  }
+	public function setOptimizerVersion($optimizerVersion)
+	{
+		$this->optimizerVersion = $optimizerVersion;
+	}
+	public function getOptimizerVersion()
+	{
+		return $this->optimizerVersion;
+	}
 }

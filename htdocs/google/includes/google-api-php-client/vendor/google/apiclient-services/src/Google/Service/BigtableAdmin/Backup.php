@@ -17,68 +17,68 @@
 
 class Google_Service_BigtableAdmin_Backup extends Google_Model
 {
-  public $endTime;
-  public $expireTime;
-  public $name;
-  public $sizeBytes;
-  public $sourceTable;
-  public $startTime;
-  public $state;
+	public $endTime;
+	public $expireTime;
+	public $name;
+	public $sizeBytes;
+	public $sourceTable;
+	public $startTime;
+	public $state;
 
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  public function setExpireTime($expireTime)
-  {
-    $this->expireTime = $expireTime;
-  }
-  public function getExpireTime()
-  {
-    return $this->expireTime;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSizeBytes($sizeBytes)
-  {
-    $this->sizeBytes = $sizeBytes;
-  }
-  public function getSizeBytes()
-  {
-    return $this->sizeBytes;
-  }
-  public function setSourceTable($sourceTable)
-  {
-    $this->sourceTable = $sourceTable;
-  }
-  public function getSourceTable()
-  {
-    return $this->sourceTable;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	public function setExpireTime($expireTime)
+	{
+		$this->expireTime = $expireTime;
+	}
+	public function getExpireTime()
+	{
+		return $this->expireTime;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSizeBytes($sizeBytes)
+	{
+		$this->sizeBytes = $sizeBytes;
+	}
+	public function getSizeBytes()
+	{
+		return $this->sizeBytes;
+	}
+	public function setSourceTable($sourceTable)
+	{
+		$this->sourceTable = $sourceTable;
+	}
+	public function getSourceTable()
+	{
+		return $this->sourceTable;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

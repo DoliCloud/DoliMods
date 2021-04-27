@@ -17,23 +17,23 @@
 
 class Google_Service_Drive_CommentQuotedFileContent extends Google_Model
 {
-  public $mimeType;
-  public $value;
+	public $mimeType;
+	public $value;
 
-  public function setMimeType($mimeType)
-  {
-    $this->mimeType = $mimeType;
-  }
-  public function getMimeType()
-  {
-    return $this->mimeType;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setMimeType($mimeType)
+	{
+		$this->mimeType = $mimeType;
+	}
+	public function getMimeType()
+	{
+		return $this->mimeType;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

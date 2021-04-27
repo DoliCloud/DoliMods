@@ -17,53 +17,53 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTask extends Google_Model
 {
-  protected $expectedOutputsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskOutputs';
-  protected $expectedOutputsDataType = '';
-  protected $inputsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs';
-  protected $inputsDataType = '';
-  protected $timeoutsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts';
-  protected $timeoutsDataType = '';
+	protected $expectedOutputsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskOutputs';
+	protected $expectedOutputsDataType = '';
+	protected $inputsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs';
+	protected $inputsDataType = '';
+	protected $timeoutsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts';
+	protected $timeoutsDataType = '';
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskOutputs
-   */
-  public function setExpectedOutputs(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskOutputs $expectedOutputs)
-  {
-    $this->expectedOutputs = $expectedOutputs;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskOutputs
-   */
-  public function getExpectedOutputs()
-  {
-    return $this->expectedOutputs;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs
-   */
-  public function setInputs(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs $inputs)
-  {
-    $this->inputs = $inputs;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs
-   */
-  public function getInputs()
-  {
-    return $this->inputs;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts
-   */
-  public function setTimeouts(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts $timeouts)
-  {
-    $this->timeouts = $timeouts;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts
-   */
-  public function getTimeouts()
-  {
-    return $this->timeouts;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskOutputs
+	 */
+	public function setExpectedOutputs(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskOutputs $expectedOutputs)
+	{
+		$this->expectedOutputs = $expectedOutputs;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskOutputs
+	 */
+	public function getExpectedOutputs()
+	{
+		return $this->expectedOutputs;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs
+	 */
+	public function setInputs(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs $inputs)
+	{
+		$this->inputs = $inputs;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs
+	 */
+	public function getInputs()
+	{
+		return $this->inputs;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts
+	 */
+	public function setTimeouts(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts $timeouts)
+	{
+		$this->timeouts = $timeouts;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts
+	 */
+	public function getTimeouts()
+	{
+		return $this->timeouts;
+	}
 }

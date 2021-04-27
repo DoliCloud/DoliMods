@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1AsyncQueryResult extends Google_Model
 {
-  public $expires;
-  public $self;
+	public $expires;
+	public $self;
 
-  public function setExpires($expires)
-  {
-    $this->expires = $expires;
-  }
-  public function getExpires()
-  {
-    return $this->expires;
-  }
-  public function setSelf($self)
-  {
-    $this->self = $self;
-  }
-  public function getSelf()
-  {
-    return $this->self;
-  }
+	public function setExpires($expires)
+	{
+		$this->expires = $expires;
+	}
+	public function getExpires()
+	{
+		return $this->expires;
+	}
+	public function setSelf($self)
+	{
+		$this->self = $self;
+	}
+	public function getSelf()
+	{
+		return $this->self;
+	}
 }

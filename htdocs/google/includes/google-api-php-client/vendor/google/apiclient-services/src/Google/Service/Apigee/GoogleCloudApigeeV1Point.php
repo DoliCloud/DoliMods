@@ -17,31 +17,31 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Point extends Google_Collection
 {
-  protected $collection_key = 'results';
-  public $id;
-  protected $resultsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Result';
-  protected $resultsDataType = 'array';
+	protected $collection_key = 'results';
+	public $id;
+	protected $resultsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Result';
+	protected $resultsDataType = 'array';
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Result
-   */
-  public function setResults($results)
-  {
-    $this->results = $results;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Result
-   */
-  public function getResults()
-  {
-    return $this->results;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Result
+	 */
+	public function setResults($results)
+	{
+		$this->results = $results;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Result
+	 */
+	public function getResults()
+	{
+		return $this->results;
+	}
 }

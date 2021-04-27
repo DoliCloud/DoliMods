@@ -17,37 +17,37 @@
 
 class Google_Service_CloudSearch_ObjectOptions extends Google_Model
 {
-  protected $displayOptionsType = 'Google_Service_CloudSearch_ObjectDisplayOptions';
-  protected $displayOptionsDataType = '';
-  protected $freshnessOptionsType = 'Google_Service_CloudSearch_FreshnessOptions';
-  protected $freshnessOptionsDataType = '';
+	protected $displayOptionsType = 'Google_Service_CloudSearch_ObjectDisplayOptions';
+	protected $displayOptionsDataType = '';
+	protected $freshnessOptionsType = 'Google_Service_CloudSearch_FreshnessOptions';
+	protected $freshnessOptionsDataType = '';
 
-  /**
-   * @param Google_Service_CloudSearch_ObjectDisplayOptions
-   */
-  public function setDisplayOptions(Google_Service_CloudSearch_ObjectDisplayOptions $displayOptions)
-  {
-    $this->displayOptions = $displayOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_ObjectDisplayOptions
-   */
-  public function getDisplayOptions()
-  {
-    return $this->displayOptions;
-  }
-  /**
-   * @param Google_Service_CloudSearch_FreshnessOptions
-   */
-  public function setFreshnessOptions(Google_Service_CloudSearch_FreshnessOptions $freshnessOptions)
-  {
-    $this->freshnessOptions = $freshnessOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_FreshnessOptions
-   */
-  public function getFreshnessOptions()
-  {
-    return $this->freshnessOptions;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_ObjectDisplayOptions
+	 */
+	public function setDisplayOptions(Google_Service_CloudSearch_ObjectDisplayOptions $displayOptions)
+	{
+		$this->displayOptions = $displayOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_ObjectDisplayOptions
+	 */
+	public function getDisplayOptions()
+	{
+		return $this->displayOptions;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_FreshnessOptions
+	 */
+	public function setFreshnessOptions(Google_Service_CloudSearch_FreshnessOptions $freshnessOptions)
+	{
+		$this->freshnessOptions = $freshnessOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_FreshnessOptions
+	 */
+	public function getFreshnessOptions()
+	{
+		return $this->freshnessOptions;
+	}
 }

@@ -10,11 +10,11 @@ use GuzzleHttp\Message\Response;
  */
 class ParseExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    public function testHasResponse()
-    {
-        $res = new Response(200);
-        $e = new ParseException('foo', $res);
-        $this->assertSame($res, $e->getResponse());
-        $this->assertEquals('foo', $e->getMessage());
-    }
+	public function testHasResponse()
+	{
+		$res = new Response(200);
+		$e = new ParseException('foo', $res);
+		$this->assertSame($res, $e->getResponse());
+		$this->assertEquals('foo', $e->getMessage());
+	}
 }

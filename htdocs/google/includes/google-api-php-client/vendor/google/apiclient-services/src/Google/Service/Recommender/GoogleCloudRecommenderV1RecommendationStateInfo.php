@@ -17,23 +17,23 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1RecommendationStateInfo extends Google_Model
 {
-  public $state;
-  public $stateMetadata;
+	public $state;
+	public $stateMetadata;
 
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setStateMetadata($stateMetadata)
-  {
-    $this->stateMetadata = $stateMetadata;
-  }
-  public function getStateMetadata()
-  {
-    return $this->stateMetadata;
-  }
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setStateMetadata($stateMetadata)
+	{
+		$this->stateMetadata = $stateMetadata;
+	}
+	public function getStateMetadata()
+	{
+		return $this->stateMetadata;
+	}
 }

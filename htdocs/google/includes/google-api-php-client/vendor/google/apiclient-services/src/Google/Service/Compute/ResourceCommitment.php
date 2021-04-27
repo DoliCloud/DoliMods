@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_ResourceCommitment extends Google_Model
 {
-  public $acceleratorType;
-  public $amount;
-  public $type;
+	public $acceleratorType;
+	public $amount;
+	public $type;
 
-  public function setAcceleratorType($acceleratorType)
-  {
-    $this->acceleratorType = $acceleratorType;
-  }
-  public function getAcceleratorType()
-  {
-    return $this->acceleratorType;
-  }
-  public function setAmount($amount)
-  {
-    $this->amount = $amount;
-  }
-  public function getAmount()
-  {
-    return $this->amount;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setAcceleratorType($acceleratorType)
+	{
+		$this->acceleratorType = $acceleratorType;
+	}
+	public function getAcceleratorType()
+	{
+		return $this->acceleratorType;
+	}
+	public function setAmount($amount)
+	{
+		$this->amount = $amount;
+	}
+	public function getAmount()
+	{
+		return $this->amount;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

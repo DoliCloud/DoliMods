@@ -17,38 +17,38 @@
 
 class Google_Service_CloudSearch_SearchApplicationQueryStats extends Google_Collection
 {
-  protected $collection_key = 'queryCountByStatus';
-  protected $dateType = 'Google_Service_CloudSearch_Date';
-  protected $dateDataType = '';
-  protected $queryCountByStatusType = 'Google_Service_CloudSearch_QueryCountByStatus';
-  protected $queryCountByStatusDataType = 'array';
+	protected $collection_key = 'queryCountByStatus';
+	protected $dateType = 'Google_Service_CloudSearch_Date';
+	protected $dateDataType = '';
+	protected $queryCountByStatusType = 'Google_Service_CloudSearch_QueryCountByStatus';
+	protected $queryCountByStatusDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudSearch_Date
-   */
-  public function setDate(Google_Service_CloudSearch_Date $date)
-  {
-    $this->date = $date;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Date
-   */
-  public function getDate()
-  {
-    return $this->date;
-  }
-  /**
-   * @param Google_Service_CloudSearch_QueryCountByStatus
-   */
-  public function setQueryCountByStatus($queryCountByStatus)
-  {
-    $this->queryCountByStatus = $queryCountByStatus;
-  }
-  /**
-   * @return Google_Service_CloudSearch_QueryCountByStatus
-   */
-  public function getQueryCountByStatus()
-  {
-    return $this->queryCountByStatus;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_Date
+	 */
+	public function setDate(Google_Service_CloudSearch_Date $date)
+	{
+		$this->date = $date;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Date
+	 */
+	public function getDate()
+	{
+		return $this->date;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_QueryCountByStatus
+	 */
+	public function setQueryCountByStatus($queryCountByStatus)
+	{
+		$this->queryCountByStatus = $queryCountByStatus;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_QueryCountByStatus
+	 */
+	public function getQueryCountByStatus()
+	{
+		return $this->queryCountByStatus;
+	}
 }

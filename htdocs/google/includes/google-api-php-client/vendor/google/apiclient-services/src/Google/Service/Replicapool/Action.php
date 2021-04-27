@@ -17,40 +17,40 @@
 
 class Google_Service_Replicapool_Action extends Google_Collection
 {
-  protected $collection_key = 'envVariables';
-  public $commands;
-  protected $envVariablesType = 'Google_Service_Replicapool_EnvVariable';
-  protected $envVariablesDataType = 'array';
-  public $timeoutMilliSeconds;
+	protected $collection_key = 'envVariables';
+	public $commands;
+	protected $envVariablesType = 'Google_Service_Replicapool_EnvVariable';
+	protected $envVariablesDataType = 'array';
+	public $timeoutMilliSeconds;
 
-  public function setCommands($commands)
-  {
-    $this->commands = $commands;
-  }
-  public function getCommands()
-  {
-    return $this->commands;
-  }
-  /**
-   * @param Google_Service_Replicapool_EnvVariable
-   */
-  public function setEnvVariables($envVariables)
-  {
-    $this->envVariables = $envVariables;
-  }
-  /**
-   * @return Google_Service_Replicapool_EnvVariable
-   */
-  public function getEnvVariables()
-  {
-    return $this->envVariables;
-  }
-  public function setTimeoutMilliSeconds($timeoutMilliSeconds)
-  {
-    $this->timeoutMilliSeconds = $timeoutMilliSeconds;
-  }
-  public function getTimeoutMilliSeconds()
-  {
-    return $this->timeoutMilliSeconds;
-  }
+	public function setCommands($commands)
+	{
+		$this->commands = $commands;
+	}
+	public function getCommands()
+	{
+		return $this->commands;
+	}
+	/**
+	 * @param Google_Service_Replicapool_EnvVariable
+	 */
+	public function setEnvVariables($envVariables)
+	{
+		$this->envVariables = $envVariables;
+	}
+	/**
+	 * @return Google_Service_Replicapool_EnvVariable
+	 */
+	public function getEnvVariables()
+	{
+		return $this->envVariables;
+	}
+	public function setTimeoutMilliSeconds($timeoutMilliSeconds)
+	{
+		$this->timeoutMilliSeconds = $timeoutMilliSeconds;
+	}
+	public function getTimeoutMilliSeconds()
+	{
+		return $this->timeoutMilliSeconds;
+	}
 }

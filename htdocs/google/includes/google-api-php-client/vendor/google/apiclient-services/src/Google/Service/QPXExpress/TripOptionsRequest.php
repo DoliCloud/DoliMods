@@ -17,83 +17,83 @@
 
 class Google_Service_QPXExpress_TripOptionsRequest extends Google_Collection
 {
-  protected $collection_key = 'slice';
-  public $maxPrice;
-  protected $passengersType = 'Google_Service_QPXExpress_PassengerCounts';
-  protected $passengersDataType = '';
-  public $refundable;
-  public $saleCountry;
-  protected $sliceType = 'Google_Service_QPXExpress_SliceInput';
-  protected $sliceDataType = 'array';
-  public $solutions;
-  public $ticketingCountry;
+	protected $collection_key = 'slice';
+	public $maxPrice;
+	protected $passengersType = 'Google_Service_QPXExpress_PassengerCounts';
+	protected $passengersDataType = '';
+	public $refundable;
+	public $saleCountry;
+	protected $sliceType = 'Google_Service_QPXExpress_SliceInput';
+	protected $sliceDataType = 'array';
+	public $solutions;
+	public $ticketingCountry;
 
-  public function setMaxPrice($maxPrice)
-  {
-    $this->maxPrice = $maxPrice;
-  }
-  public function getMaxPrice()
-  {
-    return $this->maxPrice;
-  }
-  /**
-   * @param Google_Service_QPXExpress_PassengerCounts
-   */
-  public function setPassengers(Google_Service_QPXExpress_PassengerCounts $passengers)
-  {
-    $this->passengers = $passengers;
-  }
-  /**
-   * @return Google_Service_QPXExpress_PassengerCounts
-   */
-  public function getPassengers()
-  {
-    return $this->passengers;
-  }
-  public function setRefundable($refundable)
-  {
-    $this->refundable = $refundable;
-  }
-  public function getRefundable()
-  {
-    return $this->refundable;
-  }
-  public function setSaleCountry($saleCountry)
-  {
-    $this->saleCountry = $saleCountry;
-  }
-  public function getSaleCountry()
-  {
-    return $this->saleCountry;
-  }
-  /**
-   * @param Google_Service_QPXExpress_SliceInput
-   */
-  public function setSlice($slice)
-  {
-    $this->slice = $slice;
-  }
-  /**
-   * @return Google_Service_QPXExpress_SliceInput
-   */
-  public function getSlice()
-  {
-    return $this->slice;
-  }
-  public function setSolutions($solutions)
-  {
-    $this->solutions = $solutions;
-  }
-  public function getSolutions()
-  {
-    return $this->solutions;
-  }
-  public function setTicketingCountry($ticketingCountry)
-  {
-    $this->ticketingCountry = $ticketingCountry;
-  }
-  public function getTicketingCountry()
-  {
-    return $this->ticketingCountry;
-  }
+	public function setMaxPrice($maxPrice)
+	{
+		$this->maxPrice = $maxPrice;
+	}
+	public function getMaxPrice()
+	{
+		return $this->maxPrice;
+	}
+	/**
+	 * @param Google_Service_QPXExpress_PassengerCounts
+	 */
+	public function setPassengers(Google_Service_QPXExpress_PassengerCounts $passengers)
+	{
+		$this->passengers = $passengers;
+	}
+	/**
+	 * @return Google_Service_QPXExpress_PassengerCounts
+	 */
+	public function getPassengers()
+	{
+		return $this->passengers;
+	}
+	public function setRefundable($refundable)
+	{
+		$this->refundable = $refundable;
+	}
+	public function getRefundable()
+	{
+		return $this->refundable;
+	}
+	public function setSaleCountry($saleCountry)
+	{
+		$this->saleCountry = $saleCountry;
+	}
+	public function getSaleCountry()
+	{
+		return $this->saleCountry;
+	}
+	/**
+	 * @param Google_Service_QPXExpress_SliceInput
+	 */
+	public function setSlice($slice)
+	{
+		$this->slice = $slice;
+	}
+	/**
+	 * @return Google_Service_QPXExpress_SliceInput
+	 */
+	public function getSlice()
+	{
+		return $this->slice;
+	}
+	public function setSolutions($solutions)
+	{
+		$this->solutions = $solutions;
+	}
+	public function getSolutions()
+	{
+		return $this->solutions;
+	}
+	public function setTicketingCountry($ticketingCountry)
+	{
+		$this->ticketingCountry = $ticketingCountry;
+	}
+	public function getTicketingCountry()
+	{
+		return $this->ticketingCountry;
+	}
 }

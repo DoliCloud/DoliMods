@@ -17,23 +17,23 @@
 
 class Google_Service_Games_PlayerName extends Google_Model
 {
-  public $familyName;
-  public $givenName;
+	public $familyName;
+	public $givenName;
 
-  public function setFamilyName($familyName)
-  {
-    $this->familyName = $familyName;
-  }
-  public function getFamilyName()
-  {
-    return $this->familyName;
-  }
-  public function setGivenName($givenName)
-  {
-    $this->givenName = $givenName;
-  }
-  public function getGivenName()
-  {
-    return $this->givenName;
-  }
+	public function setFamilyName($familyName)
+	{
+		$this->familyName = $familyName;
+	}
+	public function getFamilyName()
+	{
+		return $this->familyName;
+	}
+	public function setGivenName($givenName)
+	{
+		$this->givenName = $givenName;
+	}
+	public function getGivenName()
+	{
+		return $this->givenName;
+	}
 }

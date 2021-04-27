@@ -17,89 +17,89 @@
 
 class Google_Service_CloudComposer_EnvironmentConfig extends Google_Model
 {
-  public $airflowUri;
-  public $dagGcsPrefix;
-  public $gkeCluster;
-  protected $nodeConfigType = 'Google_Service_CloudComposer_NodeConfig';
-  protected $nodeConfigDataType = '';
-  public $nodeCount;
-  protected $privateEnvironmentConfigType = 'Google_Service_CloudComposer_PrivateEnvironmentConfig';
-  protected $privateEnvironmentConfigDataType = '';
-  protected $softwareConfigType = 'Google_Service_CloudComposer_SoftwareConfig';
-  protected $softwareConfigDataType = '';
+	public $airflowUri;
+	public $dagGcsPrefix;
+	public $gkeCluster;
+	protected $nodeConfigType = 'Google_Service_CloudComposer_NodeConfig';
+	protected $nodeConfigDataType = '';
+	public $nodeCount;
+	protected $privateEnvironmentConfigType = 'Google_Service_CloudComposer_PrivateEnvironmentConfig';
+	protected $privateEnvironmentConfigDataType = '';
+	protected $softwareConfigType = 'Google_Service_CloudComposer_SoftwareConfig';
+	protected $softwareConfigDataType = '';
 
-  public function setAirflowUri($airflowUri)
-  {
-    $this->airflowUri = $airflowUri;
-  }
-  public function getAirflowUri()
-  {
-    return $this->airflowUri;
-  }
-  public function setDagGcsPrefix($dagGcsPrefix)
-  {
-    $this->dagGcsPrefix = $dagGcsPrefix;
-  }
-  public function getDagGcsPrefix()
-  {
-    return $this->dagGcsPrefix;
-  }
-  public function setGkeCluster($gkeCluster)
-  {
-    $this->gkeCluster = $gkeCluster;
-  }
-  public function getGkeCluster()
-  {
-    return $this->gkeCluster;
-  }
-  /**
-   * @param Google_Service_CloudComposer_NodeConfig
-   */
-  public function setNodeConfig(Google_Service_CloudComposer_NodeConfig $nodeConfig)
-  {
-    $this->nodeConfig = $nodeConfig;
-  }
-  /**
-   * @return Google_Service_CloudComposer_NodeConfig
-   */
-  public function getNodeConfig()
-  {
-    return $this->nodeConfig;
-  }
-  public function setNodeCount($nodeCount)
-  {
-    $this->nodeCount = $nodeCount;
-  }
-  public function getNodeCount()
-  {
-    return $this->nodeCount;
-  }
-  /**
-   * @param Google_Service_CloudComposer_PrivateEnvironmentConfig
-   */
-  public function setPrivateEnvironmentConfig(Google_Service_CloudComposer_PrivateEnvironmentConfig $privateEnvironmentConfig)
-  {
-    $this->privateEnvironmentConfig = $privateEnvironmentConfig;
-  }
-  /**
-   * @return Google_Service_CloudComposer_PrivateEnvironmentConfig
-   */
-  public function getPrivateEnvironmentConfig()
-  {
-    return $this->privateEnvironmentConfig;
-  }
-  /**
-   * @param Google_Service_CloudComposer_SoftwareConfig
-   */
-  public function setSoftwareConfig(Google_Service_CloudComposer_SoftwareConfig $softwareConfig)
-  {
-    $this->softwareConfig = $softwareConfig;
-  }
-  /**
-   * @return Google_Service_CloudComposer_SoftwareConfig
-   */
-  public function getSoftwareConfig()
-  {
-    return $this->softwareConfig;
-  }
+	public function setAirflowUri($airflowUri)
+	{
+		$this->airflowUri = $airflowUri;
+	}
+	public function getAirflowUri()
+	{
+		return $this->airflowUri;
+	}
+	public function setDagGcsPrefix($dagGcsPrefix)
+	{
+		$this->dagGcsPrefix = $dagGcsPrefix;
+	}
+	public function getDagGcsPrefix()
+	{
+		return $this->dagGcsPrefix;
+	}
+	public function setGkeCluster($gkeCluster)
+	{
+		$this->gkeCluster = $gkeCluster;
+	}
+	public function getGkeCluster()
+	{
+		return $this->gkeCluster;
+	}
+	/**
+	 * @param Google_Service_CloudComposer_NodeConfig
+	 */
+	public function setNodeConfig(Google_Service_CloudComposer_NodeConfig $nodeConfig)
+	{
+		$this->nodeConfig = $nodeConfig;
+	}
+	/**
+	 * @return Google_Service_CloudComposer_NodeConfig
+	 */
+	public function getNodeConfig()
+	{
+		return $this->nodeConfig;
+	}
+	public function setNodeCount($nodeCount)
+	{
+		$this->nodeCount = $nodeCount;
+	}
+	public function getNodeCount()
+	{
+		return $this->nodeCount;
+	}
+	/**
+	 * @param Google_Service_CloudComposer_PrivateEnvironmentConfig
+	 */
+	public function setPrivateEnvironmentConfig(Google_Service_CloudComposer_PrivateEnvironmentConfig $privateEnvironmentConfig)
+	{
+		$this->privateEnvironmentConfig = $privateEnvironmentConfig;
+	}
+	/**
+	 * @return Google_Service_CloudComposer_PrivateEnvironmentConfig
+	 */
+	public function getPrivateEnvironmentConfig()
+	{
+		return $this->privateEnvironmentConfig;
+	}
+	/**
+	 * @param Google_Service_CloudComposer_SoftwareConfig
+	 */
+	public function setSoftwareConfig(Google_Service_CloudComposer_SoftwareConfig $softwareConfig)
+	{
+		$this->softwareConfig = $softwareConfig;
+	}
+	/**
+	 * @return Google_Service_CloudComposer_SoftwareConfig
+	 */
+	public function getSoftwareConfig()
+	{
+		return $this->softwareConfig;
+	}
 }

@@ -25,17 +25,17 @@
  */
 class Google_Service_AnalyticsReporting_Resource_UserActivity extends Google_Service_Resource
 {
-  /**
-   * Returns User Activity data. (userActivity.search)
-   *
-   * @param Google_Service_AnalyticsReporting_SearchUserActivityRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AnalyticsReporting_SearchUserActivityResponse
-   */
-  public function search(Google_Service_AnalyticsReporting_SearchUserActivityRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('search', array($params), "Google_Service_AnalyticsReporting_SearchUserActivityResponse");
-  }
+	/**
+	 * Returns User Activity data. (userActivity.search)
+	 *
+	 * @param Google_Service_AnalyticsReporting_SearchUserActivityRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AnalyticsReporting_SearchUserActivityResponse
+	 */
+	public function search(Google_Service_AnalyticsReporting_SearchUserActivityRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('search', array($params), "Google_Service_AnalyticsReporting_SearchUserActivityResponse");
+	}
 }

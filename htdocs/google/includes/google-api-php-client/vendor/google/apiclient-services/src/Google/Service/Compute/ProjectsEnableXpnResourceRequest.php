@@ -17,21 +17,21 @@
 
 class Google_Service_Compute_ProjectsEnableXpnResourceRequest extends Google_Model
 {
-  protected $xpnResourceType = 'Google_Service_Compute_XpnResourceId';
-  protected $xpnResourceDataType = '';
+	protected $xpnResourceType = 'Google_Service_Compute_XpnResourceId';
+	protected $xpnResourceDataType = '';
 
-  /**
-   * @param Google_Service_Compute_XpnResourceId
-   */
-  public function setXpnResource(Google_Service_Compute_XpnResourceId $xpnResource)
-  {
-    $this->xpnResource = $xpnResource;
-  }
-  /**
-   * @return Google_Service_Compute_XpnResourceId
-   */
-  public function getXpnResource()
-  {
-    return $this->xpnResource;
-  }
+	/**
+	 * @param Google_Service_Compute_XpnResourceId
+	 */
+	public function setXpnResource(Google_Service_Compute_XpnResourceId $xpnResource)
+	{
+		$this->xpnResource = $xpnResource;
+	}
+	/**
+	 * @return Google_Service_Compute_XpnResourceId
+	 */
+	public function getXpnResource()
+	{
+		return $this->xpnResource;
+	}
 }

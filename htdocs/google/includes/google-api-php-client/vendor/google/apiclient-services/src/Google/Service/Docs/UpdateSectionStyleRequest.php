@@ -17,46 +17,46 @@
 
 class Google_Service_Docs_UpdateSectionStyleRequest extends Google_Model
 {
-  public $fields;
-  protected $rangeType = 'Google_Service_Docs_Range';
-  protected $rangeDataType = '';
-  protected $sectionStyleType = 'Google_Service_Docs_SectionStyle';
-  protected $sectionStyleDataType = '';
+	public $fields;
+	protected $rangeType = 'Google_Service_Docs_Range';
+	protected $rangeDataType = '';
+	protected $sectionStyleType = 'Google_Service_Docs_SectionStyle';
+	protected $sectionStyleDataType = '';
 
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  /**
-   * @param Google_Service_Docs_Range
-   */
-  public function setRange(Google_Service_Docs_Range $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Docs_Range
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
-  /**
-   * @param Google_Service_Docs_SectionStyle
-   */
-  public function setSectionStyle(Google_Service_Docs_SectionStyle $sectionStyle)
-  {
-    $this->sectionStyle = $sectionStyle;
-  }
-  /**
-   * @return Google_Service_Docs_SectionStyle
-   */
-  public function getSectionStyle()
-  {
-    return $this->sectionStyle;
-  }
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	/**
+	 * @param Google_Service_Docs_Range
+	 */
+	public function setRange(Google_Service_Docs_Range $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Docs_Range
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
+	/**
+	 * @param Google_Service_Docs_SectionStyle
+	 */
+	public function setSectionStyle(Google_Service_Docs_SectionStyle $sectionStyle)
+	{
+		$this->sectionStyle = $sectionStyle;
+	}
+	/**
+	 * @return Google_Service_Docs_SectionStyle
+	 */
+	public function getSectionStyle()
+	{
+		return $this->sectionStyle;
+	}
 }

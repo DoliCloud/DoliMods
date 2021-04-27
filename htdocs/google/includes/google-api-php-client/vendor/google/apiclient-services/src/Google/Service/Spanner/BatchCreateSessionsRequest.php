@@ -17,30 +17,30 @@
 
 class Google_Service_Spanner_BatchCreateSessionsRequest extends Google_Model
 {
-  public $sessionCount;
-  protected $sessionTemplateType = 'Google_Service_Spanner_Session';
-  protected $sessionTemplateDataType = '';
+	public $sessionCount;
+	protected $sessionTemplateType = 'Google_Service_Spanner_Session';
+	protected $sessionTemplateDataType = '';
 
-  public function setSessionCount($sessionCount)
-  {
-    $this->sessionCount = $sessionCount;
-  }
-  public function getSessionCount()
-  {
-    return $this->sessionCount;
-  }
-  /**
-   * @param Google_Service_Spanner_Session
-   */
-  public function setSessionTemplate(Google_Service_Spanner_Session $sessionTemplate)
-  {
-    $this->sessionTemplate = $sessionTemplate;
-  }
-  /**
-   * @return Google_Service_Spanner_Session
-   */
-  public function getSessionTemplate()
-  {
-    return $this->sessionTemplate;
-  }
+	public function setSessionCount($sessionCount)
+	{
+		$this->sessionCount = $sessionCount;
+	}
+	public function getSessionCount()
+	{
+		return $this->sessionCount;
+	}
+	/**
+	 * @param Google_Service_Spanner_Session
+	 */
+	public function setSessionTemplate(Google_Service_Spanner_Session $sessionTemplate)
+	{
+		$this->sessionTemplate = $sessionTemplate;
+	}
+	/**
+	 * @return Google_Service_Spanner_Session
+	 */
+	public function getSessionTemplate()
+	{
+		return $this->sessionTemplate;
+	}
 }

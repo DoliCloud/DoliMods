@@ -17,46 +17,46 @@
 
 class Google_Service_ContainerAnalysis_UpgradeOccurrence extends Google_Model
 {
-  protected $distributionType = 'Google_Service_ContainerAnalysis_UpgradeDistribution';
-  protected $distributionDataType = '';
-  public $package;
-  protected $parsedVersionType = 'Google_Service_ContainerAnalysis_Version';
-  protected $parsedVersionDataType = '';
+	protected $distributionType = 'Google_Service_ContainerAnalysis_UpgradeDistribution';
+	protected $distributionDataType = '';
+	public $package;
+	protected $parsedVersionType = 'Google_Service_ContainerAnalysis_Version';
+	protected $parsedVersionDataType = '';
 
-  /**
-   * @param Google_Service_ContainerAnalysis_UpgradeDistribution
-   */
-  public function setDistribution(Google_Service_ContainerAnalysis_UpgradeDistribution $distribution)
-  {
-    $this->distribution = $distribution;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_UpgradeDistribution
-   */
-  public function getDistribution()
-  {
-    return $this->distribution;
-  }
-  public function setPackage($package)
-  {
-    $this->package = $package;
-  }
-  public function getPackage()
-  {
-    return $this->package;
-  }
-  /**
-   * @param Google_Service_ContainerAnalysis_Version
-   */
-  public function setParsedVersion(Google_Service_ContainerAnalysis_Version $parsedVersion)
-  {
-    $this->parsedVersion = $parsedVersion;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_Version
-   */
-  public function getParsedVersion()
-  {
-    return $this->parsedVersion;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_UpgradeDistribution
+	 */
+	public function setDistribution(Google_Service_ContainerAnalysis_UpgradeDistribution $distribution)
+	{
+		$this->distribution = $distribution;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_UpgradeDistribution
+	 */
+	public function getDistribution()
+	{
+		return $this->distribution;
+	}
+	public function setPackage($package)
+	{
+		$this->package = $package;
+	}
+	public function getPackage()
+	{
+		return $this->package;
+	}
+	/**
+	 * @param Google_Service_ContainerAnalysis_Version
+	 */
+	public function setParsedVersion(Google_Service_ContainerAnalysis_Version $parsedVersion)
+	{
+		$this->parsedVersion = $parsedVersion;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_Version
+	 */
+	public function getParsedVersion()
+	{
+		return $this->parsedVersion;
+	}
 }

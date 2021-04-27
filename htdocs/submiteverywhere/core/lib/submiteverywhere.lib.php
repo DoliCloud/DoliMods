@@ -30,13 +30,12 @@
  */
 function picto_from_targetcode($targetcode)
 {
-    $ret='';
-    if (! empty($targetcode))
-    {
-        if (in_array($targetcode,array('email','digg','facebook','googleplus','linkedin','twitter','viadeo','web'))) $ret.=img_picto($targetcode,strtolower($targetcode).'@submiteverywhere');
-        else $ret.=img_picto($targetcode,'object_generic');
-    }
-    return $ret;
+	$ret='';
+	if (! empty($targetcode)) {
+		if (in_array($targetcode, array('email','digg','facebook','googleplus','linkedin','twitter','viadeo','web'))) $ret.=img_picto($targetcode, strtolower($targetcode).'@submiteverywhere');
+		else $ret.=img_picto($targetcode, 'object_generic');
+	}
+	return $ret;
 }
 
 /**
@@ -47,25 +46,25 @@ function picto_from_targetcode($targetcode)
  */
 function submitew_prepare_head($object)
 {
-    global $langs, $conf;
+	global $langs, $conf;
 
-    $h = 0;
-    $head = array();
+	$h = 0;
+	$head = array();
 
-    $head[$h][0] = dol_buildpath("/submitew/card.php")."?id=".$object->id;
-    $head[$h][1] = $langs->trans("MailCard");
-    $head[$h][2] = 'card';
-    $h++;
+	$head[$h][0] = dol_buildpath("/submitew/card.php")."?id=".$object->id;
+	$head[$h][1] = $langs->trans("MailCard");
+	$head[$h][2] = 'card';
+	$h++;
 
-    $head[$h][0] = dol_buildpath("/submitew/target.php")."?id=".$object->id;
-    $head[$h][1] = $langs->trans("MailRecipients");
-    $head[$h][2] = 'targets';
-    $h++;
+	$head[$h][0] = dol_buildpath("/submitew/target.php")."?id=".$object->id;
+	$head[$h][1] = $langs->trans("MailRecipients");
+	$head[$h][2] = 'targets';
+	$h++;
 
-    $head[$h][0] = dol_buildpath("/submitew/info.php")."?id=".$object->id;
-    $head[$h][1] = $langs->trans("Info");
-    $head[$h][2] = 'info';
-    $h++;
+	$head[$h][0] = dol_buildpath("/submitew/info.php")."?id=".$object->id;
+	$head[$h][1] = $langs->trans("Info");
+	$head[$h][2] = 'info';
+	$h++;
 
-    return $head;
+	return $head;
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceConsumerManagement_Http extends Google_Collection
 {
-  protected $collection_key = 'rules';
-  public $fullyDecodeReservedExpansion;
-  protected $rulesType = 'Google_Service_ServiceConsumerManagement_HttpRule';
-  protected $rulesDataType = 'array';
+	protected $collection_key = 'rules';
+	public $fullyDecodeReservedExpansion;
+	protected $rulesType = 'Google_Service_ServiceConsumerManagement_HttpRule';
+	protected $rulesDataType = 'array';
 
-  public function setFullyDecodeReservedExpansion($fullyDecodeReservedExpansion)
-  {
-    $this->fullyDecodeReservedExpansion = $fullyDecodeReservedExpansion;
-  }
-  public function getFullyDecodeReservedExpansion()
-  {
-    return $this->fullyDecodeReservedExpansion;
-  }
-  /**
-   * @param Google_Service_ServiceConsumerManagement_HttpRule
-   */
-  public function setRules($rules)
-  {
-    $this->rules = $rules;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_HttpRule
-   */
-  public function getRules()
-  {
-    return $this->rules;
-  }
+	public function setFullyDecodeReservedExpansion($fullyDecodeReservedExpansion)
+	{
+		$this->fullyDecodeReservedExpansion = $fullyDecodeReservedExpansion;
+	}
+	public function getFullyDecodeReservedExpansion()
+	{
+		return $this->fullyDecodeReservedExpansion;
+	}
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_HttpRule
+	 */
+	public function setRules($rules)
+	{
+		$this->rules = $rules;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_HttpRule
+	 */
+	public function getRules()
+	{
+		return $this->rules;
+	}
 }

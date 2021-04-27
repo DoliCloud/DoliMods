@@ -17,33 +17,33 @@
 
 class Google_Service_Compute_InstanceGroupManagersApplyUpdatesRequest extends Google_Collection
 {
-  protected $collection_key = 'instances';
-  public $instances;
-  public $minimalAction;
-  public $mostDisruptiveAllowedAction;
+	protected $collection_key = 'instances';
+	public $instances;
+	public $minimalAction;
+	public $mostDisruptiveAllowedAction;
 
-  public function setInstances($instances)
-  {
-    $this->instances = $instances;
-  }
-  public function getInstances()
-  {
-    return $this->instances;
-  }
-  public function setMinimalAction($minimalAction)
-  {
-    $this->minimalAction = $minimalAction;
-  }
-  public function getMinimalAction()
-  {
-    return $this->minimalAction;
-  }
-  public function setMostDisruptiveAllowedAction($mostDisruptiveAllowedAction)
-  {
-    $this->mostDisruptiveAllowedAction = $mostDisruptiveAllowedAction;
-  }
-  public function getMostDisruptiveAllowedAction()
-  {
-    return $this->mostDisruptiveAllowedAction;
-  }
+	public function setInstances($instances)
+	{
+		$this->instances = $instances;
+	}
+	public function getInstances()
+	{
+		return $this->instances;
+	}
+	public function setMinimalAction($minimalAction)
+	{
+		$this->minimalAction = $minimalAction;
+	}
+	public function getMinimalAction()
+	{
+		return $this->minimalAction;
+	}
+	public function setMostDisruptiveAllowedAction($mostDisruptiveAllowedAction)
+	{
+		$this->mostDisruptiveAllowedAction = $mostDisruptiveAllowedAction;
+	}
+	public function getMostDisruptiveAllowedAction()
+	{
+		return $this->mostDisruptiveAllowedAction;
+	}
 }

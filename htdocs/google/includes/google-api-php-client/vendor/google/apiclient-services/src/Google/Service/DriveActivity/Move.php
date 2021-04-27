@@ -17,38 +17,38 @@
 
 class Google_Service_DriveActivity_Move extends Google_Collection
 {
-  protected $collection_key = 'removedParents';
-  protected $addedParentsType = 'Google_Service_DriveActivity_TargetReference';
-  protected $addedParentsDataType = 'array';
-  protected $removedParentsType = 'Google_Service_DriveActivity_TargetReference';
-  protected $removedParentsDataType = 'array';
+	protected $collection_key = 'removedParents';
+	protected $addedParentsType = 'Google_Service_DriveActivity_TargetReference';
+	protected $addedParentsDataType = 'array';
+	protected $removedParentsType = 'Google_Service_DriveActivity_TargetReference';
+	protected $removedParentsDataType = 'array';
 
-  /**
-   * @param Google_Service_DriveActivity_TargetReference
-   */
-  public function setAddedParents($addedParents)
-  {
-    $this->addedParents = $addedParents;
-  }
-  /**
-   * @return Google_Service_DriveActivity_TargetReference
-   */
-  public function getAddedParents()
-  {
-    return $this->addedParents;
-  }
-  /**
-   * @param Google_Service_DriveActivity_TargetReference
-   */
-  public function setRemovedParents($removedParents)
-  {
-    $this->removedParents = $removedParents;
-  }
-  /**
-   * @return Google_Service_DriveActivity_TargetReference
-   */
-  public function getRemovedParents()
-  {
-    return $this->removedParents;
-  }
+	/**
+	 * @param Google_Service_DriveActivity_TargetReference
+	 */
+	public function setAddedParents($addedParents)
+	{
+		$this->addedParents = $addedParents;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_TargetReference
+	 */
+	public function getAddedParents()
+	{
+		return $this->addedParents;
+	}
+	/**
+	 * @param Google_Service_DriveActivity_TargetReference
+	 */
+	public function setRemovedParents($removedParents)
+	{
+		$this->removedParents = $removedParents;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_TargetReference
+	 */
+	public function getRemovedParents()
+	{
+		return $this->removedParents;
+	}
 }

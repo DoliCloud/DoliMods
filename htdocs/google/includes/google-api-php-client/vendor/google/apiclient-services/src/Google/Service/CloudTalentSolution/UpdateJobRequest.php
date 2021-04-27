@@ -17,30 +17,30 @@
 
 class Google_Service_CloudTalentSolution_UpdateJobRequest extends Google_Model
 {
-  protected $jobType = 'Google_Service_CloudTalentSolution_Job';
-  protected $jobDataType = '';
-  public $updateMask;
+	protected $jobType = 'Google_Service_CloudTalentSolution_Job';
+	protected $jobDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_CloudTalentSolution_Job
-   */
-  public function setJob(Google_Service_CloudTalentSolution_Job $job)
-  {
-    $this->job = $job;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_Job
-   */
-  public function getJob()
-  {
-    return $this->job;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_CloudTalentSolution_Job
+	 */
+	public function setJob(Google_Service_CloudTalentSolution_Job $job)
+	{
+		$this->job = $job;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_Job
+	 */
+	public function getJob()
+	{
+		return $this->job;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

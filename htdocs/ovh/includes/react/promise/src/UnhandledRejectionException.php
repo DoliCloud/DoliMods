@@ -4,28 +4,28 @@ namespace React\Promise;
 
 class UnhandledRejectionException extends \RuntimeException
 {
-    private $reason;
+	private $reason;
 
-    public static function resolve($reason)
-    {
-        if ($reason instanceof \Exception) {
-            return $reason;
-        }
+	public static function resolve($reason)
+	{
+		if ($reason instanceof \Exception) {
+			return $reason;
+		}
 
-        return new static($reason);
-    }
+		return new static($reason);
+	}
 
-    public function __construct($reason)
-    {
-        $this->reason = $reason;
+	public function __construct($reason)
+	{
+		$this->reason = $reason;
 
-        $message = sprintf('Unhandled Rejection: %s', json_encode($reason));
+		$message = sprintf('Unhandled Rejection: %s', json_encode($reason));
 
-        parent::__construct($message, 0);
-    }
+		parent::__construct($message, 0);
+	}
 
-    public function getReason()
-    {
-        return $this->reason;
-    }
+	public function getReason()
+	{
+		return $this->reason;
+	}
 }

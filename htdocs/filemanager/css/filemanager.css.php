@@ -1,29 +1,29 @@
 <?php
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');  // Not disabled cause need to load personalized language
 //if (! defined('NOREQUIREDB'))   define('NOREQUIREDB','1');    // Not disabled to increase speed. Language code is found on url.
-if (! defined('NOREQUIRESOC'))    define('NOREQUIRESOC','1');
+if (! defined('NOREQUIRESOC'))    define('NOREQUIRESOC', '1');
 //if (! defined('NOREQUIRETRAN')) define('NOREQUIRETRAN','1');  // Not disabled cause need to do translations
-if (! defined('NOCSRFCHECK'))     define('NOCSRFCHECK',1);
-if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL',1);
-if (! defined('NOLOGIN'))         define('NOLOGIN',1);
-if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU',1);
-if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML',1);
-if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
+if (! defined('NOCSRFCHECK'))     define('NOCSRFCHECK', 1);
+if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL', 1);
+if (! defined('NOLOGIN'))         define('NOLOGIN', 1);
+if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU', 1);
+if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML', 1);
+if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX', '1');
 
 session_cache_limiter('public');
 
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
 // Define css type
@@ -35,7 +35,7 @@ else header('Cache-Control: no-cache');
 
 if (! empty($_GET["lang"])) $langs->setDefaultLang($_GET["lang"]);  // If language was forced on URL by the main.inc.php
 if (! empty($_GET["theme"])) $conf->theme=$_GET["theme"];  // If theme was forced on URL
-$langs->load("main",0,1);
+$langs->load("main", 0, 1);
 $right=($langs->trans("DIRECTION")=='rtl'?'left':'right');
 $left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
 $fontsize='12';
@@ -74,25 +74,25 @@ div.mainmenu.filemanager {
 }
 
 div.filedirelem {
-    position: relative;
-    display: block;
-    text-decoration: none;
+	position: relative;
+	display: block;
+	text-decoration: none;
 }
 
 ul.filedirelem {
-    padding: 2px;
-    margin: 0 5px 5px 5px;
+	padding: 2px;
+	margin: 0 5px 5px 5px;
 }
 ul.filedirelem li {
-    list-style: none;
-    padding: 2px;
-    margin: 0 10px 20px 10px;
-    width: 160px;
-    height: 120px;
-    text-align: center;
-    display: block;
-    float: <?php print $left; ?>;
-    border: solid 1px #DDDDDD;
+	list-style: none;
+	padding: 2px;
+	margin: 0 10px 20px 10px;
+	width: 160px;
+	height: 120px;
+	text-align: center;
+	display: block;
+	float: <?php print $left; ?>;
+	border: solid 1px #DDDDDD;
 }
 
 ui-layout-north {
@@ -118,10 +118,10 @@ ul.jqueryFileTree li {
 
 /* Seems to have all links "visited"
 ul.jqueryFileTree a:active {
-    background: #BDF !important;
+	background: #BDF !important;
 }
 ul.jqueryFileTree a:visited {
-    background: #BDF !important;
+	background: #BDF !important;
 }*/
 
 ul.jqueryFileTree a {
@@ -133,7 +133,7 @@ ul.jqueryFileTree a {
 }
 
 ul.jqueryFileTree A:hover {
-    background: #BDF;
+	background: #BDF;
 }
 
 /* Core Styles */
@@ -206,7 +206,7 @@ ul.jqueryFileTree A:hover {
 /* Right panel */
 
 .fmvalue {
-    color: #001166;
+	color: #001166;
 }
 
 #fmeditor {
@@ -222,25 +222,25 @@ ul.jqueryFileTree A:hover {
 /* ============================================================================== */
 
 #containerlayout .layout-with-no-border {
-    border: 0 !important;
-    border-width: 0 !important;
+	border: 0 !important;
+	border-width: 0 !important;
 }
 
 #containerlayout .layout-padding {
-    padding: 2px !important;
+	padding: 2px !important;
 }
 
 /*
  *  PANES and CONTENT-DIVs
  */
 #containerlayout .ui-layout-pane { /* all 'panes' */
-    background: #FFF;
-    border:     1px solid #BBB;
-    /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
-       otherwise you may get double-scrollbars - on the pane AND on the content-div
-    */
-    padding:    0px;
-    overflow:   auto;
+	background: #FFF;
+	border:     1px solid #BBB;
+	/* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
+	   otherwise you may get double-scrollbars - on the pane AND on the content-div
+	*/
+	padding:    0px;
+	overflow:   auto;
 }
 /* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
 #containerlayout .ui-layout-content {
@@ -259,33 +259,33 @@ ul.jqueryFileTree A:hover {
 .ui-layout-resizer-hover    {   /* affects both open and closed states */
 }
 /* NOTE: It looks best when 'hover' and 'dragging' are set to the same color,
-    otherwise color shifts while dragging when bar can't keep up with mouse */
+	otherwise color shifts while dragging when bar can't keep up with mouse */
 /*.ui-layout-resizer-open-hover ,*/ /* hover-color to 'resize' */
 .ui-layout-resizer-dragging {   /* resizer beging 'dragging' */
-    background: #DDD;
-    width: <?php echo (empty($conf->dol_optimize_smallscreen)?'8':'24'); ?>px;
+	background: #DDD;
+	width: <?php echo (empty($conf->dol_optimize_smallscreen)?'8':'24'); ?>px;
 }
 .ui-layout-resizer-dragging {   /* CLONED resizer being dragged */
-    border-left:  1px solid #BBB;
-    border-right: 1px solid #BBB;
+	border-left:  1px solid #BBB;
+	border-right: 1px solid #BBB;
 }
 /* NOTE: Add a 'dragging-limit' color to provide visual feedback when resizer hits min/max size limits */
 .ui-layout-resizer-dragging-limit { /* CLONED resizer at min or max size-limit */
-    background: #E1A4A4; /* red */
+	background: #E1A4A4; /* red */
 }
 .ui-layout-resizer-closed {
-    background-color: #DDDDDD;
+	background-color: #DDDDDD;
 }
 .ui-layout-resizer-closed:hover {
-    background-color: #EEDDDD;
+	background-color: #EEDDDD;
 }
 .ui-layout-resizer-sliding {    /* resizer when pane is 'slid open' */
-    opacity: .10; /* show only a slight shadow */
-    filter:  alpha(opacity=10);
+	opacity: .10; /* show only a slight shadow */
+	filter:  alpha(opacity=10);
 }
 .ui-layout-resizer-sliding-hover {  /* sliding resizer - hover */
-    opacity: 1.00; /* on-hover, show the resizer-bar normally */
-    filter:  alpha(opacity=100);
+	opacity: 1.00; /* on-hover, show the resizer-bar normally */
+	filter:  alpha(opacity=100);
 }
 /* sliding resizer - add 'outside-border' to resizer on-hover */
 /* this sample illustrates how to target specific panes and states */
@@ -299,12 +299,12 @@ ul.jqueryFileTree A:hover {
  *  TOGGLER-BUTTONS
  */
 .ui-layout-toggler {
-    <?php if (empty($conf->dol_optimize_smallscreen)) { ?>
-    border-top: 1px solid #AAA; /* match pane-border */
-    border-right: 1px solid #AAA; /* match pane-border */
-    border-bottom: 1px solid #AAA; /* match pane-border */
-    background-color: #DDD;
-    top: 5px !important;
+	<?php if (empty($conf->dol_optimize_smallscreen)) { ?>
+	border-top: 1px solid #AAA; /* match pane-border */
+	border-right: 1px solid #AAA; /* match pane-border */
+	border-bottom: 1px solid #AAA; /* match pane-border */
+	background-color: #DDD;
+	top: 5px !important;
 	<?php } else { ?>
 	diplay: none;
 	<?php } ?>
@@ -312,28 +312,28 @@ ul.jqueryFileTree A:hover {
 .ui-layout-toggler-open {
 	height: 54px !important;
 	width: <?php echo (empty($conf->dol_optimize_smallscreen)?'7':'22'); ?>px !important;
-    -moz-border-radius:0px 10px 10px 0px;
+	-moz-border-radius:0px 10px 10px 0px;
 	-webkit-border-radius:0px 10px 10px 0px;
 	border-radius:0px 10px 10px 0px;
 }
 .ui-layout-toggler-closed {
 	height: <?php echo (empty($conf->dol_optimize_smallscreen)?'54':'2'); ?>px !important;
 	width: <?php echo (empty($conf->dol_optimize_smallscreen)?'7':'22'); ?>px !important;
-    -moz-border-radius:0px 10px 10px 0px;
+	-moz-border-radius:0px 10px 10px 0px;
 	-webkit-border-radius:0px 10px 10px 0px;
 	border-radius:0px 10px 10px 0px;
 }
 .ui-layout-toggler .content {	/* style the text we put INSIDE the togglers */
-    color:          #666;
-    font-size:      12px;
-    font-weight:    bold;
-    width:          100%;
-    padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+	color:          #666;
+	font-size:      12px;
+	font-weight:    bold;
+	width:          100%;
+	padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
 }
 
 /* hide the toggler-button when the pane is 'slid open' */
 .ui-layout-resizer-sliding .ui-layout-toggler {
-    display: none;
+	display: none;
 }
 
 .ui-layout-north {
@@ -344,13 +344,13 @@ ul.jqueryFileTree A:hover {
 /* ECM */
 
 #containerlayout .ecm-layout-pane { /* all 'panes' */
-    background: #FFF;
-    border:     1px solid #BBB;
-    /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
-       otherwise you may get double-scrollbars - on the pane AND on the content-div
-    */
-    padding:    0px;
-    overflow:   auto;
+	background: #FFF;
+	border:     1px solid #BBB;
+	/* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
+	   otherwise you may get double-scrollbars - on the pane AND on the content-div
+	*/
+	padding:    0px;
+	overflow:   auto;
 }
 /* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
 #containerlayout .ecm-layout-content {
@@ -360,15 +360,15 @@ ul.jqueryFileTree A:hover {
 }
 
 .ecm-layout-toggler {
-    border-top: 1px solid #AAA; /* match pane-border */
-    border-right: 1px solid #AAA; /* match pane-border */
-    border-bottom: 1px solid #AAA; /* match pane-border */
-    background-color: #CCC;
-    }
+	border-top: 1px solid #AAA; /* match pane-border */
+	border-right: 1px solid #AAA; /* match pane-border */
+	border-bottom: 1px solid #AAA; /* match pane-border */
+	background-color: #CCC;
+	}
 .ecm-layout-toggler-open {
 	height: 48px !important;
 	width: 6px !important;
-    -moz-border-radius:0px 10px 10px 0px;
+	-moz-border-radius:0px 10px 10px 0px;
 	-webkit-border-radius:0px 10px 10px 0px;
 	border-radius:0px 10px 10px 0px;
 }
@@ -378,40 +378,40 @@ ul.jqueryFileTree A:hover {
 }
 
 .ecm-layout-toggler .content {	/* style the text we put INSIDE the togglers */
-    color:          #666;
-    font-size:      12px;
-    font-weight:    bold;
-    width:          100%;
-    padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+	color:          #666;
+	font-size:      12px;
+	font-weight:    bold;
+	width:          100%;
+	padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
 }
 #ecm-layout-west-resizer {
 	width: 6px !important;
 }
 
 .ecm-layout-resizer  { /* all 'resizer-bars' */
-    border:         1px solid #BBB;
-    border-width:   0;
-    }
+	border:         1px solid #BBB;
+	border-width:   0;
+	}
 .ecm-layout-resizer-closed {
 }
 
 div#ecm-layout-north {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
 }
 
 .ecm-in-layout-center {
-    border-left: 1px !important;
-    border-right: 0px !important;
-    border-top: 0px !important;
+	border-left: 1px !important;
+	border-right: 0px !important;
+	border-top: 0px !important;
 }
 
 .ecm-in-layout-south {
-    border-top: 0px !important;
-    border-left: 0px !important;
-    border-right: 0px !important;
-    border-bottom: 0px !important;
-    padding: 4px 0 4px 4px !important;
+	border-top: 0px !important;
+	border-left: 0px !important;
+	border-right: 0px !important;
+	border-bottom: 0px !important;
+	padding: 4px 0 4px 4px !important;
 }
 
 <?php

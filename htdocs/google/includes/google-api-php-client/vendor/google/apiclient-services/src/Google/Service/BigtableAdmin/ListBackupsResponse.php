@@ -17,31 +17,31 @@
 
 class Google_Service_BigtableAdmin_ListBackupsResponse extends Google_Collection
 {
-  protected $collection_key = 'backups';
-  protected $backupsType = 'Google_Service_BigtableAdmin_Backup';
-  protected $backupsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'backups';
+	protected $backupsType = 'Google_Service_BigtableAdmin_Backup';
+	protected $backupsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_BigtableAdmin_Backup
-   */
-  public function setBackups($backups)
-  {
-    $this->backups = $backups;
-  }
-  /**
-   * @return Google_Service_BigtableAdmin_Backup
-   */
-  public function getBackups()
-  {
-    return $this->backups;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_BigtableAdmin_Backup
+	 */
+	public function setBackups($backups)
+	{
+		$this->backups = $backups;
+	}
+	/**
+	 * @return Google_Service_BigtableAdmin_Backup
+	 */
+	public function getBackups()
+	{
+		return $this->backups;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

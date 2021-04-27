@@ -17,38 +17,38 @@
 
 class Google_Service_ShoppingContent_InvoiceSummary extends Google_Collection
 {
-  protected $collection_key = 'additionalChargeSummaries';
-  protected $additionalChargeSummariesType = 'Google_Service_ShoppingContent_InvoiceSummaryAdditionalChargeSummary';
-  protected $additionalChargeSummariesDataType = 'array';
-  protected $productTotalType = 'Google_Service_ShoppingContent_Amount';
-  protected $productTotalDataType = '';
+	protected $collection_key = 'additionalChargeSummaries';
+	protected $additionalChargeSummariesType = 'Google_Service_ShoppingContent_InvoiceSummaryAdditionalChargeSummary';
+	protected $additionalChargeSummariesDataType = 'array';
+	protected $productTotalType = 'Google_Service_ShoppingContent_Amount';
+	protected $productTotalDataType = '';
 
-  /**
-   * @param Google_Service_ShoppingContent_InvoiceSummaryAdditionalChargeSummary
-   */
-  public function setAdditionalChargeSummaries($additionalChargeSummaries)
-  {
-    $this->additionalChargeSummaries = $additionalChargeSummaries;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_InvoiceSummaryAdditionalChargeSummary
-   */
-  public function getAdditionalChargeSummaries()
-  {
-    return $this->additionalChargeSummaries;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Amount
-   */
-  public function setProductTotal(Google_Service_ShoppingContent_Amount $productTotal)
-  {
-    $this->productTotal = $productTotal;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Amount
-   */
-  public function getProductTotal()
-  {
-    return $this->productTotal;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_InvoiceSummaryAdditionalChargeSummary
+	 */
+	public function setAdditionalChargeSummaries($additionalChargeSummaries)
+	{
+		$this->additionalChargeSummaries = $additionalChargeSummaries;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_InvoiceSummaryAdditionalChargeSummary
+	 */
+	public function getAdditionalChargeSummaries()
+	{
+		return $this->additionalChargeSummaries;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Amount
+	 */
+	public function setProductTotal(Google_Service_ShoppingContent_Amount $productTotal)
+	{
+		$this->productTotal = $productTotal;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Amount
+	 */
+	public function getProductTotal()
+	{
+		return $this->productTotal;
+	}
 }

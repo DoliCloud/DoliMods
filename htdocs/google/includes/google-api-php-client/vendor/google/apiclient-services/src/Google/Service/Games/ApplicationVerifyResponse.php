@@ -17,36 +17,36 @@
 
 class Google_Service_Games_ApplicationVerifyResponse extends Google_Model
 {
-  protected $internal_gapi_mappings = array(
-        "alternatePlayerId" => "alternate_player_id",
-        "playerId" => "player_id",
-  );
-  public $alternatePlayerId;
-  public $kind;
-  public $playerId;
+	protected $internal_gapi_mappings = array(
+		"alternatePlayerId" => "alternate_player_id",
+		"playerId" => "player_id",
+	);
+	public $alternatePlayerId;
+	public $kind;
+	public $playerId;
 
-  public function setAlternatePlayerId($alternatePlayerId)
-  {
-    $this->alternatePlayerId = $alternatePlayerId;
-  }
-  public function getAlternatePlayerId()
-  {
-    return $this->alternatePlayerId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setPlayerId($playerId)
-  {
-    $this->playerId = $playerId;
-  }
-  public function getPlayerId()
-  {
-    return $this->playerId;
-  }
+	public function setAlternatePlayerId($alternatePlayerId)
+	{
+		$this->alternatePlayerId = $alternatePlayerId;
+	}
+	public function getAlternatePlayerId()
+	{
+		return $this->alternatePlayerId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setPlayerId($playerId)
+	{
+		$this->playerId = $playerId;
+	}
+	public function getPlayerId()
+	{
+		return $this->playerId;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Dataproc_ClusterOperation extends Google_Model
 {
-  public $done;
-  public $error;
-  public $operationId;
+	public $done;
+	public $error;
+	public $operationId;
 
-  public function setDone($done)
-  {
-    $this->done = $done;
-  }
-  public function getDone()
-  {
-    return $this->done;
-  }
-  public function setError($error)
-  {
-    $this->error = $error;
-  }
-  public function getError()
-  {
-    return $this->error;
-  }
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
+	public function setDone($done)
+	{
+		$this->done = $done;
+	}
+	public function getDone()
+	{
+		return $this->done;
+	}
+	public function setError($error)
+	{
+		$this->error = $error;
+	}
+	public function getError()
+	{
+		return $this->error;
+	}
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
 }

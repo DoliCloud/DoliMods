@@ -28,23 +28,23 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 
 dol_include_once("/google/lib/google.lib.php");
 dol_include_once('/google/lib/google_calendar.lib.php');
@@ -84,65 +84,53 @@ $error = 0;
  * Actions
  */
 
-if ($action == 'save')
-{
+if ($action == 'save') {
 	$db->begin();
 
 	//print 'color='.$color;
-	$res=dolibarr_set_const($db,'GOOGLE_LOGIN',trim($_POST["GOOGLE_LOGIN"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_LOGIN', trim($_POST["GOOGLE_LOGIN"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL',trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_DUPLICATE_INTO_GCAL', trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_API_SERVICEACCOUNT_CLIENT_ID',trim($_POST["GOOGLE_API_SERVICEACCOUNT_CLIENT_ID"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_API_SERVICEACCOUNT_CLIENT_ID', trim($_POST["GOOGLE_API_SERVICEACCOUNT_CLIENT_ID"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_API_SERVICEACCOUNT_EMAIL',trim($_POST["GOOGLE_API_SERVICEACCOUNT_EMAIL"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_API_SERVICEACCOUNT_EMAIL', trim($_POST["GOOGLE_API_SERVICEACCOUNT_EMAIL"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE',trim($_POST["GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE', trim($_POST["GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT',trim($_POST["GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT', trim($_POST["GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_CAL_TZ_FIX',trim($_POST["GOOGLE_CAL_TZ_FIX"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_CAL_TZ_FIX', trim($_POST["GOOGLE_CAL_TZ_FIX"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_CAL_TZ_FIX_G2D',trim($_POST["GOOGLE_CAL_TZ_FIX_G2D"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_CAL_TZ_FIX_G2D', trim($_POST["GOOGLE_CAL_TZ_FIX_G2D"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_INCLUDE_AUTO_EVENT',trim($_POST["GOOGLE_INCLUDE_AUTO_EVENT"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_INCLUDE_AUTO_EVENT', trim($_POST["GOOGLE_INCLUDE_AUTO_EVENT"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_INCLUDE_ATTENDEES',trim($_POST["GOOGLE_INCLUDE_ATTENDEES"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'GOOGLE_INCLUDE_ATTENDEES', trim($_POST["GOOGLE_INCLUDE_ATTENDEES"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
 
-	if (! empty($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name']))
-	{
+	if (! empty($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name'])) {
 		$dir     = $conf->google->multidir_output[$conf->entity]."/";
 		$file_OK = is_uploaded_file($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name']);
-		if ($file_OK)
-		{
+		if ($file_OK) {
 			dol_mkdir($dir);
 
-			if (@is_dir($dir))
-			{
+			if (@is_dir($dir)) {
 				$newfile=$dir.'/'.dol_sanitizeFileName($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['name']);
 				$result = dol_move_uploaded_file($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name'], $newfile, 1);
-				if (! ($result > 0))
-				{
+				if (! ($result > 0)) {
 					$errors[] = "ErrorFailedToSaveFile";
 					$error++;
+				} else {
+					$res=dolibarr_set_const($db, 'GOOGLE_API_SERVICEACCOUNT_P12KEY', trim($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['name']), 'chaine', 0, '', $conf->entity);
 				}
-				else
-				{
-					$res=dolibarr_set_const($db,'GOOGLE_API_SERVICEACCOUNT_P12KEY',trim($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['name']),'chaine',0,'',$conf->entity);
-				}
-			}
-			else
-			{
+			} else {
 				$errors[] = "ErrorFailedToCreateDir";
 				$error++;
 			}
-		}
-		else
-		{
+		} else {
 			$error++;
-			switch($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['error'])
-			{
+			switch ($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['error']) {
 				case 1: //uploaded file exceeds the upload_max_filesize directive in php.ini
 				case 2: //uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the html form
 					$errors[] = "ErrorFileSizeTooLarge";
@@ -154,24 +142,20 @@ if ($action == 'save')
 		}
 	}
 
-	if (! $error)
-	{
+	if (! $error) {
 		$db->commit();
 		setEventMessage($langs->trans("SetupSaved"));
-	}
-	else
-	{
+	} else {
 		$db->rollback();
-		setEventMessage($errors,'errors');
+		setEventMessage($errors, 'errors');
 	}
 }
 
 // This is a test action to allow to test creation of event once synchro with Calendar has been enabled.
-if (preg_match('/^test/',$action))
-{
-	include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
-	include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
-	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
+if (preg_match('/^test/', $action)) {
+	include_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+	include_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+	include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
 	$object=new ActionComm($db);
 	$result=$object->initAsSpecimen();
@@ -186,8 +170,7 @@ if (preg_match('/^test/',$action))
 	$object->contact=$tmpcontact;
 	$object->contact_id=$tmpcontact->id;
 
-	if ($tmpcontact->socid > 0)
-	{
+	if ($tmpcontact->socid > 0) {
 		$tmpsoc=new Societe($db);
 		$tmpsoc->fetch($tmpcontact->socid);	// Overwrite with value of an existing record
 		$object->societe=$tmpsoc;
@@ -205,8 +188,7 @@ if (preg_match('/^test/',$action))
 	$result=$object->create($user);
 	if ($result < 0) $error++;
 
-	if (! $error)
-	{
+	if (! $error) {
 		$object->label = 'Test Dolibar-Google - New label';
 		$object->location = 'New location';
 		$object->note = "New 'public' note";
@@ -218,27 +200,22 @@ if (preg_match('/^test/',$action))
 		if ($result < 0) $error++;
 	}
 
-	if ($action == 'testall' && ! $error)
-	{
+	if ($action == 'testall' && ! $error) {
 		$result=$object->delete();
 		if ($result < 0) $error++;
 	}
 
-	if (! $error)
-	{
+	if (! $error) {
 		setEventMessage($langs->trans("TestSuccessfull"));
-	}
-	else
-	{
-		if ($object->errors) setEventMessage($object->errors,'errors');
-		else setEventMessage($object->error,'errors');
+	} else {
+		if ($object->errors) setEventMessage($object->errors, 'errors');
+		else setEventMessage($object->error, 'errors');
 	}
 }
 
 
-if (GETPOST('cleanup'))
-{
-    $error=0;
+if (GETPOST('cleanup')) {
+	$error=0;
 	$nbdeleted=0;
 
 	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
@@ -248,74 +225,60 @@ if (GETPOST('cleanup'))
 	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
 	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
 
-	if (! is_array($servicearray))
-	{
+	if (! is_array($servicearray)) {
 		$errors[]=$servicearray;
 		$error++;
 	}
 
-	if ($servicearray == null)
-	{
+	if ($servicearray == null) {
 		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
 		$errors[]=$txterror;
 		$error++;
 	}
 
-	if (! $error)
-	{
+	if (! $error) {
 		try {
 			$service = new Google_Service_Calendar($servicearray['client']);
 			$events = $service->events->listEvents($userlogin);
-			while(true)
-			{
-				foreach ($events->getItems() as $event)
-				{
+			while (true) {
+				foreach ($events->getItems() as $event) {
 					$dolibarr_id='';
 					$extendedProperties=$event->getExtendedProperties();
-					if (is_object($extendedProperties))
-					{
+					if (is_object($extendedProperties)) {
 						$shared=$extendedProperties->getShared();	// Was set by old version of module Google
 						$priv=$extendedProperties->getPrivate();	// Private property dolibarr_id is set during google create. Not modified by update.
 						$dolibarr_id=($priv['dolibarr_id']?$priv['dolibarr_id']:$shared['dol_id']);
 					}
-					if ($dolibarr_id)
-					{
+					if ($dolibarr_id) {
 						//echo 'This is a dolibarr event '.$dolibarr_id.' - '.$event->getSummary().'<br>'."\n";
 						deleteEventById($servicearray['client'], $event->getId(), $userlogin, $service);
 						$nbdeleted++;
 					}
 				}
 				$pageToken = $events->getNextPageToken();
-				if ($pageToken)
-				{
+				if ($pageToken) {
 					$optParams = array('pageToken' => $pageToken);
 					$events = $service->events->listEvents($userlogin, $optParams);
-				}
-				else
-				{
+				} else {
 					break;
 				}
 			}
-		}
-		catch(Exception $e)
-		{
+		} catch (Exception $e) {
 			$errors[] = 'ERROR '.$e->getMessage();
 			$error++;
 		}
 	}
 
-	setEventMessage($langs->trans("XRecordDeleted",$nbdeleted), 'mesgs');
-	if ($error)
-	{
+	setEventMessage($langs->trans("XRecordDeleted", $nbdeleted), 'mesgs');
+	if ($error) {
 		setEventMessage($errors, 'errors');
 	}
 }
 
-if ($action == 'pushallevents')
-{
-    $error=0;
-    $nbinserted=0;
+if ($action == 'pushallevents') {
+	$error=0;
+	$nbinserted=0;
 
 	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 
@@ -324,41 +287,36 @@ if ($action == 'pushallevents')
 	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
 	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
 
-	if (! is_array($servicearray))
-	{
+	if (! is_array($servicearray)) {
 		$errors[]=$servicearray;
 		$error++;
 	}
 
-	if ($servicearray == null)
-	{
+	if ($servicearray == null) {
 		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
 		$errors[]=$txterror;
 		$error++;
 	}
 
-	if (! $error)
-	{
+	if (! $error) {
 		try {
 			$service = new Google_Service_Calendar($servicearray['client']);
 
 			// Search all events
 			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent, location, fk_soc, fk_contact, note';
 			$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
-			$sql.=$db->order('datep','DESC');
+			$sql.=$db->order('datep', 'DESC');
 			$sql.=$db->plimit($max);
 
 			$resql = $db->query($sql);
-			if (! $resql)
-			{
+			if (! $resql) {
 				dol_print_error($db);
 				exit;
 			}
 			$synclimit = 0;	// 0 = all
 			$i=0;
-			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
-			{
+			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
 				$objecttmp = new ActionComm($db);
 				$objecttmp->id=$obj->id;
 				$objecttmp->datep=$db->jdate($obj->datep);
@@ -381,49 +339,39 @@ if ($action == 'pushallevents')
 				google_complete_label_and_note($objecttmp, $langs);
 
 				$ret = createEvent($servicearray, $objecttmp, $userlogin);
-				if (! preg_match('/ERROR/',$ret))
-				{
-					if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+				if (! preg_match('/ERROR/', $ret)) {
+					if (! preg_match('/google\.com/', $ret)) $ret='google:'.$ret;
 					$objecttmp->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 					$nbinserted++;
-				}
-				else
-				{
+				} else {
 					$errors[]=$ret;
 					$error++;
 				}
 
 				$i++;
 			}
-		}
-		catch(Exception $e)
-		{
+		} catch (Exception $e) {
 			$errors[] = 'ERROR '.$e->getMessage();
 			$error++;
 		}
 	}
 
-	setEventMessage($langs->trans("PushToGoogleSucess",$nbinserted), 'mesgs');
-	if ($error)
-	{
+	setEventMessage($langs->trans("PushToGoogleSucess", $nbinserted), 'mesgs');
+	if ($error) {
 		setEventMessage($errors, 'errors');
 	}
-
 }
 
-if ($action == 'syncfromgoogle')
-{
+if ($action == 'syncfromgoogle') {
 	$fuser = $user;		// $fuser = user for synch
 	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 
-	if (empty($dateminsync))
-	{
+	if (empty($dateminsync)) {
 		setEventMessage($langs->trans("ErrorBadValueForDate"), 'errors');
 		$error++;
 	}
 
-	if (! $error)
-	{
+	if (! $error) {
 		$resarray = syncEventsFromGoogleCalendar($userlogin, $fuser, $dateminsync, $max);
 
 		$errors=$resarray['errors'];
@@ -432,12 +380,9 @@ if ($action == 'syncfromgoogle')
 		$nbdeleted=$resarray['nbdeleted'];
 		$nbalreadydeleted=$resarray['nbalreadydeleted'];
 
-		if (! empty($errors))
-		{
+		if (! empty($errors)) {
 			setEventMessage($errors, 'errors');
-		}
-		else
-		{
+		} else {
 			$langs->load("google@google");
 			setEventMessage($langs->trans("GetFromGoogleSucess", ($nbinserted ? $nbinserted : '0'), ($nbupdated ? $nbupdated : '0'), ($nbdeleted ? $nbdeleted : '0')), 'mesgs');
 			if ($nbalreadydeleted) setEventMessage($langs->trans("GetFromGoogleAlreadyDeleted", $nbalreadydeleted), 'mesgs');
@@ -461,10 +406,10 @@ $help_url='EN:Module_Google_EN|FR:Module_Google|ES:Modulo_Google';
 //$arrayofcss=array('/includes/jquery/plugins/colorpicker/jquery.colorpicker.css');
 $arrayofjs=array();
 $arrayofcss=array();
-llxHeader('',$langs->trans("GoogleSetup"),$help_url,'',0,0,$arrayofjs,$arrayofcss);
+llxHeader('', $langs->trans("GoogleSetup"), $help_url, '', 0, 0, $arrayofjs, $arrayofcss);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("GoogleSetup"), $linkback, 'setup');
 print '<br>';
 
 
@@ -483,8 +428,7 @@ dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"), -1);
 
 print '<div class="fichecenter">';
 
-if ($conf->use_javascript_ajax)
-{
+if ($conf->use_javascript_ajax) {
 	print "\n".'<script type="text/javascript" language="javascript">';
 	print 'jQuery(document).ready(function () {
 		function initfields()
@@ -511,7 +455,7 @@ if ($conf->use_javascript_ajax)
 	print '</script>'."\n";
 }
 
-print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br>';
+print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL", isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL, 1).'<br>';
 
 $var=false;
 
@@ -564,7 +508,7 @@ print '<br>';
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td class="nowrap">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage","Calendar").')'."</td>";
+print '<td class="nowrap">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Calendar").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
@@ -575,7 +519,7 @@ print '<td>';
 print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'">';
 print '</td>';
 print '<td class="aaa">';
-print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccount", "https://console.developers.google.com/apis/credentials", "https://console.developers.google.com/apis/credentials").'<br>';
 print '</td>';
 print '</tr>';
 
@@ -586,7 +530,7 @@ if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->globa
 print '<input class="minwidth400" type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 print '</td>';
 print '<td class="aaa">';
-print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccountP12", "https://console.developers.google.com/apis/credentials", "https://console.developers.google.com/apis/credentials").'<br>';
 print '</td>';
 print '</tr>';
 
@@ -602,16 +546,12 @@ print '<br>';
 print $langs->trans("GoogleSetupHelp").'<br>';
 print '<br>';
 print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser").'<br>';
-if (empty($conf->global->GOOGLE_LOGIN))
-{
+if (empty($conf->global->GOOGLE_LOGIN)) {
 	print '<br>';
 	//print '<u>'.$langs->trans("TargetUser").'</u>: ';
-	if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE))
-	{
+	if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE)) {
 		print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserAssigned");
-	}
-	else
-	{
+	} else {
 		print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserSaleRep");
 	}
 }
@@ -622,9 +562,9 @@ print "</table>";
 
 print '<br>';
 
-print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Calendar API"), 0, 0, '1', 'showifidagendaset');
+print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"), 0, 0, '1', 'showifidagendaset');
 
-print info_admin($langs->trans("ShareCalendarWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDAgenda")), 0, 0, '1', 'showifidagendaset');
+print info_admin($langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda")), 0, 0, '1', 'showifidagendaset');
 
 print '</div>';
 
@@ -646,14 +586,11 @@ print '<br><br>';
 print '<div class="tabsActions">';
 
 print '<div class="synccal showifidagendaset">';
-if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($conf->global->GOOGLE_LOGIN))
-{
+if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($conf->global->GOOGLE_LOGIN)) {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
-}
-else
-{
+} else {
 	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
 	//print '<a class="butAction" title="Make a record at current date + '.$testoffset.'s" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
@@ -668,8 +605,7 @@ print '<br>';
 
 print '<div class="synccal showifidagendaset">';
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
-{
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 	print '<br>';
 	print '<br>';
 
@@ -683,8 +619,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 	print "</form>\n";
 }
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
-{
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallevents">';
@@ -696,10 +631,8 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 	print "</form>\n";
 }
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
-{
-	if (versioncompare(versiondolibarrarray(), array(3,7,2)) >= 0)
-	{
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
+	if (versioncompare(versiondolibarrarray(), array(3,7,2)) >= 0) {
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="action" value="syncfromgoogle">';

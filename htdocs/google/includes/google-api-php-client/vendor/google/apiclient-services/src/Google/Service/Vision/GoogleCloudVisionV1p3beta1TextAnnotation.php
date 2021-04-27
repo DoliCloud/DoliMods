@@ -17,31 +17,31 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotation extends Google_Collection
 {
-  protected $collection_key = 'pages';
-  protected $pagesType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1Page';
-  protected $pagesDataType = 'array';
-  public $text;
+	protected $collection_key = 'pages';
+	protected $pagesType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1Page';
+	protected $pagesDataType = 'array';
+	public $text;
 
-  /**
-   * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1Page
-   */
-  public function setPages($pages)
-  {
-    $this->pages = $pages;
-  }
-  /**
-   * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1Page
-   */
-  public function getPages()
-  {
-    return $this->pages;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	/**
+	 * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1Page
+	 */
+	public function setPages($pages)
+	{
+		$this->pages = $pages;
+	}
+	/**
+	 * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1Page
+	 */
+	public function getPages()
+	{
+		return $this->pages;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

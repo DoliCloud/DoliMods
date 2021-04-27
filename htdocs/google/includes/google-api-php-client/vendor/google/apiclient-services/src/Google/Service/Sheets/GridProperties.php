@@ -17,68 +17,68 @@
 
 class Google_Service_Sheets_GridProperties extends Google_Model
 {
-  public $columnCount;
-  public $columnGroupControlAfter;
-  public $frozenColumnCount;
-  public $frozenRowCount;
-  public $hideGridlines;
-  public $rowCount;
-  public $rowGroupControlAfter;
+	public $columnCount;
+	public $columnGroupControlAfter;
+	public $frozenColumnCount;
+	public $frozenRowCount;
+	public $hideGridlines;
+	public $rowCount;
+	public $rowGroupControlAfter;
 
-  public function setColumnCount($columnCount)
-  {
-    $this->columnCount = $columnCount;
-  }
-  public function getColumnCount()
-  {
-    return $this->columnCount;
-  }
-  public function setColumnGroupControlAfter($columnGroupControlAfter)
-  {
-    $this->columnGroupControlAfter = $columnGroupControlAfter;
-  }
-  public function getColumnGroupControlAfter()
-  {
-    return $this->columnGroupControlAfter;
-  }
-  public function setFrozenColumnCount($frozenColumnCount)
-  {
-    $this->frozenColumnCount = $frozenColumnCount;
-  }
-  public function getFrozenColumnCount()
-  {
-    return $this->frozenColumnCount;
-  }
-  public function setFrozenRowCount($frozenRowCount)
-  {
-    $this->frozenRowCount = $frozenRowCount;
-  }
-  public function getFrozenRowCount()
-  {
-    return $this->frozenRowCount;
-  }
-  public function setHideGridlines($hideGridlines)
-  {
-    $this->hideGridlines = $hideGridlines;
-  }
-  public function getHideGridlines()
-  {
-    return $this->hideGridlines;
-  }
-  public function setRowCount($rowCount)
-  {
-    $this->rowCount = $rowCount;
-  }
-  public function getRowCount()
-  {
-    return $this->rowCount;
-  }
-  public function setRowGroupControlAfter($rowGroupControlAfter)
-  {
-    $this->rowGroupControlAfter = $rowGroupControlAfter;
-  }
-  public function getRowGroupControlAfter()
-  {
-    return $this->rowGroupControlAfter;
-  }
+	public function setColumnCount($columnCount)
+	{
+		$this->columnCount = $columnCount;
+	}
+	public function getColumnCount()
+	{
+		return $this->columnCount;
+	}
+	public function setColumnGroupControlAfter($columnGroupControlAfter)
+	{
+		$this->columnGroupControlAfter = $columnGroupControlAfter;
+	}
+	public function getColumnGroupControlAfter()
+	{
+		return $this->columnGroupControlAfter;
+	}
+	public function setFrozenColumnCount($frozenColumnCount)
+	{
+		$this->frozenColumnCount = $frozenColumnCount;
+	}
+	public function getFrozenColumnCount()
+	{
+		return $this->frozenColumnCount;
+	}
+	public function setFrozenRowCount($frozenRowCount)
+	{
+		$this->frozenRowCount = $frozenRowCount;
+	}
+	public function getFrozenRowCount()
+	{
+		return $this->frozenRowCount;
+	}
+	public function setHideGridlines($hideGridlines)
+	{
+		$this->hideGridlines = $hideGridlines;
+	}
+	public function getHideGridlines()
+	{
+		return $this->hideGridlines;
+	}
+	public function setRowCount($rowCount)
+	{
+		$this->rowCount = $rowCount;
+	}
+	public function getRowCount()
+	{
+		return $this->rowCount;
+	}
+	public function setRowGroupControlAfter($rowGroupControlAfter)
+	{
+		$this->rowGroupControlAfter = $rowGroupControlAfter;
+	}
+	public function getRowGroupControlAfter()
+	{
+		return $this->rowGroupControlAfter;
+	}
 }

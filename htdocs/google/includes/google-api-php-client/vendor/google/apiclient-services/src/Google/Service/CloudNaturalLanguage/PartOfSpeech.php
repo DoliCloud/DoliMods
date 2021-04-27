@@ -17,113 +17,113 @@
 
 class Google_Service_CloudNaturalLanguage_PartOfSpeech extends Google_Model
 {
-  public $aspect;
-  public $case;
-  public $form;
-  public $gender;
-  public $mood;
-  public $number;
-  public $person;
-  public $proper;
-  public $reciprocity;
-  public $tag;
-  public $tense;
-  public $voice;
+	public $aspect;
+	public $case;
+	public $form;
+	public $gender;
+	public $mood;
+	public $number;
+	public $person;
+	public $proper;
+	public $reciprocity;
+	public $tag;
+	public $tense;
+	public $voice;
 
-  public function setAspect($aspect)
-  {
-    $this->aspect = $aspect;
-  }
-  public function getAspect()
-  {
-    return $this->aspect;
-  }
-  public function setCase($case)
-  {
-    $this->case = $case;
-  }
-  public function getCase()
-  {
-    return $this->case;
-  }
-  public function setForm($form)
-  {
-    $this->form = $form;
-  }
-  public function getForm()
-  {
-    return $this->form;
-  }
-  public function setGender($gender)
-  {
-    $this->gender = $gender;
-  }
-  public function getGender()
-  {
-    return $this->gender;
-  }
-  public function setMood($mood)
-  {
-    $this->mood = $mood;
-  }
-  public function getMood()
-  {
-    return $this->mood;
-  }
-  public function setNumber($number)
-  {
-    $this->number = $number;
-  }
-  public function getNumber()
-  {
-    return $this->number;
-  }
-  public function setPerson($person)
-  {
-    $this->person = $person;
-  }
-  public function getPerson()
-  {
-    return $this->person;
-  }
-  public function setProper($proper)
-  {
-    $this->proper = $proper;
-  }
-  public function getProper()
-  {
-    return $this->proper;
-  }
-  public function setReciprocity($reciprocity)
-  {
-    $this->reciprocity = $reciprocity;
-  }
-  public function getReciprocity()
-  {
-    return $this->reciprocity;
-  }
-  public function setTag($tag)
-  {
-    $this->tag = $tag;
-  }
-  public function getTag()
-  {
-    return $this->tag;
-  }
-  public function setTense($tense)
-  {
-    $this->tense = $tense;
-  }
-  public function getTense()
-  {
-    return $this->tense;
-  }
-  public function setVoice($voice)
-  {
-    $this->voice = $voice;
-  }
-  public function getVoice()
-  {
-    return $this->voice;
-  }
+	public function setAspect($aspect)
+	{
+		$this->aspect = $aspect;
+	}
+	public function getAspect()
+	{
+		return $this->aspect;
+	}
+	public function setCase($case)
+	{
+		$this->case = $case;
+	}
+	public function getCase()
+	{
+		return $this->case;
+	}
+	public function setForm($form)
+	{
+		$this->form = $form;
+	}
+	public function getForm()
+	{
+		return $this->form;
+	}
+	public function setGender($gender)
+	{
+		$this->gender = $gender;
+	}
+	public function getGender()
+	{
+		return $this->gender;
+	}
+	public function setMood($mood)
+	{
+		$this->mood = $mood;
+	}
+	public function getMood()
+	{
+		return $this->mood;
+	}
+	public function setNumber($number)
+	{
+		$this->number = $number;
+	}
+	public function getNumber()
+	{
+		return $this->number;
+	}
+	public function setPerson($person)
+	{
+		$this->person = $person;
+	}
+	public function getPerson()
+	{
+		return $this->person;
+	}
+	public function setProper($proper)
+	{
+		$this->proper = $proper;
+	}
+	public function getProper()
+	{
+		return $this->proper;
+	}
+	public function setReciprocity($reciprocity)
+	{
+		$this->reciprocity = $reciprocity;
+	}
+	public function getReciprocity()
+	{
+		return $this->reciprocity;
+	}
+	public function setTag($tag)
+	{
+		$this->tag = $tag;
+	}
+	public function getTag()
+	{
+		return $this->tag;
+	}
+	public function setTense($tense)
+	{
+		$this->tense = $tense;
+	}
+	public function getTense()
+	{
+		return $this->tense;
+	}
+	public function setVoice($voice)
+	{
+		$this->voice = $voice;
+	}
+	public function getVoice()
+	{
+		return $this->voice;
+	}
 }

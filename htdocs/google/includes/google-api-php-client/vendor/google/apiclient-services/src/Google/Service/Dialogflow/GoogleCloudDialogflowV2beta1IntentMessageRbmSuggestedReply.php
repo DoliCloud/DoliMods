@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply extends Google_Model
 {
-  public $postbackData;
-  public $text;
+	public $postbackData;
+	public $text;
 
-  public function setPostbackData($postbackData)
-  {
-    $this->postbackData = $postbackData;
-  }
-  public function getPostbackData()
-  {
-    return $this->postbackData;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	public function setPostbackData($postbackData)
+	{
+		$this->postbackData = $postbackData;
+	}
+	public function getPostbackData()
+	{
+		return $this->postbackData;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

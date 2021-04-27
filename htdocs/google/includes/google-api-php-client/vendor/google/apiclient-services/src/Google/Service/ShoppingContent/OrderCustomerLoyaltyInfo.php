@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_OrderCustomerLoyaltyInfo extends Google_Model
 {
-  public $loyaltyNumber;
-  public $name;
+	public $loyaltyNumber;
+	public $name;
 
-  public function setLoyaltyNumber($loyaltyNumber)
-  {
-    $this->loyaltyNumber = $loyaltyNumber;
-  }
-  public function getLoyaltyNumber()
-  {
-    return $this->loyaltyNumber;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setLoyaltyNumber($loyaltyNumber)
+	{
+		$this->loyaltyNumber = $loyaltyNumber;
+	}
+	public function getLoyaltyNumber()
+	{
+		return $this->loyaltyNumber;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Sasportal_SasPortalSetPolicyRequest extends Google_Model
 {
-  protected $policyType = 'Google_Service_Sasportal_SasPortalPolicy';
-  protected $policyDataType = '';
-  public $resource;
+	protected $policyType = 'Google_Service_Sasportal_SasPortalPolicy';
+	protected $policyDataType = '';
+	public $resource;
 
-  /**
-   * @param Google_Service_Sasportal_SasPortalPolicy
-   */
-  public function setPolicy(Google_Service_Sasportal_SasPortalPolicy $policy)
-  {
-    $this->policy = $policy;
-  }
-  /**
-   * @return Google_Service_Sasportal_SasPortalPolicy
-   */
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
-  public function setResource($resource)
-  {
-    $this->resource = $resource;
-  }
-  public function getResource()
-  {
-    return $this->resource;
-  }
+	/**
+	 * @param Google_Service_Sasportal_SasPortalPolicy
+	 */
+	public function setPolicy(Google_Service_Sasportal_SasPortalPolicy $policy)
+	{
+		$this->policy = $policy;
+	}
+	/**
+	 * @return Google_Service_Sasportal_SasPortalPolicy
+	 */
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
+	public function getResource()
+	{
+		return $this->resource;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudTalentSolution_DeviceInfo extends Google_Model
 {
-  public $deviceType;
-  public $id;
+	public $deviceType;
+	public $id;
 
-  public function setDeviceType($deviceType)
-  {
-    $this->deviceType = $deviceType;
-  }
-  public function getDeviceType()
-  {
-    return $this->deviceType;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
+	public function setDeviceType($deviceType)
+	{
+		$this->deviceType = $deviceType;
+	}
+	public function getDeviceType()
+	{
+		return $this->deviceType;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
 }

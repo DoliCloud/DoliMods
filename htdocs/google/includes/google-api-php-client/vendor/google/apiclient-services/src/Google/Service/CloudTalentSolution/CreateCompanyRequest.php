@@ -17,21 +17,21 @@
 
 class Google_Service_CloudTalentSolution_CreateCompanyRequest extends Google_Model
 {
-  protected $companyType = 'Google_Service_CloudTalentSolution_Company';
-  protected $companyDataType = '';
+	protected $companyType = 'Google_Service_CloudTalentSolution_Company';
+	protected $companyDataType = '';
 
-  /**
-   * @param Google_Service_CloudTalentSolution_Company
-   */
-  public function setCompany(Google_Service_CloudTalentSolution_Company $company)
-  {
-    $this->company = $company;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_Company
-   */
-  public function getCompany()
-  {
-    return $this->company;
-  }
+	/**
+	 * @param Google_Service_CloudTalentSolution_Company
+	 */
+	public function setCompany(Google_Service_CloudTalentSolution_Company $company)
+	{
+		$this->company = $company;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_Company
+	 */
+	public function getCompany()
+	{
+		return $this->company;
+	}
 }

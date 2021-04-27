@@ -17,32 +17,32 @@
 
 class Google_Service_CloudKMS_AsymmetricDecryptResponse extends Google_Model
 {
-  public $plaintext;
-  public $plaintextCrc32c;
-  public $verifiedCiphertextCrc32c;
+	public $plaintext;
+	public $plaintextCrc32c;
+	public $verifiedCiphertextCrc32c;
 
-  public function setPlaintext($plaintext)
-  {
-    $this->plaintext = $plaintext;
-  }
-  public function getPlaintext()
-  {
-    return $this->plaintext;
-  }
-  public function setPlaintextCrc32c($plaintextCrc32c)
-  {
-    $this->plaintextCrc32c = $plaintextCrc32c;
-  }
-  public function getPlaintextCrc32c()
-  {
-    return $this->plaintextCrc32c;
-  }
-  public function setVerifiedCiphertextCrc32c($verifiedCiphertextCrc32c)
-  {
-    $this->verifiedCiphertextCrc32c = $verifiedCiphertextCrc32c;
-  }
-  public function getVerifiedCiphertextCrc32c()
-  {
-    return $this->verifiedCiphertextCrc32c;
-  }
+	public function setPlaintext($plaintext)
+	{
+		$this->plaintext = $plaintext;
+	}
+	public function getPlaintext()
+	{
+		return $this->plaintext;
+	}
+	public function setPlaintextCrc32c($plaintextCrc32c)
+	{
+		$this->plaintextCrc32c = $plaintextCrc32c;
+	}
+	public function getPlaintextCrc32c()
+	{
+		return $this->plaintextCrc32c;
+	}
+	public function setVerifiedCiphertextCrc32c($verifiedCiphertextCrc32c)
+	{
+		$this->verifiedCiphertextCrc32c = $verifiedCiphertextCrc32c;
+	}
+	public function getVerifiedCiphertextCrc32c()
+	{
+		return $this->verifiedCiphertextCrc32c;
+	}
 }

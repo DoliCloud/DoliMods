@@ -17,48 +17,48 @@
 
 class Google_Service_CloudSearch_SourceResultCount extends Google_Model
 {
-  public $hasMoreResults;
-  public $resultCountEstimate;
-  public $resultCountExact;
-  protected $sourceType = 'Google_Service_CloudSearch_Source';
-  protected $sourceDataType = '';
+	public $hasMoreResults;
+	public $resultCountEstimate;
+	public $resultCountExact;
+	protected $sourceType = 'Google_Service_CloudSearch_Source';
+	protected $sourceDataType = '';
 
-  public function setHasMoreResults($hasMoreResults)
-  {
-    $this->hasMoreResults = $hasMoreResults;
-  }
-  public function getHasMoreResults()
-  {
-    return $this->hasMoreResults;
-  }
-  public function setResultCountEstimate($resultCountEstimate)
-  {
-    $this->resultCountEstimate = $resultCountEstimate;
-  }
-  public function getResultCountEstimate()
-  {
-    return $this->resultCountEstimate;
-  }
-  public function setResultCountExact($resultCountExact)
-  {
-    $this->resultCountExact = $resultCountExact;
-  }
-  public function getResultCountExact()
-  {
-    return $this->resultCountExact;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Source
-   */
-  public function setSource(Google_Service_CloudSearch_Source $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Source
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
+	public function setHasMoreResults($hasMoreResults)
+	{
+		$this->hasMoreResults = $hasMoreResults;
+	}
+	public function getHasMoreResults()
+	{
+		return $this->hasMoreResults;
+	}
+	public function setResultCountEstimate($resultCountEstimate)
+	{
+		$this->resultCountEstimate = $resultCountEstimate;
+	}
+	public function getResultCountEstimate()
+	{
+		return $this->resultCountEstimate;
+	}
+	public function setResultCountExact($resultCountExact)
+	{
+		$this->resultCountExact = $resultCountExact;
+	}
+	public function getResultCountExact()
+	{
+		return $this->resultCountExact;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Source
+	 */
+	public function setSource(Google_Service_CloudSearch_Source $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Source
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_BigQueryConnectionService_ListConnectionsResponse extends Google_Collection
 {
-  protected $collection_key = 'connections';
-  protected $connectionsType = 'Google_Service_BigQueryConnectionService_Connection';
-  protected $connectionsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'connections';
+	protected $connectionsType = 'Google_Service_BigQueryConnectionService_Connection';
+	protected $connectionsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_BigQueryConnectionService_Connection
-   */
-  public function setConnections($connections)
-  {
-    $this->connections = $connections;
-  }
-  /**
-   * @return Google_Service_BigQueryConnectionService_Connection
-   */
-  public function getConnections()
-  {
-    return $this->connections;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_BigQueryConnectionService_Connection
+	 */
+	public function setConnections($connections)
+	{
+		$this->connections = $connections;
+	}
+	/**
+	 * @return Google_Service_BigQueryConnectionService_Connection
+	 */
+	public function getConnections()
+	{
+		return $this->connections;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

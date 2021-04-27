@@ -17,33 +17,33 @@
 
 class Google_Service_AndroidManagement_ChoosePrivateKeyRule extends Google_Collection
 {
-  protected $collection_key = 'packageNames';
-  public $packageNames;
-  public $privateKeyAlias;
-  public $urlPattern;
+	protected $collection_key = 'packageNames';
+	public $packageNames;
+	public $privateKeyAlias;
+	public $urlPattern;
 
-  public function setPackageNames($packageNames)
-  {
-    $this->packageNames = $packageNames;
-  }
-  public function getPackageNames()
-  {
-    return $this->packageNames;
-  }
-  public function setPrivateKeyAlias($privateKeyAlias)
-  {
-    $this->privateKeyAlias = $privateKeyAlias;
-  }
-  public function getPrivateKeyAlias()
-  {
-    return $this->privateKeyAlias;
-  }
-  public function setUrlPattern($urlPattern)
-  {
-    $this->urlPattern = $urlPattern;
-  }
-  public function getUrlPattern()
-  {
-    return $this->urlPattern;
-  }
+	public function setPackageNames($packageNames)
+	{
+		$this->packageNames = $packageNames;
+	}
+	public function getPackageNames()
+	{
+		return $this->packageNames;
+	}
+	public function setPrivateKeyAlias($privateKeyAlias)
+	{
+		$this->privateKeyAlias = $privateKeyAlias;
+	}
+	public function getPrivateKeyAlias()
+	{
+		return $this->privateKeyAlias;
+	}
+	public function setUrlPattern($urlPattern)
+	{
+		$this->urlPattern = $urlPattern;
+	}
+	public function getUrlPattern()
+	{
+		return $this->urlPattern;
+	}
 }

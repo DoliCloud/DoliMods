@@ -17,55 +17,55 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CreateDlpJobRequest extends Google_Model
 {
-  protected $inspectJobType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig';
-  protected $inspectJobDataType = '';
-  public $jobId;
-  public $locationId;
-  protected $riskJobType = 'Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig';
-  protected $riskJobDataType = '';
+	protected $inspectJobType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig';
+	protected $inspectJobDataType = '';
+	public $jobId;
+	public $locationId;
+	protected $riskJobType = 'Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig';
+	protected $riskJobDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig
-   */
-  public function setInspectJob(Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig $inspectJob)
-  {
-    $this->inspectJob = $inspectJob;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig
-   */
-  public function getInspectJob()
-  {
-    return $this->inspectJob;
-  }
-  public function setJobId($jobId)
-  {
-    $this->jobId = $jobId;
-  }
-  public function getJobId()
-  {
-    return $this->jobId;
-  }
-  public function setLocationId($locationId)
-  {
-    $this->locationId = $locationId;
-  }
-  public function getLocationId()
-  {
-    return $this->locationId;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig
-   */
-  public function setRiskJob(Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig $riskJob)
-  {
-    $this->riskJob = $riskJob;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig
-   */
-  public function getRiskJob()
-  {
-    return $this->riskJob;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig
+	 */
+	public function setInspectJob(Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig $inspectJob)
+	{
+		$this->inspectJob = $inspectJob;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig
+	 */
+	public function getInspectJob()
+	{
+		return $this->inspectJob;
+	}
+	public function setJobId($jobId)
+	{
+		$this->jobId = $jobId;
+	}
+	public function getJobId()
+	{
+		return $this->jobId;
+	}
+	public function setLocationId($locationId)
+	{
+		$this->locationId = $locationId;
+	}
+	public function getLocationId()
+	{
+		return $this->locationId;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig
+	 */
+	public function setRiskJob(Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig $riskJob)
+	{
+		$this->riskJob = $riskJob;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig
+	 */
+	public function getRiskJob()
+	{
+		return $this->riskJob;
+	}
 }

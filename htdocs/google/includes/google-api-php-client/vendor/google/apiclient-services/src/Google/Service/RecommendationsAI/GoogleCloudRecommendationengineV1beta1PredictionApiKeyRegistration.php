@@ -17,14 +17,14 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration extends Google_Model
 {
-  public $apiKey;
+	public $apiKey;
 
-  public function setApiKey($apiKey)
-  {
-    $this->apiKey = $apiKey;
-  }
-  public function getApiKey()
-  {
-    return $this->apiKey;
-  }
+	public function setApiKey($apiKey)
+	{
+		$this->apiKey = $apiKey;
+	}
+	public function getApiKey()
+	{
+		return $this->apiKey;
+	}
 }

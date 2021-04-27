@@ -17,14 +17,14 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedActionRbmSuggestedActionOpenUri extends Google_Model
 {
-  public $uri;
+	public $uri;
 
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

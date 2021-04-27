@@ -17,48 +17,48 @@
 
 class Google_Service_Bigquery_Argument extends Google_Model
 {
-  public $argumentKind;
-  protected $dataTypeType = 'Google_Service_Bigquery_StandardSqlDataType';
-  protected $dataTypeDataType = '';
-  public $mode;
-  public $name;
+	public $argumentKind;
+	protected $dataTypeType = 'Google_Service_Bigquery_StandardSqlDataType';
+	protected $dataTypeDataType = '';
+	public $mode;
+	public $name;
 
-  public function setArgumentKind($argumentKind)
-  {
-    $this->argumentKind = $argumentKind;
-  }
-  public function getArgumentKind()
-  {
-    return $this->argumentKind;
-  }
-  /**
-   * @param Google_Service_Bigquery_StandardSqlDataType
-   */
-  public function setDataType(Google_Service_Bigquery_StandardSqlDataType $dataType)
-  {
-    $this->dataType = $dataType;
-  }
-  /**
-   * @return Google_Service_Bigquery_StandardSqlDataType
-   */
-  public function getDataType()
-  {
-    return $this->dataType;
-  }
-  public function setMode($mode)
-  {
-    $this->mode = $mode;
-  }
-  public function getMode()
-  {
-    return $this->mode;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setArgumentKind($argumentKind)
+	{
+		$this->argumentKind = $argumentKind;
+	}
+	public function getArgumentKind()
+	{
+		return $this->argumentKind;
+	}
+	/**
+	 * @param Google_Service_Bigquery_StandardSqlDataType
+	 */
+	public function setDataType(Google_Service_Bigquery_StandardSqlDataType $dataType)
+	{
+		$this->dataType = $dataType;
+	}
+	/**
+	 * @return Google_Service_Bigquery_StandardSqlDataType
+	 */
+	public function getDataType()
+	{
+		return $this->dataType;
+	}
+	public function setMode($mode)
+	{
+		$this->mode = $mode;
+	}
+	public function getMode()
+	{
+		return $this->mode;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

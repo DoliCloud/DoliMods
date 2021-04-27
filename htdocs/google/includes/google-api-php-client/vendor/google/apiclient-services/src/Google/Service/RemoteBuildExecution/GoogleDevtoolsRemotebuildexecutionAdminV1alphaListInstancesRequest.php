@@ -17,14 +17,14 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaListInstancesRequest extends Google_Model
 {
-  public $parent;
+	public $parent;
 
-  public function setParent($parent)
-  {
-    $this->parent = $parent;
-  }
-  public function getParent()
-  {
-    return $this->parent;
-  }
+	public function setParent($parent)
+	{
+		$this->parent = $parent;
+	}
+	public function getParent()
+	{
+		return $this->parent;
+	}
 }

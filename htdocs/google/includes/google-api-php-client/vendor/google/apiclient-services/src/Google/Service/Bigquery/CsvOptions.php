@@ -17,59 +17,59 @@
 
 class Google_Service_Bigquery_CsvOptions extends Google_Model
 {
-  public $allowJaggedRows;
-  public $allowQuotedNewlines;
-  public $encoding;
-  public $fieldDelimiter;
-  public $quote;
-  public $skipLeadingRows;
+	public $allowJaggedRows;
+	public $allowQuotedNewlines;
+	public $encoding;
+	public $fieldDelimiter;
+	public $quote;
+	public $skipLeadingRows;
 
-  public function setAllowJaggedRows($allowJaggedRows)
-  {
-    $this->allowJaggedRows = $allowJaggedRows;
-  }
-  public function getAllowJaggedRows()
-  {
-    return $this->allowJaggedRows;
-  }
-  public function setAllowQuotedNewlines($allowQuotedNewlines)
-  {
-    $this->allowQuotedNewlines = $allowQuotedNewlines;
-  }
-  public function getAllowQuotedNewlines()
-  {
-    return $this->allowQuotedNewlines;
-  }
-  public function setEncoding($encoding)
-  {
-    $this->encoding = $encoding;
-  }
-  public function getEncoding()
-  {
-    return $this->encoding;
-  }
-  public function setFieldDelimiter($fieldDelimiter)
-  {
-    $this->fieldDelimiter = $fieldDelimiter;
-  }
-  public function getFieldDelimiter()
-  {
-    return $this->fieldDelimiter;
-  }
-  public function setQuote($quote)
-  {
-    $this->quote = $quote;
-  }
-  public function getQuote()
-  {
-    return $this->quote;
-  }
-  public function setSkipLeadingRows($skipLeadingRows)
-  {
-    $this->skipLeadingRows = $skipLeadingRows;
-  }
-  public function getSkipLeadingRows()
-  {
-    return $this->skipLeadingRows;
-  }
+	public function setAllowJaggedRows($allowJaggedRows)
+	{
+		$this->allowJaggedRows = $allowJaggedRows;
+	}
+	public function getAllowJaggedRows()
+	{
+		return $this->allowJaggedRows;
+	}
+	public function setAllowQuotedNewlines($allowQuotedNewlines)
+	{
+		$this->allowQuotedNewlines = $allowQuotedNewlines;
+	}
+	public function getAllowQuotedNewlines()
+	{
+		return $this->allowQuotedNewlines;
+	}
+	public function setEncoding($encoding)
+	{
+		$this->encoding = $encoding;
+	}
+	public function getEncoding()
+	{
+		return $this->encoding;
+	}
+	public function setFieldDelimiter($fieldDelimiter)
+	{
+		$this->fieldDelimiter = $fieldDelimiter;
+	}
+	public function getFieldDelimiter()
+	{
+		return $this->fieldDelimiter;
+	}
+	public function setQuote($quote)
+	{
+		$this->quote = $quote;
+	}
+	public function getQuote()
+	{
+		return $this->quote;
+	}
+	public function setSkipLeadingRows($skipLeadingRows)
+	{
+		$this->skipLeadingRows = $skipLeadingRows;
+	}
+	public function getSkipLeadingRows()
+	{
+		return $this->skipLeadingRows;
+	}
 }

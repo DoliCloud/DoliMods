@@ -17,32 +17,32 @@
 
 class Google_Service_AdExchangeBuyerII_AdSize extends Google_Model
 {
-  public $height;
-  public $sizeType;
-  public $width;
+	public $height;
+	public $sizeType;
+	public $width;
 
-  public function setHeight($height)
-  {
-    $this->height = $height;
-  }
-  public function getHeight()
-  {
-    return $this->height;
-  }
-  public function setSizeType($sizeType)
-  {
-    $this->sizeType = $sizeType;
-  }
-  public function getSizeType()
-  {
-    return $this->sizeType;
-  }
-  public function setWidth($width)
-  {
-    $this->width = $width;
-  }
-  public function getWidth()
-  {
-    return $this->width;
-  }
+	public function setHeight($height)
+	{
+		$this->height = $height;
+	}
+	public function getHeight()
+	{
+		return $this->height;
+	}
+	public function setSizeType($sizeType)
+	{
+		$this->sizeType = $sizeType;
+	}
+	public function getSizeType()
+	{
+		return $this->sizeType;
+	}
+	public function setWidth($width)
+	{
+		$this->width = $width;
+	}
+	public function getWidth()
+	{
+		return $this->width;
+	}
 }

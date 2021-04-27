@@ -17,25 +17,25 @@
 
 class Google_Service_Tracing_StackFrames extends Google_Collection
 {
-  protected $collection_key = 'frame';
-  public $droppedFramesCount;
-  protected $frameType = 'Google_Service_Tracing_StackFrame';
-  protected $frameDataType = 'array';
+	protected $collection_key = 'frame';
+	public $droppedFramesCount;
+	protected $frameType = 'Google_Service_Tracing_StackFrame';
+	protected $frameDataType = 'array';
 
-  public function setDroppedFramesCount($droppedFramesCount)
-  {
-    $this->droppedFramesCount = $droppedFramesCount;
-  }
-  public function getDroppedFramesCount()
-  {
-    return $this->droppedFramesCount;
-  }
-  public function setFrame($frame)
-  {
-    $this->frame = $frame;
-  }
-  public function getFrame()
-  {
-    return $this->frame;
-  }
+	public function setDroppedFramesCount($droppedFramesCount)
+	{
+		$this->droppedFramesCount = $droppedFramesCount;
+	}
+	public function getDroppedFramesCount()
+	{
+		return $this->droppedFramesCount;
+	}
+	public function setFrame($frame)
+	{
+		$this->frame = $frame;
+	}
+	public function getFrame()
+	{
+		return $this->frame;
+	}
 }

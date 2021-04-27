@@ -17,59 +17,59 @@
 
 class Google_Service_AndroidEnterprise_GroupLicense extends Google_Model
 {
-  public $acquisitionKind;
-  public $approval;
-  public $numProvisioned;
-  public $numPurchased;
-  public $permissions;
-  public $productId;
+	public $acquisitionKind;
+	public $approval;
+	public $numProvisioned;
+	public $numPurchased;
+	public $permissions;
+	public $productId;
 
-  public function setAcquisitionKind($acquisitionKind)
-  {
-    $this->acquisitionKind = $acquisitionKind;
-  }
-  public function getAcquisitionKind()
-  {
-    return $this->acquisitionKind;
-  }
-  public function setApproval($approval)
-  {
-    $this->approval = $approval;
-  }
-  public function getApproval()
-  {
-    return $this->approval;
-  }
-  public function setNumProvisioned($numProvisioned)
-  {
-    $this->numProvisioned = $numProvisioned;
-  }
-  public function getNumProvisioned()
-  {
-    return $this->numProvisioned;
-  }
-  public function setNumPurchased($numPurchased)
-  {
-    $this->numPurchased = $numPurchased;
-  }
-  public function getNumPurchased()
-  {
-    return $this->numPurchased;
-  }
-  public function setPermissions($permissions)
-  {
-    $this->permissions = $permissions;
-  }
-  public function getPermissions()
-  {
-    return $this->permissions;
-  }
-  public function setProductId($productId)
-  {
-    $this->productId = $productId;
-  }
-  public function getProductId()
-  {
-    return $this->productId;
-  }
+	public function setAcquisitionKind($acquisitionKind)
+	{
+		$this->acquisitionKind = $acquisitionKind;
+	}
+	public function getAcquisitionKind()
+	{
+		return $this->acquisitionKind;
+	}
+	public function setApproval($approval)
+	{
+		$this->approval = $approval;
+	}
+	public function getApproval()
+	{
+		return $this->approval;
+	}
+	public function setNumProvisioned($numProvisioned)
+	{
+		$this->numProvisioned = $numProvisioned;
+	}
+	public function getNumProvisioned()
+	{
+		return $this->numProvisioned;
+	}
+	public function setNumPurchased($numPurchased)
+	{
+		$this->numPurchased = $numPurchased;
+	}
+	public function getNumPurchased()
+	{
+		return $this->numPurchased;
+	}
+	public function setPermissions($permissions)
+	{
+		$this->permissions = $permissions;
+	}
+	public function getPermissions()
+	{
+		return $this->permissions;
+	}
+	public function setProductId($productId)
+	{
+		$this->productId = $productId;
+	}
+	public function getProductId()
+	{
+		return $this->productId;
+	}
 }

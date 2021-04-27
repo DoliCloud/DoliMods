@@ -17,17 +17,17 @@
 
 class Google_Service_SQLAdmin_SslCertsCreateEphemeralRequest extends Google_Model
 {
-  protected $internal_gapi_mappings = array(
-        "publicKey" => "public_key",
-  );
-  public $publicKey;
+	protected $internal_gapi_mappings = array(
+		"publicKey" => "public_key",
+	);
+	public $publicKey;
 
-  public function setPublicKey($publicKey)
-  {
-    $this->publicKey = $publicKey;
-  }
-  public function getPublicKey()
-  {
-    return $this->publicKey;
-  }
+	public function setPublicKey($publicKey)
+	{
+		$this->publicKey = $publicKey;
+	}
+	public function getPublicKey()
+	{
+		return $this->publicKey;
+	}
 }

@@ -25,13 +25,13 @@ $mt_rand_stub_return_value = null;
  */
 function mt_rand()
 {
-    global $mt_rand_stub_return_value;
+	global $mt_rand_stub_return_value;
 
-    if (is_null($mt_rand_stub_return_value)) {
-        return \mt_rand();
-    }
+	if (is_null($mt_rand_stub_return_value)) {
+		return \mt_rand();
+	}
 
-    return $mt_rand_stub_return_value;
+	return $mt_rand_stub_return_value;
 }
 
 /**
@@ -49,11 +49,11 @@ $mt_getrandmax_stub_return_value = null;
  */
 function mt_getrandmax()
 {
-    global $mt_getrandmax_stub_return_value;
+	global $mt_getrandmax_stub_return_value;
 
-    if (is_null($mt_getrandmax_stub_return_value)) {
-        return \mt_getrandmax();
-    }
+	if (is_null($mt_getrandmax_stub_return_value)) {
+		return \mt_getrandmax();
+	}
 
-    return $mt_getrandmax_stub_return_value;
+	return $mt_getrandmax_stub_return_value;
 }

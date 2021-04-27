@@ -17,30 +17,30 @@
 
 class Google_Service_StreetViewPublish_UpdatePhotoRequest extends Google_Model
 {
-  protected $photoType = 'Google_Service_StreetViewPublish_Photo';
-  protected $photoDataType = '';
-  public $updateMask;
+	protected $photoType = 'Google_Service_StreetViewPublish_Photo';
+	protected $photoDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_StreetViewPublish_Photo
-   */
-  public function setPhoto(Google_Service_StreetViewPublish_Photo $photo)
-  {
-    $this->photo = $photo;
-  }
-  /**
-   * @return Google_Service_StreetViewPublish_Photo
-   */
-  public function getPhoto()
-  {
-    return $this->photo;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_StreetViewPublish_Photo
+	 */
+	public function setPhoto(Google_Service_StreetViewPublish_Photo $photo)
+	{
+		$this->photo = $photo;
+	}
+	/**
+	 * @return Google_Service_StreetViewPublish_Photo
+	 */
+	public function getPhoto()
+	{
+		return $this->photo;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

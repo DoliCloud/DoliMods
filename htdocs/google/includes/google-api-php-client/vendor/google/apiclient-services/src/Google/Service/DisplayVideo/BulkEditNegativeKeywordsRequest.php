@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_BulkEditNegativeKeywordsRequest extends Google_Collection
 {
-  protected $collection_key = 'deletedNegativeKeywords';
-  protected $createdNegativeKeywordsType = 'Google_Service_DisplayVideo_NegativeKeyword';
-  protected $createdNegativeKeywordsDataType = 'array';
-  public $deletedNegativeKeywords;
+	protected $collection_key = 'deletedNegativeKeywords';
+	protected $createdNegativeKeywordsType = 'Google_Service_DisplayVideo_NegativeKeyword';
+	protected $createdNegativeKeywordsDataType = 'array';
+	public $deletedNegativeKeywords;
 
-  /**
-   * @param Google_Service_DisplayVideo_NegativeKeyword
-   */
-  public function setCreatedNegativeKeywords($createdNegativeKeywords)
-  {
-    $this->createdNegativeKeywords = $createdNegativeKeywords;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_NegativeKeyword
-   */
-  public function getCreatedNegativeKeywords()
-  {
-    return $this->createdNegativeKeywords;
-  }
-  public function setDeletedNegativeKeywords($deletedNegativeKeywords)
-  {
-    $this->deletedNegativeKeywords = $deletedNegativeKeywords;
-  }
-  public function getDeletedNegativeKeywords()
-  {
-    return $this->deletedNegativeKeywords;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_NegativeKeyword
+	 */
+	public function setCreatedNegativeKeywords($createdNegativeKeywords)
+	{
+		$this->createdNegativeKeywords = $createdNegativeKeywords;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_NegativeKeyword
+	 */
+	public function getCreatedNegativeKeywords()
+	{
+		return $this->createdNegativeKeywords;
+	}
+	public function setDeletedNegativeKeywords($deletedNegativeKeywords)
+	{
+		$this->deletedNegativeKeywords = $deletedNegativeKeywords;
+	}
+	public function getDeletedNegativeKeywords()
+	{
+		return $this->deletedNegativeKeywords;
+	}
 }

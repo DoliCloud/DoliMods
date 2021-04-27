@@ -17,14 +17,14 @@
 
 class Google_Service_Plus_CommentPlusoners extends Google_Model
 {
-  public $totalItems;
+	public $totalItems;
 
-  public function setTotalItems($totalItems)
-  {
-    $this->totalItems = $totalItems;
-  }
-  public function getTotalItems()
-  {
-    return $this->totalItems;
-  }
+	public function setTotalItems($totalItems)
+	{
+		$this->totalItems = $totalItems;
+	}
+	public function getTotalItems()
+	{
+		return $this->totalItems;
+	}
 }

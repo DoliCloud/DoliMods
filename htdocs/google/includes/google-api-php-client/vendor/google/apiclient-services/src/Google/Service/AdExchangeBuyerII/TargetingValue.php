@@ -17,55 +17,55 @@
 
 class Google_Service_AdExchangeBuyerII_TargetingValue extends Google_Model
 {
-  protected $creativeSizeValueType = 'Google_Service_AdExchangeBuyerII_CreativeSize';
-  protected $creativeSizeValueDataType = '';
-  protected $dayPartTargetingValueType = 'Google_Service_AdExchangeBuyerII_DayPartTargeting';
-  protected $dayPartTargetingValueDataType = '';
-  public $longValue;
-  public $stringValue;
+	protected $creativeSizeValueType = 'Google_Service_AdExchangeBuyerII_CreativeSize';
+	protected $creativeSizeValueDataType = '';
+	protected $dayPartTargetingValueType = 'Google_Service_AdExchangeBuyerII_DayPartTargeting';
+	protected $dayPartTargetingValueDataType = '';
+	public $longValue;
+	public $stringValue;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_CreativeSize
-   */
-  public function setCreativeSizeValue(Google_Service_AdExchangeBuyerII_CreativeSize $creativeSizeValue)
-  {
-    $this->creativeSizeValue = $creativeSizeValue;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_CreativeSize
-   */
-  public function getCreativeSizeValue()
-  {
-    return $this->creativeSizeValue;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_DayPartTargeting
-   */
-  public function setDayPartTargetingValue(Google_Service_AdExchangeBuyerII_DayPartTargeting $dayPartTargetingValue)
-  {
-    $this->dayPartTargetingValue = $dayPartTargetingValue;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_DayPartTargeting
-   */
-  public function getDayPartTargetingValue()
-  {
-    return $this->dayPartTargetingValue;
-  }
-  public function setLongValue($longValue)
-  {
-    $this->longValue = $longValue;
-  }
-  public function getLongValue()
-  {
-    return $this->longValue;
-  }
-  public function setStringValue($stringValue)
-  {
-    $this->stringValue = $stringValue;
-  }
-  public function getStringValue()
-  {
-    return $this->stringValue;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_CreativeSize
+	 */
+	public function setCreativeSizeValue(Google_Service_AdExchangeBuyerII_CreativeSize $creativeSizeValue)
+	{
+		$this->creativeSizeValue = $creativeSizeValue;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_CreativeSize
+	 */
+	public function getCreativeSizeValue()
+	{
+		return $this->creativeSizeValue;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_DayPartTargeting
+	 */
+	public function setDayPartTargetingValue(Google_Service_AdExchangeBuyerII_DayPartTargeting $dayPartTargetingValue)
+	{
+		$this->dayPartTargetingValue = $dayPartTargetingValue;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_DayPartTargeting
+	 */
+	public function getDayPartTargetingValue()
+	{
+		return $this->dayPartTargetingValue;
+	}
+	public function setLongValue($longValue)
+	{
+		$this->longValue = $longValue;
+	}
+	public function getLongValue()
+	{
+		return $this->longValue;
+	}
+	public function setStringValue($stringValue)
+	{
+		$this->stringValue = $stringValue;
+	}
+	public function getStringValue()
+	{
+		return $this->stringValue;
+	}
 }

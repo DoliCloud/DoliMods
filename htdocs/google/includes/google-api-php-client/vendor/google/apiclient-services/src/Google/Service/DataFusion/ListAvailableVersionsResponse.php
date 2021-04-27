@@ -17,31 +17,31 @@
 
 class Google_Service_DataFusion_ListAvailableVersionsResponse extends Google_Collection
 {
-  protected $collection_key = 'availableVersions';
-  protected $availableVersionsType = 'Google_Service_DataFusion_Version';
-  protected $availableVersionsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'availableVersions';
+	protected $availableVersionsType = 'Google_Service_DataFusion_Version';
+	protected $availableVersionsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DataFusion_Version
-   */
-  public function setAvailableVersions($availableVersions)
-  {
-    $this->availableVersions = $availableVersions;
-  }
-  /**
-   * @return Google_Service_DataFusion_Version
-   */
-  public function getAvailableVersions()
-  {
-    return $this->availableVersions;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DataFusion_Version
+	 */
+	public function setAvailableVersions($availableVersions)
+	{
+		$this->availableVersions = $availableVersions;
+	}
+	/**
+	 * @return Google_Service_DataFusion_Version
+	 */
+	public function getAvailableVersions()
+	{
+		return $this->availableVersions;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

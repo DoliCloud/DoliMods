@@ -17,14 +17,14 @@
 
 class Google_Service_Sheets_CopySheetToAnotherSpreadsheetRequest extends Google_Model
 {
-  public $destinationSpreadsheetId;
+	public $destinationSpreadsheetId;
 
-  public function setDestinationSpreadsheetId($destinationSpreadsheetId)
-  {
-    $this->destinationSpreadsheetId = $destinationSpreadsheetId;
-  }
-  public function getDestinationSpreadsheetId()
-  {
-    return $this->destinationSpreadsheetId;
-  }
+	public function setDestinationSpreadsheetId($destinationSpreadsheetId)
+	{
+		$this->destinationSpreadsheetId = $destinationSpreadsheetId;
+	}
+	public function getDestinationSpreadsheetId()
+	{
+		return $this->destinationSpreadsheetId;
+	}
 }

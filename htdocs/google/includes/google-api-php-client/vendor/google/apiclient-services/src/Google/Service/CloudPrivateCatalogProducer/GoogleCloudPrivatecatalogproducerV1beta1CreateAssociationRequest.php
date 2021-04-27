@@ -17,21 +17,21 @@
 
 class Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1CreateAssociationRequest extends Google_Model
 {
-  protected $associationType = 'Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association';
-  protected $associationDataType = '';
+	protected $associationType = 'Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association';
+	protected $associationDataType = '';
 
-  /**
-   * @param Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association
-   */
-  public function setAssociation(Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association $association)
-  {
-    $this->association = $association;
-  }
-  /**
-   * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association
-   */
-  public function getAssociation()
-  {
-    return $this->association;
-  }
+	/**
+	 * @param Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association
+	 */
+	public function setAssociation(Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association $association)
+	{
+		$this->association = $association;
+	}
+	/**
+	 * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association
+	 */
+	public function getAssociation()
+	{
+		return $this->association;
+	}
 }

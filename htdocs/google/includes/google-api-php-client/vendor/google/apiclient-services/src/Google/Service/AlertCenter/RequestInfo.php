@@ -17,33 +17,33 @@
 
 class Google_Service_AlertCenter_RequestInfo extends Google_Collection
 {
-  protected $collection_key = 'appDeveloperEmail';
-  public $appDeveloperEmail;
-  public $appKey;
-  public $numberOfRequests;
+	protected $collection_key = 'appDeveloperEmail';
+	public $appDeveloperEmail;
+	public $appKey;
+	public $numberOfRequests;
 
-  public function setAppDeveloperEmail($appDeveloperEmail)
-  {
-    $this->appDeveloperEmail = $appDeveloperEmail;
-  }
-  public function getAppDeveloperEmail()
-  {
-    return $this->appDeveloperEmail;
-  }
-  public function setAppKey($appKey)
-  {
-    $this->appKey = $appKey;
-  }
-  public function getAppKey()
-  {
-    return $this->appKey;
-  }
-  public function setNumberOfRequests($numberOfRequests)
-  {
-    $this->numberOfRequests = $numberOfRequests;
-  }
-  public function getNumberOfRequests()
-  {
-    return $this->numberOfRequests;
-  }
+	public function setAppDeveloperEmail($appDeveloperEmail)
+	{
+		$this->appDeveloperEmail = $appDeveloperEmail;
+	}
+	public function getAppDeveloperEmail()
+	{
+		return $this->appDeveloperEmail;
+	}
+	public function setAppKey($appKey)
+	{
+		$this->appKey = $appKey;
+	}
+	public function getAppKey()
+	{
+		return $this->appKey;
+	}
+	public function setNumberOfRequests($numberOfRequests)
+	{
+		$this->numberOfRequests = $numberOfRequests;
+	}
+	public function getNumberOfRequests()
+	{
+		return $this->numberOfRequests;
+	}
 }

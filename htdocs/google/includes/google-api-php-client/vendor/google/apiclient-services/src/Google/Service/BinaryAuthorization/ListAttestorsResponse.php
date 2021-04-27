@@ -17,31 +17,31 @@
 
 class Google_Service_BinaryAuthorization_ListAttestorsResponse extends Google_Collection
 {
-  protected $collection_key = 'attestors';
-  protected $attestorsType = 'Google_Service_BinaryAuthorization_Attestor';
-  protected $attestorsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'attestors';
+	protected $attestorsType = 'Google_Service_BinaryAuthorization_Attestor';
+	protected $attestorsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_BinaryAuthorization_Attestor
-   */
-  public function setAttestors($attestors)
-  {
-    $this->attestors = $attestors;
-  }
-  /**
-   * @return Google_Service_BinaryAuthorization_Attestor
-   */
-  public function getAttestors()
-  {
-    return $this->attestors;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_BinaryAuthorization_Attestor
+	 */
+	public function setAttestors($attestors)
+	{
+		$this->attestors = $attestors;
+	}
+	/**
+	 * @return Google_Service_BinaryAuthorization_Attestor
+	 */
+	public function getAttestors()
+	{
+		return $this->attestors;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

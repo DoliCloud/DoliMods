@@ -4,10 +4,10 @@ class ActionsTawkto
 	/**
 	 * 	set CSP
 	 *
-     * @param	array		$parameters		Array of parameters
-     * @param	Object		$object			Object
-     * @param	string		$action			Action string
-     * @param	HookManager	$hookmanager	Object HookManager
+	 * @param	array		$parameters		Array of parameters
+	 * @param	Object		$object			Object
+	 * @param	string		$action			Action string
+	 * @param	HookManager	$hookmanager	Object HookManager
 	 */
 	function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
 	{
@@ -37,16 +37,14 @@ class ActionsTawkto
 
 		$out='';
 
-		if (GETPOST('tawktotoggle','int'))
-		{
+		if (GETPOST('tawktotoggle', 'int')) {
 			if (empty($_SESSION['tawktoonoff'])) $_SESSION['tawktoonoff']='on';
 			else unset($_SESSION['tawktoonoff']);
 		}
 
 		$fontas='fa-comment-o';
 		$tooltiptext = $langs->trans("ClickToOpenChat");
-		if (! empty($_SESSION['tawktoonoff']))
-		{
+		if (! empty($_SESSION['tawktoonoff'])) {
 			$fontas='fa-commenting-o';
 			$tooltiptext = $langs->trans("ClickToCloseChat");
 		}
@@ -69,20 +67,18 @@ class ActionsTawkto
 	 */
 	function printLeftBlock()
 	{
-	    global $user, $conf, $langs;
+		global $user, $conf, $langs;
 
-	    // Get TawkTo ID
-	    $idsitetawkto = $conf->global->TAWKTO_ID;
-	    if (empty($idsitetawkto))
-	    {
-	    	if (! preg_match('/tawkto\/admin/', $_SERVER["PHP_SELF"]))
-	    	{
-	    		$langs->load("tawkto@tawkto");
-	    		setEventMessages($langs->trans("TawkToModuleEnabledWithoutSetup"), null, 'warnings');
-	    	}
-	    }
+		// Get TawkTo ID
+		$idsitetawkto = $conf->global->TAWKTO_ID;
+		if (empty($idsitetawkto)) {
+			if (! preg_match('/tawkto\/admin/', $_SERVER["PHP_SELF"])) {
+				$langs->load("tawkto@tawkto");
+				setEventMessages($langs->trans("TawkToModuleEnabledWithoutSetup"), null, 'warnings');
+			}
+		}
 
-	    // Return if chat not enabled
+		// Return if chat not enabled
 		if (empty($_SESSION['tawktoonoff'])) return 0;
 
 

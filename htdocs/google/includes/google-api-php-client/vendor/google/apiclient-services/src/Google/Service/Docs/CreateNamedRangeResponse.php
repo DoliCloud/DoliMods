@@ -17,14 +17,14 @@
 
 class Google_Service_Docs_CreateNamedRangeResponse extends Google_Model
 {
-  public $namedRangeId;
+	public $namedRangeId;
 
-  public function setNamedRangeId($namedRangeId)
-  {
-    $this->namedRangeId = $namedRangeId;
-  }
-  public function getNamedRangeId()
-  {
-    return $this->namedRangeId;
-  }
+	public function setNamedRangeId($namedRangeId)
+	{
+		$this->namedRangeId = $namedRangeId;
+	}
+	public function getNamedRangeId()
+	{
+		return $this->namedRangeId;
+	}
 }

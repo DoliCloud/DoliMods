@@ -17,40 +17,40 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p4beta1ReferenceImage extends Google_Collection
 {
-  protected $collection_key = 'boundingPolys';
-  protected $boundingPolysType = 'Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly';
-  protected $boundingPolysDataType = 'array';
-  public $name;
-  public $uri;
+	protected $collection_key = 'boundingPolys';
+	protected $boundingPolysType = 'Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly';
+	protected $boundingPolysDataType = 'array';
+	public $name;
+	public $uri;
 
-  /**
-   * @param Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly
-   */
-  public function setBoundingPolys($boundingPolys)
-  {
-    $this->boundingPolys = $boundingPolys;
-  }
-  /**
-   * @return Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly
-   */
-  public function getBoundingPolys()
-  {
-    return $this->boundingPolys;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	/**
+	 * @param Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly
+	 */
+	public function setBoundingPolys($boundingPolys)
+	{
+		$this->boundingPolys = $boundingPolys;
+	}
+	/**
+	 * @return Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly
+	 */
+	public function getBoundingPolys()
+	{
+		return $this->boundingPolys;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

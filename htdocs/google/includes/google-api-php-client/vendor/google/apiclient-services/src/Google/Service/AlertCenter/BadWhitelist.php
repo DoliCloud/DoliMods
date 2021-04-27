@@ -17,63 +17,63 @@
 
 class Google_Service_AlertCenter_BadWhitelist extends Google_Collection
 {
-  protected $collection_key = 'messages';
-  protected $domainIdType = 'Google_Service_AlertCenter_DomainId';
-  protected $domainIdDataType = '';
-  protected $maliciousEntityType = 'Google_Service_AlertCenter_MaliciousEntity';
-  protected $maliciousEntityDataType = '';
-  protected $messagesType = 'Google_Service_AlertCenter_GmailMessageInfo';
-  protected $messagesDataType = 'array';
-  public $sourceIp;
+	protected $collection_key = 'messages';
+	protected $domainIdType = 'Google_Service_AlertCenter_DomainId';
+	protected $domainIdDataType = '';
+	protected $maliciousEntityType = 'Google_Service_AlertCenter_MaliciousEntity';
+	protected $maliciousEntityDataType = '';
+	protected $messagesType = 'Google_Service_AlertCenter_GmailMessageInfo';
+	protected $messagesDataType = 'array';
+	public $sourceIp;
 
-  /**
-   * @param Google_Service_AlertCenter_DomainId
-   */
-  public function setDomainId(Google_Service_AlertCenter_DomainId $domainId)
-  {
-    $this->domainId = $domainId;
-  }
-  /**
-   * @return Google_Service_AlertCenter_DomainId
-   */
-  public function getDomainId()
-  {
-    return $this->domainId;
-  }
-  /**
-   * @param Google_Service_AlertCenter_MaliciousEntity
-   */
-  public function setMaliciousEntity(Google_Service_AlertCenter_MaliciousEntity $maliciousEntity)
-  {
-    $this->maliciousEntity = $maliciousEntity;
-  }
-  /**
-   * @return Google_Service_AlertCenter_MaliciousEntity
-   */
-  public function getMaliciousEntity()
-  {
-    return $this->maliciousEntity;
-  }
-  /**
-   * @param Google_Service_AlertCenter_GmailMessageInfo
-   */
-  public function setMessages($messages)
-  {
-    $this->messages = $messages;
-  }
-  /**
-   * @return Google_Service_AlertCenter_GmailMessageInfo
-   */
-  public function getMessages()
-  {
-    return $this->messages;
-  }
-  public function setSourceIp($sourceIp)
-  {
-    $this->sourceIp = $sourceIp;
-  }
-  public function getSourceIp()
-  {
-    return $this->sourceIp;
-  }
+	/**
+	 * @param Google_Service_AlertCenter_DomainId
+	 */
+	public function setDomainId(Google_Service_AlertCenter_DomainId $domainId)
+	{
+		$this->domainId = $domainId;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_DomainId
+	 */
+	public function getDomainId()
+	{
+		return $this->domainId;
+	}
+	/**
+	 * @param Google_Service_AlertCenter_MaliciousEntity
+	 */
+	public function setMaliciousEntity(Google_Service_AlertCenter_MaliciousEntity $maliciousEntity)
+	{
+		$this->maliciousEntity = $maliciousEntity;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_MaliciousEntity
+	 */
+	public function getMaliciousEntity()
+	{
+		return $this->maliciousEntity;
+	}
+	/**
+	 * @param Google_Service_AlertCenter_GmailMessageInfo
+	 */
+	public function setMessages($messages)
+	{
+		$this->messages = $messages;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_GmailMessageInfo
+	 */
+	public function getMessages()
+	{
+		return $this->messages;
+	}
+	public function setSourceIp($sourceIp)
+	{
+		$this->sourceIp = $sourceIp;
+	}
+	public function getSourceIp()
+	{
+		return $this->sourceIp;
+	}
 }

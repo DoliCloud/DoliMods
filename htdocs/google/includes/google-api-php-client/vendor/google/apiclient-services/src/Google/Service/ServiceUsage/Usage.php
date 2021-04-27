@@ -17,56 +17,56 @@
 
 class Google_Service_ServiceUsage_Usage extends Google_Collection
 {
-  protected $collection_key = 'rules';
-  public $producerNotificationChannel;
-  public $requirements;
-  protected $rulesType = 'Google_Service_ServiceUsage_UsageRule';
-  protected $rulesDataType = 'array';
-  protected $serviceIdentityType = 'Google_Service_ServiceUsage_GoogleApiServiceIdentity';
-  protected $serviceIdentityDataType = '';
+	protected $collection_key = 'rules';
+	public $producerNotificationChannel;
+	public $requirements;
+	protected $rulesType = 'Google_Service_ServiceUsage_UsageRule';
+	protected $rulesDataType = 'array';
+	protected $serviceIdentityType = 'Google_Service_ServiceUsage_GoogleApiServiceIdentity';
+	protected $serviceIdentityDataType = '';
 
-  public function setProducerNotificationChannel($producerNotificationChannel)
-  {
-    $this->producerNotificationChannel = $producerNotificationChannel;
-  }
-  public function getProducerNotificationChannel()
-  {
-    return $this->producerNotificationChannel;
-  }
-  public function setRequirements($requirements)
-  {
-    $this->requirements = $requirements;
-  }
-  public function getRequirements()
-  {
-    return $this->requirements;
-  }
-  /**
-   * @param Google_Service_ServiceUsage_UsageRule
-   */
-  public function setRules($rules)
-  {
-    $this->rules = $rules;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_UsageRule
-   */
-  public function getRules()
-  {
-    return $this->rules;
-  }
-  /**
-   * @param Google_Service_ServiceUsage_GoogleApiServiceIdentity
-   */
-  public function setServiceIdentity(Google_Service_ServiceUsage_GoogleApiServiceIdentity $serviceIdentity)
-  {
-    $this->serviceIdentity = $serviceIdentity;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_GoogleApiServiceIdentity
-   */
-  public function getServiceIdentity()
-  {
-    return $this->serviceIdentity;
-  }
+	public function setProducerNotificationChannel($producerNotificationChannel)
+	{
+		$this->producerNotificationChannel = $producerNotificationChannel;
+	}
+	public function getProducerNotificationChannel()
+	{
+		return $this->producerNotificationChannel;
+	}
+	public function setRequirements($requirements)
+	{
+		$this->requirements = $requirements;
+	}
+	public function getRequirements()
+	{
+		return $this->requirements;
+	}
+	/**
+	 * @param Google_Service_ServiceUsage_UsageRule
+	 */
+	public function setRules($rules)
+	{
+		$this->rules = $rules;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_UsageRule
+	 */
+	public function getRules()
+	{
+		return $this->rules;
+	}
+	/**
+	 * @param Google_Service_ServiceUsage_GoogleApiServiceIdentity
+	 */
+	public function setServiceIdentity(Google_Service_ServiceUsage_GoogleApiServiceIdentity $serviceIdentity)
+	{
+		$this->serviceIdentity = $serviceIdentity;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_GoogleApiServiceIdentity
+	 */
+	public function getServiceIdentity()
+	{
+		return $this->serviceIdentity;
+	}
 }

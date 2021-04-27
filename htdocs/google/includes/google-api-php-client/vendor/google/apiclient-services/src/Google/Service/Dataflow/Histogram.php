@@ -17,24 +17,24 @@
 
 class Google_Service_Dataflow_Histogram extends Google_Collection
 {
-  protected $collection_key = 'bucketCounts';
-  public $bucketCounts;
-  public $firstBucketOffset;
+	protected $collection_key = 'bucketCounts';
+	public $bucketCounts;
+	public $firstBucketOffset;
 
-  public function setBucketCounts($bucketCounts)
-  {
-    $this->bucketCounts = $bucketCounts;
-  }
-  public function getBucketCounts()
-  {
-    return $this->bucketCounts;
-  }
-  public function setFirstBucketOffset($firstBucketOffset)
-  {
-    $this->firstBucketOffset = $firstBucketOffset;
-  }
-  public function getFirstBucketOffset()
-  {
-    return $this->firstBucketOffset;
-  }
+	public function setBucketCounts($bucketCounts)
+	{
+		$this->bucketCounts = $bucketCounts;
+	}
+	public function getBucketCounts()
+	{
+		return $this->bucketCounts;
+	}
+	public function setFirstBucketOffset($firstBucketOffset)
+	{
+		$this->firstBucketOffset = $firstBucketOffset;
+	}
+	public function getFirstBucketOffset()
+	{
+		return $this->firstBucketOffset;
+	}
 }

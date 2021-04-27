@@ -17,67 +17,67 @@
 
 class Google_Service_ArtifactRegistry_ArtifactregistryFile extends Google_Collection
 {
-  protected $collection_key = 'hashes';
-  public $createTime;
-  protected $hashesType = 'Google_Service_ArtifactRegistry_Hash';
-  protected $hashesDataType = 'array';
-  public $name;
-  public $owner;
-  public $sizeBytes;
-  public $updateTime;
+	protected $collection_key = 'hashes';
+	public $createTime;
+	protected $hashesType = 'Google_Service_ArtifactRegistry_Hash';
+	protected $hashesDataType = 'array';
+	public $name;
+	public $owner;
+	public $sizeBytes;
+	public $updateTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  /**
-   * @param Google_Service_ArtifactRegistry_Hash
-   */
-  public function setHashes($hashes)
-  {
-    $this->hashes = $hashes;
-  }
-  /**
-   * @return Google_Service_ArtifactRegistry_Hash
-   */
-  public function getHashes()
-  {
-    return $this->hashes;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOwner($owner)
-  {
-    $this->owner = $owner;
-  }
-  public function getOwner()
-  {
-    return $this->owner;
-  }
-  public function setSizeBytes($sizeBytes)
-  {
-    $this->sizeBytes = $sizeBytes;
-  }
-  public function getSizeBytes()
-  {
-    return $this->sizeBytes;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	/**
+	 * @param Google_Service_ArtifactRegistry_Hash
+	 */
+	public function setHashes($hashes)
+	{
+		$this->hashes = $hashes;
+	}
+	/**
+	 * @return Google_Service_ArtifactRegistry_Hash
+	 */
+	public function getHashes()
+	{
+		return $this->hashes;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOwner($owner)
+	{
+		$this->owner = $owner;
+	}
+	public function getOwner()
+	{
+		return $this->owner;
+	}
+	public function setSizeBytes($sizeBytes)
+	{
+		$this->sizeBytes = $sizeBytes;
+	}
+	public function getSizeBytes()
+	{
+		return $this->sizeBytes;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

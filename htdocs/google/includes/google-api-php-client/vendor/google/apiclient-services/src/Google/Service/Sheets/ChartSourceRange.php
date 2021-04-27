@@ -17,22 +17,22 @@
 
 class Google_Service_Sheets_ChartSourceRange extends Google_Collection
 {
-  protected $collection_key = 'sources';
-  protected $sourcesType = 'Google_Service_Sheets_GridRange';
-  protected $sourcesDataType = 'array';
+	protected $collection_key = 'sources';
+	protected $sourcesType = 'Google_Service_Sheets_GridRange';
+	protected $sourcesDataType = 'array';
 
-  /**
-   * @param Google_Service_Sheets_GridRange
-   */
-  public function setSources($sources)
-  {
-    $this->sources = $sources;
-  }
-  /**
-   * @return Google_Service_Sheets_GridRange
-   */
-  public function getSources()
-  {
-    return $this->sources;
-  }
+	/**
+	 * @param Google_Service_Sheets_GridRange
+	 */
+	public function setSources($sources)
+	{
+		$this->sources = $sources;
+	}
+	/**
+	 * @return Google_Service_Sheets_GridRange
+	 */
+	public function getSources()
+	{
+		return $this->sources;
+	}
 }

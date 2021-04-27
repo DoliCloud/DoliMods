@@ -35,12 +35,12 @@ function ovhadmin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_setup.php",1);
+	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_setup.php", 1);
 	$head[$h][1] = $langs->trans("Authentication");
 	$head[$h][2] = 'common';
 	$h++;
 
-	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_sms_setup.php",1);
+	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_sms_setup.php", 1);
 	$head[$h][1] = $langs->trans("Sms");
 	$head[$h][2] = 'sms';
 	$h++;
@@ -50,17 +50,17 @@ function ovhadmin_prepare_head()
 	$head[$h][2] = 'listservers';
 	$h++;*/
 
-   	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_importinvoice.php",1);
-   	$head[$h][1] = $langs->trans("OvhGetInvoices");
-   	$head[$h][2] = 'getinvoices';
-   	$h++;
+	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_importinvoice.php", 1);
+	$head[$h][1] = $langs->trans("OvhGetInvoices");
+	$head[$h][2] = 'getinvoices';
+	$h++;
 
-	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_click2dial.php",1);
+	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_click2dial.php", 1);
 	$head[$h][1] = $langs->trans("Click2Dial");
 	$head[$h][2] = 'click2dial';
 	$h++;
 
-   	$head[$h][0] = 'about.php';
+	$head[$h][0] = 'about.php';
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'tababout';
 	$h++;
@@ -76,19 +76,19 @@ function ovhadmin_prepare_head()
  */
 function ovhsysadmin_prepare_head()
 {
-    global $langs, $conf, $user;
-    $h = 0;
-    $head = array();
+	global $langs, $conf, $user;
+	$h = 0;
+	$head = array();
 
-   	$head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php",1).'?mode=publiccloud';
-   	$head[$h][1] = $langs->trans("OvhPublicCloud");
-   	$head[$h][2] = 'publiccloud';
-   	$h++;
+	$head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php", 1).'?mode=publiccloud';
+	$head[$h][1] = $langs->trans("OvhPublicCloud");
+	$head[$h][2] = 'publiccloud';
+	$h++;
 
-    $head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php",1).'?mode=dedicated';
-    $head[$h][1] = $langs->trans("OvhDedicated");
-    $head[$h][2] = 'dedicated';
-    $h++;
+	$head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php", 1).'?mode=dedicated';
+	$head[$h][1] = $langs->trans("OvhDedicated");
+	$head[$h][2] = 'dedicated';
+	$h++;
 
-   	return $head;
+	return $head;
 }

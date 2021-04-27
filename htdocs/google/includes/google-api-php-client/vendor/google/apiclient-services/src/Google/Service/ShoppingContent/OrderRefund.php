@@ -17,57 +17,57 @@
 
 class Google_Service_ShoppingContent_OrderRefund extends Google_Model
 {
-  public $actor;
-  protected $amountType = 'Google_Service_ShoppingContent_Price';
-  protected $amountDataType = '';
-  public $creationDate;
-  public $reason;
-  public $reasonText;
+	public $actor;
+	protected $amountType = 'Google_Service_ShoppingContent_Price';
+	protected $amountDataType = '';
+	public $creationDate;
+	public $reason;
+	public $reasonText;
 
-  public function setActor($actor)
-  {
-    $this->actor = $actor;
-  }
-  public function getActor()
-  {
-    return $this->actor;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setAmount(Google_Service_ShoppingContent_Price $amount)
-  {
-    $this->amount = $amount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getAmount()
-  {
-    return $this->amount;
-  }
-  public function setCreationDate($creationDate)
-  {
-    $this->creationDate = $creationDate;
-  }
-  public function getCreationDate()
-  {
-    return $this->creationDate;
-  }
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
-  public function setReasonText($reasonText)
-  {
-    $this->reasonText = $reasonText;
-  }
-  public function getReasonText()
-  {
-    return $this->reasonText;
-  }
+	public function setActor($actor)
+	{
+		$this->actor = $actor;
+	}
+	public function getActor()
+	{
+		return $this->actor;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setAmount(Google_Service_ShoppingContent_Price $amount)
+	{
+		$this->amount = $amount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getAmount()
+	{
+		return $this->amount;
+	}
+	public function setCreationDate($creationDate)
+	{
+		$this->creationDate = $creationDate;
+	}
+	public function getCreationDate()
+	{
+		return $this->creationDate;
+	}
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
+	public function setReasonText($reasonText)
+	{
+		$this->reasonText = $reasonText;
+	}
+	public function getReasonText()
+	{
+		return $this->reasonText;
+	}
 }

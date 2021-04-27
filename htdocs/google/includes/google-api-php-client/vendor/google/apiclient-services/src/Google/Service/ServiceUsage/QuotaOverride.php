@@ -17,59 +17,59 @@
 
 class Google_Service_ServiceUsage_QuotaOverride extends Google_Model
 {
-  public $adminOverrideAncestor;
-  public $dimensions;
-  public $metric;
-  public $name;
-  public $overrideValue;
-  public $unit;
+	public $adminOverrideAncestor;
+	public $dimensions;
+	public $metric;
+	public $name;
+	public $overrideValue;
+	public $unit;
 
-  public function setAdminOverrideAncestor($adminOverrideAncestor)
-  {
-    $this->adminOverrideAncestor = $adminOverrideAncestor;
-  }
-  public function getAdminOverrideAncestor()
-  {
-    return $this->adminOverrideAncestor;
-  }
-  public function setDimensions($dimensions)
-  {
-    $this->dimensions = $dimensions;
-  }
-  public function getDimensions()
-  {
-    return $this->dimensions;
-  }
-  public function setMetric($metric)
-  {
-    $this->metric = $metric;
-  }
-  public function getMetric()
-  {
-    return $this->metric;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOverrideValue($overrideValue)
-  {
-    $this->overrideValue = $overrideValue;
-  }
-  public function getOverrideValue()
-  {
-    return $this->overrideValue;
-  }
-  public function setUnit($unit)
-  {
-    $this->unit = $unit;
-  }
-  public function getUnit()
-  {
-    return $this->unit;
-  }
+	public function setAdminOverrideAncestor($adminOverrideAncestor)
+	{
+		$this->adminOverrideAncestor = $adminOverrideAncestor;
+	}
+	public function getAdminOverrideAncestor()
+	{
+		return $this->adminOverrideAncestor;
+	}
+	public function setDimensions($dimensions)
+	{
+		$this->dimensions = $dimensions;
+	}
+	public function getDimensions()
+	{
+		return $this->dimensions;
+	}
+	public function setMetric($metric)
+	{
+		$this->metric = $metric;
+	}
+	public function getMetric()
+	{
+		return $this->metric;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOverrideValue($overrideValue)
+	{
+		$this->overrideValue = $overrideValue;
+	}
+	public function getOverrideValue()
+	{
+		return $this->overrideValue;
+	}
+	public function setUnit($unit)
+	{
+		$this->unit = $unit;
+	}
+	public function getUnit()
+	{
+		return $this->unit;
+	}
 }

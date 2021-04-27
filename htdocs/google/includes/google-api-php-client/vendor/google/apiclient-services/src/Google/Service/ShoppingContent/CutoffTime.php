@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_CutoffTime extends Google_Model
 {
-  public $hour;
-  public $minute;
-  public $timezone;
+	public $hour;
+	public $minute;
+	public $timezone;
 
-  public function setHour($hour)
-  {
-    $this->hour = $hour;
-  }
-  public function getHour()
-  {
-    return $this->hour;
-  }
-  public function setMinute($minute)
-  {
-    $this->minute = $minute;
-  }
-  public function getMinute()
-  {
-    return $this->minute;
-  }
-  public function setTimezone($timezone)
-  {
-    $this->timezone = $timezone;
-  }
-  public function getTimezone()
-  {
-    return $this->timezone;
-  }
+	public function setHour($hour)
+	{
+		$this->hour = $hour;
+	}
+	public function getHour()
+	{
+		return $this->hour;
+	}
+	public function setMinute($minute)
+	{
+		$this->minute = $minute;
+	}
+	public function getMinute()
+	{
+		return $this->minute;
+	}
+	public function setTimezone($timezone)
+	{
+		$this->timezone = $timezone;
+	}
+	public function getTimezone()
+	{
+		return $this->timezone;
+	}
 }

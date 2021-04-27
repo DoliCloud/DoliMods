@@ -17,22 +17,22 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchReadBlobsRequest extends Google_Collection
 {
-  protected $collection_key = 'digests';
-  protected $digestsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $digestsDataType = 'array';
+	protected $collection_key = 'digests';
+	protected $digestsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $digestsDataType = 'array';
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setDigests($digests)
-  {
-    $this->digests = $digests;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getDigests()
-  {
-    return $this->digests;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setDigests($digests)
+	{
+		$this->digests = $digests;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getDigests()
+	{
+		return $this->digests;
+	}
 }

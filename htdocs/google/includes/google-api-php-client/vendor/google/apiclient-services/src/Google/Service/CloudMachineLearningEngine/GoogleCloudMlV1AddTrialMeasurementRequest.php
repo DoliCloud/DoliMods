@@ -17,21 +17,21 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AddTrialMeasurementRequest extends Google_Model
 {
-  protected $measurementType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement';
-  protected $measurementDataType = '';
+	protected $measurementType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement';
+	protected $measurementDataType = '';
 
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement
-   */
-  public function setMeasurement(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement $measurement)
-  {
-    $this->measurement = $measurement;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement
-   */
-  public function getMeasurement()
-  {
-    return $this->measurement;
-  }
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement
+	 */
+	public function setMeasurement(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement $measurement)
+	{
+		$this->measurement = $measurement;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement
+	 */
+	public function getMeasurement()
+	{
+		return $this->measurement;
+	}
 }

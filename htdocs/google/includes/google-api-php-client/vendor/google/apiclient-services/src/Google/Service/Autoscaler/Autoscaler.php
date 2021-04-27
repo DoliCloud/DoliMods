@@ -17,78 +17,78 @@
 
 class Google_Service_Autoscaler_Autoscaler extends Google_Model
 {
-  protected $autoscalingPolicyType = 'Google_Service_Autoscaler_AutoscalingPolicy';
-  protected $autoscalingPolicyDataType = '';
-  public $creationTimestamp;
-  public $description;
-  public $id;
-  public $kind;
-  public $name;
-  public $selfLink;
-  public $target;
+	protected $autoscalingPolicyType = 'Google_Service_Autoscaler_AutoscalingPolicy';
+	protected $autoscalingPolicyDataType = '';
+	public $creationTimestamp;
+	public $description;
+	public $id;
+	public $kind;
+	public $name;
+	public $selfLink;
+	public $target;
 
-  public function setAutoscalingPolicy(Google_Service_Autoscaler_AutoscalingPolicy $autoscalingPolicy)
-  {
-    $this->autoscalingPolicy = $autoscalingPolicy;
-  }
-  public function getAutoscalingPolicy()
-  {
-    return $this->autoscalingPolicy;
-  }
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  public function setTarget($target)
-  {
-    $this->target = $target;
-  }
-  public function getTarget()
-  {
-    return $this->target;
-  }
+	public function setAutoscalingPolicy(Google_Service_Autoscaler_AutoscalingPolicy $autoscalingPolicy)
+	{
+		$this->autoscalingPolicy = $autoscalingPolicy;
+	}
+	public function getAutoscalingPolicy()
+	{
+		return $this->autoscalingPolicy;
+	}
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	public function setTarget($target)
+	{
+		$this->target = $target;
+	}
+	public function getTarget()
+	{
+		return $this->target;
+	}
 }

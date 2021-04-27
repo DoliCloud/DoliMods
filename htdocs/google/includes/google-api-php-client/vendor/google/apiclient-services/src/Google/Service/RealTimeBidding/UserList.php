@@ -17,66 +17,66 @@
 
 class Google_Service_RealTimeBidding_UserList extends Google_Model
 {
-  public $description;
-  public $displayName;
-  public $membershipDurationDays;
-  public $name;
-  public $status;
-  protected $urlRestrictionType = 'Google_Service_RealTimeBidding_UrlRestriction';
-  protected $urlRestrictionDataType = '';
+	public $description;
+	public $displayName;
+	public $membershipDurationDays;
+	public $name;
+	public $status;
+	protected $urlRestrictionType = 'Google_Service_RealTimeBidding_UrlRestriction';
+	protected $urlRestrictionDataType = '';
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setMembershipDurationDays($membershipDurationDays)
-  {
-    $this->membershipDurationDays = $membershipDurationDays;
-  }
-  public function getMembershipDurationDays()
-  {
-    return $this->membershipDurationDays;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  /**
-   * @param Google_Service_RealTimeBidding_UrlRestriction
-   */
-  public function setUrlRestriction(Google_Service_RealTimeBidding_UrlRestriction $urlRestriction)
-  {
-    $this->urlRestriction = $urlRestriction;
-  }
-  /**
-   * @return Google_Service_RealTimeBidding_UrlRestriction
-   */
-  public function getUrlRestriction()
-  {
-    return $this->urlRestriction;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setMembershipDurationDays($membershipDurationDays)
+	{
+		$this->membershipDurationDays = $membershipDurationDays;
+	}
+	public function getMembershipDurationDays()
+	{
+		return $this->membershipDurationDays;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	/**
+	 * @param Google_Service_RealTimeBidding_UrlRestriction
+	 */
+	public function setUrlRestriction(Google_Service_RealTimeBidding_UrlRestriction $urlRestriction)
+	{
+		$this->urlRestriction = $urlRestriction;
+	}
+	/**
+	 * @return Google_Service_RealTimeBidding_UrlRestriction
+	 */
+	public function getUrlRestriction()
+	{
+		return $this->urlRestriction;
+	}
 }

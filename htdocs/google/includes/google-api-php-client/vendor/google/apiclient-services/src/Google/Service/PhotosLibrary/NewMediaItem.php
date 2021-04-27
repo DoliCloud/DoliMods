@@ -17,30 +17,30 @@
 
 class Google_Service_PhotosLibrary_NewMediaItem extends Google_Model
 {
-  public $description;
-  protected $simpleMediaItemType = 'Google_Service_PhotosLibrary_SimpleMediaItem';
-  protected $simpleMediaItemDataType = '';
+	public $description;
+	protected $simpleMediaItemType = 'Google_Service_PhotosLibrary_SimpleMediaItem';
+	protected $simpleMediaItemDataType = '';
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_SimpleMediaItem
-   */
-  public function setSimpleMediaItem(Google_Service_PhotosLibrary_SimpleMediaItem $simpleMediaItem)
-  {
-    $this->simpleMediaItem = $simpleMediaItem;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_SimpleMediaItem
-   */
-  public function getSimpleMediaItem()
-  {
-    return $this->simpleMediaItem;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_SimpleMediaItem
+	 */
+	public function setSimpleMediaItem(Google_Service_PhotosLibrary_SimpleMediaItem $simpleMediaItem)
+	{
+		$this->simpleMediaItem = $simpleMediaItem;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_SimpleMediaItem
+	 */
+	public function getSimpleMediaItem()
+	{
+		return $this->simpleMediaItem;
+	}
 }

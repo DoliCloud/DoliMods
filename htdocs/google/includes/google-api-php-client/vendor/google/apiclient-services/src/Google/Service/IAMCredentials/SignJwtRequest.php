@@ -17,24 +17,24 @@
 
 class Google_Service_IAMCredentials_SignJwtRequest extends Google_Collection
 {
-  protected $collection_key = 'delegates';
-  public $delegates;
-  public $payload;
+	protected $collection_key = 'delegates';
+	public $delegates;
+	public $payload;
 
-  public function setDelegates($delegates)
-  {
-    $this->delegates = $delegates;
-  }
-  public function getDelegates()
-  {
-    return $this->delegates;
-  }
-  public function setPayload($payload)
-  {
-    $this->payload = $payload;
-  }
-  public function getPayload()
-  {
-    return $this->payload;
-  }
+	public function setDelegates($delegates)
+	{
+		$this->delegates = $delegates;
+	}
+	public function getDelegates()
+	{
+		return $this->delegates;
+	}
+	public function setPayload($payload)
+	{
+		$this->payload = $payload;
+	}
+	public function getPayload()
+	{
+		return $this->payload;
+	}
 }

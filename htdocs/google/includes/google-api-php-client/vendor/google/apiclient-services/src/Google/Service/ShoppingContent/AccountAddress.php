@@ -17,50 +17,50 @@
 
 class Google_Service_ShoppingContent_AccountAddress extends Google_Model
 {
-  public $country;
-  public $locality;
-  public $postalCode;
-  public $region;
-  public $streetAddress;
+	public $country;
+	public $locality;
+	public $postalCode;
+	public $region;
+	public $streetAddress;
 
-  public function setCountry($country)
-  {
-    $this->country = $country;
-  }
-  public function getCountry()
-  {
-    return $this->country;
-  }
-  public function setLocality($locality)
-  {
-    $this->locality = $locality;
-  }
-  public function getLocality()
-  {
-    return $this->locality;
-  }
-  public function setPostalCode($postalCode)
-  {
-    $this->postalCode = $postalCode;
-  }
-  public function getPostalCode()
-  {
-    return $this->postalCode;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
-  public function setStreetAddress($streetAddress)
-  {
-    $this->streetAddress = $streetAddress;
-  }
-  public function getStreetAddress()
-  {
-    return $this->streetAddress;
-  }
+	public function setCountry($country)
+	{
+		$this->country = $country;
+	}
+	public function getCountry()
+	{
+		return $this->country;
+	}
+	public function setLocality($locality)
+	{
+		$this->locality = $locality;
+	}
+	public function getLocality()
+	{
+		return $this->locality;
+	}
+	public function setPostalCode($postalCode)
+	{
+		$this->postalCode = $postalCode;
+	}
+	public function getPostalCode()
+	{
+		return $this->postalCode;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
+	public function setStreetAddress($streetAddress)
+	{
+		$this->streetAddress = $streetAddress;
+	}
+	public function getStreetAddress()
+	{
+		return $this->streetAddress;
+	}
 }

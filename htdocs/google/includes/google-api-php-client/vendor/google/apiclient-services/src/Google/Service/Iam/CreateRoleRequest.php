@@ -17,30 +17,30 @@
 
 class Google_Service_Iam_CreateRoleRequest extends Google_Model
 {
-  protected $roleType = 'Google_Service_Iam_Role';
-  protected $roleDataType = '';
-  public $roleId;
+	protected $roleType = 'Google_Service_Iam_Role';
+	protected $roleDataType = '';
+	public $roleId;
 
-  /**
-   * @param Google_Service_Iam_Role
-   */
-  public function setRole(Google_Service_Iam_Role $role)
-  {
-    $this->role = $role;
-  }
-  /**
-   * @return Google_Service_Iam_Role
-   */
-  public function getRole()
-  {
-    return $this->role;
-  }
-  public function setRoleId($roleId)
-  {
-    $this->roleId = $roleId;
-  }
-  public function getRoleId()
-  {
-    return $this->roleId;
-  }
+	/**
+	 * @param Google_Service_Iam_Role
+	 */
+	public function setRole(Google_Service_Iam_Role $role)
+	{
+		$this->role = $role;
+	}
+	/**
+	 * @return Google_Service_Iam_Role
+	 */
+	public function getRole()
+	{
+		return $this->role;
+	}
+	public function setRoleId($roleId)
+	{
+		$this->roleId = $roleId;
+	}
+	public function getRoleId()
+	{
+		return $this->roleId;
+	}
 }

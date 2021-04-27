@@ -17,23 +17,23 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictResponsePredictionResult extends Google_Model
 {
-  public $id;
-  public $itemMetadata;
+	public $id;
+	public $itemMetadata;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setItemMetadata($itemMetadata)
-  {
-    $this->itemMetadata = $itemMetadata;
-  }
-  public function getItemMetadata()
-  {
-    return $this->itemMetadata;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setItemMetadata($itemMetadata)
+	{
+		$this->itemMetadata = $itemMetadata;
+	}
+	public function getItemMetadata()
+	{
+		return $this->itemMetadata;
+	}
 }

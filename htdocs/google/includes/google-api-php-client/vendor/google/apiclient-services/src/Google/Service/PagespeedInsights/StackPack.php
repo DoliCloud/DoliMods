@@ -17,41 +17,41 @@
 
 class Google_Service_PagespeedInsights_StackPack extends Google_Model
 {
-  public $descriptions;
-  public $iconDataURL;
-  public $id;
-  public $title;
+	public $descriptions;
+	public $iconDataURL;
+	public $id;
+	public $title;
 
-  public function setDescriptions($descriptions)
-  {
-    $this->descriptions = $descriptions;
-  }
-  public function getDescriptions()
-  {
-    return $this->descriptions;
-  }
-  public function setIconDataURL($iconDataURL)
-  {
-    $this->iconDataURL = $iconDataURL;
-  }
-  public function getIconDataURL()
-  {
-    return $this->iconDataURL;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setDescriptions($descriptions)
+	{
+		$this->descriptions = $descriptions;
+	}
+	public function getDescriptions()
+	{
+		return $this->descriptions;
+	}
+	public function setIconDataURL($iconDataURL)
+	{
+		$this->iconDataURL = $iconDataURL;
+	}
+	public function getIconDataURL()
+	{
+		return $this->iconDataURL;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

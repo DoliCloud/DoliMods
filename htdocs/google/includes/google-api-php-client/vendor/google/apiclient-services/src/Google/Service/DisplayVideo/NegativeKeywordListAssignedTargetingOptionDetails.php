@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_NegativeKeywordListAssignedTargetingOptionDetails extends Google_Model
 {
-  public $negativeKeywordListId;
+	public $negativeKeywordListId;
 
-  public function setNegativeKeywordListId($negativeKeywordListId)
-  {
-    $this->negativeKeywordListId = $negativeKeywordListId;
-  }
-  public function getNegativeKeywordListId()
-  {
-    return $this->negativeKeywordListId;
-  }
+	public function setNegativeKeywordListId($negativeKeywordListId)
+	{
+		$this->negativeKeywordListId = $negativeKeywordListId;
+	}
+	public function getNegativeKeywordListId()
+	{
+		return $this->negativeKeywordListId;
+	}
 }

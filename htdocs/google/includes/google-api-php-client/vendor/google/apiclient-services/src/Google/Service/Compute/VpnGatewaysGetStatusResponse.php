@@ -17,21 +17,21 @@
 
 class Google_Service_Compute_VpnGatewaysGetStatusResponse extends Google_Model
 {
-  protected $resultType = 'Google_Service_Compute_VpnGatewayStatus';
-  protected $resultDataType = '';
+	protected $resultType = 'Google_Service_Compute_VpnGatewayStatus';
+	protected $resultDataType = '';
 
-  /**
-   * @param Google_Service_Compute_VpnGatewayStatus
-   */
-  public function setResult(Google_Service_Compute_VpnGatewayStatus $result)
-  {
-    $this->result = $result;
-  }
-  /**
-   * @return Google_Service_Compute_VpnGatewayStatus
-   */
-  public function getResult()
-  {
-    return $this->result;
-  }
+	/**
+	 * @param Google_Service_Compute_VpnGatewayStatus
+	 */
+	public function setResult(Google_Service_Compute_VpnGatewayStatus $result)
+	{
+		$this->result = $result;
+	}
+	/**
+	 * @return Google_Service_Compute_VpnGatewayStatus
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
 }

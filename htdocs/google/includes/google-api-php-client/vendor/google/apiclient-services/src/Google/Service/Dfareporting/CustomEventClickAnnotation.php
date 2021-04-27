@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_CustomEventClickAnnotation extends Google_Model
 {
-  public $gclid;
-  public $kind;
+	public $gclid;
+	public $kind;
 
-  public function setGclid($gclid)
-  {
-    $this->gclid = $gclid;
-  }
-  public function getGclid()
-  {
-    return $this->gclid;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setGclid($gclid)
+	{
+		$this->gclid = $gclid;
+	}
+	public function getGclid()
+	{
+		return $this->gclid;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

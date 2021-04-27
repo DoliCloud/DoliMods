@@ -17,40 +17,40 @@
 
 class Google_Service_Safebrowsing_FindFullHashesResponse extends Google_Collection
 {
-  protected $collection_key = 'matches';
-  protected $matchesType = 'Google_Service_Safebrowsing_ThreatMatch';
-  protected $matchesDataType = 'array';
-  public $minimumWaitDuration;
-  public $negativeCacheDuration;
+	protected $collection_key = 'matches';
+	protected $matchesType = 'Google_Service_Safebrowsing_ThreatMatch';
+	protected $matchesDataType = 'array';
+	public $minimumWaitDuration;
+	public $negativeCacheDuration;
 
-  /**
-   * @param Google_Service_Safebrowsing_ThreatMatch
-   */
-  public function setMatches($matches)
-  {
-    $this->matches = $matches;
-  }
-  /**
-   * @return Google_Service_Safebrowsing_ThreatMatch
-   */
-  public function getMatches()
-  {
-    return $this->matches;
-  }
-  public function setMinimumWaitDuration($minimumWaitDuration)
-  {
-    $this->minimumWaitDuration = $minimumWaitDuration;
-  }
-  public function getMinimumWaitDuration()
-  {
-    return $this->minimumWaitDuration;
-  }
-  public function setNegativeCacheDuration($negativeCacheDuration)
-  {
-    $this->negativeCacheDuration = $negativeCacheDuration;
-  }
-  public function getNegativeCacheDuration()
-  {
-    return $this->negativeCacheDuration;
-  }
+	/**
+	 * @param Google_Service_Safebrowsing_ThreatMatch
+	 */
+	public function setMatches($matches)
+	{
+		$this->matches = $matches;
+	}
+	/**
+	 * @return Google_Service_Safebrowsing_ThreatMatch
+	 */
+	public function getMatches()
+	{
+		return $this->matches;
+	}
+	public function setMinimumWaitDuration($minimumWaitDuration)
+	{
+		$this->minimumWaitDuration = $minimumWaitDuration;
+	}
+	public function getMinimumWaitDuration()
+	{
+		return $this->minimumWaitDuration;
+	}
+	public function setNegativeCacheDuration($negativeCacheDuration)
+	{
+		$this->negativeCacheDuration = $negativeCacheDuration;
+	}
+	public function getNegativeCacheDuration()
+	{
+		return $this->negativeCacheDuration;
+	}
 }

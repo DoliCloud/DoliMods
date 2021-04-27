@@ -17,14 +17,14 @@
 
 class Google_Service_DeploymentManager_ConfigFile extends Google_Model
 {
-  public $content;
+	public $content;
 
-  public function setContent($content)
-  {
-    $this->content = $content;
-  }
-  public function getContent()
-  {
-    return $this->content;
-  }
+	public function setContent($content)
+	{
+		$this->content = $content;
+	}
+	public function getContent()
+	{
+		return $this->content;
+	}
 }

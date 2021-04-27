@@ -17,56 +17,56 @@
 
 class Google_Service_GameServices_ScalingConfig extends Google_Collection
 {
-  protected $collection_key = 'selectors';
-  public $fleetAutoscalerSpec;
-  public $name;
-  protected $schedulesType = 'Google_Service_GameServices_Schedule';
-  protected $schedulesDataType = 'array';
-  protected $selectorsType = 'Google_Service_GameServices_LabelSelector';
-  protected $selectorsDataType = 'array';
+	protected $collection_key = 'selectors';
+	public $fleetAutoscalerSpec;
+	public $name;
+	protected $schedulesType = 'Google_Service_GameServices_Schedule';
+	protected $schedulesDataType = 'array';
+	protected $selectorsType = 'Google_Service_GameServices_LabelSelector';
+	protected $selectorsDataType = 'array';
 
-  public function setFleetAutoscalerSpec($fleetAutoscalerSpec)
-  {
-    $this->fleetAutoscalerSpec = $fleetAutoscalerSpec;
-  }
-  public function getFleetAutoscalerSpec()
-  {
-    return $this->fleetAutoscalerSpec;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_GameServices_Schedule
-   */
-  public function setSchedules($schedules)
-  {
-    $this->schedules = $schedules;
-  }
-  /**
-   * @return Google_Service_GameServices_Schedule
-   */
-  public function getSchedules()
-  {
-    return $this->schedules;
-  }
-  /**
-   * @param Google_Service_GameServices_LabelSelector
-   */
-  public function setSelectors($selectors)
-  {
-    $this->selectors = $selectors;
-  }
-  /**
-   * @return Google_Service_GameServices_LabelSelector
-   */
-  public function getSelectors()
-  {
-    return $this->selectors;
-  }
+	public function setFleetAutoscalerSpec($fleetAutoscalerSpec)
+	{
+		$this->fleetAutoscalerSpec = $fleetAutoscalerSpec;
+	}
+	public function getFleetAutoscalerSpec()
+	{
+		return $this->fleetAutoscalerSpec;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_GameServices_Schedule
+	 */
+	public function setSchedules($schedules)
+	{
+		$this->schedules = $schedules;
+	}
+	/**
+	 * @return Google_Service_GameServices_Schedule
+	 */
+	public function getSchedules()
+	{
+		return $this->schedules;
+	}
+	/**
+	 * @param Google_Service_GameServices_LabelSelector
+	 */
+	public function setSelectors($selectors)
+	{
+		$this->selectors = $selectors;
+	}
+	/**
+	 * @return Google_Service_GameServices_LabelSelector
+	 */
+	public function getSelectors()
+	{
+		return $this->selectors;
+	}
 }

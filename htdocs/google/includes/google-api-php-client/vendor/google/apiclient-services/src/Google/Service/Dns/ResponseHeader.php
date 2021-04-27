@@ -17,14 +17,14 @@
 
 class Google_Service_Dns_ResponseHeader extends Google_Model
 {
-  public $operationId;
+	public $operationId;
 
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
 }

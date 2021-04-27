@@ -17,47 +17,47 @@
 
 class Google_Service_CloudSearch_ObjectDefinition extends Google_Collection
 {
-  protected $collection_key = 'propertyDefinitions';
-  public $name;
-  protected $optionsType = 'Google_Service_CloudSearch_ObjectOptions';
-  protected $optionsDataType = '';
-  protected $propertyDefinitionsType = 'Google_Service_CloudSearch_PropertyDefinition';
-  protected $propertyDefinitionsDataType = 'array';
+	protected $collection_key = 'propertyDefinitions';
+	public $name;
+	protected $optionsType = 'Google_Service_CloudSearch_ObjectOptions';
+	protected $optionsDataType = '';
+	protected $propertyDefinitionsType = 'Google_Service_CloudSearch_PropertyDefinition';
+	protected $propertyDefinitionsDataType = 'array';
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_CloudSearch_ObjectOptions
-   */
-  public function setOptions(Google_Service_CloudSearch_ObjectOptions $options)
-  {
-    $this->options = $options;
-  }
-  /**
-   * @return Google_Service_CloudSearch_ObjectOptions
-   */
-  public function getOptions()
-  {
-    return $this->options;
-  }
-  /**
-   * @param Google_Service_CloudSearch_PropertyDefinition
-   */
-  public function setPropertyDefinitions($propertyDefinitions)
-  {
-    $this->propertyDefinitions = $propertyDefinitions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_PropertyDefinition
-   */
-  public function getPropertyDefinitions()
-  {
-    return $this->propertyDefinitions;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_ObjectOptions
+	 */
+	public function setOptions(Google_Service_CloudSearch_ObjectOptions $options)
+	{
+		$this->options = $options;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_ObjectOptions
+	 */
+	public function getOptions()
+	{
+		return $this->options;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_PropertyDefinition
+	 */
+	public function setPropertyDefinitions($propertyDefinitions)
+	{
+		$this->propertyDefinitions = $propertyDefinitions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_PropertyDefinition
+	 */
+	public function getPropertyDefinitions()
+	{
+		return $this->propertyDefinitions;
+	}
 }

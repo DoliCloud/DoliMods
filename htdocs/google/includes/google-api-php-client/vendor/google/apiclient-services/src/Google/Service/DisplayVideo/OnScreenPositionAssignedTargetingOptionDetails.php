@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_OnScreenPositionAssignedTargetingOptionDetails extends Google_Model
 {
-  public $onScreenPosition;
-  public $targetingOptionId;
+	public $onScreenPosition;
+	public $targetingOptionId;
 
-  public function setOnScreenPosition($onScreenPosition)
-  {
-    $this->onScreenPosition = $onScreenPosition;
-  }
-  public function getOnScreenPosition()
-  {
-    return $this->onScreenPosition;
-  }
-  public function setTargetingOptionId($targetingOptionId)
-  {
-    $this->targetingOptionId = $targetingOptionId;
-  }
-  public function getTargetingOptionId()
-  {
-    return $this->targetingOptionId;
-  }
+	public function setOnScreenPosition($onScreenPosition)
+	{
+		$this->onScreenPosition = $onScreenPosition;
+	}
+	public function getOnScreenPosition()
+	{
+		return $this->onScreenPosition;
+	}
+	public function setTargetingOptionId($targetingOptionId)
+	{
+		$this->targetingOptionId = $targetingOptionId;
+	}
+	public function getTargetingOptionId()
+	{
+		return $this->targetingOptionId;
+	}
 }

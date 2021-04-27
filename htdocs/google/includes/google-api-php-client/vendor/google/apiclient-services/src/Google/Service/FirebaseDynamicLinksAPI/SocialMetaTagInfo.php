@@ -17,32 +17,32 @@
 
 class Google_Service_FirebaseDynamicLinksAPI_SocialMetaTagInfo extends Google_Model
 {
-  public $socialDescription;
-  public $socialImageLink;
-  public $socialTitle;
+	public $socialDescription;
+	public $socialImageLink;
+	public $socialTitle;
 
-  public function setSocialDescription($socialDescription)
-  {
-    $this->socialDescription = $socialDescription;
-  }
-  public function getSocialDescription()
-  {
-    return $this->socialDescription;
-  }
-  public function setSocialImageLink($socialImageLink)
-  {
-    $this->socialImageLink = $socialImageLink;
-  }
-  public function getSocialImageLink()
-  {
-    return $this->socialImageLink;
-  }
-  public function setSocialTitle($socialTitle)
-  {
-    $this->socialTitle = $socialTitle;
-  }
-  public function getSocialTitle()
-  {
-    return $this->socialTitle;
-  }
+	public function setSocialDescription($socialDescription)
+	{
+		$this->socialDescription = $socialDescription;
+	}
+	public function getSocialDescription()
+	{
+		return $this->socialDescription;
+	}
+	public function setSocialImageLink($socialImageLink)
+	{
+		$this->socialImageLink = $socialImageLink;
+	}
+	public function getSocialImageLink()
+	{
+		return $this->socialImageLink;
+	}
+	public function setSocialTitle($socialTitle)
+	{
+		$this->socialTitle = $socialTitle;
+	}
+	public function getSocialTitle()
+	{
+		return $this->socialTitle;
+	}
 }

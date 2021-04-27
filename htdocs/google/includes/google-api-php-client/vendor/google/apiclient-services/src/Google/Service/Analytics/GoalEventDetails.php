@@ -17,31 +17,31 @@
 
 class Google_Service_Analytics_GoalEventDetails extends Google_Collection
 {
-  protected $collection_key = 'eventConditions';
-  protected $eventConditionsType = 'Google_Service_Analytics_GoalEventDetailsEventConditions';
-  protected $eventConditionsDataType = 'array';
-  public $useEventValue;
+	protected $collection_key = 'eventConditions';
+	protected $eventConditionsType = 'Google_Service_Analytics_GoalEventDetailsEventConditions';
+	protected $eventConditionsDataType = 'array';
+	public $useEventValue;
 
-  /**
-   * @param Google_Service_Analytics_GoalEventDetailsEventConditions
-   */
-  public function setEventConditions($eventConditions)
-  {
-    $this->eventConditions = $eventConditions;
-  }
-  /**
-   * @return Google_Service_Analytics_GoalEventDetailsEventConditions
-   */
-  public function getEventConditions()
-  {
-    return $this->eventConditions;
-  }
-  public function setUseEventValue($useEventValue)
-  {
-    $this->useEventValue = $useEventValue;
-  }
-  public function getUseEventValue()
-  {
-    return $this->useEventValue;
-  }
+	/**
+	 * @param Google_Service_Analytics_GoalEventDetailsEventConditions
+	 */
+	public function setEventConditions($eventConditions)
+	{
+		$this->eventConditions = $eventConditions;
+	}
+	/**
+	 * @return Google_Service_Analytics_GoalEventDetailsEventConditions
+	 */
+	public function getEventConditions()
+	{
+		return $this->eventConditions;
+	}
+	public function setUseEventValue($useEventValue)
+	{
+		$this->useEventValue = $useEventValue;
+	}
+	public function getUseEventValue()
+	{
+		return $this->useEventValue;
+	}
 }

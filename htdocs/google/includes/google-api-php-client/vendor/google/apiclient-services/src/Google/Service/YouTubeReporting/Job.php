@@ -17,59 +17,59 @@
 
 class Google_Service_YouTubeReporting_Job extends Google_Model
 {
-  public $createTime;
-  public $expireTime;
-  public $id;
-  public $name;
-  public $reportTypeId;
-  public $systemManaged;
+	public $createTime;
+	public $expireTime;
+	public $id;
+	public $name;
+	public $reportTypeId;
+	public $systemManaged;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setExpireTime($expireTime)
-  {
-    $this->expireTime = $expireTime;
-  }
-  public function getExpireTime()
-  {
-    return $this->expireTime;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setReportTypeId($reportTypeId)
-  {
-    $this->reportTypeId = $reportTypeId;
-  }
-  public function getReportTypeId()
-  {
-    return $this->reportTypeId;
-  }
-  public function setSystemManaged($systemManaged)
-  {
-    $this->systemManaged = $systemManaged;
-  }
-  public function getSystemManaged()
-  {
-    return $this->systemManaged;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setExpireTime($expireTime)
+	{
+		$this->expireTime = $expireTime;
+	}
+	public function getExpireTime()
+	{
+		return $this->expireTime;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setReportTypeId($reportTypeId)
+	{
+		$this->reportTypeId = $reportTypeId;
+	}
+	public function getReportTypeId()
+	{
+		return $this->reportTypeId;
+	}
+	public function setSystemManaged($systemManaged)
+	{
+		$this->systemManaged = $systemManaged;
+	}
+	public function getSystemManaged()
+	{
+		return $this->systemManaged;
+	}
 }

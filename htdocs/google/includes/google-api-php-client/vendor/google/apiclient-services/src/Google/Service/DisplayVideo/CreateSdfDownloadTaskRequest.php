@@ -17,80 +17,80 @@
 
 class Google_Service_DisplayVideo_CreateSdfDownloadTaskRequest extends Google_Model
 {
-  public $advertiserId;
-  protected $idFilterType = 'Google_Service_DisplayVideo_IdFilter';
-  protected $idFilterDataType = '';
-  protected $inventorySourceFilterType = 'Google_Service_DisplayVideo_InventorySourceFilter';
-  protected $inventorySourceFilterDataType = '';
-  protected $parentEntityFilterType = 'Google_Service_DisplayVideo_ParentEntityFilter';
-  protected $parentEntityFilterDataType = '';
-  public $partnerId;
-  public $version;
+	public $advertiserId;
+	protected $idFilterType = 'Google_Service_DisplayVideo_IdFilter';
+	protected $idFilterDataType = '';
+	protected $inventorySourceFilterType = 'Google_Service_DisplayVideo_InventorySourceFilter';
+	protected $inventorySourceFilterDataType = '';
+	protected $parentEntityFilterType = 'Google_Service_DisplayVideo_ParentEntityFilter';
+	protected $parentEntityFilterDataType = '';
+	public $partnerId;
+	public $version;
 
-  public function setAdvertiserId($advertiserId)
-  {
-    $this->advertiserId = $advertiserId;
-  }
-  public function getAdvertiserId()
-  {
-    return $this->advertiserId;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_IdFilter
-   */
-  public function setIdFilter(Google_Service_DisplayVideo_IdFilter $idFilter)
-  {
-    $this->idFilter = $idFilter;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_IdFilter
-   */
-  public function getIdFilter()
-  {
-    return $this->idFilter;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_InventorySourceFilter
-   */
-  public function setInventorySourceFilter(Google_Service_DisplayVideo_InventorySourceFilter $inventorySourceFilter)
-  {
-    $this->inventorySourceFilter = $inventorySourceFilter;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_InventorySourceFilter
-   */
-  public function getInventorySourceFilter()
-  {
-    return $this->inventorySourceFilter;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_ParentEntityFilter
-   */
-  public function setParentEntityFilter(Google_Service_DisplayVideo_ParentEntityFilter $parentEntityFilter)
-  {
-    $this->parentEntityFilter = $parentEntityFilter;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_ParentEntityFilter
-   */
-  public function getParentEntityFilter()
-  {
-    return $this->parentEntityFilter;
-  }
-  public function setPartnerId($partnerId)
-  {
-    $this->partnerId = $partnerId;
-  }
-  public function getPartnerId()
-  {
-    return $this->partnerId;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setAdvertiserId($advertiserId)
+	{
+		$this->advertiserId = $advertiserId;
+	}
+	public function getAdvertiserId()
+	{
+		return $this->advertiserId;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_IdFilter
+	 */
+	public function setIdFilter(Google_Service_DisplayVideo_IdFilter $idFilter)
+	{
+		$this->idFilter = $idFilter;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_IdFilter
+	 */
+	public function getIdFilter()
+	{
+		return $this->idFilter;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_InventorySourceFilter
+	 */
+	public function setInventorySourceFilter(Google_Service_DisplayVideo_InventorySourceFilter $inventorySourceFilter)
+	{
+		$this->inventorySourceFilter = $inventorySourceFilter;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_InventorySourceFilter
+	 */
+	public function getInventorySourceFilter()
+	{
+		return $this->inventorySourceFilter;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_ParentEntityFilter
+	 */
+	public function setParentEntityFilter(Google_Service_DisplayVideo_ParentEntityFilter $parentEntityFilter)
+	{
+		$this->parentEntityFilter = $parentEntityFilter;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_ParentEntityFilter
+	 */
+	public function getParentEntityFilter()
+	{
+		return $this->parentEntityFilter;
+	}
+	public function setPartnerId($partnerId)
+	{
+		$this->partnerId = $partnerId;
+	}
+	public function getPartnerId()
+	{
+		return $this->partnerId;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

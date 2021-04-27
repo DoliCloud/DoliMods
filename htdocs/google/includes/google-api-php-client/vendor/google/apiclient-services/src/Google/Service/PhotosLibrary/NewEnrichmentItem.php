@@ -17,53 +17,53 @@
 
 class Google_Service_PhotosLibrary_NewEnrichmentItem extends Google_Model
 {
-  protected $locationEnrichmentType = 'Google_Service_PhotosLibrary_LocationEnrichment';
-  protected $locationEnrichmentDataType = '';
-  protected $mapEnrichmentType = 'Google_Service_PhotosLibrary_MapEnrichment';
-  protected $mapEnrichmentDataType = '';
-  protected $textEnrichmentType = 'Google_Service_PhotosLibrary_TextEnrichment';
-  protected $textEnrichmentDataType = '';
+	protected $locationEnrichmentType = 'Google_Service_PhotosLibrary_LocationEnrichment';
+	protected $locationEnrichmentDataType = '';
+	protected $mapEnrichmentType = 'Google_Service_PhotosLibrary_MapEnrichment';
+	protected $mapEnrichmentDataType = '';
+	protected $textEnrichmentType = 'Google_Service_PhotosLibrary_TextEnrichment';
+	protected $textEnrichmentDataType = '';
 
-  /**
-   * @param Google_Service_PhotosLibrary_LocationEnrichment
-   */
-  public function setLocationEnrichment(Google_Service_PhotosLibrary_LocationEnrichment $locationEnrichment)
-  {
-    $this->locationEnrichment = $locationEnrichment;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_LocationEnrichment
-   */
-  public function getLocationEnrichment()
-  {
-    return $this->locationEnrichment;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_MapEnrichment
-   */
-  public function setMapEnrichment(Google_Service_PhotosLibrary_MapEnrichment $mapEnrichment)
-  {
-    $this->mapEnrichment = $mapEnrichment;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_MapEnrichment
-   */
-  public function getMapEnrichment()
-  {
-    return $this->mapEnrichment;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_TextEnrichment
-   */
-  public function setTextEnrichment(Google_Service_PhotosLibrary_TextEnrichment $textEnrichment)
-  {
-    $this->textEnrichment = $textEnrichment;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_TextEnrichment
-   */
-  public function getTextEnrichment()
-  {
-    return $this->textEnrichment;
-  }
+	/**
+	 * @param Google_Service_PhotosLibrary_LocationEnrichment
+	 */
+	public function setLocationEnrichment(Google_Service_PhotosLibrary_LocationEnrichment $locationEnrichment)
+	{
+		$this->locationEnrichment = $locationEnrichment;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_LocationEnrichment
+	 */
+	public function getLocationEnrichment()
+	{
+		return $this->locationEnrichment;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_MapEnrichment
+	 */
+	public function setMapEnrichment(Google_Service_PhotosLibrary_MapEnrichment $mapEnrichment)
+	{
+		$this->mapEnrichment = $mapEnrichment;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_MapEnrichment
+	 */
+	public function getMapEnrichment()
+	{
+		return $this->mapEnrichment;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_TextEnrichment
+	 */
+	public function setTextEnrichment(Google_Service_PhotosLibrary_TextEnrichment $textEnrichment)
+	{
+		$this->textEnrichment = $textEnrichment;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_TextEnrichment
+	 */
+	public function getTextEnrichment()
+	{
+		return $this->textEnrichment;
+	}
 }

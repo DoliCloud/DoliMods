@@ -17,22 +17,22 @@
 
 class Google_Service_Docs_NamedStyles extends Google_Collection
 {
-  protected $collection_key = 'styles';
-  protected $stylesType = 'Google_Service_Docs_NamedStyle';
-  protected $stylesDataType = 'array';
+	protected $collection_key = 'styles';
+	protected $stylesType = 'Google_Service_Docs_NamedStyle';
+	protected $stylesDataType = 'array';
 
-  /**
-   * @param Google_Service_Docs_NamedStyle
-   */
-  public function setStyles($styles)
-  {
-    $this->styles = $styles;
-  }
-  /**
-   * @return Google_Service_Docs_NamedStyle
-   */
-  public function getStyles()
-  {
-    return $this->styles;
-  }
+	/**
+	 * @param Google_Service_Docs_NamedStyle
+	 */
+	public function setStyles($styles)
+	{
+		$this->styles = $styles;
+	}
+	/**
+	 * @return Google_Service_Docs_NamedStyle
+	 */
+	public function getStyles()
+	{
+		return $this->styles;
+	}
 }

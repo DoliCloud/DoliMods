@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_OrdersCancelRequest extends Google_Model
 {
-  public $operationId;
-  public $reason;
-  public $reasonText;
+	public $operationId;
+	public $reason;
+	public $reasonText;
 
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
-  public function setReasonText($reasonText)
-  {
-    $this->reasonText = $reasonText;
-  }
-  public function getReasonText()
-  {
-    return $this->reasonText;
-  }
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
+	public function setReasonText($reasonText)
+	{
+		$this->reasonText = $reasonText;
+	}
+	public function getReasonText()
+	{
+		return $this->reasonText;
+	}
 }

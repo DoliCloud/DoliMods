@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidEnterprise_ProductSigningCertificate extends Google_Model
 {
-  public $certificateHashSha1;
-  public $certificateHashSha256;
+	public $certificateHashSha1;
+	public $certificateHashSha256;
 
-  public function setCertificateHashSha1($certificateHashSha1)
-  {
-    $this->certificateHashSha1 = $certificateHashSha1;
-  }
-  public function getCertificateHashSha1()
-  {
-    return $this->certificateHashSha1;
-  }
-  public function setCertificateHashSha256($certificateHashSha256)
-  {
-    $this->certificateHashSha256 = $certificateHashSha256;
-  }
-  public function getCertificateHashSha256()
-  {
-    return $this->certificateHashSha256;
-  }
+	public function setCertificateHashSha1($certificateHashSha1)
+	{
+		$this->certificateHashSha1 = $certificateHashSha1;
+	}
+	public function getCertificateHashSha1()
+	{
+		return $this->certificateHashSha1;
+	}
+	public function setCertificateHashSha256($certificateHashSha256)
+	{
+		$this->certificateHashSha256 = $certificateHashSha256;
+	}
+	public function getCertificateHashSha256()
+	{
+		return $this->certificateHashSha256;
+	}
 }

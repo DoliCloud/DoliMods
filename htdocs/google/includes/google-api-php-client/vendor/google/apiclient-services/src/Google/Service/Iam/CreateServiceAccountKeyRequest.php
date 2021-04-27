@@ -17,23 +17,23 @@
 
 class Google_Service_Iam_CreateServiceAccountKeyRequest extends Google_Model
 {
-  public $keyAlgorithm;
-  public $privateKeyType;
+	public $keyAlgorithm;
+	public $privateKeyType;
 
-  public function setKeyAlgorithm($keyAlgorithm)
-  {
-    $this->keyAlgorithm = $keyAlgorithm;
-  }
-  public function getKeyAlgorithm()
-  {
-    return $this->keyAlgorithm;
-  }
-  public function setPrivateKeyType($privateKeyType)
-  {
-    $this->privateKeyType = $privateKeyType;
-  }
-  public function getPrivateKeyType()
-  {
-    return $this->privateKeyType;
-  }
+	public function setKeyAlgorithm($keyAlgorithm)
+	{
+		$this->keyAlgorithm = $keyAlgorithm;
+	}
+	public function getKeyAlgorithm()
+	{
+		return $this->keyAlgorithm;
+	}
+	public function setPrivateKeyType($privateKeyType)
+	{
+		$this->privateKeyType = $privateKeyType;
+	}
+	public function getPrivateKeyType()
+	{
+		return $this->privateKeyType;
+	}
 }

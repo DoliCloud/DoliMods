@@ -17,30 +17,30 @@
 
 class Google_Service_Books_DictlayerdataDictWordsSensesSynonyms extends Google_Model
 {
-  protected $sourceType = 'Google_Service_Books_DictlayerdataDictWordsSensesSynonymsSource';
-  protected $sourceDataType = '';
-  public $text;
+	protected $sourceType = 'Google_Service_Books_DictlayerdataDictWordsSensesSynonymsSource';
+	protected $sourceDataType = '';
+	public $text;
 
-  /**
-   * @param Google_Service_Books_DictlayerdataDictWordsSensesSynonymsSource
-   */
-  public function setSource(Google_Service_Books_DictlayerdataDictWordsSensesSynonymsSource $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_Books_DictlayerdataDictWordsSensesSynonymsSource
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	/**
+	 * @param Google_Service_Books_DictlayerdataDictWordsSensesSynonymsSource
+	 */
+	public function setSource(Google_Service_Books_DictlayerdataDictWordsSensesSynonymsSource $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_Books_DictlayerdataDictWordsSensesSynonymsSource
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

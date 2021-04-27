@@ -17,31 +17,31 @@
 
 class Google_Service_IdentityToolkit_UploadAccountResponse extends Google_Collection
 {
-  protected $collection_key = 'error';
-  protected $errorType = 'Google_Service_IdentityToolkit_UploadAccountResponseError';
-  protected $errorDataType = 'array';
-  public $kind;
+	protected $collection_key = 'error';
+	protected $errorType = 'Google_Service_IdentityToolkit_UploadAccountResponseError';
+	protected $errorDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_IdentityToolkit_UploadAccountResponseError
-   */
-  public function setError($error)
-  {
-    $this->error = $error;
-  }
-  /**
-   * @return Google_Service_IdentityToolkit_UploadAccountResponseError
-   */
-  public function getError()
-  {
-    return $this->error;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_IdentityToolkit_UploadAccountResponseError
+	 */
+	public function setError($error)
+	{
+		$this->error = $error;
+	}
+	/**
+	 * @return Google_Service_IdentityToolkit_UploadAccountResponseError
+	 */
+	public function getError()
+	{
+		return $this->error;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

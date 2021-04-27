@@ -17,39 +17,39 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCount extends Google_Model
 {
-  public $bookingCode;
-  public $count;
-  protected $seatsFlagType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag';
-  protected $seatsFlagDataType = '';
+	public $bookingCode;
+	public $count;
+	protected $seatsFlagType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag';
+	protected $seatsFlagDataType = '';
 
-  public function setBookingCode($bookingCode)
-  {
-    $this->bookingCode = $bookingCode;
-  }
-  public function getBookingCode()
-  {
-    return $this->bookingCode;
-  }
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  /**
-   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag
-   */
-  public function setSeatsFlag(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag $seatsFlag)
-  {
-    $this->seatsFlag = $seatsFlag;
-  }
-  /**
-   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag
-   */
-  public function getSeatsFlag()
-  {
-    return $this->seatsFlag;
-  }
+	public function setBookingCode($bookingCode)
+	{
+		$this->bookingCode = $bookingCode;
+	}
+	public function getBookingCode()
+	{
+		return $this->bookingCode;
+	}
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	/**
+	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag
+	 */
+	public function setSeatsFlag(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag $seatsFlag)
+	{
+		$this->seatsFlag = $seatsFlag;
+	}
+	/**
+	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag
+	 */
+	public function getSeatsFlag()
+	{
+		return $this->seatsFlag;
+	}
 }

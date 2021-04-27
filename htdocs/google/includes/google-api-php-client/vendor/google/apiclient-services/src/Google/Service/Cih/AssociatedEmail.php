@@ -17,32 +17,32 @@
 
 class Google_Service_Cih_AssociatedEmail extends Google_Model
 {
-  public $emailAddress;
-  public $kind;
-  public $operator;
+	public $emailAddress;
+	public $kind;
+	public $operator;
 
-  public function setEmailAddress($emailAddress)
-  {
-    $this->emailAddress = $emailAddress;
-  }
-  public function getEmailAddress()
-  {
-    return $this->emailAddress;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setOperator($operator)
-  {
-    $this->operator = $operator;
-  }
-  public function getOperator()
-  {
-    return $this->operator;
-  }
+	public function setEmailAddress($emailAddress)
+	{
+		$this->emailAddress = $emailAddress;
+	}
+	public function getEmailAddress()
+	{
+		return $this->emailAddress;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setOperator($operator)
+	{
+		$this->operator = $operator;
+	}
+	public function getOperator()
+	{
+		return $this->operator;
+	}
 }

@@ -34,24 +34,21 @@ function memcached_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/memcached/admin/memcached.php",1);
+	$head[$h][0] = dol_buildpath("/memcached/admin/memcached.php", 1);
 	$head[$h][1] = $langs->trans("ServerSetup");
 	$head[$h][2] = 'serversetup';
 	$h++;
 
-	if (class_exists("Memcache") || class_exists("Memcached"))
-	{
-		if (empty($dolibarr_memcached_view_setup))	// Hidden variable to add to conf file to disable setup
-		{
-			$head[$h][0] = dol_buildpath("/memcached/admin/memcached_stats.php?op=1",1);
+	if (class_exists("Memcache") || class_exists("Memcached")) {
+		if (empty($dolibarr_memcached_view_setup)) {	// Hidden variable to add to conf file to disable setup
+			$head[$h][0] = dol_buildpath("/memcached/admin/memcached_stats.php?op=1", 1);
 			$head[$h][1] = $langs->trans("ServerStatistics");
 			$head[$h][2] = 'serverstats';
 			$h++;
 		}
 
-		if (empty($dolibarr_memcached_view_setup) && empty($dolibarr_memcached_view_disable))	// Hidden variable to add to conf file to disable setup or disable cache browsing
-		{
-			$head[$h][0] = dol_buildpath("/memcached/admin/memcached_stats.php?op=2",1);
+		if (empty($dolibarr_memcached_view_setup) && empty($dolibarr_memcached_view_disable)) {	// Hidden variable to add to conf file to disable setup or disable cache browsing
+			$head[$h][0] = dol_buildpath("/memcached/admin/memcached_stats.php?op=2", 1);
 			$head[$h][1] = $langs->trans("CacheBrowser");
 			$head[$h][2] = 'cachebrowser';
 			$h++;

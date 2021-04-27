@@ -17,31 +17,31 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Location extends Google_Collection
 {
-  protected $collection_key = 'capabilities';
-  protected $capabilitiesType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Capability';
-  protected $capabilitiesDataType = 'array';
-  public $name;
+	protected $collection_key = 'capabilities';
+	protected $capabilitiesType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Capability';
+	protected $capabilitiesDataType = 'array';
+	public $name;
 
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Capability
-   */
-  public function setCapabilities($capabilities)
-  {
-    $this->capabilities = $capabilities;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Capability
-   */
-  public function getCapabilities()
-  {
-    return $this->capabilities;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Capability
+	 */
+	public function setCapabilities($capabilities)
+	{
+		$this->capabilities = $capabilities;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Capability
+	 */
+	public function getCapabilities()
+	{
+		return $this->capabilities;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

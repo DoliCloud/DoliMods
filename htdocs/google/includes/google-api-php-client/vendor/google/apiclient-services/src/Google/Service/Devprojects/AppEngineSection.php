@@ -17,43 +17,43 @@
 
 class Google_Service_Devprojects_AppEngineSection extends Google_Collection
 {
-  protected $collection_key = 'app';
-  public $adoptedGaiaId;
-  protected $appType = 'Google_Service_Devprojects_ManagedEntityMetadata';
-  protected $appDataType = 'array';
-  public $appId;
-  public $kind;
+	protected $collection_key = 'app';
+	public $adoptedGaiaId;
+	protected $appType = 'Google_Service_Devprojects_ManagedEntityMetadata';
+	protected $appDataType = 'array';
+	public $appId;
+	public $kind;
 
-  public function setAdoptedGaiaId($adoptedGaiaId)
-  {
-    $this->adoptedGaiaId = $adoptedGaiaId;
-  }
-  public function getAdoptedGaiaId()
-  {
-    return $this->adoptedGaiaId;
-  }
-  public function setApp($app)
-  {
-    $this->app = $app;
-  }
-  public function getApp()
-  {
-    return $this->app;
-  }
-  public function setAppId($appId)
-  {
-    $this->appId = $appId;
-  }
-  public function getAppId()
-  {
-    return $this->appId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setAdoptedGaiaId($adoptedGaiaId)
+	{
+		$this->adoptedGaiaId = $adoptedGaiaId;
+	}
+	public function getAdoptedGaiaId()
+	{
+		return $this->adoptedGaiaId;
+	}
+	public function setApp($app)
+	{
+		$this->app = $app;
+	}
+	public function getApp()
+	{
+		return $this->app;
+	}
+	public function setAppId($appId)
+	{
+		$this->appId = $appId;
+	}
+	public function getAppId()
+	{
+		return $this->appId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

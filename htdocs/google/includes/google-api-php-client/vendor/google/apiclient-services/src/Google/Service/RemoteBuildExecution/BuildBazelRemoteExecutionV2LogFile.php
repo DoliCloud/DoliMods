@@ -17,30 +17,30 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2LogFile extends Google_Model
 {
-  protected $digestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $digestDataType = '';
-  public $humanReadable;
+	protected $digestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $digestDataType = '';
+	public $humanReadable;
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $digest)
-  {
-    $this->digest = $digest;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getDigest()
-  {
-    return $this->digest;
-  }
-  public function setHumanReadable($humanReadable)
-  {
-    $this->humanReadable = $humanReadable;
-  }
-  public function getHumanReadable()
-  {
-    return $this->humanReadable;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $digest)
+	{
+		$this->digest = $digest;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getDigest()
+	{
+		return $this->digest;
+	}
+	public function setHumanReadable($humanReadable)
+	{
+		$this->humanReadable = $humanReadable;
+	}
+	public function getHumanReadable()
+	{
+		return $this->humanReadable;
+	}
 }

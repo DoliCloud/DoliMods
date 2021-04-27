@@ -17,41 +17,41 @@
 
 class Google_Service_PhotosLibrary_Video extends Google_Model
 {
-  public $cameraMake;
-  public $cameraModel;
-  public $fps;
-  public $status;
+	public $cameraMake;
+	public $cameraModel;
+	public $fps;
+	public $status;
 
-  public function setCameraMake($cameraMake)
-  {
-    $this->cameraMake = $cameraMake;
-  }
-  public function getCameraMake()
-  {
-    return $this->cameraMake;
-  }
-  public function setCameraModel($cameraModel)
-  {
-    $this->cameraModel = $cameraModel;
-  }
-  public function getCameraModel()
-  {
-    return $this->cameraModel;
-  }
-  public function setFps($fps)
-  {
-    $this->fps = $fps;
-  }
-  public function getFps()
-  {
-    return $this->fps;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setCameraMake($cameraMake)
+	{
+		$this->cameraMake = $cameraMake;
+	}
+	public function getCameraMake()
+	{
+		return $this->cameraMake;
+	}
+	public function setCameraModel($cameraModel)
+	{
+		$this->cameraModel = $cameraModel;
+	}
+	public function getCameraModel()
+	{
+		return $this->cameraModel;
+	}
+	public function setFps($fps)
+	{
+		$this->fps = $fps;
+	}
+	public function getFps()
+	{
+		return $this->fps;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

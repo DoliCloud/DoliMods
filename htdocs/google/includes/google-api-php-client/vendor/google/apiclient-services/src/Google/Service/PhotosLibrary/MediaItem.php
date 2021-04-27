@@ -17,82 +17,82 @@
 
 class Google_Service_PhotosLibrary_MediaItem extends Google_Model
 {
-  public $baseUrl;
-  protected $contributorInfoType = 'Google_Service_PhotosLibrary_ContributorInfo';
-  protected $contributorInfoDataType = '';
-  public $description;
-  public $id;
-  protected $mediaMetadataType = 'Google_Service_PhotosLibrary_MediaMetadata';
-  protected $mediaMetadataDataType = '';
-  public $mimeType;
-  public $productUrl;
+	public $baseUrl;
+	protected $contributorInfoType = 'Google_Service_PhotosLibrary_ContributorInfo';
+	protected $contributorInfoDataType = '';
+	public $description;
+	public $id;
+	protected $mediaMetadataType = 'Google_Service_PhotosLibrary_MediaMetadata';
+	protected $mediaMetadataDataType = '';
+	public $mimeType;
+	public $productUrl;
 
-  public function setBaseUrl($baseUrl)
-  {
-    $this->baseUrl = $baseUrl;
-  }
-  public function getBaseUrl()
-  {
-    return $this->baseUrl;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_ContributorInfo
-   */
-  public function setContributorInfo(Google_Service_PhotosLibrary_ContributorInfo $contributorInfo)
-  {
-    $this->contributorInfo = $contributorInfo;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_ContributorInfo
-   */
-  public function getContributorInfo()
-  {
-    return $this->contributorInfo;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_MediaMetadata
-   */
-  public function setMediaMetadata(Google_Service_PhotosLibrary_MediaMetadata $mediaMetadata)
-  {
-    $this->mediaMetadata = $mediaMetadata;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_MediaMetadata
-   */
-  public function getMediaMetadata()
-  {
-    return $this->mediaMetadata;
-  }
-  public function setMimeType($mimeType)
-  {
-    $this->mimeType = $mimeType;
-  }
-  public function getMimeType()
-  {
-    return $this->mimeType;
-  }
-  public function setProductUrl($productUrl)
-  {
-    $this->productUrl = $productUrl;
-  }
-  public function getProductUrl()
-  {
-    return $this->productUrl;
-  }
+	public function setBaseUrl($baseUrl)
+	{
+		$this->baseUrl = $baseUrl;
+	}
+	public function getBaseUrl()
+	{
+		return $this->baseUrl;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_ContributorInfo
+	 */
+	public function setContributorInfo(Google_Service_PhotosLibrary_ContributorInfo $contributorInfo)
+	{
+		$this->contributorInfo = $contributorInfo;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_ContributorInfo
+	 */
+	public function getContributorInfo()
+	{
+		return $this->contributorInfo;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_MediaMetadata
+	 */
+	public function setMediaMetadata(Google_Service_PhotosLibrary_MediaMetadata $mediaMetadata)
+	{
+		$this->mediaMetadata = $mediaMetadata;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_MediaMetadata
+	 */
+	public function getMediaMetadata()
+	{
+		return $this->mediaMetadata;
+	}
+	public function setMimeType($mimeType)
+	{
+		$this->mimeType = $mimeType;
+	}
+	public function getMimeType()
+	{
+		return $this->mimeType;
+	}
+	public function setProductUrl($productUrl)
+	{
+		$this->productUrl = $productUrl;
+	}
+	public function getProductUrl()
+	{
+		return $this->productUrl;
+	}
 }

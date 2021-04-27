@@ -17,39 +17,39 @@
 
 class Google_Service_Compute_AllocationSpecificSKUReservation extends Google_Model
 {
-  public $count;
-  public $inUseCount;
-  protected $instancePropertiesType = 'Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties';
-  protected $instancePropertiesDataType = '';
+	public $count;
+	public $inUseCount;
+	protected $instancePropertiesType = 'Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties';
+	protected $instancePropertiesDataType = '';
 
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  public function setInUseCount($inUseCount)
-  {
-    $this->inUseCount = $inUseCount;
-  }
-  public function getInUseCount()
-  {
-    return $this->inUseCount;
-  }
-  /**
-   * @param Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties
-   */
-  public function setInstanceProperties(Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties $instanceProperties)
-  {
-    $this->instanceProperties = $instanceProperties;
-  }
-  /**
-   * @return Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties
-   */
-  public function getInstanceProperties()
-  {
-    return $this->instanceProperties;
-  }
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	public function setInUseCount($inUseCount)
+	{
+		$this->inUseCount = $inUseCount;
+	}
+	public function getInUseCount()
+	{
+		return $this->inUseCount;
+	}
+	/**
+	 * @param Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties
+	 */
+	public function setInstanceProperties(Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties $instanceProperties)
+	{
+		$this->instanceProperties = $instanceProperties;
+	}
+	/**
+	 * @return Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties
+	 */
+	public function getInstanceProperties()
+	{
+		return $this->instanceProperties;
+	}
 }

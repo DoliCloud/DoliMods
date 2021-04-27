@@ -17,95 +17,95 @@
 
 class Google_Service_Firestore_Write extends Google_Collection
 {
-  protected $collection_key = 'updateTransforms';
-  protected $currentDocumentType = 'Google_Service_Firestore_Precondition';
-  protected $currentDocumentDataType = '';
-  public $delete;
-  protected $transformType = 'Google_Service_Firestore_DocumentTransform';
-  protected $transformDataType = '';
-  protected $updateType = 'Google_Service_Firestore_Document';
-  protected $updateDataType = '';
-  protected $updateMaskType = 'Google_Service_Firestore_DocumentMask';
-  protected $updateMaskDataType = '';
-  protected $updateTransformsType = 'Google_Service_Firestore_FieldTransform';
-  protected $updateTransformsDataType = 'array';
+	protected $collection_key = 'updateTransforms';
+	protected $currentDocumentType = 'Google_Service_Firestore_Precondition';
+	protected $currentDocumentDataType = '';
+	public $delete;
+	protected $transformType = 'Google_Service_Firestore_DocumentTransform';
+	protected $transformDataType = '';
+	protected $updateType = 'Google_Service_Firestore_Document';
+	protected $updateDataType = '';
+	protected $updateMaskType = 'Google_Service_Firestore_DocumentMask';
+	protected $updateMaskDataType = '';
+	protected $updateTransformsType = 'Google_Service_Firestore_FieldTransform';
+	protected $updateTransformsDataType = 'array';
 
-  /**
-   * @param Google_Service_Firestore_Precondition
-   */
-  public function setCurrentDocument(Google_Service_Firestore_Precondition $currentDocument)
-  {
-    $this->currentDocument = $currentDocument;
-  }
-  /**
-   * @return Google_Service_Firestore_Precondition
-   */
-  public function getCurrentDocument()
-  {
-    return $this->currentDocument;
-  }
-  public function setDelete($delete)
-  {
-    $this->delete = $delete;
-  }
-  public function getDelete()
-  {
-    return $this->delete;
-  }
-  /**
-   * @param Google_Service_Firestore_DocumentTransform
-   */
-  public function setTransform(Google_Service_Firestore_DocumentTransform $transform)
-  {
-    $this->transform = $transform;
-  }
-  /**
-   * @return Google_Service_Firestore_DocumentTransform
-   */
-  public function getTransform()
-  {
-    return $this->transform;
-  }
-  /**
-   * @param Google_Service_Firestore_Document
-   */
-  public function setUpdate(Google_Service_Firestore_Document $update)
-  {
-    $this->update = $update;
-  }
-  /**
-   * @return Google_Service_Firestore_Document
-   */
-  public function getUpdate()
-  {
-    return $this->update;
-  }
-  /**
-   * @param Google_Service_Firestore_DocumentMask
-   */
-  public function setUpdateMask(Google_Service_Firestore_DocumentMask $updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  /**
-   * @return Google_Service_Firestore_DocumentMask
-   */
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
-  /**
-   * @param Google_Service_Firestore_FieldTransform
-   */
-  public function setUpdateTransforms($updateTransforms)
-  {
-    $this->updateTransforms = $updateTransforms;
-  }
-  /**
-   * @return Google_Service_Firestore_FieldTransform
-   */
-  public function getUpdateTransforms()
-  {
-    return $this->updateTransforms;
-  }
+	/**
+	 * @param Google_Service_Firestore_Precondition
+	 */
+	public function setCurrentDocument(Google_Service_Firestore_Precondition $currentDocument)
+	{
+		$this->currentDocument = $currentDocument;
+	}
+	/**
+	 * @return Google_Service_Firestore_Precondition
+	 */
+	public function getCurrentDocument()
+	{
+		return $this->currentDocument;
+	}
+	public function setDelete($delete)
+	{
+		$this->delete = $delete;
+	}
+	public function getDelete()
+	{
+		return $this->delete;
+	}
+	/**
+	 * @param Google_Service_Firestore_DocumentTransform
+	 */
+	public function setTransform(Google_Service_Firestore_DocumentTransform $transform)
+	{
+		$this->transform = $transform;
+	}
+	/**
+	 * @return Google_Service_Firestore_DocumentTransform
+	 */
+	public function getTransform()
+	{
+		return $this->transform;
+	}
+	/**
+	 * @param Google_Service_Firestore_Document
+	 */
+	public function setUpdate(Google_Service_Firestore_Document $update)
+	{
+		$this->update = $update;
+	}
+	/**
+	 * @return Google_Service_Firestore_Document
+	 */
+	public function getUpdate()
+	{
+		return $this->update;
+	}
+	/**
+	 * @param Google_Service_Firestore_DocumentMask
+	 */
+	public function setUpdateMask(Google_Service_Firestore_DocumentMask $updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	/**
+	 * @return Google_Service_Firestore_DocumentMask
+	 */
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
+	/**
+	 * @param Google_Service_Firestore_FieldTransform
+	 */
+	public function setUpdateTransforms($updateTransforms)
+	{
+		$this->updateTransforms = $updateTransforms;
+	}
+	/**
+	 * @return Google_Service_Firestore_FieldTransform
+	 */
+	public function getUpdateTransforms()
+	{
+		return $this->updateTransforms;
+	}
 }

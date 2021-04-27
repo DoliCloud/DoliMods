@@ -17,21 +17,21 @@
 
 class Google_Service_AlertCenter_Attachment extends Google_Model
 {
-  protected $csvType = 'Google_Service_AlertCenter_Csv';
-  protected $csvDataType = '';
+	protected $csvType = 'Google_Service_AlertCenter_Csv';
+	protected $csvDataType = '';
 
-  /**
-   * @param Google_Service_AlertCenter_Csv
-   */
-  public function setCsv(Google_Service_AlertCenter_Csv $csv)
-  {
-    $this->csv = $csv;
-  }
-  /**
-   * @return Google_Service_AlertCenter_Csv
-   */
-  public function getCsv()
-  {
-    return $this->csv;
-  }
+	/**
+	 * @param Google_Service_AlertCenter_Csv
+	 */
+	public function setCsv(Google_Service_AlertCenter_Csv $csv)
+	{
+		$this->csv = $csv;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_Csv
+	 */
+	public function getCsv()
+	{
+		return $this->csv;
+	}
 }

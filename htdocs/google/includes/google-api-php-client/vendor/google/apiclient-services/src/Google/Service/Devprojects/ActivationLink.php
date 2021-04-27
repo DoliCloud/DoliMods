@@ -17,52 +17,52 @@
 
 class Google_Service_Devprojects_ActivationLink extends Google_Collection
 {
-  protected $collection_key = 'extraParameter';
-  public $emailAddress;
-  protected $extraParameterType = 'Google_Service_Devprojects_TypedKeyValuePair';
-  protected $extraParameterDataType = 'array';
-  public $id;
-  public $kind;
-  public $link;
+	protected $collection_key = 'extraParameter';
+	public $emailAddress;
+	protected $extraParameterType = 'Google_Service_Devprojects_TypedKeyValuePair';
+	protected $extraParameterDataType = 'array';
+	public $id;
+	public $kind;
+	public $link;
 
-  public function setEmailAddress($emailAddress)
-  {
-    $this->emailAddress = $emailAddress;
-  }
-  public function getEmailAddress()
-  {
-    return $this->emailAddress;
-  }
-  public function setExtraParameter($extraParameter)
-  {
-    $this->extraParameter = $extraParameter;
-  }
-  public function getExtraParameter()
-  {
-    return $this->extraParameter;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLink($link)
-  {
-    $this->link = $link;
-  }
-  public function getLink()
-  {
-    return $this->link;
-  }
+	public function setEmailAddress($emailAddress)
+	{
+		$this->emailAddress = $emailAddress;
+	}
+	public function getEmailAddress()
+	{
+		return $this->emailAddress;
+	}
+	public function setExtraParameter($extraParameter)
+	{
+		$this->extraParameter = $extraParameter;
+	}
+	public function getExtraParameter()
+	{
+		return $this->extraParameter;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
+	public function getLink()
+	{
+		return $this->link;
+	}
 }

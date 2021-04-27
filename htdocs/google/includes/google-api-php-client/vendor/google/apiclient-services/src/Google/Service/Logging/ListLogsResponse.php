@@ -17,24 +17,24 @@
 
 class Google_Service_Logging_ListLogsResponse extends Google_Collection
 {
-  protected $collection_key = 'logNames';
-  public $logNames;
-  public $nextPageToken;
+	protected $collection_key = 'logNames';
+	public $logNames;
+	public $nextPageToken;
 
-  public function setLogNames($logNames)
-  {
-    $this->logNames = $logNames;
-  }
-  public function getLogNames()
-  {
-    return $this->logNames;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setLogNames($logNames)
+	{
+		$this->logNames = $logNames;
+	}
+	public function getLogNames()
+	{
+		return $this->logNames;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

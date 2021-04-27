@@ -17,21 +17,21 @@
 
 class Google_Service_Partners_ResponseMetadata extends Google_Model
 {
-  protected $debugInfoType = 'Google_Service_Partners_DebugInfo';
-  protected $debugInfoDataType = '';
+	protected $debugInfoType = 'Google_Service_Partners_DebugInfo';
+	protected $debugInfoDataType = '';
 
-  /**
-   * @param Google_Service_Partners_DebugInfo
-   */
-  public function setDebugInfo(Google_Service_Partners_DebugInfo $debugInfo)
-  {
-    $this->debugInfo = $debugInfo;
-  }
-  /**
-   * @return Google_Service_Partners_DebugInfo
-   */
-  public function getDebugInfo()
-  {
-    return $this->debugInfo;
-  }
+	/**
+	 * @param Google_Service_Partners_DebugInfo
+	 */
+	public function setDebugInfo(Google_Service_Partners_DebugInfo $debugInfo)
+	{
+		$this->debugInfo = $debugInfo;
+	}
+	/**
+	 * @return Google_Service_Partners_DebugInfo
+	 */
+	public function getDebugInfo()
+	{
+		return $this->debugInfo;
+	}
 }

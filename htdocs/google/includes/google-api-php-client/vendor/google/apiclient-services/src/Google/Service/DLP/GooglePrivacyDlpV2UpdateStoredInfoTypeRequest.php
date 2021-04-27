@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2UpdateStoredInfoTypeRequest extends Google_Model
 {
-  protected $configType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig';
-  protected $configDataType = '';
-  public $updateMask;
+	protected $configType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig';
+	protected $configDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
-   */
-  public function setConfig(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig $config)
-  {
-    $this->config = $config;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
-   */
-  public function getConfig()
-  {
-    return $this->config;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
+	 */
+	public function setConfig(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig $config)
+	{
+		$this->config = $config;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
+	 */
+	public function getConfig()
+	{
+		return $this->config;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

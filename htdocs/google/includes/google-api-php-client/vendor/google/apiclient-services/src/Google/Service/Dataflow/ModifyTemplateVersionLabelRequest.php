@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_ModifyTemplateVersionLabelRequest extends Google_Model
 {
-  public $key;
-  public $op;
-  public $value;
+	public $key;
+	public $op;
+	public $value;
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  public function setOp($op)
-  {
-    $this->op = $op;
-  }
-  public function getOp()
-  {
-    return $this->op;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	public function setOp($op)
+	{
+		$this->op = $op;
+	}
+	public function getOp()
+	{
+		return $this->op;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_AdMob_ReportFooter extends Google_Collection
 {
-  protected $collection_key = 'warnings';
-  public $matchingRowCount;
-  protected $warningsType = 'Google_Service_AdMob_ReportWarning';
-  protected $warningsDataType = 'array';
+	protected $collection_key = 'warnings';
+	public $matchingRowCount;
+	protected $warningsType = 'Google_Service_AdMob_ReportWarning';
+	protected $warningsDataType = 'array';
 
-  public function setMatchingRowCount($matchingRowCount)
-  {
-    $this->matchingRowCount = $matchingRowCount;
-  }
-  public function getMatchingRowCount()
-  {
-    return $this->matchingRowCount;
-  }
-  /**
-   * @param Google_Service_AdMob_ReportWarning
-   */
-  public function setWarnings($warnings)
-  {
-    $this->warnings = $warnings;
-  }
-  /**
-   * @return Google_Service_AdMob_ReportWarning
-   */
-  public function getWarnings()
-  {
-    return $this->warnings;
-  }
+	public function setMatchingRowCount($matchingRowCount)
+	{
+		$this->matchingRowCount = $matchingRowCount;
+	}
+	public function getMatchingRowCount()
+	{
+		return $this->matchingRowCount;
+	}
+	/**
+	 * @param Google_Service_AdMob_ReportWarning
+	 */
+	public function setWarnings($warnings)
+	{
+		$this->warnings = $warnings;
+	}
+	/**
+	 * @return Google_Service_AdMob_ReportWarning
+	 */
+	public function getWarnings()
+	{
+		return $this->warnings;
+	}
 }

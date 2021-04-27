@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Scheduling extends Google_Model
 {
-  public $maxRunningTime;
-  public $maxWaitTime;
+	public $maxRunningTime;
+	public $maxWaitTime;
 
-  public function setMaxRunningTime($maxRunningTime)
-  {
-    $this->maxRunningTime = $maxRunningTime;
-  }
-  public function getMaxRunningTime()
-  {
-    return $this->maxRunningTime;
-  }
-  public function setMaxWaitTime($maxWaitTime)
-  {
-    $this->maxWaitTime = $maxWaitTime;
-  }
-  public function getMaxWaitTime()
-  {
-    return $this->maxWaitTime;
-  }
+	public function setMaxRunningTime($maxRunningTime)
+	{
+		$this->maxRunningTime = $maxRunningTime;
+	}
+	public function getMaxRunningTime()
+	{
+		return $this->maxRunningTime;
+	}
+	public function setMaxWaitTime($maxWaitTime)
+	{
+		$this->maxWaitTime = $maxWaitTime;
+	}
+	public function getMaxWaitTime()
+	{
+		return $this->maxWaitTime;
+	}
 }

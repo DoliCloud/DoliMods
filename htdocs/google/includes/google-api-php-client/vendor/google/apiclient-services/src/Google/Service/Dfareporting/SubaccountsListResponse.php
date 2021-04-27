@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_SubaccountsListResponse extends Google_Collection
 {
-  protected $collection_key = 'subaccounts';
-  public $kind;
-  public $nextPageToken;
-  protected $subaccountsType = 'Google_Service_Dfareporting_Subaccount';
-  protected $subaccountsDataType = 'array';
+	protected $collection_key = 'subaccounts';
+	public $kind;
+	public $nextPageToken;
+	protected $subaccountsType = 'Google_Service_Dfareporting_Subaccount';
+	protected $subaccountsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Dfareporting_Subaccount
-   */
-  public function setSubaccounts($subaccounts)
-  {
-    $this->subaccounts = $subaccounts;
-  }
-  /**
-   * @return Google_Service_Dfareporting_Subaccount
-   */
-  public function getSubaccounts()
-  {
-    return $this->subaccounts;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_Subaccount
+	 */
+	public function setSubaccounts($subaccounts)
+	{
+		$this->subaccounts = $subaccounts;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_Subaccount
+	 */
+	public function getSubaccounts()
+	{
+		return $this->subaccounts;
+	}
 }

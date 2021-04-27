@@ -17,32 +17,32 @@
 
 class Google_Service_AdExchangeBuyer_PretargetingConfigVideoPlayerSizes extends Google_Model
 {
-  public $aspectRatio;
-  public $minHeight;
-  public $minWidth;
+	public $aspectRatio;
+	public $minHeight;
+	public $minWidth;
 
-  public function setAspectRatio($aspectRatio)
-  {
-    $this->aspectRatio = $aspectRatio;
-  }
-  public function getAspectRatio()
-  {
-    return $this->aspectRatio;
-  }
-  public function setMinHeight($minHeight)
-  {
-    $this->minHeight = $minHeight;
-  }
-  public function getMinHeight()
-  {
-    return $this->minHeight;
-  }
-  public function setMinWidth($minWidth)
-  {
-    $this->minWidth = $minWidth;
-  }
-  public function getMinWidth()
-  {
-    return $this->minWidth;
-  }
+	public function setAspectRatio($aspectRatio)
+	{
+		$this->aspectRatio = $aspectRatio;
+	}
+	public function getAspectRatio()
+	{
+		return $this->aspectRatio;
+	}
+	public function setMinHeight($minHeight)
+	{
+		$this->minHeight = $minHeight;
+	}
+	public function getMinHeight()
+	{
+		return $this->minHeight;
+	}
+	public function setMinWidth($minWidth)
+	{
+		$this->minWidth = $minWidth;
+	}
+	public function getMinWidth()
+	{
+		return $this->minWidth;
+	}
 }

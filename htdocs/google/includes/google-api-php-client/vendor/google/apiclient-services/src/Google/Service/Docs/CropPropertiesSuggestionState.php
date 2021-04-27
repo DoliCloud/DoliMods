@@ -17,50 +17,50 @@
 
 class Google_Service_Docs_CropPropertiesSuggestionState extends Google_Model
 {
-  public $angleSuggested;
-  public $offsetBottomSuggested;
-  public $offsetLeftSuggested;
-  public $offsetRightSuggested;
-  public $offsetTopSuggested;
+	public $angleSuggested;
+	public $offsetBottomSuggested;
+	public $offsetLeftSuggested;
+	public $offsetRightSuggested;
+	public $offsetTopSuggested;
 
-  public function setAngleSuggested($angleSuggested)
-  {
-    $this->angleSuggested = $angleSuggested;
-  }
-  public function getAngleSuggested()
-  {
-    return $this->angleSuggested;
-  }
-  public function setOffsetBottomSuggested($offsetBottomSuggested)
-  {
-    $this->offsetBottomSuggested = $offsetBottomSuggested;
-  }
-  public function getOffsetBottomSuggested()
-  {
-    return $this->offsetBottomSuggested;
-  }
-  public function setOffsetLeftSuggested($offsetLeftSuggested)
-  {
-    $this->offsetLeftSuggested = $offsetLeftSuggested;
-  }
-  public function getOffsetLeftSuggested()
-  {
-    return $this->offsetLeftSuggested;
-  }
-  public function setOffsetRightSuggested($offsetRightSuggested)
-  {
-    $this->offsetRightSuggested = $offsetRightSuggested;
-  }
-  public function getOffsetRightSuggested()
-  {
-    return $this->offsetRightSuggested;
-  }
-  public function setOffsetTopSuggested($offsetTopSuggested)
-  {
-    $this->offsetTopSuggested = $offsetTopSuggested;
-  }
-  public function getOffsetTopSuggested()
-  {
-    return $this->offsetTopSuggested;
-  }
+	public function setAngleSuggested($angleSuggested)
+	{
+		$this->angleSuggested = $angleSuggested;
+	}
+	public function getAngleSuggested()
+	{
+		return $this->angleSuggested;
+	}
+	public function setOffsetBottomSuggested($offsetBottomSuggested)
+	{
+		$this->offsetBottomSuggested = $offsetBottomSuggested;
+	}
+	public function getOffsetBottomSuggested()
+	{
+		return $this->offsetBottomSuggested;
+	}
+	public function setOffsetLeftSuggested($offsetLeftSuggested)
+	{
+		$this->offsetLeftSuggested = $offsetLeftSuggested;
+	}
+	public function getOffsetLeftSuggested()
+	{
+		return $this->offsetLeftSuggested;
+	}
+	public function setOffsetRightSuggested($offsetRightSuggested)
+	{
+		$this->offsetRightSuggested = $offsetRightSuggested;
+	}
+	public function getOffsetRightSuggested()
+	{
+		return $this->offsetRightSuggested;
+	}
+	public function setOffsetTopSuggested($offsetTopSuggested)
+	{
+		$this->offsetTopSuggested = $offsetTopSuggested;
+	}
+	public function getOffsetTopSuggested()
+	{
+		return $this->offsetTopSuggested;
+	}
 }

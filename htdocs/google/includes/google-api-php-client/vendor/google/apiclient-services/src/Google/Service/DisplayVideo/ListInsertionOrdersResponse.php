@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListInsertionOrdersResponse extends Google_Collection
 {
-  protected $collection_key = 'insertionOrders';
-  protected $insertionOrdersType = 'Google_Service_DisplayVideo_InsertionOrder';
-  protected $insertionOrdersDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'insertionOrders';
+	protected $insertionOrdersType = 'Google_Service_DisplayVideo_InsertionOrder';
+	protected $insertionOrdersDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_InsertionOrder
-   */
-  public function setInsertionOrders($insertionOrders)
-  {
-    $this->insertionOrders = $insertionOrders;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_InsertionOrder
-   */
-  public function getInsertionOrders()
-  {
-    return $this->insertionOrders;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_InsertionOrder
+	 */
+	public function setInsertionOrders($insertionOrders)
+	{
+		$this->insertionOrders = $insertionOrders;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_InsertionOrder
+	 */
+	public function getInsertionOrders()
+	{
+		return $this->insertionOrders;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1Impact extends Google_Model
 {
-  public $category;
-  protected $costProjectionType = 'Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection';
-  protected $costProjectionDataType = '';
+	public $category;
+	protected $costProjectionType = 'Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection';
+	protected $costProjectionDataType = '';
 
-  public function setCategory($category)
-  {
-    $this->category = $category;
-  }
-  public function getCategory()
-  {
-    return $this->category;
-  }
-  /**
-   * @param Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection
-   */
-  public function setCostProjection(Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection $costProjection)
-  {
-    $this->costProjection = $costProjection;
-  }
-  /**
-   * @return Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection
-   */
-  public function getCostProjection()
-  {
-    return $this->costProjection;
-  }
+	public function setCategory($category)
+	{
+		$this->category = $category;
+	}
+	public function getCategory()
+	{
+		return $this->category;
+	}
+	/**
+	 * @param Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection
+	 */
+	public function setCostProjection(Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection $costProjection)
+	{
+		$this->costProjection = $costProjection;
+	}
+	/**
+	 * @return Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection
+	 */
+	public function getCostProjection()
+	{
+		return $this->costProjection;
+	}
 }

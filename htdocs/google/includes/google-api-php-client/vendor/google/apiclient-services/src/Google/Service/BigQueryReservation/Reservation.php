@@ -17,32 +17,32 @@
 
 class Google_Service_BigQueryReservation_Reservation extends Google_Model
 {
-  public $ignoreIdleSlots;
-  public $name;
-  public $slotCapacity;
+	public $ignoreIdleSlots;
+	public $name;
+	public $slotCapacity;
 
-  public function setIgnoreIdleSlots($ignoreIdleSlots)
-  {
-    $this->ignoreIdleSlots = $ignoreIdleSlots;
-  }
-  public function getIgnoreIdleSlots()
-  {
-    return $this->ignoreIdleSlots;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSlotCapacity($slotCapacity)
-  {
-    $this->slotCapacity = $slotCapacity;
-  }
-  public function getSlotCapacity()
-  {
-    return $this->slotCapacity;
-  }
+	public function setIgnoreIdleSlots($ignoreIdleSlots)
+	{
+		$this->ignoreIdleSlots = $ignoreIdleSlots;
+	}
+	public function getIgnoreIdleSlots()
+	{
+		return $this->ignoreIdleSlots;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSlotCapacity($slotCapacity)
+	{
+		$this->slotCapacity = $slotCapacity;
+	}
+	public function getSlotCapacity()
+	{
+		return $this->slotCapacity;
+	}
 }

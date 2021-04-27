@@ -17,41 +17,41 @@
 
 class Google_Service_Dfareporting_DynamicTargetingKey extends Google_Model
 {
-  public $kind;
-  public $name;
-  public $objectId;
-  public $objectType;
+	public $kind;
+	public $name;
+	public $objectId;
+	public $objectType;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  public function setObjectType($objectType)
-  {
-    $this->objectType = $objectType;
-  }
-  public function getObjectType()
-  {
-    return $this->objectType;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	public function setObjectType($objectType)
+	{
+		$this->objectType = $objectType;
+	}
+	public function getObjectType()
+	{
+		return $this->objectType;
+	}
 }

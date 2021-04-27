@@ -17,15 +17,15 @@
 
 class Google_Service_ServiceControl_ExplicitBuckets extends Google_Collection
 {
-  protected $collection_key = 'bounds';
-  public $bounds;
+	protected $collection_key = 'bounds';
+	public $bounds;
 
-  public function setBounds($bounds)
-  {
-    $this->bounds = $bounds;
-  }
-  public function getBounds()
-  {
-    return $this->bounds;
-  }
+	public function setBounds($bounds)
+	{
+		$this->bounds = $bounds;
+	}
+	public function getBounds()
+	{
+		return $this->bounds;
+	}
 }

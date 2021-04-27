@@ -17,30 +17,30 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p2beta1FaceAnnotationLandmark extends Google_Model
 {
-  protected $positionType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1Position';
-  protected $positionDataType = '';
-  public $type;
+	protected $positionType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1Position';
+	protected $positionDataType = '';
+	public $type;
 
-  /**
-   * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1Position
-   */
-  public function setPosition(Google_Service_Vision_GoogleCloudVisionV1p2beta1Position $position)
-  {
-    $this->position = $position;
-  }
-  /**
-   * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1Position
-   */
-  public function getPosition()
-  {
-    return $this->position;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1Position
+	 */
+	public function setPosition(Google_Service_Vision_GoogleCloudVisionV1p2beta1Position $position)
+	{
+		$this->position = $position;
+	}
+	/**
+	 * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1Position
+	 */
+	public function getPosition()
+	{
+		return $this->position;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

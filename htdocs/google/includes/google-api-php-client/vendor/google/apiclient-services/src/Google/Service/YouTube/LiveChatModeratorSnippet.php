@@ -17,30 +17,30 @@
 
 class Google_Service_YouTube_LiveChatModeratorSnippet extends Google_Model
 {
-  public $liveChatId;
-  protected $moderatorDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
-  protected $moderatorDetailsDataType = '';
+	public $liveChatId;
+	protected $moderatorDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
+	protected $moderatorDetailsDataType = '';
 
-  public function setLiveChatId($liveChatId)
-  {
-    $this->liveChatId = $liveChatId;
-  }
-  public function getLiveChatId()
-  {
-    return $this->liveChatId;
-  }
-  /**
-   * @param Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function setModeratorDetails(Google_Service_YouTube_ChannelProfileDetails $moderatorDetails)
-  {
-    $this->moderatorDetails = $moderatorDetails;
-  }
-  /**
-   * @return Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function getModeratorDetails()
-  {
-    return $this->moderatorDetails;
-  }
+	public function setLiveChatId($liveChatId)
+	{
+		$this->liveChatId = $liveChatId;
+	}
+	public function getLiveChatId()
+	{
+		return $this->liveChatId;
+	}
+	/**
+	 * @param Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function setModeratorDetails(Google_Service_YouTube_ChannelProfileDetails $moderatorDetails)
+	{
+		$this->moderatorDetails = $moderatorDetails;
+	}
+	/**
+	 * @return Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function getModeratorDetails()
+	{
+		return $this->moderatorDetails;
+	}
 }

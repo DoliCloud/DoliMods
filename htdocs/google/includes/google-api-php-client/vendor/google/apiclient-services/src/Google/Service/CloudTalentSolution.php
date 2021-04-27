@@ -31,279 +31,279 @@
  */
 class Google_Service_CloudTalentSolution extends Google_Service
 {
-  /** View and manage your data across Google Cloud Platform services. */
-  const CLOUD_PLATFORM =
-      "https://www.googleapis.com/auth/cloud-platform";
-  /** Manage job postings. */
-  const JOBS =
-      "https://www.googleapis.com/auth/jobs";
+	/** View and manage your data across Google Cloud Platform services. */
+	const CLOUD_PLATFORM =
+	  "https://www.googleapis.com/auth/cloud-platform";
+	/** Manage job postings. */
+	const JOBS =
+	  "https://www.googleapis.com/auth/jobs";
 
-  public $projects;
-  public $projects_clientEvents;
-  public $projects_companies;
-  public $projects_jobs;
-  
-  /**
-   * Constructs the internal representation of the CloudTalentSolution service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://jobs.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v3';
-    $this->serviceName = 'jobs';
+	public $projects;
+	public $projects_clientEvents;
+	public $projects_companies;
+	public $projects_jobs;
 
-    $this->projects = new Google_Service_CloudTalentSolution_Resource_Projects(
-        $this,
-        $this->serviceName,
-        'projects',
-        array(
-          'methods' => array(
-            'complete' => array(
-              'path' => 'v3/{+name}:complete',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'languageCodes' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'repeated' => true,
-                ),
-                'query' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'languageCode' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'companyName' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'type' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'scope' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects_clientEvents = new Google_Service_CloudTalentSolution_Resource_ProjectsClientEvents(
-        $this,
-        $this->serviceName,
-        'clientEvents',
-        array(
-          'methods' => array(
-            'create' => array(
-              'path' => 'v3/{+parent}/clientEvents',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects_companies = new Google_Service_CloudTalentSolution_Resource_ProjectsCompanies(
-        $this,
-        $this->serviceName,
-        'companies',
-        array(
-          'methods' => array(
-            'create' => array(
-              'path' => 'v3/{+parent}/companies',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'delete' => array(
-              'path' => 'v3/{+name}',
-              'httpMethod' => 'DELETE',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'get' => array(
-              'path' => 'v3/{+name}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'list' => array(
-              'path' => 'v3/{+parent}/companies',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'requireOpenJobs' => array(
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ),
-              ),
-            ),'patch' => array(
-              'path' => 'v3/{+name}',
-              'httpMethod' => 'PATCH',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects_jobs = new Google_Service_CloudTalentSolution_Resource_ProjectsJobs(
-        $this,
-        $this->serviceName,
-        'jobs',
-        array(
-          'methods' => array(
-            'batchDelete' => array(
-              'path' => 'v3/{+parent}/jobs:batchDelete',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'create' => array(
-              'path' => 'v3/{+parent}/jobs',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'delete' => array(
-              'path' => 'v3/{+name}',
-              'httpMethod' => 'DELETE',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'get' => array(
-              'path' => 'v3/{+name}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'list' => array(
-              'path' => 'v3/{+parent}/jobs',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'jobView' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-              ),
-            ),'patch' => array(
-              'path' => 'v3/{+name}',
-              'httpMethod' => 'PATCH',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'search' => array(
-              'path' => 'v3/{+parent}/jobs:search',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'searchForAlert' => array(
-              'path' => 'v3/{+parent}/jobs:searchForAlert',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the CloudTalentSolution service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://jobs.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v3';
+		$this->serviceName = 'jobs';
+
+		$this->projects = new Google_Service_CloudTalentSolution_Resource_Projects(
+		$this,
+		$this->serviceName,
+		'projects',
+		array(
+		  'methods' => array(
+			'complete' => array(
+			  'path' => 'v3/{+name}:complete',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'languageCodes' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				  'repeated' => true,
+				),
+				'query' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'languageCode' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'companyName' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'type' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'scope' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->projects_clientEvents = new Google_Service_CloudTalentSolution_Resource_ProjectsClientEvents(
+		$this,
+		$this->serviceName,
+		'clientEvents',
+		array(
+		  'methods' => array(
+			'create' => array(
+			  'path' => 'v3/{+parent}/clientEvents',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->projects_companies = new Google_Service_CloudTalentSolution_Resource_ProjectsCompanies(
+		$this,
+		$this->serviceName,
+		'companies',
+		array(
+		  'methods' => array(
+			'create' => array(
+			  'path' => 'v3/{+parent}/companies',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'delete' => array(
+			  'path' => 'v3/{+name}',
+			  'httpMethod' => 'DELETE',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'get' => array(
+			  'path' => 'v3/{+name}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'list' => array(
+			  'path' => 'v3/{+parent}/companies',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'requireOpenJobs' => array(
+				  'location' => 'query',
+				  'type' => 'boolean',
+				),
+			  ),
+			),'patch' => array(
+			  'path' => 'v3/{+name}',
+			  'httpMethod' => 'PATCH',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->projects_jobs = new Google_Service_CloudTalentSolution_Resource_ProjectsJobs(
+		$this,
+		$this->serviceName,
+		'jobs',
+		array(
+		  'methods' => array(
+			'batchDelete' => array(
+			  'path' => 'v3/{+parent}/jobs:batchDelete',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'create' => array(
+			  'path' => 'v3/{+parent}/jobs',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'delete' => array(
+			  'path' => 'v3/{+name}',
+			  'httpMethod' => 'DELETE',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'get' => array(
+			  'path' => 'v3/{+name}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'list' => array(
+			  'path' => 'v3/{+parent}/jobs',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'jobView' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'filter' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+			  ),
+			),'patch' => array(
+			  'path' => 'v3/{+name}',
+			  'httpMethod' => 'PATCH',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'search' => array(
+			  'path' => 'v3/{+parent}/jobs:search',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'searchForAlert' => array(
+			  'path' => 'v3/{+parent}/jobs:searchForAlert',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

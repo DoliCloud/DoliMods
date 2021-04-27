@@ -17,22 +17,22 @@
 
 class Google_Service_Sasportal_SasPortalBulkCreateDeviceResponse extends Google_Collection
 {
-  protected $collection_key = 'devices';
-  protected $devicesType = 'Google_Service_Sasportal_SasPortalDevice';
-  protected $devicesDataType = 'array';
+	protected $collection_key = 'devices';
+	protected $devicesType = 'Google_Service_Sasportal_SasPortalDevice';
+	protected $devicesDataType = 'array';
 
-  /**
-   * @param Google_Service_Sasportal_SasPortalDevice
-   */
-  public function setDevices($devices)
-  {
-    $this->devices = $devices;
-  }
-  /**
-   * @return Google_Service_Sasportal_SasPortalDevice
-   */
-  public function getDevices()
-  {
-    return $this->devices;
-  }
+	/**
+	 * @param Google_Service_Sasportal_SasPortalDevice
+	 */
+	public function setDevices($devices)
+	{
+		$this->devices = $devices;
+	}
+	/**
+	 * @return Google_Service_Sasportal_SasPortalDevice
+	 */
+	public function getDevices()
+	{
+		return $this->devices;
+	}
 }

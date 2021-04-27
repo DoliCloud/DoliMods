@@ -17,40 +17,40 @@
 
 class Google_Service_CloudTrace_TimeEvents extends Google_Collection
 {
-  protected $collection_key = 'timeEvent';
-  public $droppedAnnotationsCount;
-  public $droppedMessageEventsCount;
-  protected $timeEventType = 'Google_Service_CloudTrace_TimeEvent';
-  protected $timeEventDataType = 'array';
+	protected $collection_key = 'timeEvent';
+	public $droppedAnnotationsCount;
+	public $droppedMessageEventsCount;
+	protected $timeEventType = 'Google_Service_CloudTrace_TimeEvent';
+	protected $timeEventDataType = 'array';
 
-  public function setDroppedAnnotationsCount($droppedAnnotationsCount)
-  {
-    $this->droppedAnnotationsCount = $droppedAnnotationsCount;
-  }
-  public function getDroppedAnnotationsCount()
-  {
-    return $this->droppedAnnotationsCount;
-  }
-  public function setDroppedMessageEventsCount($droppedMessageEventsCount)
-  {
-    $this->droppedMessageEventsCount = $droppedMessageEventsCount;
-  }
-  public function getDroppedMessageEventsCount()
-  {
-    return $this->droppedMessageEventsCount;
-  }
-  /**
-   * @param Google_Service_CloudTrace_TimeEvent
-   */
-  public function setTimeEvent($timeEvent)
-  {
-    $this->timeEvent = $timeEvent;
-  }
-  /**
-   * @return Google_Service_CloudTrace_TimeEvent
-   */
-  public function getTimeEvent()
-  {
-    return $this->timeEvent;
-  }
+	public function setDroppedAnnotationsCount($droppedAnnotationsCount)
+	{
+		$this->droppedAnnotationsCount = $droppedAnnotationsCount;
+	}
+	public function getDroppedAnnotationsCount()
+	{
+		return $this->droppedAnnotationsCount;
+	}
+	public function setDroppedMessageEventsCount($droppedMessageEventsCount)
+	{
+		$this->droppedMessageEventsCount = $droppedMessageEventsCount;
+	}
+	public function getDroppedMessageEventsCount()
+	{
+		return $this->droppedMessageEventsCount;
+	}
+	/**
+	 * @param Google_Service_CloudTrace_TimeEvent
+	 */
+	public function setTimeEvent($timeEvent)
+	{
+		$this->timeEvent = $timeEvent;
+	}
+	/**
+	 * @return Google_Service_CloudTrace_TimeEvent
+	 */
+	public function getTimeEvent()
+	{
+		return $this->timeEvent;
+	}
 }

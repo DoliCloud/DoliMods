@@ -17,83 +17,83 @@
 
 class Google_Service_GameServices_GameServerConfig extends Google_Collection
 {
-  protected $collection_key = 'scalingConfigs';
-  public $createTime;
-  public $description;
-  protected $fleetConfigsType = 'Google_Service_GameServices_FleetConfig';
-  protected $fleetConfigsDataType = 'array';
-  public $labels;
-  public $name;
-  protected $scalingConfigsType = 'Google_Service_GameServices_ScalingConfig';
-  protected $scalingConfigsDataType = 'array';
-  public $updateTime;
+	protected $collection_key = 'scalingConfigs';
+	public $createTime;
+	public $description;
+	protected $fleetConfigsType = 'Google_Service_GameServices_FleetConfig';
+	protected $fleetConfigsDataType = 'array';
+	public $labels;
+	public $name;
+	protected $scalingConfigsType = 'Google_Service_GameServices_ScalingConfig';
+	protected $scalingConfigsDataType = 'array';
+	public $updateTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_GameServices_FleetConfig
-   */
-  public function setFleetConfigs($fleetConfigs)
-  {
-    $this->fleetConfigs = $fleetConfigs;
-  }
-  /**
-   * @return Google_Service_GameServices_FleetConfig
-   */
-  public function getFleetConfigs()
-  {
-    return $this->fleetConfigs;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_GameServices_ScalingConfig
-   */
-  public function setScalingConfigs($scalingConfigs)
-  {
-    $this->scalingConfigs = $scalingConfigs;
-  }
-  /**
-   * @return Google_Service_GameServices_ScalingConfig
-   */
-  public function getScalingConfigs()
-  {
-    return $this->scalingConfigs;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_GameServices_FleetConfig
+	 */
+	public function setFleetConfigs($fleetConfigs)
+	{
+		$this->fleetConfigs = $fleetConfigs;
+	}
+	/**
+	 * @return Google_Service_GameServices_FleetConfig
+	 */
+	public function getFleetConfigs()
+	{
+		return $this->fleetConfigs;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_GameServices_ScalingConfig
+	 */
+	public function setScalingConfigs($scalingConfigs)
+	{
+		$this->scalingConfigs = $scalingConfigs;
+	}
+	/**
+	 * @return Google_Service_GameServices_ScalingConfig
+	 */
+	public function getScalingConfigs()
+	{
+		return $this->scalingConfigs;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

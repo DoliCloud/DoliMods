@@ -17,56 +17,56 @@
 
 class Google_Service_Docs_DocsList extends Google_Collection
 {
-  protected $collection_key = 'suggestedDeletionIds';
-  protected $listPropertiesType = 'Google_Service_Docs_ListProperties';
-  protected $listPropertiesDataType = '';
-  public $suggestedDeletionIds;
-  public $suggestedInsertionId;
-  protected $suggestedListPropertiesChangesType = 'Google_Service_Docs_SuggestedListProperties';
-  protected $suggestedListPropertiesChangesDataType = 'map';
+	protected $collection_key = 'suggestedDeletionIds';
+	protected $listPropertiesType = 'Google_Service_Docs_ListProperties';
+	protected $listPropertiesDataType = '';
+	public $suggestedDeletionIds;
+	public $suggestedInsertionId;
+	protected $suggestedListPropertiesChangesType = 'Google_Service_Docs_SuggestedListProperties';
+	protected $suggestedListPropertiesChangesDataType = 'map';
 
-  /**
-   * @param Google_Service_Docs_ListProperties
-   */
-  public function setListProperties(Google_Service_Docs_ListProperties $listProperties)
-  {
-    $this->listProperties = $listProperties;
-  }
-  /**
-   * @return Google_Service_Docs_ListProperties
-   */
-  public function getListProperties()
-  {
-    return $this->listProperties;
-  }
-  public function setSuggestedDeletionIds($suggestedDeletionIds)
-  {
-    $this->suggestedDeletionIds = $suggestedDeletionIds;
-  }
-  public function getSuggestedDeletionIds()
-  {
-    return $this->suggestedDeletionIds;
-  }
-  public function setSuggestedInsertionId($suggestedInsertionId)
-  {
-    $this->suggestedInsertionId = $suggestedInsertionId;
-  }
-  public function getSuggestedInsertionId()
-  {
-    return $this->suggestedInsertionId;
-  }
-  /**
-   * @param Google_Service_Docs_SuggestedListProperties
-   */
-  public function setSuggestedListPropertiesChanges($suggestedListPropertiesChanges)
-  {
-    $this->suggestedListPropertiesChanges = $suggestedListPropertiesChanges;
-  }
-  /**
-   * @return Google_Service_Docs_SuggestedListProperties
-   */
-  public function getSuggestedListPropertiesChanges()
-  {
-    return $this->suggestedListPropertiesChanges;
-  }
+	/**
+	 * @param Google_Service_Docs_ListProperties
+	 */
+	public function setListProperties(Google_Service_Docs_ListProperties $listProperties)
+	{
+		$this->listProperties = $listProperties;
+	}
+	/**
+	 * @return Google_Service_Docs_ListProperties
+	 */
+	public function getListProperties()
+	{
+		return $this->listProperties;
+	}
+	public function setSuggestedDeletionIds($suggestedDeletionIds)
+	{
+		$this->suggestedDeletionIds = $suggestedDeletionIds;
+	}
+	public function getSuggestedDeletionIds()
+	{
+		return $this->suggestedDeletionIds;
+	}
+	public function setSuggestedInsertionId($suggestedInsertionId)
+	{
+		$this->suggestedInsertionId = $suggestedInsertionId;
+	}
+	public function getSuggestedInsertionId()
+	{
+		return $this->suggestedInsertionId;
+	}
+	/**
+	 * @param Google_Service_Docs_SuggestedListProperties
+	 */
+	public function setSuggestedListPropertiesChanges($suggestedListPropertiesChanges)
+	{
+		$this->suggestedListPropertiesChanges = $suggestedListPropertiesChanges;
+	}
+	/**
+	 * @return Google_Service_Docs_SuggestedListProperties
+	 */
+	public function getSuggestedListPropertiesChanges()
+	{
+		return $this->suggestedListPropertiesChanges;
+	}
 }

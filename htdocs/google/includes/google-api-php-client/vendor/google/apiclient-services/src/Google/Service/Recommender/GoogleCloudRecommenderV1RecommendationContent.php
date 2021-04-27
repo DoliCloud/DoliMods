@@ -17,22 +17,22 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1RecommendationContent extends Google_Collection
 {
-  protected $collection_key = 'operationGroups';
-  protected $operationGroupsType = 'Google_Service_Recommender_GoogleCloudRecommenderV1OperationGroup';
-  protected $operationGroupsDataType = 'array';
+	protected $collection_key = 'operationGroups';
+	protected $operationGroupsType = 'Google_Service_Recommender_GoogleCloudRecommenderV1OperationGroup';
+	protected $operationGroupsDataType = 'array';
 
-  /**
-   * @param Google_Service_Recommender_GoogleCloudRecommenderV1OperationGroup
-   */
-  public function setOperationGroups($operationGroups)
-  {
-    $this->operationGroups = $operationGroups;
-  }
-  /**
-   * @return Google_Service_Recommender_GoogleCloudRecommenderV1OperationGroup
-   */
-  public function getOperationGroups()
-  {
-    return $this->operationGroups;
-  }
+	/**
+	 * @param Google_Service_Recommender_GoogleCloudRecommenderV1OperationGroup
+	 */
+	public function setOperationGroups($operationGroups)
+	{
+		$this->operationGroups = $operationGroups;
+	}
+	/**
+	 * @return Google_Service_Recommender_GoogleCloudRecommenderV1OperationGroup
+	 */
+	public function getOperationGroups()
+	{
+		return $this->operationGroups;
+	}
 }

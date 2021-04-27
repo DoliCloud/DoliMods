@@ -17,85 +17,85 @@
 
 class Google_Service_Prediction_Insert extends Google_Collection
 {
-  protected $collection_key = 'utility';
-  public $id;
-  public $modelType;
-  public $sourceModel;
-  public $storageDataLocation;
-  public $storagePMMLLocation;
-  public $storagePMMLModelLocation;
-  protected $trainingInstancesType = 'Google_Service_Prediction_InsertTrainingInstances';
-  protected $trainingInstancesDataType = 'array';
-  public $utility;
+	protected $collection_key = 'utility';
+	public $id;
+	public $modelType;
+	public $sourceModel;
+	public $storageDataLocation;
+	public $storagePMMLLocation;
+	public $storagePMMLModelLocation;
+	protected $trainingInstancesType = 'Google_Service_Prediction_InsertTrainingInstances';
+	protected $trainingInstancesDataType = 'array';
+	public $utility;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setModelType($modelType)
-  {
-    $this->modelType = $modelType;
-  }
-  public function getModelType()
-  {
-    return $this->modelType;
-  }
-  public function setSourceModel($sourceModel)
-  {
-    $this->sourceModel = $sourceModel;
-  }
-  public function getSourceModel()
-  {
-    return $this->sourceModel;
-  }
-  public function setStorageDataLocation($storageDataLocation)
-  {
-    $this->storageDataLocation = $storageDataLocation;
-  }
-  public function getStorageDataLocation()
-  {
-    return $this->storageDataLocation;
-  }
-  public function setStoragePMMLLocation($storagePMMLLocation)
-  {
-    $this->storagePMMLLocation = $storagePMMLLocation;
-  }
-  public function getStoragePMMLLocation()
-  {
-    return $this->storagePMMLLocation;
-  }
-  public function setStoragePMMLModelLocation($storagePMMLModelLocation)
-  {
-    $this->storagePMMLModelLocation = $storagePMMLModelLocation;
-  }
-  public function getStoragePMMLModelLocation()
-  {
-    return $this->storagePMMLModelLocation;
-  }
-  /**
-   * @param Google_Service_Prediction_InsertTrainingInstances
-   */
-  public function setTrainingInstances($trainingInstances)
-  {
-    $this->trainingInstances = $trainingInstances;
-  }
-  /**
-   * @return Google_Service_Prediction_InsertTrainingInstances
-   */
-  public function getTrainingInstances()
-  {
-    return $this->trainingInstances;
-  }
-  public function setUtility($utility)
-  {
-    $this->utility = $utility;
-  }
-  public function getUtility()
-  {
-    return $this->utility;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setModelType($modelType)
+	{
+		$this->modelType = $modelType;
+	}
+	public function getModelType()
+	{
+		return $this->modelType;
+	}
+	public function setSourceModel($sourceModel)
+	{
+		$this->sourceModel = $sourceModel;
+	}
+	public function getSourceModel()
+	{
+		return $this->sourceModel;
+	}
+	public function setStorageDataLocation($storageDataLocation)
+	{
+		$this->storageDataLocation = $storageDataLocation;
+	}
+	public function getStorageDataLocation()
+	{
+		return $this->storageDataLocation;
+	}
+	public function setStoragePMMLLocation($storagePMMLLocation)
+	{
+		$this->storagePMMLLocation = $storagePMMLLocation;
+	}
+	public function getStoragePMMLLocation()
+	{
+		return $this->storagePMMLLocation;
+	}
+	public function setStoragePMMLModelLocation($storagePMMLModelLocation)
+	{
+		$this->storagePMMLModelLocation = $storagePMMLModelLocation;
+	}
+	public function getStoragePMMLModelLocation()
+	{
+		return $this->storagePMMLModelLocation;
+	}
+	/**
+	 * @param Google_Service_Prediction_InsertTrainingInstances
+	 */
+	public function setTrainingInstances($trainingInstances)
+	{
+		$this->trainingInstances = $trainingInstances;
+	}
+	/**
+	 * @return Google_Service_Prediction_InsertTrainingInstances
+	 */
+	public function getTrainingInstances()
+	{
+		return $this->trainingInstances;
+	}
+	public function setUtility($utility)
+	{
+		$this->utility = $utility;
+	}
+	public function getUtility()
+	{
+		return $this->utility;
+	}
 }

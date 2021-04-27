@@ -17,15 +17,15 @@
 
 class Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource extends Google_Collection
 {
-  protected $collection_key = 'uris';
-  public $uris;
+	protected $collection_key = 'uris';
+	public $uris;
 
-  public function setUris($uris)
-  {
-    $this->uris = $uris;
-  }
-  public function getUris()
-  {
-    return $this->uris;
-  }
+	public function setUris($uris)
+	{
+		$this->uris = $uris;
+	}
+	public function getUris()
+	{
+		return $this->uris;
+	}
 }

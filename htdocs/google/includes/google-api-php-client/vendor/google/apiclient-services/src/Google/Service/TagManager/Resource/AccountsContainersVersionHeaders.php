@@ -25,38 +25,38 @@
  */
 class Google_Service_TagManager_Resource_AccountsContainersVersionHeaders extends Google_Service_Resource
 {
-  /**
-   * Gets the latest container version header (version_headers.latest)
-   *
-   * @param string $parent GTM Container's API relative path. Example:
-   * accounts/{account_id}/containers/{container_id}
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_TagManager_ContainerVersionHeader
-   */
-  public function latest($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('latest', array($params), "Google_Service_TagManager_ContainerVersionHeader");
-  }
-  /**
-   * Lists all Container Versions of a GTM Container.
-   * (version_headers.listAccountsContainersVersionHeaders)
-   *
-   * @param string $parent GTM Container's API relative path. Example:
-   * accounts/{account_id}/containers/{container_id}
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param bool includeDeleted Also retrieve deleted (archived) versions when
-   * true.
-   * @opt_param string pageToken Continuation token for fetching the next page of
-   * results.
-   * @return Google_Service_TagManager_ListContainerVersionsResponse
-   */
-  public function listAccountsContainersVersionHeaders($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_TagManager_ListContainerVersionsResponse");
-  }
+	/**
+	 * Gets the latest container version header (version_headers.latest)
+	 *
+	 * @param string $parent GTM Container's API relative path. Example:
+	 *                       accounts/{account_id}/containers/{container_id}
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_TagManager_ContainerVersionHeader
+	 */
+	public function latest($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('latest', array($params), "Google_Service_TagManager_ContainerVersionHeader");
+	}
+	/**
+	 * Lists all Container Versions of a GTM Container.
+	 * (version_headers.listAccountsContainersVersionHeaders)
+	 *
+	 * @param string $parent GTM Container's API relative path. Example:
+	 *                       accounts/{account_id}/containers/{container_id}
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param bool includeDeleted Also retrieve deleted (archived) versions when
+	 * true.
+	 * @opt_param string pageToken Continuation token for fetching the next page of
+	 * results.
+	 * @return Google_Service_TagManager_ListContainerVersionsResponse
+	 */
+	public function listAccountsContainersVersionHeaders($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_TagManager_ListContainerVersionsResponse");
+	}
 }

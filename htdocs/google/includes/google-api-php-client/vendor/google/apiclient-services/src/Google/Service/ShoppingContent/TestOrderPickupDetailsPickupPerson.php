@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_TestOrderPickupDetailsPickupPerson extends Google_Model
 {
-  public $name;
-  public $phoneNumber;
+	public $name;
+	public $phoneNumber;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPhoneNumber($phoneNumber)
-  {
-    $this->phoneNumber = $phoneNumber;
-  }
-  public function getPhoneNumber()
-  {
-    return $this->phoneNumber;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPhoneNumber($phoneNumber)
+	{
+		$this->phoneNumber = $phoneNumber;
+	}
+	public function getPhoneNumber()
+	{
+		return $this->phoneNumber;
+	}
 }

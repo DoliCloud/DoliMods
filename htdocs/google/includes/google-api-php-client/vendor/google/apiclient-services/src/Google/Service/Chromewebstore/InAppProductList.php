@@ -17,25 +17,25 @@
 
 class Google_Service_Chromewebstore_InAppProductList extends Google_Collection
 {
-  protected $collection_key = 'inAppProducts';
-  protected $inAppProductsType = 'Google_Service_Chromewebstore_InAppProduct';
-  protected $inAppProductsDataType = 'array';
-  public $kind;
+	protected $collection_key = 'inAppProducts';
+	protected $inAppProductsType = 'Google_Service_Chromewebstore_InAppProduct';
+	protected $inAppProductsDataType = 'array';
+	public $kind;
 
-  public function setInAppProducts($inAppProducts)
-  {
-    $this->inAppProducts = $inAppProducts;
-  }
-  public function getInAppProducts()
-  {
-    return $this->inAppProducts;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setInAppProducts($inAppProducts)
+	{
+		$this->inAppProducts = $inAppProducts;
+	}
+	public function getInAppProducts()
+	{
+		return $this->inAppProducts;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

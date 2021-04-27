@@ -26,8 +26,8 @@
  *	\version    $Id: modules_statistic.php,v 1 Gerem
  */
 
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php');
-require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");   // Requis car utilise dans les classes qui heritent
+require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
+require_once DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php";   // Requis car utilise dans les classes qui heritent
 
 
 /**
@@ -41,7 +41,7 @@ class ModelePDFStats
 
 	/**
 	 *      Return list of active generation modules
-	 *      
+	 *
 	 * 		@param    DoliDB	$db		Database handler
 	 */
 	function liste_modeles($db)
@@ -51,8 +51,8 @@ class ModelePDFStats
 		$type='stat';
 		$liste=array();
 
-		include_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
-		$liste=getListOfModels($db,$type,'');
+		include_once DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php';
+		$liste=getListOfModels($db, $type, '');
 
 		return $liste;
 	}
@@ -131,7 +131,7 @@ class ModeleNumRefStats
 
 /**
  *  Cree une propale sur disque en fonction du modele de PROPALE_ADDON_PDF
- *  
+ *
  *  @param	    DB       $db  			    objet base de donnee
  *  @param	    int      $id				id de la propale a creer
  *  @param	    date     $date			    force le modele a utiliser ('' to not force)
@@ -152,16 +152,14 @@ function statistic_pdf_create($db, $id, $date, $modele, $outputlangs)
 	if ($modele && file_exists($dir.$file)) $modelisok=1;
 
 	// Si model pas encore bon
-	if (! $modelisok)
-	{
+	if (! $modelisok) {
 		if ($conf->global->PROPALE_ADDON_PDF) $modele = $conf->global->PROPALE_ADDON_PDF;
 		$file = "pdf_statistic_".$modele.".modules.php";
 		if (file_exists($dir.$file)) $modelisok=1;
 	}
 
 	// Si model pas encore bon
-	if (! $modelisok)
-	{
+	if (! $modelisok) {
 		/*$liste=array();
 		$model=new ModelePDFStats();
 		$liste=$model->liste_modeles($db);
@@ -173,11 +171,9 @@ function statistic_pdf_create($db, $id, $date, $modele, $outputlangs)
 
 
 	// Charge le modele
-	if ($modelisok)
-	{
-
+	if ($modelisok) {
 		$classname = "pdf_statistic_".$modele;
-		require_once($dir.$file);
+		require_once $dir.$file;
 
 		$obj = new $classname($db);
 
@@ -185,30 +181,22 @@ function statistic_pdf_create($db, $id, $date, $modele, $outputlangs)
 		// output format that does not support UTF8.
 		$sav_charset_output=$outputlangs->charset_output;
 
-		if ($obj->write_file($id, $outputlangs,$date) > 0)
-		{
+		if ($obj->write_file($id, $outputlangs, $date) > 0) {
 			$outputlangs->charset_output=$sav_charset_output;
 			// on supprime l'image correspondant au preview
 			statistic_delete_preview($db, $id);
 			return 1;
-		}
-		else
-		{
+		} else {
 			$outputlangs->charset_output=$sav_charset_output;
 			dol_syslog("modules_propale::propale_pdf_create error");
-			dol_print_error($db,$obj->error);
+			dol_print_error($db, $obj->error);
 			return 0;
 		}
-	}
-	else
-	{
-		if (! $conf->global->PROPALE_ADDON_PDF)
-		{
+	} else {
+		if (! $conf->global->PROPALE_ADDON_PDF) {
 			print $langs->trans("Error")." ".$langs->trans("Error_PROPALE_ADDON_PDF_NotDefined");
-		}
-		else
-		{
-			print $langs->trans("Error")." ".$langs->trans("ErrorFileDoesNotExists",$dir.$file);
+		} else {
+			print $langs->trans("Error")." ".$langs->trans("ErrorFileDoesNotExists", $dir.$file);
 		}
 		return 0;
 	}
@@ -216,12 +204,12 @@ function statistic_pdf_create($db, $id, $date, $modele, $outputlangs)
 
 /**
  *  Supprime l'image de previsualitation, pour le cas de regeneration de propal
- *  
+ *
  *  @param	   DoliDB   $db  		objet base de donnee
  *  @param	   int      $propalid	id des stats a effacer
  *  @param     string   $statref    reference des stats si besoin
  */
-function statistic_delete_preview($db, $propalid, $statref='test')
+function statistic_delete_preview($db, $propalid, $statref = 'test')
 {
 	global $langs,$conf;
 
@@ -230,32 +218,23 @@ function statistic_delete_preview($db, $propalid, $statref='test')
 		$file = $dir . "/" . $statref . ".pdf.png";
 		$multiple = $file . ".";
 
-		if ( file_exists( $file ) && is_writable( $file ) )
-		{
-			if ( ! dol_delete_file($file,1) )
-			{
-				$this->error=$langs->trans("ErrorFailedToOpenFile",$file);
-				return 0;
-			}
+	if ( file_exists($file) && is_writable($file) ) {
+		if ( ! dol_delete_file($file, 1) ) {
+			$this->error=$langs->trans("ErrorFailedToOpenFile", $file);
+			return 0;
 		}
-		else
-		{
+	} else {
+		for ($i = 0; $i < 20; $i++) {
+			$preview = $multiple.$i;
 
-			for ($i = 0; $i < 20; $i++)
-			{
-				$preview = $multiple.$i;
-
-				if ( file_exists( $preview ) && is_writable( $preview ) )
-				{
-					if ( ! unlink($preview) )
-					{
-						$this->error=$langs->trans("ErrorFailedToOpenFile",$preview);
-						return 0;
-					}
+			if ( file_exists($preview) && is_writable($preview) ) {
+				if ( ! unlink($preview) ) {
+					$this->error=$langs->trans("ErrorFailedToOpenFile", $preview);
+					return 0;
 				}
 			}
 		}
+	}
 
 	return 1;
 }
-

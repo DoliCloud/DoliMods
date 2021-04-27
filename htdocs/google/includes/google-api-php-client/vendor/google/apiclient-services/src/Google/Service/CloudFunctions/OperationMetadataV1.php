@@ -17,59 +17,59 @@
 
 class Google_Service_CloudFunctions_OperationMetadataV1 extends Google_Model
 {
-  public $buildId;
-  public $request;
-  public $target;
-  public $type;
-  public $updateTime;
-  public $versionId;
+	public $buildId;
+	public $request;
+	public $target;
+	public $type;
+	public $updateTime;
+	public $versionId;
 
-  public function setBuildId($buildId)
-  {
-    $this->buildId = $buildId;
-  }
-  public function getBuildId()
-  {
-    return $this->buildId;
-  }
-  public function setRequest($request)
-  {
-    $this->request = $request;
-  }
-  public function getRequest()
-  {
-    return $this->request;
-  }
-  public function setTarget($target)
-  {
-    $this->target = $target;
-  }
-  public function getTarget()
-  {
-    return $this->target;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
-  public function setVersionId($versionId)
-  {
-    $this->versionId = $versionId;
-  }
-  public function getVersionId()
-  {
-    return $this->versionId;
-  }
+	public function setBuildId($buildId)
+	{
+		$this->buildId = $buildId;
+	}
+	public function getBuildId()
+	{
+		return $this->buildId;
+	}
+	public function setRequest($request)
+	{
+		$this->request = $request;
+	}
+	public function getRequest()
+	{
+		return $this->request;
+	}
+	public function setTarget($target)
+	{
+		$this->target = $target;
+	}
+	public function getTarget()
+	{
+		return $this->target;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
+	public function setVersionId($versionId)
+	{
+		$this->versionId = $versionId;
+	}
+	public function getVersionId()
+	{
+		return $this->versionId;
+	}
 }

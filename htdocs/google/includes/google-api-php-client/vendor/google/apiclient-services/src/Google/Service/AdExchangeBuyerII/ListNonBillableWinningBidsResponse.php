@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListNonBillableWinningBidsResponse extends Google_Collection
 {
-  protected $collection_key = 'nonBillableWinningBidStatusRows';
-  public $nextPageToken;
-  protected $nonBillableWinningBidStatusRowsType = 'Google_Service_AdExchangeBuyerII_NonBillableWinningBidStatusRow';
-  protected $nonBillableWinningBidStatusRowsDataType = 'array';
+	protected $collection_key = 'nonBillableWinningBidStatusRows';
+	public $nextPageToken;
+	protected $nonBillableWinningBidStatusRowsType = 'Google_Service_AdExchangeBuyerII_NonBillableWinningBidStatusRow';
+	protected $nonBillableWinningBidStatusRowsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_NonBillableWinningBidStatusRow
-   */
-  public function setNonBillableWinningBidStatusRows($nonBillableWinningBidStatusRows)
-  {
-    $this->nonBillableWinningBidStatusRows = $nonBillableWinningBidStatusRows;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_NonBillableWinningBidStatusRow
-   */
-  public function getNonBillableWinningBidStatusRows()
-  {
-    return $this->nonBillableWinningBidStatusRows;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_NonBillableWinningBidStatusRow
+	 */
+	public function setNonBillableWinningBidStatusRows($nonBillableWinningBidStatusRows)
+	{
+		$this->nonBillableWinningBidStatusRows = $nonBillableWinningBidStatusRows;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_NonBillableWinningBidStatusRow
+	 */
+	public function getNonBillableWinningBidStatusRows()
+	{
+		return $this->nonBillableWinningBidStatusRows;
+	}
 }

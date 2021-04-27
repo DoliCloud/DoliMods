@@ -17,33 +17,33 @@
 
 class Google_Service_CloudTalentSolution_CustomAttribute extends Google_Collection
 {
-  protected $collection_key = 'stringValues';
-  public $filterable;
-  public $longValues;
-  public $stringValues;
+	protected $collection_key = 'stringValues';
+	public $filterable;
+	public $longValues;
+	public $stringValues;
 
-  public function setFilterable($filterable)
-  {
-    $this->filterable = $filterable;
-  }
-  public function getFilterable()
-  {
-    return $this->filterable;
-  }
-  public function setLongValues($longValues)
-  {
-    $this->longValues = $longValues;
-  }
-  public function getLongValues()
-  {
-    return $this->longValues;
-  }
-  public function setStringValues($stringValues)
-  {
-    $this->stringValues = $stringValues;
-  }
-  public function getStringValues()
-  {
-    return $this->stringValues;
-  }
+	public function setFilterable($filterable)
+	{
+		$this->filterable = $filterable;
+	}
+	public function getFilterable()
+	{
+		return $this->filterable;
+	}
+	public function setLongValues($longValues)
+	{
+		$this->longValues = $longValues;
+	}
+	public function getLongValues()
+	{
+		return $this->longValues;
+	}
+	public function setStringValues($stringValues)
+	{
+		$this->stringValues = $stringValues;
+	}
+	public function getStringValues()
+	{
+		return $this->stringValues;
+	}
 }

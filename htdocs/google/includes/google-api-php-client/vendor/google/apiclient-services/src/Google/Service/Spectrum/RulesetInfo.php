@@ -17,42 +17,42 @@
 
 class Google_Service_Spectrum_RulesetInfo extends Google_Collection
 {
-  protected $collection_key = 'rulesetIds';
-  public $authority;
-  public $maxLocationChange;
-  public $maxPollingSecs;
-  public $rulesetIds;
+	protected $collection_key = 'rulesetIds';
+	public $authority;
+	public $maxLocationChange;
+	public $maxPollingSecs;
+	public $rulesetIds;
 
-  public function setAuthority($authority)
-  {
-    $this->authority = $authority;
-  }
-  public function getAuthority()
-  {
-    return $this->authority;
-  }
-  public function setMaxLocationChange($maxLocationChange)
-  {
-    $this->maxLocationChange = $maxLocationChange;
-  }
-  public function getMaxLocationChange()
-  {
-    return $this->maxLocationChange;
-  }
-  public function setMaxPollingSecs($maxPollingSecs)
-  {
-    $this->maxPollingSecs = $maxPollingSecs;
-  }
-  public function getMaxPollingSecs()
-  {
-    return $this->maxPollingSecs;
-  }
-  public function setRulesetIds($rulesetIds)
-  {
-    $this->rulesetIds = $rulesetIds;
-  }
-  public function getRulesetIds()
-  {
-    return $this->rulesetIds;
-  }
+	public function setAuthority($authority)
+	{
+		$this->authority = $authority;
+	}
+	public function getAuthority()
+	{
+		return $this->authority;
+	}
+	public function setMaxLocationChange($maxLocationChange)
+	{
+		$this->maxLocationChange = $maxLocationChange;
+	}
+	public function getMaxLocationChange()
+	{
+		return $this->maxLocationChange;
+	}
+	public function setMaxPollingSecs($maxPollingSecs)
+	{
+		$this->maxPollingSecs = $maxPollingSecs;
+	}
+	public function getMaxPollingSecs()
+	{
+		return $this->maxPollingSecs;
+	}
+	public function setRulesetIds($rulesetIds)
+	{
+		$this->rulesetIds = $rulesetIds;
+	}
+	public function getRulesetIds()
+	{
+		return $this->rulesetIds;
+	}
 }

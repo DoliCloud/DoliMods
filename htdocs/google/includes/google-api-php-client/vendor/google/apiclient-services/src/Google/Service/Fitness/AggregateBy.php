@@ -17,23 +17,23 @@
 
 class Google_Service_Fitness_AggregateBy extends Google_Model
 {
-  public $dataSourceId;
-  public $dataTypeName;
+	public $dataSourceId;
+	public $dataTypeName;
 
-  public function setDataSourceId($dataSourceId)
-  {
-    $this->dataSourceId = $dataSourceId;
-  }
-  public function getDataSourceId()
-  {
-    return $this->dataSourceId;
-  }
-  public function setDataTypeName($dataTypeName)
-  {
-    $this->dataTypeName = $dataTypeName;
-  }
-  public function getDataTypeName()
-  {
-    return $this->dataTypeName;
-  }
+	public function setDataSourceId($dataSourceId)
+	{
+		$this->dataSourceId = $dataSourceId;
+	}
+	public function getDataSourceId()
+	{
+		return $this->dataSourceId;
+	}
+	public function setDataTypeName($dataTypeName)
+	{
+		$this->dataTypeName = $dataTypeName;
+	}
+	public function getDataTypeName()
+	{
+		return $this->dataTypeName;
+	}
 }

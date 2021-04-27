@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_ReturnPolicyPolicy extends Google_Model
 {
-  public $lastReturnDate;
-  public $numberOfDays;
-  public $type;
+	public $lastReturnDate;
+	public $numberOfDays;
+	public $type;
 
-  public function setLastReturnDate($lastReturnDate)
-  {
-    $this->lastReturnDate = $lastReturnDate;
-  }
-  public function getLastReturnDate()
-  {
-    return $this->lastReturnDate;
-  }
-  public function setNumberOfDays($numberOfDays)
-  {
-    $this->numberOfDays = $numberOfDays;
-  }
-  public function getNumberOfDays()
-  {
-    return $this->numberOfDays;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setLastReturnDate($lastReturnDate)
+	{
+		$this->lastReturnDate = $lastReturnDate;
+	}
+	public function getLastReturnDate()
+	{
+		return $this->lastReturnDate;
+	}
+	public function setNumberOfDays($numberOfDays)
+	{
+		$this->numberOfDays = $numberOfDays;
+	}
+	public function getNumberOfDays()
+	{
+		return $this->numberOfDays;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

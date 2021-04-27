@@ -17,14 +17,14 @@
 
 class Google_Service_YouTube_LiveBroadcastStatistics extends Google_Model
 {
-  public $totalChatCount;
+	public $totalChatCount;
 
-  public function setTotalChatCount($totalChatCount)
-  {
-    $this->totalChatCount = $totalChatCount;
-  }
-  public function getTotalChatCount()
-  {
-    return $this->totalChatCount;
-  }
+	public function setTotalChatCount($totalChatCount)
+	{
+		$this->totalChatCount = $totalChatCount;
+	}
+	public function getTotalChatCount()
+	{
+		return $this->totalChatCount;
+	}
 }

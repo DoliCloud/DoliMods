@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_FloodlightConfigurationsListResponse extends Google_Collection
 {
-  protected $collection_key = 'floodlightConfigurations';
-  protected $floodlightConfigurationsType = 'Google_Service_Dfareporting_FloodlightConfiguration';
-  protected $floodlightConfigurationsDataType = 'array';
-  public $kind;
+	protected $collection_key = 'floodlightConfigurations';
+	protected $floodlightConfigurationsType = 'Google_Service_Dfareporting_FloodlightConfiguration';
+	protected $floodlightConfigurationsDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_Dfareporting_FloodlightConfiguration
-   */
-  public function setFloodlightConfigurations($floodlightConfigurations)
-  {
-    $this->floodlightConfigurations = $floodlightConfigurations;
-  }
-  /**
-   * @return Google_Service_Dfareporting_FloodlightConfiguration
-   */
-  public function getFloodlightConfigurations()
-  {
-    return $this->floodlightConfigurations;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_FloodlightConfiguration
+	 */
+	public function setFloodlightConfigurations($floodlightConfigurations)
+	{
+		$this->floodlightConfigurations = $floodlightConfigurations;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_FloodlightConfiguration
+	 */
+	public function getFloodlightConfigurations()
+	{
+		return $this->floodlightConfigurations;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

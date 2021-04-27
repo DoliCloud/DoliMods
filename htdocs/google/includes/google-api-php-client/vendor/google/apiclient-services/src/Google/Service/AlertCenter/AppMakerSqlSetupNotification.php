@@ -17,22 +17,22 @@
 
 class Google_Service_AlertCenter_AppMakerSqlSetupNotification extends Google_Collection
 {
-  protected $collection_key = 'requestInfo';
-  protected $requestInfoType = 'Google_Service_AlertCenter_RequestInfo';
-  protected $requestInfoDataType = 'array';
+	protected $collection_key = 'requestInfo';
+	protected $requestInfoType = 'Google_Service_AlertCenter_RequestInfo';
+	protected $requestInfoDataType = 'array';
 
-  /**
-   * @param Google_Service_AlertCenter_RequestInfo
-   */
-  public function setRequestInfo($requestInfo)
-  {
-    $this->requestInfo = $requestInfo;
-  }
-  /**
-   * @return Google_Service_AlertCenter_RequestInfo
-   */
-  public function getRequestInfo()
-  {
-    return $this->requestInfo;
-  }
+	/**
+	 * @param Google_Service_AlertCenter_RequestInfo
+	 */
+	public function setRequestInfo($requestInfo)
+	{
+		$this->requestInfo = $requestInfo;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_RequestInfo
+	 */
+	public function getRequestInfo()
+	{
+		return $this->requestInfo;
+	}
 }

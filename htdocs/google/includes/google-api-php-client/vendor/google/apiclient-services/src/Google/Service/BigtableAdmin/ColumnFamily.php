@@ -17,21 +17,21 @@
 
 class Google_Service_BigtableAdmin_ColumnFamily extends Google_Model
 {
-  protected $gcRuleType = 'Google_Service_BigtableAdmin_GcRule';
-  protected $gcRuleDataType = '';
+	protected $gcRuleType = 'Google_Service_BigtableAdmin_GcRule';
+	protected $gcRuleDataType = '';
 
-  /**
-   * @param Google_Service_BigtableAdmin_GcRule
-   */
-  public function setGcRule(Google_Service_BigtableAdmin_GcRule $gcRule)
-  {
-    $this->gcRule = $gcRule;
-  }
-  /**
-   * @return Google_Service_BigtableAdmin_GcRule
-   */
-  public function getGcRule()
-  {
-    return $this->gcRule;
-  }
+	/**
+	 * @param Google_Service_BigtableAdmin_GcRule
+	 */
+	public function setGcRule(Google_Service_BigtableAdmin_GcRule $gcRule)
+	{
+		$this->gcRule = $gcRule;
+	}
+	/**
+	 * @return Google_Service_BigtableAdmin_GcRule
+	 */
+	public function getGcRule()
+	{
+		return $this->gcRule;
+	}
 }

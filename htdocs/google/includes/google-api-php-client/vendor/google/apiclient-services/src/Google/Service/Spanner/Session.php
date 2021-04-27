@@ -17,41 +17,41 @@
 
 class Google_Service_Spanner_Session extends Google_Model
 {
-  public $approximateLastUseTime;
-  public $createTime;
-  public $labels;
-  public $name;
+	public $approximateLastUseTime;
+	public $createTime;
+	public $labels;
+	public $name;
 
-  public function setApproximateLastUseTime($approximateLastUseTime)
-  {
-    $this->approximateLastUseTime = $approximateLastUseTime;
-  }
-  public function getApproximateLastUseTime()
-  {
-    return $this->approximateLastUseTime;
-  }
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setApproximateLastUseTime($approximateLastUseTime)
+	{
+		$this->approximateLastUseTime = $approximateLastUseTime;
+	}
+	public function getApproximateLastUseTime()
+	{
+		return $this->approximateLastUseTime;
+	}
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

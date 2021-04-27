@@ -17,48 +17,48 @@
 
 class Google_Service_YouTube_InfoCard extends Google_Model
 {
-  public $etag;
-  public $id;
-  public $kind;
-  protected $snippetType = 'Google_Service_YouTube_InfoCardSnippet';
-  protected $snippetDataType = '';
+	public $etag;
+	public $id;
+	public $kind;
+	protected $snippetType = 'Google_Service_YouTube_InfoCardSnippet';
+	protected $snippetDataType = '';
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_YouTube_InfoCardSnippet
-   */
-  public function setSnippet(Google_Service_YouTube_InfoCardSnippet $snippet)
-  {
-    $this->snippet = $snippet;
-  }
-  /**
-   * @return Google_Service_YouTube_InfoCardSnippet
-   */
-  public function getSnippet()
-  {
-    return $this->snippet;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_YouTube_InfoCardSnippet
+	 */
+	public function setSnippet(Google_Service_YouTube_InfoCardSnippet $snippet)
+	{
+		$this->snippet = $snippet;
+	}
+	/**
+	 * @return Google_Service_YouTube_InfoCardSnippet
+	 */
+	public function getSnippet()
+	{
+		return $this->snippet;
+	}
 }

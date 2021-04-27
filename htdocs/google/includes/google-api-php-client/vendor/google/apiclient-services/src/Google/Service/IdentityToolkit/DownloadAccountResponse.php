@@ -17,40 +17,40 @@
 
 class Google_Service_IdentityToolkit_DownloadAccountResponse extends Google_Collection
 {
-  protected $collection_key = 'users';
-  public $kind;
-  public $nextPageToken;
-  protected $usersType = 'Google_Service_IdentityToolkit_UserInfo';
-  protected $usersDataType = 'array';
+	protected $collection_key = 'users';
+	public $kind;
+	public $nextPageToken;
+	protected $usersType = 'Google_Service_IdentityToolkit_UserInfo';
+	protected $usersDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_IdentityToolkit_UserInfo
-   */
-  public function setUsers($users)
-  {
-    $this->users = $users;
-  }
-  /**
-   * @return Google_Service_IdentityToolkit_UserInfo
-   */
-  public function getUsers()
-  {
-    return $this->users;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_IdentityToolkit_UserInfo
+	 */
+	public function setUsers($users)
+	{
+		$this->users = $users;
+	}
+	/**
+	 * @return Google_Service_IdentityToolkit_UserInfo
+	 */
+	public function getUsers()
+	{
+		return $this->users;
+	}
 }

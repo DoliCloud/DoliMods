@@ -17,23 +17,23 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1Progress extends Google_Model
 {
-  public $workCompleted;
-  public $workEstimated;
+	public $workCompleted;
+	public $workEstimated;
 
-  public function setWorkCompleted($workCompleted)
-  {
-    $this->workCompleted = $workCompleted;
-  }
-  public function getWorkCompleted()
-  {
-    return $this->workCompleted;
-  }
-  public function setWorkEstimated($workEstimated)
-  {
-    $this->workEstimated = $workEstimated;
-  }
-  public function getWorkEstimated()
-  {
-    return $this->workEstimated;
-  }
+	public function setWorkCompleted($workCompleted)
+	{
+		$this->workCompleted = $workCompleted;
+	}
+	public function getWorkCompleted()
+	{
+		return $this->workCompleted;
+	}
+	public function setWorkEstimated($workEstimated)
+	{
+		$this->workEstimated = $workEstimated;
+	}
+	public function getWorkEstimated()
+	{
+		return $this->workEstimated;
+	}
 }

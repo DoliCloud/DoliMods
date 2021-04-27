@@ -17,23 +17,23 @@
 
 class Google_Service_Script_GoogleAppsScriptTypeWebAppConfig extends Google_Model
 {
-  public $access;
-  public $executeAs;
+	public $access;
+	public $executeAs;
 
-  public function setAccess($access)
-  {
-    $this->access = $access;
-  }
-  public function getAccess()
-  {
-    return $this->access;
-  }
-  public function setExecuteAs($executeAs)
-  {
-    $this->executeAs = $executeAs;
-  }
-  public function getExecuteAs()
-  {
-    return $this->executeAs;
-  }
+	public function setAccess($access)
+	{
+		$this->access = $access;
+	}
+	public function getAccess()
+	{
+		return $this->access;
+	}
+	public function setExecuteAs($executeAs)
+	{
+		$this->executeAs = $executeAs;
+	}
+	public function getExecuteAs()
+	{
+		return $this->executeAs;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceManagement_ListServiceRolloutsResponse extends Google_Collection
 {
-  protected $collection_key = 'rollouts';
-  public $nextPageToken;
-  protected $rolloutsType = 'Google_Service_ServiceManagement_Rollout';
-  protected $rolloutsDataType = 'array';
+	protected $collection_key = 'rollouts';
+	public $nextPageToken;
+	protected $rolloutsType = 'Google_Service_ServiceManagement_Rollout';
+	protected $rolloutsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_ServiceManagement_Rollout
-   */
-  public function setRollouts($rollouts)
-  {
-    $this->rollouts = $rollouts;
-  }
-  /**
-   * @return Google_Service_ServiceManagement_Rollout
-   */
-  public function getRollouts()
-  {
-    return $this->rollouts;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_ServiceManagement_Rollout
+	 */
+	public function setRollouts($rollouts)
+	{
+		$this->rollouts = $rollouts;
+	}
+	/**
+	 * @return Google_Service_ServiceManagement_Rollout
+	 */
+	public function getRollouts()
+	{
+		return $this->rollouts;
+	}
 }

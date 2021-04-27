@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_Package extends Google_Model
 {
-  public $location;
-  public $name;
+	public $location;
+	public $name;
 
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

@@ -17,72 +17,72 @@
 
 class Google_Service_Safebrowsing_ThreatMatch extends Google_Model
 {
-  public $cacheDuration;
-  public $platformType;
-  protected $threatDataType = '';
-  protected $threatEntryMetadataType = 'Google_Service_Safebrowsing_ThreatEntryMetadata';
-  protected $threatEntryMetadataDataType = '';
-  public $threatEntryType;
-  public $threatType;
+	public $cacheDuration;
+	public $platformType;
+	protected $threatDataType = '';
+	protected $threatEntryMetadataType = 'Google_Service_Safebrowsing_ThreatEntryMetadata';
+	protected $threatEntryMetadataDataType = '';
+	public $threatEntryType;
+	public $threatType;
 
-  public function setCacheDuration($cacheDuration)
-  {
-    $this->cacheDuration = $cacheDuration;
-  }
-  public function getCacheDuration()
-  {
-    return $this->cacheDuration;
-  }
-  public function setPlatformType($platformType)
-  {
-    $this->platformType = $platformType;
-  }
-  public function getPlatformType()
-  {
-    return $this->platformType;
-  }
-  /**
-   * @param Google_Service_Safebrowsing_ThreatEntry
-   */
-  public function setThreat(Google_Service_Safebrowsing_ThreatEntry $threat)
-  {
-    $this->threat = $threat;
-  }
-  /**
-   * @return Google_Service_Safebrowsing_ThreatEntry
-   */
-  public function getThreat()
-  {
-    return $this->threat;
-  }
-  /**
-   * @param Google_Service_Safebrowsing_ThreatEntryMetadata
-   */
-  public function setThreatEntryMetadata(Google_Service_Safebrowsing_ThreatEntryMetadata $threatEntryMetadata)
-  {
-    $this->threatEntryMetadata = $threatEntryMetadata;
-  }
-  /**
-   * @return Google_Service_Safebrowsing_ThreatEntryMetadata
-   */
-  public function getThreatEntryMetadata()
-  {
-    return $this->threatEntryMetadata;
-  }
-  public function setThreatEntryType($threatEntryType)
-  {
-    $this->threatEntryType = $threatEntryType;
-  }
-  public function getThreatEntryType()
-  {
-    return $this->threatEntryType;
-  }
-  public function setThreatType($threatType)
-  {
-    $this->threatType = $threatType;
-  }
-  public function getThreatType()
-  {
-    return $this->threatType;
-  }
+	public function setCacheDuration($cacheDuration)
+	{
+		$this->cacheDuration = $cacheDuration;
+	}
+	public function getCacheDuration()
+	{
+		return $this->cacheDuration;
+	}
+	public function setPlatformType($platformType)
+	{
+		$this->platformType = $platformType;
+	}
+	public function getPlatformType()
+	{
+		return $this->platformType;
+	}
+	/**
+	 * @param Google_Service_Safebrowsing_ThreatEntry
+	 */
+	public function setThreat(Google_Service_Safebrowsing_ThreatEntry $threat)
+	{
+		$this->threat = $threat;
+	}
+	/**
+	 * @return Google_Service_Safebrowsing_ThreatEntry
+	 */
+	public function getThreat()
+	{
+		return $this->threat;
+	}
+	/**
+	 * @param Google_Service_Safebrowsing_ThreatEntryMetadata
+	 */
+	public function setThreatEntryMetadata(Google_Service_Safebrowsing_ThreatEntryMetadata $threatEntryMetadata)
+	{
+		$this->threatEntryMetadata = $threatEntryMetadata;
+	}
+	/**
+	 * @return Google_Service_Safebrowsing_ThreatEntryMetadata
+	 */
+	public function getThreatEntryMetadata()
+	{
+		return $this->threatEntryMetadata;
+	}
+	public function setThreatEntryType($threatEntryType)
+	{
+		$this->threatEntryType = $threatEntryType;
+	}
+	public function getThreatEntryType()
+	{
+		return $this->threatEntryType;
+	}
+	public function setThreatType($threatType)
+	{
+		$this->threatType = $threatType;
+	}
+	public function getThreatType()
+	{
+		return $this->threatType;
+	}
 }

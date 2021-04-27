@@ -17,15 +17,15 @@
 
 class Google_Service_YouTube_VideoProjectDetails extends Google_Collection
 {
-  protected $collection_key = 'tags';
-  public $tags;
+	protected $collection_key = 'tags';
+	public $tags;
 
-  public function setTags($tags)
-  {
-    $this->tags = $tags;
-  }
-  public function getTags()
-  {
-    return $this->tags;
-  }
+	public function setTags($tags)
+	{
+		$this->tags = $tags;
+	}
+	public function getTags()
+	{
+		return $this->tags;
+	}
 }

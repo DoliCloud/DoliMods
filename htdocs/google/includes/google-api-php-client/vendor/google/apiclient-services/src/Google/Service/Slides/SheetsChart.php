@@ -17,48 +17,48 @@
 
 class Google_Service_Slides_SheetsChart extends Google_Model
 {
-  public $chartId;
-  public $contentUrl;
-  protected $sheetsChartPropertiesType = 'Google_Service_Slides_SheetsChartProperties';
-  protected $sheetsChartPropertiesDataType = '';
-  public $spreadsheetId;
+	public $chartId;
+	public $contentUrl;
+	protected $sheetsChartPropertiesType = 'Google_Service_Slides_SheetsChartProperties';
+	protected $sheetsChartPropertiesDataType = '';
+	public $spreadsheetId;
 
-  public function setChartId($chartId)
-  {
-    $this->chartId = $chartId;
-  }
-  public function getChartId()
-  {
-    return $this->chartId;
-  }
-  public function setContentUrl($contentUrl)
-  {
-    $this->contentUrl = $contentUrl;
-  }
-  public function getContentUrl()
-  {
-    return $this->contentUrl;
-  }
-  /**
-   * @param Google_Service_Slides_SheetsChartProperties
-   */
-  public function setSheetsChartProperties(Google_Service_Slides_SheetsChartProperties $sheetsChartProperties)
-  {
-    $this->sheetsChartProperties = $sheetsChartProperties;
-  }
-  /**
-   * @return Google_Service_Slides_SheetsChartProperties
-   */
-  public function getSheetsChartProperties()
-  {
-    return $this->sheetsChartProperties;
-  }
-  public function setSpreadsheetId($spreadsheetId)
-  {
-    $this->spreadsheetId = $spreadsheetId;
-  }
-  public function getSpreadsheetId()
-  {
-    return $this->spreadsheetId;
-  }
+	public function setChartId($chartId)
+	{
+		$this->chartId = $chartId;
+	}
+	public function getChartId()
+	{
+		return $this->chartId;
+	}
+	public function setContentUrl($contentUrl)
+	{
+		$this->contentUrl = $contentUrl;
+	}
+	public function getContentUrl()
+	{
+		return $this->contentUrl;
+	}
+	/**
+	 * @param Google_Service_Slides_SheetsChartProperties
+	 */
+	public function setSheetsChartProperties(Google_Service_Slides_SheetsChartProperties $sheetsChartProperties)
+	{
+		$this->sheetsChartProperties = $sheetsChartProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_SheetsChartProperties
+	 */
+	public function getSheetsChartProperties()
+	{
+		return $this->sheetsChartProperties;
+	}
+	public function setSpreadsheetId($spreadsheetId)
+	{
+		$this->spreadsheetId = $spreadsheetId;
+	}
+	public function getSpreadsheetId()
+	{
+		return $this->spreadsheetId;
+	}
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1CelebrityTrack extends Google_Collection
 {
-  protected $collection_key = 'celebrities';
-  protected $celebritiesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1RecognizedCelebrity';
-  protected $celebritiesDataType = 'array';
-  protected $faceTrackType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Track';
-  protected $faceTrackDataType = '';
+	protected $collection_key = 'celebrities';
+	protected $celebritiesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1RecognizedCelebrity';
+	protected $celebritiesDataType = 'array';
+	protected $faceTrackType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Track';
+	protected $faceTrackDataType = '';
 
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1RecognizedCelebrity
-   */
-  public function setCelebrities($celebrities)
-  {
-    $this->celebrities = $celebrities;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1RecognizedCelebrity
-   */
-  public function getCelebrities()
-  {
-    return $this->celebrities;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Track
-   */
-  public function setFaceTrack(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Track $faceTrack)
-  {
-    $this->faceTrack = $faceTrack;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Track
-   */
-  public function getFaceTrack()
-  {
-    return $this->faceTrack;
-  }
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1RecognizedCelebrity
+	 */
+	public function setCelebrities($celebrities)
+	{
+		$this->celebrities = $celebrities;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1RecognizedCelebrity
+	 */
+	public function getCelebrities()
+	{
+		return $this->celebrities;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Track
+	 */
+	public function setFaceTrack(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Track $faceTrack)
+	{
+		$this->faceTrack = $faceTrack;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Track
+	 */
+	public function getFaceTrack()
+	{
+		return $this->faceTrack;
+	}
 }

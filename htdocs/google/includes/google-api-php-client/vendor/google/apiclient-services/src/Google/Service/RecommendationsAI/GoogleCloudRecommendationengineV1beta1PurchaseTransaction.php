@@ -17,50 +17,50 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction extends Google_Model
 {
-  public $costs;
-  public $currencyCode;
-  public $id;
-  public $revenue;
-  public $taxes;
+	public $costs;
+	public $currencyCode;
+	public $id;
+	public $revenue;
+	public $taxes;
 
-  public function setCosts($costs)
-  {
-    $this->costs = $costs;
-  }
-  public function getCosts()
-  {
-    return $this->costs;
-  }
-  public function setCurrencyCode($currencyCode)
-  {
-    $this->currencyCode = $currencyCode;
-  }
-  public function getCurrencyCode()
-  {
-    return $this->currencyCode;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setRevenue($revenue)
-  {
-    $this->revenue = $revenue;
-  }
-  public function getRevenue()
-  {
-    return $this->revenue;
-  }
-  public function setTaxes($taxes)
-  {
-    $this->taxes = $taxes;
-  }
-  public function getTaxes()
-  {
-    return $this->taxes;
-  }
+	public function setCosts($costs)
+	{
+		$this->costs = $costs;
+	}
+	public function getCosts()
+	{
+		return $this->costs;
+	}
+	public function setCurrencyCode($currencyCode)
+	{
+		$this->currencyCode = $currencyCode;
+	}
+	public function getCurrencyCode()
+	{
+		return $this->currencyCode;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setRevenue($revenue)
+	{
+		$this->revenue = $revenue;
+	}
+	public function getRevenue()
+	{
+		return $this->revenue;
+	}
+	public function setTaxes($taxes)
+	{
+		$this->taxes = $taxes;
+	}
+	public function getTaxes()
+	{
+		return $this->taxes;
+	}
 }

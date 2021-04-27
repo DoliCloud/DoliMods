@@ -17,21 +17,21 @@
 
 class Google_Service_Dataproc_SecurityConfig extends Google_Model
 {
-  protected $kerberosConfigType = 'Google_Service_Dataproc_KerberosConfig';
-  protected $kerberosConfigDataType = '';
+	protected $kerberosConfigType = 'Google_Service_Dataproc_KerberosConfig';
+	protected $kerberosConfigDataType = '';
 
-  /**
-   * @param Google_Service_Dataproc_KerberosConfig
-   */
-  public function setKerberosConfig(Google_Service_Dataproc_KerberosConfig $kerberosConfig)
-  {
-    $this->kerberosConfig = $kerberosConfig;
-  }
-  /**
-   * @return Google_Service_Dataproc_KerberosConfig
-   */
-  public function getKerberosConfig()
-  {
-    return $this->kerberosConfig;
-  }
+	/**
+	 * @param Google_Service_Dataproc_KerberosConfig
+	 */
+	public function setKerberosConfig(Google_Service_Dataproc_KerberosConfig $kerberosConfig)
+	{
+		$this->kerberosConfig = $kerberosConfig;
+	}
+	/**
+	 * @return Google_Service_Dataproc_KerberosConfig
+	 */
+	public function getKerberosConfig()
+	{
+		return $this->kerberosConfig;
+	}
 }

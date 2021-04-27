@@ -25,115 +25,115 @@
  */
 class Google_Service_AndroidPublisher_Resource_Inappproducts extends Google_Service_Resource
 {
-  /**
-   * Deletes an in-app product (i.e. a managed product or a subscriptions).
-   * (inappproducts.delete)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $sku Unique identifier for the in-app product.
-   * @param array $optParams Optional parameters.
-   */
-  public function delete($packageName, $sku, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'sku' => $sku);
-    $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params));
-  }
-  /**
-   * Gets an in-app product, which can be a managed product or a subscription.
-   * (inappproducts.get)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $sku Unique identifier for the in-app product.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_InAppProduct
-   */
-  public function get($packageName, $sku, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'sku' => $sku);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AndroidPublisher_InAppProduct");
-  }
-  /**
-   * Creates an in-app product (i.e. a managed product or a subscriptions).
-   * (inappproducts.insert)
-   *
-   * @param string $packageName Package name of the app.
-   * @param Google_Service_AndroidPublisher_InAppProduct $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param bool autoConvertMissingPrices If true the prices for all regions
-   * targeted by the parent app that don't have a price specified for this in-app
-   * product will be auto converted to the target currency based on the default
-   * price. Defaults to false.
-   * @return Google_Service_AndroidPublisher_InAppProduct
-   */
-  public function insert($packageName, Google_Service_AndroidPublisher_InAppProduct $postBody, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_AndroidPublisher_InAppProduct");
-  }
-  /**
-   * Lists all in-app products - both managed products and subscriptions.
-   * (inappproducts.listInappproducts)
-   *
-   * @param string $packageName Package name of the app.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string token Pagination token. If empty, list starts at the first
-   * product.
-   * @opt_param string startIndex The index of the first element to return.
-   * @opt_param string maxResults How many results the list operation should
-   * return.
-   * @return Google_Service_AndroidPublisher_InappproductsListResponse
-   */
-  public function listInappproducts($packageName, $optParams = array())
-  {
-    $params = array('packageName' => $packageName);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AndroidPublisher_InappproductsListResponse");
-  }
-  /**
-   * Patches an in-app product (i.e. a managed product or a subscriptions).
-   * (inappproducts.patch)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $sku Unique identifier for the in-app product.
-   * @param Google_Service_AndroidPublisher_InAppProduct $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param bool autoConvertMissingPrices If true the prices for all regions
-   * targeted by the parent app that don't have a price specified for this in-app
-   * product will be auto converted to the target currency based on the default
-   * price. Defaults to false.
-   * @return Google_Service_AndroidPublisher_InAppProduct
-   */
-  public function patch($packageName, $sku, Google_Service_AndroidPublisher_InAppProduct $postBody, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'sku' => $sku, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_AndroidPublisher_InAppProduct");
-  }
-  /**
-   * Updates an in-app product (i.e. a managed product or a subscriptions).
-   * (inappproducts.update)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $sku Unique identifier for the in-app product.
-   * @param Google_Service_AndroidPublisher_InAppProduct $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param bool autoConvertMissingPrices If true the prices for all regions
-   * targeted by the parent app that don't have a price specified for this in-app
-   * product will be auto converted to the target currency based on the default
-   * price. Defaults to false.
-   * @return Google_Service_AndroidPublisher_InAppProduct
-   */
-  public function update($packageName, $sku, Google_Service_AndroidPublisher_InAppProduct $postBody, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'sku' => $sku, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_AndroidPublisher_InAppProduct");
-  }
+	/**
+	 * Deletes an in-app product (i.e. a managed product or a subscriptions).
+	 * (inappproducts.delete)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $sku Unique identifier for the in-app product.
+	 * @param array $optParams Optional parameters.
+	 */
+	public function delete($packageName, $sku, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'sku' => $sku);
+		$params = array_merge($params, $optParams);
+		return $this->call('delete', array($params));
+	}
+	/**
+	 * Gets an in-app product, which can be a managed product or a subscription.
+	 * (inappproducts.get)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $sku Unique identifier for the in-app product.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_InAppProduct
+	 */
+	public function get($packageName, $sku, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'sku' => $sku);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_AndroidPublisher_InAppProduct");
+	}
+	/**
+	 * Creates an in-app product (i.e. a managed product or a subscriptions).
+	 * (inappproducts.insert)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param Google_Service_AndroidPublisher_InAppProduct $postBody
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param bool autoConvertMissingPrices If true the prices for all regions
+	 * targeted by the parent app that don't have a price specified for this in-app
+	 * product will be auto converted to the target currency based on the default
+	 * price. Defaults to false.
+	 * @return Google_Service_AndroidPublisher_InAppProduct
+	 */
+	public function insert($packageName, Google_Service_AndroidPublisher_InAppProduct $postBody, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('insert', array($params), "Google_Service_AndroidPublisher_InAppProduct");
+	}
+	/**
+	 * Lists all in-app products - both managed products and subscriptions.
+	 * (inappproducts.listInappproducts)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string token Pagination token. If empty, list starts at the first
+	 * product.
+	 * @opt_param string startIndex The index of the first element to return.
+	 * @opt_param string maxResults How many results the list operation should
+	 * return.
+	 * @return Google_Service_AndroidPublisher_InappproductsListResponse
+	 */
+	public function listInappproducts($packageName, $optParams = array())
+	{
+		$params = array('packageName' => $packageName);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AndroidPublisher_InappproductsListResponse");
+	}
+	/**
+	 * Patches an in-app product (i.e. a managed product or a subscriptions).
+	 * (inappproducts.patch)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $sku Unique identifier for the in-app product.
+	 * @param Google_Service_AndroidPublisher_InAppProduct $postBody
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param bool autoConvertMissingPrices If true the prices for all regions
+	 * targeted by the parent app that don't have a price specified for this in-app
+	 * product will be auto converted to the target currency based on the default
+	 * price. Defaults to false.
+	 * @return Google_Service_AndroidPublisher_InAppProduct
+	 */
+	public function patch($packageName, $sku, Google_Service_AndroidPublisher_InAppProduct $postBody, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'sku' => $sku, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('patch', array($params), "Google_Service_AndroidPublisher_InAppProduct");
+	}
+	/**
+	 * Updates an in-app product (i.e. a managed product or a subscriptions).
+	 * (inappproducts.update)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $sku Unique identifier for the in-app product.
+	 * @param Google_Service_AndroidPublisher_InAppProduct $postBody
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param bool autoConvertMissingPrices If true the prices for all regions
+	 * targeted by the parent app that don't have a price specified for this in-app
+	 * product will be auto converted to the target currency based on the default
+	 * price. Defaults to false.
+	 * @return Google_Service_AndroidPublisher_InAppProduct
+	 */
+	public function update($packageName, $sku, Google_Service_AndroidPublisher_InAppProduct $postBody, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'sku' => $sku, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('update', array($params), "Google_Service_AndroidPublisher_InAppProduct");
+	}
 }

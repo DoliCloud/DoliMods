@@ -17,14 +17,14 @@
 
 class Google_Service_Monitoring_DroppedLabels extends Google_Model
 {
-  public $label;
+	public $label;
 
-  public function setLabel($label)
-  {
-    $this->label = $label;
-  }
-  public function getLabel()
-  {
-    return $this->label;
-  }
+	public function setLabel($label)
+	{
+		$this->label = $label;
+	}
+	public function getLabel()
+	{
+		return $this->label;
+	}
 }

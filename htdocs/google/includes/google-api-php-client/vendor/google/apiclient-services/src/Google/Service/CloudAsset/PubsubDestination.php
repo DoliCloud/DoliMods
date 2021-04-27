@@ -17,14 +17,14 @@
 
 class Google_Service_CloudAsset_PubsubDestination extends Google_Model
 {
-  public $topic;
+	public $topic;
 
-  public function setTopic($topic)
-  {
-    $this->topic = $topic;
-  }
-  public function getTopic()
-  {
-    return $this->topic;
-  }
+	public function setTopic($topic)
+	{
+		$this->topic = $topic;
+	}
+	public function getTopic()
+	{
+		return $this->topic;
+	}
 }

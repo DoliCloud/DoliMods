@@ -17,55 +17,55 @@
 
 class Google_Service_Slides_UpdateTableCellPropertiesRequest extends Google_Model
 {
-  public $fields;
-  public $objectId;
-  protected $tableCellPropertiesType = 'Google_Service_Slides_TableCellProperties';
-  protected $tableCellPropertiesDataType = '';
-  protected $tableRangeType = 'Google_Service_Slides_TableRange';
-  protected $tableRangeDataType = '';
+	public $fields;
+	public $objectId;
+	protected $tableCellPropertiesType = 'Google_Service_Slides_TableCellProperties';
+	protected $tableCellPropertiesDataType = '';
+	protected $tableRangeType = 'Google_Service_Slides_TableRange';
+	protected $tableRangeDataType = '';
 
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  /**
-   * @param Google_Service_Slides_TableCellProperties
-   */
-  public function setTableCellProperties(Google_Service_Slides_TableCellProperties $tableCellProperties)
-  {
-    $this->tableCellProperties = $tableCellProperties;
-  }
-  /**
-   * @return Google_Service_Slides_TableCellProperties
-   */
-  public function getTableCellProperties()
-  {
-    return $this->tableCellProperties;
-  }
-  /**
-   * @param Google_Service_Slides_TableRange
-   */
-  public function setTableRange(Google_Service_Slides_TableRange $tableRange)
-  {
-    $this->tableRange = $tableRange;
-  }
-  /**
-   * @return Google_Service_Slides_TableRange
-   */
-  public function getTableRange()
-  {
-    return $this->tableRange;
-  }
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	/**
+	 * @param Google_Service_Slides_TableCellProperties
+	 */
+	public function setTableCellProperties(Google_Service_Slides_TableCellProperties $tableCellProperties)
+	{
+		$this->tableCellProperties = $tableCellProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_TableCellProperties
+	 */
+	public function getTableCellProperties()
+	{
+		return $this->tableCellProperties;
+	}
+	/**
+	 * @param Google_Service_Slides_TableRange
+	 */
+	public function setTableRange(Google_Service_Slides_TableRange $tableRange)
+	{
+		$this->tableRange = $tableRange;
+	}
+	/**
+	 * @return Google_Service_Slides_TableRange
+	 */
+	public function getTableRange()
+	{
+		return $this->tableRange;
+	}
 }

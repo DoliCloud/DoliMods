@@ -17,99 +17,99 @@
 
 class Google_Service_ManufacturerCenter_Product extends Google_Collection
 {
-  protected $collection_key = 'issues';
-  protected $attributesType = 'Google_Service_ManufacturerCenter_Attributes';
-  protected $attributesDataType = '';
-  public $contentLanguage;
-  protected $destinationStatusesType = 'Google_Service_ManufacturerCenter_DestinationStatus';
-  protected $destinationStatusesDataType = 'array';
-  protected $issuesType = 'Google_Service_ManufacturerCenter_Issue';
-  protected $issuesDataType = 'array';
-  public $name;
-  public $parent;
-  public $productId;
-  public $targetCountry;
+	protected $collection_key = 'issues';
+	protected $attributesType = 'Google_Service_ManufacturerCenter_Attributes';
+	protected $attributesDataType = '';
+	public $contentLanguage;
+	protected $destinationStatusesType = 'Google_Service_ManufacturerCenter_DestinationStatus';
+	protected $destinationStatusesDataType = 'array';
+	protected $issuesType = 'Google_Service_ManufacturerCenter_Issue';
+	protected $issuesDataType = 'array';
+	public $name;
+	public $parent;
+	public $productId;
+	public $targetCountry;
 
-  /**
-   * @param Google_Service_ManufacturerCenter_Attributes
-   */
-  public function setAttributes(Google_Service_ManufacturerCenter_Attributes $attributes)
-  {
-    $this->attributes = $attributes;
-  }
-  /**
-   * @return Google_Service_ManufacturerCenter_Attributes
-   */
-  public function getAttributes()
-  {
-    return $this->attributes;
-  }
-  public function setContentLanguage($contentLanguage)
-  {
-    $this->contentLanguage = $contentLanguage;
-  }
-  public function getContentLanguage()
-  {
-    return $this->contentLanguage;
-  }
-  /**
-   * @param Google_Service_ManufacturerCenter_DestinationStatus
-   */
-  public function setDestinationStatuses($destinationStatuses)
-  {
-    $this->destinationStatuses = $destinationStatuses;
-  }
-  /**
-   * @return Google_Service_ManufacturerCenter_DestinationStatus
-   */
-  public function getDestinationStatuses()
-  {
-    return $this->destinationStatuses;
-  }
-  /**
-   * @param Google_Service_ManufacturerCenter_Issue
-   */
-  public function setIssues($issues)
-  {
-    $this->issues = $issues;
-  }
-  /**
-   * @return Google_Service_ManufacturerCenter_Issue
-   */
-  public function getIssues()
-  {
-    return $this->issues;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setParent($parent)
-  {
-    $this->parent = $parent;
-  }
-  public function getParent()
-  {
-    return $this->parent;
-  }
-  public function setProductId($productId)
-  {
-    $this->productId = $productId;
-  }
-  public function getProductId()
-  {
-    return $this->productId;
-  }
-  public function setTargetCountry($targetCountry)
-  {
-    $this->targetCountry = $targetCountry;
-  }
-  public function getTargetCountry()
-  {
-    return $this->targetCountry;
-  }
+	/**
+	 * @param Google_Service_ManufacturerCenter_Attributes
+	 */
+	public function setAttributes(Google_Service_ManufacturerCenter_Attributes $attributes)
+	{
+		$this->attributes = $attributes;
+	}
+	/**
+	 * @return Google_Service_ManufacturerCenter_Attributes
+	 */
+	public function getAttributes()
+	{
+		return $this->attributes;
+	}
+	public function setContentLanguage($contentLanguage)
+	{
+		$this->contentLanguage = $contentLanguage;
+	}
+	public function getContentLanguage()
+	{
+		return $this->contentLanguage;
+	}
+	/**
+	 * @param Google_Service_ManufacturerCenter_DestinationStatus
+	 */
+	public function setDestinationStatuses($destinationStatuses)
+	{
+		$this->destinationStatuses = $destinationStatuses;
+	}
+	/**
+	 * @return Google_Service_ManufacturerCenter_DestinationStatus
+	 */
+	public function getDestinationStatuses()
+	{
+		return $this->destinationStatuses;
+	}
+	/**
+	 * @param Google_Service_ManufacturerCenter_Issue
+	 */
+	public function setIssues($issues)
+	{
+		$this->issues = $issues;
+	}
+	/**
+	 * @return Google_Service_ManufacturerCenter_Issue
+	 */
+	public function getIssues()
+	{
+		return $this->issues;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setParent($parent)
+	{
+		$this->parent = $parent;
+	}
+	public function getParent()
+	{
+		return $this->parent;
+	}
+	public function setProductId($productId)
+	{
+		$this->productId = $productId;
+	}
+	public function getProductId()
+	{
+		return $this->productId;
+	}
+	public function setTargetCountry($targetCountry)
+	{
+		$this->targetCountry = $targetCountry;
+	}
+	public function getTargetCountry()
+	{
+		return $this->targetCountry;
+	}
 }

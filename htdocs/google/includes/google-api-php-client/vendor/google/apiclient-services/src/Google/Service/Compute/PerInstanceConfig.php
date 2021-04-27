@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_PerInstanceConfig extends Google_Model
 {
-  public $fingerprint;
-  public $name;
+	public $fingerprint;
+	public $name;
 
-  public function setFingerprint($fingerprint)
-  {
-    $this->fingerprint = $fingerprint;
-  }
-  public function getFingerprint()
-  {
-    return $this->fingerprint;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setFingerprint($fingerprint)
+	{
+		$this->fingerprint = $fingerprint;
+	}
+	public function getFingerprint()
+	{
+		return $this->fingerprint;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

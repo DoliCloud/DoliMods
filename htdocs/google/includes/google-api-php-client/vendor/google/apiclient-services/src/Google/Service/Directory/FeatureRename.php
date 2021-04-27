@@ -17,14 +17,14 @@
 
 class Google_Service_Directory_FeatureRename extends Google_Model
 {
-  public $newName;
+	public $newName;
 
-  public function setNewName($newName)
-  {
-    $this->newName = $newName;
-  }
-  public function getNewName()
-  {
-    return $this->newName;
-  }
+	public function setNewName($newName)
+	{
+		$this->newName = $newName;
+	}
+	public function getNewName()
+	{
+		return $this->newName;
+	}
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Dataflow_ApproximateProgress extends Google_Model
 {
-  public $percentComplete;
-  protected $positionType = 'Google_Service_Dataflow_Position';
-  protected $positionDataType = '';
-  public $remainingTime;
+	public $percentComplete;
+	protected $positionType = 'Google_Service_Dataflow_Position';
+	protected $positionDataType = '';
+	public $remainingTime;
 
-  public function setPercentComplete($percentComplete)
-  {
-    $this->percentComplete = $percentComplete;
-  }
-  public function getPercentComplete()
-  {
-    return $this->percentComplete;
-  }
-  /**
-   * @param Google_Service_Dataflow_Position
-   */
-  public function setPosition(Google_Service_Dataflow_Position $position)
-  {
-    $this->position = $position;
-  }
-  /**
-   * @return Google_Service_Dataflow_Position
-   */
-  public function getPosition()
-  {
-    return $this->position;
-  }
-  public function setRemainingTime($remainingTime)
-  {
-    $this->remainingTime = $remainingTime;
-  }
-  public function getRemainingTime()
-  {
-    return $this->remainingTime;
-  }
+	public function setPercentComplete($percentComplete)
+	{
+		$this->percentComplete = $percentComplete;
+	}
+	public function getPercentComplete()
+	{
+		return $this->percentComplete;
+	}
+	/**
+	 * @param Google_Service_Dataflow_Position
+	 */
+	public function setPosition(Google_Service_Dataflow_Position $position)
+	{
+		$this->position = $position;
+	}
+	/**
+	 * @return Google_Service_Dataflow_Position
+	 */
+	public function getPosition()
+	{
+		return $this->position;
+	}
+	public function setRemainingTime($remainingTime)
+	{
+		$this->remainingTime = $remainingTime;
+	}
+	public function getRemainingTime()
+	{
+		return $this->remainingTime;
+	}
 }

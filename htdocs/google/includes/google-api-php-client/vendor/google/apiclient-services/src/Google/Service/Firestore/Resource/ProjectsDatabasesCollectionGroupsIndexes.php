@@ -25,69 +25,69 @@
  */
 class Google_Service_Firestore_Resource_ProjectsDatabasesCollectionGroupsIndexes extends Google_Service_Resource
 {
-  /**
-   * Creates a composite index. This returns a google.longrunning.Operation which
-   * may be used to track the status of the creation. The metadata for the
-   * operation will be the type IndexOperationMetadata. (indexes.create)
-   *
-   * @param string $parent Required. A parent name of the form `projects/{project_
-   * id}/databases/{database_id}/collectionGroups/{collection_id}`
-   * @param Google_Service_Firestore_GoogleFirestoreAdminV1Index $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Firestore_GoogleLongrunningOperation
-   */
-  public function create($parent, Google_Service_Firestore_GoogleFirestoreAdminV1Index $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Firestore_GoogleLongrunningOperation");
-  }
-  /**
-   * Deletes a composite index. (indexes.delete)
-   *
-   * @param string $name Required. A name of the form `projects/{project_id}/datab
-   * ases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Firestore_FirestoreEmpty
-   */
-  public function delete($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Firestore_FirestoreEmpty");
-  }
-  /**
-   * Gets a composite index. (indexes.get)
-   *
-   * @param string $name Required. A name of the form `projects/{project_id}/datab
-   * ases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Firestore_GoogleFirestoreAdminV1Index
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Firestore_GoogleFirestoreAdminV1Index");
-  }
-  /**
-   * Lists composite indexes.
-   * (indexes.listProjectsDatabasesCollectionGroupsIndexes)
-   *
-   * @param string $parent Required. A parent name of the form `projects/{project_
-   * id}/databases/{database_id}/collectionGroups/{collection_id}`
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string filter The filter to apply to list results.
-   * @opt_param string pageToken A page token, returned from a previous call to
-   * FirestoreAdmin.ListIndexes, that may be used to get the next page of results.
-   * @opt_param int pageSize The number of results to return.
-   * @return Google_Service_Firestore_GoogleFirestoreAdminV1ListIndexesResponse
-   */
-  public function listProjectsDatabasesCollectionGroupsIndexes($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Firestore_GoogleFirestoreAdminV1ListIndexesResponse");
-  }
+	/**
+	 * Creates a composite index. This returns a google.longrunning.Operation which
+	 * may be used to track the status of the creation. The metadata for the
+	 * operation will be the type IndexOperationMetadata. (indexes.create)
+	 *
+	 * @param string $parent Required. A parent name of the form `projects/{project_
+	 *                       id}/databases/{database_id}/collectionGroups/{collection_id}`
+	 * @param Google_Service_Firestore_GoogleFirestoreAdminV1Index $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Firestore_GoogleLongrunningOperation
+	 */
+	public function create($parent, Google_Service_Firestore_GoogleFirestoreAdminV1Index $postBody, $optParams = array())
+	{
+		$params = array('parent' => $parent, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_Firestore_GoogleLongrunningOperation");
+	}
+	/**
+	 * Deletes a composite index. (indexes.delete)
+	 *
+	 * @param string $name Required. A name of the form `projects/{project_id}/datab
+	 *                     ases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Firestore_FirestoreEmpty
+	 */
+	public function delete($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('delete', array($params), "Google_Service_Firestore_FirestoreEmpty");
+	}
+	/**
+	 * Gets a composite index. (indexes.get)
+	 *
+	 * @param string $name Required. A name of the form `projects/{project_id}/datab
+	 *                     ases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Firestore_GoogleFirestoreAdminV1Index
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Firestore_GoogleFirestoreAdminV1Index");
+	}
+	/**
+	 * Lists composite indexes.
+	 * (indexes.listProjectsDatabasesCollectionGroupsIndexes)
+	 *
+	 * @param string $parent Required. A parent name of the form `projects/{project_
+	 *                       id}/databases/{database_id}/collectionGroups/{collection_id}`
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string filter The filter to apply to list results.
+	 * @opt_param string pageToken A page token, returned from a previous call to
+	 * FirestoreAdmin.ListIndexes, that may be used to get the next page of results.
+	 * @opt_param int pageSize The number of results to return.
+	 * @return Google_Service_Firestore_GoogleFirestoreAdminV1ListIndexesResponse
+	 */
+	public function listProjectsDatabasesCollectionGroupsIndexes($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Firestore_GoogleFirestoreAdminV1ListIndexesResponse");
+	}
 }

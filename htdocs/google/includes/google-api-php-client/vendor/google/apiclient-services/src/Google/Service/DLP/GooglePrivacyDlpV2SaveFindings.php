@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2SaveFindings extends Google_Model
 {
-  protected $outputConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig';
-  protected $outputConfigDataType = '';
+	protected $outputConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig';
+	protected $outputConfigDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig
-   */
-  public function setOutputConfig(Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig $outputConfig)
-  {
-    $this->outputConfig = $outputConfig;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig
-   */
-  public function getOutputConfig()
-  {
-    return $this->outputConfig;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig
+	 */
+	public function setOutputConfig(Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig $outputConfig)
+	{
+		$this->outputConfig = $outputConfig;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig
+	 */
+	public function getOutputConfig()
+	{
+		return $this->outputConfig;
+	}
 }

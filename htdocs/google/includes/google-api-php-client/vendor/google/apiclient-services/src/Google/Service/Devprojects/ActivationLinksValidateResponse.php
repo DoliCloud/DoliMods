@@ -17,43 +17,43 @@
 
 class Google_Service_Devprojects_ActivationLinksValidateResponse extends Google_Collection
 {
-  protected $collection_key = 'tokenParameter';
-  public $apiToken;
-  public $componentType;
-  public $kind;
-  protected $tokenParameterType = 'Google_Service_Devprojects_TypedKeyValuePair';
-  protected $tokenParameterDataType = 'array';
+	protected $collection_key = 'tokenParameter';
+	public $apiToken;
+	public $componentType;
+	public $kind;
+	protected $tokenParameterType = 'Google_Service_Devprojects_TypedKeyValuePair';
+	protected $tokenParameterDataType = 'array';
 
-  public function setApiToken($apiToken)
-  {
-    $this->apiToken = $apiToken;
-  }
-  public function getApiToken()
-  {
-    return $this->apiToken;
-  }
-  public function setComponentType($componentType)
-  {
-    $this->componentType = $componentType;
-  }
-  public function getComponentType()
-  {
-    return $this->componentType;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setTokenParameter($tokenParameter)
-  {
-    $this->tokenParameter = $tokenParameter;
-  }
-  public function getTokenParameter()
-  {
-    return $this->tokenParameter;
-  }
+	public function setApiToken($apiToken)
+	{
+		$this->apiToken = $apiToken;
+	}
+	public function getApiToken()
+	{
+		return $this->apiToken;
+	}
+	public function setComponentType($componentType)
+	{
+		$this->componentType = $componentType;
+	}
+	public function getComponentType()
+	{
+		return $this->componentType;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setTokenParameter($tokenParameter)
+	{
+		$this->tokenParameter = $tokenParameter;
+	}
+	public function getTokenParameter()
+	{
+		return $this->tokenParameter;
+	}
 }

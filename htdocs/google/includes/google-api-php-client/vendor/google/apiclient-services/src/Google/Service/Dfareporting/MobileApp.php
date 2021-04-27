@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_MobileApp extends Google_Model
 {
-  public $directory;
-  public $id;
-  public $kind;
-  public $publisherName;
-  public $title;
+	public $directory;
+	public $id;
+	public $kind;
+	public $publisherName;
+	public $title;
 
-  public function setDirectory($directory)
-  {
-    $this->directory = $directory;
-  }
-  public function getDirectory()
-  {
-    return $this->directory;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setPublisherName($publisherName)
-  {
-    $this->publisherName = $publisherName;
-  }
-  public function getPublisherName()
-  {
-    return $this->publisherName;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setDirectory($directory)
+	{
+		$this->directory = $directory;
+	}
+	public function getDirectory()
+	{
+		return $this->directory;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setPublisherName($publisherName)
+	{
+		$this->publisherName = $publisherName;
+	}
+	public function getPublisherName()
+	{
+		return $this->publisherName;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

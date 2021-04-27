@@ -17,83 +17,83 @@
 
 class Google_Service_Compute_Rule extends Google_Collection
 {
-  protected $collection_key = 'permissions';
-  public $action;
-  protected $conditionsType = 'Google_Service_Compute_Condition';
-  protected $conditionsDataType = 'array';
-  public $description;
-  public $ins;
-  protected $logConfigsType = 'Google_Service_Compute_LogConfig';
-  protected $logConfigsDataType = 'array';
-  public $notIns;
-  public $permissions;
+	protected $collection_key = 'permissions';
+	public $action;
+	protected $conditionsType = 'Google_Service_Compute_Condition';
+	protected $conditionsDataType = 'array';
+	public $description;
+	public $ins;
+	protected $logConfigsType = 'Google_Service_Compute_LogConfig';
+	protected $logConfigsDataType = 'array';
+	public $notIns;
+	public $permissions;
 
-  public function setAction($action)
-  {
-    $this->action = $action;
-  }
-  public function getAction()
-  {
-    return $this->action;
-  }
-  /**
-   * @param Google_Service_Compute_Condition
-   */
-  public function setConditions($conditions)
-  {
-    $this->conditions = $conditions;
-  }
-  /**
-   * @return Google_Service_Compute_Condition
-   */
-  public function getConditions()
-  {
-    return $this->conditions;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setIns($ins)
-  {
-    $this->ins = $ins;
-  }
-  public function getIns()
-  {
-    return $this->ins;
-  }
-  /**
-   * @param Google_Service_Compute_LogConfig
-   */
-  public function setLogConfigs($logConfigs)
-  {
-    $this->logConfigs = $logConfigs;
-  }
-  /**
-   * @return Google_Service_Compute_LogConfig
-   */
-  public function getLogConfigs()
-  {
-    return $this->logConfigs;
-  }
-  public function setNotIns($notIns)
-  {
-    $this->notIns = $notIns;
-  }
-  public function getNotIns()
-  {
-    return $this->notIns;
-  }
-  public function setPermissions($permissions)
-  {
-    $this->permissions = $permissions;
-  }
-  public function getPermissions()
-  {
-    return $this->permissions;
-  }
+	public function setAction($action)
+	{
+		$this->action = $action;
+	}
+	public function getAction()
+	{
+		return $this->action;
+	}
+	/**
+	 * @param Google_Service_Compute_Condition
+	 */
+	public function setConditions($conditions)
+	{
+		$this->conditions = $conditions;
+	}
+	/**
+	 * @return Google_Service_Compute_Condition
+	 */
+	public function getConditions()
+	{
+		return $this->conditions;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setIns($ins)
+	{
+		$this->ins = $ins;
+	}
+	public function getIns()
+	{
+		return $this->ins;
+	}
+	/**
+	 * @param Google_Service_Compute_LogConfig
+	 */
+	public function setLogConfigs($logConfigs)
+	{
+		$this->logConfigs = $logConfigs;
+	}
+	/**
+	 * @return Google_Service_Compute_LogConfig
+	 */
+	public function getLogConfigs()
+	{
+		return $this->logConfigs;
+	}
+	public function setNotIns($notIns)
+	{
+		$this->notIns = $notIns;
+	}
+	public function getNotIns()
+	{
+		return $this->notIns;
+	}
+	public function setPermissions($permissions)
+	{
+		$this->permissions = $permissions;
+	}
+	public function getPermissions()
+	{
+		return $this->permissions;
+	}
 }

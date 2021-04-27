@@ -17,40 +17,40 @@
 
 class Google_Service_DeploymentManager_DeploymentUpdate extends Google_Collection
 {
-  protected $collection_key = 'labels';
-  public $description;
-  protected $labelsType = 'Google_Service_DeploymentManager_DeploymentUpdateLabelEntry';
-  protected $labelsDataType = 'array';
-  public $manifest;
+	protected $collection_key = 'labels';
+	public $description;
+	protected $labelsType = 'Google_Service_DeploymentManager_DeploymentUpdateLabelEntry';
+	protected $labelsDataType = 'array';
+	public $manifest;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_DeploymentManager_DeploymentUpdateLabelEntry
-   */
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  /**
-   * @return Google_Service_DeploymentManager_DeploymentUpdateLabelEntry
-   */
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setManifest($manifest)
-  {
-    $this->manifest = $manifest;
-  }
-  public function getManifest()
-  {
-    return $this->manifest;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_DeploymentManager_DeploymentUpdateLabelEntry
+	 */
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	/**
+	 * @return Google_Service_DeploymentManager_DeploymentUpdateLabelEntry
+	 */
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setManifest($manifest)
+	{
+		$this->manifest = $manifest;
+	}
+	public function getManifest()
+	{
+		return $this->manifest;
+	}
 }

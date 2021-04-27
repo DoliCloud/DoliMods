@@ -17,33 +17,33 @@
 
 class Google_Service_CloudComposer_ImageVersion extends Google_Collection
 {
-  protected $collection_key = 'supportedPythonVersions';
-  public $imageVersionId;
-  public $isDefault;
-  public $supportedPythonVersions;
+	protected $collection_key = 'supportedPythonVersions';
+	public $imageVersionId;
+	public $isDefault;
+	public $supportedPythonVersions;
 
-  public function setImageVersionId($imageVersionId)
-  {
-    $this->imageVersionId = $imageVersionId;
-  }
-  public function getImageVersionId()
-  {
-    return $this->imageVersionId;
-  }
-  public function setIsDefault($isDefault)
-  {
-    $this->isDefault = $isDefault;
-  }
-  public function getIsDefault()
-  {
-    return $this->isDefault;
-  }
-  public function setSupportedPythonVersions($supportedPythonVersions)
-  {
-    $this->supportedPythonVersions = $supportedPythonVersions;
-  }
-  public function getSupportedPythonVersions()
-  {
-    return $this->supportedPythonVersions;
-  }
+	public function setImageVersionId($imageVersionId)
+	{
+		$this->imageVersionId = $imageVersionId;
+	}
+	public function getImageVersionId()
+	{
+		return $this->imageVersionId;
+	}
+	public function setIsDefault($isDefault)
+	{
+		$this->isDefault = $isDefault;
+	}
+	public function getIsDefault()
+	{
+		return $this->isDefault;
+	}
+	public function setSupportedPythonVersions($supportedPythonVersions)
+	{
+		$this->supportedPythonVersions = $supportedPythonVersions;
+	}
+	public function getSupportedPythonVersions()
+	{
+		return $this->supportedPythonVersions;
+	}
 }

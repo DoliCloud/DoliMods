@@ -17,14 +17,14 @@
 
 class Google_Service_CloudBuild_NotifierSecretRef extends Google_Model
 {
-  public $secretRef;
+	public $secretRef;
 
-  public function setSecretRef($secretRef)
-  {
-    $this->secretRef = $secretRef;
-  }
-  public function getSecretRef()
-  {
-    return $this->secretRef;
-  }
+	public function setSecretRef($secretRef)
+	{
+		$this->secretRef = $secretRef;
+	}
+	public function getSecretRef()
+	{
+		return $this->secretRef;
+	}
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_JobService_ResponseMetadata extends Google_Collection
 {
-  protected $collection_key = 'experimentIdList';
-  public $experimentIdList;
-  public $mode;
-  public $requestId;
+	protected $collection_key = 'experimentIdList';
+	public $experimentIdList;
+	public $mode;
+	public $requestId;
 
-  public function setExperimentIdList($experimentIdList)
-  {
-    $this->experimentIdList = $experimentIdList;
-  }
-  public function getExperimentIdList()
-  {
-    return $this->experimentIdList;
-  }
-  public function setMode($mode)
-  {
-    $this->mode = $mode;
-  }
-  public function getMode()
-  {
-    return $this->mode;
-  }
-  public function setRequestId($requestId)
-  {
-    $this->requestId = $requestId;
-  }
-  public function getRequestId()
-  {
-    return $this->requestId;
-  }
+	public function setExperimentIdList($experimentIdList)
+	{
+		$this->experimentIdList = $experimentIdList;
+	}
+	public function getExperimentIdList()
+	{
+		return $this->experimentIdList;
+	}
+	public function setMode($mode)
+	{
+		$this->mode = $mode;
+	}
+	public function getMode()
+	{
+		return $this->mode;
+	}
+	public function setRequestId($requestId)
+	{
+		$this->requestId = $requestId;
+	}
+	public function getRequestId()
+	{
+		return $this->requestId;
+	}
 }

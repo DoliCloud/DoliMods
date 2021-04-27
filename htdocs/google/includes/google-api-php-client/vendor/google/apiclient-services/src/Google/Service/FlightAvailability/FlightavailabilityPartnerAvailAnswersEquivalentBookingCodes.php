@@ -17,15 +17,15 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersEquivalentBookingCodes extends Google_Collection
 {
-  protected $collection_key = 'bookingCodes';
-  public $bookingCodes;
+	protected $collection_key = 'bookingCodes';
+	public $bookingCodes;
 
-  public function setBookingCodes($bookingCodes)
-  {
-    $this->bookingCodes = $bookingCodes;
-  }
-  public function getBookingCodes()
-  {
-    return $this->bookingCodes;
-  }
+	public function setBookingCodes($bookingCodes)
+	{
+		$this->bookingCodes = $bookingCodes;
+	}
+	public function getBookingCodes()
+	{
+		return $this->bookingCodes;
+	}
 }

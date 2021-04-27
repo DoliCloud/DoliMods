@@ -17,32 +17,32 @@
 
 class Google_Service_Appengine_ErrorHandler extends Google_Model
 {
-  public $errorCode;
-  public $mimeType;
-  public $staticFile;
+	public $errorCode;
+	public $mimeType;
+	public $staticFile;
 
-  public function setErrorCode($errorCode)
-  {
-    $this->errorCode = $errorCode;
-  }
-  public function getErrorCode()
-  {
-    return $this->errorCode;
-  }
-  public function setMimeType($mimeType)
-  {
-    $this->mimeType = $mimeType;
-  }
-  public function getMimeType()
-  {
-    return $this->mimeType;
-  }
-  public function setStaticFile($staticFile)
-  {
-    $this->staticFile = $staticFile;
-  }
-  public function getStaticFile()
-  {
-    return $this->staticFile;
-  }
+	public function setErrorCode($errorCode)
+	{
+		$this->errorCode = $errorCode;
+	}
+	public function getErrorCode()
+	{
+		return $this->errorCode;
+	}
+	public function setMimeType($mimeType)
+	{
+		$this->mimeType = $mimeType;
+	}
+	public function getMimeType()
+	{
+		return $this->mimeType;
+	}
+	public function setStaticFile($staticFile)
+	{
+		$this->staticFile = $staticFile;
+	}
+	public function getStaticFile()
+	{
+		return $this->staticFile;
+	}
 }

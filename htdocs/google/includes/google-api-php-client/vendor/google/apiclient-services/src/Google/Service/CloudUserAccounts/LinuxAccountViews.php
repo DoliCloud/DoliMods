@@ -17,47 +17,47 @@
 
 class Google_Service_CloudUserAccounts_LinuxAccountViews extends Google_Collection
 {
-  protected $collection_key = 'userViews';
-  protected $groupViewsType = 'Google_Service_CloudUserAccounts_LinuxGroupView';
-  protected $groupViewsDataType = 'array';
-  public $kind;
-  protected $userViewsType = 'Google_Service_CloudUserAccounts_LinuxUserView';
-  protected $userViewsDataType = 'array';
+	protected $collection_key = 'userViews';
+	protected $groupViewsType = 'Google_Service_CloudUserAccounts_LinuxGroupView';
+	protected $groupViewsDataType = 'array';
+	public $kind;
+	protected $userViewsType = 'Google_Service_CloudUserAccounts_LinuxUserView';
+	protected $userViewsDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudUserAccounts_LinuxGroupView
-   */
-  public function setGroupViews($groupViews)
-  {
-    $this->groupViews = $groupViews;
-  }
-  /**
-   * @return Google_Service_CloudUserAccounts_LinuxGroupView
-   */
-  public function getGroupViews()
-  {
-    return $this->groupViews;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_CloudUserAccounts_LinuxUserView
-   */
-  public function setUserViews($userViews)
-  {
-    $this->userViews = $userViews;
-  }
-  /**
-   * @return Google_Service_CloudUserAccounts_LinuxUserView
-   */
-  public function getUserViews()
-  {
-    return $this->userViews;
-  }
+	/**
+	 * @param Google_Service_CloudUserAccounts_LinuxGroupView
+	 */
+	public function setGroupViews($groupViews)
+	{
+		$this->groupViews = $groupViews;
+	}
+	/**
+	 * @return Google_Service_CloudUserAccounts_LinuxGroupView
+	 */
+	public function getGroupViews()
+	{
+		return $this->groupViews;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_CloudUserAccounts_LinuxUserView
+	 */
+	public function setUserViews($userViews)
+	{
+		$this->userViews = $userViews;
+	}
+	/**
+	 * @return Google_Service_CloudUserAccounts_LinuxUserView
+	 */
+	public function getUserViews()
+	{
+		return $this->userViews;
+	}
 }

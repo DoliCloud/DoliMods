@@ -17,58 +17,58 @@
 
 class Google_Service_CloudSearch_PollItemsRequest extends Google_Collection
 {
-  protected $collection_key = 'statusCodes';
-  public $connectorName;
-  protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
-  protected $debugOptionsDataType = '';
-  public $limit;
-  public $queue;
-  public $statusCodes;
+	protected $collection_key = 'statusCodes';
+	public $connectorName;
+	protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
+	protected $debugOptionsDataType = '';
+	public $limit;
+	public $queue;
+	public $statusCodes;
 
-  public function setConnectorName($connectorName)
-  {
-    $this->connectorName = $connectorName;
-  }
-  public function getConnectorName()
-  {
-    return $this->connectorName;
-  }
-  /**
-   * @param Google_Service_CloudSearch_DebugOptions
-   */
-  public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
-  {
-    $this->debugOptions = $debugOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DebugOptions
-   */
-  public function getDebugOptions()
-  {
-    return $this->debugOptions;
-  }
-  public function setLimit($limit)
-  {
-    $this->limit = $limit;
-  }
-  public function getLimit()
-  {
-    return $this->limit;
-  }
-  public function setQueue($queue)
-  {
-    $this->queue = $queue;
-  }
-  public function getQueue()
-  {
-    return $this->queue;
-  }
-  public function setStatusCodes($statusCodes)
-  {
-    $this->statusCodes = $statusCodes;
-  }
-  public function getStatusCodes()
-  {
-    return $this->statusCodes;
-  }
+	public function setConnectorName($connectorName)
+	{
+		$this->connectorName = $connectorName;
+	}
+	public function getConnectorName()
+	{
+		return $this->connectorName;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_DebugOptions
+	 */
+	public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
+	{
+		$this->debugOptions = $debugOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DebugOptions
+	 */
+	public function getDebugOptions()
+	{
+		return $this->debugOptions;
+	}
+	public function setLimit($limit)
+	{
+		$this->limit = $limit;
+	}
+	public function getLimit()
+	{
+		return $this->limit;
+	}
+	public function setQueue($queue)
+	{
+		$this->queue = $queue;
+	}
+	public function getQueue()
+	{
+		return $this->queue;
+	}
+	public function setStatusCodes($statusCodes)
+	{
+		$this->statusCodes = $statusCodes;
+	}
+	public function getStatusCodes()
+	{
+		return $this->statusCodes;
+	}
 }

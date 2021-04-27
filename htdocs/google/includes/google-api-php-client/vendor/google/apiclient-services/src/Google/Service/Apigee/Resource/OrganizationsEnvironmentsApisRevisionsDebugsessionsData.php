@@ -25,19 +25,19 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsEnvironmentsApisRevisionsDebugsessionsData extends Google_Service_Resource
 {
-  /**
-   * Gets the debug data from a transaction. (data.get)
-   *
-   * @param string $name Required. The name of the debug session transaction. Must
-   * be of the form:  `organizations/{organization}/environments/{environment}/api
-   * s/{api}/revisions/{revision}/debugsessions/{session}/data/{transaction}`.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1DebugSessionTransaction
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1DebugSessionTransaction");
-  }
+	/**
+	 * Gets the debug data from a transaction. (data.get)
+	 *
+	 * @param string $name Required. The name of the debug session transaction. Must
+	 *                     be of the form:  `organizations/{organization}/environments/{environment}/api
+	 *                     s/{api}/revisions/{revision}/debugsessions/{session}/data/{transaction}`.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DebugSessionTransaction
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1DebugSessionTransaction");
+	}
 }

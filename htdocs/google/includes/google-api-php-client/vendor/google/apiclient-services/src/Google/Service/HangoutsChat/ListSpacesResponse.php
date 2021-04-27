@@ -17,31 +17,31 @@
 
 class Google_Service_HangoutsChat_ListSpacesResponse extends Google_Collection
 {
-  protected $collection_key = 'spaces';
-  public $nextPageToken;
-  protected $spacesType = 'Google_Service_HangoutsChat_Space';
-  protected $spacesDataType = 'array';
+	protected $collection_key = 'spaces';
+	public $nextPageToken;
+	protected $spacesType = 'Google_Service_HangoutsChat_Space';
+	protected $spacesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_Space
-   */
-  public function setSpaces($spaces)
-  {
-    $this->spaces = $spaces;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_Space
-   */
-  public function getSpaces()
-  {
-    return $this->spaces;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_Space
+	 */
+	public function setSpaces($spaces)
+	{
+		$this->spaces = $spaces;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_Space
+	 */
+	public function getSpaces()
+	{
+		return $this->spaces;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_FirebaseML_ModelOperationMetadata extends Google_Model
 {
-  public $basicOperationStatus;
-  public $name;
+	public $basicOperationStatus;
+	public $name;
 
-  public function setBasicOperationStatus($basicOperationStatus)
-  {
-    $this->basicOperationStatus = $basicOperationStatus;
-  }
-  public function getBasicOperationStatus()
-  {
-    return $this->basicOperationStatus;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setBasicOperationStatus($basicOperationStatus)
+	{
+		$this->basicOperationStatus = $basicOperationStatus;
+	}
+	public function getBasicOperationStatus()
+	{
+		return $this->basicOperationStatus;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

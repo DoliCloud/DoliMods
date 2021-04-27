@@ -17,33 +17,33 @@
 
 class Google_Service_IAMCredentials_GenerateAccessTokenRequest extends Google_Collection
 {
-  protected $collection_key = 'scope';
-  public $delegates;
-  public $lifetime;
-  public $scope;
+	protected $collection_key = 'scope';
+	public $delegates;
+	public $lifetime;
+	public $scope;
 
-  public function setDelegates($delegates)
-  {
-    $this->delegates = $delegates;
-  }
-  public function getDelegates()
-  {
-    return $this->delegates;
-  }
-  public function setLifetime($lifetime)
-  {
-    $this->lifetime = $lifetime;
-  }
-  public function getLifetime()
-  {
-    return $this->lifetime;
-  }
-  public function setScope($scope)
-  {
-    $this->scope = $scope;
-  }
-  public function getScope()
-  {
-    return $this->scope;
-  }
+	public function setDelegates($delegates)
+	{
+		$this->delegates = $delegates;
+	}
+	public function getDelegates()
+	{
+		return $this->delegates;
+	}
+	public function setLifetime($lifetime)
+	{
+		$this->lifetime = $lifetime;
+	}
+	public function getLifetime()
+	{
+		return $this->lifetime;
+	}
+	public function setScope($scope)
+	{
+		$this->scope = $scope;
+	}
+	public function getScope()
+	{
+		return $this->scope;
+	}
 }

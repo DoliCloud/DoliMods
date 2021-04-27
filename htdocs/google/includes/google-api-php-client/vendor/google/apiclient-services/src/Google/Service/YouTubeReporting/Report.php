@@ -17,68 +17,68 @@
 
 class Google_Service_YouTubeReporting_Report extends Google_Model
 {
-  public $createTime;
-  public $downloadUrl;
-  public $endTime;
-  public $id;
-  public $jobExpireTime;
-  public $jobId;
-  public $startTime;
+	public $createTime;
+	public $downloadUrl;
+	public $endTime;
+	public $id;
+	public $jobExpireTime;
+	public $jobId;
+	public $startTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDownloadUrl($downloadUrl)
-  {
-    $this->downloadUrl = $downloadUrl;
-  }
-  public function getDownloadUrl()
-  {
-    return $this->downloadUrl;
-  }
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setJobExpireTime($jobExpireTime)
-  {
-    $this->jobExpireTime = $jobExpireTime;
-  }
-  public function getJobExpireTime()
-  {
-    return $this->jobExpireTime;
-  }
-  public function setJobId($jobId)
-  {
-    $this->jobId = $jobId;
-  }
-  public function getJobId()
-  {
-    return $this->jobId;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDownloadUrl($downloadUrl)
+	{
+		$this->downloadUrl = $downloadUrl;
+	}
+	public function getDownloadUrl()
+	{
+		return $this->downloadUrl;
+	}
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setJobExpireTime($jobExpireTime)
+	{
+		$this->jobExpireTime = $jobExpireTime;
+	}
+	public function getJobExpireTime()
+	{
+		return $this->jobExpireTime;
+	}
+	public function setJobId($jobId)
+	{
+		$this->jobId = $jobId;
+	}
+	public function getJobId()
+	{
+		return $this->jobId;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Fitness_ValueMapValEntry extends Google_Model
 {
-  public $key;
-  protected $valueType = 'Google_Service_Fitness_MapValue';
-  protected $valueDataType = '';
+	public $key;
+	protected $valueType = 'Google_Service_Fitness_MapValue';
+	protected $valueDataType = '';
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  /**
-   * @param Google_Service_Fitness_MapValue
-   */
-  public function setValue(Google_Service_Fitness_MapValue $value)
-  {
-    $this->value = $value;
-  }
-  /**
-   * @return Google_Service_Fitness_MapValue
-   */
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	/**
+	 * @param Google_Service_Fitness_MapValue
+	 */
+	public function setValue(Google_Service_Fitness_MapValue $value)
+	{
+		$this->value = $value;
+	}
+	/**
+	 * @return Google_Service_Fitness_MapValue
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_FirebaseRemoteConfig_RemoteConfig extends Google_Collection
 {
-  protected $collection_key = 'conditions';
-  protected $conditionsType = 'Google_Service_FirebaseRemoteConfig_RemoteConfigCondition';
-  protected $conditionsDataType = 'array';
-  protected $parametersType = 'Google_Service_FirebaseRemoteConfig_RemoteConfigParameter';
-  protected $parametersDataType = 'map';
+	protected $collection_key = 'conditions';
+	protected $conditionsType = 'Google_Service_FirebaseRemoteConfig_RemoteConfigCondition';
+	protected $conditionsDataType = 'array';
+	protected $parametersType = 'Google_Service_FirebaseRemoteConfig_RemoteConfigParameter';
+	protected $parametersDataType = 'map';
 
-  /**
-   * @param Google_Service_FirebaseRemoteConfig_RemoteConfigCondition
-   */
-  public function setConditions($conditions)
-  {
-    $this->conditions = $conditions;
-  }
-  /**
-   * @return Google_Service_FirebaseRemoteConfig_RemoteConfigCondition
-   */
-  public function getConditions()
-  {
-    return $this->conditions;
-  }
-  /**
-   * @param Google_Service_FirebaseRemoteConfig_RemoteConfigParameter
-   */
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  /**
-   * @return Google_Service_FirebaseRemoteConfig_RemoteConfigParameter
-   */
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	/**
+	 * @param Google_Service_FirebaseRemoteConfig_RemoteConfigCondition
+	 */
+	public function setConditions($conditions)
+	{
+		$this->conditions = $conditions;
+	}
+	/**
+	 * @return Google_Service_FirebaseRemoteConfig_RemoteConfigCondition
+	 */
+	public function getConditions()
+	{
+		return $this->conditions;
+	}
+	/**
+	 * @param Google_Service_FirebaseRemoteConfig_RemoteConfigParameter
+	 */
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	/**
+	 * @return Google_Service_FirebaseRemoteConfig_RemoteConfigParameter
+	 */
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

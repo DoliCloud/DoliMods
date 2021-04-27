@@ -17,84 +17,84 @@
 
 class Google_Service_Docs_NestingLevelSuggestionState extends Google_Model
 {
-  public $bulletAlignmentSuggested;
-  public $glyphFormatSuggested;
-  public $glyphSymbolSuggested;
-  public $glyphTypeSuggested;
-  public $indentFirstLineSuggested;
-  public $indentStartSuggested;
-  public $startNumberSuggested;
-  protected $textStyleSuggestionStateType = 'Google_Service_Docs_TextStyleSuggestionState';
-  protected $textStyleSuggestionStateDataType = '';
+	public $bulletAlignmentSuggested;
+	public $glyphFormatSuggested;
+	public $glyphSymbolSuggested;
+	public $glyphTypeSuggested;
+	public $indentFirstLineSuggested;
+	public $indentStartSuggested;
+	public $startNumberSuggested;
+	protected $textStyleSuggestionStateType = 'Google_Service_Docs_TextStyleSuggestionState';
+	protected $textStyleSuggestionStateDataType = '';
 
-  public function setBulletAlignmentSuggested($bulletAlignmentSuggested)
-  {
-    $this->bulletAlignmentSuggested = $bulletAlignmentSuggested;
-  }
-  public function getBulletAlignmentSuggested()
-  {
-    return $this->bulletAlignmentSuggested;
-  }
-  public function setGlyphFormatSuggested($glyphFormatSuggested)
-  {
-    $this->glyphFormatSuggested = $glyphFormatSuggested;
-  }
-  public function getGlyphFormatSuggested()
-  {
-    return $this->glyphFormatSuggested;
-  }
-  public function setGlyphSymbolSuggested($glyphSymbolSuggested)
-  {
-    $this->glyphSymbolSuggested = $glyphSymbolSuggested;
-  }
-  public function getGlyphSymbolSuggested()
-  {
-    return $this->glyphSymbolSuggested;
-  }
-  public function setGlyphTypeSuggested($glyphTypeSuggested)
-  {
-    $this->glyphTypeSuggested = $glyphTypeSuggested;
-  }
-  public function getGlyphTypeSuggested()
-  {
-    return $this->glyphTypeSuggested;
-  }
-  public function setIndentFirstLineSuggested($indentFirstLineSuggested)
-  {
-    $this->indentFirstLineSuggested = $indentFirstLineSuggested;
-  }
-  public function getIndentFirstLineSuggested()
-  {
-    return $this->indentFirstLineSuggested;
-  }
-  public function setIndentStartSuggested($indentStartSuggested)
-  {
-    $this->indentStartSuggested = $indentStartSuggested;
-  }
-  public function getIndentStartSuggested()
-  {
-    return $this->indentStartSuggested;
-  }
-  public function setStartNumberSuggested($startNumberSuggested)
-  {
-    $this->startNumberSuggested = $startNumberSuggested;
-  }
-  public function getStartNumberSuggested()
-  {
-    return $this->startNumberSuggested;
-  }
-  /**
-   * @param Google_Service_Docs_TextStyleSuggestionState
-   */
-  public function setTextStyleSuggestionState(Google_Service_Docs_TextStyleSuggestionState $textStyleSuggestionState)
-  {
-    $this->textStyleSuggestionState = $textStyleSuggestionState;
-  }
-  /**
-   * @return Google_Service_Docs_TextStyleSuggestionState
-   */
-  public function getTextStyleSuggestionState()
-  {
-    return $this->textStyleSuggestionState;
-  }
+	public function setBulletAlignmentSuggested($bulletAlignmentSuggested)
+	{
+		$this->bulletAlignmentSuggested = $bulletAlignmentSuggested;
+	}
+	public function getBulletAlignmentSuggested()
+	{
+		return $this->bulletAlignmentSuggested;
+	}
+	public function setGlyphFormatSuggested($glyphFormatSuggested)
+	{
+		$this->glyphFormatSuggested = $glyphFormatSuggested;
+	}
+	public function getGlyphFormatSuggested()
+	{
+		return $this->glyphFormatSuggested;
+	}
+	public function setGlyphSymbolSuggested($glyphSymbolSuggested)
+	{
+		$this->glyphSymbolSuggested = $glyphSymbolSuggested;
+	}
+	public function getGlyphSymbolSuggested()
+	{
+		return $this->glyphSymbolSuggested;
+	}
+	public function setGlyphTypeSuggested($glyphTypeSuggested)
+	{
+		$this->glyphTypeSuggested = $glyphTypeSuggested;
+	}
+	public function getGlyphTypeSuggested()
+	{
+		return $this->glyphTypeSuggested;
+	}
+	public function setIndentFirstLineSuggested($indentFirstLineSuggested)
+	{
+		$this->indentFirstLineSuggested = $indentFirstLineSuggested;
+	}
+	public function getIndentFirstLineSuggested()
+	{
+		return $this->indentFirstLineSuggested;
+	}
+	public function setIndentStartSuggested($indentStartSuggested)
+	{
+		$this->indentStartSuggested = $indentStartSuggested;
+	}
+	public function getIndentStartSuggested()
+	{
+		return $this->indentStartSuggested;
+	}
+	public function setStartNumberSuggested($startNumberSuggested)
+	{
+		$this->startNumberSuggested = $startNumberSuggested;
+	}
+	public function getStartNumberSuggested()
+	{
+		return $this->startNumberSuggested;
+	}
+	/**
+	 * @param Google_Service_Docs_TextStyleSuggestionState
+	 */
+	public function setTextStyleSuggestionState(Google_Service_Docs_TextStyleSuggestionState $textStyleSuggestionState)
+	{
+		$this->textStyleSuggestionState = $textStyleSuggestionState;
+	}
+	/**
+	 * @return Google_Service_Docs_TextStyleSuggestionState
+	 */
+	public function getTextStyleSuggestionState()
+	{
+		return $this->textStyleSuggestionState;
+	}
 }

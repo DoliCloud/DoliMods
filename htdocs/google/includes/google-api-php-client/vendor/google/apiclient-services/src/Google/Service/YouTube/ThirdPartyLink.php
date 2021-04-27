@@ -17,64 +17,64 @@
 
 class Google_Service_YouTube_ThirdPartyLink extends Google_Model
 {
-  public $etag;
-  public $kind;
-  public $linkingToken;
-  protected $snippetType = 'Google_Service_YouTube_ThirdPartyLinkSnippet';
-  protected $snippetDataType = '';
-  protected $statusType = 'Google_Service_YouTube_ThirdPartyLinkStatus';
-  protected $statusDataType = '';
+	public $etag;
+	public $kind;
+	public $linkingToken;
+	protected $snippetType = 'Google_Service_YouTube_ThirdPartyLinkSnippet';
+	protected $snippetDataType = '';
+	protected $statusType = 'Google_Service_YouTube_ThirdPartyLinkStatus';
+	protected $statusDataType = '';
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLinkingToken($linkingToken)
-  {
-    $this->linkingToken = $linkingToken;
-  }
-  public function getLinkingToken()
-  {
-    return $this->linkingToken;
-  }
-  /**
-   * @param Google_Service_YouTube_ThirdPartyLinkSnippet
-   */
-  public function setSnippet(Google_Service_YouTube_ThirdPartyLinkSnippet $snippet)
-  {
-    $this->snippet = $snippet;
-  }
-  /**
-   * @return Google_Service_YouTube_ThirdPartyLinkSnippet
-   */
-  public function getSnippet()
-  {
-    return $this->snippet;
-  }
-  /**
-   * @param Google_Service_YouTube_ThirdPartyLinkStatus
-   */
-  public function setStatus(Google_Service_YouTube_ThirdPartyLinkStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_YouTube_ThirdPartyLinkStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLinkingToken($linkingToken)
+	{
+		$this->linkingToken = $linkingToken;
+	}
+	public function getLinkingToken()
+	{
+		return $this->linkingToken;
+	}
+	/**
+	 * @param Google_Service_YouTube_ThirdPartyLinkSnippet
+	 */
+	public function setSnippet(Google_Service_YouTube_ThirdPartyLinkSnippet $snippet)
+	{
+		$this->snippet = $snippet;
+	}
+	/**
+	 * @return Google_Service_YouTube_ThirdPartyLinkSnippet
+	 */
+	public function getSnippet()
+	{
+		return $this->snippet;
+	}
+	/**
+	 * @param Google_Service_YouTube_ThirdPartyLinkStatus
+	 */
+	public function setStatus(Google_Service_YouTube_ThirdPartyLinkStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_YouTube_ThirdPartyLinkStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

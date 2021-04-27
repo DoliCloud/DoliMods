@@ -17,31 +17,31 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationQuasiIdValues extends Google_Collection
 {
-  protected $collection_key = 'quasiIdsValues';
-  public $estimatedProbability;
-  protected $quasiIdsValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
-  protected $quasiIdsValuesDataType = 'array';
+	protected $collection_key = 'quasiIdsValues';
+	public $estimatedProbability;
+	protected $quasiIdsValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
+	protected $quasiIdsValuesDataType = 'array';
 
-  public function setEstimatedProbability($estimatedProbability)
-  {
-    $this->estimatedProbability = $estimatedProbability;
-  }
-  public function getEstimatedProbability()
-  {
-    return $this->estimatedProbability;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2Value
-   */
-  public function setQuasiIdsValues($quasiIdsValues)
-  {
-    $this->quasiIdsValues = $quasiIdsValues;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2Value
-   */
-  public function getQuasiIdsValues()
-  {
-    return $this->quasiIdsValues;
-  }
+	public function setEstimatedProbability($estimatedProbability)
+	{
+		$this->estimatedProbability = $estimatedProbability;
+	}
+	public function getEstimatedProbability()
+	{
+		return $this->estimatedProbability;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2Value
+	 */
+	public function setQuasiIdsValues($quasiIdsValues)
+	{
+		$this->quasiIdsValues = $quasiIdsValues;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2Value
+	 */
+	public function getQuasiIdsValues()
+	{
+		return $this->quasiIdsValues;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_InventorySourceGroupAssignedTargetingOptionDetails extends Google_Model
 {
-  public $inventorySourceGroupId;
+	public $inventorySourceGroupId;
 
-  public function setInventorySourceGroupId($inventorySourceGroupId)
-  {
-    $this->inventorySourceGroupId = $inventorySourceGroupId;
-  }
-  public function getInventorySourceGroupId()
-  {
-    return $this->inventorySourceGroupId;
-  }
+	public function setInventorySourceGroupId($inventorySourceGroupId)
+	{
+		$this->inventorySourceGroupId = $inventorySourceGroupId;
+	}
+	public function getInventorySourceGroupId()
+	{
+		return $this->inventorySourceGroupId;
+	}
 }

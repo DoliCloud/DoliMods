@@ -17,58 +17,58 @@
 
 class Google_Service_JobService_ExtendedCompensationFilter extends Google_Collection
 {
-  protected $collection_key = 'compensationUnits';
-  protected $compensationRangeType = 'Google_Service_JobService_ExtendedCompensationInfoCompensationRange';
-  protected $compensationRangeDataType = '';
-  public $compensationUnits;
-  public $currency;
-  public $includeJobWithUnspecifiedCompensationRange;
-  public $type;
+	protected $collection_key = 'compensationUnits';
+	protected $compensationRangeType = 'Google_Service_JobService_ExtendedCompensationInfoCompensationRange';
+	protected $compensationRangeDataType = '';
+	public $compensationUnits;
+	public $currency;
+	public $includeJobWithUnspecifiedCompensationRange;
+	public $type;
 
-  /**
-   * @param Google_Service_JobService_ExtendedCompensationInfoCompensationRange
-   */
-  public function setCompensationRange(Google_Service_JobService_ExtendedCompensationInfoCompensationRange $compensationRange)
-  {
-    $this->compensationRange = $compensationRange;
-  }
-  /**
-   * @return Google_Service_JobService_ExtendedCompensationInfoCompensationRange
-   */
-  public function getCompensationRange()
-  {
-    return $this->compensationRange;
-  }
-  public function setCompensationUnits($compensationUnits)
-  {
-    $this->compensationUnits = $compensationUnits;
-  }
-  public function getCompensationUnits()
-  {
-    return $this->compensationUnits;
-  }
-  public function setCurrency($currency)
-  {
-    $this->currency = $currency;
-  }
-  public function getCurrency()
-  {
-    return $this->currency;
-  }
-  public function setIncludeJobWithUnspecifiedCompensationRange($includeJobWithUnspecifiedCompensationRange)
-  {
-    $this->includeJobWithUnspecifiedCompensationRange = $includeJobWithUnspecifiedCompensationRange;
-  }
-  public function getIncludeJobWithUnspecifiedCompensationRange()
-  {
-    return $this->includeJobWithUnspecifiedCompensationRange;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_JobService_ExtendedCompensationInfoCompensationRange
+	 */
+	public function setCompensationRange(Google_Service_JobService_ExtendedCompensationInfoCompensationRange $compensationRange)
+	{
+		$this->compensationRange = $compensationRange;
+	}
+	/**
+	 * @return Google_Service_JobService_ExtendedCompensationInfoCompensationRange
+	 */
+	public function getCompensationRange()
+	{
+		return $this->compensationRange;
+	}
+	public function setCompensationUnits($compensationUnits)
+	{
+		$this->compensationUnits = $compensationUnits;
+	}
+	public function getCompensationUnits()
+	{
+		return $this->compensationUnits;
+	}
+	public function setCurrency($currency)
+	{
+		$this->currency = $currency;
+	}
+	public function getCurrency()
+	{
+		return $this->currency;
+	}
+	public function setIncludeJobWithUnspecifiedCompensationRange($includeJobWithUnspecifiedCompensationRange)
+	{
+		$this->includeJobWithUnspecifiedCompensationRange = $includeJobWithUnspecifiedCompensationRange;
+	}
+	public function getIncludeJobWithUnspecifiedCompensationRange()
+	{
+		return $this->includeJobWithUnspecifiedCompensationRange;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

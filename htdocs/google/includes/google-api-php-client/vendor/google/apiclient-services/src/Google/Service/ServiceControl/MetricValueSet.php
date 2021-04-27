@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceControl_MetricValueSet extends Google_Collection
 {
-  protected $collection_key = 'metricValues';
-  public $metricName;
-  protected $metricValuesType = 'Google_Service_ServiceControl_MetricValue';
-  protected $metricValuesDataType = 'array';
+	protected $collection_key = 'metricValues';
+	public $metricName;
+	protected $metricValuesType = 'Google_Service_ServiceControl_MetricValue';
+	protected $metricValuesDataType = 'array';
 
-  public function setMetricName($metricName)
-  {
-    $this->metricName = $metricName;
-  }
-  public function getMetricName()
-  {
-    return $this->metricName;
-  }
-  /**
-   * @param Google_Service_ServiceControl_MetricValue
-   */
-  public function setMetricValues($metricValues)
-  {
-    $this->metricValues = $metricValues;
-  }
-  /**
-   * @return Google_Service_ServiceControl_MetricValue
-   */
-  public function getMetricValues()
-  {
-    return $this->metricValues;
-  }
+	public function setMetricName($metricName)
+	{
+		$this->metricName = $metricName;
+	}
+	public function getMetricName()
+	{
+		return $this->metricName;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_MetricValue
+	 */
+	public function setMetricValues($metricValues)
+	{
+		$this->metricValues = $metricValues;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_MetricValue
+	 */
+	public function getMetricValues()
+	{
+		return $this->metricValues;
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Bigquery_BigtableOptions extends Google_Collection
 {
-  protected $collection_key = 'columnFamilies';
-  protected $columnFamiliesType = 'Google_Service_Bigquery_BigtableColumnFamily';
-  protected $columnFamiliesDataType = 'array';
-  public $ignoreUnspecifiedColumnFamilies;
-  public $readRowkeyAsString;
+	protected $collection_key = 'columnFamilies';
+	protected $columnFamiliesType = 'Google_Service_Bigquery_BigtableColumnFamily';
+	protected $columnFamiliesDataType = 'array';
+	public $ignoreUnspecifiedColumnFamilies;
+	public $readRowkeyAsString;
 
-  /**
-   * @param Google_Service_Bigquery_BigtableColumnFamily
-   */
-  public function setColumnFamilies($columnFamilies)
-  {
-    $this->columnFamilies = $columnFamilies;
-  }
-  /**
-   * @return Google_Service_Bigquery_BigtableColumnFamily
-   */
-  public function getColumnFamilies()
-  {
-    return $this->columnFamilies;
-  }
-  public function setIgnoreUnspecifiedColumnFamilies($ignoreUnspecifiedColumnFamilies)
-  {
-    $this->ignoreUnspecifiedColumnFamilies = $ignoreUnspecifiedColumnFamilies;
-  }
-  public function getIgnoreUnspecifiedColumnFamilies()
-  {
-    return $this->ignoreUnspecifiedColumnFamilies;
-  }
-  public function setReadRowkeyAsString($readRowkeyAsString)
-  {
-    $this->readRowkeyAsString = $readRowkeyAsString;
-  }
-  public function getReadRowkeyAsString()
-  {
-    return $this->readRowkeyAsString;
-  }
+	/**
+	 * @param Google_Service_Bigquery_BigtableColumnFamily
+	 */
+	public function setColumnFamilies($columnFamilies)
+	{
+		$this->columnFamilies = $columnFamilies;
+	}
+	/**
+	 * @return Google_Service_Bigquery_BigtableColumnFamily
+	 */
+	public function getColumnFamilies()
+	{
+		return $this->columnFamilies;
+	}
+	public function setIgnoreUnspecifiedColumnFamilies($ignoreUnspecifiedColumnFamilies)
+	{
+		$this->ignoreUnspecifiedColumnFamilies = $ignoreUnspecifiedColumnFamilies;
+	}
+	public function getIgnoreUnspecifiedColumnFamilies()
+	{
+		return $this->ignoreUnspecifiedColumnFamilies;
+	}
+	public function setReadRowkeyAsString($readRowkeyAsString)
+	{
+		$this->readRowkeyAsString = $readRowkeyAsString;
+	}
+	public function getReadRowkeyAsString()
+	{
+		return $this->readRowkeyAsString;
+	}
 }

@@ -25,34 +25,34 @@
  */
 class Google_Service_AndroidEnterprise_Resource_Grouplicenses extends Google_Service_Resource
 {
-  /**
-   * Retrieves details of an enterprise's group license for a product.
-   * (grouplicenses.get)
-   *
-   * @param string $enterpriseId The ID of the enterprise.
-   * @param string $groupLicenseId The ID of the product the group license is for,
-   * e.g. "app:com.google.android.gm".
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidEnterprise_GroupLicense
-   */
-  public function get($enterpriseId, $groupLicenseId, $optParams = array())
-  {
-    $params = array('enterpriseId' => $enterpriseId, 'groupLicenseId' => $groupLicenseId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AndroidEnterprise_GroupLicense");
-  }
-  /**
-   * Retrieves IDs of all products for which the enterprise has a group license.
-   * (grouplicenses.listGrouplicenses)
-   *
-   * @param string $enterpriseId The ID of the enterprise.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidEnterprise_GroupLicensesListResponse
-   */
-  public function listGrouplicenses($enterpriseId, $optParams = array())
-  {
-    $params = array('enterpriseId' => $enterpriseId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AndroidEnterprise_GroupLicensesListResponse");
-  }
+	/**
+	 * Retrieves details of an enterprise's group license for a product.
+	 * (grouplicenses.get)
+	 *
+	 * @param string $enterpriseId The ID of the enterprise.
+	 * @param string $groupLicenseId The ID of the product the group license is for,
+	 *                               e.g. "app:com.google.android.gm".
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidEnterprise_GroupLicense
+	 */
+	public function get($enterpriseId, $groupLicenseId, $optParams = array())
+	{
+		$params = array('enterpriseId' => $enterpriseId, 'groupLicenseId' => $groupLicenseId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_AndroidEnterprise_GroupLicense");
+	}
+	/**
+	 * Retrieves IDs of all products for which the enterprise has a group license.
+	 * (grouplicenses.listGrouplicenses)
+	 *
+	 * @param string $enterpriseId The ID of the enterprise.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidEnterprise_GroupLicensesListResponse
+	 */
+	public function listGrouplicenses($enterpriseId, $optParams = array())
+	{
+		$params = array('enterpriseId' => $enterpriseId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AndroidEnterprise_GroupLicensesListResponse");
+	}
 }

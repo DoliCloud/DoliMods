@@ -17,34 +17,34 @@
 
 class Google_Service_Tracing_TimeEvent extends Google_Model
 {
-  protected $annotationType = 'Google_Service_Tracing_Annotation';
-  protected $annotationDataType = '';
-  protected $networkEventType = 'Google_Service_Tracing_NetworkEvent';
-  protected $networkEventDataType = '';
-  public $time;
+	protected $annotationType = 'Google_Service_Tracing_Annotation';
+	protected $annotationDataType = '';
+	protected $networkEventType = 'Google_Service_Tracing_NetworkEvent';
+	protected $networkEventDataType = '';
+	public $time;
 
-  public function setAnnotation(Google_Service_Tracing_Annotation $annotation)
-  {
-    $this->annotation = $annotation;
-  }
-  public function getAnnotation()
-  {
-    return $this->annotation;
-  }
-  public function setNetworkEvent(Google_Service_Tracing_NetworkEvent $networkEvent)
-  {
-    $this->networkEvent = $networkEvent;
-  }
-  public function getNetworkEvent()
-  {
-    return $this->networkEvent;
-  }
-  public function setTime($time)
-  {
-    $this->time = $time;
-  }
-  public function getTime()
-  {
-    return $this->time;
-  }
+	public function setAnnotation(Google_Service_Tracing_Annotation $annotation)
+	{
+		$this->annotation = $annotation;
+	}
+	public function getAnnotation()
+	{
+		return $this->annotation;
+	}
+	public function setNetworkEvent(Google_Service_Tracing_NetworkEvent $networkEvent)
+	{
+		$this->networkEvent = $networkEvent;
+	}
+	public function getNetworkEvent()
+	{
+		return $this->networkEvent;
+	}
+	public function setTime($time)
+	{
+		$this->time = $time;
+	}
+	public function getTime()
+	{
+		return $this->time;
+	}
 }

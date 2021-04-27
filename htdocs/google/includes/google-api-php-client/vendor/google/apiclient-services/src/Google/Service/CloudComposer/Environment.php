@@ -17,75 +17,75 @@
 
 class Google_Service_CloudComposer_Environment extends Google_Model
 {
-  protected $configType = 'Google_Service_CloudComposer_EnvironmentConfig';
-  protected $configDataType = '';
-  public $createTime;
-  public $labels;
-  public $name;
-  public $state;
-  public $updateTime;
-  public $uuid;
+	protected $configType = 'Google_Service_CloudComposer_EnvironmentConfig';
+	protected $configDataType = '';
+	public $createTime;
+	public $labels;
+	public $name;
+	public $state;
+	public $updateTime;
+	public $uuid;
 
-  /**
-   * @param Google_Service_CloudComposer_EnvironmentConfig
-   */
-  public function setConfig(Google_Service_CloudComposer_EnvironmentConfig $config)
-  {
-    $this->config = $config;
-  }
-  /**
-   * @return Google_Service_CloudComposer_EnvironmentConfig
-   */
-  public function getConfig()
-  {
-    return $this->config;
-  }
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
-  public function setUuid($uuid)
-  {
-    $this->uuid = $uuid;
-  }
-  public function getUuid()
-  {
-    return $this->uuid;
-  }
+	/**
+	 * @param Google_Service_CloudComposer_EnvironmentConfig
+	 */
+	public function setConfig(Google_Service_CloudComposer_EnvironmentConfig $config)
+	{
+		$this->config = $config;
+	}
+	/**
+	 * @return Google_Service_CloudComposer_EnvironmentConfig
+	 */
+	public function getConfig()
+	{
+		return $this->config;
+	}
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
+	public function setUuid($uuid)
+	{
+		$this->uuid = $uuid;
+	}
+	public function getUuid()
+	{
+		return $this->uuid;
+	}
 }

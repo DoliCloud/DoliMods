@@ -30,42 +30,42 @@
  */
 class Google_Service_Cloudlatencytest extends Google_Service
 {
-  /** View monitoring data for all of your Google Cloud and API projects. */
-  const MONITORING_READONLY =
-      "https://www.googleapis.com/auth/monitoring.readonly";
+	/** View monitoring data for all of your Google Cloud and API projects. */
+	const MONITORING_READONLY =
+	  "https://www.googleapis.com/auth/monitoring.readonly";
 
-  public $statscollection;
-  
-  /**
-   * Constructs the internal representation of the Cloudlatencytest service.
-   *
-   * @param Google_Client $client
-   */
-  public function __construct(Google_Client $client)
-  {
-    parent::__construct($client);
-    $this->rootUrl = 'https://cloudlatencytest-pa.googleapis.com/';
-    $this->servicePath = 'v2/statscollection/';
-    $this->version = 'v2';
-    $this->serviceName = 'cloudlatencytest';
+	public $statscollection;
 
-    $this->statscollection = new Google_Service_Cloudlatencytest_StatscollectionResource(
-        $this,
-        $this->serviceName,
-        'statscollection',
-        array(
-          'methods' => array(
-            'updateaggregatedstats' => array(
-              'path' => 'updateaggregatedstats',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),'updatestats' => array(
-              'path' => 'updatestats',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the Cloudlatencytest service.
+	 *
+	 * @param Google_Client $client
+	 */
+	public function __construct(Google_Client $client)
+	{
+		parent::__construct($client);
+		$this->rootUrl = 'https://cloudlatencytest-pa.googleapis.com/';
+		$this->servicePath = 'v2/statscollection/';
+		$this->version = 'v2';
+		$this->serviceName = 'cloudlatencytest';
+
+		$this->statscollection = new Google_Service_Cloudlatencytest_StatscollectionResource(
+		$this,
+		$this->serviceName,
+		'statscollection',
+		array(
+		  'methods' => array(
+			'updateaggregatedstats' => array(
+			  'path' => 'updateaggregatedstats',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),'updatestats' => array(
+			  'path' => 'updatestats',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),
+		  )
+		)
+		);
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Devprojects_CloudComputeSection extends Google_Model
 {
-  public $computeVariant;
-  public $kind;
-  public $status;
+	public $computeVariant;
+	public $kind;
+	public $status;
 
-  public function setComputeVariant($computeVariant)
-  {
-    $this->computeVariant = $computeVariant;
-  }
-  public function getComputeVariant()
-  {
-    return $this->computeVariant;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setComputeVariant($computeVariant)
+	{
+		$this->computeVariant = $computeVariant;
+	}
+	public function getComputeVariant()
+	{
+		return $this->computeVariant;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

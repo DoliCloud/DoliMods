@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSearch_StartUploadItemRequest extends Google_Model
 {
-  public $connectorName;
-  protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
-  protected $debugOptionsDataType = '';
+	public $connectorName;
+	protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
+	protected $debugOptionsDataType = '';
 
-  public function setConnectorName($connectorName)
-  {
-    $this->connectorName = $connectorName;
-  }
-  public function getConnectorName()
-  {
-    return $this->connectorName;
-  }
-  /**
-   * @param Google_Service_CloudSearch_DebugOptions
-   */
-  public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
-  {
-    $this->debugOptions = $debugOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DebugOptions
-   */
-  public function getDebugOptions()
-  {
-    return $this->debugOptions;
-  }
+	public function setConnectorName($connectorName)
+	{
+		$this->connectorName = $connectorName;
+	}
+	public function getConnectorName()
+	{
+		return $this->connectorName;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_DebugOptions
+	 */
+	public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
+	{
+		$this->debugOptions = $debugOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DebugOptions
+	 */
+	public function getDebugOptions()
+	{
+		return $this->debugOptions;
+	}
 }

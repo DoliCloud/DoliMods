@@ -17,21 +17,21 @@
 
 class Google_Service_AdExchangeBuyerII_AddNoteRequest extends Google_Model
 {
-  protected $noteType = 'Google_Service_AdExchangeBuyerII_Note';
-  protected $noteDataType = '';
+	protected $noteType = 'Google_Service_AdExchangeBuyerII_Note';
+	protected $noteDataType = '';
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_Note
-   */
-  public function setNote(Google_Service_AdExchangeBuyerII_Note $note)
-  {
-    $this->note = $note;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_Note
-   */
-  public function getNote()
-  {
-    return $this->note;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_Note
+	 */
+	public function setNote(Google_Service_AdExchangeBuyerII_Note $note)
+	{
+		$this->note = $note;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_Note
+	 */
+	public function getNote()
+	{
+		return $this->note;
+	}
 }

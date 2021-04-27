@@ -17,21 +17,21 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1PredictRequest extends Google_Model
 {
-  protected $httpBodyType = 'Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody';
-  protected $httpBodyDataType = '';
+	protected $httpBodyType = 'Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody';
+	protected $httpBodyDataType = '';
 
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody
-   */
-  public function setHttpBody(Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody $httpBody)
-  {
-    $this->httpBody = $httpBody;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody
-   */
-  public function getHttpBody()
-  {
-    return $this->httpBody;
-  }
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody
+	 */
+	public function setHttpBody(Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody $httpBody)
+	{
+		$this->httpBody = $httpBody;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody
+	 */
+	public function getHttpBody()
+	{
+		return $this->httpBody;
+	}
 }

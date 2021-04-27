@@ -17,23 +17,23 @@
 
 class Google_Service_DataFusion_NetworkConfig extends Google_Model
 {
-  public $ipAllocation;
-  public $network;
+	public $ipAllocation;
+	public $network;
 
-  public function setIpAllocation($ipAllocation)
-  {
-    $this->ipAllocation = $ipAllocation;
-  }
-  public function getIpAllocation()
-  {
-    return $this->ipAllocation;
-  }
-  public function setNetwork($network)
-  {
-    $this->network = $network;
-  }
-  public function getNetwork()
-  {
-    return $this->network;
-  }
+	public function setIpAllocation($ipAllocation)
+	{
+		$this->ipAllocation = $ipAllocation;
+	}
+	public function getIpAllocation()
+	{
+		return $this->ipAllocation;
+	}
+	public function setNetwork($network)
+	{
+		$this->network = $network;
+	}
+	public function getNetwork()
+	{
+		return $this->network;
+	}
 }

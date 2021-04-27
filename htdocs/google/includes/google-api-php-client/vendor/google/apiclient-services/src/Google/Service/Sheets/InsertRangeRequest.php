@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_InsertRangeRequest extends Google_Model
 {
-  protected $rangeType = 'Google_Service_Sheets_GridRange';
-  protected $rangeDataType = '';
-  public $shiftDimension;
+	protected $rangeType = 'Google_Service_Sheets_GridRange';
+	protected $rangeDataType = '';
+	public $shiftDimension;
 
-  /**
-   * @param Google_Service_Sheets_GridRange
-   */
-  public function setRange(Google_Service_Sheets_GridRange $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Sheets_GridRange
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
-  public function setShiftDimension($shiftDimension)
-  {
-    $this->shiftDimension = $shiftDimension;
-  }
-  public function getShiftDimension()
-  {
-    return $this->shiftDimension;
-  }
+	/**
+	 * @param Google_Service_Sheets_GridRange
+	 */
+	public function setRange(Google_Service_Sheets_GridRange $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Sheets_GridRange
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
+	public function setShiftDimension($shiftDimension)
+	{
+		$this->shiftDimension = $shiftDimension;
+	}
+	public function getShiftDimension()
+	{
+		return $this->shiftDimension;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudKMS_KeyOperationAttestation extends Google_Model
 {
-  public $content;
-  public $format;
+	public $content;
+	public $format;
 
-  public function setContent($content)
-  {
-    $this->content = $content;
-  }
-  public function getContent()
-  {
-    return $this->content;
-  }
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
+	public function setContent($content)
+	{
+		$this->content = $content;
+	}
+	public function getContent()
+	{
+		return $this->content;
+	}
+	public function setFormat($format)
+	{
+		$this->format = $format;
+	}
+	public function getFormat()
+	{
+		return $this->format;
+	}
 }

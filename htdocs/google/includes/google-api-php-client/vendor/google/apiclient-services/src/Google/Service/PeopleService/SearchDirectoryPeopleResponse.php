@@ -17,40 +17,40 @@
 
 class Google_Service_PeopleService_SearchDirectoryPeopleResponse extends Google_Collection
 {
-  protected $collection_key = 'people';
-  public $nextPageToken;
-  protected $peopleType = 'Google_Service_PeopleService_Person';
-  protected $peopleDataType = 'array';
-  public $totalSize;
+	protected $collection_key = 'people';
+	public $nextPageToken;
+	protected $peopleType = 'Google_Service_PeopleService_Person';
+	protected $peopleDataType = 'array';
+	public $totalSize;
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_PeopleService_Person
-   */
-  public function setPeople($people)
-  {
-    $this->people = $people;
-  }
-  /**
-   * @return Google_Service_PeopleService_Person
-   */
-  public function getPeople()
-  {
-    return $this->people;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_PeopleService_Person
+	 */
+	public function setPeople($people)
+	{
+		$this->people = $people;
+	}
+	/**
+	 * @return Google_Service_PeopleService_Person
+	 */
+	public function getPeople()
+	{
+		return $this->people;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
 }

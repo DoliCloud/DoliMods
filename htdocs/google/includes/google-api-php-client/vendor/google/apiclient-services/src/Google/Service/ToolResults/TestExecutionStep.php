@@ -17,70 +17,70 @@
 
 class Google_Service_ToolResults_TestExecutionStep extends Google_Collection
 {
-  protected $collection_key = 'testSuiteOverviews';
-  protected $testIssuesType = 'Google_Service_ToolResults_TestIssue';
-  protected $testIssuesDataType = 'array';
-  protected $testSuiteOverviewsType = 'Google_Service_ToolResults_TestSuiteOverview';
-  protected $testSuiteOverviewsDataType = 'array';
-  protected $testTimingType = 'Google_Service_ToolResults_TestTiming';
-  protected $testTimingDataType = '';
-  protected $toolExecutionType = 'Google_Service_ToolResults_ToolExecution';
-  protected $toolExecutionDataType = '';
+	protected $collection_key = 'testSuiteOverviews';
+	protected $testIssuesType = 'Google_Service_ToolResults_TestIssue';
+	protected $testIssuesDataType = 'array';
+	protected $testSuiteOverviewsType = 'Google_Service_ToolResults_TestSuiteOverview';
+	protected $testSuiteOverviewsDataType = 'array';
+	protected $testTimingType = 'Google_Service_ToolResults_TestTiming';
+	protected $testTimingDataType = '';
+	protected $toolExecutionType = 'Google_Service_ToolResults_ToolExecution';
+	protected $toolExecutionDataType = '';
 
-  /**
-   * @param Google_Service_ToolResults_TestIssue
-   */
-  public function setTestIssues($testIssues)
-  {
-    $this->testIssues = $testIssues;
-  }
-  /**
-   * @return Google_Service_ToolResults_TestIssue
-   */
-  public function getTestIssues()
-  {
-    return $this->testIssues;
-  }
-  /**
-   * @param Google_Service_ToolResults_TestSuiteOverview
-   */
-  public function setTestSuiteOverviews($testSuiteOverviews)
-  {
-    $this->testSuiteOverviews = $testSuiteOverviews;
-  }
-  /**
-   * @return Google_Service_ToolResults_TestSuiteOverview
-   */
-  public function getTestSuiteOverviews()
-  {
-    return $this->testSuiteOverviews;
-  }
-  /**
-   * @param Google_Service_ToolResults_TestTiming
-   */
-  public function setTestTiming(Google_Service_ToolResults_TestTiming $testTiming)
-  {
-    $this->testTiming = $testTiming;
-  }
-  /**
-   * @return Google_Service_ToolResults_TestTiming
-   */
-  public function getTestTiming()
-  {
-    return $this->testTiming;
-  }
-  /**
-   * @param Google_Service_ToolResults_ToolExecution
-   */
-  public function setToolExecution(Google_Service_ToolResults_ToolExecution $toolExecution)
-  {
-    $this->toolExecution = $toolExecution;
-  }
-  /**
-   * @return Google_Service_ToolResults_ToolExecution
-   */
-  public function getToolExecution()
-  {
-    return $this->toolExecution;
-  }
+	/**
+	 * @param Google_Service_ToolResults_TestIssue
+	 */
+	public function setTestIssues($testIssues)
+	{
+		$this->testIssues = $testIssues;
+	}
+	/**
+	 * @return Google_Service_ToolResults_TestIssue
+	 */
+	public function getTestIssues()
+	{
+		return $this->testIssues;
+	}
+	/**
+	 * @param Google_Service_ToolResults_TestSuiteOverview
+	 */
+	public function setTestSuiteOverviews($testSuiteOverviews)
+	{
+		$this->testSuiteOverviews = $testSuiteOverviews;
+	}
+	/**
+	 * @return Google_Service_ToolResults_TestSuiteOverview
+	 */
+	public function getTestSuiteOverviews()
+	{
+		return $this->testSuiteOverviews;
+	}
+	/**
+	 * @param Google_Service_ToolResults_TestTiming
+	 */
+	public function setTestTiming(Google_Service_ToolResults_TestTiming $testTiming)
+	{
+		$this->testTiming = $testTiming;
+	}
+	/**
+	 * @return Google_Service_ToolResults_TestTiming
+	 */
+	public function getTestTiming()
+	{
+		return $this->testTiming;
+	}
+	/**
+	 * @param Google_Service_ToolResults_ToolExecution
+	 */
+	public function setToolExecution(Google_Service_ToolResults_ToolExecution $toolExecution)
+	{
+		$this->toolExecution = $toolExecution;
+	}
+	/**
+	 * @return Google_Service_ToolResults_ToolExecution
+	 */
+	public function getToolExecution()
+	{
+		return $this->toolExecution;
+	}
 }

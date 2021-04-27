@@ -17,41 +17,41 @@
 
 class Google_Service_FirebaseRemoteConfig_RemoteConfigCondition extends Google_Model
 {
-  public $description;
-  public $expression;
-  public $name;
-  public $tagColor;
+	public $description;
+	public $expression;
+	public $name;
+	public $tagColor;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setExpression($expression)
-  {
-    $this->expression = $expression;
-  }
-  public function getExpression()
-  {
-    return $this->expression;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setTagColor($tagColor)
-  {
-    $this->tagColor = $tagColor;
-  }
-  public function getTagColor()
-  {
-    return $this->tagColor;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setExpression($expression)
+	{
+		$this->expression = $expression;
+	}
+	public function getExpression()
+	{
+		return $this->expression;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setTagColor($tagColor)
+	{
+		$this->tagColor = $tagColor;
+	}
+	public function getTagColor()
+	{
+		return $this->tagColor;
+	}
 }

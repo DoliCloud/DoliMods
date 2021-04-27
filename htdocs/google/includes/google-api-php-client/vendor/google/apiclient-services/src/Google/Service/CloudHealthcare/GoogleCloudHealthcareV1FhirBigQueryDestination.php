@@ -17,39 +17,39 @@
 
 class Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirBigQueryDestination extends Google_Model
 {
-  public $datasetUri;
-  public $force;
-  protected $schemaConfigType = 'Google_Service_CloudHealthcare_SchemaConfig';
-  protected $schemaConfigDataType = '';
+	public $datasetUri;
+	public $force;
+	protected $schemaConfigType = 'Google_Service_CloudHealthcare_SchemaConfig';
+	protected $schemaConfigDataType = '';
 
-  public function setDatasetUri($datasetUri)
-  {
-    $this->datasetUri = $datasetUri;
-  }
-  public function getDatasetUri()
-  {
-    return $this->datasetUri;
-  }
-  public function setForce($force)
-  {
-    $this->force = $force;
-  }
-  public function getForce()
-  {
-    return $this->force;
-  }
-  /**
-   * @param Google_Service_CloudHealthcare_SchemaConfig
-   */
-  public function setSchemaConfig(Google_Service_CloudHealthcare_SchemaConfig $schemaConfig)
-  {
-    $this->schemaConfig = $schemaConfig;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_SchemaConfig
-   */
-  public function getSchemaConfig()
-  {
-    return $this->schemaConfig;
-  }
+	public function setDatasetUri($datasetUri)
+	{
+		$this->datasetUri = $datasetUri;
+	}
+	public function getDatasetUri()
+	{
+		return $this->datasetUri;
+	}
+	public function setForce($force)
+	{
+		$this->force = $force;
+	}
+	public function getForce()
+	{
+		return $this->force;
+	}
+	/**
+	 * @param Google_Service_CloudHealthcare_SchemaConfig
+	 */
+	public function setSchemaConfig(Google_Service_CloudHealthcare_SchemaConfig $schemaConfig)
+	{
+		$this->schemaConfig = $schemaConfig;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_SchemaConfig
+	 */
+	public function getSchemaConfig()
+	{
+		return $this->schemaConfig;
+	}
 }

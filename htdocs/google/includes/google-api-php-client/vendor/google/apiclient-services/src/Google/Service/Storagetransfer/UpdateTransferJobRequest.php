@@ -17,39 +17,39 @@
 
 class Google_Service_Storagetransfer_UpdateTransferJobRequest extends Google_Model
 {
-  public $projectId;
-  protected $transferJobType = 'Google_Service_Storagetransfer_TransferJob';
-  protected $transferJobDataType = '';
-  public $updateTransferJobFieldMask;
+	public $projectId;
+	protected $transferJobType = 'Google_Service_Storagetransfer_TransferJob';
+	protected $transferJobDataType = '';
+	public $updateTransferJobFieldMask;
 
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  /**
-   * @param Google_Service_Storagetransfer_TransferJob
-   */
-  public function setTransferJob(Google_Service_Storagetransfer_TransferJob $transferJob)
-  {
-    $this->transferJob = $transferJob;
-  }
-  /**
-   * @return Google_Service_Storagetransfer_TransferJob
-   */
-  public function getTransferJob()
-  {
-    return $this->transferJob;
-  }
-  public function setUpdateTransferJobFieldMask($updateTransferJobFieldMask)
-  {
-    $this->updateTransferJobFieldMask = $updateTransferJobFieldMask;
-  }
-  public function getUpdateTransferJobFieldMask()
-  {
-    return $this->updateTransferJobFieldMask;
-  }
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	/**
+	 * @param Google_Service_Storagetransfer_TransferJob
+	 */
+	public function setTransferJob(Google_Service_Storagetransfer_TransferJob $transferJob)
+	{
+		$this->transferJob = $transferJob;
+	}
+	/**
+	 * @return Google_Service_Storagetransfer_TransferJob
+	 */
+	public function getTransferJob()
+	{
+		return $this->transferJob;
+	}
+	public function setUpdateTransferJobFieldMask($updateTransferJobFieldMask)
+	{
+		$this->updateTransferJobFieldMask = $updateTransferJobFieldMask;
+	}
+	public function getUpdateTransferJobFieldMask()
+	{
+		return $this->updateTransferJobFieldMask;
+	}
 }

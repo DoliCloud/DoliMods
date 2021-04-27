@@ -17,32 +17,32 @@
 
 class Google_Service_CloudShell_PublicKey extends Google_Model
 {
-  public $format;
-  public $key;
-  public $name;
+	public $format;
+	public $key;
+	public $name;
 
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setFormat($format)
+	{
+		$this->format = $format;
+	}
+	public function getFormat()
+	{
+		return $this->format;
+	}
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

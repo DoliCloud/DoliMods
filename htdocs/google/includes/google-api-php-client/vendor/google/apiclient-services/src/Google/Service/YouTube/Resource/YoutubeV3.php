@@ -25,24 +25,24 @@
  */
 class Google_Service_YouTube_Resource_YoutubeV3 extends Google_Service_Resource
 {
-  /**
-   * Updates infocards for a given video. Note: * If the card id is not provided,
-   * a new card will be created. * If the card id is provided, that card will be
-   * updated. * Existing cards will be discarded if they're not included in the
-   * request. (v3.infocards)
-   *
-   * @param string|array $part The properties to update.
-   * @param Google_Service_YouTube_InfoCards $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string onBehalfOfContentOwner Content owner of the video.
-   * @opt_param string videoId Encrypted id of the video.
-   * @return Google_Service_YouTube_InfoCards
-   */
-  public function infocards($part, Google_Service_YouTube_InfoCards $postBody, $optParams = array())
-  {
-    $params = array('part' => $part, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('infocards', array($params), "Google_Service_YouTube_InfoCards");
-  }
+	/**
+	 * Updates infocards for a given video. Note: * If the card id is not provided,
+	 * a new card will be created. * If the card id is provided, that card will be
+	 * updated. * Existing cards will be discarded if they're not included in the
+	 * request. (v3.infocards)
+	 *
+	 * @param string|array $part The properties to update.
+	 * @param Google_Service_YouTube_InfoCards $postBody
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string onBehalfOfContentOwner Content owner of the video.
+	 * @opt_param string videoId Encrypted id of the video.
+	 * @return Google_Service_YouTube_InfoCards
+	 */
+	public function infocards($part, Google_Service_YouTube_InfoCards $postBody, $optParams = array())
+	{
+		$params = array('part' => $part, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('infocards', array($params), "Google_Service_YouTube_InfoCards");
+	}
 }

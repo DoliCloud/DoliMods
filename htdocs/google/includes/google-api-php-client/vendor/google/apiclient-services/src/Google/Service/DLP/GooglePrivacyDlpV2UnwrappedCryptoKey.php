@@ -17,14 +17,14 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2UnwrappedCryptoKey extends Google_Model
 {
-  public $key;
+	public $key;
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
 }

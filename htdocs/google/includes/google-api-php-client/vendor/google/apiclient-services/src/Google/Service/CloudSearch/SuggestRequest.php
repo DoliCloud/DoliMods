@@ -17,47 +17,47 @@
 
 class Google_Service_CloudSearch_SuggestRequest extends Google_Collection
 {
-  protected $collection_key = 'dataSourceRestrictions';
-  protected $dataSourceRestrictionsType = 'Google_Service_CloudSearch_DataSourceRestriction';
-  protected $dataSourceRestrictionsDataType = 'array';
-  public $query;
-  protected $requestOptionsType = 'Google_Service_CloudSearch_RequestOptions';
-  protected $requestOptionsDataType = '';
+	protected $collection_key = 'dataSourceRestrictions';
+	protected $dataSourceRestrictionsType = 'Google_Service_CloudSearch_DataSourceRestriction';
+	protected $dataSourceRestrictionsDataType = 'array';
+	public $query;
+	protected $requestOptionsType = 'Google_Service_CloudSearch_RequestOptions';
+	protected $requestOptionsDataType = '';
 
-  /**
-   * @param Google_Service_CloudSearch_DataSourceRestriction
-   */
-  public function setDataSourceRestrictions($dataSourceRestrictions)
-  {
-    $this->dataSourceRestrictions = $dataSourceRestrictions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DataSourceRestriction
-   */
-  public function getDataSourceRestrictions()
-  {
-    return $this->dataSourceRestrictions;
-  }
-  public function setQuery($query)
-  {
-    $this->query = $query;
-  }
-  public function getQuery()
-  {
-    return $this->query;
-  }
-  /**
-   * @param Google_Service_CloudSearch_RequestOptions
-   */
-  public function setRequestOptions(Google_Service_CloudSearch_RequestOptions $requestOptions)
-  {
-    $this->requestOptions = $requestOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_RequestOptions
-   */
-  public function getRequestOptions()
-  {
-    return $this->requestOptions;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_DataSourceRestriction
+	 */
+	public function setDataSourceRestrictions($dataSourceRestrictions)
+	{
+		$this->dataSourceRestrictions = $dataSourceRestrictions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DataSourceRestriction
+	 */
+	public function getDataSourceRestrictions()
+	{
+		return $this->dataSourceRestrictions;
+	}
+	public function setQuery($query)
+	{
+		$this->query = $query;
+	}
+	public function getQuery()
+	{
+		return $this->query;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_RequestOptions
+	 */
+	public function setRequestOptions(Google_Service_CloudSearch_RequestOptions $requestOptions)
+	{
+		$this->requestOptions = $requestOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_RequestOptions
+	 */
+	public function getRequestOptions()
+	{
+		return $this->requestOptions;
+	}
 }

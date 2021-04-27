@@ -17,84 +17,84 @@
 
 class Google_Service_Calendar_Calendar extends Google_Model
 {
-  protected $conferencePropertiesType = 'Google_Service_Calendar_ConferenceProperties';
-  protected $conferencePropertiesDataType = '';
-  public $description;
-  public $etag;
-  public $id;
-  public $kind;
-  public $location;
-  public $summary;
-  public $timeZone;
+	protected $conferencePropertiesType = 'Google_Service_Calendar_ConferenceProperties';
+	protected $conferencePropertiesDataType = '';
+	public $description;
+	public $etag;
+	public $id;
+	public $kind;
+	public $location;
+	public $summary;
+	public $timeZone;
 
-  /**
-   * @param Google_Service_Calendar_ConferenceProperties
-   */
-  public function setConferenceProperties(Google_Service_Calendar_ConferenceProperties $conferenceProperties)
-  {
-    $this->conferenceProperties = $conferenceProperties;
-  }
-  /**
-   * @return Google_Service_Calendar_ConferenceProperties
-   */
-  public function getConferenceProperties()
-  {
-    return $this->conferenceProperties;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setSummary($summary)
-  {
-    $this->summary = $summary;
-  }
-  public function getSummary()
-  {
-    return $this->summary;
-  }
-  public function setTimeZone($timeZone)
-  {
-    $this->timeZone = $timeZone;
-  }
-  public function getTimeZone()
-  {
-    return $this->timeZone;
-  }
+	/**
+	 * @param Google_Service_Calendar_ConferenceProperties
+	 */
+	public function setConferenceProperties(Google_Service_Calendar_ConferenceProperties $conferenceProperties)
+	{
+		$this->conferenceProperties = $conferenceProperties;
+	}
+	/**
+	 * @return Google_Service_Calendar_ConferenceProperties
+	 */
+	public function getConferenceProperties()
+	{
+		return $this->conferenceProperties;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setSummary($summary)
+	{
+		$this->summary = $summary;
+	}
+	public function getSummary()
+	{
+		return $this->summary;
+	}
+	public function setTimeZone($timeZone)
+	{
+		$this->timeZone = $timeZone;
+	}
+	public function getTimeZone()
+	{
+		return $this->timeZone;
+	}
 }

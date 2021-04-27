@@ -17,14 +17,14 @@
 
 class Google_Service_ContainerAnalysis_AttestationAuthorityHint extends Google_Model
 {
-  public $humanReadableName;
+	public $humanReadableName;
 
-  public function setHumanReadableName($humanReadableName)
-  {
-    $this->humanReadableName = $humanReadableName;
-  }
-  public function getHumanReadableName()
-  {
-    return $this->humanReadableName;
-  }
+	public function setHumanReadableName($humanReadableName)
+	{
+		$this->humanReadableName = $humanReadableName;
+	}
+	public function getHumanReadableName()
+	{
+		return $this->humanReadableName;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Translate_GcsSource extends Google_Model
 {
-  public $inputUri;
+	public $inputUri;
 
-  public function setInputUri($inputUri)
-  {
-    $this->inputUri = $inputUri;
-  }
-  public function getInputUri()
-  {
-    return $this->inputUri;
-  }
+	public function setInputUri($inputUri)
+	{
+		$this->inputUri = $inputUri;
+	}
+	public function getInputUri()
+	{
+		return $this->inputUri;
+	}
 }

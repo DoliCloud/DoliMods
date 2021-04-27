@@ -17,86 +17,86 @@
 
 class Google_Service_Compute_InstanceGroupManagerActionsSummary extends Google_Model
 {
-  public $abandoning;
-  public $creating;
-  public $creatingWithoutRetries;
-  public $deleting;
-  public $none;
-  public $recreating;
-  public $refreshing;
-  public $restarting;
-  public $verifying;
+	public $abandoning;
+	public $creating;
+	public $creatingWithoutRetries;
+	public $deleting;
+	public $none;
+	public $recreating;
+	public $refreshing;
+	public $restarting;
+	public $verifying;
 
-  public function setAbandoning($abandoning)
-  {
-    $this->abandoning = $abandoning;
-  }
-  public function getAbandoning()
-  {
-    return $this->abandoning;
-  }
-  public function setCreating($creating)
-  {
-    $this->creating = $creating;
-  }
-  public function getCreating()
-  {
-    return $this->creating;
-  }
-  public function setCreatingWithoutRetries($creatingWithoutRetries)
-  {
-    $this->creatingWithoutRetries = $creatingWithoutRetries;
-  }
-  public function getCreatingWithoutRetries()
-  {
-    return $this->creatingWithoutRetries;
-  }
-  public function setDeleting($deleting)
-  {
-    $this->deleting = $deleting;
-  }
-  public function getDeleting()
-  {
-    return $this->deleting;
-  }
-  public function setNone($none)
-  {
-    $this->none = $none;
-  }
-  public function getNone()
-  {
-    return $this->none;
-  }
-  public function setRecreating($recreating)
-  {
-    $this->recreating = $recreating;
-  }
-  public function getRecreating()
-  {
-    return $this->recreating;
-  }
-  public function setRefreshing($refreshing)
-  {
-    $this->refreshing = $refreshing;
-  }
-  public function getRefreshing()
-  {
-    return $this->refreshing;
-  }
-  public function setRestarting($restarting)
-  {
-    $this->restarting = $restarting;
-  }
-  public function getRestarting()
-  {
-    return $this->restarting;
-  }
-  public function setVerifying($verifying)
-  {
-    $this->verifying = $verifying;
-  }
-  public function getVerifying()
-  {
-    return $this->verifying;
-  }
+	public function setAbandoning($abandoning)
+	{
+		$this->abandoning = $abandoning;
+	}
+	public function getAbandoning()
+	{
+		return $this->abandoning;
+	}
+	public function setCreating($creating)
+	{
+		$this->creating = $creating;
+	}
+	public function getCreating()
+	{
+		return $this->creating;
+	}
+	public function setCreatingWithoutRetries($creatingWithoutRetries)
+	{
+		$this->creatingWithoutRetries = $creatingWithoutRetries;
+	}
+	public function getCreatingWithoutRetries()
+	{
+		return $this->creatingWithoutRetries;
+	}
+	public function setDeleting($deleting)
+	{
+		$this->deleting = $deleting;
+	}
+	public function getDeleting()
+	{
+		return $this->deleting;
+	}
+	public function setNone($none)
+	{
+		$this->none = $none;
+	}
+	public function getNone()
+	{
+		return $this->none;
+	}
+	public function setRecreating($recreating)
+	{
+		$this->recreating = $recreating;
+	}
+	public function getRecreating()
+	{
+		return $this->recreating;
+	}
+	public function setRefreshing($refreshing)
+	{
+		$this->refreshing = $refreshing;
+	}
+	public function getRefreshing()
+	{
+		return $this->refreshing;
+	}
+	public function setRestarting($restarting)
+	{
+		$this->restarting = $restarting;
+	}
+	public function getRestarting()
+	{
+		return $this->restarting;
+	}
+	public function setVerifying($verifying)
+	{
+		$this->verifying = $verifying;
+	}
+	public function getVerifying()
+	{
+		return $this->verifying;
+	}
 }

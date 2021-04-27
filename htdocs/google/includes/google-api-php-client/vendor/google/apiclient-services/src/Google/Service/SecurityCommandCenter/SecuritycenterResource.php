@@ -17,50 +17,50 @@
 
 class Google_Service_SecurityCommandCenter_SecuritycenterResource extends Google_Model
 {
-  public $name;
-  public $parentDisplayName;
-  public $parentName;
-  public $projectDisplayName;
-  public $projectName;
+	public $name;
+	public $parentDisplayName;
+	public $parentName;
+	public $projectDisplayName;
+	public $projectName;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setParentDisplayName($parentDisplayName)
-  {
-    $this->parentDisplayName = $parentDisplayName;
-  }
-  public function getParentDisplayName()
-  {
-    return $this->parentDisplayName;
-  }
-  public function setParentName($parentName)
-  {
-    $this->parentName = $parentName;
-  }
-  public function getParentName()
-  {
-    return $this->parentName;
-  }
-  public function setProjectDisplayName($projectDisplayName)
-  {
-    $this->projectDisplayName = $projectDisplayName;
-  }
-  public function getProjectDisplayName()
-  {
-    return $this->projectDisplayName;
-  }
-  public function setProjectName($projectName)
-  {
-    $this->projectName = $projectName;
-  }
-  public function getProjectName()
-  {
-    return $this->projectName;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setParentDisplayName($parentDisplayName)
+	{
+		$this->parentDisplayName = $parentDisplayName;
+	}
+	public function getParentDisplayName()
+	{
+		return $this->parentDisplayName;
+	}
+	public function setParentName($parentName)
+	{
+		$this->parentName = $parentName;
+	}
+	public function getParentName()
+	{
+		return $this->parentName;
+	}
+	public function setProjectDisplayName($projectDisplayName)
+	{
+		$this->projectDisplayName = $projectDisplayName;
+	}
+	public function getProjectDisplayName()
+	{
+		return $this->projectDisplayName;
+	}
+	public function setProjectName($projectName)
+	{
+		$this->projectName = $projectName;
+	}
+	public function getProjectName()
+	{
+		return $this->projectName;
+	}
 }

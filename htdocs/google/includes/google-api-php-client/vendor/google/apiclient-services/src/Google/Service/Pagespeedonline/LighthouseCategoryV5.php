@@ -17,67 +17,67 @@
 
 class Google_Service_Pagespeedonline_LighthouseCategoryV5 extends Google_Collection
 {
-  protected $collection_key = 'auditRefs';
-  protected $auditRefsType = 'Google_Service_Pagespeedonline_LighthouseCategoryV5AuditRefs';
-  protected $auditRefsDataType = 'array';
-  public $description;
-  public $id;
-  public $manualDescription;
-  public $score;
-  public $title;
+	protected $collection_key = 'auditRefs';
+	protected $auditRefsType = 'Google_Service_Pagespeedonline_LighthouseCategoryV5AuditRefs';
+	protected $auditRefsDataType = 'array';
+	public $description;
+	public $id;
+	public $manualDescription;
+	public $score;
+	public $title;
 
-  /**
-   * @param Google_Service_Pagespeedonline_LighthouseCategoryV5AuditRefs
-   */
-  public function setAuditRefs($auditRefs)
-  {
-    $this->auditRefs = $auditRefs;
-  }
-  /**
-   * @return Google_Service_Pagespeedonline_LighthouseCategoryV5AuditRefs
-   */
-  public function getAuditRefs()
-  {
-    return $this->auditRefs;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setManualDescription($manualDescription)
-  {
-    $this->manualDescription = $manualDescription;
-  }
-  public function getManualDescription()
-  {
-    return $this->manualDescription;
-  }
-  public function setScore($score)
-  {
-    $this->score = $score;
-  }
-  public function getScore()
-  {
-    return $this->score;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	/**
+	 * @param Google_Service_Pagespeedonline_LighthouseCategoryV5AuditRefs
+	 */
+	public function setAuditRefs($auditRefs)
+	{
+		$this->auditRefs = $auditRefs;
+	}
+	/**
+	 * @return Google_Service_Pagespeedonline_LighthouseCategoryV5AuditRefs
+	 */
+	public function getAuditRefs()
+	{
+		return $this->auditRefs;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setManualDescription($manualDescription)
+	{
+		$this->manualDescription = $manualDescription;
+	}
+	public function getManualDescription()
+	{
+		return $this->manualDescription;
+	}
+	public function setScore($score)
+	{
+		$this->score = $score;
+	}
+	public function getScore()
+	{
+		return $this->score;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

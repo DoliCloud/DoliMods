@@ -17,30 +17,30 @@
 
 class Google_Service_AdMob_MediationReportSpecDimensionFilter extends Google_Model
 {
-  public $dimension;
-  protected $matchesAnyType = 'Google_Service_AdMob_StringList';
-  protected $matchesAnyDataType = '';
+	public $dimension;
+	protected $matchesAnyType = 'Google_Service_AdMob_StringList';
+	protected $matchesAnyDataType = '';
 
-  public function setDimension($dimension)
-  {
-    $this->dimension = $dimension;
-  }
-  public function getDimension()
-  {
-    return $this->dimension;
-  }
-  /**
-   * @param Google_Service_AdMob_StringList
-   */
-  public function setMatchesAny(Google_Service_AdMob_StringList $matchesAny)
-  {
-    $this->matchesAny = $matchesAny;
-  }
-  /**
-   * @return Google_Service_AdMob_StringList
-   */
-  public function getMatchesAny()
-  {
-    return $this->matchesAny;
-  }
+	public function setDimension($dimension)
+	{
+		$this->dimension = $dimension;
+	}
+	public function getDimension()
+	{
+		return $this->dimension;
+	}
+	/**
+	 * @param Google_Service_AdMob_StringList
+	 */
+	public function setMatchesAny(Google_Service_AdMob_StringList $matchesAny)
+	{
+		$this->matchesAny = $matchesAny;
+	}
+	/**
+	 * @return Google_Service_AdMob_StringList
+	 */
+	public function getMatchesAny()
+	{
+		return $this->matchesAny;
+	}
 }

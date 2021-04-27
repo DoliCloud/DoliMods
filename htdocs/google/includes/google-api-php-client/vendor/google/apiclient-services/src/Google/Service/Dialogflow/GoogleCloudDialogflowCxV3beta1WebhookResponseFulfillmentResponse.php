@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse extends Google_Collection
 {
-  protected $collection_key = 'messages';
-  public $mergeBehavior;
-  protected $messagesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessage';
-  protected $messagesDataType = 'array';
+	protected $collection_key = 'messages';
+	public $mergeBehavior;
+	protected $messagesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessage';
+	protected $messagesDataType = 'array';
 
-  public function setMergeBehavior($mergeBehavior)
-  {
-    $this->mergeBehavior = $mergeBehavior;
-  }
-  public function getMergeBehavior()
-  {
-    return $this->mergeBehavior;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessage
-   */
-  public function setMessages($messages)
-  {
-    $this->messages = $messages;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessage
-   */
-  public function getMessages()
-  {
-    return $this->messages;
-  }
+	public function setMergeBehavior($mergeBehavior)
+	{
+		$this->mergeBehavior = $mergeBehavior;
+	}
+	public function getMergeBehavior()
+	{
+		return $this->mergeBehavior;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessage
+	 */
+	public function setMessages($messages)
+	{
+		$this->messages = $messages;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessage
+	 */
+	public function getMessages()
+	{
+		return $this->messages;
+	}
 }

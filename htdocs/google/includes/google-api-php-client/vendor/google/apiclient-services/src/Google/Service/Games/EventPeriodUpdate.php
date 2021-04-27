@@ -17,47 +17,47 @@
 
 class Google_Service_Games_EventPeriodUpdate extends Google_Collection
 {
-  protected $collection_key = 'updates';
-  public $kind;
-  protected $timePeriodType = 'Google_Service_Games_EventPeriodRange';
-  protected $timePeriodDataType = '';
-  protected $updatesType = 'Google_Service_Games_EventUpdateRequest';
-  protected $updatesDataType = 'array';
+	protected $collection_key = 'updates';
+	public $kind;
+	protected $timePeriodType = 'Google_Service_Games_EventPeriodRange';
+	protected $timePeriodDataType = '';
+	protected $updatesType = 'Google_Service_Games_EventUpdateRequest';
+	protected $updatesDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Games_EventPeriodRange
-   */
-  public function setTimePeriod(Google_Service_Games_EventPeriodRange $timePeriod)
-  {
-    $this->timePeriod = $timePeriod;
-  }
-  /**
-   * @return Google_Service_Games_EventPeriodRange
-   */
-  public function getTimePeriod()
-  {
-    return $this->timePeriod;
-  }
-  /**
-   * @param Google_Service_Games_EventUpdateRequest
-   */
-  public function setUpdates($updates)
-  {
-    $this->updates = $updates;
-  }
-  /**
-   * @return Google_Service_Games_EventUpdateRequest
-   */
-  public function getUpdates()
-  {
-    return $this->updates;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Games_EventPeriodRange
+	 */
+	public function setTimePeriod(Google_Service_Games_EventPeriodRange $timePeriod)
+	{
+		$this->timePeriod = $timePeriod;
+	}
+	/**
+	 * @return Google_Service_Games_EventPeriodRange
+	 */
+	public function getTimePeriod()
+	{
+		return $this->timePeriod;
+	}
+	/**
+	 * @param Google_Service_Games_EventUpdateRequest
+	 */
+	public function setUpdates($updates)
+	{
+		$this->updates = $updates;
+	}
+	/**
+	 * @return Google_Service_Games_EventUpdateRequest
+	 */
+	public function getUpdates()
+	{
+		return $this->updates;
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_CreativeGroupsListResponse extends Google_Collection
 {
-  protected $collection_key = 'creativeGroups';
-  protected $creativeGroupsType = 'Google_Service_Dfareporting_CreativeGroup';
-  protected $creativeGroupsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
+	protected $collection_key = 'creativeGroups';
+	protected $creativeGroupsType = 'Google_Service_Dfareporting_CreativeGroup';
+	protected $creativeGroupsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Dfareporting_CreativeGroup
-   */
-  public function setCreativeGroups($creativeGroups)
-  {
-    $this->creativeGroups = $creativeGroups;
-  }
-  /**
-   * @return Google_Service_Dfareporting_CreativeGroup
-   */
-  public function getCreativeGroups()
-  {
-    return $this->creativeGroups;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_CreativeGroup
+	 */
+	public function setCreativeGroups($creativeGroups)
+	{
+		$this->creativeGroups = $creativeGroups;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_CreativeGroup
+	 */
+	public function getCreativeGroups()
+	{
+		return $this->creativeGroups;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

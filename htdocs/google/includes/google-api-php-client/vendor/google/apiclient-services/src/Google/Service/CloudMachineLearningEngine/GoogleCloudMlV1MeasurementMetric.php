@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1MeasurementMetric extends Google_Model
 {
-  public $metric;
-  public $value;
+	public $metric;
+	public $value;
 
-  public function setMetric($metric)
-  {
-    $this->metric = $metric;
-  }
-  public function getMetric()
-  {
-    return $this->metric;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setMetric($metric)
+	{
+		$this->metric = $metric;
+	}
+	public function getMetric()
+	{
+		return $this->metric;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

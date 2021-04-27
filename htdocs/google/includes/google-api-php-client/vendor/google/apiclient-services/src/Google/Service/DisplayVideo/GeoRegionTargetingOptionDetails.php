@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_GeoRegionTargetingOptionDetails extends Google_Model
 {
-  public $displayName;
-  public $geoRegionType;
+	public $displayName;
+	public $geoRegionType;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setGeoRegionType($geoRegionType)
-  {
-    $this->geoRegionType = $geoRegionType;
-  }
-  public function getGeoRegionType()
-  {
-    return $this->geoRegionType;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setGeoRegionType($geoRegionType)
+	{
+		$this->geoRegionType = $geoRegionType;
+	}
+	public function getGeoRegionType()
+	{
+		return $this->geoRegionType;
+	}
 }

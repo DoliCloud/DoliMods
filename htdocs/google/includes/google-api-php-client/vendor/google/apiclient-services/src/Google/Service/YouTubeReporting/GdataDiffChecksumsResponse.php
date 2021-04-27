@@ -17,64 +17,64 @@
 
 class Google_Service_YouTubeReporting_GdataDiffChecksumsResponse extends Google_Model
 {
-  protected $checksumsLocationType = 'Google_Service_YouTubeReporting_GdataCompositeMedia';
-  protected $checksumsLocationDataType = '';
-  public $chunkSizeBytes;
-  protected $objectLocationType = 'Google_Service_YouTubeReporting_GdataCompositeMedia';
-  protected $objectLocationDataType = '';
-  public $objectSizeBytes;
-  public $objectVersion;
+	protected $checksumsLocationType = 'Google_Service_YouTubeReporting_GdataCompositeMedia';
+	protected $checksumsLocationDataType = '';
+	public $chunkSizeBytes;
+	protected $objectLocationType = 'Google_Service_YouTubeReporting_GdataCompositeMedia';
+	protected $objectLocationDataType = '';
+	public $objectSizeBytes;
+	public $objectVersion;
 
-  /**
-   * @param Google_Service_YouTubeReporting_GdataCompositeMedia
-   */
-  public function setChecksumsLocation(Google_Service_YouTubeReporting_GdataCompositeMedia $checksumsLocation)
-  {
-    $this->checksumsLocation = $checksumsLocation;
-  }
-  /**
-   * @return Google_Service_YouTubeReporting_GdataCompositeMedia
-   */
-  public function getChecksumsLocation()
-  {
-    return $this->checksumsLocation;
-  }
-  public function setChunkSizeBytes($chunkSizeBytes)
-  {
-    $this->chunkSizeBytes = $chunkSizeBytes;
-  }
-  public function getChunkSizeBytes()
-  {
-    return $this->chunkSizeBytes;
-  }
-  /**
-   * @param Google_Service_YouTubeReporting_GdataCompositeMedia
-   */
-  public function setObjectLocation(Google_Service_YouTubeReporting_GdataCompositeMedia $objectLocation)
-  {
-    $this->objectLocation = $objectLocation;
-  }
-  /**
-   * @return Google_Service_YouTubeReporting_GdataCompositeMedia
-   */
-  public function getObjectLocation()
-  {
-    return $this->objectLocation;
-  }
-  public function setObjectSizeBytes($objectSizeBytes)
-  {
-    $this->objectSizeBytes = $objectSizeBytes;
-  }
-  public function getObjectSizeBytes()
-  {
-    return $this->objectSizeBytes;
-  }
-  public function setObjectVersion($objectVersion)
-  {
-    $this->objectVersion = $objectVersion;
-  }
-  public function getObjectVersion()
-  {
-    return $this->objectVersion;
-  }
+	/**
+	 * @param Google_Service_YouTubeReporting_GdataCompositeMedia
+	 */
+	public function setChecksumsLocation(Google_Service_YouTubeReporting_GdataCompositeMedia $checksumsLocation)
+	{
+		$this->checksumsLocation = $checksumsLocation;
+	}
+	/**
+	 * @return Google_Service_YouTubeReporting_GdataCompositeMedia
+	 */
+	public function getChecksumsLocation()
+	{
+		return $this->checksumsLocation;
+	}
+	public function setChunkSizeBytes($chunkSizeBytes)
+	{
+		$this->chunkSizeBytes = $chunkSizeBytes;
+	}
+	public function getChunkSizeBytes()
+	{
+		return $this->chunkSizeBytes;
+	}
+	/**
+	 * @param Google_Service_YouTubeReporting_GdataCompositeMedia
+	 */
+	public function setObjectLocation(Google_Service_YouTubeReporting_GdataCompositeMedia $objectLocation)
+	{
+		$this->objectLocation = $objectLocation;
+	}
+	/**
+	 * @return Google_Service_YouTubeReporting_GdataCompositeMedia
+	 */
+	public function getObjectLocation()
+	{
+		return $this->objectLocation;
+	}
+	public function setObjectSizeBytes($objectSizeBytes)
+	{
+		$this->objectSizeBytes = $objectSizeBytes;
+	}
+	public function getObjectSizeBytes()
+	{
+		return $this->objectSizeBytes;
+	}
+	public function setObjectVersion($objectVersion)
+	{
+		$this->objectVersion = $objectVersion;
+	}
+	public function getObjectVersion()
+	{
+		return $this->objectVersion;
+	}
 }

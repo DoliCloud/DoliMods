@@ -17,39 +17,39 @@
 
 class Google_Service_Docs_BulletSuggestionState extends Google_Model
 {
-  public $listIdSuggested;
-  public $nestingLevelSuggested;
-  protected $textStyleSuggestionStateType = 'Google_Service_Docs_TextStyleSuggestionState';
-  protected $textStyleSuggestionStateDataType = '';
+	public $listIdSuggested;
+	public $nestingLevelSuggested;
+	protected $textStyleSuggestionStateType = 'Google_Service_Docs_TextStyleSuggestionState';
+	protected $textStyleSuggestionStateDataType = '';
 
-  public function setListIdSuggested($listIdSuggested)
-  {
-    $this->listIdSuggested = $listIdSuggested;
-  }
-  public function getListIdSuggested()
-  {
-    return $this->listIdSuggested;
-  }
-  public function setNestingLevelSuggested($nestingLevelSuggested)
-  {
-    $this->nestingLevelSuggested = $nestingLevelSuggested;
-  }
-  public function getNestingLevelSuggested()
-  {
-    return $this->nestingLevelSuggested;
-  }
-  /**
-   * @param Google_Service_Docs_TextStyleSuggestionState
-   */
-  public function setTextStyleSuggestionState(Google_Service_Docs_TextStyleSuggestionState $textStyleSuggestionState)
-  {
-    $this->textStyleSuggestionState = $textStyleSuggestionState;
-  }
-  /**
-   * @return Google_Service_Docs_TextStyleSuggestionState
-   */
-  public function getTextStyleSuggestionState()
-  {
-    return $this->textStyleSuggestionState;
-  }
+	public function setListIdSuggested($listIdSuggested)
+	{
+		$this->listIdSuggested = $listIdSuggested;
+	}
+	public function getListIdSuggested()
+	{
+		return $this->listIdSuggested;
+	}
+	public function setNestingLevelSuggested($nestingLevelSuggested)
+	{
+		$this->nestingLevelSuggested = $nestingLevelSuggested;
+	}
+	public function getNestingLevelSuggested()
+	{
+		return $this->nestingLevelSuggested;
+	}
+	/**
+	 * @param Google_Service_Docs_TextStyleSuggestionState
+	 */
+	public function setTextStyleSuggestionState(Google_Service_Docs_TextStyleSuggestionState $textStyleSuggestionState)
+	{
+		$this->textStyleSuggestionState = $textStyleSuggestionState;
+	}
+	/**
+	 * @return Google_Service_Docs_TextStyleSuggestionState
+	 */
+	public function getTextStyleSuggestionState()
+	{
+		return $this->textStyleSuggestionState;
+	}
 }

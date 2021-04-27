@@ -17,15 +17,15 @@
 
 class Google_Service_ServiceManagement_SourceInfo extends Google_Collection
 {
-  protected $collection_key = 'sourceFiles';
-  public $sourceFiles;
+	protected $collection_key = 'sourceFiles';
+	public $sourceFiles;
 
-  public function setSourceFiles($sourceFiles)
-  {
-    $this->sourceFiles = $sourceFiles;
-  }
-  public function getSourceFiles()
-  {
-    return $this->sourceFiles;
-  }
+	public function setSourceFiles($sourceFiles)
+	{
+		$this->sourceFiles = $sourceFiles;
+	}
+	public function getSourceFiles()
+	{
+		return $this->sourceFiles;
+	}
 }

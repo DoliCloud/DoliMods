@@ -17,107 +17,107 @@
 
 class Google_Service_Games_Instance extends Google_Model
 {
-  public $acquisitionUri;
-  protected $androidInstanceType = 'Google_Service_Games_InstanceAndroidDetails';
-  protected $androidInstanceDataType = '';
-  protected $iosInstanceType = 'Google_Service_Games_InstanceIosDetails';
-  protected $iosInstanceDataType = '';
-  public $kind;
-  public $name;
-  public $platformType;
-  public $realtimePlay;
-  public $turnBasedPlay;
-  protected $webInstanceType = 'Google_Service_Games_InstanceWebDetails';
-  protected $webInstanceDataType = '';
+	public $acquisitionUri;
+	protected $androidInstanceType = 'Google_Service_Games_InstanceAndroidDetails';
+	protected $androidInstanceDataType = '';
+	protected $iosInstanceType = 'Google_Service_Games_InstanceIosDetails';
+	protected $iosInstanceDataType = '';
+	public $kind;
+	public $name;
+	public $platformType;
+	public $realtimePlay;
+	public $turnBasedPlay;
+	protected $webInstanceType = 'Google_Service_Games_InstanceWebDetails';
+	protected $webInstanceDataType = '';
 
-  public function setAcquisitionUri($acquisitionUri)
-  {
-    $this->acquisitionUri = $acquisitionUri;
-  }
-  public function getAcquisitionUri()
-  {
-    return $this->acquisitionUri;
-  }
-  /**
-   * @param Google_Service_Games_InstanceAndroidDetails
-   */
-  public function setAndroidInstance(Google_Service_Games_InstanceAndroidDetails $androidInstance)
-  {
-    $this->androidInstance = $androidInstance;
-  }
-  /**
-   * @return Google_Service_Games_InstanceAndroidDetails
-   */
-  public function getAndroidInstance()
-  {
-    return $this->androidInstance;
-  }
-  /**
-   * @param Google_Service_Games_InstanceIosDetails
-   */
-  public function setIosInstance(Google_Service_Games_InstanceIosDetails $iosInstance)
-  {
-    $this->iosInstance = $iosInstance;
-  }
-  /**
-   * @return Google_Service_Games_InstanceIosDetails
-   */
-  public function getIosInstance()
-  {
-    return $this->iosInstance;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPlatformType($platformType)
-  {
-    $this->platformType = $platformType;
-  }
-  public function getPlatformType()
-  {
-    return $this->platformType;
-  }
-  public function setRealtimePlay($realtimePlay)
-  {
-    $this->realtimePlay = $realtimePlay;
-  }
-  public function getRealtimePlay()
-  {
-    return $this->realtimePlay;
-  }
-  public function setTurnBasedPlay($turnBasedPlay)
-  {
-    $this->turnBasedPlay = $turnBasedPlay;
-  }
-  public function getTurnBasedPlay()
-  {
-    return $this->turnBasedPlay;
-  }
-  /**
-   * @param Google_Service_Games_InstanceWebDetails
-   */
-  public function setWebInstance(Google_Service_Games_InstanceWebDetails $webInstance)
-  {
-    $this->webInstance = $webInstance;
-  }
-  /**
-   * @return Google_Service_Games_InstanceWebDetails
-   */
-  public function getWebInstance()
-  {
-    return $this->webInstance;
-  }
+	public function setAcquisitionUri($acquisitionUri)
+	{
+		$this->acquisitionUri = $acquisitionUri;
+	}
+	public function getAcquisitionUri()
+	{
+		return $this->acquisitionUri;
+	}
+	/**
+	 * @param Google_Service_Games_InstanceAndroidDetails
+	 */
+	public function setAndroidInstance(Google_Service_Games_InstanceAndroidDetails $androidInstance)
+	{
+		$this->androidInstance = $androidInstance;
+	}
+	/**
+	 * @return Google_Service_Games_InstanceAndroidDetails
+	 */
+	public function getAndroidInstance()
+	{
+		return $this->androidInstance;
+	}
+	/**
+	 * @param Google_Service_Games_InstanceIosDetails
+	 */
+	public function setIosInstance(Google_Service_Games_InstanceIosDetails $iosInstance)
+	{
+		$this->iosInstance = $iosInstance;
+	}
+	/**
+	 * @return Google_Service_Games_InstanceIosDetails
+	 */
+	public function getIosInstance()
+	{
+		return $this->iosInstance;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPlatformType($platformType)
+	{
+		$this->platformType = $platformType;
+	}
+	public function getPlatformType()
+	{
+		return $this->platformType;
+	}
+	public function setRealtimePlay($realtimePlay)
+	{
+		$this->realtimePlay = $realtimePlay;
+	}
+	public function getRealtimePlay()
+	{
+		return $this->realtimePlay;
+	}
+	public function setTurnBasedPlay($turnBasedPlay)
+	{
+		$this->turnBasedPlay = $turnBasedPlay;
+	}
+	public function getTurnBasedPlay()
+	{
+		return $this->turnBasedPlay;
+	}
+	/**
+	 * @param Google_Service_Games_InstanceWebDetails
+	 */
+	public function setWebInstance(Google_Service_Games_InstanceWebDetails $webInstance)
+	{
+		$this->webInstance = $webInstance;
+	}
+	/**
+	 * @return Google_Service_Games_InstanceWebDetails
+	 */
+	public function getWebInstance()
+	{
+		return $this->webInstance;
+	}
 }

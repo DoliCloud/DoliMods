@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_Color extends Google_Model
 {
-  protected $rgbColorType = 'Google_Service_Docs_RgbColor';
-  protected $rgbColorDataType = '';
+	protected $rgbColorType = 'Google_Service_Docs_RgbColor';
+	protected $rgbColorDataType = '';
 
-  /**
-   * @param Google_Service_Docs_RgbColor
-   */
-  public function setRgbColor(Google_Service_Docs_RgbColor $rgbColor)
-  {
-    $this->rgbColor = $rgbColor;
-  }
-  /**
-   * @return Google_Service_Docs_RgbColor
-   */
-  public function getRgbColor()
-  {
-    return $this->rgbColor;
-  }
+	/**
+	 * @param Google_Service_Docs_RgbColor
+	 */
+	public function setRgbColor(Google_Service_Docs_RgbColor $rgbColor)
+	{
+		$this->rgbColor = $rgbColor;
+	}
+	/**
+	 * @return Google_Service_Docs_RgbColor
+	 */
+	public function getRgbColor()
+	{
+		return $this->rgbColor;
+	}
 }

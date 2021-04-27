@@ -17,14 +17,14 @@
 
 class Google_Service_DoubleClickBidManager_Options extends Google_Model
 {
-  public $includeOnlyTargetedUserLists;
+	public $includeOnlyTargetedUserLists;
 
-  public function setIncludeOnlyTargetedUserLists($includeOnlyTargetedUserLists)
-  {
-    $this->includeOnlyTargetedUserLists = $includeOnlyTargetedUserLists;
-  }
-  public function getIncludeOnlyTargetedUserLists()
-  {
-    return $this->includeOnlyTargetedUserLists;
-  }
+	public function setIncludeOnlyTargetedUserLists($includeOnlyTargetedUserLists)
+	{
+		$this->includeOnlyTargetedUserLists = $includeOnlyTargetedUserLists;
+	}
+	public function getIncludeOnlyTargetedUserLists()
+	{
+		return $this->includeOnlyTargetedUserLists;
+	}
 }

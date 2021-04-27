@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_DriveFollowUpRestrict extends Google_Model
 {
-  public $type;
+	public $type;
 
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

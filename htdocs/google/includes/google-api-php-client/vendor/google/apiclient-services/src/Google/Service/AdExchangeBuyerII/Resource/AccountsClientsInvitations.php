@@ -25,66 +25,66 @@
  */
 class Google_Service_AdExchangeBuyerII_Resource_AccountsClientsInvitations extends Google_Service_Resource
 {
-  /**
-   * Creates and sends out an email invitation to access an Ad Exchange client
-   * buyer account. (invitations.create)
-   *
-   * @param string $accountId Numerical account ID of the client's sponsor buyer.
-   * (required)
-   * @param string $clientAccountId Numerical account ID of the client buyer that
-   * the user should be associated with. (required)
-   * @param Google_Service_AdExchangeBuyerII_ClientUserInvitation $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyerII_ClientUserInvitation
-   */
-  public function create($accountId, $clientAccountId, Google_Service_AdExchangeBuyerII_ClientUserInvitation $postBody, $optParams = array())
-  {
-    $params = array('accountId' => $accountId, 'clientAccountId' => $clientAccountId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_AdExchangeBuyerII_ClientUserInvitation");
-  }
-  /**
-   * Retrieves an existing client user invitation. (invitations.get)
-   *
-   * @param string $accountId Numerical account ID of the client's sponsor buyer.
-   * (required)
-   * @param string $clientAccountId Numerical account ID of the client buyer that
-   * the user invitation to be retrieved is associated with. (required)
-   * @param string $invitationId Numerical identifier of the user invitation to
-   * retrieve. (required)
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyerII_ClientUserInvitation
-   */
-  public function get($accountId, $clientAccountId, $invitationId, $optParams = array())
-  {
-    $params = array('accountId' => $accountId, 'clientAccountId' => $clientAccountId, 'invitationId' => $invitationId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyerII_ClientUserInvitation");
-  }
-  /**
-   * Lists all the client users invitations for a client with a given account ID.
-   * (invitations.listAccountsClientsInvitations)
-   *
-   * @param string $accountId Numerical account ID of the client's sponsor buyer.
-   * (required)
-   * @param string $clientAccountId Numerical account ID of the client buyer to
-   * list invitations for. (required) You must either specify a string
-   * representation of a numerical account identifier or the `-` character to list
-   * all the invitations for all the clients of a given sponsor buyer.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string pageToken A token identifying a page of results the server
-   * should return. Typically, this is the value of
-   * ListClientUserInvitationsResponse.nextPageToken returned from the previous
-   * call to the clients.invitations.list method.
-   * @opt_param int pageSize Requested page size. Server may return fewer clients
-   * than requested. If unspecified, server will pick an appropriate default.
-   * @return Google_Service_AdExchangeBuyerII_ListClientUserInvitationsResponse
-   */
-  public function listAccountsClientsInvitations($accountId, $clientAccountId, $optParams = array())
-  {
-    $params = array('accountId' => $accountId, 'clientAccountId' => $clientAccountId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyerII_ListClientUserInvitationsResponse");
-  }
+	/**
+	 * Creates and sends out an email invitation to access an Ad Exchange client
+	 * buyer account. (invitations.create)
+	 *
+	 * @param string $accountId Numerical account ID of the client's sponsor buyer.
+	 *                          (required)
+	 * @param string $clientAccountId Numerical account ID of the client buyer that
+	 *                                the user should be associated with. (required)
+	 * @param Google_Service_AdExchangeBuyerII_ClientUserInvitation $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AdExchangeBuyerII_ClientUserInvitation
+	 */
+	public function create($accountId, $clientAccountId, Google_Service_AdExchangeBuyerII_ClientUserInvitation $postBody, $optParams = array())
+	{
+		$params = array('accountId' => $accountId, 'clientAccountId' => $clientAccountId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_AdExchangeBuyerII_ClientUserInvitation");
+	}
+	/**
+	 * Retrieves an existing client user invitation. (invitations.get)
+	 *
+	 * @param string $accountId Numerical account ID of the client's sponsor buyer.
+	 *                          (required)
+	 * @param string $clientAccountId Numerical account ID of the client buyer that
+	 *                                the user invitation to be retrieved is associated with. (required)
+	 * @param string $invitationId Numerical identifier of the user invitation to
+	 *                             retrieve. (required)
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AdExchangeBuyerII_ClientUserInvitation
+	 */
+	public function get($accountId, $clientAccountId, $invitationId, $optParams = array())
+	{
+		$params = array('accountId' => $accountId, 'clientAccountId' => $clientAccountId, 'invitationId' => $invitationId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_AdExchangeBuyerII_ClientUserInvitation");
+	}
+	/**
+	 * Lists all the client users invitations for a client with a given account ID.
+	 * (invitations.listAccountsClientsInvitations)
+	 *
+	 * @param string $accountId Numerical account ID of the client's sponsor buyer.
+	 *                          (required)
+	 * @param string $clientAccountId Numerical account ID of the client buyer to
+	 *                                list invitations for. (required) You must either specify a string
+	 *                                representation of a numerical account identifier or the `-` character to list
+	 *                                all the invitations for all the clients of a given sponsor buyer.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string pageToken A token identifying a page of results the server
+	 * should return. Typically, this is the value of
+	 * ListClientUserInvitationsResponse.nextPageToken returned from the previous
+	 * call to the clients.invitations.list method.
+	 * @opt_param int pageSize Requested page size. Server may return fewer clients
+	 * than requested. If unspecified, server will pick an appropriate default.
+	 * @return Google_Service_AdExchangeBuyerII_ListClientUserInvitationsResponse
+	 */
+	public function listAccountsClientsInvitations($accountId, $clientAccountId, $optParams = array())
+	{
+		$params = array('accountId' => $accountId, 'clientAccountId' => $clientAccountId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AdExchangeBuyerII_ListClientUserInvitationsResponse");
+	}
 }

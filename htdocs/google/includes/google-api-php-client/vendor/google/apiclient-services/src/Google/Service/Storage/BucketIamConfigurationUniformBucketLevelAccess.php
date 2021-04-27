@@ -17,23 +17,23 @@
 
 class Google_Service_Storage_BucketIamConfigurationUniformBucketLevelAccess extends Google_Model
 {
-  public $enabled;
-  public $lockedTime;
+	public $enabled;
+	public $lockedTime;
 
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  public function setLockedTime($lockedTime)
-  {
-    $this->lockedTime = $lockedTime;
-  }
-  public function getLockedTime()
-  {
-    return $this->lockedTime;
-  }
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	public function setLockedTime($lockedTime)
+	{
+		$this->lockedTime = $lockedTime;
+	}
+	public function getLockedTime()
+	{
+		return $this->lockedTime;
+	}
 }

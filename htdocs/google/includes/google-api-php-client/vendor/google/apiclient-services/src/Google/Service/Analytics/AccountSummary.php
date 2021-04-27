@@ -17,58 +17,58 @@
 
 class Google_Service_Analytics_AccountSummary extends Google_Collection
 {
-  protected $collection_key = 'webProperties';
-  public $id;
-  public $kind;
-  public $name;
-  public $starred;
-  protected $webPropertiesType = 'Google_Service_Analytics_WebPropertySummary';
-  protected $webPropertiesDataType = 'array';
+	protected $collection_key = 'webProperties';
+	public $id;
+	public $kind;
+	public $name;
+	public $starred;
+	protected $webPropertiesType = 'Google_Service_Analytics_WebPropertySummary';
+	protected $webPropertiesDataType = 'array';
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setStarred($starred)
-  {
-    $this->starred = $starred;
-  }
-  public function getStarred()
-  {
-    return $this->starred;
-  }
-  /**
-   * @param Google_Service_Analytics_WebPropertySummary
-   */
-  public function setWebProperties($webProperties)
-  {
-    $this->webProperties = $webProperties;
-  }
-  /**
-   * @return Google_Service_Analytics_WebPropertySummary
-   */
-  public function getWebProperties()
-  {
-    return $this->webProperties;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setStarred($starred)
+	{
+		$this->starred = $starred;
+	}
+	public function getStarred()
+	{
+		return $this->starred;
+	}
+	/**
+	 * @param Google_Service_Analytics_WebPropertySummary
+	 */
+	public function setWebProperties($webProperties)
+	{
+		$this->webProperties = $webProperties;
+	}
+	/**
+	 * @return Google_Service_Analytics_WebPropertySummary
+	 */
+	public function getWebProperties()
+	{
+		return $this->webProperties;
+	}
 }

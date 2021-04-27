@@ -17,23 +17,23 @@
 
 class Google_Service_Bigquery_DatasetReference extends Google_Model
 {
-  public $datasetId;
-  public $projectId;
+	public $datasetId;
+	public $projectId;
 
-  public function setDatasetId($datasetId)
-  {
-    $this->datasetId = $datasetId;
-  }
-  public function getDatasetId()
-  {
-    return $this->datasetId;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
+	public function setDatasetId($datasetId)
+	{
+		$this->datasetId = $datasetId;
+	}
+	public function getDatasetId()
+	{
+		return $this->datasetId;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
 }

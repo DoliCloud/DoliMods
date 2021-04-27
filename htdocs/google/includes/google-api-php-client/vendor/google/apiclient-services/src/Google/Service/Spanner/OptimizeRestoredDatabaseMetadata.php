@@ -17,30 +17,30 @@
 
 class Google_Service_Spanner_OptimizeRestoredDatabaseMetadata extends Google_Model
 {
-  public $name;
-  protected $progressType = 'Google_Service_Spanner_OperationProgress';
-  protected $progressDataType = '';
+	public $name;
+	protected $progressType = 'Google_Service_Spanner_OperationProgress';
+	protected $progressDataType = '';
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Spanner_OperationProgress
-   */
-  public function setProgress(Google_Service_Spanner_OperationProgress $progress)
-  {
-    $this->progress = $progress;
-  }
-  /**
-   * @return Google_Service_Spanner_OperationProgress
-   */
-  public function getProgress()
-  {
-    return $this->progress;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Spanner_OperationProgress
+	 */
+	public function setProgress(Google_Service_Spanner_OperationProgress $progress)
+	{
+		$this->progress = $progress;
+	}
+	/**
+	 * @return Google_Service_Spanner_OperationProgress
+	 */
+	public function getProgress()
+	{
+		return $this->progress;
+	}
 }

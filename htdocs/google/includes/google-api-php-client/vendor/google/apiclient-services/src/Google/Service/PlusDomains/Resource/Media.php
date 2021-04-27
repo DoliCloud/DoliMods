@@ -25,20 +25,20 @@
  */
 class Google_Service_PlusDomains_Resource_Media extends Google_Service_Resource
 {
-  /**
-   * Shut down. See https://developers.google.com/+/api-shutdown for more details.
-   * (media.insert)
-   *
-   * @param string $userId The ID of the user to create the activity on behalf of.
-   * @param string $collection
-   * @param Google_Service_PlusDomains_Media $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_PlusDomains_Media
-   */
-  public function insert($userId, $collection, Google_Service_PlusDomains_Media $postBody, $optParams = array())
-  {
-    $params = array('userId' => $userId, 'collection' => $collection, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_PlusDomains_Media");
-  }
+	/**
+	 * Shut down. See https://developers.google.com/+/api-shutdown for more details.
+	 * (media.insert)
+	 *
+	 * @param string $userId The ID of the user to create the activity on behalf of.
+	 * @param string $collection
+	 * @param Google_Service_PlusDomains_Media $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_PlusDomains_Media
+	 */
+	public function insert($userId, $collection, Google_Service_PlusDomains_Media $postBody, $optParams = array())
+	{
+		$params = array('userId' => $userId, 'collection' => $collection, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('insert', array($params), "Google_Service_PlusDomains_Media");
+	}
 }

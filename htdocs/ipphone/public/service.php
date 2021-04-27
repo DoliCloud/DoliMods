@@ -28,8 +28,8 @@
  *				http://mydolibarr/ipphone/public/service.php?search=...
  */
 
-define('NOCSRFCHECK',1);
-define('NOLOGIN',1);
+define('NOCSRFCHECK', 1);
+define('NOLOGIN', 1);
 
 // C'est un wrapper, donc header vierge
 /**
@@ -37,37 +37,41 @@ define('NOLOGIN',1);
  *
  * @return	void
  */
-function llxHeaderVierge() { print ''; }
+function llxHeaderVierge()
+{
+	print ''; }
 /**
  * Footer function
  *
  * @return	void
  */
-function llxFooterVierge() { print ''; }
+function llxFooterVierge()
+{
+	print ''; }
 
 
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
 $search = GETPOST("search", 'alphanohtml');      	// search criteria
 $key = GETPOST("key", 'alpha');           		// security key
 $type = GETPOST("type", 'aZ09');					// type 'contacts', 'thirdparties', 'contacts,thirdparties'
-$format = GETPOST('format','alpha')?GETPOST('format','alpha'):'xml';
+$format = GETPOST('format', 'alpha')?GETPOST('format', 'alpha'):'xml';
 
 $phonetag=($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory');	// May be also 'ThompsonDirectory, YeaLinkDirectory, ...'
 
-if (empty($conf->ipphone->enabled)) accessforbidden('',1,1,1);
+if (empty($conf->ipphone->enabled)) accessforbidden('', 1, 1, 1);
 
 $langs->load("ipphone@ipphone");
 
@@ -77,11 +81,9 @@ $langs->load("ipphone@ipphone");
  * View
  */
 
-if (! empty($conf->global->IPPHONE_EXPORTKEY))
-{
+if (! empty($conf->global->IPPHONE_EXPORTKEY)) {
 	// Protection is on, we check key
-	if ($key != $conf->global->IPPHONE_EXPORTKEY)
-	{
+	if ($key != $conf->global->IPPHONE_EXPORTKEY) {
 		$user->getrights();
 
 		llxHeaderVierge();
@@ -124,109 +126,94 @@ $phoneaddedforthisthird=array();
 //print $sql;
 dol_syslog("ipphone sql=".$sql);
 $resql=$db->query($sql);
-if ($resql)
-{
+if ($resql) {
 	$num=$db->num_rows($resql);
 	$i = 0;
 
-	if ($format == 'xml')
-	{
-	    print("<".dol_string_nohtmltag($phonetag).">\n");
+	if ($format == 'xml') {
+		print("<".dol_string_nohtmltag($phonetag).">\n");
 
-	    $appli = constant('DOL_APPLICATION_TITLE');
+		$appli = constant('DOL_APPLICATION_TITLE');
 
-	    print('<Title>'.dol_string_nohtmltag($appli)." Directory</Title>\n");
-    	print("<Prompt>".dolXMLEncodeipphone($langs->transnoentitiesnoconv("SelectTheUser"))."</Prompt>\n");
+		print('<Title>'.dol_string_nohtmltag($appli)." Directory</Title>\n");
+		print("<Prompt>".dolXMLEncodeipphone($langs->transnoentitiesnoconv("SelectTheUser"))."</Prompt>\n");
 	}
 
-	while ($i < $num)
-	{
+	while ($i < $num) {
 		$obj = $db->fetch_object($resql);
 		//debug
 		//var_dump($obj);
-		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && ((empty($obj->contact_id) && empty($obj->contactid)) || (empty($obj->contactphone) && empty($obj->contactphonemobile)))))
-		{
+		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && ((empty($obj->contact_id) && empty($obj->contactid)) || (empty($obj->contactphone) && empty($obj->contactphonemobile))))) {
 			// Record for thirdparty (only if not already output)
-			if (empty($phoneaddedforthisthird[$obj->rowid]))
-			{
-            	if ($format == 'xml')
-            	{
-    			    print "<DirectoryEntry>\n";
-    				print "\t<Name>";
-    				//print $obj->rowid.'/'.$obj->contact_id.' ';
-    				print dolXMLEncodeipphone($obj->name);
-    				print "</Name>\n";
-    				print "\t<Telephone>";
-    				print dolXMLEncodeipphone(str_replace(' ', '', $obj->phone));
-    				print "</Telephone>\n";
-    				print "</DirectoryEntry>\n";
-            	}
-			   	if ($format == 'csv')
-            	{
-            		print '"'.$obj->name.'","'.str_replace(' ', '', $obj->phone).'"'."\n";
-            	}
+			if (empty($phoneaddedforthisthird[$obj->rowid])) {
+				if ($format == 'xml') {
+					print "<DirectoryEntry>\n";
+					print "\t<Name>";
+					//print $obj->rowid.'/'.$obj->contact_id.' ';
+					print dolXMLEncodeipphone($obj->name);
+					print "</Name>\n";
+					print "\t<Telephone>";
+					print dolXMLEncodeipphone(str_replace(' ', '', $obj->phone));
+					print "</Telephone>\n";
+					print "</DirectoryEntry>\n";
+				}
+				if ($format == 'csv') {
+					print '"'.$obj->name.'","'.str_replace(' ', '', $obj->phone).'"'."\n";
+				}
 			}
 			$phoneaddedforthisthird[$obj->rowid]=$obj->rowid.'_'.str_replace(' ', '', $obj->phone);
 		}
-		if ($obj->contactphone)
-		{
-          	if ($format == 'xml')
-           	{
-    		    print "<DirectoryEntry>\n";
-    			print "\t<Name>";
-    			//print $obj->rowid.'/'.$obj->contact_id.' ';
-    			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
-    			print "</Name>\n";
-    			print "\t<Telephone>";
-    			print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphone));
-    			print "</Telephone>\n";
-    			print "</DirectoryEntry>\n";
-           	}
-		   	if ($format == 'csv')
-           	{
-           		print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname).'","'.str_replace(' ', '', $obj->contactphone).'"'."\n";
-           	}
+		if ($obj->contactphone) {
+			if ($format == 'xml') {
+				print "<DirectoryEntry>\n";
+				print "\t<Name>";
+				//print $obj->rowid.'/'.$obj->contact_id.' ';
+				print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname, $obj->lastname));
+				print "</Name>\n";
+				print "\t<Telephone>";
+				print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphone));
+				print "</Telephone>\n";
+				print "</DirectoryEntry>\n";
+			}
+			if ($format == 'csv') {
+				print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname, $obj->lastname).'","'.str_replace(' ', '', $obj->contactphone).'"'."\n";
+			}
 		}
-		if ($obj->contactphonemobile)
-		{
-           	if ($format == 'xml')
-           	{
-    		    print "<DirectoryEntry>\n";
-    			print "\t<Name>";
-    			//print $obj->rowid.'/'.$obj->contact_id.' ';
-    			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
-    			print "</Name>\n";
-    			print "\t<Telephone>";
-    			print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphonemobile));
-    			print "</Telephone>\n";
-    			print "</DirectoryEntry>\n";
-           	}
-		   	if ($format == 'csv')
-           	{
-           		print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname).'","'.str_replace(' ', '', $obj->contactphonemobile).'"'."\n";
-           	}
+		if ($obj->contactphonemobile) {
+			if ($format == 'xml') {
+				print "<DirectoryEntry>\n";
+				print "\t<Name>";
+				//print $obj->rowid.'/'.$obj->contact_id.' ';
+				print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname, $obj->lastname));
+				print "</Name>\n";
+				print "\t<Telephone>";
+				print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphonemobile));
+				print "</Telephone>\n";
+				print "</DirectoryEntry>\n";
+			}
+			if ($format == 'csv') {
+				print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname, $obj->lastname).'","'.str_replace(' ', '', $obj->contactphonemobile).'"'."\n";
+			}
 		}
 
 		$i++;
 	}
 
-/*
- 			print "<DirectoryEntry>\n";
+	/*
+			 print "<DirectoryEntry>\n";
 			print "\t<Name>";
 			print 'eee';
 			print "</Name>\n";
 			print "\t<Telephone></Telephone>\n";
 			print "</DirectoryEntry>\n";
-*/
+	*/
 
-	if ($format == 'xml')
-	{
+	if ($format == 'xml') {
 		print("</".dol_string_nohtmltag($phonetag).">\n");
 	}
 
 	$db->free($resql);
-}
-else dol_print_error($db);
+} else dol_print_error($db);
 
 $db->close();
 

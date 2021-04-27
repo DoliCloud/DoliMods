@@ -17,31 +17,31 @@
 
 class Google_Service_ToolResults_PrimaryStep extends Google_Collection
 {
-  protected $collection_key = 'individualOutcome';
-  protected $individualOutcomeType = 'Google_Service_ToolResults_IndividualOutcome';
-  protected $individualOutcomeDataType = 'array';
-  public $rollUp;
+	protected $collection_key = 'individualOutcome';
+	protected $individualOutcomeType = 'Google_Service_ToolResults_IndividualOutcome';
+	protected $individualOutcomeDataType = 'array';
+	public $rollUp;
 
-  /**
-   * @param Google_Service_ToolResults_IndividualOutcome
-   */
-  public function setIndividualOutcome($individualOutcome)
-  {
-    $this->individualOutcome = $individualOutcome;
-  }
-  /**
-   * @return Google_Service_ToolResults_IndividualOutcome
-   */
-  public function getIndividualOutcome()
-  {
-    return $this->individualOutcome;
-  }
-  public function setRollUp($rollUp)
-  {
-    $this->rollUp = $rollUp;
-  }
-  public function getRollUp()
-  {
-    return $this->rollUp;
-  }
+	/**
+	 * @param Google_Service_ToolResults_IndividualOutcome
+	 */
+	public function setIndividualOutcome($individualOutcome)
+	{
+		$this->individualOutcome = $individualOutcome;
+	}
+	/**
+	 * @return Google_Service_ToolResults_IndividualOutcome
+	 */
+	public function getIndividualOutcome()
+	{
+		return $this->individualOutcome;
+	}
+	public function setRollUp($rollUp)
+	{
+		$this->rollUp = $rollUp;
+	}
+	public function getRollUp()
+	{
+		return $this->rollUp;
+	}
 }

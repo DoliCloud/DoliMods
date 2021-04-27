@@ -17,40 +17,40 @@
 
 class Google_Service_Resourceviews_ZoneViewsSetServiceRequest extends Google_Collection
 {
-  protected $collection_key = 'endpoints';
-  protected $endpointsType = 'Google_Service_Resourceviews_ServiceEndpoint';
-  protected $endpointsDataType = 'array';
-  public $fingerprint;
-  public $resourceName;
+	protected $collection_key = 'endpoints';
+	protected $endpointsType = 'Google_Service_Resourceviews_ServiceEndpoint';
+	protected $endpointsDataType = 'array';
+	public $fingerprint;
+	public $resourceName;
 
-  /**
-   * @param Google_Service_Resourceviews_ServiceEndpoint
-   */
-  public function setEndpoints($endpoints)
-  {
-    $this->endpoints = $endpoints;
-  }
-  /**
-   * @return Google_Service_Resourceviews_ServiceEndpoint
-   */
-  public function getEndpoints()
-  {
-    return $this->endpoints;
-  }
-  public function setFingerprint($fingerprint)
-  {
-    $this->fingerprint = $fingerprint;
-  }
-  public function getFingerprint()
-  {
-    return $this->fingerprint;
-  }
-  public function setResourceName($resourceName)
-  {
-    $this->resourceName = $resourceName;
-  }
-  public function getResourceName()
-  {
-    return $this->resourceName;
-  }
+	/**
+	 * @param Google_Service_Resourceviews_ServiceEndpoint
+	 */
+	public function setEndpoints($endpoints)
+	{
+		$this->endpoints = $endpoints;
+	}
+	/**
+	 * @return Google_Service_Resourceviews_ServiceEndpoint
+	 */
+	public function getEndpoints()
+	{
+		return $this->endpoints;
+	}
+	public function setFingerprint($fingerprint)
+	{
+		$this->fingerprint = $fingerprint;
+	}
+	public function getFingerprint()
+	{
+		return $this->fingerprint;
+	}
+	public function setResourceName($resourceName)
+	{
+		$this->resourceName = $resourceName;
+	}
+	public function getResourceName()
+	{
+		return $this->resourceName;
+	}
 }

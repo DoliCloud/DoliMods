@@ -17,14 +17,14 @@
 
 class Google_Service_CloudHealthcare_DicomFilterConfig extends Google_Model
 {
-  public $resourcePathsGcsUri;
+	public $resourcePathsGcsUri;
 
-  public function setResourcePathsGcsUri($resourcePathsGcsUri)
-  {
-    $this->resourcePathsGcsUri = $resourcePathsGcsUri;
-  }
-  public function getResourcePathsGcsUri()
-  {
-    return $this->resourcePathsGcsUri;
-  }
+	public function setResourcePathsGcsUri($resourcePathsGcsUri)
+	{
+		$this->resourcePathsGcsUri = $resourcePathsGcsUri;
+	}
+	public function getResourcePathsGcsUri()
+	{
+		return $this->resourcePathsGcsUri;
+	}
 }

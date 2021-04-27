@@ -17,23 +17,23 @@
 
 class Google_Service_HomeGraphService_AgentOtherDeviceId extends Google_Model
 {
-  public $agentId;
-  public $deviceId;
+	public $agentId;
+	public $deviceId;
 
-  public function setAgentId($agentId)
-  {
-    $this->agentId = $agentId;
-  }
-  public function getAgentId()
-  {
-    return $this->agentId;
-  }
-  public function setDeviceId($deviceId)
-  {
-    $this->deviceId = $deviceId;
-  }
-  public function getDeviceId()
-  {
-    return $this->deviceId;
-  }
+	public function setAgentId($agentId)
+	{
+		$this->agentId = $agentId;
+	}
+	public function getAgentId()
+	{
+		return $this->agentId;
+	}
+	public function setDeviceId($deviceId)
+	{
+		$this->deviceId = $deviceId;
+	}
+	public function getDeviceId()
+	{
+		return $this->deviceId;
+	}
 }

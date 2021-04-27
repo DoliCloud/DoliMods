@@ -17,24 +17,24 @@
 
 class Google_Service_AlertCenter_BatchUndeleteAlertsRequest extends Google_Collection
 {
-  protected $collection_key = 'alertId';
-  public $alertId;
-  public $customerId;
+	protected $collection_key = 'alertId';
+	public $alertId;
+	public $customerId;
 
-  public function setAlertId($alertId)
-  {
-    $this->alertId = $alertId;
-  }
-  public function getAlertId()
-  {
-    return $this->alertId;
-  }
-  public function setCustomerId($customerId)
-  {
-    $this->customerId = $customerId;
-  }
-  public function getCustomerId()
-  {
-    return $this->customerId;
-  }
+	public function setAlertId($alertId)
+	{
+		$this->alertId = $alertId;
+	}
+	public function getAlertId()
+	{
+		return $this->alertId;
+	}
+	public function setCustomerId($customerId)
+	{
+		$this->customerId = $customerId;
+	}
+	public function getCustomerId()
+	{
+		return $this->customerId;
+	}
 }

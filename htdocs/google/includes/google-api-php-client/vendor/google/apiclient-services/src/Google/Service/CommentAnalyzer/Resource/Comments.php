@@ -25,31 +25,31 @@
  */
 class Google_Service_CommentAnalyzer_Resource_Comments extends Google_Service_Resource
 {
-  /**
-   * Analyzes the provided text and returns scores for requested attributes.
-   * (comments.analyze)
-   *
-   * @param Google_Service_CommentAnalyzer_AnalyzeCommentRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_CommentAnalyzer_AnalyzeCommentResponse
-   */
-  public function analyze(Google_Service_CommentAnalyzer_AnalyzeCommentRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('analyze', array($params), "Google_Service_CommentAnalyzer_AnalyzeCommentResponse");
-  }
-  /**
-   * Suggest comment scores as training data. (comments.suggestscore)
-   *
-   * @param Google_Service_CommentAnalyzer_SuggestCommentScoreRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_CommentAnalyzer_SuggestCommentScoreResponse
-   */
-  public function suggestscore(Google_Service_CommentAnalyzer_SuggestCommentScoreRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('suggestscore', array($params), "Google_Service_CommentAnalyzer_SuggestCommentScoreResponse");
-  }
+	/**
+	 * Analyzes the provided text and returns scores for requested attributes.
+	 * (comments.analyze)
+	 *
+	 * @param Google_Service_CommentAnalyzer_AnalyzeCommentRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_CommentAnalyzer_AnalyzeCommentResponse
+	 */
+	public function analyze(Google_Service_CommentAnalyzer_AnalyzeCommentRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('analyze', array($params), "Google_Service_CommentAnalyzer_AnalyzeCommentResponse");
+	}
+	/**
+	 * Suggest comment scores as training data. (comments.suggestscore)
+	 *
+	 * @param Google_Service_CommentAnalyzer_SuggestCommentScoreRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_CommentAnalyzer_SuggestCommentScoreResponse
+	 */
+	public function suggestscore(Google_Service_CommentAnalyzer_SuggestCommentScoreRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('suggestscore', array($params), "Google_Service_CommentAnalyzer_SuggestCommentScoreResponse");
+	}
 }

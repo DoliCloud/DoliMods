@@ -17,22 +17,22 @@
 
 class Google_Service_CloudIot_ListDeviceConfigVersionsResponse extends Google_Collection
 {
-  protected $collection_key = 'deviceConfigs';
-  protected $deviceConfigsType = 'Google_Service_CloudIot_DeviceConfig';
-  protected $deviceConfigsDataType = 'array';
+	protected $collection_key = 'deviceConfigs';
+	protected $deviceConfigsType = 'Google_Service_CloudIot_DeviceConfig';
+	protected $deviceConfigsDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudIot_DeviceConfig
-   */
-  public function setDeviceConfigs($deviceConfigs)
-  {
-    $this->deviceConfigs = $deviceConfigs;
-  }
-  /**
-   * @return Google_Service_CloudIot_DeviceConfig
-   */
-  public function getDeviceConfigs()
-  {
-    return $this->deviceConfigs;
-  }
+	/**
+	 * @param Google_Service_CloudIot_DeviceConfig
+	 */
+	public function setDeviceConfigs($deviceConfigs)
+	{
+		$this->deviceConfigs = $deviceConfigs;
+	}
+	/**
+	 * @return Google_Service_CloudIot_DeviceConfig
+	 */
+	public function getDeviceConfigs()
+	{
+		return $this->deviceConfigs;
+	}
 }

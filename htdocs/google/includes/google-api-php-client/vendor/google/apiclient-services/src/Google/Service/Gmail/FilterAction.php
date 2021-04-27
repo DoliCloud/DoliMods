@@ -17,33 +17,33 @@
 
 class Google_Service_Gmail_FilterAction extends Google_Collection
 {
-  protected $collection_key = 'removeLabelIds';
-  public $addLabelIds;
-  public $forward;
-  public $removeLabelIds;
+	protected $collection_key = 'removeLabelIds';
+	public $addLabelIds;
+	public $forward;
+	public $removeLabelIds;
 
-  public function setAddLabelIds($addLabelIds)
-  {
-    $this->addLabelIds = $addLabelIds;
-  }
-  public function getAddLabelIds()
-  {
-    return $this->addLabelIds;
-  }
-  public function setForward($forward)
-  {
-    $this->forward = $forward;
-  }
-  public function getForward()
-  {
-    return $this->forward;
-  }
-  public function setRemoveLabelIds($removeLabelIds)
-  {
-    $this->removeLabelIds = $removeLabelIds;
-  }
-  public function getRemoveLabelIds()
-  {
-    return $this->removeLabelIds;
-  }
+	public function setAddLabelIds($addLabelIds)
+	{
+		$this->addLabelIds = $addLabelIds;
+	}
+	public function getAddLabelIds()
+	{
+		return $this->addLabelIds;
+	}
+	public function setForward($forward)
+	{
+		$this->forward = $forward;
+	}
+	public function getForward()
+	{
+		return $this->forward;
+	}
+	public function setRemoveLabelIds($removeLabelIds)
+	{
+		$this->removeLabelIds = $removeLabelIds;
+	}
+	public function getRemoveLabelIds()
+	{
+		return $this->removeLabelIds;
+	}
 }

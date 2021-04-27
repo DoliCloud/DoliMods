@@ -17,40 +17,40 @@
 
 class Google_Service_DisplayVideo_InsertionOrderBudget extends Google_Collection
 {
-  protected $collection_key = 'budgetSegments';
-  public $automationType;
-  protected $budgetSegmentsType = 'Google_Service_DisplayVideo_InsertionOrderBudgetSegment';
-  protected $budgetSegmentsDataType = 'array';
-  public $budgetUnit;
+	protected $collection_key = 'budgetSegments';
+	public $automationType;
+	protected $budgetSegmentsType = 'Google_Service_DisplayVideo_InsertionOrderBudgetSegment';
+	protected $budgetSegmentsDataType = 'array';
+	public $budgetUnit;
 
-  public function setAutomationType($automationType)
-  {
-    $this->automationType = $automationType;
-  }
-  public function getAutomationType()
-  {
-    return $this->automationType;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_InsertionOrderBudgetSegment
-   */
-  public function setBudgetSegments($budgetSegments)
-  {
-    $this->budgetSegments = $budgetSegments;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_InsertionOrderBudgetSegment
-   */
-  public function getBudgetSegments()
-  {
-    return $this->budgetSegments;
-  }
-  public function setBudgetUnit($budgetUnit)
-  {
-    $this->budgetUnit = $budgetUnit;
-  }
-  public function getBudgetUnit()
-  {
-    return $this->budgetUnit;
-  }
+	public function setAutomationType($automationType)
+	{
+		$this->automationType = $automationType;
+	}
+	public function getAutomationType()
+	{
+		return $this->automationType;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_InsertionOrderBudgetSegment
+	 */
+	public function setBudgetSegments($budgetSegments)
+	{
+		$this->budgetSegments = $budgetSegments;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_InsertionOrderBudgetSegment
+	 */
+	public function getBudgetSegments()
+	{
+		return $this->budgetSegments;
+	}
+	public function setBudgetUnit($budgetUnit)
+	{
+		$this->budgetUnit = $budgetUnit;
+	}
+	public function getBudgetUnit()
+	{
+		return $this->budgetUnit;
+	}
 }

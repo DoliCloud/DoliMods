@@ -17,14 +17,14 @@
 
 class Google_Service_CloudIot_MqttConfig extends Google_Model
 {
-  public $mqttEnabledState;
+	public $mqttEnabledState;
 
-  public function setMqttEnabledState($mqttEnabledState)
-  {
-    $this->mqttEnabledState = $mqttEnabledState;
-  }
-  public function getMqttEnabledState()
-  {
-    return $this->mqttEnabledState;
-  }
+	public function setMqttEnabledState($mqttEnabledState)
+	{
+		$this->mqttEnabledState = $mqttEnabledState;
+	}
+	public function getMqttEnabledState()
+	{
+		return $this->mqttEnabledState;
+	}
 }

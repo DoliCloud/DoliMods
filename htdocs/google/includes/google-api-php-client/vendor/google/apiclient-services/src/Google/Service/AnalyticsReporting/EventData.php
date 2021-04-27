@@ -17,50 +17,50 @@
 
 class Google_Service_AnalyticsReporting_EventData extends Google_Model
 {
-  public $eventAction;
-  public $eventCategory;
-  public $eventCount;
-  public $eventLabel;
-  public $eventValue;
+	public $eventAction;
+	public $eventCategory;
+	public $eventCount;
+	public $eventLabel;
+	public $eventValue;
 
-  public function setEventAction($eventAction)
-  {
-    $this->eventAction = $eventAction;
-  }
-  public function getEventAction()
-  {
-    return $this->eventAction;
-  }
-  public function setEventCategory($eventCategory)
-  {
-    $this->eventCategory = $eventCategory;
-  }
-  public function getEventCategory()
-  {
-    return $this->eventCategory;
-  }
-  public function setEventCount($eventCount)
-  {
-    $this->eventCount = $eventCount;
-  }
-  public function getEventCount()
-  {
-    return $this->eventCount;
-  }
-  public function setEventLabel($eventLabel)
-  {
-    $this->eventLabel = $eventLabel;
-  }
-  public function getEventLabel()
-  {
-    return $this->eventLabel;
-  }
-  public function setEventValue($eventValue)
-  {
-    $this->eventValue = $eventValue;
-  }
-  public function getEventValue()
-  {
-    return $this->eventValue;
-  }
+	public function setEventAction($eventAction)
+	{
+		$this->eventAction = $eventAction;
+	}
+	public function getEventAction()
+	{
+		return $this->eventAction;
+	}
+	public function setEventCategory($eventCategory)
+	{
+		$this->eventCategory = $eventCategory;
+	}
+	public function getEventCategory()
+	{
+		return $this->eventCategory;
+	}
+	public function setEventCount($eventCount)
+	{
+		$this->eventCount = $eventCount;
+	}
+	public function getEventCount()
+	{
+		return $this->eventCount;
+	}
+	public function setEventLabel($eventLabel)
+	{
+		$this->eventLabel = $eventLabel;
+	}
+	public function getEventLabel()
+	{
+		return $this->eventLabel;
+	}
+	public function setEventValue($eventValue)
+	{
+		$this->eventValue = $eventValue;
+	}
+	public function getEventValue()
+	{
+		return $this->eventValue;
+	}
 }

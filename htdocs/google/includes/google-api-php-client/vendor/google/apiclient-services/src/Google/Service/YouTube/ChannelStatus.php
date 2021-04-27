@@ -17,50 +17,50 @@
 
 class Google_Service_YouTube_ChannelStatus extends Google_Model
 {
-  public $isLinked;
-  public $longUploadsStatus;
-  public $madeForKids;
-  public $privacyStatus;
-  public $selfDeclaredMadeForKids;
+	public $isLinked;
+	public $longUploadsStatus;
+	public $madeForKids;
+	public $privacyStatus;
+	public $selfDeclaredMadeForKids;
 
-  public function setIsLinked($isLinked)
-  {
-    $this->isLinked = $isLinked;
-  }
-  public function getIsLinked()
-  {
-    return $this->isLinked;
-  }
-  public function setLongUploadsStatus($longUploadsStatus)
-  {
-    $this->longUploadsStatus = $longUploadsStatus;
-  }
-  public function getLongUploadsStatus()
-  {
-    return $this->longUploadsStatus;
-  }
-  public function setMadeForKids($madeForKids)
-  {
-    $this->madeForKids = $madeForKids;
-  }
-  public function getMadeForKids()
-  {
-    return $this->madeForKids;
-  }
-  public function setPrivacyStatus($privacyStatus)
-  {
-    $this->privacyStatus = $privacyStatus;
-  }
-  public function getPrivacyStatus()
-  {
-    return $this->privacyStatus;
-  }
-  public function setSelfDeclaredMadeForKids($selfDeclaredMadeForKids)
-  {
-    $this->selfDeclaredMadeForKids = $selfDeclaredMadeForKids;
-  }
-  public function getSelfDeclaredMadeForKids()
-  {
-    return $this->selfDeclaredMadeForKids;
-  }
+	public function setIsLinked($isLinked)
+	{
+		$this->isLinked = $isLinked;
+	}
+	public function getIsLinked()
+	{
+		return $this->isLinked;
+	}
+	public function setLongUploadsStatus($longUploadsStatus)
+	{
+		$this->longUploadsStatus = $longUploadsStatus;
+	}
+	public function getLongUploadsStatus()
+	{
+		return $this->longUploadsStatus;
+	}
+	public function setMadeForKids($madeForKids)
+	{
+		$this->madeForKids = $madeForKids;
+	}
+	public function getMadeForKids()
+	{
+		return $this->madeForKids;
+	}
+	public function setPrivacyStatus($privacyStatus)
+	{
+		$this->privacyStatus = $privacyStatus;
+	}
+	public function getPrivacyStatus()
+	{
+		return $this->privacyStatus;
+	}
+	public function setSelfDeclaredMadeForKids($selfDeclaredMadeForKids)
+	{
+		$this->selfDeclaredMadeForKids = $selfDeclaredMadeForKids;
+	}
+	public function getSelfDeclaredMadeForKids()
+	{
+		return $this->selfDeclaredMadeForKids;
+	}
 }

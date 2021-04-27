@@ -17,49 +17,49 @@
 
 class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Claim extends Google_Collection
 {
-  protected $collection_key = 'claimReview';
-  public $claimDate;
-  protected $claimReviewType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReview';
-  protected $claimReviewDataType = 'array';
-  public $claimant;
-  public $text;
+	protected $collection_key = 'claimReview';
+	public $claimDate;
+	protected $claimReviewType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReview';
+	protected $claimReviewDataType = 'array';
+	public $claimant;
+	public $text;
 
-  public function setClaimDate($claimDate)
-  {
-    $this->claimDate = $claimDate;
-  }
-  public function getClaimDate()
-  {
-    return $this->claimDate;
-  }
-  /**
-   * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReview
-   */
-  public function setClaimReview($claimReview)
-  {
-    $this->claimReview = $claimReview;
-  }
-  /**
-   * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReview
-   */
-  public function getClaimReview()
-  {
-    return $this->claimReview;
-  }
-  public function setClaimant($claimant)
-  {
-    $this->claimant = $claimant;
-  }
-  public function getClaimant()
-  {
-    return $this->claimant;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	public function setClaimDate($claimDate)
+	{
+		$this->claimDate = $claimDate;
+	}
+	public function getClaimDate()
+	{
+		return $this->claimDate;
+	}
+	/**
+	 * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReview
+	 */
+	public function setClaimReview($claimReview)
+	{
+		$this->claimReview = $claimReview;
+	}
+	/**
+	 * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReview
+	 */
+	public function getClaimReview()
+	{
+		return $this->claimReview;
+	}
+	public function setClaimant($claimant)
+	{
+		$this->claimant = $claimant;
+	}
+	public function getClaimant()
+	{
+		return $this->claimant;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

@@ -17,96 +17,96 @@
 
 class Google_Service_ServiceRegistry_Endpoint extends Google_Model
 {
-  public $address;
-  public $creationTimestamp;
-  public $description;
-  public $fingerprint;
-  public $id;
-  public $name;
-  public $port;
-  public $selfLink;
-  public $state;
-  protected $visibilityType = 'Google_Service_ServiceRegistry_EndpointEndpointVisibility';
-  protected $visibilityDataType = '';
+	public $address;
+	public $creationTimestamp;
+	public $description;
+	public $fingerprint;
+	public $id;
+	public $name;
+	public $port;
+	public $selfLink;
+	public $state;
+	protected $visibilityType = 'Google_Service_ServiceRegistry_EndpointEndpointVisibility';
+	protected $visibilityDataType = '';
 
-  public function setAddress($address)
-  {
-    $this->address = $address;
-  }
-  public function getAddress()
-  {
-    return $this->address;
-  }
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setFingerprint($fingerprint)
-  {
-    $this->fingerprint = $fingerprint;
-  }
-  public function getFingerprint()
-  {
-    return $this->fingerprint;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPort($port)
-  {
-    $this->port = $port;
-  }
-  public function getPort()
-  {
-    return $this->port;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setVisibility(Google_Service_ServiceRegistry_EndpointEndpointVisibility $visibility)
-  {
-    $this->visibility = $visibility;
-  }
-  public function getVisibility()
-  {
-    return $this->visibility;
-  }
+	public function setAddress($address)
+	{
+		$this->address = $address;
+	}
+	public function getAddress()
+	{
+		return $this->address;
+	}
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setFingerprint($fingerprint)
+	{
+		$this->fingerprint = $fingerprint;
+	}
+	public function getFingerprint()
+	{
+		return $this->fingerprint;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPort($port)
+	{
+		$this->port = $port;
+	}
+	public function getPort()
+	{
+		return $this->port;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setVisibility(Google_Service_ServiceRegistry_EndpointEndpointVisibility $visibility)
+	{
+		$this->visibility = $visibility;
+	}
+	public function getVisibility()
+	{
+		return $this->visibility;
+	}
 }

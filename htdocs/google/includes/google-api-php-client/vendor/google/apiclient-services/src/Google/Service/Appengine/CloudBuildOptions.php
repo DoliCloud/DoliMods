@@ -17,23 +17,23 @@
 
 class Google_Service_Appengine_CloudBuildOptions extends Google_Model
 {
-  public $appYamlPath;
-  public $cloudBuildTimeout;
+	public $appYamlPath;
+	public $cloudBuildTimeout;
 
-  public function setAppYamlPath($appYamlPath)
-  {
-    $this->appYamlPath = $appYamlPath;
-  }
-  public function getAppYamlPath()
-  {
-    return $this->appYamlPath;
-  }
-  public function setCloudBuildTimeout($cloudBuildTimeout)
-  {
-    $this->cloudBuildTimeout = $cloudBuildTimeout;
-  }
-  public function getCloudBuildTimeout()
-  {
-    return $this->cloudBuildTimeout;
-  }
+	public function setAppYamlPath($appYamlPath)
+	{
+		$this->appYamlPath = $appYamlPath;
+	}
+	public function getAppYamlPath()
+	{
+		return $this->appYamlPath;
+	}
+	public function setCloudBuildTimeout($cloudBuildTimeout)
+	{
+		$this->cloudBuildTimeout = $cloudBuildTimeout;
+	}
+	public function getCloudBuildTimeout()
+	{
+		return $this->cloudBuildTimeout;
+	}
 }

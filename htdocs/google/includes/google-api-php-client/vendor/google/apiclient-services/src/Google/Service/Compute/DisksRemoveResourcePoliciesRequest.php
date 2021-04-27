@@ -17,15 +17,15 @@
 
 class Google_Service_Compute_DisksRemoveResourcePoliciesRequest extends Google_Collection
 {
-  protected $collection_key = 'resourcePolicies';
-  public $resourcePolicies;
+	protected $collection_key = 'resourcePolicies';
+	public $resourcePolicies;
 
-  public function setResourcePolicies($resourcePolicies)
-  {
-    $this->resourcePolicies = $resourcePolicies;
-  }
-  public function getResourcePolicies()
-  {
-    return $this->resourcePolicies;
-  }
+	public function setResourcePolicies($resourcePolicies)
+	{
+		$this->resourcePolicies = $resourcePolicies;
+	}
+	public function getResourcePolicies()
+	{
+		return $this->resourcePolicies;
+	}
 }

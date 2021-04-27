@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_ProjectsSetDefaultNetworkTierRequest extends Google_Model
 {
-  public $networkTier;
+	public $networkTier;
 
-  public function setNetworkTier($networkTier)
-  {
-    $this->networkTier = $networkTier;
-  }
-  public function getNetworkTier()
-  {
-    return $this->networkTier;
-  }
+	public function setNetworkTier($networkTier)
+	{
+		$this->networkTier = $networkTier;
+	}
+	public function getNetworkTier()
+	{
+		return $this->networkTier;
+	}
 }

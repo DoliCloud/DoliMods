@@ -17,48 +17,48 @@
 
 class Google_Service_Firestore_RunQueryResponse extends Google_Model
 {
-  protected $documentType = 'Google_Service_Firestore_Document';
-  protected $documentDataType = '';
-  public $readTime;
-  public $skippedResults;
-  public $transaction;
+	protected $documentType = 'Google_Service_Firestore_Document';
+	protected $documentDataType = '';
+	public $readTime;
+	public $skippedResults;
+	public $transaction;
 
-  /**
-   * @param Google_Service_Firestore_Document
-   */
-  public function setDocument(Google_Service_Firestore_Document $document)
-  {
-    $this->document = $document;
-  }
-  /**
-   * @return Google_Service_Firestore_Document
-   */
-  public function getDocument()
-  {
-    return $this->document;
-  }
-  public function setReadTime($readTime)
-  {
-    $this->readTime = $readTime;
-  }
-  public function getReadTime()
-  {
-    return $this->readTime;
-  }
-  public function setSkippedResults($skippedResults)
-  {
-    $this->skippedResults = $skippedResults;
-  }
-  public function getSkippedResults()
-  {
-    return $this->skippedResults;
-  }
-  public function setTransaction($transaction)
-  {
-    $this->transaction = $transaction;
-  }
-  public function getTransaction()
-  {
-    return $this->transaction;
-  }
+	/**
+	 * @param Google_Service_Firestore_Document
+	 */
+	public function setDocument(Google_Service_Firestore_Document $document)
+	{
+		$this->document = $document;
+	}
+	/**
+	 * @return Google_Service_Firestore_Document
+	 */
+	public function getDocument()
+	{
+		return $this->document;
+	}
+	public function setReadTime($readTime)
+	{
+		$this->readTime = $readTime;
+	}
+	public function getReadTime()
+	{
+		return $this->readTime;
+	}
+	public function setSkippedResults($skippedResults)
+	{
+		$this->skippedResults = $skippedResults;
+	}
+	public function getSkippedResults()
+	{
+		return $this->skippedResults;
+	}
+	public function setTransaction($transaction)
+	{
+		$this->transaction = $transaction;
+	}
+	public function getTransaction()
+	{
+		return $this->transaction;
+	}
 }

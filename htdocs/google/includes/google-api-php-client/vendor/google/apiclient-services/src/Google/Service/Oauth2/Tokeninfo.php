@@ -17,74 +17,74 @@
 
 class Google_Service_Oauth2_Tokeninfo extends Google_Model
 {
-  protected $internal_gapi_mappings = array(
-        "expiresIn" => "expires_in",
-        "issuedTo" => "issued_to",
-        "userId" => "user_id",
-        "verifiedEmail" => "verified_email",
-  );
-  public $audience;
-  public $email;
-  public $expiresIn;
-  public $issuedTo;
-  public $scope;
-  public $userId;
-  public $verifiedEmail;
+	protected $internal_gapi_mappings = array(
+		"expiresIn" => "expires_in",
+		"issuedTo" => "issued_to",
+		"userId" => "user_id",
+		"verifiedEmail" => "verified_email",
+	);
+	public $audience;
+	public $email;
+	public $expiresIn;
+	public $issuedTo;
+	public $scope;
+	public $userId;
+	public $verifiedEmail;
 
-  public function setAudience($audience)
-  {
-    $this->audience = $audience;
-  }
-  public function getAudience()
-  {
-    return $this->audience;
-  }
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setExpiresIn($expiresIn)
-  {
-    $this->expiresIn = $expiresIn;
-  }
-  public function getExpiresIn()
-  {
-    return $this->expiresIn;
-  }
-  public function setIssuedTo($issuedTo)
-  {
-    $this->issuedTo = $issuedTo;
-  }
-  public function getIssuedTo()
-  {
-    return $this->issuedTo;
-  }
-  public function setScope($scope)
-  {
-    $this->scope = $scope;
-  }
-  public function getScope()
-  {
-    return $this->scope;
-  }
-  public function setUserId($userId)
-  {
-    $this->userId = $userId;
-  }
-  public function getUserId()
-  {
-    return $this->userId;
-  }
-  public function setVerifiedEmail($verifiedEmail)
-  {
-    $this->verifiedEmail = $verifiedEmail;
-  }
-  public function getVerifiedEmail()
-  {
-    return $this->verifiedEmail;
-  }
+	public function setAudience($audience)
+	{
+		$this->audience = $audience;
+	}
+	public function getAudience()
+	{
+		return $this->audience;
+	}
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setExpiresIn($expiresIn)
+	{
+		$this->expiresIn = $expiresIn;
+	}
+	public function getExpiresIn()
+	{
+		return $this->expiresIn;
+	}
+	public function setIssuedTo($issuedTo)
+	{
+		$this->issuedTo = $issuedTo;
+	}
+	public function getIssuedTo()
+	{
+		return $this->issuedTo;
+	}
+	public function setScope($scope)
+	{
+		$this->scope = $scope;
+	}
+	public function getScope()
+	{
+		return $this->scope;
+	}
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+	}
+	public function getUserId()
+	{
+		return $this->userId;
+	}
+	public function setVerifiedEmail($verifiedEmail)
+	{
+		$this->verifiedEmail = $verifiedEmail;
+	}
+	public function getVerifiedEmail()
+	{
+		return $this->verifiedEmail;
+	}
 }

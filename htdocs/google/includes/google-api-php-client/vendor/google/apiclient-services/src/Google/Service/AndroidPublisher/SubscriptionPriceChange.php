@@ -17,30 +17,30 @@
 
 class Google_Service_AndroidPublisher_SubscriptionPriceChange extends Google_Model
 {
-  protected $newPriceType = 'Google_Service_AndroidPublisher_Price';
-  protected $newPriceDataType = '';
-  public $state;
+	protected $newPriceType = 'Google_Service_AndroidPublisher_Price';
+	protected $newPriceDataType = '';
+	public $state;
 
-  /**
-   * @param Google_Service_AndroidPublisher_Price
-   */
-  public function setNewPrice(Google_Service_AndroidPublisher_Price $newPrice)
-  {
-    $this->newPrice = $newPrice;
-  }
-  /**
-   * @return Google_Service_AndroidPublisher_Price
-   */
-  public function getNewPrice()
-  {
-    return $this->newPrice;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	/**
+	 * @param Google_Service_AndroidPublisher_Price
+	 */
+	public function setNewPrice(Google_Service_AndroidPublisher_Price $newPrice)
+	{
+		$this->newPrice = $newPrice;
+	}
+	/**
+	 * @return Google_Service_AndroidPublisher_Price
+	 */
+	public function getNewPrice()
+	{
+		return $this->newPrice;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

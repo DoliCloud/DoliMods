@@ -17,40 +17,40 @@
 
 class Google_Service_Dataflow_TemplateMetadata extends Google_Collection
 {
-  protected $collection_key = 'parameters';
-  public $description;
-  public $name;
-  protected $parametersType = 'Google_Service_Dataflow_ParameterMetadata';
-  protected $parametersDataType = 'array';
+	protected $collection_key = 'parameters';
+	public $description;
+	public $name;
+	protected $parametersType = 'Google_Service_Dataflow_ParameterMetadata';
+	protected $parametersDataType = 'array';
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Dataflow_ParameterMetadata
-   */
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  /**
-   * @return Google_Service_Dataflow_ParameterMetadata
-   */
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Dataflow_ParameterMetadata
+	 */
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	/**
+	 * @return Google_Service_Dataflow_ParameterMetadata
+	 */
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

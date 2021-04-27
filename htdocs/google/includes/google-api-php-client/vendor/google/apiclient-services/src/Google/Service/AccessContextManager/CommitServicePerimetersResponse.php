@@ -17,22 +17,22 @@
 
 class Google_Service_AccessContextManager_CommitServicePerimetersResponse extends Google_Collection
 {
-  protected $collection_key = 'servicePerimeters';
-  protected $servicePerimetersType = 'Google_Service_AccessContextManager_ServicePerimeter';
-  protected $servicePerimetersDataType = 'array';
+	protected $collection_key = 'servicePerimeters';
+	protected $servicePerimetersType = 'Google_Service_AccessContextManager_ServicePerimeter';
+	protected $servicePerimetersDataType = 'array';
 
-  /**
-   * @param Google_Service_AccessContextManager_ServicePerimeter
-   */
-  public function setServicePerimeters($servicePerimeters)
-  {
-    $this->servicePerimeters = $servicePerimeters;
-  }
-  /**
-   * @return Google_Service_AccessContextManager_ServicePerimeter
-   */
-  public function getServicePerimeters()
-  {
-    return $this->servicePerimeters;
-  }
+	/**
+	 * @param Google_Service_AccessContextManager_ServicePerimeter
+	 */
+	public function setServicePerimeters($servicePerimeters)
+	{
+		$this->servicePerimeters = $servicePerimeters;
+	}
+	/**
+	 * @return Google_Service_AccessContextManager_ServicePerimeter
+	 */
+	public function getServicePerimeters()
+	{
+		return $this->servicePerimeters;
+	}
 }

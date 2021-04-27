@@ -17,31 +17,31 @@
 
 class Google_Service_Sheets_GetSpreadsheetByDataFilterRequest extends Google_Collection
 {
-  protected $collection_key = 'dataFilters';
-  protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
-  protected $dataFiltersDataType = 'array';
-  public $includeGridData;
+	protected $collection_key = 'dataFilters';
+	protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
+	protected $dataFiltersDataType = 'array';
+	public $includeGridData;
 
-  /**
-   * @param Google_Service_Sheets_DataFilter
-   */
-  public function setDataFilters($dataFilters)
-  {
-    $this->dataFilters = $dataFilters;
-  }
-  /**
-   * @return Google_Service_Sheets_DataFilter
-   */
-  public function getDataFilters()
-  {
-    return $this->dataFilters;
-  }
-  public function setIncludeGridData($includeGridData)
-  {
-    $this->includeGridData = $includeGridData;
-  }
-  public function getIncludeGridData()
-  {
-    return $this->includeGridData;
-  }
+	/**
+	 * @param Google_Service_Sheets_DataFilter
+	 */
+	public function setDataFilters($dataFilters)
+	{
+		$this->dataFilters = $dataFilters;
+	}
+	/**
+	 * @return Google_Service_Sheets_DataFilter
+	 */
+	public function getDataFilters()
+	{
+		return $this->dataFilters;
+	}
+	public function setIncludeGridData($includeGridData)
+	{
+		$this->includeGridData = $includeGridData;
+	}
+	public function getIncludeGridData()
+	{
+		return $this->includeGridData;
+	}
 }

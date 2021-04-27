@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_SuggestResponse extends Google_Collection
 {
-  protected $collection_key = 'suggestResults';
-  protected $suggestResultsType = 'Google_Service_CloudSearch_SuggestResult';
-  protected $suggestResultsDataType = 'array';
+	protected $collection_key = 'suggestResults';
+	protected $suggestResultsType = 'Google_Service_CloudSearch_SuggestResult';
+	protected $suggestResultsDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudSearch_SuggestResult
-   */
-  public function setSuggestResults($suggestResults)
-  {
-    $this->suggestResults = $suggestResults;
-  }
-  /**
-   * @return Google_Service_CloudSearch_SuggestResult
-   */
-  public function getSuggestResults()
-  {
-    return $this->suggestResults;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_SuggestResult
+	 */
+	public function setSuggestResults($suggestResults)
+	{
+		$this->suggestResults = $suggestResults;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_SuggestResult
+	 */
+	public function getSuggestResults()
+	{
+		return $this->suggestResults;
+	}
 }

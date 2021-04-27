@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_BlankScreen extends Google_Model
 {
-  public $screenId;
+	public $screenId;
 
-  public function setScreenId($screenId)
-  {
-    $this->screenId = $screenId;
-  }
-  public function getScreenId()
-  {
-    return $this->screenId;
-  }
+	public function setScreenId($screenId)
+	{
+		$this->screenId = $screenId;
+	}
+	public function getScreenId()
+	{
+		return $this->screenId;
+	}
 }

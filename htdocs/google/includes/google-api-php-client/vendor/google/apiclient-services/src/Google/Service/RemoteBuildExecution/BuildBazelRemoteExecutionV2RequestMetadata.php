@@ -17,48 +17,48 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2RequestMetadata extends Google_Model
 {
-  public $actionId;
-  public $correlatedInvocationsId;
-  protected $toolDetailsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails';
-  protected $toolDetailsDataType = '';
-  public $toolInvocationId;
+	public $actionId;
+	public $correlatedInvocationsId;
+	protected $toolDetailsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails';
+	protected $toolDetailsDataType = '';
+	public $toolInvocationId;
 
-  public function setActionId($actionId)
-  {
-    $this->actionId = $actionId;
-  }
-  public function getActionId()
-  {
-    return $this->actionId;
-  }
-  public function setCorrelatedInvocationsId($correlatedInvocationsId)
-  {
-    $this->correlatedInvocationsId = $correlatedInvocationsId;
-  }
-  public function getCorrelatedInvocationsId()
-  {
-    return $this->correlatedInvocationsId;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails
-   */
-  public function setToolDetails(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails $toolDetails)
-  {
-    $this->toolDetails = $toolDetails;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails
-   */
-  public function getToolDetails()
-  {
-    return $this->toolDetails;
-  }
-  public function setToolInvocationId($toolInvocationId)
-  {
-    $this->toolInvocationId = $toolInvocationId;
-  }
-  public function getToolInvocationId()
-  {
-    return $this->toolInvocationId;
-  }
+	public function setActionId($actionId)
+	{
+		$this->actionId = $actionId;
+	}
+	public function getActionId()
+	{
+		return $this->actionId;
+	}
+	public function setCorrelatedInvocationsId($correlatedInvocationsId)
+	{
+		$this->correlatedInvocationsId = $correlatedInvocationsId;
+	}
+	public function getCorrelatedInvocationsId()
+	{
+		return $this->correlatedInvocationsId;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails
+	 */
+	public function setToolDetails(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails $toolDetails)
+	{
+		$this->toolDetails = $toolDetails;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails
+	 */
+	public function getToolDetails()
+	{
+		return $this->toolDetails;
+	}
+	public function setToolInvocationId($toolInvocationId)
+	{
+		$this->toolInvocationId = $toolInvocationId;
+	}
+	public function getToolInvocationId()
+	{
+		return $this->toolInvocationId;
+	}
 }

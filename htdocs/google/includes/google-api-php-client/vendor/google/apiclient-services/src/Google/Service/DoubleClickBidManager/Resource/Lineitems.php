@@ -25,32 +25,32 @@
  */
 class Google_Service_DoubleClickBidManager_Resource_Lineitems extends Google_Service_Resource
 {
-  /**
-   * Retrieves line items in CSV format. TrueView line items are not supported.
-   * (lineitems.downloadlineitems)
-   *
-   * @param Google_Service_DoubleClickBidManager_DownloadLineItemsRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_DoubleClickBidManager_DownloadLineItemsResponse
-   */
-  public function downloadlineitems(Google_Service_DoubleClickBidManager_DownloadLineItemsRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('downloadlineitems', array($params), "Google_Service_DoubleClickBidManager_DownloadLineItemsResponse");
-  }
-  /**
-   * Uploads line items in CSV format. TrueView line items are not supported.
-   * (lineitems.uploadlineitems)
-   *
-   * @param Google_Service_DoubleClickBidManager_UploadLineItemsRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_DoubleClickBidManager_UploadLineItemsResponse
-   */
-  public function uploadlineitems(Google_Service_DoubleClickBidManager_UploadLineItemsRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('uploadlineitems', array($params), "Google_Service_DoubleClickBidManager_UploadLineItemsResponse");
-  }
+	/**
+	 * Retrieves line items in CSV format. TrueView line items are not supported.
+	 * (lineitems.downloadlineitems)
+	 *
+	 * @param Google_Service_DoubleClickBidManager_DownloadLineItemsRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_DoubleClickBidManager_DownloadLineItemsResponse
+	 */
+	public function downloadlineitems(Google_Service_DoubleClickBidManager_DownloadLineItemsRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('downloadlineitems', array($params), "Google_Service_DoubleClickBidManager_DownloadLineItemsResponse");
+	}
+	/**
+	 * Uploads line items in CSV format. TrueView line items are not supported.
+	 * (lineitems.uploadlineitems)
+	 *
+	 * @param Google_Service_DoubleClickBidManager_UploadLineItemsRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_DoubleClickBidManager_UploadLineItemsResponse
+	 */
+	public function uploadlineitems(Google_Service_DoubleClickBidManager_UploadLineItemsRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('uploadlineitems', array($params), "Google_Service_DoubleClickBidManager_UploadLineItemsResponse");
+	}
 }

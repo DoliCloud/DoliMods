@@ -17,49 +17,49 @@
 
 class Google_Service_AdExchangeBuyerII_GuaranteedFixedPriceTerms extends Google_Collection
 {
-  protected $collection_key = 'fixedPrices';
-  protected $fixedPricesType = 'Google_Service_AdExchangeBuyerII_PricePerBuyer';
-  protected $fixedPricesDataType = 'array';
-  public $guaranteedImpressions;
-  public $guaranteedLooks;
-  public $minimumDailyLooks;
+	protected $collection_key = 'fixedPrices';
+	protected $fixedPricesType = 'Google_Service_AdExchangeBuyerII_PricePerBuyer';
+	protected $fixedPricesDataType = 'array';
+	public $guaranteedImpressions;
+	public $guaranteedLooks;
+	public $minimumDailyLooks;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_PricePerBuyer
-   */
-  public function setFixedPrices($fixedPrices)
-  {
-    $this->fixedPrices = $fixedPrices;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_PricePerBuyer
-   */
-  public function getFixedPrices()
-  {
-    return $this->fixedPrices;
-  }
-  public function setGuaranteedImpressions($guaranteedImpressions)
-  {
-    $this->guaranteedImpressions = $guaranteedImpressions;
-  }
-  public function getGuaranteedImpressions()
-  {
-    return $this->guaranteedImpressions;
-  }
-  public function setGuaranteedLooks($guaranteedLooks)
-  {
-    $this->guaranteedLooks = $guaranteedLooks;
-  }
-  public function getGuaranteedLooks()
-  {
-    return $this->guaranteedLooks;
-  }
-  public function setMinimumDailyLooks($minimumDailyLooks)
-  {
-    $this->minimumDailyLooks = $minimumDailyLooks;
-  }
-  public function getMinimumDailyLooks()
-  {
-    return $this->minimumDailyLooks;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_PricePerBuyer
+	 */
+	public function setFixedPrices($fixedPrices)
+	{
+		$this->fixedPrices = $fixedPrices;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_PricePerBuyer
+	 */
+	public function getFixedPrices()
+	{
+		return $this->fixedPrices;
+	}
+	public function setGuaranteedImpressions($guaranteedImpressions)
+	{
+		$this->guaranteedImpressions = $guaranteedImpressions;
+	}
+	public function getGuaranteedImpressions()
+	{
+		return $this->guaranteedImpressions;
+	}
+	public function setGuaranteedLooks($guaranteedLooks)
+	{
+		$this->guaranteedLooks = $guaranteedLooks;
+	}
+	public function getGuaranteedLooks()
+	{
+		return $this->guaranteedLooks;
+	}
+	public function setMinimumDailyLooks($minimumDailyLooks)
+	{
+		$this->minimumDailyLooks = $minimumDailyLooks;
+	}
+	public function getMinimumDailyLooks()
+	{
+		return $this->minimumDailyLooks;
+	}
 }

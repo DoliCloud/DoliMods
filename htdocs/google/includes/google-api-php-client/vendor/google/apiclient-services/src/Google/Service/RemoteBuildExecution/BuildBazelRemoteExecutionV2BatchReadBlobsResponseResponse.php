@@ -17,46 +17,46 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchReadBlobsResponseResponse extends Google_Model
 {
-  public $data;
-  protected $digestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $digestDataType = '';
-  protected $statusType = 'Google_Service_RemoteBuildExecution_GoogleRpcStatus';
-  protected $statusDataType = '';
+	public $data;
+	protected $digestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $digestDataType = '';
+	protected $statusType = 'Google_Service_RemoteBuildExecution_GoogleRpcStatus';
+	protected $statusDataType = '';
 
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $digest)
-  {
-    $this->digest = $digest;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getDigest()
-  {
-    return $this->digest;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleRpcStatus
-   */
-  public function setStatus(Google_Service_RemoteBuildExecution_GoogleRpcStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleRpcStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $digest)
+	{
+		$this->digest = $digest;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getDigest()
+	{
+		return $this->digest;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleRpcStatus
+	 */
+	public function setStatus(Google_Service_RemoteBuildExecution_GoogleRpcStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleRpcStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

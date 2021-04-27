@@ -17,37 +17,37 @@
 
 class Google_Service_Vault_AddHeldAccountResult extends Google_Model
 {
-  protected $accountType = 'Google_Service_Vault_HeldAccount';
-  protected $accountDataType = '';
-  protected $statusType = 'Google_Service_Vault_Status';
-  protected $statusDataType = '';
+	protected $accountType = 'Google_Service_Vault_HeldAccount';
+	protected $accountDataType = '';
+	protected $statusType = 'Google_Service_Vault_Status';
+	protected $statusDataType = '';
 
-  /**
-   * @param Google_Service_Vault_HeldAccount
-   */
-  public function setAccount(Google_Service_Vault_HeldAccount $account)
-  {
-    $this->account = $account;
-  }
-  /**
-   * @return Google_Service_Vault_HeldAccount
-   */
-  public function getAccount()
-  {
-    return $this->account;
-  }
-  /**
-   * @param Google_Service_Vault_Status
-   */
-  public function setStatus(Google_Service_Vault_Status $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_Vault_Status
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_Vault_HeldAccount
+	 */
+	public function setAccount(Google_Service_Vault_HeldAccount $account)
+	{
+		$this->account = $account;
+	}
+	/**
+	 * @return Google_Service_Vault_HeldAccount
+	 */
+	public function getAccount()
+	{
+		return $this->account;
+	}
+	/**
+	 * @param Google_Service_Vault_Status
+	 */
+	public function setStatus(Google_Service_Vault_Status $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_Vault_Status
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

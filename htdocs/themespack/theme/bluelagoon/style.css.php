@@ -25,28 +25,28 @@
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
 //if (! defined('NOREQUIREDB'))   define('NOREQUIREDB','1');	// Not disabled to increase speed. Language code is found on url.
-if (! defined('NOREQUIRESOC'))    define('NOREQUIRESOC','1');
+if (! defined('NOREQUIRESOC'))    define('NOREQUIRESOC', '1');
 //if (! defined('NOREQUIRETRAN')) define('NOREQUIRETRAN','1');	// Not disabled cause need to do translations
-if (! defined('NOCSRFCHECK'))     define('NOCSRFCHECK',1);
-if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL',1);
-if (! defined('NOLOGIN'))         define('NOLOGIN',1);
-if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU',1);
-if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML',1);
-if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
+if (! defined('NOCSRFCHECK'))     define('NOCSRFCHECK', 1);
+if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL', 1);
+if (! defined('NOLOGIN'))         define('NOLOGIN', 1);
+if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU', 1);
+if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML', 1);
+if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX', '1');
 
 session_cache_limiter('public');
 
 $res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include "../../../../main.inc.php";
+if (! $res && file_exists("../../../../../main.inc.php")) $res=@include "../../../../../main.inc.php";
+if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"; // Used on dev env only
 if (! $res) die("Include of main fails");
 
 // Load user to have $user->conf loaded (not done into main because of NOLOGIN constant defined)
-if (empty($user->id) && ! empty($_SESSION['dol_login'])) $user->fetch('',$_SESSION['dol_login']);
+if (empty($user->id) && ! empty($_SESSION['dol_login'])) $user->fetch('', $_SESSION['dol_login']);
 
 
 // Define css type
@@ -58,7 +58,7 @@ else header('Cache-Control: no-cache');
 
 
 if (! empty($_GET["lang"])) $langs->setDefaultLang($_GET["lang"]);	// If language was forced on URL by the main.inc.php
-$langs->load("main",0,1);
+$langs->load("main", 0, 1);
 $right=($langs->trans("DIRECTION")=='rtl'?'left':'right');
 $left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
 ?>
@@ -78,35 +78,35 @@ body {
 /***** Styles par defaut *****/
 input
 {
-    font: 12px helvetica, verdana, arial, sans-serif;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	font: 12px helvetica, verdana, arial, sans-serif;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 input.flat
 {
-    font: 12px helvetica, verdana, arial, sans-serif;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	font: 12px helvetica, verdana, arial, sans-serif;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 textarea  {
-    font: 12px helvetica, verdana, arial, sans-serif;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	font: 12px helvetica, verdana, arial, sans-serif;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 textarea.flat
 {
-    font: 12px helvetica, verdana, arial, sans-serif;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	font: 12px helvetica, verdana, arial, sans-serif;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 select.flat
 {
-    font: 12px helvetica, verdana, arial, sans-serif;
+	font: 12px helvetica, verdana, arial, sans-serif;
 }
 form
 {
-    padding: 0em 0em 0em 0em;
-    margin: 0em 0em 0em 0em;
+	padding: 0em 0em 0em 0em;
+	margin: 0em 0em 0em 0em;
 }
 
 
@@ -130,19 +130,19 @@ div.tmenu
 <?php if (! empty($_GET["optioncss"]) && $_GET["optioncss"] == 'print') {  ?>
 	display:none;
 <?php } else { ?>
-    float: top;
-    display:block;
-    white-space: nowrap;
-    border:0;
-    border-right: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 2px 0px;
-    font-weight: bold;
-    font-size: 12px;
-    height: 18px;
-    color: #000000;
-    text-decoration: none;
+	float: top;
+	display:block;
+	white-space: nowrap;
+	border:0;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 2px 0px;
+	font-weight: bold;
+	font-size: 12px;
+	height: 18px;
+	color: #000000;
+	text-decoration: none;
 <?php } ?>
 }
 
@@ -179,8 +179,8 @@ a.tmenu:hover
 
 table.tmenu
 {
-    padding: 0px 0px 10px 0px;
-    margin: 0px 0px 0px 10px;
+	padding: 0px 0px 10px 0px;
+	margin: 0px 0px 0px 10px;
 }
 
 * html div.tmenu li a
@@ -190,7 +190,7 @@ table.tmenu
 
 ul.tmenu {
 	padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 	list-style: none;
 }
 li.tmenu {
@@ -204,7 +204,7 @@ li.tmenu {
 }
 li.tmenu a
 {
-  	font-size: 13px;
+	  font-size: 13px;
 	color:#000000;
 	text-decoration:none;
 	padding-left:10px;
@@ -295,10 +295,10 @@ img.printer
 
 td.vmenu
 {
-    margin-right: 2px;
-    padding: 0px;
-    padding-bottom: 0px;
-    width: 164px;
+	margin-right: 2px;
+	padding: 0px;
+	padding-bottom: 0px;
+	width: 164px;
 }
 
 a.vmenu:link    { font-size: 12px; font: helvetica, verdana, arial, sans-serif; text-align:left; font-weight: bold; }
@@ -326,8 +326,8 @@ div.blockvmenupair, div.blockvmenuimpair
 	color: #202020;
 	text-align:left;
 	text-decoration: none;
-    padding: 3px;
-    margin: 1px 0px 0px 0px;
+	padding: 3px;
+	margin: 1px 0px 0px 0px;
 }
 
 div.blockvmenusearch, div.blockvmenubookmarks
@@ -338,38 +338,38 @@ div.blockvmenusearch, div.blockvmenubookmarks
 	color: #202020;
 	text-align:left;
 	text-decoration: none;
-    padding: 3px;
-    margin: 1px 0px 0px 0px;
+	padding: 3px;
+	margin: 1px 0px 0px 0px;
 }
 
 a.leftmenu {
-             font-weight: bold;
-             color: #202020;
-             }
+			 font-weight: bold;
+			 color: #202020;
+			 }
 
 td.barre {
-           border-right: 1px solid #000000;
-           border-bottom: 1px solid #000000;
-           background: #b3cccc;
-           font-family: Helvetica, Verdana;
-           color: #000000;
-           text-decoration: none;
+		   border-right: 1px solid #000000;
+		   border-bottom: 1px solid #000000;
+		   background: #b3cccc;
+		   font-family: Helvetica, Verdana;
+		   color: #000000;
+		   text-decoration: none;
 }
 
 td.barre_select {
-                  background: #b3cccc;
-                  color: #000000;
-                  }
+				  background: #b3cccc;
+				  color: #000000;
+				  }
 
 
 /*
  *   Barre onglets
  */
 div.tabs {
-    top: 20px;
-    margin: 1px 0px 0px 0px;
-    padding: 0px 6px;
-    text-align: left;
+	top: 20px;
+	margin: 1px 0px 0px 0px;
+	padding: 0px 6px;
+	text-align: left;
 }
 div.tabBar {
   color: #436976;
@@ -390,17 +390,17 @@ div.tabsAction {
 
 
 a.tabTitle {
-    background: #436976;
-    color: white;
-    font-weight: normal;
-    padding: 0px 6px;
-    margin: 0em 0.5em;
-    text-decoration: none;
-    white-space: nowrap;
+	background: #436976;
+	color: white;
+	font-weight: normal;
+	padding: 0px 6px;
+	margin: 0em 0.5em;
+	text-decoration: none;
+	white-space: nowrap;
 
-    border-right: 1px solid #555555;
-    border-left: 1px solid #D8D8D8;
-    border-top: 1px solid #D8D8D8;
+	border-right: 1px solid #555555;
+	border-left: 1px solid #D8D8D8;
+	border-top: 1px solid #D8D8D8;
 }
 
 a.tab:link {
@@ -517,40 +517,40 @@ padding: 0px 0px;
  */
 
 a {
-    text-decoration: none;
-    font-weight: bold;
-    color: #000000;
-    }
+	text-decoration: none;
+	font-weight: bold;
+	color: #000000;
+	}
 
 
 td.menu {
-          border: 1px solid #000000;
-          }
+		  border: 1px solid #000000;
+		  }
 
 td.border {
-            border: 1px solid #000000;
-            }
+			border: 1px solid #000000;
+			}
 
 div.menus {
-            background: #eeeecc;
-            color: #bbbb88;
-            border-top:    1px dashed #ccccb3;
-            border-right:  1px dashed #ccccb3;
-            border-bottom: 1px dashed #ccccb3;
-            border-left:   1px dashed #ccccb3;
-            }
+			background: #eeeecc;
+			color: #bbbb88;
+			border-top:    1px dashed #ccccb3;
+			border-right:  1px dashed #ccccb3;
+			border-bottom: 1px dashed #ccccb3;
+			border-left:   1px dashed #ccccb3;
+			}
 
 
 .menu {
-        background: #b3cccc;
-        font-weight: bold;
-        color: #000000;
-        text-decoration: none }
+		background: #b3cccc;
+		font-weight: bold;
+		color: #000000;
+		text-decoration: none }
 
 .submenu {
-           background: #b3cccc;
-           color: #000000;
-           text-decoration: none }
+		   background: #b3cccc;
+		   color: #000000;
+		   text-decoration: none }
 
 a.normal{ font-weight: normal }
 a.impayee { font-weight: bold }
@@ -565,21 +565,21 @@ a.impayee { font-weight: bold }
 }
 
 tr.box_titre {
-    background: #b3cccc;
-    font-family: Helvetica, Verdana;
-    font-weight: bold;
-    border-top: 1px solid #8CACBB;
-    white-space: nowrap;
+	background: #b3cccc;
+	font-family: Helvetica, Verdana;
+	font-weight: bold;
+	border-top: 1px solid #8CACBB;
+	white-space: nowrap;
 }
 
 tr.box_impair {
-    background: #b3cccc;
-    font-size: 0.8em;
+	background: #b3cccc;
+	font-size: 0.8em;
 }
 
 tr.box_pair {
-    background: #cceeee;
-    font-size: 0.8em;
+	background: #cceeee;
+	font-size: 0.8em;
 }
 
 tr.fiche {
@@ -655,10 +655,10 @@ border: 0px;
 }
 
 div.titre {
-            font-family: Helvetica, Verdana;
-            font-weight: normal;
-            color: #336666;
-            text-decoration: none;
+			font-family: Helvetica, Verdana;
+			font-weight: normal;
+			color: #336666;
+			text-decoration: none;
 }
 
 
@@ -667,54 +667,54 @@ div.titre {
  */
 
 input.liste_titre {
-    background: #b3cccc;
-    border: 0px;
+	background: #b3cccc;
+	border: 0px;
 }
 
 tr.liste_titre {
-    background: #b3cccc;
-    font-family: Helvetica, Verdana;
-    font-weight: bold;
-    border-top: 1px solid #8CACBB;
-    white-space: nowrap;
+	background: #b3cccc;
+	font-family: Helvetica, Verdana;
+	font-weight: bold;
+	border-top: 1px solid #8CACBB;
+	white-space: nowrap;
 }
 
 td.liste_titre {
-    background: #b3cccc;
-    font-family: Helvetica, Verdana;
-    font-weight: bold;
-    border-top: 1px solid #8CACBB;
-    border-right: 0px;
-    border-right: 0px;
-    white-space: nowrap;
+	background: #b3cccc;
+	font-family: Helvetica, Verdana;
+	font-weight: bold;
+	border-top: 1px solid #8CACBB;
+	border-right: 0px;
+	border-right: 0px;
+	white-space: nowrap;
 }
 
 .liste_titre_sel {
-    color: #000000;
-    background: #cceeee;
-    font-family: Helvetica, Verdana;
-    font-weight: bold;
-    border-top: 1px solid #8CACBB;
-    border-right: 0px;
-    border-right: 0px;
-    white-space: nowrap;
+	color: #000000;
+	background: #cceeee;
+	font-family: Helvetica, Verdana;
+	font-weight: bold;
+	border-top: 1px solid #8CACBB;
+	border-right: 0px;
+	border-right: 0px;
+	white-space: nowrap;
 }
 
 tr.liste_total td {
-    background: #F0F0F0;
-    font-weight: bold;
-    white-space: nowrap;
-    border-top: 1px solid #888888;
+	background: #F0F0F0;
+	font-weight: bold;
+	white-space: nowrap;
+	border-top: 1px solid #888888;
 }
 
 .pair	{
-    background: #b3cccc;
-    font-family: Helvetica, Verdana;
+	background: #b3cccc;
+	font-family: Helvetica, Verdana;
 }
 
 .impair {
-    background: #cceeee;
-    font-family: Helvetica, Verdana;
+	background: #cceeee;
+	font-family: Helvetica, Verdana;
 }
 
 
@@ -802,7 +802,7 @@ tr.liste_total td {
 	overflow:visible;
 	color: #000;
 	font-family: Tahoma, Arial, sans-serif;
-  	font: 12px arial;
+	  font: 12px arial;
 	background: #FFF;
 }
 
@@ -874,7 +874,7 @@ tr.liste_total td {
 #dhtmltooltip
 {
 position: absolute;
-width: <?php print dol_size(450,'width'); ?>px;
+width: <?php print dol_size(450, 'width'); ?>px;
 border: 1px solid #444444;
 padding: 2px;
 background-color: #FFFFE0;
@@ -893,12 +893,12 @@ z-index: 100;
 	margin-bottom:5px;
 }
 table.dp {
-    width: 180px;
-    background-color: #FFFFFF;
-    border-top: solid 2px #DDDDDD;
-    border-left: solid 2px #DDDDDD;
-    border-right: solid 1px #222222;
-    border-bottom: solid 1px #222222;
+	width: 180px;
+	background-color: #FFFFFF;
+	border-top: solid 2px #DDDDDD;
+	border-left: solid 2px #DDDDDD;
+	border-right: solid 1px #222222;
+	border-bottom: solid 1px #222222;
 }
 .dp td, .tpHour td, .tpMinute td{padding:2px; font-size:10px;}
 /* Barre titre */
@@ -980,47 +980,47 @@ table.cal_event td { border: 0px; padding-left: 0px; padding-right: 2px; padding
 
 /* Lien plier /deplier tout */
 .arbre-switch {
-    text-align: right;
-    padding: 0 5px;
-    margin: 0 0 -18px 0;
+	text-align: right;
+	padding: 0 5px;
+	margin: 0 0 -18px 0;
 }
 
 /* Arbre */
 ul.arbre {
-    padding: 5px 10px;
+	padding: 5px 10px;
 }
 /* strong : A modifier en fonction de la balise choisie */
 ul.arbre strong {
-    font-weight: normal;
-    padding: 0 0 0 20px;
-    margin: 0 0 0 -7px;
-    background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/branch.gif' ?>);
-    background-repeat: no-repeat;
-    background-position: 1px 50%;
+	font-weight: normal;
+	padding: 0 0 0 20px;
+	margin: 0 0 0 -7px;
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/branch.gif' ?>);
+	background-repeat: no-repeat;
+	background-position: 1px 50%;
 }
 ul.arbre strong.arbre-plier {
-    background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/plus.gif' ?>);
-    cursor: pointer;
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/plus.gif' ?>);
+	cursor: pointer;
 }
 ul.arbre strong.arbre-deplier {
-    background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/minus.gif' ?>);
-    cursor: pointer;
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/common/treemenu/minus.gif' ?>);
+	cursor: pointer;
 }
 ul.arbre ul {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 }
 ul.arbre li {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+	padding: 0;
+	margin: 0;
+	list-style: none;
 }
 ul.arbre li li {
-    margin: 0 0 0 16px;
+	margin: 0 0 0 16px;
 }
 /* Classe pour masquer */
 .hide {
-    display: none;
+	display: none;
 }
 
 img.menuNew

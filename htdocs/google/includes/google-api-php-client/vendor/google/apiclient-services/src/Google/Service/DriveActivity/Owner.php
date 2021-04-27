@@ -17,69 +17,69 @@
 
 class Google_Service_DriveActivity_Owner extends Google_Model
 {
-  protected $domainType = 'Google_Service_DriveActivity_Domain';
-  protected $domainDataType = '';
-  protected $driveType = 'Google_Service_DriveActivity_DriveReference';
-  protected $driveDataType = '';
-  protected $teamDriveType = 'Google_Service_DriveActivity_TeamDriveReference';
-  protected $teamDriveDataType = '';
-  protected $userType = 'Google_Service_DriveActivity_User';
-  protected $userDataType = '';
+	protected $domainType = 'Google_Service_DriveActivity_Domain';
+	protected $domainDataType = '';
+	protected $driveType = 'Google_Service_DriveActivity_DriveReference';
+	protected $driveDataType = '';
+	protected $teamDriveType = 'Google_Service_DriveActivity_TeamDriveReference';
+	protected $teamDriveDataType = '';
+	protected $userType = 'Google_Service_DriveActivity_User';
+	protected $userDataType = '';
 
-  /**
-   * @param Google_Service_DriveActivity_Domain
-   */
-  public function setDomain(Google_Service_DriveActivity_Domain $domain)
-  {
-    $this->domain = $domain;
-  }
-  /**
-   * @return Google_Service_DriveActivity_Domain
-   */
-  public function getDomain()
-  {
-    return $this->domain;
-  }
-  /**
-   * @param Google_Service_DriveActivity_DriveReference
-   */
-  public function setDrive(Google_Service_DriveActivity_DriveReference $drive)
-  {
-    $this->drive = $drive;
-  }
-  /**
-   * @return Google_Service_DriveActivity_DriveReference
-   */
-  public function getDrive()
-  {
-    return $this->drive;
-  }
-  /**
-   * @param Google_Service_DriveActivity_TeamDriveReference
-   */
-  public function setTeamDrive(Google_Service_DriveActivity_TeamDriveReference $teamDrive)
-  {
-    $this->teamDrive = $teamDrive;
-  }
-  /**
-   * @return Google_Service_DriveActivity_TeamDriveReference
-   */
-  public function getTeamDrive()
-  {
-    return $this->teamDrive;
-  }
-  /**
-   * @param Google_Service_DriveActivity_User
-   */
-  public function setUser(Google_Service_DriveActivity_User $user)
-  {
-    $this->user = $user;
-  }
-  /**
-   * @return Google_Service_DriveActivity_User
-   */
-  public function getUser()
-  {
-    return $this->user;
-  }
+	/**
+	 * @param Google_Service_DriveActivity_Domain
+	 */
+	public function setDomain(Google_Service_DriveActivity_Domain $domain)
+	{
+		$this->domain = $domain;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_Domain
+	 */
+	public function getDomain()
+	{
+		return $this->domain;
+	}
+	/**
+	 * @param Google_Service_DriveActivity_DriveReference
+	 */
+	public function setDrive(Google_Service_DriveActivity_DriveReference $drive)
+	{
+		$this->drive = $drive;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_DriveReference
+	 */
+	public function getDrive()
+	{
+		return $this->drive;
+	}
+	/**
+	 * @param Google_Service_DriveActivity_TeamDriveReference
+	 */
+	public function setTeamDrive(Google_Service_DriveActivity_TeamDriveReference $teamDrive)
+	{
+		$this->teamDrive = $teamDrive;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_TeamDriveReference
+	 */
+	public function getTeamDrive()
+	{
+		return $this->teamDrive;
+	}
+	/**
+	 * @param Google_Service_DriveActivity_User
+	 */
+	public function setUser(Google_Service_DriveActivity_User $user)
+	{
+		$this->user = $user;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_User
+	 */
+	public function getUser()
+	{
+		return $this->user;
+	}
 }

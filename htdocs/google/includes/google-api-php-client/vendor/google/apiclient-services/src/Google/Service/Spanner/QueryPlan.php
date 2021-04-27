@@ -17,22 +17,22 @@
 
 class Google_Service_Spanner_QueryPlan extends Google_Collection
 {
-  protected $collection_key = 'planNodes';
-  protected $planNodesType = 'Google_Service_Spanner_PlanNode';
-  protected $planNodesDataType = 'array';
+	protected $collection_key = 'planNodes';
+	protected $planNodesType = 'Google_Service_Spanner_PlanNode';
+	protected $planNodesDataType = 'array';
 
-  /**
-   * @param Google_Service_Spanner_PlanNode
-   */
-  public function setPlanNodes($planNodes)
-  {
-    $this->planNodes = $planNodes;
-  }
-  /**
-   * @return Google_Service_Spanner_PlanNode
-   */
-  public function getPlanNodes()
-  {
-    return $this->planNodes;
-  }
+	/**
+	 * @param Google_Service_Spanner_PlanNode
+	 */
+	public function setPlanNodes($planNodes)
+	{
+		$this->planNodes = $planNodes;
+	}
+	/**
+	 * @return Google_Service_Spanner_PlanNode
+	 */
+	public function getPlanNodes()
+	{
+		return $this->planNodes;
+	}
 }

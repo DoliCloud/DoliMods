@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_InstancesScopedList extends Google_Collection
 {
-  protected $collection_key = 'instances';
-  protected $instancesType = 'Google_Service_Compute_Instance';
-  protected $instancesDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_InstancesScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'instances';
+	protected $instancesType = 'Google_Service_Compute_Instance';
+	protected $instancesDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_InstancesScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_Instance
-   */
-  public function setInstances($instances)
-  {
-    $this->instances = $instances;
-  }
-  /**
-   * @return Google_Service_Compute_Instance
-   */
-  public function getInstances()
-  {
-    return $this->instances;
-  }
-  /**
-   * @param Google_Service_Compute_InstancesScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_InstancesScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_InstancesScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_Instance
+	 */
+	public function setInstances($instances)
+	{
+		$this->instances = $instances;
+	}
+	/**
+	 * @return Google_Service_Compute_Instance
+	 */
+	public function getInstances()
+	{
+		return $this->instances;
+	}
+	/**
+	 * @param Google_Service_Compute_InstancesScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_InstancesScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_InstancesScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

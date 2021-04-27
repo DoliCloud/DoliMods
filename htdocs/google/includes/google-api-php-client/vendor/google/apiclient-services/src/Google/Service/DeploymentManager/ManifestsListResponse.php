@@ -17,31 +17,31 @@
 
 class Google_Service_DeploymentManager_ManifestsListResponse extends Google_Collection
 {
-  protected $collection_key = 'manifests';
-  protected $manifestsType = 'Google_Service_DeploymentManager_Manifest';
-  protected $manifestsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'manifests';
+	protected $manifestsType = 'Google_Service_DeploymentManager_Manifest';
+	protected $manifestsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DeploymentManager_Manifest
-   */
-  public function setManifests($manifests)
-  {
-    $this->manifests = $manifests;
-  }
-  /**
-   * @return Google_Service_DeploymentManager_Manifest
-   */
-  public function getManifests()
-  {
-    return $this->manifests;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DeploymentManager_Manifest
+	 */
+	public function setManifests($manifests)
+	{
+		$this->manifests = $manifests;
+	}
+	/**
+	 * @return Google_Service_DeploymentManager_Manifest
+	 */
+	public function getManifests()
+	{
+		return $this->manifests;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

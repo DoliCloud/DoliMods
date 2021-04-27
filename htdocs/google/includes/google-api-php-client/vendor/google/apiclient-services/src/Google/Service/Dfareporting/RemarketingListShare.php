@@ -17,42 +17,42 @@
 
 class Google_Service_Dfareporting_RemarketingListShare extends Google_Collection
 {
-  protected $collection_key = 'sharedAdvertiserIds';
-  public $kind;
-  public $remarketingListId;
-  public $sharedAccountIds;
-  public $sharedAdvertiserIds;
+	protected $collection_key = 'sharedAdvertiserIds';
+	public $kind;
+	public $remarketingListId;
+	public $sharedAccountIds;
+	public $sharedAdvertiserIds;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setRemarketingListId($remarketingListId)
-  {
-    $this->remarketingListId = $remarketingListId;
-  }
-  public function getRemarketingListId()
-  {
-    return $this->remarketingListId;
-  }
-  public function setSharedAccountIds($sharedAccountIds)
-  {
-    $this->sharedAccountIds = $sharedAccountIds;
-  }
-  public function getSharedAccountIds()
-  {
-    return $this->sharedAccountIds;
-  }
-  public function setSharedAdvertiserIds($sharedAdvertiserIds)
-  {
-    $this->sharedAdvertiserIds = $sharedAdvertiserIds;
-  }
-  public function getSharedAdvertiserIds()
-  {
-    return $this->sharedAdvertiserIds;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setRemarketingListId($remarketingListId)
+	{
+		$this->remarketingListId = $remarketingListId;
+	}
+	public function getRemarketingListId()
+	{
+		return $this->remarketingListId;
+	}
+	public function setSharedAccountIds($sharedAccountIds)
+	{
+		$this->sharedAccountIds = $sharedAccountIds;
+	}
+	public function getSharedAccountIds()
+	{
+		return $this->sharedAccountIds;
+	}
+	public function setSharedAdvertiserIds($sharedAdvertiserIds)
+	{
+		$this->sharedAdvertiserIds = $sharedAdvertiserIds;
+	}
+	public function getSharedAdvertiserIds()
+	{
+		return $this->sharedAdvertiserIds;
+	}
 }

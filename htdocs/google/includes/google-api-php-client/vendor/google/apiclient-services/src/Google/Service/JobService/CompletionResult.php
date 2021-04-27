@@ -17,32 +17,32 @@
 
 class Google_Service_JobService_CompletionResult extends Google_Model
 {
-  public $imageUrl;
-  public $suggestion;
-  public $type;
+	public $imageUrl;
+	public $suggestion;
+	public $type;
 
-  public function setImageUrl($imageUrl)
-  {
-    $this->imageUrl = $imageUrl;
-  }
-  public function getImageUrl()
-  {
-    return $this->imageUrl;
-  }
-  public function setSuggestion($suggestion)
-  {
-    $this->suggestion = $suggestion;
-  }
-  public function getSuggestion()
-  {
-    return $this->suggestion;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setImageUrl($imageUrl)
+	{
+		$this->imageUrl = $imageUrl;
+	}
+	public function getImageUrl()
+	{
+		return $this->imageUrl;
+	}
+	public function setSuggestion($suggestion)
+	{
+		$this->suggestion = $suggestion;
+	}
+	public function getSuggestion()
+	{
+		return $this->suggestion;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

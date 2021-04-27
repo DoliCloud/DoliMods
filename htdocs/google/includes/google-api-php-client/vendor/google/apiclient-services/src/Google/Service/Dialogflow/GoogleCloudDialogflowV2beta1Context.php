@@ -17,32 +17,32 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1Context extends Google_Model
 {
-  public $lifespanCount;
-  public $name;
-  public $parameters;
+	public $lifespanCount;
+	public $name;
+	public $parameters;
 
-  public function setLifespanCount($lifespanCount)
-  {
-    $this->lifespanCount = $lifespanCount;
-  }
-  public function getLifespanCount()
-  {
-    return $this->lifespanCount;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	public function setLifespanCount($lifespanCount)
+	{
+		$this->lifespanCount = $lifespanCount;
+	}
+	public function getLifespanCount()
+	{
+		return $this->lifespanCount;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

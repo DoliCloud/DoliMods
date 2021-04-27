@@ -20,30 +20,30 @@ use GuzzleHttp\ClientInterface;
 
 class Google_AuthHandler_AuthHandlerFactory
 {
-  /**
-   * Builds out a default http handler for the installed version of guzzle.
-   *
-   * @return Google_AuthHandler_Guzzle5AuthHandler|Google_AuthHandler_Guzzle6AuthHandler
-   * @throws Exception
-   */
-  public static function build($cache = null, array $cacheConfig = [])
-  {
-    $guzzleVersion = null;
-    if (defined('\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
-      $guzzleVersion = ClientInterface::MAJOR_VERSION;
-    } elseif (defined('\GuzzleHttp\ClientInterface::VERSION')) {
-      $guzzleVersion = (int) substr(ClientInterface::VERSION, 0, 1);
-    }
+	/**
+	 * Builds out a default http handler for the installed version of guzzle.
+	 *
+	 * @return Google_AuthHandler_Guzzle5AuthHandler|Google_AuthHandler_Guzzle6AuthHandler
+	 * @throws Exception
+	 */
+	public static function build($cache = null, array $cacheConfig = [])
+	{
+		$guzzleVersion = null;
+		if (defined('\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
+			$guzzleVersion = ClientInterface::MAJOR_VERSION;
+		} elseif (defined('\GuzzleHttp\ClientInterface::VERSION')) {
+			$guzzleVersion = (int) substr(ClientInterface::VERSION, 0, 1);
+		}
 
-    switch ($guzzleVersion) {
-      case 5:
-        return new Google_AuthHandler_Guzzle5AuthHandler($cache, $cacheConfig);
-      case 6:
-        return new Google_AuthHandler_Guzzle6AuthHandler($cache, $cacheConfig);
-      case 7:
-        return new Google_AuthHandler_Guzzle7AuthHandler($cache, $cacheConfig);
-      default:
-        throw new Exception('Version not supported');
-    }
-  }
+		switch ($guzzleVersion) {
+			case 5:
+			return new Google_AuthHandler_Guzzle5AuthHandler($cache, $cacheConfig);
+			case 6:
+			return new Google_AuthHandler_Guzzle6AuthHandler($cache, $cacheConfig);
+			case 7:
+		return new Google_AuthHandler_Guzzle7AuthHandler($cache, $cacheConfig);
+			default:
+		throw new Exception('Version not supported');
+		}
+	}
 }

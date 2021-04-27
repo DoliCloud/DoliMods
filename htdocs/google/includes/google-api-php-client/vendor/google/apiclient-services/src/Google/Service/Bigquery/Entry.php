@@ -17,23 +17,23 @@
 
 class Google_Service_Bigquery_Entry extends Google_Model
 {
-  public $itemCount;
-  public $predictedLabel;
+	public $itemCount;
+	public $predictedLabel;
 
-  public function setItemCount($itemCount)
-  {
-    $this->itemCount = $itemCount;
-  }
-  public function getItemCount()
-  {
-    return $this->itemCount;
-  }
-  public function setPredictedLabel($predictedLabel)
-  {
-    $this->predictedLabel = $predictedLabel;
-  }
-  public function getPredictedLabel()
-  {
-    return $this->predictedLabel;
-  }
+	public function setItemCount($itemCount)
+	{
+		$this->itemCount = $itemCount;
+	}
+	public function getItemCount()
+	{
+		return $this->itemCount;
+	}
+	public function setPredictedLabel($predictedLabel)
+	{
+		$this->predictedLabel = $predictedLabel;
+	}
+	public function getPredictedLabel()
+	{
+		return $this->predictedLabel;
+	}
 }

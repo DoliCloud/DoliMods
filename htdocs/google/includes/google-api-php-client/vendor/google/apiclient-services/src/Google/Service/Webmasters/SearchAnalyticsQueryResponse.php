@@ -17,31 +17,31 @@
 
 class Google_Service_Webmasters_SearchAnalyticsQueryResponse extends Google_Collection
 {
-  protected $collection_key = 'rows';
-  public $responseAggregationType;
-  protected $rowsType = 'Google_Service_Webmasters_ApiDataRow';
-  protected $rowsDataType = 'array';
+	protected $collection_key = 'rows';
+	public $responseAggregationType;
+	protected $rowsType = 'Google_Service_Webmasters_ApiDataRow';
+	protected $rowsDataType = 'array';
 
-  public function setResponseAggregationType($responseAggregationType)
-  {
-    $this->responseAggregationType = $responseAggregationType;
-  }
-  public function getResponseAggregationType()
-  {
-    return $this->responseAggregationType;
-  }
-  /**
-   * @param Google_Service_Webmasters_ApiDataRow
-   */
-  public function setRows($rows)
-  {
-    $this->rows = $rows;
-  }
-  /**
-   * @return Google_Service_Webmasters_ApiDataRow
-   */
-  public function getRows()
-  {
-    return $this->rows;
-  }
+	public function setResponseAggregationType($responseAggregationType)
+	{
+		$this->responseAggregationType = $responseAggregationType;
+	}
+	public function getResponseAggregationType()
+	{
+		return $this->responseAggregationType;
+	}
+	/**
+	 * @param Google_Service_Webmasters_ApiDataRow
+	 */
+	public function setRows($rows)
+	{
+		$this->rows = $rows;
+	}
+	/**
+	 * @return Google_Service_Webmasters_ApiDataRow
+	 */
+	public function getRows()
+	{
+		return $this->rows;
+	}
 }

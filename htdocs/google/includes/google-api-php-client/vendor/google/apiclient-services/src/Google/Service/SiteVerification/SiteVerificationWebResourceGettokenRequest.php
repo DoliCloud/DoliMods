@@ -17,30 +17,30 @@
 
 class Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequest extends Google_Model
 {
-  protected $siteType = 'Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite';
-  protected $siteDataType = '';
-  public $verificationMethod;
+	protected $siteType = 'Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite';
+	protected $siteDataType = '';
+	public $verificationMethod;
 
-  /**
-   * @param Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite
-   */
-  public function setSite(Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite $site)
-  {
-    $this->site = $site;
-  }
-  /**
-   * @return Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite
-   */
-  public function getSite()
-  {
-    return $this->site;
-  }
-  public function setVerificationMethod($verificationMethod)
-  {
-    $this->verificationMethod = $verificationMethod;
-  }
-  public function getVerificationMethod()
-  {
-    return $this->verificationMethod;
-  }
+	/**
+	 * @param Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite
+	 */
+	public function setSite(Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite $site)
+	{
+		$this->site = $site;
+	}
+	/**
+	 * @return Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite
+	 */
+	public function getSite()
+	{
+		return $this->site;
+	}
+	public function setVerificationMethod($verificationMethod)
+	{
+		$this->verificationMethod = $verificationMethod;
+	}
+	public function getVerificationMethod()
+	{
+		return $this->verificationMethod;
+	}
 }

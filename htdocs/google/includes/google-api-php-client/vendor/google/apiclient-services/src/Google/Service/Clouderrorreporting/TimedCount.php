@@ -17,32 +17,32 @@
 
 class Google_Service_Clouderrorreporting_TimedCount extends Google_Model
 {
-  public $count;
-  public $endTime;
-  public $startTime;
+	public $count;
+	public $endTime;
+	public $startTime;
 
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
 }

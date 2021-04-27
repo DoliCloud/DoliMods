@@ -17,23 +17,23 @@
 
 class Google_Service_Slides_UpdateLineCategoryRequest extends Google_Model
 {
-  public $lineCategory;
-  public $objectId;
+	public $lineCategory;
+	public $objectId;
 
-  public function setLineCategory($lineCategory)
-  {
-    $this->lineCategory = $lineCategory;
-  }
-  public function getLineCategory()
-  {
-    return $this->lineCategory;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
+	public function setLineCategory($lineCategory)
+	{
+		$this->lineCategory = $lineCategory;
+	}
+	public function getLineCategory()
+	{
+		return $this->lineCategory;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
 }

@@ -15,13 +15,13 @@ use GuzzleHttp\Exception\RequestException;
  */
 class ErrorEvent extends AbstractRetryableEvent
 {
-    /**
-     * Get the exception that was encountered
-     *
-     * @return RequestException
-     */
-    public function getException()
-    {
-        return $this->transaction->exception;
-    }
+	/**
+	 * Get the exception that was encountered
+	 *
+	 * @return RequestException
+	 */
+	public function getException()
+	{
+		return $this->transaction->exception;
+	}
 }

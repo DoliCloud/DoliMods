@@ -25,18 +25,18 @@
  */
 class Google_Service_Texttospeech_Resource_Text extends Google_Service_Resource
 {
-  /**
-   * Synthesizes speech synchronously: receive results after all text input has
-   * been processed. (text.synthesize)
-   *
-   * @param Google_Service_Texttospeech_SynthesizeSpeechRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Texttospeech_SynthesizeSpeechResponse
-   */
-  public function synthesize(Google_Service_Texttospeech_SynthesizeSpeechRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('synthesize', array($params), "Google_Service_Texttospeech_SynthesizeSpeechResponse");
-  }
+	/**
+	 * Synthesizes speech synchronously: receive results after all text input has
+	 * been processed. (text.synthesize)
+	 *
+	 * @param Google_Service_Texttospeech_SynthesizeSpeechRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Texttospeech_SynthesizeSpeechResponse
+	 */
+	public function synthesize(Google_Service_Texttospeech_SynthesizeSpeechRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('synthesize', array($params), "Google_Service_Texttospeech_SynthesizeSpeechResponse");
+	}
 }

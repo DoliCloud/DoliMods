@@ -25,51 +25,51 @@
  */
 class Google_Service_Books_Resource_Cloudloading extends Google_Service_Resource
 {
-  /**
-   * Add a user-upload volume and triggers processing. (cloudloading.addBook)
-   *
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string name The document name. It can be set only if the
-   * drive_document_id is set.
-   * @opt_param string upload_client_token Scotty upload token.
-   * @opt_param string drive_document_id A drive document id. The
-   * upload_client_token must not be set.
-   * @opt_param string mime_type The document MIME type. It can be set only if the
-   * drive_document_id is set.
-   * @return Google_Service_Books_BooksCloudloadingResource
-   */
-  public function addBook($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('addBook', array($params), "Google_Service_Books_BooksCloudloadingResource");
-  }
-  /**
-   * Remove the book and its contents (cloudloading.deleteBook)
-   *
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string volumeId The id of the book to be removed.
-   * @return Google_Service_Books_BooksEmpty
-   */
-  public function deleteBook($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('deleteBook', array($params), "Google_Service_Books_BooksEmpty");
-  }
-  /**
-   * Updates a user-upload volume. (cloudloading.updateBook)
-   *
-   * @param Google_Service_Books_BooksCloudloadingResource $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Books_BooksCloudloadingResource
-   */
-  public function updateBook(Google_Service_Books_BooksCloudloadingResource $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('updateBook', array($params), "Google_Service_Books_BooksCloudloadingResource");
-  }
+	/**
+	 * Add a user-upload volume and triggers processing. (cloudloading.addBook)
+	 *
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string name The document name. It can be set only if the
+	 * drive_document_id is set.
+	 * @opt_param string upload_client_token Scotty upload token.
+	 * @opt_param string drive_document_id A drive document id. The
+	 * upload_client_token must not be set.
+	 * @opt_param string mime_type The document MIME type. It can be set only if the
+	 * drive_document_id is set.
+	 * @return Google_Service_Books_BooksCloudloadingResource
+	 */
+	public function addBook($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('addBook', array($params), "Google_Service_Books_BooksCloudloadingResource");
+	}
+	/**
+	 * Remove the book and its contents (cloudloading.deleteBook)
+	 *
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string volumeId The id of the book to be removed.
+	 * @return Google_Service_Books_BooksEmpty
+	 */
+	public function deleteBook($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('deleteBook', array($params), "Google_Service_Books_BooksEmpty");
+	}
+	/**
+	 * Updates a user-upload volume. (cloudloading.updateBook)
+	 *
+	 * @param Google_Service_Books_BooksCloudloadingResource $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Books_BooksCloudloadingResource
+	 */
+	public function updateBook(Google_Service_Books_BooksCloudloadingResource $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('updateBook', array($params), "Google_Service_Books_BooksCloudloadingResource");
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_YouTube_LiveStreamHealthStatus extends Google_Collection
 {
-  protected $collection_key = 'configurationIssues';
-  protected $configurationIssuesType = 'Google_Service_YouTube_LiveStreamConfigurationIssue';
-  protected $configurationIssuesDataType = 'array';
-  public $lastUpdateTimeSeconds;
-  public $status;
+	protected $collection_key = 'configurationIssues';
+	protected $configurationIssuesType = 'Google_Service_YouTube_LiveStreamConfigurationIssue';
+	protected $configurationIssuesDataType = 'array';
+	public $lastUpdateTimeSeconds;
+	public $status;
 
-  /**
-   * @param Google_Service_YouTube_LiveStreamConfigurationIssue
-   */
-  public function setConfigurationIssues($configurationIssues)
-  {
-    $this->configurationIssues = $configurationIssues;
-  }
-  /**
-   * @return Google_Service_YouTube_LiveStreamConfigurationIssue
-   */
-  public function getConfigurationIssues()
-  {
-    return $this->configurationIssues;
-  }
-  public function setLastUpdateTimeSeconds($lastUpdateTimeSeconds)
-  {
-    $this->lastUpdateTimeSeconds = $lastUpdateTimeSeconds;
-  }
-  public function getLastUpdateTimeSeconds()
-  {
-    return $this->lastUpdateTimeSeconds;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_YouTube_LiveStreamConfigurationIssue
+	 */
+	public function setConfigurationIssues($configurationIssues)
+	{
+		$this->configurationIssues = $configurationIssues;
+	}
+	/**
+	 * @return Google_Service_YouTube_LiveStreamConfigurationIssue
+	 */
+	public function getConfigurationIssues()
+	{
+		return $this->configurationIssues;
+	}
+	public function setLastUpdateTimeSeconds($lastUpdateTimeSeconds)
+	{
+		$this->lastUpdateTimeSeconds = $lastUpdateTimeSeconds;
+	}
+	public function getLastUpdateTimeSeconds()
+	{
+		return $this->lastUpdateTimeSeconds;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

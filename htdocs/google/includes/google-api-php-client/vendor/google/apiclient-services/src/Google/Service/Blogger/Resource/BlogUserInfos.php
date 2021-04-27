@@ -25,20 +25,20 @@
  */
 class Google_Service_Blogger_Resource_BlogUserInfos extends Google_Service_Resource
 {
-  /**
-   * Gets one blog and user info pair by blog id and user id. (blogUserInfos.get)
-   *
-   * @param string $userId
-   * @param string $blogId
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string maxPosts
-   * @return Google_Service_Blogger_BlogUserInfo
-   */
-  public function get($userId, $blogId, $optParams = array())
-  {
-    $params = array('userId' => $userId, 'blogId' => $blogId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Blogger_BlogUserInfo");
-  }
+	/**
+	 * Gets one blog and user info pair by blog id and user id. (blogUserInfos.get)
+	 *
+	 * @param string $userId
+	 * @param string $blogId
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string maxPosts
+	 * @return Google_Service_Blogger_BlogUserInfo
+	 */
+	public function get($userId, $blogId, $optParams = array())
+	{
+		$params = array('userId' => $userId, 'blogId' => $blogId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Blogger_BlogUserInfo");
+	}
 }

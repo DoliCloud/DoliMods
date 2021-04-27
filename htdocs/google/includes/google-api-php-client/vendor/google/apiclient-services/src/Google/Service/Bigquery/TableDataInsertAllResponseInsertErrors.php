@@ -17,31 +17,31 @@
 
 class Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors extends Google_Collection
 {
-  protected $collection_key = 'errors';
-  protected $errorsType = 'Google_Service_Bigquery_ErrorProto';
-  protected $errorsDataType = 'array';
-  public $index;
+	protected $collection_key = 'errors';
+	protected $errorsType = 'Google_Service_Bigquery_ErrorProto';
+	protected $errorsDataType = 'array';
+	public $index;
 
-  /**
-   * @param Google_Service_Bigquery_ErrorProto
-   */
-  public function setErrors($errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_Bigquery_ErrorProto
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setIndex($index)
-  {
-    $this->index = $index;
-  }
-  public function getIndex()
-  {
-    return $this->index;
-  }
+	/**
+	 * @param Google_Service_Bigquery_ErrorProto
+	 */
+	public function setErrors($errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_Bigquery_ErrorProto
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setIndex($index)
+	{
+		$this->index = $index;
+	}
+	public function getIndex()
+	{
+		return $this->index;
+	}
 }

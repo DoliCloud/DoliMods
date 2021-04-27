@@ -17,42 +17,42 @@
 
 class Google_Service_ContainerAnalysis_UpgradeDistribution extends Google_Collection
 {
-  protected $collection_key = 'cve';
-  public $classification;
-  public $cpeUri;
-  public $cve;
-  public $severity;
+	protected $collection_key = 'cve';
+	public $classification;
+	public $cpeUri;
+	public $cve;
+	public $severity;
 
-  public function setClassification($classification)
-  {
-    $this->classification = $classification;
-  }
-  public function getClassification()
-  {
-    return $this->classification;
-  }
-  public function setCpeUri($cpeUri)
-  {
-    $this->cpeUri = $cpeUri;
-  }
-  public function getCpeUri()
-  {
-    return $this->cpeUri;
-  }
-  public function setCve($cve)
-  {
-    $this->cve = $cve;
-  }
-  public function getCve()
-  {
-    return $this->cve;
-  }
-  public function setSeverity($severity)
-  {
-    $this->severity = $severity;
-  }
-  public function getSeverity()
-  {
-    return $this->severity;
-  }
+	public function setClassification($classification)
+	{
+		$this->classification = $classification;
+	}
+	public function getClassification()
+	{
+		return $this->classification;
+	}
+	public function setCpeUri($cpeUri)
+	{
+		$this->cpeUri = $cpeUri;
+	}
+	public function getCpeUri()
+	{
+		return $this->cpeUri;
+	}
+	public function setCve($cve)
+	{
+		$this->cve = $cve;
+	}
+	public function getCve()
+	{
+		return $this->cve;
+	}
+	public function setSeverity($severity)
+	{
+		$this->severity = $severity;
+	}
+	public function getSeverity()
+	{
+		return $this->severity;
+	}
 }

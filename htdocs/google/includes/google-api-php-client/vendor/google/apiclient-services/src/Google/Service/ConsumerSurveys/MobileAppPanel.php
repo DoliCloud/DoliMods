@@ -17,60 +17,60 @@
 
 class Google_Service_ConsumerSurveys_MobileAppPanel extends Google_Collection
 {
-  protected $collection_key = 'owners';
-  public $country;
-  public $isPublicPanel;
-  public $language;
-  public $mobileAppPanelId;
-  public $name;
-  public $owners;
+	protected $collection_key = 'owners';
+	public $country;
+	public $isPublicPanel;
+	public $language;
+	public $mobileAppPanelId;
+	public $name;
+	public $owners;
 
-  public function setCountry($country)
-  {
-    $this->country = $country;
-  }
-  public function getCountry()
-  {
-    return $this->country;
-  }
-  public function setIsPublicPanel($isPublicPanel)
-  {
-    $this->isPublicPanel = $isPublicPanel;
-  }
-  public function getIsPublicPanel()
-  {
-    return $this->isPublicPanel;
-  }
-  public function setLanguage($language)
-  {
-    $this->language = $language;
-  }
-  public function getLanguage()
-  {
-    return $this->language;
-  }
-  public function setMobileAppPanelId($mobileAppPanelId)
-  {
-    $this->mobileAppPanelId = $mobileAppPanelId;
-  }
-  public function getMobileAppPanelId()
-  {
-    return $this->mobileAppPanelId;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOwners($owners)
-  {
-    $this->owners = $owners;
-  }
-  public function getOwners()
-  {
-    return $this->owners;
-  }
+	public function setCountry($country)
+	{
+		$this->country = $country;
+	}
+	public function getCountry()
+	{
+		return $this->country;
+	}
+	public function setIsPublicPanel($isPublicPanel)
+	{
+		$this->isPublicPanel = $isPublicPanel;
+	}
+	public function getIsPublicPanel()
+	{
+		return $this->isPublicPanel;
+	}
+	public function setLanguage($language)
+	{
+		$this->language = $language;
+	}
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+	public function setMobileAppPanelId($mobileAppPanelId)
+	{
+		$this->mobileAppPanelId = $mobileAppPanelId;
+	}
+	public function getMobileAppPanelId()
+	{
+		return $this->mobileAppPanelId;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOwners($owners)
+	{
+		$this->owners = $owners;
+	}
+	public function getOwners()
+	{
+		return $this->owners;
+	}
 }

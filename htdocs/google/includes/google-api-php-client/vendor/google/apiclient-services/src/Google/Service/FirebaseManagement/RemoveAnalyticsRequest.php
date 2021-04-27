@@ -17,14 +17,14 @@
 
 class Google_Service_FirebaseManagement_RemoveAnalyticsRequest extends Google_Model
 {
-  public $analyticsPropertyId;
+	public $analyticsPropertyId;
 
-  public function setAnalyticsPropertyId($analyticsPropertyId)
-  {
-    $this->analyticsPropertyId = $analyticsPropertyId;
-  }
-  public function getAnalyticsPropertyId()
-  {
-    return $this->analyticsPropertyId;
-  }
+	public function setAnalyticsPropertyId($analyticsPropertyId)
+	{
+		$this->analyticsPropertyId = $analyticsPropertyId;
+	}
+	public function getAnalyticsPropertyId()
+	{
+		return $this->analyticsPropertyId;
+	}
 }

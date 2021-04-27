@@ -17,39 +17,39 @@
 
 class Google_Service_Script_Operation extends Google_Model
 {
-  public $done;
-  protected $errorType = 'Google_Service_Script_Status';
-  protected $errorDataType = '';
-  public $response;
+	public $done;
+	protected $errorType = 'Google_Service_Script_Status';
+	protected $errorDataType = '';
+	public $response;
 
-  public function setDone($done)
-  {
-    $this->done = $done;
-  }
-  public function getDone()
-  {
-    return $this->done;
-  }
-  /**
-   * @param Google_Service_Script_Status
-   */
-  public function setError(Google_Service_Script_Status $error)
-  {
-    $this->error = $error;
-  }
-  /**
-   * @return Google_Service_Script_Status
-   */
-  public function getError()
-  {
-    return $this->error;
-  }
-  public function setResponse($response)
-  {
-    $this->response = $response;
-  }
-  public function getResponse()
-  {
-    return $this->response;
-  }
+	public function setDone($done)
+	{
+		$this->done = $done;
+	}
+	public function getDone()
+	{
+		return $this->done;
+	}
+	/**
+	 * @param Google_Service_Script_Status
+	 */
+	public function setError(Google_Service_Script_Status $error)
+	{
+		$this->error = $error;
+	}
+	/**
+	 * @return Google_Service_Script_Status
+	 */
+	public function getError()
+	{
+		return $this->error;
+	}
+	public function setResponse($response)
+	{
+		$this->response = $response;
+	}
+	public function getResponse()
+	{
+		return $this->response;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_CloudBuild_PullRequestFilter extends Google_Model
 {
-  public $branch;
-  public $commentControl;
-  public $invertRegex;
+	public $branch;
+	public $commentControl;
+	public $invertRegex;
 
-  public function setBranch($branch)
-  {
-    $this->branch = $branch;
-  }
-  public function getBranch()
-  {
-    return $this->branch;
-  }
-  public function setCommentControl($commentControl)
-  {
-    $this->commentControl = $commentControl;
-  }
-  public function getCommentControl()
-  {
-    return $this->commentControl;
-  }
-  public function setInvertRegex($invertRegex)
-  {
-    $this->invertRegex = $invertRegex;
-  }
-  public function getInvertRegex()
-  {
-    return $this->invertRegex;
-  }
+	public function setBranch($branch)
+	{
+		$this->branch = $branch;
+	}
+	public function getBranch()
+	{
+		return $this->branch;
+	}
+	public function setCommentControl($commentControl)
+	{
+		$this->commentControl = $commentControl;
+	}
+	public function getCommentControl()
+	{
+		return $this->commentControl;
+	}
+	public function setInvertRegex($invertRegex)
+	{
+		$this->invertRegex = $invertRegex;
+	}
+	public function getInvertRegex()
+	{
+		return $this->invertRegex;
+	}
 }

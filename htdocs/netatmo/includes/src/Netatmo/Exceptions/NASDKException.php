@@ -7,10 +7,8 @@ namespace Netatmo\Exceptions;
 */
 class NASDKException extends \Exception
 {
-    public function __construct($code, $message)
-    {
-        parent::__construct($message, $code);
-    }
+	public function __construct($code, $message)
+	{
+		parent::__construct($message, $code);
+	}
 }
-
-?>

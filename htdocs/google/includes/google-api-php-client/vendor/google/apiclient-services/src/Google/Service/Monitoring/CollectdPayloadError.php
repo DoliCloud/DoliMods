@@ -17,47 +17,47 @@
 
 class Google_Service_Monitoring_CollectdPayloadError extends Google_Collection
 {
-  protected $collection_key = 'valueErrors';
-  protected $errorType = 'Google_Service_Monitoring_Status';
-  protected $errorDataType = '';
-  public $index;
-  protected $valueErrorsType = 'Google_Service_Monitoring_CollectdValueError';
-  protected $valueErrorsDataType = 'array';
+	protected $collection_key = 'valueErrors';
+	protected $errorType = 'Google_Service_Monitoring_Status';
+	protected $errorDataType = '';
+	public $index;
+	protected $valueErrorsType = 'Google_Service_Monitoring_CollectdValueError';
+	protected $valueErrorsDataType = 'array';
 
-  /**
-   * @param Google_Service_Monitoring_Status
-   */
-  public function setError(Google_Service_Monitoring_Status $error)
-  {
-    $this->error = $error;
-  }
-  /**
-   * @return Google_Service_Monitoring_Status
-   */
-  public function getError()
-  {
-    return $this->error;
-  }
-  public function setIndex($index)
-  {
-    $this->index = $index;
-  }
-  public function getIndex()
-  {
-    return $this->index;
-  }
-  /**
-   * @param Google_Service_Monitoring_CollectdValueError
-   */
-  public function setValueErrors($valueErrors)
-  {
-    $this->valueErrors = $valueErrors;
-  }
-  /**
-   * @return Google_Service_Monitoring_CollectdValueError
-   */
-  public function getValueErrors()
-  {
-    return $this->valueErrors;
-  }
+	/**
+	 * @param Google_Service_Monitoring_Status
+	 */
+	public function setError(Google_Service_Monitoring_Status $error)
+	{
+		$this->error = $error;
+	}
+	/**
+	 * @return Google_Service_Monitoring_Status
+	 */
+	public function getError()
+	{
+		return $this->error;
+	}
+	public function setIndex($index)
+	{
+		$this->index = $index;
+	}
+	public function getIndex()
+	{
+		return $this->index;
+	}
+	/**
+	 * @param Google_Service_Monitoring_CollectdValueError
+	 */
+	public function setValueErrors($valueErrors)
+	{
+		$this->valueErrors = $valueErrors;
+	}
+	/**
+	 * @return Google_Service_Monitoring_CollectdValueError
+	 */
+	public function getValueErrors()
+	{
+		return $this->valueErrors;
+	}
 }

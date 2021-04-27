@@ -17,56 +17,56 @@
 
 class Google_Service_CloudSearch_QuerySource extends Google_Collection
 {
-  protected $collection_key = 'operators';
-  public $displayName;
-  protected $operatorsType = 'Google_Service_CloudSearch_QueryOperator';
-  protected $operatorsDataType = 'array';
-  public $shortName;
-  protected $sourceType = 'Google_Service_CloudSearch_Source';
-  protected $sourceDataType = '';
+	protected $collection_key = 'operators';
+	public $displayName;
+	protected $operatorsType = 'Google_Service_CloudSearch_QueryOperator';
+	protected $operatorsDataType = 'array';
+	public $shortName;
+	protected $sourceType = 'Google_Service_CloudSearch_Source';
+	protected $sourceDataType = '';
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  /**
-   * @param Google_Service_CloudSearch_QueryOperator
-   */
-  public function setOperators($operators)
-  {
-    $this->operators = $operators;
-  }
-  /**
-   * @return Google_Service_CloudSearch_QueryOperator
-   */
-  public function getOperators()
-  {
-    return $this->operators;
-  }
-  public function setShortName($shortName)
-  {
-    $this->shortName = $shortName;
-  }
-  public function getShortName()
-  {
-    return $this->shortName;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Source
-   */
-  public function setSource(Google_Service_CloudSearch_Source $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Source
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_QueryOperator
+	 */
+	public function setOperators($operators)
+	{
+		$this->operators = $operators;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_QueryOperator
+	 */
+	public function getOperators()
+	{
+		return $this->operators;
+	}
+	public function setShortName($shortName)
+	{
+		$this->shortName = $shortName;
+	}
+	public function getShortName()
+	{
+		return $this->shortName;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Source
+	 */
+	public function setSource(Google_Service_CloudSearch_Source $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Source
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

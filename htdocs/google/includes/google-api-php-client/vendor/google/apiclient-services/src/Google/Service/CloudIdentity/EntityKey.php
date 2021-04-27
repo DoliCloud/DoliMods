@@ -17,23 +17,23 @@
 
 class Google_Service_CloudIdentity_EntityKey extends Google_Model
 {
-  public $id;
-  public $namespace;
+	public $id;
+	public $namespace;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setNamespace($namespace)
-  {
-    $this->namespace = $namespace;
-  }
-  public function getNamespace()
-  {
-    return $this->namespace;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setNamespace($namespace)
+	{
+		$this->namespace = $namespace;
+	}
+	public function getNamespace()
+	{
+		return $this->namespace;
+	}
 }

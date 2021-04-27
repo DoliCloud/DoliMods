@@ -25,21 +25,21 @@
  */
 class Google_Service_Cloudbilling_Resource_Services extends Google_Service_Resource
 {
-  /**
-   * Lists all public cloud services. (services.listServices)
-   *
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param int pageSize Requested page size. Defaults to 5000.
-   * @opt_param string pageToken A token identifying a page of results to return.
-   * This should be a `next_page_token` value returned from a previous
-   * `ListServices` call. If unspecified, the first page of results is returned.
-   * @return Google_Service_Cloudbilling_ListServicesResponse
-   */
-  public function listServices($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Cloudbilling_ListServicesResponse");
-  }
+	/**
+	 * Lists all public cloud services. (services.listServices)
+	 *
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param int pageSize Requested page size. Defaults to 5000.
+	 * @opt_param string pageToken A token identifying a page of results to return.
+	 * This should be a `next_page_token` value returned from a previous
+	 * `ListServices` call. If unspecified, the first page of results is returned.
+	 * @return Google_Service_Cloudbilling_ListServicesResponse
+	 */
+	public function listServices($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Cloudbilling_ListServicesResponse");
+	}
 }

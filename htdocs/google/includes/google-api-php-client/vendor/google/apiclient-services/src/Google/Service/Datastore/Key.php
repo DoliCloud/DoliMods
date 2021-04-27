@@ -17,38 +17,38 @@
 
 class Google_Service_Datastore_Key extends Google_Collection
 {
-  protected $collection_key = 'path';
-  protected $partitionIdType = 'Google_Service_Datastore_PartitionId';
-  protected $partitionIdDataType = '';
-  protected $pathType = 'Google_Service_Datastore_PathElement';
-  protected $pathDataType = 'array';
+	protected $collection_key = 'path';
+	protected $partitionIdType = 'Google_Service_Datastore_PartitionId';
+	protected $partitionIdDataType = '';
+	protected $pathType = 'Google_Service_Datastore_PathElement';
+	protected $pathDataType = 'array';
 
-  /**
-   * @param Google_Service_Datastore_PartitionId
-   */
-  public function setPartitionId(Google_Service_Datastore_PartitionId $partitionId)
-  {
-    $this->partitionId = $partitionId;
-  }
-  /**
-   * @return Google_Service_Datastore_PartitionId
-   */
-  public function getPartitionId()
-  {
-    return $this->partitionId;
-  }
-  /**
-   * @param Google_Service_Datastore_PathElement
-   */
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  /**
-   * @return Google_Service_Datastore_PathElement
-   */
-  public function getPath()
-  {
-    return $this->path;
-  }
+	/**
+	 * @param Google_Service_Datastore_PartitionId
+	 */
+	public function setPartitionId(Google_Service_Datastore_PartitionId $partitionId)
+	{
+		$this->partitionId = $partitionId;
+	}
+	/**
+	 * @return Google_Service_Datastore_PartitionId
+	 */
+	public function getPartitionId()
+	{
+		return $this->partitionId;
+	}
+	/**
+	 * @param Google_Service_Datastore_PathElement
+	 */
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	/**
+	 * @return Google_Service_Datastore_PathElement
+	 */
+	public function getPath()
+	{
+		return $this->path;
+	}
 }

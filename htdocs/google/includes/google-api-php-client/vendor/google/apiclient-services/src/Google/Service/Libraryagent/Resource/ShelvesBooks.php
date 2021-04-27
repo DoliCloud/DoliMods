@@ -25,71 +25,71 @@
  */
 class Google_Service_Libraryagent_Resource_ShelvesBooks extends Google_Service_Resource
 {
-  /**
-   * Borrow a book from the library. Returns the book if it is borrowed
-   * successfully. Returns NOT_FOUND if the book does not exist in the library.
-   * Returns quota exceeded error if the amount of books borrowed exceeds
-   * allocation quota in any dimensions. (books.borrow)
-   *
-   * @param string $name Required. The name of the book to borrow.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book
-   */
-  public function borrow($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('borrow', array($params), "Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book");
-  }
-  /**
-   * Gets a book. Returns NOT_FOUND if the book does not exist. (books.get)
-   *
-   * @param string $name Required. The name of the book to retrieve.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book");
-  }
-  /**
-   * Lists books in a shelf. The order is unspecified but deterministic. Newly
-   * created books will not necessarily be added to the end of this list. Returns
-   * NOT_FOUND if the shelf does not exist. (books.listShelvesBooks)
-   *
-   * @param string $parent Required. The name of the shelf whose books we'd like
-   * to list.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string pageToken A token identifying a page of results the server
-   * should return. Typically, this is the value of
-   * ListBooksResponse.next_page_token. returned from the previous call to
-   * `ListBooks` method.
-   * @opt_param int pageSize Requested page size. Server may return fewer books
-   * than requested. If unspecified, server will pick an appropriate default.
-   * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1ListBooksResponse
-   */
-  public function listShelvesBooks($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Libraryagent_GoogleExampleLibraryagentV1ListBooksResponse");
-  }
-  /**
-   * Return a book to the library. Returns the book if it is returned to the
-   * library successfully. Returns error if the book does not belong to the
-   * library or the users didn't borrow before. (books.returnShelvesBooks)
-   *
-   * @param string $name Required. The name of the book to return.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book
-   */
-  public function returnShelvesBooks($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('return', array($params), "Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book");
-  }
+	/**
+	 * Borrow a book from the library. Returns the book if it is borrowed
+	 * successfully. Returns NOT_FOUND if the book does not exist in the library.
+	 * Returns quota exceeded error if the amount of books borrowed exceeds
+	 * allocation quota in any dimensions. (books.borrow)
+	 *
+	 * @param string $name Required. The name of the book to borrow.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book
+	 */
+	public function borrow($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('borrow', array($params), "Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book");
+	}
+	/**
+	 * Gets a book. Returns NOT_FOUND if the book does not exist. (books.get)
+	 *
+	 * @param string $name Required. The name of the book to retrieve.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book");
+	}
+	/**
+	 * Lists books in a shelf. The order is unspecified but deterministic. Newly
+	 * created books will not necessarily be added to the end of this list. Returns
+	 * NOT_FOUND if the shelf does not exist. (books.listShelvesBooks)
+	 *
+	 * @param string $parent Required. The name of the shelf whose books we'd like
+	 *                       to list.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string pageToken A token identifying a page of results the server
+	 * should return. Typically, this is the value of
+	 * ListBooksResponse.next_page_token. returned from the previous call to
+	 * `ListBooks` method.
+	 * @opt_param int pageSize Requested page size. Server may return fewer books
+	 * than requested. If unspecified, server will pick an appropriate default.
+	 * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1ListBooksResponse
+	 */
+	public function listShelvesBooks($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Libraryagent_GoogleExampleLibraryagentV1ListBooksResponse");
+	}
+	/**
+	 * Return a book to the library. Returns the book if it is returned to the
+	 * library successfully. Returns error if the book does not belong to the
+	 * library or the users didn't borrow before. (books.returnShelvesBooks)
+	 *
+	 * @param string $name Required. The name of the book to return.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book
+	 */
+	public function returnShelvesBooks($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('return', array($params), "Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book");
+	}
 }

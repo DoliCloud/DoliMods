@@ -6,40 +6,38 @@
  */
 class autologon extends rcube_plugin
 {
-  public $task = 'login';
+	public $task = 'login';
 
-  function init()
-  {
-    $this->add_hook('startup', array($this, 'startup'));
-    $this->add_hook('authenticate', array($this, 'authenticate'));
-  }
+	function init()
+	{
+		$this->add_hook('startup', array($this, 'startup'));
+		$this->add_hook('authenticate', array($this, 'authenticate'));
+	}
 
-  function startup($args)
-  {
-    $rcmail = rcmail::get_instance();
+	function startup($args)
+	{
+		$rcmail = rcmail::get_instance();
 
-    // change action to login
-    if (empty($_SESSION['user_id']) && !empty($_GET['_autologin']) && $this->is_localhost())
-      $args['action'] = 'login';
+		// change action to login
+		if (empty($_SESSION['user_id']) && !empty($_GET['_autologin']) && $this->is_localhost())
+		$args['action'] = 'login';
 
-    return $args;
-  }
+		return $args;
+	}
 
-  function authenticate($args)
-  {
-    if (!empty($_GET['_autologin']) && $this->is_localhost()) {
-      $args['user'] = 'me';
-      $args['pass'] = '******';
-      $args['host'] = 'localhost';
-    }
-  
-    return $args;
-  }
+	function authenticate($args)
+	{
+		if (!empty($_GET['_autologin']) && $this->is_localhost()) {
+			$args['user'] = 'me';
+			$args['pass'] = '******';
+			$args['host'] = 'localhost';
+		}
 
-  function is_localhost()
-  {
-    return $_SERVER['REMOTE_ADDR'] == '::1' || $_SERVER['REMOTE_ADDR'] == '127.0.0.1';
-  }
+		return $args;
+	}
 
+	function is_localhost()
+	{
+		return $_SERVER['REMOTE_ADDR'] == '::1' || $_SERVER['REMOTE_ADDR'] == '127.0.0.1';
+	}
 }
-

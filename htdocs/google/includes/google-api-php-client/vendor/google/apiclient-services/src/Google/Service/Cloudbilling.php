@@ -31,240 +31,240 @@
  */
 class Google_Service_Cloudbilling extends Google_Service
 {
-  /** View and manage your data across Google Cloud Platform services. */
-  const CLOUD_PLATFORM =
-      "https://www.googleapis.com/auth/cloud-platform";
+	/** View and manage your data across Google Cloud Platform services. */
+	const CLOUD_PLATFORM =
+	  "https://www.googleapis.com/auth/cloud-platform";
 
-  public $billingAccounts;
-  public $billingAccounts_projects;
-  public $projects;
-  public $services;
-  public $services_skus;
-  
-  /**
-   * Constructs the internal representation of the Cloudbilling service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://cloudbilling.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'cloudbilling';
+	public $billingAccounts;
+	public $billingAccounts_projects;
+	public $projects;
+	public $services;
+	public $services_skus;
 
-    $this->billingAccounts = new Google_Service_Cloudbilling_Resource_BillingAccounts(
-        $this,
-        $this->serviceName,
-        'billingAccounts',
-        array(
-          'methods' => array(
-            'create' => array(
-              'path' => 'v1/billingAccounts',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),'get' => array(
-              'path' => 'v1/{+name}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'getIamPolicy' => array(
-              'path' => 'v1/{+resource}:getIamPolicy',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'resource' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'options.requestedPolicyVersion' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-              ),
-            ),'list' => array(
-              'path' => 'v1/billingAccounts',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-              ),
-            ),'patch' => array(
-              'path' => 'v1/{+name}',
-              'httpMethod' => 'PATCH',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'updateMask' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'setIamPolicy' => array(
-              'path' => 'v1/{+resource}:setIamPolicy',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'resource' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'testIamPermissions' => array(
-              'path' => 'v1/{+resource}:testIamPermissions',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'resource' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->billingAccounts_projects = new Google_Service_Cloudbilling_Resource_BillingAccountsProjects(
-        $this,
-        $this->serviceName,
-        'projects',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'v1/{+name}/projects',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects = new Google_Service_Cloudbilling_Resource_Projects(
-        $this,
-        $this->serviceName,
-        'projects',
-        array(
-          'methods' => array(
-            'getBillingInfo' => array(
-              'path' => 'v1/{+name}/billingInfo',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'updateBillingInfo' => array(
-              'path' => 'v1/{+name}/billingInfo',
-              'httpMethod' => 'PUT',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->services = new Google_Service_Cloudbilling_Resource_Services(
-        $this,
-        $this->serviceName,
-        'services',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'v1/services',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->services_skus = new Google_Service_Cloudbilling_Resource_ServicesSkus(
-        $this,
-        $this->serviceName,
-        'skus',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'v1/{+parent}/skus',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'endTime' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'currencyCode' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'startTime' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the Cloudbilling service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://cloudbilling.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'cloudbilling';
+
+		$this->billingAccounts = new Google_Service_Cloudbilling_Resource_BillingAccounts(
+		$this,
+		$this->serviceName,
+		'billingAccounts',
+		array(
+		  'methods' => array(
+			'create' => array(
+			  'path' => 'v1/billingAccounts',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),'get' => array(
+			  'path' => 'v1/{+name}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'getIamPolicy' => array(
+			  'path' => 'v1/{+resource}:getIamPolicy',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'resource' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'options.requestedPolicyVersion' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+			  ),
+			),'list' => array(
+			  'path' => 'v1/billingAccounts',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'filter' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+			  ),
+			),'patch' => array(
+			  'path' => 'v1/{+name}',
+			  'httpMethod' => 'PATCH',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'updateMask' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),'setIamPolicy' => array(
+			  'path' => 'v1/{+resource}:setIamPolicy',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'resource' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'testIamPermissions' => array(
+			  'path' => 'v1/{+resource}:testIamPermissions',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'resource' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->billingAccounts_projects = new Google_Service_Cloudbilling_Resource_BillingAccountsProjects(
+		$this,
+		$this->serviceName,
+		'projects',
+		array(
+		  'methods' => array(
+			'list' => array(
+			  'path' => 'v1/{+name}/projects',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->projects = new Google_Service_Cloudbilling_Resource_Projects(
+		$this,
+		$this->serviceName,
+		'projects',
+		array(
+		  'methods' => array(
+			'getBillingInfo' => array(
+			  'path' => 'v1/{+name}/billingInfo',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'updateBillingInfo' => array(
+			  'path' => 'v1/{+name}/billingInfo',
+			  'httpMethod' => 'PUT',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->services = new Google_Service_Cloudbilling_Resource_Services(
+		$this,
+		$this->serviceName,
+		'services',
+		array(
+		  'methods' => array(
+			'list' => array(
+			  'path' => 'v1/services',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->services_skus = new Google_Service_Cloudbilling_Resource_ServicesSkus(
+		$this,
+		$this->serviceName,
+		'skus',
+		array(
+		  'methods' => array(
+			'list' => array(
+			  'path' => 'v1/{+parent}/skus',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'endTime' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'currencyCode' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'startTime' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

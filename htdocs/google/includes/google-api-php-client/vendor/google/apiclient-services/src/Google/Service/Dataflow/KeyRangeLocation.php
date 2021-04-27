@@ -17,50 +17,50 @@
 
 class Google_Service_Dataflow_KeyRangeLocation extends Google_Model
 {
-  public $dataDisk;
-  public $deliveryEndpoint;
-  public $deprecatedPersistentDirectory;
-  public $end;
-  public $start;
+	public $dataDisk;
+	public $deliveryEndpoint;
+	public $deprecatedPersistentDirectory;
+	public $end;
+	public $start;
 
-  public function setDataDisk($dataDisk)
-  {
-    $this->dataDisk = $dataDisk;
-  }
-  public function getDataDisk()
-  {
-    return $this->dataDisk;
-  }
-  public function setDeliveryEndpoint($deliveryEndpoint)
-  {
-    $this->deliveryEndpoint = $deliveryEndpoint;
-  }
-  public function getDeliveryEndpoint()
-  {
-    return $this->deliveryEndpoint;
-  }
-  public function setDeprecatedPersistentDirectory($deprecatedPersistentDirectory)
-  {
-    $this->deprecatedPersistentDirectory = $deprecatedPersistentDirectory;
-  }
-  public function getDeprecatedPersistentDirectory()
-  {
-    return $this->deprecatedPersistentDirectory;
-  }
-  public function setEnd($end)
-  {
-    $this->end = $end;
-  }
-  public function getEnd()
-  {
-    return $this->end;
-  }
-  public function setStart($start)
-  {
-    $this->start = $start;
-  }
-  public function getStart()
-  {
-    return $this->start;
-  }
+	public function setDataDisk($dataDisk)
+	{
+		$this->dataDisk = $dataDisk;
+	}
+	public function getDataDisk()
+	{
+		return $this->dataDisk;
+	}
+	public function setDeliveryEndpoint($deliveryEndpoint)
+	{
+		$this->deliveryEndpoint = $deliveryEndpoint;
+	}
+	public function getDeliveryEndpoint()
+	{
+		return $this->deliveryEndpoint;
+	}
+	public function setDeprecatedPersistentDirectory($deprecatedPersistentDirectory)
+	{
+		$this->deprecatedPersistentDirectory = $deprecatedPersistentDirectory;
+	}
+	public function getDeprecatedPersistentDirectory()
+	{
+		return $this->deprecatedPersistentDirectory;
+	}
+	public function setEnd($end)
+	{
+		$this->end = $end;
+	}
+	public function getEnd()
+	{
+		return $this->end;
+	}
+	public function setStart($start)
+	{
+		$this->start = $start;
+	}
+	public function getStart()
+	{
+		return $this->start;
+	}
 }

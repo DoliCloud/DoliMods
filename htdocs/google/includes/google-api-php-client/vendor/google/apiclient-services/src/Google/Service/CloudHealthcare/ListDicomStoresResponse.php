@@ -17,31 +17,31 @@
 
 class Google_Service_CloudHealthcare_ListDicomStoresResponse extends Google_Collection
 {
-  protected $collection_key = 'dicomStores';
-  protected $dicomStoresType = 'Google_Service_CloudHealthcare_DicomStore';
-  protected $dicomStoresDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'dicomStores';
+	protected $dicomStoresType = 'Google_Service_CloudHealthcare_DicomStore';
+	protected $dicomStoresDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudHealthcare_DicomStore
-   */
-  public function setDicomStores($dicomStores)
-  {
-    $this->dicomStores = $dicomStores;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_DicomStore
-   */
-  public function getDicomStores()
-  {
-    return $this->dicomStores;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudHealthcare_DicomStore
+	 */
+	public function setDicomStores($dicomStores)
+	{
+		$this->dicomStores = $dicomStores;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_DicomStore
+	 */
+	public function getDicomStores()
+	{
+		return $this->dicomStores;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Drive_PermissionTeamDrivePermissionDetails extends Google_Model
 {
-  public $inherited;
-  public $inheritedFrom;
-  public $role;
-  public $teamDrivePermissionType;
+	public $inherited;
+	public $inheritedFrom;
+	public $role;
+	public $teamDrivePermissionType;
 
-  public function setInherited($inherited)
-  {
-    $this->inherited = $inherited;
-  }
-  public function getInherited()
-  {
-    return $this->inherited;
-  }
-  public function setInheritedFrom($inheritedFrom)
-  {
-    $this->inheritedFrom = $inheritedFrom;
-  }
-  public function getInheritedFrom()
-  {
-    return $this->inheritedFrom;
-  }
-  public function setRole($role)
-  {
-    $this->role = $role;
-  }
-  public function getRole()
-  {
-    return $this->role;
-  }
-  public function setTeamDrivePermissionType($teamDrivePermissionType)
-  {
-    $this->teamDrivePermissionType = $teamDrivePermissionType;
-  }
-  public function getTeamDrivePermissionType()
-  {
-    return $this->teamDrivePermissionType;
-  }
+	public function setInherited($inherited)
+	{
+		$this->inherited = $inherited;
+	}
+	public function getInherited()
+	{
+		return $this->inherited;
+	}
+	public function setInheritedFrom($inheritedFrom)
+	{
+		$this->inheritedFrom = $inheritedFrom;
+	}
+	public function getInheritedFrom()
+	{
+		return $this->inheritedFrom;
+	}
+	public function setRole($role)
+	{
+		$this->role = $role;
+	}
+	public function getRole()
+	{
+		return $this->role;
+	}
+	public function setTeamDrivePermissionType($teamDrivePermissionType)
+	{
+		$this->teamDrivePermissionType = $teamDrivePermissionType;
+	}
+	public function getTeamDrivePermissionType()
+	{
+		return $this->teamDrivePermissionType;
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_AndroidEnterprise_StorePage extends Google_Collection
 {
-  protected $collection_key = 'name';
-  public $id;
-  public $link;
-  protected $nameType = 'Google_Service_AndroidEnterprise_LocalizedText';
-  protected $nameDataType = 'array';
+	protected $collection_key = 'name';
+	public $id;
+	public $link;
+	protected $nameType = 'Google_Service_AndroidEnterprise_LocalizedText';
+	protected $nameDataType = 'array';
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setLink($link)
-  {
-    $this->link = $link;
-  }
-  public function getLink()
-  {
-    return $this->link;
-  }
-  /**
-   * @param Google_Service_AndroidEnterprise_LocalizedText
-   */
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_LocalizedText
-   */
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
+	public function getLink()
+	{
+		return $this->link;
+	}
+	/**
+	 * @param Google_Service_AndroidEnterprise_LocalizedText
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_LocalizedText
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
 }

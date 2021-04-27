@@ -17,23 +17,23 @@
 
 class Google_Service_Books_VolumeseriesinfoVolumeSeriesIssue extends Google_Model
 {
-  public $issueDisplayNumber;
-  public $issueOrderNumber;
+	public $issueDisplayNumber;
+	public $issueOrderNumber;
 
-  public function setIssueDisplayNumber($issueDisplayNumber)
-  {
-    $this->issueDisplayNumber = $issueDisplayNumber;
-  }
-  public function getIssueDisplayNumber()
-  {
-    return $this->issueDisplayNumber;
-  }
-  public function setIssueOrderNumber($issueOrderNumber)
-  {
-    $this->issueOrderNumber = $issueOrderNumber;
-  }
-  public function getIssueOrderNumber()
-  {
-    return $this->issueOrderNumber;
-  }
+	public function setIssueDisplayNumber($issueDisplayNumber)
+	{
+		$this->issueDisplayNumber = $issueDisplayNumber;
+	}
+	public function getIssueDisplayNumber()
+	{
+		return $this->issueDisplayNumber;
+	}
+	public function setIssueOrderNumber($issueOrderNumber)
+	{
+		$this->issueOrderNumber = $issueOrderNumber;
+	}
+	public function getIssueOrderNumber()
+	{
+		return $this->issueOrderNumber;
+	}
 }

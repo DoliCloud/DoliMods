@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceManagement_FlowErrorDetails extends Google_Model
 {
-  public $exceptionType;
-  public $flowStepId;
+	public $exceptionType;
+	public $flowStepId;
 
-  public function setExceptionType($exceptionType)
-  {
-    $this->exceptionType = $exceptionType;
-  }
-  public function getExceptionType()
-  {
-    return $this->exceptionType;
-  }
-  public function setFlowStepId($flowStepId)
-  {
-    $this->flowStepId = $flowStepId;
-  }
-  public function getFlowStepId()
-  {
-    return $this->flowStepId;
-  }
+	public function setExceptionType($exceptionType)
+	{
+		$this->exceptionType = $exceptionType;
+	}
+	public function getExceptionType()
+	{
+		return $this->exceptionType;
+	}
+	public function setFlowStepId($flowStepId)
+	{
+		$this->flowStepId = $flowStepId;
+	}
+	public function getFlowStepId()
+	{
+		return $this->flowStepId;
+	}
 }

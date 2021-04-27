@@ -17,14 +17,14 @@
 
 class Google_Service_Sheets_TrimWhitespaceResponse extends Google_Model
 {
-  public $cellsChangedCount;
+	public $cellsChangedCount;
 
-  public function setCellsChangedCount($cellsChangedCount)
-  {
-    $this->cellsChangedCount = $cellsChangedCount;
-  }
-  public function getCellsChangedCount()
-  {
-    return $this->cellsChangedCount;
-  }
+	public function setCellsChangedCount($cellsChangedCount)
+	{
+		$this->cellsChangedCount = $cellsChangedCount;
+	}
+	public function getCellsChangedCount()
+	{
+		return $this->cellsChangedCount;
+	}
 }

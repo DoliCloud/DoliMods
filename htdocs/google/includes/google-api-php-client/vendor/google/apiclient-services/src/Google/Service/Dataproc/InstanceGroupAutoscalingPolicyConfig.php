@@ -17,32 +17,32 @@
 
 class Google_Service_Dataproc_InstanceGroupAutoscalingPolicyConfig extends Google_Model
 {
-  public $maxInstances;
-  public $minInstances;
-  public $weight;
+	public $maxInstances;
+	public $minInstances;
+	public $weight;
 
-  public function setMaxInstances($maxInstances)
-  {
-    $this->maxInstances = $maxInstances;
-  }
-  public function getMaxInstances()
-  {
-    return $this->maxInstances;
-  }
-  public function setMinInstances($minInstances)
-  {
-    $this->minInstances = $minInstances;
-  }
-  public function getMinInstances()
-  {
-    return $this->minInstances;
-  }
-  public function setWeight($weight)
-  {
-    $this->weight = $weight;
-  }
-  public function getWeight()
-  {
-    return $this->weight;
-  }
+	public function setMaxInstances($maxInstances)
+	{
+		$this->maxInstances = $maxInstances;
+	}
+	public function getMaxInstances()
+	{
+		return $this->maxInstances;
+	}
+	public function setMinInstances($minInstances)
+	{
+		$this->minInstances = $minInstances;
+	}
+	public function getMinInstances()
+	{
+		return $this->minInstances;
+	}
+	public function setWeight($weight)
+	{
+		$this->weight = $weight;
+	}
+	public function getWeight()
+	{
+		return $this->weight;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2KmsWrappedCryptoKey extends Google_Model
 {
-  public $cryptoKeyName;
-  public $wrappedKey;
+	public $cryptoKeyName;
+	public $wrappedKey;
 
-  public function setCryptoKeyName($cryptoKeyName)
-  {
-    $this->cryptoKeyName = $cryptoKeyName;
-  }
-  public function getCryptoKeyName()
-  {
-    return $this->cryptoKeyName;
-  }
-  public function setWrappedKey($wrappedKey)
-  {
-    $this->wrappedKey = $wrappedKey;
-  }
-  public function getWrappedKey()
-  {
-    return $this->wrappedKey;
-  }
+	public function setCryptoKeyName($cryptoKeyName)
+	{
+		$this->cryptoKeyName = $cryptoKeyName;
+	}
+	public function getCryptoKeyName()
+	{
+		return $this->cryptoKeyName;
+	}
+	public function setWrappedKey($wrappedKey)
+	{
+		$this->wrappedKey = $wrappedKey;
+	}
+	public function getWrappedKey()
+	{
+		return $this->wrappedKey;
+	}
 }

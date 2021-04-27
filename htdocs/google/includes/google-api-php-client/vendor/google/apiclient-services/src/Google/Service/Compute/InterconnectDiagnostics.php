@@ -17,47 +17,47 @@
 
 class Google_Service_Compute_InterconnectDiagnostics extends Google_Collection
 {
-  protected $collection_key = 'links';
-  protected $arpCachesType = 'Google_Service_Compute_InterconnectDiagnosticsARPEntry';
-  protected $arpCachesDataType = 'array';
-  protected $linksType = 'Google_Service_Compute_InterconnectDiagnosticsLinkStatus';
-  protected $linksDataType = 'array';
-  public $macAddress;
+	protected $collection_key = 'links';
+	protected $arpCachesType = 'Google_Service_Compute_InterconnectDiagnosticsARPEntry';
+	protected $arpCachesDataType = 'array';
+	protected $linksType = 'Google_Service_Compute_InterconnectDiagnosticsLinkStatus';
+	protected $linksDataType = 'array';
+	public $macAddress;
 
-  /**
-   * @param Google_Service_Compute_InterconnectDiagnosticsARPEntry
-   */
-  public function setArpCaches($arpCaches)
-  {
-    $this->arpCaches = $arpCaches;
-  }
-  /**
-   * @return Google_Service_Compute_InterconnectDiagnosticsARPEntry
-   */
-  public function getArpCaches()
-  {
-    return $this->arpCaches;
-  }
-  /**
-   * @param Google_Service_Compute_InterconnectDiagnosticsLinkStatus
-   */
-  public function setLinks($links)
-  {
-    $this->links = $links;
-  }
-  /**
-   * @return Google_Service_Compute_InterconnectDiagnosticsLinkStatus
-   */
-  public function getLinks()
-  {
-    return $this->links;
-  }
-  public function setMacAddress($macAddress)
-  {
-    $this->macAddress = $macAddress;
-  }
-  public function getMacAddress()
-  {
-    return $this->macAddress;
-  }
+	/**
+	 * @param Google_Service_Compute_InterconnectDiagnosticsARPEntry
+	 */
+	public function setArpCaches($arpCaches)
+	{
+		$this->arpCaches = $arpCaches;
+	}
+	/**
+	 * @return Google_Service_Compute_InterconnectDiagnosticsARPEntry
+	 */
+	public function getArpCaches()
+	{
+		return $this->arpCaches;
+	}
+	/**
+	 * @param Google_Service_Compute_InterconnectDiagnosticsLinkStatus
+	 */
+	public function setLinks($links)
+	{
+		$this->links = $links;
+	}
+	/**
+	 * @return Google_Service_Compute_InterconnectDiagnosticsLinkStatus
+	 */
+	public function getLinks()
+	{
+		return $this->links;
+	}
+	public function setMacAddress($macAddress)
+	{
+		$this->macAddress = $macAddress;
+	}
+	public function getMacAddress()
+	{
+		return $this->macAddress;
+	}
 }

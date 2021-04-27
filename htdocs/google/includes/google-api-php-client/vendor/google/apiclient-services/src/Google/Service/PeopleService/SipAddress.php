@@ -17,48 +17,48 @@
 
 class Google_Service_PeopleService_SipAddress extends Google_Model
 {
-  public $formattedType;
-  protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
-  protected $metadataDataType = '';
-  public $type;
-  public $value;
+	public $formattedType;
+	protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
+	protected $metadataDataType = '';
+	public $type;
+	public $value;
 
-  public function setFormattedType($formattedType)
-  {
-    $this->formattedType = $formattedType;
-  }
-  public function getFormattedType()
-  {
-    return $this->formattedType;
-  }
-  /**
-   * @param Google_Service_PeopleService_FieldMetadata
-   */
-  public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_PeopleService_FieldMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setFormattedType($formattedType)
+	{
+		$this->formattedType = $formattedType;
+	}
+	public function getFormattedType()
+	{
+		return $this->formattedType;
+	}
+	/**
+	 * @param Google_Service_PeopleService_FieldMetadata
+	 */
+	public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_PeopleService_FieldMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

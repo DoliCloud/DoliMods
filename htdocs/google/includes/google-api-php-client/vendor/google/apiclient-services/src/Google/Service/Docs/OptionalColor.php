@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_OptionalColor extends Google_Model
 {
-  protected $colorType = 'Google_Service_Docs_Color';
-  protected $colorDataType = '';
+	protected $colorType = 'Google_Service_Docs_Color';
+	protected $colorDataType = '';
 
-  /**
-   * @param Google_Service_Docs_Color
-   */
-  public function setColor(Google_Service_Docs_Color $color)
-  {
-    $this->color = $color;
-  }
-  /**
-   * @return Google_Service_Docs_Color
-   */
-  public function getColor()
-  {
-    return $this->color;
-  }
+	/**
+	 * @param Google_Service_Docs_Color
+	 */
+	public function setColor(Google_Service_Docs_Color $color)
+	{
+		$this->color = $color;
+	}
+	/**
+	 * @return Google_Service_Docs_Color
+	 */
+	public function getColor()
+	{
+		return $this->color;
+	}
 }

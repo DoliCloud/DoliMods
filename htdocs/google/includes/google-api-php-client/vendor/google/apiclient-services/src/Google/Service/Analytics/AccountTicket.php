@@ -17,80 +17,80 @@
 
 class Google_Service_Analytics_AccountTicket extends Google_Model
 {
-  protected $accountType = 'Google_Service_Analytics_Account';
-  protected $accountDataType = '';
-  public $id;
-  public $kind;
-  protected $profileType = 'Google_Service_Analytics_Profile';
-  protected $profileDataType = '';
-  public $redirectUri;
-  protected $webpropertyType = 'Google_Service_Analytics_Webproperty';
-  protected $webpropertyDataType = '';
+	protected $accountType = 'Google_Service_Analytics_Account';
+	protected $accountDataType = '';
+	public $id;
+	public $kind;
+	protected $profileType = 'Google_Service_Analytics_Profile';
+	protected $profileDataType = '';
+	public $redirectUri;
+	protected $webpropertyType = 'Google_Service_Analytics_Webproperty';
+	protected $webpropertyDataType = '';
 
-  /**
-   * @param Google_Service_Analytics_Account
-   */
-  public function setAccount(Google_Service_Analytics_Account $account)
-  {
-    $this->account = $account;
-  }
-  /**
-   * @return Google_Service_Analytics_Account
-   */
-  public function getAccount()
-  {
-    return $this->account;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Analytics_Profile
-   */
-  public function setProfile(Google_Service_Analytics_Profile $profile)
-  {
-    $this->profile = $profile;
-  }
-  /**
-   * @return Google_Service_Analytics_Profile
-   */
-  public function getProfile()
-  {
-    return $this->profile;
-  }
-  public function setRedirectUri($redirectUri)
-  {
-    $this->redirectUri = $redirectUri;
-  }
-  public function getRedirectUri()
-  {
-    return $this->redirectUri;
-  }
-  /**
-   * @param Google_Service_Analytics_Webproperty
-   */
-  public function setWebproperty(Google_Service_Analytics_Webproperty $webproperty)
-  {
-    $this->webproperty = $webproperty;
-  }
-  /**
-   * @return Google_Service_Analytics_Webproperty
-   */
-  public function getWebproperty()
-  {
-    return $this->webproperty;
-  }
+	/**
+	 * @param Google_Service_Analytics_Account
+	 */
+	public function setAccount(Google_Service_Analytics_Account $account)
+	{
+		$this->account = $account;
+	}
+	/**
+	 * @return Google_Service_Analytics_Account
+	 */
+	public function getAccount()
+	{
+		return $this->account;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Analytics_Profile
+	 */
+	public function setProfile(Google_Service_Analytics_Profile $profile)
+	{
+		$this->profile = $profile;
+	}
+	/**
+	 * @return Google_Service_Analytics_Profile
+	 */
+	public function getProfile()
+	{
+		return $this->profile;
+	}
+	public function setRedirectUri($redirectUri)
+	{
+		$this->redirectUri = $redirectUri;
+	}
+	public function getRedirectUri()
+	{
+		return $this->redirectUri;
+	}
+	/**
+	 * @param Google_Service_Analytics_Webproperty
+	 */
+	public function setWebproperty(Google_Service_Analytics_Webproperty $webproperty)
+	{
+		$this->webproperty = $webproperty;
+	}
+	/**
+	 * @return Google_Service_Analytics_Webproperty
+	 */
+	public function getWebproperty()
+	{
+		return $this->webproperty;
+	}
 }

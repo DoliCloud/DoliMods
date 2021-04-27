@@ -17,21 +17,21 @@
 
 class Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_AttachTrustRequest extends Google_Model
 {
-  protected $trustType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust';
-  protected $trustDataType = '';
+	protected $trustType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust';
+	protected $trustDataType = '';
 
-  /**
-   * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust
-   */
-  public function setTrust(Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust $trust)
-  {
-    $this->trust = $trust;
-  }
-  /**
-   * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust
-   */
-  public function getTrust()
-  {
-    return $this->trust;
-  }
+	/**
+	 * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust
+	 */
+	public function setTrust(Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust $trust)
+	{
+		$this->trust = $trust;
+	}
+	/**
+	 * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust
+	 */
+	public function getTrust()
+	{
+		return $this->trust;
+	}
 }

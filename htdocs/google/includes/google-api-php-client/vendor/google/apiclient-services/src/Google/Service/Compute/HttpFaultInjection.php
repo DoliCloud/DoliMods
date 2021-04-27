@@ -17,37 +17,37 @@
 
 class Google_Service_Compute_HttpFaultInjection extends Google_Model
 {
-  protected $abortType = 'Google_Service_Compute_HttpFaultAbort';
-  protected $abortDataType = '';
-  protected $delayType = 'Google_Service_Compute_HttpFaultDelay';
-  protected $delayDataType = '';
+	protected $abortType = 'Google_Service_Compute_HttpFaultAbort';
+	protected $abortDataType = '';
+	protected $delayType = 'Google_Service_Compute_HttpFaultDelay';
+	protected $delayDataType = '';
 
-  /**
-   * @param Google_Service_Compute_HttpFaultAbort
-   */
-  public function setAbort(Google_Service_Compute_HttpFaultAbort $abort)
-  {
-    $this->abort = $abort;
-  }
-  /**
-   * @return Google_Service_Compute_HttpFaultAbort
-   */
-  public function getAbort()
-  {
-    return $this->abort;
-  }
-  /**
-   * @param Google_Service_Compute_HttpFaultDelay
-   */
-  public function setDelay(Google_Service_Compute_HttpFaultDelay $delay)
-  {
-    $this->delay = $delay;
-  }
-  /**
-   * @return Google_Service_Compute_HttpFaultDelay
-   */
-  public function getDelay()
-  {
-    return $this->delay;
-  }
+	/**
+	 * @param Google_Service_Compute_HttpFaultAbort
+	 */
+	public function setAbort(Google_Service_Compute_HttpFaultAbort $abort)
+	{
+		$this->abort = $abort;
+	}
+	/**
+	 * @return Google_Service_Compute_HttpFaultAbort
+	 */
+	public function getAbort()
+	{
+		return $this->abort;
+	}
+	/**
+	 * @param Google_Service_Compute_HttpFaultDelay
+	 */
+	public function setDelay(Google_Service_Compute_HttpFaultDelay $delay)
+	{
+		$this->delay = $delay;
+	}
+	/**
+	 * @return Google_Service_Compute_HttpFaultDelay
+	 */
+	public function getDelay()
+	{
+		return $this->delay;
+	}
 }

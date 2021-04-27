@@ -17,23 +17,23 @@
 
 class Google_Service_FirebaseDynamicLinks_Suffix extends Google_Model
 {
-  public $customSuffix;
-  public $option;
+	public $customSuffix;
+	public $option;
 
-  public function setCustomSuffix($customSuffix)
-  {
-    $this->customSuffix = $customSuffix;
-  }
-  public function getCustomSuffix()
-  {
-    return $this->customSuffix;
-  }
-  public function setOption($option)
-  {
-    $this->option = $option;
-  }
-  public function getOption()
-  {
-    return $this->option;
-  }
+	public function setCustomSuffix($customSuffix)
+	{
+		$this->customSuffix = $customSuffix;
+	}
+	public function getCustomSuffix()
+	{
+		return $this->customSuffix;
+	}
+	public function setOption($option)
+	{
+		$this->option = $option;
+	}
+	public function getOption()
+	{
+		return $this->option;
+	}
 }

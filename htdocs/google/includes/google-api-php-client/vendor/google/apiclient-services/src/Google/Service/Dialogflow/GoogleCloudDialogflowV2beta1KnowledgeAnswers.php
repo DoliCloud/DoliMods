@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeAnswers extends Google_Collection
 {
-  protected $collection_key = 'answers';
-  protected $answersType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer';
-  protected $answersDataType = 'array';
+	protected $collection_key = 'answers';
+	protected $answersType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer';
+	protected $answersDataType = 'array';
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer
-   */
-  public function setAnswers($answers)
-  {
-    $this->answers = $answers;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer
-   */
-  public function getAnswers()
-  {
-    return $this->answers;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer
+	 */
+	public function setAnswers($answers)
+	{
+		$this->answers = $answers;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer
+	 */
+	public function getAnswers()
+	{
+		return $this->answers;
+	}
 }

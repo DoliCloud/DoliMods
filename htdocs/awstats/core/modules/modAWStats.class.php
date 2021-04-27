@@ -13,7 +13,7 @@
  *      \ingroup    awstats
  *      \brief      Description and activation file for module AWStats
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -41,11 +41,11 @@ class modAWStats extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "interface";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate AWStats statistics reports into Dolibarr";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		$this->editor_name = 'NLTechno';
@@ -70,7 +70,7 @@ class modAWStats extends DolibarrModules
 		//							'models' => 0,                                   // Set this to 1 if module has its own models directory
 									'css' => '/awstats/css/awstats.css.php',       // Set this to relative path of css if module has its own css file
 		//							'hooks' => array('hookcontext1','hookcontext2')  // Set here all hooks context managed by module
-        );
+		);
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -120,7 +120,7 @@ class modAWStats extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'MenuAWStats',
 								'mainmenu'=>'awstats',
-		                        'leftmenu'=>'awstats',
+								'leftmenu'=>'awstats',
 								'url'=>'/awstats/index.php',
 								'langs'=>'awstats@awstats',
 								'position'=>200,
@@ -134,7 +134,7 @@ class modAWStats extends DolibarrModules
 								'type'=>'left',
 								'titre'=>'MenuAWStats',
 								'mainmenu'=>'awstats',
-		                        'leftmenu'=>'awstats',
+								'leftmenu'=>'awstats',
 								'url'=>'/awstats/index.php',
 								'langs'=>'awstats@awstats',
 								'position'=>200,
@@ -165,14 +165,14 @@ class modAWStats extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
+	function init($options = '')
 	{
 		$sql = array();
 
-		return $this->_init($sql,$options);
+		return $this->_init($sql, $options);
 	}
 
 	/**
@@ -180,14 +180,13 @@ class modAWStats extends DolibarrModules
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options='')
+	function remove($options = '')
 	{
 		$sql = array();
 
-		return $this->_remove($sql,$options);
+		return $this->_remove($sql, $options);
 	}
-
 }

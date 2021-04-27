@@ -17,78 +17,78 @@
 
 class Google_Service_Compute_RouterStatusNatStatus extends Google_Collection
 {
-  protected $collection_key = 'userAllocatedNatIps';
-  public $autoAllocatedNatIps;
-  public $drainAutoAllocatedNatIps;
-  public $drainUserAllocatedNatIps;
-  public $minExtraNatIpsNeeded;
-  public $name;
-  public $numVmEndpointsWithNatMappings;
-  public $userAllocatedNatIpResources;
-  public $userAllocatedNatIps;
+	protected $collection_key = 'userAllocatedNatIps';
+	public $autoAllocatedNatIps;
+	public $drainAutoAllocatedNatIps;
+	public $drainUserAllocatedNatIps;
+	public $minExtraNatIpsNeeded;
+	public $name;
+	public $numVmEndpointsWithNatMappings;
+	public $userAllocatedNatIpResources;
+	public $userAllocatedNatIps;
 
-  public function setAutoAllocatedNatIps($autoAllocatedNatIps)
-  {
-    $this->autoAllocatedNatIps = $autoAllocatedNatIps;
-  }
-  public function getAutoAllocatedNatIps()
-  {
-    return $this->autoAllocatedNatIps;
-  }
-  public function setDrainAutoAllocatedNatIps($drainAutoAllocatedNatIps)
-  {
-    $this->drainAutoAllocatedNatIps = $drainAutoAllocatedNatIps;
-  }
-  public function getDrainAutoAllocatedNatIps()
-  {
-    return $this->drainAutoAllocatedNatIps;
-  }
-  public function setDrainUserAllocatedNatIps($drainUserAllocatedNatIps)
-  {
-    $this->drainUserAllocatedNatIps = $drainUserAllocatedNatIps;
-  }
-  public function getDrainUserAllocatedNatIps()
-  {
-    return $this->drainUserAllocatedNatIps;
-  }
-  public function setMinExtraNatIpsNeeded($minExtraNatIpsNeeded)
-  {
-    $this->minExtraNatIpsNeeded = $minExtraNatIpsNeeded;
-  }
-  public function getMinExtraNatIpsNeeded()
-  {
-    return $this->minExtraNatIpsNeeded;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNumVmEndpointsWithNatMappings($numVmEndpointsWithNatMappings)
-  {
-    $this->numVmEndpointsWithNatMappings = $numVmEndpointsWithNatMappings;
-  }
-  public function getNumVmEndpointsWithNatMappings()
-  {
-    return $this->numVmEndpointsWithNatMappings;
-  }
-  public function setUserAllocatedNatIpResources($userAllocatedNatIpResources)
-  {
-    $this->userAllocatedNatIpResources = $userAllocatedNatIpResources;
-  }
-  public function getUserAllocatedNatIpResources()
-  {
-    return $this->userAllocatedNatIpResources;
-  }
-  public function setUserAllocatedNatIps($userAllocatedNatIps)
-  {
-    $this->userAllocatedNatIps = $userAllocatedNatIps;
-  }
-  public function getUserAllocatedNatIps()
-  {
-    return $this->userAllocatedNatIps;
-  }
+	public function setAutoAllocatedNatIps($autoAllocatedNatIps)
+	{
+		$this->autoAllocatedNatIps = $autoAllocatedNatIps;
+	}
+	public function getAutoAllocatedNatIps()
+	{
+		return $this->autoAllocatedNatIps;
+	}
+	public function setDrainAutoAllocatedNatIps($drainAutoAllocatedNatIps)
+	{
+		$this->drainAutoAllocatedNatIps = $drainAutoAllocatedNatIps;
+	}
+	public function getDrainAutoAllocatedNatIps()
+	{
+		return $this->drainAutoAllocatedNatIps;
+	}
+	public function setDrainUserAllocatedNatIps($drainUserAllocatedNatIps)
+	{
+		$this->drainUserAllocatedNatIps = $drainUserAllocatedNatIps;
+	}
+	public function getDrainUserAllocatedNatIps()
+	{
+		return $this->drainUserAllocatedNatIps;
+	}
+	public function setMinExtraNatIpsNeeded($minExtraNatIpsNeeded)
+	{
+		$this->minExtraNatIpsNeeded = $minExtraNatIpsNeeded;
+	}
+	public function getMinExtraNatIpsNeeded()
+	{
+		return $this->minExtraNatIpsNeeded;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNumVmEndpointsWithNatMappings($numVmEndpointsWithNatMappings)
+	{
+		$this->numVmEndpointsWithNatMappings = $numVmEndpointsWithNatMappings;
+	}
+	public function getNumVmEndpointsWithNatMappings()
+	{
+		return $this->numVmEndpointsWithNatMappings;
+	}
+	public function setUserAllocatedNatIpResources($userAllocatedNatIpResources)
+	{
+		$this->userAllocatedNatIpResources = $userAllocatedNatIpResources;
+	}
+	public function getUserAllocatedNatIpResources()
+	{
+		return $this->userAllocatedNatIpResources;
+	}
+	public function setUserAllocatedNatIps($userAllocatedNatIps)
+	{
+		$this->userAllocatedNatIps = $userAllocatedNatIps;
+	}
+	public function getUserAllocatedNatIps()
+	{
+		return $this->userAllocatedNatIps;
+	}
 }

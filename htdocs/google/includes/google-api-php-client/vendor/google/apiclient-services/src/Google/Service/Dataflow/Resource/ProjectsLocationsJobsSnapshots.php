@@ -25,19 +25,19 @@
  */
 class Google_Service_Dataflow_Resource_ProjectsLocationsJobsSnapshots extends Google_Service_Resource
 {
-  /**
-   * Lists snapshots. (snapshots.listProjectsLocationsJobsSnapshots)
-   *
-   * @param string $projectId The project ID to list snapshots for.
-   * @param string $location The location to list snapshots in.
-   * @param string $jobId If specified, list snapshots created from this job.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Dataflow_ListSnapshotsResponse
-   */
-  public function listProjectsLocationsJobsSnapshots($projectId, $location, $jobId, $optParams = array())
-  {
-    $params = array('projectId' => $projectId, 'location' => $location, 'jobId' => $jobId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Dataflow_ListSnapshotsResponse");
-  }
+	/**
+	 * Lists snapshots. (snapshots.listProjectsLocationsJobsSnapshots)
+	 *
+	 * @param string $projectId The project ID to list snapshots for.
+	 * @param string $location The location to list snapshots in.
+	 * @param string $jobId If specified, list snapshots created from this job.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Dataflow_ListSnapshotsResponse
+	 */
+	public function listProjectsLocationsJobsSnapshots($projectId, $location, $jobId, $optParams = array())
+	{
+		$params = array('projectId' => $projectId, 'location' => $location, 'jobId' => $jobId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Dataflow_ListSnapshotsResponse");
+	}
 }

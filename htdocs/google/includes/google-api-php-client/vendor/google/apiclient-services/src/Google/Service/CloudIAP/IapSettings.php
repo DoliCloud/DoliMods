@@ -17,46 +17,46 @@
 
 class Google_Service_CloudIAP_IapSettings extends Google_Model
 {
-  protected $accessSettingsType = 'Google_Service_CloudIAP_AccessSettings';
-  protected $accessSettingsDataType = '';
-  protected $applicationSettingsType = 'Google_Service_CloudIAP_ApplicationSettings';
-  protected $applicationSettingsDataType = '';
-  public $name;
+	protected $accessSettingsType = 'Google_Service_CloudIAP_AccessSettings';
+	protected $accessSettingsDataType = '';
+	protected $applicationSettingsType = 'Google_Service_CloudIAP_ApplicationSettings';
+	protected $applicationSettingsDataType = '';
+	public $name;
 
-  /**
-   * @param Google_Service_CloudIAP_AccessSettings
-   */
-  public function setAccessSettings(Google_Service_CloudIAP_AccessSettings $accessSettings)
-  {
-    $this->accessSettings = $accessSettings;
-  }
-  /**
-   * @return Google_Service_CloudIAP_AccessSettings
-   */
-  public function getAccessSettings()
-  {
-    return $this->accessSettings;
-  }
-  /**
-   * @param Google_Service_CloudIAP_ApplicationSettings
-   */
-  public function setApplicationSettings(Google_Service_CloudIAP_ApplicationSettings $applicationSettings)
-  {
-    $this->applicationSettings = $applicationSettings;
-  }
-  /**
-   * @return Google_Service_CloudIAP_ApplicationSettings
-   */
-  public function getApplicationSettings()
-  {
-    return $this->applicationSettings;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_CloudIAP_AccessSettings
+	 */
+	public function setAccessSettings(Google_Service_CloudIAP_AccessSettings $accessSettings)
+	{
+		$this->accessSettings = $accessSettings;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_AccessSettings
+	 */
+	public function getAccessSettings()
+	{
+		return $this->accessSettings;
+	}
+	/**
+	 * @param Google_Service_CloudIAP_ApplicationSettings
+	 */
+	public function setApplicationSettings(Google_Service_CloudIAP_ApplicationSettings $applicationSettings)
+	{
+		$this->applicationSettings = $applicationSettings;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_ApplicationSettings
+	 */
+	public function getApplicationSettings()
+	{
+		return $this->applicationSettings;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

@@ -25,31 +25,31 @@
  */
 class Google_Service_AdExchangeBuyer_Resource_BillingInfo extends Google_Service_Resource
 {
-  /**
-   * Returns the billing information for one account specified by account ID.
-   * (billingInfo.get)
-   *
-   * @param int $accountId The account id.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_BillingInfo
-   */
-  public function get($accountId, $optParams = array())
-  {
-    $params = array('accountId' => $accountId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_BillingInfo");
-  }
-  /**
-   * Retrieves a list of billing information for all accounts of the authenticated
-   * user. (billingInfo.listBillingInfo)
-   *
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_BillingInfoList
-   */
-  public function listBillingInfo($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_BillingInfoList");
-  }
+	/**
+	 * Returns the billing information for one account specified by account ID.
+	 * (billingInfo.get)
+	 *
+	 * @param int $accountId The account id.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AdExchangeBuyer_BillingInfo
+	 */
+	public function get($accountId, $optParams = array())
+	{
+		$params = array('accountId' => $accountId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_BillingInfo");
+	}
+	/**
+	 * Retrieves a list of billing information for all accounts of the authenticated
+	 * user. (billingInfo.listBillingInfo)
+	 *
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AdExchangeBuyer_BillingInfoList
+	 */
+	public function listBillingInfo($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_BillingInfoList");
+	}
 }

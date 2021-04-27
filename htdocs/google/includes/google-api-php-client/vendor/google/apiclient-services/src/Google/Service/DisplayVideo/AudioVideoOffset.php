@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_AudioVideoOffset extends Google_Model
 {
-  public $percentage;
-  public $seconds;
+	public $percentage;
+	public $seconds;
 
-  public function setPercentage($percentage)
-  {
-    $this->percentage = $percentage;
-  }
-  public function getPercentage()
-  {
-    return $this->percentage;
-  }
-  public function setSeconds($seconds)
-  {
-    $this->seconds = $seconds;
-  }
-  public function getSeconds()
-  {
-    return $this->seconds;
-  }
+	public function setPercentage($percentage)
+	{
+		$this->percentage = $percentage;
+	}
+	public function getPercentage()
+	{
+		return $this->percentage;
+	}
+	public function setSeconds($seconds)
+	{
+		$this->seconds = $seconds;
+	}
+	public function getSeconds()
+	{
+		return $this->seconds;
+	}
 }

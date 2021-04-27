@@ -17,23 +17,23 @@
 
 class Google_Service_HomeGraphService_RequestSyncDevicesRequest extends Google_Model
 {
-  public $agentUserId;
-  public $async;
+	public $agentUserId;
+	public $async;
 
-  public function setAgentUserId($agentUserId)
-  {
-    $this->agentUserId = $agentUserId;
-  }
-  public function getAgentUserId()
-  {
-    return $this->agentUserId;
-  }
-  public function setAsync($async)
-  {
-    $this->async = $async;
-  }
-  public function getAsync()
-  {
-    return $this->async;
-  }
+	public function setAgentUserId($agentUserId)
+	{
+		$this->agentUserId = $agentUserId;
+	}
+	public function getAgentUserId()
+	{
+		return $this->agentUserId;
+	}
+	public function setAsync($async)
+	{
+		$this->async = $async;
+	}
+	public function getAsync()
+	{
+		return $this->async;
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Spanner_KeySet extends Google_Collection
 {
-  protected $collection_key = 'ranges';
-  public $all;
-  public $keys;
-  protected $rangesType = 'Google_Service_Spanner_KeyRange';
-  protected $rangesDataType = 'array';
+	protected $collection_key = 'ranges';
+	public $all;
+	public $keys;
+	protected $rangesType = 'Google_Service_Spanner_KeyRange';
+	protected $rangesDataType = 'array';
 
-  public function setAll($all)
-  {
-    $this->all = $all;
-  }
-  public function getAll()
-  {
-    return $this->all;
-  }
-  public function setKeys($keys)
-  {
-    $this->keys = $keys;
-  }
-  public function getKeys()
-  {
-    return $this->keys;
-  }
-  /**
-   * @param Google_Service_Spanner_KeyRange
-   */
-  public function setRanges($ranges)
-  {
-    $this->ranges = $ranges;
-  }
-  /**
-   * @return Google_Service_Spanner_KeyRange
-   */
-  public function getRanges()
-  {
-    return $this->ranges;
-  }
+	public function setAll($all)
+	{
+		$this->all = $all;
+	}
+	public function getAll()
+	{
+		return $this->all;
+	}
+	public function setKeys($keys)
+	{
+		$this->keys = $keys;
+	}
+	public function getKeys()
+	{
+		return $this->keys;
+	}
+	/**
+	 * @param Google_Service_Spanner_KeyRange
+	 */
+	public function setRanges($ranges)
+	{
+		$this->ranges = $ranges;
+	}
+	/**
+	 * @return Google_Service_Spanner_KeyRange
+	 */
+	public function getRanges()
+	{
+		return $this->ranges;
+	}
 }

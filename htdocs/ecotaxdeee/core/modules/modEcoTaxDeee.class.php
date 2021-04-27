@@ -25,7 +25,7 @@
  *		\brief      Description and activation file for module EcoTax
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -55,11 +55,11 @@ class modEcoTaxDeee extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "products";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Module to add ecotax lines automatically";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '4.1.2';
 		// Key used in llx_const table to save module status enabled/disabled
@@ -68,12 +68,12 @@ class modEcoTaxDeee extends DolibarrModules
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
 		$this->picto='ecotax@ecotaxdeee';
 
-        $this->module_parts = array(
-        						'triggers' => 1,
-        						'hooks' => array('pdfgeneration')
-        						);
+		$this->module_parts = array(
+								'triggers' => 1,
+								'hooks' => array('pdfgeneration')
+								);
 
-        // Data directories to create when module is enabled.
+		// Data directories to create when module is enabled.
 		$this->dirs = array();
 
 		// Relative path to module style sheet if exists. Example: '/Composition/mycss.css'.
@@ -137,8 +137,8 @@ class modEcoTaxDeee extends DolibarrModules
 	 * It also creates data directories
 	 *
 	 * @param string $options   Options when enabling module ('', 'newboxdefonly', 'noboxes')
-     *                          'noboxes' = Do not insert boxes
-     *                          'newboxdefonly' = For boxes, insert def of boxes only and not boxes activation
+	 *                          'noboxes' = Do not insert boxes
+	 *                          'newboxdefonly' = For boxes, insert def of boxes only and not boxes activation
 	 * @return int				1 if OK, 0 if KO
 	 */
 	function init($options = '')
@@ -147,12 +147,11 @@ class modEcoTaxDeee extends DolibarrModules
 
 		$sql = array();
 
-	    // Create extrafields
-    	include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
+		// Create extrafields
+		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
 		$result1=$extrafields->addExtraField('ecotaxdeee', $langs->trans("Ecotax"), 'double', 1, '24,8', 'product', 0, 0, '', '', 1);
-		if (! $result1)
-		{
+		if (! $result1) {
 			$this->error=$extrafields->error;
 			return -1;
 		}

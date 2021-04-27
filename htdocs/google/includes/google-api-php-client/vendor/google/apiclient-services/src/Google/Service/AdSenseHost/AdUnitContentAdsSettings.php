@@ -17,39 +17,39 @@
 
 class Google_Service_AdSenseHost_AdUnitContentAdsSettings extends Google_Model
 {
-  protected $backupOptionType = 'Google_Service_AdSenseHost_AdUnitContentAdsSettingsBackupOption';
-  protected $backupOptionDataType = '';
-  public $size;
-  public $type;
+	protected $backupOptionType = 'Google_Service_AdSenseHost_AdUnitContentAdsSettingsBackupOption';
+	protected $backupOptionDataType = '';
+	public $size;
+	public $type;
 
-  /**
-   * @param Google_Service_AdSenseHost_AdUnitContentAdsSettingsBackupOption
-   */
-  public function setBackupOption(Google_Service_AdSenseHost_AdUnitContentAdsSettingsBackupOption $backupOption)
-  {
-    $this->backupOption = $backupOption;
-  }
-  /**
-   * @return Google_Service_AdSenseHost_AdUnitContentAdsSettingsBackupOption
-   */
-  public function getBackupOption()
-  {
-    return $this->backupOption;
-  }
-  public function setSize($size)
-  {
-    $this->size = $size;
-  }
-  public function getSize()
-  {
-    return $this->size;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_AdSenseHost_AdUnitContentAdsSettingsBackupOption
+	 */
+	public function setBackupOption(Google_Service_AdSenseHost_AdUnitContentAdsSettingsBackupOption $backupOption)
+	{
+		$this->backupOption = $backupOption;
+	}
+	/**
+	 * @return Google_Service_AdSenseHost_AdUnitContentAdsSettingsBackupOption
+	 */
+	public function getBackupOption()
+	{
+		return $this->backupOption;
+	}
+	public function setSize($size)
+	{
+		$this->size = $size;
+	}
+	public function getSize()
+	{
+		return $this->size;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

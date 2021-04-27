@@ -25,7 +25,5 @@ $prefix = $conf->db->prefix.'bt_';
 
 // Should work with DOL_URL_ROOT='' or DOL_URL_ROOT='/dolibarr'
 $firstpart=$dolibarr_main_url_root;
-$firstpart=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/','',$firstpart);
+$firstpart=preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/', '', $firstpart);
 $website_url=$firstpart.DOL_URL_ROOT;
-
-?>

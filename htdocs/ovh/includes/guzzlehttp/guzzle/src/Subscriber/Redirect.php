@@ -32,145 +32,145 @@ use GuzzleHttp\Url;
  */
 class Redirect implements SubscriberInterface
 {
-    public function getEvents()
-    {
-        return ['complete' => ['onComplete', RequestEvents::REDIRECT_RESPONSE]];
-    }
+	public function getEvents()
+	{
+		return ['complete' => ['onComplete', RequestEvents::REDIRECT_RESPONSE]];
+	}
 
-    /**
-     * Rewind the entity body of the request if needed
-     *
-     * @param RequestInterface $redirectRequest
-     * @throws CouldNotRewindStreamException
-     */
-    public static function rewindEntityBody(RequestInterface $redirectRequest)
-    {
-        // Rewind the entity body of the request if needed
-        if ($body = $redirectRequest->getBody()) {
-            // Only rewind the body if some of it has been read already, and
-            // throw an exception if the rewind fails
-            if ($body->tell() && !$body->seek(0)) {
-                throw new CouldNotRewindStreamException(
-                    'Unable to rewind the non-seekable request body after redirecting',
-                    $redirectRequest
-                );
-            }
-        }
-    }
+	/**
+	 * Rewind the entity body of the request if needed
+	 *
+	 * @param RequestInterface $redirectRequest
+	 * @throws CouldNotRewindStreamException
+	 */
+	public static function rewindEntityBody(RequestInterface $redirectRequest)
+	{
+		// Rewind the entity body of the request if needed
+		if ($body = $redirectRequest->getBody()) {
+			// Only rewind the body if some of it has been read already, and
+			// throw an exception if the rewind fails
+			if ($body->tell() && !$body->seek(0)) {
+				throw new CouldNotRewindStreamException(
+					'Unable to rewind the non-seekable request body after redirecting',
+					$redirectRequest
+				);
+			}
+		}
+	}
 
-    /**
-     * Called when a request receives a redirect response
-     *
-     * @param CompleteEvent $event Event emitted
-     * @throws TooManyRedirectsException
-     */
-    public function onComplete(CompleteEvent $event)
-    {
-        $response = $event->getResponse();
+	/**
+	 * Called when a request receives a redirect response
+	 *
+	 * @param CompleteEvent $event Event emitted
+	 * @throws TooManyRedirectsException
+	 */
+	public function onComplete(CompleteEvent $event)
+	{
+		$response = $event->getResponse();
 
-        if (substr($response->getStatusCode(), 0, 1) != '3'
-            || !$response->hasHeader('Location')
-        ) {
-            return;
-        }
+		if (substr($response->getStatusCode(), 0, 1) != '3'
+			|| !$response->hasHeader('Location')
+		) {
+			return;
+		}
 
-        $request = $event->getRequest();
-        $config = $request->getConfig();
+		$request = $event->getRequest();
+		$config = $request->getConfig();
 
-        // Increment the redirect and initialize the redirect state.
-        if ($redirectCount = $config['redirect_count']) {
-            $config['redirect_count'] = ++$redirectCount;
-        } else {
-            $config['redirect_scheme'] = $request->getScheme();
-            $config['redirect_count'] = $redirectCount = 1;
-        }
+		// Increment the redirect and initialize the redirect state.
+		if ($redirectCount = $config['redirect_count']) {
+			$config['redirect_count'] = ++$redirectCount;
+		} else {
+			$config['redirect_scheme'] = $request->getScheme();
+			$config['redirect_count'] = $redirectCount = 1;
+		}
 
-        $max = $config->getPath('redirect/max') ?: 5;
+		$max = $config->getPath('redirect/max') ?: 5;
 
-        if ($redirectCount > $max) {
-            throw new TooManyRedirectsException(
-                "Will not follow more than {$redirectCount} redirects",
-                $request
-            );
-        }
+		if ($redirectCount > $max) {
+			throw new TooManyRedirectsException(
+				"Will not follow more than {$redirectCount} redirects",
+				$request
+			);
+		}
 
-        $this->modifyRedirectRequest($request, $response);
-        $event->retry();
-    }
+		$this->modifyRedirectRequest($request, $response);
+		$event->retry();
+	}
 
-    private function modifyRedirectRequest(
-        RequestInterface $request,
-        ResponseInterface $response
-    ) {
-        $config = $request->getConfig();
-        $protocols = $config->getPath('redirect/protocols') ?: ['http', 'https'];
+	private function modifyRedirectRequest(
+		RequestInterface $request,
+		ResponseInterface $response
+	) {
+		$config = $request->getConfig();
+		$protocols = $config->getPath('redirect/protocols') ?: ['http', 'https'];
 
-        // Use a GET request if this is an entity enclosing request and we are
-        // not forcing RFC compliance, but rather emulating what all browsers
-        // would do.
-        $statusCode = $response->getStatusCode();
-        if ($statusCode == 303 ||
-            ($statusCode <= 302 && $request->getBody() && !$config->getPath('redirect/strict'))
-        ) {
-            $request->setMethod('GET');
-            $request->setBody(null);
-        }
+		// Use a GET request if this is an entity enclosing request and we are
+		// not forcing RFC compliance, but rather emulating what all browsers
+		// would do.
+		$statusCode = $response->getStatusCode();
+		if ($statusCode == 303 ||
+			($statusCode <= 302 && $request->getBody() && !$config->getPath('redirect/strict'))
+		) {
+			$request->setMethod('GET');
+			$request->setBody(null);
+		}
 
-        $previousUrl = $request->getUrl();
-        $this->setRedirectUrl($request, $response, $protocols);
-        $this->rewindEntityBody($request);
+		$previousUrl = $request->getUrl();
+		$this->setRedirectUrl($request, $response, $protocols);
+		$this->rewindEntityBody($request);
 
-        // Add the Referer header if it is told to do so and only
-        // add the header if we are not redirecting from https to http.
-        if ($config->getPath('redirect/referer')
-            && ($request->getScheme() == 'https' || $request->getScheme() == $config['redirect_scheme'])
-        ) {
-            $url = Url::fromString($previousUrl);
-            $url->setUsername(null);
-            $url->setPassword(null);
-            $request->setHeader('Referer', (string) $url);
-        } else {
-            $request->removeHeader('Referer');
-        }
-    }
+		// Add the Referer header if it is told to do so and only
+		// add the header if we are not redirecting from https to http.
+		if ($config->getPath('redirect/referer')
+			&& ($request->getScheme() == 'https' || $request->getScheme() == $config['redirect_scheme'])
+		) {
+			$url = Url::fromString($previousUrl);
+			$url->setUsername(null);
+			$url->setPassword(null);
+			$request->setHeader('Referer', (string) $url);
+		} else {
+			$request->removeHeader('Referer');
+		}
+	}
 
-    /**
-     * Set the appropriate URL on the request based on the location header
-     *
-     * @param RequestInterface  $request
-     * @param ResponseInterface $response
-     * @param array             $protocols
-     */
-    private function setRedirectUrl(
-        RequestInterface $request,
-        ResponseInterface $response,
-        array $protocols
-    ) {
-        $location = $response->getHeader('Location');
-        $location = Url::fromString($location);
+	/**
+	 * Set the appropriate URL on the request based on the location header
+	 *
+	 * @param RequestInterface  $request
+	 * @param ResponseInterface $response
+	 * @param array             $protocols
+	 */
+	private function setRedirectUrl(
+		RequestInterface $request,
+		ResponseInterface $response,
+		array $protocols
+	) {
+		$location = $response->getHeader('Location');
+		$location = Url::fromString($location);
 
-        // Combine location with the original URL if it is not absolute.
-        if (!$location->isAbsolute()) {
-            $originalUrl = Url::fromString($request->getUrl());
-            // Remove query string parameters and just take what is present on
-            // the redirect Location header
-            $originalUrl->getQuery()->clear();
-            $location = $originalUrl->combine($location);
-        }
+		// Combine location with the original URL if it is not absolute.
+		if (!$location->isAbsolute()) {
+			$originalUrl = Url::fromString($request->getUrl());
+			// Remove query string parameters and just take what is present on
+			// the redirect Location header
+			$originalUrl->getQuery()->clear();
+			$location = $originalUrl->combine($location);
+		}
 
-        // Ensure that the redirect URL is allowed based on the protocols.
-        if (!in_array($location->getScheme(), $protocols)) {
-            throw new BadResponseException(
-                sprintf(
-                    'Redirect URL, %s, does not use one of the allowed redirect protocols: %s',
-                    $location,
-                    implode(', ', $protocols)
-                ),
-                $request,
-                $response
-            );
-        }
+		// Ensure that the redirect URL is allowed based on the protocols.
+		if (!in_array($location->getScheme(), $protocols)) {
+			throw new BadResponseException(
+				sprintf(
+					'Redirect URL, %s, does not use one of the allowed redirect protocols: %s',
+					$location,
+					implode(', ', $protocols)
+				),
+				$request,
+				$response
+			);
+		}
 
-        $request->setUrl($location);
-    }
+		$request->setUrl($location);
+	}
 }

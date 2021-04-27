@@ -17,59 +17,59 @@
 
 class Google_Service_Devprojects_TermsOfService extends Google_Model
 {
-  public $currentVersion;
-  public $id;
-  public $kind;
-  public $reviewUrl;
-  public $text;
-  public $title;
+	public $currentVersion;
+	public $id;
+	public $kind;
+	public $reviewUrl;
+	public $text;
+	public $title;
 
-  public function setCurrentVersion($currentVersion)
-  {
-    $this->currentVersion = $currentVersion;
-  }
-  public function getCurrentVersion()
-  {
-    return $this->currentVersion;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setReviewUrl($reviewUrl)
-  {
-    $this->reviewUrl = $reviewUrl;
-  }
-  public function getReviewUrl()
-  {
-    return $this->reviewUrl;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setCurrentVersion($currentVersion)
+	{
+		$this->currentVersion = $currentVersion;
+	}
+	public function getCurrentVersion()
+	{
+		return $this->currentVersion;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setReviewUrl($reviewUrl)
+	{
+		$this->reviewUrl = $reviewUrl;
+	}
+	public function getReviewUrl()
+	{
+		return $this->reviewUrl;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

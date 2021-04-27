@@ -17,42 +17,42 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogRequestScope extends Google_Collection
 {
-  protected $collection_key = 'restrictedLocations';
-  public $includeGcpPublicDatasets;
-  public $includeOrgIds;
-  public $includeProjectIds;
-  public $restrictedLocations;
+	protected $collection_key = 'restrictedLocations';
+	public $includeGcpPublicDatasets;
+	public $includeOrgIds;
+	public $includeProjectIds;
+	public $restrictedLocations;
 
-  public function setIncludeGcpPublicDatasets($includeGcpPublicDatasets)
-  {
-    $this->includeGcpPublicDatasets = $includeGcpPublicDatasets;
-  }
-  public function getIncludeGcpPublicDatasets()
-  {
-    return $this->includeGcpPublicDatasets;
-  }
-  public function setIncludeOrgIds($includeOrgIds)
-  {
-    $this->includeOrgIds = $includeOrgIds;
-  }
-  public function getIncludeOrgIds()
-  {
-    return $this->includeOrgIds;
-  }
-  public function setIncludeProjectIds($includeProjectIds)
-  {
-    $this->includeProjectIds = $includeProjectIds;
-  }
-  public function getIncludeProjectIds()
-  {
-    return $this->includeProjectIds;
-  }
-  public function setRestrictedLocations($restrictedLocations)
-  {
-    $this->restrictedLocations = $restrictedLocations;
-  }
-  public function getRestrictedLocations()
-  {
-    return $this->restrictedLocations;
-  }
+	public function setIncludeGcpPublicDatasets($includeGcpPublicDatasets)
+	{
+		$this->includeGcpPublicDatasets = $includeGcpPublicDatasets;
+	}
+	public function getIncludeGcpPublicDatasets()
+	{
+		return $this->includeGcpPublicDatasets;
+	}
+	public function setIncludeOrgIds($includeOrgIds)
+	{
+		$this->includeOrgIds = $includeOrgIds;
+	}
+	public function getIncludeOrgIds()
+	{
+		return $this->includeOrgIds;
+	}
+	public function setIncludeProjectIds($includeProjectIds)
+	{
+		$this->includeProjectIds = $includeProjectIds;
+	}
+	public function getIncludeProjectIds()
+	{
+		return $this->includeProjectIds;
+	}
+	public function setRestrictedLocations($restrictedLocations)
+	{
+		$this->restrictedLocations = $restrictedLocations;
+	}
+	public function getRestrictedLocations()
+	{
+		return $this->restrictedLocations;
+	}
 }

@@ -16,36 +16,36 @@ use GuzzleHttp\Transaction;
  */
 class ProgressEvent extends AbstractRequestEvent
 {
-    /** @var int Amount of data to be downloaded */
-    public $downloadSize;
+	/** @var int Amount of data to be downloaded */
+	public $downloadSize;
 
-    /** @var int Amount of data that has been downloaded */
-    public $downloaded;
+	/** @var int Amount of data that has been downloaded */
+	public $downloaded;
 
-    /** @var int Amount of data to upload */
-    public $uploadSize;
+	/** @var int Amount of data to upload */
+	public $uploadSize;
 
-    /** @var int Amount of data that has been uploaded */
-    public $uploaded;
+	/** @var int Amount of data that has been uploaded */
+	public $uploaded;
 
-    /**
-     * @param Transaction $transaction  Transaction being sent.
-     * @param int         $downloadSize Amount of data to download (if known)
-     * @param int         $downloaded   Amount of data that has been downloaded
-     * @param int         $uploadSize   Amount of data to upload (if known)
-     * @param int         $uploaded     Amount of data that had been uploaded
-     */
-    public function __construct(
-        Transaction $transaction,
-        $downloadSize,
-        $downloaded,
-        $uploadSize,
-        $uploaded
-    ) {
-        parent::__construct($transaction);
-        $this->downloadSize = $downloadSize;
-        $this->downloaded = $downloaded;
-        $this->uploadSize = $uploadSize;
-        $this->uploaded = $uploaded;
-    }
+	/**
+	 * @param Transaction $transaction  Transaction being sent.
+	 * @param int         $downloadSize Amount of data to download (if known)
+	 * @param int         $downloaded   Amount of data that has been downloaded
+	 * @param int         $uploadSize   Amount of data to upload (if known)
+	 * @param int         $uploaded     Amount of data that had been uploaded
+	 */
+	public function __construct(
+		Transaction $transaction,
+		$downloadSize,
+		$downloaded,
+		$uploadSize,
+		$uploaded
+	) {
+		parent::__construct($transaction);
+		$this->downloadSize = $downloadSize;
+		$this->downloaded = $downloaded;
+		$this->uploadSize = $uploadSize;
+		$this->uploaded = $uploaded;
+	}
 }

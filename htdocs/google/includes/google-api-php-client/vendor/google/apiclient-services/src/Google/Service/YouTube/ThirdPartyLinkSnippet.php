@@ -17,30 +17,30 @@
 
 class Google_Service_YouTube_ThirdPartyLinkSnippet extends Google_Model
 {
-  protected $channelToStoreLinkType = 'Google_Service_YouTube_ChannelToStoreLinkDetails';
-  protected $channelToStoreLinkDataType = '';
-  public $type;
+	protected $channelToStoreLinkType = 'Google_Service_YouTube_ChannelToStoreLinkDetails';
+	protected $channelToStoreLinkDataType = '';
+	public $type;
 
-  /**
-   * @param Google_Service_YouTube_ChannelToStoreLinkDetails
-   */
-  public function setChannelToStoreLink(Google_Service_YouTube_ChannelToStoreLinkDetails $channelToStoreLink)
-  {
-    $this->channelToStoreLink = $channelToStoreLink;
-  }
-  /**
-   * @return Google_Service_YouTube_ChannelToStoreLinkDetails
-   */
-  public function getChannelToStoreLink()
-  {
-    return $this->channelToStoreLink;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_YouTube_ChannelToStoreLinkDetails
+	 */
+	public function setChannelToStoreLink(Google_Service_YouTube_ChannelToStoreLinkDetails $channelToStoreLink)
+	{
+		$this->channelToStoreLink = $channelToStoreLink;
+	}
+	/**
+	 * @return Google_Service_YouTube_ChannelToStoreLinkDetails
+	 */
+	public function getChannelToStoreLink()
+	{
+		return $this->channelToStoreLink;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

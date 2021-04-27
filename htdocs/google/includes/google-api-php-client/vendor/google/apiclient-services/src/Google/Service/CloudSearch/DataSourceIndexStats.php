@@ -17,38 +17,38 @@
 
 class Google_Service_CloudSearch_DataSourceIndexStats extends Google_Collection
 {
-  protected $collection_key = 'itemCountByStatus';
-  protected $dateType = 'Google_Service_CloudSearch_Date';
-  protected $dateDataType = '';
-  protected $itemCountByStatusType = 'Google_Service_CloudSearch_ItemCountByStatus';
-  protected $itemCountByStatusDataType = 'array';
+	protected $collection_key = 'itemCountByStatus';
+	protected $dateType = 'Google_Service_CloudSearch_Date';
+	protected $dateDataType = '';
+	protected $itemCountByStatusType = 'Google_Service_CloudSearch_ItemCountByStatus';
+	protected $itemCountByStatusDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudSearch_Date
-   */
-  public function setDate(Google_Service_CloudSearch_Date $date)
-  {
-    $this->date = $date;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Date
-   */
-  public function getDate()
-  {
-    return $this->date;
-  }
-  /**
-   * @param Google_Service_CloudSearch_ItemCountByStatus
-   */
-  public function setItemCountByStatus($itemCountByStatus)
-  {
-    $this->itemCountByStatus = $itemCountByStatus;
-  }
-  /**
-   * @return Google_Service_CloudSearch_ItemCountByStatus
-   */
-  public function getItemCountByStatus()
-  {
-    return $this->itemCountByStatus;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_Date
+	 */
+	public function setDate(Google_Service_CloudSearch_Date $date)
+	{
+		$this->date = $date;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Date
+	 */
+	public function getDate()
+	{
+		return $this->date;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_ItemCountByStatus
+	 */
+	public function setItemCountByStatus($itemCountByStatus)
+	{
+		$this->itemCountByStatus = $itemCountByStatus;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_ItemCountByStatus
+	 */
+	public function getItemCountByStatus()
+	{
+		return $this->itemCountByStatus;
+	}
 }

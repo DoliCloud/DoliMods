@@ -44,5 +44,5 @@ function ecotaxdeee_prepare_head()
 	$h++;
 
 
-    return $head;
+	return $head;
 }

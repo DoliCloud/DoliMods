@@ -17,31 +17,31 @@
 
 class Google_Service_TagManager_Condition extends Google_Collection
 {
-  protected $collection_key = 'parameter';
-  protected $parameterType = 'Google_Service_TagManager_Parameter';
-  protected $parameterDataType = 'array';
-  public $type;
+	protected $collection_key = 'parameter';
+	protected $parameterType = 'Google_Service_TagManager_Parameter';
+	protected $parameterDataType = 'array';
+	public $type;
 
-  /**
-   * @param Google_Service_TagManager_Parameter
-   */
-  public function setParameter($parameter)
-  {
-    $this->parameter = $parameter;
-  }
-  /**
-   * @return Google_Service_TagManager_Parameter
-   */
-  public function getParameter()
-  {
-    return $this->parameter;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_TagManager_Parameter
+	 */
+	public function setParameter($parameter)
+	{
+		$this->parameter = $parameter;
+	}
+	/**
+	 * @return Google_Service_TagManager_Parameter
+	 */
+	public function getParameter()
+	{
+		return $this->parameter;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

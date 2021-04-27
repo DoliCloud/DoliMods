@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListAssignedInventorySourcesResponse extends Google_Collection
 {
-  protected $collection_key = 'assignedInventorySources';
-  protected $assignedInventorySourcesType = 'Google_Service_DisplayVideo_AssignedInventorySource';
-  protected $assignedInventorySourcesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'assignedInventorySources';
+	protected $assignedInventorySourcesType = 'Google_Service_DisplayVideo_AssignedInventorySource';
+	protected $assignedInventorySourcesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_AssignedInventorySource
-   */
-  public function setAssignedInventorySources($assignedInventorySources)
-  {
-    $this->assignedInventorySources = $assignedInventorySources;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_AssignedInventorySource
-   */
-  public function getAssignedInventorySources()
-  {
-    return $this->assignedInventorySources;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_AssignedInventorySource
+	 */
+	public function setAssignedInventorySources($assignedInventorySources)
+	{
+		$this->assignedInventorySources = $assignedInventorySources;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_AssignedInventorySource
+	 */
+	public function getAssignedInventorySources()
+	{
+		return $this->assignedInventorySources;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

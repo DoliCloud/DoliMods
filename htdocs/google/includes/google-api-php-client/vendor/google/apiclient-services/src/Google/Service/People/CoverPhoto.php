@@ -17,33 +17,33 @@
 
 class Google_Service_People_CoverPhoto extends Google_Model
 {
-  public $default;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
-  protected $metadataDataType = '';
-  public $url;
+	public $default;
+	protected $metadataType = 'Google_Service_People_FieldMetadata';
+	protected $metadataDataType = '';
+	public $url;
 
-  public function setDefault($default)
-  {
-    $this->default = $default;
-  }
-  public function getDefault()
-  {
-    return $this->default;
-  }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setDefault($default)
+	{
+		$this->default = $default;
+	}
+	public function getDefault()
+	{
+		return $this->default;
+	}
+	public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

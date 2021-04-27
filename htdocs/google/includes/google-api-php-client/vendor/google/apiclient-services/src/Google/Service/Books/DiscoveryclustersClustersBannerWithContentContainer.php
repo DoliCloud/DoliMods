@@ -17,59 +17,59 @@
 
 class Google_Service_Books_DiscoveryclustersClustersBannerWithContentContainer extends Google_Model
 {
-  public $fillColorArgb;
-  public $imageUrl;
-  public $maskColorArgb;
-  public $moreButtonText;
-  public $moreButtonUrl;
-  public $textColorArgb;
+	public $fillColorArgb;
+	public $imageUrl;
+	public $maskColorArgb;
+	public $moreButtonText;
+	public $moreButtonUrl;
+	public $textColorArgb;
 
-  public function setFillColorArgb($fillColorArgb)
-  {
-    $this->fillColorArgb = $fillColorArgb;
-  }
-  public function getFillColorArgb()
-  {
-    return $this->fillColorArgb;
-  }
-  public function setImageUrl($imageUrl)
-  {
-    $this->imageUrl = $imageUrl;
-  }
-  public function getImageUrl()
-  {
-    return $this->imageUrl;
-  }
-  public function setMaskColorArgb($maskColorArgb)
-  {
-    $this->maskColorArgb = $maskColorArgb;
-  }
-  public function getMaskColorArgb()
-  {
-    return $this->maskColorArgb;
-  }
-  public function setMoreButtonText($moreButtonText)
-  {
-    $this->moreButtonText = $moreButtonText;
-  }
-  public function getMoreButtonText()
-  {
-    return $this->moreButtonText;
-  }
-  public function setMoreButtonUrl($moreButtonUrl)
-  {
-    $this->moreButtonUrl = $moreButtonUrl;
-  }
-  public function getMoreButtonUrl()
-  {
-    return $this->moreButtonUrl;
-  }
-  public function setTextColorArgb($textColorArgb)
-  {
-    $this->textColorArgb = $textColorArgb;
-  }
-  public function getTextColorArgb()
-  {
-    return $this->textColorArgb;
-  }
+	public function setFillColorArgb($fillColorArgb)
+	{
+		$this->fillColorArgb = $fillColorArgb;
+	}
+	public function getFillColorArgb()
+	{
+		return $this->fillColorArgb;
+	}
+	public function setImageUrl($imageUrl)
+	{
+		$this->imageUrl = $imageUrl;
+	}
+	public function getImageUrl()
+	{
+		return $this->imageUrl;
+	}
+	public function setMaskColorArgb($maskColorArgb)
+	{
+		$this->maskColorArgb = $maskColorArgb;
+	}
+	public function getMaskColorArgb()
+	{
+		return $this->maskColorArgb;
+	}
+	public function setMoreButtonText($moreButtonText)
+	{
+		$this->moreButtonText = $moreButtonText;
+	}
+	public function getMoreButtonText()
+	{
+		return $this->moreButtonText;
+	}
+	public function setMoreButtonUrl($moreButtonUrl)
+	{
+		$this->moreButtonUrl = $moreButtonUrl;
+	}
+	public function getMoreButtonUrl()
+	{
+		return $this->moreButtonUrl;
+	}
+	public function setTextColorArgb($textColorArgb)
+	{
+		$this->textColorArgb = $textColorArgb;
+	}
+	public function getTextColorArgb()
+	{
+		return $this->textColorArgb;
+	}
 }

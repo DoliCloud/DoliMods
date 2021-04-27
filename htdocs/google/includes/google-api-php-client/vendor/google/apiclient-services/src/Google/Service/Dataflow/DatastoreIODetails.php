@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_DatastoreIODetails extends Google_Model
 {
-  public $namespace;
-  public $projectId;
+	public $namespace;
+	public $projectId;
 
-  public function setNamespace($namespace)
-  {
-    $this->namespace = $namespace;
-  }
-  public function getNamespace()
-  {
-    return $this->namespace;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
+	public function setNamespace($namespace)
+	{
+		$this->namespace = $namespace;
+	}
+	public function getNamespace()
+	{
+		return $this->namespace;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
 }

@@ -17,109 +17,109 @@
 
 class Google_Service_YouTube_SuperChatEventSnippet extends Google_Model
 {
-  public $amountMicros;
-  public $channelId;
-  public $commentText;
-  public $createdAt;
-  public $currency;
-  public $displayString;
-  public $isSuperStickerEvent;
-  public $messageType;
-  protected $superStickerMetadataType = 'Google_Service_YouTube_SuperStickerMetadata';
-  protected $superStickerMetadataDataType = '';
-  protected $supporterDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
-  protected $supporterDetailsDataType = '';
+	public $amountMicros;
+	public $channelId;
+	public $commentText;
+	public $createdAt;
+	public $currency;
+	public $displayString;
+	public $isSuperStickerEvent;
+	public $messageType;
+	protected $superStickerMetadataType = 'Google_Service_YouTube_SuperStickerMetadata';
+	protected $superStickerMetadataDataType = '';
+	protected $supporterDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
+	protected $supporterDetailsDataType = '';
 
-  public function setAmountMicros($amountMicros)
-  {
-    $this->amountMicros = $amountMicros;
-  }
-  public function getAmountMicros()
-  {
-    return $this->amountMicros;
-  }
-  public function setChannelId($channelId)
-  {
-    $this->channelId = $channelId;
-  }
-  public function getChannelId()
-  {
-    return $this->channelId;
-  }
-  public function setCommentText($commentText)
-  {
-    $this->commentText = $commentText;
-  }
-  public function getCommentText()
-  {
-    return $this->commentText;
-  }
-  public function setCreatedAt($createdAt)
-  {
-    $this->createdAt = $createdAt;
-  }
-  public function getCreatedAt()
-  {
-    return $this->createdAt;
-  }
-  public function setCurrency($currency)
-  {
-    $this->currency = $currency;
-  }
-  public function getCurrency()
-  {
-    return $this->currency;
-  }
-  public function setDisplayString($displayString)
-  {
-    $this->displayString = $displayString;
-  }
-  public function getDisplayString()
-  {
-    return $this->displayString;
-  }
-  public function setIsSuperStickerEvent($isSuperStickerEvent)
-  {
-    $this->isSuperStickerEvent = $isSuperStickerEvent;
-  }
-  public function getIsSuperStickerEvent()
-  {
-    return $this->isSuperStickerEvent;
-  }
-  public function setMessageType($messageType)
-  {
-    $this->messageType = $messageType;
-  }
-  public function getMessageType()
-  {
-    return $this->messageType;
-  }
-  /**
-   * @param Google_Service_YouTube_SuperStickerMetadata
-   */
-  public function setSuperStickerMetadata(Google_Service_YouTube_SuperStickerMetadata $superStickerMetadata)
-  {
-    $this->superStickerMetadata = $superStickerMetadata;
-  }
-  /**
-   * @return Google_Service_YouTube_SuperStickerMetadata
-   */
-  public function getSuperStickerMetadata()
-  {
-    return $this->superStickerMetadata;
-  }
-  /**
-   * @param Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function setSupporterDetails(Google_Service_YouTube_ChannelProfileDetails $supporterDetails)
-  {
-    $this->supporterDetails = $supporterDetails;
-  }
-  /**
-   * @return Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function getSupporterDetails()
-  {
-    return $this->supporterDetails;
-  }
+	public function setAmountMicros($amountMicros)
+	{
+		$this->amountMicros = $amountMicros;
+	}
+	public function getAmountMicros()
+	{
+		return $this->amountMicros;
+	}
+	public function setChannelId($channelId)
+	{
+		$this->channelId = $channelId;
+	}
+	public function getChannelId()
+	{
+		return $this->channelId;
+	}
+	public function setCommentText($commentText)
+	{
+		$this->commentText = $commentText;
+	}
+	public function getCommentText()
+	{
+		return $this->commentText;
+	}
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+	}
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
+	public function setCurrency($currency)
+	{
+		$this->currency = $currency;
+	}
+	public function getCurrency()
+	{
+		return $this->currency;
+	}
+	public function setDisplayString($displayString)
+	{
+		$this->displayString = $displayString;
+	}
+	public function getDisplayString()
+	{
+		return $this->displayString;
+	}
+	public function setIsSuperStickerEvent($isSuperStickerEvent)
+	{
+		$this->isSuperStickerEvent = $isSuperStickerEvent;
+	}
+	public function getIsSuperStickerEvent()
+	{
+		return $this->isSuperStickerEvent;
+	}
+	public function setMessageType($messageType)
+	{
+		$this->messageType = $messageType;
+	}
+	public function getMessageType()
+	{
+		return $this->messageType;
+	}
+	/**
+	 * @param Google_Service_YouTube_SuperStickerMetadata
+	 */
+	public function setSuperStickerMetadata(Google_Service_YouTube_SuperStickerMetadata $superStickerMetadata)
+	{
+		$this->superStickerMetadata = $superStickerMetadata;
+	}
+	/**
+	 * @return Google_Service_YouTube_SuperStickerMetadata
+	 */
+	public function getSuperStickerMetadata()
+	{
+		return $this->superStickerMetadata;
+	}
+	/**
+	 * @param Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function setSupporterDetails(Google_Service_YouTube_ChannelProfileDetails $supporterDetails)
+	{
+		$this->supporterDetails = $supporterDetails;
+	}
+	/**
+	 * @return Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function getSupporterDetails()
+	{
+		return $this->supporterDetails;
+	}
 }

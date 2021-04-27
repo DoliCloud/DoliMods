@@ -17,30 +17,30 @@
 
 class Google_Service_Testing_RegularFile extends Google_Model
 {
-  protected $contentType = 'Google_Service_Testing_FileReference';
-  protected $contentDataType = '';
-  public $devicePath;
+	protected $contentType = 'Google_Service_Testing_FileReference';
+	protected $contentDataType = '';
+	public $devicePath;
 
-  /**
-   * @param Google_Service_Testing_FileReference
-   */
-  public function setContent(Google_Service_Testing_FileReference $content)
-  {
-    $this->content = $content;
-  }
-  /**
-   * @return Google_Service_Testing_FileReference
-   */
-  public function getContent()
-  {
-    return $this->content;
-  }
-  public function setDevicePath($devicePath)
-  {
-    $this->devicePath = $devicePath;
-  }
-  public function getDevicePath()
-  {
-    return $this->devicePath;
-  }
+	/**
+	 * @param Google_Service_Testing_FileReference
+	 */
+	public function setContent(Google_Service_Testing_FileReference $content)
+	{
+		$this->content = $content;
+	}
+	/**
+	 * @return Google_Service_Testing_FileReference
+	 */
+	public function getContent()
+	{
+		return $this->content;
+	}
+	public function setDevicePath($devicePath)
+	{
+		$this->devicePath = $devicePath;
+	}
+	public function getDevicePath()
+	{
+		return $this->devicePath;
+	}
 }

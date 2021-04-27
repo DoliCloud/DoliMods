@@ -17,41 +17,41 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1UpdateError extends Google_Model
 {
-  public $code;
-  public $message;
-  public $resource;
-  public $type;
+	public $code;
+	public $message;
+	public $resource;
+	public $type;
 
-  public function setCode($code)
-  {
-    $this->code = $code;
-  }
-  public function getCode()
-  {
-    return $this->code;
-  }
-  public function setMessage($message)
-  {
-    $this->message = $message;
-  }
-  public function getMessage()
-  {
-    return $this->message;
-  }
-  public function setResource($resource)
-  {
-    $this->resource = $resource;
-  }
-  public function getResource()
-  {
-    return $this->resource;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setCode($code)
+	{
+		$this->code = $code;
+	}
+	public function getCode()
+	{
+		return $this->code;
+	}
+	public function setMessage($message)
+	{
+		$this->message = $message;
+	}
+	public function getMessage()
+	{
+		return $this->message;
+	}
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
+	public function getResource()
+	{
+		return $this->resource;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

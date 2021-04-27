@@ -17,58 +17,58 @@
 
 class Google_Service_Slides_ReplaceAllShapesWithSheetsChartRequest extends Google_Collection
 {
-  protected $collection_key = 'pageObjectIds';
-  public $chartId;
-  protected $containsTextType = 'Google_Service_Slides_SubstringMatchCriteria';
-  protected $containsTextDataType = '';
-  public $linkingMode;
-  public $pageObjectIds;
-  public $spreadsheetId;
+	protected $collection_key = 'pageObjectIds';
+	public $chartId;
+	protected $containsTextType = 'Google_Service_Slides_SubstringMatchCriteria';
+	protected $containsTextDataType = '';
+	public $linkingMode;
+	public $pageObjectIds;
+	public $spreadsheetId;
 
-  public function setChartId($chartId)
-  {
-    $this->chartId = $chartId;
-  }
-  public function getChartId()
-  {
-    return $this->chartId;
-  }
-  /**
-   * @param Google_Service_Slides_SubstringMatchCriteria
-   */
-  public function setContainsText(Google_Service_Slides_SubstringMatchCriteria $containsText)
-  {
-    $this->containsText = $containsText;
-  }
-  /**
-   * @return Google_Service_Slides_SubstringMatchCriteria
-   */
-  public function getContainsText()
-  {
-    return $this->containsText;
-  }
-  public function setLinkingMode($linkingMode)
-  {
-    $this->linkingMode = $linkingMode;
-  }
-  public function getLinkingMode()
-  {
-    return $this->linkingMode;
-  }
-  public function setPageObjectIds($pageObjectIds)
-  {
-    $this->pageObjectIds = $pageObjectIds;
-  }
-  public function getPageObjectIds()
-  {
-    return $this->pageObjectIds;
-  }
-  public function setSpreadsheetId($spreadsheetId)
-  {
-    $this->spreadsheetId = $spreadsheetId;
-  }
-  public function getSpreadsheetId()
-  {
-    return $this->spreadsheetId;
-  }
+	public function setChartId($chartId)
+	{
+		$this->chartId = $chartId;
+	}
+	public function getChartId()
+	{
+		return $this->chartId;
+	}
+	/**
+	 * @param Google_Service_Slides_SubstringMatchCriteria
+	 */
+	public function setContainsText(Google_Service_Slides_SubstringMatchCriteria $containsText)
+	{
+		$this->containsText = $containsText;
+	}
+	/**
+	 * @return Google_Service_Slides_SubstringMatchCriteria
+	 */
+	public function getContainsText()
+	{
+		return $this->containsText;
+	}
+	public function setLinkingMode($linkingMode)
+	{
+		$this->linkingMode = $linkingMode;
+	}
+	public function getLinkingMode()
+	{
+		return $this->linkingMode;
+	}
+	public function setPageObjectIds($pageObjectIds)
+	{
+		$this->pageObjectIds = $pageObjectIds;
+	}
+	public function getPageObjectIds()
+	{
+		return $this->pageObjectIds;
+	}
+	public function setSpreadsheetId($spreadsheetId)
+	{
+		$this->spreadsheetId = $spreadsheetId;
+	}
+	public function getSpreadsheetId()
+	{
+		return $this->spreadsheetId;
+	}
 }

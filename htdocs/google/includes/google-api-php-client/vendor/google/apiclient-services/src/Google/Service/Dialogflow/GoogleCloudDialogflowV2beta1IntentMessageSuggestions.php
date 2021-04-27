@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSuggestions extends Google_Collection
 {
-  protected $collection_key = 'suggestions';
-  protected $suggestionsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSuggestion';
-  protected $suggestionsDataType = 'array';
+	protected $collection_key = 'suggestions';
+	protected $suggestionsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSuggestion';
+	protected $suggestionsDataType = 'array';
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSuggestion
-   */
-  public function setSuggestions($suggestions)
-  {
-    $this->suggestions = $suggestions;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSuggestion
-   */
-  public function getSuggestions()
-  {
-    return $this->suggestions;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSuggestion
+	 */
+	public function setSuggestions($suggestions)
+	{
+		$this->suggestions = $suggestions;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSuggestion
+	 */
+	public function getSuggestions()
+	{
+		return $this->suggestions;
+	}
 }

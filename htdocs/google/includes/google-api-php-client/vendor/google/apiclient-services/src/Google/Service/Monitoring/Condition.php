@@ -17,55 +17,55 @@
 
 class Google_Service_Monitoring_Condition extends Google_Model
 {
-  protected $conditionAbsentType = 'Google_Service_Monitoring_MetricAbsence';
-  protected $conditionAbsentDataType = '';
-  protected $conditionThresholdType = 'Google_Service_Monitoring_MetricThreshold';
-  protected $conditionThresholdDataType = '';
-  public $displayName;
-  public $name;
+	protected $conditionAbsentType = 'Google_Service_Monitoring_MetricAbsence';
+	protected $conditionAbsentDataType = '';
+	protected $conditionThresholdType = 'Google_Service_Monitoring_MetricThreshold';
+	protected $conditionThresholdDataType = '';
+	public $displayName;
+	public $name;
 
-  /**
-   * @param Google_Service_Monitoring_MetricAbsence
-   */
-  public function setConditionAbsent(Google_Service_Monitoring_MetricAbsence $conditionAbsent)
-  {
-    $this->conditionAbsent = $conditionAbsent;
-  }
-  /**
-   * @return Google_Service_Monitoring_MetricAbsence
-   */
-  public function getConditionAbsent()
-  {
-    return $this->conditionAbsent;
-  }
-  /**
-   * @param Google_Service_Monitoring_MetricThreshold
-   */
-  public function setConditionThreshold(Google_Service_Monitoring_MetricThreshold $conditionThreshold)
-  {
-    $this->conditionThreshold = $conditionThreshold;
-  }
-  /**
-   * @return Google_Service_Monitoring_MetricThreshold
-   */
-  public function getConditionThreshold()
-  {
-    return $this->conditionThreshold;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_Monitoring_MetricAbsence
+	 */
+	public function setConditionAbsent(Google_Service_Monitoring_MetricAbsence $conditionAbsent)
+	{
+		$this->conditionAbsent = $conditionAbsent;
+	}
+	/**
+	 * @return Google_Service_Monitoring_MetricAbsence
+	 */
+	public function getConditionAbsent()
+	{
+		return $this->conditionAbsent;
+	}
+	/**
+	 * @param Google_Service_Monitoring_MetricThreshold
+	 */
+	public function setConditionThreshold(Google_Service_Monitoring_MetricThreshold $conditionThreshold)
+	{
+		$this->conditionThreshold = $conditionThreshold;
+	}
+	/**
+	 * @return Google_Service_Monitoring_MetricThreshold
+	 */
+	public function getConditionThreshold()
+	{
+		return $this->conditionThreshold;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_YouTube_ChannelAuditDetails extends Google_Model
 {
-  public $communityGuidelinesGoodStanding;
-  public $contentIdClaimsGoodStanding;
-  public $copyrightStrikesGoodStanding;
+	public $communityGuidelinesGoodStanding;
+	public $contentIdClaimsGoodStanding;
+	public $copyrightStrikesGoodStanding;
 
-  public function setCommunityGuidelinesGoodStanding($communityGuidelinesGoodStanding)
-  {
-    $this->communityGuidelinesGoodStanding = $communityGuidelinesGoodStanding;
-  }
-  public function getCommunityGuidelinesGoodStanding()
-  {
-    return $this->communityGuidelinesGoodStanding;
-  }
-  public function setContentIdClaimsGoodStanding($contentIdClaimsGoodStanding)
-  {
-    $this->contentIdClaimsGoodStanding = $contentIdClaimsGoodStanding;
-  }
-  public function getContentIdClaimsGoodStanding()
-  {
-    return $this->contentIdClaimsGoodStanding;
-  }
-  public function setCopyrightStrikesGoodStanding($copyrightStrikesGoodStanding)
-  {
-    $this->copyrightStrikesGoodStanding = $copyrightStrikesGoodStanding;
-  }
-  public function getCopyrightStrikesGoodStanding()
-  {
-    return $this->copyrightStrikesGoodStanding;
-  }
+	public function setCommunityGuidelinesGoodStanding($communityGuidelinesGoodStanding)
+	{
+		$this->communityGuidelinesGoodStanding = $communityGuidelinesGoodStanding;
+	}
+	public function getCommunityGuidelinesGoodStanding()
+	{
+		return $this->communityGuidelinesGoodStanding;
+	}
+	public function setContentIdClaimsGoodStanding($contentIdClaimsGoodStanding)
+	{
+		$this->contentIdClaimsGoodStanding = $contentIdClaimsGoodStanding;
+	}
+	public function getContentIdClaimsGoodStanding()
+	{
+		return $this->contentIdClaimsGoodStanding;
+	}
+	public function setCopyrightStrikesGoodStanding($copyrightStrikesGoodStanding)
+	{
+		$this->copyrightStrikesGoodStanding = $copyrightStrikesGoodStanding;
+	}
+	public function getCopyrightStrikesGoodStanding()
+	{
+		return $this->copyrightStrikesGoodStanding;
+	}
 }

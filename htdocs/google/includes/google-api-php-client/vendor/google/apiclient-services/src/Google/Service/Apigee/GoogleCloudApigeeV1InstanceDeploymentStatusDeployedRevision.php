@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRevision extends Google_Model
 {
-  public $percentage;
-  public $revision;
+	public $percentage;
+	public $revision;
 
-  public function setPercentage($percentage)
-  {
-    $this->percentage = $percentage;
-  }
-  public function getPercentage()
-  {
-    return $this->percentage;
-  }
-  public function setRevision($revision)
-  {
-    $this->revision = $revision;
-  }
-  public function getRevision()
-  {
-    return $this->revision;
-  }
+	public function setPercentage($percentage)
+	{
+		$this->percentage = $percentage;
+	}
+	public function getPercentage()
+	{
+		return $this->percentage;
+	}
+	public function setRevision($revision)
+	{
+		$this->revision = $revision;
+	}
+	public function getRevision()
+	{
+		return $this->revision;
+	}
 }

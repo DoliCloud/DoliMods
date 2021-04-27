@@ -17,84 +17,84 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductDetail extends Google_Model
 {
-  public $availableQuantity;
-  public $currencyCode;
-  public $displayPrice;
-  public $id;
-  protected $itemAttributesType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap';
-  protected $itemAttributesDataType = '';
-  public $originalPrice;
-  public $quantity;
-  public $stockState;
+	public $availableQuantity;
+	public $currencyCode;
+	public $displayPrice;
+	public $id;
+	protected $itemAttributesType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap';
+	protected $itemAttributesDataType = '';
+	public $originalPrice;
+	public $quantity;
+	public $stockState;
 
-  public function setAvailableQuantity($availableQuantity)
-  {
-    $this->availableQuantity = $availableQuantity;
-  }
-  public function getAvailableQuantity()
-  {
-    return $this->availableQuantity;
-  }
-  public function setCurrencyCode($currencyCode)
-  {
-    $this->currencyCode = $currencyCode;
-  }
-  public function getCurrencyCode()
-  {
-    return $this->currencyCode;
-  }
-  public function setDisplayPrice($displayPrice)
-  {
-    $this->displayPrice = $displayPrice;
-  }
-  public function getDisplayPrice()
-  {
-    return $this->displayPrice;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap
-   */
-  public function setItemAttributes(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap $itemAttributes)
-  {
-    $this->itemAttributes = $itemAttributes;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap
-   */
-  public function getItemAttributes()
-  {
-    return $this->itemAttributes;
-  }
-  public function setOriginalPrice($originalPrice)
-  {
-    $this->originalPrice = $originalPrice;
-  }
-  public function getOriginalPrice()
-  {
-    return $this->originalPrice;
-  }
-  public function setQuantity($quantity)
-  {
-    $this->quantity = $quantity;
-  }
-  public function getQuantity()
-  {
-    return $this->quantity;
-  }
-  public function setStockState($stockState)
-  {
-    $this->stockState = $stockState;
-  }
-  public function getStockState()
-  {
-    return $this->stockState;
-  }
+	public function setAvailableQuantity($availableQuantity)
+	{
+		$this->availableQuantity = $availableQuantity;
+	}
+	public function getAvailableQuantity()
+	{
+		return $this->availableQuantity;
+	}
+	public function setCurrencyCode($currencyCode)
+	{
+		$this->currencyCode = $currencyCode;
+	}
+	public function getCurrencyCode()
+	{
+		return $this->currencyCode;
+	}
+	public function setDisplayPrice($displayPrice)
+	{
+		$this->displayPrice = $displayPrice;
+	}
+	public function getDisplayPrice()
+	{
+		return $this->displayPrice;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap
+	 */
+	public function setItemAttributes(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap $itemAttributes)
+	{
+		$this->itemAttributes = $itemAttributes;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMap
+	 */
+	public function getItemAttributes()
+	{
+		return $this->itemAttributes;
+	}
+	public function setOriginalPrice($originalPrice)
+	{
+		$this->originalPrice = $originalPrice;
+	}
+	public function getOriginalPrice()
+	{
+		return $this->originalPrice;
+	}
+	public function setQuantity($quantity)
+	{
+		$this->quantity = $quantity;
+	}
+	public function getQuantity()
+	{
+		return $this->quantity;
+	}
+	public function setStockState($stockState)
+	{
+		$this->stockState = $stockState;
+	}
+	public function getStockState()
+	{
+		return $this->stockState;
+	}
 }

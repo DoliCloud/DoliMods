@@ -17,14 +17,14 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1RenameTagTemplateFieldEnumValueRequest extends Google_Model
 {
-  public $newEnumValueDisplayName;
+	public $newEnumValueDisplayName;
 
-  public function setNewEnumValueDisplayName($newEnumValueDisplayName)
-  {
-    $this->newEnumValueDisplayName = $newEnumValueDisplayName;
-  }
-  public function getNewEnumValueDisplayName()
-  {
-    return $this->newEnumValueDisplayName;
-  }
+	public function setNewEnumValueDisplayName($newEnumValueDisplayName)
+	{
+		$this->newEnumValueDisplayName = $newEnumValueDisplayName;
+	}
+	public function getNewEnumValueDisplayName()
+	{
+		return $this->newEnumValueDisplayName;
+	}
 }

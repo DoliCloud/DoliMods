@@ -17,50 +17,50 @@
 
 class Google_Service_YouTubeReporting_GdataBlobstore2Info extends Google_Model
 {
-  public $blobGeneration;
-  public $blobId;
-  public $downloadReadHandle;
-  public $readToken;
-  public $uploadMetadataContainer;
+	public $blobGeneration;
+	public $blobId;
+	public $downloadReadHandle;
+	public $readToken;
+	public $uploadMetadataContainer;
 
-  public function setBlobGeneration($blobGeneration)
-  {
-    $this->blobGeneration = $blobGeneration;
-  }
-  public function getBlobGeneration()
-  {
-    return $this->blobGeneration;
-  }
-  public function setBlobId($blobId)
-  {
-    $this->blobId = $blobId;
-  }
-  public function getBlobId()
-  {
-    return $this->blobId;
-  }
-  public function setDownloadReadHandle($downloadReadHandle)
-  {
-    $this->downloadReadHandle = $downloadReadHandle;
-  }
-  public function getDownloadReadHandle()
-  {
-    return $this->downloadReadHandle;
-  }
-  public function setReadToken($readToken)
-  {
-    $this->readToken = $readToken;
-  }
-  public function getReadToken()
-  {
-    return $this->readToken;
-  }
-  public function setUploadMetadataContainer($uploadMetadataContainer)
-  {
-    $this->uploadMetadataContainer = $uploadMetadataContainer;
-  }
-  public function getUploadMetadataContainer()
-  {
-    return $this->uploadMetadataContainer;
-  }
+	public function setBlobGeneration($blobGeneration)
+	{
+		$this->blobGeneration = $blobGeneration;
+	}
+	public function getBlobGeneration()
+	{
+		return $this->blobGeneration;
+	}
+	public function setBlobId($blobId)
+	{
+		$this->blobId = $blobId;
+	}
+	public function getBlobId()
+	{
+		return $this->blobId;
+	}
+	public function setDownloadReadHandle($downloadReadHandle)
+	{
+		$this->downloadReadHandle = $downloadReadHandle;
+	}
+	public function getDownloadReadHandle()
+	{
+		return $this->downloadReadHandle;
+	}
+	public function setReadToken($readToken)
+	{
+		$this->readToken = $readToken;
+	}
+	public function getReadToken()
+	{
+		return $this->readToken;
+	}
+	public function setUploadMetadataContainer($uploadMetadataContainer)
+	{
+		$this->uploadMetadataContainer = $uploadMetadataContainer;
+	}
+	public function getUploadMetadataContainer()
+	{
+		return $this->uploadMetadataContainer;
+	}
 }

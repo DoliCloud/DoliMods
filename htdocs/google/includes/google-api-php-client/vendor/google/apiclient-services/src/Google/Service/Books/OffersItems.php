@@ -17,49 +17,49 @@
 
 class Google_Service_Books_OffersItems extends Google_Collection
 {
-  protected $collection_key = 'items';
-  public $artUrl;
-  public $gservicesKey;
-  public $id;
-  protected $itemsType = 'Google_Service_Books_OffersItemsItems';
-  protected $itemsDataType = 'array';
+	protected $collection_key = 'items';
+	public $artUrl;
+	public $gservicesKey;
+	public $id;
+	protected $itemsType = 'Google_Service_Books_OffersItemsItems';
+	protected $itemsDataType = 'array';
 
-  public function setArtUrl($artUrl)
-  {
-    $this->artUrl = $artUrl;
-  }
-  public function getArtUrl()
-  {
-    return $this->artUrl;
-  }
-  public function setGservicesKey($gservicesKey)
-  {
-    $this->gservicesKey = $gservicesKey;
-  }
-  public function getGservicesKey()
-  {
-    return $this->gservicesKey;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_Books_OffersItemsItems
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Books_OffersItemsItems
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
+	public function setArtUrl($artUrl)
+	{
+		$this->artUrl = $artUrl;
+	}
+	public function getArtUrl()
+	{
+		return $this->artUrl;
+	}
+	public function setGservicesKey($gservicesKey)
+	{
+		$this->gservicesKey = $gservicesKey;
+	}
+	public function getGservicesKey()
+	{
+		return $this->gservicesKey;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_Books_OffersItemsItems
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Books_OffersItemsItems
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Sheets_PivotValue extends Google_Model
 {
-  public $calculatedDisplayType;
-  public $formula;
-  public $name;
-  public $sourceColumnOffset;
-  public $summarizeFunction;
+	public $calculatedDisplayType;
+	public $formula;
+	public $name;
+	public $sourceColumnOffset;
+	public $summarizeFunction;
 
-  public function setCalculatedDisplayType($calculatedDisplayType)
-  {
-    $this->calculatedDisplayType = $calculatedDisplayType;
-  }
-  public function getCalculatedDisplayType()
-  {
-    return $this->calculatedDisplayType;
-  }
-  public function setFormula($formula)
-  {
-    $this->formula = $formula;
-  }
-  public function getFormula()
-  {
-    return $this->formula;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSourceColumnOffset($sourceColumnOffset)
-  {
-    $this->sourceColumnOffset = $sourceColumnOffset;
-  }
-  public function getSourceColumnOffset()
-  {
-    return $this->sourceColumnOffset;
-  }
-  public function setSummarizeFunction($summarizeFunction)
-  {
-    $this->summarizeFunction = $summarizeFunction;
-  }
-  public function getSummarizeFunction()
-  {
-    return $this->summarizeFunction;
-  }
+	public function setCalculatedDisplayType($calculatedDisplayType)
+	{
+		$this->calculatedDisplayType = $calculatedDisplayType;
+	}
+	public function getCalculatedDisplayType()
+	{
+		return $this->calculatedDisplayType;
+	}
+	public function setFormula($formula)
+	{
+		$this->formula = $formula;
+	}
+	public function getFormula()
+	{
+		return $this->formula;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSourceColumnOffset($sourceColumnOffset)
+	{
+		$this->sourceColumnOffset = $sourceColumnOffset;
+	}
+	public function getSourceColumnOffset()
+	{
+		return $this->sourceColumnOffset;
+	}
+	public function setSummarizeFunction($summarizeFunction)
+	{
+		$this->summarizeFunction = $summarizeFunction;
+	}
+	public function getSummarizeFunction()
+	{
+		return $this->summarizeFunction;
+	}
 }

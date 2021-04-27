@@ -17,14 +17,14 @@
 
 class Google_Service_AdExchangeBuyerII_AcceptProposalRequest extends Google_Model
 {
-  public $proposalRevision;
+	public $proposalRevision;
 
-  public function setProposalRevision($proposalRevision)
-  {
-    $this->proposalRevision = $proposalRevision;
-  }
-  public function getProposalRevision()
-  {
-    return $this->proposalRevision;
-  }
+	public function setProposalRevision($proposalRevision)
+	{
+		$this->proposalRevision = $proposalRevision;
+	}
+	public function getProposalRevision()
+	{
+		return $this->proposalRevision;
+	}
 }

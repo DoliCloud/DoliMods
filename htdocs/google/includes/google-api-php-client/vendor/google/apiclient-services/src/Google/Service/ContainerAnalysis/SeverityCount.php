@@ -17,23 +17,23 @@
 
 class Google_Service_ContainerAnalysis_SeverityCount extends Google_Model
 {
-  public $count;
-  public $severity;
+	public $count;
+	public $severity;
 
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  public function setSeverity($severity)
-  {
-    $this->severity = $severity;
-  }
-  public function getSeverity()
-  {
-    return $this->severity;
-  }
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	public function setSeverity($severity)
+	{
+		$this->severity = $severity;
+	}
+	public function getSeverity()
+	{
+		return $this->severity;
+	}
 }

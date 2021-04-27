@@ -17,65 +17,65 @@
 
 class Google_Service_Compute_SecurityPolicyList extends Google_Collection
 {
-  protected $collection_key = 'items';
-  public $id;
-  protected $itemsType = 'Google_Service_Compute_SecurityPolicy';
-  protected $itemsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
-  protected $warningType = 'Google_Service_Compute_SecurityPolicyListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'items';
+	public $id;
+	protected $itemsType = 'Google_Service_Compute_SecurityPolicy';
+	protected $itemsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
+	protected $warningType = 'Google_Service_Compute_SecurityPolicyListWarning';
+	protected $warningDataType = '';
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_Compute_SecurityPolicy
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Compute_SecurityPolicy
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Compute_SecurityPolicyListWarning
-   */
-  public function setWarning(Google_Service_Compute_SecurityPolicyListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_SecurityPolicyListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_Compute_SecurityPolicy
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Compute_SecurityPolicy
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Compute_SecurityPolicyListWarning
+	 */
+	public function setWarning(Google_Service_Compute_SecurityPolicyListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_SecurityPolicyListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

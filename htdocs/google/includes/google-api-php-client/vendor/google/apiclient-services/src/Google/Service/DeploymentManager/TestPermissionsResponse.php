@@ -17,15 +17,15 @@
 
 class Google_Service_DeploymentManager_TestPermissionsResponse extends Google_Collection
 {
-  protected $collection_key = 'permissions';
-  public $permissions;
+	protected $collection_key = 'permissions';
+	public $permissions;
 
-  public function setPermissions($permissions)
-  {
-    $this->permissions = $permissions;
-  }
-  public function getPermissions()
-  {
-    return $this->permissions;
-  }
+	public function setPermissions($permissions)
+	{
+		$this->permissions = $permissions;
+	}
+	public function getPermissions()
+	{
+		return $this->permissions;
+	}
 }

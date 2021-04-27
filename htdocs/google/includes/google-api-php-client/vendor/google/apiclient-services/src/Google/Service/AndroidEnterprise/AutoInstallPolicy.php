@@ -17,49 +17,49 @@
 
 class Google_Service_AndroidEnterprise_AutoInstallPolicy extends Google_Collection
 {
-  protected $collection_key = 'autoInstallConstraint';
-  protected $autoInstallConstraintType = 'Google_Service_AndroidEnterprise_AutoInstallConstraint';
-  protected $autoInstallConstraintDataType = 'array';
-  public $autoInstallMode;
-  public $autoInstallPriority;
-  public $minimumVersionCode;
+	protected $collection_key = 'autoInstallConstraint';
+	protected $autoInstallConstraintType = 'Google_Service_AndroidEnterprise_AutoInstallConstraint';
+	protected $autoInstallConstraintDataType = 'array';
+	public $autoInstallMode;
+	public $autoInstallPriority;
+	public $minimumVersionCode;
 
-  /**
-   * @param Google_Service_AndroidEnterprise_AutoInstallConstraint
-   */
-  public function setAutoInstallConstraint($autoInstallConstraint)
-  {
-    $this->autoInstallConstraint = $autoInstallConstraint;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_AutoInstallConstraint
-   */
-  public function getAutoInstallConstraint()
-  {
-    return $this->autoInstallConstraint;
-  }
-  public function setAutoInstallMode($autoInstallMode)
-  {
-    $this->autoInstallMode = $autoInstallMode;
-  }
-  public function getAutoInstallMode()
-  {
-    return $this->autoInstallMode;
-  }
-  public function setAutoInstallPriority($autoInstallPriority)
-  {
-    $this->autoInstallPriority = $autoInstallPriority;
-  }
-  public function getAutoInstallPriority()
-  {
-    return $this->autoInstallPriority;
-  }
-  public function setMinimumVersionCode($minimumVersionCode)
-  {
-    $this->minimumVersionCode = $minimumVersionCode;
-  }
-  public function getMinimumVersionCode()
-  {
-    return $this->minimumVersionCode;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_AutoInstallConstraint
+	 */
+	public function setAutoInstallConstraint($autoInstallConstraint)
+	{
+		$this->autoInstallConstraint = $autoInstallConstraint;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_AutoInstallConstraint
+	 */
+	public function getAutoInstallConstraint()
+	{
+		return $this->autoInstallConstraint;
+	}
+	public function setAutoInstallMode($autoInstallMode)
+	{
+		$this->autoInstallMode = $autoInstallMode;
+	}
+	public function getAutoInstallMode()
+	{
+		return $this->autoInstallMode;
+	}
+	public function setAutoInstallPriority($autoInstallPriority)
+	{
+		$this->autoInstallPriority = $autoInstallPriority;
+	}
+	public function getAutoInstallPriority()
+	{
+		return $this->autoInstallPriority;
+	}
+	public function setMinimumVersionCode($minimumVersionCode)
+	{
+		$this->minimumVersionCode = $minimumVersionCode;
+	}
+	public function getMinimumVersionCode()
+	{
+		return $this->minimumVersionCode;
+	}
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_Sheets_KeyValueFormat extends Google_Model
 {
-  protected $positionType = 'Google_Service_Sheets_TextPosition';
-  protected $positionDataType = '';
-  protected $textFormatType = 'Google_Service_Sheets_TextFormat';
-  protected $textFormatDataType = '';
+	protected $positionType = 'Google_Service_Sheets_TextPosition';
+	protected $positionDataType = '';
+	protected $textFormatType = 'Google_Service_Sheets_TextFormat';
+	protected $textFormatDataType = '';
 
-  /**
-   * @param Google_Service_Sheets_TextPosition
-   */
-  public function setPosition(Google_Service_Sheets_TextPosition $position)
-  {
-    $this->position = $position;
-  }
-  /**
-   * @return Google_Service_Sheets_TextPosition
-   */
-  public function getPosition()
-  {
-    return $this->position;
-  }
-  /**
-   * @param Google_Service_Sheets_TextFormat
-   */
-  public function setTextFormat(Google_Service_Sheets_TextFormat $textFormat)
-  {
-    $this->textFormat = $textFormat;
-  }
-  /**
-   * @return Google_Service_Sheets_TextFormat
-   */
-  public function getTextFormat()
-  {
-    return $this->textFormat;
-  }
+	/**
+	 * @param Google_Service_Sheets_TextPosition
+	 */
+	public function setPosition(Google_Service_Sheets_TextPosition $position)
+	{
+		$this->position = $position;
+	}
+	/**
+	 * @return Google_Service_Sheets_TextPosition
+	 */
+	public function getPosition()
+	{
+		return $this->position;
+	}
+	/**
+	 * @param Google_Service_Sheets_TextFormat
+	 */
+	public function setTextFormat(Google_Service_Sheets_TextFormat $textFormat)
+	{
+		$this->textFormat = $textFormat;
+	}
+	/**
+	 * @return Google_Service_Sheets_TextFormat
+	 */
+	public function getTextFormat()
+	{
+		return $this->textFormat;
+	}
 }

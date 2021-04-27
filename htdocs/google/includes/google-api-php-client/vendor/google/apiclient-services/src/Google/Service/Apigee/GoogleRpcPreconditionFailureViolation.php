@@ -17,32 +17,32 @@
 
 class Google_Service_Apigee_GoogleRpcPreconditionFailureViolation extends Google_Model
 {
-  public $description;
-  public $subject;
-  public $type;
+	public $description;
+	public $subject;
+	public $type;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setSubject($subject)
-  {
-    $this->subject = $subject;
-  }
-  public function getSubject()
-  {
-    return $this->subject;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setSubject($subject)
+	{
+		$this->subject = $subject;
+	}
+	public function getSubject()
+	{
+		return $this->subject;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Plus_PlaceAddress extends Google_Model
 {
-  public $formatted;
+	public $formatted;
 
-  public function setFormatted($formatted)
-  {
-    $this->formatted = $formatted;
-  }
-  public function getFormatted()
-  {
-    return $this->formatted;
-  }
+	public function setFormatted($formatted)
+	{
+		$this->formatted = $formatted;
+	}
+	public function getFormatted()
+	{
+		return $this->formatted;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentTrainingPhrasePart extends Google_Model
 {
-  public $alias;
-  public $entityType;
-  public $text;
-  public $userDefined;
+	public $alias;
+	public $entityType;
+	public $text;
+	public $userDefined;
 
-  public function setAlias($alias)
-  {
-    $this->alias = $alias;
-  }
-  public function getAlias()
-  {
-    return $this->alias;
-  }
-  public function setEntityType($entityType)
-  {
-    $this->entityType = $entityType;
-  }
-  public function getEntityType()
-  {
-    return $this->entityType;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
-  public function setUserDefined($userDefined)
-  {
-    $this->userDefined = $userDefined;
-  }
-  public function getUserDefined()
-  {
-    return $this->userDefined;
-  }
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
+	}
+	public function getAlias()
+	{
+		return $this->alias;
+	}
+	public function setEntityType($entityType)
+	{
+		$this->entityType = $entityType;
+	}
+	public function getEntityType()
+	{
+		return $this->entityType;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
+	public function setUserDefined($userDefined)
+	{
+		$this->userDefined = $userDefined;
+	}
+	public function getUserDefined()
+	{
+		return $this->userDefined;
+	}
 }

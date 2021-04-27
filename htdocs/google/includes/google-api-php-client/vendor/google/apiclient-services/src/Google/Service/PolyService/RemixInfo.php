@@ -17,15 +17,15 @@
 
 class Google_Service_PolyService_RemixInfo extends Google_Collection
 {
-  protected $collection_key = 'sourceAsset';
-  public $sourceAsset;
+	protected $collection_key = 'sourceAsset';
+	public $sourceAsset;
 
-  public function setSourceAsset($sourceAsset)
-  {
-    $this->sourceAsset = $sourceAsset;
-  }
-  public function getSourceAsset()
-  {
-    return $this->sourceAsset;
-  }
+	public function setSourceAsset($sourceAsset)
+	{
+		$this->sourceAsset = $sourceAsset;
+	}
+	public function getSourceAsset()
+	{
+		return $this->sourceAsset;
+	}
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_Devprojects_ApiaryProperty extends Google_Collection
 {
-  protected $collection_key = 'value';
-  public $kind;
-  public $serviceKey;
-  public $value;
+	protected $collection_key = 'value';
+	public $kind;
+	public $serviceKey;
+	public $value;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setServiceKey($serviceKey)
-  {
-    $this->serviceKey = $serviceKey;
-  }
-  public function getServiceKey()
-  {
-    return $this->serviceKey;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setServiceKey($serviceKey)
+	{
+		$this->serviceKey = $serviceKey;
+	}
+	public function getServiceKey()
+	{
+		return $this->serviceKey;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

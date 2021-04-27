@@ -17,15 +17,15 @@
 
 class Google_Service_Compute_SslPoliciesListAvailableFeaturesResponse extends Google_Collection
 {
-  protected $collection_key = 'features';
-  public $features;
+	protected $collection_key = 'features';
+	public $features;
 
-  public function setFeatures($features)
-  {
-    $this->features = $features;
-  }
-  public function getFeatures()
-  {
-    return $this->features;
-  }
+	public function setFeatures($features)
+	{
+		$this->features = $features;
+	}
+	public function getFeatures()
+	{
+		return $this->features;
+	}
 }

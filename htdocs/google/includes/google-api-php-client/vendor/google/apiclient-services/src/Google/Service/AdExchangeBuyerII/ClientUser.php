@@ -17,41 +17,41 @@
 
 class Google_Service_AdExchangeBuyerII_ClientUser extends Google_Model
 {
-  public $clientAccountId;
-  public $email;
-  public $status;
-  public $userId;
+	public $clientAccountId;
+	public $email;
+	public $status;
+	public $userId;
 
-  public function setClientAccountId($clientAccountId)
-  {
-    $this->clientAccountId = $clientAccountId;
-  }
-  public function getClientAccountId()
-  {
-    return $this->clientAccountId;
-  }
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  public function setUserId($userId)
-  {
-    $this->userId = $userId;
-  }
-  public function getUserId()
-  {
-    return $this->userId;
-  }
+	public function setClientAccountId($clientAccountId)
+	{
+		$this->clientAccountId = $clientAccountId;
+	}
+	public function getClientAccountId()
+	{
+		return $this->clientAccountId;
+	}
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+	}
+	public function getUserId()
+	{
+		return $this->userId;
+	}
 }

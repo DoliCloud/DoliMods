@@ -17,23 +17,23 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurgeUserEventsRequest extends Google_Model
 {
-  public $filter;
-  public $force;
+	public $filter;
+	public $force;
 
-  public function setFilter($filter)
-  {
-    $this->filter = $filter;
-  }
-  public function getFilter()
-  {
-    return $this->filter;
-  }
-  public function setForce($force)
-  {
-    $this->force = $force;
-  }
-  public function getForce()
-  {
-    return $this->force;
-  }
+	public function setFilter($filter)
+	{
+		$this->filter = $filter;
+	}
+	public function getFilter()
+	{
+		return $this->filter;
+	}
+	public function setForce($force)
+	{
+		$this->force = $force;
+	}
+	public function getForce()
+	{
+		return $this->force;
+	}
 }

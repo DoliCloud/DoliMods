@@ -46,32 +46,31 @@ class Google_Http_REST
 		$expectedClass = null,
 		$config = array(),
 		$retryMap = null
-		) {
-			
+	) {
+
 			// CHANGE DOL_LDR
 			global $conf;
-			if (! empty($conf->global->GOOGLE_DEBUG))
-			{
-				$dates=dol_print_date(dol_now(), 'dayhourlog');
-				$h=fopen(DOL_DATA_ROOT.'/dolibarr_google_request_'.$dates.'.log', 'w+');
-				fwrite($h, var_export($request, true));
-				fclose($h);
-			}
-			
+		if (! empty($conf->global->GOOGLE_DEBUG)) {
+			$dates=dol_print_date(dol_now(), 'dayhourlog');
+			$h=fopen(DOL_DATA_ROOT.'/dolibarr_google_request_'.$dates.'.log', 'w+');
+			fwrite($h, var_export($request, true));
+			fclose($h);
+		}
+
 			$runner = new Google_Task_Runner(
 				$config,
 				sprintf('%s %s', $request->getMethod(), (string) $request->getUri()),
 				array(get_class(), 'doExecute'),
 				array($client, $request, $expectedClass)
 				);
-			
-			if (null !== $retryMap) {
-				$runner->setRetryMap($retryMap);
-			}
-			
+
+		if (null !== $retryMap) {
+			$runner->setRetryMap($retryMap);
+		}
+
 			return $runner->run();
 	}
-	
+
 	/**
 	 * Executes a Psr\Http\Message\RequestInterface
 	 *
@@ -92,7 +91,7 @@ class Google_Http_REST
 			if (!$e->hasResponse()) {
 				throw $e;
 			}
-			
+
 			$response = $e->getResponse();
 			// specific checking for Guzzle 5: convert to PSR7 response
 			if ($response instanceof \GuzzleHttp\Message\ResponseInterface) {
@@ -105,10 +104,10 @@ class Google_Http_REST
 					);
 			}
 		}
-		
+
 		return self::decodeHttpResponse($response, $request, $expectedClass);
 	}
-	
+
 	/**
 	 * Decode an HTTP Response.
 	 * @static
@@ -122,78 +121,77 @@ class Google_Http_REST
 		ResponseInterface $response,
 		RequestInterface $request = null,
 		$expectedClass = null
-		) {
+	) {
 			$code = $response->getStatusCode();
-			
+
 			// CHANGE DOL_LDR
 			global $conf;
-			if (! empty($conf->global->GOOGLE_DEBUG))
-			{
-				$dates=dol_print_date(dol_now(), 'dayhourlog');
-				$h=fopen(DOL_DATA_ROOT.'/dolibarr_google_response_'.$dates.'.log', 'w+');
-				fwrite($h, var_export($response, true));
-				fclose($h);
-			}
-			
+		if (! empty($conf->global->GOOGLE_DEBUG)) {
+			$dates=dol_print_date(dol_now(), 'dayhourlog');
+			$h=fopen(DOL_DATA_ROOT.'/dolibarr_google_response_'.$dates.'.log', 'w+');
+			fwrite($h, var_export($response, true));
+			fclose($h);
+		}
+
 			// retry strategy
-			if (intVal($code) >= 400) {
-				// if we errored out, it should be safe to grab the response body
-				$body = (string) $response->getBody();
-				
-				// Check if we received errors, and add those to the Exception for convenience
-				throw new Google_Service_Exception($body, $code, null, self::getResponseErrors($body));
-			}
-			
+		if (intVal($code) >= 400) {
+			// if we errored out, it should be safe to grab the response body
+			$body = (string) $response->getBody();
+
+			// Check if we received errors, and add those to the Exception for convenience
+			throw new Google_Service_Exception($body, $code, null, self::getResponseErrors($body));
+		}
+
 			// Ensure we only pull the entire body into memory if the request is not
 			// of media type
 			$body = self::decodeBody($response, $request);
-			
-			if ($expectedClass = self::determineExpectedClass($expectedClass, $request)) {
-				$json = json_decode($body, true);
-				
-				return new $expectedClass($json);
-			}
-			
+
+		if ($expectedClass = self::determineExpectedClass($expectedClass, $request)) {
+			$json = json_decode($body, true);
+
+			return new $expectedClass($json);
+		}
+
 			return $response;
 	}
-	
+
 	private static function decodeBody(ResponseInterface $response, RequestInterface $request = null)
 	{
 		if (self::isAltMedia($request)) {
 			// don't decode the body, it's probably a really long string
 			return '';
 		}
-		
+
 		return (string) $response->getBody();
 	}
-	
+
 	private static function determineExpectedClass($expectedClass, RequestInterface $request = null)
 	{
 		// "false" is used to explicitly prevent an expected class from being returned
 		if (false === $expectedClass) {
 			return null;
 		}
-		
+
 		// if we don't have a request, we just use what's passed in
 		if (null === $request) {
 			return $expectedClass;
 		}
-		
+
 		// return what we have in the request header if one was not supplied
 		return $expectedClass ?: $request->getHeaderLine('X-Php-Expected-Class');
 	}
-	
+
 	private static function getResponseErrors($body)
 	{
 		$json = json_decode($body, true);
-		
+
 		if (isset($json['error']['errors'])) {
 			return $json['error']['errors'];
 		}
-		
+
 		return null;
 	}
-	
+
 	private static function isAltMedia(RequestInterface $request = null)
 	{
 		if ($request && $qs = $request->getUri()->getQuery()) {
@@ -202,7 +200,7 @@ class Google_Http_REST
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_SecurityPolicyReference extends Google_Model
 {
-  public $securityPolicy;
+	public $securityPolicy;
 
-  public function setSecurityPolicy($securityPolicy)
-  {
-    $this->securityPolicy = $securityPolicy;
-  }
-  public function getSecurityPolicy()
-  {
-    return $this->securityPolicy;
-  }
+	public function setSecurityPolicy($securityPolicy)
+	{
+		$this->securityPolicy = $securityPolicy;
+	}
+	public function getSecurityPolicy()
+	{
+		return $this->securityPolicy;
+	}
 }

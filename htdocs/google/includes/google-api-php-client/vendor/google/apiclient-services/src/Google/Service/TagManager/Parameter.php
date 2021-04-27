@@ -17,65 +17,65 @@
 
 class Google_Service_TagManager_Parameter extends Google_Collection
 {
-  protected $collection_key = 'map';
-  public $key;
-  protected $listType = 'Google_Service_TagManager_Parameter';
-  protected $listDataType = 'array';
-  protected $mapType = 'Google_Service_TagManager_Parameter';
-  protected $mapDataType = 'array';
-  public $type;
-  public $value;
+	protected $collection_key = 'map';
+	public $key;
+	protected $listType = 'Google_Service_TagManager_Parameter';
+	protected $listDataType = 'array';
+	protected $mapType = 'Google_Service_TagManager_Parameter';
+	protected $mapDataType = 'array';
+	public $type;
+	public $value;
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  /**
-   * @param Google_Service_TagManager_Parameter
-   */
-  public function setList($list)
-  {
-    $this->list = $list;
-  }
-  /**
-   * @return Google_Service_TagManager_Parameter
-   */
-  public function getList()
-  {
-    return $this->list;
-  }
-  /**
-   * @param Google_Service_TagManager_Parameter
-   */
-  public function setMap($map)
-  {
-    $this->map = $map;
-  }
-  /**
-   * @return Google_Service_TagManager_Parameter
-   */
-  public function getMap()
-  {
-    return $this->map;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	/**
+	 * @param Google_Service_TagManager_Parameter
+	 */
+	public function setList($list)
+	{
+		$this->list = $list;
+	}
+	/**
+	 * @return Google_Service_TagManager_Parameter
+	 */
+	public function getList()
+	{
+		return $this->list;
+	}
+	/**
+	 * @param Google_Service_TagManager_Parameter
+	 */
+	public function setMap($map)
+	{
+		$this->map = $map;
+	}
+	/**
+	 * @return Google_Service_TagManager_Parameter
+	 */
+	public function getMap()
+	{
+		return $this->map;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

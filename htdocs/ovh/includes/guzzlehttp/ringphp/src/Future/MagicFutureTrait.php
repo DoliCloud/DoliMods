@@ -10,23 +10,23 @@ namespace GuzzleHttp\Ring\Future;
  */
 trait MagicFutureTrait
 {
-    use BaseFutureTrait;
+	use BaseFutureTrait;
 
-    /**
-     * This function handles retrieving the dereferenced result when requested.
-     *
-     * @param string $name Should always be "data" or an exception is thrown.
-     *
-     * @return mixed Returns the dereferenced data.
-     * @throws \RuntimeException
-     * @throws \GuzzleHttp\Ring\Exception\CancelledException
-     */
-    public function __get($name)
-    {
-        if ($name !== '_value') {
-            throw new \RuntimeException("Class has no {$name} property");
-        }
+	/**
+	 * This function handles retrieving the dereferenced result when requested.
+	 *
+	 * @param string $name Should always be "data" or an exception is thrown.
+	 *
+	 * @return mixed Returns the dereferenced data.
+	 * @throws \RuntimeException
+	 * @throws \GuzzleHttp\Ring\Exception\CancelledException
+	 */
+	public function __get($name)
+	{
+		if ($name !== '_value') {
+			throw new \RuntimeException("Class has no {$name} property");
+		}
 
-        return $this->_value = $this->wait();
-    }
+		return $this->_value = $this->wait();
+	}
 }

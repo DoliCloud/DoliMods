@@ -17,14 +17,14 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ManualScaling extends Google_Model
 {
-  public $nodes;
+	public $nodes;
 
-  public function setNodes($nodes)
-  {
-    $this->nodes = $nodes;
-  }
-  public function getNodes()
-  {
-    return $this->nodes;
-  }
+	public function setNodes($nodes)
+	{
+		$this->nodes = $nodes;
+	}
+	public function getNodes()
+	{
+		return $this->nodes;
+	}
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_Bigquery_DataSplitResult extends Google_Model
 {
-  protected $evaluationTableType = 'Google_Service_Bigquery_TableReference';
-  protected $evaluationTableDataType = '';
-  protected $trainingTableType = 'Google_Service_Bigquery_TableReference';
-  protected $trainingTableDataType = '';
+	protected $evaluationTableType = 'Google_Service_Bigquery_TableReference';
+	protected $evaluationTableDataType = '';
+	protected $trainingTableType = 'Google_Service_Bigquery_TableReference';
+	protected $trainingTableDataType = '';
 
-  /**
-   * @param Google_Service_Bigquery_TableReference
-   */
-  public function setEvaluationTable(Google_Service_Bigquery_TableReference $evaluationTable)
-  {
-    $this->evaluationTable = $evaluationTable;
-  }
-  /**
-   * @return Google_Service_Bigquery_TableReference
-   */
-  public function getEvaluationTable()
-  {
-    return $this->evaluationTable;
-  }
-  /**
-   * @param Google_Service_Bigquery_TableReference
-   */
-  public function setTrainingTable(Google_Service_Bigquery_TableReference $trainingTable)
-  {
-    $this->trainingTable = $trainingTable;
-  }
-  /**
-   * @return Google_Service_Bigquery_TableReference
-   */
-  public function getTrainingTable()
-  {
-    return $this->trainingTable;
-  }
+	/**
+	 * @param Google_Service_Bigquery_TableReference
+	 */
+	public function setEvaluationTable(Google_Service_Bigquery_TableReference $evaluationTable)
+	{
+		$this->evaluationTable = $evaluationTable;
+	}
+	/**
+	 * @return Google_Service_Bigquery_TableReference
+	 */
+	public function getEvaluationTable()
+	{
+		return $this->evaluationTable;
+	}
+	/**
+	 * @param Google_Service_Bigquery_TableReference
+	 */
+	public function setTrainingTable(Google_Service_Bigquery_TableReference $trainingTable)
+	{
+		$this->trainingTable = $trainingTable;
+	}
+	/**
+	 * @return Google_Service_Bigquery_TableReference
+	 */
+	public function getTrainingTable()
+	{
+		return $this->trainingTable;
+	}
 }

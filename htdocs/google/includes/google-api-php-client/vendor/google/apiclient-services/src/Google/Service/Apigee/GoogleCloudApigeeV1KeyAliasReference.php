@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference extends Google_Model
 {
-  public $aliasId;
-  public $reference;
+	public $aliasId;
+	public $reference;
 
-  public function setAliasId($aliasId)
-  {
-    $this->aliasId = $aliasId;
-  }
-  public function getAliasId()
-  {
-    return $this->aliasId;
-  }
-  public function setReference($reference)
-  {
-    $this->reference = $reference;
-  }
-  public function getReference()
-  {
-    return $this->reference;
-  }
+	public function setAliasId($aliasId)
+	{
+		$this->aliasId = $aliasId;
+	}
+	public function getAliasId()
+	{
+		return $this->aliasId;
+	}
+	public function setReference($reference)
+	{
+		$this->reference = $reference;
+	}
+	public function getReference()
+	{
+		return $this->reference;
+	}
 }

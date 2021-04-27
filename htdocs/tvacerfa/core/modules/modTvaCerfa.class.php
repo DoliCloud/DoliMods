@@ -24,7 +24,7 @@
  * 	\brief      Description and activation file for module TvaCerfa
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -33,11 +33,11 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 class modTvaCerfa extends DolibarrModules
 {
 
-    /**
+	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
 	 *   @param		DoliDB		$db		Database handler
-     */
+	 */
 	function __construct($db)
 	{
 		$this->db = $db;
@@ -50,11 +50,11 @@ class modTvaCerfa extends DolibarrModules
 		// It is used to sort modules in module setup page
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Add a page to generate french VAT Cerfa documents";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
@@ -73,9 +73,9 @@ class modTvaCerfa extends DolibarrModules
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-        $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,2,-4);  // Minimum version of Dolibarr required by module
-        $this->langfiles = array("tvacerfa@tvacerfa");
+		$this->phpmin = array(4,3);                 // Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(3,2,-4);  // Minimum version of Dolibarr required by module
+		$this->langfiles = array("tvacerfa@tvacerfa");
 
 		// Constants
 		$this->const = array();			// List of parameters
@@ -86,10 +86,10 @@ class modTvaCerfa extends DolibarrModules
 
 		// Add here list of php file(s) stored in includes/boxes that contains class to show a box.
 		// Example:
-        //$this->boxes[$r][1] = "myboxa.php";
-    	//$r++;
-        //$this->boxes[$r][1] = "myboxb.php";
-    	//$r++;
+		//$this->boxes[$r][1] = "myboxa.php";
+		//$r++;
+		//$this->boxes[$r][1] = "myboxb.php";
+		//$r++;
 
 		// Permissions
 		$this->rights_class = 'tvacerfa';	// Permission key
@@ -121,29 +121,28 @@ class modTvaCerfa extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
-     */
-	function init($options='')
-  	{
-    	$sql = array();
+	 */
+	function init($options = '')
+	{
+		$sql = array();
 
-    	return $this->_init($sql,$options);
-  	}
+		return $this->_init($sql, $options);
+	}
 
 	/**
 	 *		Function called when module is disabled.
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
- 	 */
-	function remove($options='')
+	 */
+	function remove($options = '')
 	{
-    	$sql = array();
+		$sql = array();
 
-    	return $this->_remove($sql,$options);
-  	}
-
+		return $this->_remove($sql, $options);
+	}
 }

@@ -17,62 +17,62 @@
 
 class Google_Service_Slides_Shape extends Google_Model
 {
-  protected $placeholderType = 'Google_Service_Slides_Placeholder';
-  protected $placeholderDataType = '';
-  protected $shapePropertiesType = 'Google_Service_Slides_ShapeProperties';
-  protected $shapePropertiesDataType = '';
-  public $shapeType;
-  protected $textType = 'Google_Service_Slides_TextContent';
-  protected $textDataType = '';
+	protected $placeholderType = 'Google_Service_Slides_Placeholder';
+	protected $placeholderDataType = '';
+	protected $shapePropertiesType = 'Google_Service_Slides_ShapeProperties';
+	protected $shapePropertiesDataType = '';
+	public $shapeType;
+	protected $textType = 'Google_Service_Slides_TextContent';
+	protected $textDataType = '';
 
-  /**
-   * @param Google_Service_Slides_Placeholder
-   */
-  public function setPlaceholder(Google_Service_Slides_Placeholder $placeholder)
-  {
-    $this->placeholder = $placeholder;
-  }
-  /**
-   * @return Google_Service_Slides_Placeholder
-   */
-  public function getPlaceholder()
-  {
-    return $this->placeholder;
-  }
-  /**
-   * @param Google_Service_Slides_ShapeProperties
-   */
-  public function setShapeProperties(Google_Service_Slides_ShapeProperties $shapeProperties)
-  {
-    $this->shapeProperties = $shapeProperties;
-  }
-  /**
-   * @return Google_Service_Slides_ShapeProperties
-   */
-  public function getShapeProperties()
-  {
-    return $this->shapeProperties;
-  }
-  public function setShapeType($shapeType)
-  {
-    $this->shapeType = $shapeType;
-  }
-  public function getShapeType()
-  {
-    return $this->shapeType;
-  }
-  /**
-   * @param Google_Service_Slides_TextContent
-   */
-  public function setText(Google_Service_Slides_TextContent $text)
-  {
-    $this->text = $text;
-  }
-  /**
-   * @return Google_Service_Slides_TextContent
-   */
-  public function getText()
-  {
-    return $this->text;
-  }
+	/**
+	 * @param Google_Service_Slides_Placeholder
+	 */
+	public function setPlaceholder(Google_Service_Slides_Placeholder $placeholder)
+	{
+		$this->placeholder = $placeholder;
+	}
+	/**
+	 * @return Google_Service_Slides_Placeholder
+	 */
+	public function getPlaceholder()
+	{
+		return $this->placeholder;
+	}
+	/**
+	 * @param Google_Service_Slides_ShapeProperties
+	 */
+	public function setShapeProperties(Google_Service_Slides_ShapeProperties $shapeProperties)
+	{
+		$this->shapeProperties = $shapeProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_ShapeProperties
+	 */
+	public function getShapeProperties()
+	{
+		return $this->shapeProperties;
+	}
+	public function setShapeType($shapeType)
+	{
+		$this->shapeType = $shapeType;
+	}
+	public function getShapeType()
+	{
+		return $this->shapeType;
+	}
+	/**
+	 * @param Google_Service_Slides_TextContent
+	 */
+	public function setText(Google_Service_Slides_TextContent $text)
+	{
+		$this->text = $text;
+	}
+	/**
+	 * @return Google_Service_Slides_TextContent
+	 */
+	public function getText()
+	{
+		return $this->text;
+	}
 }

@@ -17,55 +17,55 @@
 
 class Google_Service_ShoppingContent_ReturnaddressCustomBatchResponseEntry extends Google_Model
 {
-  public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
-  protected $errorsDataType = '';
-  public $kind;
-  protected $returnAddressType = 'Google_Service_ShoppingContent_ReturnAddress';
-  protected $returnAddressDataType = '';
+	public $batchId;
+	protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+	protected $errorsDataType = '';
+	public $kind;
+	protected $returnAddressType = 'Google_Service_ShoppingContent_ReturnAddress';
+	protected $returnAddressDataType = '';
 
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Errors
-   */
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Errors
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_ReturnAddress
-   */
-  public function setReturnAddress(Google_Service_ShoppingContent_ReturnAddress $returnAddress)
-  {
-    $this->returnAddress = $returnAddress;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_ReturnAddress
-   */
-  public function getReturnAddress()
-  {
-    return $this->returnAddress;
-  }
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Errors
+	 */
+	public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Errors
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_ReturnAddress
+	 */
+	public function setReturnAddress(Google_Service_ShoppingContent_ReturnAddress $returnAddress)
+	{
+		$this->returnAddress = $returnAddress;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_ReturnAddress
+	 */
+	public function getReturnAddress()
+	{
+		return $this->returnAddress;
+	}
 }

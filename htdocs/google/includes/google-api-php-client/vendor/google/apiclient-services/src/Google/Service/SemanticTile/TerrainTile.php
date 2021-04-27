@@ -17,62 +17,62 @@
 
 class Google_Service_SemanticTile_TerrainTile extends Google_Model
 {
-  protected $coordinatesType = 'Google_Service_SemanticTile_TileCoordinates';
-  protected $coordinatesDataType = '';
-  protected $firstDerivativeType = 'Google_Service_SemanticTile_FirstDerivativeElevationGrid';
-  protected $firstDerivativeDataType = '';
-  public $name;
-  protected $secondDerivativeType = 'Google_Service_SemanticTile_SecondDerivativeElevationGrid';
-  protected $secondDerivativeDataType = '';
+	protected $coordinatesType = 'Google_Service_SemanticTile_TileCoordinates';
+	protected $coordinatesDataType = '';
+	protected $firstDerivativeType = 'Google_Service_SemanticTile_FirstDerivativeElevationGrid';
+	protected $firstDerivativeDataType = '';
+	public $name;
+	protected $secondDerivativeType = 'Google_Service_SemanticTile_SecondDerivativeElevationGrid';
+	protected $secondDerivativeDataType = '';
 
-  /**
-   * @param Google_Service_SemanticTile_TileCoordinates
-   */
-  public function setCoordinates(Google_Service_SemanticTile_TileCoordinates $coordinates)
-  {
-    $this->coordinates = $coordinates;
-  }
-  /**
-   * @return Google_Service_SemanticTile_TileCoordinates
-   */
-  public function getCoordinates()
-  {
-    return $this->coordinates;
-  }
-  /**
-   * @param Google_Service_SemanticTile_FirstDerivativeElevationGrid
-   */
-  public function setFirstDerivative(Google_Service_SemanticTile_FirstDerivativeElevationGrid $firstDerivative)
-  {
-    $this->firstDerivative = $firstDerivative;
-  }
-  /**
-   * @return Google_Service_SemanticTile_FirstDerivativeElevationGrid
-   */
-  public function getFirstDerivative()
-  {
-    return $this->firstDerivative;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_SemanticTile_SecondDerivativeElevationGrid
-   */
-  public function setSecondDerivative(Google_Service_SemanticTile_SecondDerivativeElevationGrid $secondDerivative)
-  {
-    $this->secondDerivative = $secondDerivative;
-  }
-  /**
-   * @return Google_Service_SemanticTile_SecondDerivativeElevationGrid
-   */
-  public function getSecondDerivative()
-  {
-    return $this->secondDerivative;
-  }
+	/**
+	 * @param Google_Service_SemanticTile_TileCoordinates
+	 */
+	public function setCoordinates(Google_Service_SemanticTile_TileCoordinates $coordinates)
+	{
+		$this->coordinates = $coordinates;
+	}
+	/**
+	 * @return Google_Service_SemanticTile_TileCoordinates
+	 */
+	public function getCoordinates()
+	{
+		return $this->coordinates;
+	}
+	/**
+	 * @param Google_Service_SemanticTile_FirstDerivativeElevationGrid
+	 */
+	public function setFirstDerivative(Google_Service_SemanticTile_FirstDerivativeElevationGrid $firstDerivative)
+	{
+		$this->firstDerivative = $firstDerivative;
+	}
+	/**
+	 * @return Google_Service_SemanticTile_FirstDerivativeElevationGrid
+	 */
+	public function getFirstDerivative()
+	{
+		return $this->firstDerivative;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_SemanticTile_SecondDerivativeElevationGrid
+	 */
+	public function setSecondDerivative(Google_Service_SemanticTile_SecondDerivativeElevationGrid $secondDerivative)
+	{
+		$this->secondDerivative = $secondDerivative;
+	}
+	/**
+	 * @return Google_Service_SemanticTile_SecondDerivativeElevationGrid
+	 */
+	public function getSecondDerivative()
+	{
+		return $this->secondDerivative;
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_TargetableRemarketingListsListResponse extends Google_Collection
 {
-  protected $collection_key = 'targetableRemarketingLists';
-  public $kind;
-  public $nextPageToken;
-  protected $targetableRemarketingListsType = 'Google_Service_Dfareporting_TargetableRemarketingList';
-  protected $targetableRemarketingListsDataType = 'array';
+	protected $collection_key = 'targetableRemarketingLists';
+	public $kind;
+	public $nextPageToken;
+	protected $targetableRemarketingListsType = 'Google_Service_Dfareporting_TargetableRemarketingList';
+	protected $targetableRemarketingListsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Dfareporting_TargetableRemarketingList
-   */
-  public function setTargetableRemarketingLists($targetableRemarketingLists)
-  {
-    $this->targetableRemarketingLists = $targetableRemarketingLists;
-  }
-  /**
-   * @return Google_Service_Dfareporting_TargetableRemarketingList
-   */
-  public function getTargetableRemarketingLists()
-  {
-    return $this->targetableRemarketingLists;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_TargetableRemarketingList
+	 */
+	public function setTargetableRemarketingLists($targetableRemarketingLists)
+	{
+		$this->targetableRemarketingLists = $targetableRemarketingLists;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_TargetableRemarketingList
+	 */
+	public function getTargetableRemarketingLists()
+	{
+		return $this->targetableRemarketingLists;
+	}
 }

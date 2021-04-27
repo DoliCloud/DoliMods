@@ -17,30 +17,30 @@
 
 class Google_Service_Testing_Apk extends Google_Model
 {
-  protected $locationType = 'Google_Service_Testing_FileReference';
-  protected $locationDataType = '';
-  public $packageName;
+	protected $locationType = 'Google_Service_Testing_FileReference';
+	protected $locationDataType = '';
+	public $packageName;
 
-  /**
-   * @param Google_Service_Testing_FileReference
-   */
-  public function setLocation(Google_Service_Testing_FileReference $location)
-  {
-    $this->location = $location;
-  }
-  /**
-   * @return Google_Service_Testing_FileReference
-   */
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setPackageName($packageName)
-  {
-    $this->packageName = $packageName;
-  }
-  public function getPackageName()
-  {
-    return $this->packageName;
-  }
+	/**
+	 * @param Google_Service_Testing_FileReference
+	 */
+	public function setLocation(Google_Service_Testing_FileReference $location)
+	{
+		$this->location = $location;
+	}
+	/**
+	 * @return Google_Service_Testing_FileReference
+	 */
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setPackageName($packageName)
+	{
+		$this->packageName = $packageName;
+	}
+	public function getPackageName()
+	{
+		return $this->packageName;
+	}
 }

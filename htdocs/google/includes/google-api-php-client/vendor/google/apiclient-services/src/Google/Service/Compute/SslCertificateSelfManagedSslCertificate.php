@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_SslCertificateSelfManagedSslCertificate extends Google_Model
 {
-  public $certificate;
-  public $privateKey;
+	public $certificate;
+	public $privateKey;
 
-  public function setCertificate($certificate)
-  {
-    $this->certificate = $certificate;
-  }
-  public function getCertificate()
-  {
-    return $this->certificate;
-  }
-  public function setPrivateKey($privateKey)
-  {
-    $this->privateKey = $privateKey;
-  }
-  public function getPrivateKey()
-  {
-    return $this->privateKey;
-  }
+	public function setCertificate($certificate)
+	{
+		$this->certificate = $certificate;
+	}
+	public function getCertificate()
+	{
+		return $this->certificate;
+	}
+	public function setPrivateKey($privateKey)
+	{
+		$this->privateKey = $privateKey;
+	}
+	public function getPrivateKey()
+	{
+		return $this->privateKey;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudKMS_AsymmetricDecryptRequest extends Google_Model
 {
-  public $ciphertext;
-  public $ciphertextCrc32c;
+	public $ciphertext;
+	public $ciphertextCrc32c;
 
-  public function setCiphertext($ciphertext)
-  {
-    $this->ciphertext = $ciphertext;
-  }
-  public function getCiphertext()
-  {
-    return $this->ciphertext;
-  }
-  public function setCiphertextCrc32c($ciphertextCrc32c)
-  {
-    $this->ciphertextCrc32c = $ciphertextCrc32c;
-  }
-  public function getCiphertextCrc32c()
-  {
-    return $this->ciphertextCrc32c;
-  }
+	public function setCiphertext($ciphertext)
+	{
+		$this->ciphertext = $ciphertext;
+	}
+	public function getCiphertext()
+	{
+		return $this->ciphertext;
+	}
+	public function setCiphertextCrc32c($ciphertextCrc32c)
+	{
+		$this->ciphertextCrc32c = $ciphertextCrc32c;
+	}
+	public function getCiphertextCrc32c()
+	{
+		return $this->ciphertextCrc32c;
+	}
 }

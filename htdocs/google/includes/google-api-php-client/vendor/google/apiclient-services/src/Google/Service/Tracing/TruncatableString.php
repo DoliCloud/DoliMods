@@ -17,23 +17,23 @@
 
 class Google_Service_Tracing_TruncatableString extends Google_Model
 {
-  public $truncatedCharacterCount;
-  public $value;
+	public $truncatedCharacterCount;
+	public $value;
 
-  public function setTruncatedCharacterCount($truncatedCharacterCount)
-  {
-    $this->truncatedCharacterCount = $truncatedCharacterCount;
-  }
-  public function getTruncatedCharacterCount()
-  {
-    return $this->truncatedCharacterCount;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setTruncatedCharacterCount($truncatedCharacterCount)
+	{
+		$this->truncatedCharacterCount = $truncatedCharacterCount;
+	}
+	public function getTruncatedCharacterCount()
+	{
+		return $this->truncatedCharacterCount;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

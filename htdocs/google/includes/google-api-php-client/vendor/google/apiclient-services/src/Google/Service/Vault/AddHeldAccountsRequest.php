@@ -17,24 +17,24 @@
 
 class Google_Service_Vault_AddHeldAccountsRequest extends Google_Collection
 {
-  protected $collection_key = 'emails';
-  public $accountIds;
-  public $emails;
+	protected $collection_key = 'emails';
+	public $accountIds;
+	public $emails;
 
-  public function setAccountIds($accountIds)
-  {
-    $this->accountIds = $accountIds;
-  }
-  public function getAccountIds()
-  {
-    return $this->accountIds;
-  }
-  public function setEmails($emails)
-  {
-    $this->emails = $emails;
-  }
-  public function getEmails()
-  {
-    return $this->emails;
-  }
+	public function setAccountIds($accountIds)
+	{
+		$this->accountIds = $accountIds;
+	}
+	public function getAccountIds()
+	{
+		return $this->accountIds;
+	}
+	public function setEmails($emails)
+	{
+		$this->emails = $emails;
+	}
+	public function getEmails()
+	{
+		return $this->emails;
+	}
 }

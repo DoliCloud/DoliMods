@@ -17,41 +17,41 @@
 
 class Google_Service_Fitness_Application extends Google_Model
 {
-  public $detailsUrl;
-  public $name;
-  public $packageName;
-  public $version;
+	public $detailsUrl;
+	public $name;
+	public $packageName;
+	public $version;
 
-  public function setDetailsUrl($detailsUrl)
-  {
-    $this->detailsUrl = $detailsUrl;
-  }
-  public function getDetailsUrl()
-  {
-    return $this->detailsUrl;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPackageName($packageName)
-  {
-    $this->packageName = $packageName;
-  }
-  public function getPackageName()
-  {
-    return $this->packageName;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setDetailsUrl($detailsUrl)
+	{
+		$this->detailsUrl = $detailsUrl;
+	}
+	public function getDetailsUrl()
+	{
+		return $this->detailsUrl;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPackageName($packageName)
+	{
+		$this->packageName = $packageName;
+	}
+	public function getPackageName()
+	{
+		return $this->packageName;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

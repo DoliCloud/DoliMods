@@ -17,23 +17,23 @@
 
 class Google_Service_Appengine_TrafficSplit extends Google_Model
 {
-  public $allocations;
-  public $shardBy;
+	public $allocations;
+	public $shardBy;
 
-  public function setAllocations($allocations)
-  {
-    $this->allocations = $allocations;
-  }
-  public function getAllocations()
-  {
-    return $this->allocations;
-  }
-  public function setShardBy($shardBy)
-  {
-    $this->shardBy = $shardBy;
-  }
-  public function getShardBy()
-  {
-    return $this->shardBy;
-  }
+	public function setAllocations($allocations)
+	{
+		$this->allocations = $allocations;
+	}
+	public function getAllocations()
+	{
+		return $this->allocations;
+	}
+	public function setShardBy($shardBy)
+	{
+		$this->shardBy = $shardBy;
+	}
+	public function getShardBy()
+	{
+		return $this->shardBy;
+	}
 }

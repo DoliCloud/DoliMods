@@ -17,31 +17,31 @@
 
 class Google_Service_HangoutsChat_FormAction extends Google_Collection
 {
-  protected $collection_key = 'parameters';
-  public $actionMethodName;
-  protected $parametersType = 'Google_Service_HangoutsChat_ActionParameter';
-  protected $parametersDataType = 'array';
+	protected $collection_key = 'parameters';
+	public $actionMethodName;
+	protected $parametersType = 'Google_Service_HangoutsChat_ActionParameter';
+	protected $parametersDataType = 'array';
 
-  public function setActionMethodName($actionMethodName)
-  {
-    $this->actionMethodName = $actionMethodName;
-  }
-  public function getActionMethodName()
-  {
-    return $this->actionMethodName;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_ActionParameter
-   */
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_ActionParameter
-   */
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	public function setActionMethodName($actionMethodName)
+	{
+		$this->actionMethodName = $actionMethodName;
+	}
+	public function getActionMethodName()
+	{
+		return $this->actionMethodName;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_ActionParameter
+	 */
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_ActionParameter
+	 */
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

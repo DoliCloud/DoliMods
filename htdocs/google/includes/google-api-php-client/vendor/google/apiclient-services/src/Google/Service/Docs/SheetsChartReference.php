@@ -17,23 +17,23 @@
 
 class Google_Service_Docs_SheetsChartReference extends Google_Model
 {
-  public $chartId;
-  public $spreadsheetId;
+	public $chartId;
+	public $spreadsheetId;
 
-  public function setChartId($chartId)
-  {
-    $this->chartId = $chartId;
-  }
-  public function getChartId()
-  {
-    return $this->chartId;
-  }
-  public function setSpreadsheetId($spreadsheetId)
-  {
-    $this->spreadsheetId = $spreadsheetId;
-  }
-  public function getSpreadsheetId()
-  {
-    return $this->spreadsheetId;
-  }
+	public function setChartId($chartId)
+	{
+		$this->chartId = $chartId;
+	}
+	public function getChartId()
+	{
+		return $this->chartId;
+	}
+	public function setSpreadsheetId($spreadsheetId)
+	{
+		$this->spreadsheetId = $spreadsheetId;
+	}
+	public function getSpreadsheetId()
+	{
+		return $this->spreadsheetId;
+	}
 }

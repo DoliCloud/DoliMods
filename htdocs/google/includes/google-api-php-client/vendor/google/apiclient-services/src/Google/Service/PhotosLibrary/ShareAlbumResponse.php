@@ -17,21 +17,21 @@
 
 class Google_Service_PhotosLibrary_ShareAlbumResponse extends Google_Model
 {
-  protected $shareInfoType = 'Google_Service_PhotosLibrary_ShareInfo';
-  protected $shareInfoDataType = '';
+	protected $shareInfoType = 'Google_Service_PhotosLibrary_ShareInfo';
+	protected $shareInfoDataType = '';
 
-  /**
-   * @param Google_Service_PhotosLibrary_ShareInfo
-   */
-  public function setShareInfo(Google_Service_PhotosLibrary_ShareInfo $shareInfo)
-  {
-    $this->shareInfo = $shareInfo;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_ShareInfo
-   */
-  public function getShareInfo()
-  {
-    return $this->shareInfo;
-  }
+	/**
+	 * @param Google_Service_PhotosLibrary_ShareInfo
+	 */
+	public function setShareInfo(Google_Service_PhotosLibrary_ShareInfo $shareInfo)
+	{
+		$this->shareInfo = $shareInfo;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_ShareInfo
+	 */
+	public function getShareInfo()
+	{
+		return $this->shareInfo;
+	}
 }

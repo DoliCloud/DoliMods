@@ -25,28 +25,28 @@
  */
 class Google_Service_YouTube_Resource_SuperChatEvents extends Google_Service_Resource
 {
-  /**
-   * Retrieves a list of resources, possibly filtered.
-   * (superChatEvents.listSuperChatEvents)
-   *
-   * @param string|array $part The part parameter specifies the superChatEvent
-   * resource parts that the API response will include. Supported values are id
-   * and snippet.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string maxResults The maxResults parameter specifies the maximum
-   * number of items that should be returned in the result set.
-   * @opt_param string pageToken The pageToken parameter identifies a specific
-   * page in the result set that should be returned. In an API response, the
-   * nextPageToken and prevPageToken properties identify other pages that could be
-   * retrieved.
-   * @opt_param string hl Return rendered funding amounts in specified language.
-   * @return Google_Service_YouTube_SuperChatEventListResponse
-   */
-  public function listSuperChatEvents($part, $optParams = array())
-  {
-    $params = array('part' => $part);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_YouTube_SuperChatEventListResponse");
-  }
+	/**
+	 * Retrieves a list of resources, possibly filtered.
+	 * (superChatEvents.listSuperChatEvents)
+	 *
+	 * @param string|array $part The part parameter specifies the superChatEvent
+	 *                           resource parts that the API response will include. Supported values are id
+	 *                           and snippet.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string maxResults The maxResults parameter specifies the maximum
+	 * number of items that should be returned in the result set.
+	 * @opt_param string pageToken The pageToken parameter identifies a specific
+	 * page in the result set that should be returned. In an API response, the
+	 * nextPageToken and prevPageToken properties identify other pages that could be
+	 * retrieved.
+	 * @opt_param string hl Return rendered funding amounts in specified language.
+	 * @return Google_Service_YouTube_SuperChatEventListResponse
+	 */
+	public function listSuperChatEvents($part, $optParams = array())
+	{
+		$params = array('part' => $part);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_YouTube_SuperChatEventListResponse");
+	}
 }

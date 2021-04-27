@@ -17,41 +17,41 @@
 
 class Google_Service_Devprojects_TypedKeyValuePair extends Google_Model
 {
-  public $boolValue;
-  public $key;
-  public $kind;
-  public $stringValue;
+	public $boolValue;
+	public $key;
+	public $kind;
+	public $stringValue;
 
-  public function setBoolValue($boolValue)
-  {
-    $this->boolValue = $boolValue;
-  }
-  public function getBoolValue()
-  {
-    return $this->boolValue;
-  }
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setStringValue($stringValue)
-  {
-    $this->stringValue = $stringValue;
-  }
-  public function getStringValue()
-  {
-    return $this->stringValue;
-  }
+	public function setBoolValue($boolValue)
+	{
+		$this->boolValue = $boolValue;
+	}
+	public function getBoolValue()
+	{
+		return $this->boolValue;
+	}
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setStringValue($stringValue)
+	{
+		$this->stringValue = $stringValue;
+	}
+	public function getStringValue()
+	{
+		return $this->stringValue;
+	}
 }

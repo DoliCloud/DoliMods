@@ -17,40 +17,40 @@
 
 class Google_Service_AdExchangeBuyerII_ListCreativeStatusBreakdownByDetailResponse extends Google_Collection
 {
-  protected $collection_key = 'filteredBidDetailRows';
-  public $detailType;
-  protected $filteredBidDetailRowsType = 'Google_Service_AdExchangeBuyerII_FilteredBidDetailRow';
-  protected $filteredBidDetailRowsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'filteredBidDetailRows';
+	public $detailType;
+	protected $filteredBidDetailRowsType = 'Google_Service_AdExchangeBuyerII_FilteredBidDetailRow';
+	protected $filteredBidDetailRowsDataType = 'array';
+	public $nextPageToken;
 
-  public function setDetailType($detailType)
-  {
-    $this->detailType = $detailType;
-  }
-  public function getDetailType()
-  {
-    return $this->detailType;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_FilteredBidDetailRow
-   */
-  public function setFilteredBidDetailRows($filteredBidDetailRows)
-  {
-    $this->filteredBidDetailRows = $filteredBidDetailRows;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_FilteredBidDetailRow
-   */
-  public function getFilteredBidDetailRows()
-  {
-    return $this->filteredBidDetailRows;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setDetailType($detailType)
+	{
+		$this->detailType = $detailType;
+	}
+	public function getDetailType()
+	{
+		return $this->detailType;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_FilteredBidDetailRow
+	 */
+	public function setFilteredBidDetailRows($filteredBidDetailRows)
+	{
+		$this->filteredBidDetailRows = $filteredBidDetailRows;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_FilteredBidDetailRow
+	 */
+	public function getFilteredBidDetailRows()
+	{
+		return $this->filteredBidDetailRows;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

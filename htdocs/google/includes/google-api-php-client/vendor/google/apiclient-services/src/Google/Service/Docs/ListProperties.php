@@ -17,22 +17,22 @@
 
 class Google_Service_Docs_ListProperties extends Google_Collection
 {
-  protected $collection_key = 'nestingLevels';
-  protected $nestingLevelsType = 'Google_Service_Docs_NestingLevel';
-  protected $nestingLevelsDataType = 'array';
+	protected $collection_key = 'nestingLevels';
+	protected $nestingLevelsType = 'Google_Service_Docs_NestingLevel';
+	protected $nestingLevelsDataType = 'array';
 
-  /**
-   * @param Google_Service_Docs_NestingLevel
-   */
-  public function setNestingLevels($nestingLevels)
-  {
-    $this->nestingLevels = $nestingLevels;
-  }
-  /**
-   * @return Google_Service_Docs_NestingLevel
-   */
-  public function getNestingLevels()
-  {
-    return $this->nestingLevels;
-  }
+	/**
+	 * @param Google_Service_Docs_NestingLevel
+	 */
+	public function setNestingLevels($nestingLevels)
+	{
+		$this->nestingLevels = $nestingLevels;
+	}
+	/**
+	 * @return Google_Service_Docs_NestingLevel
+	 */
+	public function getNestingLevels()
+	{
+		return $this->nestingLevels;
+	}
 }

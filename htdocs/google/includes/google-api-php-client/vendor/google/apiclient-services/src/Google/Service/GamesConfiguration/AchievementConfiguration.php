@@ -17,91 +17,91 @@
 
 class Google_Service_GamesConfiguration_AchievementConfiguration extends Google_Model
 {
-  public $achievementType;
-  protected $draftType = 'Google_Service_GamesConfiguration_AchievementConfigurationDetail';
-  protected $draftDataType = '';
-  public $id;
-  public $initialState;
-  public $kind;
-  protected $publishedType = 'Google_Service_GamesConfiguration_AchievementConfigurationDetail';
-  protected $publishedDataType = '';
-  public $stepsToUnlock;
-  public $token;
+	public $achievementType;
+	protected $draftType = 'Google_Service_GamesConfiguration_AchievementConfigurationDetail';
+	protected $draftDataType = '';
+	public $id;
+	public $initialState;
+	public $kind;
+	protected $publishedType = 'Google_Service_GamesConfiguration_AchievementConfigurationDetail';
+	protected $publishedDataType = '';
+	public $stepsToUnlock;
+	public $token;
 
-  public function setAchievementType($achievementType)
-  {
-    $this->achievementType = $achievementType;
-  }
-  public function getAchievementType()
-  {
-    return $this->achievementType;
-  }
-  /**
-   * @param Google_Service_GamesConfiguration_AchievementConfigurationDetail
-   */
-  public function setDraft(Google_Service_GamesConfiguration_AchievementConfigurationDetail $draft)
-  {
-    $this->draft = $draft;
-  }
-  /**
-   * @return Google_Service_GamesConfiguration_AchievementConfigurationDetail
-   */
-  public function getDraft()
-  {
-    return $this->draft;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setInitialState($initialState)
-  {
-    $this->initialState = $initialState;
-  }
-  public function getInitialState()
-  {
-    return $this->initialState;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_GamesConfiguration_AchievementConfigurationDetail
-   */
-  public function setPublished(Google_Service_GamesConfiguration_AchievementConfigurationDetail $published)
-  {
-    $this->published = $published;
-  }
-  /**
-   * @return Google_Service_GamesConfiguration_AchievementConfigurationDetail
-   */
-  public function getPublished()
-  {
-    return $this->published;
-  }
-  public function setStepsToUnlock($stepsToUnlock)
-  {
-    $this->stepsToUnlock = $stepsToUnlock;
-  }
-  public function getStepsToUnlock()
-  {
-    return $this->stepsToUnlock;
-  }
-  public function setToken($token)
-  {
-    $this->token = $token;
-  }
-  public function getToken()
-  {
-    return $this->token;
-  }
+	public function setAchievementType($achievementType)
+	{
+		$this->achievementType = $achievementType;
+	}
+	public function getAchievementType()
+	{
+		return $this->achievementType;
+	}
+	/**
+	 * @param Google_Service_GamesConfiguration_AchievementConfigurationDetail
+	 */
+	public function setDraft(Google_Service_GamesConfiguration_AchievementConfigurationDetail $draft)
+	{
+		$this->draft = $draft;
+	}
+	/**
+	 * @return Google_Service_GamesConfiguration_AchievementConfigurationDetail
+	 */
+	public function getDraft()
+	{
+		return $this->draft;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setInitialState($initialState)
+	{
+		$this->initialState = $initialState;
+	}
+	public function getInitialState()
+	{
+		return $this->initialState;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_GamesConfiguration_AchievementConfigurationDetail
+	 */
+	public function setPublished(Google_Service_GamesConfiguration_AchievementConfigurationDetail $published)
+	{
+		$this->published = $published;
+	}
+	/**
+	 * @return Google_Service_GamesConfiguration_AchievementConfigurationDetail
+	 */
+	public function getPublished()
+	{
+		return $this->published;
+	}
+	public function setStepsToUnlock($stepsToUnlock)
+	{
+		$this->stepsToUnlock = $stepsToUnlock;
+	}
+	public function getStepsToUnlock()
+	{
+		return $this->stepsToUnlock;
+	}
+	public function setToken($token)
+	{
+		$this->token = $token;
+	}
+	public function getToken()
+	{
+		return $this->token;
+	}
 }

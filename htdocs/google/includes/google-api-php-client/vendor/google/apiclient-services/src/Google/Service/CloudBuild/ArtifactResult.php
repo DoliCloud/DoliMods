@@ -17,31 +17,31 @@
 
 class Google_Service_CloudBuild_ArtifactResult extends Google_Collection
 {
-  protected $collection_key = 'fileHash';
-  protected $fileHashType = 'Google_Service_CloudBuild_FileHashes';
-  protected $fileHashDataType = 'array';
-  public $location;
+	protected $collection_key = 'fileHash';
+	protected $fileHashType = 'Google_Service_CloudBuild_FileHashes';
+	protected $fileHashDataType = 'array';
+	public $location;
 
-  /**
-   * @param Google_Service_CloudBuild_FileHashes
-   */
-  public function setFileHash($fileHash)
-  {
-    $this->fileHash = $fileHash;
-  }
-  /**
-   * @return Google_Service_CloudBuild_FileHashes
-   */
-  public function getFileHash()
-  {
-    return $this->fileHash;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
+	/**
+	 * @param Google_Service_CloudBuild_FileHashes
+	 */
+	public function setFileHash($fileHash)
+	{
+		$this->fileHash = $fileHash;
+	}
+	/**
+	 * @return Google_Service_CloudBuild_FileHashes
+	 */
+	public function getFileHash()
+	{
+		return $this->fileHash;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
 }

@@ -17,55 +17,55 @@
 
 class Google_Service_ShoppingContent_ReturnpolicyCustomBatchResponseEntry extends Google_Model
 {
-  public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
-  protected $errorsDataType = '';
-  public $kind;
-  protected $returnPolicyType = 'Google_Service_ShoppingContent_ReturnPolicy';
-  protected $returnPolicyDataType = '';
+	public $batchId;
+	protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+	protected $errorsDataType = '';
+	public $kind;
+	protected $returnPolicyType = 'Google_Service_ShoppingContent_ReturnPolicy';
+	protected $returnPolicyDataType = '';
 
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Errors
-   */
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Errors
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_ReturnPolicy
-   */
-  public function setReturnPolicy(Google_Service_ShoppingContent_ReturnPolicy $returnPolicy)
-  {
-    $this->returnPolicy = $returnPolicy;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_ReturnPolicy
-   */
-  public function getReturnPolicy()
-  {
-    return $this->returnPolicy;
-  }
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Errors
+	 */
+	public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Errors
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_ReturnPolicy
+	 */
+	public function setReturnPolicy(Google_Service_ShoppingContent_ReturnPolicy $returnPolicy)
+	{
+		$this->returnPolicy = $returnPolicy;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_ReturnPolicy
+	 */
+	public function getReturnPolicy()
+	{
+		return $this->returnPolicy;
+	}
 }

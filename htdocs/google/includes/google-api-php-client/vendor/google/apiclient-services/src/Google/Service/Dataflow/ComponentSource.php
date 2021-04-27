@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_ComponentSource extends Google_Model
 {
-  public $name;
-  public $originalTransformOrCollection;
-  public $userName;
+	public $name;
+	public $originalTransformOrCollection;
+	public $userName;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOriginalTransformOrCollection($originalTransformOrCollection)
-  {
-    $this->originalTransformOrCollection = $originalTransformOrCollection;
-  }
-  public function getOriginalTransformOrCollection()
-  {
-    return $this->originalTransformOrCollection;
-  }
-  public function setUserName($userName)
-  {
-    $this->userName = $userName;
-  }
-  public function getUserName()
-  {
-    return $this->userName;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOriginalTransformOrCollection($originalTransformOrCollection)
+	{
+		$this->originalTransformOrCollection = $originalTransformOrCollection;
+	}
+	public function getOriginalTransformOrCollection()
+	{
+		return $this->originalTransformOrCollection;
+	}
+	public function setUserName($userName)
+	{
+		$this->userName = $userName;
+	}
+	public function getUserName()
+	{
+		return $this->userName;
+	}
 }

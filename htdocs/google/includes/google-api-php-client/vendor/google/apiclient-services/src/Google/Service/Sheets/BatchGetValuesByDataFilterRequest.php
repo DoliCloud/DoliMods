@@ -17,49 +17,49 @@
 
 class Google_Service_Sheets_BatchGetValuesByDataFilterRequest extends Google_Collection
 {
-  protected $collection_key = 'dataFilters';
-  protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
-  protected $dataFiltersDataType = 'array';
-  public $dateTimeRenderOption;
-  public $majorDimension;
-  public $valueRenderOption;
+	protected $collection_key = 'dataFilters';
+	protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
+	protected $dataFiltersDataType = 'array';
+	public $dateTimeRenderOption;
+	public $majorDimension;
+	public $valueRenderOption;
 
-  /**
-   * @param Google_Service_Sheets_DataFilter
-   */
-  public function setDataFilters($dataFilters)
-  {
-    $this->dataFilters = $dataFilters;
-  }
-  /**
-   * @return Google_Service_Sheets_DataFilter
-   */
-  public function getDataFilters()
-  {
-    return $this->dataFilters;
-  }
-  public function setDateTimeRenderOption($dateTimeRenderOption)
-  {
-    $this->dateTimeRenderOption = $dateTimeRenderOption;
-  }
-  public function getDateTimeRenderOption()
-  {
-    return $this->dateTimeRenderOption;
-  }
-  public function setMajorDimension($majorDimension)
-  {
-    $this->majorDimension = $majorDimension;
-  }
-  public function getMajorDimension()
-  {
-    return $this->majorDimension;
-  }
-  public function setValueRenderOption($valueRenderOption)
-  {
-    $this->valueRenderOption = $valueRenderOption;
-  }
-  public function getValueRenderOption()
-  {
-    return $this->valueRenderOption;
-  }
+	/**
+	 * @param Google_Service_Sheets_DataFilter
+	 */
+	public function setDataFilters($dataFilters)
+	{
+		$this->dataFilters = $dataFilters;
+	}
+	/**
+	 * @return Google_Service_Sheets_DataFilter
+	 */
+	public function getDataFilters()
+	{
+		return $this->dataFilters;
+	}
+	public function setDateTimeRenderOption($dateTimeRenderOption)
+	{
+		$this->dateTimeRenderOption = $dateTimeRenderOption;
+	}
+	public function getDateTimeRenderOption()
+	{
+		return $this->dateTimeRenderOption;
+	}
+	public function setMajorDimension($majorDimension)
+	{
+		$this->majorDimension = $majorDimension;
+	}
+	public function getMajorDimension()
+	{
+		return $this->majorDimension;
+	}
+	public function setValueRenderOption($valueRenderOption)
+	{
+		$this->valueRenderOption = $valueRenderOption;
+	}
+	public function getValueRenderOption()
+	{
+		return $this->valueRenderOption;
+	}
 }

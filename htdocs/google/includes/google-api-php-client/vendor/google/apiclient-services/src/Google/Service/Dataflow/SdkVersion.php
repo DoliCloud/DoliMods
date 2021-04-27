@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_SdkVersion extends Google_Model
 {
-  public $sdkSupportStatus;
-  public $version;
-  public $versionDisplayName;
+	public $sdkSupportStatus;
+	public $version;
+	public $versionDisplayName;
 
-  public function setSdkSupportStatus($sdkSupportStatus)
-  {
-    $this->sdkSupportStatus = $sdkSupportStatus;
-  }
-  public function getSdkSupportStatus()
-  {
-    return $this->sdkSupportStatus;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
-  public function setVersionDisplayName($versionDisplayName)
-  {
-    $this->versionDisplayName = $versionDisplayName;
-  }
-  public function getVersionDisplayName()
-  {
-    return $this->versionDisplayName;
-  }
+	public function setSdkSupportStatus($sdkSupportStatus)
+	{
+		$this->sdkSupportStatus = $sdkSupportStatus;
+	}
+	public function getSdkSupportStatus()
+	{
+		return $this->sdkSupportStatus;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
+	public function setVersionDisplayName($versionDisplayName)
+	{
+		$this->versionDisplayName = $versionDisplayName;
+	}
+	public function getVersionDisplayName()
+	{
+		return $this->versionDisplayName;
+	}
 }

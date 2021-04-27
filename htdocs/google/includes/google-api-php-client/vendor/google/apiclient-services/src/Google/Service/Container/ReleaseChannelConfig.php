@@ -17,33 +17,33 @@
 
 class Google_Service_Container_ReleaseChannelConfig extends Google_Collection
 {
-  protected $collection_key = 'validVersions';
-  public $channel;
-  public $defaultVersion;
-  public $validVersions;
+	protected $collection_key = 'validVersions';
+	public $channel;
+	public $defaultVersion;
+	public $validVersions;
 
-  public function setChannel($channel)
-  {
-    $this->channel = $channel;
-  }
-  public function getChannel()
-  {
-    return $this->channel;
-  }
-  public function setDefaultVersion($defaultVersion)
-  {
-    $this->defaultVersion = $defaultVersion;
-  }
-  public function getDefaultVersion()
-  {
-    return $this->defaultVersion;
-  }
-  public function setValidVersions($validVersions)
-  {
-    $this->validVersions = $validVersions;
-  }
-  public function getValidVersions()
-  {
-    return $this->validVersions;
-  }
+	public function setChannel($channel)
+	{
+		$this->channel = $channel;
+	}
+	public function getChannel()
+	{
+		return $this->channel;
+	}
+	public function setDefaultVersion($defaultVersion)
+	{
+		$this->defaultVersion = $defaultVersion;
+	}
+	public function getDefaultVersion()
+	{
+		return $this->defaultVersion;
+	}
+	public function setValidVersions($validVersions)
+	{
+		$this->validVersions = $validVersions;
+	}
+	public function getValidVersions()
+	{
+		return $this->validVersions;
+	}
 }

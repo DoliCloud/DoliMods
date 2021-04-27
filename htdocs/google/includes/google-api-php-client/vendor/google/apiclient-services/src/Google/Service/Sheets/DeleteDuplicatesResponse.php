@@ -17,14 +17,14 @@
 
 class Google_Service_Sheets_DeleteDuplicatesResponse extends Google_Model
 {
-  public $duplicatesRemovedCount;
+	public $duplicatesRemovedCount;
 
-  public function setDuplicatesRemovedCount($duplicatesRemovedCount)
-  {
-    $this->duplicatesRemovedCount = $duplicatesRemovedCount;
-  }
-  public function getDuplicatesRemovedCount()
-  {
-    return $this->duplicatesRemovedCount;
-  }
+	public function setDuplicatesRemovedCount($duplicatesRemovedCount)
+	{
+		$this->duplicatesRemovedCount = $duplicatesRemovedCount;
+	}
+	public function getDuplicatesRemovedCount()
+	{
+		return $this->duplicatesRemovedCount;
+	}
 }

@@ -39,289 +39,288 @@
  ************************************************************************************/
 
 $language_data = array (
-    'LANG_NAME' => 'FO (abas-ERP)',
-    'COMMENT_SINGLE' => array(1 => '..'),
-    'COMMENT_MULTI' => array(),
-    'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
-    'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        //Control Flow
-        1 => array(
-            /* see http://www.abas.de/sub_de/kunden/help/hd/html/9.html */
+	'LANG_NAME' => 'FO (abas-ERP)',
+	'COMMENT_SINGLE' => array(1 => '..'),
+	'COMMENT_MULTI' => array(),
+	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
+	'QUOTEMARKS' => array("'", '"'),
+	'ESCAPE_CHAR' => '\\',
+	'KEYWORDS' => array(
+		//Control Flow
+		1 => array(
+			/* see http://www.abas.de/sub_de/kunden/help/hd/html/9.html */
 
-            /* fo keywords, part 1: control flow */
-            '.weiter', '.continue'
+			/* fo keywords, part 1: control flow */
+			'.weiter', '.continue'
 
-            /* this language works with goto's only*/
-            ),
+			/* this language works with goto's only*/
+			),
 
-        //FO Keywords
-        2 => array(
-            /* fo keywords, part 2 */
-            '.fo', '.formel', '.formula',
-            '.zuweisen', '.assign',
-            '.fehler', '.error',
-            '.ende', '.end'
-            ),
+		//FO Keywords
+		2 => array(
+			/* fo keywords, part 2 */
+			'.fo', '.formel', '.formula',
+			'.zuweisen', '.assign',
+			'.fehler', '.error',
+			'.ende', '.end'
+			),
 
-        //Java Keywords
-        3 => array(
-            /* Java keywords, part 3: primitive data types */
-            '.art', '.type',
-            'integer', 'real', 'bool', 'text', 'datum', 'woche', 'termin', 'zeit',
-            'mehr', 'MEHR'
-            ),
+		//Java Keywords
+		3 => array(
+			/* Java keywords, part 3: primitive data types */
+			'.art', '.type',
+			'integer', 'real', 'bool', 'text', 'datum', 'woche', 'termin', 'zeit',
+			'mehr', 'MEHR'
+			),
 
-        //Reserved words in fo literals
-        4 => array(
-            /* other reserved words in fo literals */
-            /* should be styled to look similar to numbers and Strings */
-            'false', 'null', 'true',
-            'OBJEKT',
-            'VORGANG', 'PROCESS',
-            'OFFEN', 'OPEN',
-            'ABORT',
-            'AN', 'ADDEDTO',
-            'AUF', 'NEW',
-            'BILDSCHIRM', 'TERMINAL',
-            'PC',
-            'MASKE', 'SCREEN',
-            'ZEILE', 'LINE'
-            ),
+		//Reserved words in fo literals
+		4 => array(
+			/* other reserved words in fo literals */
+			/* should be styled to look similar to numbers and Strings */
+			'false', 'null', 'true',
+			'OBJEKT',
+			'VORGANG', 'PROCESS',
+			'OFFEN', 'OPEN',
+			'ABORT',
+			'AN', 'ADDEDTO',
+			'AUF', 'NEW',
+			'BILDSCHIRM', 'TERMINAL',
+			'PC',
+			'MASKE', 'SCREEN',
+			'ZEILE', 'LINE'
+			),
 
-        // interpreter settings
-        5 => array (
-            '..!INTERPRETER', 'DEBUG'
-            ),
+		// interpreter settings
+		5 => array (
+			'..!INTERPRETER', 'DEBUG'
+			),
 
-        // database commands
-        6 => array (
-            '.hole', '.hol', '.select',
-            '.lade', '.load',
-            '.aktion', '.action',
-            '.belegen', '.occupy',
-            '.bringe', '.rewrite',
-            '.dazu', '.add',
-            '.löschen', '.delete',
-            '.mache', '.make',
-            '.merke', '.reserve',
-            '.setze', '.set',
-            'SPERREN', 'LOCK',
-            'TEIL', 'PART',
-            'KEINESPERRE',
-            'AMASKE', 'ASCREEN',
-            'BETRIEB', 'WORK-ORDER',
-            'NUMERISCH', 'NUMERICAL',
-            'VORSCHLAG', 'SUGGESTION',
-            'OBLIGO', 'OUTSTANDING',
-            'LISTE', 'LIST',
-            'DRUCK', 'PRINT',
-            'ÜBERNAHME', 'TAGEOVER',
-            'ABLAGE', 'FILINGSYSTEM',
-            'BDE', 'PDC',
-            'BINDUNG', 'ALLOCATION',
-            'BUCHUNG', 'ENTRY',
-            'COLLI', 'SERIAL',
-            'DATEI', 'FILE',
-            'VERKAUF', 'SALES',
-            'EINKAUF', 'PURCHASING',
-            'EXEMPLAR', 'EXAMPLE',
-            'FERTIGUNG', 'PRODUCTION',
-            'FIFO',
-            'GRUPPE', 'GROUP',
-            'JAHR', 'YEAR',
-            'JOURNAL',
-            'KOPF', 'HEADER',
-            'KOSTEN',
-            'LIFO',
-            'LMENGE', 'SQUANTITY',
-            'LOHNFERTIGUNG', 'SUBCONTRACTING',
-            'LPLATZ', 'LOCATION',
-            'MBELEGUNG', 'MACHLOADING',
-            'MONAT', 'MONTH', 'MZ',
-            'NACHRICHT', 'MESSAGE',
-            'PLAN', 'TARGET',
-            'REGIONEN', 'REGIONS',
-            'SERVICEANFRAGE', 'SERVICEREQUEST',
-            'VERWENDUNG', 'APPLICATION',
-            'WEITER', 'CONTINUE',
-            'ABBRUCH', 'CANCEL',
-            'ABLAGEKENNZEICHEN', 'FILLINGCODE',
-            'ALLEIN', 'SINGLEUSER',
-            'AUFZAEHLTYP', 'ENUMERATION-TYPE',
-            'AUSGABE', 'OUTPUT',
-            'DEZPUNKT', 'DECPOINT'
-            ),
+		// database commands
+		6 => array (
+			'.hole', '.hol', '.select',
+			'.lade', '.load',
+			'.aktion', '.action',
+			'.belegen', '.occupy',
+			'.bringe', '.rewrite',
+			'.dazu', '.add',
+			'.löschen', '.delete',
+			'.mache', '.make',
+			'.merke', '.reserve',
+			'.setze', '.set',
+			'SPERREN', 'LOCK',
+			'TEIL', 'PART',
+			'KEINESPERRE',
+			'AMASKE', 'ASCREEN',
+			'BETRIEB', 'WORK-ORDER',
+			'NUMERISCH', 'NUMERICAL',
+			'VORSCHLAG', 'SUGGESTION',
+			'OBLIGO', 'OUTSTANDING',
+			'LISTE', 'LIST',
+			'DRUCK', 'PRINT',
+			'ÜBERNAHME', 'TAGEOVER',
+			'ABLAGE', 'FILINGSYSTEM',
+			'BDE', 'PDC',
+			'BINDUNG', 'ALLOCATION',
+			'BUCHUNG', 'ENTRY',
+			'COLLI', 'SERIAL',
+			'DATEI', 'FILE',
+			'VERKAUF', 'SALES',
+			'EINKAUF', 'PURCHASING',
+			'EXEMPLAR', 'EXAMPLE',
+			'FERTIGUNG', 'PRODUCTION',
+			'FIFO',
+			'GRUPPE', 'GROUP',
+			'JAHR', 'YEAR',
+			'JOURNAL',
+			'KOPF', 'HEADER',
+			'KOSTEN',
+			'LIFO',
+			'LMENGE', 'SQUANTITY',
+			'LOHNFERTIGUNG', 'SUBCONTRACTING',
+			'LPLATZ', 'LOCATION',
+			'MBELEGUNG', 'MACHLOADING',
+			'MONAT', 'MONTH', 'MZ',
+			'NACHRICHT', 'MESSAGE',
+			'PLAN', 'TARGET',
+			'REGIONEN', 'REGIONS',
+			'SERVICEANFRAGE', 'SERVICEREQUEST',
+			'VERWENDUNG', 'APPLICATION',
+			'WEITER', 'CONTINUE',
+			'ABBRUCH', 'CANCEL',
+			'ABLAGEKENNZEICHEN', 'FILLINGCODE',
+			'ALLEIN', 'SINGLEUSER',
+			'AUFZAEHLTYP', 'ENUMERATION-TYPE',
+			'AUSGABE', 'OUTPUT',
+			'DEZPUNKT', 'DECPOINT'
+			),
 
-        // output settings
-        7 => array (
-            '.absatz', '.para',
-            '.blocksatz', '.justified',
-            '.flattersatz', '.unjustified',
-            '.format',
-            '.box',
-            '.drucken', '.print',
-            '.gedruckt', '.printed',
-            '.länge', '.length',
-            '.links', '.left',
-            '.rechts', '.right',
-            '.oben', '.up',
-            '.unten', '.down',
-            '.seite', '.page',
-            '.tabellensatz', '.tablerecord',
-            '.trenner', '.separator',
-            'ARCHIV'
-            ),
+		// output settings
+		7 => array (
+			'.absatz', '.para',
+			'.blocksatz', '.justified',
+			'.flattersatz', '.unjustified',
+			'.format',
+			'.box',
+			'.drucken', '.print',
+			'.gedruckt', '.printed',
+			'.länge', '.length',
+			'.links', '.left',
+			'.rechts', '.right',
+			'.oben', '.up',
+			'.unten', '.down',
+			'.seite', '.page',
+			'.tabellensatz', '.tablerecord',
+			'.trenner', '.separator',
+			'ARCHIV'
+			),
 
-        // text commands
-        8 => array (
-            '.text',
-            '.atext',
-            '.println',
-            '.uebersetzen', '.translate'
-            ),
+		// text commands
+		8 => array (
+			'.text',
+			'.atext',
+			'.println',
+			'.uebersetzen', '.translate'
+			),
 
-        // I/O commands
-        9 => array (
-            '.aus', '.ausgabe', '.output',
-            '.ein', '.eingabe', '.input',
-            '.datei', '.file',
-            '.lesen', '.read',
-            '.sortiere', '.sort',
-            '-ÖFFNEN', '-OPEN',
-            '-TEST',
-            '-LESEN', '-READ',
-            'VON', 'FROM'
-            ),
+		// I/O commands
+		9 => array (
+			'.aus', '.ausgabe', '.output',
+			'.ein', '.eingabe', '.input',
+			'.datei', '.file',
+			'.lesen', '.read',
+			'.sortiere', '.sort',
+			'-ÖFFNEN', '-OPEN',
+			'-TEST',
+			'-LESEN', '-READ',
+			'VON', 'FROM'
+			),
 
-        //system
-        10 => array (
-            '.browser',
-            '.kommando', '.command',
-            '.system', '.dde',
-            '.editiere', '.edit',
-            '.hilfe', '.help',
-            '.kopieren', '.copy',
-            '.pc.clip',
-            '.pc.copy',
-            '.pc.dll',
-            '.pc.exec',
-            '.pc.open',
-            'DIAGNOSE', 'ERRORREPORT',
-            'DOPPELPUNKT', 'COLON',
-            'ERSETZUNG', 'REPLACEMENT',
-            'WARTEN', 'PARALLEL'
-            ),
+		//system
+		10 => array (
+			'.browser',
+			'.kommando', '.command',
+			'.system', '.dde',
+			'.editiere', '.edit',
+			'.hilfe', '.help',
+			'.kopieren', '.copy',
+			'.pc.clip',
+			'.pc.copy',
+			'.pc.dll',
+			'.pc.exec',
+			'.pc.open',
+			'DIAGNOSE', 'ERRORREPORT',
+			'DOPPELPUNKT', 'COLON',
+			'ERSETZUNG', 'REPLACEMENT',
+			'WARTEN', 'PARALLEL'
+			),
 
-        //fibu/accounting specific commands
-        11 => array (
-            '.budget',
-            '.chart',
-            'VKZ',
-            'KONTO', 'ACCOUNT',
-            'AUSZUG', 'STATEMENT',
-            'WAEHRUNG', 'CURRENCY',
-            'WAEHRUNGSKURS', 'EXCHANGERATE',
-            'AUSWAEHR', 'FORCURR',
-            'BUCHUNGSKREIS', 'SET OF BOOKS'
-            ),
+		//fibu/accounting specific commands
+		11 => array (
+			'.budget',
+			'.chart',
+			'VKZ',
+			'KONTO', 'ACCOUNT',
+			'AUSZUG', 'STATEMENT',
+			'WAEHRUNG', 'CURRENCY',
+			'WAEHRUNGSKURS', 'EXCHANGERATE',
+			'AUSWAEHR', 'FORCURR',
+			'BUCHUNGSKREIS', 'SET OF BOOKS'
+			),
 
-        // efop - extended flexible surface
-        12 => array (
-            '.cursor',
-            '.farbe', '.colour',
-            '.fenster', '.window',
-            '.hinweis', '.note',
-            '.menue', '.menu',
-            '.schutz', '.protection',
-            '.zeigen', '.view',
-            '.zeile', '.line',
-            'VORDERGRUND', 'FOREGROUND',
-            'HINTERGRUND', 'BACKGROUND',
-            'SOFORT', 'IMMEDIATELY',
-            'AKTUALISIEREN', 'UPDATE',
-            'FENSTERSCHLIESSEN', 'CLOSEWINDOWS'
-            ),
-        ),
-    'SYMBOLS' => array(
-        0 => array('(', ')', '[', ']', '{', '}', '*', '&', '%', ';', '<', '>'),
-        1 => array('?', '!')
-        ),
-    'CASE_SENSITIVE' => array(
-        GESHI_COMMENTS => false,
-        /* all fo keywords are case sensitive, don't have to but I like this type of coding */
-        1 => true, 2 => true, 3 => true, 4 => true,
-        5 => true, 6 => true, 7 => true, 8 => true, 9 => true,
-        10 => true, 11 => true, 12 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            1 => 'color: #000000; font-weight: bold;',
-            2 => 'color: #000000; font-weight: bold;',
-            3 => 'color: #006600; font-weight: bold;',
-            4 => 'color: #006600; font-weight: bold;',
-            5 => 'color: #003399; font-weight: bold;',
-            6 => 'color: #003399; font-weight: bold;',
-            7 => 'color: #003399; font-weight: bold;',
-            8 => 'color: #003399; font-weight: bold;',
-            9 => 'color: #003399; font-weight: bold;',
-            10 => 'color: #003399; font-weight: bold;',
-            11 => 'color: #003399; font-weight: bold;',
-            12 => 'color: #003399; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
-            1 => 'color: #666666; font-style: italic;',
-            //2 => 'color: #006699;',
-            'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
-            0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
-            0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
-            0 => 'color: #0000ff;'
-            ),
-        'NUMBERS' => array(
-            0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
-            1 => 'color: #006633;',
-            2 => 'color: #006633;'
-            ),
-        'SYMBOLS' => array(
-            0 => 'color: #339933;',
-            1 => 'color: #000000; font-weight: bold;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
-        1 => '',
-        2 => '',
-        3 => '',
-        4 => '',
-        5 => '',
-        6 => '',
-        7 => '',
-        8 => '',
-        9 => '',
-        10 => '',
-        11 => '',
-        12 => ''
-        ),
-    'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(
-        ),
-    'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
+		// efop - extended flexible surface
+		12 => array (
+			'.cursor',
+			'.farbe', '.colour',
+			'.fenster', '.window',
+			'.hinweis', '.note',
+			'.menue', '.menu',
+			'.schutz', '.protection',
+			'.zeigen', '.view',
+			'.zeile', '.line',
+			'VORDERGRUND', 'FOREGROUND',
+			'HINTERGRUND', 'BACKGROUND',
+			'SOFORT', 'IMMEDIATELY',
+			'AKTUALISIEREN', 'UPDATE',
+			'FENSTERSCHLIESSEN', 'CLOSEWINDOWS'
+			),
+		),
+	'SYMBOLS' => array(
+		0 => array('(', ')', '[', ']', '{', '}', '*', '&', '%', ';', '<', '>'),
+		1 => array('?', '!')
+		),
+	'CASE_SENSITIVE' => array(
+		GESHI_COMMENTS => false,
+		/* all fo keywords are case sensitive, don't have to but I like this type of coding */
+		1 => true, 2 => true, 3 => true, 4 => true,
+		5 => true, 6 => true, 7 => true, 8 => true, 9 => true,
+		10 => true, 11 => true, 12 => true
+		),
+	'STYLES' => array(
+		'KEYWORDS' => array(
+			1 => 'color: #000000; font-weight: bold;',
+			2 => 'color: #000000; font-weight: bold;',
+			3 => 'color: #006600; font-weight: bold;',
+			4 => 'color: #006600; font-weight: bold;',
+			5 => 'color: #003399; font-weight: bold;',
+			6 => 'color: #003399; font-weight: bold;',
+			7 => 'color: #003399; font-weight: bold;',
+			8 => 'color: #003399; font-weight: bold;',
+			9 => 'color: #003399; font-weight: bold;',
+			10 => 'color: #003399; font-weight: bold;',
+			11 => 'color: #003399; font-weight: bold;',
+			12 => 'color: #003399; font-weight: bold;'
+			),
+		'COMMENTS' => array(
+			1 => 'color: #666666; font-style: italic;',
+			//2 => 'color: #006699;',
+			'MULTI' => 'color: #666666; font-style: italic;'
+			),
+		'ESCAPE_CHAR' => array(
+			0 => 'color: #000099; font-weight: bold;'
+			),
+		'BRACKETS' => array(
+			0 => 'color: #009900;'
+			),
+		'STRINGS' => array(
+			0 => 'color: #0000ff;'
+			),
+		'NUMBERS' => array(
+			0 => 'color: #cc66cc;'
+			),
+		'METHODS' => array(
+			1 => 'color: #006633;',
+			2 => 'color: #006633;'
+			),
+		'SYMBOLS' => array(
+			0 => 'color: #339933;',
+			1 => 'color: #000000; font-weight: bold;'
+			),
+		'SCRIPT' => array(
+			),
+		'REGEXPS' => array(
+			)
+		),
+	'URLS' => array(
+		1 => '',
+		2 => '',
+		3 => '',
+		4 => '',
+		5 => '',
+		6 => '',
+		7 => '',
+		8 => '',
+		9 => '',
+		10 => '',
+		11 => '',
+		12 => ''
+		),
+	'OOLANG' => false,
+	'OBJECT_SPLITTERS' => array(),
+	'REGEXPS' => array(
+		),
+	'STRICT_MODE_APPLIES' => GESHI_NEVER,
+	'SCRIPT_DELIMITERS' => array(
+		),
+	'HIGHLIGHT_STRICT_BLOCK' => array(
+		)
 );
-?>

@@ -25,20 +25,20 @@
  */
 class Google_Service_Vault_Resource_Operations extends Google_Service_Resource
 {
-  /**
-   * Deletes a long-running operation. This method indicates that the client is no
-   * longer interested in the operation result. It does not cancel the operation.
-   * If the server doesn't support this method, it returns
-   * `google.rpc.Code.UNIMPLEMENTED`. (operations.delete)
-   *
-   * @param string $name The name of the operation resource to be deleted.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Vault_VaultEmpty
-   */
-  public function delete($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Vault_VaultEmpty");
-  }
+	/**
+	 * Deletes a long-running operation. This method indicates that the client is no
+	 * longer interested in the operation result. It does not cancel the operation.
+	 * If the server doesn't support this method, it returns
+	 * `google.rpc.Code.UNIMPLEMENTED`. (operations.delete)
+	 *
+	 * @param string $name The name of the operation resource to be deleted.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Vault_VaultEmpty
+	 */
+	public function delete($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('delete', array($params), "Google_Service_Vault_VaultEmpty");
+	}
 }

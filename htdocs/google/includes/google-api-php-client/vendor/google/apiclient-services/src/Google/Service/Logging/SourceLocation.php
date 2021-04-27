@@ -17,32 +17,32 @@
 
 class Google_Service_Logging_SourceLocation extends Google_Model
 {
-  public $file;
-  public $functionName;
-  public $line;
+	public $file;
+	public $functionName;
+	public $line;
 
-  public function setFile($file)
-  {
-    $this->file = $file;
-  }
-  public function getFile()
-  {
-    return $this->file;
-  }
-  public function setFunctionName($functionName)
-  {
-    $this->functionName = $functionName;
-  }
-  public function getFunctionName()
-  {
-    return $this->functionName;
-  }
-  public function setLine($line)
-  {
-    $this->line = $line;
-  }
-  public function getLine()
-  {
-    return $this->line;
-  }
+	public function setFile($file)
+	{
+		$this->file = $file;
+	}
+	public function getFile()
+	{
+		return $this->file;
+	}
+	public function setFunctionName($functionName)
+	{
+		$this->functionName = $functionName;
+	}
+	public function getFunctionName()
+	{
+		return $this->functionName;
+	}
+	public function setLine($line)
+	{
+		$this->line = $line;
+	}
+	public function getLine()
+	{
+		return $this->line;
+	}
 }

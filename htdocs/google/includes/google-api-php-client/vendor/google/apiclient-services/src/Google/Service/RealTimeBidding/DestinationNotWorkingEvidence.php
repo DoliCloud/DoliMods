@@ -17,77 +17,77 @@
 
 class Google_Service_RealTimeBidding_DestinationNotWorkingEvidence extends Google_Model
 {
-  public $dnsError;
-  public $expandedUrl;
-  public $httpError;
-  public $invalidPage;
-  public $lastCheckTime;
-  public $platform;
-  public $redirectionError;
-  public $urlRejected;
+	public $dnsError;
+	public $expandedUrl;
+	public $httpError;
+	public $invalidPage;
+	public $lastCheckTime;
+	public $platform;
+	public $redirectionError;
+	public $urlRejected;
 
-  public function setDnsError($dnsError)
-  {
-    $this->dnsError = $dnsError;
-  }
-  public function getDnsError()
-  {
-    return $this->dnsError;
-  }
-  public function setExpandedUrl($expandedUrl)
-  {
-    $this->expandedUrl = $expandedUrl;
-  }
-  public function getExpandedUrl()
-  {
-    return $this->expandedUrl;
-  }
-  public function setHttpError($httpError)
-  {
-    $this->httpError = $httpError;
-  }
-  public function getHttpError()
-  {
-    return $this->httpError;
-  }
-  public function setInvalidPage($invalidPage)
-  {
-    $this->invalidPage = $invalidPage;
-  }
-  public function getInvalidPage()
-  {
-    return $this->invalidPage;
-  }
-  public function setLastCheckTime($lastCheckTime)
-  {
-    $this->lastCheckTime = $lastCheckTime;
-  }
-  public function getLastCheckTime()
-  {
-    return $this->lastCheckTime;
-  }
-  public function setPlatform($platform)
-  {
-    $this->platform = $platform;
-  }
-  public function getPlatform()
-  {
-    return $this->platform;
-  }
-  public function setRedirectionError($redirectionError)
-  {
-    $this->redirectionError = $redirectionError;
-  }
-  public function getRedirectionError()
-  {
-    return $this->redirectionError;
-  }
-  public function setUrlRejected($urlRejected)
-  {
-    $this->urlRejected = $urlRejected;
-  }
-  public function getUrlRejected()
-  {
-    return $this->urlRejected;
-  }
+	public function setDnsError($dnsError)
+	{
+		$this->dnsError = $dnsError;
+	}
+	public function getDnsError()
+	{
+		return $this->dnsError;
+	}
+	public function setExpandedUrl($expandedUrl)
+	{
+		$this->expandedUrl = $expandedUrl;
+	}
+	public function getExpandedUrl()
+	{
+		return $this->expandedUrl;
+	}
+	public function setHttpError($httpError)
+	{
+		$this->httpError = $httpError;
+	}
+	public function getHttpError()
+	{
+		return $this->httpError;
+	}
+	public function setInvalidPage($invalidPage)
+	{
+		$this->invalidPage = $invalidPage;
+	}
+	public function getInvalidPage()
+	{
+		return $this->invalidPage;
+	}
+	public function setLastCheckTime($lastCheckTime)
+	{
+		$this->lastCheckTime = $lastCheckTime;
+	}
+	public function getLastCheckTime()
+	{
+		return $this->lastCheckTime;
+	}
+	public function setPlatform($platform)
+	{
+		$this->platform = $platform;
+	}
+	public function getPlatform()
+	{
+		return $this->platform;
+	}
+	public function setRedirectionError($redirectionError)
+	{
+		$this->redirectionError = $redirectionError;
+	}
+	public function getRedirectionError()
+	{
+		return $this->redirectionError;
+	}
+	public function setUrlRejected($urlRejected)
+	{
+		$this->urlRejected = $urlRejected;
+	}
+	public function getUrlRejected()
+	{
+		return $this->urlRejected;
+	}
 }

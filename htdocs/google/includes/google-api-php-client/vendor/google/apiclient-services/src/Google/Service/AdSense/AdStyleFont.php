@@ -17,23 +17,23 @@
 
 class Google_Service_AdSense_AdStyleFont extends Google_Model
 {
-  public $family;
-  public $size;
+	public $family;
+	public $size;
 
-  public function setFamily($family)
-  {
-    $this->family = $family;
-  }
-  public function getFamily()
-  {
-    return $this->family;
-  }
-  public function setSize($size)
-  {
-    $this->size = $size;
-  }
-  public function getSize()
-  {
-    return $this->size;
-  }
+	public function setFamily($family)
+	{
+		$this->family = $family;
+	}
+	public function getFamily()
+	{
+		return $this->family;
+	}
+	public function setSize($size)
+	{
+		$this->size = $size;
+	}
+	public function getSize()
+	{
+		return $this->size;
+	}
 }

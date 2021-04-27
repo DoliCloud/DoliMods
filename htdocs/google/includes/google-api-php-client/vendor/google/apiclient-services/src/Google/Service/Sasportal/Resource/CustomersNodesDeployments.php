@@ -25,39 +25,39 @@
  */
 class Google_Service_Sasportal_Resource_CustomersNodesDeployments extends Google_Service_Resource
 {
-  /**
-   * Creates a new deployment. (deployments.create)
-   *
-   * @param string $parent Required. The parent resource name where the deployment
-   * is to be created.
-   * @param Google_Service_Sasportal_SasPortalDeployment $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Sasportal_SasPortalDeployment
-   */
-  public function create($parent, Google_Service_Sasportal_SasPortalDeployment $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Sasportal_SasPortalDeployment");
-  }
-  /**
-   * Lists deployments. (deployments.listCustomersNodesDeployments)
-   *
-   * @param string $parent Required. The parent resource name, for example,
-   * "nodes/1", customer/1/nodes/2.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param int pageSize The maximum number of deployments to return in the
-   * response.
-   * @opt_param string pageToken A pagination token returned from a previous call
-   * to ListDeployments method that indicates where this listing should continue
-   * from.
-   * @return Google_Service_Sasportal_SasPortalListDeploymentsResponse
-   */
-  public function listCustomersNodesDeployments($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Sasportal_SasPortalListDeploymentsResponse");
-  }
+	/**
+	 * Creates a new deployment. (deployments.create)
+	 *
+	 * @param string $parent Required. The parent resource name where the deployment
+	 *                       is to be created.
+	 * @param Google_Service_Sasportal_SasPortalDeployment $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Sasportal_SasPortalDeployment
+	 */
+	public function create($parent, Google_Service_Sasportal_SasPortalDeployment $postBody, $optParams = array())
+	{
+		$params = array('parent' => $parent, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_Sasportal_SasPortalDeployment");
+	}
+	/**
+	 * Lists deployments. (deployments.listCustomersNodesDeployments)
+	 *
+	 * @param string $parent Required. The parent resource name, for example,
+	 *                       "nodes/1", customer/1/nodes/2.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param int pageSize The maximum number of deployments to return in the
+	 * response.
+	 * @opt_param string pageToken A pagination token returned from a previous call
+	 * to ListDeployments method that indicates where this listing should continue
+	 * from.
+	 * @return Google_Service_Sasportal_SasPortalListDeploymentsResponse
+	 */
+	public function listCustomersNodesDeployments($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Sasportal_SasPortalListDeploymentsResponse");
+	}
 }

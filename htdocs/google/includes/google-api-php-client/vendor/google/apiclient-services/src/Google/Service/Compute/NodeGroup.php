@@ -17,129 +17,129 @@
 
 class Google_Service_Compute_NodeGroup extends Google_Model
 {
-  protected $autoscalingPolicyType = 'Google_Service_Compute_NodeGroupAutoscalingPolicy';
-  protected $autoscalingPolicyDataType = '';
-  public $creationTimestamp;
-  public $description;
-  public $fingerprint;
-  public $id;
-  public $kind;
-  public $maintenancePolicy;
-  public $name;
-  public $nodeTemplate;
-  public $selfLink;
-  public $size;
-  public $status;
-  public $zone;
+	protected $autoscalingPolicyType = 'Google_Service_Compute_NodeGroupAutoscalingPolicy';
+	protected $autoscalingPolicyDataType = '';
+	public $creationTimestamp;
+	public $description;
+	public $fingerprint;
+	public $id;
+	public $kind;
+	public $maintenancePolicy;
+	public $name;
+	public $nodeTemplate;
+	public $selfLink;
+	public $size;
+	public $status;
+	public $zone;
 
-  /**
-   * @param Google_Service_Compute_NodeGroupAutoscalingPolicy
-   */
-  public function setAutoscalingPolicy(Google_Service_Compute_NodeGroupAutoscalingPolicy $autoscalingPolicy)
-  {
-    $this->autoscalingPolicy = $autoscalingPolicy;
-  }
-  /**
-   * @return Google_Service_Compute_NodeGroupAutoscalingPolicy
-   */
-  public function getAutoscalingPolicy()
-  {
-    return $this->autoscalingPolicy;
-  }
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setFingerprint($fingerprint)
-  {
-    $this->fingerprint = $fingerprint;
-  }
-  public function getFingerprint()
-  {
-    return $this->fingerprint;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setMaintenancePolicy($maintenancePolicy)
-  {
-    $this->maintenancePolicy = $maintenancePolicy;
-  }
-  public function getMaintenancePolicy()
-  {
-    return $this->maintenancePolicy;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNodeTemplate($nodeTemplate)
-  {
-    $this->nodeTemplate = $nodeTemplate;
-  }
-  public function getNodeTemplate()
-  {
-    return $this->nodeTemplate;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  public function setSize($size)
-  {
-    $this->size = $size;
-  }
-  public function getSize()
-  {
-    return $this->size;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  public function setZone($zone)
-  {
-    $this->zone = $zone;
-  }
-  public function getZone()
-  {
-    return $this->zone;
-  }
+	/**
+	 * @param Google_Service_Compute_NodeGroupAutoscalingPolicy
+	 */
+	public function setAutoscalingPolicy(Google_Service_Compute_NodeGroupAutoscalingPolicy $autoscalingPolicy)
+	{
+		$this->autoscalingPolicy = $autoscalingPolicy;
+	}
+	/**
+	 * @return Google_Service_Compute_NodeGroupAutoscalingPolicy
+	 */
+	public function getAutoscalingPolicy()
+	{
+		return $this->autoscalingPolicy;
+	}
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setFingerprint($fingerprint)
+	{
+		$this->fingerprint = $fingerprint;
+	}
+	public function getFingerprint()
+	{
+		return $this->fingerprint;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setMaintenancePolicy($maintenancePolicy)
+	{
+		$this->maintenancePolicy = $maintenancePolicy;
+	}
+	public function getMaintenancePolicy()
+	{
+		return $this->maintenancePolicy;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNodeTemplate($nodeTemplate)
+	{
+		$this->nodeTemplate = $nodeTemplate;
+	}
+	public function getNodeTemplate()
+	{
+		return $this->nodeTemplate;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	public function setSize($size)
+	{
+		$this->size = $size;
+	}
+	public function getSize()
+	{
+		return $this->size;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	public function setZone($zone)
+	{
+		$this->zone = $zone;
+	}
+	public function getZone()
+	{
+		return $this->zone;
+	}
 }

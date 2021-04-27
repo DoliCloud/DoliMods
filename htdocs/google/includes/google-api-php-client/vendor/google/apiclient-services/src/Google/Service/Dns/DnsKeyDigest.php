@@ -17,23 +17,23 @@
 
 class Google_Service_Dns_DnsKeyDigest extends Google_Model
 {
-  public $digest;
-  public $type;
+	public $digest;
+	public $type;
 
-  public function setDigest($digest)
-  {
-    $this->digest = $digest;
-  }
-  public function getDigest()
-  {
-    return $this->digest;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setDigest($digest)
+	{
+		$this->digest = $digest;
+	}
+	public function getDigest()
+	{
+		return $this->digest;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

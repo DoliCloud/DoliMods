@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_CustomAttribute extends Google_Collection
 {
-  protected $collection_key = 'groupValues';
-  protected $groupValuesType = 'Google_Service_ShoppingContent_CustomAttribute';
-  protected $groupValuesDataType = 'array';
-  public $name;
-  public $value;
+	protected $collection_key = 'groupValues';
+	protected $groupValuesType = 'Google_Service_ShoppingContent_CustomAttribute';
+	protected $groupValuesDataType = 'array';
+	public $name;
+	public $value;
 
-  /**
-   * @param Google_Service_ShoppingContent_CustomAttribute
-   */
-  public function setGroupValues($groupValues)
-  {
-    $this->groupValues = $groupValues;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_CustomAttribute
-   */
-  public function getGroupValues()
-  {
-    return $this->groupValues;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_CustomAttribute
+	 */
+	public function setGroupValues($groupValues)
+	{
+		$this->groupValues = $groupValues;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_CustomAttribute
+	 */
+	public function getGroupValues()
+	{
+		return $this->groupValues;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

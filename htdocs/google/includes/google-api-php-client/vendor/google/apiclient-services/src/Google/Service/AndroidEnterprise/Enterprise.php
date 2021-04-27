@@ -17,49 +17,49 @@
 
 class Google_Service_AndroidEnterprise_Enterprise extends Google_Collection
 {
-  protected $collection_key = 'administrator';
-  protected $administratorType = 'Google_Service_AndroidEnterprise_Administrator';
-  protected $administratorDataType = 'array';
-  public $id;
-  public $name;
-  public $primaryDomain;
+	protected $collection_key = 'administrator';
+	protected $administratorType = 'Google_Service_AndroidEnterprise_Administrator';
+	protected $administratorDataType = 'array';
+	public $id;
+	public $name;
+	public $primaryDomain;
 
-  /**
-   * @param Google_Service_AndroidEnterprise_Administrator
-   */
-  public function setAdministrator($administrator)
-  {
-    $this->administrator = $administrator;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_Administrator
-   */
-  public function getAdministrator()
-  {
-    return $this->administrator;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPrimaryDomain($primaryDomain)
-  {
-    $this->primaryDomain = $primaryDomain;
-  }
-  public function getPrimaryDomain()
-  {
-    return $this->primaryDomain;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_Administrator
+	 */
+	public function setAdministrator($administrator)
+	{
+		$this->administrator = $administrator;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_Administrator
+	 */
+	public function getAdministrator()
+	{
+		return $this->administrator;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPrimaryDomain($primaryDomain)
+	{
+		$this->primaryDomain = $primaryDomain;
+	}
+	public function getPrimaryDomain()
+	{
+		return $this->primaryDomain;
+	}
 }

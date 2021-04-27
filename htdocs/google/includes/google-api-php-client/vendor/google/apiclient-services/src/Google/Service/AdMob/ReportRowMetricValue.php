@@ -17,32 +17,32 @@
 
 class Google_Service_AdMob_ReportRowMetricValue extends Google_Model
 {
-  public $doubleValue;
-  public $integerValue;
-  public $microsValue;
+	public $doubleValue;
+	public $integerValue;
+	public $microsValue;
 
-  public function setDoubleValue($doubleValue)
-  {
-    $this->doubleValue = $doubleValue;
-  }
-  public function getDoubleValue()
-  {
-    return $this->doubleValue;
-  }
-  public function setIntegerValue($integerValue)
-  {
-    $this->integerValue = $integerValue;
-  }
-  public function getIntegerValue()
-  {
-    return $this->integerValue;
-  }
-  public function setMicrosValue($microsValue)
-  {
-    $this->microsValue = $microsValue;
-  }
-  public function getMicrosValue()
-  {
-    return $this->microsValue;
-  }
+	public function setDoubleValue($doubleValue)
+	{
+		$this->doubleValue = $doubleValue;
+	}
+	public function getDoubleValue()
+	{
+		return $this->doubleValue;
+	}
+	public function setIntegerValue($integerValue)
+	{
+		$this->integerValue = $integerValue;
+	}
+	public function getIntegerValue()
+	{
+		return $this->integerValue;
+	}
+	public function setMicrosValue($microsValue)
+	{
+		$this->microsValue = $microsValue;
+	}
+	public function getMicrosValue()
+	{
+		return $this->microsValue;
+	}
 }

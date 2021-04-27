@@ -17,41 +17,41 @@
 
 class Google_Service_Drive_DriveRestrictions extends Google_Model
 {
-  public $adminManagedRestrictions;
-  public $copyRequiresWriterPermission;
-  public $domainUsersOnly;
-  public $driveMembersOnly;
+	public $adminManagedRestrictions;
+	public $copyRequiresWriterPermission;
+	public $domainUsersOnly;
+	public $driveMembersOnly;
 
-  public function setAdminManagedRestrictions($adminManagedRestrictions)
-  {
-    $this->adminManagedRestrictions = $adminManagedRestrictions;
-  }
-  public function getAdminManagedRestrictions()
-  {
-    return $this->adminManagedRestrictions;
-  }
-  public function setCopyRequiresWriterPermission($copyRequiresWriterPermission)
-  {
-    $this->copyRequiresWriterPermission = $copyRequiresWriterPermission;
-  }
-  public function getCopyRequiresWriterPermission()
-  {
-    return $this->copyRequiresWriterPermission;
-  }
-  public function setDomainUsersOnly($domainUsersOnly)
-  {
-    $this->domainUsersOnly = $domainUsersOnly;
-  }
-  public function getDomainUsersOnly()
-  {
-    return $this->domainUsersOnly;
-  }
-  public function setDriveMembersOnly($driveMembersOnly)
-  {
-    $this->driveMembersOnly = $driveMembersOnly;
-  }
-  public function getDriveMembersOnly()
-  {
-    return $this->driveMembersOnly;
-  }
+	public function setAdminManagedRestrictions($adminManagedRestrictions)
+	{
+		$this->adminManagedRestrictions = $adminManagedRestrictions;
+	}
+	public function getAdminManagedRestrictions()
+	{
+		return $this->adminManagedRestrictions;
+	}
+	public function setCopyRequiresWriterPermission($copyRequiresWriterPermission)
+	{
+		$this->copyRequiresWriterPermission = $copyRequiresWriterPermission;
+	}
+	public function getCopyRequiresWriterPermission()
+	{
+		return $this->copyRequiresWriterPermission;
+	}
+	public function setDomainUsersOnly($domainUsersOnly)
+	{
+		$this->domainUsersOnly = $domainUsersOnly;
+	}
+	public function getDomainUsersOnly()
+	{
+		return $this->domainUsersOnly;
+	}
+	public function setDriveMembersOnly($driveMembersOnly)
+	{
+		$this->driveMembersOnly = $driveMembersOnly;
+	}
+	public function getDriveMembersOnly()
+	{
+		return $this->driveMembersOnly;
+	}
 }

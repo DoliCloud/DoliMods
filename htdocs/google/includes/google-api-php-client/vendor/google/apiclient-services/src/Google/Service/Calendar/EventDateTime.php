@@ -17,32 +17,32 @@
 
 class Google_Service_Calendar_EventDateTime extends Google_Model
 {
-  public $date;
-  public $dateTime;
-  public $timeZone;
+	public $date;
+	public $dateTime;
+	public $timeZone;
 
-  public function setDate($date)
-  {
-    $this->date = $date;
-  }
-  public function getDate()
-  {
-    return $this->date;
-  }
-  public function setDateTime($dateTime)
-  {
-    $this->dateTime = $dateTime;
-  }
-  public function getDateTime()
-  {
-    return $this->dateTime;
-  }
-  public function setTimeZone($timeZone)
-  {
-    $this->timeZone = $timeZone;
-  }
-  public function getTimeZone()
-  {
-    return $this->timeZone;
-  }
+	public function setDate($date)
+	{
+		$this->date = $date;
+	}
+	public function getDate()
+	{
+		return $this->date;
+	}
+	public function setDateTime($dateTime)
+	{
+		$this->dateTime = $dateTime;
+	}
+	public function getDateTime()
+	{
+		return $this->dateTime;
+	}
+	public function setTimeZone($timeZone)
+	{
+		$this->timeZone = $timeZone;
+	}
+	public function getTimeZone()
+	{
+		return $this->timeZone;
+	}
 }

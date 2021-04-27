@@ -17,31 +17,31 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ListPolicyTagsResponse extends Google_Collection
 {
-  protected $collection_key = 'policyTags';
-  public $nextPageToken;
-  protected $policyTagsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1PolicyTag';
-  protected $policyTagsDataType = 'array';
+	protected $collection_key = 'policyTags';
+	public $nextPageToken;
+	protected $policyTagsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1PolicyTag';
+	protected $policyTagsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1PolicyTag
-   */
-  public function setPolicyTags($policyTags)
-  {
-    $this->policyTags = $policyTags;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1PolicyTag
-   */
-  public function getPolicyTags()
-  {
-    return $this->policyTags;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1PolicyTag
+	 */
+	public function setPolicyTags($policyTags)
+	{
+		$this->policyTags = $policyTags;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1PolicyTag
+	 */
+	public function getPolicyTags()
+	{
+		return $this->policyTags;
+	}
 }

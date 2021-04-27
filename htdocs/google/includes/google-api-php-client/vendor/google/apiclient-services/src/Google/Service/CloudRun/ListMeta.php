@@ -17,32 +17,32 @@
 
 class Google_Service_CloudRun_ListMeta extends Google_Model
 {
-  public $continue;
-  public $resourceVersion;
-  public $selfLink;
+	public $continue;
+	public $resourceVersion;
+	public $selfLink;
 
-  public function setContinue($continue)
-  {
-    $this->continue = $continue;
-  }
-  public function getContinue()
-  {
-    return $this->continue;
-  }
-  public function setResourceVersion($resourceVersion)
-  {
-    $this->resourceVersion = $resourceVersion;
-  }
-  public function getResourceVersion()
-  {
-    return $this->resourceVersion;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
+	public function setContinue($continue)
+	{
+		$this->continue = $continue;
+	}
+	public function getContinue()
+	{
+		return $this->continue;
+	}
+	public function setResourceVersion($resourceVersion)
+	{
+		$this->resourceVersion = $resourceVersion;
+	}
+	public function getResourceVersion()
+	{
+		return $this->resourceVersion;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
 }

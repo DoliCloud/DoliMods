@@ -25,23 +25,23 @@
  */
 class Google_Service_Dfareporting_Resource_Cities extends Google_Service_Resource
 {
-  /**
-   * Retrieves a list of cities, possibly filtered. (cities.listCities)
-   *
-   * @param string $profileId User profile ID associated with this request.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string countryDartIds Select only cities from these countries.
-   * @opt_param string dartIds Select only cities with these DART IDs.
-   * @opt_param string namePrefix Select only cities with names starting with this
-   * prefix.
-   * @opt_param string regionDartIds Select only cities from these regions.
-   * @return Google_Service_Dfareporting_CitiesListResponse
-   */
-  public function listCities($profileId, $optParams = array())
-  {
-    $params = array('profileId' => $profileId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Dfareporting_CitiesListResponse");
-  }
+	/**
+	 * Retrieves a list of cities, possibly filtered. (cities.listCities)
+	 *
+	 * @param string $profileId User profile ID associated with this request.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string countryDartIds Select only cities from these countries.
+	 * @opt_param string dartIds Select only cities with these DART IDs.
+	 * @opt_param string namePrefix Select only cities with names starting with this
+	 * prefix.
+	 * @opt_param string regionDartIds Select only cities from these regions.
+	 * @return Google_Service_Dfareporting_CitiesListResponse
+	 */
+	public function listCities($profileId, $optParams = array())
+	{
+		$params = array('profileId' => $profileId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Dfareporting_CitiesListResponse");
+	}
 }

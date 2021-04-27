@@ -17,23 +17,23 @@
 
 class Google_Service_CloudIot_SendCommandToDeviceRequest extends Google_Model
 {
-  public $binaryData;
-  public $subfolder;
+	public $binaryData;
+	public $subfolder;
 
-  public function setBinaryData($binaryData)
-  {
-    $this->binaryData = $binaryData;
-  }
-  public function getBinaryData()
-  {
-    return $this->binaryData;
-  }
-  public function setSubfolder($subfolder)
-  {
-    $this->subfolder = $subfolder;
-  }
-  public function getSubfolder()
-  {
-    return $this->subfolder;
-  }
+	public function setBinaryData($binaryData)
+	{
+		$this->binaryData = $binaryData;
+	}
+	public function getBinaryData()
+	{
+		return $this->binaryData;
+	}
+	public function setSubfolder($subfolder)
+	{
+		$this->subfolder = $subfolder;
+	}
+	public function getSubfolder()
+	{
+		return $this->subfolder;
+	}
 }

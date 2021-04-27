@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_NodeTemplatesScopedList extends Google_Collection
 {
-  protected $collection_key = 'nodeTemplates';
-  protected $nodeTemplatesType = 'Google_Service_Compute_NodeTemplate';
-  protected $nodeTemplatesDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_NodeTemplatesScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'nodeTemplates';
+	protected $nodeTemplatesType = 'Google_Service_Compute_NodeTemplate';
+	protected $nodeTemplatesDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_NodeTemplatesScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_NodeTemplate
-   */
-  public function setNodeTemplates($nodeTemplates)
-  {
-    $this->nodeTemplates = $nodeTemplates;
-  }
-  /**
-   * @return Google_Service_Compute_NodeTemplate
-   */
-  public function getNodeTemplates()
-  {
-    return $this->nodeTemplates;
-  }
-  /**
-   * @param Google_Service_Compute_NodeTemplatesScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_NodeTemplatesScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_NodeTemplatesScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_NodeTemplate
+	 */
+	public function setNodeTemplates($nodeTemplates)
+	{
+		$this->nodeTemplates = $nodeTemplates;
+	}
+	/**
+	 * @return Google_Service_Compute_NodeTemplate
+	 */
+	public function getNodeTemplates()
+	{
+		return $this->nodeTemplates;
+	}
+	/**
+	 * @param Google_Service_Compute_NodeTemplatesScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_NodeTemplatesScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_NodeTemplatesScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

@@ -17,46 +17,46 @@
 
 class Google_Service_ShoppingContent_AccountBusinessInformation extends Google_Model
 {
-  protected $addressType = 'Google_Service_ShoppingContent_AccountAddress';
-  protected $addressDataType = '';
-  protected $customerServiceType = 'Google_Service_ShoppingContent_AccountCustomerService';
-  protected $customerServiceDataType = '';
-  public $phoneNumber;
+	protected $addressType = 'Google_Service_ShoppingContent_AccountAddress';
+	protected $addressDataType = '';
+	protected $customerServiceType = 'Google_Service_ShoppingContent_AccountCustomerService';
+	protected $customerServiceDataType = '';
+	public $phoneNumber;
 
-  /**
-   * @param Google_Service_ShoppingContent_AccountAddress
-   */
-  public function setAddress(Google_Service_ShoppingContent_AccountAddress $address)
-  {
-    $this->address = $address;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_AccountAddress
-   */
-  public function getAddress()
-  {
-    return $this->address;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_AccountCustomerService
-   */
-  public function setCustomerService(Google_Service_ShoppingContent_AccountCustomerService $customerService)
-  {
-    $this->customerService = $customerService;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_AccountCustomerService
-   */
-  public function getCustomerService()
-  {
-    return $this->customerService;
-  }
-  public function setPhoneNumber($phoneNumber)
-  {
-    $this->phoneNumber = $phoneNumber;
-  }
-  public function getPhoneNumber()
-  {
-    return $this->phoneNumber;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_AccountAddress
+	 */
+	public function setAddress(Google_Service_ShoppingContent_AccountAddress $address)
+	{
+		$this->address = $address;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_AccountAddress
+	 */
+	public function getAddress()
+	{
+		return $this->address;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_AccountCustomerService
+	 */
+	public function setCustomerService(Google_Service_ShoppingContent_AccountCustomerService $customerService)
+	{
+		$this->customerService = $customerService;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_AccountCustomerService
+	 */
+	public function getCustomerService()
+	{
+		return $this->customerService;
+	}
+	public function setPhoneNumber($phoneNumber)
+	{
+		$this->phoneNumber = $phoneNumber;
+	}
+	public function getPhoneNumber()
+	{
+		return $this->phoneNumber;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidEnterprise_ApprovalUrlInfo extends Google_Model
 {
-  public $approvalUrl;
+	public $approvalUrl;
 
-  public function setApprovalUrl($approvalUrl)
-  {
-    $this->approvalUrl = $approvalUrl;
-  }
-  public function getApprovalUrl()
-  {
-    return $this->approvalUrl;
-  }
+	public function setApprovalUrl($approvalUrl)
+	{
+		$this->approvalUrl = $approvalUrl;
+	}
+	public function getApprovalUrl()
+	{
+		return $this->approvalUrl;
+	}
 }

@@ -2,10 +2,8 @@
 
 $_SERVER["PATH_INFO"] = "/scrape";
 
-$res=@include("../master.inc.php");
-if (! $res) @include("../../../dolibarr/htdocs/master.inc.php");	// Used on dev env only
+$res=@include "../master.inc.php";
+if (! $res) @include "../../../dolibarr/htdocs/master.inc.php";	// Used on dev env only
 
-require("tracker.php");
+require "tracker.php";
 exit;
-
-?>

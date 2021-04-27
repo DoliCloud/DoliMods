@@ -17,31 +17,31 @@
 
 class Google_Service_PostmasterTools_ListTrafficStatsResponse extends Google_Collection
 {
-  protected $collection_key = 'trafficStats';
-  public $nextPageToken;
-  protected $trafficStatsType = 'Google_Service_PostmasterTools_TrafficStats';
-  protected $trafficStatsDataType = 'array';
+	protected $collection_key = 'trafficStats';
+	public $nextPageToken;
+	protected $trafficStatsType = 'Google_Service_PostmasterTools_TrafficStats';
+	protected $trafficStatsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_PostmasterTools_TrafficStats
-   */
-  public function setTrafficStats($trafficStats)
-  {
-    $this->trafficStats = $trafficStats;
-  }
-  /**
-   * @return Google_Service_PostmasterTools_TrafficStats
-   */
-  public function getTrafficStats()
-  {
-    return $this->trafficStats;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_PostmasterTools_TrafficStats
+	 */
+	public function setTrafficStats($trafficStats)
+	{
+		$this->trafficStats = $trafficStats;
+	}
+	/**
+	 * @return Google_Service_PostmasterTools_TrafficStats
+	 */
+	public function getTrafficStats()
+	{
+		return $this->trafficStats;
+	}
 }

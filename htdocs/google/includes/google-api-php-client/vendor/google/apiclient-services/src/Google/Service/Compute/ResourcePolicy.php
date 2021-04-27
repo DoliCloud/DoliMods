@@ -17,109 +17,109 @@
 
 class Google_Service_Compute_ResourcePolicy extends Google_Model
 {
-  public $creationTimestamp;
-  public $description;
-  protected $groupPlacementPolicyType = 'Google_Service_Compute_ResourcePolicyGroupPlacementPolicy';
-  protected $groupPlacementPolicyDataType = '';
-  public $id;
-  public $kind;
-  public $name;
-  public $region;
-  public $selfLink;
-  protected $snapshotSchedulePolicyType = 'Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy';
-  protected $snapshotSchedulePolicyDataType = '';
-  public $status;
+	public $creationTimestamp;
+	public $description;
+	protected $groupPlacementPolicyType = 'Google_Service_Compute_ResourcePolicyGroupPlacementPolicy';
+	protected $groupPlacementPolicyDataType = '';
+	public $id;
+	public $kind;
+	public $name;
+	public $region;
+	public $selfLink;
+	protected $snapshotSchedulePolicyType = 'Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy';
+	protected $snapshotSchedulePolicyDataType = '';
+	public $status;
 
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_Compute_ResourcePolicyGroupPlacementPolicy
-   */
-  public function setGroupPlacementPolicy(Google_Service_Compute_ResourcePolicyGroupPlacementPolicy $groupPlacementPolicy)
-  {
-    $this->groupPlacementPolicy = $groupPlacementPolicy;
-  }
-  /**
-   * @return Google_Service_Compute_ResourcePolicyGroupPlacementPolicy
-   */
-  public function getGroupPlacementPolicy()
-  {
-    return $this->groupPlacementPolicy;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  /**
-   * @param Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy
-   */
-  public function setSnapshotSchedulePolicy(Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy $snapshotSchedulePolicy)
-  {
-    $this->snapshotSchedulePolicy = $snapshotSchedulePolicy;
-  }
-  /**
-   * @return Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy
-   */
-  public function getSnapshotSchedulePolicy()
-  {
-    return $this->snapshotSchedulePolicy;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_Compute_ResourcePolicyGroupPlacementPolicy
+	 */
+	public function setGroupPlacementPolicy(Google_Service_Compute_ResourcePolicyGroupPlacementPolicy $groupPlacementPolicy)
+	{
+		$this->groupPlacementPolicy = $groupPlacementPolicy;
+	}
+	/**
+	 * @return Google_Service_Compute_ResourcePolicyGroupPlacementPolicy
+	 */
+	public function getGroupPlacementPolicy()
+	{
+		return $this->groupPlacementPolicy;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	/**
+	 * @param Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy
+	 */
+	public function setSnapshotSchedulePolicy(Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy $snapshotSchedulePolicy)
+	{
+		$this->snapshotSchedulePolicy = $snapshotSchedulePolicy;
+	}
+	/**
+	 * @return Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy
+	 */
+	public function getSnapshotSchedulePolicy()
+	{
+		return $this->snapshotSchedulePolicy;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

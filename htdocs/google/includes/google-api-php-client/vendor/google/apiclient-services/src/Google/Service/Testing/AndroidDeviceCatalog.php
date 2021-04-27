@@ -17,54 +17,54 @@
 
 class Google_Service_Testing_AndroidDeviceCatalog extends Google_Collection
 {
-  protected $collection_key = 'versions';
-  protected $modelsType = 'Google_Service_Testing_AndroidModel';
-  protected $modelsDataType = 'array';
-  protected $runtimeConfigurationType = 'Google_Service_Testing_AndroidRuntimeConfiguration';
-  protected $runtimeConfigurationDataType = '';
-  protected $versionsType = 'Google_Service_Testing_AndroidVersion';
-  protected $versionsDataType = 'array';
+	protected $collection_key = 'versions';
+	protected $modelsType = 'Google_Service_Testing_AndroidModel';
+	protected $modelsDataType = 'array';
+	protected $runtimeConfigurationType = 'Google_Service_Testing_AndroidRuntimeConfiguration';
+	protected $runtimeConfigurationDataType = '';
+	protected $versionsType = 'Google_Service_Testing_AndroidVersion';
+	protected $versionsDataType = 'array';
 
-  /**
-   * @param Google_Service_Testing_AndroidModel
-   */
-  public function setModels($models)
-  {
-    $this->models = $models;
-  }
-  /**
-   * @return Google_Service_Testing_AndroidModel
-   */
-  public function getModels()
-  {
-    return $this->models;
-  }
-  /**
-   * @param Google_Service_Testing_AndroidRuntimeConfiguration
-   */
-  public function setRuntimeConfiguration(Google_Service_Testing_AndroidRuntimeConfiguration $runtimeConfiguration)
-  {
-    $this->runtimeConfiguration = $runtimeConfiguration;
-  }
-  /**
-   * @return Google_Service_Testing_AndroidRuntimeConfiguration
-   */
-  public function getRuntimeConfiguration()
-  {
-    return $this->runtimeConfiguration;
-  }
-  /**
-   * @param Google_Service_Testing_AndroidVersion
-   */
-  public function setVersions($versions)
-  {
-    $this->versions = $versions;
-  }
-  /**
-   * @return Google_Service_Testing_AndroidVersion
-   */
-  public function getVersions()
-  {
-    return $this->versions;
-  }
+	/**
+	 * @param Google_Service_Testing_AndroidModel
+	 */
+	public function setModels($models)
+	{
+		$this->models = $models;
+	}
+	/**
+	 * @return Google_Service_Testing_AndroidModel
+	 */
+	public function getModels()
+	{
+		return $this->models;
+	}
+	/**
+	 * @param Google_Service_Testing_AndroidRuntimeConfiguration
+	 */
+	public function setRuntimeConfiguration(Google_Service_Testing_AndroidRuntimeConfiguration $runtimeConfiguration)
+	{
+		$this->runtimeConfiguration = $runtimeConfiguration;
+	}
+	/**
+	 * @return Google_Service_Testing_AndroidRuntimeConfiguration
+	 */
+	public function getRuntimeConfiguration()
+	{
+		return $this->runtimeConfiguration;
+	}
+	/**
+	 * @param Google_Service_Testing_AndroidVersion
+	 */
+	public function setVersions($versions)
+	{
+		$this->versions = $versions;
+	}
+	/**
+	 * @return Google_Service_Testing_AndroidVersion
+	 */
+	public function getVersions()
+	{
+		return $this->versions;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListCampaignsResponse extends Google_Collection
 {
-  protected $collection_key = 'campaigns';
-  protected $campaignsType = 'Google_Service_DisplayVideo_Campaign';
-  protected $campaignsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'campaigns';
+	protected $campaignsType = 'Google_Service_DisplayVideo_Campaign';
+	protected $campaignsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_Campaign
-   */
-  public function setCampaigns($campaigns)
-  {
-    $this->campaigns = $campaigns;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_Campaign
-   */
-  public function getCampaigns()
-  {
-    return $this->campaigns;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_Campaign
+	 */
+	public function setCampaigns($campaigns)
+	{
+		$this->campaigns = $campaigns;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_Campaign
+	 */
+	public function getCampaigns()
+	{
+		return $this->campaigns;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

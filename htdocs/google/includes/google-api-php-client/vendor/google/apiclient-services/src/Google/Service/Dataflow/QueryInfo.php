@@ -17,15 +17,15 @@
 
 class Google_Service_Dataflow_QueryInfo extends Google_Collection
 {
-  protected $collection_key = 'queryProperty';
-  public $queryProperty;
+	protected $collection_key = 'queryProperty';
+	public $queryProperty;
 
-  public function setQueryProperty($queryProperty)
-  {
-    $this->queryProperty = $queryProperty;
-  }
-  public function getQueryProperty()
-  {
-    return $this->queryProperty;
-  }
+	public function setQueryProperty($queryProperty)
+	{
+		$this->queryProperty = $queryProperty;
+	}
+	public function getQueryProperty()
+	{
+		return $this->queryProperty;
+	}
 }

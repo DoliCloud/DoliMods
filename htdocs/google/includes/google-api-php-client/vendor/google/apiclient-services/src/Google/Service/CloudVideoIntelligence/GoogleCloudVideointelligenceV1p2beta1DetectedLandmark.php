@@ -17,39 +17,39 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1DetectedLandmark extends Google_Model
 {
-  public $confidence;
-  public $name;
-  protected $pointType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedVertex';
-  protected $pointDataType = '';
+	public $confidence;
+	public $name;
+	protected $pointType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedVertex';
+	protected $pointDataType = '';
 
-  public function setConfidence($confidence)
-  {
-    $this->confidence = $confidence;
-  }
-  public function getConfidence()
-  {
-    return $this->confidence;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedVertex
-   */
-  public function setPoint(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedVertex $point)
-  {
-    $this->point = $point;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedVertex
-   */
-  public function getPoint()
-  {
-    return $this->point;
-  }
+	public function setConfidence($confidence)
+	{
+		$this->confidence = $confidence;
+	}
+	public function getConfidence()
+	{
+		return $this->confidence;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedVertex
+	 */
+	public function setPoint(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedVertex $point)
+	{
+		$this->point = $point;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedVertex
+	 */
+	public function getPoint()
+	{
+		return $this->point;
+	}
 }

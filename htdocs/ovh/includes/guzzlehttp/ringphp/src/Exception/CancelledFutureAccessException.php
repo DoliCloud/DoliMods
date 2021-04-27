@@ -1,4 +1,6 @@
 <?php
 namespace GuzzleHttp\Ring\Exception;
 
-class CancelledFutureAccessException extends RingException implements CancelledException {}
+class CancelledFutureAccessException extends RingException implements CancelledException
+{
+}

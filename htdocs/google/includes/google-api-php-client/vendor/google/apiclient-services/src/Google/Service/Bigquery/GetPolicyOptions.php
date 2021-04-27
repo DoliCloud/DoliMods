@@ -17,14 +17,14 @@
 
 class Google_Service_Bigquery_GetPolicyOptions extends Google_Model
 {
-  public $requestedPolicyVersion;
+	public $requestedPolicyVersion;
 
-  public function setRequestedPolicyVersion($requestedPolicyVersion)
-  {
-    $this->requestedPolicyVersion = $requestedPolicyVersion;
-  }
-  public function getRequestedPolicyVersion()
-  {
-    return $this->requestedPolicyVersion;
-  }
+	public function setRequestedPolicyVersion($requestedPolicyVersion)
+	{
+		$this->requestedPolicyVersion = $requestedPolicyVersion;
+	}
+	public function getRequestedPolicyVersion()
+	{
+		return $this->requestedPolicyVersion;
+	}
 }

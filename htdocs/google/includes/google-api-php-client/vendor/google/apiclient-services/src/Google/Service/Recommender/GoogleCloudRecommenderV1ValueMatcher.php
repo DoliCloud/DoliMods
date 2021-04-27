@@ -17,14 +17,14 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1ValueMatcher extends Google_Model
 {
-  public $matchesPattern;
+	public $matchesPattern;
 
-  public function setMatchesPattern($matchesPattern)
-  {
-    $this->matchesPattern = $matchesPattern;
-  }
-  public function getMatchesPattern()
-  {
-    return $this->matchesPattern;
-  }
+	public function setMatchesPattern($matchesPattern)
+	{
+		$this->matchesPattern = $matchesPattern;
+	}
+	public function getMatchesPattern()
+	{
+		return $this->matchesPattern;
+	}
 }

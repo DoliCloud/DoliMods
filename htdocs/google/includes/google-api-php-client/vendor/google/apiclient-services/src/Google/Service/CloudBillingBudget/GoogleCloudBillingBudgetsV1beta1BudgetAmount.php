@@ -17,37 +17,37 @@
 
 class Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1BudgetAmount extends Google_Model
 {
-  protected $lastPeriodAmountType = 'Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1LastPeriodAmount';
-  protected $lastPeriodAmountDataType = '';
-  protected $specifiedAmountType = 'Google_Service_CloudBillingBudget_GoogleTypeMoney';
-  protected $specifiedAmountDataType = '';
+	protected $lastPeriodAmountType = 'Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1LastPeriodAmount';
+	protected $lastPeriodAmountDataType = '';
+	protected $specifiedAmountType = 'Google_Service_CloudBillingBudget_GoogleTypeMoney';
+	protected $specifiedAmountDataType = '';
 
-  /**
-   * @param Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1LastPeriodAmount
-   */
-  public function setLastPeriodAmount(Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1LastPeriodAmount $lastPeriodAmount)
-  {
-    $this->lastPeriodAmount = $lastPeriodAmount;
-  }
-  /**
-   * @return Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1LastPeriodAmount
-   */
-  public function getLastPeriodAmount()
-  {
-    return $this->lastPeriodAmount;
-  }
-  /**
-   * @param Google_Service_CloudBillingBudget_GoogleTypeMoney
-   */
-  public function setSpecifiedAmount(Google_Service_CloudBillingBudget_GoogleTypeMoney $specifiedAmount)
-  {
-    $this->specifiedAmount = $specifiedAmount;
-  }
-  /**
-   * @return Google_Service_CloudBillingBudget_GoogleTypeMoney
-   */
-  public function getSpecifiedAmount()
-  {
-    return $this->specifiedAmount;
-  }
+	/**
+	 * @param Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1LastPeriodAmount
+	 */
+	public function setLastPeriodAmount(Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1LastPeriodAmount $lastPeriodAmount)
+	{
+		$this->lastPeriodAmount = $lastPeriodAmount;
+	}
+	/**
+	 * @return Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1LastPeriodAmount
+	 */
+	public function getLastPeriodAmount()
+	{
+		return $this->lastPeriodAmount;
+	}
+	/**
+	 * @param Google_Service_CloudBillingBudget_GoogleTypeMoney
+	 */
+	public function setSpecifiedAmount(Google_Service_CloudBillingBudget_GoogleTypeMoney $specifiedAmount)
+	{
+		$this->specifiedAmount = $specifiedAmount;
+	}
+	/**
+	 * @return Google_Service_CloudBillingBudget_GoogleTypeMoney
+	 */
+	public function getSpecifiedAmount()
+	{
+		return $this->specifiedAmount;
+	}
 }

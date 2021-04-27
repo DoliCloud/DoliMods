@@ -17,14 +17,14 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig extends Google_Model
 {
-  public $useElapsedTime;
+	public $useElapsedTime;
 
-  public function setUseElapsedTime($useElapsedTime)
-  {
-    $this->useElapsedTime = $useElapsedTime;
-  }
-  public function getUseElapsedTime()
-  {
-    return $this->useElapsedTime;
-  }
+	public function setUseElapsedTime($useElapsedTime)
+	{
+		$this->useElapsedTime = $useElapsedTime;
+	}
+	public function getUseElapsedTime()
+	{
+		return $this->useElapsedTime;
+	}
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingConflict extends Google_Model
 {
-  protected $conflictingDeploymentType = 'Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment';
-  protected $conflictingDeploymentDataType = '';
-  public $description;
-  public $environmentGroup;
+	protected $conflictingDeploymentType = 'Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment';
+	protected $conflictingDeploymentDataType = '';
+	public $description;
+	public $environmentGroup;
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment
-   */
-  public function setConflictingDeployment(Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment $conflictingDeployment)
-  {
-    $this->conflictingDeployment = $conflictingDeployment;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment
-   */
-  public function getConflictingDeployment()
-  {
-    return $this->conflictingDeployment;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setEnvironmentGroup($environmentGroup)
-  {
-    $this->environmentGroup = $environmentGroup;
-  }
-  public function getEnvironmentGroup()
-  {
-    return $this->environmentGroup;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment
+	 */
+	public function setConflictingDeployment(Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment $conflictingDeployment)
+	{
+		$this->conflictingDeployment = $conflictingDeployment;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment
+	 */
+	public function getConflictingDeployment()
+	{
+		return $this->conflictingDeployment;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setEnvironmentGroup($environmentGroup)
+	{
+		$this->environmentGroup = $environmentGroup;
+	}
+	public function getEnvironmentGroup()
+	{
+		return $this->environmentGroup;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_CampaignCreativeAssociation extends Google_Model
 {
-  public $creativeId;
-  public $kind;
+	public $creativeId;
+	public $kind;
 
-  public function setCreativeId($creativeId)
-  {
-    $this->creativeId = $creativeId;
-  }
-  public function getCreativeId()
-  {
-    return $this->creativeId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setCreativeId($creativeId)
+	{
+		$this->creativeId = $creativeId;
+	}
+	public function getCreativeId()
+	{
+		return $this->creativeId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

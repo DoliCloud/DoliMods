@@ -17,31 +17,31 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2GetTreeResponse extends Google_Collection
 {
-  protected $collection_key = 'directories';
-  protected $directoriesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory';
-  protected $directoriesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'directories';
+	protected $directoriesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory';
+	protected $directoriesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
-   */
-  public function setDirectories($directories)
-  {
-    $this->directories = $directories;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
-   */
-  public function getDirectories()
-  {
-    return $this->directories;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
+	 */
+	public function setDirectories($directories)
+	{
+		$this->directories = $directories;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
+	 */
+	public function getDirectories()
+	{
+		return $this->directories;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

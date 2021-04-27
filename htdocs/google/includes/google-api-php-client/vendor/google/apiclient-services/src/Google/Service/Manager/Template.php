@@ -17,43 +17,43 @@
 
 class Google_Service_Manager_Template extends Google_Model
 {
-  protected $actionsType = 'Google_Service_Manager_Action';
-  protected $actionsDataType = 'map';
-  public $description;
-  protected $modulesType = 'Google_Service_Manager_Module';
-  protected $modulesDataType = 'map';
-  public $name;
+	protected $actionsType = 'Google_Service_Manager_Action';
+	protected $actionsDataType = 'map';
+	public $description;
+	protected $modulesType = 'Google_Service_Manager_Module';
+	protected $modulesDataType = 'map';
+	public $name;
 
-  public function setActions($actions)
-  {
-    $this->actions = $actions;
-  }
-  public function getActions()
-  {
-    return $this->actions;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setModules($modules)
-  {
-    $this->modules = $modules;
-  }
-  public function getModules()
-  {
-    return $this->modules;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setActions($actions)
+	{
+		$this->actions = $actions;
+	}
+	public function getActions()
+	{
+		return $this->actions;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setModules($modules)
+	{
+		$this->modules = $modules;
+	}
+	public function getModules()
+	{
+		return $this->modules;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_CloudSearch_HtmlPropertyOptions extends Google_Model
 {
-  protected $operatorOptionsType = 'Google_Service_CloudSearch_HtmlOperatorOptions';
-  protected $operatorOptionsDataType = '';
-  protected $retrievalImportanceType = 'Google_Service_CloudSearch_RetrievalImportance';
-  protected $retrievalImportanceDataType = '';
+	protected $operatorOptionsType = 'Google_Service_CloudSearch_HtmlOperatorOptions';
+	protected $operatorOptionsDataType = '';
+	protected $retrievalImportanceType = 'Google_Service_CloudSearch_RetrievalImportance';
+	protected $retrievalImportanceDataType = '';
 
-  /**
-   * @param Google_Service_CloudSearch_HtmlOperatorOptions
-   */
-  public function setOperatorOptions(Google_Service_CloudSearch_HtmlOperatorOptions $operatorOptions)
-  {
-    $this->operatorOptions = $operatorOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_HtmlOperatorOptions
-   */
-  public function getOperatorOptions()
-  {
-    return $this->operatorOptions;
-  }
-  /**
-   * @param Google_Service_CloudSearch_RetrievalImportance
-   */
-  public function setRetrievalImportance(Google_Service_CloudSearch_RetrievalImportance $retrievalImportance)
-  {
-    $this->retrievalImportance = $retrievalImportance;
-  }
-  /**
-   * @return Google_Service_CloudSearch_RetrievalImportance
-   */
-  public function getRetrievalImportance()
-  {
-    return $this->retrievalImportance;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_HtmlOperatorOptions
+	 */
+	public function setOperatorOptions(Google_Service_CloudSearch_HtmlOperatorOptions $operatorOptions)
+	{
+		$this->operatorOptions = $operatorOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_HtmlOperatorOptions
+	 */
+	public function getOperatorOptions()
+	{
+		return $this->operatorOptions;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_RetrievalImportance
+	 */
+	public function setRetrievalImportance(Google_Service_CloudSearch_RetrievalImportance $retrievalImportance)
+	{
+		$this->retrievalImportance = $retrievalImportance;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_RetrievalImportance
+	 */
+	public function getRetrievalImportance()
+	{
+		return $this->retrievalImportance;
+	}
 }

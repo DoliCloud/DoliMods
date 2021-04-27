@@ -17,21 +17,21 @@
 
 class Google_Service_SearchConsole_ResourceIssue extends Google_Model
 {
-  protected $blockedResourceType = 'Google_Service_SearchConsole_BlockedResource';
-  protected $blockedResourceDataType = '';
+	protected $blockedResourceType = 'Google_Service_SearchConsole_BlockedResource';
+	protected $blockedResourceDataType = '';
 
-  /**
-   * @param Google_Service_SearchConsole_BlockedResource
-   */
-  public function setBlockedResource(Google_Service_SearchConsole_BlockedResource $blockedResource)
-  {
-    $this->blockedResource = $blockedResource;
-  }
-  /**
-   * @return Google_Service_SearchConsole_BlockedResource
-   */
-  public function getBlockedResource()
-  {
-    return $this->blockedResource;
-  }
+	/**
+	 * @param Google_Service_SearchConsole_BlockedResource
+	 */
+	public function setBlockedResource(Google_Service_SearchConsole_BlockedResource $blockedResource)
+	{
+		$this->blockedResource = $blockedResource;
+	}
+	/**
+	 * @return Google_Service_SearchConsole_BlockedResource
+	 */
+	public function getBlockedResource()
+	{
+		return $this->blockedResource;
+	}
 }

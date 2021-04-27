@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_AccountActiveAdSummary extends Google_Model
 {
-  public $accountId;
-  public $activeAds;
-  public $activeAdsLimitTier;
-  public $availableAds;
-  public $kind;
+	public $accountId;
+	public $activeAds;
+	public $activeAdsLimitTier;
+	public $availableAds;
+	public $kind;
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setActiveAds($activeAds)
-  {
-    $this->activeAds = $activeAds;
-  }
-  public function getActiveAds()
-  {
-    return $this->activeAds;
-  }
-  public function setActiveAdsLimitTier($activeAdsLimitTier)
-  {
-    $this->activeAdsLimitTier = $activeAdsLimitTier;
-  }
-  public function getActiveAdsLimitTier()
-  {
-    return $this->activeAdsLimitTier;
-  }
-  public function setAvailableAds($availableAds)
-  {
-    $this->availableAds = $availableAds;
-  }
-  public function getAvailableAds()
-  {
-    return $this->availableAds;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setActiveAds($activeAds)
+	{
+		$this->activeAds = $activeAds;
+	}
+	public function getActiveAds()
+	{
+		return $this->activeAds;
+	}
+	public function setActiveAdsLimitTier($activeAdsLimitTier)
+	{
+		$this->activeAdsLimitTier = $activeAdsLimitTier;
+	}
+	public function getActiveAdsLimitTier()
+	{
+		return $this->activeAdsLimitTier;
+	}
+	public function setAvailableAds($availableAds)
+	{
+		$this->availableAds = $availableAds;
+	}
+	public function getAvailableAds()
+	{
+		return $this->availableAds;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

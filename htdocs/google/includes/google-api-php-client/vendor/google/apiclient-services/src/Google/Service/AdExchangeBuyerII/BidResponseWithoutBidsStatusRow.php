@@ -17,46 +17,46 @@
 
 class Google_Service_AdExchangeBuyerII_BidResponseWithoutBidsStatusRow extends Google_Model
 {
-  protected $impressionCountType = 'Google_Service_AdExchangeBuyerII_MetricValue';
-  protected $impressionCountDataType = '';
-  protected $rowDimensionsType = 'Google_Service_AdExchangeBuyerII_RowDimensions';
-  protected $rowDimensionsDataType = '';
-  public $status;
+	protected $impressionCountType = 'Google_Service_AdExchangeBuyerII_MetricValue';
+	protected $impressionCountDataType = '';
+	protected $rowDimensionsType = 'Google_Service_AdExchangeBuyerII_RowDimensions';
+	protected $rowDimensionsDataType = '';
+	public $status;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_MetricValue
-   */
-  public function setImpressionCount(Google_Service_AdExchangeBuyerII_MetricValue $impressionCount)
-  {
-    $this->impressionCount = $impressionCount;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_MetricValue
-   */
-  public function getImpressionCount()
-  {
-    return $this->impressionCount;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_RowDimensions
-   */
-  public function setRowDimensions(Google_Service_AdExchangeBuyerII_RowDimensions $rowDimensions)
-  {
-    $this->rowDimensions = $rowDimensions;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_RowDimensions
-   */
-  public function getRowDimensions()
-  {
-    return $this->rowDimensions;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_MetricValue
+	 */
+	public function setImpressionCount(Google_Service_AdExchangeBuyerII_MetricValue $impressionCount)
+	{
+		$this->impressionCount = $impressionCount;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_MetricValue
+	 */
+	public function getImpressionCount()
+	{
+		return $this->impressionCount;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_RowDimensions
+	 */
+	public function setRowDimensions(Google_Service_AdExchangeBuyerII_RowDimensions $rowDimensions)
+	{
+		$this->rowDimensions = $rowDimensions;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_RowDimensions
+	 */
+	public function getRowDimensions()
+	{
+		return $this->rowDimensions;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

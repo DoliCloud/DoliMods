@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Properties extends Google_Collection
 {
-  protected $collection_key = 'property';
-  protected $propertyType = 'Google_Service_Apigee_GoogleCloudApigeeV1Property';
-  protected $propertyDataType = 'array';
+	protected $collection_key = 'property';
+	protected $propertyType = 'Google_Service_Apigee_GoogleCloudApigeeV1Property';
+	protected $propertyDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Property
-   */
-  public function setProperty($property)
-  {
-    $this->property = $property;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Property
-   */
-  public function getProperty()
-  {
-    return $this->property;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Property
+	 */
+	public function setProperty($property)
+	{
+		$this->property = $property;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Property
+	 */
+	public function getProperty()
+	{
+		return $this->property;
+	}
 }

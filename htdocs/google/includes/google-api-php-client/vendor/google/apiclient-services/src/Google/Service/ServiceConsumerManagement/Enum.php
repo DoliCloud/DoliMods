@@ -17,72 +17,72 @@
 
 class Google_Service_ServiceConsumerManagement_Enum extends Google_Collection
 {
-  protected $collection_key = 'options';
-  protected $enumvalueType = 'Google_Service_ServiceConsumerManagement_EnumValue';
-  protected $enumvalueDataType = 'array';
-  public $name;
-  protected $optionsType = 'Google_Service_ServiceConsumerManagement_Option';
-  protected $optionsDataType = 'array';
-  protected $sourceContextType = 'Google_Service_ServiceConsumerManagement_SourceContext';
-  protected $sourceContextDataType = '';
-  public $syntax;
+	protected $collection_key = 'options';
+	protected $enumvalueType = 'Google_Service_ServiceConsumerManagement_EnumValue';
+	protected $enumvalueDataType = 'array';
+	public $name;
+	protected $optionsType = 'Google_Service_ServiceConsumerManagement_Option';
+	protected $optionsDataType = 'array';
+	protected $sourceContextType = 'Google_Service_ServiceConsumerManagement_SourceContext';
+	protected $sourceContextDataType = '';
+	public $syntax;
 
-  /**
-   * @param Google_Service_ServiceConsumerManagement_EnumValue
-   */
-  public function setEnumvalue($enumvalue)
-  {
-    $this->enumvalue = $enumvalue;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_EnumValue
-   */
-  public function getEnumvalue()
-  {
-    return $this->enumvalue;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_ServiceConsumerManagement_Option
-   */
-  public function setOptions($options)
-  {
-    $this->options = $options;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_Option
-   */
-  public function getOptions()
-  {
-    return $this->options;
-  }
-  /**
-   * @param Google_Service_ServiceConsumerManagement_SourceContext
-   */
-  public function setSourceContext(Google_Service_ServiceConsumerManagement_SourceContext $sourceContext)
-  {
-    $this->sourceContext = $sourceContext;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_SourceContext
-   */
-  public function getSourceContext()
-  {
-    return $this->sourceContext;
-  }
-  public function setSyntax($syntax)
-  {
-    $this->syntax = $syntax;
-  }
-  public function getSyntax()
-  {
-    return $this->syntax;
-  }
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_EnumValue
+	 */
+	public function setEnumvalue($enumvalue)
+	{
+		$this->enumvalue = $enumvalue;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_EnumValue
+	 */
+	public function getEnumvalue()
+	{
+		return $this->enumvalue;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_Option
+	 */
+	public function setOptions($options)
+	{
+		$this->options = $options;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_Option
+	 */
+	public function getOptions()
+	{
+		return $this->options;
+	}
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_SourceContext
+	 */
+	public function setSourceContext(Google_Service_ServiceConsumerManagement_SourceContext $sourceContext)
+	{
+		$this->sourceContext = $sourceContext;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_SourceContext
+	 */
+	public function getSourceContext()
+	{
+		return $this->sourceContext;
+	}
+	public function setSyntax($syntax)
+	{
+		$this->syntax = $syntax;
+	}
+	public function getSyntax()
+	{
+		return $this->syntax;
+	}
 }

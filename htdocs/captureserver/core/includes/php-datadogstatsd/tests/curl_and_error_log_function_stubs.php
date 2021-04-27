@@ -20,15 +20,15 @@ namespace DataDog;
  */
 function curl_init($url = null)
 {
-    global $curlSpy;
+	global $curlSpy;
 
-    $curlSpy->curlInitWasCalledWithArg($url);
+	$curlSpy->curlInitWasCalledWithArg($url);
 
-    $resource = fopen('/dev/null', 'r');
+	$resource = fopen('/dev/null', 'r');
 
-    $curlSpy->curlInitDidReturn($resource);
+	$curlSpy->curlInitDidReturn($resource);
 
-    return $resource;
+	return $resource;
 }
 
 /**
@@ -40,9 +40,9 @@ function curl_init($url = null)
  */
 function curl_setopt($ch, $option, $value)
 {
-    global $curlSpy;
+	global $curlSpy;
 
-    $curlSpy->curlSetoptWasCalledWithArgs($ch, $option, $value);
+	$curlSpy->curlSetoptWasCalledWithArgs($ch, $option, $value);
 }
 
 /**
@@ -53,11 +53,11 @@ function curl_setopt($ch, $option, $value)
  */
 function curl_exec($ch)
 {
-    global $curlSpy;
+	global $curlSpy;
 
-    $curlSpy->curlExecCalledWithArg($ch);
+	$curlSpy->curlExecCalledWithArg($ch);
 
-    return $curlSpy->responseBody;
+	return $curlSpy->responseBody;
 }
 
 /**
@@ -69,11 +69,11 @@ function curl_exec($ch)
  */
 function curl_getinfo($ch, $opt)
 {
-    global $curlSpy;
+	global $curlSpy;
 
-    $curlSpy->curlGetinfoCalledWithArgs($ch, $opt);
+	$curlSpy->curlGetinfoCalledWithArgs($ch, $opt);
 
-    return $curlSpy->responseCode;
+	return $curlSpy->responseCode;
 }
 
 /**
@@ -84,11 +84,11 @@ function curl_getinfo($ch, $opt)
  */
 function curl_errno($ch)
 {
-    global $curlSpy;
+	global $curlSpy;
 
-    $curlSpy->curlErrnoCalledWithArg($ch);
+	$curlSpy->curlErrnoCalledWithArg($ch);
 
-    return $curlSpy->errorNumber;
+	return $curlSpy->errorNumber;
 }
 
 /**
@@ -98,9 +98,9 @@ function curl_errno($ch)
  */
 function curl_close($ch)
 {
-    global $curlSpy;
+	global $curlSpy;
 
-    $curlSpy->curlCloseCalledWithArg($ch);
+	$curlSpy->curlCloseCalledWithArg($ch);
 }
 
 /**
@@ -111,11 +111,11 @@ function curl_close($ch)
  */
 function curl_error($ch)
 {
-    global $curlSpy;
+	global $curlSpy;
 
-    $curlSpy->curlErrorCalledWithArg($ch);
+	$curlSpy->curlErrorCalledWithArg($ch);
 
-    return $curlSpy->curlError;
+	return $curlSpy->curlError;
 }
 
 /**
@@ -123,7 +123,7 @@ function curl_error($ch)
  */
 function error_log($message)
 {
-    global $curlSpy;
+	global $curlSpy;
 
-    $curlSpy->errorLogCallsWithArg($message);
+	$curlSpy->errorLogCallsWithArg($message);
 }

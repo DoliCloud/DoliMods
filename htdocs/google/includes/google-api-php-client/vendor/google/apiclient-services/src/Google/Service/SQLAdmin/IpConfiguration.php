@@ -17,49 +17,49 @@
 
 class Google_Service_SQLAdmin_IpConfiguration extends Google_Collection
 {
-  protected $collection_key = 'authorizedNetworks';
-  protected $authorizedNetworksType = 'Google_Service_SQLAdmin_AclEntry';
-  protected $authorizedNetworksDataType = 'array';
-  public $ipv4Enabled;
-  public $privateNetwork;
-  public $requireSsl;
+	protected $collection_key = 'authorizedNetworks';
+	protected $authorizedNetworksType = 'Google_Service_SQLAdmin_AclEntry';
+	protected $authorizedNetworksDataType = 'array';
+	public $ipv4Enabled;
+	public $privateNetwork;
+	public $requireSsl;
 
-  /**
-   * @param Google_Service_SQLAdmin_AclEntry
-   */
-  public function setAuthorizedNetworks($authorizedNetworks)
-  {
-    $this->authorizedNetworks = $authorizedNetworks;
-  }
-  /**
-   * @return Google_Service_SQLAdmin_AclEntry
-   */
-  public function getAuthorizedNetworks()
-  {
-    return $this->authorizedNetworks;
-  }
-  public function setIpv4Enabled($ipv4Enabled)
-  {
-    $this->ipv4Enabled = $ipv4Enabled;
-  }
-  public function getIpv4Enabled()
-  {
-    return $this->ipv4Enabled;
-  }
-  public function setPrivateNetwork($privateNetwork)
-  {
-    $this->privateNetwork = $privateNetwork;
-  }
-  public function getPrivateNetwork()
-  {
-    return $this->privateNetwork;
-  }
-  public function setRequireSsl($requireSsl)
-  {
-    $this->requireSsl = $requireSsl;
-  }
-  public function getRequireSsl()
-  {
-    return $this->requireSsl;
-  }
+	/**
+	 * @param Google_Service_SQLAdmin_AclEntry
+	 */
+	public function setAuthorizedNetworks($authorizedNetworks)
+	{
+		$this->authorizedNetworks = $authorizedNetworks;
+	}
+	/**
+	 * @return Google_Service_SQLAdmin_AclEntry
+	 */
+	public function getAuthorizedNetworks()
+	{
+		return $this->authorizedNetworks;
+	}
+	public function setIpv4Enabled($ipv4Enabled)
+	{
+		$this->ipv4Enabled = $ipv4Enabled;
+	}
+	public function getIpv4Enabled()
+	{
+		return $this->ipv4Enabled;
+	}
+	public function setPrivateNetwork($privateNetwork)
+	{
+		$this->privateNetwork = $privateNetwork;
+	}
+	public function getPrivateNetwork()
+	{
+		return $this->privateNetwork;
+	}
+	public function setRequireSsl($requireSsl)
+	{
+		$this->requireSsl = $requireSsl;
+	}
+	public function getRequireSsl()
+	{
+		return $this->requireSsl;
+	}
 }

@@ -25,19 +25,19 @@
  */
 class Google_Service_AndroidProvisioningPartner_Resource_CustomersDpcs extends Google_Service_Resource
 {
-  /**
-   * Lists the DPCs (device policy controllers) that support zero-touch
-   * enrollment. (dpcs.listCustomersDpcs)
-   *
-   * @param string $parent Required. The customer that can use the DPCs in
-   * configurations. An API resource name in the format `customers/[CUSTOMER_ID]`.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidProvisioningPartner_CustomerListDpcsResponse
-   */
-  public function listCustomersDpcs($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AndroidProvisioningPartner_CustomerListDpcsResponse");
-  }
+	/**
+	 * Lists the DPCs (device policy controllers) that support zero-touch
+	 * enrollment. (dpcs.listCustomersDpcs)
+	 *
+	 * @param string $parent Required. The customer that can use the DPCs in
+	 *                       configurations. An API resource name in the format `customers/[CUSTOMER_ID]`.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidProvisioningPartner_CustomerListDpcsResponse
+	 */
+	public function listCustomersDpcs($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AndroidProvisioningPartner_CustomerListDpcsResponse");
+	}
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1QueryMetric extends Google_Model
 {
-  public $alias;
-  public $function;
-  public $name;
-  public $operator;
-  public $value;
+	public $alias;
+	public $function;
+	public $name;
+	public $operator;
+	public $value;
 
-  public function setAlias($alias)
-  {
-    $this->alias = $alias;
-  }
-  public function getAlias()
-  {
-    return $this->alias;
-  }
-  public function setFunction($function)
-  {
-    $this->function = $function;
-  }
-  public function getFunction()
-  {
-    return $this->function;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOperator($operator)
-  {
-    $this->operator = $operator;
-  }
-  public function getOperator()
-  {
-    return $this->operator;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
+	}
+	public function getAlias()
+	{
+		return $this->alias;
+	}
+	public function setFunction($function)
+	{
+		$this->function = $function;
+	}
+	public function getFunction()
+	{
+		return $this->function;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOperator($operator)
+	{
+		$this->operator = $operator;
+	}
+	public function getOperator()
+	{
+		return $this->operator;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_PeopleService_CopyOtherContactToMyContactsGroupRequest extends Google_Collection
 {
-  protected $collection_key = 'sources';
-  public $copyMask;
-  public $readMask;
-  public $sources;
+	protected $collection_key = 'sources';
+	public $copyMask;
+	public $readMask;
+	public $sources;
 
-  public function setCopyMask($copyMask)
-  {
-    $this->copyMask = $copyMask;
-  }
-  public function getCopyMask()
-  {
-    return $this->copyMask;
-  }
-  public function setReadMask($readMask)
-  {
-    $this->readMask = $readMask;
-  }
-  public function getReadMask()
-  {
-    return $this->readMask;
-  }
-  public function setSources($sources)
-  {
-    $this->sources = $sources;
-  }
-  public function getSources()
-  {
-    return $this->sources;
-  }
+	public function setCopyMask($copyMask)
+	{
+		$this->copyMask = $copyMask;
+	}
+	public function getCopyMask()
+	{
+		return $this->copyMask;
+	}
+	public function setReadMask($readMask)
+	{
+		$this->readMask = $readMask;
+	}
+	public function getReadMask()
+	{
+		return $this->readMask;
+	}
+	public function setSources($sources)
+	{
+		$this->sources = $sources;
+	}
+	public function getSources()
+	{
+		return $this->sources;
+	}
 }

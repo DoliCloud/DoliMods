@@ -1,10 +1,10 @@
 <?php
-include("./pre.inc.php");
-require_once("funcsv2.php");
+include "./pre.inc.php";
+require_once "funcsv2.php";
 
 $tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
-llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
+llxHeader('', 'BitTorrent', $website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
@@ -19,16 +19,14 @@ the torrent please <a href="deleter.php">delete it</a> and add it again.
 //connect to database
 if ($GLOBALS["persist"])
 	$db = mysql_pconnect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - " . mysql_error() . "</p>");
-else
-	$db = mysql_connect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - " . mysql_error() . "</p>");
+else $db = mysql_connect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - " . mysql_error() . "</p>");
 mysql_select_db($database) or die(errorMessage() . "Error selecting database.</p>");
 
 //get filename from URL string
 $filename = $_GET['filename'];
 
 //if not edit database or filename set, display all torrents as links
-if (!isset($_POST["editdatabase"]) && !isset($filename))
-{
+if (!isset($_POST["editdatabase"]) && !isset($filename)) {
 	?>
 	<p><strong>Click on a file to edit it:</strong></p>
 	<table border="0">
@@ -36,8 +34,7 @@ if (!isset($_POST["editdatabase"]) && !isset($filename))
 	$query = "SELECT filename FROM ".$prefix."namemap ORDER BY filename ASC";
 	$rows = mysql_query($query) or die(errorMessage() . "Can't do SQL query - " . mysql_error() . "</p>");
 
-	while ($data = mysql_fetch_row($rows))
-	{
+	while ($data = mysql_fetch_row($rows)) {
 		echo "<tr><td><a href=\"" . $PHP_SELF . "?filename=" . rawurlencode($data[0]) . "\">" . $data[0] . "</a></td></tr>\n";
 	}
 	?>
@@ -45,8 +42,7 @@ if (!isset($_POST["editdatabase"]) && !isset($filename))
 	<?php
 }
 
-if (isset($filename) && !isset($_POST["editdatabase"]))
-{
+if (isset($filename) && !isset($_POST["editdatabase"])) {
 	$query = "SELECT info_hash,filename,url,pubDate FROM ".$prefix."namemap WHERE filename = '" . $filename . "'";
 	$rows = mysql_query($query) or die(errorMessage() . "Can't do SQL query - " . mysql_error() . "</p>");
 
@@ -71,13 +67,11 @@ if (isset($filename) && !isset($_POST["editdatabase"]))
 }
 
 //write data to database
-if (isset($_POST["editdatabase"]))
-{
+if (isset($_POST["editdatabase"])) {
 	$temp_counter = (count($_POST)-1)/5;
 	array_shift($_POST);
 
-	for ($i = 0; $i < $temp_counter; $i++)
-	{
+	for ($i = 0; $i < $temp_counter; $i++) {
 		$temp_hash = htmlspecialchars(array_shift($_POST));
 		$old_filename = htmlspecialchars(array_shift($_POST));
 		$temp_filename = array_shift($_POST);
@@ -93,7 +87,7 @@ if (isset($_POST["editdatabase"]))
 	}
 
 	//run RSS generator
-	require_once("rss_generator.php");
+	require_once "rss_generator.php";
 
 	echo "<br><p class=\"success\">The database was edited successfully!</p>\n";
 }
@@ -106,4 +100,3 @@ if (isset($_POST["editdatabase"]))
 <?php
 llxFooter();
 ?>
-

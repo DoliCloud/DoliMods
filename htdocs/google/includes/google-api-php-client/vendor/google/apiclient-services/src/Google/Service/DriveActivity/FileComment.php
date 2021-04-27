@@ -17,48 +17,48 @@
 
 class Google_Service_DriveActivity_FileComment extends Google_Model
 {
-  public $legacyCommentId;
-  public $legacyDiscussionId;
-  public $linkToDiscussion;
-  protected $parentType = 'Google_Service_DriveActivity_DriveItem';
-  protected $parentDataType = '';
+	public $legacyCommentId;
+	public $legacyDiscussionId;
+	public $linkToDiscussion;
+	protected $parentType = 'Google_Service_DriveActivity_DriveItem';
+	protected $parentDataType = '';
 
-  public function setLegacyCommentId($legacyCommentId)
-  {
-    $this->legacyCommentId = $legacyCommentId;
-  }
-  public function getLegacyCommentId()
-  {
-    return $this->legacyCommentId;
-  }
-  public function setLegacyDiscussionId($legacyDiscussionId)
-  {
-    $this->legacyDiscussionId = $legacyDiscussionId;
-  }
-  public function getLegacyDiscussionId()
-  {
-    return $this->legacyDiscussionId;
-  }
-  public function setLinkToDiscussion($linkToDiscussion)
-  {
-    $this->linkToDiscussion = $linkToDiscussion;
-  }
-  public function getLinkToDiscussion()
-  {
-    return $this->linkToDiscussion;
-  }
-  /**
-   * @param Google_Service_DriveActivity_DriveItem
-   */
-  public function setParent(Google_Service_DriveActivity_DriveItem $parent)
-  {
-    $this->parent = $parent;
-  }
-  /**
-   * @return Google_Service_DriveActivity_DriveItem
-   */
-  public function getParent()
-  {
-    return $this->parent;
-  }
+	public function setLegacyCommentId($legacyCommentId)
+	{
+		$this->legacyCommentId = $legacyCommentId;
+	}
+	public function getLegacyCommentId()
+	{
+		return $this->legacyCommentId;
+	}
+	public function setLegacyDiscussionId($legacyDiscussionId)
+	{
+		$this->legacyDiscussionId = $legacyDiscussionId;
+	}
+	public function getLegacyDiscussionId()
+	{
+		return $this->legacyDiscussionId;
+	}
+	public function setLinkToDiscussion($linkToDiscussion)
+	{
+		$this->linkToDiscussion = $linkToDiscussion;
+	}
+	public function getLinkToDiscussion()
+	{
+		return $this->linkToDiscussion;
+	}
+	/**
+	 * @param Google_Service_DriveActivity_DriveItem
+	 */
+	public function setParent(Google_Service_DriveActivity_DriveItem $parent)
+	{
+		$this->parent = $parent;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_DriveItem
+	 */
+	public function getParent()
+	{
+		return $this->parent;
+	}
 }

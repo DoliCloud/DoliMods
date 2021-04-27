@@ -17,37 +17,37 @@
 
 class Google_Service_HangoutsChat_OnClick extends Google_Model
 {
-  protected $actionType = 'Google_Service_HangoutsChat_FormAction';
-  protected $actionDataType = '';
-  protected $openLinkType = 'Google_Service_HangoutsChat_OpenLink';
-  protected $openLinkDataType = '';
+	protected $actionType = 'Google_Service_HangoutsChat_FormAction';
+	protected $actionDataType = '';
+	protected $openLinkType = 'Google_Service_HangoutsChat_OpenLink';
+	protected $openLinkDataType = '';
 
-  /**
-   * @param Google_Service_HangoutsChat_FormAction
-   */
-  public function setAction(Google_Service_HangoutsChat_FormAction $action)
-  {
-    $this->action = $action;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_FormAction
-   */
-  public function getAction()
-  {
-    return $this->action;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_OpenLink
-   */
-  public function setOpenLink(Google_Service_HangoutsChat_OpenLink $openLink)
-  {
-    $this->openLink = $openLink;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_OpenLink
-   */
-  public function getOpenLink()
-  {
-    return $this->openLink;
-  }
+	/**
+	 * @param Google_Service_HangoutsChat_FormAction
+	 */
+	public function setAction(Google_Service_HangoutsChat_FormAction $action)
+	{
+		$this->action = $action;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_FormAction
+	 */
+	public function getAction()
+	{
+		return $this->action;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_OpenLink
+	 */
+	public function setOpenLink(Google_Service_HangoutsChat_OpenLink $openLink)
+	{
+		$this->openLink = $openLink;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_OpenLink
+	 */
+	public function getOpenLink()
+	{
+		return $this->openLink;
+	}
 }

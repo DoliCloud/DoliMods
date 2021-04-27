@@ -17,22 +17,22 @@
 
 class Google_Service_YouTube_CommentThreadReplies extends Google_Collection
 {
-  protected $collection_key = 'comments';
-  protected $commentsType = 'Google_Service_YouTube_Comment';
-  protected $commentsDataType = 'array';
+	protected $collection_key = 'comments';
+	protected $commentsType = 'Google_Service_YouTube_Comment';
+	protected $commentsDataType = 'array';
 
-  /**
-   * @param Google_Service_YouTube_Comment
-   */
-  public function setComments($comments)
-  {
-    $this->comments = $comments;
-  }
-  /**
-   * @return Google_Service_YouTube_Comment
-   */
-  public function getComments()
-  {
-    return $this->comments;
-  }
+	/**
+	 * @param Google_Service_YouTube_Comment
+	 */
+	public function setComments($comments)
+	{
+		$this->comments = $comments;
+	}
+	/**
+	 * @return Google_Service_YouTube_Comment
+	 */
+	public function getComments()
+	{
+		return $this->comments;
+	}
 }

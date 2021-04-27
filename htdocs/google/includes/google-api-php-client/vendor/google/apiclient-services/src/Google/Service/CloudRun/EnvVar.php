@@ -17,39 +17,39 @@
 
 class Google_Service_CloudRun_EnvVar extends Google_Model
 {
-  public $name;
-  public $value;
-  protected $valueFromType = 'Google_Service_CloudRun_EnvVarSource';
-  protected $valueFromDataType = '';
+	public $name;
+	public $value;
+	protected $valueFromType = 'Google_Service_CloudRun_EnvVarSource';
+	protected $valueFromDataType = '';
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
-  /**
-   * @param Google_Service_CloudRun_EnvVarSource
-   */
-  public function setValueFrom(Google_Service_CloudRun_EnvVarSource $valueFrom)
-  {
-    $this->valueFrom = $valueFrom;
-  }
-  /**
-   * @return Google_Service_CloudRun_EnvVarSource
-   */
-  public function getValueFrom()
-  {
-    return $this->valueFrom;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
+	/**
+	 * @param Google_Service_CloudRun_EnvVarSource
+	 */
+	public function setValueFrom(Google_Service_CloudRun_EnvVarSource $valueFrom)
+	{
+		$this->valueFrom = $valueFrom;
+	}
+	/**
+	 * @return Google_Service_CloudRun_EnvVarSource
+	 */
+	public function getValueFrom()
+	{
+		return $this->valueFrom;
+	}
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_Slides_CreateLineRequest extends Google_Model
 {
-  public $category;
-  protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
-  protected $elementPropertiesDataType = '';
-  public $lineCategory;
-  public $objectId;
+	public $category;
+	protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
+	protected $elementPropertiesDataType = '';
+	public $lineCategory;
+	public $objectId;
 
-  public function setCategory($category)
-  {
-    $this->category = $category;
-  }
-  public function getCategory()
-  {
-    return $this->category;
-  }
-  /**
-   * @param Google_Service_Slides_PageElementProperties
-   */
-  public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
-  {
-    $this->elementProperties = $elementProperties;
-  }
-  /**
-   * @return Google_Service_Slides_PageElementProperties
-   */
-  public function getElementProperties()
-  {
-    return $this->elementProperties;
-  }
-  public function setLineCategory($lineCategory)
-  {
-    $this->lineCategory = $lineCategory;
-  }
-  public function getLineCategory()
-  {
-    return $this->lineCategory;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
+	public function setCategory($category)
+	{
+		$this->category = $category;
+	}
+	public function getCategory()
+	{
+		return $this->category;
+	}
+	/**
+	 * @param Google_Service_Slides_PageElementProperties
+	 */
+	public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
+	{
+		$this->elementProperties = $elementProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_PageElementProperties
+	 */
+	public function getElementProperties()
+	{
+		return $this->elementProperties;
+	}
+	public function setLineCategory($lineCategory)
+	{
+		$this->lineCategory = $lineCategory;
+	}
+	public function getLineCategory()
+	{
+		return $this->lineCategory;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
 }

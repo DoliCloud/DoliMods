@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest extends Google_Model
 {
-  public $hash;
-  public $sizeBytes;
+	public $hash;
+	public $sizeBytes;
 
-  public function setHash($hash)
-  {
-    $this->hash = $hash;
-  }
-  public function getHash()
-  {
-    return $this->hash;
-  }
-  public function setSizeBytes($sizeBytes)
-  {
-    $this->sizeBytes = $sizeBytes;
-  }
-  public function getSizeBytes()
-  {
-    return $this->sizeBytes;
-  }
+	public function setHash($hash)
+	{
+		$this->hash = $hash;
+	}
+	public function getHash()
+	{
+		return $this->hash;
+	}
+	public function setSizeBytes($sizeBytes)
+	{
+		$this->sizeBytes = $sizeBytes;
+	}
+	public function getSizeBytes()
+	{
+		return $this->sizeBytes;
+	}
 }

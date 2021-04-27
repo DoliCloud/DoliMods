@@ -17,57 +17,57 @@
 
 class Google_Service_ShoppingContent_DatafeedsCustomBatchRequestEntry extends Google_Model
 {
-  public $batchId;
-  protected $datafeedType = 'Google_Service_ShoppingContent_Datafeed';
-  protected $datafeedDataType = '';
-  public $datafeedId;
-  public $merchantId;
-  public $method;
+	public $batchId;
+	protected $datafeedType = 'Google_Service_ShoppingContent_Datafeed';
+	protected $datafeedDataType = '';
+	public $datafeedId;
+	public $merchantId;
+	public $method;
 
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Datafeed
-   */
-  public function setDatafeed(Google_Service_ShoppingContent_Datafeed $datafeed)
-  {
-    $this->datafeed = $datafeed;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Datafeed
-   */
-  public function getDatafeed()
-  {
-    return $this->datafeed;
-  }
-  public function setDatafeedId($datafeedId)
-  {
-    $this->datafeedId = $datafeedId;
-  }
-  public function getDatafeedId()
-  {
-    return $this->datafeedId;
-  }
-  public function setMerchantId($merchantId)
-  {
-    $this->merchantId = $merchantId;
-  }
-  public function getMerchantId()
-  {
-    return $this->merchantId;
-  }
-  public function setMethod($method)
-  {
-    $this->method = $method;
-  }
-  public function getMethod()
-  {
-    return $this->method;
-  }
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Datafeed
+	 */
+	public function setDatafeed(Google_Service_ShoppingContent_Datafeed $datafeed)
+	{
+		$this->datafeed = $datafeed;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Datafeed
+	 */
+	public function getDatafeed()
+	{
+		return $this->datafeed;
+	}
+	public function setDatafeedId($datafeedId)
+	{
+		$this->datafeedId = $datafeedId;
+	}
+	public function getDatafeedId()
+	{
+		return $this->datafeedId;
+	}
+	public function setMerchantId($merchantId)
+	{
+		$this->merchantId = $merchantId;
+	}
+	public function getMerchantId()
+	{
+		return $this->merchantId;
+	}
+	public function setMethod($method)
+	{
+		$this->method = $method;
+	}
+	public function getMethod()
+	{
+		return $this->method;
+	}
 }

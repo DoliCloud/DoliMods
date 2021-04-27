@@ -17,32 +17,32 @@
 
 class Google_Service_PagespeedInsights_AuditRefs extends Google_Model
 {
-  public $group;
-  public $id;
-  public $weight;
+	public $group;
+	public $id;
+	public $weight;
 
-  public function setGroup($group)
-  {
-    $this->group = $group;
-  }
-  public function getGroup()
-  {
-    return $this->group;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setWeight($weight)
-  {
-    $this->weight = $weight;
-  }
-  public function getWeight()
-  {
-    return $this->weight;
-  }
+	public function setGroup($group)
+	{
+		$this->group = $group;
+	}
+	public function getGroup()
+	{
+		return $this->group;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setWeight($weight)
+	{
+		$this->weight = $weight;
+	}
+	public function getWeight()
+	{
+		return $this->weight;
+	}
 }

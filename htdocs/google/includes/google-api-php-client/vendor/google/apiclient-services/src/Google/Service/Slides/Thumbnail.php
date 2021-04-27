@@ -17,32 +17,32 @@
 
 class Google_Service_Slides_Thumbnail extends Google_Model
 {
-  public $contentUrl;
-  public $height;
-  public $width;
+	public $contentUrl;
+	public $height;
+	public $width;
 
-  public function setContentUrl($contentUrl)
-  {
-    $this->contentUrl = $contentUrl;
-  }
-  public function getContentUrl()
-  {
-    return $this->contentUrl;
-  }
-  public function setHeight($height)
-  {
-    $this->height = $height;
-  }
-  public function getHeight()
-  {
-    return $this->height;
-  }
-  public function setWidth($width)
-  {
-    $this->width = $width;
-  }
-  public function getWidth()
-  {
-    return $this->width;
-  }
+	public function setContentUrl($contentUrl)
+	{
+		$this->contentUrl = $contentUrl;
+	}
+	public function getContentUrl()
+	{
+		return $this->contentUrl;
+	}
+	public function setHeight($height)
+	{
+		$this->height = $height;
+	}
+	public function getHeight()
+	{
+		return $this->height;
+	}
+	public function setWidth($width)
+	{
+		$this->width = $width;
+	}
+	public function getWidth()
+	{
+		return $this->width;
+	}
 }

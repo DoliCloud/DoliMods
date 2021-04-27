@@ -17,86 +17,86 @@
 
 class Google_Service_Bigquery_BqmlTrainingRunTrainingOptions extends Google_Model
 {
-  public $earlyStop;
-  public $l1Reg;
-  public $l2Reg;
-  public $learnRate;
-  public $learnRateStrategy;
-  public $lineSearchInitLearnRate;
-  public $maxIteration;
-  public $minRelProgress;
-  public $warmStart;
+	public $earlyStop;
+	public $l1Reg;
+	public $l2Reg;
+	public $learnRate;
+	public $learnRateStrategy;
+	public $lineSearchInitLearnRate;
+	public $maxIteration;
+	public $minRelProgress;
+	public $warmStart;
 
-  public function setEarlyStop($earlyStop)
-  {
-    $this->earlyStop = $earlyStop;
-  }
-  public function getEarlyStop()
-  {
-    return $this->earlyStop;
-  }
-  public function setL1Reg($l1Reg)
-  {
-    $this->l1Reg = $l1Reg;
-  }
-  public function getL1Reg()
-  {
-    return $this->l1Reg;
-  }
-  public function setL2Reg($l2Reg)
-  {
-    $this->l2Reg = $l2Reg;
-  }
-  public function getL2Reg()
-  {
-    return $this->l2Reg;
-  }
-  public function setLearnRate($learnRate)
-  {
-    $this->learnRate = $learnRate;
-  }
-  public function getLearnRate()
-  {
-    return $this->learnRate;
-  }
-  public function setLearnRateStrategy($learnRateStrategy)
-  {
-    $this->learnRateStrategy = $learnRateStrategy;
-  }
-  public function getLearnRateStrategy()
-  {
-    return $this->learnRateStrategy;
-  }
-  public function setLineSearchInitLearnRate($lineSearchInitLearnRate)
-  {
-    $this->lineSearchInitLearnRate = $lineSearchInitLearnRate;
-  }
-  public function getLineSearchInitLearnRate()
-  {
-    return $this->lineSearchInitLearnRate;
-  }
-  public function setMaxIteration($maxIteration)
-  {
-    $this->maxIteration = $maxIteration;
-  }
-  public function getMaxIteration()
-  {
-    return $this->maxIteration;
-  }
-  public function setMinRelProgress($minRelProgress)
-  {
-    $this->minRelProgress = $minRelProgress;
-  }
-  public function getMinRelProgress()
-  {
-    return $this->minRelProgress;
-  }
-  public function setWarmStart($warmStart)
-  {
-    $this->warmStart = $warmStart;
-  }
-  public function getWarmStart()
-  {
-    return $this->warmStart;
-  }
+	public function setEarlyStop($earlyStop)
+	{
+		$this->earlyStop = $earlyStop;
+	}
+	public function getEarlyStop()
+	{
+		return $this->earlyStop;
+	}
+	public function setL1Reg($l1Reg)
+	{
+		$this->l1Reg = $l1Reg;
+	}
+	public function getL1Reg()
+	{
+		return $this->l1Reg;
+	}
+	public function setL2Reg($l2Reg)
+	{
+		$this->l2Reg = $l2Reg;
+	}
+	public function getL2Reg()
+	{
+		return $this->l2Reg;
+	}
+	public function setLearnRate($learnRate)
+	{
+		$this->learnRate = $learnRate;
+	}
+	public function getLearnRate()
+	{
+		return $this->learnRate;
+	}
+	public function setLearnRateStrategy($learnRateStrategy)
+	{
+		$this->learnRateStrategy = $learnRateStrategy;
+	}
+	public function getLearnRateStrategy()
+	{
+		return $this->learnRateStrategy;
+	}
+	public function setLineSearchInitLearnRate($lineSearchInitLearnRate)
+	{
+		$this->lineSearchInitLearnRate = $lineSearchInitLearnRate;
+	}
+	public function getLineSearchInitLearnRate()
+	{
+		return $this->lineSearchInitLearnRate;
+	}
+	public function setMaxIteration($maxIteration)
+	{
+		$this->maxIteration = $maxIteration;
+	}
+	public function getMaxIteration()
+	{
+		return $this->maxIteration;
+	}
+	public function setMinRelProgress($minRelProgress)
+	{
+		$this->minRelProgress = $minRelProgress;
+	}
+	public function getMinRelProgress()
+	{
+		return $this->minRelProgress;
+	}
+	public function setWarmStart($warmStart)
+	{
+		$this->warmStart = $warmStart;
+	}
+	public function getWarmStart()
+	{
+		return $this->warmStart;
+	}
 }

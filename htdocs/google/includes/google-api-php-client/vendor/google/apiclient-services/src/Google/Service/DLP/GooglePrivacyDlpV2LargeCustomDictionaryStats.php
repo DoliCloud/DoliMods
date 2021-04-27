@@ -17,14 +17,14 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats extends Google_Model
 {
-  public $approxNumPhrases;
+	public $approxNumPhrases;
 
-  public function setApproxNumPhrases($approxNumPhrases)
-  {
-    $this->approxNumPhrases = $approxNumPhrases;
-  }
-  public function getApproxNumPhrases()
-  {
-    return $this->approxNumPhrases;
-  }
+	public function setApproxNumPhrases($approxNumPhrases)
+	{
+		$this->approxNumPhrases = $approxNumPhrases;
+	}
+	public function getApproxNumPhrases()
+	{
+		return $this->approxNumPhrases;
+	}
 }

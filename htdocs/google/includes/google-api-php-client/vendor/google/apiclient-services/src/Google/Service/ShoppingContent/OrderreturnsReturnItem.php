@@ -17,46 +17,46 @@
 
 class Google_Service_ShoppingContent_OrderreturnsReturnItem extends Google_Model
 {
-  protected $refundType = 'Google_Service_ShoppingContent_OrderreturnsRefundOperation';
-  protected $refundDataType = '';
-  protected $rejectType = 'Google_Service_ShoppingContent_OrderreturnsRejectOperation';
-  protected $rejectDataType = '';
-  public $returnItemId;
+	protected $refundType = 'Google_Service_ShoppingContent_OrderreturnsRefundOperation';
+	protected $refundDataType = '';
+	protected $rejectType = 'Google_Service_ShoppingContent_OrderreturnsRejectOperation';
+	protected $rejectDataType = '';
+	public $returnItemId;
 
-  /**
-   * @param Google_Service_ShoppingContent_OrderreturnsRefundOperation
-   */
-  public function setRefund(Google_Service_ShoppingContent_OrderreturnsRefundOperation $refund)
-  {
-    $this->refund = $refund;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderreturnsRefundOperation
-   */
-  public function getRefund()
-  {
-    return $this->refund;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_OrderreturnsRejectOperation
-   */
-  public function setReject(Google_Service_ShoppingContent_OrderreturnsRejectOperation $reject)
-  {
-    $this->reject = $reject;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderreturnsRejectOperation
-   */
-  public function getReject()
-  {
-    return $this->reject;
-  }
-  public function setReturnItemId($returnItemId)
-  {
-    $this->returnItemId = $returnItemId;
-  }
-  public function getReturnItemId()
-  {
-    return $this->returnItemId;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_OrderreturnsRefundOperation
+	 */
+	public function setRefund(Google_Service_ShoppingContent_OrderreturnsRefundOperation $refund)
+	{
+		$this->refund = $refund;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderreturnsRefundOperation
+	 */
+	public function getRefund()
+	{
+		return $this->refund;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_OrderreturnsRejectOperation
+	 */
+	public function setReject(Google_Service_ShoppingContent_OrderreturnsRejectOperation $reject)
+	{
+		$this->reject = $reject;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderreturnsRejectOperation
+	 */
+	public function getReject()
+	{
+		return $this->reject;
+	}
+	public function setReturnItemId($returnItemId)
+	{
+		$this->returnItemId = $returnItemId;
+	}
+	public function getReturnItemId()
+	{
+		return $this->returnItemId;
+	}
 }

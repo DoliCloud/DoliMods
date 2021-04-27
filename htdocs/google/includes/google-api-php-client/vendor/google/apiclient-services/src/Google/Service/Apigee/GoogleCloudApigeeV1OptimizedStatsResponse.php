@@ -17,59 +17,59 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsResponse extends Google_Collection
 {
-  protected $collection_key = 'TimeUnit';
-  protected $internal_gapi_mappings = array(
-        "timeUnit" => "TimeUnit",
-  );
-  public $timeUnit;
-  protected $metaDataType = 'Google_Service_Apigee_GoogleCloudApigeeV1Metadata';
-  protected $metaDataDataType = '';
-  public $resultTruncated;
-  protected $statsType = 'Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode';
-  protected $statsDataType = '';
+	protected $collection_key = 'TimeUnit';
+	protected $internal_gapi_mappings = array(
+		"timeUnit" => "TimeUnit",
+	);
+	public $timeUnit;
+	protected $metaDataType = 'Google_Service_Apigee_GoogleCloudApigeeV1Metadata';
+	protected $metaDataDataType = '';
+	public $resultTruncated;
+	protected $statsType = 'Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode';
+	protected $statsDataType = '';
 
-  public function setTimeUnit($timeUnit)
-  {
-    $this->timeUnit = $timeUnit;
-  }
-  public function getTimeUnit()
-  {
-    return $this->timeUnit;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Metadata
-   */
-  public function setMetaData(Google_Service_Apigee_GoogleCloudApigeeV1Metadata $metaData)
-  {
-    $this->metaData = $metaData;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Metadata
-   */
-  public function getMetaData()
-  {
-    return $this->metaData;
-  }
-  public function setResultTruncated($resultTruncated)
-  {
-    $this->resultTruncated = $resultTruncated;
-  }
-  public function getResultTruncated()
-  {
-    return $this->resultTruncated;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode
-   */
-  public function setStats(Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode $stats)
-  {
-    $this->stats = $stats;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode
-   */
-  public function getStats()
-  {
-    return $this->stats;
-  }
+	public function setTimeUnit($timeUnit)
+	{
+		$this->timeUnit = $timeUnit;
+	}
+	public function getTimeUnit()
+	{
+		return $this->timeUnit;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Metadata
+	 */
+	public function setMetaData(Google_Service_Apigee_GoogleCloudApigeeV1Metadata $metaData)
+	{
+		$this->metaData = $metaData;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Metadata
+	 */
+	public function getMetaData()
+	{
+		return $this->metaData;
+	}
+	public function setResultTruncated($resultTruncated)
+	{
+		$this->resultTruncated = $resultTruncated;
+	}
+	public function getResultTruncated()
+	{
+		return $this->resultTruncated;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode
+	 */
+	public function setStats(Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode $stats)
+	{
+		$this->stats = $stats;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode
+	 */
+	public function getStats()
+	{
+		return $this->stats;
+	}
 }

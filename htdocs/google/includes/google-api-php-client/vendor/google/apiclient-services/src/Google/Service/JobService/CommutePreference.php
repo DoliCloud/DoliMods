@@ -17,66 +17,66 @@
 
 class Google_Service_JobService_CommutePreference extends Google_Model
 {
-  public $allowNonStreetLevelAddress;
-  public $departureHourLocal;
-  public $method;
-  public $roadTraffic;
-  protected $startLocationType = 'Google_Service_JobService_LatLng';
-  protected $startLocationDataType = '';
-  public $travelTime;
+	public $allowNonStreetLevelAddress;
+	public $departureHourLocal;
+	public $method;
+	public $roadTraffic;
+	protected $startLocationType = 'Google_Service_JobService_LatLng';
+	protected $startLocationDataType = '';
+	public $travelTime;
 
-  public function setAllowNonStreetLevelAddress($allowNonStreetLevelAddress)
-  {
-    $this->allowNonStreetLevelAddress = $allowNonStreetLevelAddress;
-  }
-  public function getAllowNonStreetLevelAddress()
-  {
-    return $this->allowNonStreetLevelAddress;
-  }
-  public function setDepartureHourLocal($departureHourLocal)
-  {
-    $this->departureHourLocal = $departureHourLocal;
-  }
-  public function getDepartureHourLocal()
-  {
-    return $this->departureHourLocal;
-  }
-  public function setMethod($method)
-  {
-    $this->method = $method;
-  }
-  public function getMethod()
-  {
-    return $this->method;
-  }
-  public function setRoadTraffic($roadTraffic)
-  {
-    $this->roadTraffic = $roadTraffic;
-  }
-  public function getRoadTraffic()
-  {
-    return $this->roadTraffic;
-  }
-  /**
-   * @param Google_Service_JobService_LatLng
-   */
-  public function setStartLocation(Google_Service_JobService_LatLng $startLocation)
-  {
-    $this->startLocation = $startLocation;
-  }
-  /**
-   * @return Google_Service_JobService_LatLng
-   */
-  public function getStartLocation()
-  {
-    return $this->startLocation;
-  }
-  public function setTravelTime($travelTime)
-  {
-    $this->travelTime = $travelTime;
-  }
-  public function getTravelTime()
-  {
-    return $this->travelTime;
-  }
+	public function setAllowNonStreetLevelAddress($allowNonStreetLevelAddress)
+	{
+		$this->allowNonStreetLevelAddress = $allowNonStreetLevelAddress;
+	}
+	public function getAllowNonStreetLevelAddress()
+	{
+		return $this->allowNonStreetLevelAddress;
+	}
+	public function setDepartureHourLocal($departureHourLocal)
+	{
+		$this->departureHourLocal = $departureHourLocal;
+	}
+	public function getDepartureHourLocal()
+	{
+		return $this->departureHourLocal;
+	}
+	public function setMethod($method)
+	{
+		$this->method = $method;
+	}
+	public function getMethod()
+	{
+		return $this->method;
+	}
+	public function setRoadTraffic($roadTraffic)
+	{
+		$this->roadTraffic = $roadTraffic;
+	}
+	public function getRoadTraffic()
+	{
+		return $this->roadTraffic;
+	}
+	/**
+	 * @param Google_Service_JobService_LatLng
+	 */
+	public function setStartLocation(Google_Service_JobService_LatLng $startLocation)
+	{
+		$this->startLocation = $startLocation;
+	}
+	/**
+	 * @return Google_Service_JobService_LatLng
+	 */
+	public function getStartLocation()
+	{
+		return $this->startLocation;
+	}
+	public function setTravelTime($travelTime)
+	{
+		$this->travelTime = $travelTime;
+	}
+	public function getTravelTime()
+	{
+		return $this->travelTime;
+	}
 }

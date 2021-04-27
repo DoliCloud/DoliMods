@@ -17,50 +17,50 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2Environment extends Google_Model
 {
-  public $agentVersion;
-  public $description;
-  public $name;
-  public $state;
-  public $updateTime;
+	public $agentVersion;
+	public $description;
+	public $name;
+	public $state;
+	public $updateTime;
 
-  public function setAgentVersion($agentVersion)
-  {
-    $this->agentVersion = $agentVersion;
-  }
-  public function getAgentVersion()
-  {
-    return $this->agentVersion;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setAgentVersion($agentVersion)
+	{
+		$this->agentVersion = $agentVersion;
+	}
+	public function getAgentVersion()
+	{
+		return $this->agentVersion;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

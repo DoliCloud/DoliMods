@@ -17,38 +17,38 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly extends Google_Collection
 {
-  protected $collection_key = 'vertices';
-  protected $normalizedVerticesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2NormalizedVertex';
-  protected $normalizedVerticesDataType = 'array';
-  protected $verticesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2Vertex';
-  protected $verticesDataType = 'array';
+	protected $collection_key = 'vertices';
+	protected $normalizedVerticesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2NormalizedVertex';
+	protected $normalizedVerticesDataType = 'array';
+	protected $verticesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2Vertex';
+	protected $verticesDataType = 'array';
 
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2NormalizedVertex
-   */
-  public function setNormalizedVertices($normalizedVertices)
-  {
-    $this->normalizedVertices = $normalizedVertices;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2NormalizedVertex
-   */
-  public function getNormalizedVertices()
-  {
-    return $this->normalizedVertices;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2Vertex
-   */
-  public function setVertices($vertices)
-  {
-    $this->vertices = $vertices;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2Vertex
-   */
-  public function getVertices()
-  {
-    return $this->vertices;
-  }
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2NormalizedVertex
+	 */
+	public function setNormalizedVertices($normalizedVertices)
+	{
+		$this->normalizedVertices = $normalizedVertices;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2NormalizedVertex
+	 */
+	public function getNormalizedVertices()
+	{
+		return $this->normalizedVertices;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2Vertex
+	 */
+	public function setVertices($vertices)
+	{
+		$this->vertices = $vertices;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2Vertex
+	 */
+	public function getVertices()
+	{
+		return $this->vertices;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Monitoring_UptimeCheckIp extends Google_Model
 {
-  public $ipAddress;
-  public $location;
-  public $region;
+	public $ipAddress;
+	public $location;
+	public $region;
 
-  public function setIpAddress($ipAddress)
-  {
-    $this->ipAddress = $ipAddress;
-  }
-  public function getIpAddress()
-  {
-    return $this->ipAddress;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
+	public function setIpAddress($ipAddress)
+	{
+		$this->ipAddress = $ipAddress;
+	}
+	public function getIpAddress()
+	{
+		return $this->ipAddress;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
 }

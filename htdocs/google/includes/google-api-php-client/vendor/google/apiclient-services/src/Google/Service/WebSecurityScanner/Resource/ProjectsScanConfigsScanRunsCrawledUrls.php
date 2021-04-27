@@ -25,27 +25,27 @@
  */
 class Google_Service_WebSecurityScanner_Resource_ProjectsScanConfigsScanRunsCrawledUrls extends Google_Service_Resource
 {
-  /**
-   * List CrawledUrls under a given ScanRun.
-   * (crawledUrls.listProjectsScanConfigsScanRunsCrawledUrls)
-   *
-   * @param string $parent Required. The parent resource name, which should be a
-   * scan run resource name in the format
-   * 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string pageToken A token identifying a page of results to be
-   * returned. This should be a `next_page_token` value returned from a previous
-   * List request. If unspecified, the first page of results is returned.
-   * @opt_param int pageSize The maximum number of CrawledUrls to return, can be
-   * limited by server. If not specified or not positive, the implementation will
-   * select a reasonable value.
-   * @return Google_Service_WebSecurityScanner_ListCrawledUrlsResponse
-   */
-  public function listProjectsScanConfigsScanRunsCrawledUrls($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_WebSecurityScanner_ListCrawledUrlsResponse");
-  }
+	/**
+	 * List CrawledUrls under a given ScanRun.
+	 * (crawledUrls.listProjectsScanConfigsScanRunsCrawledUrls)
+	 *
+	 * @param string $parent Required. The parent resource name, which should be a
+	 *                       scan run resource name in the format
+	 *                       'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string pageToken A token identifying a page of results to be
+	 * returned. This should be a `next_page_token` value returned from a previous
+	 * List request. If unspecified, the first page of results is returned.
+	 * @opt_param int pageSize The maximum number of CrawledUrls to return, can be
+	 * limited by server. If not specified or not positive, the implementation will
+	 * select a reasonable value.
+	 * @return Google_Service_WebSecurityScanner_ListCrawledUrlsResponse
+	 */
+	public function listProjectsScanConfigsScanRunsCrawledUrls($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_WebSecurityScanner_ListCrawledUrlsResponse");
+	}
 }

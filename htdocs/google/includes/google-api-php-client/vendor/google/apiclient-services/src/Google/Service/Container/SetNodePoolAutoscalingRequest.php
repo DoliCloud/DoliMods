@@ -17,66 +17,66 @@
 
 class Google_Service_Container_SetNodePoolAutoscalingRequest extends Google_Model
 {
-  protected $autoscalingType = 'Google_Service_Container_NodePoolAutoscaling';
-  protected $autoscalingDataType = '';
-  public $clusterId;
-  public $name;
-  public $nodePoolId;
-  public $projectId;
-  public $zone;
+	protected $autoscalingType = 'Google_Service_Container_NodePoolAutoscaling';
+	protected $autoscalingDataType = '';
+	public $clusterId;
+	public $name;
+	public $nodePoolId;
+	public $projectId;
+	public $zone;
 
-  /**
-   * @param Google_Service_Container_NodePoolAutoscaling
-   */
-  public function setAutoscaling(Google_Service_Container_NodePoolAutoscaling $autoscaling)
-  {
-    $this->autoscaling = $autoscaling;
-  }
-  /**
-   * @return Google_Service_Container_NodePoolAutoscaling
-   */
-  public function getAutoscaling()
-  {
-    return $this->autoscaling;
-  }
-  public function setClusterId($clusterId)
-  {
-    $this->clusterId = $clusterId;
-  }
-  public function getClusterId()
-  {
-    return $this->clusterId;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNodePoolId($nodePoolId)
-  {
-    $this->nodePoolId = $nodePoolId;
-  }
-  public function getNodePoolId()
-  {
-    return $this->nodePoolId;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setZone($zone)
-  {
-    $this->zone = $zone;
-  }
-  public function getZone()
-  {
-    return $this->zone;
-  }
+	/**
+	 * @param Google_Service_Container_NodePoolAutoscaling
+	 */
+	public function setAutoscaling(Google_Service_Container_NodePoolAutoscaling $autoscaling)
+	{
+		$this->autoscaling = $autoscaling;
+	}
+	/**
+	 * @return Google_Service_Container_NodePoolAutoscaling
+	 */
+	public function getAutoscaling()
+	{
+		return $this->autoscaling;
+	}
+	public function setClusterId($clusterId)
+	{
+		$this->clusterId = $clusterId;
+	}
+	public function getClusterId()
+	{
+		return $this->clusterId;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNodePoolId($nodePoolId)
+	{
+		$this->nodePoolId = $nodePoolId;
+	}
+	public function getNodePoolId()
+	{
+		return $this->nodePoolId;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setZone($zone)
+	{
+		$this->zone = $zone;
+	}
+	public function getZone()
+	{
+		return $this->zone;
+	}
 }

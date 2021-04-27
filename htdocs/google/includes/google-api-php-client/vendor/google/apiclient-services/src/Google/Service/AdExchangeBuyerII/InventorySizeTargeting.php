@@ -17,38 +17,38 @@
 
 class Google_Service_AdExchangeBuyerII_InventorySizeTargeting extends Google_Collection
 {
-  protected $collection_key = 'targetedInventorySizes';
-  protected $excludedInventorySizesType = 'Google_Service_AdExchangeBuyerII_AdSize';
-  protected $excludedInventorySizesDataType = 'array';
-  protected $targetedInventorySizesType = 'Google_Service_AdExchangeBuyerII_AdSize';
-  protected $targetedInventorySizesDataType = 'array';
+	protected $collection_key = 'targetedInventorySizes';
+	protected $excludedInventorySizesType = 'Google_Service_AdExchangeBuyerII_AdSize';
+	protected $excludedInventorySizesDataType = 'array';
+	protected $targetedInventorySizesType = 'Google_Service_AdExchangeBuyerII_AdSize';
+	protected $targetedInventorySizesDataType = 'array';
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_AdSize
-   */
-  public function setExcludedInventorySizes($excludedInventorySizes)
-  {
-    $this->excludedInventorySizes = $excludedInventorySizes;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_AdSize
-   */
-  public function getExcludedInventorySizes()
-  {
-    return $this->excludedInventorySizes;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_AdSize
-   */
-  public function setTargetedInventorySizes($targetedInventorySizes)
-  {
-    $this->targetedInventorySizes = $targetedInventorySizes;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_AdSize
-   */
-  public function getTargetedInventorySizes()
-  {
-    return $this->targetedInventorySizes;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_AdSize
+	 */
+	public function setExcludedInventorySizes($excludedInventorySizes)
+	{
+		$this->excludedInventorySizes = $excludedInventorySizes;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_AdSize
+	 */
+	public function getExcludedInventorySizes()
+	{
+		return $this->excludedInventorySizes;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_AdSize
+	 */
+	public function setTargetedInventorySizes($targetedInventorySizes)
+	{
+		$this->targetedInventorySizes = $targetedInventorySizes;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_AdSize
+	 */
+	public function getTargetedInventorySizes()
+	{
+		return $this->targetedInventorySizes;
+	}
 }

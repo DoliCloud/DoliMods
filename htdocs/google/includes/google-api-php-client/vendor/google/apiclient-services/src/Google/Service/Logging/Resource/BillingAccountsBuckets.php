@@ -25,22 +25,22 @@
  */
 class Google_Service_Logging_Resource_BillingAccountsBuckets extends Google_Service_Resource
 {
-  /**
-   * Gets a bucket (Beta). (buckets.get)
-   *
-   * @param string $name Required. The resource name of the bucket:
-   * "projects/[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]"
-   * "organizations/[ORGANIZATION_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]"
-   * "billingAccounts/[BILLING_ACCOUNT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET
-   * _ID]" "folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]"
-   * Example: "projects/my-project-id/locations/my-location/buckets/my-bucket-id".
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Logging_LogBucket
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Logging_LogBucket");
-  }
+	/**
+	 * Gets a bucket (Beta). (buckets.get)
+	 *
+	 * @param string $name Required. The resource name of the bucket:
+	 *                     "projects/[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]"
+	 *                     "organizations/[ORGANIZATION_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]"
+	 *                     "billingAccounts/[BILLING_ACCOUNT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET
+	 *                     _ID]" "folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]"
+	 *                     Example: "projects/my-project-id/locations/my-location/buckets/my-bucket-id".
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Logging_LogBucket
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Logging_LogBucket");
+	}
 }

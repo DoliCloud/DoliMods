@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Certificate extends Google_Collection
 {
-  protected $collection_key = 'certInfo';
-  protected $certInfoType = 'Google_Service_Apigee_GoogleCloudApigeeV1CertInfo';
-  protected $certInfoDataType = 'array';
+	protected $collection_key = 'certInfo';
+	protected $certInfoType = 'Google_Service_Apigee_GoogleCloudApigeeV1CertInfo';
+	protected $certInfoDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1CertInfo
-   */
-  public function setCertInfo($certInfo)
-  {
-    $this->certInfo = $certInfo;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1CertInfo
-   */
-  public function getCertInfo()
-  {
-    return $this->certInfo;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1CertInfo
+	 */
+	public function setCertInfo($certInfo)
+	{
+		$this->certInfo = $certInfo;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1CertInfo
+	 */
+	public function getCertInfo()
+	{
+		return $this->certInfo;
+	}
 }

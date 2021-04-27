@@ -17,32 +17,32 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3Impression extends Google_Model
 {
-  public $gameObjectType;
-  public $impressionType;
-  public $locationName;
+	public $gameObjectType;
+	public $impressionType;
+	public $locationName;
 
-  public function setGameObjectType($gameObjectType)
-  {
-    $this->gameObjectType = $gameObjectType;
-  }
-  public function getGameObjectType()
-  {
-    return $this->gameObjectType;
-  }
-  public function setImpressionType($impressionType)
-  {
-    $this->impressionType = $impressionType;
-  }
-  public function getImpressionType()
-  {
-    return $this->impressionType;
-  }
-  public function setLocationName($locationName)
-  {
-    $this->locationName = $locationName;
-  }
-  public function getLocationName()
-  {
-    return $this->locationName;
-  }
+	public function setGameObjectType($gameObjectType)
+	{
+		$this->gameObjectType = $gameObjectType;
+	}
+	public function getGameObjectType()
+	{
+		return $this->gameObjectType;
+	}
+	public function setImpressionType($impressionType)
+	{
+		$this->impressionType = $impressionType;
+	}
+	public function getImpressionType()
+	{
+		return $this->impressionType;
+	}
+	public function setLocationName($locationName)
+	{
+		$this->locationName = $locationName;
+	}
+	public function getLocationName()
+	{
+		return $this->locationName;
+	}
 }

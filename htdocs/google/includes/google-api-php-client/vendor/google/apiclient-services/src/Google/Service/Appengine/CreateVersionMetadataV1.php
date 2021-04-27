@@ -17,14 +17,14 @@
 
 class Google_Service_Appengine_CreateVersionMetadataV1 extends Google_Model
 {
-  public $cloudBuildId;
+	public $cloudBuildId;
 
-  public function setCloudBuildId($cloudBuildId)
-  {
-    $this->cloudBuildId = $cloudBuildId;
-  }
-  public function getCloudBuildId()
-  {
-    return $this->cloudBuildId;
-  }
+	public function setCloudBuildId($cloudBuildId)
+	{
+		$this->cloudBuildId = $cloudBuildId;
+	}
+	public function getCloudBuildId()
+	{
+		return $this->cloudBuildId;
+	}
 }

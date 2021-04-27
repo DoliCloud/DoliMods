@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_Country extends Google_Model
 {
-  public $countryCode;
-  public $dartId;
-  public $kind;
-  public $name;
-  public $sslEnabled;
+	public $countryCode;
+	public $dartId;
+	public $kind;
+	public $name;
+	public $sslEnabled;
 
-  public function setCountryCode($countryCode)
-  {
-    $this->countryCode = $countryCode;
-  }
-  public function getCountryCode()
-  {
-    return $this->countryCode;
-  }
-  public function setDartId($dartId)
-  {
-    $this->dartId = $dartId;
-  }
-  public function getDartId()
-  {
-    return $this->dartId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSslEnabled($sslEnabled)
-  {
-    $this->sslEnabled = $sslEnabled;
-  }
-  public function getSslEnabled()
-  {
-    return $this->sslEnabled;
-  }
+	public function setCountryCode($countryCode)
+	{
+		$this->countryCode = $countryCode;
+	}
+	public function getCountryCode()
+	{
+		return $this->countryCode;
+	}
+	public function setDartId($dartId)
+	{
+		$this->dartId = $dartId;
+	}
+	public function getDartId()
+	{
+		return $this->dartId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSslEnabled($sslEnabled)
+	{
+		$this->sslEnabled = $sslEnabled;
+	}
+	public function getSslEnabled()
+	{
+		return $this->sslEnabled;
+	}
 }

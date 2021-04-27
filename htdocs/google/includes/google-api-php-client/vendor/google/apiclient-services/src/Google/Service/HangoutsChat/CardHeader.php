@@ -17,41 +17,41 @@
 
 class Google_Service_HangoutsChat_CardHeader extends Google_Model
 {
-  public $imageStyle;
-  public $imageUrl;
-  public $subtitle;
-  public $title;
+	public $imageStyle;
+	public $imageUrl;
+	public $subtitle;
+	public $title;
 
-  public function setImageStyle($imageStyle)
-  {
-    $this->imageStyle = $imageStyle;
-  }
-  public function getImageStyle()
-  {
-    return $this->imageStyle;
-  }
-  public function setImageUrl($imageUrl)
-  {
-    $this->imageUrl = $imageUrl;
-  }
-  public function getImageUrl()
-  {
-    return $this->imageUrl;
-  }
-  public function setSubtitle($subtitle)
-  {
-    $this->subtitle = $subtitle;
-  }
-  public function getSubtitle()
-  {
-    return $this->subtitle;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setImageStyle($imageStyle)
+	{
+		$this->imageStyle = $imageStyle;
+	}
+	public function getImageStyle()
+	{
+		return $this->imageStyle;
+	}
+	public function setImageUrl($imageUrl)
+	{
+		$this->imageUrl = $imageUrl;
+	}
+	public function getImageUrl()
+	{
+		return $this->imageUrl;
+	}
+	public function setSubtitle($subtitle)
+	{
+		$this->subtitle = $subtitle;
+	}
+	public function getSubtitle()
+	{
+		return $this->subtitle;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

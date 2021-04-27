@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_TargetHttpsProxiesScopedList extends Google_Collection
 {
-  protected $collection_key = 'targetHttpsProxies';
-  protected $targetHttpsProxiesType = 'Google_Service_Compute_TargetHttpsProxy';
-  protected $targetHttpsProxiesDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_TargetHttpsProxiesScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'targetHttpsProxies';
+	protected $targetHttpsProxiesType = 'Google_Service_Compute_TargetHttpsProxy';
+	protected $targetHttpsProxiesDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_TargetHttpsProxiesScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_TargetHttpsProxy
-   */
-  public function setTargetHttpsProxies($targetHttpsProxies)
-  {
-    $this->targetHttpsProxies = $targetHttpsProxies;
-  }
-  /**
-   * @return Google_Service_Compute_TargetHttpsProxy
-   */
-  public function getTargetHttpsProxies()
-  {
-    return $this->targetHttpsProxies;
-  }
-  /**
-   * @param Google_Service_Compute_TargetHttpsProxiesScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_TargetHttpsProxiesScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_TargetHttpsProxiesScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_TargetHttpsProxy
+	 */
+	public function setTargetHttpsProxies($targetHttpsProxies)
+	{
+		$this->targetHttpsProxies = $targetHttpsProxies;
+	}
+	/**
+	 * @return Google_Service_Compute_TargetHttpsProxy
+	 */
+	public function getTargetHttpsProxies()
+	{
+		return $this->targetHttpsProxies;
+	}
+	/**
+	 * @param Google_Service_Compute_TargetHttpsProxiesScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_TargetHttpsProxiesScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_TargetHttpsProxiesScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

@@ -17,58 +17,58 @@
 
 class Google_Service_Sheets_HistogramChartSpec extends Google_Collection
 {
-  protected $collection_key = 'series';
-  public $bucketSize;
-  public $legendPosition;
-  public $outlierPercentile;
-  protected $seriesType = 'Google_Service_Sheets_HistogramSeries';
-  protected $seriesDataType = 'array';
-  public $showItemDividers;
+	protected $collection_key = 'series';
+	public $bucketSize;
+	public $legendPosition;
+	public $outlierPercentile;
+	protected $seriesType = 'Google_Service_Sheets_HistogramSeries';
+	protected $seriesDataType = 'array';
+	public $showItemDividers;
 
-  public function setBucketSize($bucketSize)
-  {
-    $this->bucketSize = $bucketSize;
-  }
-  public function getBucketSize()
-  {
-    return $this->bucketSize;
-  }
-  public function setLegendPosition($legendPosition)
-  {
-    $this->legendPosition = $legendPosition;
-  }
-  public function getLegendPosition()
-  {
-    return $this->legendPosition;
-  }
-  public function setOutlierPercentile($outlierPercentile)
-  {
-    $this->outlierPercentile = $outlierPercentile;
-  }
-  public function getOutlierPercentile()
-  {
-    return $this->outlierPercentile;
-  }
-  /**
-   * @param Google_Service_Sheets_HistogramSeries
-   */
-  public function setSeries($series)
-  {
-    $this->series = $series;
-  }
-  /**
-   * @return Google_Service_Sheets_HistogramSeries
-   */
-  public function getSeries()
-  {
-    return $this->series;
-  }
-  public function setShowItemDividers($showItemDividers)
-  {
-    $this->showItemDividers = $showItemDividers;
-  }
-  public function getShowItemDividers()
-  {
-    return $this->showItemDividers;
-  }
+	public function setBucketSize($bucketSize)
+	{
+		$this->bucketSize = $bucketSize;
+	}
+	public function getBucketSize()
+	{
+		return $this->bucketSize;
+	}
+	public function setLegendPosition($legendPosition)
+	{
+		$this->legendPosition = $legendPosition;
+	}
+	public function getLegendPosition()
+	{
+		return $this->legendPosition;
+	}
+	public function setOutlierPercentile($outlierPercentile)
+	{
+		$this->outlierPercentile = $outlierPercentile;
+	}
+	public function getOutlierPercentile()
+	{
+		return $this->outlierPercentile;
+	}
+	/**
+	 * @param Google_Service_Sheets_HistogramSeries
+	 */
+	public function setSeries($series)
+	{
+		$this->series = $series;
+	}
+	/**
+	 * @return Google_Service_Sheets_HistogramSeries
+	 */
+	public function getSeries()
+	{
+		return $this->series;
+	}
+	public function setShowItemDividers($showItemDividers)
+	{
+		$this->showItemDividers = $showItemDividers;
+	}
+	public function getShowItemDividers()
+	{
+		return $this->showItemDividers;
+	}
 }

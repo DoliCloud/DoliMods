@@ -17,49 +17,49 @@
 
 class Google_Service_CloudRun_ConfigurationStatus extends Google_Collection
 {
-  protected $collection_key = 'conditions';
-  protected $conditionsType = 'Google_Service_CloudRun_GoogleCloudRunV1Condition';
-  protected $conditionsDataType = 'array';
-  public $latestCreatedRevisionName;
-  public $latestReadyRevisionName;
-  public $observedGeneration;
+	protected $collection_key = 'conditions';
+	protected $conditionsType = 'Google_Service_CloudRun_GoogleCloudRunV1Condition';
+	protected $conditionsDataType = 'array';
+	public $latestCreatedRevisionName;
+	public $latestReadyRevisionName;
+	public $observedGeneration;
 
-  /**
-   * @param Google_Service_CloudRun_GoogleCloudRunV1Condition
-   */
-  public function setConditions($conditions)
-  {
-    $this->conditions = $conditions;
-  }
-  /**
-   * @return Google_Service_CloudRun_GoogleCloudRunV1Condition
-   */
-  public function getConditions()
-  {
-    return $this->conditions;
-  }
-  public function setLatestCreatedRevisionName($latestCreatedRevisionName)
-  {
-    $this->latestCreatedRevisionName = $latestCreatedRevisionName;
-  }
-  public function getLatestCreatedRevisionName()
-  {
-    return $this->latestCreatedRevisionName;
-  }
-  public function setLatestReadyRevisionName($latestReadyRevisionName)
-  {
-    $this->latestReadyRevisionName = $latestReadyRevisionName;
-  }
-  public function getLatestReadyRevisionName()
-  {
-    return $this->latestReadyRevisionName;
-  }
-  public function setObservedGeneration($observedGeneration)
-  {
-    $this->observedGeneration = $observedGeneration;
-  }
-  public function getObservedGeneration()
-  {
-    return $this->observedGeneration;
-  }
+	/**
+	 * @param Google_Service_CloudRun_GoogleCloudRunV1Condition
+	 */
+	public function setConditions($conditions)
+	{
+		$this->conditions = $conditions;
+	}
+	/**
+	 * @return Google_Service_CloudRun_GoogleCloudRunV1Condition
+	 */
+	public function getConditions()
+	{
+		return $this->conditions;
+	}
+	public function setLatestCreatedRevisionName($latestCreatedRevisionName)
+	{
+		$this->latestCreatedRevisionName = $latestCreatedRevisionName;
+	}
+	public function getLatestCreatedRevisionName()
+	{
+		return $this->latestCreatedRevisionName;
+	}
+	public function setLatestReadyRevisionName($latestReadyRevisionName)
+	{
+		$this->latestReadyRevisionName = $latestReadyRevisionName;
+	}
+	public function getLatestReadyRevisionName()
+	{
+		return $this->latestReadyRevisionName;
+	}
+	public function setObservedGeneration($observedGeneration)
+	{
+		$this->observedGeneration = $observedGeneration;
+	}
+	public function getObservedGeneration()
+	{
+		return $this->observedGeneration;
+	}
 }

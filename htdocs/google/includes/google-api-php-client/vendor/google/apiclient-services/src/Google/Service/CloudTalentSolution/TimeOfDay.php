@@ -17,41 +17,41 @@
 
 class Google_Service_CloudTalentSolution_TimeOfDay extends Google_Model
 {
-  public $hours;
-  public $minutes;
-  public $nanos;
-  public $seconds;
+	public $hours;
+	public $minutes;
+	public $nanos;
+	public $seconds;
 
-  public function setHours($hours)
-  {
-    $this->hours = $hours;
-  }
-  public function getHours()
-  {
-    return $this->hours;
-  }
-  public function setMinutes($minutes)
-  {
-    $this->minutes = $minutes;
-  }
-  public function getMinutes()
-  {
-    return $this->minutes;
-  }
-  public function setNanos($nanos)
-  {
-    $this->nanos = $nanos;
-  }
-  public function getNanos()
-  {
-    return $this->nanos;
-  }
-  public function setSeconds($seconds)
-  {
-    $this->seconds = $seconds;
-  }
-  public function getSeconds()
-  {
-    return $this->seconds;
-  }
+	public function setHours($hours)
+	{
+		$this->hours = $hours;
+	}
+	public function getHours()
+	{
+		return $this->hours;
+	}
+	public function setMinutes($minutes)
+	{
+		$this->minutes = $minutes;
+	}
+	public function getMinutes()
+	{
+		return $this->minutes;
+	}
+	public function setNanos($nanos)
+	{
+		$this->nanos = $nanos;
+	}
+	public function getNanos()
+	{
+		return $this->nanos;
+	}
+	public function setSeconds($seconds)
+	{
+		$this->seconds = $seconds;
+	}
+	public function getSeconds()
+	{
+		return $this->seconds;
+	}
 }

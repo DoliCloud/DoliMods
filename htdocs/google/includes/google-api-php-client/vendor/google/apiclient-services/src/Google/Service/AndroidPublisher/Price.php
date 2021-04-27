@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidPublisher_Price extends Google_Model
 {
-  public $currency;
-  public $priceMicros;
+	public $currency;
+	public $priceMicros;
 
-  public function setCurrency($currency)
-  {
-    $this->currency = $currency;
-  }
-  public function getCurrency()
-  {
-    return $this->currency;
-  }
-  public function setPriceMicros($priceMicros)
-  {
-    $this->priceMicros = $priceMicros;
-  }
-  public function getPriceMicros()
-  {
-    return $this->priceMicros;
-  }
+	public function setCurrency($currency)
+	{
+		$this->currency = $currency;
+	}
+	public function getCurrency()
+	{
+		return $this->currency;
+	}
+	public function setPriceMicros($priceMicros)
+	{
+		$this->priceMicros = $priceMicros;
+	}
+	public function getPriceMicros()
+	{
+		return $this->priceMicros;
+	}
 }

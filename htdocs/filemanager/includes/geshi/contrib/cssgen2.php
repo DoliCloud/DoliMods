@@ -33,13 +33,13 @@ $geshi = new GeSHi;
 
 $languages = array();
 if ($handle = opendir($geshi->language_path)) {
-    while (($file = readdir($handle)) !== false) {
-        $pos = strpos($file, '.');
-        if ($pos > 0 && substr($file, $pos) == '.php') {
-            $languages[] = substr($file, 0, $pos);
-        }
-    }
-    closedir($handle);
+	while (($file = readdir($handle)) !== false) {
+		$pos = strpos($file, '.');
+		if ($pos > 0 && substr($file, $pos) == '.php') {
+			$languages[] = substr($file, 0, $pos);
+		}
+	}
+	closedir($handle);
 }
 sort($languages);
 
@@ -47,13 +47,13 @@ header('Content-Type: application/octet-stream');
 header('Content-Disposition: attachment; filename="geshi.css"');
 
 echo "/**\n".
-     " * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann\n" .
-     " * (http://qbnz.com/highlighter/ and http://geshi.org/)\n".
-     " */\n";
+	 " * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann\n" .
+	 " * (http://qbnz.com/highlighter/ and http://geshi.org/)\n".
+	 " */\n";
 
 foreach ($languages as $language) {
-    $geshi->set_language($language);
-    // note: the false argument is required for stylesheet generators, see API documentation
-    $css = $geshi->get_stylesheet(false);
-    echo preg_replace('/^\/\*\*.*?\*\//s', '', $css);
+	$geshi->set_language($language);
+	// note: the false argument is required for stylesheet generators, see API documentation
+	$css = $geshi->get_stylesheet(false);
+	echo preg_replace('/^\/\*\*.*?\*\//s', '', $css);
 }

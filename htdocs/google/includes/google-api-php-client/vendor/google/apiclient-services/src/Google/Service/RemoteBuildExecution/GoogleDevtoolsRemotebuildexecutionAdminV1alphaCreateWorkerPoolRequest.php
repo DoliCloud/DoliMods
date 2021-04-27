@@ -17,39 +17,39 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaCreateWorkerPoolRequest extends Google_Model
 {
-  public $parent;
-  public $poolId;
-  protected $workerPoolType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool';
-  protected $workerPoolDataType = '';
+	public $parent;
+	public $poolId;
+	protected $workerPoolType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool';
+	protected $workerPoolDataType = '';
 
-  public function setParent($parent)
-  {
-    $this->parent = $parent;
-  }
-  public function getParent()
-  {
-    return $this->parent;
-  }
-  public function setPoolId($poolId)
-  {
-    $this->poolId = $poolId;
-  }
-  public function getPoolId()
-  {
-    return $this->poolId;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool
-   */
-  public function setWorkerPool(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool $workerPool)
-  {
-    $this->workerPool = $workerPool;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool
-   */
-  public function getWorkerPool()
-  {
-    return $this->workerPool;
-  }
+	public function setParent($parent)
+	{
+		$this->parent = $parent;
+	}
+	public function getParent()
+	{
+		return $this->parent;
+	}
+	public function setPoolId($poolId)
+	{
+		$this->poolId = $poolId;
+	}
+	public function getPoolId()
+	{
+		return $this->poolId;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool
+	 */
+	public function setWorkerPool(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool $workerPool)
+	{
+		$this->workerPool = $workerPool;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool
+	 */
+	public function getWorkerPool()
+	{
+		return $this->workerPool;
+	}
 }

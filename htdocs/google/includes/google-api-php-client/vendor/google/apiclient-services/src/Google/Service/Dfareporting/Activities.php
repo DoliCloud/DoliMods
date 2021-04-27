@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_Activities extends Google_Collection
 {
-  protected $collection_key = 'metricNames';
-  protected $filtersType = 'Google_Service_Dfareporting_DimensionValue';
-  protected $filtersDataType = 'array';
-  public $kind;
-  public $metricNames;
+	protected $collection_key = 'metricNames';
+	protected $filtersType = 'Google_Service_Dfareporting_DimensionValue';
+	protected $filtersDataType = 'array';
+	public $kind;
+	public $metricNames;
 
-  /**
-   * @param Google_Service_Dfareporting_DimensionValue
-   */
-  public function setFilters($filters)
-  {
-    $this->filters = $filters;
-  }
-  /**
-   * @return Google_Service_Dfareporting_DimensionValue
-   */
-  public function getFilters()
-  {
-    return $this->filters;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setMetricNames($metricNames)
-  {
-    $this->metricNames = $metricNames;
-  }
-  public function getMetricNames()
-  {
-    return $this->metricNames;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_DimensionValue
+	 */
+	public function setFilters($filters)
+	{
+		$this->filters = $filters;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_DimensionValue
+	 */
+	public function getFilters()
+	{
+		return $this->filters;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setMetricNames($metricNames)
+	{
+		$this->metricNames = $metricNames;
+	}
+	public function getMetricNames()
+	{
+		return $this->metricNames;
+	}
 }

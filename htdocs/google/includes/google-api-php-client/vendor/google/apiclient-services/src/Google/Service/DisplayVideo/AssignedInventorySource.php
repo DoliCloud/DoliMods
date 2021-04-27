@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_AssignedInventorySource extends Google_Model
 {
-  public $assignedInventorySourceId;
-  public $inventorySourceId;
-  public $name;
+	public $assignedInventorySourceId;
+	public $inventorySourceId;
+	public $name;
 
-  public function setAssignedInventorySourceId($assignedInventorySourceId)
-  {
-    $this->assignedInventorySourceId = $assignedInventorySourceId;
-  }
-  public function getAssignedInventorySourceId()
-  {
-    return $this->assignedInventorySourceId;
-  }
-  public function setInventorySourceId($inventorySourceId)
-  {
-    $this->inventorySourceId = $inventorySourceId;
-  }
-  public function getInventorySourceId()
-  {
-    return $this->inventorySourceId;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setAssignedInventorySourceId($assignedInventorySourceId)
+	{
+		$this->assignedInventorySourceId = $assignedInventorySourceId;
+	}
+	public function getAssignedInventorySourceId()
+	{
+		return $this->assignedInventorySourceId;
+	}
+	public function setInventorySourceId($inventorySourceId)
+	{
+		$this->inventorySourceId = $inventorySourceId;
+	}
+	public function getInventorySourceId()
+	{
+		return $this->inventorySourceId;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_HomeGraphService_DeviceNames extends Google_Collection
 {
-  protected $collection_key = 'nicknames';
-  public $defaultNames;
-  public $name;
-  public $nicknames;
+	protected $collection_key = 'nicknames';
+	public $defaultNames;
+	public $name;
+	public $nicknames;
 
-  public function setDefaultNames($defaultNames)
-  {
-    $this->defaultNames = $defaultNames;
-  }
-  public function getDefaultNames()
-  {
-    return $this->defaultNames;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNicknames($nicknames)
-  {
-    $this->nicknames = $nicknames;
-  }
-  public function getNicknames()
-  {
-    return $this->nicknames;
-  }
+	public function setDefaultNames($defaultNames)
+	{
+		$this->defaultNames = $defaultNames;
+	}
+	public function getDefaultNames()
+	{
+		return $this->defaultNames;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNicknames($nicknames)
+	{
+		$this->nicknames = $nicknames;
+	}
+	public function getNicknames()
+	{
+		return $this->nicknames;
+	}
 }

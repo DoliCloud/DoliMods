@@ -17,59 +17,59 @@
 
 class Google_Service_Partners_ExamStatus extends Google_Model
 {
-  public $examType;
-  public $expiration;
-  public $lastPassed;
-  public $passed;
-  public $taken;
-  public $warning;
+	public $examType;
+	public $expiration;
+	public $lastPassed;
+	public $passed;
+	public $taken;
+	public $warning;
 
-  public function setExamType($examType)
-  {
-    $this->examType = $examType;
-  }
-  public function getExamType()
-  {
-    return $this->examType;
-  }
-  public function setExpiration($expiration)
-  {
-    $this->expiration = $expiration;
-  }
-  public function getExpiration()
-  {
-    return $this->expiration;
-  }
-  public function setLastPassed($lastPassed)
-  {
-    $this->lastPassed = $lastPassed;
-  }
-  public function getLastPassed()
-  {
-    return $this->lastPassed;
-  }
-  public function setPassed($passed)
-  {
-    $this->passed = $passed;
-  }
-  public function getPassed()
-  {
-    return $this->passed;
-  }
-  public function setTaken($taken)
-  {
-    $this->taken = $taken;
-  }
-  public function getTaken()
-  {
-    return $this->taken;
-  }
-  public function setWarning($warning)
-  {
-    $this->warning = $warning;
-  }
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	public function setExamType($examType)
+	{
+		$this->examType = $examType;
+	}
+	public function getExamType()
+	{
+		return $this->examType;
+	}
+	public function setExpiration($expiration)
+	{
+		$this->expiration = $expiration;
+	}
+	public function getExpiration()
+	{
+		return $this->expiration;
+	}
+	public function setLastPassed($lastPassed)
+	{
+		$this->lastPassed = $lastPassed;
+	}
+	public function getLastPassed()
+	{
+		return $this->lastPassed;
+	}
+	public function setPassed($passed)
+	{
+		$this->passed = $passed;
+	}
+	public function getPassed()
+	{
+		return $this->passed;
+	}
+	public function setTaken($taken)
+	{
+		$this->taken = $taken;
+	}
+	public function getTaken()
+	{
+		return $this->taken;
+	}
+	public function setWarning($warning)
+	{
+		$this->warning = $warning;
+	}
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

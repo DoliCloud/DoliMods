@@ -17,37 +17,37 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta1ProcessDocumentResponse extends Google_Model
 {
-  protected $inputConfigType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig';
-  protected $inputConfigDataType = '';
-  protected $outputConfigType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1OutputConfig';
-  protected $outputConfigDataType = '';
+	protected $inputConfigType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig';
+	protected $inputConfigDataType = '';
+	protected $outputConfigType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1OutputConfig';
+	protected $outputConfigDataType = '';
 
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig
-   */
-  public function setInputConfig(Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig $inputConfig)
-  {
-    $this->inputConfig = $inputConfig;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig
-   */
-  public function getInputConfig()
-  {
-    return $this->inputConfig;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1OutputConfig
-   */
-  public function setOutputConfig(Google_Service_Document_GoogleCloudDocumentaiV1beta1OutputConfig $outputConfig)
-  {
-    $this->outputConfig = $outputConfig;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1OutputConfig
-   */
-  public function getOutputConfig()
-  {
-    return $this->outputConfig;
-  }
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig
+	 */
+	public function setInputConfig(Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig $inputConfig)
+	{
+		$this->inputConfig = $inputConfig;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1InputConfig
+	 */
+	public function getInputConfig()
+	{
+		return $this->inputConfig;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1OutputConfig
+	 */
+	public function setOutputConfig(Google_Service_Document_GoogleCloudDocumentaiV1beta1OutputConfig $outputConfig)
+	{
+		$this->outputConfig = $outputConfig;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1OutputConfig
+	 */
+	public function getOutputConfig()
+	{
+		return $this->outputConfig;
+	}
 }

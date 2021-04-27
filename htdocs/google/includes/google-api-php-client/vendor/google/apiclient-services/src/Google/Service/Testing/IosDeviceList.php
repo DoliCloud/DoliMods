@@ -17,22 +17,22 @@
 
 class Google_Service_Testing_IosDeviceList extends Google_Collection
 {
-  protected $collection_key = 'iosDevices';
-  protected $iosDevicesType = 'Google_Service_Testing_IosDevice';
-  protected $iosDevicesDataType = 'array';
+	protected $collection_key = 'iosDevices';
+	protected $iosDevicesType = 'Google_Service_Testing_IosDevice';
+	protected $iosDevicesDataType = 'array';
 
-  /**
-   * @param Google_Service_Testing_IosDevice
-   */
-  public function setIosDevices($iosDevices)
-  {
-    $this->iosDevices = $iosDevices;
-  }
-  /**
-   * @return Google_Service_Testing_IosDevice
-   */
-  public function getIosDevices()
-  {
-    return $this->iosDevices;
-  }
+	/**
+	 * @param Google_Service_Testing_IosDevice
+	 */
+	public function setIosDevices($iosDevices)
+	{
+		$this->iosDevices = $iosDevices;
+	}
+	/**
+	 * @return Google_Service_Testing_IosDevice
+	 */
+	public function getIosDevices()
+	{
+		return $this->iosDevices;
+	}
 }

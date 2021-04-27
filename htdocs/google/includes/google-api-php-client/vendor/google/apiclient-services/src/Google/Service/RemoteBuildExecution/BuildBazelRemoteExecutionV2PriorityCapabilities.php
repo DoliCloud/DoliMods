@@ -17,22 +17,22 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities extends Google_Collection
 {
-  protected $collection_key = 'priorities';
-  protected $prioritiesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilitiesPriorityRange';
-  protected $prioritiesDataType = 'array';
+	protected $collection_key = 'priorities';
+	protected $prioritiesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilitiesPriorityRange';
+	protected $prioritiesDataType = 'array';
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilitiesPriorityRange
-   */
-  public function setPriorities($priorities)
-  {
-    $this->priorities = $priorities;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilitiesPriorityRange
-   */
-  public function getPriorities()
-  {
-    return $this->priorities;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilitiesPriorityRange
+	 */
+	public function setPriorities($priorities)
+	{
+		$this->priorities = $priorities;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilitiesPriorityRange
+	 */
+	public function getPriorities()
+	{
+		return $this->priorities;
+	}
 }

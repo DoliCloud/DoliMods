@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceManagement_Backend extends Google_Collection
 {
-  protected $collection_key = 'rules';
-  protected $rulesType = 'Google_Service_ServiceManagement_BackendRule';
-  protected $rulesDataType = 'array';
+	protected $collection_key = 'rules';
+	protected $rulesType = 'Google_Service_ServiceManagement_BackendRule';
+	protected $rulesDataType = 'array';
 
-  /**
-   * @param Google_Service_ServiceManagement_BackendRule
-   */
-  public function setRules($rules)
-  {
-    $this->rules = $rules;
-  }
-  /**
-   * @return Google_Service_ServiceManagement_BackendRule
-   */
-  public function getRules()
-  {
-    return $this->rules;
-  }
+	/**
+	 * @param Google_Service_ServiceManagement_BackendRule
+	 */
+	public function setRules($rules)
+	{
+		$this->rules = $rules;
+	}
+	/**
+	 * @return Google_Service_ServiceManagement_BackendRule
+	 */
+	public function getRules()
+	{
+		return $this->rules;
+	}
 }

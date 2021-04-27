@@ -17,30 +17,30 @@
 
 class Google_Service_TagManager_PublishContainerVersionResponse extends Google_Model
 {
-  public $compilerError;
-  protected $containerVersionType = 'Google_Service_TagManager_ContainerVersion';
-  protected $containerVersionDataType = '';
+	public $compilerError;
+	protected $containerVersionType = 'Google_Service_TagManager_ContainerVersion';
+	protected $containerVersionDataType = '';
 
-  public function setCompilerError($compilerError)
-  {
-    $this->compilerError = $compilerError;
-  }
-  public function getCompilerError()
-  {
-    return $this->compilerError;
-  }
-  /**
-   * @param Google_Service_TagManager_ContainerVersion
-   */
-  public function setContainerVersion(Google_Service_TagManager_ContainerVersion $containerVersion)
-  {
-    $this->containerVersion = $containerVersion;
-  }
-  /**
-   * @return Google_Service_TagManager_ContainerVersion
-   */
-  public function getContainerVersion()
-  {
-    return $this->containerVersion;
-  }
+	public function setCompilerError($compilerError)
+	{
+		$this->compilerError = $compilerError;
+	}
+	public function getCompilerError()
+	{
+		return $this->compilerError;
+	}
+	/**
+	 * @param Google_Service_TagManager_ContainerVersion
+	 */
+	public function setContainerVersion(Google_Service_TagManager_ContainerVersion $containerVersion)
+	{
+		$this->containerVersion = $containerVersion;
+	}
+	/**
+	 * @return Google_Service_TagManager_ContainerVersion
+	 */
+	public function getContainerVersion()
+	{
+		return $this->containerVersion;
+	}
 }

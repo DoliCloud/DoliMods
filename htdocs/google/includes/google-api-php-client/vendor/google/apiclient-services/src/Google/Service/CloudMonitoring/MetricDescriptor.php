@@ -17,65 +17,65 @@
 
 class Google_Service_CloudMonitoring_MetricDescriptor extends Google_Collection
 {
-  protected $collection_key = 'labels';
-  public $description;
-  protected $labelsType = 'Google_Service_CloudMonitoring_MetricDescriptorLabelDescriptor';
-  protected $labelsDataType = 'array';
-  public $name;
-  public $project;
-  protected $typeDescriptorType = 'Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor';
-  protected $typeDescriptorDataType = '';
+	protected $collection_key = 'labels';
+	public $description;
+	protected $labelsType = 'Google_Service_CloudMonitoring_MetricDescriptorLabelDescriptor';
+	protected $labelsDataType = 'array';
+	public $name;
+	public $project;
+	protected $typeDescriptorType = 'Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor';
+	protected $typeDescriptorDataType = '';
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_CloudMonitoring_MetricDescriptorLabelDescriptor
-   */
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_MetricDescriptorLabelDescriptor
-   */
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setProject($project)
-  {
-    $this->project = $project;
-  }
-  public function getProject()
-  {
-    return $this->project;
-  }
-  /**
-   * @param Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor
-   */
-  public function setTypeDescriptor(Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor $typeDescriptor)
-  {
-    $this->typeDescriptor = $typeDescriptor;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor
-   */
-  public function getTypeDescriptor()
-  {
-    return $this->typeDescriptor;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_CloudMonitoring_MetricDescriptorLabelDescriptor
+	 */
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_MetricDescriptorLabelDescriptor
+	 */
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setProject($project)
+	{
+		$this->project = $project;
+	}
+	public function getProject()
+	{
+		return $this->project;
+	}
+	/**
+	 * @param Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor
+	 */
+	public function setTypeDescriptor(Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor $typeDescriptor)
+	{
+		$this->typeDescriptor = $typeDescriptor;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_MetricDescriptorTypeDescriptor
+	 */
+	public function getTypeDescriptor()
+	{
+		return $this->typeDescriptor;
+	}
 }

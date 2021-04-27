@@ -17,22 +17,22 @@
 
 class Google_Service_Gmail_ListDelegatesResponse extends Google_Collection
 {
-  protected $collection_key = 'delegates';
-  protected $delegatesType = 'Google_Service_Gmail_Delegate';
-  protected $delegatesDataType = 'array';
+	protected $collection_key = 'delegates';
+	protected $delegatesType = 'Google_Service_Gmail_Delegate';
+	protected $delegatesDataType = 'array';
 
-  /**
-   * @param Google_Service_Gmail_Delegate
-   */
-  public function setDelegates($delegates)
-  {
-    $this->delegates = $delegates;
-  }
-  /**
-   * @return Google_Service_Gmail_Delegate
-   */
-  public function getDelegates()
-  {
-    return $this->delegates;
-  }
+	/**
+	 * @param Google_Service_Gmail_Delegate
+	 */
+	public function setDelegates($delegates)
+	{
+		$this->delegates = $delegates;
+	}
+	/**
+	 * @return Google_Service_Gmail_Delegate
+	 */
+	public function getDelegates()
+	{
+		return $this->delegates;
+	}
 }

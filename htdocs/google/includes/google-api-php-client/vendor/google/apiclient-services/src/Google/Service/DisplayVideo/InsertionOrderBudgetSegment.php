@@ -17,48 +17,48 @@
 
 class Google_Service_DisplayVideo_InsertionOrderBudgetSegment extends Google_Model
 {
-  public $budgetAmountMicros;
-  public $campaignBudgetId;
-  protected $dateRangeType = 'Google_Service_DisplayVideo_DateRange';
-  protected $dateRangeDataType = '';
-  public $description;
+	public $budgetAmountMicros;
+	public $campaignBudgetId;
+	protected $dateRangeType = 'Google_Service_DisplayVideo_DateRange';
+	protected $dateRangeDataType = '';
+	public $description;
 
-  public function setBudgetAmountMicros($budgetAmountMicros)
-  {
-    $this->budgetAmountMicros = $budgetAmountMicros;
-  }
-  public function getBudgetAmountMicros()
-  {
-    return $this->budgetAmountMicros;
-  }
-  public function setCampaignBudgetId($campaignBudgetId)
-  {
-    $this->campaignBudgetId = $campaignBudgetId;
-  }
-  public function getCampaignBudgetId()
-  {
-    return $this->campaignBudgetId;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_DateRange
-   */
-  public function setDateRange(Google_Service_DisplayVideo_DateRange $dateRange)
-  {
-    $this->dateRange = $dateRange;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_DateRange
-   */
-  public function getDateRange()
-  {
-    return $this->dateRange;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
+	public function setBudgetAmountMicros($budgetAmountMicros)
+	{
+		$this->budgetAmountMicros = $budgetAmountMicros;
+	}
+	public function getBudgetAmountMicros()
+	{
+		return $this->budgetAmountMicros;
+	}
+	public function setCampaignBudgetId($campaignBudgetId)
+	{
+		$this->campaignBudgetId = $campaignBudgetId;
+	}
+	public function getCampaignBudgetId()
+	{
+		return $this->campaignBudgetId;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_DateRange
+	 */
+	public function setDateRange(Google_Service_DisplayVideo_DateRange $dateRange)
+	{
+		$this->dateRange = $dateRange;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_DateRange
+	 */
+	public function getDateRange()
+	{
+		return $this->dateRange;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
 }

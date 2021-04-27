@@ -17,31 +17,31 @@
 
 class Google_Service_Bigquery_ScriptStatistics extends Google_Collection
 {
-  protected $collection_key = 'stackFrames';
-  public $evaluationKind;
-  protected $stackFramesType = 'Google_Service_Bigquery_ScriptStackFrame';
-  protected $stackFramesDataType = 'array';
+	protected $collection_key = 'stackFrames';
+	public $evaluationKind;
+	protected $stackFramesType = 'Google_Service_Bigquery_ScriptStackFrame';
+	protected $stackFramesDataType = 'array';
 
-  public function setEvaluationKind($evaluationKind)
-  {
-    $this->evaluationKind = $evaluationKind;
-  }
-  public function getEvaluationKind()
-  {
-    return $this->evaluationKind;
-  }
-  /**
-   * @param Google_Service_Bigquery_ScriptStackFrame
-   */
-  public function setStackFrames($stackFrames)
-  {
-    $this->stackFrames = $stackFrames;
-  }
-  /**
-   * @return Google_Service_Bigquery_ScriptStackFrame
-   */
-  public function getStackFrames()
-  {
-    return $this->stackFrames;
-  }
+	public function setEvaluationKind($evaluationKind)
+	{
+		$this->evaluationKind = $evaluationKind;
+	}
+	public function getEvaluationKind()
+	{
+		return $this->evaluationKind;
+	}
+	/**
+	 * @param Google_Service_Bigquery_ScriptStackFrame
+	 */
+	public function setStackFrames($stackFrames)
+	{
+		$this->stackFrames = $stackFrames;
+	}
+	/**
+	 * @return Google_Service_Bigquery_ScriptStackFrame
+	 */
+	public function getStackFrames()
+	{
+		return $this->stackFrames;
+	}
 }

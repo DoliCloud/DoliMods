@@ -17,75 +17,75 @@
 
 class Google_Service_CivicInfo_AdministrationRegion extends Google_Collection
 {
-  protected $collection_key = 'sources';
-  protected $internal_gapi_mappings = array(
-        "localJurisdiction" => "local_jurisdiction",
-  );
-  protected $electionAdministrationBodyType = 'Google_Service_CivicInfo_AdministrativeBody';
-  protected $electionAdministrationBodyDataType = '';
-  public $id;
-  protected $localJurisdictionType = 'Google_Service_CivicInfo_AdministrationRegion';
-  protected $localJurisdictionDataType = '';
-  public $name;
-  protected $sourcesType = 'Google_Service_CivicInfo_Source';
-  protected $sourcesDataType = 'array';
+	protected $collection_key = 'sources';
+	protected $internal_gapi_mappings = array(
+		"localJurisdiction" => "local_jurisdiction",
+	);
+	protected $electionAdministrationBodyType = 'Google_Service_CivicInfo_AdministrativeBody';
+	protected $electionAdministrationBodyDataType = '';
+	public $id;
+	protected $localJurisdictionType = 'Google_Service_CivicInfo_AdministrationRegion';
+	protected $localJurisdictionDataType = '';
+	public $name;
+	protected $sourcesType = 'Google_Service_CivicInfo_Source';
+	protected $sourcesDataType = 'array';
 
-  /**
-   * @param Google_Service_CivicInfo_AdministrativeBody
-   */
-  public function setElectionAdministrationBody(Google_Service_CivicInfo_AdministrativeBody $electionAdministrationBody)
-  {
-    $this->electionAdministrationBody = $electionAdministrationBody;
-  }
-  /**
-   * @return Google_Service_CivicInfo_AdministrativeBody
-   */
-  public function getElectionAdministrationBody()
-  {
-    return $this->electionAdministrationBody;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_CivicInfo_AdministrationRegion
-   */
-  public function setLocalJurisdiction(Google_Service_CivicInfo_AdministrationRegion $localJurisdiction)
-  {
-    $this->localJurisdiction = $localJurisdiction;
-  }
-  /**
-   * @return Google_Service_CivicInfo_AdministrationRegion
-   */
-  public function getLocalJurisdiction()
-  {
-    return $this->localJurisdiction;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_CivicInfo_Source
-   */
-  public function setSources($sources)
-  {
-    $this->sources = $sources;
-  }
-  /**
-   * @return Google_Service_CivicInfo_Source
-   */
-  public function getSources()
-  {
-    return $this->sources;
-  }
+	/**
+	 * @param Google_Service_CivicInfo_AdministrativeBody
+	 */
+	public function setElectionAdministrationBody(Google_Service_CivicInfo_AdministrativeBody $electionAdministrationBody)
+	{
+		$this->electionAdministrationBody = $electionAdministrationBody;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_AdministrativeBody
+	 */
+	public function getElectionAdministrationBody()
+	{
+		return $this->electionAdministrationBody;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_CivicInfo_AdministrationRegion
+	 */
+	public function setLocalJurisdiction(Google_Service_CivicInfo_AdministrationRegion $localJurisdiction)
+	{
+		$this->localJurisdiction = $localJurisdiction;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_AdministrationRegion
+	 */
+	public function getLocalJurisdiction()
+	{
+		return $this->localJurisdiction;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_CivicInfo_Source
+	 */
+	public function setSources($sources)
+	{
+		$this->sources = $sources;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_Source
+	 */
+	public function getSources()
+	{
+		return $this->sources;
+	}
 }

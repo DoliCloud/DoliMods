@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_SettlementTransactionTransaction extends Google_Model
 {
-  public $postDate;
-  public $type;
+	public $postDate;
+	public $type;
 
-  public function setPostDate($postDate)
-  {
-    $this->postDate = $postDate;
-  }
-  public function getPostDate()
-  {
-    return $this->postDate;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setPostDate($postDate)
+	{
+		$this->postDate = $postDate;
+	}
+	public function getPostDate()
+	{
+		return $this->postDate;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

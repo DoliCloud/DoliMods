@@ -17,99 +17,99 @@
 
 class Google_Service_Sheets_PivotGroup extends Google_Collection
 {
-  protected $collection_key = 'valueMetadata';
-  protected $groupRuleType = 'Google_Service_Sheets_PivotGroupRule';
-  protected $groupRuleDataType = '';
-  public $label;
-  public $repeatHeadings;
-  public $showTotals;
-  public $sortOrder;
-  public $sourceColumnOffset;
-  protected $valueBucketType = 'Google_Service_Sheets_PivotGroupSortValueBucket';
-  protected $valueBucketDataType = '';
-  protected $valueMetadataType = 'Google_Service_Sheets_PivotGroupValueMetadata';
-  protected $valueMetadataDataType = 'array';
+	protected $collection_key = 'valueMetadata';
+	protected $groupRuleType = 'Google_Service_Sheets_PivotGroupRule';
+	protected $groupRuleDataType = '';
+	public $label;
+	public $repeatHeadings;
+	public $showTotals;
+	public $sortOrder;
+	public $sourceColumnOffset;
+	protected $valueBucketType = 'Google_Service_Sheets_PivotGroupSortValueBucket';
+	protected $valueBucketDataType = '';
+	protected $valueMetadataType = 'Google_Service_Sheets_PivotGroupValueMetadata';
+	protected $valueMetadataDataType = 'array';
 
-  /**
-   * @param Google_Service_Sheets_PivotGroupRule
-   */
-  public function setGroupRule(Google_Service_Sheets_PivotGroupRule $groupRule)
-  {
-    $this->groupRule = $groupRule;
-  }
-  /**
-   * @return Google_Service_Sheets_PivotGroupRule
-   */
-  public function getGroupRule()
-  {
-    return $this->groupRule;
-  }
-  public function setLabel($label)
-  {
-    $this->label = $label;
-  }
-  public function getLabel()
-  {
-    return $this->label;
-  }
-  public function setRepeatHeadings($repeatHeadings)
-  {
-    $this->repeatHeadings = $repeatHeadings;
-  }
-  public function getRepeatHeadings()
-  {
-    return $this->repeatHeadings;
-  }
-  public function setShowTotals($showTotals)
-  {
-    $this->showTotals = $showTotals;
-  }
-  public function getShowTotals()
-  {
-    return $this->showTotals;
-  }
-  public function setSortOrder($sortOrder)
-  {
-    $this->sortOrder = $sortOrder;
-  }
-  public function getSortOrder()
-  {
-    return $this->sortOrder;
-  }
-  public function setSourceColumnOffset($sourceColumnOffset)
-  {
-    $this->sourceColumnOffset = $sourceColumnOffset;
-  }
-  public function getSourceColumnOffset()
-  {
-    return $this->sourceColumnOffset;
-  }
-  /**
-   * @param Google_Service_Sheets_PivotGroupSortValueBucket
-   */
-  public function setValueBucket(Google_Service_Sheets_PivotGroupSortValueBucket $valueBucket)
-  {
-    $this->valueBucket = $valueBucket;
-  }
-  /**
-   * @return Google_Service_Sheets_PivotGroupSortValueBucket
-   */
-  public function getValueBucket()
-  {
-    return $this->valueBucket;
-  }
-  /**
-   * @param Google_Service_Sheets_PivotGroupValueMetadata
-   */
-  public function setValueMetadata($valueMetadata)
-  {
-    $this->valueMetadata = $valueMetadata;
-  }
-  /**
-   * @return Google_Service_Sheets_PivotGroupValueMetadata
-   */
-  public function getValueMetadata()
-  {
-    return $this->valueMetadata;
-  }
+	/**
+	 * @param Google_Service_Sheets_PivotGroupRule
+	 */
+	public function setGroupRule(Google_Service_Sheets_PivotGroupRule $groupRule)
+	{
+		$this->groupRule = $groupRule;
+	}
+	/**
+	 * @return Google_Service_Sheets_PivotGroupRule
+	 */
+	public function getGroupRule()
+	{
+		return $this->groupRule;
+	}
+	public function setLabel($label)
+	{
+		$this->label = $label;
+	}
+	public function getLabel()
+	{
+		return $this->label;
+	}
+	public function setRepeatHeadings($repeatHeadings)
+	{
+		$this->repeatHeadings = $repeatHeadings;
+	}
+	public function getRepeatHeadings()
+	{
+		return $this->repeatHeadings;
+	}
+	public function setShowTotals($showTotals)
+	{
+		$this->showTotals = $showTotals;
+	}
+	public function getShowTotals()
+	{
+		return $this->showTotals;
+	}
+	public function setSortOrder($sortOrder)
+	{
+		$this->sortOrder = $sortOrder;
+	}
+	public function getSortOrder()
+	{
+		return $this->sortOrder;
+	}
+	public function setSourceColumnOffset($sourceColumnOffset)
+	{
+		$this->sourceColumnOffset = $sourceColumnOffset;
+	}
+	public function getSourceColumnOffset()
+	{
+		return $this->sourceColumnOffset;
+	}
+	/**
+	 * @param Google_Service_Sheets_PivotGroupSortValueBucket
+	 */
+	public function setValueBucket(Google_Service_Sheets_PivotGroupSortValueBucket $valueBucket)
+	{
+		$this->valueBucket = $valueBucket;
+	}
+	/**
+	 * @return Google_Service_Sheets_PivotGroupSortValueBucket
+	 */
+	public function getValueBucket()
+	{
+		return $this->valueBucket;
+	}
+	/**
+	 * @param Google_Service_Sheets_PivotGroupValueMetadata
+	 */
+	public function setValueMetadata($valueMetadata)
+	{
+		$this->valueMetadata = $valueMetadata;
+	}
+	/**
+	 * @return Google_Service_Sheets_PivotGroupValueMetadata
+	 */
+	public function getValueMetadata()
+	{
+		return $this->valueMetadata;
+	}
 }

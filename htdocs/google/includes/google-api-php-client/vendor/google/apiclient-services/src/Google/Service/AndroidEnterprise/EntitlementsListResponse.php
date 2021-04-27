@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidEnterprise_EntitlementsListResponse extends Google_Collection
 {
-  protected $collection_key = 'entitlement';
-  protected $entitlementType = 'Google_Service_AndroidEnterprise_Entitlement';
-  protected $entitlementDataType = 'array';
+	protected $collection_key = 'entitlement';
+	protected $entitlementType = 'Google_Service_AndroidEnterprise_Entitlement';
+	protected $entitlementDataType = 'array';
 
-  /**
-   * @param Google_Service_AndroidEnterprise_Entitlement
-   */
-  public function setEntitlement($entitlement)
-  {
-    $this->entitlement = $entitlement;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_Entitlement
-   */
-  public function getEntitlement()
-  {
-    return $this->entitlement;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_Entitlement
+	 */
+	public function setEntitlement($entitlement)
+	{
+		$this->entitlement = $entitlement;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_Entitlement
+	 */
+	public function getEntitlement()
+	{
+		return $this->entitlement;
+	}
 }

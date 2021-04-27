@@ -17,23 +17,23 @@
 
 class Google_Service_CommentAnalyzer_AttributeParameters extends Google_Model
 {
-  public $scoreThreshold;
-  public $scoreType;
+	public $scoreThreshold;
+	public $scoreType;
 
-  public function setScoreThreshold($scoreThreshold)
-  {
-    $this->scoreThreshold = $scoreThreshold;
-  }
-  public function getScoreThreshold()
-  {
-    return $this->scoreThreshold;
-  }
-  public function setScoreType($scoreType)
-  {
-    $this->scoreType = $scoreType;
-  }
-  public function getScoreType()
-  {
-    return $this->scoreType;
-  }
+	public function setScoreThreshold($scoreThreshold)
+	{
+		$this->scoreThreshold = $scoreThreshold;
+	}
+	public function getScoreThreshold()
+	{
+		return $this->scoreThreshold;
+	}
+	public function setScoreType($scoreType)
+	{
+		$this->scoreType = $scoreType;
+	}
+	public function getScoreType()
+	{
+		return $this->scoreType;
+	}
 }

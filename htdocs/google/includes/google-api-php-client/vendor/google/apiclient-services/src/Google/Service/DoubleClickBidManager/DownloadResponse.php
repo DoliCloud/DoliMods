@@ -17,59 +17,59 @@
 
 class Google_Service_DoubleClickBidManager_DownloadResponse extends Google_Model
 {
-  public $adGroups;
-  public $ads;
-  public $campaigns;
-  public $insertionOrders;
-  public $inventorySources;
-  public $lineItems;
+	public $adGroups;
+	public $ads;
+	public $campaigns;
+	public $insertionOrders;
+	public $inventorySources;
+	public $lineItems;
 
-  public function setAdGroups($adGroups)
-  {
-    $this->adGroups = $adGroups;
-  }
-  public function getAdGroups()
-  {
-    return $this->adGroups;
-  }
-  public function setAds($ads)
-  {
-    $this->ads = $ads;
-  }
-  public function getAds()
-  {
-    return $this->ads;
-  }
-  public function setCampaigns($campaigns)
-  {
-    $this->campaigns = $campaigns;
-  }
-  public function getCampaigns()
-  {
-    return $this->campaigns;
-  }
-  public function setInsertionOrders($insertionOrders)
-  {
-    $this->insertionOrders = $insertionOrders;
-  }
-  public function getInsertionOrders()
-  {
-    return $this->insertionOrders;
-  }
-  public function setInventorySources($inventorySources)
-  {
-    $this->inventorySources = $inventorySources;
-  }
-  public function getInventorySources()
-  {
-    return $this->inventorySources;
-  }
-  public function setLineItems($lineItems)
-  {
-    $this->lineItems = $lineItems;
-  }
-  public function getLineItems()
-  {
-    return $this->lineItems;
-  }
+	public function setAdGroups($adGroups)
+	{
+		$this->adGroups = $adGroups;
+	}
+	public function getAdGroups()
+	{
+		return $this->adGroups;
+	}
+	public function setAds($ads)
+	{
+		$this->ads = $ads;
+	}
+	public function getAds()
+	{
+		return $this->ads;
+	}
+	public function setCampaigns($campaigns)
+	{
+		$this->campaigns = $campaigns;
+	}
+	public function getCampaigns()
+	{
+		return $this->campaigns;
+	}
+	public function setInsertionOrders($insertionOrders)
+	{
+		$this->insertionOrders = $insertionOrders;
+	}
+	public function getInsertionOrders()
+	{
+		return $this->insertionOrders;
+	}
+	public function setInventorySources($inventorySources)
+	{
+		$this->inventorySources = $inventorySources;
+	}
+	public function getInventorySources()
+	{
+		return $this->inventorySources;
+	}
+	public function setLineItems($lineItems)
+	{
+		$this->lineItems = $lineItems;
+	}
+	public function getLineItems()
+	{
+		return $this->lineItems;
+	}
 }

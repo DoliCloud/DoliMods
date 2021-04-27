@@ -17,57 +17,57 @@
 
 class Google_Service_Dataflow_LaunchFlexTemplateParameter extends Google_Model
 {
-  protected $containerSpecType = 'Google_Service_Dataflow_ContainerSpec';
-  protected $containerSpecDataType = '';
-  public $containerSpecGcsPath;
-  public $jobName;
-  public $launchOptions;
-  public $parameters;
+	protected $containerSpecType = 'Google_Service_Dataflow_ContainerSpec';
+	protected $containerSpecDataType = '';
+	public $containerSpecGcsPath;
+	public $jobName;
+	public $launchOptions;
+	public $parameters;
 
-  /**
-   * @param Google_Service_Dataflow_ContainerSpec
-   */
-  public function setContainerSpec(Google_Service_Dataflow_ContainerSpec $containerSpec)
-  {
-    $this->containerSpec = $containerSpec;
-  }
-  /**
-   * @return Google_Service_Dataflow_ContainerSpec
-   */
-  public function getContainerSpec()
-  {
-    return $this->containerSpec;
-  }
-  public function setContainerSpecGcsPath($containerSpecGcsPath)
-  {
-    $this->containerSpecGcsPath = $containerSpecGcsPath;
-  }
-  public function getContainerSpecGcsPath()
-  {
-    return $this->containerSpecGcsPath;
-  }
-  public function setJobName($jobName)
-  {
-    $this->jobName = $jobName;
-  }
-  public function getJobName()
-  {
-    return $this->jobName;
-  }
-  public function setLaunchOptions($launchOptions)
-  {
-    $this->launchOptions = $launchOptions;
-  }
-  public function getLaunchOptions()
-  {
-    return $this->launchOptions;
-  }
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	/**
+	 * @param Google_Service_Dataflow_ContainerSpec
+	 */
+	public function setContainerSpec(Google_Service_Dataflow_ContainerSpec $containerSpec)
+	{
+		$this->containerSpec = $containerSpec;
+	}
+	/**
+	 * @return Google_Service_Dataflow_ContainerSpec
+	 */
+	public function getContainerSpec()
+	{
+		return $this->containerSpec;
+	}
+	public function setContainerSpecGcsPath($containerSpecGcsPath)
+	{
+		$this->containerSpecGcsPath = $containerSpecGcsPath;
+	}
+	public function getContainerSpecGcsPath()
+	{
+		return $this->containerSpecGcsPath;
+	}
+	public function setJobName($jobName)
+	{
+		$this->jobName = $jobName;
+	}
+	public function getJobName()
+	{
+		return $this->jobName;
+	}
+	public function setLaunchOptions($launchOptions)
+	{
+		$this->launchOptions = $launchOptions;
+	}
+	public function getLaunchOptions()
+	{
+		return $this->launchOptions;
+	}
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

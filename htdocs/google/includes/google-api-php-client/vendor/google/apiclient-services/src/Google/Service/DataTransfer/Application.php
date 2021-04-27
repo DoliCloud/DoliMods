@@ -17,58 +17,58 @@
 
 class Google_Service_DataTransfer_Application extends Google_Collection
 {
-  protected $collection_key = 'transferParams';
-  public $etag;
-  public $id;
-  public $kind;
-  public $name;
-  protected $transferParamsType = 'Google_Service_DataTransfer_ApplicationTransferParam';
-  protected $transferParamsDataType = 'array';
+	protected $collection_key = 'transferParams';
+	public $etag;
+	public $id;
+	public $kind;
+	public $name;
+	protected $transferParamsType = 'Google_Service_DataTransfer_ApplicationTransferParam';
+	protected $transferParamsDataType = 'array';
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_DataTransfer_ApplicationTransferParam
-   */
-  public function setTransferParams($transferParams)
-  {
-    $this->transferParams = $transferParams;
-  }
-  /**
-   * @return Google_Service_DataTransfer_ApplicationTransferParam
-   */
-  public function getTransferParams()
-  {
-    return $this->transferParams;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_DataTransfer_ApplicationTransferParam
+	 */
+	public function setTransferParams($transferParams)
+	{
+		$this->transferParams = $transferParams;
+	}
+	/**
+	 * @return Google_Service_DataTransfer_ApplicationTransferParam
+	 */
+	public function getTransferParams()
+	{
+		return $this->transferParams;
+	}
 }

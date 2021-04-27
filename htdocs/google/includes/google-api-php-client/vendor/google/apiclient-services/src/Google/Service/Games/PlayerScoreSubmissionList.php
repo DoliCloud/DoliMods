@@ -17,31 +17,31 @@
 
 class Google_Service_Games_PlayerScoreSubmissionList extends Google_Collection
 {
-  protected $collection_key = 'scores';
-  public $kind;
-  protected $scoresType = 'Google_Service_Games_ScoreSubmission';
-  protected $scoresDataType = 'array';
+	protected $collection_key = 'scores';
+	public $kind;
+	protected $scoresType = 'Google_Service_Games_ScoreSubmission';
+	protected $scoresDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Games_ScoreSubmission
-   */
-  public function setScores($scores)
-  {
-    $this->scores = $scores;
-  }
-  /**
-   * @return Google_Service_Games_ScoreSubmission
-   */
-  public function getScores()
-  {
-    return $this->scores;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Games_ScoreSubmission
+	 */
+	public function setScores($scores)
+	{
+		$this->scores = $scores;
+	}
+	/**
+	 * @return Google_Service_Games_ScoreSubmission
+	 */
+	public function getScores()
+	{
+		return $this->scores;
+	}
 }

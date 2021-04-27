@@ -17,51 +17,51 @@
 
 class Google_Service_Dfareporting_Subaccount extends Google_Collection
 {
-  protected $collection_key = 'availablePermissionIds';
-  public $accountId;
-  public $availablePermissionIds;
-  public $id;
-  public $kind;
-  public $name;
+	protected $collection_key = 'availablePermissionIds';
+	public $accountId;
+	public $availablePermissionIds;
+	public $id;
+	public $kind;
+	public $name;
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setAvailablePermissionIds($availablePermissionIds)
-  {
-    $this->availablePermissionIds = $availablePermissionIds;
-  }
-  public function getAvailablePermissionIds()
-  {
-    return $this->availablePermissionIds;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setAvailablePermissionIds($availablePermissionIds)
+	{
+		$this->availablePermissionIds = $availablePermissionIds;
+	}
+	public function getAvailablePermissionIds()
+	{
+		return $this->availablePermissionIds;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

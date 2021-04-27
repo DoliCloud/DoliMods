@@ -17,14 +17,14 @@
 
 class Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_ResetAdminPasswordResponse extends Google_Model
 {
-  public $password;
+	public $password;
 
-  public function setPassword($password)
-  {
-    $this->password = $password;
-  }
-  public function getPassword()
-  {
-    return $this->password;
-  }
+	public function setPassword($password)
+	{
+		$this->password = $password;
+	}
+	public function getPassword()
+	{
+		return $this->password;
+	}
 }

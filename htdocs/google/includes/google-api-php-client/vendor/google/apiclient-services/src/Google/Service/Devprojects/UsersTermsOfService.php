@@ -17,25 +17,25 @@
 
 class Google_Service_Devprojects_UsersTermsOfService extends Google_Collection
 {
-  protected $collection_key = 'terms';
-  public $kind;
-  protected $termsType = 'Google_Service_Devprojects_TermInfo';
-  protected $termsDataType = 'array';
+	protected $collection_key = 'terms';
+	public $kind;
+	protected $termsType = 'Google_Service_Devprojects_TermInfo';
+	protected $termsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setTerms($terms)
-  {
-    $this->terms = $terms;
-  }
-  public function getTerms()
-  {
-    return $this->terms;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setTerms($terms)
+	{
+		$this->terms = $terms;
+	}
+	public function getTerms()
+	{
+		return $this->terms;
+	}
 }

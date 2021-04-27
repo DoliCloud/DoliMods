@@ -17,32 +17,32 @@
 
 class Google_Service_Books_AnnotationLayerSummary extends Google_Model
 {
-  public $allowedCharacterCount;
-  public $limitType;
-  public $remainingCharacterCount;
+	public $allowedCharacterCount;
+	public $limitType;
+	public $remainingCharacterCount;
 
-  public function setAllowedCharacterCount($allowedCharacterCount)
-  {
-    $this->allowedCharacterCount = $allowedCharacterCount;
-  }
-  public function getAllowedCharacterCount()
-  {
-    return $this->allowedCharacterCount;
-  }
-  public function setLimitType($limitType)
-  {
-    $this->limitType = $limitType;
-  }
-  public function getLimitType()
-  {
-    return $this->limitType;
-  }
-  public function setRemainingCharacterCount($remainingCharacterCount)
-  {
-    $this->remainingCharacterCount = $remainingCharacterCount;
-  }
-  public function getRemainingCharacterCount()
-  {
-    return $this->remainingCharacterCount;
-  }
+	public function setAllowedCharacterCount($allowedCharacterCount)
+	{
+		$this->allowedCharacterCount = $allowedCharacterCount;
+	}
+	public function getAllowedCharacterCount()
+	{
+		return $this->allowedCharacterCount;
+	}
+	public function setLimitType($limitType)
+	{
+		$this->limitType = $limitType;
+	}
+	public function getLimitType()
+	{
+		return $this->limitType;
+	}
+	public function setRemainingCharacterCount($remainingCharacterCount)
+	{
+		$this->remainingCharacterCount = $remainingCharacterCount;
+	}
+	public function getRemainingCharacterCount()
+	{
+		return $this->remainingCharacterCount;
+	}
 }

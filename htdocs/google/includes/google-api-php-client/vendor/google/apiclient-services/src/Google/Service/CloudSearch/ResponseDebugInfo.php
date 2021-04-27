@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_ResponseDebugInfo extends Google_Model
 {
-  public $formattedDebugInfo;
+	public $formattedDebugInfo;
 
-  public function setFormattedDebugInfo($formattedDebugInfo)
-  {
-    $this->formattedDebugInfo = $formattedDebugInfo;
-  }
-  public function getFormattedDebugInfo()
-  {
-    return $this->formattedDebugInfo;
-  }
+	public function setFormattedDebugInfo($formattedDebugInfo)
+	{
+		$this->formattedDebugInfo = $formattedDebugInfo;
+	}
+	public function getFormattedDebugInfo()
+	{
+		return $this->formattedDebugInfo;
+	}
 }

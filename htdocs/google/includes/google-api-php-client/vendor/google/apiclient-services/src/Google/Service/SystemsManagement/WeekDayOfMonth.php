@@ -17,23 +17,23 @@
 
 class Google_Service_SystemsManagement_WeekDayOfMonth extends Google_Model
 {
-  public $dayOfWeek;
-  public $weekOrdinal;
+	public $dayOfWeek;
+	public $weekOrdinal;
 
-  public function setDayOfWeek($dayOfWeek)
-  {
-    $this->dayOfWeek = $dayOfWeek;
-  }
-  public function getDayOfWeek()
-  {
-    return $this->dayOfWeek;
-  }
-  public function setWeekOrdinal($weekOrdinal)
-  {
-    $this->weekOrdinal = $weekOrdinal;
-  }
-  public function getWeekOrdinal()
-  {
-    return $this->weekOrdinal;
-  }
+	public function setDayOfWeek($dayOfWeek)
+	{
+		$this->dayOfWeek = $dayOfWeek;
+	}
+	public function getDayOfWeek()
+	{
+		return $this->dayOfWeek;
+	}
+	public function setWeekOrdinal($weekOrdinal)
+	{
+		$this->weekOrdinal = $weekOrdinal;
+	}
+	public function getWeekOrdinal()
+	{
+		return $this->weekOrdinal;
+	}
 }

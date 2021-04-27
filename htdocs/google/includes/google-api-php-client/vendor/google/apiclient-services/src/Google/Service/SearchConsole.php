@@ -33,36 +33,36 @@ class Google_Service_SearchConsole extends Google_Service
 {
 
 
-  public $urlTestingTools_mobileFriendlyTest;
-  
-  /**
-   * Constructs the internal representation of the SearchConsole service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://searchconsole.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'searchconsole';
+	public $urlTestingTools_mobileFriendlyTest;
 
-    $this->urlTestingTools_mobileFriendlyTest = new Google_Service_SearchConsole_Resource_UrlTestingToolsMobileFriendlyTest(
-        $this,
-        $this->serviceName,
-        'mobileFriendlyTest',
-        array(
-          'methods' => array(
-            'run' => array(
-              'path' => 'v1/urlTestingTools/mobileFriendlyTest:run',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the SearchConsole service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://searchconsole.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'searchconsole';
+
+		$this->urlTestingTools_mobileFriendlyTest = new Google_Service_SearchConsole_Resource_UrlTestingToolsMobileFriendlyTest(
+		$this,
+		$this->serviceName,
+		'mobileFriendlyTest',
+		array(
+		  'methods' => array(
+			'run' => array(
+			  'path' => 'v1/urlTestingTools/mobileFriendlyTest:run',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),
+		  )
+		)
+		);
+	}
 }

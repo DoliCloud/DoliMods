@@ -17,37 +17,37 @@
 
 class Google_Service_Dataflow_DynamicSourceSplit extends Google_Model
 {
-  protected $primaryType = 'Google_Service_Dataflow_DerivedSource';
-  protected $primaryDataType = '';
-  protected $residualType = 'Google_Service_Dataflow_DerivedSource';
-  protected $residualDataType = '';
+	protected $primaryType = 'Google_Service_Dataflow_DerivedSource';
+	protected $primaryDataType = '';
+	protected $residualType = 'Google_Service_Dataflow_DerivedSource';
+	protected $residualDataType = '';
 
-  /**
-   * @param Google_Service_Dataflow_DerivedSource
-   */
-  public function setPrimary(Google_Service_Dataflow_DerivedSource $primary)
-  {
-    $this->primary = $primary;
-  }
-  /**
-   * @return Google_Service_Dataflow_DerivedSource
-   */
-  public function getPrimary()
-  {
-    return $this->primary;
-  }
-  /**
-   * @param Google_Service_Dataflow_DerivedSource
-   */
-  public function setResidual(Google_Service_Dataflow_DerivedSource $residual)
-  {
-    $this->residual = $residual;
-  }
-  /**
-   * @return Google_Service_Dataflow_DerivedSource
-   */
-  public function getResidual()
-  {
-    return $this->residual;
-  }
+	/**
+	 * @param Google_Service_Dataflow_DerivedSource
+	 */
+	public function setPrimary(Google_Service_Dataflow_DerivedSource $primary)
+	{
+		$this->primary = $primary;
+	}
+	/**
+	 * @return Google_Service_Dataflow_DerivedSource
+	 */
+	public function getPrimary()
+	{
+		return $this->primary;
+	}
+	/**
+	 * @param Google_Service_Dataflow_DerivedSource
+	 */
+	public function setResidual(Google_Service_Dataflow_DerivedSource $residual)
+	{
+		$this->residual = $residual;
+	}
+	/**
+	 * @return Google_Service_Dataflow_DerivedSource
+	 */
+	public function getResidual()
+	{
+		return $this->residual;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction extends Google_Model
 {
-  public $url;
-  public $urlTypeHint;
+	public $url;
+	public $urlTypeHint;
 
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
-  public function setUrlTypeHint($urlTypeHint)
-  {
-    $this->urlTypeHint = $urlTypeHint;
-  }
-  public function getUrlTypeHint()
-  {
-    return $this->urlTypeHint;
-  }
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
+	public function setUrlTypeHint($urlTypeHint)
+	{
+		$this->urlTypeHint = $urlTypeHint;
+	}
+	public function getUrlTypeHint()
+	{
+		return $this->urlTypeHint;
+	}
 }

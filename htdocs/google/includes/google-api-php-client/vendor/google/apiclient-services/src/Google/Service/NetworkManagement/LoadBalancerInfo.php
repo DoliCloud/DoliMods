@@ -17,58 +17,58 @@
 
 class Google_Service_NetworkManagement_LoadBalancerInfo extends Google_Collection
 {
-  protected $collection_key = 'backends';
-  public $backendType;
-  public $backendUri;
-  protected $backendsType = 'Google_Service_NetworkManagement_LoadBalancerBackend';
-  protected $backendsDataType = 'array';
-  public $healthCheckUri;
-  public $loadBalancerType;
+	protected $collection_key = 'backends';
+	public $backendType;
+	public $backendUri;
+	protected $backendsType = 'Google_Service_NetworkManagement_LoadBalancerBackend';
+	protected $backendsDataType = 'array';
+	public $healthCheckUri;
+	public $loadBalancerType;
 
-  public function setBackendType($backendType)
-  {
-    $this->backendType = $backendType;
-  }
-  public function getBackendType()
-  {
-    return $this->backendType;
-  }
-  public function setBackendUri($backendUri)
-  {
-    $this->backendUri = $backendUri;
-  }
-  public function getBackendUri()
-  {
-    return $this->backendUri;
-  }
-  /**
-   * @param Google_Service_NetworkManagement_LoadBalancerBackend
-   */
-  public function setBackends($backends)
-  {
-    $this->backends = $backends;
-  }
-  /**
-   * @return Google_Service_NetworkManagement_LoadBalancerBackend
-   */
-  public function getBackends()
-  {
-    return $this->backends;
-  }
-  public function setHealthCheckUri($healthCheckUri)
-  {
-    $this->healthCheckUri = $healthCheckUri;
-  }
-  public function getHealthCheckUri()
-  {
-    return $this->healthCheckUri;
-  }
-  public function setLoadBalancerType($loadBalancerType)
-  {
-    $this->loadBalancerType = $loadBalancerType;
-  }
-  public function getLoadBalancerType()
-  {
-    return $this->loadBalancerType;
-  }
+	public function setBackendType($backendType)
+	{
+		$this->backendType = $backendType;
+	}
+	public function getBackendType()
+	{
+		return $this->backendType;
+	}
+	public function setBackendUri($backendUri)
+	{
+		$this->backendUri = $backendUri;
+	}
+	public function getBackendUri()
+	{
+		return $this->backendUri;
+	}
+	/**
+	 * @param Google_Service_NetworkManagement_LoadBalancerBackend
+	 */
+	public function setBackends($backends)
+	{
+		$this->backends = $backends;
+	}
+	/**
+	 * @return Google_Service_NetworkManagement_LoadBalancerBackend
+	 */
+	public function getBackends()
+	{
+		return $this->backends;
+	}
+	public function setHealthCheckUri($healthCheckUri)
+	{
+		$this->healthCheckUri = $healthCheckUri;
+	}
+	public function getHealthCheckUri()
+	{
+		return $this->healthCheckUri;
+	}
+	public function setLoadBalancerType($loadBalancerType)
+	{
+		$this->loadBalancerType = $loadBalancerType;
+	}
+	public function getLoadBalancerType()
+	{
+		return $this->loadBalancerType;
+	}
 }

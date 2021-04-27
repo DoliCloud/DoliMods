@@ -17,32 +17,32 @@
 
 class Google_Service_Pagespeedonline_LighthouseResultV5Environment extends Google_Model
 {
-  public $benchmarkIndex;
-  public $hostUserAgent;
-  public $networkUserAgent;
+	public $benchmarkIndex;
+	public $hostUserAgent;
+	public $networkUserAgent;
 
-  public function setBenchmarkIndex($benchmarkIndex)
-  {
-    $this->benchmarkIndex = $benchmarkIndex;
-  }
-  public function getBenchmarkIndex()
-  {
-    return $this->benchmarkIndex;
-  }
-  public function setHostUserAgent($hostUserAgent)
-  {
-    $this->hostUserAgent = $hostUserAgent;
-  }
-  public function getHostUserAgent()
-  {
-    return $this->hostUserAgent;
-  }
-  public function setNetworkUserAgent($networkUserAgent)
-  {
-    $this->networkUserAgent = $networkUserAgent;
-  }
-  public function getNetworkUserAgent()
-  {
-    return $this->networkUserAgent;
-  }
+	public function setBenchmarkIndex($benchmarkIndex)
+	{
+		$this->benchmarkIndex = $benchmarkIndex;
+	}
+	public function getBenchmarkIndex()
+	{
+		return $this->benchmarkIndex;
+	}
+	public function setHostUserAgent($hostUserAgent)
+	{
+		$this->hostUserAgent = $hostUserAgent;
+	}
+	public function getHostUserAgent()
+	{
+		return $this->hostUserAgent;
+	}
+	public function setNetworkUserAgent($networkUserAgent)
+	{
+		$this->networkUserAgent = $networkUserAgent;
+	}
+	public function getNetworkUserAgent()
+	{
+		return $this->networkUserAgent;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Monitoring_LatencyCriteria extends Google_Model
 {
-  public $threshold;
+	public $threshold;
 
-  public function setThreshold($threshold)
-  {
-    $this->threshold = $threshold;
-  }
-  public function getThreshold()
-  {
-    return $this->threshold;
-  }
+	public function setThreshold($threshold)
+	{
+		$this->threshold = $threshold;
+	}
+	public function getThreshold()
+	{
+		return $this->threshold;
+	}
 }

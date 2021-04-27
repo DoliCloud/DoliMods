@@ -17,47 +17,47 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageVisualElement extends Google_Collection
 {
-  protected $collection_key = 'detectedLanguages';
-  protected $detectedLanguagesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage';
-  protected $detectedLanguagesDataType = 'array';
-  protected $layoutType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout';
-  protected $layoutDataType = '';
-  public $type;
+	protected $collection_key = 'detectedLanguages';
+	protected $detectedLanguagesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage';
+	protected $detectedLanguagesDataType = 'array';
+	protected $layoutType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout';
+	protected $layoutDataType = '';
+	public $type;
 
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage
-   */
-  public function setDetectedLanguages($detectedLanguages)
-  {
-    $this->detectedLanguages = $detectedLanguages;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage
-   */
-  public function getDetectedLanguages()
-  {
-    return $this->detectedLanguages;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout
-   */
-  public function setLayout(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout $layout)
-  {
-    $this->layout = $layout;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout
-   */
-  public function getLayout()
-  {
-    return $this->layout;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage
+	 */
+	public function setDetectedLanguages($detectedLanguages)
+	{
+		$this->detectedLanguages = $detectedLanguages;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage
+	 */
+	public function getDetectedLanguages()
+	{
+		return $this->detectedLanguages;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout
+	 */
+	public function setLayout(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout $layout)
+	{
+		$this->layout = $layout;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout
+	 */
+	public function getLayout()
+	{
+		return $this->layout;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

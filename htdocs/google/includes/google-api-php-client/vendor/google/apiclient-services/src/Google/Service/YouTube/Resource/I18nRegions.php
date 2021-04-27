@@ -25,22 +25,22 @@
  */
 class Google_Service_YouTube_Resource_I18nRegions extends Google_Service_Resource
 {
-  /**
-   * Retrieves a list of resources, possibly filtered.
-   * (i18nRegions.listI18nRegions)
-   *
-   * @param string|array $part The part parameter specifies the i18nRegion
-   * resource properties that the API response will include. Set the parameter
-   * value to snippet.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string hl
-   * @return Google_Service_YouTube_I18nRegionListResponse
-   */
-  public function listI18nRegions($part, $optParams = array())
-  {
-    $params = array('part' => $part);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_YouTube_I18nRegionListResponse");
-  }
+	/**
+	 * Retrieves a list of resources, possibly filtered.
+	 * (i18nRegions.listI18nRegions)
+	 *
+	 * @param string|array $part The part parameter specifies the i18nRegion
+	 *                           resource properties that the API response will include. Set the parameter
+	 *                           value to snippet.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string hl
+	 * @return Google_Service_YouTube_I18nRegionListResponse
+	 */
+	public function listI18nRegions($part, $optParams = array())
+	{
+		$params = array('part' => $part);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_YouTube_I18nRegionListResponse");
+	}
 }

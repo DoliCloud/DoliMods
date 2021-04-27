@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_HttpHeaderOption extends Google_Model
 {
-  public $headerName;
-  public $headerValue;
-  public $replace;
+	public $headerName;
+	public $headerValue;
+	public $replace;
 
-  public function setHeaderName($headerName)
-  {
-    $this->headerName = $headerName;
-  }
-  public function getHeaderName()
-  {
-    return $this->headerName;
-  }
-  public function setHeaderValue($headerValue)
-  {
-    $this->headerValue = $headerValue;
-  }
-  public function getHeaderValue()
-  {
-    return $this->headerValue;
-  }
-  public function setReplace($replace)
-  {
-    $this->replace = $replace;
-  }
-  public function getReplace()
-  {
-    return $this->replace;
-  }
+	public function setHeaderName($headerName)
+	{
+		$this->headerName = $headerName;
+	}
+	public function getHeaderName()
+	{
+		return $this->headerName;
+	}
+	public function setHeaderValue($headerValue)
+	{
+		$this->headerValue = $headerValue;
+	}
+	public function getHeaderValue()
+	{
+		return $this->headerValue;
+	}
+	public function setReplace($replace)
+	{
+		$this->replace = $replace;
+	}
+	public function getReplace()
+	{
+		return $this->replace;
+	}
 }

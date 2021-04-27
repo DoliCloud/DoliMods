@@ -17,31 +17,31 @@
 
 class Google_Service_ToolResults_SuggestionClusterProto extends Google_Collection
 {
-  protected $collection_key = 'suggestions';
-  public $category;
-  protected $suggestionsType = 'Google_Service_ToolResults_SuggestionProto';
-  protected $suggestionsDataType = 'array';
+	protected $collection_key = 'suggestions';
+	public $category;
+	protected $suggestionsType = 'Google_Service_ToolResults_SuggestionProto';
+	protected $suggestionsDataType = 'array';
 
-  public function setCategory($category)
-  {
-    $this->category = $category;
-  }
-  public function getCategory()
-  {
-    return $this->category;
-  }
-  /**
-   * @param Google_Service_ToolResults_SuggestionProto
-   */
-  public function setSuggestions($suggestions)
-  {
-    $this->suggestions = $suggestions;
-  }
-  /**
-   * @return Google_Service_ToolResults_SuggestionProto
-   */
-  public function getSuggestions()
-  {
-    return $this->suggestions;
-  }
+	public function setCategory($category)
+	{
+		$this->category = $category;
+	}
+	public function getCategory()
+	{
+		return $this->category;
+	}
+	/**
+	 * @param Google_Service_ToolResults_SuggestionProto
+	 */
+	public function setSuggestions($suggestions)
+	{
+		$this->suggestions = $suggestions;
+	}
+	/**
+	 * @return Google_Service_ToolResults_SuggestionProto
+	 */
+	public function getSuggestions()
+	{
+		return $this->suggestions;
+	}
 }

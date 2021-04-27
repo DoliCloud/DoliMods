@@ -17,23 +17,23 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary extends Google_Model
 {
-  public $joinedEventsCount;
-  public $unjoinedEventsCount;
+	public $joinedEventsCount;
+	public $unjoinedEventsCount;
 
-  public function setJoinedEventsCount($joinedEventsCount)
-  {
-    $this->joinedEventsCount = $joinedEventsCount;
-  }
-  public function getJoinedEventsCount()
-  {
-    return $this->joinedEventsCount;
-  }
-  public function setUnjoinedEventsCount($unjoinedEventsCount)
-  {
-    $this->unjoinedEventsCount = $unjoinedEventsCount;
-  }
-  public function getUnjoinedEventsCount()
-  {
-    return $this->unjoinedEventsCount;
-  }
+	public function setJoinedEventsCount($joinedEventsCount)
+	{
+		$this->joinedEventsCount = $joinedEventsCount;
+	}
+	public function getJoinedEventsCount()
+	{
+		return $this->joinedEventsCount;
+	}
+	public function setUnjoinedEventsCount($unjoinedEventsCount)
+	{
+		$this->unjoinedEventsCount = $unjoinedEventsCount;
+	}
+	public function getUnjoinedEventsCount()
+	{
+		return $this->unjoinedEventsCount;
+	}
 }

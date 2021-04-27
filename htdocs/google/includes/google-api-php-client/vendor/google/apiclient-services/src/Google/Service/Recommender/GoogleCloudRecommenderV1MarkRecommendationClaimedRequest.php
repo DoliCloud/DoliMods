@@ -17,23 +17,23 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1MarkRecommendationClaimedRequest extends Google_Model
 {
-  public $etag;
-  public $stateMetadata;
+	public $etag;
+	public $stateMetadata;
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setStateMetadata($stateMetadata)
-  {
-    $this->stateMetadata = $stateMetadata;
-  }
-  public function getStateMetadata()
-  {
-    return $this->stateMetadata;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setStateMetadata($stateMetadata)
+	{
+		$this->stateMetadata = $stateMetadata;
+	}
+	public function getStateMetadata()
+	{
+		return $this->stateMetadata;
+	}
 }

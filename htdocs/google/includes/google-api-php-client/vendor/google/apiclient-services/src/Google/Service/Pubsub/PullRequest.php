@@ -17,23 +17,23 @@
 
 class Google_Service_Pubsub_PullRequest extends Google_Model
 {
-  public $maxMessages;
-  public $returnImmediately;
+	public $maxMessages;
+	public $returnImmediately;
 
-  public function setMaxMessages($maxMessages)
-  {
-    $this->maxMessages = $maxMessages;
-  }
-  public function getMaxMessages()
-  {
-    return $this->maxMessages;
-  }
-  public function setReturnImmediately($returnImmediately)
-  {
-    $this->returnImmediately = $returnImmediately;
-  }
-  public function getReturnImmediately()
-  {
-    return $this->returnImmediately;
-  }
+	public function setMaxMessages($maxMessages)
+	{
+		$this->maxMessages = $maxMessages;
+	}
+	public function getMaxMessages()
+	{
+		return $this->maxMessages;
+	}
+	public function setReturnImmediately($returnImmediately)
+	{
+		$this->returnImmediately = $returnImmediately;
+	}
+	public function getReturnImmediately()
+	{
+		return $this->returnImmediately;
+	}
 }

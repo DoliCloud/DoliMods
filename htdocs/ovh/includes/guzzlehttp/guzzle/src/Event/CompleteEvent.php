@@ -11,4 +11,6 @@ namespace GuzzleHttp\Event;
  * This event allows the request to be retried if necessary using the retry()
  * method of the event.
  */
-class CompleteEvent extends AbstractRetryableEvent {}
+class CompleteEvent extends AbstractRetryableEvent
+{
+}

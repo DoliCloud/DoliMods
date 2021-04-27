@@ -17,58 +17,58 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ReplicaConfig extends Google_Collection
 {
-  protected $collection_key = 'containerCommand';
-  protected $acceleratorConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig';
-  protected $acceleratorConfigDataType = '';
-  public $containerArgs;
-  public $containerCommand;
-  public $imageUri;
-  public $tpuTfVersion;
+	protected $collection_key = 'containerCommand';
+	protected $acceleratorConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig';
+	protected $acceleratorConfigDataType = '';
+	public $containerArgs;
+	public $containerCommand;
+	public $imageUri;
+	public $tpuTfVersion;
 
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig
-   */
-  public function setAcceleratorConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig $acceleratorConfig)
-  {
-    $this->acceleratorConfig = $acceleratorConfig;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig
-   */
-  public function getAcceleratorConfig()
-  {
-    return $this->acceleratorConfig;
-  }
-  public function setContainerArgs($containerArgs)
-  {
-    $this->containerArgs = $containerArgs;
-  }
-  public function getContainerArgs()
-  {
-    return $this->containerArgs;
-  }
-  public function setContainerCommand($containerCommand)
-  {
-    $this->containerCommand = $containerCommand;
-  }
-  public function getContainerCommand()
-  {
-    return $this->containerCommand;
-  }
-  public function setImageUri($imageUri)
-  {
-    $this->imageUri = $imageUri;
-  }
-  public function getImageUri()
-  {
-    return $this->imageUri;
-  }
-  public function setTpuTfVersion($tpuTfVersion)
-  {
-    $this->tpuTfVersion = $tpuTfVersion;
-  }
-  public function getTpuTfVersion()
-  {
-    return $this->tpuTfVersion;
-  }
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig
+	 */
+	public function setAcceleratorConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig $acceleratorConfig)
+	{
+		$this->acceleratorConfig = $acceleratorConfig;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig
+	 */
+	public function getAcceleratorConfig()
+	{
+		return $this->acceleratorConfig;
+	}
+	public function setContainerArgs($containerArgs)
+	{
+		$this->containerArgs = $containerArgs;
+	}
+	public function getContainerArgs()
+	{
+		return $this->containerArgs;
+	}
+	public function setContainerCommand($containerCommand)
+	{
+		$this->containerCommand = $containerCommand;
+	}
+	public function getContainerCommand()
+	{
+		return $this->containerCommand;
+	}
+	public function setImageUri($imageUri)
+	{
+		$this->imageUri = $imageUri;
+	}
+	public function getImageUri()
+	{
+		return $this->imageUri;
+	}
+	public function setTpuTfVersion($tpuTfVersion)
+	{
+		$this->tpuTfVersion = $tpuTfVersion;
+	}
+	public function getTpuTfVersion()
+	{
+		return $this->tpuTfVersion;
+	}
 }

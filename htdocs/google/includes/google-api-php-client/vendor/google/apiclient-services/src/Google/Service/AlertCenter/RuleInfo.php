@@ -17,23 +17,23 @@
 
 class Google_Service_AlertCenter_RuleInfo extends Google_Model
 {
-  public $displayName;
-  public $resourceName;
+	public $displayName;
+	public $resourceName;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setResourceName($resourceName)
-  {
-    $this->resourceName = $resourceName;
-  }
-  public function getResourceName()
-  {
-    return $this->resourceName;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setResourceName($resourceName)
+	{
+		$this->resourceName = $resourceName;
+	}
+	public function getResourceName()
+	{
+		return $this->resourceName;
+	}
 }

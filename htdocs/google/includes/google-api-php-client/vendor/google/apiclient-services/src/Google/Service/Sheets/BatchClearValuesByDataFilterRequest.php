@@ -17,22 +17,22 @@
 
 class Google_Service_Sheets_BatchClearValuesByDataFilterRequest extends Google_Collection
 {
-  protected $collection_key = 'dataFilters';
-  protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
-  protected $dataFiltersDataType = 'array';
+	protected $collection_key = 'dataFilters';
+	protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
+	protected $dataFiltersDataType = 'array';
 
-  /**
-   * @param Google_Service_Sheets_DataFilter
-   */
-  public function setDataFilters($dataFilters)
-  {
-    $this->dataFilters = $dataFilters;
-  }
-  /**
-   * @return Google_Service_Sheets_DataFilter
-   */
-  public function getDataFilters()
-  {
-    return $this->dataFilters;
-  }
+	/**
+	 * @param Google_Service_Sheets_DataFilter
+	 */
+	public function setDataFilters($dataFilters)
+	{
+		$this->dataFilters = $dataFilters;
+	}
+	/**
+	 * @return Google_Service_Sheets_DataFilter
+	 */
+	public function getDataFilters()
+	{
+		return $this->dataFilters;
+	}
 }

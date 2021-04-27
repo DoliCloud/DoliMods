@@ -17,31 +17,31 @@
 
 class Google_Service_ToolResults_ListStepAccessibilityClustersResponse extends Google_Collection
 {
-  protected $collection_key = 'clusters';
-  protected $clustersType = 'Google_Service_ToolResults_SuggestionClusterProto';
-  protected $clustersDataType = 'array';
-  public $name;
+	protected $collection_key = 'clusters';
+	protected $clustersType = 'Google_Service_ToolResults_SuggestionClusterProto';
+	protected $clustersDataType = 'array';
+	public $name;
 
-  /**
-   * @param Google_Service_ToolResults_SuggestionClusterProto
-   */
-  public function setClusters($clusters)
-  {
-    $this->clusters = $clusters;
-  }
-  /**
-   * @return Google_Service_ToolResults_SuggestionClusterProto
-   */
-  public function getClusters()
-  {
-    return $this->clusters;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_ToolResults_SuggestionClusterProto
+	 */
+	public function setClusters($clusters)
+	{
+		$this->clusters = $clusters;
+	}
+	/**
+	 * @return Google_Service_ToolResults_SuggestionClusterProto
+	 */
+	public function getClusters()
+	{
+		return $this->clusters;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

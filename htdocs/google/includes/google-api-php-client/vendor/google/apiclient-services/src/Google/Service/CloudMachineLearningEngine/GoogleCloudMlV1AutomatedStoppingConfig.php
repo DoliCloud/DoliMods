@@ -17,37 +17,37 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig extends Google_Model
 {
-  protected $decayCurveStoppingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig';
-  protected $decayCurveStoppingConfigDataType = '';
-  protected $medianAutomatedStoppingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigMedianAutomatedStoppingConfig';
-  protected $medianAutomatedStoppingConfigDataType = '';
+	protected $decayCurveStoppingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig';
+	protected $decayCurveStoppingConfigDataType = '';
+	protected $medianAutomatedStoppingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigMedianAutomatedStoppingConfig';
+	protected $medianAutomatedStoppingConfigDataType = '';
 
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig
-   */
-  public function setDecayCurveStoppingConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig $decayCurveStoppingConfig)
-  {
-    $this->decayCurveStoppingConfig = $decayCurveStoppingConfig;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig
-   */
-  public function getDecayCurveStoppingConfig()
-  {
-    return $this->decayCurveStoppingConfig;
-  }
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigMedianAutomatedStoppingConfig
-   */
-  public function setMedianAutomatedStoppingConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigMedianAutomatedStoppingConfig $medianAutomatedStoppingConfig)
-  {
-    $this->medianAutomatedStoppingConfig = $medianAutomatedStoppingConfig;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigMedianAutomatedStoppingConfig
-   */
-  public function getMedianAutomatedStoppingConfig()
-  {
-    return $this->medianAutomatedStoppingConfig;
-  }
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig
+	 */
+	public function setDecayCurveStoppingConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig $decayCurveStoppingConfig)
+	{
+		$this->decayCurveStoppingConfig = $decayCurveStoppingConfig;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigDecayCurveAutomatedStoppingConfig
+	 */
+	public function getDecayCurveStoppingConfig()
+	{
+		return $this->decayCurveStoppingConfig;
+	}
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigMedianAutomatedStoppingConfig
+	 */
+	public function setMedianAutomatedStoppingConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigMedianAutomatedStoppingConfig $medianAutomatedStoppingConfig)
+	{
+		$this->medianAutomatedStoppingConfig = $medianAutomatedStoppingConfig;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfigMedianAutomatedStoppingConfig
+	 */
+	public function getMedianAutomatedStoppingConfig()
+	{
+		return $this->medianAutomatedStoppingConfig;
+	}
 }

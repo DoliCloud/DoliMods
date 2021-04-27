@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_TableRowStyle extends Google_Model
 {
-  protected $minRowHeightType = 'Google_Service_Docs_Dimension';
-  protected $minRowHeightDataType = '';
+	protected $minRowHeightType = 'Google_Service_Docs_Dimension';
+	protected $minRowHeightDataType = '';
 
-  /**
-   * @param Google_Service_Docs_Dimension
-   */
-  public function setMinRowHeight(Google_Service_Docs_Dimension $minRowHeight)
-  {
-    $this->minRowHeight = $minRowHeight;
-  }
-  /**
-   * @return Google_Service_Docs_Dimension
-   */
-  public function getMinRowHeight()
-  {
-    return $this->minRowHeight;
-  }
+	/**
+	 * @param Google_Service_Docs_Dimension
+	 */
+	public function setMinRowHeight(Google_Service_Docs_Dimension $minRowHeight)
+	{
+		$this->minRowHeight = $minRowHeight;
+	}
+	/**
+	 * @return Google_Service_Docs_Dimension
+	 */
+	public function getMinRowHeight()
+	{
+		return $this->minRowHeight;
+	}
 }

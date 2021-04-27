@@ -17,31 +17,31 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListInstanceAttachmentsResponse extends Google_Collection
 {
-  protected $collection_key = 'attachments';
-  protected $attachmentsType = 'Google_Service_Apigee_GoogleCloudApigeeV1InstanceAttachment';
-  protected $attachmentsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'attachments';
+	protected $attachmentsType = 'Google_Service_Apigee_GoogleCloudApigeeV1InstanceAttachment';
+	protected $attachmentsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1InstanceAttachment
-   */
-  public function setAttachments($attachments)
-  {
-    $this->attachments = $attachments;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1InstanceAttachment
-   */
-  public function getAttachments()
-  {
-    return $this->attachments;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1InstanceAttachment
+	 */
+	public function setAttachments($attachments)
+	{
+		$this->attachments = $attachments;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1InstanceAttachment
+	 */
+	public function getAttachments()
+	{
+		return $this->attachments;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

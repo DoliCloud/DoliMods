@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleRpcPreconditionFailure extends Google_Collection
 {
-  protected $collection_key = 'violations';
-  protected $violationsType = 'Google_Service_Apigee_GoogleRpcPreconditionFailureViolation';
-  protected $violationsDataType = 'array';
+	protected $collection_key = 'violations';
+	protected $violationsType = 'Google_Service_Apigee_GoogleRpcPreconditionFailureViolation';
+	protected $violationsDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleRpcPreconditionFailureViolation
-   */
-  public function setViolations($violations)
-  {
-    $this->violations = $violations;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleRpcPreconditionFailureViolation
-   */
-  public function getViolations()
-  {
-    return $this->violations;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleRpcPreconditionFailureViolation
+	 */
+	public function setViolations($violations)
+	{
+		$this->violations = $violations;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleRpcPreconditionFailureViolation
+	 */
+	public function getViolations()
+	{
+		return $this->violations;
+	}
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Iam_ListServiceAccountKeysResponse extends Google_Collection
 {
-  protected $collection_key = 'keys';
-  protected $keysType = 'Google_Service_Iam_ServiceAccountKey';
-  protected $keysDataType = 'array';
+	protected $collection_key = 'keys';
+	protected $keysType = 'Google_Service_Iam_ServiceAccountKey';
+	protected $keysDataType = 'array';
 
-  /**
-   * @param Google_Service_Iam_ServiceAccountKey
-   */
-  public function setKeys($keys)
-  {
-    $this->keys = $keys;
-  }
-  /**
-   * @return Google_Service_Iam_ServiceAccountKey
-   */
-  public function getKeys()
-  {
-    return $this->keys;
-  }
+	/**
+	 * @param Google_Service_Iam_ServiceAccountKey
+	 */
+	public function setKeys($keys)
+	{
+		$this->keys = $keys;
+	}
+	/**
+	 * @return Google_Service_Iam_ServiceAccountKey
+	 */
+	public function getKeys()
+	{
+		return $this->keys;
+	}
 }

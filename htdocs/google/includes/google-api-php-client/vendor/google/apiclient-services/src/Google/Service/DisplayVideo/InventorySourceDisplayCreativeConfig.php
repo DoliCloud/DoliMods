@@ -17,21 +17,21 @@
 
 class Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig extends Google_Model
 {
-  protected $creativeSizeType = 'Google_Service_DisplayVideo_Dimensions';
-  protected $creativeSizeDataType = '';
+	protected $creativeSizeType = 'Google_Service_DisplayVideo_Dimensions';
+	protected $creativeSizeDataType = '';
 
-  /**
-   * @param Google_Service_DisplayVideo_Dimensions
-   */
-  public function setCreativeSize(Google_Service_DisplayVideo_Dimensions $creativeSize)
-  {
-    $this->creativeSize = $creativeSize;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_Dimensions
-   */
-  public function getCreativeSize()
-  {
-    return $this->creativeSize;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_Dimensions
+	 */
+	public function setCreativeSize(Google_Service_DisplayVideo_Dimensions $creativeSize)
+	{
+		$this->creativeSize = $creativeSize;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_Dimensions
+	 */
+	public function getCreativeSize()
+	{
+		return $this->creativeSize;
+	}
 }

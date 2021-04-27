@@ -39,104 +39,104 @@ use Smalot\PdfParser\Element\ElementNumeric;
  */
 class Encoding extends PDFObject
 {
-    /**
-     * @var array
-     */
-    protected $encoding;
+	/**
+	 * @var array
+	 */
+	protected $encoding;
 
-    /**
-     * @var array
-     */
-    protected $differences;
+	/**
+	 * @var array
+	 */
+	protected $differences;
 
-    /**
-     * @var array
-     */
-    protected $mapping;
+	/**
+	 * @var array
+	 */
+	protected $mapping;
 
-    /**
-     *
-     */
-    public function init()
-    {
-        $this->mapping     = array();
-        $this->differences = array();
-        $this->encoding    = null;
+	/**
+	 *
+	 */
+	public function init()
+	{
+		$this->mapping     = array();
+		$this->differences = array();
+		$this->encoding    = null;
 
-        if ($this->has('BaseEncoding')) {
-            // Load reference table charset.
-            $baseEncoding = preg_replace('/[^A-Z0-9]/is', '', $this->get('BaseEncoding')->getContent());
-            $className    = '\\Smalot\\PdfParser\\Encoding\\' . $baseEncoding;
+		if ($this->has('BaseEncoding')) {
+			// Load reference table charset.
+			$baseEncoding = preg_replace('/[^A-Z0-9]/is', '', $this->get('BaseEncoding')->getContent());
+			$className    = '\\Smalot\\PdfParser\\Encoding\\' . $baseEncoding;
 
-            if (class_exists($className)) {
-                $class = new $className();
-                $this->encoding = $class->getTranslations();
-            } else {
-                throw new \Exception('Missing encoding data for: "' . $baseEncoding . '".');
-            }
+			if (class_exists($className)) {
+				$class = new $className();
+				$this->encoding = $class->getTranslations();
+			} else {
+				throw new \Exception('Missing encoding data for: "' . $baseEncoding . '".');
+			}
 
-            // Build table including differences.
-            $differences = $this->get('Differences')->getContent();
-            $code        = 0;
+			// Build table including differences.
+			$differences = $this->get('Differences')->getContent();
+			$code        = 0;
 
-            if (!is_array($differences)) {
-                return;
-            }
+			if (!is_array($differences)) {
+				return;
+			}
 
-            foreach ($differences as $difference) {
-                /** @var ElementNumeric $difference */
-                if ($difference instanceof ElementNumeric) {
-                    $code = $difference->getContent();
-                    continue;
-                }
+			foreach ($differences as $difference) {
+				/** @var ElementNumeric $difference */
+				if ($difference instanceof ElementNumeric) {
+					$code = $difference->getContent();
+					continue;
+				}
 
-                // ElementName
-                if (is_object($difference)) {
-                    $this->differences[$code] = $difference->getContent();
-                } else {
-                    $this->differences[$code] = $difference;
-                }
+				// ElementName
+				if (is_object($difference)) {
+					$this->differences[$code] = $difference->getContent();
+				} else {
+					$this->differences[$code] = $difference;
+				}
 
-                // For the next char.
-                $code++;
-            }
+				// For the next char.
+				$code++;
+			}
 
-            // Build final mapping (custom => standard).
-            $table = array_flip(array_reverse($this->encoding, true));
+			// Build final mapping (custom => standard).
+			$table = array_flip(array_reverse($this->encoding, true));
 
-            foreach ($this->differences as $code => $difference) {
-                /** @var string $difference */
-                $this->mapping[$code] = (isset($table[$difference]) ? $table[$difference] : Font::MISSING);
-            }
-        }
-    }
+			foreach ($this->differences as $code => $difference) {
+				/** @var string $difference */
+				$this->mapping[$code] = (isset($table[$difference]) ? $table[$difference] : Font::MISSING);
+			}
+		}
+	}
 
-    /**
-     * @return array
-     */
-    public function getDetails($deep = true)
-    {
-        $details = array();
+	/**
+	 * @return array
+	 */
+	public function getDetails($deep = true)
+	{
+		$details = array();
 
-        $details['BaseEncoding'] = ($this->has('BaseEncoding') ? (string)$this->get('BaseEncoding') : 'Ansi');
-        $details['Differences']  = ($this->has('Differences') ? (string)$this->get('Differences') : '');
+		$details['BaseEncoding'] = ($this->has('BaseEncoding') ? (string) $this->get('BaseEncoding') : 'Ansi');
+		$details['Differences']  = ($this->has('Differences') ? (string) $this->get('Differences') : '');
 
-        $details += parent::getDetails($deep);
+		$details += parent::getDetails($deep);
 
-        return $details;
-    }
+		return $details;
+	}
 
-    /**
-     * @param int $char
-     *
-     * @return int
-     */
-    public function translateChar($dec)
-    {
-        if (isset($this->mapping[$dec])) {
-            $dec = $this->mapping[$dec];
-        }
+	/**
+	 * @param int $char
+	 *
+	 * @return int
+	 */
+	public function translateChar($dec)
+	{
+		if (isset($this->mapping[$dec])) {
+			$dec = $this->mapping[$dec];
+		}
 
-        return $dec;
-    }
+		return $dec;
+	}
 }

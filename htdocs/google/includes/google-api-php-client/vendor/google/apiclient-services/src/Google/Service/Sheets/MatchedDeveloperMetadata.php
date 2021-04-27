@@ -17,38 +17,38 @@
 
 class Google_Service_Sheets_MatchedDeveloperMetadata extends Google_Collection
 {
-  protected $collection_key = 'dataFilters';
-  protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
-  protected $dataFiltersDataType = 'array';
-  protected $developerMetadataType = 'Google_Service_Sheets_DeveloperMetadata';
-  protected $developerMetadataDataType = '';
+	protected $collection_key = 'dataFilters';
+	protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
+	protected $dataFiltersDataType = 'array';
+	protected $developerMetadataType = 'Google_Service_Sheets_DeveloperMetadata';
+	protected $developerMetadataDataType = '';
 
-  /**
-   * @param Google_Service_Sheets_DataFilter
-   */
-  public function setDataFilters($dataFilters)
-  {
-    $this->dataFilters = $dataFilters;
-  }
-  /**
-   * @return Google_Service_Sheets_DataFilter
-   */
-  public function getDataFilters()
-  {
-    return $this->dataFilters;
-  }
-  /**
-   * @param Google_Service_Sheets_DeveloperMetadata
-   */
-  public function setDeveloperMetadata(Google_Service_Sheets_DeveloperMetadata $developerMetadata)
-  {
-    $this->developerMetadata = $developerMetadata;
-  }
-  /**
-   * @return Google_Service_Sheets_DeveloperMetadata
-   */
-  public function getDeveloperMetadata()
-  {
-    return $this->developerMetadata;
-  }
+	/**
+	 * @param Google_Service_Sheets_DataFilter
+	 */
+	public function setDataFilters($dataFilters)
+	{
+		$this->dataFilters = $dataFilters;
+	}
+	/**
+	 * @return Google_Service_Sheets_DataFilter
+	 */
+	public function getDataFilters()
+	{
+		return $this->dataFilters;
+	}
+	/**
+	 * @param Google_Service_Sheets_DeveloperMetadata
+	 */
+	public function setDeveloperMetadata(Google_Service_Sheets_DeveloperMetadata $developerMetadata)
+	{
+		$this->developerMetadata = $developerMetadata;
+	}
+	/**
+	 * @return Google_Service_Sheets_DeveloperMetadata
+	 */
+	public function getDeveloperMetadata()
+	{
+		return $this->developerMetadata;
+	}
 }

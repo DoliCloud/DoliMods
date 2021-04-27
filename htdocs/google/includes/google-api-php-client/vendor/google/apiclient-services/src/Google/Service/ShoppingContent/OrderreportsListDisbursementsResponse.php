@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_OrderreportsListDisbursementsResponse extends Google_Collection
 {
-  protected $collection_key = 'disbursements';
-  protected $disbursementsType = 'Google_Service_ShoppingContent_OrderReportDisbursement';
-  protected $disbursementsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
+	protected $collection_key = 'disbursements';
+	protected $disbursementsType = 'Google_Service_ShoppingContent_OrderReportDisbursement';
+	protected $disbursementsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_ShoppingContent_OrderReportDisbursement
-   */
-  public function setDisbursements($disbursements)
-  {
-    $this->disbursements = $disbursements;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_OrderReportDisbursement
-   */
-  public function getDisbursements()
-  {
-    return $this->disbursements;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_OrderReportDisbursement
+	 */
+	public function setDisbursements($disbursements)
+	{
+		$this->disbursements = $disbursements;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_OrderReportDisbursement
+	 */
+	public function getDisbursements()
+	{
+		return $this->disbursements;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

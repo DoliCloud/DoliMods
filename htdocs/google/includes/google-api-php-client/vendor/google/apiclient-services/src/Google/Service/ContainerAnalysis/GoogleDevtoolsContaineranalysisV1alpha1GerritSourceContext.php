@@ -17,48 +17,48 @@
 
 class Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1GerritSourceContext extends Google_Model
 {
-  protected $aliasContextType = 'Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1AliasContext';
-  protected $aliasContextDataType = '';
-  public $gerritProject;
-  public $hostUri;
-  public $revisionId;
+	protected $aliasContextType = 'Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1AliasContext';
+	protected $aliasContextDataType = '';
+	public $gerritProject;
+	public $hostUri;
+	public $revisionId;
 
-  /**
-   * @param Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1AliasContext
-   */
-  public function setAliasContext(Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1AliasContext $aliasContext)
-  {
-    $this->aliasContext = $aliasContext;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1AliasContext
-   */
-  public function getAliasContext()
-  {
-    return $this->aliasContext;
-  }
-  public function setGerritProject($gerritProject)
-  {
-    $this->gerritProject = $gerritProject;
-  }
-  public function getGerritProject()
-  {
-    return $this->gerritProject;
-  }
-  public function setHostUri($hostUri)
-  {
-    $this->hostUri = $hostUri;
-  }
-  public function getHostUri()
-  {
-    return $this->hostUri;
-  }
-  public function setRevisionId($revisionId)
-  {
-    $this->revisionId = $revisionId;
-  }
-  public function getRevisionId()
-  {
-    return $this->revisionId;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1AliasContext
+	 */
+	public function setAliasContext(Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1AliasContext $aliasContext)
+	{
+		$this->aliasContext = $aliasContext;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1AliasContext
+	 */
+	public function getAliasContext()
+	{
+		return $this->aliasContext;
+	}
+	public function setGerritProject($gerritProject)
+	{
+		$this->gerritProject = $gerritProject;
+	}
+	public function getGerritProject()
+	{
+		return $this->gerritProject;
+	}
+	public function setHostUri($hostUri)
+	{
+		$this->hostUri = $hostUri;
+	}
+	public function getHostUri()
+	{
+		return $this->hostUri;
+	}
+	public function setRevisionId($revisionId)
+	{
+		$this->revisionId = $revisionId;
+	}
+	public function getRevisionId()
+	{
+		return $this->revisionId;
+	}
 }

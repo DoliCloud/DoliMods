@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_CustomEventImpressionAnnotation extends Google_Model
 {
-  public $kind;
-  public $pathImpressionId;
+	public $kind;
+	public $pathImpressionId;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setPathImpressionId($pathImpressionId)
-  {
-    $this->pathImpressionId = $pathImpressionId;
-  }
-  public function getPathImpressionId()
-  {
-    return $this->pathImpressionId;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setPathImpressionId($pathImpressionId)
+	{
+		$this->pathImpressionId = $pathImpressionId;
+	}
+	public function getPathImpressionId()
+	{
+		return $this->pathImpressionId;
+	}
 }

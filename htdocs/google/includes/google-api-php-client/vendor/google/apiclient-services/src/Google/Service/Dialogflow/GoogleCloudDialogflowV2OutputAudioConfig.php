@@ -17,39 +17,39 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2OutputAudioConfig extends Google_Model
 {
-  public $audioEncoding;
-  public $sampleRateHertz;
-  protected $synthesizeSpeechConfigType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig';
-  protected $synthesizeSpeechConfigDataType = '';
+	public $audioEncoding;
+	public $sampleRateHertz;
+	protected $synthesizeSpeechConfigType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig';
+	protected $synthesizeSpeechConfigDataType = '';
 
-  public function setAudioEncoding($audioEncoding)
-  {
-    $this->audioEncoding = $audioEncoding;
-  }
-  public function getAudioEncoding()
-  {
-    return $this->audioEncoding;
-  }
-  public function setSampleRateHertz($sampleRateHertz)
-  {
-    $this->sampleRateHertz = $sampleRateHertz;
-  }
-  public function getSampleRateHertz()
-  {
-    return $this->sampleRateHertz;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig
-   */
-  public function setSynthesizeSpeechConfig(Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig $synthesizeSpeechConfig)
-  {
-    $this->synthesizeSpeechConfig = $synthesizeSpeechConfig;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig
-   */
-  public function getSynthesizeSpeechConfig()
-  {
-    return $this->synthesizeSpeechConfig;
-  }
+	public function setAudioEncoding($audioEncoding)
+	{
+		$this->audioEncoding = $audioEncoding;
+	}
+	public function getAudioEncoding()
+	{
+		return $this->audioEncoding;
+	}
+	public function setSampleRateHertz($sampleRateHertz)
+	{
+		$this->sampleRateHertz = $sampleRateHertz;
+	}
+	public function getSampleRateHertz()
+	{
+		return $this->sampleRateHertz;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig
+	 */
+	public function setSynthesizeSpeechConfig(Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig $synthesizeSpeechConfig)
+	{
+		$this->synthesizeSpeechConfig = $synthesizeSpeechConfig;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig
+	 */
+	public function getSynthesizeSpeechConfig()
+	{
+		return $this->synthesizeSpeechConfig;
+	}
 }

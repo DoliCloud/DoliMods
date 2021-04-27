@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2InspectContentResponse extends Google_Model
 {
-  protected $resultType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectResult';
-  protected $resultDataType = '';
+	protected $resultType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectResult';
+	protected $resultDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectResult
-   */
-  public function setResult(Google_Service_DLP_GooglePrivacyDlpV2InspectResult $result)
-  {
-    $this->result = $result;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectResult
-   */
-  public function getResult()
-  {
-    return $this->result;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectResult
+	 */
+	public function setResult(Google_Service_DLP_GooglePrivacyDlpV2InspectResult $result)
+	{
+		$this->result = $result;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectResult
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
 }

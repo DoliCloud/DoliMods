@@ -17,22 +17,22 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations extends Google_Collection
 {
-  protected $collection_key = 'transformations';
-  protected $transformationsType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformation';
-  protected $transformationsDataType = 'array';
+	protected $collection_key = 'transformations';
+	protected $transformationsType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformation';
+	protected $transformationsDataType = 'array';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformation
-   */
-  public function setTransformations($transformations)
-  {
-    $this->transformations = $transformations;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformation
-   */
-  public function getTransformations()
-  {
-    return $this->transformations;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformation
+	 */
+	public function setTransformations($transformations)
+	{
+		$this->transformations = $transformations;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformation
+	 */
+	public function getTransformations()
+	{
+		return $this->transformations;
+	}
 }

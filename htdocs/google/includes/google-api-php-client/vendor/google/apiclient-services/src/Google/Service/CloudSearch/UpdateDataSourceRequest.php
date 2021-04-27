@@ -17,37 +17,37 @@
 
 class Google_Service_CloudSearch_UpdateDataSourceRequest extends Google_Model
 {
-  protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
-  protected $debugOptionsDataType = '';
-  protected $sourceType = 'Google_Service_CloudSearch_DataSource';
-  protected $sourceDataType = '';
+	protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
+	protected $debugOptionsDataType = '';
+	protected $sourceType = 'Google_Service_CloudSearch_DataSource';
+	protected $sourceDataType = '';
 
-  /**
-   * @param Google_Service_CloudSearch_DebugOptions
-   */
-  public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
-  {
-    $this->debugOptions = $debugOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DebugOptions
-   */
-  public function getDebugOptions()
-  {
-    return $this->debugOptions;
-  }
-  /**
-   * @param Google_Service_CloudSearch_DataSource
-   */
-  public function setSource(Google_Service_CloudSearch_DataSource $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DataSource
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_DebugOptions
+	 */
+	public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
+	{
+		$this->debugOptions = $debugOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DebugOptions
+	 */
+	public function getDebugOptions()
+	{
+		return $this->debugOptions;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_DataSource
+	 */
+	public function setSource(Google_Service_CloudSearch_DataSource $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DataSource
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

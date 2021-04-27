@@ -17,14 +17,14 @@
 
 class Google_Service_Testing_UniformSharding extends Google_Model
 {
-  public $numShards;
+	public $numShards;
 
-  public function setNumShards($numShards)
-  {
-    $this->numShards = $numShards;
-  }
-  public function getNumShards()
-  {
-    return $this->numShards;
-  }
+	public function setNumShards($numShards)
+	{
+		$this->numShards = $numShards;
+	}
+	public function getNumShards()
+	{
+		return $this->numShards;
+	}
 }

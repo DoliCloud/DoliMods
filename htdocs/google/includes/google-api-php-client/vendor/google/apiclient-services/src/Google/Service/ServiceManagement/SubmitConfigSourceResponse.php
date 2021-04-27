@@ -17,21 +17,21 @@
 
 class Google_Service_ServiceManagement_SubmitConfigSourceResponse extends Google_Model
 {
-  protected $serviceConfigType = 'Google_Service_ServiceManagement_Service';
-  protected $serviceConfigDataType = '';
+	protected $serviceConfigType = 'Google_Service_ServiceManagement_Service';
+	protected $serviceConfigDataType = '';
 
-  /**
-   * @param Google_Service_ServiceManagement_Service
-   */
-  public function setServiceConfig(Google_Service_ServiceManagement_Service $serviceConfig)
-  {
-    $this->serviceConfig = $serviceConfig;
-  }
-  /**
-   * @return Google_Service_ServiceManagement_Service
-   */
-  public function getServiceConfig()
-  {
-    return $this->serviceConfig;
-  }
+	/**
+	 * @param Google_Service_ServiceManagement_Service
+	 */
+	public function setServiceConfig(Google_Service_ServiceManagement_Service $serviceConfig)
+	{
+		$this->serviceConfig = $serviceConfig;
+	}
+	/**
+	 * @return Google_Service_ServiceManagement_Service
+	 */
+	public function getServiceConfig()
+	{
+		return $this->serviceConfig;
+	}
 }

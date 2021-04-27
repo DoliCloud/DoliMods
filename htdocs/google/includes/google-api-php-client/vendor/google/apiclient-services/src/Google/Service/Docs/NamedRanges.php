@@ -17,31 +17,31 @@
 
 class Google_Service_Docs_NamedRanges extends Google_Collection
 {
-  protected $collection_key = 'namedRanges';
-  public $name;
-  protected $namedRangesType = 'Google_Service_Docs_NamedRange';
-  protected $namedRangesDataType = 'array';
+	protected $collection_key = 'namedRanges';
+	public $name;
+	protected $namedRangesType = 'Google_Service_Docs_NamedRange';
+	protected $namedRangesDataType = 'array';
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Docs_NamedRange
-   */
-  public function setNamedRanges($namedRanges)
-  {
-    $this->namedRanges = $namedRanges;
-  }
-  /**
-   * @return Google_Service_Docs_NamedRange
-   */
-  public function getNamedRanges()
-  {
-    return $this->namedRanges;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Docs_NamedRange
+	 */
+	public function setNamedRanges($namedRanges)
+	{
+		$this->namedRanges = $namedRanges;
+	}
+	/**
+	 * @return Google_Service_Docs_NamedRange
+	 */
+	public function getNamedRanges()
+	{
+		return $this->namedRanges;
+	}
 }

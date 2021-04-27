@@ -17,22 +17,22 @@
 
 class Google_Service_BigtableAdmin_ModifyColumnFamiliesRequest extends Google_Collection
 {
-  protected $collection_key = 'modifications';
-  protected $modificationsType = 'Google_Service_BigtableAdmin_Modification';
-  protected $modificationsDataType = 'array';
+	protected $collection_key = 'modifications';
+	protected $modificationsType = 'Google_Service_BigtableAdmin_Modification';
+	protected $modificationsDataType = 'array';
 
-  /**
-   * @param Google_Service_BigtableAdmin_Modification
-   */
-  public function setModifications($modifications)
-  {
-    $this->modifications = $modifications;
-  }
-  /**
-   * @return Google_Service_BigtableAdmin_Modification
-   */
-  public function getModifications()
-  {
-    return $this->modifications;
-  }
+	/**
+	 * @param Google_Service_BigtableAdmin_Modification
+	 */
+	public function setModifications($modifications)
+	{
+		$this->modifications = $modifications;
+	}
+	/**
+	 * @return Google_Service_BigtableAdmin_Modification
+	 */
+	public function getModifications()
+	{
+		return $this->modifications;
+	}
 }

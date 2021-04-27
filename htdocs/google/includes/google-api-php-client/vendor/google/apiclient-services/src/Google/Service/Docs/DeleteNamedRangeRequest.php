@@ -17,23 +17,23 @@
 
 class Google_Service_Docs_DeleteNamedRangeRequest extends Google_Model
 {
-  public $name;
-  public $namedRangeId;
+	public $name;
+	public $namedRangeId;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNamedRangeId($namedRangeId)
-  {
-    $this->namedRangeId = $namedRangeId;
-  }
-  public function getNamedRangeId()
-  {
-    return $this->namedRangeId;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNamedRangeId($namedRangeId)
+	{
+		$this->namedRangeId = $namedRangeId;
+	}
+	public function getNamedRangeId()
+	{
+		return $this->namedRangeId;
+	}
 }

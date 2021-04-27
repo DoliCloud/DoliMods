@@ -17,22 +17,22 @@
 
 class Google_Service_ShoppingContent_TransitTableTransitTimeRow extends Google_Collection
 {
-  protected $collection_key = 'values';
-  protected $valuesType = 'Google_Service_ShoppingContent_TransitTableTransitTimeRowTransitTimeValue';
-  protected $valuesDataType = 'array';
+	protected $collection_key = 'values';
+	protected $valuesType = 'Google_Service_ShoppingContent_TransitTableTransitTimeRowTransitTimeValue';
+	protected $valuesDataType = 'array';
 
-  /**
-   * @param Google_Service_ShoppingContent_TransitTableTransitTimeRowTransitTimeValue
-   */
-  public function setValues($values)
-  {
-    $this->values = $values;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_TransitTableTransitTimeRowTransitTimeValue
-   */
-  public function getValues()
-  {
-    return $this->values;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_TransitTableTransitTimeRowTransitTimeValue
+	 */
+	public function setValues($values)
+	{
+		$this->values = $values;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_TransitTableTransitTimeRowTransitTimeValue
+	 */
+	public function getValues()
+	{
+		return $this->values;
+	}
 }

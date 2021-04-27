@@ -17,41 +17,41 @@
 
 class Google_Service_Dataproc_ClusterStatus extends Google_Model
 {
-  public $detail;
-  public $state;
-  public $stateStartTime;
-  public $substate;
+	public $detail;
+	public $state;
+	public $stateStartTime;
+	public $substate;
 
-  public function setDetail($detail)
-  {
-    $this->detail = $detail;
-  }
-  public function getDetail()
-  {
-    return $this->detail;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setStateStartTime($stateStartTime)
-  {
-    $this->stateStartTime = $stateStartTime;
-  }
-  public function getStateStartTime()
-  {
-    return $this->stateStartTime;
-  }
-  public function setSubstate($substate)
-  {
-    $this->substate = $substate;
-  }
-  public function getSubstate()
-  {
-    return $this->substate;
-  }
+	public function setDetail($detail)
+	{
+		$this->detail = $detail;
+	}
+	public function getDetail()
+	{
+		return $this->detail;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setStateStartTime($stateStartTime)
+	{
+		$this->stateStartTime = $stateStartTime;
+	}
+	public function getStateStartTime()
+	{
+		return $this->stateStartTime;
+	}
+	public function setSubstate($substate)
+	{
+		$this->substate = $substate;
+	}
+	public function getSubstate()
+	{
+		return $this->substate;
+	}
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_NetworkEndpointGroupsScopedList extends Google_Collection
 {
-  protected $collection_key = 'networkEndpointGroups';
-  protected $networkEndpointGroupsType = 'Google_Service_Compute_NetworkEndpointGroup';
-  protected $networkEndpointGroupsDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_NetworkEndpointGroupsScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'networkEndpointGroups';
+	protected $networkEndpointGroupsType = 'Google_Service_Compute_NetworkEndpointGroup';
+	protected $networkEndpointGroupsDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_NetworkEndpointGroupsScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_NetworkEndpointGroup
-   */
-  public function setNetworkEndpointGroups($networkEndpointGroups)
-  {
-    $this->networkEndpointGroups = $networkEndpointGroups;
-  }
-  /**
-   * @return Google_Service_Compute_NetworkEndpointGroup
-   */
-  public function getNetworkEndpointGroups()
-  {
-    return $this->networkEndpointGroups;
-  }
-  /**
-   * @param Google_Service_Compute_NetworkEndpointGroupsScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_NetworkEndpointGroupsScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_NetworkEndpointGroupsScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_NetworkEndpointGroup
+	 */
+	public function setNetworkEndpointGroups($networkEndpointGroups)
+	{
+		$this->networkEndpointGroups = $networkEndpointGroups;
+	}
+	/**
+	 * @return Google_Service_Compute_NetworkEndpointGroup
+	 */
+	public function getNetworkEndpointGroups()
+	{
+		return $this->networkEndpointGroups;
+	}
+	/**
+	 * @param Google_Service_Compute_NetworkEndpointGroupsScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_NetworkEndpointGroupsScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_NetworkEndpointGroupsScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Proximitybeacon_GetInfoForObservedBeaconsRequest extends Google_Collection
 {
-  protected $collection_key = 'observations';
-  public $namespacedTypes;
-  protected $observationsType = 'Google_Service_Proximitybeacon_Observation';
-  protected $observationsDataType = 'array';
+	protected $collection_key = 'observations';
+	public $namespacedTypes;
+	protected $observationsType = 'Google_Service_Proximitybeacon_Observation';
+	protected $observationsDataType = 'array';
 
-  public function setNamespacedTypes($namespacedTypes)
-  {
-    $this->namespacedTypes = $namespacedTypes;
-  }
-  public function getNamespacedTypes()
-  {
-    return $this->namespacedTypes;
-  }
-  /**
-   * @param Google_Service_Proximitybeacon_Observation
-   */
-  public function setObservations($observations)
-  {
-    $this->observations = $observations;
-  }
-  /**
-   * @return Google_Service_Proximitybeacon_Observation
-   */
-  public function getObservations()
-  {
-    return $this->observations;
-  }
+	public function setNamespacedTypes($namespacedTypes)
+	{
+		$this->namespacedTypes = $namespacedTypes;
+	}
+	public function getNamespacedTypes()
+	{
+		return $this->namespacedTypes;
+	}
+	/**
+	 * @param Google_Service_Proximitybeacon_Observation
+	 */
+	public function setObservations($observations)
+	{
+		$this->observations = $observations;
+	}
+	/**
+	 * @return Google_Service_Proximitybeacon_Observation
+	 */
+	public function getObservations()
+	{
+		return $this->observations;
+	}
 }

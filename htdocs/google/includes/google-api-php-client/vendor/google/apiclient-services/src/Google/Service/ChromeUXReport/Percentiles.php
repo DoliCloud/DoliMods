@@ -17,14 +17,14 @@
 
 class Google_Service_ChromeUXReport_Percentiles extends Google_Model
 {
-  public $p75;
+	public $p75;
 
-  public function setP75($p75)
-  {
-    $this->p75 = $p75;
-  }
-  public function getP75()
-  {
-    return $this->p75;
-  }
+	public function setP75($p75)
+	{
+		$this->p75 = $p75;
+	}
+	public function getP75()
+	{
+		return $this->p75;
+	}
 }

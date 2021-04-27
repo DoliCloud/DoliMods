@@ -13,7 +13,7 @@
  *      \ingroup    google
  *      \brief      Description and activation file for module Google
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -40,11 +40,11 @@ class modGoogle extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "interface";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '6.3';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -55,10 +55,10 @@ class modGoogle extends DolibarrModules
 		$this->picto='google@google';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-        $this->module_parts = array(
-        	'triggers' => 1,
-        	'hooks' => array('main','agenda','agendalist')
-        );
+		$this->module_parts = array(
+			'triggers' => 1,
+			'hooks' => array('main','agenda','agendalist')
+		);
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -80,18 +80,18 @@ class modGoogle extends DolibarrModules
 
 
 
-        // Tabs
-        $this->tabs = array();
+		// Tabs
+		$this->tabs = array();
 		/*$this->tabs = array('thirdparty:+gmaps:GMaps:google@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS:/google/gmaps.php?mode=thirdparty&id=__ID__',
 							'contact:+gmaps:GMaps:google@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS:/google/gmaps.php?mode=contact&id=__ID__',
 							'member:+gmaps:GMaps:google@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS:/google/gmaps.php?mode=member&id=__ID__',
 						);*/
-        //$this->tabs = array('agenda:+gcal:MenuAgendaGoogle:google@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php');
-        $this->tabs = array('agenda:+gcal:MenuAgendaGoogle:google@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php'
+		//$this->tabs = array('agenda:+gcal:MenuAgendaGoogle:google@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php');
+		$this->tabs = array('agenda:+gcal:MenuAgendaGoogle:google@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php'
 							,'user:+gsetup:GoogleUserConf:google@google:$conf->google->enabled && $conf->global->GOOGLE_DUPLICATE_INTO_GCAL:/google/admin/google_calsync_user.php?id=__ID__'
 							);
 
-        // Boxes
+		// Boxes
 		$this->boxes = array();			// List of boxes
 		$r=0;
 
@@ -153,10 +153,10 @@ class modGoogle extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
+	function init($options = '')
 	{
 		$sql = array();
 
@@ -166,7 +166,7 @@ class modGoogle extends DolibarrModules
 
 		$result=$this->load_tables();
 
-		return $this->_init($sql,$options);
+		return $this->_init($sql, $options);
 	}
 
 	/**
@@ -174,16 +174,16 @@ class modGoogle extends DolibarrModules
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options='')
+	function remove($options = '')
 	{
 		$sql = array();
 
 		$this->boxes[0]['file'] = "box_googlemaps.php@google";
 
-		return $this->_remove($sql,$options);
+		return $this->_remove($sql, $options);
 	}
 
 	/**

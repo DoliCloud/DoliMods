@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_WaterfallChartDomain extends Google_Model
 {
-  protected $dataType = 'Google_Service_Sheets_ChartData';
-  protected $dataDataType = '';
-  public $reversed;
+	protected $dataType = 'Google_Service_Sheets_ChartData';
+	protected $dataDataType = '';
+	public $reversed;
 
-  /**
-   * @param Google_Service_Sheets_ChartData
-   */
-  public function setData(Google_Service_Sheets_ChartData $data)
-  {
-    $this->data = $data;
-  }
-  /**
-   * @return Google_Service_Sheets_ChartData
-   */
-  public function getData()
-  {
-    return $this->data;
-  }
-  public function setReversed($reversed)
-  {
-    $this->reversed = $reversed;
-  }
-  public function getReversed()
-  {
-    return $this->reversed;
-  }
+	/**
+	 * @param Google_Service_Sheets_ChartData
+	 */
+	public function setData(Google_Service_Sheets_ChartData $data)
+	{
+		$this->data = $data;
+	}
+	/**
+	 * @return Google_Service_Sheets_ChartData
+	 */
+	public function getData()
+	{
+		return $this->data;
+	}
+	public function setReversed($reversed)
+	{
+		$this->reversed = $reversed;
+	}
+	public function getReversed()
+	{
+		return $this->reversed;
+	}
 }

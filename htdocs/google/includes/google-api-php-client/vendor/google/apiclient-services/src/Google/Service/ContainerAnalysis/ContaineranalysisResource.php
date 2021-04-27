@@ -17,39 +17,39 @@
 
 class Google_Service_ContainerAnalysis_ContaineranalysisResource extends Google_Model
 {
-  protected $contentHashType = 'Google_Service_ContainerAnalysis_Hash';
-  protected $contentHashDataType = '';
-  public $name;
-  public $uri;
+	protected $contentHashType = 'Google_Service_ContainerAnalysis_Hash';
+	protected $contentHashDataType = '';
+	public $name;
+	public $uri;
 
-  /**
-   * @param Google_Service_ContainerAnalysis_Hash
-   */
-  public function setContentHash(Google_Service_ContainerAnalysis_Hash $contentHash)
-  {
-    $this->contentHash = $contentHash;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_Hash
-   */
-  public function getContentHash()
-  {
-    return $this->contentHash;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_Hash
+	 */
+	public function setContentHash(Google_Service_ContainerAnalysis_Hash $contentHash)
+	{
+		$this->contentHash = $contentHash;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_Hash
+	 */
+	public function getContentHash()
+	{
+		return $this->contentHash;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

@@ -17,100 +17,100 @@
 
 class Google_Service_Dfareporting_PopupWindowProperties extends Google_Model
 {
-  protected $dimensionType = 'Google_Service_Dfareporting_Size';
-  protected $dimensionDataType = '';
-  protected $offsetType = 'Google_Service_Dfareporting_OffsetPosition';
-  protected $offsetDataType = '';
-  public $positionType;
-  public $showAddressBar;
-  public $showMenuBar;
-  public $showScrollBar;
-  public $showStatusBar;
-  public $showToolBar;
-  public $title;
+	protected $dimensionType = 'Google_Service_Dfareporting_Size';
+	protected $dimensionDataType = '';
+	protected $offsetType = 'Google_Service_Dfareporting_OffsetPosition';
+	protected $offsetDataType = '';
+	public $positionType;
+	public $showAddressBar;
+	public $showMenuBar;
+	public $showScrollBar;
+	public $showStatusBar;
+	public $showToolBar;
+	public $title;
 
-  /**
-   * @param Google_Service_Dfareporting_Size
-   */
-  public function setDimension(Google_Service_Dfareporting_Size $dimension)
-  {
-    $this->dimension = $dimension;
-  }
-  /**
-   * @return Google_Service_Dfareporting_Size
-   */
-  public function getDimension()
-  {
-    return $this->dimension;
-  }
-  /**
-   * @param Google_Service_Dfareporting_OffsetPosition
-   */
-  public function setOffset(Google_Service_Dfareporting_OffsetPosition $offset)
-  {
-    $this->offset = $offset;
-  }
-  /**
-   * @return Google_Service_Dfareporting_OffsetPosition
-   */
-  public function getOffset()
-  {
-    return $this->offset;
-  }
-  public function setPositionType($positionType)
-  {
-    $this->positionType = $positionType;
-  }
-  public function getPositionType()
-  {
-    return $this->positionType;
-  }
-  public function setShowAddressBar($showAddressBar)
-  {
-    $this->showAddressBar = $showAddressBar;
-  }
-  public function getShowAddressBar()
-  {
-    return $this->showAddressBar;
-  }
-  public function setShowMenuBar($showMenuBar)
-  {
-    $this->showMenuBar = $showMenuBar;
-  }
-  public function getShowMenuBar()
-  {
-    return $this->showMenuBar;
-  }
-  public function setShowScrollBar($showScrollBar)
-  {
-    $this->showScrollBar = $showScrollBar;
-  }
-  public function getShowScrollBar()
-  {
-    return $this->showScrollBar;
-  }
-  public function setShowStatusBar($showStatusBar)
-  {
-    $this->showStatusBar = $showStatusBar;
-  }
-  public function getShowStatusBar()
-  {
-    return $this->showStatusBar;
-  }
-  public function setShowToolBar($showToolBar)
-  {
-    $this->showToolBar = $showToolBar;
-  }
-  public function getShowToolBar()
-  {
-    return $this->showToolBar;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_Size
+	 */
+	public function setDimension(Google_Service_Dfareporting_Size $dimension)
+	{
+		$this->dimension = $dimension;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_Size
+	 */
+	public function getDimension()
+	{
+		return $this->dimension;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_OffsetPosition
+	 */
+	public function setOffset(Google_Service_Dfareporting_OffsetPosition $offset)
+	{
+		$this->offset = $offset;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_OffsetPosition
+	 */
+	public function getOffset()
+	{
+		return $this->offset;
+	}
+	public function setPositionType($positionType)
+	{
+		$this->positionType = $positionType;
+	}
+	public function getPositionType()
+	{
+		return $this->positionType;
+	}
+	public function setShowAddressBar($showAddressBar)
+	{
+		$this->showAddressBar = $showAddressBar;
+	}
+	public function getShowAddressBar()
+	{
+		return $this->showAddressBar;
+	}
+	public function setShowMenuBar($showMenuBar)
+	{
+		$this->showMenuBar = $showMenuBar;
+	}
+	public function getShowMenuBar()
+	{
+		return $this->showMenuBar;
+	}
+	public function setShowScrollBar($showScrollBar)
+	{
+		$this->showScrollBar = $showScrollBar;
+	}
+	public function getShowScrollBar()
+	{
+		return $this->showScrollBar;
+	}
+	public function setShowStatusBar($showStatusBar)
+	{
+		$this->showStatusBar = $showStatusBar;
+	}
+	public function getShowStatusBar()
+	{
+		return $this->showStatusBar;
+	}
+	public function setShowToolBar($showToolBar)
+	{
+		$this->showToolBar = $showToolBar;
+	}
+	public function getShowToolBar()
+	{
+		return $this->showToolBar;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

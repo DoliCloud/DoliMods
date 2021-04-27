@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_PricingSchedulePricingPeriod extends Google_Model
 {
-  public $endDate;
-  public $pricingComment;
-  public $rateOrCostNanos;
-  public $startDate;
-  public $units;
+	public $endDate;
+	public $pricingComment;
+	public $rateOrCostNanos;
+	public $startDate;
+	public $units;
 
-  public function setEndDate($endDate)
-  {
-    $this->endDate = $endDate;
-  }
-  public function getEndDate()
-  {
-    return $this->endDate;
-  }
-  public function setPricingComment($pricingComment)
-  {
-    $this->pricingComment = $pricingComment;
-  }
-  public function getPricingComment()
-  {
-    return $this->pricingComment;
-  }
-  public function setRateOrCostNanos($rateOrCostNanos)
-  {
-    $this->rateOrCostNanos = $rateOrCostNanos;
-  }
-  public function getRateOrCostNanos()
-  {
-    return $this->rateOrCostNanos;
-  }
-  public function setStartDate($startDate)
-  {
-    $this->startDate = $startDate;
-  }
-  public function getStartDate()
-  {
-    return $this->startDate;
-  }
-  public function setUnits($units)
-  {
-    $this->units = $units;
-  }
-  public function getUnits()
-  {
-    return $this->units;
-  }
+	public function setEndDate($endDate)
+	{
+		$this->endDate = $endDate;
+	}
+	public function getEndDate()
+	{
+		return $this->endDate;
+	}
+	public function setPricingComment($pricingComment)
+	{
+		$this->pricingComment = $pricingComment;
+	}
+	public function getPricingComment()
+	{
+		return $this->pricingComment;
+	}
+	public function setRateOrCostNanos($rateOrCostNanos)
+	{
+		$this->rateOrCostNanos = $rateOrCostNanos;
+	}
+	public function getRateOrCostNanos()
+	{
+		return $this->rateOrCostNanos;
+	}
+	public function setStartDate($startDate)
+	{
+		$this->startDate = $startDate;
+	}
+	public function getStartDate()
+	{
+		return $this->startDate;
+	}
+	public function setUnits($units)
+	{
+		$this->units = $units;
+	}
+	public function getUnits()
+	{
+		return $this->units;
+	}
 }

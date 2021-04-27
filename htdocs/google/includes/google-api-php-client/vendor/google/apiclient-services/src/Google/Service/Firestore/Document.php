@@ -17,48 +17,48 @@
 
 class Google_Service_Firestore_Document extends Google_Model
 {
-  public $createTime;
-  protected $fieldsType = 'Google_Service_Firestore_Value';
-  protected $fieldsDataType = 'map';
-  public $name;
-  public $updateTime;
+	public $createTime;
+	protected $fieldsType = 'Google_Service_Firestore_Value';
+	protected $fieldsDataType = 'map';
+	public $name;
+	public $updateTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  /**
-   * @param Google_Service_Firestore_Value
-   */
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  /**
-   * @return Google_Service_Firestore_Value
-   */
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	/**
+	 * @param Google_Service_Firestore_Value
+	 */
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	/**
+	 * @return Google_Service_Firestore_Value
+	 */
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

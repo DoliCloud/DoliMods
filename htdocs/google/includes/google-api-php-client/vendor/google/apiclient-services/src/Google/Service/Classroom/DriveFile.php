@@ -17,41 +17,41 @@
 
 class Google_Service_Classroom_DriveFile extends Google_Model
 {
-  public $alternateLink;
-  public $id;
-  public $thumbnailUrl;
-  public $title;
+	public $alternateLink;
+	public $id;
+	public $thumbnailUrl;
+	public $title;
 
-  public function setAlternateLink($alternateLink)
-  {
-    $this->alternateLink = $alternateLink;
-  }
-  public function getAlternateLink()
-  {
-    return $this->alternateLink;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setThumbnailUrl($thumbnailUrl)
-  {
-    $this->thumbnailUrl = $thumbnailUrl;
-  }
-  public function getThumbnailUrl()
-  {
-    return $this->thumbnailUrl;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setAlternateLink($alternateLink)
+	{
+		$this->alternateLink = $alternateLink;
+	}
+	public function getAlternateLink()
+	{
+		return $this->alternateLink;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setThumbnailUrl($thumbnailUrl)
+	{
+		$this->thumbnailUrl = $thumbnailUrl;
+	}
+	public function getThumbnailUrl()
+	{
+		return $this->thumbnailUrl;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Iam_LintPolicyRequest extends Google_Model
 {
-  protected $conditionType = 'Google_Service_Iam_Expr';
-  protected $conditionDataType = '';
-  public $fullResourceName;
+	protected $conditionType = 'Google_Service_Iam_Expr';
+	protected $conditionDataType = '';
+	public $fullResourceName;
 
-  /**
-   * @param Google_Service_Iam_Expr
-   */
-  public function setCondition(Google_Service_Iam_Expr $condition)
-  {
-    $this->condition = $condition;
-  }
-  /**
-   * @return Google_Service_Iam_Expr
-   */
-  public function getCondition()
-  {
-    return $this->condition;
-  }
-  public function setFullResourceName($fullResourceName)
-  {
-    $this->fullResourceName = $fullResourceName;
-  }
-  public function getFullResourceName()
-  {
-    return $this->fullResourceName;
-  }
+	/**
+	 * @param Google_Service_Iam_Expr
+	 */
+	public function setCondition(Google_Service_Iam_Expr $condition)
+	{
+		$this->condition = $condition;
+	}
+	/**
+	 * @return Google_Service_Iam_Expr
+	 */
+	public function getCondition()
+	{
+		return $this->condition;
+	}
+	public function setFullResourceName($fullResourceName)
+	{
+		$this->fullResourceName = $fullResourceName;
+	}
+	public function getFullResourceName()
+	{
+		return $this->fullResourceName;
+	}
 }

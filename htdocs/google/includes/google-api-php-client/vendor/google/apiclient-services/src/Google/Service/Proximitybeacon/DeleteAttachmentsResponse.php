@@ -17,14 +17,14 @@
 
 class Google_Service_Proximitybeacon_DeleteAttachmentsResponse extends Google_Model
 {
-  public $numDeleted;
+	public $numDeleted;
 
-  public function setNumDeleted($numDeleted)
-  {
-    $this->numDeleted = $numDeleted;
-  }
-  public function getNumDeleted()
-  {
-    return $this->numDeleted;
-  }
+	public function setNumDeleted($numDeleted)
+	{
+		$this->numDeleted = $numDeleted;
+	}
+	public function getNumDeleted()
+	{
+		return $this->numDeleted;
+	}
 }

@@ -17,46 +17,46 @@
 
 class Google_Service_PeopleService_ContactGroupResponse extends Google_Model
 {
-  protected $contactGroupType = 'Google_Service_PeopleService_ContactGroup';
-  protected $contactGroupDataType = '';
-  public $requestedResourceName;
-  protected $statusType = 'Google_Service_PeopleService_Status';
-  protected $statusDataType = '';
+	protected $contactGroupType = 'Google_Service_PeopleService_ContactGroup';
+	protected $contactGroupDataType = '';
+	public $requestedResourceName;
+	protected $statusType = 'Google_Service_PeopleService_Status';
+	protected $statusDataType = '';
 
-  /**
-   * @param Google_Service_PeopleService_ContactGroup
-   */
-  public function setContactGroup(Google_Service_PeopleService_ContactGroup $contactGroup)
-  {
-    $this->contactGroup = $contactGroup;
-  }
-  /**
-   * @return Google_Service_PeopleService_ContactGroup
-   */
-  public function getContactGroup()
-  {
-    return $this->contactGroup;
-  }
-  public function setRequestedResourceName($requestedResourceName)
-  {
-    $this->requestedResourceName = $requestedResourceName;
-  }
-  public function getRequestedResourceName()
-  {
-    return $this->requestedResourceName;
-  }
-  /**
-   * @param Google_Service_PeopleService_Status
-   */
-  public function setStatus(Google_Service_PeopleService_Status $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_PeopleService_Status
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_PeopleService_ContactGroup
+	 */
+	public function setContactGroup(Google_Service_PeopleService_ContactGroup $contactGroup)
+	{
+		$this->contactGroup = $contactGroup;
+	}
+	/**
+	 * @return Google_Service_PeopleService_ContactGroup
+	 */
+	public function getContactGroup()
+	{
+		return $this->contactGroup;
+	}
+	public function setRequestedResourceName($requestedResourceName)
+	{
+		$this->requestedResourceName = $requestedResourceName;
+	}
+	public function getRequestedResourceName()
+	{
+		return $this->requestedResourceName;
+	}
+	/**
+	 * @param Google_Service_PeopleService_Status
+	 */
+	public function setStatus(Google_Service_PeopleService_Status $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_PeopleService_Status
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

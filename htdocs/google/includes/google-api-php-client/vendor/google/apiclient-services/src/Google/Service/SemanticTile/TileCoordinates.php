@@ -17,32 +17,32 @@
 
 class Google_Service_SemanticTile_TileCoordinates extends Google_Model
 {
-  public $x;
-  public $y;
-  public $zoom;
+	public $x;
+	public $y;
+	public $zoom;
 
-  public function setX($x)
-  {
-    $this->x = $x;
-  }
-  public function getX()
-  {
-    return $this->x;
-  }
-  public function setY($y)
-  {
-    $this->y = $y;
-  }
-  public function getY()
-  {
-    return $this->y;
-  }
-  public function setZoom($zoom)
-  {
-    $this->zoom = $zoom;
-  }
-  public function getZoom()
-  {
-    return $this->zoom;
-  }
+	public function setX($x)
+	{
+		$this->x = $x;
+	}
+	public function getX()
+	{
+		return $this->x;
+	}
+	public function setY($y)
+	{
+		$this->y = $y;
+	}
+	public function getY()
+	{
+		return $this->y;
+	}
+	public function setZoom($zoom)
+	{
+		$this->zoom = $zoom;
+	}
+	public function getZoom()
+	{
+		return $this->zoom;
+	}
 }

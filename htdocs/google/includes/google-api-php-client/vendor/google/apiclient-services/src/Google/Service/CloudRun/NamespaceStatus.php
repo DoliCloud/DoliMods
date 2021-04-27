@@ -17,14 +17,14 @@
 
 class Google_Service_CloudRun_NamespaceStatus extends Google_Model
 {
-  public $phase;
+	public $phase;
 
-  public function setPhase($phase)
-  {
-    $this->phase = $phase;
-  }
-  public function getPhase()
-  {
-    return $this->phase;
-  }
+	public function setPhase($phase)
+	{
+		$this->phase = $phase;
+	}
+	public function getPhase()
+	{
+		return $this->phase;
+	}
 }

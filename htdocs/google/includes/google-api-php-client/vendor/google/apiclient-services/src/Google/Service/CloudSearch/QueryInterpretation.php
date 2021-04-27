@@ -17,32 +17,32 @@
 
 class Google_Service_CloudSearch_QueryInterpretation extends Google_Model
 {
-  public $interpretationType;
-  public $interpretedQuery;
-  public $reason;
+	public $interpretationType;
+	public $interpretedQuery;
+	public $reason;
 
-  public function setInterpretationType($interpretationType)
-  {
-    $this->interpretationType = $interpretationType;
-  }
-  public function getInterpretationType()
-  {
-    return $this->interpretationType;
-  }
-  public function setInterpretedQuery($interpretedQuery)
-  {
-    $this->interpretedQuery = $interpretedQuery;
-  }
-  public function getInterpretedQuery()
-  {
-    return $this->interpretedQuery;
-  }
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
+	public function setInterpretationType($interpretationType)
+	{
+		$this->interpretationType = $interpretationType;
+	}
+	public function getInterpretationType()
+	{
+		return $this->interpretationType;
+	}
+	public function setInterpretedQuery($interpretedQuery)
+	{
+		$this->interpretedQuery = $interpretedQuery;
+	}
+	public function getInterpretedQuery()
+	{
+		return $this->interpretedQuery;
+	}
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
 }

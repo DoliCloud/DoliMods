@@ -17,49 +17,49 @@
 
 class Google_Service_Directory_Groups extends Google_Collection
 {
-  protected $collection_key = 'groups';
-  public $etag;
-  protected $groupsType = 'Google_Service_Directory_Group';
-  protected $groupsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
+	protected $collection_key = 'groups';
+	public $etag;
+	protected $groupsType = 'Google_Service_Directory_Group';
+	protected $groupsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  /**
-   * @param Google_Service_Directory_Group
-   */
-  public function setGroups($groups)
-  {
-    $this->groups = $groups;
-  }
-  /**
-   * @return Google_Service_Directory_Group
-   */
-  public function getGroups()
-  {
-    return $this->groups;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	/**
+	 * @param Google_Service_Directory_Group
+	 */
+	public function setGroups($groups)
+	{
+		$this->groups = $groups;
+	}
+	/**
+	 * @return Google_Service_Directory_Group
+	 */
+	public function getGroups()
+	{
+		return $this->groups;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

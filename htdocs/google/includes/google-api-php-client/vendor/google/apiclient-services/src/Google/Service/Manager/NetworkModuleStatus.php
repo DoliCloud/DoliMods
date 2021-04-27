@@ -17,14 +17,14 @@
 
 class Google_Service_Manager_NetworkModuleStatus extends Google_Model
 {
-  public $networkUrl;
+	public $networkUrl;
 
-  public function setNetworkUrl($networkUrl)
-  {
-    $this->networkUrl = $networkUrl;
-  }
-  public function getNetworkUrl()
-  {
-    return $this->networkUrl;
-  }
+	public function setNetworkUrl($networkUrl)
+	{
+		$this->networkUrl = $networkUrl;
+	}
+	public function getNetworkUrl()
+	{
+		return $this->networkUrl;
+	}
 }

@@ -17,67 +17,67 @@
 
 class Google_Service_Container_ServerConfig extends Google_Collection
 {
-  protected $collection_key = 'validNodeVersions';
-  protected $channelsType = 'Google_Service_Container_ReleaseChannelConfig';
-  protected $channelsDataType = 'array';
-  public $defaultClusterVersion;
-  public $defaultImageType;
-  public $validImageTypes;
-  public $validMasterVersions;
-  public $validNodeVersions;
+	protected $collection_key = 'validNodeVersions';
+	protected $channelsType = 'Google_Service_Container_ReleaseChannelConfig';
+	protected $channelsDataType = 'array';
+	public $defaultClusterVersion;
+	public $defaultImageType;
+	public $validImageTypes;
+	public $validMasterVersions;
+	public $validNodeVersions;
 
-  /**
-   * @param Google_Service_Container_ReleaseChannelConfig
-   */
-  public function setChannels($channels)
-  {
-    $this->channels = $channels;
-  }
-  /**
-   * @return Google_Service_Container_ReleaseChannelConfig
-   */
-  public function getChannels()
-  {
-    return $this->channels;
-  }
-  public function setDefaultClusterVersion($defaultClusterVersion)
-  {
-    $this->defaultClusterVersion = $defaultClusterVersion;
-  }
-  public function getDefaultClusterVersion()
-  {
-    return $this->defaultClusterVersion;
-  }
-  public function setDefaultImageType($defaultImageType)
-  {
-    $this->defaultImageType = $defaultImageType;
-  }
-  public function getDefaultImageType()
-  {
-    return $this->defaultImageType;
-  }
-  public function setValidImageTypes($validImageTypes)
-  {
-    $this->validImageTypes = $validImageTypes;
-  }
-  public function getValidImageTypes()
-  {
-    return $this->validImageTypes;
-  }
-  public function setValidMasterVersions($validMasterVersions)
-  {
-    $this->validMasterVersions = $validMasterVersions;
-  }
-  public function getValidMasterVersions()
-  {
-    return $this->validMasterVersions;
-  }
-  public function setValidNodeVersions($validNodeVersions)
-  {
-    $this->validNodeVersions = $validNodeVersions;
-  }
-  public function getValidNodeVersions()
-  {
-    return $this->validNodeVersions;
-  }
+	/**
+	 * @param Google_Service_Container_ReleaseChannelConfig
+	 */
+	public function setChannels($channels)
+	{
+		$this->channels = $channels;
+	}
+	/**
+	 * @return Google_Service_Container_ReleaseChannelConfig
+	 */
+	public function getChannels()
+	{
+		return $this->channels;
+	}
+	public function setDefaultClusterVersion($defaultClusterVersion)
+	{
+		$this->defaultClusterVersion = $defaultClusterVersion;
+	}
+	public function getDefaultClusterVersion()
+	{
+		return $this->defaultClusterVersion;
+	}
+	public function setDefaultImageType($defaultImageType)
+	{
+		$this->defaultImageType = $defaultImageType;
+	}
+	public function getDefaultImageType()
+	{
+		return $this->defaultImageType;
+	}
+	public function setValidImageTypes($validImageTypes)
+	{
+		$this->validImageTypes = $validImageTypes;
+	}
+	public function getValidImageTypes()
+	{
+		return $this->validImageTypes;
+	}
+	public function setValidMasterVersions($validMasterVersions)
+	{
+		$this->validMasterVersions = $validMasterVersions;
+	}
+	public function getValidMasterVersions()
+	{
+		return $this->validMasterVersions;
+	}
+	public function setValidNodeVersions($validNodeVersions)
+	{
+		$this->validNodeVersions = $validNodeVersions;
+	}
+	public function getValidNodeVersions()
+	{
+		return $this->validNodeVersions;
+	}
 }

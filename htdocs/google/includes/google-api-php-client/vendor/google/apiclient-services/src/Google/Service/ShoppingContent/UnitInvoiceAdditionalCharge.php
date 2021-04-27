@@ -17,30 +17,30 @@
 
 class Google_Service_ShoppingContent_UnitInvoiceAdditionalCharge extends Google_Model
 {
-  protected $additionalChargeAmountType = 'Google_Service_ShoppingContent_Amount';
-  protected $additionalChargeAmountDataType = '';
-  public $type;
+	protected $additionalChargeAmountType = 'Google_Service_ShoppingContent_Amount';
+	protected $additionalChargeAmountDataType = '';
+	public $type;
 
-  /**
-   * @param Google_Service_ShoppingContent_Amount
-   */
-  public function setAdditionalChargeAmount(Google_Service_ShoppingContent_Amount $additionalChargeAmount)
-  {
-    $this->additionalChargeAmount = $additionalChargeAmount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Amount
-   */
-  public function getAdditionalChargeAmount()
-  {
-    return $this->additionalChargeAmount;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_Amount
+	 */
+	public function setAdditionalChargeAmount(Google_Service_ShoppingContent_Amount $additionalChargeAmount)
+	{
+		$this->additionalChargeAmount = $additionalChargeAmount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Amount
+	 */
+	public function getAdditionalChargeAmount()
+	{
+		return $this->additionalChargeAmount;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

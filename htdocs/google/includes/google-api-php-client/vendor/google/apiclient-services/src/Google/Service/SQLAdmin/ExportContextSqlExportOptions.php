@@ -17,40 +17,40 @@
 
 class Google_Service_SQLAdmin_ExportContextSqlExportOptions extends Google_Collection
 {
-  protected $collection_key = 'tables';
-  protected $mysqlExportOptionsType = 'Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions';
-  protected $mysqlExportOptionsDataType = '';
-  public $schemaOnly;
-  public $tables;
+	protected $collection_key = 'tables';
+	protected $mysqlExportOptionsType = 'Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions';
+	protected $mysqlExportOptionsDataType = '';
+	public $schemaOnly;
+	public $tables;
 
-  /**
-   * @param Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions
-   */
-  public function setMysqlExportOptions(Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions $mysqlExportOptions)
-  {
-    $this->mysqlExportOptions = $mysqlExportOptions;
-  }
-  /**
-   * @return Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions
-   */
-  public function getMysqlExportOptions()
-  {
-    return $this->mysqlExportOptions;
-  }
-  public function setSchemaOnly($schemaOnly)
-  {
-    $this->schemaOnly = $schemaOnly;
-  }
-  public function getSchemaOnly()
-  {
-    return $this->schemaOnly;
-  }
-  public function setTables($tables)
-  {
-    $this->tables = $tables;
-  }
-  public function getTables()
-  {
-    return $this->tables;
-  }
+	/**
+	 * @param Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions
+	 */
+	public function setMysqlExportOptions(Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions $mysqlExportOptions)
+	{
+		$this->mysqlExportOptions = $mysqlExportOptions;
+	}
+	/**
+	 * @return Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions
+	 */
+	public function getMysqlExportOptions()
+	{
+		return $this->mysqlExportOptions;
+	}
+	public function setSchemaOnly($schemaOnly)
+	{
+		$this->schemaOnly = $schemaOnly;
+	}
+	public function getSchemaOnly()
+	{
+		return $this->schemaOnly;
+	}
+	public function setTables($tables)
+	{
+		$this->tables = $tables;
+	}
+	public function getTables()
+	{
+		return $this->tables;
+	}
 }

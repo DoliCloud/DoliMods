@@ -17,31 +17,31 @@
 
 class Google_Service_Container_ListClustersResponse extends Google_Collection
 {
-  protected $collection_key = 'missingZones';
-  protected $clustersType = 'Google_Service_Container_Cluster';
-  protected $clustersDataType = 'array';
-  public $missingZones;
+	protected $collection_key = 'missingZones';
+	protected $clustersType = 'Google_Service_Container_Cluster';
+	protected $clustersDataType = 'array';
+	public $missingZones;
 
-  /**
-   * @param Google_Service_Container_Cluster
-   */
-  public function setClusters($clusters)
-  {
-    $this->clusters = $clusters;
-  }
-  /**
-   * @return Google_Service_Container_Cluster
-   */
-  public function getClusters()
-  {
-    return $this->clusters;
-  }
-  public function setMissingZones($missingZones)
-  {
-    $this->missingZones = $missingZones;
-  }
-  public function getMissingZones()
-  {
-    return $this->missingZones;
-  }
+	/**
+	 * @param Google_Service_Container_Cluster
+	 */
+	public function setClusters($clusters)
+	{
+		$this->clusters = $clusters;
+	}
+	/**
+	 * @return Google_Service_Container_Cluster
+	 */
+	public function getClusters()
+	{
+		return $this->clusters;
+	}
+	public function setMissingZones($missingZones)
+	{
+		$this->missingZones = $missingZones;
+	}
+	public function getMissingZones()
+	{
+		return $this->missingZones;
+	}
 }

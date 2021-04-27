@@ -17,40 +17,40 @@
 
 class Google_Service_SecretManager_ListSecretVersionsResponse extends Google_Collection
 {
-  protected $collection_key = 'versions';
-  public $nextPageToken;
-  public $totalSize;
-  protected $versionsType = 'Google_Service_SecretManager_SecretVersion';
-  protected $versionsDataType = 'array';
+	protected $collection_key = 'versions';
+	public $nextPageToken;
+	public $totalSize;
+	protected $versionsType = 'Google_Service_SecretManager_SecretVersion';
+	protected $versionsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
-  /**
-   * @param Google_Service_SecretManager_SecretVersion
-   */
-  public function setVersions($versions)
-  {
-    $this->versions = $versions;
-  }
-  /**
-   * @return Google_Service_SecretManager_SecretVersion
-   */
-  public function getVersions()
-  {
-    return $this->versions;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
+	/**
+	 * @param Google_Service_SecretManager_SecretVersion
+	 */
+	public function setVersions($versions)
+	{
+		$this->versions = $versions;
+	}
+	/**
+	 * @return Google_Service_SecretManager_SecretVersion
+	 */
+	public function getVersions()
+	{
+		return $this->versions;
+	}
 }

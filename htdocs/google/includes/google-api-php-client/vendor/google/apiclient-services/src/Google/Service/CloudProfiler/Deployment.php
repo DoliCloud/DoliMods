@@ -17,32 +17,32 @@
 
 class Google_Service_CloudProfiler_Deployment extends Google_Model
 {
-  public $labels;
-  public $projectId;
-  public $target;
+	public $labels;
+	public $projectId;
+	public $target;
 
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setTarget($target)
-  {
-    $this->target = $target;
-  }
-  public function getTarget()
-  {
-    return $this->target;
-  }
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setTarget($target)
+	{
+		$this->target = $target;
+	}
+	public function getTarget()
+	{
+		return $this->target;
+	}
 }

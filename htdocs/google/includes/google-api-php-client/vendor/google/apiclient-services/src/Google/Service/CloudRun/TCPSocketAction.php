@@ -17,23 +17,23 @@
 
 class Google_Service_CloudRun_TCPSocketAction extends Google_Model
 {
-  public $host;
-  public $port;
+	public $host;
+	public $port;
 
-  public function setHost($host)
-  {
-    $this->host = $host;
-  }
-  public function getHost()
-  {
-    return $this->host;
-  }
-  public function setPort($port)
-  {
-    $this->port = $port;
-  }
-  public function getPort()
-  {
-    return $this->port;
-  }
+	public function setHost($host)
+	{
+		$this->host = $host;
+	}
+	public function getHost()
+	{
+		return $this->host;
+	}
+	public function setPort($port)
+	{
+		$this->port = $port;
+	}
+	public function getPort()
+	{
+		return $this->port;
+	}
 }

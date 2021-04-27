@@ -17,67 +17,67 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1AnnotateVideoRequest extends Google_Collection
 {
-  protected $collection_key = 'features';
-  public $features;
-  public $inputContent;
-  public $inputUri;
-  public $locationId;
-  public $outputUri;
-  protected $videoContextType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoContext';
-  protected $videoContextDataType = '';
+	protected $collection_key = 'features';
+	public $features;
+	public $inputContent;
+	public $inputUri;
+	public $locationId;
+	public $outputUri;
+	protected $videoContextType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoContext';
+	protected $videoContextDataType = '';
 
-  public function setFeatures($features)
-  {
-    $this->features = $features;
-  }
-  public function getFeatures()
-  {
-    return $this->features;
-  }
-  public function setInputContent($inputContent)
-  {
-    $this->inputContent = $inputContent;
-  }
-  public function getInputContent()
-  {
-    return $this->inputContent;
-  }
-  public function setInputUri($inputUri)
-  {
-    $this->inputUri = $inputUri;
-  }
-  public function getInputUri()
-  {
-    return $this->inputUri;
-  }
-  public function setLocationId($locationId)
-  {
-    $this->locationId = $locationId;
-  }
-  public function getLocationId()
-  {
-    return $this->locationId;
-  }
-  public function setOutputUri($outputUri)
-  {
-    $this->outputUri = $outputUri;
-  }
-  public function getOutputUri()
-  {
-    return $this->outputUri;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoContext
-   */
-  public function setVideoContext(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoContext $videoContext)
-  {
-    $this->videoContext = $videoContext;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoContext
-   */
-  public function getVideoContext()
-  {
-    return $this->videoContext;
-  }
+	public function setFeatures($features)
+	{
+		$this->features = $features;
+	}
+	public function getFeatures()
+	{
+		return $this->features;
+	}
+	public function setInputContent($inputContent)
+	{
+		$this->inputContent = $inputContent;
+	}
+	public function getInputContent()
+	{
+		return $this->inputContent;
+	}
+	public function setInputUri($inputUri)
+	{
+		$this->inputUri = $inputUri;
+	}
+	public function getInputUri()
+	{
+		return $this->inputUri;
+	}
+	public function setLocationId($locationId)
+	{
+		$this->locationId = $locationId;
+	}
+	public function getLocationId()
+	{
+		return $this->locationId;
+	}
+	public function setOutputUri($outputUri)
+	{
+		$this->outputUri = $outputUri;
+	}
+	public function getOutputUri()
+	{
+		return $this->outputUri;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoContext
+	 */
+	public function setVideoContext(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoContext $videoContext)
+	{
+		$this->videoContext = $videoContext;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1VideoContext
+	 */
+	public function getVideoContext()
+	{
+		return $this->videoContext;
+	}
 }

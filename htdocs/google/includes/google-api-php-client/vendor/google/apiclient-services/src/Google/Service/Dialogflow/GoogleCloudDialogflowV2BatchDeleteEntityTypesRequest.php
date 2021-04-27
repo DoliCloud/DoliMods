@@ -17,15 +17,15 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2BatchDeleteEntityTypesRequest extends Google_Collection
 {
-  protected $collection_key = 'entityTypeNames';
-  public $entityTypeNames;
+	protected $collection_key = 'entityTypeNames';
+	public $entityTypeNames;
 
-  public function setEntityTypeNames($entityTypeNames)
-  {
-    $this->entityTypeNames = $entityTypeNames;
-  }
-  public function getEntityTypeNames()
-  {
-    return $this->entityTypeNames;
-  }
+	public function setEntityTypeNames($entityTypeNames)
+	{
+		$this->entityTypeNames = $entityTypeNames;
+	}
+	public function getEntityTypeNames()
+	{
+		return $this->entityTypeNames;
+	}
 }

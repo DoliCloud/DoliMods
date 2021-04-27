@@ -17,22 +17,22 @@
 
 class Google_Service_DisplayVideo_BulkEditSitesResponse extends Google_Collection
 {
-  protected $collection_key = 'sites';
-  protected $sitesType = 'Google_Service_DisplayVideo_Site';
-  protected $sitesDataType = 'array';
+	protected $collection_key = 'sites';
+	protected $sitesType = 'Google_Service_DisplayVideo_Site';
+	protected $sitesDataType = 'array';
 
-  /**
-   * @param Google_Service_DisplayVideo_Site
-   */
-  public function setSites($sites)
-  {
-    $this->sites = $sites;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_Site
-   */
-  public function getSites()
-  {
-    return $this->sites;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_Site
+	 */
+	public function setSites($sites)
+	{
+		$this->sites = $sites;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_Site
+	 */
+	public function getSites()
+	{
+		return $this->sites;
+	}
 }

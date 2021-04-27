@@ -17,48 +17,48 @@
 
 class Google_Service_GamesConfiguration_GamesNumberFormatConfiguration extends Google_Model
 {
-  public $currencyCode;
-  public $numDecimalPlaces;
-  public $numberFormatType;
-  protected $suffixType = 'Google_Service_GamesConfiguration_GamesNumberAffixConfiguration';
-  protected $suffixDataType = '';
+	public $currencyCode;
+	public $numDecimalPlaces;
+	public $numberFormatType;
+	protected $suffixType = 'Google_Service_GamesConfiguration_GamesNumberAffixConfiguration';
+	protected $suffixDataType = '';
 
-  public function setCurrencyCode($currencyCode)
-  {
-    $this->currencyCode = $currencyCode;
-  }
-  public function getCurrencyCode()
-  {
-    return $this->currencyCode;
-  }
-  public function setNumDecimalPlaces($numDecimalPlaces)
-  {
-    $this->numDecimalPlaces = $numDecimalPlaces;
-  }
-  public function getNumDecimalPlaces()
-  {
-    return $this->numDecimalPlaces;
-  }
-  public function setNumberFormatType($numberFormatType)
-  {
-    $this->numberFormatType = $numberFormatType;
-  }
-  public function getNumberFormatType()
-  {
-    return $this->numberFormatType;
-  }
-  /**
-   * @param Google_Service_GamesConfiguration_GamesNumberAffixConfiguration
-   */
-  public function setSuffix(Google_Service_GamesConfiguration_GamesNumberAffixConfiguration $suffix)
-  {
-    $this->suffix = $suffix;
-  }
-  /**
-   * @return Google_Service_GamesConfiguration_GamesNumberAffixConfiguration
-   */
-  public function getSuffix()
-  {
-    return $this->suffix;
-  }
+	public function setCurrencyCode($currencyCode)
+	{
+		$this->currencyCode = $currencyCode;
+	}
+	public function getCurrencyCode()
+	{
+		return $this->currencyCode;
+	}
+	public function setNumDecimalPlaces($numDecimalPlaces)
+	{
+		$this->numDecimalPlaces = $numDecimalPlaces;
+	}
+	public function getNumDecimalPlaces()
+	{
+		return $this->numDecimalPlaces;
+	}
+	public function setNumberFormatType($numberFormatType)
+	{
+		$this->numberFormatType = $numberFormatType;
+	}
+	public function getNumberFormatType()
+	{
+		return $this->numberFormatType;
+	}
+	/**
+	 * @param Google_Service_GamesConfiguration_GamesNumberAffixConfiguration
+	 */
+	public function setSuffix(Google_Service_GamesConfiguration_GamesNumberAffixConfiguration $suffix)
+	{
+		$this->suffix = $suffix;
+	}
+	/**
+	 * @return Google_Service_GamesConfiguration_GamesNumberAffixConfiguration
+	 */
+	public function getSuffix()
+	{
+		return $this->suffix;
+	}
 }

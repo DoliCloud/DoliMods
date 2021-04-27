@@ -17,14 +17,14 @@
 
 class Google_Service_Plus_ActivityObjectActorClientSpecificActorInfoYoutubeActorInfo extends Google_Model
 {
-  public $channelId;
+	public $channelId;
 
-  public function setChannelId($channelId)
-  {
-    $this->channelId = $channelId;
-  }
-  public function getChannelId()
-  {
-    return $this->channelId;
-  }
+	public function setChannelId($channelId)
+	{
+		$this->channelId = $channelId;
+	}
+	public function getChannelId()
+	{
+		return $this->channelId;
+	}
 }

@@ -6,7 +6,7 @@ use GuzzleHttp\Event\HasEmitterTrait;
 
 class AbstractHasEmitter implements HasEmitterInterface
 {
-    use HasEmitterTrait;
+	use HasEmitterTrait;
 }
 
 /**
@@ -14,14 +14,14 @@ class AbstractHasEmitter implements HasEmitterInterface
  */
 class HasEmitterTraitTest extends \PHPUnit_Framework_TestCase
 {
-    public function testHelperAttachesSubscribers()
-    {
-        $mock = $this->getMockBuilder('GuzzleHttp\Tests\Event\AbstractHasEmitter')
-            ->getMockForAbstractClass();
+	public function testHelperAttachesSubscribers()
+	{
+		$mock = $this->getMockBuilder('GuzzleHttp\Tests\Event\AbstractHasEmitter')
+			->getMockForAbstractClass();
 
-        $result = $mock->getEmitter();
-        $this->assertInstanceOf('GuzzleHttp\Event\EmitterInterface', $result);
-        $result2 = $mock->getEmitter();
-        $this->assertSame($result, $result2);
-    }
+		$result = $mock->getEmitter();
+		$this->assertInstanceOf('GuzzleHttp\Event\EmitterInterface', $result);
+		$result2 = $mock->getEmitter();
+		$this->assertSame($result, $result2);
+	}
 }

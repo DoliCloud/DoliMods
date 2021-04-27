@@ -17,66 +17,66 @@
 
 class Google_Service_Dataflow_AutoscalingEvent extends Google_Model
 {
-  public $currentNumWorkers;
-  protected $descriptionType = 'Google_Service_Dataflow_StructuredMessage';
-  protected $descriptionDataType = '';
-  public $eventType;
-  public $targetNumWorkers;
-  public $time;
-  public $workerPool;
+	public $currentNumWorkers;
+	protected $descriptionType = 'Google_Service_Dataflow_StructuredMessage';
+	protected $descriptionDataType = '';
+	public $eventType;
+	public $targetNumWorkers;
+	public $time;
+	public $workerPool;
 
-  public function setCurrentNumWorkers($currentNumWorkers)
-  {
-    $this->currentNumWorkers = $currentNumWorkers;
-  }
-  public function getCurrentNumWorkers()
-  {
-    return $this->currentNumWorkers;
-  }
-  /**
-   * @param Google_Service_Dataflow_StructuredMessage
-   */
-  public function setDescription(Google_Service_Dataflow_StructuredMessage $description)
-  {
-    $this->description = $description;
-  }
-  /**
-   * @return Google_Service_Dataflow_StructuredMessage
-   */
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setEventType($eventType)
-  {
-    $this->eventType = $eventType;
-  }
-  public function getEventType()
-  {
-    return $this->eventType;
-  }
-  public function setTargetNumWorkers($targetNumWorkers)
-  {
-    $this->targetNumWorkers = $targetNumWorkers;
-  }
-  public function getTargetNumWorkers()
-  {
-    return $this->targetNumWorkers;
-  }
-  public function setTime($time)
-  {
-    $this->time = $time;
-  }
-  public function getTime()
-  {
-    return $this->time;
-  }
-  public function setWorkerPool($workerPool)
-  {
-    $this->workerPool = $workerPool;
-  }
-  public function getWorkerPool()
-  {
-    return $this->workerPool;
-  }
+	public function setCurrentNumWorkers($currentNumWorkers)
+	{
+		$this->currentNumWorkers = $currentNumWorkers;
+	}
+	public function getCurrentNumWorkers()
+	{
+		return $this->currentNumWorkers;
+	}
+	/**
+	 * @param Google_Service_Dataflow_StructuredMessage
+	 */
+	public function setDescription(Google_Service_Dataflow_StructuredMessage $description)
+	{
+		$this->description = $description;
+	}
+	/**
+	 * @return Google_Service_Dataflow_StructuredMessage
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setEventType($eventType)
+	{
+		$this->eventType = $eventType;
+	}
+	public function getEventType()
+	{
+		return $this->eventType;
+	}
+	public function setTargetNumWorkers($targetNumWorkers)
+	{
+		$this->targetNumWorkers = $targetNumWorkers;
+	}
+	public function getTargetNumWorkers()
+	{
+		return $this->targetNumWorkers;
+	}
+	public function setTime($time)
+	{
+		$this->time = $time;
+	}
+	public function getTime()
+	{
+		return $this->time;
+	}
+	public function setWorkerPool($workerPool)
+	{
+		$this->workerPool = $workerPool;
+	}
+	public function getWorkerPool()
+	{
+		return $this->workerPool;
+	}
 }

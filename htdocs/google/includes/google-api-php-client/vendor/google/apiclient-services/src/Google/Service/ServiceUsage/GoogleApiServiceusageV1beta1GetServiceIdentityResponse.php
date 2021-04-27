@@ -17,30 +17,30 @@
 
 class Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1GetServiceIdentityResponse extends Google_Model
 {
-  protected $identityType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity';
-  protected $identityDataType = '';
-  public $state;
+	protected $identityType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity';
+	protected $identityDataType = '';
+	public $state;
 
-  /**
-   * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity
-   */
-  public function setIdentity(Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity $identity)
-  {
-    $this->identity = $identity;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity
-   */
-  public function getIdentity()
-  {
-    return $this->identity;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	/**
+	 * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity
+	 */
+	public function setIdentity(Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity $identity)
+	{
+		$this->identity = $identity;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity
+	 */
+	public function getIdentity()
+	{
+		return $this->identity;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_CivicInfo_DivisionSearchResult extends Google_Collection
 {
-  protected $collection_key = 'aliases';
-  public $aliases;
-  public $name;
-  public $ocdId;
+	protected $collection_key = 'aliases';
+	public $aliases;
+	public $name;
+	public $ocdId;
 
-  public function setAliases($aliases)
-  {
-    $this->aliases = $aliases;
-  }
-  public function getAliases()
-  {
-    return $this->aliases;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOcdId($ocdId)
-  {
-    $this->ocdId = $ocdId;
-  }
-  public function getOcdId()
-  {
-    return $this->ocdId;
-  }
+	public function setAliases($aliases)
+	{
+		$this->aliases = $aliases;
+	}
+	public function getAliases()
+	{
+		return $this->aliases;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOcdId($ocdId)
+	{
+		$this->ocdId = $ocdId;
+	}
+	public function getOcdId()
+	{
+		return $this->ocdId;
+	}
 }

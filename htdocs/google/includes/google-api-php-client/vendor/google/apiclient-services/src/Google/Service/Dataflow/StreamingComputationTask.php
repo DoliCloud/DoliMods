@@ -17,47 +17,47 @@
 
 class Google_Service_Dataflow_StreamingComputationTask extends Google_Collection
 {
-  protected $collection_key = 'dataDisks';
-  protected $computationRangesType = 'Google_Service_Dataflow_StreamingComputationRanges';
-  protected $computationRangesDataType = 'array';
-  protected $dataDisksType = 'Google_Service_Dataflow_MountedDataDisk';
-  protected $dataDisksDataType = 'array';
-  public $taskType;
+	protected $collection_key = 'dataDisks';
+	protected $computationRangesType = 'Google_Service_Dataflow_StreamingComputationRanges';
+	protected $computationRangesDataType = 'array';
+	protected $dataDisksType = 'Google_Service_Dataflow_MountedDataDisk';
+	protected $dataDisksDataType = 'array';
+	public $taskType;
 
-  /**
-   * @param Google_Service_Dataflow_StreamingComputationRanges
-   */
-  public function setComputationRanges($computationRanges)
-  {
-    $this->computationRanges = $computationRanges;
-  }
-  /**
-   * @return Google_Service_Dataflow_StreamingComputationRanges
-   */
-  public function getComputationRanges()
-  {
-    return $this->computationRanges;
-  }
-  /**
-   * @param Google_Service_Dataflow_MountedDataDisk
-   */
-  public function setDataDisks($dataDisks)
-  {
-    $this->dataDisks = $dataDisks;
-  }
-  /**
-   * @return Google_Service_Dataflow_MountedDataDisk
-   */
-  public function getDataDisks()
-  {
-    return $this->dataDisks;
-  }
-  public function setTaskType($taskType)
-  {
-    $this->taskType = $taskType;
-  }
-  public function getTaskType()
-  {
-    return $this->taskType;
-  }
+	/**
+	 * @param Google_Service_Dataflow_StreamingComputationRanges
+	 */
+	public function setComputationRanges($computationRanges)
+	{
+		$this->computationRanges = $computationRanges;
+	}
+	/**
+	 * @return Google_Service_Dataflow_StreamingComputationRanges
+	 */
+	public function getComputationRanges()
+	{
+		return $this->computationRanges;
+	}
+	/**
+	 * @param Google_Service_Dataflow_MountedDataDisk
+	 */
+	public function setDataDisks($dataDisks)
+	{
+		$this->dataDisks = $dataDisks;
+	}
+	/**
+	 * @return Google_Service_Dataflow_MountedDataDisk
+	 */
+	public function getDataDisks()
+	{
+		return $this->dataDisks;
+	}
+	public function setTaskType($taskType)
+	{
+		$this->taskType = $taskType;
+	}
+	public function getTaskType()
+	{
+		return $this->taskType;
+	}
 }

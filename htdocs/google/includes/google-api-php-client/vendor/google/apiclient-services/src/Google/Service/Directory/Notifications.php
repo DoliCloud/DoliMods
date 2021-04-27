@@ -17,58 +17,58 @@
 
 class Google_Service_Directory_Notifications extends Google_Collection
 {
-  protected $collection_key = 'items';
-  public $etag;
-  protected $itemsType = 'Google_Service_Directory_Notification';
-  protected $itemsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
-  public $unreadNotificationsCount;
+	protected $collection_key = 'items';
+	public $etag;
+	protected $itemsType = 'Google_Service_Directory_Notification';
+	protected $itemsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
+	public $unreadNotificationsCount;
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  /**
-   * @param Google_Service_Directory_Notification
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Directory_Notification
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setUnreadNotificationsCount($unreadNotificationsCount)
-  {
-    $this->unreadNotificationsCount = $unreadNotificationsCount;
-  }
-  public function getUnreadNotificationsCount()
-  {
-    return $this->unreadNotificationsCount;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	/**
+	 * @param Google_Service_Directory_Notification
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Directory_Notification
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setUnreadNotificationsCount($unreadNotificationsCount)
+	{
+		$this->unreadNotificationsCount = $unreadNotificationsCount;
+	}
+	public function getUnreadNotificationsCount()
+	{
+		return $this->unreadNotificationsCount;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_SecretManager_SecretPayload extends Google_Model
 {
-  public $data;
+	public $data;
 
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_CloudScheduler_AppEngineRouting extends Google_Model
 {
-  public $host;
-  public $instance;
-  public $service;
-  public $version;
+	public $host;
+	public $instance;
+	public $service;
+	public $version;
 
-  public function setHost($host)
-  {
-    $this->host = $host;
-  }
-  public function getHost()
-  {
-    return $this->host;
-  }
-  public function setInstance($instance)
-  {
-    $this->instance = $instance;
-  }
-  public function getInstance()
-  {
-    return $this->instance;
-  }
-  public function setService($service)
-  {
-    $this->service = $service;
-  }
-  public function getService()
-  {
-    return $this->service;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setHost($host)
+	{
+		$this->host = $host;
+	}
+	public function getHost()
+	{
+		return $this->host;
+	}
+	public function setInstance($instance)
+	{
+		$this->instance = $instance;
+	}
+	public function getInstance()
+	{
+		return $this->instance;
+	}
+	public function setService($service)
+	{
+		$this->service = $service;
+	}
+	public function getService()
+	{
+		return $this->service;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

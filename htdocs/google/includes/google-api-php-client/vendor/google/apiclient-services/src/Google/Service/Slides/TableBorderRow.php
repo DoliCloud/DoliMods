@@ -17,22 +17,22 @@
 
 class Google_Service_Slides_TableBorderRow extends Google_Collection
 {
-  protected $collection_key = 'tableBorderCells';
-  protected $tableBorderCellsType = 'Google_Service_Slides_TableBorderCell';
-  protected $tableBorderCellsDataType = 'array';
+	protected $collection_key = 'tableBorderCells';
+	protected $tableBorderCellsType = 'Google_Service_Slides_TableBorderCell';
+	protected $tableBorderCellsDataType = 'array';
 
-  /**
-   * @param Google_Service_Slides_TableBorderCell
-   */
-  public function setTableBorderCells($tableBorderCells)
-  {
-    $this->tableBorderCells = $tableBorderCells;
-  }
-  /**
-   * @return Google_Service_Slides_TableBorderCell
-   */
-  public function getTableBorderCells()
-  {
-    return $this->tableBorderCells;
-  }
+	/**
+	 * @param Google_Service_Slides_TableBorderCell
+	 */
+	public function setTableBorderCells($tableBorderCells)
+	{
+		$this->tableBorderCells = $tableBorderCells;
+	}
+	/**
+	 * @return Google_Service_Slides_TableBorderCell
+	 */
+	public function getTableBorderCells()
+	{
+		return $this->tableBorderCells;
+	}
 }

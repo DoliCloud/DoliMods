@@ -17,67 +17,67 @@
 
 class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1Condition extends Google_Collection
 {
-  protected $collection_key = 'requiredAccessLevels';
-  protected $devicePolicyType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy';
-  protected $devicePolicyDataType = '';
-  public $ipSubnetworks;
-  public $members;
-  public $negate;
-  public $regions;
-  public $requiredAccessLevels;
+	protected $collection_key = 'requiredAccessLevels';
+	protected $devicePolicyType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy';
+	protected $devicePolicyDataType = '';
+	public $ipSubnetworks;
+	public $members;
+	public $negate;
+	public $regions;
+	public $requiredAccessLevels;
 
-  /**
-   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy
-   */
-  public function setDevicePolicy(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy $devicePolicy)
-  {
-    $this->devicePolicy = $devicePolicy;
-  }
-  /**
-   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy
-   */
-  public function getDevicePolicy()
-  {
-    return $this->devicePolicy;
-  }
-  public function setIpSubnetworks($ipSubnetworks)
-  {
-    $this->ipSubnetworks = $ipSubnetworks;
-  }
-  public function getIpSubnetworks()
-  {
-    return $this->ipSubnetworks;
-  }
-  public function setMembers($members)
-  {
-    $this->members = $members;
-  }
-  public function getMembers()
-  {
-    return $this->members;
-  }
-  public function setNegate($negate)
-  {
-    $this->negate = $negate;
-  }
-  public function getNegate()
-  {
-    return $this->negate;
-  }
-  public function setRegions($regions)
-  {
-    $this->regions = $regions;
-  }
-  public function getRegions()
-  {
-    return $this->regions;
-  }
-  public function setRequiredAccessLevels($requiredAccessLevels)
-  {
-    $this->requiredAccessLevels = $requiredAccessLevels;
-  }
-  public function getRequiredAccessLevels()
-  {
-    return $this->requiredAccessLevels;
-  }
+	/**
+	 * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy
+	 */
+	public function setDevicePolicy(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy $devicePolicy)
+	{
+		$this->devicePolicy = $devicePolicy;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1DevicePolicy
+	 */
+	public function getDevicePolicy()
+	{
+		return $this->devicePolicy;
+	}
+	public function setIpSubnetworks($ipSubnetworks)
+	{
+		$this->ipSubnetworks = $ipSubnetworks;
+	}
+	public function getIpSubnetworks()
+	{
+		return $this->ipSubnetworks;
+	}
+	public function setMembers($members)
+	{
+		$this->members = $members;
+	}
+	public function getMembers()
+	{
+		return $this->members;
+	}
+	public function setNegate($negate)
+	{
+		$this->negate = $negate;
+	}
+	public function getNegate()
+	{
+		return $this->negate;
+	}
+	public function setRegions($regions)
+	{
+		$this->regions = $regions;
+	}
+	public function getRegions()
+	{
+		return $this->regions;
+	}
+	public function setRequiredAccessLevels($requiredAccessLevels)
+	{
+		$this->requiredAccessLevels = $requiredAccessLevels;
+	}
+	public function getRequiredAccessLevels()
+	{
+		return $this->requiredAccessLevels;
+	}
 }

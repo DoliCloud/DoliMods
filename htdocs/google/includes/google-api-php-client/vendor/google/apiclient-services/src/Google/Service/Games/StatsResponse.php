@@ -17,116 +17,116 @@
 
 class Google_Service_Games_StatsResponse extends Google_Model
 {
-  protected $internal_gapi_mappings = array(
-        "avgSessionLengthMinutes" => "avg_session_length_minutes",
-        "churnProbability" => "churn_probability",
-        "daysSinceLastPlayed" => "days_since_last_played",
-        "highSpenderProbability" => "high_spender_probability",
-        "numPurchases" => "num_purchases",
-        "numSessions" => "num_sessions",
-        "numSessionsPercentile" => "num_sessions_percentile",
-        "spendPercentile" => "spend_percentile",
-        "spendProbability" => "spend_probability",
-        "totalSpendNext28Days" => "total_spend_next_28_days",
-  );
-  public $avgSessionLengthMinutes;
-  public $churnProbability;
-  public $daysSinceLastPlayed;
-  public $highSpenderProbability;
-  public $kind;
-  public $numPurchases;
-  public $numSessions;
-  public $numSessionsPercentile;
-  public $spendPercentile;
-  public $spendProbability;
-  public $totalSpendNext28Days;
+	protected $internal_gapi_mappings = array(
+		"avgSessionLengthMinutes" => "avg_session_length_minutes",
+		"churnProbability" => "churn_probability",
+		"daysSinceLastPlayed" => "days_since_last_played",
+		"highSpenderProbability" => "high_spender_probability",
+		"numPurchases" => "num_purchases",
+		"numSessions" => "num_sessions",
+		"numSessionsPercentile" => "num_sessions_percentile",
+		"spendPercentile" => "spend_percentile",
+		"spendProbability" => "spend_probability",
+		"totalSpendNext28Days" => "total_spend_next_28_days",
+	);
+	public $avgSessionLengthMinutes;
+	public $churnProbability;
+	public $daysSinceLastPlayed;
+	public $highSpenderProbability;
+	public $kind;
+	public $numPurchases;
+	public $numSessions;
+	public $numSessionsPercentile;
+	public $spendPercentile;
+	public $spendProbability;
+	public $totalSpendNext28Days;
 
-  public function setAvgSessionLengthMinutes($avgSessionLengthMinutes)
-  {
-    $this->avgSessionLengthMinutes = $avgSessionLengthMinutes;
-  }
-  public function getAvgSessionLengthMinutes()
-  {
-    return $this->avgSessionLengthMinutes;
-  }
-  public function setChurnProbability($churnProbability)
-  {
-    $this->churnProbability = $churnProbability;
-  }
-  public function getChurnProbability()
-  {
-    return $this->churnProbability;
-  }
-  public function setDaysSinceLastPlayed($daysSinceLastPlayed)
-  {
-    $this->daysSinceLastPlayed = $daysSinceLastPlayed;
-  }
-  public function getDaysSinceLastPlayed()
-  {
-    return $this->daysSinceLastPlayed;
-  }
-  public function setHighSpenderProbability($highSpenderProbability)
-  {
-    $this->highSpenderProbability = $highSpenderProbability;
-  }
-  public function getHighSpenderProbability()
-  {
-    return $this->highSpenderProbability;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNumPurchases($numPurchases)
-  {
-    $this->numPurchases = $numPurchases;
-  }
-  public function getNumPurchases()
-  {
-    return $this->numPurchases;
-  }
-  public function setNumSessions($numSessions)
-  {
-    $this->numSessions = $numSessions;
-  }
-  public function getNumSessions()
-  {
-    return $this->numSessions;
-  }
-  public function setNumSessionsPercentile($numSessionsPercentile)
-  {
-    $this->numSessionsPercentile = $numSessionsPercentile;
-  }
-  public function getNumSessionsPercentile()
-  {
-    return $this->numSessionsPercentile;
-  }
-  public function setSpendPercentile($spendPercentile)
-  {
-    $this->spendPercentile = $spendPercentile;
-  }
-  public function getSpendPercentile()
-  {
-    return $this->spendPercentile;
-  }
-  public function setSpendProbability($spendProbability)
-  {
-    $this->spendProbability = $spendProbability;
-  }
-  public function getSpendProbability()
-  {
-    return $this->spendProbability;
-  }
-  public function setTotalSpendNext28Days($totalSpendNext28Days)
-  {
-    $this->totalSpendNext28Days = $totalSpendNext28Days;
-  }
-  public function getTotalSpendNext28Days()
-  {
-    return $this->totalSpendNext28Days;
-  }
+	public function setAvgSessionLengthMinutes($avgSessionLengthMinutes)
+	{
+		$this->avgSessionLengthMinutes = $avgSessionLengthMinutes;
+	}
+	public function getAvgSessionLengthMinutes()
+	{
+		return $this->avgSessionLengthMinutes;
+	}
+	public function setChurnProbability($churnProbability)
+	{
+		$this->churnProbability = $churnProbability;
+	}
+	public function getChurnProbability()
+	{
+		return $this->churnProbability;
+	}
+	public function setDaysSinceLastPlayed($daysSinceLastPlayed)
+	{
+		$this->daysSinceLastPlayed = $daysSinceLastPlayed;
+	}
+	public function getDaysSinceLastPlayed()
+	{
+		return $this->daysSinceLastPlayed;
+	}
+	public function setHighSpenderProbability($highSpenderProbability)
+	{
+		$this->highSpenderProbability = $highSpenderProbability;
+	}
+	public function getHighSpenderProbability()
+	{
+		return $this->highSpenderProbability;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNumPurchases($numPurchases)
+	{
+		$this->numPurchases = $numPurchases;
+	}
+	public function getNumPurchases()
+	{
+		return $this->numPurchases;
+	}
+	public function setNumSessions($numSessions)
+	{
+		$this->numSessions = $numSessions;
+	}
+	public function getNumSessions()
+	{
+		return $this->numSessions;
+	}
+	public function setNumSessionsPercentile($numSessionsPercentile)
+	{
+		$this->numSessionsPercentile = $numSessionsPercentile;
+	}
+	public function getNumSessionsPercentile()
+	{
+		return $this->numSessionsPercentile;
+	}
+	public function setSpendPercentile($spendPercentile)
+	{
+		$this->spendPercentile = $spendPercentile;
+	}
+	public function getSpendPercentile()
+	{
+		return $this->spendPercentile;
+	}
+	public function setSpendProbability($spendProbability)
+	{
+		$this->spendProbability = $spendProbability;
+	}
+	public function getSpendProbability()
+	{
+		return $this->spendProbability;
+	}
+	public function setTotalSpendNext28Days($totalSpendNext28Days)
+	{
+		$this->totalSpendNext28Days = $totalSpendNext28Days;
+	}
+	public function getTotalSpendNext28Days()
+	{
+		return $this->totalSpendNext28Days;
+	}
 }

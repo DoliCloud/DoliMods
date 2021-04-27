@@ -17,24 +17,24 @@
 
 class Google_Service_Spanner_UpdateDatabaseDdlRequest extends Google_Collection
 {
-  protected $collection_key = 'statements';
-  public $operationId;
-  public $statements;
+	protected $collection_key = 'statements';
+	public $operationId;
+	public $statements;
 
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  public function setStatements($statements)
-  {
-    $this->statements = $statements;
-  }
-  public function getStatements()
-  {
-    return $this->statements;
-  }
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	public function setStatements($statements)
+	{
+		$this->statements = $statements;
+	}
+	public function getStatements()
+	{
+		return $this->statements;
+	}
 }

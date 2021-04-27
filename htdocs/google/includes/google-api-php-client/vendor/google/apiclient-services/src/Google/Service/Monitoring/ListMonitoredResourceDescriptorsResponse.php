@@ -17,31 +17,31 @@
 
 class Google_Service_Monitoring_ListMonitoredResourceDescriptorsResponse extends Google_Collection
 {
-  protected $collection_key = 'resourceDescriptors';
-  public $nextPageToken;
-  protected $resourceDescriptorsType = 'Google_Service_Monitoring_MonitoredResourceDescriptor';
-  protected $resourceDescriptorsDataType = 'array';
+	protected $collection_key = 'resourceDescriptors';
+	public $nextPageToken;
+	protected $resourceDescriptorsType = 'Google_Service_Monitoring_MonitoredResourceDescriptor';
+	protected $resourceDescriptorsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Monitoring_MonitoredResourceDescriptor
-   */
-  public function setResourceDescriptors($resourceDescriptors)
-  {
-    $this->resourceDescriptors = $resourceDescriptors;
-  }
-  /**
-   * @return Google_Service_Monitoring_MonitoredResourceDescriptor
-   */
-  public function getResourceDescriptors()
-  {
-    return $this->resourceDescriptors;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Monitoring_MonitoredResourceDescriptor
+	 */
+	public function setResourceDescriptors($resourceDescriptors)
+	{
+		$this->resourceDescriptors = $resourceDescriptors;
+	}
+	/**
+	 * @return Google_Service_Monitoring_MonitoredResourceDescriptor
+	 */
+	public function getResourceDescriptors()
+	{
+		return $this->resourceDescriptors;
+	}
 }

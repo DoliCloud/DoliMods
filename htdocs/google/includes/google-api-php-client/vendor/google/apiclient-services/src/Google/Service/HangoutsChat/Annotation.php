@@ -17,48 +17,48 @@
 
 class Google_Service_HangoutsChat_Annotation extends Google_Model
 {
-  public $length;
-  public $startIndex;
-  public $type;
-  protected $userMentionType = 'Google_Service_HangoutsChat_UserMentionMetadata';
-  protected $userMentionDataType = '';
+	public $length;
+	public $startIndex;
+	public $type;
+	protected $userMentionType = 'Google_Service_HangoutsChat_UserMentionMetadata';
+	protected $userMentionDataType = '';
 
-  public function setLength($length)
-  {
-    $this->length = $length;
-  }
-  public function getLength()
-  {
-    return $this->length;
-  }
-  public function setStartIndex($startIndex)
-  {
-    $this->startIndex = $startIndex;
-  }
-  public function getStartIndex()
-  {
-    return $this->startIndex;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_UserMentionMetadata
-   */
-  public function setUserMention(Google_Service_HangoutsChat_UserMentionMetadata $userMention)
-  {
-    $this->userMention = $userMention;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_UserMentionMetadata
-   */
-  public function getUserMention()
-  {
-    return $this->userMention;
-  }
+	public function setLength($length)
+	{
+		$this->length = $length;
+	}
+	public function getLength()
+	{
+		return $this->length;
+	}
+	public function setStartIndex($startIndex)
+	{
+		$this->startIndex = $startIndex;
+	}
+	public function getStartIndex()
+	{
+		return $this->startIndex;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_UserMentionMetadata
+	 */
+	public function setUserMention(Google_Service_HangoutsChat_UserMentionMetadata $userMention)
+	{
+		$this->userMention = $userMention;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_UserMentionMetadata
+	 */
+	public function getUserMention()
+	{
+		return $this->userMention;
+	}
 }

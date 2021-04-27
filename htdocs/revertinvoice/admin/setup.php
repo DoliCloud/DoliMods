@@ -28,7 +28,7 @@ $res=0;
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
 if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
@@ -67,34 +67,27 @@ $arrayofparameters=array(
  * Actions
  */
 
-if ((float) DOL_VERSION >= 6)
-{
+if ((float) DOL_VERSION >= 6) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 }
 
-if ($action == 'addrevertinvoice')
-{
-    if ($revertinvoicethirdpartyid > 0)
-    {
-        $result = dolibarr_set_const($db, 'REVERTINVOICE_THIRDPARTYID_'.$revertinvoicethirdpartyid, $revertinvoiceentityid, 'chaine', 0, '', 0);
-    }
-    else
-    {
-        setEventMessages('Select a thirdparty', null, 'errors');
-    }
+if ($action == 'addrevertinvoice') {
+	if ($revertinvoicethirdpartyid > 0) {
+		$result = dolibarr_set_const($db, 'REVERTINVOICE_THIRDPARTYID_'.$revertinvoicethirdpartyid, $revertinvoiceentityid, 'chaine', 0, '', 0);
+	} else {
+		setEventMessages('Select a thirdparty', null, 'errors');
+	}
 }
 
-if ($action == 'delete')
-{
-    if ($revertinvoicethirdpartyid > 0)
-    {
-        $const = 'REVERTINVOICE_THIRDPARTYID_'.$revertinvoicethirdpartyid;
-        var_dump($const);
-        $result = dolibarr_del_const($db, $const, 0);
+if ($action == 'delete') {
+	if ($revertinvoicethirdpartyid > 0) {
+		$const = 'REVERTINVOICE_THIRDPARTYID_'.$revertinvoicethirdpartyid;
+		var_dump($const);
+		$result = dolibarr_del_const($db, $const, 0);
 
-        header("Location: ".$_SERVER["PHP_SELF"]);
-        exit;
-    }
+		header("Location: ".$_SERVER["PHP_SELF"]);
+		exit;
+	}
 }
 
 
@@ -137,33 +130,30 @@ print '</td></tr>';
 
 $i=0;
 
-foreach($conf->global as $key => $value)
-{
-    if (preg_match('/REVERTINVOICE_THIRDPARTYID_(.*)/', $key, $reg))
-    {
-        $thirdpartyid = $reg[1];
-        $const = 'REVERTINVOICE_THIRPDARTYID_'.$thirdpartyid;
-        $entityid = $value;
+foreach ($conf->global as $key => $value) {
+	if (preg_match('/REVERTINVOICE_THIRDPARTYID_(.*)/', $key, $reg)) {
+		$thirdpartyid = $reg[1];
+		$const = 'REVERTINVOICE_THIRPDARTYID_'.$thirdpartyid;
+		$entityid = $value;
 
-        $tmpcompany = new Societe($db);
-        $tmpcompany->fetch($thirdpartyid);
+		$tmpcompany = new Societe($db);
+		$tmpcompany->fetch($thirdpartyid);
 
-        print '<tr class="oddeven"><td>';
-        print $tmpcompany->getNomUrl(1);
-        print '</td><td>';
-        print $value;
-        // Label of entity
-        if (is_object($mc))
-        {
-            $mc->getInfo($value);
-            print ' - '.$mc->label;
-        }
-        print '</td><td>';
-        print '<a href="'.$_SERVER['PHP_SELF'].'?action=delete&token='.newToken().'&revertinvoicethirdpartyid='.$thirdpartyid.'">';
-        print img_delete();
-        print '</a>';
-        print '</td></tr>';
-    }
+		print '<tr class="oddeven"><td>';
+		print $tmpcompany->getNomUrl(1);
+		print '</td><td>';
+		print $value;
+		// Label of entity
+		if (is_object($mc)) {
+			$mc->getInfo($value);
+			print ' - '.$mc->label;
+		}
+		print '</td><td>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=delete&token='.newToken().'&revertinvoicethirdpartyid='.$thirdpartyid.'">';
+		print img_delete();
+		print '</a>';
+		print '</td></tr>';
+	}
 }
 print '</table>';
 

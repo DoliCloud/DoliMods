@@ -17,31 +17,31 @@
 
 class Google_Service_CloudHealthcare_ListHl7V2StoresResponse extends Google_Collection
 {
-  protected $collection_key = 'hl7V2Stores';
-  protected $hl7V2StoresType = 'Google_Service_CloudHealthcare_Hl7V2Store';
-  protected $hl7V2StoresDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'hl7V2Stores';
+	protected $hl7V2StoresType = 'Google_Service_CloudHealthcare_Hl7V2Store';
+	protected $hl7V2StoresDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudHealthcare_Hl7V2Store
-   */
-  public function setHl7V2Stores($hl7V2Stores)
-  {
-    $this->hl7V2Stores = $hl7V2Stores;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_Hl7V2Store
-   */
-  public function getHl7V2Stores()
-  {
-    return $this->hl7V2Stores;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudHealthcare_Hl7V2Store
+	 */
+	public function setHl7V2Stores($hl7V2Stores)
+	{
+		$this->hl7V2Stores = $hl7V2Stores;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_Hl7V2Store
+	 */
+	public function getHl7V2Stores()
+	{
+		return $this->hl7V2Stores;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

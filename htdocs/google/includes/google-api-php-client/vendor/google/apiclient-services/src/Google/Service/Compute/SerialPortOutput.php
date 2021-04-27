@@ -17,50 +17,50 @@
 
 class Google_Service_Compute_SerialPortOutput extends Google_Model
 {
-  public $contents;
-  public $kind;
-  public $next;
-  public $selfLink;
-  public $start;
+	public $contents;
+	public $kind;
+	public $next;
+	public $selfLink;
+	public $start;
 
-  public function setContents($contents)
-  {
-    $this->contents = $contents;
-  }
-  public function getContents()
-  {
-    return $this->contents;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNext($next)
-  {
-    $this->next = $next;
-  }
-  public function getNext()
-  {
-    return $this->next;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  public function setStart($start)
-  {
-    $this->start = $start;
-  }
-  public function getStart()
-  {
-    return $this->start;
-  }
+	public function setContents($contents)
+	{
+		$this->contents = $contents;
+	}
+	public function getContents()
+	{
+		return $this->contents;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNext($next)
+	{
+		$this->next = $next;
+	}
+	public function getNext()
+	{
+		return $this->next;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	public function setStart($start)
+	{
+		$this->start = $start;
+	}
+	public function getStart()
+	{
+		return $this->start;
+	}
 }

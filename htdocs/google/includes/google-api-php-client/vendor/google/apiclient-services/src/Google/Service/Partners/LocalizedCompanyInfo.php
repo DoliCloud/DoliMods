@@ -17,42 +17,42 @@
 
 class Google_Service_Partners_LocalizedCompanyInfo extends Google_Collection
 {
-  protected $collection_key = 'countryCodes';
-  public $countryCodes;
-  public $displayName;
-  public $languageCode;
-  public $overview;
+	protected $collection_key = 'countryCodes';
+	public $countryCodes;
+	public $displayName;
+	public $languageCode;
+	public $overview;
 
-  public function setCountryCodes($countryCodes)
-  {
-    $this->countryCodes = $countryCodes;
-  }
-  public function getCountryCodes()
-  {
-    return $this->countryCodes;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  public function setOverview($overview)
-  {
-    $this->overview = $overview;
-  }
-  public function getOverview()
-  {
-    return $this->overview;
-  }
+	public function setCountryCodes($countryCodes)
+	{
+		$this->countryCodes = $countryCodes;
+	}
+	public function getCountryCodes()
+	{
+		return $this->countryCodes;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	public function setOverview($overview)
+	{
+		$this->overview = $overview;
+	}
+	public function getOverview()
+	{
+		return $this->overview;
+	}
 }

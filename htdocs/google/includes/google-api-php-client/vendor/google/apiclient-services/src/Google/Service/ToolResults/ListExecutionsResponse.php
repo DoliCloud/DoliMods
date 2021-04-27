@@ -17,31 +17,31 @@
 
 class Google_Service_ToolResults_ListExecutionsResponse extends Google_Collection
 {
-  protected $collection_key = 'executions';
-  protected $executionsType = 'Google_Service_ToolResults_Execution';
-  protected $executionsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'executions';
+	protected $executionsType = 'Google_Service_ToolResults_Execution';
+	protected $executionsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_ToolResults_Execution
-   */
-  public function setExecutions($executions)
-  {
-    $this->executions = $executions;
-  }
-  /**
-   * @return Google_Service_ToolResults_Execution
-   */
-  public function getExecutions()
-  {
-    return $this->executions;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_ToolResults_Execution
+	 */
+	public function setExecutions($executions)
+	{
+		$this->executions = $executions;
+	}
+	/**
+	 * @return Google_Service_ToolResults_Execution
+	 */
+	public function getExecutions()
+	{
+		return $this->executions;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

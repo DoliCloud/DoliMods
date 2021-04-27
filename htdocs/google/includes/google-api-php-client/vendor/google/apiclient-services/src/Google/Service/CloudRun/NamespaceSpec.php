@@ -17,15 +17,15 @@
 
 class Google_Service_CloudRun_NamespaceSpec extends Google_Collection
 {
-  protected $collection_key = 'finalizers';
-  public $finalizers;
+	protected $collection_key = 'finalizers';
+	public $finalizers;
 
-  public function setFinalizers($finalizers)
-  {
-    $this->finalizers = $finalizers;
-  }
-  public function getFinalizers()
-  {
-    return $this->finalizers;
-  }
+	public function setFinalizers($finalizers)
+	{
+		$this->finalizers = $finalizers;
+	}
+	public function getFinalizers()
+	{
+		return $this->finalizers;
+	}
 }

@@ -25,23 +25,23 @@
  */
 class Google_Service_Tracing_Resource_ProjectsTracesSpans extends Google_Service_Resource
 {
-  /**
-   * Creates a new Span. (spans.create)
-   *
-   * @param string $name The resource name of Span in the format
-   * `projects/PROJECT_ID/traces/TRACE_ID/spans/SPAN_ID`. `TRACE_ID` is a unique
-   * identifier for a trace within a project and is a base16-encoded, case-
-   * insensitive string and is required to be 32 char long. `SPAN_ID` is a unique
-   * identifier for a span within a trace. It is a base 16-encoded, case-
-   * insensitive string of a 8-bytes array and is required to be 16 char long.
-   * @param Google_Service_Tracing_Span $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Tracing_Span
-   */
-  public function create($name, Google_Service_Tracing_Span $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Tracing_Span");
-  }
+	/**
+	 * Creates a new Span. (spans.create)
+	 *
+	 * @param string $name The resource name of Span in the format
+	 *                     `projects/PROJECT_ID/traces/TRACE_ID/spans/SPAN_ID`. `TRACE_ID` is a unique
+	 *                     identifier for a trace within a project and is a base16-encoded, case-
+	 *                     insensitive string and is required to be 32 char long. `SPAN_ID` is a unique
+	 *                     identifier for a span within a trace. It is a base 16-encoded, case-
+	 *                     insensitive string of a 8-bytes array and is required to be 16 char long.
+	 * @param Google_Service_Tracing_Span $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Tracing_Span
+	 */
+	public function create($name, Google_Service_Tracing_Span $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_Tracing_Span");
+	}
 }

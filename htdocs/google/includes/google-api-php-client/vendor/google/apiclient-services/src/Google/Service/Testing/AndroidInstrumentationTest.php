@@ -17,115 +17,115 @@
 
 class Google_Service_Testing_AndroidInstrumentationTest extends Google_Collection
 {
-  protected $collection_key = 'testTargets';
-  protected $appApkType = 'Google_Service_Testing_FileReference';
-  protected $appApkDataType = '';
-  protected $appBundleType = 'Google_Service_Testing_AppBundle';
-  protected $appBundleDataType = '';
-  public $appPackageId;
-  public $orchestratorOption;
-  protected $shardingOptionType = 'Google_Service_Testing_ShardingOption';
-  protected $shardingOptionDataType = '';
-  protected $testApkType = 'Google_Service_Testing_FileReference';
-  protected $testApkDataType = '';
-  public $testPackageId;
-  public $testRunnerClass;
-  public $testTargets;
+	protected $collection_key = 'testTargets';
+	protected $appApkType = 'Google_Service_Testing_FileReference';
+	protected $appApkDataType = '';
+	protected $appBundleType = 'Google_Service_Testing_AppBundle';
+	protected $appBundleDataType = '';
+	public $appPackageId;
+	public $orchestratorOption;
+	protected $shardingOptionType = 'Google_Service_Testing_ShardingOption';
+	protected $shardingOptionDataType = '';
+	protected $testApkType = 'Google_Service_Testing_FileReference';
+	protected $testApkDataType = '';
+	public $testPackageId;
+	public $testRunnerClass;
+	public $testTargets;
 
-  /**
-   * @param Google_Service_Testing_FileReference
-   */
-  public function setAppApk(Google_Service_Testing_FileReference $appApk)
-  {
-    $this->appApk = $appApk;
-  }
-  /**
-   * @return Google_Service_Testing_FileReference
-   */
-  public function getAppApk()
-  {
-    return $this->appApk;
-  }
-  /**
-   * @param Google_Service_Testing_AppBundle
-   */
-  public function setAppBundle(Google_Service_Testing_AppBundle $appBundle)
-  {
-    $this->appBundle = $appBundle;
-  }
-  /**
-   * @return Google_Service_Testing_AppBundle
-   */
-  public function getAppBundle()
-  {
-    return $this->appBundle;
-  }
-  public function setAppPackageId($appPackageId)
-  {
-    $this->appPackageId = $appPackageId;
-  }
-  public function getAppPackageId()
-  {
-    return $this->appPackageId;
-  }
-  public function setOrchestratorOption($orchestratorOption)
-  {
-    $this->orchestratorOption = $orchestratorOption;
-  }
-  public function getOrchestratorOption()
-  {
-    return $this->orchestratorOption;
-  }
-  /**
-   * @param Google_Service_Testing_ShardingOption
-   */
-  public function setShardingOption(Google_Service_Testing_ShardingOption $shardingOption)
-  {
-    $this->shardingOption = $shardingOption;
-  }
-  /**
-   * @return Google_Service_Testing_ShardingOption
-   */
-  public function getShardingOption()
-  {
-    return $this->shardingOption;
-  }
-  /**
-   * @param Google_Service_Testing_FileReference
-   */
-  public function setTestApk(Google_Service_Testing_FileReference $testApk)
-  {
-    $this->testApk = $testApk;
-  }
-  /**
-   * @return Google_Service_Testing_FileReference
-   */
-  public function getTestApk()
-  {
-    return $this->testApk;
-  }
-  public function setTestPackageId($testPackageId)
-  {
-    $this->testPackageId = $testPackageId;
-  }
-  public function getTestPackageId()
-  {
-    return $this->testPackageId;
-  }
-  public function setTestRunnerClass($testRunnerClass)
-  {
-    $this->testRunnerClass = $testRunnerClass;
-  }
-  public function getTestRunnerClass()
-  {
-    return $this->testRunnerClass;
-  }
-  public function setTestTargets($testTargets)
-  {
-    $this->testTargets = $testTargets;
-  }
-  public function getTestTargets()
-  {
-    return $this->testTargets;
-  }
+	/**
+	 * @param Google_Service_Testing_FileReference
+	 */
+	public function setAppApk(Google_Service_Testing_FileReference $appApk)
+	{
+		$this->appApk = $appApk;
+	}
+	/**
+	 * @return Google_Service_Testing_FileReference
+	 */
+	public function getAppApk()
+	{
+		return $this->appApk;
+	}
+	/**
+	 * @param Google_Service_Testing_AppBundle
+	 */
+	public function setAppBundle(Google_Service_Testing_AppBundle $appBundle)
+	{
+		$this->appBundle = $appBundle;
+	}
+	/**
+	 * @return Google_Service_Testing_AppBundle
+	 */
+	public function getAppBundle()
+	{
+		return $this->appBundle;
+	}
+	public function setAppPackageId($appPackageId)
+	{
+		$this->appPackageId = $appPackageId;
+	}
+	public function getAppPackageId()
+	{
+		return $this->appPackageId;
+	}
+	public function setOrchestratorOption($orchestratorOption)
+	{
+		$this->orchestratorOption = $orchestratorOption;
+	}
+	public function getOrchestratorOption()
+	{
+		return $this->orchestratorOption;
+	}
+	/**
+	 * @param Google_Service_Testing_ShardingOption
+	 */
+	public function setShardingOption(Google_Service_Testing_ShardingOption $shardingOption)
+	{
+		$this->shardingOption = $shardingOption;
+	}
+	/**
+	 * @return Google_Service_Testing_ShardingOption
+	 */
+	public function getShardingOption()
+	{
+		return $this->shardingOption;
+	}
+	/**
+	 * @param Google_Service_Testing_FileReference
+	 */
+	public function setTestApk(Google_Service_Testing_FileReference $testApk)
+	{
+		$this->testApk = $testApk;
+	}
+	/**
+	 * @return Google_Service_Testing_FileReference
+	 */
+	public function getTestApk()
+	{
+		return $this->testApk;
+	}
+	public function setTestPackageId($testPackageId)
+	{
+		$this->testPackageId = $testPackageId;
+	}
+	public function getTestPackageId()
+	{
+		return $this->testPackageId;
+	}
+	public function setTestRunnerClass($testRunnerClass)
+	{
+		$this->testRunnerClass = $testRunnerClass;
+	}
+	public function getTestRunnerClass()
+	{
+		return $this->testRunnerClass;
+	}
+	public function setTestTargets($testTargets)
+	{
+		$this->testTargets = $testTargets;
+	}
+	public function getTestTargets()
+	{
+		return $this->testTargets;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudScheduler_OidcToken extends Google_Model
 {
-  public $audience;
-  public $serviceAccountEmail;
+	public $audience;
+	public $serviceAccountEmail;
 
-  public function setAudience($audience)
-  {
-    $this->audience = $audience;
-  }
-  public function getAudience()
-  {
-    return $this->audience;
-  }
-  public function setServiceAccountEmail($serviceAccountEmail)
-  {
-    $this->serviceAccountEmail = $serviceAccountEmail;
-  }
-  public function getServiceAccountEmail()
-  {
-    return $this->serviceAccountEmail;
-  }
+	public function setAudience($audience)
+	{
+		$this->audience = $audience;
+	}
+	public function getAudience()
+	{
+		return $this->audience;
+	}
+	public function setServiceAccountEmail($serviceAccountEmail)
+	{
+		$this->serviceAccountEmail = $serviceAccountEmail;
+	}
+	public function getServiceAccountEmail()
+	{
+		return $this->serviceAccountEmail;
+	}
 }

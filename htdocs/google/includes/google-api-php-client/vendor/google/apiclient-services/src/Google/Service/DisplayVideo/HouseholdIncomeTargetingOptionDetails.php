@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_HouseholdIncomeTargetingOptionDetails extends Google_Model
 {
-  public $householdIncome;
+	public $householdIncome;
 
-  public function setHouseholdIncome($householdIncome)
-  {
-    $this->householdIncome = $householdIncome;
-  }
-  public function getHouseholdIncome()
-  {
-    return $this->householdIncome;
-  }
+	public function setHouseholdIncome($householdIncome)
+	{
+		$this->householdIncome = $householdIncome;
+	}
+	public function getHouseholdIncome()
+	{
+		return $this->householdIncome;
+	}
 }

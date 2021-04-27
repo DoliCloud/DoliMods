@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaListWorkerPoolsRequest extends Google_Model
 {
-  public $filter;
-  public $parent;
+	public $filter;
+	public $parent;
 
-  public function setFilter($filter)
-  {
-    $this->filter = $filter;
-  }
-  public function getFilter()
-  {
-    return $this->filter;
-  }
-  public function setParent($parent)
-  {
-    $this->parent = $parent;
-  }
-  public function getParent()
-  {
-    return $this->parent;
-  }
+	public function setFilter($filter)
+	{
+		$this->filter = $filter;
+	}
+	public function getFilter()
+	{
+		return $this->filter;
+	}
+	public function setParent($parent)
+	{
+		$this->parent = $parent;
+	}
+	public function getParent()
+	{
+		return $this->parent;
+	}
 }

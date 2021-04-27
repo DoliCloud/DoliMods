@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_ShieldedInstanceIdentityEntry extends Google_Model
 {
-  public $ekCert;
-  public $ekPub;
+	public $ekCert;
+	public $ekPub;
 
-  public function setEkCert($ekCert)
-  {
-    $this->ekCert = $ekCert;
-  }
-  public function getEkCert()
-  {
-    return $this->ekCert;
-  }
-  public function setEkPub($ekPub)
-  {
-    $this->ekPub = $ekPub;
-  }
-  public function getEkPub()
-  {
-    return $this->ekPub;
-  }
+	public function setEkCert($ekCert)
+	{
+		$this->ekCert = $ekCert;
+	}
+	public function getEkCert()
+	{
+		return $this->ekCert;
+	}
+	public function setEkPub($ekPub)
+	{
+		$this->ekPub = $ekPub;
+	}
+	public function getEkPub()
+	{
+		return $this->ekPub;
+	}
 }

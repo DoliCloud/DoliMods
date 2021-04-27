@@ -17,49 +17,49 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag extends Google_Collection
 {
-  protected $collection_key = 'childPolicyTags';
-  protected $childPolicyTagsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag';
-  protected $childPolicyTagsDataType = 'array';
-  public $description;
-  public $displayName;
-  public $policyTag;
+	protected $collection_key = 'childPolicyTags';
+	protected $childPolicyTagsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag';
+	protected $childPolicyTagsDataType = 'array';
+	public $description;
+	public $displayName;
+	public $policyTag;
 
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag
-   */
-  public function setChildPolicyTags($childPolicyTags)
-  {
-    $this->childPolicyTags = $childPolicyTags;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag
-   */
-  public function getChildPolicyTags()
-  {
-    return $this->childPolicyTags;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setPolicyTag($policyTag)
-  {
-    $this->policyTag = $policyTag;
-  }
-  public function getPolicyTag()
-  {
-    return $this->policyTag;
-  }
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag
+	 */
+	public function setChildPolicyTags($childPolicyTags)
+	{
+		$this->childPolicyTags = $childPolicyTags;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag
+	 */
+	public function getChildPolicyTags()
+	{
+		return $this->childPolicyTags;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setPolicyTag($policyTag)
+	{
+		$this->policyTag = $policyTag;
+	}
+	public function getPolicyTag()
+	{
+		return $this->policyTag;
+	}
 }

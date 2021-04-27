@@ -17,37 +17,37 @@
 
 class Google_Service_WebSecurityScanner_Authentication extends Google_Model
 {
-  protected $customAccountType = 'Google_Service_WebSecurityScanner_CustomAccount';
-  protected $customAccountDataType = '';
-  protected $googleAccountType = 'Google_Service_WebSecurityScanner_GoogleAccount';
-  protected $googleAccountDataType = '';
+	protected $customAccountType = 'Google_Service_WebSecurityScanner_CustomAccount';
+	protected $customAccountDataType = '';
+	protected $googleAccountType = 'Google_Service_WebSecurityScanner_GoogleAccount';
+	protected $googleAccountDataType = '';
 
-  /**
-   * @param Google_Service_WebSecurityScanner_CustomAccount
-   */
-  public function setCustomAccount(Google_Service_WebSecurityScanner_CustomAccount $customAccount)
-  {
-    $this->customAccount = $customAccount;
-  }
-  /**
-   * @return Google_Service_WebSecurityScanner_CustomAccount
-   */
-  public function getCustomAccount()
-  {
-    return $this->customAccount;
-  }
-  /**
-   * @param Google_Service_WebSecurityScanner_GoogleAccount
-   */
-  public function setGoogleAccount(Google_Service_WebSecurityScanner_GoogleAccount $googleAccount)
-  {
-    $this->googleAccount = $googleAccount;
-  }
-  /**
-   * @return Google_Service_WebSecurityScanner_GoogleAccount
-   */
-  public function getGoogleAccount()
-  {
-    return $this->googleAccount;
-  }
+	/**
+	 * @param Google_Service_WebSecurityScanner_CustomAccount
+	 */
+	public function setCustomAccount(Google_Service_WebSecurityScanner_CustomAccount $customAccount)
+	{
+		$this->customAccount = $customAccount;
+	}
+	/**
+	 * @return Google_Service_WebSecurityScanner_CustomAccount
+	 */
+	public function getCustomAccount()
+	{
+		return $this->customAccount;
+	}
+	/**
+	 * @param Google_Service_WebSecurityScanner_GoogleAccount
+	 */
+	public function setGoogleAccount(Google_Service_WebSecurityScanner_GoogleAccount $googleAccount)
+	{
+		$this->googleAccount = $googleAccount;
+	}
+	/**
+	 * @return Google_Service_WebSecurityScanner_GoogleAccount
+	 */
+	public function getGoogleAccount()
+	{
+		return $this->googleAccount;
+	}
 }

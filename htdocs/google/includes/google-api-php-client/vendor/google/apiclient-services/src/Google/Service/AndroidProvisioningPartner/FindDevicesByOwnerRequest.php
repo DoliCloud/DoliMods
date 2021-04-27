@@ -17,42 +17,42 @@
 
 class Google_Service_AndroidProvisioningPartner_FindDevicesByOwnerRequest extends Google_Collection
 {
-  protected $collection_key = 'customerId';
-  public $customerId;
-  public $limit;
-  public $pageToken;
-  public $sectionType;
+	protected $collection_key = 'customerId';
+	public $customerId;
+	public $limit;
+	public $pageToken;
+	public $sectionType;
 
-  public function setCustomerId($customerId)
-  {
-    $this->customerId = $customerId;
-  }
-  public function getCustomerId()
-  {
-    return $this->customerId;
-  }
-  public function setLimit($limit)
-  {
-    $this->limit = $limit;
-  }
-  public function getLimit()
-  {
-    return $this->limit;
-  }
-  public function setPageToken($pageToken)
-  {
-    $this->pageToken = $pageToken;
-  }
-  public function getPageToken()
-  {
-    return $this->pageToken;
-  }
-  public function setSectionType($sectionType)
-  {
-    $this->sectionType = $sectionType;
-  }
-  public function getSectionType()
-  {
-    return $this->sectionType;
-  }
+	public function setCustomerId($customerId)
+	{
+		$this->customerId = $customerId;
+	}
+	public function getCustomerId()
+	{
+		return $this->customerId;
+	}
+	public function setLimit($limit)
+	{
+		$this->limit = $limit;
+	}
+	public function getLimit()
+	{
+		return $this->limit;
+	}
+	public function setPageToken($pageToken)
+	{
+		$this->pageToken = $pageToken;
+	}
+	public function getPageToken()
+	{
+		return $this->pageToken;
+	}
+	public function setSectionType($sectionType)
+	{
+		$this->sectionType = $sectionType;
+	}
+	public function getSectionType()
+	{
+		return $this->sectionType;
+	}
 }

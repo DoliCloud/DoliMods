@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_LookbackWindow extends Google_Model
 {
-  public $clickDays;
-  public $impressionDays;
+	public $clickDays;
+	public $impressionDays;
 
-  public function setClickDays($clickDays)
-  {
-    $this->clickDays = $clickDays;
-  }
-  public function getClickDays()
-  {
-    return $this->clickDays;
-  }
-  public function setImpressionDays($impressionDays)
-  {
-    $this->impressionDays = $impressionDays;
-  }
-  public function getImpressionDays()
-  {
-    return $this->impressionDays;
-  }
+	public function setClickDays($clickDays)
+	{
+		$this->clickDays = $clickDays;
+	}
+	public function getClickDays()
+	{
+		return $this->clickDays;
+	}
+	public function setImpressionDays($impressionDays)
+	{
+		$this->impressionDays = $impressionDays;
+	}
+	public function getImpressionDays()
+	{
+		return $this->impressionDays;
+	}
 }

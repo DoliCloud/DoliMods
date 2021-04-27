@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListFilterSetsResponse extends Google_Collection
 {
-  protected $collection_key = 'filterSets';
-  protected $filterSetsType = 'Google_Service_AdExchangeBuyerII_FilterSet';
-  protected $filterSetsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'filterSets';
+	protected $filterSetsType = 'Google_Service_AdExchangeBuyerII_FilterSet';
+	protected $filterSetsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_FilterSet
-   */
-  public function setFilterSets($filterSets)
-  {
-    $this->filterSets = $filterSets;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_FilterSet
-   */
-  public function getFilterSets()
-  {
-    return $this->filterSets;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_FilterSet
+	 */
+	public function setFilterSets($filterSets)
+	{
+		$this->filterSets = $filterSets;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_FilterSet
+	 */
+	public function getFilterSets()
+	{
+		return $this->filterSets;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

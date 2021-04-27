@@ -17,15 +17,15 @@
 
 class Google_Service_Prediction_InputInput extends Google_Collection
 {
-  protected $collection_key = 'csvInstance';
-  public $csvInstance;
+	protected $collection_key = 'csvInstance';
+	public $csvInstance;
 
-  public function setCsvInstance($csvInstance)
-  {
-    $this->csvInstance = $csvInstance;
-  }
-  public function getCsvInstance()
-  {
-    return $this->csvInstance;
-  }
+	public function setCsvInstance($csvInstance)
+	{
+		$this->csvInstance = $csvInstance;
+	}
+	public function getCsvInstance()
+	{
+		return $this->csvInstance;
+	}
 }

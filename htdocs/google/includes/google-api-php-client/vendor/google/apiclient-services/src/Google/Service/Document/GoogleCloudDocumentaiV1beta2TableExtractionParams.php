@@ -17,49 +17,49 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2TableExtractionParams extends Google_Collection
 {
-  protected $collection_key = 'tableBoundHints';
-  public $enabled;
-  public $headerHints;
-  public $modelVersion;
-  protected $tableBoundHintsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2TableBoundHint';
-  protected $tableBoundHintsDataType = 'array';
+	protected $collection_key = 'tableBoundHints';
+	public $enabled;
+	public $headerHints;
+	public $modelVersion;
+	protected $tableBoundHintsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2TableBoundHint';
+	protected $tableBoundHintsDataType = 'array';
 
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  public function setHeaderHints($headerHints)
-  {
-    $this->headerHints = $headerHints;
-  }
-  public function getHeaderHints()
-  {
-    return $this->headerHints;
-  }
-  public function setModelVersion($modelVersion)
-  {
-    $this->modelVersion = $modelVersion;
-  }
-  public function getModelVersion()
-  {
-    return $this->modelVersion;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2TableBoundHint
-   */
-  public function setTableBoundHints($tableBoundHints)
-  {
-    $this->tableBoundHints = $tableBoundHints;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2TableBoundHint
-   */
-  public function getTableBoundHints()
-  {
-    return $this->tableBoundHints;
-  }
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	public function setHeaderHints($headerHints)
+	{
+		$this->headerHints = $headerHints;
+	}
+	public function getHeaderHints()
+	{
+		return $this->headerHints;
+	}
+	public function setModelVersion($modelVersion)
+	{
+		$this->modelVersion = $modelVersion;
+	}
+	public function getModelVersion()
+	{
+		return $this->modelVersion;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2TableBoundHint
+	 */
+	public function setTableBoundHints($tableBoundHints)
+	{
+		$this->tableBoundHints = $tableBoundHints;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2TableBoundHint
+	 */
+	public function getTableBoundHints()
+	{
+		return $this->tableBoundHints;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Docs_Dimension extends Google_Model
 {
-  public $magnitude;
-  public $unit;
+	public $magnitude;
+	public $unit;
 
-  public function setMagnitude($magnitude)
-  {
-    $this->magnitude = $magnitude;
-  }
-  public function getMagnitude()
-  {
-    return $this->magnitude;
-  }
-  public function setUnit($unit)
-  {
-    $this->unit = $unit;
-  }
-  public function getUnit()
-  {
-    return $this->unit;
-  }
+	public function setMagnitude($magnitude)
+	{
+		$this->magnitude = $magnitude;
+	}
+	public function getMagnitude()
+	{
+		return $this->magnitude;
+	}
+	public function setUnit($unit)
+	{
+		$this->unit = $unit;
+	}
+	public function getUnit()
+	{
+		return $this->unit;
+	}
 }

@@ -17,68 +17,68 @@
 
 class Google_Service_IdentityToolkit_SignupNewUserResponse extends Google_Model
 {
-  public $displayName;
-  public $email;
-  public $expiresIn;
-  public $idToken;
-  public $kind;
-  public $localId;
-  public $refreshToken;
+	public $displayName;
+	public $email;
+	public $expiresIn;
+	public $idToken;
+	public $kind;
+	public $localId;
+	public $refreshToken;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setExpiresIn($expiresIn)
-  {
-    $this->expiresIn = $expiresIn;
-  }
-  public function getExpiresIn()
-  {
-    return $this->expiresIn;
-  }
-  public function setIdToken($idToken)
-  {
-    $this->idToken = $idToken;
-  }
-  public function getIdToken()
-  {
-    return $this->idToken;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLocalId($localId)
-  {
-    $this->localId = $localId;
-  }
-  public function getLocalId()
-  {
-    return $this->localId;
-  }
-  public function setRefreshToken($refreshToken)
-  {
-    $this->refreshToken = $refreshToken;
-  }
-  public function getRefreshToken()
-  {
-    return $this->refreshToken;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setExpiresIn($expiresIn)
+	{
+		$this->expiresIn = $expiresIn;
+	}
+	public function getExpiresIn()
+	{
+		return $this->expiresIn;
+	}
+	public function setIdToken($idToken)
+	{
+		$this->idToken = $idToken;
+	}
+	public function getIdToken()
+	{
+		return $this->idToken;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLocalId($localId)
+	{
+		$this->localId = $localId;
+	}
+	public function getLocalId()
+	{
+		return $this->localId;
+	}
+	public function setRefreshToken($refreshToken)
+	{
+		$this->refreshToken = $refreshToken;
+	}
+	public function getRefreshToken()
+	{
+		return $this->refreshToken;
+	}
 }

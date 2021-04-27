@@ -17,15 +17,15 @@
 
 class Google_Service_Translate_LanguageCodesSet extends Google_Collection
 {
-  protected $collection_key = 'languageCodes';
-  public $languageCodes;
+	protected $collection_key = 'languageCodes';
+	public $languageCodes;
 
-  public function setLanguageCodes($languageCodes)
-  {
-    $this->languageCodes = $languageCodes;
-  }
-  public function getLanguageCodes()
-  {
-    return $this->languageCodes;
-  }
+	public function setLanguageCodes($languageCodes)
+	{
+		$this->languageCodes = $languageCodes;
+	}
+	public function getLanguageCodes()
+	{
+		return $this->languageCodes;
+	}
 }

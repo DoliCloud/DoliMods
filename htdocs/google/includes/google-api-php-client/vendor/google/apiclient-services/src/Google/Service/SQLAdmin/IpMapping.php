@@ -17,32 +17,32 @@
 
 class Google_Service_SQLAdmin_IpMapping extends Google_Model
 {
-  public $ipAddress;
-  public $timeToRetire;
-  public $type;
+	public $ipAddress;
+	public $timeToRetire;
+	public $type;
 
-  public function setIpAddress($ipAddress)
-  {
-    $this->ipAddress = $ipAddress;
-  }
-  public function getIpAddress()
-  {
-    return $this->ipAddress;
-  }
-  public function setTimeToRetire($timeToRetire)
-  {
-    $this->timeToRetire = $timeToRetire;
-  }
-  public function getTimeToRetire()
-  {
-    return $this->timeToRetire;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setIpAddress($ipAddress)
+	{
+		$this->ipAddress = $ipAddress;
+	}
+	public function getIpAddress()
+	{
+		return $this->ipAddress;
+	}
+	public function setTimeToRetire($timeToRetire)
+	{
+		$this->timeToRetire = $timeToRetire;
+	}
+	public function getTimeToRetire()
+	{
+		return $this->timeToRetire;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

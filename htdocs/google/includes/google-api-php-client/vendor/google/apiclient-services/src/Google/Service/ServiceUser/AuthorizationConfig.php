@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceUser_AuthorizationConfig extends Google_Model
 {
-  public $provider;
+	public $provider;
 
-  public function setProvider($provider)
-  {
-    $this->provider = $provider;
-  }
-  public function getProvider()
-  {
-    return $this->provider;
-  }
+	public function setProvider($provider)
+	{
+		$this->provider = $provider;
+	}
+	public function getProvider()
+	{
+		return $this->provider;
+	}
 }

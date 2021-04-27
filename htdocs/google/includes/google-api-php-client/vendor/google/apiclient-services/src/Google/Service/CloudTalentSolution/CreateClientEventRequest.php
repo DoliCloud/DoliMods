@@ -17,21 +17,21 @@
 
 class Google_Service_CloudTalentSolution_CreateClientEventRequest extends Google_Model
 {
-  protected $clientEventType = 'Google_Service_CloudTalentSolution_ClientEvent';
-  protected $clientEventDataType = '';
+	protected $clientEventType = 'Google_Service_CloudTalentSolution_ClientEvent';
+	protected $clientEventDataType = '';
 
-  /**
-   * @param Google_Service_CloudTalentSolution_ClientEvent
-   */
-  public function setClientEvent(Google_Service_CloudTalentSolution_ClientEvent $clientEvent)
-  {
-    $this->clientEvent = $clientEvent;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_ClientEvent
-   */
-  public function getClientEvent()
-  {
-    return $this->clientEvent;
-  }
+	/**
+	 * @param Google_Service_CloudTalentSolution_ClientEvent
+	 */
+	public function setClientEvent(Google_Service_CloudTalentSolution_ClientEvent $clientEvent)
+	{
+		$this->clientEvent = $clientEvent;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_ClientEvent
+	 */
+	public function getClientEvent()
+	{
+		return $this->clientEvent;
+	}
 }

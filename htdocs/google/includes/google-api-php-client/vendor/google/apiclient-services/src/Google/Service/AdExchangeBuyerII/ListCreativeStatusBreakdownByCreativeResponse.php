@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListCreativeStatusBreakdownByCreativeResponse extends Google_Collection
 {
-  protected $collection_key = 'filteredBidCreativeRows';
-  protected $filteredBidCreativeRowsType = 'Google_Service_AdExchangeBuyerII_FilteredBidCreativeRow';
-  protected $filteredBidCreativeRowsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'filteredBidCreativeRows';
+	protected $filteredBidCreativeRowsType = 'Google_Service_AdExchangeBuyerII_FilteredBidCreativeRow';
+	protected $filteredBidCreativeRowsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_FilteredBidCreativeRow
-   */
-  public function setFilteredBidCreativeRows($filteredBidCreativeRows)
-  {
-    $this->filteredBidCreativeRows = $filteredBidCreativeRows;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_FilteredBidCreativeRow
-   */
-  public function getFilteredBidCreativeRows()
-  {
-    return $this->filteredBidCreativeRows;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_FilteredBidCreativeRow
+	 */
+	public function setFilteredBidCreativeRows($filteredBidCreativeRows)
+	{
+		$this->filteredBidCreativeRows = $filteredBidCreativeRows;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_FilteredBidCreativeRow
+	 */
+	public function getFilteredBidCreativeRows()
+	{
+		return $this->filteredBidCreativeRows;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

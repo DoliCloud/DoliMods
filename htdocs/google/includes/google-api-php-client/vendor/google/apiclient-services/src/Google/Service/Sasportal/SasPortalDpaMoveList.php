@@ -17,30 +17,30 @@
 
 class Google_Service_Sasportal_SasPortalDpaMoveList extends Google_Model
 {
-  public $dpaId;
-  protected $frequencyRangeType = 'Google_Service_Sasportal_SasPortalFrequencyRange';
-  protected $frequencyRangeDataType = '';
+	public $dpaId;
+	protected $frequencyRangeType = 'Google_Service_Sasportal_SasPortalFrequencyRange';
+	protected $frequencyRangeDataType = '';
 
-  public function setDpaId($dpaId)
-  {
-    $this->dpaId = $dpaId;
-  }
-  public function getDpaId()
-  {
-    return $this->dpaId;
-  }
-  /**
-   * @param Google_Service_Sasportal_SasPortalFrequencyRange
-   */
-  public function setFrequencyRange(Google_Service_Sasportal_SasPortalFrequencyRange $frequencyRange)
-  {
-    $this->frequencyRange = $frequencyRange;
-  }
-  /**
-   * @return Google_Service_Sasportal_SasPortalFrequencyRange
-   */
-  public function getFrequencyRange()
-  {
-    return $this->frequencyRange;
-  }
+	public function setDpaId($dpaId)
+	{
+		$this->dpaId = $dpaId;
+	}
+	public function getDpaId()
+	{
+		return $this->dpaId;
+	}
+	/**
+	 * @param Google_Service_Sasportal_SasPortalFrequencyRange
+	 */
+	public function setFrequencyRange(Google_Service_Sasportal_SasPortalFrequencyRange $frequencyRange)
+	{
+		$this->frequencyRange = $frequencyRange;
+	}
+	/**
+	 * @return Google_Service_Sasportal_SasPortalFrequencyRange
+	 */
+	public function getFrequencyRange()
+	{
+		return $this->frequencyRange;
+	}
 }

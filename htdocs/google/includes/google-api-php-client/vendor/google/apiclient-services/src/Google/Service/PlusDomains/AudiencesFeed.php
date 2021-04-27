@@ -17,58 +17,58 @@
 
 class Google_Service_PlusDomains_AudiencesFeed extends Google_Collection
 {
-  protected $collection_key = 'items';
-  public $etag;
-  protected $itemsType = 'Google_Service_PlusDomains_Audience';
-  protected $itemsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
-  public $totalItems;
+	protected $collection_key = 'items';
+	public $etag;
+	protected $itemsType = 'Google_Service_PlusDomains_Audience';
+	protected $itemsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
+	public $totalItems;
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  /**
-   * @param Google_Service_PlusDomains_Audience
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_PlusDomains_Audience
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setTotalItems($totalItems)
-  {
-    $this->totalItems = $totalItems;
-  }
-  public function getTotalItems()
-  {
-    return $this->totalItems;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	/**
+	 * @param Google_Service_PlusDomains_Audience
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_PlusDomains_Audience
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setTotalItems($totalItems)
+	{
+		$this->totalItems = $totalItems;
+	}
+	public function getTotalItems()
+	{
+		return $this->totalItems;
+	}
 }

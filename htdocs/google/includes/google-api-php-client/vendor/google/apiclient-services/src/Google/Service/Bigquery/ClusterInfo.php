@@ -17,32 +17,32 @@
 
 class Google_Service_Bigquery_ClusterInfo extends Google_Model
 {
-  public $centroidId;
-  public $clusterRadius;
-  public $clusterSize;
+	public $centroidId;
+	public $clusterRadius;
+	public $clusterSize;
 
-  public function setCentroidId($centroidId)
-  {
-    $this->centroidId = $centroidId;
-  }
-  public function getCentroidId()
-  {
-    return $this->centroidId;
-  }
-  public function setClusterRadius($clusterRadius)
-  {
-    $this->clusterRadius = $clusterRadius;
-  }
-  public function getClusterRadius()
-  {
-    return $this->clusterRadius;
-  }
-  public function setClusterSize($clusterSize)
-  {
-    $this->clusterSize = $clusterSize;
-  }
-  public function getClusterSize()
-  {
-    return $this->clusterSize;
-  }
+	public function setCentroidId($centroidId)
+	{
+		$this->centroidId = $centroidId;
+	}
+	public function getCentroidId()
+	{
+		return $this->centroidId;
+	}
+	public function setClusterRadius($clusterRadius)
+	{
+		$this->clusterRadius = $clusterRadius;
+	}
+	public function getClusterRadius()
+	{
+		return $this->clusterRadius;
+	}
+	public function setClusterSize($clusterSize)
+	{
+		$this->clusterSize = $clusterSize;
+	}
+	public function getClusterSize()
+	{
+		return $this->clusterSize;
+	}
 }

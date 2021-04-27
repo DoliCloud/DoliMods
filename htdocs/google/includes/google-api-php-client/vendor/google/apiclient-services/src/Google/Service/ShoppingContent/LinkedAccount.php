@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_LinkedAccount extends Google_Collection
 {
-  protected $collection_key = 'services';
-  public $linkedAccountId;
-  protected $servicesType = 'Google_Service_ShoppingContent_LinkService';
-  protected $servicesDataType = 'array';
+	protected $collection_key = 'services';
+	public $linkedAccountId;
+	protected $servicesType = 'Google_Service_ShoppingContent_LinkService';
+	protected $servicesDataType = 'array';
 
-  public function setLinkedAccountId($linkedAccountId)
-  {
-    $this->linkedAccountId = $linkedAccountId;
-  }
-  public function getLinkedAccountId()
-  {
-    return $this->linkedAccountId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_LinkService
-   */
-  public function setServices($services)
-  {
-    $this->services = $services;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_LinkService
-   */
-  public function getServices()
-  {
-    return $this->services;
-  }
+	public function setLinkedAccountId($linkedAccountId)
+	{
+		$this->linkedAccountId = $linkedAccountId;
+	}
+	public function getLinkedAccountId()
+	{
+		return $this->linkedAccountId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_LinkService
+	 */
+	public function setServices($services)
+	{
+		$this->services = $services;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_LinkService
+	 */
+	public function getServices()
+	{
+		return $this->services;
+	}
 }

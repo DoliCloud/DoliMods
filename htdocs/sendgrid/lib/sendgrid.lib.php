@@ -35,17 +35,17 @@ function sendgridadmin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/sendgrid/admin/setup.php",1);
+	$head[$h][0] = dol_buildpath("/sendgrid/admin/setup.php", 1);
 	$head[$h][1] = $langs->trans("Authentication");
 	$head[$h][2] = 'common';
 	$h++;
 
-   	$head[$h][0] = dol_buildpath("/sendgrid/admin/importinvoice.php",1);
-   	$head[$h][1] = $langs->trans("GetInvoices");
-   	$head[$h][2] = 'getinvoices';
-   	$h++;
+	$head[$h][0] = dol_buildpath("/sendgrid/admin/importinvoice.php", 1);
+	$head[$h][1] = $langs->trans("GetInvoices");
+	$head[$h][2] = 'getinvoices';
+	$h++;
 
-   	$head[$h][0] = 'about.php';
+	$head[$h][0] = 'about.php';
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'tababout';
 	$h++;
@@ -61,19 +61,19 @@ function sendgridadmin_prepare_head()
  */
 function sendgridsysadmin_prepare_head()
 {
-    global $langs, $conf, $user;
-    $h = 0;
-    $head = array();
+	global $langs, $conf, $user;
+	$h = 0;
+	$head = array();
 
-   	$head[$h][0] = dol_buildpath("/sendgrid/sendgrid_listinfoserver.php",1).'?mode=publiccloud';
-   	$head[$h][1] = $langs->trans("OvhPublicCloud");
-   	$head[$h][2] = 'publiccloud';
-   	$h++;
+	$head[$h][0] = dol_buildpath("/sendgrid/sendgrid_listinfoserver.php", 1).'?mode=publiccloud';
+	$head[$h][1] = $langs->trans("OvhPublicCloud");
+	$head[$h][2] = 'publiccloud';
+	$h++;
 
-    $head[$h][0] = dol_buildpath("/sendgrid/sendgrid_listinfoserver.php",1).'?mode=dedicated';
-    $head[$h][1] = $langs->trans("OvhDedicated");
-    $head[$h][2] = 'dedicated';
-    $h++;
+	$head[$h][0] = dol_buildpath("/sendgrid/sendgrid_listinfoserver.php", 1).'?mode=dedicated';
+	$head[$h][1] = $langs->trans("OvhDedicated");
+	$head[$h][2] = 'dedicated';
+	$h++;
 
-   	return $head;
+	return $head;
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CreateInspectTemplateRequest extends Google_Model
 {
-  protected $inspectTemplateType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate';
-  protected $inspectTemplateDataType = '';
-  public $locationId;
-  public $templateId;
+	protected $inspectTemplateType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate';
+	protected $inspectTemplateDataType = '';
+	public $locationId;
+	public $templateId;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
-   */
-  public function setInspectTemplate(Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate $inspectTemplate)
-  {
-    $this->inspectTemplate = $inspectTemplate;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
-   */
-  public function getInspectTemplate()
-  {
-    return $this->inspectTemplate;
-  }
-  public function setLocationId($locationId)
-  {
-    $this->locationId = $locationId;
-  }
-  public function getLocationId()
-  {
-    return $this->locationId;
-  }
-  public function setTemplateId($templateId)
-  {
-    $this->templateId = $templateId;
-  }
-  public function getTemplateId()
-  {
-    return $this->templateId;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
+	 */
+	public function setInspectTemplate(Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate $inspectTemplate)
+	{
+		$this->inspectTemplate = $inspectTemplate;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
+	 */
+	public function getInspectTemplate()
+	{
+		return $this->inspectTemplate;
+	}
+	public function setLocationId($locationId)
+	{
+		$this->locationId = $locationId;
+	}
+	public function getLocationId()
+	{
+		return $this->locationId;
+	}
+	public function setTemplateId($templateId)
+	{
+		$this->templateId = $templateId;
+	}
+	public function getTemplateId()
+	{
+		return $this->templateId;
+	}
 }

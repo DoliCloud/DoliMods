@@ -17,31 +17,31 @@
 
 class Google_Service_Appengine_ListDomainMappingsResponse extends Google_Collection
 {
-  protected $collection_key = 'domainMappings';
-  protected $domainMappingsType = 'Google_Service_Appengine_DomainMapping';
-  protected $domainMappingsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'domainMappings';
+	protected $domainMappingsType = 'Google_Service_Appengine_DomainMapping';
+	protected $domainMappingsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Appengine_DomainMapping
-   */
-  public function setDomainMappings($domainMappings)
-  {
-    $this->domainMappings = $domainMappings;
-  }
-  /**
-   * @return Google_Service_Appengine_DomainMapping
-   */
-  public function getDomainMappings()
-  {
-    return $this->domainMappings;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Appengine_DomainMapping
+	 */
+	public function setDomainMappings($domainMappings)
+	{
+		$this->domainMappings = $domainMappings;
+	}
+	/**
+	 * @return Google_Service_Appengine_DomainMapping
+	 */
+	public function getDomainMappings()
+	{
+		return $this->domainMappings;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

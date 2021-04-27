@@ -25,25 +25,25 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsEnvironmentsDeployments extends Google_Service_Resource
 {
-  /**
-   * Lists all deployments of API proxies or shared flows in an environment.
-   * (deployments.listOrganizationsEnvironmentsDeployments)
-   *
-   * @param string $parent Required. Name of the environment for which to return
-   * deployment information in the following format:
-   * `organizations/{org}/environments/{env}`
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param bool sharedFlows Optional. Flag that specifies whether to return
-   * shared flow or API proxy deployments. Set to `true` to return shared flow
-   * deployments; set to `false` to return API proxy deployments. Defaults to
-   * `false`.
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
-   */
-  public function listOrganizationsEnvironmentsDeployments($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
-  }
+	/**
+	 * Lists all deployments of API proxies or shared flows in an environment.
+	 * (deployments.listOrganizationsEnvironmentsDeployments)
+	 *
+	 * @param string $parent Required. Name of the environment for which to return
+	 *                       deployment information in the following format:
+	 *                       `organizations/{org}/environments/{env}`
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param bool sharedFlows Optional. Flag that specifies whether to return
+	 * shared flow or API proxy deployments. Set to `true` to return shared flow
+	 * deployments; set to `false` to return API proxy deployments. Defaults to
+	 * `false`.
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
+	 */
+	public function listOrganizationsEnvironmentsDeployments($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
+	}
 }

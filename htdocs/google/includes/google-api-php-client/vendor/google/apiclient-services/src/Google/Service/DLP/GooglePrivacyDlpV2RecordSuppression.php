@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2RecordSuppression extends Google_Model
 {
-  protected $conditionType = 'Google_Service_DLP_GooglePrivacyDlpV2RecordCondition';
-  protected $conditionDataType = '';
+	protected $conditionType = 'Google_Service_DLP_GooglePrivacyDlpV2RecordCondition';
+	protected $conditionDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2RecordCondition
-   */
-  public function setCondition(Google_Service_DLP_GooglePrivacyDlpV2RecordCondition $condition)
-  {
-    $this->condition = $condition;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2RecordCondition
-   */
-  public function getCondition()
-  {
-    return $this->condition;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2RecordCondition
+	 */
+	public function setCondition(Google_Service_DLP_GooglePrivacyDlpV2RecordCondition $condition)
+	{
+		$this->condition = $condition;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2RecordCondition
+	 */
+	public function getCondition()
+	{
+		return $this->condition;
+	}
 }

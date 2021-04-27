@@ -25,36 +25,36 @@
  */
 class Google_Service_CloudRun_Resource_ProjectsLocationsNamespaces extends Google_Service_Resource
 {
-  /**
-   * Rpc to get information about a namespace. (namespaces.get)
-   *
-   * @param string $name Required. The name of the namespace being retrieved. If
-   * needed, replace {namespace_id} with the project ID.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_CloudRun_RunNamespace
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_CloudRun_RunNamespace");
-  }
-  /**
-   * Rpc to update a namespace. (namespaces.patch)
-   *
-   * @param string $name Required. The name of the namespace being retrieved. If
-   * needed, replace {namespace_id} with the project ID.
-   * @param Google_Service_CloudRun_RunNamespace $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string updateMask Required. Indicates which fields in the provided
-   * namespace to update. This field is currently unused.
-   * @return Google_Service_CloudRun_RunNamespace
-   */
-  public function patch($name, Google_Service_CloudRun_RunNamespace $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_CloudRun_RunNamespace");
-  }
+	/**
+	 * Rpc to get information about a namespace. (namespaces.get)
+	 *
+	 * @param string $name Required. The name of the namespace being retrieved. If
+	 *                     needed, replace {namespace_id} with the project ID.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_CloudRun_RunNamespace
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_CloudRun_RunNamespace");
+	}
+	/**
+	 * Rpc to update a namespace. (namespaces.patch)
+	 *
+	 * @param string $name Required. The name of the namespace being retrieved. If
+	 *                     needed, replace {namespace_id} with the project ID.
+	 * @param Google_Service_CloudRun_RunNamespace $postBody
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string updateMask Required. Indicates which fields in the provided
+	 * namespace to update. This field is currently unused.
+	 * @return Google_Service_CloudRun_RunNamespace
+	 */
+	public function patch($name, Google_Service_CloudRun_RunNamespace $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('patch', array($params), "Google_Service_CloudRun_RunNamespace");
+	}
 }

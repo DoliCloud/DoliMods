@@ -17,81 +17,81 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail extends Google_Collection
 {
-  protected $collection_key = 'productDetails';
-  public $cartId;
-  public $listId;
-  protected $pageCategoriesType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemCategoryHierarchy';
-  protected $pageCategoriesDataType = 'array';
-  protected $productDetailsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductDetail';
-  protected $productDetailsDataType = 'array';
-  protected $purchaseTransactionType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction';
-  protected $purchaseTransactionDataType = '';
-  public $searchQuery;
+	protected $collection_key = 'productDetails';
+	public $cartId;
+	public $listId;
+	protected $pageCategoriesType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemCategoryHierarchy';
+	protected $pageCategoriesDataType = 'array';
+	protected $productDetailsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductDetail';
+	protected $productDetailsDataType = 'array';
+	protected $purchaseTransactionType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction';
+	protected $purchaseTransactionDataType = '';
+	public $searchQuery;
 
-  public function setCartId($cartId)
-  {
-    $this->cartId = $cartId;
-  }
-  public function getCartId()
-  {
-    return $this->cartId;
-  }
-  public function setListId($listId)
-  {
-    $this->listId = $listId;
-  }
-  public function getListId()
-  {
-    return $this->listId;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemCategoryHierarchy
-   */
-  public function setPageCategories($pageCategories)
-  {
-    $this->pageCategories = $pageCategories;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemCategoryHierarchy
-   */
-  public function getPageCategories()
-  {
-    return $this->pageCategories;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductDetail
-   */
-  public function setProductDetails($productDetails)
-  {
-    $this->productDetails = $productDetails;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductDetail
-   */
-  public function getProductDetails()
-  {
-    return $this->productDetails;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction
-   */
-  public function setPurchaseTransaction(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction $purchaseTransaction)
-  {
-    $this->purchaseTransaction = $purchaseTransaction;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction
-   */
-  public function getPurchaseTransaction()
-  {
-    return $this->purchaseTransaction;
-  }
-  public function setSearchQuery($searchQuery)
-  {
-    $this->searchQuery = $searchQuery;
-  }
-  public function getSearchQuery()
-  {
-    return $this->searchQuery;
-  }
+	public function setCartId($cartId)
+	{
+		$this->cartId = $cartId;
+	}
+	public function getCartId()
+	{
+		return $this->cartId;
+	}
+	public function setListId($listId)
+	{
+		$this->listId = $listId;
+	}
+	public function getListId()
+	{
+		return $this->listId;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemCategoryHierarchy
+	 */
+	public function setPageCategories($pageCategories)
+	{
+		$this->pageCategories = $pageCategories;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemCategoryHierarchy
+	 */
+	public function getPageCategories()
+	{
+		return $this->pageCategories;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductDetail
+	 */
+	public function setProductDetails($productDetails)
+	{
+		$this->productDetails = $productDetails;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductDetail
+	 */
+	public function getProductDetails()
+	{
+		return $this->productDetails;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction
+	 */
+	public function setPurchaseTransaction(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction $purchaseTransaction)
+	{
+		$this->purchaseTransaction = $purchaseTransaction;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurchaseTransaction
+	 */
+	public function getPurchaseTransaction()
+	{
+		return $this->purchaseTransaction;
+	}
+	public function setSearchQuery($searchQuery)
+	{
+		$this->searchQuery = $searchQuery;
+	}
+	public function getSearchQuery()
+	{
+		return $this->searchQuery;
+	}
 }

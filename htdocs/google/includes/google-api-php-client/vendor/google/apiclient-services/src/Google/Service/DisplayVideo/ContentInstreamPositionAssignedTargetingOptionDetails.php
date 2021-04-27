@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_ContentInstreamPositionAssignedTargetingOptionDetails extends Google_Model
 {
-  public $contentInstreamPosition;
-  public $targetingOptionId;
+	public $contentInstreamPosition;
+	public $targetingOptionId;
 
-  public function setContentInstreamPosition($contentInstreamPosition)
-  {
-    $this->contentInstreamPosition = $contentInstreamPosition;
-  }
-  public function getContentInstreamPosition()
-  {
-    return $this->contentInstreamPosition;
-  }
-  public function setTargetingOptionId($targetingOptionId)
-  {
-    $this->targetingOptionId = $targetingOptionId;
-  }
-  public function getTargetingOptionId()
-  {
-    return $this->targetingOptionId;
-  }
+	public function setContentInstreamPosition($contentInstreamPosition)
+	{
+		$this->contentInstreamPosition = $contentInstreamPosition;
+	}
+	public function getContentInstreamPosition()
+	{
+		return $this->contentInstreamPosition;
+	}
+	public function setTargetingOptionId($targetingOptionId)
+	{
+		$this->targetingOptionId = $targetingOptionId;
+	}
+	public function getTargetingOptionId()
+	{
+		return $this->targetingOptionId;
+	}
 }

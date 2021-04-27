@@ -17,40 +17,40 @@
 
 class Google_Service_Script_ExecutionError extends Google_Collection
 {
-  protected $collection_key = 'scriptStackTraceElements';
-  public $errorMessage;
-  public $errorType;
-  protected $scriptStackTraceElementsType = 'Google_Service_Script_ScriptStackTraceElement';
-  protected $scriptStackTraceElementsDataType = 'array';
+	protected $collection_key = 'scriptStackTraceElements';
+	public $errorMessage;
+	public $errorType;
+	protected $scriptStackTraceElementsType = 'Google_Service_Script_ScriptStackTraceElement';
+	protected $scriptStackTraceElementsDataType = 'array';
 
-  public function setErrorMessage($errorMessage)
-  {
-    $this->errorMessage = $errorMessage;
-  }
-  public function getErrorMessage()
-  {
-    return $this->errorMessage;
-  }
-  public function setErrorType($errorType)
-  {
-    $this->errorType = $errorType;
-  }
-  public function getErrorType()
-  {
-    return $this->errorType;
-  }
-  /**
-   * @param Google_Service_Script_ScriptStackTraceElement
-   */
-  public function setScriptStackTraceElements($scriptStackTraceElements)
-  {
-    $this->scriptStackTraceElements = $scriptStackTraceElements;
-  }
-  /**
-   * @return Google_Service_Script_ScriptStackTraceElement
-   */
-  public function getScriptStackTraceElements()
-  {
-    return $this->scriptStackTraceElements;
-  }
+	public function setErrorMessage($errorMessage)
+	{
+		$this->errorMessage = $errorMessage;
+	}
+	public function getErrorMessage()
+	{
+		return $this->errorMessage;
+	}
+	public function setErrorType($errorType)
+	{
+		$this->errorType = $errorType;
+	}
+	public function getErrorType()
+	{
+		return $this->errorType;
+	}
+	/**
+	 * @param Google_Service_Script_ScriptStackTraceElement
+	 */
+	public function setScriptStackTraceElements($scriptStackTraceElements)
+	{
+		$this->scriptStackTraceElements = $scriptStackTraceElements;
+	}
+	/**
+	 * @return Google_Service_Script_ScriptStackTraceElement
+	 */
+	public function getScriptStackTraceElements()
+	{
+		return $this->scriptStackTraceElements;
+	}
 }

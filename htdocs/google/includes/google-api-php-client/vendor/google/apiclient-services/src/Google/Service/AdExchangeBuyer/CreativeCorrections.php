@@ -17,40 +17,40 @@
 
 class Google_Service_AdExchangeBuyer_CreativeCorrections extends Google_Collection
 {
-  protected $collection_key = 'details';
-  protected $contextsType = 'Google_Service_AdExchangeBuyer_CreativeCorrectionsContexts';
-  protected $contextsDataType = 'array';
-  public $details;
-  public $reason;
+	protected $collection_key = 'details';
+	protected $contextsType = 'Google_Service_AdExchangeBuyer_CreativeCorrectionsContexts';
+	protected $contextsDataType = 'array';
+	public $details;
+	public $reason;
 
-  /**
-   * @param Google_Service_AdExchangeBuyer_CreativeCorrectionsContexts
-   */
-  public function setContexts($contexts)
-  {
-    $this->contexts = $contexts;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_CreativeCorrectionsContexts
-   */
-  public function getContexts()
-  {
-    return $this->contexts;
-  }
-  public function setDetails($details)
-  {
-    $this->details = $details;
-  }
-  public function getDetails()
-  {
-    return $this->details;
-  }
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyer_CreativeCorrectionsContexts
+	 */
+	public function setContexts($contexts)
+	{
+		$this->contexts = $contexts;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_CreativeCorrectionsContexts
+	 */
+	public function getContexts()
+	{
+		return $this->contexts;
+	}
+	public function setDetails($details)
+	{
+		$this->details = $details;
+	}
+	public function getDetails()
+	{
+		return $this->details;
+	}
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
 }

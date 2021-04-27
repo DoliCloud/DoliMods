@@ -17,31 +17,31 @@
 
 class Google_Service_GamesManagement_AchievementResetAllResponse extends Google_Collection
 {
-  protected $collection_key = 'results';
-  public $kind;
-  protected $resultsType = 'Google_Service_GamesManagement_AchievementResetResponse';
-  protected $resultsDataType = 'array';
+	protected $collection_key = 'results';
+	public $kind;
+	protected $resultsType = 'Google_Service_GamesManagement_AchievementResetResponse';
+	protected $resultsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_GamesManagement_AchievementResetResponse
-   */
-  public function setResults($results)
-  {
-    $this->results = $results;
-  }
-  /**
-   * @return Google_Service_GamesManagement_AchievementResetResponse
-   */
-  public function getResults()
-  {
-    return $this->results;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_GamesManagement_AchievementResetResponse
+	 */
+	public function setResults($results)
+	{
+		$this->results = $results;
+	}
+	/**
+	 * @return Google_Service_GamesManagement_AchievementResetResponse
+	 */
+	public function getResults()
+	{
+		return $this->results;
+	}
 }

@@ -13,16 +13,16 @@ namespace GuzzleHttp\Event;
  */
 class EndEvent extends AbstractTransferEvent
 {
-    /**
-     * Get the exception that was encountered (if any).
-     *
-     * This method should be used to check if the request was sent successfully
-     * or if it encountered errors.
-     *
-     * @return \Exception|null
-     */
-    public function getException()
-    {
-        return $this->transaction->exception;
-    }
+	/**
+	 * Get the exception that was encountered (if any).
+	 *
+	 * This method should be used to check if the request was sent successfully
+	 * or if it encountered errors.
+	 *
+	 * @return \Exception|null
+	 */
+	public function getException()
+	{
+		return $this->transaction->exception;
+	}
 }

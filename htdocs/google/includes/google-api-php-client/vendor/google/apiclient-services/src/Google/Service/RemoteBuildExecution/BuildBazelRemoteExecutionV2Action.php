@@ -17,65 +17,65 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Action extends Google_Collection
 {
-  protected $collection_key = 'outputNodeProperties';
-  protected $commandDigestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $commandDigestDataType = '';
-  public $doNotCache;
-  protected $inputRootDigestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $inputRootDigestDataType = '';
-  public $outputNodeProperties;
-  public $timeout;
+	protected $collection_key = 'outputNodeProperties';
+	protected $commandDigestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $commandDigestDataType = '';
+	public $doNotCache;
+	protected $inputRootDigestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $inputRootDigestDataType = '';
+	public $outputNodeProperties;
+	public $timeout;
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setCommandDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $commandDigest)
-  {
-    $this->commandDigest = $commandDigest;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getCommandDigest()
-  {
-    return $this->commandDigest;
-  }
-  public function setDoNotCache($doNotCache)
-  {
-    $this->doNotCache = $doNotCache;
-  }
-  public function getDoNotCache()
-  {
-    return $this->doNotCache;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setInputRootDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $inputRootDigest)
-  {
-    $this->inputRootDigest = $inputRootDigest;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getInputRootDigest()
-  {
-    return $this->inputRootDigest;
-  }
-  public function setOutputNodeProperties($outputNodeProperties)
-  {
-    $this->outputNodeProperties = $outputNodeProperties;
-  }
-  public function getOutputNodeProperties()
-  {
-    return $this->outputNodeProperties;
-  }
-  public function setTimeout($timeout)
-  {
-    $this->timeout = $timeout;
-  }
-  public function getTimeout()
-  {
-    return $this->timeout;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setCommandDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $commandDigest)
+	{
+		$this->commandDigest = $commandDigest;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getCommandDigest()
+	{
+		return $this->commandDigest;
+	}
+	public function setDoNotCache($doNotCache)
+	{
+		$this->doNotCache = $doNotCache;
+	}
+	public function getDoNotCache()
+	{
+		return $this->doNotCache;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setInputRootDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $inputRootDigest)
+	{
+		$this->inputRootDigest = $inputRootDigest;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getInputRootDigest()
+	{
+		return $this->inputRootDigest;
+	}
+	public function setOutputNodeProperties($outputNodeProperties)
+	{
+		$this->outputNodeProperties = $outputNodeProperties;
+	}
+	public function getOutputNodeProperties()
+	{
+		return $this->outputNodeProperties;
+	}
+	public function setTimeout($timeout)
+	{
+		$this->timeout = $timeout;
+	}
+	public function getTimeout()
+	{
+		return $this->timeout;
+	}
 }

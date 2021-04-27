@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedNamedStyles extends Google_Model
 {
-  protected $namedStylesType = 'Google_Service_Docs_NamedStyles';
-  protected $namedStylesDataType = '';
-  protected $namedStylesSuggestionStateType = 'Google_Service_Docs_NamedStylesSuggestionState';
-  protected $namedStylesSuggestionStateDataType = '';
+	protected $namedStylesType = 'Google_Service_Docs_NamedStyles';
+	protected $namedStylesDataType = '';
+	protected $namedStylesSuggestionStateType = 'Google_Service_Docs_NamedStylesSuggestionState';
+	protected $namedStylesSuggestionStateDataType = '';
 
-  /**
-   * @param Google_Service_Docs_NamedStyles
-   */
-  public function setNamedStyles(Google_Service_Docs_NamedStyles $namedStyles)
-  {
-    $this->namedStyles = $namedStyles;
-  }
-  /**
-   * @return Google_Service_Docs_NamedStyles
-   */
-  public function getNamedStyles()
-  {
-    return $this->namedStyles;
-  }
-  /**
-   * @param Google_Service_Docs_NamedStylesSuggestionState
-   */
-  public function setNamedStylesSuggestionState(Google_Service_Docs_NamedStylesSuggestionState $namedStylesSuggestionState)
-  {
-    $this->namedStylesSuggestionState = $namedStylesSuggestionState;
-  }
-  /**
-   * @return Google_Service_Docs_NamedStylesSuggestionState
-   */
-  public function getNamedStylesSuggestionState()
-  {
-    return $this->namedStylesSuggestionState;
-  }
+	/**
+	 * @param Google_Service_Docs_NamedStyles
+	 */
+	public function setNamedStyles(Google_Service_Docs_NamedStyles $namedStyles)
+	{
+		$this->namedStyles = $namedStyles;
+	}
+	/**
+	 * @return Google_Service_Docs_NamedStyles
+	 */
+	public function getNamedStyles()
+	{
+		return $this->namedStyles;
+	}
+	/**
+	 * @param Google_Service_Docs_NamedStylesSuggestionState
+	 */
+	public function setNamedStylesSuggestionState(Google_Service_Docs_NamedStylesSuggestionState $namedStylesSuggestionState)
+	{
+		$this->namedStylesSuggestionState = $namedStylesSuggestionState;
+	}
+	/**
+	 * @return Google_Service_Docs_NamedStylesSuggestionState
+	 */
+	public function getNamedStylesSuggestionState()
+	{
+		return $this->namedStylesSuggestionState;
+	}
 }

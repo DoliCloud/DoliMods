@@ -17,68 +17,68 @@
 
 class Google_Service_Directory_UserLocation extends Google_Model
 {
-  public $area;
-  public $buildingId;
-  public $customType;
-  public $deskCode;
-  public $floorName;
-  public $floorSection;
-  public $type;
+	public $area;
+	public $buildingId;
+	public $customType;
+	public $deskCode;
+	public $floorName;
+	public $floorSection;
+	public $type;
 
-  public function setArea($area)
-  {
-    $this->area = $area;
-  }
-  public function getArea()
-  {
-    return $this->area;
-  }
-  public function setBuildingId($buildingId)
-  {
-    $this->buildingId = $buildingId;
-  }
-  public function getBuildingId()
-  {
-    return $this->buildingId;
-  }
-  public function setCustomType($customType)
-  {
-    $this->customType = $customType;
-  }
-  public function getCustomType()
-  {
-    return $this->customType;
-  }
-  public function setDeskCode($deskCode)
-  {
-    $this->deskCode = $deskCode;
-  }
-  public function getDeskCode()
-  {
-    return $this->deskCode;
-  }
-  public function setFloorName($floorName)
-  {
-    $this->floorName = $floorName;
-  }
-  public function getFloorName()
-  {
-    return $this->floorName;
-  }
-  public function setFloorSection($floorSection)
-  {
-    $this->floorSection = $floorSection;
-  }
-  public function getFloorSection()
-  {
-    return $this->floorSection;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setArea($area)
+	{
+		$this->area = $area;
+	}
+	public function getArea()
+	{
+		return $this->area;
+	}
+	public function setBuildingId($buildingId)
+	{
+		$this->buildingId = $buildingId;
+	}
+	public function getBuildingId()
+	{
+		return $this->buildingId;
+	}
+	public function setCustomType($customType)
+	{
+		$this->customType = $customType;
+	}
+	public function getCustomType()
+	{
+		return $this->customType;
+	}
+	public function setDeskCode($deskCode)
+	{
+		$this->deskCode = $deskCode;
+	}
+	public function getDeskCode()
+	{
+		return $this->deskCode;
+	}
+	public function setFloorName($floorName)
+	{
+		$this->floorName = $floorName;
+	}
+	public function getFloorName()
+	{
+		return $this->floorName;
+	}
+	public function setFloorSection($floorSection)
+	{
+		$this->floorSection = $floorSection;
+	}
+	public function getFloorSection()
+	{
+		return $this->floorSection;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

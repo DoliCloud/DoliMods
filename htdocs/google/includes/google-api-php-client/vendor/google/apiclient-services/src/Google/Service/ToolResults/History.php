@@ -17,41 +17,41 @@
 
 class Google_Service_ToolResults_History extends Google_Model
 {
-  public $displayName;
-  public $historyId;
-  public $name;
-  public $testPlatform;
+	public $displayName;
+	public $historyId;
+	public $name;
+	public $testPlatform;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setHistoryId($historyId)
-  {
-    $this->historyId = $historyId;
-  }
-  public function getHistoryId()
-  {
-    return $this->historyId;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setTestPlatform($testPlatform)
-  {
-    $this->testPlatform = $testPlatform;
-  }
-  public function getTestPlatform()
-  {
-    return $this->testPlatform;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setHistoryId($historyId)
+	{
+		$this->historyId = $historyId;
+	}
+	public function getHistoryId()
+	{
+		return $this->historyId;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setTestPlatform($testPlatform)
+	{
+		$this->testPlatform = $testPlatform;
+	}
+	public function getTestPlatform()
+	{
+		return $this->testPlatform;
+	}
 }

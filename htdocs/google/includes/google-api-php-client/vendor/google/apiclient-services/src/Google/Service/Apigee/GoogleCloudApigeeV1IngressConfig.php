@@ -17,58 +17,58 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1IngressConfig extends Google_Collection
 {
-  protected $collection_key = 'environmentGroups';
-  protected $environmentGroupsType = 'Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroupConfig';
-  protected $environmentGroupsDataType = 'array';
-  public $name;
-  public $revisionCreateTime;
-  public $revisionId;
-  public $uid;
+	protected $collection_key = 'environmentGroups';
+	protected $environmentGroupsType = 'Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroupConfig';
+	protected $environmentGroupsDataType = 'array';
+	public $name;
+	public $revisionCreateTime;
+	public $revisionId;
+	public $uid;
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroupConfig
-   */
-  public function setEnvironmentGroups($environmentGroups)
-  {
-    $this->environmentGroups = $environmentGroups;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroupConfig
-   */
-  public function getEnvironmentGroups()
-  {
-    return $this->environmentGroups;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setRevisionCreateTime($revisionCreateTime)
-  {
-    $this->revisionCreateTime = $revisionCreateTime;
-  }
-  public function getRevisionCreateTime()
-  {
-    return $this->revisionCreateTime;
-  }
-  public function setRevisionId($revisionId)
-  {
-    $this->revisionId = $revisionId;
-  }
-  public function getRevisionId()
-  {
-    return $this->revisionId;
-  }
-  public function setUid($uid)
-  {
-    $this->uid = $uid;
-  }
-  public function getUid()
-  {
-    return $this->uid;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroupConfig
+	 */
+	public function setEnvironmentGroups($environmentGroups)
+	{
+		$this->environmentGroups = $environmentGroups;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroupConfig
+	 */
+	public function getEnvironmentGroups()
+	{
+		return $this->environmentGroups;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setRevisionCreateTime($revisionCreateTime)
+	{
+		$this->revisionCreateTime = $revisionCreateTime;
+	}
+	public function getRevisionCreateTime()
+	{
+		return $this->revisionCreateTime;
+	}
+	public function setRevisionId($revisionId)
+	{
+		$this->revisionId = $revisionId;
+	}
+	public function getRevisionId()
+	{
+		return $this->revisionId;
+	}
+	public function setUid($uid)
+	{
+		$this->uid = $uid;
+	}
+	public function getUid()
+	{
+		return $this->uid;
+	}
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_CloudSearch_RequestOptions extends Google_Model
 {
-  protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
-  protected $debugOptionsDataType = '';
-  public $languageCode;
-  public $searchApplicationId;
-  public $timeZone;
+	protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
+	protected $debugOptionsDataType = '';
+	public $languageCode;
+	public $searchApplicationId;
+	public $timeZone;
 
-  /**
-   * @param Google_Service_CloudSearch_DebugOptions
-   */
-  public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
-  {
-    $this->debugOptions = $debugOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DebugOptions
-   */
-  public function getDebugOptions()
-  {
-    return $this->debugOptions;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  public function setSearchApplicationId($searchApplicationId)
-  {
-    $this->searchApplicationId = $searchApplicationId;
-  }
-  public function getSearchApplicationId()
-  {
-    return $this->searchApplicationId;
-  }
-  public function setTimeZone($timeZone)
-  {
-    $this->timeZone = $timeZone;
-  }
-  public function getTimeZone()
-  {
-    return $this->timeZone;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_DebugOptions
+	 */
+	public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
+	{
+		$this->debugOptions = $debugOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DebugOptions
+	 */
+	public function getDebugOptions()
+	{
+		return $this->debugOptions;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	public function setSearchApplicationId($searchApplicationId)
+	{
+		$this->searchApplicationId = $searchApplicationId;
+	}
+	public function getSearchApplicationId()
+	{
+		return $this->searchApplicationId;
+	}
+	public function setTimeZone($timeZone)
+	{
+		$this->timeZone = $timeZone;
+	}
+	public function getTimeZone()
+	{
+		return $this->timeZone;
+	}
 }

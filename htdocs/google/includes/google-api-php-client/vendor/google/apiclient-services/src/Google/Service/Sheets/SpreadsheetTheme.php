@@ -17,31 +17,31 @@
 
 class Google_Service_Sheets_SpreadsheetTheme extends Google_Collection
 {
-  protected $collection_key = 'themeColors';
-  public $primaryFontFamily;
-  protected $themeColorsType = 'Google_Service_Sheets_ThemeColorPair';
-  protected $themeColorsDataType = 'array';
+	protected $collection_key = 'themeColors';
+	public $primaryFontFamily;
+	protected $themeColorsType = 'Google_Service_Sheets_ThemeColorPair';
+	protected $themeColorsDataType = 'array';
 
-  public function setPrimaryFontFamily($primaryFontFamily)
-  {
-    $this->primaryFontFamily = $primaryFontFamily;
-  }
-  public function getPrimaryFontFamily()
-  {
-    return $this->primaryFontFamily;
-  }
-  /**
-   * @param Google_Service_Sheets_ThemeColorPair
-   */
-  public function setThemeColors($themeColors)
-  {
-    $this->themeColors = $themeColors;
-  }
-  /**
-   * @return Google_Service_Sheets_ThemeColorPair
-   */
-  public function getThemeColors()
-  {
-    return $this->themeColors;
-  }
+	public function setPrimaryFontFamily($primaryFontFamily)
+	{
+		$this->primaryFontFamily = $primaryFontFamily;
+	}
+	public function getPrimaryFontFamily()
+	{
+		return $this->primaryFontFamily;
+	}
+	/**
+	 * @param Google_Service_Sheets_ThemeColorPair
+	 */
+	public function setThemeColors($themeColors)
+	{
+		$this->themeColors = $themeColors;
+	}
+	/**
+	 * @return Google_Service_Sheets_ThemeColorPair
+	 */
+	public function getThemeColors()
+	{
+		return $this->themeColors;
+	}
 }

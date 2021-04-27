@@ -17,23 +17,23 @@
 
 class Google_Service_BigtableAdmin_SingleClusterRouting extends Google_Model
 {
-  public $allowTransactionalWrites;
-  public $clusterId;
+	public $allowTransactionalWrites;
+	public $clusterId;
 
-  public function setAllowTransactionalWrites($allowTransactionalWrites)
-  {
-    $this->allowTransactionalWrites = $allowTransactionalWrites;
-  }
-  public function getAllowTransactionalWrites()
-  {
-    return $this->allowTransactionalWrites;
-  }
-  public function setClusterId($clusterId)
-  {
-    $this->clusterId = $clusterId;
-  }
-  public function getClusterId()
-  {
-    return $this->clusterId;
-  }
+	public function setAllowTransactionalWrites($allowTransactionalWrites)
+	{
+		$this->allowTransactionalWrites = $allowTransactionalWrites;
+	}
+	public function getAllowTransactionalWrites()
+	{
+		return $this->allowTransactionalWrites;
+	}
+	public function setClusterId($clusterId)
+	{
+		$this->clusterId = $clusterId;
+	}
+	public function getClusterId()
+	{
+		return $this->clusterId;
+	}
 }

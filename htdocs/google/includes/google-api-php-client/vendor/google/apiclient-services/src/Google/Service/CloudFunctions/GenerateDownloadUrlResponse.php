@@ -17,14 +17,14 @@
 
 class Google_Service_CloudFunctions_GenerateDownloadUrlResponse extends Google_Model
 {
-  public $downloadUrl;
+	public $downloadUrl;
 
-  public function setDownloadUrl($downloadUrl)
-  {
-    $this->downloadUrl = $downloadUrl;
-  }
-  public function getDownloadUrl()
-  {
-    return $this->downloadUrl;
-  }
+	public function setDownloadUrl($downloadUrl)
+	{
+		$this->downloadUrl = $downloadUrl;
+	}
+	public function getDownloadUrl()
+	{
+		return $this->downloadUrl;
+	}
 }

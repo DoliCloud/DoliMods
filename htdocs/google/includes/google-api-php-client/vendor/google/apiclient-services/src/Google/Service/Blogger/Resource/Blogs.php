@@ -25,53 +25,53 @@
  */
 class Google_Service_Blogger_Resource_Blogs extends Google_Service_Resource
 {
-  /**
-   * Gets a blog by id. (blogs.get)
-   *
-   * @param string $blogId
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string maxPosts
-   * @opt_param string view
-   * @return Google_Service_Blogger_Blog
-   */
-  public function get($blogId, $optParams = array())
-  {
-    $params = array('blogId' => $blogId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Blogger_Blog");
-  }
-  /**
-   * Gets a blog by url. (blogs.getByUrl)
-   *
-   * @param string $url
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string view
-   * @return Google_Service_Blogger_Blog
-   */
-  public function getByUrl($url, $optParams = array())
-  {
-    $params = array('url' => $url);
-    $params = array_merge($params, $optParams);
-    return $this->call('getByUrl', array($params), "Google_Service_Blogger_Blog");
-  }
-  /**
-   * Lists blogs by user. (blogs.listByUser)
-   *
-   * @param string $userId
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param bool fetchUserInfo
-   * @opt_param string role
-   * @opt_param string view
-   * @opt_param string status Default value of status is LIVE.
-   * @return Google_Service_Blogger_BlogList
-   */
-  public function listByUser($userId, $optParams = array())
-  {
-    $params = array('userId' => $userId);
-    $params = array_merge($params, $optParams);
-    return $this->call('listByUser', array($params), "Google_Service_Blogger_BlogList");
-  }
+	/**
+	 * Gets a blog by id. (blogs.get)
+	 *
+	 * @param string $blogId
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string maxPosts
+	 * @opt_param string view
+	 * @return Google_Service_Blogger_Blog
+	 */
+	public function get($blogId, $optParams = array())
+	{
+		$params = array('blogId' => $blogId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Blogger_Blog");
+	}
+	/**
+	 * Gets a blog by url. (blogs.getByUrl)
+	 *
+	 * @param string $url
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string view
+	 * @return Google_Service_Blogger_Blog
+	 */
+	public function getByUrl($url, $optParams = array())
+	{
+		$params = array('url' => $url);
+		$params = array_merge($params, $optParams);
+		return $this->call('getByUrl', array($params), "Google_Service_Blogger_Blog");
+	}
+	/**
+	 * Lists blogs by user. (blogs.listByUser)
+	 *
+	 * @param string $userId
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param bool fetchUserInfo
+	 * @opt_param string role
+	 * @opt_param string view
+	 * @opt_param string status Default value of status is LIVE.
+	 * @return Google_Service_Blogger_BlogList
+	 */
+	public function listByUser($userId, $optParams = array())
+	{
+		$params = array('userId' => $userId);
+		$params = array_merge($params, $optParams);
+		return $this->call('listByUser', array($params), "Google_Service_Blogger_BlogList");
+	}
 }

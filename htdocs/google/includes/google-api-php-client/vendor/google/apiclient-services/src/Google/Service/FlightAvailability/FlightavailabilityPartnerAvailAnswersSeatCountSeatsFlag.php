@@ -17,50 +17,50 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCountSeatsFlag extends Google_Model
 {
-  public $infinityFlag;
-  public $nonOperating;
-  public $onRequest;
-  public $waitlistClosed;
-  public $waitlistOpen;
+	public $infinityFlag;
+	public $nonOperating;
+	public $onRequest;
+	public $waitlistClosed;
+	public $waitlistOpen;
 
-  public function setInfinityFlag($infinityFlag)
-  {
-    $this->infinityFlag = $infinityFlag;
-  }
-  public function getInfinityFlag()
-  {
-    return $this->infinityFlag;
-  }
-  public function setNonOperating($nonOperating)
-  {
-    $this->nonOperating = $nonOperating;
-  }
-  public function getNonOperating()
-  {
-    return $this->nonOperating;
-  }
-  public function setOnRequest($onRequest)
-  {
-    $this->onRequest = $onRequest;
-  }
-  public function getOnRequest()
-  {
-    return $this->onRequest;
-  }
-  public function setWaitlistClosed($waitlistClosed)
-  {
-    $this->waitlistClosed = $waitlistClosed;
-  }
-  public function getWaitlistClosed()
-  {
-    return $this->waitlistClosed;
-  }
-  public function setWaitlistOpen($waitlistOpen)
-  {
-    $this->waitlistOpen = $waitlistOpen;
-  }
-  public function getWaitlistOpen()
-  {
-    return $this->waitlistOpen;
-  }
+	public function setInfinityFlag($infinityFlag)
+	{
+		$this->infinityFlag = $infinityFlag;
+	}
+	public function getInfinityFlag()
+	{
+		return $this->infinityFlag;
+	}
+	public function setNonOperating($nonOperating)
+	{
+		$this->nonOperating = $nonOperating;
+	}
+	public function getNonOperating()
+	{
+		return $this->nonOperating;
+	}
+	public function setOnRequest($onRequest)
+	{
+		$this->onRequest = $onRequest;
+	}
+	public function getOnRequest()
+	{
+		return $this->onRequest;
+	}
+	public function setWaitlistClosed($waitlistClosed)
+	{
+		$this->waitlistClosed = $waitlistClosed;
+	}
+	public function getWaitlistClosed()
+	{
+		return $this->waitlistClosed;
+	}
+	public function setWaitlistOpen($waitlistOpen)
+	{
+		$this->waitlistOpen = $waitlistOpen;
+	}
+	public function getWaitlistOpen()
+	{
+		return $this->waitlistOpen;
+	}
 }

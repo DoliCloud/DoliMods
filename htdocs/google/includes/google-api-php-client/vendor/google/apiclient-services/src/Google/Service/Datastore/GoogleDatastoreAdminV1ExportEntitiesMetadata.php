@@ -17,78 +17,78 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1ExportEntitiesMetadata extends Google_Model
 {
-  protected $commonType = 'Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata';
-  protected $commonDataType = '';
-  protected $entityFilterType = 'Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter';
-  protected $entityFilterDataType = '';
-  public $outputUrlPrefix;
-  protected $progressBytesType = 'Google_Service_Datastore_GoogleDatastoreAdminV1Progress';
-  protected $progressBytesDataType = '';
-  protected $progressEntitiesType = 'Google_Service_Datastore_GoogleDatastoreAdminV1Progress';
-  protected $progressEntitiesDataType = '';
+	protected $commonType = 'Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata';
+	protected $commonDataType = '';
+	protected $entityFilterType = 'Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter';
+	protected $entityFilterDataType = '';
+	public $outputUrlPrefix;
+	protected $progressBytesType = 'Google_Service_Datastore_GoogleDatastoreAdminV1Progress';
+	protected $progressBytesDataType = '';
+	protected $progressEntitiesType = 'Google_Service_Datastore_GoogleDatastoreAdminV1Progress';
+	protected $progressEntitiesDataType = '';
 
-  /**
-   * @param Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata
-   */
-  public function setCommon(Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata $common)
-  {
-    $this->common = $common;
-  }
-  /**
-   * @return Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata
-   */
-  public function getCommon()
-  {
-    return $this->common;
-  }
-  /**
-   * @param Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter
-   */
-  public function setEntityFilter(Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter $entityFilter)
-  {
-    $this->entityFilter = $entityFilter;
-  }
-  /**
-   * @return Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter
-   */
-  public function getEntityFilter()
-  {
-    return $this->entityFilter;
-  }
-  public function setOutputUrlPrefix($outputUrlPrefix)
-  {
-    $this->outputUrlPrefix = $outputUrlPrefix;
-  }
-  public function getOutputUrlPrefix()
-  {
-    return $this->outputUrlPrefix;
-  }
-  /**
-   * @param Google_Service_Datastore_GoogleDatastoreAdminV1Progress
-   */
-  public function setProgressBytes(Google_Service_Datastore_GoogleDatastoreAdminV1Progress $progressBytes)
-  {
-    $this->progressBytes = $progressBytes;
-  }
-  /**
-   * @return Google_Service_Datastore_GoogleDatastoreAdminV1Progress
-   */
-  public function getProgressBytes()
-  {
-    return $this->progressBytes;
-  }
-  /**
-   * @param Google_Service_Datastore_GoogleDatastoreAdminV1Progress
-   */
-  public function setProgressEntities(Google_Service_Datastore_GoogleDatastoreAdminV1Progress $progressEntities)
-  {
-    $this->progressEntities = $progressEntities;
-  }
-  /**
-   * @return Google_Service_Datastore_GoogleDatastoreAdminV1Progress
-   */
-  public function getProgressEntities()
-  {
-    return $this->progressEntities;
-  }
+	/**
+	 * @param Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata
+	 */
+	public function setCommon(Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata $common)
+	{
+		$this->common = $common;
+	}
+	/**
+	 * @return Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata
+	 */
+	public function getCommon()
+	{
+		return $this->common;
+	}
+	/**
+	 * @param Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter
+	 */
+	public function setEntityFilter(Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter $entityFilter)
+	{
+		$this->entityFilter = $entityFilter;
+	}
+	/**
+	 * @return Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter
+	 */
+	public function getEntityFilter()
+	{
+		return $this->entityFilter;
+	}
+	public function setOutputUrlPrefix($outputUrlPrefix)
+	{
+		$this->outputUrlPrefix = $outputUrlPrefix;
+	}
+	public function getOutputUrlPrefix()
+	{
+		return $this->outputUrlPrefix;
+	}
+	/**
+	 * @param Google_Service_Datastore_GoogleDatastoreAdminV1Progress
+	 */
+	public function setProgressBytes(Google_Service_Datastore_GoogleDatastoreAdminV1Progress $progressBytes)
+	{
+		$this->progressBytes = $progressBytes;
+	}
+	/**
+	 * @return Google_Service_Datastore_GoogleDatastoreAdminV1Progress
+	 */
+	public function getProgressBytes()
+	{
+		return $this->progressBytes;
+	}
+	/**
+	 * @param Google_Service_Datastore_GoogleDatastoreAdminV1Progress
+	 */
+	public function setProgressEntities(Google_Service_Datastore_GoogleDatastoreAdminV1Progress $progressEntities)
+	{
+		$this->progressEntities = $progressEntities;
+	}
+	/**
+	 * @return Google_Service_Datastore_GoogleDatastoreAdminV1Progress
+	 */
+	public function getProgressEntities()
+	{
+		return $this->progressEntities;
+	}
 }

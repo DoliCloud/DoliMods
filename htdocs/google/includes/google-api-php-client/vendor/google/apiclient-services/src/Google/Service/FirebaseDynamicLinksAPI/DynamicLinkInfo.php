@@ -17,72 +17,72 @@
 
 class Google_Service_FirebaseDynamicLinksAPI_DynamicLinkInfo extends Google_Model
 {
-  protected $analyticsInfoType = 'Google_Service_FirebaseDynamicLinksAPI_AnalyticsInfo';
-  protected $analyticsInfoDataType = '';
-  protected $androidInfoType = 'Google_Service_FirebaseDynamicLinksAPI_AndroidInfo';
-  protected $androidInfoDataType = '';
-  public $dynamicLinkDomain;
-  protected $iosInfoType = 'Google_Service_FirebaseDynamicLinksAPI_IosInfo';
-  protected $iosInfoDataType = '';
-  public $isAd;
-  public $link;
-  protected $socialMetaTagInfoType = 'Google_Service_FirebaseDynamicLinksAPI_SocialMetaTagInfo';
-  protected $socialMetaTagInfoDataType = '';
+	protected $analyticsInfoType = 'Google_Service_FirebaseDynamicLinksAPI_AnalyticsInfo';
+	protected $analyticsInfoDataType = '';
+	protected $androidInfoType = 'Google_Service_FirebaseDynamicLinksAPI_AndroidInfo';
+	protected $androidInfoDataType = '';
+	public $dynamicLinkDomain;
+	protected $iosInfoType = 'Google_Service_FirebaseDynamicLinksAPI_IosInfo';
+	protected $iosInfoDataType = '';
+	public $isAd;
+	public $link;
+	protected $socialMetaTagInfoType = 'Google_Service_FirebaseDynamicLinksAPI_SocialMetaTagInfo';
+	protected $socialMetaTagInfoDataType = '';
 
-  public function setAnalyticsInfo(Google_Service_FirebaseDynamicLinksAPI_AnalyticsInfo $analyticsInfo)
-  {
-    $this->analyticsInfo = $analyticsInfo;
-  }
-  public function getAnalyticsInfo()
-  {
-    return $this->analyticsInfo;
-  }
-  public function setAndroidInfo(Google_Service_FirebaseDynamicLinksAPI_AndroidInfo $androidInfo)
-  {
-    $this->androidInfo = $androidInfo;
-  }
-  public function getAndroidInfo()
-  {
-    return $this->androidInfo;
-  }
-  public function setDynamicLinkDomain($dynamicLinkDomain)
-  {
-    $this->dynamicLinkDomain = $dynamicLinkDomain;
-  }
-  public function getDynamicLinkDomain()
-  {
-    return $this->dynamicLinkDomain;
-  }
-  public function setIosInfo(Google_Service_FirebaseDynamicLinksAPI_IosInfo $iosInfo)
-  {
-    $this->iosInfo = $iosInfo;
-  }
-  public function getIosInfo()
-  {
-    return $this->iosInfo;
-  }
-  public function setIsAd($isAd)
-  {
-    $this->isAd = $isAd;
-  }
-  public function getIsAd()
-  {
-    return $this->isAd;
-  }
-  public function setLink($link)
-  {
-    $this->link = $link;
-  }
-  public function getLink()
-  {
-    return $this->link;
-  }
-  public function setSocialMetaTagInfo(Google_Service_FirebaseDynamicLinksAPI_SocialMetaTagInfo $socialMetaTagInfo)
-  {
-    $this->socialMetaTagInfo = $socialMetaTagInfo;
-  }
-  public function getSocialMetaTagInfo()
-  {
-    return $this->socialMetaTagInfo;
-  }
+	public function setAnalyticsInfo(Google_Service_FirebaseDynamicLinksAPI_AnalyticsInfo $analyticsInfo)
+	{
+		$this->analyticsInfo = $analyticsInfo;
+	}
+	public function getAnalyticsInfo()
+	{
+		return $this->analyticsInfo;
+	}
+	public function setAndroidInfo(Google_Service_FirebaseDynamicLinksAPI_AndroidInfo $androidInfo)
+	{
+		$this->androidInfo = $androidInfo;
+	}
+	public function getAndroidInfo()
+	{
+		return $this->androidInfo;
+	}
+	public function setDynamicLinkDomain($dynamicLinkDomain)
+	{
+		$this->dynamicLinkDomain = $dynamicLinkDomain;
+	}
+	public function getDynamicLinkDomain()
+	{
+		return $this->dynamicLinkDomain;
+	}
+	public function setIosInfo(Google_Service_FirebaseDynamicLinksAPI_IosInfo $iosInfo)
+	{
+		$this->iosInfo = $iosInfo;
+	}
+	public function getIosInfo()
+	{
+		return $this->iosInfo;
+	}
+	public function setIsAd($isAd)
+	{
+		$this->isAd = $isAd;
+	}
+	public function getIsAd()
+	{
+		return $this->isAd;
+	}
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
+	public function getLink()
+	{
+		return $this->link;
+	}
+	public function setSocialMetaTagInfo(Google_Service_FirebaseDynamicLinksAPI_SocialMetaTagInfo $socialMetaTagInfo)
+	{
+		$this->socialMetaTagInfo = $socialMetaTagInfo;
+	}
+	public function getSocialMetaTagInfo()
+	{
+		return $this->socialMetaTagInfo;
+	}
 }

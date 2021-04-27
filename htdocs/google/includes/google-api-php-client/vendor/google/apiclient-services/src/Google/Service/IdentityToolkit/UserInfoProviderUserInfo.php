@@ -17,77 +17,77 @@
 
 class Google_Service_IdentityToolkit_UserInfoProviderUserInfo extends Google_Model
 {
-  public $displayName;
-  public $email;
-  public $federatedId;
-  public $phoneNumber;
-  public $photoUrl;
-  public $providerId;
-  public $rawId;
-  public $screenName;
+	public $displayName;
+	public $email;
+	public $federatedId;
+	public $phoneNumber;
+	public $photoUrl;
+	public $providerId;
+	public $rawId;
+	public $screenName;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setFederatedId($federatedId)
-  {
-    $this->federatedId = $federatedId;
-  }
-  public function getFederatedId()
-  {
-    return $this->federatedId;
-  }
-  public function setPhoneNumber($phoneNumber)
-  {
-    $this->phoneNumber = $phoneNumber;
-  }
-  public function getPhoneNumber()
-  {
-    return $this->phoneNumber;
-  }
-  public function setPhotoUrl($photoUrl)
-  {
-    $this->photoUrl = $photoUrl;
-  }
-  public function getPhotoUrl()
-  {
-    return $this->photoUrl;
-  }
-  public function setProviderId($providerId)
-  {
-    $this->providerId = $providerId;
-  }
-  public function getProviderId()
-  {
-    return $this->providerId;
-  }
-  public function setRawId($rawId)
-  {
-    $this->rawId = $rawId;
-  }
-  public function getRawId()
-  {
-    return $this->rawId;
-  }
-  public function setScreenName($screenName)
-  {
-    $this->screenName = $screenName;
-  }
-  public function getScreenName()
-  {
-    return $this->screenName;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setFederatedId($federatedId)
+	{
+		$this->federatedId = $federatedId;
+	}
+	public function getFederatedId()
+	{
+		return $this->federatedId;
+	}
+	public function setPhoneNumber($phoneNumber)
+	{
+		$this->phoneNumber = $phoneNumber;
+	}
+	public function getPhoneNumber()
+	{
+		return $this->phoneNumber;
+	}
+	public function setPhotoUrl($photoUrl)
+	{
+		$this->photoUrl = $photoUrl;
+	}
+	public function getPhotoUrl()
+	{
+		return $this->photoUrl;
+	}
+	public function setProviderId($providerId)
+	{
+		$this->providerId = $providerId;
+	}
+	public function getProviderId()
+	{
+		return $this->providerId;
+	}
+	public function setRawId($rawId)
+	{
+		$this->rawId = $rawId;
+	}
+	public function getRawId()
+	{
+		return $this->rawId;
+	}
+	public function setScreenName($screenName)
+	{
+		$this->screenName = $screenName;
+	}
+	public function getScreenName()
+	{
+		return $this->screenName;
+	}
 }

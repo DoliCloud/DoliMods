@@ -17,30 +17,30 @@
 
 class Google_Service_Monitoring_DistributionCut extends Google_Model
 {
-  public $distributionFilter;
-  protected $rangeType = 'Google_Service_Monitoring_GoogleMonitoringV3Range';
-  protected $rangeDataType = '';
+	public $distributionFilter;
+	protected $rangeType = 'Google_Service_Monitoring_GoogleMonitoringV3Range';
+	protected $rangeDataType = '';
 
-  public function setDistributionFilter($distributionFilter)
-  {
-    $this->distributionFilter = $distributionFilter;
-  }
-  public function getDistributionFilter()
-  {
-    return $this->distributionFilter;
-  }
-  /**
-   * @param Google_Service_Monitoring_GoogleMonitoringV3Range
-   */
-  public function setRange(Google_Service_Monitoring_GoogleMonitoringV3Range $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Monitoring_GoogleMonitoringV3Range
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
+	public function setDistributionFilter($distributionFilter)
+	{
+		$this->distributionFilter = $distributionFilter;
+	}
+	public function getDistributionFilter()
+	{
+		return $this->distributionFilter;
+	}
+	/**
+	 * @param Google_Service_Monitoring_GoogleMonitoringV3Range
+	 */
+	public function setRange(Google_Service_Monitoring_GoogleMonitoringV3Range $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Monitoring_GoogleMonitoringV3Range
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
 }

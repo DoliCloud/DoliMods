@@ -17,39 +17,39 @@
 
 class Google_Service_PeopleService_Nickname extends Google_Model
 {
-  protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
-  protected $metadataDataType = '';
-  public $type;
-  public $value;
+	protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
+	protected $metadataDataType = '';
+	public $type;
+	public $value;
 
-  /**
-   * @param Google_Service_PeopleService_FieldMetadata
-   */
-  public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_PeopleService_FieldMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	/**
+	 * @param Google_Service_PeopleService_FieldMetadata
+	 */
+	public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_PeopleService_FieldMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

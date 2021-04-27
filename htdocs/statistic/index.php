@@ -26,16 +26,16 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
 dol_include_once("/statistics/core/modules/statistic/modules_statistic.php");
@@ -52,8 +52,7 @@ $langs->load("other");
 $myparam = isset($_GET["myparam"])?$_GET["myparam"]:'';
 
 // Protection if external user
-if ($user->societe_id > 0)
-{
+if ($user->societe_id > 0) {
 	//accessforbidden();
 }
 
@@ -63,14 +62,12 @@ if ($user->societe_id > 0)
  * Actions
  */
 
-if ($_REQUEST["action"] == 'add')
-{
+if ($_REQUEST["action"] == 'add') {
 	$myobject=new Skeleton_class($db);
 	$myobject->prop1=$_POST["field1"];
 	$myobject->prop2=$_POST["field2"];
 	$result=$myobject->create($user);
-	if ($result > 0)
-	{
+	if ($result > 0) {
 		// Creation OK
 	}
 	{
@@ -84,7 +81,7 @@ if ($_REQUEST["action"] == 'add')
  * View
  */
 
-llxHeader('','Statistic','');
+llxHeader('', 'Statistic', '');
 
 $form=new Form($db);
 
@@ -121,8 +118,7 @@ print '</select>';
 
 print '<select style="margin-left:10px" name="year" class="flat">';
 print '<option value="-1">-'.$langs->trans("Year").'-</option>';
-for($i = 0;$i<=40;$i++)
-{
+for ($i = 0;$i<=40;$i++) {
 	print '<option value="'.($i+2010).'">'.(2010+$i).'</option>';
 }
 print '</select>';
@@ -135,4 +131,3 @@ dol_fiche_end();
 llxFooter();
 
 $db->close();
-

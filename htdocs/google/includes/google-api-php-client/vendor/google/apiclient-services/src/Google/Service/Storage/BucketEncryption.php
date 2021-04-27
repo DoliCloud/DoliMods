@@ -17,14 +17,14 @@
 
 class Google_Service_Storage_BucketEncryption extends Google_Model
 {
-  public $defaultKmsKeyName;
+	public $defaultKmsKeyName;
 
-  public function setDefaultKmsKeyName($defaultKmsKeyName)
-  {
-    $this->defaultKmsKeyName = $defaultKmsKeyName;
-  }
-  public function getDefaultKmsKeyName()
-  {
-    return $this->defaultKmsKeyName;
-  }
+	public function setDefaultKmsKeyName($defaultKmsKeyName)
+	{
+		$this->defaultKmsKeyName = $defaultKmsKeyName;
+	}
+	public function getDefaultKmsKeyName()
+	{
+		return $this->defaultKmsKeyName;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_PropertyDisplayOptions extends Google_Model
 {
-  public $displayLabel;
+	public $displayLabel;
 
-  public function setDisplayLabel($displayLabel)
-  {
-    $this->displayLabel = $displayLabel;
-  }
-  public function getDisplayLabel()
-  {
-    return $this->displayLabel;
-  }
+	public function setDisplayLabel($displayLabel)
+	{
+		$this->displayLabel = $displayLabel;
+	}
+	public function getDisplayLabel()
+	{
+		return $this->displayLabel;
+	}
 }

@@ -17,46 +17,46 @@
 
 class Google_Service_CloudSearch_PushItemRequest extends Google_Model
 {
-  public $connectorName;
-  protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
-  protected $debugOptionsDataType = '';
-  protected $itemType = 'Google_Service_CloudSearch_PushItem';
-  protected $itemDataType = '';
+	public $connectorName;
+	protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
+	protected $debugOptionsDataType = '';
+	protected $itemType = 'Google_Service_CloudSearch_PushItem';
+	protected $itemDataType = '';
 
-  public function setConnectorName($connectorName)
-  {
-    $this->connectorName = $connectorName;
-  }
-  public function getConnectorName()
-  {
-    return $this->connectorName;
-  }
-  /**
-   * @param Google_Service_CloudSearch_DebugOptions
-   */
-  public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
-  {
-    $this->debugOptions = $debugOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DebugOptions
-   */
-  public function getDebugOptions()
-  {
-    return $this->debugOptions;
-  }
-  /**
-   * @param Google_Service_CloudSearch_PushItem
-   */
-  public function setItem(Google_Service_CloudSearch_PushItem $item)
-  {
-    $this->item = $item;
-  }
-  /**
-   * @return Google_Service_CloudSearch_PushItem
-   */
-  public function getItem()
-  {
-    return $this->item;
-  }
+	public function setConnectorName($connectorName)
+	{
+		$this->connectorName = $connectorName;
+	}
+	public function getConnectorName()
+	{
+		return $this->connectorName;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_DebugOptions
+	 */
+	public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
+	{
+		$this->debugOptions = $debugOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DebugOptions
+	 */
+	public function getDebugOptions()
+	{
+		return $this->debugOptions;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_PushItem
+	 */
+	public function setItem(Google_Service_CloudSearch_PushItem $item)
+	{
+		$this->item = $item;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_PushItem
+	 */
+	public function getItem()
+	{
+		return $this->item;
+	}
 }

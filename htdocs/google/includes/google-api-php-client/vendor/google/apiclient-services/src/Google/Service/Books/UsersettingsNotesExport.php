@@ -17,23 +17,23 @@
 
 class Google_Service_Books_UsersettingsNotesExport extends Google_Model
 {
-  public $folderName;
-  public $isEnabled;
+	public $folderName;
+	public $isEnabled;
 
-  public function setFolderName($folderName)
-  {
-    $this->folderName = $folderName;
-  }
-  public function getFolderName()
-  {
-    return $this->folderName;
-  }
-  public function setIsEnabled($isEnabled)
-  {
-    $this->isEnabled = $isEnabled;
-  }
-  public function getIsEnabled()
-  {
-    return $this->isEnabled;
-  }
+	public function setFolderName($folderName)
+	{
+		$this->folderName = $folderName;
+	}
+	public function getFolderName()
+	{
+		return $this->folderName;
+	}
+	public function setIsEnabled($isEnabled)
+	{
+		$this->isEnabled = $isEnabled;
+	}
+	public function getIsEnabled()
+	{
+		return $this->isEnabled;
+	}
 }

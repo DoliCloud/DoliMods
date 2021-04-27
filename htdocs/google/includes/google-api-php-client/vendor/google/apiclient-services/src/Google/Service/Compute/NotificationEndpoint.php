@@ -17,84 +17,84 @@
 
 class Google_Service_Compute_NotificationEndpoint extends Google_Model
 {
-  public $creationTimestamp;
-  public $description;
-  protected $grpcSettingsType = 'Google_Service_Compute_NotificationEndpointGrpcSettings';
-  protected $grpcSettingsDataType = '';
-  public $id;
-  public $kind;
-  public $name;
-  public $region;
-  public $selfLink;
+	public $creationTimestamp;
+	public $description;
+	protected $grpcSettingsType = 'Google_Service_Compute_NotificationEndpointGrpcSettings';
+	protected $grpcSettingsDataType = '';
+	public $id;
+	public $kind;
+	public $name;
+	public $region;
+	public $selfLink;
 
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_Compute_NotificationEndpointGrpcSettings
-   */
-  public function setGrpcSettings(Google_Service_Compute_NotificationEndpointGrpcSettings $grpcSettings)
-  {
-    $this->grpcSettings = $grpcSettings;
-  }
-  /**
-   * @return Google_Service_Compute_NotificationEndpointGrpcSettings
-   */
-  public function getGrpcSettings()
-  {
-    return $this->grpcSettings;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_Compute_NotificationEndpointGrpcSettings
+	 */
+	public function setGrpcSettings(Google_Service_Compute_NotificationEndpointGrpcSettings $grpcSettings)
+	{
+		$this->grpcSettings = $grpcSettings;
+	}
+	/**
+	 * @return Google_Service_Compute_NotificationEndpointGrpcSettings
+	 */
+	public function getGrpcSettings()
+	{
+		return $this->grpcSettings;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
 }

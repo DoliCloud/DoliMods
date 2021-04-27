@@ -17,59 +17,59 @@
 
 class Google_Service_CloudUserAccounts_LinuxUserView extends Google_Model
 {
-  public $gecos;
-  public $gid;
-  public $homeDirectory;
-  public $shell;
-  public $uid;
-  public $username;
+	public $gecos;
+	public $gid;
+	public $homeDirectory;
+	public $shell;
+	public $uid;
+	public $username;
 
-  public function setGecos($gecos)
-  {
-    $this->gecos = $gecos;
-  }
-  public function getGecos()
-  {
-    return $this->gecos;
-  }
-  public function setGid($gid)
-  {
-    $this->gid = $gid;
-  }
-  public function getGid()
-  {
-    return $this->gid;
-  }
-  public function setHomeDirectory($homeDirectory)
-  {
-    $this->homeDirectory = $homeDirectory;
-  }
-  public function getHomeDirectory()
-  {
-    return $this->homeDirectory;
-  }
-  public function setShell($shell)
-  {
-    $this->shell = $shell;
-  }
-  public function getShell()
-  {
-    return $this->shell;
-  }
-  public function setUid($uid)
-  {
-    $this->uid = $uid;
-  }
-  public function getUid()
-  {
-    return $this->uid;
-  }
-  public function setUsername($username)
-  {
-    $this->username = $username;
-  }
-  public function getUsername()
-  {
-    return $this->username;
-  }
+	public function setGecos($gecos)
+	{
+		$this->gecos = $gecos;
+	}
+	public function getGecos()
+	{
+		return $this->gecos;
+	}
+	public function setGid($gid)
+	{
+		$this->gid = $gid;
+	}
+	public function getGid()
+	{
+		return $this->gid;
+	}
+	public function setHomeDirectory($homeDirectory)
+	{
+		$this->homeDirectory = $homeDirectory;
+	}
+	public function getHomeDirectory()
+	{
+		return $this->homeDirectory;
+	}
+	public function setShell($shell)
+	{
+		$this->shell = $shell;
+	}
+	public function getShell()
+	{
+		return $this->shell;
+	}
+	public function setUid($uid)
+	{
+		$this->uid = $uid;
+	}
+	public function getUid()
+	{
+		return $this->uid;
+	}
+	public function setUsername($username)
+	{
+		$this->username = $username;
+	}
+	public function getUsername()
+	{
+		return $this->username;
+	}
 }

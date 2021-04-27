@@ -25,17 +25,17 @@
  */
 class Google_Service_Dfareporting_Resource_Metros extends Google_Service_Resource
 {
-  /**
-   * Retrieves a list of metros. (metros.listMetros)
-   *
-   * @param string $profileId User profile ID associated with this request.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Dfareporting_MetrosListResponse
-   */
-  public function listMetros($profileId, $optParams = array())
-  {
-    $params = array('profileId' => $profileId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Dfareporting_MetrosListResponse");
-  }
+	/**
+	 * Retrieves a list of metros. (metros.listMetros)
+	 *
+	 * @param string $profileId User profile ID associated with this request.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Dfareporting_MetrosListResponse
+	 */
+	public function listMetros($profileId, $optParams = array())
+	{
+		$params = array('profileId' => $profileId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Dfareporting_MetrosListResponse");
+	}
 }

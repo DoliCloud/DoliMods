@@ -17,49 +17,49 @@
 
 class Google_Service_Firestore_WriteResponse extends Google_Collection
 {
-  protected $collection_key = 'writeResults';
-  public $commitTime;
-  public $streamId;
-  public $streamToken;
-  protected $writeResultsType = 'Google_Service_Firestore_WriteResult';
-  protected $writeResultsDataType = 'array';
+	protected $collection_key = 'writeResults';
+	public $commitTime;
+	public $streamId;
+	public $streamToken;
+	protected $writeResultsType = 'Google_Service_Firestore_WriteResult';
+	protected $writeResultsDataType = 'array';
 
-  public function setCommitTime($commitTime)
-  {
-    $this->commitTime = $commitTime;
-  }
-  public function getCommitTime()
-  {
-    return $this->commitTime;
-  }
-  public function setStreamId($streamId)
-  {
-    $this->streamId = $streamId;
-  }
-  public function getStreamId()
-  {
-    return $this->streamId;
-  }
-  public function setStreamToken($streamToken)
-  {
-    $this->streamToken = $streamToken;
-  }
-  public function getStreamToken()
-  {
-    return $this->streamToken;
-  }
-  /**
-   * @param Google_Service_Firestore_WriteResult
-   */
-  public function setWriteResults($writeResults)
-  {
-    $this->writeResults = $writeResults;
-  }
-  /**
-   * @return Google_Service_Firestore_WriteResult
-   */
-  public function getWriteResults()
-  {
-    return $this->writeResults;
-  }
+	public function setCommitTime($commitTime)
+	{
+		$this->commitTime = $commitTime;
+	}
+	public function getCommitTime()
+	{
+		return $this->commitTime;
+	}
+	public function setStreamId($streamId)
+	{
+		$this->streamId = $streamId;
+	}
+	public function getStreamId()
+	{
+		return $this->streamId;
+	}
+	public function setStreamToken($streamToken)
+	{
+		$this->streamToken = $streamToken;
+	}
+	public function getStreamToken()
+	{
+		return $this->streamToken;
+	}
+	/**
+	 * @param Google_Service_Firestore_WriteResult
+	 */
+	public function setWriteResults($writeResults)
+	{
+		$this->writeResults = $writeResults;
+	}
+	/**
+	 * @return Google_Service_Firestore_WriteResult
+	 */
+	public function getWriteResults()
+	{
+		return $this->writeResults;
+	}
 }

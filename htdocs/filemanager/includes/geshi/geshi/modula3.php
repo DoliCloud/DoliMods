@@ -36,100 +36,98 @@
  ************************************************************************************/
 
 $language_data = array (
-    'LANG_NAME' => 'Modula-3',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array('(*' => '*)'),
-    'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
-    'HARDQUOTE' => array("'", "'"),
-    'HARDESCAPE' => array("''"),
-    'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
-            'AND', 'ANY', 'ARRAY', 'AS', 'BEGIN', 'BITS', 'BRANDED', 'BY', 'CASE',
-            'CONST', 'DIV', 'DO', 'ELSE', 'ELSIF', 'END', 'EVAL', 'EXCEPT', 'EXCEPTION',
-            'EXIT', 'EXPORTS', 'FINALLY', 'FOR', 'FROM', 'GENERIC', 'IF', 'IMPORT', 'IN',
-            'INTERFACE', 'LOCK', 'LOOP', 'METHODS', 'MOD', 'MODULE', 'NOT', 'OBJECT', 'OF',
-            'OR', 'OVERRIDE', 'PROCEDURE', 'RAISE', 'RAISES', 'READONLY', 'RECORD', 'REF',
-            'REPEAT', 'RETURN', 'REVEAL', 'ROOT', 'SET', 'THEN', 'TO', 'TRY', 'TYPE', 'TYPECASE',
-            'UNSAFE', 'UNTIL', 'UNTRACED', 'VALUE', 'VAR', 'WHILE', 'WITH'
-            ),
-        2 => array(
-            'NIL', 'NULL', 'FALSE', 'TRUE',
-            ),
-        3 => array(
-            'ABS','ADR','ADRSIZE','BITSIZE','BYTESIZE','CEILING','DEC','DISPOSE',
-            'EXTENDED','FIRST','FLOAT','FLOOR','INC','ISTYPE','LAST','LOOPHOLE','MAX','MIN',
-            'NARROW','NEW','NUMBER','ORD','ROUND','SUBARRAY','TRUNC','TYPECODE', 'VAL'
-            ),
-        4 => array(
-            'ADDRESS', 'BOOLEAN', 'CARDINAL', 'CHAR', 'INTEGER',
-            'LONGREAL', 'MUTEX', 'REAL', 'REFANY', 'TEXT'
-            ),
-        ),
-    'SYMBOLS' => array(
-        ',', ':', '=', '+', '-', '*', '/', '#'
-        ),
-    'CASE_SENSITIVE' => array(
-        GESHI_COMMENTS => false,
-        1 => true,
-        2 => true,
-        3 => true,
-        4 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            1 => 'color: #000000; font-weight: bold;',
-            2 => 'color: #000000; font-weight: bold;',
-            3 => 'color: #000066;',
-            4 => 'color: #000066; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
-            'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
-            0 => 'color: #000099; font-weight: bold;',
-            'HARD' => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
-            0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
-            0 => 'color: #ff0000;',
-            'HARD' => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
-            0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
-            1 => 'color: #0066ee;'
-            ),
-        'SYMBOLS' => array(
-            0 => 'color: #339933;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
-        1 => '',
-        2 => '',
-        3 => '',
-        4 => ''
-        ),
-    'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
-        1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
-    'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'TAB_WIDTH' => 4
+	'LANG_NAME' => 'Modula-3',
+	'COMMENT_SINGLE' => array(),
+	'COMMENT_MULTI' => array('(*' => '*)'),
+	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
+	'QUOTEMARKS' => array('"'),
+	'HARDQUOTE' => array("'", "'"),
+	'HARDESCAPE' => array("''"),
+	'ESCAPE_CHAR' => '\\',
+	'KEYWORDS' => array(
+		1 => array(
+			'AND', 'ANY', 'ARRAY', 'AS', 'BEGIN', 'BITS', 'BRANDED', 'BY', 'CASE',
+			'CONST', 'DIV', 'DO', 'ELSE', 'ELSIF', 'END', 'EVAL', 'EXCEPT', 'EXCEPTION',
+			'EXIT', 'EXPORTS', 'FINALLY', 'FOR', 'FROM', 'GENERIC', 'IF', 'IMPORT', 'IN',
+			'INTERFACE', 'LOCK', 'LOOP', 'METHODS', 'MOD', 'MODULE', 'NOT', 'OBJECT', 'OF',
+			'OR', 'OVERRIDE', 'PROCEDURE', 'RAISE', 'RAISES', 'READONLY', 'RECORD', 'REF',
+			'REPEAT', 'RETURN', 'REVEAL', 'ROOT', 'SET', 'THEN', 'TO', 'TRY', 'TYPE', 'TYPECASE',
+			'UNSAFE', 'UNTIL', 'UNTRACED', 'VALUE', 'VAR', 'WHILE', 'WITH'
+			),
+		2 => array(
+			'NIL', 'NULL', 'FALSE', 'TRUE',
+			),
+		3 => array(
+			'ABS','ADR','ADRSIZE','BITSIZE','BYTESIZE','CEILING','DEC','DISPOSE',
+			'EXTENDED','FIRST','FLOAT','FLOOR','INC','ISTYPE','LAST','LOOPHOLE','MAX','MIN',
+			'NARROW','NEW','NUMBER','ORD','ROUND','SUBARRAY','TRUNC','TYPECODE', 'VAL'
+			),
+		4 => array(
+			'ADDRESS', 'BOOLEAN', 'CARDINAL', 'CHAR', 'INTEGER',
+			'LONGREAL', 'MUTEX', 'REAL', 'REFANY', 'TEXT'
+			),
+		),
+	'SYMBOLS' => array(
+		',', ':', '=', '+', '-', '*', '/', '#'
+		),
+	'CASE_SENSITIVE' => array(
+		GESHI_COMMENTS => false,
+		1 => true,
+		2 => true,
+		3 => true,
+		4 => true,
+		),
+	'STYLES' => array(
+		'KEYWORDS' => array(
+			1 => 'color: #000000; font-weight: bold;',
+			2 => 'color: #000000; font-weight: bold;',
+			3 => 'color: #000066;',
+			4 => 'color: #000066; font-weight: bold;'
+			),
+		'COMMENTS' => array(
+			'MULTI' => 'color: #666666; font-style: italic;'
+			),
+		'ESCAPE_CHAR' => array(
+			0 => 'color: #000099; font-weight: bold;',
+			'HARD' => 'color: #000099; font-weight: bold;'
+			),
+		'BRACKETS' => array(
+			0 => 'color: #009900;'
+			),
+		'STRINGS' => array(
+			0 => 'color: #ff0000;',
+			'HARD' => 'color: #ff0000;'
+			),
+		'NUMBERS' => array(
+			0 => 'color: #cc66cc;'
+			),
+		'METHODS' => array(
+			1 => 'color: #0066ee;'
+			),
+		'SYMBOLS' => array(
+			0 => 'color: #339933;'
+			),
+		'REGEXPS' => array(
+			),
+		'SCRIPT' => array(
+			)
+		),
+	'URLS' => array(
+		1 => '',
+		2 => '',
+		3 => '',
+		4 => ''
+		),
+	'OOLANG' => true,
+	'OBJECT_SPLITTERS' => array(
+		1 => '.'
+		),
+	'REGEXPS' => array(
+		),
+	'STRICT_MODE_APPLIES' => GESHI_NEVER,
+	'SCRIPT_DELIMITERS' => array(
+		),
+	'HIGHLIGHT_STRICT_BLOCK' => array(
+		),
+	'TAB_WIDTH' => 4
 );
-
-?>

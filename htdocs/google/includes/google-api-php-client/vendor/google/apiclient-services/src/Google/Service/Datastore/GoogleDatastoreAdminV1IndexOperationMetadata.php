@@ -17,46 +17,46 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1IndexOperationMetadata extends Google_Model
 {
-  protected $commonType = 'Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata';
-  protected $commonDataType = '';
-  public $indexId;
-  protected $progressEntitiesType = 'Google_Service_Datastore_GoogleDatastoreAdminV1Progress';
-  protected $progressEntitiesDataType = '';
+	protected $commonType = 'Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata';
+	protected $commonDataType = '';
+	public $indexId;
+	protected $progressEntitiesType = 'Google_Service_Datastore_GoogleDatastoreAdminV1Progress';
+	protected $progressEntitiesDataType = '';
 
-  /**
-   * @param Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata
-   */
-  public function setCommon(Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata $common)
-  {
-    $this->common = $common;
-  }
-  /**
-   * @return Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata
-   */
-  public function getCommon()
-  {
-    return $this->common;
-  }
-  public function setIndexId($indexId)
-  {
-    $this->indexId = $indexId;
-  }
-  public function getIndexId()
-  {
-    return $this->indexId;
-  }
-  /**
-   * @param Google_Service_Datastore_GoogleDatastoreAdminV1Progress
-   */
-  public function setProgressEntities(Google_Service_Datastore_GoogleDatastoreAdminV1Progress $progressEntities)
-  {
-    $this->progressEntities = $progressEntities;
-  }
-  /**
-   * @return Google_Service_Datastore_GoogleDatastoreAdminV1Progress
-   */
-  public function getProgressEntities()
-  {
-    return $this->progressEntities;
-  }
+	/**
+	 * @param Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata
+	 */
+	public function setCommon(Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata $common)
+	{
+		$this->common = $common;
+	}
+	/**
+	 * @return Google_Service_Datastore_GoogleDatastoreAdminV1CommonMetadata
+	 */
+	public function getCommon()
+	{
+		return $this->common;
+	}
+	public function setIndexId($indexId)
+	{
+		$this->indexId = $indexId;
+	}
+	public function getIndexId()
+	{
+		return $this->indexId;
+	}
+	/**
+	 * @param Google_Service_Datastore_GoogleDatastoreAdminV1Progress
+	 */
+	public function setProgressEntities(Google_Service_Datastore_GoogleDatastoreAdminV1Progress $progressEntities)
+	{
+		$this->progressEntities = $progressEntities;
+	}
+	/**
+	 * @return Google_Service_Datastore_GoogleDatastoreAdminV1Progress
+	 */
+	public function getProgressEntities()
+	{
+		return $this->progressEntities;
+	}
 }

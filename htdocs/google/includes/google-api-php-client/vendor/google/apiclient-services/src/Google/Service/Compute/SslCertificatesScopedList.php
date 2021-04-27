@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_SslCertificatesScopedList extends Google_Collection
 {
-  protected $collection_key = 'sslCertificates';
-  protected $sslCertificatesType = 'Google_Service_Compute_SslCertificate';
-  protected $sslCertificatesDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_SslCertificatesScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'sslCertificates';
+	protected $sslCertificatesType = 'Google_Service_Compute_SslCertificate';
+	protected $sslCertificatesDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_SslCertificatesScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_SslCertificate
-   */
-  public function setSslCertificates($sslCertificates)
-  {
-    $this->sslCertificates = $sslCertificates;
-  }
-  /**
-   * @return Google_Service_Compute_SslCertificate
-   */
-  public function getSslCertificates()
-  {
-    return $this->sslCertificates;
-  }
-  /**
-   * @param Google_Service_Compute_SslCertificatesScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_SslCertificatesScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_SslCertificatesScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_SslCertificate
+	 */
+	public function setSslCertificates($sslCertificates)
+	{
+		$this->sslCertificates = $sslCertificates;
+	}
+	/**
+	 * @return Google_Service_Compute_SslCertificate
+	 */
+	public function getSslCertificates()
+	{
+		return $this->sslCertificates;
+	}
+	/**
+	 * @param Google_Service_Compute_SslCertificatesScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_SslCertificatesScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_SslCertificatesScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_PerformedMonkeyActions extends Google_Model
 {
-  public $totalActions;
+	public $totalActions;
 
-  public function setTotalActions($totalActions)
-  {
-    $this->totalActions = $totalActions;
-  }
-  public function getTotalActions()
-  {
-    return $this->totalActions;
-  }
+	public function setTotalActions($totalActions)
+	{
+		$this->totalActions = $totalActions;
+	}
+	public function getTotalActions()
+	{
+		return $this->totalActions;
+	}
 }

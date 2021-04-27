@@ -17,86 +17,86 @@
 
 class Google_Service_Dfareporting_City extends Google_Model
 {
-  public $countryCode;
-  public $countryDartId;
-  public $dartId;
-  public $kind;
-  public $metroCode;
-  public $metroDmaId;
-  public $name;
-  public $regionCode;
-  public $regionDartId;
+	public $countryCode;
+	public $countryDartId;
+	public $dartId;
+	public $kind;
+	public $metroCode;
+	public $metroDmaId;
+	public $name;
+	public $regionCode;
+	public $regionDartId;
 
-  public function setCountryCode($countryCode)
-  {
-    $this->countryCode = $countryCode;
-  }
-  public function getCountryCode()
-  {
-    return $this->countryCode;
-  }
-  public function setCountryDartId($countryDartId)
-  {
-    $this->countryDartId = $countryDartId;
-  }
-  public function getCountryDartId()
-  {
-    return $this->countryDartId;
-  }
-  public function setDartId($dartId)
-  {
-    $this->dartId = $dartId;
-  }
-  public function getDartId()
-  {
-    return $this->dartId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setMetroCode($metroCode)
-  {
-    $this->metroCode = $metroCode;
-  }
-  public function getMetroCode()
-  {
-    return $this->metroCode;
-  }
-  public function setMetroDmaId($metroDmaId)
-  {
-    $this->metroDmaId = $metroDmaId;
-  }
-  public function getMetroDmaId()
-  {
-    return $this->metroDmaId;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setRegionCode($regionCode)
-  {
-    $this->regionCode = $regionCode;
-  }
-  public function getRegionCode()
-  {
-    return $this->regionCode;
-  }
-  public function setRegionDartId($regionDartId)
-  {
-    $this->regionDartId = $regionDartId;
-  }
-  public function getRegionDartId()
-  {
-    return $this->regionDartId;
-  }
+	public function setCountryCode($countryCode)
+	{
+		$this->countryCode = $countryCode;
+	}
+	public function getCountryCode()
+	{
+		return $this->countryCode;
+	}
+	public function setCountryDartId($countryDartId)
+	{
+		$this->countryDartId = $countryDartId;
+	}
+	public function getCountryDartId()
+	{
+		return $this->countryDartId;
+	}
+	public function setDartId($dartId)
+	{
+		$this->dartId = $dartId;
+	}
+	public function getDartId()
+	{
+		return $this->dartId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setMetroCode($metroCode)
+	{
+		$this->metroCode = $metroCode;
+	}
+	public function getMetroCode()
+	{
+		return $this->metroCode;
+	}
+	public function setMetroDmaId($metroDmaId)
+	{
+		$this->metroDmaId = $metroDmaId;
+	}
+	public function getMetroDmaId()
+	{
+		return $this->metroDmaId;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setRegionCode($regionCode)
+	{
+		$this->regionCode = $regionCode;
+	}
+	public function getRegionCode()
+	{
+		return $this->regionCode;
+	}
+	public function setRegionDartId($regionDartId)
+	{
+		$this->regionDartId = $regionDartId;
+	}
+	public function getRegionDartId()
+	{
+		return $this->regionDartId;
+	}
 }

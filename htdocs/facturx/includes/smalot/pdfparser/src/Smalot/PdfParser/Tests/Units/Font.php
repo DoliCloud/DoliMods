@@ -40,103 +40,103 @@ use Smalot\PdfParser\Header;
  */
 class Font extends atoum\test
 {
-    public function testGetName()
-    {
-        $filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
-        $parser   = new \Smalot\PdfParser\Parser();
-        $document = $parser->parseFile($filename);
-        $fonts    = $document->getFonts();
-        $font     = reset($fonts);
+	public function testGetName()
+	{
+		$filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
+		$parser   = new \Smalot\PdfParser\Parser();
+		$document = $parser->parseFile($filename);
+		$fonts    = $document->getFonts();
+		$font     = reset($fonts);
 
-        $this->assert->string($font->getName())->isEqualTo('OJHCYD+Cambria,Bold');
-    }
+		$this->assert->string($font->getName())->isEqualTo('OJHCYD+Cambria,Bold');
+	}
 
-    public function testGetType()
-    {
-        $filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
-        $parser   = new \Smalot\PdfParser\Parser();
-        $document = $parser->parseFile($filename);
-        $fonts    = $document->getFonts();
-        $font     = reset($fonts);
+	public function testGetType()
+	{
+		$filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
+		$parser   = new \Smalot\PdfParser\Parser();
+		$document = $parser->parseFile($filename);
+		$fonts    = $document->getFonts();
+		$font     = reset($fonts);
 
-        $this->assert->string($font->getType())->isEqualTo('TrueType');
-    }
+		$this->assert->string($font->getType())->isEqualTo('TrueType');
+	}
 
-    public function testGetDetails()
-    {
-        $filename  = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
-        $parser    = new \Smalot\PdfParser\Parser();
-        $document  = $parser->parseFile($filename);
-        $fonts     = $document->getFonts();
-        $font      = reset($fonts);
-        $reference = array(
-            'Name'           => 'OJHCYD+Cambria,Bold',
-            'Type'           => 'TrueType',
-            'Encoding'       => 'Ansi',
-            'BaseFont'       => 'OJHCYD+Cambria,Bold',
-            'FontDescriptor' =>
-            array(
-                'Type'         => 'FontDescriptor',
-                'FontName'     => 'OJHCYD+Cambria,Bold',
-                'Flags'        => 4,
-                'Ascent'       => 699,
-                'CapHeight'    => 699,
-                'Descent'      => -7,
-                'ItalicAngle'  => 0,
-                'StemV'        => 128,
-                'MissingWidth' => 658,
-            ),
-            'ToUnicode'      =>
-            array(
-                'Filter' => 'FlateDecode',
-                'Length' => 219,
-            ),
-            'FirstChar'      => 1,
-            'LastChar'       => 11,
-            'Widths'         =>
-            array(
-                0  => 705,
-                1  => 569,
-                2  => 469,
-                3  => 597,
-                4  => 890,
-                5  => 531,
-                6  => 604,
-                7  => 365,
-                8  => 220,
-                9  => 314,
-                10 => 308,
-            ),
-            'Subtype'        => 'TrueType',
-        );
-        $this->assert->array($font->getDetails())->isEqualTo($reference);
-    }
+	public function testGetDetails()
+	{
+		$filename  = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
+		$parser    = new \Smalot\PdfParser\Parser();
+		$document  = $parser->parseFile($filename);
+		$fonts     = $document->getFonts();
+		$font      = reset($fonts);
+		$reference = array(
+			'Name'           => 'OJHCYD+Cambria,Bold',
+			'Type'           => 'TrueType',
+			'Encoding'       => 'Ansi',
+			'BaseFont'       => 'OJHCYD+Cambria,Bold',
+			'FontDescriptor' =>
+			array(
+				'Type'         => 'FontDescriptor',
+				'FontName'     => 'OJHCYD+Cambria,Bold',
+				'Flags'        => 4,
+				'Ascent'       => 699,
+				'CapHeight'    => 699,
+				'Descent'      => -7,
+				'ItalicAngle'  => 0,
+				'StemV'        => 128,
+				'MissingWidth' => 658,
+			),
+			'ToUnicode'      =>
+			array(
+				'Filter' => 'FlateDecode',
+				'Length' => 219,
+			),
+			'FirstChar'      => 1,
+			'LastChar'       => 11,
+			'Widths'         =>
+			array(
+				0  => 705,
+				1  => 569,
+				2  => 469,
+				3  => 597,
+				4  => 890,
+				5  => 531,
+				6  => 604,
+				7  => 365,
+				8  => 220,
+				9  => 314,
+				10 => 308,
+			),
+			'Subtype'        => 'TrueType',
+		);
+		$this->assert->array($font->getDetails())->isEqualTo($reference);
+	}
 
-    public function testTranslateChar()
-    {
-        $filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
-        $parser   = new \Smalot\PdfParser\Parser();
-        $document = $parser->parseFile($filename);
-        $fonts    = $document->getFonts();
-        /** @var \Smalot\PdfParser\Font $font */
-        $font = reset($fonts);
+	public function testTranslateChar()
+	{
+		$filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
+		$parser   = new \Smalot\PdfParser\Parser();
+		$document = $parser->parseFile($filename);
+		$fonts    = $document->getFonts();
+		/** @var \Smalot\PdfParser\Font $font */
+		$font = reset($fonts);
 
-        $this->assert->string($font->translateChar("\x01"))->isEqualTo('D');
-        $this->assert->string($font->translateChar("\x02"))->isEqualTo('o');
-        $this->assert->string($font->translateChar("\x03"))->isEqualTo('c');
-        $this->assert->string($font->translateChar("\x04"))->isEqualTo('u');
-        $this->assert->string($font->translateChar("\x99"))->isEqualTo(\Smalot\PdfParser\Font::MISSING);
-    }
+		$this->assert->string($font->translateChar("\x01"))->isEqualTo('D');
+		$this->assert->string($font->translateChar("\x02"))->isEqualTo('o');
+		$this->assert->string($font->translateChar("\x03"))->isEqualTo('c');
+		$this->assert->string($font->translateChar("\x04"))->isEqualTo('u');
+		$this->assert->string($font->translateChar("\x99"))->isEqualTo(\Smalot\PdfParser\Font::MISSING);
+	}
 
-    public function testLoadTranslateTable()
-    {
-        $document = new \Smalot\PdfParser\Document();
+	public function testLoadTranslateTable()
+	{
+		$document = new \Smalot\PdfParser\Document();
 
-        $content = '<</Type/Font /Subtype /Type0 /ToUnicode 2 0 R>>';
-        $header  = Header::parse($content, $document);
-        $font    = new \Smalot\PdfParser\Font($document, $header);
+		$content = '<</Type/Font /Subtype /Type0 /ToUnicode 2 0 R>>';
+		$header  = Header::parse($content, $document);
+		$font    = new \Smalot\PdfParser\Font($document, $header);
 
-        $content = '/CIDInit /ProcSet findresource begin
+		$content = '/CIDInit /ProcSet findresource begin
 14 dict begin
 begincmap
 /CIDSystemInfo
@@ -186,137 +186,137 @@ endcmap
 CMapName currentdict /CMap defineresource pop
 end
 end';
-        $unicode = new \Smalot\PdfParser\PDFObject($document, null, $content);
+		$unicode = new \Smalot\PdfParser\PDFObject($document, null, $content);
 
-        $document->setObjects(array('1_0' => $font, '2_0' => $unicode));
+		$document->setObjects(array('1_0' => $font, '2_0' => $unicode));
 
-        $font->init();
-        // Test reload
-        $table = $font->loadTranslateTable();
+		$font->init();
+		// Test reload
+		$table = $font->loadTranslateTable();
 
-        $this->assert->array($table)->hasSize(47);
+		$this->assert->array($table)->hasSize(47);
 
-        // Test chars
-        $this->assert->string($table[3])->isEqualTo(' ');
-        $this->assert->string($table[15])->isEqualTo(',');
-        $this->assert->string($table[17])->isEqualTo('.');
-        $this->assert->string($table[35])->isEqualTo('@');
-        $this->assert->string($table[57])->isEqualTo('V');
+		// Test chars
+		$this->assert->string($table[3])->isEqualTo(' ');
+		$this->assert->string($table[15])->isEqualTo(',');
+		$this->assert->string($table[17])->isEqualTo('.');
+		$this->assert->string($table[35])->isEqualTo('@');
+		$this->assert->string($table[57])->isEqualTo('V');
 
-        // Test ranges
-        $this->assert->string($table[85])->isEqualTo('r');
-        $this->assert->string($table[92])->isEqualTo('y');
-    }
+		// Test ranges
+		$this->assert->string($table[85])->isEqualTo('r');
+		$this->assert->string($table[92])->isEqualTo('y');
+	}
 
-    public function testDecodeHexadecimal()
-    {
-        $hexa = '<322041>';
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("2 A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo("2 A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo("(2 A)");
+	public function testDecodeHexadecimal()
+	{
+		$hexa = '<322041>';
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("2 A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo("2 A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo("(2 A)");
 
-        $hexa = '<003200200041>';
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("\x002\x00 \x00A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo("\x002\x00 \x00A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo("(\x002\x00 \x00A)");
+		$hexa = '<003200200041>';
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("\x002\x00 \x00A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo("\x002\x00 \x00A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo("(\x002\x00 \x00A)");
 
-        $hexa = '<00320020> 8 <0041>';
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("\x002\x00  8 \x00A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo("\x002\x00  8 \x00A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo(
-            "(\x002\x00 ) 8 (\x00A)"
-        );
+		$hexa = '<00320020> 8 <0041>';
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("\x002\x00  8 \x00A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo("\x002\x00  8 \x00A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo(
+			"(\x002\x00 ) 8 (\x00A)"
+		);
 
-        $hexa = '<3220> 8 <41>';
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("2  8 A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo("2  8 A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo("(2 ) 8 (A)");
+		$hexa = '<3220> 8 <41>';
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("2  8 A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo("2  8 A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo("(2 ) 8 (A)");
 
-        $hexa = '<00320020005C>-10<0041>';
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("\x002\x00 \x00\\-10\x00A");
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo(
-            "\x002\x00 \x00\\-10\x00A"
-        );
-        $this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo(
-            "(\x002\x00 \x00\\\\)-10(\x00A)"
-        );
-    }
+		$hexa = '<00320020005C>-10<0041>';
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa))->isEqualTo("\x002\x00 \x00\\-10\x00A");
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, false))->isEqualTo(
+			"\x002\x00 \x00\\-10\x00A"
+		);
+		$this->assert->string(\Smalot\PdfParser\Font::decodeHexadecimal($hexa, true))->isEqualTo(
+			"(\x002\x00 \x00\\\\)-10(\x00A)"
+		);
+	}
 
-    public function testDecodeOctal()
-    {
-        $this->assert->string(\Smalot\PdfParser\Font::decodeOctal("\\101\\102\\040\\103"))->isEqualTo('AB C');
-        $this->assert->string(\Smalot\PdfParser\Font::decodeOctal("\\101\\102\\040\\103D"))->isEqualTo('AB CD');
-    }
+	public function testDecodeOctal()
+	{
+		$this->assert->string(\Smalot\PdfParser\Font::decodeOctal("\\101\\102\\040\\103"))->isEqualTo('AB C');
+		$this->assert->string(\Smalot\PdfParser\Font::decodeOctal("\\101\\102\\040\\103D"))->isEqualTo('AB CD');
+	}
 
-    public function testDecodeEntities()
-    {
-        $this->assert->string(\Smalot\PdfParser\Font::decodeEntities("File#20Type"))->isEqualTo('File Type');
-        $this->assert->string(\Smalot\PdfParser\Font::decodeEntities("File##20Ty#pe"))->isEqualTo('File# Ty#pe');
-    }
+	public function testDecodeEntities()
+	{
+		$this->assert->string(\Smalot\PdfParser\Font::decodeEntities("File#20Type"))->isEqualTo('File Type');
+		$this->assert->string(\Smalot\PdfParser\Font::decodeEntities("File##20Ty#pe"))->isEqualTo('File# Ty#pe');
+	}
 
-    public function testDecodeUnicode()
-    {
-        $this->assert->string(\Smalot\PdfParser\Font::decodeUnicode("\xFE\xFF\x00A\x00B"))->isEqualTo('AB');
-    }
+	public function testDecodeUnicode()
+	{
+		$this->assert->string(\Smalot\PdfParser\Font::decodeUnicode("\xFE\xFF\x00A\x00B"))->isEqualTo('AB');
+	}
 
-    public function testDecodeText()
-    {
-        $filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
-        $parser   = new \Smalot\PdfParser\Parser();
-        $document = $parser->parseFile($filename);
-        $fonts    = $document->getFonts();
-        /** @var \Smalot\PdfParser\Font $font */
-        // Cambria
-        $font     = reset($fonts);
-        $commands = array(
-            array(
-                't' => '',
-                'c' => "\x01\x02",
-            ),
-            array(
-                't' => 'n',
-                'c' => -10,
-            ),
-            array(
-                't' => '',
-                'c' => "\x03",
-            ),
-            array(
-                't' => '',
-                'c' => "\x04",
-            ),
-            array(
-                't' => 'n',
-                'c' => -100,
-            ),
-            array(
-                't' => '<',
-                'c' => "01020304",
-            ),
-        );
-        $this->assert->string($font->decodeText($commands))->isEqualTo('Docu Docu');
+	public function testDecodeText()
+	{
+		$filename = __DIR__ . '/../../../../../samples/Document1_pdfcreator_nocompressed.pdf';
+		$parser   = new \Smalot\PdfParser\Parser();
+		$document = $parser->parseFile($filename);
+		$fonts    = $document->getFonts();
+		/** @var \Smalot\PdfParser\Font $font */
+		// Cambria
+		$font     = reset($fonts);
+		$commands = array(
+			array(
+				't' => '',
+				'c' => "\x01\x02",
+			),
+			array(
+				't' => 'n',
+				'c' => -10,
+			),
+			array(
+				't' => '',
+				'c' => "\x03",
+			),
+			array(
+				't' => '',
+				'c' => "\x04",
+			),
+			array(
+				't' => 'n',
+				'c' => -100,
+			),
+			array(
+				't' => '<',
+				'c' => "01020304",
+			),
+		);
+		$this->assert->string($font->decodeText($commands))->isEqualTo('Docu Docu');
 
-        //Check if ANSI/Unicode detection is working properly
-        $filename = __DIR__ . '/../../../../../samples/bugs/Issue95_ANSI.pdf';
-        $parser   = new \Smalot\PdfParser\Parser();
-        $document = $parser->parseFile($filename);
-        $fonts    = $document->getFonts();
-        /** @var \Smalot\PdfParser\Font $font */
-        $font     = reset($fonts);
-        $commands = array(
-            array(
-                't' => '<',
-                'c' => "E6F6FC", //ANSI encoded string
-            ),
-        );
-        $this->assert->string($font->decodeText($commands))->isEqualTo('æöü');
+		//Check if ANSI/Unicode detection is working properly
+		$filename = __DIR__ . '/../../../../../samples/bugs/Issue95_ANSI.pdf';
+		$parser   = new \Smalot\PdfParser\Parser();
+		$document = $parser->parseFile($filename);
+		$fonts    = $document->getFonts();
+		/** @var \Smalot\PdfParser\Font $font */
+		$font     = reset($fonts);
+		$commands = array(
+			array(
+				't' => '<',
+				'c' => "E6F6FC", //ANSI encoded string
+			),
+		);
+		$this->assert->string($font->decodeText($commands))->isEqualTo('æöü');
 
-        $commands = array(
-            array(
-                't' => '<',
-                'c' => "C3A6C3B6C3BC", //Unicode encoded string
-            ),
-        );
-        $this->assert->string($font->decodeText($commands))->isEqualTo('æöü');
-    }
+		$commands = array(
+			array(
+				't' => '<',
+				'c' => "C3A6C3B6C3BC", //Unicode encoded string
+			),
+		);
+		$this->assert->string($font->decodeText($commands))->isEqualTo('æöü');
+	}
 }

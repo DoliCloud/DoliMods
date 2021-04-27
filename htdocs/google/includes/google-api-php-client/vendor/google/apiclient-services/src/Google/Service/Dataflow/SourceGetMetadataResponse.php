@@ -17,21 +17,21 @@
 
 class Google_Service_Dataflow_SourceGetMetadataResponse extends Google_Model
 {
-  protected $metadataType = 'Google_Service_Dataflow_SourceMetadata';
-  protected $metadataDataType = '';
+	protected $metadataType = 'Google_Service_Dataflow_SourceMetadata';
+	protected $metadataDataType = '';
 
-  /**
-   * @param Google_Service_Dataflow_SourceMetadata
-   */
-  public function setMetadata(Google_Service_Dataflow_SourceMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_Dataflow_SourceMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
+	/**
+	 * @param Google_Service_Dataflow_SourceMetadata
+	 */
+	public function setMetadata(Google_Service_Dataflow_SourceMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_Dataflow_SourceMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
 }

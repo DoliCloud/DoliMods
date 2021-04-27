@@ -17,49 +17,49 @@
 
 class Google_Service_DomainsRDAP_Notice extends Google_Collection
 {
-  protected $collection_key = 'links';
-  public $description;
-  protected $linksType = 'Google_Service_DomainsRDAP_Link';
-  protected $linksDataType = 'array';
-  public $title;
-  public $type;
+	protected $collection_key = 'links';
+	public $description;
+	protected $linksType = 'Google_Service_DomainsRDAP_Link';
+	protected $linksDataType = 'array';
+	public $title;
+	public $type;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_DomainsRDAP_Link
-   */
-  public function setLinks($links)
-  {
-    $this->links = $links;
-  }
-  /**
-   * @return Google_Service_DomainsRDAP_Link
-   */
-  public function getLinks()
-  {
-    return $this->links;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_DomainsRDAP_Link
+	 */
+	public function setLinks($links)
+	{
+		$this->links = $links;
+	}
+	/**
+	 * @return Google_Service_DomainsRDAP_Link
+	 */
+	public function getLinks()
+	{
+		return $this->links;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Chromewebstore_PaymentsBuyRequest extends Google_Model
 {
-  public $gl;
-  public $hl;
-  public $itemId;
-  public $paymentVersion;
-  public $sku;
+	public $gl;
+	public $hl;
+	public $itemId;
+	public $paymentVersion;
+	public $sku;
 
-  public function setGl($gl)
-  {
-    $this->gl = $gl;
-  }
-  public function getGl()
-  {
-    return $this->gl;
-  }
-  public function setHl($hl)
-  {
-    $this->hl = $hl;
-  }
-  public function getHl()
-  {
-    return $this->hl;
-  }
-  public function setItemId($itemId)
-  {
-    $this->itemId = $itemId;
-  }
-  public function getItemId()
-  {
-    return $this->itemId;
-  }
-  public function setPaymentVersion($paymentVersion)
-  {
-    $this->paymentVersion = $paymentVersion;
-  }
-  public function getPaymentVersion()
-  {
-    return $this->paymentVersion;
-  }
-  public function setSku($sku)
-  {
-    $this->sku = $sku;
-  }
-  public function getSku()
-  {
-    return $this->sku;
-  }
+	public function setGl($gl)
+	{
+		$this->gl = $gl;
+	}
+	public function getGl()
+	{
+		return $this->gl;
+	}
+	public function setHl($hl)
+	{
+		$this->hl = $hl;
+	}
+	public function getHl()
+	{
+		return $this->hl;
+	}
+	public function setItemId($itemId)
+	{
+		$this->itemId = $itemId;
+	}
+	public function getItemId()
+	{
+		return $this->itemId;
+	}
+	public function setPaymentVersion($paymentVersion)
+	{
+		$this->paymentVersion = $paymentVersion;
+	}
+	public function getPaymentVersion()
+	{
+		return $this->paymentVersion;
+	}
+	public function setSku($sku)
+	{
+		$this->sku = $sku;
+	}
+	public function getSku()
+	{
+		return $this->sku;
+	}
 }

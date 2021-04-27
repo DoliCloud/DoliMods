@@ -17,55 +17,55 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2ConversationEvent extends Google_Model
 {
-  public $conversation;
-  protected $errorStatusType = 'Google_Service_Dialogflow_GoogleRpcStatus';
-  protected $errorStatusDataType = '';
-  protected $newMessagePayloadType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Message';
-  protected $newMessagePayloadDataType = '';
-  public $type;
+	public $conversation;
+	protected $errorStatusType = 'Google_Service_Dialogflow_GoogleRpcStatus';
+	protected $errorStatusDataType = '';
+	protected $newMessagePayloadType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Message';
+	protected $newMessagePayloadDataType = '';
+	public $type;
 
-  public function setConversation($conversation)
-  {
-    $this->conversation = $conversation;
-  }
-  public function getConversation()
-  {
-    return $this->conversation;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleRpcStatus
-   */
-  public function setErrorStatus(Google_Service_Dialogflow_GoogleRpcStatus $errorStatus)
-  {
-    $this->errorStatus = $errorStatus;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleRpcStatus
-   */
-  public function getErrorStatus()
-  {
-    return $this->errorStatus;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Message
-   */
-  public function setNewMessagePayload(Google_Service_Dialogflow_GoogleCloudDialogflowV2Message $newMessagePayload)
-  {
-    $this->newMessagePayload = $newMessagePayload;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Message
-   */
-  public function getNewMessagePayload()
-  {
-    return $this->newMessagePayload;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setConversation($conversation)
+	{
+		$this->conversation = $conversation;
+	}
+	public function getConversation()
+	{
+		return $this->conversation;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleRpcStatus
+	 */
+	public function setErrorStatus(Google_Service_Dialogflow_GoogleRpcStatus $errorStatus)
+	{
+		$this->errorStatus = $errorStatus;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleRpcStatus
+	 */
+	public function getErrorStatus()
+	{
+		return $this->errorStatus;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Message
+	 */
+	public function setNewMessagePayload(Google_Service_Dialogflow_GoogleCloudDialogflowV2Message $newMessagePayload)
+	{
+		$this->newMessagePayload = $newMessagePayload;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Message
+	 */
+	public function getNewMessagePayload()
+	{
+		return $this->newMessagePayload;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

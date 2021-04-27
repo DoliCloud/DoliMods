@@ -42,28 +42,28 @@ define('APP_ROOT', realpath(dirname((__FILE__)).'/../'));
 include_once APP_ROOT.'/read_config.php';
 
 if (defined('PSI_DEFAULT_LANG')) {
-    $lang = PSI_DEFAULT_LANG;
+	$lang = PSI_DEFAULT_LANG;
 }
 
 if (isset($_GET['lang']) && (trim($_GET['lang'])!=="")
    && !preg_match('/[^A-Za-z\-_]/', $_GET['lang'])
    && file_exists(APP_ROOT.'/language/'.$_GET['lang'].'.xml')) {
-    $lang = $_GET['lang'];
+	$lang = $_GET['lang'];
 }
 
 if (isset($_GET['plugin'])) {
-   if ((trim($_GET['plugin'])!=="") && !preg_match('/[^A-Za-z\-_]/', $_GET['plugin'])) {
-       $plugin = $_GET['plugin'];
-        if (file_exists(APP_ROOT.'/plugins/'.strtolower($plugin).'/lang/'.$lang.'.xml')) {
-            echo file_get_contents(APP_ROOT.'/plugins/'.strtolower($plugin).'/lang/'.$lang.'.xml');
-        } elseif (file_exists(APP_ROOT.'/plugins/'.strtolower($plugin).'/lang/en.xml')) {
-            echo file_get_contents(APP_ROOT.'/plugins/'.strtolower($plugin).'/lang/en.xml');
-        }
-   }
+	if ((trim($_GET['plugin'])!=="") && !preg_match('/[^A-Za-z\-_]/', $_GET['plugin'])) {
+		$plugin = $_GET['plugin'];
+		if (file_exists(APP_ROOT.'/plugins/'.strtolower($plugin).'/lang/'.$lang.'.xml')) {
+			echo file_get_contents(APP_ROOT.'/plugins/'.strtolower($plugin).'/lang/'.$lang.'.xml');
+		} elseif (file_exists(APP_ROOT.'/plugins/'.strtolower($plugin).'/lang/en.xml')) {
+			echo file_get_contents(APP_ROOT.'/plugins/'.strtolower($plugin).'/lang/en.xml');
+		}
+	}
 } else {
-    if (file_exists(APP_ROOT.'/language/'.$lang.'.xml')) {
-        echo file_get_contents(APP_ROOT.'/language/'.$lang.'.xml');
-    } else {
-        echo file_get_contents(APP_ROOT.'/language/en.xml');
-    }
+	if (file_exists(APP_ROOT.'/language/'.$lang.'.xml')) {
+		echo file_get_contents(APP_ROOT.'/language/'.$lang.'.xml');
+	} else {
+		echo file_get_contents(APP_ROOT.'/language/en.xml');
+	}
 }

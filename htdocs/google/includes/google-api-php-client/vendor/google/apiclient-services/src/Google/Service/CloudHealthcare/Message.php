@@ -17,101 +17,101 @@
 
 class Google_Service_CloudHealthcare_Message extends Google_Collection
 {
-  protected $collection_key = 'patientIds';
-  public $createTime;
-  public $data;
-  public $labels;
-  public $messageType;
-  public $name;
-  protected $parsedDataType = 'Google_Service_CloudHealthcare_ParsedData';
-  protected $parsedDataDataType = '';
-  protected $patientIdsType = 'Google_Service_CloudHealthcare_PatientId';
-  protected $patientIdsDataType = 'array';
-  public $sendFacility;
-  public $sendTime;
+	protected $collection_key = 'patientIds';
+	public $createTime;
+	public $data;
+	public $labels;
+	public $messageType;
+	public $name;
+	protected $parsedDataType = 'Google_Service_CloudHealthcare_ParsedData';
+	protected $parsedDataDataType = '';
+	protected $patientIdsType = 'Google_Service_CloudHealthcare_PatientId';
+	protected $patientIdsDataType = 'array';
+	public $sendFacility;
+	public $sendTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setMessageType($messageType)
-  {
-    $this->messageType = $messageType;
-  }
-  public function getMessageType()
-  {
-    return $this->messageType;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_CloudHealthcare_ParsedData
-   */
-  public function setParsedData(Google_Service_CloudHealthcare_ParsedData $parsedData)
-  {
-    $this->parsedData = $parsedData;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_ParsedData
-   */
-  public function getParsedData()
-  {
-    return $this->parsedData;
-  }
-  /**
-   * @param Google_Service_CloudHealthcare_PatientId
-   */
-  public function setPatientIds($patientIds)
-  {
-    $this->patientIds = $patientIds;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_PatientId
-   */
-  public function getPatientIds()
-  {
-    return $this->patientIds;
-  }
-  public function setSendFacility($sendFacility)
-  {
-    $this->sendFacility = $sendFacility;
-  }
-  public function getSendFacility()
-  {
-    return $this->sendFacility;
-  }
-  public function setSendTime($sendTime)
-  {
-    $this->sendTime = $sendTime;
-  }
-  public function getSendTime()
-  {
-    return $this->sendTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setMessageType($messageType)
+	{
+		$this->messageType = $messageType;
+	}
+	public function getMessageType()
+	{
+		return $this->messageType;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_CloudHealthcare_ParsedData
+	 */
+	public function setParsedData(Google_Service_CloudHealthcare_ParsedData $parsedData)
+	{
+		$this->parsedData = $parsedData;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_ParsedData
+	 */
+	public function getParsedData()
+	{
+		return $this->parsedData;
+	}
+	/**
+	 * @param Google_Service_CloudHealthcare_PatientId
+	 */
+	public function setPatientIds($patientIds)
+	{
+		$this->patientIds = $patientIds;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_PatientId
+	 */
+	public function getPatientIds()
+	{
+		return $this->patientIds;
+	}
+	public function setSendFacility($sendFacility)
+	{
+		$this->sendFacility = $sendFacility;
+	}
+	public function getSendFacility()
+	{
+		return $this->sendFacility;
+	}
+	public function setSendTime($sendTime)
+	{
+		$this->sendTime = $sendTime;
+	}
+	public function getSendTime()
+	{
+		return $this->sendTime;
+	}
 }

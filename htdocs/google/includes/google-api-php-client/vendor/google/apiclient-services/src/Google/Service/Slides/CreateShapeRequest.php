@@ -17,39 +17,39 @@
 
 class Google_Service_Slides_CreateShapeRequest extends Google_Model
 {
-  protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
-  protected $elementPropertiesDataType = '';
-  public $objectId;
-  public $shapeType;
+	protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
+	protected $elementPropertiesDataType = '';
+	public $objectId;
+	public $shapeType;
 
-  /**
-   * @param Google_Service_Slides_PageElementProperties
-   */
-  public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
-  {
-    $this->elementProperties = $elementProperties;
-  }
-  /**
-   * @return Google_Service_Slides_PageElementProperties
-   */
-  public function getElementProperties()
-  {
-    return $this->elementProperties;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  public function setShapeType($shapeType)
-  {
-    $this->shapeType = $shapeType;
-  }
-  public function getShapeType()
-  {
-    return $this->shapeType;
-  }
+	/**
+	 * @param Google_Service_Slides_PageElementProperties
+	 */
+	public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
+	{
+		$this->elementProperties = $elementProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_PageElementProperties
+	 */
+	public function getElementProperties()
+	{
+		return $this->elementProperties;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	public function setShapeType($shapeType)
+	{
+		$this->shapeType = $shapeType;
+	}
+	public function getShapeType()
+	{
+		return $this->shapeType;
+	}
 }

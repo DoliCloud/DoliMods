@@ -33,34 +33,34 @@ class Google_Service_FlightAvailability extends Google_Service
 {
 
 
-  public $v1;
-  
-  /**
-   * Constructs the internal representation of the FlightAvailability service.
-   *
-   * @param Google_Client $client
-   */
-  public function __construct(Google_Client $client)
-  {
-    parent::__construct($client);
-    $this->rootUrl = 'https://flightavailability.googleapis.com/';
-    $this->servicePath = '';
-    $this->version = 'v1';
-    $this->serviceName = 'flightavailability';
+	public $v1;
 
-    $this->v1 = new Google_Service_FlightAvailability_Resource_V1(
-        $this,
-        $this->serviceName,
-        'v1',
-        array(
-          'methods' => array(
-            'query' => array(
-              'path' => 'v1:query',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the FlightAvailability service.
+	 *
+	 * @param Google_Client $client
+	 */
+	public function __construct(Google_Client $client)
+	{
+		parent::__construct($client);
+		$this->rootUrl = 'https://flightavailability.googleapis.com/';
+		$this->servicePath = '';
+		$this->version = 'v1';
+		$this->serviceName = 'flightavailability';
+
+		$this->v1 = new Google_Service_FlightAvailability_Resource_V1(
+		$this,
+		$this->serviceName,
+		'v1',
+		array(
+		  'methods' => array(
+			'query' => array(
+			  'path' => 'v1:query',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),
+		  )
+		)
+		);
+	}
 }

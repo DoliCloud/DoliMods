@@ -17,30 +17,30 @@
 
 class Google_Service_HangoutsChat_UserMentionMetadata extends Google_Model
 {
-  public $type;
-  protected $userType = 'Google_Service_HangoutsChat_User';
-  protected $userDataType = '';
+	public $type;
+	protected $userType = 'Google_Service_HangoutsChat_User';
+	protected $userDataType = '';
 
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_User
-   */
-  public function setUser(Google_Service_HangoutsChat_User $user)
-  {
-    $this->user = $user;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_User
-   */
-  public function getUser()
-  {
-    return $this->user;
-  }
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_User
+	 */
+	public function setUser(Google_Service_HangoutsChat_User $user)
+	{
+		$this->user = $user;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_User
+	 */
+	public function getUser()
+	{
+		return $this->user;
+	}
 }

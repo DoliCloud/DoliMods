@@ -22,4 +22,3 @@ $uv = array(0=>array(0,128),128=>8364,130=>8218,131=>402,132=>8222,133=>8230,134
 $file = 'calligra.z';
 $originalsize = 33948;
 $subsetted = true;
-?>

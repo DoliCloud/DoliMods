@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_SourceScoringConfig extends Google_Model
 {
-  public $sourceImportance;
+	public $sourceImportance;
 
-  public function setSourceImportance($sourceImportance)
-  {
-    $this->sourceImportance = $sourceImportance;
-  }
-  public function getSourceImportance()
-  {
-    return $this->sourceImportance;
-  }
+	public function setSourceImportance($sourceImportance)
+	{
+		$this->sourceImportance = $sourceImportance;
+	}
+	public function getSourceImportance()
+	{
+		return $this->sourceImportance;
+	}
 }

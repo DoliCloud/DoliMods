@@ -17,68 +17,68 @@
 
 class Google_Service_DataFusion_OperationMetadata extends Google_Model
 {
-  public $apiVersion;
-  public $createTime;
-  public $endTime;
-  public $requestedCancellation;
-  public $statusDetail;
-  public $target;
-  public $verb;
+	public $apiVersion;
+	public $createTime;
+	public $endTime;
+	public $requestedCancellation;
+	public $statusDetail;
+	public $target;
+	public $verb;
 
-  public function setApiVersion($apiVersion)
-  {
-    $this->apiVersion = $apiVersion;
-  }
-  public function getApiVersion()
-  {
-    return $this->apiVersion;
-  }
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  public function setRequestedCancellation($requestedCancellation)
-  {
-    $this->requestedCancellation = $requestedCancellation;
-  }
-  public function getRequestedCancellation()
-  {
-    return $this->requestedCancellation;
-  }
-  public function setStatusDetail($statusDetail)
-  {
-    $this->statusDetail = $statusDetail;
-  }
-  public function getStatusDetail()
-  {
-    return $this->statusDetail;
-  }
-  public function setTarget($target)
-  {
-    $this->target = $target;
-  }
-  public function getTarget()
-  {
-    return $this->target;
-  }
-  public function setVerb($verb)
-  {
-    $this->verb = $verb;
-  }
-  public function getVerb()
-  {
-    return $this->verb;
-  }
+	public function setApiVersion($apiVersion)
+	{
+		$this->apiVersion = $apiVersion;
+	}
+	public function getApiVersion()
+	{
+		return $this->apiVersion;
+	}
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	public function setRequestedCancellation($requestedCancellation)
+	{
+		$this->requestedCancellation = $requestedCancellation;
+	}
+	public function getRequestedCancellation()
+	{
+		return $this->requestedCancellation;
+	}
+	public function setStatusDetail($statusDetail)
+	{
+		$this->statusDetail = $statusDetail;
+	}
+	public function getStatusDetail()
+	{
+		return $this->statusDetail;
+	}
+	public function setTarget($target)
+	{
+		$this->target = $target;
+	}
+	public function getTarget()
+	{
+		return $this->target;
+	}
+	public function setVerb($verb)
+	{
+		$this->verb = $verb;
+	}
+	public function getVerb()
+	{
+		return $this->verb;
+	}
 }

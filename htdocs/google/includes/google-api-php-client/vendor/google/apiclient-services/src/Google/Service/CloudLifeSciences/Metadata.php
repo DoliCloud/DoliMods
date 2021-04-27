@@ -17,74 +17,74 @@
 
 class Google_Service_CloudLifeSciences_Metadata extends Google_Collection
 {
-  protected $collection_key = 'events';
-  public $createTime;
-  public $endTime;
-  protected $eventsType = 'Google_Service_CloudLifeSciences_Event';
-  protected $eventsDataType = 'array';
-  public $labels;
-  protected $pipelineType = 'Google_Service_CloudLifeSciences_Pipeline';
-  protected $pipelineDataType = '';
-  public $startTime;
+	protected $collection_key = 'events';
+	public $createTime;
+	public $endTime;
+	protected $eventsType = 'Google_Service_CloudLifeSciences_Event';
+	protected $eventsDataType = 'array';
+	public $labels;
+	protected $pipelineType = 'Google_Service_CloudLifeSciences_Pipeline';
+	protected $pipelineDataType = '';
+	public $startTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  /**
-   * @param Google_Service_CloudLifeSciences_Event
-   */
-  public function setEvents($events)
-  {
-    $this->events = $events;
-  }
-  /**
-   * @return Google_Service_CloudLifeSciences_Event
-   */
-  public function getEvents()
-  {
-    return $this->events;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  /**
-   * @param Google_Service_CloudLifeSciences_Pipeline
-   */
-  public function setPipeline(Google_Service_CloudLifeSciences_Pipeline $pipeline)
-  {
-    $this->pipeline = $pipeline;
-  }
-  /**
-   * @return Google_Service_CloudLifeSciences_Pipeline
-   */
-  public function getPipeline()
-  {
-    return $this->pipeline;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	/**
+	 * @param Google_Service_CloudLifeSciences_Event
+	 */
+	public function setEvents($events)
+	{
+		$this->events = $events;
+	}
+	/**
+	 * @return Google_Service_CloudLifeSciences_Event
+	 */
+	public function getEvents()
+	{
+		return $this->events;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	/**
+	 * @param Google_Service_CloudLifeSciences_Pipeline
+	 */
+	public function setPipeline(Google_Service_CloudLifeSciences_Pipeline $pipeline)
+	{
+		$this->pipeline = $pipeline;
+	}
+	/**
+	 * @return Google_Service_CloudLifeSciences_Pipeline
+	 */
+	public function getPipeline()
+	{
+		return $this->pipeline;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
 }

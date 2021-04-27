@@ -17,14 +17,14 @@
 
 class Google_Service_Safebrowsing_Checksum extends Google_Model
 {
-  public $sha256;
+	public $sha256;
 
-  public function setSha256($sha256)
-  {
-    $this->sha256 = $sha256;
-  }
-  public function getSha256()
-  {
-    return $this->sha256;
-  }
+	public function setSha256($sha256)
+	{
+		$this->sha256 = $sha256;
+	}
+	public function getSha256()
+	{
+		return $this->sha256;
+	}
 }

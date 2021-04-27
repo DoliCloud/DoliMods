@@ -17,23 +17,23 @@
 
 class Google_Service_AccessApproval_AccessLocations extends Google_Model
 {
-  public $principalOfficeCountry;
-  public $principalPhysicalLocationCountry;
+	public $principalOfficeCountry;
+	public $principalPhysicalLocationCountry;
 
-  public function setPrincipalOfficeCountry($principalOfficeCountry)
-  {
-    $this->principalOfficeCountry = $principalOfficeCountry;
-  }
-  public function getPrincipalOfficeCountry()
-  {
-    return $this->principalOfficeCountry;
-  }
-  public function setPrincipalPhysicalLocationCountry($principalPhysicalLocationCountry)
-  {
-    $this->principalPhysicalLocationCountry = $principalPhysicalLocationCountry;
-  }
-  public function getPrincipalPhysicalLocationCountry()
-  {
-    return $this->principalPhysicalLocationCountry;
-  }
+	public function setPrincipalOfficeCountry($principalOfficeCountry)
+	{
+		$this->principalOfficeCountry = $principalOfficeCountry;
+	}
+	public function getPrincipalOfficeCountry()
+	{
+		return $this->principalOfficeCountry;
+	}
+	public function setPrincipalPhysicalLocationCountry($principalPhysicalLocationCountry)
+	{
+		$this->principalPhysicalLocationCountry = $principalPhysicalLocationCountry;
+	}
+	public function getPrincipalPhysicalLocationCountry()
+	{
+		return $this->principalPhysicalLocationCountry;
+	}
 }

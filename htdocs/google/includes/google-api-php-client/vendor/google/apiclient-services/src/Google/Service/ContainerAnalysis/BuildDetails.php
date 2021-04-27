@@ -17,30 +17,30 @@
 
 class Google_Service_ContainerAnalysis_BuildDetails extends Google_Model
 {
-  protected $provenanceType = 'Google_Service_ContainerAnalysis_BuildProvenance';
-  protected $provenanceDataType = '';
-  public $provenanceBytes;
+	protected $provenanceType = 'Google_Service_ContainerAnalysis_BuildProvenance';
+	protected $provenanceDataType = '';
+	public $provenanceBytes;
 
-  /**
-   * @param Google_Service_ContainerAnalysis_BuildProvenance
-   */
-  public function setProvenance(Google_Service_ContainerAnalysis_BuildProvenance $provenance)
-  {
-    $this->provenance = $provenance;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_BuildProvenance
-   */
-  public function getProvenance()
-  {
-    return $this->provenance;
-  }
-  public function setProvenanceBytes($provenanceBytes)
-  {
-    $this->provenanceBytes = $provenanceBytes;
-  }
-  public function getProvenanceBytes()
-  {
-    return $this->provenanceBytes;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_BuildProvenance
+	 */
+	public function setProvenance(Google_Service_ContainerAnalysis_BuildProvenance $provenance)
+	{
+		$this->provenance = $provenance;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_BuildProvenance
+	 */
+	public function getProvenance()
+	{
+		return $this->provenance;
+	}
+	public function setProvenanceBytes($provenanceBytes)
+	{
+		$this->provenanceBytes = $provenanceBytes;
+	}
+	public function getProvenanceBytes()
+	{
+		return $this->provenanceBytes;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListBidResponseErrorsResponse extends Google_Collection
 {
-  protected $collection_key = 'calloutStatusRows';
-  protected $calloutStatusRowsType = 'Google_Service_AdExchangeBuyerII_CalloutStatusRow';
-  protected $calloutStatusRowsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'calloutStatusRows';
+	protected $calloutStatusRowsType = 'Google_Service_AdExchangeBuyerII_CalloutStatusRow';
+	protected $calloutStatusRowsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_CalloutStatusRow
-   */
-  public function setCalloutStatusRows($calloutStatusRows)
-  {
-    $this->calloutStatusRows = $calloutStatusRows;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_CalloutStatusRow
-   */
-  public function getCalloutStatusRows()
-  {
-    return $this->calloutStatusRows;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_CalloutStatusRow
+	 */
+	public function setCalloutStatusRows($calloutStatusRows)
+	{
+		$this->calloutStatusRows = $calloutStatusRows;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_CalloutStatusRow
+	 */
+	public function getCalloutStatusRows()
+	{
+		return $this->calloutStatusRows;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

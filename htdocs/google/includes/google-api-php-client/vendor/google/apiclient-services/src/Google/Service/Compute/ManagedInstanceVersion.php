@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_ManagedInstanceVersion extends Google_Model
 {
-  public $instanceTemplate;
-  public $name;
+	public $instanceTemplate;
+	public $name;
 
-  public function setInstanceTemplate($instanceTemplate)
-  {
-    $this->instanceTemplate = $instanceTemplate;
-  }
-  public function getInstanceTemplate()
-  {
-    return $this->instanceTemplate;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setInstanceTemplate($instanceTemplate)
+	{
+		$this->instanceTemplate = $instanceTemplate;
+	}
+	public function getInstanceTemplate()
+	{
+		return $this->instanceTemplate;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

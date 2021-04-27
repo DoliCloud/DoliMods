@@ -17,38 +17,38 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2InspectionRuleSet extends Google_Collection
 {
-  protected $collection_key = 'rules';
-  protected $infoTypesType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
-  protected $infoTypesDataType = 'array';
-  protected $rulesType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectionRule';
-  protected $rulesDataType = 'array';
+	protected $collection_key = 'rules';
+	protected $infoTypesType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
+	protected $infoTypesDataType = 'array';
+	protected $rulesType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectionRule';
+	protected $rulesDataType = 'array';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
-   */
-  public function setInfoTypes($infoTypes)
-  {
-    $this->infoTypes = $infoTypes;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
-   */
-  public function getInfoTypes()
-  {
-    return $this->infoTypes;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectionRule
-   */
-  public function setRules($rules)
-  {
-    $this->rules = $rules;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectionRule
-   */
-  public function getRules()
-  {
-    return $this->rules;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
+	 */
+	public function setInfoTypes($infoTypes)
+	{
+		$this->infoTypes = $infoTypes;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
+	 */
+	public function getInfoTypes()
+	{
+		return $this->infoTypes;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectionRule
+	 */
+	public function setRules($rules)
+	{
+		$this->rules = $rules;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectionRule
+	 */
+	public function getRules()
+	{
+		return $this->rules;
+	}
 }

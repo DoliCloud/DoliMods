@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_OperationsScopedList extends Google_Collection
 {
-  protected $collection_key = 'operations';
-  protected $operationsType = 'Google_Service_Compute_Operation';
-  protected $operationsDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_OperationsScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'operations';
+	protected $operationsType = 'Google_Service_Compute_Operation';
+	protected $operationsDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_OperationsScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_Operation
-   */
-  public function setOperations($operations)
-  {
-    $this->operations = $operations;
-  }
-  /**
-   * @return Google_Service_Compute_Operation
-   */
-  public function getOperations()
-  {
-    return $this->operations;
-  }
-  /**
-   * @param Google_Service_Compute_OperationsScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_OperationsScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_OperationsScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_Operation
+	 */
+	public function setOperations($operations)
+	{
+		$this->operations = $operations;
+	}
+	/**
+	 * @return Google_Service_Compute_Operation
+	 */
+	public function getOperations()
+	{
+		return $this->operations;
+	}
+	/**
+	 * @param Google_Service_Compute_OperationsScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_OperationsScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_OperationsScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

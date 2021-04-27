@@ -17,21 +17,21 @@
 
 class Google_Service_Testing_GetApkDetailsResponse extends Google_Model
 {
-  protected $apkDetailType = 'Google_Service_Testing_ApkDetail';
-  protected $apkDetailDataType = '';
+	protected $apkDetailType = 'Google_Service_Testing_ApkDetail';
+	protected $apkDetailDataType = '';
 
-  /**
-   * @param Google_Service_Testing_ApkDetail
-   */
-  public function setApkDetail(Google_Service_Testing_ApkDetail $apkDetail)
-  {
-    $this->apkDetail = $apkDetail;
-  }
-  /**
-   * @return Google_Service_Testing_ApkDetail
-   */
-  public function getApkDetail()
-  {
-    return $this->apkDetail;
-  }
+	/**
+	 * @param Google_Service_Testing_ApkDetail
+	 */
+	public function setApkDetail(Google_Service_Testing_ApkDetail $apkDetail)
+	{
+		$this->apkDetail = $apkDetail;
+	}
+	/**
+	 * @return Google_Service_Testing_ApkDetail
+	 */
+	public function getApkDetail()
+	{
+		return $this->apkDetail;
+	}
 }

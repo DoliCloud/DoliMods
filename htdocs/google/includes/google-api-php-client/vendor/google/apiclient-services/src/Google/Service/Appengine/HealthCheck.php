@@ -17,68 +17,68 @@
 
 class Google_Service_Appengine_HealthCheck extends Google_Model
 {
-  public $checkInterval;
-  public $disableHealthCheck;
-  public $healthyThreshold;
-  public $host;
-  public $restartThreshold;
-  public $timeout;
-  public $unhealthyThreshold;
+	public $checkInterval;
+	public $disableHealthCheck;
+	public $healthyThreshold;
+	public $host;
+	public $restartThreshold;
+	public $timeout;
+	public $unhealthyThreshold;
 
-  public function setCheckInterval($checkInterval)
-  {
-    $this->checkInterval = $checkInterval;
-  }
-  public function getCheckInterval()
-  {
-    return $this->checkInterval;
-  }
-  public function setDisableHealthCheck($disableHealthCheck)
-  {
-    $this->disableHealthCheck = $disableHealthCheck;
-  }
-  public function getDisableHealthCheck()
-  {
-    return $this->disableHealthCheck;
-  }
-  public function setHealthyThreshold($healthyThreshold)
-  {
-    $this->healthyThreshold = $healthyThreshold;
-  }
-  public function getHealthyThreshold()
-  {
-    return $this->healthyThreshold;
-  }
-  public function setHost($host)
-  {
-    $this->host = $host;
-  }
-  public function getHost()
-  {
-    return $this->host;
-  }
-  public function setRestartThreshold($restartThreshold)
-  {
-    $this->restartThreshold = $restartThreshold;
-  }
-  public function getRestartThreshold()
-  {
-    return $this->restartThreshold;
-  }
-  public function setTimeout($timeout)
-  {
-    $this->timeout = $timeout;
-  }
-  public function getTimeout()
-  {
-    return $this->timeout;
-  }
-  public function setUnhealthyThreshold($unhealthyThreshold)
-  {
-    $this->unhealthyThreshold = $unhealthyThreshold;
-  }
-  public function getUnhealthyThreshold()
-  {
-    return $this->unhealthyThreshold;
-  }
+	public function setCheckInterval($checkInterval)
+	{
+		$this->checkInterval = $checkInterval;
+	}
+	public function getCheckInterval()
+	{
+		return $this->checkInterval;
+	}
+	public function setDisableHealthCheck($disableHealthCheck)
+	{
+		$this->disableHealthCheck = $disableHealthCheck;
+	}
+	public function getDisableHealthCheck()
+	{
+		return $this->disableHealthCheck;
+	}
+	public function setHealthyThreshold($healthyThreshold)
+	{
+		$this->healthyThreshold = $healthyThreshold;
+	}
+	public function getHealthyThreshold()
+	{
+		return $this->healthyThreshold;
+	}
+	public function setHost($host)
+	{
+		$this->host = $host;
+	}
+	public function getHost()
+	{
+		return $this->host;
+	}
+	public function setRestartThreshold($restartThreshold)
+	{
+		$this->restartThreshold = $restartThreshold;
+	}
+	public function getRestartThreshold()
+	{
+		return $this->restartThreshold;
+	}
+	public function setTimeout($timeout)
+	{
+		$this->timeout = $timeout;
+	}
+	public function getTimeout()
+	{
+		return $this->timeout;
+	}
+	public function setUnhealthyThreshold($unhealthyThreshold)
+	{
+		$this->unhealthyThreshold = $unhealthyThreshold;
+	}
+	public function getUnhealthyThreshold()
+	{
+		return $this->unhealthyThreshold;
+	}
 }

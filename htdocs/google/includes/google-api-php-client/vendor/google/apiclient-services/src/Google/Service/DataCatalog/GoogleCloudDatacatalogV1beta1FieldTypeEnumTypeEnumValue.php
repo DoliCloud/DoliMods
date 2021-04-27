@@ -17,14 +17,14 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumTypeEnumValue extends Google_Model
 {
-  public $displayName;
+	public $displayName;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
 }

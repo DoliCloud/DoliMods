@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_SslPolicyReference extends Google_Model
 {
-  public $sslPolicy;
+	public $sslPolicy;
 
-  public function setSslPolicy($sslPolicy)
-  {
-    $this->sslPolicy = $sslPolicy;
-  }
-  public function getSslPolicy()
-  {
-    return $this->sslPolicy;
-  }
+	public function setSslPolicy($sslPolicy)
+	{
+		$this->sslPolicy = $sslPolicy;
+	}
+	public function getSslPolicy()
+	{
+		return $this->sslPolicy;
+	}
 }

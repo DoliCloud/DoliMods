@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_BigTableIODetails extends Google_Model
 {
-  public $instanceId;
-  public $projectId;
-  public $tableId;
+	public $instanceId;
+	public $projectId;
+	public $tableId;
 
-  public function setInstanceId($instanceId)
-  {
-    $this->instanceId = $instanceId;
-  }
-  public function getInstanceId()
-  {
-    return $this->instanceId;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setTableId($tableId)
-  {
-    $this->tableId = $tableId;
-  }
-  public function getTableId()
-  {
-    return $this->tableId;
-  }
+	public function setInstanceId($instanceId)
+	{
+		$this->instanceId = $instanceId;
+	}
+	public function getInstanceId()
+	{
+		return $this->instanceId;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setTableId($tableId)
+	{
+		$this->tableId = $tableId;
+	}
+	public function getTableId()
+	{
+		return $this->tableId;
+	}
 }

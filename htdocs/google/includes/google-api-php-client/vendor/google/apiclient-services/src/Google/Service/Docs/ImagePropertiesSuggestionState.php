@@ -17,75 +17,75 @@
 
 class Google_Service_Docs_ImagePropertiesSuggestionState extends Google_Model
 {
-  public $angleSuggested;
-  public $brightnessSuggested;
-  public $contentUriSuggested;
-  public $contrastSuggested;
-  protected $cropPropertiesSuggestionStateType = 'Google_Service_Docs_CropPropertiesSuggestionState';
-  protected $cropPropertiesSuggestionStateDataType = '';
-  public $sourceUriSuggested;
-  public $transparencySuggested;
+	public $angleSuggested;
+	public $brightnessSuggested;
+	public $contentUriSuggested;
+	public $contrastSuggested;
+	protected $cropPropertiesSuggestionStateType = 'Google_Service_Docs_CropPropertiesSuggestionState';
+	protected $cropPropertiesSuggestionStateDataType = '';
+	public $sourceUriSuggested;
+	public $transparencySuggested;
 
-  public function setAngleSuggested($angleSuggested)
-  {
-    $this->angleSuggested = $angleSuggested;
-  }
-  public function getAngleSuggested()
-  {
-    return $this->angleSuggested;
-  }
-  public function setBrightnessSuggested($brightnessSuggested)
-  {
-    $this->brightnessSuggested = $brightnessSuggested;
-  }
-  public function getBrightnessSuggested()
-  {
-    return $this->brightnessSuggested;
-  }
-  public function setContentUriSuggested($contentUriSuggested)
-  {
-    $this->contentUriSuggested = $contentUriSuggested;
-  }
-  public function getContentUriSuggested()
-  {
-    return $this->contentUriSuggested;
-  }
-  public function setContrastSuggested($contrastSuggested)
-  {
-    $this->contrastSuggested = $contrastSuggested;
-  }
-  public function getContrastSuggested()
-  {
-    return $this->contrastSuggested;
-  }
-  /**
-   * @param Google_Service_Docs_CropPropertiesSuggestionState
-   */
-  public function setCropPropertiesSuggestionState(Google_Service_Docs_CropPropertiesSuggestionState $cropPropertiesSuggestionState)
-  {
-    $this->cropPropertiesSuggestionState = $cropPropertiesSuggestionState;
-  }
-  /**
-   * @return Google_Service_Docs_CropPropertiesSuggestionState
-   */
-  public function getCropPropertiesSuggestionState()
-  {
-    return $this->cropPropertiesSuggestionState;
-  }
-  public function setSourceUriSuggested($sourceUriSuggested)
-  {
-    $this->sourceUriSuggested = $sourceUriSuggested;
-  }
-  public function getSourceUriSuggested()
-  {
-    return $this->sourceUriSuggested;
-  }
-  public function setTransparencySuggested($transparencySuggested)
-  {
-    $this->transparencySuggested = $transparencySuggested;
-  }
-  public function getTransparencySuggested()
-  {
-    return $this->transparencySuggested;
-  }
+	public function setAngleSuggested($angleSuggested)
+	{
+		$this->angleSuggested = $angleSuggested;
+	}
+	public function getAngleSuggested()
+	{
+		return $this->angleSuggested;
+	}
+	public function setBrightnessSuggested($brightnessSuggested)
+	{
+		$this->brightnessSuggested = $brightnessSuggested;
+	}
+	public function getBrightnessSuggested()
+	{
+		return $this->brightnessSuggested;
+	}
+	public function setContentUriSuggested($contentUriSuggested)
+	{
+		$this->contentUriSuggested = $contentUriSuggested;
+	}
+	public function getContentUriSuggested()
+	{
+		return $this->contentUriSuggested;
+	}
+	public function setContrastSuggested($contrastSuggested)
+	{
+		$this->contrastSuggested = $contrastSuggested;
+	}
+	public function getContrastSuggested()
+	{
+		return $this->contrastSuggested;
+	}
+	/**
+	 * @param Google_Service_Docs_CropPropertiesSuggestionState
+	 */
+	public function setCropPropertiesSuggestionState(Google_Service_Docs_CropPropertiesSuggestionState $cropPropertiesSuggestionState)
+	{
+		$this->cropPropertiesSuggestionState = $cropPropertiesSuggestionState;
+	}
+	/**
+	 * @return Google_Service_Docs_CropPropertiesSuggestionState
+	 */
+	public function getCropPropertiesSuggestionState()
+	{
+		return $this->cropPropertiesSuggestionState;
+	}
+	public function setSourceUriSuggested($sourceUriSuggested)
+	{
+		$this->sourceUriSuggested = $sourceUriSuggested;
+	}
+	public function getSourceUriSuggested()
+	{
+		return $this->sourceUriSuggested;
+	}
+	public function setTransparencySuggested($transparencySuggested)
+	{
+		$this->transparencySuggested = $transparencySuggested;
+	}
+	public function getTransparencySuggested()
+	{
+		return $this->transparencySuggested;
+	}
 }

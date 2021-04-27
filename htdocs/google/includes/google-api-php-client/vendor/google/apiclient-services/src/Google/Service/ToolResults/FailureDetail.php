@@ -17,50 +17,50 @@
 
 class Google_Service_ToolResults_FailureDetail extends Google_Model
 {
-  public $crashed;
-  public $notInstalled;
-  public $otherNativeCrash;
-  public $timedOut;
-  public $unableToCrawl;
+	public $crashed;
+	public $notInstalled;
+	public $otherNativeCrash;
+	public $timedOut;
+	public $unableToCrawl;
 
-  public function setCrashed($crashed)
-  {
-    $this->crashed = $crashed;
-  }
-  public function getCrashed()
-  {
-    return $this->crashed;
-  }
-  public function setNotInstalled($notInstalled)
-  {
-    $this->notInstalled = $notInstalled;
-  }
-  public function getNotInstalled()
-  {
-    return $this->notInstalled;
-  }
-  public function setOtherNativeCrash($otherNativeCrash)
-  {
-    $this->otherNativeCrash = $otherNativeCrash;
-  }
-  public function getOtherNativeCrash()
-  {
-    return $this->otherNativeCrash;
-  }
-  public function setTimedOut($timedOut)
-  {
-    $this->timedOut = $timedOut;
-  }
-  public function getTimedOut()
-  {
-    return $this->timedOut;
-  }
-  public function setUnableToCrawl($unableToCrawl)
-  {
-    $this->unableToCrawl = $unableToCrawl;
-  }
-  public function getUnableToCrawl()
-  {
-    return $this->unableToCrawl;
-  }
+	public function setCrashed($crashed)
+	{
+		$this->crashed = $crashed;
+	}
+	public function getCrashed()
+	{
+		return $this->crashed;
+	}
+	public function setNotInstalled($notInstalled)
+	{
+		$this->notInstalled = $notInstalled;
+	}
+	public function getNotInstalled()
+	{
+		return $this->notInstalled;
+	}
+	public function setOtherNativeCrash($otherNativeCrash)
+	{
+		$this->otherNativeCrash = $otherNativeCrash;
+	}
+	public function getOtherNativeCrash()
+	{
+		return $this->otherNativeCrash;
+	}
+	public function setTimedOut($timedOut)
+	{
+		$this->timedOut = $timedOut;
+	}
+	public function getTimedOut()
+	{
+		return $this->timedOut;
+	}
+	public function setUnableToCrawl($unableToCrawl)
+	{
+		$this->unableToCrawl = $unableToCrawl;
+	}
+	public function getUnableToCrawl()
+	{
+		return $this->unableToCrawl;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_SecretManager_Replica extends Google_Model
 {
-  public $location;
+	public $location;
 
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
 }

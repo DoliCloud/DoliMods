@@ -17,60 +17,60 @@
 
 class Google_Service_Safebrowsing_Constraints extends Google_Collection
 {
-  protected $collection_key = 'supportedCompressions';
-  public $deviceLocation;
-  public $language;
-  public $maxDatabaseEntries;
-  public $maxUpdateEntries;
-  public $region;
-  public $supportedCompressions;
+	protected $collection_key = 'supportedCompressions';
+	public $deviceLocation;
+	public $language;
+	public $maxDatabaseEntries;
+	public $maxUpdateEntries;
+	public $region;
+	public $supportedCompressions;
 
-  public function setDeviceLocation($deviceLocation)
-  {
-    $this->deviceLocation = $deviceLocation;
-  }
-  public function getDeviceLocation()
-  {
-    return $this->deviceLocation;
-  }
-  public function setLanguage($language)
-  {
-    $this->language = $language;
-  }
-  public function getLanguage()
-  {
-    return $this->language;
-  }
-  public function setMaxDatabaseEntries($maxDatabaseEntries)
-  {
-    $this->maxDatabaseEntries = $maxDatabaseEntries;
-  }
-  public function getMaxDatabaseEntries()
-  {
-    return $this->maxDatabaseEntries;
-  }
-  public function setMaxUpdateEntries($maxUpdateEntries)
-  {
-    $this->maxUpdateEntries = $maxUpdateEntries;
-  }
-  public function getMaxUpdateEntries()
-  {
-    return $this->maxUpdateEntries;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
-  public function setSupportedCompressions($supportedCompressions)
-  {
-    $this->supportedCompressions = $supportedCompressions;
-  }
-  public function getSupportedCompressions()
-  {
-    return $this->supportedCompressions;
-  }
+	public function setDeviceLocation($deviceLocation)
+	{
+		$this->deviceLocation = $deviceLocation;
+	}
+	public function getDeviceLocation()
+	{
+		return $this->deviceLocation;
+	}
+	public function setLanguage($language)
+	{
+		$this->language = $language;
+	}
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+	public function setMaxDatabaseEntries($maxDatabaseEntries)
+	{
+		$this->maxDatabaseEntries = $maxDatabaseEntries;
+	}
+	public function getMaxDatabaseEntries()
+	{
+		return $this->maxDatabaseEntries;
+	}
+	public function setMaxUpdateEntries($maxUpdateEntries)
+	{
+		$this->maxUpdateEntries = $maxUpdateEntries;
+	}
+	public function getMaxUpdateEntries()
+	{
+		return $this->maxUpdateEntries;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
+	public function setSupportedCompressions($supportedCompressions)
+	{
+		$this->supportedCompressions = $supportedCompressions;
+	}
+	public function getSupportedCompressions()
+	{
+		return $this->supportedCompressions;
+	}
 }

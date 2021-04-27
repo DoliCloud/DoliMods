@@ -17,41 +17,41 @@
 
 class Google_Service_AdSense_AdCode extends Google_Model
 {
-  public $adCode;
-  public $ampBody;
-  public $ampHead;
-  public $kind;
+	public $adCode;
+	public $ampBody;
+	public $ampHead;
+	public $kind;
 
-  public function setAdCode($adCode)
-  {
-    $this->adCode = $adCode;
-  }
-  public function getAdCode()
-  {
-    return $this->adCode;
-  }
-  public function setAmpBody($ampBody)
-  {
-    $this->ampBody = $ampBody;
-  }
-  public function getAmpBody()
-  {
-    return $this->ampBody;
-  }
-  public function setAmpHead($ampHead)
-  {
-    $this->ampHead = $ampHead;
-  }
-  public function getAmpHead()
-  {
-    return $this->ampHead;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setAdCode($adCode)
+	{
+		$this->adCode = $adCode;
+	}
+	public function getAdCode()
+	{
+		return $this->adCode;
+	}
+	public function setAmpBody($ampBody)
+	{
+		$this->ampBody = $ampBody;
+	}
+	public function getAmpBody()
+	{
+		return $this->ampBody;
+	}
+	public function setAmpHead($ampHead)
+	{
+		$this->ampHead = $ampHead;
+	}
+	public function getAmpHead()
+	{
+		return $this->ampHead;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

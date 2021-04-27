@@ -17,21 +17,21 @@
 
 class Google_Service_Slides_SheetsChartProperties extends Google_Model
 {
-  protected $chartImagePropertiesType = 'Google_Service_Slides_ImageProperties';
-  protected $chartImagePropertiesDataType = '';
+	protected $chartImagePropertiesType = 'Google_Service_Slides_ImageProperties';
+	protected $chartImagePropertiesDataType = '';
 
-  /**
-   * @param Google_Service_Slides_ImageProperties
-   */
-  public function setChartImageProperties(Google_Service_Slides_ImageProperties $chartImageProperties)
-  {
-    $this->chartImageProperties = $chartImageProperties;
-  }
-  /**
-   * @return Google_Service_Slides_ImageProperties
-   */
-  public function getChartImageProperties()
-  {
-    return $this->chartImageProperties;
-  }
+	/**
+	 * @param Google_Service_Slides_ImageProperties
+	 */
+	public function setChartImageProperties(Google_Service_Slides_ImageProperties $chartImageProperties)
+	{
+		$this->chartImageProperties = $chartImageProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_ImageProperties
+	 */
+	public function getChartImageProperties()
+	{
+		return $this->chartImageProperties;
+	}
 }

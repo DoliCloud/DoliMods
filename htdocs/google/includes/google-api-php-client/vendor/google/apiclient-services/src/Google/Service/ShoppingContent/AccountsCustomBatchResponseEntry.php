@@ -17,55 +17,55 @@
 
 class Google_Service_ShoppingContent_AccountsCustomBatchResponseEntry extends Google_Model
 {
-  protected $accountType = 'Google_Service_ShoppingContent_Account';
-  protected $accountDataType = '';
-  public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
-  protected $errorsDataType = '';
-  public $kind;
+	protected $accountType = 'Google_Service_ShoppingContent_Account';
+	protected $accountDataType = '';
+	public $batchId;
+	protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+	protected $errorsDataType = '';
+	public $kind;
 
-  /**
-   * @param Google_Service_ShoppingContent_Account
-   */
-  public function setAccount(Google_Service_ShoppingContent_Account $account)
-  {
-    $this->account = $account;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Account
-   */
-  public function getAccount()
-  {
-    return $this->account;
-  }
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Errors
-   */
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Errors
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_Account
+	 */
+	public function setAccount(Google_Service_ShoppingContent_Account $account)
+	{
+		$this->account = $account;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Account
+	 */
+	public function getAccount()
+	{
+		return $this->account;
+	}
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Errors
+	 */
+	public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Errors
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

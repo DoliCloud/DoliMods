@@ -17,49 +17,49 @@
 
 class Google_Service_AndroidManagement_SystemUpdate extends Google_Collection
 {
-  protected $collection_key = 'freezePeriods';
-  public $endMinutes;
-  protected $freezePeriodsType = 'Google_Service_AndroidManagement_FreezePeriod';
-  protected $freezePeriodsDataType = 'array';
-  public $startMinutes;
-  public $type;
+	protected $collection_key = 'freezePeriods';
+	public $endMinutes;
+	protected $freezePeriodsType = 'Google_Service_AndroidManagement_FreezePeriod';
+	protected $freezePeriodsDataType = 'array';
+	public $startMinutes;
+	public $type;
 
-  public function setEndMinutes($endMinutes)
-  {
-    $this->endMinutes = $endMinutes;
-  }
-  public function getEndMinutes()
-  {
-    return $this->endMinutes;
-  }
-  /**
-   * @param Google_Service_AndroidManagement_FreezePeriod
-   */
-  public function setFreezePeriods($freezePeriods)
-  {
-    $this->freezePeriods = $freezePeriods;
-  }
-  /**
-   * @return Google_Service_AndroidManagement_FreezePeriod
-   */
-  public function getFreezePeriods()
-  {
-    return $this->freezePeriods;
-  }
-  public function setStartMinutes($startMinutes)
-  {
-    $this->startMinutes = $startMinutes;
-  }
-  public function getStartMinutes()
-  {
-    return $this->startMinutes;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setEndMinutes($endMinutes)
+	{
+		$this->endMinutes = $endMinutes;
+	}
+	public function getEndMinutes()
+	{
+		return $this->endMinutes;
+	}
+	/**
+	 * @param Google_Service_AndroidManagement_FreezePeriod
+	 */
+	public function setFreezePeriods($freezePeriods)
+	{
+		$this->freezePeriods = $freezePeriods;
+	}
+	/**
+	 * @return Google_Service_AndroidManagement_FreezePeriod
+	 */
+	public function getFreezePeriods()
+	{
+		return $this->freezePeriods;
+	}
+	public function setStartMinutes($startMinutes)
+	{
+		$this->startMinutes = $startMinutes;
+	}
+	public function getStartMinutes()
+	{
+		return $this->startMinutes;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

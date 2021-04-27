@@ -17,23 +17,23 @@
 
 class Google_Service_Books_VolumeLayerInfoLayers extends Google_Model
 {
-  public $layerId;
-  public $volumeAnnotationsVersion;
+	public $layerId;
+	public $volumeAnnotationsVersion;
 
-  public function setLayerId($layerId)
-  {
-    $this->layerId = $layerId;
-  }
-  public function getLayerId()
-  {
-    return $this->layerId;
-  }
-  public function setVolumeAnnotationsVersion($volumeAnnotationsVersion)
-  {
-    $this->volumeAnnotationsVersion = $volumeAnnotationsVersion;
-  }
-  public function getVolumeAnnotationsVersion()
-  {
-    return $this->volumeAnnotationsVersion;
-  }
+	public function setLayerId($layerId)
+	{
+		$this->layerId = $layerId;
+	}
+	public function getLayerId()
+	{
+		return $this->layerId;
+	}
+	public function setVolumeAnnotationsVersion($volumeAnnotationsVersion)
+	{
+		$this->volumeAnnotationsVersion = $volumeAnnotationsVersion;
+	}
+	public function getVolumeAnnotationsVersion()
+	{
+		return $this->volumeAnnotationsVersion;
+	}
 }

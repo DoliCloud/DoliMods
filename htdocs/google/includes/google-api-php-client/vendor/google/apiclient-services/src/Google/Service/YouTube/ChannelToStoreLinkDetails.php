@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_ChannelToStoreLinkDetails extends Google_Model
 {
-  public $storeName;
-  public $storeUrl;
+	public $storeName;
+	public $storeUrl;
 
-  public function setStoreName($storeName)
-  {
-    $this->storeName = $storeName;
-  }
-  public function getStoreName()
-  {
-    return $this->storeName;
-  }
-  public function setStoreUrl($storeUrl)
-  {
-    $this->storeUrl = $storeUrl;
-  }
-  public function getStoreUrl()
-  {
-    return $this->storeUrl;
-  }
+	public function setStoreName($storeName)
+	{
+		$this->storeName = $storeName;
+	}
+	public function getStoreName()
+	{
+		return $this->storeName;
+	}
+	public function setStoreUrl($storeUrl)
+	{
+		$this->storeUrl = $storeUrl;
+	}
+	public function getStoreUrl()
+	{
+		return $this->storeUrl;
+	}
 }

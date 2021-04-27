@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_UpgradeInsight extends Google_Model
 {
-  public $packageName;
-  public $upgradeToVersion;
+	public $packageName;
+	public $upgradeToVersion;
 
-  public function setPackageName($packageName)
-  {
-    $this->packageName = $packageName;
-  }
-  public function getPackageName()
-  {
-    return $this->packageName;
-  }
-  public function setUpgradeToVersion($upgradeToVersion)
-  {
-    $this->upgradeToVersion = $upgradeToVersion;
-  }
-  public function getUpgradeToVersion()
-  {
-    return $this->upgradeToVersion;
-  }
+	public function setPackageName($packageName)
+	{
+		$this->packageName = $packageName;
+	}
+	public function getPackageName()
+	{
+		return $this->packageName;
+	}
+	public function setUpgradeToVersion($upgradeToVersion)
+	{
+		$this->upgradeToVersion = $upgradeToVersion;
+	}
+	public function getUpgradeToVersion()
+	{
+		return $this->upgradeToVersion;
+	}
 }

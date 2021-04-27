@@ -18,8 +18,8 @@ namespace Monolog\Processor;
  */
 interface ProcessorInterface
 {
-    /**
-     * @return array The processed records
-     */
-    public function __invoke(array $records);
+	/**
+	 * @return array The processed records
+	 */
+	public function __invoke(array $records);
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_CloudSearch_Snippet extends Google_Collection
 {
-  protected $collection_key = 'matchRanges';
-  protected $matchRangesType = 'Google_Service_CloudSearch_MatchRange';
-  protected $matchRangesDataType = 'array';
-  public $snippet;
+	protected $collection_key = 'matchRanges';
+	protected $matchRangesType = 'Google_Service_CloudSearch_MatchRange';
+	protected $matchRangesDataType = 'array';
+	public $snippet;
 
-  /**
-   * @param Google_Service_CloudSearch_MatchRange
-   */
-  public function setMatchRanges($matchRanges)
-  {
-    $this->matchRanges = $matchRanges;
-  }
-  /**
-   * @return Google_Service_CloudSearch_MatchRange
-   */
-  public function getMatchRanges()
-  {
-    return $this->matchRanges;
-  }
-  public function setSnippet($snippet)
-  {
-    $this->snippet = $snippet;
-  }
-  public function getSnippet()
-  {
-    return $this->snippet;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_MatchRange
+	 */
+	public function setMatchRanges($matchRanges)
+	{
+		$this->matchRanges = $matchRanges;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_MatchRange
+	 */
+	public function getMatchRanges()
+	{
+		return $this->matchRanges;
+	}
+	public function setSnippet($snippet)
+	{
+		$this->snippet = $snippet;
+	}
+	public function getSnippet()
+	{
+		return $this->snippet;
+	}
 }

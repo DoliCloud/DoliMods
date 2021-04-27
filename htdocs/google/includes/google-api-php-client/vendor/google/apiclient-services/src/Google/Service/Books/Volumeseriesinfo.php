@@ -17,49 +17,49 @@
 
 class Google_Service_Books_Volumeseriesinfo extends Google_Collection
 {
-  protected $collection_key = 'volumeSeries';
-  public $bookDisplayNumber;
-  public $kind;
-  public $shortSeriesBookTitle;
-  protected $volumeSeriesType = 'Google_Service_Books_VolumeseriesinfoVolumeSeries';
-  protected $volumeSeriesDataType = 'array';
+	protected $collection_key = 'volumeSeries';
+	public $bookDisplayNumber;
+	public $kind;
+	public $shortSeriesBookTitle;
+	protected $volumeSeriesType = 'Google_Service_Books_VolumeseriesinfoVolumeSeries';
+	protected $volumeSeriesDataType = 'array';
 
-  public function setBookDisplayNumber($bookDisplayNumber)
-  {
-    $this->bookDisplayNumber = $bookDisplayNumber;
-  }
-  public function getBookDisplayNumber()
-  {
-    return $this->bookDisplayNumber;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setShortSeriesBookTitle($shortSeriesBookTitle)
-  {
-    $this->shortSeriesBookTitle = $shortSeriesBookTitle;
-  }
-  public function getShortSeriesBookTitle()
-  {
-    return $this->shortSeriesBookTitle;
-  }
-  /**
-   * @param Google_Service_Books_VolumeseriesinfoVolumeSeries
-   */
-  public function setVolumeSeries($volumeSeries)
-  {
-    $this->volumeSeries = $volumeSeries;
-  }
-  /**
-   * @return Google_Service_Books_VolumeseriesinfoVolumeSeries
-   */
-  public function getVolumeSeries()
-  {
-    return $this->volumeSeries;
-  }
+	public function setBookDisplayNumber($bookDisplayNumber)
+	{
+		$this->bookDisplayNumber = $bookDisplayNumber;
+	}
+	public function getBookDisplayNumber()
+	{
+		return $this->bookDisplayNumber;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setShortSeriesBookTitle($shortSeriesBookTitle)
+	{
+		$this->shortSeriesBookTitle = $shortSeriesBookTitle;
+	}
+	public function getShortSeriesBookTitle()
+	{
+		return $this->shortSeriesBookTitle;
+	}
+	/**
+	 * @param Google_Service_Books_VolumeseriesinfoVolumeSeries
+	 */
+	public function setVolumeSeries($volumeSeries)
+	{
+		$this->volumeSeries = $volumeSeries;
+	}
+	/**
+	 * @return Google_Service_Books_VolumeseriesinfoVolumeSeries
+	 */
+	public function getVolumeSeries()
+	{
+		return $this->volumeSeries;
+	}
 }

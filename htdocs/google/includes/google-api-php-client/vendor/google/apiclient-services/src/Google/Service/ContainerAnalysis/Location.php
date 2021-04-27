@@ -17,39 +17,39 @@
 
 class Google_Service_ContainerAnalysis_Location extends Google_Model
 {
-  public $cpeUri;
-  public $path;
-  protected $versionType = 'Google_Service_ContainerAnalysis_Version';
-  protected $versionDataType = '';
+	public $cpeUri;
+	public $path;
+	protected $versionType = 'Google_Service_ContainerAnalysis_Version';
+	protected $versionDataType = '';
 
-  public function setCpeUri($cpeUri)
-  {
-    $this->cpeUri = $cpeUri;
-  }
-  public function getCpeUri()
-  {
-    return $this->cpeUri;
-  }
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
-  /**
-   * @param Google_Service_ContainerAnalysis_Version
-   */
-  public function setVersion(Google_Service_ContainerAnalysis_Version $version)
-  {
-    $this->version = $version;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_Version
-   */
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setCpeUri($cpeUri)
+	{
+		$this->cpeUri = $cpeUri;
+	}
+	public function getCpeUri()
+	{
+		return $this->cpeUri;
+	}
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
+	/**
+	 * @param Google_Service_ContainerAnalysis_Version
+	 */
+	public function setVersion(Google_Service_ContainerAnalysis_Version $version)
+	{
+		$this->version = $version;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_Version
+	 */
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

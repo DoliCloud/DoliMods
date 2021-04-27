@@ -25,18 +25,18 @@
  */
 class Google_Service_Dfareporting_Resource_CustomEvents extends Google_Service_Resource
 {
-  /**
-   * Inserts custom events. (customEvents.batchinsert)
-   *
-   * @param string $profileId User profile ID associated with this request.
-   * @param Google_Service_Dfareporting_CustomEventsBatchInsertRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Dfareporting_CustomEventsBatchInsertResponse
-   */
-  public function batchinsert($profileId, Google_Service_Dfareporting_CustomEventsBatchInsertRequest $postBody, $optParams = array())
-  {
-    $params = array('profileId' => $profileId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('batchinsert', array($params), "Google_Service_Dfareporting_CustomEventsBatchInsertResponse");
-  }
+	/**
+	 * Inserts custom events. (customEvents.batchinsert)
+	 *
+	 * @param string $profileId User profile ID associated with this request.
+	 * @param Google_Service_Dfareporting_CustomEventsBatchInsertRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Dfareporting_CustomEventsBatchInsertResponse
+	 */
+	public function batchinsert($profileId, Google_Service_Dfareporting_CustomEventsBatchInsertRequest $postBody, $optParams = array())
+	{
+		$params = array('profileId' => $profileId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('batchinsert', array($params), "Google_Service_Dfareporting_CustomEventsBatchInsertResponse");
+	}
 }

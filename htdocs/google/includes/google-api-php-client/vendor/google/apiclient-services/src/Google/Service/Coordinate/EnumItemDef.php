@@ -17,32 +17,32 @@
 
 class Google_Service_Coordinate_EnumItemDef extends Google_Model
 {
-  public $active;
-  public $kind;
-  public $value;
+	public $active;
+	public $kind;
+	public $value;
 
-  public function setActive($active)
-  {
-    $this->active = $active;
-  }
-  public function getActive()
-  {
-    return $this->active;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setActive($active)
+	{
+		$this->active = $active;
+	}
+	public function getActive()
+	{
+		return $this->active;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

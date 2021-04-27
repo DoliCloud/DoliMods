@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_ForwardingRuleReference extends Google_Model
 {
-  public $forwardingRule;
+	public $forwardingRule;
 
-  public function setForwardingRule($forwardingRule)
-  {
-    $this->forwardingRule = $forwardingRule;
-  }
-  public function getForwardingRule()
-  {
-    return $this->forwardingRule;
-  }
+	public function setForwardingRule($forwardingRule)
+	{
+		$this->forwardingRule = $forwardingRule;
+	}
+	public function getForwardingRule()
+	{
+		return $this->forwardingRule;
+	}
 }

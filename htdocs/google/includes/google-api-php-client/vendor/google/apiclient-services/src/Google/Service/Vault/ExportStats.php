@@ -17,32 +17,32 @@
 
 class Google_Service_Vault_ExportStats extends Google_Model
 {
-  public $exportedArtifactCount;
-  public $sizeInBytes;
-  public $totalArtifactCount;
+	public $exportedArtifactCount;
+	public $sizeInBytes;
+	public $totalArtifactCount;
 
-  public function setExportedArtifactCount($exportedArtifactCount)
-  {
-    $this->exportedArtifactCount = $exportedArtifactCount;
-  }
-  public function getExportedArtifactCount()
-  {
-    return $this->exportedArtifactCount;
-  }
-  public function setSizeInBytes($sizeInBytes)
-  {
-    $this->sizeInBytes = $sizeInBytes;
-  }
-  public function getSizeInBytes()
-  {
-    return $this->sizeInBytes;
-  }
-  public function setTotalArtifactCount($totalArtifactCount)
-  {
-    $this->totalArtifactCount = $totalArtifactCount;
-  }
-  public function getTotalArtifactCount()
-  {
-    return $this->totalArtifactCount;
-  }
+	public function setExportedArtifactCount($exportedArtifactCount)
+	{
+		$this->exportedArtifactCount = $exportedArtifactCount;
+	}
+	public function getExportedArtifactCount()
+	{
+		return $this->exportedArtifactCount;
+	}
+	public function setSizeInBytes($sizeInBytes)
+	{
+		$this->sizeInBytes = $sizeInBytes;
+	}
+	public function getSizeInBytes()
+	{
+		return $this->sizeInBytes;
+	}
+	public function setTotalArtifactCount($totalArtifactCount)
+	{
+		$this->totalArtifactCount = $totalArtifactCount;
+	}
+	public function getTotalArtifactCount()
+	{
+		return $this->totalArtifactCount;
+	}
 }

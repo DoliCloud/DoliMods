@@ -25,26 +25,26 @@
  */
 class Google_Service_CloudIot_Resource_ProjectsLocationsRegistriesDevicesConfigVersions extends Google_Service_Resource
 {
-  /**
-   * Lists the last few versions of the device configuration in descending order
-   * (i.e.: newest first).
-   * (configVersions.listProjectsLocationsRegistriesDevicesConfigVersions)
-   *
-   * @param string $name Required. The name of the device. For example,
-   * `projects/p0/locations/us-central1/registries/registry0/devices/device0` or
-   * `projects/p0/locations/us-central1/registries/registry0/devices/{num_id}`.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param int numVersions The number of versions to list. Versions are
-   * listed in decreasing order of the version number. The maximum number of
-   * versions retained is 10. If this value is zero, it will return all the
-   * versions available.
-   * @return Google_Service_CloudIot_ListDeviceConfigVersionsResponse
-   */
-  public function listProjectsLocationsRegistriesDevicesConfigVersions($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_CloudIot_ListDeviceConfigVersionsResponse");
-  }
+	/**
+	 * Lists the last few versions of the device configuration in descending order
+	 * (i.e.: newest first).
+	 * (configVersions.listProjectsLocationsRegistriesDevicesConfigVersions)
+	 *
+	 * @param string $name Required. The name of the device. For example,
+	 *                     `projects/p0/locations/us-central1/registries/registry0/devices/device0` or
+	 *                     `projects/p0/locations/us-central1/registries/registry0/devices/{num_id}`.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param int numVersions The number of versions to list. Versions are
+	 * listed in decreasing order of the version number. The maximum number of
+	 * versions retained is 10. If this value is zero, it will return all the
+	 * versions available.
+	 * @return Google_Service_CloudIot_ListDeviceConfigVersionsResponse
+	 */
+	public function listProjectsLocationsRegistriesDevicesConfigVersions($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_CloudIot_ListDeviceConfigVersionsResponse");
+	}
 }

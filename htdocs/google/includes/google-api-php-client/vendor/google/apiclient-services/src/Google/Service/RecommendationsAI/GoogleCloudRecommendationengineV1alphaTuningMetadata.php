@@ -17,14 +17,14 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1alphaTuningMetadata extends Google_Model
 {
-  public $recommendationModel;
+	public $recommendationModel;
 
-  public function setRecommendationModel($recommendationModel)
-  {
-    $this->recommendationModel = $recommendationModel;
-  }
-  public function getRecommendationModel()
-  {
-    return $this->recommendationModel;
-  }
+	public function setRecommendationModel($recommendationModel)
+	{
+		$this->recommendationModel = $recommendationModel;
+	}
+	public function getRecommendationModel()
+	{
+		return $this->recommendationModel;
+	}
 }

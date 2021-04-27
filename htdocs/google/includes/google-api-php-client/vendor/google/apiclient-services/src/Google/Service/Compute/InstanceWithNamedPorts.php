@@ -17,40 +17,40 @@
 
 class Google_Service_Compute_InstanceWithNamedPorts extends Google_Collection
 {
-  protected $collection_key = 'namedPorts';
-  public $instance;
-  protected $namedPortsType = 'Google_Service_Compute_NamedPort';
-  protected $namedPortsDataType = 'array';
-  public $status;
+	protected $collection_key = 'namedPorts';
+	public $instance;
+	protected $namedPortsType = 'Google_Service_Compute_NamedPort';
+	protected $namedPortsDataType = 'array';
+	public $status;
 
-  public function setInstance($instance)
-  {
-    $this->instance = $instance;
-  }
-  public function getInstance()
-  {
-    return $this->instance;
-  }
-  /**
-   * @param Google_Service_Compute_NamedPort
-   */
-  public function setNamedPorts($namedPorts)
-  {
-    $this->namedPorts = $namedPorts;
-  }
-  /**
-   * @return Google_Service_Compute_NamedPort
-   */
-  public function getNamedPorts()
-  {
-    return $this->namedPorts;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setInstance($instance)
+	{
+		$this->instance = $instance;
+	}
+	public function getInstance()
+	{
+		return $this->instance;
+	}
+	/**
+	 * @param Google_Service_Compute_NamedPort
+	 */
+	public function setNamedPorts($namedPorts)
+	{
+		$this->namedPorts = $namedPorts;
+	}
+	/**
+	 * @return Google_Service_Compute_NamedPort
+	 */
+	public function getNamedPorts()
+	{
+		return $this->namedPorts;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

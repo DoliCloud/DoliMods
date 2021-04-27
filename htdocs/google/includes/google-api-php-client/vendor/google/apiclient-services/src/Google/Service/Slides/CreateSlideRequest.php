@@ -17,56 +17,56 @@
 
 class Google_Service_Slides_CreateSlideRequest extends Google_Collection
 {
-  protected $collection_key = 'placeholderIdMappings';
-  public $insertionIndex;
-  public $objectId;
-  protected $placeholderIdMappingsType = 'Google_Service_Slides_LayoutPlaceholderIdMapping';
-  protected $placeholderIdMappingsDataType = 'array';
-  protected $slideLayoutReferenceType = 'Google_Service_Slides_LayoutReference';
-  protected $slideLayoutReferenceDataType = '';
+	protected $collection_key = 'placeholderIdMappings';
+	public $insertionIndex;
+	public $objectId;
+	protected $placeholderIdMappingsType = 'Google_Service_Slides_LayoutPlaceholderIdMapping';
+	protected $placeholderIdMappingsDataType = 'array';
+	protected $slideLayoutReferenceType = 'Google_Service_Slides_LayoutReference';
+	protected $slideLayoutReferenceDataType = '';
 
-  public function setInsertionIndex($insertionIndex)
-  {
-    $this->insertionIndex = $insertionIndex;
-  }
-  public function getInsertionIndex()
-  {
-    return $this->insertionIndex;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  /**
-   * @param Google_Service_Slides_LayoutPlaceholderIdMapping
-   */
-  public function setPlaceholderIdMappings($placeholderIdMappings)
-  {
-    $this->placeholderIdMappings = $placeholderIdMappings;
-  }
-  /**
-   * @return Google_Service_Slides_LayoutPlaceholderIdMapping
-   */
-  public function getPlaceholderIdMappings()
-  {
-    return $this->placeholderIdMappings;
-  }
-  /**
-   * @param Google_Service_Slides_LayoutReference
-   */
-  public function setSlideLayoutReference(Google_Service_Slides_LayoutReference $slideLayoutReference)
-  {
-    $this->slideLayoutReference = $slideLayoutReference;
-  }
-  /**
-   * @return Google_Service_Slides_LayoutReference
-   */
-  public function getSlideLayoutReference()
-  {
-    return $this->slideLayoutReference;
-  }
+	public function setInsertionIndex($insertionIndex)
+	{
+		$this->insertionIndex = $insertionIndex;
+	}
+	public function getInsertionIndex()
+	{
+		return $this->insertionIndex;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	/**
+	 * @param Google_Service_Slides_LayoutPlaceholderIdMapping
+	 */
+	public function setPlaceholderIdMappings($placeholderIdMappings)
+	{
+		$this->placeholderIdMappings = $placeholderIdMappings;
+	}
+	/**
+	 * @return Google_Service_Slides_LayoutPlaceholderIdMapping
+	 */
+	public function getPlaceholderIdMappings()
+	{
+		return $this->placeholderIdMappings;
+	}
+	/**
+	 * @param Google_Service_Slides_LayoutReference
+	 */
+	public function setSlideLayoutReference(Google_Service_Slides_LayoutReference $slideLayoutReference)
+	{
+		$this->slideLayoutReference = $slideLayoutReference;
+	}
+	/**
+	 * @return Google_Service_Slides_LayoutReference
+	 */
+	public function getSlideLayoutReference()
+	{
+		return $this->slideLayoutReference;
+	}
 }

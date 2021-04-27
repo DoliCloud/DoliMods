@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_PublisherReviewStatus extends Google_Model
 {
-  public $publisherName;
-  public $status;
+	public $publisherName;
+	public $status;
 
-  public function setPublisherName($publisherName)
-  {
-    $this->publisherName = $publisherName;
-  }
-  public function getPublisherName()
-  {
-    return $this->publisherName;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setPublisherName($publisherName)
+	{
+		$this->publisherName = $publisherName;
+	}
+	public function getPublisherName()
+	{
+		return $this->publisherName;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

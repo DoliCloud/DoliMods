@@ -17,32 +17,32 @@
 
 class Google_Service_Bigquery_Streamingbuffer extends Google_Model
 {
-  public $estimatedBytes;
-  public $estimatedRows;
-  public $oldestEntryTime;
+	public $estimatedBytes;
+	public $estimatedRows;
+	public $oldestEntryTime;
 
-  public function setEstimatedBytes($estimatedBytes)
-  {
-    $this->estimatedBytes = $estimatedBytes;
-  }
-  public function getEstimatedBytes()
-  {
-    return $this->estimatedBytes;
-  }
-  public function setEstimatedRows($estimatedRows)
-  {
-    $this->estimatedRows = $estimatedRows;
-  }
-  public function getEstimatedRows()
-  {
-    return $this->estimatedRows;
-  }
-  public function setOldestEntryTime($oldestEntryTime)
-  {
-    $this->oldestEntryTime = $oldestEntryTime;
-  }
-  public function getOldestEntryTime()
-  {
-    return $this->oldestEntryTime;
-  }
+	public function setEstimatedBytes($estimatedBytes)
+	{
+		$this->estimatedBytes = $estimatedBytes;
+	}
+	public function getEstimatedBytes()
+	{
+		return $this->estimatedBytes;
+	}
+	public function setEstimatedRows($estimatedRows)
+	{
+		$this->estimatedRows = $estimatedRows;
+	}
+	public function getEstimatedRows()
+	{
+		return $this->estimatedRows;
+	}
+	public function setOldestEntryTime($oldestEntryTime)
+	{
+		$this->oldestEntryTime = $oldestEntryTime;
+	}
+	public function getOldestEntryTime()
+	{
+		return $this->oldestEntryTime;
+	}
 }

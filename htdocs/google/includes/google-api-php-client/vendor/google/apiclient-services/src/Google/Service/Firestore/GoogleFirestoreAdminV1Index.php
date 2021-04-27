@@ -17,49 +17,49 @@
 
 class Google_Service_Firestore_GoogleFirestoreAdminV1Index extends Google_Collection
 {
-  protected $collection_key = 'fields';
-  protected $fieldsType = 'Google_Service_Firestore_GoogleFirestoreAdminV1IndexField';
-  protected $fieldsDataType = 'array';
-  public $name;
-  public $queryScope;
-  public $state;
+	protected $collection_key = 'fields';
+	protected $fieldsType = 'Google_Service_Firestore_GoogleFirestoreAdminV1IndexField';
+	protected $fieldsDataType = 'array';
+	public $name;
+	public $queryScope;
+	public $state;
 
-  /**
-   * @param Google_Service_Firestore_GoogleFirestoreAdminV1IndexField
-   */
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  /**
-   * @return Google_Service_Firestore_GoogleFirestoreAdminV1IndexField
-   */
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setQueryScope($queryScope)
-  {
-    $this->queryScope = $queryScope;
-  }
-  public function getQueryScope()
-  {
-    return $this->queryScope;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	/**
+	 * @param Google_Service_Firestore_GoogleFirestoreAdminV1IndexField
+	 */
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	/**
+	 * @return Google_Service_Firestore_GoogleFirestoreAdminV1IndexField
+	 */
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setQueryScope($queryScope)
+	{
+		$this->queryScope = $queryScope;
+	}
+	public function getQueryScope()
+	{
+		return $this->queryScope;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

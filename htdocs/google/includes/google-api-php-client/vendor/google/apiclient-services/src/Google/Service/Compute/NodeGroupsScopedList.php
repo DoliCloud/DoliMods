@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_NodeGroupsScopedList extends Google_Collection
 {
-  protected $collection_key = 'nodeGroups';
-  protected $nodeGroupsType = 'Google_Service_Compute_NodeGroup';
-  protected $nodeGroupsDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_NodeGroupsScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'nodeGroups';
+	protected $nodeGroupsType = 'Google_Service_Compute_NodeGroup';
+	protected $nodeGroupsDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_NodeGroupsScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_NodeGroup
-   */
-  public function setNodeGroups($nodeGroups)
-  {
-    $this->nodeGroups = $nodeGroups;
-  }
-  /**
-   * @return Google_Service_Compute_NodeGroup
-   */
-  public function getNodeGroups()
-  {
-    return $this->nodeGroups;
-  }
-  /**
-   * @param Google_Service_Compute_NodeGroupsScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_NodeGroupsScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_NodeGroupsScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_NodeGroup
+	 */
+	public function setNodeGroups($nodeGroups)
+	{
+		$this->nodeGroups = $nodeGroups;
+	}
+	/**
+	 * @return Google_Service_Compute_NodeGroup
+	 */
+	public function getNodeGroups()
+	{
+		return $this->nodeGroups;
+	}
+	/**
+	 * @param Google_Service_Compute_NodeGroupsScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_NodeGroupsScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_NodeGroupsScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_DistributionPolicyZoneConfiguration extends Google_Model
 {
-  public $zone;
+	public $zone;
 
-  public function setZone($zone)
-  {
-    $this->zone = $zone;
-  }
-  public function getZone()
-  {
-    return $this->zone;
-  }
+	public function setZone($zone)
+	{
+		$this->zone = $zone;
+	}
+	public function getZone()
+	{
+		return $this->zone;
+	}
 }

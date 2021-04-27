@@ -17,72 +17,72 @@
 
 class Google_Service_CloudRun_RouteStatus extends Google_Collection
 {
-  protected $collection_key = 'traffic';
-  protected $addressType = 'Google_Service_CloudRun_Addressable';
-  protected $addressDataType = '';
-  protected $conditionsType = 'Google_Service_CloudRun_GoogleCloudRunV1Condition';
-  protected $conditionsDataType = 'array';
-  public $observedGeneration;
-  protected $trafficType = 'Google_Service_CloudRun_TrafficTarget';
-  protected $trafficDataType = 'array';
-  public $url;
+	protected $collection_key = 'traffic';
+	protected $addressType = 'Google_Service_CloudRun_Addressable';
+	protected $addressDataType = '';
+	protected $conditionsType = 'Google_Service_CloudRun_GoogleCloudRunV1Condition';
+	protected $conditionsDataType = 'array';
+	public $observedGeneration;
+	protected $trafficType = 'Google_Service_CloudRun_TrafficTarget';
+	protected $trafficDataType = 'array';
+	public $url;
 
-  /**
-   * @param Google_Service_CloudRun_Addressable
-   */
-  public function setAddress(Google_Service_CloudRun_Addressable $address)
-  {
-    $this->address = $address;
-  }
-  /**
-   * @return Google_Service_CloudRun_Addressable
-   */
-  public function getAddress()
-  {
-    return $this->address;
-  }
-  /**
-   * @param Google_Service_CloudRun_GoogleCloudRunV1Condition
-   */
-  public function setConditions($conditions)
-  {
-    $this->conditions = $conditions;
-  }
-  /**
-   * @return Google_Service_CloudRun_GoogleCloudRunV1Condition
-   */
-  public function getConditions()
-  {
-    return $this->conditions;
-  }
-  public function setObservedGeneration($observedGeneration)
-  {
-    $this->observedGeneration = $observedGeneration;
-  }
-  public function getObservedGeneration()
-  {
-    return $this->observedGeneration;
-  }
-  /**
-   * @param Google_Service_CloudRun_TrafficTarget
-   */
-  public function setTraffic($traffic)
-  {
-    $this->traffic = $traffic;
-  }
-  /**
-   * @return Google_Service_CloudRun_TrafficTarget
-   */
-  public function getTraffic()
-  {
-    return $this->traffic;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	/**
+	 * @param Google_Service_CloudRun_Addressable
+	 */
+	public function setAddress(Google_Service_CloudRun_Addressable $address)
+	{
+		$this->address = $address;
+	}
+	/**
+	 * @return Google_Service_CloudRun_Addressable
+	 */
+	public function getAddress()
+	{
+		return $this->address;
+	}
+	/**
+	 * @param Google_Service_CloudRun_GoogleCloudRunV1Condition
+	 */
+	public function setConditions($conditions)
+	{
+		$this->conditions = $conditions;
+	}
+	/**
+	 * @return Google_Service_CloudRun_GoogleCloudRunV1Condition
+	 */
+	public function getConditions()
+	{
+		return $this->conditions;
+	}
+	public function setObservedGeneration($observedGeneration)
+	{
+		$this->observedGeneration = $observedGeneration;
+	}
+	public function getObservedGeneration()
+	{
+		return $this->observedGeneration;
+	}
+	/**
+	 * @param Google_Service_CloudRun_TrafficTarget
+	 */
+	public function setTraffic($traffic)
+	{
+		$this->traffic = $traffic;
+	}
+	/**
+	 * @return Google_Service_CloudRun_TrafficTarget
+	 */
+	public function getTraffic()
+	{
+		return $this->traffic;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

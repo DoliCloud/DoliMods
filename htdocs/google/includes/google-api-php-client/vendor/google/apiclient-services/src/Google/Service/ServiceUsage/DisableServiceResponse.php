@@ -17,21 +17,21 @@
 
 class Google_Service_ServiceUsage_DisableServiceResponse extends Google_Model
 {
-  protected $serviceType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1Service';
-  protected $serviceDataType = '';
+	protected $serviceType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1Service';
+	protected $serviceDataType = '';
 
-  /**
-   * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
-   */
-  public function setService(Google_Service_ServiceUsage_GoogleApiServiceusageV1Service $service)
-  {
-    $this->service = $service;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
-   */
-  public function getService()
-  {
-    return $this->service;
-  }
+	/**
+	 * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
+	 */
+	public function setService(Google_Service_ServiceUsage_GoogleApiServiceusageV1Service $service)
+	{
+		$this->service = $service;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
+	 */
+	public function getService()
+	{
+		return $this->service;
+	}
 }

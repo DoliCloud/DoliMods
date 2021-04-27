@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceControl_QuotaError extends Google_Model
 {
-  public $code;
-  public $description;
-  public $subject;
+	public $code;
+	public $description;
+	public $subject;
 
-  public function setCode($code)
-  {
-    $this->code = $code;
-  }
-  public function getCode()
-  {
-    return $this->code;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setSubject($subject)
-  {
-    $this->subject = $subject;
-  }
-  public function getSubject()
-  {
-    return $this->subject;
-  }
+	public function setCode($code)
+	{
+		$this->code = $code;
+	}
+	public function getCode()
+	{
+		return $this->code;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setSubject($subject)
+	{
+		$this->subject = $subject;
+	}
+	public function getSubject()
+	{
+		return $this->subject;
+	}
 }

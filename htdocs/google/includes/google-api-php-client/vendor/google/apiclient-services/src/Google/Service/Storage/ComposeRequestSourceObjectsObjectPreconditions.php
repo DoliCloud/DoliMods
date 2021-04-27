@@ -17,14 +17,14 @@
 
 class Google_Service_Storage_ComposeRequestSourceObjectsObjectPreconditions extends Google_Model
 {
-  public $ifGenerationMatch;
+	public $ifGenerationMatch;
 
-  public function setIfGenerationMatch($ifGenerationMatch)
-  {
-    $this->ifGenerationMatch = $ifGenerationMatch;
-  }
-  public function getIfGenerationMatch()
-  {
-    return $this->ifGenerationMatch;
-  }
+	public function setIfGenerationMatch($ifGenerationMatch)
+	{
+		$this->ifGenerationMatch = $ifGenerationMatch;
+	}
+	public function getIfGenerationMatch()
+	{
+		return $this->ifGenerationMatch;
+	}
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_CloudBuild_SlackDelivery extends Google_Model
 {
-  protected $webhookUriType = 'Google_Service_CloudBuild_NotifierSecretRef';
-  protected $webhookUriDataType = '';
+	protected $webhookUriType = 'Google_Service_CloudBuild_NotifierSecretRef';
+	protected $webhookUriDataType = '';
 
-  /**
-   * @param Google_Service_CloudBuild_NotifierSecretRef
-   */
-  public function setWebhookUri(Google_Service_CloudBuild_NotifierSecretRef $webhookUri)
-  {
-    $this->webhookUri = $webhookUri;
-  }
-  /**
-   * @return Google_Service_CloudBuild_NotifierSecretRef
-   */
-  public function getWebhookUri()
-  {
-    return $this->webhookUri;
-  }
+	/**
+	 * @param Google_Service_CloudBuild_NotifierSecretRef
+	 */
+	public function setWebhookUri(Google_Service_CloudBuild_NotifierSecretRef $webhookUri)
+	{
+		$this->webhookUri = $webhookUri;
+	}
+	/**
+	 * @return Google_Service_CloudBuild_NotifierSecretRef
+	 */
+	public function getWebhookUri()
+	{
+		return $this->webhookUri;
+	}
 }

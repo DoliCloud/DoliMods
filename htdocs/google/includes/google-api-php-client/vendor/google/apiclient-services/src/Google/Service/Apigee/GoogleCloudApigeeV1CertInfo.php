@@ -17,105 +17,105 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1CertInfo extends Google_Collection
 {
-  protected $collection_key = 'subjectAlternativeNames';
-  public $basicConstraints;
-  public $expiryDate;
-  public $isValid;
-  public $issuer;
-  public $publicKey;
-  public $serialNumber;
-  public $sigAlgName;
-  public $subject;
-  public $subjectAlternativeNames;
-  public $validFrom;
-  public $version;
+	protected $collection_key = 'subjectAlternativeNames';
+	public $basicConstraints;
+	public $expiryDate;
+	public $isValid;
+	public $issuer;
+	public $publicKey;
+	public $serialNumber;
+	public $sigAlgName;
+	public $subject;
+	public $subjectAlternativeNames;
+	public $validFrom;
+	public $version;
 
-  public function setBasicConstraints($basicConstraints)
-  {
-    $this->basicConstraints = $basicConstraints;
-  }
-  public function getBasicConstraints()
-  {
-    return $this->basicConstraints;
-  }
-  public function setExpiryDate($expiryDate)
-  {
-    $this->expiryDate = $expiryDate;
-  }
-  public function getExpiryDate()
-  {
-    return $this->expiryDate;
-  }
-  public function setIsValid($isValid)
-  {
-    $this->isValid = $isValid;
-  }
-  public function getIsValid()
-  {
-    return $this->isValid;
-  }
-  public function setIssuer($issuer)
-  {
-    $this->issuer = $issuer;
-  }
-  public function getIssuer()
-  {
-    return $this->issuer;
-  }
-  public function setPublicKey($publicKey)
-  {
-    $this->publicKey = $publicKey;
-  }
-  public function getPublicKey()
-  {
-    return $this->publicKey;
-  }
-  public function setSerialNumber($serialNumber)
-  {
-    $this->serialNumber = $serialNumber;
-  }
-  public function getSerialNumber()
-  {
-    return $this->serialNumber;
-  }
-  public function setSigAlgName($sigAlgName)
-  {
-    $this->sigAlgName = $sigAlgName;
-  }
-  public function getSigAlgName()
-  {
-    return $this->sigAlgName;
-  }
-  public function setSubject($subject)
-  {
-    $this->subject = $subject;
-  }
-  public function getSubject()
-  {
-    return $this->subject;
-  }
-  public function setSubjectAlternativeNames($subjectAlternativeNames)
-  {
-    $this->subjectAlternativeNames = $subjectAlternativeNames;
-  }
-  public function getSubjectAlternativeNames()
-  {
-    return $this->subjectAlternativeNames;
-  }
-  public function setValidFrom($validFrom)
-  {
-    $this->validFrom = $validFrom;
-  }
-  public function getValidFrom()
-  {
-    return $this->validFrom;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setBasicConstraints($basicConstraints)
+	{
+		$this->basicConstraints = $basicConstraints;
+	}
+	public function getBasicConstraints()
+	{
+		return $this->basicConstraints;
+	}
+	public function setExpiryDate($expiryDate)
+	{
+		$this->expiryDate = $expiryDate;
+	}
+	public function getExpiryDate()
+	{
+		return $this->expiryDate;
+	}
+	public function setIsValid($isValid)
+	{
+		$this->isValid = $isValid;
+	}
+	public function getIsValid()
+	{
+		return $this->isValid;
+	}
+	public function setIssuer($issuer)
+	{
+		$this->issuer = $issuer;
+	}
+	public function getIssuer()
+	{
+		return $this->issuer;
+	}
+	public function setPublicKey($publicKey)
+	{
+		$this->publicKey = $publicKey;
+	}
+	public function getPublicKey()
+	{
+		return $this->publicKey;
+	}
+	public function setSerialNumber($serialNumber)
+	{
+		$this->serialNumber = $serialNumber;
+	}
+	public function getSerialNumber()
+	{
+		return $this->serialNumber;
+	}
+	public function setSigAlgName($sigAlgName)
+	{
+		$this->sigAlgName = $sigAlgName;
+	}
+	public function getSigAlgName()
+	{
+		return $this->sigAlgName;
+	}
+	public function setSubject($subject)
+	{
+		$this->subject = $subject;
+	}
+	public function getSubject()
+	{
+		return $this->subject;
+	}
+	public function setSubjectAlternativeNames($subjectAlternativeNames)
+	{
+		$this->subjectAlternativeNames = $subjectAlternativeNames;
+	}
+	public function getSubjectAlternativeNames()
+	{
+		return $this->subjectAlternativeNames;
+	}
+	public function setValidFrom($validFrom)
+	{
+		$this->validFrom = $validFrom;
+	}
+	public function getValidFrom()
+	{
+		return $this->validFrom;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

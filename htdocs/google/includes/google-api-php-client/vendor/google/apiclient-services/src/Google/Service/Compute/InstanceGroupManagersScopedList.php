@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_InstanceGroupManagersScopedList extends Google_Collection
 {
-  protected $collection_key = 'instanceGroupManagers';
-  protected $instanceGroupManagersType = 'Google_Service_Compute_InstanceGroupManager';
-  protected $instanceGroupManagersDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_InstanceGroupManagersScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'instanceGroupManagers';
+	protected $instanceGroupManagersType = 'Google_Service_Compute_InstanceGroupManager';
+	protected $instanceGroupManagersDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_InstanceGroupManagersScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_InstanceGroupManager
-   */
-  public function setInstanceGroupManagers($instanceGroupManagers)
-  {
-    $this->instanceGroupManagers = $instanceGroupManagers;
-  }
-  /**
-   * @return Google_Service_Compute_InstanceGroupManager
-   */
-  public function getInstanceGroupManagers()
-  {
-    return $this->instanceGroupManagers;
-  }
-  /**
-   * @param Google_Service_Compute_InstanceGroupManagersScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_InstanceGroupManagersScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_InstanceGroupManagersScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_InstanceGroupManager
+	 */
+	public function setInstanceGroupManagers($instanceGroupManagers)
+	{
+		$this->instanceGroupManagers = $instanceGroupManagers;
+	}
+	/**
+	 * @return Google_Service_Compute_InstanceGroupManager
+	 */
+	public function getInstanceGroupManagers()
+	{
+		return $this->instanceGroupManagers;
+	}
+	/**
+	 * @param Google_Service_Compute_InstanceGroupManagersScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_InstanceGroupManagersScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_InstanceGroupManagersScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

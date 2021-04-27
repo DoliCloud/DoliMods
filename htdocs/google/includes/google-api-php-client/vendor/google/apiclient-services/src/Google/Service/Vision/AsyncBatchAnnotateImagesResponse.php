@@ -17,21 +17,21 @@
 
 class Google_Service_Vision_AsyncBatchAnnotateImagesResponse extends Google_Model
 {
-  protected $outputConfigType = 'Google_Service_Vision_OutputConfig';
-  protected $outputConfigDataType = '';
+	protected $outputConfigType = 'Google_Service_Vision_OutputConfig';
+	protected $outputConfigDataType = '';
 
-  /**
-   * @param Google_Service_Vision_OutputConfig
-   */
-  public function setOutputConfig(Google_Service_Vision_OutputConfig $outputConfig)
-  {
-    $this->outputConfig = $outputConfig;
-  }
-  /**
-   * @return Google_Service_Vision_OutputConfig
-   */
-  public function getOutputConfig()
-  {
-    return $this->outputConfig;
-  }
+	/**
+	 * @param Google_Service_Vision_OutputConfig
+	 */
+	public function setOutputConfig(Google_Service_Vision_OutputConfig $outputConfig)
+	{
+		$this->outputConfig = $outputConfig;
+	}
+	/**
+	 * @return Google_Service_Vision_OutputConfig
+	 */
+	public function getOutputConfig()
+	{
+		return $this->outputConfig;
+	}
 }

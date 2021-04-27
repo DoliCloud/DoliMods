@@ -17,50 +17,50 @@
 
 class Google_Service_Appengine_ApiConfigHandler extends Google_Model
 {
-  public $authFailAction;
-  public $login;
-  public $script;
-  public $securityLevel;
-  public $url;
+	public $authFailAction;
+	public $login;
+	public $script;
+	public $securityLevel;
+	public $url;
 
-  public function setAuthFailAction($authFailAction)
-  {
-    $this->authFailAction = $authFailAction;
-  }
-  public function getAuthFailAction()
-  {
-    return $this->authFailAction;
-  }
-  public function setLogin($login)
-  {
-    $this->login = $login;
-  }
-  public function getLogin()
-  {
-    return $this->login;
-  }
-  public function setScript($script)
-  {
-    $this->script = $script;
-  }
-  public function getScript()
-  {
-    return $this->script;
-  }
-  public function setSecurityLevel($securityLevel)
-  {
-    $this->securityLevel = $securityLevel;
-  }
-  public function getSecurityLevel()
-  {
-    return $this->securityLevel;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setAuthFailAction($authFailAction)
+	{
+		$this->authFailAction = $authFailAction;
+	}
+	public function getAuthFailAction()
+	{
+		return $this->authFailAction;
+	}
+	public function setLogin($login)
+	{
+		$this->login = $login;
+	}
+	public function getLogin()
+	{
+		return $this->login;
+	}
+	public function setScript($script)
+	{
+		$this->script = $script;
+	}
+	public function getScript()
+	{
+		return $this->script;
+	}
+	public function setSecurityLevel($securityLevel)
+	{
+		$this->securityLevel = $securityLevel;
+	}
+	public function getSecurityLevel()
+	{
+		return $this->securityLevel;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

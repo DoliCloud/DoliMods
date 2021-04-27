@@ -25,20 +25,20 @@
  */
 class Google_Service_AndroidManagement_Resource_EnterprisesWebTokens extends Google_Service_Resource
 {
-  /**
-   * Creates a web token to access an embeddable managed Google Play web UI for a
-   * given enterprise. (webTokens.create)
-   *
-   * @param string $parent The name of the enterprise in the form
-   * enterprises/{enterpriseId}.
-   * @param Google_Service_AndroidManagement_WebToken $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidManagement_WebToken
-   */
-  public function create($parent, Google_Service_AndroidManagement_WebToken $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_AndroidManagement_WebToken");
-  }
+	/**
+	 * Creates a web token to access an embeddable managed Google Play web UI for a
+	 * given enterprise. (webTokens.create)
+	 *
+	 * @param string $parent The name of the enterprise in the form
+	 *                       enterprises/{enterpriseId}.
+	 * @param Google_Service_AndroidManagement_WebToken $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidManagement_WebToken
+	 */
+	public function create($parent, Google_Service_AndroidManagement_WebToken $postBody, $optParams = array())
+	{
+		$params = array('parent' => $parent, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_AndroidManagement_WebToken");
+	}
 }

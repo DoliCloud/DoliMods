@@ -17,31 +17,31 @@
 
 class Google_Service_Books_AnnotationsSummary extends Google_Collection
 {
-  protected $collection_key = 'layers';
-  public $kind;
-  protected $layersType = 'Google_Service_Books_AnnotationsSummaryLayers';
-  protected $layersDataType = 'array';
+	protected $collection_key = 'layers';
+	public $kind;
+	protected $layersType = 'Google_Service_Books_AnnotationsSummaryLayers';
+	protected $layersDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Books_AnnotationsSummaryLayers
-   */
-  public function setLayers($layers)
-  {
-    $this->layers = $layers;
-  }
-  /**
-   * @return Google_Service_Books_AnnotationsSummaryLayers
-   */
-  public function getLayers()
-  {
-    return $this->layers;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Books_AnnotationsSummaryLayers
+	 */
+	public function setLayers($layers)
+	{
+		$this->layers = $layers;
+	}
+	/**
+	 * @return Google_Service_Books_AnnotationsSummaryLayers
+	 */
+	public function getLayers()
+	{
+		return $this->layers;
+	}
 }

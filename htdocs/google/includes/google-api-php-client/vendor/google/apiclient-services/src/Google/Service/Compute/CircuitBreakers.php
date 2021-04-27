@@ -17,50 +17,50 @@
 
 class Google_Service_Compute_CircuitBreakers extends Google_Model
 {
-  public $maxConnections;
-  public $maxPendingRequests;
-  public $maxRequests;
-  public $maxRequestsPerConnection;
-  public $maxRetries;
+	public $maxConnections;
+	public $maxPendingRequests;
+	public $maxRequests;
+	public $maxRequestsPerConnection;
+	public $maxRetries;
 
-  public function setMaxConnections($maxConnections)
-  {
-    $this->maxConnections = $maxConnections;
-  }
-  public function getMaxConnections()
-  {
-    return $this->maxConnections;
-  }
-  public function setMaxPendingRequests($maxPendingRequests)
-  {
-    $this->maxPendingRequests = $maxPendingRequests;
-  }
-  public function getMaxPendingRequests()
-  {
-    return $this->maxPendingRequests;
-  }
-  public function setMaxRequests($maxRequests)
-  {
-    $this->maxRequests = $maxRequests;
-  }
-  public function getMaxRequests()
-  {
-    return $this->maxRequests;
-  }
-  public function setMaxRequestsPerConnection($maxRequestsPerConnection)
-  {
-    $this->maxRequestsPerConnection = $maxRequestsPerConnection;
-  }
-  public function getMaxRequestsPerConnection()
-  {
-    return $this->maxRequestsPerConnection;
-  }
-  public function setMaxRetries($maxRetries)
-  {
-    $this->maxRetries = $maxRetries;
-  }
-  public function getMaxRetries()
-  {
-    return $this->maxRetries;
-  }
+	public function setMaxConnections($maxConnections)
+	{
+		$this->maxConnections = $maxConnections;
+	}
+	public function getMaxConnections()
+	{
+		return $this->maxConnections;
+	}
+	public function setMaxPendingRequests($maxPendingRequests)
+	{
+		$this->maxPendingRequests = $maxPendingRequests;
+	}
+	public function getMaxPendingRequests()
+	{
+		return $this->maxPendingRequests;
+	}
+	public function setMaxRequests($maxRequests)
+	{
+		$this->maxRequests = $maxRequests;
+	}
+	public function getMaxRequests()
+	{
+		return $this->maxRequests;
+	}
+	public function setMaxRequestsPerConnection($maxRequestsPerConnection)
+	{
+		$this->maxRequestsPerConnection = $maxRequestsPerConnection;
+	}
+	public function getMaxRequestsPerConnection()
+	{
+		return $this->maxRequestsPerConnection;
+	}
+	public function setMaxRetries($maxRetries)
+	{
+		$this->maxRetries = $maxRetries;
+	}
+	public function getMaxRetries()
+	{
+		return $this->maxRetries;
+	}
 }

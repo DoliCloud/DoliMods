@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidManagement_AdvancedSecurityOverrides extends Google_Model
 {
-  public $untrustedAppsPolicy;
+	public $untrustedAppsPolicy;
 
-  public function setUntrustedAppsPolicy($untrustedAppsPolicy)
-  {
-    $this->untrustedAppsPolicy = $untrustedAppsPolicy;
-  }
-  public function getUntrustedAppsPolicy()
-  {
-    return $this->untrustedAppsPolicy;
-  }
+	public function setUntrustedAppsPolicy($untrustedAppsPolicy)
+	{
+		$this->untrustedAppsPolicy = $untrustedAppsPolicy;
+	}
+	public function getUntrustedAppsPolicy()
+	{
+		return $this->untrustedAppsPolicy;
+	}
 }

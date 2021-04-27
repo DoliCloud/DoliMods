@@ -33,58 +33,58 @@ class Google_Service_AbusiveExperienceReport extends Google_Service
 {
 
 
-  public $sites;
-  public $violatingSites;
-  
-  /**
-   * Constructs the internal representation of the AbusiveExperienceReport
-   * service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://abusiveexperiencereport.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'abusiveexperiencereport';
+	public $sites;
+	public $violatingSites;
 
-    $this->sites = new Google_Service_AbusiveExperienceReport_Resource_Sites(
-        $this,
-        $this->serviceName,
-        'sites',
-        array(
-          'methods' => array(
-            'get' => array(
-              'path' => 'v1/{+name}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->violatingSites = new Google_Service_AbusiveExperienceReport_Resource_ViolatingSites(
-        $this,
-        $this->serviceName,
-        'violatingSites',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'v1/violatingSites',
-              'httpMethod' => 'GET',
-              'parameters' => array(),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the AbusiveExperienceReport
+	 * service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://abusiveexperiencereport.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'abusiveexperiencereport';
+
+		$this->sites = new Google_Service_AbusiveExperienceReport_Resource_Sites(
+		$this,
+		$this->serviceName,
+		'sites',
+		array(
+		  'methods' => array(
+			'get' => array(
+			  'path' => 'v1/{+name}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->violatingSites = new Google_Service_AbusiveExperienceReport_Resource_ViolatingSites(
+		$this,
+		$this->serviceName,
+		'violatingSites',
+		array(
+		  'methods' => array(
+			'list' => array(
+			  'path' => 'v1/violatingSites',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(),
+			),
+		  )
+		)
+		);
+	}
 }

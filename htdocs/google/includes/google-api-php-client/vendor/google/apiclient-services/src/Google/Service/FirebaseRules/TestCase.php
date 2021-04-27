@@ -17,67 +17,67 @@
 
 class Google_Service_FirebaseRules_TestCase extends Google_Collection
 {
-  protected $collection_key = 'functionMocks';
-  public $expectation;
-  public $expressionReportLevel;
-  protected $functionMocksType = 'Google_Service_FirebaseRules_FunctionMock';
-  protected $functionMocksDataType = 'array';
-  public $pathEncoding;
-  public $request;
-  public $resource;
+	protected $collection_key = 'functionMocks';
+	public $expectation;
+	public $expressionReportLevel;
+	protected $functionMocksType = 'Google_Service_FirebaseRules_FunctionMock';
+	protected $functionMocksDataType = 'array';
+	public $pathEncoding;
+	public $request;
+	public $resource;
 
-  public function setExpectation($expectation)
-  {
-    $this->expectation = $expectation;
-  }
-  public function getExpectation()
-  {
-    return $this->expectation;
-  }
-  public function setExpressionReportLevel($expressionReportLevel)
-  {
-    $this->expressionReportLevel = $expressionReportLevel;
-  }
-  public function getExpressionReportLevel()
-  {
-    return $this->expressionReportLevel;
-  }
-  /**
-   * @param Google_Service_FirebaseRules_FunctionMock
-   */
-  public function setFunctionMocks($functionMocks)
-  {
-    $this->functionMocks = $functionMocks;
-  }
-  /**
-   * @return Google_Service_FirebaseRules_FunctionMock
-   */
-  public function getFunctionMocks()
-  {
-    return $this->functionMocks;
-  }
-  public function setPathEncoding($pathEncoding)
-  {
-    $this->pathEncoding = $pathEncoding;
-  }
-  public function getPathEncoding()
-  {
-    return $this->pathEncoding;
-  }
-  public function setRequest($request)
-  {
-    $this->request = $request;
-  }
-  public function getRequest()
-  {
-    return $this->request;
-  }
-  public function setResource($resource)
-  {
-    $this->resource = $resource;
-  }
-  public function getResource()
-  {
-    return $this->resource;
-  }
+	public function setExpectation($expectation)
+	{
+		$this->expectation = $expectation;
+	}
+	public function getExpectation()
+	{
+		return $this->expectation;
+	}
+	public function setExpressionReportLevel($expressionReportLevel)
+	{
+		$this->expressionReportLevel = $expressionReportLevel;
+	}
+	public function getExpressionReportLevel()
+	{
+		return $this->expressionReportLevel;
+	}
+	/**
+	 * @param Google_Service_FirebaseRules_FunctionMock
+	 */
+	public function setFunctionMocks($functionMocks)
+	{
+		$this->functionMocks = $functionMocks;
+	}
+	/**
+	 * @return Google_Service_FirebaseRules_FunctionMock
+	 */
+	public function getFunctionMocks()
+	{
+		return $this->functionMocks;
+	}
+	public function setPathEncoding($pathEncoding)
+	{
+		$this->pathEncoding = $pathEncoding;
+	}
+	public function getPathEncoding()
+	{
+		return $this->pathEncoding;
+	}
+	public function setRequest($request)
+	{
+		$this->request = $request;
+	}
+	public function getRequest()
+	{
+		return $this->request;
+	}
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
+	public function getResource()
+	{
+		return $this->resource;
+	}
 }

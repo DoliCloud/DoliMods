@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceControl_ConsumerInfo extends Google_Model
 {
-  public $consumerNumber;
-  public $projectNumber;
-  public $type;
+	public $consumerNumber;
+	public $projectNumber;
+	public $type;
 
-  public function setConsumerNumber($consumerNumber)
-  {
-    $this->consumerNumber = $consumerNumber;
-  }
-  public function getConsumerNumber()
-  {
-    return $this->consumerNumber;
-  }
-  public function setProjectNumber($projectNumber)
-  {
-    $this->projectNumber = $projectNumber;
-  }
-  public function getProjectNumber()
-  {
-    return $this->projectNumber;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setConsumerNumber($consumerNumber)
+	{
+		$this->consumerNumber = $consumerNumber;
+	}
+	public function getConsumerNumber()
+	{
+		return $this->consumerNumber;
+	}
+	public function setProjectNumber($projectNumber)
+	{
+		$this->projectNumber = $projectNumber;
+	}
+	public function getProjectNumber()
+	{
+		return $this->projectNumber;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

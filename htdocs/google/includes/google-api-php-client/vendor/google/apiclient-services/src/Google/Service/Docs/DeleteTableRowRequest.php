@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_DeleteTableRowRequest extends Google_Model
 {
-  protected $tableCellLocationType = 'Google_Service_Docs_TableCellLocation';
-  protected $tableCellLocationDataType = '';
+	protected $tableCellLocationType = 'Google_Service_Docs_TableCellLocation';
+	protected $tableCellLocationDataType = '';
 
-  /**
-   * @param Google_Service_Docs_TableCellLocation
-   */
-  public function setTableCellLocation(Google_Service_Docs_TableCellLocation $tableCellLocation)
-  {
-    $this->tableCellLocation = $tableCellLocation;
-  }
-  /**
-   * @return Google_Service_Docs_TableCellLocation
-   */
-  public function getTableCellLocation()
-  {
-    return $this->tableCellLocation;
-  }
+	/**
+	 * @param Google_Service_Docs_TableCellLocation
+	 */
+	public function setTableCellLocation(Google_Service_Docs_TableCellLocation $tableCellLocation)
+	{
+		$this->tableCellLocation = $tableCellLocation;
+	}
+	/**
+	 * @return Google_Service_Docs_TableCellLocation
+	 */
+	public function getTableCellLocation()
+	{
+		return $this->tableCellLocation;
+	}
 }

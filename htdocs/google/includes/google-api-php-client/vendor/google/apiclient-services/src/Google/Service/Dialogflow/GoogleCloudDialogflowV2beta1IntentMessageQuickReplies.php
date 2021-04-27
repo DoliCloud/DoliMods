@@ -17,24 +17,24 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageQuickReplies extends Google_Collection
 {
-  protected $collection_key = 'quickReplies';
-  public $quickReplies;
-  public $title;
+	protected $collection_key = 'quickReplies';
+	public $quickReplies;
+	public $title;
 
-  public function setQuickReplies($quickReplies)
-  {
-    $this->quickReplies = $quickReplies;
-  }
-  public function getQuickReplies()
-  {
-    return $this->quickReplies;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setQuickReplies($quickReplies)
+	{
+		$this->quickReplies = $quickReplies;
+	}
+	public function getQuickReplies()
+	{
+		return $this->quickReplies;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

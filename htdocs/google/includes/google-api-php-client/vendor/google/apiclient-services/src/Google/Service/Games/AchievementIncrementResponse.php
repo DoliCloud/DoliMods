@@ -17,32 +17,32 @@
 
 class Google_Service_Games_AchievementIncrementResponse extends Google_Model
 {
-  public $currentSteps;
-  public $kind;
-  public $newlyUnlocked;
+	public $currentSteps;
+	public $kind;
+	public $newlyUnlocked;
 
-  public function setCurrentSteps($currentSteps)
-  {
-    $this->currentSteps = $currentSteps;
-  }
-  public function getCurrentSteps()
-  {
-    return $this->currentSteps;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNewlyUnlocked($newlyUnlocked)
-  {
-    $this->newlyUnlocked = $newlyUnlocked;
-  }
-  public function getNewlyUnlocked()
-  {
-    return $this->newlyUnlocked;
-  }
+	public function setCurrentSteps($currentSteps)
+	{
+		$this->currentSteps = $currentSteps;
+	}
+	public function getCurrentSteps()
+	{
+		return $this->currentSteps;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNewlyUnlocked($newlyUnlocked)
+	{
+		$this->newlyUnlocked = $newlyUnlocked;
+	}
+	public function getNewlyUnlocked()
+	{
+		return $this->newlyUnlocked;
+	}
 }

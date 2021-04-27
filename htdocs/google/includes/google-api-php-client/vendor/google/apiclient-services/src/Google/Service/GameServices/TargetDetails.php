@@ -17,40 +17,40 @@
 
 class Google_Service_GameServices_TargetDetails extends Google_Collection
 {
-  protected $collection_key = 'fleetDetails';
-  protected $fleetDetailsType = 'Google_Service_GameServices_TargetFleetDetails';
-  protected $fleetDetailsDataType = 'array';
-  public $gameServerClusterName;
-  public $gameServerDeploymentName;
+	protected $collection_key = 'fleetDetails';
+	protected $fleetDetailsType = 'Google_Service_GameServices_TargetFleetDetails';
+	protected $fleetDetailsDataType = 'array';
+	public $gameServerClusterName;
+	public $gameServerDeploymentName;
 
-  /**
-   * @param Google_Service_GameServices_TargetFleetDetails
-   */
-  public function setFleetDetails($fleetDetails)
-  {
-    $this->fleetDetails = $fleetDetails;
-  }
-  /**
-   * @return Google_Service_GameServices_TargetFleetDetails
-   */
-  public function getFleetDetails()
-  {
-    return $this->fleetDetails;
-  }
-  public function setGameServerClusterName($gameServerClusterName)
-  {
-    $this->gameServerClusterName = $gameServerClusterName;
-  }
-  public function getGameServerClusterName()
-  {
-    return $this->gameServerClusterName;
-  }
-  public function setGameServerDeploymentName($gameServerDeploymentName)
-  {
-    $this->gameServerDeploymentName = $gameServerDeploymentName;
-  }
-  public function getGameServerDeploymentName()
-  {
-    return $this->gameServerDeploymentName;
-  }
+	/**
+	 * @param Google_Service_GameServices_TargetFleetDetails
+	 */
+	public function setFleetDetails($fleetDetails)
+	{
+		$this->fleetDetails = $fleetDetails;
+	}
+	/**
+	 * @return Google_Service_GameServices_TargetFleetDetails
+	 */
+	public function getFleetDetails()
+	{
+		return $this->fleetDetails;
+	}
+	public function setGameServerClusterName($gameServerClusterName)
+	{
+		$this->gameServerClusterName = $gameServerClusterName;
+	}
+	public function getGameServerClusterName()
+	{
+		return $this->gameServerClusterName;
+	}
+	public function setGameServerDeploymentName($gameServerDeploymentName)
+	{
+		$this->gameServerDeploymentName = $gameServerDeploymentName;
+	}
+	public function getGameServerDeploymentName()
+	{
+		return $this->gameServerDeploymentName;
+	}
 }

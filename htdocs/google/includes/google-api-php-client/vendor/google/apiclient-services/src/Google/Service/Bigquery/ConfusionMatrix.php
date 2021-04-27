@@ -17,31 +17,31 @@
 
 class Google_Service_Bigquery_ConfusionMatrix extends Google_Collection
 {
-  protected $collection_key = 'rows';
-  public $confidenceThreshold;
-  protected $rowsType = 'Google_Service_Bigquery_Row';
-  protected $rowsDataType = 'array';
+	protected $collection_key = 'rows';
+	public $confidenceThreshold;
+	protected $rowsType = 'Google_Service_Bigquery_Row';
+	protected $rowsDataType = 'array';
 
-  public function setConfidenceThreshold($confidenceThreshold)
-  {
-    $this->confidenceThreshold = $confidenceThreshold;
-  }
-  public function getConfidenceThreshold()
-  {
-    return $this->confidenceThreshold;
-  }
-  /**
-   * @param Google_Service_Bigquery_Row
-   */
-  public function setRows($rows)
-  {
-    $this->rows = $rows;
-  }
-  /**
-   * @return Google_Service_Bigquery_Row
-   */
-  public function getRows()
-  {
-    return $this->rows;
-  }
+	public function setConfidenceThreshold($confidenceThreshold)
+	{
+		$this->confidenceThreshold = $confidenceThreshold;
+	}
+	public function getConfidenceThreshold()
+	{
+		return $this->confidenceThreshold;
+	}
+	/**
+	 * @param Google_Service_Bigquery_Row
+	 */
+	public function setRows($rows)
+	{
+		$this->rows = $rows;
+	}
+	/**
+	 * @return Google_Service_Bigquery_Row
+	 */
+	public function getRows()
+	{
+		return $this->rows;
+	}
 }

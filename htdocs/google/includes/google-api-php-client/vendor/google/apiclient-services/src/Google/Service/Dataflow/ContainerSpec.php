@@ -17,46 +17,46 @@
 
 class Google_Service_Dataflow_ContainerSpec extends Google_Model
 {
-  public $image;
-  protected $metadataType = 'Google_Service_Dataflow_TemplateMetadata';
-  protected $metadataDataType = '';
-  protected $sdkInfoType = 'Google_Service_Dataflow_SDKInfo';
-  protected $sdkInfoDataType = '';
+	public $image;
+	protected $metadataType = 'Google_Service_Dataflow_TemplateMetadata';
+	protected $metadataDataType = '';
+	protected $sdkInfoType = 'Google_Service_Dataflow_SDKInfo';
+	protected $sdkInfoDataType = '';
 
-  public function setImage($image)
-  {
-    $this->image = $image;
-  }
-  public function getImage()
-  {
-    return $this->image;
-  }
-  /**
-   * @param Google_Service_Dataflow_TemplateMetadata
-   */
-  public function setMetadata(Google_Service_Dataflow_TemplateMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_Dataflow_TemplateMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  /**
-   * @param Google_Service_Dataflow_SDKInfo
-   */
-  public function setSdkInfo(Google_Service_Dataflow_SDKInfo $sdkInfo)
-  {
-    $this->sdkInfo = $sdkInfo;
-  }
-  /**
-   * @return Google_Service_Dataflow_SDKInfo
-   */
-  public function getSdkInfo()
-  {
-    return $this->sdkInfo;
-  }
+	public function setImage($image)
+	{
+		$this->image = $image;
+	}
+	public function getImage()
+	{
+		return $this->image;
+	}
+	/**
+	 * @param Google_Service_Dataflow_TemplateMetadata
+	 */
+	public function setMetadata(Google_Service_Dataflow_TemplateMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_Dataflow_TemplateMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	/**
+	 * @param Google_Service_Dataflow_SDKInfo
+	 */
+	public function setSdkInfo(Google_Service_Dataflow_SDKInfo $sdkInfo)
+	{
+		$this->sdkInfo = $sdkInfo;
+	}
+	/**
+	 * @return Google_Service_Dataflow_SDKInfo
+	 */
+	public function getSdkInfo()
+	{
+		return $this->sdkInfo;
+	}
 }

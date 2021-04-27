@@ -17,23 +17,23 @@
 
 class Google_Service_Appengine_ManagedCertificate extends Google_Model
 {
-  public $lastRenewalTime;
-  public $status;
+	public $lastRenewalTime;
+	public $status;
 
-  public function setLastRenewalTime($lastRenewalTime)
-  {
-    $this->lastRenewalTime = $lastRenewalTime;
-  }
-  public function getLastRenewalTime()
-  {
-    return $this->lastRenewalTime;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setLastRenewalTime($lastRenewalTime)
+	{
+		$this->lastRenewalTime = $lastRenewalTime;
+	}
+	public function getLastRenewalTime()
+	{
+		return $this->lastRenewalTime;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

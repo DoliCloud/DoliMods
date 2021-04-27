@@ -17,75 +17,75 @@
 
 class Google_Service_BigQueryConnectionService_Connection extends Google_Model
 {
-  protected $cloudSqlType = 'Google_Service_BigQueryConnectionService_CloudSqlProperties';
-  protected $cloudSqlDataType = '';
-  public $creationTime;
-  public $description;
-  public $friendlyName;
-  public $hasCredential;
-  public $lastModifiedTime;
-  public $name;
+	protected $cloudSqlType = 'Google_Service_BigQueryConnectionService_CloudSqlProperties';
+	protected $cloudSqlDataType = '';
+	public $creationTime;
+	public $description;
+	public $friendlyName;
+	public $hasCredential;
+	public $lastModifiedTime;
+	public $name;
 
-  /**
-   * @param Google_Service_BigQueryConnectionService_CloudSqlProperties
-   */
-  public function setCloudSql(Google_Service_BigQueryConnectionService_CloudSqlProperties $cloudSql)
-  {
-    $this->cloudSql = $cloudSql;
-  }
-  /**
-   * @return Google_Service_BigQueryConnectionService_CloudSqlProperties
-   */
-  public function getCloudSql()
-  {
-    return $this->cloudSql;
-  }
-  public function setCreationTime($creationTime)
-  {
-    $this->creationTime = $creationTime;
-  }
-  public function getCreationTime()
-  {
-    return $this->creationTime;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setFriendlyName($friendlyName)
-  {
-    $this->friendlyName = $friendlyName;
-  }
-  public function getFriendlyName()
-  {
-    return $this->friendlyName;
-  }
-  public function setHasCredential($hasCredential)
-  {
-    $this->hasCredential = $hasCredential;
-  }
-  public function getHasCredential()
-  {
-    return $this->hasCredential;
-  }
-  public function setLastModifiedTime($lastModifiedTime)
-  {
-    $this->lastModifiedTime = $lastModifiedTime;
-  }
-  public function getLastModifiedTime()
-  {
-    return $this->lastModifiedTime;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_BigQueryConnectionService_CloudSqlProperties
+	 */
+	public function setCloudSql(Google_Service_BigQueryConnectionService_CloudSqlProperties $cloudSql)
+	{
+		$this->cloudSql = $cloudSql;
+	}
+	/**
+	 * @return Google_Service_BigQueryConnectionService_CloudSqlProperties
+	 */
+	public function getCloudSql()
+	{
+		return $this->cloudSql;
+	}
+	public function setCreationTime($creationTime)
+	{
+		$this->creationTime = $creationTime;
+	}
+	public function getCreationTime()
+	{
+		return $this->creationTime;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setFriendlyName($friendlyName)
+	{
+		$this->friendlyName = $friendlyName;
+	}
+	public function getFriendlyName()
+	{
+		return $this->friendlyName;
+	}
+	public function setHasCredential($hasCredential)
+	{
+		$this->hasCredential = $hasCredential;
+	}
+	public function getHasCredential()
+	{
+		return $this->hasCredential;
+	}
+	public function setLastModifiedTime($lastModifiedTime)
+	{
+		$this->lastModifiedTime = $lastModifiedTime;
+	}
+	public function getLastModifiedTime()
+	{
+		return $this->lastModifiedTime;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

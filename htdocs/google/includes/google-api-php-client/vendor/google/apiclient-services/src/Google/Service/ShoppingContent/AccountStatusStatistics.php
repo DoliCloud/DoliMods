@@ -17,41 +17,41 @@
 
 class Google_Service_ShoppingContent_AccountStatusStatistics extends Google_Model
 {
-  public $active;
-  public $disapproved;
-  public $expiring;
-  public $pending;
+	public $active;
+	public $disapproved;
+	public $expiring;
+	public $pending;
 
-  public function setActive($active)
-  {
-    $this->active = $active;
-  }
-  public function getActive()
-  {
-    return $this->active;
-  }
-  public function setDisapproved($disapproved)
-  {
-    $this->disapproved = $disapproved;
-  }
-  public function getDisapproved()
-  {
-    return $this->disapproved;
-  }
-  public function setExpiring($expiring)
-  {
-    $this->expiring = $expiring;
-  }
-  public function getExpiring()
-  {
-    return $this->expiring;
-  }
-  public function setPending($pending)
-  {
-    $this->pending = $pending;
-  }
-  public function getPending()
-  {
-    return $this->pending;
-  }
+	public function setActive($active)
+	{
+		$this->active = $active;
+	}
+	public function getActive()
+	{
+		return $this->active;
+	}
+	public function setDisapproved($disapproved)
+	{
+		$this->disapproved = $disapproved;
+	}
+	public function getDisapproved()
+	{
+		return $this->disapproved;
+	}
+	public function setExpiring($expiring)
+	{
+		$this->expiring = $expiring;
+	}
+	public function getExpiring()
+	{
+		return $this->expiring;
+	}
+	public function setPending($pending)
+	{
+		$this->pending = $pending;
+	}
+	public function getPending()
+	{
+		return $this->pending;
+	}
 }

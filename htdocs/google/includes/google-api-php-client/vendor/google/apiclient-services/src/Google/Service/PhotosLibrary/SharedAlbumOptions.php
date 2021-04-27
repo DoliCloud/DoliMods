@@ -17,23 +17,23 @@
 
 class Google_Service_PhotosLibrary_SharedAlbumOptions extends Google_Model
 {
-  public $isCollaborative;
-  public $isCommentable;
+	public $isCollaborative;
+	public $isCommentable;
 
-  public function setIsCollaborative($isCollaborative)
-  {
-    $this->isCollaborative = $isCollaborative;
-  }
-  public function getIsCollaborative()
-  {
-    return $this->isCollaborative;
-  }
-  public function setIsCommentable($isCommentable)
-  {
-    $this->isCommentable = $isCommentable;
-  }
-  public function getIsCommentable()
-  {
-    return $this->isCommentable;
-  }
+	public function setIsCollaborative($isCollaborative)
+	{
+		$this->isCollaborative = $isCollaborative;
+	}
+	public function getIsCollaborative()
+	{
+		return $this->isCollaborative;
+	}
+	public function setIsCommentable($isCommentable)
+	{
+		$this->isCommentable = $isCommentable;
+	}
+	public function getIsCommentable()
+	{
+		return $this->isCommentable;
+	}
 }

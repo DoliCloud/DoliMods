@@ -25,333 +25,333 @@
  */
 class CpuDevice
 {
-    /**
-     * model of the cpu
-     *
-     * @var String
-     */
-    private $_model = "";
+	/**
+	 * model of the cpu
+	 *
+	 * @var String
+	 */
+	private $_model = "";
 
-    /**
-     * speed of the cpu in hertz
-     *
-     * @var Integer
-     */
-    private $_cpuSpeed = 0;
+	/**
+	 * speed of the cpu in hertz
+	 *
+	 * @var Integer
+	 */
+	private $_cpuSpeed = 0;
 
-    /**
-     * max speed of the cpu in hertz
-     *
-     * @var Integer
-     */
-    private $_cpuSpeedMax = 0;
+	/**
+	 * max speed of the cpu in hertz
+	 *
+	 * @var Integer
+	 */
+	private $_cpuSpeedMax = 0;
 
-    /**
-     * min speed of the cpu in hertz
-     *
-     * @var Integer
-     */
-    private $_cpuSpeedMin = 0;
+	/**
+	 * min speed of the cpu in hertz
+	 *
+	 * @var Integer
+	 */
+	private $_cpuSpeedMin = 0;
 
-    /**
-     * cache size in bytes, if available
-     *
-     * @var Integer
-     */
-    private $_cache = null;
+	/**
+	 * cache size in bytes, if available
+	 *
+	 * @var Integer
+	 */
+	private $_cache = null;
 
-    /**
-     * virtualization, if available
-     *
-     * @var String
-     */
-    private $_virt = null;
+	/**
+	 * virtualization, if available
+	 *
+	 * @var String
+	 */
+	private $_virt = null;
 
-    /**
-     * busspeed in hertz, if available
-     *
-     * @var Integer
-     */
-    private $_busSpeed = null;
+	/**
+	 * busspeed in hertz, if available
+	 *
+	 * @var Integer
+	 */
+	private $_busSpeed = null;
 
-    /**
-     * temperature of the cpu, if available
-     *
-     * @var Integer
-     */
-    private $_temp = null;
+	/**
+	 * temperature of the cpu, if available
+	 *
+	 * @var Integer
+	 */
+	private $_temp = null;
 
-    /**
-     * bogomips of the cpu, if available
-     *
-     * @var Integer
-     */
-    private $_bogomips = null;
+	/**
+	 * bogomips of the cpu, if available
+	 *
+	 * @var Integer
+	 */
+	private $_bogomips = null;
 
-    /**
-     * current load in percent of the cpu, if available
-     *
-     * @var Integer
-     */
-    private $_load = null;
+	/**
+	 * current load in percent of the cpu, if available
+	 *
+	 * @var Integer
+	 */
+	private $_load = null;
 
-    /**
-     * Returns $_bogomips.
-     *
-     * @see Cpu::$_bogomips
-     *
-     * @return Integer
-     */
-    public function getBogomips()
-    {
-        return $this->_bogomips;
-    }
+	/**
+	 * Returns $_bogomips.
+	 *
+	 * @see Cpu::$_bogomips
+	 *
+	 * @return Integer
+	 */
+	public function getBogomips()
+	{
+		return $this->_bogomips;
+	}
 
-    /**
-     * Sets $_bogomips.
-     *
-     * @param Integer $bogomips bogompis
-     *
-     * @see Cpu::$_bogomips
-     *
-     * @return Void
-     */
-    public function setBogomips($bogomips)
-    {
-        $this->_bogomips = $bogomips;
-    }
+	/**
+	 * Sets $_bogomips.
+	 *
+	 * @param Integer $bogomips bogompis
+	 *
+	 * @see Cpu::$_bogomips
+	 *
+	 * @return Void
+	 */
+	public function setBogomips($bogomips)
+	{
+		$this->_bogomips = $bogomips;
+	}
 
-    /**
-     * Returns $_busSpeed.
-     *
-     * @see Cpu::$_busSpeed
-     *
-     * @return Integer
-     */
-    public function getBusSpeed()
-    {
-        return $this->_busSpeed;
-    }
+	/**
+	 * Returns $_busSpeed.
+	 *
+	 * @see Cpu::$_busSpeed
+	 *
+	 * @return Integer
+	 */
+	public function getBusSpeed()
+	{
+		return $this->_busSpeed;
+	}
 
-    /**
-     * Sets $_busSpeed.
-     *
-     * @param Integer $busSpeed busspeed
-     *
-     * @see Cpu::$_busSpeed
-     *
-     * @return Void
-     */
-    public function setBusSpeed($busSpeed)
-    {
-        $this->_busSpeed = $busSpeed;
-    }
+	/**
+	 * Sets $_busSpeed.
+	 *
+	 * @param Integer $busSpeed busspeed
+	 *
+	 * @see Cpu::$_busSpeed
+	 *
+	 * @return Void
+	 */
+	public function setBusSpeed($busSpeed)
+	{
+		$this->_busSpeed = $busSpeed;
+	}
 
-    /**
-     * Returns $_cache.
-     *
-     * @see Cpu::$_cache
-     *
-     * @return Integer
-     */
-    public function getCache()
-    {
-        return $this->_cache;
-    }
+	/**
+	 * Returns $_cache.
+	 *
+	 * @see Cpu::$_cache
+	 *
+	 * @return Integer
+	 */
+	public function getCache()
+	{
+		return $this->_cache;
+	}
 
-    /**
-     * Sets $_cache.
-     *
-     * @param Integer $cache cache size
-     *
-     * @see Cpu::$_cache
-     *
-     * @return Void
-     */
-    public function setCache($cache)
-    {
-        $this->_cache = $cache;
-    }
+	/**
+	 * Sets $_cache.
+	 *
+	 * @param Integer $cache cache size
+	 *
+	 * @see Cpu::$_cache
+	 *
+	 * @return Void
+	 */
+	public function setCache($cache)
+	{
+		$this->_cache = $cache;
+	}
 
-    /**
-     * Returns $_virt.
-     *
-     * @see Cpu::$_virt
-     *
-     * @return String
-     */
-    public function getVirt()
-    {
-        return $this->_virt;
-    }
+	/**
+	 * Returns $_virt.
+	 *
+	 * @see Cpu::$_virt
+	 *
+	 * @return String
+	 */
+	public function getVirt()
+	{
+		return $this->_virt;
+	}
 
-    /**
-     * Sets $_virt.
-     *
-     * @param String $_virt
-     *
-     * @see Cpu::$_virt
-     *
-     * @return Void
-     */
-    public function setVirt($virt)
-    {
-        $this->_virt = $virt;
-    }
+	/**
+	 * Sets $_virt.
+	 *
+	 * @param String $_virt
+	 *
+	 * @see Cpu::$_virt
+	 *
+	 * @return Void
+	 */
+	public function setVirt($virt)
+	{
+		$this->_virt = $virt;
+	}
 
-    /**
-     * Returns $_cpuSpeed.
-     *
-     * @see Cpu::$_cpuSpeed
-     *
-     * @return Integer
-     */
-    public function getCpuSpeed()
-    {
-        return $this->_cpuSpeed;
-    }
+	/**
+	 * Returns $_cpuSpeed.
+	 *
+	 * @see Cpu::$_cpuSpeed
+	 *
+	 * @return Integer
+	 */
+	public function getCpuSpeed()
+	{
+		return $this->_cpuSpeed;
+	}
 
-    /**
-     * Returns $_cpuSpeedMax.
-     *
-     * @see Cpu::$_cpuSpeedMAx
-     *
-     * @return Integer
-     */
-    public function getCpuSpeedMax()
-    {
-        return $this->_cpuSpeedMax;
-    }
+	/**
+	 * Returns $_cpuSpeedMax.
+	 *
+	 * @see Cpu::$_cpuSpeedMAx
+	 *
+	 * @return Integer
+	 */
+	public function getCpuSpeedMax()
+	{
+		return $this->_cpuSpeedMax;
+	}
 
-    /**
-     * Returns $_cpuSpeedMin.
-     *
-     * @see Cpu::$_cpuSpeedMin
-     *
-     * @return Integer
-     */
-    public function getCpuSpeedMin()
-    {
-        return $this->_cpuSpeedMin;
-    }
+	/**
+	 * Returns $_cpuSpeedMin.
+	 *
+	 * @see Cpu::$_cpuSpeedMin
+	 *
+	 * @return Integer
+	 */
+	public function getCpuSpeedMin()
+	{
+		return $this->_cpuSpeedMin;
+	}
 
-    /**
-     * Sets $_cpuSpeed.
-     *
-     * @param Integer $cpuSpeed cpuspeed
-     *
-     * @see Cpu::$_cpuSpeed
-     *
-     * @return Void
-     */
-    public function setCpuSpeed($cpuSpeed)
-    {
-        $this->_cpuSpeed = $cpuSpeed;
-    }
+	/**
+	 * Sets $_cpuSpeed.
+	 *
+	 * @param Integer $cpuSpeed cpuspeed
+	 *
+	 * @see Cpu::$_cpuSpeed
+	 *
+	 * @return Void
+	 */
+	public function setCpuSpeed($cpuSpeed)
+	{
+		$this->_cpuSpeed = $cpuSpeed;
+	}
 
-    /**
-     * Sets $_cpuSpeedMax.
-     *
-     * @param Integer $cpuSpeedMax cpuspeedmax
-     *
-     * @see Cpu::$_cpuSpeedMax
-     *
-     * @return Void
-     */
-    public function setCpuSpeedMax($cpuSpeedMax)
-    {
-        $this->_cpuSpeedMax = $cpuSpeedMax;
-    }
+	/**
+	 * Sets $_cpuSpeedMax.
+	 *
+	 * @param Integer $cpuSpeedMax cpuspeedmax
+	 *
+	 * @see Cpu::$_cpuSpeedMax
+	 *
+	 * @return Void
+	 */
+	public function setCpuSpeedMax($cpuSpeedMax)
+	{
+		$this->_cpuSpeedMax = $cpuSpeedMax;
+	}
 
-    /**
-     * Sets $_cpuSpeedMin.
-     *
-     * @param Integer $cpuSpeedMin cpuspeedmin
-     *
-     * @see Cpu::$_cpuSpeedMin
-     *
-     * @return Void
-     */
-    public function setCpuSpeedMin($cpuSpeedMin)
-    {
-        $this->_cpuSpeedMin = $cpuSpeedMin;
-    }
+	/**
+	 * Sets $_cpuSpeedMin.
+	 *
+	 * @param Integer $cpuSpeedMin cpuspeedmin
+	 *
+	 * @see Cpu::$_cpuSpeedMin
+	 *
+	 * @return Void
+	 */
+	public function setCpuSpeedMin($cpuSpeedMin)
+	{
+		$this->_cpuSpeedMin = $cpuSpeedMin;
+	}
 
-    /**
-     * Returns $_model.
-     *
-     * @see Cpu::$_model
-     *
-     * @return String
-     */
-    public function getModel()
-    {
-        return $this->_model;
-    }
+	/**
+	 * Returns $_model.
+	 *
+	 * @see Cpu::$_model
+	 *
+	 * @return String
+	 */
+	public function getModel()
+	{
+		return $this->_model;
+	}
 
-    /**
-     * Sets $_model.
-     *
-     * @param String $model cpumodel
-     *
-     * @see Cpu::$_model
-     *
-     * @return Void
-     */
-    public function setModel($model)
-    {
-        $this->_model = $model;
-    }
+	/**
+	 * Sets $_model.
+	 *
+	 * @param String $model cpumodel
+	 *
+	 * @see Cpu::$_model
+	 *
+	 * @return Void
+	 */
+	public function setModel($model)
+	{
+		$this->_model = $model;
+	}
 
-    /**
-     * Returns $_temp.
-     *
-     * @see Cpu::$_temp
-     *
-     * @return Integer
-     */
-    public function getTemp()
-    {
-        return $this->_temp;
-    }
+	/**
+	 * Returns $_temp.
+	 *
+	 * @see Cpu::$_temp
+	 *
+	 * @return Integer
+	 */
+	public function getTemp()
+	{
+		return $this->_temp;
+	}
 
-    /**
-     * Sets $_temp.
-     *
-     * @param Integer $temp temperature
-     *
-     * @see Cpu::$_temp
-     *
-     * @return Void
-     */
-    public function setTemp($temp)
-    {
-        $this->_temp = $temp;
-    }
+	/**
+	 * Sets $_temp.
+	 *
+	 * @param Integer $temp temperature
+	 *
+	 * @see Cpu::$_temp
+	 *
+	 * @return Void
+	 */
+	public function setTemp($temp)
+	{
+		$this->_temp = $temp;
+	}
 
-    /**
-     * Returns $_load.
-     *
-     * @see CpuDevice::$_load
-     *
-     * @return Integer
-     */
-    public function getLoad()
-    {
-        return $this->_load;
-    }
+	/**
+	 * Returns $_load.
+	 *
+	 * @see CpuDevice::$_load
+	 *
+	 * @return Integer
+	 */
+	public function getLoad()
+	{
+		return $this->_load;
+	}
 
-    /**
-     * Sets $_load.
-     *
-     * @param Integer $load load percent
-     *
-     * @see CpuDevice::$_load
-     *
-     * @return Void
-     */
-    public function setLoad($load)
-    {
-        $this->_load = $load;
-    }
+	/**
+	 * Sets $_load.
+	 *
+	 * @param Integer $load load percent
+	 *
+	 * @see CpuDevice::$_load
+	 *
+	 * @return Void
+	 */
+	public function setLoad($load)
+	{
+		$this->_load = $load;
+	}
 }

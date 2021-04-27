@@ -17,39 +17,39 @@
 
 class Google_Service_DriveActivity_Drive extends Google_Model
 {
-  public $name;
-  protected $rootType = 'Google_Service_DriveActivity_DriveItem';
-  protected $rootDataType = '';
-  public $title;
+	public $name;
+	protected $rootType = 'Google_Service_DriveActivity_DriveItem';
+	protected $rootDataType = '';
+	public $title;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_DriveActivity_DriveItem
-   */
-  public function setRoot(Google_Service_DriveActivity_DriveItem $root)
-  {
-    $this->root = $root;
-  }
-  /**
-   * @return Google_Service_DriveActivity_DriveItem
-   */
-  public function getRoot()
-  {
-    return $this->root;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_DriveActivity_DriveItem
+	 */
+	public function setRoot(Google_Service_DriveActivity_DriveItem $root)
+	{
+		$this->root = $root;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_DriveItem
+	 */
+	public function getRoot()
+	{
+		return $this->root;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

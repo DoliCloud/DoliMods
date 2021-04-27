@@ -17,14 +17,14 @@
 
 class Google_Service_Books_DictlayerdataCommon extends Google_Model
 {
-  public $title;
+	public $title;
 
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

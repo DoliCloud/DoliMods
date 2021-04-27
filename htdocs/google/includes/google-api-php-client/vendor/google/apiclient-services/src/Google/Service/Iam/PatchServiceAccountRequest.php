@@ -17,30 +17,30 @@
 
 class Google_Service_Iam_PatchServiceAccountRequest extends Google_Model
 {
-  protected $serviceAccountType = 'Google_Service_Iam_ServiceAccount';
-  protected $serviceAccountDataType = '';
-  public $updateMask;
+	protected $serviceAccountType = 'Google_Service_Iam_ServiceAccount';
+	protected $serviceAccountDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_Iam_ServiceAccount
-   */
-  public function setServiceAccount(Google_Service_Iam_ServiceAccount $serviceAccount)
-  {
-    $this->serviceAccount = $serviceAccount;
-  }
-  /**
-   * @return Google_Service_Iam_ServiceAccount
-   */
-  public function getServiceAccount()
-  {
-    return $this->serviceAccount;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_Iam_ServiceAccount
+	 */
+	public function setServiceAccount(Google_Service_Iam_ServiceAccount $serviceAccount)
+	{
+		$this->serviceAccount = $serviceAccount;
+	}
+	/**
+	 * @return Google_Service_Iam_ServiceAccount
+	 */
+	public function getServiceAccount()
+	{
+		return $this->serviceAccount;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

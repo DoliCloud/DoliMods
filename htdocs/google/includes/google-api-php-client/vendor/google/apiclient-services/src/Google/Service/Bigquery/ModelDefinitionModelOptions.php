@@ -17,33 +17,33 @@
 
 class Google_Service_Bigquery_ModelDefinitionModelOptions extends Google_Collection
 {
-  protected $collection_key = 'labels';
-  public $labels;
-  public $lossType;
-  public $modelType;
+	protected $collection_key = 'labels';
+	public $labels;
+	public $lossType;
+	public $modelType;
 
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setLossType($lossType)
-  {
-    $this->lossType = $lossType;
-  }
-  public function getLossType()
-  {
-    return $this->lossType;
-  }
-  public function setModelType($modelType)
-  {
-    $this->modelType = $modelType;
-  }
-  public function getModelType()
-  {
-    return $this->modelType;
-  }
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setLossType($lossType)
+	{
+		$this->lossType = $lossType;
+	}
+	public function getLossType()
+	{
+		return $this->lossType;
+	}
+	public function setModelType($modelType)
+	{
+		$this->modelType = $modelType;
+	}
+	public function getModelType()
+	{
+		return $this->modelType;
+	}
 }

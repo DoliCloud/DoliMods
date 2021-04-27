@@ -17,23 +17,23 @@
 
 class Google_Service_Spanner_PartitionOptions extends Google_Model
 {
-  public $maxPartitions;
-  public $partitionSizeBytes;
+	public $maxPartitions;
+	public $partitionSizeBytes;
 
-  public function setMaxPartitions($maxPartitions)
-  {
-    $this->maxPartitions = $maxPartitions;
-  }
-  public function getMaxPartitions()
-  {
-    return $this->maxPartitions;
-  }
-  public function setPartitionSizeBytes($partitionSizeBytes)
-  {
-    $this->partitionSizeBytes = $partitionSizeBytes;
-  }
-  public function getPartitionSizeBytes()
-  {
-    return $this->partitionSizeBytes;
-  }
+	public function setMaxPartitions($maxPartitions)
+	{
+		$this->maxPartitions = $maxPartitions;
+	}
+	public function getMaxPartitions()
+	{
+		return $this->maxPartitions;
+	}
+	public function setPartitionSizeBytes($partitionSizeBytes)
+	{
+		$this->partitionSizeBytes = $partitionSizeBytes;
+	}
+	public function getPartitionSizeBytes()
+	{
+		return $this->partitionSizeBytes;
+	}
 }

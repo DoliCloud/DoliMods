@@ -17,41 +17,41 @@
 
 class Google_Service_Dataflow_SendDebugCaptureRequest extends Google_Model
 {
-  public $componentId;
-  public $data;
-  public $location;
-  public $workerId;
+	public $componentId;
+	public $data;
+	public $location;
+	public $workerId;
 
-  public function setComponentId($componentId)
-  {
-    $this->componentId = $componentId;
-  }
-  public function getComponentId()
-  {
-    return $this->componentId;
-  }
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setWorkerId($workerId)
-  {
-    $this->workerId = $workerId;
-  }
-  public function getWorkerId()
-  {
-    return $this->workerId;
-  }
+	public function setComponentId($componentId)
+	{
+		$this->componentId = $componentId;
+	}
+	public function getComponentId()
+	{
+		return $this->componentId;
+	}
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setWorkerId($workerId)
+	{
+		$this->workerId = $workerId;
+	}
+	public function getWorkerId()
+	{
+		return $this->workerId;
+	}
 }

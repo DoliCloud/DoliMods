@@ -17,38 +17,38 @@
 
 class Google_Service_Docs_BatchUpdateDocumentRequest extends Google_Collection
 {
-  protected $collection_key = 'requests';
-  protected $requestsType = 'Google_Service_Docs_Request';
-  protected $requestsDataType = 'array';
-  protected $writeControlType = 'Google_Service_Docs_WriteControl';
-  protected $writeControlDataType = '';
+	protected $collection_key = 'requests';
+	protected $requestsType = 'Google_Service_Docs_Request';
+	protected $requestsDataType = 'array';
+	protected $writeControlType = 'Google_Service_Docs_WriteControl';
+	protected $writeControlDataType = '';
 
-  /**
-   * @param Google_Service_Docs_Request
-   */
-  public function setRequests($requests)
-  {
-    $this->requests = $requests;
-  }
-  /**
-   * @return Google_Service_Docs_Request
-   */
-  public function getRequests()
-  {
-    return $this->requests;
-  }
-  /**
-   * @param Google_Service_Docs_WriteControl
-   */
-  public function setWriteControl(Google_Service_Docs_WriteControl $writeControl)
-  {
-    $this->writeControl = $writeControl;
-  }
-  /**
-   * @return Google_Service_Docs_WriteControl
-   */
-  public function getWriteControl()
-  {
-    return $this->writeControl;
-  }
+	/**
+	 * @param Google_Service_Docs_Request
+	 */
+	public function setRequests($requests)
+	{
+		$this->requests = $requests;
+	}
+	/**
+	 * @return Google_Service_Docs_Request
+	 */
+	public function getRequests()
+	{
+		return $this->requests;
+	}
+	/**
+	 * @param Google_Service_Docs_WriteControl
+	 */
+	public function setWriteControl(Google_Service_Docs_WriteControl $writeControl)
+	{
+		$this->writeControl = $writeControl;
+	}
+	/**
+	 * @return Google_Service_Docs_WriteControl
+	 */
+	public function getWriteControl()
+	{
+		return $this->writeControl;
+	}
 }

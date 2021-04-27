@@ -17,37 +17,37 @@
 
 class Google_Service_Monitoring_Point extends Google_Model
 {
-  protected $intervalType = 'Google_Service_Monitoring_TimeInterval';
-  protected $intervalDataType = '';
-  protected $valueType = 'Google_Service_Monitoring_TypedValue';
-  protected $valueDataType = '';
+	protected $intervalType = 'Google_Service_Monitoring_TimeInterval';
+	protected $intervalDataType = '';
+	protected $valueType = 'Google_Service_Monitoring_TypedValue';
+	protected $valueDataType = '';
 
-  /**
-   * @param Google_Service_Monitoring_TimeInterval
-   */
-  public function setInterval(Google_Service_Monitoring_TimeInterval $interval)
-  {
-    $this->interval = $interval;
-  }
-  /**
-   * @return Google_Service_Monitoring_TimeInterval
-   */
-  public function getInterval()
-  {
-    return $this->interval;
-  }
-  /**
-   * @param Google_Service_Monitoring_TypedValue
-   */
-  public function setValue(Google_Service_Monitoring_TypedValue $value)
-  {
-    $this->value = $value;
-  }
-  /**
-   * @return Google_Service_Monitoring_TypedValue
-   */
-  public function getValue()
-  {
-    return $this->value;
-  }
+	/**
+	 * @param Google_Service_Monitoring_TimeInterval
+	 */
+	public function setInterval(Google_Service_Monitoring_TimeInterval $interval)
+	{
+		$this->interval = $interval;
+	}
+	/**
+	 * @return Google_Service_Monitoring_TimeInterval
+	 */
+	public function getInterval()
+	{
+		return $this->interval;
+	}
+	/**
+	 * @param Google_Service_Monitoring_TypedValue
+	 */
+	public function setValue(Google_Service_Monitoring_TypedValue $value)
+	{
+		$this->value = $value;
+	}
+	/**
+	 * @return Google_Service_Monitoring_TypedValue
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

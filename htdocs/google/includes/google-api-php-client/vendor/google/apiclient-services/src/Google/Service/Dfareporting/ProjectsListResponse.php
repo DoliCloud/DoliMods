@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_ProjectsListResponse extends Google_Collection
 {
-  protected $collection_key = 'projects';
-  public $kind;
-  public $nextPageToken;
-  protected $projectsType = 'Google_Service_Dfareporting_Project';
-  protected $projectsDataType = 'array';
+	protected $collection_key = 'projects';
+	public $kind;
+	public $nextPageToken;
+	protected $projectsType = 'Google_Service_Dfareporting_Project';
+	protected $projectsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Dfareporting_Project
-   */
-  public function setProjects($projects)
-  {
-    $this->projects = $projects;
-  }
-  /**
-   * @return Google_Service_Dfareporting_Project
-   */
-  public function getProjects()
-  {
-    return $this->projects;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_Project
+	 */
+	public function setProjects($projects)
+	{
+		$this->projects = $projects;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_Project
+	 */
+	public function getProjects()
+	{
+		return $this->projects;
+	}
 }

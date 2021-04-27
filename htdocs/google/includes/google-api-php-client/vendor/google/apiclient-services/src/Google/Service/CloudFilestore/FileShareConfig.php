@@ -17,23 +17,23 @@
 
 class Google_Service_CloudFilestore_FileShareConfig extends Google_Model
 {
-  public $capacityGb;
-  public $name;
+	public $capacityGb;
+	public $name;
 
-  public function setCapacityGb($capacityGb)
-  {
-    $this->capacityGb = $capacityGb;
-  }
-  public function getCapacityGb()
-  {
-    return $this->capacityGb;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setCapacityGb($capacityGb)
+	{
+		$this->capacityGb = $capacityGb;
+	}
+	public function getCapacityGb()
+	{
+		return $this->capacityGb;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

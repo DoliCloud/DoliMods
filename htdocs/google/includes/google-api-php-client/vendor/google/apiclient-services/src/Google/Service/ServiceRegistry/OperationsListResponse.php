@@ -17,25 +17,25 @@
 
 class Google_Service_ServiceRegistry_OperationsListResponse extends Google_Collection
 {
-  protected $collection_key = 'operations';
-  public $nextPageToken;
-  protected $operationsType = 'Google_Service_ServiceRegistry_Operation';
-  protected $operationsDataType = 'array';
+	protected $collection_key = 'operations';
+	public $nextPageToken;
+	protected $operationsType = 'Google_Service_ServiceRegistry_Operation';
+	protected $operationsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setOperations($operations)
-  {
-    $this->operations = $operations;
-  }
-  public function getOperations()
-  {
-    return $this->operations;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setOperations($operations)
+	{
+		$this->operations = $operations;
+	}
+	public function getOperations()
+	{
+		return $this->operations;
+	}
 }

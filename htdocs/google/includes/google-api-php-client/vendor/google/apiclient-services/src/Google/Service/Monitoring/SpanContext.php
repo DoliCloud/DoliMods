@@ -17,14 +17,14 @@
 
 class Google_Service_Monitoring_SpanContext extends Google_Model
 {
-  public $spanName;
+	public $spanName;
 
-  public function setSpanName($spanName)
-  {
-    $this->spanName = $spanName;
-  }
-  public function getSpanName()
-  {
-    return $this->spanName;
-  }
+	public function setSpanName($spanName)
+	{
+		$this->spanName = $spanName;
+	}
+	public function getSpanName()
+	{
+		return $this->spanName;
+	}
 }

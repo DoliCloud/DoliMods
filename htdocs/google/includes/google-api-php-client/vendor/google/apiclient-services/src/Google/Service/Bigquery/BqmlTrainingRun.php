@@ -17,56 +17,56 @@
 
 class Google_Service_Bigquery_BqmlTrainingRun extends Google_Collection
 {
-  protected $collection_key = 'iterationResults';
-  protected $iterationResultsType = 'Google_Service_Bigquery_BqmlIterationResult';
-  protected $iterationResultsDataType = 'array';
-  public $startTime;
-  public $state;
-  protected $trainingOptionsType = 'Google_Service_Bigquery_BqmlTrainingRunTrainingOptions';
-  protected $trainingOptionsDataType = '';
+	protected $collection_key = 'iterationResults';
+	protected $iterationResultsType = 'Google_Service_Bigquery_BqmlIterationResult';
+	protected $iterationResultsDataType = 'array';
+	public $startTime;
+	public $state;
+	protected $trainingOptionsType = 'Google_Service_Bigquery_BqmlTrainingRunTrainingOptions';
+	protected $trainingOptionsDataType = '';
 
-  /**
-   * @param Google_Service_Bigquery_BqmlIterationResult
-   */
-  public function setIterationResults($iterationResults)
-  {
-    $this->iterationResults = $iterationResults;
-  }
-  /**
-   * @return Google_Service_Bigquery_BqmlIterationResult
-   */
-  public function getIterationResults()
-  {
-    return $this->iterationResults;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  /**
-   * @param Google_Service_Bigquery_BqmlTrainingRunTrainingOptions
-   */
-  public function setTrainingOptions(Google_Service_Bigquery_BqmlTrainingRunTrainingOptions $trainingOptions)
-  {
-    $this->trainingOptions = $trainingOptions;
-  }
-  /**
-   * @return Google_Service_Bigquery_BqmlTrainingRunTrainingOptions
-   */
-  public function getTrainingOptions()
-  {
-    return $this->trainingOptions;
-  }
+	/**
+	 * @param Google_Service_Bigquery_BqmlIterationResult
+	 */
+	public function setIterationResults($iterationResults)
+	{
+		$this->iterationResults = $iterationResults;
+	}
+	/**
+	 * @return Google_Service_Bigquery_BqmlIterationResult
+	 */
+	public function getIterationResults()
+	{
+		return $this->iterationResults;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	/**
+	 * @param Google_Service_Bigquery_BqmlTrainingRunTrainingOptions
+	 */
+	public function setTrainingOptions(Google_Service_Bigquery_BqmlTrainingRunTrainingOptions $trainingOptions)
+	{
+		$this->trainingOptions = $trainingOptions;
+	}
+	/**
+	 * @return Google_Service_Bigquery_BqmlTrainingRunTrainingOptions
+	 */
+	public function getTrainingOptions()
+	{
+		return $this->trainingOptions;
+	}
 }

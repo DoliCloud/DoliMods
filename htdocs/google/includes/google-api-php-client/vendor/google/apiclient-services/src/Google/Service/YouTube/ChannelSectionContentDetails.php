@@ -17,24 +17,24 @@
 
 class Google_Service_YouTube_ChannelSectionContentDetails extends Google_Collection
 {
-  protected $collection_key = 'playlists';
-  public $channels;
-  public $playlists;
+	protected $collection_key = 'playlists';
+	public $channels;
+	public $playlists;
 
-  public function setChannels($channels)
-  {
-    $this->channels = $channels;
-  }
-  public function getChannels()
-  {
-    return $this->channels;
-  }
-  public function setPlaylists($playlists)
-  {
-    $this->playlists = $playlists;
-  }
-  public function getPlaylists()
-  {
-    return $this->playlists;
-  }
+	public function setChannels($channels)
+	{
+		$this->channels = $channels;
+	}
+	public function getChannels()
+	{
+		return $this->channels;
+	}
+	public function setPlaylists($playlists)
+	{
+		$this->playlists = $playlists;
+	}
+	public function getPlaylists()
+	{
+		return $this->playlists;
+	}
 }

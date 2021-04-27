@@ -17,66 +17,66 @@
 
 class Google_Service_Monitoring_ServiceLevelObjective extends Google_Model
 {
-  public $calendarPeriod;
-  public $displayName;
-  public $goal;
-  public $name;
-  public $rollingPeriod;
-  protected $serviceLevelIndicatorType = 'Google_Service_Monitoring_ServiceLevelIndicator';
-  protected $serviceLevelIndicatorDataType = '';
+	public $calendarPeriod;
+	public $displayName;
+	public $goal;
+	public $name;
+	public $rollingPeriod;
+	protected $serviceLevelIndicatorType = 'Google_Service_Monitoring_ServiceLevelIndicator';
+	protected $serviceLevelIndicatorDataType = '';
 
-  public function setCalendarPeriod($calendarPeriod)
-  {
-    $this->calendarPeriod = $calendarPeriod;
-  }
-  public function getCalendarPeriod()
-  {
-    return $this->calendarPeriod;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setGoal($goal)
-  {
-    $this->goal = $goal;
-  }
-  public function getGoal()
-  {
-    return $this->goal;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setRollingPeriod($rollingPeriod)
-  {
-    $this->rollingPeriod = $rollingPeriod;
-  }
-  public function getRollingPeriod()
-  {
-    return $this->rollingPeriod;
-  }
-  /**
-   * @param Google_Service_Monitoring_ServiceLevelIndicator
-   */
-  public function setServiceLevelIndicator(Google_Service_Monitoring_ServiceLevelIndicator $serviceLevelIndicator)
-  {
-    $this->serviceLevelIndicator = $serviceLevelIndicator;
-  }
-  /**
-   * @return Google_Service_Monitoring_ServiceLevelIndicator
-   */
-  public function getServiceLevelIndicator()
-  {
-    return $this->serviceLevelIndicator;
-  }
+	public function setCalendarPeriod($calendarPeriod)
+	{
+		$this->calendarPeriod = $calendarPeriod;
+	}
+	public function getCalendarPeriod()
+	{
+		return $this->calendarPeriod;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setGoal($goal)
+	{
+		$this->goal = $goal;
+	}
+	public function getGoal()
+	{
+		return $this->goal;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setRollingPeriod($rollingPeriod)
+	{
+		$this->rollingPeriod = $rollingPeriod;
+	}
+	public function getRollingPeriod()
+	{
+		return $this->rollingPeriod;
+	}
+	/**
+	 * @param Google_Service_Monitoring_ServiceLevelIndicator
+	 */
+	public function setServiceLevelIndicator(Google_Service_Monitoring_ServiceLevelIndicator $serviceLevelIndicator)
+	{
+		$this->serviceLevelIndicator = $serviceLevelIndicator;
+	}
+	/**
+	 * @return Google_Service_Monitoring_ServiceLevelIndicator
+	 */
+	public function getServiceLevelIndicator()
+	{
+		return $this->serviceLevelIndicator;
+	}
 }

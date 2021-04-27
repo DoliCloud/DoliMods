@@ -17,31 +17,31 @@
 
 class Google_Service_CloudMonitoring_WriteTimeseriesRequest extends Google_Collection
 {
-  protected $collection_key = 'timeseries';
-  public $commonLabels;
-  protected $timeseriesType = 'Google_Service_CloudMonitoring_TimeseriesPoint';
-  protected $timeseriesDataType = 'array';
+	protected $collection_key = 'timeseries';
+	public $commonLabels;
+	protected $timeseriesType = 'Google_Service_CloudMonitoring_TimeseriesPoint';
+	protected $timeseriesDataType = 'array';
 
-  public function setCommonLabels($commonLabels)
-  {
-    $this->commonLabels = $commonLabels;
-  }
-  public function getCommonLabels()
-  {
-    return $this->commonLabels;
-  }
-  /**
-   * @param Google_Service_CloudMonitoring_TimeseriesPoint
-   */
-  public function setTimeseries($timeseries)
-  {
-    $this->timeseries = $timeseries;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_TimeseriesPoint
-   */
-  public function getTimeseries()
-  {
-    return $this->timeseries;
-  }
+	public function setCommonLabels($commonLabels)
+	{
+		$this->commonLabels = $commonLabels;
+	}
+	public function getCommonLabels()
+	{
+		return $this->commonLabels;
+	}
+	/**
+	 * @param Google_Service_CloudMonitoring_TimeseriesPoint
+	 */
+	public function setTimeseries($timeseries)
+	{
+		$this->timeseries = $timeseries;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_TimeseriesPoint
+	 */
+	public function getTimeseries()
+	{
+		return $this->timeseries;
+	}
 }

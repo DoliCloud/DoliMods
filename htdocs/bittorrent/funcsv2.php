@@ -4,59 +4,56 @@
 //////////////////////////////////////////////////////////////////
 // Worker functions
 
-if (function_exists("bcadd"))
-{
+if (function_exists("bcadd")) {
 	function sqlAdd($left, $right)
 	{
-		return bcadd($left, $right,0);
+		return bcadd($left, $right, 0);
 	}
 	function sqlSubtract($left, $right)
 	{
-		return bcsub($left, $right,0);
+		return bcsub($left, $right, 0);
 	}
 	function sqlMultiply($left, $right)
 	{
-		return bcmul($left, $right,0);
+		return bcmul($left, $right, 0);
 	}
 	function sqlDivide($left, $right)
 	{
-		return bcdiv($left, $right,0);
+		return bcdiv($left, $right, 0);
 	}
-}
-else // BC vs SQL math
+} else // BC vs SQL math
 {
+	// Uses the mysql database connection to perform string math. :)
+	// Used by byte counting functions
+	// No error handling as we assume nothing can go wrong. :|
+	function sqlAdd($left, $right)
+	{
+		$query = 'SELECT '.$left.'+'.$right;
+		$results = mysql_query($query) or showError("Database error.");
+		return mysql_result($results, 0, 0);
+	}
 
-// Uses the mysql database connection to perform string math. :)
-// Used by byte counting functions
-// No error handling as we assume nothing can go wrong. :|
-function sqlAdd($left, $right)
-{
-	$query = 'SELECT '.$left.'+'.$right;
-	$results = mysql_query($query) or showError("Database error.");
-	return mysql_result($results,0,0);
-}
+	// Ditto
+	function sqlSubtract($left, $right)
+	{
+		$query = 'SELECT '.$left.'-'.$right;
+		$results = mysql_query($query) or showError("Database error");
+		return mysql_result($results, 0, 0);
+	}
 
-// Ditto
-function sqlSubtract($left, $right)
-{
-	$query = 'SELECT '.$left.'-'.$right;
-	$results = mysql_query($query) or showError("Database error");
-	return mysql_result($results,0,0);
-}
+	function sqlDivide($left, $right)
+	{
+		$query = 'SELECT '.$left.'/'.$right;
+		$results = mysql_query($query) or showError("Database error");
+		return mysql_result($results, 0, 0);
+	}
 
-function sqlDivide($left, $right)
-{
-	$query = 'SELECT '.$left.'/'.$right;
-	$results = mysql_query($query) or showError("Database error");
-	return mysql_result($results,0,0);
-}
-
-function sqlMultiply($left, $right)
-{
-	$query = 'SELECT '.$left.'*'.$right;
-	$results = mysql_query($query) or showError("Database error");
-	return mysql_result($results,0,0);
-}
+	function sqlMultiply($left, $right)
+	{
+		$query = 'SELECT '.$left.'*'.$right;
+		$results = mysql_query($query) or showError("Database error");
+		return mysql_result($results, 0, 0);
+	}
 
 
 } // End of BC vs SQL
@@ -67,26 +64,25 @@ function quickQuery($query)
 	$results = @mysql_query($query);
 	if (!is_bool($results))
 		mysql_free_result($results);
-	else
-		return $results;
+	else return $results;
 	return true;
 }
 
-function bt_hex2bin ($input, $assume_safe=true)
+function bt_hex2bin($input, $assume_safe = true)
 {
-	if ($assume_safe !== true && ! ((strlen($input) % 2) === 0 || preg_match ('/^[0-9a-f]+$/i', $input)))
+	if ($assume_safe !== true && ! ((strlen($input) % 2) === 0 || preg_match('/^[0-9a-f]+$/i', $input)))
 		return "";
-	return pack('H*', $input );
+	return pack('H*', $input);
 }
 
 // Reports an error to the client in $message.
 // Any other output will confuse the client, so please don't do that.
-function showError($message, $log=false)
+function showError($message, $log = false)
 {
-  if ($log)
+	if ($log)
 	  error_log("RivetTracker: Sent error ($message)");
-  echo "d14:failure reason".strlen($message).":$message"."e";
-  exit(0);
+	echo "d14:failure reason".strlen($message).":$message"."e";
+	exit(0);
 }
 
 
@@ -132,15 +128,12 @@ function verifyTorrent($hash)
 
 	$results = mysql_query($query);
 
-	$res = mysql_result($results,0,0);
+	$res = mysql_result($results, 0, 0);
 
-	if ($res == 1)
-	{
+	if ($res == 1) {
 		dol_syslog("funcsv3::verifyTorrent OK", LOG_DEBUG);
 		return true;
-	}
-	else
-	{
+	} else {
 		dol_syslog("funcsv3::verifyTorrent KO res=".$res, LOG_DEBUG);
 		return false;
 	}
@@ -150,8 +143,7 @@ function verifyHash($input)
 {
 	if (strlen($input) === 40 && preg_match('/^[0-9a-f]+$/', $input))
 		return true;
-	else
-		return false;
+	else return false;
 }
 
 
@@ -163,27 +155,22 @@ function getPeerInfo($user, $hash)
 	global $prefix;
 
 	// If "trackerid" is set, let's try that
-	if (isset($GLOBALS["trackerid"]))
-	{
+	if (isset($GLOBALS["trackerid"])) {
 		$query = "SELECT peer_id,bytes,ip,port,status,lastupdate,sequence FROM ".$prefix."x$hash WHERE sequence=${GLOBALS["trackerid"]}";
 		$results = mysql_query($query) or showError("Tracker error: invalid torrent");
 		$data = mysql_fetch_assoc($results);
-		if (!$data || $data["peer_id"] != $user)
-		{
+		if (!$data || $data["peer_id"] != $user) {
 			// Damn, but don't crash just yet.
 			$query = "SELECT peer_id,bytes,ip,port,status,lastupdate,sequence FROM ".$prefix."x$hash WHERE peer_id=\"$user\"";
 			$results = mysql_query($query) or showError("Tracker error: invalid torrent");
 			$data = mysql_fetch_assoc($results);
 			$GLOBALS["trackerid"] = $data["sequence"];
 		}
-	}
-	else
-	{
+	} else {
 		$query = "SELECT peer_id,bytes,ip,port,status,lastupdate,sequence FROM ".$prefix."x$hash WHERE peer_id=\"$user\"";
 		$results = mysql_query($query) or showError("Tracker error: invalid torrent");
 		$data = mysql_fetch_assoc($results);
 		$GLOBALS["trackerid"] = $data["sequence"];
-
 	}
 
 	if (!($data))
@@ -193,23 +180,21 @@ function getPeerInfo($user, $hash)
 }
 
 // Slight redesign of loadPeers
-function getRandomPeers($hash, $where="")
+function getRandomPeers($hash, $where = "")
 {
 	global $prefix;
 
 	// Don't want to send a bad "num peers" for new seeds
 	if ($GLOBALS["NAT"])
 		$results = mysql_query("SELECT COUNT(*) FROM ".$prefix."x$hash WHERE natuser = 'N'");
-	else
-		$results = mysql_query("SELECT COUNT(*) FROM ".$prefix."x$hash");
+	else $results = mysql_query("SELECT COUNT(*) FROM ".$prefix."x$hash");
 
-	$peercount = mysql_result($results, 0,0);
+	$peercount = mysql_result($results, 0, 0);
 
 	// ORDER BY RAND() is expensive. Don't do it when the load gets too high
 	if ($peercount < 500)
 		$query = "SELECT ".((isset($_GET["no_peer_id"]) && $_GET["no_peer_id"] == 1) ? "" : "peer_id,")."ip, port, status FROM ".$prefix."x$hash ".$where." ORDER BY RAND() LIMIT ${GLOBALS['maxpeers']}";
-	else
-		$query = "SELECT ".((isset($_GET["no_peer_id"]) && $_GET["no_peer_id"] == 1) ? "" : "peer_id,")."ip, port, status FROM ".$prefix."x$hash LIMIT ".@mt_rand(0, $peercount - $GLOBALS["maxpeers"]).", ${GLOBALS['maxpeers']}";
+	else $query = "SELECT ".((isset($_GET["no_peer_id"]) && $_GET["no_peer_id"] == 1) ? "" : "peer_id,")."ip, port, status FROM ".$prefix."x$hash LIMIT ".@mt_rand(0, $peercount - $GLOBALS["maxpeers"]).", ${GLOBALS['maxpeers']}";
 
 	$results = mysql_query($query);
 	if (!$results)
@@ -219,7 +204,7 @@ function getRandomPeers($hash, $where="")
 	while ($return[] = mysql_fetch_assoc($results))
 		$peerno++;
 
-	array_pop ($return);
+	array_pop($return);
 	mysql_free_result($results);
 	$return['size'] = $peerno;
 
@@ -234,33 +219,27 @@ function killPeer($userid, $hash, $left, $assumepeer = false)
 {
 	global $prefix;
 
-	if (!$assumepeer)
-	{
+	if (!$assumepeer) {
 		$peer = getPeerInfo($userid, $hash);
 		if (!$peer)
 			return;
 		if ($left != $peer["bytes"])
 			$bytes = sqlSubtract($peer["bytes"], $left);
-		else
-			$bytes = 0;
-	}
-	else
-	{
+		else $bytes = 0;
+	} else {
 		$bytes = 0;
 		$peer = $assumepeer;
 	}
 
 	quickQuery("DELETE FROM ".$prefix."x$hash WHERE peer_id=\"$userid\"");
-	if (mysql_affected_rows() == 1)
-	{
+	if (mysql_affected_rows() == 1) {
 		//peercaching ALWAYS on
 		quickQuery("DELETE FROM ".$prefix."y$hash WHERE sequence=" . $peer["sequence"]);
 		if ($peer["status"] == "leecher")
 			summaryAdd("leechers", -1);
-		else
-			summaryAdd("seeds", -1);
-		if ($GLOBALS["countbytes"] && ((float)$bytes) > 0)
-			summaryAdd("dlbytes",$bytes);
+		else summaryAdd("seeds", -1);
+		if ($GLOBALS["countbytes"] && ((float) $bytes) > 0)
+			summaryAdd("dlbytes", $bytes);
 		if ($peer["bytes"] != 0 && $left == 0)
 			summaryAdd("finished", 1);
 	}
@@ -273,8 +252,7 @@ function collectBytes($peer, $hash, $left)
 
 	$peerid=$peer["peer_id"];
 
-	if (!$GLOBALS["countbytes"])
-	{
+	if (!$GLOBALS["countbytes"]) {
 		quickQuery("UPDATE ".$prefix."x$hash SET lastupdate=UNIX_TIMESTAMP() where " . (isset($GLOBALS["trackerid"]) ? "sequence=\"${GLOBALS["trackerid"]}\"" : "peer_id=\"$peerid\""));
 		return;
 	}
@@ -282,7 +260,7 @@ function collectBytes($peer, $hash, $left)
 	quickQuery("UPDATE ".$prefix."x$hash set " . (($diff != 0) ? "bytes=\"$left\"," : ""). " lastupdate=UNIX_TIMESTAMP() where " . (isset($GLOBALS["trackerid"]) ? "sequence=\"${GLOBALS["trackerid"]}\"" : "peer_id=\"$peerid\""));
 
 	// Anti-negative clause
-	if (((float)$diff) > 0)
+	if (((float) $diff) > 0)
 		summaryAdd("dlbytes", $diff);
 }
 
@@ -293,23 +271,20 @@ function collectBytes($peer, $hash, $left)
 function sendPeerList($peers)
 {
 	echo "d";
-  	echo "8:intervali".$GLOBALS["report_interval"]."e";
+	echo "8:intervali".$GLOBALS["report_interval"]."e";
 	if (isset($GLOBALS["min_interval"]))
 		echo "12:min intervali".$GLOBALS["min_interval"]."e";
 	echo "5:peers";
 	$size=$peers["size"];
-	if (isset($_GET["compact"]) && $_GET["compact"] == '1')
-	{
+	if (isset($_GET["compact"]) && $_GET["compact"] == '1') {
 		$p = '';
 		for ($i=0; $i < $size; $i++)
 			$p .= pack("Nn", ip2long($peers[$i]['ip']), $peers[$i]['port']);
 		echo strlen($p).':'.$p;
-	}
-	else // no_peer_id or no feature supported
+	} else // no_peer_id or no feature supported
 	{
 		echo 'l';
-		for ($i=0; $i < $size; $i++)
-		{
+		for ($i=0; $i < $size; $i++) {
 			echo "d2:ip".strlen($peers[$i]["ip"]).":".$peers[$i]["ip"];
 			if (isset($peers[$i]["peer_id"]))
 				echo "7:peer id20:".bt_hex2bin($peers[$i]["peer_id"]);
@@ -317,8 +292,7 @@ function sendPeerList($peers)
 		}
 		echo "e";
 	}
-	if (isset($GLOBALS["trackerid"]))
-	{
+	if (isset($GLOBALS["trackerid"])) {
 		// Now it gets annoying. trackerid is a string
 		echo "10:tracker id".strlen($GLOBALS["trackerid"]).":".$GLOBALS["trackerid"];
 	}
@@ -338,42 +312,34 @@ function sendRandomPeers($info_hash)
 
 	if (isset($_GET["compact"]) && $_GET["compact"] == '1')
 		$column = "compact";
-	else if (isset($_GET["no_peer_id"]) && $_GET["no_peer_id"] == '1')
+	elseif (isset($_GET["no_peer_id"]) && $_GET["no_peer_id"] == '1')
 		$column = "without_peerid";
-	else
-		$column = "with_peerid";
+	else $column = "with_peerid";
 
 	if ($count < $GLOBALS["maxpeers"])
 		$query = "SELECT $column FROM ".$prefix."y$info_hash";
-	else if ($count > 500)
-	{
-		do
-		{
+	elseif ($count > 500) {
+		do {
 			$rand1 = mt_rand(0, $count-$GLOBALS["maxpeers"]);
 			$rand2 = mt_rand(0, $count-$GLOBALS["maxpeers"]);
 		} while (abs($rand1 - $rand2) < $GLOBALS["maxpeers"]/2);
 		$query = "(SELECT $column FROM ".$prefix."y$info_hash LIMIT $rand1, ".($GLOBALS["maxpeers"]/2). ") UNION (SELECT $column FROM ".$prefix."y$info_hash LIMIT $rand2, ".($GLOBALS["maxpeers"]/2). ")";
-	}
-	else
-		$query = "SELECT $column FROM ".$prefix."y$info_hash ORDER BY RAND() LIMIT ".$GLOBALS["maxpeers"];
+	} else $query = "SELECT $column FROM ".$prefix."y$info_hash ORDER BY RAND() LIMIT ".$GLOBALS["maxpeers"];
 
 
 
 	echo "d";
-  	echo "8:intervali".$GLOBALS["report_interval"]."e";
+	echo "8:intervali".$GLOBALS["report_interval"]."e";
 	if (isset($GLOBALS["min_interval"]))
 		echo "12:min intervali".$GLOBALS["min_interval"]."e";
 	echo "5:peers";
 
 	$result = mysql_query($query);
-	if ($column == "compact")
-	{
+	if ($column == "compact") {
 		echo (mysql_num_rows($result) * 6) . ":";
 		while ($row = mysql_fetch_row($result))
 			echo str_pad($row[0], 6, chr(32));
-	}
-	else
-	{
+	} else {
 		echo "l";
 		while ($row = mysql_fetch_row($result))
 			echo "d".$row[0]."e";
@@ -418,8 +384,7 @@ function trashCollector($hash, $timeout)
 	$lastcheck = (mysql_fetch_row($results));
 
 	// Check once every re-announce cycle
-	if (($lastcheck[0] + $timeout) < time())
-	{
+	if (($lastcheck[0] + $timeout) < time()) {
 		$peers = loadLostPeers($hash, $timeout);
 		for ($i=0; $i < $peers["size"]; $i++)
 			killPeer($peers[$i]["peer_id"], $hash, $peers[$i]["bytes"]);
@@ -437,7 +402,6 @@ function Lock($hash, $time = 0)
 	if (strcmp($string[0], "1") == 0)
 		return true;
 	return false;
-
 }
 
 // Releases a lock. Ignores errors.
@@ -449,8 +413,7 @@ function Unlock($hash)
 // Returns true if the lock is available
 function isFreeLock($lock)
 {
-	if (Lock($lock, 0))
-	{
+	if (Lock($lock, 0)) {
 		Unlock($lock);
 		return true;
 	}
@@ -545,7 +508,7 @@ function runSpeed($info_hash, $delta)
 	quickQuery("INSERT IGNORE INTO ".$prefix."timestamps (info_hash, bytes, delta, sequence) SELECT '$info_hash' AS info_hash, dlbytes, UNIX_TIMESTAMP() - lastSpeedCycle, NULL FROM ".$prefix."summary WHERE info_hash=\"$info_hash\"");
 
 	// mysql blows sometimes so we have to read the data into php before updating it
-	$results = mysql_query('SELECT (MAX(bytes)-MIN(bytes))/SUM(delta), COUNT(*), MIN(sequence) FROM '.$prefix.'timestamps WHERE info_hash="'.$info_hash.'"' );
+	$results = mysql_query('SELECT (MAX(bytes)-MIN(bytes))/SUM(delta), COUNT(*), MIN(sequence) FROM '.$prefix.'timestamps WHERE info_hash="'.$info_hash.'"');
 	$data = mysql_fetch_row($results);
 
 	$results2 = mysql_query('SELECT '.$prefix.'summary.leechers FROM '.$prefix.'summary WHERE info_hash="'.$info_hash.'"');
@@ -576,15 +539,11 @@ function runSpeed($info_hash, $delta)
 // by $value, or set to exactly $value if $abs is true.
 function summaryAdd($column, $value, $abs = false)
 {
-	if (isset($GLOBALS["summaryupdate"][$column]))
-	{
+	if (isset($GLOBALS["summaryupdate"][$column])) {
 		if (!$abs)
 			$GLOBALS["summaryupdate"][$column][0] += $value;
-		else
-			showError("Tracker bug calling summaryAdd");
-	}
-	else
-	{
+		else showError("Tracker bug calling summaryAdd");
+	} else {
 		$GLOBALS["summaryupdate"][$column][0] = $value;
 		$GLOBALS["summaryupdate"][$column][1] = $abs;
 	}
@@ -608,11 +567,10 @@ function bytesToString($total_size)
 // Even if you're missing PHP 4.3.0, the MHASH extension might be of use.
 // Someone was kind enought to email this code snippit in.
 if (function_exists('mhash') && (!function_exists('sha1')) &&
-defined('MHASH_SHA1'))
-{
+defined('MHASH_SHA1')) {
 	function sha1($str)
 	{
-		return bin2hex(mhash(MHASH_SHA1,$str));
+		return bin2hex(mhash(MHASH_SHA1, $str));
 	}
 }
 
@@ -631,5 +589,3 @@ function addquotes($input)
 		return addslashes($input);
 	return $input;
 }
-
-?>

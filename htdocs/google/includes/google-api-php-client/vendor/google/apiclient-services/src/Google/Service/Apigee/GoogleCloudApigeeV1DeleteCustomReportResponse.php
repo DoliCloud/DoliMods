@@ -17,14 +17,14 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DeleteCustomReportResponse extends Google_Model
 {
-  public $message;
+	public $message;
 
-  public function setMessage($message)
-  {
-    $this->message = $message;
-  }
-  public function getMessage()
-  {
-    return $this->message;
-  }
+	public function setMessage($message)
+	{
+		$this->message = $message;
+	}
+	public function getMessage()
+	{
+		return $this->message;
+	}
 }

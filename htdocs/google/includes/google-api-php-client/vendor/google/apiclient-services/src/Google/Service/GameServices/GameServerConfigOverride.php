@@ -17,30 +17,30 @@
 
 class Google_Service_GameServices_GameServerConfigOverride extends Google_Model
 {
-  public $configVersion;
-  protected $realmsSelectorType = 'Google_Service_GameServices_RealmSelector';
-  protected $realmsSelectorDataType = '';
+	public $configVersion;
+	protected $realmsSelectorType = 'Google_Service_GameServices_RealmSelector';
+	protected $realmsSelectorDataType = '';
 
-  public function setConfigVersion($configVersion)
-  {
-    $this->configVersion = $configVersion;
-  }
-  public function getConfigVersion()
-  {
-    return $this->configVersion;
-  }
-  /**
-   * @param Google_Service_GameServices_RealmSelector
-   */
-  public function setRealmsSelector(Google_Service_GameServices_RealmSelector $realmsSelector)
-  {
-    $this->realmsSelector = $realmsSelector;
-  }
-  /**
-   * @return Google_Service_GameServices_RealmSelector
-   */
-  public function getRealmsSelector()
-  {
-    return $this->realmsSelector;
-  }
+	public function setConfigVersion($configVersion)
+	{
+		$this->configVersion = $configVersion;
+	}
+	public function getConfigVersion()
+	{
+		return $this->configVersion;
+	}
+	/**
+	 * @param Google_Service_GameServices_RealmSelector
+	 */
+	public function setRealmsSelector(Google_Service_GameServices_RealmSelector $realmsSelector)
+	{
+		$this->realmsSelector = $realmsSelector;
+	}
+	/**
+	 * @return Google_Service_GameServices_RealmSelector
+	 */
+	public function getRealmsSelector()
+	{
+		return $this->realmsSelector;
+	}
 }

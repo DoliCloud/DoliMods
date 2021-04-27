@@ -17,42 +17,42 @@
 
 class Google_Service_DoubleClickBidManager_DownloadRequest extends Google_Collection
 {
-  protected $collection_key = 'filterIds';
-  public $fileTypes;
-  public $filterIds;
-  public $filterType;
-  public $version;
+	protected $collection_key = 'filterIds';
+	public $fileTypes;
+	public $filterIds;
+	public $filterType;
+	public $version;
 
-  public function setFileTypes($fileTypes)
-  {
-    $this->fileTypes = $fileTypes;
-  }
-  public function getFileTypes()
-  {
-    return $this->fileTypes;
-  }
-  public function setFilterIds($filterIds)
-  {
-    $this->filterIds = $filterIds;
-  }
-  public function getFilterIds()
-  {
-    return $this->filterIds;
-  }
-  public function setFilterType($filterType)
-  {
-    $this->filterType = $filterType;
-  }
-  public function getFilterType()
-  {
-    return $this->filterType;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setFileTypes($fileTypes)
+	{
+		$this->fileTypes = $fileTypes;
+	}
+	public function getFileTypes()
+	{
+		return $this->fileTypes;
+	}
+	public function setFilterIds($filterIds)
+	{
+		$this->filterIds = $filterIds;
+	}
+	public function getFilterIds()
+	{
+		return $this->filterIds;
+	}
+	public function setFilterType($filterType)
+	{
+		$this->filterType = $filterType;
+	}
+	public function getFilterType()
+	{
+		return $this->filterType;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Container_ListUsableSubnetworksResponse extends Google_Collection
 {
-  protected $collection_key = 'subnetworks';
-  public $nextPageToken;
-  protected $subnetworksType = 'Google_Service_Container_UsableSubnetwork';
-  protected $subnetworksDataType = 'array';
+	protected $collection_key = 'subnetworks';
+	public $nextPageToken;
+	protected $subnetworksType = 'Google_Service_Container_UsableSubnetwork';
+	protected $subnetworksDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Container_UsableSubnetwork
-   */
-  public function setSubnetworks($subnetworks)
-  {
-    $this->subnetworks = $subnetworks;
-  }
-  /**
-   * @return Google_Service_Container_UsableSubnetwork
-   */
-  public function getSubnetworks()
-  {
-    return $this->subnetworks;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Container_UsableSubnetwork
+	 */
+	public function setSubnetworks($subnetworks)
+	{
+		$this->subnetworks = $subnetworks;
+	}
+	/**
+	 * @return Google_Service_Container_UsableSubnetwork
+	 */
+	public function getSubnetworks()
+	{
+		return $this->subnetworks;
+	}
 }

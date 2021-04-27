@@ -17,31 +17,31 @@
 
 class Google_Service_Firestore_CommitRequest extends Google_Collection
 {
-  protected $collection_key = 'writes';
-  public $transaction;
-  protected $writesType = 'Google_Service_Firestore_Write';
-  protected $writesDataType = 'array';
+	protected $collection_key = 'writes';
+	public $transaction;
+	protected $writesType = 'Google_Service_Firestore_Write';
+	protected $writesDataType = 'array';
 
-  public function setTransaction($transaction)
-  {
-    $this->transaction = $transaction;
-  }
-  public function getTransaction()
-  {
-    return $this->transaction;
-  }
-  /**
-   * @param Google_Service_Firestore_Write
-   */
-  public function setWrites($writes)
-  {
-    $this->writes = $writes;
-  }
-  /**
-   * @return Google_Service_Firestore_Write
-   */
-  public function getWrites()
-  {
-    return $this->writes;
-  }
+	public function setTransaction($transaction)
+	{
+		$this->transaction = $transaction;
+	}
+	public function getTransaction()
+	{
+		return $this->transaction;
+	}
+	/**
+	 * @param Google_Service_Firestore_Write
+	 */
+	public function setWrites($writes)
+	{
+		$this->writes = $writes;
+	}
+	/**
+	 * @return Google_Service_Firestore_Write
+	 */
+	public function getWrites()
+	{
+		return $this->writes;
+	}
 }

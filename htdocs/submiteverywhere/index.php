@@ -28,20 +28,20 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT ."/comm/mailing/class/mailing.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+require_once DOL_DOCUMENT_ROOT ."/comm/mailing/class/mailing.class.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php";
 
 $langs->load("mails");
 $langs->load("commercial");
@@ -56,7 +56,7 @@ $langs->load("submiteverywhere@submiteverywhere");
 */
 
 $help_url='EN:Module_SubmitEveryWhere|FR:Module_SubmitEveryWhere_Fr|ES:M&oacute;dulo_SubmitEveryWhere';
-llxHeader('','SubmitEveryWhere',$help_url);
+llxHeader('', 'SubmitEveryWhere', $help_url);
 
 print_fiche_titre($langs->trans("SubmitEveryWhereArea"));
 
@@ -67,7 +67,7 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
 
 // Search message
 $var=false;
-print '<form method="post" action="'.dol_buildpath('/submiteverywhere/index.php',1).'">';
+print '<form method="post" action="'.dol_buildpath('/submiteverywhere/index.php', 1).'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAMessage").'</td></tr>';
@@ -99,50 +99,42 @@ $sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m";
 $sql.= " ORDER BY m.date_creat DESC";
 $sql.= " LIMIT ".$limit;
 $result=$db->query($sql);
-if ($result)
-{
-    print '<table class="noborder" width="100%">';
-    print '<tr class="liste_titre">';
-    print '<td colspan="2">'.$langs->trans("LastSubmits",$limit).'</td>';
-    print '<td align="center">'.$langs->trans("DateCreation").'</td>';
-    print '<td align="center">'.$langs->trans("NbOfTargets").'</td>';
-    print '<td align="right"><a href="'.dol_buildpath('/submiteverywhere/list.php',1).'">'.$langs->trans("Status").'</a></td>';
-    print '</tr>';
+if ($result) {
+	print '<table class="noborder" width="100%">';
+	print '<tr class="liste_titre">';
+	print '<td colspan="2">'.$langs->trans("LastSubmits", $limit).'</td>';
+	print '<td align="center">'.$langs->trans("DateCreation").'</td>';
+	print '<td align="center">'.$langs->trans("NbOfTargets").'</td>';
+	print '<td align="right"><a href="'.dol_buildpath('/submiteverywhere/list.php', 1).'">'.$langs->trans("Status").'</a></td>';
+	print '</tr>';
 
-    $num = $db->num_rows($result);
-    if ($num > 0)
-    {
-        $var = true;
-        $i = 0;
+	$num = $db->num_rows($result);
+	if ($num > 0) {
+		$var = true;
+		$i = 0;
 
-        while ($i < $num )
-        {
-            $obj = $db->fetch_object($result);
-            $var=!$var;
+		while ($i < $num ) {
+			$obj = $db->fetch_object($result);
+			$var=!$var;
 
-            print "<tr ".$bc[$var].">";
-            print '<td class="nowrap"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'">'.img_object($langs->trans("ShowEMail"),"email").' '.$obj->rowid.'</a></td>';
-            print '<td>'.dol_trunc($obj->titre,38).'</td>';
-            print '<td align="center">'.dol_print_date($obj->date_creat,'day').'</td>';
-            print '<td align="center">'.($obj->nbemail?$obj->nbemail:"0").'</td>';
-            $mailstatic=new Mailing($db);
-            print '<td align="right">'.$mailstatic->LibStatut($obj->statut,5).'</td>';
-            print '</tr>';
-            $i++;
-        }
-
-    }
-    else
-    {
-        $var = false;
-        print '<tr '.$bc[$var].'><td colspan="5" class="opacitymedium">'.$langs->trans("None").'</td></tr>';
-    }
-    print "</table><br>";
-    $db->free($result);
-}
-else
-{
-    dol_print_error($db);
+			print "<tr ".$bc[$var].">";
+			print '<td class="nowrap"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'">'.img_object($langs->trans("ShowEMail"), "email").' '.$obj->rowid.'</a></td>';
+			print '<td>'.dol_trunc($obj->titre, 38).'</td>';
+			print '<td align="center">'.dol_print_date($obj->date_creat, 'day').'</td>';
+			print '<td align="center">'.($obj->nbemail?$obj->nbemail:"0").'</td>';
+			$mailstatic=new Mailing($db);
+			print '<td align="right">'.$mailstatic->LibStatut($obj->statut, 5).'</td>';
+			print '</tr>';
+			$i++;
+		}
+	} else {
+		$var = false;
+		print '<tr '.$bc[$var].'><td colspan="5" class="opacitymedium">'.$langs->trans("None").'</td></tr>';
+	}
+	print "</table><br>";
+	$db->free($result);
+} else {
+	dol_print_error($db);
 }
 
 
@@ -153,4 +145,3 @@ print '</table>';
 llxFooter();
 
 $db->close();
-

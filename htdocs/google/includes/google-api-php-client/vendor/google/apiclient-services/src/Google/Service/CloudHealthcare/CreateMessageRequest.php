@@ -17,21 +17,21 @@
 
 class Google_Service_CloudHealthcare_CreateMessageRequest extends Google_Model
 {
-  protected $messageType = 'Google_Service_CloudHealthcare_Message';
-  protected $messageDataType = '';
+	protected $messageType = 'Google_Service_CloudHealthcare_Message';
+	protected $messageDataType = '';
 
-  /**
-   * @param Google_Service_CloudHealthcare_Message
-   */
-  public function setMessage(Google_Service_CloudHealthcare_Message $message)
-  {
-    $this->message = $message;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_Message
-   */
-  public function getMessage()
-  {
-    return $this->message;
-  }
+	/**
+	 * @param Google_Service_CloudHealthcare_Message
+	 */
+	public function setMessage(Google_Service_CloudHealthcare_Message $message)
+	{
+		$this->message = $message;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_Message
+	 */
+	public function getMessage()
+	{
+		return $this->message;
+	}
 }

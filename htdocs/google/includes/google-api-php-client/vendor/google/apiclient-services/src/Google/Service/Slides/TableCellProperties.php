@@ -17,30 +17,30 @@
 
 class Google_Service_Slides_TableCellProperties extends Google_Model
 {
-  public $contentAlignment;
-  protected $tableCellBackgroundFillType = 'Google_Service_Slides_TableCellBackgroundFill';
-  protected $tableCellBackgroundFillDataType = '';
+	public $contentAlignment;
+	protected $tableCellBackgroundFillType = 'Google_Service_Slides_TableCellBackgroundFill';
+	protected $tableCellBackgroundFillDataType = '';
 
-  public function setContentAlignment($contentAlignment)
-  {
-    $this->contentAlignment = $contentAlignment;
-  }
-  public function getContentAlignment()
-  {
-    return $this->contentAlignment;
-  }
-  /**
-   * @param Google_Service_Slides_TableCellBackgroundFill
-   */
-  public function setTableCellBackgroundFill(Google_Service_Slides_TableCellBackgroundFill $tableCellBackgroundFill)
-  {
-    $this->tableCellBackgroundFill = $tableCellBackgroundFill;
-  }
-  /**
-   * @return Google_Service_Slides_TableCellBackgroundFill
-   */
-  public function getTableCellBackgroundFill()
-  {
-    return $this->tableCellBackgroundFill;
-  }
+	public function setContentAlignment($contentAlignment)
+	{
+		$this->contentAlignment = $contentAlignment;
+	}
+	public function getContentAlignment()
+	{
+		return $this->contentAlignment;
+	}
+	/**
+	 * @param Google_Service_Slides_TableCellBackgroundFill
+	 */
+	public function setTableCellBackgroundFill(Google_Service_Slides_TableCellBackgroundFill $tableCellBackgroundFill)
+	{
+		$this->tableCellBackgroundFill = $tableCellBackgroundFill;
+	}
+	/**
+	 * @return Google_Service_Slides_TableCellBackgroundFill
+	 */
+	public function getTableCellBackgroundFill()
+	{
+		return $this->tableCellBackgroundFill;
+	}
 }

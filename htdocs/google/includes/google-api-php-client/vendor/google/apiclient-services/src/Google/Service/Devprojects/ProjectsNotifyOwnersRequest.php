@@ -17,41 +17,41 @@
 
 class Google_Service_Devprojects_ProjectsNotifyOwnersRequest extends Google_Model
 {
-  public $messageHtml;
-  public $messageText;
-  public $subjectText;
-  public $whitelistId;
+	public $messageHtml;
+	public $messageText;
+	public $subjectText;
+	public $whitelistId;
 
-  public function setMessageHtml($messageHtml)
-  {
-    $this->messageHtml = $messageHtml;
-  }
-  public function getMessageHtml()
-  {
-    return $this->messageHtml;
-  }
-  public function setMessageText($messageText)
-  {
-    $this->messageText = $messageText;
-  }
-  public function getMessageText()
-  {
-    return $this->messageText;
-  }
-  public function setSubjectText($subjectText)
-  {
-    $this->subjectText = $subjectText;
-  }
-  public function getSubjectText()
-  {
-    return $this->subjectText;
-  }
-  public function setWhitelistId($whitelistId)
-  {
-    $this->whitelistId = $whitelistId;
-  }
-  public function getWhitelistId()
-  {
-    return $this->whitelistId;
-  }
+	public function setMessageHtml($messageHtml)
+	{
+		$this->messageHtml = $messageHtml;
+	}
+	public function getMessageHtml()
+	{
+		return $this->messageHtml;
+	}
+	public function setMessageText($messageText)
+	{
+		$this->messageText = $messageText;
+	}
+	public function getMessageText()
+	{
+		return $this->messageText;
+	}
+	public function setSubjectText($subjectText)
+	{
+		$this->subjectText = $subjectText;
+	}
+	public function getSubjectText()
+	{
+		return $this->subjectText;
+	}
+	public function setWhitelistId($whitelistId)
+	{
+		$this->whitelistId = $whitelistId;
+	}
+	public function getWhitelistId()
+	{
+		return $this->whitelistId;
+	}
 }

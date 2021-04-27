@@ -17,48 +17,48 @@
 
 class Google_Service_Slides_InsertTableRowsRequest extends Google_Model
 {
-  protected $cellLocationType = 'Google_Service_Slides_TableCellLocation';
-  protected $cellLocationDataType = '';
-  public $insertBelow;
-  public $number;
-  public $tableObjectId;
+	protected $cellLocationType = 'Google_Service_Slides_TableCellLocation';
+	protected $cellLocationDataType = '';
+	public $insertBelow;
+	public $number;
+	public $tableObjectId;
 
-  /**
-   * @param Google_Service_Slides_TableCellLocation
-   */
-  public function setCellLocation(Google_Service_Slides_TableCellLocation $cellLocation)
-  {
-    $this->cellLocation = $cellLocation;
-  }
-  /**
-   * @return Google_Service_Slides_TableCellLocation
-   */
-  public function getCellLocation()
-  {
-    return $this->cellLocation;
-  }
-  public function setInsertBelow($insertBelow)
-  {
-    $this->insertBelow = $insertBelow;
-  }
-  public function getInsertBelow()
-  {
-    return $this->insertBelow;
-  }
-  public function setNumber($number)
-  {
-    $this->number = $number;
-  }
-  public function getNumber()
-  {
-    return $this->number;
-  }
-  public function setTableObjectId($tableObjectId)
-  {
-    $this->tableObjectId = $tableObjectId;
-  }
-  public function getTableObjectId()
-  {
-    return $this->tableObjectId;
-  }
+	/**
+	 * @param Google_Service_Slides_TableCellLocation
+	 */
+	public function setCellLocation(Google_Service_Slides_TableCellLocation $cellLocation)
+	{
+		$this->cellLocation = $cellLocation;
+	}
+	/**
+	 * @return Google_Service_Slides_TableCellLocation
+	 */
+	public function getCellLocation()
+	{
+		return $this->cellLocation;
+	}
+	public function setInsertBelow($insertBelow)
+	{
+		$this->insertBelow = $insertBelow;
+	}
+	public function getInsertBelow()
+	{
+		return $this->insertBelow;
+	}
+	public function setNumber($number)
+	{
+		$this->number = $number;
+	}
+	public function getNumber()
+	{
+		return $this->number;
+	}
+	public function setTableObjectId($tableObjectId)
+	{
+		$this->tableObjectId = $tableObjectId;
+	}
+	public function getTableObjectId()
+	{
+		return $this->tableObjectId;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_ViewabilityTargetingOptionDetails extends Google_Model
 {
-  public $viewability;
+	public $viewability;
 
-  public function setViewability($viewability)
-  {
-    $this->viewability = $viewability;
-  }
-  public function getViewability()
-  {
-    return $this->viewability;
-  }
+	public function setViewability($viewability)
+	{
+		$this->viewability = $viewability;
+	}
+	public function getViewability()
+	{
+		return $this->viewability;
+	}
 }

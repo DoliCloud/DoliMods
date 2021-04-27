@@ -33,54 +33,54 @@ class Google_Service_FirebaseRemoteConfig extends Google_Service
 {
 
 
-  public $projects;
-  
-  /**
-   * Constructs the internal representation of the FirebaseRemoteConfig service.
-   *
-   * @param Google_Client $client
-   */
-  public function __construct(Google_Client $client)
-  {
-    parent::__construct($client);
-    $this->rootUrl = 'https://firebaseremoteconfig.googleapis.com/';
-    $this->servicePath = '';
-    $this->version = 'v1';
-    $this->serviceName = 'firebaseremoteconfig';
+	public $projects;
 
-    $this->projects = new Google_Service_FirebaseRemoteConfig_Resource_Projects(
-        $this,
-        $this->serviceName,
-        'projects',
-        array(
-          'methods' => array(
-            'getRemoteConfig' => array(
-              'path' => 'v1/{+project}/remoteConfig',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'project' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'updateRemoteConfig' => array(
-              'path' => 'v1/{+project}/remoteConfig',
-              'httpMethod' => 'PUT',
-              'parameters' => array(
-                'project' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'validateOnly' => array(
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the FirebaseRemoteConfig service.
+	 *
+	 * @param Google_Client $client
+	 */
+	public function __construct(Google_Client $client)
+	{
+		parent::__construct($client);
+		$this->rootUrl = 'https://firebaseremoteconfig.googleapis.com/';
+		$this->servicePath = '';
+		$this->version = 'v1';
+		$this->serviceName = 'firebaseremoteconfig';
+
+		$this->projects = new Google_Service_FirebaseRemoteConfig_Resource_Projects(
+		$this,
+		$this->serviceName,
+		'projects',
+		array(
+		  'methods' => array(
+			'getRemoteConfig' => array(
+			  'path' => 'v1/{+project}/remoteConfig',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'project' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'updateRemoteConfig' => array(
+			  'path' => 'v1/{+project}/remoteConfig',
+			  'httpMethod' => 'PUT',
+			  'parameters' => array(
+				'project' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'validateOnly' => array(
+				  'location' => 'query',
+				  'type' => 'boolean',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_CloudTalentSolution_NumericBucketingOption extends Google_Collection
 {
-  protected $collection_key = 'bucketBounds';
-  public $bucketBounds;
-  public $requiresMinMax;
+	protected $collection_key = 'bucketBounds';
+	public $bucketBounds;
+	public $requiresMinMax;
 
-  public function setBucketBounds($bucketBounds)
-  {
-    $this->bucketBounds = $bucketBounds;
-  }
-  public function getBucketBounds()
-  {
-    return $this->bucketBounds;
-  }
-  public function setRequiresMinMax($requiresMinMax)
-  {
-    $this->requiresMinMax = $requiresMinMax;
-  }
-  public function getRequiresMinMax()
-  {
-    return $this->requiresMinMax;
-  }
+	public function setBucketBounds($bucketBounds)
+	{
+		$this->bucketBounds = $bucketBounds;
+	}
+	public function getBucketBounds()
+	{
+		return $this->bucketBounds;
+	}
+	public function setRequiresMinMax($requiresMinMax)
+	{
+		$this->requiresMinMax = $requiresMinMax;
+	}
+	public function getRequiresMinMax()
+	{
+		return $this->requiresMinMax;
+	}
 }

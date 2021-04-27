@@ -33,42 +33,42 @@ function openstreetmapadmin_prepare_head()
 	$h = 0;
 	$head = array();
 
-/*	$head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap.php",1);
+	/*  $head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap.php",1);
 	$head[$h][1] = $langs->trans("AgendaView");
 	$head[$h][2] = 'agenda';
 	$h++;
 
-    $head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_calsync.php",1);
-    $head[$h][1] = $langs->trans("AgendaSync");
-    $head[$h][2] = 'agendasync';
-    $h++;
-*/
-	$head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_maps.php",1);
-    $head[$h][1] = $langs->trans("Maps");
-    $head[$h][2] = 'maps';
-    $h++;
-/*
-    $head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_ad.php",1);
+	$head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_calsync.php",1);
+	$head[$h][1] = $langs->trans("AgendaSync");
+	$head[$h][2] = 'agendasync';
+	$h++;
+	*/
+	$head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_maps.php", 1);
+	$head[$h][1] = $langs->trans("Maps");
+	$head[$h][2] = 'maps';
+	$h++;
+	/*
+	$head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_ad.php",1);
 	$head[$h][1] = $langs->trans("Adsense");
 	$head[$h][2] = 'adsense';
 	$h++;
 
 	include_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
 	$dolibarrversionarray=preg_split('/[\.-]/',version_dolibarr());
-    $dolibarrversionok=array(3,1,-2);
+	$dolibarrversionok=array(3,1,-2);
 	if (versioncompare($dolibarrversionarray,$dolibarrversionok) >= 0)
 	{
-        $head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_an.php",1);
-        $head[$h][1] = $langs->trans("Analitycs");
-        $head[$h][2] = 'analytics';
-        $h++;
+		$head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_an.php",1);
+		$head[$h][1] = $langs->trans("Analitycs");
+		$head[$h][2] = 'analytics';
+		$h++;
 	}
-*/
+	*/
 
 	$head[$h][0] = 'about.php';
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'tababout';
 	$h++;
 
-    return $head;
+	return $head;
 }

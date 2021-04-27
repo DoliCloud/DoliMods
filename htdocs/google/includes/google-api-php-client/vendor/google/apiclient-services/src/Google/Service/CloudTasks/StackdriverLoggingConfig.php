@@ -17,14 +17,14 @@
 
 class Google_Service_CloudTasks_StackdriverLoggingConfig extends Google_Model
 {
-  public $samplingRatio;
+	public $samplingRatio;
 
-  public function setSamplingRatio($samplingRatio)
-  {
-    $this->samplingRatio = $samplingRatio;
-  }
-  public function getSamplingRatio()
-  {
-    return $this->samplingRatio;
-  }
+	public function setSamplingRatio($samplingRatio)
+	{
+		$this->samplingRatio = $samplingRatio;
+	}
+	public function getSamplingRatio()
+	{
+		return $this->samplingRatio;
+	}
 }

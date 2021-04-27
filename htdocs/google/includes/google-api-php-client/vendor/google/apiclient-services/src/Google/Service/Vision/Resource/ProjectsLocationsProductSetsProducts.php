@@ -25,31 +25,31 @@
  */
 class Google_Service_Vision_Resource_ProjectsLocationsProductSetsProducts extends Google_Service_Resource
 {
-  /**
-   * Lists the Products in a ProductSet, in an unspecified order. If the
-   * ProductSet does not exist, the products field of the response will be empty.
-   *
-   * Possible errors:
-   *
-   * * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-   * (products.listProjectsLocationsProductSetsProducts)
-   *
-   * @param string $name Required. The ProductSet resource for which to retrieve
-   * Products.
-   *
-   * Format is: `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param int pageSize The maximum number of items to return. Default 10,
-   * maximum 100.
-   * @opt_param string pageToken The next_page_token returned from a previous List
-   * request, if any.
-   * @return Google_Service_Vision_ListProductsInProductSetResponse
-   */
-  public function listProjectsLocationsProductSetsProducts($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Vision_ListProductsInProductSetResponse");
-  }
+	/**
+	 * Lists the Products in a ProductSet, in an unspecified order. If the
+	 * ProductSet does not exist, the products field of the response will be empty.
+	 *
+	 * Possible errors:
+	 *
+	 * * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
+	 * (products.listProjectsLocationsProductSetsProducts)
+	 *
+	 * @param string $name Required. The ProductSet resource for which to retrieve
+	 *                     Products.
+	 *
+	 *                     Format is: `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param int pageSize The maximum number of items to return. Default 10,
+	 * maximum 100.
+	 * @opt_param string pageToken The next_page_token returned from a previous List
+	 * request, if any.
+	 * @return Google_Service_Vision_ListProductsInProductSetResponse
+	 */
+	public function listProjectsLocationsProductSetsProducts($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Vision_ListProductsInProductSetResponse");
+	}
 }

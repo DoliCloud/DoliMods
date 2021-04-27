@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1CustomReportMetric extends Google_Model
 {
-  public $function;
-  public $name;
+	public $function;
+	public $name;
 
-  public function setFunction($function)
-  {
-    $this->function = $function;
-  }
-  public function getFunction()
-  {
-    return $this->function;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setFunction($function)
+	{
+		$this->function = $function;
+	}
+	public function getFunction()
+	{
+		return $this->function;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

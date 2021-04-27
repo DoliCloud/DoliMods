@@ -17,69 +17,69 @@
 
 class Google_Service_Dataflow_LeaseWorkItemRequest extends Google_Collection
 {
-  protected $collection_key = 'workerCapabilities';
-  public $currentWorkerTime;
-  public $location;
-  public $requestedLeaseDuration;
-  public $unifiedWorkerRequest;
-  public $workItemTypes;
-  public $workerCapabilities;
-  public $workerId;
+	protected $collection_key = 'workerCapabilities';
+	public $currentWorkerTime;
+	public $location;
+	public $requestedLeaseDuration;
+	public $unifiedWorkerRequest;
+	public $workItemTypes;
+	public $workerCapabilities;
+	public $workerId;
 
-  public function setCurrentWorkerTime($currentWorkerTime)
-  {
-    $this->currentWorkerTime = $currentWorkerTime;
-  }
-  public function getCurrentWorkerTime()
-  {
-    return $this->currentWorkerTime;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setRequestedLeaseDuration($requestedLeaseDuration)
-  {
-    $this->requestedLeaseDuration = $requestedLeaseDuration;
-  }
-  public function getRequestedLeaseDuration()
-  {
-    return $this->requestedLeaseDuration;
-  }
-  public function setUnifiedWorkerRequest($unifiedWorkerRequest)
-  {
-    $this->unifiedWorkerRequest = $unifiedWorkerRequest;
-  }
-  public function getUnifiedWorkerRequest()
-  {
-    return $this->unifiedWorkerRequest;
-  }
-  public function setWorkItemTypes($workItemTypes)
-  {
-    $this->workItemTypes = $workItemTypes;
-  }
-  public function getWorkItemTypes()
-  {
-    return $this->workItemTypes;
-  }
-  public function setWorkerCapabilities($workerCapabilities)
-  {
-    $this->workerCapabilities = $workerCapabilities;
-  }
-  public function getWorkerCapabilities()
-  {
-    return $this->workerCapabilities;
-  }
-  public function setWorkerId($workerId)
-  {
-    $this->workerId = $workerId;
-  }
-  public function getWorkerId()
-  {
-    return $this->workerId;
-  }
+	public function setCurrentWorkerTime($currentWorkerTime)
+	{
+		$this->currentWorkerTime = $currentWorkerTime;
+	}
+	public function getCurrentWorkerTime()
+	{
+		return $this->currentWorkerTime;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setRequestedLeaseDuration($requestedLeaseDuration)
+	{
+		$this->requestedLeaseDuration = $requestedLeaseDuration;
+	}
+	public function getRequestedLeaseDuration()
+	{
+		return $this->requestedLeaseDuration;
+	}
+	public function setUnifiedWorkerRequest($unifiedWorkerRequest)
+	{
+		$this->unifiedWorkerRequest = $unifiedWorkerRequest;
+	}
+	public function getUnifiedWorkerRequest()
+	{
+		return $this->unifiedWorkerRequest;
+	}
+	public function setWorkItemTypes($workItemTypes)
+	{
+		$this->workItemTypes = $workItemTypes;
+	}
+	public function getWorkItemTypes()
+	{
+		return $this->workItemTypes;
+	}
+	public function setWorkerCapabilities($workerCapabilities)
+	{
+		$this->workerCapabilities = $workerCapabilities;
+	}
+	public function getWorkerCapabilities()
+	{
+		return $this->workerCapabilities;
+	}
+	public function setWorkerId($workerId)
+	{
+		$this->workerId = $workerId;
+	}
+	public function getWorkerId()
+	{
+		return $this->workerId;
+	}
 }

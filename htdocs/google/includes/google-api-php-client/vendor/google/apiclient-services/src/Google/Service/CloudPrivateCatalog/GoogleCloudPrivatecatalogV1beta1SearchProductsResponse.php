@@ -17,31 +17,31 @@
 
 class Google_Service_CloudPrivateCatalog_GoogleCloudPrivatecatalogV1beta1SearchProductsResponse extends Google_Collection
 {
-  protected $collection_key = 'products';
-  public $nextPageToken;
-  protected $productsType = 'Google_Service_CloudPrivateCatalog_GoogleCloudPrivatecatalogV1beta1Product';
-  protected $productsDataType = 'array';
+	protected $collection_key = 'products';
+	public $nextPageToken;
+	protected $productsType = 'Google_Service_CloudPrivateCatalog_GoogleCloudPrivatecatalogV1beta1Product';
+	protected $productsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_CloudPrivateCatalog_GoogleCloudPrivatecatalogV1beta1Product
-   */
-  public function setProducts($products)
-  {
-    $this->products = $products;
-  }
-  /**
-   * @return Google_Service_CloudPrivateCatalog_GoogleCloudPrivatecatalogV1beta1Product
-   */
-  public function getProducts()
-  {
-    return $this->products;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_CloudPrivateCatalog_GoogleCloudPrivatecatalogV1beta1Product
+	 */
+	public function setProducts($products)
+	{
+		$this->products = $products;
+	}
+	/**
+	 * @return Google_Service_CloudPrivateCatalog_GoogleCloudPrivatecatalogV1beta1Product
+	 */
+	public function getProducts()
+	{
+		return $this->products;
+	}
 }

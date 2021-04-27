@@ -17,38 +17,38 @@
 
 class Google_Service_DeploymentManager_TargetConfiguration extends Google_Collection
 {
-  protected $collection_key = 'imports';
-  protected $configType = 'Google_Service_DeploymentManager_ConfigFile';
-  protected $configDataType = '';
-  protected $importsType = 'Google_Service_DeploymentManager_ImportFile';
-  protected $importsDataType = 'array';
+	protected $collection_key = 'imports';
+	protected $configType = 'Google_Service_DeploymentManager_ConfigFile';
+	protected $configDataType = '';
+	protected $importsType = 'Google_Service_DeploymentManager_ImportFile';
+	protected $importsDataType = 'array';
 
-  /**
-   * @param Google_Service_DeploymentManager_ConfigFile
-   */
-  public function setConfig(Google_Service_DeploymentManager_ConfigFile $config)
-  {
-    $this->config = $config;
-  }
-  /**
-   * @return Google_Service_DeploymentManager_ConfigFile
-   */
-  public function getConfig()
-  {
-    return $this->config;
-  }
-  /**
-   * @param Google_Service_DeploymentManager_ImportFile
-   */
-  public function setImports($imports)
-  {
-    $this->imports = $imports;
-  }
-  /**
-   * @return Google_Service_DeploymentManager_ImportFile
-   */
-  public function getImports()
-  {
-    return $this->imports;
-  }
+	/**
+	 * @param Google_Service_DeploymentManager_ConfigFile
+	 */
+	public function setConfig(Google_Service_DeploymentManager_ConfigFile $config)
+	{
+		$this->config = $config;
+	}
+	/**
+	 * @return Google_Service_DeploymentManager_ConfigFile
+	 */
+	public function getConfig()
+	{
+		return $this->config;
+	}
+	/**
+	 * @param Google_Service_DeploymentManager_ImportFile
+	 */
+	public function setImports($imports)
+	{
+		$this->imports = $imports;
+	}
+	/**
+	 * @return Google_Service_DeploymentManager_ImportFile
+	 */
+	public function getImports()
+	{
+		return $this->imports;
+	}
 }

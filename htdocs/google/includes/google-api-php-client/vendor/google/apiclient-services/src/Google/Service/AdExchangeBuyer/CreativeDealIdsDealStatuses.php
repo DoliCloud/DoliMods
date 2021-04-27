@@ -17,32 +17,32 @@
 
 class Google_Service_AdExchangeBuyer_CreativeDealIdsDealStatuses extends Google_Model
 {
-  public $arcStatus;
-  public $dealId;
-  public $webPropertyId;
+	public $arcStatus;
+	public $dealId;
+	public $webPropertyId;
 
-  public function setArcStatus($arcStatus)
-  {
-    $this->arcStatus = $arcStatus;
-  }
-  public function getArcStatus()
-  {
-    return $this->arcStatus;
-  }
-  public function setDealId($dealId)
-  {
-    $this->dealId = $dealId;
-  }
-  public function getDealId()
-  {
-    return $this->dealId;
-  }
-  public function setWebPropertyId($webPropertyId)
-  {
-    $this->webPropertyId = $webPropertyId;
-  }
-  public function getWebPropertyId()
-  {
-    return $this->webPropertyId;
-  }
+	public function setArcStatus($arcStatus)
+	{
+		$this->arcStatus = $arcStatus;
+	}
+	public function getArcStatus()
+	{
+		return $this->arcStatus;
+	}
+	public function setDealId($dealId)
+	{
+		$this->dealId = $dealId;
+	}
+	public function getDealId()
+	{
+		return $this->dealId;
+	}
+	public function setWebPropertyId($webPropertyId)
+	{
+		$this->webPropertyId = $webPropertyId;
+	}
+	public function getWebPropertyId()
+	{
+		return $this->webPropertyId;
+	}
 }

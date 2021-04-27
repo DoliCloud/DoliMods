@@ -17,50 +17,50 @@
 
 class Google_Service_CloudTasks_RetryConfig extends Google_Model
 {
-  public $maxAttempts;
-  public $maxBackoff;
-  public $maxDoublings;
-  public $maxRetryDuration;
-  public $minBackoff;
+	public $maxAttempts;
+	public $maxBackoff;
+	public $maxDoublings;
+	public $maxRetryDuration;
+	public $minBackoff;
 
-  public function setMaxAttempts($maxAttempts)
-  {
-    $this->maxAttempts = $maxAttempts;
-  }
-  public function getMaxAttempts()
-  {
-    return $this->maxAttempts;
-  }
-  public function setMaxBackoff($maxBackoff)
-  {
-    $this->maxBackoff = $maxBackoff;
-  }
-  public function getMaxBackoff()
-  {
-    return $this->maxBackoff;
-  }
-  public function setMaxDoublings($maxDoublings)
-  {
-    $this->maxDoublings = $maxDoublings;
-  }
-  public function getMaxDoublings()
-  {
-    return $this->maxDoublings;
-  }
-  public function setMaxRetryDuration($maxRetryDuration)
-  {
-    $this->maxRetryDuration = $maxRetryDuration;
-  }
-  public function getMaxRetryDuration()
-  {
-    return $this->maxRetryDuration;
-  }
-  public function setMinBackoff($minBackoff)
-  {
-    $this->minBackoff = $minBackoff;
-  }
-  public function getMinBackoff()
-  {
-    return $this->minBackoff;
-  }
+	public function setMaxAttempts($maxAttempts)
+	{
+		$this->maxAttempts = $maxAttempts;
+	}
+	public function getMaxAttempts()
+	{
+		return $this->maxAttempts;
+	}
+	public function setMaxBackoff($maxBackoff)
+	{
+		$this->maxBackoff = $maxBackoff;
+	}
+	public function getMaxBackoff()
+	{
+		return $this->maxBackoff;
+	}
+	public function setMaxDoublings($maxDoublings)
+	{
+		$this->maxDoublings = $maxDoublings;
+	}
+	public function getMaxDoublings()
+	{
+		return $this->maxDoublings;
+	}
+	public function setMaxRetryDuration($maxRetryDuration)
+	{
+		$this->maxRetryDuration = $maxRetryDuration;
+	}
+	public function getMaxRetryDuration()
+	{
+		return $this->maxRetryDuration;
+	}
+	public function setMinBackoff($minBackoff)
+	{
+		$this->minBackoff = $minBackoff;
+	}
+	public function getMinBackoff()
+	{
+		return $this->minBackoff;
+	}
 }

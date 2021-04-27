@@ -17,32 +17,32 @@
 
 class Google_Service_CloudComposer_PrivateClusterConfig extends Google_Model
 {
-  public $enablePrivateEndpoint;
-  public $masterIpv4CidrBlock;
-  public $masterIpv4ReservedRange;
+	public $enablePrivateEndpoint;
+	public $masterIpv4CidrBlock;
+	public $masterIpv4ReservedRange;
 
-  public function setEnablePrivateEndpoint($enablePrivateEndpoint)
-  {
-    $this->enablePrivateEndpoint = $enablePrivateEndpoint;
-  }
-  public function getEnablePrivateEndpoint()
-  {
-    return $this->enablePrivateEndpoint;
-  }
-  public function setMasterIpv4CidrBlock($masterIpv4CidrBlock)
-  {
-    $this->masterIpv4CidrBlock = $masterIpv4CidrBlock;
-  }
-  public function getMasterIpv4CidrBlock()
-  {
-    return $this->masterIpv4CidrBlock;
-  }
-  public function setMasterIpv4ReservedRange($masterIpv4ReservedRange)
-  {
-    $this->masterIpv4ReservedRange = $masterIpv4ReservedRange;
-  }
-  public function getMasterIpv4ReservedRange()
-  {
-    return $this->masterIpv4ReservedRange;
-  }
+	public function setEnablePrivateEndpoint($enablePrivateEndpoint)
+	{
+		$this->enablePrivateEndpoint = $enablePrivateEndpoint;
+	}
+	public function getEnablePrivateEndpoint()
+	{
+		return $this->enablePrivateEndpoint;
+	}
+	public function setMasterIpv4CidrBlock($masterIpv4CidrBlock)
+	{
+		$this->masterIpv4CidrBlock = $masterIpv4CidrBlock;
+	}
+	public function getMasterIpv4CidrBlock()
+	{
+		return $this->masterIpv4CidrBlock;
+	}
+	public function setMasterIpv4ReservedRange($masterIpv4ReservedRange)
+	{
+		$this->masterIpv4ReservedRange = $masterIpv4ReservedRange;
+	}
+	public function getMasterIpv4ReservedRange()
+	{
+		return $this->masterIpv4ReservedRange;
+	}
 }

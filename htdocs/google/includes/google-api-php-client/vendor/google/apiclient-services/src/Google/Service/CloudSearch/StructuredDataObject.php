@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_StructuredDataObject extends Google_Collection
 {
-  protected $collection_key = 'properties';
-  protected $propertiesType = 'Google_Service_CloudSearch_NamedProperty';
-  protected $propertiesDataType = 'array';
+	protected $collection_key = 'properties';
+	protected $propertiesType = 'Google_Service_CloudSearch_NamedProperty';
+	protected $propertiesDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudSearch_NamedProperty
-   */
-  public function setProperties($properties)
-  {
-    $this->properties = $properties;
-  }
-  /**
-   * @return Google_Service_CloudSearch_NamedProperty
-   */
-  public function getProperties()
-  {
-    return $this->properties;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_NamedProperty
+	 */
+	public function setProperties($properties)
+	{
+		$this->properties = $properties;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_NamedProperty
+	 */
+	public function getProperties()
+	{
+		return $this->properties;
+	}
 }

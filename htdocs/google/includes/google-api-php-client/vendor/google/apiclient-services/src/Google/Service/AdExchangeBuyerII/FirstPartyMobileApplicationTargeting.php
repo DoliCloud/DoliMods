@@ -17,24 +17,24 @@
 
 class Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting extends Google_Collection
 {
-  protected $collection_key = 'targetedAppIds';
-  public $excludedAppIds;
-  public $targetedAppIds;
+	protected $collection_key = 'targetedAppIds';
+	public $excludedAppIds;
+	public $targetedAppIds;
 
-  public function setExcludedAppIds($excludedAppIds)
-  {
-    $this->excludedAppIds = $excludedAppIds;
-  }
-  public function getExcludedAppIds()
-  {
-    return $this->excludedAppIds;
-  }
-  public function setTargetedAppIds($targetedAppIds)
-  {
-    $this->targetedAppIds = $targetedAppIds;
-  }
-  public function getTargetedAppIds()
-  {
-    return $this->targetedAppIds;
-  }
+	public function setExcludedAppIds($excludedAppIds)
+	{
+		$this->excludedAppIds = $excludedAppIds;
+	}
+	public function getExcludedAppIds()
+	{
+		return $this->excludedAppIds;
+	}
+	public function setTargetedAppIds($targetedAppIds)
+	{
+		$this->targetedAppIds = $targetedAppIds;
+	}
+	public function getTargetedAppIds()
+	{
+		return $this->targetedAppIds;
+	}
 }

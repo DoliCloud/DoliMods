@@ -25,36 +25,36 @@
  */
 class Google_Service_Cih_Resource_AssociatedEmails extends Google_Service_Resource
 {
-  /**
-   * Associates an AdWords customer id to an email address.
-   * (associatedEmails.create)
-   *
-   * @param string $customerId The AdWords customer Id the email will be
-   * associated to.
-   * @param Google_Service_Cih_AssociatedEmail $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Cih_AssociatedEmail
-   */
-  public function create($customerId, Google_Service_Cih_AssociatedEmail $postBody, $optParams = array())
-  {
-    $params = array('customerId' => $customerId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Cih_AssociatedEmail");
-  }
-  /**
-   * Dissociates an AdWords customer id from an email address.
-   * (associatedEmails.delete)
-   *
-   * @param string $customerId The AdWords customer Id the email will be
-   * dissociated from.
-   * @param string $emailAddress The email address.
-   * @param string $operator The program or person who initiated the operation.
-   * @param array $optParams Optional parameters.
-   */
-  public function delete($customerId, $emailAddress, $operator, $optParams = array())
-  {
-    $params = array('customerId' => $customerId, 'emailAddress' => $emailAddress, 'operator' => $operator);
-    $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params));
-  }
+	/**
+	 * Associates an AdWords customer id to an email address.
+	 * (associatedEmails.create)
+	 *
+	 * @param string $customerId The AdWords customer Id the email will be
+	 *                           associated to.
+	 * @param Google_Service_Cih_AssociatedEmail $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Cih_AssociatedEmail
+	 */
+	public function create($customerId, Google_Service_Cih_AssociatedEmail $postBody, $optParams = array())
+	{
+		$params = array('customerId' => $customerId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_Cih_AssociatedEmail");
+	}
+	/**
+	 * Dissociates an AdWords customer id from an email address.
+	 * (associatedEmails.delete)
+	 *
+	 * @param string $customerId The AdWords customer Id the email will be
+	 *                           dissociated from.
+	 * @param string $emailAddress The email address.
+	 * @param string $operator The program or person who initiated the operation.
+	 * @param array $optParams Optional parameters.
+	 */
+	public function delete($customerId, $emailAddress, $operator, $optParams = array())
+	{
+		$params = array('customerId' => $customerId, 'emailAddress' => $emailAddress, 'operator' => $operator);
+		$params = array_merge($params, $optParams);
+		return $this->call('delete', array($params));
+	}
 }

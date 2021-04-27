@@ -17,39 +17,39 @@
 
 class Google_Service_CloudSourceRepositories_ProjectConfig extends Google_Model
 {
-  public $enablePrivateKeyCheck;
-  public $name;
-  protected $pubsubConfigsType = 'Google_Service_CloudSourceRepositories_PubsubConfig';
-  protected $pubsubConfigsDataType = 'map';
+	public $enablePrivateKeyCheck;
+	public $name;
+	protected $pubsubConfigsType = 'Google_Service_CloudSourceRepositories_PubsubConfig';
+	protected $pubsubConfigsDataType = 'map';
 
-  public function setEnablePrivateKeyCheck($enablePrivateKeyCheck)
-  {
-    $this->enablePrivateKeyCheck = $enablePrivateKeyCheck;
-  }
-  public function getEnablePrivateKeyCheck()
-  {
-    return $this->enablePrivateKeyCheck;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_CloudSourceRepositories_PubsubConfig
-   */
-  public function setPubsubConfigs($pubsubConfigs)
-  {
-    $this->pubsubConfigs = $pubsubConfigs;
-  }
-  /**
-   * @return Google_Service_CloudSourceRepositories_PubsubConfig
-   */
-  public function getPubsubConfigs()
-  {
-    return $this->pubsubConfigs;
-  }
+	public function setEnablePrivateKeyCheck($enablePrivateKeyCheck)
+	{
+		$this->enablePrivateKeyCheck = $enablePrivateKeyCheck;
+	}
+	public function getEnablePrivateKeyCheck()
+	{
+		return $this->enablePrivateKeyCheck;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_CloudSourceRepositories_PubsubConfig
+	 */
+	public function setPubsubConfigs($pubsubConfigs)
+	{
+		$this->pubsubConfigs = $pubsubConfigs;
+	}
+	/**
+	 * @return Google_Service_CloudSourceRepositories_PubsubConfig
+	 */
+	public function getPubsubConfigs()
+	{
+		return $this->pubsubConfigs;
+	}
 }

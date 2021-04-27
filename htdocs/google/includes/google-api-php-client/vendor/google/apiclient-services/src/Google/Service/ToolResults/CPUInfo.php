@@ -17,32 +17,32 @@
 
 class Google_Service_ToolResults_CPUInfo extends Google_Model
 {
-  public $cpuProcessor;
-  public $cpuSpeedInGhz;
-  public $numberOfCores;
+	public $cpuProcessor;
+	public $cpuSpeedInGhz;
+	public $numberOfCores;
 
-  public function setCpuProcessor($cpuProcessor)
-  {
-    $this->cpuProcessor = $cpuProcessor;
-  }
-  public function getCpuProcessor()
-  {
-    return $this->cpuProcessor;
-  }
-  public function setCpuSpeedInGhz($cpuSpeedInGhz)
-  {
-    $this->cpuSpeedInGhz = $cpuSpeedInGhz;
-  }
-  public function getCpuSpeedInGhz()
-  {
-    return $this->cpuSpeedInGhz;
-  }
-  public function setNumberOfCores($numberOfCores)
-  {
-    $this->numberOfCores = $numberOfCores;
-  }
-  public function getNumberOfCores()
-  {
-    return $this->numberOfCores;
-  }
+	public function setCpuProcessor($cpuProcessor)
+	{
+		$this->cpuProcessor = $cpuProcessor;
+	}
+	public function getCpuProcessor()
+	{
+		return $this->cpuProcessor;
+	}
+	public function setCpuSpeedInGhz($cpuSpeedInGhz)
+	{
+		$this->cpuSpeedInGhz = $cpuSpeedInGhz;
+	}
+	public function getCpuSpeedInGhz()
+	{
+		return $this->cpuSpeedInGhz;
+	}
+	public function setNumberOfCores($numberOfCores)
+	{
+		$this->numberOfCores = $numberOfCores;
+	}
+	public function getNumberOfCores()
+	{
+		return $this->numberOfCores;
+	}
 }

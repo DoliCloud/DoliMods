@@ -17,31 +17,31 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ListUserEventsResponse extends Google_Collection
 {
-  protected $collection_key = 'userEvents';
-  public $nextPageToken;
-  protected $userEventsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent';
-  protected $userEventsDataType = 'array';
+	protected $collection_key = 'userEvents';
+	public $nextPageToken;
+	protected $userEventsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent';
+	protected $userEventsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
-   */
-  public function setUserEvents($userEvents)
-  {
-    $this->userEvents = $userEvents;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
-   */
-  public function getUserEvents()
-  {
-    return $this->userEvents;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
+	 */
+	public function setUserEvents($userEvents)
+	{
+		$this->userEvents = $userEvents;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
+	 */
+	public function getUserEvents()
+	{
+		return $this->userEvents;
+	}
 }

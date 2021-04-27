@@ -17,47 +17,47 @@
 
 class Google_Service_ContainerAnalysis_UpgradeNote extends Google_Collection
 {
-  protected $collection_key = 'distributions';
-  protected $distributionsType = 'Google_Service_ContainerAnalysis_UpgradeDistribution';
-  protected $distributionsDataType = 'array';
-  public $package;
-  protected $versionType = 'Google_Service_ContainerAnalysis_Version';
-  protected $versionDataType = '';
+	protected $collection_key = 'distributions';
+	protected $distributionsType = 'Google_Service_ContainerAnalysis_UpgradeDistribution';
+	protected $distributionsDataType = 'array';
+	public $package;
+	protected $versionType = 'Google_Service_ContainerAnalysis_Version';
+	protected $versionDataType = '';
 
-  /**
-   * @param Google_Service_ContainerAnalysis_UpgradeDistribution
-   */
-  public function setDistributions($distributions)
-  {
-    $this->distributions = $distributions;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_UpgradeDistribution
-   */
-  public function getDistributions()
-  {
-    return $this->distributions;
-  }
-  public function setPackage($package)
-  {
-    $this->package = $package;
-  }
-  public function getPackage()
-  {
-    return $this->package;
-  }
-  /**
-   * @param Google_Service_ContainerAnalysis_Version
-   */
-  public function setVersion(Google_Service_ContainerAnalysis_Version $version)
-  {
-    $this->version = $version;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_Version
-   */
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_UpgradeDistribution
+	 */
+	public function setDistributions($distributions)
+	{
+		$this->distributions = $distributions;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_UpgradeDistribution
+	 */
+	public function getDistributions()
+	{
+		return $this->distributions;
+	}
+	public function setPackage($package)
+	{
+		$this->package = $package;
+	}
+	public function getPackage()
+	{
+		return $this->package;
+	}
+	/**
+	 * @param Google_Service_ContainerAnalysis_Version
+	 */
+	public function setVersion(Google_Service_ContainerAnalysis_Version $version)
+	{
+		$this->version = $version;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_Version
+	 */
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

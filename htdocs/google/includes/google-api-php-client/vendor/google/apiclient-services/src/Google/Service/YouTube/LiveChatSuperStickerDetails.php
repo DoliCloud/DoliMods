@@ -17,57 +17,57 @@
 
 class Google_Service_YouTube_LiveChatSuperStickerDetails extends Google_Model
 {
-  public $amountDisplayString;
-  public $amountMicros;
-  public $currency;
-  protected $superStickerMetadataType = 'Google_Service_YouTube_SuperStickerMetadata';
-  protected $superStickerMetadataDataType = '';
-  public $tier;
+	public $amountDisplayString;
+	public $amountMicros;
+	public $currency;
+	protected $superStickerMetadataType = 'Google_Service_YouTube_SuperStickerMetadata';
+	protected $superStickerMetadataDataType = '';
+	public $tier;
 
-  public function setAmountDisplayString($amountDisplayString)
-  {
-    $this->amountDisplayString = $amountDisplayString;
-  }
-  public function getAmountDisplayString()
-  {
-    return $this->amountDisplayString;
-  }
-  public function setAmountMicros($amountMicros)
-  {
-    $this->amountMicros = $amountMicros;
-  }
-  public function getAmountMicros()
-  {
-    return $this->amountMicros;
-  }
-  public function setCurrency($currency)
-  {
-    $this->currency = $currency;
-  }
-  public function getCurrency()
-  {
-    return $this->currency;
-  }
-  /**
-   * @param Google_Service_YouTube_SuperStickerMetadata
-   */
-  public function setSuperStickerMetadata(Google_Service_YouTube_SuperStickerMetadata $superStickerMetadata)
-  {
-    $this->superStickerMetadata = $superStickerMetadata;
-  }
-  /**
-   * @return Google_Service_YouTube_SuperStickerMetadata
-   */
-  public function getSuperStickerMetadata()
-  {
-    return $this->superStickerMetadata;
-  }
-  public function setTier($tier)
-  {
-    $this->tier = $tier;
-  }
-  public function getTier()
-  {
-    return $this->tier;
-  }
+	public function setAmountDisplayString($amountDisplayString)
+	{
+		$this->amountDisplayString = $amountDisplayString;
+	}
+	public function getAmountDisplayString()
+	{
+		return $this->amountDisplayString;
+	}
+	public function setAmountMicros($amountMicros)
+	{
+		$this->amountMicros = $amountMicros;
+	}
+	public function getAmountMicros()
+	{
+		return $this->amountMicros;
+	}
+	public function setCurrency($currency)
+	{
+		$this->currency = $currency;
+	}
+	public function getCurrency()
+	{
+		return $this->currency;
+	}
+	/**
+	 * @param Google_Service_YouTube_SuperStickerMetadata
+	 */
+	public function setSuperStickerMetadata(Google_Service_YouTube_SuperStickerMetadata $superStickerMetadata)
+	{
+		$this->superStickerMetadata = $superStickerMetadata;
+	}
+	/**
+	 * @return Google_Service_YouTube_SuperStickerMetadata
+	 */
+	public function getSuperStickerMetadata()
+	{
+		return $this->superStickerMetadata;
+	}
+	public function setTier($tier)
+	{
+		$this->tier = $tier;
+	}
+	public function getTier()
+	{
+		return $this->tier;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Surveys_SurveyQuestionImage extends Google_Model
 {
-  public $altText;
-  public $data;
-  public $url;
+	public $altText;
+	public $data;
+	public $url;
 
-  public function setAltText($altText)
-  {
-    $this->altText = $altText;
-  }
-  public function getAltText()
-  {
-    return $this->altText;
-  }
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setAltText($altText)
+	{
+		$this->altText = $altText;
+	}
+	public function getAltText()
+	{
+		return $this->altText;
+	}
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_HangoutsChat_Membership extends Google_Model
 {
-  public $createTime;
-  protected $memberType = 'Google_Service_HangoutsChat_User';
-  protected $memberDataType = '';
-  public $name;
-  public $state;
+	public $createTime;
+	protected $memberType = 'Google_Service_HangoutsChat_User';
+	protected $memberDataType = '';
+	public $name;
+	public $state;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  /**
-   * @param Google_Service_HangoutsChat_User
-   */
-  public function setMember(Google_Service_HangoutsChat_User $member)
-  {
-    $this->member = $member;
-  }
-  /**
-   * @return Google_Service_HangoutsChat_User
-   */
-  public function getMember()
-  {
-    return $this->member;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	/**
+	 * @param Google_Service_HangoutsChat_User
+	 */
+	public function setMember(Google_Service_HangoutsChat_User $member)
+	{
+		$this->member = $member;
+	}
+	/**
+	 * @return Google_Service_HangoutsChat_User
+	 */
+	public function getMember()
+	{
+		return $this->member;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

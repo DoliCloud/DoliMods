@@ -17,38 +17,38 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationsRequest extends Google_Collection
 {
-  protected $collection_key = 'criteria';
-  protected $areaFilterType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleAreaFilter';
-  protected $areaFilterDataType = '';
-  protected $criteriaType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleCriterion';
-  protected $criteriaDataType = 'array';
+	protected $collection_key = 'criteria';
+	protected $areaFilterType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleAreaFilter';
+	protected $areaFilterDataType = '';
+	protected $criteriaType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleCriterion';
+	protected $criteriaDataType = 'array';
 
-  /**
-   * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleAreaFilter
-   */
-  public function setAreaFilter(Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleAreaFilter $areaFilter)
-  {
-    $this->areaFilter = $areaFilter;
-  }
-  /**
-   * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleAreaFilter
-   */
-  public function getAreaFilter()
-  {
-    return $this->areaFilter;
-  }
-  /**
-   * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleCriterion
-   */
-  public function setCriteria($criteria)
-  {
-    $this->criteria = $criteria;
-  }
-  /**
-   * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleCriterion
-   */
-  public function getCriteria()
-  {
-    return $this->criteria;
-  }
+	/**
+	 * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleAreaFilter
+	 */
+	public function setAreaFilter(Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleAreaFilter $areaFilter)
+	{
+		$this->areaFilter = $areaFilter;
+	}
+	/**
+	 * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleAreaFilter
+	 */
+	public function getAreaFilter()
+	{
+		return $this->areaFilter;
+	}
+	/**
+	 * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleCriterion
+	 */
+	public function setCriteria($criteria)
+	{
+		$this->criteria = $criteria;
+	}
+	/**
+	 * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleCriterion
+	 */
+	public function getCriteria()
+	{
+		return $this->criteria;
+	}
 }

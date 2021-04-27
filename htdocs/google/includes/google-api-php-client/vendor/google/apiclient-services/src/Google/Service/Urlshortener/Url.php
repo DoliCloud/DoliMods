@@ -17,66 +17,66 @@
 
 class Google_Service_Urlshortener_Url extends Google_Model
 {
-  protected $analyticsType = 'Google_Service_Urlshortener_AnalyticsSummary';
-  protected $analyticsDataType = '';
-  public $created;
-  public $id;
-  public $kind;
-  public $longUrl;
-  public $status;
+	protected $analyticsType = 'Google_Service_Urlshortener_AnalyticsSummary';
+	protected $analyticsDataType = '';
+	public $created;
+	public $id;
+	public $kind;
+	public $longUrl;
+	public $status;
 
-  /**
-   * @param Google_Service_Urlshortener_AnalyticsSummary
-   */
-  public function setAnalytics(Google_Service_Urlshortener_AnalyticsSummary $analytics)
-  {
-    $this->analytics = $analytics;
-  }
-  /**
-   * @return Google_Service_Urlshortener_AnalyticsSummary
-   */
-  public function getAnalytics()
-  {
-    return $this->analytics;
-  }
-  public function setCreated($created)
-  {
-    $this->created = $created;
-  }
-  public function getCreated()
-  {
-    return $this->created;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLongUrl($longUrl)
-  {
-    $this->longUrl = $longUrl;
-  }
-  public function getLongUrl()
-  {
-    return $this->longUrl;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_Urlshortener_AnalyticsSummary
+	 */
+	public function setAnalytics(Google_Service_Urlshortener_AnalyticsSummary $analytics)
+	{
+		$this->analytics = $analytics;
+	}
+	/**
+	 * @return Google_Service_Urlshortener_AnalyticsSummary
+	 */
+	public function getAnalytics()
+	{
+		return $this->analytics;
+	}
+	public function setCreated($created)
+	{
+		$this->created = $created;
+	}
+	public function getCreated()
+	{
+		return $this->created;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLongUrl($longUrl)
+	{
+		$this->longUrl = $longUrl;
+	}
+	public function getLongUrl()
+	{
+		return $this->longUrl;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

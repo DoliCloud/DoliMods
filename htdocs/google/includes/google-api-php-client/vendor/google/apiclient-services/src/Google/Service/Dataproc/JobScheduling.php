@@ -17,14 +17,14 @@
 
 class Google_Service_Dataproc_JobScheduling extends Google_Model
 {
-  public $maxFailuresPerHour;
+	public $maxFailuresPerHour;
 
-  public function setMaxFailuresPerHour($maxFailuresPerHour)
-  {
-    $this->maxFailuresPerHour = $maxFailuresPerHour;
-  }
-  public function getMaxFailuresPerHour()
-  {
-    return $this->maxFailuresPerHour;
-  }
+	public function setMaxFailuresPerHour($maxFailuresPerHour)
+	{
+		$this->maxFailuresPerHour = $maxFailuresPerHour;
+	}
+	public function getMaxFailuresPerHour()
+	{
+		return $this->maxFailuresPerHour;
+	}
 }

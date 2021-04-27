@@ -17,22 +17,22 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationResult extends Google_Collection
 {
-  protected $collection_key = 'deltaPresenceEstimationHistogram';
-  protected $deltaPresenceEstimationHistogramType = 'Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationHistogramBucket';
-  protected $deltaPresenceEstimationHistogramDataType = 'array';
+	protected $collection_key = 'deltaPresenceEstimationHistogram';
+	protected $deltaPresenceEstimationHistogramType = 'Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationHistogramBucket';
+	protected $deltaPresenceEstimationHistogramDataType = 'array';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationHistogramBucket
-   */
-  public function setDeltaPresenceEstimationHistogram($deltaPresenceEstimationHistogram)
-  {
-    $this->deltaPresenceEstimationHistogram = $deltaPresenceEstimationHistogram;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationHistogramBucket
-   */
-  public function getDeltaPresenceEstimationHistogram()
-  {
-    return $this->deltaPresenceEstimationHistogram;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationHistogramBucket
+	 */
+	public function setDeltaPresenceEstimationHistogram($deltaPresenceEstimationHistogram)
+	{
+		$this->deltaPresenceEstimationHistogram = $deltaPresenceEstimationHistogram;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationHistogramBucket
+	 */
+	public function getDeltaPresenceEstimationHistogram()
+	{
+		return $this->deltaPresenceEstimationHistogram;
+	}
 }

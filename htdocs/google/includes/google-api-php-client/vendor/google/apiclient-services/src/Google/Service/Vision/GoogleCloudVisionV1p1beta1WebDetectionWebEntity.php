@@ -17,32 +17,32 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p1beta1WebDetectionWebEntity extends Google_Model
 {
-  public $description;
-  public $entityId;
-  public $score;
+	public $description;
+	public $entityId;
+	public $score;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setEntityId($entityId)
-  {
-    $this->entityId = $entityId;
-  }
-  public function getEntityId()
-  {
-    return $this->entityId;
-  }
-  public function setScore($score)
-  {
-    $this->score = $score;
-  }
-  public function getScore()
-  {
-    return $this->score;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setEntityId($entityId)
+	{
+		$this->entityId = $entityId;
+	}
+	public function getEntityId()
+	{
+		return $this->entityId;
+	}
+	public function setScore($score)
+	{
+		$this->score = $score;
+	}
+	public function getScore()
+	{
+		return $this->score;
+	}
 }

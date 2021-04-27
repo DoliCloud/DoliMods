@@ -17,38 +17,38 @@
 
 class Google_Service_Monitoring_TimeSeriesData extends Google_Collection
 {
-  protected $collection_key = 'pointData';
-  protected $labelValuesType = 'Google_Service_Monitoring_LabelValue';
-  protected $labelValuesDataType = 'array';
-  protected $pointDataType = 'Google_Service_Monitoring_PointData';
-  protected $pointDataDataType = 'array';
+	protected $collection_key = 'pointData';
+	protected $labelValuesType = 'Google_Service_Monitoring_LabelValue';
+	protected $labelValuesDataType = 'array';
+	protected $pointDataType = 'Google_Service_Monitoring_PointData';
+	protected $pointDataDataType = 'array';
 
-  /**
-   * @param Google_Service_Monitoring_LabelValue
-   */
-  public function setLabelValues($labelValues)
-  {
-    $this->labelValues = $labelValues;
-  }
-  /**
-   * @return Google_Service_Monitoring_LabelValue
-   */
-  public function getLabelValues()
-  {
-    return $this->labelValues;
-  }
-  /**
-   * @param Google_Service_Monitoring_PointData
-   */
-  public function setPointData($pointData)
-  {
-    $this->pointData = $pointData;
-  }
-  /**
-   * @return Google_Service_Monitoring_PointData
-   */
-  public function getPointData()
-  {
-    return $this->pointData;
-  }
+	/**
+	 * @param Google_Service_Monitoring_LabelValue
+	 */
+	public function setLabelValues($labelValues)
+	{
+		$this->labelValues = $labelValues;
+	}
+	/**
+	 * @return Google_Service_Monitoring_LabelValue
+	 */
+	public function getLabelValues()
+	{
+		return $this->labelValues;
+	}
+	/**
+	 * @param Google_Service_Monitoring_PointData
+	 */
+	public function setPointData($pointData)
+	{
+		$this->pointData = $pointData;
+	}
+	/**
+	 * @return Google_Service_Monitoring_PointData
+	 */
+	public function getPointData()
+	{
+		return $this->pointData;
+	}
 }

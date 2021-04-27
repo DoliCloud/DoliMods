@@ -17,47 +17,47 @@
 
 class Google_Service_FirebaseRules_FunctionMock extends Google_Collection
 {
-  protected $collection_key = 'args';
-  protected $argsType = 'Google_Service_FirebaseRules_Arg';
-  protected $argsDataType = 'array';
-  public $function;
-  protected $resultType = 'Google_Service_FirebaseRules_Result';
-  protected $resultDataType = '';
+	protected $collection_key = 'args';
+	protected $argsType = 'Google_Service_FirebaseRules_Arg';
+	protected $argsDataType = 'array';
+	public $function;
+	protected $resultType = 'Google_Service_FirebaseRules_Result';
+	protected $resultDataType = '';
 
-  /**
-   * @param Google_Service_FirebaseRules_Arg
-   */
-  public function setArgs($args)
-  {
-    $this->args = $args;
-  }
-  /**
-   * @return Google_Service_FirebaseRules_Arg
-   */
-  public function getArgs()
-  {
-    return $this->args;
-  }
-  public function setFunction($function)
-  {
-    $this->function = $function;
-  }
-  public function getFunction()
-  {
-    return $this->function;
-  }
-  /**
-   * @param Google_Service_FirebaseRules_Result
-   */
-  public function setResult(Google_Service_FirebaseRules_Result $result)
-  {
-    $this->result = $result;
-  }
-  /**
-   * @return Google_Service_FirebaseRules_Result
-   */
-  public function getResult()
-  {
-    return $this->result;
-  }
+	/**
+	 * @param Google_Service_FirebaseRules_Arg
+	 */
+	public function setArgs($args)
+	{
+		$this->args = $args;
+	}
+	/**
+	 * @return Google_Service_FirebaseRules_Arg
+	 */
+	public function getArgs()
+	{
+		return $this->args;
+	}
+	public function setFunction($function)
+	{
+		$this->function = $function;
+	}
+	public function getFunction()
+	{
+		return $this->function;
+	}
+	/**
+	 * @param Google_Service_FirebaseRules_Result
+	 */
+	public function setResult(Google_Service_FirebaseRules_Result $result)
+	{
+		$this->result = $result;
+	}
+	/**
+	 * @return Google_Service_FirebaseRules_Result
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
 }

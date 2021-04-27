@@ -17,30 +17,30 @@
 
 class Google_Service_ServiceControl_ReportInfo extends Google_Model
 {
-  public $operationId;
-  protected $quotaInfoType = 'Google_Service_ServiceControl_QuotaInfo';
-  protected $quotaInfoDataType = '';
+	public $operationId;
+	protected $quotaInfoType = 'Google_Service_ServiceControl_QuotaInfo';
+	protected $quotaInfoDataType = '';
 
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  /**
-   * @param Google_Service_ServiceControl_QuotaInfo
-   */
-  public function setQuotaInfo(Google_Service_ServiceControl_QuotaInfo $quotaInfo)
-  {
-    $this->quotaInfo = $quotaInfo;
-  }
-  /**
-   * @return Google_Service_ServiceControl_QuotaInfo
-   */
-  public function getQuotaInfo()
-  {
-    return $this->quotaInfo;
-  }
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_QuotaInfo
+	 */
+	public function setQuotaInfo(Google_Service_ServiceControl_QuotaInfo $quotaInfo)
+	{
+		$this->quotaInfo = $quotaInfo;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_QuotaInfo
+	 */
+	public function getQuotaInfo()
+	{
+		return $this->quotaInfo;
+	}
 }

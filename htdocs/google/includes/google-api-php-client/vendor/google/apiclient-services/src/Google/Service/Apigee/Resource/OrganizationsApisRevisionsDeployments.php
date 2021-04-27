@@ -25,20 +25,20 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsApisRevisionsDeployments extends Google_Service_Resource
 {
-  /**
-   * Lists all deployments of an API proxy revision.
-   * (deployments.listOrganizationsApisRevisionsDeployments)
-   *
-   * @param string $parent Required. Name of the API proxy revision for which to
-   * return deployment information in the following format:
-   * `organizations/{org}/apis/{api}/revisions/{rev}`.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
-   */
-  public function listOrganizationsApisRevisionsDeployments($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
-  }
+	/**
+	 * Lists all deployments of an API proxy revision.
+	 * (deployments.listOrganizationsApisRevisionsDeployments)
+	 *
+	 * @param string $parent Required. Name of the API proxy revision for which to
+	 *                       return deployment information in the following format:
+	 *                       `organizations/{org}/apis/{api}/revisions/{rev}`.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
+	 */
+	public function listOrganizationsApisRevisionsDeployments($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
+	}
 }

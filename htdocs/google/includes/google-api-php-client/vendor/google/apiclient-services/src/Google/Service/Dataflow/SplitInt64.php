@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_SplitInt64 extends Google_Model
 {
-  public $highBits;
-  public $lowBits;
+	public $highBits;
+	public $lowBits;
 
-  public function setHighBits($highBits)
-  {
-    $this->highBits = $highBits;
-  }
-  public function getHighBits()
-  {
-    return $this->highBits;
-  }
-  public function setLowBits($lowBits)
-  {
-    $this->lowBits = $lowBits;
-  }
-  public function getLowBits()
-  {
-    return $this->lowBits;
-  }
+	public function setHighBits($highBits)
+	{
+		$this->highBits = $highBits;
+	}
+	public function getHighBits()
+	{
+		return $this->highBits;
+	}
+	public function setLowBits($lowBits)
+	{
+		$this->lowBits = $lowBits;
+	}
+	public function getLowBits()
+	{
+		return $this->lowBits;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p1beta1ImageAnnotationContext extends Google_Model
 {
-  public $pageNumber;
-  public $uri;
+	public $pageNumber;
+	public $uri;
 
-  public function setPageNumber($pageNumber)
-  {
-    $this->pageNumber = $pageNumber;
-  }
-  public function getPageNumber()
-  {
-    return $this->pageNumber;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	public function setPageNumber($pageNumber)
+	{
+		$this->pageNumber = $pageNumber;
+	}
+	public function getPageNumber()
+	{
+		return $this->pageNumber;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

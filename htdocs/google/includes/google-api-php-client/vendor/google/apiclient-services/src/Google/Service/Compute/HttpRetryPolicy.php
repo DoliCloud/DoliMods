@@ -17,40 +17,40 @@
 
 class Google_Service_Compute_HttpRetryPolicy extends Google_Collection
 {
-  protected $collection_key = 'retryConditions';
-  public $numRetries;
-  protected $perTryTimeoutType = 'Google_Service_Compute_Duration';
-  protected $perTryTimeoutDataType = '';
-  public $retryConditions;
+	protected $collection_key = 'retryConditions';
+	public $numRetries;
+	protected $perTryTimeoutType = 'Google_Service_Compute_Duration';
+	protected $perTryTimeoutDataType = '';
+	public $retryConditions;
 
-  public function setNumRetries($numRetries)
-  {
-    $this->numRetries = $numRetries;
-  }
-  public function getNumRetries()
-  {
-    return $this->numRetries;
-  }
-  /**
-   * @param Google_Service_Compute_Duration
-   */
-  public function setPerTryTimeout(Google_Service_Compute_Duration $perTryTimeout)
-  {
-    $this->perTryTimeout = $perTryTimeout;
-  }
-  /**
-   * @return Google_Service_Compute_Duration
-   */
-  public function getPerTryTimeout()
-  {
-    return $this->perTryTimeout;
-  }
-  public function setRetryConditions($retryConditions)
-  {
-    $this->retryConditions = $retryConditions;
-  }
-  public function getRetryConditions()
-  {
-    return $this->retryConditions;
-  }
+	public function setNumRetries($numRetries)
+	{
+		$this->numRetries = $numRetries;
+	}
+	public function getNumRetries()
+	{
+		return $this->numRetries;
+	}
+	/**
+	 * @param Google_Service_Compute_Duration
+	 */
+	public function setPerTryTimeout(Google_Service_Compute_Duration $perTryTimeout)
+	{
+		$this->perTryTimeout = $perTryTimeout;
+	}
+	/**
+	 * @return Google_Service_Compute_Duration
+	 */
+	public function getPerTryTimeout()
+	{
+		return $this->perTryTimeout;
+	}
+	public function setRetryConditions($retryConditions)
+	{
+		$this->retryConditions = $retryConditions;
+	}
+	public function getRetryConditions()
+	{
+		return $this->retryConditions;
+	}
 }

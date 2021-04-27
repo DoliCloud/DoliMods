@@ -17,30 +17,30 @@
 
 class Google_Service_Drive_DriveFileContentHints extends Google_Model
 {
-  public $indexableText;
-  protected $thumbnailType = 'Google_Service_Drive_DriveFileContentHintsThumbnail';
-  protected $thumbnailDataType = '';
+	public $indexableText;
+	protected $thumbnailType = 'Google_Service_Drive_DriveFileContentHintsThumbnail';
+	protected $thumbnailDataType = '';
 
-  public function setIndexableText($indexableText)
-  {
-    $this->indexableText = $indexableText;
-  }
-  public function getIndexableText()
-  {
-    return $this->indexableText;
-  }
-  /**
-   * @param Google_Service_Drive_DriveFileContentHintsThumbnail
-   */
-  public function setThumbnail(Google_Service_Drive_DriveFileContentHintsThumbnail $thumbnail)
-  {
-    $this->thumbnail = $thumbnail;
-  }
-  /**
-   * @return Google_Service_Drive_DriveFileContentHintsThumbnail
-   */
-  public function getThumbnail()
-  {
-    return $this->thumbnail;
-  }
+	public function setIndexableText($indexableText)
+	{
+		$this->indexableText = $indexableText;
+	}
+	public function getIndexableText()
+	{
+		return $this->indexableText;
+	}
+	/**
+	 * @param Google_Service_Drive_DriveFileContentHintsThumbnail
+	 */
+	public function setThumbnail(Google_Service_Drive_DriveFileContentHintsThumbnail $thumbnail)
+	{
+		$this->thumbnail = $thumbnail;
+	}
+	/**
+	 * @return Google_Service_Drive_DriveFileContentHintsThumbnail
+	 */
+	public function getThumbnail()
+	{
+		return $this->thumbnail;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_YouTube_VideoCard extends Google_Model
 {
-  public $customMessage;
-  public $playbackStartOffset;
-  public $videoId;
+	public $customMessage;
+	public $playbackStartOffset;
+	public $videoId;
 
-  public function setCustomMessage($customMessage)
-  {
-    $this->customMessage = $customMessage;
-  }
-  public function getCustomMessage()
-  {
-    return $this->customMessage;
-  }
-  public function setPlaybackStartOffset($playbackStartOffset)
-  {
-    $this->playbackStartOffset = $playbackStartOffset;
-  }
-  public function getPlaybackStartOffset()
-  {
-    return $this->playbackStartOffset;
-  }
-  public function setVideoId($videoId)
-  {
-    $this->videoId = $videoId;
-  }
-  public function getVideoId()
-  {
-    return $this->videoId;
-  }
+	public function setCustomMessage($customMessage)
+	{
+		$this->customMessage = $customMessage;
+	}
+	public function getCustomMessage()
+	{
+		return $this->customMessage;
+	}
+	public function setPlaybackStartOffset($playbackStartOffset)
+	{
+		$this->playbackStartOffset = $playbackStartOffset;
+	}
+	public function getPlaybackStartOffset()
+	{
+		return $this->playbackStartOffset;
+	}
+	public function setVideoId($videoId)
+	{
+		$this->videoId = $videoId;
+	}
+	public function getVideoId()
+	{
+		return $this->videoId;
+	}
 }

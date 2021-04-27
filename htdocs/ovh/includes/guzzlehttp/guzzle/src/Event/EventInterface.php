@@ -7,17 +7,17 @@ namespace GuzzleHttp\Event;
  */
 interface EventInterface
 {
-    /**
-     * Returns whether or not stopPropagation was called on the event.
-     *
-     * @return bool
-     * @see Event::stopPropagation
-     */
-    public function isPropagationStopped();
+	/**
+	 * Returns whether or not stopPropagation was called on the event.
+	 *
+	 * @return bool
+	 * @see Event::stopPropagation
+	 */
+	public function isPropagationStopped();
 
-    /**
-     * Stops the propagation of the event, preventing subsequent listeners
-     * registered to the same event from being invoked.
-     */
-    public function stopPropagation();
+	/**
+	 * Stops the propagation of the event, preventing subsequent listeners
+	 * registered to the same event from being invoked.
+	 */
+	public function stopPropagation();
 }

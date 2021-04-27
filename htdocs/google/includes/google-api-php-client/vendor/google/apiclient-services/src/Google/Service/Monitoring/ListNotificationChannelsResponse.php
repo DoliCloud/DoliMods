@@ -17,40 +17,40 @@
 
 class Google_Service_Monitoring_ListNotificationChannelsResponse extends Google_Collection
 {
-  protected $collection_key = 'notificationChannels';
-  public $nextPageToken;
-  protected $notificationChannelsType = 'Google_Service_Monitoring_NotificationChannel';
-  protected $notificationChannelsDataType = 'array';
-  public $totalSize;
+	protected $collection_key = 'notificationChannels';
+	public $nextPageToken;
+	protected $notificationChannelsType = 'Google_Service_Monitoring_NotificationChannel';
+	protected $notificationChannelsDataType = 'array';
+	public $totalSize;
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Monitoring_NotificationChannel
-   */
-  public function setNotificationChannels($notificationChannels)
-  {
-    $this->notificationChannels = $notificationChannels;
-  }
-  /**
-   * @return Google_Service_Monitoring_NotificationChannel
-   */
-  public function getNotificationChannels()
-  {
-    return $this->notificationChannels;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Monitoring_NotificationChannel
+	 */
+	public function setNotificationChannels($notificationChannels)
+	{
+		$this->notificationChannels = $notificationChannels;
+	}
+	/**
+	 * @return Google_Service_Monitoring_NotificationChannel
+	 */
+	public function getNotificationChannels()
+	{
+		return $this->notificationChannels;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
 }

@@ -17,44 +17,44 @@
 
 class Google_Service_Coordinate_LocationListResponse extends Google_Collection
 {
-  protected $collection_key = 'items';
-  protected $itemsType = 'Google_Service_Coordinate_LocationRecord';
-  protected $itemsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
-  protected $tokenPaginationType = 'Google_Service_Coordinate_TokenPagination';
-  protected $tokenPaginationDataType = '';
+	protected $collection_key = 'items';
+	protected $itemsType = 'Google_Service_Coordinate_LocationRecord';
+	protected $itemsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
+	protected $tokenPaginationType = 'Google_Service_Coordinate_TokenPagination';
+	protected $tokenPaginationDataType = '';
 
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setTokenPagination(Google_Service_Coordinate_TokenPagination $tokenPagination)
-  {
-    $this->tokenPagination = $tokenPagination;
-  }
-  public function getTokenPagination()
-  {
-    return $this->tokenPagination;
-  }
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setTokenPagination(Google_Service_Coordinate_TokenPagination $tokenPagination)
+	{
+		$this->tokenPagination = $tokenPagination;
+	}
+	public function getTokenPagination()
+	{
+		return $this->tokenPagination;
+	}
 }

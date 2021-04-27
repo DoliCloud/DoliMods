@@ -17,32 +17,32 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1AccessSet extends Google_Model
 {
-  public $name;
-  public $success;
-  public $value;
+	public $name;
+	public $success;
+	public $value;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSuccess($success)
-  {
-    $this->success = $success;
-  }
-  public function getSuccess()
-  {
-    return $this->success;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSuccess($success)
+	{
+		$this->success = $success;
+	}
+	public function getSuccess()
+	{
+		return $this->success;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_ServiceUser_EnumValue extends Google_Collection
 {
-  protected $collection_key = 'options';
-  public $name;
-  public $number;
-  protected $optionsType = 'Google_Service_ServiceUser_Option';
-  protected $optionsDataType = 'array';
+	protected $collection_key = 'options';
+	public $name;
+	public $number;
+	protected $optionsType = 'Google_Service_ServiceUser_Option';
+	protected $optionsDataType = 'array';
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNumber($number)
-  {
-    $this->number = $number;
-  }
-  public function getNumber()
-  {
-    return $this->number;
-  }
-  /**
-   * @param Google_Service_ServiceUser_Option
-   */
-  public function setOptions($options)
-  {
-    $this->options = $options;
-  }
-  /**
-   * @return Google_Service_ServiceUser_Option
-   */
-  public function getOptions()
-  {
-    return $this->options;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNumber($number)
+	{
+		$this->number = $number;
+	}
+	public function getNumber()
+	{
+		return $this->number;
+	}
+	/**
+	 * @param Google_Service_ServiceUser_Option
+	 */
+	public function setOptions($options)
+	{
+		$this->options = $options;
+	}
+	/**
+	 * @return Google_Service_ServiceUser_Option
+	 */
+	public function getOptions()
+	{
+		return $this->options;
+	}
 }

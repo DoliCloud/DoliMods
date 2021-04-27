@@ -17,53 +17,53 @@
 
 class Google_Service_DoubleClickBidManager_Report extends Google_Model
 {
-  protected $keyType = 'Google_Service_DoubleClickBidManager_ReportKey';
-  protected $keyDataType = '';
-  protected $metadataType = 'Google_Service_DoubleClickBidManager_ReportMetadata';
-  protected $metadataDataType = '';
-  protected $paramsType = 'Google_Service_DoubleClickBidManager_Parameters';
-  protected $paramsDataType = '';
+	protected $keyType = 'Google_Service_DoubleClickBidManager_ReportKey';
+	protected $keyDataType = '';
+	protected $metadataType = 'Google_Service_DoubleClickBidManager_ReportMetadata';
+	protected $metadataDataType = '';
+	protected $paramsType = 'Google_Service_DoubleClickBidManager_Parameters';
+	protected $paramsDataType = '';
 
-  /**
-   * @param Google_Service_DoubleClickBidManager_ReportKey
-   */
-  public function setKey(Google_Service_DoubleClickBidManager_ReportKey $key)
-  {
-    $this->key = $key;
-  }
-  /**
-   * @return Google_Service_DoubleClickBidManager_ReportKey
-   */
-  public function getKey()
-  {
-    return $this->key;
-  }
-  /**
-   * @param Google_Service_DoubleClickBidManager_ReportMetadata
-   */
-  public function setMetadata(Google_Service_DoubleClickBidManager_ReportMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_DoubleClickBidManager_ReportMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  /**
-   * @param Google_Service_DoubleClickBidManager_Parameters
-   */
-  public function setParams(Google_Service_DoubleClickBidManager_Parameters $params)
-  {
-    $this->params = $params;
-  }
-  /**
-   * @return Google_Service_DoubleClickBidManager_Parameters
-   */
-  public function getParams()
-  {
-    return $this->params;
-  }
+	/**
+	 * @param Google_Service_DoubleClickBidManager_ReportKey
+	 */
+	public function setKey(Google_Service_DoubleClickBidManager_ReportKey $key)
+	{
+		$this->key = $key;
+	}
+	/**
+	 * @return Google_Service_DoubleClickBidManager_ReportKey
+	 */
+	public function getKey()
+	{
+		return $this->key;
+	}
+	/**
+	 * @param Google_Service_DoubleClickBidManager_ReportMetadata
+	 */
+	public function setMetadata(Google_Service_DoubleClickBidManager_ReportMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_DoubleClickBidManager_ReportMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	/**
+	 * @param Google_Service_DoubleClickBidManager_Parameters
+	 */
+	public function setParams(Google_Service_DoubleClickBidManager_Parameters $params)
+	{
+		$this->params = $params;
+	}
+	/**
+	 * @return Google_Service_DoubleClickBidManager_Parameters
+	 */
+	public function getParams()
+	{
+		return $this->params;
+	}
 }

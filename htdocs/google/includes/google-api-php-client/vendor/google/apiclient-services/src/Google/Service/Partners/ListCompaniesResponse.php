@@ -17,47 +17,47 @@
 
 class Google_Service_Partners_ListCompaniesResponse extends Google_Collection
 {
-  protected $collection_key = 'companies';
-  protected $companiesType = 'Google_Service_Partners_Company';
-  protected $companiesDataType = 'array';
-  public $nextPageToken;
-  protected $responseMetadataType = 'Google_Service_Partners_ResponseMetadata';
-  protected $responseMetadataDataType = '';
+	protected $collection_key = 'companies';
+	protected $companiesType = 'Google_Service_Partners_Company';
+	protected $companiesDataType = 'array';
+	public $nextPageToken;
+	protected $responseMetadataType = 'Google_Service_Partners_ResponseMetadata';
+	protected $responseMetadataDataType = '';
 
-  /**
-   * @param Google_Service_Partners_Company
-   */
-  public function setCompanies($companies)
-  {
-    $this->companies = $companies;
-  }
-  /**
-   * @return Google_Service_Partners_Company
-   */
-  public function getCompanies()
-  {
-    return $this->companies;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Partners_ResponseMetadata
-   */
-  public function setResponseMetadata(Google_Service_Partners_ResponseMetadata $responseMetadata)
-  {
-    $this->responseMetadata = $responseMetadata;
-  }
-  /**
-   * @return Google_Service_Partners_ResponseMetadata
-   */
-  public function getResponseMetadata()
-  {
-    return $this->responseMetadata;
-  }
+	/**
+	 * @param Google_Service_Partners_Company
+	 */
+	public function setCompanies($companies)
+	{
+		$this->companies = $companies;
+	}
+	/**
+	 * @return Google_Service_Partners_Company
+	 */
+	public function getCompanies()
+	{
+		return $this->companies;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Partners_ResponseMetadata
+	 */
+	public function setResponseMetadata(Google_Service_Partners_ResponseMetadata $responseMetadata)
+	{
+		$this->responseMetadata = $responseMetadata;
+	}
+	/**
+	 * @return Google_Service_Partners_ResponseMetadata
+	 */
+	public function getResponseMetadata()
+	{
+		return $this->responseMetadata;
+	}
 }

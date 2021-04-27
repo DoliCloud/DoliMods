@@ -17,68 +17,68 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2Container extends Google_Model
 {
-  public $fullPath;
-  public $projectId;
-  public $relativePath;
-  public $rootPath;
-  public $type;
-  public $updateTime;
-  public $version;
+	public $fullPath;
+	public $projectId;
+	public $relativePath;
+	public $rootPath;
+	public $type;
+	public $updateTime;
+	public $version;
 
-  public function setFullPath($fullPath)
-  {
-    $this->fullPath = $fullPath;
-  }
-  public function getFullPath()
-  {
-    return $this->fullPath;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setRelativePath($relativePath)
-  {
-    $this->relativePath = $relativePath;
-  }
-  public function getRelativePath()
-  {
-    return $this->relativePath;
-  }
-  public function setRootPath($rootPath)
-  {
-    $this->rootPath = $rootPath;
-  }
-  public function getRootPath()
-  {
-    return $this->rootPath;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setFullPath($fullPath)
+	{
+		$this->fullPath = $fullPath;
+	}
+	public function getFullPath()
+	{
+		return $this->fullPath;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setRelativePath($relativePath)
+	{
+		$this->relativePath = $relativePath;
+	}
+	public function getRelativePath()
+	{
+		return $this->relativePath;
+	}
+	public function setRootPath($rootPath)
+	{
+		$this->rootPath = $rootPath;
+	}
+	public function getRootPath()
+	{
+		return $this->rootPath;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

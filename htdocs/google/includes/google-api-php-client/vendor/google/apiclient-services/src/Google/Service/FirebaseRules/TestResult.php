@@ -17,88 +17,88 @@
 
 class Google_Service_FirebaseRules_TestResult extends Google_Collection
 {
-  protected $collection_key = 'visitedExpressions';
-  public $debugMessages;
-  protected $errorPositionType = 'Google_Service_FirebaseRules_SourcePosition';
-  protected $errorPositionDataType = '';
-  protected $expressionReportsType = 'Google_Service_FirebaseRules_ExpressionReport';
-  protected $expressionReportsDataType = 'array';
-  protected $functionCallsType = 'Google_Service_FirebaseRules_FunctionCall';
-  protected $functionCallsDataType = 'array';
-  public $state;
-  protected $visitedExpressionsType = 'Google_Service_FirebaseRules_VisitedExpression';
-  protected $visitedExpressionsDataType = 'array';
+	protected $collection_key = 'visitedExpressions';
+	public $debugMessages;
+	protected $errorPositionType = 'Google_Service_FirebaseRules_SourcePosition';
+	protected $errorPositionDataType = '';
+	protected $expressionReportsType = 'Google_Service_FirebaseRules_ExpressionReport';
+	protected $expressionReportsDataType = 'array';
+	protected $functionCallsType = 'Google_Service_FirebaseRules_FunctionCall';
+	protected $functionCallsDataType = 'array';
+	public $state;
+	protected $visitedExpressionsType = 'Google_Service_FirebaseRules_VisitedExpression';
+	protected $visitedExpressionsDataType = 'array';
 
-  public function setDebugMessages($debugMessages)
-  {
-    $this->debugMessages = $debugMessages;
-  }
-  public function getDebugMessages()
-  {
-    return $this->debugMessages;
-  }
-  /**
-   * @param Google_Service_FirebaseRules_SourcePosition
-   */
-  public function setErrorPosition(Google_Service_FirebaseRules_SourcePosition $errorPosition)
-  {
-    $this->errorPosition = $errorPosition;
-  }
-  /**
-   * @return Google_Service_FirebaseRules_SourcePosition
-   */
-  public function getErrorPosition()
-  {
-    return $this->errorPosition;
-  }
-  /**
-   * @param Google_Service_FirebaseRules_ExpressionReport
-   */
-  public function setExpressionReports($expressionReports)
-  {
-    $this->expressionReports = $expressionReports;
-  }
-  /**
-   * @return Google_Service_FirebaseRules_ExpressionReport
-   */
-  public function getExpressionReports()
-  {
-    return $this->expressionReports;
-  }
-  /**
-   * @param Google_Service_FirebaseRules_FunctionCall
-   */
-  public function setFunctionCalls($functionCalls)
-  {
-    $this->functionCalls = $functionCalls;
-  }
-  /**
-   * @return Google_Service_FirebaseRules_FunctionCall
-   */
-  public function getFunctionCalls()
-  {
-    return $this->functionCalls;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  /**
-   * @param Google_Service_FirebaseRules_VisitedExpression
-   */
-  public function setVisitedExpressions($visitedExpressions)
-  {
-    $this->visitedExpressions = $visitedExpressions;
-  }
-  /**
-   * @return Google_Service_FirebaseRules_VisitedExpression
-   */
-  public function getVisitedExpressions()
-  {
-    return $this->visitedExpressions;
-  }
+	public function setDebugMessages($debugMessages)
+	{
+		$this->debugMessages = $debugMessages;
+	}
+	public function getDebugMessages()
+	{
+		return $this->debugMessages;
+	}
+	/**
+	 * @param Google_Service_FirebaseRules_SourcePosition
+	 */
+	public function setErrorPosition(Google_Service_FirebaseRules_SourcePosition $errorPosition)
+	{
+		$this->errorPosition = $errorPosition;
+	}
+	/**
+	 * @return Google_Service_FirebaseRules_SourcePosition
+	 */
+	public function getErrorPosition()
+	{
+		return $this->errorPosition;
+	}
+	/**
+	 * @param Google_Service_FirebaseRules_ExpressionReport
+	 */
+	public function setExpressionReports($expressionReports)
+	{
+		$this->expressionReports = $expressionReports;
+	}
+	/**
+	 * @return Google_Service_FirebaseRules_ExpressionReport
+	 */
+	public function getExpressionReports()
+	{
+		return $this->expressionReports;
+	}
+	/**
+	 * @param Google_Service_FirebaseRules_FunctionCall
+	 */
+	public function setFunctionCalls($functionCalls)
+	{
+		$this->functionCalls = $functionCalls;
+	}
+	/**
+	 * @return Google_Service_FirebaseRules_FunctionCall
+	 */
+	public function getFunctionCalls()
+	{
+		return $this->functionCalls;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	/**
+	 * @param Google_Service_FirebaseRules_VisitedExpression
+	 */
+	public function setVisitedExpressions($visitedExpressions)
+	{
+		$this->visitedExpressions = $visitedExpressions;
+	}
+	/**
+	 * @return Google_Service_FirebaseRules_VisitedExpression
+	 */
+	public function getVisitedExpressions()
+	{
+		return $this->visitedExpressions;
+	}
 }

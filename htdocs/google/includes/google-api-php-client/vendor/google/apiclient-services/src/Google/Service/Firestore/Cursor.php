@@ -17,31 +17,31 @@
 
 class Google_Service_Firestore_Cursor extends Google_Collection
 {
-  protected $collection_key = 'values';
-  public $before;
-  protected $valuesType = 'Google_Service_Firestore_Value';
-  protected $valuesDataType = 'array';
+	protected $collection_key = 'values';
+	public $before;
+	protected $valuesType = 'Google_Service_Firestore_Value';
+	protected $valuesDataType = 'array';
 
-  public function setBefore($before)
-  {
-    $this->before = $before;
-  }
-  public function getBefore()
-  {
-    return $this->before;
-  }
-  /**
-   * @param Google_Service_Firestore_Value
-   */
-  public function setValues($values)
-  {
-    $this->values = $values;
-  }
-  /**
-   * @return Google_Service_Firestore_Value
-   */
-  public function getValues()
-  {
-    return $this->values;
-  }
+	public function setBefore($before)
+	{
+		$this->before = $before;
+	}
+	public function getBefore()
+	{
+		return $this->before;
+	}
+	/**
+	 * @param Google_Service_Firestore_Value
+	 */
+	public function setValues($values)
+	{
+		$this->values = $values;
+	}
+	/**
+	 * @return Google_Service_Firestore_Value
+	 */
+	public function getValues()
+	{
+		return $this->values;
+	}
 }

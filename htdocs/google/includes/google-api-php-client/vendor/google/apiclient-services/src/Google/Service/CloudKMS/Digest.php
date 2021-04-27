@@ -17,32 +17,32 @@
 
 class Google_Service_CloudKMS_Digest extends Google_Model
 {
-  public $sha256;
-  public $sha384;
-  public $sha512;
+	public $sha256;
+	public $sha384;
+	public $sha512;
 
-  public function setSha256($sha256)
-  {
-    $this->sha256 = $sha256;
-  }
-  public function getSha256()
-  {
-    return $this->sha256;
-  }
-  public function setSha384($sha384)
-  {
-    $this->sha384 = $sha384;
-  }
-  public function getSha384()
-  {
-    return $this->sha384;
-  }
-  public function setSha512($sha512)
-  {
-    $this->sha512 = $sha512;
-  }
-  public function getSha512()
-  {
-    return $this->sha512;
-  }
+	public function setSha256($sha256)
+	{
+		$this->sha256 = $sha256;
+	}
+	public function getSha256()
+	{
+		return $this->sha256;
+	}
+	public function setSha384($sha384)
+	{
+		$this->sha384 = $sha384;
+	}
+	public function getSha384()
+	{
+		return $this->sha384;
+	}
+	public function setSha512($sha512)
+	{
+		$this->sha512 = $sha512;
+	}
+	public function getSha512()
+	{
+		return $this->sha512;
+	}
 }

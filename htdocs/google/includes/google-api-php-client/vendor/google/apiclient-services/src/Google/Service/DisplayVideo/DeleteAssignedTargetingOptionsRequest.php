@@ -17,24 +17,24 @@
 
 class Google_Service_DisplayVideo_DeleteAssignedTargetingOptionsRequest extends Google_Collection
 {
-  protected $collection_key = 'assignedTargetingOptionIds';
-  public $assignedTargetingOptionIds;
-  public $targetingType;
+	protected $collection_key = 'assignedTargetingOptionIds';
+	public $assignedTargetingOptionIds;
+	public $targetingType;
 
-  public function setAssignedTargetingOptionIds($assignedTargetingOptionIds)
-  {
-    $this->assignedTargetingOptionIds = $assignedTargetingOptionIds;
-  }
-  public function getAssignedTargetingOptionIds()
-  {
-    return $this->assignedTargetingOptionIds;
-  }
-  public function setTargetingType($targetingType)
-  {
-    $this->targetingType = $targetingType;
-  }
-  public function getTargetingType()
-  {
-    return $this->targetingType;
-  }
+	public function setAssignedTargetingOptionIds($assignedTargetingOptionIds)
+	{
+		$this->assignedTargetingOptionIds = $assignedTargetingOptionIds;
+	}
+	public function getAssignedTargetingOptionIds()
+	{
+		return $this->assignedTargetingOptionIds;
+	}
+	public function setTargetingType($targetingType)
+	{
+		$this->targetingType = $targetingType;
+	}
+	public function getTargetingType()
+	{
+		return $this->targetingType;
+	}
 }

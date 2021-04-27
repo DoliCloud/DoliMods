@@ -17,31 +17,31 @@
 
 class Google_Service_CloudSearch_CompositeFilter extends Google_Collection
 {
-  protected $collection_key = 'subFilters';
-  public $logicOperator;
-  protected $subFiltersType = 'Google_Service_CloudSearch_Filter';
-  protected $subFiltersDataType = 'array';
+	protected $collection_key = 'subFilters';
+	public $logicOperator;
+	protected $subFiltersType = 'Google_Service_CloudSearch_Filter';
+	protected $subFiltersDataType = 'array';
 
-  public function setLogicOperator($logicOperator)
-  {
-    $this->logicOperator = $logicOperator;
-  }
-  public function getLogicOperator()
-  {
-    return $this->logicOperator;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Filter
-   */
-  public function setSubFilters($subFilters)
-  {
-    $this->subFilters = $subFilters;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Filter
-   */
-  public function getSubFilters()
-  {
-    return $this->subFilters;
-  }
+	public function setLogicOperator($logicOperator)
+	{
+		$this->logicOperator = $logicOperator;
+	}
+	public function getLogicOperator()
+	{
+		return $this->logicOperator;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Filter
+	 */
+	public function setSubFilters($subFilters)
+	{
+		$this->subFilters = $subFilters;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Filter
+	 */
+	public function getSubFilters()
+	{
+		return $this->subFilters;
+	}
 }

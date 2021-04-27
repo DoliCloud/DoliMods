@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAutoscale extends Google_Model
 {
-  public $maxSize;
-  public $minSize;
+	public $maxSize;
+	public $minSize;
 
-  public function setMaxSize($maxSize)
-  {
-    $this->maxSize = $maxSize;
-  }
-  public function getMaxSize()
-  {
-    return $this->maxSize;
-  }
-  public function setMinSize($minSize)
-  {
-    $this->minSize = $minSize;
-  }
-  public function getMinSize()
-  {
-    return $this->minSize;
-  }
+	public function setMaxSize($maxSize)
+	{
+		$this->maxSize = $maxSize;
+	}
+	public function getMaxSize()
+	{
+		return $this->maxSize;
+	}
+	public function setMinSize($minSize)
+	{
+		$this->minSize = $minSize;
+	}
+	public function getMinSize()
+	{
+		return $this->minSize;
+	}
 }

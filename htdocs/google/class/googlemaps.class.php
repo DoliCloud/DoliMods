@@ -39,7 +39,7 @@ class Googlemaps // extends CommonObject
 	//var $element='googlemaps';			//!< Id that identify managed objects
 	//var $table_element='googlemaps';	//!< Name of table without prefix where object is stored
 
-    var $id;
+	var $id;
 
 	var $fk_object;
 	var $type_object;
@@ -51,26 +51,26 @@ class Googlemaps // extends CommonObject
 	var $result_on_degraded_address;
 
 
-    /**
-     *      Constructor
-     *
-     *      @param     DoliDB   $db      Database handler
-     */
-    function Googlemaps($db)
-    {
-        $this->db = $db;
-        return 1;
-    }
+	/**
+	 *      Constructor
+	 *
+	 *      @param     DoliDB   $db      Database handler
+	 */
+	function Googlemaps($db)
+	{
+		$this->db = $db;
+		return 1;
+	}
 
 
-    /**
-     *      Create object into database
-     *
-     *      @param      User    $user        	User that create
-     *      @param      int     $notrigger	    0=launch triggers after, 1=disable triggers
-     *      @return     int                    	<0 if KO, Id of created object if OK
-     */
-	function create($user, $notrigger=0)
+	/**
+	 *      Create object into database
+	 *
+	 *      @param      User    $user        	User that create
+	 *      @param      int     $notrigger	    0=launch triggers after, 1=disable triggers
+	 *      @return     int                    	<0 if KO, Id of created object if OK
+	 */
+	function create($user, $notrigger = 0)
 	{
 		global $conf, $langs;
 
@@ -84,7 +84,7 @@ class Googlemaps // extends CommonObject
 		// Check parameters
 		// Put here code to add control on parameters values
 
-        // Insert request
+		// Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."google_maps(";
 
 		$sql.= "fk_object, ";
@@ -96,7 +96,7 @@ class Googlemaps // extends CommonObject
 		$sql.= "result_label, ";
 		$sql.= "result_on_degraded_address";
 
-        $sql.= ") VALUES (";
+		$sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->fk_object)?'NULL':$this->fk_object).",";
 		$sql.= " ".(! isset($this->type_object)?'NULL':"'".$this->type_object."'").",";
@@ -111,56 +111,50 @@ class Googlemaps // extends CommonObject
 
 		$this->db->begin();
 
-	   	dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
-        $resql=$this->db->query($sql);
-        	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
+		$resql=$this->db->query($sql);
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
-		if (! $error)
-        {
-            $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."google_maps");
+		if (! $error) {
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."google_maps");
 
-			if (! $notrigger)
-			{
-	            // Uncomment this and change MYOBJECT to your own tag if you
-	            // want this action call a trigger.
+			if (! $notrigger) {
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action call a trigger.
 
-	            //// Call triggers
-	            //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
-	            //$interface=new Interfaces($this->db);
-	            //$result=$interface->run_triggers('MYOBJECT_CREATE',$this,$user,$langs,$conf);
-	            //if ($result < 0) { $error++; $this->errors=$interface->errors; }
-	            //// End call triggers
+				//// Call triggers
+				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				//$interface=new Interfaces($this->db);
+				//$result=$interface->run_triggers('MYOBJECT_CREATE',$this,$user,$langs,$conf);
+				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
+				//// End call triggers
 			}
-        }
+		}
 
-        // Commit or rollback
-        if ($error)
-		{
-			foreach($this->errors as $errmsg)
-			{
-	            dol_syslog(get_class($this)."::create ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+		// Commit or rollback
+		if ($error) {
+			foreach ($this->errors as $errmsg) {
+				dol_syslog(get_class($this)."::create ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
-		}
-		else
-		{
+		} else {
 			$this->db->commit();
-            return $this->id;
+			return $this->id;
 		}
-    }
+	}
 
 
-    /**
-     *    Load object in memory from database
-     *
-     *    @param    int		$id          	Id of record
-     *    @param	int		$element_id		Id of object (used only if $id is empty)
-     *    @param	string	$element_type	Type of object (used only if $id is empty)
-     *    @return   int     				<0 if KO, >0 if OK
-     */
-	function fetch($id, $element_id=0, $element_type='')
+	/**
+	 *    Load object in memory from database
+	 *
+	 *    @param    int		$id          	Id of record
+	 *    @param	int		$element_id		Id of object (used only if $id is empty)
+	 *    @param	string	$element_type	Type of object (used only if $id is empty)
+	 *    @return   int     				<0 if KO, >0 if OK
+	 */
+	function fetch($id, $element_id = 0, $element_type = '')
 	{
 		global $langs;
 		$sql = "SELECT";
@@ -174,20 +168,15 @@ class Googlemaps // extends CommonObject
 		$sql.= " t.result_label,";
 		$sql.= " t.result_on_degraded_address";
 		$sql.= " FROM ".MAIN_DB_PREFIX."google_maps as t";
-		if (empty($id))
-		{
+		if (empty($id)) {
 			$sql.= " WHERE t.fk_object = ".$this->db->escape($element_id)." AND t.type_object = '".$this->db->escape($element_type)."'";
-		}
-		else
-		{
+		} else {
 			$sql.= " WHERE t.rowid = ".((int) $id);
 		}
 		dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
 		$resql=$this->db->query($sql);
-		if ($resql)
-		{
-			if ($this->db->num_rows($resql))
-			{
+		if ($resql) {
+			if ($this->db->num_rows($resql)) {
 				$obj = $this->db->fetch_object($resql);
 
 				$this->id							= $obj->rowid;
@@ -203,9 +192,7 @@ class Googlemaps // extends CommonObject
 			$this->db->free($resql);
 
 			return 1;
-		}
-		else
-		{
+		} else {
 			$this->error="Error ".$this->db->lasterror();
 			dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
 			return -1;
@@ -213,14 +200,14 @@ class Googlemaps // extends CommonObject
 	}
 
 
-    /**
-     *      Update object into database
-     *
-     *      @param      User    $user        	User that modify
-     *      @param      int     $notrigger	    0=launch triggers after, 1=disable triggers
-     *      @return     int                    	<0 if KO, >0 if OK
-     */
-	function update($user=null, $notrigger=0)
+	/**
+	 *      Update object into database
+	 *
+	 *      @param      User    $user        	User that modify
+	 *      @param      int     $notrigger	    0=launch triggers after, 1=disable triggers
+	 *      @return     int                    	<0 if KO, >0 if OK
+	 */
+	function update($user = null, $notrigger = 0)
 	{
 		global $conf, $langs;
 
@@ -235,8 +222,8 @@ class Googlemaps // extends CommonObject
 		// Check parameters
 		// Put here code to add control on parameters values
 
-        // Update request
-        $sql = "UPDATE ".MAIN_DB_PREFIX."google_maps SET";
+		// Update request
+		$sql = "UPDATE ".MAIN_DB_PREFIX."google_maps SET";
 
 		$sql.= " fk_object=".$this->fk_object.",";
 		$sql.= " type_object='".$this->type_object."',";
@@ -245,59 +232,53 @@ class Googlemaps // extends CommonObject
 		$sql.= " address=".(isset($this->address)?"'".$this->db->escape($this->address)."'":"null").",";
 		$sql.= " result_code=".(isset($this->result_code)?"'".$this->db->escape($this->result_code)."'":"null").",";
 		$sql.= " result_label=".(isset($this->result_label)?"'".$this->db->escape($this->result_label)."'":"null").",";
-		$sql.= " result_on_degraded_address=".($this->result_on_degraded_address>0?(int)$this->result_on_degraded_address:0);
+		$sql.= " result_on_degraded_address=".($this->result_on_degraded_address>0?(int) $this->result_on_degraded_address:0);
 
-        $sql.= " WHERE rowid=".((int) $this->id);
+		$sql.= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
 
 		dol_syslog(get_class($this)."::update sql=".$sql, LOG_DEBUG);
-        $resql = $this->db->query($sql);
-        	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		$resql = $this->db->query($sql);
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
-		if (! $error)
-		{
-			if (! $notrigger)
-			{
-	            // Uncomment this and change MYOBJECT to your own tag if you
-	            // want this action call a trigger.
+		if (! $error) {
+			if (! $notrigger) {
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action call a trigger.
 
-	            //// Call triggers
-	            //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
-	            //$interface=new Interfaces($this->db);
-	            //$result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
-	            //if ($result < 0) { $error++; $this->errors=$interface->errors; }
-	            //// End call triggers
-	    	}
+				//// Call triggers
+				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				//$interface=new Interfaces($this->db);
+				//$result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
+				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
+				//// End call triggers
+			}
 		}
 
-        // Commit or rollback
-		if ($error)
-		{
-			foreach($this->errors as $errmsg)
-			{
-	            dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+		// Commit or rollback
+		if ($error) {
+			foreach ($this->errors as $errmsg) {
+				dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
-		}
-		else
-		{
+		} else {
 			$this->db->commit();
 			return 1;
 		}
-    }
+	}
 
 
- 	/**
+	/**
 	 *   Delete object in database
 	 *
-     *	 @param     User    $user        	User that delete
-     *   @param     int     $notrigger	    0=launch triggers after, 1=disable triggers
+	 *	 @param     User    $user        	User that delete
+	 *   @param     int     $notrigger	    0=launch triggers after, 1=disable triggers
 	 *   @return	int		         		<0 if KO, >0 if OK
 	 */
-	function delete($user, $notrigger=0)
+	function delete($user, $notrigger = 0)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -309,37 +290,31 @@ class Googlemaps // extends CommonObject
 
 		dol_syslog(get_class($this)."::delete sql=".$sql);
 		$resql = $this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
-		if (! $error)
-		{
-			if (! $notrigger)
-			{
+		if (! $error) {
+			if (! $notrigger) {
 				// Uncomment this and change MYOBJECT to your own tag if you
-		        // want this action call a trigger.
+				// want this action call a trigger.
 
-		        //// Call triggers
-		        //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
-		        //$interface=new Interfaces($this->db);
-		        //$result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
-		        //if ($result < 0) { $error++; $this->errors=$interface->errors; }
-		        //// End call triggers
+				//// Call triggers
+				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				//$interface=new Interfaces($this->db);
+				//$result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
+				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
+				//// End call triggers
 			}
 		}
 
-        // Commit or rollback
-		if ($error)
-		{
-			foreach($this->errors as $errmsg)
-			{
-	            dol_syslog(get_class($this)."::delete ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+		// Commit or rollback
+		if ($error) {
+			foreach ($this->errors as $errmsg) {
+				dol_syslog(get_class($this)."::delete ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
-		}
-		else
-		{
+		} else {
 			$this->db->commit();
 			return 1;
 		}
@@ -374,27 +349,19 @@ class Googlemaps // extends CommonObject
 		$result=$object->create($user);
 
 		// Other options
-		if ($result < 0)
-		{
+		if ($result < 0) {
 			$this->error=$object->error;
 			$error++;
 		}
 
-		if (! $error)
-		{
-
-
-
+		if (! $error) {
 		}
 
 		// End
-		if (! $error)
-		{
+		if (! $error) {
 			$this->db->commit();
 			return $object->id;
-		}
-		else
-		{
+		} else {
 			$this->db->rollback();
 			return -1;
 		}
@@ -417,5 +384,4 @@ class Googlemaps // extends CommonObject
 		$this->result_code='';
 		$this->result_label='';
 	}
-
 }

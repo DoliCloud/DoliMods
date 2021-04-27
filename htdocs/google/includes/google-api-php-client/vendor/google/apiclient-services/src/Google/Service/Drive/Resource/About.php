@@ -25,17 +25,17 @@
  */
 class Google_Service_Drive_Resource_About extends Google_Service_Resource
 {
-  /**
-   * Gets information about the user, the user's Drive, and system capabilities.
-   * (about.get)
-   *
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Drive_About
-   */
-  public function get($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Drive_About");
-  }
+	/**
+	 * Gets information about the user, the user's Drive, and system capabilities.
+	 * (about.get)
+	 *
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Drive_About
+	 */
+	public function get($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Drive_About");
+	}
 }

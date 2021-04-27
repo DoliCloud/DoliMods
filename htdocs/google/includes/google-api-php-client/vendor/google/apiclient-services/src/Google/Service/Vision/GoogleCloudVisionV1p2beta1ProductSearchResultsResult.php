@@ -17,39 +17,39 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p2beta1ProductSearchResultsResult extends Google_Model
 {
-  public $image;
-  protected $productType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1Product';
-  protected $productDataType = '';
-  public $score;
+	public $image;
+	protected $productType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1Product';
+	protected $productDataType = '';
+	public $score;
 
-  public function setImage($image)
-  {
-    $this->image = $image;
-  }
-  public function getImage()
-  {
-    return $this->image;
-  }
-  /**
-   * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1Product
-   */
-  public function setProduct(Google_Service_Vision_GoogleCloudVisionV1p2beta1Product $product)
-  {
-    $this->product = $product;
-  }
-  /**
-   * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1Product
-   */
-  public function getProduct()
-  {
-    return $this->product;
-  }
-  public function setScore($score)
-  {
-    $this->score = $score;
-  }
-  public function getScore()
-  {
-    return $this->score;
-  }
+	public function setImage($image)
+	{
+		$this->image = $image;
+	}
+	public function getImage()
+	{
+		return $this->image;
+	}
+	/**
+	 * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1Product
+	 */
+	public function setProduct(Google_Service_Vision_GoogleCloudVisionV1p2beta1Product $product)
+	{
+		$this->product = $product;
+	}
+	/**
+	 * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1Product
+	 */
+	public function getProduct()
+	{
+		return $this->product;
+	}
+	public function setScore($score)
+	{
+		$this->score = $score;
+	}
+	public function getScore()
+	{
+		return $this->score;
+	}
 }

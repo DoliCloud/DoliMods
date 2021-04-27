@@ -17,37 +17,37 @@
 
 class Google_Service_ToolResults_ResultsStorage extends Google_Model
 {
-  protected $resultsStoragePathType = 'Google_Service_ToolResults_FileReference';
-  protected $resultsStoragePathDataType = '';
-  protected $xunitXmlFileType = 'Google_Service_ToolResults_FileReference';
-  protected $xunitXmlFileDataType = '';
+	protected $resultsStoragePathType = 'Google_Service_ToolResults_FileReference';
+	protected $resultsStoragePathDataType = '';
+	protected $xunitXmlFileType = 'Google_Service_ToolResults_FileReference';
+	protected $xunitXmlFileDataType = '';
 
-  /**
-   * @param Google_Service_ToolResults_FileReference
-   */
-  public function setResultsStoragePath(Google_Service_ToolResults_FileReference $resultsStoragePath)
-  {
-    $this->resultsStoragePath = $resultsStoragePath;
-  }
-  /**
-   * @return Google_Service_ToolResults_FileReference
-   */
-  public function getResultsStoragePath()
-  {
-    return $this->resultsStoragePath;
-  }
-  /**
-   * @param Google_Service_ToolResults_FileReference
-   */
-  public function setXunitXmlFile(Google_Service_ToolResults_FileReference $xunitXmlFile)
-  {
-    $this->xunitXmlFile = $xunitXmlFile;
-  }
-  /**
-   * @return Google_Service_ToolResults_FileReference
-   */
-  public function getXunitXmlFile()
-  {
-    return $this->xunitXmlFile;
-  }
+	/**
+	 * @param Google_Service_ToolResults_FileReference
+	 */
+	public function setResultsStoragePath(Google_Service_ToolResults_FileReference $resultsStoragePath)
+	{
+		$this->resultsStoragePath = $resultsStoragePath;
+	}
+	/**
+	 * @return Google_Service_ToolResults_FileReference
+	 */
+	public function getResultsStoragePath()
+	{
+		return $this->resultsStoragePath;
+	}
+	/**
+	 * @param Google_Service_ToolResults_FileReference
+	 */
+	public function setXunitXmlFile(Google_Service_ToolResults_FileReference $xunitXmlFile)
+	{
+		$this->xunitXmlFile = $xunitXmlFile;
+	}
+	/**
+	 * @return Google_Service_ToolResults_FileReference
+	 */
+	public function getXunitXmlFile()
+	{
+		return $this->xunitXmlFile;
+	}
 }

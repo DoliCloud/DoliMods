@@ -17,35 +17,35 @@
 
 class Google_Service_People_Membership extends Google_Model
 {
-  protected $contactGroupMembershipType = 'Google_Service_People_ContactGroupMembership';
-  protected $contactGroupMembershipDataType = '';
-  protected $domainMembershipType = 'Google_Service_People_DomainMembership';
-  protected $domainMembershipDataType = '';
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
-  protected $metadataDataType = '';
+	protected $contactGroupMembershipType = 'Google_Service_People_ContactGroupMembership';
+	protected $contactGroupMembershipDataType = '';
+	protected $domainMembershipType = 'Google_Service_People_DomainMembership';
+	protected $domainMembershipDataType = '';
+	protected $metadataType = 'Google_Service_People_FieldMetadata';
+	protected $metadataDataType = '';
 
-  public function setContactGroupMembership(Google_Service_People_ContactGroupMembership $contactGroupMembership)
-  {
-    $this->contactGroupMembership = $contactGroupMembership;
-  }
-  public function getContactGroupMembership()
-  {
-    return $this->contactGroupMembership;
-  }
-  public function setDomainMembership(Google_Service_People_DomainMembership $domainMembership)
-  {
-    $this->domainMembership = $domainMembership;
-  }
-  public function getDomainMembership()
-  {
-    return $this->domainMembership;
-  }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
+	public function setContactGroupMembership(Google_Service_People_ContactGroupMembership $contactGroupMembership)
+	{
+		$this->contactGroupMembership = $contactGroupMembership;
+	}
+	public function getContactGroupMembership()
+	{
+		return $this->contactGroupMembership;
+	}
+	public function setDomainMembership(Google_Service_People_DomainMembership $domainMembership)
+	{
+		$this->domainMembership = $domainMembership;
+	}
+	public function getDomainMembership()
+	{
+		return $this->domainMembership;
+	}
+	public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
 }

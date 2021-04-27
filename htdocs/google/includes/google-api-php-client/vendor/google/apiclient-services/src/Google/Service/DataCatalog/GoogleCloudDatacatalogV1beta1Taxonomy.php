@@ -17,42 +17,42 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy extends Google_Collection
 {
-  protected $collection_key = 'activatedPolicyTypes';
-  public $activatedPolicyTypes;
-  public $description;
-  public $displayName;
-  public $name;
+	protected $collection_key = 'activatedPolicyTypes';
+	public $activatedPolicyTypes;
+	public $description;
+	public $displayName;
+	public $name;
 
-  public function setActivatedPolicyTypes($activatedPolicyTypes)
-  {
-    $this->activatedPolicyTypes = $activatedPolicyTypes;
-  }
-  public function getActivatedPolicyTypes()
-  {
-    return $this->activatedPolicyTypes;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setActivatedPolicyTypes($activatedPolicyTypes)
+	{
+		$this->activatedPolicyTypes = $activatedPolicyTypes;
+	}
+	public function getActivatedPolicyTypes()
+	{
+		return $this->activatedPolicyTypes;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

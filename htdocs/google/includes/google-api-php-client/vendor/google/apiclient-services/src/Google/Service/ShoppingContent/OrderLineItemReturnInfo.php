@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_OrderLineItemReturnInfo extends Google_Model
 {
-  public $daysToReturn;
-  public $isReturnable;
-  public $policyUrl;
+	public $daysToReturn;
+	public $isReturnable;
+	public $policyUrl;
 
-  public function setDaysToReturn($daysToReturn)
-  {
-    $this->daysToReturn = $daysToReturn;
-  }
-  public function getDaysToReturn()
-  {
-    return $this->daysToReturn;
-  }
-  public function setIsReturnable($isReturnable)
-  {
-    $this->isReturnable = $isReturnable;
-  }
-  public function getIsReturnable()
-  {
-    return $this->isReturnable;
-  }
-  public function setPolicyUrl($policyUrl)
-  {
-    $this->policyUrl = $policyUrl;
-  }
-  public function getPolicyUrl()
-  {
-    return $this->policyUrl;
-  }
+	public function setDaysToReturn($daysToReturn)
+	{
+		$this->daysToReturn = $daysToReturn;
+	}
+	public function getDaysToReturn()
+	{
+		return $this->daysToReturn;
+	}
+	public function setIsReturnable($isReturnable)
+	{
+		$this->isReturnable = $isReturnable;
+	}
+	public function getIsReturnable()
+	{
+		return $this->isReturnable;
+	}
+	public function setPolicyUrl($policyUrl)
+	{
+		$this->policyUrl = $policyUrl;
+	}
+	public function getPolicyUrl()
+	{
+		return $this->policyUrl;
+	}
 }

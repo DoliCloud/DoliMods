@@ -17,25 +17,25 @@
 
 class Google_Service_Devprojects_ServiceAccountSection extends Google_Collection
 {
-  protected $collection_key = 'serviceAccount';
-  public $kind;
-  protected $serviceAccountType = 'Google_Service_Devprojects_ServiceAccountMetadata';
-  protected $serviceAccountDataType = 'array';
+	protected $collection_key = 'serviceAccount';
+	public $kind;
+	protected $serviceAccountType = 'Google_Service_Devprojects_ServiceAccountMetadata';
+	protected $serviceAccountDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setServiceAccount($serviceAccount)
-  {
-    $this->serviceAccount = $serviceAccount;
-  }
-  public function getServiceAccount()
-  {
-    return $this->serviceAccount;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setServiceAccount($serviceAccount)
+	{
+		$this->serviceAccount = $serviceAccount;
+	}
+	public function getServiceAccount()
+	{
+		return $this->serviceAccount;
+	}
 }

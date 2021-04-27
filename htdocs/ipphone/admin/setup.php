@@ -30,18 +30,18 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-include_once(DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php');
+include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $langs->load("admin");
 $langs->load("ipphone@ipphone");
@@ -51,28 +51,24 @@ $langs->load("ipphone@ipphone");
  * Actions
  */
 
-$actionsave=GETPOST('save','alpha');
+$actionsave=GETPOST('save', 'alpha');
 
 // Sauvegardes parametres
-if ($actionsave)
-{
-    $i=0;
+if ($actionsave) {
+	$i=0;
 
-    $db->begin();
+	$db->begin();
 
-    $i+=dolibarr_set_const($db,'IPPHONE_XMLTAG',trim(GETPOST('IPPHONE_XMLTAG','alpha')),'chaine',0,'',$conf->entity);
-    $i+=dolibarr_set_const($db,'IPPHONE_EXPORTKEY',trim(GETPOST('IPPHONE_EXPORTKEY','alpha')),'chaine',0,'',$conf->entity);
+	$i+=dolibarr_set_const($db, 'IPPHONE_XMLTAG', trim(GETPOST('IPPHONE_XMLTAG', 'alpha')), 'chaine', 0, '', $conf->entity);
+	$i+=dolibarr_set_const($db, 'IPPHONE_EXPORTKEY', trim(GETPOST('IPPHONE_EXPORTKEY', 'alpha')), 'chaine', 0, '', $conf->entity);
 
-    if ($i >= 2)
-    {
-        $db->commit();
-        setEventMessage($langs->trans("SetupSaved"));
-    }
-    else
-    {
-        $db->rollback();
-        setEventMessage($langs->trans("SaveFailed"), 'errors');
-    }
+	if ($i >= 2) {
+		$db->commit();
+		setEventMessage($langs->trans("SetupSaved"));
+	} else {
+		$db->rollback();
+		setEventMessage($langs->trans("SaveFailed"), 'errors');
+	}
 }
 
 
@@ -85,10 +81,9 @@ $help_url='EN:Module_ThomsonPhoneBook_EN|FR:Module_ThomsonPhoneBook|ES:M&oacute;
 
 llxHeader('', '', $help_url);
 
-if (empty($conf->ipphone->enabled))
-{
-	dol_print_error($db,'Module was not enabled');
-    exit;
+if (empty($conf->ipphone->enabled)) {
+	dol_print_error($db, 'Module was not enabled');
+	exit;
 }
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
@@ -122,7 +117,7 @@ print "</tr>";
 
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("TagForXmlFile")."</td>";
-print '<td><input required="required" type="text" class="flat" id="IPPHONE_XMLTAG" name="IPPHONE_XMLTAG" value="' . (GETPOSTISSET('IPPHONE_XMLTAG')?GETPOST('IPPHONE_XMLTAG','alpha'):($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory')) . '">';
+print '<td><input required="required" type="text" class="flat" id="IPPHONE_XMLTAG" name="IPPHONE_XMLTAG" value="' . (GETPOSTISSET('IPPHONE_XMLTAG')?GETPOST('IPPHONE_XMLTAG', 'alpha'):($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory')) . '">';
 print '</td>';
 print "<td>CiscoIPPhoneDirectory, YealinkIPPhoneDirectory, ThompsonDirectory</td>";
 print "</tr>";
@@ -130,7 +125,7 @@ print "</tr>";
 
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("PasswordToallowRead")."</td>";
-print '<td><input required="required" type="text" class="flat" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOSTISSET('IPPHONE_EXPORTKEY')?GETPOST('IPPHONE_EXPORTKEY','alpha'):$conf->global->IPPHONE_EXPORTKEY) . '">';
+print '<td><input required="required" type="text" class="flat" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOSTISSET('IPPHONE_EXPORTKEY')?GETPOST('IPPHONE_EXPORTKEY', 'alpha'):$conf->global->IPPHONE_EXPORTKEY) . '">';
 if (! empty($conf->use_javascript_ajax))
 	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 print '</td>';
@@ -150,19 +145,18 @@ print "</form>\n";
 
 print '<br><br>';
 print '<span class="opacitymedium">'.$langs->trans("ModuleEnabledUseURL").":</span><br><br>\n";
-$url=dol_buildpath('/ipphone/public/service.php',1);
-$url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'/', '', $url)).'?format=xml&key='.$conf->global->IPPHONE_EXPORTKEY;
+$url=dol_buildpath('/ipphone/public/service.php', 1);
+$url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'/', '', $url)).'?format=xml&key='.$conf->global->IPPHONE_EXPORTKEY;
 print 'XML: <a href="'.$url.'">'.$url."</a><br>\n";
-$url=dol_buildpath('/ipphone/public/service.php',1);
-$url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'/', '', $url)).'?format=csv&key='.$conf->global->IPPHONE_EXPORTKEY;
+$url=dol_buildpath('/ipphone/public/service.php', 1);
+$url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'/', '', $url)).'?format=csv&key='.$conf->global->IPPHONE_EXPORTKEY;
 print 'CSV: <a href="'.$url.'">'.$url."</a><br>\n";
 print '<br>';
 print $langs->trans("ItReturnListOfThirdAndContacts")."<br>\n";
 
 
 
-if (! empty($conf->use_javascript_ajax))
-{
+if (! empty($conf->use_javascript_ajax)) {
 	print "\n".'<script type="text/javascript">';
 	print '$(document).ready(function () {
             $("#generate_token").click(function() {

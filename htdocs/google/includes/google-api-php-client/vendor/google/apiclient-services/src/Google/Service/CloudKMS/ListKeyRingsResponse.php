@@ -17,40 +17,40 @@
 
 class Google_Service_CloudKMS_ListKeyRingsResponse extends Google_Collection
 {
-  protected $collection_key = 'keyRings';
-  protected $keyRingsType = 'Google_Service_CloudKMS_KeyRing';
-  protected $keyRingsDataType = 'array';
-  public $nextPageToken;
-  public $totalSize;
+	protected $collection_key = 'keyRings';
+	protected $keyRingsType = 'Google_Service_CloudKMS_KeyRing';
+	protected $keyRingsDataType = 'array';
+	public $nextPageToken;
+	public $totalSize;
 
-  /**
-   * @param Google_Service_CloudKMS_KeyRing
-   */
-  public function setKeyRings($keyRings)
-  {
-    $this->keyRings = $keyRings;
-  }
-  /**
-   * @return Google_Service_CloudKMS_KeyRing
-   */
-  public function getKeyRings()
-  {
-    return $this->keyRings;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
+	/**
+	 * @param Google_Service_CloudKMS_KeyRing
+	 */
+	public function setKeyRings($keyRings)
+	{
+		$this->keyRings = $keyRings;
+	}
+	/**
+	 * @return Google_Service_CloudKMS_KeyRing
+	 */
+	public function getKeyRings()
+	{
+		return $this->keyRings;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
 }

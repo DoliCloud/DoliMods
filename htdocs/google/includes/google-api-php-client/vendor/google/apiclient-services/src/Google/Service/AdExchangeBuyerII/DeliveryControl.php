@@ -17,40 +17,40 @@
 
 class Google_Service_AdExchangeBuyerII_DeliveryControl extends Google_Collection
 {
-  protected $collection_key = 'frequencyCaps';
-  public $creativeBlockingLevel;
-  public $deliveryRateType;
-  protected $frequencyCapsType = 'Google_Service_AdExchangeBuyerII_FrequencyCap';
-  protected $frequencyCapsDataType = 'array';
+	protected $collection_key = 'frequencyCaps';
+	public $creativeBlockingLevel;
+	public $deliveryRateType;
+	protected $frequencyCapsType = 'Google_Service_AdExchangeBuyerII_FrequencyCap';
+	protected $frequencyCapsDataType = 'array';
 
-  public function setCreativeBlockingLevel($creativeBlockingLevel)
-  {
-    $this->creativeBlockingLevel = $creativeBlockingLevel;
-  }
-  public function getCreativeBlockingLevel()
-  {
-    return $this->creativeBlockingLevel;
-  }
-  public function setDeliveryRateType($deliveryRateType)
-  {
-    $this->deliveryRateType = $deliveryRateType;
-  }
-  public function getDeliveryRateType()
-  {
-    return $this->deliveryRateType;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_FrequencyCap
-   */
-  public function setFrequencyCaps($frequencyCaps)
-  {
-    $this->frequencyCaps = $frequencyCaps;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_FrequencyCap
-   */
-  public function getFrequencyCaps()
-  {
-    return $this->frequencyCaps;
-  }
+	public function setCreativeBlockingLevel($creativeBlockingLevel)
+	{
+		$this->creativeBlockingLevel = $creativeBlockingLevel;
+	}
+	public function getCreativeBlockingLevel()
+	{
+		return $this->creativeBlockingLevel;
+	}
+	public function setDeliveryRateType($deliveryRateType)
+	{
+		$this->deliveryRateType = $deliveryRateType;
+	}
+	public function getDeliveryRateType()
+	{
+		return $this->deliveryRateType;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_FrequencyCap
+	 */
+	public function setFrequencyCaps($frequencyCaps)
+	{
+		$this->frequencyCaps = $frequencyCaps;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_FrequencyCap
+	 */
+	public function getFrequencyCaps()
+	{
+		return $this->frequencyCaps;
+	}
 }

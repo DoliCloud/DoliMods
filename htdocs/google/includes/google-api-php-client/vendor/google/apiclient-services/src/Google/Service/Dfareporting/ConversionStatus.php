@@ -17,47 +17,47 @@
 
 class Google_Service_Dfareporting_ConversionStatus extends Google_Collection
 {
-  protected $collection_key = 'errors';
-  protected $conversionType = 'Google_Service_Dfareporting_Conversion';
-  protected $conversionDataType = '';
-  protected $errorsType = 'Google_Service_Dfareporting_ConversionError';
-  protected $errorsDataType = 'array';
-  public $kind;
+	protected $collection_key = 'errors';
+	protected $conversionType = 'Google_Service_Dfareporting_Conversion';
+	protected $conversionDataType = '';
+	protected $errorsType = 'Google_Service_Dfareporting_ConversionError';
+	protected $errorsDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_Dfareporting_Conversion
-   */
-  public function setConversion(Google_Service_Dfareporting_Conversion $conversion)
-  {
-    $this->conversion = $conversion;
-  }
-  /**
-   * @return Google_Service_Dfareporting_Conversion
-   */
-  public function getConversion()
-  {
-    return $this->conversion;
-  }
-  /**
-   * @param Google_Service_Dfareporting_ConversionError
-   */
-  public function setErrors($errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_Dfareporting_ConversionError
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_Conversion
+	 */
+	public function setConversion(Google_Service_Dfareporting_Conversion $conversion)
+	{
+		$this->conversion = $conversion;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_Conversion
+	 */
+	public function getConversion()
+	{
+		return $this->conversion;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_ConversionError
+	 */
+	public function setErrors($errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_ConversionError
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

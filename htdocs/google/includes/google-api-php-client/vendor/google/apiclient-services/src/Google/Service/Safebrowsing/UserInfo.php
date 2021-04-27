@@ -17,23 +17,23 @@
 
 class Google_Service_Safebrowsing_UserInfo extends Google_Model
 {
-  public $regionCode;
-  public $userId;
+	public $regionCode;
+	public $userId;
 
-  public function setRegionCode($regionCode)
-  {
-    $this->regionCode = $regionCode;
-  }
-  public function getRegionCode()
-  {
-    return $this->regionCode;
-  }
-  public function setUserId($userId)
-  {
-    $this->userId = $userId;
-  }
-  public function getUserId()
-  {
-    return $this->userId;
-  }
+	public function setRegionCode($regionCode)
+	{
+		$this->regionCode = $regionCode;
+	}
+	public function getRegionCode()
+	{
+		return $this->regionCode;
+	}
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+	}
+	public function getUserId()
+	{
+		return $this->userId;
+	}
 }

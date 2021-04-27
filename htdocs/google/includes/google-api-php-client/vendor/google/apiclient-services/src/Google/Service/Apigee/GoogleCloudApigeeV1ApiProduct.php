@@ -17,139 +17,139 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ApiProduct extends Google_Collection
 {
-  protected $collection_key = 'scopes';
-  public $apiResources;
-  public $approvalType;
-  protected $attributesType = 'Google_Service_Apigee_GoogleCloudApigeeV1Attribute';
-  protected $attributesDataType = 'array';
-  public $createdAt;
-  public $description;
-  public $displayName;
-  public $environments;
-  public $lastModifiedAt;
-  public $name;
-  public $proxies;
-  public $quota;
-  public $quotaInterval;
-  public $quotaTimeUnit;
-  public $scopes;
+	protected $collection_key = 'scopes';
+	public $apiResources;
+	public $approvalType;
+	protected $attributesType = 'Google_Service_Apigee_GoogleCloudApigeeV1Attribute';
+	protected $attributesDataType = 'array';
+	public $createdAt;
+	public $description;
+	public $displayName;
+	public $environments;
+	public $lastModifiedAt;
+	public $name;
+	public $proxies;
+	public $quota;
+	public $quotaInterval;
+	public $quotaTimeUnit;
+	public $scopes;
 
-  public function setApiResources($apiResources)
-  {
-    $this->apiResources = $apiResources;
-  }
-  public function getApiResources()
-  {
-    return $this->apiResources;
-  }
-  public function setApprovalType($approvalType)
-  {
-    $this->approvalType = $approvalType;
-  }
-  public function getApprovalType()
-  {
-    return $this->approvalType;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Attribute
-   */
-  public function setAttributes($attributes)
-  {
-    $this->attributes = $attributes;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Attribute
-   */
-  public function getAttributes()
-  {
-    return $this->attributes;
-  }
-  public function setCreatedAt($createdAt)
-  {
-    $this->createdAt = $createdAt;
-  }
-  public function getCreatedAt()
-  {
-    return $this->createdAt;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEnvironments($environments)
-  {
-    $this->environments = $environments;
-  }
-  public function getEnvironments()
-  {
-    return $this->environments;
-  }
-  public function setLastModifiedAt($lastModifiedAt)
-  {
-    $this->lastModifiedAt = $lastModifiedAt;
-  }
-  public function getLastModifiedAt()
-  {
-    return $this->lastModifiedAt;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setProxies($proxies)
-  {
-    $this->proxies = $proxies;
-  }
-  public function getProxies()
-  {
-    return $this->proxies;
-  }
-  public function setQuota($quota)
-  {
-    $this->quota = $quota;
-  }
-  public function getQuota()
-  {
-    return $this->quota;
-  }
-  public function setQuotaInterval($quotaInterval)
-  {
-    $this->quotaInterval = $quotaInterval;
-  }
-  public function getQuotaInterval()
-  {
-    return $this->quotaInterval;
-  }
-  public function setQuotaTimeUnit($quotaTimeUnit)
-  {
-    $this->quotaTimeUnit = $quotaTimeUnit;
-  }
-  public function getQuotaTimeUnit()
-  {
-    return $this->quotaTimeUnit;
-  }
-  public function setScopes($scopes)
-  {
-    $this->scopes = $scopes;
-  }
-  public function getScopes()
-  {
-    return $this->scopes;
-  }
+	public function setApiResources($apiResources)
+	{
+		$this->apiResources = $apiResources;
+	}
+	public function getApiResources()
+	{
+		return $this->apiResources;
+	}
+	public function setApprovalType($approvalType)
+	{
+		$this->approvalType = $approvalType;
+	}
+	public function getApprovalType()
+	{
+		return $this->approvalType;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Attribute
+	 */
+	public function setAttributes($attributes)
+	{
+		$this->attributes = $attributes;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Attribute
+	 */
+	public function getAttributes()
+	{
+		return $this->attributes;
+	}
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+	}
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEnvironments($environments)
+	{
+		$this->environments = $environments;
+	}
+	public function getEnvironments()
+	{
+		return $this->environments;
+	}
+	public function setLastModifiedAt($lastModifiedAt)
+	{
+		$this->lastModifiedAt = $lastModifiedAt;
+	}
+	public function getLastModifiedAt()
+	{
+		return $this->lastModifiedAt;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setProxies($proxies)
+	{
+		$this->proxies = $proxies;
+	}
+	public function getProxies()
+	{
+		return $this->proxies;
+	}
+	public function setQuota($quota)
+	{
+		$this->quota = $quota;
+	}
+	public function getQuota()
+	{
+		return $this->quota;
+	}
+	public function setQuotaInterval($quotaInterval)
+	{
+		$this->quotaInterval = $quotaInterval;
+	}
+	public function getQuotaInterval()
+	{
+		return $this->quotaInterval;
+	}
+	public function setQuotaTimeUnit($quotaTimeUnit)
+	{
+		$this->quotaTimeUnit = $quotaTimeUnit;
+	}
+	public function getQuotaTimeUnit()
+	{
+		return $this->quotaTimeUnit;
+	}
+	public function setScopes($scopes)
+	{
+		$this->scopes = $scopes;
+	}
+	public function getScopes()
+	{
+		return $this->scopes;
+	}
 }

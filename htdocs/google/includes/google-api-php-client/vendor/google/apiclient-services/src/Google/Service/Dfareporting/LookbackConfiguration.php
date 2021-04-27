@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_LookbackConfiguration extends Google_Model
 {
-  public $clickDuration;
-  public $postImpressionActivitiesDuration;
+	public $clickDuration;
+	public $postImpressionActivitiesDuration;
 
-  public function setClickDuration($clickDuration)
-  {
-    $this->clickDuration = $clickDuration;
-  }
-  public function getClickDuration()
-  {
-    return $this->clickDuration;
-  }
-  public function setPostImpressionActivitiesDuration($postImpressionActivitiesDuration)
-  {
-    $this->postImpressionActivitiesDuration = $postImpressionActivitiesDuration;
-  }
-  public function getPostImpressionActivitiesDuration()
-  {
-    return $this->postImpressionActivitiesDuration;
-  }
+	public function setClickDuration($clickDuration)
+	{
+		$this->clickDuration = $clickDuration;
+	}
+	public function getClickDuration()
+	{
+		return $this->clickDuration;
+	}
+	public function setPostImpressionActivitiesDuration($postImpressionActivitiesDuration)
+	{
+		$this->postImpressionActivitiesDuration = $postImpressionActivitiesDuration;
+	}
+	public function getPostImpressionActivitiesDuration()
+	{
+		return $this->postImpressionActivitiesDuration;
+	}
 }

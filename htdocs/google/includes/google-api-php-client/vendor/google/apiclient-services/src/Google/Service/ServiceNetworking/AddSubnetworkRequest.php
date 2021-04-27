@@ -17,87 +17,87 @@
 
 class Google_Service_ServiceNetworking_AddSubnetworkRequest extends Google_Collection
 {
-  protected $collection_key = 'subnetworkUsers';
-  public $consumer;
-  public $consumerNetwork;
-  public $description;
-  public $ipPrefixLength;
-  public $privateIpv6GoogleAccess;
-  public $region;
-  public $requestedAddress;
-  public $subnetwork;
-  public $subnetworkUsers;
+	protected $collection_key = 'subnetworkUsers';
+	public $consumer;
+	public $consumerNetwork;
+	public $description;
+	public $ipPrefixLength;
+	public $privateIpv6GoogleAccess;
+	public $region;
+	public $requestedAddress;
+	public $subnetwork;
+	public $subnetworkUsers;
 
-  public function setConsumer($consumer)
-  {
-    $this->consumer = $consumer;
-  }
-  public function getConsumer()
-  {
-    return $this->consumer;
-  }
-  public function setConsumerNetwork($consumerNetwork)
-  {
-    $this->consumerNetwork = $consumerNetwork;
-  }
-  public function getConsumerNetwork()
-  {
-    return $this->consumerNetwork;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setIpPrefixLength($ipPrefixLength)
-  {
-    $this->ipPrefixLength = $ipPrefixLength;
-  }
-  public function getIpPrefixLength()
-  {
-    return $this->ipPrefixLength;
-  }
-  public function setPrivateIpv6GoogleAccess($privateIpv6GoogleAccess)
-  {
-    $this->privateIpv6GoogleAccess = $privateIpv6GoogleAccess;
-  }
-  public function getPrivateIpv6GoogleAccess()
-  {
-    return $this->privateIpv6GoogleAccess;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
-  public function setRequestedAddress($requestedAddress)
-  {
-    $this->requestedAddress = $requestedAddress;
-  }
-  public function getRequestedAddress()
-  {
-    return $this->requestedAddress;
-  }
-  public function setSubnetwork($subnetwork)
-  {
-    $this->subnetwork = $subnetwork;
-  }
-  public function getSubnetwork()
-  {
-    return $this->subnetwork;
-  }
-  public function setSubnetworkUsers($subnetworkUsers)
-  {
-    $this->subnetworkUsers = $subnetworkUsers;
-  }
-  public function getSubnetworkUsers()
-  {
-    return $this->subnetworkUsers;
-  }
+	public function setConsumer($consumer)
+	{
+		$this->consumer = $consumer;
+	}
+	public function getConsumer()
+	{
+		return $this->consumer;
+	}
+	public function setConsumerNetwork($consumerNetwork)
+	{
+		$this->consumerNetwork = $consumerNetwork;
+	}
+	public function getConsumerNetwork()
+	{
+		return $this->consumerNetwork;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setIpPrefixLength($ipPrefixLength)
+	{
+		$this->ipPrefixLength = $ipPrefixLength;
+	}
+	public function getIpPrefixLength()
+	{
+		return $this->ipPrefixLength;
+	}
+	public function setPrivateIpv6GoogleAccess($privateIpv6GoogleAccess)
+	{
+		$this->privateIpv6GoogleAccess = $privateIpv6GoogleAccess;
+	}
+	public function getPrivateIpv6GoogleAccess()
+	{
+		return $this->privateIpv6GoogleAccess;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
+	public function setRequestedAddress($requestedAddress)
+	{
+		$this->requestedAddress = $requestedAddress;
+	}
+	public function getRequestedAddress()
+	{
+		return $this->requestedAddress;
+	}
+	public function setSubnetwork($subnetwork)
+	{
+		$this->subnetwork = $subnetwork;
+	}
+	public function getSubnetwork()
+	{
+		return $this->subnetwork;
+	}
+	public function setSubnetworkUsers($subnetworkUsers)
+	{
+		$this->subnetworkUsers = $subnetworkUsers;
+	}
+	public function getSubnetworkUsers()
+	{
+		return $this->subnetworkUsers;
+	}
 }

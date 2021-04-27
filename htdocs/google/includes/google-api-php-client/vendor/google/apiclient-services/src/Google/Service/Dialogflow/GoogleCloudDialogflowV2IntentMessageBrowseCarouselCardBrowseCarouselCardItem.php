@@ -17,64 +17,64 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem extends Google_Model
 {
-  public $description;
-  public $footer;
-  protected $imageType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage';
-  protected $imageDataType = '';
-  protected $openUriActionType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction';
-  protected $openUriActionDataType = '';
-  public $title;
+	public $description;
+	public $footer;
+	protected $imageType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage';
+	protected $imageDataType = '';
+	protected $openUriActionType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction';
+	protected $openUriActionDataType = '';
+	public $title;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setFooter($footer)
-  {
-    $this->footer = $footer;
-  }
-  public function getFooter()
-  {
-    return $this->footer;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
-   */
-  public function setImage(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage $image)
-  {
-    $this->image = $image;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
-   */
-  public function getImage()
-  {
-    return $this->image;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction
-   */
-  public function setOpenUriAction(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction $openUriAction)
-  {
-    $this->openUriAction = $openUriAction;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction
-   */
-  public function getOpenUriAction()
-  {
-    return $this->openUriAction;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setFooter($footer)
+	{
+		$this->footer = $footer;
+	}
+	public function getFooter()
+	{
+		return $this->footer;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
+	 */
+	public function setImage(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage $image)
+	{
+		$this->image = $image;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
+	 */
+	public function getImage()
+	{
+		return $this->image;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction
+	 */
+	public function setOpenUriAction(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction $openUriAction)
+	{
+		$this->openUriAction = $openUriAction;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction
+	 */
+	public function getOpenUriAction()
+	{
+		return $this->openUriAction;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

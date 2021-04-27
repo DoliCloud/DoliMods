@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSourceRepositories_UpdateRepoRequest extends Google_Model
 {
-  protected $repoType = 'Google_Service_CloudSourceRepositories_Repo';
-  protected $repoDataType = '';
-  public $updateMask;
+	protected $repoType = 'Google_Service_CloudSourceRepositories_Repo';
+	protected $repoDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_CloudSourceRepositories_Repo
-   */
-  public function setRepo(Google_Service_CloudSourceRepositories_Repo $repo)
-  {
-    $this->repo = $repo;
-  }
-  /**
-   * @return Google_Service_CloudSourceRepositories_Repo
-   */
-  public function getRepo()
-  {
-    return $this->repo;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_CloudSourceRepositories_Repo
+	 */
+	public function setRepo(Google_Service_CloudSourceRepositories_Repo $repo)
+	{
+		$this->repo = $repo;
+	}
+	/**
+	 * @return Google_Service_CloudSourceRepositories_Repo
+	 */
+	public function getRepo()
+	{
+		return $this->repo;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

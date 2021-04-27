@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_ManagedInstanceLastAttemptErrors extends Google_Collection
 {
-  protected $collection_key = 'errors';
-  protected $errorsType = 'Google_Service_Compute_ManagedInstanceLastAttemptErrorsErrors';
-  protected $errorsDataType = 'array';
+	protected $collection_key = 'errors';
+	protected $errorsType = 'Google_Service_Compute_ManagedInstanceLastAttemptErrorsErrors';
+	protected $errorsDataType = 'array';
 
-  /**
-   * @param Google_Service_Compute_ManagedInstanceLastAttemptErrorsErrors
-   */
-  public function setErrors($errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_Compute_ManagedInstanceLastAttemptErrorsErrors
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
+	/**
+	 * @param Google_Service_Compute_ManagedInstanceLastAttemptErrorsErrors
+	 */
+	public function setErrors($errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_Compute_ManagedInstanceLastAttemptErrorsErrors
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
 }

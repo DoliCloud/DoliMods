@@ -17,72 +17,72 @@
 
 class Google_Service_ServiceControl_AllocateQuotaResponse extends Google_Collection
 {
-  protected $collection_key = 'quotaMetrics';
-  protected $allocateErrorsType = 'Google_Service_ServiceControl_QuotaError';
-  protected $allocateErrorsDataType = 'array';
-  protected $allocateInfoType = 'Google_Service_ServiceControl_AllocateInfo';
-  protected $allocateInfoDataType = '';
-  public $operationId;
-  protected $quotaMetricsType = 'Google_Service_ServiceControl_MetricValueSet';
-  protected $quotaMetricsDataType = 'array';
-  public $serviceConfigId;
+	protected $collection_key = 'quotaMetrics';
+	protected $allocateErrorsType = 'Google_Service_ServiceControl_QuotaError';
+	protected $allocateErrorsDataType = 'array';
+	protected $allocateInfoType = 'Google_Service_ServiceControl_AllocateInfo';
+	protected $allocateInfoDataType = '';
+	public $operationId;
+	protected $quotaMetricsType = 'Google_Service_ServiceControl_MetricValueSet';
+	protected $quotaMetricsDataType = 'array';
+	public $serviceConfigId;
 
-  /**
-   * @param Google_Service_ServiceControl_QuotaError
-   */
-  public function setAllocateErrors($allocateErrors)
-  {
-    $this->allocateErrors = $allocateErrors;
-  }
-  /**
-   * @return Google_Service_ServiceControl_QuotaError
-   */
-  public function getAllocateErrors()
-  {
-    return $this->allocateErrors;
-  }
-  /**
-   * @param Google_Service_ServiceControl_AllocateInfo
-   */
-  public function setAllocateInfo(Google_Service_ServiceControl_AllocateInfo $allocateInfo)
-  {
-    $this->allocateInfo = $allocateInfo;
-  }
-  /**
-   * @return Google_Service_ServiceControl_AllocateInfo
-   */
-  public function getAllocateInfo()
-  {
-    return $this->allocateInfo;
-  }
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  /**
-   * @param Google_Service_ServiceControl_MetricValueSet
-   */
-  public function setQuotaMetrics($quotaMetrics)
-  {
-    $this->quotaMetrics = $quotaMetrics;
-  }
-  /**
-   * @return Google_Service_ServiceControl_MetricValueSet
-   */
-  public function getQuotaMetrics()
-  {
-    return $this->quotaMetrics;
-  }
-  public function setServiceConfigId($serviceConfigId)
-  {
-    $this->serviceConfigId = $serviceConfigId;
-  }
-  public function getServiceConfigId()
-  {
-    return $this->serviceConfigId;
-  }
+	/**
+	 * @param Google_Service_ServiceControl_QuotaError
+	 */
+	public function setAllocateErrors($allocateErrors)
+	{
+		$this->allocateErrors = $allocateErrors;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_QuotaError
+	 */
+	public function getAllocateErrors()
+	{
+		return $this->allocateErrors;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_AllocateInfo
+	 */
+	public function setAllocateInfo(Google_Service_ServiceControl_AllocateInfo $allocateInfo)
+	{
+		$this->allocateInfo = $allocateInfo;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_AllocateInfo
+	 */
+	public function getAllocateInfo()
+	{
+		return $this->allocateInfo;
+	}
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_MetricValueSet
+	 */
+	public function setQuotaMetrics($quotaMetrics)
+	{
+		$this->quotaMetrics = $quotaMetrics;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_MetricValueSet
+	 */
+	public function getQuotaMetrics()
+	{
+		return $this->quotaMetrics;
+	}
+	public function setServiceConfigId($serviceConfigId)
+	{
+		$this->serviceConfigId = $serviceConfigId;
+	}
+	public function getServiceConfigId()
+	{
+		return $this->serviceConfigId;
+	}
 }

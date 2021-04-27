@@ -17,50 +17,50 @@
 
 class Google_Service_AndroidManagement_KioskCustomization extends Google_Model
 {
-  public $deviceSettings;
-  public $powerButtonActions;
-  public $statusBar;
-  public $systemErrorWarnings;
-  public $systemNavigation;
+	public $deviceSettings;
+	public $powerButtonActions;
+	public $statusBar;
+	public $systemErrorWarnings;
+	public $systemNavigation;
 
-  public function setDeviceSettings($deviceSettings)
-  {
-    $this->deviceSettings = $deviceSettings;
-  }
-  public function getDeviceSettings()
-  {
-    return $this->deviceSettings;
-  }
-  public function setPowerButtonActions($powerButtonActions)
-  {
-    $this->powerButtonActions = $powerButtonActions;
-  }
-  public function getPowerButtonActions()
-  {
-    return $this->powerButtonActions;
-  }
-  public function setStatusBar($statusBar)
-  {
-    $this->statusBar = $statusBar;
-  }
-  public function getStatusBar()
-  {
-    return $this->statusBar;
-  }
-  public function setSystemErrorWarnings($systemErrorWarnings)
-  {
-    $this->systemErrorWarnings = $systemErrorWarnings;
-  }
-  public function getSystemErrorWarnings()
-  {
-    return $this->systemErrorWarnings;
-  }
-  public function setSystemNavigation($systemNavigation)
-  {
-    $this->systemNavigation = $systemNavigation;
-  }
-  public function getSystemNavigation()
-  {
-    return $this->systemNavigation;
-  }
+	public function setDeviceSettings($deviceSettings)
+	{
+		$this->deviceSettings = $deviceSettings;
+	}
+	public function getDeviceSettings()
+	{
+		return $this->deviceSettings;
+	}
+	public function setPowerButtonActions($powerButtonActions)
+	{
+		$this->powerButtonActions = $powerButtonActions;
+	}
+	public function getPowerButtonActions()
+	{
+		return $this->powerButtonActions;
+	}
+	public function setStatusBar($statusBar)
+	{
+		$this->statusBar = $statusBar;
+	}
+	public function getStatusBar()
+	{
+		return $this->statusBar;
+	}
+	public function setSystemErrorWarnings($systemErrorWarnings)
+	{
+		$this->systemErrorWarnings = $systemErrorWarnings;
+	}
+	public function getSystemErrorWarnings()
+	{
+		return $this->systemErrorWarnings;
+	}
+	public function setSystemNavigation($systemNavigation)
+	{
+		$this->systemNavigation = $systemNavigation;
+	}
+	public function getSystemNavigation()
+	{
+		return $this->systemNavigation;
+	}
 }

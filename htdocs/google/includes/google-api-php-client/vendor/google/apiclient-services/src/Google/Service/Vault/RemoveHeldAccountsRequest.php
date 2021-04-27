@@ -17,15 +17,15 @@
 
 class Google_Service_Vault_RemoveHeldAccountsRequest extends Google_Collection
 {
-  protected $collection_key = 'accountIds';
-  public $accountIds;
+	protected $collection_key = 'accountIds';
+	public $accountIds;
 
-  public function setAccountIds($accountIds)
-  {
-    $this->accountIds = $accountIds;
-  }
-  public function getAccountIds()
-  {
-    return $this->accountIds;
-  }
+	public function setAccountIds($accountIds)
+	{
+		$this->accountIds = $accountIds;
+	}
+	public function getAccountIds()
+	{
+		return $this->accountIds;
+	}
 }

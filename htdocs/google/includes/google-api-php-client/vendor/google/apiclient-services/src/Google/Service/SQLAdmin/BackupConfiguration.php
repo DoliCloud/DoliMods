@@ -17,68 +17,68 @@
 
 class Google_Service_SQLAdmin_BackupConfiguration extends Google_Model
 {
-  public $binaryLogEnabled;
-  public $enabled;
-  public $kind;
-  public $location;
-  public $pointInTimeRecoveryEnabled;
-  public $replicationLogArchivingEnabled;
-  public $startTime;
+	public $binaryLogEnabled;
+	public $enabled;
+	public $kind;
+	public $location;
+	public $pointInTimeRecoveryEnabled;
+	public $replicationLogArchivingEnabled;
+	public $startTime;
 
-  public function setBinaryLogEnabled($binaryLogEnabled)
-  {
-    $this->binaryLogEnabled = $binaryLogEnabled;
-  }
-  public function getBinaryLogEnabled()
-  {
-    return $this->binaryLogEnabled;
-  }
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setPointInTimeRecoveryEnabled($pointInTimeRecoveryEnabled)
-  {
-    $this->pointInTimeRecoveryEnabled = $pointInTimeRecoveryEnabled;
-  }
-  public function getPointInTimeRecoveryEnabled()
-  {
-    return $this->pointInTimeRecoveryEnabled;
-  }
-  public function setReplicationLogArchivingEnabled($replicationLogArchivingEnabled)
-  {
-    $this->replicationLogArchivingEnabled = $replicationLogArchivingEnabled;
-  }
-  public function getReplicationLogArchivingEnabled()
-  {
-    return $this->replicationLogArchivingEnabled;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
+	public function setBinaryLogEnabled($binaryLogEnabled)
+	{
+		$this->binaryLogEnabled = $binaryLogEnabled;
+	}
+	public function getBinaryLogEnabled()
+	{
+		return $this->binaryLogEnabled;
+	}
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setPointInTimeRecoveryEnabled($pointInTimeRecoveryEnabled)
+	{
+		$this->pointInTimeRecoveryEnabled = $pointInTimeRecoveryEnabled;
+	}
+	public function getPointInTimeRecoveryEnabled()
+	{
+		return $this->pointInTimeRecoveryEnabled;
+	}
+	public function setReplicationLogArchivingEnabled($replicationLogArchivingEnabled)
+	{
+		$this->replicationLogArchivingEnabled = $replicationLogArchivingEnabled;
+	}
+	public function getReplicationLogArchivingEnabled()
+	{
+		return $this->replicationLogArchivingEnabled;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Dataflow_SnapshotJobRequest extends Google_Model
 {
-  public $description;
-  public $location;
-  public $snapshotSources;
-  public $ttl;
+	public $description;
+	public $location;
+	public $snapshotSources;
+	public $ttl;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setSnapshotSources($snapshotSources)
-  {
-    $this->snapshotSources = $snapshotSources;
-  }
-  public function getSnapshotSources()
-  {
-    return $this->snapshotSources;
-  }
-  public function setTtl($ttl)
-  {
-    $this->ttl = $ttl;
-  }
-  public function getTtl()
-  {
-    return $this->ttl;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setSnapshotSources($snapshotSources)
+	{
+		$this->snapshotSources = $snapshotSources;
+	}
+	public function getSnapshotSources()
+	{
+		return $this->snapshotSources;
+	}
+	public function setTtl($ttl)
+	{
+		$this->ttl = $ttl;
+	}
+	public function getTtl()
+	{
+		return $this->ttl;
+	}
 }

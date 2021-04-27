@@ -17,59 +17,59 @@
 
 class Google_Service_AdExchangeBuyer_Budget extends Google_Model
 {
-  public $accountId;
-  public $billingId;
-  public $budgetAmount;
-  public $currencyCode;
-  public $id;
-  public $kind;
+	public $accountId;
+	public $billingId;
+	public $budgetAmount;
+	public $currencyCode;
+	public $id;
+	public $kind;
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setBillingId($billingId)
-  {
-    $this->billingId = $billingId;
-  }
-  public function getBillingId()
-  {
-    return $this->billingId;
-  }
-  public function setBudgetAmount($budgetAmount)
-  {
-    $this->budgetAmount = $budgetAmount;
-  }
-  public function getBudgetAmount()
-  {
-    return $this->budgetAmount;
-  }
-  public function setCurrencyCode($currencyCode)
-  {
-    $this->currencyCode = $currencyCode;
-  }
-  public function getCurrencyCode()
-  {
-    return $this->currencyCode;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setBillingId($billingId)
+	{
+		$this->billingId = $billingId;
+	}
+	public function getBillingId()
+	{
+		return $this->billingId;
+	}
+	public function setBudgetAmount($budgetAmount)
+	{
+		$this->budgetAmount = $budgetAmount;
+	}
+	public function getBudgetAmount()
+	{
+		return $this->budgetAmount;
+	}
+	public function setCurrencyCode($currencyCode)
+	{
+		$this->currencyCode = $currencyCode;
+	}
+	public function getCurrencyCode()
+	{
+		return $this->currencyCode;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

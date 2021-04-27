@@ -17,48 +17,48 @@
 
 class Google_Service_Dfareporting_PlacementAssignment extends Google_Model
 {
-  public $active;
-  public $placementId;
-  protected $placementIdDimensionValueType = 'Google_Service_Dfareporting_DimensionValue';
-  protected $placementIdDimensionValueDataType = '';
-  public $sslRequired;
+	public $active;
+	public $placementId;
+	protected $placementIdDimensionValueType = 'Google_Service_Dfareporting_DimensionValue';
+	protected $placementIdDimensionValueDataType = '';
+	public $sslRequired;
 
-  public function setActive($active)
-  {
-    $this->active = $active;
-  }
-  public function getActive()
-  {
-    return $this->active;
-  }
-  public function setPlacementId($placementId)
-  {
-    $this->placementId = $placementId;
-  }
-  public function getPlacementId()
-  {
-    return $this->placementId;
-  }
-  /**
-   * @param Google_Service_Dfareporting_DimensionValue
-   */
-  public function setPlacementIdDimensionValue(Google_Service_Dfareporting_DimensionValue $placementIdDimensionValue)
-  {
-    $this->placementIdDimensionValue = $placementIdDimensionValue;
-  }
-  /**
-   * @return Google_Service_Dfareporting_DimensionValue
-   */
-  public function getPlacementIdDimensionValue()
-  {
-    return $this->placementIdDimensionValue;
-  }
-  public function setSslRequired($sslRequired)
-  {
-    $this->sslRequired = $sslRequired;
-  }
-  public function getSslRequired()
-  {
-    return $this->sslRequired;
-  }
+	public function setActive($active)
+	{
+		$this->active = $active;
+	}
+	public function getActive()
+	{
+		return $this->active;
+	}
+	public function setPlacementId($placementId)
+	{
+		$this->placementId = $placementId;
+	}
+	public function getPlacementId()
+	{
+		return $this->placementId;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_DimensionValue
+	 */
+	public function setPlacementIdDimensionValue(Google_Service_Dfareporting_DimensionValue $placementIdDimensionValue)
+	{
+		$this->placementIdDimensionValue = $placementIdDimensionValue;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_DimensionValue
+	 */
+	public function getPlacementIdDimensionValue()
+	{
+		return $this->placementIdDimensionValue;
+	}
+	public function setSslRequired($sslRequired)
+	{
+		$this->sslRequired = $sslRequired;
+	}
+	public function getSslRequired()
+	{
+		return $this->sslRequired;
+	}
 }

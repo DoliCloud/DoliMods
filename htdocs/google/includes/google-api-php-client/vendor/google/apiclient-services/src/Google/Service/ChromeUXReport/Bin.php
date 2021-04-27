@@ -17,32 +17,32 @@
 
 class Google_Service_ChromeUXReport_Bin extends Google_Model
 {
-  public $density;
-  public $end;
-  public $start;
+	public $density;
+	public $end;
+	public $start;
 
-  public function setDensity($density)
-  {
-    $this->density = $density;
-  }
-  public function getDensity()
-  {
-    return $this->density;
-  }
-  public function setEnd($end)
-  {
-    $this->end = $end;
-  }
-  public function getEnd()
-  {
-    return $this->end;
-  }
-  public function setStart($start)
-  {
-    $this->start = $start;
-  }
-  public function getStart()
-  {
-    return $this->start;
-  }
+	public function setDensity($density)
+	{
+		$this->density = $density;
+	}
+	public function getDensity()
+	{
+		return $this->density;
+	}
+	public function setEnd($end)
+	{
+		$this->end = $end;
+	}
+	public function getEnd()
+	{
+		return $this->end;
+	}
+	public function setStart($start)
+	{
+		$this->start = $start;
+	}
+	public function getStart()
+	{
+		return $this->start;
+	}
 }

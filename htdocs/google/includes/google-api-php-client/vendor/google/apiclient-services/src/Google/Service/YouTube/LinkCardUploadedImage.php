@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_LinkCardUploadedImage extends Google_Model
 {
-  public $imageFile;
-  public $version;
+	public $imageFile;
+	public $version;
 
-  public function setImageFile($imageFile)
-  {
-    $this->imageFile = $imageFile;
-  }
-  public function getImageFile()
-  {
-    return $this->imageFile;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setImageFile($imageFile)
+	{
+		$this->imageFile = $imageFile;
+	}
+	public function getImageFile()
+	{
+		return $this->imageFile;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

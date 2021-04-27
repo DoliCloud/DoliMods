@@ -17,23 +17,23 @@
 
 class Google_Service_Gmail_Delegate extends Google_Model
 {
-  public $delegateEmail;
-  public $verificationStatus;
+	public $delegateEmail;
+	public $verificationStatus;
 
-  public function setDelegateEmail($delegateEmail)
-  {
-    $this->delegateEmail = $delegateEmail;
-  }
-  public function getDelegateEmail()
-  {
-    return $this->delegateEmail;
-  }
-  public function setVerificationStatus($verificationStatus)
-  {
-    $this->verificationStatus = $verificationStatus;
-  }
-  public function getVerificationStatus()
-  {
-    return $this->verificationStatus;
-  }
+	public function setDelegateEmail($delegateEmail)
+	{
+		$this->delegateEmail = $delegateEmail;
+	}
+	public function getDelegateEmail()
+	{
+		return $this->delegateEmail;
+	}
+	public function setVerificationStatus($verificationStatus)
+	{
+		$this->verificationStatus = $verificationStatus;
+	}
+	public function getVerificationStatus()
+	{
+		return $this->verificationStatus;
+	}
 }

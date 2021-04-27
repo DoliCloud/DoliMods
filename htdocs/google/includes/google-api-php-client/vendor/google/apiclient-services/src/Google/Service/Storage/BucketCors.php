@@ -17,42 +17,42 @@
 
 class Google_Service_Storage_BucketCors extends Google_Collection
 {
-  protected $collection_key = 'responseHeader';
-  public $maxAgeSeconds;
-  public $method;
-  public $origin;
-  public $responseHeader;
+	protected $collection_key = 'responseHeader';
+	public $maxAgeSeconds;
+	public $method;
+	public $origin;
+	public $responseHeader;
 
-  public function setMaxAgeSeconds($maxAgeSeconds)
-  {
-    $this->maxAgeSeconds = $maxAgeSeconds;
-  }
-  public function getMaxAgeSeconds()
-  {
-    return $this->maxAgeSeconds;
-  }
-  public function setMethod($method)
-  {
-    $this->method = $method;
-  }
-  public function getMethod()
-  {
-    return $this->method;
-  }
-  public function setOrigin($origin)
-  {
-    $this->origin = $origin;
-  }
-  public function getOrigin()
-  {
-    return $this->origin;
-  }
-  public function setResponseHeader($responseHeader)
-  {
-    $this->responseHeader = $responseHeader;
-  }
-  public function getResponseHeader()
-  {
-    return $this->responseHeader;
-  }
+	public function setMaxAgeSeconds($maxAgeSeconds)
+	{
+		$this->maxAgeSeconds = $maxAgeSeconds;
+	}
+	public function getMaxAgeSeconds()
+	{
+		return $this->maxAgeSeconds;
+	}
+	public function setMethod($method)
+	{
+		$this->method = $method;
+	}
+	public function getMethod()
+	{
+		return $this->method;
+	}
+	public function setOrigin($origin)
+	{
+		$this->origin = $origin;
+	}
+	public function getOrigin()
+	{
+		return $this->origin;
+	}
+	public function setResponseHeader($responseHeader)
+	{
+		$this->responseHeader = $responseHeader;
+	}
+	public function getResponseHeader()
+	{
+		return $this->responseHeader;
+	}
 }

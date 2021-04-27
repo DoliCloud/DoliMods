@@ -20,25 +20,25 @@ $socketSpy = new SocketSpy();
  */
 class SocketSpyTestCase extends TestCase
 {
-    /**
-     * Set up a spy object to capture calls to global built in socket functions
-     */
-    protected function setUp()
-    {
-        global $socketSpy;
+	/**
+	 * Set up a spy object to capture calls to global built in socket functions
+	 */
+	protected function setUp()
+	{
+		global $socketSpy;
 
-        $socketSpy = new SocketSpy();
+		$socketSpy = new SocketSpy();
 
-        parent::setUp();
-    }
+		parent::setUp();
+	}
 
-    /**
-     * @return \DataDog\TestHelpers\SocketSpy
-     */
-    protected function getSocketSpy()
-    {
-        global $socketSpy;
+	/**
+	 * @return \DataDog\TestHelpers\SocketSpy
+	 */
+	protected function getSocketSpy()
+	{
+		global $socketSpy;
 
-        return $socketSpy;
-    }
+		return $socketSpy;
+	}
 }

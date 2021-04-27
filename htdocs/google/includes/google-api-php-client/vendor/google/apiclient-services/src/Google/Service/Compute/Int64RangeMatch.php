@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_Int64RangeMatch extends Google_Model
 {
-  public $rangeEnd;
-  public $rangeStart;
+	public $rangeEnd;
+	public $rangeStart;
 
-  public function setRangeEnd($rangeEnd)
-  {
-    $this->rangeEnd = $rangeEnd;
-  }
-  public function getRangeEnd()
-  {
-    return $this->rangeEnd;
-  }
-  public function setRangeStart($rangeStart)
-  {
-    $this->rangeStart = $rangeStart;
-  }
-  public function getRangeStart()
-  {
-    return $this->rangeStart;
-  }
+	public function setRangeEnd($rangeEnd)
+	{
+		$this->rangeEnd = $rangeEnd;
+	}
+	public function getRangeEnd()
+	{
+		return $this->rangeEnd;
+	}
+	public function setRangeStart($rangeStart)
+	{
+		$this->rangeStart = $rangeStart;
+	}
+	public function getRangeStart()
+	{
+		return $this->rangeStart;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1ListBudgetsResponse extends Google_Collection
 {
-  protected $collection_key = 'budgets';
-  protected $budgetsType = 'Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget';
-  protected $budgetsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'budgets';
+	protected $budgetsType = 'Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget';
+	protected $budgetsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
-   */
-  public function setBudgets($budgets)
-  {
-    $this->budgets = $budgets;
-  }
-  /**
-   * @return Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
-   */
-  public function getBudgets()
-  {
-    return $this->budgets;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
+	 */
+	public function setBudgets($budgets)
+	{
+		$this->budgets = $budgets;
+	}
+	/**
+	 * @return Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
+	 */
+	public function getBudgets()
+	{
+		return $this->budgets;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

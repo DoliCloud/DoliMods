@@ -17,55 +17,55 @@
 
 class Google_Service_Docs_InsertTableRequest extends Google_Model
 {
-  public $columns;
-  protected $endOfSegmentLocationType = 'Google_Service_Docs_EndOfSegmentLocation';
-  protected $endOfSegmentLocationDataType = '';
-  protected $locationType = 'Google_Service_Docs_Location';
-  protected $locationDataType = '';
-  public $rows;
+	public $columns;
+	protected $endOfSegmentLocationType = 'Google_Service_Docs_EndOfSegmentLocation';
+	protected $endOfSegmentLocationDataType = '';
+	protected $locationType = 'Google_Service_Docs_Location';
+	protected $locationDataType = '';
+	public $rows;
 
-  public function setColumns($columns)
-  {
-    $this->columns = $columns;
-  }
-  public function getColumns()
-  {
-    return $this->columns;
-  }
-  /**
-   * @param Google_Service_Docs_EndOfSegmentLocation
-   */
-  public function setEndOfSegmentLocation(Google_Service_Docs_EndOfSegmentLocation $endOfSegmentLocation)
-  {
-    $this->endOfSegmentLocation = $endOfSegmentLocation;
-  }
-  /**
-   * @return Google_Service_Docs_EndOfSegmentLocation
-   */
-  public function getEndOfSegmentLocation()
-  {
-    return $this->endOfSegmentLocation;
-  }
-  /**
-   * @param Google_Service_Docs_Location
-   */
-  public function setLocation(Google_Service_Docs_Location $location)
-  {
-    $this->location = $location;
-  }
-  /**
-   * @return Google_Service_Docs_Location
-   */
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setRows($rows)
-  {
-    $this->rows = $rows;
-  }
-  public function getRows()
-  {
-    return $this->rows;
-  }
+	public function setColumns($columns)
+	{
+		$this->columns = $columns;
+	}
+	public function getColumns()
+	{
+		return $this->columns;
+	}
+	/**
+	 * @param Google_Service_Docs_EndOfSegmentLocation
+	 */
+	public function setEndOfSegmentLocation(Google_Service_Docs_EndOfSegmentLocation $endOfSegmentLocation)
+	{
+		$this->endOfSegmentLocation = $endOfSegmentLocation;
+	}
+	/**
+	 * @return Google_Service_Docs_EndOfSegmentLocation
+	 */
+	public function getEndOfSegmentLocation()
+	{
+		return $this->endOfSegmentLocation;
+	}
+	/**
+	 * @param Google_Service_Docs_Location
+	 */
+	public function setLocation(Google_Service_Docs_Location $location)
+	{
+		$this->location = $location;
+	}
+	/**
+	 * @return Google_Service_Docs_Location
+	 */
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setRows($rows)
+	{
+		$this->rows = $rows;
+	}
+	public function getRows()
+	{
+		return $this->rows;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurgeUserEventsResponse extends Google_Collection
 {
-  protected $collection_key = 'userEventsSample';
-  public $purgedEventsCount;
-  protected $userEventsSampleType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent';
-  protected $userEventsSampleDataType = 'array';
+	protected $collection_key = 'userEventsSample';
+	public $purgedEventsCount;
+	protected $userEventsSampleType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent';
+	protected $userEventsSampleDataType = 'array';
 
-  public function setPurgedEventsCount($purgedEventsCount)
-  {
-    $this->purgedEventsCount = $purgedEventsCount;
-  }
-  public function getPurgedEventsCount()
-  {
-    return $this->purgedEventsCount;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
-   */
-  public function setUserEventsSample($userEventsSample)
-  {
-    $this->userEventsSample = $userEventsSample;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
-   */
-  public function getUserEventsSample()
-  {
-    return $this->userEventsSample;
-  }
+	public function setPurgedEventsCount($purgedEventsCount)
+	{
+		$this->purgedEventsCount = $purgedEventsCount;
+	}
+	public function getPurgedEventsCount()
+	{
+		return $this->purgedEventsCount;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
+	 */
+	public function setUserEventsSample($userEventsSample)
+	{
+		$this->userEventsSample = $userEventsSample;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
+	 */
+	public function getUserEventsSample()
+	{
+		return $this->userEventsSample;
+	}
 }

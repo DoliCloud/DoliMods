@@ -17,57 +17,57 @@
 
 class Google_Service_AndroidProvisioningPartner_PartnerUnclaim extends Google_Model
 {
-  public $deviceId;
-  protected $deviceIdentifierType = 'Google_Service_AndroidProvisioningPartner_DeviceIdentifier';
-  protected $deviceIdentifierDataType = '';
-  public $sectionType;
-  public $vacationModeDays;
-  public $vacationModeExpireTime;
+	public $deviceId;
+	protected $deviceIdentifierType = 'Google_Service_AndroidProvisioningPartner_DeviceIdentifier';
+	protected $deviceIdentifierDataType = '';
+	public $sectionType;
+	public $vacationModeDays;
+	public $vacationModeExpireTime;
 
-  public function setDeviceId($deviceId)
-  {
-    $this->deviceId = $deviceId;
-  }
-  public function getDeviceId()
-  {
-    return $this->deviceId;
-  }
-  /**
-   * @param Google_Service_AndroidProvisioningPartner_DeviceIdentifier
-   */
-  public function setDeviceIdentifier(Google_Service_AndroidProvisioningPartner_DeviceIdentifier $deviceIdentifier)
-  {
-    $this->deviceIdentifier = $deviceIdentifier;
-  }
-  /**
-   * @return Google_Service_AndroidProvisioningPartner_DeviceIdentifier
-   */
-  public function getDeviceIdentifier()
-  {
-    return $this->deviceIdentifier;
-  }
-  public function setSectionType($sectionType)
-  {
-    $this->sectionType = $sectionType;
-  }
-  public function getSectionType()
-  {
-    return $this->sectionType;
-  }
-  public function setVacationModeDays($vacationModeDays)
-  {
-    $this->vacationModeDays = $vacationModeDays;
-  }
-  public function getVacationModeDays()
-  {
-    return $this->vacationModeDays;
-  }
-  public function setVacationModeExpireTime($vacationModeExpireTime)
-  {
-    $this->vacationModeExpireTime = $vacationModeExpireTime;
-  }
-  public function getVacationModeExpireTime()
-  {
-    return $this->vacationModeExpireTime;
-  }
+	public function setDeviceId($deviceId)
+	{
+		$this->deviceId = $deviceId;
+	}
+	public function getDeviceId()
+	{
+		return $this->deviceId;
+	}
+	/**
+	 * @param Google_Service_AndroidProvisioningPartner_DeviceIdentifier
+	 */
+	public function setDeviceIdentifier(Google_Service_AndroidProvisioningPartner_DeviceIdentifier $deviceIdentifier)
+	{
+		$this->deviceIdentifier = $deviceIdentifier;
+	}
+	/**
+	 * @return Google_Service_AndroidProvisioningPartner_DeviceIdentifier
+	 */
+	public function getDeviceIdentifier()
+	{
+		return $this->deviceIdentifier;
+	}
+	public function setSectionType($sectionType)
+	{
+		$this->sectionType = $sectionType;
+	}
+	public function getSectionType()
+	{
+		return $this->sectionType;
+	}
+	public function setVacationModeDays($vacationModeDays)
+	{
+		$this->vacationModeDays = $vacationModeDays;
+	}
+	public function getVacationModeDays()
+	{
+		return $this->vacationModeDays;
+	}
+	public function setVacationModeExpireTime($vacationModeExpireTime)
+	{
+		$this->vacationModeExpireTime = $vacationModeExpireTime;
+	}
+	public function getVacationModeExpireTime()
+	{
+		return $this->vacationModeExpireTime;
+	}
 }

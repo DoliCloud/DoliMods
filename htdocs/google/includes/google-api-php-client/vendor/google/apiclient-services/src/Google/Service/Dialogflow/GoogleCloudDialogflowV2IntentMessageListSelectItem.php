@@ -17,55 +17,55 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageListSelectItem extends Google_Model
 {
-  public $description;
-  protected $imageType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage';
-  protected $imageDataType = '';
-  protected $infoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageSelectItemInfo';
-  protected $infoDataType = '';
-  public $title;
+	public $description;
+	protected $imageType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage';
+	protected $imageDataType = '';
+	protected $infoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageSelectItemInfo';
+	protected $infoDataType = '';
+	public $title;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
-   */
-  public function setImage(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage $image)
-  {
-    $this->image = $image;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
-   */
-  public function getImage()
-  {
-    return $this->image;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageSelectItemInfo
-   */
-  public function setInfo(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageSelectItemInfo $info)
-  {
-    $this->info = $info;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageSelectItemInfo
-   */
-  public function getInfo()
-  {
-    return $this->info;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
+	 */
+	public function setImage(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage $image)
+	{
+		$this->image = $image;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
+	 */
+	public function getImage()
+	{
+		return $this->image;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageSelectItemInfo
+	 */
+	public function setInfo(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageSelectItemInfo $info)
+	{
+		$this->info = $info;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageSelectItemInfo
+	 */
+	public function getInfo()
+	{
+		return $this->info;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

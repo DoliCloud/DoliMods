@@ -17,14 +17,14 @@
 
 class Google_Service_BigQueryReservation_MoveAssignmentRequest extends Google_Model
 {
-  public $destinationId;
+	public $destinationId;
 
-  public function setDestinationId($destinationId)
-  {
-    $this->destinationId = $destinationId;
-  }
-  public function getDestinationId()
-  {
-    return $this->destinationId;
-  }
+	public function setDestinationId($destinationId)
+	{
+		$this->destinationId = $destinationId;
+	}
+	public function getDestinationId()
+	{
+		return $this->destinationId;
+	}
 }

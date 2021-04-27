@@ -16,11 +16,11 @@ namespace setasign\Fpdi\PdfParser\Filter;
  */
 interface FilterInterface
 {
-    /**
-     * Decode a string.
-     *
-     * @param string $data The input string
-     * @return string
-     */
-    public function decode($data);
+	/**
+	 * Decode a string.
+	 *
+	 * @param string $data The input string
+	 * @return string
+	 */
+	public function decode($data);
 }

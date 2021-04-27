@@ -17,23 +17,23 @@
 
 class Google_Service_Firestore_ExistenceFilter extends Google_Model
 {
-  public $count;
-  public $targetId;
+	public $count;
+	public $targetId;
 
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  public function setTargetId($targetId)
-  {
-    $this->targetId = $targetId;
-  }
-  public function getTargetId()
-  {
-    return $this->targetId;
-  }
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	public function setTargetId($targetId)
+	{
+		$this->targetId = $targetId;
+	}
+	public function getTargetId()
+	{
+		return $this->targetId;
+	}
 }

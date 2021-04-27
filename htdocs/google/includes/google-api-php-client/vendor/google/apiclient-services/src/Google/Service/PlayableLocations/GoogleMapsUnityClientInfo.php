@@ -17,77 +17,77 @@
 
 class Google_Service_PlayableLocations_GoogleMapsUnityClientInfo extends Google_Model
 {
-  public $apiClient;
-  public $applicationId;
-  public $applicationVersion;
-  public $deviceModel;
-  public $languageCode;
-  public $operatingSystem;
-  public $operatingSystemBuild;
-  public $platform;
+	public $apiClient;
+	public $applicationId;
+	public $applicationVersion;
+	public $deviceModel;
+	public $languageCode;
+	public $operatingSystem;
+	public $operatingSystemBuild;
+	public $platform;
 
-  public function setApiClient($apiClient)
-  {
-    $this->apiClient = $apiClient;
-  }
-  public function getApiClient()
-  {
-    return $this->apiClient;
-  }
-  public function setApplicationId($applicationId)
-  {
-    $this->applicationId = $applicationId;
-  }
-  public function getApplicationId()
-  {
-    return $this->applicationId;
-  }
-  public function setApplicationVersion($applicationVersion)
-  {
-    $this->applicationVersion = $applicationVersion;
-  }
-  public function getApplicationVersion()
-  {
-    return $this->applicationVersion;
-  }
-  public function setDeviceModel($deviceModel)
-  {
-    $this->deviceModel = $deviceModel;
-  }
-  public function getDeviceModel()
-  {
-    return $this->deviceModel;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  public function setOperatingSystem($operatingSystem)
-  {
-    $this->operatingSystem = $operatingSystem;
-  }
-  public function getOperatingSystem()
-  {
-    return $this->operatingSystem;
-  }
-  public function setOperatingSystemBuild($operatingSystemBuild)
-  {
-    $this->operatingSystemBuild = $operatingSystemBuild;
-  }
-  public function getOperatingSystemBuild()
-  {
-    return $this->operatingSystemBuild;
-  }
-  public function setPlatform($platform)
-  {
-    $this->platform = $platform;
-  }
-  public function getPlatform()
-  {
-    return $this->platform;
-  }
+	public function setApiClient($apiClient)
+	{
+		$this->apiClient = $apiClient;
+	}
+	public function getApiClient()
+	{
+		return $this->apiClient;
+	}
+	public function setApplicationId($applicationId)
+	{
+		$this->applicationId = $applicationId;
+	}
+	public function getApplicationId()
+	{
+		return $this->applicationId;
+	}
+	public function setApplicationVersion($applicationVersion)
+	{
+		$this->applicationVersion = $applicationVersion;
+	}
+	public function getApplicationVersion()
+	{
+		return $this->applicationVersion;
+	}
+	public function setDeviceModel($deviceModel)
+	{
+		$this->deviceModel = $deviceModel;
+	}
+	public function getDeviceModel()
+	{
+		return $this->deviceModel;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	public function setOperatingSystem($operatingSystem)
+	{
+		$this->operatingSystem = $operatingSystem;
+	}
+	public function getOperatingSystem()
+	{
+		return $this->operatingSystem;
+	}
+	public function setOperatingSystemBuild($operatingSystemBuild)
+	{
+		$this->operatingSystemBuild = $operatingSystemBuild;
+	}
+	public function getOperatingSystemBuild()
+	{
+		return $this->operatingSystemBuild;
+	}
+	public function setPlatform($platform)
+	{
+		$this->platform = $platform;
+	}
+	public function getPlatform()
+	{
+		return $this->platform;
+	}
 }

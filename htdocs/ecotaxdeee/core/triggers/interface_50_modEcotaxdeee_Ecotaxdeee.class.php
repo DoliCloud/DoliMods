@@ -21,7 +21,7 @@
  *  \brief      Add Ecotax for products into specific category
  */
 
-include_once(DOL_DOCUMENT_ROOT.'/core/triggers/dolibarrtriggers.class.php');
+include_once DOL_DOCUMENT_ROOT.'/core/triggers/dolibarrtriggers.class.php';
 
 
 /**
@@ -41,7 +41,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	{
 		$this->db = $db;
 
-		$this->name = preg_replace('/^Interface/i','',get_class($this));
+		$this->name = preg_replace('/^Interface/i', '', get_class($this));
 		$this->family = "product";
 		$this->description = "Triggers of this module calculate ecotax of a product if product is inside category 'Ecotax').";
 		$this->picto = 'generic';
@@ -101,82 +101,70 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		if (isset($object->special_code) && $object->special_code == 2) return 0;			// To avoid infinite loop. Line with special_code = 2, like ecotax lines, are not triggered
 		if (! empty($object->context['createfromclone'])) return 0;                         // To avoid to add ecotax line during cloning
 
-		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER))
-		{
-			if ($action == 'LINEORDER_INSERT')
-			{
-			    return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER)) {
+			if ($action == 'LINEORDER_INSERT') {
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
-			if ($action == 'LINEORDER_UPDATE' || $action == 'LINEORDER_MODIFY')
-			{
-					return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			if ($action == 'LINEORDER_UPDATE' || $action == 'LINEORDER_MODIFY') {
+					return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
-			if ($action == 'LINEORDER_DELETE')
-			{
-				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			if ($action == 'LINEORDER_DELETE') {
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 		}
-		if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL))
-		{
-			if ($action == 'LINEPROPAL_INSERT')
-			{
-			    //var_dump($object);
-			    return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL)) {
+			if ($action == 'LINEPROPAL_INSERT') {
+				//var_dump($object);
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
-			if ($action == 'LINEPROPAL_UPDATE' || $action == 'LINEPROPAL_MODIFY')
-			{
-				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			if ($action == 'LINEPROPAL_UPDATE' || $action == 'LINEPROPAL_MODIFY') {
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
-			if ($action == 'LINEPROPAL_DELETE')
-			{
-				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			if ($action == 'LINEPROPAL_DELETE') {
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 		}
-		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE))
-		{
-			if ($action == 'LINEBILL_INSERT')
-			{
-				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE)) {
+			if ($action == 'LINEBILL_INSERT') {
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
-			if ($action == 'LINEBILL_UPDATE' || $action == 'LINEBILL_MODIFY')
-			{
-				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			if ($action == 'LINEBILL_UPDATE' || $action == 'LINEBILL_MODIFY') {
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
-			if ($action == 'LINEBILL_DELETE')
-			{
-				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			if ($action == 'LINEBILL_DELETE') {
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 		}
 		/* TODO
 		if (! empty($conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_ORDER))
 		{
-		    if ($action == 'LINEORDER_SUPPLIER_INSERT' || $action == 'LINEORDER_SUPPLIER_CREATE')
-		    {
-		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
-		    }
-		    if ($action == 'LINEORDER_SUPPLIER_UPDATE' || $action == 'LINEORDER_SUPPLIER_MODIFY')
-		    {
-		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
-		    }
-		    if ($action == 'LINEORDER_SUPPLIER_DELETE')
-		    {
-		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
-		    }
+			if ($action == 'LINEORDER_SUPPLIER_INSERT' || $action == 'LINEORDER_SUPPLIER_CREATE')
+			{
+				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
+			if ($action == 'LINEORDER_SUPPLIER_UPDATE' || $action == 'LINEORDER_SUPPLIER_MODIFY')
+			{
+				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
+			if ($action == 'LINEORDER_SUPPLIER_DELETE')
+			{
+				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
 		}
 		if (! empty($conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE))
 		{
-		    if ($action == 'LINEBILL_SUPPLIER_INSERT' || $action == 'LINEBILL_SUPPLIER_CREATE')
-		    {
-		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
-		    }
-		    if ($action == 'LINEBILL_SUPPLIER_UPDATE' || $action == 'LINEBILL_SUPPLIER_MODIFY')
-		    {
-		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
-		    }
-		    if ($action == 'LINEBILL_SUPPLIER_DELETE')
-		    {
-		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
-		    }
+			if ($action == 'LINEBILL_SUPPLIER_INSERT' || $action == 'LINEBILL_SUPPLIER_CREATE')
+			{
+				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
+			if ($action == 'LINEBILL_SUPPLIER_UPDATE' || $action == 'LINEBILL_SUPPLIER_MODIFY')
+			{
+				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
+			if ($action == 'LINEBILL_SUPPLIER_DELETE')
+			{
+				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
 		}
 		*/
 
@@ -194,7 +182,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	 * @param  Translate   $langs      Langs
 	 * @param  Conf        $conf       Conf
 	 */
-	function _add_replace_ecotax($action,$object,$user,$langs,$conf)
+	function _add_replace_ecotax($action, $object, $user, $langs, $conf)
 	{
 		global $mysoc;
 
@@ -214,12 +202,11 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		$keylineecotax=array();
 		$tmpecotaxline=array();
 
-		if ($object->special_code == 2 && in_array($action,array('LINEORDER_DELETE','LINEPROPAL_DELETE','LINEBILL_DELETE','LINEORDER_SUPPLIER_DELETE','LINEBILL_SUPPLIER_DELETE'))) return 0;
+		if ($object->special_code == 2 && in_array($action, array('LINEORDER_DELETE','LINEPROPAL_DELETE','LINEBILL_DELETE','LINEORDER_SUPPLIER_DELETE','LINEBILL_SUPPLIER_DELETE'))) return 0;
 
 		// If we are creating an object from an other one, we forget adding eco tax.
 		if ((! empty($_POST['origin']) && (! empty($_POST['originid']) || ! empty($_POST['origin_id'])))
-		    || (! empty($object->context['origin']) && ! empty($object->context['origin_id'])))
-		{
+			|| (! empty($object->context['origin']) && ! empty($object->context['origin_id']))) {
 			return 0;
 		}
 
@@ -229,23 +216,19 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		$ecoamount = array();
 		$fieldparentid='';
 		$parentobject=null;
-		if ($object->element == 'facturedet' || get_class($object) == 'FactureLigne')
-		{
+		if ($object->element == 'facturedet' || get_class($object) == 'FactureLigne') {
 			$fieldparentid='fk_facture';
 			$parentobject=new Facture($this->db);
 		}
-		if ($object->element == 'propaldet' || get_class($object) == 'PropaleLigne')
-		{
+		if ($object->element == 'propaldet' || get_class($object) == 'PropaleLigne') {
 			$fieldparentid='fk_propal';
 			$parentobject=new Propal($this->db);
 		}
-		if ($object->element == 'commandedet' || get_class($object) == 'OrderLine')
-		{
+		if ($object->element == 'commandedet' || get_class($object) == 'OrderLine') {
 			$fieldparentid='fk_commande';
 			$parentobject=new Commande($this->db);
 		}
-		if (empty($fieldparentid))
-		{
+		if (empty($fieldparentid)) {
 			dol_syslog('Object '.$object->element.' not supported', LOG_WARNING);
 			return;
 		}
@@ -257,16 +240,14 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 
 		// Get eco tax deee amount from extra field
 		require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
-        $extrafields = new ExtraFields($this->db);
-        $optionsArray = $extrafields->fetch_name_optionals_label('product');
+		$extrafields = new ExtraFields($this->db);
+		$optionsArray = $extrafields->fetch_name_optionals_label('product');
 
-        $nboflineswithpossibleecotax=0;
-		foreach($lines as $key => $line)
-		{
+		$nboflineswithpossibleecotax=0;
+		foreach ($lines as $key => $line) {
 			$ecocateg='NOCATEG';	// TODO For a future feature
 
-			if ($line->special_code == 2)				// This line is an already existing service line ecotax
-			{
+			if ($line->special_code == 2) {				// This line is an already existing service line ecotax
 				$idlineecotax[$ecocateg]=($line->id ? $line->id : $line->rowid);
 				$amountlineecotax_ht[$ecocateg]=$line->total_ht;
 				$amountlineecotax_ttc[$ecocateg]=$line->total_ttc;
@@ -278,8 +259,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 
 			if (empty($line->fk_product)) continue;	// This line is not a predefined product, so we suppose there is no eco tax deee
 
-			if ($line->special_code != 1 && $line->special_code != 2)	// Discard shipping line and ecotax lines
-			{
+			if ($line->special_code != 1 && $line->special_code != 2) {	// Discard shipping line and ecotax lines
 				$nboflineswithpossibleecotax++;
 
 				$tmpproduct=new Product($this->db);
@@ -290,16 +270,11 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		}
 
 		// Delete existing empty ecotax lines
-		foreach ($tmpecotaxline as $ecocateg => $value)
-		{
-			if (empty($ecoamount[$ecocateg]))
-			{
-				if ((float) DOL_VERSION < 7.0)
-				{
+		foreach ($tmpecotaxline as $ecocateg => $value) {
+			if (empty($ecoamount[$ecocateg])) {
+				if ((float) DOL_VERSION < 7.0) {
 					if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete();
-				}
-				else
-				{
+				} else {
 					if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete($user);
 				}
 			}
@@ -313,12 +288,9 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		// Update/insert ecotax
 		$result=0;
 		$error='';
-		foreach ($ecoamount as $ecocateg => $value)
-		{
-			if (is_object($tmpecotaxline[$ecocateg]) && $idlineecotax[$ecocateg] > 0)	// If ecotax line already exists for ecocateg
-			{
-				if ($ecoamount[$ecocateg])
-				{
+		foreach ($ecoamount as $ecocateg => $value) {
+			if (is_object($tmpecotaxline[$ecocateg]) && $idlineecotax[$ecocateg] > 0) {	// If ecotax line already exists for ecocateg
+				if ($ecoamount[$ecocateg]) {
 					// Update line
 					$tmpecotaxline[$ecocateg]->oldline=dol_clone($tmpecotaxline[$ecocateg]);
 					$tmpecotaxline[$ecocateg]->qty=1;
@@ -333,22 +305,18 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 					$tmpecotaxline[$ecocateg]->total_localtax1 = $tmparray[9];
 					$tmpecotaxline[$ecocateg]->total_localtax2 = $tmparray[10];
 
-					if ((float) DOL_VERSION < 7.0)
-					{
+					if ((float) DOL_VERSION < 7.0) {
 						if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update(0);
 						if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update(0);
 						//if ($parentobject->table_element == 'order_supplier')   $result=$tmpecotaxline[$ecocateg]->update(0);
 						if ($parentobject->table_element == 'invoice_supplier') $result=$tmpecotaxline[$ecocateg]->update(0);
-					}
-					else
-					{
+					} else {
 						if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						//if ($parentobject->table_element == 'order_supplier')   $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						if ($parentobject->table_element == 'invoice_supplier') $result=$tmpecotaxline[$ecocateg]->update($user, 0);
-
 					}
 
 					// Now update the buy_price_ht (not included into update() method)
@@ -367,18 +335,14 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 							}
 						}
 					}
-				}
-				else
-				{
+				} else {
 					$result=$tmpecotaxline[$ecocateg]->delete($user);
 				}
 
-				if ($result <= 0)
-				{
+				if ($result <= 0) {
 					$error = $tmpecotaxline[$ecocateg]->error;
 				}
-			}
-			else	// If ecotax line does not yet exists for ecocateg and we need it
+			} else // If ecotax line does not yet exists for ecocateg and we need it
 			{
 				$product_id = 0;
 				if (! empty($conf->global->WEEE_PRODUCT_ID)) $product_id = $conf->global->WEEE_PRODUCT_ID;
@@ -387,8 +351,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				$rang = count($lines) + 1;
 				$special_code = 2;
 				$txtva = 0;
-				if (empty($conf->global->WEEE_DISABLE_VAT_ON_ECOTAX))	// This option should not be set.
-				{
+				if (empty($conf->global->WEEE_DISABLE_VAT_ON_ECOTAX)) {	// This option should not be set.
 					$txtva=get_default_tva($seller, $buyer, $product_id, 0);	// Get default VAT Eco Tax product (if defined) or for generic product id=0 (highest vat rate) if no predefined product set for Eco Tax line
 				}
 
@@ -403,19 +366,15 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				// TODO order_supplier and invoice_supplier
 
 				//var_dump($result);exit;
-				if ($result <= 0)
-				{
+				if ($result <= 0) {
 					$error = $parentobject->error;
 				}
 			}
 		}
 
-		if (! $error)
-		{
+		if (! $error) {
 			return 1;
-		}
-		else
-		{
+		} else {
 			$this->error = $error;
 			$this->errors[] = $error;
 			dol_syslog("Trigger '".$this->name."' in action '".$action."' ERROR ".$error, LOG_ERR);
@@ -433,22 +392,19 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	 */
 	function _is_in_cat($ecocat, $product_id)
 	{
-		require_once(DOL_DOCUMENT_ROOT."/categories/categorie.class.php");
+		require_once DOL_DOCUMENT_ROOT."/categories/categorie.class.php";
 
-		if (!isset($product_id) || empty($product_id))
-		{
+		if (!isset($product_id) || empty($product_id)) {
 			return 0;
 		}
 
 		$c = new Categorie($this->db);
 		$cats = array();
-		$cats = $c->containing($product_id,0);
+		$cats = $c->containing($product_id, 0);
 		$found=0;
 		if (count($cats)==0) return 0;
-		foreach ($cats as $cat)
-		{
-			if ($cat->label===$ecocat)
-			{
+		foreach ($cats as $cat) {
+			if ($cat->label===$ecocat) {
 				$found=1;
 				break;
 			}

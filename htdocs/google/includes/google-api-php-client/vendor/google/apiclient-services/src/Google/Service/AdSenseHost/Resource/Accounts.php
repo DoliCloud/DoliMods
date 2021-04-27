@@ -25,31 +25,31 @@
  */
 class Google_Service_AdSenseHost_Resource_Accounts extends Google_Service_Resource
 {
-  /**
-   * Get information about the selected associated AdSense account. (accounts.get)
-   *
-   * @param string $accountId Account to get information about.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AdSenseHost_Account
-   */
-  public function get($accountId, $optParams = array())
-  {
-    $params = array('accountId' => $accountId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdSenseHost_Account");
-  }
-  /**
-   * List hosted accounts associated with this AdSense account by ad client id.
-   * (accounts.listAccounts)
-   *
-   * @param string|array $filterAdClientId Ad clients to list accounts for.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AdSenseHost_Accounts
-   */
-  public function listAccounts($filterAdClientId, $optParams = array())
-  {
-    $params = array('filterAdClientId' => $filterAdClientId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdSenseHost_Accounts");
-  }
+	/**
+	 * Get information about the selected associated AdSense account. (accounts.get)
+	 *
+	 * @param string $accountId Account to get information about.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AdSenseHost_Account
+	 */
+	public function get($accountId, $optParams = array())
+	{
+		$params = array('accountId' => $accountId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_AdSenseHost_Account");
+	}
+	/**
+	 * List hosted accounts associated with this AdSense account by ad client id.
+	 * (accounts.listAccounts)
+	 *
+	 * @param string|array $filterAdClientId Ad clients to list accounts for.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AdSenseHost_Accounts
+	 */
+	public function listAccounts($filterAdClientId, $optParams = array())
+	{
+		$params = array('filterAdClientId' => $filterAdClientId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AdSenseHost_Accounts");
+	}
 }

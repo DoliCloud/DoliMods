@@ -17,59 +17,59 @@
 
 class Google_Service_FirebaseDynamicLinks_GooglePlayAnalytics extends Google_Model
 {
-  public $gclid;
-  public $utmCampaign;
-  public $utmContent;
-  public $utmMedium;
-  public $utmSource;
-  public $utmTerm;
+	public $gclid;
+	public $utmCampaign;
+	public $utmContent;
+	public $utmMedium;
+	public $utmSource;
+	public $utmTerm;
 
-  public function setGclid($gclid)
-  {
-    $this->gclid = $gclid;
-  }
-  public function getGclid()
-  {
-    return $this->gclid;
-  }
-  public function setUtmCampaign($utmCampaign)
-  {
-    $this->utmCampaign = $utmCampaign;
-  }
-  public function getUtmCampaign()
-  {
-    return $this->utmCampaign;
-  }
-  public function setUtmContent($utmContent)
-  {
-    $this->utmContent = $utmContent;
-  }
-  public function getUtmContent()
-  {
-    return $this->utmContent;
-  }
-  public function setUtmMedium($utmMedium)
-  {
-    $this->utmMedium = $utmMedium;
-  }
-  public function getUtmMedium()
-  {
-    return $this->utmMedium;
-  }
-  public function setUtmSource($utmSource)
-  {
-    $this->utmSource = $utmSource;
-  }
-  public function getUtmSource()
-  {
-    return $this->utmSource;
-  }
-  public function setUtmTerm($utmTerm)
-  {
-    $this->utmTerm = $utmTerm;
-  }
-  public function getUtmTerm()
-  {
-    return $this->utmTerm;
-  }
+	public function setGclid($gclid)
+	{
+		$this->gclid = $gclid;
+	}
+	public function getGclid()
+	{
+		return $this->gclid;
+	}
+	public function setUtmCampaign($utmCampaign)
+	{
+		$this->utmCampaign = $utmCampaign;
+	}
+	public function getUtmCampaign()
+	{
+		return $this->utmCampaign;
+	}
+	public function setUtmContent($utmContent)
+	{
+		$this->utmContent = $utmContent;
+	}
+	public function getUtmContent()
+	{
+		return $this->utmContent;
+	}
+	public function setUtmMedium($utmMedium)
+	{
+		$this->utmMedium = $utmMedium;
+	}
+	public function getUtmMedium()
+	{
+		return $this->utmMedium;
+	}
+	public function setUtmSource($utmSource)
+	{
+		$this->utmSource = $utmSource;
+	}
+	public function getUtmSource()
+	{
+		return $this->utmSource;
+	}
+	public function setUtmTerm($utmTerm)
+	{
+		$this->utmTerm = $utmTerm;
+	}
+	public function getUtmTerm()
+	{
+		return $this->utmTerm;
+	}
 }

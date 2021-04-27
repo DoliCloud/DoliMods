@@ -17,40 +17,40 @@
 
 class Google_Service_DoubleClickBidManager_ListQueriesResponse extends Google_Collection
 {
-  protected $collection_key = 'queries';
-  public $kind;
-  public $nextPageToken;
-  protected $queriesType = 'Google_Service_DoubleClickBidManager_Query';
-  protected $queriesDataType = 'array';
+	protected $collection_key = 'queries';
+	public $kind;
+	public $nextPageToken;
+	protected $queriesType = 'Google_Service_DoubleClickBidManager_Query';
+	protected $queriesDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_DoubleClickBidManager_Query
-   */
-  public function setQueries($queries)
-  {
-    $this->queries = $queries;
-  }
-  /**
-   * @return Google_Service_DoubleClickBidManager_Query
-   */
-  public function getQueries()
-  {
-    return $this->queries;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_DoubleClickBidManager_Query
+	 */
+	public function setQueries($queries)
+	{
+		$this->queries = $queries;
+	}
+	/**
+	 * @return Google_Service_DoubleClickBidManager_Query
+	 */
+	public function getQueries()
+	{
+		return $this->queries;
+	}
 }

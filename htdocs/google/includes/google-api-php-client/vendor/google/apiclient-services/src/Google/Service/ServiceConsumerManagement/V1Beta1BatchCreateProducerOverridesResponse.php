@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceConsumerManagement_V1Beta1BatchCreateProducerOverridesResponse extends Google_Collection
 {
-  protected $collection_key = 'overrides';
-  protected $overridesType = 'Google_Service_ServiceConsumerManagement_V1Beta1QuotaOverride';
-  protected $overridesDataType = 'array';
+	protected $collection_key = 'overrides';
+	protected $overridesType = 'Google_Service_ServiceConsumerManagement_V1Beta1QuotaOverride';
+	protected $overridesDataType = 'array';
 
-  /**
-   * @param Google_Service_ServiceConsumerManagement_V1Beta1QuotaOverride
-   */
-  public function setOverrides($overrides)
-  {
-    $this->overrides = $overrides;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_V1Beta1QuotaOverride
-   */
-  public function getOverrides()
-  {
-    return $this->overrides;
-  }
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_V1Beta1QuotaOverride
+	 */
+	public function setOverrides($overrides)
+	{
+		$this->overrides = $overrides;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_V1Beta1QuotaOverride
+	 */
+	public function getOverrides()
+	{
+		return $this->overrides;
+	}
 }

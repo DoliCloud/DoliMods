@@ -17,25 +17,25 @@
 
 class Google_Service_FirebaseDynamicLinksAPI_AnalyticsInfo extends Google_Model
 {
-  protected $googlePlayAnalyticsType = 'Google_Service_FirebaseDynamicLinksAPI_GooglePlayAnalytics';
-  protected $googlePlayAnalyticsDataType = '';
-  protected $itunesConnectAnalyticsType = 'Google_Service_FirebaseDynamicLinksAPI_ITunesConnectAnalytics';
-  protected $itunesConnectAnalyticsDataType = '';
+	protected $googlePlayAnalyticsType = 'Google_Service_FirebaseDynamicLinksAPI_GooglePlayAnalytics';
+	protected $googlePlayAnalyticsDataType = '';
+	protected $itunesConnectAnalyticsType = 'Google_Service_FirebaseDynamicLinksAPI_ITunesConnectAnalytics';
+	protected $itunesConnectAnalyticsDataType = '';
 
-  public function setGooglePlayAnalytics(Google_Service_FirebaseDynamicLinksAPI_GooglePlayAnalytics $googlePlayAnalytics)
-  {
-    $this->googlePlayAnalytics = $googlePlayAnalytics;
-  }
-  public function getGooglePlayAnalytics()
-  {
-    return $this->googlePlayAnalytics;
-  }
-  public function setItunesConnectAnalytics(Google_Service_FirebaseDynamicLinksAPI_ITunesConnectAnalytics $itunesConnectAnalytics)
-  {
-    $this->itunesConnectAnalytics = $itunesConnectAnalytics;
-  }
-  public function getItunesConnectAnalytics()
-  {
-    return $this->itunesConnectAnalytics;
-  }
+	public function setGooglePlayAnalytics(Google_Service_FirebaseDynamicLinksAPI_GooglePlayAnalytics $googlePlayAnalytics)
+	{
+		$this->googlePlayAnalytics = $googlePlayAnalytics;
+	}
+	public function getGooglePlayAnalytics()
+	{
+		return $this->googlePlayAnalytics;
+	}
+	public function setItunesConnectAnalytics(Google_Service_FirebaseDynamicLinksAPI_ITunesConnectAnalytics $itunesConnectAnalytics)
+	{
+		$this->itunesConnectAnalytics = $itunesConnectAnalytics;
+	}
+	public function getItunesConnectAnalytics()
+	{
+		return $this->itunesConnectAnalytics;
+	}
 }

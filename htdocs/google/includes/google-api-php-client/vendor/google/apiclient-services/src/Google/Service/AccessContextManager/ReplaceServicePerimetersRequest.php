@@ -17,31 +17,31 @@
 
 class Google_Service_AccessContextManager_ReplaceServicePerimetersRequest extends Google_Collection
 {
-  protected $collection_key = 'servicePerimeters';
-  public $etag;
-  protected $servicePerimetersType = 'Google_Service_AccessContextManager_ServicePerimeter';
-  protected $servicePerimetersDataType = 'array';
+	protected $collection_key = 'servicePerimeters';
+	public $etag;
+	protected $servicePerimetersType = 'Google_Service_AccessContextManager_ServicePerimeter';
+	protected $servicePerimetersDataType = 'array';
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  /**
-   * @param Google_Service_AccessContextManager_ServicePerimeter
-   */
-  public function setServicePerimeters($servicePerimeters)
-  {
-    $this->servicePerimeters = $servicePerimeters;
-  }
-  /**
-   * @return Google_Service_AccessContextManager_ServicePerimeter
-   */
-  public function getServicePerimeters()
-  {
-    return $this->servicePerimeters;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	/**
+	 * @param Google_Service_AccessContextManager_ServicePerimeter
+	 */
+	public function setServicePerimeters($servicePerimeters)
+	{
+		$this->servicePerimeters = $servicePerimeters;
+	}
+	/**
+	 * @return Google_Service_AccessContextManager_ServicePerimeter
+	 */
+	public function getServicePerimeters()
+	{
+		return $this->servicePerimeters;
+	}
 }

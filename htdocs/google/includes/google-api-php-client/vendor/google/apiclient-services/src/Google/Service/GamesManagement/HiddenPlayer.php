@@ -17,39 +17,39 @@
 
 class Google_Service_GamesManagement_HiddenPlayer extends Google_Model
 {
-  public $hiddenTimeMillis;
-  public $kind;
-  protected $playerType = 'Google_Service_GamesManagement_Player';
-  protected $playerDataType = '';
+	public $hiddenTimeMillis;
+	public $kind;
+	protected $playerType = 'Google_Service_GamesManagement_Player';
+	protected $playerDataType = '';
 
-  public function setHiddenTimeMillis($hiddenTimeMillis)
-  {
-    $this->hiddenTimeMillis = $hiddenTimeMillis;
-  }
-  public function getHiddenTimeMillis()
-  {
-    return $this->hiddenTimeMillis;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_GamesManagement_Player
-   */
-  public function setPlayer(Google_Service_GamesManagement_Player $player)
-  {
-    $this->player = $player;
-  }
-  /**
-   * @return Google_Service_GamesManagement_Player
-   */
-  public function getPlayer()
-  {
-    return $this->player;
-  }
+	public function setHiddenTimeMillis($hiddenTimeMillis)
+	{
+		$this->hiddenTimeMillis = $hiddenTimeMillis;
+	}
+	public function getHiddenTimeMillis()
+	{
+		return $this->hiddenTimeMillis;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_GamesManagement_Player
+	 */
+	public function setPlayer(Google_Service_GamesManagement_Player $player)
+	{
+		$this->player = $player;
+	}
+	/**
+	 * @return Google_Service_GamesManagement_Player
+	 */
+	public function getPlayer()
+	{
+		return $this->player;
+	}
 }

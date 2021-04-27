@@ -17,32 +17,32 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1AutoApproveSmartMessagingEntriesResponse extends Google_Model
 {
-  public $disabledCount;
-  public $enabledCount;
-  public $unreviewedCount;
+	public $disabledCount;
+	public $enabledCount;
+	public $unreviewedCount;
 
-  public function setDisabledCount($disabledCount)
-  {
-    $this->disabledCount = $disabledCount;
-  }
-  public function getDisabledCount()
-  {
-    return $this->disabledCount;
-  }
-  public function setEnabledCount($enabledCount)
-  {
-    $this->enabledCount = $enabledCount;
-  }
-  public function getEnabledCount()
-  {
-    return $this->enabledCount;
-  }
-  public function setUnreviewedCount($unreviewedCount)
-  {
-    $this->unreviewedCount = $unreviewedCount;
-  }
-  public function getUnreviewedCount()
-  {
-    return $this->unreviewedCount;
-  }
+	public function setDisabledCount($disabledCount)
+	{
+		$this->disabledCount = $disabledCount;
+	}
+	public function getDisabledCount()
+	{
+		return $this->disabledCount;
+	}
+	public function setEnabledCount($enabledCount)
+	{
+		$this->enabledCount = $enabledCount;
+	}
+	public function getEnabledCount()
+	{
+		return $this->enabledCount;
+	}
+	public function setUnreviewedCount($unreviewedCount)
+	{
+		$this->unreviewedCount = $unreviewedCount;
+	}
+	public function getUnreviewedCount()
+	{
+		return $this->unreviewedCount;
+	}
 }

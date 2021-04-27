@@ -33,63 +33,63 @@ class Google_Service_Pagespeedonline extends Google_Service
 {
 
 
-  public $pagespeedapi;
-  
-  /**
-   * Constructs the internal representation of the Pagespeedonline service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
-    $this->servicePath = 'pagespeedonline/v5/';
-    $this->batchPath = 'batch/pagespeedonline/v5';
-    $this->version = 'v5';
-    $this->serviceName = 'pagespeedonline';
+	public $pagespeedapi;
 
-    $this->pagespeedapi = new Google_Service_Pagespeedonline_Resource_Pagespeedapi(
-        $this,
-        $this->serviceName,
-        'pagespeedapi',
-        array(
-          'methods' => array(
-            'runpagespeed' => array(
-              'path' => 'runPagespeed',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'url' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'category' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'repeated' => true,
-                ),
-                'locale' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'strategy' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'utm_campaign' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'utm_source' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the Pagespeedonline service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
+		$this->servicePath = 'pagespeedonline/v5/';
+		$this->batchPath = 'batch/pagespeedonline/v5';
+		$this->version = 'v5';
+		$this->serviceName = 'pagespeedonline';
+
+		$this->pagespeedapi = new Google_Service_Pagespeedonline_Resource_Pagespeedapi(
+		$this,
+		$this->serviceName,
+		'pagespeedapi',
+		array(
+		  'methods' => array(
+			'runpagespeed' => array(
+			  'path' => 'runPagespeed',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'url' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'category' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				  'repeated' => true,
+				),
+				'locale' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'strategy' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'utm_campaign' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'utm_source' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_SASPortalTesting_SasPortalListCustomersResponse extends Google_Collection
 {
-  protected $collection_key = 'customers';
-  protected $customersType = 'Google_Service_SASPortalTesting_SasPortalCustomer';
-  protected $customersDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'customers';
+	protected $customersType = 'Google_Service_SASPortalTesting_SasPortalCustomer';
+	protected $customersDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_SASPortalTesting_SasPortalCustomer
-   */
-  public function setCustomers($customers)
-  {
-    $this->customers = $customers;
-  }
-  /**
-   * @return Google_Service_SASPortalTesting_SasPortalCustomer
-   */
-  public function getCustomers()
-  {
-    return $this->customers;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_SASPortalTesting_SasPortalCustomer
+	 */
+	public function setCustomers($customers)
+	{
+		$this->customers = $customers;
+	}
+	/**
+	 * @return Google_Service_SASPortalTesting_SasPortalCustomer
+	 */
+	public function getCustomers()
+	{
+		return $this->customers;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

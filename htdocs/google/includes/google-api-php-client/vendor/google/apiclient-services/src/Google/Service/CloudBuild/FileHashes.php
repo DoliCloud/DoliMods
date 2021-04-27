@@ -17,22 +17,22 @@
 
 class Google_Service_CloudBuild_FileHashes extends Google_Collection
 {
-  protected $collection_key = 'fileHash';
-  protected $fileHashType = 'Google_Service_CloudBuild_Hash';
-  protected $fileHashDataType = 'array';
+	protected $collection_key = 'fileHash';
+	protected $fileHashType = 'Google_Service_CloudBuild_Hash';
+	protected $fileHashDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudBuild_Hash
-   */
-  public function setFileHash($fileHash)
-  {
-    $this->fileHash = $fileHash;
-  }
-  /**
-   * @return Google_Service_CloudBuild_Hash
-   */
-  public function getFileHash()
-  {
-    return $this->fileHash;
-  }
+	/**
+	 * @param Google_Service_CloudBuild_Hash
+	 */
+	public function setFileHash($fileHash)
+	{
+		$this->fileHash = $fileHash;
+	}
+	/**
+	 * @return Google_Service_CloudBuild_Hash
+	 */
+	public function getFileHash()
+	{
+		return $this->fileHash;
+	}
 }

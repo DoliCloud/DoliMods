@@ -17,31 +17,31 @@
 
 class Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1ListCatalogsResponse extends Google_Collection
 {
-  protected $collection_key = 'catalogs';
-  protected $catalogsType = 'Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Catalog';
-  protected $catalogsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'catalogs';
+	protected $catalogsType = 'Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Catalog';
+	protected $catalogsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Catalog
-   */
-  public function setCatalogs($catalogs)
-  {
-    $this->catalogs = $catalogs;
-  }
-  /**
-   * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Catalog
-   */
-  public function getCatalogs()
-  {
-    return $this->catalogs;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Catalog
+	 */
+	public function setCatalogs($catalogs)
+	{
+		$this->catalogs = $catalogs;
+	}
+	/**
+	 * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Catalog
+	 */
+	public function getCatalogs()
+	{
+		return $this->catalogs;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

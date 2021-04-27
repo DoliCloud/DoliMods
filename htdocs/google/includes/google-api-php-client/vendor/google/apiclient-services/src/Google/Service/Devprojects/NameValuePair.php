@@ -17,41 +17,41 @@
 
 class Google_Service_Devprojects_NameValuePair extends Google_Model
 {
-  public $kind;
-  public $name;
-  public $nonUtf8Value;
-  public $value;
+	public $kind;
+	public $name;
+	public $nonUtf8Value;
+	public $value;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNonUtf8Value($nonUtf8Value)
-  {
-    $this->nonUtf8Value = $nonUtf8Value;
-  }
-  public function getNonUtf8Value()
-  {
-    return $this->nonUtf8Value;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNonUtf8Value($nonUtf8Value)
+	{
+		$this->nonUtf8Value = $nonUtf8Value;
+	}
+	public function getNonUtf8Value()
+	{
+		return $this->nonUtf8Value;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

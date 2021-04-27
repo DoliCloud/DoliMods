@@ -17,40 +17,40 @@
 
 class Google_Service_Proximitybeacon_Diagnostics extends Google_Collection
 {
-  protected $collection_key = 'alerts';
-  public $alerts;
-  public $beaconName;
-  protected $estimatedLowBatteryDateType = 'Google_Service_Proximitybeacon_Date';
-  protected $estimatedLowBatteryDateDataType = '';
+	protected $collection_key = 'alerts';
+	public $alerts;
+	public $beaconName;
+	protected $estimatedLowBatteryDateType = 'Google_Service_Proximitybeacon_Date';
+	protected $estimatedLowBatteryDateDataType = '';
 
-  public function setAlerts($alerts)
-  {
-    $this->alerts = $alerts;
-  }
-  public function getAlerts()
-  {
-    return $this->alerts;
-  }
-  public function setBeaconName($beaconName)
-  {
-    $this->beaconName = $beaconName;
-  }
-  public function getBeaconName()
-  {
-    return $this->beaconName;
-  }
-  /**
-   * @param Google_Service_Proximitybeacon_Date
-   */
-  public function setEstimatedLowBatteryDate(Google_Service_Proximitybeacon_Date $estimatedLowBatteryDate)
-  {
-    $this->estimatedLowBatteryDate = $estimatedLowBatteryDate;
-  }
-  /**
-   * @return Google_Service_Proximitybeacon_Date
-   */
-  public function getEstimatedLowBatteryDate()
-  {
-    return $this->estimatedLowBatteryDate;
-  }
+	public function setAlerts($alerts)
+	{
+		$this->alerts = $alerts;
+	}
+	public function getAlerts()
+	{
+		return $this->alerts;
+	}
+	public function setBeaconName($beaconName)
+	{
+		$this->beaconName = $beaconName;
+	}
+	public function getBeaconName()
+	{
+		return $this->beaconName;
+	}
+	/**
+	 * @param Google_Service_Proximitybeacon_Date
+	 */
+	public function setEstimatedLowBatteryDate(Google_Service_Proximitybeacon_Date $estimatedLowBatteryDate)
+	{
+		$this->estimatedLowBatteryDate = $estimatedLowBatteryDate;
+	}
+	/**
+	 * @return Google_Service_Proximitybeacon_Date
+	 */
+	public function getEstimatedLowBatteryDate()
+	{
+		return $this->estimatedLowBatteryDate;
+	}
 }

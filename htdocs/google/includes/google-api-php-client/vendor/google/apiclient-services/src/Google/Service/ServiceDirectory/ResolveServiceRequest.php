@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceDirectory_ResolveServiceRequest extends Google_Model
 {
-  public $endpointFilter;
-  public $maxEndpoints;
+	public $endpointFilter;
+	public $maxEndpoints;
 
-  public function setEndpointFilter($endpointFilter)
-  {
-    $this->endpointFilter = $endpointFilter;
-  }
-  public function getEndpointFilter()
-  {
-    return $this->endpointFilter;
-  }
-  public function setMaxEndpoints($maxEndpoints)
-  {
-    $this->maxEndpoints = $maxEndpoints;
-  }
-  public function getMaxEndpoints()
-  {
-    return $this->maxEndpoints;
-  }
+	public function setEndpointFilter($endpointFilter)
+	{
+		$this->endpointFilter = $endpointFilter;
+	}
+	public function getEndpointFilter()
+	{
+		return $this->endpointFilter;
+	}
+	public function setMaxEndpoints($maxEndpoints)
+	{
+		$this->maxEndpoints = $maxEndpoints;
+	}
+	public function getMaxEndpoints()
+	{
+		return $this->maxEndpoints;
+	}
 }

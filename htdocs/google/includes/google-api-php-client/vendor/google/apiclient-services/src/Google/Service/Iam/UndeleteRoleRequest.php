@@ -17,14 +17,14 @@
 
 class Google_Service_Iam_UndeleteRoleRequest extends Google_Model
 {
-  public $etag;
+	public $etag;
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
 }

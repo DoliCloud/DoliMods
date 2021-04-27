@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_InstancesSetMachineResourcesRequest extends Google_Collection
 {
-  protected $collection_key = 'guestAccelerators';
-  protected $guestAcceleratorsType = 'Google_Service_Compute_AcceleratorConfig';
-  protected $guestAcceleratorsDataType = 'array';
+	protected $collection_key = 'guestAccelerators';
+	protected $guestAcceleratorsType = 'Google_Service_Compute_AcceleratorConfig';
+	protected $guestAcceleratorsDataType = 'array';
 
-  /**
-   * @param Google_Service_Compute_AcceleratorConfig
-   */
-  public function setGuestAccelerators($guestAccelerators)
-  {
-    $this->guestAccelerators = $guestAccelerators;
-  }
-  /**
-   * @return Google_Service_Compute_AcceleratorConfig
-   */
-  public function getGuestAccelerators()
-  {
-    return $this->guestAccelerators;
-  }
+	/**
+	 * @param Google_Service_Compute_AcceleratorConfig
+	 */
+	public function setGuestAccelerators($guestAccelerators)
+	{
+		$this->guestAccelerators = $guestAccelerators;
+	}
+	/**
+	 * @return Google_Service_Compute_AcceleratorConfig
+	 */
+	public function getGuestAccelerators()
+	{
+		return $this->guestAccelerators;
+	}
 }

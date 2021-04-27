@@ -17,23 +17,23 @@
 
 class Google_Service_SASPortalTesting_SasPortalDeviceAirInterface extends Google_Model
 {
-  public $radioTechnology;
-  public $supportedSpec;
+	public $radioTechnology;
+	public $supportedSpec;
 
-  public function setRadioTechnology($radioTechnology)
-  {
-    $this->radioTechnology = $radioTechnology;
-  }
-  public function getRadioTechnology()
-  {
-    return $this->radioTechnology;
-  }
-  public function setSupportedSpec($supportedSpec)
-  {
-    $this->supportedSpec = $supportedSpec;
-  }
-  public function getSupportedSpec()
-  {
-    return $this->supportedSpec;
-  }
+	public function setRadioTechnology($radioTechnology)
+	{
+		$this->radioTechnology = $radioTechnology;
+	}
+	public function getRadioTechnology()
+	{
+		return $this->radioTechnology;
+	}
+	public function setSupportedSpec($supportedSpec)
+	{
+		$this->supportedSpec = $supportedSpec;
+	}
+	public function getSupportedSpec()
+	{
+		return $this->supportedSpec;
+	}
 }

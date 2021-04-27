@@ -17,40 +17,40 @@
 
 class Google_Service_AndroidPublisher_Review extends Google_Collection
 {
-  protected $collection_key = 'comments';
-  public $authorName;
-  protected $commentsType = 'Google_Service_AndroidPublisher_Comment';
-  protected $commentsDataType = 'array';
-  public $reviewId;
+	protected $collection_key = 'comments';
+	public $authorName;
+	protected $commentsType = 'Google_Service_AndroidPublisher_Comment';
+	protected $commentsDataType = 'array';
+	public $reviewId;
 
-  public function setAuthorName($authorName)
-  {
-    $this->authorName = $authorName;
-  }
-  public function getAuthorName()
-  {
-    return $this->authorName;
-  }
-  /**
-   * @param Google_Service_AndroidPublisher_Comment
-   */
-  public function setComments($comments)
-  {
-    $this->comments = $comments;
-  }
-  /**
-   * @return Google_Service_AndroidPublisher_Comment
-   */
-  public function getComments()
-  {
-    return $this->comments;
-  }
-  public function setReviewId($reviewId)
-  {
-    $this->reviewId = $reviewId;
-  }
-  public function getReviewId()
-  {
-    return $this->reviewId;
-  }
+	public function setAuthorName($authorName)
+	{
+		$this->authorName = $authorName;
+	}
+	public function getAuthorName()
+	{
+		return $this->authorName;
+	}
+	/**
+	 * @param Google_Service_AndroidPublisher_Comment
+	 */
+	public function setComments($comments)
+	{
+		$this->comments = $comments;
+	}
+	/**
+	 * @return Google_Service_AndroidPublisher_Comment
+	 */
+	public function getComments()
+	{
+		return $this->comments;
+	}
+	public function setReviewId($reviewId)
+	{
+		$this->reviewId = $reviewId;
+	}
+	public function getReviewId()
+	{
+		return $this->reviewId;
+	}
 }

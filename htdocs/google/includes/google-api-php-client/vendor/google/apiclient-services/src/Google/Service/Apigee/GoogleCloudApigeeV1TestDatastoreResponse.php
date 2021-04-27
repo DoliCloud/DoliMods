@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1TestDatastoreResponse extends Google_Model
 {
-  public $error;
-  public $state;
+	public $error;
+	public $state;
 
-  public function setError($error)
-  {
-    $this->error = $error;
-  }
-  public function getError()
-  {
-    return $this->error;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	public function setError($error)
+	{
+		$this->error = $error;
+	}
+	public function getError()
+	{
+		return $this->error;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

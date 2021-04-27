@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_DoubleVerifyAppStarRating extends Google_Model
 {
-  public $avoidInsufficientStarRating;
-  public $avoidedStarRating;
+	public $avoidInsufficientStarRating;
+	public $avoidedStarRating;
 
-  public function setAvoidInsufficientStarRating($avoidInsufficientStarRating)
-  {
-    $this->avoidInsufficientStarRating = $avoidInsufficientStarRating;
-  }
-  public function getAvoidInsufficientStarRating()
-  {
-    return $this->avoidInsufficientStarRating;
-  }
-  public function setAvoidedStarRating($avoidedStarRating)
-  {
-    $this->avoidedStarRating = $avoidedStarRating;
-  }
-  public function getAvoidedStarRating()
-  {
-    return $this->avoidedStarRating;
-  }
+	public function setAvoidInsufficientStarRating($avoidInsufficientStarRating)
+	{
+		$this->avoidInsufficientStarRating = $avoidInsufficientStarRating;
+	}
+	public function getAvoidInsufficientStarRating()
+	{
+		return $this->avoidInsufficientStarRating;
+	}
+	public function setAvoidedStarRating($avoidedStarRating)
+	{
+		$this->avoidedStarRating = $avoidedStarRating;
+	}
+	public function getAvoidedStarRating()
+	{
+		return $this->avoidedStarRating;
+	}
 }

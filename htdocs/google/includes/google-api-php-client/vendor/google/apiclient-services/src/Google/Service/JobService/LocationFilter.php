@@ -17,57 +17,57 @@
 
 class Google_Service_JobService_LocationFilter extends Google_Model
 {
-  public $distanceInMiles;
-  public $isTelecommute;
-  protected $latLngType = 'Google_Service_JobService_LatLng';
-  protected $latLngDataType = '';
-  public $name;
-  public $regionCode;
+	public $distanceInMiles;
+	public $isTelecommute;
+	protected $latLngType = 'Google_Service_JobService_LatLng';
+	protected $latLngDataType = '';
+	public $name;
+	public $regionCode;
 
-  public function setDistanceInMiles($distanceInMiles)
-  {
-    $this->distanceInMiles = $distanceInMiles;
-  }
-  public function getDistanceInMiles()
-  {
-    return $this->distanceInMiles;
-  }
-  public function setIsTelecommute($isTelecommute)
-  {
-    $this->isTelecommute = $isTelecommute;
-  }
-  public function getIsTelecommute()
-  {
-    return $this->isTelecommute;
-  }
-  /**
-   * @param Google_Service_JobService_LatLng
-   */
-  public function setLatLng(Google_Service_JobService_LatLng $latLng)
-  {
-    $this->latLng = $latLng;
-  }
-  /**
-   * @return Google_Service_JobService_LatLng
-   */
-  public function getLatLng()
-  {
-    return $this->latLng;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setRegionCode($regionCode)
-  {
-    $this->regionCode = $regionCode;
-  }
-  public function getRegionCode()
-  {
-    return $this->regionCode;
-  }
+	public function setDistanceInMiles($distanceInMiles)
+	{
+		$this->distanceInMiles = $distanceInMiles;
+	}
+	public function getDistanceInMiles()
+	{
+		return $this->distanceInMiles;
+	}
+	public function setIsTelecommute($isTelecommute)
+	{
+		$this->isTelecommute = $isTelecommute;
+	}
+	public function getIsTelecommute()
+	{
+		return $this->isTelecommute;
+	}
+	/**
+	 * @param Google_Service_JobService_LatLng
+	 */
+	public function setLatLng(Google_Service_JobService_LatLng $latLng)
+	{
+		$this->latLng = $latLng;
+	}
+	/**
+	 * @return Google_Service_JobService_LatLng
+	 */
+	public function getLatLng()
+	{
+		return $this->latLng;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setRegionCode($regionCode)
+	{
+		$this->regionCode = $regionCode;
+	}
+	public function getRegionCode()
+	{
+		return $this->regionCode;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidEnterprise_DeviceState extends Google_Model
 {
-  public $accountState;
+	public $accountState;
 
-  public function setAccountState($accountState)
-  {
-    $this->accountState = $accountState;
-  }
-  public function getAccountState()
-  {
-    return $this->accountState;
-  }
+	public function setAccountState($accountState)
+	{
+		$this->accountState = $accountState;
+	}
+	public function getAccountState()
+	{
+		return $this->accountState;
+	}
 }

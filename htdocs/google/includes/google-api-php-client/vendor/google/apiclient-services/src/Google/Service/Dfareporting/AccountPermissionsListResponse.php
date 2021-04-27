@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_AccountPermissionsListResponse extends Google_Collection
 {
-  protected $collection_key = 'accountPermissions';
-  protected $accountPermissionsType = 'Google_Service_Dfareporting_AccountPermission';
-  protected $accountPermissionsDataType = 'array';
-  public $kind;
+	protected $collection_key = 'accountPermissions';
+	protected $accountPermissionsType = 'Google_Service_Dfareporting_AccountPermission';
+	protected $accountPermissionsDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_Dfareporting_AccountPermission
-   */
-  public function setAccountPermissions($accountPermissions)
-  {
-    $this->accountPermissions = $accountPermissions;
-  }
-  /**
-   * @return Google_Service_Dfareporting_AccountPermission
-   */
-  public function getAccountPermissions()
-  {
-    return $this->accountPermissions;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_AccountPermission
+	 */
+	public function setAccountPermissions($accountPermissions)
+	{
+		$this->accountPermissions = $accountPermissions;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_AccountPermission
+	 */
+	public function getAccountPermissions()
+	{
+		return $this->accountPermissions;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

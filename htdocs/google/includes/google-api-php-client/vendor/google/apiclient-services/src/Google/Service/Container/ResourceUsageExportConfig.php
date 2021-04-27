@@ -17,46 +17,46 @@
 
 class Google_Service_Container_ResourceUsageExportConfig extends Google_Model
 {
-  protected $bigqueryDestinationType = 'Google_Service_Container_BigQueryDestination';
-  protected $bigqueryDestinationDataType = '';
-  protected $consumptionMeteringConfigType = 'Google_Service_Container_ConsumptionMeteringConfig';
-  protected $consumptionMeteringConfigDataType = '';
-  public $enableNetworkEgressMetering;
+	protected $bigqueryDestinationType = 'Google_Service_Container_BigQueryDestination';
+	protected $bigqueryDestinationDataType = '';
+	protected $consumptionMeteringConfigType = 'Google_Service_Container_ConsumptionMeteringConfig';
+	protected $consumptionMeteringConfigDataType = '';
+	public $enableNetworkEgressMetering;
 
-  /**
-   * @param Google_Service_Container_BigQueryDestination
-   */
-  public function setBigqueryDestination(Google_Service_Container_BigQueryDestination $bigqueryDestination)
-  {
-    $this->bigqueryDestination = $bigqueryDestination;
-  }
-  /**
-   * @return Google_Service_Container_BigQueryDestination
-   */
-  public function getBigqueryDestination()
-  {
-    return $this->bigqueryDestination;
-  }
-  /**
-   * @param Google_Service_Container_ConsumptionMeteringConfig
-   */
-  public function setConsumptionMeteringConfig(Google_Service_Container_ConsumptionMeteringConfig $consumptionMeteringConfig)
-  {
-    $this->consumptionMeteringConfig = $consumptionMeteringConfig;
-  }
-  /**
-   * @return Google_Service_Container_ConsumptionMeteringConfig
-   */
-  public function getConsumptionMeteringConfig()
-  {
-    return $this->consumptionMeteringConfig;
-  }
-  public function setEnableNetworkEgressMetering($enableNetworkEgressMetering)
-  {
-    $this->enableNetworkEgressMetering = $enableNetworkEgressMetering;
-  }
-  public function getEnableNetworkEgressMetering()
-  {
-    return $this->enableNetworkEgressMetering;
-  }
+	/**
+	 * @param Google_Service_Container_BigQueryDestination
+	 */
+	public function setBigqueryDestination(Google_Service_Container_BigQueryDestination $bigqueryDestination)
+	{
+		$this->bigqueryDestination = $bigqueryDestination;
+	}
+	/**
+	 * @return Google_Service_Container_BigQueryDestination
+	 */
+	public function getBigqueryDestination()
+	{
+		return $this->bigqueryDestination;
+	}
+	/**
+	 * @param Google_Service_Container_ConsumptionMeteringConfig
+	 */
+	public function setConsumptionMeteringConfig(Google_Service_Container_ConsumptionMeteringConfig $consumptionMeteringConfig)
+	{
+		$this->consumptionMeteringConfig = $consumptionMeteringConfig;
+	}
+	/**
+	 * @return Google_Service_Container_ConsumptionMeteringConfig
+	 */
+	public function getConsumptionMeteringConfig()
+	{
+		return $this->consumptionMeteringConfig;
+	}
+	public function setEnableNetworkEgressMetering($enableNetworkEgressMetering)
+	{
+		$this->enableNetworkEgressMetering = $enableNetworkEgressMetering;
+	}
+	public function getEnableNetworkEgressMetering()
+	{
+		return $this->enableNetworkEgressMetering;
+	}
 }

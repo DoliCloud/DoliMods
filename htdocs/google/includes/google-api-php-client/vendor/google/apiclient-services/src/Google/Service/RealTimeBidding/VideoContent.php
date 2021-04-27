@@ -17,39 +17,39 @@
 
 class Google_Service_RealTimeBidding_VideoContent extends Google_Model
 {
-  protected $videoMetadataType = 'Google_Service_RealTimeBidding_VideoMetadata';
-  protected $videoMetadataDataType = '';
-  public $videoUrl;
-  public $videoVastXml;
+	protected $videoMetadataType = 'Google_Service_RealTimeBidding_VideoMetadata';
+	protected $videoMetadataDataType = '';
+	public $videoUrl;
+	public $videoVastXml;
 
-  /**
-   * @param Google_Service_RealTimeBidding_VideoMetadata
-   */
-  public function setVideoMetadata(Google_Service_RealTimeBidding_VideoMetadata $videoMetadata)
-  {
-    $this->videoMetadata = $videoMetadata;
-  }
-  /**
-   * @return Google_Service_RealTimeBidding_VideoMetadata
-   */
-  public function getVideoMetadata()
-  {
-    return $this->videoMetadata;
-  }
-  public function setVideoUrl($videoUrl)
-  {
-    $this->videoUrl = $videoUrl;
-  }
-  public function getVideoUrl()
-  {
-    return $this->videoUrl;
-  }
-  public function setVideoVastXml($videoVastXml)
-  {
-    $this->videoVastXml = $videoVastXml;
-  }
-  public function getVideoVastXml()
-  {
-    return $this->videoVastXml;
-  }
+	/**
+	 * @param Google_Service_RealTimeBidding_VideoMetadata
+	 */
+	public function setVideoMetadata(Google_Service_RealTimeBidding_VideoMetadata $videoMetadata)
+	{
+		$this->videoMetadata = $videoMetadata;
+	}
+	/**
+	 * @return Google_Service_RealTimeBidding_VideoMetadata
+	 */
+	public function getVideoMetadata()
+	{
+		return $this->videoMetadata;
+	}
+	public function setVideoUrl($videoUrl)
+	{
+		$this->videoUrl = $videoUrl;
+	}
+	public function getVideoUrl()
+	{
+		return $this->videoUrl;
+	}
+	public function setVideoVastXml($videoVastXml)
+	{
+		$this->videoVastXml = $videoVastXml;
+	}
+	public function getVideoVastXml()
+	{
+		return $this->videoVastXml;
+	}
 }

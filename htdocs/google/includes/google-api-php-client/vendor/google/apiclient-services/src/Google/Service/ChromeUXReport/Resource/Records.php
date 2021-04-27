@@ -25,20 +25,20 @@
  */
 class Google_Service_ChromeUXReport_Resource_Records extends Google_Service_Resource
 {
-  /**
-   * Queries the Chrome User Experience for a single `record` for a given site.
-   *
-   * Returns a `record` that contains one or more `metrics` corresponding to
-   * performance data about the requested site. (records.queryRecord)
-   *
-   * @param Google_Service_ChromeUXReport_QueryRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_ChromeUXReport_QueryResponse
-   */
-  public function queryRecord(Google_Service_ChromeUXReport_QueryRequest $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('queryRecord', array($params), "Google_Service_ChromeUXReport_QueryResponse");
-  }
+	/**
+	 * Queries the Chrome User Experience for a single `record` for a given site.
+	 *
+	 * Returns a `record` that contains one or more `metrics` corresponding to
+	 * performance data about the requested site. (records.queryRecord)
+	 *
+	 * @param Google_Service_ChromeUXReport_QueryRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_ChromeUXReport_QueryResponse
+	 */
+	public function queryRecord(Google_Service_ChromeUXReport_QueryRequest $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('queryRecord', array($params), "Google_Service_ChromeUXReport_QueryResponse");
+	}
 }

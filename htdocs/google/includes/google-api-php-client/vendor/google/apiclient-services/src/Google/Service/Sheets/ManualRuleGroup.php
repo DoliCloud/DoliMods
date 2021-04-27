@@ -17,38 +17,38 @@
 
 class Google_Service_Sheets_ManualRuleGroup extends Google_Collection
 {
-  protected $collection_key = 'items';
-  protected $groupNameType = 'Google_Service_Sheets_ExtendedValue';
-  protected $groupNameDataType = '';
-  protected $itemsType = 'Google_Service_Sheets_ExtendedValue';
-  protected $itemsDataType = 'array';
+	protected $collection_key = 'items';
+	protected $groupNameType = 'Google_Service_Sheets_ExtendedValue';
+	protected $groupNameDataType = '';
+	protected $itemsType = 'Google_Service_Sheets_ExtendedValue';
+	protected $itemsDataType = 'array';
 
-  /**
-   * @param Google_Service_Sheets_ExtendedValue
-   */
-  public function setGroupName(Google_Service_Sheets_ExtendedValue $groupName)
-  {
-    $this->groupName = $groupName;
-  }
-  /**
-   * @return Google_Service_Sheets_ExtendedValue
-   */
-  public function getGroupName()
-  {
-    return $this->groupName;
-  }
-  /**
-   * @param Google_Service_Sheets_ExtendedValue
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Sheets_ExtendedValue
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
+	/**
+	 * @param Google_Service_Sheets_ExtendedValue
+	 */
+	public function setGroupName(Google_Service_Sheets_ExtendedValue $groupName)
+	{
+		$this->groupName = $groupName;
+	}
+	/**
+	 * @return Google_Service_Sheets_ExtendedValue
+	 */
+	public function getGroupName()
+	{
+		return $this->groupName;
+	}
+	/**
+	 * @param Google_Service_Sheets_ExtendedValue
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Sheets_ExtendedValue
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
 }

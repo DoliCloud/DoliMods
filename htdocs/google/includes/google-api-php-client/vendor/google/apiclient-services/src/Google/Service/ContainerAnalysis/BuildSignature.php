@@ -17,41 +17,41 @@
 
 class Google_Service_ContainerAnalysis_BuildSignature extends Google_Model
 {
-  public $keyId;
-  public $keyType;
-  public $publicKey;
-  public $signature;
+	public $keyId;
+	public $keyType;
+	public $publicKey;
+	public $signature;
 
-  public function setKeyId($keyId)
-  {
-    $this->keyId = $keyId;
-  }
-  public function getKeyId()
-  {
-    return $this->keyId;
-  }
-  public function setKeyType($keyType)
-  {
-    $this->keyType = $keyType;
-  }
-  public function getKeyType()
-  {
-    return $this->keyType;
-  }
-  public function setPublicKey($publicKey)
-  {
-    $this->publicKey = $publicKey;
-  }
-  public function getPublicKey()
-  {
-    return $this->publicKey;
-  }
-  public function setSignature($signature)
-  {
-    $this->signature = $signature;
-  }
-  public function getSignature()
-  {
-    return $this->signature;
-  }
+	public function setKeyId($keyId)
+	{
+		$this->keyId = $keyId;
+	}
+	public function getKeyId()
+	{
+		return $this->keyId;
+	}
+	public function setKeyType($keyType)
+	{
+		$this->keyType = $keyType;
+	}
+	public function getKeyType()
+	{
+		return $this->keyType;
+	}
+	public function setPublicKey($publicKey)
+	{
+		$this->publicKey = $publicKey;
+	}
+	public function getPublicKey()
+	{
+		return $this->publicKey;
+	}
+	public function setSignature($signature)
+	{
+		$this->signature = $signature;
+	}
+	public function getSignature()
+	{
+		return $this->signature;
+	}
 }

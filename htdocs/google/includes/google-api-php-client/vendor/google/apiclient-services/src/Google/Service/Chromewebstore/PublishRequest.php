@@ -17,23 +17,23 @@
 
 class Google_Service_Chromewebstore_PublishRequest extends Google_Model
 {
-  public $deployPercentage;
-  public $target;
+	public $deployPercentage;
+	public $target;
 
-  public function setDeployPercentage($deployPercentage)
-  {
-    $this->deployPercentage = $deployPercentage;
-  }
-  public function getDeployPercentage()
-  {
-    return $this->deployPercentage;
-  }
-  public function setTarget($target)
-  {
-    $this->target = $target;
-  }
-  public function getTarget()
-  {
-    return $this->target;
-  }
+	public function setDeployPercentage($deployPercentage)
+	{
+		$this->deployPercentage = $deployPercentage;
+	}
+	public function getDeployPercentage()
+	{
+		return $this->deployPercentage;
+	}
+	public function setTarget($target)
+	{
+		$this->target = $target;
+	}
+	public function getTarget()
+	{
+		return $this->target;
+	}
 }

@@ -17,64 +17,64 @@
 
 class Google_Service_YouTube_CommentThread extends Google_Model
 {
-  public $etag;
-  public $id;
-  public $kind;
-  protected $repliesType = 'Google_Service_YouTube_CommentThreadReplies';
-  protected $repliesDataType = '';
-  protected $snippetType = 'Google_Service_YouTube_CommentThreadSnippet';
-  protected $snippetDataType = '';
+	public $etag;
+	public $id;
+	public $kind;
+	protected $repliesType = 'Google_Service_YouTube_CommentThreadReplies';
+	protected $repliesDataType = '';
+	protected $snippetType = 'Google_Service_YouTube_CommentThreadSnippet';
+	protected $snippetDataType = '';
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_YouTube_CommentThreadReplies
-   */
-  public function setReplies(Google_Service_YouTube_CommentThreadReplies $replies)
-  {
-    $this->replies = $replies;
-  }
-  /**
-   * @return Google_Service_YouTube_CommentThreadReplies
-   */
-  public function getReplies()
-  {
-    return $this->replies;
-  }
-  /**
-   * @param Google_Service_YouTube_CommentThreadSnippet
-   */
-  public function setSnippet(Google_Service_YouTube_CommentThreadSnippet $snippet)
-  {
-    $this->snippet = $snippet;
-  }
-  /**
-   * @return Google_Service_YouTube_CommentThreadSnippet
-   */
-  public function getSnippet()
-  {
-    return $this->snippet;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_YouTube_CommentThreadReplies
+	 */
+	public function setReplies(Google_Service_YouTube_CommentThreadReplies $replies)
+	{
+		$this->replies = $replies;
+	}
+	/**
+	 * @return Google_Service_YouTube_CommentThreadReplies
+	 */
+	public function getReplies()
+	{
+		return $this->replies;
+	}
+	/**
+	 * @param Google_Service_YouTube_CommentThreadSnippet
+	 */
+	public function setSnippet(Google_Service_YouTube_CommentThreadSnippet $snippet)
+	{
+		$this->snippet = $snippet;
+	}
+	/**
+	 * @return Google_Service_YouTube_CommentThreadSnippet
+	 */
+	public function getSnippet()
+	{
+		return $this->snippet;
+	}
 }

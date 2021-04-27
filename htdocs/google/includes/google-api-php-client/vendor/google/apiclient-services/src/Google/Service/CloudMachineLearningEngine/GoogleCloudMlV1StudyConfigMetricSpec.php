@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigMetricSpec extends Google_Model
 {
-  public $goal;
-  public $metric;
+	public $goal;
+	public $metric;
 
-  public function setGoal($goal)
-  {
-    $this->goal = $goal;
-  }
-  public function getGoal()
-  {
-    return $this->goal;
-  }
-  public function setMetric($metric)
-  {
-    $this->metric = $metric;
-  }
-  public function getMetric()
-  {
-    return $this->metric;
-  }
+	public function setGoal($goal)
+	{
+		$this->goal = $goal;
+	}
+	public function getGoal()
+	{
+		return $this->goal;
+	}
+	public function setMetric($metric)
+	{
+		$this->metric = $metric;
+	}
+	public function getMetric()
+	{
+		return $this->metric;
+	}
 }

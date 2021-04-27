@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidPublisher_AppEdit extends Google_Model
 {
-  public $expiryTimeSeconds;
-  public $id;
+	public $expiryTimeSeconds;
+	public $id;
 
-  public function setExpiryTimeSeconds($expiryTimeSeconds)
-  {
-    $this->expiryTimeSeconds = $expiryTimeSeconds;
-  }
-  public function getExpiryTimeSeconds()
-  {
-    return $this->expiryTimeSeconds;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
+	public function setExpiryTimeSeconds($expiryTimeSeconds)
+	{
+		$this->expiryTimeSeconds = $expiryTimeSeconds;
+	}
+	public function getExpiryTimeSeconds()
+	{
+		return $this->expiryTimeSeconds;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
 }

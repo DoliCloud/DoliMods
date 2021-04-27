@@ -17,39 +17,39 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmStandaloneCard extends Google_Model
 {
-  protected $cardContentType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent';
-  protected $cardContentDataType = '';
-  public $cardOrientation;
-  public $thumbnailImageAlignment;
+	protected $cardContentType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent';
+	protected $cardContentDataType = '';
+	public $cardOrientation;
+	public $thumbnailImageAlignment;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent
-   */
-  public function setCardContent(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent $cardContent)
-  {
-    $this->cardContent = $cardContent;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent
-   */
-  public function getCardContent()
-  {
-    return $this->cardContent;
-  }
-  public function setCardOrientation($cardOrientation)
-  {
-    $this->cardOrientation = $cardOrientation;
-  }
-  public function getCardOrientation()
-  {
-    return $this->cardOrientation;
-  }
-  public function setThumbnailImageAlignment($thumbnailImageAlignment)
-  {
-    $this->thumbnailImageAlignment = $thumbnailImageAlignment;
-  }
-  public function getThumbnailImageAlignment()
-  {
-    return $this->thumbnailImageAlignment;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent
+	 */
+	public function setCardContent(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent $cardContent)
+	{
+		$this->cardContent = $cardContent;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent
+	 */
+	public function getCardContent()
+	{
+		return $this->cardContent;
+	}
+	public function setCardOrientation($cardOrientation)
+	{
+		$this->cardOrientation = $cardOrientation;
+	}
+	public function getCardOrientation()
+	{
+		return $this->cardOrientation;
+	}
+	public function setThumbnailImageAlignment($thumbnailImageAlignment)
+	{
+		$this->thumbnailImageAlignment = $thumbnailImageAlignment;
+	}
+	public function getThumbnailImageAlignment()
+	{
+		return $this->thumbnailImageAlignment;
+	}
 }

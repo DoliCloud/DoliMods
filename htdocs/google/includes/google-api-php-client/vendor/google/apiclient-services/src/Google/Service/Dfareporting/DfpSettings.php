@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_DfpSettings extends Google_Model
 {
-  public $dfpNetworkCode;
-  public $dfpNetworkName;
-  public $programmaticPlacementAccepted;
-  public $pubPaidPlacementAccepted;
-  public $publisherPortalOnly;
+	public $dfpNetworkCode;
+	public $dfpNetworkName;
+	public $programmaticPlacementAccepted;
+	public $pubPaidPlacementAccepted;
+	public $publisherPortalOnly;
 
-  public function setDfpNetworkCode($dfpNetworkCode)
-  {
-    $this->dfpNetworkCode = $dfpNetworkCode;
-  }
-  public function getDfpNetworkCode()
-  {
-    return $this->dfpNetworkCode;
-  }
-  public function setDfpNetworkName($dfpNetworkName)
-  {
-    $this->dfpNetworkName = $dfpNetworkName;
-  }
-  public function getDfpNetworkName()
-  {
-    return $this->dfpNetworkName;
-  }
-  public function setProgrammaticPlacementAccepted($programmaticPlacementAccepted)
-  {
-    $this->programmaticPlacementAccepted = $programmaticPlacementAccepted;
-  }
-  public function getProgrammaticPlacementAccepted()
-  {
-    return $this->programmaticPlacementAccepted;
-  }
-  public function setPubPaidPlacementAccepted($pubPaidPlacementAccepted)
-  {
-    $this->pubPaidPlacementAccepted = $pubPaidPlacementAccepted;
-  }
-  public function getPubPaidPlacementAccepted()
-  {
-    return $this->pubPaidPlacementAccepted;
-  }
-  public function setPublisherPortalOnly($publisherPortalOnly)
-  {
-    $this->publisherPortalOnly = $publisherPortalOnly;
-  }
-  public function getPublisherPortalOnly()
-  {
-    return $this->publisherPortalOnly;
-  }
+	public function setDfpNetworkCode($dfpNetworkCode)
+	{
+		$this->dfpNetworkCode = $dfpNetworkCode;
+	}
+	public function getDfpNetworkCode()
+	{
+		return $this->dfpNetworkCode;
+	}
+	public function setDfpNetworkName($dfpNetworkName)
+	{
+		$this->dfpNetworkName = $dfpNetworkName;
+	}
+	public function getDfpNetworkName()
+	{
+		return $this->dfpNetworkName;
+	}
+	public function setProgrammaticPlacementAccepted($programmaticPlacementAccepted)
+	{
+		$this->programmaticPlacementAccepted = $programmaticPlacementAccepted;
+	}
+	public function getProgrammaticPlacementAccepted()
+	{
+		return $this->programmaticPlacementAccepted;
+	}
+	public function setPubPaidPlacementAccepted($pubPaidPlacementAccepted)
+	{
+		$this->pubPaidPlacementAccepted = $pubPaidPlacementAccepted;
+	}
+	public function getPubPaidPlacementAccepted()
+	{
+		return $this->pubPaidPlacementAccepted;
+	}
+	public function setPublisherPortalOnly($publisherPortalOnly)
+	{
+		$this->publisherPortalOnly = $publisherPortalOnly;
+	}
+	public function getPublisherPortalOnly()
+	{
+		return $this->publisherPortalOnly;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions extends Google_Model
 {
-  public $minSpacingMeters;
-  public $pointType;
+	public $minSpacingMeters;
+	public $pointType;
 
-  public function setMinSpacingMeters($minSpacingMeters)
-  {
-    $this->minSpacingMeters = $minSpacingMeters;
-  }
-  public function getMinSpacingMeters()
-  {
-    return $this->minSpacingMeters;
-  }
-  public function setPointType($pointType)
-  {
-    $this->pointType = $pointType;
-  }
-  public function getPointType()
-  {
-    return $this->pointType;
-  }
+	public function setMinSpacingMeters($minSpacingMeters)
+	{
+		$this->minSpacingMeters = $minSpacingMeters;
+	}
+	public function getMinSpacingMeters()
+	{
+		return $this->minSpacingMeters;
+	}
+	public function setPointType($pointType)
+	{
+		$this->pointType = $pointType;
+	}
+	public function getPointType()
+	{
+		return $this->pointType;
+	}
 }

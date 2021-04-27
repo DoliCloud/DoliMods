@@ -17,31 +17,31 @@
 
 class Google_Service_CloudIAP_ListIdentityAwareProxyClientsResponse extends Google_Collection
 {
-  protected $collection_key = 'identityAwareProxyClients';
-  protected $identityAwareProxyClientsType = 'Google_Service_CloudIAP_IdentityAwareProxyClient';
-  protected $identityAwareProxyClientsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'identityAwareProxyClients';
+	protected $identityAwareProxyClientsType = 'Google_Service_CloudIAP_IdentityAwareProxyClient';
+	protected $identityAwareProxyClientsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudIAP_IdentityAwareProxyClient
-   */
-  public function setIdentityAwareProxyClients($identityAwareProxyClients)
-  {
-    $this->identityAwareProxyClients = $identityAwareProxyClients;
-  }
-  /**
-   * @return Google_Service_CloudIAP_IdentityAwareProxyClient
-   */
-  public function getIdentityAwareProxyClients()
-  {
-    return $this->identityAwareProxyClients;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudIAP_IdentityAwareProxyClient
+	 */
+	public function setIdentityAwareProxyClients($identityAwareProxyClients)
+	{
+		$this->identityAwareProxyClients = $identityAwareProxyClients;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_IdentityAwareProxyClient
+	 */
+	public function getIdentityAwareProxyClients()
+	{
+		return $this->identityAwareProxyClients;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

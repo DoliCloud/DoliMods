@@ -17,54 +17,54 @@
 
 class Google_Service_Dataflow_PipelineDescription extends Google_Collection
 {
-  protected $collection_key = 'originalPipelineTransform';
-  protected $displayDataType = 'Google_Service_Dataflow_DisplayData';
-  protected $displayDataDataType = 'array';
-  protected $executionPipelineStageType = 'Google_Service_Dataflow_ExecutionStageSummary';
-  protected $executionPipelineStageDataType = 'array';
-  protected $originalPipelineTransformType = 'Google_Service_Dataflow_TransformSummary';
-  protected $originalPipelineTransformDataType = 'array';
+	protected $collection_key = 'originalPipelineTransform';
+	protected $displayDataType = 'Google_Service_Dataflow_DisplayData';
+	protected $displayDataDataType = 'array';
+	protected $executionPipelineStageType = 'Google_Service_Dataflow_ExecutionStageSummary';
+	protected $executionPipelineStageDataType = 'array';
+	protected $originalPipelineTransformType = 'Google_Service_Dataflow_TransformSummary';
+	protected $originalPipelineTransformDataType = 'array';
 
-  /**
-   * @param Google_Service_Dataflow_DisplayData
-   */
-  public function setDisplayData($displayData)
-  {
-    $this->displayData = $displayData;
-  }
-  /**
-   * @return Google_Service_Dataflow_DisplayData
-   */
-  public function getDisplayData()
-  {
-    return $this->displayData;
-  }
-  /**
-   * @param Google_Service_Dataflow_ExecutionStageSummary
-   */
-  public function setExecutionPipelineStage($executionPipelineStage)
-  {
-    $this->executionPipelineStage = $executionPipelineStage;
-  }
-  /**
-   * @return Google_Service_Dataflow_ExecutionStageSummary
-   */
-  public function getExecutionPipelineStage()
-  {
-    return $this->executionPipelineStage;
-  }
-  /**
-   * @param Google_Service_Dataflow_TransformSummary
-   */
-  public function setOriginalPipelineTransform($originalPipelineTransform)
-  {
-    $this->originalPipelineTransform = $originalPipelineTransform;
-  }
-  /**
-   * @return Google_Service_Dataflow_TransformSummary
-   */
-  public function getOriginalPipelineTransform()
-  {
-    return $this->originalPipelineTransform;
-  }
+	/**
+	 * @param Google_Service_Dataflow_DisplayData
+	 */
+	public function setDisplayData($displayData)
+	{
+		$this->displayData = $displayData;
+	}
+	/**
+	 * @return Google_Service_Dataflow_DisplayData
+	 */
+	public function getDisplayData()
+	{
+		return $this->displayData;
+	}
+	/**
+	 * @param Google_Service_Dataflow_ExecutionStageSummary
+	 */
+	public function setExecutionPipelineStage($executionPipelineStage)
+	{
+		$this->executionPipelineStage = $executionPipelineStage;
+	}
+	/**
+	 * @return Google_Service_Dataflow_ExecutionStageSummary
+	 */
+	public function getExecutionPipelineStage()
+	{
+		return $this->executionPipelineStage;
+	}
+	/**
+	 * @param Google_Service_Dataflow_TransformSummary
+	 */
+	public function setOriginalPipelineTransform($originalPipelineTransform)
+	{
+		$this->originalPipelineTransform = $originalPipelineTransform;
+	}
+	/**
+	 * @return Google_Service_Dataflow_TransformSummary
+	 */
+	public function getOriginalPipelineTransform()
+	{
+		return $this->originalPipelineTransform;
+	}
 }

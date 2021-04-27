@@ -17,63 +17,63 @@
 
 class Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloMetadata extends Google_Collection
 {
-  protected $collection_key = 'nodes';
-  protected $eligibilityType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility';
-  protected $eligibilityDataType = '';
-  protected $exclusionsType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloExclusion';
-  protected $exclusionsDataType = 'array';
-  protected $nodesType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1NodeSloMetadata';
-  protected $nodesDataType = 'array';
-  public $tier;
+	protected $collection_key = 'nodes';
+	protected $eligibilityType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility';
+	protected $eligibilityDataType = '';
+	protected $exclusionsType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloExclusion';
+	protected $exclusionsDataType = 'array';
+	protected $nodesType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1NodeSloMetadata';
+	protected $nodesDataType = 'array';
+	public $tier;
 
-  /**
-   * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility
-   */
-  public function setEligibility(Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility $eligibility)
-  {
-    $this->eligibility = $eligibility;
-  }
-  /**
-   * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility
-   */
-  public function getEligibility()
-  {
-    return $this->eligibility;
-  }
-  /**
-   * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloExclusion
-   */
-  public function setExclusions($exclusions)
-  {
-    $this->exclusions = $exclusions;
-  }
-  /**
-   * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloExclusion
-   */
-  public function getExclusions()
-  {
-    return $this->exclusions;
-  }
-  /**
-   * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1NodeSloMetadata
-   */
-  public function setNodes($nodes)
-  {
-    $this->nodes = $nodes;
-  }
-  /**
-   * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1NodeSloMetadata
-   */
-  public function getNodes()
-  {
-    return $this->nodes;
-  }
-  public function setTier($tier)
-  {
-    $this->tier = $tier;
-  }
-  public function getTier()
-  {
-    return $this->tier;
-  }
+	/**
+	 * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility
+	 */
+	public function setEligibility(Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility $eligibility)
+	{
+		$this->eligibility = $eligibility;
+	}
+	/**
+	 * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility
+	 */
+	public function getEligibility()
+	{
+		return $this->eligibility;
+	}
+	/**
+	 * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloExclusion
+	 */
+	public function setExclusions($exclusions)
+	{
+		$this->exclusions = $exclusions;
+	}
+	/**
+	 * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloExclusion
+	 */
+	public function getExclusions()
+	{
+		return $this->exclusions;
+	}
+	/**
+	 * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1NodeSloMetadata
+	 */
+	public function setNodes($nodes)
+	{
+		$this->nodes = $nodes;
+	}
+	/**
+	 * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1NodeSloMetadata
+	 */
+	public function getNodes()
+	{
+		return $this->nodes;
+	}
+	public function setTier($tier)
+	{
+		$this->tier = $tier;
+	}
+	public function getTier()
+	{
+		return $this->tier;
+	}
 }

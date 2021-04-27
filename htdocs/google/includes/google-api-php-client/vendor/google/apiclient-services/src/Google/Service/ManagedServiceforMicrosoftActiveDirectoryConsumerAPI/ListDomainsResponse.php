@@ -17,40 +17,40 @@
 
 class Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_ListDomainsResponse extends Google_Collection
 {
-  protected $collection_key = 'unreachable';
-  protected $domainsType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Domain';
-  protected $domainsDataType = 'array';
-  public $nextPageToken;
-  public $unreachable;
+	protected $collection_key = 'unreachable';
+	protected $domainsType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Domain';
+	protected $domainsDataType = 'array';
+	public $nextPageToken;
+	public $unreachable;
 
-  /**
-   * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Domain
-   */
-  public function setDomains($domains)
-  {
-    $this->domains = $domains;
-  }
-  /**
-   * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Domain
-   */
-  public function getDomains()
-  {
-    return $this->domains;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setUnreachable($unreachable)
-  {
-    $this->unreachable = $unreachable;
-  }
-  public function getUnreachable()
-  {
-    return $this->unreachable;
-  }
+	/**
+	 * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Domain
+	 */
+	public function setDomains($domains)
+	{
+		$this->domains = $domains;
+	}
+	/**
+	 * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Domain
+	 */
+	public function getDomains()
+	{
+		return $this->domains;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setUnreachable($unreachable)
+	{
+		$this->unreachable = $unreachable;
+	}
+	public function getUnreachable()
+	{
+		return $this->unreachable;
+	}
 }

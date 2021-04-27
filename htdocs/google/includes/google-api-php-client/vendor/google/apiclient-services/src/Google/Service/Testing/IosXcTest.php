@@ -17,64 +17,64 @@
 
 class Google_Service_Testing_IosXcTest extends Google_Model
 {
-  public $appBundleId;
-  public $testSpecialEntitlements;
-  protected $testsZipType = 'Google_Service_Testing_FileReference';
-  protected $testsZipDataType = '';
-  public $xcodeVersion;
-  protected $xctestrunType = 'Google_Service_Testing_FileReference';
-  protected $xctestrunDataType = '';
+	public $appBundleId;
+	public $testSpecialEntitlements;
+	protected $testsZipType = 'Google_Service_Testing_FileReference';
+	protected $testsZipDataType = '';
+	public $xcodeVersion;
+	protected $xctestrunType = 'Google_Service_Testing_FileReference';
+	protected $xctestrunDataType = '';
 
-  public function setAppBundleId($appBundleId)
-  {
-    $this->appBundleId = $appBundleId;
-  }
-  public function getAppBundleId()
-  {
-    return $this->appBundleId;
-  }
-  public function setTestSpecialEntitlements($testSpecialEntitlements)
-  {
-    $this->testSpecialEntitlements = $testSpecialEntitlements;
-  }
-  public function getTestSpecialEntitlements()
-  {
-    return $this->testSpecialEntitlements;
-  }
-  /**
-   * @param Google_Service_Testing_FileReference
-   */
-  public function setTestsZip(Google_Service_Testing_FileReference $testsZip)
-  {
-    $this->testsZip = $testsZip;
-  }
-  /**
-   * @return Google_Service_Testing_FileReference
-   */
-  public function getTestsZip()
-  {
-    return $this->testsZip;
-  }
-  public function setXcodeVersion($xcodeVersion)
-  {
-    $this->xcodeVersion = $xcodeVersion;
-  }
-  public function getXcodeVersion()
-  {
-    return $this->xcodeVersion;
-  }
-  /**
-   * @param Google_Service_Testing_FileReference
-   */
-  public function setXctestrun(Google_Service_Testing_FileReference $xctestrun)
-  {
-    $this->xctestrun = $xctestrun;
-  }
-  /**
-   * @return Google_Service_Testing_FileReference
-   */
-  public function getXctestrun()
-  {
-    return $this->xctestrun;
-  }
+	public function setAppBundleId($appBundleId)
+	{
+		$this->appBundleId = $appBundleId;
+	}
+	public function getAppBundleId()
+	{
+		return $this->appBundleId;
+	}
+	public function setTestSpecialEntitlements($testSpecialEntitlements)
+	{
+		$this->testSpecialEntitlements = $testSpecialEntitlements;
+	}
+	public function getTestSpecialEntitlements()
+	{
+		return $this->testSpecialEntitlements;
+	}
+	/**
+	 * @param Google_Service_Testing_FileReference
+	 */
+	public function setTestsZip(Google_Service_Testing_FileReference $testsZip)
+	{
+		$this->testsZip = $testsZip;
+	}
+	/**
+	 * @return Google_Service_Testing_FileReference
+	 */
+	public function getTestsZip()
+	{
+		return $this->testsZip;
+	}
+	public function setXcodeVersion($xcodeVersion)
+	{
+		$this->xcodeVersion = $xcodeVersion;
+	}
+	public function getXcodeVersion()
+	{
+		return $this->xcodeVersion;
+	}
+	/**
+	 * @param Google_Service_Testing_FileReference
+	 */
+	public function setXctestrun(Google_Service_Testing_FileReference $xctestrun)
+	{
+		$this->xctestrun = $xctestrun;
+	}
+	/**
+	 * @return Google_Service_Testing_FileReference
+	 */
+	public function getXctestrun()
+	{
+		return $this->xctestrun;
+	}
 }

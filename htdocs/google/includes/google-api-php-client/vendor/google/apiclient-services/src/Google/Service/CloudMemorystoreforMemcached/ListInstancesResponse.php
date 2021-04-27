@@ -17,40 +17,40 @@
 
 class Google_Service_CloudMemorystoreforMemcached_ListInstancesResponse extends Google_Collection
 {
-  protected $collection_key = 'unreachable';
-  public $nextPageToken;
-  protected $resourcesType = 'Google_Service_CloudMemorystoreforMemcached_Instance';
-  protected $resourcesDataType = 'array';
-  public $unreachable;
+	protected $collection_key = 'unreachable';
+	public $nextPageToken;
+	protected $resourcesType = 'Google_Service_CloudMemorystoreforMemcached_Instance';
+	protected $resourcesDataType = 'array';
+	public $unreachable;
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_CloudMemorystoreforMemcached_Instance
-   */
-  public function setResources($resources)
-  {
-    $this->resources = $resources;
-  }
-  /**
-   * @return Google_Service_CloudMemorystoreforMemcached_Instance
-   */
-  public function getResources()
-  {
-    return $this->resources;
-  }
-  public function setUnreachable($unreachable)
-  {
-    $this->unreachable = $unreachable;
-  }
-  public function getUnreachable()
-  {
-    return $this->unreachable;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_CloudMemorystoreforMemcached_Instance
+	 */
+	public function setResources($resources)
+	{
+		$this->resources = $resources;
+	}
+	/**
+	 * @return Google_Service_CloudMemorystoreforMemcached_Instance
+	 */
+	public function getResources()
+	{
+		return $this->resources;
+	}
+	public function setUnreachable($unreachable)
+	{
+		$this->unreachable = $unreachable;
+	}
+	public function getUnreachable()
+	{
+		return $this->unreachable;
+	}
 }

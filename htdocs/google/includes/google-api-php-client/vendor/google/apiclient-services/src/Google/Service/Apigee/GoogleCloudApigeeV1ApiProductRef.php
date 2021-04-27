@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ApiProductRef extends Google_Model
 {
-  public $apiproduct;
-  public $status;
+	public $apiproduct;
+	public $status;
 
-  public function setApiproduct($apiproduct)
-  {
-    $this->apiproduct = $apiproduct;
-  }
-  public function getApiproduct()
-  {
-    return $this->apiproduct;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setApiproduct($apiproduct)
+	{
+		$this->apiproduct = $apiproduct;
+	}
+	public function getApiproduct()
+	{
+		return $this->apiproduct;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

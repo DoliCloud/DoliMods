@@ -17,41 +17,41 @@
 
 class Google_Service_CloudIAP_Brand extends Google_Model
 {
-  public $applicationTitle;
-  public $name;
-  public $orgInternalOnly;
-  public $supportEmail;
+	public $applicationTitle;
+	public $name;
+	public $orgInternalOnly;
+	public $supportEmail;
 
-  public function setApplicationTitle($applicationTitle)
-  {
-    $this->applicationTitle = $applicationTitle;
-  }
-  public function getApplicationTitle()
-  {
-    return $this->applicationTitle;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOrgInternalOnly($orgInternalOnly)
-  {
-    $this->orgInternalOnly = $orgInternalOnly;
-  }
-  public function getOrgInternalOnly()
-  {
-    return $this->orgInternalOnly;
-  }
-  public function setSupportEmail($supportEmail)
-  {
-    $this->supportEmail = $supportEmail;
-  }
-  public function getSupportEmail()
-  {
-    return $this->supportEmail;
-  }
+	public function setApplicationTitle($applicationTitle)
+	{
+		$this->applicationTitle = $applicationTitle;
+	}
+	public function getApplicationTitle()
+	{
+		return $this->applicationTitle;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOrgInternalOnly($orgInternalOnly)
+	{
+		$this->orgInternalOnly = $orgInternalOnly;
+	}
+	public function getOrgInternalOnly()
+	{
+		return $this->orgInternalOnly;
+	}
+	public function setSupportEmail($supportEmail)
+	{
+		$this->supportEmail = $supportEmail;
+	}
+	public function getSupportEmail()
+	{
+		return $this->supportEmail;
+	}
 }

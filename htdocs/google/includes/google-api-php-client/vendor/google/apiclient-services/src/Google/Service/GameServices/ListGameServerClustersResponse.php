@@ -17,40 +17,40 @@
 
 class Google_Service_GameServices_ListGameServerClustersResponse extends Google_Collection
 {
-  protected $collection_key = 'unreachable';
-  protected $gameServerClustersType = 'Google_Service_GameServices_GameServerCluster';
-  protected $gameServerClustersDataType = 'array';
-  public $nextPageToken;
-  public $unreachable;
+	protected $collection_key = 'unreachable';
+	protected $gameServerClustersType = 'Google_Service_GameServices_GameServerCluster';
+	protected $gameServerClustersDataType = 'array';
+	public $nextPageToken;
+	public $unreachable;
 
-  /**
-   * @param Google_Service_GameServices_GameServerCluster
-   */
-  public function setGameServerClusters($gameServerClusters)
-  {
-    $this->gameServerClusters = $gameServerClusters;
-  }
-  /**
-   * @return Google_Service_GameServices_GameServerCluster
-   */
-  public function getGameServerClusters()
-  {
-    return $this->gameServerClusters;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setUnreachable($unreachable)
-  {
-    $this->unreachable = $unreachable;
-  }
-  public function getUnreachable()
-  {
-    return $this->unreachable;
-  }
+	/**
+	 * @param Google_Service_GameServices_GameServerCluster
+	 */
+	public function setGameServerClusters($gameServerClusters)
+	{
+		$this->gameServerClusters = $gameServerClusters;
+	}
+	/**
+	 * @return Google_Service_GameServices_GameServerCluster
+	 */
+	public function getGameServerClusters()
+	{
+		return $this->gameServerClusters;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setUnreachable($unreachable)
+	{
+		$this->unreachable = $unreachable;
+	}
+	public function getUnreachable()
+	{
+		return $this->unreachable;
+	}
 }

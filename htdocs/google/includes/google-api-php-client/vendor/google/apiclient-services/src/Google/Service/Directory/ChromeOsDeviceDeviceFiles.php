@@ -17,41 +17,41 @@
 
 class Google_Service_Directory_ChromeOsDeviceDeviceFiles extends Google_Model
 {
-  public $createTime;
-  public $downloadUrl;
-  public $name;
-  public $type;
+	public $createTime;
+	public $downloadUrl;
+	public $name;
+	public $type;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDownloadUrl($downloadUrl)
-  {
-    $this->downloadUrl = $downloadUrl;
-  }
-  public function getDownloadUrl()
-  {
-    return $this->downloadUrl;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDownloadUrl($downloadUrl)
+	{
+		$this->downloadUrl = $downloadUrl;
+	}
+	public function getDownloadUrl()
+	{
+		return $this->downloadUrl;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

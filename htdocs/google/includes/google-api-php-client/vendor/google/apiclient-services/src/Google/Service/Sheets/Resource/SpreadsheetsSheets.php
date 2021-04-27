@@ -25,21 +25,21 @@
  */
 class Google_Service_Sheets_Resource_SpreadsheetsSheets extends Google_Service_Resource
 {
-  /**
-   * Copies a single sheet from a spreadsheet to another spreadsheet. Returns the
-   * properties of the newly created sheet. (sheets.copyTo)
-   *
-   * @param string $spreadsheetId The ID of the spreadsheet containing the sheet
-   * to copy.
-   * @param int $sheetId The ID of the sheet to copy.
-   * @param Google_Service_Sheets_CopySheetToAnotherSpreadsheetRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Sheets_SheetProperties
-   */
-  public function copyTo($spreadsheetId, $sheetId, Google_Service_Sheets_CopySheetToAnotherSpreadsheetRequest $postBody, $optParams = array())
-  {
-    $params = array('spreadsheetId' => $spreadsheetId, 'sheetId' => $sheetId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('copyTo', array($params), "Google_Service_Sheets_SheetProperties");
-  }
+	/**
+	 * Copies a single sheet from a spreadsheet to another spreadsheet. Returns the
+	 * properties of the newly created sheet. (sheets.copyTo)
+	 *
+	 * @param string $spreadsheetId The ID of the spreadsheet containing the sheet
+	 *                              to copy.
+	 * @param int $sheetId The ID of the sheet to copy.
+	 * @param Google_Service_Sheets_CopySheetToAnotherSpreadsheetRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Sheets_SheetProperties
+	 */
+	public function copyTo($spreadsheetId, $sheetId, Google_Service_Sheets_CopySheetToAnotherSpreadsheetRequest $postBody, $optParams = array())
+	{
+		$params = array('spreadsheetId' => $spreadsheetId, 'sheetId' => $sheetId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('copyTo', array($params), "Google_Service_Sheets_SheetProperties");
+	}
 }

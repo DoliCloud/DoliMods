@@ -17,65 +17,65 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2Fulfillment extends Google_Collection
 {
-  protected $collection_key = 'features';
-  public $displayName;
-  public $enabled;
-  protected $featuresType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentFeature';
-  protected $featuresDataType = 'array';
-  protected $genericWebServiceType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService';
-  protected $genericWebServiceDataType = '';
-  public $name;
+	protected $collection_key = 'features';
+	public $displayName;
+	public $enabled;
+	protected $featuresType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentFeature';
+	protected $featuresDataType = 'array';
+	protected $genericWebServiceType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService';
+	protected $genericWebServiceDataType = '';
+	public $name;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentFeature
-   */
-  public function setFeatures($features)
-  {
-    $this->features = $features;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentFeature
-   */
-  public function getFeatures()
-  {
-    return $this->features;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService
-   */
-  public function setGenericWebService(Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService $genericWebService)
-  {
-    $this->genericWebService = $genericWebService;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService
-   */
-  public function getGenericWebService()
-  {
-    return $this->genericWebService;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentFeature
+	 */
+	public function setFeatures($features)
+	{
+		$this->features = $features;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentFeature
+	 */
+	public function getFeatures()
+	{
+		return $this->features;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService
+	 */
+	public function setGenericWebService(Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService $genericWebService)
+	{
+		$this->genericWebService = $genericWebService;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService
+	 */
+	public function getGenericWebService()
+	{
+		return $this->genericWebService;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

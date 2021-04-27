@@ -17,41 +17,41 @@
 
 class Google_Service_Dfareporting_ClickThroughUrl extends Google_Model
 {
-  public $computedClickThroughUrl;
-  public $customClickThroughUrl;
-  public $defaultLandingPage;
-  public $landingPageId;
+	public $computedClickThroughUrl;
+	public $customClickThroughUrl;
+	public $defaultLandingPage;
+	public $landingPageId;
 
-  public function setComputedClickThroughUrl($computedClickThroughUrl)
-  {
-    $this->computedClickThroughUrl = $computedClickThroughUrl;
-  }
-  public function getComputedClickThroughUrl()
-  {
-    return $this->computedClickThroughUrl;
-  }
-  public function setCustomClickThroughUrl($customClickThroughUrl)
-  {
-    $this->customClickThroughUrl = $customClickThroughUrl;
-  }
-  public function getCustomClickThroughUrl()
-  {
-    return $this->customClickThroughUrl;
-  }
-  public function setDefaultLandingPage($defaultLandingPage)
-  {
-    $this->defaultLandingPage = $defaultLandingPage;
-  }
-  public function getDefaultLandingPage()
-  {
-    return $this->defaultLandingPage;
-  }
-  public function setLandingPageId($landingPageId)
-  {
-    $this->landingPageId = $landingPageId;
-  }
-  public function getLandingPageId()
-  {
-    return $this->landingPageId;
-  }
+	public function setComputedClickThroughUrl($computedClickThroughUrl)
+	{
+		$this->computedClickThroughUrl = $computedClickThroughUrl;
+	}
+	public function getComputedClickThroughUrl()
+	{
+		return $this->computedClickThroughUrl;
+	}
+	public function setCustomClickThroughUrl($customClickThroughUrl)
+	{
+		$this->customClickThroughUrl = $customClickThroughUrl;
+	}
+	public function getCustomClickThroughUrl()
+	{
+		return $this->customClickThroughUrl;
+	}
+	public function setDefaultLandingPage($defaultLandingPage)
+	{
+		$this->defaultLandingPage = $defaultLandingPage;
+	}
+	public function getDefaultLandingPage()
+	{
+		return $this->defaultLandingPage;
+	}
+	public function setLandingPageId($landingPageId)
+	{
+		$this->landingPageId = $landingPageId;
+	}
+	public function getLandingPageId()
+	{
+		return $this->landingPageId;
+	}
 }

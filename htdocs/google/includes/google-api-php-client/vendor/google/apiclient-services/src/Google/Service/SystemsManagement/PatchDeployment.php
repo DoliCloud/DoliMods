@@ -17,123 +17,123 @@
 
 class Google_Service_SystemsManagement_PatchDeployment extends Google_Model
 {
-  public $createTime;
-  public $description;
-  public $duration;
-  protected $instanceFilterType = 'Google_Service_SystemsManagement_PatchInstanceFilter';
-  protected $instanceFilterDataType = '';
-  public $lastExecuteTime;
-  public $name;
-  protected $oneTimeScheduleType = 'Google_Service_SystemsManagement_OneTimeSchedule';
-  protected $oneTimeScheduleDataType = '';
-  protected $patchConfigType = 'Google_Service_SystemsManagement_PatchConfig';
-  protected $patchConfigDataType = '';
-  protected $recurringScheduleType = 'Google_Service_SystemsManagement_RecurringSchedule';
-  protected $recurringScheduleDataType = '';
-  public $updateTime;
+	public $createTime;
+	public $description;
+	public $duration;
+	protected $instanceFilterType = 'Google_Service_SystemsManagement_PatchInstanceFilter';
+	protected $instanceFilterDataType = '';
+	public $lastExecuteTime;
+	public $name;
+	protected $oneTimeScheduleType = 'Google_Service_SystemsManagement_OneTimeSchedule';
+	protected $oneTimeScheduleDataType = '';
+	protected $patchConfigType = 'Google_Service_SystemsManagement_PatchConfig';
+	protected $patchConfigDataType = '';
+	protected $recurringScheduleType = 'Google_Service_SystemsManagement_RecurringSchedule';
+	protected $recurringScheduleDataType = '';
+	public $updateTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDuration($duration)
-  {
-    $this->duration = $duration;
-  }
-  public function getDuration()
-  {
-    return $this->duration;
-  }
-  /**
-   * @param Google_Service_SystemsManagement_PatchInstanceFilter
-   */
-  public function setInstanceFilter(Google_Service_SystemsManagement_PatchInstanceFilter $instanceFilter)
-  {
-    $this->instanceFilter = $instanceFilter;
-  }
-  /**
-   * @return Google_Service_SystemsManagement_PatchInstanceFilter
-   */
-  public function getInstanceFilter()
-  {
-    return $this->instanceFilter;
-  }
-  public function setLastExecuteTime($lastExecuteTime)
-  {
-    $this->lastExecuteTime = $lastExecuteTime;
-  }
-  public function getLastExecuteTime()
-  {
-    return $this->lastExecuteTime;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_SystemsManagement_OneTimeSchedule
-   */
-  public function setOneTimeSchedule(Google_Service_SystemsManagement_OneTimeSchedule $oneTimeSchedule)
-  {
-    $this->oneTimeSchedule = $oneTimeSchedule;
-  }
-  /**
-   * @return Google_Service_SystemsManagement_OneTimeSchedule
-   */
-  public function getOneTimeSchedule()
-  {
-    return $this->oneTimeSchedule;
-  }
-  /**
-   * @param Google_Service_SystemsManagement_PatchConfig
-   */
-  public function setPatchConfig(Google_Service_SystemsManagement_PatchConfig $patchConfig)
-  {
-    $this->patchConfig = $patchConfig;
-  }
-  /**
-   * @return Google_Service_SystemsManagement_PatchConfig
-   */
-  public function getPatchConfig()
-  {
-    return $this->patchConfig;
-  }
-  /**
-   * @param Google_Service_SystemsManagement_RecurringSchedule
-   */
-  public function setRecurringSchedule(Google_Service_SystemsManagement_RecurringSchedule $recurringSchedule)
-  {
-    $this->recurringSchedule = $recurringSchedule;
-  }
-  /**
-   * @return Google_Service_SystemsManagement_RecurringSchedule
-   */
-  public function getRecurringSchedule()
-  {
-    return $this->recurringSchedule;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDuration($duration)
+	{
+		$this->duration = $duration;
+	}
+	public function getDuration()
+	{
+		return $this->duration;
+	}
+	/**
+	 * @param Google_Service_SystemsManagement_PatchInstanceFilter
+	 */
+	public function setInstanceFilter(Google_Service_SystemsManagement_PatchInstanceFilter $instanceFilter)
+	{
+		$this->instanceFilter = $instanceFilter;
+	}
+	/**
+	 * @return Google_Service_SystemsManagement_PatchInstanceFilter
+	 */
+	public function getInstanceFilter()
+	{
+		return $this->instanceFilter;
+	}
+	public function setLastExecuteTime($lastExecuteTime)
+	{
+		$this->lastExecuteTime = $lastExecuteTime;
+	}
+	public function getLastExecuteTime()
+	{
+		return $this->lastExecuteTime;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_SystemsManagement_OneTimeSchedule
+	 */
+	public function setOneTimeSchedule(Google_Service_SystemsManagement_OneTimeSchedule $oneTimeSchedule)
+	{
+		$this->oneTimeSchedule = $oneTimeSchedule;
+	}
+	/**
+	 * @return Google_Service_SystemsManagement_OneTimeSchedule
+	 */
+	public function getOneTimeSchedule()
+	{
+		return $this->oneTimeSchedule;
+	}
+	/**
+	 * @param Google_Service_SystemsManagement_PatchConfig
+	 */
+	public function setPatchConfig(Google_Service_SystemsManagement_PatchConfig $patchConfig)
+	{
+		$this->patchConfig = $patchConfig;
+	}
+	/**
+	 * @return Google_Service_SystemsManagement_PatchConfig
+	 */
+	public function getPatchConfig()
+	{
+		return $this->patchConfig;
+	}
+	/**
+	 * @param Google_Service_SystemsManagement_RecurringSchedule
+	 */
+	public function setRecurringSchedule(Google_Service_SystemsManagement_RecurringSchedule $recurringSchedule)
+	{
+		$this->recurringSchedule = $recurringSchedule;
+	}
+	/**
+	 * @return Google_Service_SystemsManagement_RecurringSchedule
+	 */
+	public function getRecurringSchedule()
+	{
+		return $this->recurringSchedule;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_TagData extends Google_Model
 {
-  public $adId;
-  public $clickTag;
-  public $creativeId;
-  public $format;
-  public $impressionTag;
+	public $adId;
+	public $clickTag;
+	public $creativeId;
+	public $format;
+	public $impressionTag;
 
-  public function setAdId($adId)
-  {
-    $this->adId = $adId;
-  }
-  public function getAdId()
-  {
-    return $this->adId;
-  }
-  public function setClickTag($clickTag)
-  {
-    $this->clickTag = $clickTag;
-  }
-  public function getClickTag()
-  {
-    return $this->clickTag;
-  }
-  public function setCreativeId($creativeId)
-  {
-    $this->creativeId = $creativeId;
-  }
-  public function getCreativeId()
-  {
-    return $this->creativeId;
-  }
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
-  public function setImpressionTag($impressionTag)
-  {
-    $this->impressionTag = $impressionTag;
-  }
-  public function getImpressionTag()
-  {
-    return $this->impressionTag;
-  }
+	public function setAdId($adId)
+	{
+		$this->adId = $adId;
+	}
+	public function getAdId()
+	{
+		return $this->adId;
+	}
+	public function setClickTag($clickTag)
+	{
+		$this->clickTag = $clickTag;
+	}
+	public function getClickTag()
+	{
+		return $this->clickTag;
+	}
+	public function setCreativeId($creativeId)
+	{
+		$this->creativeId = $creativeId;
+	}
+	public function getCreativeId()
+	{
+		return $this->creativeId;
+	}
+	public function setFormat($format)
+	{
+		$this->format = $format;
+	}
+	public function getFormat()
+	{
+		return $this->format;
+	}
+	public function setImpressionTag($impressionTag)
+	{
+		$this->impressionTag = $impressionTag;
+	}
+	public function getImpressionTag()
+	{
+		return $this->impressionTag;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Analytics_GaDataDataTableRowsC extends Google_Model
 {
-  public $v;
+	public $v;
 
-  public function setV($v)
-  {
-    $this->v = $v;
-  }
-  public function getV()
-  {
-    return $this->v;
-  }
+	public function setV($v)
+	{
+		$this->v = $v;
+	}
+	public function getV()
+	{
+		return $this->v;
+	}
 }

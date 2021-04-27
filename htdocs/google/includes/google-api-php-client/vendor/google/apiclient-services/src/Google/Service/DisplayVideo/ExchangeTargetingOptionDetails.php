@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_ExchangeTargetingOptionDetails extends Google_Model
 {
-  public $exchange;
+	public $exchange;
 
-  public function setExchange($exchange)
-  {
-    $this->exchange = $exchange;
-  }
-  public function getExchange()
-  {
-    return $this->exchange;
-  }
+	public function setExchange($exchange)
+	{
+		$this->exchange = $exchange;
+	}
+	public function getExchange()
+	{
+		return $this->exchange;
+	}
 }

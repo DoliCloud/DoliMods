@@ -31,348 +31,348 @@ use setasign\Fpdi\PdfParser\Type\PdfType;
  */
 class PdfParser
 {
-    /**
-     * @var StreamReader
-     */
-    protected $streamReader;
+	/**
+	 * @var StreamReader
+	 */
+	protected $streamReader;
 
-    /**
-     * @var Tokenizer
-     */
-    protected $tokenizer;
+	/**
+	 * @var Tokenizer
+	 */
+	protected $tokenizer;
 
-    /**
-     * The file header.
-     *
-     * @var string
-     */
-    protected $fileHeader;
+	/**
+	 * The file header.
+	 *
+	 * @var string
+	 */
+	protected $fileHeader;
 
-    /**
-     * The offset to the file header.
-     *
-     * @var int
-     */
-    protected $fileHeaderOffset;
+	/**
+	 * The offset to the file header.
+	 *
+	 * @var int
+	 */
+	protected $fileHeaderOffset;
 
-    /**
-     * @var CrossReference
-     */
-    protected $xref;
+	/**
+	 * @var CrossReference
+	 */
+	protected $xref;
 
-    /**
-     * All read objects.
-     *
-     * @var array
-     */
-    protected $objects = [];
+	/**
+	 * All read objects.
+	 *
+	 * @var array
+	 */
+	protected $objects = [];
 
-    /**
-     * PdfParser constructor.
-     *
-     * @param StreamReader $streamReader
-     */
-    public function __construct(StreamReader $streamReader)
-    {
-        $this->streamReader = $streamReader;
-        $this->tokenizer = new Tokenizer($streamReader);
-    }
+	/**
+	 * PdfParser constructor.
+	 *
+	 * @param StreamReader $streamReader
+	 */
+	public function __construct(StreamReader $streamReader)
+	{
+		$this->streamReader = $streamReader;
+		$this->tokenizer = new Tokenizer($streamReader);
+	}
 
-    /**
-     * Removes cycled references.
-     *
-     * @internal
-     */
-    public function cleanUp()
-    {
-        $this->xref = null;
-    }
+	/**
+	 * Removes cycled references.
+	 *
+	 * @internal
+	 */
+	public function cleanUp()
+	{
+		$this->xref = null;
+	}
 
-    /**
-     * Get the stream reader instance.
-     *
-     * @return StreamReader
-     */
-    public function getStreamReader()
-    {
-        return $this->streamReader;
-    }
+	/**
+	 * Get the stream reader instance.
+	 *
+	 * @return StreamReader
+	 */
+	public function getStreamReader()
+	{
+		return $this->streamReader;
+	}
 
-    /**
-     * Get the tokenizer instance.
-     *
-     * @return Tokenizer
-     */
-    public function getTokenizer()
-    {
-        return $this->tokenizer;
-    }
+	/**
+	 * Get the tokenizer instance.
+	 *
+	 * @return Tokenizer
+	 */
+	public function getTokenizer()
+	{
+		return $this->tokenizer;
+	}
 
-    /**
-     * Resolves the file header.
-     *
-     * @throws PdfParserException
-     * @return int
-     */
-    protected function resolveFileHeader()
-    {
-        if ($this->fileHeader) {
-            return $this->fileHeaderOffset;
-        }
+	/**
+	 * Resolves the file header.
+	 *
+	 * @throws PdfParserException
+	 * @return int
+	 */
+	protected function resolveFileHeader()
+	{
+		if ($this->fileHeader) {
+			return $this->fileHeaderOffset;
+		}
 
-        $this->streamReader->reset(0);
-        $offset = false;
-        $maxIterations = 1000;
-        while (true) {
-            $buffer = $this->streamReader->getBuffer(false);
-            $offset = \strpos($buffer, '%PDF-');
-            if ($offset === false) {
-                if (!$this->streamReader->increaseLength(100) || (--$maxIterations === 0)) {
-                    throw new PdfParserException(
-                        'Unable to find PDF file header.',
-                        PdfParserException::FILE_HEADER_NOT_FOUND
-                    );
-                }
-                continue;
-            }
-            break;
-        }
+		$this->streamReader->reset(0);
+		$offset = false;
+		$maxIterations = 1000;
+		while (true) {
+			$buffer = $this->streamReader->getBuffer(false);
+			$offset = \strpos($buffer, '%PDF-');
+			if ($offset === false) {
+				if (!$this->streamReader->increaseLength(100) || (--$maxIterations === 0)) {
+					throw new PdfParserException(
+						'Unable to find PDF file header.',
+						PdfParserException::FILE_HEADER_NOT_FOUND
+					);
+				}
+				continue;
+			}
+			break;
+		}
 
-        $this->fileHeaderOffset = $offset;
-        $this->streamReader->setOffset($offset);
+		$this->fileHeaderOffset = $offset;
+		$this->streamReader->setOffset($offset);
 
-        $this->fileHeader = \trim($this->streamReader->readLine());
-        return $this->fileHeaderOffset;
-    }
+		$this->fileHeader = \trim($this->streamReader->readLine());
+		return $this->fileHeaderOffset;
+	}
 
-    /**
-     * Get the cross reference instance.
-     *
-     * @return CrossReference
-     * @throws CrossReferenceException
-     * @throws PdfParserException
-     */
-    public function getCrossReference()
-    {
-        if ($this->xref === null) {
-            $this->xref = new CrossReference($this, $this->resolveFileHeader());
-        }
+	/**
+	 * Get the cross reference instance.
+	 *
+	 * @return CrossReference
+	 * @throws CrossReferenceException
+	 * @throws PdfParserException
+	 */
+	public function getCrossReference()
+	{
+		if ($this->xref === null) {
+			$this->xref = new CrossReference($this, $this->resolveFileHeader());
+		}
 
-        return $this->xref;
-    }
+		return $this->xref;
+	}
 
-    /**
-     * Get the PDF version.
-     *
-     * @return int[] An array of major and minor version.
-     * @throws PdfParserException
-     */
-    public function getPdfVersion()
-    {
-        $this->resolveFileHeader();
+	/**
+	 * Get the PDF version.
+	 *
+	 * @return int[] An array of major and minor version.
+	 * @throws PdfParserException
+	 */
+	public function getPdfVersion()
+	{
+		$this->resolveFileHeader();
 
-        if (\preg_match('/%PDF-(\d)\.(\d)/', $this->fileHeader, $result) === 0) {
-            throw new PdfParserException(
-                'Unable to extract PDF version from file header.',
-                PdfParserException::PDF_VERSION_NOT_FOUND
-            );
-        }
-        list(, $major, $minor) = $result;
+		if (\preg_match('/%PDF-(\d)\.(\d)/', $this->fileHeader, $result) === 0) {
+			throw new PdfParserException(
+				'Unable to extract PDF version from file header.',
+				PdfParserException::PDF_VERSION_NOT_FOUND
+			);
+		}
+		list(, $major, $minor) = $result;
 
-        $catalog = $this->getCatalog();
-        if (isset($catalog->value['Version'])) {
-            $versionParts = \explode('.', PdfName::unescape(PdfType::resolve($catalog->value['Version'], $this)->value));
-            if (count($versionParts) === 2) {
-                list($major, $minor) = $versionParts;
-            }
-        }
+		$catalog = $this->getCatalog();
+		if (isset($catalog->value['Version'])) {
+			$versionParts = \explode('.', PdfName::unescape(PdfType::resolve($catalog->value['Version'], $this)->value));
+			if (count($versionParts) === 2) {
+				list($major, $minor) = $versionParts;
+			}
+		}
 
-        return [(int) $major, (int) $minor];
-    }
+		return [(int) $major, (int) $minor];
+	}
 
-    /**
-     * Get the catalog dictionary.
-     *
-     * @return PdfDictionary
-     * @throws Type\PdfTypeException
-     * @throws CrossReferenceException
-     * @throws PdfParserException
-     */
-    public function getCatalog()
-    {
-        $xref = $this->getCrossReference();
-        $trailer = $xref->getTrailer();
+	/**
+	 * Get the catalog dictionary.
+	 *
+	 * @return PdfDictionary
+	 * @throws Type\PdfTypeException
+	 * @throws CrossReferenceException
+	 * @throws PdfParserException
+	 */
+	public function getCatalog()
+	{
+		$xref = $this->getCrossReference();
+		$trailer = $xref->getTrailer();
 
-        $catalog = PdfType::resolve(PdfDictionary::get($trailer, 'Root'), $this);
+		$catalog = PdfType::resolve(PdfDictionary::get($trailer, 'Root'), $this);
 
-        return PdfDictionary::ensure($catalog);
-    }
+		return PdfDictionary::ensure($catalog);
+	}
 
-    /**
-     * Get an indirect object by its object number.
-     *
-     * @param int $objectNumber
-     * @param bool $cache
-     * @return PdfIndirectObject
-     * @throws CrossReferenceException
-     * @throws PdfParserException
-     */
-    public function getIndirectObject($objectNumber, $cache = false)
-    {
-        $objectNumber = (int) $objectNumber;
-        if (isset($this->objects[$objectNumber])) {
-            return $this->objects[$objectNumber];
-        }
+	/**
+	 * Get an indirect object by its object number.
+	 *
+	 * @param int $objectNumber
+	 * @param bool $cache
+	 * @return PdfIndirectObject
+	 * @throws CrossReferenceException
+	 * @throws PdfParserException
+	 */
+	public function getIndirectObject($objectNumber, $cache = false)
+	{
+		$objectNumber = (int) $objectNumber;
+		if (isset($this->objects[$objectNumber])) {
+			return $this->objects[$objectNumber];
+		}
 
-        $xref = $this->getCrossReference();
-        $object = $xref->getIndirectObject($objectNumber);
+		$xref = $this->getCrossReference();
+		$object = $xref->getIndirectObject($objectNumber);
 
-        if ($cache) {
-            $this->objects[$objectNumber] = $object;
-        }
+		if ($cache) {
+			$this->objects[$objectNumber] = $object;
+		}
 
-        return $object;
-    }
+		return $object;
+	}
 
-    /**
-     * Read a PDF value.
-     *
-     * @param null|bool|string $token
-     * @param null|string $expectedType
-     * @return bool|PdfArray|PdfBoolean|PdfHexString|PdfName|PdfNull|PdfNumeric|PdfString|PdfToken|PdfIndirectObjectReference
-     * @throws Type\PdfTypeException
-     */
-    public function readValue($token = null, $expectedType = null)
-    {
-        if ($token === null) {
-            $token = $this->tokenizer->getNextToken();
-        }
+	/**
+	 * Read a PDF value.
+	 *
+	 * @param null|bool|string $token
+	 * @param null|string $expectedType
+	 * @return bool|PdfArray|PdfBoolean|PdfHexString|PdfName|PdfNull|PdfNumeric|PdfString|PdfToken|PdfIndirectObjectReference
+	 * @throws Type\PdfTypeException
+	 */
+	public function readValue($token = null, $expectedType = null)
+	{
+		if ($token === null) {
+			$token = $this->tokenizer->getNextToken();
+		}
 
-        if ($token === false) {
-            if ($expectedType !== null) {
-                throw new Type\PdfTypeException('Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE);
-            }
-            return false;
-        }
+		if ($token === false) {
+			if ($expectedType !== null) {
+				throw new Type\PdfTypeException('Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE);
+			}
+			return false;
+		}
 
-        switch ($token) {
-            case '(':
-                $this->ensureExpectedType($token, $expectedType);
-                return PdfString::parse($this->streamReader);
+		switch ($token) {
+			case '(':
+				$this->ensureExpectedType($token, $expectedType);
+				return PdfString::parse($this->streamReader);
 
-            case '<':
-                if ($this->streamReader->getByte() === '<') {
-                    $this->ensureExpectedType('<<', $expectedType);
-                    $this->streamReader->addOffset(1);
-                    return PdfDictionary::parse($this->tokenizer, $this->streamReader, $this);
-                }
+			case '<':
+				if ($this->streamReader->getByte() === '<') {
+					$this->ensureExpectedType('<<', $expectedType);
+					$this->streamReader->addOffset(1);
+					return PdfDictionary::parse($this->tokenizer, $this->streamReader, $this);
+				}
 
-                $this->ensureExpectedType($token, $expectedType);
-                return PdfHexString::parse($this->streamReader);
+				$this->ensureExpectedType($token, $expectedType);
+				return PdfHexString::parse($this->streamReader);
 
-            case '/':
-                $this->ensureExpectedType($token, $expectedType);
-                return PdfName::parse($this->tokenizer, $this->streamReader);
+			case '/':
+				$this->ensureExpectedType($token, $expectedType);
+				return PdfName::parse($this->tokenizer, $this->streamReader);
 
-            case '[':
-                $this->ensureExpectedType($token, $expectedType);
-                return PdfArray::parse($this->tokenizer, $this);
+			case '[':
+				$this->ensureExpectedType($token, $expectedType);
+				return PdfArray::parse($this->tokenizer, $this);
 
-            default:
-                if (\is_numeric($token)) {
-                    if (($token2 = $this->tokenizer->getNextToken()) !== false) {
-                        if (\is_numeric($token2)) {
-                            if (($token3 = $this->tokenizer->getNextToken()) !== false) {
-                                switch ($token3) {
-                                    case 'obj':
-                                        if ($expectedType !== null && $expectedType !== PdfIndirectObject::class) {
-                                            throw new Type\PdfTypeException(
-                                                'Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE
-                                            );
-                                        }
+			default:
+				if (\is_numeric($token)) {
+					if (($token2 = $this->tokenizer->getNextToken()) !== false) {
+						if (\is_numeric($token2)) {
+							if (($token3 = $this->tokenizer->getNextToken()) !== false) {
+								switch ($token3) {
+									case 'obj':
+										if ($expectedType !== null && $expectedType !== PdfIndirectObject::class) {
+											throw new Type\PdfTypeException(
+												'Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE
+											);
+										}
 
-                                        return PdfIndirectObject::parse(
-                                            $token,
-                                            $token2,
-                                            $this,
-                                            $this->tokenizer,
-                                            $this->streamReader
-                                        );
-                                    case 'R':
-                                        if ($expectedType !== null &&
-                                            $expectedType !== PdfIndirectObjectReference::class
-                                        ) {
-                                            throw new Type\PdfTypeException(
-                                                'Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE
-                                            );
-                                        }
+										return PdfIndirectObject::parse(
+											$token,
+											$token2,
+											$this,
+											$this->tokenizer,
+											$this->streamReader
+										);
+									case 'R':
+										if ($expectedType !== null &&
+											$expectedType !== PdfIndirectObjectReference::class
+										) {
+											throw new Type\PdfTypeException(
+												'Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE
+											);
+										}
 
-                                        return PdfIndirectObjectReference::create($token, $token2);
-                                }
+										return PdfIndirectObjectReference::create($token, $token2);
+								}
 
-                                $this->tokenizer->pushStack($token3);
-                            }
-                        }
+								$this->tokenizer->pushStack($token3);
+							}
+						}
 
-                        $this->tokenizer->pushStack($token2);
-                    }
+						$this->tokenizer->pushStack($token2);
+					}
 
-                    if ($expectedType !== null && $expectedType !== PdfNumeric::class) {
-                        throw new Type\PdfTypeException(
-                            'Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE
-                        );
-                    }
-                    return PdfNumeric::create($token);
-                }
+					if ($expectedType !== null && $expectedType !== PdfNumeric::class) {
+						throw new Type\PdfTypeException(
+							'Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE
+						);
+					}
+					return PdfNumeric::create($token);
+				}
 
-                if ($token === 'true' || $token === 'false') {
-                    $this->ensureExpectedType($token, $expectedType);
-                    return PdfBoolean::create($token === 'true');
-                }
+				if ($token === 'true' || $token === 'false') {
+					$this->ensureExpectedType($token, $expectedType);
+					return PdfBoolean::create($token === 'true');
+				}
 
-                if ($token === 'null') {
-                    $this->ensureExpectedType($token, $expectedType);
-                    return new PdfNull();
-                }
+				if ($token === 'null') {
+					$this->ensureExpectedType($token, $expectedType);
+					return new PdfNull();
+				}
 
-                if ($expectedType !== null && $expectedType !== PdfToken::class) {
-                    throw new Type\PdfTypeException(
-                        'Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE
-                    );
-                }
+				if ($expectedType !== null && $expectedType !== PdfToken::class) {
+					throw new Type\PdfTypeException(
+						'Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE
+					);
+				}
 
-                $v = new PdfToken();
-                $v->value = $token;
+				$v = new PdfToken();
+				$v->value = $token;
 
-                return $v;
-        }
-    }
+				return $v;
+		}
+	}
 
-    /**
-     * Ensures that the token will evaluate to an expected object type (or not).
-     *
-     * @param string $token
-     * @param string|null $expectedType
-     * @return bool
-     * @throws Type\PdfTypeException
-     */
-    private function ensureExpectedType($token, $expectedType)
-    {
-        static $mapping = [
-            '(' => PdfString::class,
-            '<' => PdfHexString::class,
-            '<<' => PdfDictionary::class,
-            '/' => PdfName::class,
-            '[' => PdfArray::class,
-            'true' => PdfBoolean::class,
-            'false' => PdfBoolean::class,
-            'null' => PdfNull::class
-        ];
+	/**
+	 * Ensures that the token will evaluate to an expected object type (or not).
+	 *
+	 * @param string $token
+	 * @param string|null $expectedType
+	 * @return bool
+	 * @throws Type\PdfTypeException
+	 */
+	private function ensureExpectedType($token, $expectedType)
+	{
+		static $mapping = [
+			'(' => PdfString::class,
+			'<' => PdfHexString::class,
+			'<<' => PdfDictionary::class,
+			'/' => PdfName::class,
+			'[' => PdfArray::class,
+			'true' => PdfBoolean::class,
+			'false' => PdfBoolean::class,
+			'null' => PdfNull::class
+		];
 
-        if ($expectedType === null || $mapping[$token] === $expectedType) {
-            return true;
-        }
+		if ($expectedType === null || $mapping[$token] === $expectedType) {
+			return true;
+		}
 
-        throw new Type\PdfTypeException('Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE);
-    }
+		throw new Type\PdfTypeException('Got unexpected token type.', Type\PdfTypeException::INVALID_DATA_TYPE);
+	}
 }

@@ -17,78 +17,78 @@
 
 class Google_Service_ShoppingContent_ReturnPricingInfo extends Google_Model
 {
-  public $chargeReturnShippingFee;
-  protected $maxReturnShippingFeeType = 'Google_Service_ShoppingContent_MonetaryAmount';
-  protected $maxReturnShippingFeeDataType = '';
-  protected $refundableItemsTotalAmountType = 'Google_Service_ShoppingContent_MonetaryAmount';
-  protected $refundableItemsTotalAmountDataType = '';
-  protected $refundableShippingAmountType = 'Google_Service_ShoppingContent_MonetaryAmount';
-  protected $refundableShippingAmountDataType = '';
-  protected $totalRefundedAmountType = 'Google_Service_ShoppingContent_MonetaryAmount';
-  protected $totalRefundedAmountDataType = '';
+	public $chargeReturnShippingFee;
+	protected $maxReturnShippingFeeType = 'Google_Service_ShoppingContent_MonetaryAmount';
+	protected $maxReturnShippingFeeDataType = '';
+	protected $refundableItemsTotalAmountType = 'Google_Service_ShoppingContent_MonetaryAmount';
+	protected $refundableItemsTotalAmountDataType = '';
+	protected $refundableShippingAmountType = 'Google_Service_ShoppingContent_MonetaryAmount';
+	protected $refundableShippingAmountDataType = '';
+	protected $totalRefundedAmountType = 'Google_Service_ShoppingContent_MonetaryAmount';
+	protected $totalRefundedAmountDataType = '';
 
-  public function setChargeReturnShippingFee($chargeReturnShippingFee)
-  {
-    $this->chargeReturnShippingFee = $chargeReturnShippingFee;
-  }
-  public function getChargeReturnShippingFee()
-  {
-    return $this->chargeReturnShippingFee;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_MonetaryAmount
-   */
-  public function setMaxReturnShippingFee(Google_Service_ShoppingContent_MonetaryAmount $maxReturnShippingFee)
-  {
-    $this->maxReturnShippingFee = $maxReturnShippingFee;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_MonetaryAmount
-   */
-  public function getMaxReturnShippingFee()
-  {
-    return $this->maxReturnShippingFee;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_MonetaryAmount
-   */
-  public function setRefundableItemsTotalAmount(Google_Service_ShoppingContent_MonetaryAmount $refundableItemsTotalAmount)
-  {
-    $this->refundableItemsTotalAmount = $refundableItemsTotalAmount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_MonetaryAmount
-   */
-  public function getRefundableItemsTotalAmount()
-  {
-    return $this->refundableItemsTotalAmount;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_MonetaryAmount
-   */
-  public function setRefundableShippingAmount(Google_Service_ShoppingContent_MonetaryAmount $refundableShippingAmount)
-  {
-    $this->refundableShippingAmount = $refundableShippingAmount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_MonetaryAmount
-   */
-  public function getRefundableShippingAmount()
-  {
-    return $this->refundableShippingAmount;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_MonetaryAmount
-   */
-  public function setTotalRefundedAmount(Google_Service_ShoppingContent_MonetaryAmount $totalRefundedAmount)
-  {
-    $this->totalRefundedAmount = $totalRefundedAmount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_MonetaryAmount
-   */
-  public function getTotalRefundedAmount()
-  {
-    return $this->totalRefundedAmount;
-  }
+	public function setChargeReturnShippingFee($chargeReturnShippingFee)
+	{
+		$this->chargeReturnShippingFee = $chargeReturnShippingFee;
+	}
+	public function getChargeReturnShippingFee()
+	{
+		return $this->chargeReturnShippingFee;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_MonetaryAmount
+	 */
+	public function setMaxReturnShippingFee(Google_Service_ShoppingContent_MonetaryAmount $maxReturnShippingFee)
+	{
+		$this->maxReturnShippingFee = $maxReturnShippingFee;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_MonetaryAmount
+	 */
+	public function getMaxReturnShippingFee()
+	{
+		return $this->maxReturnShippingFee;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_MonetaryAmount
+	 */
+	public function setRefundableItemsTotalAmount(Google_Service_ShoppingContent_MonetaryAmount $refundableItemsTotalAmount)
+	{
+		$this->refundableItemsTotalAmount = $refundableItemsTotalAmount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_MonetaryAmount
+	 */
+	public function getRefundableItemsTotalAmount()
+	{
+		return $this->refundableItemsTotalAmount;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_MonetaryAmount
+	 */
+	public function setRefundableShippingAmount(Google_Service_ShoppingContent_MonetaryAmount $refundableShippingAmount)
+	{
+		$this->refundableShippingAmount = $refundableShippingAmount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_MonetaryAmount
+	 */
+	public function getRefundableShippingAmount()
+	{
+		return $this->refundableShippingAmount;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_MonetaryAmount
+	 */
+	public function setTotalRefundedAmount(Google_Service_ShoppingContent_MonetaryAmount $totalRefundedAmount)
+	{
+		$this->totalRefundedAmount = $totalRefundedAmount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_MonetaryAmount
+	 */
+	public function getTotalRefundedAmount()
+	{
+		return $this->totalRefundedAmount;
+	}
 }

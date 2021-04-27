@@ -17,31 +17,31 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListEnvironmentGroupsResponse extends Google_Collection
 {
-  protected $collection_key = 'environmentGroups';
-  protected $environmentGroupsType = 'Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroup';
-  protected $environmentGroupsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'environmentGroups';
+	protected $environmentGroupsType = 'Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroup';
+	protected $environmentGroupsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroup
-   */
-  public function setEnvironmentGroups($environmentGroups)
-  {
-    $this->environmentGroups = $environmentGroups;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroup
-   */
-  public function getEnvironmentGroups()
-  {
-    return $this->environmentGroups;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroup
+	 */
+	public function setEnvironmentGroups($environmentGroups)
+	{
+		$this->environmentGroups = $environmentGroups;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroup
+	 */
+	public function getEnvironmentGroups()
+	{
+		return $this->environmentGroups;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

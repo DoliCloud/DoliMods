@@ -17,32 +17,32 @@
 
 class Google_Service_Directory_Feature extends Google_Model
 {
-  public $etags;
-  public $kind;
-  public $name;
+	public $etags;
+	public $kind;
+	public $name;
 
-  public function setEtags($etags)
-  {
-    $this->etags = $etags;
-  }
-  public function getEtags()
-  {
-    return $this->etags;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setEtags($etags)
+	{
+		$this->etags = $etags;
+	}
+	public function getEtags()
+	{
+		return $this->etags;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

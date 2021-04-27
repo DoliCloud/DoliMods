@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_MinimumOrderValueTableStoreCodeSetWithMov extends Google_Collection
 {
-  protected $collection_key = 'storeCodes';
-  public $storeCodes;
-  protected $valueType = 'Google_Service_ShoppingContent_Price';
-  protected $valueDataType = '';
+	protected $collection_key = 'storeCodes';
+	public $storeCodes;
+	protected $valueType = 'Google_Service_ShoppingContent_Price';
+	protected $valueDataType = '';
 
-  public function setStoreCodes($storeCodes)
-  {
-    $this->storeCodes = $storeCodes;
-  }
-  public function getStoreCodes()
-  {
-    return $this->storeCodes;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setValue(Google_Service_ShoppingContent_Price $value)
-  {
-    $this->value = $value;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setStoreCodes($storeCodes)
+	{
+		$this->storeCodes = $storeCodes;
+	}
+	public function getStoreCodes()
+	{
+		return $this->storeCodes;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setValue(Google_Service_ShoppingContent_Price $value)
+	{
+		$this->value = $value;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CryptoHashConfig extends Google_Model
 {
-  protected $cryptoKeyType = 'Google_Service_DLP_GooglePrivacyDlpV2CryptoKey';
-  protected $cryptoKeyDataType = '';
+	protected $cryptoKeyType = 'Google_Service_DLP_GooglePrivacyDlpV2CryptoKey';
+	protected $cryptoKeyDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2CryptoKey
-   */
-  public function setCryptoKey(Google_Service_DLP_GooglePrivacyDlpV2CryptoKey $cryptoKey)
-  {
-    $this->cryptoKey = $cryptoKey;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2CryptoKey
-   */
-  public function getCryptoKey()
-  {
-    return $this->cryptoKey;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2CryptoKey
+	 */
+	public function setCryptoKey(Google_Service_DLP_GooglePrivacyDlpV2CryptoKey $cryptoKey)
+	{
+		$this->cryptoKey = $cryptoKey;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2CryptoKey
+	 */
+	public function getCryptoKey()
+	{
+		return $this->cryptoKey;
+	}
 }

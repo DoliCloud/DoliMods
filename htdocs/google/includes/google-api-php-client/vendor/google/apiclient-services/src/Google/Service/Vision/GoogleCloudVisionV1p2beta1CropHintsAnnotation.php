@@ -17,22 +17,22 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p2beta1CropHintsAnnotation extends Google_Collection
 {
-  protected $collection_key = 'cropHints';
-  protected $cropHintsType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1CropHint';
-  protected $cropHintsDataType = 'array';
+	protected $collection_key = 'cropHints';
+	protected $cropHintsType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1CropHint';
+	protected $cropHintsDataType = 'array';
 
-  /**
-   * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1CropHint
-   */
-  public function setCropHints($cropHints)
-  {
-    $this->cropHints = $cropHints;
-  }
-  /**
-   * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1CropHint
-   */
-  public function getCropHints()
-  {
-    return $this->cropHints;
-  }
+	/**
+	 * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1CropHint
+	 */
+	public function setCropHints($cropHints)
+	{
+		$this->cropHints = $cropHints;
+	}
+	/**
+	 * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1CropHint
+	 */
+	public function getCropHints()
+	{
+		return $this->cropHints;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2Error extends Google_Collection
 {
-  protected $collection_key = 'timestamps';
-  protected $detailsType = 'Google_Service_DLP_GoogleRpcStatus';
-  protected $detailsDataType = '';
-  public $timestamps;
+	protected $collection_key = 'timestamps';
+	protected $detailsType = 'Google_Service_DLP_GoogleRpcStatus';
+	protected $detailsDataType = '';
+	public $timestamps;
 
-  /**
-   * @param Google_Service_DLP_GoogleRpcStatus
-   */
-  public function setDetails(Google_Service_DLP_GoogleRpcStatus $details)
-  {
-    $this->details = $details;
-  }
-  /**
-   * @return Google_Service_DLP_GoogleRpcStatus
-   */
-  public function getDetails()
-  {
-    return $this->details;
-  }
-  public function setTimestamps($timestamps)
-  {
-    $this->timestamps = $timestamps;
-  }
-  public function getTimestamps()
-  {
-    return $this->timestamps;
-  }
+	/**
+	 * @param Google_Service_DLP_GoogleRpcStatus
+	 */
+	public function setDetails(Google_Service_DLP_GoogleRpcStatus $details)
+	{
+		$this->details = $details;
+	}
+	/**
+	 * @return Google_Service_DLP_GoogleRpcStatus
+	 */
+	public function getDetails()
+	{
+		return $this->details;
+	}
+	public function setTimestamps($timestamps)
+	{
+		$this->timestamps = $timestamps;
+	}
+	public function getTimestamps()
+	{
+		return $this->timestamps;
+	}
 }

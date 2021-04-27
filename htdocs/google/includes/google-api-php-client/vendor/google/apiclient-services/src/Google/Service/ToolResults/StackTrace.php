@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_StackTrace extends Google_Model
 {
-  public $exception;
+	public $exception;
 
-  public function setException($exception)
-  {
-    $this->exception = $exception;
-  }
-  public function getException()
-  {
-    return $this->exception;
-  }
+	public function setException($exception)
+	{
+		$this->exception = $exception;
+	}
+	public function getException()
+	{
+		return $this->exception;
+	}
 }

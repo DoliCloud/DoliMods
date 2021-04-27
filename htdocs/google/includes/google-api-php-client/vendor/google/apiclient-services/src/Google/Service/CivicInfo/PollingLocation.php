@@ -17,119 +17,119 @@
 
 class Google_Service_CivicInfo_PollingLocation extends Google_Collection
 {
-  protected $collection_key = 'sources';
-  protected $addressType = 'Google_Service_CivicInfo_SimpleAddressType';
-  protected $addressDataType = '';
-  public $endDate;
-  public $id;
-  public $latitude;
-  public $longitude;
-  public $name;
-  public $notes;
-  public $pollingHours;
-  protected $sourcesType = 'Google_Service_CivicInfo_Source';
-  protected $sourcesDataType = 'array';
-  public $startDate;
-  public $voterServices;
+	protected $collection_key = 'sources';
+	protected $addressType = 'Google_Service_CivicInfo_SimpleAddressType';
+	protected $addressDataType = '';
+	public $endDate;
+	public $id;
+	public $latitude;
+	public $longitude;
+	public $name;
+	public $notes;
+	public $pollingHours;
+	protected $sourcesType = 'Google_Service_CivicInfo_Source';
+	protected $sourcesDataType = 'array';
+	public $startDate;
+	public $voterServices;
 
-  /**
-   * @param Google_Service_CivicInfo_SimpleAddressType
-   */
-  public function setAddress(Google_Service_CivicInfo_SimpleAddressType $address)
-  {
-    $this->address = $address;
-  }
-  /**
-   * @return Google_Service_CivicInfo_SimpleAddressType
-   */
-  public function getAddress()
-  {
-    return $this->address;
-  }
-  public function setEndDate($endDate)
-  {
-    $this->endDate = $endDate;
-  }
-  public function getEndDate()
-  {
-    return $this->endDate;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setLatitude($latitude)
-  {
-    $this->latitude = $latitude;
-  }
-  public function getLatitude()
-  {
-    return $this->latitude;
-  }
-  public function setLongitude($longitude)
-  {
-    $this->longitude = $longitude;
-  }
-  public function getLongitude()
-  {
-    return $this->longitude;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNotes($notes)
-  {
-    $this->notes = $notes;
-  }
-  public function getNotes()
-  {
-    return $this->notes;
-  }
-  public function setPollingHours($pollingHours)
-  {
-    $this->pollingHours = $pollingHours;
-  }
-  public function getPollingHours()
-  {
-    return $this->pollingHours;
-  }
-  /**
-   * @param Google_Service_CivicInfo_Source
-   */
-  public function setSources($sources)
-  {
-    $this->sources = $sources;
-  }
-  /**
-   * @return Google_Service_CivicInfo_Source
-   */
-  public function getSources()
-  {
-    return $this->sources;
-  }
-  public function setStartDate($startDate)
-  {
-    $this->startDate = $startDate;
-  }
-  public function getStartDate()
-  {
-    return $this->startDate;
-  }
-  public function setVoterServices($voterServices)
-  {
-    $this->voterServices = $voterServices;
-  }
-  public function getVoterServices()
-  {
-    return $this->voterServices;
-  }
+	/**
+	 * @param Google_Service_CivicInfo_SimpleAddressType
+	 */
+	public function setAddress(Google_Service_CivicInfo_SimpleAddressType $address)
+	{
+		$this->address = $address;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_SimpleAddressType
+	 */
+	public function getAddress()
+	{
+		return $this->address;
+	}
+	public function setEndDate($endDate)
+	{
+		$this->endDate = $endDate;
+	}
+	public function getEndDate()
+	{
+		return $this->endDate;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setLatitude($latitude)
+	{
+		$this->latitude = $latitude;
+	}
+	public function getLatitude()
+	{
+		return $this->latitude;
+	}
+	public function setLongitude($longitude)
+	{
+		$this->longitude = $longitude;
+	}
+	public function getLongitude()
+	{
+		return $this->longitude;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNotes($notes)
+	{
+		$this->notes = $notes;
+	}
+	public function getNotes()
+	{
+		return $this->notes;
+	}
+	public function setPollingHours($pollingHours)
+	{
+		$this->pollingHours = $pollingHours;
+	}
+	public function getPollingHours()
+	{
+		return $this->pollingHours;
+	}
+	/**
+	 * @param Google_Service_CivicInfo_Source
+	 */
+	public function setSources($sources)
+	{
+		$this->sources = $sources;
+	}
+	/**
+	 * @return Google_Service_CivicInfo_Source
+	 */
+	public function getSources()
+	{
+		return $this->sources;
+	}
+	public function setStartDate($startDate)
+	{
+		$this->startDate = $startDate;
+	}
+	public function getStartDate()
+	{
+		return $this->startDate;
+	}
+	public function setVoterServices($voterServices)
+	{
+		$this->voterServices = $voterServices;
+	}
+	public function getVoterServices()
+	{
+		return $this->voterServices;
+	}
 }

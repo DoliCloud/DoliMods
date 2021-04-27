@@ -17,48 +17,48 @@
 
 class Google_Service_ShoppingContent_ReturnPolicySeasonalOverride extends Google_Model
 {
-  public $endDate;
-  public $name;
-  protected $policyType = 'Google_Service_ShoppingContent_ReturnPolicyPolicy';
-  protected $policyDataType = '';
-  public $startDate;
+	public $endDate;
+	public $name;
+	protected $policyType = 'Google_Service_ShoppingContent_ReturnPolicyPolicy';
+	protected $policyDataType = '';
+	public $startDate;
 
-  public function setEndDate($endDate)
-  {
-    $this->endDate = $endDate;
-  }
-  public function getEndDate()
-  {
-    return $this->endDate;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_ReturnPolicyPolicy
-   */
-  public function setPolicy(Google_Service_ShoppingContent_ReturnPolicyPolicy $policy)
-  {
-    $this->policy = $policy;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_ReturnPolicyPolicy
-   */
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
-  public function setStartDate($startDate)
-  {
-    $this->startDate = $startDate;
-  }
-  public function getStartDate()
-  {
-    return $this->startDate;
-  }
+	public function setEndDate($endDate)
+	{
+		$this->endDate = $endDate;
+	}
+	public function getEndDate()
+	{
+		return $this->endDate;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_ReturnPolicyPolicy
+	 */
+	public function setPolicy(Google_Service_ShoppingContent_ReturnPolicyPolicy $policy)
+	{
+		$this->policy = $policy;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_ReturnPolicyPolicy
+	 */
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
+	public function setStartDate($startDate)
+	{
+		$this->startDate = $startDate;
+	}
+	public function getStartDate()
+	{
+		return $this->startDate;
+	}
 }

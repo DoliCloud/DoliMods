@@ -25,21 +25,21 @@
  */
 class Google_Service_DisplayVideo_Resource_AdvertisersAssets extends Google_Service_Resource
 {
-  /**
-   * Uploads an asset. Returns the ID of the newly uploaded asset if successful.
-   * The asset file size should be no more than 10 MB for images, 200 MB for ZIP
-   * files, and 1 GB for videos. (assets.upload)
-   *
-   * @param string $advertiserId Required. The ID of the advertiser this asset
-   * belongs to.
-   * @param Google_Service_DisplayVideo_CreateAssetRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_DisplayVideo_CreateAssetResponse
-   */
-  public function upload($advertiserId, Google_Service_DisplayVideo_CreateAssetRequest $postBody, $optParams = array())
-  {
-    $params = array('advertiserId' => $advertiserId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('upload', array($params), "Google_Service_DisplayVideo_CreateAssetResponse");
-  }
+	/**
+	 * Uploads an asset. Returns the ID of the newly uploaded asset if successful.
+	 * The asset file size should be no more than 10 MB for images, 200 MB for ZIP
+	 * files, and 1 GB for videos. (assets.upload)
+	 *
+	 * @param string $advertiserId Required. The ID of the advertiser this asset
+	 *                             belongs to.
+	 * @param Google_Service_DisplayVideo_CreateAssetRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_DisplayVideo_CreateAssetResponse
+	 */
+	public function upload($advertiserId, Google_Service_DisplayVideo_CreateAssetRequest $postBody, $optParams = array())
+	{
+		$params = array('advertiserId' => $advertiserId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('upload', array($params), "Google_Service_DisplayVideo_CreateAssetResponse");
+	}
 }

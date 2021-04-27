@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_OperatingSystemVersionsListResponse extends Google_Collection
 {
-  protected $collection_key = 'operatingSystemVersions';
-  public $kind;
-  protected $operatingSystemVersionsType = 'Google_Service_Dfareporting_OperatingSystemVersion';
-  protected $operatingSystemVersionsDataType = 'array';
+	protected $collection_key = 'operatingSystemVersions';
+	public $kind;
+	protected $operatingSystemVersionsType = 'Google_Service_Dfareporting_OperatingSystemVersion';
+	protected $operatingSystemVersionsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Dfareporting_OperatingSystemVersion
-   */
-  public function setOperatingSystemVersions($operatingSystemVersions)
-  {
-    $this->operatingSystemVersions = $operatingSystemVersions;
-  }
-  /**
-   * @return Google_Service_Dfareporting_OperatingSystemVersion
-   */
-  public function getOperatingSystemVersions()
-  {
-    return $this->operatingSystemVersions;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_OperatingSystemVersion
+	 */
+	public function setOperatingSystemVersions($operatingSystemVersions)
+	{
+		$this->operatingSystemVersions = $operatingSystemVersions;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_OperatingSystemVersion
+	 */
+	public function getOperatingSystemVersions()
+	{
+		return $this->operatingSystemVersions;
+	}
 }

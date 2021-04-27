@@ -17,33 +17,33 @@
 
 class Google_Service_Testing_Orientation extends Google_Collection
 {
-  protected $collection_key = 'tags';
-  public $id;
-  public $name;
-  public $tags;
+	protected $collection_key = 'tags';
+	public $id;
+	public $name;
+	public $tags;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setTags($tags)
-  {
-    $this->tags = $tags;
-  }
-  public function getTags()
-  {
-    return $this->tags;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setTags($tags)
+	{
+		$this->tags = $tags;
+	}
+	public function getTags()
+	{
+		return $this->tags;
+	}
 }

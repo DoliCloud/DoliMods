@@ -17,49 +17,49 @@
 
 class Google_Service_Dataproc_TemplateParameter extends Google_Collection
 {
-  protected $collection_key = 'fields';
-  public $description;
-  public $fields;
-  public $name;
-  protected $validationType = 'Google_Service_Dataproc_ParameterValidation';
-  protected $validationDataType = '';
+	protected $collection_key = 'fields';
+	public $description;
+	public $fields;
+	public $name;
+	protected $validationType = 'Google_Service_Dataproc_ParameterValidation';
+	protected $validationDataType = '';
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Dataproc_ParameterValidation
-   */
-  public function setValidation(Google_Service_Dataproc_ParameterValidation $validation)
-  {
-    $this->validation = $validation;
-  }
-  /**
-   * @return Google_Service_Dataproc_ParameterValidation
-   */
-  public function getValidation()
-  {
-    return $this->validation;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Dataproc_ParameterValidation
+	 */
+	public function setValidation(Google_Service_Dataproc_ParameterValidation $validation)
+	{
+		$this->validation = $validation;
+	}
+	/**
+	 * @return Google_Service_Dataproc_ParameterValidation
+	 */
+	public function getValidation()
+	{
+		return $this->validation;
+	}
 }

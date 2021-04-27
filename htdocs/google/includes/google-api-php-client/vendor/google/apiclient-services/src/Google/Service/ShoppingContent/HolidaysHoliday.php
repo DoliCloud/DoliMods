@@ -17,59 +17,59 @@
 
 class Google_Service_ShoppingContent_HolidaysHoliday extends Google_Model
 {
-  public $countryCode;
-  public $date;
-  public $deliveryGuaranteeDate;
-  public $deliveryGuaranteeHour;
-  public $id;
-  public $type;
+	public $countryCode;
+	public $date;
+	public $deliveryGuaranteeDate;
+	public $deliveryGuaranteeHour;
+	public $id;
+	public $type;
 
-  public function setCountryCode($countryCode)
-  {
-    $this->countryCode = $countryCode;
-  }
-  public function getCountryCode()
-  {
-    return $this->countryCode;
-  }
-  public function setDate($date)
-  {
-    $this->date = $date;
-  }
-  public function getDate()
-  {
-    return $this->date;
-  }
-  public function setDeliveryGuaranteeDate($deliveryGuaranteeDate)
-  {
-    $this->deliveryGuaranteeDate = $deliveryGuaranteeDate;
-  }
-  public function getDeliveryGuaranteeDate()
-  {
-    return $this->deliveryGuaranteeDate;
-  }
-  public function setDeliveryGuaranteeHour($deliveryGuaranteeHour)
-  {
-    $this->deliveryGuaranteeHour = $deliveryGuaranteeHour;
-  }
-  public function getDeliveryGuaranteeHour()
-  {
-    return $this->deliveryGuaranteeHour;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setCountryCode($countryCode)
+	{
+		$this->countryCode = $countryCode;
+	}
+	public function getCountryCode()
+	{
+		return $this->countryCode;
+	}
+	public function setDate($date)
+	{
+		$this->date = $date;
+	}
+	public function getDate()
+	{
+		return $this->date;
+	}
+	public function setDeliveryGuaranteeDate($deliveryGuaranteeDate)
+	{
+		$this->deliveryGuaranteeDate = $deliveryGuaranteeDate;
+	}
+	public function getDeliveryGuaranteeDate()
+	{
+		return $this->deliveryGuaranteeDate;
+	}
+	public function setDeliveryGuaranteeHour($deliveryGuaranteeHour)
+	{
+		$this->deliveryGuaranteeHour = $deliveryGuaranteeHour;
+	}
+	public function getDeliveryGuaranteeHour()
+	{
+		return $this->deliveryGuaranteeHour;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

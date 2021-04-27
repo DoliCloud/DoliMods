@@ -17,39 +17,39 @@
 
 class Google_Service_CloudRun_ConfigMapEnvSource extends Google_Model
 {
-  protected $localObjectReferenceType = 'Google_Service_CloudRun_LocalObjectReference';
-  protected $localObjectReferenceDataType = '';
-  public $name;
-  public $optional;
+	protected $localObjectReferenceType = 'Google_Service_CloudRun_LocalObjectReference';
+	protected $localObjectReferenceDataType = '';
+	public $name;
+	public $optional;
 
-  /**
-   * @param Google_Service_CloudRun_LocalObjectReference
-   */
-  public function setLocalObjectReference(Google_Service_CloudRun_LocalObjectReference $localObjectReference)
-  {
-    $this->localObjectReference = $localObjectReference;
-  }
-  /**
-   * @return Google_Service_CloudRun_LocalObjectReference
-   */
-  public function getLocalObjectReference()
-  {
-    return $this->localObjectReference;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOptional($optional)
-  {
-    $this->optional = $optional;
-  }
-  public function getOptional()
-  {
-    return $this->optional;
-  }
+	/**
+	 * @param Google_Service_CloudRun_LocalObjectReference
+	 */
+	public function setLocalObjectReference(Google_Service_CloudRun_LocalObjectReference $localObjectReference)
+	{
+		$this->localObjectReference = $localObjectReference;
+	}
+	/**
+	 * @return Google_Service_CloudRun_LocalObjectReference
+	 */
+	public function getLocalObjectReference()
+	{
+		return $this->localObjectReference;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOptional($optional)
+	{
+		$this->optional = $optional;
+	}
+	public function getOptional()
+	{
+		return $this->optional;
+	}
 }

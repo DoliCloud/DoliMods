@@ -17,33 +17,33 @@
 
 class Google_Service_IAMCredentials_GenerateIdTokenRequest extends Google_Collection
 {
-  protected $collection_key = 'delegates';
-  public $audience;
-  public $delegates;
-  public $includeEmail;
+	protected $collection_key = 'delegates';
+	public $audience;
+	public $delegates;
+	public $includeEmail;
 
-  public function setAudience($audience)
-  {
-    $this->audience = $audience;
-  }
-  public function getAudience()
-  {
-    return $this->audience;
-  }
-  public function setDelegates($delegates)
-  {
-    $this->delegates = $delegates;
-  }
-  public function getDelegates()
-  {
-    return $this->delegates;
-  }
-  public function setIncludeEmail($includeEmail)
-  {
-    $this->includeEmail = $includeEmail;
-  }
-  public function getIncludeEmail()
-  {
-    return $this->includeEmail;
-  }
+	public function setAudience($audience)
+	{
+		$this->audience = $audience;
+	}
+	public function getAudience()
+	{
+		return $this->audience;
+	}
+	public function setDelegates($delegates)
+	{
+		$this->delegates = $delegates;
+	}
+	public function getDelegates()
+	{
+		return $this->delegates;
+	}
+	public function setIncludeEmail($includeEmail)
+	{
+		$this->includeEmail = $includeEmail;
+	}
+	public function getIncludeEmail()
+	{
+		return $this->includeEmail;
+	}
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_ToolResults_AppStartTime extends Google_Model
 {
-  protected $fullyDrawnTimeType = 'Google_Service_ToolResults_Duration';
-  protected $fullyDrawnTimeDataType = '';
-  protected $initialDisplayTimeType = 'Google_Service_ToolResults_Duration';
-  protected $initialDisplayTimeDataType = '';
+	protected $fullyDrawnTimeType = 'Google_Service_ToolResults_Duration';
+	protected $fullyDrawnTimeDataType = '';
+	protected $initialDisplayTimeType = 'Google_Service_ToolResults_Duration';
+	protected $initialDisplayTimeDataType = '';
 
-  /**
-   * @param Google_Service_ToolResults_Duration
-   */
-  public function setFullyDrawnTime(Google_Service_ToolResults_Duration $fullyDrawnTime)
-  {
-    $this->fullyDrawnTime = $fullyDrawnTime;
-  }
-  /**
-   * @return Google_Service_ToolResults_Duration
-   */
-  public function getFullyDrawnTime()
-  {
-    return $this->fullyDrawnTime;
-  }
-  /**
-   * @param Google_Service_ToolResults_Duration
-   */
-  public function setInitialDisplayTime(Google_Service_ToolResults_Duration $initialDisplayTime)
-  {
-    $this->initialDisplayTime = $initialDisplayTime;
-  }
-  /**
-   * @return Google_Service_ToolResults_Duration
-   */
-  public function getInitialDisplayTime()
-  {
-    return $this->initialDisplayTime;
-  }
+	/**
+	 * @param Google_Service_ToolResults_Duration
+	 */
+	public function setFullyDrawnTime(Google_Service_ToolResults_Duration $fullyDrawnTime)
+	{
+		$this->fullyDrawnTime = $fullyDrawnTime;
+	}
+	/**
+	 * @return Google_Service_ToolResults_Duration
+	 */
+	public function getFullyDrawnTime()
+	{
+		return $this->fullyDrawnTime;
+	}
+	/**
+	 * @param Google_Service_ToolResults_Duration
+	 */
+	public function setInitialDisplayTime(Google_Service_ToolResults_Duration $initialDisplayTime)
+	{
+		$this->initialDisplayTime = $initialDisplayTime;
+	}
+	/**
+	 * @return Google_Service_ToolResults_Duration
+	 */
+	public function getInitialDisplayTime()
+	{
+		return $this->initialDisplayTime;
+	}
 }

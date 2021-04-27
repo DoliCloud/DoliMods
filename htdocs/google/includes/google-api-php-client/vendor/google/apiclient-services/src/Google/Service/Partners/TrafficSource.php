@@ -17,23 +17,23 @@
 
 class Google_Service_Partners_TrafficSource extends Google_Model
 {
-  public $trafficSourceId;
-  public $trafficSubId;
+	public $trafficSourceId;
+	public $trafficSubId;
 
-  public function setTrafficSourceId($trafficSourceId)
-  {
-    $this->trafficSourceId = $trafficSourceId;
-  }
-  public function getTrafficSourceId()
-  {
-    return $this->trafficSourceId;
-  }
-  public function setTrafficSubId($trafficSubId)
-  {
-    $this->trafficSubId = $trafficSubId;
-  }
-  public function getTrafficSubId()
-  {
-    return $this->trafficSubId;
-  }
+	public function setTrafficSourceId($trafficSourceId)
+	{
+		$this->trafficSourceId = $trafficSourceId;
+	}
+	public function getTrafficSourceId()
+	{
+		return $this->trafficSourceId;
+	}
+	public function setTrafficSubId($trafficSubId)
+	{
+		$this->trafficSubId = $trafficSubId;
+	}
+	public function getTrafficSubId()
+	{
+		return $this->trafficSubId;
+	}
 }

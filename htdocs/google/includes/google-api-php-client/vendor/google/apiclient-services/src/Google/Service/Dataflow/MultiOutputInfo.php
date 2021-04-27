@@ -17,14 +17,14 @@
 
 class Google_Service_Dataflow_MultiOutputInfo extends Google_Model
 {
-  public $tag;
+	public $tag;
 
-  public function setTag($tag)
-  {
-    $this->tag = $tag;
-  }
-  public function getTag()
-  {
-    return $this->tag;
-  }
+	public function setTag($tag)
+	{
+		$this->tag = $tag;
+	}
+	public function getTag()
+	{
+		return $this->tag;
+	}
 }

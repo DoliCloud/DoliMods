@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_Asset extends Google_Model
 {
-  public $content;
-  public $mediaId;
+	public $content;
+	public $mediaId;
 
-  public function setContent($content)
-  {
-    $this->content = $content;
-  }
-  public function getContent()
-  {
-    return $this->content;
-  }
-  public function setMediaId($mediaId)
-  {
-    $this->mediaId = $mediaId;
-  }
-  public function getMediaId()
-  {
-    return $this->mediaId;
-  }
+	public function setContent($content)
+	{
+		$this->content = $content;
+	}
+	public function getContent()
+	{
+		return $this->content;
+	}
+	public function setMediaId($mediaId)
+	{
+		$this->mediaId = $mediaId;
+	}
+	public function getMediaId()
+	{
+		return $this->mediaId;
+	}
 }

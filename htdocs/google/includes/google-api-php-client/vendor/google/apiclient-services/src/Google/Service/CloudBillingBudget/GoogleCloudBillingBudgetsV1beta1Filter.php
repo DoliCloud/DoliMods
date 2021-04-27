@@ -17,51 +17,51 @@
 
 class Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Filter extends Google_Collection
 {
-  protected $collection_key = 'subaccounts';
-  public $creditTypesTreatment;
-  public $labels;
-  public $projects;
-  public $services;
-  public $subaccounts;
+	protected $collection_key = 'subaccounts';
+	public $creditTypesTreatment;
+	public $labels;
+	public $projects;
+	public $services;
+	public $subaccounts;
 
-  public function setCreditTypesTreatment($creditTypesTreatment)
-  {
-    $this->creditTypesTreatment = $creditTypesTreatment;
-  }
-  public function getCreditTypesTreatment()
-  {
-    return $this->creditTypesTreatment;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setProjects($projects)
-  {
-    $this->projects = $projects;
-  }
-  public function getProjects()
-  {
-    return $this->projects;
-  }
-  public function setServices($services)
-  {
-    $this->services = $services;
-  }
-  public function getServices()
-  {
-    return $this->services;
-  }
-  public function setSubaccounts($subaccounts)
-  {
-    $this->subaccounts = $subaccounts;
-  }
-  public function getSubaccounts()
-  {
-    return $this->subaccounts;
-  }
+	public function setCreditTypesTreatment($creditTypesTreatment)
+	{
+		$this->creditTypesTreatment = $creditTypesTreatment;
+	}
+	public function getCreditTypesTreatment()
+	{
+		return $this->creditTypesTreatment;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setProjects($projects)
+	{
+		$this->projects = $projects;
+	}
+	public function getProjects()
+	{
+		return $this->projects;
+	}
+	public function setServices($services)
+	{
+		$this->services = $services;
+	}
+	public function getServices()
+	{
+		return $this->services;
+	}
+	public function setSubaccounts($subaccounts)
+	{
+		$this->subaccounts = $subaccounts;
+	}
+	public function getSubaccounts()
+	{
+		return $this->subaccounts;
+	}
 }

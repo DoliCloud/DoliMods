@@ -17,91 +17,91 @@
 
 class Google_Service_YouTube_ChannelSnippet extends Google_Model
 {
-  public $country;
-  public $customUrl;
-  public $defaultLanguage;
-  public $description;
-  protected $localizedType = 'Google_Service_YouTube_ChannelLocalization';
-  protected $localizedDataType = '';
-  public $publishedAt;
-  protected $thumbnailsType = 'Google_Service_YouTube_ThumbnailDetails';
-  protected $thumbnailsDataType = '';
-  public $title;
+	public $country;
+	public $customUrl;
+	public $defaultLanguage;
+	public $description;
+	protected $localizedType = 'Google_Service_YouTube_ChannelLocalization';
+	protected $localizedDataType = '';
+	public $publishedAt;
+	protected $thumbnailsType = 'Google_Service_YouTube_ThumbnailDetails';
+	protected $thumbnailsDataType = '';
+	public $title;
 
-  public function setCountry($country)
-  {
-    $this->country = $country;
-  }
-  public function getCountry()
-  {
-    return $this->country;
-  }
-  public function setCustomUrl($customUrl)
-  {
-    $this->customUrl = $customUrl;
-  }
-  public function getCustomUrl()
-  {
-    return $this->customUrl;
-  }
-  public function setDefaultLanguage($defaultLanguage)
-  {
-    $this->defaultLanguage = $defaultLanguage;
-  }
-  public function getDefaultLanguage()
-  {
-    return $this->defaultLanguage;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  /**
-   * @param Google_Service_YouTube_ChannelLocalization
-   */
-  public function setLocalized(Google_Service_YouTube_ChannelLocalization $localized)
-  {
-    $this->localized = $localized;
-  }
-  /**
-   * @return Google_Service_YouTube_ChannelLocalization
-   */
-  public function getLocalized()
-  {
-    return $this->localized;
-  }
-  public function setPublishedAt($publishedAt)
-  {
-    $this->publishedAt = $publishedAt;
-  }
-  public function getPublishedAt()
-  {
-    return $this->publishedAt;
-  }
-  /**
-   * @param Google_Service_YouTube_ThumbnailDetails
-   */
-  public function setThumbnails(Google_Service_YouTube_ThumbnailDetails $thumbnails)
-  {
-    $this->thumbnails = $thumbnails;
-  }
-  /**
-   * @return Google_Service_YouTube_ThumbnailDetails
-   */
-  public function getThumbnails()
-  {
-    return $this->thumbnails;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setCountry($country)
+	{
+		$this->country = $country;
+	}
+	public function getCountry()
+	{
+		return $this->country;
+	}
+	public function setCustomUrl($customUrl)
+	{
+		$this->customUrl = $customUrl;
+	}
+	public function getCustomUrl()
+	{
+		return $this->customUrl;
+	}
+	public function setDefaultLanguage($defaultLanguage)
+	{
+		$this->defaultLanguage = $defaultLanguage;
+	}
+	public function getDefaultLanguage()
+	{
+		return $this->defaultLanguage;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	/**
+	 * @param Google_Service_YouTube_ChannelLocalization
+	 */
+	public function setLocalized(Google_Service_YouTube_ChannelLocalization $localized)
+	{
+		$this->localized = $localized;
+	}
+	/**
+	 * @return Google_Service_YouTube_ChannelLocalization
+	 */
+	public function getLocalized()
+	{
+		return $this->localized;
+	}
+	public function setPublishedAt($publishedAt)
+	{
+		$this->publishedAt = $publishedAt;
+	}
+	public function getPublishedAt()
+	{
+		return $this->publishedAt;
+	}
+	/**
+	 * @param Google_Service_YouTube_ThumbnailDetails
+	 */
+	public function setThumbnails(Google_Service_YouTube_ThumbnailDetails $thumbnails)
+	{
+		$this->thumbnails = $thumbnails;
+	}
+	/**
+	 * @return Google_Service_YouTube_ThumbnailDetails
+	 */
+	public function getThumbnails()
+	{
+		return $this->thumbnails;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

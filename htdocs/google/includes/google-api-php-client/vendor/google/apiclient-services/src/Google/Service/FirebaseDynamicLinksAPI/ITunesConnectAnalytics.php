@@ -17,41 +17,41 @@
 
 class Google_Service_FirebaseDynamicLinksAPI_ITunesConnectAnalytics extends Google_Model
 {
-  public $at;
-  public $ct;
-  public $mt;
-  public $pt;
+	public $at;
+	public $ct;
+	public $mt;
+	public $pt;
 
-  public function setAt($at)
-  {
-    $this->at = $at;
-  }
-  public function getAt()
-  {
-    return $this->at;
-  }
-  public function setCt($ct)
-  {
-    $this->ct = $ct;
-  }
-  public function getCt()
-  {
-    return $this->ct;
-  }
-  public function setMt($mt)
-  {
-    $this->mt = $mt;
-  }
-  public function getMt()
-  {
-    return $this->mt;
-  }
-  public function setPt($pt)
-  {
-    $this->pt = $pt;
-  }
-  public function getPt()
-  {
-    return $this->pt;
-  }
+	public function setAt($at)
+	{
+		$this->at = $at;
+	}
+	public function getAt()
+	{
+		return $this->at;
+	}
+	public function setCt($ct)
+	{
+		$this->ct = $ct;
+	}
+	public function getCt()
+	{
+		return $this->ct;
+	}
+	public function setMt($mt)
+	{
+		$this->mt = $mt;
+	}
+	public function getMt()
+	{
+		return $this->mt;
+	}
+	public function setPt($pt)
+	{
+		$this->pt = $pt;
+	}
+	public function getPt()
+	{
+		return $this->pt;
+	}
 }

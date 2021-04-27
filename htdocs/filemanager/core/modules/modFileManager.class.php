@@ -25,7 +25,7 @@
  *      \ingroup    filemanager
  *      \brief      Fichier de description et activation du module FileManager
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 /**
  *		Class to describe moule filemanager
@@ -45,10 +45,10 @@ class modFileManager extends DolibarrModules
 
 		$this->family = "ecm";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "A file manager";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		$this->version = '6.0.0';                        // 'experimental' or 'dolibarr' or version
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
@@ -80,8 +80,8 @@ class modFileManager extends DolibarrModules
 		//-------------
 		$this->depends = array();
 		$this->requiredby = array();
-        $this->phpmin = array(4,1);                    // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,6,-2);  // Minimum version of Dolibarr required by module
+		$this->phpmin = array(4,1);                    // Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(3,6,-2);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("companies","filemanager@filemanager");
 
 		// Constantes
@@ -118,15 +118,15 @@ class modFileManager extends DolibarrModules
 		$this->rights[$r][5] = '';
 		$r++;
 
-        $this->rights[$r][0] = 101202;
-        $this->rights[$r][1] = 'Can manage directories or files (upload/edit/delete) from the file manager';
-        $this->rights[$r][2] = 'w';
-        $this->rights[$r][3] = 0;
-        $this->rights[$r][4] = 'create';
-        $this->rights[$r][5] = '';
-        $r++;
+		$this->rights[$r][0] = 101202;
+		$this->rights[$r][1] = 'Can manage directories or files (upload/edit/delete) from the file manager';
+		$this->rights[$r][2] = 'w';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'create';
+		$this->rights[$r][5] = '';
+		$r++;
 
-        // Main menu entries
+		// Main menu entries
 		$this->menu = array();			// List of menus to add
 		$r=0;
 
@@ -176,10 +176,10 @@ class modFileManager extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
+	function init($options = '')
 	{
 		// Prevent pb of modules not correctly disabled
 		//$this->remove($options);
@@ -188,7 +188,7 @@ class modFileManager extends DolibarrModules
 
 		$result=$this->load_tables();
 
-		return $this->_init($sql,$options);
+		return $this->_init($sql, $options);
 	}
 
 	/**
@@ -198,11 +198,11 @@ class modFileManager extends DolibarrModules
 	 *	@param	string	$options		Options when disabling module
 	 *	@return	void
 	 */
-	function remove($options='')
+	function remove($options = '')
 	{
 		$sql = array();
 
-		return $this->_remove($sql,$options);
+		return $this->_remove($sql, $options);
 	}
 
 	/**
@@ -217,5 +217,4 @@ class modFileManager extends DolibarrModules
 	{
 		return $this->_load_tables('/filemanager/sql/');
 	}
-
 }

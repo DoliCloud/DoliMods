@@ -17,41 +17,41 @@
 
 class Google_Service_CloudHealthcare_Expr extends Google_Model
 {
-  public $description;
-  public $expression;
-  public $location;
-  public $title;
+	public $description;
+	public $expression;
+	public $location;
+	public $title;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setExpression($expression)
-  {
-    $this->expression = $expression;
-  }
-  public function getExpression()
-  {
-    return $this->expression;
-  }
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setExpression($expression)
+	{
+		$this->expression = $expression;
+	}
+	public function getExpression()
+	{
+		return $this->expression;
+	}
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2KAnonymityEquivalenceClass extends Google_Collection
 {
-  protected $collection_key = 'quasiIdsValues';
-  public $equivalenceClassSize;
-  protected $quasiIdsValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
-  protected $quasiIdsValuesDataType = 'array';
+	protected $collection_key = 'quasiIdsValues';
+	public $equivalenceClassSize;
+	protected $quasiIdsValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
+	protected $quasiIdsValuesDataType = 'array';
 
-  public function setEquivalenceClassSize($equivalenceClassSize)
-  {
-    $this->equivalenceClassSize = $equivalenceClassSize;
-  }
-  public function getEquivalenceClassSize()
-  {
-    return $this->equivalenceClassSize;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2Value
-   */
-  public function setQuasiIdsValues($quasiIdsValues)
-  {
-    $this->quasiIdsValues = $quasiIdsValues;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2Value
-   */
-  public function getQuasiIdsValues()
-  {
-    return $this->quasiIdsValues;
-  }
+	public function setEquivalenceClassSize($equivalenceClassSize)
+	{
+		$this->equivalenceClassSize = $equivalenceClassSize;
+	}
+	public function getEquivalenceClassSize()
+	{
+		return $this->equivalenceClassSize;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2Value
+	 */
+	public function setQuasiIdsValues($quasiIdsValues)
+	{
+		$this->quasiIdsValues = $quasiIdsValues;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2Value
+	 */
+	public function getQuasiIdsValues()
+	{
+		return $this->quasiIdsValues;
+	}
 }

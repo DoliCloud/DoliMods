@@ -17,23 +17,23 @@
 
 class Google_Service_Sheets_ChartCustomNumberFormatOptions extends Google_Model
 {
-  public $prefix;
-  public $suffix;
+	public $prefix;
+	public $suffix;
 
-  public function setPrefix($prefix)
-  {
-    $this->prefix = $prefix;
-  }
-  public function getPrefix()
-  {
-    return $this->prefix;
-  }
-  public function setSuffix($suffix)
-  {
-    $this->suffix = $suffix;
-  }
-  public function getSuffix()
-  {
-    return $this->suffix;
-  }
+	public function setPrefix($prefix)
+	{
+		$this->prefix = $prefix;
+	}
+	public function getPrefix()
+	{
+		return $this->prefix;
+	}
+	public function setSuffix($suffix)
+	{
+		$this->suffix = $suffix;
+	}
+	public function getSuffix()
+	{
+		return $this->suffix;
+	}
 }

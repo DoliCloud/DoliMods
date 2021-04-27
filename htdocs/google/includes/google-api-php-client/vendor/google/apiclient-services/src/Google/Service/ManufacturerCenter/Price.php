@@ -17,23 +17,23 @@
 
 class Google_Service_ManufacturerCenter_Price extends Google_Model
 {
-  public $amount;
-  public $currency;
+	public $amount;
+	public $currency;
 
-  public function setAmount($amount)
-  {
-    $this->amount = $amount;
-  }
-  public function getAmount()
-  {
-    return $this->amount;
-  }
-  public function setCurrency($currency)
-  {
-    $this->currency = $currency;
-  }
-  public function getCurrency()
-  {
-    return $this->currency;
-  }
+	public function setAmount($amount)
+	{
+		$this->amount = $amount;
+	}
+	public function getAmount()
+	{
+		return $this->amount;
+	}
+	public function setCurrency($currency)
+	{
+		$this->currency = $currency;
+	}
+	public function getCurrency()
+	{
+		return $this->currency;
+	}
 }

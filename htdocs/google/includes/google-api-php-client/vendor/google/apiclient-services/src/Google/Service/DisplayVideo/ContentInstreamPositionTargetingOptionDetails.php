@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_ContentInstreamPositionTargetingOptionDetails extends Google_Model
 {
-  public $contentInstreamPosition;
+	public $contentInstreamPosition;
 
-  public function setContentInstreamPosition($contentInstreamPosition)
-  {
-    $this->contentInstreamPosition = $contentInstreamPosition;
-  }
-  public function getContentInstreamPosition()
-  {
-    return $this->contentInstreamPosition;
-  }
+	public function setContentInstreamPosition($contentInstreamPosition)
+	{
+		$this->contentInstreamPosition = $contentInstreamPosition;
+	}
+	public function getContentInstreamPosition()
+	{
+		return $this->contentInstreamPosition;
+	}
 }

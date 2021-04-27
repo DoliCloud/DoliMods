@@ -17,24 +17,24 @@
 
 class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices extends Google_Collection
 {
-  protected $collection_key = 'allowedServices';
-  public $allowedServices;
-  public $enableRestriction;
+	protected $collection_key = 'allowedServices';
+	public $allowedServices;
+	public $enableRestriction;
 
-  public function setAllowedServices($allowedServices)
-  {
-    $this->allowedServices = $allowedServices;
-  }
-  public function getAllowedServices()
-  {
-    return $this->allowedServices;
-  }
-  public function setEnableRestriction($enableRestriction)
-  {
-    $this->enableRestriction = $enableRestriction;
-  }
-  public function getEnableRestriction()
-  {
-    return $this->enableRestriction;
-  }
+	public function setAllowedServices($allowedServices)
+	{
+		$this->allowedServices = $allowedServices;
+	}
+	public function getAllowedServices()
+	{
+		return $this->allowedServices;
+	}
+	public function setEnableRestriction($enableRestriction)
+	{
+		$this->enableRestriction = $enableRestriction;
+	}
+	public function getEnableRestriction()
+	{
+		return $this->enableRestriction;
+	}
 }

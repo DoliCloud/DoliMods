@@ -17,24 +17,24 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity extends Google_Collection
 {
-  protected $collection_key = 'synonyms';
-  public $synonyms;
-  public $value;
+	protected $collection_key = 'synonyms';
+	public $synonyms;
+	public $value;
 
-  public function setSynonyms($synonyms)
-  {
-    $this->synonyms = $synonyms;
-  }
-  public function getSynonyms()
-  {
-    return $this->synonyms;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setSynonyms($synonyms)
+	{
+		$this->synonyms = $synonyms;
+	}
+	public function getSynonyms()
+	{
+		return $this->synonyms;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

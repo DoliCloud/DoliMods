@@ -17,24 +17,24 @@
 
 class Google_Service_Iam_PermissionDelta extends Google_Collection
 {
-  protected $collection_key = 'removedPermissions';
-  public $addedPermissions;
-  public $removedPermissions;
+	protected $collection_key = 'removedPermissions';
+	public $addedPermissions;
+	public $removedPermissions;
 
-  public function setAddedPermissions($addedPermissions)
-  {
-    $this->addedPermissions = $addedPermissions;
-  }
-  public function getAddedPermissions()
-  {
-    return $this->addedPermissions;
-  }
-  public function setRemovedPermissions($removedPermissions)
-  {
-    $this->removedPermissions = $removedPermissions;
-  }
-  public function getRemovedPermissions()
-  {
-    return $this->removedPermissions;
-  }
+	public function setAddedPermissions($addedPermissions)
+	{
+		$this->addedPermissions = $addedPermissions;
+	}
+	public function getAddedPermissions()
+	{
+		return $this->addedPermissions;
+	}
+	public function setRemovedPermissions($removedPermissions)
+	{
+		$this->removedPermissions = $removedPermissions;
+	}
+	public function getRemovedPermissions()
+	{
+		return $this->removedPermissions;
+	}
 }

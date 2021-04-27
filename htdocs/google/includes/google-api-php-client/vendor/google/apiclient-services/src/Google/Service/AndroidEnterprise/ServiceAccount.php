@@ -17,30 +17,30 @@
 
 class Google_Service_AndroidEnterprise_ServiceAccount extends Google_Model
 {
-  protected $keyType = 'Google_Service_AndroidEnterprise_ServiceAccountKey';
-  protected $keyDataType = '';
-  public $name;
+	protected $keyType = 'Google_Service_AndroidEnterprise_ServiceAccountKey';
+	protected $keyDataType = '';
+	public $name;
 
-  /**
-   * @param Google_Service_AndroidEnterprise_ServiceAccountKey
-   */
-  public function setKey(Google_Service_AndroidEnterprise_ServiceAccountKey $key)
-  {
-    $this->key = $key;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_ServiceAccountKey
-   */
-  public function getKey()
-  {
-    return $this->key;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_ServiceAccountKey
+	 */
+	public function setKey(Google_Service_AndroidEnterprise_ServiceAccountKey $key)
+	{
+		$this->key = $key;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_ServiceAccountKey
+	 */
+	public function getKey()
+	{
+		return $this->key;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

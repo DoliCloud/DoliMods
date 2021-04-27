@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidEnterprise_DevicesListResponse extends Google_Collection
 {
-  protected $collection_key = 'device';
-  protected $deviceType = 'Google_Service_AndroidEnterprise_Device';
-  protected $deviceDataType = 'array';
+	protected $collection_key = 'device';
+	protected $deviceType = 'Google_Service_AndroidEnterprise_Device';
+	protected $deviceDataType = 'array';
 
-  /**
-   * @param Google_Service_AndroidEnterprise_Device
-   */
-  public function setDevice($device)
-  {
-    $this->device = $device;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_Device
-   */
-  public function getDevice()
-  {
-    return $this->device;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_Device
+	 */
+	public function setDevice($device)
+	{
+		$this->device = $device;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_Device
+	 */
+	public function getDevice()
+	{
+		return $this->device;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Vault_DriveExportOptions extends Google_Model
 {
-  public $includeAccessInfo;
+	public $includeAccessInfo;
 
-  public function setIncludeAccessInfo($includeAccessInfo)
-  {
-    $this->includeAccessInfo = $includeAccessInfo;
-  }
-  public function getIncludeAccessInfo()
-  {
-    return $this->includeAccessInfo;
-  }
+	public function setIncludeAccessInfo($includeAccessInfo)
+	{
+		$this->includeAccessInfo = $includeAccessInfo;
+	}
+	public function getIncludeAccessInfo()
+	{
+		return $this->includeAccessInfo;
+	}
 }

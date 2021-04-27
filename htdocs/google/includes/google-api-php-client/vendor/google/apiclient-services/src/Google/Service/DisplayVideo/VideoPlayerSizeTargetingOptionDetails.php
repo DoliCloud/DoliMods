@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_VideoPlayerSizeTargetingOptionDetails extends Google_Model
 {
-  public $videoPlayerSize;
+	public $videoPlayerSize;
 
-  public function setVideoPlayerSize($videoPlayerSize)
-  {
-    $this->videoPlayerSize = $videoPlayerSize;
-  }
-  public function getVideoPlayerSize()
-  {
-    return $this->videoPlayerSize;
-  }
+	public function setVideoPlayerSize($videoPlayerSize)
+	{
+		$this->videoPlayerSize = $videoPlayerSize;
+	}
+	public function getVideoPlayerSize()
+	{
+		return $this->videoPlayerSize;
+	}
 }

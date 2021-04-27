@@ -17,40 +17,40 @@
 
 class Google_Service_Books_Seriesmembership extends Google_Collection
 {
-  protected $collection_key = 'member';
-  public $kind;
-  protected $memberType = 'Google_Service_Books_Volume';
-  protected $memberDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'member';
+	public $kind;
+	protected $memberType = 'Google_Service_Books_Volume';
+	protected $memberDataType = 'array';
+	public $nextPageToken;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Books_Volume
-   */
-  public function setMember($member)
-  {
-    $this->member = $member;
-  }
-  /**
-   * @return Google_Service_Books_Volume
-   */
-  public function getMember()
-  {
-    return $this->member;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Books_Volume
+	 */
+	public function setMember($member)
+	{
+		$this->member = $member;
+	}
+	/**
+	 * @return Google_Service_Books_Volume
+	 */
+	public function getMember()
+	{
+		return $this->member;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

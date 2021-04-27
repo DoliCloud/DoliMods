@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2BigQueryKey extends Google_Model
 {
-  public $rowNumber;
-  protected $tableReferenceType = 'Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable';
-  protected $tableReferenceDataType = '';
+	public $rowNumber;
+	protected $tableReferenceType = 'Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable';
+	protected $tableReferenceDataType = '';
 
-  public function setRowNumber($rowNumber)
-  {
-    $this->rowNumber = $rowNumber;
-  }
-  public function getRowNumber()
-  {
-    return $this->rowNumber;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
-   */
-  public function setTableReference(Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable $tableReference)
-  {
-    $this->tableReference = $tableReference;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
-   */
-  public function getTableReference()
-  {
-    return $this->tableReference;
-  }
+	public function setRowNumber($rowNumber)
+	{
+		$this->rowNumber = $rowNumber;
+	}
+	public function getRowNumber()
+	{
+		return $this->rowNumber;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
+	 */
+	public function setTableReference(Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable $tableReference)
+	{
+		$this->tableReference = $tableReference;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
+	 */
+	public function getTableReference()
+	{
+		return $this->tableReference;
+	}
 }

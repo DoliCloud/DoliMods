@@ -17,48 +17,48 @@
 
 class Google_Service_Logging_LogLine extends Google_Model
 {
-  public $logMessage;
-  public $severity;
-  protected $sourceLocationType = 'Google_Service_Logging_SourceLocation';
-  protected $sourceLocationDataType = '';
-  public $time;
+	public $logMessage;
+	public $severity;
+	protected $sourceLocationType = 'Google_Service_Logging_SourceLocation';
+	protected $sourceLocationDataType = '';
+	public $time;
 
-  public function setLogMessage($logMessage)
-  {
-    $this->logMessage = $logMessage;
-  }
-  public function getLogMessage()
-  {
-    return $this->logMessage;
-  }
-  public function setSeverity($severity)
-  {
-    $this->severity = $severity;
-  }
-  public function getSeverity()
-  {
-    return $this->severity;
-  }
-  /**
-   * @param Google_Service_Logging_SourceLocation
-   */
-  public function setSourceLocation(Google_Service_Logging_SourceLocation $sourceLocation)
-  {
-    $this->sourceLocation = $sourceLocation;
-  }
-  /**
-   * @return Google_Service_Logging_SourceLocation
-   */
-  public function getSourceLocation()
-  {
-    return $this->sourceLocation;
-  }
-  public function setTime($time)
-  {
-    $this->time = $time;
-  }
-  public function getTime()
-  {
-    return $this->time;
-  }
+	public function setLogMessage($logMessage)
+	{
+		$this->logMessage = $logMessage;
+	}
+	public function getLogMessage()
+	{
+		return $this->logMessage;
+	}
+	public function setSeverity($severity)
+	{
+		$this->severity = $severity;
+	}
+	public function getSeverity()
+	{
+		return $this->severity;
+	}
+	/**
+	 * @param Google_Service_Logging_SourceLocation
+	 */
+	public function setSourceLocation(Google_Service_Logging_SourceLocation $sourceLocation)
+	{
+		$this->sourceLocation = $sourceLocation;
+	}
+	/**
+	 * @return Google_Service_Logging_SourceLocation
+	 */
+	public function getSourceLocation()
+	{
+		return $this->sourceLocation;
+	}
+	public function setTime($time)
+	{
+		$this->time = $time;
+	}
+	public function getTime()
+	{
+		return $this->time;
+	}
 }

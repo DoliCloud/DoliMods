@@ -17,86 +17,86 @@
 
 class Google_Service_WebSecurityScanner_ScanRun extends Google_Model
 {
-  public $endTime;
-  public $executionState;
-  public $hasVulnerabilities;
-  public $name;
-  public $progressPercent;
-  public $resultState;
-  public $startTime;
-  public $urlsCrawledCount;
-  public $urlsTestedCount;
+	public $endTime;
+	public $executionState;
+	public $hasVulnerabilities;
+	public $name;
+	public $progressPercent;
+	public $resultState;
+	public $startTime;
+	public $urlsCrawledCount;
+	public $urlsTestedCount;
 
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  public function setExecutionState($executionState)
-  {
-    $this->executionState = $executionState;
-  }
-  public function getExecutionState()
-  {
-    return $this->executionState;
-  }
-  public function setHasVulnerabilities($hasVulnerabilities)
-  {
-    $this->hasVulnerabilities = $hasVulnerabilities;
-  }
-  public function getHasVulnerabilities()
-  {
-    return $this->hasVulnerabilities;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setProgressPercent($progressPercent)
-  {
-    $this->progressPercent = $progressPercent;
-  }
-  public function getProgressPercent()
-  {
-    return $this->progressPercent;
-  }
-  public function setResultState($resultState)
-  {
-    $this->resultState = $resultState;
-  }
-  public function getResultState()
-  {
-    return $this->resultState;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  public function setUrlsCrawledCount($urlsCrawledCount)
-  {
-    $this->urlsCrawledCount = $urlsCrawledCount;
-  }
-  public function getUrlsCrawledCount()
-  {
-    return $this->urlsCrawledCount;
-  }
-  public function setUrlsTestedCount($urlsTestedCount)
-  {
-    $this->urlsTestedCount = $urlsTestedCount;
-  }
-  public function getUrlsTestedCount()
-  {
-    return $this->urlsTestedCount;
-  }
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	public function setExecutionState($executionState)
+	{
+		$this->executionState = $executionState;
+	}
+	public function getExecutionState()
+	{
+		return $this->executionState;
+	}
+	public function setHasVulnerabilities($hasVulnerabilities)
+	{
+		$this->hasVulnerabilities = $hasVulnerabilities;
+	}
+	public function getHasVulnerabilities()
+	{
+		return $this->hasVulnerabilities;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setProgressPercent($progressPercent)
+	{
+		$this->progressPercent = $progressPercent;
+	}
+	public function getProgressPercent()
+	{
+		return $this->progressPercent;
+	}
+	public function setResultState($resultState)
+	{
+		$this->resultState = $resultState;
+	}
+	public function getResultState()
+	{
+		return $this->resultState;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	public function setUrlsCrawledCount($urlsCrawledCount)
+	{
+		$this->urlsCrawledCount = $urlsCrawledCount;
+	}
+	public function getUrlsCrawledCount()
+	{
+		return $this->urlsCrawledCount;
+	}
+	public function setUrlsTestedCount($urlsTestedCount)
+	{
+		$this->urlsTestedCount = $urlsTestedCount;
+	}
+	public function getUrlsTestedCount()
+	{
+		return $this->urlsTestedCount;
+	}
 }

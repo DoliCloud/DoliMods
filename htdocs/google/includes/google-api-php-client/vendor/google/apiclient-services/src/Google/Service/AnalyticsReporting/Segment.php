@@ -17,30 +17,30 @@
 
 class Google_Service_AnalyticsReporting_Segment extends Google_Model
 {
-  protected $dynamicSegmentType = 'Google_Service_AnalyticsReporting_DynamicSegment';
-  protected $dynamicSegmentDataType = '';
-  public $segmentId;
+	protected $dynamicSegmentType = 'Google_Service_AnalyticsReporting_DynamicSegment';
+	protected $dynamicSegmentDataType = '';
+	public $segmentId;
 
-  /**
-   * @param Google_Service_AnalyticsReporting_DynamicSegment
-   */
-  public function setDynamicSegment(Google_Service_AnalyticsReporting_DynamicSegment $dynamicSegment)
-  {
-    $this->dynamicSegment = $dynamicSegment;
-  }
-  /**
-   * @return Google_Service_AnalyticsReporting_DynamicSegment
-   */
-  public function getDynamicSegment()
-  {
-    return $this->dynamicSegment;
-  }
-  public function setSegmentId($segmentId)
-  {
-    $this->segmentId = $segmentId;
-  }
-  public function getSegmentId()
-  {
-    return $this->segmentId;
-  }
+	/**
+	 * @param Google_Service_AnalyticsReporting_DynamicSegment
+	 */
+	public function setDynamicSegment(Google_Service_AnalyticsReporting_DynamicSegment $dynamicSegment)
+	{
+		$this->dynamicSegment = $dynamicSegment;
+	}
+	/**
+	 * @return Google_Service_AnalyticsReporting_DynamicSegment
+	 */
+	public function getDynamicSegment()
+	{
+		return $this->dynamicSegment;
+	}
+	public function setSegmentId($segmentId)
+	{
+		$this->segmentId = $segmentId;
+	}
+	public function getSegmentId()
+	{
+		return $this->segmentId;
+	}
 }

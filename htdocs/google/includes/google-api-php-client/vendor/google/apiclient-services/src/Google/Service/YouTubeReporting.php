@@ -31,214 +31,214 @@
  */
 class Google_Service_YouTubeReporting extends Google_Service
 {
-  /** View monetary and non-monetary YouTube Analytics reports for your YouTube content. */
-  const YT_ANALYTICS_MONETARY_READONLY =
-      "https://www.googleapis.com/auth/yt-analytics-monetary.readonly";
-  /** View YouTube Analytics reports for your YouTube content. */
-  const YT_ANALYTICS_READONLY =
-      "https://www.googleapis.com/auth/yt-analytics.readonly";
+	/** View monetary and non-monetary YouTube Analytics reports for your YouTube content. */
+	const YT_ANALYTICS_MONETARY_READONLY =
+	  "https://www.googleapis.com/auth/yt-analytics-monetary.readonly";
+	/** View YouTube Analytics reports for your YouTube content. */
+	const YT_ANALYTICS_READONLY =
+	  "https://www.googleapis.com/auth/yt-analytics.readonly";
 
-  public $jobs;
-  public $jobs_reports;
-  public $media;
-  public $reportTypes;
-  
-  /**
-   * Constructs the internal representation of the YouTubeReporting service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://youtubereporting.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'youtubereporting';
+	public $jobs;
+	public $jobs_reports;
+	public $media;
+	public $reportTypes;
 
-    $this->jobs = new Google_Service_YouTubeReporting_Resource_Jobs(
-        $this,
-        $this->serviceName,
-        'jobs',
-        array(
-          'methods' => array(
-            'create' => array(
-              'path' => 'v1/jobs',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'onBehalfOfContentOwner' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'delete' => array(
-              'path' => 'v1/jobs/{jobId}',
-              'httpMethod' => 'DELETE',
-              'parameters' => array(
-                'jobId' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'onBehalfOfContentOwner' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'get' => array(
-              'path' => 'v1/jobs/{jobId}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'jobId' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'onBehalfOfContentOwner' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'list' => array(
-              'path' => 'v1/jobs',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'includeSystemManaged' => array(
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'onBehalfOfContentOwner' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->jobs_reports = new Google_Service_YouTubeReporting_Resource_JobsReports(
-        $this,
-        $this->serviceName,
-        'reports',
-        array(
-          'methods' => array(
-            'get' => array(
-              'path' => 'v1/jobs/{jobId}/reports/{reportId}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'jobId' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'reportId' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'onBehalfOfContentOwner' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'list' => array(
-              'path' => 'v1/jobs/{jobId}/reports',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'jobId' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'startTimeAtOrAfter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'onBehalfOfContentOwner' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'startTimeBefore' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'createdAfter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->media = new Google_Service_YouTubeReporting_Resource_Media(
-        $this,
-        $this->serviceName,
-        'media',
-        array(
-          'methods' => array(
-            'download' => array(
-              'path' => 'v1/media/{+resourceName}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'resourceName' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->reportTypes = new Google_Service_YouTubeReporting_Resource_ReportTypes(
-        $this,
-        $this->serviceName,
-        'reportTypes',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'v1/reportTypes',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'includeSystemManaged' => array(
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'onBehalfOfContentOwner' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the YouTubeReporting service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://youtubereporting.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'youtubereporting';
+
+		$this->jobs = new Google_Service_YouTubeReporting_Resource_Jobs(
+		$this,
+		$this->serviceName,
+		'jobs',
+		array(
+		  'methods' => array(
+			'create' => array(
+			  'path' => 'v1/jobs',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'onBehalfOfContentOwner' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),'delete' => array(
+			  'path' => 'v1/jobs/{jobId}',
+			  'httpMethod' => 'DELETE',
+			  'parameters' => array(
+				'jobId' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'onBehalfOfContentOwner' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),'get' => array(
+			  'path' => 'v1/jobs/{jobId}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'jobId' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'onBehalfOfContentOwner' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),'list' => array(
+			  'path' => 'v1/jobs',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'includeSystemManaged' => array(
+				  'location' => 'query',
+				  'type' => 'boolean',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'onBehalfOfContentOwner' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->jobs_reports = new Google_Service_YouTubeReporting_Resource_JobsReports(
+		$this,
+		$this->serviceName,
+		'reports',
+		array(
+		  'methods' => array(
+			'get' => array(
+			  'path' => 'v1/jobs/{jobId}/reports/{reportId}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'jobId' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'reportId' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'onBehalfOfContentOwner' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),'list' => array(
+			  'path' => 'v1/jobs/{jobId}/reports',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'jobId' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'startTimeAtOrAfter' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'onBehalfOfContentOwner' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'startTimeBefore' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'createdAfter' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->media = new Google_Service_YouTubeReporting_Resource_Media(
+		$this,
+		$this->serviceName,
+		'media',
+		array(
+		  'methods' => array(
+			'download' => array(
+			  'path' => 'v1/media/{+resourceName}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'resourceName' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->reportTypes = new Google_Service_YouTubeReporting_Resource_ReportTypes(
+		$this,
+		$this->serviceName,
+		'reportTypes',
+		array(
+		  'methods' => array(
+			'list' => array(
+			  'path' => 'v1/reportTypes',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'includeSystemManaged' => array(
+				  'location' => 'query',
+				  'type' => 'boolean',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'onBehalfOfContentOwner' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

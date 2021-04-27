@@ -17,32 +17,32 @@
 
 class Google_Service_AccessContextManager_OsConstraint extends Google_Model
 {
-  public $minimumVersion;
-  public $osType;
-  public $requireVerifiedChromeOs;
+	public $minimumVersion;
+	public $osType;
+	public $requireVerifiedChromeOs;
 
-  public function setMinimumVersion($minimumVersion)
-  {
-    $this->minimumVersion = $minimumVersion;
-  }
-  public function getMinimumVersion()
-  {
-    return $this->minimumVersion;
-  }
-  public function setOsType($osType)
-  {
-    $this->osType = $osType;
-  }
-  public function getOsType()
-  {
-    return $this->osType;
-  }
-  public function setRequireVerifiedChromeOs($requireVerifiedChromeOs)
-  {
-    $this->requireVerifiedChromeOs = $requireVerifiedChromeOs;
-  }
-  public function getRequireVerifiedChromeOs()
-  {
-    return $this->requireVerifiedChromeOs;
-  }
+	public function setMinimumVersion($minimumVersion)
+	{
+		$this->minimumVersion = $minimumVersion;
+	}
+	public function getMinimumVersion()
+	{
+		return $this->minimumVersion;
+	}
+	public function setOsType($osType)
+	{
+		$this->osType = $osType;
+	}
+	public function getOsType()
+	{
+		return $this->osType;
+	}
+	public function setRequireVerifiedChromeOs($requireVerifiedChromeOs)
+	{
+		$this->requireVerifiedChromeOs = $requireVerifiedChromeOs;
+	}
+	public function getRequireVerifiedChromeOs()
+	{
+		return $this->requireVerifiedChromeOs;
+	}
 }

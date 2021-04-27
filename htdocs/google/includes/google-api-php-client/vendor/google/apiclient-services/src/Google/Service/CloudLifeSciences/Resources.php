@@ -17,40 +17,40 @@
 
 class Google_Service_CloudLifeSciences_Resources extends Google_Collection
 {
-  protected $collection_key = 'zones';
-  public $regions;
-  protected $virtualMachineType = 'Google_Service_CloudLifeSciences_VirtualMachine';
-  protected $virtualMachineDataType = '';
-  public $zones;
+	protected $collection_key = 'zones';
+	public $regions;
+	protected $virtualMachineType = 'Google_Service_CloudLifeSciences_VirtualMachine';
+	protected $virtualMachineDataType = '';
+	public $zones;
 
-  public function setRegions($regions)
-  {
-    $this->regions = $regions;
-  }
-  public function getRegions()
-  {
-    return $this->regions;
-  }
-  /**
-   * @param Google_Service_CloudLifeSciences_VirtualMachine
-   */
-  public function setVirtualMachine(Google_Service_CloudLifeSciences_VirtualMachine $virtualMachine)
-  {
-    $this->virtualMachine = $virtualMachine;
-  }
-  /**
-   * @return Google_Service_CloudLifeSciences_VirtualMachine
-   */
-  public function getVirtualMachine()
-  {
-    return $this->virtualMachine;
-  }
-  public function setZones($zones)
-  {
-    $this->zones = $zones;
-  }
-  public function getZones()
-  {
-    return $this->zones;
-  }
+	public function setRegions($regions)
+	{
+		$this->regions = $regions;
+	}
+	public function getRegions()
+	{
+		return $this->regions;
+	}
+	/**
+	 * @param Google_Service_CloudLifeSciences_VirtualMachine
+	 */
+	public function setVirtualMachine(Google_Service_CloudLifeSciences_VirtualMachine $virtualMachine)
+	{
+		$this->virtualMachine = $virtualMachine;
+	}
+	/**
+	 * @return Google_Service_CloudLifeSciences_VirtualMachine
+	 */
+	public function getVirtualMachine()
+	{
+		return $this->virtualMachine;
+	}
+	public function setZones($zones)
+	{
+		$this->zones = $zones;
+	}
+	public function getZones()
+	{
+		return $this->zones;
+	}
 }

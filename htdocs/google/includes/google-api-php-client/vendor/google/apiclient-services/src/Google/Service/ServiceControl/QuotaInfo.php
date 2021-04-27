@@ -17,40 +17,40 @@
 
 class Google_Service_ServiceControl_QuotaInfo extends Google_Collection
 {
-  protected $collection_key = 'quotaMetrics';
-  public $limitExceeded;
-  public $quotaConsumed;
-  protected $quotaMetricsType = 'Google_Service_ServiceControl_MetricValueSet';
-  protected $quotaMetricsDataType = 'array';
+	protected $collection_key = 'quotaMetrics';
+	public $limitExceeded;
+	public $quotaConsumed;
+	protected $quotaMetricsType = 'Google_Service_ServiceControl_MetricValueSet';
+	protected $quotaMetricsDataType = 'array';
 
-  public function setLimitExceeded($limitExceeded)
-  {
-    $this->limitExceeded = $limitExceeded;
-  }
-  public function getLimitExceeded()
-  {
-    return $this->limitExceeded;
-  }
-  public function setQuotaConsumed($quotaConsumed)
-  {
-    $this->quotaConsumed = $quotaConsumed;
-  }
-  public function getQuotaConsumed()
-  {
-    return $this->quotaConsumed;
-  }
-  /**
-   * @param Google_Service_ServiceControl_MetricValueSet
-   */
-  public function setQuotaMetrics($quotaMetrics)
-  {
-    $this->quotaMetrics = $quotaMetrics;
-  }
-  /**
-   * @return Google_Service_ServiceControl_MetricValueSet
-   */
-  public function getQuotaMetrics()
-  {
-    return $this->quotaMetrics;
-  }
+	public function setLimitExceeded($limitExceeded)
+	{
+		$this->limitExceeded = $limitExceeded;
+	}
+	public function getLimitExceeded()
+	{
+		return $this->limitExceeded;
+	}
+	public function setQuotaConsumed($quotaConsumed)
+	{
+		$this->quotaConsumed = $quotaConsumed;
+	}
+	public function getQuotaConsumed()
+	{
+		return $this->quotaConsumed;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_MetricValueSet
+	 */
+	public function setQuotaMetrics($quotaMetrics)
+	{
+		$this->quotaMetrics = $quotaMetrics;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_MetricValueSet
+	 */
+	public function getQuotaMetrics()
+	{
+		return $this->quotaMetrics;
+	}
 }

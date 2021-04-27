@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidEnterprise_ConfigurationVariables extends Google_Collection
 {
-  protected $collection_key = 'variableSet';
-  public $mcmId;
-  protected $variableSetType = 'Google_Service_AndroidEnterprise_VariableSet';
-  protected $variableSetDataType = 'array';
+	protected $collection_key = 'variableSet';
+	public $mcmId;
+	protected $variableSetType = 'Google_Service_AndroidEnterprise_VariableSet';
+	protected $variableSetDataType = 'array';
 
-  public function setMcmId($mcmId)
-  {
-    $this->mcmId = $mcmId;
-  }
-  public function getMcmId()
-  {
-    return $this->mcmId;
-  }
-  /**
-   * @param Google_Service_AndroidEnterprise_VariableSet
-   */
-  public function setVariableSet($variableSet)
-  {
-    $this->variableSet = $variableSet;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_VariableSet
-   */
-  public function getVariableSet()
-  {
-    return $this->variableSet;
-  }
+	public function setMcmId($mcmId)
+	{
+		$this->mcmId = $mcmId;
+	}
+	public function getMcmId()
+	{
+		return $this->mcmId;
+	}
+	/**
+	 * @param Google_Service_AndroidEnterprise_VariableSet
+	 */
+	public function setVariableSet($variableSet)
+	{
+		$this->variableSet = $variableSet;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_VariableSet
+	 */
+	public function getVariableSet()
+	{
+		return $this->variableSet;
+	}
 }

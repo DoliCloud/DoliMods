@@ -17,40 +17,40 @@
 
 class Google_Service_HomeGraphService_QueryRequest extends Google_Collection
 {
-  protected $collection_key = 'inputs';
-  public $agentUserId;
-  protected $inputsType = 'Google_Service_HomeGraphService_QueryRequestInput';
-  protected $inputsDataType = 'array';
-  public $requestId;
+	protected $collection_key = 'inputs';
+	public $agentUserId;
+	protected $inputsType = 'Google_Service_HomeGraphService_QueryRequestInput';
+	protected $inputsDataType = 'array';
+	public $requestId;
 
-  public function setAgentUserId($agentUserId)
-  {
-    $this->agentUserId = $agentUserId;
-  }
-  public function getAgentUserId()
-  {
-    return $this->agentUserId;
-  }
-  /**
-   * @param Google_Service_HomeGraphService_QueryRequestInput
-   */
-  public function setInputs($inputs)
-  {
-    $this->inputs = $inputs;
-  }
-  /**
-   * @return Google_Service_HomeGraphService_QueryRequestInput
-   */
-  public function getInputs()
-  {
-    return $this->inputs;
-  }
-  public function setRequestId($requestId)
-  {
-    $this->requestId = $requestId;
-  }
-  public function getRequestId()
-  {
-    return $this->requestId;
-  }
+	public function setAgentUserId($agentUserId)
+	{
+		$this->agentUserId = $agentUserId;
+	}
+	public function getAgentUserId()
+	{
+		return $this->agentUserId;
+	}
+	/**
+	 * @param Google_Service_HomeGraphService_QueryRequestInput
+	 */
+	public function setInputs($inputs)
+	{
+		$this->inputs = $inputs;
+	}
+	/**
+	 * @return Google_Service_HomeGraphService_QueryRequestInput
+	 */
+	public function getInputs()
+	{
+		return $this->inputs;
+	}
+	public function setRequestId($requestId)
+	{
+		$this->requestId = $requestId;
+	}
+	public function getRequestId()
+	{
+		return $this->requestId;
+	}
 }

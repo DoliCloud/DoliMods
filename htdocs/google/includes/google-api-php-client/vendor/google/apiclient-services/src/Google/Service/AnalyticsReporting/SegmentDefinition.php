@@ -17,22 +17,22 @@
 
 class Google_Service_AnalyticsReporting_SegmentDefinition extends Google_Collection
 {
-  protected $collection_key = 'segmentFilters';
-  protected $segmentFiltersType = 'Google_Service_AnalyticsReporting_SegmentFilter';
-  protected $segmentFiltersDataType = 'array';
+	protected $collection_key = 'segmentFilters';
+	protected $segmentFiltersType = 'Google_Service_AnalyticsReporting_SegmentFilter';
+	protected $segmentFiltersDataType = 'array';
 
-  /**
-   * @param Google_Service_AnalyticsReporting_SegmentFilter
-   */
-  public function setSegmentFilters($segmentFilters)
-  {
-    $this->segmentFilters = $segmentFilters;
-  }
-  /**
-   * @return Google_Service_AnalyticsReporting_SegmentFilter
-   */
-  public function getSegmentFilters()
-  {
-    return $this->segmentFilters;
-  }
+	/**
+	 * @param Google_Service_AnalyticsReporting_SegmentFilter
+	 */
+	public function setSegmentFilters($segmentFilters)
+	{
+		$this->segmentFilters = $segmentFilters;
+	}
+	/**
+	 * @return Google_Service_AnalyticsReporting_SegmentFilter
+	 */
+	public function getSegmentFilters()
+	{
+		return $this->segmentFilters;
+	}
 }

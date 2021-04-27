@@ -46,9 +46,9 @@ class box_googlemaps extends ModeleBoxes
 	 *  Constructor
 	 *
 	 *  @param  DoliDB	$db      	Database handler
-     *  @param	string	$param		More parameters
+	 *  @param	string	$param		More parameters
 	 */
-	function __construct($db,$param='')
+	function __construct($db, $param = '')
 	{
 		global $conf, $user, $langs;
 
@@ -58,17 +58,17 @@ class box_googlemaps extends ModeleBoxes
 		$this->boxlabel=$langs->trans("ListOfMaps");
 
 		// disable module for such cases
-		$listofmodulesforexternal=explode(',',$conf->global->MAIN_MODULES_FOR_EXTERNAL);
-		if (! in_array('adherent',$listofmodulesforexternal) && ! in_array('societe',$listofmodulesforexternal) && ! empty($user->societe_id)) $this->enabled=0;	// disabled for external users
+		$listofmodulesforexternal=explode(',', $conf->global->MAIN_MODULES_FOR_EXTERNAL);
+		if (! in_array('adherent', $listofmodulesforexternal) && ! in_array('societe', $listofmodulesforexternal) && ! empty($user->societe_id)) $this->enabled=0;	// disabled for external users
 	}
 
 	/**
 	 *  Load data into info_box_contents array to show array later.
 	 *
 	 *  @param	int		$max        Maximum number of records to load
-     *  @return	void
+	 *  @return	void
 	 */
-	function loadBox($max=5)
+	function loadBox($max = 5)
 	{
 		global $user, $langs, $db, $conf;
 		$langs->load("boxes");
@@ -76,30 +76,28 @@ class box_googlemaps extends ModeleBoxes
 
 		$something = 0;
 
-        $this->info_box_head = array('text' => $langs->trans("BoxMaps",$max));
+		$this->info_box_head = array('text' => $langs->trans("BoxMaps", $max));
 
-        $i=0;
-        if ($conf->societe->enabled && $user->rights->societe->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS) && empty($conf->global->CABINETMED_HIDETHIRPARTIESMENU))
-		{
+		$i=0;
+		if ($conf->societe->enabled && $user->rights->societe->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS) && empty($conf->global->CABINETMED_HIDETHIRPARTIESMENU)) {
 			$something++;
 
-			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=thirdparty";
+			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=thirdparty";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
-                    'logo' => 'object_company',
-                    'url' => $url
+					'logo' => 'object_company',
+					'url' => $url
 			);
 			$this->info_box_contents[$i][1] = array('td' => 'align="left"',
-                    'text' => '<a href="'.$url.'">'.$langs->trans("MapOfThirdparties").'</a>',
+					'text' => '<a href="'.$url.'">'.$langs->trans("MapOfThirdparties").'</a>',
 					'url' => $url
 			);
 
 			$i++;
 		}
-		if ($conf->societe->enabled && $user->rights->societe->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS))
-		{
+		if ($conf->societe->enabled && $user->rights->societe->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS)) {
 			$something++;
 
-			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=contact";
+			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=contact";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
 					'logo' => 'object_contact',
 					'url' => $url
@@ -111,11 +109,10 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if ($conf->adherent->enabled && $user->rights->adherent->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS))
-		{
+		if ($conf->adherent->enabled && $user->rights->adherent->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS)) {
 			$something++;
 
-			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=member";
+			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=member";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
 					'logo' => 'object_user',
 					'url' => $url
@@ -127,11 +124,10 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if ($conf->cabinetmed->enabled && $user->rights->cabinetmed->read)
-		{
+		if ($conf->cabinetmed->enabled && $user->rights->cabinetmed->read) {
 			$something++;
 
-			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=patient";
+			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=patient";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
 					'logo' => 'object_user',
 					'url' => $url
@@ -144,10 +140,9 @@ class box_googlemaps extends ModeleBoxes
 			$i++;
 		}
 
-		if (! $something)
-		{
+		if (! $something) {
 			$this->info_box_contents[0][0] = array('align' => 'left',
-            'text' => $langs->trans("No map available"));
+			'text' => $langs->trans("No map available"));
 		}
 	}
 
@@ -163,5 +158,4 @@ class box_googlemaps extends ModeleBoxes
 	{
 		return parent::showBox($this->info_box_head, $this->info_box_contents, $nooutput);
 	}
-
 }

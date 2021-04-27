@@ -17,32 +17,32 @@
 
 class Google_Service_CloudRun_ContainerPort extends Google_Model
 {
-  public $containerPort;
-  public $name;
-  public $protocol;
+	public $containerPort;
+	public $name;
+	public $protocol;
 
-  public function setContainerPort($containerPort)
-  {
-    $this->containerPort = $containerPort;
-  }
-  public function getContainerPort()
-  {
-    return $this->containerPort;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setProtocol($protocol)
-  {
-    $this->protocol = $protocol;
-  }
-  public function getProtocol()
-  {
-    return $this->protocol;
-  }
+	public function setContainerPort($containerPort)
+	{
+		$this->containerPort = $containerPort;
+	}
+	public function getContainerPort()
+	{
+		return $this->containerPort;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setProtocol($protocol)
+	{
+		$this->protocol = $protocol;
+	}
+	public function getProtocol()
+	{
+		return $this->protocol;
+	}
 }

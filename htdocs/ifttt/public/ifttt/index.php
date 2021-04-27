@@ -38,7 +38,7 @@ if (! defined('NOCSRFCHECK'))    define("NOCSRFCHECK", 1);	// We accept to go on
  */
 function llxHeaderIFTTT()
 {
-    print '<html><title>IFTTT API</title><body>';
+	print '<html><title>IFTTT API</title><body>';
 }
 /**
  * Footer function
@@ -47,7 +47,7 @@ function llxHeaderIFTTT()
  */
 function llxFooterIFTTT()
 {
-    print '</body></html>';
+	print '</body></html>';
 }
 
 
@@ -57,8 +57,7 @@ require '../../main.inc.php';
 if (empty($conf->ifttt->enabled)) accessforbidden('', 0, 0, 1);
 
 // Check config
-if (empty($conf->global->IFTTT_DOLIBARR_ENDPOINT_SECUREKEY))
-{
+if (empty($conf->global->IFTTT_DOLIBARR_ENDPOINT_SECUREKEY)) {
 	$user->getrights();
 
 	llxHeaderIFTTT();
@@ -68,8 +67,7 @@ if (empty($conf->global->IFTTT_DOLIBARR_ENDPOINT_SECUREKEY))
 }
 
 // Check exportkey
-if (empty($_GET["securekey"]) || $conf->global->IFTTT_DOLIBARR_ENDPOINT_SECUREKEY != $_GET["securekey"])
-{
+if (empty($_GET["securekey"]) || $conf->global->IFTTT_DOLIBARR_ENDPOINT_SECUREKEY != $_GET["securekey"]) {
 	$user->getrights();
 
 	llxHeaderIFTTT();

@@ -17,66 +17,66 @@
 
 class Google_Service_CloudProfiler_Profile extends Google_Model
 {
-  protected $deploymentType = 'Google_Service_CloudProfiler_Deployment';
-  protected $deploymentDataType = '';
-  public $duration;
-  public $labels;
-  public $name;
-  public $profileBytes;
-  public $profileType;
+	protected $deploymentType = 'Google_Service_CloudProfiler_Deployment';
+	protected $deploymentDataType = '';
+	public $duration;
+	public $labels;
+	public $name;
+	public $profileBytes;
+	public $profileType;
 
-  /**
-   * @param Google_Service_CloudProfiler_Deployment
-   */
-  public function setDeployment(Google_Service_CloudProfiler_Deployment $deployment)
-  {
-    $this->deployment = $deployment;
-  }
-  /**
-   * @return Google_Service_CloudProfiler_Deployment
-   */
-  public function getDeployment()
-  {
-    return $this->deployment;
-  }
-  public function setDuration($duration)
-  {
-    $this->duration = $duration;
-  }
-  public function getDuration()
-  {
-    return $this->duration;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setProfileBytes($profileBytes)
-  {
-    $this->profileBytes = $profileBytes;
-  }
-  public function getProfileBytes()
-  {
-    return $this->profileBytes;
-  }
-  public function setProfileType($profileType)
-  {
-    $this->profileType = $profileType;
-  }
-  public function getProfileType()
-  {
-    return $this->profileType;
-  }
+	/**
+	 * @param Google_Service_CloudProfiler_Deployment
+	 */
+	public function setDeployment(Google_Service_CloudProfiler_Deployment $deployment)
+	{
+		$this->deployment = $deployment;
+	}
+	/**
+	 * @return Google_Service_CloudProfiler_Deployment
+	 */
+	public function getDeployment()
+	{
+		return $this->deployment;
+	}
+	public function setDuration($duration)
+	{
+		$this->duration = $duration;
+	}
+	public function getDuration()
+	{
+		return $this->duration;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setProfileBytes($profileBytes)
+	{
+		$this->profileBytes = $profileBytes;
+	}
+	public function getProfileBytes()
+	{
+		return $this->profileBytes;
+	}
+	public function setProfileType($profileType)
+	{
+		$this->profileType = $profileType;
+	}
+	public function getProfileType()
+	{
+		return $this->profileType;
+	}
 }

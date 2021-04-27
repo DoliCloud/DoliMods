@@ -17,32 +17,32 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1BigQueryDateShardedSpec extends Google_Model
 {
-  public $dataset;
-  public $shardCount;
-  public $tablePrefix;
+	public $dataset;
+	public $shardCount;
+	public $tablePrefix;
 
-  public function setDataset($dataset)
-  {
-    $this->dataset = $dataset;
-  }
-  public function getDataset()
-  {
-    return $this->dataset;
-  }
-  public function setShardCount($shardCount)
-  {
-    $this->shardCount = $shardCount;
-  }
-  public function getShardCount()
-  {
-    return $this->shardCount;
-  }
-  public function setTablePrefix($tablePrefix)
-  {
-    $this->tablePrefix = $tablePrefix;
-  }
-  public function getTablePrefix()
-  {
-    return $this->tablePrefix;
-  }
+	public function setDataset($dataset)
+	{
+		$this->dataset = $dataset;
+	}
+	public function getDataset()
+	{
+		return $this->dataset;
+	}
+	public function setShardCount($shardCount)
+	{
+		$this->shardCount = $shardCount;
+	}
+	public function getShardCount()
+	{
+		return $this->shardCount;
+	}
+	public function setTablePrefix($tablePrefix)
+	{
+		$this->tablePrefix = $tablePrefix;
+	}
+	public function getTablePrefix()
+	{
+		return $this->tablePrefix;
+	}
 }

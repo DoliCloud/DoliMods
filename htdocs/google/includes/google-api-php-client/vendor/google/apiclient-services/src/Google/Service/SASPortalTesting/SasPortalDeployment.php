@@ -17,51 +17,51 @@
 
 class Google_Service_SASPortalTesting_SasPortalDeployment extends Google_Collection
 {
-  protected $collection_key = 'sasUserIds';
-  public $allowedBillingModes;
-  public $defaultBillingMode;
-  public $displayName;
-  public $name;
-  public $sasUserIds;
+	protected $collection_key = 'sasUserIds';
+	public $allowedBillingModes;
+	public $defaultBillingMode;
+	public $displayName;
+	public $name;
+	public $sasUserIds;
 
-  public function setAllowedBillingModes($allowedBillingModes)
-  {
-    $this->allowedBillingModes = $allowedBillingModes;
-  }
-  public function getAllowedBillingModes()
-  {
-    return $this->allowedBillingModes;
-  }
-  public function setDefaultBillingMode($defaultBillingMode)
-  {
-    $this->defaultBillingMode = $defaultBillingMode;
-  }
-  public function getDefaultBillingMode()
-  {
-    return $this->defaultBillingMode;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSasUserIds($sasUserIds)
-  {
-    $this->sasUserIds = $sasUserIds;
-  }
-  public function getSasUserIds()
-  {
-    return $this->sasUserIds;
-  }
+	public function setAllowedBillingModes($allowedBillingModes)
+	{
+		$this->allowedBillingModes = $allowedBillingModes;
+	}
+	public function getAllowedBillingModes()
+	{
+		return $this->allowedBillingModes;
+	}
+	public function setDefaultBillingMode($defaultBillingMode)
+	{
+		$this->defaultBillingMode = $defaultBillingMode;
+	}
+	public function getDefaultBillingMode()
+	{
+		return $this->defaultBillingMode;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSasUserIds($sasUserIds)
+	{
+		$this->sasUserIds = $sasUserIds;
+	}
+	public function getSasUserIds()
+	{
+		return $this->sasUserIds;
+	}
 }

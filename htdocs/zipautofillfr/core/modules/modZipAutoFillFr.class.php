@@ -28,7 +28,7 @@
  *	\brief      Fichier de description et activation du module ZipAutoFill
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -45,16 +45,16 @@ class modZipAutoFillFr extends DolibarrModules
 	 */
 	function __construct($db)
 	{
-        global $langs,$conf;
+		global $langs,$conf;
 
-        $this->db = $db;
+		$this->db = $db;
 		$this->numero = 101270;
 
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		$this->description = "Add zip codes and towns into database (France and Belgium)";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
@@ -73,33 +73,32 @@ class modZipAutoFillFr extends DolibarrModules
 		// Config pages
 		$this->config_page_url = array('zipautofillfr.php@zipautofillfr');
 
-        // Constants
-        // List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
-        // Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
-        //                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
-        //                             2=>array('MAIN_MODULE_MYMODULE_NEEDSMARTY','chaine',1,'Constant to say module need smarty',1)
+		// Constants
+		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
+		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
+		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
+		//                             2=>array('MAIN_MODULE_MYMODULE_NEEDSMARTY','chaine',1,'Constant to say module need smarty',1)
 		$this->const = array(0=>array('MAIN_USE_ZIPTOWN_DICTIONNARY','chaine','1','Constant to enable usage of zip-town table',0,'current',1));
 
-        // Dictionnaries
-        $this->dictionnaries=array(
-            'langs'=>'',
-            'tabname'=>array(MAIN_DB_PREFIX."c_ziptown"),
-            'tablib'=>array("Zip and town"),
-            'tabsql'=>array('SELECT f.rowid, f.zip, f.town, f.fk_pays, c.code as country_code, c.label as country, f.active FROM '.MAIN_DB_PREFIX.'c_ziptown as f, '.MAIN_DB_PREFIX.'c_country as c WHERE f.fk_pays=c.rowid'),
-            'tabsqlsort'=>array("zip ASC, town ASC"),
-            'tabfield'=>array("zip,town,country"),
-            'tabfieldvalue'=>array("zip,town,country"),
-            'tabfieldinsert'=>array("zip,town,fk_pays"),
-            'tabrowid'=>array(),
-            'tabcond'=>array(empty($conf->zipautofillfr->enabled)?0:$conf->zipautofillfr->enabled)
-        );
+		// Dictionnaries
+		$this->dictionnaries=array(
+			'langs'=>'',
+			'tabname'=>array(MAIN_DB_PREFIX."c_ziptown"),
+			'tablib'=>array("Zip and town"),
+			'tabsql'=>array('SELECT f.rowid, f.zip, f.town, f.fk_pays, c.code as country_code, c.label as country, f.active FROM '.MAIN_DB_PREFIX.'c_ziptown as f, '.MAIN_DB_PREFIX.'c_country as c WHERE f.fk_pays=c.rowid'),
+			'tabsqlsort'=>array("zip ASC, town ASC"),
+			'tabfield'=>array("zip,town,country"),
+			'tabfieldvalue'=>array("zip,town,country"),
+			'tabfieldinsert'=>array("zip,town,fk_pays"),
+			'tabrowid'=>array(),
+			'tabcond'=>array(empty($conf->zipautofillfr->enabled)?0:$conf->zipautofillfr->enabled)
+		);
 
-        // Boxes
+		// Boxes
 		$this->boxes = array();
 
 		// Permissions
 		$this->rights = array();
-
 	}
 
 
@@ -108,10 +107,10 @@ class modZipAutoFillFr extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
+	function init($options = '')
 	{
 		global $conf;
 		// Permissions et valeurs par defaut
@@ -121,7 +120,7 @@ class modZipAutoFillFr extends DolibarrModules
 
 		$result=$this->load_tables();
 
-		return $this->_init($sql,$options);
+		return $this->_init($sql, $options);
 	}
 
 	/**
@@ -129,14 +128,14 @@ class modZipAutoFillFr extends DolibarrModules
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options='')
+	function remove($options = '')
 	{
 		$sql = array();
 
-		return $this->_remove($sql,$options);
+		return $this->_remove($sql, $options);
 	}
 
 	/**
@@ -150,4 +149,3 @@ class modZipAutoFillFr extends DolibarrModules
 		return $this->_load_tables('/zipautofillfr/sql/');
 	}
 }
-

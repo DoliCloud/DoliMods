@@ -17,39 +17,39 @@
 
 class Google_Service_Datastore_EntityResult extends Google_Model
 {
-  public $cursor;
-  protected $entityType = 'Google_Service_Datastore_Entity';
-  protected $entityDataType = '';
-  public $version;
+	public $cursor;
+	protected $entityType = 'Google_Service_Datastore_Entity';
+	protected $entityDataType = '';
+	public $version;
 
-  public function setCursor($cursor)
-  {
-    $this->cursor = $cursor;
-  }
-  public function getCursor()
-  {
-    return $this->cursor;
-  }
-  /**
-   * @param Google_Service_Datastore_Entity
-   */
-  public function setEntity(Google_Service_Datastore_Entity $entity)
-  {
-    $this->entity = $entity;
-  }
-  /**
-   * @return Google_Service_Datastore_Entity
-   */
-  public function getEntity()
-  {
-    return $this->entity;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setCursor($cursor)
+	{
+		$this->cursor = $cursor;
+	}
+	public function getCursor()
+	{
+		return $this->cursor;
+	}
+	/**
+	 * @param Google_Service_Datastore_Entity
+	 */
+	public function setEntity(Google_Service_Datastore_Entity $entity)
+	{
+		$this->entity = $entity;
+	}
+	/**
+	 * @return Google_Service_Datastore_Entity
+	 */
+	public function getEntity()
+	{
+		return $this->entity;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

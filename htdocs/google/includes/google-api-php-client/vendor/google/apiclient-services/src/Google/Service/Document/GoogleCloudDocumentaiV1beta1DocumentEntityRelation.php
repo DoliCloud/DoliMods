@@ -17,32 +17,32 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentEntityRelation extends Google_Model
 {
-  public $objectId;
-  public $relation;
-  public $subjectId;
+	public $objectId;
+	public $relation;
+	public $subjectId;
 
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  public function setRelation($relation)
-  {
-    $this->relation = $relation;
-  }
-  public function getRelation()
-  {
-    return $this->relation;
-  }
-  public function setSubjectId($subjectId)
-  {
-    $this->subjectId = $subjectId;
-  }
-  public function getSubjectId()
-  {
-    return $this->subjectId;
-  }
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	public function setRelation($relation)
+	{
+		$this->relation = $relation;
+	}
+	public function getRelation()
+	{
+		return $this->relation;
+	}
+	public function setSubjectId($subjectId)
+	{
+		$this->subjectId = $subjectId;
+	}
+	public function getSubjectId()
+	{
+		return $this->subjectId;
+	}
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Datastore_AllocateIdsResponse extends Google_Collection
 {
-  protected $collection_key = 'keys';
-  protected $keysType = 'Google_Service_Datastore_Key';
-  protected $keysDataType = 'array';
+	protected $collection_key = 'keys';
+	protected $keysType = 'Google_Service_Datastore_Key';
+	protected $keysDataType = 'array';
 
-  /**
-   * @param Google_Service_Datastore_Key
-   */
-  public function setKeys($keys)
-  {
-    $this->keys = $keys;
-  }
-  /**
-   * @return Google_Service_Datastore_Key
-   */
-  public function getKeys()
-  {
-    return $this->keys;
-  }
+	/**
+	 * @param Google_Service_Datastore_Key
+	 */
+	public function setKeys($keys)
+	{
+		$this->keys = $keys;
+	}
+	/**
+	 * @return Google_Service_Datastore_Key
+	 */
+	public function getKeys()
+	{
+		return $this->keys;
+	}
 }

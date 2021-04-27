@@ -27,7 +27,7 @@
  *      \ingroup    sendgrid
  *      \brief      Description and activation file for module Sendgrid
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -52,11 +52,11 @@ class modSendgrid extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "interface";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Add some features to use SendGrid interfaces";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '6.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -71,17 +71,17 @@ class modSendgrid extends DolibarrModules
 		// for specific path of parts (eg: /mymodule/core/modules/barcode)
 		// for specific css file (eg: /mymodule/css/mymodule.css.php)
 		$this->module_parts = array(
-		    'triggers' => 0,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
-		    'login' => 0,                                    	// Set this to 1 if module has its own login method directory (core/login)
-		    'substitutions' => 0,                            	// Set this to 1 if module has its own substitution function file (core/substitutions)
-		    'menus' => 0,                                    	// Set this to 1 if module has its own menus handler directory (core/menus)
-		    'theme' => 0,                                    	// Set this to 1 if module has its own theme directory (theme)
-		    'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
-		    'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)
-		    'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
-		    'css' => array('/sendgrid/css/sendgrid.css.php'),	            // Set this to relative path of css file if module has its own css file
-		    'js' => array(),                                    // Set this to relative path of js file if module must load a js on all pages
-		    'hooks' => array() 	                                // Set here all hooks context managed by module. You can also set hook context 'all'
+			'triggers' => 0,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
+			'login' => 0,                                    	// Set this to 1 if module has its own login method directory (core/login)
+			'substitutions' => 0,                            	// Set this to 1 if module has its own substitution function file (core/substitutions)
+			'menus' => 0,                                    	// Set this to 1 if module has its own menus handler directory (core/menus)
+			'theme' => 0,                                    	// Set this to 1 if module has its own theme directory (theme)
+			'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
+			'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)
+			'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
+			'css' => array('/sendgrid/css/sendgrid.css.php'),	            // Set this to relative path of css file if module has its own css file
+			'js' => array(),                                    // Set this to relative path of js file if module must load a js on all pages
+			'hooks' => array() 	                                // Set here all hooks context managed by module. You can also set hook context 'all'
 		);
 
 		// Data directories to create when module is enabled.
@@ -109,8 +109,8 @@ class modSendgrid extends DolibarrModules
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:langfile@mymodule:$user->rights->mymodule->read:/mymodule/mynewtab1.php?id=__ID__',  // To add a new tab identified by code tabname1
-        //                              'objecttype:+tabname2:Title2:langfile@mymodule:$user->rights->othermodule->read:/mymodule/mynewtab2.php?id=__ID__',  // To add another new tab identified by code tabname2
-        //                              'objecttype:-tabname');                                                     // To remove an existing tab identified by code tabname
+		//                              'objecttype:+tabname2:Title2:langfile@mymodule:$user->rights->othermodule->read:/mymodule/mynewtab2.php?id=__ID__',  // To add another new tab identified by code tabname2
+		//                              'objecttype:-tabname');                                                     // To remove an existing tab identified by code tabname
 		// where objecttype can be
 		// 'thirdparty'       to add a tab in third party view
 		// 'intervention'     to add a tab in intervention view
@@ -174,8 +174,6 @@ class modSendgrid extends DolibarrModules
 
 		// Exports
 		$r=1;
-
-
 	}
 
 	/**
@@ -183,16 +181,16 @@ class modSendgrid extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
+	function init($options = '')
 	{
 		$sql = array();
 
 		//$result=$this->load_tables();
 
-		return $this->_init($sql,$options);
+		return $this->_init($sql, $options);
 	}
 
 	/**
@@ -200,14 +198,14 @@ class modSendgrid extends DolibarrModules
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options='')
+	function remove($options = '')
 	{
 		$sql = array();
 
-		return $this->_remove($sql,$options);
+		return $this->_remove($sql, $options);
 	}
 
 
@@ -223,6 +221,4 @@ class modSendgrid extends DolibarrModules
 	{
 		return $this->_load_tables('/sendgrid/sql/');
 	}
-
 }
-

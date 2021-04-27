@@ -17,39 +17,39 @@
 
 class Google_Service_CloudSearch_FacetBucket extends Google_Model
 {
-  public $count;
-  public $percentage;
-  protected $valueType = 'Google_Service_CloudSearch_Value';
-  protected $valueDataType = '';
+	public $count;
+	public $percentage;
+	protected $valueType = 'Google_Service_CloudSearch_Value';
+	protected $valueDataType = '';
 
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  public function setPercentage($percentage)
-  {
-    $this->percentage = $percentage;
-  }
-  public function getPercentage()
-  {
-    return $this->percentage;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Value
-   */
-  public function setValue(Google_Service_CloudSearch_Value $value)
-  {
-    $this->value = $value;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Value
-   */
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	public function setPercentage($percentage)
+	{
+		$this->percentage = $percentage;
+	}
+	public function getPercentage()
+	{
+		return $this->percentage;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Value
+	 */
+	public function setValue(Google_Service_CloudSearch_Value $value)
+	{
+		$this->value = $value;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Value
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

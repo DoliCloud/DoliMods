@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListProposalsResponse extends Google_Collection
 {
-  protected $collection_key = 'proposals';
-  public $nextPageToken;
-  protected $proposalsType = 'Google_Service_AdExchangeBuyerII_Proposal';
-  protected $proposalsDataType = 'array';
+	protected $collection_key = 'proposals';
+	public $nextPageToken;
+	protected $proposalsType = 'Google_Service_AdExchangeBuyerII_Proposal';
+	protected $proposalsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_Proposal
-   */
-  public function setProposals($proposals)
-  {
-    $this->proposals = $proposals;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_Proposal
-   */
-  public function getProposals()
-  {
-    return $this->proposals;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_Proposal
+	 */
+	public function setProposals($proposals)
+	{
+		$this->proposals = $proposals;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_Proposal
+	 */
+	public function getProposals()
+	{
+		return $this->proposals;
+	}
 }

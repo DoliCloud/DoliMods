@@ -17,14 +17,14 @@
 
 class Google_Service_Plus_ActivityObjectActorVerification extends Google_Model
 {
-  public $adHocVerified;
+	public $adHocVerified;
 
-  public function setAdHocVerified($adHocVerified)
-  {
-    $this->adHocVerified = $adHocVerified;
-  }
-  public function getAdHocVerified()
-  {
-    return $this->adHocVerified;
-  }
+	public function setAdHocVerified($adHocVerified)
+	{
+		$this->adHocVerified = $adHocVerified;
+	}
+	public function getAdHocVerified()
+	{
+		return $this->adHocVerified;
+	}
 }

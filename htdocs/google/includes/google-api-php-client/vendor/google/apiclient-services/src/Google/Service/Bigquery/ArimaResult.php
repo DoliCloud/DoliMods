@@ -17,31 +17,31 @@
 
 class Google_Service_Bigquery_ArimaResult extends Google_Collection
 {
-  protected $collection_key = 'seasonalPeriods';
-  protected $arimaModelInfoType = 'Google_Service_Bigquery_ArimaModelInfo';
-  protected $arimaModelInfoDataType = 'array';
-  public $seasonalPeriods;
+	protected $collection_key = 'seasonalPeriods';
+	protected $arimaModelInfoType = 'Google_Service_Bigquery_ArimaModelInfo';
+	protected $arimaModelInfoDataType = 'array';
+	public $seasonalPeriods;
 
-  /**
-   * @param Google_Service_Bigquery_ArimaModelInfo
-   */
-  public function setArimaModelInfo($arimaModelInfo)
-  {
-    $this->arimaModelInfo = $arimaModelInfo;
-  }
-  /**
-   * @return Google_Service_Bigquery_ArimaModelInfo
-   */
-  public function getArimaModelInfo()
-  {
-    return $this->arimaModelInfo;
-  }
-  public function setSeasonalPeriods($seasonalPeriods)
-  {
-    $this->seasonalPeriods = $seasonalPeriods;
-  }
-  public function getSeasonalPeriods()
-  {
-    return $this->seasonalPeriods;
-  }
+	/**
+	 * @param Google_Service_Bigquery_ArimaModelInfo
+	 */
+	public function setArimaModelInfo($arimaModelInfo)
+	{
+		$this->arimaModelInfo = $arimaModelInfo;
+	}
+	/**
+	 * @return Google_Service_Bigquery_ArimaModelInfo
+	 */
+	public function getArimaModelInfo()
+	{
+		return $this->arimaModelInfo;
+	}
+	public function setSeasonalPeriods($seasonalPeriods)
+	{
+		$this->seasonalPeriods = $seasonalPeriods;
+	}
+	public function getSeasonalPeriods()
+	{
+		return $this->seasonalPeriods;
+	}
 }

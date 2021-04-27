@@ -26,7 +26,7 @@
  *      \ingroup    bittorrent
  *      \brief      Description and activation file for module MyModule
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -34,11 +34,11 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
  */
 class modBitTorrent extends DolibarrModules
 {
-    /**
+	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
 	 *   @param		DoliDB		$db		Database handler
-     */
+	 */
 	function __construct($db)
 	{
 		global $user;
@@ -55,11 +55,11 @@ class modBitTorrent extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Make your Dolibarr able to be a BitTorrent tracker (and serve .torrent files)";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -98,10 +98,10 @@ class modBitTorrent extends DolibarrModules
 
 		// Add here list of php file(s) stored in includes/boxes that contains class to show a box.
 		// Example:
-        //$this->boxes[$r][1] = "myboxa.php";
-    	//$r++;
-        //$this->boxes[$r][1] = "myboxb.php";
-    	//$r++;
+		//$this->boxes[$r][1] = "myboxa.php";
+		//$r++;
+		//$this->boxes[$r][1] = "myboxb.php";
+		//$r++;
 
 
 		// Permissions
@@ -131,7 +131,7 @@ class modBitTorrent extends DolibarrModules
 									'url'=>'/bittorrent/admin.php',
 									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
-                            		'enabled'=>'$conf->bittorrent->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'$conf->bittorrent->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 									'perms'=>'1',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
@@ -144,7 +144,7 @@ class modBitTorrent extends DolibarrModules
 									'mainmenu'=>'bittorrent',
 									'url'=>'/bittorrent/admin.php',
 									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                            		'enabled'=>'$conf->bittorrent->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'$conf->bittorrent->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 									'position'=>100,
 									'perms'=>$user->admin,			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
@@ -166,40 +166,40 @@ class modBitTorrent extends DolibarrModules
 
 
 		// Exports
-        $r=1;
-  	}
+		$r=1;
+	}
 
 	/**
 	 *	Function called when module is enabled.
 	 *	The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *	It also creates data directories
 	 *
-     *  @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *  @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *  @return     int             	1 if OK, 0 if KO
-     */
-	function init($options='')
-  	{
-    	$sql = array();
+	 */
+	function init($options = '')
+	{
+		$sql = array();
 
 		$result=$this->load_tables();
 
-    	return $this->_init($sql,$options);
-  	}
+		return $this->_init($sql, $options);
+	}
 
 	/**
 	 *	Function called when module is disabled.
 	 *  Remove from database constants, boxes and permissions from Dolibarr database.
 	 *	Data directories are not deleted
 	 *
-     *  @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *  @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *  @return     int             	1 if OK, 0 if KO
- 	 */
-	function remove($options='')
+	 */
+	function remove($options = '')
 	{
-    	$sql = array();
+		$sql = array();
 
-    	return $this->_remove($sql,$options);
-  	}
+		return $this->_remove($sql, $options);
+	}
 
 
 	/**
@@ -215,4 +215,3 @@ class modBitTorrent extends DolibarrModules
 		return $this->_load_tables('/bittorrent/sql/');
 	}
 }
-

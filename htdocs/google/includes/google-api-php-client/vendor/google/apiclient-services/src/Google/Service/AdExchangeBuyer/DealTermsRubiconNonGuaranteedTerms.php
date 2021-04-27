@@ -17,37 +17,37 @@
 
 class Google_Service_AdExchangeBuyer_DealTermsRubiconNonGuaranteedTerms extends Google_Model
 {
-  protected $priorityPriceType = 'Google_Service_AdExchangeBuyer_Price';
-  protected $priorityPriceDataType = '';
-  protected $standardPriceType = 'Google_Service_AdExchangeBuyer_Price';
-  protected $standardPriceDataType = '';
+	protected $priorityPriceType = 'Google_Service_AdExchangeBuyer_Price';
+	protected $priorityPriceDataType = '';
+	protected $standardPriceType = 'Google_Service_AdExchangeBuyer_Price';
+	protected $standardPriceDataType = '';
 
-  /**
-   * @param Google_Service_AdExchangeBuyer_Price
-   */
-  public function setPriorityPrice(Google_Service_AdExchangeBuyer_Price $priorityPrice)
-  {
-    $this->priorityPrice = $priorityPrice;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_Price
-   */
-  public function getPriorityPrice()
-  {
-    return $this->priorityPrice;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyer_Price
-   */
-  public function setStandardPrice(Google_Service_AdExchangeBuyer_Price $standardPrice)
-  {
-    $this->standardPrice = $standardPrice;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_Price
-   */
-  public function getStandardPrice()
-  {
-    return $this->standardPrice;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyer_Price
+	 */
+	public function setPriorityPrice(Google_Service_AdExchangeBuyer_Price $priorityPrice)
+	{
+		$this->priorityPrice = $priorityPrice;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_Price
+	 */
+	public function getPriorityPrice()
+	{
+		return $this->priorityPrice;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyer_Price
+	 */
+	public function setStandardPrice(Google_Service_AdExchangeBuyer_Price $standardPrice)
+	{
+		$this->standardPrice = $standardPrice;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_Price
+	 */
+	public function getStandardPrice()
+	{
+		return $this->standardPrice;
+	}
 }

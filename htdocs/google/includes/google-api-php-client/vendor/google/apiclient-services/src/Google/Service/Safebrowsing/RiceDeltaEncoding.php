@@ -17,41 +17,41 @@
 
 class Google_Service_Safebrowsing_RiceDeltaEncoding extends Google_Model
 {
-  public $encodedData;
-  public $firstValue;
-  public $numEntries;
-  public $riceParameter;
+	public $encodedData;
+	public $firstValue;
+	public $numEntries;
+	public $riceParameter;
 
-  public function setEncodedData($encodedData)
-  {
-    $this->encodedData = $encodedData;
-  }
-  public function getEncodedData()
-  {
-    return $this->encodedData;
-  }
-  public function setFirstValue($firstValue)
-  {
-    $this->firstValue = $firstValue;
-  }
-  public function getFirstValue()
-  {
-    return $this->firstValue;
-  }
-  public function setNumEntries($numEntries)
-  {
-    $this->numEntries = $numEntries;
-  }
-  public function getNumEntries()
-  {
-    return $this->numEntries;
-  }
-  public function setRiceParameter($riceParameter)
-  {
-    $this->riceParameter = $riceParameter;
-  }
-  public function getRiceParameter()
-  {
-    return $this->riceParameter;
-  }
+	public function setEncodedData($encodedData)
+	{
+		$this->encodedData = $encodedData;
+	}
+	public function getEncodedData()
+	{
+		return $this->encodedData;
+	}
+	public function setFirstValue($firstValue)
+	{
+		$this->firstValue = $firstValue;
+	}
+	public function getFirstValue()
+	{
+		return $this->firstValue;
+	}
+	public function setNumEntries($numEntries)
+	{
+		$this->numEntries = $numEntries;
+	}
+	public function getNumEntries()
+	{
+		return $this->numEntries;
+	}
+	public function setRiceParameter($riceParameter)
+	{
+		$this->riceParameter = $riceParameter;
+	}
+	public function getRiceParameter()
+	{
+		return $this->riceParameter;
+	}
 }

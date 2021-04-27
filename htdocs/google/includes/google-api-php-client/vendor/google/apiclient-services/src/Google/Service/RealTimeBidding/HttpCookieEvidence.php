@@ -17,24 +17,24 @@
 
 class Google_Service_RealTimeBidding_HttpCookieEvidence extends Google_Collection
 {
-  protected $collection_key = 'cookieNames';
-  public $cookieNames;
-  public $maxCookieCount;
+	protected $collection_key = 'cookieNames';
+	public $cookieNames;
+	public $maxCookieCount;
 
-  public function setCookieNames($cookieNames)
-  {
-    $this->cookieNames = $cookieNames;
-  }
-  public function getCookieNames()
-  {
-    return $this->cookieNames;
-  }
-  public function setMaxCookieCount($maxCookieCount)
-  {
-    $this->maxCookieCount = $maxCookieCount;
-  }
-  public function getMaxCookieCount()
-  {
-    return $this->maxCookieCount;
-  }
+	public function setCookieNames($cookieNames)
+	{
+		$this->cookieNames = $cookieNames;
+	}
+	public function getCookieNames()
+	{
+		return $this->cookieNames;
+	}
+	public function setMaxCookieCount($maxCookieCount)
+	{
+		$this->maxCookieCount = $maxCookieCount;
+	}
+	public function getMaxCookieCount()
+	{
+		return $this->maxCookieCount;
+	}
 }

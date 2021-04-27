@@ -17,66 +17,66 @@
 
 class Google_Service_CloudSearch_Value extends Google_Model
 {
-  public $booleanValue;
-  protected $dateValueType = 'Google_Service_CloudSearch_Date';
-  protected $dateValueDataType = '';
-  public $doubleValue;
-  public $integerValue;
-  public $stringValue;
-  public $timestampValue;
+	public $booleanValue;
+	protected $dateValueType = 'Google_Service_CloudSearch_Date';
+	protected $dateValueDataType = '';
+	public $doubleValue;
+	public $integerValue;
+	public $stringValue;
+	public $timestampValue;
 
-  public function setBooleanValue($booleanValue)
-  {
-    $this->booleanValue = $booleanValue;
-  }
-  public function getBooleanValue()
-  {
-    return $this->booleanValue;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Date
-   */
-  public function setDateValue(Google_Service_CloudSearch_Date $dateValue)
-  {
-    $this->dateValue = $dateValue;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Date
-   */
-  public function getDateValue()
-  {
-    return $this->dateValue;
-  }
-  public function setDoubleValue($doubleValue)
-  {
-    $this->doubleValue = $doubleValue;
-  }
-  public function getDoubleValue()
-  {
-    return $this->doubleValue;
-  }
-  public function setIntegerValue($integerValue)
-  {
-    $this->integerValue = $integerValue;
-  }
-  public function getIntegerValue()
-  {
-    return $this->integerValue;
-  }
-  public function setStringValue($stringValue)
-  {
-    $this->stringValue = $stringValue;
-  }
-  public function getStringValue()
-  {
-    return $this->stringValue;
-  }
-  public function setTimestampValue($timestampValue)
-  {
-    $this->timestampValue = $timestampValue;
-  }
-  public function getTimestampValue()
-  {
-    return $this->timestampValue;
-  }
+	public function setBooleanValue($booleanValue)
+	{
+		$this->booleanValue = $booleanValue;
+	}
+	public function getBooleanValue()
+	{
+		return $this->booleanValue;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Date
+	 */
+	public function setDateValue(Google_Service_CloudSearch_Date $dateValue)
+	{
+		$this->dateValue = $dateValue;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Date
+	 */
+	public function getDateValue()
+	{
+		return $this->dateValue;
+	}
+	public function setDoubleValue($doubleValue)
+	{
+		$this->doubleValue = $doubleValue;
+	}
+	public function getDoubleValue()
+	{
+		return $this->doubleValue;
+	}
+	public function setIntegerValue($integerValue)
+	{
+		$this->integerValue = $integerValue;
+	}
+	public function getIntegerValue()
+	{
+		return $this->integerValue;
+	}
+	public function setStringValue($stringValue)
+	{
+		$this->stringValue = $stringValue;
+	}
+	public function getStringValue()
+	{
+		return $this->stringValue;
+	}
+	public function setTimestampValue($timestampValue)
+	{
+		$this->timestampValue = $timestampValue;
+	}
+	public function getTimestampValue()
+	{
+		return $this->timestampValue;
+	}
 }

@@ -14,24 +14,24 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require_once DOL_DOCUMENT_ROOT."/core/lib/company.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/member.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php";
+require_once DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php";
+require_once DOL_DOCUMENT_ROOT."/contact/class/contact.class.php";
 dol_include_once("/google/class/googlemaps.class.php");
 dol_include_once("/google/includes/GoogleMapAPIv3.class.php");
 
@@ -49,65 +49,52 @@ $socid = GETPOST('socid', 'int');
 $search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
 $search_tag_customer=GETPOST('search_tag_customer');
 $search_tag_supplier=GETPOST('search_tag_supplier');
-$search_departement = GETPOST("state_id","int");
-$search_customer = GETPOST('search_customer','alpha');
-$search_supplier = GETPOST('search_supplier','alpha');
-$search_status = GETPOST('search_status','alpha');
+$search_departement = GETPOST("state_id", "int");
+$search_customer = GETPOST('search_customer', 'alpha');
+$search_supplier = GETPOST('search_supplier', 'alpha');
+$search_status = GETPOST('search_status', 'alpha');
 
 if ($search_status == '') $search_status = '1';
 
 // Load third party
-if (empty($mode) || $mode=='thirdparty')
-{
-	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
-	if ($id > 0)
-	{
+if (empty($mode) || $mode=='thirdparty') {
+	include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+	if ($id > 0) {
 		$object = new Societe($db);
 		$object->id = $id;
 		$object->fetch($id);
 		$address = $object->getFullAddress(1, ', ');
 		$url = $object->url;
 	}
-}
-else if ($mode=='contact')
-{
-	include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
-	if ($id > 0)
-	{
+} elseif ($mode=='contact') {
+	include_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+	if ($id > 0) {
 		$object = new Contact($db);
 		$object->id = $id;
 		$object->fetch($id);
 		$address = $object->getFullAddress(1, ', ');
 		$url = '';
 	}
-}
-else if ($mode=='member')
-{
-	include_once(DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php');
-	if ($id > 0)
-	{
+} elseif ($mode=='member') {
+	include_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+	if ($id > 0) {
 		$object = new Adherent($db);
 		$object->id = $id;
 		$object->fetch($id);
 		$address = $object->getFullAddress(1, ', ');
 		$url = '';
 	}
-}
-else if ($mode=='patient')
-{
+} elseif ($mode=='patient') {
 	dol_include_once('/cabinetmed/class/patient.class.php');
-	if ($id > 0)
-	{
+	if ($id > 0) {
 		$object = new Patient($db);
 		$object->id = $id;
 		$object->fetch($id);
 		$address = $object->getFullAddress(1, ', ');
 		$url = '';
 	}
-}
-else
-{
-	dol_print_error('','Bad value for mode param into url');
+} else {
+	dol_print_error('', 'Bad value for mode param into url');
 	exit;
 }
 
@@ -119,8 +106,7 @@ else
 $countrytable="c_pays";
 $countrylabelfield='libelle';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)
-{
+if (versioncompare(versiondolibarrarray(), array(3,7,-3)) >= 0) {
 	$countrytable="c_country";
 	$countrylabelfield='label';
 }
@@ -136,8 +122,7 @@ $head=array();
 $title='';
 $picto='';
 $type='';
-if (empty($mode) || $mode=='thirdparty')
-{
+if (empty($mode) || $mode=='thirdparty') {
 	if ($user->societe_id) $socid=$user->societe_id;
 
 	$title=$langs->trans("MapOfThirdparties");
@@ -150,7 +135,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
-    if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
+	if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
 	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
 	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
@@ -158,8 +143,7 @@ if (empty($mode) || $mode=='thirdparty')
 	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
 	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".$db->escape($search_tag_customer).")";
 	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".$db->escape($search_tag_supplier).")";
-	if ($search_customer != '' && $search_customer != '-1')
-	{
+	if ($search_customer != '' && $search_customer != '-1') {
 		$filterclient = '1,2,3';
 		if ($search_customer == 2) $filterclient= '2,3';
 		if ($search_customer == 1) $filterclient= '1,3';
@@ -170,9 +154,7 @@ if (empty($mode) || $mode=='thirdparty')
 
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 	//print $search_sale.'-'.$sql;
-}
-else if ($mode=='contact')
-{
+} elseif ($mode=='contact') {
 	$title=$langs->trans("MapOfContactsAddresses");
 	$picto='contact';
 	$type='contact';
@@ -184,9 +166,7 @@ else if ($mode=='contact')
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
-}
-else if ($mode=='member')
-{
+} elseif ($mode=='member') {
 	$search_tag_member=GETPOST('search_tag_member');
 
 	$title=$langs->trans("MapOfMembers");
@@ -202,13 +182,11 @@ else if ($mode=='member')
 	$sql.= " AND s.entity IN (".getEntity('adherent', 1).")";
 	if ($search_tag_member > 0)           $sql.= " AND s.rowid IN (SELECT fk_member FROM ".MAIN_DB_PREFIX."categorie_member as cs WHERE fk_categorie = ".$db->escape($search_tag_member).")";
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
-}
-else if ($mode=='patient')
-{
+} elseif ($mode=='patient') {
 	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
 	$search_tag_customer=GETPOST('search_tag_customer');
 	$search_tag_supplier=GETPOST('search_tag_supplier');
-	$search_departement = GETPOST("state_id","int");
+	$search_departement = GETPOST("state_id", "int");
 
 	$title=$langs->trans("MapOfPatients");
 	$picto='user';
@@ -221,7 +199,7 @@ else if ($mode=='patient')
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.canvas='patient@cabinetmed'";
 	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
-    if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
+	if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
 	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
@@ -239,75 +217,65 @@ dol_fiche_head(array(), 'gmaps', '', 0);
 
 
 // If the user can view prospects other than his'
-if ($user->rights->societe->client->voir && empty($socid))
-{
-    if (empty($mode) || $mode=='thirdparty' || $mode=='patient' || $mode == 'member')
-    {
-    	$langs->loadLangs(array("commercial", "companies"));
+if ($user->rights->societe->client->voir && empty($socid)) {
+	if (empty($mode) || $mode=='thirdparty' || $mode=='patient' || $mode == 'member') {
+		$langs->loadLangs(array("commercial", "companies"));
 
-    	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
-    	print '<input type="hidden" name="token" value="'.newToken().'">';
-    	print '<input type="hidden" name="mode" value="'.$mode.'">';
+		print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+		print '<input type="hidden" name="token" value="'.newToken().'">';
+		print '<input type="hidden" name="mode" value="'.$mode.'">';
 
-    	if ($mode != 'member' && (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS) || empty($conf->global->SOCIETE_DISABLE_PROSPECTS)))
-    	{
-    	    print $langs->trans('ProspectCustomer'). ' : ';
+		if ($mode != 'member' && (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS) || empty($conf->global->SOCIETE_DISABLE_PROSPECTS))) {
+			print $langs->trans('ProspectCustomer'). ' : ';
 
-	    	$selected=$search_customer;
-	    	print '<select class="flat" name="search_customer" id="customerprospect">';
-	    	print '<option value="-1">&nbsp;</option>';
-	    	if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
-	    	if (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print '<option value="1"'.($selected==1?' selected':'').'>'.$langs->trans('Customer').'</option>';
-	    	print '</select></td>';
+			$selected=$search_customer;
+			print '<select class="flat" name="search_customer" id="customerprospect">';
+			print '<option value="-1">&nbsp;</option>';
+			if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
+			if (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print '<option value="1"'.($selected==1?' selected':'').'>'.$langs->trans('Customer').'</option>';
+			print '</select></td>';
 
-	    	if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire))
-	    	{
-	    		print ' &nbsp; &nbsp; &nbsp; '.$langs->trans('Supplier').' : ';
-	    		print $form->selectyesno("search_supplier", $search_supplier, 1, false, 1);
-	    	}
+			if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire)) {
+				print ' &nbsp; &nbsp; &nbsp; '.$langs->trans('Supplier').' : ';
+				print $form->selectyesno("search_supplier", $search_supplier, 1, false, 1);
+			}
 
-	    	// Status
-	    	print ' &nbsp; &nbsp; &nbsp; '.$form->editfieldkey('Status', 'search_status', '', $object, 0).' ';
-	    	print $form->selectarray('search_status', array('0'=>$langs->trans('ActivityCeased'), '1'=>$langs->trans('InActivity')), $search_status, 1);
+			// Status
+			print ' &nbsp; &nbsp; &nbsp; '.$form->editfieldkey('Status', 'search_status', '', $object, 0).' ';
+			print $form->selectarray('search_status', array('0'=>$langs->trans('ActivityCeased'), '1'=>$langs->trans('InActivity')), $search_status, 1);
 
-	    	print '<br>';
-    	}
+			print '<br>';
+		}
 
-    	if ($mode != 'member')
-    	{
-	    	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
-	    	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
+		if ($mode != 'member') {
+			print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
+			print $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, 1, 'maxwidth300');
 
-	    	if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE))
-	    	{
-	    		print ' &nbsp; &nbsp; &nbsp; ';
-	    		print $langs->trans("State").': ';
-	    		print $formcompany->select_state($search_departement,0,'state_id');
-	    	}
+			if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE)) {
+				print ' &nbsp; &nbsp; &nbsp; ';
+				print $langs->trans("State").': ';
+				print $formcompany->select_state($search_departement, 0, 'state_id');
+			}
 
 			print ' &nbsp; &nbsp; &nbsp; ';
 			print $langs->trans("CustomersCategoriesShort").': ';
 			print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer');
 
-			if (empty($mode) || $mode=='thirdparty')
-			{
-	    		print ' &nbsp; &nbsp; &nbsp; ';
-	    		print $langs->trans("SuppliersCategoriesShort").': ';
-	    		print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier');
+			if (empty($mode) || $mode=='thirdparty') {
+				print ' &nbsp; &nbsp; &nbsp; ';
+				print $langs->trans("SuppliersCategoriesShort").': ';
+				print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier');
 			}
-    	}
-    	else
-    	{
+		} else {
+			print $langs->trans("MembersCategoriesShort").': ';
+			print $formother->select_categories(3, $search_tag_member, 'search_tag_member');
+		}
 
-    		print $langs->trans("MembersCategoriesShort").': ';
-    		print $formother->select_categories(3, $search_tag_member, 'search_tag_member');
-    	}
-
-    	print ' &nbsp; &nbsp; &nbsp; ';
+		print ' &nbsp; &nbsp; &nbsp; ';
 
 		print ' <input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
-    	print '</form>';
-    }
+		print '</form>';
+	}
 }
 
 
@@ -322,19 +290,17 @@ $countgeoencodedall=0;
 // Loop
 dol_syslog("Search addresses sql=".$sql);
 $resql=$db->query($sql);
-if ($resql)
-{
+if ($resql) {
 	$num=$db->num_rows($resql);
 	$i=0;
-	while ($i < $num)
-	{
+	while ($i < $num) {
 		$obj=$db->fetch_object($resql);
 		if (empty($obj->country_code)) $obj->country_code=$mysoc->country_code;
 
 		$error='';
 
-		$addresstosearch=dol_format_address($obj,1," ");
-		$address=dol_format_address($obj,1,", ");	// address to show
+		$addresstosearch=dol_format_address($obj, 1, " ");
+		$address=dol_format_address($obj, 1, ", ");	// address to show
 
 		$object=new stdClass();
 		$object->id=$obj->id;
@@ -350,14 +316,12 @@ if ($resql)
 
 		$geoencodingtosearch=false;
 		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;
-		else if ((empty($object->latitude) || empty($object->longitude))
-		    && (empty($obj->result_code) || in_array($obj->result_code, array('OK','OVER_QUERY_LIMIT','REQUEST_DENIED')))) $geoencodingtosearch=true;
+		elseif ((empty($object->latitude) || empty($object->longitude))
+			&& (empty($obj->result_code) || in_array($obj->result_code, array('OK','OVER_QUERY_LIMIT','REQUEST_DENIED')))) $geoencodingtosearch=true;
 
-		if ($geoencodingtosearch && (empty($MAXADDRESS) || $countgeoencoding < $MAXADDRESS))
-		{
+		if ($geoencodingtosearch && (empty($MAXADDRESS) || $countgeoencoding < $MAXADDRESS)) {
 			// Google limit usage of API to 5 requests per second
-			if ($countgeoencoding && ($countgeoencoding % 5 == 0))
-			{
+			if ($countgeoencoding && ($countgeoencoding % 5 == 0)) {
 				dol_syslog("Add a delay of 1");
 				sleep(1);
 			}
@@ -366,17 +330,15 @@ if ($resql)
 
 			$point = geocoding($addresstosearch);
 
-			if (! is_array($point) && $point == 'ZERO_RESULTS')
-			{
+			if (! is_array($point) && $point == 'ZERO_RESULTS') {
 				// Try with a degraded address (if address is only a zip or "lieu-dit")
-				$degradedaddresstosearch = dol_format_address($obj,1," ",'',true);
+				$degradedaddresstosearch = dol_format_address($obj, 1, " ", '', true);
 
 				$object->result_on_degraded_address = 1;
 				$point = geocoding($degradedaddresstosearch);
 			}
 
-			if (is_array($point))
-			{
+			if (is_array($point)) {
 				$object->latitude=$point['lat'];
 				$object->longitude=$point['lng'];
 
@@ -392,13 +354,11 @@ if ($resql)
 
 				if ($googlemaps->id > 0) $result=$googlemaps->update();
 				else $result=$googlemaps->create($user);
-				if ($result < 0) dol_print_error('',$googlemaps->error);
+				if ($result < 0) dol_print_error('', $googlemaps->error);
 
 				$countgeoencodedok++;
 				$countgeoencodedall++;
-			}
-			else
-			{
+			} else {
 				$error=$point;
 
 				// Update/insert database
@@ -408,27 +368,22 @@ if ($resql)
 				$googlemaps->address=$addresstosearch;
 				$googlemaps->fk_object=$obj->id;
 				$googlemaps->type_object=$type;
-				if ($error == 'ZERO_RESULTS')
-				{
+				if ($error == 'ZERO_RESULTS') {
 					$error='Address not complete or unknown';
 					$googlemaps->result_code='ZERO_RESULTS';
 					$googlemaps->result_label=$error;
-				}
-				else if ($error == 'OVER_QUERY_LIMIT')
-				{
+				} elseif ($error == 'OVER_QUERY_LIMIT') {
 					$error='Quota reached';
 					$googlemaps->result_code='OVER_QUERY_LIMIT';
 					$googlemaps->result_label=$error;
-				}
-				else
-				{
+				} else {
 					$googlemaps->result_code=$error;
 					$googlemaps->result_label='Geoencoding failed: '.$error;
 				}
 
 				if ($googlemaps->id > 0) $result=$googlemaps->update();
 				else $result=$googlemaps->create($user);
-				if ($result < 0) dol_print_error('',$googlemaps->error);
+				if ($result < 0) dol_print_error('', $googlemaps->error);
 
 				$object->error_code=$googlemaps->result_code;
 				$object->error=$googlemaps->result_label;
@@ -436,31 +391,23 @@ if ($resql)
 
 				$countgeoencodedall++;
 			}
-		}
-		else
-		{
-			if ($obj->result_code == 'OK')	// A success
-			{
+		} else {
+			if ($obj->result_code == 'OK') {	// A success
 				$countgeoencodedok++;
 				$countgeoencodedall++;
-			}
-			else if (! empty($obj->result_code))	// An error
-			{
+			} elseif (! empty($obj->result_code)) {	// An error
 				$error=$obj->result_label;
 				$object->error_code=$obj->result_code;
 				$object->error=$error;
 				$adderrors[]=$object;
 
 				$countgeoencodedall++;
-			}
-			else 	// No geoencoding done yet
+			} else // No geoencoding done yet
 			{
-
 			}
 		}
 
-		if (! $error)
-		{
+		if (! $error) {
 			$addresses[]=$object;
 		}
 
@@ -469,18 +416,17 @@ if ($resql)
 
 	// Summary of data represented
 	print '<div class="resultgeoencoding" style="padding-top: 8px;">';
-	if ($num > $countgeoencodedall) print '<span class="opacitymedium hideonsmartphone">'.$langs->trans("OnlyXAddressesAmongYWereGeoencoded",$MAXADDRESS,$countgeoencodedok).'</span><br>'."\n";
-	print $langs->trans("CountGeoTotal",$num,($num-$countgeoencodedall),($countgeoencodedall-$countgeoencodedok),$countgeoencodedok).'<br>'."\n";
+	if ($num > $countgeoencodedall) print '<span class="opacitymedium hideonsmartphone">'.$langs->trans("OnlyXAddressesAmongYWereGeoencoded", $MAXADDRESS, $countgeoencodedok).'</span><br>'."\n";
+	print $langs->trans("CountGeoTotal", $num, ($num-$countgeoencodedall), ($countgeoencodedall-$countgeoencodedok), $countgeoencodedok).'<br>'."\n";
 	print '</div>';
-	if ($num > $countgeoencodedall)
-	{
-	    $param='';
-	    if ($search_customer != '' && $search_customer != '-1') $param.='&search_customer='.urlencode($search_customer);
-	    if ($search_supplier != '' && $search_supplier != '-1') $param.='&search_supplier='.urlencode($search_supplier);
-	    if ($search_sale != '' && $search_sale != '-1') $param.='&search_sale='.urlencode($search_sale);
-	    if ($search_tag_customer != '' && $search_tag_customer != '-1') $param.='&search_tag_customer='.urlencode($search_tag_customer);
-	    if ($search_tag_supplier != '' && $search_tag_supplier != '-1') $param.='&search_tag_supplier='.urlencode($search_tag_supplier);
-	    if ($search_departement != '' && $search_departement != '-1') $param.='&search_departement='.urlencode($search_departement);
+	if ($num > $countgeoencodedall) {
+		$param='';
+		if ($search_customer != '' && $search_customer != '-1') $param.='&search_customer='.urlencode($search_customer);
+		if ($search_supplier != '' && $search_supplier != '-1') $param.='&search_supplier='.urlencode($search_supplier);
+		if ($search_sale != '' && $search_sale != '-1') $param.='&search_sale='.urlencode($search_sale);
+		if ($search_tag_customer != '' && $search_tag_customer != '-1') $param.='&search_tag_customer='.urlencode($search_tag_customer);
+		if ($search_tag_supplier != '' && $search_tag_supplier != '-1') $param.='&search_tag_supplier='.urlencode($search_tag_supplier);
+		if ($search_departement != '' && $search_departement != '-1') $param.='&search_departement='.urlencode($search_departement);
 
 		print $langs->trans("ClickHereToIncludeXMore").': &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=1'.$param.'">'.$langs->trans("By1").'</a> &nbsp;';
@@ -491,9 +437,7 @@ if ($resql)
 		print '<br>';
 	}
 	print '<br>'."\n";
-}
-else
-{
+} else {
 	dol_print_error($db);
 }
 
@@ -504,7 +448,7 @@ $gmap->setEnableWindowZoom(true);
 $gmap->setEnableAutomaticCenterZoom(true);
 $gmap->setDisplayDirectionFields(false);
 $gmap->setClusterer(empty($conf->global->GOOGLE_NOCLUSTERER));                  // For high number or record, we should use clusterer
-$gmap->setSize('100%','500px');
+$gmap->setSize('100%', '500px');
 $gmap->setZoom(11);
 $gmap->setLang($user->lang);
 $gmap->setDefaultHideMarker(false);
@@ -525,16 +469,14 @@ if (count($addresses) == 0 && count($adderrors) == 0) print $langs->trans("NoAdd
 
 
 // Show error
-if (count($adderrors))
-{
+if (count($adderrors)) {
 	if (empty($mode) || $mode=='thirdparty') $objectstatic=new Societe($db);
-	else if ($mode=='contact') $objectstatic=new Contact($db);
-	else if ($mode=='member') $objectstatic=new Adherent($db);
-	else if ($mode=='patient') $objectstatic=new Patient($db);
+	elseif ($mode=='contact') $objectstatic=new Contact($db);
+	elseif ($mode=='member') $objectstatic=new Adherent($db);
+	elseif ($mode=='patient') $objectstatic=new Patient($db);
 
-	print $langs->trans("FollowingAddressCantBeLocalized",($countgeoencodedall-$countgeoencodedok)).':<br>'."\n";
-	foreach($adderrors as $object)
-	{
+	print $langs->trans("FollowingAddressCantBeLocalized", ($countgeoencodedall-$countgeoencodedok)).':<br>'."\n";
+	foreach ($adderrors as $object) {
 		$objectstatic->id=$object->id;
 		$objectstatic->name=$object->name;	// Here $object is an array an 'name' is already a formatted string with firstname and lastname
 		$objectstatic->ref=$object->name;	// Here $object is an array an 'name' is already a formatted string with firstname and lastname
@@ -571,10 +513,9 @@ function geocoding($address)
 	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
 
 	ini_set("allow_url_open", "1");
-	$response = googlegetURLContent($url,'GET');
+	$response = googlegetURLContent($url, 'GET');
 
-	if ($response['curl_error_no'])
-	{
+	if ($response['curl_error_no']) {
 		$returnstring=$response['curl_error_no'].' '.$response['curl_error_msg'];
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
@@ -582,21 +523,17 @@ function geocoding($address)
 
 	$data = json_decode($response['content']);
 	//$data = json_decode($response['content'], false, 0, JSON_BIGINT_AS_STRING);
-	if ($data->status == "OK")
-	{
+	if ($data->status == "OK") {
 		$return=array();
 		$return['lat']=$data->results[0]->geometry->location->lat;
 		$return['lng']=$data->results[0]->geometry->location->lng;
 		return $return;
-	}
-	else if (in_array($data->status, array("OVER_QUERY_LIMIT", "ZERO_RESULTS", "INVALID_RESULT", "REQUEST_DENIED")))
-	{
+	} elseif (in_array($data->status, array("OVER_QUERY_LIMIT", "ZERO_RESULTS", "INVALID_RESULT", "REQUEST_DENIED"))) {
 		$returnstring=$data->status;
 		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
-	}
-	else {
+	} else {
 		$returnstring='Failed to json_decode result '.$response['content'];
 		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
@@ -635,15 +572,15 @@ function withoutSpecialChars($str, $replaceBy = '_')
  * @param   string  $param          Params
  * @return	array					returns an associtive array containing the response from the server.
  */
-function googlegetURLContent($url,$postorget='GET',$param='')
+function googlegetURLContent($url, $postorget = 'GET', $param = '')
 {
 	//declaring of global variables
 	global $conf, $langs;
-    $USE_PROXY=empty($conf->global->MAIN_PROXY_USE)?0:$conf->global->MAIN_PROXY_USE;
-    $PROXY_HOST=empty($conf->global->MAIN_PROXY_HOST)?0:$conf->global->MAIN_PROXY_HOST;
-    $PROXY_PORT=empty($conf->global->MAIN_PROXY_PORT)?0:$conf->global->MAIN_PROXY_PORT;
-    $PROXY_USER=empty($conf->global->MAIN_PROXY_USER)?0:$conf->global->MAIN_PROXY_USER;
-    $PROXY_PASS=empty($conf->global->MAIN_PROXY_PASS)?0:$conf->global->MAIN_PROXY_PASS;
+	$USE_PROXY=empty($conf->global->MAIN_PROXY_USE)?0:$conf->global->MAIN_PROXY_USE;
+	$PROXY_HOST=empty($conf->global->MAIN_PROXY_HOST)?0:$conf->global->MAIN_PROXY_HOST;
+	$PROXY_PORT=empty($conf->global->MAIN_PROXY_PORT)?0:$conf->global->MAIN_PROXY_PORT;
+	$PROXY_USER=empty($conf->global->MAIN_PROXY_USER)?0:$conf->global->MAIN_PROXY_USER;
+	$PROXY_PASS=empty($conf->global->MAIN_PROXY_PASS)?0:$conf->global->MAIN_PROXY_PASS;
 
 	dol_syslog("getURLContent postorget=".$postorget." URL=".$url." param=".$param);
 
@@ -662,19 +599,18 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 	if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($ch, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
 
 	//turning off the server and peer verification(TrustManager Concept).
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?5:$conf->global->MAIN_USE_CONNECT_TIMEOUT);
-    curl_setopt($ch, CURLOPT_TIMEOUT, empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?5:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?5:$conf->global->MAIN_USE_CONNECT_TIMEOUT);
+	curl_setopt($ch, CURLOPT_TIMEOUT, empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?5:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	if ($postorget == 'POST') curl_setopt($ch, CURLOPT_POST, 1);
 	else curl_setopt($ch, CURLOPT_POST, 0);
 
 	//if USE_PROXY constant set to TRUE in Constants.php, then only proxy will be enabled.
-	if ($USE_PROXY)
-	{
+	if ($USE_PROXY) {
 		dol_syslog("getURLContent set proxy to ".$PROXY_HOST. ":" . $PROXY_PORT." - ".$PROXY_USER. ":" . $PROXY_PASS);
 		//curl_setopt ($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP); // Curl 7.10
 		curl_setopt($ch, CURLOPT_PROXY, $PROXY_HOST. ":" . $PROXY_PORT);
@@ -694,20 +630,16 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 
 	//dol_syslog("getURLContent response=".$response);
 
-	if (curl_errno($ch))
-	{
+	if (curl_errno($ch)) {
 		// moving to display page to display curl errors
 		$rep['curl_error_no']=curl_errno($ch);
 		$rep['curl_error_msg']=curl_error($ch);
 
-		dol_syslog("getURLContent curl_error array is ".join(',',$rep));
-	}
-	else
-	{
+		dol_syslog("getURLContent curl_error array is ".join(',', $rep));
+	} else {
 		//closing the curl
 		curl_close($ch);
 	}
 
 	return $rep;
 }
-

@@ -17,70 +17,70 @@
 
 class Google_Service_Compute_InitialStateConfig extends Google_Collection
 {
-  protected $collection_key = 'keks';
-  protected $dbsType = 'Google_Service_Compute_FileContentBuffer';
-  protected $dbsDataType = 'array';
-  protected $dbxsType = 'Google_Service_Compute_FileContentBuffer';
-  protected $dbxsDataType = 'array';
-  protected $keksType = 'Google_Service_Compute_FileContentBuffer';
-  protected $keksDataType = 'array';
-  protected $pkType = 'Google_Service_Compute_FileContentBuffer';
-  protected $pkDataType = '';
+	protected $collection_key = 'keks';
+	protected $dbsType = 'Google_Service_Compute_FileContentBuffer';
+	protected $dbsDataType = 'array';
+	protected $dbxsType = 'Google_Service_Compute_FileContentBuffer';
+	protected $dbxsDataType = 'array';
+	protected $keksType = 'Google_Service_Compute_FileContentBuffer';
+	protected $keksDataType = 'array';
+	protected $pkType = 'Google_Service_Compute_FileContentBuffer';
+	protected $pkDataType = '';
 
-  /**
-   * @param Google_Service_Compute_FileContentBuffer
-   */
-  public function setDbs($dbs)
-  {
-    $this->dbs = $dbs;
-  }
-  /**
-   * @return Google_Service_Compute_FileContentBuffer
-   */
-  public function getDbs()
-  {
-    return $this->dbs;
-  }
-  /**
-   * @param Google_Service_Compute_FileContentBuffer
-   */
-  public function setDbxs($dbxs)
-  {
-    $this->dbxs = $dbxs;
-  }
-  /**
-   * @return Google_Service_Compute_FileContentBuffer
-   */
-  public function getDbxs()
-  {
-    return $this->dbxs;
-  }
-  /**
-   * @param Google_Service_Compute_FileContentBuffer
-   */
-  public function setKeks($keks)
-  {
-    $this->keks = $keks;
-  }
-  /**
-   * @return Google_Service_Compute_FileContentBuffer
-   */
-  public function getKeks()
-  {
-    return $this->keks;
-  }
-  /**
-   * @param Google_Service_Compute_FileContentBuffer
-   */
-  public function setPk(Google_Service_Compute_FileContentBuffer $pk)
-  {
-    $this->pk = $pk;
-  }
-  /**
-   * @return Google_Service_Compute_FileContentBuffer
-   */
-  public function getPk()
-  {
-    return $this->pk;
-  }
+	/**
+	 * @param Google_Service_Compute_FileContentBuffer
+	 */
+	public function setDbs($dbs)
+	{
+		$this->dbs = $dbs;
+	}
+	/**
+	 * @return Google_Service_Compute_FileContentBuffer
+	 */
+	public function getDbs()
+	{
+		return $this->dbs;
+	}
+	/**
+	 * @param Google_Service_Compute_FileContentBuffer
+	 */
+	public function setDbxs($dbxs)
+	{
+		$this->dbxs = $dbxs;
+	}
+	/**
+	 * @return Google_Service_Compute_FileContentBuffer
+	 */
+	public function getDbxs()
+	{
+		return $this->dbxs;
+	}
+	/**
+	 * @param Google_Service_Compute_FileContentBuffer
+	 */
+	public function setKeks($keks)
+	{
+		$this->keks = $keks;
+	}
+	/**
+	 * @return Google_Service_Compute_FileContentBuffer
+	 */
+	public function getKeks()
+	{
+		return $this->keks;
+	}
+	/**
+	 * @param Google_Service_Compute_FileContentBuffer
+	 */
+	public function setPk(Google_Service_Compute_FileContentBuffer $pk)
+	{
+		$this->pk = $pk;
+	}
+	/**
+	 * @return Google_Service_Compute_FileContentBuffer
+	 */
+	public function getPk()
+	{
+		return $this->pk;
+	}
 }

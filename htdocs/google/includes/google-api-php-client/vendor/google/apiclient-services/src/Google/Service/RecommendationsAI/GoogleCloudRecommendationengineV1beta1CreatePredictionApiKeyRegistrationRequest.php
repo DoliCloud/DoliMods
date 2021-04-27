@@ -17,21 +17,21 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CreatePredictionApiKeyRegistrationRequest extends Google_Model
 {
-  protected $predictionApiKeyRegistrationType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration';
-  protected $predictionApiKeyRegistrationDataType = '';
+	protected $predictionApiKeyRegistrationType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration';
+	protected $predictionApiKeyRegistrationDataType = '';
 
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration
-   */
-  public function setPredictionApiKeyRegistration(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration $predictionApiKeyRegistration)
-  {
-    $this->predictionApiKeyRegistration = $predictionApiKeyRegistration;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration
-   */
-  public function getPredictionApiKeyRegistration()
-  {
-    return $this->predictionApiKeyRegistration;
-  }
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration
+	 */
+	public function setPredictionApiKeyRegistration(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration $predictionApiKeyRegistration)
+	{
+		$this->predictionApiKeyRegistration = $predictionApiKeyRegistration;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PredictionApiKeyRegistration
+	 */
+	public function getPredictionApiKeyRegistration()
+	{
+		return $this->predictionApiKeyRegistration;
+	}
 }

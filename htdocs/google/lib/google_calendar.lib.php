@@ -74,7 +74,7 @@ function getTokenFromWebApp($clientid, $clientsecret)
 	$service = new Google_Service_Calendar($client);
 
 	$authUrl = $client->createAuthUrl();
-/*
+	/*
 	// Request authorization
 	print "Please visit:\n$authUrl\n\n";
 	print "Please enter the auth code:\n";
@@ -83,7 +83,7 @@ function getTokenFromWebApp($clientid, $clientsecret)
 	// Exchange authorization code for access token
 	//$accessToken = $client->authenticate($authCode);
 	//$client->setAccessToken($accessToken);
-*/
+	*/
 	return array('client'=>$client, 'service'=>$service, 'authUrl'=>$authUrl);
 }
 
@@ -99,7 +99,7 @@ function getTokenFromWebApp($clientid, $clientsecret)
  * @param	string			$user_to_impersonate		The email of user we want the service account to act as.
  * @return	array|string								Error message or array with token
  */
-function getTokenFromServiceAccount($service_account_name, $key_file_location, $force_do_not_use_session=false, $mode='service', $user_to_impersonate = false)
+function getTokenFromServiceAccount($service_account_name, $key_file_location, $force_do_not_use_session = false, $mode = 'service', $user_to_impersonate = false)
 {
 	global $conf;
 
@@ -109,22 +109,19 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	$client->setApplicationName($applicationname);	// Set prefix of User Agent. User agent is set by PHP API in method Client->execute() of PHP Google Lib.
 	//$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
-	if ($mode == 'web')    // use to synch contact
-	{
-        if (empty($conf->global->GOOGLE_API_CLIENT_ID)) return 'ErrorModuleGoogleNoGoogleClientId';
-        if (empty($conf->global->GOOGLE_API_CLIENT_SECRET)) return 'ErrorModuleGoogleNoGoogleClientSecret';
+	if ($mode == 'web') {    // use to synch contact
+		if (empty($conf->global->GOOGLE_API_CLIENT_ID)) return 'ErrorModuleGoogleNoGoogleClientId';
+		if (empty($conf->global->GOOGLE_API_CLIENT_SECRET)) return 'ErrorModuleGoogleNoGoogleClientSecret';
 
-        $client->setClientId($conf->global->GOOGLE_API_CLIENT_ID);
+		$client->setClientId($conf->global->GOOGLE_API_CLIENT_ID);
 		$client->setClientSecret($conf->global->GOOGLE_API_CLIENT_SECRET);
 		$client->setAccessType('offline');
 
-		if (empty($force_do_not_use_session) && isset($_SESSION['google_web_token_'.$conf->entity]))
-		{
+		if (empty($force_do_not_use_session) && isset($_SESSION['google_web_token_'.$conf->entity])) {
 			dol_syslog("Get web token from session. google_web_token=".$_SESSION['google_web_token_'.$conf->entity]);
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
-		if ((! isset($_SESSION['google_web_token_'.$conf->entity]) || ! empty($force_do_not_use_session)) && ! empty($conf->global->GOOGLE_WEB_TOKEN))
-		{
+		if ((! isset($_SESSION['google_web_token_'.$conf->entity]) || ! empty($force_do_not_use_session)) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
 			// Look into database
 			// $conf->global->GOOGLE_WEB_TOKEN = '{"access_token":"ya29.iQEPBPUAVLXeVq1-QnC6-SHydA9czPX3ySJ5SjkSo5ZIMfFEl5MTs62no8hZp5jUUsm3QVHTrBg7hw","expires_in":3600,"created":1433463453}';
 			$_SESSION['google_web_token_'.$conf->entity] = $conf->global->GOOGLE_WEB_TOKEN;
@@ -132,12 +129,9 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
 
-		if (empty($_SESSION['google_web_token_'.$conf->entity]))
-		{
+		if (empty($_SESSION['google_web_token_'.$conf->entity])) {
 			return 'GoogleWebTokenNotDefinedDoALoginInitFirst';
-		}
-		else
-		{
+		} else {
 			dol_syslog("getTokenFromServiceAccount set current token to ".$_SESSION['google_web_token_'.$conf->entity], LOG_DEBUG);
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
@@ -145,8 +139,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		try {
 			dol_syslog("getTokenFromServiceAccount check isAccessTokenExpired", LOG_DEBUG);
 			$checktoken=$client->isAccessTokenExpired();
-			if ($checktoken)
-			{
+			if ($checktoken) {
 				$tmp=json_decode($conf->global->GOOGLE_WEB_TOKEN, true);
 				$refreshtoken=$tmp['refresh_token'];
 				if (empty($refreshtoken)) $refreshtoken=$tmp['access_token'];
@@ -154,20 +147,16 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 				$client->refreshToken($refreshtoken);
 				$_SESSION['google_web_token_'.$conf->entity]= $client->getAccessToken();
 				dol_syslog("getTokenFromServiceAccount new token in session is now ".$_SESSION['google_web_token_'.$conf->entity], LOG_DEBUG);
-			}
-			else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
-		}
-		catch(Exception $e)
-		{
+			} else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
+		} catch (Exception $e) {
 			return $e->getMessage();
 		}
 	}
-	if ($mode == 'service')    // used to sync events-calendar
-	{
-        if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
-        if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';
+	if ($mode == 'service') {    // used to sync events-calendar
+		if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
+		if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';
 
-	    /************************************************
+		/************************************************
 		  If we have an access token, we can carry on.
 		  Otherwise, we'll get one with the help of an
 		  assertion credential. In other examples the list
@@ -175,8 +164,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		  we have to list them manually. We also supply
 		  the service account
 		 ************************************************/
-		if (empty($force_do_not_use_session) && isset($_SESSION['google_service_token_'.$conf->entity]))
-		{
+		if (empty($force_do_not_use_session) && isset($_SESSION['google_service_token_'.$conf->entity])) {
 			dol_syslog("Get service token from session. service_token=".$_SESSION['google_service_token_'.$conf->entity]);
 			$client->setAccessToken($_SESSION['google_service_token_'.$conf->entity]);
 		}
@@ -187,9 +175,9 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		/*
 		$key = file_get_contents($key_file_location);
 		$cred = new Google_Auth_AssertionCredentials(
-		    $service_account_name,
-		    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
-		    $key,
+			$service_account_name,
+			array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
+			$key,
 			'notasecret',
 			'http://oauth.net/grant_type/jwt/1.0/bearer',
 			$user_to_impersonate
@@ -207,9 +195,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			$client->setAccessType('offline');
 			$scopes = array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.events');
 			$client->setScopes($scopes);
-		}
-		catch(Exception $e)
-		{
+		} catch (Exception $e) {
 			dol_syslog("getTokenFromServiceAccount Error ".$e->getMessage(), LOG_ERR);
 			return $e->getMessage();
 		}
@@ -225,31 +211,26 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 			// API v2
 			$checktoken=$client->isAccessTokenExpired();
-			if ($checktoken)
-			{
+			if ($checktoken) {
 				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it", LOG_DEBUG);
 				$result = $client->refreshTokenWithAssertion();
 				//var_dump($result);
 			}
 			//var_dump($checktoken);
-		}
-		catch(Exception $e)
-		{
+		} catch (Exception $e) {
 			dol_syslog("getTokenFromServiceAccount Error ".$e->getMessage(), LOG_ERR);
 			return $e->getMessage();
 		}
 	}
 
 
-	if ($mode == 'web')
-	{
+	if ($mode == 'web') {
 		$_SESSION['google_web_token_'.$conf->entity] = $client->getAccessToken();	// Overwrite session with correct token
 
 		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_web_token = ".$_SESSION['google_web_token_'.$conf->entity], LOG_INFO);
 		//dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
-	if ($mode == 'service')
-	{
+	if ($mode == 'service') {
 		$tmpres = $client->getAccessToken();
 
 		$_SESSION['google_service_token_'.$conf->entity] = $tmpres;	// Overwrite session with correct token
@@ -272,7 +253,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
  * @param  string	$login			CalendarId (login google or 'primary')
  * @return string 					The ID URL for the event or 'ERROR xxx' if error.
  */
-function createEvent($client, $object, $login='primary')
+function createEvent($client, $object, $login = 'primary')
 {
 	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
@@ -284,22 +265,19 @@ function createEvent($client, $object, $login='primary')
 
 	$tzfix=0;
 	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
-    if (empty($object->fulldayevent))
-    {
-        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
-        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
+	if (empty($object->fulldayevent)) {
+		$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
+		$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');
 
-        $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
+		$start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 		$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
-    }
-    else
-    {
-        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
-        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+	} else {
+		$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayrfc");
+		$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
 
-        $start->setDate($startTime);	// '2011-06-03'
+		$start->setDate($startTime);	// '2011-06-03'
 		$end->setDate($endTime);		// '2011-06-03'
-    }
+	}
 
 	$event->setStart($start);
 	$event->setEnd($end);
@@ -316,7 +294,7 @@ function createEvent($client, $object, $login='primary')
 	else $event->setTransparency("transparent");
 
 	// Define $urlwithroot
-	$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+	$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
 	$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
@@ -350,15 +328,12 @@ function createEvent($client, $object, $login='primary')
 	$event->setExtendedProperties($extendedProperties);
 
 	$attendees = array();
-	if (! empty($object->userassigned) && ! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES))	// This can occurs with automatic events
-	{
-		foreach($object->userassigned as $key => $val)
-		{
+	if (! empty($object->userassigned) && ! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES)) {	// This can occurs with automatic events
+		foreach ($object->userassigned as $key => $val) {
 			if ($key == $user->id) continue;	// ourself, not an attendee
 			$fuser=new User($db);
 			$fuser->fetch($key);
-			if ($fuser->id > 0 && $fuser->email)
-			{
+			if ($fuser->id > 0 && $fuser->email) {
 				$attendee = new Google_Service_Calendar_EventAttendee();
 				$attendee->setEmail($fuser->email);
 				$attendee->setDisplayName($fuser->getFullName($langs));
@@ -377,9 +352,7 @@ function createEvent($client, $object, $login='primary')
 
 		$ret=$createdEvent->getId();
 		dol_syslog("createEvent Id=".$ret, LOG_DEBUG);
-	}
-	catch(Exception $e)
-	{
+	} catch (Exception $e) {
 		dol_syslog("error ".$e->getMessage(), LOG_ERR);
 		return 'ERROR '.$e->getMessage();
 	}
@@ -400,7 +373,7 @@ function createEvent($client, $object, $login='primary')
  * @param	Google_Service_Calendar	$service		Object service (will be created if not provided)
  * @return  int                                     1
  */
-function updateEvent($client, $eventId, $object, $login='primary', $service=null)
+function updateEvent($client, $eventId, $object, $login = 'primary', $service = null)
 {
 	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
@@ -408,12 +381,10 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 
 	$neweventid=$eventId;
 	$reg = array();
-	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
-	{
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/', $eventId, $reg)) {
 		$neweventid=$reg[1];
 	}
-	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
-	{
+	if (preg_match('/google:([^\/]+)$/', $eventId, $reg)) {
 		$neweventid=$reg[1];	// TODO This may not be enough because ID in dolibarr is 250 char max and in google may have 1024 chars
 	}
 
@@ -431,22 +402,19 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 
 		$tzfix=0;
 		if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
-	    if (empty($object->fulldayevent))
-	    {
-	        $startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
-	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+		if (empty($object->fulldayevent)) {
+			$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+			$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
 
-	        $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
+			$start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 			$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
-	    }
-	    else
-	    {
-	        $startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayrfc");
-	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+		} else {
+			$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayrfc");
+			$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
 
-	        $start->setDate($startTime);	// '2011-06-03'
+			$start->setDate($startTime);	// '2011-06-03'
 			$end->setDate($endTime);		// '2011-06-03'
-	    }
+		}
 		$event->setStart($start);
 		$event->setEnd($end);
 
@@ -462,7 +430,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		else $event->setTransparency("transparent");
 
 		// Define $urlwithroot
-		$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+		$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
 		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
@@ -475,10 +443,10 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		//var_dump($event->getCreator()->getEmail());
 		/*if ($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL == $event->getCreator()->getEmail())
 		{
-    		$source=new Google_Service_Calendar_EventSource();
-    		$source->setTitle($conf->global->MAIN_APPLICATION_TITLE);
-    		$source->setUrl($urlevent);
-            $event->setSource($source);
+			$source=new Google_Service_Calendar_EventSource();
+			$source->setTitle($conf->global->MAIN_APPLICATION_TITLE);
+			$source->setUrl($urlevent);
+			$event->setSource($source);
 		}*/
 
 		/*$gadget=new Google_Service_Calendar_EventGadget();
@@ -502,15 +470,12 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setExtendedProperties($extendedProperties);
 
 		$attendees = array();
-		if (! empty($object->userassigned) && ! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES))	// This can occurs with automatic events
-		{
-			foreach($object->userassigned as $key => $val)
-			{
+		if (! empty($object->userassigned) && ! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES)) {	// This can occurs with automatic events
+			foreach ($object->userassigned as $key => $val) {
 				if ($key == $user->id) continue;	// ourself, not an attendee
 				$fuser=new User($db);
 				$fuser->fetch($key);
-				if ($fuser->id > 0 && $fuser->email)
-				{
+				if ($fuser->id > 0 && $fuser->email) {
 					$attendee = new Google_Service_Calendar_EventAttendee();
 					$attendee->setEmail($fuser->email);
 					$attendee->setDisplayName($fuser->getFullName($langs));
@@ -528,9 +493,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		//echo $updatedEvent->getUpdated();
 
 		$ret = 1;
-	}
-	catch(Exception $e)
-	{
+	} catch (Exception $e) {
 		dol_syslog("updateEvent error in getting or updating record: ".$e->getMessage(), LOG_WARNING);
 
 		return 'ERROR '.$e->getMessage();
@@ -551,19 +514,17 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
  * @param	Google_Service_Calendar	$service		Object service (will be created if not provided)
  * @return 	void
  */
-function deleteEventById($client, $eventId, $login='primary', $service=null)
+function deleteEventById($client, $eventId, $login = 'primary', $service = null)
 {
 	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
 	global $user;
 
 	$neweventid=$eventId;
-	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
-	{
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/', $eventId, $reg)) {
 		$neweventid=$reg[1];
 	}
-	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
-	{
+	if (preg_match('/google:([^\/]+)$/', $eventId, $reg)) {
 		$neweventid=$reg[1];	// TODO This may not be enough because ID in dolibarr is 250 char max and in google may have 1024 chars
 	}
 
@@ -575,9 +536,7 @@ function deleteEventById($client, $eventId, $login='primary', $service=null)
 		$service->events->delete($login, $neweventid);
 
 		$ret = 1;
-	}
-	catch(Exception $e)
-	{
+	} catch (Exception $e) {
 		dol_syslog("deleteEventById error in getting or deleting old record: ".$e->getMessage(), LOG_WARNING);
 
 		return 'ERROR '.$e->getMessage();
@@ -601,14 +560,13 @@ function google_complete_label_and_note(&$object, $langs)
 
 	$eventlabel = trim($object->label);
 	// Define $urlwithroot
-	$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+	$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
 	$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 	if (($object->socid > 0 || (! empty($object->thirdparty->id) && $object->thirdparty->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
 		$thirdparty = new Societe($db);
 		$result=$thirdparty->fetch($object->socid?$object->socid:$object->thirdparty->id);
-		if ($result > 0)
-		{
+		if ($result > 0) {
 			$eventlabel .= ' - '.$thirdparty->name;
 			$tmpadd=$thirdparty->getFullAddress(0);
 			$more='';
@@ -629,8 +587,7 @@ function google_complete_label_and_note(&$object, $langs)
 	if (($object->contactid > 0 || $object->contact_id > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
 		$contact = new Contact($db);
 		$result=$contact->fetch($object->contact_id ? $object->contact_id : ($object->contactid ? $object->contactid : $object->contact->id));
-		if ($result > 0)
-		{
+		if ($result > 0) {
 			$eventlabel .= ' - '.$contact->getFullName($langs, 1);
 			$tmpadd=$contact->getFullAddress(0);
 			$more='';
@@ -661,7 +618,7 @@ function google_complete_label_and_note(&$object, $langs)
  * @param	int			$max		Max nb of records to sync
  * @return	array					array('nbinserted'=>, 'nbupdated'=>, 'errors'=>)
  */
-function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
+function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 0)
 {
 	global $db, $langs, $conf;
 	global $dolibarr_main_url_root;
@@ -680,36 +637,30 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 	$force_do_not_use_session=true;
 	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
 
-	if (! is_array($servicearray))
-	{
+	if (! is_array($servicearray)) {
 		$errors[]=$langs->trans($servicearray);
 		$error++;
 	}
 
-	if ($error || $servicearray == null)
-	{
+	if ($error || $servicearray == null) {
 		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
 		$errors[]=$txterror;
 		$error++;
-	}
-	else
-	{
+	} else {
 		try {
 			$service = new Google_Service_Calendar($servicearray['client']);
 
 			// Get last 50 modified record (after mindate)
-			$optParams=array('showDeleted'=>True, 'orderBy'=>'updated', 'maxResults'=>$max, 'updatedMin'=>dol_print_date($mindate, 'dayhourrfc', 'gmt'));
+			$optParams=array('showDeleted'=>true, 'orderBy'=>'updated', 'maxResults'=>$max, 'updatedMin'=>dol_print_date($mindate, 'dayhourrfc', 'gmt'));
 			//var_dump($optParams);exit;
 			//$optParams=array('maxResults'=>$max, 'orderBy'=>'updated', 'showDeleted'=>True);
 			$events = $service->events->listEvents($userlogin, $optParams);
 
 			$i=0;
 
-			while(true)
-			{
-				foreach ($events->getItems() as $event)
-				{
+			while (true) {
+				foreach ($events->getItems() as $event) {
 					//$event = new Google_Service_Calendar_Event();
 					//var_dump($event);
 
@@ -719,8 +670,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 					$dolibarr_user_id='';
 					$extendedProperties=$event->getExtendedProperties();
-					if (is_object($extendedProperties))
-					{
+					if (is_object($extendedProperties)) {
 						$priv=$extendedProperties->getPrivate();	// Private property dolibarr_id is set during google create. Not modified by update.
 						$dolibarr_user_id=$priv['dolibarr_user_id'];
 					}
@@ -729,8 +679,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 					$ref_ext = substr('google:'.$event->getId(), 0, 255);
 					$result = $object->fetch(0, '', $ref_ext);
 
-					if ($result > 0)	// Found into dolibarr
-					{
+					if ($result > 0) {	// Found into dolibarr
 						$object->fetch_thirdparty();
 
 						//$event = new Google_Service_Calendar_Event();
@@ -745,30 +694,25 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 						$object->punctual=0;
 
-						if ($datest)
-						{
+						if ($datest) {
 							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T12:00:00 in TZ +2
 							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
-							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i',$datest,$reg))
-							{
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i', $datest, $reg)) {
 								$datest = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
 								$tzs=(int) ($reg[7].$reg[8]);
 							}
-							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i',$dateet,$reg))
-							{
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i', $dateet, $reg)) {
 								$dateet = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
 								$tze=(int) ($reg[7].$reg[8]);
 							}
-							$object->datep=(dol_stringtotime($datest,1) - ($tzs*3600) - ($tzfix*3600));
-							$object->datef=(dol_stringtotime($dateet,1) - ($tze*3600) - ($tzfix*3600));
+							$object->datep=(dol_stringtotime($datest, 1) - ($tzs*3600) - ($tzfix*3600));
+							$object->datef=(dol_stringtotime($dateet, 1) - ($tze*3600) - ($tzfix*3600));
 							$object->fulldayevent=0;
 							if ($object->datep == $object->datef) $object->punctual=1;
 							//print dol_print_date($object->datep, 'dayhour', 'tzserver');
-						}
-						elseif ($dates)
-						{
-							$object->datep=(dol_stringtotime($dates,0));
-							$object->datef=(dol_stringtotime($datee,0) - 1);
+						} elseif ($dates) {
+							$object->datep=(dol_stringtotime($dates, 0));
+							$object->datef=(dol_stringtotime($datee, 0) - 1);
 							$object->fulldayevent=1;
 						}
 						//$object->type_code='AC_OTH';
@@ -787,8 +731,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						$object->location=$event->getLocation();
 						//$object->socid=$obj->fk_soc;
 						//$object->contact_id=$obj->fk_contact;
-						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
-						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
+						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
+						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
 
 						// Organizer
 						/*$organizer=$event->getOrganizer();
@@ -826,13 +770,11 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}*/
 
 						// Owner
-						if ($dolibarr_user_id)		// If owner were saved and found into google event
-						{
+						if ($dolibarr_user_id) {		// If owner were saved and found into google event
 							$object->userassigned=array();
 							$object->userassigned[$dolibarr_user_id]=array('id'=>$dolibarr_user_id, 'transparency'=>$object->transparency);
 							$object->userownerid=$dolibarr_user_id;
-						}
-						else						// If owner were not saved, we keep old one
+						} else // If owner were not saved, we keep old one
 						{
 							$object->userassigned=array();
 							//$object->userownerid=$fuser->id;
@@ -841,29 +783,22 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 						// Attendees
 						$attendees = $event->getAttendees();
-						if (! empty($attendees))
-						{
-							foreach($attendees as $attendee)
-							{
+						if (! empty($attendees)) {
+							foreach ($attendees as $attendee) {
 								//var_dump($attendee);
 								$emailtmp=$attendee->getEmail();
-								if ($emailtmp)
-								{
+								if ($emailtmp) {
 									// Get user
 									$sql = "SELECT u.rowid FROM ".MAIN_DB_PREFIX."user as u WHERE email = '".$db->escape($emailtmp)."'";
 									$result = $db->query($sql);
-									if ($result)
-									{
+									if ($result) {
 										$obj = $db->fetch_object($result);
-										if ($obj)
-										{
+										if ($obj) {
 											$tmpid = $obj->rowid;
 											//$userstatic->fetch($tmpid)
 											$object->userassigned[$tmpid]=array('id'=>$tmpid, 'transparency'=>$object->transparency);
 										}
-									}
-									else
-									{
+									} else {
 										dol_print_error($db);
 										exit;
 									}
@@ -871,40 +806,27 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 							}
 						}
 
-						if ($status == 'cancelled')
-						{
+						if ($status == 'cancelled') {
 							$conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE=1;
-							if (! empty($conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE))
-							{
+							if (! empty($conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE)) {
 								$result=$object->delete(1);
-								if ($result > 0)
-								{
+								if ($result > 0) {
 									$nbdeleted++;
-								}
-								else
-								{
+								} else {
 									$nberror++;
 								}
-							}
-							else
-							{
+							} else {
 								$nbnotdeleted++;
 							}
-						}
-						else
-						{
+						} else {
 							$result=$object->update($fuser, 1);
-							if ($result > 0)
-							{
+							if ($result > 0) {
 								$nbupdated++;
-							}
-							else
-							{
+							} else {
 								$nberror++;
 							}
 						}
-					}
-					else // Not found into dolibarr
+					} else // Not found into dolibarr
 					{
 						//$event = new Google_Service_Calendar_Event();
 
@@ -918,30 +840,25 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 						$object->punctual=0;
 
-						if ($datest)
-						{
+						if ($datest) {
 							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T08:00:00
 							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
-							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i',$datest,$reg))
-							{
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i', $datest, $reg)) {
 								$datest = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
 								$tzs=(int) ($reg[7].$reg[8]);
 							}
-							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i',$dateet,$reg))
-							{
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i', $dateet, $reg)) {
 								$dateet = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
 								$tze=(int) ($reg[7].$reg[8]);
 							}
-							$object->datep=(dol_stringtotime($datest,1) - ($tzs*3600) - ($tzfix*3600));
-							$object->datef=(dol_stringtotime($dateet,1) - ($tze*3600) - ($tzfix*3600));
+							$object->datep=(dol_stringtotime($datest, 1) - ($tzs*3600) - ($tzfix*3600));
+							$object->datef=(dol_stringtotime($dateet, 1) - ($tze*3600) - ($tzfix*3600));
 							$object->fulldayevent=0;
 							if ($object->datep == $object->datef) $object->punctual=1;
 							//print dol_print_date($object->datep, 'dayhour', 'tzserver');
-						}
-						elseif ($dates)
-						{
-							$object->datep=(dol_stringtotime($dates,0));
-							$object->datef=(dol_stringtotime($datee,0) - 1);
+						} elseif ($dates) {
+							$object->datep=(dol_stringtotime($dates, 0));
+							$object->datef=(dol_stringtotime($datee, 0) - 1);
 							$object->fulldayevent=1;
 						}
 						$object->type_code='AC_OTH';
@@ -954,8 +871,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						$object->location=$event->getLocation();
 						//$object->socid=$obj->fk_soc;
 						//$object->contactid=$obj->fk_contact;
-						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
-						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
+						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
+						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
 
 						// Organizer
 						/*$organizer=$event->getOrganizer();
@@ -993,13 +910,11 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}*/
 
 						// Owner
-						if ($dolibarr_user_id)		// If owner were saved
-						{
+						if ($dolibarr_user_id) {		// If owner were saved
 							$object->userassigned=array();
 							$object->userassigned[$dolibarr_user_id]=array('id'=>$dolibarr_user_id, 'transparency'=>$object->transparency);
 							$object->userownerid=$dolibarr_user_id;
-						}
-						else						// If owner were not saved, we keep old one
+						} else // If owner were not saved, we keep old one
 						{
 							$object->userassigned=array();
 							$object->userownerid=$fuser->id;
@@ -1008,28 +923,21 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 						// Attendees
 						$attendees = $event->getAttendees();
-						if (! empty($attendees))
-						{
-							foreach($attendees as $attendee)
-							{
+						if (! empty($attendees)) {
+							foreach ($attendees as $attendee) {
 								$emailtmp=$attendee->getEmail();
-								if ($emailtmp)
-								{
+								if ($emailtmp) {
 									// Get user
 									$sql = "SELECT u.rowid FROM ".MAIN_DB_PREFIX."user as u WHERE email = '".$db->escape($emailtmp)."'";
 									$result = $db->query($sql);
-									if ($result)
-									{
+									if ($result) {
 										$obj = $db->fetch_object($result);
-										if ($obj)
-										{
+										if ($obj) {
 											$tmpid = $obj->rowid;
 											//$userstatic->fetch($tmpid)
 											$object->userassigned[$tmpid]=array('id'=>$tmpid, 'transparency'=>$object->transparency);
 										}
-									}
-									else
-									{
+									} else {
 										dol_print_error($db);
 										exit;
 									}
@@ -1038,28 +946,21 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}
 
 						//var_dump($object->userassigned);
-						if ($status == 'cancelled')
-						{
+						if ($status == 'cancelled') {
 							// It's ok. We wont' add it
 							$nbalreadydeleted++;
-						}
-						else
-						{
+						} else {
 							$result=$object->create($fuser, 1);
-							if ($result > 0)
-							{
+							if ($result > 0) {
 								$ret='google:'.$event->getId();
 								$object->update_ref_ext($ret);	// This is to store ref_ext into Dolibarr to allow updates
 
 								// Update dolibarr_id and dolibarr_user_id into Google record
-								if (empty($extendedProperties))
-								{
+								if (empty($extendedProperties)) {
 									$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
 									$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event','dolibarr_user_id'=>$object->userownerid));
 									$event->setExtendedProperties($extendedProperties);
-								}
-								else
-								{
+								} else {
 									$arraytmp=$extendedProperties->getPrivate();
 									$arraytmp['dolibarr_id']=$object->id.'/event';
 									$extendedProperties->setPrivate($arraytmp);
@@ -1088,10 +989,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 								$updatedEvent = $service->events->update($userlogin, $event->getId(), $event);
 
 								$nbinserted++;
-							}
-							else
-							{
-								dol_print_error('',$object->error);
+							} else {
+								dol_print_error('', $object->error);
 								$nberror++;
 							}
 						}
@@ -1101,19 +1000,14 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 				}
 
 				$pageToken = $events->getNextPageToken();   // If $pageToken is set, it means we have more result than $maxResults = $max but we get only $maxResults
-				if ($pageToken && ($i < $max))
-				{
+				if ($pageToken && ($i < $max)) {
 					$optParams['pageToken'] = $pageToken;
 					$events = $service->events->listEvents($userlogin, $optParams);    // Load next page of results
-				}
-				else
-				{
+				} else {
 					break; // exit loop
 				}
 			}
-		}
-		catch(Exception $e)
-		{
+		} catch (Exception $e) {
 			$errors[] = 'ERROR '.$e->getMessage();
 			$error++;
 		}

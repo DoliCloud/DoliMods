@@ -17,15 +17,15 @@
 
 class Google_Service_FirebaseRulesAPI_TestRulesetRequest extends Google_Model
 {
-  protected $sourceType = 'Google_Service_FirebaseRulesAPI_Source';
-  protected $sourceDataType = '';
+	protected $sourceType = 'Google_Service_FirebaseRulesAPI_Source';
+	protected $sourceDataType = '';
 
-  public function setSource(Google_Service_FirebaseRulesAPI_Source $source)
-  {
-    $this->source = $source;
-  }
-  public function getSource()
-  {
-    return $this->source;
-  }
+	public function setSource(Google_Service_FirebaseRulesAPI_Source $source)
+	{
+		$this->source = $source;
+	}
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

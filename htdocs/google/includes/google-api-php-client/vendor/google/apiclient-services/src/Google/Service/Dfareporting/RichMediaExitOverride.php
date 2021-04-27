@@ -17,39 +17,39 @@
 
 class Google_Service_Dfareporting_RichMediaExitOverride extends Google_Model
 {
-  protected $clickThroughUrlType = 'Google_Service_Dfareporting_ClickThroughUrl';
-  protected $clickThroughUrlDataType = '';
-  public $enabled;
-  public $exitId;
+	protected $clickThroughUrlType = 'Google_Service_Dfareporting_ClickThroughUrl';
+	protected $clickThroughUrlDataType = '';
+	public $enabled;
+	public $exitId;
 
-  /**
-   * @param Google_Service_Dfareporting_ClickThroughUrl
-   */
-  public function setClickThroughUrl(Google_Service_Dfareporting_ClickThroughUrl $clickThroughUrl)
-  {
-    $this->clickThroughUrl = $clickThroughUrl;
-  }
-  /**
-   * @return Google_Service_Dfareporting_ClickThroughUrl
-   */
-  public function getClickThroughUrl()
-  {
-    return $this->clickThroughUrl;
-  }
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  public function setExitId($exitId)
-  {
-    $this->exitId = $exitId;
-  }
-  public function getExitId()
-  {
-    return $this->exitId;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_ClickThroughUrl
+	 */
+	public function setClickThroughUrl(Google_Service_Dfareporting_ClickThroughUrl $clickThroughUrl)
+	{
+		$this->clickThroughUrl = $clickThroughUrl;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_ClickThroughUrl
+	 */
+	public function getClickThroughUrl()
+	{
+		return $this->clickThroughUrl;
+	}
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	public function setExitId($exitId)
+	{
+		$this->exitId = $exitId;
+	}
+	public function getExitId()
+	{
+		return $this->exitId;
+	}
 }

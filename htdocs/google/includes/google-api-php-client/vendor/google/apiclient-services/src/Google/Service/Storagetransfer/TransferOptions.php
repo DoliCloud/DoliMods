@@ -17,32 +17,32 @@
 
 class Google_Service_Storagetransfer_TransferOptions extends Google_Model
 {
-  public $deleteObjectsFromSourceAfterTransfer;
-  public $deleteObjectsUniqueInSink;
-  public $overwriteObjectsAlreadyExistingInSink;
+	public $deleteObjectsFromSourceAfterTransfer;
+	public $deleteObjectsUniqueInSink;
+	public $overwriteObjectsAlreadyExistingInSink;
 
-  public function setDeleteObjectsFromSourceAfterTransfer($deleteObjectsFromSourceAfterTransfer)
-  {
-    $this->deleteObjectsFromSourceAfterTransfer = $deleteObjectsFromSourceAfterTransfer;
-  }
-  public function getDeleteObjectsFromSourceAfterTransfer()
-  {
-    return $this->deleteObjectsFromSourceAfterTransfer;
-  }
-  public function setDeleteObjectsUniqueInSink($deleteObjectsUniqueInSink)
-  {
-    $this->deleteObjectsUniqueInSink = $deleteObjectsUniqueInSink;
-  }
-  public function getDeleteObjectsUniqueInSink()
-  {
-    return $this->deleteObjectsUniqueInSink;
-  }
-  public function setOverwriteObjectsAlreadyExistingInSink($overwriteObjectsAlreadyExistingInSink)
-  {
-    $this->overwriteObjectsAlreadyExistingInSink = $overwriteObjectsAlreadyExistingInSink;
-  }
-  public function getOverwriteObjectsAlreadyExistingInSink()
-  {
-    return $this->overwriteObjectsAlreadyExistingInSink;
-  }
+	public function setDeleteObjectsFromSourceAfterTransfer($deleteObjectsFromSourceAfterTransfer)
+	{
+		$this->deleteObjectsFromSourceAfterTransfer = $deleteObjectsFromSourceAfterTransfer;
+	}
+	public function getDeleteObjectsFromSourceAfterTransfer()
+	{
+		return $this->deleteObjectsFromSourceAfterTransfer;
+	}
+	public function setDeleteObjectsUniqueInSink($deleteObjectsUniqueInSink)
+	{
+		$this->deleteObjectsUniqueInSink = $deleteObjectsUniqueInSink;
+	}
+	public function getDeleteObjectsUniqueInSink()
+	{
+		return $this->deleteObjectsUniqueInSink;
+	}
+	public function setOverwriteObjectsAlreadyExistingInSink($overwriteObjectsAlreadyExistingInSink)
+	{
+		$this->overwriteObjectsAlreadyExistingInSink = $overwriteObjectsAlreadyExistingInSink;
+	}
+	public function getOverwriteObjectsAlreadyExistingInSink()
+	{
+		return $this->overwriteObjectsAlreadyExistingInSink;
+	}
 }

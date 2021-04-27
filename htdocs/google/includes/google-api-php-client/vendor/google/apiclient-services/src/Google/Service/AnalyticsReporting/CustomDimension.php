@@ -17,23 +17,23 @@
 
 class Google_Service_AnalyticsReporting_CustomDimension extends Google_Model
 {
-  public $index;
-  public $value;
+	public $index;
+	public $value;
 
-  public function setIndex($index)
-  {
-    $this->index = $index;
-  }
-  public function getIndex()
-  {
-    return $this->index;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setIndex($index)
+	{
+		$this->index = $index;
+	}
+	public function getIndex()
+	{
+		return $this->index;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

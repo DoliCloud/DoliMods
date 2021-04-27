@@ -17,14 +17,14 @@
 
 class Google_Service_CloudRedis_UpgradeInstanceRequest extends Google_Model
 {
-  public $redisVersion;
+	public $redisVersion;
 
-  public function setRedisVersion($redisVersion)
-  {
-    $this->redisVersion = $redisVersion;
-  }
-  public function getRedisVersion()
-  {
-    return $this->redisVersion;
-  }
+	public function setRedisVersion($redisVersion)
+	{
+		$this->redisVersion = $redisVersion;
+	}
+	public function getRedisVersion()
+	{
+		return $this->redisVersion;
+	}
 }

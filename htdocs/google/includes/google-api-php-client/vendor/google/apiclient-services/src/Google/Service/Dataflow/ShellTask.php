@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_ShellTask extends Google_Model
 {
-  public $command;
-  public $exitCode;
+	public $command;
+	public $exitCode;
 
-  public function setCommand($command)
-  {
-    $this->command = $command;
-  }
-  public function getCommand()
-  {
-    return $this->command;
-  }
-  public function setExitCode($exitCode)
-  {
-    $this->exitCode = $exitCode;
-  }
-  public function getExitCode()
-  {
-    return $this->exitCode;
-  }
+	public function setCommand($command)
+	{
+		$this->command = $command;
+	}
+	public function getCommand()
+	{
+		return $this->command;
+	}
+	public function setExitCode($exitCode)
+	{
+		$this->exitCode = $exitCode;
+	}
+	public function getExitCode()
+	{
+		return $this->exitCode;
+	}
 }

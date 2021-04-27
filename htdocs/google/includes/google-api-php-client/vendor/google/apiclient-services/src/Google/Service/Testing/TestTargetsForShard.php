@@ -17,15 +17,15 @@
 
 class Google_Service_Testing_TestTargetsForShard extends Google_Collection
 {
-  protected $collection_key = 'testTargets';
-  public $testTargets;
+	protected $collection_key = 'testTargets';
+	public $testTargets;
 
-  public function setTestTargets($testTargets)
-  {
-    $this->testTargets = $testTargets;
-  }
-  public function getTestTargets()
-  {
-    return $this->testTargets;
-  }
+	public function setTestTargets($testTargets)
+	{
+		$this->testTargets = $testTargets;
+	}
+	public function getTestTargets()
+	{
+		return $this->testTargets;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_NetworkManagement_NetworkInfo extends Google_Model
 {
-  public $displayName;
-  public $matchedIpRange;
-  public $uri;
+	public $displayName;
+	public $matchedIpRange;
+	public $uri;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setMatchedIpRange($matchedIpRange)
-  {
-    $this->matchedIpRange = $matchedIpRange;
-  }
-  public function getMatchedIpRange()
-  {
-    return $this->matchedIpRange;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setMatchedIpRange($matchedIpRange)
+	{
+		$this->matchedIpRange = $matchedIpRange;
+	}
+	public function getMatchedIpRange()
+	{
+		return $this->matchedIpRange;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

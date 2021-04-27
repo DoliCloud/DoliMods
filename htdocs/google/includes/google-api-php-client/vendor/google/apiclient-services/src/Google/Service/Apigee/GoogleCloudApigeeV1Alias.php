@@ -17,39 +17,39 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Alias extends Google_Model
 {
-  public $alias;
-  protected $certsInfoType = 'Google_Service_Apigee_GoogleCloudApigeeV1Certificate';
-  protected $certsInfoDataType = '';
-  public $type;
+	public $alias;
+	protected $certsInfoType = 'Google_Service_Apigee_GoogleCloudApigeeV1Certificate';
+	protected $certsInfoDataType = '';
+	public $type;
 
-  public function setAlias($alias)
-  {
-    $this->alias = $alias;
-  }
-  public function getAlias()
-  {
-    return $this->alias;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Certificate
-   */
-  public function setCertsInfo(Google_Service_Apigee_GoogleCloudApigeeV1Certificate $certsInfo)
-  {
-    $this->certsInfo = $certsInfo;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Certificate
-   */
-  public function getCertsInfo()
-  {
-    return $this->certsInfo;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
+	}
+	public function getAlias()
+	{
+		return $this->alias;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Certificate
+	 */
+	public function setCertsInfo(Google_Service_Apigee_GoogleCloudApigeeV1Certificate $certsInfo)
+	{
+		$this->certsInfo = $certsInfo;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Certificate
+	 */
+	public function getCertsInfo()
+	{
+		return $this->certsInfo;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

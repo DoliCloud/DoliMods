@@ -17,38 +17,38 @@
 
 class Google_Service_Monitoring_PointData extends Google_Collection
 {
-  protected $collection_key = 'values';
-  protected $timeIntervalType = 'Google_Service_Monitoring_TimeInterval';
-  protected $timeIntervalDataType = '';
-  protected $valuesType = 'Google_Service_Monitoring_TypedValue';
-  protected $valuesDataType = 'array';
+	protected $collection_key = 'values';
+	protected $timeIntervalType = 'Google_Service_Monitoring_TimeInterval';
+	protected $timeIntervalDataType = '';
+	protected $valuesType = 'Google_Service_Monitoring_TypedValue';
+	protected $valuesDataType = 'array';
 
-  /**
-   * @param Google_Service_Monitoring_TimeInterval
-   */
-  public function setTimeInterval(Google_Service_Monitoring_TimeInterval $timeInterval)
-  {
-    $this->timeInterval = $timeInterval;
-  }
-  /**
-   * @return Google_Service_Monitoring_TimeInterval
-   */
-  public function getTimeInterval()
-  {
-    return $this->timeInterval;
-  }
-  /**
-   * @param Google_Service_Monitoring_TypedValue
-   */
-  public function setValues($values)
-  {
-    $this->values = $values;
-  }
-  /**
-   * @return Google_Service_Monitoring_TypedValue
-   */
-  public function getValues()
-  {
-    return $this->values;
-  }
+	/**
+	 * @param Google_Service_Monitoring_TimeInterval
+	 */
+	public function setTimeInterval(Google_Service_Monitoring_TimeInterval $timeInterval)
+	{
+		$this->timeInterval = $timeInterval;
+	}
+	/**
+	 * @return Google_Service_Monitoring_TimeInterval
+	 */
+	public function getTimeInterval()
+	{
+		return $this->timeInterval;
+	}
+	/**
+	 * @param Google_Service_Monitoring_TypedValue
+	 */
+	public function setValues($values)
+	{
+		$this->values = $values;
+	}
+	/**
+	 * @return Google_Service_Monitoring_TypedValue
+	 */
+	public function getValues()
+	{
+		return $this->values;
+	}
 }

@@ -17,53 +17,53 @@
 
 class Google_Service_DriveActivity_User extends Google_Model
 {
-  protected $deletedUserType = 'Google_Service_DriveActivity_DeletedUser';
-  protected $deletedUserDataType = '';
-  protected $knownUserType = 'Google_Service_DriveActivity_KnownUser';
-  protected $knownUserDataType = '';
-  protected $unknownUserType = 'Google_Service_DriveActivity_UnknownUser';
-  protected $unknownUserDataType = '';
+	protected $deletedUserType = 'Google_Service_DriveActivity_DeletedUser';
+	protected $deletedUserDataType = '';
+	protected $knownUserType = 'Google_Service_DriveActivity_KnownUser';
+	protected $knownUserDataType = '';
+	protected $unknownUserType = 'Google_Service_DriveActivity_UnknownUser';
+	protected $unknownUserDataType = '';
 
-  /**
-   * @param Google_Service_DriveActivity_DeletedUser
-   */
-  public function setDeletedUser(Google_Service_DriveActivity_DeletedUser $deletedUser)
-  {
-    $this->deletedUser = $deletedUser;
-  }
-  /**
-   * @return Google_Service_DriveActivity_DeletedUser
-   */
-  public function getDeletedUser()
-  {
-    return $this->deletedUser;
-  }
-  /**
-   * @param Google_Service_DriveActivity_KnownUser
-   */
-  public function setKnownUser(Google_Service_DriveActivity_KnownUser $knownUser)
-  {
-    $this->knownUser = $knownUser;
-  }
-  /**
-   * @return Google_Service_DriveActivity_KnownUser
-   */
-  public function getKnownUser()
-  {
-    return $this->knownUser;
-  }
-  /**
-   * @param Google_Service_DriveActivity_UnknownUser
-   */
-  public function setUnknownUser(Google_Service_DriveActivity_UnknownUser $unknownUser)
-  {
-    $this->unknownUser = $unknownUser;
-  }
-  /**
-   * @return Google_Service_DriveActivity_UnknownUser
-   */
-  public function getUnknownUser()
-  {
-    return $this->unknownUser;
-  }
+	/**
+	 * @param Google_Service_DriveActivity_DeletedUser
+	 */
+	public function setDeletedUser(Google_Service_DriveActivity_DeletedUser $deletedUser)
+	{
+		$this->deletedUser = $deletedUser;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_DeletedUser
+	 */
+	public function getDeletedUser()
+	{
+		return $this->deletedUser;
+	}
+	/**
+	 * @param Google_Service_DriveActivity_KnownUser
+	 */
+	public function setKnownUser(Google_Service_DriveActivity_KnownUser $knownUser)
+	{
+		$this->knownUser = $knownUser;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_KnownUser
+	 */
+	public function getKnownUser()
+	{
+		return $this->knownUser;
+	}
+	/**
+	 * @param Google_Service_DriveActivity_UnknownUser
+	 */
+	public function setUnknownUser(Google_Service_DriveActivity_UnknownUser $unknownUser)
+	{
+		$this->unknownUser = $unknownUser;
+	}
+	/**
+	 * @return Google_Service_DriveActivity_UnknownUser
+	 */
+	public function getUnknownUser()
+	{
+		return $this->unknownUser;
+	}
 }

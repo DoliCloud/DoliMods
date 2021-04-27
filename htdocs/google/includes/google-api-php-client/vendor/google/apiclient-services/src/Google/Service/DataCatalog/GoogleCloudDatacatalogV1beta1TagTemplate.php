@@ -17,39 +17,39 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagTemplate extends Google_Model
 {
-  public $displayName;
-  protected $fieldsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagTemplateField';
-  protected $fieldsDataType = 'map';
-  public $name;
+	public $displayName;
+	protected $fieldsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagTemplateField';
+	protected $fieldsDataType = 'map';
+	public $name;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagTemplateField
-   */
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagTemplateField
-   */
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagTemplateField
+	 */
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagTemplateField
+	 */
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

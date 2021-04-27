@@ -17,32 +17,32 @@
 
 class Google_Service_ToolResults_UIElementTooDeep extends Google_Model
 {
-  public $depth;
-  public $screenId;
-  public $screenStateId;
+	public $depth;
+	public $screenId;
+	public $screenStateId;
 
-  public function setDepth($depth)
-  {
-    $this->depth = $depth;
-  }
-  public function getDepth()
-  {
-    return $this->depth;
-  }
-  public function setScreenId($screenId)
-  {
-    $this->screenId = $screenId;
-  }
-  public function getScreenId()
-  {
-    return $this->screenId;
-  }
-  public function setScreenStateId($screenStateId)
-  {
-    $this->screenStateId = $screenStateId;
-  }
-  public function getScreenStateId()
-  {
-    return $this->screenStateId;
-  }
+	public function setDepth($depth)
+	{
+		$this->depth = $depth;
+	}
+	public function getDepth()
+	{
+		return $this->depth;
+	}
+	public function setScreenId($screenId)
+	{
+		$this->screenId = $screenId;
+	}
+	public function getScreenId()
+	{
+		return $this->screenId;
+	}
+	public function setScreenStateId($screenStateId)
+	{
+		$this->screenStateId = $screenStateId;
+	}
+	public function getScreenStateId()
+	{
+		return $this->screenStateId;
+	}
 }

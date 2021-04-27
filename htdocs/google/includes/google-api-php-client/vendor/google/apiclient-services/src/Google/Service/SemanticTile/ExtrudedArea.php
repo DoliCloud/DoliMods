@@ -17,39 +17,39 @@
 
 class Google_Service_SemanticTile_ExtrudedArea extends Google_Model
 {
-  protected $areaType = 'Google_Service_SemanticTile_Area';
-  protected $areaDataType = '';
-  public $maxZ;
-  public $minZ;
+	protected $areaType = 'Google_Service_SemanticTile_Area';
+	protected $areaDataType = '';
+	public $maxZ;
+	public $minZ;
 
-  /**
-   * @param Google_Service_SemanticTile_Area
-   */
-  public function setArea(Google_Service_SemanticTile_Area $area)
-  {
-    $this->area = $area;
-  }
-  /**
-   * @return Google_Service_SemanticTile_Area
-   */
-  public function getArea()
-  {
-    return $this->area;
-  }
-  public function setMaxZ($maxZ)
-  {
-    $this->maxZ = $maxZ;
-  }
-  public function getMaxZ()
-  {
-    return $this->maxZ;
-  }
-  public function setMinZ($minZ)
-  {
-    $this->minZ = $minZ;
-  }
-  public function getMinZ()
-  {
-    return $this->minZ;
-  }
+	/**
+	 * @param Google_Service_SemanticTile_Area
+	 */
+	public function setArea(Google_Service_SemanticTile_Area $area)
+	{
+		$this->area = $area;
+	}
+	/**
+	 * @return Google_Service_SemanticTile_Area
+	 */
+	public function getArea()
+	{
+		return $this->area;
+	}
+	public function setMaxZ($maxZ)
+	{
+		$this->maxZ = $maxZ;
+	}
+	public function getMaxZ()
+	{
+		return $this->maxZ;
+	}
+	public function setMinZ($minZ)
+	{
+		$this->minZ = $minZ;
+	}
+	public function getMinZ()
+	{
+		return $this->minZ;
+	}
 }

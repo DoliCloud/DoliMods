@@ -17,69 +17,69 @@
 
 class Google_Service_AndroidManagement_HardwareStatus extends Google_Collection
 {
-  protected $collection_key = 'skinTemperatures';
-  public $batteryTemperatures;
-  public $cpuTemperatures;
-  public $cpuUsages;
-  public $createTime;
-  public $fanSpeeds;
-  public $gpuTemperatures;
-  public $skinTemperatures;
+	protected $collection_key = 'skinTemperatures';
+	public $batteryTemperatures;
+	public $cpuTemperatures;
+	public $cpuUsages;
+	public $createTime;
+	public $fanSpeeds;
+	public $gpuTemperatures;
+	public $skinTemperatures;
 
-  public function setBatteryTemperatures($batteryTemperatures)
-  {
-    $this->batteryTemperatures = $batteryTemperatures;
-  }
-  public function getBatteryTemperatures()
-  {
-    return $this->batteryTemperatures;
-  }
-  public function setCpuTemperatures($cpuTemperatures)
-  {
-    $this->cpuTemperatures = $cpuTemperatures;
-  }
-  public function getCpuTemperatures()
-  {
-    return $this->cpuTemperatures;
-  }
-  public function setCpuUsages($cpuUsages)
-  {
-    $this->cpuUsages = $cpuUsages;
-  }
-  public function getCpuUsages()
-  {
-    return $this->cpuUsages;
-  }
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setFanSpeeds($fanSpeeds)
-  {
-    $this->fanSpeeds = $fanSpeeds;
-  }
-  public function getFanSpeeds()
-  {
-    return $this->fanSpeeds;
-  }
-  public function setGpuTemperatures($gpuTemperatures)
-  {
-    $this->gpuTemperatures = $gpuTemperatures;
-  }
-  public function getGpuTemperatures()
-  {
-    return $this->gpuTemperatures;
-  }
-  public function setSkinTemperatures($skinTemperatures)
-  {
-    $this->skinTemperatures = $skinTemperatures;
-  }
-  public function getSkinTemperatures()
-  {
-    return $this->skinTemperatures;
-  }
+	public function setBatteryTemperatures($batteryTemperatures)
+	{
+		$this->batteryTemperatures = $batteryTemperatures;
+	}
+	public function getBatteryTemperatures()
+	{
+		return $this->batteryTemperatures;
+	}
+	public function setCpuTemperatures($cpuTemperatures)
+	{
+		$this->cpuTemperatures = $cpuTemperatures;
+	}
+	public function getCpuTemperatures()
+	{
+		return $this->cpuTemperatures;
+	}
+	public function setCpuUsages($cpuUsages)
+	{
+		$this->cpuUsages = $cpuUsages;
+	}
+	public function getCpuUsages()
+	{
+		return $this->cpuUsages;
+	}
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setFanSpeeds($fanSpeeds)
+	{
+		$this->fanSpeeds = $fanSpeeds;
+	}
+	public function getFanSpeeds()
+	{
+		return $this->fanSpeeds;
+	}
+	public function setGpuTemperatures($gpuTemperatures)
+	{
+		$this->gpuTemperatures = $gpuTemperatures;
+	}
+	public function getGpuTemperatures()
+	{
+		return $this->gpuTemperatures;
+	}
+	public function setSkinTemperatures($skinTemperatures)
+	{
+		$this->skinTemperatures = $skinTemperatures;
+	}
+	public function getSkinTemperatures()
+	{
+		return $this->skinTemperatures;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageMediaContent extends Google_Collection
 {
-  protected $collection_key = 'mediaObjects';
-  protected $mediaObjectsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageMediaContentResponseMediaObject';
-  protected $mediaObjectsDataType = 'array';
-  public $mediaType;
+	protected $collection_key = 'mediaObjects';
+	protected $mediaObjectsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageMediaContentResponseMediaObject';
+	protected $mediaObjectsDataType = 'array';
+	public $mediaType;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageMediaContentResponseMediaObject
-   */
-  public function setMediaObjects($mediaObjects)
-  {
-    $this->mediaObjects = $mediaObjects;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageMediaContentResponseMediaObject
-   */
-  public function getMediaObjects()
-  {
-    return $this->mediaObjects;
-  }
-  public function setMediaType($mediaType)
-  {
-    $this->mediaType = $mediaType;
-  }
-  public function getMediaType()
-  {
-    return $this->mediaType;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageMediaContentResponseMediaObject
+	 */
+	public function setMediaObjects($mediaObjects)
+	{
+		$this->mediaObjects = $mediaObjects;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageMediaContentResponseMediaObject
+	 */
+	public function getMediaObjects()
+	{
+		return $this->mediaObjects;
+	}
+	public function setMediaType($mediaType)
+	{
+		$this->mediaType = $mediaType;
+	}
+	public function getMediaType()
+	{
+		return $this->mediaType;
+	}
 }

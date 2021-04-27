@@ -17,14 +17,14 @@
 
 class Google_Service_Translate_GcsDestination extends Google_Model
 {
-  public $outputUriPrefix;
+	public $outputUriPrefix;
 
-  public function setOutputUriPrefix($outputUriPrefix)
-  {
-    $this->outputUriPrefix = $outputUriPrefix;
-  }
-  public function getOutputUriPrefix()
-  {
-    return $this->outputUriPrefix;
-  }
+	public function setOutputUriPrefix($outputUriPrefix)
+	{
+		$this->outputUriPrefix = $outputUriPrefix;
+	}
+	public function getOutputUriPrefix()
+	{
+		return $this->outputUriPrefix;
+	}
 }

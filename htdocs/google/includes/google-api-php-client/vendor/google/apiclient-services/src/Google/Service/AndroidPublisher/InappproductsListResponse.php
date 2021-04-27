@@ -17,63 +17,63 @@
 
 class Google_Service_AndroidPublisher_InappproductsListResponse extends Google_Collection
 {
-  protected $collection_key = 'inappproduct';
-  protected $inappproductType = 'Google_Service_AndroidPublisher_InAppProduct';
-  protected $inappproductDataType = 'array';
-  public $kind;
-  protected $pageInfoType = 'Google_Service_AndroidPublisher_PageInfo';
-  protected $pageInfoDataType = '';
-  protected $tokenPaginationType = 'Google_Service_AndroidPublisher_TokenPagination';
-  protected $tokenPaginationDataType = '';
+	protected $collection_key = 'inappproduct';
+	protected $inappproductType = 'Google_Service_AndroidPublisher_InAppProduct';
+	protected $inappproductDataType = 'array';
+	public $kind;
+	protected $pageInfoType = 'Google_Service_AndroidPublisher_PageInfo';
+	protected $pageInfoDataType = '';
+	protected $tokenPaginationType = 'Google_Service_AndroidPublisher_TokenPagination';
+	protected $tokenPaginationDataType = '';
 
-  /**
-   * @param Google_Service_AndroidPublisher_InAppProduct
-   */
-  public function setInappproduct($inappproduct)
-  {
-    $this->inappproduct = $inappproduct;
-  }
-  /**
-   * @return Google_Service_AndroidPublisher_InAppProduct
-   */
-  public function getInappproduct()
-  {
-    return $this->inappproduct;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_AndroidPublisher_PageInfo
-   */
-  public function setPageInfo(Google_Service_AndroidPublisher_PageInfo $pageInfo)
-  {
-    $this->pageInfo = $pageInfo;
-  }
-  /**
-   * @return Google_Service_AndroidPublisher_PageInfo
-   */
-  public function getPageInfo()
-  {
-    return $this->pageInfo;
-  }
-  /**
-   * @param Google_Service_AndroidPublisher_TokenPagination
-   */
-  public function setTokenPagination(Google_Service_AndroidPublisher_TokenPagination $tokenPagination)
-  {
-    $this->tokenPagination = $tokenPagination;
-  }
-  /**
-   * @return Google_Service_AndroidPublisher_TokenPagination
-   */
-  public function getTokenPagination()
-  {
-    return $this->tokenPagination;
-  }
+	/**
+	 * @param Google_Service_AndroidPublisher_InAppProduct
+	 */
+	public function setInappproduct($inappproduct)
+	{
+		$this->inappproduct = $inappproduct;
+	}
+	/**
+	 * @return Google_Service_AndroidPublisher_InAppProduct
+	 */
+	public function getInappproduct()
+	{
+		return $this->inappproduct;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_AndroidPublisher_PageInfo
+	 */
+	public function setPageInfo(Google_Service_AndroidPublisher_PageInfo $pageInfo)
+	{
+		$this->pageInfo = $pageInfo;
+	}
+	/**
+	 * @return Google_Service_AndroidPublisher_PageInfo
+	 */
+	public function getPageInfo()
+	{
+		return $this->pageInfo;
+	}
+	/**
+	 * @param Google_Service_AndroidPublisher_TokenPagination
+	 */
+	public function setTokenPagination(Google_Service_AndroidPublisher_TokenPagination $tokenPagination)
+	{
+		$this->tokenPagination = $tokenPagination;
+	}
+	/**
+	 * @return Google_Service_AndroidPublisher_TokenPagination
+	 */
+	public function getTokenPagination()
+	{
+		return $this->tokenPagination;
+	}
 }

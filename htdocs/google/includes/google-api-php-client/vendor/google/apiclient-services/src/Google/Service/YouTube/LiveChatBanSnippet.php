@@ -17,48 +17,48 @@
 
 class Google_Service_YouTube_LiveChatBanSnippet extends Google_Model
 {
-  public $banDurationSeconds;
-  protected $bannedUserDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
-  protected $bannedUserDetailsDataType = '';
-  public $liveChatId;
-  public $type;
+	public $banDurationSeconds;
+	protected $bannedUserDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
+	protected $bannedUserDetailsDataType = '';
+	public $liveChatId;
+	public $type;
 
-  public function setBanDurationSeconds($banDurationSeconds)
-  {
-    $this->banDurationSeconds = $banDurationSeconds;
-  }
-  public function getBanDurationSeconds()
-  {
-    return $this->banDurationSeconds;
-  }
-  /**
-   * @param Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function setBannedUserDetails(Google_Service_YouTube_ChannelProfileDetails $bannedUserDetails)
-  {
-    $this->bannedUserDetails = $bannedUserDetails;
-  }
-  /**
-   * @return Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function getBannedUserDetails()
-  {
-    return $this->bannedUserDetails;
-  }
-  public function setLiveChatId($liveChatId)
-  {
-    $this->liveChatId = $liveChatId;
-  }
-  public function getLiveChatId()
-  {
-    return $this->liveChatId;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setBanDurationSeconds($banDurationSeconds)
+	{
+		$this->banDurationSeconds = $banDurationSeconds;
+	}
+	public function getBanDurationSeconds()
+	{
+		return $this->banDurationSeconds;
+	}
+	/**
+	 * @param Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function setBannedUserDetails(Google_Service_YouTube_ChannelProfileDetails $bannedUserDetails)
+	{
+		$this->bannedUserDetails = $bannedUserDetails;
+	}
+	/**
+	 * @return Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function getBannedUserDetails()
+	{
+		return $this->bannedUserDetails;
+	}
+	public function setLiveChatId($liveChatId)
+	{
+		$this->liveChatId = $liveChatId;
+	}
+	public function getLiveChatId()
+	{
+		return $this->liveChatId;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

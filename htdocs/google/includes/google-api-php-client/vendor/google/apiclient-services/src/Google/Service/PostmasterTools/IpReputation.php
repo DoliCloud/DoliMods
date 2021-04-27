@@ -17,33 +17,33 @@
 
 class Google_Service_PostmasterTools_IpReputation extends Google_Collection
 {
-  protected $collection_key = 'sampleIps';
-  public $numIps;
-  public $reputation;
-  public $sampleIps;
+	protected $collection_key = 'sampleIps';
+	public $numIps;
+	public $reputation;
+	public $sampleIps;
 
-  public function setNumIps($numIps)
-  {
-    $this->numIps = $numIps;
-  }
-  public function getNumIps()
-  {
-    return $this->numIps;
-  }
-  public function setReputation($reputation)
-  {
-    $this->reputation = $reputation;
-  }
-  public function getReputation()
-  {
-    return $this->reputation;
-  }
-  public function setSampleIps($sampleIps)
-  {
-    $this->sampleIps = $sampleIps;
-  }
-  public function getSampleIps()
-  {
-    return $this->sampleIps;
-  }
+	public function setNumIps($numIps)
+	{
+		$this->numIps = $numIps;
+	}
+	public function getNumIps()
+	{
+		return $this->numIps;
+	}
+	public function setReputation($reputation)
+	{
+		$this->reputation = $reputation;
+	}
+	public function getReputation()
+	{
+		return $this->reputation;
+	}
+	public function setSampleIps($sampleIps)
+	{
+		$this->sampleIps = $sampleIps;
+	}
+	public function getSampleIps()
+	{
+		return $this->sampleIps;
+	}
 }

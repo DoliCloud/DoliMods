@@ -17,48 +17,48 @@
 
 class Google_Service_PhotosLibrary_SearchMediaItemsRequest extends Google_Model
 {
-  public $albumId;
-  protected $filtersType = 'Google_Service_PhotosLibrary_Filters';
-  protected $filtersDataType = '';
-  public $pageSize;
-  public $pageToken;
+	public $albumId;
+	protected $filtersType = 'Google_Service_PhotosLibrary_Filters';
+	protected $filtersDataType = '';
+	public $pageSize;
+	public $pageToken;
 
-  public function setAlbumId($albumId)
-  {
-    $this->albumId = $albumId;
-  }
-  public function getAlbumId()
-  {
-    return $this->albumId;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_Filters
-   */
-  public function setFilters(Google_Service_PhotosLibrary_Filters $filters)
-  {
-    $this->filters = $filters;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_Filters
-   */
-  public function getFilters()
-  {
-    return $this->filters;
-  }
-  public function setPageSize($pageSize)
-  {
-    $this->pageSize = $pageSize;
-  }
-  public function getPageSize()
-  {
-    return $this->pageSize;
-  }
-  public function setPageToken($pageToken)
-  {
-    $this->pageToken = $pageToken;
-  }
-  public function getPageToken()
-  {
-    return $this->pageToken;
-  }
+	public function setAlbumId($albumId)
+	{
+		$this->albumId = $albumId;
+	}
+	public function getAlbumId()
+	{
+		return $this->albumId;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_Filters
+	 */
+	public function setFilters(Google_Service_PhotosLibrary_Filters $filters)
+	{
+		$this->filters = $filters;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_Filters
+	 */
+	public function getFilters()
+	{
+		return $this->filters;
+	}
+	public function setPageSize($pageSize)
+	{
+		$this->pageSize = $pageSize;
+	}
+	public function getPageSize()
+	{
+		return $this->pageSize;
+	}
+	public function setPageToken($pageToken)
+	{
+		$this->pageToken = $pageToken;
+	}
+	public function getPageToken()
+	{
+		return $this->pageToken;
+	}
 }

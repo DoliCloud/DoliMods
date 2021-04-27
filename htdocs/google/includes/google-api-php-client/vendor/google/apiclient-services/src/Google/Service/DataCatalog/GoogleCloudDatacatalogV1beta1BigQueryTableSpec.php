@@ -17,46 +17,46 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1BigQueryTableSpec extends Google_Model
 {
-  public $tableSourceType;
-  protected $tableSpecType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec';
-  protected $tableSpecDataType = '';
-  protected $viewSpecType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec';
-  protected $viewSpecDataType = '';
+	public $tableSourceType;
+	protected $tableSpecType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec';
+	protected $tableSpecDataType = '';
+	protected $viewSpecType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec';
+	protected $viewSpecDataType = '';
 
-  public function setTableSourceType($tableSourceType)
-  {
-    $this->tableSourceType = $tableSourceType;
-  }
-  public function getTableSourceType()
-  {
-    return $this->tableSourceType;
-  }
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec
-   */
-  public function setTableSpec(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec $tableSpec)
-  {
-    $this->tableSpec = $tableSpec;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec
-   */
-  public function getTableSpec()
-  {
-    return $this->tableSpec;
-  }
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec
-   */
-  public function setViewSpec(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec $viewSpec)
-  {
-    $this->viewSpec = $viewSpec;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec
-   */
-  public function getViewSpec()
-  {
-    return $this->viewSpec;
-  }
+	public function setTableSourceType($tableSourceType)
+	{
+		$this->tableSourceType = $tableSourceType;
+	}
+	public function getTableSourceType()
+	{
+		return $this->tableSourceType;
+	}
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec
+	 */
+	public function setTableSpec(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec $tableSpec)
+	{
+		$this->tableSpec = $tableSpec;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TableSpec
+	 */
+	public function getTableSpec()
+	{
+		return $this->tableSpec;
+	}
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec
+	 */
+	public function setViewSpec(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec $viewSpec)
+	{
+		$this->viewSpec = $viewSpec;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec
+	 */
+	public function getViewSpec()
+	{
+		return $this->viewSpec;
+	}
 }

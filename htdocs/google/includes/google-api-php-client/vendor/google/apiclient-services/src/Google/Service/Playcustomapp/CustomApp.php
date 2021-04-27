@@ -17,32 +17,32 @@
 
 class Google_Service_Playcustomapp_CustomApp extends Google_Model
 {
-  public $languageCode;
-  public $packageName;
-  public $title;
+	public $languageCode;
+	public $packageName;
+	public $title;
 
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  public function setPackageName($packageName)
-  {
-    $this->packageName = $packageName;
-  }
-  public function getPackageName()
-  {
-    return $this->packageName;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	public function setPackageName($packageName)
+	{
+		$this->packageName = $packageName;
+	}
+	public function getPackageName()
+	{
+		return $this->packageName;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_AndroidEnterprise_ProductVisibility extends Google_Collection
 {
-  protected $collection_key = 'tracks';
-  public $productId;
-  public $trackIds;
-  public $tracks;
+	protected $collection_key = 'tracks';
+	public $productId;
+	public $trackIds;
+	public $tracks;
 
-  public function setProductId($productId)
-  {
-    $this->productId = $productId;
-  }
-  public function getProductId()
-  {
-    return $this->productId;
-  }
-  public function setTrackIds($trackIds)
-  {
-    $this->trackIds = $trackIds;
-  }
-  public function getTrackIds()
-  {
-    return $this->trackIds;
-  }
-  public function setTracks($tracks)
-  {
-    $this->tracks = $tracks;
-  }
-  public function getTracks()
-  {
-    return $this->tracks;
-  }
+	public function setProductId($productId)
+	{
+		$this->productId = $productId;
+	}
+	public function getProductId()
+	{
+		return $this->productId;
+	}
+	public function setTrackIds($trackIds)
+	{
+		$this->trackIds = $trackIds;
+	}
+	public function getTrackIds()
+	{
+		return $this->trackIds;
+	}
+	public function setTracks($tracks)
+	{
+		$this->tracks = $tracks;
+	}
+	public function getTracks()
+	{
+		return $this->tracks;
+	}
 }

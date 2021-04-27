@@ -17,48 +17,48 @@
 
 class Google_Service_DoubleClickBidManager_ReportStatus extends Google_Model
 {
-  protected $failureType = 'Google_Service_DoubleClickBidManager_ReportFailure';
-  protected $failureDataType = '';
-  public $finishTimeMs;
-  public $format;
-  public $state;
+	protected $failureType = 'Google_Service_DoubleClickBidManager_ReportFailure';
+	protected $failureDataType = '';
+	public $finishTimeMs;
+	public $format;
+	public $state;
 
-  /**
-   * @param Google_Service_DoubleClickBidManager_ReportFailure
-   */
-  public function setFailure(Google_Service_DoubleClickBidManager_ReportFailure $failure)
-  {
-    $this->failure = $failure;
-  }
-  /**
-   * @return Google_Service_DoubleClickBidManager_ReportFailure
-   */
-  public function getFailure()
-  {
-    return $this->failure;
-  }
-  public function setFinishTimeMs($finishTimeMs)
-  {
-    $this->finishTimeMs = $finishTimeMs;
-  }
-  public function getFinishTimeMs()
-  {
-    return $this->finishTimeMs;
-  }
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	/**
+	 * @param Google_Service_DoubleClickBidManager_ReportFailure
+	 */
+	public function setFailure(Google_Service_DoubleClickBidManager_ReportFailure $failure)
+	{
+		$this->failure = $failure;
+	}
+	/**
+	 * @return Google_Service_DoubleClickBidManager_ReportFailure
+	 */
+	public function getFailure()
+	{
+		return $this->failure;
+	}
+	public function setFinishTimeMs($finishTimeMs)
+	{
+		$this->finishTimeMs = $finishTimeMs;
+	}
+	public function getFinishTimeMs()
+	{
+		return $this->finishTimeMs;
+	}
+	public function setFormat($format)
+	{
+		$this->format = $format;
+	}
+	public function getFormat()
+	{
+		return $this->format;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

@@ -33,70 +33,70 @@
  */
 class Google_Service_PagespeedInsights extends Google_Service
 {
-  /** Associate you with your personal info on Google. */
-  const OPENID =
-      "openid";
+	/** Associate you with your personal info on Google. */
+	const OPENID =
+	  "openid";
 
-  public $pagespeedapi;
-  
-  /**
-   * Constructs the internal representation of the PagespeedInsights service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://pagespeedonline.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v5';
-    $this->serviceName = 'pagespeedonline';
+	public $pagespeedapi;
 
-    $this->pagespeedapi = new Google_Service_PagespeedInsights_Resource_Pagespeedapi(
-        $this,
-        $this->serviceName,
-        'pagespeedapi',
-        array(
-          'methods' => array(
-            'runpagespeed' => array(
-              'path' => 'pagespeedonline/v5/runPagespeed',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'captchaToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'url' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'locale' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'utm_campaign' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'category' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'repeated' => true,
-                ),
-                'strategy' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'utm_source' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the PagespeedInsights service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://pagespeedonline.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v5';
+		$this->serviceName = 'pagespeedonline';
+
+		$this->pagespeedapi = new Google_Service_PagespeedInsights_Resource_Pagespeedapi(
+		$this,
+		$this->serviceName,
+		'pagespeedapi',
+		array(
+		  'methods' => array(
+			'runpagespeed' => array(
+			  'path' => 'pagespeedonline/v5/runPagespeed',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'captchaToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'url' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'locale' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'utm_campaign' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'category' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				  'repeated' => true,
+				),
+				'strategy' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'utm_source' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

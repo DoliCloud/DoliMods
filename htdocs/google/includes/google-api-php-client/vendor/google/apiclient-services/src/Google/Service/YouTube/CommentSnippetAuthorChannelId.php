@@ -17,14 +17,14 @@
 
 class Google_Service_YouTube_CommentSnippetAuthorChannelId extends Google_Model
 {
-  public $value;
+	public $value;
 
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

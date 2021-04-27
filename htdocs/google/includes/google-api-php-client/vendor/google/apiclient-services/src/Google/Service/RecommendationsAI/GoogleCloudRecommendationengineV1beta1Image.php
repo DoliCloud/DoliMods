@@ -17,32 +17,32 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1Image extends Google_Model
 {
-  public $height;
-  public $uri;
-  public $width;
+	public $height;
+	public $uri;
+	public $width;
 
-  public function setHeight($height)
-  {
-    $this->height = $height;
-  }
-  public function getHeight()
-  {
-    return $this->height;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
-  public function setWidth($width)
-  {
-    $this->width = $width;
-  }
-  public function getWidth()
-  {
-    return $this->width;
-  }
+	public function setHeight($height)
+	{
+		$this->height = $height;
+	}
+	public function getHeight()
+	{
+		return $this->height;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
+	public function setWidth($width)
+	{
+		$this->width = $width;
+	}
+	public function getWidth()
+	{
+		return $this->width;
+	}
 }

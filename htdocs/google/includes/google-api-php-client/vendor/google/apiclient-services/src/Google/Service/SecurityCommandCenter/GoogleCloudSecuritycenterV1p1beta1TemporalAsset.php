@@ -17,30 +17,30 @@
 
 class Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1TemporalAsset extends Google_Model
 {
-  protected $assetType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Asset';
-  protected $assetDataType = '';
-  public $changeType;
+	protected $assetType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Asset';
+	protected $assetDataType = '';
+	public $changeType;
 
-  /**
-   * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Asset
-   */
-  public function setAsset(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Asset $asset)
-  {
-    $this->asset = $asset;
-  }
-  /**
-   * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Asset
-   */
-  public function getAsset()
-  {
-    return $this->asset;
-  }
-  public function setChangeType($changeType)
-  {
-    $this->changeType = $changeType;
-  }
-  public function getChangeType()
-  {
-    return $this->changeType;
-  }
+	/**
+	 * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Asset
+	 */
+	public function setAsset(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Asset $asset)
+	{
+		$this->asset = $asset;
+	}
+	/**
+	 * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Asset
+	 */
+	public function getAsset()
+	{
+		return $this->asset;
+	}
+	public function setChangeType($changeType)
+	{
+		$this->changeType = $changeType;
+	}
+	public function getChangeType()
+	{
+		return $this->changeType;
+	}
 }

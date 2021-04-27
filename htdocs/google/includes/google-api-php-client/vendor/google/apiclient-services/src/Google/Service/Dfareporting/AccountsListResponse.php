@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_AccountsListResponse extends Google_Collection
 {
-  protected $collection_key = 'accounts';
-  protected $accountsType = 'Google_Service_Dfareporting_Account';
-  protected $accountsDataType = 'array';
-  public $kind;
-  public $nextPageToken;
+	protected $collection_key = 'accounts';
+	protected $accountsType = 'Google_Service_Dfareporting_Account';
+	protected $accountsDataType = 'array';
+	public $kind;
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Dfareporting_Account
-   */
-  public function setAccounts($accounts)
-  {
-    $this->accounts = $accounts;
-  }
-  /**
-   * @return Google_Service_Dfareporting_Account
-   */
-  public function getAccounts()
-  {
-    return $this->accounts;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_Account
+	 */
+	public function setAccounts($accounts)
+	{
+		$this->accounts = $accounts;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_Account
+	 */
+	public function getAccounts()
+	{
+		return $this->accounts;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

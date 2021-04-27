@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_DoubleVerifyDisplayViewability extends Google_Model
 {
-  public $iab;
-  public $viewableDuring;
+	public $iab;
+	public $viewableDuring;
 
-  public function setIab($iab)
-  {
-    $this->iab = $iab;
-  }
-  public function getIab()
-  {
-    return $this->iab;
-  }
-  public function setViewableDuring($viewableDuring)
-  {
-    $this->viewableDuring = $viewableDuring;
-  }
-  public function getViewableDuring()
-  {
-    return $this->viewableDuring;
-  }
+	public function setIab($iab)
+	{
+		$this->iab = $iab;
+	}
+	public function getIab()
+	{
+		return $this->iab;
+	}
+	public function setViewableDuring($viewableDuring)
+	{
+		$this->viewableDuring = $viewableDuring;
+	}
+	public function getViewableDuring()
+	{
+		return $this->viewableDuring;
+	}
 }

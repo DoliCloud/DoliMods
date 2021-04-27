@@ -17,50 +17,50 @@
 
 class Google_Service_Partners_OptIns extends Google_Model
 {
-  public $marketComm;
-  public $performanceSuggestions;
-  public $phoneContact;
-  public $physicalMail;
-  public $specialOffers;
+	public $marketComm;
+	public $performanceSuggestions;
+	public $phoneContact;
+	public $physicalMail;
+	public $specialOffers;
 
-  public function setMarketComm($marketComm)
-  {
-    $this->marketComm = $marketComm;
-  }
-  public function getMarketComm()
-  {
-    return $this->marketComm;
-  }
-  public function setPerformanceSuggestions($performanceSuggestions)
-  {
-    $this->performanceSuggestions = $performanceSuggestions;
-  }
-  public function getPerformanceSuggestions()
-  {
-    return $this->performanceSuggestions;
-  }
-  public function setPhoneContact($phoneContact)
-  {
-    $this->phoneContact = $phoneContact;
-  }
-  public function getPhoneContact()
-  {
-    return $this->phoneContact;
-  }
-  public function setPhysicalMail($physicalMail)
-  {
-    $this->physicalMail = $physicalMail;
-  }
-  public function getPhysicalMail()
-  {
-    return $this->physicalMail;
-  }
-  public function setSpecialOffers($specialOffers)
-  {
-    $this->specialOffers = $specialOffers;
-  }
-  public function getSpecialOffers()
-  {
-    return $this->specialOffers;
-  }
+	public function setMarketComm($marketComm)
+	{
+		$this->marketComm = $marketComm;
+	}
+	public function getMarketComm()
+	{
+		return $this->marketComm;
+	}
+	public function setPerformanceSuggestions($performanceSuggestions)
+	{
+		$this->performanceSuggestions = $performanceSuggestions;
+	}
+	public function getPerformanceSuggestions()
+	{
+		return $this->performanceSuggestions;
+	}
+	public function setPhoneContact($phoneContact)
+	{
+		$this->phoneContact = $phoneContact;
+	}
+	public function getPhoneContact()
+	{
+		return $this->phoneContact;
+	}
+	public function setPhysicalMail($physicalMail)
+	{
+		$this->physicalMail = $physicalMail;
+	}
+	public function getPhysicalMail()
+	{
+		return $this->physicalMail;
+	}
+	public function setSpecialOffers($specialOffers)
+	{
+		$this->specialOffers = $specialOffers;
+	}
+	public function getSpecialOffers()
+	{
+		return $this->specialOffers;
+	}
 }

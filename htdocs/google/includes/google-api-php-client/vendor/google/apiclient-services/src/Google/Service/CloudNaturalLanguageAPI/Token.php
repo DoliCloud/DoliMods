@@ -17,44 +17,44 @@
 
 class Google_Service_CloudNaturalLanguageAPI_Token extends Google_Model
 {
-  protected $dependencyEdgeType = 'Google_Service_CloudNaturalLanguageAPI_DependencyEdge';
-  protected $dependencyEdgeDataType = '';
-  public $lemma;
-  protected $partOfSpeechType = 'Google_Service_CloudNaturalLanguageAPI_PartOfSpeech';
-  protected $partOfSpeechDataType = '';
-  protected $textType = 'Google_Service_CloudNaturalLanguageAPI_TextSpan';
-  protected $textDataType = '';
+	protected $dependencyEdgeType = 'Google_Service_CloudNaturalLanguageAPI_DependencyEdge';
+	protected $dependencyEdgeDataType = '';
+	public $lemma;
+	protected $partOfSpeechType = 'Google_Service_CloudNaturalLanguageAPI_PartOfSpeech';
+	protected $partOfSpeechDataType = '';
+	protected $textType = 'Google_Service_CloudNaturalLanguageAPI_TextSpan';
+	protected $textDataType = '';
 
-  public function setDependencyEdge(Google_Service_CloudNaturalLanguageAPI_DependencyEdge $dependencyEdge)
-  {
-    $this->dependencyEdge = $dependencyEdge;
-  }
-  public function getDependencyEdge()
-  {
-    return $this->dependencyEdge;
-  }
-  public function setLemma($lemma)
-  {
-    $this->lemma = $lemma;
-  }
-  public function getLemma()
-  {
-    return $this->lemma;
-  }
-  public function setPartOfSpeech(Google_Service_CloudNaturalLanguageAPI_PartOfSpeech $partOfSpeech)
-  {
-    $this->partOfSpeech = $partOfSpeech;
-  }
-  public function getPartOfSpeech()
-  {
-    return $this->partOfSpeech;
-  }
-  public function setText(Google_Service_CloudNaturalLanguageAPI_TextSpan $text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	public function setDependencyEdge(Google_Service_CloudNaturalLanguageAPI_DependencyEdge $dependencyEdge)
+	{
+		$this->dependencyEdge = $dependencyEdge;
+	}
+	public function getDependencyEdge()
+	{
+		return $this->dependencyEdge;
+	}
+	public function setLemma($lemma)
+	{
+		$this->lemma = $lemma;
+	}
+	public function getLemma()
+	{
+		return $this->lemma;
+	}
+	public function setPartOfSpeech(Google_Service_CloudNaturalLanguageAPI_PartOfSpeech $partOfSpeech)
+	{
+		$this->partOfSpeech = $partOfSpeech;
+	}
+	public function getPartOfSpeech()
+	{
+		return $this->partOfSpeech;
+	}
+	public function setText(Google_Service_CloudNaturalLanguageAPI_TextSpan $text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

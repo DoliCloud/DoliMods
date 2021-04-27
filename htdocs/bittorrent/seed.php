@@ -2,8 +2,8 @@
 //Used for HTTP seeding
 //Requires information in torrent file for client to use
 
-$res=@include("../master.inc.php");
-if (! $res) @include("../../../dolibarr/htdocs/master.inc.php");	// Used on dev env only
+$res=@include "../master.inc.php";
+if (! $res) @include "../../../dolibarr/htdocs/master.inc.php";	// Used on dev env only
 
 
 header("Content-Type: text/plain");
@@ -17,8 +17,7 @@ if (!isset($_GET["info_hash"]) || !isset($_GET["piece"]))
 
 if (get_magic_quotes_gpc())
 	$info_hash=stripslashes($_GET["info_hash"]);
-else
-	$info_hash=$_GET["info_hash"];
+else $info_hash=$_GET["info_hash"];
 
 $piece = $_GET["piece"];
 //error_log("Two");
@@ -37,22 +36,21 @@ $max_upload_rate = $GLOBALS["max_upload_rate"] * 1024;
 function Lock($hash, $time = 0)
 {
 	$results = mysql_query("SELECT GET_LOCK('$hash', $time)");
-   $string = mysql_fetch_row($results);
-   if (strcmp($string[0], "1") == 0)
-   {
-   	//error_log("Got lock $hash");
-   	return true;
+	$string = mysql_fetch_row($results);
+	if (strcmp($string[0], "1") == 0) {
+		//error_log("Got lock $hash");
+		return true;
 	}
 	//error_log("Failed to lock $hash");
-   return false;
+	return false;
 }
 
 function Unlock($hash)
 {
-        mysql_query("SELECT RELEASE_LOCK('$hash')");
+		mysql_query("SELECT RELEASE_LOCK('$hash')");
 }
 
-function reject($error = "503 Service Temporarily Unavailable", $message="")
+function reject($error = "503 Service Temporarily Unavailable", $message = "")
 {
 	header("HTTP/1.0 $error");
 	echo $message;
@@ -76,26 +74,22 @@ if ($row[0] > 180)
 $result = mysql_query("SELECT uploaded / (UNIX_TIMESTAMP() - started) FROM ".$prefix."speedlimit");
 $row = mysql_fetch_row($result);
 
-if ((float)($row[0]) > $max_upload_rate)
-{
+if ((float) ($row[0]) > $max_upload_rate) {
 	$result = mysql_query("SELECT (uploaded/". $max_upload_rate . "+started) - UNIX_TIMESTAMP() FROM ".$prefix."speedlimit");
 	$row = mysql_fetch_row($result);
-	reject("503 Service Temporarily Unavailable", (int)$row[0] + mt_rand(1,30));
+	reject("503 Service Temporarily Unavailable", (int) $row[0] + mt_rand(1, 30));
 }
 
 $result = mysql_query("SELECT seeds FROM ".$prefix."summary WHERE info_hash=$info_hash");
-if ($result)
-{
+if ($result) {
 	//error_log("Doing PHPBT check");
 	$row = mysql_fetch_assoc($result);
-	if ($row["seeds"] > 5) //if there are seeds available, don't use HTTP seeding
-	{
+	if ($row["seeds"] > 5) { //if there are seeds available, don't use HTTP seeding
 		dol_syslog("Seed.php There is more than 5 seeds availables. Don't use HTTP");
 		reject();
 	}
 }
-if (mysql_num_rows($result) == 0) //hash isn't even in database!
-{
+if (mysql_num_rows($result) == 0) { //hash isn't even in database!
 	//reject em!
 	reject();
 }
@@ -130,8 +124,7 @@ if ($config["numpieces"] < $piece || $piece < 0)
 $xmit = "";
 $xmitbytes = 0;
 
-while ($row = mysql_fetch_assoc($result))
-{
+while ($row = mysql_fetch_assoc($result)) {
 	dol_syslog("Seed.php Loop on each seed");
 
 	if (!($piece >= $row["startpiece"] && $piece <= $row["endpiece"]))
@@ -156,12 +149,10 @@ while ($row = mysql_fetch_assoc($result))
 
 //error_log("Send length: $xmitbytes == ".strlen($xmit));
 
-if (isset($_GET["ranges"]))
-{
+if (isset($_GET["ranges"])) {
 	$myxmit = "";
 	$ranges = explode(",", $_GET["ranges"]);
-	foreach ($ranges as $blocks)
-	{
+	foreach ($ranges as $blocks) {
 		$startstop = explode("-", $blocks);
 		if (!is_numeric($startstop[0]) || !is_numeric($startstop[1]))
 			reject("400 Bad Request");
@@ -176,9 +167,7 @@ if (isset($_GET["ranges"]))
 	header("Content-Length: ".strlen($myxmit));
 	mysql_query("UPDATE ".$prefix."speedlimit SET uploaded=uploaded+".strlen($myxmit));
 	echo $myxmit;
-}
-else
-{
+} else {
 	mysql_query("UPDATE ".$prefix."speedlimit SET uploaded=uploaded+$xmitbytes");
 	header("Content-Length: $xmitbytes");
 	echo $xmit;
@@ -186,5 +175,3 @@ else
 
 Unlock("WebSeed--$lockno");
 exit;
-
-?>

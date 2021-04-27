@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_DeviceTypeTargetingOptionDetails extends Google_Model
 {
-  public $deviceType;
+	public $deviceType;
 
-  public function setDeviceType($deviceType)
-  {
-    $this->deviceType = $deviceType;
-  }
-  public function getDeviceType()
-  {
-    return $this->deviceType;
-  }
+	public function setDeviceType($deviceType)
+	{
+		$this->deviceType = $deviceType;
+	}
+	public function getDeviceType()
+	{
+		return $this->deviceType;
+	}
 }

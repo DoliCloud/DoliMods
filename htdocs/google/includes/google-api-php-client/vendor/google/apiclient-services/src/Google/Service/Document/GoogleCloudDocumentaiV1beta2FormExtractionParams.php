@@ -17,40 +17,40 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2FormExtractionParams extends Google_Collection
 {
-  protected $collection_key = 'keyValuePairHints';
-  public $enabled;
-  protected $keyValuePairHintsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2KeyValuePairHint';
-  protected $keyValuePairHintsDataType = 'array';
-  public $modelVersion;
+	protected $collection_key = 'keyValuePairHints';
+	public $enabled;
+	protected $keyValuePairHintsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2KeyValuePairHint';
+	protected $keyValuePairHintsDataType = 'array';
+	public $modelVersion;
 
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2KeyValuePairHint
-   */
-  public function setKeyValuePairHints($keyValuePairHints)
-  {
-    $this->keyValuePairHints = $keyValuePairHints;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2KeyValuePairHint
-   */
-  public function getKeyValuePairHints()
-  {
-    return $this->keyValuePairHints;
-  }
-  public function setModelVersion($modelVersion)
-  {
-    $this->modelVersion = $modelVersion;
-  }
-  public function getModelVersion()
-  {
-    return $this->modelVersion;
-  }
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2KeyValuePairHint
+	 */
+	public function setKeyValuePairHints($keyValuePairHints)
+	{
+		$this->keyValuePairHints = $keyValuePairHints;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2KeyValuePairHint
+	 */
+	public function getKeyValuePairHints()
+	{
+		return $this->keyValuePairHints;
+	}
+	public function setModelVersion($modelVersion)
+	{
+		$this->modelVersion = $modelVersion;
+	}
+	public function getModelVersion()
+	{
+		return $this->modelVersion;
+	}
 }

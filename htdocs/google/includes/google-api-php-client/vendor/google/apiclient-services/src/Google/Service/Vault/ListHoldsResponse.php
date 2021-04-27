@@ -17,31 +17,31 @@
 
 class Google_Service_Vault_ListHoldsResponse extends Google_Collection
 {
-  protected $collection_key = 'holds';
-  protected $holdsType = 'Google_Service_Vault_Hold';
-  protected $holdsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'holds';
+	protected $holdsType = 'Google_Service_Vault_Hold';
+	protected $holdsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Vault_Hold
-   */
-  public function setHolds($holds)
-  {
-    $this->holds = $holds;
-  }
-  /**
-   * @return Google_Service_Vault_Hold
-   */
-  public function getHolds()
-  {
-    return $this->holds;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Vault_Hold
+	 */
+	public function setHolds($holds)
+	{
+		$this->holds = $holds;
+	}
+	/**
+	 * @return Google_Service_Vault_Hold
+	 */
+	public function getHolds()
+	{
+		return $this->holds;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

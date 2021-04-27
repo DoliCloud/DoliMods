@@ -17,21 +17,21 @@
 
 class Google_Service_TagManager_RevertTemplateResponse extends Google_Model
 {
-  protected $templateType = 'Google_Service_TagManager_CustomTemplate';
-  protected $templateDataType = '';
+	protected $templateType = 'Google_Service_TagManager_CustomTemplate';
+	protected $templateDataType = '';
 
-  /**
-   * @param Google_Service_TagManager_CustomTemplate
-   */
-  public function setTemplate(Google_Service_TagManager_CustomTemplate $template)
-  {
-    $this->template = $template;
-  }
-  /**
-   * @return Google_Service_TagManager_CustomTemplate
-   */
-  public function getTemplate()
-  {
-    return $this->template;
-  }
+	/**
+	 * @param Google_Service_TagManager_CustomTemplate
+	 */
+	public function setTemplate(Google_Service_TagManager_CustomTemplate $template)
+	{
+		$this->template = $template;
+	}
+	/**
+	 * @return Google_Service_TagManager_CustomTemplate
+	 */
+	public function getTemplate()
+	{
+		return $this->template;
+	}
 }

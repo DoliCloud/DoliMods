@@ -17,14 +17,14 @@
 
 class Google_Service_SemanticTile_ProviderInfo extends Google_Model
 {
-  public $description;
+	public $description;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
 }

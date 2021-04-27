@@ -17,14 +17,14 @@
 
 class Google_Service_Container_MaxPodsConstraint extends Google_Model
 {
-  public $maxPodsPerNode;
+	public $maxPodsPerNode;
 
-  public function setMaxPodsPerNode($maxPodsPerNode)
-  {
-    $this->maxPodsPerNode = $maxPodsPerNode;
-  }
-  public function getMaxPodsPerNode()
-  {
-    return $this->maxPodsPerNode;
-  }
+	public function setMaxPodsPerNode($maxPodsPerNode)
+	{
+		$this->maxPodsPerNode = $maxPodsPerNode;
+	}
+	public function getMaxPodsPerNode()
+	{
+		return $this->maxPodsPerNode;
+	}
 }

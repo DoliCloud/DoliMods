@@ -17,23 +17,23 @@
 
 class Google_Service_Devprojects_ProjectsDeveloperKeyToProjectIdResponse extends Google_Model
 {
-  public $kind;
-  public $resourceId;
+	public $kind;
+	public $resourceId;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setResourceId($resourceId)
-  {
-    $this->resourceId = $resourceId;
-  }
-  public function getResourceId()
-  {
-    return $this->resourceId;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setResourceId($resourceId)
+	{
+		$this->resourceId = $resourceId;
+	}
+	public function getResourceId()
+	{
+		return $this->resourceId;
+	}
 }

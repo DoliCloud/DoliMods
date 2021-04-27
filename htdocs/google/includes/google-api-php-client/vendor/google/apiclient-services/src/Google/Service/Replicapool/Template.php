@@ -17,63 +17,63 @@
 
 class Google_Service_Replicapool_Template extends Google_Collection
 {
-  protected $collection_key = 'healthChecks';
-  protected $actionType = 'Google_Service_Replicapool_Action';
-  protected $actionDataType = '';
-  protected $healthChecksType = 'Google_Service_Replicapool_HealthCheck';
-  protected $healthChecksDataType = 'array';
-  public $version;
-  protected $vmParamsType = 'Google_Service_Replicapool_VmParams';
-  protected $vmParamsDataType = '';
+	protected $collection_key = 'healthChecks';
+	protected $actionType = 'Google_Service_Replicapool_Action';
+	protected $actionDataType = '';
+	protected $healthChecksType = 'Google_Service_Replicapool_HealthCheck';
+	protected $healthChecksDataType = 'array';
+	public $version;
+	protected $vmParamsType = 'Google_Service_Replicapool_VmParams';
+	protected $vmParamsDataType = '';
 
-  /**
-   * @param Google_Service_Replicapool_Action
-   */
-  public function setAction(Google_Service_Replicapool_Action $action)
-  {
-    $this->action = $action;
-  }
-  /**
-   * @return Google_Service_Replicapool_Action
-   */
-  public function getAction()
-  {
-    return $this->action;
-  }
-  /**
-   * @param Google_Service_Replicapool_HealthCheck
-   */
-  public function setHealthChecks($healthChecks)
-  {
-    $this->healthChecks = $healthChecks;
-  }
-  /**
-   * @return Google_Service_Replicapool_HealthCheck
-   */
-  public function getHealthChecks()
-  {
-    return $this->healthChecks;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
-  /**
-   * @param Google_Service_Replicapool_VmParams
-   */
-  public function setVmParams(Google_Service_Replicapool_VmParams $vmParams)
-  {
-    $this->vmParams = $vmParams;
-  }
-  /**
-   * @return Google_Service_Replicapool_VmParams
-   */
-  public function getVmParams()
-  {
-    return $this->vmParams;
-  }
+	/**
+	 * @param Google_Service_Replicapool_Action
+	 */
+	public function setAction(Google_Service_Replicapool_Action $action)
+	{
+		$this->action = $action;
+	}
+	/**
+	 * @return Google_Service_Replicapool_Action
+	 */
+	public function getAction()
+	{
+		return $this->action;
+	}
+	/**
+	 * @param Google_Service_Replicapool_HealthCheck
+	 */
+	public function setHealthChecks($healthChecks)
+	{
+		$this->healthChecks = $healthChecks;
+	}
+	/**
+	 * @return Google_Service_Replicapool_HealthCheck
+	 */
+	public function getHealthChecks()
+	{
+		return $this->healthChecks;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
+	/**
+	 * @param Google_Service_Replicapool_VmParams
+	 */
+	public function setVmParams(Google_Service_Replicapool_VmParams $vmParams)
+	{
+		$this->vmParams = $vmParams;
+	}
+	/**
+	 * @return Google_Service_Replicapool_VmParams
+	 */
+	public function getVmParams()
+	{
+		return $this->vmParams;
+	}
 }

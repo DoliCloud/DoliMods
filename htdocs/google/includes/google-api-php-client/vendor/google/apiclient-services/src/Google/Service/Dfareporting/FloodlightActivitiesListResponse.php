@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_FloodlightActivitiesListResponse extends Google_Collection
 {
-  protected $collection_key = 'floodlightActivities';
-  protected $floodlightActivitiesType = 'Google_Service_Dfareporting_FloodlightActivity';
-  protected $floodlightActivitiesDataType = 'array';
-  public $kind;
-  public $nextPageToken;
+	protected $collection_key = 'floodlightActivities';
+	protected $floodlightActivitiesType = 'Google_Service_Dfareporting_FloodlightActivity';
+	protected $floodlightActivitiesDataType = 'array';
+	public $kind;
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Dfareporting_FloodlightActivity
-   */
-  public function setFloodlightActivities($floodlightActivities)
-  {
-    $this->floodlightActivities = $floodlightActivities;
-  }
-  /**
-   * @return Google_Service_Dfareporting_FloodlightActivity
-   */
-  public function getFloodlightActivities()
-  {
-    return $this->floodlightActivities;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_FloodlightActivity
+	 */
+	public function setFloodlightActivities($floodlightActivities)
+	{
+		$this->floodlightActivities = $floodlightActivities;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_FloodlightActivity
+	 */
+	public function getFloodlightActivities()
+	{
+		return $this->floodlightActivities;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

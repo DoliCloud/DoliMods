@@ -17,32 +17,32 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p3beta1Position extends Google_Model
 {
-  public $x;
-  public $y;
-  public $z;
+	public $x;
+	public $y;
+	public $z;
 
-  public function setX($x)
-  {
-    $this->x = $x;
-  }
-  public function getX()
-  {
-    return $this->x;
-  }
-  public function setY($y)
-  {
-    $this->y = $y;
-  }
-  public function getY()
-  {
-    return $this->y;
-  }
-  public function setZ($z)
-  {
-    $this->z = $z;
-  }
-  public function getZ()
-  {
-    return $this->z;
-  }
+	public function setX($x)
+	{
+		$this->x = $x;
+	}
+	public function getX()
+	{
+		return $this->x;
+	}
+	public function setY($y)
+	{
+		$this->y = $y;
+	}
+	public function getY()
+	{
+		return $this->y;
+	}
+	public function setZ($z)
+	{
+		$this->z = $z;
+	}
+	public function getZ()
+	{
+		return $this->z;
+	}
 }

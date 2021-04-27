@@ -17,14 +17,14 @@
 
 class Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1UploadIconRequest extends Google_Model
 {
-  public $icon;
+	public $icon;
 
-  public function setIcon($icon)
-  {
-    $this->icon = $icon;
-  }
-  public function getIcon()
-  {
-    return $this->icon;
-  }
+	public function setIcon($icon)
+	{
+		$this->icon = $icon;
+	}
+	public function getIcon()
+	{
+		return $this->icon;
+	}
 }

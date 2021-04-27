@@ -17,48 +17,48 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1Catalog extends Google_Model
 {
-  protected $catalogItemLevelConfigType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemLevelConfig';
-  protected $catalogItemLevelConfigDataType = '';
-  public $defaultEventStoreId;
-  public $displayName;
-  public $name;
+	protected $catalogItemLevelConfigType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemLevelConfig';
+	protected $catalogItemLevelConfigDataType = '';
+	public $defaultEventStoreId;
+	public $displayName;
+	public $name;
 
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemLevelConfig
-   */
-  public function setCatalogItemLevelConfig(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemLevelConfig $catalogItemLevelConfig)
-  {
-    $this->catalogItemLevelConfig = $catalogItemLevelConfig;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemLevelConfig
-   */
-  public function getCatalogItemLevelConfig()
-  {
-    return $this->catalogItemLevelConfig;
-  }
-  public function setDefaultEventStoreId($defaultEventStoreId)
-  {
-    $this->defaultEventStoreId = $defaultEventStoreId;
-  }
-  public function getDefaultEventStoreId()
-  {
-    return $this->defaultEventStoreId;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemLevelConfig
+	 */
+	public function setCatalogItemLevelConfig(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemLevelConfig $catalogItemLevelConfig)
+	{
+		$this->catalogItemLevelConfig = $catalogItemLevelConfig;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItemLevelConfig
+	 */
+	public function getCatalogItemLevelConfig()
+	{
+		return $this->catalogItemLevelConfig;
+	}
+	public function setDefaultEventStoreId($defaultEventStoreId)
+	{
+		$this->defaultEventStoreId = $defaultEventStoreId;
+	}
+	public function getDefaultEventStoreId()
+	{
+		return $this->defaultEventStoreId;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

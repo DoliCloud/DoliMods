@@ -17,57 +17,57 @@
 
 class Google_Service_Drive_ContentRestriction extends Google_Model
 {
-  public $readOnly;
-  public $reason;
-  protected $restrictingUserType = 'Google_Service_Drive_User';
-  protected $restrictingUserDataType = '';
-  public $restrictionTime;
-  public $type;
+	public $readOnly;
+	public $reason;
+	protected $restrictingUserType = 'Google_Service_Drive_User';
+	protected $restrictingUserDataType = '';
+	public $restrictionTime;
+	public $type;
 
-  public function setReadOnly($readOnly)
-  {
-    $this->readOnly = $readOnly;
-  }
-  public function getReadOnly()
-  {
-    return $this->readOnly;
-  }
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
-  /**
-   * @param Google_Service_Drive_User
-   */
-  public function setRestrictingUser(Google_Service_Drive_User $restrictingUser)
-  {
-    $this->restrictingUser = $restrictingUser;
-  }
-  /**
-   * @return Google_Service_Drive_User
-   */
-  public function getRestrictingUser()
-  {
-    return $this->restrictingUser;
-  }
-  public function setRestrictionTime($restrictionTime)
-  {
-    $this->restrictionTime = $restrictionTime;
-  }
-  public function getRestrictionTime()
-  {
-    return $this->restrictionTime;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setReadOnly($readOnly)
+	{
+		$this->readOnly = $readOnly;
+	}
+	public function getReadOnly()
+	{
+		return $this->readOnly;
+	}
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
+	/**
+	 * @param Google_Service_Drive_User
+	 */
+	public function setRestrictingUser(Google_Service_Drive_User $restrictingUser)
+	{
+		$this->restrictingUser = $restrictingUser;
+	}
+	/**
+	 * @return Google_Service_Drive_User
+	 */
+	public function getRestrictingUser()
+	{
+		return $this->restrictingUser;
+	}
+	public function setRestrictionTime($restrictionTime)
+	{
+		$this->restrictionTime = $restrictionTime;
+	}
+	public function getRestrictionTime()
+	{
+		return $this->restrictionTime;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

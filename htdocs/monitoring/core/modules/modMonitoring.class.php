@@ -25,7 +25,7 @@
  *      \ingroup    monitoring
  *      \brief      Description and activation file for module Monitoring
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -50,11 +50,11 @@ class modMonitoring extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Une interface et des fonctions pour realiser une supervision avec rrdtool";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -112,60 +112,60 @@ class modMonitoring extends DolibarrModules
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'read';
 		$r++;
-        $this->rights[$r][0] = 101312;
-        $this->rights[$r][1] = 'Add/Delete probes';
-        $this->rights[$r][3] = 0;
-        $this->rights[$r][4] = 'create';
-        $r++;
+		$this->rights[$r][0] = 101312;
+		$this->rights[$r][1] = 'Add/Delete probes';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'create';
+		$r++;
 
-        // Main menu entries
-        $this->menus = array();         // List of menus to add
-        $r=0;
+		// Main menu entries
+		$this->menus = array();         // List of menus to add
+		$r=0;
 
-        // Add here entries to declare new menus
-        // Example to declare the Top Menu entry:
-        $this->menu[$r]=array(   'fk_menu'=>0,            // Put 0 if this is a top menu
-                                  'type'=>'top',          // This is a Top menu entry
-                                  'titre'=>'Monitoring',
-                                  'mainmenu'=>'monitoring',
-                                  'url'=>'/monitoring/index.php',
-                                  'langs'=>'monitoring@monitoring',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                                  'position'=>100,
-                                  'enabled'=>'$conf->monitoring->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-                                  'perms'=>'$user->rights->monitoring->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-                                  'target'=>'',
-                                  'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
-        $r++;
+		// Add here entries to declare new menus
+		// Example to declare the Top Menu entry:
+		$this->menu[$r]=array(   'fk_menu'=>0,            // Put 0 if this is a top menu
+								  'type'=>'top',          // This is a Top menu entry
+								  'titre'=>'Monitoring',
+								  'mainmenu'=>'monitoring',
+								  'url'=>'/monitoring/index.php',
+								  'langs'=>'monitoring@monitoring',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+								  'position'=>100,
+								  'enabled'=>'$conf->monitoring->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								  'perms'=>'$user->rights->monitoring->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+								  'target'=>'',
+								  'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
 
-        // Example to declare a Left Menu entry:
-        $this->menu[$r]=array(   'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-                                  'type'=>'left',         // This is a Left menu entry
-                                  'titre'=>'ProbeSetup',
-                                  'mainmenu'=>'monitoring',
-                                  'url'=>'/monitoring/probes.php',
-                                  'langs'=>'monitoring@monitoring',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                                  'position'=>100,
-                                  'enabled'=>'$conf->monitoring->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-                                  'perms'=>'$user->rights->monitoring->create',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-                                  'target'=>'',
-                                  'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
-        $r++;
+		// Example to declare a Left Menu entry:
+		$this->menu[$r]=array(   'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+								  'type'=>'left',         // This is a Left menu entry
+								  'titre'=>'ProbeSetup',
+								  'mainmenu'=>'monitoring',
+								  'url'=>'/monitoring/probes.php',
+								  'langs'=>'monitoring@monitoring',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+								  'position'=>100,
+								  'enabled'=>'$conf->monitoring->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								  'perms'=>'$user->rights->monitoring->create',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+								  'target'=>'',
+								  'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
 
-        // Example to declare a Left Menu entry:
-        $this->menu[$r]=array(   'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-                                  'type'=>'left',         // This is a Left menu entry
-                                  'titre'=>'Reports',
-                                  'mainmenu'=>'monitoring',
-                                  'url'=>'/monitoring/index.php',
-                                  'langs'=>'monitoring@monitoring',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                                  'position'=>100,
-                                  'enabled'=>'$conf->monitoring->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-                                  'perms'=>'$user->rights->monitoring->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-                                  'target'=>'',
-                                  'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
-        $r++;
+		// Example to declare a Left Menu entry:
+		$this->menu[$r]=array(   'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+								  'type'=>'left',         // This is a Left menu entry
+								  'titre'=>'Reports',
+								  'mainmenu'=>'monitoring',
+								  'url'=>'/monitoring/index.php',
+								  'langs'=>'monitoring@monitoring',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+								  'position'=>100,
+								  'enabled'=>'$conf->monitoring->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								  'perms'=>'$user->rights->monitoring->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+								  'target'=>'',
+								  'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
 
-        // Main menu entries
+		// Main menu entries
 		$this->menus = array();			// List of menus to add
 		$r=0;
 
@@ -174,8 +174,6 @@ class modMonitoring extends DolibarrModules
 
 		// Exports
 		$r=1;
-
-
 	}
 
 	/**
@@ -183,17 +181,17 @@ class modMonitoring extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
+	function init($options = '')
 	{
 		$sql = array();
 
-        $result=$this->load_tables();
-        if ($result <= 0) return $result;
+		$result=$this->load_tables();
+		if ($result <= 0) return $result;
 
-		return $this->_init($sql,$options);
+		return $this->_init($sql, $options);
 	}
 
 	/**
@@ -201,14 +199,14 @@ class modMonitoring extends DolibarrModules
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options='')
+	function remove($options = '')
 	{
 		$sql = array();
 
-		return $this->_remove($sql,$options);
+		return $this->_remove($sql, $options);
 	}
 
 
@@ -224,6 +222,4 @@ class modMonitoring extends DolibarrModules
 	{
 		return $this->_load_tables('/monitoring/sql/');
 	}
-
 }
-

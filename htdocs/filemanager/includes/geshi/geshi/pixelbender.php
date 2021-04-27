@@ -63,114 +63,111 @@
  ************************************************************************************/
 
 $language_data = array(
-    'LANG_NAME' => 'Pixel Bender 1.0',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
-    'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
-            'languageVersion', 'kernel'
-            ),
-        2 => array(
-            'import', 'parameter', 'dependent', 'const', 'input', 'output',
-            'evaluatePixel', 'evaluateDependents', 'needed', 'changed', 'generated'
-            ),
-        3 => array(
-            'bool', 'bool2', 'bool3', 'bool4', 'int', 'int2', 'int3', 'int4',
-            'float', 'float2', 'float3', 'float4', 'float2x2', 'float3x3', 'float4x4',
-            'pixel2', 'pixel3', 'pixel4', 'region', 'image1', 'image2', 'image3', 'image4',
-            'imageRef', 'void'
-            ),
-        4 => array(
-            'in', 'out', 'inout', 'if', 'else', 'for', 'while', 'do', 'break',
-            'continue', 'return'
-            ),
-        5 => array(
-            'radians', 'degrees', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'pow',
-            'exp', 'exp2', 'log', 'log2', 'sqrt', 'inverseSqrt', 'abs', 'sign', 'floor',
-            'ceil', 'fract', 'mod', 'min', 'max', 'step', 'clamp', 'mix', 'smoothStep',
-            'length', 'distance', 'dot', 'cross', 'normalize', 'matrixCompMult', 'lessThan',
-            'lessThanEqual', 'greaterThan', 'greaterThanEqual', 'equal', 'notEqual', 'any',
-            'all', 'not', 'nowhere', 'everywhere', 'transform', 'union', 'intersect',
-            'outset', 'inset', 'bounds', 'isEmpty', 'sample', 'sampleLinear', 'sampleNearest',
-            'outCoord', 'dod', 'pixelSize', 'pixelAspectRatio'
-            ),
-        6 => array(
-            'namespace', 'vendor', 'version', 'minValue', 'maxValue', 'defaultValue', 'description'
-            ),
-        7 => array(
-            '#if', '#endif', '#ifdef', '#elif', 'defined', '#define',
-            'AIF_ATI', 'AIF_NVIDIA', 'AIF_FLASH_TARGET'
-            )
-        ),
-    'SYMBOLS' => array(
-        '(', ')', '[', ']', '{', '}', '!', '%', '&', '|', '+', '-', '*', '/', '=', '<', '>', '?', ':'
-        ),
-    'CASE_SENSITIVE' => array(
-        GESHI_COMMENTS => false,
-        1 => true,
-        2 => true,
-        3 => true,
-        4 => true,
-        5 => true,
-        6 => true,
-        7 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            1 => 'color: #0033ff;',
-            2 => 'color: #0033ff; font-weight: bold;',
-            3 => 'color: #0033ff;',
-            4 => 'color: #9900cc; font-weight: bold;',
-            5 => 'color: #333333;',
-            6 => 'color: #666666;',
-            7 => 'color: #990000;',
-        ),
-        'COMMENTS' => array(
-            1 => 'color: #009900;',
-            'MULTI' => 'color: #3f5fbf;'
-            ),
-        'ESCAPE_CHAR' => array(
-            0 => ''
-            ),
-        'BRACKETS' => array(
-            0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
-            0 => 'color: #990000;'
-            ),
-        'NUMBERS' => array(
-            0 => 'color: #000000; font-weight:bold;'
-            ),
-        'METHODS' => array(
-            0 => 'color: #000000;',
-            ),
-        'SYMBOLS' => array(
-            0 => 'color: #000000; font-weight: bold;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
-        1 => '',
-        2 => '',
-        3 => '',
-        4 => '',
-        5 => '',
-        6 => '',
-        7 => ''
-        ),
-    'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array('.'),
-    'REGEXPS' => array(),
-    'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
+	'LANG_NAME' => 'Pixel Bender 1.0',
+	'COMMENT_SINGLE' => array(1 => '//'),
+	'COMMENT_MULTI' => array('/*' => '*/'),
+	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
+	'QUOTEMARKS' => array('"'),
+	'ESCAPE_CHAR' => '\\',
+	'KEYWORDS' => array(
+		1 => array(
+			'languageVersion', 'kernel'
+			),
+		2 => array(
+			'import', 'parameter', 'dependent', 'const', 'input', 'output',
+			'evaluatePixel', 'evaluateDependents', 'needed', 'changed', 'generated'
+			),
+		3 => array(
+			'bool', 'bool2', 'bool3', 'bool4', 'int', 'int2', 'int3', 'int4',
+			'float', 'float2', 'float3', 'float4', 'float2x2', 'float3x3', 'float4x4',
+			'pixel2', 'pixel3', 'pixel4', 'region', 'image1', 'image2', 'image3', 'image4',
+			'imageRef', 'void'
+			),
+		4 => array(
+			'in', 'out', 'inout', 'if', 'else', 'for', 'while', 'do', 'break',
+			'continue', 'return'
+			),
+		5 => array(
+			'radians', 'degrees', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'pow',
+			'exp', 'exp2', 'log', 'log2', 'sqrt', 'inverseSqrt', 'abs', 'sign', 'floor',
+			'ceil', 'fract', 'mod', 'min', 'max', 'step', 'clamp', 'mix', 'smoothStep',
+			'length', 'distance', 'dot', 'cross', 'normalize', 'matrixCompMult', 'lessThan',
+			'lessThanEqual', 'greaterThan', 'greaterThanEqual', 'equal', 'notEqual', 'any',
+			'all', 'not', 'nowhere', 'everywhere', 'transform', 'union', 'intersect',
+			'outset', 'inset', 'bounds', 'isEmpty', 'sample', 'sampleLinear', 'sampleNearest',
+			'outCoord', 'dod', 'pixelSize', 'pixelAspectRatio'
+			),
+		6 => array(
+			'namespace', 'vendor', 'version', 'minValue', 'maxValue', 'defaultValue', 'description'
+			),
+		7 => array(
+			'#if', '#endif', '#ifdef', '#elif', 'defined', '#define',
+			'AIF_ATI', 'AIF_NVIDIA', 'AIF_FLASH_TARGET'
+			)
+		),
+	'SYMBOLS' => array(
+		'(', ')', '[', ']', '{', '}', '!', '%', '&', '|', '+', '-', '*', '/', '=', '<', '>', '?', ':'
+		),
+	'CASE_SENSITIVE' => array(
+		GESHI_COMMENTS => false,
+		1 => true,
+		2 => true,
+		3 => true,
+		4 => true,
+		5 => true,
+		6 => true,
+		7 => true
+		),
+	'STYLES' => array(
+		'KEYWORDS' => array(
+			1 => 'color: #0033ff;',
+			2 => 'color: #0033ff; font-weight: bold;',
+			3 => 'color: #0033ff;',
+			4 => 'color: #9900cc; font-weight: bold;',
+			5 => 'color: #333333;',
+			6 => 'color: #666666;',
+			7 => 'color: #990000;',
+		),
+		'COMMENTS' => array(
+			1 => 'color: #009900;',
+			'MULTI' => 'color: #3f5fbf;'
+			),
+		'ESCAPE_CHAR' => array(
+			0 => ''
+			),
+		'BRACKETS' => array(
+			0 => 'color: #000000;'
+			),
+		'STRINGS' => array(
+			0 => 'color: #990000;'
+			),
+		'NUMBERS' => array(
+			0 => 'color: #000000; font-weight:bold;'
+			),
+		'METHODS' => array(
+			0 => 'color: #000000;',
+			),
+		'SYMBOLS' => array(
+			0 => 'color: #000000; font-weight: bold;'
+			),
+		'REGEXPS' => array(
+			),
+		'SCRIPT' => array(
+			)
+		),
+	'URLS' => array(
+		1 => '',
+		2 => '',
+		3 => '',
+		4 => '',
+		5 => '',
+		6 => '',
+		7 => ''
+		),
+	'OOLANG' => true,
+	'OBJECT_SPLITTERS' => array('.'),
+	'REGEXPS' => array(),
+	'STRICT_MODE_APPLIES' => GESHI_NEVER,
+	'SCRIPT_DELIMITERS' => array(),
+	'HIGHLIGHT_STRICT_BLOCK' => array()
 );
-
-
-?>

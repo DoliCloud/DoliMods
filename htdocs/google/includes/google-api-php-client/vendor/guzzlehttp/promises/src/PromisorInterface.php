@@ -6,10 +6,10 @@ namespace GuzzleHttp\Promise;
  */
 interface PromisorInterface
 {
-    /**
-     * Returns a promise.
-     *
-     * @return PromiseInterface
-     */
-    public function promise();
+	/**
+	 * Returns a promise.
+	 *
+	 * @return PromiseInterface
+	 */
+	public function promise();
 }

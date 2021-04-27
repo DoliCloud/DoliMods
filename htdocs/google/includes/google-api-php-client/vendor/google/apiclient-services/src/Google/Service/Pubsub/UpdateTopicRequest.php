@@ -17,30 +17,30 @@
 
 class Google_Service_Pubsub_UpdateTopicRequest extends Google_Model
 {
-  protected $topicType = 'Google_Service_Pubsub_Topic';
-  protected $topicDataType = '';
-  public $updateMask;
+	protected $topicType = 'Google_Service_Pubsub_Topic';
+	protected $topicDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_Pubsub_Topic
-   */
-  public function setTopic(Google_Service_Pubsub_Topic $topic)
-  {
-    $this->topic = $topic;
-  }
-  /**
-   * @return Google_Service_Pubsub_Topic
-   */
-  public function getTopic()
-  {
-    return $this->topic;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_Pubsub_Topic
+	 */
+	public function setTopic(Google_Service_Pubsub_Topic $topic)
+	{
+		$this->topic = $topic;
+	}
+	/**
+	 * @return Google_Service_Pubsub_Topic
+	 */
+	public function getTopic()
+	{
+		return $this->topic;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

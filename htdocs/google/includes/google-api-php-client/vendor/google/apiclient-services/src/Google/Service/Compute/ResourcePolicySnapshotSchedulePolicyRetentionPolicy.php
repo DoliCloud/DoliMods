@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy extends Google_Model
 {
-  public $maxRetentionDays;
-  public $onSourceDiskDelete;
+	public $maxRetentionDays;
+	public $onSourceDiskDelete;
 
-  public function setMaxRetentionDays($maxRetentionDays)
-  {
-    $this->maxRetentionDays = $maxRetentionDays;
-  }
-  public function getMaxRetentionDays()
-  {
-    return $this->maxRetentionDays;
-  }
-  public function setOnSourceDiskDelete($onSourceDiskDelete)
-  {
-    $this->onSourceDiskDelete = $onSourceDiskDelete;
-  }
-  public function getOnSourceDiskDelete()
-  {
-    return $this->onSourceDiskDelete;
-  }
+	public function setMaxRetentionDays($maxRetentionDays)
+	{
+		$this->maxRetentionDays = $maxRetentionDays;
+	}
+	public function getMaxRetentionDays()
+	{
+		return $this->maxRetentionDays;
+	}
+	public function setOnSourceDiskDelete($onSourceDiskDelete)
+	{
+		$this->onSourceDiskDelete = $onSourceDiskDelete;
+	}
+	public function getOnSourceDiskDelete()
+	{
+		return $this->onSourceDiskDelete;
+	}
 }

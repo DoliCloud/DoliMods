@@ -17,30 +17,30 @@
 
 class Google_Service_Replicapool_ExistingDisk extends Google_Model
 {
-  protected $attachmentType = 'Google_Service_Replicapool_DiskAttachment';
-  protected $attachmentDataType = '';
-  public $source;
+	protected $attachmentType = 'Google_Service_Replicapool_DiskAttachment';
+	protected $attachmentDataType = '';
+	public $source;
 
-  /**
-   * @param Google_Service_Replicapool_DiskAttachment
-   */
-  public function setAttachment(Google_Service_Replicapool_DiskAttachment $attachment)
-  {
-    $this->attachment = $attachment;
-  }
-  /**
-   * @return Google_Service_Replicapool_DiskAttachment
-   */
-  public function getAttachment()
-  {
-    return $this->attachment;
-  }
-  public function setSource($source)
-  {
-    $this->source = $source;
-  }
-  public function getSource()
-  {
-    return $this->source;
-  }
+	/**
+	 * @param Google_Service_Replicapool_DiskAttachment
+	 */
+	public function setAttachment(Google_Service_Replicapool_DiskAttachment $attachment)
+	{
+		$this->attachment = $attachment;
+	}
+	/**
+	 * @return Google_Service_Replicapool_DiskAttachment
+	 */
+	public function getAttachment()
+	{
+		return $this->attachment;
+	}
+	public function setSource($source)
+	{
+		$this->source = $source;
+	}
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

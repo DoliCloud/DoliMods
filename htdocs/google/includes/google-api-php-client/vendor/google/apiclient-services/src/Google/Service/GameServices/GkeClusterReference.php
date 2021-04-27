@@ -17,14 +17,14 @@
 
 class Google_Service_GameServices_GkeClusterReference extends Google_Model
 {
-  public $cluster;
+	public $cluster;
 
-  public function setCluster($cluster)
-  {
-    $this->cluster = $cluster;
-  }
-  public function getCluster()
-  {
-    return $this->cluster;
-  }
+	public function setCluster($cluster)
+	{
+		$this->cluster = $cluster;
+	}
+	public function getCluster()
+	{
+		return $this->cluster;
+	}
 }

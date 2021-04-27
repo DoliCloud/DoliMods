@@ -17,41 +17,41 @@
 
 class Google_Service_Compute_Reference extends Google_Model
 {
-  public $kind;
-  public $referenceType;
-  public $referrer;
-  public $target;
+	public $kind;
+	public $referenceType;
+	public $referrer;
+	public $target;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setReferenceType($referenceType)
-  {
-    $this->referenceType = $referenceType;
-  }
-  public function getReferenceType()
-  {
-    return $this->referenceType;
-  }
-  public function setReferrer($referrer)
-  {
-    $this->referrer = $referrer;
-  }
-  public function getReferrer()
-  {
-    return $this->referrer;
-  }
-  public function setTarget($target)
-  {
-    $this->target = $target;
-  }
-  public function getTarget()
-  {
-    return $this->target;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setReferenceType($referenceType)
+	{
+		$this->referenceType = $referenceType;
+	}
+	public function getReferenceType()
+	{
+		return $this->referenceType;
+	}
+	public function setReferrer($referrer)
+	{
+		$this->referrer = $referrer;
+	}
+	public function getReferrer()
+	{
+		return $this->referrer;
+	}
+	public function setTarget($target)
+	{
+		$this->target = $target;
+	}
+	public function getTarget()
+	{
+		return $this->target;
+	}
 }

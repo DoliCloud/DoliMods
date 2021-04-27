@@ -17,15 +17,15 @@
 
 class Google_Service_PhotosLibrary_MediaTypeFilter extends Google_Collection
 {
-  protected $collection_key = 'mediaTypes';
-  public $mediaTypes;
+	protected $collection_key = 'mediaTypes';
+	public $mediaTypes;
 
-  public function setMediaTypes($mediaTypes)
-  {
-    $this->mediaTypes = $mediaTypes;
-  }
-  public function getMediaTypes()
-  {
-    return $this->mediaTypes;
-  }
+	public function setMediaTypes($mediaTypes)
+	{
+		$this->mediaTypes = $mediaTypes;
+	}
+	public function getMediaTypes()
+	{
+		return $this->mediaTypes;
+	}
 }

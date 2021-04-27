@@ -17,41 +17,41 @@
 
 class Google_Service_Safebrowsing_ThreatSource extends Google_Model
 {
-  public $referrer;
-  public $remoteIp;
-  public $type;
-  public $url;
+	public $referrer;
+	public $remoteIp;
+	public $type;
+	public $url;
 
-  public function setReferrer($referrer)
-  {
-    $this->referrer = $referrer;
-  }
-  public function getReferrer()
-  {
-    return $this->referrer;
-  }
-  public function setRemoteIp($remoteIp)
-  {
-    $this->remoteIp = $remoteIp;
-  }
-  public function getRemoteIp()
-  {
-    return $this->remoteIp;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setReferrer($referrer)
+	{
+		$this->referrer = $referrer;
+	}
+	public function getReferrer()
+	{
+		return $this->referrer;
+	}
+	public function setRemoteIp($remoteIp)
+	{
+		$this->remoteIp = $remoteIp;
+	}
+	public function getRemoteIp()
+	{
+		return $this->remoteIp;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

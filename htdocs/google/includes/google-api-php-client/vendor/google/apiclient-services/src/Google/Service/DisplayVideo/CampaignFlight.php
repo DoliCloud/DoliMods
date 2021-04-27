@@ -17,30 +17,30 @@
 
 class Google_Service_DisplayVideo_CampaignFlight extends Google_Model
 {
-  protected $plannedDatesType = 'Google_Service_DisplayVideo_DateRange';
-  protected $plannedDatesDataType = '';
-  public $plannedSpendAmountMicros;
+	protected $plannedDatesType = 'Google_Service_DisplayVideo_DateRange';
+	protected $plannedDatesDataType = '';
+	public $plannedSpendAmountMicros;
 
-  /**
-   * @param Google_Service_DisplayVideo_DateRange
-   */
-  public function setPlannedDates(Google_Service_DisplayVideo_DateRange $plannedDates)
-  {
-    $this->plannedDates = $plannedDates;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_DateRange
-   */
-  public function getPlannedDates()
-  {
-    return $this->plannedDates;
-  }
-  public function setPlannedSpendAmountMicros($plannedSpendAmountMicros)
-  {
-    $this->plannedSpendAmountMicros = $plannedSpendAmountMicros;
-  }
-  public function getPlannedSpendAmountMicros()
-  {
-    return $this->plannedSpendAmountMicros;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_DateRange
+	 */
+	public function setPlannedDates(Google_Service_DisplayVideo_DateRange $plannedDates)
+	{
+		$this->plannedDates = $plannedDates;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_DateRange
+	 */
+	public function getPlannedDates()
+	{
+		return $this->plannedDates;
+	}
+	public function setPlannedSpendAmountMicros($plannedSpendAmountMicros)
+	{
+		$this->plannedSpendAmountMicros = $plannedSpendAmountMicros;
+	}
+	public function getPlannedSpendAmountMicros()
+	{
+		return $this->plannedSpendAmountMicros;
+	}
 }

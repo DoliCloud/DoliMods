@@ -25,11 +25,11 @@
  *	\ingroup    statistic
  *	\brief      Fichier de la classe permettant de generer les propales au modele Azur
  */
-require_once(DOL_DOCUMENT_ROOT."/includes/modules/statistic/modules_statistic.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-require_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/lib/functions2.lib.php");
-require_once("../../htdocs/master.inc.php");
+require_once DOL_DOCUMENT_ROOT."/includes/modules/statistic/modules_statistic.php";
+require_once DOL_DOCUMENT_ROOT."/product/class/product.class.php";
+require_once DOL_DOCUMENT_ROOT."/lib/company.lib.php";
+require_once DOL_DOCUMENT_ROOT."/lib/functions2.lib.php";
+require_once "../../htdocs/master.inc.php";
 
 
 /**
@@ -89,7 +89,7 @@ class pdf_statistic_test extends ModelePDFStats
 	 *  @param      timestamp   $date               Date
 	 *	@return	    int                     		1=ok, 0=ko
 	 */
-	function write_file($propale,$outputlangs, $date)
+	function write_file($propale, $outputlangs, $date)
 	{
 		global $user,$langs,$conf;
 
@@ -105,42 +105,33 @@ class pdf_statistic_test extends ModelePDFStats
 		$outputlangs->load("propal");
 		$outputlangs->load("products");
 
-		if ($conf->propale->dir_output)
-		{
-
+		if ($conf->propale->dir_output) {
 				$dir = "../../documents/statistic";
 				$file = $dir . "/stat_stock_".$date.".pdf";
 
 
-			if (! file_exists($dir))
-			{
-				if (create_exdir($dir) < 0)
-				{
-					$this->error=$langs->trans("ErrorCanNotCreateDir",$dir);
+			if (! file_exists($dir)) {
+				if (create_exdir($dir) < 0) {
+					$this->error=$langs->trans("ErrorCanNotCreateDir", $dir);
 					return 0;
 				}
 			}
 
-			if (file_exists($dir))
-			{
-
+			if (file_exists($dir)) {
 				// Protection et encryption du pdf
-				if ($conf->global->PDF_SECURITY_ENCRYPTION)
-				{
-					$pdf=new FPDI_Protection('P','mm',$this->format);
+				if ($conf->global->PDF_SECURITY_ENCRYPTION) {
+					$pdf=new FPDI_Protection('P', 'mm', $this->format);
 					$pdfrights = array('print'); // Ne permet que l'impression du document
 					$pdfuserpass = ''; // Mot de passe pour l'utilisateur final
-					$pdfownerpass = NULL; // Mot de passe du proprietaire, cree aleatoirement si pas defini
-					$pdf->SetProtection($pdfrights,$pdfuserpass,$pdfownerpass);
-				}
-				else
-				{
-					$pdf=new FPDI('P','mm',$this->format);
+					$pdfownerpass = null; // Mot de passe du proprietaire, cree aleatoirement si pas defini
+					$pdf->SetProtection($pdfrights, $pdfuserpass, $pdfownerpass);
+				} else {
+					$pdf=new FPDI('P', 'mm', $this->format);
 				}
 
 				$pdf->Open();
 				$pagenb=0;
-				$pdf->SetDrawColor(128,128,128);
+				$pdf->SetDrawColor(128, 128, 128);
 
 				$pdf->SetTitle($outputlangs->convToOutputCharset($propale->ref));
 				$pdf->SetSubject($outputlangs->transnoentities("CommercialProposal"));
@@ -150,15 +141,15 @@ class pdf_statistic_test extends ModelePDFStats
 				if ($conf->global->MAIN_DISABLE_PDF_COMPRESSION) $pdf->SetCompression(false);
 
 				$pdf->SetMargins($this->marge_gauche, $this->marge_haute, $this->marge_droite);   // Left, Top, Right
-				$pdf->SetAutoPageBreak(1,0);
+				$pdf->SetAutoPageBreak(1, 0);
 
 				// New page
 				$pdf->AddPage();
 				$pagenb++;
 				$this->_pagehead($pdf, $propale, 1, $outputlangs);
-				$pdf->SetFont('Arial','', 9);
+				$pdf->SetFont('Arial', '', 9);
 				$pdf->MultiCell(0, 4, '', 0, 'J');		// Set interline to 4
-				$pdf->SetTextColor(0,0,0);
+				$pdf->SetTextColor(0, 0, 0);
 
 				$tab_top = 90;
 				$tab_top_middlepage = 50;
@@ -176,10 +167,8 @@ class pdf_statistic_test extends ModelePDFStats
 				$sql = "SELECT * FROM ".MAIN_DB_PREFIX."product WHERE fk_product_type=0";
 				$resql=$this->db->query($sql);
 				$numProducts = $row =$this->db->num_rows($resql);
-				if ($resql) // Si la requete a fonction�
-				{
-					for($l=0;$l<$numProducts;$l++)
-					{
+				if ($resql) { // Si la requete a fonction�
+					for ($l=0;$l<$numProducts;$l++) {
 						$rows[] = $this->db->fetch_array($resql);
 					}
 				}
@@ -192,8 +181,7 @@ class pdf_statistic_test extends ModelePDFStats
 				$nexY=0;
 
 				// Boucle sur les lignes
-				for ($i = 0 ; $i < $numProducts ; $i++)
-				{
+				for ($i = 0 ; $i < $numProducts ; $i++) {
 					$stockInit = 0;
 					$pmpDateDemande =0;
 					$lastStock=0;
@@ -205,8 +193,7 @@ class pdf_statistic_test extends ModelePDFStats
 					//Get product stock
 					$sql = "SELECT * FROM ".MAIN_DB_PREFIX."product_stock WHERE fk_product=".$rows[$i][rowid];
 					$resql=$this->db->query($sql);
-					if ($resql) // Si la requete a fonction�
-					{
+					if ($resql) { // Si la requete a fonction�
 						$lastStock = $this->db->fetch_array($resql);
 					}
 
@@ -214,16 +201,13 @@ class pdf_statistic_test extends ModelePDFStats
 					$sql = "SELECT * FROM ".MAIN_DB_PREFIX."stock_mouvement WHERE fk_product=".$rows[$i][rowid]." ORDER BY rowid DESC";
 					$resql=$this->db->query($sql);
 					$numMouvements = $row =$this->db->num_rows($resql);
-					if ($resql) // Si la requete a fonction�
-					{
-						for($l=0;$l<$numMouvements;$l++)
-						{
+					if ($resql) { // Si la requete a fonction�
+						for ($l=0;$l<$numMouvements;$l++) {
 							$mouvementStock[] = $this->db->fetch_array($resql);
 						}
 					}
 					$stockInit = intval($lastStock[reel]);
-					for($k=0;$k<$numMouvements;$k++)
-					{
+					for ($k=0;$k<$numMouvements;$k++) {
 						$stockInit += (intval($mouvementStock[$k][value])*(-1));
 					}
 
@@ -234,17 +218,14 @@ class pdf_statistic_test extends ModelePDFStats
 					$sql = "SELECT * FROM ".MAIN_DB_PREFIX."stock_mouvement WHERE fk_product=".$rows[$i][rowid]." AND tms<\"".$date."-31\" ORDER BY rowid DESC";
 					$resql=$this->db->query($sql);
 					$numMouvementsDateDemande = $row =$this->db->num_rows($resql);
-					if ($resql) // Si la requete a fonction�
-					{
-						for($l=0;$l<$numMouvementsDateDemande;$l++)
-						{
+					if ($resql) { // Si la requete a fonction�
+						for ($l=0;$l<$numMouvementsDateDemande;$l++) {
 							$mouvementStockDateDemande[] = $this->db->fetch_array($resql);
 						}
 					}
 
 					$stockDateDemande = $stockInit;
-					for($k=0;$k<$numMouvementsDateDemande;$k++)
-					{
+					for ($k=0;$k<$numMouvementsDateDemande;$k++) {
 						//Calcul somme Qt� * price
 						$sommeQtPrice += $mouvementStockDateDemande[$k][value] * $rows[$i][pmp];
 
@@ -253,11 +234,9 @@ class pdf_statistic_test extends ModelePDFStats
 
 						//Calcul Stock date demand�
 						$stockDateDemande += (intval($mouvementStockDateDemande[$k][value]));
-
 					}
 					//Calcul PMP � la date donn�
-					if($stockInit == 0)
-					{
+					if ($stockInit == 0) {
 						$stockInit = 1;
 					}
 					$pmpDateDemande = ($stockInit*$pmpInit + $sommeQtPrice) / ($sommeQt+$stockInit);
@@ -267,52 +246,48 @@ class pdf_statistic_test extends ModelePDFStats
 					$curY = $nexY;
 
 					// Libelle de la ligne produit
-					$pdf->SetFont('Arial','', 9);   // Dans boucle pour gerer multi-page
+					$pdf->SetFont('Arial', '', 9);   // Dans boucle pour gerer multi-page
 
-					$pdf->SetXY ($posx, $tab_top+1+$curY);
-					$pdf->MultiCell(29,4, $outputlangs->convToOutputCharset($rows[$i][ref]),'','L');
+					$pdf->SetXY($posx, $tab_top+1+$curY);
+					$pdf->MultiCell(29, 4, $outputlangs->convToOutputCharset($rows[$i][ref]), '', 'L');
 
 					//Label
-					$pdf->SetXY ($posx + 29, $tab_top+1+$curY);
-					$pdf->MultiCell(60,4, $outputlangs->convToOutputCharset($rows[$i][label]),'','L');
+					$pdf->SetXY($posx + 29, $tab_top+1+$curY);
+					$pdf->MultiCell(60, 4, $outputlangs->convToOutputCharset($rows[$i][label]), '', 'L');
 
 					//PMP
-					$pdf->SetXY ($posx + 90, $tab_top+1+$curY);
-					$pdf->MultiCell(28,4, $outputlangs->convToOutputCharset($pmpDateDemande),'','R');
+					$pdf->SetXY($posx + 90, $tab_top+1+$curY);
+					$pdf->MultiCell(28, 4, $outputlangs->convToOutputCharset($pmpDateDemande), '', 'R');
 
 					//Qty
-					$pdf->SetXY ($posx + 123, $tab_top+1+$curY);
-					$pdf->MultiCell(15,4, $outputlangs->convToOutputCharset($stockDateDemande),'','R');
+					$pdf->SetXY($posx + 123, $tab_top+1+$curY);
+					$pdf->MultiCell(15, 4, $outputlangs->convToOutputCharset($stockDateDemande), '', 'R');
 
 					//Total
-					$pdf->SetXY ($posx + 140, $tab_top+1+$curY);
-					$pdf->MultiCell(28,4, $outputlangs->convToOutputCharset($pmpDateDemande*$stockDateDemande),'','R');
+					$pdf->SetXY($posx + 140, $tab_top+1+$curY);
+					$pdf->MultiCell(28, 4, $outputlangs->convToOutputCharset($pmpDateDemande*$stockDateDemande), '', 'R');
 
 					$nexY+=10;
 
 
-					if ($nexY > 210)
-					{
-						if ($pagenb == 1)
-						{
+					if ($nexY > 210) {
+						if ($pagenb == 1) {
 							$this->_tableau($pdf, $tab_top, $tab_height, $nexY, $outputlangs);
 							$bottomlasttab=$tab_top + $tab_height + 1;
-						}
-						else
-						{
+						} else {
 							$this->_tableau($pdf, $tab_top_newpage, $tab_height, $nexY, $outputlangs);
 							$bottomlasttab=$tab_top_newpage + $tab_height + 1;
 						}
 
-						$this->_pagefoot($pdf,$com,$outputlangs);
+						$this->_pagefoot($pdf, $com, $outputlangs);
 
 						// New page
 						$pdf->AddPage();
 						$pagenb++;
 						$this->_pagehead($pdf, $com, 0, $outputlangs);
-						$pdf->SetFont('Arial','', 9);
+						$pdf->SetFont('Arial', '', 9);
 						$pdf->MultiCell(0, 3, '', 0, 'J');		// Set interline to 3
-						$pdf->SetTextColor(0,0,0);
+						$pdf->SetTextColor(0, 0, 0);
 
 						$nexY = 0;
 					}
@@ -321,19 +296,16 @@ class pdf_statistic_test extends ModelePDFStats
 				/**********************************************************************************************/
 
 				// Show square
-				if ($pagenb == 1)
-				{
+				if ($pagenb == 1) {
 					$this->_tableau($pdf, $tab_top, $tab_height, $nexY, $outputlangs);
 					$bottomlasttab=$tab_top + $tab_height + 1;
-				}
-				else
-				{
+				} else {
 					$this->_tableau($pdf, $tab_top_newpage, $tab_height, $nexY, $outputlangs);
 					$bottomlasttab=$tab_top_newpage + $tab_height + 1;
 				}
 
 				// Pied de page
-				$this->_pagefoot($pdf,$propale,$outputlangs);
+				$this->_pagefoot($pdf, $propale, $outputlangs);
 				$pdf->AliasNbPages();
 
 				$pdf->Close();
@@ -351,16 +323,12 @@ class pdf_statistic_test extends ModelePDFStats
 
 				$outputlangs->charset_output=$sav_charset_output;
 				return 1;   // Pas d'erreur
-			}
-			else
-			{
-				$this->error=$langs->trans("ErrorCanNotCreateDir",$dir);
+			} else {
+				$this->error=$langs->trans("ErrorCanNotCreateDir", $dir);
 				return 0;
 			}
-		}
-		else
-		{
-			$this->error=$langs->trans("ErrorConstantNotDefined","PROP_OUTPUTDIR");
+		} else {
+			$this->error=$langs->trans("ErrorConstantNotDefined", "PROP_OUTPUTDIR");
 			return 0;
 		}
 
@@ -370,7 +338,7 @@ class pdf_statistic_test extends ModelePDFStats
 
 	/**
 	 * Affiche la grille des lignes de propales
-	 * 
+	 *
 	 * @param unknown $pdf             PDF
 	 * @param unknown $tab_top         Tab top
 	 * @param unknown $tab_height      Tab height
@@ -386,7 +354,7 @@ class pdf_statistic_test extends ModelePDFStats
 
 		global $conf;
 
-		$pdf->SetDrawColor(128,128,128);
+		$pdf->SetDrawColor(128, 128, 128);
 
 		$this->marge_gauche = 20;
 		$this->marge_droite = 20;
@@ -399,41 +367,40 @@ class pdf_statistic_test extends ModelePDFStats
 		// line prend une position y en 3eme et 4eme param
 		$pdf->line($this->marge_gauche, $tab_top+5, $this->page_largeur-$this->marge_droite, $tab_top+5);
 
-		$pdf->SetFont('Arial','',9);
+		$pdf->SetFont('Arial', '', 9);
 		$posx=20;
 		//$pdf->SetXY ($posx, $tab_top+2);
 		//$pdf->MultiCell(18,2, $outputlangs->transnoentities("Date"),'','L');
 
 		//$pdf->line($posx-1+20, $tab_top, $posx-1+20, $tab_top + $tab_height);
 
-		$pdf->SetXY ($posx, $tab_top+2);
-		$pdf->MultiCell(18,2, $outputlangs->transnoentities("Ref"),'','L');
+		$pdf->SetXY($posx, $tab_top+2);
+		$pdf->MultiCell(18, 2, $outputlangs->transnoentities("Ref"), '', 'L');
 
 		$pdf->line($posx-1+30, $tab_top, $posx-1+30, $tab_top + $tab_height);
 
-		$pdf->SetXY ($posx+29, $tab_top+2);
-		$pdf->MultiCell(50,2, $outputlangs->transnoentities("Libelle"),'','L');
+		$pdf->SetXY($posx+29, $tab_top+2);
+		$pdf->MultiCell(50, 2, $outputlangs->transnoentities("Libelle"), '', 'L');
 
 		$pdf->line($posx-1+90, $tab_top, $posx-1+90, $tab_top + $tab_height);
 
-		$pdf->SetXY ($posx+89, $tab_top+2);
-		$pdf->MultiCell(28,2, $outputlangs->transnoentities("PMP Unitaire"),'','L');
+		$pdf->SetXY($posx+89, $tab_top+2);
+		$pdf->MultiCell(28, 2, $outputlangs->transnoentities("PMP Unitaire"), '', 'L');
 
 		$pdf->line($posx-1+120, $tab_top, $posx-1+120, $tab_top + $tab_height);
 
-		$pdf->SetXY ($posx+119, $tab_top+2);
-		$pdf->MultiCell(15,2, $outputlangs->transnoentities("Qty"),'','L');
+		$pdf->SetXY($posx+119, $tab_top+2);
+		$pdf->MultiCell(15, 2, $outputlangs->transnoentities("Qty"), '', 'L');
 
 		$pdf->line($posx-1+140, $tab_top, $posx-1+140, $tab_top + $tab_height);
 
-		$pdf->SetXY ($posx+139, $tab_top+2);
-		$pdf->MultiCell(28,2, $outputlangs->transnoentities("Total"),'','L');
-
+		$pdf->SetXY($posx+139, $tab_top+2);
+		$pdf->MultiCell(28, 2, $outputlangs->transnoentities("Total"), '', 'L');
 	}
 
 	/**
 	 *  Affiche en-tete propale
-	 *  
+	 *
 	 *  @param      PDF      $pdf     		Objet PDF
 	 *  @param      Propale  $object			Objet propale
 	 *  @param      int      $showaddress     0=no, 1=yes
@@ -449,48 +416,44 @@ class pdf_statistic_test extends ModelePDFStats
 		$outputlangs->load("propal");
 		$outputlangs->load("companies");
 
-		pdf_pagehead($pdf,$outputlangs,$pdf->page_hauteur);
+		pdf_pagehead($pdf, $outputlangs, $pdf->page_hauteur);
 
 		//Affiche le filigrane brouillon - Print Draft Watermark
-		if($object->statut==0 && (! empty($conf->global->PROPALE_DRAFT_WATERMARK)) )
-		{
+		if ($object->statut==0 && (! empty($conf->global->PROPALE_DRAFT_WATERMARK)) ) {
 			$watermark_angle=atan($this->page_hauteur/$this->page_largeur);
 			$watermark_x=5;
 			$watermark_y=$this->page_hauteur-25;  //Set to $this->page_hauteur-50 or less if problems
 			$watermark_width=$this->page_hauteur;
-			$pdf->SetFont('Arial','B',50);
-			$pdf->SetTextColor(255,192,203);
+			$pdf->SetFont('Arial', 'B', 50);
+			$pdf->SetTextColor(255, 192, 203);
 			//rotate
-			$pdf->_out(sprintf('q %.5F %.5F %.5F %.5F %.2F %.2F cm 1 0 0 1 %.2F %.2F cm',cos($watermark_angle),sin($watermark_angle),-sin($watermark_angle),cos($watermark_angle),$watermark_x*$pdf->k,($pdf->h-$watermark_y)*$pdf->k,-$watermark_x*$pdf->k,-($pdf->h-$watermark_y)*$pdf->k));
+			$pdf->_out(sprintf('q %.5F %.5F %.5F %.5F %.2F %.2F cm 1 0 0 1 %.2F %.2F cm', cos($watermark_angle), sin($watermark_angle), -sin($watermark_angle), cos($watermark_angle), $watermark_x*$pdf->k, ($pdf->h-$watermark_y)*$pdf->k, -$watermark_x*$pdf->k, -($pdf->h-$watermark_y)*$pdf->k));
 			//print watermark
-			$pdf->SetXY($watermark_x,$watermark_y);
-			$pdf->Cell($watermark_width,25,$outputlangs->convToOutputCharset($conf->global->PROPALE_DRAFT_WATERMARK),0,2,"C",0);
+			$pdf->SetXY($watermark_x, $watermark_y);
+			$pdf->Cell($watermark_width, 25, $outputlangs->convToOutputCharset($conf->global->PROPALE_DRAFT_WATERMARK), 0, 2, "C", 0);
 			//antirotate
 			$pdf->_out('Q');
 		}
 
 		//Prepare la suite
-		$pdf->SetTextColor(0,0,60);
-		$pdf->SetFont('Arial','B',13);
+		$pdf->SetTextColor(0, 0, 60);
+		$pdf->SetFont('Arial', 'B', 13);
 
 		$posy=$this->marge_haute;
 
-		$pdf->SetXY($this->marge_gauche,$posy);
-
+		$pdf->SetXY($this->marge_gauche, $posy);
 	}
 
 	/**
 	 *   	Show footer of page
-	 *   
+	 *
 	 *   	@param      PDF        $pdf     		PDF factory
 	 * 		@param		Object     $object			Object invoice
 	 *      @param      Langs      $outputlangs		Object lang for output
 	 * 		@remarks	Need this->emetteur object
 	 */
-	function _pagefoot(&$pdf,$object,$outputlangs)
+	function _pagefoot(&$pdf, $object, $outputlangs)
 	{
-		return pdf_pagefoot($pdf,$outputlangs,'PROPALE_FREE_TEXT',$this->emetteur,$this->marge_basse,$this->marge_gauche,$this->page_hauteur,$object);
+		return pdf_pagefoot($pdf, $outputlangs, 'PROPALE_FREE_TEXT', $this->emetteur, $this->marge_basse, $this->marge_gauche, $this->page_hauteur, $object);
 	}
-
 }
-

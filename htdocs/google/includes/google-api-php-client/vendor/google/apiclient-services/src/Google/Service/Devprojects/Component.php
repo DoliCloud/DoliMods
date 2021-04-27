@@ -17,32 +17,32 @@
 
 class Google_Service_Devprojects_Component extends Google_Model
 {
-  public $api;
-  public $kind;
-  public $service;
+	public $api;
+	public $kind;
+	public $service;
 
-  public function setApi($api)
-  {
-    $this->api = $api;
-  }
-  public function getApi()
-  {
-    return $this->api;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setService($service)
-  {
-    $this->service = $service;
-  }
-  public function getService()
-  {
-    return $this->service;
-  }
+	public function setApi($api)
+	{
+		$this->api = $api;
+	}
+	public function getApi()
+	{
+		return $this->api;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setService($service)
+	{
+		$this->service = $service;
+	}
+	public function getService()
+	{
+		return $this->service;
+	}
 }

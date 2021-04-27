@@ -17,21 +17,21 @@
 
 class Google_Service_DataCatalog_SetIamPolicyRequest extends Google_Model
 {
-  protected $policyType = 'Google_Service_DataCatalog_Policy';
-  protected $policyDataType = '';
+	protected $policyType = 'Google_Service_DataCatalog_Policy';
+	protected $policyDataType = '';
 
-  /**
-   * @param Google_Service_DataCatalog_Policy
-   */
-  public function setPolicy(Google_Service_DataCatalog_Policy $policy)
-  {
-    $this->policy = $policy;
-  }
-  /**
-   * @return Google_Service_DataCatalog_Policy
-   */
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
+	/**
+	 * @param Google_Service_DataCatalog_Policy
+	 */
+	public function setPolicy(Google_Service_DataCatalog_Policy $policy)
+	{
+		$this->policy = $policy;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_Policy
+	 */
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
 }

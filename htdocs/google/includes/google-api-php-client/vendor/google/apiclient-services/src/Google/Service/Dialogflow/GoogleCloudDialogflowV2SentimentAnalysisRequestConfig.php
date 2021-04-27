@@ -17,14 +17,14 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2SentimentAnalysisRequestConfig extends Google_Model
 {
-  public $analyzeQueryTextSentiment;
+	public $analyzeQueryTextSentiment;
 
-  public function setAnalyzeQueryTextSentiment($analyzeQueryTextSentiment)
-  {
-    $this->analyzeQueryTextSentiment = $analyzeQueryTextSentiment;
-  }
-  public function getAnalyzeQueryTextSentiment()
-  {
-    return $this->analyzeQueryTextSentiment;
-  }
+	public function setAnalyzeQueryTextSentiment($analyzeQueryTextSentiment)
+	{
+		$this->analyzeQueryTextSentiment = $analyzeQueryTextSentiment;
+	}
+	public function getAnalyzeQueryTextSentiment()
+	{
+		return $this->analyzeQueryTextSentiment;
+	}
 }

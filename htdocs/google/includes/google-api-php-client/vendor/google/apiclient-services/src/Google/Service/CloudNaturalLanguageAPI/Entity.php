@@ -17,52 +17,52 @@
 
 class Google_Service_CloudNaturalLanguageAPI_Entity extends Google_Collection
 {
-  protected $collection_key = 'mentions';
-  protected $mentionsType = 'Google_Service_CloudNaturalLanguageAPI_EntityMention';
-  protected $mentionsDataType = 'array';
-  public $metadata;
-  public $name;
-  public $salience;
-  public $type;
+	protected $collection_key = 'mentions';
+	protected $mentionsType = 'Google_Service_CloudNaturalLanguageAPI_EntityMention';
+	protected $mentionsDataType = 'array';
+	public $metadata;
+	public $name;
+	public $salience;
+	public $type;
 
-  public function setMentions($mentions)
-  {
-    $this->mentions = $mentions;
-  }
-  public function getMentions()
-  {
-    return $this->mentions;
-  }
-  public function setMetadata($metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSalience($salience)
-  {
-    $this->salience = $salience;
-  }
-  public function getSalience()
-  {
-    return $this->salience;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setMentions($mentions)
+	{
+		$this->mentions = $mentions;
+	}
+	public function getMentions()
+	{
+		return $this->mentions;
+	}
+	public function setMetadata($metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSalience($salience)
+	{
+		$this->salience = $salience;
+	}
+	public function getSalience()
+	{
+		return $this->salience;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Proximitybeacon_EphemeralIdRegistrationParams extends Google_Model
 {
-  public $maxRotationPeriodExponent;
-  public $minRotationPeriodExponent;
-  public $serviceEcdhPublicKey;
+	public $maxRotationPeriodExponent;
+	public $minRotationPeriodExponent;
+	public $serviceEcdhPublicKey;
 
-  public function setMaxRotationPeriodExponent($maxRotationPeriodExponent)
-  {
-    $this->maxRotationPeriodExponent = $maxRotationPeriodExponent;
-  }
-  public function getMaxRotationPeriodExponent()
-  {
-    return $this->maxRotationPeriodExponent;
-  }
-  public function setMinRotationPeriodExponent($minRotationPeriodExponent)
-  {
-    $this->minRotationPeriodExponent = $minRotationPeriodExponent;
-  }
-  public function getMinRotationPeriodExponent()
-  {
-    return $this->minRotationPeriodExponent;
-  }
-  public function setServiceEcdhPublicKey($serviceEcdhPublicKey)
-  {
-    $this->serviceEcdhPublicKey = $serviceEcdhPublicKey;
-  }
-  public function getServiceEcdhPublicKey()
-  {
-    return $this->serviceEcdhPublicKey;
-  }
+	public function setMaxRotationPeriodExponent($maxRotationPeriodExponent)
+	{
+		$this->maxRotationPeriodExponent = $maxRotationPeriodExponent;
+	}
+	public function getMaxRotationPeriodExponent()
+	{
+		return $this->maxRotationPeriodExponent;
+	}
+	public function setMinRotationPeriodExponent($minRotationPeriodExponent)
+	{
+		$this->minRotationPeriodExponent = $minRotationPeriodExponent;
+	}
+	public function getMinRotationPeriodExponent()
+	{
+		return $this->minRotationPeriodExponent;
+	}
+	public function setServiceEcdhPublicKey($serviceEcdhPublicKey)
+	{
+		$this->serviceEcdhPublicKey = $serviceEcdhPublicKey;
+	}
+	public function getServiceEcdhPublicKey()
+	{
+		return $this->serviceEcdhPublicKey;
+	}
 }

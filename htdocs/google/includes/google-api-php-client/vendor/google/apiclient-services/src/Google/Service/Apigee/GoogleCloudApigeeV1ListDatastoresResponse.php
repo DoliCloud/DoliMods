@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListDatastoresResponse extends Google_Collection
 {
-  protected $collection_key = 'datastores';
-  protected $datastoresType = 'Google_Service_Apigee_GoogleCloudApigeeV1Datastore';
-  protected $datastoresDataType = 'array';
+	protected $collection_key = 'datastores';
+	protected $datastoresType = 'Google_Service_Apigee_GoogleCloudApigeeV1Datastore';
+	protected $datastoresDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Datastore
-   */
-  public function setDatastores($datastores)
-  {
-    $this->datastores = $datastores;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Datastore
-   */
-  public function getDatastores()
-  {
-    return $this->datastores;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Datastore
+	 */
+	public function setDatastores($datastores)
+	{
+		$this->datastores = $datastores;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Datastore
+	 */
+	public function getDatastores()
+	{
+		return $this->datastores;
+	}
 }

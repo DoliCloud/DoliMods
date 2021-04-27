@@ -17,59 +17,59 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportMetadata extends Google_Model
 {
-  public $createTime;
-  public $failureCount;
-  public $operationName;
-  public $requestId;
-  public $successCount;
-  public $updateTime;
+	public $createTime;
+	public $failureCount;
+	public $operationName;
+	public $requestId;
+	public $successCount;
+	public $updateTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setFailureCount($failureCount)
-  {
-    $this->failureCount = $failureCount;
-  }
-  public function getFailureCount()
-  {
-    return $this->failureCount;
-  }
-  public function setOperationName($operationName)
-  {
-    $this->operationName = $operationName;
-  }
-  public function getOperationName()
-  {
-    return $this->operationName;
-  }
-  public function setRequestId($requestId)
-  {
-    $this->requestId = $requestId;
-  }
-  public function getRequestId()
-  {
-    return $this->requestId;
-  }
-  public function setSuccessCount($successCount)
-  {
-    $this->successCount = $successCount;
-  }
-  public function getSuccessCount()
-  {
-    return $this->successCount;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setFailureCount($failureCount)
+	{
+		$this->failureCount = $failureCount;
+	}
+	public function getFailureCount()
+	{
+		return $this->failureCount;
+	}
+	public function setOperationName($operationName)
+	{
+		$this->operationName = $operationName;
+	}
+	public function getOperationName()
+	{
+		return $this->operationName;
+	}
+	public function setRequestId($requestId)
+	{
+		$this->requestId = $requestId;
+	}
+	public function getRequestId()
+	{
+		return $this->requestId;
+	}
+	public function setSuccessCount($successCount)
+	{
+		$this->successCount = $successCount;
+	}
+	public function getSuccessCount()
+	{
+		return $this->successCount;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

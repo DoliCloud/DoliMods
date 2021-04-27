@@ -25,25 +25,25 @@
  */
 class Google_Service_AdSense_Resource_AdunitsCustomchannels extends Google_Service_Resource
 {
-  /**
-   * List all custom channels which the specified ad unit belongs to.
-   * (customchannels.listAdunitsCustomchannels)
-   *
-   * @param string $adClientId Ad client which contains the ad unit.
-   * @param string $adUnitId Ad unit for which to list custom channels.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param int maxResults The maximum number of custom channels to include in
-   * the response, used for paging.
-   * @opt_param string pageToken A continuation token, used to page through custom
-   * channels. To retrieve the next page, set this parameter to the value of
-   * "nextPageToken" from the previous response.
-   * @return Google_Service_AdSense_CustomChannels
-   */
-  public function listAdunitsCustomchannels($adClientId, $adUnitId, $optParams = array())
-  {
-    $params = array('adClientId' => $adClientId, 'adUnitId' => $adUnitId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdSense_CustomChannels");
-  }
+	/**
+	 * List all custom channels which the specified ad unit belongs to.
+	 * (customchannels.listAdunitsCustomchannels)
+	 *
+	 * @param string $adClientId Ad client which contains the ad unit.
+	 * @param string $adUnitId Ad unit for which to list custom channels.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param int maxResults The maximum number of custom channels to include in
+	 * the response, used for paging.
+	 * @opt_param string pageToken A continuation token, used to page through custom
+	 * channels. To retrieve the next page, set this parameter to the value of
+	 * "nextPageToken" from the previous response.
+	 * @return Google_Service_AdSense_CustomChannels
+	 */
+	public function listAdunitsCustomchannels($adClientId, $adUnitId, $optParams = array())
+	{
+		$params = array('adClientId' => $adClientId, 'adUnitId' => $adUnitId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AdSense_CustomChannels");
+	}
 }

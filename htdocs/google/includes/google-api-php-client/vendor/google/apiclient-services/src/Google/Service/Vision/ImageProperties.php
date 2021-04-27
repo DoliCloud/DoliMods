@@ -17,21 +17,21 @@
 
 class Google_Service_Vision_ImageProperties extends Google_Model
 {
-  protected $dominantColorsType = 'Google_Service_Vision_DominantColorsAnnotation';
-  protected $dominantColorsDataType = '';
+	protected $dominantColorsType = 'Google_Service_Vision_DominantColorsAnnotation';
+	protected $dominantColorsDataType = '';
 
-  /**
-   * @param Google_Service_Vision_DominantColorsAnnotation
-   */
-  public function setDominantColors(Google_Service_Vision_DominantColorsAnnotation $dominantColors)
-  {
-    $this->dominantColors = $dominantColors;
-  }
-  /**
-   * @return Google_Service_Vision_DominantColorsAnnotation
-   */
-  public function getDominantColors()
-  {
-    return $this->dominantColors;
-  }
+	/**
+	 * @param Google_Service_Vision_DominantColorsAnnotation
+	 */
+	public function setDominantColors(Google_Service_Vision_DominantColorsAnnotation $dominantColors)
+	{
+		$this->dominantColors = $dominantColors;
+	}
+	/**
+	 * @return Google_Service_Vision_DominantColorsAnnotation
+	 */
+	public function getDominantColors()
+	{
+		return $this->dominantColors;
+	}
 }

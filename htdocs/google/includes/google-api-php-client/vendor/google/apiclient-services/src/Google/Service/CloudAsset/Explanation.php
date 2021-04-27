@@ -17,21 +17,21 @@
 
 class Google_Service_CloudAsset_Explanation extends Google_Model
 {
-  protected $matchedPermissionsType = 'Google_Service_CloudAsset_Permissions';
-  protected $matchedPermissionsDataType = 'map';
+	protected $matchedPermissionsType = 'Google_Service_CloudAsset_Permissions';
+	protected $matchedPermissionsDataType = 'map';
 
-  /**
-   * @param Google_Service_CloudAsset_Permissions
-   */
-  public function setMatchedPermissions($matchedPermissions)
-  {
-    $this->matchedPermissions = $matchedPermissions;
-  }
-  /**
-   * @return Google_Service_CloudAsset_Permissions
-   */
-  public function getMatchedPermissions()
-  {
-    return $this->matchedPermissions;
-  }
+	/**
+	 * @param Google_Service_CloudAsset_Permissions
+	 */
+	public function setMatchedPermissions($matchedPermissions)
+	{
+		$this->matchedPermissions = $matchedPermissions;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_Permissions
+	 */
+	public function getMatchedPermissions()
+	{
+		return $this->matchedPermissions;
+	}
 }

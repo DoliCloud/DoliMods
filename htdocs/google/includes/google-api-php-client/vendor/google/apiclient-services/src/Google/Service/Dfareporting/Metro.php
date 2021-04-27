@@ -17,68 +17,68 @@
 
 class Google_Service_Dfareporting_Metro extends Google_Model
 {
-  public $countryCode;
-  public $countryDartId;
-  public $dartId;
-  public $dmaId;
-  public $kind;
-  public $metroCode;
-  public $name;
+	public $countryCode;
+	public $countryDartId;
+	public $dartId;
+	public $dmaId;
+	public $kind;
+	public $metroCode;
+	public $name;
 
-  public function setCountryCode($countryCode)
-  {
-    $this->countryCode = $countryCode;
-  }
-  public function getCountryCode()
-  {
-    return $this->countryCode;
-  }
-  public function setCountryDartId($countryDartId)
-  {
-    $this->countryDartId = $countryDartId;
-  }
-  public function getCountryDartId()
-  {
-    return $this->countryDartId;
-  }
-  public function setDartId($dartId)
-  {
-    $this->dartId = $dartId;
-  }
-  public function getDartId()
-  {
-    return $this->dartId;
-  }
-  public function setDmaId($dmaId)
-  {
-    $this->dmaId = $dmaId;
-  }
-  public function getDmaId()
-  {
-    return $this->dmaId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setMetroCode($metroCode)
-  {
-    $this->metroCode = $metroCode;
-  }
-  public function getMetroCode()
-  {
-    return $this->metroCode;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setCountryCode($countryCode)
+	{
+		$this->countryCode = $countryCode;
+	}
+	public function getCountryCode()
+	{
+		return $this->countryCode;
+	}
+	public function setCountryDartId($countryDartId)
+	{
+		$this->countryDartId = $countryDartId;
+	}
+	public function getCountryDartId()
+	{
+		return $this->countryDartId;
+	}
+	public function setDartId($dartId)
+	{
+		$this->dartId = $dartId;
+	}
+	public function getDartId()
+	{
+		return $this->dartId;
+	}
+	public function setDmaId($dmaId)
+	{
+		$this->dmaId = $dmaId;
+	}
+	public function getDmaId()
+	{
+		return $this->dmaId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setMetroCode($metroCode)
+	{
+		$this->metroCode = $metroCode;
+	}
+	public function getMetroCode()
+	{
+		return $this->metroCode;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

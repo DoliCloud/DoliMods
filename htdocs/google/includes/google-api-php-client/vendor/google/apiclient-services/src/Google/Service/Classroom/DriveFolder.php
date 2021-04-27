@@ -17,32 +17,32 @@
 
 class Google_Service_Classroom_DriveFolder extends Google_Model
 {
-  public $alternateLink;
-  public $id;
-  public $title;
+	public $alternateLink;
+	public $id;
+	public $title;
 
-  public function setAlternateLink($alternateLink)
-  {
-    $this->alternateLink = $alternateLink;
-  }
-  public function getAlternateLink()
-  {
-    return $this->alternateLink;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setAlternateLink($alternateLink)
+	{
+		$this->alternateLink = $alternateLink;
+	}
+	public function getAlternateLink()
+	{
+		return $this->alternateLink;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

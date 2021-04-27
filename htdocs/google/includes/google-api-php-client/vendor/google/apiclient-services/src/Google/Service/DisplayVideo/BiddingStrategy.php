@@ -17,53 +17,53 @@
 
 class Google_Service_DisplayVideo_BiddingStrategy extends Google_Model
 {
-  protected $fixedBidType = 'Google_Service_DisplayVideo_FixedBidStrategy';
-  protected $fixedBidDataType = '';
-  protected $maximizeSpendAutoBidType = 'Google_Service_DisplayVideo_MaximizeSpendBidStrategy';
-  protected $maximizeSpendAutoBidDataType = '';
-  protected $performanceGoalAutoBidType = 'Google_Service_DisplayVideo_PerformanceGoalBidStrategy';
-  protected $performanceGoalAutoBidDataType = '';
+	protected $fixedBidType = 'Google_Service_DisplayVideo_FixedBidStrategy';
+	protected $fixedBidDataType = '';
+	protected $maximizeSpendAutoBidType = 'Google_Service_DisplayVideo_MaximizeSpendBidStrategy';
+	protected $maximizeSpendAutoBidDataType = '';
+	protected $performanceGoalAutoBidType = 'Google_Service_DisplayVideo_PerformanceGoalBidStrategy';
+	protected $performanceGoalAutoBidDataType = '';
 
-  /**
-   * @param Google_Service_DisplayVideo_FixedBidStrategy
-   */
-  public function setFixedBid(Google_Service_DisplayVideo_FixedBidStrategy $fixedBid)
-  {
-    $this->fixedBid = $fixedBid;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_FixedBidStrategy
-   */
-  public function getFixedBid()
-  {
-    return $this->fixedBid;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_MaximizeSpendBidStrategy
-   */
-  public function setMaximizeSpendAutoBid(Google_Service_DisplayVideo_MaximizeSpendBidStrategy $maximizeSpendAutoBid)
-  {
-    $this->maximizeSpendAutoBid = $maximizeSpendAutoBid;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_MaximizeSpendBidStrategy
-   */
-  public function getMaximizeSpendAutoBid()
-  {
-    return $this->maximizeSpendAutoBid;
-  }
-  /**
-   * @param Google_Service_DisplayVideo_PerformanceGoalBidStrategy
-   */
-  public function setPerformanceGoalAutoBid(Google_Service_DisplayVideo_PerformanceGoalBidStrategy $performanceGoalAutoBid)
-  {
-    $this->performanceGoalAutoBid = $performanceGoalAutoBid;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_PerformanceGoalBidStrategy
-   */
-  public function getPerformanceGoalAutoBid()
-  {
-    return $this->performanceGoalAutoBid;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_FixedBidStrategy
+	 */
+	public function setFixedBid(Google_Service_DisplayVideo_FixedBidStrategy $fixedBid)
+	{
+		$this->fixedBid = $fixedBid;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_FixedBidStrategy
+	 */
+	public function getFixedBid()
+	{
+		return $this->fixedBid;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_MaximizeSpendBidStrategy
+	 */
+	public function setMaximizeSpendAutoBid(Google_Service_DisplayVideo_MaximizeSpendBidStrategy $maximizeSpendAutoBid)
+	{
+		$this->maximizeSpendAutoBid = $maximizeSpendAutoBid;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_MaximizeSpendBidStrategy
+	 */
+	public function getMaximizeSpendAutoBid()
+	{
+		return $this->maximizeSpendAutoBid;
+	}
+	/**
+	 * @param Google_Service_DisplayVideo_PerformanceGoalBidStrategy
+	 */
+	public function setPerformanceGoalAutoBid(Google_Service_DisplayVideo_PerformanceGoalBidStrategy $performanceGoalAutoBid)
+	{
+		$this->performanceGoalAutoBid = $performanceGoalAutoBid;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_PerformanceGoalBidStrategy
+	 */
+	public function getPerformanceGoalAutoBid()
+	{
+		return $this->performanceGoalAutoBid;
+	}
 }

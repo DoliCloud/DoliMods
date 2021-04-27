@@ -17,30 +17,30 @@
 
 class Google_Service_CloudHealthcare_DeidentifyDatasetRequest extends Google_Model
 {
-  protected $configType = 'Google_Service_CloudHealthcare_DeidentifyConfig';
-  protected $configDataType = '';
-  public $destinationDataset;
+	protected $configType = 'Google_Service_CloudHealthcare_DeidentifyConfig';
+	protected $configDataType = '';
+	public $destinationDataset;
 
-  /**
-   * @param Google_Service_CloudHealthcare_DeidentifyConfig
-   */
-  public function setConfig(Google_Service_CloudHealthcare_DeidentifyConfig $config)
-  {
-    $this->config = $config;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_DeidentifyConfig
-   */
-  public function getConfig()
-  {
-    return $this->config;
-  }
-  public function setDestinationDataset($destinationDataset)
-  {
-    $this->destinationDataset = $destinationDataset;
-  }
-  public function getDestinationDataset()
-  {
-    return $this->destinationDataset;
-  }
+	/**
+	 * @param Google_Service_CloudHealthcare_DeidentifyConfig
+	 */
+	public function setConfig(Google_Service_CloudHealthcare_DeidentifyConfig $config)
+	{
+		$this->config = $config;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_DeidentifyConfig
+	 */
+	public function getConfig()
+	{
+		return $this->config;
+	}
+	public function setDestinationDataset($destinationDataset)
+	{
+		$this->destinationDataset = $destinationDataset;
+	}
+	public function getDestinationDataset()
+	{
+		return $this->destinationDataset;
+	}
 }

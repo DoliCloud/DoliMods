@@ -32,129 +32,129 @@
  */
 class Google_Service_Document extends Google_Service
 {
-  /** View and manage your data across Google Cloud Platform services. */
-  const CLOUD_PLATFORM =
-      "https://www.googleapis.com/auth/cloud-platform";
+	/** View and manage your data across Google Cloud Platform services. */
+	const CLOUD_PLATFORM =
+	  "https://www.googleapis.com/auth/cloud-platform";
 
-  public $projects_documents;
-  public $projects_locations_documents;
-  public $projects_locations_operations;
-  public $projects_operations;
-  
-  /**
-   * Constructs the internal representation of the Document service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://documentai.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1beta2';
-    $this->serviceName = 'documentai';
+	public $projects_documents;
+	public $projects_locations_documents;
+	public $projects_locations_operations;
+	public $projects_operations;
 
-    $this->projects_documents = new Google_Service_Document_Resource_ProjectsDocuments(
-        $this,
-        $this->serviceName,
-        'documents',
-        array(
-          'methods' => array(
-            'batchProcess' => array(
-              'path' => 'v1beta2/{+parent}/documents:batchProcess',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'process' => array(
-              'path' => 'v1beta2/{+parent}/documents:process',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects_locations_documents = new Google_Service_Document_Resource_ProjectsLocationsDocuments(
-        $this,
-        $this->serviceName,
-        'documents',
-        array(
-          'methods' => array(
-            'batchProcess' => array(
-              'path' => 'v1beta2/{+parent}/documents:batchProcess',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'process' => array(
-              'path' => 'v1beta2/{+parent}/documents:process',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects_locations_operations = new Google_Service_Document_Resource_ProjectsLocationsOperations(
-        $this,
-        $this->serviceName,
-        'operations',
-        array(
-          'methods' => array(
-            'get' => array(
-              'path' => 'v1beta2/{+name}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects_operations = new Google_Service_Document_Resource_ProjectsOperations(
-        $this,
-        $this->serviceName,
-        'operations',
-        array(
-          'methods' => array(
-            'get' => array(
-              'path' => 'v1beta2/{+name}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the Document service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://documentai.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1beta2';
+		$this->serviceName = 'documentai';
+
+		$this->projects_documents = new Google_Service_Document_Resource_ProjectsDocuments(
+		$this,
+		$this->serviceName,
+		'documents',
+		array(
+		  'methods' => array(
+			'batchProcess' => array(
+			  'path' => 'v1beta2/{+parent}/documents:batchProcess',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'process' => array(
+			  'path' => 'v1beta2/{+parent}/documents:process',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->projects_locations_documents = new Google_Service_Document_Resource_ProjectsLocationsDocuments(
+		$this,
+		$this->serviceName,
+		'documents',
+		array(
+		  'methods' => array(
+			'batchProcess' => array(
+			  'path' => 'v1beta2/{+parent}/documents:batchProcess',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'process' => array(
+			  'path' => 'v1beta2/{+parent}/documents:process',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->projects_locations_operations = new Google_Service_Document_Resource_ProjectsLocationsOperations(
+		$this,
+		$this->serviceName,
+		'operations',
+		array(
+		  'methods' => array(
+			'get' => array(
+			  'path' => 'v1beta2/{+name}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->projects_operations = new Google_Service_Document_Resource_ProjectsOperations(
+		$this,
+		$this->serviceName,
+		'operations',
+		array(
+		  'methods' => array(
+			'get' => array(
+			  'path' => 'v1beta2/{+name}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

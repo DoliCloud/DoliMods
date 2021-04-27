@@ -1,7 +1,7 @@
 <?php
 
-include("./pre.inc.php");
-require_once("funcsv2.php");
+include "./pre.inc.php";
+require_once "funcsv2.php";
 
 
 
@@ -9,13 +9,13 @@ require_once("funcsv2.php");
  * View
  */
 
-$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$dolibarr_main_url_root);
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', $dolibarr_main_url_root);
 
-$tracker_url=$urlwithouturlroot.dol_buildpath('/bittorrent/announce.php',1);
-$helpurl=$urlwithouturlroot.dol_buildpath('/bittorrent/docs/help.html',1);
+$tracker_url=$urlwithouturlroot.dol_buildpath('/bittorrent/announce.php', 1);
+$helpurl=$urlwithouturlroot.dol_buildpath('/bittorrent/docs/help.html', 1);
 
 //$helpurl='EN:'.$helpurl.'|FR:'.$helpurl.'|ES:'.$helpurl;
-llxHeader('','BitTorrent',$helpurl);
+llxHeader('', 'BitTorrent', $helpurl);
 
 $form=new Form($db);
 
@@ -49,8 +49,7 @@ print '<br>';
 
 <?php
 //Check for install.php file, security risk if still available
-if (file_exists("install.php"))
-{
+if (file_exists("install.php")) {
 	echo errorMessage() . "Your install.php file has NOT been deleted.  This is a security risk, please delete it immediately.</p>\n";
 }
 

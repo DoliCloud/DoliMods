@@ -17,15 +17,15 @@
 
 class Google_Service_DisplayVideo_Adloox extends Google_Collection
 {
-  protected $collection_key = 'excludedAdlooxCategories';
-  public $excludedAdlooxCategories;
+	protected $collection_key = 'excludedAdlooxCategories';
+	public $excludedAdlooxCategories;
 
-  public function setExcludedAdlooxCategories($excludedAdlooxCategories)
-  {
-    $this->excludedAdlooxCategories = $excludedAdlooxCategories;
-  }
-  public function getExcludedAdlooxCategories()
-  {
-    return $this->excludedAdlooxCategories;
-  }
+	public function setExcludedAdlooxCategories($excludedAdlooxCategories)
+	{
+		$this->excludedAdlooxCategories = $excludedAdlooxCategories;
+	}
+	public function getExcludedAdlooxCategories()
+	{
+		return $this->excludedAdlooxCategories;
+	}
 }

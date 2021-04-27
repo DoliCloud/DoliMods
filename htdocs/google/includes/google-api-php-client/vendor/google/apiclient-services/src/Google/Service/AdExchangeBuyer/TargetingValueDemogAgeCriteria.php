@@ -17,15 +17,15 @@
 
 class Google_Service_AdExchangeBuyer_TargetingValueDemogAgeCriteria extends Google_Collection
 {
-  protected $collection_key = 'demogAgeCriteriaIds';
-  public $demogAgeCriteriaIds;
+	protected $collection_key = 'demogAgeCriteriaIds';
+	public $demogAgeCriteriaIds;
 
-  public function setDemogAgeCriteriaIds($demogAgeCriteriaIds)
-  {
-    $this->demogAgeCriteriaIds = $demogAgeCriteriaIds;
-  }
-  public function getDemogAgeCriteriaIds()
-  {
-    return $this->demogAgeCriteriaIds;
-  }
+	public function setDemogAgeCriteriaIds($demogAgeCriteriaIds)
+	{
+		$this->demogAgeCriteriaIds = $demogAgeCriteriaIds;
+	}
+	public function getDemogAgeCriteriaIds()
+	{
+		return $this->demogAgeCriteriaIds;
+	}
 }

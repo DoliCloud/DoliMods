@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_OperatingSystemsListResponse extends Google_Collection
 {
-  protected $collection_key = 'operatingSystems';
-  public $kind;
-  protected $operatingSystemsType = 'Google_Service_Dfareporting_OperatingSystem';
-  protected $operatingSystemsDataType = 'array';
+	protected $collection_key = 'operatingSystems';
+	public $kind;
+	protected $operatingSystemsType = 'Google_Service_Dfareporting_OperatingSystem';
+	protected $operatingSystemsDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Dfareporting_OperatingSystem
-   */
-  public function setOperatingSystems($operatingSystems)
-  {
-    $this->operatingSystems = $operatingSystems;
-  }
-  /**
-   * @return Google_Service_Dfareporting_OperatingSystem
-   */
-  public function getOperatingSystems()
-  {
-    return $this->operatingSystems;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_OperatingSystem
+	 */
+	public function setOperatingSystems($operatingSystems)
+	{
+		$this->operatingSystems = $operatingSystems;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_OperatingSystem
+	 */
+	public function getOperatingSystems()
+	{
+		return $this->operatingSystems;
+	}
 }

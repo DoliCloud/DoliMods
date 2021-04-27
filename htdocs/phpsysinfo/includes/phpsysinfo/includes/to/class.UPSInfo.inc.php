@@ -25,38 +25,38 @@
  */
 class UPSInfo
 {
-    /**
-     * array with upsdivices
-     *
-     * @see UPSDevice
-     *
-     * @var Array
-     */
-    private $_upsDevices = array();
+	/**
+	 * array with upsdivices
+	 *
+	 * @see UPSDevice
+	 *
+	 * @var Array
+	 */
+	private $_upsDevices = array();
 
-    /**
-     * Returns $_upsDevices.
-     *
-     * @see UPSInfo::$_upsDevices
-     *
-     * @return Array
-     */
-    public function getUpsDevices()
-    {
-        return $this->_upsDevices;
-    }
+	/**
+	 * Returns $_upsDevices.
+	 *
+	 * @see UPSInfo::$_upsDevices
+	 *
+	 * @return Array
+	 */
+	public function getUpsDevices()
+	{
+		return $this->_upsDevices;
+	}
 
-    /**
-     * Sets $_upsDevices.
-     *
-     * @param UPSDevice $upsDevices upsdevice
-     *
-     * @see UPSInfo::$_upsDevices
-     *
-     * @return Void
-     */
-    public function setUpsDevices($upsDevices)
-    {
-        array_push($this->_upsDevices, $upsDevices);
-    }
+	/**
+	 * Sets $_upsDevices.
+	 *
+	 * @param UPSDevice $upsDevices upsdevice
+	 *
+	 * @see UPSInfo::$_upsDevices
+	 *
+	 * @return Void
+	 */
+	public function setUpsDevices($upsDevices)
+	{
+		array_push($this->_upsDevices, $upsDevices);
+	}
 }

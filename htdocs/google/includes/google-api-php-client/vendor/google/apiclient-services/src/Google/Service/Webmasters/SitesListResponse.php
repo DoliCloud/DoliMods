@@ -17,22 +17,22 @@
 
 class Google_Service_Webmasters_SitesListResponse extends Google_Collection
 {
-  protected $collection_key = 'siteEntry';
-  protected $siteEntryType = 'Google_Service_Webmasters_WmxSite';
-  protected $siteEntryDataType = 'array';
+	protected $collection_key = 'siteEntry';
+	protected $siteEntryType = 'Google_Service_Webmasters_WmxSite';
+	protected $siteEntryDataType = 'array';
 
-  /**
-   * @param Google_Service_Webmasters_WmxSite
-   */
-  public function setSiteEntry($siteEntry)
-  {
-    $this->siteEntry = $siteEntry;
-  }
-  /**
-   * @return Google_Service_Webmasters_WmxSite
-   */
-  public function getSiteEntry()
-  {
-    return $this->siteEntry;
-  }
+	/**
+	 * @param Google_Service_Webmasters_WmxSite
+	 */
+	public function setSiteEntry($siteEntry)
+	{
+		$this->siteEntry = $siteEntry;
+	}
+	/**
+	 * @return Google_Service_Webmasters_WmxSite
+	 */
+	public function getSiteEntry()
+	{
+		return $this->siteEntry;
+	}
 }

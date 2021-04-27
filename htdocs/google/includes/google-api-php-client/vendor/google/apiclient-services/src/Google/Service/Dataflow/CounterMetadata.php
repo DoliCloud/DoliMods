@@ -17,41 +17,41 @@
 
 class Google_Service_Dataflow_CounterMetadata extends Google_Model
 {
-  public $description;
-  public $kind;
-  public $otherUnits;
-  public $standardUnits;
+	public $description;
+	public $kind;
+	public $otherUnits;
+	public $standardUnits;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setOtherUnits($otherUnits)
-  {
-    $this->otherUnits = $otherUnits;
-  }
-  public function getOtherUnits()
-  {
-    return $this->otherUnits;
-  }
-  public function setStandardUnits($standardUnits)
-  {
-    $this->standardUnits = $standardUnits;
-  }
-  public function getStandardUnits()
-  {
-    return $this->standardUnits;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setOtherUnits($otherUnits)
+	{
+		$this->otherUnits = $otherUnits;
+	}
+	public function getOtherUnits()
+	{
+		return $this->otherUnits;
+	}
+	public function setStandardUnits($standardUnits)
+	{
+		$this->standardUnits = $standardUnits;
+	}
+	public function getStandardUnits()
+	{
+		return $this->standardUnits;
+	}
 }

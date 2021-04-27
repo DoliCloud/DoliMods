@@ -14,11 +14,11 @@ namespace GuzzleHttp\Message;
  */
 interface AppliesHeadersInterface
 {
-    /**
-     * Apply headers to a request appropriate for the current state of the
-     * object.
-     *
-     * @param RequestInterface $request Request
-     */
-    public function applyRequestHeaders(RequestInterface $request);
+	/**
+	 * Apply headers to a request appropriate for the current state of the
+	 * object.
+	 *
+	 * @param RequestInterface $request Request
+	 */
+	public function applyRequestHeaders(RequestInterface $request);
 }

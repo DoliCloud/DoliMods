@@ -17,22 +17,22 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogInlineSource extends Google_Collection
 {
-  protected $collection_key = 'catalogItems';
-  protected $catalogItemsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItem';
-  protected $catalogItemsDataType = 'array';
+	protected $collection_key = 'catalogItems';
+	protected $catalogItemsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItem';
+	protected $catalogItemsDataType = 'array';
 
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItem
-   */
-  public function setCatalogItems($catalogItems)
-  {
-    $this->catalogItems = $catalogItems;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItem
-   */
-  public function getCatalogItems()
-  {
-    return $this->catalogItems;
-  }
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItem
+	 */
+	public function setCatalogItems($catalogItems)
+	{
+		$this->catalogItems = $catalogItems;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1CatalogItem
+	 */
+	public function getCatalogItems()
+	{
+		return $this->catalogItems;
+	}
 }

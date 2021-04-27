@@ -17,72 +17,72 @@
 
 class Google_Service_ShoppingContent_Headers extends Google_Collection
 {
-  protected $collection_key = 'weights';
-  protected $locationsType = 'Google_Service_ShoppingContent_LocationIdSet';
-  protected $locationsDataType = 'array';
-  public $numberOfItems;
-  public $postalCodeGroupNames;
-  protected $pricesType = 'Google_Service_ShoppingContent_Price';
-  protected $pricesDataType = 'array';
-  protected $weightsType = 'Google_Service_ShoppingContent_Weight';
-  protected $weightsDataType = 'array';
+	protected $collection_key = 'weights';
+	protected $locationsType = 'Google_Service_ShoppingContent_LocationIdSet';
+	protected $locationsDataType = 'array';
+	public $numberOfItems;
+	public $postalCodeGroupNames;
+	protected $pricesType = 'Google_Service_ShoppingContent_Price';
+	protected $pricesDataType = 'array';
+	protected $weightsType = 'Google_Service_ShoppingContent_Weight';
+	protected $weightsDataType = 'array';
 
-  /**
-   * @param Google_Service_ShoppingContent_LocationIdSet
-   */
-  public function setLocations($locations)
-  {
-    $this->locations = $locations;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_LocationIdSet
-   */
-  public function getLocations()
-  {
-    return $this->locations;
-  }
-  public function setNumberOfItems($numberOfItems)
-  {
-    $this->numberOfItems = $numberOfItems;
-  }
-  public function getNumberOfItems()
-  {
-    return $this->numberOfItems;
-  }
-  public function setPostalCodeGroupNames($postalCodeGroupNames)
-  {
-    $this->postalCodeGroupNames = $postalCodeGroupNames;
-  }
-  public function getPostalCodeGroupNames()
-  {
-    return $this->postalCodeGroupNames;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setPrices($prices)
-  {
-    $this->prices = $prices;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getPrices()
-  {
-    return $this->prices;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Weight
-   */
-  public function setWeights($weights)
-  {
-    $this->weights = $weights;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Weight
-   */
-  public function getWeights()
-  {
-    return $this->weights;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_LocationIdSet
+	 */
+	public function setLocations($locations)
+	{
+		$this->locations = $locations;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_LocationIdSet
+	 */
+	public function getLocations()
+	{
+		return $this->locations;
+	}
+	public function setNumberOfItems($numberOfItems)
+	{
+		$this->numberOfItems = $numberOfItems;
+	}
+	public function getNumberOfItems()
+	{
+		return $this->numberOfItems;
+	}
+	public function setPostalCodeGroupNames($postalCodeGroupNames)
+	{
+		$this->postalCodeGroupNames = $postalCodeGroupNames;
+	}
+	public function getPostalCodeGroupNames()
+	{
+		return $this->postalCodeGroupNames;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setPrices($prices)
+	{
+		$this->prices = $prices;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getPrices()
+	{
+		return $this->prices;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Weight
+	 */
+	public function setWeights($weights)
+	{
+		$this->weights = $weights;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Weight
+	 */
+	public function getWeights()
+	{
+		return $this->weights;
+	}
 }

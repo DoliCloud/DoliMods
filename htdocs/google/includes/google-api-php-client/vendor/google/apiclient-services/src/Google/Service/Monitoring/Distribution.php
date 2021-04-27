@@ -17,90 +17,90 @@
 
 class Google_Service_Monitoring_Distribution extends Google_Collection
 {
-  protected $collection_key = 'exemplars';
-  public $bucketCounts;
-  protected $bucketOptionsType = 'Google_Service_Monitoring_BucketOptions';
-  protected $bucketOptionsDataType = '';
-  public $count;
-  protected $exemplarsType = 'Google_Service_Monitoring_Exemplar';
-  protected $exemplarsDataType = 'array';
-  public $mean;
-  protected $rangeType = 'Google_Service_Monitoring_Range';
-  protected $rangeDataType = '';
-  public $sumOfSquaredDeviation;
+	protected $collection_key = 'exemplars';
+	public $bucketCounts;
+	protected $bucketOptionsType = 'Google_Service_Monitoring_BucketOptions';
+	protected $bucketOptionsDataType = '';
+	public $count;
+	protected $exemplarsType = 'Google_Service_Monitoring_Exemplar';
+	protected $exemplarsDataType = 'array';
+	public $mean;
+	protected $rangeType = 'Google_Service_Monitoring_Range';
+	protected $rangeDataType = '';
+	public $sumOfSquaredDeviation;
 
-  public function setBucketCounts($bucketCounts)
-  {
-    $this->bucketCounts = $bucketCounts;
-  }
-  public function getBucketCounts()
-  {
-    return $this->bucketCounts;
-  }
-  /**
-   * @param Google_Service_Monitoring_BucketOptions
-   */
-  public function setBucketOptions(Google_Service_Monitoring_BucketOptions $bucketOptions)
-  {
-    $this->bucketOptions = $bucketOptions;
-  }
-  /**
-   * @return Google_Service_Monitoring_BucketOptions
-   */
-  public function getBucketOptions()
-  {
-    return $this->bucketOptions;
-  }
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  /**
-   * @param Google_Service_Monitoring_Exemplar
-   */
-  public function setExemplars($exemplars)
-  {
-    $this->exemplars = $exemplars;
-  }
-  /**
-   * @return Google_Service_Monitoring_Exemplar
-   */
-  public function getExemplars()
-  {
-    return $this->exemplars;
-  }
-  public function setMean($mean)
-  {
-    $this->mean = $mean;
-  }
-  public function getMean()
-  {
-    return $this->mean;
-  }
-  /**
-   * @param Google_Service_Monitoring_Range
-   */
-  public function setRange(Google_Service_Monitoring_Range $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Monitoring_Range
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
-  public function setSumOfSquaredDeviation($sumOfSquaredDeviation)
-  {
-    $this->sumOfSquaredDeviation = $sumOfSquaredDeviation;
-  }
-  public function getSumOfSquaredDeviation()
-  {
-    return $this->sumOfSquaredDeviation;
-  }
+	public function setBucketCounts($bucketCounts)
+	{
+		$this->bucketCounts = $bucketCounts;
+	}
+	public function getBucketCounts()
+	{
+		return $this->bucketCounts;
+	}
+	/**
+	 * @param Google_Service_Monitoring_BucketOptions
+	 */
+	public function setBucketOptions(Google_Service_Monitoring_BucketOptions $bucketOptions)
+	{
+		$this->bucketOptions = $bucketOptions;
+	}
+	/**
+	 * @return Google_Service_Monitoring_BucketOptions
+	 */
+	public function getBucketOptions()
+	{
+		return $this->bucketOptions;
+	}
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	/**
+	 * @param Google_Service_Monitoring_Exemplar
+	 */
+	public function setExemplars($exemplars)
+	{
+		$this->exemplars = $exemplars;
+	}
+	/**
+	 * @return Google_Service_Monitoring_Exemplar
+	 */
+	public function getExemplars()
+	{
+		return $this->exemplars;
+	}
+	public function setMean($mean)
+	{
+		$this->mean = $mean;
+	}
+	public function getMean()
+	{
+		return $this->mean;
+	}
+	/**
+	 * @param Google_Service_Monitoring_Range
+	 */
+	public function setRange(Google_Service_Monitoring_Range $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Monitoring_Range
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
+	public function setSumOfSquaredDeviation($sumOfSquaredDeviation)
+	{
+		$this->sumOfSquaredDeviation = $sumOfSquaredDeviation;
+	}
+	public function getSumOfSquaredDeviation()
+	{
+		return $this->sumOfSquaredDeviation;
+	}
 }

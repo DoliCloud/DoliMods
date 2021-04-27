@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListNegativeKeywordListsResponse extends Google_Collection
 {
-  protected $collection_key = 'negativeKeywordLists';
-  protected $negativeKeywordListsType = 'Google_Service_DisplayVideo_NegativeKeywordList';
-  protected $negativeKeywordListsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'negativeKeywordLists';
+	protected $negativeKeywordListsType = 'Google_Service_DisplayVideo_NegativeKeywordList';
+	protected $negativeKeywordListsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_NegativeKeywordList
-   */
-  public function setNegativeKeywordLists($negativeKeywordLists)
-  {
-    $this->negativeKeywordLists = $negativeKeywordLists;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_NegativeKeywordList
-   */
-  public function getNegativeKeywordLists()
-  {
-    return $this->negativeKeywordLists;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_NegativeKeywordList
+	 */
+	public function setNegativeKeywordLists($negativeKeywordLists)
+	{
+		$this->negativeKeywordLists = $negativeKeywordLists;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_NegativeKeywordList
+	 */
+	public function getNegativeKeywordLists()
+	{
+		return $this->negativeKeywordLists;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

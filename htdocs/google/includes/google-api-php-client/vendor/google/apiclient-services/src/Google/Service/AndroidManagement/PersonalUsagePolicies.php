@@ -17,67 +17,67 @@
 
 class Google_Service_AndroidManagement_PersonalUsagePolicies extends Google_Collection
 {
-  protected $collection_key = 'personalApplications';
-  public $accountTypesWithManagementDisabled;
-  public $cameraDisabled;
-  public $maxDaysWithWorkOff;
-  protected $personalApplicationsType = 'Google_Service_AndroidManagement_PersonalApplicationPolicy';
-  protected $personalApplicationsDataType = 'array';
-  public $personalPlayStoreMode;
-  public $screenCaptureDisabled;
+	protected $collection_key = 'personalApplications';
+	public $accountTypesWithManagementDisabled;
+	public $cameraDisabled;
+	public $maxDaysWithWorkOff;
+	protected $personalApplicationsType = 'Google_Service_AndroidManagement_PersonalApplicationPolicy';
+	protected $personalApplicationsDataType = 'array';
+	public $personalPlayStoreMode;
+	public $screenCaptureDisabled;
 
-  public function setAccountTypesWithManagementDisabled($accountTypesWithManagementDisabled)
-  {
-    $this->accountTypesWithManagementDisabled = $accountTypesWithManagementDisabled;
-  }
-  public function getAccountTypesWithManagementDisabled()
-  {
-    return $this->accountTypesWithManagementDisabled;
-  }
-  public function setCameraDisabled($cameraDisabled)
-  {
-    $this->cameraDisabled = $cameraDisabled;
-  }
-  public function getCameraDisabled()
-  {
-    return $this->cameraDisabled;
-  }
-  public function setMaxDaysWithWorkOff($maxDaysWithWorkOff)
-  {
-    $this->maxDaysWithWorkOff = $maxDaysWithWorkOff;
-  }
-  public function getMaxDaysWithWorkOff()
-  {
-    return $this->maxDaysWithWorkOff;
-  }
-  /**
-   * @param Google_Service_AndroidManagement_PersonalApplicationPolicy
-   */
-  public function setPersonalApplications($personalApplications)
-  {
-    $this->personalApplications = $personalApplications;
-  }
-  /**
-   * @return Google_Service_AndroidManagement_PersonalApplicationPolicy
-   */
-  public function getPersonalApplications()
-  {
-    return $this->personalApplications;
-  }
-  public function setPersonalPlayStoreMode($personalPlayStoreMode)
-  {
-    $this->personalPlayStoreMode = $personalPlayStoreMode;
-  }
-  public function getPersonalPlayStoreMode()
-  {
-    return $this->personalPlayStoreMode;
-  }
-  public function setScreenCaptureDisabled($screenCaptureDisabled)
-  {
-    $this->screenCaptureDisabled = $screenCaptureDisabled;
-  }
-  public function getScreenCaptureDisabled()
-  {
-    return $this->screenCaptureDisabled;
-  }
+	public function setAccountTypesWithManagementDisabled($accountTypesWithManagementDisabled)
+	{
+		$this->accountTypesWithManagementDisabled = $accountTypesWithManagementDisabled;
+	}
+	public function getAccountTypesWithManagementDisabled()
+	{
+		return $this->accountTypesWithManagementDisabled;
+	}
+	public function setCameraDisabled($cameraDisabled)
+	{
+		$this->cameraDisabled = $cameraDisabled;
+	}
+	public function getCameraDisabled()
+	{
+		return $this->cameraDisabled;
+	}
+	public function setMaxDaysWithWorkOff($maxDaysWithWorkOff)
+	{
+		$this->maxDaysWithWorkOff = $maxDaysWithWorkOff;
+	}
+	public function getMaxDaysWithWorkOff()
+	{
+		return $this->maxDaysWithWorkOff;
+	}
+	/**
+	 * @param Google_Service_AndroidManagement_PersonalApplicationPolicy
+	 */
+	public function setPersonalApplications($personalApplications)
+	{
+		$this->personalApplications = $personalApplications;
+	}
+	/**
+	 * @return Google_Service_AndroidManagement_PersonalApplicationPolicy
+	 */
+	public function getPersonalApplications()
+	{
+		return $this->personalApplications;
+	}
+	public function setPersonalPlayStoreMode($personalPlayStoreMode)
+	{
+		$this->personalPlayStoreMode = $personalPlayStoreMode;
+	}
+	public function getPersonalPlayStoreMode()
+	{
+		return $this->personalPlayStoreMode;
+	}
+	public function setScreenCaptureDisabled($screenCaptureDisabled)
+	{
+		$this->screenCaptureDisabled = $screenCaptureDisabled;
+	}
+	public function getScreenCaptureDisabled()
+	{
+		return $this->screenCaptureDisabled;
+	}
 }

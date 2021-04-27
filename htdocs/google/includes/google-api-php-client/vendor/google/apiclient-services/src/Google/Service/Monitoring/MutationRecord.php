@@ -17,23 +17,23 @@
 
 class Google_Service_Monitoring_MutationRecord extends Google_Model
 {
-  public $mutateTime;
-  public $mutatedBy;
+	public $mutateTime;
+	public $mutatedBy;
 
-  public function setMutateTime($mutateTime)
-  {
-    $this->mutateTime = $mutateTime;
-  }
-  public function getMutateTime()
-  {
-    return $this->mutateTime;
-  }
-  public function setMutatedBy($mutatedBy)
-  {
-    $this->mutatedBy = $mutatedBy;
-  }
-  public function getMutatedBy()
-  {
-    return $this->mutatedBy;
-  }
+	public function setMutateTime($mutateTime)
+	{
+		$this->mutateTime = $mutateTime;
+	}
+	public function getMutateTime()
+	{
+		return $this->mutateTime;
+	}
+	public function setMutatedBy($mutatedBy)
+	{
+		$this->mutatedBy = $mutatedBy;
+	}
+	public function getMutatedBy()
+	{
+		return $this->mutatedBy;
+	}
 }

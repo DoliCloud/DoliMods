@@ -17,31 +17,31 @@
 
 class Google_Service_ConsumerSurveys_ResultsMask extends Google_Collection
 {
-  protected $collection_key = 'fields';
-  protected $fieldsType = 'Google_Service_ConsumerSurveys_FieldMask';
-  protected $fieldsDataType = 'array';
-  public $projection;
+	protected $collection_key = 'fields';
+	protected $fieldsType = 'Google_Service_ConsumerSurveys_FieldMask';
+	protected $fieldsDataType = 'array';
+	public $projection;
 
-  /**
-   * @param Google_Service_ConsumerSurveys_FieldMask
-   */
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  /**
-   * @return Google_Service_ConsumerSurveys_FieldMask
-   */
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setProjection($projection)
-  {
-    $this->projection = $projection;
-  }
-  public function getProjection()
-  {
-    return $this->projection;
-  }
+	/**
+	 * @param Google_Service_ConsumerSurveys_FieldMask
+	 */
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	/**
+	 * @return Google_Service_ConsumerSurveys_FieldMask
+	 */
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setProjection($projection)
+	{
+		$this->projection = $projection;
+	}
+	public function getProjection()
+	{
+		return $this->projection;
+	}
 }

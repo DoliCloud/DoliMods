@@ -17,46 +17,46 @@
 
 class Google_Service_PhotosLibrary_NewMediaItemResult extends Google_Model
 {
-  protected $mediaItemType = 'Google_Service_PhotosLibrary_MediaItem';
-  protected $mediaItemDataType = '';
-  protected $statusType = 'Google_Service_PhotosLibrary_Status';
-  protected $statusDataType = '';
-  public $uploadToken;
+	protected $mediaItemType = 'Google_Service_PhotosLibrary_MediaItem';
+	protected $mediaItemDataType = '';
+	protected $statusType = 'Google_Service_PhotosLibrary_Status';
+	protected $statusDataType = '';
+	public $uploadToken;
 
-  /**
-   * @param Google_Service_PhotosLibrary_MediaItem
-   */
-  public function setMediaItem(Google_Service_PhotosLibrary_MediaItem $mediaItem)
-  {
-    $this->mediaItem = $mediaItem;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_MediaItem
-   */
-  public function getMediaItem()
-  {
-    return $this->mediaItem;
-  }
-  /**
-   * @param Google_Service_PhotosLibrary_Status
-   */
-  public function setStatus(Google_Service_PhotosLibrary_Status $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_Status
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  public function setUploadToken($uploadToken)
-  {
-    $this->uploadToken = $uploadToken;
-  }
-  public function getUploadToken()
-  {
-    return $this->uploadToken;
-  }
+	/**
+	 * @param Google_Service_PhotosLibrary_MediaItem
+	 */
+	public function setMediaItem(Google_Service_PhotosLibrary_MediaItem $mediaItem)
+	{
+		$this->mediaItem = $mediaItem;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_MediaItem
+	 */
+	public function getMediaItem()
+	{
+		return $this->mediaItem;
+	}
+	/**
+	 * @param Google_Service_PhotosLibrary_Status
+	 */
+	public function setStatus(Google_Service_PhotosLibrary_Status $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_Status
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	public function setUploadToken($uploadToken)
+	{
+		$this->uploadToken = $uploadToken;
+	}
+	public function getUploadToken()
+	{
+		return $this->uploadToken;
+	}
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2FulfillmentGenericWebService extends Google_Model
 {
-  public $isCloudFunction;
-  public $password;
-  public $requestHeaders;
-  public $uri;
-  public $username;
+	public $isCloudFunction;
+	public $password;
+	public $requestHeaders;
+	public $uri;
+	public $username;
 
-  public function setIsCloudFunction($isCloudFunction)
-  {
-    $this->isCloudFunction = $isCloudFunction;
-  }
-  public function getIsCloudFunction()
-  {
-    return $this->isCloudFunction;
-  }
-  public function setPassword($password)
-  {
-    $this->password = $password;
-  }
-  public function getPassword()
-  {
-    return $this->password;
-  }
-  public function setRequestHeaders($requestHeaders)
-  {
-    $this->requestHeaders = $requestHeaders;
-  }
-  public function getRequestHeaders()
-  {
-    return $this->requestHeaders;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
-  public function setUsername($username)
-  {
-    $this->username = $username;
-  }
-  public function getUsername()
-  {
-    return $this->username;
-  }
+	public function setIsCloudFunction($isCloudFunction)
+	{
+		$this->isCloudFunction = $isCloudFunction;
+	}
+	public function getIsCloudFunction()
+	{
+		return $this->isCloudFunction;
+	}
+	public function setPassword($password)
+	{
+		$this->password = $password;
+	}
+	public function getPassword()
+	{
+		return $this->password;
+	}
+	public function setRequestHeaders($requestHeaders)
+	{
+		$this->requestHeaders = $requestHeaders;
+	}
+	public function getRequestHeaders()
+	{
+		return $this->requestHeaders;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
+	public function setUsername($username)
+	{
+		$this->username = $username;
+	}
+	public function getUsername()
+	{
+		return $this->username;
+	}
 }

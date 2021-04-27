@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_ShippingsettingsGetSupportedPickupServicesResponse extends Google_Collection
 {
-  protected $collection_key = 'pickupServices';
-  public $kind;
-  protected $pickupServicesType = 'Google_Service_ShoppingContent_PickupServicesPickupService';
-  protected $pickupServicesDataType = 'array';
+	protected $collection_key = 'pickupServices';
+	public $kind;
+	protected $pickupServicesType = 'Google_Service_ShoppingContent_PickupServicesPickupService';
+	protected $pickupServicesDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_PickupServicesPickupService
-   */
-  public function setPickupServices($pickupServices)
-  {
-    $this->pickupServices = $pickupServices;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_PickupServicesPickupService
-   */
-  public function getPickupServices()
-  {
-    return $this->pickupServices;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_PickupServicesPickupService
+	 */
+	public function setPickupServices($pickupServices)
+	{
+		$this->pickupServices = $pickupServices;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_PickupServicesPickupService
+	 */
+	public function getPickupServices()
+	{
+		return $this->pickupServices;
+	}
 }

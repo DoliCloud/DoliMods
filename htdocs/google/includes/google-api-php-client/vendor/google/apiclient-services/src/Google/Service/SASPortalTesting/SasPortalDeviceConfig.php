@@ -17,117 +17,117 @@
 
 class Google_Service_SASPortalTesting_SasPortalDeviceConfig extends Google_Collection
 {
-  protected $collection_key = 'measurementCapabilities';
-  protected $airInterfaceType = 'Google_Service_SASPortalTesting_SasPortalDeviceAirInterface';
-  protected $airInterfaceDataType = '';
-  public $callSign;
-  public $category;
-  protected $installationParamsType = 'Google_Service_SASPortalTesting_SasPortalInstallationParams';
-  protected $installationParamsDataType = '';
-  public $isSigned;
-  public $measurementCapabilities;
-  protected $modelType = 'Google_Service_SASPortalTesting_SasPortalDeviceModel';
-  protected $modelDataType = '';
-  public $state;
-  public $updateTime;
-  public $userId;
+	protected $collection_key = 'measurementCapabilities';
+	protected $airInterfaceType = 'Google_Service_SASPortalTesting_SasPortalDeviceAirInterface';
+	protected $airInterfaceDataType = '';
+	public $callSign;
+	public $category;
+	protected $installationParamsType = 'Google_Service_SASPortalTesting_SasPortalInstallationParams';
+	protected $installationParamsDataType = '';
+	public $isSigned;
+	public $measurementCapabilities;
+	protected $modelType = 'Google_Service_SASPortalTesting_SasPortalDeviceModel';
+	protected $modelDataType = '';
+	public $state;
+	public $updateTime;
+	public $userId;
 
-  /**
-   * @param Google_Service_SASPortalTesting_SasPortalDeviceAirInterface
-   */
-  public function setAirInterface(Google_Service_SASPortalTesting_SasPortalDeviceAirInterface $airInterface)
-  {
-    $this->airInterface = $airInterface;
-  }
-  /**
-   * @return Google_Service_SASPortalTesting_SasPortalDeviceAirInterface
-   */
-  public function getAirInterface()
-  {
-    return $this->airInterface;
-  }
-  public function setCallSign($callSign)
-  {
-    $this->callSign = $callSign;
-  }
-  public function getCallSign()
-  {
-    return $this->callSign;
-  }
-  public function setCategory($category)
-  {
-    $this->category = $category;
-  }
-  public function getCategory()
-  {
-    return $this->category;
-  }
-  /**
-   * @param Google_Service_SASPortalTesting_SasPortalInstallationParams
-   */
-  public function setInstallationParams(Google_Service_SASPortalTesting_SasPortalInstallationParams $installationParams)
-  {
-    $this->installationParams = $installationParams;
-  }
-  /**
-   * @return Google_Service_SASPortalTesting_SasPortalInstallationParams
-   */
-  public function getInstallationParams()
-  {
-    return $this->installationParams;
-  }
-  public function setIsSigned($isSigned)
-  {
-    $this->isSigned = $isSigned;
-  }
-  public function getIsSigned()
-  {
-    return $this->isSigned;
-  }
-  public function setMeasurementCapabilities($measurementCapabilities)
-  {
-    $this->measurementCapabilities = $measurementCapabilities;
-  }
-  public function getMeasurementCapabilities()
-  {
-    return $this->measurementCapabilities;
-  }
-  /**
-   * @param Google_Service_SASPortalTesting_SasPortalDeviceModel
-   */
-  public function setModel(Google_Service_SASPortalTesting_SasPortalDeviceModel $model)
-  {
-    $this->model = $model;
-  }
-  /**
-   * @return Google_Service_SASPortalTesting_SasPortalDeviceModel
-   */
-  public function getModel()
-  {
-    return $this->model;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
-  public function setUserId($userId)
-  {
-    $this->userId = $userId;
-  }
-  public function getUserId()
-  {
-    return $this->userId;
-  }
+	/**
+	 * @param Google_Service_SASPortalTesting_SasPortalDeviceAirInterface
+	 */
+	public function setAirInterface(Google_Service_SASPortalTesting_SasPortalDeviceAirInterface $airInterface)
+	{
+		$this->airInterface = $airInterface;
+	}
+	/**
+	 * @return Google_Service_SASPortalTesting_SasPortalDeviceAirInterface
+	 */
+	public function getAirInterface()
+	{
+		return $this->airInterface;
+	}
+	public function setCallSign($callSign)
+	{
+		$this->callSign = $callSign;
+	}
+	public function getCallSign()
+	{
+		return $this->callSign;
+	}
+	public function setCategory($category)
+	{
+		$this->category = $category;
+	}
+	public function getCategory()
+	{
+		return $this->category;
+	}
+	/**
+	 * @param Google_Service_SASPortalTesting_SasPortalInstallationParams
+	 */
+	public function setInstallationParams(Google_Service_SASPortalTesting_SasPortalInstallationParams $installationParams)
+	{
+		$this->installationParams = $installationParams;
+	}
+	/**
+	 * @return Google_Service_SASPortalTesting_SasPortalInstallationParams
+	 */
+	public function getInstallationParams()
+	{
+		return $this->installationParams;
+	}
+	public function setIsSigned($isSigned)
+	{
+		$this->isSigned = $isSigned;
+	}
+	public function getIsSigned()
+	{
+		return $this->isSigned;
+	}
+	public function setMeasurementCapabilities($measurementCapabilities)
+	{
+		$this->measurementCapabilities = $measurementCapabilities;
+	}
+	public function getMeasurementCapabilities()
+	{
+		return $this->measurementCapabilities;
+	}
+	/**
+	 * @param Google_Service_SASPortalTesting_SasPortalDeviceModel
+	 */
+	public function setModel(Google_Service_SASPortalTesting_SasPortalDeviceModel $model)
+	{
+		$this->model = $model;
+	}
+	/**
+	 * @return Google_Service_SASPortalTesting_SasPortalDeviceModel
+	 */
+	public function getModel()
+	{
+		return $this->model;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+	}
+	public function getUserId()
+	{
+		return $this->userId;
+	}
 }

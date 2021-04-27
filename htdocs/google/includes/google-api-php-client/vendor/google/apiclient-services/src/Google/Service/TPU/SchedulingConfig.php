@@ -17,23 +17,23 @@
 
 class Google_Service_TPU_SchedulingConfig extends Google_Model
 {
-  public $preemptible;
-  public $reserved;
+	public $preemptible;
+	public $reserved;
 
-  public function setPreemptible($preemptible)
-  {
-    $this->preemptible = $preemptible;
-  }
-  public function getPreemptible()
-  {
-    return $this->preemptible;
-  }
-  public function setReserved($reserved)
-  {
-    $this->reserved = $reserved;
-  }
-  public function getReserved()
-  {
-    return $this->reserved;
-  }
+	public function setPreemptible($preemptible)
+	{
+		$this->preemptible = $preemptible;
+	}
+	public function getPreemptible()
+	{
+		return $this->preemptible;
+	}
+	public function setReserved($reserved)
+	{
+		$this->reserved = $reserved;
+	}
+	public function getReserved()
+	{
+		return $this->reserved;
+	}
 }

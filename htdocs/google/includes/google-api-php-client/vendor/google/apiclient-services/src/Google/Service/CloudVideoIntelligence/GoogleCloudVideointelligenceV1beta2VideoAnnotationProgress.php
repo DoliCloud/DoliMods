@@ -17,66 +17,66 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoAnnotationProgress extends Google_Model
 {
-  public $feature;
-  public $inputUri;
-  public $progressPercent;
-  protected $segmentType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment';
-  protected $segmentDataType = '';
-  public $startTime;
-  public $updateTime;
+	public $feature;
+	public $inputUri;
+	public $progressPercent;
+	protected $segmentType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment';
+	protected $segmentDataType = '';
+	public $startTime;
+	public $updateTime;
 
-  public function setFeature($feature)
-  {
-    $this->feature = $feature;
-  }
-  public function getFeature()
-  {
-    return $this->feature;
-  }
-  public function setInputUri($inputUri)
-  {
-    $this->inputUri = $inputUri;
-  }
-  public function getInputUri()
-  {
-    return $this->inputUri;
-  }
-  public function setProgressPercent($progressPercent)
-  {
-    $this->progressPercent = $progressPercent;
-  }
-  public function getProgressPercent()
-  {
-    return $this->progressPercent;
-  }
-  /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment
-   */
-  public function setSegment(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment $segment)
-  {
-    $this->segment = $segment;
-  }
-  /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment
-   */
-  public function getSegment()
-  {
-    return $this->segment;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setFeature($feature)
+	{
+		$this->feature = $feature;
+	}
+	public function getFeature()
+	{
+		return $this->feature;
+	}
+	public function setInputUri($inputUri)
+	{
+		$this->inputUri = $inputUri;
+	}
+	public function getInputUri()
+	{
+		return $this->inputUri;
+	}
+	public function setProgressPercent($progressPercent)
+	{
+		$this->progressPercent = $progressPercent;
+	}
+	public function getProgressPercent()
+	{
+		return $this->progressPercent;
+	}
+	/**
+	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment
+	 */
+	public function setSegment(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment $segment)
+	{
+		$this->segment = $segment;
+	}
+	/**
+	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment
+	 */
+	public function getSegment()
+	{
+		return $this->segment;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

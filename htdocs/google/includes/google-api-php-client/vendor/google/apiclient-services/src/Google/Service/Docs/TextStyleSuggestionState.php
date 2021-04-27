@@ -17,104 +17,104 @@
 
 class Google_Service_Docs_TextStyleSuggestionState extends Google_Model
 {
-  public $backgroundColorSuggested;
-  public $baselineOffsetSuggested;
-  public $boldSuggested;
-  public $fontSizeSuggested;
-  public $foregroundColorSuggested;
-  public $italicSuggested;
-  public $linkSuggested;
-  public $smallCapsSuggested;
-  public $strikethroughSuggested;
-  public $underlineSuggested;
-  public $weightedFontFamilySuggested;
+	public $backgroundColorSuggested;
+	public $baselineOffsetSuggested;
+	public $boldSuggested;
+	public $fontSizeSuggested;
+	public $foregroundColorSuggested;
+	public $italicSuggested;
+	public $linkSuggested;
+	public $smallCapsSuggested;
+	public $strikethroughSuggested;
+	public $underlineSuggested;
+	public $weightedFontFamilySuggested;
 
-  public function setBackgroundColorSuggested($backgroundColorSuggested)
-  {
-    $this->backgroundColorSuggested = $backgroundColorSuggested;
-  }
-  public function getBackgroundColorSuggested()
-  {
-    return $this->backgroundColorSuggested;
-  }
-  public function setBaselineOffsetSuggested($baselineOffsetSuggested)
-  {
-    $this->baselineOffsetSuggested = $baselineOffsetSuggested;
-  }
-  public function getBaselineOffsetSuggested()
-  {
-    return $this->baselineOffsetSuggested;
-  }
-  public function setBoldSuggested($boldSuggested)
-  {
-    $this->boldSuggested = $boldSuggested;
-  }
-  public function getBoldSuggested()
-  {
-    return $this->boldSuggested;
-  }
-  public function setFontSizeSuggested($fontSizeSuggested)
-  {
-    $this->fontSizeSuggested = $fontSizeSuggested;
-  }
-  public function getFontSizeSuggested()
-  {
-    return $this->fontSizeSuggested;
-  }
-  public function setForegroundColorSuggested($foregroundColorSuggested)
-  {
-    $this->foregroundColorSuggested = $foregroundColorSuggested;
-  }
-  public function getForegroundColorSuggested()
-  {
-    return $this->foregroundColorSuggested;
-  }
-  public function setItalicSuggested($italicSuggested)
-  {
-    $this->italicSuggested = $italicSuggested;
-  }
-  public function getItalicSuggested()
-  {
-    return $this->italicSuggested;
-  }
-  public function setLinkSuggested($linkSuggested)
-  {
-    $this->linkSuggested = $linkSuggested;
-  }
-  public function getLinkSuggested()
-  {
-    return $this->linkSuggested;
-  }
-  public function setSmallCapsSuggested($smallCapsSuggested)
-  {
-    $this->smallCapsSuggested = $smallCapsSuggested;
-  }
-  public function getSmallCapsSuggested()
-  {
-    return $this->smallCapsSuggested;
-  }
-  public function setStrikethroughSuggested($strikethroughSuggested)
-  {
-    $this->strikethroughSuggested = $strikethroughSuggested;
-  }
-  public function getStrikethroughSuggested()
-  {
-    return $this->strikethroughSuggested;
-  }
-  public function setUnderlineSuggested($underlineSuggested)
-  {
-    $this->underlineSuggested = $underlineSuggested;
-  }
-  public function getUnderlineSuggested()
-  {
-    return $this->underlineSuggested;
-  }
-  public function setWeightedFontFamilySuggested($weightedFontFamilySuggested)
-  {
-    $this->weightedFontFamilySuggested = $weightedFontFamilySuggested;
-  }
-  public function getWeightedFontFamilySuggested()
-  {
-    return $this->weightedFontFamilySuggested;
-  }
+	public function setBackgroundColorSuggested($backgroundColorSuggested)
+	{
+		$this->backgroundColorSuggested = $backgroundColorSuggested;
+	}
+	public function getBackgroundColorSuggested()
+	{
+		return $this->backgroundColorSuggested;
+	}
+	public function setBaselineOffsetSuggested($baselineOffsetSuggested)
+	{
+		$this->baselineOffsetSuggested = $baselineOffsetSuggested;
+	}
+	public function getBaselineOffsetSuggested()
+	{
+		return $this->baselineOffsetSuggested;
+	}
+	public function setBoldSuggested($boldSuggested)
+	{
+		$this->boldSuggested = $boldSuggested;
+	}
+	public function getBoldSuggested()
+	{
+		return $this->boldSuggested;
+	}
+	public function setFontSizeSuggested($fontSizeSuggested)
+	{
+		$this->fontSizeSuggested = $fontSizeSuggested;
+	}
+	public function getFontSizeSuggested()
+	{
+		return $this->fontSizeSuggested;
+	}
+	public function setForegroundColorSuggested($foregroundColorSuggested)
+	{
+		$this->foregroundColorSuggested = $foregroundColorSuggested;
+	}
+	public function getForegroundColorSuggested()
+	{
+		return $this->foregroundColorSuggested;
+	}
+	public function setItalicSuggested($italicSuggested)
+	{
+		$this->italicSuggested = $italicSuggested;
+	}
+	public function getItalicSuggested()
+	{
+		return $this->italicSuggested;
+	}
+	public function setLinkSuggested($linkSuggested)
+	{
+		$this->linkSuggested = $linkSuggested;
+	}
+	public function getLinkSuggested()
+	{
+		return $this->linkSuggested;
+	}
+	public function setSmallCapsSuggested($smallCapsSuggested)
+	{
+		$this->smallCapsSuggested = $smallCapsSuggested;
+	}
+	public function getSmallCapsSuggested()
+	{
+		return $this->smallCapsSuggested;
+	}
+	public function setStrikethroughSuggested($strikethroughSuggested)
+	{
+		$this->strikethroughSuggested = $strikethroughSuggested;
+	}
+	public function getStrikethroughSuggested()
+	{
+		return $this->strikethroughSuggested;
+	}
+	public function setUnderlineSuggested($underlineSuggested)
+	{
+		$this->underlineSuggested = $underlineSuggested;
+	}
+	public function getUnderlineSuggested()
+	{
+		return $this->underlineSuggested;
+	}
+	public function setWeightedFontFamilySuggested($weightedFontFamilySuggested)
+	{
+		$this->weightedFontFamilySuggested = $weightedFontFamilySuggested;
+	}
+	public function getWeightedFontFamilySuggested()
+	{
+		return $this->weightedFontFamilySuggested;
+	}
 }

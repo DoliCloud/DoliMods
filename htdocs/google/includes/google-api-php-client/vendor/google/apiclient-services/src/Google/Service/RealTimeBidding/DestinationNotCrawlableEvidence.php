@@ -17,32 +17,32 @@
 
 class Google_Service_RealTimeBidding_DestinationNotCrawlableEvidence extends Google_Model
 {
-  public $crawlTime;
-  public $crawledUrl;
-  public $reason;
+	public $crawlTime;
+	public $crawledUrl;
+	public $reason;
 
-  public function setCrawlTime($crawlTime)
-  {
-    $this->crawlTime = $crawlTime;
-  }
-  public function getCrawlTime()
-  {
-    return $this->crawlTime;
-  }
-  public function setCrawledUrl($crawledUrl)
-  {
-    $this->crawledUrl = $crawledUrl;
-  }
-  public function getCrawledUrl()
-  {
-    return $this->crawledUrl;
-  }
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
+	public function setCrawlTime($crawlTime)
+	{
+		$this->crawlTime = $crawlTime;
+	}
+	public function getCrawlTime()
+	{
+		return $this->crawlTime;
+	}
+	public function setCrawledUrl($crawledUrl)
+	{
+		$this->crawledUrl = $crawledUrl;
+	}
+	public function getCrawledUrl()
+	{
+		return $this->crawledUrl;
+	}
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Monitoring_Error extends Google_Model
 {
-  public $pointCount;
-  protected $statusType = 'Google_Service_Monitoring_Status';
-  protected $statusDataType = '';
+	public $pointCount;
+	protected $statusType = 'Google_Service_Monitoring_Status';
+	protected $statusDataType = '';
 
-  public function setPointCount($pointCount)
-  {
-    $this->pointCount = $pointCount;
-  }
-  public function getPointCount()
-  {
-    return $this->pointCount;
-  }
-  /**
-   * @param Google_Service_Monitoring_Status
-   */
-  public function setStatus(Google_Service_Monitoring_Status $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_Monitoring_Status
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setPointCount($pointCount)
+	{
+		$this->pointCount = $pointCount;
+	}
+	public function getPointCount()
+	{
+		return $this->pointCount;
+	}
+	/**
+	 * @param Google_Service_Monitoring_Status
+	 */
+	public function setStatus(Google_Service_Monitoring_Status $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_Monitoring_Status
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

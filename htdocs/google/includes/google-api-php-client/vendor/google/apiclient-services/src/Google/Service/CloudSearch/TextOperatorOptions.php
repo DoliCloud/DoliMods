@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_TextOperatorOptions extends Google_Model
 {
-  public $exactMatchWithOperator;
-  public $operatorName;
+	public $exactMatchWithOperator;
+	public $operatorName;
 
-  public function setExactMatchWithOperator($exactMatchWithOperator)
-  {
-    $this->exactMatchWithOperator = $exactMatchWithOperator;
-  }
-  public function getExactMatchWithOperator()
-  {
-    return $this->exactMatchWithOperator;
-  }
-  public function setOperatorName($operatorName)
-  {
-    $this->operatorName = $operatorName;
-  }
-  public function getOperatorName()
-  {
-    return $this->operatorName;
-  }
+	public function setExactMatchWithOperator($exactMatchWithOperator)
+	{
+		$this->exactMatchWithOperator = $exactMatchWithOperator;
+	}
+	public function getExactMatchWithOperator()
+	{
+		return $this->exactMatchWithOperator;
+	}
+	public function setOperatorName($operatorName)
+	{
+		$this->operatorName = $operatorName;
+	}
+	public function getOperatorName()
+	{
+		return $this->operatorName;
+	}
 }

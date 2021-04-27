@@ -17,22 +17,22 @@
 
 class Google_Service_Gmail_ListLabelsResponse extends Google_Collection
 {
-  protected $collection_key = 'labels';
-  protected $labelsType = 'Google_Service_Gmail_Label';
-  protected $labelsDataType = 'array';
+	protected $collection_key = 'labels';
+	protected $labelsType = 'Google_Service_Gmail_Label';
+	protected $labelsDataType = 'array';
 
-  /**
-   * @param Google_Service_Gmail_Label
-   */
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  /**
-   * @return Google_Service_Gmail_Label
-   */
-  public function getLabels()
-  {
-    return $this->labels;
-  }
+	/**
+	 * @param Google_Service_Gmail_Label
+	 */
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	/**
+	 * @return Google_Service_Gmail_Label
+	 */
+	public function getLabels()
+	{
+		return $this->labels;
+	}
 }

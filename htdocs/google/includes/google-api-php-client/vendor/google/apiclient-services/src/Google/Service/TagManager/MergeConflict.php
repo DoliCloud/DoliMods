@@ -17,37 +17,37 @@
 
 class Google_Service_TagManager_MergeConflict extends Google_Model
 {
-  protected $entityInBaseVersionType = 'Google_Service_TagManager_Entity';
-  protected $entityInBaseVersionDataType = '';
-  protected $entityInWorkspaceType = 'Google_Service_TagManager_Entity';
-  protected $entityInWorkspaceDataType = '';
+	protected $entityInBaseVersionType = 'Google_Service_TagManager_Entity';
+	protected $entityInBaseVersionDataType = '';
+	protected $entityInWorkspaceType = 'Google_Service_TagManager_Entity';
+	protected $entityInWorkspaceDataType = '';
 
-  /**
-   * @param Google_Service_TagManager_Entity
-   */
-  public function setEntityInBaseVersion(Google_Service_TagManager_Entity $entityInBaseVersion)
-  {
-    $this->entityInBaseVersion = $entityInBaseVersion;
-  }
-  /**
-   * @return Google_Service_TagManager_Entity
-   */
-  public function getEntityInBaseVersion()
-  {
-    return $this->entityInBaseVersion;
-  }
-  /**
-   * @param Google_Service_TagManager_Entity
-   */
-  public function setEntityInWorkspace(Google_Service_TagManager_Entity $entityInWorkspace)
-  {
-    $this->entityInWorkspace = $entityInWorkspace;
-  }
-  /**
-   * @return Google_Service_TagManager_Entity
-   */
-  public function getEntityInWorkspace()
-  {
-    return $this->entityInWorkspace;
-  }
+	/**
+	 * @param Google_Service_TagManager_Entity
+	 */
+	public function setEntityInBaseVersion(Google_Service_TagManager_Entity $entityInBaseVersion)
+	{
+		$this->entityInBaseVersion = $entityInBaseVersion;
+	}
+	/**
+	 * @return Google_Service_TagManager_Entity
+	 */
+	public function getEntityInBaseVersion()
+	{
+		return $this->entityInBaseVersion;
+	}
+	/**
+	 * @param Google_Service_TagManager_Entity
+	 */
+	public function setEntityInWorkspace(Google_Service_TagManager_Entity $entityInWorkspace)
+	{
+		$this->entityInWorkspace = $entityInWorkspace;
+	}
+	/**
+	 * @return Google_Service_TagManager_Entity
+	 */
+	public function getEntityInWorkspace()
+	{
+		return $this->entityInWorkspace;
+	}
 }

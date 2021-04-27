@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidEnterprise_EnterprisesSendTestPushNotificationResponse extends Google_Model
 {
-  public $messageId;
-  public $topicName;
+	public $messageId;
+	public $topicName;
 
-  public function setMessageId($messageId)
-  {
-    $this->messageId = $messageId;
-  }
-  public function getMessageId()
-  {
-    return $this->messageId;
-  }
-  public function setTopicName($topicName)
-  {
-    $this->topicName = $topicName;
-  }
-  public function getTopicName()
-  {
-    return $this->topicName;
-  }
+	public function setMessageId($messageId)
+	{
+		$this->messageId = $messageId;
+	}
+	public function getMessageId()
+	{
+		return $this->messageId;
+	}
+	public function setTopicName($topicName)
+	{
+		$this->topicName = $topicName;
+	}
+	public function getTopicName()
+	{
+		return $this->topicName;
+	}
 }

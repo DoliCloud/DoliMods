@@ -17,69 +17,69 @@
 
 class Google_Service_CloudIAP_AccessSettings extends Google_Model
 {
-  protected $corsSettingsType = 'Google_Service_CloudIAP_CorsSettings';
-  protected $corsSettingsDataType = '';
-  protected $gcipSettingsType = 'Google_Service_CloudIAP_GcipSettings';
-  protected $gcipSettingsDataType = '';
-  protected $oauthSettingsType = 'Google_Service_CloudIAP_OAuthSettings';
-  protected $oauthSettingsDataType = '';
-  protected $policyDelegationSettingsType = 'Google_Service_CloudIAP_PolicyDelegationSettings';
-  protected $policyDelegationSettingsDataType = '';
+	protected $corsSettingsType = 'Google_Service_CloudIAP_CorsSettings';
+	protected $corsSettingsDataType = '';
+	protected $gcipSettingsType = 'Google_Service_CloudIAP_GcipSettings';
+	protected $gcipSettingsDataType = '';
+	protected $oauthSettingsType = 'Google_Service_CloudIAP_OAuthSettings';
+	protected $oauthSettingsDataType = '';
+	protected $policyDelegationSettingsType = 'Google_Service_CloudIAP_PolicyDelegationSettings';
+	protected $policyDelegationSettingsDataType = '';
 
-  /**
-   * @param Google_Service_CloudIAP_CorsSettings
-   */
-  public function setCorsSettings(Google_Service_CloudIAP_CorsSettings $corsSettings)
-  {
-    $this->corsSettings = $corsSettings;
-  }
-  /**
-   * @return Google_Service_CloudIAP_CorsSettings
-   */
-  public function getCorsSettings()
-  {
-    return $this->corsSettings;
-  }
-  /**
-   * @param Google_Service_CloudIAP_GcipSettings
-   */
-  public function setGcipSettings(Google_Service_CloudIAP_GcipSettings $gcipSettings)
-  {
-    $this->gcipSettings = $gcipSettings;
-  }
-  /**
-   * @return Google_Service_CloudIAP_GcipSettings
-   */
-  public function getGcipSettings()
-  {
-    return $this->gcipSettings;
-  }
-  /**
-   * @param Google_Service_CloudIAP_OAuthSettings
-   */
-  public function setOauthSettings(Google_Service_CloudIAP_OAuthSettings $oauthSettings)
-  {
-    $this->oauthSettings = $oauthSettings;
-  }
-  /**
-   * @return Google_Service_CloudIAP_OAuthSettings
-   */
-  public function getOauthSettings()
-  {
-    return $this->oauthSettings;
-  }
-  /**
-   * @param Google_Service_CloudIAP_PolicyDelegationSettings
-   */
-  public function setPolicyDelegationSettings(Google_Service_CloudIAP_PolicyDelegationSettings $policyDelegationSettings)
-  {
-    $this->policyDelegationSettings = $policyDelegationSettings;
-  }
-  /**
-   * @return Google_Service_CloudIAP_PolicyDelegationSettings
-   */
-  public function getPolicyDelegationSettings()
-  {
-    return $this->policyDelegationSettings;
-  }
+	/**
+	 * @param Google_Service_CloudIAP_CorsSettings
+	 */
+	public function setCorsSettings(Google_Service_CloudIAP_CorsSettings $corsSettings)
+	{
+		$this->corsSettings = $corsSettings;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_CorsSettings
+	 */
+	public function getCorsSettings()
+	{
+		return $this->corsSettings;
+	}
+	/**
+	 * @param Google_Service_CloudIAP_GcipSettings
+	 */
+	public function setGcipSettings(Google_Service_CloudIAP_GcipSettings $gcipSettings)
+	{
+		$this->gcipSettings = $gcipSettings;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_GcipSettings
+	 */
+	public function getGcipSettings()
+	{
+		return $this->gcipSettings;
+	}
+	/**
+	 * @param Google_Service_CloudIAP_OAuthSettings
+	 */
+	public function setOauthSettings(Google_Service_CloudIAP_OAuthSettings $oauthSettings)
+	{
+		$this->oauthSettings = $oauthSettings;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_OAuthSettings
+	 */
+	public function getOauthSettings()
+	{
+		return $this->oauthSettings;
+	}
+	/**
+	 * @param Google_Service_CloudIAP_PolicyDelegationSettings
+	 */
+	public function setPolicyDelegationSettings(Google_Service_CloudIAP_PolicyDelegationSettings $policyDelegationSettings)
+	{
+		$this->policyDelegationSettings = $policyDelegationSettings;
+	}
+	/**
+	 * @return Google_Service_CloudIAP_PolicyDelegationSettings
+	 */
+	public function getPolicyDelegationSettings()
+	{
+		return $this->policyDelegationSettings;
+	}
 }

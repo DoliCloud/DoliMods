@@ -17,31 +17,31 @@
 
 class Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1ListAssociationsResponse extends Google_Collection
 {
-  protected $collection_key = 'associations';
-  protected $associationsType = 'Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association';
-  protected $associationsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'associations';
+	protected $associationsType = 'Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association';
+	protected $associationsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association
-   */
-  public function setAssociations($associations)
-  {
-    $this->associations = $associations;
-  }
-  /**
-   * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association
-   */
-  public function getAssociations()
-  {
-    return $this->associations;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association
+	 */
+	public function setAssociations($associations)
+	{
+		$this->associations = $associations;
+	}
+	/**
+	 * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1Association
+	 */
+	public function getAssociations()
+	{
+		return $this->associations;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

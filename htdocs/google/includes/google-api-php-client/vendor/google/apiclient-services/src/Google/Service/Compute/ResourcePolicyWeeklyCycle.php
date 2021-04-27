@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_ResourcePolicyWeeklyCycle extends Google_Collection
 {
-  protected $collection_key = 'dayOfWeeks';
-  protected $dayOfWeeksType = 'Google_Service_Compute_ResourcePolicyWeeklyCycleDayOfWeek';
-  protected $dayOfWeeksDataType = 'array';
+	protected $collection_key = 'dayOfWeeks';
+	protected $dayOfWeeksType = 'Google_Service_Compute_ResourcePolicyWeeklyCycleDayOfWeek';
+	protected $dayOfWeeksDataType = 'array';
 
-  /**
-   * @param Google_Service_Compute_ResourcePolicyWeeklyCycleDayOfWeek
-   */
-  public function setDayOfWeeks($dayOfWeeks)
-  {
-    $this->dayOfWeeks = $dayOfWeeks;
-  }
-  /**
-   * @return Google_Service_Compute_ResourcePolicyWeeklyCycleDayOfWeek
-   */
-  public function getDayOfWeeks()
-  {
-    return $this->dayOfWeeks;
-  }
+	/**
+	 * @param Google_Service_Compute_ResourcePolicyWeeklyCycleDayOfWeek
+	 */
+	public function setDayOfWeeks($dayOfWeeks)
+	{
+		$this->dayOfWeeks = $dayOfWeeks;
+	}
+	/**
+	 * @return Google_Service_Compute_ResourcePolicyWeeklyCycleDayOfWeek
+	 */
+	public function getDayOfWeeks()
+	{
+		return $this->dayOfWeeks;
+	}
 }

@@ -8,7 +8,7 @@ $packager = new \Burgomaster($stageDirectory, $projectRoot);
 // Copy basic files to the stage directory. Note that we have chdir'd onto
 // the $projectRoot directory, so use relative paths.
 foreach (['README.md', 'LICENSE'] as $file) {
-    $packager->deepCopy($file, $file);
+	$packager->deepCopy($file, $file);
 }
 
 // Copy each dependency to the staging directory. Copy *.php and *.pem files.

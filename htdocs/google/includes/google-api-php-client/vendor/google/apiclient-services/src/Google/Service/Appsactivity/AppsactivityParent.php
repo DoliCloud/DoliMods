@@ -17,32 +17,32 @@
 
 class Google_Service_Appsactivity_AppsactivityParent extends Google_Model
 {
-  public $id;
-  public $isRoot;
-  public $title;
+	public $id;
+	public $isRoot;
+	public $title;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setIsRoot($isRoot)
-  {
-    $this->isRoot = $isRoot;
-  }
-  public function getIsRoot()
-  {
-    return $this->isRoot;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setIsRoot($isRoot)
+	{
+		$this->isRoot = $isRoot;
+	}
+	public function getIsRoot()
+	{
+		return $this->isRoot;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

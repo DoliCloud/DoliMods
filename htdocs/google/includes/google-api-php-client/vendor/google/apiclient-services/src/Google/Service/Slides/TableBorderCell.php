@@ -17,37 +17,37 @@
 
 class Google_Service_Slides_TableBorderCell extends Google_Model
 {
-  protected $locationType = 'Google_Service_Slides_TableCellLocation';
-  protected $locationDataType = '';
-  protected $tableBorderPropertiesType = 'Google_Service_Slides_TableBorderProperties';
-  protected $tableBorderPropertiesDataType = '';
+	protected $locationType = 'Google_Service_Slides_TableCellLocation';
+	protected $locationDataType = '';
+	protected $tableBorderPropertiesType = 'Google_Service_Slides_TableBorderProperties';
+	protected $tableBorderPropertiesDataType = '';
 
-  /**
-   * @param Google_Service_Slides_TableCellLocation
-   */
-  public function setLocation(Google_Service_Slides_TableCellLocation $location)
-  {
-    $this->location = $location;
-  }
-  /**
-   * @return Google_Service_Slides_TableCellLocation
-   */
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  /**
-   * @param Google_Service_Slides_TableBorderProperties
-   */
-  public function setTableBorderProperties(Google_Service_Slides_TableBorderProperties $tableBorderProperties)
-  {
-    $this->tableBorderProperties = $tableBorderProperties;
-  }
-  /**
-   * @return Google_Service_Slides_TableBorderProperties
-   */
-  public function getTableBorderProperties()
-  {
-    return $this->tableBorderProperties;
-  }
+	/**
+	 * @param Google_Service_Slides_TableCellLocation
+	 */
+	public function setLocation(Google_Service_Slides_TableCellLocation $location)
+	{
+		$this->location = $location;
+	}
+	/**
+	 * @return Google_Service_Slides_TableCellLocation
+	 */
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	/**
+	 * @param Google_Service_Slides_TableBorderProperties
+	 */
+	public function setTableBorderProperties(Google_Service_Slides_TableBorderProperties $tableBorderProperties)
+	{
+		$this->tableBorderProperties = $tableBorderProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_TableBorderProperties
+	 */
+	public function getTableBorderProperties()
+	{
+		return $this->tableBorderProperties;
+	}
 }

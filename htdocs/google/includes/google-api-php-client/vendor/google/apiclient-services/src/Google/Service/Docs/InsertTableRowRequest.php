@@ -17,30 +17,30 @@
 
 class Google_Service_Docs_InsertTableRowRequest extends Google_Model
 {
-  public $insertBelow;
-  protected $tableCellLocationType = 'Google_Service_Docs_TableCellLocation';
-  protected $tableCellLocationDataType = '';
+	public $insertBelow;
+	protected $tableCellLocationType = 'Google_Service_Docs_TableCellLocation';
+	protected $tableCellLocationDataType = '';
 
-  public function setInsertBelow($insertBelow)
-  {
-    $this->insertBelow = $insertBelow;
-  }
-  public function getInsertBelow()
-  {
-    return $this->insertBelow;
-  }
-  /**
-   * @param Google_Service_Docs_TableCellLocation
-   */
-  public function setTableCellLocation(Google_Service_Docs_TableCellLocation $tableCellLocation)
-  {
-    $this->tableCellLocation = $tableCellLocation;
-  }
-  /**
-   * @return Google_Service_Docs_TableCellLocation
-   */
-  public function getTableCellLocation()
-  {
-    return $this->tableCellLocation;
-  }
+	public function setInsertBelow($insertBelow)
+	{
+		$this->insertBelow = $insertBelow;
+	}
+	public function getInsertBelow()
+	{
+		return $this->insertBelow;
+	}
+	/**
+	 * @param Google_Service_Docs_TableCellLocation
+	 */
+	public function setTableCellLocation(Google_Service_Docs_TableCellLocation $tableCellLocation)
+	{
+		$this->tableCellLocation = $tableCellLocation;
+	}
+	/**
+	 * @return Google_Service_Docs_TableCellLocation
+	 */
+	public function getTableCellLocation()
+	{
+		return $this->tableCellLocation;
+	}
 }

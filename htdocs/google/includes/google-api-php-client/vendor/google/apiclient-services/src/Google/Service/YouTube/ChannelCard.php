@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_ChannelCard extends Google_Model
 {
-  public $channelId;
-  public $customMessage;
+	public $channelId;
+	public $customMessage;
 
-  public function setChannelId($channelId)
-  {
-    $this->channelId = $channelId;
-  }
-  public function getChannelId()
-  {
-    return $this->channelId;
-  }
-  public function setCustomMessage($customMessage)
-  {
-    $this->customMessage = $customMessage;
-  }
-  public function getCustomMessage()
-  {
-    return $this->customMessage;
-  }
+	public function setChannelId($channelId)
+	{
+		$this->channelId = $channelId;
+	}
+	public function getChannelId()
+	{
+		return $this->channelId;
+	}
+	public function setCustomMessage($customMessage)
+	{
+		$this->customMessage = $customMessage;
+	}
+	public function getCustomMessage()
+	{
+		return $this->customMessage;
+	}
 }

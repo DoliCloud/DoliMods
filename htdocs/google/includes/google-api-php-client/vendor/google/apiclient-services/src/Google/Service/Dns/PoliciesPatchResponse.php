@@ -17,37 +17,37 @@
 
 class Google_Service_Dns_PoliciesPatchResponse extends Google_Model
 {
-  protected $headerType = 'Google_Service_Dns_ResponseHeader';
-  protected $headerDataType = '';
-  protected $policyType = 'Google_Service_Dns_Policy';
-  protected $policyDataType = '';
+	protected $headerType = 'Google_Service_Dns_ResponseHeader';
+	protected $headerDataType = '';
+	protected $policyType = 'Google_Service_Dns_Policy';
+	protected $policyDataType = '';
 
-  /**
-   * @param Google_Service_Dns_ResponseHeader
-   */
-  public function setHeader(Google_Service_Dns_ResponseHeader $header)
-  {
-    $this->header = $header;
-  }
-  /**
-   * @return Google_Service_Dns_ResponseHeader
-   */
-  public function getHeader()
-  {
-    return $this->header;
-  }
-  /**
-   * @param Google_Service_Dns_Policy
-   */
-  public function setPolicy(Google_Service_Dns_Policy $policy)
-  {
-    $this->policy = $policy;
-  }
-  /**
-   * @return Google_Service_Dns_Policy
-   */
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
+	/**
+	 * @param Google_Service_Dns_ResponseHeader
+	 */
+	public function setHeader(Google_Service_Dns_ResponseHeader $header)
+	{
+		$this->header = $header;
+	}
+	/**
+	 * @return Google_Service_Dns_ResponseHeader
+	 */
+	public function getHeader()
+	{
+		return $this->header;
+	}
+	/**
+	 * @param Google_Service_Dns_Policy
+	 */
+	public function setPolicy(Google_Service_Dns_Policy $policy)
+	{
+		$this->policy = $policy;
+	}
+	/**
+	 * @return Google_Service_Dns_Policy
+	 */
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
 }

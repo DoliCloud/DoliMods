@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_ScoringConfig extends Google_Model
 {
-  public $disableFreshness;
-  public $disablePersonalization;
+	public $disableFreshness;
+	public $disablePersonalization;
 
-  public function setDisableFreshness($disableFreshness)
-  {
-    $this->disableFreshness = $disableFreshness;
-  }
-  public function getDisableFreshness()
-  {
-    return $this->disableFreshness;
-  }
-  public function setDisablePersonalization($disablePersonalization)
-  {
-    $this->disablePersonalization = $disablePersonalization;
-  }
-  public function getDisablePersonalization()
-  {
-    return $this->disablePersonalization;
-  }
+	public function setDisableFreshness($disableFreshness)
+	{
+		$this->disableFreshness = $disableFreshness;
+	}
+	public function getDisableFreshness()
+	{
+		return $this->disableFreshness;
+	}
+	public function setDisablePersonalization($disablePersonalization)
+	{
+		$this->disablePersonalization = $disablePersonalization;
+	}
+	public function getDisablePersonalization()
+	{
+		return $this->disablePersonalization;
+	}
 }

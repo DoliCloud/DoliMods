@@ -13,7 +13,7 @@
  *      \ingroup    openstreetmap
  *      \brief      Description and activation file for module OpenStreetMap
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -40,11 +40,11 @@ class modOpenStreetMap extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "interface";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate OpenStreetMap tools in dolibarr";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -55,7 +55,7 @@ class modOpenStreetMap extends DolibarrModules
 		$this->picto='openstreetmap@openstreetmap';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-        $this->module_parts = array('triggers' => 0);
+		$this->module_parts = array('triggers' => 0);
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -75,14 +75,14 @@ class modOpenStreetMap extends DolibarrModules
 		// Constants
 		$this->const = array();			// List of parameters
 
-        // Tabs
-        $this->tabs = array();
+		// Tabs
+		$this->tabs = array();
 		/*$this->tabs = array('thirdparty:+gmaps:Maps:@openstreetmap:$conf->openstreetmap->enabled&&$conf->global->OPENSTREETMAP_ENABLE_MAPS:/openstreetmap/gmaps.php?mode=thirdparty&id=__ID__',
 							'contact:+gmaps:Maps:@openstreetmap:$conf->openstreetmap->enabled&&$conf->global->OPENSTREETMAP_ENABLE_MAPS_CONTACTS:/openstreetmap/gmaps.php?mode=contact&id=__ID__',
 							'member:+gmaps:Maps:@openstreetmap:$conf->openstreetmap->enabled&&$conf->global->OPENSTREETMAP_ENABLE_MAPS_MEMBERS:/openstreetmap/gmaps.php?mode=member&id=__ID__',
 						);*/
 
-        // Boxes
+		// Boxes
 		$this->boxes = array();			// List of boxes
 		$r=0;
 
@@ -144,14 +144,14 @@ class modOpenStreetMap extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
+	function init($options = '')
 	{
 		$sql = array();
 
-		return $this->_init($sql,$options);
+		return $this->_init($sql, $options);
 	}
 
 	/**
@@ -159,14 +159,13 @@ class modOpenStreetMap extends DolibarrModules
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options='')
+	function remove($options = '')
 	{
 		$sql = array();
 
-		return $this->_remove($sql,$options);
+		return $this->_remove($sql, $options);
 	}
-
 }

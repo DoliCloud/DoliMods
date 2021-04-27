@@ -17,22 +17,22 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ExcludeInfoTypes extends Google_Collection
 {
-  protected $collection_key = 'infoTypes';
-  protected $infoTypesType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
-  protected $infoTypesDataType = 'array';
+	protected $collection_key = 'infoTypes';
+	protected $infoTypesType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
+	protected $infoTypesDataType = 'array';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
-   */
-  public function setInfoTypes($infoTypes)
-  {
-    $this->infoTypes = $infoTypes;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
-   */
-  public function getInfoTypes()
-  {
-    return $this->infoTypes;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
+	 */
+	public function setInfoTypes($infoTypes)
+	{
+		$this->infoTypes = $infoTypes;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
+	 */
+	public function getInfoTypes()
+	{
+		return $this->infoTypes;
+	}
 }

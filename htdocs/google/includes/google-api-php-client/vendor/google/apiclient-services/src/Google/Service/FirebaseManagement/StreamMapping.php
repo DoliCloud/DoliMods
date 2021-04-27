@@ -17,32 +17,32 @@
 
 class Google_Service_FirebaseManagement_StreamMapping extends Google_Model
 {
-  public $app;
-  public $measurementId;
-  public $streamId;
+	public $app;
+	public $measurementId;
+	public $streamId;
 
-  public function setApp($app)
-  {
-    $this->app = $app;
-  }
-  public function getApp()
-  {
-    return $this->app;
-  }
-  public function setMeasurementId($measurementId)
-  {
-    $this->measurementId = $measurementId;
-  }
-  public function getMeasurementId()
-  {
-    return $this->measurementId;
-  }
-  public function setStreamId($streamId)
-  {
-    $this->streamId = $streamId;
-  }
-  public function getStreamId()
-  {
-    return $this->streamId;
-  }
+	public function setApp($app)
+	{
+		$this->app = $app;
+	}
+	public function getApp()
+	{
+		return $this->app;
+	}
+	public function setMeasurementId($measurementId)
+	{
+		$this->measurementId = $measurementId;
+	}
+	public function getMeasurementId()
+	{
+		return $this->measurementId;
+	}
+	public function setStreamId($streamId)
+	{
+		$this->streamId = $streamId;
+	}
+	public function getStreamId()
+	{
+		return $this->streamId;
+	}
 }

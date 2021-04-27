@@ -17,50 +17,50 @@
 
 class Google_Service_Testing_TrafficRule extends Google_Model
 {
-  public $bandwidth;
-  public $burst;
-  public $delay;
-  public $packetDuplicationRatio;
-  public $packetLossRatio;
+	public $bandwidth;
+	public $burst;
+	public $delay;
+	public $packetDuplicationRatio;
+	public $packetLossRatio;
 
-  public function setBandwidth($bandwidth)
-  {
-    $this->bandwidth = $bandwidth;
-  }
-  public function getBandwidth()
-  {
-    return $this->bandwidth;
-  }
-  public function setBurst($burst)
-  {
-    $this->burst = $burst;
-  }
-  public function getBurst()
-  {
-    return $this->burst;
-  }
-  public function setDelay($delay)
-  {
-    $this->delay = $delay;
-  }
-  public function getDelay()
-  {
-    return $this->delay;
-  }
-  public function setPacketDuplicationRatio($packetDuplicationRatio)
-  {
-    $this->packetDuplicationRatio = $packetDuplicationRatio;
-  }
-  public function getPacketDuplicationRatio()
-  {
-    return $this->packetDuplicationRatio;
-  }
-  public function setPacketLossRatio($packetLossRatio)
-  {
-    $this->packetLossRatio = $packetLossRatio;
-  }
-  public function getPacketLossRatio()
-  {
-    return $this->packetLossRatio;
-  }
+	public function setBandwidth($bandwidth)
+	{
+		$this->bandwidth = $bandwidth;
+	}
+	public function getBandwidth()
+	{
+		return $this->bandwidth;
+	}
+	public function setBurst($burst)
+	{
+		$this->burst = $burst;
+	}
+	public function getBurst()
+	{
+		return $this->burst;
+	}
+	public function setDelay($delay)
+	{
+		$this->delay = $delay;
+	}
+	public function getDelay()
+	{
+		return $this->delay;
+	}
+	public function setPacketDuplicationRatio($packetDuplicationRatio)
+	{
+		$this->packetDuplicationRatio = $packetDuplicationRatio;
+	}
+	public function getPacketDuplicationRatio()
+	{
+		return $this->packetDuplicationRatio;
+	}
+	public function setPacketLossRatio($packetLossRatio)
+	{
+		$this->packetLossRatio = $packetLossRatio;
+	}
+	public function getPacketLossRatio()
+	{
+		return $this->packetLossRatio;
+	}
 }

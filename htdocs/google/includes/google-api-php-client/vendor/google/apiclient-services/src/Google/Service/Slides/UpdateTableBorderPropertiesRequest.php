@@ -17,64 +17,64 @@
 
 class Google_Service_Slides_UpdateTableBorderPropertiesRequest extends Google_Model
 {
-  public $borderPosition;
-  public $fields;
-  public $objectId;
-  protected $tableBorderPropertiesType = 'Google_Service_Slides_TableBorderProperties';
-  protected $tableBorderPropertiesDataType = '';
-  protected $tableRangeType = 'Google_Service_Slides_TableRange';
-  protected $tableRangeDataType = '';
+	public $borderPosition;
+	public $fields;
+	public $objectId;
+	protected $tableBorderPropertiesType = 'Google_Service_Slides_TableBorderProperties';
+	protected $tableBorderPropertiesDataType = '';
+	protected $tableRangeType = 'Google_Service_Slides_TableRange';
+	protected $tableRangeDataType = '';
 
-  public function setBorderPosition($borderPosition)
-  {
-    $this->borderPosition = $borderPosition;
-  }
-  public function getBorderPosition()
-  {
-    return $this->borderPosition;
-  }
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  /**
-   * @param Google_Service_Slides_TableBorderProperties
-   */
-  public function setTableBorderProperties(Google_Service_Slides_TableBorderProperties $tableBorderProperties)
-  {
-    $this->tableBorderProperties = $tableBorderProperties;
-  }
-  /**
-   * @return Google_Service_Slides_TableBorderProperties
-   */
-  public function getTableBorderProperties()
-  {
-    return $this->tableBorderProperties;
-  }
-  /**
-   * @param Google_Service_Slides_TableRange
-   */
-  public function setTableRange(Google_Service_Slides_TableRange $tableRange)
-  {
-    $this->tableRange = $tableRange;
-  }
-  /**
-   * @return Google_Service_Slides_TableRange
-   */
-  public function getTableRange()
-  {
-    return $this->tableRange;
-  }
+	public function setBorderPosition($borderPosition)
+	{
+		$this->borderPosition = $borderPosition;
+	}
+	public function getBorderPosition()
+	{
+		return $this->borderPosition;
+	}
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	/**
+	 * @param Google_Service_Slides_TableBorderProperties
+	 */
+	public function setTableBorderProperties(Google_Service_Slides_TableBorderProperties $tableBorderProperties)
+	{
+		$this->tableBorderProperties = $tableBorderProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_TableBorderProperties
+	 */
+	public function getTableBorderProperties()
+	{
+		return $this->tableBorderProperties;
+	}
+	/**
+	 * @param Google_Service_Slides_TableRange
+	 */
+	public function setTableRange(Google_Service_Slides_TableRange $tableRange)
+	{
+		$this->tableRange = $tableRange;
+	}
+	/**
+	 * @return Google_Service_Slides_TableRange
+	 */
+	public function getTableRange()
+	{
+		return $this->tableRange;
+	}
 }

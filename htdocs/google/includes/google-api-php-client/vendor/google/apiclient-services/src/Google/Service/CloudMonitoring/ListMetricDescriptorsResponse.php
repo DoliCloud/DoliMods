@@ -17,40 +17,40 @@
 
 class Google_Service_CloudMonitoring_ListMetricDescriptorsResponse extends Google_Collection
 {
-  protected $collection_key = 'metrics';
-  public $kind;
-  protected $metricsType = 'Google_Service_CloudMonitoring_MetricDescriptor';
-  protected $metricsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'metrics';
+	public $kind;
+	protected $metricsType = 'Google_Service_CloudMonitoring_MetricDescriptor';
+	protected $metricsDataType = 'array';
+	public $nextPageToken;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_CloudMonitoring_MetricDescriptor
-   */
-  public function setMetrics($metrics)
-  {
-    $this->metrics = $metrics;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_MetricDescriptor
-   */
-  public function getMetrics()
-  {
-    return $this->metrics;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_CloudMonitoring_MetricDescriptor
+	 */
+	public function setMetrics($metrics)
+	{
+		$this->metrics = $metrics;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_MetricDescriptor
+	 */
+	public function getMetrics()
+	{
+		return $this->metrics;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

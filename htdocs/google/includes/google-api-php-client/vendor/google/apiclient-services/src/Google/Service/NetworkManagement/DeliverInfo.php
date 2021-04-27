@@ -17,23 +17,23 @@
 
 class Google_Service_NetworkManagement_DeliverInfo extends Google_Model
 {
-  public $resourceUri;
-  public $target;
+	public $resourceUri;
+	public $target;
 
-  public function setResourceUri($resourceUri)
-  {
-    $this->resourceUri = $resourceUri;
-  }
-  public function getResourceUri()
-  {
-    return $this->resourceUri;
-  }
-  public function setTarget($target)
-  {
-    $this->target = $target;
-  }
-  public function getTarget()
-  {
-    return $this->target;
-  }
+	public function setResourceUri($resourceUri)
+	{
+		$this->resourceUri = $resourceUri;
+	}
+	public function getResourceUri()
+	{
+		return $this->resourceUri;
+	}
+	public function setTarget($target)
+	{
+		$this->target = $target;
+	}
+	public function getTarget()
+	{
+		return $this->target;
+	}
 }

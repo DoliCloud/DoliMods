@@ -17,37 +17,37 @@
 
 class Google_Service_AdExchangeBuyerII_PlacementTargeting extends Google_Model
 {
-  protected $mobileApplicationTargetingType = 'Google_Service_AdExchangeBuyerII_MobileApplicationTargeting';
-  protected $mobileApplicationTargetingDataType = '';
-  protected $urlTargetingType = 'Google_Service_AdExchangeBuyerII_UrlTargeting';
-  protected $urlTargetingDataType = '';
+	protected $mobileApplicationTargetingType = 'Google_Service_AdExchangeBuyerII_MobileApplicationTargeting';
+	protected $mobileApplicationTargetingDataType = '';
+	protected $urlTargetingType = 'Google_Service_AdExchangeBuyerII_UrlTargeting';
+	protected $urlTargetingDataType = '';
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_MobileApplicationTargeting
-   */
-  public function setMobileApplicationTargeting(Google_Service_AdExchangeBuyerII_MobileApplicationTargeting $mobileApplicationTargeting)
-  {
-    $this->mobileApplicationTargeting = $mobileApplicationTargeting;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_MobileApplicationTargeting
-   */
-  public function getMobileApplicationTargeting()
-  {
-    return $this->mobileApplicationTargeting;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_UrlTargeting
-   */
-  public function setUrlTargeting(Google_Service_AdExchangeBuyerII_UrlTargeting $urlTargeting)
-  {
-    $this->urlTargeting = $urlTargeting;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_UrlTargeting
-   */
-  public function getUrlTargeting()
-  {
-    return $this->urlTargeting;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_MobileApplicationTargeting
+	 */
+	public function setMobileApplicationTargeting(Google_Service_AdExchangeBuyerII_MobileApplicationTargeting $mobileApplicationTargeting)
+	{
+		$this->mobileApplicationTargeting = $mobileApplicationTargeting;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_MobileApplicationTargeting
+	 */
+	public function getMobileApplicationTargeting()
+	{
+		return $this->mobileApplicationTargeting;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_UrlTargeting
+	 */
+	public function setUrlTargeting(Google_Service_AdExchangeBuyerII_UrlTargeting $urlTargeting)
+	{
+		$this->urlTargeting = $urlTargeting;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_UrlTargeting
+	 */
+	public function getUrlTargeting()
+	{
+		return $this->urlTargeting;
+	}
 }

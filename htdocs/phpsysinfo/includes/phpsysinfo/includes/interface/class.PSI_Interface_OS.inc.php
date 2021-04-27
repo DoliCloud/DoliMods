@@ -27,24 +27,24 @@
  */
 interface PSI_Interface_OS
 {
-    /**
-     * get a special encoding from os where phpsysinfo is running
-     *
-     * @return string
-     */
-    public function getEncoding();
+	/**
+	 * get a special encoding from os where phpsysinfo is running
+	 *
+	 * @return string
+	 */
+	public function getEncoding();
 
-    /**
-     * build the os information
-     *
-     * @return void
-     */
-    public function build();
+	/**
+	 * build the os information
+	 *
+	 * @return void
+	 */
+	public function build();
 
-    /**
-     * get the filled or unfilled (with default values) system object
-     *
-     * @return System
-     */
-    public function getSys();
+	/**
+	 * get the filled or unfilled (with default values) system object
+	 *
+	 * @return System
+	 */
+	public function getSys();
 }

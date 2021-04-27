@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams extends Google_Model
 {
-  public $name;
-  public $ssmlGender;
+	public $name;
+	public $ssmlGender;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSsmlGender($ssmlGender)
-  {
-    $this->ssmlGender = $ssmlGender;
-  }
-  public function getSsmlGender()
-  {
-    return $this->ssmlGender;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSsmlGender($ssmlGender)
+	{
+		$this->ssmlGender = $ssmlGender;
+	}
+	public function getSsmlGender()
+	{
+		return $this->ssmlGender;
+	}
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_Datastore_Projection extends Google_Model
 {
-  protected $propertyType = 'Google_Service_Datastore_PropertyReference';
-  protected $propertyDataType = '';
+	protected $propertyType = 'Google_Service_Datastore_PropertyReference';
+	protected $propertyDataType = '';
 
-  /**
-   * @param Google_Service_Datastore_PropertyReference
-   */
-  public function setProperty(Google_Service_Datastore_PropertyReference $property)
-  {
-    $this->property = $property;
-  }
-  /**
-   * @return Google_Service_Datastore_PropertyReference
-   */
-  public function getProperty()
-  {
-    return $this->property;
-  }
+	/**
+	 * @param Google_Service_Datastore_PropertyReference
+	 */
+	public function setProperty(Google_Service_Datastore_PropertyReference $property)
+	{
+		$this->property = $property;
+	}
+	/**
+	 * @return Google_Service_Datastore_PropertyReference
+	 */
+	public function getProperty()
+	{
+		return $this->property;
+	}
 }

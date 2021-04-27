@@ -17,93 +17,93 @@
 
 class Google_Service_Compute_BackendBucket extends Google_Model
 {
-  public $bucketName;
-  protected $cdnPolicyType = 'Google_Service_Compute_BackendBucketCdnPolicy';
-  protected $cdnPolicyDataType = '';
-  public $creationTimestamp;
-  public $description;
-  public $enableCdn;
-  public $id;
-  public $kind;
-  public $name;
-  public $selfLink;
+	public $bucketName;
+	protected $cdnPolicyType = 'Google_Service_Compute_BackendBucketCdnPolicy';
+	protected $cdnPolicyDataType = '';
+	public $creationTimestamp;
+	public $description;
+	public $enableCdn;
+	public $id;
+	public $kind;
+	public $name;
+	public $selfLink;
 
-  public function setBucketName($bucketName)
-  {
-    $this->bucketName = $bucketName;
-  }
-  public function getBucketName()
-  {
-    return $this->bucketName;
-  }
-  /**
-   * @param Google_Service_Compute_BackendBucketCdnPolicy
-   */
-  public function setCdnPolicy(Google_Service_Compute_BackendBucketCdnPolicy $cdnPolicy)
-  {
-    $this->cdnPolicy = $cdnPolicy;
-  }
-  /**
-   * @return Google_Service_Compute_BackendBucketCdnPolicy
-   */
-  public function getCdnPolicy()
-  {
-    return $this->cdnPolicy;
-  }
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setEnableCdn($enableCdn)
-  {
-    $this->enableCdn = $enableCdn;
-  }
-  public function getEnableCdn()
-  {
-    return $this->enableCdn;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
+	public function setBucketName($bucketName)
+	{
+		$this->bucketName = $bucketName;
+	}
+	public function getBucketName()
+	{
+		return $this->bucketName;
+	}
+	/**
+	 * @param Google_Service_Compute_BackendBucketCdnPolicy
+	 */
+	public function setCdnPolicy(Google_Service_Compute_BackendBucketCdnPolicy $cdnPolicy)
+	{
+		$this->cdnPolicy = $cdnPolicy;
+	}
+	/**
+	 * @return Google_Service_Compute_BackendBucketCdnPolicy
+	 */
+	public function getCdnPolicy()
+	{
+		return $this->cdnPolicy;
+	}
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setEnableCdn($enableCdn)
+	{
+		$this->enableCdn = $enableCdn;
+	}
+	public function getEnableCdn()
+	{
+		return $this->enableCdn;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
 }

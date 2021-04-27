@@ -17,85 +17,85 @@
 
 class Google_Service_Fitness_DataPoint extends Google_Collection
 {
-  protected $collection_key = 'value';
-  public $computationTimeMillis;
-  public $dataTypeName;
-  public $endTimeNanos;
-  public $modifiedTimeMillis;
-  public $originDataSourceId;
-  public $rawTimestampNanos;
-  public $startTimeNanos;
-  protected $valueType = 'Google_Service_Fitness_Value';
-  protected $valueDataType = 'array';
+	protected $collection_key = 'value';
+	public $computationTimeMillis;
+	public $dataTypeName;
+	public $endTimeNanos;
+	public $modifiedTimeMillis;
+	public $originDataSourceId;
+	public $rawTimestampNanos;
+	public $startTimeNanos;
+	protected $valueType = 'Google_Service_Fitness_Value';
+	protected $valueDataType = 'array';
 
-  public function setComputationTimeMillis($computationTimeMillis)
-  {
-    $this->computationTimeMillis = $computationTimeMillis;
-  }
-  public function getComputationTimeMillis()
-  {
-    return $this->computationTimeMillis;
-  }
-  public function setDataTypeName($dataTypeName)
-  {
-    $this->dataTypeName = $dataTypeName;
-  }
-  public function getDataTypeName()
-  {
-    return $this->dataTypeName;
-  }
-  public function setEndTimeNanos($endTimeNanos)
-  {
-    $this->endTimeNanos = $endTimeNanos;
-  }
-  public function getEndTimeNanos()
-  {
-    return $this->endTimeNanos;
-  }
-  public function setModifiedTimeMillis($modifiedTimeMillis)
-  {
-    $this->modifiedTimeMillis = $modifiedTimeMillis;
-  }
-  public function getModifiedTimeMillis()
-  {
-    return $this->modifiedTimeMillis;
-  }
-  public function setOriginDataSourceId($originDataSourceId)
-  {
-    $this->originDataSourceId = $originDataSourceId;
-  }
-  public function getOriginDataSourceId()
-  {
-    return $this->originDataSourceId;
-  }
-  public function setRawTimestampNanos($rawTimestampNanos)
-  {
-    $this->rawTimestampNanos = $rawTimestampNanos;
-  }
-  public function getRawTimestampNanos()
-  {
-    return $this->rawTimestampNanos;
-  }
-  public function setStartTimeNanos($startTimeNanos)
-  {
-    $this->startTimeNanos = $startTimeNanos;
-  }
-  public function getStartTimeNanos()
-  {
-    return $this->startTimeNanos;
-  }
-  /**
-   * @param Google_Service_Fitness_Value
-   */
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  /**
-   * @return Google_Service_Fitness_Value
-   */
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setComputationTimeMillis($computationTimeMillis)
+	{
+		$this->computationTimeMillis = $computationTimeMillis;
+	}
+	public function getComputationTimeMillis()
+	{
+		return $this->computationTimeMillis;
+	}
+	public function setDataTypeName($dataTypeName)
+	{
+		$this->dataTypeName = $dataTypeName;
+	}
+	public function getDataTypeName()
+	{
+		return $this->dataTypeName;
+	}
+	public function setEndTimeNanos($endTimeNanos)
+	{
+		$this->endTimeNanos = $endTimeNanos;
+	}
+	public function getEndTimeNanos()
+	{
+		return $this->endTimeNanos;
+	}
+	public function setModifiedTimeMillis($modifiedTimeMillis)
+	{
+		$this->modifiedTimeMillis = $modifiedTimeMillis;
+	}
+	public function getModifiedTimeMillis()
+	{
+		return $this->modifiedTimeMillis;
+	}
+	public function setOriginDataSourceId($originDataSourceId)
+	{
+		$this->originDataSourceId = $originDataSourceId;
+	}
+	public function getOriginDataSourceId()
+	{
+		return $this->originDataSourceId;
+	}
+	public function setRawTimestampNanos($rawTimestampNanos)
+	{
+		$this->rawTimestampNanos = $rawTimestampNanos;
+	}
+	public function getRawTimestampNanos()
+	{
+		return $this->rawTimestampNanos;
+	}
+	public function setStartTimeNanos($startTimeNanos)
+	{
+		$this->startTimeNanos = $startTimeNanos;
+	}
+	public function getStartTimeNanos()
+	{
+		return $this->startTimeNanos;
+	}
+	/**
+	 * @param Google_Service_Fitness_Value
+	 */
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	/**
+	 * @return Google_Service_Fitness_Value
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

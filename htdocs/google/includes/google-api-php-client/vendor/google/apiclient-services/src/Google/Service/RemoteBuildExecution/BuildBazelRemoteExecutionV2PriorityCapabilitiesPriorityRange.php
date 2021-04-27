@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilitiesPriorityRange extends Google_Model
 {
-  public $maxPriority;
-  public $minPriority;
+	public $maxPriority;
+	public $minPriority;
 
-  public function setMaxPriority($maxPriority)
-  {
-    $this->maxPriority = $maxPriority;
-  }
-  public function getMaxPriority()
-  {
-    return $this->maxPriority;
-  }
-  public function setMinPriority($minPriority)
-  {
-    $this->minPriority = $minPriority;
-  }
-  public function getMinPriority()
-  {
-    return $this->minPriority;
-  }
+	public function setMaxPriority($maxPriority)
+	{
+		$this->maxPriority = $maxPriority;
+	}
+	public function getMaxPriority()
+	{
+		return $this->maxPriority;
+	}
+	public function setMinPriority($minPriority)
+	{
+		$this->minPriority = $minPriority;
+	}
+	public function getMinPriority()
+	{
+		return $this->minPriority;
+	}
 }

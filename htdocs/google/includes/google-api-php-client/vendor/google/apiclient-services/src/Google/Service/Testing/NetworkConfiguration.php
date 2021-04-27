@@ -17,46 +17,46 @@
 
 class Google_Service_Testing_NetworkConfiguration extends Google_Model
 {
-  protected $downRuleType = 'Google_Service_Testing_TrafficRule';
-  protected $downRuleDataType = '';
-  public $id;
-  protected $upRuleType = 'Google_Service_Testing_TrafficRule';
-  protected $upRuleDataType = '';
+	protected $downRuleType = 'Google_Service_Testing_TrafficRule';
+	protected $downRuleDataType = '';
+	public $id;
+	protected $upRuleType = 'Google_Service_Testing_TrafficRule';
+	protected $upRuleDataType = '';
 
-  /**
-   * @param Google_Service_Testing_TrafficRule
-   */
-  public function setDownRule(Google_Service_Testing_TrafficRule $downRule)
-  {
-    $this->downRule = $downRule;
-  }
-  /**
-   * @return Google_Service_Testing_TrafficRule
-   */
-  public function getDownRule()
-  {
-    return $this->downRule;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_Testing_TrafficRule
-   */
-  public function setUpRule(Google_Service_Testing_TrafficRule $upRule)
-  {
-    $this->upRule = $upRule;
-  }
-  /**
-   * @return Google_Service_Testing_TrafficRule
-   */
-  public function getUpRule()
-  {
-    return $this->upRule;
-  }
+	/**
+	 * @param Google_Service_Testing_TrafficRule
+	 */
+	public function setDownRule(Google_Service_Testing_TrafficRule $downRule)
+	{
+		$this->downRule = $downRule;
+	}
+	/**
+	 * @return Google_Service_Testing_TrafficRule
+	 */
+	public function getDownRule()
+	{
+		return $this->downRule;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_Testing_TrafficRule
+	 */
+	public function setUpRule(Google_Service_Testing_TrafficRule $upRule)
+	{
+		$this->upRule = $upRule;
+	}
+	/**
+	 * @return Google_Service_Testing_TrafficRule
+	 */
+	public function getUpRule()
+	{
+		return $this->upRule;
+	}
 }

@@ -17,94 +17,94 @@
 
 class Google_Service_Compute_LicenseCode extends Google_Collection
 {
-  protected $collection_key = 'licenseAlias';
-  public $creationTimestamp;
-  public $description;
-  public $id;
-  public $kind;
-  protected $licenseAliasType = 'Google_Service_Compute_LicenseCodeLicenseAlias';
-  protected $licenseAliasDataType = 'array';
-  public $name;
-  public $selfLink;
-  public $state;
-  public $transferable;
+	protected $collection_key = 'licenseAlias';
+	public $creationTimestamp;
+	public $description;
+	public $id;
+	public $kind;
+	protected $licenseAliasType = 'Google_Service_Compute_LicenseCodeLicenseAlias';
+	protected $licenseAliasDataType = 'array';
+	public $name;
+	public $selfLink;
+	public $state;
+	public $transferable;
 
-  public function setCreationTimestamp($creationTimestamp)
-  {
-    $this->creationTimestamp = $creationTimestamp;
-  }
-  public function getCreationTimestamp()
-  {
-    return $this->creationTimestamp;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Compute_LicenseCodeLicenseAlias
-   */
-  public function setLicenseAlias($licenseAlias)
-  {
-    $this->licenseAlias = $licenseAlias;
-  }
-  /**
-   * @return Google_Service_Compute_LicenseCodeLicenseAlias
-   */
-  public function getLicenseAlias()
-  {
-    return $this->licenseAlias;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setTransferable($transferable)
-  {
-    $this->transferable = $transferable;
-  }
-  public function getTransferable()
-  {
-    return $this->transferable;
-  }
+	public function setCreationTimestamp($creationTimestamp)
+	{
+		$this->creationTimestamp = $creationTimestamp;
+	}
+	public function getCreationTimestamp()
+	{
+		return $this->creationTimestamp;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Compute_LicenseCodeLicenseAlias
+	 */
+	public function setLicenseAlias($licenseAlias)
+	{
+		$this->licenseAlias = $licenseAlias;
+	}
+	/**
+	 * @return Google_Service_Compute_LicenseCodeLicenseAlias
+	 */
+	public function getLicenseAlias()
+	{
+		return $this->licenseAlias;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setTransferable($transferable)
+	{
+		$this->transferable = $transferable;
+	}
+	public function getTransferable()
+	{
+		return $this->transferable;
+	}
 }

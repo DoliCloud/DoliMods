@@ -25,46 +25,46 @@
  */
 class Google_Service_Groupssettings_Resource_Groups extends Google_Service_Resource
 {
-  /**
-   * Gets one resource by id. (groups.get)
-   *
-   * @param string $groupUniqueId The group's email address.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Groupssettings_Groups
-   */
-  public function get($groupUniqueId, $optParams = array())
-  {
-    $params = array('groupUniqueId' => $groupUniqueId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Groupssettings_Groups");
-  }
-  /**
-   * Updates an existing resource. This method supports patch semantics.
-   * (groups.patch)
-   *
-   * @param string $groupUniqueId The group's email address.
-   * @param Google_Service_Groupssettings_Groups $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Groupssettings_Groups
-   */
-  public function patch($groupUniqueId, Google_Service_Groupssettings_Groups $postBody, $optParams = array())
-  {
-    $params = array('groupUniqueId' => $groupUniqueId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_Groupssettings_Groups");
-  }
-  /**
-   * Updates an existing resource. (groups.update)
-   *
-   * @param string $groupUniqueId The group's email address.
-   * @param Google_Service_Groupssettings_Groups $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Groupssettings_Groups
-   */
-  public function update($groupUniqueId, Google_Service_Groupssettings_Groups $postBody, $optParams = array())
-  {
-    $params = array('groupUniqueId' => $groupUniqueId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_Groupssettings_Groups");
-  }
+	/**
+	 * Gets one resource by id. (groups.get)
+	 *
+	 * @param string $groupUniqueId The group's email address.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Groupssettings_Groups
+	 */
+	public function get($groupUniqueId, $optParams = array())
+	{
+		$params = array('groupUniqueId' => $groupUniqueId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Groupssettings_Groups");
+	}
+	/**
+	 * Updates an existing resource. This method supports patch semantics.
+	 * (groups.patch)
+	 *
+	 * @param string $groupUniqueId The group's email address.
+	 * @param Google_Service_Groupssettings_Groups $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Groupssettings_Groups
+	 */
+	public function patch($groupUniqueId, Google_Service_Groupssettings_Groups $postBody, $optParams = array())
+	{
+		$params = array('groupUniqueId' => $groupUniqueId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('patch', array($params), "Google_Service_Groupssettings_Groups");
+	}
+	/**
+	 * Updates an existing resource. (groups.update)
+	 *
+	 * @param string $groupUniqueId The group's email address.
+	 * @param Google_Service_Groupssettings_Groups $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Groupssettings_Groups
+	 */
+	public function update($groupUniqueId, Google_Service_Groupssettings_Groups $postBody, $optParams = array())
+	{
+		$params = array('groupUniqueId' => $groupUniqueId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('update', array($params), "Google_Service_Groupssettings_Groups");
+	}
 }

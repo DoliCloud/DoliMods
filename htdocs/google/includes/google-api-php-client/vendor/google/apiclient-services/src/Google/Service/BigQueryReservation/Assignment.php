@@ -17,41 +17,41 @@
 
 class Google_Service_BigQueryReservation_Assignment extends Google_Model
 {
-  public $assignee;
-  public $jobType;
-  public $name;
-  public $state;
+	public $assignee;
+	public $jobType;
+	public $name;
+	public $state;
 
-  public function setAssignee($assignee)
-  {
-    $this->assignee = $assignee;
-  }
-  public function getAssignee()
-  {
-    return $this->assignee;
-  }
-  public function setJobType($jobType)
-  {
-    $this->jobType = $jobType;
-  }
-  public function getJobType()
-  {
-    return $this->jobType;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	public function setAssignee($assignee)
+	{
+		$this->assignee = $assignee;
+	}
+	public function getAssignee()
+	{
+		return $this->assignee;
+	}
+	public function setJobType($jobType)
+	{
+		$this->jobType = $jobType;
+	}
+	public function getJobType()
+	{
+		return $this->jobType;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

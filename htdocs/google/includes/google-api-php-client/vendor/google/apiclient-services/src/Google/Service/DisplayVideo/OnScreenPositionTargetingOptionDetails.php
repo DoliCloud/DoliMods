@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_OnScreenPositionTargetingOptionDetails extends Google_Model
 {
-  public $onScreenPosition;
+	public $onScreenPosition;
 
-  public function setOnScreenPosition($onScreenPosition)
-  {
-    $this->onScreenPosition = $onScreenPosition;
-  }
-  public function getOnScreenPosition()
-  {
-    return $this->onScreenPosition;
-  }
+	public function setOnScreenPosition($onScreenPosition)
+	{
+		$this->onScreenPosition = $onScreenPosition;
+	}
+	public function getOnScreenPosition()
+	{
+		return $this->onScreenPosition;
+	}
 }

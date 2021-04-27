@@ -1,10 +1,10 @@
 <?php
-include("./pre.inc.php");
-require_once("funcsv2.php");
+include "./pre.inc.php";
+require_once "funcsv2.php";
 
 $tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
-llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
+llxHeader('', 'BitTorrent', $website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
@@ -12,18 +12,15 @@ $form=new Form($db);
 
 <form action="<?php echo $_SERVER["PHP_SELF"];?>"  method="POST">
 <?php
-require_once("funcsv2.php");
+require_once "funcsv2.php";
 
 // check database user
-if (isset($dbuser) && isset($dbpass))
-{
+if (isset($dbuser) && isset($dbpass)) {
 	$db = mysql_connect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Cannot connect to database. Check your username and password in the config file.</p>");
 	mysql_select_db($database) or die(errorMessage() . "Error selecting database.</p>");
 
-	foreach ($_POST as $left => $right)
-	{
-		if (strlen($left) == 41)
-		{
+	foreach ($_POST as $left => $right) {
+		if (strlen($left) == 41) {
 			if (!is_numeric($right) || !verifyHash(substr($left, 1)))
 				continue;
 			$hash = substr($left, 1);
@@ -44,12 +41,10 @@ if (isset($dbuser) && isset($dbpass))
 			@mysql_query("OPTIMIZE TABLE " . $prefix . "namemap");
 			@mysql_query("OPTIMIZE TABLE " . $prefix . "timestamps");
 			//run RSS generator
-			require_once("rss_generator.php");
+			require_once "rss_generator.php";
 		}
 	}
-}
-else
-{
+} else {
 	$db = mysql_connect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - " . mysql_error() . "</p>");
 	mysql_select_db($database) or die(errorMessage() . "Tracker error: can't open database $database - " . mysql_error() . "</p>");
 	$GLOBALS["maydelete"] = false;
@@ -105,4 +100,3 @@ while ($data = mysql_fetch_row($results)) {
 <?php
 llxFooter();
 ?>
-

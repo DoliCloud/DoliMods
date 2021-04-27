@@ -17,41 +17,41 @@
 
 class Google_Service_ServiceNetworking_Route extends Google_Model
 {
-  public $destRange;
-  public $name;
-  public $network;
-  public $nextHopGateway;
+	public $destRange;
+	public $name;
+	public $network;
+	public $nextHopGateway;
 
-  public function setDestRange($destRange)
-  {
-    $this->destRange = $destRange;
-  }
-  public function getDestRange()
-  {
-    return $this->destRange;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setNetwork($network)
-  {
-    $this->network = $network;
-  }
-  public function getNetwork()
-  {
-    return $this->network;
-  }
-  public function setNextHopGateway($nextHopGateway)
-  {
-    $this->nextHopGateway = $nextHopGateway;
-  }
-  public function getNextHopGateway()
-  {
-    return $this->nextHopGateway;
-  }
+	public function setDestRange($destRange)
+	{
+		$this->destRange = $destRange;
+	}
+	public function getDestRange()
+	{
+		return $this->destRange;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setNetwork($network)
+	{
+		$this->network = $network;
+	}
+	public function getNetwork()
+	{
+		return $this->network;
+	}
+	public function setNextHopGateway($nextHopGateway)
+	{
+		$this->nextHopGateway = $nextHopGateway;
+	}
+	public function getNextHopGateway()
+	{
+		return $this->nextHopGateway;
+	}
 }

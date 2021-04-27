@@ -17,31 +17,31 @@
 
 class Google_Service_Classroom_ListStudentsResponse extends Google_Collection
 {
-  protected $collection_key = 'students';
-  public $nextPageToken;
-  protected $studentsType = 'Google_Service_Classroom_Student';
-  protected $studentsDataType = 'array';
+	protected $collection_key = 'students';
+	public $nextPageToken;
+	protected $studentsType = 'Google_Service_Classroom_Student';
+	protected $studentsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Classroom_Student
-   */
-  public function setStudents($students)
-  {
-    $this->students = $students;
-  }
-  /**
-   * @return Google_Service_Classroom_Student
-   */
-  public function getStudents()
-  {
-    return $this->students;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Classroom_Student
+	 */
+	public function setStudents($students)
+	{
+		$this->students = $students;
+	}
+	/**
+	 * @return Google_Service_Classroom_Student
+	 */
+	public function getStudents()
+	{
+		return $this->students;
+	}
 }

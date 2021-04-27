@@ -17,23 +17,23 @@
 
 class Google_Service_Vault_HeldOrgUnit extends Google_Model
 {
-  public $holdTime;
-  public $orgUnitId;
+	public $holdTime;
+	public $orgUnitId;
 
-  public function setHoldTime($holdTime)
-  {
-    $this->holdTime = $holdTime;
-  }
-  public function getHoldTime()
-  {
-    return $this->holdTime;
-  }
-  public function setOrgUnitId($orgUnitId)
-  {
-    $this->orgUnitId = $orgUnitId;
-  }
-  public function getOrgUnitId()
-  {
-    return $this->orgUnitId;
-  }
+	public function setHoldTime($holdTime)
+	{
+		$this->holdTime = $holdTime;
+	}
+	public function getHoldTime()
+	{
+		return $this->holdTime;
+	}
+	public function setOrgUnitId($orgUnitId)
+	{
+		$this->orgUnitId = $orgUnitId;
+	}
+	public function getOrgUnitId()
+	{
+		return $this->orgUnitId;
+	}
 }

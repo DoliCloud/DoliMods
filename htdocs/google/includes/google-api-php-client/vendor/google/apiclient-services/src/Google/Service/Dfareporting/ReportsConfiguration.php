@@ -17,39 +17,39 @@
 
 class Google_Service_Dfareporting_ReportsConfiguration extends Google_Model
 {
-  public $exposureToConversionEnabled;
-  protected $lookbackConfigurationType = 'Google_Service_Dfareporting_LookbackConfiguration';
-  protected $lookbackConfigurationDataType = '';
-  public $reportGenerationTimeZoneId;
+	public $exposureToConversionEnabled;
+	protected $lookbackConfigurationType = 'Google_Service_Dfareporting_LookbackConfiguration';
+	protected $lookbackConfigurationDataType = '';
+	public $reportGenerationTimeZoneId;
 
-  public function setExposureToConversionEnabled($exposureToConversionEnabled)
-  {
-    $this->exposureToConversionEnabled = $exposureToConversionEnabled;
-  }
-  public function getExposureToConversionEnabled()
-  {
-    return $this->exposureToConversionEnabled;
-  }
-  /**
-   * @param Google_Service_Dfareporting_LookbackConfiguration
-   */
-  public function setLookbackConfiguration(Google_Service_Dfareporting_LookbackConfiguration $lookbackConfiguration)
-  {
-    $this->lookbackConfiguration = $lookbackConfiguration;
-  }
-  /**
-   * @return Google_Service_Dfareporting_LookbackConfiguration
-   */
-  public function getLookbackConfiguration()
-  {
-    return $this->lookbackConfiguration;
-  }
-  public function setReportGenerationTimeZoneId($reportGenerationTimeZoneId)
-  {
-    $this->reportGenerationTimeZoneId = $reportGenerationTimeZoneId;
-  }
-  public function getReportGenerationTimeZoneId()
-  {
-    return $this->reportGenerationTimeZoneId;
-  }
+	public function setExposureToConversionEnabled($exposureToConversionEnabled)
+	{
+		$this->exposureToConversionEnabled = $exposureToConversionEnabled;
+	}
+	public function getExposureToConversionEnabled()
+	{
+		return $this->exposureToConversionEnabled;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_LookbackConfiguration
+	 */
+	public function setLookbackConfiguration(Google_Service_Dfareporting_LookbackConfiguration $lookbackConfiguration)
+	{
+		$this->lookbackConfiguration = $lookbackConfiguration;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_LookbackConfiguration
+	 */
+	public function getLookbackConfiguration()
+	{
+		return $this->lookbackConfiguration;
+	}
+	public function setReportGenerationTimeZoneId($reportGenerationTimeZoneId)
+	{
+		$this->reportGenerationTimeZoneId = $reportGenerationTimeZoneId;
+	}
+	public function getReportGenerationTimeZoneId()
+	{
+		return $this->reportGenerationTimeZoneId;
+	}
 }

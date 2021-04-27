@@ -17,40 +17,40 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ReportInstanceStatusRequest extends Google_Collection
 {
-  protected $collection_key = 'resources';
-  public $instanceUid;
-  public $reportTime;
-  protected $resourcesType = 'Google_Service_Apigee_GoogleCloudApigeeV1ResourceStatus';
-  protected $resourcesDataType = 'array';
+	protected $collection_key = 'resources';
+	public $instanceUid;
+	public $reportTime;
+	protected $resourcesType = 'Google_Service_Apigee_GoogleCloudApigeeV1ResourceStatus';
+	protected $resourcesDataType = 'array';
 
-  public function setInstanceUid($instanceUid)
-  {
-    $this->instanceUid = $instanceUid;
-  }
-  public function getInstanceUid()
-  {
-    return $this->instanceUid;
-  }
-  public function setReportTime($reportTime)
-  {
-    $this->reportTime = $reportTime;
-  }
-  public function getReportTime()
-  {
-    return $this->reportTime;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1ResourceStatus
-   */
-  public function setResources($resources)
-  {
-    $this->resources = $resources;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1ResourceStatus
-   */
-  public function getResources()
-  {
-    return $this->resources;
-  }
+	public function setInstanceUid($instanceUid)
+	{
+		$this->instanceUid = $instanceUid;
+	}
+	public function getInstanceUid()
+	{
+		return $this->instanceUid;
+	}
+	public function setReportTime($reportTime)
+	{
+		$this->reportTime = $reportTime;
+	}
+	public function getReportTime()
+	{
+		return $this->reportTime;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1ResourceStatus
+	 */
+	public function setResources($resources)
+	{
+		$this->resources = $resources;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ResourceStatus
+	 */
+	public function getResources()
+	{
+		return $this->resources;
+	}
 }

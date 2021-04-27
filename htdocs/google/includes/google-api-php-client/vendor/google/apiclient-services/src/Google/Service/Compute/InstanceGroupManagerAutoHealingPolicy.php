@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_InstanceGroupManagerAutoHealingPolicy extends Google_Model
 {
-  public $healthCheck;
-  public $initialDelaySec;
+	public $healthCheck;
+	public $initialDelaySec;
 
-  public function setHealthCheck($healthCheck)
-  {
-    $this->healthCheck = $healthCheck;
-  }
-  public function getHealthCheck()
-  {
-    return $this->healthCheck;
-  }
-  public function setInitialDelaySec($initialDelaySec)
-  {
-    $this->initialDelaySec = $initialDelaySec;
-  }
-  public function getInitialDelaySec()
-  {
-    return $this->initialDelaySec;
-  }
+	public function setHealthCheck($healthCheck)
+	{
+		$this->healthCheck = $healthCheck;
+	}
+	public function getHealthCheck()
+	{
+		return $this->healthCheck;
+	}
+	public function setInitialDelaySec($initialDelaySec)
+	{
+		$this->initialDelaySec = $initialDelaySec;
+	}
+	public function getInitialDelaySec()
+	{
+		return $this->initialDelaySec;
+	}
 }

@@ -17,57 +17,57 @@
 
 class Google_Service_SQLAdmin_CloneContext extends Google_Model
 {
-  protected $binLogCoordinatesType = 'Google_Service_SQLAdmin_BinLogCoordinates';
-  protected $binLogCoordinatesDataType = '';
-  public $destinationInstanceName;
-  public $kind;
-  public $pitrTimestampMs;
-  public $pointInTime;
+	protected $binLogCoordinatesType = 'Google_Service_SQLAdmin_BinLogCoordinates';
+	protected $binLogCoordinatesDataType = '';
+	public $destinationInstanceName;
+	public $kind;
+	public $pitrTimestampMs;
+	public $pointInTime;
 
-  /**
-   * @param Google_Service_SQLAdmin_BinLogCoordinates
-   */
-  public function setBinLogCoordinates(Google_Service_SQLAdmin_BinLogCoordinates $binLogCoordinates)
-  {
-    $this->binLogCoordinates = $binLogCoordinates;
-  }
-  /**
-   * @return Google_Service_SQLAdmin_BinLogCoordinates
-   */
-  public function getBinLogCoordinates()
-  {
-    return $this->binLogCoordinates;
-  }
-  public function setDestinationInstanceName($destinationInstanceName)
-  {
-    $this->destinationInstanceName = $destinationInstanceName;
-  }
-  public function getDestinationInstanceName()
-  {
-    return $this->destinationInstanceName;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setPitrTimestampMs($pitrTimestampMs)
-  {
-    $this->pitrTimestampMs = $pitrTimestampMs;
-  }
-  public function getPitrTimestampMs()
-  {
-    return $this->pitrTimestampMs;
-  }
-  public function setPointInTime($pointInTime)
-  {
-    $this->pointInTime = $pointInTime;
-  }
-  public function getPointInTime()
-  {
-    return $this->pointInTime;
-  }
+	/**
+	 * @param Google_Service_SQLAdmin_BinLogCoordinates
+	 */
+	public function setBinLogCoordinates(Google_Service_SQLAdmin_BinLogCoordinates $binLogCoordinates)
+	{
+		$this->binLogCoordinates = $binLogCoordinates;
+	}
+	/**
+	 * @return Google_Service_SQLAdmin_BinLogCoordinates
+	 */
+	public function getBinLogCoordinates()
+	{
+		return $this->binLogCoordinates;
+	}
+	public function setDestinationInstanceName($destinationInstanceName)
+	{
+		$this->destinationInstanceName = $destinationInstanceName;
+	}
+	public function getDestinationInstanceName()
+	{
+		return $this->destinationInstanceName;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setPitrTimestampMs($pitrTimestampMs)
+	{
+		$this->pitrTimestampMs = $pitrTimestampMs;
+	}
+	public function getPitrTimestampMs()
+	{
+		return $this->pitrTimestampMs;
+	}
+	public function setPointInTime($pointInTime)
+	{
+		$this->pointInTime = $pointInTime;
+	}
+	public function getPointInTime()
+	{
+		return $this->pointInTime;
+	}
 }

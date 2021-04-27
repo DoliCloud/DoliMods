@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListCreativesResponse extends Google_Collection
 {
-  protected $collection_key = 'creatives';
-  protected $creativesType = 'Google_Service_DisplayVideo_Creative';
-  protected $creativesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'creatives';
+	protected $creativesType = 'Google_Service_DisplayVideo_Creative';
+	protected $creativesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_Creative
-   */
-  public function setCreatives($creatives)
-  {
-    $this->creatives = $creatives;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_Creative
-   */
-  public function getCreatives()
-  {
-    return $this->creatives;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_Creative
+	 */
+	public function setCreatives($creatives)
+	{
+		$this->creatives = $creatives;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_Creative
+	 */
+	public function getCreatives()
+	{
+		return $this->creatives;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

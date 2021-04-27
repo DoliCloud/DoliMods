@@ -17,32 +17,32 @@
 
 class Google_Service_Dataproc_DiskConfig extends Google_Model
 {
-  public $bootDiskSizeGb;
-  public $bootDiskType;
-  public $numLocalSsds;
+	public $bootDiskSizeGb;
+	public $bootDiskType;
+	public $numLocalSsds;
 
-  public function setBootDiskSizeGb($bootDiskSizeGb)
-  {
-    $this->bootDiskSizeGb = $bootDiskSizeGb;
-  }
-  public function getBootDiskSizeGb()
-  {
-    return $this->bootDiskSizeGb;
-  }
-  public function setBootDiskType($bootDiskType)
-  {
-    $this->bootDiskType = $bootDiskType;
-  }
-  public function getBootDiskType()
-  {
-    return $this->bootDiskType;
-  }
-  public function setNumLocalSsds($numLocalSsds)
-  {
-    $this->numLocalSsds = $numLocalSsds;
-  }
-  public function getNumLocalSsds()
-  {
-    return $this->numLocalSsds;
-  }
+	public function setBootDiskSizeGb($bootDiskSizeGb)
+	{
+		$this->bootDiskSizeGb = $bootDiskSizeGb;
+	}
+	public function getBootDiskSizeGb()
+	{
+		return $this->bootDiskSizeGb;
+	}
+	public function setBootDiskType($bootDiskType)
+	{
+		$this->bootDiskType = $bootDiskType;
+	}
+	public function getBootDiskType()
+	{
+		return $this->bootDiskType;
+	}
+	public function setNumLocalSsds($numLocalSsds)
+	{
+		$this->numLocalSsds = $numLocalSsds;
+	}
+	public function getNumLocalSsds()
+	{
+		return $this->numLocalSsds;
+	}
 }

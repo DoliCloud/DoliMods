@@ -17,32 +17,32 @@
 
 class Google_Service_ToolResults_InconclusiveDetail extends Google_Model
 {
-  public $abortedByUser;
-  public $hasErrorLogs;
-  public $infrastructureFailure;
+	public $abortedByUser;
+	public $hasErrorLogs;
+	public $infrastructureFailure;
 
-  public function setAbortedByUser($abortedByUser)
-  {
-    $this->abortedByUser = $abortedByUser;
-  }
-  public function getAbortedByUser()
-  {
-    return $this->abortedByUser;
-  }
-  public function setHasErrorLogs($hasErrorLogs)
-  {
-    $this->hasErrorLogs = $hasErrorLogs;
-  }
-  public function getHasErrorLogs()
-  {
-    return $this->hasErrorLogs;
-  }
-  public function setInfrastructureFailure($infrastructureFailure)
-  {
-    $this->infrastructureFailure = $infrastructureFailure;
-  }
-  public function getInfrastructureFailure()
-  {
-    return $this->infrastructureFailure;
-  }
+	public function setAbortedByUser($abortedByUser)
+	{
+		$this->abortedByUser = $abortedByUser;
+	}
+	public function getAbortedByUser()
+	{
+		return $this->abortedByUser;
+	}
+	public function setHasErrorLogs($hasErrorLogs)
+	{
+		$this->hasErrorLogs = $hasErrorLogs;
+	}
+	public function getHasErrorLogs()
+	{
+		return $this->hasErrorLogs;
+	}
+	public function setInfrastructureFailure($infrastructureFailure)
+	{
+		$this->infrastructureFailure = $infrastructureFailure;
+	}
+	public function getInfrastructureFailure()
+	{
+		return $this->infrastructureFailure;
+	}
 }

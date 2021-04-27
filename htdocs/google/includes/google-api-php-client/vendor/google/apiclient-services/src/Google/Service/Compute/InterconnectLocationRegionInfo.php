@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_InterconnectLocationRegionInfo extends Google_Model
 {
-  public $expectedRttMs;
-  public $locationPresence;
-  public $region;
+	public $expectedRttMs;
+	public $locationPresence;
+	public $region;
 
-  public function setExpectedRttMs($expectedRttMs)
-  {
-    $this->expectedRttMs = $expectedRttMs;
-  }
-  public function getExpectedRttMs()
-  {
-    return $this->expectedRttMs;
-  }
-  public function setLocationPresence($locationPresence)
-  {
-    $this->locationPresence = $locationPresence;
-  }
-  public function getLocationPresence()
-  {
-    return $this->locationPresence;
-  }
-  public function setRegion($region)
-  {
-    $this->region = $region;
-  }
-  public function getRegion()
-  {
-    return $this->region;
-  }
+	public function setExpectedRttMs($expectedRttMs)
+	{
+		$this->expectedRttMs = $expectedRttMs;
+	}
+	public function getExpectedRttMs()
+	{
+		return $this->expectedRttMs;
+	}
+	public function setLocationPresence($locationPresence)
+	{
+		$this->locationPresence = $locationPresence;
+	}
+	public function getLocationPresence()
+	{
+		return $this->locationPresence;
+	}
+	public function setRegion($region)
+	{
+		$this->region = $region;
+	}
+	public function getRegion()
+	{
+		return $this->region;
+	}
 }

@@ -17,67 +17,67 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1Index extends Google_Collection
 {
-  protected $collection_key = 'properties';
-  public $ancestor;
-  public $indexId;
-  public $kind;
-  public $projectId;
-  protected $propertiesType = 'Google_Service_Datastore_GoogleDatastoreAdminV1IndexedProperty';
-  protected $propertiesDataType = 'array';
-  public $state;
+	protected $collection_key = 'properties';
+	public $ancestor;
+	public $indexId;
+	public $kind;
+	public $projectId;
+	protected $propertiesType = 'Google_Service_Datastore_GoogleDatastoreAdminV1IndexedProperty';
+	protected $propertiesDataType = 'array';
+	public $state;
 
-  public function setAncestor($ancestor)
-  {
-    $this->ancestor = $ancestor;
-  }
-  public function getAncestor()
-  {
-    return $this->ancestor;
-  }
-  public function setIndexId($indexId)
-  {
-    $this->indexId = $indexId;
-  }
-  public function getIndexId()
-  {
-    return $this->indexId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  /**
-   * @param Google_Service_Datastore_GoogleDatastoreAdminV1IndexedProperty
-   */
-  public function setProperties($properties)
-  {
-    $this->properties = $properties;
-  }
-  /**
-   * @return Google_Service_Datastore_GoogleDatastoreAdminV1IndexedProperty
-   */
-  public function getProperties()
-  {
-    return $this->properties;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	public function setAncestor($ancestor)
+	{
+		$this->ancestor = $ancestor;
+	}
+	public function getAncestor()
+	{
+		return $this->ancestor;
+	}
+	public function setIndexId($indexId)
+	{
+		$this->indexId = $indexId;
+	}
+	public function getIndexId()
+	{
+		return $this->indexId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	/**
+	 * @param Google_Service_Datastore_GoogleDatastoreAdminV1IndexedProperty
+	 */
+	public function setProperties($properties)
+	{
+		$this->properties = $properties;
+	}
+	/**
+	 * @return Google_Service_Datastore_GoogleDatastoreAdminV1IndexedProperty
+	 */
+	public function getProperties()
+	{
+		return $this->properties;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

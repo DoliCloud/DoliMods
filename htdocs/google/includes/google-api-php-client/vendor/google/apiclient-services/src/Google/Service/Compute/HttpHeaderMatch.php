@@ -17,84 +17,84 @@
 
 class Google_Service_Compute_HttpHeaderMatch extends Google_Model
 {
-  public $exactMatch;
-  public $headerName;
-  public $invertMatch;
-  public $prefixMatch;
-  public $presentMatch;
-  protected $rangeMatchType = 'Google_Service_Compute_Int64RangeMatch';
-  protected $rangeMatchDataType = '';
-  public $regexMatch;
-  public $suffixMatch;
+	public $exactMatch;
+	public $headerName;
+	public $invertMatch;
+	public $prefixMatch;
+	public $presentMatch;
+	protected $rangeMatchType = 'Google_Service_Compute_Int64RangeMatch';
+	protected $rangeMatchDataType = '';
+	public $regexMatch;
+	public $suffixMatch;
 
-  public function setExactMatch($exactMatch)
-  {
-    $this->exactMatch = $exactMatch;
-  }
-  public function getExactMatch()
-  {
-    return $this->exactMatch;
-  }
-  public function setHeaderName($headerName)
-  {
-    $this->headerName = $headerName;
-  }
-  public function getHeaderName()
-  {
-    return $this->headerName;
-  }
-  public function setInvertMatch($invertMatch)
-  {
-    $this->invertMatch = $invertMatch;
-  }
-  public function getInvertMatch()
-  {
-    return $this->invertMatch;
-  }
-  public function setPrefixMatch($prefixMatch)
-  {
-    $this->prefixMatch = $prefixMatch;
-  }
-  public function getPrefixMatch()
-  {
-    return $this->prefixMatch;
-  }
-  public function setPresentMatch($presentMatch)
-  {
-    $this->presentMatch = $presentMatch;
-  }
-  public function getPresentMatch()
-  {
-    return $this->presentMatch;
-  }
-  /**
-   * @param Google_Service_Compute_Int64RangeMatch
-   */
-  public function setRangeMatch(Google_Service_Compute_Int64RangeMatch $rangeMatch)
-  {
-    $this->rangeMatch = $rangeMatch;
-  }
-  /**
-   * @return Google_Service_Compute_Int64RangeMatch
-   */
-  public function getRangeMatch()
-  {
-    return $this->rangeMatch;
-  }
-  public function setRegexMatch($regexMatch)
-  {
-    $this->regexMatch = $regexMatch;
-  }
-  public function getRegexMatch()
-  {
-    return $this->regexMatch;
-  }
-  public function setSuffixMatch($suffixMatch)
-  {
-    $this->suffixMatch = $suffixMatch;
-  }
-  public function getSuffixMatch()
-  {
-    return $this->suffixMatch;
-  }
+	public function setExactMatch($exactMatch)
+	{
+		$this->exactMatch = $exactMatch;
+	}
+	public function getExactMatch()
+	{
+		return $this->exactMatch;
+	}
+	public function setHeaderName($headerName)
+	{
+		$this->headerName = $headerName;
+	}
+	public function getHeaderName()
+	{
+		return $this->headerName;
+	}
+	public function setInvertMatch($invertMatch)
+	{
+		$this->invertMatch = $invertMatch;
+	}
+	public function getInvertMatch()
+	{
+		return $this->invertMatch;
+	}
+	public function setPrefixMatch($prefixMatch)
+	{
+		$this->prefixMatch = $prefixMatch;
+	}
+	public function getPrefixMatch()
+	{
+		return $this->prefixMatch;
+	}
+	public function setPresentMatch($presentMatch)
+	{
+		$this->presentMatch = $presentMatch;
+	}
+	public function getPresentMatch()
+	{
+		return $this->presentMatch;
+	}
+	/**
+	 * @param Google_Service_Compute_Int64RangeMatch
+	 */
+	public function setRangeMatch(Google_Service_Compute_Int64RangeMatch $rangeMatch)
+	{
+		$this->rangeMatch = $rangeMatch;
+	}
+	/**
+	 * @return Google_Service_Compute_Int64RangeMatch
+	 */
+	public function getRangeMatch()
+	{
+		return $this->rangeMatch;
+	}
+	public function setRegexMatch($regexMatch)
+	{
+		$this->regexMatch = $regexMatch;
+	}
+	public function getRegexMatch()
+	{
+		return $this->regexMatch;
+	}
+	public function setSuffixMatch($suffixMatch)
+	{
+		$this->suffixMatch = $suffixMatch;
+	}
+	public function getSuffixMatch()
+	{
+		return $this->suffixMatch;
+	}
 }

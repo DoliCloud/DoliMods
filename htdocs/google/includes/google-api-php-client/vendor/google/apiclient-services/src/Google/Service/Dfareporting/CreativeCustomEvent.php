@@ -17,109 +17,109 @@
 
 class Google_Service_Dfareporting_CreativeCustomEvent extends Google_Model
 {
-  public $advertiserCustomEventId;
-  public $advertiserCustomEventName;
-  public $advertiserCustomEventType;
-  public $artworkLabel;
-  public $artworkType;
-  protected $exitClickThroughUrlType = 'Google_Service_Dfareporting_CreativeClickThroughUrl';
-  protected $exitClickThroughUrlDataType = '';
-  public $id;
-  protected $popupWindowPropertiesType = 'Google_Service_Dfareporting_PopupWindowProperties';
-  protected $popupWindowPropertiesDataType = '';
-  public $targetType;
-  public $videoReportingId;
+	public $advertiserCustomEventId;
+	public $advertiserCustomEventName;
+	public $advertiserCustomEventType;
+	public $artworkLabel;
+	public $artworkType;
+	protected $exitClickThroughUrlType = 'Google_Service_Dfareporting_CreativeClickThroughUrl';
+	protected $exitClickThroughUrlDataType = '';
+	public $id;
+	protected $popupWindowPropertiesType = 'Google_Service_Dfareporting_PopupWindowProperties';
+	protected $popupWindowPropertiesDataType = '';
+	public $targetType;
+	public $videoReportingId;
 
-  public function setAdvertiserCustomEventId($advertiserCustomEventId)
-  {
-    $this->advertiserCustomEventId = $advertiserCustomEventId;
-  }
-  public function getAdvertiserCustomEventId()
-  {
-    return $this->advertiserCustomEventId;
-  }
-  public function setAdvertiserCustomEventName($advertiserCustomEventName)
-  {
-    $this->advertiserCustomEventName = $advertiserCustomEventName;
-  }
-  public function getAdvertiserCustomEventName()
-  {
-    return $this->advertiserCustomEventName;
-  }
-  public function setAdvertiserCustomEventType($advertiserCustomEventType)
-  {
-    $this->advertiserCustomEventType = $advertiserCustomEventType;
-  }
-  public function getAdvertiserCustomEventType()
-  {
-    return $this->advertiserCustomEventType;
-  }
-  public function setArtworkLabel($artworkLabel)
-  {
-    $this->artworkLabel = $artworkLabel;
-  }
-  public function getArtworkLabel()
-  {
-    return $this->artworkLabel;
-  }
-  public function setArtworkType($artworkType)
-  {
-    $this->artworkType = $artworkType;
-  }
-  public function getArtworkType()
-  {
-    return $this->artworkType;
-  }
-  /**
-   * @param Google_Service_Dfareporting_CreativeClickThroughUrl
-   */
-  public function setExitClickThroughUrl(Google_Service_Dfareporting_CreativeClickThroughUrl $exitClickThroughUrl)
-  {
-    $this->exitClickThroughUrl = $exitClickThroughUrl;
-  }
-  /**
-   * @return Google_Service_Dfareporting_CreativeClickThroughUrl
-   */
-  public function getExitClickThroughUrl()
-  {
-    return $this->exitClickThroughUrl;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_Dfareporting_PopupWindowProperties
-   */
-  public function setPopupWindowProperties(Google_Service_Dfareporting_PopupWindowProperties $popupWindowProperties)
-  {
-    $this->popupWindowProperties = $popupWindowProperties;
-  }
-  /**
-   * @return Google_Service_Dfareporting_PopupWindowProperties
-   */
-  public function getPopupWindowProperties()
-  {
-    return $this->popupWindowProperties;
-  }
-  public function setTargetType($targetType)
-  {
-    $this->targetType = $targetType;
-  }
-  public function getTargetType()
-  {
-    return $this->targetType;
-  }
-  public function setVideoReportingId($videoReportingId)
-  {
-    $this->videoReportingId = $videoReportingId;
-  }
-  public function getVideoReportingId()
-  {
-    return $this->videoReportingId;
-  }
+	public function setAdvertiserCustomEventId($advertiserCustomEventId)
+	{
+		$this->advertiserCustomEventId = $advertiserCustomEventId;
+	}
+	public function getAdvertiserCustomEventId()
+	{
+		return $this->advertiserCustomEventId;
+	}
+	public function setAdvertiserCustomEventName($advertiserCustomEventName)
+	{
+		$this->advertiserCustomEventName = $advertiserCustomEventName;
+	}
+	public function getAdvertiserCustomEventName()
+	{
+		return $this->advertiserCustomEventName;
+	}
+	public function setAdvertiserCustomEventType($advertiserCustomEventType)
+	{
+		$this->advertiserCustomEventType = $advertiserCustomEventType;
+	}
+	public function getAdvertiserCustomEventType()
+	{
+		return $this->advertiserCustomEventType;
+	}
+	public function setArtworkLabel($artworkLabel)
+	{
+		$this->artworkLabel = $artworkLabel;
+	}
+	public function getArtworkLabel()
+	{
+		return $this->artworkLabel;
+	}
+	public function setArtworkType($artworkType)
+	{
+		$this->artworkType = $artworkType;
+	}
+	public function getArtworkType()
+	{
+		return $this->artworkType;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_CreativeClickThroughUrl
+	 */
+	public function setExitClickThroughUrl(Google_Service_Dfareporting_CreativeClickThroughUrl $exitClickThroughUrl)
+	{
+		$this->exitClickThroughUrl = $exitClickThroughUrl;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_CreativeClickThroughUrl
+	 */
+	public function getExitClickThroughUrl()
+	{
+		return $this->exitClickThroughUrl;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_PopupWindowProperties
+	 */
+	public function setPopupWindowProperties(Google_Service_Dfareporting_PopupWindowProperties $popupWindowProperties)
+	{
+		$this->popupWindowProperties = $popupWindowProperties;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_PopupWindowProperties
+	 */
+	public function getPopupWindowProperties()
+	{
+		return $this->popupWindowProperties;
+	}
+	public function setTargetType($targetType)
+	{
+		$this->targetType = $targetType;
+	}
+	public function getTargetType()
+	{
+		return $this->targetType;
+	}
+	public function setVideoReportingId($videoReportingId)
+	{
+		$this->videoReportingId = $videoReportingId;
+	}
+	public function getVideoReportingId()
+	{
+		return $this->videoReportingId;
+	}
 }

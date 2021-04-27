@@ -17,14 +17,14 @@
 
 class Google_Service_Fitness_BucketBySession extends Google_Model
 {
-  public $minDurationMillis;
+	public $minDurationMillis;
 
-  public function setMinDurationMillis($minDurationMillis)
-  {
-    $this->minDurationMillis = $minDurationMillis;
-  }
-  public function getMinDurationMillis()
-  {
-    return $this->minDurationMillis;
-  }
+	public function setMinDurationMillis($minDurationMillis)
+	{
+		$this->minDurationMillis = $minDurationMillis;
+	}
+	public function getMinDurationMillis()
+	{
+		return $this->minDurationMillis;
+	}
 }

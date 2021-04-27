@@ -17,55 +17,55 @@
 
 class Google_Service_ShoppingContent_RegionalinventoryCustomBatchResponseEntry extends Google_Model
 {
-  public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
-  protected $errorsDataType = '';
-  public $kind;
-  protected $regionalInventoryType = 'Google_Service_ShoppingContent_RegionalInventory';
-  protected $regionalInventoryDataType = '';
+	public $batchId;
+	protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+	protected $errorsDataType = '';
+	public $kind;
+	protected $regionalInventoryType = 'Google_Service_ShoppingContent_RegionalInventory';
+	protected $regionalInventoryDataType = '';
 
-  public function setBatchId($batchId)
-  {
-    $this->batchId = $batchId;
-  }
-  public function getBatchId()
-  {
-    return $this->batchId;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Errors
-   */
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Errors
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_RegionalInventory
-   */
-  public function setRegionalInventory(Google_Service_ShoppingContent_RegionalInventory $regionalInventory)
-  {
-    $this->regionalInventory = $regionalInventory;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_RegionalInventory
-   */
-  public function getRegionalInventory()
-  {
-    return $this->regionalInventory;
-  }
+	public function setBatchId($batchId)
+	{
+		$this->batchId = $batchId;
+	}
+	public function getBatchId()
+	{
+		return $this->batchId;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Errors
+	 */
+	public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Errors
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_RegionalInventory
+	 */
+	public function setRegionalInventory(Google_Service_ShoppingContent_RegionalInventory $regionalInventory)
+	{
+		$this->regionalInventory = $regionalInventory;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_RegionalInventory
+	 */
+	public function getRegionalInventory()
+	{
+		return $this->regionalInventory;
+	}
 }

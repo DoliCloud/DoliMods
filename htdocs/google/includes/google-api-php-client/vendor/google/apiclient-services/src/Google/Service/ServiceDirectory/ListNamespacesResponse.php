@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceDirectory_ListNamespacesResponse extends Google_Collection
 {
-  protected $collection_key = 'namespaces';
-  protected $namespacesType = 'Google_Service_ServiceDirectory_ServicedirectoryNamespace';
-  protected $namespacesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'namespaces';
+	protected $namespacesType = 'Google_Service_ServiceDirectory_ServicedirectoryNamespace';
+	protected $namespacesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_ServiceDirectory_ServicedirectoryNamespace
-   */
-  public function setNamespaces($namespaces)
-  {
-    $this->namespaces = $namespaces;
-  }
-  /**
-   * @return Google_Service_ServiceDirectory_ServicedirectoryNamespace
-   */
-  public function getNamespaces()
-  {
-    return $this->namespaces;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_ServiceDirectory_ServicedirectoryNamespace
+	 */
+	public function setNamespaces($namespaces)
+	{
+		$this->namespaces = $namespaces;
+	}
+	/**
+	 * @return Google_Service_ServiceDirectory_ServicedirectoryNamespace
+	 */
+	public function getNamespaces()
+	{
+		return $this->namespaces;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

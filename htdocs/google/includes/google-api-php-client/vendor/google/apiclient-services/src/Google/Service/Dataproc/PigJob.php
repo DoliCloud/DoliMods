@@ -17,83 +17,83 @@
 
 class Google_Service_Dataproc_PigJob extends Google_Collection
 {
-  protected $collection_key = 'jarFileUris';
-  public $continueOnFailure;
-  public $jarFileUris;
-  protected $loggingConfigType = 'Google_Service_Dataproc_LoggingConfig';
-  protected $loggingConfigDataType = '';
-  public $properties;
-  public $queryFileUri;
-  protected $queryListType = 'Google_Service_Dataproc_QueryList';
-  protected $queryListDataType = '';
-  public $scriptVariables;
+	protected $collection_key = 'jarFileUris';
+	public $continueOnFailure;
+	public $jarFileUris;
+	protected $loggingConfigType = 'Google_Service_Dataproc_LoggingConfig';
+	protected $loggingConfigDataType = '';
+	public $properties;
+	public $queryFileUri;
+	protected $queryListType = 'Google_Service_Dataproc_QueryList';
+	protected $queryListDataType = '';
+	public $scriptVariables;
 
-  public function setContinueOnFailure($continueOnFailure)
-  {
-    $this->continueOnFailure = $continueOnFailure;
-  }
-  public function getContinueOnFailure()
-  {
-    return $this->continueOnFailure;
-  }
-  public function setJarFileUris($jarFileUris)
-  {
-    $this->jarFileUris = $jarFileUris;
-  }
-  public function getJarFileUris()
-  {
-    return $this->jarFileUris;
-  }
-  /**
-   * @param Google_Service_Dataproc_LoggingConfig
-   */
-  public function setLoggingConfig(Google_Service_Dataproc_LoggingConfig $loggingConfig)
-  {
-    $this->loggingConfig = $loggingConfig;
-  }
-  /**
-   * @return Google_Service_Dataproc_LoggingConfig
-   */
-  public function getLoggingConfig()
-  {
-    return $this->loggingConfig;
-  }
-  public function setProperties($properties)
-  {
-    $this->properties = $properties;
-  }
-  public function getProperties()
-  {
-    return $this->properties;
-  }
-  public function setQueryFileUri($queryFileUri)
-  {
-    $this->queryFileUri = $queryFileUri;
-  }
-  public function getQueryFileUri()
-  {
-    return $this->queryFileUri;
-  }
-  /**
-   * @param Google_Service_Dataproc_QueryList
-   */
-  public function setQueryList(Google_Service_Dataproc_QueryList $queryList)
-  {
-    $this->queryList = $queryList;
-  }
-  /**
-   * @return Google_Service_Dataproc_QueryList
-   */
-  public function getQueryList()
-  {
-    return $this->queryList;
-  }
-  public function setScriptVariables($scriptVariables)
-  {
-    $this->scriptVariables = $scriptVariables;
-  }
-  public function getScriptVariables()
-  {
-    return $this->scriptVariables;
-  }
+	public function setContinueOnFailure($continueOnFailure)
+	{
+		$this->continueOnFailure = $continueOnFailure;
+	}
+	public function getContinueOnFailure()
+	{
+		return $this->continueOnFailure;
+	}
+	public function setJarFileUris($jarFileUris)
+	{
+		$this->jarFileUris = $jarFileUris;
+	}
+	public function getJarFileUris()
+	{
+		return $this->jarFileUris;
+	}
+	/**
+	 * @param Google_Service_Dataproc_LoggingConfig
+	 */
+	public function setLoggingConfig(Google_Service_Dataproc_LoggingConfig $loggingConfig)
+	{
+		$this->loggingConfig = $loggingConfig;
+	}
+	/**
+	 * @return Google_Service_Dataproc_LoggingConfig
+	 */
+	public function getLoggingConfig()
+	{
+		return $this->loggingConfig;
+	}
+	public function setProperties($properties)
+	{
+		$this->properties = $properties;
+	}
+	public function getProperties()
+	{
+		return $this->properties;
+	}
+	public function setQueryFileUri($queryFileUri)
+	{
+		$this->queryFileUri = $queryFileUri;
+	}
+	public function getQueryFileUri()
+	{
+		return $this->queryFileUri;
+	}
+	/**
+	 * @param Google_Service_Dataproc_QueryList
+	 */
+	public function setQueryList(Google_Service_Dataproc_QueryList $queryList)
+	{
+		$this->queryList = $queryList;
+	}
+	/**
+	 * @return Google_Service_Dataproc_QueryList
+	 */
+	public function getQueryList()
+	{
+		return $this->queryList;
+	}
+	public function setScriptVariables($scriptVariables)
+	{
+		$this->scriptVariables = $scriptVariables;
+	}
+	public function getScriptVariables()
+	{
+		return $this->scriptVariables;
+	}
 }

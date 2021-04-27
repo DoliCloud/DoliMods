@@ -17,23 +17,23 @@
 
 class Google_Service_RealTimeBidding_DomainCalls extends Google_Model
 {
-  public $domain;
-  public $httpCallCount;
+	public $domain;
+	public $httpCallCount;
 
-  public function setDomain($domain)
-  {
-    $this->domain = $domain;
-  }
-  public function getDomain()
-  {
-    return $this->domain;
-  }
-  public function setHttpCallCount($httpCallCount)
-  {
-    $this->httpCallCount = $httpCallCount;
-  }
-  public function getHttpCallCount()
-  {
-    return $this->httpCallCount;
-  }
+	public function setDomain($domain)
+	{
+		$this->domain = $domain;
+	}
+	public function getDomain()
+	{
+		return $this->domain;
+	}
+	public function setHttpCallCount($httpCallCount)
+	{
+		$this->httpCallCount = $httpCallCount;
+	}
+	public function getHttpCallCount()
+	{
+		return $this->httpCallCount;
+	}
 }

@@ -17,81 +17,81 @@
 
 class Google_Service_ServiceControl_CheckResponse extends Google_Collection
 {
-  protected $collection_key = 'checkErrors';
-  protected $checkErrorsType = 'Google_Service_ServiceControl_CheckError';
-  protected $checkErrorsDataType = 'array';
-  protected $checkInfoType = 'Google_Service_ServiceControl_CheckInfo';
-  protected $checkInfoDataType = '';
-  public $operationId;
-  protected $quotaInfoType = 'Google_Service_ServiceControl_QuotaInfo';
-  protected $quotaInfoDataType = '';
-  public $serviceConfigId;
-  public $serviceRolloutId;
+	protected $collection_key = 'checkErrors';
+	protected $checkErrorsType = 'Google_Service_ServiceControl_CheckError';
+	protected $checkErrorsDataType = 'array';
+	protected $checkInfoType = 'Google_Service_ServiceControl_CheckInfo';
+	protected $checkInfoDataType = '';
+	public $operationId;
+	protected $quotaInfoType = 'Google_Service_ServiceControl_QuotaInfo';
+	protected $quotaInfoDataType = '';
+	public $serviceConfigId;
+	public $serviceRolloutId;
 
-  /**
-   * @param Google_Service_ServiceControl_CheckError
-   */
-  public function setCheckErrors($checkErrors)
-  {
-    $this->checkErrors = $checkErrors;
-  }
-  /**
-   * @return Google_Service_ServiceControl_CheckError
-   */
-  public function getCheckErrors()
-  {
-    return $this->checkErrors;
-  }
-  /**
-   * @param Google_Service_ServiceControl_CheckInfo
-   */
-  public function setCheckInfo(Google_Service_ServiceControl_CheckInfo $checkInfo)
-  {
-    $this->checkInfo = $checkInfo;
-  }
-  /**
-   * @return Google_Service_ServiceControl_CheckInfo
-   */
-  public function getCheckInfo()
-  {
-    return $this->checkInfo;
-  }
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  /**
-   * @param Google_Service_ServiceControl_QuotaInfo
-   */
-  public function setQuotaInfo(Google_Service_ServiceControl_QuotaInfo $quotaInfo)
-  {
-    $this->quotaInfo = $quotaInfo;
-  }
-  /**
-   * @return Google_Service_ServiceControl_QuotaInfo
-   */
-  public function getQuotaInfo()
-  {
-    return $this->quotaInfo;
-  }
-  public function setServiceConfigId($serviceConfigId)
-  {
-    $this->serviceConfigId = $serviceConfigId;
-  }
-  public function getServiceConfigId()
-  {
-    return $this->serviceConfigId;
-  }
-  public function setServiceRolloutId($serviceRolloutId)
-  {
-    $this->serviceRolloutId = $serviceRolloutId;
-  }
-  public function getServiceRolloutId()
-  {
-    return $this->serviceRolloutId;
-  }
+	/**
+	 * @param Google_Service_ServiceControl_CheckError
+	 */
+	public function setCheckErrors($checkErrors)
+	{
+		$this->checkErrors = $checkErrors;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_CheckError
+	 */
+	public function getCheckErrors()
+	{
+		return $this->checkErrors;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_CheckInfo
+	 */
+	public function setCheckInfo(Google_Service_ServiceControl_CheckInfo $checkInfo)
+	{
+		$this->checkInfo = $checkInfo;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_CheckInfo
+	 */
+	public function getCheckInfo()
+	{
+		return $this->checkInfo;
+	}
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_QuotaInfo
+	 */
+	public function setQuotaInfo(Google_Service_ServiceControl_QuotaInfo $quotaInfo)
+	{
+		$this->quotaInfo = $quotaInfo;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_QuotaInfo
+	 */
+	public function getQuotaInfo()
+	{
+		return $this->quotaInfo;
+	}
+	public function setServiceConfigId($serviceConfigId)
+	{
+		$this->serviceConfigId = $serviceConfigId;
+	}
+	public function getServiceConfigId()
+	{
+		return $this->serviceConfigId;
+	}
+	public function setServiceRolloutId($serviceRolloutId)
+	{
+		$this->serviceRolloutId = $serviceRolloutId;
+	}
+	public function getServiceRolloutId()
+	{
+		return $this->serviceRolloutId;
+	}
 }

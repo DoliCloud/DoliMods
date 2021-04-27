@@ -17,37 +17,37 @@
 
 class Google_Service_ServiceNetworking_AddDnsZoneResponse extends Google_Model
 {
-  protected $consumerPeeringZoneType = 'Google_Service_ServiceNetworking_DnsZone';
-  protected $consumerPeeringZoneDataType = '';
-  protected $producerPrivateZoneType = 'Google_Service_ServiceNetworking_DnsZone';
-  protected $producerPrivateZoneDataType = '';
+	protected $consumerPeeringZoneType = 'Google_Service_ServiceNetworking_DnsZone';
+	protected $consumerPeeringZoneDataType = '';
+	protected $producerPrivateZoneType = 'Google_Service_ServiceNetworking_DnsZone';
+	protected $producerPrivateZoneDataType = '';
 
-  /**
-   * @param Google_Service_ServiceNetworking_DnsZone
-   */
-  public function setConsumerPeeringZone(Google_Service_ServiceNetworking_DnsZone $consumerPeeringZone)
-  {
-    $this->consumerPeeringZone = $consumerPeeringZone;
-  }
-  /**
-   * @return Google_Service_ServiceNetworking_DnsZone
-   */
-  public function getConsumerPeeringZone()
-  {
-    return $this->consumerPeeringZone;
-  }
-  /**
-   * @param Google_Service_ServiceNetworking_DnsZone
-   */
-  public function setProducerPrivateZone(Google_Service_ServiceNetworking_DnsZone $producerPrivateZone)
-  {
-    $this->producerPrivateZone = $producerPrivateZone;
-  }
-  /**
-   * @return Google_Service_ServiceNetworking_DnsZone
-   */
-  public function getProducerPrivateZone()
-  {
-    return $this->producerPrivateZone;
-  }
+	/**
+	 * @param Google_Service_ServiceNetworking_DnsZone
+	 */
+	public function setConsumerPeeringZone(Google_Service_ServiceNetworking_DnsZone $consumerPeeringZone)
+	{
+		$this->consumerPeeringZone = $consumerPeeringZone;
+	}
+	/**
+	 * @return Google_Service_ServiceNetworking_DnsZone
+	 */
+	public function getConsumerPeeringZone()
+	{
+		return $this->consumerPeeringZone;
+	}
+	/**
+	 * @param Google_Service_ServiceNetworking_DnsZone
+	 */
+	public function setProducerPrivateZone(Google_Service_ServiceNetworking_DnsZone $producerPrivateZone)
+	{
+		$this->producerPrivateZone = $producerPrivateZone;
+	}
+	/**
+	 * @return Google_Service_ServiceNetworking_DnsZone
+	 */
+	public function getProducerPrivateZone()
+	{
+		return $this->producerPrivateZone;
+	}
 }

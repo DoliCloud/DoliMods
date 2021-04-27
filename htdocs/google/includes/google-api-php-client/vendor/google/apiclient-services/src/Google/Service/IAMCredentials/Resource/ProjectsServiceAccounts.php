@@ -25,76 +25,76 @@
  */
 class Google_Service_IAMCredentials_Resource_ProjectsServiceAccounts extends Google_Service_Resource
 {
-  /**
-   * Generates an OAuth 2.0 access token for a service account.
-   * (serviceAccounts.generateAccessToken)
-   *
-   * @param string $name Required. The resource name of the service account for
-   * which the credentials are requested, in the following format:
-   * `projects/-/serviceAccounts/{ACCOUNT_EMAIL_OR_UNIQUEID}`. The `-` wildcard
-   * character is required; replacing it with a project ID is invalid.
-   * @param Google_Service_IAMCredentials_GenerateAccessTokenRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_IAMCredentials_GenerateAccessTokenResponse
-   */
-  public function generateAccessToken($name, Google_Service_IAMCredentials_GenerateAccessTokenRequest $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('generateAccessToken', array($params), "Google_Service_IAMCredentials_GenerateAccessTokenResponse");
-  }
-  /**
-   * Generates an OpenID Connect ID token for a service account.
-   * (serviceAccounts.generateIdToken)
-   *
-   * @param string $name Required. The resource name of the service account for
-   * which the credentials are requested, in the following format:
-   * `projects/-/serviceAccounts/{ACCOUNT_EMAIL_OR_UNIQUEID}`. The `-` wildcard
-   * character is required; replacing it with a project ID is invalid.
-   * @param Google_Service_IAMCredentials_GenerateIdTokenRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_IAMCredentials_GenerateIdTokenResponse
-   */
-  public function generateIdToken($name, Google_Service_IAMCredentials_GenerateIdTokenRequest $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('generateIdToken', array($params), "Google_Service_IAMCredentials_GenerateIdTokenResponse");
-  }
-  /**
-   * Signs a blob using a service account's system-managed private key.
-   * (serviceAccounts.signBlob)
-   *
-   * @param string $name Required. The resource name of the service account for
-   * which the credentials are requested, in the following format:
-   * `projects/-/serviceAccounts/{ACCOUNT_EMAIL_OR_UNIQUEID}`. The `-` wildcard
-   * character is required; replacing it with a project ID is invalid.
-   * @param Google_Service_IAMCredentials_SignBlobRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_IAMCredentials_SignBlobResponse
-   */
-  public function signBlob($name, Google_Service_IAMCredentials_SignBlobRequest $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('signBlob', array($params), "Google_Service_IAMCredentials_SignBlobResponse");
-  }
-  /**
-   * Signs a JWT using a service account's system-managed private key.
-   * (serviceAccounts.signJwt)
-   *
-   * @param string $name Required. The resource name of the service account for
-   * which the credentials are requested, in the following format:
-   * `projects/-/serviceAccounts/{ACCOUNT_EMAIL_OR_UNIQUEID}`. The `-` wildcard
-   * character is required; replacing it with a project ID is invalid.
-   * @param Google_Service_IAMCredentials_SignJwtRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_IAMCredentials_SignJwtResponse
-   */
-  public function signJwt($name, Google_Service_IAMCredentials_SignJwtRequest $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('signJwt', array($params), "Google_Service_IAMCredentials_SignJwtResponse");
-  }
+	/**
+	 * Generates an OAuth 2.0 access token for a service account.
+	 * (serviceAccounts.generateAccessToken)
+	 *
+	 * @param string $name Required. The resource name of the service account for
+	 *                     which the credentials are requested, in the following format:
+	 *                     `projects/-/serviceAccounts/{ACCOUNT_EMAIL_OR_UNIQUEID}`. The `-` wildcard
+	 *                     character is required; replacing it with a project ID is invalid.
+	 * @param Google_Service_IAMCredentials_GenerateAccessTokenRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_IAMCredentials_GenerateAccessTokenResponse
+	 */
+	public function generateAccessToken($name, Google_Service_IAMCredentials_GenerateAccessTokenRequest $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('generateAccessToken', array($params), "Google_Service_IAMCredentials_GenerateAccessTokenResponse");
+	}
+	/**
+	 * Generates an OpenID Connect ID token for a service account.
+	 * (serviceAccounts.generateIdToken)
+	 *
+	 * @param string $name Required. The resource name of the service account for
+	 *                     which the credentials are requested, in the following format:
+	 *                     `projects/-/serviceAccounts/{ACCOUNT_EMAIL_OR_UNIQUEID}`. The `-` wildcard
+	 *                     character is required; replacing it with a project ID is invalid.
+	 * @param Google_Service_IAMCredentials_GenerateIdTokenRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_IAMCredentials_GenerateIdTokenResponse
+	 */
+	public function generateIdToken($name, Google_Service_IAMCredentials_GenerateIdTokenRequest $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('generateIdToken', array($params), "Google_Service_IAMCredentials_GenerateIdTokenResponse");
+	}
+	/**
+	 * Signs a blob using a service account's system-managed private key.
+	 * (serviceAccounts.signBlob)
+	 *
+	 * @param string $name Required. The resource name of the service account for
+	 *                     which the credentials are requested, in the following format:
+	 *                     `projects/-/serviceAccounts/{ACCOUNT_EMAIL_OR_UNIQUEID}`. The `-` wildcard
+	 *                     character is required; replacing it with a project ID is invalid.
+	 * @param Google_Service_IAMCredentials_SignBlobRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_IAMCredentials_SignBlobResponse
+	 */
+	public function signBlob($name, Google_Service_IAMCredentials_SignBlobRequest $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('signBlob', array($params), "Google_Service_IAMCredentials_SignBlobResponse");
+	}
+	/**
+	 * Signs a JWT using a service account's system-managed private key.
+	 * (serviceAccounts.signJwt)
+	 *
+	 * @param string $name Required. The resource name of the service account for
+	 *                     which the credentials are requested, in the following format:
+	 *                     `projects/-/serviceAccounts/{ACCOUNT_EMAIL_OR_UNIQUEID}`. The `-` wildcard
+	 *                     character is required; replacing it with a project ID is invalid.
+	 * @param Google_Service_IAMCredentials_SignJwtRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_IAMCredentials_SignJwtResponse
+	 */
+	public function signJwt($name, Google_Service_IAMCredentials_SignJwtRequest $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('signJwt', array($params), "Google_Service_IAMCredentials_SignJwtResponse");
+	}
 }

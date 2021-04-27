@@ -17,39 +17,39 @@
 
 class Google_Service_SQLAdmin_ReplicaConfiguration extends Google_Model
 {
-  public $failoverTarget;
-  public $kind;
-  protected $mysqlReplicaConfigurationType = 'Google_Service_SQLAdmin_MySqlReplicaConfiguration';
-  protected $mysqlReplicaConfigurationDataType = '';
+	public $failoverTarget;
+	public $kind;
+	protected $mysqlReplicaConfigurationType = 'Google_Service_SQLAdmin_MySqlReplicaConfiguration';
+	protected $mysqlReplicaConfigurationDataType = '';
 
-  public function setFailoverTarget($failoverTarget)
-  {
-    $this->failoverTarget = $failoverTarget;
-  }
-  public function getFailoverTarget()
-  {
-    return $this->failoverTarget;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_SQLAdmin_MySqlReplicaConfiguration
-   */
-  public function setMysqlReplicaConfiguration(Google_Service_SQLAdmin_MySqlReplicaConfiguration $mysqlReplicaConfiguration)
-  {
-    $this->mysqlReplicaConfiguration = $mysqlReplicaConfiguration;
-  }
-  /**
-   * @return Google_Service_SQLAdmin_MySqlReplicaConfiguration
-   */
-  public function getMysqlReplicaConfiguration()
-  {
-    return $this->mysqlReplicaConfiguration;
-  }
+	public function setFailoverTarget($failoverTarget)
+	{
+		$this->failoverTarget = $failoverTarget;
+	}
+	public function getFailoverTarget()
+	{
+		return $this->failoverTarget;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_SQLAdmin_MySqlReplicaConfiguration
+	 */
+	public function setMysqlReplicaConfiguration(Google_Service_SQLAdmin_MySqlReplicaConfiguration $mysqlReplicaConfiguration)
+	{
+		$this->mysqlReplicaConfiguration = $mysqlReplicaConfiguration;
+	}
+	/**
+	 * @return Google_Service_SQLAdmin_MySqlReplicaConfiguration
+	 */
+	public function getMysqlReplicaConfiguration()
+	{
+		return $this->mysqlReplicaConfiguration;
+	}
 }

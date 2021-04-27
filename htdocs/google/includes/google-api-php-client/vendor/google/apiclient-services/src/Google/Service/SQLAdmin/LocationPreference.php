@@ -17,32 +17,32 @@
 
 class Google_Service_SQLAdmin_LocationPreference extends Google_Model
 {
-  public $followGaeApplication;
-  public $kind;
-  public $zone;
+	public $followGaeApplication;
+	public $kind;
+	public $zone;
 
-  public function setFollowGaeApplication($followGaeApplication)
-  {
-    $this->followGaeApplication = $followGaeApplication;
-  }
-  public function getFollowGaeApplication()
-  {
-    return $this->followGaeApplication;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setZone($zone)
-  {
-    $this->zone = $zone;
-  }
-  public function getZone()
-  {
-    return $this->zone;
-  }
+	public function setFollowGaeApplication($followGaeApplication)
+	{
+		$this->followGaeApplication = $followGaeApplication;
+	}
+	public function getFollowGaeApplication()
+	{
+		return $this->followGaeApplication;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setZone($zone)
+	{
+		$this->zone = $zone;
+	}
+	public function getZone()
+	{
+		return $this->zone;
+	}
 }

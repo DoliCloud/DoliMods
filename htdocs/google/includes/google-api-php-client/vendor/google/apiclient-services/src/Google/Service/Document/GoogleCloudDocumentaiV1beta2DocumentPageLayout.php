@@ -17,55 +17,55 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout extends Google_Model
 {
-  protected $boundingPolyType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly';
-  protected $boundingPolyDataType = '';
-  public $confidence;
-  public $orientation;
-  protected $textAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor';
-  protected $textAnchorDataType = '';
+	protected $boundingPolyType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly';
+	protected $boundingPolyDataType = '';
+	public $confidence;
+	public $orientation;
+	protected $textAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor';
+	protected $textAnchorDataType = '';
 
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly
-   */
-  public function setBoundingPoly(Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly $boundingPoly)
-  {
-    $this->boundingPoly = $boundingPoly;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly
-   */
-  public function getBoundingPoly()
-  {
-    return $this->boundingPoly;
-  }
-  public function setConfidence($confidence)
-  {
-    $this->confidence = $confidence;
-  }
-  public function getConfidence()
-  {
-    return $this->confidence;
-  }
-  public function setOrientation($orientation)
-  {
-    $this->orientation = $orientation;
-  }
-  public function getOrientation()
-  {
-    return $this->orientation;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor
-   */
-  public function setTextAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor $textAnchor)
-  {
-    $this->textAnchor = $textAnchor;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor
-   */
-  public function getTextAnchor()
-  {
-    return $this->textAnchor;
-  }
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly
+	 */
+	public function setBoundingPoly(Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly $boundingPoly)
+	{
+		$this->boundingPoly = $boundingPoly;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2BoundingPoly
+	 */
+	public function getBoundingPoly()
+	{
+		return $this->boundingPoly;
+	}
+	public function setConfidence($confidence)
+	{
+		$this->confidence = $confidence;
+	}
+	public function getConfidence()
+	{
+		return $this->confidence;
+	}
+	public function setOrientation($orientation)
+	{
+		$this->orientation = $orientation;
+	}
+	public function getOrientation()
+	{
+		return $this->orientation;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor
+	 */
+	public function setTextAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor $textAnchor)
+	{
+		$this->textAnchor = $textAnchor;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor
+	 */
+	public function getTextAnchor()
+	{
+		return $this->textAnchor;
+	}
 }

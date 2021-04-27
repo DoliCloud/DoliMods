@@ -17,22 +17,22 @@
 
 class Google_Service_DisplayVideo_BulkEditNegativeKeywordsResponse extends Google_Collection
 {
-  protected $collection_key = 'negativeKeywords';
-  protected $negativeKeywordsType = 'Google_Service_DisplayVideo_NegativeKeyword';
-  protected $negativeKeywordsDataType = 'array';
+	protected $collection_key = 'negativeKeywords';
+	protected $negativeKeywordsType = 'Google_Service_DisplayVideo_NegativeKeyword';
+	protected $negativeKeywordsDataType = 'array';
 
-  /**
-   * @param Google_Service_DisplayVideo_NegativeKeyword
-   */
-  public function setNegativeKeywords($negativeKeywords)
-  {
-    $this->negativeKeywords = $negativeKeywords;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_NegativeKeyword
-   */
-  public function getNegativeKeywords()
-  {
-    return $this->negativeKeywords;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_NegativeKeyword
+	 */
+	public function setNegativeKeywords($negativeKeywords)
+	{
+		$this->negativeKeywords = $negativeKeywords;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_NegativeKeyword
+	 */
+	public function getNegativeKeywords()
+	{
+		return $this->negativeKeywords;
+	}
 }

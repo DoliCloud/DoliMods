@@ -17,54 +17,54 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportUserEventsResponse extends Google_Collection
 {
-  protected $collection_key = 'errorSamples';
-  protected $errorSamplesType = 'Google_Service_RecommendationsAI_GoogleRpcStatus';
-  protected $errorSamplesDataType = 'array';
-  protected $errorsConfigType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig';
-  protected $errorsConfigDataType = '';
-  protected $importSummaryType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary';
-  protected $importSummaryDataType = '';
+	protected $collection_key = 'errorSamples';
+	protected $errorSamplesType = 'Google_Service_RecommendationsAI_GoogleRpcStatus';
+	protected $errorSamplesDataType = 'array';
+	protected $errorsConfigType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig';
+	protected $errorsConfigDataType = '';
+	protected $importSummaryType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary';
+	protected $importSummaryDataType = '';
 
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleRpcStatus
-   */
-  public function setErrorSamples($errorSamples)
-  {
-    $this->errorSamples = $errorSamples;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleRpcStatus
-   */
-  public function getErrorSamples()
-  {
-    return $this->errorSamples;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig
-   */
-  public function setErrorsConfig(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig $errorsConfig)
-  {
-    $this->errorsConfig = $errorsConfig;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig
-   */
-  public function getErrorsConfig()
-  {
-    return $this->errorsConfig;
-  }
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary
-   */
-  public function setImportSummary(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary $importSummary)
-  {
-    $this->importSummary = $importSummary;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary
-   */
-  public function getImportSummary()
-  {
-    return $this->importSummary;
-  }
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleRpcStatus
+	 */
+	public function setErrorSamples($errorSamples)
+	{
+		$this->errorSamples = $errorSamples;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleRpcStatus
+	 */
+	public function getErrorSamples()
+	{
+		return $this->errorSamples;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig
+	 */
+	public function setErrorsConfig(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig $errorsConfig)
+	{
+		$this->errorsConfig = $errorsConfig;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig
+	 */
+	public function getErrorsConfig()
+	{
+		return $this->errorsConfig;
+	}
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary
+	 */
+	public function setImportSummary(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary $importSummary)
+	{
+		$this->importSummary = $importSummary;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventImportSummary
+	 */
+	public function getImportSummary()
+	{
+		return $this->importSummary;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Doubleclicksearch_ConversionList extends Google_Collection
 {
-  protected $collection_key = 'conversion';
-  protected $conversionType = 'Google_Service_Doubleclicksearch_Conversion';
-  protected $conversionDataType = 'array';
-  public $kind;
+	protected $collection_key = 'conversion';
+	protected $conversionType = 'Google_Service_Doubleclicksearch_Conversion';
+	protected $conversionDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_Doubleclicksearch_Conversion
-   */
-  public function setConversion($conversion)
-  {
-    $this->conversion = $conversion;
-  }
-  /**
-   * @return Google_Service_Doubleclicksearch_Conversion
-   */
-  public function getConversion()
-  {
-    return $this->conversion;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Doubleclicksearch_Conversion
+	 */
+	public function setConversion($conversion)
+	{
+		$this->conversion = $conversion;
+	}
+	/**
+	 * @return Google_Service_Doubleclicksearch_Conversion
+	 */
+	public function getConversion()
+	{
+		return $this->conversion;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

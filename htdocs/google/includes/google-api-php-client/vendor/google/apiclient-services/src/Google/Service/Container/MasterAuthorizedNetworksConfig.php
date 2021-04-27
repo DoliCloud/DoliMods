@@ -17,31 +17,31 @@
 
 class Google_Service_Container_MasterAuthorizedNetworksConfig extends Google_Collection
 {
-  protected $collection_key = 'cidrBlocks';
-  protected $cidrBlocksType = 'Google_Service_Container_CidrBlock';
-  protected $cidrBlocksDataType = 'array';
-  public $enabled;
+	protected $collection_key = 'cidrBlocks';
+	protected $cidrBlocksType = 'Google_Service_Container_CidrBlock';
+	protected $cidrBlocksDataType = 'array';
+	public $enabled;
 
-  /**
-   * @param Google_Service_Container_CidrBlock
-   */
-  public function setCidrBlocks($cidrBlocks)
-  {
-    $this->cidrBlocks = $cidrBlocks;
-  }
-  /**
-   * @return Google_Service_Container_CidrBlock
-   */
-  public function getCidrBlocks()
-  {
-    return $this->cidrBlocks;
-  }
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
+	/**
+	 * @param Google_Service_Container_CidrBlock
+	 */
+	public function setCidrBlocks($cidrBlocks)
+	{
+		$this->cidrBlocks = $cidrBlocks;
+	}
+	/**
+	 * @return Google_Service_Container_CidrBlock
+	 */
+	public function getCidrBlocks()
+	{
+		return $this->cidrBlocks;
+	}
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_SemanticTile_SegmentInfo extends Google_Model
 {
-  protected $roadInfoType = 'Google_Service_SemanticTile_RoadInfo';
-  protected $roadInfoDataType = '';
+	protected $roadInfoType = 'Google_Service_SemanticTile_RoadInfo';
+	protected $roadInfoDataType = '';
 
-  /**
-   * @param Google_Service_SemanticTile_RoadInfo
-   */
-  public function setRoadInfo(Google_Service_SemanticTile_RoadInfo $roadInfo)
-  {
-    $this->roadInfo = $roadInfo;
-  }
-  /**
-   * @return Google_Service_SemanticTile_RoadInfo
-   */
-  public function getRoadInfo()
-  {
-    return $this->roadInfo;
-  }
+	/**
+	 * @param Google_Service_SemanticTile_RoadInfo
+	 */
+	public function setRoadInfo(Google_Service_SemanticTile_RoadInfo $roadInfo)
+	{
+		$this->roadInfo = $roadInfo;
+	}
+	/**
+	 * @return Google_Service_SemanticTile_RoadInfo
+	 */
+	public function getRoadInfo()
+	{
+		return $this->roadInfo;
+	}
 }

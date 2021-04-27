@@ -17,23 +17,23 @@
 
 class Google_Service_YouTubeReporting_GdataDiffVersionResponse extends Google_Model
 {
-  public $objectSizeBytes;
-  public $objectVersion;
+	public $objectSizeBytes;
+	public $objectVersion;
 
-  public function setObjectSizeBytes($objectSizeBytes)
-  {
-    $this->objectSizeBytes = $objectSizeBytes;
-  }
-  public function getObjectSizeBytes()
-  {
-    return $this->objectSizeBytes;
-  }
-  public function setObjectVersion($objectVersion)
-  {
-    $this->objectVersion = $objectVersion;
-  }
-  public function getObjectVersion()
-  {
-    return $this->objectVersion;
-  }
+	public function setObjectSizeBytes($objectSizeBytes)
+	{
+		$this->objectSizeBytes = $objectSizeBytes;
+	}
+	public function getObjectSizeBytes()
+	{
+		return $this->objectSizeBytes;
+	}
+	public function setObjectVersion($objectVersion)
+	{
+		$this->objectVersion = $objectVersion;
+	}
+	public function getObjectVersion()
+	{
+		return $this->objectVersion;
+	}
 }

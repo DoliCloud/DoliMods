@@ -17,32 +17,32 @@
 
 class Google_Service_Pagespeedonline_PagespeedApiLoadingExperienceV5MetricsElementDistributions extends Google_Model
 {
-  public $max;
-  public $min;
-  public $proportion;
+	public $max;
+	public $min;
+	public $proportion;
 
-  public function setMax($max)
-  {
-    $this->max = $max;
-  }
-  public function getMax()
-  {
-    return $this->max;
-  }
-  public function setMin($min)
-  {
-    $this->min = $min;
-  }
-  public function getMin()
-  {
-    return $this->min;
-  }
-  public function setProportion($proportion)
-  {
-    $this->proportion = $proportion;
-  }
-  public function getProportion()
-  {
-    return $this->proportion;
-  }
+	public function setMax($max)
+	{
+		$this->max = $max;
+	}
+	public function getMax()
+	{
+		return $this->max;
+	}
+	public function setMin($min)
+	{
+		$this->min = $min;
+	}
+	public function getMin()
+	{
+		return $this->min;
+	}
+	public function setProportion($proportion)
+	{
+		$this->proportion = $proportion;
+	}
+	public function getProportion()
+	{
+		return $this->proportion;
+	}
 }

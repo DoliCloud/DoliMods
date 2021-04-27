@@ -17,50 +17,50 @@
 
 class Google_Service_ToolResults_AndroidRoboTest extends Google_Model
 {
-  public $appInitialActivity;
-  public $bootstrapPackageId;
-  public $bootstrapRunnerClass;
-  public $maxDepth;
-  public $maxSteps;
+	public $appInitialActivity;
+	public $bootstrapPackageId;
+	public $bootstrapRunnerClass;
+	public $maxDepth;
+	public $maxSteps;
 
-  public function setAppInitialActivity($appInitialActivity)
-  {
-    $this->appInitialActivity = $appInitialActivity;
-  }
-  public function getAppInitialActivity()
-  {
-    return $this->appInitialActivity;
-  }
-  public function setBootstrapPackageId($bootstrapPackageId)
-  {
-    $this->bootstrapPackageId = $bootstrapPackageId;
-  }
-  public function getBootstrapPackageId()
-  {
-    return $this->bootstrapPackageId;
-  }
-  public function setBootstrapRunnerClass($bootstrapRunnerClass)
-  {
-    $this->bootstrapRunnerClass = $bootstrapRunnerClass;
-  }
-  public function getBootstrapRunnerClass()
-  {
-    return $this->bootstrapRunnerClass;
-  }
-  public function setMaxDepth($maxDepth)
-  {
-    $this->maxDepth = $maxDepth;
-  }
-  public function getMaxDepth()
-  {
-    return $this->maxDepth;
-  }
-  public function setMaxSteps($maxSteps)
-  {
-    $this->maxSteps = $maxSteps;
-  }
-  public function getMaxSteps()
-  {
-    return $this->maxSteps;
-  }
+	public function setAppInitialActivity($appInitialActivity)
+	{
+		$this->appInitialActivity = $appInitialActivity;
+	}
+	public function getAppInitialActivity()
+	{
+		return $this->appInitialActivity;
+	}
+	public function setBootstrapPackageId($bootstrapPackageId)
+	{
+		$this->bootstrapPackageId = $bootstrapPackageId;
+	}
+	public function getBootstrapPackageId()
+	{
+		return $this->bootstrapPackageId;
+	}
+	public function setBootstrapRunnerClass($bootstrapRunnerClass)
+	{
+		$this->bootstrapRunnerClass = $bootstrapRunnerClass;
+	}
+	public function getBootstrapRunnerClass()
+	{
+		return $this->bootstrapRunnerClass;
+	}
+	public function setMaxDepth($maxDepth)
+	{
+		$this->maxDepth = $maxDepth;
+	}
+	public function getMaxDepth()
+	{
+		return $this->maxDepth;
+	}
+	public function setMaxSteps($maxSteps)
+	{
+		$this->maxSteps = $maxSteps;
+	}
+	public function getMaxSteps()
+	{
+		return $this->maxSteps;
+	}
 }

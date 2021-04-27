@@ -17,39 +17,39 @@
 
 class Google_Service_JobService_CustomAttributeHistogramRequest extends Google_Model
 {
-  public $key;
-  protected $longValueHistogramBucketingOptionType = 'Google_Service_JobService_NumericBucketingOption';
-  protected $longValueHistogramBucketingOptionDataType = '';
-  public $stringValueHistogram;
+	public $key;
+	protected $longValueHistogramBucketingOptionType = 'Google_Service_JobService_NumericBucketingOption';
+	protected $longValueHistogramBucketingOptionDataType = '';
+	public $stringValueHistogram;
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  /**
-   * @param Google_Service_JobService_NumericBucketingOption
-   */
-  public function setLongValueHistogramBucketingOption(Google_Service_JobService_NumericBucketingOption $longValueHistogramBucketingOption)
-  {
-    $this->longValueHistogramBucketingOption = $longValueHistogramBucketingOption;
-  }
-  /**
-   * @return Google_Service_JobService_NumericBucketingOption
-   */
-  public function getLongValueHistogramBucketingOption()
-  {
-    return $this->longValueHistogramBucketingOption;
-  }
-  public function setStringValueHistogram($stringValueHistogram)
-  {
-    $this->stringValueHistogram = $stringValueHistogram;
-  }
-  public function getStringValueHistogram()
-  {
-    return $this->stringValueHistogram;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	/**
+	 * @param Google_Service_JobService_NumericBucketingOption
+	 */
+	public function setLongValueHistogramBucketingOption(Google_Service_JobService_NumericBucketingOption $longValueHistogramBucketingOption)
+	{
+		$this->longValueHistogramBucketingOption = $longValueHistogramBucketingOption;
+	}
+	/**
+	 * @return Google_Service_JobService_NumericBucketingOption
+	 */
+	public function getLongValueHistogramBucketingOption()
+	{
+		return $this->longValueHistogramBucketingOption;
+	}
+	public function setStringValueHistogram($stringValueHistogram)
+	{
+		$this->stringValueHistogram = $stringValueHistogram;
+	}
+	public function getStringValueHistogram()
+	{
+		return $this->stringValueHistogram;
+	}
 }

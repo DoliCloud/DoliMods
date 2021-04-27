@@ -17,32 +17,32 @@
 
 class Google_Service_Slides_RgbColor extends Google_Model
 {
-  public $blue;
-  public $green;
-  public $red;
+	public $blue;
+	public $green;
+	public $red;
 
-  public function setBlue($blue)
-  {
-    $this->blue = $blue;
-  }
-  public function getBlue()
-  {
-    return $this->blue;
-  }
-  public function setGreen($green)
-  {
-    $this->green = $green;
-  }
-  public function getGreen()
-  {
-    return $this->green;
-  }
-  public function setRed($red)
-  {
-    $this->red = $red;
-  }
-  public function getRed()
-  {
-    return $this->red;
-  }
+	public function setBlue($blue)
+	{
+		$this->blue = $blue;
+	}
+	public function getBlue()
+	{
+		return $this->blue;
+	}
+	public function setGreen($green)
+	{
+		$this->green = $green;
+	}
+	public function getGreen()
+	{
+		return $this->green;
+	}
+	public function setRed($red)
+	{
+		$this->red = $red;
+	}
+	public function getRed()
+	{
+		return $this->red;
+	}
 }

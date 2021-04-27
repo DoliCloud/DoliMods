@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_MobileCarrier extends Google_Model
 {
-  public $countryCode;
-  public $countryDartId;
-  public $id;
-  public $kind;
-  public $name;
+	public $countryCode;
+	public $countryDartId;
+	public $id;
+	public $kind;
+	public $name;
 
-  public function setCountryCode($countryCode)
-  {
-    $this->countryCode = $countryCode;
-  }
-  public function getCountryCode()
-  {
-    return $this->countryCode;
-  }
-  public function setCountryDartId($countryDartId)
-  {
-    $this->countryDartId = $countryDartId;
-  }
-  public function getCountryDartId()
-  {
-    return $this->countryDartId;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setCountryCode($countryCode)
+	{
+		$this->countryCode = $countryCode;
+	}
+	public function getCountryCode()
+	{
+		return $this->countryCode;
+	}
+	public function setCountryDartId($countryDartId)
+	{
+		$this->countryDartId = $countryDartId;
+	}
+	public function getCountryDartId()
+	{
+		return $this->countryDartId;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

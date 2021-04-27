@@ -17,31 +17,31 @@
 
 class Google_Service_SemanticTile_FirstDerivativeElevationGrid extends Google_Collection
 {
-  protected $collection_key = 'rows';
-  public $altitudeMultiplier;
-  protected $rowsType = 'Google_Service_SemanticTile_Row';
-  protected $rowsDataType = 'array';
+	protected $collection_key = 'rows';
+	public $altitudeMultiplier;
+	protected $rowsType = 'Google_Service_SemanticTile_Row';
+	protected $rowsDataType = 'array';
 
-  public function setAltitudeMultiplier($altitudeMultiplier)
-  {
-    $this->altitudeMultiplier = $altitudeMultiplier;
-  }
-  public function getAltitudeMultiplier()
-  {
-    return $this->altitudeMultiplier;
-  }
-  /**
-   * @param Google_Service_SemanticTile_Row
-   */
-  public function setRows($rows)
-  {
-    $this->rows = $rows;
-  }
-  /**
-   * @return Google_Service_SemanticTile_Row
-   */
-  public function getRows()
-  {
-    return $this->rows;
-  }
+	public function setAltitudeMultiplier($altitudeMultiplier)
+	{
+		$this->altitudeMultiplier = $altitudeMultiplier;
+	}
+	public function getAltitudeMultiplier()
+	{
+		return $this->altitudeMultiplier;
+	}
+	/**
+	 * @param Google_Service_SemanticTile_Row
+	 */
+	public function setRows($rows)
+	{
+		$this->rows = $rows;
+	}
+	/**
+	 * @return Google_Service_SemanticTile_Row
+	 */
+	public function getRows()
+	{
+		return $this->rows;
+	}
 }

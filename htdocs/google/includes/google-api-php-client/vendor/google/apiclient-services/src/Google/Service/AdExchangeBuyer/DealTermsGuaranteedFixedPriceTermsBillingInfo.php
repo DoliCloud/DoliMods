@@ -17,48 +17,48 @@
 
 class Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo extends Google_Model
 {
-  public $currencyConversionTimeMs;
-  public $dfpLineItemId;
-  public $originalContractedQuantity;
-  protected $priceType = 'Google_Service_AdExchangeBuyer_Price';
-  protected $priceDataType = '';
+	public $currencyConversionTimeMs;
+	public $dfpLineItemId;
+	public $originalContractedQuantity;
+	protected $priceType = 'Google_Service_AdExchangeBuyer_Price';
+	protected $priceDataType = '';
 
-  public function setCurrencyConversionTimeMs($currencyConversionTimeMs)
-  {
-    $this->currencyConversionTimeMs = $currencyConversionTimeMs;
-  }
-  public function getCurrencyConversionTimeMs()
-  {
-    return $this->currencyConversionTimeMs;
-  }
-  public function setDfpLineItemId($dfpLineItemId)
-  {
-    $this->dfpLineItemId = $dfpLineItemId;
-  }
-  public function getDfpLineItemId()
-  {
-    return $this->dfpLineItemId;
-  }
-  public function setOriginalContractedQuantity($originalContractedQuantity)
-  {
-    $this->originalContractedQuantity = $originalContractedQuantity;
-  }
-  public function getOriginalContractedQuantity()
-  {
-    return $this->originalContractedQuantity;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyer_Price
-   */
-  public function setPrice(Google_Service_AdExchangeBuyer_Price $price)
-  {
-    $this->price = $price;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_Price
-   */
-  public function getPrice()
-  {
-    return $this->price;
-  }
+	public function setCurrencyConversionTimeMs($currencyConversionTimeMs)
+	{
+		$this->currencyConversionTimeMs = $currencyConversionTimeMs;
+	}
+	public function getCurrencyConversionTimeMs()
+	{
+		return $this->currencyConversionTimeMs;
+	}
+	public function setDfpLineItemId($dfpLineItemId)
+	{
+		$this->dfpLineItemId = $dfpLineItemId;
+	}
+	public function getDfpLineItemId()
+	{
+		return $this->dfpLineItemId;
+	}
+	public function setOriginalContractedQuantity($originalContractedQuantity)
+	{
+		$this->originalContractedQuantity = $originalContractedQuantity;
+	}
+	public function getOriginalContractedQuantity()
+	{
+		return $this->originalContractedQuantity;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyer_Price
+	 */
+	public function setPrice(Google_Service_AdExchangeBuyer_Price $price)
+	{
+		$this->price = $price;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_Price
+	 */
+	public function getPrice()
+	{
+		return $this->price;
+	}
 }

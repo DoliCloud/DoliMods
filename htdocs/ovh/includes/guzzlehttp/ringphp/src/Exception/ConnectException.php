@@ -4,4 +4,6 @@ namespace GuzzleHttp\Ring\Exception;
 /**
  * Occurs when the connection failed.
  */
-class ConnectException extends RingException {}
+class ConnectException extends RingException
+{
+}

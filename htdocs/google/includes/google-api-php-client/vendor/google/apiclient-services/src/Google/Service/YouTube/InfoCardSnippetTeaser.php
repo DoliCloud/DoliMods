@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_InfoCardSnippetTeaser extends Google_Model
 {
-  public $teaserStartOffset;
-  public $teaserText;
+	public $teaserStartOffset;
+	public $teaserText;
 
-  public function setTeaserStartOffset($teaserStartOffset)
-  {
-    $this->teaserStartOffset = $teaserStartOffset;
-  }
-  public function getTeaserStartOffset()
-  {
-    return $this->teaserStartOffset;
-  }
-  public function setTeaserText($teaserText)
-  {
-    $this->teaserText = $teaserText;
-  }
-  public function getTeaserText()
-  {
-    return $this->teaserText;
-  }
+	public function setTeaserStartOffset($teaserStartOffset)
+	{
+		$this->teaserStartOffset = $teaserStartOffset;
+	}
+	public function getTeaserStartOffset()
+	{
+		return $this->teaserStartOffset;
+	}
+	public function setTeaserText($teaserText)
+	{
+		$this->teaserText = $teaserText;
+	}
+	public function getTeaserText()
+	{
+		return $this->teaserText;
+	}
 }

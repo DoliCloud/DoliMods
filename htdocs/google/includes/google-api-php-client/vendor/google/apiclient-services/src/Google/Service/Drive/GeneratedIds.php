@@ -17,33 +17,33 @@
 
 class Google_Service_Drive_GeneratedIds extends Google_Collection
 {
-  protected $collection_key = 'ids';
-  public $ids;
-  public $kind;
-  public $space;
+	protected $collection_key = 'ids';
+	public $ids;
+	public $kind;
+	public $space;
 
-  public function setIds($ids)
-  {
-    $this->ids = $ids;
-  }
-  public function getIds()
-  {
-    return $this->ids;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setSpace($space)
-  {
-    $this->space = $space;
-  }
-  public function getSpace()
-  {
-    return $this->space;
-  }
+	public function setIds($ids)
+	{
+		$this->ids = $ids;
+	}
+	public function getIds()
+	{
+		return $this->ids;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setSpace($space)
+	{
+		$this->space = $space;
+	}
+	public function getSpace()
+	{
+		return $this->space;
+	}
 }

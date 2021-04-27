@@ -17,41 +17,41 @@
 
 class Google_Service_CloudMemorystoreforMemcached_GoogleCloudSaasacceleratorManagementProvidersV1MaintenanceSchedule extends Google_Model
 {
-  public $canReschedule;
-  public $endTime;
-  public $rolloutManagementPolicy;
-  public $startTime;
+	public $canReschedule;
+	public $endTime;
+	public $rolloutManagementPolicy;
+	public $startTime;
 
-  public function setCanReschedule($canReschedule)
-  {
-    $this->canReschedule = $canReschedule;
-  }
-  public function getCanReschedule()
-  {
-    return $this->canReschedule;
-  }
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  public function setRolloutManagementPolicy($rolloutManagementPolicy)
-  {
-    $this->rolloutManagementPolicy = $rolloutManagementPolicy;
-  }
-  public function getRolloutManagementPolicy()
-  {
-    return $this->rolloutManagementPolicy;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
+	public function setCanReschedule($canReschedule)
+	{
+		$this->canReschedule = $canReschedule;
+	}
+	public function getCanReschedule()
+	{
+		return $this->canReschedule;
+	}
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	public function setRolloutManagementPolicy($rolloutManagementPolicy)
+	{
+		$this->rolloutManagementPolicy = $rolloutManagementPolicy;
+	}
+	public function getRolloutManagementPolicy()
+	{
+		return $this->rolloutManagementPolicy;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmText extends Google_Collection
 {
-  protected $collection_key = 'rbmSuggestion';
-  protected $rbmSuggestionType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion';
-  protected $rbmSuggestionDataType = 'array';
-  public $text;
+	protected $collection_key = 'rbmSuggestion';
+	protected $rbmSuggestionType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion';
+	protected $rbmSuggestionDataType = 'array';
+	public $text;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion
-   */
-  public function setRbmSuggestion($rbmSuggestion)
-  {
-    $this->rbmSuggestion = $rbmSuggestion;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion
-   */
-  public function getRbmSuggestion()
-  {
-    return $this->rbmSuggestion;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion
+	 */
+	public function setRbmSuggestion($rbmSuggestion)
+	{
+		$this->rbmSuggestion = $rbmSuggestion;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion
+	 */
+	public function getRbmSuggestion()
+	{
+		return $this->rbmSuggestion;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

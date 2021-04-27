@@ -17,56 +17,56 @@
 
 class Google_Service_CloudLifeSciences_Pipeline extends Google_Collection
 {
-  protected $collection_key = 'actions';
-  protected $actionsType = 'Google_Service_CloudLifeSciences_Action';
-  protected $actionsDataType = 'array';
-  public $environment;
-  protected $resourcesType = 'Google_Service_CloudLifeSciences_Resources';
-  protected $resourcesDataType = '';
-  public $timeout;
+	protected $collection_key = 'actions';
+	protected $actionsType = 'Google_Service_CloudLifeSciences_Action';
+	protected $actionsDataType = 'array';
+	public $environment;
+	protected $resourcesType = 'Google_Service_CloudLifeSciences_Resources';
+	protected $resourcesDataType = '';
+	public $timeout;
 
-  /**
-   * @param Google_Service_CloudLifeSciences_Action
-   */
-  public function setActions($actions)
-  {
-    $this->actions = $actions;
-  }
-  /**
-   * @return Google_Service_CloudLifeSciences_Action
-   */
-  public function getActions()
-  {
-    return $this->actions;
-  }
-  public function setEnvironment($environment)
-  {
-    $this->environment = $environment;
-  }
-  public function getEnvironment()
-  {
-    return $this->environment;
-  }
-  /**
-   * @param Google_Service_CloudLifeSciences_Resources
-   */
-  public function setResources(Google_Service_CloudLifeSciences_Resources $resources)
-  {
-    $this->resources = $resources;
-  }
-  /**
-   * @return Google_Service_CloudLifeSciences_Resources
-   */
-  public function getResources()
-  {
-    return $this->resources;
-  }
-  public function setTimeout($timeout)
-  {
-    $this->timeout = $timeout;
-  }
-  public function getTimeout()
-  {
-    return $this->timeout;
-  }
+	/**
+	 * @param Google_Service_CloudLifeSciences_Action
+	 */
+	public function setActions($actions)
+	{
+		$this->actions = $actions;
+	}
+	/**
+	 * @return Google_Service_CloudLifeSciences_Action
+	 */
+	public function getActions()
+	{
+		return $this->actions;
+	}
+	public function setEnvironment($environment)
+	{
+		$this->environment = $environment;
+	}
+	public function getEnvironment()
+	{
+		return $this->environment;
+	}
+	/**
+	 * @param Google_Service_CloudLifeSciences_Resources
+	 */
+	public function setResources(Google_Service_CloudLifeSciences_Resources $resources)
+	{
+		$this->resources = $resources;
+	}
+	/**
+	 * @return Google_Service_CloudLifeSciences_Resources
+	 */
+	public function getResources()
+	{
+		return $this->resources;
+	}
+	public function setTimeout($timeout)
+	{
+		$this->timeout = $timeout;
+	}
+	public function getTimeout()
+	{
+		return $this->timeout;
+	}
 }

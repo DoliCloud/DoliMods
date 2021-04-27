@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_ChannelConversionPing extends Google_Model
 {
-  public $context;
-  public $conversionUrl;
+	public $context;
+	public $conversionUrl;
 
-  public function setContext($context)
-  {
-    $this->context = $context;
-  }
-  public function getContext()
-  {
-    return $this->context;
-  }
-  public function setConversionUrl($conversionUrl)
-  {
-    $this->conversionUrl = $conversionUrl;
-  }
-  public function getConversionUrl()
-  {
-    return $this->conversionUrl;
-  }
+	public function setContext($context)
+	{
+		$this->context = $context;
+	}
+	public function getContext()
+	{
+		return $this->context;
+	}
+	public function setConversionUrl($conversionUrl)
+	{
+		$this->conversionUrl = $conversionUrl;
+	}
+	public function getConversionUrl()
+	{
+		return $this->conversionUrl;
+	}
 }

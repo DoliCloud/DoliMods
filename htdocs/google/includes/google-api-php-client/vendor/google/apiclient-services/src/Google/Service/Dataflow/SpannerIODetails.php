@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_SpannerIODetails extends Google_Model
 {
-  public $databaseId;
-  public $instanceId;
-  public $projectId;
+	public $databaseId;
+	public $instanceId;
+	public $projectId;
 
-  public function setDatabaseId($databaseId)
-  {
-    $this->databaseId = $databaseId;
-  }
-  public function getDatabaseId()
-  {
-    return $this->databaseId;
-  }
-  public function setInstanceId($instanceId)
-  {
-    $this->instanceId = $instanceId;
-  }
-  public function getInstanceId()
-  {
-    return $this->instanceId;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
+	public function setDatabaseId($databaseId)
+	{
+		$this->databaseId = $databaseId;
+	}
+	public function getDatabaseId()
+	{
+		return $this->databaseId;
+	}
+	public function setInstanceId($instanceId)
+	{
+		$this->instanceId = $instanceId;
+	}
+	public function getInstanceId()
+	{
+		return $this->instanceId;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
 }

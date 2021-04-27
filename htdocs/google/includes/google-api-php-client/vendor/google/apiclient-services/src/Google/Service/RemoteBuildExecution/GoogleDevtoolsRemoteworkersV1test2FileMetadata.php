@@ -17,48 +17,48 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2FileMetadata extends Google_Model
 {
-  public $contents;
-  protected $digestType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
-  protected $digestDataType = '';
-  public $isExecutable;
-  public $path;
+	public $contents;
+	protected $digestType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
+	protected $digestDataType = '';
+	public $isExecutable;
+	public $path;
 
-  public function setContents($contents)
-  {
-    $this->contents = $contents;
-  }
-  public function getContents()
-  {
-    return $this->contents;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-   */
-  public function setDigest(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $digest)
-  {
-    $this->digest = $digest;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-   */
-  public function getDigest()
-  {
-    return $this->digest;
-  }
-  public function setIsExecutable($isExecutable)
-  {
-    $this->isExecutable = $isExecutable;
-  }
-  public function getIsExecutable()
-  {
-    return $this->isExecutable;
-  }
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
+	public function setContents($contents)
+	{
+		$this->contents = $contents;
+	}
+	public function getContents()
+	{
+		return $this->contents;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+	 */
+	public function setDigest(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $digest)
+	{
+		$this->digest = $digest;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+	 */
+	public function getDigest()
+	{
+		return $this->digest;
+	}
+	public function setIsExecutable($isExecutable)
+	{
+		$this->isExecutable = $isExecutable;
+	}
+	public function getIsExecutable()
+	{
+		return $this->isExecutable;
+	}
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
 }

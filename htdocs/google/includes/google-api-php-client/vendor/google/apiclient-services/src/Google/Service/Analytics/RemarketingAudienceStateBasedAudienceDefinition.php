@@ -17,37 +17,37 @@
 
 class Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinition extends Google_Model
 {
-  protected $excludeConditionsType = 'Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions';
-  protected $excludeConditionsDataType = '';
-  protected $includeConditionsType = 'Google_Service_Analytics_IncludeConditions';
-  protected $includeConditionsDataType = '';
+	protected $excludeConditionsType = 'Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions';
+	protected $excludeConditionsDataType = '';
+	protected $includeConditionsType = 'Google_Service_Analytics_IncludeConditions';
+	protected $includeConditionsDataType = '';
 
-  /**
-   * @param Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
-   */
-  public function setExcludeConditions(Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions $excludeConditions)
-  {
-    $this->excludeConditions = $excludeConditions;
-  }
-  /**
-   * @return Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
-   */
-  public function getExcludeConditions()
-  {
-    return $this->excludeConditions;
-  }
-  /**
-   * @param Google_Service_Analytics_IncludeConditions
-   */
-  public function setIncludeConditions(Google_Service_Analytics_IncludeConditions $includeConditions)
-  {
-    $this->includeConditions = $includeConditions;
-  }
-  /**
-   * @return Google_Service_Analytics_IncludeConditions
-   */
-  public function getIncludeConditions()
-  {
-    return $this->includeConditions;
-  }
+	/**
+	 * @param Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
+	 */
+	public function setExcludeConditions(Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions $excludeConditions)
+	{
+		$this->excludeConditions = $excludeConditions;
+	}
+	/**
+	 * @return Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
+	 */
+	public function getExcludeConditions()
+	{
+		return $this->excludeConditions;
+	}
+	/**
+	 * @param Google_Service_Analytics_IncludeConditions
+	 */
+	public function setIncludeConditions(Google_Service_Analytics_IncludeConditions $includeConditions)
+	{
+		$this->includeConditions = $includeConditions;
+	}
+	/**
+	 * @return Google_Service_Analytics_IncludeConditions
+	 */
+	public function getIncludeConditions()
+	{
+		return $this->includeConditions;
+	}
 }

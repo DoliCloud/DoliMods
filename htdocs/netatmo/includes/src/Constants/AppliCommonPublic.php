@@ -89,5 +89,3 @@ class NABatteryLevelWindGaugeModule extends Netatmo\Common\NABatteryLevelWindGau
 class NABatteryLevelThermostat extends Netatmo\Common\NABatteryLevelThermostat
 {
 }
-
-?>

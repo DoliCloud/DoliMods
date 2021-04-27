@@ -17,23 +17,23 @@
 
 class Google_Service_Spanner_RestoreDatabaseRequest extends Google_Model
 {
-  public $backup;
-  public $databaseId;
+	public $backup;
+	public $databaseId;
 
-  public function setBackup($backup)
-  {
-    $this->backup = $backup;
-  }
-  public function getBackup()
-  {
-    return $this->backup;
-  }
-  public function setDatabaseId($databaseId)
-  {
-    $this->databaseId = $databaseId;
-  }
-  public function getDatabaseId()
-  {
-    return $this->databaseId;
-  }
+	public function setBackup($backup)
+	{
+		$this->backup = $backup;
+	}
+	public function getBackup()
+	{
+		return $this->backup;
+	}
+	public function setDatabaseId($databaseId)
+	{
+		$this->databaseId = $databaseId;
+	}
+	public function getDatabaseId()
+	{
+		return $this->databaseId;
+	}
 }

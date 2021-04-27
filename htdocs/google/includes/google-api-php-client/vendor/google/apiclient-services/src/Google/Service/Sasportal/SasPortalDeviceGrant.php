@@ -17,83 +17,83 @@
 
 class Google_Service_Sasportal_SasPortalDeviceGrant extends Google_Collection
 {
-  protected $collection_key = 'suspensionReason';
-  public $channelType;
-  public $expireTime;
-  protected $frequencyRangeType = 'Google_Service_Sasportal_SasPortalFrequencyRange';
-  protected $frequencyRangeDataType = '';
-  public $maxEirp;
-  protected $moveListType = 'Google_Service_Sasportal_SasPortalDpaMoveList';
-  protected $moveListDataType = 'array';
-  public $state;
-  public $suspensionReason;
+	protected $collection_key = 'suspensionReason';
+	public $channelType;
+	public $expireTime;
+	protected $frequencyRangeType = 'Google_Service_Sasportal_SasPortalFrequencyRange';
+	protected $frequencyRangeDataType = '';
+	public $maxEirp;
+	protected $moveListType = 'Google_Service_Sasportal_SasPortalDpaMoveList';
+	protected $moveListDataType = 'array';
+	public $state;
+	public $suspensionReason;
 
-  public function setChannelType($channelType)
-  {
-    $this->channelType = $channelType;
-  }
-  public function getChannelType()
-  {
-    return $this->channelType;
-  }
-  public function setExpireTime($expireTime)
-  {
-    $this->expireTime = $expireTime;
-  }
-  public function getExpireTime()
-  {
-    return $this->expireTime;
-  }
-  /**
-   * @param Google_Service_Sasportal_SasPortalFrequencyRange
-   */
-  public function setFrequencyRange(Google_Service_Sasportal_SasPortalFrequencyRange $frequencyRange)
-  {
-    $this->frequencyRange = $frequencyRange;
-  }
-  /**
-   * @return Google_Service_Sasportal_SasPortalFrequencyRange
-   */
-  public function getFrequencyRange()
-  {
-    return $this->frequencyRange;
-  }
-  public function setMaxEirp($maxEirp)
-  {
-    $this->maxEirp = $maxEirp;
-  }
-  public function getMaxEirp()
-  {
-    return $this->maxEirp;
-  }
-  /**
-   * @param Google_Service_Sasportal_SasPortalDpaMoveList
-   */
-  public function setMoveList($moveList)
-  {
-    $this->moveList = $moveList;
-  }
-  /**
-   * @return Google_Service_Sasportal_SasPortalDpaMoveList
-   */
-  public function getMoveList()
-  {
-    return $this->moveList;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setSuspensionReason($suspensionReason)
-  {
-    $this->suspensionReason = $suspensionReason;
-  }
-  public function getSuspensionReason()
-  {
-    return $this->suspensionReason;
-  }
+	public function setChannelType($channelType)
+	{
+		$this->channelType = $channelType;
+	}
+	public function getChannelType()
+	{
+		return $this->channelType;
+	}
+	public function setExpireTime($expireTime)
+	{
+		$this->expireTime = $expireTime;
+	}
+	public function getExpireTime()
+	{
+		return $this->expireTime;
+	}
+	/**
+	 * @param Google_Service_Sasportal_SasPortalFrequencyRange
+	 */
+	public function setFrequencyRange(Google_Service_Sasportal_SasPortalFrequencyRange $frequencyRange)
+	{
+		$this->frequencyRange = $frequencyRange;
+	}
+	/**
+	 * @return Google_Service_Sasportal_SasPortalFrequencyRange
+	 */
+	public function getFrequencyRange()
+	{
+		return $this->frequencyRange;
+	}
+	public function setMaxEirp($maxEirp)
+	{
+		$this->maxEirp = $maxEirp;
+	}
+	public function getMaxEirp()
+	{
+		return $this->maxEirp;
+	}
+	/**
+	 * @param Google_Service_Sasportal_SasPortalDpaMoveList
+	 */
+	public function setMoveList($moveList)
+	{
+		$this->moveList = $moveList;
+	}
+	/**
+	 * @return Google_Service_Sasportal_SasPortalDpaMoveList
+	 */
+	public function getMoveList()
+	{
+		return $this->moveList;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setSuspensionReason($suspensionReason)
+	{
+		$this->suspensionReason = $suspensionReason;
+	}
+	public function getSuspensionReason()
+	{
+		return $this->suspensionReason;
+	}
 }

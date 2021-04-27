@@ -17,14 +17,14 @@
 
 class Google_Service_AlertCenter_DomainId extends Google_Model
 {
-  public $customerPrimaryDomain;
+	public $customerPrimaryDomain;
 
-  public function setCustomerPrimaryDomain($customerPrimaryDomain)
-  {
-    $this->customerPrimaryDomain = $customerPrimaryDomain;
-  }
-  public function getCustomerPrimaryDomain()
-  {
-    return $this->customerPrimaryDomain;
-  }
+	public function setCustomerPrimaryDomain($customerPrimaryDomain)
+	{
+		$this->customerPrimaryDomain = $customerPrimaryDomain;
+	}
+	public function getCustomerPrimaryDomain()
+	{
+		return $this->customerPrimaryDomain;
+	}
 }

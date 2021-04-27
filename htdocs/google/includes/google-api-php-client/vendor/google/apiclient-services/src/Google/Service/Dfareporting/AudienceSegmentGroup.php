@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_AudienceSegmentGroup extends Google_Collection
 {
-  protected $collection_key = 'audienceSegments';
-  protected $audienceSegmentsType = 'Google_Service_Dfareporting_AudienceSegment';
-  protected $audienceSegmentsDataType = 'array';
-  public $id;
-  public $name;
+	protected $collection_key = 'audienceSegments';
+	protected $audienceSegmentsType = 'Google_Service_Dfareporting_AudienceSegment';
+	protected $audienceSegmentsDataType = 'array';
+	public $id;
+	public $name;
 
-  /**
-   * @param Google_Service_Dfareporting_AudienceSegment
-   */
-  public function setAudienceSegments($audienceSegments)
-  {
-    $this->audienceSegments = $audienceSegments;
-  }
-  /**
-   * @return Google_Service_Dfareporting_AudienceSegment
-   */
-  public function getAudienceSegments()
-  {
-    return $this->audienceSegments;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_AudienceSegment
+	 */
+	public function setAudienceSegments($audienceSegments)
+	{
+		$this->audienceSegments = $audienceSegments;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_AudienceSegment
+	 */
+	public function getAudienceSegments()
+	{
+		return $this->audienceSegments;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

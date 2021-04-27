@@ -17,78 +17,78 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentParameter extends Google_Collection
 {
-  protected $collection_key = 'prompts';
-  public $defaultValue;
-  public $displayName;
-  public $entityTypeDisplayName;
-  public $isList;
-  public $mandatory;
-  public $name;
-  public $prompts;
-  public $value;
+	protected $collection_key = 'prompts';
+	public $defaultValue;
+	public $displayName;
+	public $entityTypeDisplayName;
+	public $isList;
+	public $mandatory;
+	public $name;
+	public $prompts;
+	public $value;
 
-  public function setDefaultValue($defaultValue)
-  {
-    $this->defaultValue = $defaultValue;
-  }
-  public function getDefaultValue()
-  {
-    return $this->defaultValue;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEntityTypeDisplayName($entityTypeDisplayName)
-  {
-    $this->entityTypeDisplayName = $entityTypeDisplayName;
-  }
-  public function getEntityTypeDisplayName()
-  {
-    return $this->entityTypeDisplayName;
-  }
-  public function setIsList($isList)
-  {
-    $this->isList = $isList;
-  }
-  public function getIsList()
-  {
-    return $this->isList;
-  }
-  public function setMandatory($mandatory)
-  {
-    $this->mandatory = $mandatory;
-  }
-  public function getMandatory()
-  {
-    return $this->mandatory;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPrompts($prompts)
-  {
-    $this->prompts = $prompts;
-  }
-  public function getPrompts()
-  {
-    return $this->prompts;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setDefaultValue($defaultValue)
+	{
+		$this->defaultValue = $defaultValue;
+	}
+	public function getDefaultValue()
+	{
+		return $this->defaultValue;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEntityTypeDisplayName($entityTypeDisplayName)
+	{
+		$this->entityTypeDisplayName = $entityTypeDisplayName;
+	}
+	public function getEntityTypeDisplayName()
+	{
+		return $this->entityTypeDisplayName;
+	}
+	public function setIsList($isList)
+	{
+		$this->isList = $isList;
+	}
+	public function getIsList()
+	{
+		return $this->isList;
+	}
+	public function setMandatory($mandatory)
+	{
+		$this->mandatory = $mandatory;
+	}
+	public function getMandatory()
+	{
+		return $this->mandatory;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPrompts($prompts)
+	{
+		$this->prompts = $prompts;
+	}
+	public function getPrompts()
+	{
+		return $this->prompts;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

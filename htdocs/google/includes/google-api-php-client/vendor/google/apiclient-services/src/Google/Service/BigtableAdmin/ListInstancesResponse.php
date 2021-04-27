@@ -17,40 +17,40 @@
 
 class Google_Service_BigtableAdmin_ListInstancesResponse extends Google_Collection
 {
-  protected $collection_key = 'instances';
-  public $failedLocations;
-  protected $instancesType = 'Google_Service_BigtableAdmin_Instance';
-  protected $instancesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'instances';
+	public $failedLocations;
+	protected $instancesType = 'Google_Service_BigtableAdmin_Instance';
+	protected $instancesDataType = 'array';
+	public $nextPageToken;
 
-  public function setFailedLocations($failedLocations)
-  {
-    $this->failedLocations = $failedLocations;
-  }
-  public function getFailedLocations()
-  {
-    return $this->failedLocations;
-  }
-  /**
-   * @param Google_Service_BigtableAdmin_Instance
-   */
-  public function setInstances($instances)
-  {
-    $this->instances = $instances;
-  }
-  /**
-   * @return Google_Service_BigtableAdmin_Instance
-   */
-  public function getInstances()
-  {
-    return $this->instances;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	public function setFailedLocations($failedLocations)
+	{
+		$this->failedLocations = $failedLocations;
+	}
+	public function getFailedLocations()
+	{
+		return $this->failedLocations;
+	}
+	/**
+	 * @param Google_Service_BigtableAdmin_Instance
+	 */
+	public function setInstances($instances)
+	{
+		$this->instances = $instances;
+	}
+	/**
+	 * @return Google_Service_BigtableAdmin_Instance
+	 */
+	public function getInstances()
+	{
+		return $this->instances;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

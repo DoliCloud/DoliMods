@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_HealthChecksScopedList extends Google_Collection
 {
-  protected $collection_key = 'healthChecks';
-  protected $healthChecksType = 'Google_Service_Compute_HealthCheck';
-  protected $healthChecksDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_HealthChecksScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'healthChecks';
+	protected $healthChecksType = 'Google_Service_Compute_HealthCheck';
+	protected $healthChecksDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_HealthChecksScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_HealthCheck
-   */
-  public function setHealthChecks($healthChecks)
-  {
-    $this->healthChecks = $healthChecks;
-  }
-  /**
-   * @return Google_Service_Compute_HealthCheck
-   */
-  public function getHealthChecks()
-  {
-    return $this->healthChecks;
-  }
-  /**
-   * @param Google_Service_Compute_HealthChecksScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_HealthChecksScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_HealthChecksScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_HealthCheck
+	 */
+	public function setHealthChecks($healthChecks)
+	{
+		$this->healthChecks = $healthChecks;
+	}
+	/**
+	 * @return Google_Service_Compute_HealthCheck
+	 */
+	public function getHealthChecks()
+	{
+		return $this->healthChecks;
+	}
+	/**
+	 * @param Google_Service_Compute_HealthChecksScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_HealthChecksScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_HealthChecksScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

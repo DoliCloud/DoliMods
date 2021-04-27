@@ -17,130 +17,130 @@
 
 class Google_Service_CloudTalentSolution_Company extends Google_Collection
 {
-  protected $collection_key = 'keywordSearchableJobCustomAttributes';
-  public $careerSiteUri;
-  protected $derivedInfoType = 'Google_Service_CloudTalentSolution_CompanyDerivedInfo';
-  protected $derivedInfoDataType = '';
-  public $displayName;
-  public $eeoText;
-  public $externalId;
-  public $headquartersAddress;
-  public $hiringAgency;
-  public $imageUri;
-  public $keywordSearchableJobCustomAttributes;
-  public $name;
-  public $size;
-  public $suspended;
-  public $websiteUri;
+	protected $collection_key = 'keywordSearchableJobCustomAttributes';
+	public $careerSiteUri;
+	protected $derivedInfoType = 'Google_Service_CloudTalentSolution_CompanyDerivedInfo';
+	protected $derivedInfoDataType = '';
+	public $displayName;
+	public $eeoText;
+	public $externalId;
+	public $headquartersAddress;
+	public $hiringAgency;
+	public $imageUri;
+	public $keywordSearchableJobCustomAttributes;
+	public $name;
+	public $size;
+	public $suspended;
+	public $websiteUri;
 
-  public function setCareerSiteUri($careerSiteUri)
-  {
-    $this->careerSiteUri = $careerSiteUri;
-  }
-  public function getCareerSiteUri()
-  {
-    return $this->careerSiteUri;
-  }
-  /**
-   * @param Google_Service_CloudTalentSolution_CompanyDerivedInfo
-   */
-  public function setDerivedInfo(Google_Service_CloudTalentSolution_CompanyDerivedInfo $derivedInfo)
-  {
-    $this->derivedInfo = $derivedInfo;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_CompanyDerivedInfo
-   */
-  public function getDerivedInfo()
-  {
-    return $this->derivedInfo;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEeoText($eeoText)
-  {
-    $this->eeoText = $eeoText;
-  }
-  public function getEeoText()
-  {
-    return $this->eeoText;
-  }
-  public function setExternalId($externalId)
-  {
-    $this->externalId = $externalId;
-  }
-  public function getExternalId()
-  {
-    return $this->externalId;
-  }
-  public function setHeadquartersAddress($headquartersAddress)
-  {
-    $this->headquartersAddress = $headquartersAddress;
-  }
-  public function getHeadquartersAddress()
-  {
-    return $this->headquartersAddress;
-  }
-  public function setHiringAgency($hiringAgency)
-  {
-    $this->hiringAgency = $hiringAgency;
-  }
-  public function getHiringAgency()
-  {
-    return $this->hiringAgency;
-  }
-  public function setImageUri($imageUri)
-  {
-    $this->imageUri = $imageUri;
-  }
-  public function getImageUri()
-  {
-    return $this->imageUri;
-  }
-  public function setKeywordSearchableJobCustomAttributes($keywordSearchableJobCustomAttributes)
-  {
-    $this->keywordSearchableJobCustomAttributes = $keywordSearchableJobCustomAttributes;
-  }
-  public function getKeywordSearchableJobCustomAttributes()
-  {
-    return $this->keywordSearchableJobCustomAttributes;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSize($size)
-  {
-    $this->size = $size;
-  }
-  public function getSize()
-  {
-    return $this->size;
-  }
-  public function setSuspended($suspended)
-  {
-    $this->suspended = $suspended;
-  }
-  public function getSuspended()
-  {
-    return $this->suspended;
-  }
-  public function setWebsiteUri($websiteUri)
-  {
-    $this->websiteUri = $websiteUri;
-  }
-  public function getWebsiteUri()
-  {
-    return $this->websiteUri;
-  }
+	public function setCareerSiteUri($careerSiteUri)
+	{
+		$this->careerSiteUri = $careerSiteUri;
+	}
+	public function getCareerSiteUri()
+	{
+		return $this->careerSiteUri;
+	}
+	/**
+	 * @param Google_Service_CloudTalentSolution_CompanyDerivedInfo
+	 */
+	public function setDerivedInfo(Google_Service_CloudTalentSolution_CompanyDerivedInfo $derivedInfo)
+	{
+		$this->derivedInfo = $derivedInfo;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_CompanyDerivedInfo
+	 */
+	public function getDerivedInfo()
+	{
+		return $this->derivedInfo;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEeoText($eeoText)
+	{
+		$this->eeoText = $eeoText;
+	}
+	public function getEeoText()
+	{
+		return $this->eeoText;
+	}
+	public function setExternalId($externalId)
+	{
+		$this->externalId = $externalId;
+	}
+	public function getExternalId()
+	{
+		return $this->externalId;
+	}
+	public function setHeadquartersAddress($headquartersAddress)
+	{
+		$this->headquartersAddress = $headquartersAddress;
+	}
+	public function getHeadquartersAddress()
+	{
+		return $this->headquartersAddress;
+	}
+	public function setHiringAgency($hiringAgency)
+	{
+		$this->hiringAgency = $hiringAgency;
+	}
+	public function getHiringAgency()
+	{
+		return $this->hiringAgency;
+	}
+	public function setImageUri($imageUri)
+	{
+		$this->imageUri = $imageUri;
+	}
+	public function getImageUri()
+	{
+		return $this->imageUri;
+	}
+	public function setKeywordSearchableJobCustomAttributes($keywordSearchableJobCustomAttributes)
+	{
+		$this->keywordSearchableJobCustomAttributes = $keywordSearchableJobCustomAttributes;
+	}
+	public function getKeywordSearchableJobCustomAttributes()
+	{
+		return $this->keywordSearchableJobCustomAttributes;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSize($size)
+	{
+		$this->size = $size;
+	}
+	public function getSize()
+	{
+		return $this->size;
+	}
+	public function setSuspended($suspended)
+	{
+		$this->suspended = $suspended;
+	}
+	public function getSuspended()
+	{
+		return $this->suspended;
+	}
+	public function setWebsiteUri($websiteUri)
+	{
+		$this->websiteUri = $websiteUri;
+	}
+	public function getWebsiteUri()
+	{
+		return $this->websiteUri;
+	}
 }

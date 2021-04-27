@@ -24,61 +24,61 @@ use Monolog\Logger;
  */
 class SlackbotHandler extends AbstractProcessingHandler
 {
-    /**
-     * The slug of the Slack team
-     * @var string
-     */
-    private $slackTeam;
+	/**
+	 * The slug of the Slack team
+	 * @var string
+	 */
+	private $slackTeam;
 
-    /**
-     * Slackbot token
-     * @var string
-     */
-    private $token;
+	/**
+	 * Slackbot token
+	 * @var string
+	 */
+	private $token;
 
-    /**
-     * Slack channel name
-     * @var string
-     */
-    private $channel;
+	/**
+	 * Slack channel name
+	 * @var string
+	 */
+	private $channel;
 
-    /**
-     * @param  string $slackTeam Slack team slug
-     * @param  string $token     Slackbot token
-     * @param  string $channel   Slack channel (encoded ID or name)
-     * @param  int    $level     The minimum logging level at which this handler will be triggered
-     * @param  bool   $bubble    Whether the messages that are handled can bubble up the stack or not
-     */
-    public function __construct($slackTeam, $token, $channel, $level = Logger::CRITICAL, $bubble = true)
-    {
-        @trigger_error('SlackbotHandler is deprecated and will be removed on 2.x', E_USER_DEPRECATED);
-        parent::__construct($level, $bubble);
+	/**
+	 * @param  string $slackTeam Slack team slug
+	 * @param  string $token     Slackbot token
+	 * @param  string $channel   Slack channel (encoded ID or name)
+	 * @param  int    $level     The minimum logging level at which this handler will be triggered
+	 * @param  bool   $bubble    Whether the messages that are handled can bubble up the stack or not
+	 */
+	public function __construct($slackTeam, $token, $channel, $level = Logger::CRITICAL, $bubble = true)
+	{
+		@trigger_error('SlackbotHandler is deprecated and will be removed on 2.x', E_USER_DEPRECATED);
+		parent::__construct($level, $bubble);
 
-        $this->slackTeam = $slackTeam;
-        $this->token = $token;
-        $this->channel = $channel;
-    }
+		$this->slackTeam = $slackTeam;
+		$this->token = $token;
+		$this->channel = $channel;
+	}
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param array $record
-     */
-    protected function write(array $record)
-    {
-        $slackbotUrl = sprintf(
-            'https://%s.slack.com/services/hooks/slackbot?token=%s&channel=%s',
-            $this->slackTeam,
-            $this->token,
-            $this->channel
-        );
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @param array $record
+	 */
+	protected function write(array $record)
+	{
+		$slackbotUrl = sprintf(
+			'https://%s.slack.com/services/hooks/slackbot?token=%s&channel=%s',
+			$this->slackTeam,
+			$this->token,
+			$this->channel
+		);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $slackbotUrl);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $record['message']);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $slackbotUrl);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $record['message']);
 
-        Curl\Util::execute($ch);
-    }
+		Curl\Util::execute($ch);
+	}
 }

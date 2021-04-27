@@ -17,84 +17,84 @@
 
 class Google_Service_Reseller_Customer extends Google_Model
 {
-  public $alternateEmail;
-  public $customerDomain;
-  public $customerDomainVerified;
-  public $customerId;
-  public $kind;
-  public $phoneNumber;
-  protected $postalAddressType = 'Google_Service_Reseller_Address';
-  protected $postalAddressDataType = '';
-  public $resourceUiUrl;
+	public $alternateEmail;
+	public $customerDomain;
+	public $customerDomainVerified;
+	public $customerId;
+	public $kind;
+	public $phoneNumber;
+	protected $postalAddressType = 'Google_Service_Reseller_Address';
+	protected $postalAddressDataType = '';
+	public $resourceUiUrl;
 
-  public function setAlternateEmail($alternateEmail)
-  {
-    $this->alternateEmail = $alternateEmail;
-  }
-  public function getAlternateEmail()
-  {
-    return $this->alternateEmail;
-  }
-  public function setCustomerDomain($customerDomain)
-  {
-    $this->customerDomain = $customerDomain;
-  }
-  public function getCustomerDomain()
-  {
-    return $this->customerDomain;
-  }
-  public function setCustomerDomainVerified($customerDomainVerified)
-  {
-    $this->customerDomainVerified = $customerDomainVerified;
-  }
-  public function getCustomerDomainVerified()
-  {
-    return $this->customerDomainVerified;
-  }
-  public function setCustomerId($customerId)
-  {
-    $this->customerId = $customerId;
-  }
-  public function getCustomerId()
-  {
-    return $this->customerId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setPhoneNumber($phoneNumber)
-  {
-    $this->phoneNumber = $phoneNumber;
-  }
-  public function getPhoneNumber()
-  {
-    return $this->phoneNumber;
-  }
-  /**
-   * @param Google_Service_Reseller_Address
-   */
-  public function setPostalAddress(Google_Service_Reseller_Address $postalAddress)
-  {
-    $this->postalAddress = $postalAddress;
-  }
-  /**
-   * @return Google_Service_Reseller_Address
-   */
-  public function getPostalAddress()
-  {
-    return $this->postalAddress;
-  }
-  public function setResourceUiUrl($resourceUiUrl)
-  {
-    $this->resourceUiUrl = $resourceUiUrl;
-  }
-  public function getResourceUiUrl()
-  {
-    return $this->resourceUiUrl;
-  }
+	public function setAlternateEmail($alternateEmail)
+	{
+		$this->alternateEmail = $alternateEmail;
+	}
+	public function getAlternateEmail()
+	{
+		return $this->alternateEmail;
+	}
+	public function setCustomerDomain($customerDomain)
+	{
+		$this->customerDomain = $customerDomain;
+	}
+	public function getCustomerDomain()
+	{
+		return $this->customerDomain;
+	}
+	public function setCustomerDomainVerified($customerDomainVerified)
+	{
+		$this->customerDomainVerified = $customerDomainVerified;
+	}
+	public function getCustomerDomainVerified()
+	{
+		return $this->customerDomainVerified;
+	}
+	public function setCustomerId($customerId)
+	{
+		$this->customerId = $customerId;
+	}
+	public function getCustomerId()
+	{
+		return $this->customerId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setPhoneNumber($phoneNumber)
+	{
+		$this->phoneNumber = $phoneNumber;
+	}
+	public function getPhoneNumber()
+	{
+		return $this->phoneNumber;
+	}
+	/**
+	 * @param Google_Service_Reseller_Address
+	 */
+	public function setPostalAddress(Google_Service_Reseller_Address $postalAddress)
+	{
+		$this->postalAddress = $postalAddress;
+	}
+	/**
+	 * @return Google_Service_Reseller_Address
+	 */
+	public function getPostalAddress()
+	{
+		return $this->postalAddress;
+	}
+	public function setResourceUiUrl($resourceUiUrl)
+	{
+		$this->resourceUiUrl = $resourceUiUrl;
+	}
+	public function getResourceUiUrl()
+	{
+		return $this->resourceUiUrl;
+	}
 }

@@ -17,59 +17,59 @@
 
 class Google_Service_Dfareporting_DV3Ids extends Google_Model
 {
-  public $dvCampaignId;
-  public $dvCreativeId;
-  public $dvInsertionOrderId;
-  public $dvLineItemId;
-  public $dvSiteId;
-  public $kind;
+	public $dvCampaignId;
+	public $dvCreativeId;
+	public $dvInsertionOrderId;
+	public $dvLineItemId;
+	public $dvSiteId;
+	public $kind;
 
-  public function setDvCampaignId($dvCampaignId)
-  {
-    $this->dvCampaignId = $dvCampaignId;
-  }
-  public function getDvCampaignId()
-  {
-    return $this->dvCampaignId;
-  }
-  public function setDvCreativeId($dvCreativeId)
-  {
-    $this->dvCreativeId = $dvCreativeId;
-  }
-  public function getDvCreativeId()
-  {
-    return $this->dvCreativeId;
-  }
-  public function setDvInsertionOrderId($dvInsertionOrderId)
-  {
-    $this->dvInsertionOrderId = $dvInsertionOrderId;
-  }
-  public function getDvInsertionOrderId()
-  {
-    return $this->dvInsertionOrderId;
-  }
-  public function setDvLineItemId($dvLineItemId)
-  {
-    $this->dvLineItemId = $dvLineItemId;
-  }
-  public function getDvLineItemId()
-  {
-    return $this->dvLineItemId;
-  }
-  public function setDvSiteId($dvSiteId)
-  {
-    $this->dvSiteId = $dvSiteId;
-  }
-  public function getDvSiteId()
-  {
-    return $this->dvSiteId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setDvCampaignId($dvCampaignId)
+	{
+		$this->dvCampaignId = $dvCampaignId;
+	}
+	public function getDvCampaignId()
+	{
+		return $this->dvCampaignId;
+	}
+	public function setDvCreativeId($dvCreativeId)
+	{
+		$this->dvCreativeId = $dvCreativeId;
+	}
+	public function getDvCreativeId()
+	{
+		return $this->dvCreativeId;
+	}
+	public function setDvInsertionOrderId($dvInsertionOrderId)
+	{
+		$this->dvInsertionOrderId = $dvInsertionOrderId;
+	}
+	public function getDvInsertionOrderId()
+	{
+		return $this->dvInsertionOrderId;
+	}
+	public function setDvLineItemId($dvLineItemId)
+	{
+		$this->dvLineItemId = $dvLineItemId;
+	}
+	public function getDvLineItemId()
+	{
+		return $this->dvLineItemId;
+	}
+	public function setDvSiteId($dvSiteId)
+	{
+		$this->dvSiteId = $dvSiteId;
+	}
+	public function getDvSiteId()
+	{
+		return $this->dvSiteId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

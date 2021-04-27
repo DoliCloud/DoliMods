@@ -17,32 +17,32 @@
 
 class Google_Service_Slides_Placeholder extends Google_Model
 {
-  public $index;
-  public $parentObjectId;
-  public $type;
+	public $index;
+	public $parentObjectId;
+	public $type;
 
-  public function setIndex($index)
-  {
-    $this->index = $index;
-  }
-  public function getIndex()
-  {
-    return $this->index;
-  }
-  public function setParentObjectId($parentObjectId)
-  {
-    $this->parentObjectId = $parentObjectId;
-  }
-  public function getParentObjectId()
-  {
-    return $this->parentObjectId;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setIndex($index)
+	{
+		$this->index = $index;
+	}
+	public function getIndex()
+	{
+		return $this->index;
+	}
+	public function setParentObjectId($parentObjectId)
+	{
+		$this->parentObjectId = $parentObjectId;
+	}
+	public function getParentObjectId()
+	{
+		return $this->parentObjectId;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

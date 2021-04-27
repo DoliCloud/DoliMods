@@ -11,26 +11,26 @@ use GuzzleHttp\Exception\RequestException;
  */
 class HttpError implements SubscriberInterface
 {
-    public function getEvents()
-    {
-        return ['complete' => ['onComplete', RequestEvents::VERIFY_RESPONSE]];
-    }
+	public function getEvents()
+	{
+		return ['complete' => ['onComplete', RequestEvents::VERIFY_RESPONSE]];
+	}
 
-    /**
-     * Throw a RequestException on an HTTP protocol error
-     *
-     * @param CompleteEvent $event Emitted event
-     * @throws RequestException
-     */
-    public function onComplete(CompleteEvent $event)
-    {
-        $code = (string) $event->getResponse()->getStatusCode();
-        // Throw an exception for an unsuccessful response
-        if ($code[0] >= 4) {
-            throw RequestException::create(
-                $event->getRequest(),
-                $event->getResponse()
-            );
-        }
-    }
+	/**
+	 * Throw a RequestException on an HTTP protocol error
+	 *
+	 * @param CompleteEvent $event Emitted event
+	 * @throws RequestException
+	 */
+	public function onComplete(CompleteEvent $event)
+	{
+		$code = (string) $event->getResponse()->getStatusCode();
+		// Throw an exception for an unsuccessful response
+		if ($code[0] >= 4) {
+			throw RequestException::create(
+				$event->getRequest(),
+				$event->getResponse()
+			);
+		}
+	}
 }

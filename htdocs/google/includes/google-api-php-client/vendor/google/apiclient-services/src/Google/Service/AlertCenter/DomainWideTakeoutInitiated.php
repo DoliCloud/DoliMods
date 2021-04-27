@@ -17,23 +17,23 @@
 
 class Google_Service_AlertCenter_DomainWideTakeoutInitiated extends Google_Model
 {
-  public $email;
-  public $takeoutRequestId;
+	public $email;
+	public $takeoutRequestId;
 
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setTakeoutRequestId($takeoutRequestId)
-  {
-    $this->takeoutRequestId = $takeoutRequestId;
-  }
-  public function getTakeoutRequestId()
-  {
-    return $this->takeoutRequestId;
-  }
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setTakeoutRequestId($takeoutRequestId)
+	{
+		$this->takeoutRequestId = $takeoutRequestId;
+	}
+	public function getTakeoutRequestId()
+	{
+		return $this->takeoutRequestId;
+	}
 }

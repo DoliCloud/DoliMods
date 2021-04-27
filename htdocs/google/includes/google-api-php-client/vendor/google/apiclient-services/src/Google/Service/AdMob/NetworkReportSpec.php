@@ -17,106 +17,106 @@
 
 class Google_Service_AdMob_NetworkReportSpec extends Google_Collection
 {
-  protected $collection_key = 'sortConditions';
-  protected $dateRangeType = 'Google_Service_AdMob_DateRange';
-  protected $dateRangeDataType = '';
-  protected $dimensionFiltersType = 'Google_Service_AdMob_NetworkReportSpecDimensionFilter';
-  protected $dimensionFiltersDataType = 'array';
-  public $dimensions;
-  protected $localizationSettingsType = 'Google_Service_AdMob_LocalizationSettings';
-  protected $localizationSettingsDataType = '';
-  public $maxReportRows;
-  public $metrics;
-  protected $sortConditionsType = 'Google_Service_AdMob_NetworkReportSpecSortCondition';
-  protected $sortConditionsDataType = 'array';
-  public $timeZone;
+	protected $collection_key = 'sortConditions';
+	protected $dateRangeType = 'Google_Service_AdMob_DateRange';
+	protected $dateRangeDataType = '';
+	protected $dimensionFiltersType = 'Google_Service_AdMob_NetworkReportSpecDimensionFilter';
+	protected $dimensionFiltersDataType = 'array';
+	public $dimensions;
+	protected $localizationSettingsType = 'Google_Service_AdMob_LocalizationSettings';
+	protected $localizationSettingsDataType = '';
+	public $maxReportRows;
+	public $metrics;
+	protected $sortConditionsType = 'Google_Service_AdMob_NetworkReportSpecSortCondition';
+	protected $sortConditionsDataType = 'array';
+	public $timeZone;
 
-  /**
-   * @param Google_Service_AdMob_DateRange
-   */
-  public function setDateRange(Google_Service_AdMob_DateRange $dateRange)
-  {
-    $this->dateRange = $dateRange;
-  }
-  /**
-   * @return Google_Service_AdMob_DateRange
-   */
-  public function getDateRange()
-  {
-    return $this->dateRange;
-  }
-  /**
-   * @param Google_Service_AdMob_NetworkReportSpecDimensionFilter
-   */
-  public function setDimensionFilters($dimensionFilters)
-  {
-    $this->dimensionFilters = $dimensionFilters;
-  }
-  /**
-   * @return Google_Service_AdMob_NetworkReportSpecDimensionFilter
-   */
-  public function getDimensionFilters()
-  {
-    return $this->dimensionFilters;
-  }
-  public function setDimensions($dimensions)
-  {
-    $this->dimensions = $dimensions;
-  }
-  public function getDimensions()
-  {
-    return $this->dimensions;
-  }
-  /**
-   * @param Google_Service_AdMob_LocalizationSettings
-   */
-  public function setLocalizationSettings(Google_Service_AdMob_LocalizationSettings $localizationSettings)
-  {
-    $this->localizationSettings = $localizationSettings;
-  }
-  /**
-   * @return Google_Service_AdMob_LocalizationSettings
-   */
-  public function getLocalizationSettings()
-  {
-    return $this->localizationSettings;
-  }
-  public function setMaxReportRows($maxReportRows)
-  {
-    $this->maxReportRows = $maxReportRows;
-  }
-  public function getMaxReportRows()
-  {
-    return $this->maxReportRows;
-  }
-  public function setMetrics($metrics)
-  {
-    $this->metrics = $metrics;
-  }
-  public function getMetrics()
-  {
-    return $this->metrics;
-  }
-  /**
-   * @param Google_Service_AdMob_NetworkReportSpecSortCondition
-   */
-  public function setSortConditions($sortConditions)
-  {
-    $this->sortConditions = $sortConditions;
-  }
-  /**
-   * @return Google_Service_AdMob_NetworkReportSpecSortCondition
-   */
-  public function getSortConditions()
-  {
-    return $this->sortConditions;
-  }
-  public function setTimeZone($timeZone)
-  {
-    $this->timeZone = $timeZone;
-  }
-  public function getTimeZone()
-  {
-    return $this->timeZone;
-  }
+	/**
+	 * @param Google_Service_AdMob_DateRange
+	 */
+	public function setDateRange(Google_Service_AdMob_DateRange $dateRange)
+	{
+		$this->dateRange = $dateRange;
+	}
+	/**
+	 * @return Google_Service_AdMob_DateRange
+	 */
+	public function getDateRange()
+	{
+		return $this->dateRange;
+	}
+	/**
+	 * @param Google_Service_AdMob_NetworkReportSpecDimensionFilter
+	 */
+	public function setDimensionFilters($dimensionFilters)
+	{
+		$this->dimensionFilters = $dimensionFilters;
+	}
+	/**
+	 * @return Google_Service_AdMob_NetworkReportSpecDimensionFilter
+	 */
+	public function getDimensionFilters()
+	{
+		return $this->dimensionFilters;
+	}
+	public function setDimensions($dimensions)
+	{
+		$this->dimensions = $dimensions;
+	}
+	public function getDimensions()
+	{
+		return $this->dimensions;
+	}
+	/**
+	 * @param Google_Service_AdMob_LocalizationSettings
+	 */
+	public function setLocalizationSettings(Google_Service_AdMob_LocalizationSettings $localizationSettings)
+	{
+		$this->localizationSettings = $localizationSettings;
+	}
+	/**
+	 * @return Google_Service_AdMob_LocalizationSettings
+	 */
+	public function getLocalizationSettings()
+	{
+		return $this->localizationSettings;
+	}
+	public function setMaxReportRows($maxReportRows)
+	{
+		$this->maxReportRows = $maxReportRows;
+	}
+	public function getMaxReportRows()
+	{
+		return $this->maxReportRows;
+	}
+	public function setMetrics($metrics)
+	{
+		$this->metrics = $metrics;
+	}
+	public function getMetrics()
+	{
+		return $this->metrics;
+	}
+	/**
+	 * @param Google_Service_AdMob_NetworkReportSpecSortCondition
+	 */
+	public function setSortConditions($sortConditions)
+	{
+		$this->sortConditions = $sortConditions;
+	}
+	/**
+	 * @return Google_Service_AdMob_NetworkReportSpecSortCondition
+	 */
+	public function getSortConditions()
+	{
+		return $this->sortConditions;
+	}
+	public function setTimeZone($timeZone)
+	{
+		$this->timeZone = $timeZone;
+	}
+	public function getTimeZone()
+	{
+		return $this->timeZone;
+	}
 }

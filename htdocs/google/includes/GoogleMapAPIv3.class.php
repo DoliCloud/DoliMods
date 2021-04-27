@@ -14,11 +14,11 @@
  */
 
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 
 class GoogleMapAPI
 {
-    protected $version = 3.7;
+	protected $version = 3.7;
 	/** GoogleMap ID for the HTML DIV  **/
 	protected $googleMapId = 'googlemapapi';
 	/** GoogleMap  Direction ID for the HTML DIV **/
@@ -83,7 +83,6 @@ class GoogleMapAPI
 	 */
 	public function __construct()
 	{
-
 	}
 
 	/**
@@ -292,7 +291,7 @@ class GoogleMapAPI
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_URL, $url);
 		$data = curl_exec($curl);
 		curl_close($curl);
@@ -330,7 +329,7 @@ class GoogleMapAPI
 	 */
 	public function geocoding($address)
 	{
-	    global $conf;
+		global $conf;
 
 		$encodeAddress = urlencode($this->withoutSpecialChars($address));
 		// URL to geoencode
@@ -347,7 +346,6 @@ class GoogleMapAPI
 			$return[1] = 0; // plus utilisé
 			$return[2] = $data->results[0]->geometry->location->lat;
 			$return[3] = $data->results[0]->geometry->location->lng;
-
 		} else {
 			echo "<!-- geocoding : failure to geocode : " . $status . " -->\n";
 			$return = null; // failure to geocode
@@ -369,8 +367,7 @@ class GoogleMapAPI
 	 */
 	public function addMarkerByCoords($lat, $lng, $title, $html = '', $category = '', $icon = '')
 	{
-		if (empty($icon))
-		{
+		if (empty($icon)) {
 			// Detect if we use https
 			$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 		}
@@ -383,7 +380,7 @@ class GoogleMapAPI
 		$this->centerLng = (float) ($this->minLng + $this->maxLng) / 2;
 		$this->centerLat = (float) ($this->minLat + $this->maxLat) / 2;
 
-		$this->contentMarker .= "\t" . 'addMarker(new google.maps.LatLng("' . $lat . '","' . $lng . '"),"' . $this->g_dol_escape_js($title,2) . '","' . $this->g_dol_escape_js($html,2) . '","' . $this->g_dol_escape_js($category,2) . '","' . $icon . '");' . "\n";
+		$this->contentMarker .= "\t" . 'addMarker(new google.maps.LatLng("' . $lat . '","' . $lng . '"),"' . $this->g_dol_escape_js($title, 2) . '","' . $this->g_dol_escape_js($html, 2) . '","' . $this->g_dol_escape_js($category, 2) . '","' . $icon . '");' . "\n";
 	}
 
 	/**
@@ -393,14 +390,13 @@ class GoogleMapAPI
 	 *  @param		string		$mode				0=Escape also ' and " into ', 1=Escape ' but not " for usage into 'string', 2=Escape " but not ' for usage into "string"
 	 *  @return     string     		 				Escaped string. Both ' and " are escaped into ' if they are escaped.
 	 */
-	private function g_dol_escape_js($stringtoescape, $mode=0)
+	private function g_dol_escape_js($stringtoescape, $mode = 0)
 	{
 		// escape quotes and backslashes, newlines, etc.
 		$substitjs=array("&#039;"=>"\\'",'\\'=>'\\\\',"\r"=>'\\r',"\n"=>'\\n');
 		//$substitjs['</']='<\/';	// We removed this. Should be useless.
-		if (empty($mode)) { $substitjs["'"]="\\'"; $substitjs['"']="\\'"; }
-		else if ($mode == 1) $substitjs["'"]="\\'";
-		else if ($mode == 2) { $substitjs['"']='\\"'; }
+		if (empty($mode)) { $substitjs["'"]="\\'"; $substitjs['"']="\\'"; } elseif ($mode == 1) $substitjs["'"]="\\'";
+		elseif ($mode == 2) { $substitjs['"']='\\"'; }
 		return strtr($stringtoescape, $substitjs);
 	}
 
@@ -415,7 +411,7 @@ class GoogleMapAPI
 	 * @param  string  $idSoc      Id of thirdparty
 	 * @return void
 	 */
-	public function addMarkerByAddress($address, $title = '', $content = '', $category = '', $icon = '',$idSoc = '')
+	public function addMarkerByAddress($address, $title = '', $content = '', $category = '', $icon = '', $idSoc = '')
 	{
 		$point = $this->geocoding($address);
 		if ($point !== null) {
@@ -444,8 +440,7 @@ class GoogleMapAPI
 		$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 
 		$i=0;
-		foreach ($tabAddresses as $elem)
-		{
+		foreach ($tabAddresses as $elem) {
 			$i++;
 			//if ($i != 9) continue;	// Output only eleme i = 9
 
@@ -456,10 +451,8 @@ class GoogleMapAPI
 			*/
 
 			// ajout de la modification des icones en fonction du tiers et de son status
-			if (! empty($conf->global->GOOGLE_ENABLE_GMAPS_TICON))
-			{
-				if (empty($mode) || $mode == 'company' || $mode == 'thirdparty')  {
-
+			if (! empty($conf->global->GOOGLE_ENABLE_GMAPS_TICON)) {
+				if (empty($mode) || $mode == 'company' || $mode == 'thirdparty') {
 					switch ($elem->client) {
 						case 0:
 							$icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
@@ -468,8 +461,7 @@ class GoogleMapAPI
 							$icon = DOL_URL_ROOT.'/custom/google/images/blue-dot.png';	// customer
 							break;
 						case 2:
-							if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS))
-							{
+							if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS)) {
 								switch ($elem->statusprospet) {
 									case -1:
 										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm-1.png';
@@ -493,9 +485,7 @@ class GoogleMapAPI
 										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
 										break;
 								}
-							}
-							else
-							{
+							} else {
 								$icon = DOL_URL_ROOT.'/custom/google/images/blue-dot.png';
 							}
 							break;
@@ -506,20 +496,18 @@ class GoogleMapAPI
 							$icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
 							break;
 					}
-				}
-				else $icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
-				if ($sforhttps) $icon=preg_replace('/^http:/','https:',$icon);
+				} else $icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
+				if ($sforhttps) $icon=preg_replace('/^http:/', 'https:', $icon);
 			}
 
-			$address=dol_string_nospecial($elem->address,', ',array("\r\n","\n","\r"));
+			$address=dol_string_nospecial($elem->address, ', ', array("\r\n","\n","\r"));
 
 			$addresscleaned = $this->g_dol_escape_js($this->no_special_character_v2($address));
 			//$lienGmaps = ' <a href="http'.$sforhttps.'://maps.google.com/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
 			$lienGmaps = ' <a href="https://maps.google.com/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
 
 			$html='';
-			if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)	// >= 0 if we are 3.6.0 alpha or +
-			{
+			if (versioncompare(versiondolibarrarray(), array(3,7,-3)) >= 0) {	// >= 0 if we are 3.6.0 alpha or +
 				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
 
 				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
@@ -527,9 +515,7 @@ class GoogleMapAPI
 				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/card.php?rowid='.$elem->id.'">';
 				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
 				else $html.='<a>';
-			}
-			else
-			{
+			} else {
 				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
 
 				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
@@ -542,16 +528,15 @@ class GoogleMapAPI
 			$html.= '</a>';
 			$html.= '<br/>'.$addresscleaned.'<br/>';
 			$urlforlink=$elem->url;
-			if (! preg_match('/^http/i',$urlforlink)) $urlforlink='http://'.$urlforlink;
+			if (! preg_match('/^http/i', $urlforlink)) $urlforlink='http://'.$urlforlink;
 			if (! empty($elem->url)) $html.= '<a href="'.$urlforlink.'">'.$elem->url.'</a><br/>';
 			if (! empty($elem->phone)) $html.= $elem->phone.'<br/>';
 			if (! empty($elem->email)) $html.= $elem->email.'<br/>';
 			$html.= '<br/>'.$lienGmaps.'<br/>';
 
-			if(isset($elem->latitude) && isset($elem->longitude)) {
+			if (isset($elem->latitude) && isset($elem->longitude)) {
 				$this->addMarkerByCoords($elem->latitude, $elem->longitude, $elem->name, $html, '', $icon);
-			}
-			else if (isset($elem->address)) {
+			} elseif (isset($elem->address)) {
 				//$this->addMarkerByAddress($elem->address, $elem->name, $html, '', $icon, $elem->id);
 			}
 		}
@@ -560,46 +545,43 @@ class GoogleMapAPI
 
 	function no_special_character_v2($chaine)
 	{
-        $str=trim($chaine);
-        if ($this->utf8_check($str))
-        {
-                $string = rawurlencode($str);
-                $replacements = array(
-                '%C3%80' => 'A','%C3%81' => 'A',
-                '%C3%88' => 'E','%C3%89' => 'E',
-                '%C3%8C' => 'I','%C3%8D' => 'I',
-                '%C3%92' => 'O','%C3%93' => 'O',
-                '%C3%99' => 'U','%C3%9A' => 'U',
-                '%C3%A0' => 'a','%C3%A1' => 'a','%C3%A2' => 'a',
-                '%C3%A8' => 'e','%C3%A9' => 'e','%C3%AA' => 'e','%C3%AB' => 'e',
-                '%C3%AC' => 'i','%C3%AD' => 'i','%C3%AE' => 'i',
-                '%C3%B2' => 'o','%C3%B3' => 'o',
-                '%C3%B9' => 'u','%C3%BA' => 'u'
-                );
-                $string=strtr($string, $replacements);
-                return rawurldecode($string);
-        }
-        else
-       {
-                $string = strtr(
-                        $str,
-                        "\xC0\xC1\xC2\xC3\xC5\xC7
+		$str=trim($chaine);
+		if ($this->utf8_check($str)) {
+				$string = rawurlencode($str);
+				$replacements = array(
+				'%C3%80' => 'A','%C3%81' => 'A',
+				'%C3%88' => 'E','%C3%89' => 'E',
+				'%C3%8C' => 'I','%C3%8D' => 'I',
+				'%C3%92' => 'O','%C3%93' => 'O',
+				'%C3%99' => 'U','%C3%9A' => 'U',
+				'%C3%A0' => 'a','%C3%A1' => 'a','%C3%A2' => 'a',
+				'%C3%A8' => 'e','%C3%A9' => 'e','%C3%AA' => 'e','%C3%AB' => 'e',
+				'%C3%AC' => 'i','%C3%AD' => 'i','%C3%AE' => 'i',
+				'%C3%B2' => 'o','%C3%B3' => 'o',
+				'%C3%B9' => 'u','%C3%BA' => 'u'
+				);
+				$string=strtr($string, $replacements);
+				return rawurldecode($string);
+		} else {
+				$string = strtr(
+						$str,
+						"\xC0\xC1\xC2\xC3\xC5\xC7
                         \xC8\xC9\xCA\xCB\xCC\xCD\xCE\xCF\xD0\xD1
                         \xD2\xD3\xD4\xD5\xD8\xD9\xDA\xDB\xDD
                         \xE0\xE1\xE2\xE3\xE5\xE7\xE8\xE9\xEA\xEB
                         \xEC\xED\xEE\xEF\xF0\xF1\xF2\xF3\xF4\xF5\xF8
                         \xF9\xFA\xFB\xFD\xFF",
-                        "AAAAAC
+						"AAAAAC
                         EEEEIIIIDN
                         OOOOOUUUY
                         aaaaaceeee
                         iiiidnooooo
                         uuuyy"
-                );
-                $string = strtr($string, array("\xC4"=>"Ae", "\xC6"=>"AE", "\xD6"=>"Oe", "\xDC"=>"Ue", "\xDE"=>"TH", "\xDF"=>"ss", "\xE4"=>"ae", "\xE6"=>"ae", "\xF6"=>"oe", "\xFC"=>"ue", "\xFE"=>"th"));
-                return $string;
-        }
-    }
+				);
+				$string = strtr($string, array("\xC4"=>"Ae", "\xC6"=>"AE", "\xD6"=>"Oe", "\xDC"=>"Ue", "\xDE"=>"TH", "\xDF"=>"ss", "\xE4"=>"ae", "\xE6"=>"ae", "\xF6"=>"oe", "\xFC"=>"ue", "\xFE"=>"th"));
+				return $string;
+		}
+	}
 
 	/**
 	 *      Check if a string is in UTF8
@@ -609,23 +591,22 @@ class GoogleMapAPI
 	 */
 	function utf8_check($str)
 	{
-	        // We must use here a binary strlen function (so not dol_strlen)
-	        $strLength = $this->dol_strlen($str);
-	        for ($i=0; $i<$strLength; $i++)
-	        {
-	                if (ord($str[$i]) < 0x80) continue; // 0bbbbbbb
-	                elseif ((ord($str[$i]) & 0xE0) == 0xC0) $n=1; // 110bbbbb
-	                elseif ((ord($str[$i]) & 0xF0) == 0xE0) $n=2; // 1110bbbb
-	                elseif ((ord($str[$i]) & 0xF8) == 0xF0) $n=3; // 11110bbb
-	                elseif ((ord($str[$i]) & 0xFC) == 0xF8) $n=4; // 111110bb
-	                elseif ((ord($str[$i]) & 0xFE) == 0xFC) $n=5; // 1111110b
-	                else return false; // Does not match any model
-	                for ($j=0; $j<$n; $j++) { // n bytes matching 10bbbbbb follow ?
-	                        if ((++$i == strlen($str)) || ((ord($str[$i]) & 0xC0) != 0x80))
-	                        return false;
-	                }
-	        }
-	        return true;
+			// We must use here a binary strlen function (so not dol_strlen)
+			$strLength = $this->dol_strlen($str);
+		for ($i=0; $i<$strLength; $i++) {
+				if (ord($str[$i]) < 0x80) continue; // 0bbbbbbb
+				elseif ((ord($str[$i]) & 0xE0) == 0xC0) $n=1; // 110bbbbb
+				elseif ((ord($str[$i]) & 0xF0) == 0xE0) $n=2; // 1110bbbb
+				elseif ((ord($str[$i]) & 0xF8) == 0xF0) $n=3; // 11110bbb
+				elseif ((ord($str[$i]) & 0xFC) == 0xF8) $n=4; // 111110bb
+				elseif ((ord($str[$i]) & 0xFE) == 0xFC) $n=5; // 1111110b
+			else return false; // Does not match any model
+			for ($j=0; $j<$n; $j++) { // n bytes matching 10bbbbbb follow ?
+					if ((++$i == strlen($str)) || ((ord($str[$i]) & 0xC0) != 0x80))
+					return false;
+			}
+		}
+			return true;
 	}
 
 	/**
@@ -635,10 +616,10 @@ class GoogleMapAPI
 	 * @param   string              $stringencoding         Encoding of string
 	 * @return  int                                                         Length of string
 	 */
-	function dol_strlen($string,$stringencoding='UTF-8')
+	function dol_strlen($string, $stringencoding = 'UTF-8')
 	{
-	        if (function_exists('mb_strlen')) return mb_strlen($string,$stringencoding);
-	        else return strlen($string);
+			if (function_exists('mb_strlen')) return mb_strlen($string, $stringencoding);
+		else return strlen($string);
 	}
 
 	/**
@@ -648,7 +629,7 @@ class GoogleMapAPI
 	 */
 	public function init()
 	{
-	    global $conf;
+		global $conf;
 
 		// Google map DIV
 		if (($this->width != '') && ($this->height != '')) {
@@ -672,10 +653,9 @@ class GoogleMapAPI
 		$this->content .= '</script>' . "\n";
 
 		// Add library for clustering
-		if ($this->useClusterer == true)
-		{
+		if ($this->useClusterer == true) {
 			$jsgmapculster=$this->clustererLibraryPath;
-			if ($sforhttps) $jsgmapculster=preg_replace('/http:/','https:',$jsgmapculster);
+			if ($sforhttps) $jsgmapculster=preg_replace('/http:/', 'https:', $jsgmapculster);
 			$this->content .= '<script src="'.$jsgmapculster.'?version='.$this->version.'" type="text/javascript"></script>' . "\n";
 		}
 
@@ -705,9 +685,8 @@ class GoogleMapAPI
 		$this->content .= "\t\t\t" . 'map: map,' . "\n";
 		$this->content .= "\t\t\t" . 'title : title,' . "\n";
 		// We do not use the marker with the shadow, if we do so, we must set position of the sprite we want to extract from the image
-		if (! empty($conf->global->GOOGLE_ENABLE_GMAPS_TICON))
-		{
-			if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty'))  {
+		if (! empty($conf->global->GOOGLE_ENABLE_GMAPS_TICON)) {
+			if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty')) {
 				$this->content .= "\t\t\t" . 'icon:  new google.maps.MarkerImage(icon, new google.maps.Size(' . $this->iconWidth . ',' . $this->iconHeight . ')),' . "\n";
 			}
 		}
@@ -896,7 +875,5 @@ class GoogleMapAPI
 
 		//Fermeture du javascript
 		$this->content .= '</script>' . "\n";
-
 	}
-
 }

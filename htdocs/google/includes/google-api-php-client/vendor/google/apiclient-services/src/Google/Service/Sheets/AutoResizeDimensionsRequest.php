@@ -17,21 +17,21 @@
 
 class Google_Service_Sheets_AutoResizeDimensionsRequest extends Google_Model
 {
-  protected $dimensionsType = 'Google_Service_Sheets_DimensionRange';
-  protected $dimensionsDataType = '';
+	protected $dimensionsType = 'Google_Service_Sheets_DimensionRange';
+	protected $dimensionsDataType = '';
 
-  /**
-   * @param Google_Service_Sheets_DimensionRange
-   */
-  public function setDimensions(Google_Service_Sheets_DimensionRange $dimensions)
-  {
-    $this->dimensions = $dimensions;
-  }
-  /**
-   * @return Google_Service_Sheets_DimensionRange
-   */
-  public function getDimensions()
-  {
-    return $this->dimensions;
-  }
+	/**
+	 * @param Google_Service_Sheets_DimensionRange
+	 */
+	public function setDimensions(Google_Service_Sheets_DimensionRange $dimensions)
+	{
+		$this->dimensions = $dimensions;
+	}
+	/**
+	 * @return Google_Service_Sheets_DimensionRange
+	 */
+	public function getDimensions()
+	{
+		return $this->dimensions;
+	}
 }

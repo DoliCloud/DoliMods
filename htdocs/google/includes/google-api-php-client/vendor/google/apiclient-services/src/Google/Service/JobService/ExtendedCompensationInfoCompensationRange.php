@@ -17,37 +17,37 @@
 
 class Google_Service_JobService_ExtendedCompensationInfoCompensationRange extends Google_Model
 {
-  protected $maxType = 'Google_Service_JobService_ExtendedCompensationInfoDecimal';
-  protected $maxDataType = '';
-  protected $minType = 'Google_Service_JobService_ExtendedCompensationInfoDecimal';
-  protected $minDataType = '';
+	protected $maxType = 'Google_Service_JobService_ExtendedCompensationInfoDecimal';
+	protected $maxDataType = '';
+	protected $minType = 'Google_Service_JobService_ExtendedCompensationInfoDecimal';
+	protected $minDataType = '';
 
-  /**
-   * @param Google_Service_JobService_ExtendedCompensationInfoDecimal
-   */
-  public function setMax(Google_Service_JobService_ExtendedCompensationInfoDecimal $max)
-  {
-    $this->max = $max;
-  }
-  /**
-   * @return Google_Service_JobService_ExtendedCompensationInfoDecimal
-   */
-  public function getMax()
-  {
-    return $this->max;
-  }
-  /**
-   * @param Google_Service_JobService_ExtendedCompensationInfoDecimal
-   */
-  public function setMin(Google_Service_JobService_ExtendedCompensationInfoDecimal $min)
-  {
-    $this->min = $min;
-  }
-  /**
-   * @return Google_Service_JobService_ExtendedCompensationInfoDecimal
-   */
-  public function getMin()
-  {
-    return $this->min;
-  }
+	/**
+	 * @param Google_Service_JobService_ExtendedCompensationInfoDecimal
+	 */
+	public function setMax(Google_Service_JobService_ExtendedCompensationInfoDecimal $max)
+	{
+		$this->max = $max;
+	}
+	/**
+	 * @return Google_Service_JobService_ExtendedCompensationInfoDecimal
+	 */
+	public function getMax()
+	{
+		return $this->max;
+	}
+	/**
+	 * @param Google_Service_JobService_ExtendedCompensationInfoDecimal
+	 */
+	public function setMin(Google_Service_JobService_ExtendedCompensationInfoDecimal $min)
+	{
+		$this->min = $min;
+	}
+	/**
+	 * @return Google_Service_JobService_ExtendedCompensationInfoDecimal
+	 */
+	public function getMin()
+	{
+		return $this->min;
+	}
 }

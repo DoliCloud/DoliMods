@@ -32,148 +32,148 @@
  */
 class Google_Service_StreetViewPublish extends Google_Service
 {
-  /** Publish and manage your 360 photos on Google Street View. */
-  const STREETVIEWPUBLISH =
-      "https://www.googleapis.com/auth/streetviewpublish";
+	/** Publish and manage your 360 photos on Google Street View. */
+	const STREETVIEWPUBLISH =
+	  "https://www.googleapis.com/auth/streetviewpublish";
 
-  public $photo;
-  public $photos;
-  
-  /**
-   * Constructs the internal representation of the StreetViewPublish service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://streetviewpublish.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'streetviewpublish';
+	public $photo;
+	public $photos;
 
-    $this->photo = new Google_Service_StreetViewPublish_Resource_Photo(
-        $this,
-        $this->serviceName,
-        'photo',
-        array(
-          'methods' => array(
-            'create' => array(
-              'path' => 'v1/photo',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),'delete' => array(
-              'path' => 'v1/photo/{photoId}',
-              'httpMethod' => 'DELETE',
-              'parameters' => array(
-                'photoId' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'get' => array(
-              'path' => 'v1/photo/{photoId}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'photoId' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'view' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'languageCode' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'startUpload' => array(
-              'path' => 'v1/photo:startUpload',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),'update' => array(
-              'path' => 'v1/photo/{id}',
-              'httpMethod' => 'PUT',
-              'parameters' => array(
-                'id' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'updateMask' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->photos = new Google_Service_StreetViewPublish_Resource_Photos(
-        $this,
-        $this->serviceName,
-        'photos',
-        array(
-          'methods' => array(
-            'batchDelete' => array(
-              'path' => 'v1/photos:batchDelete',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),'batchGet' => array(
-              'path' => 'v1/photos:batchGet',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'languageCode' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'photoIds' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'repeated' => true,
-                ),
-                'view' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'batchUpdate' => array(
-              'path' => 'v1/photos:batchUpdate',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),'list' => array(
-              'path' => 'v1/photos',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'languageCode' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'view' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the StreetViewPublish service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://streetviewpublish.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'streetviewpublish';
+
+		$this->photo = new Google_Service_StreetViewPublish_Resource_Photo(
+		$this,
+		$this->serviceName,
+		'photo',
+		array(
+		  'methods' => array(
+			'create' => array(
+			  'path' => 'v1/photo',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),'delete' => array(
+			  'path' => 'v1/photo/{photoId}',
+			  'httpMethod' => 'DELETE',
+			  'parameters' => array(
+				'photoId' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'get' => array(
+			  'path' => 'v1/photo/{photoId}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'photoId' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'view' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'languageCode' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),'startUpload' => array(
+			  'path' => 'v1/photo:startUpload',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),'update' => array(
+			  'path' => 'v1/photo/{id}',
+			  'httpMethod' => 'PUT',
+			  'parameters' => array(
+				'id' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+				'updateMask' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->photos = new Google_Service_StreetViewPublish_Resource_Photos(
+		$this,
+		$this->serviceName,
+		'photos',
+		array(
+		  'methods' => array(
+			'batchDelete' => array(
+			  'path' => 'v1/photos:batchDelete',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),'batchGet' => array(
+			  'path' => 'v1/photos:batchGet',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'languageCode' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'photoIds' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				  'repeated' => true,
+				),
+				'view' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),'batchUpdate' => array(
+			  'path' => 'v1/photos:batchUpdate',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),'list' => array(
+			  'path' => 'v1/photos',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'filter' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'languageCode' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'view' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_UniversalAdId extends Google_Model
 {
-  public $id;
-  public $registry;
+	public $id;
+	public $registry;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setRegistry($registry)
-  {
-    $this->registry = $registry;
-  }
-  public function getRegistry()
-  {
-    return $this->registry;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setRegistry($registry)
+	{
+		$this->registry = $registry;
+	}
+	public function getRegistry()
+	{
+		return $this->registry;
+	}
 }

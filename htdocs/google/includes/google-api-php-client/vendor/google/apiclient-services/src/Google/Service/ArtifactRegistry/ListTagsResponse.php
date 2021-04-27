@@ -17,31 +17,31 @@
 
 class Google_Service_ArtifactRegistry_ListTagsResponse extends Google_Collection
 {
-  protected $collection_key = 'tags';
-  public $nextPageToken;
-  protected $tagsType = 'Google_Service_ArtifactRegistry_Tag';
-  protected $tagsDataType = 'array';
+	protected $collection_key = 'tags';
+	public $nextPageToken;
+	protected $tagsType = 'Google_Service_ArtifactRegistry_Tag';
+	protected $tagsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_ArtifactRegistry_Tag
-   */
-  public function setTags($tags)
-  {
-    $this->tags = $tags;
-  }
-  /**
-   * @return Google_Service_ArtifactRegistry_Tag
-   */
-  public function getTags()
-  {
-    return $this->tags;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_ArtifactRegistry_Tag
+	 */
+	public function setTags($tags)
+	{
+		$this->tags = $tags;
+	}
+	/**
+	 * @return Google_Service_ArtifactRegistry_Tag
+	 */
+	public function getTags()
+	{
+		return $this->tags;
+	}
 }

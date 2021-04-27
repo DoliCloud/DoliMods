@@ -44,5 +44,3 @@ return array(
   'vcf' => 'text/vcard',
   'ics' => 'text/calendar',
 );
-
-?>

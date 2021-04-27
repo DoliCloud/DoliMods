@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_SafeHtmlProto extends Google_Model
 {
-  public $privateDoNotAccessOrElseSafeHtmlWrappedValue;
+	public $privateDoNotAccessOrElseSafeHtmlWrappedValue;
 
-  public function setPrivateDoNotAccessOrElseSafeHtmlWrappedValue($privateDoNotAccessOrElseSafeHtmlWrappedValue)
-  {
-    $this->privateDoNotAccessOrElseSafeHtmlWrappedValue = $privateDoNotAccessOrElseSafeHtmlWrappedValue;
-  }
-  public function getPrivateDoNotAccessOrElseSafeHtmlWrappedValue()
-  {
-    return $this->privateDoNotAccessOrElseSafeHtmlWrappedValue;
-  }
+	public function setPrivateDoNotAccessOrElseSafeHtmlWrappedValue($privateDoNotAccessOrElseSafeHtmlWrappedValue)
+	{
+		$this->privateDoNotAccessOrElseSafeHtmlWrappedValue = $privateDoNotAccessOrElseSafeHtmlWrappedValue;
+	}
+	public function getPrivateDoNotAccessOrElseSafeHtmlWrappedValue()
+	{
+		return $this->privateDoNotAccessOrElseSafeHtmlWrappedValue;
+	}
 }

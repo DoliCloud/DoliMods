@@ -17,51 +17,51 @@
 
 class Google_Service_ServiceControl_Auth extends Google_Collection
 {
-  protected $collection_key = 'audiences';
-  public $accessLevels;
-  public $audiences;
-  public $claims;
-  public $presenter;
-  public $principal;
+	protected $collection_key = 'audiences';
+	public $accessLevels;
+	public $audiences;
+	public $claims;
+	public $presenter;
+	public $principal;
 
-  public function setAccessLevels($accessLevels)
-  {
-    $this->accessLevels = $accessLevels;
-  }
-  public function getAccessLevels()
-  {
-    return $this->accessLevels;
-  }
-  public function setAudiences($audiences)
-  {
-    $this->audiences = $audiences;
-  }
-  public function getAudiences()
-  {
-    return $this->audiences;
-  }
-  public function setClaims($claims)
-  {
-    $this->claims = $claims;
-  }
-  public function getClaims()
-  {
-    return $this->claims;
-  }
-  public function setPresenter($presenter)
-  {
-    $this->presenter = $presenter;
-  }
-  public function getPresenter()
-  {
-    return $this->presenter;
-  }
-  public function setPrincipal($principal)
-  {
-    $this->principal = $principal;
-  }
-  public function getPrincipal()
-  {
-    return $this->principal;
-  }
+	public function setAccessLevels($accessLevels)
+	{
+		$this->accessLevels = $accessLevels;
+	}
+	public function getAccessLevels()
+	{
+		return $this->accessLevels;
+	}
+	public function setAudiences($audiences)
+	{
+		$this->audiences = $audiences;
+	}
+	public function getAudiences()
+	{
+		return $this->audiences;
+	}
+	public function setClaims($claims)
+	{
+		$this->claims = $claims;
+	}
+	public function getClaims()
+	{
+		return $this->claims;
+	}
+	public function setPresenter($presenter)
+	{
+		$this->presenter = $presenter;
+	}
+	public function getPresenter()
+	{
+		return $this->presenter;
+	}
+	public function setPrincipal($principal)
+	{
+		$this->principal = $principal;
+	}
+	public function getPrincipal()
+	{
+		return $this->principal;
+	}
 }

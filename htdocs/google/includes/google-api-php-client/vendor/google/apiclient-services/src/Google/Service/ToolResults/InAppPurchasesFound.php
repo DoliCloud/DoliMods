@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_InAppPurchasesFound extends Google_Model
 {
-  public $inAppPurchasesFlowsExplored;
-  public $inAppPurchasesFlowsStarted;
+	public $inAppPurchasesFlowsExplored;
+	public $inAppPurchasesFlowsStarted;
 
-  public function setInAppPurchasesFlowsExplored($inAppPurchasesFlowsExplored)
-  {
-    $this->inAppPurchasesFlowsExplored = $inAppPurchasesFlowsExplored;
-  }
-  public function getInAppPurchasesFlowsExplored()
-  {
-    return $this->inAppPurchasesFlowsExplored;
-  }
-  public function setInAppPurchasesFlowsStarted($inAppPurchasesFlowsStarted)
-  {
-    $this->inAppPurchasesFlowsStarted = $inAppPurchasesFlowsStarted;
-  }
-  public function getInAppPurchasesFlowsStarted()
-  {
-    return $this->inAppPurchasesFlowsStarted;
-  }
+	public function setInAppPurchasesFlowsExplored($inAppPurchasesFlowsExplored)
+	{
+		$this->inAppPurchasesFlowsExplored = $inAppPurchasesFlowsExplored;
+	}
+	public function getInAppPurchasesFlowsExplored()
+	{
+		return $this->inAppPurchasesFlowsExplored;
+	}
+	public function setInAppPurchasesFlowsStarted($inAppPurchasesFlowsStarted)
+	{
+		$this->inAppPurchasesFlowsStarted = $inAppPurchasesFlowsStarted;
+	}
+	public function getInAppPurchasesFlowsStarted()
+	{
+		return $this->inAppPurchasesFlowsStarted;
+	}
 }

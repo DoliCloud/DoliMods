@@ -17,46 +17,46 @@
 
 class Google_Service_Dataflow_Artifact extends Google_Model
 {
-  protected $containerSpecType = 'Google_Service_Dataflow_ContainerSpec';
-  protected $containerSpecDataType = '';
-  public $jobGraphGcsPath;
-  protected $metadataType = 'Google_Service_Dataflow_TemplateMetadata';
-  protected $metadataDataType = '';
+	protected $containerSpecType = 'Google_Service_Dataflow_ContainerSpec';
+	protected $containerSpecDataType = '';
+	public $jobGraphGcsPath;
+	protected $metadataType = 'Google_Service_Dataflow_TemplateMetadata';
+	protected $metadataDataType = '';
 
-  /**
-   * @param Google_Service_Dataflow_ContainerSpec
-   */
-  public function setContainerSpec(Google_Service_Dataflow_ContainerSpec $containerSpec)
-  {
-    $this->containerSpec = $containerSpec;
-  }
-  /**
-   * @return Google_Service_Dataflow_ContainerSpec
-   */
-  public function getContainerSpec()
-  {
-    return $this->containerSpec;
-  }
-  public function setJobGraphGcsPath($jobGraphGcsPath)
-  {
-    $this->jobGraphGcsPath = $jobGraphGcsPath;
-  }
-  public function getJobGraphGcsPath()
-  {
-    return $this->jobGraphGcsPath;
-  }
-  /**
-   * @param Google_Service_Dataflow_TemplateMetadata
-   */
-  public function setMetadata(Google_Service_Dataflow_TemplateMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_Dataflow_TemplateMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
+	/**
+	 * @param Google_Service_Dataflow_ContainerSpec
+	 */
+	public function setContainerSpec(Google_Service_Dataflow_ContainerSpec $containerSpec)
+	{
+		$this->containerSpec = $containerSpec;
+	}
+	/**
+	 * @return Google_Service_Dataflow_ContainerSpec
+	 */
+	public function getContainerSpec()
+	{
+		return $this->containerSpec;
+	}
+	public function setJobGraphGcsPath($jobGraphGcsPath)
+	{
+		$this->jobGraphGcsPath = $jobGraphGcsPath;
+	}
+	public function getJobGraphGcsPath()
+	{
+		return $this->jobGraphGcsPath;
+	}
+	/**
+	 * @param Google_Service_Dataflow_TemplateMetadata
+	 */
+	public function setMetadata(Google_Service_Dataflow_TemplateMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_Dataflow_TemplateMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2KeyValuePairHint extends Google_Collection
 {
-  protected $collection_key = 'valueTypes';
-  public $key;
-  public $valueTypes;
+	protected $collection_key = 'valueTypes';
+	public $key;
+	public $valueTypes;
 
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
-  public function setValueTypes($valueTypes)
-  {
-    $this->valueTypes = $valueTypes;
-  }
-  public function getValueTypes()
-  {
-    return $this->valueTypes;
-  }
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
+	public function setValueTypes($valueTypes)
+	{
+		$this->valueTypes = $valueTypes;
+	}
+	public function getValueTypes()
+	{
+		return $this->valueTypes;
+	}
 }

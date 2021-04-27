@@ -25,42 +25,42 @@
  */
 class Google_Service_AndroidPublisher_Resource_Internalappsharingartifacts extends Google_Service_Resource
 {
-  /**
-   * Uploads an APK to internal app sharing. If you are using the Google API
-   * client libraries, please increase the timeout of the http request before
-   * calling this endpoint (a timeout of 2 minutes is recommended).
-   *
-   * See [Timeouts and Errors](https://developers.google.com/api-client-
-   * library/java/google-api-java-client/errors) for an example in java.
-   * (internalappsharingartifacts.uploadapk)
-   *
-   * @param string $packageName Package name of the app.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_InternalAppSharingArtifact
-   */
-  public function uploadapk($packageName, $optParams = array())
-  {
-    $params = array('packageName' => $packageName);
-    $params = array_merge($params, $optParams);
-    return $this->call('uploadapk', array($params), "Google_Service_AndroidPublisher_InternalAppSharingArtifact");
-  }
-  /**
-   * Uploads an app bundle to internal app sharing. If you are using the Google
-   * API client libraries, please increase the timeout of the http request before
-   * calling this endpoint (a timeout of 2 minutes is recommended).
-   *
-   * See [Timeouts and Errors](https://developers.google.com/api-client-
-   * library/java/google-api-java-client/errors) for an example in java.
-   * (internalappsharingartifacts.uploadbundle)
-   *
-   * @param string $packageName Package name of the app.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_InternalAppSharingArtifact
-   */
-  public function uploadbundle($packageName, $optParams = array())
-  {
-    $params = array('packageName' => $packageName);
-    $params = array_merge($params, $optParams);
-    return $this->call('uploadbundle', array($params), "Google_Service_AndroidPublisher_InternalAppSharingArtifact");
-  }
+	/**
+	 * Uploads an APK to internal app sharing. If you are using the Google API
+	 * client libraries, please increase the timeout of the http request before
+	 * calling this endpoint (a timeout of 2 minutes is recommended).
+	 *
+	 * See [Timeouts and Errors](https://developers.google.com/api-client-
+	 * library/java/google-api-java-client/errors) for an example in java.
+	 * (internalappsharingartifacts.uploadapk)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_InternalAppSharingArtifact
+	 */
+	public function uploadapk($packageName, $optParams = array())
+	{
+		$params = array('packageName' => $packageName);
+		$params = array_merge($params, $optParams);
+		return $this->call('uploadapk', array($params), "Google_Service_AndroidPublisher_InternalAppSharingArtifact");
+	}
+	/**
+	 * Uploads an app bundle to internal app sharing. If you are using the Google
+	 * API client libraries, please increase the timeout of the http request before
+	 * calling this endpoint (a timeout of 2 minutes is recommended).
+	 *
+	 * See [Timeouts and Errors](https://developers.google.com/api-client-
+	 * library/java/google-api-java-client/errors) for an example in java.
+	 * (internalappsharingartifacts.uploadbundle)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_InternalAppSharingArtifact
+	 */
+	public function uploadbundle($packageName, $optParams = array())
+	{
+		$params = array('packageName' => $packageName);
+		$params = array_merge($params, $optParams);
+		return $this->call('uploadbundle', array($params), "Google_Service_AndroidPublisher_InternalAppSharingArtifact");
+	}
 }

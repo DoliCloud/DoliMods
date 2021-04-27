@@ -17,31 +17,31 @@
 
 class Google_Service_ArtifactRegistry_ListPackagesResponse extends Google_Collection
 {
-  protected $collection_key = 'packages';
-  public $nextPageToken;
-  protected $packagesType = 'Google_Service_ArtifactRegistry_Package';
-  protected $packagesDataType = 'array';
+	protected $collection_key = 'packages';
+	public $nextPageToken;
+	protected $packagesType = 'Google_Service_ArtifactRegistry_Package';
+	protected $packagesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_ArtifactRegistry_Package
-   */
-  public function setPackages($packages)
-  {
-    $this->packages = $packages;
-  }
-  /**
-   * @return Google_Service_ArtifactRegistry_Package
-   */
-  public function getPackages()
-  {
-    return $this->packages;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_ArtifactRegistry_Package
+	 */
+	public function setPackages($packages)
+	{
+		$this->packages = $packages;
+	}
+	/**
+	 * @return Google_Service_ArtifactRegistry_Package
+	 */
+	public function getPackages()
+	{
+		return $this->packages;
+	}
 }

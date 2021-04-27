@@ -17,75 +17,75 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2Message extends Google_Model
 {
-  public $content;
-  public $createTime;
-  public $languageCode;
-  protected $messageAnnotationType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation';
-  protected $messageAnnotationDataType = '';
-  public $name;
-  public $participant;
-  public $participantRole;
+	public $content;
+	public $createTime;
+	public $languageCode;
+	protected $messageAnnotationType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation';
+	protected $messageAnnotationDataType = '';
+	public $name;
+	public $participant;
+	public $participantRole;
 
-  public function setContent($content)
-  {
-    $this->content = $content;
-  }
-  public function getContent()
-  {
-    return $this->content;
-  }
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation
-   */
-  public function setMessageAnnotation(Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation $messageAnnotation)
-  {
-    $this->messageAnnotation = $messageAnnotation;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation
-   */
-  public function getMessageAnnotation()
-  {
-    return $this->messageAnnotation;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setParticipant($participant)
-  {
-    $this->participant = $participant;
-  }
-  public function getParticipant()
-  {
-    return $this->participant;
-  }
-  public function setParticipantRole($participantRole)
-  {
-    $this->participantRole = $participantRole;
-  }
-  public function getParticipantRole()
-  {
-    return $this->participantRole;
-  }
+	public function setContent($content)
+	{
+		$this->content = $content;
+	}
+	public function getContent()
+	{
+		return $this->content;
+	}
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation
+	 */
+	public function setMessageAnnotation(Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation $messageAnnotation)
+	{
+		$this->messageAnnotation = $messageAnnotation;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation
+	 */
+	public function getMessageAnnotation()
+	{
+		return $this->messageAnnotation;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setParticipant($participant)
+	{
+		$this->participant = $participant;
+	}
+	public function getParticipant()
+	{
+		return $this->participant;
+	}
+	public function setParticipantRole($participantRole)
+	{
+		$this->participantRole = $participantRole;
+	}
+	public function getParticipantRole()
+	{
+		return $this->participantRole;
+	}
 }

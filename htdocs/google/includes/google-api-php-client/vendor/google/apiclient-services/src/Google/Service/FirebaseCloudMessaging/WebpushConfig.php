@@ -17,48 +17,48 @@
 
 class Google_Service_FirebaseCloudMessaging_WebpushConfig extends Google_Model
 {
-  public $data;
-  protected $fcmOptionsType = 'Google_Service_FirebaseCloudMessaging_WebpushFcmOptions';
-  protected $fcmOptionsDataType = '';
-  public $headers;
-  public $notification;
+	public $data;
+	protected $fcmOptionsType = 'Google_Service_FirebaseCloudMessaging_WebpushFcmOptions';
+	protected $fcmOptionsDataType = '';
+	public $headers;
+	public $notification;
 
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
-  /**
-   * @param Google_Service_FirebaseCloudMessaging_WebpushFcmOptions
-   */
-  public function setFcmOptions(Google_Service_FirebaseCloudMessaging_WebpushFcmOptions $fcmOptions)
-  {
-    $this->fcmOptions = $fcmOptions;
-  }
-  /**
-   * @return Google_Service_FirebaseCloudMessaging_WebpushFcmOptions
-   */
-  public function getFcmOptions()
-  {
-    return $this->fcmOptions;
-  }
-  public function setHeaders($headers)
-  {
-    $this->headers = $headers;
-  }
-  public function getHeaders()
-  {
-    return $this->headers;
-  }
-  public function setNotification($notification)
-  {
-    $this->notification = $notification;
-  }
-  public function getNotification()
-  {
-    return $this->notification;
-  }
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
+	/**
+	 * @param Google_Service_FirebaseCloudMessaging_WebpushFcmOptions
+	 */
+	public function setFcmOptions(Google_Service_FirebaseCloudMessaging_WebpushFcmOptions $fcmOptions)
+	{
+		$this->fcmOptions = $fcmOptions;
+	}
+	/**
+	 * @return Google_Service_FirebaseCloudMessaging_WebpushFcmOptions
+	 */
+	public function getFcmOptions()
+	{
+		return $this->fcmOptions;
+	}
+	public function setHeaders($headers)
+	{
+		$this->headers = $headers;
+	}
+	public function getHeaders()
+	{
+		return $this->headers;
+	}
+	public function setNotification($notification)
+	{
+		$this->notification = $notification;
+	}
+	public function getNotification()
+	{
+		return $this->notification;
+	}
 }

@@ -17,63 +17,63 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig extends Google_Collection
 {
-  protected $collection_key = 'actions';
-  protected $actionsType = 'Google_Service_DLP_GooglePrivacyDlpV2Action';
-  protected $actionsDataType = 'array';
-  protected $inspectConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectConfig';
-  protected $inspectConfigDataType = '';
-  public $inspectTemplateName;
-  protected $storageConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2StorageConfig';
-  protected $storageConfigDataType = '';
+	protected $collection_key = 'actions';
+	protected $actionsType = 'Google_Service_DLP_GooglePrivacyDlpV2Action';
+	protected $actionsDataType = 'array';
+	protected $inspectConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectConfig';
+	protected $inspectConfigDataType = '';
+	public $inspectTemplateName;
+	protected $storageConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2StorageConfig';
+	protected $storageConfigDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2Action
-   */
-  public function setActions($actions)
-  {
-    $this->actions = $actions;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2Action
-   */
-  public function getActions()
-  {
-    return $this->actions;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
-   */
-  public function setInspectConfig(Google_Service_DLP_GooglePrivacyDlpV2InspectConfig $inspectConfig)
-  {
-    $this->inspectConfig = $inspectConfig;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
-   */
-  public function getInspectConfig()
-  {
-    return $this->inspectConfig;
-  }
-  public function setInspectTemplateName($inspectTemplateName)
-  {
-    $this->inspectTemplateName = $inspectTemplateName;
-  }
-  public function getInspectTemplateName()
-  {
-    return $this->inspectTemplateName;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2StorageConfig
-   */
-  public function setStorageConfig(Google_Service_DLP_GooglePrivacyDlpV2StorageConfig $storageConfig)
-  {
-    $this->storageConfig = $storageConfig;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2StorageConfig
-   */
-  public function getStorageConfig()
-  {
-    return $this->storageConfig;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2Action
+	 */
+	public function setActions($actions)
+	{
+		$this->actions = $actions;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2Action
+	 */
+	public function getActions()
+	{
+		return $this->actions;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
+	 */
+	public function setInspectConfig(Google_Service_DLP_GooglePrivacyDlpV2InspectConfig $inspectConfig)
+	{
+		$this->inspectConfig = $inspectConfig;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
+	 */
+	public function getInspectConfig()
+	{
+		return $this->inspectConfig;
+	}
+	public function setInspectTemplateName($inspectTemplateName)
+	{
+		$this->inspectTemplateName = $inspectTemplateName;
+	}
+	public function getInspectTemplateName()
+	{
+		return $this->inspectTemplateName;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2StorageConfig
+	 */
+	public function setStorageConfig(Google_Service_DLP_GooglePrivacyDlpV2StorageConfig $storageConfig)
+	{
+		$this->storageConfig = $storageConfig;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2StorageConfig
+	 */
+	public function getStorageConfig()
+	{
+		return $this->storageConfig;
+	}
 }

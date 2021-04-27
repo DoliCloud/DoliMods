@@ -17,32 +17,32 @@
 
 class Google_Service_Container_UsableSubnetworkSecondaryRange extends Google_Model
 {
-  public $ipCidrRange;
-  public $rangeName;
-  public $status;
+	public $ipCidrRange;
+	public $rangeName;
+	public $status;
 
-  public function setIpCidrRange($ipCidrRange)
-  {
-    $this->ipCidrRange = $ipCidrRange;
-  }
-  public function getIpCidrRange()
-  {
-    return $this->ipCidrRange;
-  }
-  public function setRangeName($rangeName)
-  {
-    $this->rangeName = $rangeName;
-  }
-  public function getRangeName()
-  {
-    return $this->rangeName;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setIpCidrRange($ipCidrRange)
+	{
+		$this->ipCidrRange = $ipCidrRange;
+	}
+	public function getIpCidrRange()
+	{
+		return $this->ipCidrRange;
+	}
+	public function setRangeName($rangeName)
+	{
+		$this->rangeName = $rangeName;
+	}
+	public function getRangeName()
+	{
+		return $this->rangeName;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Dfareporting_EncryptionInfo extends Google_Model
 {
-  public $encryptionEntityId;
-  public $encryptionEntityType;
-  public $encryptionSource;
-  public $kind;
+	public $encryptionEntityId;
+	public $encryptionEntityType;
+	public $encryptionSource;
+	public $kind;
 
-  public function setEncryptionEntityId($encryptionEntityId)
-  {
-    $this->encryptionEntityId = $encryptionEntityId;
-  }
-  public function getEncryptionEntityId()
-  {
-    return $this->encryptionEntityId;
-  }
-  public function setEncryptionEntityType($encryptionEntityType)
-  {
-    $this->encryptionEntityType = $encryptionEntityType;
-  }
-  public function getEncryptionEntityType()
-  {
-    return $this->encryptionEntityType;
-  }
-  public function setEncryptionSource($encryptionSource)
-  {
-    $this->encryptionSource = $encryptionSource;
-  }
-  public function getEncryptionSource()
-  {
-    return $this->encryptionSource;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setEncryptionEntityId($encryptionEntityId)
+	{
+		$this->encryptionEntityId = $encryptionEntityId;
+	}
+	public function getEncryptionEntityId()
+	{
+		return $this->encryptionEntityId;
+	}
+	public function setEncryptionEntityType($encryptionEntityType)
+	{
+		$this->encryptionEntityType = $encryptionEntityType;
+	}
+	public function getEncryptionEntityType()
+	{
+		return $this->encryptionEntityType;
+	}
+	public function setEncryptionSource($encryptionSource)
+	{
+		$this->encryptionSource = $encryptionSource;
+	}
+	public function getEncryptionSource()
+	{
+		return $this->encryptionSource;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

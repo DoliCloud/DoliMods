@@ -17,14 +17,14 @@
 
 class Google_Service_Firestore_ReadWrite extends Google_Model
 {
-  public $retryTransaction;
+	public $retryTransaction;
 
-  public function setRetryTransaction($retryTransaction)
-  {
-    $this->retryTransaction = $retryTransaction;
-  }
-  public function getRetryTransaction()
-  {
-    return $this->retryTransaction;
-  }
+	public function setRetryTransaction($retryTransaction)
+	{
+		$this->retryTransaction = $retryTransaction;
+	}
+	public function getRetryTransaction()
+	{
+		return $this->retryTransaction;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_TagManager_ListZonesResponse extends Google_Collection
 {
-  protected $collection_key = 'zone';
-  public $nextPageToken;
-  protected $zoneType = 'Google_Service_TagManager_Zone';
-  protected $zoneDataType = 'array';
+	protected $collection_key = 'zone';
+	public $nextPageToken;
+	protected $zoneType = 'Google_Service_TagManager_Zone';
+	protected $zoneDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_TagManager_Zone
-   */
-  public function setZone($zone)
-  {
-    $this->zone = $zone;
-  }
-  /**
-   * @return Google_Service_TagManager_Zone
-   */
-  public function getZone()
-  {
-    return $this->zone;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_TagManager_Zone
+	 */
+	public function setZone($zone)
+	{
+		$this->zone = $zone;
+	}
+	/**
+	 * @return Google_Service_TagManager_Zone
+	 */
+	public function getZone()
+	{
+		return $this->zone;
+	}
 }

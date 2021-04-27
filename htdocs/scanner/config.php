@@ -73,7 +73,7 @@ if (`ls $OCR`) $do_ocr = 1;
 // END CONFIG ----------------------------------------------------------
 
 $action="";
-if(isset($_GET['action'])) { $action=$_GET['action']; }
+if (isset($_GET['action'])) { $action=$_GET['action']; }
 
 
 // default options
@@ -130,16 +130,12 @@ if (empty($geometry_y)) $geometry_y=$PREVIEW_HEIGHT_MM;
 // Check usr_opt - keep only valid chars, otherwise replace with an 'X'
 
 $my_usr_opt = '';
-for ($i = 0; $i < strlen($usr_opt); $i++)
-{
-  if (preg_match('([0-9]|[a-z]|[A-Z]|[\ \%\+\-_=])', $usr_opt[$i]))
-  {
-    $my_usr_opt .= $usr_opt[$i];
-  }
-  else
-  {
-    $my_usr_opt .= 'X';
-  }
+for ($i = 0; $i < strlen($usr_opt); $i++) {
+	if (preg_match('([0-9]|[a-z]|[A-Z]|[\ \%\+\-_=])', $usr_opt[$i])) {
+		$my_usr_opt .= $usr_opt[$i];
+	} else {
+		$my_usr_opt .= 'X';
+	}
 }
 
 $usr_opt = $my_usr_opt;
@@ -155,89 +151,77 @@ $facktor = round($PREVIEW_WIDTH_MM / $PREVIEW_WIDTH_PX, 4);
 
 
 // reset scanner informations
-if (GETPOST('actionclean'))
-{
-    unset($_SESSION['scannerlist']);
-    //var_dump($_SESSION);
-    foreach($_SESSION as $key => $val)
-    {
-        if (preg_match('/^resolution_/',$key))
-        {
-            unset($_SESSION[$key]);
-        }
-    }
-    //dol_delete_file($file_save);
-    //var_dump($_SESSION);exit;
+if (GETPOST('actionclean')) {
+	unset($_SESSION['scannerlist']);
+	//var_dump($_SESSION);
+	foreach ($_SESSION as $key => $val) {
+		if (preg_match('/^resolution_/', $key)) {
+			unset($_SESSION[$key]);
+		}
+	}
+	//dol_delete_file($file_save);
+	//var_dump($_SESSION);exit;
 }
 
 // Scanner device detection
-if ($do_test_mode)
-{
-    $sane_scanner="device `umax:/dev/sg0' is a UMAX     Astra 1220S      flatbed scanner";
-}
-else
-{
-    // Retrieve list of possible resolutions into $list
-    if (empty($_SESSION['scannerlist']))
-    {
-        $out=array();
-        $command=$SCANIMAGE.' --list-devices | grep device';    // Return lines: device `umax:/dev/sg0' is a UMAX     Astra 1220S      flatbed scanner
-        //print "eeee".$command;
-        dol_syslog("Detect list of scanner devices with command ".$command);
-        $sane_scanner = exec($command,$out);
-        //print $sane_scanner;
-        $start=strpos($sane_scanner,"`")+1;
-        $laenge=strpos($sane_scanner,"'")-$start;
-        $scanner = "\"".substr($sane_scanner,$start,$laenge)."\"";
-        unset($start);
-        unset($laenge);
-        dol_syslog("Found ".$sane_scanner);
-        if ($sane_scanner) $_SESSION['scannerlist']=$sane_scanner;
-    }
-    else
-    {
-        $sane_scanner=$_SESSION['scannerlist'];
-        dol_syslog("List of scanner already stored in cache with value ".$sane_scanner);
-    }
+if ($do_test_mode) {
+	$sane_scanner="device `umax:/dev/sg0' is a UMAX     Astra 1220S      flatbed scanner";
+} else {
+	// Retrieve list of possible resolutions into $list
+	if (empty($_SESSION['scannerlist'])) {
+		$out=array();
+		$command=$SCANIMAGE.' --list-devices | grep device';    // Return lines: device `umax:/dev/sg0' is a UMAX     Astra 1220S      flatbed scanner
+		//print "eeee".$command;
+		dol_syslog("Detect list of scanner devices with command ".$command);
+		$sane_scanner = exec($command, $out);
+		//print $sane_scanner;
+		$start=strpos($sane_scanner, "`")+1;
+		$laenge=strpos($sane_scanner, "'")-$start;
+		$scanner = "\"".substr($sane_scanner, $start, $laenge)."\"";
+		unset($start);
+		unset($laenge);
+		dol_syslog("Found ".$sane_scanner);
+		if ($sane_scanner) $_SESSION['scannerlist']=$sane_scanner;
+	} else {
+		$sane_scanner=$_SESSION['scannerlist'];
+		dol_syslog("List of scanner already stored in cache with value ".$sane_scanner);
+	}
 }
 // Define scanner and scan_name from sane_scanner
-$start=strpos($sane_scanner,"`")+1;
-$laenge=strpos($sane_scanner,"'")-$start;
-$scanner = "\"".substr($sane_scanner,$start,$laenge)."\"";
+$start=strpos($sane_scanner, "`")+1;
+$laenge=strpos($sane_scanner, "'")-$start;
+$scanner = "\"".substr($sane_scanner, $start, $laenge)."\"";
 unset($start);
 unset($laenge);
-$start=strpos($sane_scanner,"is a")+4;   // mit anderren scannern testen?
-$laenge=strpos($sane_scanner,"scanner")-$start;
-$scan_name = substr($sane_scanner,$start,$laenge);
+$start=strpos($sane_scanner, "is a")+4;   // mit anderren scannern testen?
+$laenge=strpos($sane_scanner, "scanner")-$start;
+$scan_name = substr($sane_scanner, $start, $laenge);
 unset($start);
 unset($laenge);
 //print "xx".$sane_scanner."rr".$scanner."yy".$scan_name;exit;
 
 // Retrieve list of possible resolutions into $list
-if (empty($_SESSION['resolution_'.$scanner]))
-{
-    $out=array();
-    $command=$SCANIMAGE.' --help | grep -m 1 resolution';
-    //print "eeee".$command;
-    dol_syslog("Detect resolution of scanner with command ".$command);
+if (empty($_SESSION['resolution_'.$scanner])) {
+	$out=array();
+	$command=$SCANIMAGE.' --help | grep -m 1 resolution';
+	//print "eeee".$command;
+	dol_syslog("Detect resolution of scanner with command ".$command);
 
-    // Warning: with some scanimage commande, the line with resolutions appears only for root user
-    $res_list = exec($command,$out);
+	// Warning: with some scanimage commande, the line with resolutions appears only for root user
+	$res_list = exec($command, $out);
 
-    //$res_list=`$command`;
-    $start=strpos($res_list,"n")+2;
-    $length = strpos($res_list,"dpi") -$start;
-    $list = "".substr($res_list,$start,$length)."";
-    unset($start);
-    unset($length);
+	//$res_list=`$command`;
+	$start=strpos($res_list, "n")+2;
+	$length = strpos($res_list, "dpi") -$start;
+	$list = "".substr($res_list, $start, $length)."";
+	unset($start);
+	unset($length);
 
-    if ($list) $_SESSION['resolution_'.$scanner]=$list;
-    else $_SESSION['resolution_'.$scanner]='detection_res_not_possible';
-}
-else
-{
-    $list=$_SESSION['resolution_'.$scanner];
-    dol_syslog("Resolution of scanner already stored in cache with value ".$list);
+	if ($list) $_SESSION['resolution_'.$scanner]=$list;
+	else $_SESSION['resolution_'.$scanner]='detection_res_not_possible';
+} else {
+	$list=$_SESSION['resolution_'.$scanner];
+	dol_syslog("Resolution of scanner already stored in cache with value ".$list);
 }
 
 

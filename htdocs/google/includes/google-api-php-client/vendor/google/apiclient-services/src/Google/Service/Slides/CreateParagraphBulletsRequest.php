@@ -17,55 +17,55 @@
 
 class Google_Service_Slides_CreateParagraphBulletsRequest extends Google_Model
 {
-  public $bulletPreset;
-  protected $cellLocationType = 'Google_Service_Slides_TableCellLocation';
-  protected $cellLocationDataType = '';
-  public $objectId;
-  protected $textRangeType = 'Google_Service_Slides_Range';
-  protected $textRangeDataType = '';
+	public $bulletPreset;
+	protected $cellLocationType = 'Google_Service_Slides_TableCellLocation';
+	protected $cellLocationDataType = '';
+	public $objectId;
+	protected $textRangeType = 'Google_Service_Slides_Range';
+	protected $textRangeDataType = '';
 
-  public function setBulletPreset($bulletPreset)
-  {
-    $this->bulletPreset = $bulletPreset;
-  }
-  public function getBulletPreset()
-  {
-    return $this->bulletPreset;
-  }
-  /**
-   * @param Google_Service_Slides_TableCellLocation
-   */
-  public function setCellLocation(Google_Service_Slides_TableCellLocation $cellLocation)
-  {
-    $this->cellLocation = $cellLocation;
-  }
-  /**
-   * @return Google_Service_Slides_TableCellLocation
-   */
-  public function getCellLocation()
-  {
-    return $this->cellLocation;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  /**
-   * @param Google_Service_Slides_Range
-   */
-  public function setTextRange(Google_Service_Slides_Range $textRange)
-  {
-    $this->textRange = $textRange;
-  }
-  /**
-   * @return Google_Service_Slides_Range
-   */
-  public function getTextRange()
-  {
-    return $this->textRange;
-  }
+	public function setBulletPreset($bulletPreset)
+	{
+		$this->bulletPreset = $bulletPreset;
+	}
+	public function getBulletPreset()
+	{
+		return $this->bulletPreset;
+	}
+	/**
+	 * @param Google_Service_Slides_TableCellLocation
+	 */
+	public function setCellLocation(Google_Service_Slides_TableCellLocation $cellLocation)
+	{
+		$this->cellLocation = $cellLocation;
+	}
+	/**
+	 * @return Google_Service_Slides_TableCellLocation
+	 */
+	public function getCellLocation()
+	{
+		return $this->cellLocation;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	/**
+	 * @param Google_Service_Slides_Range
+	 */
+	public function setTextRange(Google_Service_Slides_Range $textRange)
+	{
+		$this->textRange = $textRange;
+	}
+	/**
+	 * @return Google_Service_Slides_Range
+	 */
+	public function getTextRange()
+	{
+		return $this->textRange;
+	}
 }

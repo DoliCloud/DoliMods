@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_AccountIdentifier extends Google_Model
 {
-  public $aggregatorId;
-  public $merchantId;
+	public $aggregatorId;
+	public $merchantId;
 
-  public function setAggregatorId($aggregatorId)
-  {
-    $this->aggregatorId = $aggregatorId;
-  }
-  public function getAggregatorId()
-  {
-    return $this->aggregatorId;
-  }
-  public function setMerchantId($merchantId)
-  {
-    $this->merchantId = $merchantId;
-  }
-  public function getMerchantId()
-  {
-    return $this->merchantId;
-  }
+	public function setAggregatorId($aggregatorId)
+	{
+		$this->aggregatorId = $aggregatorId;
+	}
+	public function getAggregatorId()
+	{
+		return $this->aggregatorId;
+	}
+	public function setMerchantId($merchantId)
+	{
+		$this->merchantId = $merchantId;
+	}
+	public function getMerchantId()
+	{
+		return $this->merchantId;
+	}
 }

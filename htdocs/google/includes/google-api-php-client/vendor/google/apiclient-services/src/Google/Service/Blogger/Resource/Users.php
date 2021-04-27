@@ -25,17 +25,17 @@
  */
 class Google_Service_Blogger_Resource_Users extends Google_Service_Resource
 {
-  /**
-   * Gets one user by user_id. (users.get)
-   *
-   * @param string $userId
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Blogger_User
-   */
-  public function get($userId, $optParams = array())
-  {
-    $params = array('userId' => $userId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Blogger_User");
-  }
+	/**
+	 * Gets one user by user_id. (users.get)
+	 *
+	 * @param string $userId
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Blogger_User
+	 */
+	public function get($userId, $optParams = array())
+	{
+		$params = array('userId' => $userId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Blogger_User");
+	}
 }

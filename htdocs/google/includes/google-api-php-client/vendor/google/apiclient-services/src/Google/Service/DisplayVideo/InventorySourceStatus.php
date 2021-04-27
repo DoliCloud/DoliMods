@@ -17,50 +17,50 @@
 
 class Google_Service_DisplayVideo_InventorySourceStatus extends Google_Model
 {
-  public $configStatus;
-  public $entityPauseReason;
-  public $entityStatus;
-  public $sellerPauseReason;
-  public $sellerStatus;
+	public $configStatus;
+	public $entityPauseReason;
+	public $entityStatus;
+	public $sellerPauseReason;
+	public $sellerStatus;
 
-  public function setConfigStatus($configStatus)
-  {
-    $this->configStatus = $configStatus;
-  }
-  public function getConfigStatus()
-  {
-    return $this->configStatus;
-  }
-  public function setEntityPauseReason($entityPauseReason)
-  {
-    $this->entityPauseReason = $entityPauseReason;
-  }
-  public function getEntityPauseReason()
-  {
-    return $this->entityPauseReason;
-  }
-  public function setEntityStatus($entityStatus)
-  {
-    $this->entityStatus = $entityStatus;
-  }
-  public function getEntityStatus()
-  {
-    return $this->entityStatus;
-  }
-  public function setSellerPauseReason($sellerPauseReason)
-  {
-    $this->sellerPauseReason = $sellerPauseReason;
-  }
-  public function getSellerPauseReason()
-  {
-    return $this->sellerPauseReason;
-  }
-  public function setSellerStatus($sellerStatus)
-  {
-    $this->sellerStatus = $sellerStatus;
-  }
-  public function getSellerStatus()
-  {
-    return $this->sellerStatus;
-  }
+	public function setConfigStatus($configStatus)
+	{
+		$this->configStatus = $configStatus;
+	}
+	public function getConfigStatus()
+	{
+		return $this->configStatus;
+	}
+	public function setEntityPauseReason($entityPauseReason)
+	{
+		$this->entityPauseReason = $entityPauseReason;
+	}
+	public function getEntityPauseReason()
+	{
+		return $this->entityPauseReason;
+	}
+	public function setEntityStatus($entityStatus)
+	{
+		$this->entityStatus = $entityStatus;
+	}
+	public function getEntityStatus()
+	{
+		return $this->entityStatus;
+	}
+	public function setSellerPauseReason($sellerPauseReason)
+	{
+		$this->sellerPauseReason = $sellerPauseReason;
+	}
+	public function getSellerPauseReason()
+	{
+		return $this->sellerPauseReason;
+	}
+	public function setSellerStatus($sellerStatus)
+	{
+		$this->sellerStatus = $sellerStatus;
+	}
+	public function getSellerStatus()
+	{
+		return $this->sellerStatus;
+	}
 }

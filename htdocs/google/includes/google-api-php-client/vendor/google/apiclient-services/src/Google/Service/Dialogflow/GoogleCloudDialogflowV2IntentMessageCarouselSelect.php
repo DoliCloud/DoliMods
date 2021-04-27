@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageCarouselSelect extends Google_Collection
 {
-  protected $collection_key = 'items';
-  protected $itemsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageCarouselSelectItem';
-  protected $itemsDataType = 'array';
+	protected $collection_key = 'items';
+	protected $itemsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageCarouselSelectItem';
+	protected $itemsDataType = 'array';
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageCarouselSelectItem
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageCarouselSelectItem
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageCarouselSelectItem
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageCarouselSelectItem
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
 }

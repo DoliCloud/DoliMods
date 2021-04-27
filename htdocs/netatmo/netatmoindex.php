@@ -30,7 +30,7 @@ $res=0;
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
 if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
@@ -50,8 +50,7 @@ $action=GETPOST('action', 'alpha');
 // Securite acces client
 if (! $user->rights->netatmo->read) accessforbidden();
 $socid=GETPOST('socid', 'int');
-if (isset($user->societe_id) && $user->societe_id > 0)
-{
+if (isset($user->societe_id) && $user->societe_id > 0) {
 	$action = '';
 	$socid = $user->societe_id;
 }
@@ -92,7 +91,7 @@ $max=3;
 if (! empty($conf->netatmo->enabled) && $user->rights->netatmo->read)
 {
 	$sql = "SELECT s.rowid, s.nom as name, s.client, s.datec, s.tms, s.canvas";
-    $sql.= ", s.code_client";
+	$sql.= ", s.code_client";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	if (! $user->rights->societe->client->voir && ! $socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql.= " WHERE s.client IN (1, 2, 3)";
@@ -112,7 +111,7 @@ if (! empty($conf->netatmo->enabled) && $user->rights->netatmo->read)
 		print '<tr class="liste_titre">';
 		print '<th colspan="2">';
 		if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS) && empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print $langs->trans("BoxTitleLastCustomersOrProspects",$max);
-        else if (! empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print $langs->trans("BoxTitleLastModifiedProspects",$max);
+		else if (! empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print $langs->trans("BoxTitleLastModifiedProspects",$max);
 		else print $langs->trans("BoxTitleLastModifiedCustomers",$max);
 		print '</th>';
 		print '<th class="right">'.$langs->trans("DateModificationShort").'</th>';
@@ -125,9 +124,9 @@ if (! empty($conf->netatmo->enabled) && $user->rights->netatmo->read)
 				$companystatic->id=$objp->rowid;
 				$companystatic->name=$objp->name;
 				$companystatic->client=$objp->client;
-                $companystatic->code_client = $objp->code_client;
-                $companystatic->code_fournisseur = $objp->code_fournisseur;
-                $companystatic->canvas=$objp->canvas;
+				$companystatic->code_client = $objp->code_client;
+				$companystatic->code_fournisseur = $objp->code_fournisseur;
+				$companystatic->canvas=$objp->canvas;
 				print '<tr class="oddeven">';
 				print '<td class="nowrap">'.$companystatic->getNomUrl(1,'customer',48).'</td>';
 				print '<td class="right nowrap">';

@@ -17,41 +17,41 @@
 
 class Google_Service_Container_NodePoolAutoscaling extends Google_Model
 {
-  public $autoprovisioned;
-  public $enabled;
-  public $maxNodeCount;
-  public $minNodeCount;
+	public $autoprovisioned;
+	public $enabled;
+	public $maxNodeCount;
+	public $minNodeCount;
 
-  public function setAutoprovisioned($autoprovisioned)
-  {
-    $this->autoprovisioned = $autoprovisioned;
-  }
-  public function getAutoprovisioned()
-  {
-    return $this->autoprovisioned;
-  }
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  public function setMaxNodeCount($maxNodeCount)
-  {
-    $this->maxNodeCount = $maxNodeCount;
-  }
-  public function getMaxNodeCount()
-  {
-    return $this->maxNodeCount;
-  }
-  public function setMinNodeCount($minNodeCount)
-  {
-    $this->minNodeCount = $minNodeCount;
-  }
-  public function getMinNodeCount()
-  {
-    return $this->minNodeCount;
-  }
+	public function setAutoprovisioned($autoprovisioned)
+	{
+		$this->autoprovisioned = $autoprovisioned;
+	}
+	public function getAutoprovisioned()
+	{
+		return $this->autoprovisioned;
+	}
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	public function setMaxNodeCount($maxNodeCount)
+	{
+		$this->maxNodeCount = $maxNodeCount;
+	}
+	public function getMaxNodeCount()
+	{
+		return $this->maxNodeCount;
+	}
+	public function setMinNodeCount($minNodeCount)
+	{
+		$this->minNodeCount = $minNodeCount;
+	}
+	public function getMinNodeCount()
+	{
+		return $this->minNodeCount;
+	}
 }

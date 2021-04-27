@@ -17,33 +17,33 @@
 
 class Google_Service_ServiceControl_Exemplar extends Google_Collection
 {
-  protected $collection_key = 'attachments';
-  public $attachments;
-  public $timestamp;
-  public $value;
+	protected $collection_key = 'attachments';
+	public $attachments;
+	public $timestamp;
+	public $value;
 
-  public function setAttachments($attachments)
-  {
-    $this->attachments = $attachments;
-  }
-  public function getAttachments()
-  {
-    return $this->attachments;
-  }
-  public function setTimestamp($timestamp)
-  {
-    $this->timestamp = $timestamp;
-  }
-  public function getTimestamp()
-  {
-    return $this->timestamp;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setAttachments($attachments)
+	{
+		$this->attachments = $attachments;
+	}
+	public function getAttachments()
+	{
+		return $this->attachments;
+	}
+	public function setTimestamp($timestamp)
+	{
+		$this->timestamp = $timestamp;
+	}
+	public function getTimestamp()
+	{
+		return $this->timestamp;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

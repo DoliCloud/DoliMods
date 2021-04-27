@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_AutoscalingSettings extends Google_Model
 {
-  public $algorithm;
-  public $maxNumWorkers;
+	public $algorithm;
+	public $maxNumWorkers;
 
-  public function setAlgorithm($algorithm)
-  {
-    $this->algorithm = $algorithm;
-  }
-  public function getAlgorithm()
-  {
-    return $this->algorithm;
-  }
-  public function setMaxNumWorkers($maxNumWorkers)
-  {
-    $this->maxNumWorkers = $maxNumWorkers;
-  }
-  public function getMaxNumWorkers()
-  {
-    return $this->maxNumWorkers;
-  }
+	public function setAlgorithm($algorithm)
+	{
+		$this->algorithm = $algorithm;
+	}
+	public function getAlgorithm()
+	{
+		return $this->algorithm;
+	}
+	public function setMaxNumWorkers($maxNumWorkers)
+	{
+		$this->maxNumWorkers = $maxNumWorkers;
+	}
+	public function getMaxNumWorkers()
+	{
+		return $this->maxNumWorkers;
+	}
 }

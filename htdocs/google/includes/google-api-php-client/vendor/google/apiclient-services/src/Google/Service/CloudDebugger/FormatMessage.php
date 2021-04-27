@@ -17,24 +17,24 @@
 
 class Google_Service_CloudDebugger_FormatMessage extends Google_Collection
 {
-  protected $collection_key = 'parameters';
-  public $format;
-  public $parameters;
+	protected $collection_key = 'parameters';
+	public $format;
+	public $parameters;
 
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	public function setFormat($format)
+	{
+		$this->format = $format;
+	}
+	public function getFormat()
+	{
+		return $this->format;
+	}
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

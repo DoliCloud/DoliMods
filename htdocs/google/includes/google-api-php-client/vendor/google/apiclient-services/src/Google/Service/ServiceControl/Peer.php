@@ -17,50 +17,50 @@
 
 class Google_Service_ServiceControl_Peer extends Google_Model
 {
-  public $ip;
-  public $labels;
-  public $port;
-  public $principal;
-  public $regionCode;
+	public $ip;
+	public $labels;
+	public $port;
+	public $principal;
+	public $regionCode;
 
-  public function setIp($ip)
-  {
-    $this->ip = $ip;
-  }
-  public function getIp()
-  {
-    return $this->ip;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setPort($port)
-  {
-    $this->port = $port;
-  }
-  public function getPort()
-  {
-    return $this->port;
-  }
-  public function setPrincipal($principal)
-  {
-    $this->principal = $principal;
-  }
-  public function getPrincipal()
-  {
-    return $this->principal;
-  }
-  public function setRegionCode($regionCode)
-  {
-    $this->regionCode = $regionCode;
-  }
-  public function getRegionCode()
-  {
-    return $this->regionCode;
-  }
+	public function setIp($ip)
+	{
+		$this->ip = $ip;
+	}
+	public function getIp()
+	{
+		return $this->ip;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setPort($port)
+	{
+		$this->port = $port;
+	}
+	public function getPort()
+	{
+		return $this->port;
+	}
+	public function setPrincipal($principal)
+	{
+		$this->principal = $principal;
+	}
+	public function getPrincipal()
+	{
+		return $this->principal;
+	}
+	public function setRegionCode($regionCode)
+	{
+		$this->regionCode = $regionCode;
+	}
+	public function getRegionCode()
+	{
+		return $this->regionCode;
+	}
 }

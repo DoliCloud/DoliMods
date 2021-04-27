@@ -17,22 +17,22 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2TableOptions extends Google_Collection
 {
-  protected $collection_key = 'identifyingFields';
-  protected $identifyingFieldsType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
-  protected $identifyingFieldsDataType = 'array';
+	protected $collection_key = 'identifyingFields';
+	protected $identifyingFieldsType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
+	protected $identifyingFieldsDataType = 'array';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
-   */
-  public function setIdentifyingFields($identifyingFields)
-  {
-    $this->identifyingFields = $identifyingFields;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
-   */
-  public function getIdentifyingFields()
-  {
-    return $this->identifyingFields;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
+	 */
+	public function setIdentifyingFields($identifyingFields)
+	{
+		$this->identifyingFields = $identifyingFields;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
+	 */
+	public function getIdentifyingFields()
+	{
+		return $this->identifyingFields;
+	}
 }

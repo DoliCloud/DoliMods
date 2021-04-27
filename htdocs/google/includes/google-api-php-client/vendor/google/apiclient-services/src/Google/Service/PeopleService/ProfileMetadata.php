@@ -17,24 +17,24 @@
 
 class Google_Service_PeopleService_ProfileMetadata extends Google_Collection
 {
-  protected $collection_key = 'userTypes';
-  public $objectType;
-  public $userTypes;
+	protected $collection_key = 'userTypes';
+	public $objectType;
+	public $userTypes;
 
-  public function setObjectType($objectType)
-  {
-    $this->objectType = $objectType;
-  }
-  public function getObjectType()
-  {
-    return $this->objectType;
-  }
-  public function setUserTypes($userTypes)
-  {
-    $this->userTypes = $userTypes;
-  }
-  public function getUserTypes()
-  {
-    return $this->userTypes;
-  }
+	public function setObjectType($objectType)
+	{
+		$this->objectType = $objectType;
+	}
+	public function getObjectType()
+	{
+		return $this->objectType;
+	}
+	public function setUserTypes($userTypes)
+	{
+		$this->userTypes = $userTypes;
+	}
+	public function getUserTypes()
+	{
+		return $this->userTypes;
+	}
 }

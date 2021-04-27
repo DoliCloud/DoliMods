@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_FreshnessOptions extends Google_Model
 {
-  public $freshnessDuration;
-  public $freshnessProperty;
+	public $freshnessDuration;
+	public $freshnessProperty;
 
-  public function setFreshnessDuration($freshnessDuration)
-  {
-    $this->freshnessDuration = $freshnessDuration;
-  }
-  public function getFreshnessDuration()
-  {
-    return $this->freshnessDuration;
-  }
-  public function setFreshnessProperty($freshnessProperty)
-  {
-    $this->freshnessProperty = $freshnessProperty;
-  }
-  public function getFreshnessProperty()
-  {
-    return $this->freshnessProperty;
-  }
+	public function setFreshnessDuration($freshnessDuration)
+	{
+		$this->freshnessDuration = $freshnessDuration;
+	}
+	public function getFreshnessDuration()
+	{
+		return $this->freshnessDuration;
+	}
+	public function setFreshnessProperty($freshnessProperty)
+	{
+		$this->freshnessProperty = $freshnessProperty;
+	}
+	public function getFreshnessProperty()
+	{
+		return $this->freshnessProperty;
+	}
 }

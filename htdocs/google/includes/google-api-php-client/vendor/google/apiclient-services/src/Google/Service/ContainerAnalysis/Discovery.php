@@ -17,14 +17,14 @@
 
 class Google_Service_ContainerAnalysis_Discovery extends Google_Model
 {
-  public $analysisKind;
+	public $analysisKind;
 
-  public function setAnalysisKind($analysisKind)
-  {
-    $this->analysisKind = $analysisKind;
-  }
-  public function getAnalysisKind()
-  {
-    return $this->analysisKind;
-  }
+	public function setAnalysisKind($analysisKind)
+	{
+		$this->analysisKind = $analysisKind;
+	}
+	public function getAnalysisKind()
+	{
+		return $this->analysisKind;
+	}
 }

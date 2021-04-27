@@ -17,23 +17,23 @@
 
 class Google_Service_Books_VolumeUserInfoRentalPeriod extends Google_Model
 {
-  public $endUtcSec;
-  public $startUtcSec;
+	public $endUtcSec;
+	public $startUtcSec;
 
-  public function setEndUtcSec($endUtcSec)
-  {
-    $this->endUtcSec = $endUtcSec;
-  }
-  public function getEndUtcSec()
-  {
-    return $this->endUtcSec;
-  }
-  public function setStartUtcSec($startUtcSec)
-  {
-    $this->startUtcSec = $startUtcSec;
-  }
-  public function getStartUtcSec()
-  {
-    return $this->startUtcSec;
-  }
+	public function setEndUtcSec($endUtcSec)
+	{
+		$this->endUtcSec = $endUtcSec;
+	}
+	public function getEndUtcSec()
+	{
+		return $this->endUtcSec;
+	}
+	public function setStartUtcSec($startUtcSec)
+	{
+		$this->startUtcSec = $startUtcSec;
+	}
+	public function getStartUtcSec()
+	{
+		return $this->startUtcSec;
+	}
 }

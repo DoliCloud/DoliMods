@@ -17,41 +17,41 @@
 
 class Google_Service_Drive_AboutStorageQuota extends Google_Model
 {
-  public $limit;
-  public $usage;
-  public $usageInDrive;
-  public $usageInDriveTrash;
+	public $limit;
+	public $usage;
+	public $usageInDrive;
+	public $usageInDriveTrash;
 
-  public function setLimit($limit)
-  {
-    $this->limit = $limit;
-  }
-  public function getLimit()
-  {
-    return $this->limit;
-  }
-  public function setUsage($usage)
-  {
-    $this->usage = $usage;
-  }
-  public function getUsage()
-  {
-    return $this->usage;
-  }
-  public function setUsageInDrive($usageInDrive)
-  {
-    $this->usageInDrive = $usageInDrive;
-  }
-  public function getUsageInDrive()
-  {
-    return $this->usageInDrive;
-  }
-  public function setUsageInDriveTrash($usageInDriveTrash)
-  {
-    $this->usageInDriveTrash = $usageInDriveTrash;
-  }
-  public function getUsageInDriveTrash()
-  {
-    return $this->usageInDriveTrash;
-  }
+	public function setLimit($limit)
+	{
+		$this->limit = $limit;
+	}
+	public function getLimit()
+	{
+		return $this->limit;
+	}
+	public function setUsage($usage)
+	{
+		$this->usage = $usage;
+	}
+	public function getUsage()
+	{
+		return $this->usage;
+	}
+	public function setUsageInDrive($usageInDrive)
+	{
+		$this->usageInDrive = $usageInDrive;
+	}
+	public function getUsageInDrive()
+	{
+		return $this->usageInDrive;
+	}
+	public function setUsageInDriveTrash($usageInDriveTrash)
+	{
+		$this->usageInDriveTrash = $usageInDriveTrash;
+	}
+	public function getUsageInDriveTrash()
+	{
+		return $this->usageInDriveTrash;
+	}
 }

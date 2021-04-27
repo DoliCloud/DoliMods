@@ -17,30 +17,30 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfo extends Google_Model
 {
-  public $lastMatchedIntent;
-  protected $parametersType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue';
-  protected $parametersDataType = 'map';
+	public $lastMatchedIntent;
+	protected $parametersType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue';
+	protected $parametersDataType = 'map';
 
-  public function setLastMatchedIntent($lastMatchedIntent)
-  {
-    $this->lastMatchedIntent = $lastMatchedIntent;
-  }
-  public function getLastMatchedIntent()
-  {
-    return $this->lastMatchedIntent;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue
-   */
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue
-   */
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	public function setLastMatchedIntent($lastMatchedIntent)
+	{
+		$this->lastMatchedIntent = $lastMatchedIntent;
+	}
+	public function getLastMatchedIntent()
+	{
+		return $this->lastMatchedIntent;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue
+	 */
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue
+	 */
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

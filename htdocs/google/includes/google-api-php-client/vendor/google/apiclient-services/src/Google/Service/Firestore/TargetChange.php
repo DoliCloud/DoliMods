@@ -17,58 +17,58 @@
 
 class Google_Service_Firestore_TargetChange extends Google_Collection
 {
-  protected $collection_key = 'targetIds';
-  protected $causeType = 'Google_Service_Firestore_Status';
-  protected $causeDataType = '';
-  public $readTime;
-  public $resumeToken;
-  public $targetChangeType;
-  public $targetIds;
+	protected $collection_key = 'targetIds';
+	protected $causeType = 'Google_Service_Firestore_Status';
+	protected $causeDataType = '';
+	public $readTime;
+	public $resumeToken;
+	public $targetChangeType;
+	public $targetIds;
 
-  /**
-   * @param Google_Service_Firestore_Status
-   */
-  public function setCause(Google_Service_Firestore_Status $cause)
-  {
-    $this->cause = $cause;
-  }
-  /**
-   * @return Google_Service_Firestore_Status
-   */
-  public function getCause()
-  {
-    return $this->cause;
-  }
-  public function setReadTime($readTime)
-  {
-    $this->readTime = $readTime;
-  }
-  public function getReadTime()
-  {
-    return $this->readTime;
-  }
-  public function setResumeToken($resumeToken)
-  {
-    $this->resumeToken = $resumeToken;
-  }
-  public function getResumeToken()
-  {
-    return $this->resumeToken;
-  }
-  public function setTargetChangeType($targetChangeType)
-  {
-    $this->targetChangeType = $targetChangeType;
-  }
-  public function getTargetChangeType()
-  {
-    return $this->targetChangeType;
-  }
-  public function setTargetIds($targetIds)
-  {
-    $this->targetIds = $targetIds;
-  }
-  public function getTargetIds()
-  {
-    return $this->targetIds;
-  }
+	/**
+	 * @param Google_Service_Firestore_Status
+	 */
+	public function setCause(Google_Service_Firestore_Status $cause)
+	{
+		$this->cause = $cause;
+	}
+	/**
+	 * @return Google_Service_Firestore_Status
+	 */
+	public function getCause()
+	{
+		return $this->cause;
+	}
+	public function setReadTime($readTime)
+	{
+		$this->readTime = $readTime;
+	}
+	public function getReadTime()
+	{
+		return $this->readTime;
+	}
+	public function setResumeToken($resumeToken)
+	{
+		$this->resumeToken = $resumeToken;
+	}
+	public function getResumeToken()
+	{
+		return $this->resumeToken;
+	}
+	public function setTargetChangeType($targetChangeType)
+	{
+		$this->targetChangeType = $targetChangeType;
+	}
+	public function getTargetChangeType()
+	{
+		return $this->targetChangeType;
+	}
+	public function setTargetIds($targetIds)
+	{
+		$this->targetIds = $targetIds;
+	}
+	public function getTargetIds()
+	{
+		return $this->targetIds;
+	}
 }

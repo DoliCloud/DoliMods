@@ -17,41 +17,41 @@
 
 class Google_Service_Document_GoogleTypeColor extends Google_Model
 {
-  public $alpha;
-  public $blue;
-  public $green;
-  public $red;
+	public $alpha;
+	public $blue;
+	public $green;
+	public $red;
 
-  public function setAlpha($alpha)
-  {
-    $this->alpha = $alpha;
-  }
-  public function getAlpha()
-  {
-    return $this->alpha;
-  }
-  public function setBlue($blue)
-  {
-    $this->blue = $blue;
-  }
-  public function getBlue()
-  {
-    return $this->blue;
-  }
-  public function setGreen($green)
-  {
-    $this->green = $green;
-  }
-  public function getGreen()
-  {
-    return $this->green;
-  }
-  public function setRed($red)
-  {
-    $this->red = $red;
-  }
-  public function getRed()
-  {
-    return $this->red;
-  }
+	public function setAlpha($alpha)
+	{
+		$this->alpha = $alpha;
+	}
+	public function getAlpha()
+	{
+		return $this->alpha;
+	}
+	public function setBlue($blue)
+	{
+		$this->blue = $blue;
+	}
+	public function getBlue()
+	{
+		return $this->blue;
+	}
+	public function setGreen($green)
+	{
+		$this->green = $green;
+	}
+	public function getGreen()
+	{
+		return $this->green;
+	}
+	public function setRed($red)
+	{
+		$this->red = $red;
+	}
+	public function getRed()
+	{
+		return $this->red;
+	}
 }

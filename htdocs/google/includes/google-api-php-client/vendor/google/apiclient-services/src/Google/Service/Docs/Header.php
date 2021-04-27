@@ -17,31 +17,31 @@
 
 class Google_Service_Docs_Header extends Google_Collection
 {
-  protected $collection_key = 'content';
-  protected $contentType = 'Google_Service_Docs_StructuralElement';
-  protected $contentDataType = 'array';
-  public $headerId;
+	protected $collection_key = 'content';
+	protected $contentType = 'Google_Service_Docs_StructuralElement';
+	protected $contentDataType = 'array';
+	public $headerId;
 
-  /**
-   * @param Google_Service_Docs_StructuralElement
-   */
-  public function setContent($content)
-  {
-    $this->content = $content;
-  }
-  /**
-   * @return Google_Service_Docs_StructuralElement
-   */
-  public function getContent()
-  {
-    return $this->content;
-  }
-  public function setHeaderId($headerId)
-  {
-    $this->headerId = $headerId;
-  }
-  public function getHeaderId()
-  {
-    return $this->headerId;
-  }
+	/**
+	 * @param Google_Service_Docs_StructuralElement
+	 */
+	public function setContent($content)
+	{
+		$this->content = $content;
+	}
+	/**
+	 * @return Google_Service_Docs_StructuralElement
+	 */
+	public function getContent()
+	{
+		return $this->content;
+	}
+	public function setHeaderId($headerId)
+	{
+		$this->headerId = $headerId;
+	}
+	public function getHeaderId()
+	{
+		return $this->headerId;
+	}
 }

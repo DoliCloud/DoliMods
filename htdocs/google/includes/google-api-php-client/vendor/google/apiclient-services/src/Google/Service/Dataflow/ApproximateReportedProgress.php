@@ -17,62 +17,62 @@
 
 class Google_Service_Dataflow_ApproximateReportedProgress extends Google_Model
 {
-  protected $consumedParallelismType = 'Google_Service_Dataflow_ReportedParallelism';
-  protected $consumedParallelismDataType = '';
-  public $fractionConsumed;
-  protected $positionType = 'Google_Service_Dataflow_Position';
-  protected $positionDataType = '';
-  protected $remainingParallelismType = 'Google_Service_Dataflow_ReportedParallelism';
-  protected $remainingParallelismDataType = '';
+	protected $consumedParallelismType = 'Google_Service_Dataflow_ReportedParallelism';
+	protected $consumedParallelismDataType = '';
+	public $fractionConsumed;
+	protected $positionType = 'Google_Service_Dataflow_Position';
+	protected $positionDataType = '';
+	protected $remainingParallelismType = 'Google_Service_Dataflow_ReportedParallelism';
+	protected $remainingParallelismDataType = '';
 
-  /**
-   * @param Google_Service_Dataflow_ReportedParallelism
-   */
-  public function setConsumedParallelism(Google_Service_Dataflow_ReportedParallelism $consumedParallelism)
-  {
-    $this->consumedParallelism = $consumedParallelism;
-  }
-  /**
-   * @return Google_Service_Dataflow_ReportedParallelism
-   */
-  public function getConsumedParallelism()
-  {
-    return $this->consumedParallelism;
-  }
-  public function setFractionConsumed($fractionConsumed)
-  {
-    $this->fractionConsumed = $fractionConsumed;
-  }
-  public function getFractionConsumed()
-  {
-    return $this->fractionConsumed;
-  }
-  /**
-   * @param Google_Service_Dataflow_Position
-   */
-  public function setPosition(Google_Service_Dataflow_Position $position)
-  {
-    $this->position = $position;
-  }
-  /**
-   * @return Google_Service_Dataflow_Position
-   */
-  public function getPosition()
-  {
-    return $this->position;
-  }
-  /**
-   * @param Google_Service_Dataflow_ReportedParallelism
-   */
-  public function setRemainingParallelism(Google_Service_Dataflow_ReportedParallelism $remainingParallelism)
-  {
-    $this->remainingParallelism = $remainingParallelism;
-  }
-  /**
-   * @return Google_Service_Dataflow_ReportedParallelism
-   */
-  public function getRemainingParallelism()
-  {
-    return $this->remainingParallelism;
-  }
+	/**
+	 * @param Google_Service_Dataflow_ReportedParallelism
+	 */
+	public function setConsumedParallelism(Google_Service_Dataflow_ReportedParallelism $consumedParallelism)
+	{
+		$this->consumedParallelism = $consumedParallelism;
+	}
+	/**
+	 * @return Google_Service_Dataflow_ReportedParallelism
+	 */
+	public function getConsumedParallelism()
+	{
+		return $this->consumedParallelism;
+	}
+	public function setFractionConsumed($fractionConsumed)
+	{
+		$this->fractionConsumed = $fractionConsumed;
+	}
+	public function getFractionConsumed()
+	{
+		return $this->fractionConsumed;
+	}
+	/**
+	 * @param Google_Service_Dataflow_Position
+	 */
+	public function setPosition(Google_Service_Dataflow_Position $position)
+	{
+		$this->position = $position;
+	}
+	/**
+	 * @return Google_Service_Dataflow_Position
+	 */
+	public function getPosition()
+	{
+		return $this->position;
+	}
+	/**
+	 * @param Google_Service_Dataflow_ReportedParallelism
+	 */
+	public function setRemainingParallelism(Google_Service_Dataflow_ReportedParallelism $remainingParallelism)
+	{
+		$this->remainingParallelism = $remainingParallelism;
+	}
+	/**
+	 * @return Google_Service_Dataflow_ReportedParallelism
+	 */
+	public function getRemainingParallelism()
+	{
+		return $this->remainingParallelism;
+	}
 }

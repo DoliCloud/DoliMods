@@ -17,53 +17,53 @@
 
 class Google_Service_Manager_ReplicaPoolModule extends Google_Collection
 {
-  protected $collection_key = 'healthChecks';
-  protected $envVariablesType = 'Google_Service_Manager_EnvVariable';
-  protected $envVariablesDataType = 'map';
-  public $healthChecks;
-  public $numReplicas;
-  protected $replicaPoolParamsType = 'Google_Service_Manager_ReplicaPoolParams';
-  protected $replicaPoolParamsDataType = '';
-  public $resourceView;
+	protected $collection_key = 'healthChecks';
+	protected $envVariablesType = 'Google_Service_Manager_EnvVariable';
+	protected $envVariablesDataType = 'map';
+	public $healthChecks;
+	public $numReplicas;
+	protected $replicaPoolParamsType = 'Google_Service_Manager_ReplicaPoolParams';
+	protected $replicaPoolParamsDataType = '';
+	public $resourceView;
 
-  public function setEnvVariables($envVariables)
-  {
-    $this->envVariables = $envVariables;
-  }
-  public function getEnvVariables()
-  {
-    return $this->envVariables;
-  }
-  public function setHealthChecks($healthChecks)
-  {
-    $this->healthChecks = $healthChecks;
-  }
-  public function getHealthChecks()
-  {
-    return $this->healthChecks;
-  }
-  public function setNumReplicas($numReplicas)
-  {
-    $this->numReplicas = $numReplicas;
-  }
-  public function getNumReplicas()
-  {
-    return $this->numReplicas;
-  }
-  public function setReplicaPoolParams(Google_Service_Manager_ReplicaPoolParams $replicaPoolParams)
-  {
-    $this->replicaPoolParams = $replicaPoolParams;
-  }
-  public function getReplicaPoolParams()
-  {
-    return $this->replicaPoolParams;
-  }
-  public function setResourceView($resourceView)
-  {
-    $this->resourceView = $resourceView;
-  }
-  public function getResourceView()
-  {
-    return $this->resourceView;
-  }
+	public function setEnvVariables($envVariables)
+	{
+		$this->envVariables = $envVariables;
+	}
+	public function getEnvVariables()
+	{
+		return $this->envVariables;
+	}
+	public function setHealthChecks($healthChecks)
+	{
+		$this->healthChecks = $healthChecks;
+	}
+	public function getHealthChecks()
+	{
+		return $this->healthChecks;
+	}
+	public function setNumReplicas($numReplicas)
+	{
+		$this->numReplicas = $numReplicas;
+	}
+	public function getNumReplicas()
+	{
+		return $this->numReplicas;
+	}
+	public function setReplicaPoolParams(Google_Service_Manager_ReplicaPoolParams $replicaPoolParams)
+	{
+		$this->replicaPoolParams = $replicaPoolParams;
+	}
+	public function getReplicaPoolParams()
+	{
+		return $this->replicaPoolParams;
+	}
+	public function setResourceView($resourceView)
+	{
+		$this->resourceView = $resourceView;
+	}
+	public function getResourceView()
+	{
+		return $this->resourceView;
+	}
 }

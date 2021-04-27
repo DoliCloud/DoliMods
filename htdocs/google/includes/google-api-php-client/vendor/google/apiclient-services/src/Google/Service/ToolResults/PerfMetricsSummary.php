@@ -17,99 +17,99 @@
 
 class Google_Service_ToolResults_PerfMetricsSummary extends Google_Collection
 {
-  protected $collection_key = 'perfMetrics';
-  protected $appStartTimeType = 'Google_Service_ToolResults_AppStartTime';
-  protected $appStartTimeDataType = '';
-  public $executionId;
-  protected $graphicsStatsType = 'Google_Service_ToolResults_GraphicsStats';
-  protected $graphicsStatsDataType = '';
-  public $historyId;
-  protected $perfEnvironmentType = 'Google_Service_ToolResults_PerfEnvironment';
-  protected $perfEnvironmentDataType = '';
-  public $perfMetrics;
-  public $projectId;
-  public $stepId;
+	protected $collection_key = 'perfMetrics';
+	protected $appStartTimeType = 'Google_Service_ToolResults_AppStartTime';
+	protected $appStartTimeDataType = '';
+	public $executionId;
+	protected $graphicsStatsType = 'Google_Service_ToolResults_GraphicsStats';
+	protected $graphicsStatsDataType = '';
+	public $historyId;
+	protected $perfEnvironmentType = 'Google_Service_ToolResults_PerfEnvironment';
+	protected $perfEnvironmentDataType = '';
+	public $perfMetrics;
+	public $projectId;
+	public $stepId;
 
-  /**
-   * @param Google_Service_ToolResults_AppStartTime
-   */
-  public function setAppStartTime(Google_Service_ToolResults_AppStartTime $appStartTime)
-  {
-    $this->appStartTime = $appStartTime;
-  }
-  /**
-   * @return Google_Service_ToolResults_AppStartTime
-   */
-  public function getAppStartTime()
-  {
-    return $this->appStartTime;
-  }
-  public function setExecutionId($executionId)
-  {
-    $this->executionId = $executionId;
-  }
-  public function getExecutionId()
-  {
-    return $this->executionId;
-  }
-  /**
-   * @param Google_Service_ToolResults_GraphicsStats
-   */
-  public function setGraphicsStats(Google_Service_ToolResults_GraphicsStats $graphicsStats)
-  {
-    $this->graphicsStats = $graphicsStats;
-  }
-  /**
-   * @return Google_Service_ToolResults_GraphicsStats
-   */
-  public function getGraphicsStats()
-  {
-    return $this->graphicsStats;
-  }
-  public function setHistoryId($historyId)
-  {
-    $this->historyId = $historyId;
-  }
-  public function getHistoryId()
-  {
-    return $this->historyId;
-  }
-  /**
-   * @param Google_Service_ToolResults_PerfEnvironment
-   */
-  public function setPerfEnvironment(Google_Service_ToolResults_PerfEnvironment $perfEnvironment)
-  {
-    $this->perfEnvironment = $perfEnvironment;
-  }
-  /**
-   * @return Google_Service_ToolResults_PerfEnvironment
-   */
-  public function getPerfEnvironment()
-  {
-    return $this->perfEnvironment;
-  }
-  public function setPerfMetrics($perfMetrics)
-  {
-    $this->perfMetrics = $perfMetrics;
-  }
-  public function getPerfMetrics()
-  {
-    return $this->perfMetrics;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setStepId($stepId)
-  {
-    $this->stepId = $stepId;
-  }
-  public function getStepId()
-  {
-    return $this->stepId;
-  }
+	/**
+	 * @param Google_Service_ToolResults_AppStartTime
+	 */
+	public function setAppStartTime(Google_Service_ToolResults_AppStartTime $appStartTime)
+	{
+		$this->appStartTime = $appStartTime;
+	}
+	/**
+	 * @return Google_Service_ToolResults_AppStartTime
+	 */
+	public function getAppStartTime()
+	{
+		return $this->appStartTime;
+	}
+	public function setExecutionId($executionId)
+	{
+		$this->executionId = $executionId;
+	}
+	public function getExecutionId()
+	{
+		return $this->executionId;
+	}
+	/**
+	 * @param Google_Service_ToolResults_GraphicsStats
+	 */
+	public function setGraphicsStats(Google_Service_ToolResults_GraphicsStats $graphicsStats)
+	{
+		$this->graphicsStats = $graphicsStats;
+	}
+	/**
+	 * @return Google_Service_ToolResults_GraphicsStats
+	 */
+	public function getGraphicsStats()
+	{
+		return $this->graphicsStats;
+	}
+	public function setHistoryId($historyId)
+	{
+		$this->historyId = $historyId;
+	}
+	public function getHistoryId()
+	{
+		return $this->historyId;
+	}
+	/**
+	 * @param Google_Service_ToolResults_PerfEnvironment
+	 */
+	public function setPerfEnvironment(Google_Service_ToolResults_PerfEnvironment $perfEnvironment)
+	{
+		$this->perfEnvironment = $perfEnvironment;
+	}
+	/**
+	 * @return Google_Service_ToolResults_PerfEnvironment
+	 */
+	public function getPerfEnvironment()
+	{
+		return $this->perfEnvironment;
+	}
+	public function setPerfMetrics($perfMetrics)
+	{
+		$this->perfMetrics = $perfMetrics;
+	}
+	public function getPerfMetrics()
+	{
+		return $this->perfMetrics;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setStepId($stepId)
+	{
+		$this->stepId = $stepId;
+	}
+	public function getStepId()
+	{
+		return $this->stepId;
+	}
 }

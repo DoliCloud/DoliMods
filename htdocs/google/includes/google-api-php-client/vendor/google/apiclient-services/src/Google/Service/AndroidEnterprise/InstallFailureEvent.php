@@ -17,50 +17,50 @@
 
 class Google_Service_AndroidEnterprise_InstallFailureEvent extends Google_Model
 {
-  public $deviceId;
-  public $failureDetails;
-  public $failureReason;
-  public $productId;
-  public $userId;
+	public $deviceId;
+	public $failureDetails;
+	public $failureReason;
+	public $productId;
+	public $userId;
 
-  public function setDeviceId($deviceId)
-  {
-    $this->deviceId = $deviceId;
-  }
-  public function getDeviceId()
-  {
-    return $this->deviceId;
-  }
-  public function setFailureDetails($failureDetails)
-  {
-    $this->failureDetails = $failureDetails;
-  }
-  public function getFailureDetails()
-  {
-    return $this->failureDetails;
-  }
-  public function setFailureReason($failureReason)
-  {
-    $this->failureReason = $failureReason;
-  }
-  public function getFailureReason()
-  {
-    return $this->failureReason;
-  }
-  public function setProductId($productId)
-  {
-    $this->productId = $productId;
-  }
-  public function getProductId()
-  {
-    return $this->productId;
-  }
-  public function setUserId($userId)
-  {
-    $this->userId = $userId;
-  }
-  public function getUserId()
-  {
-    return $this->userId;
-  }
+	public function setDeviceId($deviceId)
+	{
+		$this->deviceId = $deviceId;
+	}
+	public function getDeviceId()
+	{
+		return $this->deviceId;
+	}
+	public function setFailureDetails($failureDetails)
+	{
+		$this->failureDetails = $failureDetails;
+	}
+	public function getFailureDetails()
+	{
+		return $this->failureDetails;
+	}
+	public function setFailureReason($failureReason)
+	{
+		$this->failureReason = $failureReason;
+	}
+	public function getFailureReason()
+	{
+		return $this->failureReason;
+	}
+	public function setProductId($productId)
+	{
+		$this->productId = $productId;
+	}
+	public function getProductId()
+	{
+		return $this->productId;
+	}
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+	}
+	public function getUserId()
+	{
+		return $this->userId;
+	}
 }

@@ -17,16 +17,16 @@
 
 class Google_Service_People_GetPeopleResponse extends Google_Collection
 {
-  protected $collection_key = 'responses';
-  protected $responsesType = 'Google_Service_People_PersonResponse';
-  protected $responsesDataType = 'array';
+	protected $collection_key = 'responses';
+	protected $responsesType = 'Google_Service_People_PersonResponse';
+	protected $responsesDataType = 'array';
 
-  public function setResponses($responses)
-  {
-    $this->responses = $responses;
-  }
-  public function getResponses()
-  {
-    return $this->responses;
-  }
+	public function setResponses($responses)
+	{
+		$this->responses = $responses;
+	}
+	public function getResponses()
+	{
+		return $this->responses;
+	}
 }

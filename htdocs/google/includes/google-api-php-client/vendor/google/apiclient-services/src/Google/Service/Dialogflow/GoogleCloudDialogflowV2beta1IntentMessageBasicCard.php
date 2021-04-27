@@ -17,65 +17,65 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCard extends Google_Collection
 {
-  protected $collection_key = 'buttons';
-  protected $buttonsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton';
-  protected $buttonsDataType = 'array';
-  public $formattedText;
-  protected $imageType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageImage';
-  protected $imageDataType = '';
-  public $subtitle;
-  public $title;
+	protected $collection_key = 'buttons';
+	protected $buttonsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton';
+	protected $buttonsDataType = 'array';
+	public $formattedText;
+	protected $imageType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageImage';
+	protected $imageDataType = '';
+	public $subtitle;
+	public $title;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton
-   */
-  public function setButtons($buttons)
-  {
-    $this->buttons = $buttons;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton
-   */
-  public function getButtons()
-  {
-    return $this->buttons;
-  }
-  public function setFormattedText($formattedText)
-  {
-    $this->formattedText = $formattedText;
-  }
-  public function getFormattedText()
-  {
-    return $this->formattedText;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageImage
-   */
-  public function setImage(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageImage $image)
-  {
-    $this->image = $image;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageImage
-   */
-  public function getImage()
-  {
-    return $this->image;
-  }
-  public function setSubtitle($subtitle)
-  {
-    $this->subtitle = $subtitle;
-  }
-  public function getSubtitle()
-  {
-    return $this->subtitle;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton
+	 */
+	public function setButtons($buttons)
+	{
+		$this->buttons = $buttons;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton
+	 */
+	public function getButtons()
+	{
+		return $this->buttons;
+	}
+	public function setFormattedText($formattedText)
+	{
+		$this->formattedText = $formattedText;
+	}
+	public function getFormattedText()
+	{
+		return $this->formattedText;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageImage
+	 */
+	public function setImage(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageImage $image)
+	{
+		$this->image = $image;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageImage
+	 */
+	public function getImage()
+	{
+		return $this->image;
+	}
+	public function setSubtitle($subtitle)
+	{
+		$this->subtitle = $subtitle;
+	}
+	public function getSubtitle()
+	{
+		return $this->subtitle;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

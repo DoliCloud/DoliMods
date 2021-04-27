@@ -17,99 +17,99 @@
 
 class Google_Service_Monitoring_MetricThreshold extends Google_Collection
 {
-  protected $collection_key = 'denominatorAggregations';
-  protected $aggregationsType = 'Google_Service_Monitoring_Aggregation';
-  protected $aggregationsDataType = 'array';
-  public $comparison;
-  protected $denominatorAggregationsType = 'Google_Service_Monitoring_Aggregation';
-  protected $denominatorAggregationsDataType = 'array';
-  public $denominatorFilter;
-  public $duration;
-  public $filter;
-  public $thresholdValue;
-  protected $triggerType = 'Google_Service_Monitoring_Trigger';
-  protected $triggerDataType = '';
+	protected $collection_key = 'denominatorAggregations';
+	protected $aggregationsType = 'Google_Service_Monitoring_Aggregation';
+	protected $aggregationsDataType = 'array';
+	public $comparison;
+	protected $denominatorAggregationsType = 'Google_Service_Monitoring_Aggregation';
+	protected $denominatorAggregationsDataType = 'array';
+	public $denominatorFilter;
+	public $duration;
+	public $filter;
+	public $thresholdValue;
+	protected $triggerType = 'Google_Service_Monitoring_Trigger';
+	protected $triggerDataType = '';
 
-  /**
-   * @param Google_Service_Monitoring_Aggregation
-   */
-  public function setAggregations($aggregations)
-  {
-    $this->aggregations = $aggregations;
-  }
-  /**
-   * @return Google_Service_Monitoring_Aggregation
-   */
-  public function getAggregations()
-  {
-    return $this->aggregations;
-  }
-  public function setComparison($comparison)
-  {
-    $this->comparison = $comparison;
-  }
-  public function getComparison()
-  {
-    return $this->comparison;
-  }
-  /**
-   * @param Google_Service_Monitoring_Aggregation
-   */
-  public function setDenominatorAggregations($denominatorAggregations)
-  {
-    $this->denominatorAggregations = $denominatorAggregations;
-  }
-  /**
-   * @return Google_Service_Monitoring_Aggregation
-   */
-  public function getDenominatorAggregations()
-  {
-    return $this->denominatorAggregations;
-  }
-  public function setDenominatorFilter($denominatorFilter)
-  {
-    $this->denominatorFilter = $denominatorFilter;
-  }
-  public function getDenominatorFilter()
-  {
-    return $this->denominatorFilter;
-  }
-  public function setDuration($duration)
-  {
-    $this->duration = $duration;
-  }
-  public function getDuration()
-  {
-    return $this->duration;
-  }
-  public function setFilter($filter)
-  {
-    $this->filter = $filter;
-  }
-  public function getFilter()
-  {
-    return $this->filter;
-  }
-  public function setThresholdValue($thresholdValue)
-  {
-    $this->thresholdValue = $thresholdValue;
-  }
-  public function getThresholdValue()
-  {
-    return $this->thresholdValue;
-  }
-  /**
-   * @param Google_Service_Monitoring_Trigger
-   */
-  public function setTrigger(Google_Service_Monitoring_Trigger $trigger)
-  {
-    $this->trigger = $trigger;
-  }
-  /**
-   * @return Google_Service_Monitoring_Trigger
-   */
-  public function getTrigger()
-  {
-    return $this->trigger;
-  }
+	/**
+	 * @param Google_Service_Monitoring_Aggregation
+	 */
+	public function setAggregations($aggregations)
+	{
+		$this->aggregations = $aggregations;
+	}
+	/**
+	 * @return Google_Service_Monitoring_Aggregation
+	 */
+	public function getAggregations()
+	{
+		return $this->aggregations;
+	}
+	public function setComparison($comparison)
+	{
+		$this->comparison = $comparison;
+	}
+	public function getComparison()
+	{
+		return $this->comparison;
+	}
+	/**
+	 * @param Google_Service_Monitoring_Aggregation
+	 */
+	public function setDenominatorAggregations($denominatorAggregations)
+	{
+		$this->denominatorAggregations = $denominatorAggregations;
+	}
+	/**
+	 * @return Google_Service_Monitoring_Aggregation
+	 */
+	public function getDenominatorAggregations()
+	{
+		return $this->denominatorAggregations;
+	}
+	public function setDenominatorFilter($denominatorFilter)
+	{
+		$this->denominatorFilter = $denominatorFilter;
+	}
+	public function getDenominatorFilter()
+	{
+		return $this->denominatorFilter;
+	}
+	public function setDuration($duration)
+	{
+		$this->duration = $duration;
+	}
+	public function getDuration()
+	{
+		return $this->duration;
+	}
+	public function setFilter($filter)
+	{
+		$this->filter = $filter;
+	}
+	public function getFilter()
+	{
+		return $this->filter;
+	}
+	public function setThresholdValue($thresholdValue)
+	{
+		$this->thresholdValue = $thresholdValue;
+	}
+	public function getThresholdValue()
+	{
+		return $this->thresholdValue;
+	}
+	/**
+	 * @param Google_Service_Monitoring_Trigger
+	 */
+	public function setTrigger(Google_Service_Monitoring_Trigger $trigger)
+	{
+		$this->trigger = $trigger;
+	}
+	/**
+	 * @return Google_Service_Monitoring_Trigger
+	 */
+	public function getTrigger()
+	{
+		return $this->trigger;
+	}
 }

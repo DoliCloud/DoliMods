@@ -17,31 +17,31 @@
 
 class Google_Service_Compute_MetadataFilter extends Google_Collection
 {
-  protected $collection_key = 'filterLabels';
-  protected $filterLabelsType = 'Google_Service_Compute_MetadataFilterLabelMatch';
-  protected $filterLabelsDataType = 'array';
-  public $filterMatchCriteria;
+	protected $collection_key = 'filterLabels';
+	protected $filterLabelsType = 'Google_Service_Compute_MetadataFilterLabelMatch';
+	protected $filterLabelsDataType = 'array';
+	public $filterMatchCriteria;
 
-  /**
-   * @param Google_Service_Compute_MetadataFilterLabelMatch
-   */
-  public function setFilterLabels($filterLabels)
-  {
-    $this->filterLabels = $filterLabels;
-  }
-  /**
-   * @return Google_Service_Compute_MetadataFilterLabelMatch
-   */
-  public function getFilterLabels()
-  {
-    return $this->filterLabels;
-  }
-  public function setFilterMatchCriteria($filterMatchCriteria)
-  {
-    $this->filterMatchCriteria = $filterMatchCriteria;
-  }
-  public function getFilterMatchCriteria()
-  {
-    return $this->filterMatchCriteria;
-  }
+	/**
+	 * @param Google_Service_Compute_MetadataFilterLabelMatch
+	 */
+	public function setFilterLabels($filterLabels)
+	{
+		$this->filterLabels = $filterLabels;
+	}
+	/**
+	 * @return Google_Service_Compute_MetadataFilterLabelMatch
+	 */
+	public function getFilterLabels()
+	{
+		return $this->filterLabels;
+	}
+	public function setFilterMatchCriteria($filterMatchCriteria)
+	{
+		$this->filterMatchCriteria = $filterMatchCriteria;
+	}
+	public function getFilterMatchCriteria()
+	{
+		return $this->filterMatchCriteria;
+	}
 }

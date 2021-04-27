@@ -17,21 +17,21 @@
 
 class Google_Service_CloudUserAccounts_LinuxGetAuthorizedKeysViewResponse extends Google_Model
 {
-  protected $resourceType = 'Google_Service_CloudUserAccounts_AuthorizedKeysView';
-  protected $resourceDataType = '';
+	protected $resourceType = 'Google_Service_CloudUserAccounts_AuthorizedKeysView';
+	protected $resourceDataType = '';
 
-  /**
-   * @param Google_Service_CloudUserAccounts_AuthorizedKeysView
-   */
-  public function setResource(Google_Service_CloudUserAccounts_AuthorizedKeysView $resource)
-  {
-    $this->resource = $resource;
-  }
-  /**
-   * @return Google_Service_CloudUserAccounts_AuthorizedKeysView
-   */
-  public function getResource()
-  {
-    return $this->resource;
-  }
+	/**
+	 * @param Google_Service_CloudUserAccounts_AuthorizedKeysView
+	 */
+	public function setResource(Google_Service_CloudUserAccounts_AuthorizedKeysView $resource)
+	{
+		$this->resource = $resource;
+	}
+	/**
+	 * @return Google_Service_CloudUserAccounts_AuthorizedKeysView
+	 */
+	public function getResource()
+	{
+		return $this->resource;
+	}
 }

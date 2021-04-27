@@ -17,40 +17,40 @@
 
 class Google_Service_Directory_OrgUnits extends Google_Collection
 {
-  protected $collection_key = 'organizationUnits';
-  public $etag;
-  public $kind;
-  protected $organizationUnitsType = 'Google_Service_Directory_OrgUnit';
-  protected $organizationUnitsDataType = 'array';
+	protected $collection_key = 'organizationUnits';
+	public $etag;
+	public $kind;
+	protected $organizationUnitsType = 'Google_Service_Directory_OrgUnit';
+	protected $organizationUnitsDataType = 'array';
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Directory_OrgUnit
-   */
-  public function setOrganizationUnits($organizationUnits)
-  {
-    $this->organizationUnits = $organizationUnits;
-  }
-  /**
-   * @return Google_Service_Directory_OrgUnit
-   */
-  public function getOrganizationUnits()
-  {
-    return $this->organizationUnits;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Directory_OrgUnit
+	 */
+	public function setOrganizationUnits($organizationUnits)
+	{
+		$this->organizationUnits = $organizationUnits;
+	}
+	/**
+	 * @return Google_Service_Directory_OrgUnit
+	 */
+	public function getOrganizationUnits()
+	{
+		return $this->organizationUnits;
+	}
 }

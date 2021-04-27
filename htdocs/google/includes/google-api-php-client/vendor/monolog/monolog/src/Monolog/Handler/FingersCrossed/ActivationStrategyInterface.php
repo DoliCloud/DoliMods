@@ -18,11 +18,11 @@ namespace Monolog\Handler\FingersCrossed;
  */
 interface ActivationStrategyInterface
 {
-    /**
-     * Returns whether the given record activates the handler.
-     *
-     * @param  array   $record
-     * @return bool
-     */
-    public function isHandlerActivated(array $record);
+	/**
+	 * Returns whether the given record activates the handler.
+	 *
+	 * @param  array   $record
+	 * @return bool
+	 */
+	public function isHandlerActivated(array $record);
 }

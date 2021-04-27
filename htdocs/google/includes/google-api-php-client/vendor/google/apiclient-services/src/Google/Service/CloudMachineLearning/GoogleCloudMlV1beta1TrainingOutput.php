@@ -17,34 +17,34 @@
 
 class Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1TrainingOutput extends Google_Collection
 {
-  protected $collection_key = 'trials';
-  public $completedTrialCount;
-  public $consumedMLUnits;
-  protected $trialsType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1HyperparameterOutput';
-  protected $trialsDataType = 'array';
+	protected $collection_key = 'trials';
+	public $completedTrialCount;
+	public $consumedMLUnits;
+	protected $trialsType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1HyperparameterOutput';
+	protected $trialsDataType = 'array';
 
-  public function setCompletedTrialCount($completedTrialCount)
-  {
-    $this->completedTrialCount = $completedTrialCount;
-  }
-  public function getCompletedTrialCount()
-  {
-    return $this->completedTrialCount;
-  }
-  public function setConsumedMLUnits($consumedMLUnits)
-  {
-    $this->consumedMLUnits = $consumedMLUnits;
-  }
-  public function getConsumedMLUnits()
-  {
-    return $this->consumedMLUnits;
-  }
-  public function setTrials($trials)
-  {
-    $this->trials = $trials;
-  }
-  public function getTrials()
-  {
-    return $this->trials;
-  }
+	public function setCompletedTrialCount($completedTrialCount)
+	{
+		$this->completedTrialCount = $completedTrialCount;
+	}
+	public function getCompletedTrialCount()
+	{
+		return $this->completedTrialCount;
+	}
+	public function setConsumedMLUnits($consumedMLUnits)
+	{
+		$this->consumedMLUnits = $consumedMLUnits;
+	}
+	public function getConsumedMLUnits()
+	{
+		return $this->consumedMLUnits;
+	}
+	public function setTrials($trials)
+	{
+		$this->trials = $trials;
+	}
+	public function getTrials()
+	{
+		return $this->trials;
+	}
 }

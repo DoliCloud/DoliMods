@@ -17,14 +17,14 @@
 
 class Google_Service_FirebaseDynamicLinksAPI_Suffix extends Google_Model
 {
-  public $option;
+	public $option;
 
-  public function setOption($option)
-  {
-    $this->option = $option;
-  }
-  public function getOption()
-  {
-    return $this->option;
-  }
+	public function setOption($option)
+	{
+		$this->option = $option;
+	}
+	public function getOption()
+	{
+		return $this->option;
+	}
 }

@@ -17,63 +17,63 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfig extends Google_Collection
 {
-  protected $collection_key = 'parameters';
-  public $algorithm;
-  protected $automatedStoppingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig';
-  protected $automatedStoppingConfigDataType = '';
-  protected $metricsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigMetricSpec';
-  protected $metricsDataType = 'array';
-  protected $parametersType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigParameterSpec';
-  protected $parametersDataType = 'array';
+	protected $collection_key = 'parameters';
+	public $algorithm;
+	protected $automatedStoppingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig';
+	protected $automatedStoppingConfigDataType = '';
+	protected $metricsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigMetricSpec';
+	protected $metricsDataType = 'array';
+	protected $parametersType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigParameterSpec';
+	protected $parametersDataType = 'array';
 
-  public function setAlgorithm($algorithm)
-  {
-    $this->algorithm = $algorithm;
-  }
-  public function getAlgorithm()
-  {
-    return $this->algorithm;
-  }
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig
-   */
-  public function setAutomatedStoppingConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig $automatedStoppingConfig)
-  {
-    $this->automatedStoppingConfig = $automatedStoppingConfig;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig
-   */
-  public function getAutomatedStoppingConfig()
-  {
-    return $this->automatedStoppingConfig;
-  }
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigMetricSpec
-   */
-  public function setMetrics($metrics)
-  {
-    $this->metrics = $metrics;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigMetricSpec
-   */
-  public function getMetrics()
-  {
-    return $this->metrics;
-  }
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigParameterSpec
-   */
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigParameterSpec
-   */
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
+	public function setAlgorithm($algorithm)
+	{
+		$this->algorithm = $algorithm;
+	}
+	public function getAlgorithm()
+	{
+		return $this->algorithm;
+	}
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig
+	 */
+	public function setAutomatedStoppingConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig $automatedStoppingConfig)
+	{
+		$this->automatedStoppingConfig = $automatedStoppingConfig;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutomatedStoppingConfig
+	 */
+	public function getAutomatedStoppingConfig()
+	{
+		return $this->automatedStoppingConfig;
+	}
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigMetricSpec
+	 */
+	public function setMetrics($metrics)
+	{
+		$this->metrics = $metrics;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigMetricSpec
+	 */
+	public function getMetrics()
+	{
+		return $this->metrics;
+	}
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigParameterSpec
+	 */
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigParameterSpec
+	 */
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
 }

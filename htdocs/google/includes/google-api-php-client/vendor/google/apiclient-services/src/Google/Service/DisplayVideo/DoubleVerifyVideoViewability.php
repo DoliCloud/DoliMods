@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_DoubleVerifyVideoViewability extends Google_Model
 {
-  public $playerImpressionRate;
-  public $videoIab;
-  public $videoViewableRate;
+	public $playerImpressionRate;
+	public $videoIab;
+	public $videoViewableRate;
 
-  public function setPlayerImpressionRate($playerImpressionRate)
-  {
-    $this->playerImpressionRate = $playerImpressionRate;
-  }
-  public function getPlayerImpressionRate()
-  {
-    return $this->playerImpressionRate;
-  }
-  public function setVideoIab($videoIab)
-  {
-    $this->videoIab = $videoIab;
-  }
-  public function getVideoIab()
-  {
-    return $this->videoIab;
-  }
-  public function setVideoViewableRate($videoViewableRate)
-  {
-    $this->videoViewableRate = $videoViewableRate;
-  }
-  public function getVideoViewableRate()
-  {
-    return $this->videoViewableRate;
-  }
+	public function setPlayerImpressionRate($playerImpressionRate)
+	{
+		$this->playerImpressionRate = $playerImpressionRate;
+	}
+	public function getPlayerImpressionRate()
+	{
+		return $this->playerImpressionRate;
+	}
+	public function setVideoIab($videoIab)
+	{
+		$this->videoIab = $videoIab;
+	}
+	public function getVideoIab()
+	{
+		return $this->videoIab;
+	}
+	public function setVideoViewableRate($videoViewableRate)
+	{
+		$this->videoViewableRate = $videoViewableRate;
+	}
+	public function getVideoViewableRate()
+	{
+		return $this->videoViewableRate;
+	}
 }

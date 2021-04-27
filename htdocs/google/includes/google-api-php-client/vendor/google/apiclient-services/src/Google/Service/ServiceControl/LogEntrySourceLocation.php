@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceControl_LogEntrySourceLocation extends Google_Model
 {
-  public $file;
-  public $function;
-  public $line;
+	public $file;
+	public $function;
+	public $line;
 
-  public function setFile($file)
-  {
-    $this->file = $file;
-  }
-  public function getFile()
-  {
-    return $this->file;
-  }
-  public function setFunction($function)
-  {
-    $this->function = $function;
-  }
-  public function getFunction()
-  {
-    return $this->function;
-  }
-  public function setLine($line)
-  {
-    $this->line = $line;
-  }
-  public function getLine()
-  {
-    return $this->line;
-  }
+	public function setFile($file)
+	{
+		$this->file = $file;
+	}
+	public function getFile()
+	{
+		return $this->file;
+	}
+	public function setFunction($function)
+	{
+		$this->function = $function;
+	}
+	public function getFunction()
+	{
+		return $this->function;
+	}
+	public function setLine($line)
+	{
+		$this->line = $line;
+	}
+	public function getLine()
+	{
+		return $this->line;
+	}
 }

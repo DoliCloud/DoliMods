@@ -17,32 +17,32 @@
 
 class Google_Service_CloudDebugger_SourceLocation extends Google_Model
 {
-  public $column;
-  public $line;
-  public $path;
+	public $column;
+	public $line;
+	public $path;
 
-  public function setColumn($column)
-  {
-    $this->column = $column;
-  }
-  public function getColumn()
-  {
-    return $this->column;
-  }
-  public function setLine($line)
-  {
-    $this->line = $line;
-  }
-  public function getLine()
-  {
-    return $this->line;
-  }
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
+	public function setColumn($column)
+	{
+		$this->column = $column;
+	}
+	public function getColumn()
+	{
+		return $this->column;
+	}
+	public function setLine($line)
+	{
+		$this->line = $line;
+	}
+	public function getLine()
+	{
+		return $this->line;
+	}
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
 }

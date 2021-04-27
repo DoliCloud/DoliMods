@@ -17,24 +17,24 @@
 
 class Google_Service_Dfareporting_SiteTranscodeSetting extends Google_Collection
 {
-  protected $collection_key = 'enabledVideoFormats';
-  public $enabledVideoFormats;
-  public $kind;
+	protected $collection_key = 'enabledVideoFormats';
+	public $enabledVideoFormats;
+	public $kind;
 
-  public function setEnabledVideoFormats($enabledVideoFormats)
-  {
-    $this->enabledVideoFormats = $enabledVideoFormats;
-  }
-  public function getEnabledVideoFormats()
-  {
-    return $this->enabledVideoFormats;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setEnabledVideoFormats($enabledVideoFormats)
+	{
+		$this->enabledVideoFormats = $enabledVideoFormats;
+	}
+	public function getEnabledVideoFormats()
+	{
+		return $this->enabledVideoFormats;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

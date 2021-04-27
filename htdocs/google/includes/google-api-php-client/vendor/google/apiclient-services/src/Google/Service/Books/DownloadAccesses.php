@@ -17,31 +17,31 @@
 
 class Google_Service_Books_DownloadAccesses extends Google_Collection
 {
-  protected $collection_key = 'downloadAccessList';
-  protected $downloadAccessListType = 'Google_Service_Books_DownloadAccessRestriction';
-  protected $downloadAccessListDataType = 'array';
-  public $kind;
+	protected $collection_key = 'downloadAccessList';
+	protected $downloadAccessListType = 'Google_Service_Books_DownloadAccessRestriction';
+	protected $downloadAccessListDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_Books_DownloadAccessRestriction
-   */
-  public function setDownloadAccessList($downloadAccessList)
-  {
-    $this->downloadAccessList = $downloadAccessList;
-  }
-  /**
-   * @return Google_Service_Books_DownloadAccessRestriction
-   */
-  public function getDownloadAccessList()
-  {
-    return $this->downloadAccessList;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Books_DownloadAccessRestriction
+	 */
+	public function setDownloadAccessList($downloadAccessList)
+	{
+		$this->downloadAccessList = $downloadAccessList;
+	}
+	/**
+	 * @return Google_Service_Books_DownloadAccessRestriction
+	 */
+	public function getDownloadAccessList()
+	{
+		return $this->downloadAccessList;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

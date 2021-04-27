@@ -17,32 +17,32 @@
 
 class Google_Service_ContainerAnalysis_PgpSignedAttestation extends Google_Model
 {
-  public $contentType;
-  public $pgpKeyId;
-  public $signature;
+	public $contentType;
+	public $pgpKeyId;
+	public $signature;
 
-  public function setContentType($contentType)
-  {
-    $this->contentType = $contentType;
-  }
-  public function getContentType()
-  {
-    return $this->contentType;
-  }
-  public function setPgpKeyId($pgpKeyId)
-  {
-    $this->pgpKeyId = $pgpKeyId;
-  }
-  public function getPgpKeyId()
-  {
-    return $this->pgpKeyId;
-  }
-  public function setSignature($signature)
-  {
-    $this->signature = $signature;
-  }
-  public function getSignature()
-  {
-    return $this->signature;
-  }
+	public function setContentType($contentType)
+	{
+		$this->contentType = $contentType;
+	}
+	public function getContentType()
+	{
+		return $this->contentType;
+	}
+	public function setPgpKeyId($pgpKeyId)
+	{
+		$this->pgpKeyId = $pgpKeyId;
+	}
+	public function getPgpKeyId()
+	{
+		return $this->pgpKeyId;
+	}
+	public function setSignature($signature)
+	{
+		$this->signature = $signature;
+	}
+	public function getSignature()
+	{
+		return $this->signature;
+	}
 }

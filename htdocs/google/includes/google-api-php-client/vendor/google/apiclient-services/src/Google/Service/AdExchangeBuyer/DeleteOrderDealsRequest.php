@@ -17,33 +17,33 @@
 
 class Google_Service_AdExchangeBuyer_DeleteOrderDealsRequest extends Google_Collection
 {
-  protected $collection_key = 'dealIds';
-  public $dealIds;
-  public $proposalRevisionNumber;
-  public $updateAction;
+	protected $collection_key = 'dealIds';
+	public $dealIds;
+	public $proposalRevisionNumber;
+	public $updateAction;
 
-  public function setDealIds($dealIds)
-  {
-    $this->dealIds = $dealIds;
-  }
-  public function getDealIds()
-  {
-    return $this->dealIds;
-  }
-  public function setProposalRevisionNumber($proposalRevisionNumber)
-  {
-    $this->proposalRevisionNumber = $proposalRevisionNumber;
-  }
-  public function getProposalRevisionNumber()
-  {
-    return $this->proposalRevisionNumber;
-  }
-  public function setUpdateAction($updateAction)
-  {
-    $this->updateAction = $updateAction;
-  }
-  public function getUpdateAction()
-  {
-    return $this->updateAction;
-  }
+	public function setDealIds($dealIds)
+	{
+		$this->dealIds = $dealIds;
+	}
+	public function getDealIds()
+	{
+		return $this->dealIds;
+	}
+	public function setProposalRevisionNumber($proposalRevisionNumber)
+	{
+		$this->proposalRevisionNumber = $proposalRevisionNumber;
+	}
+	public function getProposalRevisionNumber()
+	{
+		return $this->proposalRevisionNumber;
+	}
+	public function setUpdateAction($updateAction)
+	{
+		$this->updateAction = $updateAction;
+	}
+	public function getUpdateAction()
+	{
+		return $this->updateAction;
+	}
 }

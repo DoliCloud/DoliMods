@@ -17,23 +17,23 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2EntityExtractionParams extends Google_Model
 {
-  public $enabled;
-  public $modelVersion;
+	public $enabled;
+	public $modelVersion;
 
-  public function setEnabled($enabled)
-  {
-    $this->enabled = $enabled;
-  }
-  public function getEnabled()
-  {
-    return $this->enabled;
-  }
-  public function setModelVersion($modelVersion)
-  {
-    $this->modelVersion = $modelVersion;
-  }
-  public function getModelVersion()
-  {
-    return $this->modelVersion;
-  }
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	}
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
+	public function setModelVersion($modelVersion)
+	{
+		$this->modelVersion = $modelVersion;
+	}
+	public function getModelVersion()
+	{
+		return $this->modelVersion;
+	}
 }

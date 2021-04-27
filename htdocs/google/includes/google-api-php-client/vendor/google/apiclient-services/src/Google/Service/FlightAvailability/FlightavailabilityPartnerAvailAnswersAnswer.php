@@ -17,40 +17,40 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersAnswer extends Google_Collection
 {
-  protected $collection_key = 'solutions';
-  public $foundNoSolution;
-  public $narrative;
-  protected $solutionsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSolution';
-  protected $solutionsDataType = 'array';
+	protected $collection_key = 'solutions';
+	public $foundNoSolution;
+	public $narrative;
+	protected $solutionsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSolution';
+	protected $solutionsDataType = 'array';
 
-  public function setFoundNoSolution($foundNoSolution)
-  {
-    $this->foundNoSolution = $foundNoSolution;
-  }
-  public function getFoundNoSolution()
-  {
-    return $this->foundNoSolution;
-  }
-  public function setNarrative($narrative)
-  {
-    $this->narrative = $narrative;
-  }
-  public function getNarrative()
-  {
-    return $this->narrative;
-  }
-  /**
-   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSolution
-   */
-  public function setSolutions($solutions)
-  {
-    $this->solutions = $solutions;
-  }
-  /**
-   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSolution
-   */
-  public function getSolutions()
-  {
-    return $this->solutions;
-  }
+	public function setFoundNoSolution($foundNoSolution)
+	{
+		$this->foundNoSolution = $foundNoSolution;
+	}
+	public function getFoundNoSolution()
+	{
+		return $this->foundNoSolution;
+	}
+	public function setNarrative($narrative)
+	{
+		$this->narrative = $narrative;
+	}
+	public function getNarrative()
+	{
+		return $this->narrative;
+	}
+	/**
+	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSolution
+	 */
+	public function setSolutions($solutions)
+	{
+		$this->solutions = $solutions;
+	}
+	/**
+	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSolution
+	 */
+	public function getSolutions()
+	{
+		return $this->solutions;
+	}
 }

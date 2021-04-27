@@ -17,67 +17,67 @@
 
 class Google_Service_FirebaseDynamicLinks_ManagedShortLink extends Google_Collection
 {
-  protected $collection_key = 'flaggedAttribute';
-  public $creationTime;
-  public $flaggedAttribute;
-  protected $infoType = 'Google_Service_FirebaseDynamicLinks_DynamicLinkInfo';
-  protected $infoDataType = '';
-  public $link;
-  public $linkName;
-  public $visibility;
+	protected $collection_key = 'flaggedAttribute';
+	public $creationTime;
+	public $flaggedAttribute;
+	protected $infoType = 'Google_Service_FirebaseDynamicLinks_DynamicLinkInfo';
+	protected $infoDataType = '';
+	public $link;
+	public $linkName;
+	public $visibility;
 
-  public function setCreationTime($creationTime)
-  {
-    $this->creationTime = $creationTime;
-  }
-  public function getCreationTime()
-  {
-    return $this->creationTime;
-  }
-  public function setFlaggedAttribute($flaggedAttribute)
-  {
-    $this->flaggedAttribute = $flaggedAttribute;
-  }
-  public function getFlaggedAttribute()
-  {
-    return $this->flaggedAttribute;
-  }
-  /**
-   * @param Google_Service_FirebaseDynamicLinks_DynamicLinkInfo
-   */
-  public function setInfo(Google_Service_FirebaseDynamicLinks_DynamicLinkInfo $info)
-  {
-    $this->info = $info;
-  }
-  /**
-   * @return Google_Service_FirebaseDynamicLinks_DynamicLinkInfo
-   */
-  public function getInfo()
-  {
-    return $this->info;
-  }
-  public function setLink($link)
-  {
-    $this->link = $link;
-  }
-  public function getLink()
-  {
-    return $this->link;
-  }
-  public function setLinkName($linkName)
-  {
-    $this->linkName = $linkName;
-  }
-  public function getLinkName()
-  {
-    return $this->linkName;
-  }
-  public function setVisibility($visibility)
-  {
-    $this->visibility = $visibility;
-  }
-  public function getVisibility()
-  {
-    return $this->visibility;
-  }
+	public function setCreationTime($creationTime)
+	{
+		$this->creationTime = $creationTime;
+	}
+	public function getCreationTime()
+	{
+		return $this->creationTime;
+	}
+	public function setFlaggedAttribute($flaggedAttribute)
+	{
+		$this->flaggedAttribute = $flaggedAttribute;
+	}
+	public function getFlaggedAttribute()
+	{
+		return $this->flaggedAttribute;
+	}
+	/**
+	 * @param Google_Service_FirebaseDynamicLinks_DynamicLinkInfo
+	 */
+	public function setInfo(Google_Service_FirebaseDynamicLinks_DynamicLinkInfo $info)
+	{
+		$this->info = $info;
+	}
+	/**
+	 * @return Google_Service_FirebaseDynamicLinks_DynamicLinkInfo
+	 */
+	public function getInfo()
+	{
+		return $this->info;
+	}
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
+	public function getLink()
+	{
+		return $this->link;
+	}
+	public function setLinkName($linkName)
+	{
+		$this->linkName = $linkName;
+	}
+	public function getLinkName()
+	{
+		return $this->linkName;
+	}
+	public function setVisibility($visibility)
+	{
+		$this->visibility = $visibility;
+	}
+	public function getVisibility()
+	{
+		return $this->visibility;
+	}
 }

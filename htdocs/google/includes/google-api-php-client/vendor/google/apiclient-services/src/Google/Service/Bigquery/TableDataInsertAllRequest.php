@@ -17,58 +17,58 @@
 
 class Google_Service_Bigquery_TableDataInsertAllRequest extends Google_Collection
 {
-  protected $collection_key = 'rows';
-  public $ignoreUnknownValues;
-  public $kind;
-  protected $rowsType = 'Google_Service_Bigquery_TableDataInsertAllRequestRows';
-  protected $rowsDataType = 'array';
-  public $skipInvalidRows;
-  public $templateSuffix;
+	protected $collection_key = 'rows';
+	public $ignoreUnknownValues;
+	public $kind;
+	protected $rowsType = 'Google_Service_Bigquery_TableDataInsertAllRequestRows';
+	protected $rowsDataType = 'array';
+	public $skipInvalidRows;
+	public $templateSuffix;
 
-  public function setIgnoreUnknownValues($ignoreUnknownValues)
-  {
-    $this->ignoreUnknownValues = $ignoreUnknownValues;
-  }
-  public function getIgnoreUnknownValues()
-  {
-    return $this->ignoreUnknownValues;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Bigquery_TableDataInsertAllRequestRows
-   */
-  public function setRows($rows)
-  {
-    $this->rows = $rows;
-  }
-  /**
-   * @return Google_Service_Bigquery_TableDataInsertAllRequestRows
-   */
-  public function getRows()
-  {
-    return $this->rows;
-  }
-  public function setSkipInvalidRows($skipInvalidRows)
-  {
-    $this->skipInvalidRows = $skipInvalidRows;
-  }
-  public function getSkipInvalidRows()
-  {
-    return $this->skipInvalidRows;
-  }
-  public function setTemplateSuffix($templateSuffix)
-  {
-    $this->templateSuffix = $templateSuffix;
-  }
-  public function getTemplateSuffix()
-  {
-    return $this->templateSuffix;
-  }
+	public function setIgnoreUnknownValues($ignoreUnknownValues)
+	{
+		$this->ignoreUnknownValues = $ignoreUnknownValues;
+	}
+	public function getIgnoreUnknownValues()
+	{
+		return $this->ignoreUnknownValues;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Bigquery_TableDataInsertAllRequestRows
+	 */
+	public function setRows($rows)
+	{
+		$this->rows = $rows;
+	}
+	/**
+	 * @return Google_Service_Bigquery_TableDataInsertAllRequestRows
+	 */
+	public function getRows()
+	{
+		return $this->rows;
+	}
+	public function setSkipInvalidRows($skipInvalidRows)
+	{
+		$this->skipInvalidRows = $skipInvalidRows;
+	}
+	public function getSkipInvalidRows()
+	{
+		return $this->skipInvalidRows;
+	}
+	public function setTemplateSuffix($templateSuffix)
+	{
+		$this->templateSuffix = $templateSuffix;
+	}
+	public function getTemplateSuffix()
+	{
+		return $this->templateSuffix;
+	}
 }

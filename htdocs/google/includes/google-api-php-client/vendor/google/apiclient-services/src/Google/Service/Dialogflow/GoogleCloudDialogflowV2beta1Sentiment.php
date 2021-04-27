@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1Sentiment extends Google_Model
 {
-  public $magnitude;
-  public $score;
+	public $magnitude;
+	public $score;
 
-  public function setMagnitude($magnitude)
-  {
-    $this->magnitude = $magnitude;
-  }
-  public function getMagnitude()
-  {
-    return $this->magnitude;
-  }
-  public function setScore($score)
-  {
-    $this->score = $score;
-  }
-  public function getScore()
-  {
-    return $this->score;
-  }
+	public function setMagnitude($magnitude)
+	{
+		$this->magnitude = $magnitude;
+	}
+	public function getMagnitude()
+	{
+		return $this->magnitude;
+	}
+	public function setScore($score)
+	{
+		$this->score = $score;
+	}
+	public function getScore()
+	{
+		return $this->score;
+	}
 }

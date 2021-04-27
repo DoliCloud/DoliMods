@@ -17,92 +17,92 @@
 
 class Google_Service_Monitoring_CollectdPayload extends Google_Collection
 {
-  protected $collection_key = 'values';
-  public $endTime;
-  protected $metadataType = 'Google_Service_Monitoring_TypedValue';
-  protected $metadataDataType = 'map';
-  public $plugin;
-  public $pluginInstance;
-  public $startTime;
-  public $type;
-  public $typeInstance;
-  protected $valuesType = 'Google_Service_Monitoring_CollectdValue';
-  protected $valuesDataType = 'array';
+	protected $collection_key = 'values';
+	public $endTime;
+	protected $metadataType = 'Google_Service_Monitoring_TypedValue';
+	protected $metadataDataType = 'map';
+	public $plugin;
+	public $pluginInstance;
+	public $startTime;
+	public $type;
+	public $typeInstance;
+	protected $valuesType = 'Google_Service_Monitoring_CollectdValue';
+	protected $valuesDataType = 'array';
 
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-  /**
-   * @param Google_Service_Monitoring_TypedValue
-   */
-  public function setMetadata($metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_Monitoring_TypedValue
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setPlugin($plugin)
-  {
-    $this->plugin = $plugin;
-  }
-  public function getPlugin()
-  {
-    return $this->plugin;
-  }
-  public function setPluginInstance($pluginInstance)
-  {
-    $this->pluginInstance = $pluginInstance;
-  }
-  public function getPluginInstance()
-  {
-    return $this->pluginInstance;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setTypeInstance($typeInstance)
-  {
-    $this->typeInstance = $typeInstance;
-  }
-  public function getTypeInstance()
-  {
-    return $this->typeInstance;
-  }
-  /**
-   * @param Google_Service_Monitoring_CollectdValue
-   */
-  public function setValues($values)
-  {
-    $this->values = $values;
-  }
-  /**
-   * @return Google_Service_Monitoring_CollectdValue
-   */
-  public function getValues()
-  {
-    return $this->values;
-  }
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+	/**
+	 * @param Google_Service_Monitoring_TypedValue
+	 */
+	public function setMetadata($metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_Monitoring_TypedValue
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setPlugin($plugin)
+	{
+		$this->plugin = $plugin;
+	}
+	public function getPlugin()
+	{
+		return $this->plugin;
+	}
+	public function setPluginInstance($pluginInstance)
+	{
+		$this->pluginInstance = $pluginInstance;
+	}
+	public function getPluginInstance()
+	{
+		return $this->pluginInstance;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setTypeInstance($typeInstance)
+	{
+		$this->typeInstance = $typeInstance;
+	}
+	public function getTypeInstance()
+	{
+		return $this->typeInstance;
+	}
+	/**
+	 * @param Google_Service_Monitoring_CollectdValue
+	 */
+	public function setValues($values)
+	{
+		$this->values = $values;
+	}
+	/**
+	 * @return Google_Service_Monitoring_CollectdValue
+	 */
+	public function getValues()
+	{
+		return $this->values;
+	}
 }

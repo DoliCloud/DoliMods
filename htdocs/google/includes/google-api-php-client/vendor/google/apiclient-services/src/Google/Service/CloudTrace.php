@@ -34,70 +34,70 @@
  */
 class Google_Service_CloudTrace extends Google_Service
 {
-  /** View and manage your data across Google Cloud Platform services. */
-  const CLOUD_PLATFORM =
-      "https://www.googleapis.com/auth/cloud-platform";
-  /** Write Trace data for a project or application. */
-  const TRACE_APPEND =
-      "https://www.googleapis.com/auth/trace.append";
+	/** View and manage your data across Google Cloud Platform services. */
+	const CLOUD_PLATFORM =
+	  "https://www.googleapis.com/auth/cloud-platform";
+	/** Write Trace data for a project or application. */
+	const TRACE_APPEND =
+	  "https://www.googleapis.com/auth/trace.append";
 
-  public $projects_traces;
-  public $projects_traces_spans;
-  
-  /**
-   * Constructs the internal representation of the CloudTrace service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://cloudtrace.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v2';
-    $this->serviceName = 'cloudtrace';
+	public $projects_traces;
+	public $projects_traces_spans;
 
-    $this->projects_traces = new Google_Service_CloudTrace_Resource_ProjectsTraces(
-        $this,
-        $this->serviceName,
-        'traces',
-        array(
-          'methods' => array(
-            'batchWrite' => array(
-              'path' => 'v2/{+name}/traces:batchWrite',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects_traces_spans = new Google_Service_CloudTrace_Resource_ProjectsTracesSpans(
-        $this,
-        $this->serviceName,
-        'spans',
-        array(
-          'methods' => array(
-            'createSpan' => array(
-              'path' => 'v2/{+name}',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the CloudTrace service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://cloudtrace.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v2';
+		$this->serviceName = 'cloudtrace';
+
+		$this->projects_traces = new Google_Service_CloudTrace_Resource_ProjectsTraces(
+		$this,
+		$this->serviceName,
+		'traces',
+		array(
+		  'methods' => array(
+			'batchWrite' => array(
+			  'path' => 'v2/{+name}/traces:batchWrite',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->projects_traces_spans = new Google_Service_CloudTrace_Resource_ProjectsTracesSpans(
+		$this,
+		$this->serviceName,
+		'spans',
+		array(
+		  'methods' => array(
+			'createSpan' => array(
+			  'path' => 'v2/{+name}',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

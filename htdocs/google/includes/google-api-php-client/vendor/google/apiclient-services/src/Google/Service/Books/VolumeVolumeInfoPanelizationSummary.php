@@ -17,41 +17,41 @@
 
 class Google_Service_Books_VolumeVolumeInfoPanelizationSummary extends Google_Model
 {
-  public $containsEpubBubbles;
-  public $containsImageBubbles;
-  public $epubBubbleVersion;
-  public $imageBubbleVersion;
+	public $containsEpubBubbles;
+	public $containsImageBubbles;
+	public $epubBubbleVersion;
+	public $imageBubbleVersion;
 
-  public function setContainsEpubBubbles($containsEpubBubbles)
-  {
-    $this->containsEpubBubbles = $containsEpubBubbles;
-  }
-  public function getContainsEpubBubbles()
-  {
-    return $this->containsEpubBubbles;
-  }
-  public function setContainsImageBubbles($containsImageBubbles)
-  {
-    $this->containsImageBubbles = $containsImageBubbles;
-  }
-  public function getContainsImageBubbles()
-  {
-    return $this->containsImageBubbles;
-  }
-  public function setEpubBubbleVersion($epubBubbleVersion)
-  {
-    $this->epubBubbleVersion = $epubBubbleVersion;
-  }
-  public function getEpubBubbleVersion()
-  {
-    return $this->epubBubbleVersion;
-  }
-  public function setImageBubbleVersion($imageBubbleVersion)
-  {
-    $this->imageBubbleVersion = $imageBubbleVersion;
-  }
-  public function getImageBubbleVersion()
-  {
-    return $this->imageBubbleVersion;
-  }
+	public function setContainsEpubBubbles($containsEpubBubbles)
+	{
+		$this->containsEpubBubbles = $containsEpubBubbles;
+	}
+	public function getContainsEpubBubbles()
+	{
+		return $this->containsEpubBubbles;
+	}
+	public function setContainsImageBubbles($containsImageBubbles)
+	{
+		$this->containsImageBubbles = $containsImageBubbles;
+	}
+	public function getContainsImageBubbles()
+	{
+		return $this->containsImageBubbles;
+	}
+	public function setEpubBubbleVersion($epubBubbleVersion)
+	{
+		$this->epubBubbleVersion = $epubBubbleVersion;
+	}
+	public function getEpubBubbleVersion()
+	{
+		return $this->epubBubbleVersion;
+	}
+	public function setImageBubbleVersion($imageBubbleVersion)
+	{
+		$this->imageBubbleVersion = $imageBubbleVersion;
+	}
+	public function getImageBubbleVersion()
+	{
+		return $this->imageBubbleVersion;
+	}
 }

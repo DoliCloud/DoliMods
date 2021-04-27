@@ -17,31 +17,31 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ReportProperty extends Google_Collection
 {
-  protected $collection_key = 'value';
-  public $property;
-  protected $valueType = 'Google_Service_Apigee_GoogleCloudApigeeV1Attribute';
-  protected $valueDataType = 'array';
+	protected $collection_key = 'value';
+	public $property;
+	protected $valueType = 'Google_Service_Apigee_GoogleCloudApigeeV1Attribute';
+	protected $valueDataType = 'array';
 
-  public function setProperty($property)
-  {
-    $this->property = $property;
-  }
-  public function getProperty()
-  {
-    return $this->property;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Attribute
-   */
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Attribute
-   */
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setProperty($property)
+	{
+		$this->property = $property;
+	}
+	public function getProperty()
+	{
+		return $this->property;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Attribute
+	 */
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Attribute
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

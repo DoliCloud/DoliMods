@@ -17,48 +17,48 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ExecuteOperationMetadata extends Google_Model
 {
-  protected $actionDigestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-  protected $actionDigestDataType = '';
-  public $stage;
-  public $stderrStreamName;
-  public $stdoutStreamName;
+	protected $actionDigestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+	protected $actionDigestDataType = '';
+	public $stage;
+	public $stderrStreamName;
+	public $stdoutStreamName;
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function setActionDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $actionDigest)
-  {
-    $this->actionDigest = $actionDigest;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-   */
-  public function getActionDigest()
-  {
-    return $this->actionDigest;
-  }
-  public function setStage($stage)
-  {
-    $this->stage = $stage;
-  }
-  public function getStage()
-  {
-    return $this->stage;
-  }
-  public function setStderrStreamName($stderrStreamName)
-  {
-    $this->stderrStreamName = $stderrStreamName;
-  }
-  public function getStderrStreamName()
-  {
-    return $this->stderrStreamName;
-  }
-  public function setStdoutStreamName($stdoutStreamName)
-  {
-    $this->stdoutStreamName = $stdoutStreamName;
-  }
-  public function getStdoutStreamName()
-  {
-    return $this->stdoutStreamName;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function setActionDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $actionDigest)
+	{
+		$this->actionDigest = $actionDigest;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+	 */
+	public function getActionDigest()
+	{
+		return $this->actionDigest;
+	}
+	public function setStage($stage)
+	{
+		$this->stage = $stage;
+	}
+	public function getStage()
+	{
+		return $this->stage;
+	}
+	public function setStderrStreamName($stderrStreamName)
+	{
+		$this->stderrStreamName = $stderrStreamName;
+	}
+	public function getStderrStreamName()
+	{
+		return $this->stderrStreamName;
+	}
+	public function setStdoutStreamName($stdoutStreamName)
+	{
+		$this->stdoutStreamName = $stdoutStreamName;
+	}
+	public function getStdoutStreamName()
+	{
+		return $this->stdoutStreamName;
+	}
 }

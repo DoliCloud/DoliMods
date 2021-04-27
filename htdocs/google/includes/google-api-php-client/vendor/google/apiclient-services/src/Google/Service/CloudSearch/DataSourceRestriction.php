@@ -17,38 +17,38 @@
 
 class Google_Service_CloudSearch_DataSourceRestriction extends Google_Collection
 {
-  protected $collection_key = 'filterOptions';
-  protected $filterOptionsType = 'Google_Service_CloudSearch_FilterOptions';
-  protected $filterOptionsDataType = 'array';
-  protected $sourceType = 'Google_Service_CloudSearch_Source';
-  protected $sourceDataType = '';
+	protected $collection_key = 'filterOptions';
+	protected $filterOptionsType = 'Google_Service_CloudSearch_FilterOptions';
+	protected $filterOptionsDataType = 'array';
+	protected $sourceType = 'Google_Service_CloudSearch_Source';
+	protected $sourceDataType = '';
 
-  /**
-   * @param Google_Service_CloudSearch_FilterOptions
-   */
-  public function setFilterOptions($filterOptions)
-  {
-    $this->filterOptions = $filterOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_FilterOptions
-   */
-  public function getFilterOptions()
-  {
-    return $this->filterOptions;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Source
-   */
-  public function setSource(Google_Service_CloudSearch_Source $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Source
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_FilterOptions
+	 */
+	public function setFilterOptions($filterOptions)
+	{
+		$this->filterOptions = $filterOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_FilterOptions
+	 */
+	public function getFilterOptions()
+	{
+		return $this->filterOptions;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Source
+	 */
+	public function setSource(Google_Service_CloudSearch_Source $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Source
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

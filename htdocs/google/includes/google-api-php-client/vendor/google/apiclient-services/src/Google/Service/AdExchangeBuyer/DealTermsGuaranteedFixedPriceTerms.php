@@ -17,65 +17,65 @@
 
 class Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTerms extends Google_Collection
 {
-  protected $collection_key = 'fixedPrices';
-  protected $billingInfoType = 'Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo';
-  protected $billingInfoDataType = '';
-  protected $fixedPricesType = 'Google_Service_AdExchangeBuyer_PricePerBuyer';
-  protected $fixedPricesDataType = 'array';
-  public $guaranteedImpressions;
-  public $guaranteedLooks;
-  public $minimumDailyLooks;
+	protected $collection_key = 'fixedPrices';
+	protected $billingInfoType = 'Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo';
+	protected $billingInfoDataType = '';
+	protected $fixedPricesType = 'Google_Service_AdExchangeBuyer_PricePerBuyer';
+	protected $fixedPricesDataType = 'array';
+	public $guaranteedImpressions;
+	public $guaranteedLooks;
+	public $minimumDailyLooks;
 
-  /**
-   * @param Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo
-   */
-  public function setBillingInfo(Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo $billingInfo)
-  {
-    $this->billingInfo = $billingInfo;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo
-   */
-  public function getBillingInfo()
-  {
-    return $this->billingInfo;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyer_PricePerBuyer
-   */
-  public function setFixedPrices($fixedPrices)
-  {
-    $this->fixedPrices = $fixedPrices;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_PricePerBuyer
-   */
-  public function getFixedPrices()
-  {
-    return $this->fixedPrices;
-  }
-  public function setGuaranteedImpressions($guaranteedImpressions)
-  {
-    $this->guaranteedImpressions = $guaranteedImpressions;
-  }
-  public function getGuaranteedImpressions()
-  {
-    return $this->guaranteedImpressions;
-  }
-  public function setGuaranteedLooks($guaranteedLooks)
-  {
-    $this->guaranteedLooks = $guaranteedLooks;
-  }
-  public function getGuaranteedLooks()
-  {
-    return $this->guaranteedLooks;
-  }
-  public function setMinimumDailyLooks($minimumDailyLooks)
-  {
-    $this->minimumDailyLooks = $minimumDailyLooks;
-  }
-  public function getMinimumDailyLooks()
-  {
-    return $this->minimumDailyLooks;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo
+	 */
+	public function setBillingInfo(Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo $billingInfo)
+	{
+		$this->billingInfo = $billingInfo;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTermsBillingInfo
+	 */
+	public function getBillingInfo()
+	{
+		return $this->billingInfo;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyer_PricePerBuyer
+	 */
+	public function setFixedPrices($fixedPrices)
+	{
+		$this->fixedPrices = $fixedPrices;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_PricePerBuyer
+	 */
+	public function getFixedPrices()
+	{
+		return $this->fixedPrices;
+	}
+	public function setGuaranteedImpressions($guaranteedImpressions)
+	{
+		$this->guaranteedImpressions = $guaranteedImpressions;
+	}
+	public function getGuaranteedImpressions()
+	{
+		return $this->guaranteedImpressions;
+	}
+	public function setGuaranteedLooks($guaranteedLooks)
+	{
+		$this->guaranteedLooks = $guaranteedLooks;
+	}
+	public function getGuaranteedLooks()
+	{
+		return $this->guaranteedLooks;
+	}
+	public function setMinimumDailyLooks($minimumDailyLooks)
+	{
+		$this->minimumDailyLooks = $minimumDailyLooks;
+	}
+	public function getMinimumDailyLooks()
+	{
+		return $this->minimumDailyLooks;
+	}
 }

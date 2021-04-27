@@ -17,38 +17,38 @@
 
 class Google_Service_ServiceUsage_BatchEnableServicesResponse extends Google_Collection
 {
-  protected $collection_key = 'services';
-  protected $failuresType = 'Google_Service_ServiceUsage_EnableFailure';
-  protected $failuresDataType = 'array';
-  protected $servicesType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1Service';
-  protected $servicesDataType = 'array';
+	protected $collection_key = 'services';
+	protected $failuresType = 'Google_Service_ServiceUsage_EnableFailure';
+	protected $failuresDataType = 'array';
+	protected $servicesType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1Service';
+	protected $servicesDataType = 'array';
 
-  /**
-   * @param Google_Service_ServiceUsage_EnableFailure
-   */
-  public function setFailures($failures)
-  {
-    $this->failures = $failures;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_EnableFailure
-   */
-  public function getFailures()
-  {
-    return $this->failures;
-  }
-  /**
-   * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
-   */
-  public function setServices($services)
-  {
-    $this->services = $services;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
-   */
-  public function getServices()
-  {
-    return $this->services;
-  }
+	/**
+	 * @param Google_Service_ServiceUsage_EnableFailure
+	 */
+	public function setFailures($failures)
+	{
+		$this->failures = $failures;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_EnableFailure
+	 */
+	public function getFailures()
+	{
+		return $this->failures;
+	}
+	/**
+	 * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
+	 */
+	public function setServices($services)
+	{
+		$this->services = $services;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
+	 */
+	public function getServices()
+	{
+		return $this->services;
+	}
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_YouTube_LiveChatMessageRetractedDetails extends Google_Model
 {
-  public $retractedMessageId;
+	public $retractedMessageId;
 
-  public function setRetractedMessageId($retractedMessageId)
-  {
-    $this->retractedMessageId = $retractedMessageId;
-  }
-  public function getRetractedMessageId()
-  {
-    return $this->retractedMessageId;
-  }
+	public function setRetractedMessageId($retractedMessageId)
+	{
+		$this->retractedMessageId = $retractedMessageId;
+	}
+	public function getRetractedMessageId()
+	{
+		return $this->retractedMessageId;
+	}
 }

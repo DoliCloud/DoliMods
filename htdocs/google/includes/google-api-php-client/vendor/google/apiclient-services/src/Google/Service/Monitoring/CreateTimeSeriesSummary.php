@@ -17,40 +17,40 @@
 
 class Google_Service_Monitoring_CreateTimeSeriesSummary extends Google_Collection
 {
-  protected $collection_key = 'errors';
-  protected $errorsType = 'Google_Service_Monitoring_Error';
-  protected $errorsDataType = 'array';
-  public $successPointCount;
-  public $totalPointCount;
+	protected $collection_key = 'errors';
+	protected $errorsType = 'Google_Service_Monitoring_Error';
+	protected $errorsDataType = 'array';
+	public $successPointCount;
+	public $totalPointCount;
 
-  /**
-   * @param Google_Service_Monitoring_Error
-   */
-  public function setErrors($errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_Monitoring_Error
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setSuccessPointCount($successPointCount)
-  {
-    $this->successPointCount = $successPointCount;
-  }
-  public function getSuccessPointCount()
-  {
-    return $this->successPointCount;
-  }
-  public function setTotalPointCount($totalPointCount)
-  {
-    $this->totalPointCount = $totalPointCount;
-  }
-  public function getTotalPointCount()
-  {
-    return $this->totalPointCount;
-  }
+	/**
+	 * @param Google_Service_Monitoring_Error
+	 */
+	public function setErrors($errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_Monitoring_Error
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setSuccessPointCount($successPointCount)
+	{
+		$this->successPointCount = $successPointCount;
+	}
+	public function getSuccessPointCount()
+	{
+		return $this->successPointCount;
+	}
+	public function setTotalPointCount($totalPointCount)
+	{
+		$this->totalPointCount = $totalPointCount;
+	}
+	public function getTotalPointCount()
+	{
+		return $this->totalPointCount;
+	}
 }

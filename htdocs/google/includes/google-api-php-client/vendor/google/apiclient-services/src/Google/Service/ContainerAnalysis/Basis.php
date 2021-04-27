@@ -17,30 +17,30 @@
 
 class Google_Service_ContainerAnalysis_Basis extends Google_Model
 {
-  protected $fingerprintType = 'Google_Service_ContainerAnalysis_Fingerprint';
-  protected $fingerprintDataType = '';
-  public $resourceUrl;
+	protected $fingerprintType = 'Google_Service_ContainerAnalysis_Fingerprint';
+	protected $fingerprintDataType = '';
+	public $resourceUrl;
 
-  /**
-   * @param Google_Service_ContainerAnalysis_Fingerprint
-   */
-  public function setFingerprint(Google_Service_ContainerAnalysis_Fingerprint $fingerprint)
-  {
-    $this->fingerprint = $fingerprint;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_Fingerprint
-   */
-  public function getFingerprint()
-  {
-    return $this->fingerprint;
-  }
-  public function setResourceUrl($resourceUrl)
-  {
-    $this->resourceUrl = $resourceUrl;
-  }
-  public function getResourceUrl()
-  {
-    return $this->resourceUrl;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_Fingerprint
+	 */
+	public function setFingerprint(Google_Service_ContainerAnalysis_Fingerprint $fingerprint)
+	{
+		$this->fingerprint = $fingerprint;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_Fingerprint
+	 */
+	public function getFingerprint()
+	{
+		return $this->fingerprint;
+	}
+	public function setResourceUrl($resourceUrl)
+	{
+		$this->resourceUrl = $resourceUrl;
+	}
+	public function getResourceUrl()
+	{
+		return $this->resourceUrl;
+	}
 }

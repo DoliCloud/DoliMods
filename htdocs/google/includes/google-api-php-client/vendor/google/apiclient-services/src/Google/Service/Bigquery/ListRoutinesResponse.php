@@ -17,31 +17,31 @@
 
 class Google_Service_Bigquery_ListRoutinesResponse extends Google_Collection
 {
-  protected $collection_key = 'routines';
-  public $nextPageToken;
-  protected $routinesType = 'Google_Service_Bigquery_Routine';
-  protected $routinesDataType = 'array';
+	protected $collection_key = 'routines';
+	public $nextPageToken;
+	protected $routinesType = 'Google_Service_Bigquery_Routine';
+	protected $routinesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Bigquery_Routine
-   */
-  public function setRoutines($routines)
-  {
-    $this->routines = $routines;
-  }
-  /**
-   * @return Google_Service_Bigquery_Routine
-   */
-  public function getRoutines()
-  {
-    return $this->routines;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Bigquery_Routine
+	 */
+	public function setRoutines($routines)
+	{
+		$this->routines = $routines;
+	}
+	/**
+	 * @return Google_Service_Bigquery_Routine
+	 */
+	public function getRoutines()
+	{
+		return $this->routines;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_SystemsManagement_MonthlySchedule extends Google_Model
 {
-  public $monthDay;
-  protected $weekDayOfMonthType = 'Google_Service_SystemsManagement_WeekDayOfMonth';
-  protected $weekDayOfMonthDataType = '';
+	public $monthDay;
+	protected $weekDayOfMonthType = 'Google_Service_SystemsManagement_WeekDayOfMonth';
+	protected $weekDayOfMonthDataType = '';
 
-  public function setMonthDay($monthDay)
-  {
-    $this->monthDay = $monthDay;
-  }
-  public function getMonthDay()
-  {
-    return $this->monthDay;
-  }
-  /**
-   * @param Google_Service_SystemsManagement_WeekDayOfMonth
-   */
-  public function setWeekDayOfMonth(Google_Service_SystemsManagement_WeekDayOfMonth $weekDayOfMonth)
-  {
-    $this->weekDayOfMonth = $weekDayOfMonth;
-  }
-  /**
-   * @return Google_Service_SystemsManagement_WeekDayOfMonth
-   */
-  public function getWeekDayOfMonth()
-  {
-    return $this->weekDayOfMonth;
-  }
+	public function setMonthDay($monthDay)
+	{
+		$this->monthDay = $monthDay;
+	}
+	public function getMonthDay()
+	{
+		return $this->monthDay;
+	}
+	/**
+	 * @param Google_Service_SystemsManagement_WeekDayOfMonth
+	 */
+	public function setWeekDayOfMonth(Google_Service_SystemsManagement_WeekDayOfMonth $weekDayOfMonth)
+	{
+		$this->weekDayOfMonth = $weekDayOfMonth;
+	}
+	/**
+	 * @return Google_Service_SystemsManagement_WeekDayOfMonth
+	 */
+	public function getWeekDayOfMonth()
+	{
+		return $this->weekDayOfMonth;
+	}
 }

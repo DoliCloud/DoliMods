@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_SettlementTransactionAmountCommission extends Google_Model
 {
-  public $category;
-  public $rate;
+	public $category;
+	public $rate;
 
-  public function setCategory($category)
-  {
-    $this->category = $category;
-  }
-  public function getCategory()
-  {
-    return $this->category;
-  }
-  public function setRate($rate)
-  {
-    $this->rate = $rate;
-  }
-  public function getRate()
-  {
-    return $this->rate;
-  }
+	public function setCategory($category)
+	{
+		$this->category = $category;
+	}
+	public function getCategory()
+	{
+		return $this->category;
+	}
+	public function setRate($rate)
+	{
+		$this->rate = $rate;
+	}
+	public function getRate()
+	{
+		return $this->rate;
+	}
 }

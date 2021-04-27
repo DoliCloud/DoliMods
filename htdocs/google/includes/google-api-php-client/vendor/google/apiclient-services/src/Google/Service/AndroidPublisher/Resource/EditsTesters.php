@@ -25,51 +25,51 @@
  */
 class Google_Service_AndroidPublisher_Resource_EditsTesters extends Google_Service_Resource
 {
-  /**
-   * Gets testers. (testers.get)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $editId Identifier of the edit.
-   * @param string $track The track to read from.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_Testers
-   */
-  public function get($packageName, $editId, $track, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AndroidPublisher_Testers");
-  }
-  /**
-   * Patches testers. (testers.patch)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $editId Identifier of the edit.
-   * @param string $track The track to update.
-   * @param Google_Service_AndroidPublisher_Testers $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_Testers
-   */
-  public function patch($packageName, $editId, $track, Google_Service_AndroidPublisher_Testers $postBody, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_AndroidPublisher_Testers");
-  }
-  /**
-   * Updates testers. (testers.update)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $editId Identifier of the edit.
-   * @param string $track The track to update.
-   * @param Google_Service_AndroidPublisher_Testers $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_Testers
-   */
-  public function update($packageName, $editId, $track, Google_Service_AndroidPublisher_Testers $postBody, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_AndroidPublisher_Testers");
-  }
+	/**
+	 * Gets testers. (testers.get)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $editId Identifier of the edit.
+	 * @param string $track The track to read from.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_Testers
+	 */
+	public function get($packageName, $editId, $track, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_AndroidPublisher_Testers");
+	}
+	/**
+	 * Patches testers. (testers.patch)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $editId Identifier of the edit.
+	 * @param string $track The track to update.
+	 * @param Google_Service_AndroidPublisher_Testers $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_Testers
+	 */
+	public function patch($packageName, $editId, $track, Google_Service_AndroidPublisher_Testers $postBody, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('patch', array($params), "Google_Service_AndroidPublisher_Testers");
+	}
+	/**
+	 * Updates testers. (testers.update)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $editId Identifier of the edit.
+	 * @param string $track The track to update.
+	 * @param Google_Service_AndroidPublisher_Testers $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_Testers
+	 */
+	public function update($packageName, $editId, $track, Google_Service_AndroidPublisher_Testers $postBody, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('update', array($params), "Google_Service_AndroidPublisher_Testers");
+	}
 }

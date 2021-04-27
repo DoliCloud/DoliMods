@@ -17,65 +17,65 @@
 
 class Google_Service_AndroidEnterprise_ProductPolicy extends Google_Collection
 {
-  protected $collection_key = 'tracks';
-  protected $autoInstallPolicyType = 'Google_Service_AndroidEnterprise_AutoInstallPolicy';
-  protected $autoInstallPolicyDataType = '';
-  protected $managedConfigurationType = 'Google_Service_AndroidEnterprise_ManagedConfiguration';
-  protected $managedConfigurationDataType = '';
-  public $productId;
-  public $trackIds;
-  public $tracks;
+	protected $collection_key = 'tracks';
+	protected $autoInstallPolicyType = 'Google_Service_AndroidEnterprise_AutoInstallPolicy';
+	protected $autoInstallPolicyDataType = '';
+	protected $managedConfigurationType = 'Google_Service_AndroidEnterprise_ManagedConfiguration';
+	protected $managedConfigurationDataType = '';
+	public $productId;
+	public $trackIds;
+	public $tracks;
 
-  /**
-   * @param Google_Service_AndroidEnterprise_AutoInstallPolicy
-   */
-  public function setAutoInstallPolicy(Google_Service_AndroidEnterprise_AutoInstallPolicy $autoInstallPolicy)
-  {
-    $this->autoInstallPolicy = $autoInstallPolicy;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_AutoInstallPolicy
-   */
-  public function getAutoInstallPolicy()
-  {
-    return $this->autoInstallPolicy;
-  }
-  /**
-   * @param Google_Service_AndroidEnterprise_ManagedConfiguration
-   */
-  public function setManagedConfiguration(Google_Service_AndroidEnterprise_ManagedConfiguration $managedConfiguration)
-  {
-    $this->managedConfiguration = $managedConfiguration;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_ManagedConfiguration
-   */
-  public function getManagedConfiguration()
-  {
-    return $this->managedConfiguration;
-  }
-  public function setProductId($productId)
-  {
-    $this->productId = $productId;
-  }
-  public function getProductId()
-  {
-    return $this->productId;
-  }
-  public function setTrackIds($trackIds)
-  {
-    $this->trackIds = $trackIds;
-  }
-  public function getTrackIds()
-  {
-    return $this->trackIds;
-  }
-  public function setTracks($tracks)
-  {
-    $this->tracks = $tracks;
-  }
-  public function getTracks()
-  {
-    return $this->tracks;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_AutoInstallPolicy
+	 */
+	public function setAutoInstallPolicy(Google_Service_AndroidEnterprise_AutoInstallPolicy $autoInstallPolicy)
+	{
+		$this->autoInstallPolicy = $autoInstallPolicy;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_AutoInstallPolicy
+	 */
+	public function getAutoInstallPolicy()
+	{
+		return $this->autoInstallPolicy;
+	}
+	/**
+	 * @param Google_Service_AndroidEnterprise_ManagedConfiguration
+	 */
+	public function setManagedConfiguration(Google_Service_AndroidEnterprise_ManagedConfiguration $managedConfiguration)
+	{
+		$this->managedConfiguration = $managedConfiguration;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_ManagedConfiguration
+	 */
+	public function getManagedConfiguration()
+	{
+		return $this->managedConfiguration;
+	}
+	public function setProductId($productId)
+	{
+		$this->productId = $productId;
+	}
+	public function getProductId()
+	{
+		return $this->productId;
+	}
+	public function setTrackIds($trackIds)
+	{
+		$this->trackIds = $trackIds;
+	}
+	public function getTrackIds()
+	{
+		return $this->trackIds;
+	}
+	public function setTracks($tracks)
+	{
+		$this->tracks = $tracks;
+	}
+	public function getTracks()
+	{
+		return $this->tracks;
+	}
 }

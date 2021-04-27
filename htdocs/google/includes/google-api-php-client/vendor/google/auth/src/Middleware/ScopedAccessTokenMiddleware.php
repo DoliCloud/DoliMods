@@ -35,141 +35,141 @@ use Psr\Http\Message\RequestInterface;
  */
 class ScopedAccessTokenMiddleware
 {
-    use CacheTrait;
+	use CacheTrait;
 
-    const DEFAULT_CACHE_LIFETIME = 1500;
+	const DEFAULT_CACHE_LIFETIME = 1500;
 
-    /**
-     * @var CacheItemPoolInterface
-     */
-    private $cache;
+	/**
+	 * @var CacheItemPoolInterface
+	 */
+	private $cache;
 
-    /**
-     * @var array configuration
-     */
-    private $cacheConfig;
+	/**
+	 * @var array configuration
+	 */
+	private $cacheConfig;
 
-    /**
-     * @var callable
-     */
-    private $tokenFunc;
+	/**
+	 * @var callable
+	 */
+	private $tokenFunc;
 
-    /**
-     * @var array|string
-     */
-    private $scopes;
+	/**
+	 * @var array|string
+	 */
+	private $scopes;
 
-    /**
-     * Creates a new ScopedAccessTokenMiddleware.
-     *
-     * @param callable $tokenFunc a token generator function
-     * @param array|string $scopes the token authentication scopes
-     * @param array $cacheConfig configuration for the cache when it's present
-     * @param CacheItemPoolInterface $cache an implementation of CacheItemPoolInterface
-     */
-    public function __construct(
-        callable $tokenFunc,
-        $scopes,
-        array $cacheConfig = null,
-        CacheItemPoolInterface $cache = null
-    ) {
-        $this->tokenFunc = $tokenFunc;
-        if (!(is_string($scopes) || is_array($scopes))) {
-            throw new \InvalidArgumentException(
-                'wants scope should be string or array'
-            );
-        }
-        $this->scopes = $scopes;
+	/**
+	 * Creates a new ScopedAccessTokenMiddleware.
+	 *
+	 * @param callable $tokenFunc a token generator function
+	 * @param array|string $scopes the token authentication scopes
+	 * @param array $cacheConfig configuration for the cache when it's present
+	 * @param CacheItemPoolInterface $cache an implementation of CacheItemPoolInterface
+	 */
+	public function __construct(
+		callable $tokenFunc,
+		$scopes,
+		array $cacheConfig = null,
+		CacheItemPoolInterface $cache = null
+	) {
+		$this->tokenFunc = $tokenFunc;
+		if (!(is_string($scopes) || is_array($scopes))) {
+			throw new \InvalidArgumentException(
+				'wants scope should be string or array'
+			);
+		}
+		$this->scopes = $scopes;
 
-        if (!is_null($cache)) {
-            $this->cache = $cache;
-            $this->cacheConfig = array_merge([
-                'lifetime' => self::DEFAULT_CACHE_LIFETIME,
-                'prefix' => '',
-            ], $cacheConfig);
-        }
-    }
+		if (!is_null($cache)) {
+			$this->cache = $cache;
+			$this->cacheConfig = array_merge([
+				'lifetime' => self::DEFAULT_CACHE_LIFETIME,
+				'prefix' => '',
+			], $cacheConfig);
+		}
+	}
 
-    /**
-     * Updates the request with an Authorization header when auth is 'scoped'.
-     *
-     *   E.g this could be used to authenticate using the AppEngine
-     *   AppIdentityService.
-     *
-     *   use google\appengine\api\app_identity\AppIdentityService;
-     *   use Google\Auth\Middleware\ScopedAccessTokenMiddleware;
-     *   use GuzzleHttp\Client;
-     *   use GuzzleHttp\HandlerStack;
-     *
-     *   $scope = 'https://www.googleapis.com/auth/taskqueue'
-     *   $middleware = new ScopedAccessTokenMiddleware(
-     *       'AppIdentityService::getAccessToken',
-     *       $scope,
-     *       [ 'prefix' => 'Google\Auth\ScopedAccessToken::' ],
-     *       $cache = new Memcache()
-     *   );
-     *   $stack = HandlerStack::create();
-     *   $stack->push($middleware);
-     *
-     *   $client = new Client([
-     *       'handler' => $stack,
-     *       'base_url' => 'https://www.googleapis.com/taskqueue/v1beta2/projects/',
-     *       'auth' => 'scoped' // authorize all requests
-     *   ]);
-     *
-     *   $res = $client->get('myproject/taskqueues/myqueue');
-     *
-     * @param callable $handler
-     * @return \Closure
-     */
-    public function __invoke(callable $handler)
-    {
-        return function (RequestInterface $request, array $options) use ($handler) {
-            // Requests using "auth"="scoped" will be authorized.
-            if (!isset($options['auth']) || $options['auth'] !== 'scoped') {
-                return $handler($request, $options);
-            }
+	/**
+	 * Updates the request with an Authorization header when auth is 'scoped'.
+	 *
+	 *   E.g this could be used to authenticate using the AppEngine
+	 *   AppIdentityService.
+	 *
+	 *   use google\appengine\api\app_identity\AppIdentityService;
+	 *   use Google\Auth\Middleware\ScopedAccessTokenMiddleware;
+	 *   use GuzzleHttp\Client;
+	 *   use GuzzleHttp\HandlerStack;
+	 *
+	 *   $scope = 'https://www.googleapis.com/auth/taskqueue'
+	 *   $middleware = new ScopedAccessTokenMiddleware(
+	 *       'AppIdentityService::getAccessToken',
+	 *       $scope,
+	 *       [ 'prefix' => 'Google\Auth\ScopedAccessToken::' ],
+	 *       $cache = new Memcache()
+	 *   );
+	 *   $stack = HandlerStack::create();
+	 *   $stack->push($middleware);
+	 *
+	 *   $client = new Client([
+	 *       'handler' => $stack,
+	 *       'base_url' => 'https://www.googleapis.com/taskqueue/v1beta2/projects/',
+	 *       'auth' => 'scoped' // authorize all requests
+	 *   ]);
+	 *
+	 *   $res = $client->get('myproject/taskqueues/myqueue');
+	 *
+	 * @param callable $handler
+	 * @return \Closure
+	 */
+	public function __invoke(callable $handler)
+	{
+		return function (RequestInterface $request, array $options) use ($handler) {
+			// Requests using "auth"="scoped" will be authorized.
+			if (!isset($options['auth']) || $options['auth'] !== 'scoped') {
+				return $handler($request, $options);
+			}
 
-            $request = $request->withHeader('authorization', 'Bearer ' . $this->fetchToken());
+			$request = $request->withHeader('authorization', 'Bearer ' . $this->fetchToken());
 
-            return $handler($request, $options);
-        };
-    }
+			return $handler($request, $options);
+		};
+	}
 
-    /**
-     * @return string
-     */
-    private function getCacheKey()
-    {
-        $key = null;
+	/**
+	 * @return string
+	 */
+	private function getCacheKey()
+	{
+		$key = null;
 
-        if (is_string($this->scopes)) {
-            $key .= $this->scopes;
-        } elseif (is_array($this->scopes)) {
-            $key .= implode(':', $this->scopes);
-        }
+		if (is_string($this->scopes)) {
+			$key .= $this->scopes;
+		} elseif (is_array($this->scopes)) {
+			$key .= implode(':', $this->scopes);
+		}
 
-        return $key;
-    }
+		return $key;
+	}
 
-    /**
-     * Determine if token is available in the cache, if not call tokenFunc to
-     * fetch it.
-     *
-     * @return string
-     */
-    private function fetchToken()
-    {
-        $cacheKey = $this->getCacheKey();
-        $cached = $this->getCachedValue($cacheKey);
+	/**
+	 * Determine if token is available in the cache, if not call tokenFunc to
+	 * fetch it.
+	 *
+	 * @return string
+	 */
+	private function fetchToken()
+	{
+		$cacheKey = $this->getCacheKey();
+		$cached = $this->getCachedValue($cacheKey);
 
-        if (!empty($cached)) {
-            return $cached;
-        }
+		if (!empty($cached)) {
+			return $cached;
+		}
 
-        $token = call_user_func($this->tokenFunc, $this->scopes);
-        $this->setCachedValue($cacheKey, $token);
+		$token = call_user_func($this->tokenFunc, $this->scopes);
+		$this->setCachedValue($cacheKey, $token);
 
-        return $token;
-    }
+		return $token;
+	}
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2ValidationError extends Google_Collection
 {
-  protected $collection_key = 'entries';
-  public $entries;
-  public $errorMessage;
-  public $severity;
+	protected $collection_key = 'entries';
+	public $entries;
+	public $errorMessage;
+	public $severity;
 
-  public function setEntries($entries)
-  {
-    $this->entries = $entries;
-  }
-  public function getEntries()
-  {
-    return $this->entries;
-  }
-  public function setErrorMessage($errorMessage)
-  {
-    $this->errorMessage = $errorMessage;
-  }
-  public function getErrorMessage()
-  {
-    return $this->errorMessage;
-  }
-  public function setSeverity($severity)
-  {
-    $this->severity = $severity;
-  }
-  public function getSeverity()
-  {
-    return $this->severity;
-  }
+	public function setEntries($entries)
+	{
+		$this->entries = $entries;
+	}
+	public function getEntries()
+	{
+		return $this->entries;
+	}
+	public function setErrorMessage($errorMessage)
+	{
+		$this->errorMessage = $errorMessage;
+	}
+	public function getErrorMessage()
+	{
+		return $this->errorMessage;
+	}
+	public function setSeverity($severity)
+	{
+		$this->severity = $severity;
+	}
+	public function getSeverity()
+	{
+		return $this->severity;
+	}
 }

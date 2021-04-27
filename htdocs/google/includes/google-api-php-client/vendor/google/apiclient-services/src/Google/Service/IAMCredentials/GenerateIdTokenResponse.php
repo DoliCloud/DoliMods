@@ -17,14 +17,14 @@
 
 class Google_Service_IAMCredentials_GenerateIdTokenResponse extends Google_Model
 {
-  public $token;
+	public $token;
 
-  public function setToken($token)
-  {
-    $this->token = $token;
-  }
-  public function getToken()
-  {
-    return $this->token;
-  }
+	public function setToken($token)
+	{
+		$this->token = $token;
+	}
+	public function getToken()
+	{
+		return $this->token;
+	}
 }

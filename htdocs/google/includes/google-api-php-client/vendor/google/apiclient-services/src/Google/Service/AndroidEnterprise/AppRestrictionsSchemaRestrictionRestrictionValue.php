@@ -17,51 +17,51 @@
 
 class Google_Service_AndroidEnterprise_AppRestrictionsSchemaRestrictionRestrictionValue extends Google_Collection
 {
-  protected $collection_key = 'valueMultiselect';
-  public $type;
-  public $valueBool;
-  public $valueInteger;
-  public $valueMultiselect;
-  public $valueString;
+	protected $collection_key = 'valueMultiselect';
+	public $type;
+	public $valueBool;
+	public $valueInteger;
+	public $valueMultiselect;
+	public $valueString;
 
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setValueBool($valueBool)
-  {
-    $this->valueBool = $valueBool;
-  }
-  public function getValueBool()
-  {
-    return $this->valueBool;
-  }
-  public function setValueInteger($valueInteger)
-  {
-    $this->valueInteger = $valueInteger;
-  }
-  public function getValueInteger()
-  {
-    return $this->valueInteger;
-  }
-  public function setValueMultiselect($valueMultiselect)
-  {
-    $this->valueMultiselect = $valueMultiselect;
-  }
-  public function getValueMultiselect()
-  {
-    return $this->valueMultiselect;
-  }
-  public function setValueString($valueString)
-  {
-    $this->valueString = $valueString;
-  }
-  public function getValueString()
-  {
-    return $this->valueString;
-  }
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setValueBool($valueBool)
+	{
+		$this->valueBool = $valueBool;
+	}
+	public function getValueBool()
+	{
+		return $this->valueBool;
+	}
+	public function setValueInteger($valueInteger)
+	{
+		$this->valueInteger = $valueInteger;
+	}
+	public function getValueInteger()
+	{
+		return $this->valueInteger;
+	}
+	public function setValueMultiselect($valueMultiselect)
+	{
+		$this->valueMultiselect = $valueMultiselect;
+	}
+	public function getValueMultiselect()
+	{
+		return $this->valueMultiselect;
+	}
+	public function setValueString($valueString)
+	{
+		$this->valueString = $valueString;
+	}
+	public function getValueString()
+	{
+		return $this->valueString;
+	}
 }

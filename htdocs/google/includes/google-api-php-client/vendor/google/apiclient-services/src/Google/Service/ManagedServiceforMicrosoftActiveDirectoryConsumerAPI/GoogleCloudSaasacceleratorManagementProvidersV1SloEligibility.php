@@ -17,23 +17,23 @@
 
 class Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_GoogleCloudSaasacceleratorManagementProvidersV1SloEligibility extends Google_Model
 {
-  public $eligible;
-  public $reason;
+	public $eligible;
+	public $reason;
 
-  public function setEligible($eligible)
-  {
-    $this->eligible = $eligible;
-  }
-  public function getEligible()
-  {
-    return $this->eligible;
-  }
-  public function setReason($reason)
-  {
-    $this->reason = $reason;
-  }
-  public function getReason()
-  {
-    return $this->reason;
-  }
+	public function setEligible($eligible)
+	{
+		$this->eligible = $eligible;
+	}
+	public function getEligible()
+	{
+		return $this->eligible;
+	}
+	public function setReason($reason)
+	{
+		$this->reason = $reason;
+	}
+	public function getReason()
+	{
+		return $this->reason;
+	}
 }

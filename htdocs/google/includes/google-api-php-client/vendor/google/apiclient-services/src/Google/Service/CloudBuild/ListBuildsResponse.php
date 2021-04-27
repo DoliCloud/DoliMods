@@ -17,31 +17,31 @@
 
 class Google_Service_CloudBuild_ListBuildsResponse extends Google_Collection
 {
-  protected $collection_key = 'builds';
-  protected $buildsType = 'Google_Service_CloudBuild_Build';
-  protected $buildsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'builds';
+	protected $buildsType = 'Google_Service_CloudBuild_Build';
+	protected $buildsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudBuild_Build
-   */
-  public function setBuilds($builds)
-  {
-    $this->builds = $builds;
-  }
-  /**
-   * @return Google_Service_CloudBuild_Build
-   */
-  public function getBuilds()
-  {
-    return $this->builds;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudBuild_Build
+	 */
+	public function setBuilds($builds)
+	{
+		$this->builds = $builds;
+	}
+	/**
+	 * @return Google_Service_CloudBuild_Build
+	 */
+	public function getBuilds()
+	{
+		return $this->builds;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

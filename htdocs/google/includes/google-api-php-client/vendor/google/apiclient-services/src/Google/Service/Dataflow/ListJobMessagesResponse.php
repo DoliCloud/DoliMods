@@ -17,47 +17,47 @@
 
 class Google_Service_Dataflow_ListJobMessagesResponse extends Google_Collection
 {
-  protected $collection_key = 'jobMessages';
-  protected $autoscalingEventsType = 'Google_Service_Dataflow_AutoscalingEvent';
-  protected $autoscalingEventsDataType = 'array';
-  protected $jobMessagesType = 'Google_Service_Dataflow_JobMessage';
-  protected $jobMessagesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'jobMessages';
+	protected $autoscalingEventsType = 'Google_Service_Dataflow_AutoscalingEvent';
+	protected $autoscalingEventsDataType = 'array';
+	protected $jobMessagesType = 'Google_Service_Dataflow_JobMessage';
+	protected $jobMessagesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_Dataflow_AutoscalingEvent
-   */
-  public function setAutoscalingEvents($autoscalingEvents)
-  {
-    $this->autoscalingEvents = $autoscalingEvents;
-  }
-  /**
-   * @return Google_Service_Dataflow_AutoscalingEvent
-   */
-  public function getAutoscalingEvents()
-  {
-    return $this->autoscalingEvents;
-  }
-  /**
-   * @param Google_Service_Dataflow_JobMessage
-   */
-  public function setJobMessages($jobMessages)
-  {
-    $this->jobMessages = $jobMessages;
-  }
-  /**
-   * @return Google_Service_Dataflow_JobMessage
-   */
-  public function getJobMessages()
-  {
-    return $this->jobMessages;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_Dataflow_AutoscalingEvent
+	 */
+	public function setAutoscalingEvents($autoscalingEvents)
+	{
+		$this->autoscalingEvents = $autoscalingEvents;
+	}
+	/**
+	 * @return Google_Service_Dataflow_AutoscalingEvent
+	 */
+	public function getAutoscalingEvents()
+	{
+		return $this->autoscalingEvents;
+	}
+	/**
+	 * @param Google_Service_Dataflow_JobMessage
+	 */
+	public function setJobMessages($jobMessages)
+	{
+		$this->jobMessages = $jobMessages;
+	}
+	/**
+	 * @return Google_Service_Dataflow_JobMessage
+	 */
+	public function getJobMessages()
+	{
+		return $this->jobMessages;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

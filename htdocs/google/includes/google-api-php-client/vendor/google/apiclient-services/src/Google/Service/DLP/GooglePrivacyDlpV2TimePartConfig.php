@@ -17,14 +17,14 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2TimePartConfig extends Google_Model
 {
-  public $partToExtract;
+	public $partToExtract;
 
-  public function setPartToExtract($partToExtract)
-  {
-    $this->partToExtract = $partToExtract;
-  }
-  public function getPartToExtract()
-  {
-    return $this->partToExtract;
-  }
+	public function setPartToExtract($partToExtract)
+	{
+		$this->partToExtract = $partToExtract;
+	}
+	public function getPartToExtract()
+	{
+		return $this->partToExtract;
+	}
 }

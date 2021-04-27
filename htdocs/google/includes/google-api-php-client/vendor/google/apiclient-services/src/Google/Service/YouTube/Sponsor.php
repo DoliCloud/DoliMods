@@ -17,39 +17,39 @@
 
 class Google_Service_YouTube_Sponsor extends Google_Model
 {
-  public $etag;
-  public $kind;
-  protected $snippetType = 'Google_Service_YouTube_SponsorSnippet';
-  protected $snippetDataType = '';
+	public $etag;
+	public $kind;
+	protected $snippetType = 'Google_Service_YouTube_SponsorSnippet';
+	protected $snippetDataType = '';
 
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_YouTube_SponsorSnippet
-   */
-  public function setSnippet(Google_Service_YouTube_SponsorSnippet $snippet)
-  {
-    $this->snippet = $snippet;
-  }
-  /**
-   * @return Google_Service_YouTube_SponsorSnippet
-   */
-  public function getSnippet()
-  {
-    return $this->snippet;
-  }
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_YouTube_SponsorSnippet
+	 */
+	public function setSnippet(Google_Service_YouTube_SponsorSnippet $snippet)
+	{
+		$this->snippet = $snippet;
+	}
+	/**
+	 * @return Google_Service_YouTube_SponsorSnippet
+	 */
+	public function getSnippet()
+	{
+		return $this->snippet;
+	}
 }

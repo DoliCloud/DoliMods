@@ -17,57 +17,57 @@
 
 class Google_Service_YouTube_LinkCard extends Google_Model
 {
-  public $customLinkText;
-  public $externalImageUrl;
-  public $targetUrl;
-  public $title;
-  protected $uploadedImageType = 'Google_Service_YouTube_LinkCardUploadedImage';
-  protected $uploadedImageDataType = '';
+	public $customLinkText;
+	public $externalImageUrl;
+	public $targetUrl;
+	public $title;
+	protected $uploadedImageType = 'Google_Service_YouTube_LinkCardUploadedImage';
+	protected $uploadedImageDataType = '';
 
-  public function setCustomLinkText($customLinkText)
-  {
-    $this->customLinkText = $customLinkText;
-  }
-  public function getCustomLinkText()
-  {
-    return $this->customLinkText;
-  }
-  public function setExternalImageUrl($externalImageUrl)
-  {
-    $this->externalImageUrl = $externalImageUrl;
-  }
-  public function getExternalImageUrl()
-  {
-    return $this->externalImageUrl;
-  }
-  public function setTargetUrl($targetUrl)
-  {
-    $this->targetUrl = $targetUrl;
-  }
-  public function getTargetUrl()
-  {
-    return $this->targetUrl;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
-  /**
-   * @param Google_Service_YouTube_LinkCardUploadedImage
-   */
-  public function setUploadedImage(Google_Service_YouTube_LinkCardUploadedImage $uploadedImage)
-  {
-    $this->uploadedImage = $uploadedImage;
-  }
-  /**
-   * @return Google_Service_YouTube_LinkCardUploadedImage
-   */
-  public function getUploadedImage()
-  {
-    return $this->uploadedImage;
-  }
+	public function setCustomLinkText($customLinkText)
+	{
+		$this->customLinkText = $customLinkText;
+	}
+	public function getCustomLinkText()
+	{
+		return $this->customLinkText;
+	}
+	public function setExternalImageUrl($externalImageUrl)
+	{
+		$this->externalImageUrl = $externalImageUrl;
+	}
+	public function getExternalImageUrl()
+	{
+		return $this->externalImageUrl;
+	}
+	public function setTargetUrl($targetUrl)
+	{
+		$this->targetUrl = $targetUrl;
+	}
+	public function getTargetUrl()
+	{
+		return $this->targetUrl;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
+	/**
+	 * @param Google_Service_YouTube_LinkCardUploadedImage
+	 */
+	public function setUploadedImage(Google_Service_YouTube_LinkCardUploadedImage $uploadedImage)
+	{
+		$this->uploadedImage = $uploadedImage;
+	}
+	/**
+	 * @return Google_Service_YouTube_LinkCardUploadedImage
+	 */
+	public function getUploadedImage()
+	{
+		return $this->uploadedImage;
+	}
 }

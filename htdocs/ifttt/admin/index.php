@@ -38,18 +38,14 @@ if (! $user->admin)
 $action=GETPOST('action', 'aZ09');
 
 
-if ($action == 'set')
-{
-    $res1 = dolibarr_set_const($db, 'IFTTT_SERVICE_KEY', GETPOST('IFTTT_SERVICE_KEY', 'alpha'), 'chaine', 0, '', 0);
-    $res2 = dolibarr_set_const($db, 'IFTTT_DOLIBARR_ENDPOINT_SECUREKEY', GETPOST('IFTTT_DOLIBARR_ENDPOINT_SECUREKEY', 'alpha'), 'chaine', 0, '', 0);
+if ($action == 'set') {
+	$res1 = dolibarr_set_const($db, 'IFTTT_SERVICE_KEY', GETPOST('IFTTT_SERVICE_KEY', 'alpha'), 'chaine', 0, '', 0);
+	$res2 = dolibarr_set_const($db, 'IFTTT_DOLIBARR_ENDPOINT_SECUREKEY', GETPOST('IFTTT_DOLIBARR_ENDPOINT_SECUREKEY', 'alpha'), 'chaine', 0, '', 0);
 
-	if ($res1 > 0 && $res2)
-	{
-   		header("Location: ".$_SERVER["PHP_SELF"]);
-   	    exit;
-	}
-	else
-	{
+	if ($res1 > 0 && $res2) {
+		header("Location: ".$_SERVER["PHP_SELF"]);
+		exit;
+	} else {
 		dol_print_error($db);
 	}
 }

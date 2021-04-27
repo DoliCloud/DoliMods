@@ -17,21 +17,21 @@
 
 class Google_Service_Vault_CloseMatterResponse extends Google_Model
 {
-  protected $matterType = 'Google_Service_Vault_Matter';
-  protected $matterDataType = '';
+	protected $matterType = 'Google_Service_Vault_Matter';
+	protected $matterDataType = '';
 
-  /**
-   * @param Google_Service_Vault_Matter
-   */
-  public function setMatter(Google_Service_Vault_Matter $matter)
-  {
-    $this->matter = $matter;
-  }
-  /**
-   * @return Google_Service_Vault_Matter
-   */
-  public function getMatter()
-  {
-    return $this->matter;
-  }
+	/**
+	 * @param Google_Service_Vault_Matter
+	 */
+	public function setMatter(Google_Service_Vault_Matter $matter)
+	{
+		$this->matter = $matter;
+	}
+	/**
+	 * @return Google_Service_Vault_Matter
+	 */
+	public function getMatter()
+	{
+		return $this->matter;
+	}
 }

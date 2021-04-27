@@ -17,31 +17,31 @@
 
 class Google_Service_Vision_ListProductSetsResponse extends Google_Collection
 {
-  protected $collection_key = 'productSets';
-  public $nextPageToken;
-  protected $productSetsType = 'Google_Service_Vision_ProductSet';
-  protected $productSetsDataType = 'array';
+	protected $collection_key = 'productSets';
+	public $nextPageToken;
+	protected $productSetsType = 'Google_Service_Vision_ProductSet';
+	protected $productSetsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Vision_ProductSet
-   */
-  public function setProductSets($productSets)
-  {
-    $this->productSets = $productSets;
-  }
-  /**
-   * @return Google_Service_Vision_ProductSet
-   */
-  public function getProductSets()
-  {
-    return $this->productSets;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Vision_ProductSet
+	 */
+	public function setProductSets($productSets)
+	{
+		$this->productSets = $productSets;
+	}
+	/**
+	 * @return Google_Service_Vision_ProductSet
+	 */
+	public function getProductSets()
+	{
+		return $this->productSets;
+	}
 }

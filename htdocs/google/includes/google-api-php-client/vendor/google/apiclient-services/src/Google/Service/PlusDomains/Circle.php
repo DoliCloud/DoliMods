@@ -17,75 +17,75 @@
 
 class Google_Service_PlusDomains_Circle extends Google_Model
 {
-  public $description;
-  public $displayName;
-  public $etag;
-  public $id;
-  public $kind;
-  protected $peopleType = 'Google_Service_PlusDomains_CirclePeople';
-  protected $peopleDataType = '';
-  public $selfLink;
+	public $description;
+	public $displayName;
+	public $etag;
+	public $id;
+	public $kind;
+	protected $peopleType = 'Google_Service_PlusDomains_CirclePeople';
+	protected $peopleDataType = '';
+	public $selfLink;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_PlusDomains_CirclePeople
-   */
-  public function setPeople(Google_Service_PlusDomains_CirclePeople $people)
-  {
-    $this->people = $people;
-  }
-  /**
-   * @return Google_Service_PlusDomains_CirclePeople
-   */
-  public function getPeople()
-  {
-    return $this->people;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_PlusDomains_CirclePeople
+	 */
+	public function setPeople(Google_Service_PlusDomains_CirclePeople $people)
+	{
+		$this->people = $people;
+	}
+	/**
+	 * @return Google_Service_PlusDomains_CirclePeople
+	 */
+	public function getPeople()
+	{
+		return $this->people;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
 }

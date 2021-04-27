@@ -17,22 +17,22 @@
 
 class Google_Service_Testing_DeviceIpBlockCatalog extends Google_Collection
 {
-  protected $collection_key = 'ipBlocks';
-  protected $ipBlocksType = 'Google_Service_Testing_DeviceIpBlock';
-  protected $ipBlocksDataType = 'array';
+	protected $collection_key = 'ipBlocks';
+	protected $ipBlocksType = 'Google_Service_Testing_DeviceIpBlock';
+	protected $ipBlocksDataType = 'array';
 
-  /**
-   * @param Google_Service_Testing_DeviceIpBlock
-   */
-  public function setIpBlocks($ipBlocks)
-  {
-    $this->ipBlocks = $ipBlocks;
-  }
-  /**
-   * @return Google_Service_Testing_DeviceIpBlock
-   */
-  public function getIpBlocks()
-  {
-    return $this->ipBlocks;
-  }
+	/**
+	 * @param Google_Service_Testing_DeviceIpBlock
+	 */
+	public function setIpBlocks($ipBlocks)
+	{
+		$this->ipBlocks = $ipBlocks;
+	}
+	/**
+	 * @return Google_Service_Testing_DeviceIpBlock
+	 */
+	public function getIpBlocks()
+	{
+		return $this->ipBlocks;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_AlertCenter_ResourceInfo extends Google_Model
 {
-  public $documentId;
-  public $resourceTitle;
+	public $documentId;
+	public $resourceTitle;
 
-  public function setDocumentId($documentId)
-  {
-    $this->documentId = $documentId;
-  }
-  public function getDocumentId()
-  {
-    return $this->documentId;
-  }
-  public function setResourceTitle($resourceTitle)
-  {
-    $this->resourceTitle = $resourceTitle;
-  }
-  public function getResourceTitle()
-  {
-    return $this->resourceTitle;
-  }
+	public function setDocumentId($documentId)
+	{
+		$this->documentId = $documentId;
+	}
+	public function getDocumentId()
+	{
+		return $this->documentId;
+	}
+	public function setResourceTitle($resourceTitle)
+	{
+		$this->resourceTitle = $resourceTitle;
+	}
+	public function getResourceTitle()
+	{
+		return $this->resourceTitle;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_CloudIdentity_ListMembershipsResponse extends Google_Collection
 {
-  protected $collection_key = 'memberships';
-  protected $membershipsType = 'Google_Service_CloudIdentity_Membership';
-  protected $membershipsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'memberships';
+	protected $membershipsType = 'Google_Service_CloudIdentity_Membership';
+	protected $membershipsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudIdentity_Membership
-   */
-  public function setMemberships($memberships)
-  {
-    $this->memberships = $memberships;
-  }
-  /**
-   * @return Google_Service_CloudIdentity_Membership
-   */
-  public function getMemberships()
-  {
-    return $this->memberships;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudIdentity_Membership
+	 */
+	public function setMemberships($memberships)
+	{
+		$this->memberships = $memberships;
+	}
+	/**
+	 * @return Google_Service_CloudIdentity_Membership
+	 */
+	public function getMemberships()
+	{
+		return $this->memberships;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

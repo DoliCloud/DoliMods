@@ -17,32 +17,32 @@
 
 class Google_Service_Vault_DriveOptions extends Google_Model
 {
-  public $includeSharedDrives;
-  public $includeTeamDrives;
-  public $versionDate;
+	public $includeSharedDrives;
+	public $includeTeamDrives;
+	public $versionDate;
 
-  public function setIncludeSharedDrives($includeSharedDrives)
-  {
-    $this->includeSharedDrives = $includeSharedDrives;
-  }
-  public function getIncludeSharedDrives()
-  {
-    return $this->includeSharedDrives;
-  }
-  public function setIncludeTeamDrives($includeTeamDrives)
-  {
-    $this->includeTeamDrives = $includeTeamDrives;
-  }
-  public function getIncludeTeamDrives()
-  {
-    return $this->includeTeamDrives;
-  }
-  public function setVersionDate($versionDate)
-  {
-    $this->versionDate = $versionDate;
-  }
-  public function getVersionDate()
-  {
-    return $this->versionDate;
-  }
+	public function setIncludeSharedDrives($includeSharedDrives)
+	{
+		$this->includeSharedDrives = $includeSharedDrives;
+	}
+	public function getIncludeSharedDrives()
+	{
+		return $this->includeSharedDrives;
+	}
+	public function setIncludeTeamDrives($includeTeamDrives)
+	{
+		$this->includeTeamDrives = $includeTeamDrives;
+	}
+	public function getIncludeTeamDrives()
+	{
+		return $this->includeTeamDrives;
+	}
+	public function setVersionDate($versionDate)
+	{
+		$this->versionDate = $versionDate;
+	}
+	public function getVersionDate()
+	{
+		return $this->versionDate;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_DisplayVideo_Pacing extends Google_Model
 {
-  public $dailyMaxImpressions;
-  public $dailyMaxMicros;
-  public $pacingPeriod;
-  public $pacingType;
+	public $dailyMaxImpressions;
+	public $dailyMaxMicros;
+	public $pacingPeriod;
+	public $pacingType;
 
-  public function setDailyMaxImpressions($dailyMaxImpressions)
-  {
-    $this->dailyMaxImpressions = $dailyMaxImpressions;
-  }
-  public function getDailyMaxImpressions()
-  {
-    return $this->dailyMaxImpressions;
-  }
-  public function setDailyMaxMicros($dailyMaxMicros)
-  {
-    $this->dailyMaxMicros = $dailyMaxMicros;
-  }
-  public function getDailyMaxMicros()
-  {
-    return $this->dailyMaxMicros;
-  }
-  public function setPacingPeriod($pacingPeriod)
-  {
-    $this->pacingPeriod = $pacingPeriod;
-  }
-  public function getPacingPeriod()
-  {
-    return $this->pacingPeriod;
-  }
-  public function setPacingType($pacingType)
-  {
-    $this->pacingType = $pacingType;
-  }
-  public function getPacingType()
-  {
-    return $this->pacingType;
-  }
+	public function setDailyMaxImpressions($dailyMaxImpressions)
+	{
+		$this->dailyMaxImpressions = $dailyMaxImpressions;
+	}
+	public function getDailyMaxImpressions()
+	{
+		return $this->dailyMaxImpressions;
+	}
+	public function setDailyMaxMicros($dailyMaxMicros)
+	{
+		$this->dailyMaxMicros = $dailyMaxMicros;
+	}
+	public function getDailyMaxMicros()
+	{
+		return $this->dailyMaxMicros;
+	}
+	public function setPacingPeriod($pacingPeriod)
+	{
+		$this->pacingPeriod = $pacingPeriod;
+	}
+	public function getPacingPeriod()
+	{
+		return $this->pacingPeriod;
+	}
+	public function setPacingType($pacingType)
+	{
+		$this->pacingType = $pacingType;
+	}
+	public function getPacingType()
+	{
+		return $this->pacingType;
+	}
 }

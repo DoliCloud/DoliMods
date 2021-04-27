@@ -25,52 +25,52 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsEnvironmentsFlowhooks extends Google_Service_Resource
 {
-  /**
-   * Attaches a shared flow to a flow hook. (flowhooks.attachSharedFlowToFlowHook)
-   *
-   * @param string $name Required. Name of the flow hook to which the shared flow
-   * should be attached in the following format:
-   * `organizations/{org}/environments/{env}/flowhooks/{flowhook}`
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1FlowHook $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1FlowHook
-   */
-  public function attachSharedFlowToFlowHook($name, Google_Service_Apigee_GoogleCloudApigeeV1FlowHook $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('attachSharedFlowToFlowHook', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1FlowHook");
-  }
-  /**
-   * Detaches a shared flow from a flow hook.
-   * (flowhooks.detachSharedFlowFromFlowHook)
-   *
-   * @param string $name Required. Name of the flow hook to detach in the
-   * following format:
-   * `organizations/{org}/environments/{env}/flowhooks/{flowhook}`
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1FlowHook
-   */
-  public function detachSharedFlowFromFlowHook($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('detachSharedFlowFromFlowHook', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1FlowHook");
-  }
-  /**
-   * Returns the name of the shared flow attached to the specified flow hook. If
-   * there's no shared flow attached to the flow hook, the API does not return an
-   * error; it simply does not return a name in the response. (flowhooks.get)
-   *
-   * @param string $name Required. Name of the flow hook in the following format:
-   * `organizations/{org}/environments/{env}/flowhooks/{flowhook}`
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1FlowHook
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1FlowHook");
-  }
+	/**
+	 * Attaches a shared flow to a flow hook. (flowhooks.attachSharedFlowToFlowHook)
+	 *
+	 * @param string $name Required. Name of the flow hook to which the shared flow
+	 *                     should be attached in the following format:
+	 *                     `organizations/{org}/environments/{env}/flowhooks/{flowhook}`
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1FlowHook $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1FlowHook
+	 */
+	public function attachSharedFlowToFlowHook($name, Google_Service_Apigee_GoogleCloudApigeeV1FlowHook $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('attachSharedFlowToFlowHook', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1FlowHook");
+	}
+	/**
+	 * Detaches a shared flow from a flow hook.
+	 * (flowhooks.detachSharedFlowFromFlowHook)
+	 *
+	 * @param string $name Required. Name of the flow hook to detach in the
+	 *                     following format:
+	 *                     `organizations/{org}/environments/{env}/flowhooks/{flowhook}`
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1FlowHook
+	 */
+	public function detachSharedFlowFromFlowHook($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('detachSharedFlowFromFlowHook', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1FlowHook");
+	}
+	/**
+	 * Returns the name of the shared flow attached to the specified flow hook. If
+	 * there's no shared flow attached to the flow hook, the API does not return an
+	 * error; it simply does not return a name in the response. (flowhooks.get)
+	 *
+	 * @param string $name Required. Name of the flow hook in the following format:
+	 *                     `organizations/{org}/environments/{env}/flowhooks/{flowhook}`
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1FlowHook
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1FlowHook");
+	}
 }

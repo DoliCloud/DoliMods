@@ -17,40 +17,40 @@
 
 class Google_Service_PlayMovies_ListAvailsResponse extends Google_Collection
 {
-  protected $collection_key = 'avails';
-  protected $availsType = 'Google_Service_PlayMovies_Avail';
-  protected $availsDataType = 'array';
-  public $nextPageToken;
-  public $totalSize;
+	protected $collection_key = 'avails';
+	protected $availsType = 'Google_Service_PlayMovies_Avail';
+	protected $availsDataType = 'array';
+	public $nextPageToken;
+	public $totalSize;
 
-  /**
-   * @param Google_Service_PlayMovies_Avail
-   */
-  public function setAvails($avails)
-  {
-    $this->avails = $avails;
-  }
-  /**
-   * @return Google_Service_PlayMovies_Avail
-   */
-  public function getAvails()
-  {
-    return $this->avails;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
+	/**
+	 * @param Google_Service_PlayMovies_Avail
+	 */
+	public function setAvails($avails)
+	{
+		$this->avails = $avails;
+	}
+	/**
+	 * @return Google_Service_PlayMovies_Avail
+	 */
+	public function getAvails()
+	{
+		return $this->avails;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
 }

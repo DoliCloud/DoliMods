@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_VpnGatewayVpnGatewayInterface extends Google_Model
 {
-  public $id;
-  public $ipAddress;
+	public $id;
+	public $ipAddress;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setIpAddress($ipAddress)
-  {
-    $this->ipAddress = $ipAddress;
-  }
-  public function getIpAddress()
-  {
-    return $this->ipAddress;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setIpAddress($ipAddress)
+	{
+		$this->ipAddress = $ipAddress;
+	}
+	public function getIpAddress()
+	{
+		return $this->ipAddress;
+	}
 }

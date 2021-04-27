@@ -17,33 +17,33 @@
 
 class Google_Service_Sasportal_SasPortalCustomer extends Google_Collection
 {
-  protected $collection_key = 'sasUserIds';
-  public $displayName;
-  public $name;
-  public $sasUserIds;
+	protected $collection_key = 'sasUserIds';
+	public $displayName;
+	public $name;
+	public $sasUserIds;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSasUserIds($sasUserIds)
-  {
-    $this->sasUserIds = $sasUserIds;
-  }
-  public function getSasUserIds()
-  {
-    return $this->sasUserIds;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSasUserIds($sasUserIds)
+	{
+		$this->sasUserIds = $sasUserIds;
+	}
+	public function getSasUserIds()
+	{
+		return $this->sasUserIds;
+	}
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListHybridIssuersResponse extends Google_Collection
 {
-  protected $collection_key = 'issuers';
-  protected $issuersType = 'Google_Service_Apigee_GoogleCloudApigeeV1ServiceIssuersMapping';
-  protected $issuersDataType = 'array';
+	protected $collection_key = 'issuers';
+	protected $issuersType = 'Google_Service_Apigee_GoogleCloudApigeeV1ServiceIssuersMapping';
+	protected $issuersDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1ServiceIssuersMapping
-   */
-  public function setIssuers($issuers)
-  {
-    $this->issuers = $issuers;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1ServiceIssuersMapping
-   */
-  public function getIssuers()
-  {
-    return $this->issuers;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1ServiceIssuersMapping
+	 */
+	public function setIssuers($issuers)
+	{
+		$this->issuers = $issuers;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ServiceIssuersMapping
+	 */
+	public function getIssuers()
+	{
+		return $this->issuers;
+	}
 }

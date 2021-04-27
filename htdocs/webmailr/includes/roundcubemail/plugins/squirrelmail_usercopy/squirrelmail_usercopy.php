@@ -18,11 +18,11 @@ class squirrelmail_usercopy extends rcube_plugin
 	{
 		$rcmail = rcmail::get_instance();
 
-        // Set identities_level for operations of this plugin
+		// Set identities_level for operations of this plugin
 		$ilevel = $rcmail->config->get('squirrelmail_identities_level');
-        if ($ilevel === null)
-		    $ilevel = $rcmail->config->get('identities_level', 0);
-        $this->identities_level = intval($ilevel);
+		if ($ilevel === null)
+			$ilevel = $rcmail->config->get('identities_level', 0);
+		$this->identities_level = intval($ilevel);
 
 		$this->add_hook('user_create', array($this, 'create_user'));
 		$this->add_hook('identity_create', array($this, 'create_identity'));
@@ -49,8 +49,8 @@ class squirrelmail_usercopy extends rcube_plugin
 				$p['record']['email'] = $this->prefs['email_address'];
 			if ($this->prefs['___signature___'])
 				$p['record']['signature'] = $this->prefs['___signature___'];
-			if ($this->prefs['reply-to']) 
-				$p['record']['reply-to'] = $this->prefs['reply-to']; 
+			if ($this->prefs['reply-to'])
+				$p['record']['reply-to'] = $this->prefs['reply-to'];
 			if (($this->identities_level == 0 || $this->identities_level == 1) && isset($this->prefs['identities']) && $this->prefs['identities'] > 1) {
 				for ($i=1; $i < $this->prefs['identities']; $i++) {
 					unset($ident_data);
@@ -59,8 +59,7 @@ class squirrelmail_usercopy extends rcube_plugin
 						$ident_data['name'] = $this->prefs['full_name'.$i];
 					if ($this->identities_level == 0 && $this->prefs['email_address'.$i])
 						$ident_data['email'] = $this->prefs['email_address'.$i];
-					else
-						$ident_data['email'] = $p['record']['email'];
+					else $ident_data['email'] = $p['record']['email'];
 					if ($this->prefs['reply_to'.$i])
 						$ident_data['reply-to'] = $this->prefs['reply_to'.$i];
 					if ($this->prefs['___sig'.$i.'___'])
@@ -91,7 +90,7 @@ class squirrelmail_usercopy extends rcube_plugin
 
 		/**** File based backend ****/
 		if ($rcmail->config->get('squirrelmail_driver') == 'file' && ($srcdir = $rcmail->config->get('squirrelmail_data_dir'))) {
-			if (($hash_level = $rcmail->config->get('squirrelmail_data_dir_hash_level')) > 0) 
+			if (($hash_level = $rcmail->config->get('squirrelmail_data_dir_hash_level')) > 0)
 				$srcdir = slashify($srcdir).chunk_split(substr(base_convert(crc32($uname), 10, 16), 0, $hash_level), 1, '/');
 			$prefsfile = slashify($srcdir) . $uname . '.pref';
 			$abookfile = slashify($srcdir) . $uname . '.abook';
@@ -121,16 +120,16 @@ class squirrelmail_usercopy extends rcube_plugin
 
 				// parse addres book file
 				if (filesize($abookfile)) {
-					foreach(file($abookfile) as $line) {
+					foreach (file($abookfile) as $line) {
 						list($rec['name'], $rec['firstname'], $rec['surname'], $rec['email']) = explode('|', utf8_encode(rtrim($line)));
 						if ($rec['name'] && $rec['email'])
 							$this->abook[] = $rec;
 					}
 				}
 			}
-		} 
+		}
 		/**** Database backend ****/
-		else if ($rcmail->config->get('squirrelmail_driver') == 'sql') { 
+		elseif ($rcmail->config->get('squirrelmail_driver') == 'sql') {
 			$this->prefs = array();
 
 			/* connect to squirrelmail database */
@@ -169,5 +168,4 @@ class squirrelmail_usercopy extends rcube_plugin
 			}
 		} // end if 'sql'-driver
 	}
-
 }

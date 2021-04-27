@@ -17,30 +17,30 @@
 
 class Google_Service_ContainerAnalysis_CreateOperationRequest extends Google_Model
 {
-  protected $operationType = 'Google_Service_ContainerAnalysis_Operation';
-  protected $operationDataType = '';
-  public $operationId;
+	protected $operationType = 'Google_Service_ContainerAnalysis_Operation';
+	protected $operationDataType = '';
+	public $operationId;
 
-  /**
-   * @param Google_Service_ContainerAnalysis_Operation
-   */
-  public function setOperation(Google_Service_ContainerAnalysis_Operation $operation)
-  {
-    $this->operation = $operation;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_Operation
-   */
-  public function getOperation()
-  {
-    return $this->operation;
-  }
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_Operation
+	 */
+	public function setOperation(Google_Service_ContainerAnalysis_Operation $operation)
+	{
+		$this->operation = $operation;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_Operation
+	 */
+	public function getOperation()
+	{
+		return $this->operation;
+	}
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
 }

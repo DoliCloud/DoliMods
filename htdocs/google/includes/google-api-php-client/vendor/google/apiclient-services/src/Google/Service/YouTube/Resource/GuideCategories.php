@@ -25,23 +25,23 @@
  */
 class Google_Service_YouTube_Resource_GuideCategories extends Google_Service_Resource
 {
-  /**
-   * Retrieves a list of guide categories. (guideCategories.listGuideCategories)
-   *
-   * @param string|array $part The part parameter specifies the guideCategory
-   * resource properties that the API response will include. Set the parameter
-   * value to snippet.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string hl
-   * @opt_param string regionCode Return all categories in the given region code.
-   * @opt_param string id Return the guide categories with the given IDs.
-   * @return Google_Service_YouTube_GuideCategoryListResponse
-   */
-  public function listGuideCategories($part, $optParams = array())
-  {
-    $params = array('part' => $part);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_YouTube_GuideCategoryListResponse");
-  }
+	/**
+	 * Retrieves a list of guide categories. (guideCategories.listGuideCategories)
+	 *
+	 * @param string|array $part The part parameter specifies the guideCategory
+	 *                           resource properties that the API response will include. Set the parameter
+	 *                           value to snippet.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string hl
+	 * @opt_param string regionCode Return all categories in the given region code.
+	 * @opt_param string id Return the guide categories with the given IDs.
+	 * @return Google_Service_YouTube_GuideCategoryListResponse
+	 */
+	public function listGuideCategories($part, $optParams = array())
+	{
+		$params = array('part' => $part);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_YouTube_GuideCategoryListResponse");
+	}
 }

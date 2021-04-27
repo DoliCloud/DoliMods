@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidEnterprise_ManagedConfigurationsForUserListResponse extends Google_Collection
 {
-  protected $collection_key = 'managedConfigurationForUser';
-  protected $managedConfigurationForUserType = 'Google_Service_AndroidEnterprise_ManagedConfiguration';
-  protected $managedConfigurationForUserDataType = 'array';
+	protected $collection_key = 'managedConfigurationForUser';
+	protected $managedConfigurationForUserType = 'Google_Service_AndroidEnterprise_ManagedConfiguration';
+	protected $managedConfigurationForUserDataType = 'array';
 
-  /**
-   * @param Google_Service_AndroidEnterprise_ManagedConfiguration
-   */
-  public function setManagedConfigurationForUser($managedConfigurationForUser)
-  {
-    $this->managedConfigurationForUser = $managedConfigurationForUser;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_ManagedConfiguration
-   */
-  public function getManagedConfigurationForUser()
-  {
-    return $this->managedConfigurationForUser;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_ManagedConfiguration
+	 */
+	public function setManagedConfigurationForUser($managedConfigurationForUser)
+	{
+		$this->managedConfigurationForUser = $managedConfigurationForUser;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_ManagedConfiguration
+	 */
+	public function getManagedConfigurationForUser()
+	{
+		return $this->managedConfigurationForUser;
+	}
 }

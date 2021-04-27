@@ -17,23 +17,23 @@
 
 class Google_Service_Docs_WriteControl extends Google_Model
 {
-  public $requiredRevisionId;
-  public $targetRevisionId;
+	public $requiredRevisionId;
+	public $targetRevisionId;
 
-  public function setRequiredRevisionId($requiredRevisionId)
-  {
-    $this->requiredRevisionId = $requiredRevisionId;
-  }
-  public function getRequiredRevisionId()
-  {
-    return $this->requiredRevisionId;
-  }
-  public function setTargetRevisionId($targetRevisionId)
-  {
-    $this->targetRevisionId = $targetRevisionId;
-  }
-  public function getTargetRevisionId()
-  {
-    return $this->targetRevisionId;
-  }
+	public function setRequiredRevisionId($requiredRevisionId)
+	{
+		$this->requiredRevisionId = $requiredRevisionId;
+	}
+	public function getRequiredRevisionId()
+	{
+		return $this->requiredRevisionId;
+	}
+	public function setTargetRevisionId($targetRevisionId)
+	{
+		$this->targetRevisionId = $targetRevisionId;
+	}
+	public function getTargetRevisionId()
+	{
+		return $this->targetRevisionId;
+	}
 }

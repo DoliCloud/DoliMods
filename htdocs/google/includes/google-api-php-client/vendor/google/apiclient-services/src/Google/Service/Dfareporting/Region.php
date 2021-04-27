@@ -17,59 +17,59 @@
 
 class Google_Service_Dfareporting_Region extends Google_Model
 {
-  public $countryCode;
-  public $countryDartId;
-  public $dartId;
-  public $kind;
-  public $name;
-  public $regionCode;
+	public $countryCode;
+	public $countryDartId;
+	public $dartId;
+	public $kind;
+	public $name;
+	public $regionCode;
 
-  public function setCountryCode($countryCode)
-  {
-    $this->countryCode = $countryCode;
-  }
-  public function getCountryCode()
-  {
-    return $this->countryCode;
-  }
-  public function setCountryDartId($countryDartId)
-  {
-    $this->countryDartId = $countryDartId;
-  }
-  public function getCountryDartId()
-  {
-    return $this->countryDartId;
-  }
-  public function setDartId($dartId)
-  {
-    $this->dartId = $dartId;
-  }
-  public function getDartId()
-  {
-    return $this->dartId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setRegionCode($regionCode)
-  {
-    $this->regionCode = $regionCode;
-  }
-  public function getRegionCode()
-  {
-    return $this->regionCode;
-  }
+	public function setCountryCode($countryCode)
+	{
+		$this->countryCode = $countryCode;
+	}
+	public function getCountryCode()
+	{
+		return $this->countryCode;
+	}
+	public function setCountryDartId($countryDartId)
+	{
+		$this->countryDartId = $countryDartId;
+	}
+	public function getCountryDartId()
+	{
+		return $this->countryDartId;
+	}
+	public function setDartId($dartId)
+	{
+		$this->dartId = $dartId;
+	}
+	public function getDartId()
+	{
+		return $this->dartId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setRegionCode($regionCode)
+	{
+		$this->regionCode = $regionCode;
+	}
+	public function getRegionCode()
+	{
+		return $this->regionCode;
+	}
 }

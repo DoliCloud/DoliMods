@@ -17,30 +17,30 @@
 
 class Google_Service_CloudPrivateCatalogProducer_GoogleIamV1SetIamPolicyRequest extends Google_Model
 {
-  protected $policyType = 'Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy';
-  protected $policyDataType = '';
-  public $updateMask;
+	protected $policyType = 'Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy';
+	protected $policyDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy
-   */
-  public function setPolicy(Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy $policy)
-  {
-    $this->policy = $policy;
-  }
-  /**
-   * @return Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy
-   */
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy
+	 */
+	public function setPolicy(Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy $policy)
+	{
+		$this->policy = $policy;
+	}
+	/**
+	 * @return Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy
+	 */
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

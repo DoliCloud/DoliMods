@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMachineLearning_GoogleApiHttpBody extends Google_Model
 {
-  public $contentType;
-  public $data;
+	public $contentType;
+	public $data;
 
-  public function setContentType($contentType)
-  {
-    $this->contentType = $contentType;
-  }
-  public function getContentType()
-  {
-    return $this->contentType;
-  }
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  public function getData()
-  {
-    return $this->data;
-  }
+	public function setContentType($contentType)
+	{
+		$this->contentType = $contentType;
+	}
+	public function getContentType()
+	{
+		return $this->contentType;
+	}
+	public function setData($data)
+	{
+		$this->data = $data;
+	}
+	public function getData()
+	{
+		return $this->data;
+	}
 }

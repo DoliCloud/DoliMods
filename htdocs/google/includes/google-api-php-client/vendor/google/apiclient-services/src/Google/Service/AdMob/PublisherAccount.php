@@ -17,41 +17,41 @@
 
 class Google_Service_AdMob_PublisherAccount extends Google_Model
 {
-  public $currencyCode;
-  public $name;
-  public $publisherId;
-  public $reportingTimeZone;
+	public $currencyCode;
+	public $name;
+	public $publisherId;
+	public $reportingTimeZone;
 
-  public function setCurrencyCode($currencyCode)
-  {
-    $this->currencyCode = $currencyCode;
-  }
-  public function getCurrencyCode()
-  {
-    return $this->currencyCode;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPublisherId($publisherId)
-  {
-    $this->publisherId = $publisherId;
-  }
-  public function getPublisherId()
-  {
-    return $this->publisherId;
-  }
-  public function setReportingTimeZone($reportingTimeZone)
-  {
-    $this->reportingTimeZone = $reportingTimeZone;
-  }
-  public function getReportingTimeZone()
-  {
-    return $this->reportingTimeZone;
-  }
+	public function setCurrencyCode($currencyCode)
+	{
+		$this->currencyCode = $currencyCode;
+	}
+	public function getCurrencyCode()
+	{
+		return $this->currencyCode;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPublisherId($publisherId)
+	{
+		$this->publisherId = $publisherId;
+	}
+	public function getPublisherId()
+	{
+		return $this->publisherId;
+	}
+	public function setReportingTimeZone($reportingTimeZone)
+	{
+		$this->reportingTimeZone = $reportingTimeZone;
+	}
+	public function getReportingTimeZone()
+	{
+		return $this->reportingTimeZone;
+	}
 }

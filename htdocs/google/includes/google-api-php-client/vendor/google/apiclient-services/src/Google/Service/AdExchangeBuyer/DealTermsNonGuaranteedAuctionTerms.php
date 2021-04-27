@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedAuctionTerms extends Google_Collection
 {
-  protected $collection_key = 'reservePricePerBuyers';
-  public $autoOptimizePrivateAuction;
-  protected $reservePricePerBuyersType = 'Google_Service_AdExchangeBuyer_PricePerBuyer';
-  protected $reservePricePerBuyersDataType = 'array';
+	protected $collection_key = 'reservePricePerBuyers';
+	public $autoOptimizePrivateAuction;
+	protected $reservePricePerBuyersType = 'Google_Service_AdExchangeBuyer_PricePerBuyer';
+	protected $reservePricePerBuyersDataType = 'array';
 
-  public function setAutoOptimizePrivateAuction($autoOptimizePrivateAuction)
-  {
-    $this->autoOptimizePrivateAuction = $autoOptimizePrivateAuction;
-  }
-  public function getAutoOptimizePrivateAuction()
-  {
-    return $this->autoOptimizePrivateAuction;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyer_PricePerBuyer
-   */
-  public function setReservePricePerBuyers($reservePricePerBuyers)
-  {
-    $this->reservePricePerBuyers = $reservePricePerBuyers;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_PricePerBuyer
-   */
-  public function getReservePricePerBuyers()
-  {
-    return $this->reservePricePerBuyers;
-  }
+	public function setAutoOptimizePrivateAuction($autoOptimizePrivateAuction)
+	{
+		$this->autoOptimizePrivateAuction = $autoOptimizePrivateAuction;
+	}
+	public function getAutoOptimizePrivateAuction()
+	{
+		return $this->autoOptimizePrivateAuction;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyer_PricePerBuyer
+	 */
+	public function setReservePricePerBuyers($reservePricePerBuyers)
+	{
+		$this->reservePricePerBuyers = $reservePricePerBuyers;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_PricePerBuyer
+	 */
+	public function getReservePricePerBuyers()
+	{
+		return $this->reservePricePerBuyers;
+	}
 }

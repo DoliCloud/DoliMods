@@ -17,31 +17,31 @@
 
 class Google_Service_Mirror_ContactsListResponse extends Google_Collection
 {
-  protected $collection_key = 'items';
-  protected $itemsType = 'Google_Service_Mirror_Contact';
-  protected $itemsDataType = 'array';
-  public $kind;
+	protected $collection_key = 'items';
+	protected $itemsType = 'Google_Service_Mirror_Contact';
+	protected $itemsDataType = 'array';
+	public $kind;
 
-  /**
-   * @param Google_Service_Mirror_Contact
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Mirror_Contact
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Mirror_Contact
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Mirror_Contact
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

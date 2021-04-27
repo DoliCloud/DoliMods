@@ -17,21 +17,21 @@
 
 class Google_Service_Iam_AdminAuditData extends Google_Model
 {
-  protected $permissionDeltaType = 'Google_Service_Iam_PermissionDelta';
-  protected $permissionDeltaDataType = '';
+	protected $permissionDeltaType = 'Google_Service_Iam_PermissionDelta';
+	protected $permissionDeltaDataType = '';
 
-  /**
-   * @param Google_Service_Iam_PermissionDelta
-   */
-  public function setPermissionDelta(Google_Service_Iam_PermissionDelta $permissionDelta)
-  {
-    $this->permissionDelta = $permissionDelta;
-  }
-  /**
-   * @return Google_Service_Iam_PermissionDelta
-   */
-  public function getPermissionDelta()
-  {
-    return $this->permissionDelta;
-  }
+	/**
+	 * @param Google_Service_Iam_PermissionDelta
+	 */
+	public function setPermissionDelta(Google_Service_Iam_PermissionDelta $permissionDelta)
+	{
+		$this->permissionDelta = $permissionDelta;
+	}
+	/**
+	 * @return Google_Service_Iam_PermissionDelta
+	 */
+	public function getPermissionDelta()
+	{
+		return $this->permissionDelta;
+	}
 }

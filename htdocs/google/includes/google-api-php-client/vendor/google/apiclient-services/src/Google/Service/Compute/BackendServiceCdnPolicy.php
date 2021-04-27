@@ -17,40 +17,40 @@
 
 class Google_Service_Compute_BackendServiceCdnPolicy extends Google_Collection
 {
-  protected $collection_key = 'signedUrlKeyNames';
-  protected $cacheKeyPolicyType = 'Google_Service_Compute_CacheKeyPolicy';
-  protected $cacheKeyPolicyDataType = '';
-  public $signedUrlCacheMaxAgeSec;
-  public $signedUrlKeyNames;
+	protected $collection_key = 'signedUrlKeyNames';
+	protected $cacheKeyPolicyType = 'Google_Service_Compute_CacheKeyPolicy';
+	protected $cacheKeyPolicyDataType = '';
+	public $signedUrlCacheMaxAgeSec;
+	public $signedUrlKeyNames;
 
-  /**
-   * @param Google_Service_Compute_CacheKeyPolicy
-   */
-  public function setCacheKeyPolicy(Google_Service_Compute_CacheKeyPolicy $cacheKeyPolicy)
-  {
-    $this->cacheKeyPolicy = $cacheKeyPolicy;
-  }
-  /**
-   * @return Google_Service_Compute_CacheKeyPolicy
-   */
-  public function getCacheKeyPolicy()
-  {
-    return $this->cacheKeyPolicy;
-  }
-  public function setSignedUrlCacheMaxAgeSec($signedUrlCacheMaxAgeSec)
-  {
-    $this->signedUrlCacheMaxAgeSec = $signedUrlCacheMaxAgeSec;
-  }
-  public function getSignedUrlCacheMaxAgeSec()
-  {
-    return $this->signedUrlCacheMaxAgeSec;
-  }
-  public function setSignedUrlKeyNames($signedUrlKeyNames)
-  {
-    $this->signedUrlKeyNames = $signedUrlKeyNames;
-  }
-  public function getSignedUrlKeyNames()
-  {
-    return $this->signedUrlKeyNames;
-  }
+	/**
+	 * @param Google_Service_Compute_CacheKeyPolicy
+	 */
+	public function setCacheKeyPolicy(Google_Service_Compute_CacheKeyPolicy $cacheKeyPolicy)
+	{
+		$this->cacheKeyPolicy = $cacheKeyPolicy;
+	}
+	/**
+	 * @return Google_Service_Compute_CacheKeyPolicy
+	 */
+	public function getCacheKeyPolicy()
+	{
+		return $this->cacheKeyPolicy;
+	}
+	public function setSignedUrlCacheMaxAgeSec($signedUrlCacheMaxAgeSec)
+	{
+		$this->signedUrlCacheMaxAgeSec = $signedUrlCacheMaxAgeSec;
+	}
+	public function getSignedUrlCacheMaxAgeSec()
+	{
+		return $this->signedUrlCacheMaxAgeSec;
+	}
+	public function setSignedUrlKeyNames($signedUrlKeyNames)
+	{
+		$this->signedUrlKeyNames = $signedUrlKeyNames;
+	}
+	public function getSignedUrlKeyNames()
+	{
+		return $this->signedUrlKeyNames;
+	}
 }

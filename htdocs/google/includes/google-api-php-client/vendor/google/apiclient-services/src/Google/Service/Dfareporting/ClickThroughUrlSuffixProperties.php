@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_ClickThroughUrlSuffixProperties extends Google_Model
 {
-  public $clickThroughUrlSuffix;
-  public $overrideInheritedSuffix;
+	public $clickThroughUrlSuffix;
+	public $overrideInheritedSuffix;
 
-  public function setClickThroughUrlSuffix($clickThroughUrlSuffix)
-  {
-    $this->clickThroughUrlSuffix = $clickThroughUrlSuffix;
-  }
-  public function getClickThroughUrlSuffix()
-  {
-    return $this->clickThroughUrlSuffix;
-  }
-  public function setOverrideInheritedSuffix($overrideInheritedSuffix)
-  {
-    $this->overrideInheritedSuffix = $overrideInheritedSuffix;
-  }
-  public function getOverrideInheritedSuffix()
-  {
-    return $this->overrideInheritedSuffix;
-  }
+	public function setClickThroughUrlSuffix($clickThroughUrlSuffix)
+	{
+		$this->clickThroughUrlSuffix = $clickThroughUrlSuffix;
+	}
+	public function getClickThroughUrlSuffix()
+	{
+		return $this->clickThroughUrlSuffix;
+	}
+	public function setOverrideInheritedSuffix($overrideInheritedSuffix)
+	{
+		$this->overrideInheritedSuffix = $overrideInheritedSuffix;
+	}
+	public function getOverrideInheritedSuffix()
+	{
+		return $this->overrideInheritedSuffix;
+	}
 }

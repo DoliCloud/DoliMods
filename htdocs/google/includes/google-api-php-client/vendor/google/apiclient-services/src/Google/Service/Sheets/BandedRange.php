@@ -17,62 +17,62 @@
 
 class Google_Service_Sheets_BandedRange extends Google_Model
 {
-  public $bandedRangeId;
-  protected $columnPropertiesType = 'Google_Service_Sheets_BandingProperties';
-  protected $columnPropertiesDataType = '';
-  protected $rangeType = 'Google_Service_Sheets_GridRange';
-  protected $rangeDataType = '';
-  protected $rowPropertiesType = 'Google_Service_Sheets_BandingProperties';
-  protected $rowPropertiesDataType = '';
+	public $bandedRangeId;
+	protected $columnPropertiesType = 'Google_Service_Sheets_BandingProperties';
+	protected $columnPropertiesDataType = '';
+	protected $rangeType = 'Google_Service_Sheets_GridRange';
+	protected $rangeDataType = '';
+	protected $rowPropertiesType = 'Google_Service_Sheets_BandingProperties';
+	protected $rowPropertiesDataType = '';
 
-  public function setBandedRangeId($bandedRangeId)
-  {
-    $this->bandedRangeId = $bandedRangeId;
-  }
-  public function getBandedRangeId()
-  {
-    return $this->bandedRangeId;
-  }
-  /**
-   * @param Google_Service_Sheets_BandingProperties
-   */
-  public function setColumnProperties(Google_Service_Sheets_BandingProperties $columnProperties)
-  {
-    $this->columnProperties = $columnProperties;
-  }
-  /**
-   * @return Google_Service_Sheets_BandingProperties
-   */
-  public function getColumnProperties()
-  {
-    return $this->columnProperties;
-  }
-  /**
-   * @param Google_Service_Sheets_GridRange
-   */
-  public function setRange(Google_Service_Sheets_GridRange $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Sheets_GridRange
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
-  /**
-   * @param Google_Service_Sheets_BandingProperties
-   */
-  public function setRowProperties(Google_Service_Sheets_BandingProperties $rowProperties)
-  {
-    $this->rowProperties = $rowProperties;
-  }
-  /**
-   * @return Google_Service_Sheets_BandingProperties
-   */
-  public function getRowProperties()
-  {
-    return $this->rowProperties;
-  }
+	public function setBandedRangeId($bandedRangeId)
+	{
+		$this->bandedRangeId = $bandedRangeId;
+	}
+	public function getBandedRangeId()
+	{
+		return $this->bandedRangeId;
+	}
+	/**
+	 * @param Google_Service_Sheets_BandingProperties
+	 */
+	public function setColumnProperties(Google_Service_Sheets_BandingProperties $columnProperties)
+	{
+		$this->columnProperties = $columnProperties;
+	}
+	/**
+	 * @return Google_Service_Sheets_BandingProperties
+	 */
+	public function getColumnProperties()
+	{
+		return $this->columnProperties;
+	}
+	/**
+	 * @param Google_Service_Sheets_GridRange
+	 */
+	public function setRange(Google_Service_Sheets_GridRange $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Sheets_GridRange
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
+	/**
+	 * @param Google_Service_Sheets_BandingProperties
+	 */
+	public function setRowProperties(Google_Service_Sheets_BandingProperties $rowProperties)
+	{
+		$this->rowProperties = $rowProperties;
+	}
+	/**
+	 * @return Google_Service_Sheets_BandingProperties
+	 */
+	public function getRowProperties()
+	{
+		return $this->rowProperties;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_IdentityToolkit_GetRecaptchaParamResponse extends Google_Model
 {
-  public $kind;
-  public $recaptchaSiteKey;
-  public $recaptchaStoken;
+	public $kind;
+	public $recaptchaSiteKey;
+	public $recaptchaStoken;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setRecaptchaSiteKey($recaptchaSiteKey)
-  {
-    $this->recaptchaSiteKey = $recaptchaSiteKey;
-  }
-  public function getRecaptchaSiteKey()
-  {
-    return $this->recaptchaSiteKey;
-  }
-  public function setRecaptchaStoken($recaptchaStoken)
-  {
-    $this->recaptchaStoken = $recaptchaStoken;
-  }
-  public function getRecaptchaStoken()
-  {
-    return $this->recaptchaStoken;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setRecaptchaSiteKey($recaptchaSiteKey)
+	{
+		$this->recaptchaSiteKey = $recaptchaSiteKey;
+	}
+	public function getRecaptchaSiteKey()
+	{
+		return $this->recaptchaSiteKey;
+	}
+	public function setRecaptchaStoken($recaptchaStoken)
+	{
+		$this->recaptchaStoken = $recaptchaStoken;
+	}
+	public function getRecaptchaStoken()
+	{
+		return $this->recaptchaStoken;
+	}
 }

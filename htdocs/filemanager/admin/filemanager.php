@@ -24,18 +24,18 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
 
 // Security check
@@ -49,65 +49,51 @@ $langs->load("errors");
 /*
  * Actions
  */
-if ($_GET["action"] == 'delete')
-{
+if ($_GET["action"] == 'delete') {
 	$error=0;
 
 	$filemanagerroots=new FilemanagerRoots($db);
 	$result=$filemanagerroots->fetch(GETPOST("id", 'int'));
-	if ($result > 0)
-	{
+	if ($result > 0) {
 		$result=$filemanagerroots->delete($user);
-		if ($result <= 0)
-		{
+		if ($result <= 0) {
 			$mesg=$filemanagerroots->error;
-		}
-		else
-		{
+		} else {
 			$_POST["action"]='';
 		}
 	}
 }
 
-if ($_POST["action"] == 'setparam')
-{
-    $param='FILEMANAGER_DISABLE_COLORSYNTAXING';
-    $value=$_POST['FILEMANAGER_DISABLE_COLORSYNTAXING'];
-    dolibarr_set_const($db,$param,$value,'chaine',0,'',$conf->entity);
+if ($_POST["action"] == 'setparam') {
+	$param='FILEMANAGER_DISABLE_COLORSYNTAXING';
+	$value=$_POST['FILEMANAGER_DISABLE_COLORSYNTAXING'];
+	dolibarr_set_const($db, $param, $value, 'chaine', 0, '', $conf->entity);
 }
 
 
-if ($_POST["action"] == 'set')
-{
+if ($_POST["action"] == 'set') {
 	$error=0;
-	if (empty($_POST["FILEMANAGER_ROOT_LABEL"]))
-	{
-		$mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("LabelForRootFileManager")).'</div>';
+	if (empty($_POST["FILEMANAGER_ROOT_LABEL"])) {
+		$mesg='<div class="error">'.$langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("LabelForRootFileManager")).'</div>';
 		$error++;
 	}
-	if (empty($_POST["FILEMANAGER_ROOT_PATH"]))
-	{
-		$mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("PathForRootFileManager")).'</div>';
+	if (empty($_POST["FILEMANAGER_ROOT_PATH"])) {
+		$mesg='<div class="error">'.$langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("PathForRootFileManager")).'</div>';
 		$error++;
 	}
-	if (! empty($_POST["FILEMANAGER_ROOT_PATH"]) && ! is_dir($_POST["FILEMANAGER_ROOT_PATH"]))
-	{
-		$mesg='<div class="error">'.$langs->trans("ErrorDirNotFound",$_POST["FILEMANAGER_ROOT_PATH"]).'</div>';
+	if (! empty($_POST["FILEMANAGER_ROOT_PATH"]) && ! is_dir($_POST["FILEMANAGER_ROOT_PATH"])) {
+		$mesg='<div class="error">'.$langs->trans("ErrorDirNotFound", $_POST["FILEMANAGER_ROOT_PATH"]).'</div>';
 		$error++;
 	}
 
-	if (! $error)
-	{
+	if (! $error) {
 		$filemanagerroots=new FilemanagerRoots($db);
 		$filemanagerroots->rootlabel=$_POST["FILEMANAGER_ROOT_LABEL"];
 		$filemanagerroots->rootpath=$_POST["FILEMANAGER_ROOT_PATH"];
 		$result=$filemanagerroots->create($user);
-		if ($result <= 0)
-		{
+		if ($result <= 0) {
 			$mesg=$filemanagerroots->error;
-		}
-		else
-		{
+		} else {
 			$_POST["action"]='';
 		}
 	}
@@ -124,7 +110,7 @@ $form=new Form($db);
 llxHeader();
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("FileManagerSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("FileManagerSetup"), $linkback, 'setup');
 print '<br>';
 
 //if ($mesg) print '<div class="error">'.$langs->trans($mesg).'</div><br>';
@@ -162,7 +148,7 @@ print '<tr '.$bc[$var].'>';
 print '<td>';
 print $langs->trans("UseColorSyntaxing");
 print '</td><td align="center">';
-print $form->selectyesno("FILEMANAGER_DISABLE_COLORSYNTAXING",$conf->global->FILEMANAGER_DISABLE_COLORSYNTAXING);
+print $form->selectyesno("FILEMANAGER_DISABLE_COLORSYNTAXING", $conf->global->FILEMANAGER_DISABLE_COLORSYNTAXING);
 print '</td><td align="right">';
 print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 print '</td>';
@@ -233,17 +219,13 @@ $sql.= " WHERE entity = ".$conf->entity;
 
 dol_syslog($sql);
 $resql=$db->query($sql);
-if ($resql)
-{
+if ($resql) {
 	$var=false;
-	while ($obj=$db->fetch_object($resql))
-	{
+	while ($obj=$db->fetch_object($resql)) {
 		$var=!$var;
 		print '<tr '.$bc[$var].'><td>'.$obj->rootlabel.'</td><td>'.$obj->rootpath.'</td><td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&id='.$obj->rowid.'">'.img_delete().'</a></td></tr>';
 	}
-}
-else
-{
+} else {
 	dol_print_error($db);
 }
 print '</table>';

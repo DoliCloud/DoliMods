@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceNetworking_SourceContext extends Google_Model
 {
-  public $fileName;
+	public $fileName;
 
-  public function setFileName($fileName)
-  {
-    $this->fileName = $fileName;
-  }
-  public function getFileName()
-  {
-    return $this->fileName;
-  }
+	public function setFileName($fileName)
+	{
+		$this->fileName = $fileName;
+	}
+	public function getFileName()
+	{
+		return $this->fileName;
+	}
 }

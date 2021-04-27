@@ -17,32 +17,32 @@
 
 class Google_Service_Testing_ToolResultsExecution extends Google_Model
 {
-  public $executionId;
-  public $historyId;
-  public $projectId;
+	public $executionId;
+	public $historyId;
+	public $projectId;
 
-  public function setExecutionId($executionId)
-  {
-    $this->executionId = $executionId;
-  }
-  public function getExecutionId()
-  {
-    return $this->executionId;
-  }
-  public function setHistoryId($historyId)
-  {
-    $this->historyId = $historyId;
-  }
-  public function getHistoryId()
-  {
-    return $this->historyId;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
+	public function setExecutionId($executionId)
+	{
+		$this->executionId = $executionId;
+	}
+	public function getExecutionId()
+	{
+		return $this->executionId;
+	}
+	public function setHistoryId($historyId)
+	{
+		$this->historyId = $historyId;
+	}
+	public function getHistoryId()
+	{
+		return $this->historyId;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
 }

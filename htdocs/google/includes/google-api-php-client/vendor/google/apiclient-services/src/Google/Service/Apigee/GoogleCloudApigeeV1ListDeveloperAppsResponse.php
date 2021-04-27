@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListDeveloperAppsResponse extends Google_Collection
 {
-  protected $collection_key = 'app';
-  protected $appType = 'Google_Service_Apigee_GoogleCloudApigeeV1DeveloperApp';
-  protected $appDataType = 'array';
+	protected $collection_key = 'app';
+	protected $appType = 'Google_Service_Apigee_GoogleCloudApigeeV1DeveloperApp';
+	protected $appDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1DeveloperApp
-   */
-  public function setApp($app)
-  {
-    $this->app = $app;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1DeveloperApp
-   */
-  public function getApp()
-  {
-    return $this->app;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1DeveloperApp
+	 */
+	public function setApp($app)
+	{
+		$this->app = $app;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DeveloperApp
+	 */
+	public function getApp()
+	{
+		return $this->app;
+	}
 }

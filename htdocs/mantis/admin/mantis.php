@@ -29,18 +29,18 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 dol_include_once('/mantis/class/mantis.class.php');
 
 
@@ -55,82 +55,70 @@ $actiontest=$_POST["test"];
 $actionsave=$_POST["save"];
 
 // Sauvegardes parametres
-if ($actionsave)
-{
-    $i=0;
+if ($actionsave) {
+	$i=0;
 
-    $db->begin();
+	$db->begin();
 
-    $i+=dolibarr_set_const($db,'PHPMANTIS_URL',trim($_POST["phpmantis_url"]),'chaine',0,'',$conf->entity);
-    $i+=dolibarr_set_const($db,'PHPMANTIS_HOST',trim($_POST["phpmantis_host"]),'chaine',0,'',$conf->entity);
-    $i+=dolibarr_set_const($db,'PHPMANTIS_DBNAME',trim($_POST["phpmantis_dbname"]),'chaine',0,'',$conf->entity);
-    $i+=dolibarr_set_const($db,'PHPMANTIS_USER',trim($_POST["phpmantis_user"]),'chaine',0,'',$conf->entity);
-    $i+=dolibarr_set_const($db,'PHPMANTIS_PASS',trim($_POST["phpmantis_pass"]),'chaine',0,'',$conf->entity);
+	$i+=dolibarr_set_const($db, 'PHPMANTIS_URL', trim($_POST["phpmantis_url"]), 'chaine', 0, '', $conf->entity);
+	$i+=dolibarr_set_const($db, 'PHPMANTIS_HOST', trim($_POST["phpmantis_host"]), 'chaine', 0, '', $conf->entity);
+	$i+=dolibarr_set_const($db, 'PHPMANTIS_DBNAME', trim($_POST["phpmantis_dbname"]), 'chaine', 0, '', $conf->entity);
+	$i+=dolibarr_set_const($db, 'PHPMANTIS_USER', trim($_POST["phpmantis_user"]), 'chaine', 0, '', $conf->entity);
+	$i+=dolibarr_set_const($db, 'PHPMANTIS_PASS', trim($_POST["phpmantis_pass"]), 'chaine', 0, '', $conf->entity);
 
-    if ($i >= 5)
-    {
-        $db->commit();
-        $mesg = "<font class=\"ok\">".$langs->trans("MantisSetupSaved")."</font>";
-    }
-    else
-    {
-        $db->rollback();
-        header("Location: ".$_SERVER["PHP_SELF"]);
-        exit;
-    }
-}
-elseif ($actiontest)
-{
-    //$resql=$db->query("select count(*) from llx_const");
-    //print "< ".$db." - ".$db->db." - ".$resql." - ".$db->error()."><br>\n";
+	if ($i >= 5) {
+		$db->commit();
+		$mesg = "<font class=\"ok\">".$langs->trans("MantisSetupSaved")."</font>";
+	} else {
+		$db->rollback();
+		header("Location: ".$_SERVER["PHP_SELF"]);
+		exit;
+	}
+} elseif ($actiontest) {
+	//$resql=$db->query("select count(*) from llx_const");
+	//print "< ".$db." - ".$db->db." - ".$resql." - ".$db->error()."><br>\n";
 
-    // Test de la connexion a la database mantis
-    $conf->mantis->db->type=$dolibarr_main_db_type;
-    $conf->mantis->db->host=$_POST["phpmantis_host"];
-    $conf->mantis->db->port=$_POST["phpmantis_port"];
-    $conf->mantis->db->user=$_POST["phpmantis_user"];
-    $conf->mantis->db->pass=$_POST["phpmantis_pass"];
-    $conf->mantis->db->name=$_POST["phpmantis_dbname"];
+	// Test de la connexion a la database mantis
+	$conf->mantis->db->type=$dolibarr_main_db_type;
+	$conf->mantis->db->host=$_POST["phpmantis_host"];
+	$conf->mantis->db->port=$_POST["phpmantis_port"];
+	$conf->mantis->db->user=$_POST["phpmantis_user"];
+	$conf->mantis->db->pass=$_POST["phpmantis_pass"];
+	$conf->mantis->db->name=$_POST["phpmantis_dbname"];
 
-    $mantis=new Mantis();
+	$mantis=new Mantis();
 
-    //print "D ".$db." - ".$db->db."<br>\n";
-    //print "W ".$mantis->localdb." - ".$mantis->localdb->db."<br>\n";
+	//print "D ".$db." - ".$db->db."<br>\n";
+	//print "W ".$mantis->localdb." - ".$mantis->localdb->db."<br>\n";
 
-    if ($mantis->localdb->connected == 1 && $mantis->localdb->database_selected == 1)
-    {
-        // V�rifie si bonne base
-        $sql="SELECT value FROM mantis_config_table WHERE config_id='database_version'";
-        $resql=$mantis->localdb->query($sql);
-        if ($resql) {
-            $mesg ="<div class=\"ok\">";
-            $mesg.=$langs->trans("MantisTestOk",$_POST["phpmantis_host"],$_POST["phpmantis_dbname"],$_POST["phpmantis_user"]);
-            $mesg.="</div>";
-        }
-        else {
-            $mesg ="<div class=\"error\">";
-            $mesg.=$langs->trans("MantisErrorConnectOkButWrongDatabase");
-            $mesg.="</div>";
-        }
+	if ($mantis->localdb->connected == 1 && $mantis->localdb->database_selected == 1) {
+		// V�rifie si bonne base
+		$sql="SELECT value FROM mantis_config_table WHERE config_id='database_version'";
+		$resql=$mantis->localdb->query($sql);
+		if ($resql) {
+			$mesg ="<div class=\"ok\">";
+			$mesg.=$langs->trans("MantisTestOk", $_POST["phpmantis_host"], $_POST["phpmantis_dbname"], $_POST["phpmantis_user"]);
+			$mesg.="</div>";
+		} else {
+			$mesg ="<div class=\"error\">";
+			$mesg.=$langs->trans("MantisErrorConnectOkButWrongDatabase");
+			$mesg.="</div>";
+		}
 
-        //$mantis->localdb->close();    Ne pas fermer car la conn de mantis est la meme que dolibarr si parametre host/user/pass identique
-    }
-    elseif ($mantis->connected == 1 && $mantis->database_selected != 1)
-    {
-        $mesg ="<div class=\"error\">".$langs->trans("MantisTestKo1",$_POST["phpmantis_host"],$_POST["phpmantis_dbname"]);
-        $mesg.="<br>".$mantis->localdb->error();
-        $mesg.="</div>";
-        //$mantis->localdb->close();    Ne pas fermer car la conn de mantis est la meme que dolibarr si parametre host/user/pass identique
-    }
-    else
-    {
-        $mesg ="<div class=\"error\">".$langs->trans("MantisTestKo2",$_POST["phpmantis_host"],$_POST["phpmantis_user"]);
-        $mesg.="<br>".$mantis->localdb->error();
-        $mesg.="</div>";
-    }
+		//$mantis->localdb->close();    Ne pas fermer car la conn de mantis est la meme que dolibarr si parametre host/user/pass identique
+	} elseif ($mantis->connected == 1 && $mantis->database_selected != 1) {
+		$mesg ="<div class=\"error\">".$langs->trans("MantisTestKo1", $_POST["phpmantis_host"], $_POST["phpmantis_dbname"]);
+		$mesg.="<br>".$mantis->localdb->error();
+		$mesg.="</div>";
+		//$mantis->localdb->close();    Ne pas fermer car la conn de mantis est la meme que dolibarr si parametre host/user/pass identique
+	} else {
+		$mesg ="<div class=\"error\">".$langs->trans("MantisTestKo2", $_POST["phpmantis_host"], $_POST["phpmantis_user"]);
+		$mesg.="<br>".$mantis->localdb->error();
+		$mesg.="</div>";
+	}
 
-    //$resql=$db->query("select count(*) from llx_const");
-    //print "< ".$db." - ".$db->db." - ".$resql." - ".$db->error()."><br>\n";
+	//$resql=$db->query("select count(*) from llx_const");
+	//print "< ".$db." - ".$db->db." - ".$resql." - ".$db->error()."><br>\n";
 }
 
 
@@ -141,7 +129,7 @@ elseif ($actiontest)
 llxHeader();
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("MantisSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("MantisSetup"), $linkback, 'setup');
 print '<br>';
 
 

@@ -17,49 +17,49 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CharacterMaskConfig extends Google_Collection
 {
-  protected $collection_key = 'charactersToIgnore';
-  protected $charactersToIgnoreType = 'Google_Service_DLP_GooglePrivacyDlpV2CharsToIgnore';
-  protected $charactersToIgnoreDataType = 'array';
-  public $maskingCharacter;
-  public $numberToMask;
-  public $reverseOrder;
+	protected $collection_key = 'charactersToIgnore';
+	protected $charactersToIgnoreType = 'Google_Service_DLP_GooglePrivacyDlpV2CharsToIgnore';
+	protected $charactersToIgnoreDataType = 'array';
+	public $maskingCharacter;
+	public $numberToMask;
+	public $reverseOrder;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2CharsToIgnore
-   */
-  public function setCharactersToIgnore($charactersToIgnore)
-  {
-    $this->charactersToIgnore = $charactersToIgnore;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2CharsToIgnore
-   */
-  public function getCharactersToIgnore()
-  {
-    return $this->charactersToIgnore;
-  }
-  public function setMaskingCharacter($maskingCharacter)
-  {
-    $this->maskingCharacter = $maskingCharacter;
-  }
-  public function getMaskingCharacter()
-  {
-    return $this->maskingCharacter;
-  }
-  public function setNumberToMask($numberToMask)
-  {
-    $this->numberToMask = $numberToMask;
-  }
-  public function getNumberToMask()
-  {
-    return $this->numberToMask;
-  }
-  public function setReverseOrder($reverseOrder)
-  {
-    $this->reverseOrder = $reverseOrder;
-  }
-  public function getReverseOrder()
-  {
-    return $this->reverseOrder;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2CharsToIgnore
+	 */
+	public function setCharactersToIgnore($charactersToIgnore)
+	{
+		$this->charactersToIgnore = $charactersToIgnore;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2CharsToIgnore
+	 */
+	public function getCharactersToIgnore()
+	{
+		return $this->charactersToIgnore;
+	}
+	public function setMaskingCharacter($maskingCharacter)
+	{
+		$this->maskingCharacter = $maskingCharacter;
+	}
+	public function getMaskingCharacter()
+	{
+		return $this->maskingCharacter;
+	}
+	public function setNumberToMask($numberToMask)
+	{
+		$this->numberToMask = $numberToMask;
+	}
+	public function getNumberToMask()
+	{
+		return $this->numberToMask;
+	}
+	public function setReverseOrder($reverseOrder)
+	{
+		$this->reverseOrder = $reverseOrder;
+	}
+	public function getReverseOrder()
+	{
+		return $this->reverseOrder;
+	}
 }

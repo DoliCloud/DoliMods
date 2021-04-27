@@ -17,23 +17,23 @@
 
 class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Publisher extends Google_Model
 {
-  public $name;
-  public $site;
+	public $name;
+	public $site;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setSite($site)
-  {
-    $this->site = $site;
-  }
-  public function getSite()
-  {
-    return $this->site;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setSite($site)
+	{
+		$this->site = $site;
+	}
+	public function getSite()
+	{
+		return $this->site;
+	}
 }

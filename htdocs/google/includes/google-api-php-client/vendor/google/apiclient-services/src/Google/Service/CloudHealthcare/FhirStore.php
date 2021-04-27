@@ -17,92 +17,92 @@
 
 class Google_Service_CloudHealthcare_FhirStore extends Google_Collection
 {
-  protected $collection_key = 'streamConfigs';
-  public $disableReferentialIntegrity;
-  public $disableResourceVersioning;
-  public $enableUpdateCreate;
-  public $labels;
-  public $name;
-  protected $notificationConfigType = 'Google_Service_CloudHealthcare_NotificationConfig';
-  protected $notificationConfigDataType = '';
-  protected $streamConfigsType = 'Google_Service_CloudHealthcare_StreamConfig';
-  protected $streamConfigsDataType = 'array';
-  public $version;
+	protected $collection_key = 'streamConfigs';
+	public $disableReferentialIntegrity;
+	public $disableResourceVersioning;
+	public $enableUpdateCreate;
+	public $labels;
+	public $name;
+	protected $notificationConfigType = 'Google_Service_CloudHealthcare_NotificationConfig';
+	protected $notificationConfigDataType = '';
+	protected $streamConfigsType = 'Google_Service_CloudHealthcare_StreamConfig';
+	protected $streamConfigsDataType = 'array';
+	public $version;
 
-  public function setDisableReferentialIntegrity($disableReferentialIntegrity)
-  {
-    $this->disableReferentialIntegrity = $disableReferentialIntegrity;
-  }
-  public function getDisableReferentialIntegrity()
-  {
-    return $this->disableReferentialIntegrity;
-  }
-  public function setDisableResourceVersioning($disableResourceVersioning)
-  {
-    $this->disableResourceVersioning = $disableResourceVersioning;
-  }
-  public function getDisableResourceVersioning()
-  {
-    return $this->disableResourceVersioning;
-  }
-  public function setEnableUpdateCreate($enableUpdateCreate)
-  {
-    $this->enableUpdateCreate = $enableUpdateCreate;
-  }
-  public function getEnableUpdateCreate()
-  {
-    return $this->enableUpdateCreate;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_CloudHealthcare_NotificationConfig
-   */
-  public function setNotificationConfig(Google_Service_CloudHealthcare_NotificationConfig $notificationConfig)
-  {
-    $this->notificationConfig = $notificationConfig;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_NotificationConfig
-   */
-  public function getNotificationConfig()
-  {
-    return $this->notificationConfig;
-  }
-  /**
-   * @param Google_Service_CloudHealthcare_StreamConfig
-   */
-  public function setStreamConfigs($streamConfigs)
-  {
-    $this->streamConfigs = $streamConfigs;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_StreamConfig
-   */
-  public function getStreamConfigs()
-  {
-    return $this->streamConfigs;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setDisableReferentialIntegrity($disableReferentialIntegrity)
+	{
+		$this->disableReferentialIntegrity = $disableReferentialIntegrity;
+	}
+	public function getDisableReferentialIntegrity()
+	{
+		return $this->disableReferentialIntegrity;
+	}
+	public function setDisableResourceVersioning($disableResourceVersioning)
+	{
+		$this->disableResourceVersioning = $disableResourceVersioning;
+	}
+	public function getDisableResourceVersioning()
+	{
+		return $this->disableResourceVersioning;
+	}
+	public function setEnableUpdateCreate($enableUpdateCreate)
+	{
+		$this->enableUpdateCreate = $enableUpdateCreate;
+	}
+	public function getEnableUpdateCreate()
+	{
+		return $this->enableUpdateCreate;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_CloudHealthcare_NotificationConfig
+	 */
+	public function setNotificationConfig(Google_Service_CloudHealthcare_NotificationConfig $notificationConfig)
+	{
+		$this->notificationConfig = $notificationConfig;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_NotificationConfig
+	 */
+	public function getNotificationConfig()
+	{
+		return $this->notificationConfig;
+	}
+	/**
+	 * @param Google_Service_CloudHealthcare_StreamConfig
+	 */
+	public function setStreamConfigs($streamConfigs)
+	{
+		$this->streamConfigs = $streamConfigs;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_StreamConfig
+	 */
+	public function getStreamConfigs()
+	{
+		return $this->streamConfigs;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidPublisher_Track extends Google_Collection
 {
-  protected $collection_key = 'releases';
-  protected $releasesType = 'Google_Service_AndroidPublisher_TrackRelease';
-  protected $releasesDataType = 'array';
-  public $track;
+	protected $collection_key = 'releases';
+	protected $releasesType = 'Google_Service_AndroidPublisher_TrackRelease';
+	protected $releasesDataType = 'array';
+	public $track;
 
-  /**
-   * @param Google_Service_AndroidPublisher_TrackRelease
-   */
-  public function setReleases($releases)
-  {
-    $this->releases = $releases;
-  }
-  /**
-   * @return Google_Service_AndroidPublisher_TrackRelease
-   */
-  public function getReleases()
-  {
-    return $this->releases;
-  }
-  public function setTrack($track)
-  {
-    $this->track = $track;
-  }
-  public function getTrack()
-  {
-    return $this->track;
-  }
+	/**
+	 * @param Google_Service_AndroidPublisher_TrackRelease
+	 */
+	public function setReleases($releases)
+	{
+		$this->releases = $releases;
+	}
+	/**
+	 * @return Google_Service_AndroidPublisher_TrackRelease
+	 */
+	public function getReleases()
+	{
+		return $this->releases;
+	}
+	public function setTrack($track)
+	{
+		$this->track = $track;
+	}
+	public function getTrack()
+	{
+		return $this->track;
+	}
 }

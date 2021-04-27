@@ -17,86 +17,86 @@
 
 class Google_Service_ShoppingContent_OrdersUpdateShipmentRequest extends Google_Model
 {
-  public $carrier;
-  public $deliveryDate;
-  public $lastPickupDate;
-  public $operationId;
-  public $readyPickupDate;
-  public $shipmentId;
-  public $status;
-  public $trackingId;
-  public $undeliveredDate;
+	public $carrier;
+	public $deliveryDate;
+	public $lastPickupDate;
+	public $operationId;
+	public $readyPickupDate;
+	public $shipmentId;
+	public $status;
+	public $trackingId;
+	public $undeliveredDate;
 
-  public function setCarrier($carrier)
-  {
-    $this->carrier = $carrier;
-  }
-  public function getCarrier()
-  {
-    return $this->carrier;
-  }
-  public function setDeliveryDate($deliveryDate)
-  {
-    $this->deliveryDate = $deliveryDate;
-  }
-  public function getDeliveryDate()
-  {
-    return $this->deliveryDate;
-  }
-  public function setLastPickupDate($lastPickupDate)
-  {
-    $this->lastPickupDate = $lastPickupDate;
-  }
-  public function getLastPickupDate()
-  {
-    return $this->lastPickupDate;
-  }
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  public function setReadyPickupDate($readyPickupDate)
-  {
-    $this->readyPickupDate = $readyPickupDate;
-  }
-  public function getReadyPickupDate()
-  {
-    return $this->readyPickupDate;
-  }
-  public function setShipmentId($shipmentId)
-  {
-    $this->shipmentId = $shipmentId;
-  }
-  public function getShipmentId()
-  {
-    return $this->shipmentId;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  public function setTrackingId($trackingId)
-  {
-    $this->trackingId = $trackingId;
-  }
-  public function getTrackingId()
-  {
-    return $this->trackingId;
-  }
-  public function setUndeliveredDate($undeliveredDate)
-  {
-    $this->undeliveredDate = $undeliveredDate;
-  }
-  public function getUndeliveredDate()
-  {
-    return $this->undeliveredDate;
-  }
+	public function setCarrier($carrier)
+	{
+		$this->carrier = $carrier;
+	}
+	public function getCarrier()
+	{
+		return $this->carrier;
+	}
+	public function setDeliveryDate($deliveryDate)
+	{
+		$this->deliveryDate = $deliveryDate;
+	}
+	public function getDeliveryDate()
+	{
+		return $this->deliveryDate;
+	}
+	public function setLastPickupDate($lastPickupDate)
+	{
+		$this->lastPickupDate = $lastPickupDate;
+	}
+	public function getLastPickupDate()
+	{
+		return $this->lastPickupDate;
+	}
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	public function setReadyPickupDate($readyPickupDate)
+	{
+		$this->readyPickupDate = $readyPickupDate;
+	}
+	public function getReadyPickupDate()
+	{
+		return $this->readyPickupDate;
+	}
+	public function setShipmentId($shipmentId)
+	{
+		$this->shipmentId = $shipmentId;
+	}
+	public function getShipmentId()
+	{
+		return $this->shipmentId;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	public function setTrackingId($trackingId)
+	{
+		$this->trackingId = $trackingId;
+	}
+	public function getTrackingId()
+	{
+		return $this->trackingId;
+	}
+	public function setUndeliveredDate($undeliveredDate)
+	{
+		$this->undeliveredDate = $undeliveredDate;
+	}
+	public function getUndeliveredDate()
+	{
+		return $this->undeliveredDate;
+	}
 }

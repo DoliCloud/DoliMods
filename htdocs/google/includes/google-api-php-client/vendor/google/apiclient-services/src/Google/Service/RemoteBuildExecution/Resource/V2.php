@@ -25,26 +25,26 @@
  */
 class Google_Service_RemoteBuildExecution_Resource_V2 extends Google_Service_Resource
 {
-  /**
-   * GetCapabilities returns the server capabilities configuration of the remote
-   * endpoint. Only the capabilities of the services supported by the endpoint
-   * will be returned: * Execution + CAS + Action Cache endpoints should return
-   * both   CacheCapabilities and ExecutionCapabilities. * Execution only
-   * endpoints should return ExecutionCapabilities. * CAS + Action Cache only
-   * endpoints should return CacheCapabilities. (v2.getCapabilities)
-   *
-   * @param string $instanceName The instance of the execution system to operate
-   * against. A server may support multiple instances of the execution system
-   * (with their own workers, storage, caches, etc.). The server MAY require use
-   * of this field to select between them in an implementation-defined fashion,
-   * otherwise it can be omitted.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ServerCapabilities
-   */
-  public function getCapabilities($instanceName, $optParams = array())
-  {
-    $params = array('instanceName' => $instanceName);
-    $params = array_merge($params, $optParams);
-    return $this->call('getCapabilities', array($params), "Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ServerCapabilities");
-  }
+	/**
+	 * GetCapabilities returns the server capabilities configuration of the remote
+	 * endpoint. Only the capabilities of the services supported by the endpoint
+	 * will be returned: * Execution + CAS + Action Cache endpoints should return
+	 * both   CacheCapabilities and ExecutionCapabilities. * Execution only
+	 * endpoints should return ExecutionCapabilities. * CAS + Action Cache only
+	 * endpoints should return CacheCapabilities. (v2.getCapabilities)
+	 *
+	 * @param string $instanceName The instance of the execution system to operate
+	 *                             against. A server may support multiple instances of the execution system
+	 *                             (with their own workers, storage, caches, etc.). The server MAY require use
+	 *                             of this field to select between them in an implementation-defined fashion,
+	 *                             otherwise it can be omitted.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ServerCapabilities
+	 */
+	public function getCapabilities($instanceName, $optParams = array())
+	{
+		$params = array('instanceName' => $instanceName);
+		$params = array_merge($params, $optParams);
+		return $this->call('getCapabilities', array($params), "Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ServerCapabilities");
+	}
 }

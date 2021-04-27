@@ -17,21 +17,21 @@
 
 class Google_Service_Script_GoogleAppsScriptTypeExecutionApiEntryPoint extends Google_Model
 {
-  protected $entryPointConfigType = 'Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig';
-  protected $entryPointConfigDataType = '';
+	protected $entryPointConfigType = 'Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig';
+	protected $entryPointConfigDataType = '';
 
-  /**
-   * @param Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig
-   */
-  public function setEntryPointConfig(Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig $entryPointConfig)
-  {
-    $this->entryPointConfig = $entryPointConfig;
-  }
-  /**
-   * @return Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig
-   */
-  public function getEntryPointConfig()
-  {
-    return $this->entryPointConfig;
-  }
+	/**
+	 * @param Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig
+	 */
+	public function setEntryPointConfig(Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig $entryPointConfig)
+	{
+		$this->entryPointConfig = $entryPointConfig;
+	}
+	/**
+	 * @return Google_Service_Script_GoogleAppsScriptTypeExecutionApiConfig
+	 */
+	public function getEntryPointConfig()
+	{
+		return $this->entryPointConfig;
+	}
 }

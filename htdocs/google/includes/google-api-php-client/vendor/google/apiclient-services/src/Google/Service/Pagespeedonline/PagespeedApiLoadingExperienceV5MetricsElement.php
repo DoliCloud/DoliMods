@@ -17,40 +17,40 @@
 
 class Google_Service_Pagespeedonline_PagespeedApiLoadingExperienceV5MetricsElement extends Google_Collection
 {
-  protected $collection_key = 'distributions';
-  public $category;
-  protected $distributionsType = 'Google_Service_Pagespeedonline_PagespeedApiLoadingExperienceV5MetricsElementDistributions';
-  protected $distributionsDataType = 'array';
-  public $percentile;
+	protected $collection_key = 'distributions';
+	public $category;
+	protected $distributionsType = 'Google_Service_Pagespeedonline_PagespeedApiLoadingExperienceV5MetricsElementDistributions';
+	protected $distributionsDataType = 'array';
+	public $percentile;
 
-  public function setCategory($category)
-  {
-    $this->category = $category;
-  }
-  public function getCategory()
-  {
-    return $this->category;
-  }
-  /**
-   * @param Google_Service_Pagespeedonline_PagespeedApiLoadingExperienceV5MetricsElementDistributions
-   */
-  public function setDistributions($distributions)
-  {
-    $this->distributions = $distributions;
-  }
-  /**
-   * @return Google_Service_Pagespeedonline_PagespeedApiLoadingExperienceV5MetricsElementDistributions
-   */
-  public function getDistributions()
-  {
-    return $this->distributions;
-  }
-  public function setPercentile($percentile)
-  {
-    $this->percentile = $percentile;
-  }
-  public function getPercentile()
-  {
-    return $this->percentile;
-  }
+	public function setCategory($category)
+	{
+		$this->category = $category;
+	}
+	public function getCategory()
+	{
+		return $this->category;
+	}
+	/**
+	 * @param Google_Service_Pagespeedonline_PagespeedApiLoadingExperienceV5MetricsElementDistributions
+	 */
+	public function setDistributions($distributions)
+	{
+		$this->distributions = $distributions;
+	}
+	/**
+	 * @return Google_Service_Pagespeedonline_PagespeedApiLoadingExperienceV5MetricsElementDistributions
+	 */
+	public function getDistributions()
+	{
+		return $this->distributions;
+	}
+	public function setPercentile($percentile)
+	{
+		$this->percentile = $percentile;
+	}
+	public function getPercentile()
+	{
+		return $this->percentile;
+	}
 }

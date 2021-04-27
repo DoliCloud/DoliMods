@@ -28,58 +28,58 @@ $plugin = isset($_GET['plugin']) ? basename(htmlspecialchars($_GET['plugin'])) :
 $script = null;
 
 if ($file != null && $plugin == null) {
-    if (strtolower(substr($file, 0, 6)) == 'jquery') {
-        $script = APP_ROOT.'/js/jQuery/'.$file;
-    } elseif (strtolower(substr($file, 0, 10)) == 'phpsysinfo') {
-        $script = APP_ROOT.'/js/phpSysInfo/'.$file;
-    } else {
-        $script = APP_ROOT.'/js/vendor/'.$file;
-    }
+	if (strtolower(substr($file, 0, 6)) == 'jquery') {
+		$script = APP_ROOT.'/js/jQuery/'.$file;
+	} elseif (strtolower(substr($file, 0, 10)) == 'phpsysinfo') {
+		$script = APP_ROOT.'/js/phpSysInfo/'.$file;
+	} else {
+		$script = APP_ROOT.'/js/vendor/'.$file;
+	}
 } elseif ($file == null && $plugin != null) {
-    $script = APP_ROOT.'/plugins/'.strtolower($plugin).'/js/'.strtolower($plugin);
+	$script = APP_ROOT.'/plugins/'.strtolower($plugin).'/js/'.strtolower($plugin);
 } elseif ($file != null && $plugin != null) {
-    $script = APP_ROOT.'/plugins/'.strtolower($plugin).'/js/'.strtolower($file);
+	$script = APP_ROOT.'/plugins/'.strtolower($plugin).'/js/'.strtolower($file);
 }
 
 if ($script != null) {
-    $scriptjs = $script.'.js';
-    $scriptmin = $script.'.min.js';
-    $compression = false;
+	$scriptjs = $script.'.js';
+	$scriptmin = $script.'.min.js';
+	$compression = false;
 
-    header("content-type: application/x-javascript");
+	header("content-type: application/x-javascript");
 
-    if ((!defined("PSI_DEBUG") || (PSI_DEBUG !== true)) && defined("PSI_JS_COMPRESSION")) {
-        $compression = strtolower(PSI_JS_COMPRESSION);
-    }
-    switch ($compression) {
-        case "normal":
-            if (file_exists($scriptmin) && is_readable($scriptmin)) {
-                $filecontent = file_get_contents($scriptmin);
-                echo $filecontent;
-            } elseif (file_exists($scriptjs) && is_readable($scriptjs)) {
-                $filecontent = file_get_contents($scriptjs);
-                $packer = new JavaScriptPacker($filecontent);
-                echo $packer->pack();
-            }
-            break;
-        case "none":
-            if (file_exists($scriptjs) && is_readable($scriptjs)) {
-                $filecontent = file_get_contents($scriptjs);
-                $packer = new JavaScriptPacker($filecontent, 0);
-                echo $packer->pack();
-            } elseif (file_exists($scriptmin) && is_readable($scriptmin)) {
-                $filecontent = file_get_contents($scriptmin);
-                echo $filecontent;
-            }
-            break;
-        default:
-            if (file_exists($scriptjs) && is_readable($scriptjs)) {
-                $filecontent = file_get_contents($scriptjs);
-            } elseif (file_exists($scriptmin) && is_readable($scriptmin)) {
-                $filecontent = file_get_contents($scriptmin);
-            } else break;
+	if ((!defined("PSI_DEBUG") || (PSI_DEBUG !== true)) && defined("PSI_JS_COMPRESSION")) {
+		$compression = strtolower(PSI_JS_COMPRESSION);
+	}
+	switch ($compression) {
+		case "normal":
+			if (file_exists($scriptmin) && is_readable($scriptmin)) {
+				$filecontent = file_get_contents($scriptmin);
+				echo $filecontent;
+			} elseif (file_exists($scriptjs) && is_readable($scriptjs)) {
+				$filecontent = file_get_contents($scriptjs);
+				$packer = new JavaScriptPacker($filecontent);
+				echo $packer->pack();
+			}
+			break;
+		case "none":
+			if (file_exists($scriptjs) && is_readable($scriptjs)) {
+				$filecontent = file_get_contents($scriptjs);
+				$packer = new JavaScriptPacker($filecontent, 0);
+				echo $packer->pack();
+			} elseif (file_exists($scriptmin) && is_readable($scriptmin)) {
+				$filecontent = file_get_contents($scriptmin);
+				echo $filecontent;
+			}
+			break;
+		default:
+			if (file_exists($scriptjs) && is_readable($scriptjs)) {
+				$filecontent = file_get_contents($scriptjs);
+			} elseif (file_exists($scriptmin) && is_readable($scriptmin)) {
+				$filecontent = file_get_contents($scriptmin);
+			} else break;
 
-            echo $filecontent;
-            break;
-    }
+			echo $filecontent;
+			break;
+	}
 }

@@ -17,58 +17,58 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2SynthesizeSpeechConfig extends Google_Collection
 {
-  protected $collection_key = 'effectsProfileId';
-  public $effectsProfileId;
-  public $pitch;
-  public $speakingRate;
-  protected $voiceType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams';
-  protected $voiceDataType = '';
-  public $volumeGainDb;
+	protected $collection_key = 'effectsProfileId';
+	public $effectsProfileId;
+	public $pitch;
+	public $speakingRate;
+	protected $voiceType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams';
+	protected $voiceDataType = '';
+	public $volumeGainDb;
 
-  public function setEffectsProfileId($effectsProfileId)
-  {
-    $this->effectsProfileId = $effectsProfileId;
-  }
-  public function getEffectsProfileId()
-  {
-    return $this->effectsProfileId;
-  }
-  public function setPitch($pitch)
-  {
-    $this->pitch = $pitch;
-  }
-  public function getPitch()
-  {
-    return $this->pitch;
-  }
-  public function setSpeakingRate($speakingRate)
-  {
-    $this->speakingRate = $speakingRate;
-  }
-  public function getSpeakingRate()
-  {
-    return $this->speakingRate;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams
-   */
-  public function setVoice(Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams $voice)
-  {
-    $this->voice = $voice;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams
-   */
-  public function getVoice()
-  {
-    return $this->voice;
-  }
-  public function setVolumeGainDb($volumeGainDb)
-  {
-    $this->volumeGainDb = $volumeGainDb;
-  }
-  public function getVolumeGainDb()
-  {
-    return $this->volumeGainDb;
-  }
+	public function setEffectsProfileId($effectsProfileId)
+	{
+		$this->effectsProfileId = $effectsProfileId;
+	}
+	public function getEffectsProfileId()
+	{
+		return $this->effectsProfileId;
+	}
+	public function setPitch($pitch)
+	{
+		$this->pitch = $pitch;
+	}
+	public function getPitch()
+	{
+		return $this->pitch;
+	}
+	public function setSpeakingRate($speakingRate)
+	{
+		$this->speakingRate = $speakingRate;
+	}
+	public function getSpeakingRate()
+	{
+		return $this->speakingRate;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams
+	 */
+	public function setVoice(Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams $voice)
+	{
+		$this->voice = $voice;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2VoiceSelectionParams
+	 */
+	public function getVoice()
+	{
+		return $this->voice;
+	}
+	public function setVolumeGainDb($volumeGainDb)
+	{
+		$this->volumeGainDb = $volumeGainDb;
+	}
+	public function getVolumeGainDb()
+	{
+		return $this->volumeGainDb;
+	}
 }

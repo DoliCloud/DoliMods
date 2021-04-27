@@ -17,14 +17,14 @@
 
 class Google_Service_Docs_TableRowStyleSuggestionState extends Google_Model
 {
-  public $minRowHeightSuggested;
+	public $minRowHeightSuggested;
 
-  public function setMinRowHeightSuggested($minRowHeightSuggested)
-  {
-    $this->minRowHeightSuggested = $minRowHeightSuggested;
-  }
-  public function getMinRowHeightSuggested()
-  {
-    return $this->minRowHeightSuggested;
-  }
+	public function setMinRowHeightSuggested($minRowHeightSuggested)
+	{
+		$this->minRowHeightSuggested = $minRowHeightSuggested;
+	}
+	public function getMinRowHeightSuggested()
+	{
+		return $this->minRowHeightSuggested;
+	}
 }

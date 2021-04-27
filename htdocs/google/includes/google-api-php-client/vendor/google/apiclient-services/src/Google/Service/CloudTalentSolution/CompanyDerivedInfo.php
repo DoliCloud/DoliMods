@@ -17,21 +17,21 @@
 
 class Google_Service_CloudTalentSolution_CompanyDerivedInfo extends Google_Model
 {
-  protected $headquartersLocationType = 'Google_Service_CloudTalentSolution_Location';
-  protected $headquartersLocationDataType = '';
+	protected $headquartersLocationType = 'Google_Service_CloudTalentSolution_Location';
+	protected $headquartersLocationDataType = '';
 
-  /**
-   * @param Google_Service_CloudTalentSolution_Location
-   */
-  public function setHeadquartersLocation(Google_Service_CloudTalentSolution_Location $headquartersLocation)
-  {
-    $this->headquartersLocation = $headquartersLocation;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_Location
-   */
-  public function getHeadquartersLocation()
-  {
-    return $this->headquartersLocation;
-  }
+	/**
+	 * @param Google_Service_CloudTalentSolution_Location
+	 */
+	public function setHeadquartersLocation(Google_Service_CloudTalentSolution_Location $headquartersLocation)
+	{
+		$this->headquartersLocation = $headquartersLocation;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_Location
+	 */
+	public function getHeadquartersLocation()
+	{
+		return $this->headquartersLocation;
+	}
 }

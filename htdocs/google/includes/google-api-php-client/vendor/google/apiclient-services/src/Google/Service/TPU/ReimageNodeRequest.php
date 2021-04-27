@@ -17,14 +17,14 @@
 
 class Google_Service_TPU_ReimageNodeRequest extends Google_Model
 {
-  public $tensorflowVersion;
+	public $tensorflowVersion;
 
-  public function setTensorflowVersion($tensorflowVersion)
-  {
-    $this->tensorflowVersion = $tensorflowVersion;
-  }
-  public function getTensorflowVersion()
-  {
-    return $this->tensorflowVersion;
-  }
+	public function setTensorflowVersion($tensorflowVersion)
+	{
+		$this->tensorflowVersion = $tensorflowVersion;
+	}
+	public function getTensorflowVersion()
+	{
+		return $this->tensorflowVersion;
+	}
 }

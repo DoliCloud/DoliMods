@@ -17,31 +17,31 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ListTaxonomiesResponse extends Google_Collection
 {
-  protected $collection_key = 'taxonomies';
-  public $nextPageToken;
-  protected $taxonomiesType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy';
-  protected $taxonomiesDataType = 'array';
+	protected $collection_key = 'taxonomies';
+	public $nextPageToken;
+	protected $taxonomiesType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy';
+	protected $taxonomiesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy
-   */
-  public function setTaxonomies($taxonomies)
-  {
-    $this->taxonomies = $taxonomies;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy
-   */
-  public function getTaxonomies()
-  {
-    return $this->taxonomies;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy
+	 */
+	public function setTaxonomies($taxonomies)
+	{
+		$this->taxonomies = $taxonomies;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Taxonomy
+	 */
+	public function getTaxonomies()
+	{
+		return $this->taxonomies;
+	}
 }

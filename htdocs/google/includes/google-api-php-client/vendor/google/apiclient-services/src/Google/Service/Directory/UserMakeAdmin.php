@@ -17,14 +17,14 @@
 
 class Google_Service_Directory_UserMakeAdmin extends Google_Model
 {
-  public $status;
+	public $status;
 
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

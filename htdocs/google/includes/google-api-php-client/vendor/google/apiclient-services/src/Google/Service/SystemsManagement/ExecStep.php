@@ -17,37 +17,37 @@
 
 class Google_Service_SystemsManagement_ExecStep extends Google_Model
 {
-  protected $linuxExecStepConfigType = 'Google_Service_SystemsManagement_ExecStepConfig';
-  protected $linuxExecStepConfigDataType = '';
-  protected $windowsExecStepConfigType = 'Google_Service_SystemsManagement_ExecStepConfig';
-  protected $windowsExecStepConfigDataType = '';
+	protected $linuxExecStepConfigType = 'Google_Service_SystemsManagement_ExecStepConfig';
+	protected $linuxExecStepConfigDataType = '';
+	protected $windowsExecStepConfigType = 'Google_Service_SystemsManagement_ExecStepConfig';
+	protected $windowsExecStepConfigDataType = '';
 
-  /**
-   * @param Google_Service_SystemsManagement_ExecStepConfig
-   */
-  public function setLinuxExecStepConfig(Google_Service_SystemsManagement_ExecStepConfig $linuxExecStepConfig)
-  {
-    $this->linuxExecStepConfig = $linuxExecStepConfig;
-  }
-  /**
-   * @return Google_Service_SystemsManagement_ExecStepConfig
-   */
-  public function getLinuxExecStepConfig()
-  {
-    return $this->linuxExecStepConfig;
-  }
-  /**
-   * @param Google_Service_SystemsManagement_ExecStepConfig
-   */
-  public function setWindowsExecStepConfig(Google_Service_SystemsManagement_ExecStepConfig $windowsExecStepConfig)
-  {
-    $this->windowsExecStepConfig = $windowsExecStepConfig;
-  }
-  /**
-   * @return Google_Service_SystemsManagement_ExecStepConfig
-   */
-  public function getWindowsExecStepConfig()
-  {
-    return $this->windowsExecStepConfig;
-  }
+	/**
+	 * @param Google_Service_SystemsManagement_ExecStepConfig
+	 */
+	public function setLinuxExecStepConfig(Google_Service_SystemsManagement_ExecStepConfig $linuxExecStepConfig)
+	{
+		$this->linuxExecStepConfig = $linuxExecStepConfig;
+	}
+	/**
+	 * @return Google_Service_SystemsManagement_ExecStepConfig
+	 */
+	public function getLinuxExecStepConfig()
+	{
+		return $this->linuxExecStepConfig;
+	}
+	/**
+	 * @param Google_Service_SystemsManagement_ExecStepConfig
+	 */
+	public function setWindowsExecStepConfig(Google_Service_SystemsManagement_ExecStepConfig $windowsExecStepConfig)
+	{
+		$this->windowsExecStepConfig = $windowsExecStepConfig;
+	}
+	/**
+	 * @return Google_Service_SystemsManagement_ExecStepConfig
+	 */
+	public function getWindowsExecStepConfig()
+	{
+		return $this->windowsExecStepConfig;
+	}
 }

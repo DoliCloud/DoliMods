@@ -17,40 +17,40 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1SessionEntityType extends Google_Collection
 {
-  protected $collection_key = 'entities';
-  protected $entitiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity';
-  protected $entitiesDataType = 'array';
-  public $entityOverrideMode;
-  public $name;
+	protected $collection_key = 'entities';
+	protected $entitiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity';
+	protected $entitiesDataType = 'array';
+	public $entityOverrideMode;
+	public $name;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity
-   */
-  public function setEntities($entities)
-  {
-    $this->entities = $entities;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity
-   */
-  public function getEntities()
-  {
-    return $this->entities;
-  }
-  public function setEntityOverrideMode($entityOverrideMode)
-  {
-    $this->entityOverrideMode = $entityOverrideMode;
-  }
-  public function getEntityOverrideMode()
-  {
-    return $this->entityOverrideMode;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity
+	 */
+	public function setEntities($entities)
+	{
+		$this->entities = $entities;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity
+	 */
+	public function getEntities()
+	{
+		return $this->entities;
+	}
+	public function setEntityOverrideMode($entityOverrideMode)
+	{
+		$this->entityOverrideMode = $entityOverrideMode;
+	}
+	public function getEntityOverrideMode()
+	{
+		return $this->entityOverrideMode;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

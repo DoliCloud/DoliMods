@@ -17,66 +17,66 @@
 
 class Google_Service_Compute_GuestAttributes extends Google_Model
 {
-  public $kind;
-  public $queryPath;
-  protected $queryValueType = 'Google_Service_Compute_GuestAttributesValue';
-  protected $queryValueDataType = '';
-  public $selfLink;
-  public $variableKey;
-  public $variableValue;
+	public $kind;
+	public $queryPath;
+	protected $queryValueType = 'Google_Service_Compute_GuestAttributesValue';
+	protected $queryValueDataType = '';
+	public $selfLink;
+	public $variableKey;
+	public $variableValue;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setQueryPath($queryPath)
-  {
-    $this->queryPath = $queryPath;
-  }
-  public function getQueryPath()
-  {
-    return $this->queryPath;
-  }
-  /**
-   * @param Google_Service_Compute_GuestAttributesValue
-   */
-  public function setQueryValue(Google_Service_Compute_GuestAttributesValue $queryValue)
-  {
-    $this->queryValue = $queryValue;
-  }
-  /**
-   * @return Google_Service_Compute_GuestAttributesValue
-   */
-  public function getQueryValue()
-  {
-    return $this->queryValue;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
-  public function setVariableKey($variableKey)
-  {
-    $this->variableKey = $variableKey;
-  }
-  public function getVariableKey()
-  {
-    return $this->variableKey;
-  }
-  public function setVariableValue($variableValue)
-  {
-    $this->variableValue = $variableValue;
-  }
-  public function getVariableValue()
-  {
-    return $this->variableValue;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setQueryPath($queryPath)
+	{
+		$this->queryPath = $queryPath;
+	}
+	public function getQueryPath()
+	{
+		return $this->queryPath;
+	}
+	/**
+	 * @param Google_Service_Compute_GuestAttributesValue
+	 */
+	public function setQueryValue(Google_Service_Compute_GuestAttributesValue $queryValue)
+	{
+		$this->queryValue = $queryValue;
+	}
+	/**
+	 * @return Google_Service_Compute_GuestAttributesValue
+	 */
+	public function getQueryValue()
+	{
+		return $this->queryValue;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
+	public function setVariableKey($variableKey)
+	{
+		$this->variableKey = $variableKey;
+	}
+	public function getVariableKey()
+	{
+		return $this->variableKey;
+	}
+	public function setVariableValue($variableValue)
+	{
+		$this->variableValue = $variableValue;
+	}
+	public function getVariableValue()
+	{
+		return $this->variableValue;
+	}
 }

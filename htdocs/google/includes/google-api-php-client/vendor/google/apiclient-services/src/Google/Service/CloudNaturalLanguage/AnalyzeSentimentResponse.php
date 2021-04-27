@@ -17,47 +17,47 @@
 
 class Google_Service_CloudNaturalLanguage_AnalyzeSentimentResponse extends Google_Collection
 {
-  protected $collection_key = 'sentences';
-  protected $documentSentimentType = 'Google_Service_CloudNaturalLanguage_Sentiment';
-  protected $documentSentimentDataType = '';
-  public $language;
-  protected $sentencesType = 'Google_Service_CloudNaturalLanguage_Sentence';
-  protected $sentencesDataType = 'array';
+	protected $collection_key = 'sentences';
+	protected $documentSentimentType = 'Google_Service_CloudNaturalLanguage_Sentiment';
+	protected $documentSentimentDataType = '';
+	public $language;
+	protected $sentencesType = 'Google_Service_CloudNaturalLanguage_Sentence';
+	protected $sentencesDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudNaturalLanguage_Sentiment
-   */
-  public function setDocumentSentiment(Google_Service_CloudNaturalLanguage_Sentiment $documentSentiment)
-  {
-    $this->documentSentiment = $documentSentiment;
-  }
-  /**
-   * @return Google_Service_CloudNaturalLanguage_Sentiment
-   */
-  public function getDocumentSentiment()
-  {
-    return $this->documentSentiment;
-  }
-  public function setLanguage($language)
-  {
-    $this->language = $language;
-  }
-  public function getLanguage()
-  {
-    return $this->language;
-  }
-  /**
-   * @param Google_Service_CloudNaturalLanguage_Sentence
-   */
-  public function setSentences($sentences)
-  {
-    $this->sentences = $sentences;
-  }
-  /**
-   * @return Google_Service_CloudNaturalLanguage_Sentence
-   */
-  public function getSentences()
-  {
-    return $this->sentences;
-  }
+	/**
+	 * @param Google_Service_CloudNaturalLanguage_Sentiment
+	 */
+	public function setDocumentSentiment(Google_Service_CloudNaturalLanguage_Sentiment $documentSentiment)
+	{
+		$this->documentSentiment = $documentSentiment;
+	}
+	/**
+	 * @return Google_Service_CloudNaturalLanguage_Sentiment
+	 */
+	public function getDocumentSentiment()
+	{
+		return $this->documentSentiment;
+	}
+	public function setLanguage($language)
+	{
+		$this->language = $language;
+	}
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+	/**
+	 * @param Google_Service_CloudNaturalLanguage_Sentence
+	 */
+	public function setSentences($sentences)
+	{
+		$this->sentences = $sentences;
+	}
+	/**
+	 * @return Google_Service_CloudNaturalLanguage_Sentence
+	 */
+	public function getSentences()
+	{
+		return $this->sentences;
+	}
 }

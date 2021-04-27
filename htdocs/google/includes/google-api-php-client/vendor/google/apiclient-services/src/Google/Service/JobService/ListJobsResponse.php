@@ -17,47 +17,47 @@
 
 class Google_Service_JobService_ListJobsResponse extends Google_Collection
 {
-  protected $collection_key = 'jobs';
-  protected $jobsType = 'Google_Service_JobService_Job';
-  protected $jobsDataType = 'array';
-  protected $metadataType = 'Google_Service_JobService_ResponseMetadata';
-  protected $metadataDataType = '';
-  public $nextPageToken;
+	protected $collection_key = 'jobs';
+	protected $jobsType = 'Google_Service_JobService_Job';
+	protected $jobsDataType = 'array';
+	protected $metadataType = 'Google_Service_JobService_ResponseMetadata';
+	protected $metadataDataType = '';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_JobService_Job
-   */
-  public function setJobs($jobs)
-  {
-    $this->jobs = $jobs;
-  }
-  /**
-   * @return Google_Service_JobService_Job
-   */
-  public function getJobs()
-  {
-    return $this->jobs;
-  }
-  /**
-   * @param Google_Service_JobService_ResponseMetadata
-   */
-  public function setMetadata(Google_Service_JobService_ResponseMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_JobService_ResponseMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_JobService_Job
+	 */
+	public function setJobs($jobs)
+	{
+		$this->jobs = $jobs;
+	}
+	/**
+	 * @return Google_Service_JobService_Job
+	 */
+	public function getJobs()
+	{
+		return $this->jobs;
+	}
+	/**
+	 * @param Google_Service_JobService_ResponseMetadata
+	 */
+	public function setMetadata(Google_Service_JobService_ResponseMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_JobService_ResponseMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Docs_ReplaceImageRequest extends Google_Model
 {
-  public $imageObjectId;
-  public $imageReplaceMethod;
-  public $uri;
+	public $imageObjectId;
+	public $imageReplaceMethod;
+	public $uri;
 
-  public function setImageObjectId($imageObjectId)
-  {
-    $this->imageObjectId = $imageObjectId;
-  }
-  public function getImageObjectId()
-  {
-    return $this->imageObjectId;
-  }
-  public function setImageReplaceMethod($imageReplaceMethod)
-  {
-    $this->imageReplaceMethod = $imageReplaceMethod;
-  }
-  public function getImageReplaceMethod()
-  {
-    return $this->imageReplaceMethod;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	public function setImageObjectId($imageObjectId)
+	{
+		$this->imageObjectId = $imageObjectId;
+	}
+	public function getImageObjectId()
+	{
+		return $this->imageObjectId;
+	}
+	public function setImageReplaceMethod($imageReplaceMethod)
+	{
+		$this->imageReplaceMethod = $imageReplaceMethod;
+	}
+	public function getImageReplaceMethod()
+	{
+		return $this->imageReplaceMethod;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

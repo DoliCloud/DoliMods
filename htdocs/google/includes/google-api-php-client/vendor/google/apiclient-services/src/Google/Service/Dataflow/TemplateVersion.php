@@ -17,94 +17,94 @@
 
 class Google_Service_Dataflow_TemplateVersion extends Google_Collection
 {
-  protected $collection_key = 'tags';
-  protected $artifactType = 'Google_Service_Dataflow_Artifact';
-  protected $artifactDataType = '';
-  public $createTime;
-  public $description;
-  public $displayName;
-  public $labels;
-  public $projectId;
-  public $tags;
-  public $type;
-  public $versionId;
+	protected $collection_key = 'tags';
+	protected $artifactType = 'Google_Service_Dataflow_Artifact';
+	protected $artifactDataType = '';
+	public $createTime;
+	public $description;
+	public $displayName;
+	public $labels;
+	public $projectId;
+	public $tags;
+	public $type;
+	public $versionId;
 
-  /**
-   * @param Google_Service_Dataflow_Artifact
-   */
-  public function setArtifact(Google_Service_Dataflow_Artifact $artifact)
-  {
-    $this->artifact = $artifact;
-  }
-  /**
-   * @return Google_Service_Dataflow_Artifact
-   */
-  public function getArtifact()
-  {
-    return $this->artifact;
-  }
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setTags($tags)
-  {
-    $this->tags = $tags;
-  }
-  public function getTags()
-  {
-    return $this->tags;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setVersionId($versionId)
-  {
-    $this->versionId = $versionId;
-  }
-  public function getVersionId()
-  {
-    return $this->versionId;
-  }
+	/**
+	 * @param Google_Service_Dataflow_Artifact
+	 */
+	public function setArtifact(Google_Service_Dataflow_Artifact $artifact)
+	{
+		$this->artifact = $artifact;
+	}
+	/**
+	 * @return Google_Service_Dataflow_Artifact
+	 */
+	public function getArtifact()
+	{
+		return $this->artifact;
+	}
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setTags($tags)
+	{
+		$this->tags = $tags;
+	}
+	public function getTags()
+	{
+		return $this->tags;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setVersionId($versionId)
+	{
+		$this->versionId = $versionId;
+	}
+	public function getVersionId()
+	{
+		return $this->versionId;
+	}
 }

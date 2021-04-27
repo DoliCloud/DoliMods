@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceControl_QuotaProperties extends Google_Model
 {
-  public $quotaMode;
+	public $quotaMode;
 
-  public function setQuotaMode($quotaMode)
-  {
-    $this->quotaMode = $quotaMode;
-  }
-  public function getQuotaMode()
-  {
-    return $this->quotaMode;
-  }
+	public function setQuotaMode($quotaMode)
+	{
+		$this->quotaMode = $quotaMode;
+	}
+	public function getQuotaMode()
+	{
+		return $this->quotaMode;
+	}
 }

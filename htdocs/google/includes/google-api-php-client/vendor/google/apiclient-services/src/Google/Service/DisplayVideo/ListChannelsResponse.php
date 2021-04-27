@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListChannelsResponse extends Google_Collection
 {
-  protected $collection_key = 'channels';
-  protected $channelsType = 'Google_Service_DisplayVideo_Channel';
-  protected $channelsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'channels';
+	protected $channelsType = 'Google_Service_DisplayVideo_Channel';
+	protected $channelsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_Channel
-   */
-  public function setChannels($channels)
-  {
-    $this->channels = $channels;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_Channel
-   */
-  public function getChannels()
-  {
-    return $this->channels;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_Channel
+	 */
+	public function setChannels($channels)
+	{
+		$this->channels = $channels;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_Channel
+	 */
+	public function getChannels()
+	{
+		return $this->channels;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

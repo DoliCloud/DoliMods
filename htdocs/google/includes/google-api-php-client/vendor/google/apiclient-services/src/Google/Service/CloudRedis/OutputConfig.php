@@ -17,21 +17,21 @@
 
 class Google_Service_CloudRedis_OutputConfig extends Google_Model
 {
-  protected $gcsDestinationType = 'Google_Service_CloudRedis_GcsDestination';
-  protected $gcsDestinationDataType = '';
+	protected $gcsDestinationType = 'Google_Service_CloudRedis_GcsDestination';
+	protected $gcsDestinationDataType = '';
 
-  /**
-   * @param Google_Service_CloudRedis_GcsDestination
-   */
-  public function setGcsDestination(Google_Service_CloudRedis_GcsDestination $gcsDestination)
-  {
-    $this->gcsDestination = $gcsDestination;
-  }
-  /**
-   * @return Google_Service_CloudRedis_GcsDestination
-   */
-  public function getGcsDestination()
-  {
-    return $this->gcsDestination;
-  }
+	/**
+	 * @param Google_Service_CloudRedis_GcsDestination
+	 */
+	public function setGcsDestination(Google_Service_CloudRedis_GcsDestination $gcsDestination)
+	{
+		$this->gcsDestination = $gcsDestination;
+	}
+	/**
+	 * @return Google_Service_CloudRedis_GcsDestination
+	 */
+	public function getGcsDestination()
+	{
+		return $this->gcsDestination;
+	}
 }

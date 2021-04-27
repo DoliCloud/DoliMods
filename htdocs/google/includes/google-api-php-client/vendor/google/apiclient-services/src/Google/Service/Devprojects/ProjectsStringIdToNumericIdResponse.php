@@ -17,23 +17,23 @@
 
 class Google_Service_Devprojects_ProjectsStringIdToNumericIdResponse extends Google_Model
 {
-  public $kind;
-  public $numericId;
+	public $kind;
+	public $numericId;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNumericId($numericId)
-  {
-    $this->numericId = $numericId;
-  }
-  public function getNumericId()
-  {
-    return $this->numericId;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNumericId($numericId)
+	{
+		$this->numericId = $numericId;
+	}
+	public function getNumericId()
+	{
+		return $this->numericId;
+	}
 }

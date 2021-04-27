@@ -17,23 +17,23 @@
 
 class Google_Service_AdExchangeBuyerII_RelativeDateRange extends Google_Model
 {
-  public $durationDays;
-  public $offsetDays;
+	public $durationDays;
+	public $offsetDays;
 
-  public function setDurationDays($durationDays)
-  {
-    $this->durationDays = $durationDays;
-  }
-  public function getDurationDays()
-  {
-    return $this->durationDays;
-  }
-  public function setOffsetDays($offsetDays)
-  {
-    $this->offsetDays = $offsetDays;
-  }
-  public function getOffsetDays()
-  {
-    return $this->offsetDays;
-  }
+	public function setDurationDays($durationDays)
+	{
+		$this->durationDays = $durationDays;
+	}
+	public function getDurationDays()
+	{
+		return $this->durationDays;
+	}
+	public function setOffsetDays($offsetDays)
+	{
+		$this->offsetDays = $offsetDays;
+	}
+	public function getOffsetDays()
+	{
+		return $this->offsetDays;
+	}
 }

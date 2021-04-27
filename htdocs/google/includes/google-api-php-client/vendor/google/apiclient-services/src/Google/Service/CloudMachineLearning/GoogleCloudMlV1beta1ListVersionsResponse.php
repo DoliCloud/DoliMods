@@ -17,25 +17,25 @@
 
 class Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1ListVersionsResponse extends Google_Collection
 {
-  protected $collection_key = 'versions';
-  public $nextPageToken;
-  protected $versionsType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version';
-  protected $versionsDataType = 'array';
+	protected $collection_key = 'versions';
+	public $nextPageToken;
+	protected $versionsType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version';
+	protected $versionsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setVersions($versions)
-  {
-    $this->versions = $versions;
-  }
-  public function getVersions()
-  {
-    return $this->versions;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setVersions($versions)
+	{
+		$this->versions = $versions;
+	}
+	public function getVersions()
+	{
+		return $this->versions;
+	}
 }

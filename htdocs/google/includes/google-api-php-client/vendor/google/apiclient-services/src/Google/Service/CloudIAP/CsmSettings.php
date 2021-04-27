@@ -17,14 +17,14 @@
 
 class Google_Service_CloudIAP_CsmSettings extends Google_Model
 {
-  public $rctokenAud;
+	public $rctokenAud;
 
-  public function setRctokenAud($rctokenAud)
-  {
-    $this->rctokenAud = $rctokenAud;
-  }
-  public function getRctokenAud()
-  {
-    return $this->rctokenAud;
-  }
+	public function setRctokenAud($rctokenAud)
+	{
+		$this->rctokenAud = $rctokenAud;
+	}
+	public function getRctokenAud()
+	{
+		return $this->rctokenAud;
+	}
 }

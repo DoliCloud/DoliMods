@@ -17,14 +17,14 @@
 
 class Google_Service_Storage_BucketBilling extends Google_Model
 {
-  public $requesterPays;
+	public $requesterPays;
 
-  public function setRequesterPays($requesterPays)
-  {
-    $this->requesterPays = $requesterPays;
-  }
-  public function getRequesterPays()
-  {
-    return $this->requesterPays;
-  }
+	public function setRequesterPays($requesterPays)
+	{
+		$this->requesterPays = $requesterPays;
+	}
+	public function getRequesterPays()
+	{
+		return $this->requesterPays;
+	}
 }

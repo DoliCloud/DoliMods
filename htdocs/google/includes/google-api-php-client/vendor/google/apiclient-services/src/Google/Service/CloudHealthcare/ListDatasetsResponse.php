@@ -17,31 +17,31 @@
 
 class Google_Service_CloudHealthcare_ListDatasetsResponse extends Google_Collection
 {
-  protected $collection_key = 'datasets';
-  protected $datasetsType = 'Google_Service_CloudHealthcare_Dataset';
-  protected $datasetsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'datasets';
+	protected $datasetsType = 'Google_Service_CloudHealthcare_Dataset';
+	protected $datasetsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudHealthcare_Dataset
-   */
-  public function setDatasets($datasets)
-  {
-    $this->datasets = $datasets;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_Dataset
-   */
-  public function getDatasets()
-  {
-    return $this->datasets;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudHealthcare_Dataset
+	 */
+	public function setDatasets($datasets)
+	{
+		$this->datasets = $datasets;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_Dataset
+	 */
+	public function getDatasets()
+	{
+		return $this->datasets;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

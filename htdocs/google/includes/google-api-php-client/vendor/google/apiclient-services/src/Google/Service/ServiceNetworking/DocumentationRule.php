@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceNetworking_DocumentationRule extends Google_Model
 {
-  public $deprecationDescription;
-  public $description;
-  public $selector;
+	public $deprecationDescription;
+	public $description;
+	public $selector;
 
-  public function setDeprecationDescription($deprecationDescription)
-  {
-    $this->deprecationDescription = $deprecationDescription;
-  }
-  public function getDeprecationDescription()
-  {
-    return $this->deprecationDescription;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setSelector($selector)
-  {
-    $this->selector = $selector;
-  }
-  public function getSelector()
-  {
-    return $this->selector;
-  }
+	public function setDeprecationDescription($deprecationDescription)
+	{
+		$this->deprecationDescription = $deprecationDescription;
+	}
+	public function getDeprecationDescription()
+	{
+		return $this->deprecationDescription;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setSelector($selector)
+	{
+		$this->selector = $selector;
+	}
+	public function getSelector()
+	{
+		return $this->selector;
+	}
 }

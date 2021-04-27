@@ -17,32 +17,32 @@
 
 class Google_Service_Games_RevisionCheckResponse extends Google_Model
 {
-  public $apiVersion;
-  public $kind;
-  public $revisionStatus;
+	public $apiVersion;
+	public $kind;
+	public $revisionStatus;
 
-  public function setApiVersion($apiVersion)
-  {
-    $this->apiVersion = $apiVersion;
-  }
-  public function getApiVersion()
-  {
-    return $this->apiVersion;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setRevisionStatus($revisionStatus)
-  {
-    $this->revisionStatus = $revisionStatus;
-  }
-  public function getRevisionStatus()
-  {
-    return $this->revisionStatus;
-  }
+	public function setApiVersion($apiVersion)
+	{
+		$this->apiVersion = $apiVersion;
+	}
+	public function getApiVersion()
+	{
+		return $this->apiVersion;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setRevisionStatus($revisionStatus)
+	{
+		$this->revisionStatus = $revisionStatus;
+	}
+	public function getRevisionStatus()
+	{
+		return $this->revisionStatus;
+	}
 }

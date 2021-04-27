@@ -28,19 +28,19 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && @file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && @file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && @file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && @file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php";
 
 if (!$user->admin) accessforbidden();
 
@@ -57,8 +57,7 @@ $value=GETPOST('value', 'nohtml');
 $valuetest=GETPOST('valuetest', 'nohtml');
 $level=GETPOST('level', 'int');
 
-if (empty($conf->numberwords->enabled))
-{
+if (empty($conf->numberwords->enabled)) {
 	print "Error: Module is not enabled\n";
 	exit;
 }
@@ -70,38 +69,30 @@ if (empty($conf->numberwords->enabled))
 
 // Activate a model
 if ($action == 'set') {
-    $ret = dolibarr_set_const($db, $value, 1, 'chaine', 0, '', $conf->entity);
-}
-elseif ($action == 'del') {
-    $ret = dolibarr_del_const($db, $value, $conf->entity);
+	$ret = dolibarr_set_const($db, $value, 1, 'chaine', 0, '', $conf->entity);
+} elseif ($action == 'del') {
+	$ret = dolibarr_del_const($db, $value, $conf->entity);
 }
 
-if ($action == 'test')
-{
-	if (trim($valuetest) == '')
-	{
-		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Example")),'errors');
-	}
-	else
-	{
+if ($action == 'test') {
+	if (trim($valuetest) == '') {
+		setEventMessage($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Example")), 'errors');
+	} else {
 		if ($_POST["lang_id"]) $outputlangs->setDefaultLang($_POST["lang_id"]);
 
 		$object = new StdClass();
 		$object->id = 1;
-		if ($level)
-		{
+		if ($level) {
 			$object->total_ttc=price2num($valuetest);
 			$source='__AMOUNT_TEXT__';
-		}
-		else
-		{
+		} else {
 			$object->number=price2num($valuetest);
 			$source='__NUMBER_WORDS__';
 		}
 
 		$substitutionarray=array();
-	    complete_substitutions_array($substitutionarray, $outputlangs, $object);
-		$newvaltest=make_substitutions($source,$substitutionarray);
+		complete_substitutions_array($substitutionarray, $outputlangs, $object);
+		$newvaltest=make_substitutions($source, $substitutionarray);
 	}
 }
 
@@ -123,7 +114,7 @@ $substitutionarray=array();
 complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("NumberWordsSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("NumberWordsSetup"), $linkback, 'setup');
 
 print '<span class="opacitymedium">'.$langs->trans("DescNumberWords").'</span><br>';
 print '<br>';
@@ -152,25 +143,23 @@ print $langs->trans("NUMBERWORDS_USE_CURRENCY_SYMBOL");
 
 // Active
 if (! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
-    print '<a href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
-    print img_picto($langs->trans("Enabled"), 'switch_on');
-    print '</a>';
+	print '<a href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
+	print img_picto($langs->trans("Enabled"), 'switch_on');
+	print '</a>';
 
-    print '<br>';
+	print '<br>';
 
-    print $langs->trans("NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL");
-    // Active
-    if (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL)) {
-        print '<a href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
-        print img_picto($langs->trans("Enabled"), 'switch_on');
-        print '</a>';
-    }
-    else {
-        print '<a href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
-    }
-}
-else {
-    print '<a href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
+	print $langs->trans("NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL");
+	// Active
+	if (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL)) {
+		print '<a href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
+		print img_picto($langs->trans("Enabled"), 'switch_on');
+		print '</a>';
+	} else {
+		print '<a href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
+	}
+} else {
+	print '<a href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
 }
 print '<br>';
 
@@ -189,14 +178,14 @@ print '<tr class="oddeven"><td width="140">'.$langs->trans("Number").'</td>';
 print '<td>'.$object->number.'</td>';
 print '<td>'.$outputlangs->defaultlang.'</td>';
 print '<td>&nbsp;</td>';
-$newval=make_substitutions('__NUMBER_WORDS__',$substitutionarray);
+$newval=make_substitutions('__NUMBER_WORDS__', $substitutionarray);
 print '<td>'.$newval.'</td></tr>';
 
 print '<tr class="oddeven"><td width="140">'.$langs->trans("Amount").'</td>';
 print '<td>'.$object->total_ttc.'</td>';
 print '<td>'.$outputlangs->defaultlang.'</td>';
 print '<td>&nbsp;</td>';
-$newval=make_substitutions('__AMOUNT_TEXT__',$substitutionarray);
+$newval=make_substitutions('__AMOUNT_TEXT__', $substitutionarray);
 print '<td>'.$newval.'</td></tr>';
 
 print '<tr class="oddeven">';
@@ -207,7 +196,7 @@ print '</select>';
 print '</td>';
 print '<td><input type="text" name="valuetest" class="flat" value="'.$valuetest.'"></td>';
 print '<td>';
-print $htmlother->select_language(GETPOST('lang_id','alpha')?GETPOST('lang_id','alpha'):$langs->defaultlang,'lang_id');
+print $htmlother->select_language(GETPOST('lang_id', 'alpha')?GETPOST('lang_id', 'alpha'):$langs->defaultlang, 'lang_id');
 print '</td>';
 print '<td><input type="submit" class="button" value="'.$langs->trans("ToTest").'"></td>';
 print '<td><strong>'.$newvaltest.'</strong>';
@@ -222,15 +211,11 @@ dol_fiche_end();
 
 // Warning on accurancy
 list($whole, $decimal) = explode('.', $value);
-if ($level)
-{
-	if (strlen($decimal) > $conf->global->MAIN_MAX_DECIMALS_TOT)
-	{
+if ($level) {
+	if (strlen($decimal) > $conf->global->MAIN_MAX_DECIMALS_TOT) {
 		print '<font class="warning">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': '.$conf->global->MAIN_MAX_DECIMALS_TOT.'</font>';
 		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
-	}
-	else
-	{
+	} else {
 		print '<font class="info">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': '.$conf->global->MAIN_MAX_DECIMALS_TOT.'</font>';
 		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
 	}

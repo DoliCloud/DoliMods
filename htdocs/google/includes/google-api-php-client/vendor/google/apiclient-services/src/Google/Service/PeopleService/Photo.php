@@ -17,39 +17,39 @@
 
 class Google_Service_PeopleService_Photo extends Google_Model
 {
-  public $default;
-  protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
-  protected $metadataDataType = '';
-  public $url;
+	public $default;
+	protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
+	protected $metadataDataType = '';
+	public $url;
 
-  public function setDefault($default)
-  {
-    $this->default = $default;
-  }
-  public function getDefault()
-  {
-    return $this->default;
-  }
-  /**
-   * @param Google_Service_PeopleService_FieldMetadata
-   */
-  public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_PeopleService_FieldMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setDefault($default)
+	{
+		$this->default = $default;
+	}
+	public function getDefault()
+	{
+		return $this->default;
+	}
+	/**
+	 * @param Google_Service_PeopleService_FieldMetadata
+	 */
+	public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_PeopleService_FieldMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

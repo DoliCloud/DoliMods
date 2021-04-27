@@ -29,35 +29,34 @@
  */
 class Mantis
 {
-    var $localdb;
+	var $localdb;
 
-    var $date;
-    var $duree = 0;     // Secondes
-    var $texte;
-    var $desc;
+	var $date;
+	var $duree = 0;     // Secondes
+	var $texte;
+	var $desc;
 
-    var $error;
+	var $error;
 
 
-    /**
-     *	Constructeur de la classe d'interface a mantis
-     */
-    function Mantis()
-    {
-        global $conf;
-        global $dolibarr_main_db_type,$dolibarr_main_db_host,$dolibarr_main_db_user;
-        global $dolibarr_main_db_pass,$dolibarr_main_db_name;
+	/**
+	 *	Constructeur de la classe d'interface a mantis
+	 */
+	function Mantis()
+	{
+		global $conf;
+		global $dolibarr_main_db_type,$dolibarr_main_db_host,$dolibarr_main_db_user;
+		global $dolibarr_main_db_pass,$dolibarr_main_db_name;
 
-        // Defini parametres mantis (avec substitution eventuelle)
-        $mantistype=preg_replace('/__dolibarr_main_db_type__/i',$dolibarr_main_db_type,$conf->mantis->db->type);
-        $mantishost=preg_replace('/__dolibarr_main_db_host__/i',$dolibarr_main_db_host,$conf->mantis->db->host);
-        $mantisport=preg_replace('/__dolibarr_main_db_port__/i',$dolibarr_main_db_port,$conf->mantis->db->port);
-        $mantisuser=preg_replace('/__dolibarr_main_db_user__/i',$dolibarr_main_db_user,$conf->mantis->db->user);
-        $mantispass=preg_replace('/__dolibarr_main_db_pass__/i',$dolibarr_main_db_pass,$conf->mantis->db->pass);
-        $mantisname=preg_replace('/__dolibarr_main_db_name__/i',$dolibarr_main_db_name,$conf->mantis->db->name);
+		// Defini parametres mantis (avec substitution eventuelle)
+		$mantistype=preg_replace('/__dolibarr_main_db_type__/i', $dolibarr_main_db_type, $conf->mantis->db->type);
+		$mantishost=preg_replace('/__dolibarr_main_db_host__/i', $dolibarr_main_db_host, $conf->mantis->db->host);
+		$mantisport=preg_replace('/__dolibarr_main_db_port__/i', $dolibarr_main_db_port, $conf->mantis->db->port);
+		$mantisuser=preg_replace('/__dolibarr_main_db_user__/i', $dolibarr_main_db_user, $conf->mantis->db->user);
+		$mantispass=preg_replace('/__dolibarr_main_db_pass__/i', $dolibarr_main_db_pass, $conf->mantis->db->pass);
+		$mantisname=preg_replace('/__dolibarr_main_db_name__/i', $dolibarr_main_db_name, $conf->mantis->db->name);
 
-        // On initie la connexion a la base mantisendar
-        $this->localdb = getDoliDBInstance($mantistype,$mantishost,$mantisuser,$mantispass,$mantisname,$mantisport);
-    }
-
+		// On initie la connexion a la base mantisendar
+		$this->localdb = getDoliDBInstance($mantistype, $mantishost, $mantisuser, $mantispass, $mantisname, $mantisport);
+	}
 }

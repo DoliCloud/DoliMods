@@ -17,48 +17,48 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1TargetServerConfig extends Google_Model
 {
-  public $host;
-  public $name;
-  public $port;
-  protected $tlsInfoType = 'Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig';
-  protected $tlsInfoDataType = '';
+	public $host;
+	public $name;
+	public $port;
+	protected $tlsInfoType = 'Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig';
+	protected $tlsInfoDataType = '';
 
-  public function setHost($host)
-  {
-    $this->host = $host;
-  }
-  public function getHost()
-  {
-    return $this->host;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPort($port)
-  {
-    $this->port = $port;
-  }
-  public function getPort()
-  {
-    return $this->port;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig
-   */
-  public function setTlsInfo(Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig $tlsInfo)
-  {
-    $this->tlsInfo = $tlsInfo;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig
-   */
-  public function getTlsInfo()
-  {
-    return $this->tlsInfo;
-  }
+	public function setHost($host)
+	{
+		$this->host = $host;
+	}
+	public function getHost()
+	{
+		return $this->host;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPort($port)
+	{
+		$this->port = $port;
+	}
+	public function getPort()
+	{
+		return $this->port;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig
+	 */
+	public function setTlsInfo(Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig $tlsInfo)
+	{
+		$this->tlsInfo = $tlsInfo;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig
+	 */
+	public function getTlsInfo()
+	{
+		return $this->tlsInfo;
+	}
 }

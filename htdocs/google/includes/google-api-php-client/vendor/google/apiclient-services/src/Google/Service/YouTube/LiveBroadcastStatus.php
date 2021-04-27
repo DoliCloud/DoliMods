@@ -17,59 +17,59 @@
 
 class Google_Service_YouTube_LiveBroadcastStatus extends Google_Model
 {
-  public $lifeCycleStatus;
-  public $liveBroadcastPriority;
-  public $madeForKids;
-  public $privacyStatus;
-  public $recordingStatus;
-  public $selfDeclaredMadeForKids;
+	public $lifeCycleStatus;
+	public $liveBroadcastPriority;
+	public $madeForKids;
+	public $privacyStatus;
+	public $recordingStatus;
+	public $selfDeclaredMadeForKids;
 
-  public function setLifeCycleStatus($lifeCycleStatus)
-  {
-    $this->lifeCycleStatus = $lifeCycleStatus;
-  }
-  public function getLifeCycleStatus()
-  {
-    return $this->lifeCycleStatus;
-  }
-  public function setLiveBroadcastPriority($liveBroadcastPriority)
-  {
-    $this->liveBroadcastPriority = $liveBroadcastPriority;
-  }
-  public function getLiveBroadcastPriority()
-  {
-    return $this->liveBroadcastPriority;
-  }
-  public function setMadeForKids($madeForKids)
-  {
-    $this->madeForKids = $madeForKids;
-  }
-  public function getMadeForKids()
-  {
-    return $this->madeForKids;
-  }
-  public function setPrivacyStatus($privacyStatus)
-  {
-    $this->privacyStatus = $privacyStatus;
-  }
-  public function getPrivacyStatus()
-  {
-    return $this->privacyStatus;
-  }
-  public function setRecordingStatus($recordingStatus)
-  {
-    $this->recordingStatus = $recordingStatus;
-  }
-  public function getRecordingStatus()
-  {
-    return $this->recordingStatus;
-  }
-  public function setSelfDeclaredMadeForKids($selfDeclaredMadeForKids)
-  {
-    $this->selfDeclaredMadeForKids = $selfDeclaredMadeForKids;
-  }
-  public function getSelfDeclaredMadeForKids()
-  {
-    return $this->selfDeclaredMadeForKids;
-  }
+	public function setLifeCycleStatus($lifeCycleStatus)
+	{
+		$this->lifeCycleStatus = $lifeCycleStatus;
+	}
+	public function getLifeCycleStatus()
+	{
+		return $this->lifeCycleStatus;
+	}
+	public function setLiveBroadcastPriority($liveBroadcastPriority)
+	{
+		$this->liveBroadcastPriority = $liveBroadcastPriority;
+	}
+	public function getLiveBroadcastPriority()
+	{
+		return $this->liveBroadcastPriority;
+	}
+	public function setMadeForKids($madeForKids)
+	{
+		$this->madeForKids = $madeForKids;
+	}
+	public function getMadeForKids()
+	{
+		return $this->madeForKids;
+	}
+	public function setPrivacyStatus($privacyStatus)
+	{
+		$this->privacyStatus = $privacyStatus;
+	}
+	public function getPrivacyStatus()
+	{
+		return $this->privacyStatus;
+	}
+	public function setRecordingStatus($recordingStatus)
+	{
+		$this->recordingStatus = $recordingStatus;
+	}
+	public function getRecordingStatus()
+	{
+		return $this->recordingStatus;
+	}
+	public function setSelfDeclaredMadeForKids($selfDeclaredMadeForKids)
+	{
+		$this->selfDeclaredMadeForKids = $selfDeclaredMadeForKids;
+	}
+	public function getSelfDeclaredMadeForKids()
+	{
+		return $this->selfDeclaredMadeForKids;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchorTextSegment extends Google_Model
 {
-  public $endIndex;
-  public $startIndex;
+	public $endIndex;
+	public $startIndex;
 
-  public function setEndIndex($endIndex)
-  {
-    $this->endIndex = $endIndex;
-  }
-  public function getEndIndex()
-  {
-    return $this->endIndex;
-  }
-  public function setStartIndex($startIndex)
-  {
-    $this->startIndex = $startIndex;
-  }
-  public function getStartIndex()
-  {
-    return $this->startIndex;
-  }
+	public function setEndIndex($endIndex)
+	{
+		$this->endIndex = $endIndex;
+	}
+	public function getEndIndex()
+	{
+		return $this->endIndex;
+	}
+	public function setStartIndex($startIndex)
+	{
+		$this->startIndex = $startIndex;
+	}
+	public function getStartIndex()
+	{
+		return $this->startIndex;
+	}
 }

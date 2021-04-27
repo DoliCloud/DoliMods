@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListClientsResponse extends Google_Collection
 {
-  protected $collection_key = 'clients';
-  protected $clientsType = 'Google_Service_AdExchangeBuyerII_Client';
-  protected $clientsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'clients';
+	protected $clientsType = 'Google_Service_AdExchangeBuyerII_Client';
+	protected $clientsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_Client
-   */
-  public function setClients($clients)
-  {
-    $this->clients = $clients;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_Client
-   */
-  public function getClients()
-  {
-    return $this->clients;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_Client
+	 */
+	public function setClients($clients)
+	{
+		$this->clients = $clients;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_Client
+	 */
+	public function getClients()
+	{
+		return $this->clients;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -25,50 +25,50 @@
  */
 class Google_Service_AndroidPublisher_Resource_EditsApks extends Google_Service_Resource
 {
-  /**
-   * Creates a new APK without uploading the APK itself to Google Play, instead
-   * hosting the APK at a specified URL. This function is only available to
-   * organizations using Managed Play whose application is configured to restrict
-   * distribution to the organizations. (apks.addexternallyhosted)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $editId Identifier of the edit.
-   * @param Google_Service_AndroidPublisher_ApksAddExternallyHostedRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_ApksAddExternallyHostedResponse
-   */
-  public function addexternallyhosted($packageName, $editId, Google_Service_AndroidPublisher_ApksAddExternallyHostedRequest $postBody, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'editId' => $editId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('addexternallyhosted', array($params), "Google_Service_AndroidPublisher_ApksAddExternallyHostedResponse");
-  }
-  /**
-   * Lists all current APKs of the app and edit. (apks.listEditsApks)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $editId Identifier of the edit.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_ApksListResponse
-   */
-  public function listEditsApks($packageName, $editId, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'editId' => $editId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AndroidPublisher_ApksListResponse");
-  }
-  /**
-   * Uploads an APK and adds to the current edit. (apks.upload)
-   *
-   * @param string $packageName Package name of the app.
-   * @param string $editId Identifier of the edit.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AndroidPublisher_Apk
-   */
-  public function upload($packageName, $editId, $optParams = array())
-  {
-    $params = array('packageName' => $packageName, 'editId' => $editId);
-    $params = array_merge($params, $optParams);
-    return $this->call('upload', array($params), "Google_Service_AndroidPublisher_Apk");
-  }
+	/**
+	 * Creates a new APK without uploading the APK itself to Google Play, instead
+	 * hosting the APK at a specified URL. This function is only available to
+	 * organizations using Managed Play whose application is configured to restrict
+	 * distribution to the organizations. (apks.addexternallyhosted)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $editId Identifier of the edit.
+	 * @param Google_Service_AndroidPublisher_ApksAddExternallyHostedRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_ApksAddExternallyHostedResponse
+	 */
+	public function addexternallyhosted($packageName, $editId, Google_Service_AndroidPublisher_ApksAddExternallyHostedRequest $postBody, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'editId' => $editId, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('addexternallyhosted', array($params), "Google_Service_AndroidPublisher_ApksAddExternallyHostedResponse");
+	}
+	/**
+	 * Lists all current APKs of the app and edit. (apks.listEditsApks)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $editId Identifier of the edit.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_ApksListResponse
+	 */
+	public function listEditsApks($packageName, $editId, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'editId' => $editId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AndroidPublisher_ApksListResponse");
+	}
+	/**
+	 * Uploads an APK and adds to the current edit. (apks.upload)
+	 *
+	 * @param string $packageName Package name of the app.
+	 * @param string $editId Identifier of the edit.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AndroidPublisher_Apk
+	 */
+	public function upload($packageName, $editId, $optParams = array())
+	{
+		$params = array('packageName' => $packageName, 'editId' => $editId);
+		$params = array_merge($params, $optParams);
+		return $this->call('upload', array($params), "Google_Service_AndroidPublisher_Apk");
+	}
 }

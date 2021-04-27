@@ -17,47 +17,47 @@
 
 class Google_Service_CloudSearch_ItemStatus extends Google_Collection
 {
-  protected $collection_key = 'repositoryErrors';
-  public $code;
-  protected $processingErrorsType = 'Google_Service_CloudSearch_ProcessingError';
-  protected $processingErrorsDataType = 'array';
-  protected $repositoryErrorsType = 'Google_Service_CloudSearch_RepositoryError';
-  protected $repositoryErrorsDataType = 'array';
+	protected $collection_key = 'repositoryErrors';
+	public $code;
+	protected $processingErrorsType = 'Google_Service_CloudSearch_ProcessingError';
+	protected $processingErrorsDataType = 'array';
+	protected $repositoryErrorsType = 'Google_Service_CloudSearch_RepositoryError';
+	protected $repositoryErrorsDataType = 'array';
 
-  public function setCode($code)
-  {
-    $this->code = $code;
-  }
-  public function getCode()
-  {
-    return $this->code;
-  }
-  /**
-   * @param Google_Service_CloudSearch_ProcessingError
-   */
-  public function setProcessingErrors($processingErrors)
-  {
-    $this->processingErrors = $processingErrors;
-  }
-  /**
-   * @return Google_Service_CloudSearch_ProcessingError
-   */
-  public function getProcessingErrors()
-  {
-    return $this->processingErrors;
-  }
-  /**
-   * @param Google_Service_CloudSearch_RepositoryError
-   */
-  public function setRepositoryErrors($repositoryErrors)
-  {
-    $this->repositoryErrors = $repositoryErrors;
-  }
-  /**
-   * @return Google_Service_CloudSearch_RepositoryError
-   */
-  public function getRepositoryErrors()
-  {
-    return $this->repositoryErrors;
-  }
+	public function setCode($code)
+	{
+		$this->code = $code;
+	}
+	public function getCode()
+	{
+		return $this->code;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_ProcessingError
+	 */
+	public function setProcessingErrors($processingErrors)
+	{
+		$this->processingErrors = $processingErrors;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_ProcessingError
+	 */
+	public function getProcessingErrors()
+	{
+		return $this->processingErrors;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_RepositoryError
+	 */
+	public function setRepositoryErrors($repositoryErrors)
+	{
+		$this->repositoryErrors = $repositoryErrors;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_RepositoryError
+	 */
+	public function getRepositoryErrors()
+	{
+		return $this->repositoryErrors;
+	}
 }

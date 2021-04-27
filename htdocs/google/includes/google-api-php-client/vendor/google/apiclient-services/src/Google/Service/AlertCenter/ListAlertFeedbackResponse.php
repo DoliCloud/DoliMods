@@ -17,22 +17,22 @@
 
 class Google_Service_AlertCenter_ListAlertFeedbackResponse extends Google_Collection
 {
-  protected $collection_key = 'feedback';
-  protected $feedbackType = 'Google_Service_AlertCenter_AlertFeedback';
-  protected $feedbackDataType = 'array';
+	protected $collection_key = 'feedback';
+	protected $feedbackType = 'Google_Service_AlertCenter_AlertFeedback';
+	protected $feedbackDataType = 'array';
 
-  /**
-   * @param Google_Service_AlertCenter_AlertFeedback
-   */
-  public function setFeedback($feedback)
-  {
-    $this->feedback = $feedback;
-  }
-  /**
-   * @return Google_Service_AlertCenter_AlertFeedback
-   */
-  public function getFeedback()
-  {
-    return $this->feedback;
-  }
+	/**
+	 * @param Google_Service_AlertCenter_AlertFeedback
+	 */
+	public function setFeedback($feedback)
+	{
+		$this->feedback = $feedback;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_AlertFeedback
+	 */
+	public function getFeedback()
+	{
+		return $this->feedback;
+	}
 }

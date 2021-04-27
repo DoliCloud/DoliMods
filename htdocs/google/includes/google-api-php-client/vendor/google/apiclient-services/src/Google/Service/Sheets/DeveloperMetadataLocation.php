@@ -17,48 +17,48 @@
 
 class Google_Service_Sheets_DeveloperMetadataLocation extends Google_Model
 {
-  protected $dimensionRangeType = 'Google_Service_Sheets_DimensionRange';
-  protected $dimensionRangeDataType = '';
-  public $locationType;
-  public $sheetId;
-  public $spreadsheet;
+	protected $dimensionRangeType = 'Google_Service_Sheets_DimensionRange';
+	protected $dimensionRangeDataType = '';
+	public $locationType;
+	public $sheetId;
+	public $spreadsheet;
 
-  /**
-   * @param Google_Service_Sheets_DimensionRange
-   */
-  public function setDimensionRange(Google_Service_Sheets_DimensionRange $dimensionRange)
-  {
-    $this->dimensionRange = $dimensionRange;
-  }
-  /**
-   * @return Google_Service_Sheets_DimensionRange
-   */
-  public function getDimensionRange()
-  {
-    return $this->dimensionRange;
-  }
-  public function setLocationType($locationType)
-  {
-    $this->locationType = $locationType;
-  }
-  public function getLocationType()
-  {
-    return $this->locationType;
-  }
-  public function setSheetId($sheetId)
-  {
-    $this->sheetId = $sheetId;
-  }
-  public function getSheetId()
-  {
-    return $this->sheetId;
-  }
-  public function setSpreadsheet($spreadsheet)
-  {
-    $this->spreadsheet = $spreadsheet;
-  }
-  public function getSpreadsheet()
-  {
-    return $this->spreadsheet;
-  }
+	/**
+	 * @param Google_Service_Sheets_DimensionRange
+	 */
+	public function setDimensionRange(Google_Service_Sheets_DimensionRange $dimensionRange)
+	{
+		$this->dimensionRange = $dimensionRange;
+	}
+	/**
+	 * @return Google_Service_Sheets_DimensionRange
+	 */
+	public function getDimensionRange()
+	{
+		return $this->dimensionRange;
+	}
+	public function setLocationType($locationType)
+	{
+		$this->locationType = $locationType;
+	}
+	public function getLocationType()
+	{
+		return $this->locationType;
+	}
+	public function setSheetId($sheetId)
+	{
+		$this->sheetId = $sheetId;
+	}
+	public function getSheetId()
+	{
+		return $this->sheetId;
+	}
+	public function setSpreadsheet($spreadsheet)
+	{
+		$this->spreadsheet = $spreadsheet;
+	}
+	public function getSpreadsheet()
+	{
+		return $this->spreadsheet;
+	}
 }

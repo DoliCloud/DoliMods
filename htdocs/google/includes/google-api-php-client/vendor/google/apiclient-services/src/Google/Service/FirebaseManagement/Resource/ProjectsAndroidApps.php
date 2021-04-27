@@ -25,103 +25,103 @@
  */
 class Google_Service_FirebaseManagement_Resource_ProjectsAndroidApps extends Google_Service_Resource
 {
-  /**
-   * Requests that a new AndroidApp be created.
-   *
-   * The result of this call is an `Operation` which can be used to track the
-   * provisioning process. The `Operation` is automatically deleted after
-   * completion, so there is no need to call `DeleteOperation`.
-   * (androidApps.create)
-   *
-   * @param string $parent The parent Project in which to create an App, in the
-   * format: projects/PROJECT_NUMBER
-   * @param Google_Service_FirebaseManagement_AndroidApp $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_FirebaseManagement_Operation
-   */
-  public function create($parent, Google_Service_FirebaseManagement_AndroidApp $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_FirebaseManagement_Operation");
-  }
-  /**
-   * Gets the AndroidApp identified by the specified resource name.
-   * (androidApps.get)
-   *
-   * @param string $name The fully qualified resource name of the App, in the
-   * format: projects/PROJECT_NUMBER/androidApps/APP_ID As an APP_ID is a unique
-   * identifier, the Unique Resource from Sub-Collection access pattern may be
-   * used here, in the format: projects/-/androidApps/APP_ID
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_FirebaseManagement_AndroidApp
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_FirebaseManagement_AndroidApp");
-  }
-  /**
-   * Gets the configuration artifact associated with the specified AndroidApp.
-   * (androidApps.getConfig)
-   *
-   * @param string $name The resource name of the App configuration to download,
-   * in the format: projects/PROJECT_NUMBER/androidApps/APP_ID/config As an APP_ID
-   * is a unique identifier, the Unique Resource from Sub-Collection access
-   * pattern may be used here, in the format: projects/-/androidApps/APP_ID
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_FirebaseManagement_AndroidAppConfig
-   */
-  public function getConfig($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('getConfig', array($params), "Google_Service_FirebaseManagement_AndroidAppConfig");
-  }
-  /**
-   * Lists each AndroidApp associated with the specified parent Project.
-   *
-   * The elements are returned in no particular order, but will be a consistent
-   * view of the Apps when additional requests are made with a `pageToken`.
-   * (androidApps.listProjectsAndroidApps)
-   *
-   * @param string $parent The parent Project for which to list Apps, in the
-   * format: projects/PROJECT_NUMBER
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param int pageSize The maximum number of Apps to return in the response.
-   *
-   * The server may return fewer than this at its discretion. If no value is
-   * specified (or too large a value is specified), then the server will impose
-   * its own limit.
-   * @opt_param string pageToken Token returned from a previous call to
-   * `ListAndroidApps` indicating where in the set of Apps to resume listing.
-   * @return Google_Service_FirebaseManagement_ListAndroidAppsResponse
-   */
-  public function listProjectsAndroidApps($parent, $optParams = array())
-  {
-    $params = array('parent' => $parent);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_FirebaseManagement_ListAndroidAppsResponse");
-  }
-  /**
-   * Updates the attributes of the AndroidApp identified by the specified resource
-   * name. (androidApps.patch)
-   *
-   * @param string $name The fully qualified resource name of the App, in the
-   * format: projects/projectId/androidApps/appId
-   * @param Google_Service_FirebaseManagement_AndroidApp $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string updateMask Specifies which fields to update. Note that the
-   * fields `name`, `app_id`, `project_id`, and `package_name` are all immutable.
-   * @return Google_Service_FirebaseManagement_AndroidApp
-   */
-  public function patch($name, Google_Service_FirebaseManagement_AndroidApp $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_FirebaseManagement_AndroidApp");
-  }
+	/**
+	 * Requests that a new AndroidApp be created.
+	 *
+	 * The result of this call is an `Operation` which can be used to track the
+	 * provisioning process. The `Operation` is automatically deleted after
+	 * completion, so there is no need to call `DeleteOperation`.
+	 * (androidApps.create)
+	 *
+	 * @param string $parent The parent Project in which to create an App, in the
+	 *                       format: projects/PROJECT_NUMBER
+	 * @param Google_Service_FirebaseManagement_AndroidApp $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_FirebaseManagement_Operation
+	 */
+	public function create($parent, Google_Service_FirebaseManagement_AndroidApp $postBody, $optParams = array())
+	{
+		$params = array('parent' => $parent, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('create', array($params), "Google_Service_FirebaseManagement_Operation");
+	}
+	/**
+	 * Gets the AndroidApp identified by the specified resource name.
+	 * (androidApps.get)
+	 *
+	 * @param string $name The fully qualified resource name of the App, in the
+	 *                     format: projects/PROJECT_NUMBER/androidApps/APP_ID As an APP_ID is a unique
+	 *                     identifier, the Unique Resource from Sub-Collection access pattern may be
+	 *                     used here, in the format: projects/-/androidApps/APP_ID
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_FirebaseManagement_AndroidApp
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_FirebaseManagement_AndroidApp");
+	}
+	/**
+	 * Gets the configuration artifact associated with the specified AndroidApp.
+	 * (androidApps.getConfig)
+	 *
+	 * @param string $name The resource name of the App configuration to download,
+	 *                     in the format: projects/PROJECT_NUMBER/androidApps/APP_ID/config As an APP_ID
+	 *                     is a unique identifier, the Unique Resource from Sub-Collection access
+	 *                     pattern may be used here, in the format: projects/-/androidApps/APP_ID
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_FirebaseManagement_AndroidAppConfig
+	 */
+	public function getConfig($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('getConfig', array($params), "Google_Service_FirebaseManagement_AndroidAppConfig");
+	}
+	/**
+	 * Lists each AndroidApp associated with the specified parent Project.
+	 *
+	 * The elements are returned in no particular order, but will be a consistent
+	 * view of the Apps when additional requests are made with a `pageToken`.
+	 * (androidApps.listProjectsAndroidApps)
+	 *
+	 * @param string $parent The parent Project for which to list Apps, in the
+	 *                       format: projects/PROJECT_NUMBER
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param int pageSize The maximum number of Apps to return in the response.
+	 *
+	 * The server may return fewer than this at its discretion. If no value is
+	 * specified (or too large a value is specified), then the server will impose
+	 * its own limit.
+	 * @opt_param string pageToken Token returned from a previous call to
+	 * `ListAndroidApps` indicating where in the set of Apps to resume listing.
+	 * @return Google_Service_FirebaseManagement_ListAndroidAppsResponse
+	 */
+	public function listProjectsAndroidApps($parent, $optParams = array())
+	{
+		$params = array('parent' => $parent);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_FirebaseManagement_ListAndroidAppsResponse");
+	}
+	/**
+	 * Updates the attributes of the AndroidApp identified by the specified resource
+	 * name. (androidApps.patch)
+	 *
+	 * @param string $name The fully qualified resource name of the App, in the
+	 *                     format: projects/projectId/androidApps/appId
+	 * @param Google_Service_FirebaseManagement_AndroidApp $postBody
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string updateMask Specifies which fields to update. Note that the
+	 * fields `name`, `app_id`, `project_id`, and `package_name` are all immutable.
+	 * @return Google_Service_FirebaseManagement_AndroidApp
+	 */
+	public function patch($name, Google_Service_FirebaseManagement_AndroidApp $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('patch', array($params), "Google_Service_FirebaseManagement_AndroidApp");
+	}
 }

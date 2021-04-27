@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_DiskMoveRequest extends Google_Model
 {
-  public $destinationZone;
-  public $targetDisk;
+	public $destinationZone;
+	public $targetDisk;
 
-  public function setDestinationZone($destinationZone)
-  {
-    $this->destinationZone = $destinationZone;
-  }
-  public function getDestinationZone()
-  {
-    return $this->destinationZone;
-  }
-  public function setTargetDisk($targetDisk)
-  {
-    $this->targetDisk = $targetDisk;
-  }
-  public function getTargetDisk()
-  {
-    return $this->targetDisk;
-  }
+	public function setDestinationZone($destinationZone)
+	{
+		$this->destinationZone = $destinationZone;
+	}
+	public function getDestinationZone()
+	{
+		return $this->destinationZone;
+	}
+	public function setTargetDisk($targetDisk)
+	{
+		$this->targetDisk = $targetDisk;
+	}
+	public function getTargetDisk()
+	{
+		return $this->targetDisk;
+	}
 }

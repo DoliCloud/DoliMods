@@ -17,68 +17,68 @@
 
 class Google_Service_AlertCenter_AlertMetadata extends Google_Model
 {
-  public $alertId;
-  public $assignee;
-  public $customerId;
-  public $etag;
-  public $severity;
-  public $status;
-  public $updateTime;
+	public $alertId;
+	public $assignee;
+	public $customerId;
+	public $etag;
+	public $severity;
+	public $status;
+	public $updateTime;
 
-  public function setAlertId($alertId)
-  {
-    $this->alertId = $alertId;
-  }
-  public function getAlertId()
-  {
-    return $this->alertId;
-  }
-  public function setAssignee($assignee)
-  {
-    $this->assignee = $assignee;
-  }
-  public function getAssignee()
-  {
-    return $this->assignee;
-  }
-  public function setCustomerId($customerId)
-  {
-    $this->customerId = $customerId;
-  }
-  public function getCustomerId()
-  {
-    return $this->customerId;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setSeverity($severity)
-  {
-    $this->severity = $severity;
-  }
-  public function getSeverity()
-  {
-    return $this->severity;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setAlertId($alertId)
+	{
+		$this->alertId = $alertId;
+	}
+	public function getAlertId()
+	{
+		return $this->alertId;
+	}
+	public function setAssignee($assignee)
+	{
+		$this->assignee = $assignee;
+	}
+	public function getAssignee()
+	{
+		return $this->assignee;
+	}
+	public function setCustomerId($customerId)
+	{
+		$this->customerId = $customerId;
+	}
+	public function getCustomerId()
+	{
+		return $this->customerId;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setSeverity($severity)
+	{
+		$this->severity = $severity;
+	}
+	public function getSeverity()
+	{
+		return $this->severity;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

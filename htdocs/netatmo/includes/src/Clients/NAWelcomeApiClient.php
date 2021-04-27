@@ -13,5 +13,3 @@ require_once dirname(dirname(__FILE__)) . "/Netatmo/autoload.php";
 class NAWelcomeApiClient extends Netatmo\Clients\NAWelcomeApiClient
 {
 }
-
-?>

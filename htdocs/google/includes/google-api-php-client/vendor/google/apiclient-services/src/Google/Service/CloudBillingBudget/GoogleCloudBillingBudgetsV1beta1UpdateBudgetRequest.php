@@ -17,30 +17,30 @@
 
 class Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1UpdateBudgetRequest extends Google_Model
 {
-  protected $budgetType = 'Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget';
-  protected $budgetDataType = '';
-  public $updateMask;
+	protected $budgetType = 'Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget';
+	protected $budgetDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
-   */
-  public function setBudget(Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget $budget)
-  {
-    $this->budget = $budget;
-  }
-  /**
-   * @return Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
-   */
-  public function getBudget()
-  {
-    return $this->budget;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
+	 */
+	public function setBudget(Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget $budget)
+	{
+		$this->budget = $budget;
+	}
+	/**
+	 * @return Google_Service_CloudBillingBudget_GoogleCloudBillingBudgetsV1beta1Budget
+	 */
+	public function getBudget()
+	{
+		return $this->budget;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

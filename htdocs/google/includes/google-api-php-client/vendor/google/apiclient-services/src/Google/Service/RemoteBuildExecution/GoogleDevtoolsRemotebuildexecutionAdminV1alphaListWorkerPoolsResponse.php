@@ -17,22 +17,22 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaListWorkerPoolsResponse extends Google_Collection
 {
-  protected $collection_key = 'workerPools';
-  protected $workerPoolsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool';
-  protected $workerPoolsDataType = 'array';
+	protected $collection_key = 'workerPools';
+	protected $workerPoolsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool';
+	protected $workerPoolsDataType = 'array';
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool
-   */
-  public function setWorkerPools($workerPools)
-  {
-    $this->workerPools = $workerPools;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool
-   */
-  public function getWorkerPools()
-  {
-    return $this->workerPools;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool
+	 */
+	public function setWorkerPools($workerPools)
+	{
+		$this->workerPools = $workerPools;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerPool
+	 */
+	public function getWorkerPools()
+	{
+		return $this->workerPools;
+	}
 }

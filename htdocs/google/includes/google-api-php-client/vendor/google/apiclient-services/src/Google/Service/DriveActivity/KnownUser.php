@@ -17,23 +17,23 @@
 
 class Google_Service_DriveActivity_KnownUser extends Google_Model
 {
-  public $isCurrentUser;
-  public $personName;
+	public $isCurrentUser;
+	public $personName;
 
-  public function setIsCurrentUser($isCurrentUser)
-  {
-    $this->isCurrentUser = $isCurrentUser;
-  }
-  public function getIsCurrentUser()
-  {
-    return $this->isCurrentUser;
-  }
-  public function setPersonName($personName)
-  {
-    $this->personName = $personName;
-  }
-  public function getPersonName()
-  {
-    return $this->personName;
-  }
+	public function setIsCurrentUser($isCurrentUser)
+	{
+		$this->isCurrentUser = $isCurrentUser;
+	}
+	public function getIsCurrentUser()
+	{
+		return $this->isCurrentUser;
+	}
+	public function setPersonName($personName)
+	{
+		$this->personName = $personName;
+	}
+	public function getPersonName()
+	{
+		return $this->personName;
+	}
 }

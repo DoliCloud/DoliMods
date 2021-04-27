@@ -17,86 +17,86 @@
 
 class Google_Service_Container_Jwk extends Google_Model
 {
-  public $alg;
-  public $crv;
-  public $e;
-  public $kid;
-  public $kty;
-  public $n;
-  public $use;
-  public $x;
-  public $y;
+	public $alg;
+	public $crv;
+	public $e;
+	public $kid;
+	public $kty;
+	public $n;
+	public $use;
+	public $x;
+	public $y;
 
-  public function setAlg($alg)
-  {
-    $this->alg = $alg;
-  }
-  public function getAlg()
-  {
-    return $this->alg;
-  }
-  public function setCrv($crv)
-  {
-    $this->crv = $crv;
-  }
-  public function getCrv()
-  {
-    return $this->crv;
-  }
-  public function setE($e)
-  {
-    $this->e = $e;
-  }
-  public function getE()
-  {
-    return $this->e;
-  }
-  public function setKid($kid)
-  {
-    $this->kid = $kid;
-  }
-  public function getKid()
-  {
-    return $this->kid;
-  }
-  public function setKty($kty)
-  {
-    $this->kty = $kty;
-  }
-  public function getKty()
-  {
-    return $this->kty;
-  }
-  public function setN($n)
-  {
-    $this->n = $n;
-  }
-  public function getN()
-  {
-    return $this->n;
-  }
-  public function setUse($use)
-  {
-    $this->use = $use;
-  }
-  public function getUse()
-  {
-    return $this->use;
-  }
-  public function setX($x)
-  {
-    $this->x = $x;
-  }
-  public function getX()
-  {
-    return $this->x;
-  }
-  public function setY($y)
-  {
-    $this->y = $y;
-  }
-  public function getY()
-  {
-    return $this->y;
-  }
+	public function setAlg($alg)
+	{
+		$this->alg = $alg;
+	}
+	public function getAlg()
+	{
+		return $this->alg;
+	}
+	public function setCrv($crv)
+	{
+		$this->crv = $crv;
+	}
+	public function getCrv()
+	{
+		return $this->crv;
+	}
+	public function setE($e)
+	{
+		$this->e = $e;
+	}
+	public function getE()
+	{
+		return $this->e;
+	}
+	public function setKid($kid)
+	{
+		$this->kid = $kid;
+	}
+	public function getKid()
+	{
+		return $this->kid;
+	}
+	public function setKty($kty)
+	{
+		$this->kty = $kty;
+	}
+	public function getKty()
+	{
+		return $this->kty;
+	}
+	public function setN($n)
+	{
+		$this->n = $n;
+	}
+	public function getN()
+	{
+		return $this->n;
+	}
+	public function setUse($use)
+	{
+		$this->use = $use;
+	}
+	public function getUse()
+	{
+		return $this->use;
+	}
+	public function setX($x)
+	{
+		$this->x = $x;
+	}
+	public function getX()
+	{
+		return $this->x;
+	}
+	public function setY($y)
+	{
+		$this->y = $y;
+	}
+	public function getY()
+	{
+		return $this->y;
+	}
 }

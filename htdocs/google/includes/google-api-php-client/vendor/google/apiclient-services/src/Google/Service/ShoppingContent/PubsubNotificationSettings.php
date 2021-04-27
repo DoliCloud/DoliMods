@@ -17,33 +17,33 @@
 
 class Google_Service_ShoppingContent_PubsubNotificationSettings extends Google_Collection
 {
-  protected $collection_key = 'registeredEvents';
-  public $cloudTopicName;
-  public $kind;
-  public $registeredEvents;
+	protected $collection_key = 'registeredEvents';
+	public $cloudTopicName;
+	public $kind;
+	public $registeredEvents;
 
-  public function setCloudTopicName($cloudTopicName)
-  {
-    $this->cloudTopicName = $cloudTopicName;
-  }
-  public function getCloudTopicName()
-  {
-    return $this->cloudTopicName;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setRegisteredEvents($registeredEvents)
-  {
-    $this->registeredEvents = $registeredEvents;
-  }
-  public function getRegisteredEvents()
-  {
-    return $this->registeredEvents;
-  }
+	public function setCloudTopicName($cloudTopicName)
+	{
+		$this->cloudTopicName = $cloudTopicName;
+	}
+	public function getCloudTopicName()
+	{
+		return $this->cloudTopicName;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setRegisteredEvents($registeredEvents)
+	{
+		$this->registeredEvents = $registeredEvents;
+	}
+	public function getRegisteredEvents()
+	{
+		return $this->registeredEvents;
+	}
 }

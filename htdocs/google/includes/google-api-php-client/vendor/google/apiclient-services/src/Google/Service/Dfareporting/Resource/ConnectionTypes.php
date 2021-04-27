@@ -25,31 +25,31 @@
  */
 class Google_Service_Dfareporting_Resource_ConnectionTypes extends Google_Service_Resource
 {
-  /**
-   * Gets one connection type by ID. (connectionTypes.get)
-   *
-   * @param string $profileId User profile ID associated with this request.
-   * @param string $id Connection type ID.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Dfareporting_ConnectionType
-   */
-  public function get($profileId, $id, $optParams = array())
-  {
-    $params = array('profileId' => $profileId, 'id' => $id);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Dfareporting_ConnectionType");
-  }
-  /**
-   * Retrieves a list of connection types. (connectionTypes.listConnectionTypes)
-   *
-   * @param string $profileId User profile ID associated with this request.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Dfareporting_ConnectionTypesListResponse
-   */
-  public function listConnectionTypes($profileId, $optParams = array())
-  {
-    $params = array('profileId' => $profileId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Dfareporting_ConnectionTypesListResponse");
-  }
+	/**
+	 * Gets one connection type by ID. (connectionTypes.get)
+	 *
+	 * @param string $profileId User profile ID associated with this request.
+	 * @param string $id Connection type ID.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Dfareporting_ConnectionType
+	 */
+	public function get($profileId, $id, $optParams = array())
+	{
+		$params = array('profileId' => $profileId, 'id' => $id);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Dfareporting_ConnectionType");
+	}
+	/**
+	 * Retrieves a list of connection types. (connectionTypes.listConnectionTypes)
+	 *
+	 * @param string $profileId User profile ID associated with this request.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Dfareporting_ConnectionTypesListResponse
+	 */
+	public function listConnectionTypes($profileId, $optParams = array())
+	{
+		$params = array('profileId' => $profileId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Dfareporting_ConnectionTypesListResponse");
+	}
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_ToolResults_IndividualOutcome extends Google_Model
 {
-  public $multistepNumber;
-  public $outcomeSummary;
-  protected $runDurationType = 'Google_Service_ToolResults_Duration';
-  protected $runDurationDataType = '';
-  public $stepId;
+	public $multistepNumber;
+	public $outcomeSummary;
+	protected $runDurationType = 'Google_Service_ToolResults_Duration';
+	protected $runDurationDataType = '';
+	public $stepId;
 
-  public function setMultistepNumber($multistepNumber)
-  {
-    $this->multistepNumber = $multistepNumber;
-  }
-  public function getMultistepNumber()
-  {
-    return $this->multistepNumber;
-  }
-  public function setOutcomeSummary($outcomeSummary)
-  {
-    $this->outcomeSummary = $outcomeSummary;
-  }
-  public function getOutcomeSummary()
-  {
-    return $this->outcomeSummary;
-  }
-  /**
-   * @param Google_Service_ToolResults_Duration
-   */
-  public function setRunDuration(Google_Service_ToolResults_Duration $runDuration)
-  {
-    $this->runDuration = $runDuration;
-  }
-  /**
-   * @return Google_Service_ToolResults_Duration
-   */
-  public function getRunDuration()
-  {
-    return $this->runDuration;
-  }
-  public function setStepId($stepId)
-  {
-    $this->stepId = $stepId;
-  }
-  public function getStepId()
-  {
-    return $this->stepId;
-  }
+	public function setMultistepNumber($multistepNumber)
+	{
+		$this->multistepNumber = $multistepNumber;
+	}
+	public function getMultistepNumber()
+	{
+		return $this->multistepNumber;
+	}
+	public function setOutcomeSummary($outcomeSummary)
+	{
+		$this->outcomeSummary = $outcomeSummary;
+	}
+	public function getOutcomeSummary()
+	{
+		return $this->outcomeSummary;
+	}
+	/**
+	 * @param Google_Service_ToolResults_Duration
+	 */
+	public function setRunDuration(Google_Service_ToolResults_Duration $runDuration)
+	{
+		$this->runDuration = $runDuration;
+	}
+	/**
+	 * @return Google_Service_ToolResults_Duration
+	 */
+	public function getRunDuration()
+	{
+		return $this->runDuration;
+	}
+	public function setStepId($stepId)
+	{
+		$this->stepId = $stepId;
+	}
+	public function getStepId()
+	{
+		return $this->stepId;
+	}
 }

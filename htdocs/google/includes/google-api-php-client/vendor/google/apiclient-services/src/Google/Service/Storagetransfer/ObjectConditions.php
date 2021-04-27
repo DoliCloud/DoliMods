@@ -17,60 +17,60 @@
 
 class Google_Service_Storagetransfer_ObjectConditions extends Google_Collection
 {
-  protected $collection_key = 'includePrefixes';
-  public $excludePrefixes;
-  public $includePrefixes;
-  public $lastModifiedBefore;
-  public $lastModifiedSince;
-  public $maxTimeElapsedSinceLastModification;
-  public $minTimeElapsedSinceLastModification;
+	protected $collection_key = 'includePrefixes';
+	public $excludePrefixes;
+	public $includePrefixes;
+	public $lastModifiedBefore;
+	public $lastModifiedSince;
+	public $maxTimeElapsedSinceLastModification;
+	public $minTimeElapsedSinceLastModification;
 
-  public function setExcludePrefixes($excludePrefixes)
-  {
-    $this->excludePrefixes = $excludePrefixes;
-  }
-  public function getExcludePrefixes()
-  {
-    return $this->excludePrefixes;
-  }
-  public function setIncludePrefixes($includePrefixes)
-  {
-    $this->includePrefixes = $includePrefixes;
-  }
-  public function getIncludePrefixes()
-  {
-    return $this->includePrefixes;
-  }
-  public function setLastModifiedBefore($lastModifiedBefore)
-  {
-    $this->lastModifiedBefore = $lastModifiedBefore;
-  }
-  public function getLastModifiedBefore()
-  {
-    return $this->lastModifiedBefore;
-  }
-  public function setLastModifiedSince($lastModifiedSince)
-  {
-    $this->lastModifiedSince = $lastModifiedSince;
-  }
-  public function getLastModifiedSince()
-  {
-    return $this->lastModifiedSince;
-  }
-  public function setMaxTimeElapsedSinceLastModification($maxTimeElapsedSinceLastModification)
-  {
-    $this->maxTimeElapsedSinceLastModification = $maxTimeElapsedSinceLastModification;
-  }
-  public function getMaxTimeElapsedSinceLastModification()
-  {
-    return $this->maxTimeElapsedSinceLastModification;
-  }
-  public function setMinTimeElapsedSinceLastModification($minTimeElapsedSinceLastModification)
-  {
-    $this->minTimeElapsedSinceLastModification = $minTimeElapsedSinceLastModification;
-  }
-  public function getMinTimeElapsedSinceLastModification()
-  {
-    return $this->minTimeElapsedSinceLastModification;
-  }
+	public function setExcludePrefixes($excludePrefixes)
+	{
+		$this->excludePrefixes = $excludePrefixes;
+	}
+	public function getExcludePrefixes()
+	{
+		return $this->excludePrefixes;
+	}
+	public function setIncludePrefixes($includePrefixes)
+	{
+		$this->includePrefixes = $includePrefixes;
+	}
+	public function getIncludePrefixes()
+	{
+		return $this->includePrefixes;
+	}
+	public function setLastModifiedBefore($lastModifiedBefore)
+	{
+		$this->lastModifiedBefore = $lastModifiedBefore;
+	}
+	public function getLastModifiedBefore()
+	{
+		return $this->lastModifiedBefore;
+	}
+	public function setLastModifiedSince($lastModifiedSince)
+	{
+		$this->lastModifiedSince = $lastModifiedSince;
+	}
+	public function getLastModifiedSince()
+	{
+		return $this->lastModifiedSince;
+	}
+	public function setMaxTimeElapsedSinceLastModification($maxTimeElapsedSinceLastModification)
+	{
+		$this->maxTimeElapsedSinceLastModification = $maxTimeElapsedSinceLastModification;
+	}
+	public function getMaxTimeElapsedSinceLastModification()
+	{
+		return $this->maxTimeElapsedSinceLastModification;
+	}
+	public function setMinTimeElapsedSinceLastModification($minTimeElapsedSinceLastModification)
+	{
+		$this->minTimeElapsedSinceLastModification = $minTimeElapsedSinceLastModification;
+	}
+	public function getMinTimeElapsedSinceLastModification()
+	{
+		return $this->minTimeElapsedSinceLastModification;
+	}
 }

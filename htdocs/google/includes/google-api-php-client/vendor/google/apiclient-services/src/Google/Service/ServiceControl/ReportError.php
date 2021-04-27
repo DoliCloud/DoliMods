@@ -17,30 +17,30 @@
 
 class Google_Service_ServiceControl_ReportError extends Google_Model
 {
-  public $operationId;
-  protected $statusType = 'Google_Service_ServiceControl_Status';
-  protected $statusDataType = '';
+	public $operationId;
+	protected $statusType = 'Google_Service_ServiceControl_Status';
+	protected $statusDataType = '';
 
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  /**
-   * @param Google_Service_ServiceControl_Status
-   */
-  public function setStatus(Google_Service_ServiceControl_Status $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_ServiceControl_Status
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	/**
+	 * @param Google_Service_ServiceControl_Status
+	 */
+	public function setStatus(Google_Service_ServiceControl_Status $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_ServiceControl_Status
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceConsumerManagement_AttachTenantProjectRequest extends Google_Model
 {
-  public $externalResource;
-  public $reservedResource;
-  public $tag;
+	public $externalResource;
+	public $reservedResource;
+	public $tag;
 
-  public function setExternalResource($externalResource)
-  {
-    $this->externalResource = $externalResource;
-  }
-  public function getExternalResource()
-  {
-    return $this->externalResource;
-  }
-  public function setReservedResource($reservedResource)
-  {
-    $this->reservedResource = $reservedResource;
-  }
-  public function getReservedResource()
-  {
-    return $this->reservedResource;
-  }
-  public function setTag($tag)
-  {
-    $this->tag = $tag;
-  }
-  public function getTag()
-  {
-    return $this->tag;
-  }
+	public function setExternalResource($externalResource)
+	{
+		$this->externalResource = $externalResource;
+	}
+	public function getExternalResource()
+	{
+		return $this->externalResource;
+	}
+	public function setReservedResource($reservedResource)
+	{
+		$this->reservedResource = $reservedResource;
+	}
+	public function getReservedResource()
+	{
+		return $this->reservedResource;
+	}
+	public function setTag($tag)
+	{
+		$this->tag = $tag;
+	}
+	public function getTag()
+	{
+		return $this->tag;
+	}
 }

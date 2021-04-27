@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSearch_ErrorMessage extends Google_Model
 {
-  public $errorMessage;
-  protected $sourceType = 'Google_Service_CloudSearch_Source';
-  protected $sourceDataType = '';
+	public $errorMessage;
+	protected $sourceType = 'Google_Service_CloudSearch_Source';
+	protected $sourceDataType = '';
 
-  public function setErrorMessage($errorMessage)
-  {
-    $this->errorMessage = $errorMessage;
-  }
-  public function getErrorMessage()
-  {
-    return $this->errorMessage;
-  }
-  /**
-   * @param Google_Service_CloudSearch_Source
-   */
-  public function setSource(Google_Service_CloudSearch_Source $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_CloudSearch_Source
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
+	public function setErrorMessage($errorMessage)
+	{
+		$this->errorMessage = $errorMessage;
+	}
+	public function getErrorMessage()
+	{
+		return $this->errorMessage;
+	}
+	/**
+	 * @param Google_Service_CloudSearch_Source
+	 */
+	public function setSource(Google_Service_CloudSearch_Source $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_Source
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

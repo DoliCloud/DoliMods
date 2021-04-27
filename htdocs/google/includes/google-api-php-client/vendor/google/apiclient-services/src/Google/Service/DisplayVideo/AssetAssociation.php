@@ -17,30 +17,30 @@
 
 class Google_Service_DisplayVideo_AssetAssociation extends Google_Model
 {
-  protected $assetType = 'Google_Service_DisplayVideo_Asset';
-  protected $assetDataType = '';
-  public $role;
+	protected $assetType = 'Google_Service_DisplayVideo_Asset';
+	protected $assetDataType = '';
+	public $role;
 
-  /**
-   * @param Google_Service_DisplayVideo_Asset
-   */
-  public function setAsset(Google_Service_DisplayVideo_Asset $asset)
-  {
-    $this->asset = $asset;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_Asset
-   */
-  public function getAsset()
-  {
-    return $this->asset;
-  }
-  public function setRole($role)
-  {
-    $this->role = $role;
-  }
-  public function getRole()
-  {
-    return $this->role;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_Asset
+	 */
+	public function setAsset(Google_Service_DisplayVideo_Asset $asset)
+	{
+		$this->asset = $asset;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_Asset
+	 */
+	public function getAsset()
+	{
+		return $this->asset;
+	}
+	public function setRole($role)
+	{
+		$this->role = $role;
+	}
+	public function getRole()
+	{
+		return $this->role;
+	}
 }

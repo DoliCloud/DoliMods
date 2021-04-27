@@ -25,28 +25,28 @@
  */
 class Google_Service_Chromewebstore_Resource_Licenses extends Google_Service_Resource
 {
-  /**
-   * Gets the licenses for Chrome hosted apps. (licenses.get)
-   *
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Chromewebstore_License
-   */
-  public function get($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Chromewebstore_License");
-  }
-  /**
-   * Gets the licenses for Chrome packaged apps. (licenses.getUserLicense)
-   *
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Chromewebstore_UserLicense
-   */
-  public function getUserLicense($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('getUserLicense', array($params), "Google_Service_Chromewebstore_UserLicense");
-  }
+	/**
+	 * Gets the licenses for Chrome hosted apps. (licenses.get)
+	 *
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Chromewebstore_License
+	 */
+	public function get($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Chromewebstore_License");
+	}
+	/**
+	 * Gets the licenses for Chrome packaged apps. (licenses.getUserLicense)
+	 *
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Chromewebstore_UserLicense
+	 */
+	public function getUserLicense($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('getUserLicense', array($params), "Google_Service_Chromewebstore_UserLicense");
+	}
 }

@@ -17,56 +17,56 @@
 
 class Google_Service_Container_ClusterAutoscaling extends Google_Collection
 {
-  protected $collection_key = 'resourceLimits';
-  public $autoprovisioningLocations;
-  protected $autoprovisioningNodePoolDefaultsType = 'Google_Service_Container_AutoprovisioningNodePoolDefaults';
-  protected $autoprovisioningNodePoolDefaultsDataType = '';
-  public $enableNodeAutoprovisioning;
-  protected $resourceLimitsType = 'Google_Service_Container_ResourceLimit';
-  protected $resourceLimitsDataType = 'array';
+	protected $collection_key = 'resourceLimits';
+	public $autoprovisioningLocations;
+	protected $autoprovisioningNodePoolDefaultsType = 'Google_Service_Container_AutoprovisioningNodePoolDefaults';
+	protected $autoprovisioningNodePoolDefaultsDataType = '';
+	public $enableNodeAutoprovisioning;
+	protected $resourceLimitsType = 'Google_Service_Container_ResourceLimit';
+	protected $resourceLimitsDataType = 'array';
 
-  public function setAutoprovisioningLocations($autoprovisioningLocations)
-  {
-    $this->autoprovisioningLocations = $autoprovisioningLocations;
-  }
-  public function getAutoprovisioningLocations()
-  {
-    return $this->autoprovisioningLocations;
-  }
-  /**
-   * @param Google_Service_Container_AutoprovisioningNodePoolDefaults
-   */
-  public function setAutoprovisioningNodePoolDefaults(Google_Service_Container_AutoprovisioningNodePoolDefaults $autoprovisioningNodePoolDefaults)
-  {
-    $this->autoprovisioningNodePoolDefaults = $autoprovisioningNodePoolDefaults;
-  }
-  /**
-   * @return Google_Service_Container_AutoprovisioningNodePoolDefaults
-   */
-  public function getAutoprovisioningNodePoolDefaults()
-  {
-    return $this->autoprovisioningNodePoolDefaults;
-  }
-  public function setEnableNodeAutoprovisioning($enableNodeAutoprovisioning)
-  {
-    $this->enableNodeAutoprovisioning = $enableNodeAutoprovisioning;
-  }
-  public function getEnableNodeAutoprovisioning()
-  {
-    return $this->enableNodeAutoprovisioning;
-  }
-  /**
-   * @param Google_Service_Container_ResourceLimit
-   */
-  public function setResourceLimits($resourceLimits)
-  {
-    $this->resourceLimits = $resourceLimits;
-  }
-  /**
-   * @return Google_Service_Container_ResourceLimit
-   */
-  public function getResourceLimits()
-  {
-    return $this->resourceLimits;
-  }
+	public function setAutoprovisioningLocations($autoprovisioningLocations)
+	{
+		$this->autoprovisioningLocations = $autoprovisioningLocations;
+	}
+	public function getAutoprovisioningLocations()
+	{
+		return $this->autoprovisioningLocations;
+	}
+	/**
+	 * @param Google_Service_Container_AutoprovisioningNodePoolDefaults
+	 */
+	public function setAutoprovisioningNodePoolDefaults(Google_Service_Container_AutoprovisioningNodePoolDefaults $autoprovisioningNodePoolDefaults)
+	{
+		$this->autoprovisioningNodePoolDefaults = $autoprovisioningNodePoolDefaults;
+	}
+	/**
+	 * @return Google_Service_Container_AutoprovisioningNodePoolDefaults
+	 */
+	public function getAutoprovisioningNodePoolDefaults()
+	{
+		return $this->autoprovisioningNodePoolDefaults;
+	}
+	public function setEnableNodeAutoprovisioning($enableNodeAutoprovisioning)
+	{
+		$this->enableNodeAutoprovisioning = $enableNodeAutoprovisioning;
+	}
+	public function getEnableNodeAutoprovisioning()
+	{
+		return $this->enableNodeAutoprovisioning;
+	}
+	/**
+	 * @param Google_Service_Container_ResourceLimit
+	 */
+	public function setResourceLimits($resourceLimits)
+	{
+		$this->resourceLimits = $resourceLimits;
+	}
+	/**
+	 * @return Google_Service_Container_ResourceLimit
+	 */
+	public function getResourceLimits()
+	{
+		return $this->resourceLimits;
+	}
 }

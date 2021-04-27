@@ -17,58 +17,58 @@
 
 class Google_Service_Dataflow_Source extends Google_Collection
 {
-  protected $collection_key = 'baseSpecs';
-  public $baseSpecs;
-  public $codec;
-  public $doesNotNeedSplitting;
-  protected $metadataType = 'Google_Service_Dataflow_SourceMetadata';
-  protected $metadataDataType = '';
-  public $spec;
+	protected $collection_key = 'baseSpecs';
+	public $baseSpecs;
+	public $codec;
+	public $doesNotNeedSplitting;
+	protected $metadataType = 'Google_Service_Dataflow_SourceMetadata';
+	protected $metadataDataType = '';
+	public $spec;
 
-  public function setBaseSpecs($baseSpecs)
-  {
-    $this->baseSpecs = $baseSpecs;
-  }
-  public function getBaseSpecs()
-  {
-    return $this->baseSpecs;
-  }
-  public function setCodec($codec)
-  {
-    $this->codec = $codec;
-  }
-  public function getCodec()
-  {
-    return $this->codec;
-  }
-  public function setDoesNotNeedSplitting($doesNotNeedSplitting)
-  {
-    $this->doesNotNeedSplitting = $doesNotNeedSplitting;
-  }
-  public function getDoesNotNeedSplitting()
-  {
-    return $this->doesNotNeedSplitting;
-  }
-  /**
-   * @param Google_Service_Dataflow_SourceMetadata
-   */
-  public function setMetadata(Google_Service_Dataflow_SourceMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_Dataflow_SourceMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setSpec($spec)
-  {
-    $this->spec = $spec;
-  }
-  public function getSpec()
-  {
-    return $this->spec;
-  }
+	public function setBaseSpecs($baseSpecs)
+	{
+		$this->baseSpecs = $baseSpecs;
+	}
+	public function getBaseSpecs()
+	{
+		return $this->baseSpecs;
+	}
+	public function setCodec($codec)
+	{
+		$this->codec = $codec;
+	}
+	public function getCodec()
+	{
+		return $this->codec;
+	}
+	public function setDoesNotNeedSplitting($doesNotNeedSplitting)
+	{
+		$this->doesNotNeedSplitting = $doesNotNeedSplitting;
+	}
+	public function getDoesNotNeedSplitting()
+	{
+		return $this->doesNotNeedSplitting;
+	}
+	/**
+	 * @param Google_Service_Dataflow_SourceMetadata
+	 */
+	public function setMetadata(Google_Service_Dataflow_SourceMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_Dataflow_SourceMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setSpec($spec)
+	{
+		$this->spec = $spec;
+	}
+	public function getSpec()
+	{
+		return $this->spec;
+	}
 }

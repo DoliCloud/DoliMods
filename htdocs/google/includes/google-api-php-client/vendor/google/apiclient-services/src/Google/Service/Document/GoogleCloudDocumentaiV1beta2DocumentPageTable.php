@@ -17,70 +17,70 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTable extends Google_Collection
 {
-  protected $collection_key = 'headerRows';
-  protected $bodyRowsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow';
-  protected $bodyRowsDataType = 'array';
-  protected $detectedLanguagesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage';
-  protected $detectedLanguagesDataType = 'array';
-  protected $headerRowsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow';
-  protected $headerRowsDataType = 'array';
-  protected $layoutType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout';
-  protected $layoutDataType = '';
+	protected $collection_key = 'headerRows';
+	protected $bodyRowsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow';
+	protected $bodyRowsDataType = 'array';
+	protected $detectedLanguagesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage';
+	protected $detectedLanguagesDataType = 'array';
+	protected $headerRowsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow';
+	protected $headerRowsDataType = 'array';
+	protected $layoutType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout';
+	protected $layoutDataType = '';
 
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow
-   */
-  public function setBodyRows($bodyRows)
-  {
-    $this->bodyRows = $bodyRows;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow
-   */
-  public function getBodyRows()
-  {
-    return $this->bodyRows;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage
-   */
-  public function setDetectedLanguages($detectedLanguages)
-  {
-    $this->detectedLanguages = $detectedLanguages;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage
-   */
-  public function getDetectedLanguages()
-  {
-    return $this->detectedLanguages;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow
-   */
-  public function setHeaderRows($headerRows)
-  {
-    $this->headerRows = $headerRows;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow
-   */
-  public function getHeaderRows()
-  {
-    return $this->headerRows;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout
-   */
-  public function setLayout(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout $layout)
-  {
-    $this->layout = $layout;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout
-   */
-  public function getLayout()
-  {
-    return $this->layout;
-  }
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow
+	 */
+	public function setBodyRows($bodyRows)
+	{
+		$this->bodyRows = $bodyRows;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow
+	 */
+	public function getBodyRows()
+	{
+		return $this->bodyRows;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage
+	 */
+	public function setDetectedLanguages($detectedLanguages)
+	{
+		$this->detectedLanguages = $detectedLanguages;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage
+	 */
+	public function getDetectedLanguages()
+	{
+		return $this->detectedLanguages;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow
+	 */
+	public function setHeaderRows($headerRows)
+	{
+		$this->headerRows = $headerRows;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow
+	 */
+	public function getHeaderRows()
+	{
+		return $this->headerRows;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout
+	 */
+	public function setLayout(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout $layout)
+	{
+		$this->layout = $layout;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageLayout
+	 */
+	public function getLayout()
+	{
+		return $this->layout;
+	}
 }

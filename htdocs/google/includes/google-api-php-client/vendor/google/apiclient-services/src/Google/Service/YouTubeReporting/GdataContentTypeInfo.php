@@ -17,50 +17,50 @@
 
 class Google_Service_YouTubeReporting_GdataContentTypeInfo extends Google_Model
 {
-  public $bestGuess;
-  public $fromBytes;
-  public $fromFileName;
-  public $fromHeader;
-  public $fromUrlPath;
+	public $bestGuess;
+	public $fromBytes;
+	public $fromFileName;
+	public $fromHeader;
+	public $fromUrlPath;
 
-  public function setBestGuess($bestGuess)
-  {
-    $this->bestGuess = $bestGuess;
-  }
-  public function getBestGuess()
-  {
-    return $this->bestGuess;
-  }
-  public function setFromBytes($fromBytes)
-  {
-    $this->fromBytes = $fromBytes;
-  }
-  public function getFromBytes()
-  {
-    return $this->fromBytes;
-  }
-  public function setFromFileName($fromFileName)
-  {
-    $this->fromFileName = $fromFileName;
-  }
-  public function getFromFileName()
-  {
-    return $this->fromFileName;
-  }
-  public function setFromHeader($fromHeader)
-  {
-    $this->fromHeader = $fromHeader;
-  }
-  public function getFromHeader()
-  {
-    return $this->fromHeader;
-  }
-  public function setFromUrlPath($fromUrlPath)
-  {
-    $this->fromUrlPath = $fromUrlPath;
-  }
-  public function getFromUrlPath()
-  {
-    return $this->fromUrlPath;
-  }
+	public function setBestGuess($bestGuess)
+	{
+		$this->bestGuess = $bestGuess;
+	}
+	public function getBestGuess()
+	{
+		return $this->bestGuess;
+	}
+	public function setFromBytes($fromBytes)
+	{
+		$this->fromBytes = $fromBytes;
+	}
+	public function getFromBytes()
+	{
+		return $this->fromBytes;
+	}
+	public function setFromFileName($fromFileName)
+	{
+		$this->fromFileName = $fromFileName;
+	}
+	public function getFromFileName()
+	{
+		return $this->fromFileName;
+	}
+	public function setFromHeader($fromHeader)
+	{
+		$this->fromHeader = $fromHeader;
+	}
+	public function getFromHeader()
+	{
+		return $this->fromHeader;
+	}
+	public function setFromUrlPath($fromUrlPath)
+	{
+		$this->fromUrlPath = $fromUrlPath;
+	}
+	public function getFromUrlPath()
+	{
+		return $this->fromUrlPath;
+	}
 }

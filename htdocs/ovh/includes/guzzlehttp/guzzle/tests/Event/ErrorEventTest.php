@@ -12,12 +12,12 @@ use GuzzleHttp\Message\Request;
  */
 class ErrorEventTest extends \PHPUnit_Framework_TestCase
 {
-    public function testInterceptsWithEvent()
-    {
-        $t = new Transaction(new Client(), new Request('GET', '/'));
-        $except = new RequestException('foo', $t->request);
-        $t->exception = $except;
-        $e = new ErrorEvent($t);
-        $this->assertSame($e->getException(), $t->exception);
-    }
+	public function testInterceptsWithEvent()
+	{
+		$t = new Transaction(new Client(), new Request('GET', '/'));
+		$except = new RequestException('foo', $t->request);
+		$t->exception = $except;
+		$e = new ErrorEvent($t);
+		$this->assertSame($e->getException(), $t->exception);
+	}
 }

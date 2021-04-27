@@ -17,58 +17,58 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema extends Google_Collection
 {
-  protected $collection_key = 'subcolumns';
-  public $column;
-  public $description;
-  public $mode;
-  protected $subcolumnsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema';
-  protected $subcolumnsDataType = 'array';
-  public $type;
+	protected $collection_key = 'subcolumns';
+	public $column;
+	public $description;
+	public $mode;
+	protected $subcolumnsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema';
+	protected $subcolumnsDataType = 'array';
+	public $type;
 
-  public function setColumn($column)
-  {
-    $this->column = $column;
-  }
-  public function getColumn()
-  {
-    return $this->column;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setMode($mode)
-  {
-    $this->mode = $mode;
-  }
-  public function getMode()
-  {
-    return $this->mode;
-  }
-  /**
-   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema
-   */
-  public function setSubcolumns($subcolumns)
-  {
-    $this->subcolumns = $subcolumns;
-  }
-  /**
-   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema
-   */
-  public function getSubcolumns()
-  {
-    return $this->subcolumns;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setColumn($column)
+	{
+		$this->column = $column;
+	}
+	public function getColumn()
+	{
+		return $this->column;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setMode($mode)
+	{
+		$this->mode = $mode;
+	}
+	public function getMode()
+	{
+		return $this->mode;
+	}
+	/**
+	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema
+	 */
+	public function setSubcolumns($subcolumns)
+	{
+		$this->subcolumns = $subcolumns;
+	}
+	/**
+	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema
+	 */
+	public function getSubcolumns()
+	{
+		return $this->subcolumns;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

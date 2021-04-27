@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceConsumerManagement_TenantProjectPolicy extends Google_Collection
 {
-  protected $collection_key = 'policyBindings';
-  protected $policyBindingsType = 'Google_Service_ServiceConsumerManagement_PolicyBinding';
-  protected $policyBindingsDataType = 'array';
+	protected $collection_key = 'policyBindings';
+	protected $policyBindingsType = 'Google_Service_ServiceConsumerManagement_PolicyBinding';
+	protected $policyBindingsDataType = 'array';
 
-  /**
-   * @param Google_Service_ServiceConsumerManagement_PolicyBinding
-   */
-  public function setPolicyBindings($policyBindings)
-  {
-    $this->policyBindings = $policyBindings;
-  }
-  /**
-   * @return Google_Service_ServiceConsumerManagement_PolicyBinding
-   */
-  public function getPolicyBindings()
-  {
-    return $this->policyBindings;
-  }
+	/**
+	 * @param Google_Service_ServiceConsumerManagement_PolicyBinding
+	 */
+	public function setPolicyBindings($policyBindings)
+	{
+		$this->policyBindings = $policyBindings;
+	}
+	/**
+	 * @return Google_Service_ServiceConsumerManagement_PolicyBinding
+	 */
+	public function getPolicyBindings()
+	{
+		return $this->policyBindings;
+	}
 }

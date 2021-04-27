@@ -17,30 +17,30 @@
 
 class Google_Service_Dataflow_LaunchFlexTemplateRequest extends Google_Model
 {
-  protected $launchParameterType = 'Google_Service_Dataflow_LaunchFlexTemplateParameter';
-  protected $launchParameterDataType = '';
-  public $validateOnly;
+	protected $launchParameterType = 'Google_Service_Dataflow_LaunchFlexTemplateParameter';
+	protected $launchParameterDataType = '';
+	public $validateOnly;
 
-  /**
-   * @param Google_Service_Dataflow_LaunchFlexTemplateParameter
-   */
-  public function setLaunchParameter(Google_Service_Dataflow_LaunchFlexTemplateParameter $launchParameter)
-  {
-    $this->launchParameter = $launchParameter;
-  }
-  /**
-   * @return Google_Service_Dataflow_LaunchFlexTemplateParameter
-   */
-  public function getLaunchParameter()
-  {
-    return $this->launchParameter;
-  }
-  public function setValidateOnly($validateOnly)
-  {
-    $this->validateOnly = $validateOnly;
-  }
-  public function getValidateOnly()
-  {
-    return $this->validateOnly;
-  }
+	/**
+	 * @param Google_Service_Dataflow_LaunchFlexTemplateParameter
+	 */
+	public function setLaunchParameter(Google_Service_Dataflow_LaunchFlexTemplateParameter $launchParameter)
+	{
+		$this->launchParameter = $launchParameter;
+	}
+	/**
+	 * @return Google_Service_Dataflow_LaunchFlexTemplateParameter
+	 */
+	public function getLaunchParameter()
+	{
+		return $this->launchParameter;
+	}
+	public function setValidateOnly($validateOnly)
+	{
+		$this->validateOnly = $validateOnly;
+	}
+	public function getValidateOnly()
+	{
+		return $this->validateOnly;
+	}
 }

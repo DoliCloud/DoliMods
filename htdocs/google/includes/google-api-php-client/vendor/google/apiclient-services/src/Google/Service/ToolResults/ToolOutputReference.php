@@ -17,53 +17,53 @@
 
 class Google_Service_ToolResults_ToolOutputReference extends Google_Model
 {
-  protected $creationTimeType = 'Google_Service_ToolResults_Timestamp';
-  protected $creationTimeDataType = '';
-  protected $outputType = 'Google_Service_ToolResults_FileReference';
-  protected $outputDataType = '';
-  protected $testCaseType = 'Google_Service_ToolResults_TestCaseReference';
-  protected $testCaseDataType = '';
+	protected $creationTimeType = 'Google_Service_ToolResults_Timestamp';
+	protected $creationTimeDataType = '';
+	protected $outputType = 'Google_Service_ToolResults_FileReference';
+	protected $outputDataType = '';
+	protected $testCaseType = 'Google_Service_ToolResults_TestCaseReference';
+	protected $testCaseDataType = '';
 
-  /**
-   * @param Google_Service_ToolResults_Timestamp
-   */
-  public function setCreationTime(Google_Service_ToolResults_Timestamp $creationTime)
-  {
-    $this->creationTime = $creationTime;
-  }
-  /**
-   * @return Google_Service_ToolResults_Timestamp
-   */
-  public function getCreationTime()
-  {
-    return $this->creationTime;
-  }
-  /**
-   * @param Google_Service_ToolResults_FileReference
-   */
-  public function setOutput(Google_Service_ToolResults_FileReference $output)
-  {
-    $this->output = $output;
-  }
-  /**
-   * @return Google_Service_ToolResults_FileReference
-   */
-  public function getOutput()
-  {
-    return $this->output;
-  }
-  /**
-   * @param Google_Service_ToolResults_TestCaseReference
-   */
-  public function setTestCase(Google_Service_ToolResults_TestCaseReference $testCase)
-  {
-    $this->testCase = $testCase;
-  }
-  /**
-   * @return Google_Service_ToolResults_TestCaseReference
-   */
-  public function getTestCase()
-  {
-    return $this->testCase;
-  }
+	/**
+	 * @param Google_Service_ToolResults_Timestamp
+	 */
+	public function setCreationTime(Google_Service_ToolResults_Timestamp $creationTime)
+	{
+		$this->creationTime = $creationTime;
+	}
+	/**
+	 * @return Google_Service_ToolResults_Timestamp
+	 */
+	public function getCreationTime()
+	{
+		return $this->creationTime;
+	}
+	/**
+	 * @param Google_Service_ToolResults_FileReference
+	 */
+	public function setOutput(Google_Service_ToolResults_FileReference $output)
+	{
+		$this->output = $output;
+	}
+	/**
+	 * @return Google_Service_ToolResults_FileReference
+	 */
+	public function getOutput()
+	{
+		return $this->output;
+	}
+	/**
+	 * @param Google_Service_ToolResults_TestCaseReference
+	 */
+	public function setTestCase(Google_Service_ToolResults_TestCaseReference $testCase)
+	{
+		$this->testCase = $testCase;
+	}
+	/**
+	 * @return Google_Service_ToolResults_TestCaseReference
+	 */
+	public function getTestCase()
+	{
+		return $this->testCase;
+	}
 }

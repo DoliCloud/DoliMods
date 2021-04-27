@@ -17,41 +17,41 @@
 
 class Google_Service_CivicInfo_Election extends Google_Model
 {
-  public $electionDay;
-  public $id;
-  public $name;
-  public $ocdDivisionId;
+	public $electionDay;
+	public $id;
+	public $name;
+	public $ocdDivisionId;
 
-  public function setElectionDay($electionDay)
-  {
-    $this->electionDay = $electionDay;
-  }
-  public function getElectionDay()
-  {
-    return $this->electionDay;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOcdDivisionId($ocdDivisionId)
-  {
-    $this->ocdDivisionId = $ocdDivisionId;
-  }
-  public function getOcdDivisionId()
-  {
-    return $this->ocdDivisionId;
-  }
+	public function setElectionDay($electionDay)
+	{
+		$this->electionDay = $electionDay;
+	}
+	public function getElectionDay()
+	{
+		return $this->electionDay;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOcdDivisionId($ocdDivisionId)
+	{
+		$this->ocdDivisionId = $ocdDivisionId;
+	}
+	public function getOcdDivisionId()
+	{
+		return $this->ocdDivisionId;
+	}
 }

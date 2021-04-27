@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_LiasettingsListPosDataProvidersResponse extends Google_Collection
 {
-  protected $collection_key = 'posDataProviders';
-  public $kind;
-  protected $posDataProvidersType = 'Google_Service_ShoppingContent_PosDataProviders';
-  protected $posDataProvidersDataType = 'array';
+	protected $collection_key = 'posDataProviders';
+	public $kind;
+	protected $posDataProvidersType = 'Google_Service_ShoppingContent_PosDataProviders';
+	protected $posDataProvidersDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_PosDataProviders
-   */
-  public function setPosDataProviders($posDataProviders)
-  {
-    $this->posDataProviders = $posDataProviders;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_PosDataProviders
-   */
-  public function getPosDataProviders()
-  {
-    return $this->posDataProviders;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_PosDataProviders
+	 */
+	public function setPosDataProviders($posDataProviders)
+	{
+		$this->posDataProviders = $posDataProviders;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_PosDataProviders
+	 */
+	public function getPosDataProviders()
+	{
+		return $this->posDataProviders;
+	}
 }

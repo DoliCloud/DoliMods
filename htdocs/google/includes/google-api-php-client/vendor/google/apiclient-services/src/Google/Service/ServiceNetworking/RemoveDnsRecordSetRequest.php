@@ -17,39 +17,39 @@
 
 class Google_Service_ServiceNetworking_RemoveDnsRecordSetRequest extends Google_Model
 {
-  public $consumerNetwork;
-  protected $dnsRecordSetType = 'Google_Service_ServiceNetworking_DnsRecordSet';
-  protected $dnsRecordSetDataType = '';
-  public $zone;
+	public $consumerNetwork;
+	protected $dnsRecordSetType = 'Google_Service_ServiceNetworking_DnsRecordSet';
+	protected $dnsRecordSetDataType = '';
+	public $zone;
 
-  public function setConsumerNetwork($consumerNetwork)
-  {
-    $this->consumerNetwork = $consumerNetwork;
-  }
-  public function getConsumerNetwork()
-  {
-    return $this->consumerNetwork;
-  }
-  /**
-   * @param Google_Service_ServiceNetworking_DnsRecordSet
-   */
-  public function setDnsRecordSet(Google_Service_ServiceNetworking_DnsRecordSet $dnsRecordSet)
-  {
-    $this->dnsRecordSet = $dnsRecordSet;
-  }
-  /**
-   * @return Google_Service_ServiceNetworking_DnsRecordSet
-   */
-  public function getDnsRecordSet()
-  {
-    return $this->dnsRecordSet;
-  }
-  public function setZone($zone)
-  {
-    $this->zone = $zone;
-  }
-  public function getZone()
-  {
-    return $this->zone;
-  }
+	public function setConsumerNetwork($consumerNetwork)
+	{
+		$this->consumerNetwork = $consumerNetwork;
+	}
+	public function getConsumerNetwork()
+	{
+		return $this->consumerNetwork;
+	}
+	/**
+	 * @param Google_Service_ServiceNetworking_DnsRecordSet
+	 */
+	public function setDnsRecordSet(Google_Service_ServiceNetworking_DnsRecordSet $dnsRecordSet)
+	{
+		$this->dnsRecordSet = $dnsRecordSet;
+	}
+	/**
+	 * @return Google_Service_ServiceNetworking_DnsRecordSet
+	 */
+	public function getDnsRecordSet()
+	{
+		return $this->dnsRecordSet;
+	}
+	public function setZone($zone)
+	{
+		$this->zone = $zone;
+	}
+	public function getZone()
+	{
+		return $this->zone;
+	}
 }

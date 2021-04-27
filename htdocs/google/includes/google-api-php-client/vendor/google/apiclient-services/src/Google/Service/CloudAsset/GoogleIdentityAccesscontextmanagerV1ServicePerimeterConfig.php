@@ -17,49 +17,49 @@
 
 class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig extends Google_Collection
 {
-  protected $collection_key = 'restrictedServices';
-  public $accessLevels;
-  public $resources;
-  public $restrictedServices;
-  protected $vpcAccessibleServicesType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices';
-  protected $vpcAccessibleServicesDataType = '';
+	protected $collection_key = 'restrictedServices';
+	public $accessLevels;
+	public $resources;
+	public $restrictedServices;
+	protected $vpcAccessibleServicesType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices';
+	protected $vpcAccessibleServicesDataType = '';
 
-  public function setAccessLevels($accessLevels)
-  {
-    $this->accessLevels = $accessLevels;
-  }
-  public function getAccessLevels()
-  {
-    return $this->accessLevels;
-  }
-  public function setResources($resources)
-  {
-    $this->resources = $resources;
-  }
-  public function getResources()
-  {
-    return $this->resources;
-  }
-  public function setRestrictedServices($restrictedServices)
-  {
-    $this->restrictedServices = $restrictedServices;
-  }
-  public function getRestrictedServices()
-  {
-    return $this->restrictedServices;
-  }
-  /**
-   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices
-   */
-  public function setVpcAccessibleServices(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices $vpcAccessibleServices)
-  {
-    $this->vpcAccessibleServices = $vpcAccessibleServices;
-  }
-  /**
-   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices
-   */
-  public function getVpcAccessibleServices()
-  {
-    return $this->vpcAccessibleServices;
-  }
+	public function setAccessLevels($accessLevels)
+	{
+		$this->accessLevels = $accessLevels;
+	}
+	public function getAccessLevels()
+	{
+		return $this->accessLevels;
+	}
+	public function setResources($resources)
+	{
+		$this->resources = $resources;
+	}
+	public function getResources()
+	{
+		return $this->resources;
+	}
+	public function setRestrictedServices($restrictedServices)
+	{
+		$this->restrictedServices = $restrictedServices;
+	}
+	public function getRestrictedServices()
+	{
+		return $this->restrictedServices;
+	}
+	/**
+	 * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices
+	 */
+	public function setVpcAccessibleServices(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices $vpcAccessibleServices)
+	{
+		$this->vpcAccessibleServices = $vpcAccessibleServices;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices
+	 */
+	public function getVpcAccessibleServices()
+	{
+		return $this->vpcAccessibleServices;
+	}
 }

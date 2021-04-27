@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ToolDetails extends Google_Model
 {
-  public $toolName;
-  public $toolVersion;
+	public $toolName;
+	public $toolVersion;
 
-  public function setToolName($toolName)
-  {
-    $this->toolName = $toolName;
-  }
-  public function getToolName()
-  {
-    return $this->toolName;
-  }
-  public function setToolVersion($toolVersion)
-  {
-    $this->toolVersion = $toolVersion;
-  }
-  public function getToolVersion()
-  {
-    return $this->toolVersion;
-  }
+	public function setToolName($toolName)
+	{
+		$this->toolName = $toolName;
+	}
+	public function getToolName()
+	{
+		return $this->toolName;
+	}
+	public function setToolVersion($toolVersion)
+	{
+		$this->toolVersion = $toolVersion;
+	}
+	public function getToolVersion()
+	{
+		return $this->toolVersion;
+	}
 }

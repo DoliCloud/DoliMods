@@ -17,37 +17,37 @@
 
 class Google_Service_CloudMonitoring_TimeseriesPoint extends Google_Model
 {
-  protected $pointType = 'Google_Service_CloudMonitoring_Point';
-  protected $pointDataType = '';
-  protected $timeseriesDescType = 'Google_Service_CloudMonitoring_TimeseriesDescriptor';
-  protected $timeseriesDescDataType = '';
+	protected $pointType = 'Google_Service_CloudMonitoring_Point';
+	protected $pointDataType = '';
+	protected $timeseriesDescType = 'Google_Service_CloudMonitoring_TimeseriesDescriptor';
+	protected $timeseriesDescDataType = '';
 
-  /**
-   * @param Google_Service_CloudMonitoring_Point
-   */
-  public function setPoint(Google_Service_CloudMonitoring_Point $point)
-  {
-    $this->point = $point;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_Point
-   */
-  public function getPoint()
-  {
-    return $this->point;
-  }
-  /**
-   * @param Google_Service_CloudMonitoring_TimeseriesDescriptor
-   */
-  public function setTimeseriesDesc(Google_Service_CloudMonitoring_TimeseriesDescriptor $timeseriesDesc)
-  {
-    $this->timeseriesDesc = $timeseriesDesc;
-  }
-  /**
-   * @return Google_Service_CloudMonitoring_TimeseriesDescriptor
-   */
-  public function getTimeseriesDesc()
-  {
-    return $this->timeseriesDesc;
-  }
+	/**
+	 * @param Google_Service_CloudMonitoring_Point
+	 */
+	public function setPoint(Google_Service_CloudMonitoring_Point $point)
+	{
+		$this->point = $point;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_Point
+	 */
+	public function getPoint()
+	{
+		return $this->point;
+	}
+	/**
+	 * @param Google_Service_CloudMonitoring_TimeseriesDescriptor
+	 */
+	public function setTimeseriesDesc(Google_Service_CloudMonitoring_TimeseriesDescriptor $timeseriesDesc)
+	{
+		$this->timeseriesDesc = $timeseriesDesc;
+	}
+	/**
+	 * @return Google_Service_CloudMonitoring_TimeseriesDescriptor
+	 */
+	public function getTimeseriesDesc()
+	{
+		return $this->timeseriesDesc;
+	}
 }

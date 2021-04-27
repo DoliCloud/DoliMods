@@ -17,31 +17,31 @@
 
 class Google_Service_BigQueryDataTransfer_ListTransferConfigsResponse extends Google_Collection
 {
-  protected $collection_key = 'transferConfigs';
-  public $nextPageToken;
-  protected $transferConfigsType = 'Google_Service_BigQueryDataTransfer_TransferConfig';
-  protected $transferConfigsDataType = 'array';
+	protected $collection_key = 'transferConfigs';
+	public $nextPageToken;
+	protected $transferConfigsType = 'Google_Service_BigQueryDataTransfer_TransferConfig';
+	protected $transferConfigsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_BigQueryDataTransfer_TransferConfig
-   */
-  public function setTransferConfigs($transferConfigs)
-  {
-    $this->transferConfigs = $transferConfigs;
-  }
-  /**
-   * @return Google_Service_BigQueryDataTransfer_TransferConfig
-   */
-  public function getTransferConfigs()
-  {
-    return $this->transferConfigs;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_BigQueryDataTransfer_TransferConfig
+	 */
+	public function setTransferConfigs($transferConfigs)
+	{
+		$this->transferConfigs = $transferConfigs;
+	}
+	/**
+	 * @return Google_Service_BigQueryDataTransfer_TransferConfig
+	 */
+	public function getTransferConfigs()
+	{
+		return $this->transferConfigs;
+	}
 }

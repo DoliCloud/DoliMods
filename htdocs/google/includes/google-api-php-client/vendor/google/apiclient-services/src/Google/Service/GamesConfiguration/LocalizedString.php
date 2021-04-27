@@ -17,32 +17,32 @@
 
 class Google_Service_GamesConfiguration_LocalizedString extends Google_Model
 {
-  public $kind;
-  public $locale;
-  public $value;
+	public $kind;
+	public $locale;
+	public $value;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLocale($locale)
-  {
-    $this->locale = $locale;
-  }
-  public function getLocale()
-  {
-    return $this->locale;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLocale($locale)
+	{
+		$this->locale = $locale;
+	}
+	public function getLocale()
+	{
+		return $this->locale;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

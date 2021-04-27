@@ -17,21 +17,21 @@
 
 class Google_Service_ContainerAnalysis_AttestationAuthority extends Google_Model
 {
-  protected $hintType = 'Google_Service_ContainerAnalysis_AttestationAuthorityHint';
-  protected $hintDataType = '';
+	protected $hintType = 'Google_Service_ContainerAnalysis_AttestationAuthorityHint';
+	protected $hintDataType = '';
 
-  /**
-   * @param Google_Service_ContainerAnalysis_AttestationAuthorityHint
-   */
-  public function setHint(Google_Service_ContainerAnalysis_AttestationAuthorityHint $hint)
-  {
-    $this->hint = $hint;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_AttestationAuthorityHint
-   */
-  public function getHint()
-  {
-    return $this->hint;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_AttestationAuthorityHint
+	 */
+	public function setHint(Google_Service_ContainerAnalysis_AttestationAuthorityHint $hint)
+	{
+		$this->hint = $hint;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_AttestationAuthorityHint
+	 */
+	public function getHint()
+	{
+		return $this->hint;
+	}
 }

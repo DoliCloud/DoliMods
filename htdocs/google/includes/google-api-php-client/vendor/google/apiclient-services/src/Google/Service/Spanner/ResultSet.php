@@ -17,47 +17,47 @@
 
 class Google_Service_Spanner_ResultSet extends Google_Collection
 {
-  protected $collection_key = 'rows';
-  protected $metadataType = 'Google_Service_Spanner_ResultSetMetadata';
-  protected $metadataDataType = '';
-  public $rows;
-  protected $statsType = 'Google_Service_Spanner_ResultSetStats';
-  protected $statsDataType = '';
+	protected $collection_key = 'rows';
+	protected $metadataType = 'Google_Service_Spanner_ResultSetMetadata';
+	protected $metadataDataType = '';
+	public $rows;
+	protected $statsType = 'Google_Service_Spanner_ResultSetStats';
+	protected $statsDataType = '';
 
-  /**
-   * @param Google_Service_Spanner_ResultSetMetadata
-   */
-  public function setMetadata(Google_Service_Spanner_ResultSetMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_Spanner_ResultSetMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setRows($rows)
-  {
-    $this->rows = $rows;
-  }
-  public function getRows()
-  {
-    return $this->rows;
-  }
-  /**
-   * @param Google_Service_Spanner_ResultSetStats
-   */
-  public function setStats(Google_Service_Spanner_ResultSetStats $stats)
-  {
-    $this->stats = $stats;
-  }
-  /**
-   * @return Google_Service_Spanner_ResultSetStats
-   */
-  public function getStats()
-  {
-    return $this->stats;
-  }
+	/**
+	 * @param Google_Service_Spanner_ResultSetMetadata
+	 */
+	public function setMetadata(Google_Service_Spanner_ResultSetMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_Spanner_ResultSetMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setRows($rows)
+	{
+		$this->rows = $rows;
+	}
+	public function getRows()
+	{
+		return $this->rows;
+	}
+	/**
+	 * @param Google_Service_Spanner_ResultSetStats
+	 */
+	public function setStats(Google_Service_Spanner_ResultSetStats $stats)
+	{
+		$this->stats = $stats;
+	}
+	/**
+	 * @return Google_Service_Spanner_ResultSetStats
+	 */
+	public function getStats()
+	{
+		return $this->stats;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_WebSecurityScanner_CustomAccount extends Google_Model
 {
-  public $loginUrl;
-  public $password;
-  public $username;
+	public $loginUrl;
+	public $password;
+	public $username;
 
-  public function setLoginUrl($loginUrl)
-  {
-    $this->loginUrl = $loginUrl;
-  }
-  public function getLoginUrl()
-  {
-    return $this->loginUrl;
-  }
-  public function setPassword($password)
-  {
-    $this->password = $password;
-  }
-  public function getPassword()
-  {
-    return $this->password;
-  }
-  public function setUsername($username)
-  {
-    $this->username = $username;
-  }
-  public function getUsername()
-  {
-    return $this->username;
-  }
+	public function setLoginUrl($loginUrl)
+	{
+		$this->loginUrl = $loginUrl;
+	}
+	public function getLoginUrl()
+	{
+		return $this->loginUrl;
+	}
+	public function setPassword($password)
+	{
+		$this->password = $password;
+	}
+	public function getPassword()
+	{
+		return $this->password;
+	}
+	public function setUsername($username)
+	{
+		$this->username = $username;
+	}
+	public function getUsername()
+	{
+		return $this->username;
+	}
 }

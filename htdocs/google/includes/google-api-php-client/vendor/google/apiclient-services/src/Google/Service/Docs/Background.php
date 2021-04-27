@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_Background extends Google_Model
 {
-  protected $colorType = 'Google_Service_Docs_OptionalColor';
-  protected $colorDataType = '';
+	protected $colorType = 'Google_Service_Docs_OptionalColor';
+	protected $colorDataType = '';
 
-  /**
-   * @param Google_Service_Docs_OptionalColor
-   */
-  public function setColor(Google_Service_Docs_OptionalColor $color)
-  {
-    $this->color = $color;
-  }
-  /**
-   * @return Google_Service_Docs_OptionalColor
-   */
-  public function getColor()
-  {
-    return $this->color;
-  }
+	/**
+	 * @param Google_Service_Docs_OptionalColor
+	 */
+	public function setColor(Google_Service_Docs_OptionalColor $color)
+	{
+		$this->color = $color;
+	}
+	/**
+	 * @return Google_Service_Docs_OptionalColor
+	 */
+	public function getColor()
+	{
+		return $this->color;
+	}
 }

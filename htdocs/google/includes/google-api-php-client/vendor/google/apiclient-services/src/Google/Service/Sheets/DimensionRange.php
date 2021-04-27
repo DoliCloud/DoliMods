@@ -17,41 +17,41 @@
 
 class Google_Service_Sheets_DimensionRange extends Google_Model
 {
-  public $dimension;
-  public $endIndex;
-  public $sheetId;
-  public $startIndex;
+	public $dimension;
+	public $endIndex;
+	public $sheetId;
+	public $startIndex;
 
-  public function setDimension($dimension)
-  {
-    $this->dimension = $dimension;
-  }
-  public function getDimension()
-  {
-    return $this->dimension;
-  }
-  public function setEndIndex($endIndex)
-  {
-    $this->endIndex = $endIndex;
-  }
-  public function getEndIndex()
-  {
-    return $this->endIndex;
-  }
-  public function setSheetId($sheetId)
-  {
-    $this->sheetId = $sheetId;
-  }
-  public function getSheetId()
-  {
-    return $this->sheetId;
-  }
-  public function setStartIndex($startIndex)
-  {
-    $this->startIndex = $startIndex;
-  }
-  public function getStartIndex()
-  {
-    return $this->startIndex;
-  }
+	public function setDimension($dimension)
+	{
+		$this->dimension = $dimension;
+	}
+	public function getDimension()
+	{
+		return $this->dimension;
+	}
+	public function setEndIndex($endIndex)
+	{
+		$this->endIndex = $endIndex;
+	}
+	public function getEndIndex()
+	{
+		return $this->endIndex;
+	}
+	public function setSheetId($sheetId)
+	{
+		$this->sheetId = $sheetId;
+	}
+	public function getSheetId()
+	{
+		return $this->sheetId;
+	}
+	public function setStartIndex($startIndex)
+	{
+		$this->startIndex = $startIndex;
+	}
+	public function getStartIndex()
+	{
+		return $this->startIndex;
+	}
 }

@@ -24,20 +24,20 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 dol_include_once("/monitoring/lib/monitoring.lib.php");	// We still use old writing to be compatible with old version
 
 
@@ -66,8 +66,7 @@ $fileimage[4]='test/monitoring-1y.png';
  */
 
 // Save parameters
-if ($actionsave)
-{
+if ($actionsave) {
 	$error=0;
 	$i=0;
 
@@ -79,17 +78,13 @@ if ($actionsave)
 	 $error++;
 	 }
 	 */
-	if (! $error)
-	{
-		if ($i >= 0) $i+=dolibarr_set_const($db,'MONITORING_COMMANDLINE_TOOL',trim($_POST["MONITORING_COMMANDLINE_TOOL"]),'chaine',0);
+	if (! $error) {
+		if ($i >= 0) $i+=dolibarr_set_const($db, 'MONITORING_COMMANDLINE_TOOL', trim($_POST["MONITORING_COMMANDLINE_TOOL"]), 'chaine', 0);
 
-		if ($i >= 1)
-		{
+		if ($i >= 1) {
 			$db->commit();
 			$mesg = "<div class=\"ok\">".$langs->trans("SetupSaved")."</div>";
-		}
-		else
-		{
+		} else {
 			$db->rollback();
 			$mesg=$db->lasterror();
 			//header("Location: ".$_SERVER["PHP_SELF"]);
@@ -98,100 +93,88 @@ if ($actionsave)
 	}
 }
 
-if ($action == 'create')
-{
+if ($action == 'create') {
 	$error=0;
 	dol_mkdir($conf->monitoring->dir_temp.'/test');
 
 	$step=5;
 	$opts = array( "--step", $step,
-           "DS:ds1:GAUGE:".($step*2).":0:100",
-           "DS:ds2:GAUGE:".($step*2).":0:100",
-           "RRA:AVERAGE:0.5:1:".(3600/$step),
-	           "RRA:AVERAGE:0.5:".(60/$step).":1440",
-	           "RRA:AVERAGE:0.5:".(3600/$step).":168",
-	           "RRA:AVERAGE:0.5:".(3600/$step).":744",
-	           "RRA:AVERAGE:0.5:".(86400/$step).":365",
-           	   "RRA:MAX:0.5:1:".(3600/$step),
-	           "RRA:MAX:0.5:".(60/$step).":1440",
-	           "RRA:MAX:0.5:".(3600/$step).":168",
-	           "RRA:MAX:0.5:".(3600/$step).":744",
-	           "RRA:MAX:0.5:".(86400/$step).":365",
-	           "RRA:MIN:0.5:1:".(3600/$step),
-	           "RRA:MIN:0.5:".(60/$step).":1440",
-	           "RRA:MIN:0.5:".(3600/$step).":168",
-	           "RRA:MIN:0.5:".(3600/$step).":744",
-	           "RRA:MIN:0.5:".(86400/$step).":365",
-	           	);
+		   "DS:ds1:GAUGE:".($step*2).":0:100",
+		   "DS:ds2:GAUGE:".($step*2).":0:100",
+		   "RRA:AVERAGE:0.5:1:".(3600/$step),
+			   "RRA:AVERAGE:0.5:".(60/$step).":1440",
+			   "RRA:AVERAGE:0.5:".(3600/$step).":168",
+			   "RRA:AVERAGE:0.5:".(3600/$step).":744",
+			   "RRA:AVERAGE:0.5:".(86400/$step).":365",
+			   "RRA:MAX:0.5:1:".(3600/$step),
+			   "RRA:MAX:0.5:".(60/$step).":1440",
+			   "RRA:MAX:0.5:".(3600/$step).":168",
+			   "RRA:MAX:0.5:".(3600/$step).":744",
+			   "RRA:MAX:0.5:".(86400/$step).":365",
+			   "RRA:MIN:0.5:1:".(3600/$step),
+			   "RRA:MIN:0.5:".(60/$step).":1440",
+			   "RRA:MIN:0.5:".(3600/$step).":168",
+			   "RRA:MIN:0.5:".(3600/$step).":744",
+			   "RRA:MIN:0.5:".(86400/$step).":365",
+				);
 
 	$ret = rrd_create($fname, $opts, count($opts));
 	$resout=file_get_contents($fname.'.out');
-	if (strlen($resout) < 10)
-	{
+	if (strlen($resout) < 10) {
 		$mesg='<div class="ok">'.$langs->trans("File ".$fname.' created').'</div>';
 		$action='graph';	// To rebuild graph
-	}
-	else
-	{
+	} else {
 		$error++;
 		$err = rrd_error($fname);
 		$mesg="Create error: $err\n";
 	}
 }
 
-if ($action == 'update')
-{
+if ($action == 'update') {
 	$error=0;
-	$val1=rand(0,100);
+	$val1=rand(0, 100);
 	$val2=25;
 	$ret = rrd_update($fname, "N:$val1:$val2");
 
-	if( $ret > 0)
-	{
+	if ( $ret > 0) {
 		$mesg='<div class="ok">'.$langs->trans("File ".$fname.' completed with random values '.$val1.' for graph 1 and '.$val2.' for graph 2').'</div>';
-	}
-	else
-	{
+	} else {
 		$error++;
 		$err = rrd_error($fname);
 		$mesg="Update error: $err\n";
 	}
 }
 
-if ($action == 'graph')
-{
+if ($action == 'graph') {
 	$error=0;
 	$mesg='';
 
-	$newfname=preg_replace('/^[a-z]:/i','',$fname);	// Removed C:, D: for windows path to avoid error in def string
+	$newfname=preg_replace('/^[a-z]:/i', '', $fname);	// Removed C:, D: for windows path to avoid error in def string
 
 	$opts = array(
 			'--start','-1h',
 			"--vertical-label=%",
-           "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
-           "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
+		   "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
+		   "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
 			"LINE1:ds1#0000FF:Graph1",
 			"LINE1:ds2#00FF00:Graph2",
- 			"CDEF:cdef1=ds1,1,*",
-           "CDEF:cdef2=ds2,1,*",
-	       'COMMENT:\\\n ',
-	       "GPRINT:cdef1:MIN:Minval1%6.2lf ",
-	       "GPRINT:cdef1:AVERAGE:Avgval1%6.2lf ",
-	       "GPRINT:cdef1:MAX:Maxval1%6.2lf ",
-	       'COMMENT:\\\n ',
-	       "GPRINT:cdef2:MIN:Minval2%6.2lf ",
-	       "GPRINT:cdef2:AVERAGE:Avgval2%6.2lf ",
-	       "GPRINT:cdef2:MAX:Maxval2%6.2lf ",
-	       'COMMENT:\\\n ',
+			"CDEF:cdef1=ds1,1,*",
+		   "CDEF:cdef2=ds2,1,*",
+		   'COMMENT:\\\n ',
+		   "GPRINT:cdef1:MIN:Minval1%6.2lf ",
+		   "GPRINT:cdef1:AVERAGE:Avgval1%6.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval1%6.2lf ",
+		   'COMMENT:\\\n ',
+		   "GPRINT:cdef2:MIN:Minval2%6.2lf ",
+		   "GPRINT:cdef2:AVERAGE:Avgval2%6.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval2%6.2lf ",
+		   'COMMENT:\\\n ',
 		);
 	$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[0], $opts, count($opts));
 	$resout=file_get_contents($conf->monitoring->dir_temp.'/'.$fileimage[0].'.out');
-	if (strlen($resout) < 10)
-	{
+	if (strlen($resout) < 10) {
 		$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[0].' created').'</div>';
-	}
-	else
-	{
+	} else {
 		$error++;
 		$err = rrd_error($conf->monitoring->dir_temp.'/'.$fileimage[0]);
 		$mesg.="Graph error: $err\n";
@@ -206,10 +189,10 @@ if ($action == 'graph')
  * View
  */
 
-llxHeader('','RRd',$linktohelp);
+llxHeader('', 'RRd', $linktohelp);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("RrdSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("RrdSetup"), $linkback, 'setup');
 print '<br>';
 
 $h=0;
@@ -268,22 +251,16 @@ print $langs->trans("ManualTestDesc").'<br><br>';
 
 // Buttons
 //print '<div class="tabsAction">';
-if ($conf->global->MONITORING_COMMANDLINE_TOOL)
-{
+if ($conf->global->MONITORING_COMMANDLINE_TOOL) {
 	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create">'.$langs->trans("CreateATestGraph").'</a>';
-	if (dol_is_file($fname))
-	{
-    	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=update">'.$langs->trans("AddValueToTestGraph").'</a>';
-    	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph">'.$langs->trans("BuildTestGraph").'</a>';
+	if (dol_is_file($fname)) {
+		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=update">'.$langs->trans("AddValueToTestGraph").'</a>';
+		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph">'.$langs->trans("BuildTestGraph").'</a>';
+	} else {
+		print '<a class="butActionRefused" href="#">'.$langs->trans("AddValueToTestGraph").'</a>';
+		print '<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
 	}
-	else
-	{
-	    print '<a class="butActionRefused" href="#">'.$langs->trans("AddValueToTestGraph").'</a>';
-	    print '<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
-	}
-}
-else
-{
+} else {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("CreateATestGraph").'</a>';
 	print '<a class="butActionRefused" href="#">'.$langs->trans("AddValueToTestGraph").'</a>';
 	print '<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
@@ -292,10 +269,9 @@ else
 
 
 print '<br><br>';
-if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
-{
-    print $langs->trans("LastHour").'<br>';
-    print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[0].'">';
+if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0])) {
+	print $langs->trans("LastHour").'<br>';
+	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[0].'">';
 }
 /*	print '<br>';
  print $langs->trans("LastDay").'<br>';
@@ -315,4 +291,3 @@ if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
 $db->close();
 
 llxFooter();
-

@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidManagement_User extends Google_Model
 {
-  public $accountIdentifier;
+	public $accountIdentifier;
 
-  public function setAccountIdentifier($accountIdentifier)
-  {
-    $this->accountIdentifier = $accountIdentifier;
-  }
-  public function getAccountIdentifier()
-  {
-    return $this->accountIdentifier;
-  }
+	public function setAccountIdentifier($accountIdentifier)
+	{
+		$this->accountIdentifier = $accountIdentifier;
+	}
+	public function getAccountIdentifier()
+	{
+		return $this->accountIdentifier;
+	}
 }

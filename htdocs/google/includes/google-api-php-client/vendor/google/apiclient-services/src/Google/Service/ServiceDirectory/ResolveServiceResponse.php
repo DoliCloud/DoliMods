@@ -17,21 +17,21 @@
 
 class Google_Service_ServiceDirectory_ResolveServiceResponse extends Google_Model
 {
-  protected $serviceType = 'Google_Service_ServiceDirectory_Service';
-  protected $serviceDataType = '';
+	protected $serviceType = 'Google_Service_ServiceDirectory_Service';
+	protected $serviceDataType = '';
 
-  /**
-   * @param Google_Service_ServiceDirectory_Service
-   */
-  public function setService(Google_Service_ServiceDirectory_Service $service)
-  {
-    $this->service = $service;
-  }
-  /**
-   * @return Google_Service_ServiceDirectory_Service
-   */
-  public function getService()
-  {
-    return $this->service;
-  }
+	/**
+	 * @param Google_Service_ServiceDirectory_Service
+	 */
+	public function setService(Google_Service_ServiceDirectory_Service $service)
+	{
+		$this->service = $service;
+	}
+	/**
+	 * @return Google_Service_ServiceDirectory_Service
+	 */
+	public function getService()
+	{
+		return $this->service;
+	}
 }

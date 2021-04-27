@@ -17,31 +17,31 @@
 
 class Google_Service_Monitoring_ListServiceLevelObjectivesResponse extends Google_Collection
 {
-  protected $collection_key = 'serviceLevelObjectives';
-  public $nextPageToken;
-  protected $serviceLevelObjectivesType = 'Google_Service_Monitoring_ServiceLevelObjective';
-  protected $serviceLevelObjectivesDataType = 'array';
+	protected $collection_key = 'serviceLevelObjectives';
+	public $nextPageToken;
+	protected $serviceLevelObjectivesType = 'Google_Service_Monitoring_ServiceLevelObjective';
+	protected $serviceLevelObjectivesDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Monitoring_ServiceLevelObjective
-   */
-  public function setServiceLevelObjectives($serviceLevelObjectives)
-  {
-    $this->serviceLevelObjectives = $serviceLevelObjectives;
-  }
-  /**
-   * @return Google_Service_Monitoring_ServiceLevelObjective
-   */
-  public function getServiceLevelObjectives()
-  {
-    return $this->serviceLevelObjectives;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Monitoring_ServiceLevelObjective
+	 */
+	public function setServiceLevelObjectives($serviceLevelObjectives)
+	{
+		$this->serviceLevelObjectives = $serviceLevelObjectives;
+	}
+	/**
+	 * @return Google_Service_Monitoring_ServiceLevelObjective
+	 */
+	public function getServiceLevelObjectives()
+	{
+		return $this->serviceLevelObjectives;
+	}
 }

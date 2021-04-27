@@ -25,36 +25,36 @@
  */
 class Google_Service_DataTransfer_Resource_Applications extends Google_Service_Resource
 {
-  /**
-   * Retrieves information about an application for the given application ID.
-   * (applications.get)
-   *
-   * @param string $applicationId ID of the application resource to be retrieved.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_DataTransfer_Application
-   */
-  public function get($applicationId, $optParams = array())
-  {
-    $params = array('applicationId' => $applicationId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_DataTransfer_Application");
-  }
-  /**
-   * Lists the applications available for data transfer for a customer.
-   * (applications.listApplications)
-   *
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string customerId Immutable ID of the G Suite account.
-   * @opt_param int maxResults Maximum number of results to return. Default is
-   * 100.
-   * @opt_param string pageToken Token to specify next page in the list.
-   * @return Google_Service_DataTransfer_ApplicationsListResponse
-   */
-  public function listApplications($optParams = array())
-  {
-    $params = array();
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_DataTransfer_ApplicationsListResponse");
-  }
+	/**
+	 * Retrieves information about an application for the given application ID.
+	 * (applications.get)
+	 *
+	 * @param string $applicationId ID of the application resource to be retrieved.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_DataTransfer_Application
+	 */
+	public function get($applicationId, $optParams = array())
+	{
+		$params = array('applicationId' => $applicationId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_DataTransfer_Application");
+	}
+	/**
+	 * Lists the applications available for data transfer for a customer.
+	 * (applications.listApplications)
+	 *
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string customerId Immutable ID of the G Suite account.
+	 * @opt_param int maxResults Maximum number of results to return. Default is
+	 * 100.
+	 * @opt_param string pageToken Token to specify next page in the list.
+	 * @return Google_Service_DataTransfer_ApplicationsListResponse
+	 */
+	public function listApplications($optParams = array())
+	{
+		$params = array();
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_DataTransfer_ApplicationsListResponse");
+	}
 }

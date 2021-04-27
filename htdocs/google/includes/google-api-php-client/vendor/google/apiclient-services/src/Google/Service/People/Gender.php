@@ -17,33 +17,33 @@
 
 class Google_Service_People_Gender extends Google_Model
 {
-  public $formattedValue;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
-  protected $metadataDataType = '';
-  public $value;
+	public $formattedValue;
+	protected $metadataType = 'Google_Service_People_FieldMetadata';
+	protected $metadataDataType = '';
+	public $value;
 
-  public function setFormattedValue($formattedValue)
-  {
-    $this->formattedValue = $formattedValue;
-  }
-  public function getFormattedValue()
-  {
-    return $this->formattedValue;
-  }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setFormattedValue($formattedValue)
+	{
+		$this->formattedValue = $formattedValue;
+	}
+	public function getFormattedValue()
+	{
+		return $this->formattedValue;
+	}
+	public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

@@ -17,71 +17,71 @@
 
 class Google_Service_CloudRun_Service extends Google_Model
 {
-  public $apiVersion;
-  public $kind;
-  protected $metadataType = 'Google_Service_CloudRun_ObjectMeta';
-  protected $metadataDataType = '';
-  protected $specType = 'Google_Service_CloudRun_ServiceSpec';
-  protected $specDataType = '';
-  protected $statusType = 'Google_Service_CloudRun_ServiceStatus';
-  protected $statusDataType = '';
+	public $apiVersion;
+	public $kind;
+	protected $metadataType = 'Google_Service_CloudRun_ObjectMeta';
+	protected $metadataDataType = '';
+	protected $specType = 'Google_Service_CloudRun_ServiceSpec';
+	protected $specDataType = '';
+	protected $statusType = 'Google_Service_CloudRun_ServiceStatus';
+	protected $statusDataType = '';
 
-  public function setApiVersion($apiVersion)
-  {
-    $this->apiVersion = $apiVersion;
-  }
-  public function getApiVersion()
-  {
-    return $this->apiVersion;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_CloudRun_ObjectMeta
-   */
-  public function setMetadata(Google_Service_CloudRun_ObjectMeta $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_CloudRun_ObjectMeta
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  /**
-   * @param Google_Service_CloudRun_ServiceSpec
-   */
-  public function setSpec(Google_Service_CloudRun_ServiceSpec $spec)
-  {
-    $this->spec = $spec;
-  }
-  /**
-   * @return Google_Service_CloudRun_ServiceSpec
-   */
-  public function getSpec()
-  {
-    return $this->spec;
-  }
-  /**
-   * @param Google_Service_CloudRun_ServiceStatus
-   */
-  public function setStatus(Google_Service_CloudRun_ServiceStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_CloudRun_ServiceStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setApiVersion($apiVersion)
+	{
+		$this->apiVersion = $apiVersion;
+	}
+	public function getApiVersion()
+	{
+		return $this->apiVersion;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_CloudRun_ObjectMeta
+	 */
+	public function setMetadata(Google_Service_CloudRun_ObjectMeta $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_CloudRun_ObjectMeta
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	/**
+	 * @param Google_Service_CloudRun_ServiceSpec
+	 */
+	public function setSpec(Google_Service_CloudRun_ServiceSpec $spec)
+	{
+		$this->spec = $spec;
+	}
+	/**
+	 * @return Google_Service_CloudRun_ServiceSpec
+	 */
+	public function getSpec()
+	{
+		return $this->spec;
+	}
+	/**
+	 * @param Google_Service_CloudRun_ServiceStatus
+	 */
+	public function setStatus(Google_Service_CloudRun_ServiceStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_CloudRun_ServiceStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

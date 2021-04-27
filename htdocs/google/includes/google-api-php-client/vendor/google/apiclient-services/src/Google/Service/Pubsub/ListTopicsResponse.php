@@ -17,31 +17,31 @@
 
 class Google_Service_Pubsub_ListTopicsResponse extends Google_Collection
 {
-  protected $collection_key = 'topics';
-  public $nextPageToken;
-  protected $topicsType = 'Google_Service_Pubsub_Topic';
-  protected $topicsDataType = 'array';
+	protected $collection_key = 'topics';
+	public $nextPageToken;
+	protected $topicsType = 'Google_Service_Pubsub_Topic';
+	protected $topicsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Pubsub_Topic
-   */
-  public function setTopics($topics)
-  {
-    $this->topics = $topics;
-  }
-  /**
-   * @return Google_Service_Pubsub_Topic
-   */
-  public function getTopics()
-  {
-    return $this->topics;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Pubsub_Topic
+	 */
+	public function setTopics($topics)
+	{
+		$this->topics = $topics;
+	}
+	/**
+	 * @return Google_Service_Pubsub_Topic
+	 */
+	public function getTopics()
+	{
+		return $this->topics;
+	}
 }

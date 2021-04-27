@@ -17,32 +17,32 @@
 
 class Google_Service_Acceleratedmobilepageurl_AmpUrl extends Google_Model
 {
-  public $ampUrl;
-  public $cdnAmpUrl;
-  public $originalUrl;
+	public $ampUrl;
+	public $cdnAmpUrl;
+	public $originalUrl;
 
-  public function setAmpUrl($ampUrl)
-  {
-    $this->ampUrl = $ampUrl;
-  }
-  public function getAmpUrl()
-  {
-    return $this->ampUrl;
-  }
-  public function setCdnAmpUrl($cdnAmpUrl)
-  {
-    $this->cdnAmpUrl = $cdnAmpUrl;
-  }
-  public function getCdnAmpUrl()
-  {
-    return $this->cdnAmpUrl;
-  }
-  public function setOriginalUrl($originalUrl)
-  {
-    $this->originalUrl = $originalUrl;
-  }
-  public function getOriginalUrl()
-  {
-    return $this->originalUrl;
-  }
+	public function setAmpUrl($ampUrl)
+	{
+		$this->ampUrl = $ampUrl;
+	}
+	public function getAmpUrl()
+	{
+		return $this->ampUrl;
+	}
+	public function setCdnAmpUrl($cdnAmpUrl)
+	{
+		$this->cdnAmpUrl = $cdnAmpUrl;
+	}
+	public function getCdnAmpUrl()
+	{
+		return $this->cdnAmpUrl;
+	}
+	public function setOriginalUrl($originalUrl)
+	{
+		$this->originalUrl = $originalUrl;
+	}
+	public function getOriginalUrl()
+	{
+		return $this->originalUrl;
+	}
 }

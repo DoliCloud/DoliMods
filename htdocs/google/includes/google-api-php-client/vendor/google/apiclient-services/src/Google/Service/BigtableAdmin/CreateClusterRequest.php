@@ -17,39 +17,39 @@
 
 class Google_Service_BigtableAdmin_CreateClusterRequest extends Google_Model
 {
-  protected $clusterType = 'Google_Service_BigtableAdmin_Cluster';
-  protected $clusterDataType = '';
-  public $clusterId;
-  public $parent;
+	protected $clusterType = 'Google_Service_BigtableAdmin_Cluster';
+	protected $clusterDataType = '';
+	public $clusterId;
+	public $parent;
 
-  /**
-   * @param Google_Service_BigtableAdmin_Cluster
-   */
-  public function setCluster(Google_Service_BigtableAdmin_Cluster $cluster)
-  {
-    $this->cluster = $cluster;
-  }
-  /**
-   * @return Google_Service_BigtableAdmin_Cluster
-   */
-  public function getCluster()
-  {
-    return $this->cluster;
-  }
-  public function setClusterId($clusterId)
-  {
-    $this->clusterId = $clusterId;
-  }
-  public function getClusterId()
-  {
-    return $this->clusterId;
-  }
-  public function setParent($parent)
-  {
-    $this->parent = $parent;
-  }
-  public function getParent()
-  {
-    return $this->parent;
-  }
+	/**
+	 * @param Google_Service_BigtableAdmin_Cluster
+	 */
+	public function setCluster(Google_Service_BigtableAdmin_Cluster $cluster)
+	{
+		$this->cluster = $cluster;
+	}
+	/**
+	 * @return Google_Service_BigtableAdmin_Cluster
+	 */
+	public function getCluster()
+	{
+		return $this->cluster;
+	}
+	public function setClusterId($clusterId)
+	{
+		$this->clusterId = $clusterId;
+	}
+	public function getClusterId()
+	{
+		return $this->clusterId;
+	}
+	public function setParent($parent)
+	{
+		$this->parent = $parent;
+	}
+	public function getParent()
+	{
+		return $this->parent;
+	}
 }

@@ -17,64 +17,64 @@
 
 class Google_Service_AccessContextManager_AccessLevel extends Google_Model
 {
-  protected $basicType = 'Google_Service_AccessContextManager_BasicLevel';
-  protected $basicDataType = '';
-  protected $customType = 'Google_Service_AccessContextManager_CustomLevel';
-  protected $customDataType = '';
-  public $description;
-  public $name;
-  public $title;
+	protected $basicType = 'Google_Service_AccessContextManager_BasicLevel';
+	protected $basicDataType = '';
+	protected $customType = 'Google_Service_AccessContextManager_CustomLevel';
+	protected $customDataType = '';
+	public $description;
+	public $name;
+	public $title;
 
-  /**
-   * @param Google_Service_AccessContextManager_BasicLevel
-   */
-  public function setBasic(Google_Service_AccessContextManager_BasicLevel $basic)
-  {
-    $this->basic = $basic;
-  }
-  /**
-   * @return Google_Service_AccessContextManager_BasicLevel
-   */
-  public function getBasic()
-  {
-    return $this->basic;
-  }
-  /**
-   * @param Google_Service_AccessContextManager_CustomLevel
-   */
-  public function setCustom(Google_Service_AccessContextManager_CustomLevel $custom)
-  {
-    $this->custom = $custom;
-  }
-  /**
-   * @return Google_Service_AccessContextManager_CustomLevel
-   */
-  public function getCustom()
-  {
-    return $this->custom;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	/**
+	 * @param Google_Service_AccessContextManager_BasicLevel
+	 */
+	public function setBasic(Google_Service_AccessContextManager_BasicLevel $basic)
+	{
+		$this->basic = $basic;
+	}
+	/**
+	 * @return Google_Service_AccessContextManager_BasicLevel
+	 */
+	public function getBasic()
+	{
+		return $this->basic;
+	}
+	/**
+	 * @param Google_Service_AccessContextManager_CustomLevel
+	 */
+	public function setCustom(Google_Service_AccessContextManager_CustomLevel $custom)
+	{
+		$this->custom = $custom;
+	}
+	/**
+	 * @return Google_Service_AccessContextManager_CustomLevel
+	 */
+	public function getCustom()
+	{
+		return $this->custom;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

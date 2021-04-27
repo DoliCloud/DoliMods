@@ -17,32 +17,32 @@
 
 class Google_Service_CloudRun_DomainMappingSpec extends Google_Model
 {
-  public $certificateMode;
-  public $forceOverride;
-  public $routeName;
+	public $certificateMode;
+	public $forceOverride;
+	public $routeName;
 
-  public function setCertificateMode($certificateMode)
-  {
-    $this->certificateMode = $certificateMode;
-  }
-  public function getCertificateMode()
-  {
-    return $this->certificateMode;
-  }
-  public function setForceOverride($forceOverride)
-  {
-    $this->forceOverride = $forceOverride;
-  }
-  public function getForceOverride()
-  {
-    return $this->forceOverride;
-  }
-  public function setRouteName($routeName)
-  {
-    $this->routeName = $routeName;
-  }
-  public function getRouteName()
-  {
-    return $this->routeName;
-  }
+	public function setCertificateMode($certificateMode)
+	{
+		$this->certificateMode = $certificateMode;
+	}
+	public function getCertificateMode()
+	{
+		return $this->certificateMode;
+	}
+	public function setForceOverride($forceOverride)
+	{
+		$this->forceOverride = $forceOverride;
+	}
+	public function getForceOverride()
+	{
+		return $this->forceOverride;
+	}
+	public function setRouteName($routeName)
+	{
+		$this->routeName = $routeName;
+	}
+	public function getRouteName()
+	{
+		return $this->routeName;
+	}
 }

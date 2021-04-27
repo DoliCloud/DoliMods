@@ -17,41 +17,41 @@
 
 class Google_Service_Testing_IosDevice extends Google_Model
 {
-  public $iosModelId;
-  public $iosVersionId;
-  public $locale;
-  public $orientation;
+	public $iosModelId;
+	public $iosVersionId;
+	public $locale;
+	public $orientation;
 
-  public function setIosModelId($iosModelId)
-  {
-    $this->iosModelId = $iosModelId;
-  }
-  public function getIosModelId()
-  {
-    return $this->iosModelId;
-  }
-  public function setIosVersionId($iosVersionId)
-  {
-    $this->iosVersionId = $iosVersionId;
-  }
-  public function getIosVersionId()
-  {
-    return $this->iosVersionId;
-  }
-  public function setLocale($locale)
-  {
-    $this->locale = $locale;
-  }
-  public function getLocale()
-  {
-    return $this->locale;
-  }
-  public function setOrientation($orientation)
-  {
-    $this->orientation = $orientation;
-  }
-  public function getOrientation()
-  {
-    return $this->orientation;
-  }
+	public function setIosModelId($iosModelId)
+	{
+		$this->iosModelId = $iosModelId;
+	}
+	public function getIosModelId()
+	{
+		return $this->iosModelId;
+	}
+	public function setIosVersionId($iosVersionId)
+	{
+		$this->iosVersionId = $iosVersionId;
+	}
+	public function getIosVersionId()
+	{
+		return $this->iosVersionId;
+	}
+	public function setLocale($locale)
+	{
+		$this->locale = $locale;
+	}
+	public function getLocale()
+	{
+		return $this->locale;
+	}
+	public function setOrientation($orientation)
+	{
+		$this->orientation = $orientation;
+	}
+	public function getOrientation()
+	{
+		return $this->orientation;
+	}
 }

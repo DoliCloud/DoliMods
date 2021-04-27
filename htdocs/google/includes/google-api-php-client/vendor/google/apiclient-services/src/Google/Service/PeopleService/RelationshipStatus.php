@@ -17,39 +17,39 @@
 
 class Google_Service_PeopleService_RelationshipStatus extends Google_Model
 {
-  public $formattedValue;
-  protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
-  protected $metadataDataType = '';
-  public $value;
+	public $formattedValue;
+	protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
+	protected $metadataDataType = '';
+	public $value;
 
-  public function setFormattedValue($formattedValue)
-  {
-    $this->formattedValue = $formattedValue;
-  }
-  public function getFormattedValue()
-  {
-    return $this->formattedValue;
-  }
-  /**
-   * @param Google_Service_PeopleService_FieldMetadata
-   */
-  public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
-  {
-    $this->metadata = $metadata;
-  }
-  /**
-   * @return Google_Service_PeopleService_FieldMetadata
-   */
-  public function getMetadata()
-  {
-    return $this->metadata;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	public function setFormattedValue($formattedValue)
+	{
+		$this->formattedValue = $formattedValue;
+	}
+	public function getFormattedValue()
+	{
+		return $this->formattedValue;
+	}
+	/**
+	 * @param Google_Service_PeopleService_FieldMetadata
+	 */
+	public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+	/**
+	 * @return Google_Service_PeopleService_FieldMetadata
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

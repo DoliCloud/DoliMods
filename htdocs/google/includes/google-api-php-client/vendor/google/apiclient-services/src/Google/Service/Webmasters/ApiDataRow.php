@@ -17,51 +17,51 @@
 
 class Google_Service_Webmasters_ApiDataRow extends Google_Collection
 {
-  protected $collection_key = 'keys';
-  public $clicks;
-  public $ctr;
-  public $impressions;
-  public $keys;
-  public $position;
+	protected $collection_key = 'keys';
+	public $clicks;
+	public $ctr;
+	public $impressions;
+	public $keys;
+	public $position;
 
-  public function setClicks($clicks)
-  {
-    $this->clicks = $clicks;
-  }
-  public function getClicks()
-  {
-    return $this->clicks;
-  }
-  public function setCtr($ctr)
-  {
-    $this->ctr = $ctr;
-  }
-  public function getCtr()
-  {
-    return $this->ctr;
-  }
-  public function setImpressions($impressions)
-  {
-    $this->impressions = $impressions;
-  }
-  public function getImpressions()
-  {
-    return $this->impressions;
-  }
-  public function setKeys($keys)
-  {
-    $this->keys = $keys;
-  }
-  public function getKeys()
-  {
-    return $this->keys;
-  }
-  public function setPosition($position)
-  {
-    $this->position = $position;
-  }
-  public function getPosition()
-  {
-    return $this->position;
-  }
+	public function setClicks($clicks)
+	{
+		$this->clicks = $clicks;
+	}
+	public function getClicks()
+	{
+		return $this->clicks;
+	}
+	public function setCtr($ctr)
+	{
+		$this->ctr = $ctr;
+	}
+	public function getCtr()
+	{
+		return $this->ctr;
+	}
+	public function setImpressions($impressions)
+	{
+		$this->impressions = $impressions;
+	}
+	public function getImpressions()
+	{
+		return $this->impressions;
+	}
+	public function setKeys($keys)
+	{
+		$this->keys = $keys;
+	}
+	public function getKeys()
+	{
+		return $this->keys;
+	}
+	public function setPosition($position)
+	{
+		$this->position = $position;
+	}
+	public function getPosition()
+	{
+		return $this->position;
+	}
 }

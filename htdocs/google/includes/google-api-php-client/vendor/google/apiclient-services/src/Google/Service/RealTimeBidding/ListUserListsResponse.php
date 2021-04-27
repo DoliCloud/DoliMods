@@ -17,31 +17,31 @@
 
 class Google_Service_RealTimeBidding_ListUserListsResponse extends Google_Collection
 {
-  protected $collection_key = 'userLists';
-  public $nextPageToken;
-  protected $userListsType = 'Google_Service_RealTimeBidding_UserList';
-  protected $userListsDataType = 'array';
+	protected $collection_key = 'userLists';
+	public $nextPageToken;
+	protected $userListsType = 'Google_Service_RealTimeBidding_UserList';
+	protected $userListsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_RealTimeBidding_UserList
-   */
-  public function setUserLists($userLists)
-  {
-    $this->userLists = $userLists;
-  }
-  /**
-   * @return Google_Service_RealTimeBidding_UserList
-   */
-  public function getUserLists()
-  {
-    return $this->userLists;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_RealTimeBidding_UserList
+	 */
+	public function setUserLists($userLists)
+	{
+		$this->userLists = $userLists;
+	}
+	/**
+	 * @return Google_Service_RealTimeBidding_UserList
+	 */
+	public function getUserLists()
+	{
+		return $this->userLists;
+	}
 }

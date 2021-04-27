@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_FileReference extends Google_Model
 {
-  public $fileUri;
+	public $fileUri;
 
-  public function setFileUri($fileUri)
-  {
-    $this->fileUri = $fileUri;
-  }
-  public function getFileUri()
-  {
-    return $this->fileUri;
-  }
+	public function setFileUri($fileUri)
+	{
+		$this->fileUri = $fileUri;
+	}
+	public function getFileUri()
+	{
+		return $this->fileUri;
+	}
 }

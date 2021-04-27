@@ -25,17 +25,17 @@
  */
 class Google_Service_DomainsRDAP_Resource_Domain extends Google_Service_Resource
 {
-  /**
-   * Look up RDAP information for a domain by name. (domain.get)
-   *
-   * @param string $domainName Full domain name to look up. Example: "example.com"
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_DomainsRDAP_HttpBody
-   */
-  public function get($domainName, $optParams = array())
-  {
-    $params = array('domainName' => $domainName);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_DomainsRDAP_HttpBody");
-  }
+	/**
+	 * Look up RDAP information for a domain by name. (domain.get)
+	 *
+	 * @param string $domainName Full domain name to look up. Example: "example.com"
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_DomainsRDAP_HttpBody
+	 */
+	public function get($domainName, $optParams = array())
+	{
+		$params = array('domainName' => $domainName);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_DomainsRDAP_HttpBody");
+	}
 }

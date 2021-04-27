@@ -17,33 +17,33 @@
 
 class Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Model extends Google_Model
 {
-  protected $defaultVersionType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version';
-  protected $defaultVersionDataType = '';
-  public $description;
-  public $name;
+	protected $defaultVersionType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version';
+	protected $defaultVersionDataType = '';
+	public $description;
+	public $name;
 
-  public function setDefaultVersion(Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version $defaultVersion)
-  {
-    $this->defaultVersion = $defaultVersion;
-  }
-  public function getDefaultVersion()
-  {
-    return $this->defaultVersion;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setDefaultVersion(Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version $defaultVersion)
+	{
+		$this->defaultVersion = $defaultVersion;
+	}
+	public function getDefaultVersion()
+	{
+		return $this->defaultVersion;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

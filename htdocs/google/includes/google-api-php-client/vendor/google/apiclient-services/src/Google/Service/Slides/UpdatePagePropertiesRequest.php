@@ -17,39 +17,39 @@
 
 class Google_Service_Slides_UpdatePagePropertiesRequest extends Google_Model
 {
-  public $fields;
-  public $objectId;
-  protected $pagePropertiesType = 'Google_Service_Slides_PageProperties';
-  protected $pagePropertiesDataType = '';
+	public $fields;
+	public $objectId;
+	protected $pagePropertiesType = 'Google_Service_Slides_PageProperties';
+	protected $pagePropertiesDataType = '';
 
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  /**
-   * @param Google_Service_Slides_PageProperties
-   */
-  public function setPageProperties(Google_Service_Slides_PageProperties $pageProperties)
-  {
-    $this->pageProperties = $pageProperties;
-  }
-  /**
-   * @return Google_Service_Slides_PageProperties
-   */
-  public function getPageProperties()
-  {
-    return $this->pageProperties;
-  }
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	/**
+	 * @param Google_Service_Slides_PageProperties
+	 */
+	public function setPageProperties(Google_Service_Slides_PageProperties $pageProperties)
+	{
+		$this->pageProperties = $pageProperties;
+	}
+	/**
+	 * @return Google_Service_Slides_PageProperties
+	 */
+	public function getPageProperties()
+	{
+		return $this->pageProperties;
+	}
 }

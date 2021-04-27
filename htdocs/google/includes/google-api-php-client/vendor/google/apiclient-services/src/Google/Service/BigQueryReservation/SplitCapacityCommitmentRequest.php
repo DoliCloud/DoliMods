@@ -17,14 +17,14 @@
 
 class Google_Service_BigQueryReservation_SplitCapacityCommitmentRequest extends Google_Model
 {
-  public $slotCount;
+	public $slotCount;
 
-  public function setSlotCount($slotCount)
-  {
-    $this->slotCount = $slotCount;
-  }
-  public function getSlotCount()
-  {
-    return $this->slotCount;
-  }
+	public function setSlotCount($slotCount)
+	{
+		$this->slotCount = $slotCount;
+	}
+	public function getSlotCount()
+	{
+		return $this->slotCount;
+	}
 }

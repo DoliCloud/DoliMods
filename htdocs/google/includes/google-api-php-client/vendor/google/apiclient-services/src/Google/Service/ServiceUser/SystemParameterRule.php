@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceUser_SystemParameterRule extends Google_Collection
 {
-  protected $collection_key = 'parameters';
-  protected $parametersType = 'Google_Service_ServiceUser_SystemParameter';
-  protected $parametersDataType = 'array';
-  public $selector;
+	protected $collection_key = 'parameters';
+	protected $parametersType = 'Google_Service_ServiceUser_SystemParameter';
+	protected $parametersDataType = 'array';
+	public $selector;
 
-  /**
-   * @param Google_Service_ServiceUser_SystemParameter
-   */
-  public function setParameters($parameters)
-  {
-    $this->parameters = $parameters;
-  }
-  /**
-   * @return Google_Service_ServiceUser_SystemParameter
-   */
-  public function getParameters()
-  {
-    return $this->parameters;
-  }
-  public function setSelector($selector)
-  {
-    $this->selector = $selector;
-  }
-  public function getSelector()
-  {
-    return $this->selector;
-  }
+	/**
+	 * @param Google_Service_ServiceUser_SystemParameter
+	 */
+	public function setParameters($parameters)
+	{
+		$this->parameters = $parameters;
+	}
+	/**
+	 * @return Google_Service_ServiceUser_SystemParameter
+	 */
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
+	public function setSelector($selector)
+	{
+		$this->selector = $selector;
+	}
+	public function getSelector()
+	{
+		return $this->selector;
+	}
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Firestore_BatchWriteResponse extends Google_Collection
 {
-  protected $collection_key = 'writeResults';
-  protected $statusType = 'Google_Service_Firestore_Status';
-  protected $statusDataType = 'array';
-  protected $writeResultsType = 'Google_Service_Firestore_WriteResult';
-  protected $writeResultsDataType = 'array';
+	protected $collection_key = 'writeResults';
+	protected $statusType = 'Google_Service_Firestore_Status';
+	protected $statusDataType = 'array';
+	protected $writeResultsType = 'Google_Service_Firestore_WriteResult';
+	protected $writeResultsDataType = 'array';
 
-  /**
-   * @param Google_Service_Firestore_Status
-   */
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_Firestore_Status
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
-  /**
-   * @param Google_Service_Firestore_WriteResult
-   */
-  public function setWriteResults($writeResults)
-  {
-    $this->writeResults = $writeResults;
-  }
-  /**
-   * @return Google_Service_Firestore_WriteResult
-   */
-  public function getWriteResults()
-  {
-    return $this->writeResults;
-  }
+	/**
+	 * @param Google_Service_Firestore_Status
+	 */
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_Firestore_Status
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	/**
+	 * @param Google_Service_Firestore_WriteResult
+	 */
+	public function setWriteResults($writeResults)
+	{
+		$this->writeResults = $writeResults;
+	}
+	/**
+	 * @return Google_Service_Firestore_WriteResult
+	 */
+	public function getWriteResults()
+	{
+		return $this->writeResults;
+	}
 }

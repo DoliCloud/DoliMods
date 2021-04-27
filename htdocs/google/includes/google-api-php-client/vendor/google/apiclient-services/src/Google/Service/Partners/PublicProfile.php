@@ -17,50 +17,50 @@
 
 class Google_Service_Partners_PublicProfile extends Google_Model
 {
-  public $displayImageUrl;
-  public $displayName;
-  public $id;
-  public $profileImage;
-  public $url;
+	public $displayImageUrl;
+	public $displayName;
+	public $id;
+	public $profileImage;
+	public $url;
 
-  public function setDisplayImageUrl($displayImageUrl)
-  {
-    $this->displayImageUrl = $displayImageUrl;
-  }
-  public function getDisplayImageUrl()
-  {
-    return $this->displayImageUrl;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setProfileImage($profileImage)
-  {
-    $this->profileImage = $profileImage;
-  }
-  public function getProfileImage()
-  {
-    return $this->profileImage;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setDisplayImageUrl($displayImageUrl)
+	{
+		$this->displayImageUrl = $displayImageUrl;
+	}
+	public function getDisplayImageUrl()
+	{
+		return $this->displayImageUrl;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setProfileImage($profileImage)
+	{
+		$this->profileImage = $profileImage;
+	}
+	public function getProfileImage()
+	{
+		return $this->profileImage;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2HybridInspectJobTriggerRequest extends Google_Model
 {
-  protected $hybridItemType = 'Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem';
-  protected $hybridItemDataType = '';
+	protected $hybridItemType = 'Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem';
+	protected $hybridItemDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem
-   */
-  public function setHybridItem(Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem $hybridItem)
-  {
-    $this->hybridItem = $hybridItem;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem
-   */
-  public function getHybridItem()
-  {
-    return $this->hybridItem;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem
+	 */
+	public function setHybridItem(Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem $hybridItem)
+	{
+		$this->hybridItem = $hybridItem;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2HybridContentItem
+	 */
+	public function getHybridItem()
+	{
+		return $this->hybridItem;
+	}
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Sheets_TextToColumnsRequest extends Google_Model
 {
-  public $delimiter;
-  public $delimiterType;
-  protected $sourceType = 'Google_Service_Sheets_GridRange';
-  protected $sourceDataType = '';
+	public $delimiter;
+	public $delimiterType;
+	protected $sourceType = 'Google_Service_Sheets_GridRange';
+	protected $sourceDataType = '';
 
-  public function setDelimiter($delimiter)
-  {
-    $this->delimiter = $delimiter;
-  }
-  public function getDelimiter()
-  {
-    return $this->delimiter;
-  }
-  public function setDelimiterType($delimiterType)
-  {
-    $this->delimiterType = $delimiterType;
-  }
-  public function getDelimiterType()
-  {
-    return $this->delimiterType;
-  }
-  /**
-   * @param Google_Service_Sheets_GridRange
-   */
-  public function setSource(Google_Service_Sheets_GridRange $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_Sheets_GridRange
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
+	public function setDelimiter($delimiter)
+	{
+		$this->delimiter = $delimiter;
+	}
+	public function getDelimiter()
+	{
+		return $this->delimiter;
+	}
+	public function setDelimiterType($delimiterType)
+	{
+		$this->delimiterType = $delimiterType;
+	}
+	public function getDelimiterType()
+	{
+		return $this->delimiterType;
+	}
+	/**
+	 * @param Google_Service_Sheets_GridRange
+	 */
+	public function setSource(Google_Service_Sheets_GridRange $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_Sheets_GridRange
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
 }

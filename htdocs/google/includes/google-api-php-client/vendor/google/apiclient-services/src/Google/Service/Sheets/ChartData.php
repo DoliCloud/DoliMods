@@ -17,21 +17,21 @@
 
 class Google_Service_Sheets_ChartData extends Google_Model
 {
-  protected $sourceRangeType = 'Google_Service_Sheets_ChartSourceRange';
-  protected $sourceRangeDataType = '';
+	protected $sourceRangeType = 'Google_Service_Sheets_ChartSourceRange';
+	protected $sourceRangeDataType = '';
 
-  /**
-   * @param Google_Service_Sheets_ChartSourceRange
-   */
-  public function setSourceRange(Google_Service_Sheets_ChartSourceRange $sourceRange)
-  {
-    $this->sourceRange = $sourceRange;
-  }
-  /**
-   * @return Google_Service_Sheets_ChartSourceRange
-   */
-  public function getSourceRange()
-  {
-    return $this->sourceRange;
-  }
+	/**
+	 * @param Google_Service_Sheets_ChartSourceRange
+	 */
+	public function setSourceRange(Google_Service_Sheets_ChartSourceRange $sourceRange)
+	{
+		$this->sourceRange = $sourceRange;
+	}
+	/**
+	 * @return Google_Service_Sheets_ChartSourceRange
+	 */
+	public function getSourceRange()
+	{
+		return $this->sourceRange;
+	}
 }

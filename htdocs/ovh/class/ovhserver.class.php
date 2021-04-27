@@ -72,17 +72,17 @@ class OvhServer extends CommonObject
 
 	// BEGIN MODULEBUILDER PROPERTIES
 	/**
-     * @var array  Array with all fields and their property
-     */
+	 * @var array  Array with all fields and their property
+	 */
 	public $fields=array(
-	    'rowid'         =>array('type'=>'integer',      'label'=>'TechnicalID',      'enabled'=>1, 'visible'=>-1, 'notnull'=>1, 'index'=>1, 'position'=>1,  'comment'=>'Id'),
+		'rowid'         =>array('type'=>'integer',      'label'=>'TechnicalID',      'enabled'=>1, 'visible'=>-1, 'notnull'=>1, 'index'=>1, 'position'=>1,  'comment'=>'Id'),
 		'ref'           =>array('type'=>'varchar(64)',  'label'=>'Ref',              'enabled'=>1, 'visible'=>1,  'notnull'=>1, 'index'=>1, 'position'=>10, 'searchall'=>1, 'comment'=>'Reference of object'),
-	    'entity'        =>array('type'=>'integer',      'label'=>'Entity',           'enabled'=>1, 'visible'=>0,  'notnull'=>1, 'index'=>1, 'position'=>20),
-	    'label'         =>array('type'=>'varchar(255)', 'label'=>'Label',            'enabled'=>1, 'visible'=>1,  'position'=>30,  'searchall'=>1),
-	    'qty'           =>array('type'=>'double(24,8)', 'label'=>'Qty',              'enabled'=>1, 'visible'=>1,  'position'=>40,  'searchall'=>0, 'isameasure'=>1),
-	    'status'        =>array('type'=>'integer',      'label'=>'Status',           'enabled'=>1, 'visible'=>1,  'index'=>1,   'position'=>1000),
+		'entity'        =>array('type'=>'integer',      'label'=>'Entity',           'enabled'=>1, 'visible'=>0,  'notnull'=>1, 'index'=>1, 'position'=>20),
+		'label'         =>array('type'=>'varchar(255)', 'label'=>'Label',            'enabled'=>1, 'visible'=>1,  'position'=>30,  'searchall'=>1),
+		'qty'           =>array('type'=>'double(24,8)', 'label'=>'Qty',              'enabled'=>1, 'visible'=>1,  'position'=>40,  'searchall'=>0, 'isameasure'=>1),
+		'status'        =>array('type'=>'integer',      'label'=>'Status',           'enabled'=>1, 'visible'=>1,  'index'=>1,   'position'=>1000),
 		'date_creation' =>array('type'=>'datetime',     'label'=>'DateCreation',     'enabled'=>1, 'visible'=>-1, 'notnull'=>1, 'position'=>500),
-	    'tms'           =>array('type'=>'timestamp',    'label'=>'DateModification', 'enabled'=>1, 'visible'=>-1, 'notnull'=>1, 'position'=>500),
+		'tms'           =>array('type'=>'timestamp',    'label'=>'DateModification', 'enabled'=>1, 'visible'=>-1, 'notnull'=>1, 'position'=>500),
 		'import_key'    =>array('type'=>'varchar(14)',  'label'=>'ImportId',         'enabled'=>1, 'visible'=>-1, 'notnull'=>-1, 'index'=>1,  'position'=>1000),
 	);
 	// END MODULEBUILDER PROPERTIES
@@ -130,50 +130,46 @@ class OvhServer extends CommonObject
 	 *
 	 *	@param	int		$withpicto			Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
 	 *	@param	string	$option				On what the link point to
-     *  @param	int  	$notooltip			1=Disable tooltip
-     *  @param  string  $morecss            Add more css on link
+	 *  @param	int  	$notooltip			1=Disable tooltip
+	 *  @param  string  $morecss            Add more css on link
 	 *	@return	string						String with URL
 	 */
-	function getNomUrl($withpicto=0, $option='', $notooltip=0, $morecss='')
+	function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '')
 	{
 		global $db, $conf, $langs;
-        global $dolibarr_main_authentication, $dolibarr_main_demo;
-        global $menumanager;
+		global $dolibarr_main_authentication, $dolibarr_main_demo;
+		global $menumanager;
 
-        if (! empty($conf->dol_no_mouse_hover)) $notooltip=1;   // Force disable tooltips
+		if (! empty($conf->dol_no_mouse_hover)) $notooltip=1;   // Force disable tooltips
 
-        $result = '';
-        $companylink = '';
+		$result = '';
+		$companylink = '';
 
-        $label = '<u>' . $langs->trans("Server") . '</u>';
-        $label.= '<br>';
-        $label.= '<b>' . $langs->trans('Id') . ':</b> ' . $this->id.'<br>';
-        $label.= '<b>' . $langs->trans('Ref') . ':</b> ' . $this->ref;
+		$label = '<u>' . $langs->trans("Server") . '</u>';
+		$label.= '<br>';
+		$label.= '<b>' . $langs->trans('Id') . ':</b> ' . $this->id.'<br>';
+		$label.= '<b>' . $langs->trans('Ref') . ':</b> ' . $this->ref;
 
-        //print '<a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'">' . $serverobj['name'] . '</a>';
-        $url = dol_buildpath('/ovh/ovh_listinfoserver.php',1).'?mode=publiccloud&server=' . $this->id . '&project='.$this->projectname;
+		//print '<a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'">' . $serverobj['name'] . '</a>';
+		$url = dol_buildpath('/ovh/ovh_listinfoserver.php', 1).'?mode=publiccloud&server=' . $this->id . '&project='.$this->projectname;
 
-        $linkclose='';
-        if (empty($notooltip))
-        {
-            if (! empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER))
-            {
-                $label=$langs->trans("ShowServer");
-                $linkclose.=' alt="'.dol_escape_htmltag($label, 1).'"';
-            }
-            $linkclose.=' title="'.dol_escape_htmltag($label, 1).'"';
-            $linkclose.=' class="classfortooltip'.($morecss?' '.$morecss:'').'"';
-        }
-        else $linkclose = ($morecss?' class="'.$morecss.'"':'');
+		$linkclose='';
+		if (empty($notooltip)) {
+			if (! empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) {
+				$label=$langs->trans("ShowServer");
+				$linkclose.=' alt="'.dol_escape_htmltag($label, 1).'"';
+			}
+			$linkclose.=' title="'.dol_escape_htmltag($label, 1).'"';
+			$linkclose.=' class="classfortooltip'.($morecss?' '.$morecss:'').'"';
+		} else $linkclose = ($morecss?' class="'.$morecss.'"':'');
 
 		$linkstart = '<a href="'.$url.'"';
 		$linkstart.=$linkclose.'>';
 		$linkend='</a>';
 
-        if ($withpicto)
-        {
-            $result.=($linkstart.img_object(($notooltip?'':$label), 'server.svg@ovh', ($notooltip?'':'class="classfortooltip"')).$linkend);
-            if ($withpicto != 2) $result.=' ';
+		if ($withpicto) {
+			$result.=($linkstart.img_object(($notooltip?'':$label), 'server.svg@ovh', ($notooltip?'':'class="classfortooltip"')).$linkend);
+			if ($withpicto != 2) $result.=' ';
 		}
 		$result.= $linkstart . $this->ref . $linkend;
 		return $result;
@@ -185,9 +181,9 @@ class OvhServer extends CommonObject
 	 *  @param	int		$mode          0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
 	 *  @return	string 			       Label of status
 	 */
-	function getLibStatut($mode=0)
+	function getLibStatut($mode = 0)
 	{
-		return $this->LibStatut($this->status,$mode);
+		return $this->LibStatut($this->status, $mode);
 	}
 
 	/**
@@ -197,52 +193,45 @@ class OvhServer extends CommonObject
 	 *  @param  int		$mode          	0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=Short label + Picto, 5=Long label + Picto
 	 *  @return string 			       	Label of status
 	 */
-	static function LibStatut($status,$mode=0)
+	static function LibStatut($status, $mode = 0)
 	{
 		global $langs;
 
-		if ($mode == 0)
-		{
+		if ($mode == 0) {
 			$prefix='';
 			if ($status == 'ACTIVE') return $langs->trans('Active');
 			if ($status == 'INACTIVE') return $langs->trans('Disabled');
 			if ($status == 'SNAPSHOTTING') return $langs->trans('Snapshotting');
 		}
-		if ($mode == 1)
-		{
+		if ($mode == 1) {
 			if ($status == 'ACTIVE') return $langs->trans('Active');
 			if ($status == 'INACTIVE') return $langs->trans('Disabled');
 			if ($status == 'SNAPSHOTTING') return $langs->trans('Snapshotting');
 		}
-		if ($mode == 2)
-		{
-			if ($status == 'ACTIVE') return img_picto($langs->trans('Active'),'statut4').' '.$langs->trans('Active');
-			if ($status == 'INACTIVE') return img_picto($langs->trans('Disabled'),'statut5').' '.$langs->trans('Disabled');
-			if ($status == 'SNAPSHOTTING') return img_picto($langs->trans('Snapshotting'),'statut1').' '.$langs->trans('Snapshotting');
+		if ($mode == 2) {
+			if ($status == 'ACTIVE') return img_picto($langs->trans('Active'), 'statut4').' '.$langs->trans('Active');
+			if ($status == 'INACTIVE') return img_picto($langs->trans('Disabled'), 'statut5').' '.$langs->trans('Disabled');
+			if ($status == 'SNAPSHOTTING') return img_picto($langs->trans('Snapshotting'), 'statut1').' '.$langs->trans('Snapshotting');
 		}
-		if ($mode == 3)
-		{
-			if ($status == 'ACTIVE') return img_picto($langs->trans('Active'),'statut4');
-			if ($status == 'INACTIVE') return img_picto($langs->trans('Disabled'),'statut5');
-			if ($status == 'SNAPSHOTTING') return img_picto($langs->trans('Snapshotting'),'statut1');
+		if ($mode == 3) {
+			if ($status == 'ACTIVE') return img_picto($langs->trans('Active'), 'statut4');
+			if ($status == 'INACTIVE') return img_picto($langs->trans('Disabled'), 'statut5');
+			if ($status == 'SNAPSHOTTING') return img_picto($langs->trans('Snapshotting'), 'statut1');
 		}
-		if ($mode == 4)
-		{
-			if ($status == 'ACTIVE') return img_picto($langs->trans('Active'),'statut4').' '.$langs->trans('Active');
-			if ($status == 'INACTIVE') return img_picto($langs->trans('Disabled'),'statut5').' '.$langs->trans('Disabled');
-			if ($status == 'SNAPSHOTTING') return img_picto($langs->trans('Snapshotting'),'statut1').' '.$langs->trans('Snapshotting');
+		if ($mode == 4) {
+			if ($status == 'ACTIVE') return img_picto($langs->trans('Active'), 'statut4').' '.$langs->trans('Active');
+			if ($status == 'INACTIVE') return img_picto($langs->trans('Disabled'), 'statut5').' '.$langs->trans('Disabled');
+			if ($status == 'SNAPSHOTTING') return img_picto($langs->trans('Snapshotting'), 'statut1').' '.$langs->trans('Snapshotting');
 		}
-		if ($mode == 5)
-		{
-			if ($status == 'ACTIVE') return $langs->trans('Active').' '.img_picto($langs->trans('Active'),'statut4');
-			if ($status == 'INACTIVE') return $langs->trans('Disabled').' '.img_picto($langs->trans('Disabled'),'statut5');
-			if ($status == 'SNAPSHOTTING') return $langs->trans('Snapshotting').' '.img_picto($langs->trans('Snapshotting'),'statut1');
+		if ($mode == 5) {
+			if ($status == 'ACTIVE') return $langs->trans('Active').' '.img_picto($langs->trans('Active'), 'statut4');
+			if ($status == 'INACTIVE') return $langs->trans('Disabled').' '.img_picto($langs->trans('Disabled'), 'statut5');
+			if ($status == 'SNAPSHOTTING') return $langs->trans('Snapshotting').' '.img_picto($langs->trans('Snapshotting'), 'statut1');
 		}
-		if ($mode == 6)
-		{
-			if ($status == 'ACTIVE') return $langs->trans('Active').' '.img_picto($langs->trans('Active'),'statut4');
-			if ($status == 'INACTIVE') return $langs->trans('Disabled').' '.img_picto($langs->trans('Disabled'),'statut5');
-			if ($status == 'SNAPSHOTTING') return $langs->trans('Snapshotting').' '.img_picto($langs->trans('Snapshotting'),'statut1');
+		if ($mode == 6) {
+			if ($status == 'ACTIVE') return $langs->trans('Active').' '.img_picto($langs->trans('Active'), 'statut4');
+			if ($status == 'INACTIVE') return $langs->trans('Disabled').' '.img_picto($langs->trans('Disabled'), 'statut5');
+			if ($status == 'SNAPSHOTTING') return $langs->trans('Snapshotting').' '.img_picto($langs->trans('Snapshotting'), 'statut1');
 		}
 	}
 
@@ -266,7 +255,7 @@ class OvhServer extends CommonObject
 	 * @param	string	$name		Server label
 	 * @return	int					<0 if KO, 0 if OK (This is standard for methods called by crons)
 	 */
-	public function createSnapshot($project, $server, $name='')
+	public function createSnapshot($project, $server, $name = '')
 	{
 		global $conf, $langs;
 
@@ -290,14 +279,11 @@ class OvhServer extends CommonObject
 			$resultcreatesnapshot = json_decode(json_encode($resultcreatesnapshot), false);
 			$this->msg = $langs->trans("SnapshotRequestSent", $snapshotName);
 			return 0;
-		}
-		catch(Exception $e)
-		{
+		} catch (Exception $e) {
 			$this->error = 'Error '.$e->getMessage().'<br>If there is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager/api (for example port 443).';
 		}
 		return -1;
 	}
-
 }
 
 /**

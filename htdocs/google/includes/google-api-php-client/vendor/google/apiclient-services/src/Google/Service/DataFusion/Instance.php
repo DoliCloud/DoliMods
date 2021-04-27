@@ -17,225 +17,225 @@
 
 class Google_Service_DataFusion_Instance extends Google_Collection
 {
-  protected $collection_key = 'availableVersion';
-  protected $acceleratorsType = 'Google_Service_DataFusion_Accelerator';
-  protected $acceleratorsDataType = 'array';
-  public $apiEndpoint;
-  protected $availableVersionType = 'Google_Service_DataFusion_Version';
-  protected $availableVersionDataType = 'array';
-  public $createTime;
-  public $description;
-  public $displayName;
-  public $enableStackdriverLogging;
-  public $enableStackdriverMonitoring;
-  public $gcsBucket;
-  public $labels;
-  public $name;
-  protected $networkConfigType = 'Google_Service_DataFusion_NetworkConfig';
-  protected $networkConfigDataType = '';
-  public $options;
-  public $privateInstance;
-  public $serviceAccount;
-  public $serviceEndpoint;
-  public $state;
-  public $stateMessage;
-  public $type;
-  public $updateTime;
-  public $version;
-  public $zone;
+	protected $collection_key = 'availableVersion';
+	protected $acceleratorsType = 'Google_Service_DataFusion_Accelerator';
+	protected $acceleratorsDataType = 'array';
+	public $apiEndpoint;
+	protected $availableVersionType = 'Google_Service_DataFusion_Version';
+	protected $availableVersionDataType = 'array';
+	public $createTime;
+	public $description;
+	public $displayName;
+	public $enableStackdriverLogging;
+	public $enableStackdriverMonitoring;
+	public $gcsBucket;
+	public $labels;
+	public $name;
+	protected $networkConfigType = 'Google_Service_DataFusion_NetworkConfig';
+	protected $networkConfigDataType = '';
+	public $options;
+	public $privateInstance;
+	public $serviceAccount;
+	public $serviceEndpoint;
+	public $state;
+	public $stateMessage;
+	public $type;
+	public $updateTime;
+	public $version;
+	public $zone;
 
-  /**
-   * @param Google_Service_DataFusion_Accelerator
-   */
-  public function setAccelerators($accelerators)
-  {
-    $this->accelerators = $accelerators;
-  }
-  /**
-   * @return Google_Service_DataFusion_Accelerator
-   */
-  public function getAccelerators()
-  {
-    return $this->accelerators;
-  }
-  public function setApiEndpoint($apiEndpoint)
-  {
-    $this->apiEndpoint = $apiEndpoint;
-  }
-  public function getApiEndpoint()
-  {
-    return $this->apiEndpoint;
-  }
-  /**
-   * @param Google_Service_DataFusion_Version
-   */
-  public function setAvailableVersion($availableVersion)
-  {
-    $this->availableVersion = $availableVersion;
-  }
-  /**
-   * @return Google_Service_DataFusion_Version
-   */
-  public function getAvailableVersion()
-  {
-    return $this->availableVersion;
-  }
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEnableStackdriverLogging($enableStackdriverLogging)
-  {
-    $this->enableStackdriverLogging = $enableStackdriverLogging;
-  }
-  public function getEnableStackdriverLogging()
-  {
-    return $this->enableStackdriverLogging;
-  }
-  public function setEnableStackdriverMonitoring($enableStackdriverMonitoring)
-  {
-    $this->enableStackdriverMonitoring = $enableStackdriverMonitoring;
-  }
-  public function getEnableStackdriverMonitoring()
-  {
-    return $this->enableStackdriverMonitoring;
-  }
-  public function setGcsBucket($gcsBucket)
-  {
-    $this->gcsBucket = $gcsBucket;
-  }
-  public function getGcsBucket()
-  {
-    return $this->gcsBucket;
-  }
-  public function setLabels($labels)
-  {
-    $this->labels = $labels;
-  }
-  public function getLabels()
-  {
-    return $this->labels;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_DataFusion_NetworkConfig
-   */
-  public function setNetworkConfig(Google_Service_DataFusion_NetworkConfig $networkConfig)
-  {
-    $this->networkConfig = $networkConfig;
-  }
-  /**
-   * @return Google_Service_DataFusion_NetworkConfig
-   */
-  public function getNetworkConfig()
-  {
-    return $this->networkConfig;
-  }
-  public function setOptions($options)
-  {
-    $this->options = $options;
-  }
-  public function getOptions()
-  {
-    return $this->options;
-  }
-  public function setPrivateInstance($privateInstance)
-  {
-    $this->privateInstance = $privateInstance;
-  }
-  public function getPrivateInstance()
-  {
-    return $this->privateInstance;
-  }
-  public function setServiceAccount($serviceAccount)
-  {
-    $this->serviceAccount = $serviceAccount;
-  }
-  public function getServiceAccount()
-  {
-    return $this->serviceAccount;
-  }
-  public function setServiceEndpoint($serviceEndpoint)
-  {
-    $this->serviceEndpoint = $serviceEndpoint;
-  }
-  public function getServiceEndpoint()
-  {
-    return $this->serviceEndpoint;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setStateMessage($stateMessage)
-  {
-    $this->stateMessage = $stateMessage;
-  }
-  public function getStateMessage()
-  {
-    return $this->stateMessage;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
-  public function setZone($zone)
-  {
-    $this->zone = $zone;
-  }
-  public function getZone()
-  {
-    return $this->zone;
-  }
+	/**
+	 * @param Google_Service_DataFusion_Accelerator
+	 */
+	public function setAccelerators($accelerators)
+	{
+		$this->accelerators = $accelerators;
+	}
+	/**
+	 * @return Google_Service_DataFusion_Accelerator
+	 */
+	public function getAccelerators()
+	{
+		return $this->accelerators;
+	}
+	public function setApiEndpoint($apiEndpoint)
+	{
+		$this->apiEndpoint = $apiEndpoint;
+	}
+	public function getApiEndpoint()
+	{
+		return $this->apiEndpoint;
+	}
+	/**
+	 * @param Google_Service_DataFusion_Version
+	 */
+	public function setAvailableVersion($availableVersion)
+	{
+		$this->availableVersion = $availableVersion;
+	}
+	/**
+	 * @return Google_Service_DataFusion_Version
+	 */
+	public function getAvailableVersion()
+	{
+		return $this->availableVersion;
+	}
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEnableStackdriverLogging($enableStackdriverLogging)
+	{
+		$this->enableStackdriverLogging = $enableStackdriverLogging;
+	}
+	public function getEnableStackdriverLogging()
+	{
+		return $this->enableStackdriverLogging;
+	}
+	public function setEnableStackdriverMonitoring($enableStackdriverMonitoring)
+	{
+		$this->enableStackdriverMonitoring = $enableStackdriverMonitoring;
+	}
+	public function getEnableStackdriverMonitoring()
+	{
+		return $this->enableStackdriverMonitoring;
+	}
+	public function setGcsBucket($gcsBucket)
+	{
+		$this->gcsBucket = $gcsBucket;
+	}
+	public function getGcsBucket()
+	{
+		return $this->gcsBucket;
+	}
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+	}
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_DataFusion_NetworkConfig
+	 */
+	public function setNetworkConfig(Google_Service_DataFusion_NetworkConfig $networkConfig)
+	{
+		$this->networkConfig = $networkConfig;
+	}
+	/**
+	 * @return Google_Service_DataFusion_NetworkConfig
+	 */
+	public function getNetworkConfig()
+	{
+		return $this->networkConfig;
+	}
+	public function setOptions($options)
+	{
+		$this->options = $options;
+	}
+	public function getOptions()
+	{
+		return $this->options;
+	}
+	public function setPrivateInstance($privateInstance)
+	{
+		$this->privateInstance = $privateInstance;
+	}
+	public function getPrivateInstance()
+	{
+		return $this->privateInstance;
+	}
+	public function setServiceAccount($serviceAccount)
+	{
+		$this->serviceAccount = $serviceAccount;
+	}
+	public function getServiceAccount()
+	{
+		return $this->serviceAccount;
+	}
+	public function setServiceEndpoint($serviceEndpoint)
+	{
+		$this->serviceEndpoint = $serviceEndpoint;
+	}
+	public function getServiceEndpoint()
+	{
+		return $this->serviceEndpoint;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setStateMessage($stateMessage)
+	{
+		$this->stateMessage = $stateMessage;
+	}
+	public function getStateMessage()
+	{
+		return $this->stateMessage;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
+	public function setZone($zone)
+	{
+		$this->zone = $zone;
+	}
+	public function getZone()
+	{
+		return $this->zone;
+	}
 }

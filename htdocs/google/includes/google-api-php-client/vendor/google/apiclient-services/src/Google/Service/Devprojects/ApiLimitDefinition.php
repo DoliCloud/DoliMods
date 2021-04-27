@@ -17,52 +17,52 @@
 
 class Google_Service_Devprojects_ApiLimitDefinition extends Google_Model
 {
-  protected $defaultValueType = 'Google_Service_Devprojects_TypedValue';
-  protected $defaultValueDataType = '';
-  public $description;
-  public $kind;
-  public $limitType;
-  protected $maxValueType = 'Google_Service_Devprojects_TypedValue';
-  protected $maxValueDataType = '';
+	protected $defaultValueType = 'Google_Service_Devprojects_TypedValue';
+	protected $defaultValueDataType = '';
+	public $description;
+	public $kind;
+	public $limitType;
+	protected $maxValueType = 'Google_Service_Devprojects_TypedValue';
+	protected $maxValueDataType = '';
 
-  public function setDefaultValue(Google_Service_Devprojects_TypedValue $defaultValue)
-  {
-    $this->defaultValue = $defaultValue;
-  }
-  public function getDefaultValue()
-  {
-    return $this->defaultValue;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLimitType($limitType)
-  {
-    $this->limitType = $limitType;
-  }
-  public function getLimitType()
-  {
-    return $this->limitType;
-  }
-  public function setMaxValue(Google_Service_Devprojects_TypedValue $maxValue)
-  {
-    $this->maxValue = $maxValue;
-  }
-  public function getMaxValue()
-  {
-    return $this->maxValue;
-  }
+	public function setDefaultValue(Google_Service_Devprojects_TypedValue $defaultValue)
+	{
+		$this->defaultValue = $defaultValue;
+	}
+	public function getDefaultValue()
+	{
+		return $this->defaultValue;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLimitType($limitType)
+	{
+		$this->limitType = $limitType;
+	}
+	public function getLimitType()
+	{
+		return $this->limitType;
+	}
+	public function setMaxValue(Google_Service_Devprojects_TypedValue $maxValue)
+	{
+		$this->maxValue = $maxValue;
+	}
+	public function getMaxValue()
+	{
+		return $this->maxValue;
+	}
 }

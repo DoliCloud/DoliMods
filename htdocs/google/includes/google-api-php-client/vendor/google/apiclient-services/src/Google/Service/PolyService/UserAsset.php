@@ -17,21 +17,21 @@
 
 class Google_Service_PolyService_UserAsset extends Google_Model
 {
-  protected $assetType = 'Google_Service_PolyService_Asset';
-  protected $assetDataType = '';
+	protected $assetType = 'Google_Service_PolyService_Asset';
+	protected $assetDataType = '';
 
-  /**
-   * @param Google_Service_PolyService_Asset
-   */
-  public function setAsset(Google_Service_PolyService_Asset $asset)
-  {
-    $this->asset = $asset;
-  }
-  /**
-   * @return Google_Service_PolyService_Asset
-   */
-  public function getAsset()
-  {
-    return $this->asset;
-  }
+	/**
+	 * @param Google_Service_PolyService_Asset
+	 */
+	public function setAsset(Google_Service_PolyService_Asset $asset)
+	{
+		$this->asset = $asset;
+	}
+	/**
+	 * @return Google_Service_PolyService_Asset
+	 */
+	public function getAsset()
+	{
+		return $this->asset;
+	}
 }

@@ -17,63 +17,63 @@
 
 class Google_Service_ConsumerSurveys_MobileAppPanelsListResponse extends Google_Collection
 {
-  protected $collection_key = 'resources';
-  protected $pageInfoType = 'Google_Service_ConsumerSurveys_PageInfo';
-  protected $pageInfoDataType = '';
-  public $requestId;
-  protected $resourcesType = 'Google_Service_ConsumerSurveys_MobileAppPanel';
-  protected $resourcesDataType = 'array';
-  protected $tokenPaginationType = 'Google_Service_ConsumerSurveys_TokenPagination';
-  protected $tokenPaginationDataType = '';
+	protected $collection_key = 'resources';
+	protected $pageInfoType = 'Google_Service_ConsumerSurveys_PageInfo';
+	protected $pageInfoDataType = '';
+	public $requestId;
+	protected $resourcesType = 'Google_Service_ConsumerSurveys_MobileAppPanel';
+	protected $resourcesDataType = 'array';
+	protected $tokenPaginationType = 'Google_Service_ConsumerSurveys_TokenPagination';
+	protected $tokenPaginationDataType = '';
 
-  /**
-   * @param Google_Service_ConsumerSurveys_PageInfo
-   */
-  public function setPageInfo(Google_Service_ConsumerSurveys_PageInfo $pageInfo)
-  {
-    $this->pageInfo = $pageInfo;
-  }
-  /**
-   * @return Google_Service_ConsumerSurveys_PageInfo
-   */
-  public function getPageInfo()
-  {
-    return $this->pageInfo;
-  }
-  public function setRequestId($requestId)
-  {
-    $this->requestId = $requestId;
-  }
-  public function getRequestId()
-  {
-    return $this->requestId;
-  }
-  /**
-   * @param Google_Service_ConsumerSurveys_MobileAppPanel
-   */
-  public function setResources($resources)
-  {
-    $this->resources = $resources;
-  }
-  /**
-   * @return Google_Service_ConsumerSurveys_MobileAppPanel
-   */
-  public function getResources()
-  {
-    return $this->resources;
-  }
-  /**
-   * @param Google_Service_ConsumerSurveys_TokenPagination
-   */
-  public function setTokenPagination(Google_Service_ConsumerSurveys_TokenPagination $tokenPagination)
-  {
-    $this->tokenPagination = $tokenPagination;
-  }
-  /**
-   * @return Google_Service_ConsumerSurveys_TokenPagination
-   */
-  public function getTokenPagination()
-  {
-    return $this->tokenPagination;
-  }
+	/**
+	 * @param Google_Service_ConsumerSurveys_PageInfo
+	 */
+	public function setPageInfo(Google_Service_ConsumerSurveys_PageInfo $pageInfo)
+	{
+		$this->pageInfo = $pageInfo;
+	}
+	/**
+	 * @return Google_Service_ConsumerSurveys_PageInfo
+	 */
+	public function getPageInfo()
+	{
+		return $this->pageInfo;
+	}
+	public function setRequestId($requestId)
+	{
+		$this->requestId = $requestId;
+	}
+	public function getRequestId()
+	{
+		return $this->requestId;
+	}
+	/**
+	 * @param Google_Service_ConsumerSurveys_MobileAppPanel
+	 */
+	public function setResources($resources)
+	{
+		$this->resources = $resources;
+	}
+	/**
+	 * @return Google_Service_ConsumerSurveys_MobileAppPanel
+	 */
+	public function getResources()
+	{
+		return $this->resources;
+	}
+	/**
+	 * @param Google_Service_ConsumerSurveys_TokenPagination
+	 */
+	public function setTokenPagination(Google_Service_ConsumerSurveys_TokenPagination $tokenPagination)
+	{
+		$this->tokenPagination = $tokenPagination;
+	}
+	/**
+	 * @return Google_Service_ConsumerSurveys_TokenPagination
+	 */
+	public function getTokenPagination()
+	{
+		return $this->tokenPagination;
+	}
 }

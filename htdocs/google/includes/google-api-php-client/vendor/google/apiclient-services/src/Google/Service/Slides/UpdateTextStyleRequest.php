@@ -17,71 +17,71 @@
 
 class Google_Service_Slides_UpdateTextStyleRequest extends Google_Model
 {
-  protected $cellLocationType = 'Google_Service_Slides_TableCellLocation';
-  protected $cellLocationDataType = '';
-  public $fields;
-  public $objectId;
-  protected $styleType = 'Google_Service_Slides_TextStyle';
-  protected $styleDataType = '';
-  protected $textRangeType = 'Google_Service_Slides_Range';
-  protected $textRangeDataType = '';
+	protected $cellLocationType = 'Google_Service_Slides_TableCellLocation';
+	protected $cellLocationDataType = '';
+	public $fields;
+	public $objectId;
+	protected $styleType = 'Google_Service_Slides_TextStyle';
+	protected $styleDataType = '';
+	protected $textRangeType = 'Google_Service_Slides_Range';
+	protected $textRangeDataType = '';
 
-  /**
-   * @param Google_Service_Slides_TableCellLocation
-   */
-  public function setCellLocation(Google_Service_Slides_TableCellLocation $cellLocation)
-  {
-    $this->cellLocation = $cellLocation;
-  }
-  /**
-   * @return Google_Service_Slides_TableCellLocation
-   */
-  public function getCellLocation()
-  {
-    return $this->cellLocation;
-  }
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  public function setObjectId($objectId)
-  {
-    $this->objectId = $objectId;
-  }
-  public function getObjectId()
-  {
-    return $this->objectId;
-  }
-  /**
-   * @param Google_Service_Slides_TextStyle
-   */
-  public function setStyle(Google_Service_Slides_TextStyle $style)
-  {
-    $this->style = $style;
-  }
-  /**
-   * @return Google_Service_Slides_TextStyle
-   */
-  public function getStyle()
-  {
-    return $this->style;
-  }
-  /**
-   * @param Google_Service_Slides_Range
-   */
-  public function setTextRange(Google_Service_Slides_Range $textRange)
-  {
-    $this->textRange = $textRange;
-  }
-  /**
-   * @return Google_Service_Slides_Range
-   */
-  public function getTextRange()
-  {
-    return $this->textRange;
-  }
+	/**
+	 * @param Google_Service_Slides_TableCellLocation
+	 */
+	public function setCellLocation(Google_Service_Slides_TableCellLocation $cellLocation)
+	{
+		$this->cellLocation = $cellLocation;
+	}
+	/**
+	 * @return Google_Service_Slides_TableCellLocation
+	 */
+	public function getCellLocation()
+	{
+		return $this->cellLocation;
+	}
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	public function setObjectId($objectId)
+	{
+		$this->objectId = $objectId;
+	}
+	public function getObjectId()
+	{
+		return $this->objectId;
+	}
+	/**
+	 * @param Google_Service_Slides_TextStyle
+	 */
+	public function setStyle(Google_Service_Slides_TextStyle $style)
+	{
+		$this->style = $style;
+	}
+	/**
+	 * @return Google_Service_Slides_TextStyle
+	 */
+	public function getStyle()
+	{
+		return $this->style;
+	}
+	/**
+	 * @param Google_Service_Slides_Range
+	 */
+	public function setTextRange(Google_Service_Slides_Range $textRange)
+	{
+		$this->textRange = $textRange;
+	}
+	/**
+	 * @return Google_Service_Slides_Range
+	 */
+	public function getTextRange()
+	{
+		return $this->textRange;
+	}
 }

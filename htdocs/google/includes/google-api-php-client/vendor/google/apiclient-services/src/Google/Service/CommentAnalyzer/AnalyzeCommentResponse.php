@@ -17,49 +17,49 @@
 
 class Google_Service_CommentAnalyzer_AnalyzeCommentResponse extends Google_Collection
 {
-  protected $collection_key = 'languages';
-  protected $attributeScoresType = 'Google_Service_CommentAnalyzer_AttributeScores';
-  protected $attributeScoresDataType = 'map';
-  public $clientToken;
-  public $detectedLanguages;
-  public $languages;
+	protected $collection_key = 'languages';
+	protected $attributeScoresType = 'Google_Service_CommentAnalyzer_AttributeScores';
+	protected $attributeScoresDataType = 'map';
+	public $clientToken;
+	public $detectedLanguages;
+	public $languages;
 
-  /**
-   * @param Google_Service_CommentAnalyzer_AttributeScores
-   */
-  public function setAttributeScores($attributeScores)
-  {
-    $this->attributeScores = $attributeScores;
-  }
-  /**
-   * @return Google_Service_CommentAnalyzer_AttributeScores
-   */
-  public function getAttributeScores()
-  {
-    return $this->attributeScores;
-  }
-  public function setClientToken($clientToken)
-  {
-    $this->clientToken = $clientToken;
-  }
-  public function getClientToken()
-  {
-    return $this->clientToken;
-  }
-  public function setDetectedLanguages($detectedLanguages)
-  {
-    $this->detectedLanguages = $detectedLanguages;
-  }
-  public function getDetectedLanguages()
-  {
-    return $this->detectedLanguages;
-  }
-  public function setLanguages($languages)
-  {
-    $this->languages = $languages;
-  }
-  public function getLanguages()
-  {
-    return $this->languages;
-  }
+	/**
+	 * @param Google_Service_CommentAnalyzer_AttributeScores
+	 */
+	public function setAttributeScores($attributeScores)
+	{
+		$this->attributeScores = $attributeScores;
+	}
+	/**
+	 * @return Google_Service_CommentAnalyzer_AttributeScores
+	 */
+	public function getAttributeScores()
+	{
+		return $this->attributeScores;
+	}
+	public function setClientToken($clientToken)
+	{
+		$this->clientToken = $clientToken;
+	}
+	public function getClientToken()
+	{
+		return $this->clientToken;
+	}
+	public function setDetectedLanguages($detectedLanguages)
+	{
+		$this->detectedLanguages = $detectedLanguages;
+	}
+	public function getDetectedLanguages()
+	{
+		return $this->detectedLanguages;
+	}
+	public function setLanguages($languages)
+	{
+		$this->languages = $languages;
+	}
+	public function getLanguages()
+	{
+		return $this->languages;
+	}
 }

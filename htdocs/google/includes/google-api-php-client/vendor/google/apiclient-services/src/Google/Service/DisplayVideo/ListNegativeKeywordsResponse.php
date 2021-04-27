@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListNegativeKeywordsResponse extends Google_Collection
 {
-  protected $collection_key = 'negativeKeywords';
-  protected $negativeKeywordsType = 'Google_Service_DisplayVideo_NegativeKeyword';
-  protected $negativeKeywordsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'negativeKeywords';
+	protected $negativeKeywordsType = 'Google_Service_DisplayVideo_NegativeKeyword';
+	protected $negativeKeywordsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_NegativeKeyword
-   */
-  public function setNegativeKeywords($negativeKeywords)
-  {
-    $this->negativeKeywords = $negativeKeywords;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_NegativeKeyword
-   */
-  public function getNegativeKeywords()
-  {
-    return $this->negativeKeywords;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_NegativeKeyword
+	 */
+	public function setNegativeKeywords($negativeKeywords)
+	{
+		$this->negativeKeywords = $negativeKeywords;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_NegativeKeyword
+	 */
+	public function getNegativeKeywords()
+	{
+		return $this->negativeKeywords;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -17,47 +17,47 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationConfig extends Google_Collection
 {
-  protected $collection_key = 'quasiIds';
-  protected $auxiliaryTablesType = 'Google_Service_DLP_GooglePrivacyDlpV2StatisticalTable';
-  protected $auxiliaryTablesDataType = 'array';
-  protected $quasiIdsType = 'Google_Service_DLP_GooglePrivacyDlpV2QuasiId';
-  protected $quasiIdsDataType = 'array';
-  public $regionCode;
+	protected $collection_key = 'quasiIds';
+	protected $auxiliaryTablesType = 'Google_Service_DLP_GooglePrivacyDlpV2StatisticalTable';
+	protected $auxiliaryTablesDataType = 'array';
+	protected $quasiIdsType = 'Google_Service_DLP_GooglePrivacyDlpV2QuasiId';
+	protected $quasiIdsDataType = 'array';
+	public $regionCode;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2StatisticalTable
-   */
-  public function setAuxiliaryTables($auxiliaryTables)
-  {
-    $this->auxiliaryTables = $auxiliaryTables;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2StatisticalTable
-   */
-  public function getAuxiliaryTables()
-  {
-    return $this->auxiliaryTables;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2QuasiId
-   */
-  public function setQuasiIds($quasiIds)
-  {
-    $this->quasiIds = $quasiIds;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2QuasiId
-   */
-  public function getQuasiIds()
-  {
-    return $this->quasiIds;
-  }
-  public function setRegionCode($regionCode)
-  {
-    $this->regionCode = $regionCode;
-  }
-  public function getRegionCode()
-  {
-    return $this->regionCode;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2StatisticalTable
+	 */
+	public function setAuxiliaryTables($auxiliaryTables)
+	{
+		$this->auxiliaryTables = $auxiliaryTables;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2StatisticalTable
+	 */
+	public function getAuxiliaryTables()
+	{
+		return $this->auxiliaryTables;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2QuasiId
+	 */
+	public function setQuasiIds($quasiIds)
+	{
+		$this->quasiIds = $quasiIds;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2QuasiId
+	 */
+	public function getQuasiIds()
+	{
+		return $this->quasiIds;
+	}
+	public function setRegionCode($regionCode)
+	{
+		$this->regionCode = $regionCode;
+	}
+	public function getRegionCode()
+	{
+		return $this->regionCode;
+	}
 }

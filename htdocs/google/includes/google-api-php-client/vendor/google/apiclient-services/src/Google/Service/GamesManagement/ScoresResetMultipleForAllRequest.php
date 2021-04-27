@@ -17,27 +17,27 @@
 
 class Google_Service_GamesManagement_ScoresResetMultipleForAllRequest extends Google_Collection
 {
-  protected $collection_key = 'leaderboard_ids';
-  protected $internal_gapi_mappings = array(
-        "leaderboardIds" => "leaderboard_ids",
-  );
-  public $kind;
-  public $leaderboardIds;
+	protected $collection_key = 'leaderboard_ids';
+	protected $internal_gapi_mappings = array(
+		"leaderboardIds" => "leaderboard_ids",
+	);
+	public $kind;
+	public $leaderboardIds;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setLeaderboardIds($leaderboardIds)
-  {
-    $this->leaderboardIds = $leaderboardIds;
-  }
-  public function getLeaderboardIds()
-  {
-    return $this->leaderboardIds;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setLeaderboardIds($leaderboardIds)
+	{
+		$this->leaderboardIds = $leaderboardIds;
+	}
+	public function getLeaderboardIds()
+	{
+		return $this->leaderboardIds;
+	}
 }

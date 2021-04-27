@@ -17,48 +17,48 @@
 
 class Google_Service_CloudSearch_ItemContent extends Google_Model
 {
-  protected $contentDataRefType = 'Google_Service_CloudSearch_UploadItemRef';
-  protected $contentDataRefDataType = '';
-  public $contentFormat;
-  public $hash;
-  public $inlineContent;
+	protected $contentDataRefType = 'Google_Service_CloudSearch_UploadItemRef';
+	protected $contentDataRefDataType = '';
+	public $contentFormat;
+	public $hash;
+	public $inlineContent;
 
-  /**
-   * @param Google_Service_CloudSearch_UploadItemRef
-   */
-  public function setContentDataRef(Google_Service_CloudSearch_UploadItemRef $contentDataRef)
-  {
-    $this->contentDataRef = $contentDataRef;
-  }
-  /**
-   * @return Google_Service_CloudSearch_UploadItemRef
-   */
-  public function getContentDataRef()
-  {
-    return $this->contentDataRef;
-  }
-  public function setContentFormat($contentFormat)
-  {
-    $this->contentFormat = $contentFormat;
-  }
-  public function getContentFormat()
-  {
-    return $this->contentFormat;
-  }
-  public function setHash($hash)
-  {
-    $this->hash = $hash;
-  }
-  public function getHash()
-  {
-    return $this->hash;
-  }
-  public function setInlineContent($inlineContent)
-  {
-    $this->inlineContent = $inlineContent;
-  }
-  public function getInlineContent()
-  {
-    return $this->inlineContent;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_UploadItemRef
+	 */
+	public function setContentDataRef(Google_Service_CloudSearch_UploadItemRef $contentDataRef)
+	{
+		$this->contentDataRef = $contentDataRef;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_UploadItemRef
+	 */
+	public function getContentDataRef()
+	{
+		return $this->contentDataRef;
+	}
+	public function setContentFormat($contentFormat)
+	{
+		$this->contentFormat = $contentFormat;
+	}
+	public function getContentFormat()
+	{
+		return $this->contentFormat;
+	}
+	public function setHash($hash)
+	{
+		$this->hash = $hash;
+	}
+	public function getHash()
+	{
+		return $this->hash;
+	}
+	public function setInlineContent($inlineContent)
+	{
+		$this->inlineContent = $inlineContent;
+	}
+	public function getInlineContent()
+	{
+		return $this->inlineContent;
+	}
 }

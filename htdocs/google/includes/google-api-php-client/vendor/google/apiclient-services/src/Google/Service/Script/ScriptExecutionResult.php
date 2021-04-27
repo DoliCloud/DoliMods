@@ -17,21 +17,21 @@
 
 class Google_Service_Script_ScriptExecutionResult extends Google_Model
 {
-  protected $returnValueType = 'Google_Service_Script_Value';
-  protected $returnValueDataType = '';
+	protected $returnValueType = 'Google_Service_Script_Value';
+	protected $returnValueDataType = '';
 
-  /**
-   * @param Google_Service_Script_Value
-   */
-  public function setReturnValue(Google_Service_Script_Value $returnValue)
-  {
-    $this->returnValue = $returnValue;
-  }
-  /**
-   * @return Google_Service_Script_Value
-   */
-  public function getReturnValue()
-  {
-    return $this->returnValue;
-  }
+	/**
+	 * @param Google_Service_Script_Value
+	 */
+	public function setReturnValue(Google_Service_Script_Value $returnValue)
+	{
+		$this->returnValue = $returnValue;
+	}
+	/**
+	 * @return Google_Service_Script_Value
+	 */
+	public function getReturnValue()
+	{
+		return $this->returnValue;
+	}
 }

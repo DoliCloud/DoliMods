@@ -17,87 +17,87 @@
 
 class Google_Service_Docs_StructuralElement extends Google_Model
 {
-  public $endIndex;
-  protected $paragraphType = 'Google_Service_Docs_Paragraph';
-  protected $paragraphDataType = '';
-  protected $sectionBreakType = 'Google_Service_Docs_SectionBreak';
-  protected $sectionBreakDataType = '';
-  public $startIndex;
-  protected $tableType = 'Google_Service_Docs_Table';
-  protected $tableDataType = '';
-  protected $tableOfContentsType = 'Google_Service_Docs_TableOfContents';
-  protected $tableOfContentsDataType = '';
+	public $endIndex;
+	protected $paragraphType = 'Google_Service_Docs_Paragraph';
+	protected $paragraphDataType = '';
+	protected $sectionBreakType = 'Google_Service_Docs_SectionBreak';
+	protected $sectionBreakDataType = '';
+	public $startIndex;
+	protected $tableType = 'Google_Service_Docs_Table';
+	protected $tableDataType = '';
+	protected $tableOfContentsType = 'Google_Service_Docs_TableOfContents';
+	protected $tableOfContentsDataType = '';
 
-  public function setEndIndex($endIndex)
-  {
-    $this->endIndex = $endIndex;
-  }
-  public function getEndIndex()
-  {
-    return $this->endIndex;
-  }
-  /**
-   * @param Google_Service_Docs_Paragraph
-   */
-  public function setParagraph(Google_Service_Docs_Paragraph $paragraph)
-  {
-    $this->paragraph = $paragraph;
-  }
-  /**
-   * @return Google_Service_Docs_Paragraph
-   */
-  public function getParagraph()
-  {
-    return $this->paragraph;
-  }
-  /**
-   * @param Google_Service_Docs_SectionBreak
-   */
-  public function setSectionBreak(Google_Service_Docs_SectionBreak $sectionBreak)
-  {
-    $this->sectionBreak = $sectionBreak;
-  }
-  /**
-   * @return Google_Service_Docs_SectionBreak
-   */
-  public function getSectionBreak()
-  {
-    return $this->sectionBreak;
-  }
-  public function setStartIndex($startIndex)
-  {
-    $this->startIndex = $startIndex;
-  }
-  public function getStartIndex()
-  {
-    return $this->startIndex;
-  }
-  /**
-   * @param Google_Service_Docs_Table
-   */
-  public function setTable(Google_Service_Docs_Table $table)
-  {
-    $this->table = $table;
-  }
-  /**
-   * @return Google_Service_Docs_Table
-   */
-  public function getTable()
-  {
-    return $this->table;
-  }
-  /**
-   * @param Google_Service_Docs_TableOfContents
-   */
-  public function setTableOfContents(Google_Service_Docs_TableOfContents $tableOfContents)
-  {
-    $this->tableOfContents = $tableOfContents;
-  }
-  /**
-   * @return Google_Service_Docs_TableOfContents
-   */
-  public function getTableOfContents()
-  {
-    return $this->tableOfContents;
-  }
+	public function setEndIndex($endIndex)
+	{
+		$this->endIndex = $endIndex;
+	}
+	public function getEndIndex()
+	{
+		return $this->endIndex;
+	}
+	/**
+	 * @param Google_Service_Docs_Paragraph
+	 */
+	public function setParagraph(Google_Service_Docs_Paragraph $paragraph)
+	{
+		$this->paragraph = $paragraph;
+	}
+	/**
+	 * @return Google_Service_Docs_Paragraph
+	 */
+	public function getParagraph()
+	{
+		return $this->paragraph;
+	}
+	/**
+	 * @param Google_Service_Docs_SectionBreak
+	 */
+	public function setSectionBreak(Google_Service_Docs_SectionBreak $sectionBreak)
+	{
+		$this->sectionBreak = $sectionBreak;
+	}
+	/**
+	 * @return Google_Service_Docs_SectionBreak
+	 */
+	public function getSectionBreak()
+	{
+		return $this->sectionBreak;
+	}
+	public function setStartIndex($startIndex)
+	{
+		$this->startIndex = $startIndex;
+	}
+	public function getStartIndex()
+	{
+		return $this->startIndex;
+	}
+	/**
+	 * @param Google_Service_Docs_Table
+	 */
+	public function setTable(Google_Service_Docs_Table $table)
+	{
+		$this->table = $table;
+	}
+	/**
+	 * @return Google_Service_Docs_Table
+	 */
+	public function getTable()
+	{
+		return $this->table;
+	}
+	/**
+	 * @param Google_Service_Docs_TableOfContents
+	 */
+	public function setTableOfContents(Google_Service_Docs_TableOfContents $tableOfContents)
+	{
+		$this->tableOfContents = $tableOfContents;
+	}
+	/**
+	 * @return Google_Service_Docs_TableOfContents
+	 */
+	public function getTableOfContents()
+	{
+		return $this->tableOfContents;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_MaximizeSpendBidStrategy extends Google_Model
 {
-  public $maxAverageCpmBidAmountMicros;
-  public $performanceGoalType;
+	public $maxAverageCpmBidAmountMicros;
+	public $performanceGoalType;
 
-  public function setMaxAverageCpmBidAmountMicros($maxAverageCpmBidAmountMicros)
-  {
-    $this->maxAverageCpmBidAmountMicros = $maxAverageCpmBidAmountMicros;
-  }
-  public function getMaxAverageCpmBidAmountMicros()
-  {
-    return $this->maxAverageCpmBidAmountMicros;
-  }
-  public function setPerformanceGoalType($performanceGoalType)
-  {
-    $this->performanceGoalType = $performanceGoalType;
-  }
-  public function getPerformanceGoalType()
-  {
-    return $this->performanceGoalType;
-  }
+	public function setMaxAverageCpmBidAmountMicros($maxAverageCpmBidAmountMicros)
+	{
+		$this->maxAverageCpmBidAmountMicros = $maxAverageCpmBidAmountMicros;
+	}
+	public function getMaxAverageCpmBidAmountMicros()
+	{
+		return $this->maxAverageCpmBidAmountMicros;
+	}
+	public function setPerformanceGoalType($performanceGoalType)
+	{
+		$this->performanceGoalType = $performanceGoalType;
+	}
+	public function getPerformanceGoalType()
+	{
+		return $this->performanceGoalType;
+	}
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListOrganizationsResponse extends Google_Collection
 {
-  protected $collection_key = 'organizations';
-  protected $organizationsType = 'Google_Service_Apigee_GoogleCloudApigeeV1OrganizationProjectMapping';
-  protected $organizationsDataType = 'array';
+	protected $collection_key = 'organizations';
+	protected $organizationsType = 'Google_Service_Apigee_GoogleCloudApigeeV1OrganizationProjectMapping';
+	protected $organizationsDataType = 'array';
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1OrganizationProjectMapping
-   */
-  public function setOrganizations($organizations)
-  {
-    $this->organizations = $organizations;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1OrganizationProjectMapping
-   */
-  public function getOrganizations()
-  {
-    return $this->organizations;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1OrganizationProjectMapping
+	 */
+	public function setOrganizations($organizations)
+	{
+		$this->organizations = $organizations;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1OrganizationProjectMapping
+	 */
+	public function getOrganizations()
+	{
+		return $this->organizations;
+	}
 }

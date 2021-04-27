@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_RoboScriptExecution extends Google_Model
 {
-  public $successfulActions;
-  public $totalActions;
+	public $successfulActions;
+	public $totalActions;
 
-  public function setSuccessfulActions($successfulActions)
-  {
-    $this->successfulActions = $successfulActions;
-  }
-  public function getSuccessfulActions()
-  {
-    return $this->successfulActions;
-  }
-  public function setTotalActions($totalActions)
-  {
-    $this->totalActions = $totalActions;
-  }
-  public function getTotalActions()
-  {
-    return $this->totalActions;
-  }
+	public function setSuccessfulActions($successfulActions)
+	{
+		$this->successfulActions = $successfulActions;
+	}
+	public function getSuccessfulActions()
+	{
+		return $this->successfulActions;
+	}
+	public function setTotalActions($totalActions)
+	{
+		$this->totalActions = $totalActions;
+	}
+	public function getTotalActions()
+	{
+		return $this->totalActions;
+	}
 }

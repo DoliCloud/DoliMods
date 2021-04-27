@@ -17,72 +17,72 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2RedactImageRequest extends Google_Collection
 {
-  protected $collection_key = 'imageRedactionConfigs';
-  protected $byteItemType = 'Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem';
-  protected $byteItemDataType = '';
-  protected $imageRedactionConfigsType = 'Google_Service_DLP_GooglePrivacyDlpV2ImageRedactionConfig';
-  protected $imageRedactionConfigsDataType = 'array';
-  public $includeFindings;
-  protected $inspectConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectConfig';
-  protected $inspectConfigDataType = '';
-  public $locationId;
+	protected $collection_key = 'imageRedactionConfigs';
+	protected $byteItemType = 'Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem';
+	protected $byteItemDataType = '';
+	protected $imageRedactionConfigsType = 'Google_Service_DLP_GooglePrivacyDlpV2ImageRedactionConfig';
+	protected $imageRedactionConfigsDataType = 'array';
+	public $includeFindings;
+	protected $inspectConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectConfig';
+	protected $inspectConfigDataType = '';
+	public $locationId;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem
-   */
-  public function setByteItem(Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem $byteItem)
-  {
-    $this->byteItem = $byteItem;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem
-   */
-  public function getByteItem()
-  {
-    return $this->byteItem;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2ImageRedactionConfig
-   */
-  public function setImageRedactionConfigs($imageRedactionConfigs)
-  {
-    $this->imageRedactionConfigs = $imageRedactionConfigs;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2ImageRedactionConfig
-   */
-  public function getImageRedactionConfigs()
-  {
-    return $this->imageRedactionConfigs;
-  }
-  public function setIncludeFindings($includeFindings)
-  {
-    $this->includeFindings = $includeFindings;
-  }
-  public function getIncludeFindings()
-  {
-    return $this->includeFindings;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
-   */
-  public function setInspectConfig(Google_Service_DLP_GooglePrivacyDlpV2InspectConfig $inspectConfig)
-  {
-    $this->inspectConfig = $inspectConfig;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
-   */
-  public function getInspectConfig()
-  {
-    return $this->inspectConfig;
-  }
-  public function setLocationId($locationId)
-  {
-    $this->locationId = $locationId;
-  }
-  public function getLocationId()
-  {
-    return $this->locationId;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem
+	 */
+	public function setByteItem(Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem $byteItem)
+	{
+		$this->byteItem = $byteItem;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem
+	 */
+	public function getByteItem()
+	{
+		return $this->byteItem;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2ImageRedactionConfig
+	 */
+	public function setImageRedactionConfigs($imageRedactionConfigs)
+	{
+		$this->imageRedactionConfigs = $imageRedactionConfigs;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2ImageRedactionConfig
+	 */
+	public function getImageRedactionConfigs()
+	{
+		return $this->imageRedactionConfigs;
+	}
+	public function setIncludeFindings($includeFindings)
+	{
+		$this->includeFindings = $includeFindings;
+	}
+	public function getIncludeFindings()
+	{
+		return $this->includeFindings;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
+	 */
+	public function setInspectConfig(Google_Service_DLP_GooglePrivacyDlpV2InspectConfig $inspectConfig)
+	{
+		$this->inspectConfig = $inspectConfig;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
+	 */
+	public function getInspectConfig()
+	{
+		return $this->inspectConfig;
+	}
+	public function setLocationId($locationId)
+	{
+		$this->locationId = $locationId;
+	}
+	public function getLocationId()
+	{
+		return $this->locationId;
+	}
 }

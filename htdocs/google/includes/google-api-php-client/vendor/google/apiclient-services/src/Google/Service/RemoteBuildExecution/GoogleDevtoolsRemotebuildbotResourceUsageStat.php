@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat extends Google_Model
 {
-  public $total;
-  public $used;
+	public $total;
+	public $used;
 
-  public function setTotal($total)
-  {
-    $this->total = $total;
-  }
-  public function getTotal()
-  {
-    return $this->total;
-  }
-  public function setUsed($used)
-  {
-    $this->used = $used;
-  }
-  public function getUsed()
-  {
-    return $this->used;
-  }
+	public function setTotal($total)
+	{
+		$this->total = $total;
+	}
+	public function getTotal()
+	{
+		return $this->total;
+	}
+	public function setUsed($used)
+	{
+		$this->used = $used;
+	}
+	public function getUsed()
+	{
+		return $this->used;
+	}
 }

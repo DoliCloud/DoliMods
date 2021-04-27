@@ -17,22 +17,22 @@
 
 class Google_Service_Spectrum_GeoLocationPolygon extends Google_Collection
 {
-  protected $collection_key = 'exterior';
-  protected $exteriorType = 'Google_Service_Spectrum_GeoLocationPoint';
-  protected $exteriorDataType = 'array';
+	protected $collection_key = 'exterior';
+	protected $exteriorType = 'Google_Service_Spectrum_GeoLocationPoint';
+	protected $exteriorDataType = 'array';
 
-  /**
-   * @param Google_Service_Spectrum_GeoLocationPoint
-   */
-  public function setExterior($exterior)
-  {
-    $this->exterior = $exterior;
-  }
-  /**
-   * @return Google_Service_Spectrum_GeoLocationPoint
-   */
-  public function getExterior()
-  {
-    return $this->exterior;
-  }
+	/**
+	 * @param Google_Service_Spectrum_GeoLocationPoint
+	 */
+	public function setExterior($exterior)
+	{
+		$this->exterior = $exterior;
+	}
+	/**
+	 * @return Google_Service_Spectrum_GeoLocationPoint
+	 */
+	public function getExterior()
+	{
+		return $this->exterior;
+	}
 }

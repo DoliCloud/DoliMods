@@ -17,14 +17,14 @@
 
 class Google_Service_Sheets_TextPosition extends Google_Model
 {
-  public $horizontalAlignment;
+	public $horizontalAlignment;
 
-  public function setHorizontalAlignment($horizontalAlignment)
-  {
-    $this->horizontalAlignment = $horizontalAlignment;
-  }
-  public function getHorizontalAlignment()
-  {
-    return $this->horizontalAlignment;
-  }
+	public function setHorizontalAlignment($horizontalAlignment)
+	{
+		$this->horizontalAlignment = $horizontalAlignment;
+	}
+	public function getHorizontalAlignment()
+	{
+		return $this->horizontalAlignment;
+	}
 }

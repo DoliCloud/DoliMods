@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_OrdersSetLineItemMetadataResponse extends Google_Model
 {
-  public $executionStatus;
-  public $kind;
+	public $executionStatus;
+	public $kind;
 
-  public function setExecutionStatus($executionStatus)
-  {
-    $this->executionStatus = $executionStatus;
-  }
-  public function getExecutionStatus()
-  {
-    return $this->executionStatus;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setExecutionStatus($executionStatus)
+	{
+		$this->executionStatus = $executionStatus;
+	}
+	public function getExecutionStatus()
+	{
+		return $this->executionStatus;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

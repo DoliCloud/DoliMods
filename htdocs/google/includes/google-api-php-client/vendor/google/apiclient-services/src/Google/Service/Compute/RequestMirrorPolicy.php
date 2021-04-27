@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_RequestMirrorPolicy extends Google_Model
 {
-  public $backendService;
+	public $backendService;
 
-  public function setBackendService($backendService)
-  {
-    $this->backendService = $backendService;
-  }
-  public function getBackendService()
-  {
-    return $this->backendService;
-  }
+	public function setBackendService($backendService)
+	{
+		$this->backendService = $backendService;
+	}
+	public function getBackendService()
+	{
+		return $this->backendService;
+	}
 }

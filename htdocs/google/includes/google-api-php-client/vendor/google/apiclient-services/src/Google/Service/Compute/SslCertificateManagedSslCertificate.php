@@ -17,33 +17,33 @@
 
 class Google_Service_Compute_SslCertificateManagedSslCertificate extends Google_Collection
 {
-  protected $collection_key = 'domains';
-  public $domainStatus;
-  public $domains;
-  public $status;
+	protected $collection_key = 'domains';
+	public $domainStatus;
+	public $domains;
+	public $status;
 
-  public function setDomainStatus($domainStatus)
-  {
-    $this->domainStatus = $domainStatus;
-  }
-  public function getDomainStatus()
-  {
-    return $this->domainStatus;
-  }
-  public function setDomains($domains)
-  {
-    $this->domains = $domains;
-  }
-  public function getDomains()
-  {
-    return $this->domains;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setDomainStatus($domainStatus)
+	{
+		$this->domainStatus = $domainStatus;
+	}
+	public function getDomainStatus()
+	{
+		return $this->domainStatus;
+	}
+	public function setDomains($domains)
+	{
+		$this->domains = $domains;
+	}
+	public function getDomains()
+	{
+		return $this->domains;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

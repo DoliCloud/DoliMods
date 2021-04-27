@@ -17,39 +17,39 @@
 
 class Google_Service_FirebaseCloudMessaging_ApnsConfig extends Google_Model
 {
-  protected $fcmOptionsType = 'Google_Service_FirebaseCloudMessaging_ApnsFcmOptions';
-  protected $fcmOptionsDataType = '';
-  public $headers;
-  public $payload;
+	protected $fcmOptionsType = 'Google_Service_FirebaseCloudMessaging_ApnsFcmOptions';
+	protected $fcmOptionsDataType = '';
+	public $headers;
+	public $payload;
 
-  /**
-   * @param Google_Service_FirebaseCloudMessaging_ApnsFcmOptions
-   */
-  public function setFcmOptions(Google_Service_FirebaseCloudMessaging_ApnsFcmOptions $fcmOptions)
-  {
-    $this->fcmOptions = $fcmOptions;
-  }
-  /**
-   * @return Google_Service_FirebaseCloudMessaging_ApnsFcmOptions
-   */
-  public function getFcmOptions()
-  {
-    return $this->fcmOptions;
-  }
-  public function setHeaders($headers)
-  {
-    $this->headers = $headers;
-  }
-  public function getHeaders()
-  {
-    return $this->headers;
-  }
-  public function setPayload($payload)
-  {
-    $this->payload = $payload;
-  }
-  public function getPayload()
-  {
-    return $this->payload;
-  }
+	/**
+	 * @param Google_Service_FirebaseCloudMessaging_ApnsFcmOptions
+	 */
+	public function setFcmOptions(Google_Service_FirebaseCloudMessaging_ApnsFcmOptions $fcmOptions)
+	{
+		$this->fcmOptions = $fcmOptions;
+	}
+	/**
+	 * @return Google_Service_FirebaseCloudMessaging_ApnsFcmOptions
+	 */
+	public function getFcmOptions()
+	{
+		return $this->fcmOptions;
+	}
+	public function setHeaders($headers)
+	{
+		$this->headers = $headers;
+	}
+	public function getHeaders()
+	{
+		return $this->headers;
+	}
+	public function setPayload($payload)
+	{
+		$this->payload = $payload;
+	}
+	public function getPayload()
+	{
+		return $this->payload;
+	}
 }

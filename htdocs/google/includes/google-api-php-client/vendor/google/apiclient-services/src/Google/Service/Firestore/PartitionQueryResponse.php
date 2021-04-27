@@ -17,31 +17,31 @@
 
 class Google_Service_Firestore_PartitionQueryResponse extends Google_Collection
 {
-  protected $collection_key = 'partitions';
-  public $nextPageToken;
-  protected $partitionsType = 'Google_Service_Firestore_Cursor';
-  protected $partitionsDataType = 'array';
+	protected $collection_key = 'partitions';
+	public $nextPageToken;
+	protected $partitionsType = 'Google_Service_Firestore_Cursor';
+	protected $partitionsDataType = 'array';
 
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Firestore_Cursor
-   */
-  public function setPartitions($partitions)
-  {
-    $this->partitions = $partitions;
-  }
-  /**
-   * @return Google_Service_Firestore_Cursor
-   */
-  public function getPartitions()
-  {
-    return $this->partitions;
-  }
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Firestore_Cursor
+	 */
+	public function setPartitions($partitions)
+	{
+		$this->partitions = $partitions;
+	}
+	/**
+	 * @return Google_Service_Firestore_Cursor
+	 */
+	public function getPartitions()
+	{
+		return $this->partitions;
+	}
 }

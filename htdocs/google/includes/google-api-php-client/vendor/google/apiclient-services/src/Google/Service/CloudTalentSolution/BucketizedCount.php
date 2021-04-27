@@ -17,30 +17,30 @@
 
 class Google_Service_CloudTalentSolution_BucketizedCount extends Google_Model
 {
-  public $count;
-  protected $rangeType = 'Google_Service_CloudTalentSolution_BucketRange';
-  protected $rangeDataType = '';
+	public $count;
+	protected $rangeType = 'Google_Service_CloudTalentSolution_BucketRange';
+	protected $rangeDataType = '';
 
-  public function setCount($count)
-  {
-    $this->count = $count;
-  }
-  public function getCount()
-  {
-    return $this->count;
-  }
-  /**
-   * @param Google_Service_CloudTalentSolution_BucketRange
-   */
-  public function setRange(Google_Service_CloudTalentSolution_BucketRange $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_BucketRange
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
+	public function setCount($count)
+	{
+		$this->count = $count;
+	}
+	public function getCount()
+	{
+		return $this->count;
+	}
+	/**
+	 * @param Google_Service_CloudTalentSolution_BucketRange
+	 */
+	public function setRange(Google_Service_CloudTalentSolution_BucketRange $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_BucketRange
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
 }

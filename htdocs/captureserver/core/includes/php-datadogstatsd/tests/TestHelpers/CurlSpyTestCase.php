@@ -8,25 +8,25 @@ $curlSpy = new CurlSpy();
 
 class CurlSpyTestCase extends TestCase
 {
-    /**
-     * Set up a spy object to capture calls to built in curl functions
-     */
-    protected function setUp()
-    {
-        global $curlSpy;
+	/**
+	 * Set up a spy object to capture calls to built in curl functions
+	 */
+	protected function setUp()
+	{
+		global $curlSpy;
 
-        $curlSpy = new CurlSpy();
+		$curlSpy = new CurlSpy();
 
-        parent::setUp();
-    }
+		parent::setUp();
+	}
 
-    /**
-     * @return \DataDog\TestHelpers\CurlSpy
-     */
-    protected function getCurlSpy()
-    {
-        global $curlSpy;
+	/**
+	 * @return \DataDog\TestHelpers\CurlSpy
+	 */
+	protected function getCurlSpy()
+	{
+		global $curlSpy;
 
-        return $curlSpy;
-    }
+		return $curlSpy;
+	}
 }

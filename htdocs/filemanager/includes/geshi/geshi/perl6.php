@@ -46,152 +46,150 @@
  ************************************************************************************/
 
 $language_data = array (
-    'LANG_NAME' => 'Perl 6',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array('=begin' => '=end'),
-    'COMMENT_REGEXP' => array(
-        //Regular expressions
-        2 => "/(?<=[\\s^])(s|tr|y)\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/(?:\\\\.|(?!\n)[^\\/\\\\])*\\/[msixpogcde]*(?=[\\s$\\.\\;])|(?<=[\\s^(=])(m|q[qrwx]?)?\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[msixpogc]*(?=[\\s$\\.\\,\\;\\)])/iU",
-        //Regular expression match variables
-        3 => '/\$\d+/',
-        //Heredoc
-        4 => '/<<\s*?([\'"]?)([a-zA-Z0-9]+)\1;[^\n]*?\\n.*\\n\\2(?![a-zA-Z0-9])/siU',
-        //Beastly hack to finish highlighting each POD block
-        5 => '((?<==end) .+)'
-        ),
-    'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
-    'HARDQUOTE' => array("'", "'"),            // An optional 2-element array defining the beginning and end of a hard-quoted string
-    'HARDESCAPE' => array('\\\''),
-        // Things that must still be escaped inside a hard-quoted string
-        // If HARDQUOTE is defined, HARDESCAPE must be defined
-        // This will not work unless the first character of each element is either in the
-        // QUOTEMARKS array or is the ESCAPE_CHAR
-    'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
-            'do', 'else', 'elsif', 'for', 'if', 'then', 'until',
-            'while', 'loop', 'repeat', 'my', 'xor', 'or', 'and',
-            'unless', 'next', 'last', 'redo', 'not', 'our', 'let',
-            'temp', 'state', 'enum', 'constant', 'continue', 'cmp',
-            'ne', 'eq', 'lt', 'gt', 'le', 'ge', 'leg', 'div', 'X',
-            'Z', 'x', 'xx', 'given', 'when', 'default', 'has',
-            'returns', 'of', 'is', 'does', 'where', 'subset', 'but',
-            'True', 'False', 'return', 'die', 'fail'
-            ),
-        2 => array(
-            'use', 'sub', 'multi', 'method', 'submethod', 'proto',
-            'class', 'role', 'grammar', 'regex', 'token', 'rule',
-            'new', 'BEGIN', 'END', 'CHECK', 'INIT', 'START', 'FIRST',
-            'ENTER', 'LEAVE', 'KEEP', 'UNDO', 'NEXT', 'LAST', 'PRE',
-            'POST', 'CATCH', 'CONTROL', 'BUILD'
-            ),
-        3 => array(
-            'all', 'any', 'cat', 'classify', 'defined', 'grep', 'first',
-            'keys', 'kv', 'join', 'map', 'max', 'min', 'none', 'one', 'pairs',
-            'print', 'printf', 'roundrobin', 'pick', 'reduce', 'reverse', 'say',
-            'shape', 'sort', 'srand', 'undefine', 'uri', 'values', 'warn', 'zip',
+	'LANG_NAME' => 'Perl 6',
+	'COMMENT_SINGLE' => array(1 => '#'),
+	'COMMENT_MULTI' => array('=begin' => '=end'),
+	'COMMENT_REGEXP' => array(
+		//Regular expressions
+		2 => "/(?<=[\\s^])(s|tr|y)\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/(?:\\\\.|(?!\n)[^\\/\\\\])*\\/[msixpogcde]*(?=[\\s$\\.\\;])|(?<=[\\s^(=])(m|q[qrwx]?)?\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[msixpogc]*(?=[\\s$\\.\\,\\;\\)])/iU",
+		//Regular expression match variables
+		3 => '/\$\d+/',
+		//Heredoc
+		4 => '/<<\s*?([\'"]?)([a-zA-Z0-9]+)\1;[^\n]*?\\n.*\\n\\2(?![a-zA-Z0-9])/siU',
+		//Beastly hack to finish highlighting each POD block
+		5 => '((?<==end) .+)'
+		),
+	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
+	'QUOTEMARKS' => array('"'),
+	'HARDQUOTE' => array("'", "'"),            // An optional 2-element array defining the beginning and end of a hard-quoted string
+	'HARDESCAPE' => array('\\\''),
+		// Things that must still be escaped inside a hard-quoted string
+		// If HARDQUOTE is defined, HARDESCAPE must be defined
+		// This will not work unless the first character of each element is either in the
+		// QUOTEMARKS array or is the ESCAPE_CHAR
+	'ESCAPE_CHAR' => '\\',
+	'KEYWORDS' => array(
+		1 => array(
+			'do', 'else', 'elsif', 'for', 'if', 'then', 'until',
+			'while', 'loop', 'repeat', 'my', 'xor', 'or', 'and',
+			'unless', 'next', 'last', 'redo', 'not', 'our', 'let',
+			'temp', 'state', 'enum', 'constant', 'continue', 'cmp',
+			'ne', 'eq', 'lt', 'gt', 'le', 'ge', 'leg', 'div', 'X',
+			'Z', 'x', 'xx', 'given', 'when', 'default', 'has',
+			'returns', 'of', 'is', 'does', 'where', 'subset', 'but',
+			'True', 'False', 'return', 'die', 'fail'
+			),
+		2 => array(
+			'use', 'sub', 'multi', 'method', 'submethod', 'proto',
+			'class', 'role', 'grammar', 'regex', 'token', 'rule',
+			'new', 'BEGIN', 'END', 'CHECK', 'INIT', 'START', 'FIRST',
+			'ENTER', 'LEAVE', 'KEEP', 'UNDO', 'NEXT', 'LAST', 'PRE',
+			'POST', 'CATCH', 'CONTROL', 'BUILD'
+			),
+		3 => array(
+			'all', 'any', 'cat', 'classify', 'defined', 'grep', 'first',
+			'keys', 'kv', 'join', 'map', 'max', 'min', 'none', 'one', 'pairs',
+			'print', 'printf', 'roundrobin', 'pick', 'reduce', 'reverse', 'say',
+			'shape', 'sort', 'srand', 'undefine', 'uri', 'values', 'warn', 'zip',
 
-            # Container
-            'rotate', 'comb', 'end', 'elems', 'delete',
-            'exists', 'pop', 'push', 'shift', 'splice',
-            'unshift', 'invert', 'decode',
+			// Container
+			'rotate', 'comb', 'end', 'elems', 'delete',
+			'exists', 'pop', 'push', 'shift', 'splice',
+			'unshift', 'invert', 'decode',
 
-            # Numeric
-            'succ', 'pred', 'abs', 'exp', 'log',
-            'log10', 'rand', 'roots', 'cis', 'unpolar', 'i', 'floor',
-            'ceiling', 'round', 'truncate', 'sign', 'sqrt',
-            'polar', 're', 'im', 'I', 'atan2', 'nude',
-            'denominator', 'numerator',
+			// Numeric
+			'succ', 'pred', 'abs', 'exp', 'log',
+			'log10', 'rand', 'roots', 'cis', 'unpolar', 'i', 'floor',
+			'ceiling', 'round', 'truncate', 'sign', 'sqrt',
+			'polar', 're', 'im', 'I', 'atan2', 'nude',
+			'denominator', 'numerator',
 
-            # Str
-            'p5chop', 'chop', 'p5chomp', 'chomp', 'lc', 'lcfirst',
-            'uc', 'ucfirst', 'normalize', 'samecase', 'sameaccent',
-            'capitalize', 'length', 'chars', 'graphs', 'codes',
-            'bytes', 'encode', 'index', 'pack', 'quotemeta', 'rindex',
-            'split', 'words', 'flip', 'sprintf', 'fmt',
-            'substr', 'trim', 'unpack', 'match', 'subst', 'trans'
-            )
-        ),
-    'SYMBOLS' => array(
-        '<', '>', '=',
-        '!', '@', '~', '&', '|', '^',
-        '+','-', '*', '/', '%',
-        ',', ';', '?', '.', ':',
-        ),
-    'CASE_SENSITIVE' => array(
-        GESHI_COMMENTS => false,
-        1 => true,
-        2 => true,
-        3 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            1 => 'color: #b1b100;',
-            2 => 'color: #000000; font-weight: bold;',
-            3 => 'color: #000066;'
-            ),
-        'COMMENTS' => array(
-            1 => 'color: #666666; font-style: italic;',
-            2 => 'color: #009966; font-style: italic;',
-            3 => 'color: #0000ff;',
-            4 => 'color: #cc0000; font-style: italic;',
-            5 => 'color: #666666; font-style: italic;',
-            'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
-            0 => 'color: #000099; font-weight: bold;',
-            'HARD' => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
-            0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
-            0 => 'color: #ff0000;',
-            'HARD' => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
-            0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
-            1 => 'color: #006600;',
-            2 => 'color: #006600;'
-            ),
-        'SYMBOLS' => array(
-            0 => 'color: #339933;'
-            ),
-        'REGEXPS' => array(
-            0 => 'color: #0000ff;',
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
-        1 => '',
-        2 => '',
-        3 => '',
-        ),
-    'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
-        1 => '.',
-        2 => '::'
-        ),
-    'REGEXPS' => array(
-        //Variable
-        0 => '(?:[$@%]|&amp;)(?:(?:[\^:*?!~]|&lt;)?[a-zA-Z_][a-zA-Z0-9_]*|(?=\.))'
-        # We treat the . twigil specially so the name can be highlighted as an
-        # object field (via OBJECT_SPLITTERS).
-        ),
-    'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'COMMENTS' => array(
-            'DISALLOWED_BEFORE' => '$'
-        )
-    )
+			// Str
+			'p5chop', 'chop', 'p5chomp', 'chomp', 'lc', 'lcfirst',
+			'uc', 'ucfirst', 'normalize', 'samecase', 'sameaccent',
+			'capitalize', 'length', 'chars', 'graphs', 'codes',
+			'bytes', 'encode', 'index', 'pack', 'quotemeta', 'rindex',
+			'split', 'words', 'flip', 'sprintf', 'fmt',
+			'substr', 'trim', 'unpack', 'match', 'subst', 'trans'
+			)
+		),
+	'SYMBOLS' => array(
+		'<', '>', '=',
+		'!', '@', '~', '&', '|', '^',
+		'+','-', '*', '/', '%',
+		',', ';', '?', '.', ':',
+		),
+	'CASE_SENSITIVE' => array(
+		GESHI_COMMENTS => false,
+		1 => true,
+		2 => true,
+		3 => true,
+		),
+	'STYLES' => array(
+		'KEYWORDS' => array(
+			1 => 'color: #b1b100;',
+			2 => 'color: #000000; font-weight: bold;',
+			3 => 'color: #000066;'
+			),
+		'COMMENTS' => array(
+			1 => 'color: #666666; font-style: italic;',
+			2 => 'color: #009966; font-style: italic;',
+			3 => 'color: #0000ff;',
+			4 => 'color: #cc0000; font-style: italic;',
+			5 => 'color: #666666; font-style: italic;',
+			'MULTI' => 'color: #666666; font-style: italic;'
+			),
+		'ESCAPE_CHAR' => array(
+			0 => 'color: #000099; font-weight: bold;',
+			'HARD' => 'color: #000099; font-weight: bold;'
+			),
+		'BRACKETS' => array(
+			0 => 'color: #009900;'
+			),
+		'STRINGS' => array(
+			0 => 'color: #ff0000;',
+			'HARD' => 'color: #ff0000;'
+			),
+		'NUMBERS' => array(
+			0 => 'color: #cc66cc;'
+			),
+		'METHODS' => array(
+			1 => 'color: #006600;',
+			2 => 'color: #006600;'
+			),
+		'SYMBOLS' => array(
+			0 => 'color: #339933;'
+			),
+		'REGEXPS' => array(
+			0 => 'color: #0000ff;',
+			),
+		'SCRIPT' => array(
+			)
+		),
+	'URLS' => array(
+		1 => '',
+		2 => '',
+		3 => '',
+		),
+	'OOLANG' => true,
+	'OBJECT_SPLITTERS' => array(
+		1 => '.',
+		2 => '::'
+		),
+	'REGEXPS' => array(
+		//Variable
+		0 => '(?:[$@%]|&amp;)(?:(?:[\^:*?!~]|&lt;)?[a-zA-Z_][a-zA-Z0-9_]*|(?=\.))'
+		// We treat the . twigil specially so the name can be highlighted as an
+		// object field (via OBJECT_SPLITTERS).
+		),
+	'STRICT_MODE_APPLIES' => GESHI_NEVER,
+	'SCRIPT_DELIMITERS' => array(
+		),
+	'HIGHLIGHT_STRICT_BLOCK' => array(
+		),
+	'PARSER_CONTROL' => array(
+		'COMMENTS' => array(
+			'DISALLOWED_BEFORE' => '$'
+		)
+	)
 );
-
-?>

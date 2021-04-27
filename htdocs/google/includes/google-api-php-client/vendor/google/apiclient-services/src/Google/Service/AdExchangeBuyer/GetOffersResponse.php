@@ -17,22 +17,22 @@
 
 class Google_Service_AdExchangeBuyer_GetOffersResponse extends Google_Collection
 {
-  protected $collection_key = 'products';
-  protected $productsType = 'Google_Service_AdExchangeBuyer_Product';
-  protected $productsDataType = 'array';
+	protected $collection_key = 'products';
+	protected $productsType = 'Google_Service_AdExchangeBuyer_Product';
+	protected $productsDataType = 'array';
 
-  /**
-   * @param Google_Service_AdExchangeBuyer_Product
-   */
-  public function setProducts($products)
-  {
-    $this->products = $products;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyer_Product
-   */
-  public function getProducts()
-  {
-    return $this->products;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyer_Product
+	 */
+	public function setProducts($products)
+	{
+		$this->products = $products;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyer_Product
+	 */
+	public function getProducts()
+	{
+		return $this->products;
+	}
 }

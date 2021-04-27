@@ -17,40 +17,40 @@
 
 class Google_Service_Spectrum_PawsVerifyDeviceRequest extends Google_Collection
 {
-  protected $collection_key = 'deviceDescs';
-  protected $deviceDescsType = 'Google_Service_Spectrum_DeviceDescriptor';
-  protected $deviceDescsDataType = 'array';
-  public $type;
-  public $version;
+	protected $collection_key = 'deviceDescs';
+	protected $deviceDescsType = 'Google_Service_Spectrum_DeviceDescriptor';
+	protected $deviceDescsDataType = 'array';
+	public $type;
+	public $version;
 
-  /**
-   * @param Google_Service_Spectrum_DeviceDescriptor
-   */
-  public function setDeviceDescs($deviceDescs)
-  {
-    $this->deviceDescs = $deviceDescs;
-  }
-  /**
-   * @return Google_Service_Spectrum_DeviceDescriptor
-   */
-  public function getDeviceDescs()
-  {
-    return $this->deviceDescs;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	/**
+	 * @param Google_Service_Spectrum_DeviceDescriptor
+	 */
+	public function setDeviceDescs($deviceDescs)
+	{
+		$this->deviceDescs = $deviceDescs;
+	}
+	/**
+	 * @return Google_Service_Spectrum_DeviceDescriptor
+	 */
+	public function getDeviceDescs()
+	{
+		return $this->deviceDescs;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

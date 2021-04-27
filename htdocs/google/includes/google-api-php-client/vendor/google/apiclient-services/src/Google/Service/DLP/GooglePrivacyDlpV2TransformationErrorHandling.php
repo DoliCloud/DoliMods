@@ -17,37 +17,37 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling extends Google_Model
 {
-  protected $leaveUntransformedType = 'Google_Service_DLP_GooglePrivacyDlpV2LeaveUntransformed';
-  protected $leaveUntransformedDataType = '';
-  protected $throwErrorType = 'Google_Service_DLP_GooglePrivacyDlpV2ThrowError';
-  protected $throwErrorDataType = '';
+	protected $leaveUntransformedType = 'Google_Service_DLP_GooglePrivacyDlpV2LeaveUntransformed';
+	protected $leaveUntransformedDataType = '';
+	protected $throwErrorType = 'Google_Service_DLP_GooglePrivacyDlpV2ThrowError';
+	protected $throwErrorDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2LeaveUntransformed
-   */
-  public function setLeaveUntransformed(Google_Service_DLP_GooglePrivacyDlpV2LeaveUntransformed $leaveUntransformed)
-  {
-    $this->leaveUntransformed = $leaveUntransformed;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2LeaveUntransformed
-   */
-  public function getLeaveUntransformed()
-  {
-    return $this->leaveUntransformed;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2ThrowError
-   */
-  public function setThrowError(Google_Service_DLP_GooglePrivacyDlpV2ThrowError $throwError)
-  {
-    $this->throwError = $throwError;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2ThrowError
-   */
-  public function getThrowError()
-  {
-    return $this->throwError;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2LeaveUntransformed
+	 */
+	public function setLeaveUntransformed(Google_Service_DLP_GooglePrivacyDlpV2LeaveUntransformed $leaveUntransformed)
+	{
+		$this->leaveUntransformed = $leaveUntransformed;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2LeaveUntransformed
+	 */
+	public function getLeaveUntransformed()
+	{
+		return $this->leaveUntransformed;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2ThrowError
+	 */
+	public function setThrowError(Google_Service_DLP_GooglePrivacyDlpV2ThrowError $throwError)
+	{
+		$this->throwError = $throwError;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2ThrowError
+	 */
+	public function getThrowError()
+	{
+		return $this->throwError;
+	}
 }

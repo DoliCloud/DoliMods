@@ -17,14 +17,14 @@
 
 class Google_Service_Docs_CreateHeaderResponse extends Google_Model
 {
-  public $headerId;
+	public $headerId;
 
-  public function setHeaderId($headerId)
-  {
-    $this->headerId = $headerId;
-  }
-  public function getHeaderId()
-  {
-    return $this->headerId;
-  }
+	public function setHeaderId($headerId)
+	{
+		$this->headerId = $headerId;
+	}
+	public function getHeaderId()
+	{
+		return $this->headerId;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudTalentSolution_HistogramResult extends Google_Model
 {
-  public $searchType;
-  public $values;
+	public $searchType;
+	public $values;
 
-  public function setSearchType($searchType)
-  {
-    $this->searchType = $searchType;
-  }
-  public function getSearchType()
-  {
-    return $this->searchType;
-  }
-  public function setValues($values)
-  {
-    $this->values = $values;
-  }
-  public function getValues()
-  {
-    return $this->values;
-  }
+	public function setSearchType($searchType)
+	{
+		$this->searchType = $searchType;
+	}
+	public function getSearchType()
+	{
+		return $this->searchType;
+	}
+	public function setValues($values)
+	{
+		$this->values = $values;
+	}
+	public function getValues()
+	{
+		return $this->values;
+	}
 }

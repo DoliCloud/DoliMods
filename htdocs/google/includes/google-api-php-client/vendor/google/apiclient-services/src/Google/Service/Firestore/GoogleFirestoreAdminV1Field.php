@@ -17,30 +17,30 @@
 
 class Google_Service_Firestore_GoogleFirestoreAdminV1Field extends Google_Model
 {
-  protected $indexConfigType = 'Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig';
-  protected $indexConfigDataType = '';
-  public $name;
+	protected $indexConfigType = 'Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig';
+	protected $indexConfigDataType = '';
+	public $name;
 
-  /**
-   * @param Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig
-   */
-  public function setIndexConfig(Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig $indexConfig)
-  {
-    $this->indexConfig = $indexConfig;
-  }
-  /**
-   * @return Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig
-   */
-  public function getIndexConfig()
-  {
-    return $this->indexConfig;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig
+	 */
+	public function setIndexConfig(Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig $indexConfig)
+	{
+		$this->indexConfig = $indexConfig;
+	}
+	/**
+	 * @return Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig
+	 */
+	public function getIndexConfig()
+	{
+		return $this->indexConfig;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

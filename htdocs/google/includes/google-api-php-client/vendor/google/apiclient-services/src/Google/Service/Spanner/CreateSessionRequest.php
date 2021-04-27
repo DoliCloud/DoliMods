@@ -17,21 +17,21 @@
 
 class Google_Service_Spanner_CreateSessionRequest extends Google_Model
 {
-  protected $sessionType = 'Google_Service_Spanner_Session';
-  protected $sessionDataType = '';
+	protected $sessionType = 'Google_Service_Spanner_Session';
+	protected $sessionDataType = '';
 
-  /**
-   * @param Google_Service_Spanner_Session
-   */
-  public function setSession(Google_Service_Spanner_Session $session)
-  {
-    $this->session = $session;
-  }
-  /**
-   * @return Google_Service_Spanner_Session
-   */
-  public function getSession()
-  {
-    return $this->session;
-  }
+	/**
+	 * @param Google_Service_Spanner_Session
+	 */
+	public function setSession(Google_Service_Spanner_Session $session)
+	{
+		$this->session = $session;
+	}
+	/**
+	 * @return Google_Service_Spanner_Session
+	 */
+	public function getSession()
+	{
+		return $this->session;
+	}
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_WebSecurityScanner_ListCrawledUrlsResponse extends Google_Collection
 {
-  protected $collection_key = 'crawledUrls';
-  protected $crawledUrlsType = 'Google_Service_WebSecurityScanner_CrawledUrl';
-  protected $crawledUrlsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'crawledUrls';
+	protected $crawledUrlsType = 'Google_Service_WebSecurityScanner_CrawledUrl';
+	protected $crawledUrlsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_WebSecurityScanner_CrawledUrl
-   */
-  public function setCrawledUrls($crawledUrls)
-  {
-    $this->crawledUrls = $crawledUrls;
-  }
-  /**
-   * @return Google_Service_WebSecurityScanner_CrawledUrl
-   */
-  public function getCrawledUrls()
-  {
-    return $this->crawledUrls;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_WebSecurityScanner_CrawledUrl
+	 */
+	public function setCrawledUrls($crawledUrls)
+	{
+		$this->crawledUrls = $crawledUrls;
+	}
+	/**
+	 * @return Google_Service_WebSecurityScanner_CrawledUrl
+	 */
+	public function getCrawledUrls()
+	{
+		return $this->crawledUrls;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_SecretManager_SecretVersion extends Google_Model
 {
-  public $createTime;
-  public $destroyTime;
-  public $name;
-  public $state;
+	public $createTime;
+	public $destroyTime;
+	public $name;
+	public $state;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDestroyTime($destroyTime)
-  {
-    $this->destroyTime = $destroyTime;
-  }
-  public function getDestroyTime()
-  {
-    return $this->destroyTime;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDestroyTime($destroyTime)
+	{
+		$this->destroyTime = $destroyTime;
+	}
+	public function getDestroyTime()
+	{
+		return $this->destroyTime;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

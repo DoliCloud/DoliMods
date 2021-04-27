@@ -17,31 +17,31 @@
 
 class Google_Service_Datastore_ReserveIdsRequest extends Google_Collection
 {
-  protected $collection_key = 'keys';
-  public $databaseId;
-  protected $keysType = 'Google_Service_Datastore_Key';
-  protected $keysDataType = 'array';
+	protected $collection_key = 'keys';
+	public $databaseId;
+	protected $keysType = 'Google_Service_Datastore_Key';
+	protected $keysDataType = 'array';
 
-  public function setDatabaseId($databaseId)
-  {
-    $this->databaseId = $databaseId;
-  }
-  public function getDatabaseId()
-  {
-    return $this->databaseId;
-  }
-  /**
-   * @param Google_Service_Datastore_Key
-   */
-  public function setKeys($keys)
-  {
-    $this->keys = $keys;
-  }
-  /**
-   * @return Google_Service_Datastore_Key
-   */
-  public function getKeys()
-  {
-    return $this->keys;
-  }
+	public function setDatabaseId($databaseId)
+	{
+		$this->databaseId = $databaseId;
+	}
+	public function getDatabaseId()
+	{
+		return $this->databaseId;
+	}
+	/**
+	 * @param Google_Service_Datastore_Key
+	 */
+	public function setKeys($keys)
+	{
+		$this->keys = $keys;
+	}
+	/**
+	 * @return Google_Service_Datastore_Key
+	 */
+	public function getKeys()
+	{
+		return $this->keys;
+	}
 }

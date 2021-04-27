@@ -17,32 +17,32 @@
 
 class Google_Service_Books_ReviewSource extends Google_Model
 {
-  public $description;
-  public $extraDescription;
-  public $url;
+	public $description;
+	public $extraDescription;
+	public $url;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setExtraDescription($extraDescription)
-  {
-    $this->extraDescription = $extraDescription;
-  }
-  public function getExtraDescription()
-  {
-    return $this->extraDescription;
-  }
-  public function setUrl($url)
-  {
-    $this->url = $url;
-  }
-  public function getUrl()
-  {
-    return $this->url;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setExtraDescription($extraDescription)
+	{
+		$this->extraDescription = $extraDescription;
+	}
+	public function getExtraDescription()
+	{
+		return $this->extraDescription;
+	}
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getUrl()
+	{
+		return $this->url;
+	}
 }

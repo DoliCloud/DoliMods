@@ -17,39 +17,39 @@
 
 class Google_Service_Vision_Result extends Google_Model
 {
-  public $image;
-  protected $productType = 'Google_Service_Vision_Product';
-  protected $productDataType = '';
-  public $score;
+	public $image;
+	protected $productType = 'Google_Service_Vision_Product';
+	protected $productDataType = '';
+	public $score;
 
-  public function setImage($image)
-  {
-    $this->image = $image;
-  }
-  public function getImage()
-  {
-    return $this->image;
-  }
-  /**
-   * @param Google_Service_Vision_Product
-   */
-  public function setProduct(Google_Service_Vision_Product $product)
-  {
-    $this->product = $product;
-  }
-  /**
-   * @return Google_Service_Vision_Product
-   */
-  public function getProduct()
-  {
-    return $this->product;
-  }
-  public function setScore($score)
-  {
-    $this->score = $score;
-  }
-  public function getScore()
-  {
-    return $this->score;
-  }
+	public function setImage($image)
+	{
+		$this->image = $image;
+	}
+	public function getImage()
+	{
+		return $this->image;
+	}
+	/**
+	 * @param Google_Service_Vision_Product
+	 */
+	public function setProduct(Google_Service_Vision_Product $product)
+	{
+		$this->product = $product;
+	}
+	/**
+	 * @return Google_Service_Vision_Product
+	 */
+	public function getProduct()
+	{
+		return $this->product;
+	}
+	public function setScore($score)
+	{
+		$this->score = $score;
+	}
+	public function getScore()
+	{
+		return $this->score;
+	}
 }

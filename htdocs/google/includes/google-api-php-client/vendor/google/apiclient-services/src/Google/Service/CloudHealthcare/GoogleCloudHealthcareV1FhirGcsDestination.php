@@ -17,14 +17,14 @@
 
 class Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsDestination extends Google_Model
 {
-  public $uriPrefix;
+	public $uriPrefix;
 
-  public function setUriPrefix($uriPrefix)
-  {
-    $this->uriPrefix = $uriPrefix;
-  }
-  public function getUriPrefix()
-  {
-    return $this->uriPrefix;
-  }
+	public function setUriPrefix($uriPrefix)
+	{
+		$this->uriPrefix = $uriPrefix;
+	}
+	public function getUriPrefix()
+	{
+		return $this->uriPrefix;
+	}
 }

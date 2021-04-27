@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_Media extends Google_Model
 {
-  public $resourceName;
+	public $resourceName;
 
-  public function setResourceName($resourceName)
-  {
-    $this->resourceName = $resourceName;
-  }
-  public function getResourceName()
-  {
-    return $this->resourceName;
-  }
+	public function setResourceName($resourceName)
+	{
+		$this->resourceName = $resourceName;
+	}
+	public function getResourceName()
+	{
+		return $this->resourceName;
+	}
 }

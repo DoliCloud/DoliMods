@@ -17,31 +17,31 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1KeystoreConfig extends Google_Collection
 {
-  protected $collection_key = 'aliases';
-  protected $aliasesType = 'Google_Service_Apigee_GoogleCloudApigeeV1AliasRevisionConfig';
-  protected $aliasesDataType = 'array';
-  public $name;
+	protected $collection_key = 'aliases';
+	protected $aliasesType = 'Google_Service_Apigee_GoogleCloudApigeeV1AliasRevisionConfig';
+	protected $aliasesDataType = 'array';
+	public $name;
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1AliasRevisionConfig
-   */
-  public function setAliases($aliases)
-  {
-    $this->aliases = $aliases;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1AliasRevisionConfig
-   */
-  public function getAliases()
-  {
-    return $this->aliases;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1AliasRevisionConfig
+	 */
+	public function setAliases($aliases)
+	{
+		$this->aliases = $aliases;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1AliasRevisionConfig
+	 */
+	public function getAliases()
+	{
+		return $this->aliases;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

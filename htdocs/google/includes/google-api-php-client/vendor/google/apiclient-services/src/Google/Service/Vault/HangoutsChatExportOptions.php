@@ -17,14 +17,14 @@
 
 class Google_Service_Vault_HangoutsChatExportOptions extends Google_Model
 {
-  public $exportFormat;
+	public $exportFormat;
 
-  public function setExportFormat($exportFormat)
-  {
-    $this->exportFormat = $exportFormat;
-  }
-  public function getExportFormat()
-  {
-    return $this->exportFormat;
-  }
+	public function setExportFormat($exportFormat)
+	{
+		$this->exportFormat = $exportFormat;
+	}
+	public function getExportFormat()
+	{
+		return $this->exportFormat;
+	}
 }

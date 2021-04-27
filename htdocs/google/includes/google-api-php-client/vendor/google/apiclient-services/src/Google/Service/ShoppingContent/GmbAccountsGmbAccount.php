@@ -17,41 +17,41 @@
 
 class Google_Service_ShoppingContent_GmbAccountsGmbAccount extends Google_Model
 {
-  public $email;
-  public $listingCount;
-  public $name;
-  public $type;
+	public $email;
+	public $listingCount;
+	public $name;
+	public $type;
 
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setListingCount($listingCount)
-  {
-    $this->listingCount = $listingCount;
-  }
-  public function getListingCount()
-  {
-    return $this->listingCount;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setListingCount($listingCount)
+	{
+		$this->listingCount = $listingCount;
+	}
+	public function getListingCount()
+	{
+		return $this->listingCount;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

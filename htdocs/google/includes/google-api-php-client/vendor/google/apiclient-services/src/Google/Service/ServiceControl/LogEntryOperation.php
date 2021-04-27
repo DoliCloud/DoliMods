@@ -17,41 +17,41 @@
 
 class Google_Service_ServiceControl_LogEntryOperation extends Google_Model
 {
-  public $first;
-  public $id;
-  public $last;
-  public $producer;
+	public $first;
+	public $id;
+	public $last;
+	public $producer;
 
-  public function setFirst($first)
-  {
-    $this->first = $first;
-  }
-  public function getFirst()
-  {
-    return $this->first;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setLast($last)
-  {
-    $this->last = $last;
-  }
-  public function getLast()
-  {
-    return $this->last;
-  }
-  public function setProducer($producer)
-  {
-    $this->producer = $producer;
-  }
-  public function getProducer()
-  {
-    return $this->producer;
-  }
+	public function setFirst($first)
+	{
+		$this->first = $first;
+	}
+	public function getFirst()
+	{
+		return $this->first;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setLast($last)
+	{
+		$this->last = $last;
+	}
+	public function getLast()
+	{
+		return $this->last;
+	}
+	public function setProducer($producer)
+	{
+		$this->producer = $producer;
+	}
+	public function getProducer()
+	{
+		return $this->producer;
+	}
 }

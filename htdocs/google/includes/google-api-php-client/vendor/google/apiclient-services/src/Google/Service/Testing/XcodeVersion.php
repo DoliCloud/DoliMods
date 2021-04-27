@@ -17,24 +17,24 @@
 
 class Google_Service_Testing_XcodeVersion extends Google_Collection
 {
-  protected $collection_key = 'tags';
-  public $tags;
-  public $version;
+	protected $collection_key = 'tags';
+	public $tags;
+	public $version;
 
-  public function setTags($tags)
-  {
-    $this->tags = $tags;
-  }
-  public function getTags()
-  {
-    return $this->tags;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setTags($tags)
+	{
+		$this->tags = $tags;
+	}
+	public function getTags()
+	{
+		return $this->tags;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

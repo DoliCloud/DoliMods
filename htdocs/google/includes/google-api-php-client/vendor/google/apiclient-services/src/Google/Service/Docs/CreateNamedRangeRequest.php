@@ -17,30 +17,30 @@
 
 class Google_Service_Docs_CreateNamedRangeRequest extends Google_Model
 {
-  public $name;
-  protected $rangeType = 'Google_Service_Docs_Range';
-  protected $rangeDataType = '';
+	public $name;
+	protected $rangeType = 'Google_Service_Docs_Range';
+	protected $rangeDataType = '';
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Docs_Range
-   */
-  public function setRange(Google_Service_Docs_Range $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Docs_Range
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Docs_Range
+	 */
+	public function setRange(Google_Service_Docs_Range $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Docs_Range
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
 }

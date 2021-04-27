@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessageOutputAudioText extends Google_Model
 {
-  public $ssml;
-  public $text;
+	public $ssml;
+	public $text;
 
-  public function setSsml($ssml)
-  {
-    $this->ssml = $ssml;
-  }
-  public function getSsml()
-  {
-    return $this->ssml;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	public function setSsml($ssml)
+	{
+		$this->ssml = $ssml;
+	}
+	public function getSsml()
+	{
+		return $this->ssml;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

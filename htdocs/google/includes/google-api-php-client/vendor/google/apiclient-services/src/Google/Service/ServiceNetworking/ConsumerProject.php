@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceNetworking_ConsumerProject extends Google_Model
 {
-  public $projectNum;
+	public $projectNum;
 
-  public function setProjectNum($projectNum)
-  {
-    $this->projectNum = $projectNum;
-  }
-  public function getProjectNum()
-  {
-    return $this->projectNum;
-  }
+	public function setProjectNum($projectNum)
+	{
+		$this->projectNum = $projectNum;
+	}
+	public function getProjectNum()
+	{
+		return $this->projectNum;
+	}
 }

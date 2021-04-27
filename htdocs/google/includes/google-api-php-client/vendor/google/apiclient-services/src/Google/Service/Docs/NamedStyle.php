@@ -17,46 +17,46 @@
 
 class Google_Service_Docs_NamedStyle extends Google_Model
 {
-  public $namedStyleType;
-  protected $paragraphStyleType = 'Google_Service_Docs_ParagraphStyle';
-  protected $paragraphStyleDataType = '';
-  protected $textStyleType = 'Google_Service_Docs_TextStyle';
-  protected $textStyleDataType = '';
+	public $namedStyleType;
+	protected $paragraphStyleType = 'Google_Service_Docs_ParagraphStyle';
+	protected $paragraphStyleDataType = '';
+	protected $textStyleType = 'Google_Service_Docs_TextStyle';
+	protected $textStyleDataType = '';
 
-  public function setNamedStyleType($namedStyleType)
-  {
-    $this->namedStyleType = $namedStyleType;
-  }
-  public function getNamedStyleType()
-  {
-    return $this->namedStyleType;
-  }
-  /**
-   * @param Google_Service_Docs_ParagraphStyle
-   */
-  public function setParagraphStyle(Google_Service_Docs_ParagraphStyle $paragraphStyle)
-  {
-    $this->paragraphStyle = $paragraphStyle;
-  }
-  /**
-   * @return Google_Service_Docs_ParagraphStyle
-   */
-  public function getParagraphStyle()
-  {
-    return $this->paragraphStyle;
-  }
-  /**
-   * @param Google_Service_Docs_TextStyle
-   */
-  public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
-  {
-    $this->textStyle = $textStyle;
-  }
-  /**
-   * @return Google_Service_Docs_TextStyle
-   */
-  public function getTextStyle()
-  {
-    return $this->textStyle;
-  }
+	public function setNamedStyleType($namedStyleType)
+	{
+		$this->namedStyleType = $namedStyleType;
+	}
+	public function getNamedStyleType()
+	{
+		return $this->namedStyleType;
+	}
+	/**
+	 * @param Google_Service_Docs_ParagraphStyle
+	 */
+	public function setParagraphStyle(Google_Service_Docs_ParagraphStyle $paragraphStyle)
+	{
+		$this->paragraphStyle = $paragraphStyle;
+	}
+	/**
+	 * @return Google_Service_Docs_ParagraphStyle
+	 */
+	public function getParagraphStyle()
+	{
+		return $this->paragraphStyle;
+	}
+	/**
+	 * @param Google_Service_Docs_TextStyle
+	 */
+	public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
+	{
+		$this->textStyle = $textStyle;
+	}
+	/**
+	 * @return Google_Service_Docs_TextStyle
+	 */
+	public function getTextStyle()
+	{
+		return $this->textStyle;
+	}
 }

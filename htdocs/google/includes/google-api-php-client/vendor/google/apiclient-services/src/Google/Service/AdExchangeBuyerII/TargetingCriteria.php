@@ -17,47 +17,47 @@
 
 class Google_Service_AdExchangeBuyerII_TargetingCriteria extends Google_Collection
 {
-  protected $collection_key = 'inclusions';
-  protected $exclusionsType = 'Google_Service_AdExchangeBuyerII_TargetingValue';
-  protected $exclusionsDataType = 'array';
-  protected $inclusionsType = 'Google_Service_AdExchangeBuyerII_TargetingValue';
-  protected $inclusionsDataType = 'array';
-  public $key;
+	protected $collection_key = 'inclusions';
+	protected $exclusionsType = 'Google_Service_AdExchangeBuyerII_TargetingValue';
+	protected $exclusionsDataType = 'array';
+	protected $inclusionsType = 'Google_Service_AdExchangeBuyerII_TargetingValue';
+	protected $inclusionsDataType = 'array';
+	public $key;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_TargetingValue
-   */
-  public function setExclusions($exclusions)
-  {
-    $this->exclusions = $exclusions;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_TargetingValue
-   */
-  public function getExclusions()
-  {
-    return $this->exclusions;
-  }
-  /**
-   * @param Google_Service_AdExchangeBuyerII_TargetingValue
-   */
-  public function setInclusions($inclusions)
-  {
-    $this->inclusions = $inclusions;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_TargetingValue
-   */
-  public function getInclusions()
-  {
-    return $this->inclusions;
-  }
-  public function setKey($key)
-  {
-    $this->key = $key;
-  }
-  public function getKey()
-  {
-    return $this->key;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_TargetingValue
+	 */
+	public function setExclusions($exclusions)
+	{
+		$this->exclusions = $exclusions;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_TargetingValue
+	 */
+	public function getExclusions()
+	{
+		return $this->exclusions;
+	}
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_TargetingValue
+	 */
+	public function setInclusions($inclusions)
+	{
+		$this->inclusions = $inclusions;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_TargetingValue
+	 */
+	public function getInclusions()
+	{
+		return $this->inclusions;
+	}
+	public function setKey($key)
+	{
+		$this->key = $key;
+	}
+	public function getKey()
+	{
+		return $this->key;
+	}
 }

@@ -17,25 +17,25 @@
 
 class Google_Service_Tracing_Links extends Google_Collection
 {
-  protected $collection_key = 'link';
-  public $droppedLinksCount;
-  protected $linkType = 'Google_Service_Tracing_Link';
-  protected $linkDataType = 'array';
+	protected $collection_key = 'link';
+	public $droppedLinksCount;
+	protected $linkType = 'Google_Service_Tracing_Link';
+	protected $linkDataType = 'array';
 
-  public function setDroppedLinksCount($droppedLinksCount)
-  {
-    $this->droppedLinksCount = $droppedLinksCount;
-  }
-  public function getDroppedLinksCount()
-  {
-    return $this->droppedLinksCount;
-  }
-  public function setLink($link)
-  {
-    $this->link = $link;
-  }
-  public function getLink()
-  {
-    return $this->link;
-  }
+	public function setDroppedLinksCount($droppedLinksCount)
+	{
+		$this->droppedLinksCount = $droppedLinksCount;
+	}
+	public function getDroppedLinksCount()
+	{
+		return $this->droppedLinksCount;
+	}
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
+	public function getLink()
+	{
+		return $this->link;
+	}
 }

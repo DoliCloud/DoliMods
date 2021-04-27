@@ -17,22 +17,22 @@
 
 class Google_Service_Testing_AndroidDeviceList extends Google_Collection
 {
-  protected $collection_key = 'androidDevices';
-  protected $androidDevicesType = 'Google_Service_Testing_AndroidDevice';
-  protected $androidDevicesDataType = 'array';
+	protected $collection_key = 'androidDevices';
+	protected $androidDevicesType = 'Google_Service_Testing_AndroidDevice';
+	protected $androidDevicesDataType = 'array';
 
-  /**
-   * @param Google_Service_Testing_AndroidDevice
-   */
-  public function setAndroidDevices($androidDevices)
-  {
-    $this->androidDevices = $androidDevices;
-  }
-  /**
-   * @return Google_Service_Testing_AndroidDevice
-   */
-  public function getAndroidDevices()
-  {
-    return $this->androidDevices;
-  }
+	/**
+	 * @param Google_Service_Testing_AndroidDevice
+	 */
+	public function setAndroidDevices($androidDevices)
+	{
+		$this->androidDevices = $androidDevices;
+	}
+	/**
+	 * @return Google_Service_Testing_AndroidDevice
+	 */
+	public function getAndroidDevices()
+	{
+		return $this->androidDevices;
+	}
 }

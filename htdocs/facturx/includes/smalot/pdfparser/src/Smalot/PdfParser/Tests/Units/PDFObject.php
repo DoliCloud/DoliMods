@@ -39,97 +39,97 @@ use mageekguy\atoum;
  */
 class PDFObject extends atoum\test
 {
-    const TYPE = 't';
+	const TYPE = 't';
 
-    const OPERATOR = 'o';
+	const OPERATOR = 'o';
 
-    const COMMAND = 'c';
+	const COMMAND = 'c';
 
-    public function testGetTextParts()
-    {
-    }
+	public function testGetTextParts()
+	{
+	}
 
-//    public function testGetCommandsImage()
-//    {
-//        $content = "/CS/RGB
-///W 22
-///H 1
-///BPC 8
-///F/Fl
-///DP<</Predictor 15
-///Columns 22
-///Colors 3>>
-//ID \x00\x50c\x63
-//EI Q
-//q -124.774 124.127 5.64213 5.67154 930.307 4436.95 cm
-//BI
-//";
-//
-//        $document  = new \Smalot\PdfParser\Document();
-//        $object    = new \Smalot\PdfParser\PDFObject($document);
-//        $offset    = 0;
-//        $parts     = $object->getCommandsImage($content, $offset);
-//        $reference = array(
-//            array(
-//                self::TYPE => '/',
-//                self::OPERATOR => 'CS',
-//                self::COMMAND => 'RGB',
-//            ),
-//            array(
-//                self::TYPE => '/',
-//                self::OPERATOR => 'W',
-//                self::COMMAND => '22',
-//            ),
-//            array(
-//                self::TYPE => '/',
-//                self::OPERATOR => 'H',
-//                self::COMMAND => '1',
-//            ),
-//            array(
-//                self::TYPE => '/',
-//                self::OPERATOR => 'BPC',
-//                self::COMMAND => '8',
-//            ),
-//            array(
-//                self::TYPE => '/',
-//                self::OPERATOR => 'F',
-//                self::COMMAND => 'Fl',
-//            ),
-//            array(
-//                self::TYPE => 'struct',
-//                self::OPERATOR => 'DP',
-//                self::COMMAND => array(
-//                    array(
-//                        self::TYPE => '/',
-//                        self::OPERATOR => 'Predictor',
-//                        self::COMMAND => '15',
-//                    ),
-//                    array(
-//                        self::TYPE => '/',
-//                        self::OPERATOR => 'Columns',
-//                        self::COMMAND => '22',
-//                    ),
-//                    array(
-//                        self::TYPE => '/',
-//                        self::OPERATOR => 'Colors',
-//                        self::COMMAND => '3',
-//                    ),
-//                ),
-//            ),
-//            array(
-//                self::TYPE => '',
-//                self::OPERATOR => 'ID',
-//                self::COMMAND => "\x00\x50c\x63",
-//            ),
-//        );
-//
-//        $this->assert->array($parts)->isEqualTo($reference);
-//        $this->assert->integer($offset)->isEqualTo(83);
-//    }
+	//    public function testGetCommandsImage()
+	//    {
+	//        $content = "/CS/RGB
+	///W 22
+	///H 1
+	///BPC 8
+	///F/Fl
+	///DP<</Predictor 15
+	///Columns 22
+	///Colors 3>>
+	//ID \x00\x50c\x63
+	//EI Q
+	//q -124.774 124.127 5.64213 5.67154 930.307 4436.95 cm
+	//BI
+	//";
+	//
+	//        $document  = new \Smalot\PdfParser\Document();
+	//        $object    = new \Smalot\PdfParser\PDFObject($document);
+	//        $offset    = 0;
+	//        $parts     = $object->getCommandsImage($content, $offset);
+	//        $reference = array(
+	//            array(
+	//                self::TYPE => '/',
+	//                self::OPERATOR => 'CS',
+	//                self::COMMAND => 'RGB',
+	//            ),
+	//            array(
+	//                self::TYPE => '/',
+	//                self::OPERATOR => 'W',
+	//                self::COMMAND => '22',
+	//            ),
+	//            array(
+	//                self::TYPE => '/',
+	//                self::OPERATOR => 'H',
+	//                self::COMMAND => '1',
+	//            ),
+	//            array(
+	//                self::TYPE => '/',
+	//                self::OPERATOR => 'BPC',
+	//                self::COMMAND => '8',
+	//            ),
+	//            array(
+	//                self::TYPE => '/',
+	//                self::OPERATOR => 'F',
+	//                self::COMMAND => 'Fl',
+	//            ),
+	//            array(
+	//                self::TYPE => 'struct',
+	//                self::OPERATOR => 'DP',
+	//                self::COMMAND => array(
+	//                    array(
+	//                        self::TYPE => '/',
+	//                        self::OPERATOR => 'Predictor',
+	//                        self::COMMAND => '15',
+	//                    ),
+	//                    array(
+	//                        self::TYPE => '/',
+	//                        self::OPERATOR => 'Columns',
+	//                        self::COMMAND => '22',
+	//                    ),
+	//                    array(
+	//                        self::TYPE => '/',
+	//                        self::OPERATOR => 'Colors',
+	//                        self::COMMAND => '3',
+	//                    ),
+	//                ),
+	//            ),
+	//            array(
+	//                self::TYPE => '',
+	//                self::OPERATOR => 'ID',
+	//                self::COMMAND => "\x00\x50c\x63",
+	//            ),
+	//        );
+	//
+	//        $this->assert->array($parts)->isEqualTo($reference);
+	//        $this->assert->integer($offset)->isEqualTo(83);
+	//    }
 
-    public function testGetCommandsText()
-    {
-        $content = "/R14 30 Tf 0.999016 0 0 1 137.4
+	public function testGetCommandsText()
+	{
+		$content = "/R14 30 Tf 0.999016 0 0 1 137.4
 342.561 Tm
 [(A)-168.854( BC D)-220.905(\\(E\\))20.905<20>]
 TJ /R14 17.16 Tf <20> Tj
@@ -139,101 +139,101 @@ ET Q
 q -124.774 124.127 5.64213 5.67154 930.307 4436.95 cm
 BI";
 
-        $document  = new \Smalot\PdfParser\Document();
-        $object    = new \Smalot\PdfParser\PDFObject($document);
-        $offset    = 0;
-        $parts     = $object->getCommandsText($content, $offset);
-        $reference = array(
-            array(
-                self::TYPE     => '/',
-                self::OPERATOR => 'Tf',
-                self::COMMAND  => 'R14 30',
-            ),
-            array(
-                self::TYPE     => '',
-                self::OPERATOR => 'Tm',
-                self::COMMAND  => "0.999016 0 0 1 137.4\n342.561",
-            ),
-            array(
-                self::TYPE     => '[',
-                self::OPERATOR => 'TJ',
-                self::COMMAND  => array(
-                    array(
-                        self::TYPE     => '(',
-                        self::OPERATOR => '',
-                        self::COMMAND  => 'A',
-                    ),
-                    array(
-                        self::TYPE     => 'n',
-                        self::OPERATOR => '',
-                        self::COMMAND  => '-168.854',
-                    ),
-                    array(
-                        self::TYPE     => '(',
-                        self::OPERATOR => '',
-                        self::COMMAND  => ' BC D',
-                    ),
-                    array(
-                        self::TYPE     => 'n',
-                        self::OPERATOR => '',
-                        self::COMMAND  => '-220.905',
-                    ),
-                    array(
-                        self::TYPE     => '(',
-                        self::OPERATOR => '',
-                        self::COMMAND  => '\\(E\\)',
-                    ),
-                    array(
-                        self::TYPE     => 'n',
-                        self::OPERATOR => '',
-                        self::COMMAND  => '20.905',
-                    ),
-                    array(
-                        self::TYPE     => '<',
-                        self::OPERATOR => '',
-                        self::COMMAND  => '20',
-                    ),
-                ),
-            ),
-            array(
-                self::TYPE     => '/',
-                self::OPERATOR => 'Tf',
-                self::COMMAND  => 'R14 17.16',
-            ),
-            array(
-                self::TYPE     => '<',
-                self::OPERATOR => 'Tj',
-                self::COMMAND  => '20',
-            ),
-            array(
-                self::TYPE     => '',
-                self::OPERATOR => 'Tm',
-                self::COMMAND  => '0.999014 0 0 1 336.84 319.161',
-            ),
-            array(
-                self::TYPE     => '',
-                self::OPERATOR => 'T*',
-                self::COMMAND  => '',
-            ),
-            array(
-                self::TYPE     => '(',
-                self::OPERATOR => 'Tj',
-                self::COMMAND  => " \x00m",
-            ),
-            array(
-                self::TYPE     => '/',
-                self::OPERATOR => 'Tf',
-                self::COMMAND  => 'R14 20.04',
-            ),
-        );
+		$document  = new \Smalot\PdfParser\Document();
+		$object    = new \Smalot\PdfParser\PDFObject($document);
+		$offset    = 0;
+		$parts     = $object->getCommandsText($content, $offset);
+		$reference = array(
+			array(
+				self::TYPE     => '/',
+				self::OPERATOR => 'Tf',
+				self::COMMAND  => 'R14 30',
+			),
+			array(
+				self::TYPE     => '',
+				self::OPERATOR => 'Tm',
+				self::COMMAND  => "0.999016 0 0 1 137.4\n342.561",
+			),
+			array(
+				self::TYPE     => '[',
+				self::OPERATOR => 'TJ',
+				self::COMMAND  => array(
+					array(
+						self::TYPE     => '(',
+						self::OPERATOR => '',
+						self::COMMAND  => 'A',
+					),
+					array(
+						self::TYPE     => 'n',
+						self::OPERATOR => '',
+						self::COMMAND  => '-168.854',
+					),
+					array(
+						self::TYPE     => '(',
+						self::OPERATOR => '',
+						self::COMMAND  => ' BC D',
+					),
+					array(
+						self::TYPE     => 'n',
+						self::OPERATOR => '',
+						self::COMMAND  => '-220.905',
+					),
+					array(
+						self::TYPE     => '(',
+						self::OPERATOR => '',
+						self::COMMAND  => '\\(E\\)',
+					),
+					array(
+						self::TYPE     => 'n',
+						self::OPERATOR => '',
+						self::COMMAND  => '20.905',
+					),
+					array(
+						self::TYPE     => '<',
+						self::OPERATOR => '',
+						self::COMMAND  => '20',
+					),
+				),
+			),
+			array(
+				self::TYPE     => '/',
+				self::OPERATOR => 'Tf',
+				self::COMMAND  => 'R14 17.16',
+			),
+			array(
+				self::TYPE     => '<',
+				self::OPERATOR => 'Tj',
+				self::COMMAND  => '20',
+			),
+			array(
+				self::TYPE     => '',
+				self::OPERATOR => 'Tm',
+				self::COMMAND  => '0.999014 0 0 1 336.84 319.161',
+			),
+			array(
+				self::TYPE     => '',
+				self::OPERATOR => 'T*',
+				self::COMMAND  => '',
+			),
+			array(
+				self::TYPE     => '(',
+				self::OPERATOR => 'Tj',
+				self::COMMAND  => " \x00m",
+			),
+			array(
+				self::TYPE     => '/',
+				self::OPERATOR => 'Tf',
+				self::COMMAND  => 'R14 20.04',
+			),
+		);
 
-        $this->assert->array($parts)->isEqualTo($reference);
-        $this->assert->integer($offset)->isEqualTo(172);
-    }
+		$this->assert->array($parts)->isEqualTo($reference);
+		$this->assert->integer($offset)->isEqualTo(172);
+	}
 
-    public function testCleanContent()
-    {
-        $content = '/Shape <</MCID << /Font<8>>> BT >>BDC
+	public function testCleanContent()
+	{
+		$content = '/Shape <</MCID << /Font<8>>> BT >>BDC
 Q
 /CS0 cs 1 1 0  scn
 1 i
@@ -252,7 +252,7 @@ ET
 q
 0.03 841';
 
-        $expected = '_____________________________________
+		$expected = '_____________________________________
 Q
 /CS0 cs 1 1 0  scn
 1 i
@@ -271,17 +271,17 @@ ______________________
 q
 0.03 841';
 
-        $document = new \Smalot\PdfParser\Document();
-        $object   = new \Smalot\PdfParser\PDFObject($document);
-        $cleaned  = $object->cleanContent($content, '_');
+		$document = new \Smalot\PdfParser\Document();
+		$object   = new \Smalot\PdfParser\PDFObject($document);
+		$cleaned  = $object->cleanContent($content, '_');
 
-        $this->assert->string($cleaned)->length->isEqualTo(strlen($content));
-        $this->assert->string($cleaned)->isEqualTo($expected);
-    }
+		$this->assert->string($cleaned)->length->isEqualTo(strlen($content));
+		$this->assert->string($cleaned)->isEqualTo($expected);
+	}
 
-    public function testGetSectionText()
-    {
-        $content = '/Shape <</MCID 1 >>BDC
+	public function testGetSectionText()
+	{
+		$content = '/Shape <</MCID 1 >>BDC
 Q
 /CS0 cs 1 1 0  scn
 1 i
@@ -300,11 +300,11 @@ ET
 q
 0.03 841';
 
-        $document = new \Smalot\PdfParser\Document();
-        $object   = new \Smalot\PdfParser\PDFObject($document);
-        $sections = $object->getSectionsText($content);
+		$document = new \Smalot\PdfParser\Document();
+		$object   = new \Smalot\PdfParser\PDFObject($document);
+		$sections = $object->getSectionsText($content);
 
-//        $this->assert->string($cleaned)->length->isEqualTo(strlen($content));
-//        $this->assert->string($cleaned)->isEqualTo($expected);
-    }
+		//        $this->assert->string($cleaned)->length->isEqualTo(strlen($content));
+		//        $this->assert->string($cleaned)->isEqualTo($expected);
+	}
 }

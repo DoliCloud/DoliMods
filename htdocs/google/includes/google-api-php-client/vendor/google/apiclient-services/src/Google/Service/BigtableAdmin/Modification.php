@@ -17,55 +17,55 @@
 
 class Google_Service_BigtableAdmin_Modification extends Google_Model
 {
-  protected $createType = 'Google_Service_BigtableAdmin_ColumnFamily';
-  protected $createDataType = '';
-  public $drop;
-  public $id;
-  protected $updateType = 'Google_Service_BigtableAdmin_ColumnFamily';
-  protected $updateDataType = '';
+	protected $createType = 'Google_Service_BigtableAdmin_ColumnFamily';
+	protected $createDataType = '';
+	public $drop;
+	public $id;
+	protected $updateType = 'Google_Service_BigtableAdmin_ColumnFamily';
+	protected $updateDataType = '';
 
-  /**
-   * @param Google_Service_BigtableAdmin_ColumnFamily
-   */
-  public function setCreate(Google_Service_BigtableAdmin_ColumnFamily $create)
-  {
-    $this->create = $create;
-  }
-  /**
-   * @return Google_Service_BigtableAdmin_ColumnFamily
-   */
-  public function getCreate()
-  {
-    return $this->create;
-  }
-  public function setDrop($drop)
-  {
-    $this->drop = $drop;
-  }
-  public function getDrop()
-  {
-    return $this->drop;
-  }
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  /**
-   * @param Google_Service_BigtableAdmin_ColumnFamily
-   */
-  public function setUpdate(Google_Service_BigtableAdmin_ColumnFamily $update)
-  {
-    $this->update = $update;
-  }
-  /**
-   * @return Google_Service_BigtableAdmin_ColumnFamily
-   */
-  public function getUpdate()
-  {
-    return $this->update;
-  }
+	/**
+	 * @param Google_Service_BigtableAdmin_ColumnFamily
+	 */
+	public function setCreate(Google_Service_BigtableAdmin_ColumnFamily $create)
+	{
+		$this->create = $create;
+	}
+	/**
+	 * @return Google_Service_BigtableAdmin_ColumnFamily
+	 */
+	public function getCreate()
+	{
+		return $this->create;
+	}
+	public function setDrop($drop)
+	{
+		$this->drop = $drop;
+	}
+	public function getDrop()
+	{
+		return $this->drop;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	/**
+	 * @param Google_Service_BigtableAdmin_ColumnFamily
+	 */
+	public function setUpdate(Google_Service_BigtableAdmin_ColumnFamily $update)
+	{
+		$this->update = $update;
+	}
+	/**
+	 * @return Google_Service_BigtableAdmin_ColumnFamily
+	 */
+	public function getUpdate()
+	{
+		return $this->update;
+	}
 }

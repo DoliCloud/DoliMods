@@ -17,38 +17,38 @@
 
 class Google_Service_Spanner_ExecuteBatchDmlResponse extends Google_Collection
 {
-  protected $collection_key = 'resultSets';
-  protected $resultSetsType = 'Google_Service_Spanner_ResultSet';
-  protected $resultSetsDataType = 'array';
-  protected $statusType = 'Google_Service_Spanner_Status';
-  protected $statusDataType = '';
+	protected $collection_key = 'resultSets';
+	protected $resultSetsType = 'Google_Service_Spanner_ResultSet';
+	protected $resultSetsDataType = 'array';
+	protected $statusType = 'Google_Service_Spanner_Status';
+	protected $statusDataType = '';
 
-  /**
-   * @param Google_Service_Spanner_ResultSet
-   */
-  public function setResultSets($resultSets)
-  {
-    $this->resultSets = $resultSets;
-  }
-  /**
-   * @return Google_Service_Spanner_ResultSet
-   */
-  public function getResultSets()
-  {
-    return $this->resultSets;
-  }
-  /**
-   * @param Google_Service_Spanner_Status
-   */
-  public function setStatus(Google_Service_Spanner_Status $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_Spanner_Status
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	/**
+	 * @param Google_Service_Spanner_ResultSet
+	 */
+	public function setResultSets($resultSets)
+	{
+		$this->resultSets = $resultSets;
+	}
+	/**
+	 * @return Google_Service_Spanner_ResultSet
+	 */
+	public function getResultSets()
+	{
+		return $this->resultSets;
+	}
+	/**
+	 * @param Google_Service_Spanner_Status
+	 */
+	public function setStatus(Google_Service_Spanner_Status $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_Spanner_Status
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

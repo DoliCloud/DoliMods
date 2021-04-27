@@ -17,78 +17,78 @@
 
 class Google_Service_NetworkManagement_FirewallInfo extends Google_Collection
 {
-  protected $collection_key = 'targetTags';
-  public $action;
-  public $direction;
-  public $displayName;
-  public $networkUri;
-  public $priority;
-  public $targetServiceAccounts;
-  public $targetTags;
-  public $uri;
+	protected $collection_key = 'targetTags';
+	public $action;
+	public $direction;
+	public $displayName;
+	public $networkUri;
+	public $priority;
+	public $targetServiceAccounts;
+	public $targetTags;
+	public $uri;
 
-  public function setAction($action)
-  {
-    $this->action = $action;
-  }
-  public function getAction()
-  {
-    return $this->action;
-  }
-  public function setDirection($direction)
-  {
-    $this->direction = $direction;
-  }
-  public function getDirection()
-  {
-    return $this->direction;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setNetworkUri($networkUri)
-  {
-    $this->networkUri = $networkUri;
-  }
-  public function getNetworkUri()
-  {
-    return $this->networkUri;
-  }
-  public function setPriority($priority)
-  {
-    $this->priority = $priority;
-  }
-  public function getPriority()
-  {
-    return $this->priority;
-  }
-  public function setTargetServiceAccounts($targetServiceAccounts)
-  {
-    $this->targetServiceAccounts = $targetServiceAccounts;
-  }
-  public function getTargetServiceAccounts()
-  {
-    return $this->targetServiceAccounts;
-  }
-  public function setTargetTags($targetTags)
-  {
-    $this->targetTags = $targetTags;
-  }
-  public function getTargetTags()
-  {
-    return $this->targetTags;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
+	public function setAction($action)
+	{
+		$this->action = $action;
+	}
+	public function getAction()
+	{
+		return $this->action;
+	}
+	public function setDirection($direction)
+	{
+		$this->direction = $direction;
+	}
+	public function getDirection()
+	{
+		return $this->direction;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setNetworkUri($networkUri)
+	{
+		$this->networkUri = $networkUri;
+	}
+	public function getNetworkUri()
+	{
+		return $this->networkUri;
+	}
+	public function setPriority($priority)
+	{
+		$this->priority = $priority;
+	}
+	public function getPriority()
+	{
+		return $this->priority;
+	}
+	public function setTargetServiceAccounts($targetServiceAccounts)
+	{
+		$this->targetServiceAccounts = $targetServiceAccounts;
+	}
+	public function getTargetServiceAccounts()
+	{
+		return $this->targetServiceAccounts;
+	}
+	public function setTargetTags($targetTags)
+	{
+		$this->targetTags = $targetTags;
+	}
+	public function getTargetTags()
+	{
+		return $this->targetTags;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
 }

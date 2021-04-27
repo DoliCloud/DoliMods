@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceManagement_CustomError extends Google_Collection
 {
-  protected $collection_key = 'types';
-  protected $rulesType = 'Google_Service_ServiceManagement_CustomErrorRule';
-  protected $rulesDataType = 'array';
-  public $types;
+	protected $collection_key = 'types';
+	protected $rulesType = 'Google_Service_ServiceManagement_CustomErrorRule';
+	protected $rulesDataType = 'array';
+	public $types;
 
-  /**
-   * @param Google_Service_ServiceManagement_CustomErrorRule
-   */
-  public function setRules($rules)
-  {
-    $this->rules = $rules;
-  }
-  /**
-   * @return Google_Service_ServiceManagement_CustomErrorRule
-   */
-  public function getRules()
-  {
-    return $this->rules;
-  }
-  public function setTypes($types)
-  {
-    $this->types = $types;
-  }
-  public function getTypes()
-  {
-    return $this->types;
-  }
+	/**
+	 * @param Google_Service_ServiceManagement_CustomErrorRule
+	 */
+	public function setRules($rules)
+	{
+		$this->rules = $rules;
+	}
+	/**
+	 * @return Google_Service_ServiceManagement_CustomErrorRule
+	 */
+	public function getRules()
+	{
+		return $this->rules;
+	}
+	public function setTypes($types)
+	{
+		$this->types = $types;
+	}
+	public function getTypes()
+	{
+		return $this->types;
+	}
 }

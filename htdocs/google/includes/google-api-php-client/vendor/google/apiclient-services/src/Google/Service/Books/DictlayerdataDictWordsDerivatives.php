@@ -17,30 +17,30 @@
 
 class Google_Service_Books_DictlayerdataDictWordsDerivatives extends Google_Model
 {
-  protected $sourceType = 'Google_Service_Books_DictlayerdataDictWordsDerivativesSource';
-  protected $sourceDataType = '';
-  public $text;
+	protected $sourceType = 'Google_Service_Books_DictlayerdataDictWordsDerivativesSource';
+	protected $sourceDataType = '';
+	public $text;
 
-  /**
-   * @param Google_Service_Books_DictlayerdataDictWordsDerivativesSource
-   */
-  public function setSource(Google_Service_Books_DictlayerdataDictWordsDerivativesSource $source)
-  {
-    $this->source = $source;
-  }
-  /**
-   * @return Google_Service_Books_DictlayerdataDictWordsDerivativesSource
-   */
-  public function getSource()
-  {
-    return $this->source;
-  }
-  public function setText($text)
-  {
-    $this->text = $text;
-  }
-  public function getText()
-  {
-    return $this->text;
-  }
+	/**
+	 * @param Google_Service_Books_DictlayerdataDictWordsDerivativesSource
+	 */
+	public function setSource(Google_Service_Books_DictlayerdataDictWordsDerivativesSource $source)
+	{
+		$this->source = $source;
+	}
+	/**
+	 * @return Google_Service_Books_DictlayerdataDictWordsDerivativesSource
+	 */
+	public function getSource()
+	{
+		return $this->source;
+	}
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
+	public function getText()
+	{
+		return $this->text;
+	}
 }

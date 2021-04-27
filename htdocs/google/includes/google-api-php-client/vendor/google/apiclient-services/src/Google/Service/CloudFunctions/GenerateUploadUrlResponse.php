@@ -17,14 +17,14 @@
 
 class Google_Service_CloudFunctions_GenerateUploadUrlResponse extends Google_Model
 {
-  public $uploadUrl;
+	public $uploadUrl;
 
-  public function setUploadUrl($uploadUrl)
-  {
-    $this->uploadUrl = $uploadUrl;
-  }
-  public function getUploadUrl()
-  {
-    return $this->uploadUrl;
-  }
+	public function setUploadUrl($uploadUrl)
+	{
+		$this->uploadUrl = $uploadUrl;
+	}
+	public function getUploadUrl()
+	{
+		return $this->uploadUrl;
+	}
 }

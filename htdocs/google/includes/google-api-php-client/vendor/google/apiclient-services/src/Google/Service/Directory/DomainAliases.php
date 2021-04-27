@@ -17,40 +17,40 @@
 
 class Google_Service_Directory_DomainAliases extends Google_Collection
 {
-  protected $collection_key = 'domainAliases';
-  protected $domainAliasesType = 'Google_Service_Directory_DomainAlias';
-  protected $domainAliasesDataType = 'array';
-  public $etag;
-  public $kind;
+	protected $collection_key = 'domainAliases';
+	protected $domainAliasesType = 'Google_Service_Directory_DomainAlias';
+	protected $domainAliasesDataType = 'array';
+	public $etag;
+	public $kind;
 
-  /**
-   * @param Google_Service_Directory_DomainAlias
-   */
-  public function setDomainAliases($domainAliases)
-  {
-    $this->domainAliases = $domainAliases;
-  }
-  /**
-   * @return Google_Service_Directory_DomainAlias
-   */
-  public function getDomainAliases()
-  {
-    return $this->domainAliases;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	/**
+	 * @param Google_Service_Directory_DomainAlias
+	 */
+	public function setDomainAliases($domainAliases)
+	{
+		$this->domainAliases = $domainAliases;
+	}
+	/**
+	 * @return Google_Service_Directory_DomainAlias
+	 */
+	public function getDomainAliases()
+	{
+		return $this->domainAliases;
+	}
+	public function setEtag($etag)
+	{
+		$this->etag = $etag;
+	}
+	public function getEtag()
+	{
+		return $this->etag;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

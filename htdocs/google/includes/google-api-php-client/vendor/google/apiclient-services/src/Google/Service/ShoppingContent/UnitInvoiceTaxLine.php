@@ -17,39 +17,39 @@
 
 class Google_Service_ShoppingContent_UnitInvoiceTaxLine extends Google_Model
 {
-  protected $taxAmountType = 'Google_Service_ShoppingContent_Price';
-  protected $taxAmountDataType = '';
-  public $taxName;
-  public $taxType;
+	protected $taxAmountType = 'Google_Service_ShoppingContent_Price';
+	protected $taxAmountDataType = '';
+	public $taxName;
+	public $taxType;
 
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setTaxAmount(Google_Service_ShoppingContent_Price $taxAmount)
-  {
-    $this->taxAmount = $taxAmount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getTaxAmount()
-  {
-    return $this->taxAmount;
-  }
-  public function setTaxName($taxName)
-  {
-    $this->taxName = $taxName;
-  }
-  public function getTaxName()
-  {
-    return $this->taxName;
-  }
-  public function setTaxType($taxType)
-  {
-    $this->taxType = $taxType;
-  }
-  public function getTaxType()
-  {
-    return $this->taxType;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setTaxAmount(Google_Service_ShoppingContent_Price $taxAmount)
+	{
+		$this->taxAmount = $taxAmount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getTaxAmount()
+	{
+		return $this->taxAmount;
+	}
+	public function setTaxName($taxName)
+	{
+		$this->taxName = $taxName;
+	}
+	public function getTaxName()
+	{
+		return $this->taxName;
+	}
+	public function setTaxType($taxType)
+	{
+		$this->taxType = $taxType;
+	}
+	public function getTaxType()
+	{
+		return $this->taxType;
+	}
 }

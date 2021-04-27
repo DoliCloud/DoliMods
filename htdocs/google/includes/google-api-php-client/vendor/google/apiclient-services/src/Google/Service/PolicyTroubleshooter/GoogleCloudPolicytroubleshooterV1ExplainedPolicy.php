@@ -17,65 +17,65 @@
 
 class Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1ExplainedPolicy extends Google_Collection
 {
-  protected $collection_key = 'bindingExplanations';
-  public $access;
-  protected $bindingExplanationsType = 'Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1BindingExplanation';
-  protected $bindingExplanationsDataType = 'array';
-  public $fullResourceName;
-  protected $policyType = 'Google_Service_PolicyTroubleshooter_GoogleIamV1Policy';
-  protected $policyDataType = '';
-  public $relevance;
+	protected $collection_key = 'bindingExplanations';
+	public $access;
+	protected $bindingExplanationsType = 'Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1BindingExplanation';
+	protected $bindingExplanationsDataType = 'array';
+	public $fullResourceName;
+	protected $policyType = 'Google_Service_PolicyTroubleshooter_GoogleIamV1Policy';
+	protected $policyDataType = '';
+	public $relevance;
 
-  public function setAccess($access)
-  {
-    $this->access = $access;
-  }
-  public function getAccess()
-  {
-    return $this->access;
-  }
-  /**
-   * @param Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1BindingExplanation
-   */
-  public function setBindingExplanations($bindingExplanations)
-  {
-    $this->bindingExplanations = $bindingExplanations;
-  }
-  /**
-   * @return Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1BindingExplanation
-   */
-  public function getBindingExplanations()
-  {
-    return $this->bindingExplanations;
-  }
-  public function setFullResourceName($fullResourceName)
-  {
-    $this->fullResourceName = $fullResourceName;
-  }
-  public function getFullResourceName()
-  {
-    return $this->fullResourceName;
-  }
-  /**
-   * @param Google_Service_PolicyTroubleshooter_GoogleIamV1Policy
-   */
-  public function setPolicy(Google_Service_PolicyTroubleshooter_GoogleIamV1Policy $policy)
-  {
-    $this->policy = $policy;
-  }
-  /**
-   * @return Google_Service_PolicyTroubleshooter_GoogleIamV1Policy
-   */
-  public function getPolicy()
-  {
-    return $this->policy;
-  }
-  public function setRelevance($relevance)
-  {
-    $this->relevance = $relevance;
-  }
-  public function getRelevance()
-  {
-    return $this->relevance;
-  }
+	public function setAccess($access)
+	{
+		$this->access = $access;
+	}
+	public function getAccess()
+	{
+		return $this->access;
+	}
+	/**
+	 * @param Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1BindingExplanation
+	 */
+	public function setBindingExplanations($bindingExplanations)
+	{
+		$this->bindingExplanations = $bindingExplanations;
+	}
+	/**
+	 * @return Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1BindingExplanation
+	 */
+	public function getBindingExplanations()
+	{
+		return $this->bindingExplanations;
+	}
+	public function setFullResourceName($fullResourceName)
+	{
+		$this->fullResourceName = $fullResourceName;
+	}
+	public function getFullResourceName()
+	{
+		return $this->fullResourceName;
+	}
+	/**
+	 * @param Google_Service_PolicyTroubleshooter_GoogleIamV1Policy
+	 */
+	public function setPolicy(Google_Service_PolicyTroubleshooter_GoogleIamV1Policy $policy)
+	{
+		$this->policy = $policy;
+	}
+	/**
+	 * @return Google_Service_PolicyTroubleshooter_GoogleIamV1Policy
+	 */
+	public function getPolicy()
+	{
+		return $this->policy;
+	}
+	public function setRelevance($relevance)
+	{
+		$this->relevance = $relevance;
+	}
+	public function getRelevance()
+	{
+		return $this->relevance;
+	}
 }

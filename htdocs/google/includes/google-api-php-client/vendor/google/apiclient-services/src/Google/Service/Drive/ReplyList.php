@@ -17,40 +17,40 @@
 
 class Google_Service_Drive_ReplyList extends Google_Collection
 {
-  protected $collection_key = 'replies';
-  public $kind;
-  public $nextPageToken;
-  protected $repliesType = 'Google_Service_Drive_Reply';
-  protected $repliesDataType = 'array';
+	protected $collection_key = 'replies';
+	public $kind;
+	public $nextPageToken;
+	protected $repliesType = 'Google_Service_Drive_Reply';
+	protected $repliesDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  /**
-   * @param Google_Service_Drive_Reply
-   */
-  public function setReplies($replies)
-  {
-    $this->replies = $replies;
-  }
-  /**
-   * @return Google_Service_Drive_Reply
-   */
-  public function getReplies()
-  {
-    return $this->replies;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	/**
+	 * @param Google_Service_Drive_Reply
+	 */
+	public function setReplies($replies)
+	{
+		$this->replies = $replies;
+	}
+	/**
+	 * @return Google_Service_Drive_Reply
+	 */
+	public function getReplies()
+	{
+		return $this->replies;
+	}
 }

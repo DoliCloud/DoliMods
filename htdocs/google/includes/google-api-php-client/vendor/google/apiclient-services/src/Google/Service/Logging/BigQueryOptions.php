@@ -17,23 +17,23 @@
 
 class Google_Service_Logging_BigQueryOptions extends Google_Model
 {
-  public $usePartitionedTables;
-  public $usesTimestampColumnPartitioning;
+	public $usePartitionedTables;
+	public $usesTimestampColumnPartitioning;
 
-  public function setUsePartitionedTables($usePartitionedTables)
-  {
-    $this->usePartitionedTables = $usePartitionedTables;
-  }
-  public function getUsePartitionedTables()
-  {
-    return $this->usePartitionedTables;
-  }
-  public function setUsesTimestampColumnPartitioning($usesTimestampColumnPartitioning)
-  {
-    $this->usesTimestampColumnPartitioning = $usesTimestampColumnPartitioning;
-  }
-  public function getUsesTimestampColumnPartitioning()
-  {
-    return $this->usesTimestampColumnPartitioning;
-  }
+	public function setUsePartitionedTables($usePartitionedTables)
+	{
+		$this->usePartitionedTables = $usePartitionedTables;
+	}
+	public function getUsePartitionedTables()
+	{
+		return $this->usePartitionedTables;
+	}
+	public function setUsesTimestampColumnPartitioning($usesTimestampColumnPartitioning)
+	{
+		$this->usesTimestampColumnPartitioning = $usesTimestampColumnPartitioning;
+	}
+	public function getUsesTimestampColumnPartitioning()
+	{
+		return $this->usesTimestampColumnPartitioning;
+	}
 }

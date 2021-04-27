@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_AuthorizationLoggingOptions extends Google_Model
 {
-  public $permissionType;
+	public $permissionType;
 
-  public function setPermissionType($permissionType)
-  {
-    $this->permissionType = $permissionType;
-  }
-  public function getPermissionType()
-  {
-    return $this->permissionType;
-  }
+	public function setPermissionType($permissionType)
+	{
+		$this->permissionType = $permissionType;
+	}
+	public function getPermissionType()
+	{
+		return $this->permissionType;
+	}
 }

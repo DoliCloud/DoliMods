@@ -17,14 +17,14 @@
 
 class Google_Service_SASPortalTesting_SasPortalGetPolicyRequest extends Google_Model
 {
-  public $resource;
+	public $resource;
 
-  public function setResource($resource)
-  {
-    $this->resource = $resource;
-  }
-  public function getResource()
-  {
-    return $this->resource;
-  }
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
+	public function getResource()
+	{
+		return $this->resource;
+	}
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_ServiceUsage_GoogleApiServiceusageV1Service extends Google_Model
 {
-  protected $configType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig';
-  protected $configDataType = '';
-  public $name;
-  public $parent;
-  public $state;
+	protected $configType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig';
+	protected $configDataType = '';
+	public $name;
+	public $parent;
+	public $state;
 
-  /**
-   * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig
-   */
-  public function setConfig(Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig $config)
-  {
-    $this->config = $config;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig
-   */
-  public function getConfig()
-  {
-    return $this->config;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setParent($parent)
-  {
-    $this->parent = $parent;
-  }
-  public function getParent()
-  {
-    return $this->parent;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	/**
+	 * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig
+	 */
+	public function setConfig(Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig $config)
+	{
+		$this->config = $config;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig
+	 */
+	public function getConfig()
+	{
+		return $this->config;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setParent($parent)
+	{
+		$this->parent = $parent;
+	}
+	public function getParent()
+	{
+		return $this->parent;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_ErrorInfo extends Google_Collection
 {
-  protected $collection_key = 'errorMessages';
-  protected $errorMessagesType = 'Google_Service_CloudSearch_ErrorMessage';
-  protected $errorMessagesDataType = 'array';
+	protected $collection_key = 'errorMessages';
+	protected $errorMessagesType = 'Google_Service_CloudSearch_ErrorMessage';
+	protected $errorMessagesDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudSearch_ErrorMessage
-   */
-  public function setErrorMessages($errorMessages)
-  {
-    $this->errorMessages = $errorMessages;
-  }
-  /**
-   * @return Google_Service_CloudSearch_ErrorMessage
-   */
-  public function getErrorMessages()
-  {
-    return $this->errorMessages;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_ErrorMessage
+	 */
+	public function setErrorMessages($errorMessages)
+	{
+		$this->errorMessages = $errorMessages;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_ErrorMessage
+	 */
+	public function getErrorMessages()
+	{
+		return $this->errorMessages;
+	}
 }

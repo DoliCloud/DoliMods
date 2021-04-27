@@ -17,37 +17,37 @@
 
 class Google_Service_ChromeUXReport_QueryResponse extends Google_Model
 {
-  protected $recordType = 'Google_Service_ChromeUXReport_Record';
-  protected $recordDataType = '';
-  protected $urlNormalizationDetailsType = 'Google_Service_ChromeUXReport_UrlNormalization';
-  protected $urlNormalizationDetailsDataType = '';
+	protected $recordType = 'Google_Service_ChromeUXReport_Record';
+	protected $recordDataType = '';
+	protected $urlNormalizationDetailsType = 'Google_Service_ChromeUXReport_UrlNormalization';
+	protected $urlNormalizationDetailsDataType = '';
 
-  /**
-   * @param Google_Service_ChromeUXReport_Record
-   */
-  public function setRecord(Google_Service_ChromeUXReport_Record $record)
-  {
-    $this->record = $record;
-  }
-  /**
-   * @return Google_Service_ChromeUXReport_Record
-   */
-  public function getRecord()
-  {
-    return $this->record;
-  }
-  /**
-   * @param Google_Service_ChromeUXReport_UrlNormalization
-   */
-  public function setUrlNormalizationDetails(Google_Service_ChromeUXReport_UrlNormalization $urlNormalizationDetails)
-  {
-    $this->urlNormalizationDetails = $urlNormalizationDetails;
-  }
-  /**
-   * @return Google_Service_ChromeUXReport_UrlNormalization
-   */
-  public function getUrlNormalizationDetails()
-  {
-    return $this->urlNormalizationDetails;
-  }
+	/**
+	 * @param Google_Service_ChromeUXReport_Record
+	 */
+	public function setRecord(Google_Service_ChromeUXReport_Record $record)
+	{
+		$this->record = $record;
+	}
+	/**
+	 * @return Google_Service_ChromeUXReport_Record
+	 */
+	public function getRecord()
+	{
+		return $this->record;
+	}
+	/**
+	 * @param Google_Service_ChromeUXReport_UrlNormalization
+	 */
+	public function setUrlNormalizationDetails(Google_Service_ChromeUXReport_UrlNormalization $urlNormalizationDetails)
+	{
+		$this->urlNormalizationDetails = $urlNormalizationDetails;
+	}
+	/**
+	 * @return Google_Service_ChromeUXReport_UrlNormalization
+	 */
+	public function getUrlNormalizationDetails()
+	{
+		return $this->urlNormalizationDetails;
+	}
 }

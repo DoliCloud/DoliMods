@@ -17,57 +17,57 @@
 
 class Google_Service_DeploymentManager_Type extends Google_Model
 {
-  public $id;
-  public $insertTime;
-  public $name;
-  protected $operationType = 'Google_Service_DeploymentManager_Operation';
-  protected $operationDataType = '';
-  public $selfLink;
+	public $id;
+	public $insertTime;
+	public $name;
+	protected $operationType = 'Google_Service_DeploymentManager_Operation';
+	protected $operationDataType = '';
+	public $selfLink;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setInsertTime($insertTime)
-  {
-    $this->insertTime = $insertTime;
-  }
-  public function getInsertTime()
-  {
-    return $this->insertTime;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_DeploymentManager_Operation
-   */
-  public function setOperation(Google_Service_DeploymentManager_Operation $operation)
-  {
-    $this->operation = $operation;
-  }
-  /**
-   * @return Google_Service_DeploymentManager_Operation
-   */
-  public function getOperation()
-  {
-    return $this->operation;
-  }
-  public function setSelfLink($selfLink)
-  {
-    $this->selfLink = $selfLink;
-  }
-  public function getSelfLink()
-  {
-    return $this->selfLink;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setInsertTime($insertTime)
+	{
+		$this->insertTime = $insertTime;
+	}
+	public function getInsertTime()
+	{
+		return $this->insertTime;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_DeploymentManager_Operation
+	 */
+	public function setOperation(Google_Service_DeploymentManager_Operation $operation)
+	{
+		$this->operation = $operation;
+	}
+	/**
+	 * @return Google_Service_DeploymentManager_Operation
+	 */
+	public function getOperation()
+	{
+		return $this->operation;
+	}
+	public function setSelfLink($selfLink)
+	{
+		$this->selfLink = $selfLink;
+	}
+	public function getSelfLink()
+	{
+		return $this->selfLink;
+	}
 }

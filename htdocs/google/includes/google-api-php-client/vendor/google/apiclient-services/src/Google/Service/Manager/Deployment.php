@@ -17,72 +17,72 @@
 
 class Google_Service_Manager_Deployment extends Google_Collection
 {
-  protected $collection_key = 'overrides';
-  public $creationDate;
-  public $description;
-  protected $modulesType = 'Google_Service_Manager_ModuleStatus';
-  protected $modulesDataType = 'map';
-  public $name;
-  protected $overridesType = 'Google_Service_Manager_ParamOverride';
-  protected $overridesDataType = 'array';
-  protected $stateType = 'Google_Service_Manager_DeployState';
-  protected $stateDataType = '';
-  public $templateName;
+	protected $collection_key = 'overrides';
+	public $creationDate;
+	public $description;
+	protected $modulesType = 'Google_Service_Manager_ModuleStatus';
+	protected $modulesDataType = 'map';
+	public $name;
+	protected $overridesType = 'Google_Service_Manager_ParamOverride';
+	protected $overridesDataType = 'array';
+	protected $stateType = 'Google_Service_Manager_DeployState';
+	protected $stateDataType = '';
+	public $templateName;
 
-  public function setCreationDate($creationDate)
-  {
-    $this->creationDate = $creationDate;
-  }
-  public function getCreationDate()
-  {
-    return $this->creationDate;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setModules($modules)
-  {
-    $this->modules = $modules;
-  }
-  public function getModules()
-  {
-    return $this->modules;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setOverrides($overrides)
-  {
-    $this->overrides = $overrides;
-  }
-  public function getOverrides()
-  {
-    return $this->overrides;
-  }
-  public function setState(Google_Service_Manager_DeployState $state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setTemplateName($templateName)
-  {
-    $this->templateName = $templateName;
-  }
-  public function getTemplateName()
-  {
-    return $this->templateName;
-  }
+	public function setCreationDate($creationDate)
+	{
+		$this->creationDate = $creationDate;
+	}
+	public function getCreationDate()
+	{
+		return $this->creationDate;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setModules($modules)
+	{
+		$this->modules = $modules;
+	}
+	public function getModules()
+	{
+		return $this->modules;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setOverrides($overrides)
+	{
+		$this->overrides = $overrides;
+	}
+	public function getOverrides()
+	{
+		return $this->overrides;
+	}
+	public function setState(Google_Service_Manager_DeployState $state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setTemplateName($templateName)
+	{
+		$this->templateName = $templateName;
+	}
+	public function getTemplateName()
+	{
+		return $this->templateName;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Pubsub_DeadLetterPolicy extends Google_Model
 {
-  public $deadLetterTopic;
-  public $maxDeliveryAttempts;
+	public $deadLetterTopic;
+	public $maxDeliveryAttempts;
 
-  public function setDeadLetterTopic($deadLetterTopic)
-  {
-    $this->deadLetterTopic = $deadLetterTopic;
-  }
-  public function getDeadLetterTopic()
-  {
-    return $this->deadLetterTopic;
-  }
-  public function setMaxDeliveryAttempts($maxDeliveryAttempts)
-  {
-    $this->maxDeliveryAttempts = $maxDeliveryAttempts;
-  }
-  public function getMaxDeliveryAttempts()
-  {
-    return $this->maxDeliveryAttempts;
-  }
+	public function setDeadLetterTopic($deadLetterTopic)
+	{
+		$this->deadLetterTopic = $deadLetterTopic;
+	}
+	public function getDeadLetterTopic()
+	{
+		return $this->deadLetterTopic;
+	}
+	public function setMaxDeliveryAttempts($maxDeliveryAttempts)
+	{
+		$this->maxDeliveryAttempts = $maxDeliveryAttempts;
+	}
+	public function getMaxDeliveryAttempts()
+	{
+		return $this->maxDeliveryAttempts;
+	}
 }

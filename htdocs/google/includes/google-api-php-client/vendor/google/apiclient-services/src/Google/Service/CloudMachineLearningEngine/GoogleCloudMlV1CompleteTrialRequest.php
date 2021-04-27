@@ -17,39 +17,39 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1CompleteTrialRequest extends Google_Model
 {
-  protected $finalMeasurementType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement';
-  protected $finalMeasurementDataType = '';
-  public $infeasibleReason;
-  public $trialInfeasible;
+	protected $finalMeasurementType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement';
+	protected $finalMeasurementDataType = '';
+	public $infeasibleReason;
+	public $trialInfeasible;
 
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement
-   */
-  public function setFinalMeasurement(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement $finalMeasurement)
-  {
-    $this->finalMeasurement = $finalMeasurement;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement
-   */
-  public function getFinalMeasurement()
-  {
-    return $this->finalMeasurement;
-  }
-  public function setInfeasibleReason($infeasibleReason)
-  {
-    $this->infeasibleReason = $infeasibleReason;
-  }
-  public function getInfeasibleReason()
-  {
-    return $this->infeasibleReason;
-  }
-  public function setTrialInfeasible($trialInfeasible)
-  {
-    $this->trialInfeasible = $trialInfeasible;
-  }
-  public function getTrialInfeasible()
-  {
-    return $this->trialInfeasible;
-  }
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement
+	 */
+	public function setFinalMeasurement(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement $finalMeasurement)
+	{
+		$this->finalMeasurement = $finalMeasurement;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement
+	 */
+	public function getFinalMeasurement()
+	{
+		return $this->finalMeasurement;
+	}
+	public function setInfeasibleReason($infeasibleReason)
+	{
+		$this->infeasibleReason = $infeasibleReason;
+	}
+	public function getInfeasibleReason()
+	{
+		return $this->infeasibleReason;
+	}
+	public function setTrialInfeasible($trialInfeasible)
+	{
+		$this->trialInfeasible = $trialInfeasible;
+	}
+	public function getTrialInfeasible()
+	{
+		return $this->trialInfeasible;
+	}
 }

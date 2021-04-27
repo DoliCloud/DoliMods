@@ -17,31 +17,31 @@
 
 class Google_Service_CloudScheduler_ListJobsResponse extends Google_Collection
 {
-  protected $collection_key = 'jobs';
-  protected $jobsType = 'Google_Service_CloudScheduler_Job';
-  protected $jobsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'jobs';
+	protected $jobsType = 'Google_Service_CloudScheduler_Job';
+	protected $jobsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_CloudScheduler_Job
-   */
-  public function setJobs($jobs)
-  {
-    $this->jobs = $jobs;
-  }
-  /**
-   * @return Google_Service_CloudScheduler_Job
-   */
-  public function getJobs()
-  {
-    return $this->jobs;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_CloudScheduler_Job
+	 */
+	public function setJobs($jobs)
+	{
+		$this->jobs = $jobs;
+	}
+	/**
+	 * @return Google_Service_CloudScheduler_Job
+	 */
+	public function getJobs()
+	{
+		return $this->jobs;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

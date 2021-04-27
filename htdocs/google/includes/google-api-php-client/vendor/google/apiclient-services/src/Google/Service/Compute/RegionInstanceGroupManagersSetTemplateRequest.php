@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_RegionInstanceGroupManagersSetTemplateRequest extends Google_Model
 {
-  public $instanceTemplate;
+	public $instanceTemplate;
 
-  public function setInstanceTemplate($instanceTemplate)
-  {
-    $this->instanceTemplate = $instanceTemplate;
-  }
-  public function getInstanceTemplate()
-  {
-    return $this->instanceTemplate;
-  }
+	public function setInstanceTemplate($instanceTemplate)
+	{
+		$this->instanceTemplate = $instanceTemplate;
+	}
+	public function getInstanceTemplate()
+	{
+		return $this->instanceTemplate;
+	}
 }

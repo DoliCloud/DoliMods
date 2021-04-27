@@ -17,31 +17,31 @@
 
 class Google_Service_GameServices_DeployedClusterState extends Google_Collection
 {
-  protected $collection_key = 'fleetDetails';
-  public $cluster;
-  protected $fleetDetailsType = 'Google_Service_GameServices_DeployedFleetDetails';
-  protected $fleetDetailsDataType = 'array';
+	protected $collection_key = 'fleetDetails';
+	public $cluster;
+	protected $fleetDetailsType = 'Google_Service_GameServices_DeployedFleetDetails';
+	protected $fleetDetailsDataType = 'array';
 
-  public function setCluster($cluster)
-  {
-    $this->cluster = $cluster;
-  }
-  public function getCluster()
-  {
-    return $this->cluster;
-  }
-  /**
-   * @param Google_Service_GameServices_DeployedFleetDetails
-   */
-  public function setFleetDetails($fleetDetails)
-  {
-    $this->fleetDetails = $fleetDetails;
-  }
-  /**
-   * @return Google_Service_GameServices_DeployedFleetDetails
-   */
-  public function getFleetDetails()
-  {
-    return $this->fleetDetails;
-  }
+	public function setCluster($cluster)
+	{
+		$this->cluster = $cluster;
+	}
+	public function getCluster()
+	{
+		return $this->cluster;
+	}
+	/**
+	 * @param Google_Service_GameServices_DeployedFleetDetails
+	 */
+	public function setFleetDetails($fleetDetails)
+	{
+		$this->fleetDetails = $fleetDetails;
+	}
+	/**
+	 * @return Google_Service_GameServices_DeployedFleetDetails
+	 */
+	public function getFleetDetails()
+	{
+		return $this->fleetDetails;
+	}
 }

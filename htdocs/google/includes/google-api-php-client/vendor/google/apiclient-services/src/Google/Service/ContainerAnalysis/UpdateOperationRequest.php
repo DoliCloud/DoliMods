@@ -17,30 +17,30 @@
 
 class Google_Service_ContainerAnalysis_UpdateOperationRequest extends Google_Model
 {
-  protected $operationType = 'Google_Service_ContainerAnalysis_Operation';
-  protected $operationDataType = '';
-  public $updateMask;
+	protected $operationType = 'Google_Service_ContainerAnalysis_Operation';
+	protected $operationDataType = '';
+	public $updateMask;
 
-  /**
-   * @param Google_Service_ContainerAnalysis_Operation
-   */
-  public function setOperation(Google_Service_ContainerAnalysis_Operation $operation)
-  {
-    $this->operation = $operation;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_Operation
-   */
-  public function getOperation()
-  {
-    return $this->operation;
-  }
-  public function setUpdateMask($updateMask)
-  {
-    $this->updateMask = $updateMask;
-  }
-  public function getUpdateMask()
-  {
-    return $this->updateMask;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_Operation
+	 */
+	public function setOperation(Google_Service_ContainerAnalysis_Operation $operation)
+	{
+		$this->operation = $operation;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_Operation
+	 */
+	public function getOperation()
+	{
+		return $this->operation;
+	}
+	public function setUpdateMask($updateMask)
+	{
+		$this->updateMask = $updateMask;
+	}
+	public function getUpdateMask()
+	{
+		return $this->updateMask;
+	}
 }

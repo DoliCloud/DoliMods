@@ -23,17 +23,17 @@ namespace DataDog;
  */
 function socket_create($domain, $type, $protocol)
 {
-    global $socketSpy;
+	global $socketSpy;
 
-    $socketSpy->socketCreateWasCalledWithArgs($domain, $type, $protocol);
+	$socketSpy->socketCreateWasCalledWithArgs($domain, $type, $protocol);
 
-    // A PHP resource of unimportance, useful primarily to assert that our stubs
-    // of the global socket functions return or take a deterministic value.
-    $resource = fopen('/dev/null', 'r');
+	// A PHP resource of unimportance, useful primarily to assert that our stubs
+	// of the global socket functions return or take a deterministic value.
+	$resource = fopen('/dev/null', 'r');
 
-    $socketSpy->socketCreateDidReturn($resource);
+	$socketSpy->socketCreateDidReturn($resource);
 
-    return $resource;
+	return $resource;
 }
 
 /**
@@ -43,9 +43,9 @@ function socket_create($domain, $type, $protocol)
  */
 function socket_set_nonblock($socket)
 {
-    global $socketSpy;
+	global $socketSpy;
 
-    $socketSpy->socketSetNonblockWasCalledWithArg($socket);
+	$socketSpy->socketSetNonblockWasCalledWithArg($socket);
 }
 
 /**
@@ -58,11 +58,11 @@ function socket_set_nonblock($socket)
  * @param string $addr
  * @param int $port
  */
-function socket_sendto($socket, $buf, $len, $flags, $addr, $port=null)
+function socket_sendto($socket, $buf, $len, $flags, $addr, $port = null)
 {
-    global $socketSpy;
+	global $socketSpy;
 
-    $socketSpy->socketSendtoWasCalledWithArgs($socket, $buf, $len, $flags, $addr, $port);
+	$socketSpy->socketSendtoWasCalledWithArgs($socket, $buf, $len, $flags, $addr, $port);
 }
 
 /**
@@ -72,7 +72,7 @@ function socket_sendto($socket, $buf, $len, $flags, $addr, $port=null)
  */
 function socket_close($socket)
 {
-    global $socketSpy;
+	global $socketSpy;
 
-    $socketSpy->socketCloseWasCalled($socket);
+	$socketSpy->socketCloseWasCalled($socket);
 }

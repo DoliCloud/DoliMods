@@ -17,31 +17,31 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DimensionMetric extends Google_Collection
 {
-  protected $collection_key = 'metrics';
-  protected $metricsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Metric';
-  protected $metricsDataType = 'array';
-  public $name;
+	protected $collection_key = 'metrics';
+	protected $metricsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Metric';
+	protected $metricsDataType = 'array';
+	public $name;
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Metric
-   */
-  public function setMetrics($metrics)
-  {
-    $this->metrics = $metrics;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Metric
-   */
-  public function getMetrics()
-  {
-    return $this->metrics;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Metric
+	 */
+	public function setMetrics($metrics)
+	{
+		$this->metrics = $metrics;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Metric
+	 */
+	public function getMetrics()
+	{
+		return $this->metrics;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

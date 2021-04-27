@@ -17,40 +17,40 @@
 
 class Google_Service_CloudBuild_ArtifactObjects extends Google_Collection
 {
-  protected $collection_key = 'paths';
-  public $location;
-  public $paths;
-  protected $timingType = 'Google_Service_CloudBuild_TimeSpan';
-  protected $timingDataType = '';
+	protected $collection_key = 'paths';
+	public $location;
+	public $paths;
+	protected $timingType = 'Google_Service_CloudBuild_TimeSpan';
+	protected $timingDataType = '';
 
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setPaths($paths)
-  {
-    $this->paths = $paths;
-  }
-  public function getPaths()
-  {
-    return $this->paths;
-  }
-  /**
-   * @param Google_Service_CloudBuild_TimeSpan
-   */
-  public function setTiming(Google_Service_CloudBuild_TimeSpan $timing)
-  {
-    $this->timing = $timing;
-  }
-  /**
-   * @return Google_Service_CloudBuild_TimeSpan
-   */
-  public function getTiming()
-  {
-    return $this->timing;
-  }
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setPaths($paths)
+	{
+		$this->paths = $paths;
+	}
+	public function getPaths()
+	{
+		return $this->paths;
+	}
+	/**
+	 * @param Google_Service_CloudBuild_TimeSpan
+	 */
+	public function setTiming(Google_Service_CloudBuild_TimeSpan $timing)
+	{
+		$this->timing = $timing;
+	}
+	/**
+	 * @return Google_Service_CloudBuild_TimeSpan
+	 */
+	public function getTiming()
+	{
+		return $this->timing;
+	}
 }

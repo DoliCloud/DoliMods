@@ -17,23 +17,23 @@
 
 class Google_Service_Datastore_ReadOptions extends Google_Model
 {
-  public $readConsistency;
-  public $transaction;
+	public $readConsistency;
+	public $transaction;
 
-  public function setReadConsistency($readConsistency)
-  {
-    $this->readConsistency = $readConsistency;
-  }
-  public function getReadConsistency()
-  {
-    return $this->readConsistency;
-  }
-  public function setTransaction($transaction)
-  {
-    $this->transaction = $transaction;
-  }
-  public function getTransaction()
-  {
-    return $this->transaction;
-  }
+	public function setReadConsistency($readConsistency)
+	{
+		$this->readConsistency = $readConsistency;
+	}
+	public function getReadConsistency()
+	{
+		return $this->readConsistency;
+	}
+	public function setTransaction($transaction)
+	{
+		$this->transaction = $transaction;
+	}
+	public function getTransaction()
+	{
+		return $this->transaction;
+	}
 }

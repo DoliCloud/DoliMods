@@ -17,37 +17,37 @@
 
 class Google_Service_ShoppingContent_OrderreturnsPartialRefund extends Google_Model
 {
-  protected $priceAmountType = 'Google_Service_ShoppingContent_Price';
-  protected $priceAmountDataType = '';
-  protected $taxAmountType = 'Google_Service_ShoppingContent_Price';
-  protected $taxAmountDataType = '';
+	protected $priceAmountType = 'Google_Service_ShoppingContent_Price';
+	protected $priceAmountDataType = '';
+	protected $taxAmountType = 'Google_Service_ShoppingContent_Price';
+	protected $taxAmountDataType = '';
 
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setPriceAmount(Google_Service_ShoppingContent_Price $priceAmount)
-  {
-    $this->priceAmount = $priceAmount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getPriceAmount()
-  {
-    return $this->priceAmount;
-  }
-  /**
-   * @param Google_Service_ShoppingContent_Price
-   */
-  public function setTaxAmount(Google_Service_ShoppingContent_Price $taxAmount)
-  {
-    $this->taxAmount = $taxAmount;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_Price
-   */
-  public function getTaxAmount()
-  {
-    return $this->taxAmount;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setPriceAmount(Google_Service_ShoppingContent_Price $priceAmount)
+	{
+		$this->priceAmount = $priceAmount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getPriceAmount()
+	{
+		return $this->priceAmount;
+	}
+	/**
+	 * @param Google_Service_ShoppingContent_Price
+	 */
+	public function setTaxAmount(Google_Service_ShoppingContent_Price $taxAmount)
+	{
+		$this->taxAmount = $taxAmount;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_Price
+	 */
+	public function getTaxAmount()
+	{
+		return $this->taxAmount;
+	}
 }

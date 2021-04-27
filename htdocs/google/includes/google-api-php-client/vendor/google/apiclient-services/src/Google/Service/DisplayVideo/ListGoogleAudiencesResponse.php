@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListGoogleAudiencesResponse extends Google_Collection
 {
-  protected $collection_key = 'googleAudiences';
-  protected $googleAudiencesType = 'Google_Service_DisplayVideo_GoogleAudience';
-  protected $googleAudiencesDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'googleAudiences';
+	protected $googleAudiencesType = 'Google_Service_DisplayVideo_GoogleAudience';
+	protected $googleAudiencesDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_DisplayVideo_GoogleAudience
-   */
-  public function setGoogleAudiences($googleAudiences)
-  {
-    $this->googleAudiences = $googleAudiences;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_GoogleAudience
-   */
-  public function getGoogleAudiences()
-  {
-    return $this->googleAudiences;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_GoogleAudience
+	 */
+	public function setGoogleAudiences($googleAudiences)
+	{
+		$this->googleAudiences = $googleAudiences;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_GoogleAudience
+	 */
+	public function getGoogleAudiences()
+	{
+		return $this->googleAudiences;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

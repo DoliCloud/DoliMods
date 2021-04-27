@@ -17,48 +17,48 @@
 
 class Google_Service_Spanner_CreateBackupMetadata extends Google_Model
 {
-  public $cancelTime;
-  public $database;
-  public $name;
-  protected $progressType = 'Google_Service_Spanner_OperationProgress';
-  protected $progressDataType = '';
+	public $cancelTime;
+	public $database;
+	public $name;
+	protected $progressType = 'Google_Service_Spanner_OperationProgress';
+	protected $progressDataType = '';
 
-  public function setCancelTime($cancelTime)
-  {
-    $this->cancelTime = $cancelTime;
-  }
-  public function getCancelTime()
-  {
-    return $this->cancelTime;
-  }
-  public function setDatabase($database)
-  {
-    $this->database = $database;
-  }
-  public function getDatabase()
-  {
-    return $this->database;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Spanner_OperationProgress
-   */
-  public function setProgress(Google_Service_Spanner_OperationProgress $progress)
-  {
-    $this->progress = $progress;
-  }
-  /**
-   * @return Google_Service_Spanner_OperationProgress
-   */
-  public function getProgress()
-  {
-    return $this->progress;
-  }
+	public function setCancelTime($cancelTime)
+	{
+		$this->cancelTime = $cancelTime;
+	}
+	public function getCancelTime()
+	{
+		return $this->cancelTime;
+	}
+	public function setDatabase($database)
+	{
+		$this->database = $database;
+	}
+	public function getDatabase()
+	{
+		return $this->database;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Spanner_OperationProgress
+	 */
+	public function setProgress(Google_Service_Spanner_OperationProgress $progress)
+	{
+		$this->progress = $progress;
+	}
+	/**
+	 * @return Google_Service_Spanner_OperationProgress
+	 */
+	public function getProgress()
+	{
+		return $this->progress;
+	}
 }

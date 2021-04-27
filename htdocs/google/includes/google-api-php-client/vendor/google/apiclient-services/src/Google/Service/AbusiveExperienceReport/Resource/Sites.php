@@ -25,20 +25,20 @@
  */
 class Google_Service_AbusiveExperienceReport_Resource_Sites extends Google_Service_Resource
 {
-  /**
-   * Gets a site's Abusive Experience Report summary. (sites.get)
-   *
-   * @param string $name Required. The name of the site whose summary to get, e.g.
-   * `sites/http%3A%2F%2Fwww.google.com%2F`.
-   *
-   * Format: `sites/{site}`
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AbusiveExperienceReport_SiteSummaryResponse
-   */
-  public function get($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AbusiveExperienceReport_SiteSummaryResponse");
-  }
+	/**
+	 * Gets a site's Abusive Experience Report summary. (sites.get)
+	 *
+	 * @param string $name Required. The name of the site whose summary to get, e.g.
+	 *                     `sites/http%3A%2F%2Fwww.google.com%2F`.
+	 *
+	 *                     Format: `sites/{site}`
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AbusiveExperienceReport_SiteSummaryResponse
+	 */
+	public function get($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_AbusiveExperienceReport_SiteSummaryResponse");
+	}
 }

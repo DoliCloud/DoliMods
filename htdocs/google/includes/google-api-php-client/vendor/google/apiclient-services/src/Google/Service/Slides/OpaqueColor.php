@@ -17,30 +17,30 @@
 
 class Google_Service_Slides_OpaqueColor extends Google_Model
 {
-  protected $rgbColorType = 'Google_Service_Slides_RgbColor';
-  protected $rgbColorDataType = '';
-  public $themeColor;
+	protected $rgbColorType = 'Google_Service_Slides_RgbColor';
+	protected $rgbColorDataType = '';
+	public $themeColor;
 
-  /**
-   * @param Google_Service_Slides_RgbColor
-   */
-  public function setRgbColor(Google_Service_Slides_RgbColor $rgbColor)
-  {
-    $this->rgbColor = $rgbColor;
-  }
-  /**
-   * @return Google_Service_Slides_RgbColor
-   */
-  public function getRgbColor()
-  {
-    return $this->rgbColor;
-  }
-  public function setThemeColor($themeColor)
-  {
-    $this->themeColor = $themeColor;
-  }
-  public function getThemeColor()
-  {
-    return $this->themeColor;
-  }
+	/**
+	 * @param Google_Service_Slides_RgbColor
+	 */
+	public function setRgbColor(Google_Service_Slides_RgbColor $rgbColor)
+	{
+		$this->rgbColor = $rgbColor;
+	}
+	/**
+	 * @return Google_Service_Slides_RgbColor
+	 */
+	public function getRgbColor()
+	{
+		return $this->rgbColor;
+	}
+	public function setThemeColor($themeColor)
+	{
+		$this->themeColor = $themeColor;
+	}
+	public function getThemeColor()
+	{
+		return $this->themeColor;
+	}
 }

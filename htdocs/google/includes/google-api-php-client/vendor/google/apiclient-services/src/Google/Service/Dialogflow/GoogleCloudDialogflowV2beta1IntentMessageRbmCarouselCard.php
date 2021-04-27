@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCarouselCard extends Google_Collection
 {
-  protected $collection_key = 'cardContents';
-  protected $cardContentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent';
-  protected $cardContentsDataType = 'array';
-  public $cardWidth;
+	protected $collection_key = 'cardContents';
+	protected $cardContentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent';
+	protected $cardContentsDataType = 'array';
+	public $cardWidth;
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent
-   */
-  public function setCardContents($cardContents)
-  {
-    $this->cardContents = $cardContents;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent
-   */
-  public function getCardContents()
-  {
-    return $this->cardContents;
-  }
-  public function setCardWidth($cardWidth)
-  {
-    $this->cardWidth = $cardWidth;
-  }
-  public function getCardWidth()
-  {
-    return $this->cardWidth;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent
+	 */
+	public function setCardContents($cardContents)
+	{
+		$this->cardContents = $cardContents;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent
+	 */
+	public function getCardContents()
+	{
+		return $this->cardContents;
+	}
+	public function setCardWidth($cardWidth)
+	{
+		$this->cardWidth = $cardWidth;
+	}
+	public function getCardWidth()
+	{
+		return $this->cardWidth;
+	}
 }

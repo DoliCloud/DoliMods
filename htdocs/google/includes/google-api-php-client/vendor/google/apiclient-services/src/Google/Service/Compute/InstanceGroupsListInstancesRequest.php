@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_InstanceGroupsListInstancesRequest extends Google_Model
 {
-  public $instanceState;
+	public $instanceState;
 
-  public function setInstanceState($instanceState)
-  {
-    $this->instanceState = $instanceState;
-  }
-  public function getInstanceState()
-  {
-    return $this->instanceState;
-  }
+	public function setInstanceState($instanceState)
+	{
+		$this->instanceState = $instanceState;
+	}
+	public function getInstanceState()
+	{
+		return $this->instanceState;
+	}
 }

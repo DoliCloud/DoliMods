@@ -17,39 +17,39 @@
 
 class Google_Service_YouTube_LiveChatUserBannedMessageDetails extends Google_Model
 {
-  public $banDurationSeconds;
-  public $banType;
-  protected $bannedUserDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
-  protected $bannedUserDetailsDataType = '';
+	public $banDurationSeconds;
+	public $banType;
+	protected $bannedUserDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
+	protected $bannedUserDetailsDataType = '';
 
-  public function setBanDurationSeconds($banDurationSeconds)
-  {
-    $this->banDurationSeconds = $banDurationSeconds;
-  }
-  public function getBanDurationSeconds()
-  {
-    return $this->banDurationSeconds;
-  }
-  public function setBanType($banType)
-  {
-    $this->banType = $banType;
-  }
-  public function getBanType()
-  {
-    return $this->banType;
-  }
-  /**
-   * @param Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function setBannedUserDetails(Google_Service_YouTube_ChannelProfileDetails $bannedUserDetails)
-  {
-    $this->bannedUserDetails = $bannedUserDetails;
-  }
-  /**
-   * @return Google_Service_YouTube_ChannelProfileDetails
-   */
-  public function getBannedUserDetails()
-  {
-    return $this->bannedUserDetails;
-  }
+	public function setBanDurationSeconds($banDurationSeconds)
+	{
+		$this->banDurationSeconds = $banDurationSeconds;
+	}
+	public function getBanDurationSeconds()
+	{
+		return $this->banDurationSeconds;
+	}
+	public function setBanType($banType)
+	{
+		$this->banType = $banType;
+	}
+	public function getBanType()
+	{
+		return $this->banType;
+	}
+	/**
+	 * @param Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function setBannedUserDetails(Google_Service_YouTube_ChannelProfileDetails $bannedUserDetails)
+	{
+		$this->bannedUserDetails = $bannedUserDetails;
+	}
+	/**
+	 * @return Google_Service_YouTube_ChannelProfileDetails
+	 */
+	public function getBannedUserDetails()
+	{
+		return $this->bannedUserDetails;
+	}
 }

@@ -17,15 +17,15 @@
 
 class Google_Service_Classroom_MultipleChoiceQuestion extends Google_Collection
 {
-  protected $collection_key = 'choices';
-  public $choices;
+	protected $collection_key = 'choices';
+	public $choices;
 
-  public function setChoices($choices)
-  {
-    $this->choices = $choices;
-  }
-  public function getChoices()
-  {
-    return $this->choices;
-  }
+	public function setChoices($choices)
+	{
+		$this->choices = $choices;
+	}
+	public function getChoices()
+	{
+		return $this->choices;
+	}
 }

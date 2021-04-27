@@ -17,57 +17,57 @@
 
 class Google_Service_Safebrowsing_ListUpdateRequest extends Google_Model
 {
-  protected $constraintsType = 'Google_Service_Safebrowsing_Constraints';
-  protected $constraintsDataType = '';
-  public $platformType;
-  public $state;
-  public $threatEntryType;
-  public $threatType;
+	protected $constraintsType = 'Google_Service_Safebrowsing_Constraints';
+	protected $constraintsDataType = '';
+	public $platformType;
+	public $state;
+	public $threatEntryType;
+	public $threatType;
 
-  /**
-   * @param Google_Service_Safebrowsing_Constraints
-   */
-  public function setConstraints(Google_Service_Safebrowsing_Constraints $constraints)
-  {
-    $this->constraints = $constraints;
-  }
-  /**
-   * @return Google_Service_Safebrowsing_Constraints
-   */
-  public function getConstraints()
-  {
-    return $this->constraints;
-  }
-  public function setPlatformType($platformType)
-  {
-    $this->platformType = $platformType;
-  }
-  public function getPlatformType()
-  {
-    return $this->platformType;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
-  public function setThreatEntryType($threatEntryType)
-  {
-    $this->threatEntryType = $threatEntryType;
-  }
-  public function getThreatEntryType()
-  {
-    return $this->threatEntryType;
-  }
-  public function setThreatType($threatType)
-  {
-    $this->threatType = $threatType;
-  }
-  public function getThreatType()
-  {
-    return $this->threatType;
-  }
+	/**
+	 * @param Google_Service_Safebrowsing_Constraints
+	 */
+	public function setConstraints(Google_Service_Safebrowsing_Constraints $constraints)
+	{
+		$this->constraints = $constraints;
+	}
+	/**
+	 * @return Google_Service_Safebrowsing_Constraints
+	 */
+	public function getConstraints()
+	{
+		return $this->constraints;
+	}
+	public function setPlatformType($platformType)
+	{
+		$this->platformType = $platformType;
+	}
+	public function getPlatformType()
+	{
+		return $this->platformType;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
+	public function setThreatEntryType($threatEntryType)
+	{
+		$this->threatEntryType = $threatEntryType;
+	}
+	public function getThreatEntryType()
+	{
+		return $this->threatEntryType;
+	}
+	public function setThreatType($threatType)
+	{
+		$this->threatType = $threatType;
+	}
+	public function getThreatType()
+	{
+		return $this->threatType;
+	}
 }

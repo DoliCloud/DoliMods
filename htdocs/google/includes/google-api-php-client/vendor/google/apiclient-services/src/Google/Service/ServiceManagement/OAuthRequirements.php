@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceManagement_OAuthRequirements extends Google_Model
 {
-  public $canonicalScopes;
+	public $canonicalScopes;
 
-  public function setCanonicalScopes($canonicalScopes)
-  {
-    $this->canonicalScopes = $canonicalScopes;
-  }
-  public function getCanonicalScopes()
-  {
-    return $this->canonicalScopes;
-  }
+	public function setCanonicalScopes($canonicalScopes)
+	{
+		$this->canonicalScopes = $canonicalScopes;
+	}
+	public function getCanonicalScopes()
+	{
+		return $this->canonicalScopes;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_SecurityCommandCenter_ListAssetsResult extends Google_Model
 {
-  protected $assetType = 'Google_Service_SecurityCommandCenter_Asset';
-  protected $assetDataType = '';
-  public $stateChange;
+	protected $assetType = 'Google_Service_SecurityCommandCenter_Asset';
+	protected $assetDataType = '';
+	public $stateChange;
 
-  /**
-   * @param Google_Service_SecurityCommandCenter_Asset
-   */
-  public function setAsset(Google_Service_SecurityCommandCenter_Asset $asset)
-  {
-    $this->asset = $asset;
-  }
-  /**
-   * @return Google_Service_SecurityCommandCenter_Asset
-   */
-  public function getAsset()
-  {
-    return $this->asset;
-  }
-  public function setStateChange($stateChange)
-  {
-    $this->stateChange = $stateChange;
-  }
-  public function getStateChange()
-  {
-    return $this->stateChange;
-  }
+	/**
+	 * @param Google_Service_SecurityCommandCenter_Asset
+	 */
+	public function setAsset(Google_Service_SecurityCommandCenter_Asset $asset)
+	{
+		$this->asset = $asset;
+	}
+	/**
+	 * @return Google_Service_SecurityCommandCenter_Asset
+	 */
+	public function getAsset()
+	{
+		return $this->asset;
+	}
+	public function setStateChange($stateChange)
+	{
+		$this->stateChange = $stateChange;
+	}
+	public function getStateChange()
+	{
+		return $this->stateChange;
+	}
 }

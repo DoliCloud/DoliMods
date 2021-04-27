@@ -25,36 +25,36 @@
  */
 class Google_Service_AdExchangeBuyerII_Resource_AccountsPublisherProfiles extends Google_Service_Resource
 {
-  /**
-   * Gets the requested publisher profile by id. (publisherProfiles.get)
-   *
-   * @param string $accountId Account ID of the buyer.
-   * @param string $publisherProfileId The id for the publisher profile to get.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyerII_PublisherProfile
-   */
-  public function get($accountId, $publisherProfileId, $optParams = array())
-  {
-    $params = array('accountId' => $accountId, 'publisherProfileId' => $publisherProfileId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyerII_PublisherProfile");
-  }
-  /**
-   * List all publisher profiles visible to the buyer
-   * (publisherProfiles.listAccountsPublisherProfiles)
-   *
-   * @param string $accountId Account ID of the buyer.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string pageToken The page token as return from
-   * ListPublisherProfilesResponse.
-   * @opt_param int pageSize Specify the number of results to include per page.
-   * @return Google_Service_AdExchangeBuyerII_ListPublisherProfilesResponse
-   */
-  public function listAccountsPublisherProfiles($accountId, $optParams = array())
-  {
-    $params = array('accountId' => $accountId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyerII_ListPublisherProfilesResponse");
-  }
+	/**
+	 * Gets the requested publisher profile by id. (publisherProfiles.get)
+	 *
+	 * @param string $accountId Account ID of the buyer.
+	 * @param string $publisherProfileId The id for the publisher profile to get.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_AdExchangeBuyerII_PublisherProfile
+	 */
+	public function get($accountId, $publisherProfileId, $optParams = array())
+	{
+		$params = array('accountId' => $accountId, 'publisherProfileId' => $publisherProfileId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_AdExchangeBuyerII_PublisherProfile");
+	}
+	/**
+	 * List all publisher profiles visible to the buyer
+	 * (publisherProfiles.listAccountsPublisherProfiles)
+	 *
+	 * @param string $accountId Account ID of the buyer.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string pageToken The page token as return from
+	 * ListPublisherProfilesResponse.
+	 * @opt_param int pageSize Specify the number of results to include per page.
+	 * @return Google_Service_AdExchangeBuyerII_ListPublisherProfilesResponse
+	 */
+	public function listAccountsPublisherProfiles($accountId, $optParams = array())
+	{
+		$params = array('accountId' => $accountId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AdExchangeBuyerII_ListPublisherProfilesResponse");
+	}
 }

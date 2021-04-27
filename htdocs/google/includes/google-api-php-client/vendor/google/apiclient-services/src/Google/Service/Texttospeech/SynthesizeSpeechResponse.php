@@ -17,14 +17,14 @@
 
 class Google_Service_Texttospeech_SynthesizeSpeechResponse extends Google_Model
 {
-  public $audioContent;
+	public $audioContent;
 
-  public function setAudioContent($audioContent)
-  {
-    $this->audioContent = $audioContent;
-  }
-  public function getAudioContent()
-  {
-    return $this->audioContent;
-  }
+	public function setAudioContent($audioContent)
+	{
+		$this->audioContent = $audioContent;
+	}
+	public function getAudioContent()
+	{
+		return $this->audioContent;
+	}
 }

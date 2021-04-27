@@ -17,30 +17,30 @@
 
 class Google_Service_CloudHealthcare_ImportResourcesRequest extends Google_Model
 {
-  public $contentStructure;
-  protected $gcsSourceType = 'Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsSource';
-  protected $gcsSourceDataType = '';
+	public $contentStructure;
+	protected $gcsSourceType = 'Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsSource';
+	protected $gcsSourceDataType = '';
 
-  public function setContentStructure($contentStructure)
-  {
-    $this->contentStructure = $contentStructure;
-  }
-  public function getContentStructure()
-  {
-    return $this->contentStructure;
-  }
-  /**
-   * @param Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsSource
-   */
-  public function setGcsSource(Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsSource $gcsSource)
-  {
-    $this->gcsSource = $gcsSource;
-  }
-  /**
-   * @return Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsSource
-   */
-  public function getGcsSource()
-  {
-    return $this->gcsSource;
-  }
+	public function setContentStructure($contentStructure)
+	{
+		$this->contentStructure = $contentStructure;
+	}
+	public function getContentStructure()
+	{
+		return $this->contentStructure;
+	}
+	/**
+	 * @param Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsSource
+	 */
+	public function setGcsSource(Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsSource $gcsSource)
+	{
+		$this->gcsSource = $gcsSource;
+	}
+	/**
+	 * @return Google_Service_CloudHealthcare_GoogleCloudHealthcareV1FhirGcsSource
+	 */
+	public function getGcsSource()
+	{
+		return $this->gcsSource;
+	}
 }

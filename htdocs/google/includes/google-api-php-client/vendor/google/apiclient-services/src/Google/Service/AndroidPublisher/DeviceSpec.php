@@ -17,33 +17,33 @@
 
 class Google_Service_AndroidPublisher_DeviceSpec extends Google_Collection
 {
-  protected $collection_key = 'supportedLocales';
-  public $screenDensity;
-  public $supportedAbis;
-  public $supportedLocales;
+	protected $collection_key = 'supportedLocales';
+	public $screenDensity;
+	public $supportedAbis;
+	public $supportedLocales;
 
-  public function setScreenDensity($screenDensity)
-  {
-    $this->screenDensity = $screenDensity;
-  }
-  public function getScreenDensity()
-  {
-    return $this->screenDensity;
-  }
-  public function setSupportedAbis($supportedAbis)
-  {
-    $this->supportedAbis = $supportedAbis;
-  }
-  public function getSupportedAbis()
-  {
-    return $this->supportedAbis;
-  }
-  public function setSupportedLocales($supportedLocales)
-  {
-    $this->supportedLocales = $supportedLocales;
-  }
-  public function getSupportedLocales()
-  {
-    return $this->supportedLocales;
-  }
+	public function setScreenDensity($screenDensity)
+	{
+		$this->screenDensity = $screenDensity;
+	}
+	public function getScreenDensity()
+	{
+		return $this->screenDensity;
+	}
+	public function setSupportedAbis($supportedAbis)
+	{
+		$this->supportedAbis = $supportedAbis;
+	}
+	public function getSupportedAbis()
+	{
+		return $this->supportedAbis;
+	}
+	public function setSupportedLocales($supportedLocales)
+	{
+		$this->supportedLocales = $supportedLocales;
+	}
+	public function getSupportedLocales()
+	{
+		return $this->supportedLocales;
+	}
 }

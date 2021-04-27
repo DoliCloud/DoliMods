@@ -17,23 +17,23 @@
 
 class Google_Service_Storage_StorageObjectCustomerEncryption extends Google_Model
 {
-  public $encryptionAlgorithm;
-  public $keySha256;
+	public $encryptionAlgorithm;
+	public $keySha256;
 
-  public function setEncryptionAlgorithm($encryptionAlgorithm)
-  {
-    $this->encryptionAlgorithm = $encryptionAlgorithm;
-  }
-  public function getEncryptionAlgorithm()
-  {
-    return $this->encryptionAlgorithm;
-  }
-  public function setKeySha256($keySha256)
-  {
-    $this->keySha256 = $keySha256;
-  }
-  public function getKeySha256()
-  {
-    return $this->keySha256;
-  }
+	public function setEncryptionAlgorithm($encryptionAlgorithm)
+	{
+		$this->encryptionAlgorithm = $encryptionAlgorithm;
+	}
+	public function getEncryptionAlgorithm()
+	{
+		return $this->encryptionAlgorithm;
+	}
+	public function setKeySha256($keySha256)
+	{
+		$this->keySha256 = $keySha256;
+	}
+	public function getKeySha256()
+	{
+		return $this->keySha256;
+	}
 }

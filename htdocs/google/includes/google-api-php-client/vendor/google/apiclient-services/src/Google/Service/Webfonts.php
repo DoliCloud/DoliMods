@@ -33,41 +33,41 @@ class Google_Service_Webfonts extends Google_Service
 {
 
 
-  public $webfonts;
-  
-  /**
-   * Constructs the internal representation of the Webfonts service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://webfonts.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'webfonts';
+	public $webfonts;
 
-    $this->webfonts = new Google_Service_Webfonts_Resource_Webfonts(
-        $this,
-        $this->serviceName,
-        'webfonts',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'v1/webfonts',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'sort' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the Webfonts service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://webfonts.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'webfonts';
+
+		$this->webfonts = new Google_Service_Webfonts_Resource_Webfonts(
+		$this,
+		$this->serviceName,
+		'webfonts',
+		array(
+		  'methods' => array(
+			'list' => array(
+			  'path' => 'v1/webfonts',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'sort' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

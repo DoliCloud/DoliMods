@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceNetworking_Range extends Google_Model
 {
-  public $ipCidrRange;
-  public $network;
+	public $ipCidrRange;
+	public $network;
 
-  public function setIpCidrRange($ipCidrRange)
-  {
-    $this->ipCidrRange = $ipCidrRange;
-  }
-  public function getIpCidrRange()
-  {
-    return $this->ipCidrRange;
-  }
-  public function setNetwork($network)
-  {
-    $this->network = $network;
-  }
-  public function getNetwork()
-  {
-    return $this->network;
-  }
+	public function setIpCidrRange($ipCidrRange)
+	{
+		$this->ipCidrRange = $ipCidrRange;
+	}
+	public function getIpCidrRange()
+	{
+		return $this->ipCidrRange;
+	}
+	public function setNetwork($network)
+	{
+		$this->network = $network;
+	}
+	public function getNetwork()
+	{
+		return $this->network;
+	}
 }

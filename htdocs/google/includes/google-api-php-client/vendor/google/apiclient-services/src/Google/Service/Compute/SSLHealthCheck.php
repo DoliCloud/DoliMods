@@ -17,59 +17,59 @@
 
 class Google_Service_Compute_SSLHealthCheck extends Google_Model
 {
-  public $port;
-  public $portName;
-  public $portSpecification;
-  public $proxyHeader;
-  public $request;
-  public $response;
+	public $port;
+	public $portName;
+	public $portSpecification;
+	public $proxyHeader;
+	public $request;
+	public $response;
 
-  public function setPort($port)
-  {
-    $this->port = $port;
-  }
-  public function getPort()
-  {
-    return $this->port;
-  }
-  public function setPortName($portName)
-  {
-    $this->portName = $portName;
-  }
-  public function getPortName()
-  {
-    return $this->portName;
-  }
-  public function setPortSpecification($portSpecification)
-  {
-    $this->portSpecification = $portSpecification;
-  }
-  public function getPortSpecification()
-  {
-    return $this->portSpecification;
-  }
-  public function setProxyHeader($proxyHeader)
-  {
-    $this->proxyHeader = $proxyHeader;
-  }
-  public function getProxyHeader()
-  {
-    return $this->proxyHeader;
-  }
-  public function setRequest($request)
-  {
-    $this->request = $request;
-  }
-  public function getRequest()
-  {
-    return $this->request;
-  }
-  public function setResponse($response)
-  {
-    $this->response = $response;
-  }
-  public function getResponse()
-  {
-    return $this->response;
-  }
+	public function setPort($port)
+	{
+		$this->port = $port;
+	}
+	public function getPort()
+	{
+		return $this->port;
+	}
+	public function setPortName($portName)
+	{
+		$this->portName = $portName;
+	}
+	public function getPortName()
+	{
+		return $this->portName;
+	}
+	public function setPortSpecification($portSpecification)
+	{
+		$this->portSpecification = $portSpecification;
+	}
+	public function getPortSpecification()
+	{
+		return $this->portSpecification;
+	}
+	public function setProxyHeader($proxyHeader)
+	{
+		$this->proxyHeader = $proxyHeader;
+	}
+	public function getProxyHeader()
+	{
+		return $this->proxyHeader;
+	}
+	public function setRequest($request)
+	{
+		$this->request = $request;
+	}
+	public function getRequest()
+	{
+		return $this->request;
+	}
+	public function setResponse($response)
+	{
+		$this->response = $response;
+	}
+	public function getResponse()
+	{
+		return $this->response;
+	}
 }

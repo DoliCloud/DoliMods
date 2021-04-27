@@ -17,22 +17,22 @@
 
 class Google_Service_Iam_LintPolicyResponse extends Google_Collection
 {
-  protected $collection_key = 'lintResults';
-  protected $lintResultsType = 'Google_Service_Iam_LintResult';
-  protected $lintResultsDataType = 'array';
+	protected $collection_key = 'lintResults';
+	protected $lintResultsType = 'Google_Service_Iam_LintResult';
+	protected $lintResultsDataType = 'array';
 
-  /**
-   * @param Google_Service_Iam_LintResult
-   */
-  public function setLintResults($lintResults)
-  {
-    $this->lintResults = $lintResults;
-  }
-  /**
-   * @return Google_Service_Iam_LintResult
-   */
-  public function getLintResults()
-  {
-    return $this->lintResults;
-  }
+	/**
+	 * @param Google_Service_Iam_LintResult
+	 */
+	public function setLintResults($lintResults)
+	{
+		$this->lintResults = $lintResults;
+	}
+	/**
+	 * @return Google_Service_Iam_LintResult
+	 */
+	public function getLintResults()
+	{
+		return $this->lintResults;
+	}
 }

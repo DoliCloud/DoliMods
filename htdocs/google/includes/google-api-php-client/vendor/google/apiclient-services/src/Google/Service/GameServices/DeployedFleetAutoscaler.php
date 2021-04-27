@@ -17,39 +17,39 @@
 
 class Google_Service_GameServices_DeployedFleetAutoscaler extends Google_Model
 {
-  public $autoscaler;
-  public $fleetAutoscalerSpec;
-  protected $specSourceType = 'Google_Service_GameServices_SpecSource';
-  protected $specSourceDataType = '';
+	public $autoscaler;
+	public $fleetAutoscalerSpec;
+	protected $specSourceType = 'Google_Service_GameServices_SpecSource';
+	protected $specSourceDataType = '';
 
-  public function setAutoscaler($autoscaler)
-  {
-    $this->autoscaler = $autoscaler;
-  }
-  public function getAutoscaler()
-  {
-    return $this->autoscaler;
-  }
-  public function setFleetAutoscalerSpec($fleetAutoscalerSpec)
-  {
-    $this->fleetAutoscalerSpec = $fleetAutoscalerSpec;
-  }
-  public function getFleetAutoscalerSpec()
-  {
-    return $this->fleetAutoscalerSpec;
-  }
-  /**
-   * @param Google_Service_GameServices_SpecSource
-   */
-  public function setSpecSource(Google_Service_GameServices_SpecSource $specSource)
-  {
-    $this->specSource = $specSource;
-  }
-  /**
-   * @return Google_Service_GameServices_SpecSource
-   */
-  public function getSpecSource()
-  {
-    return $this->specSource;
-  }
+	public function setAutoscaler($autoscaler)
+	{
+		$this->autoscaler = $autoscaler;
+	}
+	public function getAutoscaler()
+	{
+		return $this->autoscaler;
+	}
+	public function setFleetAutoscalerSpec($fleetAutoscalerSpec)
+	{
+		$this->fleetAutoscalerSpec = $fleetAutoscalerSpec;
+	}
+	public function getFleetAutoscalerSpec()
+	{
+		return $this->fleetAutoscalerSpec;
+	}
+	/**
+	 * @param Google_Service_GameServices_SpecSource
+	 */
+	public function setSpecSource(Google_Service_GameServices_SpecSource $specSource)
+	{
+		$this->specSource = $specSource;
+	}
+	/**
+	 * @return Google_Service_GameServices_SpecSource
+	 */
+	public function getSpecSource()
+	{
+		return $this->specSource;
+	}
 }

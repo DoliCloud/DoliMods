@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_FileContentBuffer extends Google_Model
 {
-  public $content;
-  public $fileType;
+	public $content;
+	public $fileType;
 
-  public function setContent($content)
-  {
-    $this->content = $content;
-  }
-  public function getContent()
-  {
-    return $this->content;
-  }
-  public function setFileType($fileType)
-  {
-    $this->fileType = $fileType;
-  }
-  public function getFileType()
-  {
-    return $this->fileType;
-  }
+	public function setContent($content)
+	{
+		$this->content = $content;
+	}
+	public function getContent()
+	{
+		return $this->content;
+	}
+	public function setFileType($fileType)
+	{
+		$this->fileType = $fileType;
+	}
+	public function getFileType()
+	{
+		return $this->fileType;
+	}
 }

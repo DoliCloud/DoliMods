@@ -17,62 +17,62 @@
 
 class Google_Service_Docs_UpdateTableCellStyleRequest extends Google_Model
 {
-  public $fields;
-  protected $tableCellStyleType = 'Google_Service_Docs_TableCellStyle';
-  protected $tableCellStyleDataType = '';
-  protected $tableRangeType = 'Google_Service_Docs_TableRange';
-  protected $tableRangeDataType = '';
-  protected $tableStartLocationType = 'Google_Service_Docs_Location';
-  protected $tableStartLocationDataType = '';
+	public $fields;
+	protected $tableCellStyleType = 'Google_Service_Docs_TableCellStyle';
+	protected $tableCellStyleDataType = '';
+	protected $tableRangeType = 'Google_Service_Docs_TableRange';
+	protected $tableRangeDataType = '';
+	protected $tableStartLocationType = 'Google_Service_Docs_Location';
+	protected $tableStartLocationDataType = '';
 
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  public function getFields()
-  {
-    return $this->fields;
-  }
-  /**
-   * @param Google_Service_Docs_TableCellStyle
-   */
-  public function setTableCellStyle(Google_Service_Docs_TableCellStyle $tableCellStyle)
-  {
-    $this->tableCellStyle = $tableCellStyle;
-  }
-  /**
-   * @return Google_Service_Docs_TableCellStyle
-   */
-  public function getTableCellStyle()
-  {
-    return $this->tableCellStyle;
-  }
-  /**
-   * @param Google_Service_Docs_TableRange
-   */
-  public function setTableRange(Google_Service_Docs_TableRange $tableRange)
-  {
-    $this->tableRange = $tableRange;
-  }
-  /**
-   * @return Google_Service_Docs_TableRange
-   */
-  public function getTableRange()
-  {
-    return $this->tableRange;
-  }
-  /**
-   * @param Google_Service_Docs_Location
-   */
-  public function setTableStartLocation(Google_Service_Docs_Location $tableStartLocation)
-  {
-    $this->tableStartLocation = $tableStartLocation;
-  }
-  /**
-   * @return Google_Service_Docs_Location
-   */
-  public function getTableStartLocation()
-  {
-    return $this->tableStartLocation;
-  }
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	public function getFields()
+	{
+		return $this->fields;
+	}
+	/**
+	 * @param Google_Service_Docs_TableCellStyle
+	 */
+	public function setTableCellStyle(Google_Service_Docs_TableCellStyle $tableCellStyle)
+	{
+		$this->tableCellStyle = $tableCellStyle;
+	}
+	/**
+	 * @return Google_Service_Docs_TableCellStyle
+	 */
+	public function getTableCellStyle()
+	{
+		return $this->tableCellStyle;
+	}
+	/**
+	 * @param Google_Service_Docs_TableRange
+	 */
+	public function setTableRange(Google_Service_Docs_TableRange $tableRange)
+	{
+		$this->tableRange = $tableRange;
+	}
+	/**
+	 * @return Google_Service_Docs_TableRange
+	 */
+	public function getTableRange()
+	{
+		return $this->tableRange;
+	}
+	/**
+	 * @param Google_Service_Docs_Location
+	 */
+	public function setTableStartLocation(Google_Service_Docs_Location $tableStartLocation)
+	{
+		$this->tableStartLocation = $tableStartLocation;
+	}
+	/**
+	 * @return Google_Service_Docs_Location
+	 */
+	public function getTableStartLocation()
+	{
+		return $this->tableStartLocation;
+	}
 }

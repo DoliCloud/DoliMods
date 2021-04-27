@@ -17,14 +17,14 @@
 
 class Google_Service_BigQueryDataTransfer_CheckValidCredsResponse extends Google_Model
 {
-  public $hasValidCreds;
+	public $hasValidCreds;
 
-  public function setHasValidCreds($hasValidCreds)
-  {
-    $this->hasValidCreds = $hasValidCreds;
-  }
-  public function getHasValidCreds()
-  {
-    return $this->hasValidCreds;
-  }
+	public function setHasValidCreds($hasValidCreds)
+	{
+		$this->hasValidCreds = $hasValidCreds;
+	}
+	public function getHasValidCreds()
+	{
+		return $this->hasValidCreds;
+	}
 }

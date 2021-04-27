@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_VideoOffset extends Google_Model
 {
-  public $offsetPercentage;
-  public $offsetSeconds;
+	public $offsetPercentage;
+	public $offsetSeconds;
 
-  public function setOffsetPercentage($offsetPercentage)
-  {
-    $this->offsetPercentage = $offsetPercentage;
-  }
-  public function getOffsetPercentage()
-  {
-    return $this->offsetPercentage;
-  }
-  public function setOffsetSeconds($offsetSeconds)
-  {
-    $this->offsetSeconds = $offsetSeconds;
-  }
-  public function getOffsetSeconds()
-  {
-    return $this->offsetSeconds;
-  }
+	public function setOffsetPercentage($offsetPercentage)
+	{
+		$this->offsetPercentage = $offsetPercentage;
+	}
+	public function getOffsetPercentage()
+	{
+		return $this->offsetPercentage;
+	}
+	public function setOffsetSeconds($offsetSeconds)
+	{
+		$this->offsetSeconds = $offsetSeconds;
+	}
+	public function getOffsetSeconds()
+	{
+		return $this->offsetSeconds;
+	}
 }

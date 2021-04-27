@@ -17,23 +17,23 @@
 
 class Google_Service_CloudIot_UnbindDeviceFromGatewayRequest extends Google_Model
 {
-  public $deviceId;
-  public $gatewayId;
+	public $deviceId;
+	public $gatewayId;
 
-  public function setDeviceId($deviceId)
-  {
-    $this->deviceId = $deviceId;
-  }
-  public function getDeviceId()
-  {
-    return $this->deviceId;
-  }
-  public function setGatewayId($gatewayId)
-  {
-    $this->gatewayId = $gatewayId;
-  }
-  public function getGatewayId()
-  {
-    return $this->gatewayId;
-  }
+	public function setDeviceId($deviceId)
+	{
+		$this->deviceId = $deviceId;
+	}
+	public function getDeviceId()
+	{
+		return $this->deviceId;
+	}
+	public function setGatewayId($gatewayId)
+	{
+		$this->gatewayId = $gatewayId;
+	}
+	public function getGatewayId()
+	{
+		return $this->gatewayId;
+	}
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEventInlineSource extends Google_Collection
 {
-  protected $collection_key = 'userEvents';
-  protected $userEventsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent';
-  protected $userEventsDataType = 'array';
+	protected $collection_key = 'userEvents';
+	protected $userEventsType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent';
+	protected $userEventsDataType = 'array';
 
-  /**
-   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
-   */
-  public function setUserEvents($userEvents)
-  {
-    $this->userEvents = $userEvents;
-  }
-  /**
-   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
-   */
-  public function getUserEvents()
-  {
-    return $this->userEvents;
-  }
+	/**
+	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
+	 */
+	public function setUserEvents($userEvents)
+	{
+		$this->userEvents = $userEvents;
+	}
+	/**
+	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent
+	 */
+	public function getUserEvents()
+	{
+		return $this->userEvents;
+	}
 }

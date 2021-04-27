@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceManagement_ConfigFile extends Google_Model
 {
-  public $fileContents;
-  public $filePath;
-  public $fileType;
+	public $fileContents;
+	public $filePath;
+	public $fileType;
 
-  public function setFileContents($fileContents)
-  {
-    $this->fileContents = $fileContents;
-  }
-  public function getFileContents()
-  {
-    return $this->fileContents;
-  }
-  public function setFilePath($filePath)
-  {
-    $this->filePath = $filePath;
-  }
-  public function getFilePath()
-  {
-    return $this->filePath;
-  }
-  public function setFileType($fileType)
-  {
-    $this->fileType = $fileType;
-  }
-  public function getFileType()
-  {
-    return $this->fileType;
-  }
+	public function setFileContents($fileContents)
+	{
+		$this->fileContents = $fileContents;
+	}
+	public function getFileContents()
+	{
+		return $this->fileContents;
+	}
+	public function setFilePath($filePath)
+	{
+		$this->filePath = $filePath;
+	}
+	public function getFilePath()
+	{
+		return $this->filePath;
+	}
+	public function setFileType($fileType)
+	{
+		$this->fileType = $fileType;
+	}
+	public function getFileType()
+	{
+		return $this->fileType;
+	}
 }

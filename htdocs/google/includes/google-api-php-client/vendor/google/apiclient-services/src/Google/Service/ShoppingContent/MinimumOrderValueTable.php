@@ -17,22 +17,22 @@
 
 class Google_Service_ShoppingContent_MinimumOrderValueTable extends Google_Collection
 {
-  protected $collection_key = 'storeCodeSetWithMovs';
-  protected $storeCodeSetWithMovsType = 'Google_Service_ShoppingContent_MinimumOrderValueTableStoreCodeSetWithMov';
-  protected $storeCodeSetWithMovsDataType = 'array';
+	protected $collection_key = 'storeCodeSetWithMovs';
+	protected $storeCodeSetWithMovsType = 'Google_Service_ShoppingContent_MinimumOrderValueTableStoreCodeSetWithMov';
+	protected $storeCodeSetWithMovsDataType = 'array';
 
-  /**
-   * @param Google_Service_ShoppingContent_MinimumOrderValueTableStoreCodeSetWithMov
-   */
-  public function setStoreCodeSetWithMovs($storeCodeSetWithMovs)
-  {
-    $this->storeCodeSetWithMovs = $storeCodeSetWithMovs;
-  }
-  /**
-   * @return Google_Service_ShoppingContent_MinimumOrderValueTableStoreCodeSetWithMov
-   */
-  public function getStoreCodeSetWithMovs()
-  {
-    return $this->storeCodeSetWithMovs;
-  }
+	/**
+	 * @param Google_Service_ShoppingContent_MinimumOrderValueTableStoreCodeSetWithMov
+	 */
+	public function setStoreCodeSetWithMovs($storeCodeSetWithMovs)
+	{
+		$this->storeCodeSetWithMovs = $storeCodeSetWithMovs;
+	}
+	/**
+	 * @return Google_Service_ShoppingContent_MinimumOrderValueTableStoreCodeSetWithMov
+	 */
+	public function getStoreCodeSetWithMovs()
+	{
+		return $this->storeCodeSetWithMovs;
+	}
 }

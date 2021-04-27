@@ -25,19 +25,19 @@
  */
 class Google_Service_DomainsRDAP_Resource_Ip extends Google_Service_Resource
 {
-  /**
-   * The RDAP API recognizes this command from the RDAP specification but does not
-   * support it. The response is a formatted 501 error. (ip.get)
-   *
-   * @param string $ipId
-   * @param string $ipId1
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_DomainsRDAP_RdapResponse
-   */
-  public function get($ipId, $ipId1, $optParams = array())
-  {
-    $params = array('ipId' => $ipId, 'ipId1' => $ipId1);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_DomainsRDAP_RdapResponse");
-  }
+	/**
+	 * The RDAP API recognizes this command from the RDAP specification but does not
+	 * support it. The response is a formatted 501 error. (ip.get)
+	 *
+	 * @param string $ipId
+	 * @param string $ipId1
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_DomainsRDAP_RdapResponse
+	 */
+	public function get($ipId, $ipId1, $optParams = array())
+	{
+		$params = array('ipId' => $ipId, 'ipId1' => $ipId1);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_DomainsRDAP_RdapResponse");
+	}
 }

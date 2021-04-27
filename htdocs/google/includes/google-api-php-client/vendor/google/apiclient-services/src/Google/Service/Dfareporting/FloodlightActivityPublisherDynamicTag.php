@@ -17,73 +17,73 @@
 
 class Google_Service_Dfareporting_FloodlightActivityPublisherDynamicTag extends Google_Model
 {
-  public $clickThrough;
-  public $directorySiteId;
-  protected $dynamicTagType = 'Google_Service_Dfareporting_FloodlightActivityDynamicTag';
-  protected $dynamicTagDataType = '';
-  public $siteId;
-  protected $siteIdDimensionValueType = 'Google_Service_Dfareporting_DimensionValue';
-  protected $siteIdDimensionValueDataType = '';
-  public $viewThrough;
+	public $clickThrough;
+	public $directorySiteId;
+	protected $dynamicTagType = 'Google_Service_Dfareporting_FloodlightActivityDynamicTag';
+	protected $dynamicTagDataType = '';
+	public $siteId;
+	protected $siteIdDimensionValueType = 'Google_Service_Dfareporting_DimensionValue';
+	protected $siteIdDimensionValueDataType = '';
+	public $viewThrough;
 
-  public function setClickThrough($clickThrough)
-  {
-    $this->clickThrough = $clickThrough;
-  }
-  public function getClickThrough()
-  {
-    return $this->clickThrough;
-  }
-  public function setDirectorySiteId($directorySiteId)
-  {
-    $this->directorySiteId = $directorySiteId;
-  }
-  public function getDirectorySiteId()
-  {
-    return $this->directorySiteId;
-  }
-  /**
-   * @param Google_Service_Dfareporting_FloodlightActivityDynamicTag
-   */
-  public function setDynamicTag(Google_Service_Dfareporting_FloodlightActivityDynamicTag $dynamicTag)
-  {
-    $this->dynamicTag = $dynamicTag;
-  }
-  /**
-   * @return Google_Service_Dfareporting_FloodlightActivityDynamicTag
-   */
-  public function getDynamicTag()
-  {
-    return $this->dynamicTag;
-  }
-  public function setSiteId($siteId)
-  {
-    $this->siteId = $siteId;
-  }
-  public function getSiteId()
-  {
-    return $this->siteId;
-  }
-  /**
-   * @param Google_Service_Dfareporting_DimensionValue
-   */
-  public function setSiteIdDimensionValue(Google_Service_Dfareporting_DimensionValue $siteIdDimensionValue)
-  {
-    $this->siteIdDimensionValue = $siteIdDimensionValue;
-  }
-  /**
-   * @return Google_Service_Dfareporting_DimensionValue
-   */
-  public function getSiteIdDimensionValue()
-  {
-    return $this->siteIdDimensionValue;
-  }
-  public function setViewThrough($viewThrough)
-  {
-    $this->viewThrough = $viewThrough;
-  }
-  public function getViewThrough()
-  {
-    return $this->viewThrough;
-  }
+	public function setClickThrough($clickThrough)
+	{
+		$this->clickThrough = $clickThrough;
+	}
+	public function getClickThrough()
+	{
+		return $this->clickThrough;
+	}
+	public function setDirectorySiteId($directorySiteId)
+	{
+		$this->directorySiteId = $directorySiteId;
+	}
+	public function getDirectorySiteId()
+	{
+		return $this->directorySiteId;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_FloodlightActivityDynamicTag
+	 */
+	public function setDynamicTag(Google_Service_Dfareporting_FloodlightActivityDynamicTag $dynamicTag)
+	{
+		$this->dynamicTag = $dynamicTag;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_FloodlightActivityDynamicTag
+	 */
+	public function getDynamicTag()
+	{
+		return $this->dynamicTag;
+	}
+	public function setSiteId($siteId)
+	{
+		$this->siteId = $siteId;
+	}
+	public function getSiteId()
+	{
+		return $this->siteId;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_DimensionValue
+	 */
+	public function setSiteIdDimensionValue(Google_Service_Dfareporting_DimensionValue $siteIdDimensionValue)
+	{
+		$this->siteIdDimensionValue = $siteIdDimensionValue;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_DimensionValue
+	 */
+	public function getSiteIdDimensionValue()
+	{
+		return $this->siteIdDimensionValue;
+	}
+	public function setViewThrough($viewThrough)
+	{
+		$this->viewThrough = $viewThrough;
+	}
+	public function getViewThrough()
+	{
+		return $this->viewThrough;
+	}
 }

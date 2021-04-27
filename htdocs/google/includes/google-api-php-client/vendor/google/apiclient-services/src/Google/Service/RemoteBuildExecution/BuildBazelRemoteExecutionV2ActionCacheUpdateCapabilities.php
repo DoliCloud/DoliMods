@@ -17,14 +17,14 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ActionCacheUpdateCapabilities extends Google_Model
 {
-  public $updateEnabled;
+	public $updateEnabled;
 
-  public function setUpdateEnabled($updateEnabled)
-  {
-    $this->updateEnabled = $updateEnabled;
-  }
-  public function getUpdateEnabled()
-  {
-    return $this->updateEnabled;
-  }
+	public function setUpdateEnabled($updateEnabled)
+	{
+		$this->updateEnabled = $updateEnabled;
+	}
+	public function getUpdateEnabled()
+	{
+		return $this->updateEnabled;
+	}
 }

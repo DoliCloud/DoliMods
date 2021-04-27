@@ -17,23 +17,23 @@
 
 class Google_Service_YouTubeAnalytics_GroupSnippet extends Google_Model
 {
-  public $publishedAt;
-  public $title;
+	public $publishedAt;
+	public $title;
 
-  public function setPublishedAt($publishedAt)
-  {
-    $this->publishedAt = $publishedAt;
-  }
-  public function getPublishedAt()
-  {
-    return $this->publishedAt;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setPublishedAt($publishedAt)
+	{
+		$this->publishedAt = $publishedAt;
+	}
+	public function getPublishedAt()
+	{
+		return $this->publishedAt;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

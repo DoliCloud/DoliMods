@@ -17,24 +17,24 @@
 
 class Google_Service_Storage_TestIamPermissionsResponse extends Google_Collection
 {
-  protected $collection_key = 'permissions';
-  public $kind;
-  public $permissions;
+	protected $collection_key = 'permissions';
+	public $kind;
+	public $permissions;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setPermissions($permissions)
-  {
-    $this->permissions = $permissions;
-  }
-  public function getPermissions()
-  {
-    return $this->permissions;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setPermissions($permissions)
+	{
+		$this->permissions = $permissions;
+	}
+	public function getPermissions()
+	{
+		return $this->permissions;
+	}
 }

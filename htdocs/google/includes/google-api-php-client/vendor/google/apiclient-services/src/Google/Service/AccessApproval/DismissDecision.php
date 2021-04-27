@@ -17,14 +17,14 @@
 
 class Google_Service_AccessApproval_DismissDecision extends Google_Model
 {
-  public $dismissTime;
+	public $dismissTime;
 
-  public function setDismissTime($dismissTime)
-  {
-    $this->dismissTime = $dismissTime;
-  }
-  public function getDismissTime()
-  {
-    return $this->dismissTime;
-  }
+	public function setDismissTime($dismissTime)
+	{
+		$this->dismissTime = $dismissTime;
+	}
+	public function getDismissTime()
+	{
+		return $this->dismissTime;
+	}
 }

@@ -24,15 +24,15 @@
 // critical PHP settings here. Only these, which doesn't provide
 // an error/warning in the logs later. See (#1486307).
 $crit_opts = array(
-    'mbstring.func_overload' => 0,
-    'suhosin.session.encrypt' => 0,
-    'session.auto_start' => 0,
-    'file_uploads' => 1,
+	'mbstring.func_overload' => 0,
+	'suhosin.session.encrypt' => 0,
+	'session.auto_start' => 0,
+	'file_uploads' => 1,
 );
 foreach ($crit_opts as $optname => $optval) {
-    if ($optval != ini_get($optname)) {
-        die("ERROR: Wrong '$optname' option value. Read REQUIREMENTS section in INSTALL file or use Roundcube Installer, please!");
-    }
+	if ($optval != ini_get($optname)) {
+		die("ERROR: Wrong '$optname' option value. Read REQUIREMENTS section in INSTALL file or use Roundcube Installer, please!");
+	}
 }
 
 // application constants
@@ -42,14 +42,14 @@ define('JS_OBJECT_NAME', 'rcmail');
 define('RCMAIL_START', microtime(true));
 
 if (!defined('INSTALL_PATH')) {
-    define('INSTALL_PATH', dirname($_SERVER['SCRIPT_FILENAME']).'/');
+	define('INSTALL_PATH', dirname($_SERVER['SCRIPT_FILENAME']).'/');
 }
 
 define('RCMAIL_CONFIG_DIR', INSTALL_PATH . 'config');
 
 // make sure path_separator is defined
 if (!defined('PATH_SEPARATOR')) {
-    define('PATH_SEPARATOR', (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') ? ';' : ':');
+	define('PATH_SEPARATOR', (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') ? ';' : ':');
 }
 
 // RC include folders MUST be included FIRST to avoid other
@@ -62,7 +62,7 @@ $include_path.= INSTALL_PATH . 'program/include' . PATH_SEPARATOR;
 $include_path.= ini_get('include_path');
 
 if (set_include_path($include_path) === false) {
-    die("Fatal error: ini_set/set_include_path does not work.");
+	die("Fatal error: ini_set/set_include_path does not work.");
 }
 
 ini_set('error_reporting', E_ALL&~E_NOTICE);
@@ -72,36 +72,36 @@ ini_set('error_reporting', E_ALL&~E_NOTICE);
 @set_time_limit(120);
 
 // set internal encoding for mbstring extension
-if(extension_loaded('mbstring'))
-    mb_internal_encoding(RCMAIL_CHARSET);
+if (extension_loaded('mbstring'))
+	mb_internal_encoding(RCMAIL_CHARSET);
 
 
 /**
  * Use PHP5 autoload for dynamic class loading
- * 
+ *
  * @todo Make Zend, PEAR etc play with this
  * @todo Make our classes conform to a more straight forward CS.
  */
 function rcube_autoload($classname)
 {
-    $filename = preg_replace(
-        array(
-            '/MDB2_(.+)/',
-            '/Mail_(.+)/',
-            '/Net_(.+)/',
-            '/^html_.+/',
-            '/^utf8$/',
-        ),
-        array(
-            'MDB2/\\1',
-            'Mail/\\1',
-            'Net/\\1',
-            'html',
-            'utf8.class',
-        ),
-        $classname
-    );
-    include $filename. '.php';
+	$filename = preg_replace(
+		array(
+			'/MDB2_(.+)/',
+			'/Mail_(.+)/',
+			'/Net_(.+)/',
+			'/^html_.+/',
+			'/^utf8$/',
+		),
+		array(
+			'MDB2/\\1',
+			'Mail/\\1',
+			'Net/\\1',
+			'html',
+			'utf8.class',
+		),
+		$classname
+	);
+	include $filename. '.php';
 }
 
 spl_autoload_register('rcube_autoload');
@@ -111,10 +111,10 @@ spl_autoload_register('rcube_autoload');
  */
 function rcube_pear_error($err)
 {
-    error_log(sprintf("%s (%s): %s",
-        $err->getMessage(),
-        $err->getCode(),
-        $err->getUserinfo()), 0);
+	error_log(sprintf("%s (%s): %s",
+		$err->getMessage(),
+		$err->getCode(),
+		$err->getUserinfo()), 0);
 }
 
 // set PEAR error handling (will also load the PEAR main class)

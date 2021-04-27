@@ -17,41 +17,41 @@
 
 class Google_Service_Classroom_Form extends Google_Model
 {
-  public $formUrl;
-  public $responseUrl;
-  public $thumbnailUrl;
-  public $title;
+	public $formUrl;
+	public $responseUrl;
+	public $thumbnailUrl;
+	public $title;
 
-  public function setFormUrl($formUrl)
-  {
-    $this->formUrl = $formUrl;
-  }
-  public function getFormUrl()
-  {
-    return $this->formUrl;
-  }
-  public function setResponseUrl($responseUrl)
-  {
-    $this->responseUrl = $responseUrl;
-  }
-  public function getResponseUrl()
-  {
-    return $this->responseUrl;
-  }
-  public function setThumbnailUrl($thumbnailUrl)
-  {
-    $this->thumbnailUrl = $thumbnailUrl;
-  }
-  public function getThumbnailUrl()
-  {
-    return $this->thumbnailUrl;
-  }
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-  public function getTitle()
-  {
-    return $this->title;
-  }
+	public function setFormUrl($formUrl)
+	{
+		$this->formUrl = $formUrl;
+	}
+	public function getFormUrl()
+	{
+		return $this->formUrl;
+	}
+	public function setResponseUrl($responseUrl)
+	{
+		$this->responseUrl = $responseUrl;
+	}
+	public function getResponseUrl()
+	{
+		return $this->responseUrl;
+	}
+	public function setThumbnailUrl($thumbnailUrl)
+	{
+		$this->thumbnailUrl = $thumbnailUrl;
+	}
+	public function getThumbnailUrl()
+	{
+		return $this->thumbnailUrl;
+	}
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	public function getTitle()
+	{
+		return $this->title;
+	}
 }

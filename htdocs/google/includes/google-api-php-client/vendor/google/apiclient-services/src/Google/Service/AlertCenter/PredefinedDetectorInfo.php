@@ -17,14 +17,14 @@
 
 class Google_Service_AlertCenter_PredefinedDetectorInfo extends Google_Model
 {
-  public $detectorName;
+	public $detectorName;
 
-  public function setDetectorName($detectorName)
-  {
-    $this->detectorName = $detectorName;
-  }
-  public function getDetectorName()
-  {
-    return $this->detectorName;
-  }
+	public function setDetectorName($detectorName)
+	{
+		$this->detectorName = $detectorName;
+	}
+	public function getDetectorName()
+	{
+		return $this->detectorName;
+	}
 }

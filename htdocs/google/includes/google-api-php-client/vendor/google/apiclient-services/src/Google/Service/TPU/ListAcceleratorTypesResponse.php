@@ -17,40 +17,40 @@
 
 class Google_Service_TPU_ListAcceleratorTypesResponse extends Google_Collection
 {
-  protected $collection_key = 'unreachable';
-  protected $acceleratorTypesType = 'Google_Service_TPU_AcceleratorType';
-  protected $acceleratorTypesDataType = 'array';
-  public $nextPageToken;
-  public $unreachable;
+	protected $collection_key = 'unreachable';
+	protected $acceleratorTypesType = 'Google_Service_TPU_AcceleratorType';
+	protected $acceleratorTypesDataType = 'array';
+	public $nextPageToken;
+	public $unreachable;
 
-  /**
-   * @param Google_Service_TPU_AcceleratorType
-   */
-  public function setAcceleratorTypes($acceleratorTypes)
-  {
-    $this->acceleratorTypes = $acceleratorTypes;
-  }
-  /**
-   * @return Google_Service_TPU_AcceleratorType
-   */
-  public function getAcceleratorTypes()
-  {
-    return $this->acceleratorTypes;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setUnreachable($unreachable)
-  {
-    $this->unreachable = $unreachable;
-  }
-  public function getUnreachable()
-  {
-    return $this->unreachable;
-  }
+	/**
+	 * @param Google_Service_TPU_AcceleratorType
+	 */
+	public function setAcceleratorTypes($acceleratorTypes)
+	{
+		$this->acceleratorTypes = $acceleratorTypes;
+	}
+	/**
+	 * @return Google_Service_TPU_AcceleratorType
+	 */
+	public function getAcceleratorTypes()
+	{
+		return $this->acceleratorTypes;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setUnreachable($unreachable)
+	{
+		$this->unreachable = $unreachable;
+	}
+	public function getUnreachable()
+	{
+		return $this->unreachable;
+	}
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_FsCommand extends Google_Model
 {
-  public $left;
-  public $positionOption;
-  public $top;
-  public $windowHeight;
-  public $windowWidth;
+	public $left;
+	public $positionOption;
+	public $top;
+	public $windowHeight;
+	public $windowWidth;
 
-  public function setLeft($left)
-  {
-    $this->left = $left;
-  }
-  public function getLeft()
-  {
-    return $this->left;
-  }
-  public function setPositionOption($positionOption)
-  {
-    $this->positionOption = $positionOption;
-  }
-  public function getPositionOption()
-  {
-    return $this->positionOption;
-  }
-  public function setTop($top)
-  {
-    $this->top = $top;
-  }
-  public function getTop()
-  {
-    return $this->top;
-  }
-  public function setWindowHeight($windowHeight)
-  {
-    $this->windowHeight = $windowHeight;
-  }
-  public function getWindowHeight()
-  {
-    return $this->windowHeight;
-  }
-  public function setWindowWidth($windowWidth)
-  {
-    $this->windowWidth = $windowWidth;
-  }
-  public function getWindowWidth()
-  {
-    return $this->windowWidth;
-  }
+	public function setLeft($left)
+	{
+		$this->left = $left;
+	}
+	public function getLeft()
+	{
+		return $this->left;
+	}
+	public function setPositionOption($positionOption)
+	{
+		$this->positionOption = $positionOption;
+	}
+	public function getPositionOption()
+	{
+		return $this->positionOption;
+	}
+	public function setTop($top)
+	{
+		$this->top = $top;
+	}
+	public function getTop()
+	{
+		return $this->top;
+	}
+	public function setWindowHeight($windowHeight)
+	{
+		$this->windowHeight = $windowHeight;
+	}
+	public function getWindowHeight()
+	{
+		return $this->windowHeight;
+	}
+	public function setWindowWidth($windowWidth)
+	{
+		$this->windowWidth = $windowWidth;
+	}
+	public function getWindowWidth()
+	{
+		return $this->windowWidth;
+	}
 }

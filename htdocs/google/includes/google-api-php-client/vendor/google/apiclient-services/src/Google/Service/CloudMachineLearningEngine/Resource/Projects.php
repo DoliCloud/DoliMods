@@ -25,58 +25,58 @@
  */
 class Google_Service_CloudMachineLearningEngine_Resource_Projects extends Google_Service_Resource
 {
-  /**
-   * Performs explanation on the data in the request.
-   *
-   * {% dynamic include "/ai-platform/includes/___explain-request" %}
-   * (projects.explain)
-   *
-   * @param string $name Required. The resource name of a model or a version.
-   *
-   * Authorization: requires the `predict` permission on the specified resource.
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplainRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody
-   */
-  public function explain($name, Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplainRequest $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('explain', array($params), "Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody");
-  }
-  /**
-   * Get the service account information associated with your project. You need
-   * this information in order to grant the service account permissions for the
-   * Google Cloud Storage location where you put your model training code for
-   * training the model with Google Cloud Machine Learning. (projects.getConfig)
-   *
-   * @param string $name Required. The project name.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1GetConfigResponse
-   */
-  public function getConfig($name, $optParams = array())
-  {
-    $params = array('name' => $name);
-    $params = array_merge($params, $optParams);
-    return $this->call('getConfig', array($params), "Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1GetConfigResponse");
-  }
-  /**
-   * Performs online prediction on the data in the request.
-   *
-   * {% dynamic include "/ai-platform/includes/___predict-request" %}
-   * (projects.predict)
-   *
-   * @param string $name Required. The resource name of a model or a version.
-   *
-   * Authorization: requires the `predict` permission on the specified resource.
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1PredictRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody
-   */
-  public function predict($name, Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1PredictRequest $postBody, $optParams = array())
-  {
-    $params = array('name' => $name, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('predict', array($params), "Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody");
-  }
+	/**
+	 * Performs explanation on the data in the request.
+	 *
+	 * {% dynamic include "/ai-platform/includes/___explain-request" %}
+	 * (projects.explain)
+	 *
+	 * @param string $name Required. The resource name of a model or a version.
+	 *
+	 *                     Authorization: requires the `predict` permission on the specified resource.
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplainRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody
+	 */
+	public function explain($name, Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplainRequest $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('explain', array($params), "Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody");
+	}
+	/**
+	 * Get the service account information associated with your project. You need
+	 * this information in order to grant the service account permissions for the
+	 * Google Cloud Storage location where you put your model training code for
+	 * training the model with Google Cloud Machine Learning. (projects.getConfig)
+	 *
+	 * @param string $name Required. The project name.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1GetConfigResponse
+	 */
+	public function getConfig($name, $optParams = array())
+	{
+		$params = array('name' => $name);
+		$params = array_merge($params, $optParams);
+		return $this->call('getConfig', array($params), "Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1GetConfigResponse");
+	}
+	/**
+	 * Performs online prediction on the data in the request.
+	 *
+	 * {% dynamic include "/ai-platform/includes/___predict-request" %}
+	 * (projects.predict)
+	 *
+	 * @param string $name Required. The resource name of a model or a version.
+	 *
+	 *                     Authorization: requires the `predict` permission on the specified resource.
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1PredictRequest $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody
+	 */
+	public function predict($name, Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1PredictRequest $postBody, $optParams = array())
+	{
+		$params = array('name' => $name, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('predict', array($params), "Google_Service_CloudMachineLearningEngine_GoogleApiHttpBody");
+	}
 }

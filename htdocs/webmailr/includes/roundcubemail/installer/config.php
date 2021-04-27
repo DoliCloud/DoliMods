@@ -22,26 +22,25 @@ $RCI->bool_config_props = array(
 $_SESSION['allowinstaller'] = true;
 
 if (!empty($_POST['submit'])) {
-  
-  echo '<p class="notice">Copy or download the following configurations and save them in two files';
-  echo ' (names above the text box) within the <tt>'.RCMAIL_CONFIG_DIR.'</tt> directory of your RoundCube installation.<br/>';
-  echo ' Make sure that there are no characters outside the <tt>&lt;?php ?&gt;</tt> brackets when saving the files.</p>';
-  
-  $textbox = new html_textarea(array('rows' => 16, 'cols' => 60, 'class' => "configfile"));
-  
-  echo '<div><em>main.inc.php (<a href="index.php?_getfile=main">download</a>)</em></div>';
-  echo $textbox->show(($_SESSION['main.inc.php'] = $RCI->create_config('main')));
-  
-  echo '<div style="margin-top:1em"><em>db.inc.php (<a href="index.php?_getfile=db">download</a>)</em></div>';
-  echo $textbox->show($_SESSION['db.inc.php'] = $RCI->create_config('db'));
+	echo '<p class="notice">Copy or download the following configurations and save them in two files';
+	echo ' (names above the text box) within the <tt>'.RCMAIL_CONFIG_DIR.'</tt> directory of your RoundCube installation.<br/>';
+	echo ' Make sure that there are no characters outside the <tt>&lt;?php ?&gt;</tt> brackets when saving the files.</p>';
 
-  echo '<p class="hint">Of course there are more options to configure.
+	$textbox = new html_textarea(array('rows' => 16, 'cols' => 60, 'class' => "configfile"));
+
+	echo '<div><em>main.inc.php (<a href="index.php?_getfile=main">download</a>)</em></div>';
+	echo $textbox->show(($_SESSION['main.inc.php'] = $RCI->create_config('main')));
+
+	echo '<div style="margin-top:1em"><em>db.inc.php (<a href="index.php?_getfile=db">download</a>)</em></div>';
+	echo $textbox->show($_SESSION['db.inc.php'] = $RCI->create_config('db'));
+
+	echo '<p class="hint">Of course there are more options to configure.
     Have a look at the config files or visit <a href="http://trac.roundcube.net/wiki/Howto_Config">Howto_Config</a> to find out.</p>';
 
-  echo '<p><input type="button" onclick="location.href=\'./index.php?_step=3\'" value="CONTINUE" /></p>';
-  
-  // echo '<style type="text/css"> .configblock { display:none } </style>';
-  echo "\n<hr style='margin-bottom:1.6em' />\n";
+	echo '<p><input type="button" onclick="location.href=\'./index.php?_step=3\'" value="CONTINUE" /></p>';
+
+	// echo '<style type="text/css"> .configblock { display:none } </style>';
+	echo "\n<hr style='margin-bottom:1.6em' />\n";
 }
 
 ?>
@@ -163,7 +162,7 @@ echo $input_ilevel->show($RCI->getprop('identities_level'), 0);
 
 $value = $RCI->getprop('debug_level');
 $check_debug = new html_checkbox(array('name' => '_debug_level[]'));
-echo $check_debug->show(($value & 1) ? 1 : 0 , array('value' => 1, 'id' => 'cfgdebug1'));
+echo $check_debug->show(($value & 1) ? 1 : 0, array('value' => 1, 'id' => 'cfgdebug1'));
 echo '<label for="cfgdebug1">Log errors</label><br />';
 
 echo $check_debug->show(($value & 4) ? 4 : 0, array('value' => 4, 'id' => 'cfgdebug4'));
@@ -248,13 +247,13 @@ echo $input_syslogfacility->show($RCI->getprop('syslog_facility'), LOG_USER);
 require_once 'MDB2.php';
 
 $supported_dbs = array('MySQL' => 'mysql', 'MySQLi' => 'mysqli',
-    'PgSQL' => 'pgsql', 'SQLite' => 'sqlite');
+	'PgSQL' => 'pgsql', 'SQLite' => 'sqlite');
 
 $select_dbtype = new html_select(array('name' => '_dbtype', 'id' => "cfgdbtype"));
 foreach ($supported_dbs AS $database => $ext) {
-    if (extension_loaded($ext)) {
-        $select_dbtype->add($database, $ext);
-    }
+	if (extension_loaded($ext)) {
+		$select_dbtype->add($database, $ext);
+	}
 }
 
 $input_dbhost = new html_inputfield(array('name' => '_dbhost', 'size' => 20, 'id' => "cfgdbhost"));
@@ -298,10 +297,10 @@ if (empty($default_hosts))
 
 $i = 0;
 foreach ($default_hosts as $host) {
-  echo '<div id="defaulthostentry'.$i.'">' . $text_imaphost->show($host);
-  if ($i++ > 0)
-    echo '<a href="#" onclick="removehostfield(this.parentNode);return false" class="removelink" title="Remove this entry">remove</a>';
-  echo '</div>';
+	echo '<div id="defaulthostentry'.$i.'">' . $text_imaphost->show($host);
+	if ($i++ > 0)
+	echo '<a href="#" onclick="removehostfield(this.parentNode);return false" class="removelink" title="Remove this entry">remove</a>';
+	echo '</div>';
 }
 
 ?>
@@ -584,7 +583,7 @@ echo $select_mdnreq->show(intval($RCI->getprop('mdn_requests')));
 <?php
 
 $select_param_folding = new html_select(array('name' => '_mime_param_folding', 'id' => "cfgmimeparamfolding"));
-$select_param_folding->add('Full RFC 2231 (Roundcube, Thunderbird)', '0'); 
+$select_param_folding->add('Full RFC 2231 (Roundcube, Thunderbird)', '0');
 $select_param_folding->add('RFC 2047/2231 (MS Outlook, OE)', '1');
 $select_param_folding->add('Full RFC 2047 (deprecated)', '2');
 

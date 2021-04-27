@@ -16,13 +16,13 @@ namespace setasign\Fpdi\PdfParser\Filter;
  */
 class Ascii85Exception extends FilterException
 {
-    /**
-     * @var integer
-     */
-    const ILLEGAL_CHAR_FOUND = 0x0301;
+	/**
+	 * @var integer
+	 */
+	const ILLEGAL_CHAR_FOUND = 0x0301;
 
-    /**
-     * @var integer
-     */
-    const ILLEGAL_LENGTH = 0x0302;
+	/**
+	 * @var integer
+	 */
+	const ILLEGAL_LENGTH = 0x0302;
 }

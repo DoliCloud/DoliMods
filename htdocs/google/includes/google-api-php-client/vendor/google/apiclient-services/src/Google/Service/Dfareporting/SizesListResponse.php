@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_SizesListResponse extends Google_Collection
 {
-  protected $collection_key = 'sizes';
-  public $kind;
-  protected $sizesType = 'Google_Service_Dfareporting_Size';
-  protected $sizesDataType = 'array';
+	protected $collection_key = 'sizes';
+	public $kind;
+	protected $sizesType = 'Google_Service_Dfareporting_Size';
+	protected $sizesDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Dfareporting_Size
-   */
-  public function setSizes($sizes)
-  {
-    $this->sizes = $sizes;
-  }
-  /**
-   * @return Google_Service_Dfareporting_Size
-   */
-  public function getSizes()
-  {
-    return $this->sizes;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_Size
+	 */
+	public function setSizes($sizes)
+	{
+		$this->sizes = $sizes;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_Size
+	 */
+	public function getSizes()
+	{
+		return $this->sizes;
+	}
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_InsertDimensionRequest extends Google_Model
 {
-  public $inheritFromBefore;
-  protected $rangeType = 'Google_Service_Sheets_DimensionRange';
-  protected $rangeDataType = '';
+	public $inheritFromBefore;
+	protected $rangeType = 'Google_Service_Sheets_DimensionRange';
+	protected $rangeDataType = '';
 
-  public function setInheritFromBefore($inheritFromBefore)
-  {
-    $this->inheritFromBefore = $inheritFromBefore;
-  }
-  public function getInheritFromBefore()
-  {
-    return $this->inheritFromBefore;
-  }
-  /**
-   * @param Google_Service_Sheets_DimensionRange
-   */
-  public function setRange(Google_Service_Sheets_DimensionRange $range)
-  {
-    $this->range = $range;
-  }
-  /**
-   * @return Google_Service_Sheets_DimensionRange
-   */
-  public function getRange()
-  {
-    return $this->range;
-  }
+	public function setInheritFromBefore($inheritFromBefore)
+	{
+		$this->inheritFromBefore = $inheritFromBefore;
+	}
+	public function getInheritFromBefore()
+	{
+		return $this->inheritFromBefore;
+	}
+	/**
+	 * @param Google_Service_Sheets_DimensionRange
+	 */
+	public function setRange(Google_Service_Sheets_DimensionRange $range)
+	{
+		$this->range = $range;
+	}
+	/**
+	 * @return Google_Service_Sheets_DimensionRange
+	 */
+	public function getRange()
+	{
+		return $this->range;
+	}
 }

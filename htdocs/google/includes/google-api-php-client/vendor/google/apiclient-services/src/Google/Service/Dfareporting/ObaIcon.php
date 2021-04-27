@@ -17,84 +17,84 @@
 
 class Google_Service_Dfareporting_ObaIcon extends Google_Model
 {
-  public $iconClickThroughUrl;
-  public $iconClickTrackingUrl;
-  public $iconViewTrackingUrl;
-  public $program;
-  public $resourceUrl;
-  protected $sizeType = 'Google_Service_Dfareporting_Size';
-  protected $sizeDataType = '';
-  public $xPosition;
-  public $yPosition;
+	public $iconClickThroughUrl;
+	public $iconClickTrackingUrl;
+	public $iconViewTrackingUrl;
+	public $program;
+	public $resourceUrl;
+	protected $sizeType = 'Google_Service_Dfareporting_Size';
+	protected $sizeDataType = '';
+	public $xPosition;
+	public $yPosition;
 
-  public function setIconClickThroughUrl($iconClickThroughUrl)
-  {
-    $this->iconClickThroughUrl = $iconClickThroughUrl;
-  }
-  public function getIconClickThroughUrl()
-  {
-    return $this->iconClickThroughUrl;
-  }
-  public function setIconClickTrackingUrl($iconClickTrackingUrl)
-  {
-    $this->iconClickTrackingUrl = $iconClickTrackingUrl;
-  }
-  public function getIconClickTrackingUrl()
-  {
-    return $this->iconClickTrackingUrl;
-  }
-  public function setIconViewTrackingUrl($iconViewTrackingUrl)
-  {
-    $this->iconViewTrackingUrl = $iconViewTrackingUrl;
-  }
-  public function getIconViewTrackingUrl()
-  {
-    return $this->iconViewTrackingUrl;
-  }
-  public function setProgram($program)
-  {
-    $this->program = $program;
-  }
-  public function getProgram()
-  {
-    return $this->program;
-  }
-  public function setResourceUrl($resourceUrl)
-  {
-    $this->resourceUrl = $resourceUrl;
-  }
-  public function getResourceUrl()
-  {
-    return $this->resourceUrl;
-  }
-  /**
-   * @param Google_Service_Dfareporting_Size
-   */
-  public function setSize(Google_Service_Dfareporting_Size $size)
-  {
-    $this->size = $size;
-  }
-  /**
-   * @return Google_Service_Dfareporting_Size
-   */
-  public function getSize()
-  {
-    return $this->size;
-  }
-  public function setXPosition($xPosition)
-  {
-    $this->xPosition = $xPosition;
-  }
-  public function getXPosition()
-  {
-    return $this->xPosition;
-  }
-  public function setYPosition($yPosition)
-  {
-    $this->yPosition = $yPosition;
-  }
-  public function getYPosition()
-  {
-    return $this->yPosition;
-  }
+	public function setIconClickThroughUrl($iconClickThroughUrl)
+	{
+		$this->iconClickThroughUrl = $iconClickThroughUrl;
+	}
+	public function getIconClickThroughUrl()
+	{
+		return $this->iconClickThroughUrl;
+	}
+	public function setIconClickTrackingUrl($iconClickTrackingUrl)
+	{
+		$this->iconClickTrackingUrl = $iconClickTrackingUrl;
+	}
+	public function getIconClickTrackingUrl()
+	{
+		return $this->iconClickTrackingUrl;
+	}
+	public function setIconViewTrackingUrl($iconViewTrackingUrl)
+	{
+		$this->iconViewTrackingUrl = $iconViewTrackingUrl;
+	}
+	public function getIconViewTrackingUrl()
+	{
+		return $this->iconViewTrackingUrl;
+	}
+	public function setProgram($program)
+	{
+		$this->program = $program;
+	}
+	public function getProgram()
+	{
+		return $this->program;
+	}
+	public function setResourceUrl($resourceUrl)
+	{
+		$this->resourceUrl = $resourceUrl;
+	}
+	public function getResourceUrl()
+	{
+		return $this->resourceUrl;
+	}
+	/**
+	 * @param Google_Service_Dfareporting_Size
+	 */
+	public function setSize(Google_Service_Dfareporting_Size $size)
+	{
+		$this->size = $size;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_Size
+	 */
+	public function getSize()
+	{
+		return $this->size;
+	}
+	public function setXPosition($xPosition)
+	{
+		$this->xPosition = $xPosition;
+	}
+	public function getXPosition()
+	{
+		return $this->xPosition;
+	}
+	public function setYPosition($yPosition)
+	{
+		$this->yPosition = $yPosition;
+	}
+	public function getYPosition()
+	{
+		return $this->yPosition;
+	}
 }

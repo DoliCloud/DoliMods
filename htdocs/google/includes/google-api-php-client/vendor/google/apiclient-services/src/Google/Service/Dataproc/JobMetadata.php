@@ -17,48 +17,48 @@
 
 class Google_Service_Dataproc_JobMetadata extends Google_Model
 {
-  public $jobId;
-  public $operationType;
-  public $startTime;
-  protected $statusType = 'Google_Service_Dataproc_JobStatus';
-  protected $statusDataType = '';
+	public $jobId;
+	public $operationType;
+	public $startTime;
+	protected $statusType = 'Google_Service_Dataproc_JobStatus';
+	protected $statusDataType = '';
 
-  public function setJobId($jobId)
-  {
-    $this->jobId = $jobId;
-  }
-  public function getJobId()
-  {
-    return $this->jobId;
-  }
-  public function setOperationType($operationType)
-  {
-    $this->operationType = $operationType;
-  }
-  public function getOperationType()
-  {
-    return $this->operationType;
-  }
-  public function setStartTime($startTime)
-  {
-    $this->startTime = $startTime;
-  }
-  public function getStartTime()
-  {
-    return $this->startTime;
-  }
-  /**
-   * @param Google_Service_Dataproc_JobStatus
-   */
-  public function setStatus(Google_Service_Dataproc_JobStatus $status)
-  {
-    $this->status = $status;
-  }
-  /**
-   * @return Google_Service_Dataproc_JobStatus
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setJobId($jobId)
+	{
+		$this->jobId = $jobId;
+	}
+	public function getJobId()
+	{
+		return $this->jobId;
+	}
+	public function setOperationType($operationType)
+	{
+		$this->operationType = $operationType;
+	}
+	public function getOperationType()
+	{
+		return $this->operationType;
+	}
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+	/**
+	 * @param Google_Service_Dataproc_JobStatus
+	 */
+	public function setStatus(Google_Service_Dataproc_JobStatus $status)
+	{
+		$this->status = $status;
+	}
+	/**
+	 * @return Google_Service_Dataproc_JobStatus
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

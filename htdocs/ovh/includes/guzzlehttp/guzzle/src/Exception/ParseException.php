@@ -8,24 +8,24 @@ use GuzzleHttp\Message\ResponseInterface;
  */
 class ParseException extends TransferException
 {
-    /** @var ResponseInterface */
-    private $response;
+	/** @var ResponseInterface */
+	private $response;
 
-    public function __construct(
-        $message = '',
-        ResponseInterface $response = null,
-        \Exception $previous = null
-    ) {
-        parent::__construct($message, 0, $previous);
-        $this->response = $response;
-    }
-    /**
-     * Get the associated response
-     *
-     * @return ResponseInterface|null
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
+	public function __construct(
+		$message = '',
+		ResponseInterface $response = null,
+		\Exception $previous = null
+	) {
+		parent::__construct($message, 0, $previous);
+		$this->response = $response;
+	}
+	/**
+	 * Get the associated response
+	 *
+	 * @return ResponseInterface|null
+	 */
+	public function getResponse()
+	{
+		return $this->response;
+	}
 }

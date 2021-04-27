@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Session extends Google_Model
 {
-  public $id;
-  public $timestampMs;
+	public $id;
+	public $timestampMs;
 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getId()
-  {
-    return $this->id;
-  }
-  public function setTimestampMs($timestampMs)
-  {
-    $this->timestampMs = $timestampMs;
-  }
-  public function getTimestampMs()
-  {
-    return $this->timestampMs;
-  }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setTimestampMs($timestampMs)
+	{
+		$this->timestampMs = $timestampMs;
+	}
+	public function getTimestampMs()
+	{
+		return $this->timestampMs;
+	}
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Spanner_ChildLink extends Google_Model
 {
-  public $childIndex;
-  public $type;
-  public $variable;
+	public $childIndex;
+	public $type;
+	public $variable;
 
-  public function setChildIndex($childIndex)
-  {
-    $this->childIndex = $childIndex;
-  }
-  public function getChildIndex()
-  {
-    return $this->childIndex;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setVariable($variable)
-  {
-    $this->variable = $variable;
-  }
-  public function getVariable()
-  {
-    return $this->variable;
-  }
+	public function setChildIndex($childIndex)
+	{
+		$this->childIndex = $childIndex;
+	}
+	public function getChildIndex()
+	{
+		return $this->childIndex;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setVariable($variable)
+	{
+		$this->variable = $variable;
+	}
+	public function getVariable()
+	{
+		return $this->variable;
+	}
 }

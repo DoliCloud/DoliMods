@@ -17,59 +17,59 @@
 
 class Google_Service_Dfareporting_Browser extends Google_Model
 {
-  public $browserVersionId;
-  public $dartId;
-  public $kind;
-  public $majorVersion;
-  public $minorVersion;
-  public $name;
+	public $browserVersionId;
+	public $dartId;
+	public $kind;
+	public $majorVersion;
+	public $minorVersion;
+	public $name;
 
-  public function setBrowserVersionId($browserVersionId)
-  {
-    $this->browserVersionId = $browserVersionId;
-  }
-  public function getBrowserVersionId()
-  {
-    return $this->browserVersionId;
-  }
-  public function setDartId($dartId)
-  {
-    $this->dartId = $dartId;
-  }
-  public function getDartId()
-  {
-    return $this->dartId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setMajorVersion($majorVersion)
-  {
-    $this->majorVersion = $majorVersion;
-  }
-  public function getMajorVersion()
-  {
-    return $this->majorVersion;
-  }
-  public function setMinorVersion($minorVersion)
-  {
-    $this->minorVersion = $minorVersion;
-  }
-  public function getMinorVersion()
-  {
-    return $this->minorVersion;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setBrowserVersionId($browserVersionId)
+	{
+		$this->browserVersionId = $browserVersionId;
+	}
+	public function getBrowserVersionId()
+	{
+		return $this->browserVersionId;
+	}
+	public function setDartId($dartId)
+	{
+		$this->dartId = $dartId;
+	}
+	public function getDartId()
+	{
+		return $this->dartId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setMajorVersion($majorVersion)
+	{
+		$this->majorVersion = $majorVersion;
+	}
+	public function getMajorVersion()
+	{
+		return $this->majorVersion;
+	}
+	public function setMinorVersion($minorVersion)
+	{
+		$this->minorVersion = $minorVersion;
+	}
+	public function getMinorVersion()
+	{
+		return $this->minorVersion;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

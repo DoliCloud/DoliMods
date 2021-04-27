@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_CreateAssignedTargetingOptionsRequest extends Google_Collection
 {
-  protected $collection_key = 'assignedTargetingOptions';
-  protected $assignedTargetingOptionsType = 'Google_Service_DisplayVideo_AssignedTargetingOption';
-  protected $assignedTargetingOptionsDataType = 'array';
-  public $targetingType;
+	protected $collection_key = 'assignedTargetingOptions';
+	protected $assignedTargetingOptionsType = 'Google_Service_DisplayVideo_AssignedTargetingOption';
+	protected $assignedTargetingOptionsDataType = 'array';
+	public $targetingType;
 
-  /**
-   * @param Google_Service_DisplayVideo_AssignedTargetingOption
-   */
-  public function setAssignedTargetingOptions($assignedTargetingOptions)
-  {
-    $this->assignedTargetingOptions = $assignedTargetingOptions;
-  }
-  /**
-   * @return Google_Service_DisplayVideo_AssignedTargetingOption
-   */
-  public function getAssignedTargetingOptions()
-  {
-    return $this->assignedTargetingOptions;
-  }
-  public function setTargetingType($targetingType)
-  {
-    $this->targetingType = $targetingType;
-  }
-  public function getTargetingType()
-  {
-    return $this->targetingType;
-  }
+	/**
+	 * @param Google_Service_DisplayVideo_AssignedTargetingOption
+	 */
+	public function setAssignedTargetingOptions($assignedTargetingOptions)
+	{
+		$this->assignedTargetingOptions = $assignedTargetingOptions;
+	}
+	/**
+	 * @return Google_Service_DisplayVideo_AssignedTargetingOption
+	 */
+	public function getAssignedTargetingOptions()
+	{
+		return $this->assignedTargetingOptions;
+	}
+	public function setTargetingType($targetingType)
+	{
+		$this->targetingType = $targetingType;
+	}
+	public function getTargetingType()
+	{
+		return $this->targetingType;
+	}
 }

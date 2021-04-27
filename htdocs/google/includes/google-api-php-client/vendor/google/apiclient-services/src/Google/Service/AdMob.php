@@ -32,97 +32,97 @@ class Google_Service_AdMob extends Google_Service
 {
 
 
-  public $accounts;
-  public $accounts_mediationReport;
-  public $accounts_networkReport;
-  
-  /**
-   * Constructs the internal representation of the AdMob service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://admob.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'admob';
+	public $accounts;
+	public $accounts_mediationReport;
+	public $accounts_networkReport;
 
-    $this->accounts = new Google_Service_AdMob_Resource_Accounts(
-        $this,
-        $this->serviceName,
-        'accounts',
-        array(
-          'methods' => array(
-            'get' => array(
-              'path' => 'v1/{+name}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'list' => array(
-              'path' => 'v1/accounts',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->accounts_mediationReport = new Google_Service_AdMob_Resource_AccountsMediationReport(
-        $this,
-        $this->serviceName,
-        'mediationReport',
-        array(
-          'methods' => array(
-            'generate' => array(
-              'path' => 'v1/{+parent}/mediationReport:generate',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->accounts_networkReport = new Google_Service_AdMob_Resource_AccountsNetworkReport(
-        $this,
-        $this->serviceName,
-        'networkReport',
-        array(
-          'methods' => array(
-            'generate' => array(
-              'path' => 'v1/{+parent}/networkReport:generate',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the AdMob service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://admob.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'admob';
+
+		$this->accounts = new Google_Service_AdMob_Resource_Accounts(
+		$this,
+		$this->serviceName,
+		'accounts',
+		array(
+		  'methods' => array(
+			'get' => array(
+			  'path' => 'v1/{+name}',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'name' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),'list' => array(
+			  'path' => 'v1/accounts',
+			  'httpMethod' => 'GET',
+			  'parameters' => array(
+				'pageSize' => array(
+				  'location' => 'query',
+				  'type' => 'integer',
+				),
+				'pageToken' => array(
+				  'location' => 'query',
+				  'type' => 'string',
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->accounts_mediationReport = new Google_Service_AdMob_Resource_AccountsMediationReport(
+		$this,
+		$this->serviceName,
+		'mediationReport',
+		array(
+		  'methods' => array(
+			'generate' => array(
+			  'path' => 'v1/{+parent}/mediationReport:generate',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+		$this->accounts_networkReport = new Google_Service_AdMob_Resource_AccountsNetworkReport(
+		$this,
+		$this->serviceName,
+		'networkReport',
+		array(
+		  'methods' => array(
+			'generate' => array(
+			  'path' => 'v1/{+parent}/networkReport:generate',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(
+				'parent' => array(
+				  'location' => 'path',
+				  'type' => 'string',
+				  'required' => true,
+				),
+			  ),
+			),
+		  )
+		)
+		);
+	}
 }

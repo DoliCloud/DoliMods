@@ -17,33 +17,33 @@
 
 class Google_Service_BinaryAuthorization_AdmissionRule extends Google_Collection
 {
-  protected $collection_key = 'requireAttestationsBy';
-  public $enforcementMode;
-  public $evaluationMode;
-  public $requireAttestationsBy;
+	protected $collection_key = 'requireAttestationsBy';
+	public $enforcementMode;
+	public $evaluationMode;
+	public $requireAttestationsBy;
 
-  public function setEnforcementMode($enforcementMode)
-  {
-    $this->enforcementMode = $enforcementMode;
-  }
-  public function getEnforcementMode()
-  {
-    return $this->enforcementMode;
-  }
-  public function setEvaluationMode($evaluationMode)
-  {
-    $this->evaluationMode = $evaluationMode;
-  }
-  public function getEvaluationMode()
-  {
-    return $this->evaluationMode;
-  }
-  public function setRequireAttestationsBy($requireAttestationsBy)
-  {
-    $this->requireAttestationsBy = $requireAttestationsBy;
-  }
-  public function getRequireAttestationsBy()
-  {
-    return $this->requireAttestationsBy;
-  }
+	public function setEnforcementMode($enforcementMode)
+	{
+		$this->enforcementMode = $enforcementMode;
+	}
+	public function getEnforcementMode()
+	{
+		return $this->enforcementMode;
+	}
+	public function setEvaluationMode($evaluationMode)
+	{
+		$this->evaluationMode = $evaluationMode;
+	}
+	public function getEvaluationMode()
+	{
+		return $this->evaluationMode;
+	}
+	public function setRequireAttestationsBy($requireAttestationsBy)
+	{
+		$this->requireAttestationsBy = $requireAttestationsBy;
+	}
+	public function getRequireAttestationsBy()
+	{
+		return $this->requireAttestationsBy;
+	}
 }

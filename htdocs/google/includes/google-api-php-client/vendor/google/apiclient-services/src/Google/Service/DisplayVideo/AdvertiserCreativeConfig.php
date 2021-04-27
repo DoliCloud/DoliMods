@@ -17,41 +17,41 @@
 
 class Google_Service_DisplayVideo_AdvertiserCreativeConfig extends Google_Model
 {
-  public $dynamicCreativeEnabled;
-  public $iasClientId;
-  public $obaComplianceDisabled;
-  public $videoCreativeDataSharingAuthorized;
+	public $dynamicCreativeEnabled;
+	public $iasClientId;
+	public $obaComplianceDisabled;
+	public $videoCreativeDataSharingAuthorized;
 
-  public function setDynamicCreativeEnabled($dynamicCreativeEnabled)
-  {
-    $this->dynamicCreativeEnabled = $dynamicCreativeEnabled;
-  }
-  public function getDynamicCreativeEnabled()
-  {
-    return $this->dynamicCreativeEnabled;
-  }
-  public function setIasClientId($iasClientId)
-  {
-    $this->iasClientId = $iasClientId;
-  }
-  public function getIasClientId()
-  {
-    return $this->iasClientId;
-  }
-  public function setObaComplianceDisabled($obaComplianceDisabled)
-  {
-    $this->obaComplianceDisabled = $obaComplianceDisabled;
-  }
-  public function getObaComplianceDisabled()
-  {
-    return $this->obaComplianceDisabled;
-  }
-  public function setVideoCreativeDataSharingAuthorized($videoCreativeDataSharingAuthorized)
-  {
-    $this->videoCreativeDataSharingAuthorized = $videoCreativeDataSharingAuthorized;
-  }
-  public function getVideoCreativeDataSharingAuthorized()
-  {
-    return $this->videoCreativeDataSharingAuthorized;
-  }
+	public function setDynamicCreativeEnabled($dynamicCreativeEnabled)
+	{
+		$this->dynamicCreativeEnabled = $dynamicCreativeEnabled;
+	}
+	public function getDynamicCreativeEnabled()
+	{
+		return $this->dynamicCreativeEnabled;
+	}
+	public function setIasClientId($iasClientId)
+	{
+		$this->iasClientId = $iasClientId;
+	}
+	public function getIasClientId()
+	{
+		return $this->iasClientId;
+	}
+	public function setObaComplianceDisabled($obaComplianceDisabled)
+	{
+		$this->obaComplianceDisabled = $obaComplianceDisabled;
+	}
+	public function getObaComplianceDisabled()
+	{
+		return $this->obaComplianceDisabled;
+	}
+	public function setVideoCreativeDataSharingAuthorized($videoCreativeDataSharingAuthorized)
+	{
+		$this->videoCreativeDataSharingAuthorized = $videoCreativeDataSharingAuthorized;
+	}
+	public function getVideoCreativeDataSharingAuthorized()
+	{
+		return $this->videoCreativeDataSharingAuthorized;
+	}
 }

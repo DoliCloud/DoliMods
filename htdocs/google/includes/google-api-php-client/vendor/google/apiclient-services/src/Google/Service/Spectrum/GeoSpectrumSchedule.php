@@ -17,38 +17,38 @@
 
 class Google_Service_Spectrum_GeoSpectrumSchedule extends Google_Collection
 {
-  protected $collection_key = 'spectrumSchedules';
-  protected $locationType = 'Google_Service_Spectrum_GeoLocation';
-  protected $locationDataType = '';
-  protected $spectrumSchedulesType = 'Google_Service_Spectrum_SpectrumSchedule';
-  protected $spectrumSchedulesDataType = 'array';
+	protected $collection_key = 'spectrumSchedules';
+	protected $locationType = 'Google_Service_Spectrum_GeoLocation';
+	protected $locationDataType = '';
+	protected $spectrumSchedulesType = 'Google_Service_Spectrum_SpectrumSchedule';
+	protected $spectrumSchedulesDataType = 'array';
 
-  /**
-   * @param Google_Service_Spectrum_GeoLocation
-   */
-  public function setLocation(Google_Service_Spectrum_GeoLocation $location)
-  {
-    $this->location = $location;
-  }
-  /**
-   * @return Google_Service_Spectrum_GeoLocation
-   */
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  /**
-   * @param Google_Service_Spectrum_SpectrumSchedule
-   */
-  public function setSpectrumSchedules($spectrumSchedules)
-  {
-    $this->spectrumSchedules = $spectrumSchedules;
-  }
-  /**
-   * @return Google_Service_Spectrum_SpectrumSchedule
-   */
-  public function getSpectrumSchedules()
-  {
-    return $this->spectrumSchedules;
-  }
+	/**
+	 * @param Google_Service_Spectrum_GeoLocation
+	 */
+	public function setLocation(Google_Service_Spectrum_GeoLocation $location)
+	{
+		$this->location = $location;
+	}
+	/**
+	 * @return Google_Service_Spectrum_GeoLocation
+	 */
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	/**
+	 * @param Google_Service_Spectrum_SpectrumSchedule
+	 */
+	public function setSpectrumSchedules($spectrumSchedules)
+	{
+		$this->spectrumSchedules = $spectrumSchedules;
+	}
+	/**
+	 * @return Google_Service_Spectrum_SpectrumSchedule
+	 */
+	public function getSpectrumSchedules()
+	{
+		return $this->spectrumSchedules;
+	}
 }

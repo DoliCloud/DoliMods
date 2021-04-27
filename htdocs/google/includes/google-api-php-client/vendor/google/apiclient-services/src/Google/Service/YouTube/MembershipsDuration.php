@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_MembershipsDuration extends Google_Model
 {
-  public $memberSince;
-  public $memberTotalDurationMonths;
+	public $memberSince;
+	public $memberTotalDurationMonths;
 
-  public function setMemberSince($memberSince)
-  {
-    $this->memberSince = $memberSince;
-  }
-  public function getMemberSince()
-  {
-    return $this->memberSince;
-  }
-  public function setMemberTotalDurationMonths($memberTotalDurationMonths)
-  {
-    $this->memberTotalDurationMonths = $memberTotalDurationMonths;
-  }
-  public function getMemberTotalDurationMonths()
-  {
-    return $this->memberTotalDurationMonths;
-  }
+	public function setMemberSince($memberSince)
+	{
+		$this->memberSince = $memberSince;
+	}
+	public function getMemberSince()
+	{
+		return $this->memberSince;
+	}
+	public function setMemberTotalDurationMonths($memberTotalDurationMonths)
+	{
+		$this->memberTotalDurationMonths = $memberTotalDurationMonths;
+	}
+	public function getMemberTotalDurationMonths()
+	{
+		return $this->memberTotalDurationMonths;
+	}
 }

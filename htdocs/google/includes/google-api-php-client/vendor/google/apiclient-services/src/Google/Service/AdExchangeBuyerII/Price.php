@@ -17,30 +17,30 @@
 
 class Google_Service_AdExchangeBuyerII_Price extends Google_Model
 {
-  protected $amountType = 'Google_Service_AdExchangeBuyerII_Money';
-  protected $amountDataType = '';
-  public $pricingType;
+	protected $amountType = 'Google_Service_AdExchangeBuyerII_Money';
+	protected $amountDataType = '';
+	public $pricingType;
 
-  /**
-   * @param Google_Service_AdExchangeBuyerII_Money
-   */
-  public function setAmount(Google_Service_AdExchangeBuyerII_Money $amount)
-  {
-    $this->amount = $amount;
-  }
-  /**
-   * @return Google_Service_AdExchangeBuyerII_Money
-   */
-  public function getAmount()
-  {
-    return $this->amount;
-  }
-  public function setPricingType($pricingType)
-  {
-    $this->pricingType = $pricingType;
-  }
-  public function getPricingType()
-  {
-    return $this->pricingType;
-  }
+	/**
+	 * @param Google_Service_AdExchangeBuyerII_Money
+	 */
+	public function setAmount(Google_Service_AdExchangeBuyerII_Money $amount)
+	{
+		$this->amount = $amount;
+	}
+	/**
+	 * @return Google_Service_AdExchangeBuyerII_Money
+	 */
+	public function getAmount()
+	{
+		return $this->amount;
+	}
+	public function setPricingType($pricingType)
+	{
+		$this->pricingType = $pricingType;
+	}
+	public function getPricingType()
+	{
+		return $this->pricingType;
+	}
 }

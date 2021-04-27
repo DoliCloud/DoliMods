@@ -17,31 +17,31 @@
 
 class Google_Service_PhotosLibrary_SearchMediaItemsResponse extends Google_Collection
 {
-  protected $collection_key = 'mediaItems';
-  protected $mediaItemsType = 'Google_Service_PhotosLibrary_MediaItem';
-  protected $mediaItemsDataType = 'array';
-  public $nextPageToken;
+	protected $collection_key = 'mediaItems';
+	protected $mediaItemsType = 'Google_Service_PhotosLibrary_MediaItem';
+	protected $mediaItemsDataType = 'array';
+	public $nextPageToken;
 
-  /**
-   * @param Google_Service_PhotosLibrary_MediaItem
-   */
-  public function setMediaItems($mediaItems)
-  {
-    $this->mediaItems = $mediaItems;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_MediaItem
-   */
-  public function getMediaItems()
-  {
-    return $this->mediaItems;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
+	/**
+	 * @param Google_Service_PhotosLibrary_MediaItem
+	 */
+	public function setMediaItems($mediaItems)
+	{
+		$this->mediaItems = $mediaItems;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_MediaItem
+	 */
+	public function getMediaItems()
+	{
+		return $this->mediaItems;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_IntegrationDetails extends Google_Model
 {
-  public $details;
-  public $integrationCode;
+	public $details;
+	public $integrationCode;
 
-  public function setDetails($details)
-  {
-    $this->details = $details;
-  }
-  public function getDetails()
-  {
-    return $this->details;
-  }
-  public function setIntegrationCode($integrationCode)
-  {
-    $this->integrationCode = $integrationCode;
-  }
-  public function getIntegrationCode()
-  {
-    return $this->integrationCode;
-  }
+	public function setDetails($details)
+	{
+		$this->details = $details;
+	}
+	public function getDetails()
+	{
+		return $this->details;
+	}
+	public function setIntegrationCode($integrationCode)
+	{
+		$this->integrationCode = $integrationCode;
+	}
+	public function getIntegrationCode()
+	{
+		return $this->integrationCode;
+	}
 }

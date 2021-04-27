@@ -17,41 +17,41 @@
 
 class Google_Service_ToolResults_Screen extends Google_Model
 {
-  public $fileReference;
-  public $locale;
-  public $model;
-  public $version;
+	public $fileReference;
+	public $locale;
+	public $model;
+	public $version;
 
-  public function setFileReference($fileReference)
-  {
-    $this->fileReference = $fileReference;
-  }
-  public function getFileReference()
-  {
-    return $this->fileReference;
-  }
-  public function setLocale($locale)
-  {
-    $this->locale = $locale;
-  }
-  public function getLocale()
-  {
-    return $this->locale;
-  }
-  public function setModel($model)
-  {
-    $this->model = $model;
-  }
-  public function getModel()
-  {
-    return $this->model;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	public function setFileReference($fileReference)
+	{
+		$this->fileReference = $fileReference;
+	}
+	public function getFileReference()
+	{
+		return $this->fileReference;
+	}
+	public function setLocale($locale)
+	{
+		$this->locale = $locale;
+	}
+	public function getLocale()
+	{
+		return $this->locale;
+	}
+	public function setModel($model)
+	{
+		$this->model = $model;
+	}
+	public function getModel()
+	{
+		return $this->model;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

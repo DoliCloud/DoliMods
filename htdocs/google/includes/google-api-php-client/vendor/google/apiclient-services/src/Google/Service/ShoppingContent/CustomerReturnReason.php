@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_CustomerReturnReason extends Google_Model
 {
-  public $description;
-  public $reasonCode;
+	public $description;
+	public $reasonCode;
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setReasonCode($reasonCode)
-  {
-    $this->reasonCode = $reasonCode;
-  }
-  public function getReasonCode()
-  {
-    return $this->reasonCode;
-  }
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setReasonCode($reasonCode)
+	{
+		$this->reasonCode = $reasonCode;
+	}
+	public function getReasonCode()
+	{
+		return $this->reasonCode;
+	}
 }

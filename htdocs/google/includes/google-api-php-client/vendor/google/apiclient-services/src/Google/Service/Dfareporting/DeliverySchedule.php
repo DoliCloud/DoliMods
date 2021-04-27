@@ -17,48 +17,48 @@
 
 class Google_Service_Dfareporting_DeliverySchedule extends Google_Model
 {
-  protected $frequencyCapType = 'Google_Service_Dfareporting_FrequencyCap';
-  protected $frequencyCapDataType = '';
-  public $hardCutoff;
-  public $impressionRatio;
-  public $priority;
+	protected $frequencyCapType = 'Google_Service_Dfareporting_FrequencyCap';
+	protected $frequencyCapDataType = '';
+	public $hardCutoff;
+	public $impressionRatio;
+	public $priority;
 
-  /**
-   * @param Google_Service_Dfareporting_FrequencyCap
-   */
-  public function setFrequencyCap(Google_Service_Dfareporting_FrequencyCap $frequencyCap)
-  {
-    $this->frequencyCap = $frequencyCap;
-  }
-  /**
-   * @return Google_Service_Dfareporting_FrequencyCap
-   */
-  public function getFrequencyCap()
-  {
-    return $this->frequencyCap;
-  }
-  public function setHardCutoff($hardCutoff)
-  {
-    $this->hardCutoff = $hardCutoff;
-  }
-  public function getHardCutoff()
-  {
-    return $this->hardCutoff;
-  }
-  public function setImpressionRatio($impressionRatio)
-  {
-    $this->impressionRatio = $impressionRatio;
-  }
-  public function getImpressionRatio()
-  {
-    return $this->impressionRatio;
-  }
-  public function setPriority($priority)
-  {
-    $this->priority = $priority;
-  }
-  public function getPriority()
-  {
-    return $this->priority;
-  }
+	/**
+	 * @param Google_Service_Dfareporting_FrequencyCap
+	 */
+	public function setFrequencyCap(Google_Service_Dfareporting_FrequencyCap $frequencyCap)
+	{
+		$this->frequencyCap = $frequencyCap;
+	}
+	/**
+	 * @return Google_Service_Dfareporting_FrequencyCap
+	 */
+	public function getFrequencyCap()
+	{
+		return $this->frequencyCap;
+	}
+	public function setHardCutoff($hardCutoff)
+	{
+		$this->hardCutoff = $hardCutoff;
+	}
+	public function getHardCutoff()
+	{
+		return $this->hardCutoff;
+	}
+	public function setImpressionRatio($impressionRatio)
+	{
+		$this->impressionRatio = $impressionRatio;
+	}
+	public function getImpressionRatio()
+	{
+		return $this->impressionRatio;
+	}
+	public function setPriority($priority)
+	{
+		$this->priority = $priority;
+	}
+	public function getPriority()
+	{
+		return $this->priority;
+	}
 }

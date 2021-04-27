@@ -17,48 +17,48 @@
 
 class Google_Service_Slides_Bullet extends Google_Model
 {
-  protected $bulletStyleType = 'Google_Service_Slides_TextStyle';
-  protected $bulletStyleDataType = '';
-  public $glyph;
-  public $listId;
-  public $nestingLevel;
+	protected $bulletStyleType = 'Google_Service_Slides_TextStyle';
+	protected $bulletStyleDataType = '';
+	public $glyph;
+	public $listId;
+	public $nestingLevel;
 
-  /**
-   * @param Google_Service_Slides_TextStyle
-   */
-  public function setBulletStyle(Google_Service_Slides_TextStyle $bulletStyle)
-  {
-    $this->bulletStyle = $bulletStyle;
-  }
-  /**
-   * @return Google_Service_Slides_TextStyle
-   */
-  public function getBulletStyle()
-  {
-    return $this->bulletStyle;
-  }
-  public function setGlyph($glyph)
-  {
-    $this->glyph = $glyph;
-  }
-  public function getGlyph()
-  {
-    return $this->glyph;
-  }
-  public function setListId($listId)
-  {
-    $this->listId = $listId;
-  }
-  public function getListId()
-  {
-    return $this->listId;
-  }
-  public function setNestingLevel($nestingLevel)
-  {
-    $this->nestingLevel = $nestingLevel;
-  }
-  public function getNestingLevel()
-  {
-    return $this->nestingLevel;
-  }
+	/**
+	 * @param Google_Service_Slides_TextStyle
+	 */
+	public function setBulletStyle(Google_Service_Slides_TextStyle $bulletStyle)
+	{
+		$this->bulletStyle = $bulletStyle;
+	}
+	/**
+	 * @return Google_Service_Slides_TextStyle
+	 */
+	public function getBulletStyle()
+	{
+		return $this->bulletStyle;
+	}
+	public function setGlyph($glyph)
+	{
+		$this->glyph = $glyph;
+	}
+	public function getGlyph()
+	{
+		return $this->glyph;
+	}
+	public function setListId($listId)
+	{
+		$this->listId = $listId;
+	}
+	public function getListId()
+	{
+		return $this->listId;
+	}
+	public function setNestingLevel($nestingLevel)
+	{
+		$this->nestingLevel = $nestingLevel;
+	}
+	public function getNestingLevel()
+	{
+		return $this->nestingLevel;
+	}
 }

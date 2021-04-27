@@ -17,22 +17,22 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ListStudiesResponse extends Google_Collection
 {
-  protected $collection_key = 'studies';
-  protected $studiesType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Study';
-  protected $studiesDataType = 'array';
+	protected $collection_key = 'studies';
+	protected $studiesType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Study';
+	protected $studiesDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Study
-   */
-  public function setStudies($studies)
-  {
-    $this->studies = $studies;
-  }
-  /**
-   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Study
-   */
-  public function getStudies()
-  {
-    return $this->studies;
-  }
+	/**
+	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Study
+	 */
+	public function setStudies($studies)
+	{
+		$this->studies = $studies;
+	}
+	/**
+	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Study
+	 */
+	public function getStudies()
+	{
+		return $this->studies;
+	}
 }

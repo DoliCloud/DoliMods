@@ -17,53 +17,53 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2RecordLocation extends Google_Model
 {
-  protected $fieldIdType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
-  protected $fieldIdDataType = '';
-  protected $recordKeyType = 'Google_Service_DLP_GooglePrivacyDlpV2RecordKey';
-  protected $recordKeyDataType = '';
-  protected $tableLocationType = 'Google_Service_DLP_GooglePrivacyDlpV2TableLocation';
-  protected $tableLocationDataType = '';
+	protected $fieldIdType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
+	protected $fieldIdDataType = '';
+	protected $recordKeyType = 'Google_Service_DLP_GooglePrivacyDlpV2RecordKey';
+	protected $recordKeyDataType = '';
+	protected $tableLocationType = 'Google_Service_DLP_GooglePrivacyDlpV2TableLocation';
+	protected $tableLocationDataType = '';
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
-   */
-  public function setFieldId(Google_Service_DLP_GooglePrivacyDlpV2FieldId $fieldId)
-  {
-    $this->fieldId = $fieldId;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
-   */
-  public function getFieldId()
-  {
-    return $this->fieldId;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2RecordKey
-   */
-  public function setRecordKey(Google_Service_DLP_GooglePrivacyDlpV2RecordKey $recordKey)
-  {
-    $this->recordKey = $recordKey;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2RecordKey
-   */
-  public function getRecordKey()
-  {
-    return $this->recordKey;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2TableLocation
-   */
-  public function setTableLocation(Google_Service_DLP_GooglePrivacyDlpV2TableLocation $tableLocation)
-  {
-    $this->tableLocation = $tableLocation;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2TableLocation
-   */
-  public function getTableLocation()
-  {
-    return $this->tableLocation;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
+	 */
+	public function setFieldId(Google_Service_DLP_GooglePrivacyDlpV2FieldId $fieldId)
+	{
+		$this->fieldId = $fieldId;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
+	 */
+	public function getFieldId()
+	{
+		return $this->fieldId;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2RecordKey
+	 */
+	public function setRecordKey(Google_Service_DLP_GooglePrivacyDlpV2RecordKey $recordKey)
+	{
+		$this->recordKey = $recordKey;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2RecordKey
+	 */
+	public function getRecordKey()
+	{
+		return $this->recordKey;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2TableLocation
+	 */
+	public function setTableLocation(Google_Service_DLP_GooglePrivacyDlpV2TableLocation $tableLocation)
+	{
+		$this->tableLocation = $tableLocation;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2TableLocation
+	 */
+	public function getTableLocation()
+	{
+		return $this->tableLocation;
+	}
 }

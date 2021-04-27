@@ -17,64 +17,64 @@
 
 class Google_Service_Spectrum_PawsInitResponse extends Google_Model
 {
-  protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
-  protected $databaseChangeDataType = '';
-  public $kind;
-  protected $rulesetInfoType = 'Google_Service_Spectrum_RulesetInfo';
-  protected $rulesetInfoDataType = '';
-  public $type;
-  public $version;
+	protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
+	protected $databaseChangeDataType = '';
+	public $kind;
+	protected $rulesetInfoType = 'Google_Service_Spectrum_RulesetInfo';
+	protected $rulesetInfoDataType = '';
+	public $type;
+	public $version;
 
-  /**
-   * @param Google_Service_Spectrum_DbUpdateSpec
-   */
-  public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
-  {
-    $this->databaseChange = $databaseChange;
-  }
-  /**
-   * @return Google_Service_Spectrum_DbUpdateSpec
-   */
-  public function getDatabaseChange()
-  {
-    return $this->databaseChange;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Spectrum_RulesetInfo
-   */
-  public function setRulesetInfo(Google_Service_Spectrum_RulesetInfo $rulesetInfo)
-  {
-    $this->rulesetInfo = $rulesetInfo;
-  }
-  /**
-   * @return Google_Service_Spectrum_RulesetInfo
-   */
-  public function getRulesetInfo()
-  {
-    return $this->rulesetInfo;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	/**
+	 * @param Google_Service_Spectrum_DbUpdateSpec
+	 */
+	public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
+	{
+		$this->databaseChange = $databaseChange;
+	}
+	/**
+	 * @return Google_Service_Spectrum_DbUpdateSpec
+	 */
+	public function getDatabaseChange()
+	{
+		return $this->databaseChange;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Spectrum_RulesetInfo
+	 */
+	public function setRulesetInfo(Google_Service_Spectrum_RulesetInfo $rulesetInfo)
+	{
+		$this->rulesetInfo = $rulesetInfo;
+	}
+	/**
+	 * @return Google_Service_Spectrum_RulesetInfo
+	 */
+	public function getRulesetInfo()
+	{
+		return $this->rulesetInfo;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

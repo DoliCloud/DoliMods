@@ -25,30 +25,30 @@
  */
 class Google_Service_Cloudlatencytest_StatscollectionResource extends Google_Service_Resource
 {
-  /**
-   * RPC to update the new TCP stats. (statscollection.updateaggregatedstats)
-   *
-   * @param Google_Service_Cloudlatencytest_AggregatedStats $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Cloudlatencytest_AggregatedStatsReply
-   */
-  public function updateaggregatedstats(Google_Service_Cloudlatencytest_AggregatedStats $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('updateaggregatedstats', array($params), "Google_Service_Cloudlatencytest_AggregatedStatsReply");
-  }
-  /**
-   * RPC to update the new TCP stats. (statscollection.updatestats)
-   *
-   * @param Google_Service_Cloudlatencytest_Stats $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Cloudlatencytest_StatsReply
-   */
-  public function updatestats(Google_Service_Cloudlatencytest_Stats $postBody, $optParams = array())
-  {
-    $params = array('postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('updatestats', array($params), "Google_Service_Cloudlatencytest_StatsReply");
-  }
+	/**
+	 * RPC to update the new TCP stats. (statscollection.updateaggregatedstats)
+	 *
+	 * @param Google_Service_Cloudlatencytest_AggregatedStats $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Cloudlatencytest_AggregatedStatsReply
+	 */
+	public function updateaggregatedstats(Google_Service_Cloudlatencytest_AggregatedStats $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('updateaggregatedstats', array($params), "Google_Service_Cloudlatencytest_AggregatedStatsReply");
+	}
+	/**
+	 * RPC to update the new TCP stats. (statscollection.updatestats)
+	 *
+	 * @param Google_Service_Cloudlatencytest_Stats $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Cloudlatencytest_StatsReply
+	 */
+	public function updatestats(Google_Service_Cloudlatencytest_Stats $postBody, $optParams = array())
+	{
+		$params = array('postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('updatestats', array($params), "Google_Service_Cloudlatencytest_StatsReply");
+	}
 }

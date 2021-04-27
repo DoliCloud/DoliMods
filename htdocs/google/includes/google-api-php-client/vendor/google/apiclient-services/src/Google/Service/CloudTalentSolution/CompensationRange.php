@@ -17,37 +17,37 @@
 
 class Google_Service_CloudTalentSolution_CompensationRange extends Google_Model
 {
-  protected $maxCompensationType = 'Google_Service_CloudTalentSolution_Money';
-  protected $maxCompensationDataType = '';
-  protected $minCompensationType = 'Google_Service_CloudTalentSolution_Money';
-  protected $minCompensationDataType = '';
+	protected $maxCompensationType = 'Google_Service_CloudTalentSolution_Money';
+	protected $maxCompensationDataType = '';
+	protected $minCompensationType = 'Google_Service_CloudTalentSolution_Money';
+	protected $minCompensationDataType = '';
 
-  /**
-   * @param Google_Service_CloudTalentSolution_Money
-   */
-  public function setMaxCompensation(Google_Service_CloudTalentSolution_Money $maxCompensation)
-  {
-    $this->maxCompensation = $maxCompensation;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_Money
-   */
-  public function getMaxCompensation()
-  {
-    return $this->maxCompensation;
-  }
-  /**
-   * @param Google_Service_CloudTalentSolution_Money
-   */
-  public function setMinCompensation(Google_Service_CloudTalentSolution_Money $minCompensation)
-  {
-    $this->minCompensation = $minCompensation;
-  }
-  /**
-   * @return Google_Service_CloudTalentSolution_Money
-   */
-  public function getMinCompensation()
-  {
-    return $this->minCompensation;
-  }
+	/**
+	 * @param Google_Service_CloudTalentSolution_Money
+	 */
+	public function setMaxCompensation(Google_Service_CloudTalentSolution_Money $maxCompensation)
+	{
+		$this->maxCompensation = $maxCompensation;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_Money
+	 */
+	public function getMaxCompensation()
+	{
+		return $this->maxCompensation;
+	}
+	/**
+	 * @param Google_Service_CloudTalentSolution_Money
+	 */
+	public function setMinCompensation(Google_Service_CloudTalentSolution_Money $minCompensation)
+	{
+		$this->minCompensation = $minCompensation;
+	}
+	/**
+	 * @return Google_Service_CloudTalentSolution_Money
+	 */
+	public function getMinCompensation()
+	{
+		return $this->minCompensation;
+	}
 }

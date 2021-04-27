@@ -17,37 +17,37 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion extends Google_Model
 {
-  protected $actionType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction';
-  protected $actionDataType = '';
-  protected $replyType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply';
-  protected $replyDataType = '';
+	protected $actionType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction';
+	protected $actionDataType = '';
+	protected $replyType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply';
+	protected $replyDataType = '';
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction
-   */
-  public function setAction(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction $action)
-  {
-    $this->action = $action;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction
-   */
-  public function getAction()
-  {
-    return $this->action;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply
-   */
-  public function setReply(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply $reply)
-  {
-    $this->reply = $reply;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply
-   */
-  public function getReply()
-  {
-    return $this->reply;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction
+	 */
+	public function setAction(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction $action)
+	{
+		$this->action = $action;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction
+	 */
+	public function getAction()
+	{
+		return $this->action;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply
+	 */
+	public function setReply(Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply $reply)
+	{
+		$this->reply = $reply;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply
+	 */
+	public function getReply()
+	{
+		return $this->reply;
+	}
 }

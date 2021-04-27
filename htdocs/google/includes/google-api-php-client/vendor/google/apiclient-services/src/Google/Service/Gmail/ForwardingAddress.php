@@ -17,23 +17,23 @@
 
 class Google_Service_Gmail_ForwardingAddress extends Google_Model
 {
-  public $forwardingEmail;
-  public $verificationStatus;
+	public $forwardingEmail;
+	public $verificationStatus;
 
-  public function setForwardingEmail($forwardingEmail)
-  {
-    $this->forwardingEmail = $forwardingEmail;
-  }
-  public function getForwardingEmail()
-  {
-    return $this->forwardingEmail;
-  }
-  public function setVerificationStatus($verificationStatus)
-  {
-    $this->verificationStatus = $verificationStatus;
-  }
-  public function getVerificationStatus()
-  {
-    return $this->verificationStatus;
-  }
+	public function setForwardingEmail($forwardingEmail)
+	{
+		$this->forwardingEmail = $forwardingEmail;
+	}
+	public function getForwardingEmail()
+	{
+		return $this->forwardingEmail;
+	}
+	public function setVerificationStatus($verificationStatus)
+	{
+		$this->verificationStatus = $verificationStatus;
+	}
+	public function getVerificationStatus()
+	{
+		return $this->verificationStatus;
+	}
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance extends Google_Model
 {
-  public $location;
-  public $loggingEnabled;
-  public $name;
-  public $state;
+	public $location;
+	public $loggingEnabled;
+	public $name;
+	public $state;
 
-  public function setLocation($location)
-  {
-    $this->location = $location;
-  }
-  public function getLocation()
-  {
-    return $this->location;
-  }
-  public function setLoggingEnabled($loggingEnabled)
-  {
-    $this->loggingEnabled = $loggingEnabled;
-  }
-  public function getLoggingEnabled()
-  {
-    return $this->loggingEnabled;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	public function setLocation($location)
+	{
+		$this->location = $location;
+	}
+	public function getLocation()
+	{
+		return $this->location;
+	}
+	public function setLoggingEnabled($loggingEnabled)
+	{
+		$this->loggingEnabled = $loggingEnabled;
+	}
+	public function getLoggingEnabled()
+	{
+		return $this->loggingEnabled;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

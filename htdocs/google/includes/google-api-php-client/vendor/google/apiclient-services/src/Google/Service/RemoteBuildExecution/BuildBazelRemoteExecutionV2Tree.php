@@ -17,38 +17,38 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Tree extends Google_Collection
 {
-  protected $collection_key = 'children';
-  protected $childrenType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory';
-  protected $childrenDataType = 'array';
-  protected $rootType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory';
-  protected $rootDataType = '';
+	protected $collection_key = 'children';
+	protected $childrenType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory';
+	protected $childrenDataType = 'array';
+	protected $rootType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory';
+	protected $rootDataType = '';
 
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
-   */
-  public function setChildren($children)
-  {
-    $this->children = $children;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
-   */
-  public function getChildren()
-  {
-    return $this->children;
-  }
-  /**
-   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
-   */
-  public function setRoot(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory $root)
-  {
-    $this->root = $root;
-  }
-  /**
-   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
-   */
-  public function getRoot()
-  {
-    return $this->root;
-  }
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
+	 */
+	public function setChildren($children)
+	{
+		$this->children = $children;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
+	 */
+	public function getChildren()
+	{
+		return $this->children;
+	}
+	/**
+	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
+	 */
+	public function setRoot(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory $root)
+	{
+		$this->root = $root;
+	}
+	/**
+	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Directory
+	 */
+	public function getRoot()
+	{
+		return $this->root;
+	}
 }

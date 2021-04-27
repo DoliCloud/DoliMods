@@ -17,41 +17,41 @@
 
 class Google_Service_Compute_GRPCHealthCheck extends Google_Model
 {
-  public $grpcServiceName;
-  public $port;
-  public $portName;
-  public $portSpecification;
+	public $grpcServiceName;
+	public $port;
+	public $portName;
+	public $portSpecification;
 
-  public function setGrpcServiceName($grpcServiceName)
-  {
-    $this->grpcServiceName = $grpcServiceName;
-  }
-  public function getGrpcServiceName()
-  {
-    return $this->grpcServiceName;
-  }
-  public function setPort($port)
-  {
-    $this->port = $port;
-  }
-  public function getPort()
-  {
-    return $this->port;
-  }
-  public function setPortName($portName)
-  {
-    $this->portName = $portName;
-  }
-  public function getPortName()
-  {
-    return $this->portName;
-  }
-  public function setPortSpecification($portSpecification)
-  {
-    $this->portSpecification = $portSpecification;
-  }
-  public function getPortSpecification()
-  {
-    return $this->portSpecification;
-  }
+	public function setGrpcServiceName($grpcServiceName)
+	{
+		$this->grpcServiceName = $grpcServiceName;
+	}
+	public function getGrpcServiceName()
+	{
+		return $this->grpcServiceName;
+	}
+	public function setPort($port)
+	{
+		$this->port = $port;
+	}
+	public function getPort()
+	{
+		return $this->port;
+	}
+	public function setPortName($portName)
+	{
+		$this->portName = $portName;
+	}
+	public function getPortName()
+	{
+		return $this->portName;
+	}
+	public function setPortSpecification($portSpecification)
+	{
+		$this->portSpecification = $portSpecification;
+	}
+	public function getPortSpecification()
+	{
+		return $this->portSpecification;
+	}
 }

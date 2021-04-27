@@ -17,23 +17,23 @@
 
 class Google_Service_Customsearch_SearchSpelling extends Google_Model
 {
-  public $correctedQuery;
-  public $htmlCorrectedQuery;
+	public $correctedQuery;
+	public $htmlCorrectedQuery;
 
-  public function setCorrectedQuery($correctedQuery)
-  {
-    $this->correctedQuery = $correctedQuery;
-  }
-  public function getCorrectedQuery()
-  {
-    return $this->correctedQuery;
-  }
-  public function setHtmlCorrectedQuery($htmlCorrectedQuery)
-  {
-    $this->htmlCorrectedQuery = $htmlCorrectedQuery;
-  }
-  public function getHtmlCorrectedQuery()
-  {
-    return $this->htmlCorrectedQuery;
-  }
+	public function setCorrectedQuery($correctedQuery)
+	{
+		$this->correctedQuery = $correctedQuery;
+	}
+	public function getCorrectedQuery()
+	{
+		return $this->correctedQuery;
+	}
+	public function setHtmlCorrectedQuery($htmlCorrectedQuery)
+	{
+		$this->htmlCorrectedQuery = $htmlCorrectedQuery;
+	}
+	public function getHtmlCorrectedQuery()
+	{
+		return $this->htmlCorrectedQuery;
+	}
 }

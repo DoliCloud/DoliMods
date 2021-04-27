@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1BatchUpdateIntentsResponse extends Google_Collection
 {
-  protected $collection_key = 'intents';
-  protected $intentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1Intent';
-  protected $intentsDataType = 'array';
+	protected $collection_key = 'intents';
+	protected $intentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1Intent';
+	protected $intentsDataType = 'array';
 
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1Intent
-   */
-  public function setIntents($intents)
-  {
-    $this->intents = $intents;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1Intent
-   */
-  public function getIntents()
-  {
-    return $this->intents;
-  }
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1Intent
+	 */
+	public function setIntents($intents)
+	{
+		$this->intents = $intents;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1Intent
+	 */
+	public function getIntents()
+	{
+		return $this->intents;
+	}
 }

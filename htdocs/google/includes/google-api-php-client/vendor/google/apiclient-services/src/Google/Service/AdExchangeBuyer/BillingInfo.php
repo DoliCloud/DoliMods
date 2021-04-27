@@ -17,42 +17,42 @@
 
 class Google_Service_AdExchangeBuyer_BillingInfo extends Google_Collection
 {
-  protected $collection_key = 'billingId';
-  public $accountId;
-  public $accountName;
-  public $billingId;
-  public $kind;
+	protected $collection_key = 'billingId';
+	public $accountId;
+	public $accountName;
+	public $billingId;
+	public $kind;
 
-  public function setAccountId($accountId)
-  {
-    $this->accountId = $accountId;
-  }
-  public function getAccountId()
-  {
-    return $this->accountId;
-  }
-  public function setAccountName($accountName)
-  {
-    $this->accountName = $accountName;
-  }
-  public function getAccountName()
-  {
-    return $this->accountName;
-  }
-  public function setBillingId($billingId)
-  {
-    $this->billingId = $billingId;
-  }
-  public function getBillingId()
-  {
-    return $this->billingId;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setAccountId($accountId)
+	{
+		$this->accountId = $accountId;
+	}
+	public function getAccountId()
+	{
+		return $this->accountId;
+	}
+	public function setAccountName($accountName)
+	{
+		$this->accountName = $accountName;
+	}
+	public function getAccountName()
+	{
+		return $this->accountName;
+	}
+	public function setBillingId($billingId)
+	{
+		$this->billingId = $billingId;
+	}
+	public function getBillingId()
+	{
+		return $this->billingId;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

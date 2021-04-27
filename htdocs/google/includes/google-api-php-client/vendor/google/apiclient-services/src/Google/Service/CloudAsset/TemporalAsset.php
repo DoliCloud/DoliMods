@@ -17,71 +17,71 @@
 
 class Google_Service_CloudAsset_TemporalAsset extends Google_Model
 {
-  protected $assetType = 'Google_Service_CloudAsset_Asset';
-  protected $assetDataType = '';
-  public $deleted;
-  protected $priorAssetType = 'Google_Service_CloudAsset_Asset';
-  protected $priorAssetDataType = '';
-  public $priorAssetState;
-  protected $windowType = 'Google_Service_CloudAsset_TimeWindow';
-  protected $windowDataType = '';
+	protected $assetType = 'Google_Service_CloudAsset_Asset';
+	protected $assetDataType = '';
+	public $deleted;
+	protected $priorAssetType = 'Google_Service_CloudAsset_Asset';
+	protected $priorAssetDataType = '';
+	public $priorAssetState;
+	protected $windowType = 'Google_Service_CloudAsset_TimeWindow';
+	protected $windowDataType = '';
 
-  /**
-   * @param Google_Service_CloudAsset_Asset
-   */
-  public function setAsset(Google_Service_CloudAsset_Asset $asset)
-  {
-    $this->asset = $asset;
-  }
-  /**
-   * @return Google_Service_CloudAsset_Asset
-   */
-  public function getAsset()
-  {
-    return $this->asset;
-  }
-  public function setDeleted($deleted)
-  {
-    $this->deleted = $deleted;
-  }
-  public function getDeleted()
-  {
-    return $this->deleted;
-  }
-  /**
-   * @param Google_Service_CloudAsset_Asset
-   */
-  public function setPriorAsset(Google_Service_CloudAsset_Asset $priorAsset)
-  {
-    $this->priorAsset = $priorAsset;
-  }
-  /**
-   * @return Google_Service_CloudAsset_Asset
-   */
-  public function getPriorAsset()
-  {
-    return $this->priorAsset;
-  }
-  public function setPriorAssetState($priorAssetState)
-  {
-    $this->priorAssetState = $priorAssetState;
-  }
-  public function getPriorAssetState()
-  {
-    return $this->priorAssetState;
-  }
-  /**
-   * @param Google_Service_CloudAsset_TimeWindow
-   */
-  public function setWindow(Google_Service_CloudAsset_TimeWindow $window)
-  {
-    $this->window = $window;
-  }
-  /**
-   * @return Google_Service_CloudAsset_TimeWindow
-   */
-  public function getWindow()
-  {
-    return $this->window;
-  }
+	/**
+	 * @param Google_Service_CloudAsset_Asset
+	 */
+	public function setAsset(Google_Service_CloudAsset_Asset $asset)
+	{
+		$this->asset = $asset;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_Asset
+	 */
+	public function getAsset()
+	{
+		return $this->asset;
+	}
+	public function setDeleted($deleted)
+	{
+		$this->deleted = $deleted;
+	}
+	public function getDeleted()
+	{
+		return $this->deleted;
+	}
+	/**
+	 * @param Google_Service_CloudAsset_Asset
+	 */
+	public function setPriorAsset(Google_Service_CloudAsset_Asset $priorAsset)
+	{
+		$this->priorAsset = $priorAsset;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_Asset
+	 */
+	public function getPriorAsset()
+	{
+		return $this->priorAsset;
+	}
+	public function setPriorAssetState($priorAssetState)
+	{
+		$this->priorAssetState = $priorAssetState;
+	}
+	public function getPriorAssetState()
+	{
+		return $this->priorAssetState;
+	}
+	/**
+	 * @param Google_Service_CloudAsset_TimeWindow
+	 */
+	public function setWindow(Google_Service_CloudAsset_TimeWindow $window)
+	{
+		$this->window = $window;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_TimeWindow
+	 */
+	public function getWindow()
+	{
+		return $this->window;
+	}
 }

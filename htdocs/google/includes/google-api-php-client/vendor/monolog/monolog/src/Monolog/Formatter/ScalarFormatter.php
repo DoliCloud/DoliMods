@@ -19,30 +19,30 @@ namespace Monolog\Formatter;
  */
 class ScalarFormatter extends NormalizerFormatter
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function format(array $record)
-    {
-        foreach ($record as $key => $value) {
-            $record[$key] = $this->normalizeValue($value);
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function format(array $record)
+	{
+		foreach ($record as $key => $value) {
+			$record[$key] = $this->normalizeValue($value);
+		}
 
-        return $record;
-    }
+		return $record;
+	}
 
-    /**
-     * @param  mixed $value
-     * @return mixed
-     */
-    protected function normalizeValue($value)
-    {
-        $normalized = $this->normalize($value);
+	/**
+	 * @param  mixed $value
+	 * @return mixed
+	 */
+	protected function normalizeValue($value)
+	{
+		$normalized = $this->normalize($value);
 
-        if (is_array($normalized) || is_object($normalized)) {
-            return $this->toJson($normalized, true);
-        }
+		if (is_array($normalized) || is_object($normalized)) {
+			return $this->toJson($normalized, true);
+		}
 
-        return $normalized;
-    }
+		return $normalized;
+	}
 }

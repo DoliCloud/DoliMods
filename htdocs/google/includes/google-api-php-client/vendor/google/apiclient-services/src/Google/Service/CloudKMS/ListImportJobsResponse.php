@@ -17,40 +17,40 @@
 
 class Google_Service_CloudKMS_ListImportJobsResponse extends Google_Collection
 {
-  protected $collection_key = 'importJobs';
-  protected $importJobsType = 'Google_Service_CloudKMS_ImportJob';
-  protected $importJobsDataType = 'array';
-  public $nextPageToken;
-  public $totalSize;
+	protected $collection_key = 'importJobs';
+	protected $importJobsType = 'Google_Service_CloudKMS_ImportJob';
+	protected $importJobsDataType = 'array';
+	public $nextPageToken;
+	public $totalSize;
 
-  /**
-   * @param Google_Service_CloudKMS_ImportJob
-   */
-  public function setImportJobs($importJobs)
-  {
-    $this->importJobs = $importJobs;
-  }
-  /**
-   * @return Google_Service_CloudKMS_ImportJob
-   */
-  public function getImportJobs()
-  {
-    return $this->importJobs;
-  }
-  public function setNextPageToken($nextPageToken)
-  {
-    $this->nextPageToken = $nextPageToken;
-  }
-  public function getNextPageToken()
-  {
-    return $this->nextPageToken;
-  }
-  public function setTotalSize($totalSize)
-  {
-    $this->totalSize = $totalSize;
-  }
-  public function getTotalSize()
-  {
-    return $this->totalSize;
-  }
+	/**
+	 * @param Google_Service_CloudKMS_ImportJob
+	 */
+	public function setImportJobs($importJobs)
+	{
+		$this->importJobs = $importJobs;
+	}
+	/**
+	 * @return Google_Service_CloudKMS_ImportJob
+	 */
+	public function getImportJobs()
+	{
+		return $this->importJobs;
+	}
+	public function setNextPageToken($nextPageToken)
+	{
+		$this->nextPageToken = $nextPageToken;
+	}
+	public function getNextPageToken()
+	{
+		return $this->nextPageToken;
+	}
+	public function setTotalSize($totalSize)
+	{
+		$this->totalSize = $totalSize;
+	}
+	public function getTotalSize()
+	{
+		return $this->totalSize;
+	}
 }

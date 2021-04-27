@@ -17,23 +17,23 @@
 
 class Google_Service_Slides_LineConnection extends Google_Model
 {
-  public $connectedObjectId;
-  public $connectionSiteIndex;
+	public $connectedObjectId;
+	public $connectionSiteIndex;
 
-  public function setConnectedObjectId($connectedObjectId)
-  {
-    $this->connectedObjectId = $connectedObjectId;
-  }
-  public function getConnectedObjectId()
-  {
-    return $this->connectedObjectId;
-  }
-  public function setConnectionSiteIndex($connectionSiteIndex)
-  {
-    $this->connectionSiteIndex = $connectionSiteIndex;
-  }
-  public function getConnectionSiteIndex()
-  {
-    return $this->connectionSiteIndex;
-  }
+	public function setConnectedObjectId($connectedObjectId)
+	{
+		$this->connectedObjectId = $connectedObjectId;
+	}
+	public function getConnectedObjectId()
+	{
+		return $this->connectedObjectId;
+	}
+	public function setConnectionSiteIndex($connectionSiteIndex)
+	{
+		$this->connectionSiteIndex = $connectionSiteIndex;
+	}
+	public function getConnectionSiteIndex()
+	{
+		return $this->connectionSiteIndex;
+	}
 }

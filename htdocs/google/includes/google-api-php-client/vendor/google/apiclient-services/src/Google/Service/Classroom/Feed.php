@@ -17,46 +17,46 @@
 
 class Google_Service_Classroom_Feed extends Google_Model
 {
-  protected $courseRosterChangesInfoType = 'Google_Service_Classroom_CourseRosterChangesInfo';
-  protected $courseRosterChangesInfoDataType = '';
-  protected $courseWorkChangesInfoType = 'Google_Service_Classroom_CourseWorkChangesInfo';
-  protected $courseWorkChangesInfoDataType = '';
-  public $feedType;
+	protected $courseRosterChangesInfoType = 'Google_Service_Classroom_CourseRosterChangesInfo';
+	protected $courseRosterChangesInfoDataType = '';
+	protected $courseWorkChangesInfoType = 'Google_Service_Classroom_CourseWorkChangesInfo';
+	protected $courseWorkChangesInfoDataType = '';
+	public $feedType;
 
-  /**
-   * @param Google_Service_Classroom_CourseRosterChangesInfo
-   */
-  public function setCourseRosterChangesInfo(Google_Service_Classroom_CourseRosterChangesInfo $courseRosterChangesInfo)
-  {
-    $this->courseRosterChangesInfo = $courseRosterChangesInfo;
-  }
-  /**
-   * @return Google_Service_Classroom_CourseRosterChangesInfo
-   */
-  public function getCourseRosterChangesInfo()
-  {
-    return $this->courseRosterChangesInfo;
-  }
-  /**
-   * @param Google_Service_Classroom_CourseWorkChangesInfo
-   */
-  public function setCourseWorkChangesInfo(Google_Service_Classroom_CourseWorkChangesInfo $courseWorkChangesInfo)
-  {
-    $this->courseWorkChangesInfo = $courseWorkChangesInfo;
-  }
-  /**
-   * @return Google_Service_Classroom_CourseWorkChangesInfo
-   */
-  public function getCourseWorkChangesInfo()
-  {
-    return $this->courseWorkChangesInfo;
-  }
-  public function setFeedType($feedType)
-  {
-    $this->feedType = $feedType;
-  }
-  public function getFeedType()
-  {
-    return $this->feedType;
-  }
+	/**
+	 * @param Google_Service_Classroom_CourseRosterChangesInfo
+	 */
+	public function setCourseRosterChangesInfo(Google_Service_Classroom_CourseRosterChangesInfo $courseRosterChangesInfo)
+	{
+		$this->courseRosterChangesInfo = $courseRosterChangesInfo;
+	}
+	/**
+	 * @return Google_Service_Classroom_CourseRosterChangesInfo
+	 */
+	public function getCourseRosterChangesInfo()
+	{
+		return $this->courseRosterChangesInfo;
+	}
+	/**
+	 * @param Google_Service_Classroom_CourseWorkChangesInfo
+	 */
+	public function setCourseWorkChangesInfo(Google_Service_Classroom_CourseWorkChangesInfo $courseWorkChangesInfo)
+	{
+		$this->courseWorkChangesInfo = $courseWorkChangesInfo;
+	}
+	/**
+	 * @return Google_Service_Classroom_CourseWorkChangesInfo
+	 */
+	public function getCourseWorkChangesInfo()
+	{
+		return $this->courseWorkChangesInfo;
+	}
+	public function setFeedType($feedType)
+	{
+		$this->feedType = $feedType;
+	}
+	public function getFeedType()
+	{
+		return $this->feedType;
+	}
 }

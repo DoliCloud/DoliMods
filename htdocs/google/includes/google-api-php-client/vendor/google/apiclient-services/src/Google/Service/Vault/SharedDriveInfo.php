@@ -17,15 +17,15 @@
 
 class Google_Service_Vault_SharedDriveInfo extends Google_Collection
 {
-  protected $collection_key = 'sharedDriveIds';
-  public $sharedDriveIds;
+	protected $collection_key = 'sharedDriveIds';
+	public $sharedDriveIds;
 
-  public function setSharedDriveIds($sharedDriveIds)
-  {
-    $this->sharedDriveIds = $sharedDriveIds;
-  }
-  public function getSharedDriveIds()
-  {
-    return $this->sharedDriveIds;
-  }
+	public function setSharedDriveIds($sharedDriveIds)
+	{
+		$this->sharedDriveIds = $sharedDriveIds;
+	}
+	public function getSharedDriveIds()
+	{
+		return $this->sharedDriveIds;
+	}
 }

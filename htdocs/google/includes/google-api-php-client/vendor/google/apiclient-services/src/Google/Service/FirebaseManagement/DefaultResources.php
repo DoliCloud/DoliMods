@@ -17,41 +17,41 @@
 
 class Google_Service_FirebaseManagement_DefaultResources extends Google_Model
 {
-  public $hostingSite;
-  public $locationId;
-  public $realtimeDatabaseInstance;
-  public $storageBucket;
+	public $hostingSite;
+	public $locationId;
+	public $realtimeDatabaseInstance;
+	public $storageBucket;
 
-  public function setHostingSite($hostingSite)
-  {
-    $this->hostingSite = $hostingSite;
-  }
-  public function getHostingSite()
-  {
-    return $this->hostingSite;
-  }
-  public function setLocationId($locationId)
-  {
-    $this->locationId = $locationId;
-  }
-  public function getLocationId()
-  {
-    return $this->locationId;
-  }
-  public function setRealtimeDatabaseInstance($realtimeDatabaseInstance)
-  {
-    $this->realtimeDatabaseInstance = $realtimeDatabaseInstance;
-  }
-  public function getRealtimeDatabaseInstance()
-  {
-    return $this->realtimeDatabaseInstance;
-  }
-  public function setStorageBucket($storageBucket)
-  {
-    $this->storageBucket = $storageBucket;
-  }
-  public function getStorageBucket()
-  {
-    return $this->storageBucket;
-  }
+	public function setHostingSite($hostingSite)
+	{
+		$this->hostingSite = $hostingSite;
+	}
+	public function getHostingSite()
+	{
+		return $this->hostingSite;
+	}
+	public function setLocationId($locationId)
+	{
+		$this->locationId = $locationId;
+	}
+	public function getLocationId()
+	{
+		return $this->locationId;
+	}
+	public function setRealtimeDatabaseInstance($realtimeDatabaseInstance)
+	{
+		$this->realtimeDatabaseInstance = $realtimeDatabaseInstance;
+	}
+	public function getRealtimeDatabaseInstance()
+	{
+		return $this->realtimeDatabaseInstance;
+	}
+	public function setStorageBucket($storageBucket)
+	{
+		$this->storageBucket = $storageBucket;
+	}
+	public function getStorageBucket()
+	{
+		return $this->storageBucket;
+	}
 }

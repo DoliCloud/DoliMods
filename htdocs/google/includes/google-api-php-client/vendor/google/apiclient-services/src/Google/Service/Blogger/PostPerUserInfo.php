@@ -17,50 +17,50 @@
 
 class Google_Service_Blogger_PostPerUserInfo extends Google_Model
 {
-  public $blogId;
-  public $hasEditAccess;
-  public $kind;
-  public $postId;
-  public $userId;
+	public $blogId;
+	public $hasEditAccess;
+	public $kind;
+	public $postId;
+	public $userId;
 
-  public function setBlogId($blogId)
-  {
-    $this->blogId = $blogId;
-  }
-  public function getBlogId()
-  {
-    return $this->blogId;
-  }
-  public function setHasEditAccess($hasEditAccess)
-  {
-    $this->hasEditAccess = $hasEditAccess;
-  }
-  public function getHasEditAccess()
-  {
-    return $this->hasEditAccess;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setPostId($postId)
-  {
-    $this->postId = $postId;
-  }
-  public function getPostId()
-  {
-    return $this->postId;
-  }
-  public function setUserId($userId)
-  {
-    $this->userId = $userId;
-  }
-  public function getUserId()
-  {
-    return $this->userId;
-  }
+	public function setBlogId($blogId)
+	{
+		$this->blogId = $blogId;
+	}
+	public function getBlogId()
+	{
+		return $this->blogId;
+	}
+	public function setHasEditAccess($hasEditAccess)
+	{
+		$this->hasEditAccess = $hasEditAccess;
+	}
+	public function getHasEditAccess()
+	{
+		return $this->hasEditAccess;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setPostId($postId)
+	{
+		$this->postId = $postId;
+	}
+	public function getPostId()
+	{
+		return $this->postId;
+	}
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+	}
+	public function getUserId()
+	{
+		return $this->userId;
+	}
 }

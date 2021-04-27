@@ -17,22 +17,22 @@
 
 class Google_Service_Reports_ActivityEventsParametersMessageValue extends Google_Collection
 {
-  protected $collection_key = 'parameter';
-  protected $parameterType = 'Google_Service_Reports_NestedParameter';
-  protected $parameterDataType = 'array';
+	protected $collection_key = 'parameter';
+	protected $parameterType = 'Google_Service_Reports_NestedParameter';
+	protected $parameterDataType = 'array';
 
-  /**
-   * @param Google_Service_Reports_NestedParameter
-   */
-  public function setParameter($parameter)
-  {
-    $this->parameter = $parameter;
-  }
-  /**
-   * @return Google_Service_Reports_NestedParameter
-   */
-  public function getParameter()
-  {
-    return $this->parameter;
-  }
+	/**
+	 * @param Google_Service_Reports_NestedParameter
+	 */
+	public function setParameter($parameter)
+	{
+		$this->parameter = $parameter;
+	}
+	/**
+	 * @return Google_Service_Reports_NestedParameter
+	 */
+	public function getParameter()
+	{
+		return $this->parameter;
+	}
 }

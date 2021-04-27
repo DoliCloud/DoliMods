@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_ResultDisplayLine extends Google_Collection
 {
-  protected $collection_key = 'fields';
-  protected $fieldsType = 'Google_Service_CloudSearch_ResultDisplayField';
-  protected $fieldsDataType = 'array';
+	protected $collection_key = 'fields';
+	protected $fieldsType = 'Google_Service_CloudSearch_ResultDisplayField';
+	protected $fieldsDataType = 'array';
 
-  /**
-   * @param Google_Service_CloudSearch_ResultDisplayField
-   */
-  public function setFields($fields)
-  {
-    $this->fields = $fields;
-  }
-  /**
-   * @return Google_Service_CloudSearch_ResultDisplayField
-   */
-  public function getFields()
-  {
-    return $this->fields;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_ResultDisplayField
+	 */
+	public function setFields($fields)
+	{
+		$this->fields = $fields;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_ResultDisplayField
+	 */
+	public function getFields()
+	{
+		return $this->fields;
+	}
 }

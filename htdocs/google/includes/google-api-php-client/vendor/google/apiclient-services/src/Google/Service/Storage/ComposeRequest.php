@@ -17,47 +17,47 @@
 
 class Google_Service_Storage_ComposeRequest extends Google_Collection
 {
-  protected $collection_key = 'sourceObjects';
-  protected $destinationType = 'Google_Service_Storage_StorageObject';
-  protected $destinationDataType = '';
-  public $kind;
-  protected $sourceObjectsType = 'Google_Service_Storage_ComposeRequestSourceObjects';
-  protected $sourceObjectsDataType = 'array';
+	protected $collection_key = 'sourceObjects';
+	protected $destinationType = 'Google_Service_Storage_StorageObject';
+	protected $destinationDataType = '';
+	public $kind;
+	protected $sourceObjectsType = 'Google_Service_Storage_ComposeRequestSourceObjects';
+	protected $sourceObjectsDataType = 'array';
 
-  /**
-   * @param Google_Service_Storage_StorageObject
-   */
-  public function setDestination(Google_Service_Storage_StorageObject $destination)
-  {
-    $this->destination = $destination;
-  }
-  /**
-   * @return Google_Service_Storage_StorageObject
-   */
-  public function getDestination()
-  {
-    return $this->destination;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Storage_ComposeRequestSourceObjects
-   */
-  public function setSourceObjects($sourceObjects)
-  {
-    $this->sourceObjects = $sourceObjects;
-  }
-  /**
-   * @return Google_Service_Storage_ComposeRequestSourceObjects
-   */
-  public function getSourceObjects()
-  {
-    return $this->sourceObjects;
-  }
+	/**
+	 * @param Google_Service_Storage_StorageObject
+	 */
+	public function setDestination(Google_Service_Storage_StorageObject $destination)
+	{
+		$this->destination = $destination;
+	}
+	/**
+	 * @return Google_Service_Storage_StorageObject
+	 */
+	public function getDestination()
+	{
+		return $this->destination;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Storage_ComposeRequestSourceObjects
+	 */
+	public function setSourceObjects($sourceObjects)
+	{
+		$this->sourceObjects = $sourceObjects;
+	}
+	/**
+	 * @return Google_Service_Storage_ComposeRequestSourceObjects
+	 */
+	public function getSourceObjects()
+	{
+		return $this->sourceObjects;
+	}
 }

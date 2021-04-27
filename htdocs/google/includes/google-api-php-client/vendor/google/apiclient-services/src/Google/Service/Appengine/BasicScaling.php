@@ -17,23 +17,23 @@
 
 class Google_Service_Appengine_BasicScaling extends Google_Model
 {
-  public $idleTimeout;
-  public $maxInstances;
+	public $idleTimeout;
+	public $maxInstances;
 
-  public function setIdleTimeout($idleTimeout)
-  {
-    $this->idleTimeout = $idleTimeout;
-  }
-  public function getIdleTimeout()
-  {
-    return $this->idleTimeout;
-  }
-  public function setMaxInstances($maxInstances)
-  {
-    $this->maxInstances = $maxInstances;
-  }
-  public function getMaxInstances()
-  {
-    return $this->maxInstances;
-  }
+	public function setIdleTimeout($idleTimeout)
+	{
+		$this->idleTimeout = $idleTimeout;
+	}
+	public function getIdleTimeout()
+	{
+		return $this->idleTimeout;
+	}
+	public function setMaxInstances($maxInstances)
+	{
+		$this->maxInstances = $maxInstances;
+	}
+	public function getMaxInstances()
+	{
+		return $this->maxInstances;
+	}
 }

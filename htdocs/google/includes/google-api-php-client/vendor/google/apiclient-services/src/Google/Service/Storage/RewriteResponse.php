@@ -17,66 +17,66 @@
 
 class Google_Service_Storage_RewriteResponse extends Google_Model
 {
-  public $done;
-  public $kind;
-  public $objectSize;
-  protected $resourceType = 'Google_Service_Storage_StorageObject';
-  protected $resourceDataType = '';
-  public $rewriteToken;
-  public $totalBytesRewritten;
+	public $done;
+	public $kind;
+	public $objectSize;
+	protected $resourceType = 'Google_Service_Storage_StorageObject';
+	protected $resourceDataType = '';
+	public $rewriteToken;
+	public $totalBytesRewritten;
 
-  public function setDone($done)
-  {
-    $this->done = $done;
-  }
-  public function getDone()
-  {
-    return $this->done;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setObjectSize($objectSize)
-  {
-    $this->objectSize = $objectSize;
-  }
-  public function getObjectSize()
-  {
-    return $this->objectSize;
-  }
-  /**
-   * @param Google_Service_Storage_StorageObject
-   */
-  public function setResource(Google_Service_Storage_StorageObject $resource)
-  {
-    $this->resource = $resource;
-  }
-  /**
-   * @return Google_Service_Storage_StorageObject
-   */
-  public function getResource()
-  {
-    return $this->resource;
-  }
-  public function setRewriteToken($rewriteToken)
-  {
-    $this->rewriteToken = $rewriteToken;
-  }
-  public function getRewriteToken()
-  {
-    return $this->rewriteToken;
-  }
-  public function setTotalBytesRewritten($totalBytesRewritten)
-  {
-    $this->totalBytesRewritten = $totalBytesRewritten;
-  }
-  public function getTotalBytesRewritten()
-  {
-    return $this->totalBytesRewritten;
-  }
+	public function setDone($done)
+	{
+		$this->done = $done;
+	}
+	public function getDone()
+	{
+		return $this->done;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setObjectSize($objectSize)
+	{
+		$this->objectSize = $objectSize;
+	}
+	public function getObjectSize()
+	{
+		return $this->objectSize;
+	}
+	/**
+	 * @param Google_Service_Storage_StorageObject
+	 */
+	public function setResource(Google_Service_Storage_StorageObject $resource)
+	{
+		$this->resource = $resource;
+	}
+	/**
+	 * @return Google_Service_Storage_StorageObject
+	 */
+	public function getResource()
+	{
+		return $this->resource;
+	}
+	public function setRewriteToken($rewriteToken)
+	{
+		$this->rewriteToken = $rewriteToken;
+	}
+	public function getRewriteToken()
+	{
+		return $this->rewriteToken;
+	}
+	public function setTotalBytesRewritten($totalBytesRewritten)
+	{
+		$this->totalBytesRewritten = $totalBytesRewritten;
+	}
+	public function getTotalBytesRewritten()
+	{
+		return $this->totalBytesRewritten;
+	}
 }

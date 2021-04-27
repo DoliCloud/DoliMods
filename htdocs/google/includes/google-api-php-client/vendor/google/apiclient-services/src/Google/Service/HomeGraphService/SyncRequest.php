@@ -17,23 +17,23 @@
 
 class Google_Service_HomeGraphService_SyncRequest extends Google_Model
 {
-  public $agentUserId;
-  public $requestId;
+	public $agentUserId;
+	public $requestId;
 
-  public function setAgentUserId($agentUserId)
-  {
-    $this->agentUserId = $agentUserId;
-  }
-  public function getAgentUserId()
-  {
-    return $this->agentUserId;
-  }
-  public function setRequestId($requestId)
-  {
-    $this->requestId = $requestId;
-  }
-  public function getRequestId()
-  {
-    return $this->requestId;
-  }
+	public function setAgentUserId($agentUserId)
+	{
+		$this->agentUserId = $agentUserId;
+	}
+	public function getAgentUserId()
+	{
+		return $this->agentUserId;
+	}
+	public function setRequestId($requestId)
+	{
+		$this->requestId = $requestId;
+	}
+	public function getRequestId()
+	{
+		return $this->requestId;
+	}
 }

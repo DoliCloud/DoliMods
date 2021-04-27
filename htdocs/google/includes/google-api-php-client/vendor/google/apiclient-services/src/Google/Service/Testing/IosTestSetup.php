@@ -17,14 +17,14 @@
 
 class Google_Service_Testing_IosTestSetup extends Google_Model
 {
-  public $networkProfile;
+	public $networkProfile;
 
-  public function setNetworkProfile($networkProfile)
-  {
-    $this->networkProfile = $networkProfile;
-  }
-  public function getNetworkProfile()
-  {
-    return $this->networkProfile;
-  }
+	public function setNetworkProfile($networkProfile)
+	{
+		$this->networkProfile = $networkProfile;
+	}
+	public function getNetworkProfile()
+	{
+		return $this->networkProfile;
+	}
 }

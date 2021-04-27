@@ -17,23 +17,23 @@
 
 class Google_Service_Pubsub_SeekRequest extends Google_Model
 {
-  public $snapshot;
-  public $time;
+	public $snapshot;
+	public $time;
 
-  public function setSnapshot($snapshot)
-  {
-    $this->snapshot = $snapshot;
-  }
-  public function getSnapshot()
-  {
-    return $this->snapshot;
-  }
-  public function setTime($time)
-  {
-    $this->time = $time;
-  }
-  public function getTime()
-  {
-    return $this->time;
-  }
+	public function setSnapshot($snapshot)
+	{
+		$this->snapshot = $snapshot;
+	}
+	public function getSnapshot()
+	{
+		return $this->snapshot;
+	}
+	public function setTime($time)
+	{
+		$this->time = $time;
+	}
+	public function getTime()
+	{
+		return $this->time;
+	}
 }

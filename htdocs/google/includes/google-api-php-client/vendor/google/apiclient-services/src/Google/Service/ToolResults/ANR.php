@@ -17,21 +17,21 @@
 
 class Google_Service_ToolResults_ANR extends Google_Model
 {
-  protected $stackTraceType = 'Google_Service_ToolResults_StackTrace';
-  protected $stackTraceDataType = '';
+	protected $stackTraceType = 'Google_Service_ToolResults_StackTrace';
+	protected $stackTraceDataType = '';
 
-  /**
-   * @param Google_Service_ToolResults_StackTrace
-   */
-  public function setStackTrace(Google_Service_ToolResults_StackTrace $stackTrace)
-  {
-    $this->stackTrace = $stackTrace;
-  }
-  /**
-   * @return Google_Service_ToolResults_StackTrace
-   */
-  public function getStackTrace()
-  {
-    return $this->stackTrace;
-  }
+	/**
+	 * @param Google_Service_ToolResults_StackTrace
+	 */
+	public function setStackTrace(Google_Service_ToolResults_StackTrace $stackTrace)
+	{
+		$this->stackTrace = $stackTrace;
+	}
+	/**
+	 * @return Google_Service_ToolResults_StackTrace
+	 */
+	public function getStackTrace()
+	{
+		return $this->stackTrace;
+	}
 }

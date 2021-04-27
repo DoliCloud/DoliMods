@@ -17,41 +17,41 @@
 
 class Google_Service_Devprojects_ActiveApi extends Google_Model
 {
-  public $apiId;
-  public $apiName;
-  public $deactivable;
-  public $kind;
+	public $apiId;
+	public $apiName;
+	public $deactivable;
+	public $kind;
 
-  public function setApiId($apiId)
-  {
-    $this->apiId = $apiId;
-  }
-  public function getApiId()
-  {
-    return $this->apiId;
-  }
-  public function setApiName($apiName)
-  {
-    $this->apiName = $apiName;
-  }
-  public function getApiName()
-  {
-    return $this->apiName;
-  }
-  public function setDeactivable($deactivable)
-  {
-    $this->deactivable = $deactivable;
-  }
-  public function getDeactivable()
-  {
-    return $this->deactivable;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
+	public function setApiId($apiId)
+	{
+		$this->apiId = $apiId;
+	}
+	public function getApiId()
+	{
+		return $this->apiId;
+	}
+	public function setApiName($apiName)
+	{
+		$this->apiName = $apiName;
+	}
+	public function getApiName()
+	{
+		return $this->apiName;
+	}
+	public function setDeactivable($deactivable)
+	{
+		$this->deactivable = $deactivable;
+	}
+	public function getDeactivable()
+	{
+		return $this->deactivable;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
 }

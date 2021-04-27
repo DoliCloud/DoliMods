@@ -17,30 +17,30 @@
 
 class Google_Service_AlertCenter_AccountWarning extends Google_Model
 {
-  public $email;
-  protected $loginDetailsType = 'Google_Service_AlertCenter_LoginDetails';
-  protected $loginDetailsDataType = '';
+	public $email;
+	protected $loginDetailsType = 'Google_Service_AlertCenter_LoginDetails';
+	protected $loginDetailsDataType = '';
 
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  /**
-   * @param Google_Service_AlertCenter_LoginDetails
-   */
-  public function setLoginDetails(Google_Service_AlertCenter_LoginDetails $loginDetails)
-  {
-    $this->loginDetails = $loginDetails;
-  }
-  /**
-   * @return Google_Service_AlertCenter_LoginDetails
-   */
-  public function getLoginDetails()
-  {
-    return $this->loginDetails;
-  }
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	/**
+	 * @param Google_Service_AlertCenter_LoginDetails
+	 */
+	public function setLoginDetails(Google_Service_AlertCenter_LoginDetails $loginDetails)
+	{
+		$this->loginDetails = $loginDetails;
+	}
+	/**
+	 * @return Google_Service_AlertCenter_LoginDetails
+	 */
+	public function getLoginDetails()
+	{
+		return $this->loginDetails;
+	}
 }

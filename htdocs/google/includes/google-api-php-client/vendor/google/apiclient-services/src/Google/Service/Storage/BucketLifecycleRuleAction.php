@@ -17,23 +17,23 @@
 
 class Google_Service_Storage_BucketLifecycleRuleAction extends Google_Model
 {
-  public $storageClass;
-  public $type;
+	public $storageClass;
+	public $type;
 
-  public function setStorageClass($storageClass)
-  {
-    $this->storageClass = $storageClass;
-  }
-  public function getStorageClass()
-  {
-    return $this->storageClass;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setStorageClass($storageClass)
+	{
+		$this->storageClass = $storageClass;
+	}
+	public function getStorageClass()
+	{
+		return $this->storageClass;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

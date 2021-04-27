@@ -17,33 +17,33 @@
 
 class Google_Service_Devprojects_ProjectsGetProjectClientStructureRequest extends Google_Model
 {
-  protected $clientType = 'Google_Service_Devprojects_Client';
-  protected $clientDataType = '';
-  public $projectId;
-  public $whitelistId;
+	protected $clientType = 'Google_Service_Devprojects_Client';
+	protected $clientDataType = '';
+	public $projectId;
+	public $whitelistId;
 
-  public function setClient(Google_Service_Devprojects_Client $client)
-  {
-    $this->client = $client;
-  }
-  public function getClient()
-  {
-    return $this->client;
-  }
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setWhitelistId($whitelistId)
-  {
-    $this->whitelistId = $whitelistId;
-  }
-  public function getWhitelistId()
-  {
-    return $this->whitelistId;
-  }
+	public function setClient(Google_Service_Devprojects_Client $client)
+	{
+		$this->client = $client;
+	}
+	public function getClient()
+	{
+		return $this->client;
+	}
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setWhitelistId($whitelistId)
+	{
+		$this->whitelistId = $whitelistId;
+	}
+	public function getWhitelistId()
+	{
+		return $this->whitelistId;
+	}
 }

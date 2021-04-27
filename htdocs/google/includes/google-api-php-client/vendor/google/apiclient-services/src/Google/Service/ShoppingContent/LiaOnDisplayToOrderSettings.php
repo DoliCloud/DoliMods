@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_LiaOnDisplayToOrderSettings extends Google_Model
 {
-  public $shippingCostPolicyUrl;
-  public $status;
+	public $shippingCostPolicyUrl;
+	public $status;
 
-  public function setShippingCostPolicyUrl($shippingCostPolicyUrl)
-  {
-    $this->shippingCostPolicyUrl = $shippingCostPolicyUrl;
-  }
-  public function getShippingCostPolicyUrl()
-  {
-    return $this->shippingCostPolicyUrl;
-  }
-  public function setStatus($status)
-  {
-    $this->status = $status;
-  }
-  public function getStatus()
-  {
-    return $this->status;
-  }
+	public function setShippingCostPolicyUrl($shippingCostPolicyUrl)
+	{
+		$this->shippingCostPolicyUrl = $shippingCostPolicyUrl;
+	}
+	public function getShippingCostPolicyUrl()
+	{
+		return $this->shippingCostPolicyUrl;
+	}
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	public function getStatus()
+	{
+		return $this->status;
+	}
 }

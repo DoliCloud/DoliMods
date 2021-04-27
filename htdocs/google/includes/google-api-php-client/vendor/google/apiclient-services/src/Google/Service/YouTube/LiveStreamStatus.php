@@ -17,30 +17,30 @@
 
 class Google_Service_YouTube_LiveStreamStatus extends Google_Model
 {
-  protected $healthStatusType = 'Google_Service_YouTube_LiveStreamHealthStatus';
-  protected $healthStatusDataType = '';
-  public $streamStatus;
+	protected $healthStatusType = 'Google_Service_YouTube_LiveStreamHealthStatus';
+	protected $healthStatusDataType = '';
+	public $streamStatus;
 
-  /**
-   * @param Google_Service_YouTube_LiveStreamHealthStatus
-   */
-  public function setHealthStatus(Google_Service_YouTube_LiveStreamHealthStatus $healthStatus)
-  {
-    $this->healthStatus = $healthStatus;
-  }
-  /**
-   * @return Google_Service_YouTube_LiveStreamHealthStatus
-   */
-  public function getHealthStatus()
-  {
-    return $this->healthStatus;
-  }
-  public function setStreamStatus($streamStatus)
-  {
-    $this->streamStatus = $streamStatus;
-  }
-  public function getStreamStatus()
-  {
-    return $this->streamStatus;
-  }
+	/**
+	 * @param Google_Service_YouTube_LiveStreamHealthStatus
+	 */
+	public function setHealthStatus(Google_Service_YouTube_LiveStreamHealthStatus $healthStatus)
+	{
+		$this->healthStatus = $healthStatus;
+	}
+	/**
+	 * @return Google_Service_YouTube_LiveStreamHealthStatus
+	 */
+	public function getHealthStatus()
+	{
+		return $this->healthStatus;
+	}
+	public function setStreamStatus($streamStatus)
+	{
+		$this->streamStatus = $streamStatus;
+	}
+	public function getStreamStatus()
+	{
+		return $this->streamStatus;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_RegionInstanceGroupsListInstancesRequest extends Google_Model
 {
-  public $instanceState;
-  public $portName;
+	public $instanceState;
+	public $portName;
 
-  public function setInstanceState($instanceState)
-  {
-    $this->instanceState = $instanceState;
-  }
-  public function getInstanceState()
-  {
-    return $this->instanceState;
-  }
-  public function setPortName($portName)
-  {
-    $this->portName = $portName;
-  }
-  public function getPortName()
-  {
-    return $this->portName;
-  }
+	public function setInstanceState($instanceState)
+	{
+		$this->instanceState = $instanceState;
+	}
+	public function getInstanceState()
+	{
+		return $this->instanceState;
+	}
+	public function setPortName($portName)
+	{
+		$this->portName = $portName;
+	}
+	public function getPortName()
+	{
+		return $this->portName;
+	}
 }

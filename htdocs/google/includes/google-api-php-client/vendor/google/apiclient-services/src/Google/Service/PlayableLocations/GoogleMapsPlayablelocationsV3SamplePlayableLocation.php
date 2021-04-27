@@ -17,74 +17,74 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocation extends Google_Collection
 {
-  protected $collection_key = 'types';
-  protected $centerPointType = 'Google_Service_PlayableLocations_GoogleTypeLatLng';
-  protected $centerPointDataType = '';
-  public $name;
-  public $placeId;
-  public $plusCode;
-  protected $snappedPointType = 'Google_Service_PlayableLocations_GoogleTypeLatLng';
-  protected $snappedPointDataType = '';
-  public $types;
+	protected $collection_key = 'types';
+	protected $centerPointType = 'Google_Service_PlayableLocations_GoogleTypeLatLng';
+	protected $centerPointDataType = '';
+	public $name;
+	public $placeId;
+	public $plusCode;
+	protected $snappedPointType = 'Google_Service_PlayableLocations_GoogleTypeLatLng';
+	protected $snappedPointDataType = '';
+	public $types;
 
-  /**
-   * @param Google_Service_PlayableLocations_GoogleTypeLatLng
-   */
-  public function setCenterPoint(Google_Service_PlayableLocations_GoogleTypeLatLng $centerPoint)
-  {
-    $this->centerPoint = $centerPoint;
-  }
-  /**
-   * @return Google_Service_PlayableLocations_GoogleTypeLatLng
-   */
-  public function getCenterPoint()
-  {
-    return $this->centerPoint;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setPlaceId($placeId)
-  {
-    $this->placeId = $placeId;
-  }
-  public function getPlaceId()
-  {
-    return $this->placeId;
-  }
-  public function setPlusCode($plusCode)
-  {
-    $this->plusCode = $plusCode;
-  }
-  public function getPlusCode()
-  {
-    return $this->plusCode;
-  }
-  /**
-   * @param Google_Service_PlayableLocations_GoogleTypeLatLng
-   */
-  public function setSnappedPoint(Google_Service_PlayableLocations_GoogleTypeLatLng $snappedPoint)
-  {
-    $this->snappedPoint = $snappedPoint;
-  }
-  /**
-   * @return Google_Service_PlayableLocations_GoogleTypeLatLng
-   */
-  public function getSnappedPoint()
-  {
-    return $this->snappedPoint;
-  }
-  public function setTypes($types)
-  {
-    $this->types = $types;
-  }
-  public function getTypes()
-  {
-    return $this->types;
-  }
+	/**
+	 * @param Google_Service_PlayableLocations_GoogleTypeLatLng
+	 */
+	public function setCenterPoint(Google_Service_PlayableLocations_GoogleTypeLatLng $centerPoint)
+	{
+		$this->centerPoint = $centerPoint;
+	}
+	/**
+	 * @return Google_Service_PlayableLocations_GoogleTypeLatLng
+	 */
+	public function getCenterPoint()
+	{
+		return $this->centerPoint;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setPlaceId($placeId)
+	{
+		$this->placeId = $placeId;
+	}
+	public function getPlaceId()
+	{
+		return $this->placeId;
+	}
+	public function setPlusCode($plusCode)
+	{
+		$this->plusCode = $plusCode;
+	}
+	public function getPlusCode()
+	{
+		return $this->plusCode;
+	}
+	/**
+	 * @param Google_Service_PlayableLocations_GoogleTypeLatLng
+	 */
+	public function setSnappedPoint(Google_Service_PlayableLocations_GoogleTypeLatLng $snappedPoint)
+	{
+		$this->snappedPoint = $snappedPoint;
+	}
+	/**
+	 * @return Google_Service_PlayableLocations_GoogleTypeLatLng
+	 */
+	public function getSnappedPoint()
+	{
+		return $this->snappedPoint;
+	}
+	public function setTypes($types)
+	{
+		$this->types = $types;
+	}
+	public function getTypes()
+	{
+		return $this->types;
+	}
 }

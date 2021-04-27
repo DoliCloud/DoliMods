@@ -17,30 +17,30 @@
 
 class Google_Service_Slides_StretchedPictureFill extends Google_Model
 {
-  public $contentUrl;
-  protected $sizeType = 'Google_Service_Slides_Size';
-  protected $sizeDataType = '';
+	public $contentUrl;
+	protected $sizeType = 'Google_Service_Slides_Size';
+	protected $sizeDataType = '';
 
-  public function setContentUrl($contentUrl)
-  {
-    $this->contentUrl = $contentUrl;
-  }
-  public function getContentUrl()
-  {
-    return $this->contentUrl;
-  }
-  /**
-   * @param Google_Service_Slides_Size
-   */
-  public function setSize(Google_Service_Slides_Size $size)
-  {
-    $this->size = $size;
-  }
-  /**
-   * @return Google_Service_Slides_Size
-   */
-  public function getSize()
-  {
-    return $this->size;
-  }
+	public function setContentUrl($contentUrl)
+	{
+		$this->contentUrl = $contentUrl;
+	}
+	public function getContentUrl()
+	{
+		return $this->contentUrl;
+	}
+	/**
+	 * @param Google_Service_Slides_Size
+	 */
+	public function setSize(Google_Service_Slides_Size $size)
+	{
+		$this->size = $size;
+	}
+	/**
+	 * @return Google_Service_Slides_Size
+	 */
+	public function getSize()
+	{
+		return $this->size;
+	}
 }

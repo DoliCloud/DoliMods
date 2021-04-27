@@ -17,58 +17,58 @@
 
 class Google_Service_ArtifactRegistry_Version extends Google_Collection
 {
-  protected $collection_key = 'relatedTags';
-  public $createTime;
-  public $description;
-  public $name;
-  protected $relatedTagsType = 'Google_Service_ArtifactRegistry_Tag';
-  protected $relatedTagsDataType = 'array';
-  public $updateTime;
+	protected $collection_key = 'relatedTags';
+	public $createTime;
+	public $description;
+	public $name;
+	protected $relatedTagsType = 'Google_Service_ArtifactRegistry_Tag';
+	protected $relatedTagsDataType = 'array';
+	public $updateTime;
 
-  public function setCreateTime($createTime)
-  {
-    $this->createTime = $createTime;
-  }
-  public function getCreateTime()
-  {
-    return $this->createTime;
-  }
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_ArtifactRegistry_Tag
-   */
-  public function setRelatedTags($relatedTags)
-  {
-    $this->relatedTags = $relatedTags;
-  }
-  /**
-   * @return Google_Service_ArtifactRegistry_Tag
-   */
-  public function getRelatedTags()
-  {
-    return $this->relatedTags;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
-  }
+	public function setCreateTime($createTime)
+	{
+		$this->createTime = $createTime;
+	}
+	public function getCreateTime()
+	{
+		return $this->createTime;
+	}
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_ArtifactRegistry_Tag
+	 */
+	public function setRelatedTags($relatedTags)
+	{
+		$this->relatedTags = $relatedTags;
+	}
+	/**
+	 * @return Google_Service_ArtifactRegistry_Tag
+	 */
+	public function getRelatedTags()
+	{
+		return $this->relatedTags;
+	}
+	public function setUpdateTime($updateTime)
+	{
+		$this->updateTime = $updateTime;
+	}
+	public function getUpdateTime()
+	{
+		return $this->updateTime;
+	}
 }

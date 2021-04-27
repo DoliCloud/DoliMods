@@ -17,39 +17,39 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTranslation extends Google_Model
 {
-  public $languageCode;
-  protected $textAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor';
-  protected $textAnchorDataType = '';
-  public $translatedText;
+	public $languageCode;
+	protected $textAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor';
+	protected $textAnchorDataType = '';
+	public $translatedText;
 
-  public function setLanguageCode($languageCode)
-  {
-    $this->languageCode = $languageCode;
-  }
-  public function getLanguageCode()
-  {
-    return $this->languageCode;
-  }
-  /**
-   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor
-   */
-  public function setTextAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor $textAnchor)
-  {
-    $this->textAnchor = $textAnchor;
-  }
-  /**
-   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor
-   */
-  public function getTextAnchor()
-  {
-    return $this->textAnchor;
-  }
-  public function setTranslatedText($translatedText)
-  {
-    $this->translatedText = $translatedText;
-  }
-  public function getTranslatedText()
-  {
-    return $this->translatedText;
-  }
+	public function setLanguageCode($languageCode)
+	{
+		$this->languageCode = $languageCode;
+	}
+	public function getLanguageCode()
+	{
+		return $this->languageCode;
+	}
+	/**
+	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor
+	 */
+	public function setTextAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor $textAnchor)
+	{
+		$this->textAnchor = $textAnchor;
+	}
+	/**
+	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor
+	 */
+	public function getTextAnchor()
+	{
+		return $this->textAnchor;
+	}
+	public function setTranslatedText($translatedText)
+	{
+		$this->translatedText = $translatedText;
+	}
+	public function getTranslatedText()
+	{
+		return $this->translatedText;
+	}
 }

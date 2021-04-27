@@ -25,24 +25,24 @@
  */
 class Google_Service_AdExchangeSeller_Resource_AccountsAdclients extends Google_Service_Resource
 {
-  /**
-   * List all ad clients in this Ad Exchange account.
-   * (adclients.listAccountsAdclients)
-   *
-   * @param string $accountId Account to which the ad client belongs.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string maxResults The maximum number of ad clients to include in
-   * the response, used for paging.
-   * @opt_param string pageToken A continuation token, used to page through ad
-   * clients. To retrieve the next page, set this parameter to the value of
-   * "nextPageToken" from the previous response.
-   * @return Google_Service_AdExchangeSeller_AdClients
-   */
-  public function listAccountsAdclients($accountId, $optParams = array())
-  {
-    $params = array('accountId' => $accountId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeSeller_AdClients");
-  }
+	/**
+	 * List all ad clients in this Ad Exchange account.
+	 * (adclients.listAccountsAdclients)
+	 *
+	 * @param string $accountId Account to which the ad client belongs.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string maxResults The maximum number of ad clients to include in
+	 * the response, used for paging.
+	 * @opt_param string pageToken A continuation token, used to page through ad
+	 * clients. To retrieve the next page, set this parameter to the value of
+	 * "nextPageToken" from the previous response.
+	 * @return Google_Service_AdExchangeSeller_AdClients
+	 */
+	public function listAccountsAdclients($accountId, $optParams = array())
+	{
+		$params = array('accountId' => $accountId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_AdExchangeSeller_AdClients");
+	}
 }

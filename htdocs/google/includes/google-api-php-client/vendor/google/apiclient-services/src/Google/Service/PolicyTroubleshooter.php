@@ -30,40 +30,40 @@
  */
 class Google_Service_PolicyTroubleshooter extends Google_Service
 {
-  /** View and manage your data across Google Cloud Platform services. */
-  const CLOUD_PLATFORM =
-      "https://www.googleapis.com/auth/cloud-platform";
+	/** View and manage your data across Google Cloud Platform services. */
+	const CLOUD_PLATFORM =
+	  "https://www.googleapis.com/auth/cloud-platform";
 
-  public $iam;
-  
-  /**
-   * Constructs the internal representation of the PolicyTroubleshooter service.
-   *
-   * @param Google_Client $client The client used to deliver requests.
-   * @param string $rootUrl The root URL used for requests to the service.
-   */
-  public function __construct(Google_Client $client, $rootUrl = null)
-  {
-    parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://policytroubleshooter.googleapis.com/';
-    $this->servicePath = '';
-    $this->batchPath = 'batch';
-    $this->version = 'v1';
-    $this->serviceName = 'policytroubleshooter';
+	public $iam;
 
-    $this->iam = new Google_Service_PolicyTroubleshooter_Resource_Iam(
-        $this,
-        $this->serviceName,
-        'iam',
-        array(
-          'methods' => array(
-            'troubleshoot' => array(
-              'path' => 'v1/iam:troubleshoot',
-              'httpMethod' => 'POST',
-              'parameters' => array(),
-            ),
-          )
-        )
-    );
-  }
+	/**
+	 * Constructs the internal representation of the PolicyTroubleshooter service.
+	 *
+	 * @param Google_Client $client The client used to deliver requests.
+	 * @param string $rootUrl The root URL used for requests to the service.
+	 */
+	public function __construct(Google_Client $client, $rootUrl = null)
+	{
+		parent::__construct($client);
+		$this->rootUrl = $rootUrl ?: 'https://policytroubleshooter.googleapis.com/';
+		$this->servicePath = '';
+		$this->batchPath = 'batch';
+		$this->version = 'v1';
+		$this->serviceName = 'policytroubleshooter';
+
+		$this->iam = new Google_Service_PolicyTroubleshooter_Resource_Iam(
+		$this,
+		$this->serviceName,
+		'iam',
+		array(
+		  'methods' => array(
+			'troubleshoot' => array(
+			  'path' => 'v1/iam:troubleshoot',
+			  'httpMethod' => 'POST',
+			  'parameters' => array(),
+			),
+		  )
+		)
+		);
+	}
 }

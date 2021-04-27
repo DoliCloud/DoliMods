@@ -17,22 +17,22 @@
 
 class Google_Service_Slides_ColorScheme extends Google_Collection
 {
-  protected $collection_key = 'colors';
-  protected $colorsType = 'Google_Service_Slides_ThemeColorPair';
-  protected $colorsDataType = 'array';
+	protected $collection_key = 'colors';
+	protected $colorsType = 'Google_Service_Slides_ThemeColorPair';
+	protected $colorsDataType = 'array';
 
-  /**
-   * @param Google_Service_Slides_ThemeColorPair
-   */
-  public function setColors($colors)
-  {
-    $this->colors = $colors;
-  }
-  /**
-   * @return Google_Service_Slides_ThemeColorPair
-   */
-  public function getColors()
-  {
-    return $this->colors;
-  }
+	/**
+	 * @param Google_Service_Slides_ThemeColorPair
+	 */
+	public function setColors($colors)
+	{
+		$this->colors = $colors;
+	}
+	/**
+	 * @return Google_Service_Slides_ThemeColorPair
+	 */
+	public function getColors()
+	{
+		return $this->colors;
+	}
 }

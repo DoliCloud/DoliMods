@@ -17,47 +17,47 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1StatsEnvironmentStats extends Google_Collection
 {
-  protected $collection_key = 'metrics';
-  protected $dimensionsType = 'Google_Service_Apigee_GoogleCloudApigeeV1DimensionMetric';
-  protected $dimensionsDataType = 'array';
-  protected $metricsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Metric';
-  protected $metricsDataType = 'array';
-  public $name;
+	protected $collection_key = 'metrics';
+	protected $dimensionsType = 'Google_Service_Apigee_GoogleCloudApigeeV1DimensionMetric';
+	protected $dimensionsDataType = 'array';
+	protected $metricsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Metric';
+	protected $metricsDataType = 'array';
+	public $name;
 
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1DimensionMetric
-   */
-  public function setDimensions($dimensions)
-  {
-    $this->dimensions = $dimensions;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1DimensionMetric
-   */
-  public function getDimensions()
-  {
-    return $this->dimensions;
-  }
-  /**
-   * @param Google_Service_Apigee_GoogleCloudApigeeV1Metric
-   */
-  public function setMetrics($metrics)
-  {
-    $this->metrics = $metrics;
-  }
-  /**
-   * @return Google_Service_Apigee_GoogleCloudApigeeV1Metric
-   */
-  public function getMetrics()
-  {
-    return $this->metrics;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1DimensionMetric
+	 */
+	public function setDimensions($dimensions)
+	{
+		$this->dimensions = $dimensions;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DimensionMetric
+	 */
+	public function getDimensions()
+	{
+		return $this->dimensions;
+	}
+	/**
+	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Metric
+	 */
+	public function setMetrics($metrics)
+	{
+		$this->metrics = $metrics;
+	}
+	/**
+	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Metric
+	 */
+	public function getMetrics()
+	{
+		return $this->metrics;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

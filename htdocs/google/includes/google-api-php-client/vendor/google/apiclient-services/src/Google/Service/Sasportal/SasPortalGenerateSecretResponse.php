@@ -17,14 +17,14 @@
 
 class Google_Service_Sasportal_SasPortalGenerateSecretResponse extends Google_Model
 {
-  public $secret;
+	public $secret;
 
-  public function setSecret($secret)
-  {
-    $this->secret = $secret;
-  }
-  public function getSecret()
-  {
-    return $this->secret;
-  }
+	public function setSecret($secret)
+	{
+		$this->secret = $secret;
+	}
+	public function getSecret()
+	{
+		return $this->secret;
+	}
 }

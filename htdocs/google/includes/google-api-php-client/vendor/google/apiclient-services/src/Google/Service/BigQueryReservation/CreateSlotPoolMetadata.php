@@ -17,14 +17,14 @@
 
 class Google_Service_BigQueryReservation_CreateSlotPoolMetadata extends Google_Model
 {
-  public $slotPool;
+	public $slotPool;
 
-  public function setSlotPool($slotPool)
-  {
-    $this->slotPool = $slotPool;
-  }
-  public function getSlotPool()
-  {
-    return $this->slotPool;
-  }
+	public function setSlotPool($slotPool)
+	{
+		$this->slotPool = $slotPool;
+	}
+	public function getSlotPool()
+	{
+		return $this->slotPool;
+	}
 }

@@ -17,42 +17,42 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroup extends Google_Collection
 {
-  protected $collection_key = 'hostnames';
-  public $createdAt;
-  public $hostnames;
-  public $lastModifiedAt;
-  public $name;
+	protected $collection_key = 'hostnames';
+	public $createdAt;
+	public $hostnames;
+	public $lastModifiedAt;
+	public $name;
 
-  public function setCreatedAt($createdAt)
-  {
-    $this->createdAt = $createdAt;
-  }
-  public function getCreatedAt()
-  {
-    return $this->createdAt;
-  }
-  public function setHostnames($hostnames)
-  {
-    $this->hostnames = $hostnames;
-  }
-  public function getHostnames()
-  {
-    return $this->hostnames;
-  }
-  public function setLastModifiedAt($lastModifiedAt)
-  {
-    $this->lastModifiedAt = $lastModifiedAt;
-  }
-  public function getLastModifiedAt()
-  {
-    return $this->lastModifiedAt;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+	}
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
+	public function setHostnames($hostnames)
+	{
+		$this->hostnames = $hostnames;
+	}
+	public function getHostnames()
+	{
+		return $this->hostnames;
+	}
+	public function setLastModifiedAt($lastModifiedAt)
+	{
+		$this->lastModifiedAt = $lastModifiedAt;
+	}
+	public function getLastModifiedAt()
+	{
+		return $this->lastModifiedAt;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

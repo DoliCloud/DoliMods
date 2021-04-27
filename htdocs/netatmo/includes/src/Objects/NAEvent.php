@@ -13,5 +13,3 @@ require_once dirname(dirname(__FILE__)) . "/Netatmo/autoload.php";
 class NAEvent extends Netatmo\Objects\NAEvent
 {
 }
-
-?>

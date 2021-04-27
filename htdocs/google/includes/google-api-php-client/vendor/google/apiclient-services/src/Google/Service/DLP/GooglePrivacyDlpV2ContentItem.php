@@ -17,46 +17,46 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ContentItem extends Google_Model
 {
-  protected $byteItemType = 'Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem';
-  protected $byteItemDataType = '';
-  protected $tableType = 'Google_Service_DLP_GooglePrivacyDlpV2Table';
-  protected $tableDataType = '';
-  public $value;
+	protected $byteItemType = 'Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem';
+	protected $byteItemDataType = '';
+	protected $tableType = 'Google_Service_DLP_GooglePrivacyDlpV2Table';
+	protected $tableDataType = '';
+	public $value;
 
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem
-   */
-  public function setByteItem(Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem $byteItem)
-  {
-    $this->byteItem = $byteItem;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem
-   */
-  public function getByteItem()
-  {
-    return $this->byteItem;
-  }
-  /**
-   * @param Google_Service_DLP_GooglePrivacyDlpV2Table
-   */
-  public function setTable(Google_Service_DLP_GooglePrivacyDlpV2Table $table)
-  {
-    $this->table = $table;
-  }
-  /**
-   * @return Google_Service_DLP_GooglePrivacyDlpV2Table
-   */
-  public function getTable()
-  {
-    return $this->table;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem
+	 */
+	public function setByteItem(Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem $byteItem)
+	{
+		$this->byteItem = $byteItem;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2ByteContentItem
+	 */
+	public function getByteItem()
+	{
+		return $this->byteItem;
+	}
+	/**
+	 * @param Google_Service_DLP_GooglePrivacyDlpV2Table
+	 */
+	public function setTable(Google_Service_DLP_GooglePrivacyDlpV2Table $table)
+	{
+		$this->table = $table;
+	}
+	/**
+	 * @return Google_Service_DLP_GooglePrivacyDlpV2Table
+	 */
+	public function getTable()
+	{
+		return $this->table;
+	}
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+	public function getValue()
+	{
+		return $this->value;
+	}
 }

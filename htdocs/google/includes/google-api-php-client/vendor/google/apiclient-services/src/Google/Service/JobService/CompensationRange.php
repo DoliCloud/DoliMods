@@ -17,37 +17,37 @@
 
 class Google_Service_JobService_CompensationRange extends Google_Model
 {
-  protected $maxType = 'Google_Service_JobService_Money';
-  protected $maxDataType = '';
-  protected $minType = 'Google_Service_JobService_Money';
-  protected $minDataType = '';
+	protected $maxType = 'Google_Service_JobService_Money';
+	protected $maxDataType = '';
+	protected $minType = 'Google_Service_JobService_Money';
+	protected $minDataType = '';
 
-  /**
-   * @param Google_Service_JobService_Money
-   */
-  public function setMax(Google_Service_JobService_Money $max)
-  {
-    $this->max = $max;
-  }
-  /**
-   * @return Google_Service_JobService_Money
-   */
-  public function getMax()
-  {
-    return $this->max;
-  }
-  /**
-   * @param Google_Service_JobService_Money
-   */
-  public function setMin(Google_Service_JobService_Money $min)
-  {
-    $this->min = $min;
-  }
-  /**
-   * @return Google_Service_JobService_Money
-   */
-  public function getMin()
-  {
-    return $this->min;
-  }
+	/**
+	 * @param Google_Service_JobService_Money
+	 */
+	public function setMax(Google_Service_JobService_Money $max)
+	{
+		$this->max = $max;
+	}
+	/**
+	 * @return Google_Service_JobService_Money
+	 */
+	public function getMax()
+	{
+		return $this->max;
+	}
+	/**
+	 * @param Google_Service_JobService_Money
+	 */
+	public function setMin(Google_Service_JobService_Money $min)
+	{
+		$this->min = $min;
+	}
+	/**
+	 * @return Google_Service_JobService_Money
+	 */
+	public function getMin()
+	{
+		return $this->min;
+	}
 }

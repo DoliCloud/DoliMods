@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_PosStore extends Google_Model
 {
-  public $kind;
-  public $storeAddress;
-  public $storeCode;
+	public $kind;
+	public $storeAddress;
+	public $storeCode;
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setStoreAddress($storeAddress)
-  {
-    $this->storeAddress = $storeAddress;
-  }
-  public function getStoreAddress()
-  {
-    return $this->storeAddress;
-  }
-  public function setStoreCode($storeCode)
-  {
-    $this->storeCode = $storeCode;
-  }
-  public function getStoreCode()
-  {
-    return $this->storeCode;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setStoreAddress($storeAddress)
+	{
+		$this->storeAddress = $storeAddress;
+	}
+	public function getStoreAddress()
+	{
+		return $this->storeAddress;
+	}
+	public function setStoreCode($storeCode)
+	{
+		$this->storeCode = $storeCode;
+	}
+	public function getStoreCode()
+	{
+		return $this->storeCode;
+	}
 }

@@ -17,67 +17,67 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityType extends Google_Collection
 {
-  protected $collection_key = 'entities';
-  public $autoExpansionMode;
-  public $displayName;
-  public $enableFuzzyExtraction;
-  protected $entitiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity';
-  protected $entitiesDataType = 'array';
-  public $kind;
-  public $name;
+	protected $collection_key = 'entities';
+	public $autoExpansionMode;
+	public $displayName;
+	public $enableFuzzyExtraction;
+	protected $entitiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity';
+	protected $entitiesDataType = 'array';
+	public $kind;
+	public $name;
 
-  public function setAutoExpansionMode($autoExpansionMode)
-  {
-    $this->autoExpansionMode = $autoExpansionMode;
-  }
-  public function getAutoExpansionMode()
-  {
-    return $this->autoExpansionMode;
-  }
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setEnableFuzzyExtraction($enableFuzzyExtraction)
-  {
-    $this->enableFuzzyExtraction = $enableFuzzyExtraction;
-  }
-  public function getEnableFuzzyExtraction()
-  {
-    return $this->enableFuzzyExtraction;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity
-   */
-  public function setEntities($entities)
-  {
-    $this->entities = $entities;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity
-   */
-  public function getEntities()
-  {
-    return $this->entities;
-  }
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setAutoExpansionMode($autoExpansionMode)
+	{
+		$this->autoExpansionMode = $autoExpansionMode;
+	}
+	public function getAutoExpansionMode()
+	{
+		return $this->autoExpansionMode;
+	}
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setEnableFuzzyExtraction($enableFuzzyExtraction)
+	{
+		$this->enableFuzzyExtraction = $enableFuzzyExtraction;
+	}
+	public function getEnableFuzzyExtraction()
+	{
+		return $this->enableFuzzyExtraction;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity
+	 */
+	public function setEntities($entities)
+	{
+		$this->entities = $entities;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EntityTypeEntity
+	 */
+	public function getEntities()
+	{
+		return $this->entities;
+	}
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

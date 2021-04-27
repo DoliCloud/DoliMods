@@ -25,19 +25,19 @@
  */
 class Google_Service_Surveys_Resource_Results extends Google_Service_Resource
 {
-  /**
-   * Retrieves any survey results that have been produced so far. Results are
-   * formatted as an Excel file. You must add "?alt=media" to the URL as an
-   * argument to get results. (results.get)
-   *
-   * @param string $surveyUrlId External URL ID for the survey.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Surveys_SurveyResults
-   */
-  public function get($surveyUrlId, $optParams = array())
-  {
-    $params = array('surveyUrlId' => $surveyUrlId);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Surveys_SurveyResults");
-  }
+	/**
+	 * Retrieves any survey results that have been produced so far. Results are
+	 * formatted as an Excel file. You must add "?alt=media" to the URL as an
+	 * argument to get results. (results.get)
+	 *
+	 * @param string $surveyUrlId External URL ID for the survey.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Surveys_SurveyResults
+	 */
+	public function get($surveyUrlId, $optParams = array())
+	{
+		$params = array('surveyUrlId' => $surveyUrlId);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Surveys_SurveyResults");
+	}
 }

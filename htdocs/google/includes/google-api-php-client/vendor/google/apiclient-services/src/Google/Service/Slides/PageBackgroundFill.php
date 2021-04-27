@@ -17,46 +17,46 @@
 
 class Google_Service_Slides_PageBackgroundFill extends Google_Model
 {
-  public $propertyState;
-  protected $solidFillType = 'Google_Service_Slides_SolidFill';
-  protected $solidFillDataType = '';
-  protected $stretchedPictureFillType = 'Google_Service_Slides_StretchedPictureFill';
-  protected $stretchedPictureFillDataType = '';
+	public $propertyState;
+	protected $solidFillType = 'Google_Service_Slides_SolidFill';
+	protected $solidFillDataType = '';
+	protected $stretchedPictureFillType = 'Google_Service_Slides_StretchedPictureFill';
+	protected $stretchedPictureFillDataType = '';
 
-  public function setPropertyState($propertyState)
-  {
-    $this->propertyState = $propertyState;
-  }
-  public function getPropertyState()
-  {
-    return $this->propertyState;
-  }
-  /**
-   * @param Google_Service_Slides_SolidFill
-   */
-  public function setSolidFill(Google_Service_Slides_SolidFill $solidFill)
-  {
-    $this->solidFill = $solidFill;
-  }
-  /**
-   * @return Google_Service_Slides_SolidFill
-   */
-  public function getSolidFill()
-  {
-    return $this->solidFill;
-  }
-  /**
-   * @param Google_Service_Slides_StretchedPictureFill
-   */
-  public function setStretchedPictureFill(Google_Service_Slides_StretchedPictureFill $stretchedPictureFill)
-  {
-    $this->stretchedPictureFill = $stretchedPictureFill;
-  }
-  /**
-   * @return Google_Service_Slides_StretchedPictureFill
-   */
-  public function getStretchedPictureFill()
-  {
-    return $this->stretchedPictureFill;
-  }
+	public function setPropertyState($propertyState)
+	{
+		$this->propertyState = $propertyState;
+	}
+	public function getPropertyState()
+	{
+		return $this->propertyState;
+	}
+	/**
+	 * @param Google_Service_Slides_SolidFill
+	 */
+	public function setSolidFill(Google_Service_Slides_SolidFill $solidFill)
+	{
+		$this->solidFill = $solidFill;
+	}
+	/**
+	 * @return Google_Service_Slides_SolidFill
+	 */
+	public function getSolidFill()
+	{
+		return $this->solidFill;
+	}
+	/**
+	 * @param Google_Service_Slides_StretchedPictureFill
+	 */
+	public function setStretchedPictureFill(Google_Service_Slides_StretchedPictureFill $stretchedPictureFill)
+	{
+		$this->stretchedPictureFill = $stretchedPictureFill;
+	}
+	/**
+	 * @return Google_Service_Slides_StretchedPictureFill
+	 */
+	public function getStretchedPictureFill()
+	{
+		return $this->stretchedPictureFill;
+	}
 }

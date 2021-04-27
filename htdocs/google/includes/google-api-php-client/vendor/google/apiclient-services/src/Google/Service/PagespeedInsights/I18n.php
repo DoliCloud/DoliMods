@@ -17,21 +17,21 @@
 
 class Google_Service_PagespeedInsights_I18n extends Google_Model
 {
-  protected $rendererFormattedStringsType = 'Google_Service_PagespeedInsights_RendererFormattedStrings';
-  protected $rendererFormattedStringsDataType = '';
+	protected $rendererFormattedStringsType = 'Google_Service_PagespeedInsights_RendererFormattedStrings';
+	protected $rendererFormattedStringsDataType = '';
 
-  /**
-   * @param Google_Service_PagespeedInsights_RendererFormattedStrings
-   */
-  public function setRendererFormattedStrings(Google_Service_PagespeedInsights_RendererFormattedStrings $rendererFormattedStrings)
-  {
-    $this->rendererFormattedStrings = $rendererFormattedStrings;
-  }
-  /**
-   * @return Google_Service_PagespeedInsights_RendererFormattedStrings
-   */
-  public function getRendererFormattedStrings()
-  {
-    return $this->rendererFormattedStrings;
-  }
+	/**
+	 * @param Google_Service_PagespeedInsights_RendererFormattedStrings
+	 */
+	public function setRendererFormattedStrings(Google_Service_PagespeedInsights_RendererFormattedStrings $rendererFormattedStrings)
+	{
+		$this->rendererFormattedStrings = $rendererFormattedStrings;
+	}
+	/**
+	 * @return Google_Service_PagespeedInsights_RendererFormattedStrings
+	 */
+	public function getRendererFormattedStrings()
+	{
+		return $this->rendererFormattedStrings;
+	}
 }

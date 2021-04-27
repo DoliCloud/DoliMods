@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_Dimensions extends Google_Model
 {
-  public $heightPixels;
-  public $widthPixels;
+	public $heightPixels;
+	public $widthPixels;
 
-  public function setHeightPixels($heightPixels)
-  {
-    $this->heightPixels = $heightPixels;
-  }
-  public function getHeightPixels()
-  {
-    return $this->heightPixels;
-  }
-  public function setWidthPixels($widthPixels)
-  {
-    $this->widthPixels = $widthPixels;
-  }
-  public function getWidthPixels()
-  {
-    return $this->widthPixels;
-  }
+	public function setHeightPixels($heightPixels)
+	{
+		$this->heightPixels = $heightPixels;
+	}
+	public function getHeightPixels()
+	{
+		return $this->heightPixels;
+	}
+	public function setWidthPixels($widthPixels)
+	{
+		$this->widthPixels = $widthPixels;
+	}
+	public function getWidthPixels()
+	{
+		return $this->widthPixels;
+	}
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_ContainerAnalysis_GoogleDevtoolsContaineranalysisV1alpha1ProjectRepoId extends Google_Model
 {
-  public $projectId;
-  public $repoName;
+	public $projectId;
+	public $repoName;
 
-  public function setProjectId($projectId)
-  {
-    $this->projectId = $projectId;
-  }
-  public function getProjectId()
-  {
-    return $this->projectId;
-  }
-  public function setRepoName($repoName)
-  {
-    $this->repoName = $repoName;
-  }
-  public function getRepoName()
-  {
-    return $this->repoName;
-  }
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+	}
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+	public function setRepoName($repoName)
+	{
+		$this->repoName = $repoName;
+	}
+	public function getRepoName()
+	{
+		return $this->repoName;
+	}
 }

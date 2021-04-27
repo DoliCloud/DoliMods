@@ -17,31 +17,31 @@
 
 class Google_Service_Books_Series extends Google_Collection
 {
-  protected $collection_key = 'series';
-  public $kind;
-  protected $seriesType = 'Google_Service_Books_SeriesSeries';
-  protected $seriesDataType = 'array';
+	protected $collection_key = 'series';
+	public $kind;
+	protected $seriesType = 'Google_Service_Books_SeriesSeries';
+	protected $seriesDataType = 'array';
 
-  public function setKind($kind)
-  {
-    $this->kind = $kind;
-  }
-  public function getKind()
-  {
-    return $this->kind;
-  }
-  /**
-   * @param Google_Service_Books_SeriesSeries
-   */
-  public function setSeries($series)
-  {
-    $this->series = $series;
-  }
-  /**
-   * @return Google_Service_Books_SeriesSeries
-   */
-  public function getSeries()
-  {
-    return $this->series;
-  }
+	public function setKind($kind)
+	{
+		$this->kind = $kind;
+	}
+	public function getKind()
+	{
+		return $this->kind;
+	}
+	/**
+	 * @param Google_Service_Books_SeriesSeries
+	 */
+	public function setSeries($series)
+	{
+		$this->series = $series;
+	}
+	/**
+	 * @return Google_Service_Books_SeriesSeries
+	 */
+	public function getSeries()
+	{
+		return $this->series;
+	}
 }

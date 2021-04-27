@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_InstancesSetMachineTypeRequest extends Google_Model
 {
-  public $machineType;
+	public $machineType;
 
-  public function setMachineType($machineType)
-  {
-    $this->machineType = $machineType;
-  }
-  public function getMachineType()
-  {
-    return $this->machineType;
-  }
+	public function setMachineType($machineType)
+	{
+		$this->machineType = $machineType;
+	}
+	public function getMachineType()
+	{
+		return $this->machineType;
+	}
 }

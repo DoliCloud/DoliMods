@@ -17,73 +17,73 @@
 
 class Google_Service_Compute_InstanceGroupManagerUpdatePolicy extends Google_Model
 {
-  public $instanceRedistributionType;
-  protected $maxSurgeType = 'Google_Service_Compute_FixedOrPercent';
-  protected $maxSurgeDataType = '';
-  protected $maxUnavailableType = 'Google_Service_Compute_FixedOrPercent';
-  protected $maxUnavailableDataType = '';
-  public $minimalAction;
-  public $replacementMethod;
-  public $type;
+	public $instanceRedistributionType;
+	protected $maxSurgeType = 'Google_Service_Compute_FixedOrPercent';
+	protected $maxSurgeDataType = '';
+	protected $maxUnavailableType = 'Google_Service_Compute_FixedOrPercent';
+	protected $maxUnavailableDataType = '';
+	public $minimalAction;
+	public $replacementMethod;
+	public $type;
 
-  public function setInstanceRedistributionType($instanceRedistributionType)
-  {
-    $this->instanceRedistributionType = $instanceRedistributionType;
-  }
-  public function getInstanceRedistributionType()
-  {
-    return $this->instanceRedistributionType;
-  }
-  /**
-   * @param Google_Service_Compute_FixedOrPercent
-   */
-  public function setMaxSurge(Google_Service_Compute_FixedOrPercent $maxSurge)
-  {
-    $this->maxSurge = $maxSurge;
-  }
-  /**
-   * @return Google_Service_Compute_FixedOrPercent
-   */
-  public function getMaxSurge()
-  {
-    return $this->maxSurge;
-  }
-  /**
-   * @param Google_Service_Compute_FixedOrPercent
-   */
-  public function setMaxUnavailable(Google_Service_Compute_FixedOrPercent $maxUnavailable)
-  {
-    $this->maxUnavailable = $maxUnavailable;
-  }
-  /**
-   * @return Google_Service_Compute_FixedOrPercent
-   */
-  public function getMaxUnavailable()
-  {
-    return $this->maxUnavailable;
-  }
-  public function setMinimalAction($minimalAction)
-  {
-    $this->minimalAction = $minimalAction;
-  }
-  public function getMinimalAction()
-  {
-    return $this->minimalAction;
-  }
-  public function setReplacementMethod($replacementMethod)
-  {
-    $this->replacementMethod = $replacementMethod;
-  }
-  public function getReplacementMethod()
-  {
-    return $this->replacementMethod;
-  }
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setInstanceRedistributionType($instanceRedistributionType)
+	{
+		$this->instanceRedistributionType = $instanceRedistributionType;
+	}
+	public function getInstanceRedistributionType()
+	{
+		return $this->instanceRedistributionType;
+	}
+	/**
+	 * @param Google_Service_Compute_FixedOrPercent
+	 */
+	public function setMaxSurge(Google_Service_Compute_FixedOrPercent $maxSurge)
+	{
+		$this->maxSurge = $maxSurge;
+	}
+	/**
+	 * @return Google_Service_Compute_FixedOrPercent
+	 */
+	public function getMaxSurge()
+	{
+		return $this->maxSurge;
+	}
+	/**
+	 * @param Google_Service_Compute_FixedOrPercent
+	 */
+	public function setMaxUnavailable(Google_Service_Compute_FixedOrPercent $maxUnavailable)
+	{
+		$this->maxUnavailable = $maxUnavailable;
+	}
+	/**
+	 * @return Google_Service_Compute_FixedOrPercent
+	 */
+	public function getMaxUnavailable()
+	{
+		return $this->maxUnavailable;
+	}
+	public function setMinimalAction($minimalAction)
+	{
+		$this->minimalAction = $minimalAction;
+	}
+	public function getMinimalAction()
+	{
+		return $this->minimalAction;
+	}
+	public function setReplacementMethod($replacementMethod)
+	{
+		$this->replacementMethod = $replacementMethod;
+	}
+	public function getReplacementMethod()
+	{
+		return $this->replacementMethod;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 }

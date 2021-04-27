@@ -17,55 +17,55 @@
 
 class Google_Service_CloudDebugger_CloudRepoSourceContext extends Google_Model
 {
-  protected $aliasContextType = 'Google_Service_CloudDebugger_AliasContext';
-  protected $aliasContextDataType = '';
-  public $aliasName;
-  protected $repoIdType = 'Google_Service_CloudDebugger_RepoId';
-  protected $repoIdDataType = '';
-  public $revisionId;
+	protected $aliasContextType = 'Google_Service_CloudDebugger_AliasContext';
+	protected $aliasContextDataType = '';
+	public $aliasName;
+	protected $repoIdType = 'Google_Service_CloudDebugger_RepoId';
+	protected $repoIdDataType = '';
+	public $revisionId;
 
-  /**
-   * @param Google_Service_CloudDebugger_AliasContext
-   */
-  public function setAliasContext(Google_Service_CloudDebugger_AliasContext $aliasContext)
-  {
-    $this->aliasContext = $aliasContext;
-  }
-  /**
-   * @return Google_Service_CloudDebugger_AliasContext
-   */
-  public function getAliasContext()
-  {
-    return $this->aliasContext;
-  }
-  public function setAliasName($aliasName)
-  {
-    $this->aliasName = $aliasName;
-  }
-  public function getAliasName()
-  {
-    return $this->aliasName;
-  }
-  /**
-   * @param Google_Service_CloudDebugger_RepoId
-   */
-  public function setRepoId(Google_Service_CloudDebugger_RepoId $repoId)
-  {
-    $this->repoId = $repoId;
-  }
-  /**
-   * @return Google_Service_CloudDebugger_RepoId
-   */
-  public function getRepoId()
-  {
-    return $this->repoId;
-  }
-  public function setRevisionId($revisionId)
-  {
-    $this->revisionId = $revisionId;
-  }
-  public function getRevisionId()
-  {
-    return $this->revisionId;
-  }
+	/**
+	 * @param Google_Service_CloudDebugger_AliasContext
+	 */
+	public function setAliasContext(Google_Service_CloudDebugger_AliasContext $aliasContext)
+	{
+		$this->aliasContext = $aliasContext;
+	}
+	/**
+	 * @return Google_Service_CloudDebugger_AliasContext
+	 */
+	public function getAliasContext()
+	{
+		return $this->aliasContext;
+	}
+	public function setAliasName($aliasName)
+	{
+		$this->aliasName = $aliasName;
+	}
+	public function getAliasName()
+	{
+		return $this->aliasName;
+	}
+	/**
+	 * @param Google_Service_CloudDebugger_RepoId
+	 */
+	public function setRepoId(Google_Service_CloudDebugger_RepoId $repoId)
+	{
+		$this->repoId = $repoId;
+	}
+	/**
+	 * @return Google_Service_CloudDebugger_RepoId
+	 */
+	public function getRepoId()
+	{
+		return $this->repoId;
+	}
+	public function setRevisionId($revisionId)
+	{
+		$this->revisionId = $revisionId;
+	}
+	public function getRevisionId()
+	{
+		return $this->revisionId;
+	}
 }

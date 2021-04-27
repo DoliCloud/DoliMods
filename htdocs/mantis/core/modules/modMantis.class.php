@@ -24,7 +24,7 @@
  * \brief      Description and activation file for module Mantis
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -34,11 +34,11 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 class modMantis extends DolibarrModules
 {
 
-    /**
+	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
 	 *   @param		DoliDB		$db		Database handler
-     */
+	 */
 	function __construct($db)
 	{
 		$this->db = $db;
@@ -51,11 +51,11 @@ class modMantis extends DolibarrModules
 		// It is used to sort modules in module setup page
 		$this->family = "projects";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Interfacage avec le bug tracking Mantis";
-        $this->editor_name = 'NLTechno';
-        $this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'experimental' or 'dolibarr' or version
 		$this->version = '3.4';
 		// Id used in llx_const table to manage module status (enabled/disabled)
@@ -85,23 +85,22 @@ class modMantis extends DolibarrModules
 		$this->rights_class = 'mantis';	// Permission key
 		$this->rights = array();		// Permission array used by this module
 
-        // Menus
+		// Menus
 		//------
 		$r=0;
 
 		$this->menu[$r]=array('fk_menu'=>0,
-		                      'type'=>'top',
-		                      'titre'=>'BugTracker',
-		                      'mainmenu'=>'mantis',
-		                      'url'=>'/mantis/mantis.php',
-		                      'langs'=>'other',
-		                      'position'=>100,
-		                      'enabled'=>'$conf->mantis->enabled',
-		                      'perms'=>'',
-		                      'target'=>'',
-		                      'user'=>0);
+							  'type'=>'top',
+							  'titre'=>'BugTracker',
+							  'mainmenu'=>'mantis',
+							  'url'=>'/mantis/mantis.php',
+							  'langs'=>'other',
+							  'position'=>100,
+							  'enabled'=>'$conf->mantis->enabled',
+							  'perms'=>'',
+							  'target'=>'',
+							  'user'=>0);
 		$r++;
-
 	}
 
 	/**
@@ -109,30 +108,28 @@ class modMantis extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
-     */
-	function init($options='')
-  	{
-    	$sql = array();
+	 */
+	function init($options = '')
+	{
+		$sql = array();
 
-    	return $this->_init($sql,$options);
-  	}
+		return $this->_init($sql, $options);
+	}
 
 	/**
 	 *		Function called when module is disabled.
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
- 	 */
-	function remove($options='')
+	 */
+	function remove($options = '')
 	{
-    	$sql = array();
+		$sql = array();
 
-    	return $this->_remove($sql,$options);
-  	}
-
+		return $this->_remove($sql, $options);
+	}
 }
-

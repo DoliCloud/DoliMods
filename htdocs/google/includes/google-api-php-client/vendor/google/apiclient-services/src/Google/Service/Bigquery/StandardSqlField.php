@@ -17,30 +17,30 @@
 
 class Google_Service_Bigquery_StandardSqlField extends Google_Model
 {
-  public $name;
-  protected $typeType = 'Google_Service_Bigquery_StandardSqlDataType';
-  protected $typeDataType = '';
+	public $name;
+	protected $typeType = 'Google_Service_Bigquery_StandardSqlDataType';
+	protected $typeDataType = '';
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_Bigquery_StandardSqlDataType
-   */
-  public function setType(Google_Service_Bigquery_StandardSqlDataType $type)
-  {
-    $this->type = $type;
-  }
-  /**
-   * @return Google_Service_Bigquery_StandardSqlDataType
-   */
-  public function getType()
-  {
-    return $this->type;
-  }
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_Bigquery_StandardSqlDataType
+	 */
+	public function setType(Google_Service_Bigquery_StandardSqlDataType $type)
+	{
+		$this->type = $type;
+	}
+	/**
+	 * @return Google_Service_Bigquery_StandardSqlDataType
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
 }

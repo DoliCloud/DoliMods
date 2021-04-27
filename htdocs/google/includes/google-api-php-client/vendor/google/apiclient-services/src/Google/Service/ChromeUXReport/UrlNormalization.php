@@ -17,23 +17,23 @@
 
 class Google_Service_ChromeUXReport_UrlNormalization extends Google_Model
 {
-  public $normalizedUrl;
-  public $originalUrl;
+	public $normalizedUrl;
+	public $originalUrl;
 
-  public function setNormalizedUrl($normalizedUrl)
-  {
-    $this->normalizedUrl = $normalizedUrl;
-  }
-  public function getNormalizedUrl()
-  {
-    return $this->normalizedUrl;
-  }
-  public function setOriginalUrl($originalUrl)
-  {
-    $this->originalUrl = $originalUrl;
-  }
-  public function getOriginalUrl()
-  {
-    return $this->originalUrl;
-  }
+	public function setNormalizedUrl($normalizedUrl)
+	{
+		$this->normalizedUrl = $normalizedUrl;
+	}
+	public function getNormalizedUrl()
+	{
+		return $this->normalizedUrl;
+	}
+	public function setOriginalUrl($originalUrl)
+	{
+		$this->originalUrl = $originalUrl;
+	}
+	public function getOriginalUrl()
+	{
+		return $this->originalUrl;
+	}
 }

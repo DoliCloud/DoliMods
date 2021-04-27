@@ -17,21 +17,21 @@
 
 class Google_Service_PhotosLibrary_ShareAlbumRequest extends Google_Model
 {
-  protected $sharedAlbumOptionsType = 'Google_Service_PhotosLibrary_SharedAlbumOptions';
-  protected $sharedAlbumOptionsDataType = '';
+	protected $sharedAlbumOptionsType = 'Google_Service_PhotosLibrary_SharedAlbumOptions';
+	protected $sharedAlbumOptionsDataType = '';
 
-  /**
-   * @param Google_Service_PhotosLibrary_SharedAlbumOptions
-   */
-  public function setSharedAlbumOptions(Google_Service_PhotosLibrary_SharedAlbumOptions $sharedAlbumOptions)
-  {
-    $this->sharedAlbumOptions = $sharedAlbumOptions;
-  }
-  /**
-   * @return Google_Service_PhotosLibrary_SharedAlbumOptions
-   */
-  public function getSharedAlbumOptions()
-  {
-    return $this->sharedAlbumOptions;
-  }
+	/**
+	 * @param Google_Service_PhotosLibrary_SharedAlbumOptions
+	 */
+	public function setSharedAlbumOptions(Google_Service_PhotosLibrary_SharedAlbumOptions $sharedAlbumOptions)
+	{
+		$this->sharedAlbumOptions = $sharedAlbumOptions;
+	}
+	/**
+	 * @return Google_Service_PhotosLibrary_SharedAlbumOptions
+	 */
+	public function getSharedAlbumOptions()
+	{
+		return $this->sharedAlbumOptions;
+	}
 }

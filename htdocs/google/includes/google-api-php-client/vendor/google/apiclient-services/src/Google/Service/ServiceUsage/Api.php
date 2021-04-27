@@ -17,97 +17,97 @@
 
 class Google_Service_ServiceUsage_Api extends Google_Collection
 {
-  protected $collection_key = 'options';
-  protected $methodsType = 'Google_Service_ServiceUsage_Method';
-  protected $methodsDataType = 'array';
-  protected $mixinsType = 'Google_Service_ServiceUsage_Mixin';
-  protected $mixinsDataType = 'array';
-  public $name;
-  protected $optionsType = 'Google_Service_ServiceUsage_Option';
-  protected $optionsDataType = 'array';
-  protected $sourceContextType = 'Google_Service_ServiceUsage_SourceContext';
-  protected $sourceContextDataType = '';
-  public $syntax;
-  public $version;
+	protected $collection_key = 'options';
+	protected $methodsType = 'Google_Service_ServiceUsage_Method';
+	protected $methodsDataType = 'array';
+	protected $mixinsType = 'Google_Service_ServiceUsage_Mixin';
+	protected $mixinsDataType = 'array';
+	public $name;
+	protected $optionsType = 'Google_Service_ServiceUsage_Option';
+	protected $optionsDataType = 'array';
+	protected $sourceContextType = 'Google_Service_ServiceUsage_SourceContext';
+	protected $sourceContextDataType = '';
+	public $syntax;
+	public $version;
 
-  /**
-   * @param Google_Service_ServiceUsage_Method
-   */
-  public function setMethods($methods)
-  {
-    $this->methods = $methods;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_Method
-   */
-  public function getMethods()
-  {
-    return $this->methods;
-  }
-  /**
-   * @param Google_Service_ServiceUsage_Mixin
-   */
-  public function setMixins($mixins)
-  {
-    $this->mixins = $mixins;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_Mixin
-   */
-  public function getMixins()
-  {
-    return $this->mixins;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
-  /**
-   * @param Google_Service_ServiceUsage_Option
-   */
-  public function setOptions($options)
-  {
-    $this->options = $options;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_Option
-   */
-  public function getOptions()
-  {
-    return $this->options;
-  }
-  /**
-   * @param Google_Service_ServiceUsage_SourceContext
-   */
-  public function setSourceContext(Google_Service_ServiceUsage_SourceContext $sourceContext)
-  {
-    $this->sourceContext = $sourceContext;
-  }
-  /**
-   * @return Google_Service_ServiceUsage_SourceContext
-   */
-  public function getSourceContext()
-  {
-    return $this->sourceContext;
-  }
-  public function setSyntax($syntax)
-  {
-    $this->syntax = $syntax;
-  }
-  public function getSyntax()
-  {
-    return $this->syntax;
-  }
-  public function setVersion($version)
-  {
-    $this->version = $version;
-  }
-  public function getVersion()
-  {
-    return $this->version;
-  }
+	/**
+	 * @param Google_Service_ServiceUsage_Method
+	 */
+	public function setMethods($methods)
+	{
+		$this->methods = $methods;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_Method
+	 */
+	public function getMethods()
+	{
+		return $this->methods;
+	}
+	/**
+	 * @param Google_Service_ServiceUsage_Mixin
+	 */
+	public function setMixins($mixins)
+	{
+		$this->mixins = $mixins;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_Mixin
+	 */
+	public function getMixins()
+	{
+		return $this->mixins;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	/**
+	 * @param Google_Service_ServiceUsage_Option
+	 */
+	public function setOptions($options)
+	{
+		$this->options = $options;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_Option
+	 */
+	public function getOptions()
+	{
+		return $this->options;
+	}
+	/**
+	 * @param Google_Service_ServiceUsage_SourceContext
+	 */
+	public function setSourceContext(Google_Service_ServiceUsage_SourceContext $sourceContext)
+	{
+		$this->sourceContext = $sourceContext;
+	}
+	/**
+	 * @return Google_Service_ServiceUsage_SourceContext
+	 */
+	public function getSourceContext()
+	{
+		return $this->sourceContext;
+	}
+	public function setSyntax($syntax)
+	{
+		$this->syntax = $syntax;
+	}
+	public function getSyntax()
+	{
+		return $this->syntax;
+	}
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+	public function getVersion()
+	{
+		return $this->version;
+	}
 }

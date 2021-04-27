@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_SpellResult extends Google_Model
 {
-  public $suggestedQuery;
+	public $suggestedQuery;
 
-  public function setSuggestedQuery($suggestedQuery)
-  {
-    $this->suggestedQuery = $suggestedQuery;
-  }
-  public function getSuggestedQuery()
-  {
-    return $this->suggestedQuery;
-  }
+	public function setSuggestedQuery($suggestedQuery)
+	{
+		$this->suggestedQuery = $suggestedQuery;
+	}
+	public function getSuggestedQuery()
+	{
+		return $this->suggestedQuery;
+	}
 }

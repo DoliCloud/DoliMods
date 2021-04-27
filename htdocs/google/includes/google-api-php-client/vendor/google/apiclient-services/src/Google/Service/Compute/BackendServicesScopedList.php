@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_BackendServicesScopedList extends Google_Collection
 {
-  protected $collection_key = 'backendServices';
-  protected $backendServicesType = 'Google_Service_Compute_BackendService';
-  protected $backendServicesDataType = 'array';
-  protected $warningType = 'Google_Service_Compute_BackendServicesScopedListWarning';
-  protected $warningDataType = '';
+	protected $collection_key = 'backendServices';
+	protected $backendServicesType = 'Google_Service_Compute_BackendService';
+	protected $backendServicesDataType = 'array';
+	protected $warningType = 'Google_Service_Compute_BackendServicesScopedListWarning';
+	protected $warningDataType = '';
 
-  /**
-   * @param Google_Service_Compute_BackendService
-   */
-  public function setBackendServices($backendServices)
-  {
-    $this->backendServices = $backendServices;
-  }
-  /**
-   * @return Google_Service_Compute_BackendService
-   */
-  public function getBackendServices()
-  {
-    return $this->backendServices;
-  }
-  /**
-   * @param Google_Service_Compute_BackendServicesScopedListWarning
-   */
-  public function setWarning(Google_Service_Compute_BackendServicesScopedListWarning $warning)
-  {
-    $this->warning = $warning;
-  }
-  /**
-   * @return Google_Service_Compute_BackendServicesScopedListWarning
-   */
-  public function getWarning()
-  {
-    return $this->warning;
-  }
+	/**
+	 * @param Google_Service_Compute_BackendService
+	 */
+	public function setBackendServices($backendServices)
+	{
+		$this->backendServices = $backendServices;
+	}
+	/**
+	 * @return Google_Service_Compute_BackendService
+	 */
+	public function getBackendServices()
+	{
+		return $this->backendServices;
+	}
+	/**
+	 * @param Google_Service_Compute_BackendServicesScopedListWarning
+	 */
+	public function setWarning(Google_Service_Compute_BackendServicesScopedListWarning $warning)
+	{
+		$this->warning = $warning;
+	}
+	/**
+	 * @return Google_Service_Compute_BackendServicesScopedListWarning
+	 */
+	public function getWarning()
+	{
+		return $this->warning;
+	}
 }

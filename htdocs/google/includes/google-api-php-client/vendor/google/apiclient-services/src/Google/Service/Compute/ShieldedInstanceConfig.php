@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_ShieldedInstanceConfig extends Google_Model
 {
-  public $enableIntegrityMonitoring;
-  public $enableSecureBoot;
-  public $enableVtpm;
+	public $enableIntegrityMonitoring;
+	public $enableSecureBoot;
+	public $enableVtpm;
 
-  public function setEnableIntegrityMonitoring($enableIntegrityMonitoring)
-  {
-    $this->enableIntegrityMonitoring = $enableIntegrityMonitoring;
-  }
-  public function getEnableIntegrityMonitoring()
-  {
-    return $this->enableIntegrityMonitoring;
-  }
-  public function setEnableSecureBoot($enableSecureBoot)
-  {
-    $this->enableSecureBoot = $enableSecureBoot;
-  }
-  public function getEnableSecureBoot()
-  {
-    return $this->enableSecureBoot;
-  }
-  public function setEnableVtpm($enableVtpm)
-  {
-    $this->enableVtpm = $enableVtpm;
-  }
-  public function getEnableVtpm()
-  {
-    return $this->enableVtpm;
-  }
+	public function setEnableIntegrityMonitoring($enableIntegrityMonitoring)
+	{
+		$this->enableIntegrityMonitoring = $enableIntegrityMonitoring;
+	}
+	public function getEnableIntegrityMonitoring()
+	{
+		return $this->enableIntegrityMonitoring;
+	}
+	public function setEnableSecureBoot($enableSecureBoot)
+	{
+		$this->enableSecureBoot = $enableSecureBoot;
+	}
+	public function getEnableSecureBoot()
+	{
+		return $this->enableSecureBoot;
+	}
+	public function setEnableVtpm($enableVtpm)
+	{
+		$this->enableVtpm = $enableVtpm;
+	}
+	public function getEnableVtpm()
+	{
+		return $this->enableVtpm;
+	}
 }

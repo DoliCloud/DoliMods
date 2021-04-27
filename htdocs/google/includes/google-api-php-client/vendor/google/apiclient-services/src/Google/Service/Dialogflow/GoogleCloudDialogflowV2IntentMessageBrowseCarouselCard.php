@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCard extends Google_Collection
 {
-  protected $collection_key = 'items';
-  public $imageDisplayOptions;
-  protected $itemsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem';
-  protected $itemsDataType = 'array';
+	protected $collection_key = 'items';
+	public $imageDisplayOptions;
+	protected $itemsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem';
+	protected $itemsDataType = 'array';
 
-  public function setImageDisplayOptions($imageDisplayOptions)
-  {
-    $this->imageDisplayOptions = $imageDisplayOptions;
-  }
-  public function getImageDisplayOptions()
-  {
-    return $this->imageDisplayOptions;
-  }
-  /**
-   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
-  }
-  /**
-   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem
-   */
-  public function getItems()
-  {
-    return $this->items;
-  }
+	public function setImageDisplayOptions($imageDisplayOptions)
+	{
+		$this->imageDisplayOptions = $imageDisplayOptions;
+	}
+	public function getImageDisplayOptions()
+	{
+		return $this->imageDisplayOptions;
+	}
+	/**
+	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
+	/**
+	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
 }

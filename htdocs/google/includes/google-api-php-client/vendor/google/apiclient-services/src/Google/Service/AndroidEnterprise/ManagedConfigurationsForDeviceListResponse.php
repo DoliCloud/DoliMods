@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidEnterprise_ManagedConfigurationsForDeviceListResponse extends Google_Collection
 {
-  protected $collection_key = 'managedConfigurationForDevice';
-  protected $managedConfigurationForDeviceType = 'Google_Service_AndroidEnterprise_ManagedConfiguration';
-  protected $managedConfigurationForDeviceDataType = 'array';
+	protected $collection_key = 'managedConfigurationForDevice';
+	protected $managedConfigurationForDeviceType = 'Google_Service_AndroidEnterprise_ManagedConfiguration';
+	protected $managedConfigurationForDeviceDataType = 'array';
 
-  /**
-   * @param Google_Service_AndroidEnterprise_ManagedConfiguration
-   */
-  public function setManagedConfigurationForDevice($managedConfigurationForDevice)
-  {
-    $this->managedConfigurationForDevice = $managedConfigurationForDevice;
-  }
-  /**
-   * @return Google_Service_AndroidEnterprise_ManagedConfiguration
-   */
-  public function getManagedConfigurationForDevice()
-  {
-    return $this->managedConfigurationForDevice;
-  }
+	/**
+	 * @param Google_Service_AndroidEnterprise_ManagedConfiguration
+	 */
+	public function setManagedConfigurationForDevice($managedConfigurationForDevice)
+	{
+		$this->managedConfigurationForDevice = $managedConfigurationForDevice;
+	}
+	/**
+	 * @return Google_Service_AndroidEnterprise_ManagedConfiguration
+	 */
+	public function getManagedConfigurationForDevice()
+	{
+		return $this->managedConfigurationForDevice;
+	}
 }

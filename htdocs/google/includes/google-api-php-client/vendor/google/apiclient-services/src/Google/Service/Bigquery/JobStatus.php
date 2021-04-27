@@ -17,47 +17,47 @@
 
 class Google_Service_Bigquery_JobStatus extends Google_Collection
 {
-  protected $collection_key = 'errors';
-  protected $errorResultType = 'Google_Service_Bigquery_ErrorProto';
-  protected $errorResultDataType = '';
-  protected $errorsType = 'Google_Service_Bigquery_ErrorProto';
-  protected $errorsDataType = 'array';
-  public $state;
+	protected $collection_key = 'errors';
+	protected $errorResultType = 'Google_Service_Bigquery_ErrorProto';
+	protected $errorResultDataType = '';
+	protected $errorsType = 'Google_Service_Bigquery_ErrorProto';
+	protected $errorsDataType = 'array';
+	public $state;
 
-  /**
-   * @param Google_Service_Bigquery_ErrorProto
-   */
-  public function setErrorResult(Google_Service_Bigquery_ErrorProto $errorResult)
-  {
-    $this->errorResult = $errorResult;
-  }
-  /**
-   * @return Google_Service_Bigquery_ErrorProto
-   */
-  public function getErrorResult()
-  {
-    return $this->errorResult;
-  }
-  /**
-   * @param Google_Service_Bigquery_ErrorProto
-   */
-  public function setErrors($errors)
-  {
-    $this->errors = $errors;
-  }
-  /**
-   * @return Google_Service_Bigquery_ErrorProto
-   */
-  public function getErrors()
-  {
-    return $this->errors;
-  }
-  public function setState($state)
-  {
-    $this->state = $state;
-  }
-  public function getState()
-  {
-    return $this->state;
-  }
+	/**
+	 * @param Google_Service_Bigquery_ErrorProto
+	 */
+	public function setErrorResult(Google_Service_Bigquery_ErrorProto $errorResult)
+	{
+		$this->errorResult = $errorResult;
+	}
+	/**
+	 * @return Google_Service_Bigquery_ErrorProto
+	 */
+	public function getErrorResult()
+	{
+		return $this->errorResult;
+	}
+	/**
+	 * @param Google_Service_Bigquery_ErrorProto
+	 */
+	public function setErrors($errors)
+	{
+		$this->errors = $errors;
+	}
+	/**
+	 * @return Google_Service_Bigquery_ErrorProto
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+	public function getState()
+	{
+		return $this->state;
+	}
 }

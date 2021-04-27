@@ -17,68 +17,68 @@
 
 class Google_Service_Appengine_ReadinessCheck extends Google_Model
 {
-  public $appStartTimeout;
-  public $checkInterval;
-  public $failureThreshold;
-  public $host;
-  public $path;
-  public $successThreshold;
-  public $timeout;
+	public $appStartTimeout;
+	public $checkInterval;
+	public $failureThreshold;
+	public $host;
+	public $path;
+	public $successThreshold;
+	public $timeout;
 
-  public function setAppStartTimeout($appStartTimeout)
-  {
-    $this->appStartTimeout = $appStartTimeout;
-  }
-  public function getAppStartTimeout()
-  {
-    return $this->appStartTimeout;
-  }
-  public function setCheckInterval($checkInterval)
-  {
-    $this->checkInterval = $checkInterval;
-  }
-  public function getCheckInterval()
-  {
-    return $this->checkInterval;
-  }
-  public function setFailureThreshold($failureThreshold)
-  {
-    $this->failureThreshold = $failureThreshold;
-  }
-  public function getFailureThreshold()
-  {
-    return $this->failureThreshold;
-  }
-  public function setHost($host)
-  {
-    $this->host = $host;
-  }
-  public function getHost()
-  {
-    return $this->host;
-  }
-  public function setPath($path)
-  {
-    $this->path = $path;
-  }
-  public function getPath()
-  {
-    return $this->path;
-  }
-  public function setSuccessThreshold($successThreshold)
-  {
-    $this->successThreshold = $successThreshold;
-  }
-  public function getSuccessThreshold()
-  {
-    return $this->successThreshold;
-  }
-  public function setTimeout($timeout)
-  {
-    $this->timeout = $timeout;
-  }
-  public function getTimeout()
-  {
-    return $this->timeout;
-  }
+	public function setAppStartTimeout($appStartTimeout)
+	{
+		$this->appStartTimeout = $appStartTimeout;
+	}
+	public function getAppStartTimeout()
+	{
+		return $this->appStartTimeout;
+	}
+	public function setCheckInterval($checkInterval)
+	{
+		$this->checkInterval = $checkInterval;
+	}
+	public function getCheckInterval()
+	{
+		return $this->checkInterval;
+	}
+	public function setFailureThreshold($failureThreshold)
+	{
+		$this->failureThreshold = $failureThreshold;
+	}
+	public function getFailureThreshold()
+	{
+		return $this->failureThreshold;
+	}
+	public function setHost($host)
+	{
+		$this->host = $host;
+	}
+	public function getHost()
+	{
+		return $this->host;
+	}
+	public function setPath($path)
+	{
+		$this->path = $path;
+	}
+	public function getPath()
+	{
+		return $this->path;
+	}
+	public function setSuccessThreshold($successThreshold)
+	{
+		$this->successThreshold = $successThreshold;
+	}
+	public function getSuccessThreshold()
+	{
+		return $this->successThreshold;
+	}
+	public function setTimeout($timeout)
+	{
+		$this->timeout = $timeout;
+	}
+	public function getTimeout()
+	{
+		return $this->timeout;
+	}
 }

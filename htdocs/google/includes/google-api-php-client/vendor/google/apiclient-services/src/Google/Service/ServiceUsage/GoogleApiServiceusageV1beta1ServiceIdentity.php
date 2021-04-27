@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceUsage_GoogleApiServiceusageV1beta1ServiceIdentity extends Google_Model
 {
-  public $email;
-  public $uniqueId;
+	public $email;
+	public $uniqueId;
 
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setUniqueId($uniqueId)
-  {
-    $this->uniqueId = $uniqueId;
-  }
-  public function getUniqueId()
-  {
-    return $this->uniqueId;
-  }
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function setUniqueId($uniqueId)
+	{
+		$this->uniqueId = $uniqueId;
+	}
+	public function getUniqueId()
+	{
+		return $this->uniqueId;
+	}
 }

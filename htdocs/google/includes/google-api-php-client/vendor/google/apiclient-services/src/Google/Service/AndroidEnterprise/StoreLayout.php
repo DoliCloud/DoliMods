@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidEnterprise_StoreLayout extends Google_Model
 {
-  public $homepageId;
-  public $storeLayoutType;
+	public $homepageId;
+	public $storeLayoutType;
 
-  public function setHomepageId($homepageId)
-  {
-    $this->homepageId = $homepageId;
-  }
-  public function getHomepageId()
-  {
-    return $this->homepageId;
-  }
-  public function setStoreLayoutType($storeLayoutType)
-  {
-    $this->storeLayoutType = $storeLayoutType;
-  }
-  public function getStoreLayoutType()
-  {
-    return $this->storeLayoutType;
-  }
+	public function setHomepageId($homepageId)
+	{
+		$this->homepageId = $homepageId;
+	}
+	public function getHomepageId()
+	{
+		return $this->homepageId;
+	}
+	public function setStoreLayoutType($storeLayoutType)
+	{
+		$this->storeLayoutType = $storeLayoutType;
+	}
+	public function getStoreLayoutType()
+	{
+		return $this->storeLayoutType;
+	}
 }

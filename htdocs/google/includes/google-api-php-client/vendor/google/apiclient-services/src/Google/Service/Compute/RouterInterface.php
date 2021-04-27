@@ -17,50 +17,50 @@
 
 class Google_Service_Compute_RouterInterface extends Google_Model
 {
-  public $ipRange;
-  public $linkedInterconnectAttachment;
-  public $linkedVpnTunnel;
-  public $managementType;
-  public $name;
+	public $ipRange;
+	public $linkedInterconnectAttachment;
+	public $linkedVpnTunnel;
+	public $managementType;
+	public $name;
 
-  public function setIpRange($ipRange)
-  {
-    $this->ipRange = $ipRange;
-  }
-  public function getIpRange()
-  {
-    return $this->ipRange;
-  }
-  public function setLinkedInterconnectAttachment($linkedInterconnectAttachment)
-  {
-    $this->linkedInterconnectAttachment = $linkedInterconnectAttachment;
-  }
-  public function getLinkedInterconnectAttachment()
-  {
-    return $this->linkedInterconnectAttachment;
-  }
-  public function setLinkedVpnTunnel($linkedVpnTunnel)
-  {
-    $this->linkedVpnTunnel = $linkedVpnTunnel;
-  }
-  public function getLinkedVpnTunnel()
-  {
-    return $this->linkedVpnTunnel;
-  }
-  public function setManagementType($managementType)
-  {
-    $this->managementType = $managementType;
-  }
-  public function getManagementType()
-  {
-    return $this->managementType;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
+	public function setIpRange($ipRange)
+	{
+		$this->ipRange = $ipRange;
+	}
+	public function getIpRange()
+	{
+		return $this->ipRange;
+	}
+	public function setLinkedInterconnectAttachment($linkedInterconnectAttachment)
+	{
+		$this->linkedInterconnectAttachment = $linkedInterconnectAttachment;
+	}
+	public function getLinkedInterconnectAttachment()
+	{
+		return $this->linkedInterconnectAttachment;
+	}
+	public function setLinkedVpnTunnel($linkedVpnTunnel)
+	{
+		$this->linkedVpnTunnel = $linkedVpnTunnel;
+	}
+	public function getLinkedVpnTunnel()
+	{
+		return $this->linkedVpnTunnel;
+	}
+	public function setManagementType($managementType)
+	{
+		$this->managementType = $managementType;
+	}
+	public function getManagementType()
+	{
+		return $this->managementType;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
 }

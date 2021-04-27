@@ -17,46 +17,46 @@
 
 class Google_Service_CloudRun_EnvFromSource extends Google_Model
 {
-  protected $configMapRefType = 'Google_Service_CloudRun_ConfigMapEnvSource';
-  protected $configMapRefDataType = '';
-  public $prefix;
-  protected $secretRefType = 'Google_Service_CloudRun_SecretEnvSource';
-  protected $secretRefDataType = '';
+	protected $configMapRefType = 'Google_Service_CloudRun_ConfigMapEnvSource';
+	protected $configMapRefDataType = '';
+	public $prefix;
+	protected $secretRefType = 'Google_Service_CloudRun_SecretEnvSource';
+	protected $secretRefDataType = '';
 
-  /**
-   * @param Google_Service_CloudRun_ConfigMapEnvSource
-   */
-  public function setConfigMapRef(Google_Service_CloudRun_ConfigMapEnvSource $configMapRef)
-  {
-    $this->configMapRef = $configMapRef;
-  }
-  /**
-   * @return Google_Service_CloudRun_ConfigMapEnvSource
-   */
-  public function getConfigMapRef()
-  {
-    return $this->configMapRef;
-  }
-  public function setPrefix($prefix)
-  {
-    $this->prefix = $prefix;
-  }
-  public function getPrefix()
-  {
-    return $this->prefix;
-  }
-  /**
-   * @param Google_Service_CloudRun_SecretEnvSource
-   */
-  public function setSecretRef(Google_Service_CloudRun_SecretEnvSource $secretRef)
-  {
-    $this->secretRef = $secretRef;
-  }
-  /**
-   * @return Google_Service_CloudRun_SecretEnvSource
-   */
-  public function getSecretRef()
-  {
-    return $this->secretRef;
-  }
+	/**
+	 * @param Google_Service_CloudRun_ConfigMapEnvSource
+	 */
+	public function setConfigMapRef(Google_Service_CloudRun_ConfigMapEnvSource $configMapRef)
+	{
+		$this->configMapRef = $configMapRef;
+	}
+	/**
+	 * @return Google_Service_CloudRun_ConfigMapEnvSource
+	 */
+	public function getConfigMapRef()
+	{
+		return $this->configMapRef;
+	}
+	public function setPrefix($prefix)
+	{
+		$this->prefix = $prefix;
+	}
+	public function getPrefix()
+	{
+		return $this->prefix;
+	}
+	/**
+	 * @param Google_Service_CloudRun_SecretEnvSource
+	 */
+	public function setSecretRef(Google_Service_CloudRun_SecretEnvSource $secretRef)
+	{
+		$this->secretRef = $secretRef;
+	}
+	/**
+	 * @return Google_Service_CloudRun_SecretEnvSource
+	 */
+	public function getSecretRef()
+	{
+		return $this->secretRef;
+	}
 }

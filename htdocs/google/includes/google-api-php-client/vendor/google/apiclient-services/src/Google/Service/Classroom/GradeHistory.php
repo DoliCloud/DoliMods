@@ -17,50 +17,50 @@
 
 class Google_Service_Classroom_GradeHistory extends Google_Model
 {
-  public $actorUserId;
-  public $gradeChangeType;
-  public $gradeTimestamp;
-  public $maxPoints;
-  public $pointsEarned;
+	public $actorUserId;
+	public $gradeChangeType;
+	public $gradeTimestamp;
+	public $maxPoints;
+	public $pointsEarned;
 
-  public function setActorUserId($actorUserId)
-  {
-    $this->actorUserId = $actorUserId;
-  }
-  public function getActorUserId()
-  {
-    return $this->actorUserId;
-  }
-  public function setGradeChangeType($gradeChangeType)
-  {
-    $this->gradeChangeType = $gradeChangeType;
-  }
-  public function getGradeChangeType()
-  {
-    return $this->gradeChangeType;
-  }
-  public function setGradeTimestamp($gradeTimestamp)
-  {
-    $this->gradeTimestamp = $gradeTimestamp;
-  }
-  public function getGradeTimestamp()
-  {
-    return $this->gradeTimestamp;
-  }
-  public function setMaxPoints($maxPoints)
-  {
-    $this->maxPoints = $maxPoints;
-  }
-  public function getMaxPoints()
-  {
-    return $this->maxPoints;
-  }
-  public function setPointsEarned($pointsEarned)
-  {
-    $this->pointsEarned = $pointsEarned;
-  }
-  public function getPointsEarned()
-  {
-    return $this->pointsEarned;
-  }
+	public function setActorUserId($actorUserId)
+	{
+		$this->actorUserId = $actorUserId;
+	}
+	public function getActorUserId()
+	{
+		return $this->actorUserId;
+	}
+	public function setGradeChangeType($gradeChangeType)
+	{
+		$this->gradeChangeType = $gradeChangeType;
+	}
+	public function getGradeChangeType()
+	{
+		return $this->gradeChangeType;
+	}
+	public function setGradeTimestamp($gradeTimestamp)
+	{
+		$this->gradeTimestamp = $gradeTimestamp;
+	}
+	public function getGradeTimestamp()
+	{
+		return $this->gradeTimestamp;
+	}
+	public function setMaxPoints($maxPoints)
+	{
+		$this->maxPoints = $maxPoints;
+	}
+	public function getMaxPoints()
+	{
+		return $this->maxPoints;
+	}
+	public function setPointsEarned($pointsEarned)
+	{
+		$this->pointsEarned = $pointsEarned;
+	}
+	public function getPointsEarned()
+	{
+		return $this->pointsEarned;
+	}
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_Tracing_Attributes extends Google_Model
 {
-  protected $attributeMapType = 'Google_Service_Tracing_AttributeValue';
-  protected $attributeMapDataType = 'map';
-  public $droppedAttributesCount;
+	protected $attributeMapType = 'Google_Service_Tracing_AttributeValue';
+	protected $attributeMapDataType = 'map';
+	public $droppedAttributesCount;
 
-  public function setAttributeMap($attributeMap)
-  {
-    $this->attributeMap = $attributeMap;
-  }
-  public function getAttributeMap()
-  {
-    return $this->attributeMap;
-  }
-  public function setDroppedAttributesCount($droppedAttributesCount)
-  {
-    $this->droppedAttributesCount = $droppedAttributesCount;
-  }
-  public function getDroppedAttributesCount()
-  {
-    return $this->droppedAttributesCount;
-  }
+	public function setAttributeMap($attributeMap)
+	{
+		$this->attributeMap = $attributeMap;
+	}
+	public function getAttributeMap()
+	{
+		return $this->attributeMap;
+	}
+	public function setDroppedAttributesCount($droppedAttributesCount)
+	{
+		$this->droppedAttributesCount = $droppedAttributesCount;
+	}
+	public function getDroppedAttributesCount()
+	{
+		return $this->droppedAttributesCount;
+	}
 }

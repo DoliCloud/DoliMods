@@ -17,21 +17,21 @@
 
 class Google_Service_Pagespeedonline_LighthouseResultV5I18n extends Google_Model
 {
-  protected $rendererFormattedStringsType = 'Google_Service_Pagespeedonline_LighthouseResultV5I18nRendererFormattedStrings';
-  protected $rendererFormattedStringsDataType = '';
+	protected $rendererFormattedStringsType = 'Google_Service_Pagespeedonline_LighthouseResultV5I18nRendererFormattedStrings';
+	protected $rendererFormattedStringsDataType = '';
 
-  /**
-   * @param Google_Service_Pagespeedonline_LighthouseResultV5I18nRendererFormattedStrings
-   */
-  public function setRendererFormattedStrings(Google_Service_Pagespeedonline_LighthouseResultV5I18nRendererFormattedStrings $rendererFormattedStrings)
-  {
-    $this->rendererFormattedStrings = $rendererFormattedStrings;
-  }
-  /**
-   * @return Google_Service_Pagespeedonline_LighthouseResultV5I18nRendererFormattedStrings
-   */
-  public function getRendererFormattedStrings()
-  {
-    return $this->rendererFormattedStrings;
-  }
+	/**
+	 * @param Google_Service_Pagespeedonline_LighthouseResultV5I18nRendererFormattedStrings
+	 */
+	public function setRendererFormattedStrings(Google_Service_Pagespeedonline_LighthouseResultV5I18nRendererFormattedStrings $rendererFormattedStrings)
+	{
+		$this->rendererFormattedStrings = $rendererFormattedStrings;
+	}
+	/**
+	 * @return Google_Service_Pagespeedonline_LighthouseResultV5I18nRendererFormattedStrings
+	 */
+	public function getRendererFormattedStrings()
+	{
+		return $this->rendererFormattedStrings;
+	}
 }

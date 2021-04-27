@@ -17,50 +17,50 @@
 
 class Google_Service_ShoppingContent_OrdersUpdateLineItemShippingDetailsRequest extends Google_Model
 {
-  public $deliverByDate;
-  public $lineItemId;
-  public $operationId;
-  public $productId;
-  public $shipByDate;
+	public $deliverByDate;
+	public $lineItemId;
+	public $operationId;
+	public $productId;
+	public $shipByDate;
 
-  public function setDeliverByDate($deliverByDate)
-  {
-    $this->deliverByDate = $deliverByDate;
-  }
-  public function getDeliverByDate()
-  {
-    return $this->deliverByDate;
-  }
-  public function setLineItemId($lineItemId)
-  {
-    $this->lineItemId = $lineItemId;
-  }
-  public function getLineItemId()
-  {
-    return $this->lineItemId;
-  }
-  public function setOperationId($operationId)
-  {
-    $this->operationId = $operationId;
-  }
-  public function getOperationId()
-  {
-    return $this->operationId;
-  }
-  public function setProductId($productId)
-  {
-    $this->productId = $productId;
-  }
-  public function getProductId()
-  {
-    return $this->productId;
-  }
-  public function setShipByDate($shipByDate)
-  {
-    $this->shipByDate = $shipByDate;
-  }
-  public function getShipByDate()
-  {
-    return $this->shipByDate;
-  }
+	public function setDeliverByDate($deliverByDate)
+	{
+		$this->deliverByDate = $deliverByDate;
+	}
+	public function getDeliverByDate()
+	{
+		return $this->deliverByDate;
+	}
+	public function setLineItemId($lineItemId)
+	{
+		$this->lineItemId = $lineItemId;
+	}
+	public function getLineItemId()
+	{
+		return $this->lineItemId;
+	}
+	public function setOperationId($operationId)
+	{
+		$this->operationId = $operationId;
+	}
+	public function getOperationId()
+	{
+		return $this->operationId;
+	}
+	public function setProductId($productId)
+	{
+		$this->productId = $productId;
+	}
+	public function getProductId()
+	{
+		return $this->productId;
+	}
+	public function setShipByDate($shipByDate)
+	{
+		$this->shipByDate = $shipByDate;
+	}
+	public function getShipByDate()
+	{
+		return $this->shipByDate;
+	}
 }

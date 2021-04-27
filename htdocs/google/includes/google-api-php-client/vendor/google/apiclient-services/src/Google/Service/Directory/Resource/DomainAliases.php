@@ -25,61 +25,61 @@
  */
 class Google_Service_Directory_Resource_DomainAliases extends Google_Service_Resource
 {
-  /**
-   * Deletes a Domain Alias of the customer. (domainAliases.delete)
-   *
-   * @param string $customer Immutable ID of the G Suite account.
-   * @param string $domainAliasName Name of domain alias to be retrieved.
-   * @param array $optParams Optional parameters.
-   */
-  public function delete($customer, $domainAliasName, $optParams = array())
-  {
-    $params = array('customer' => $customer, 'domainAliasName' => $domainAliasName);
-    $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params));
-  }
-  /**
-   * Retrieves a domain alias of the customer. (domainAliases.get)
-   *
-   * @param string $customer Immutable ID of the G Suite account.
-   * @param string $domainAliasName Name of domain alias to be retrieved.
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Directory_DomainAlias
-   */
-  public function get($customer, $domainAliasName, $optParams = array())
-  {
-    $params = array('customer' => $customer, 'domainAliasName' => $domainAliasName);
-    $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Directory_DomainAlias");
-  }
-  /**
-   * Inserts a Domain alias of the customer. (domainAliases.insert)
-   *
-   * @param string $customer Immutable ID of the G Suite account.
-   * @param Google_Service_Directory_DomainAlias $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Directory_DomainAlias
-   */
-  public function insert($customer, Google_Service_Directory_DomainAlias $postBody, $optParams = array())
-  {
-    $params = array('customer' => $customer, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Directory_DomainAlias");
-  }
-  /**
-   * Lists the domain aliases of the customer. (domainAliases.listDomainAliases)
-   *
-   * @param string $customer Immutable ID of the G Suite account.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string parentDomainName Name of the parent domain for which domain
-   * aliases are to be fetched.
-   * @return Google_Service_Directory_DomainAliases
-   */
-  public function listDomainAliases($customer, $optParams = array())
-  {
-    $params = array('customer' => $customer);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Directory_DomainAliases");
-  }
+	/**
+	 * Deletes a Domain Alias of the customer. (domainAliases.delete)
+	 *
+	 * @param string $customer Immutable ID of the G Suite account.
+	 * @param string $domainAliasName Name of domain alias to be retrieved.
+	 * @param array $optParams Optional parameters.
+	 */
+	public function delete($customer, $domainAliasName, $optParams = array())
+	{
+		$params = array('customer' => $customer, 'domainAliasName' => $domainAliasName);
+		$params = array_merge($params, $optParams);
+		return $this->call('delete', array($params));
+	}
+	/**
+	 * Retrieves a domain alias of the customer. (domainAliases.get)
+	 *
+	 * @param string $customer Immutable ID of the G Suite account.
+	 * @param string $domainAliasName Name of domain alias to be retrieved.
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Directory_DomainAlias
+	 */
+	public function get($customer, $domainAliasName, $optParams = array())
+	{
+		$params = array('customer' => $customer, 'domainAliasName' => $domainAliasName);
+		$params = array_merge($params, $optParams);
+		return $this->call('get', array($params), "Google_Service_Directory_DomainAlias");
+	}
+	/**
+	 * Inserts a Domain alias of the customer. (domainAliases.insert)
+	 *
+	 * @param string $customer Immutable ID of the G Suite account.
+	 * @param Google_Service_Directory_DomainAlias $postBody
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Directory_DomainAlias
+	 */
+	public function insert($customer, Google_Service_Directory_DomainAlias $postBody, $optParams = array())
+	{
+		$params = array('customer' => $customer, 'postBody' => $postBody);
+		$params = array_merge($params, $optParams);
+		return $this->call('insert', array($params), "Google_Service_Directory_DomainAlias");
+	}
+	/**
+	 * Lists the domain aliases of the customer. (domainAliases.listDomainAliases)
+	 *
+	 * @param string $customer Immutable ID of the G Suite account.
+	 * @param array $optParams Optional parameters.
+	 *
+	 * @opt_param string parentDomainName Name of the parent domain for which domain
+	 * aliases are to be fetched.
+	 * @return Google_Service_Directory_DomainAliases
+	 */
+	public function listDomainAliases($customer, $optParams = array())
+	{
+		$params = array('customer' => $customer);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Directory_DomainAliases");
+	}
 }

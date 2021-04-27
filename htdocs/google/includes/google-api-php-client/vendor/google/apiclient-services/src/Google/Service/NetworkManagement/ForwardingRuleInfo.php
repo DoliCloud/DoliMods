@@ -17,68 +17,68 @@
 
 class Google_Service_NetworkManagement_ForwardingRuleInfo extends Google_Model
 {
-  public $displayName;
-  public $matchedPortRange;
-  public $matchedProtocol;
-  public $networkUri;
-  public $target;
-  public $uri;
-  public $vip;
+	public $displayName;
+	public $matchedPortRange;
+	public $matchedProtocol;
+	public $networkUri;
+	public $target;
+	public $uri;
+	public $vip;
 
-  public function setDisplayName($displayName)
-  {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName()
-  {
-    return $this->displayName;
-  }
-  public function setMatchedPortRange($matchedPortRange)
-  {
-    $this->matchedPortRange = $matchedPortRange;
-  }
-  public function getMatchedPortRange()
-  {
-    return $this->matchedPortRange;
-  }
-  public function setMatchedProtocol($matchedProtocol)
-  {
-    $this->matchedProtocol = $matchedProtocol;
-  }
-  public function getMatchedProtocol()
-  {
-    return $this->matchedProtocol;
-  }
-  public function setNetworkUri($networkUri)
-  {
-    $this->networkUri = $networkUri;
-  }
-  public function getNetworkUri()
-  {
-    return $this->networkUri;
-  }
-  public function setTarget($target)
-  {
-    $this->target = $target;
-  }
-  public function getTarget()
-  {
-    return $this->target;
-  }
-  public function setUri($uri)
-  {
-    $this->uri = $uri;
-  }
-  public function getUri()
-  {
-    return $this->uri;
-  }
-  public function setVip($vip)
-  {
-    $this->vip = $vip;
-  }
-  public function getVip()
-  {
-    return $this->vip;
-  }
+	public function setDisplayName($displayName)
+	{
+		$this->displayName = $displayName;
+	}
+	public function getDisplayName()
+	{
+		return $this->displayName;
+	}
+	public function setMatchedPortRange($matchedPortRange)
+	{
+		$this->matchedPortRange = $matchedPortRange;
+	}
+	public function getMatchedPortRange()
+	{
+		return $this->matchedPortRange;
+	}
+	public function setMatchedProtocol($matchedProtocol)
+	{
+		$this->matchedProtocol = $matchedProtocol;
+	}
+	public function getMatchedProtocol()
+	{
+		return $this->matchedProtocol;
+	}
+	public function setNetworkUri($networkUri)
+	{
+		$this->networkUri = $networkUri;
+	}
+	public function getNetworkUri()
+	{
+		return $this->networkUri;
+	}
+	public function setTarget($target)
+	{
+		$this->target = $target;
+	}
+	public function getTarget()
+	{
+		return $this->target;
+	}
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+	public function getUri()
+	{
+		return $this->uri;
+	}
+	public function setVip($vip)
+	{
+		$this->vip = $vip;
+	}
+	public function getVip()
+	{
+		return $this->vip;
+	}
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_Dataflow_IntegerMean extends Google_Model
 {
-  protected $countType = 'Google_Service_Dataflow_SplitInt64';
-  protected $countDataType = '';
-  protected $sumType = 'Google_Service_Dataflow_SplitInt64';
-  protected $sumDataType = '';
+	protected $countType = 'Google_Service_Dataflow_SplitInt64';
+	protected $countDataType = '';
+	protected $sumType = 'Google_Service_Dataflow_SplitInt64';
+	protected $sumDataType = '';
 
-  /**
-   * @param Google_Service_Dataflow_SplitInt64
-   */
-  public function setCount(Google_Service_Dataflow_SplitInt64 $count)
-  {
-    $this->count = $count;
-  }
-  /**
-   * @return Google_Service_Dataflow_SplitInt64
-   */
-  public function getCount()
-  {
-    return $this->count;
-  }
-  /**
-   * @param Google_Service_Dataflow_SplitInt64
-   */
-  public function setSum(Google_Service_Dataflow_SplitInt64 $sum)
-  {
-    $this->sum = $sum;
-  }
-  /**
-   * @return Google_Service_Dataflow_SplitInt64
-   */
-  public function getSum()
-  {
-    return $this->sum;
-  }
+	/**
+	 * @param Google_Service_Dataflow_SplitInt64
+	 */
+	public function setCount(Google_Service_Dataflow_SplitInt64 $count)
+	{
+		$this->count = $count;
+	}
+	/**
+	 * @return Google_Service_Dataflow_SplitInt64
+	 */
+	public function getCount()
+	{
+		return $this->count;
+	}
+	/**
+	 * @param Google_Service_Dataflow_SplitInt64
+	 */
+	public function setSum(Google_Service_Dataflow_SplitInt64 $sum)
+	{
+		$this->sum = $sum;
+	}
+	/**
+	 * @return Google_Service_Dataflow_SplitInt64
+	 */
+	public function getSum()
+	{
+		return $this->sum;
+	}
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_ContainerAnalysis_GetVulnzOccurrencesSummaryResponse extends Google_Collection
 {
-  protected $collection_key = 'counts';
-  protected $countsType = 'Google_Service_ContainerAnalysis_SeverityCount';
-  protected $countsDataType = 'array';
+	protected $collection_key = 'counts';
+	protected $countsType = 'Google_Service_ContainerAnalysis_SeverityCount';
+	protected $countsDataType = 'array';
 
-  /**
-   * @param Google_Service_ContainerAnalysis_SeverityCount
-   */
-  public function setCounts($counts)
-  {
-    $this->counts = $counts;
-  }
-  /**
-   * @return Google_Service_ContainerAnalysis_SeverityCount
-   */
-  public function getCounts()
-  {
-    return $this->counts;
-  }
+	/**
+	 * @param Google_Service_ContainerAnalysis_SeverityCount
+	 */
+	public function setCounts($counts)
+	{
+		$this->counts = $counts;
+	}
+	/**
+	 * @return Google_Service_ContainerAnalysis_SeverityCount
+	 */
+	public function getCounts()
+	{
+		return $this->counts;
+	}
 }

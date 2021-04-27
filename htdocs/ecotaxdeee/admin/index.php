@@ -11,22 +11,22 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
+if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php');
+require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 dol_include_once("/ecotaxdeee/lib/ecotaxdeee.lib.php");
 
 if (!$user->admin) accessforbidden();
@@ -45,30 +45,26 @@ $action=GETPOST("action");
 /*
  * Actions
  */
-if ($action == 'save')
-{
-    $db->begin();
+if ($action == 'save') {
+	$db->begin();
 
-    $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_PROPOSAL',trim($_POST["ECOTAXDEEE_USE_ON_PROPOSAL"]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE"]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'ECOTAXDEEE_LABEL_LINE',trim($_POST["ECOTAXDEEE_LABEL_LINE"]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'ECOTAXDEEE_DOC_FOOTER',trim($_POST["ECOTAXDEEE_DOC_FOOTER"]),'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_PROPOSAL', trim($_POST["ECOTAXDEEE_USE_ON_PROPOSAL"]), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER', trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE', trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE"]), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_LABEL_LINE', trim($_POST["ECOTAXDEEE_LABEL_LINE"]), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim($_POST["ECOTAXDEEE_DOC_FOOTER"]), 'chaine', 0, '', $conf->entity);
 
-    $product_wee=$_POST["WEEE_PRODUCT_ID"];
-    if ($product_wee < 0) $product_wee='';
-    $res=dolibarr_set_const($db,'WEEE_PRODUCT_ID',$product_wee,'chaine',0,'',$conf->entity);
+	$product_wee=$_POST["WEEE_PRODUCT_ID"];
+	if ($product_wee < 0) $product_wee='';
+	$res=dolibarr_set_const($db, 'WEEE_PRODUCT_ID', $product_wee, 'chaine', 0, '', $conf->entity);
 
-    if (! $error)
-    {
-        $db->commit();
-        setEventMessage($langs->trans("SetupSaved"));
-    }
-    else
-    {
-        $db->rollback();
-        setEventMessage($langs->trans("Error"));
-    }
+	if (! $error) {
+		$db->commit();
+		setEventMessage($langs->trans("SetupSaved"));
+	} else {
+		$db->rollback();
+		setEventMessage($langs->trans("Error"));
+	}
 }
 
 
@@ -86,10 +82,10 @@ $help_url='EN:Module_EcoTaxDeee_En|FR:Module_EcoTaxDeee|ES:Modulo_EcoTaxDeee';
 //$arrayofcss=array('/includes/jquery/plugins/colorpicker/jquery.colorpicker.css');
 $arrayofjs=array();
 $arrayofcss=array();
-llxHeader('',$langs->trans("Setup"),$help_url,'',0,0,$arrayofjs,$arrayofcss);
+llxHeader('', $langs->trans("Setup"), $help_url, '', 0, 0, $arrayofjs, $arrayofcss);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("EcoTaxDeeSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("EcoTaxDeeSetup"), $linkback, 'setup');
 print '<br>';
 
 
@@ -114,7 +110,7 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_PROPOSAL")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_PROPOSAL;
-print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL",$selectedvalue,1);
+print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL", $selectedvalue, 1);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")
@@ -122,7 +118,7 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER;
-print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER",$selectedvalue,1);
+print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER", $selectedvalue, 1);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")
@@ -130,23 +126,20 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE;
-print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE",$selectedvalue,1);
+print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE", $selectedvalue, 1);
 print "</td>";
 print "</tr>";
 
 // GETPOST("ECOTAXDEEE_LABEL_LINE")
 print '<tr class="oddeven">';
-if (! empty($conf->produit->enabled) || ! empty($conf->service->enabled))
-{
-    print "<td>".$langs->trans("ECOTAXDEEE_PRODUCT_OR_LABEL_LINE")."</td>";
-    print "<td>";
-    print $form->select_produits($conf->global->WEEE_PRODUCT_ID, 'WEEE_PRODUCT_ID', '');
-    print ' '.$langs->trans("OrLabelOfAFreeLine").' ';
-}
-else
-{
-    print "<td>".$langs->trans("ECOTAXDEEE_LABEL_LINE")."</td>";
-    print "<td>";
+if (! empty($conf->produit->enabled) || ! empty($conf->service->enabled)) {
+	print "<td>".$langs->trans("ECOTAXDEEE_PRODUCT_OR_LABEL_LINE")."</td>";
+	print "<td>";
+	print $form->select_produits($conf->global->WEEE_PRODUCT_ID, 'WEEE_PRODUCT_ID', '');
+	print ' '.$langs->trans("OrLabelOfAFreeLine").' ';
+} else {
+	print "<td>".$langs->trans("ECOTAXDEEE_LABEL_LINE")."</td>";
+	print "<td>";
 }
 $selectedvalue=(empty($conf->global->ECOTAXDEEE_LABEL_LINE)?'':$conf->global->ECOTAXDEEE_LABEL_LINE);
 print '<input type="text" class="flat" name="ECOTAXDEEE_LABEL_LINE" value="'.$selectedvalue.'">';
@@ -169,8 +162,8 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")." (Dolibarr 3.6+)</td>";
 print "<td>";
 $selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
-$doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue,'','300','dolibarr_details','In',1,1,1,ROWS_9,'90%');
-$doleditor->Create(0,'');
+$doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue, '', '300', 'dolibarr_details', 'In', 1, 1, 1, ROWS_9, '90%');
+$doleditor->Create(0, '');
 print '<br>';
 print $langs->trans("Example").":<br>\n";
 print $langs->trans("EcoTaxDeeDocFooterExample");
@@ -216,11 +209,10 @@ $elements=array();
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') $elements[]=$langs->transnoentitiesnoconv("CustomersOrders");
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') $elements[]=$langs->transnoentitiesnoconv("Proposals");
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') $elements[]=$langs->transnoentitiesnoconv("BillsCustomers");
-if (count($elements))
-{
+if (count($elements)) {
 	/*if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 999)	// >= 0 if we are 3.6.0 alpha or +
 	{*/
-		$text=$langs->trans("EcoTaxAddedIfDesc",join(', ',$elements));
+		$text=$langs->trans("EcoTaxAddedIfDesc", join(', ', $elements));
 	/*}
 	else
 	{

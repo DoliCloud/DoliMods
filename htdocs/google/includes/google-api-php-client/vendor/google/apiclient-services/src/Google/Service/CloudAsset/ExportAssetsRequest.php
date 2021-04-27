@@ -17,49 +17,49 @@
 
 class Google_Service_CloudAsset_ExportAssetsRequest extends Google_Collection
 {
-  protected $collection_key = 'assetTypes';
-  public $assetTypes;
-  public $contentType;
-  protected $outputConfigType = 'Google_Service_CloudAsset_OutputConfig';
-  protected $outputConfigDataType = '';
-  public $readTime;
+	protected $collection_key = 'assetTypes';
+	public $assetTypes;
+	public $contentType;
+	protected $outputConfigType = 'Google_Service_CloudAsset_OutputConfig';
+	protected $outputConfigDataType = '';
+	public $readTime;
 
-  public function setAssetTypes($assetTypes)
-  {
-    $this->assetTypes = $assetTypes;
-  }
-  public function getAssetTypes()
-  {
-    return $this->assetTypes;
-  }
-  public function setContentType($contentType)
-  {
-    $this->contentType = $contentType;
-  }
-  public function getContentType()
-  {
-    return $this->contentType;
-  }
-  /**
-   * @param Google_Service_CloudAsset_OutputConfig
-   */
-  public function setOutputConfig(Google_Service_CloudAsset_OutputConfig $outputConfig)
-  {
-    $this->outputConfig = $outputConfig;
-  }
-  /**
-   * @return Google_Service_CloudAsset_OutputConfig
-   */
-  public function getOutputConfig()
-  {
-    return $this->outputConfig;
-  }
-  public function setReadTime($readTime)
-  {
-    $this->readTime = $readTime;
-  }
-  public function getReadTime()
-  {
-    return $this->readTime;
-  }
+	public function setAssetTypes($assetTypes)
+	{
+		$this->assetTypes = $assetTypes;
+	}
+	public function getAssetTypes()
+	{
+		return $this->assetTypes;
+	}
+	public function setContentType($contentType)
+	{
+		$this->contentType = $contentType;
+	}
+	public function getContentType()
+	{
+		return $this->contentType;
+	}
+	/**
+	 * @param Google_Service_CloudAsset_OutputConfig
+	 */
+	public function setOutputConfig(Google_Service_CloudAsset_OutputConfig $outputConfig)
+	{
+		$this->outputConfig = $outputConfig;
+	}
+	/**
+	 * @return Google_Service_CloudAsset_OutputConfig
+	 */
+	public function getOutputConfig()
+	{
+		return $this->outputConfig;
+	}
+	public function setReadTime($readTime)
+	{
+		$this->readTime = $readTime;
+	}
+	public function getReadTime()
+	{
+		return $this->readTime;
+	}
 }

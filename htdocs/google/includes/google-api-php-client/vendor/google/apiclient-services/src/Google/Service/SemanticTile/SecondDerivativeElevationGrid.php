@@ -17,41 +17,41 @@
 
 class Google_Service_SemanticTile_SecondDerivativeElevationGrid extends Google_Model
 {
-  public $altitudeMultiplier;
-  public $columnCount;
-  public $encodedData;
-  public $rowCount;
+	public $altitudeMultiplier;
+	public $columnCount;
+	public $encodedData;
+	public $rowCount;
 
-  public function setAltitudeMultiplier($altitudeMultiplier)
-  {
-    $this->altitudeMultiplier = $altitudeMultiplier;
-  }
-  public function getAltitudeMultiplier()
-  {
-    return $this->altitudeMultiplier;
-  }
-  public function setColumnCount($columnCount)
-  {
-    $this->columnCount = $columnCount;
-  }
-  public function getColumnCount()
-  {
-    return $this->columnCount;
-  }
-  public function setEncodedData($encodedData)
-  {
-    $this->encodedData = $encodedData;
-  }
-  public function getEncodedData()
-  {
-    return $this->encodedData;
-  }
-  public function setRowCount($rowCount)
-  {
-    $this->rowCount = $rowCount;
-  }
-  public function getRowCount()
-  {
-    return $this->rowCount;
-  }
+	public function setAltitudeMultiplier($altitudeMultiplier)
+	{
+		$this->altitudeMultiplier = $altitudeMultiplier;
+	}
+	public function getAltitudeMultiplier()
+	{
+		return $this->altitudeMultiplier;
+	}
+	public function setColumnCount($columnCount)
+	{
+		$this->columnCount = $columnCount;
+	}
+	public function getColumnCount()
+	{
+		return $this->columnCount;
+	}
+	public function setEncodedData($encodedData)
+	{
+		$this->encodedData = $encodedData;
+	}
+	public function getEncodedData()
+	{
+		return $this->encodedData;
+	}
+	public function setRowCount($rowCount)
+	{
+		$this->rowCount = $rowCount;
+	}
+	public function getRowCount()
+	{
+		return $this->rowCount;
+	}
 }

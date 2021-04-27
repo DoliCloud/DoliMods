@@ -17,21 +17,21 @@
 
 class Google_Service_Pubsub_ModifyPushConfigRequest extends Google_Model
 {
-  protected $pushConfigType = 'Google_Service_Pubsub_PushConfig';
-  protected $pushConfigDataType = '';
+	protected $pushConfigType = 'Google_Service_Pubsub_PushConfig';
+	protected $pushConfigDataType = '';
 
-  /**
-   * @param Google_Service_Pubsub_PushConfig
-   */
-  public function setPushConfig(Google_Service_Pubsub_PushConfig $pushConfig)
-  {
-    $this->pushConfig = $pushConfig;
-  }
-  /**
-   * @return Google_Service_Pubsub_PushConfig
-   */
-  public function getPushConfig()
-  {
-    return $this->pushConfig;
-  }
+	/**
+	 * @param Google_Service_Pubsub_PushConfig
+	 */
+	public function setPushConfig(Google_Service_Pubsub_PushConfig $pushConfig)
+	{
+		$this->pushConfig = $pushConfig;
+	}
+	/**
+	 * @return Google_Service_Pubsub_PushConfig
+	 */
+	public function getPushConfig()
+	{
+		return $this->pushConfig;
+	}
 }

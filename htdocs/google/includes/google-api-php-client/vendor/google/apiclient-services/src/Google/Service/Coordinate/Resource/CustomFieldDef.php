@@ -25,18 +25,18 @@
  */
 class Google_Service_Coordinate_Resource_CustomFieldDef extends Google_Service_Resource
 {
-  /**
-   * Retrieves a list of custom field definitions for a team.
-   * (customFieldDef.listCustomFieldDef)
-   *
-   * @param string $teamId Team ID
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Coordinate_CustomFieldDefListResponse
-   */
-  public function listCustomFieldDef($teamId, $optParams = array())
-  {
-    $params = array('teamId' => $teamId);
-    $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Coordinate_CustomFieldDefListResponse");
-  }
+	/**
+	 * Retrieves a list of custom field definitions for a team.
+	 * (customFieldDef.listCustomFieldDef)
+	 *
+	 * @param string $teamId Team ID
+	 * @param array $optParams Optional parameters.
+	 * @return Google_Service_Coordinate_CustomFieldDefListResponse
+	 */
+	public function listCustomFieldDef($teamId, $optParams = array())
+	{
+		$params = array('teamId' => $teamId);
+		$params = array_merge($params, $optParams);
+		return $this->call('list', array($params), "Google_Service_Coordinate_CustomFieldDefListResponse");
+	}
 }

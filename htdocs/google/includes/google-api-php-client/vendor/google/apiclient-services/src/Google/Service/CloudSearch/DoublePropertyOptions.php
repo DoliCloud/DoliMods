@@ -17,21 +17,21 @@
 
 class Google_Service_CloudSearch_DoublePropertyOptions extends Google_Model
 {
-  protected $operatorOptionsType = 'Google_Service_CloudSearch_DoubleOperatorOptions';
-  protected $operatorOptionsDataType = '';
+	protected $operatorOptionsType = 'Google_Service_CloudSearch_DoubleOperatorOptions';
+	protected $operatorOptionsDataType = '';
 
-  /**
-   * @param Google_Service_CloudSearch_DoubleOperatorOptions
-   */
-  public function setOperatorOptions(Google_Service_CloudSearch_DoubleOperatorOptions $operatorOptions)
-  {
-    $this->operatorOptions = $operatorOptions;
-  }
-  /**
-   * @return Google_Service_CloudSearch_DoubleOperatorOptions
-   */
-  public function getOperatorOptions()
-  {
-    return $this->operatorOptions;
-  }
+	/**
+	 * @param Google_Service_CloudSearch_DoubleOperatorOptions
+	 */
+	public function setOperatorOptions(Google_Service_CloudSearch_DoubleOperatorOptions $operatorOptions)
+	{
+		$this->operatorOptions = $operatorOptions;
+	}
+	/**
+	 * @return Google_Service_CloudSearch_DoubleOperatorOptions
+	 */
+	public function getOperatorOptions()
+	{
+		return $this->operatorOptions;
+	}
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_Partners_LogMessageRequest extends Google_Model
 {
-  public $clientInfo;
-  public $details;
-  public $level;
-  protected $requestMetadataType = 'Google_Service_Partners_RequestMetadata';
-  protected $requestMetadataDataType = '';
+	public $clientInfo;
+	public $details;
+	public $level;
+	protected $requestMetadataType = 'Google_Service_Partners_RequestMetadata';
+	protected $requestMetadataDataType = '';
 
-  public function setClientInfo($clientInfo)
-  {
-    $this->clientInfo = $clientInfo;
-  }
-  public function getClientInfo()
-  {
-    return $this->clientInfo;
-  }
-  public function setDetails($details)
-  {
-    $this->details = $details;
-  }
-  public function getDetails()
-  {
-    return $this->details;
-  }
-  public function setLevel($level)
-  {
-    $this->level = $level;
-  }
-  public function getLevel()
-  {
-    return $this->level;
-  }
-  /**
-   * @param Google_Service_Partners_RequestMetadata
-   */
-  public function setRequestMetadata(Google_Service_Partners_RequestMetadata $requestMetadata)
-  {
-    $this->requestMetadata = $requestMetadata;
-  }
-  /**
-   * @return Google_Service_Partners_RequestMetadata
-   */
-  public function getRequestMetadata()
-  {
-    return $this->requestMetadata;
-  }
+	public function setClientInfo($clientInfo)
+	{
+		$this->clientInfo = $clientInfo;
+	}
+	public function getClientInfo()
+	{
+		return $this->clientInfo;
+	}
+	public function setDetails($details)
+	{
+		$this->details = $details;
+	}
+	public function getDetails()
+	{
+		return $this->details;
+	}
+	public function setLevel($level)
+	{
+		$this->level = $level;
+	}
+	public function getLevel()
+	{
+		return $this->level;
+	}
+	/**
+	 * @param Google_Service_Partners_RequestMetadata
+	 */
+	public function setRequestMetadata(Google_Service_Partners_RequestMetadata $requestMetadata)
+	{
+		$this->requestMetadata = $requestMetadata;
+	}
+	/**
+	 * @return Google_Service_Partners_RequestMetadata
+	 */
+	public function getRequestMetadata()
+	{
+		return $this->requestMetadata;
+	}
 }
