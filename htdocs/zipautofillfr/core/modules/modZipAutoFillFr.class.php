@@ -53,8 +53,8 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		$this->editor_name = 'NLTechno';
-		$this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'DoliCloud';
+		$this->editor_url = 'https://www.dolicloud.com';
 		$this->description = "Add zip codes and towns into database (France and Belgium)";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

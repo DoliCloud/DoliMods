@@ -61,8 +61,8 @@ class modNetatmo extends DolibarrModules
 		$this->description = "Module to manage Netatmo Presence Camera";
 		// Used only if file README.md and README-LL.md not found.
 		$this->descriptionlong = "Module to manage Netatmo Presence Camera";
-		$this->editor_name = 'NLTechno';
-		$this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'DoliCloud';
+		$this->editor_url = 'https://www.dolicloud.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0';
 		// Url to the file with your last numberversion of this module

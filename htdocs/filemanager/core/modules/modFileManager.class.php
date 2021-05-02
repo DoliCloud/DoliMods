@@ -47,8 +47,8 @@ class modFileManager extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "A file manager";
-		$this->editor_name = 'NLTechno';
-		$this->editor_url = 'https://www.nltechno.com';
+		$this->editor_name = 'DoliCloud';
+		$this->editor_url = 'https://www.dolicloud.com';
 		$this->version = '6.0.0';                        // 'experimental' or 'dolibarr' or version
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
