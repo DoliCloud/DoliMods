@@ -86,7 +86,6 @@ llxHeader('', $langs->trans("Setup"), $help_url, '', 0, 0, $arrayofjs, $arrayofc
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("EcoTaxDeeSetup"), $linkback, 'setup');
-print '<br>';
 
 
 $head=ecotaxdeee_prepare_head();
@@ -162,7 +161,7 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")." (Dolibarr 3.6+)</td>";
 print "<td>";
 $selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
-$doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue, '', '300', 'dolibarr_details', 'In', 1, 1, 1, ROWS_9, '90%');
+$doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue, '', '250', 'dolibarr_details', 'In', 1, 1, 1, ROWS_8, '90%');
 $doleditor->Create(0, '');
 print '<br>';
 print $langs->trans("Example").":<br>\n";
