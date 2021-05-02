@@ -1,10 +1,11 @@
 # ChangeLog MODULE EXTERNALBACKUP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
-## UNRELEASED
+## 4.1.2
 
 - Avoid duplicate line of ecotax when cloning an object with ecotax.
 - Autofill the margin to zero if module margin is enabled on ecotax. When we update a quantity or price, we must also update the buyprice of the ecotax or the margin will be wrong.
+
 
 ## 4.1.1
 
