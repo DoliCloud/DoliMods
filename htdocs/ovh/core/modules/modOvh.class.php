@@ -182,6 +182,7 @@ class modOvh extends DolibarrModules
 									'type'=>'left',			                // This is a Left menu entry
 									'titre'=>'OvhInvoiceImportShort',
 									'url'=>'/ovh/importovhinvoice.php',
+									'prefix'=>img_picto('', 'ovh@ovh'),
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
 									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
@@ -194,6 +195,7 @@ class modOvh extends DolibarrModules
 									'type'=>'left',			                // This is a Left menu entry
 									'titre'=>'OvhServers',
 									'url'=>'/ovh/ovh_listinfoserver.php',
+									'prefix'=>img_picto('', 'ovh@ovh'),
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
 									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
