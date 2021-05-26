@@ -1,4 +1,0 @@
-# Dolibarr language file - fr_FR - partipirate 
-CHARSET= UTF-8
-PartiPirateSetup=Configuration du module PartiPirate
-ImporterFichierAdherentsOuCotisations=Pour importer un fichier adhérents ou cotisations issus de l'extract SQL synthèse Crédit Mutuel (fichier .csv)
