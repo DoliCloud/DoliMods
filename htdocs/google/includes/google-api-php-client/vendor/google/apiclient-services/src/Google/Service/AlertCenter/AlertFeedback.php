@@ -17,59 +17,59 @@
 
 class Google_Service_AlertCenter_AlertFeedback extends Google_Model
 {
-	public $alertId;
-	public $createTime;
-	public $customerId;
-	public $email;
-	public $feedbackId;
-	public $type;
+  public $alertId;
+  public $createTime;
+  public $customerId;
+  public $email;
+  public $feedbackId;
+  public $type;
 
-	public function setAlertId($alertId)
-	{
-		$this->alertId = $alertId;
-	}
-	public function getAlertId()
-	{
-		return $this->alertId;
-	}
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setCustomerId($customerId)
-	{
-		$this->customerId = $customerId;
-	}
-	public function getCustomerId()
-	{
-		return $this->customerId;
-	}
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	public function setFeedbackId($feedbackId)
-	{
-		$this->feedbackId = $feedbackId;
-	}
-	public function getFeedbackId()
-	{
-		return $this->feedbackId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setAlertId($alertId)
+  {
+    $this->alertId = $alertId;
+  }
+  public function getAlertId()
+  {
+    return $this->alertId;
+  }
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setCustomerId($customerId)
+  {
+    $this->customerId = $customerId;
+  }
+  public function getCustomerId()
+  {
+    return $this->customerId;
+  }
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  public function setFeedbackId($feedbackId)
+  {
+    $this->feedbackId = $feedbackId;
+  }
+  public function getFeedbackId()
+  {
+    return $this->feedbackId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

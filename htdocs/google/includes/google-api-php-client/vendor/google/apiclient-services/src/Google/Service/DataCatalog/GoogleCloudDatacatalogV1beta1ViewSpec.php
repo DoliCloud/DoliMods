@@ -17,14 +17,14 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ViewSpec extends Google_Model
 {
-	public $viewQuery;
+  public $viewQuery;
 
-	public function setViewQuery($viewQuery)
-	{
-		$this->viewQuery = $viewQuery;
-	}
-	public function getViewQuery()
-	{
-		return $this->viewQuery;
-	}
+  public function setViewQuery($viewQuery)
+  {
+    $this->viewQuery = $viewQuery;
+  }
+  public function getViewQuery()
+  {
+    return $this->viewQuery;
+  }
 }

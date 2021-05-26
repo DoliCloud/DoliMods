@@ -17,30 +17,30 @@
 
 class Google_Service_CloudRun_SetIamPolicyRequest extends Google_Model
 {
-	protected $policyType = 'Google_Service_CloudRun_Policy';
-	protected $policyDataType = '';
-	public $updateMask;
+  protected $policyType = 'Google_Service_CloudRun_Policy';
+  protected $policyDataType = '';
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_CloudRun_Policy
-	 */
-	public function setPolicy(Google_Service_CloudRun_Policy $policy)
-	{
-		$this->policy = $policy;
-	}
-	/**
-	 * @return Google_Service_CloudRun_Policy
-	 */
-	public function getPolicy()
-	{
-		return $this->policy;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_CloudRun_Policy
+   */
+  public function setPolicy(Google_Service_CloudRun_Policy $policy)
+  {
+    $this->policy = $policy;
+  }
+  /**
+   * @return Google_Service_CloudRun_Policy
+   */
+  public function getPolicy()
+  {
+    return $this->policy;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_ArtifactRegistry_ListRepositoriesResponse extends Google_Collection
 {
-	protected $collection_key = 'repositories';
-	public $nextPageToken;
-	protected $repositoriesType = 'Google_Service_ArtifactRegistry_Repository';
-	protected $repositoriesDataType = 'array';
+  protected $collection_key = 'repositories';
+  public $nextPageToken;
+  protected $repositoriesType = 'Google_Service_ArtifactRegistry_Repository';
+  protected $repositoriesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_ArtifactRegistry_Repository
-	 */
-	public function setRepositories($repositories)
-	{
-		$this->repositories = $repositories;
-	}
-	/**
-	 * @return Google_Service_ArtifactRegistry_Repository
-	 */
-	public function getRepositories()
-	{
-		return $this->repositories;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_ArtifactRegistry_Repository[]
+   */
+  public function setRepositories($repositories)
+  {
+    $this->repositories = $repositories;
+  }
+  /**
+   * @return Google_Service_ArtifactRegistry_Repository[]
+   */
+  public function getRepositories()
+  {
+    return $this->repositories;
+  }
 }

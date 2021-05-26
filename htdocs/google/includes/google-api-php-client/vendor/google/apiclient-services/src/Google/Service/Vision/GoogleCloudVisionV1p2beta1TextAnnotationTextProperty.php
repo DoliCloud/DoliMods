@@ -17,38 +17,38 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationTextProperty extends Google_Collection
 {
-	protected $collection_key = 'detectedLanguages';
-	protected $detectedBreakType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedBreak';
-	protected $detectedBreakDataType = '';
-	protected $detectedLanguagesType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedLanguage';
-	protected $detectedLanguagesDataType = 'array';
+  protected $collection_key = 'detectedLanguages';
+  protected $detectedBreakType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedBreak';
+  protected $detectedBreakDataType = '';
+  protected $detectedLanguagesType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedLanguage';
+  protected $detectedLanguagesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedBreak
-	 */
-	public function setDetectedBreak(Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedBreak $detectedBreak)
-	{
-		$this->detectedBreak = $detectedBreak;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedBreak
-	 */
-	public function getDetectedBreak()
-	{
-		return $this->detectedBreak;
-	}
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedLanguage
-	 */
-	public function setDetectedLanguages($detectedLanguages)
-	{
-		$this->detectedLanguages = $detectedLanguages;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedLanguage
-	 */
-	public function getDetectedLanguages()
-	{
-		return $this->detectedLanguages;
-	}
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedBreak
+   */
+  public function setDetectedBreak(Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedBreak $detectedBreak)
+  {
+    $this->detectedBreak = $detectedBreak;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedBreak
+   */
+  public function getDetectedBreak()
+  {
+    return $this->detectedBreak;
+  }
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedLanguage[]
+   */
+  public function setDetectedLanguages($detectedLanguages)
+  {
+    $this->detectedLanguages = $detectedLanguages;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1TextAnnotationDetectedLanguage[]
+   */
+  public function getDetectedLanguages()
+  {
+    return $this->detectedLanguages;
+  }
 }

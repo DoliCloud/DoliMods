@@ -25,33 +25,31 @@
  */
 class Google_Service_AdExchangeBuyerII_Resource_AccountsFinalizedProposals extends Google_Service_Resource
 {
-	/**
-	 * List finalized proposals, regardless if a proposal is being renegotiated. A
-	 * filter expression (PQL query) may be specified to filter the results. The
-	 * notes will not be returned.
-	 * (finalizedProposals.listAccountsFinalizedProposals)
-	 *
-	 * @param string $accountId Account ID of the buyer.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string filterSyntax Syntax the filter is written in. Current
-	 * implementation defaults to PQL but in the future it will be LIST_FILTER.
-	 * @opt_param string filter An optional PQL filter query used to query for
-	 * proposals.
-	 *
-	 * Nested repeated fields, such as proposal.deals.targetingCriterion, cannot be
-	 * filtered.
-	 * @opt_param string pageToken The page token as returned from
-	 * ListProposalsResponse.
-	 * @opt_param int pageSize Requested page size. The server may return fewer
-	 * results than requested. If unspecified, the server will pick an appropriate
-	 * default.
-	 * @return Google_Service_AdExchangeBuyerII_ListProposalsResponse
-	 */
-	public function listAccountsFinalizedProposals($accountId, $optParams = array())
-	{
-		$params = array('accountId' => $accountId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AdExchangeBuyerII_ListProposalsResponse");
-	}
+  /**
+   * List finalized proposals, regardless if a proposal is being renegotiated. A
+   * filter expression (PQL query) may be specified to filter the results. The
+   * notes will not be returned.
+   * (finalizedProposals.listAccountsFinalizedProposals)
+   *
+   * @param string $accountId Account ID of the buyer.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter An optional PQL filter query used to query for
+   * proposals. Nested repeated fields, such as proposal.deals.targetingCriterion,
+   * cannot be filtered.
+   * @opt_param string filterSyntax Syntax the filter is written in. Current
+   * implementation defaults to PQL but in the future it will be LIST_FILTER.
+   * @opt_param int pageSize Requested page size. The server may return fewer
+   * results than requested. If unspecified, the server will pick an appropriate
+   * default.
+   * @opt_param string pageToken The page token as returned from
+   * ListProposalsResponse.
+   * @return Google_Service_AdExchangeBuyerII_ListProposalsResponse
+   */
+  public function listAccountsFinalizedProposals($accountId, $optParams = array())
+  {
+    $params = array('accountId' => $accountId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AdExchangeBuyerII_ListProposalsResponse");
+  }
 }

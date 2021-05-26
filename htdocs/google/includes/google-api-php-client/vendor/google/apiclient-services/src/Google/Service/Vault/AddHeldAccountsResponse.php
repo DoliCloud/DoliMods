@@ -17,22 +17,22 @@
 
 class Google_Service_Vault_AddHeldAccountsResponse extends Google_Collection
 {
-	protected $collection_key = 'responses';
-	protected $responsesType = 'Google_Service_Vault_AddHeldAccountResult';
-	protected $responsesDataType = 'array';
+  protected $collection_key = 'responses';
+  protected $responsesType = 'Google_Service_Vault_AddHeldAccountResult';
+  protected $responsesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Vault_AddHeldAccountResult
-	 */
-	public function setResponses($responses)
-	{
-		$this->responses = $responses;
-	}
-	/**
-	 * @return Google_Service_Vault_AddHeldAccountResult
-	 */
-	public function getResponses()
-	{
-		return $this->responses;
-	}
+  /**
+   * @param Google_Service_Vault_AddHeldAccountResult[]
+   */
+  public function setResponses($responses)
+  {
+    $this->responses = $responses;
+  }
+  /**
+   * @return Google_Service_Vault_AddHeldAccountResult[]
+   */
+  public function getResponses()
+  {
+    return $this->responses;
+  }
 }

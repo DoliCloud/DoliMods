@@ -17,24 +17,24 @@
 
 class Google_Service_SQLAdmin_SqlServerUserDetails extends Google_Collection
 {
-	protected $collection_key = 'serverRoles';
-	public $disabled;
-	public $serverRoles;
+  protected $collection_key = 'serverRoles';
+  public $disabled;
+  public $serverRoles;
 
-	public function setDisabled($disabled)
-	{
-		$this->disabled = $disabled;
-	}
-	public function getDisabled()
-	{
-		return $this->disabled;
-	}
-	public function setServerRoles($serverRoles)
-	{
-		$this->serverRoles = $serverRoles;
-	}
-	public function getServerRoles()
-	{
-		return $this->serverRoles;
-	}
+  public function setDisabled($disabled)
+  {
+    $this->disabled = $disabled;
+  }
+  public function getDisabled()
+  {
+    return $this->disabled;
+  }
+  public function setServerRoles($serverRoles)
+  {
+    $this->serverRoles = $serverRoles;
+  }
+  public function getServerRoles()
+  {
+    return $this->serverRoles;
+  }
 }

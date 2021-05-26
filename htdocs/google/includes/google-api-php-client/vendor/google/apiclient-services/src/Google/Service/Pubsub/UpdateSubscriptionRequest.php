@@ -17,30 +17,30 @@
 
 class Google_Service_Pubsub_UpdateSubscriptionRequest extends Google_Model
 {
-	protected $subscriptionType = 'Google_Service_Pubsub_Subscription';
-	protected $subscriptionDataType = '';
-	public $updateMask;
+  protected $subscriptionType = 'Google_Service_Pubsub_Subscription';
+  protected $subscriptionDataType = '';
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_Pubsub_Subscription
-	 */
-	public function setSubscription(Google_Service_Pubsub_Subscription $subscription)
-	{
-		$this->subscription = $subscription;
-	}
-	/**
-	 * @return Google_Service_Pubsub_Subscription
-	 */
-	public function getSubscription()
-	{
-		return $this->subscription;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_Pubsub_Subscription
+   */
+  public function setSubscription(Google_Service_Pubsub_Subscription $subscription)
+  {
+    $this->subscription = $subscription;
+  }
+  /**
+   * @return Google_Service_Pubsub_Subscription
+   */
+  public function getSubscription()
+  {
+    return $this->subscription;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

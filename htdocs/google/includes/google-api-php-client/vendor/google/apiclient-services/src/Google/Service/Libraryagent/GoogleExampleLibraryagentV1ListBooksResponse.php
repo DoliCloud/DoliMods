@@ -17,31 +17,31 @@
 
 class Google_Service_Libraryagent_GoogleExampleLibraryagentV1ListBooksResponse extends Google_Collection
 {
-	protected $collection_key = 'books';
-	protected $booksType = 'Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book';
-	protected $booksDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'books';
+  protected $booksType = 'Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book';
+  protected $booksDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book
-	 */
-	public function setBooks($books)
-	{
-		$this->books = $books;
-	}
-	/**
-	 * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book
-	 */
-	public function getBooks()
-	{
-		return $this->books;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book[]
+   */
+  public function setBooks($books)
+  {
+    $this->books = $books;
+  }
+  /**
+   * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book[]
+   */
+  public function getBooks()
+  {
+    return $this->books;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

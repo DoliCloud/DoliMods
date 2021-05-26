@@ -17,51 +17,51 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale extends Google_Collection
 {
-	protected $collection_key = 'salesCrss';
-	public $salesAirport;
-	public $salesCarriers;
-	public $salesCity;
-	public $salesCountry;
-	public $salesCrss;
+  protected $collection_key = 'salesCrss';
+  public $salesAirport;
+  public $salesCarriers;
+  public $salesCity;
+  public $salesCountry;
+  public $salesCrss;
 
-	public function setSalesAirport($salesAirport)
-	{
-		$this->salesAirport = $salesAirport;
-	}
-	public function getSalesAirport()
-	{
-		return $this->salesAirport;
-	}
-	public function setSalesCarriers($salesCarriers)
-	{
-		$this->salesCarriers = $salesCarriers;
-	}
-	public function getSalesCarriers()
-	{
-		return $this->salesCarriers;
-	}
-	public function setSalesCity($salesCity)
-	{
-		$this->salesCity = $salesCity;
-	}
-	public function getSalesCity()
-	{
-		return $this->salesCity;
-	}
-	public function setSalesCountry($salesCountry)
-	{
-		$this->salesCountry = $salesCountry;
-	}
-	public function getSalesCountry()
-	{
-		return $this->salesCountry;
-	}
-	public function setSalesCrss($salesCrss)
-	{
-		$this->salesCrss = $salesCrss;
-	}
-	public function getSalesCrss()
-	{
-		return $this->salesCrss;
-	}
+  public function setSalesAirport($salesAirport)
+  {
+    $this->salesAirport = $salesAirport;
+  }
+  public function getSalesAirport()
+  {
+    return $this->salesAirport;
+  }
+  public function setSalesCarriers($salesCarriers)
+  {
+    $this->salesCarriers = $salesCarriers;
+  }
+  public function getSalesCarriers()
+  {
+    return $this->salesCarriers;
+  }
+  public function setSalesCity($salesCity)
+  {
+    $this->salesCity = $salesCity;
+  }
+  public function getSalesCity()
+  {
+    return $this->salesCity;
+  }
+  public function setSalesCountry($salesCountry)
+  {
+    $this->salesCountry = $salesCountry;
+  }
+  public function getSalesCountry()
+  {
+    return $this->salesCountry;
+  }
+  public function setSalesCrss($salesCrss)
+  {
+    $this->salesCrss = $salesCrss;
+  }
+  public function getSalesCrss()
+  {
+    return $this->salesCrss;
+  }
 }

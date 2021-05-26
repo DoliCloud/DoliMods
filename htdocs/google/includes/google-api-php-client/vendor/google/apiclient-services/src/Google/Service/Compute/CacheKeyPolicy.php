@@ -17,51 +17,51 @@
 
 class Google_Service_Compute_CacheKeyPolicy extends Google_Collection
 {
-	protected $collection_key = 'queryStringWhitelist';
-	public $includeHost;
-	public $includeProtocol;
-	public $includeQueryString;
-	public $queryStringBlacklist;
-	public $queryStringWhitelist;
+  protected $collection_key = 'queryStringWhitelist';
+  public $includeHost;
+  public $includeProtocol;
+  public $includeQueryString;
+  public $queryStringBlacklist;
+  public $queryStringWhitelist;
 
-	public function setIncludeHost($includeHost)
-	{
-		$this->includeHost = $includeHost;
-	}
-	public function getIncludeHost()
-	{
-		return $this->includeHost;
-	}
-	public function setIncludeProtocol($includeProtocol)
-	{
-		$this->includeProtocol = $includeProtocol;
-	}
-	public function getIncludeProtocol()
-	{
-		return $this->includeProtocol;
-	}
-	public function setIncludeQueryString($includeQueryString)
-	{
-		$this->includeQueryString = $includeQueryString;
-	}
-	public function getIncludeQueryString()
-	{
-		return $this->includeQueryString;
-	}
-	public function setQueryStringBlacklist($queryStringBlacklist)
-	{
-		$this->queryStringBlacklist = $queryStringBlacklist;
-	}
-	public function getQueryStringBlacklist()
-	{
-		return $this->queryStringBlacklist;
-	}
-	public function setQueryStringWhitelist($queryStringWhitelist)
-	{
-		$this->queryStringWhitelist = $queryStringWhitelist;
-	}
-	public function getQueryStringWhitelist()
-	{
-		return $this->queryStringWhitelist;
-	}
+  public function setIncludeHost($includeHost)
+  {
+    $this->includeHost = $includeHost;
+  }
+  public function getIncludeHost()
+  {
+    return $this->includeHost;
+  }
+  public function setIncludeProtocol($includeProtocol)
+  {
+    $this->includeProtocol = $includeProtocol;
+  }
+  public function getIncludeProtocol()
+  {
+    return $this->includeProtocol;
+  }
+  public function setIncludeQueryString($includeQueryString)
+  {
+    $this->includeQueryString = $includeQueryString;
+  }
+  public function getIncludeQueryString()
+  {
+    return $this->includeQueryString;
+  }
+  public function setQueryStringBlacklist($queryStringBlacklist)
+  {
+    $this->queryStringBlacklist = $queryStringBlacklist;
+  }
+  public function getQueryStringBlacklist()
+  {
+    return $this->queryStringBlacklist;
+  }
+  public function setQueryStringWhitelist($queryStringWhitelist)
+  {
+    $this->queryStringWhitelist = $queryStringWhitelist;
+  }
+  public function getQueryStringWhitelist()
+  {
+    return $this->queryStringWhitelist;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandOverhead extends Google_Model
 {
-	public $duration;
-	public $overhead;
+  public $duration;
+  public $overhead;
 
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	public function setOverhead($overhead)
-	{
-		$this->overhead = $overhead;
-	}
-	public function getOverhead()
-	{
-		return $this->overhead;
-	}
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  public function setOverhead($overhead)
+  {
+    $this->overhead = $overhead;
+  }
+  public function getOverhead()
+  {
+    return $this->overhead;
+  }
 }

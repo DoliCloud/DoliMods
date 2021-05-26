@@ -17,25 +17,25 @@
 
 class Google_Service_FirebaseRulesAPI_ListReleasesResponse extends Google_Collection
 {
-	protected $collection_key = 'releases';
-	public $nextPageToken;
-	protected $releasesType = 'Google_Service_FirebaseRulesAPI_Release';
-	protected $releasesDataType = 'array';
+  protected $collection_key = 'releases';
+  public $nextPageToken;
+  protected $releasesType = 'Google_Service_FirebaseRulesAPI_Release';
+  protected $releasesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setReleases($releases)
-	{
-		$this->releases = $releases;
-	}
-	public function getReleases()
-	{
-		return $this->releases;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setReleases($releases)
+  {
+    $this->releases = $releases;
+  }
+  public function getReleases()
+  {
+    return $this->releases;
+  }
 }

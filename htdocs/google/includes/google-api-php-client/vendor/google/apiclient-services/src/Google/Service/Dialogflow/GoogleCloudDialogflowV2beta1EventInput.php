@@ -17,32 +17,32 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1EventInput extends Google_Model
 {
-	public $languageCode;
-	public $name;
-	public $parameters;
+  public $languageCode;
+  public $name;
+  public $parameters;
 
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setParameters($parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setParameters($parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
 }

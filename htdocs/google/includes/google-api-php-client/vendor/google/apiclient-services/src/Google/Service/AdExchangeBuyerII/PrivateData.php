@@ -17,14 +17,14 @@
 
 class Google_Service_AdExchangeBuyerII_PrivateData extends Google_Model
 {
-	public $referenceId;
+  public $referenceId;
 
-	public function setReferenceId($referenceId)
-	{
-		$this->referenceId = $referenceId;
-	}
-	public function getReferenceId()
-	{
-		return $this->referenceId;
-	}
+  public function setReferenceId($referenceId)
+  {
+    $this->referenceId = $referenceId;
+  }
+  public function getReferenceId()
+  {
+    return $this->referenceId;
+  }
 }

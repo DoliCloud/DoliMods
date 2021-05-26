@@ -17,57 +17,57 @@
 
 class Google_Service_Slides_CreateSheetsChartRequest extends Google_Model
 {
-	public $chartId;
-	protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
-	protected $elementPropertiesDataType = '';
-	public $linkingMode;
-	public $objectId;
-	public $spreadsheetId;
+  public $chartId;
+  protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
+  protected $elementPropertiesDataType = '';
+  public $linkingMode;
+  public $objectId;
+  public $spreadsheetId;
 
-	public function setChartId($chartId)
-	{
-		$this->chartId = $chartId;
-	}
-	public function getChartId()
-	{
-		return $this->chartId;
-	}
-	/**
-	 * @param Google_Service_Slides_PageElementProperties
-	 */
-	public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
-	{
-		$this->elementProperties = $elementProperties;
-	}
-	/**
-	 * @return Google_Service_Slides_PageElementProperties
-	 */
-	public function getElementProperties()
-	{
-		return $this->elementProperties;
-	}
-	public function setLinkingMode($linkingMode)
-	{
-		$this->linkingMode = $linkingMode;
-	}
-	public function getLinkingMode()
-	{
-		return $this->linkingMode;
-	}
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
-	public function setSpreadsheetId($spreadsheetId)
-	{
-		$this->spreadsheetId = $spreadsheetId;
-	}
-	public function getSpreadsheetId()
-	{
-		return $this->spreadsheetId;
-	}
+  public function setChartId($chartId)
+  {
+    $this->chartId = $chartId;
+  }
+  public function getChartId()
+  {
+    return $this->chartId;
+  }
+  /**
+   * @param Google_Service_Slides_PageElementProperties
+   */
+  public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
+  {
+    $this->elementProperties = $elementProperties;
+  }
+  /**
+   * @return Google_Service_Slides_PageElementProperties
+   */
+  public function getElementProperties()
+  {
+    return $this->elementProperties;
+  }
+  public function setLinkingMode($linkingMode)
+  {
+    $this->linkingMode = $linkingMode;
+  }
+  public function getLinkingMode()
+  {
+    return $this->linkingMode;
+  }
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
+  public function setSpreadsheetId($spreadsheetId)
+  {
+    $this->spreadsheetId = $spreadsheetId;
+  }
+  public function getSpreadsheetId()
+  {
+    return $this->spreadsheetId;
+  }
 }

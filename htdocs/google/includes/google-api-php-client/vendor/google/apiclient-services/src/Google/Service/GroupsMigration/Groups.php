@@ -17,23 +17,23 @@
 
 class Google_Service_GroupsMigration_Groups extends Google_Model
 {
-	public $kind;
-	public $responseCode;
+  public $kind;
+  public $responseCode;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setResponseCode($responseCode)
-	{
-		$this->responseCode = $responseCode;
-	}
-	public function getResponseCode()
-	{
-		return $this->responseCode;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setResponseCode($responseCode)
+  {
+    $this->responseCode = $responseCode;
+  }
+  public function getResponseCode()
+  {
+    return $this->responseCode;
+  }
 }

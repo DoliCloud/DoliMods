@@ -17,39 +17,39 @@
 
 class Google_Service_Dfareporting_CustomViewabilityMetric extends Google_Model
 {
-	protected $configurationType = 'Google_Service_Dfareporting_CustomViewabilityMetricConfiguration';
-	protected $configurationDataType = '';
-	public $id;
-	public $name;
+  protected $configurationType = 'Google_Service_Dfareporting_CustomViewabilityMetricConfiguration';
+  protected $configurationDataType = '';
+  public $id;
+  public $name;
 
-	/**
-	 * @param Google_Service_Dfareporting_CustomViewabilityMetricConfiguration
-	 */
-	public function setConfiguration(Google_Service_Dfareporting_CustomViewabilityMetricConfiguration $configuration)
-	{
-		$this->configuration = $configuration;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_CustomViewabilityMetricConfiguration
-	 */
-	public function getConfiguration()
-	{
-		return $this->configuration;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  /**
+   * @param Google_Service_Dfareporting_CustomViewabilityMetricConfiguration
+   */
+  public function setConfiguration(Google_Service_Dfareporting_CustomViewabilityMetricConfiguration $configuration)
+  {
+    $this->configuration = $configuration;
+  }
+  /**
+   * @return Google_Service_Dfareporting_CustomViewabilityMetricConfiguration
+   */
+  public function getConfiguration()
+  {
+    return $this->configuration;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

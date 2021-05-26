@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedInlineObjectProperties extends Google_Model
 {
-	protected $inlineObjectPropertiesType = 'Google_Service_Docs_InlineObjectProperties';
-	protected $inlineObjectPropertiesDataType = '';
-	protected $inlineObjectPropertiesSuggestionStateType = 'Google_Service_Docs_InlineObjectPropertiesSuggestionState';
-	protected $inlineObjectPropertiesSuggestionStateDataType = '';
+  protected $inlineObjectPropertiesType = 'Google_Service_Docs_InlineObjectProperties';
+  protected $inlineObjectPropertiesDataType = '';
+  protected $inlineObjectPropertiesSuggestionStateType = 'Google_Service_Docs_InlineObjectPropertiesSuggestionState';
+  protected $inlineObjectPropertiesSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_InlineObjectProperties
-	 */
-	public function setInlineObjectProperties(Google_Service_Docs_InlineObjectProperties $inlineObjectProperties)
-	{
-		$this->inlineObjectProperties = $inlineObjectProperties;
-	}
-	/**
-	 * @return Google_Service_Docs_InlineObjectProperties
-	 */
-	public function getInlineObjectProperties()
-	{
-		return $this->inlineObjectProperties;
-	}
-	/**
-	 * @param Google_Service_Docs_InlineObjectPropertiesSuggestionState
-	 */
-	public function setInlineObjectPropertiesSuggestionState(Google_Service_Docs_InlineObjectPropertiesSuggestionState $inlineObjectPropertiesSuggestionState)
-	{
-		$this->inlineObjectPropertiesSuggestionState = $inlineObjectPropertiesSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_InlineObjectPropertiesSuggestionState
-	 */
-	public function getInlineObjectPropertiesSuggestionState()
-	{
-		return $this->inlineObjectPropertiesSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_InlineObjectProperties
+   */
+  public function setInlineObjectProperties(Google_Service_Docs_InlineObjectProperties $inlineObjectProperties)
+  {
+    $this->inlineObjectProperties = $inlineObjectProperties;
+  }
+  /**
+   * @return Google_Service_Docs_InlineObjectProperties
+   */
+  public function getInlineObjectProperties()
+  {
+    return $this->inlineObjectProperties;
+  }
+  /**
+   * @param Google_Service_Docs_InlineObjectPropertiesSuggestionState
+   */
+  public function setInlineObjectPropertiesSuggestionState(Google_Service_Docs_InlineObjectPropertiesSuggestionState $inlineObjectPropertiesSuggestionState)
+  {
+    $this->inlineObjectPropertiesSuggestionState = $inlineObjectPropertiesSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_InlineObjectPropertiesSuggestionState
+   */
+  public function getInlineObjectPropertiesSuggestionState()
+  {
+    return $this->inlineObjectPropertiesSuggestionState;
+  }
 }

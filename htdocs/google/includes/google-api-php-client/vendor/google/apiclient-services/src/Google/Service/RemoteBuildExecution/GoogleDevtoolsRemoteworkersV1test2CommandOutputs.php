@@ -17,30 +17,30 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandOutputs extends Google_Model
 {
-	public $exitCode;
-	protected $outputsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
-	protected $outputsDataType = '';
+  public $exitCode;
+  protected $outputsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
+  protected $outputsDataType = '';
 
-	public function setExitCode($exitCode)
-	{
-		$this->exitCode = $exitCode;
-	}
-	public function getExitCode()
-	{
-		return $this->exitCode;
-	}
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-	 */
-	public function setOutputs(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $outputs)
-	{
-		$this->outputs = $outputs;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-	 */
-	public function getOutputs()
-	{
-		return $this->outputs;
-	}
+  public function setExitCode($exitCode)
+  {
+    $this->exitCode = $exitCode;
+  }
+  public function getExitCode()
+  {
+    return $this->exitCode;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+   */
+  public function setOutputs(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $outputs)
+  {
+    $this->outputs = $outputs;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+   */
+  public function getOutputs()
+  {
+    return $this->outputs;
+  }
 }

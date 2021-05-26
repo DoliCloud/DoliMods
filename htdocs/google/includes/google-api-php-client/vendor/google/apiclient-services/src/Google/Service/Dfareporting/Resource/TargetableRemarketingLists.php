@@ -25,50 +25,50 @@
  */
 class Google_Service_Dfareporting_Resource_TargetableRemarketingLists extends Google_Service_Resource
 {
-	/**
-	 * Gets one remarketing list by ID. (targetableRemarketingLists.get)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param string $id Remarketing list ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_TargetableRemarketingList
-	 */
-	public function get($profileId, $id, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'id' => $id);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Dfareporting_TargetableRemarketingList");
-	}
-	/**
-	 * Retrieves a list of targetable remarketing lists, possibly filtered. This
-	 * method supports paging.
-	 * (targetableRemarketingLists.listTargetableRemarketingLists)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param string $advertiserId Select only targetable remarketing lists
-	 *                             targetable by these advertisers.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param bool active Select only active or only inactive targetable
-	 * remarketing lists.
-	 * @opt_param int maxResults Maximum number of results to return.
-	 * @opt_param string name Allows searching for objects by name or ID. Wildcards
-	 * (*) are allowed. For example, "remarketing list*2015" will return objects
-	 * with names like "remarketing list June 2015", "remarketing list April 2015",
-	 * or simply "remarketing list 2015". Most of the searches also add wildcards
-	 * implicitly at the start and the end of the search string. For example, a
-	 * search string of "remarketing list" will match objects with name "my
-	 * remarketing list", "remarketing list 2015", or simply "remarketing list".
-	 * @opt_param string pageToken Value of the nextPageToken from the previous
-	 * result page.
-	 * @opt_param string sortField Field by which to sort the list.
-	 * @opt_param string sortOrder Order of sorted results.
-	 * @return Google_Service_Dfareporting_TargetableRemarketingListsListResponse
-	 */
-	public function listTargetableRemarketingLists($profileId, $advertiserId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'advertiserId' => $advertiserId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Dfareporting_TargetableRemarketingListsListResponse");
-	}
+  /**
+   * Gets one remarketing list by ID. (targetableRemarketingLists.get)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param string $id Remarketing list ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_TargetableRemarketingList
+   */
+  public function get($profileId, $id, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Dfareporting_TargetableRemarketingList");
+  }
+  /**
+   * Retrieves a list of targetable remarketing lists, possibly filtered. This
+   * method supports paging.
+   * (targetableRemarketingLists.listTargetableRemarketingLists)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param string $advertiserId Select only targetable remarketing lists
+   * targetable by these advertisers.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param bool active Select only active or only inactive targetable
+   * remarketing lists.
+   * @opt_param int maxResults Maximum number of results to return.
+   * @opt_param string name Allows searching for objects by name or ID. Wildcards
+   * (*) are allowed. For example, "remarketing list*2015" will return objects
+   * with names like "remarketing list June 2015", "remarketing list April 2015",
+   * or simply "remarketing list 2015". Most of the searches also add wildcards
+   * implicitly at the start and the end of the search string. For example, a
+   * search string of "remarketing list" will match objects with name "my
+   * remarketing list", "remarketing list 2015", or simply "remarketing list".
+   * @opt_param string pageToken Value of the nextPageToken from the previous
+   * result page.
+   * @opt_param string sortField Field by which to sort the list.
+   * @opt_param string sortOrder Order of sorted results.
+   * @return Google_Service_Dfareporting_TargetableRemarketingListsListResponse
+   */
+  public function listTargetableRemarketingLists($profileId, $advertiserId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'advertiserId' => $advertiserId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Dfareporting_TargetableRemarketingListsListResponse");
+  }
 }

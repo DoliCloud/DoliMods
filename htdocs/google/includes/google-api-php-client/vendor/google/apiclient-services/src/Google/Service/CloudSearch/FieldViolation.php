@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_FieldViolation extends Google_Model
 {
-	public $description;
-	public $field;
+  public $description;
+  public $field;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setField($field)
-	{
-		$this->field = $field;
-	}
-	public function getField()
-	{
-		return $this->field;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setField($field)
+  {
+    $this->field = $field;
+  }
+  public function getField()
+  {
+    return $this->field;
+  }
 }

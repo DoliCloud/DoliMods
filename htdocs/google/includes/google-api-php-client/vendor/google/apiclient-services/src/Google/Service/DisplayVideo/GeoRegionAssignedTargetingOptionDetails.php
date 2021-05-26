@@ -17,41 +17,41 @@
 
 class Google_Service_DisplayVideo_GeoRegionAssignedTargetingOptionDetails extends Google_Model
 {
-	public $displayName;
-	public $geoRegionType;
-	public $negative;
-	public $targetingOptionId;
+  public $displayName;
+  public $geoRegionType;
+  public $negative;
+  public $targetingOptionId;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setGeoRegionType($geoRegionType)
-	{
-		$this->geoRegionType = $geoRegionType;
-	}
-	public function getGeoRegionType()
-	{
-		return $this->geoRegionType;
-	}
-	public function setNegative($negative)
-	{
-		$this->negative = $negative;
-	}
-	public function getNegative()
-	{
-		return $this->negative;
-	}
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setGeoRegionType($geoRegionType)
+  {
+    $this->geoRegionType = $geoRegionType;
+  }
+  public function getGeoRegionType()
+  {
+    return $this->geoRegionType;
+  }
+  public function setNegative($negative)
+  {
+    $this->negative = $negative;
+  }
+  public function getNegative()
+  {
+    return $this->negative;
+  }
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
 }

@@ -17,86 +17,86 @@
 
 class Google_Service_FirebaseManagement_WebAppConfig extends Google_Model
 {
-	public $apiKey;
-	public $appId;
-	public $authDomain;
-	public $databaseURL;
-	public $locationId;
-	public $measurementId;
-	public $messagingSenderId;
-	public $projectId;
-	public $storageBucket;
+  public $apiKey;
+  public $appId;
+  public $authDomain;
+  public $databaseURL;
+  public $locationId;
+  public $measurementId;
+  public $messagingSenderId;
+  public $projectId;
+  public $storageBucket;
 
-	public function setApiKey($apiKey)
-	{
-		$this->apiKey = $apiKey;
-	}
-	public function getApiKey()
-	{
-		return $this->apiKey;
-	}
-	public function setAppId($appId)
-	{
-		$this->appId = $appId;
-	}
-	public function getAppId()
-	{
-		return $this->appId;
-	}
-	public function setAuthDomain($authDomain)
-	{
-		$this->authDomain = $authDomain;
-	}
-	public function getAuthDomain()
-	{
-		return $this->authDomain;
-	}
-	public function setDatabaseURL($databaseURL)
-	{
-		$this->databaseURL = $databaseURL;
-	}
-	public function getDatabaseURL()
-	{
-		return $this->databaseURL;
-	}
-	public function setLocationId($locationId)
-	{
-		$this->locationId = $locationId;
-	}
-	public function getLocationId()
-	{
-		return $this->locationId;
-	}
-	public function setMeasurementId($measurementId)
-	{
-		$this->measurementId = $measurementId;
-	}
-	public function getMeasurementId()
-	{
-		return $this->measurementId;
-	}
-	public function setMessagingSenderId($messagingSenderId)
-	{
-		$this->messagingSenderId = $messagingSenderId;
-	}
-	public function getMessagingSenderId()
-	{
-		return $this->messagingSenderId;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setStorageBucket($storageBucket)
-	{
-		$this->storageBucket = $storageBucket;
-	}
-	public function getStorageBucket()
-	{
-		return $this->storageBucket;
-	}
+  public function setApiKey($apiKey)
+  {
+    $this->apiKey = $apiKey;
+  }
+  public function getApiKey()
+  {
+    return $this->apiKey;
+  }
+  public function setAppId($appId)
+  {
+    $this->appId = $appId;
+  }
+  public function getAppId()
+  {
+    return $this->appId;
+  }
+  public function setAuthDomain($authDomain)
+  {
+    $this->authDomain = $authDomain;
+  }
+  public function getAuthDomain()
+  {
+    return $this->authDomain;
+  }
+  public function setDatabaseURL($databaseURL)
+  {
+    $this->databaseURL = $databaseURL;
+  }
+  public function getDatabaseURL()
+  {
+    return $this->databaseURL;
+  }
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
+  }
+  public function setMeasurementId($measurementId)
+  {
+    $this->measurementId = $measurementId;
+  }
+  public function getMeasurementId()
+  {
+    return $this->measurementId;
+  }
+  public function setMessagingSenderId($messagingSenderId)
+  {
+    $this->messagingSenderId = $messagingSenderId;
+  }
+  public function getMessagingSenderId()
+  {
+    return $this->messagingSenderId;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setStorageBucket($storageBucket)
+  {
+    $this->storageBucket = $storageBucket;
+  }
+  public function getStorageBucket()
+  {
+    return $this->storageBucket;
+  }
 }

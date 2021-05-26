@@ -17,15 +17,15 @@
 
 class Google_Service_Compute_TargetSslProxiesSetSslCertificatesRequest extends Google_Collection
 {
-	protected $collection_key = 'sslCertificates';
-	public $sslCertificates;
+  protected $collection_key = 'sslCertificates';
+  public $sslCertificates;
 
-	public function setSslCertificates($sslCertificates)
-	{
-		$this->sslCertificates = $sslCertificates;
-	}
-	public function getSslCertificates()
-	{
-		return $this->sslCertificates;
-	}
+  public function setSslCertificates($sslCertificates)
+  {
+    $this->sslCertificates = $sslCertificates;
+  }
+  public function getSslCertificates()
+  {
+    return $this->sslCertificates;
+  }
 }

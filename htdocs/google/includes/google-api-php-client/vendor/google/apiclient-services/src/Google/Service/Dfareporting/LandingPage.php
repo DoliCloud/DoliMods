@@ -17,76 +17,76 @@
 
 class Google_Service_Dfareporting_LandingPage extends Google_Collection
 {
-	protected $collection_key = 'deepLinks';
-	public $advertiserId;
-	public $archived;
-	protected $deepLinksType = 'Google_Service_Dfareporting_DeepLink';
-	protected $deepLinksDataType = 'array';
-	public $id;
-	public $kind;
-	public $name;
-	public $url;
+  protected $collection_key = 'deepLinks';
+  public $advertiserId;
+  public $archived;
+  protected $deepLinksType = 'Google_Service_Dfareporting_DeepLink';
+  protected $deepLinksDataType = 'array';
+  public $id;
+  public $kind;
+  public $name;
+  public $url;
 
-	public function setAdvertiserId($advertiserId)
-	{
-		$this->advertiserId = $advertiserId;
-	}
-	public function getAdvertiserId()
-	{
-		return $this->advertiserId;
-	}
-	public function setArchived($archived)
-	{
-		$this->archived = $archived;
-	}
-	public function getArchived()
-	{
-		return $this->archived;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_DeepLink
-	 */
-	public function setDeepLinks($deepLinks)
-	{
-		$this->deepLinks = $deepLinks;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_DeepLink
-	 */
-	public function getDeepLinks()
-	{
-		return $this->deepLinks;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setAdvertiserId($advertiserId)
+  {
+    $this->advertiserId = $advertiserId;
+  }
+  public function getAdvertiserId()
+  {
+    return $this->advertiserId;
+  }
+  public function setArchived($archived)
+  {
+    $this->archived = $archived;
+  }
+  public function getArchived()
+  {
+    return $this->archived;
+  }
+  /**
+   * @param Google_Service_Dfareporting_DeepLink[]
+   */
+  public function setDeepLinks($deepLinks)
+  {
+    $this->deepLinks = $deepLinks;
+  }
+  /**
+   * @return Google_Service_Dfareporting_DeepLink[]
+   */
+  public function getDeepLinks()
+  {
+    return $this->deepLinks;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

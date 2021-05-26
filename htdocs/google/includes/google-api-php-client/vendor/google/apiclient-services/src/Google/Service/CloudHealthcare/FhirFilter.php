@@ -17,21 +17,21 @@
 
 class Google_Service_CloudHealthcare_FhirFilter extends Google_Model
 {
-	protected $resourcesType = 'Google_Service_CloudHealthcare_Resources';
-	protected $resourcesDataType = '';
+  protected $resourcesType = 'Google_Service_CloudHealthcare_Resources';
+  protected $resourcesDataType = '';
 
-	/**
-	 * @param Google_Service_CloudHealthcare_Resources
-	 */
-	public function setResources(Google_Service_CloudHealthcare_Resources $resources)
-	{
-		$this->resources = $resources;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_Resources
-	 */
-	public function getResources()
-	{
-		return $this->resources;
-	}
+  /**
+   * @param Google_Service_CloudHealthcare_Resources
+   */
+  public function setResources(Google_Service_CloudHealthcare_Resources $resources)
+  {
+    $this->resources = $resources;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_Resources
+   */
+  public function getResources()
+  {
+    return $this->resources;
+  }
 }

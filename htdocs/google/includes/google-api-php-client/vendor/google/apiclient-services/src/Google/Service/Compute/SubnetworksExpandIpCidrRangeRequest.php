@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_SubnetworksExpandIpCidrRangeRequest extends Google_Model
 {
-	public $ipCidrRange;
+  public $ipCidrRange;
 
-	public function setIpCidrRange($ipCidrRange)
-	{
-		$this->ipCidrRange = $ipCidrRange;
-	}
-	public function getIpCidrRange()
-	{
-		return $this->ipCidrRange;
-	}
+  public function setIpCidrRange($ipCidrRange)
+  {
+    $this->ipCidrRange = $ipCidrRange;
+  }
+  public function getIpCidrRange()
+  {
+    return $this->ipCidrRange;
+  }
 }

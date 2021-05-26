@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_DisplayedProperty extends Google_Model
 {
-	public $propertyName;
+  public $propertyName;
 
-	public function setPropertyName($propertyName)
-	{
-		$this->propertyName = $propertyName;
-	}
-	public function getPropertyName()
-	{
-		return $this->propertyName;
-	}
+  public function setPropertyName($propertyName)
+  {
+    $this->propertyName = $propertyName;
+  }
+  public function getPropertyName()
+  {
+    return $this->propertyName;
+  }
 }

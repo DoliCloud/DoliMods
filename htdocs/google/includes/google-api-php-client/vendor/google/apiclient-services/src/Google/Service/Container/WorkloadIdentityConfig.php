@@ -17,14 +17,14 @@
 
 class Google_Service_Container_WorkloadIdentityConfig extends Google_Model
 {
-	public $workloadPool;
+  public $workloadPool;
 
-	public function setWorkloadPool($workloadPool)
-	{
-		$this->workloadPool = $workloadPool;
-	}
-	public function getWorkloadPool()
-	{
-		return $this->workloadPool;
-	}
+  public function setWorkloadPool($workloadPool)
+  {
+    $this->workloadPool = $workloadPool;
+  }
+  public function getWorkloadPool()
+  {
+    return $this->workloadPool;
+  }
 }

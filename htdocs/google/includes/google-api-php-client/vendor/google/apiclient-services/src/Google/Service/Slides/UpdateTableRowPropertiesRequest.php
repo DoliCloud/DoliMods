@@ -17,49 +17,49 @@
 
 class Google_Service_Slides_UpdateTableRowPropertiesRequest extends Google_Collection
 {
-	protected $collection_key = 'rowIndices';
-	public $fields;
-	public $objectId;
-	public $rowIndices;
-	protected $tableRowPropertiesType = 'Google_Service_Slides_TableRowProperties';
-	protected $tableRowPropertiesDataType = '';
+  protected $collection_key = 'rowIndices';
+  public $fields;
+  public $objectId;
+  public $rowIndices;
+  protected $tableRowPropertiesType = 'Google_Service_Slides_TableRowProperties';
+  protected $tableRowPropertiesDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
-	public function setRowIndices($rowIndices)
-	{
-		$this->rowIndices = $rowIndices;
-	}
-	public function getRowIndices()
-	{
-		return $this->rowIndices;
-	}
-	/**
-	 * @param Google_Service_Slides_TableRowProperties
-	 */
-	public function setTableRowProperties(Google_Service_Slides_TableRowProperties $tableRowProperties)
-	{
-		$this->tableRowProperties = $tableRowProperties;
-	}
-	/**
-	 * @return Google_Service_Slides_TableRowProperties
-	 */
-	public function getTableRowProperties()
-	{
-		return $this->tableRowProperties;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
+  public function setRowIndices($rowIndices)
+  {
+    $this->rowIndices = $rowIndices;
+  }
+  public function getRowIndices()
+  {
+    return $this->rowIndices;
+  }
+  /**
+   * @param Google_Service_Slides_TableRowProperties
+   */
+  public function setTableRowProperties(Google_Service_Slides_TableRowProperties $tableRowProperties)
+  {
+    $this->tableRowProperties = $tableRowProperties;
+  }
+  /**
+   * @return Google_Service_Slides_TableRowProperties
+   */
+  public function getTableRowProperties()
+  {
+    return $this->tableRowProperties;
+  }
 }

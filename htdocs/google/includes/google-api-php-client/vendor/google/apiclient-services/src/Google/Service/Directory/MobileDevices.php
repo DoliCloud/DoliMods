@@ -17,49 +17,49 @@
 
 class Google_Service_Directory_MobileDevices extends Google_Collection
 {
-	protected $collection_key = 'mobiledevices';
-	public $etag;
-	public $kind;
-	protected $mobiledevicesType = 'Google_Service_Directory_MobileDevice';
-	protected $mobiledevicesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'mobiledevices';
+  public $etag;
+  public $kind;
+  protected $mobiledevicesType = 'Google_Service_Directory_MobileDevice';
+  protected $mobiledevicesDataType = 'array';
+  public $nextPageToken;
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Directory_MobileDevice
-	 */
-	public function setMobiledevices($mobiledevices)
-	{
-		$this->mobiledevices = $mobiledevices;
-	}
-	/**
-	 * @return Google_Service_Directory_MobileDevice
-	 */
-	public function getMobiledevices()
-	{
-		return $this->mobiledevices;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Directory_MobileDevice[]
+   */
+  public function setMobiledevices($mobiledevices)
+  {
+    $this->mobiledevices = $mobiledevices;
+  }
+  /**
+   * @return Google_Service_Directory_MobileDevice[]
+   */
+  public function getMobiledevices()
+  {
+    return $this->mobiledevices;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_UserRewardedContentAssignedTargetingOptionDetails extends Google_Model
 {
-	public $targetingOptionId;
-	public $userRewardedContent;
+  public $targetingOptionId;
+  public $userRewardedContent;
 
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
-	public function setUserRewardedContent($userRewardedContent)
-	{
-		$this->userRewardedContent = $userRewardedContent;
-	}
-	public function getUserRewardedContent()
-	{
-		return $this->userRewardedContent;
-	}
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
+  public function setUserRewardedContent($userRewardedContent)
+  {
+    $this->userRewardedContent = $userRewardedContent;
+  }
+  public function getUserRewardedContent()
+  {
+    return $this->userRewardedContent;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_PolyService_ImageError extends Google_Model
 {
-	public $code;
-	public $filePath;
+  public $code;
+  public $filePath;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setFilePath($filePath)
-	{
-		$this->filePath = $filePath;
-	}
-	public function getFilePath()
-	{
-		return $this->filePath;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setFilePath($filePath)
+  {
+    $this->filePath = $filePath;
+  }
+  public function getFilePath()
+  {
+    return $this->filePath;
+  }
 }

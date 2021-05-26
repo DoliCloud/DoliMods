@@ -17,23 +17,23 @@
 
 class Google_Service_Appengine_CertificateRawData extends Google_Model
 {
-	public $privateKey;
-	public $publicCertificate;
+  public $privateKey;
+  public $publicCertificate;
 
-	public function setPrivateKey($privateKey)
-	{
-		$this->privateKey = $privateKey;
-	}
-	public function getPrivateKey()
-	{
-		return $this->privateKey;
-	}
-	public function setPublicCertificate($publicCertificate)
-	{
-		$this->publicCertificate = $publicCertificate;
-	}
-	public function getPublicCertificate()
-	{
-		return $this->publicCertificate;
-	}
+  public function setPrivateKey($privateKey)
+  {
+    $this->privateKey = $privateKey;
+  }
+  public function getPrivateKey()
+  {
+    return $this->privateKey;
+  }
+  public function setPublicCertificate($publicCertificate)
+  {
+    $this->publicCertificate = $publicCertificate;
+  }
+  public function getPublicCertificate()
+  {
+    return $this->publicCertificate;
+  }
 }

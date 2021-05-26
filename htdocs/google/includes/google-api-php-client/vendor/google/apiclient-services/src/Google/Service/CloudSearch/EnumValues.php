@@ -17,15 +17,15 @@
 
 class Google_Service_CloudSearch_EnumValues extends Google_Collection
 {
-	protected $collection_key = 'values';
-	public $values;
+  protected $collection_key = 'values';
+  public $values;
 
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

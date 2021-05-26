@@ -17,37 +17,37 @@
 
 class Google_Service_Books_GeolayerdataGeoViewport extends Google_Model
 {
-	protected $hiType = 'Google_Service_Books_GeolayerdataGeoViewportHi';
-	protected $hiDataType = '';
-	protected $loType = 'Google_Service_Books_GeolayerdataGeoViewportLo';
-	protected $loDataType = '';
+  protected $hiType = 'Google_Service_Books_GeolayerdataGeoViewportHi';
+  protected $hiDataType = '';
+  protected $loType = 'Google_Service_Books_GeolayerdataGeoViewportLo';
+  protected $loDataType = '';
 
-	/**
-	 * @param Google_Service_Books_GeolayerdataGeoViewportHi
-	 */
-	public function setHi(Google_Service_Books_GeolayerdataGeoViewportHi $hi)
-	{
-		$this->hi = $hi;
-	}
-	/**
-	 * @return Google_Service_Books_GeolayerdataGeoViewportHi
-	 */
-	public function getHi()
-	{
-		return $this->hi;
-	}
-	/**
-	 * @param Google_Service_Books_GeolayerdataGeoViewportLo
-	 */
-	public function setLo(Google_Service_Books_GeolayerdataGeoViewportLo $lo)
-	{
-		$this->lo = $lo;
-	}
-	/**
-	 * @return Google_Service_Books_GeolayerdataGeoViewportLo
-	 */
-	public function getLo()
-	{
-		return $this->lo;
-	}
+  /**
+   * @param Google_Service_Books_GeolayerdataGeoViewportHi
+   */
+  public function setHi(Google_Service_Books_GeolayerdataGeoViewportHi $hi)
+  {
+    $this->hi = $hi;
+  }
+  /**
+   * @return Google_Service_Books_GeolayerdataGeoViewportHi
+   */
+  public function getHi()
+  {
+    return $this->hi;
+  }
+  /**
+   * @param Google_Service_Books_GeolayerdataGeoViewportLo
+   */
+  public function setLo(Google_Service_Books_GeolayerdataGeoViewportLo $lo)
+  {
+    $this->lo = $lo;
+  }
+  /**
+   * @return Google_Service_Books_GeolayerdataGeoViewportLo
+   */
+  public function getLo()
+  {
+    return $this->lo;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_CloudSourceRepositories_PubsubConfig extends Google_Model
 {
-	public $messageFormat;
-	public $serviceAccountEmail;
-	public $topic;
+  public $messageFormat;
+  public $serviceAccountEmail;
+  public $topic;
 
-	public function setMessageFormat($messageFormat)
-	{
-		$this->messageFormat = $messageFormat;
-	}
-	public function getMessageFormat()
-	{
-		return $this->messageFormat;
-	}
-	public function setServiceAccountEmail($serviceAccountEmail)
-	{
-		$this->serviceAccountEmail = $serviceAccountEmail;
-	}
-	public function getServiceAccountEmail()
-	{
-		return $this->serviceAccountEmail;
-	}
-	public function setTopic($topic)
-	{
-		$this->topic = $topic;
-	}
-	public function getTopic()
-	{
-		return $this->topic;
-	}
+  public function setMessageFormat($messageFormat)
+  {
+    $this->messageFormat = $messageFormat;
+  }
+  public function getMessageFormat()
+  {
+    return $this->messageFormat;
+  }
+  public function setServiceAccountEmail($serviceAccountEmail)
+  {
+    $this->serviceAccountEmail = $serviceAccountEmail;
+  }
+  public function getServiceAccountEmail()
+  {
+    return $this->serviceAccountEmail;
+  }
+  public function setTopic($topic)
+  {
+    $this->topic = $topic;
+  }
+  public function getTopic()
+  {
+    return $this->topic;
+  }
 }

@@ -17,25 +17,25 @@
 
 class Google_Service_Manager_Metadata extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $fingerPrint;
-	protected $itemsType = 'Google_Service_Manager_MetadataItem';
-	protected $itemsDataType = 'array';
+  protected $collection_key = 'items';
+  public $fingerPrint;
+  protected $itemsType = 'Google_Service_Manager_MetadataItem';
+  protected $itemsDataType = 'array';
 
-	public function setFingerPrint($fingerPrint)
-	{
-		$this->fingerPrint = $fingerPrint;
-	}
-	public function getFingerPrint()
-	{
-		return $this->fingerPrint;
-	}
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	public function getItems()
-	{
-		return $this->items;
-	}
+  public function setFingerPrint($fingerPrint)
+  {
+    $this->fingerPrint = $fingerPrint;
+  }
+  public function getFingerPrint()
+  {
+    return $this->fingerPrint;
+  }
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  public function getItems()
+  {
+    return $this->items;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Directory_ChromeOsDeviceDiskVolumeReportsVolumeInfo extends Google_Model
 {
-	public $storageFree;
-	public $storageTotal;
-	public $volumeId;
+  public $storageFree;
+  public $storageTotal;
+  public $volumeId;
 
-	public function setStorageFree($storageFree)
-	{
-		$this->storageFree = $storageFree;
-	}
-	public function getStorageFree()
-	{
-		return $this->storageFree;
-	}
-	public function setStorageTotal($storageTotal)
-	{
-		$this->storageTotal = $storageTotal;
-	}
-	public function getStorageTotal()
-	{
-		return $this->storageTotal;
-	}
-	public function setVolumeId($volumeId)
-	{
-		$this->volumeId = $volumeId;
-	}
-	public function getVolumeId()
-	{
-		return $this->volumeId;
-	}
+  public function setStorageFree($storageFree)
+  {
+    $this->storageFree = $storageFree;
+  }
+  public function getStorageFree()
+  {
+    return $this->storageFree;
+  }
+  public function setStorageTotal($storageTotal)
+  {
+    $this->storageTotal = $storageTotal;
+  }
+  public function getStorageTotal()
+  {
+    return $this->storageTotal;
+  }
+  public function setVolumeId($volumeId)
+  {
+    $this->volumeId = $volumeId;
+  }
+  public function getVolumeId()
+  {
+    return $this->volumeId;
+  }
 }

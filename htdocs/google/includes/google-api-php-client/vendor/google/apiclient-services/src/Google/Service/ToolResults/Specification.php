@@ -17,37 +17,37 @@
 
 class Google_Service_ToolResults_Specification extends Google_Model
 {
-	protected $androidTestType = 'Google_Service_ToolResults_AndroidTest';
-	protected $androidTestDataType = '';
-	protected $iosTestType = 'Google_Service_ToolResults_IosTest';
-	protected $iosTestDataType = '';
+  protected $androidTestType = 'Google_Service_ToolResults_AndroidTest';
+  protected $androidTestDataType = '';
+  protected $iosTestType = 'Google_Service_ToolResults_IosTest';
+  protected $iosTestDataType = '';
 
-	/**
-	 * @param Google_Service_ToolResults_AndroidTest
-	 */
-	public function setAndroidTest(Google_Service_ToolResults_AndroidTest $androidTest)
-	{
-		$this->androidTest = $androidTest;
-	}
-	/**
-	 * @return Google_Service_ToolResults_AndroidTest
-	 */
-	public function getAndroidTest()
-	{
-		return $this->androidTest;
-	}
-	/**
-	 * @param Google_Service_ToolResults_IosTest
-	 */
-	public function setIosTest(Google_Service_ToolResults_IosTest $iosTest)
-	{
-		$this->iosTest = $iosTest;
-	}
-	/**
-	 * @return Google_Service_ToolResults_IosTest
-	 */
-	public function getIosTest()
-	{
-		return $this->iosTest;
-	}
+  /**
+   * @param Google_Service_ToolResults_AndroidTest
+   */
+  public function setAndroidTest(Google_Service_ToolResults_AndroidTest $androidTest)
+  {
+    $this->androidTest = $androidTest;
+  }
+  /**
+   * @return Google_Service_ToolResults_AndroidTest
+   */
+  public function getAndroidTest()
+  {
+    return $this->androidTest;
+  }
+  /**
+   * @param Google_Service_ToolResults_IosTest
+   */
+  public function setIosTest(Google_Service_ToolResults_IosTest $iosTest)
+  {
+    $this->iosTest = $iosTest;
+  }
+  /**
+   * @return Google_Service_ToolResults_IosTest
+   */
+  public function getIosTest()
+  {
+    return $this->iosTest;
+  }
 }

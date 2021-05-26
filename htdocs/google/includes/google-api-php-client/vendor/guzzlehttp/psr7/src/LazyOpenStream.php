@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\StreamInterface;
@@ -9,31 +10,31 @@ use Psr\Http\Message\StreamInterface;
  */
 class LazyOpenStream implements StreamInterface
 {
-	use StreamDecoratorTrait;
+    use StreamDecoratorTrait;
 
-	/** @var string File to open */
-	private $filename;
+    /** @var string File to open */
+    private $filename;
 
-	/** @var string $mode */
-	private $mode;
+    /** @var string $mode */
+    private $mode;
 
-	/**
-	 * @param string $filename File to lazily open
-	 * @param string $mode     fopen mode to use when opening the stream
-	 */
-	public function __construct($filename, $mode)
-	{
-		$this->filename = $filename;
-		$this->mode = $mode;
-	}
+    /**
+     * @param string $filename File to lazily open
+     * @param string $mode     fopen mode to use when opening the stream
+     */
+    public function __construct($filename, $mode)
+    {
+        $this->filename = $filename;
+        $this->mode = $mode;
+    }
 
-	/**
-	 * Creates the underlying stream lazily when required.
-	 *
-	 * @return StreamInterface
-	 */
-	protected function createStream()
-	{
-		return stream_for(try_fopen($this->filename, $this->mode));
-	}
+    /**
+     * Creates the underlying stream lazily when required.
+     *
+     * @return StreamInterface
+     */
+    protected function createStream()
+    {
+        return Utils::streamFor(Utils::tryFopen($this->filename, $this->mode));
+    }
 }

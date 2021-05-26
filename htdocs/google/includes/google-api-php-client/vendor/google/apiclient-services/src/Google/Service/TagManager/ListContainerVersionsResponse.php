@@ -17,31 +17,31 @@
 
 class Google_Service_TagManager_ListContainerVersionsResponse extends Google_Collection
 {
-	protected $collection_key = 'containerVersionHeader';
-	protected $containerVersionHeaderType = 'Google_Service_TagManager_ContainerVersionHeader';
-	protected $containerVersionHeaderDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'containerVersionHeader';
+  protected $containerVersionHeaderType = 'Google_Service_TagManager_ContainerVersionHeader';
+  protected $containerVersionHeaderDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_TagManager_ContainerVersionHeader
-	 */
-	public function setContainerVersionHeader($containerVersionHeader)
-	{
-		$this->containerVersionHeader = $containerVersionHeader;
-	}
-	/**
-	 * @return Google_Service_TagManager_ContainerVersionHeader
-	 */
-	public function getContainerVersionHeader()
-	{
-		return $this->containerVersionHeader;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_TagManager_ContainerVersionHeader[]
+   */
+  public function setContainerVersionHeader($containerVersionHeader)
+  {
+    $this->containerVersionHeader = $containerVersionHeader;
+  }
+  /**
+   * @return Google_Service_TagManager_ContainerVersionHeader[]
+   */
+  public function getContainerVersionHeader()
+  {
+    return $this->containerVersionHeader;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

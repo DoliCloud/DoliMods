@@ -17,41 +17,41 @@
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyDownloadAccountRequest extends Google_Model
 {
-	public $delegatedProjectNumber;
-	public $maxResults;
-	public $nextPageToken;
-	public $targetProjectId;
+  public $delegatedProjectNumber;
+  public $maxResults;
+  public $nextPageToken;
+  public $targetProjectId;
 
-	public function setDelegatedProjectNumber($delegatedProjectNumber)
-	{
-		$this->delegatedProjectNumber = $delegatedProjectNumber;
-	}
-	public function getDelegatedProjectNumber()
-	{
-		return $this->delegatedProjectNumber;
-	}
-	public function setMaxResults($maxResults)
-	{
-		$this->maxResults = $maxResults;
-	}
-	public function getMaxResults()
-	{
-		return $this->maxResults;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setTargetProjectId($targetProjectId)
-	{
-		$this->targetProjectId = $targetProjectId;
-	}
-	public function getTargetProjectId()
-	{
-		return $this->targetProjectId;
-	}
+  public function setDelegatedProjectNumber($delegatedProjectNumber)
+  {
+    $this->delegatedProjectNumber = $delegatedProjectNumber;
+  }
+  public function getDelegatedProjectNumber()
+  {
+    return $this->delegatedProjectNumber;
+  }
+  public function setMaxResults($maxResults)
+  {
+    $this->maxResults = $maxResults;
+  }
+  public function getMaxResults()
+  {
+    return $this->maxResults;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setTargetProjectId($targetProjectId)
+  {
+    $this->targetProjectId = $targetProjectId;
+  }
+  public function getTargetProjectId()
+  {
+    return $this->targetProjectId;
+  }
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_AdExchangeBuyerII_UrlTargeting extends Google_Collection
 {
-	protected $collection_key = 'targetedUrls';
-	public $excludedUrls;
-	public $targetedUrls;
+  protected $collection_key = 'targetedUrls';
+  public $excludedUrls;
+  public $targetedUrls;
 
-	public function setExcludedUrls($excludedUrls)
-	{
-		$this->excludedUrls = $excludedUrls;
-	}
-	public function getExcludedUrls()
-	{
-		return $this->excludedUrls;
-	}
-	public function setTargetedUrls($targetedUrls)
-	{
-		$this->targetedUrls = $targetedUrls;
-	}
-	public function getTargetedUrls()
-	{
-		return $this->targetedUrls;
-	}
+  public function setExcludedUrls($excludedUrls)
+  {
+    $this->excludedUrls = $excludedUrls;
+  }
+  public function getExcludedUrls()
+  {
+    return $this->excludedUrls;
+  }
+  public function setTargetedUrls($targetedUrls)
+  {
+    $this->targetedUrls = $targetedUrls;
+  }
+  public function getTargetedUrls()
+  {
+    return $this->targetedUrls;
+  }
 }

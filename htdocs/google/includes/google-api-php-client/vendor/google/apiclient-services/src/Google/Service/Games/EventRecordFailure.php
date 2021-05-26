@@ -17,32 +17,32 @@
 
 class Google_Service_Games_EventRecordFailure extends Google_Model
 {
-	public $eventId;
-	public $failureCause;
-	public $kind;
+  public $eventId;
+  public $failureCause;
+  public $kind;
 
-	public function setEventId($eventId)
-	{
-		$this->eventId = $eventId;
-	}
-	public function getEventId()
-	{
-		return $this->eventId;
-	}
-	public function setFailureCause($failureCause)
-	{
-		$this->failureCause = $failureCause;
-	}
-	public function getFailureCause()
-	{
-		return $this->failureCause;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setEventId($eventId)
+  {
+    $this->eventId = $eventId;
+  }
+  public function getEventId()
+  {
+    return $this->eventId;
+  }
+  public function setFailureCause($failureCause)
+  {
+    $this->failureCause = $failureCause;
+  }
+  public function getFailureCause()
+  {
+    return $this->failureCause;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

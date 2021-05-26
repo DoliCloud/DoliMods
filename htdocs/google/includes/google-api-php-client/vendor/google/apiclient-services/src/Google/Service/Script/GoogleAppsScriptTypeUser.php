@@ -17,41 +17,41 @@
 
 class Google_Service_Script_GoogleAppsScriptTypeUser extends Google_Model
 {
-	public $domain;
-	public $email;
-	public $name;
-	public $photoUrl;
+  public $domain;
+  public $email;
+  public $name;
+  public $photoUrl;
 
-	public function setDomain($domain)
-	{
-		$this->domain = $domain;
-	}
-	public function getDomain()
-	{
-		return $this->domain;
-	}
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPhotoUrl($photoUrl)
-	{
-		$this->photoUrl = $photoUrl;
-	}
-	public function getPhotoUrl()
-	{
-		return $this->photoUrl;
-	}
+  public function setDomain($domain)
+  {
+    $this->domain = $domain;
+  }
+  public function getDomain()
+  {
+    return $this->domain;
+  }
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPhotoUrl($photoUrl)
+  {
+    $this->photoUrl = $photoUrl;
+  }
+  public function getPhotoUrl()
+  {
+    return $this->photoUrl;
+  }
 }

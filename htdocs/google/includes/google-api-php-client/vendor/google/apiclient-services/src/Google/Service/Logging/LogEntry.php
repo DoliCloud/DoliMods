@@ -17,193 +17,193 @@
 
 class Google_Service_Logging_LogEntry extends Google_Model
 {
-	protected $httpRequestType = 'Google_Service_Logging_HttpRequest';
-	protected $httpRequestDataType = '';
-	public $insertId;
-	public $jsonPayload;
-	public $labels;
-	public $logName;
-	protected $metadataType = 'Google_Service_Logging_MonitoredResourceMetadata';
-	protected $metadataDataType = '';
-	protected $operationType = 'Google_Service_Logging_LogEntryOperation';
-	protected $operationDataType = '';
-	public $protoPayload;
-	public $receiveTimestamp;
-	protected $resourceType = 'Google_Service_Logging_MonitoredResource';
-	protected $resourceDataType = '';
-	public $severity;
-	protected $sourceLocationType = 'Google_Service_Logging_LogEntrySourceLocation';
-	protected $sourceLocationDataType = '';
-	public $spanId;
-	public $textPayload;
-	public $timestamp;
-	public $trace;
-	public $traceSampled;
+  protected $httpRequestType = 'Google_Service_Logging_HttpRequest';
+  protected $httpRequestDataType = '';
+  public $insertId;
+  public $jsonPayload;
+  public $labels;
+  public $logName;
+  protected $metadataType = 'Google_Service_Logging_MonitoredResourceMetadata';
+  protected $metadataDataType = '';
+  protected $operationType = 'Google_Service_Logging_LogEntryOperation';
+  protected $operationDataType = '';
+  public $protoPayload;
+  public $receiveTimestamp;
+  protected $resourceType = 'Google_Service_Logging_MonitoredResource';
+  protected $resourceDataType = '';
+  public $severity;
+  protected $sourceLocationType = 'Google_Service_Logging_LogEntrySourceLocation';
+  protected $sourceLocationDataType = '';
+  public $spanId;
+  public $textPayload;
+  public $timestamp;
+  public $trace;
+  public $traceSampled;
 
-	/**
-	 * @param Google_Service_Logging_HttpRequest
-	 */
-	public function setHttpRequest(Google_Service_Logging_HttpRequest $httpRequest)
-	{
-		$this->httpRequest = $httpRequest;
-	}
-	/**
-	 * @return Google_Service_Logging_HttpRequest
-	 */
-	public function getHttpRequest()
-	{
-		return $this->httpRequest;
-	}
-	public function setInsertId($insertId)
-	{
-		$this->insertId = $insertId;
-	}
-	public function getInsertId()
-	{
-		return $this->insertId;
-	}
-	public function setJsonPayload($jsonPayload)
-	{
-		$this->jsonPayload = $jsonPayload;
-	}
-	public function getJsonPayload()
-	{
-		return $this->jsonPayload;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setLogName($logName)
-	{
-		$this->logName = $logName;
-	}
-	public function getLogName()
-	{
-		return $this->logName;
-	}
-	/**
-	 * @param Google_Service_Logging_MonitoredResourceMetadata
-	 */
-	public function setMetadata(Google_Service_Logging_MonitoredResourceMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_Logging_MonitoredResourceMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	/**
-	 * @param Google_Service_Logging_LogEntryOperation
-	 */
-	public function setOperation(Google_Service_Logging_LogEntryOperation $operation)
-	{
-		$this->operation = $operation;
-	}
-	/**
-	 * @return Google_Service_Logging_LogEntryOperation
-	 */
-	public function getOperation()
-	{
-		return $this->operation;
-	}
-	public function setProtoPayload($protoPayload)
-	{
-		$this->protoPayload = $protoPayload;
-	}
-	public function getProtoPayload()
-	{
-		return $this->protoPayload;
-	}
-	public function setReceiveTimestamp($receiveTimestamp)
-	{
-		$this->receiveTimestamp = $receiveTimestamp;
-	}
-	public function getReceiveTimestamp()
-	{
-		return $this->receiveTimestamp;
-	}
-	/**
-	 * @param Google_Service_Logging_MonitoredResource
-	 */
-	public function setResource(Google_Service_Logging_MonitoredResource $resource)
-	{
-		$this->resource = $resource;
-	}
-	/**
-	 * @return Google_Service_Logging_MonitoredResource
-	 */
-	public function getResource()
-	{
-		return $this->resource;
-	}
-	public function setSeverity($severity)
-	{
-		$this->severity = $severity;
-	}
-	public function getSeverity()
-	{
-		return $this->severity;
-	}
-	/**
-	 * @param Google_Service_Logging_LogEntrySourceLocation
-	 */
-	public function setSourceLocation(Google_Service_Logging_LogEntrySourceLocation $sourceLocation)
-	{
-		$this->sourceLocation = $sourceLocation;
-	}
-	/**
-	 * @return Google_Service_Logging_LogEntrySourceLocation
-	 */
-	public function getSourceLocation()
-	{
-		return $this->sourceLocation;
-	}
-	public function setSpanId($spanId)
-	{
-		$this->spanId = $spanId;
-	}
-	public function getSpanId()
-	{
-		return $this->spanId;
-	}
-	public function setTextPayload($textPayload)
-	{
-		$this->textPayload = $textPayload;
-	}
-	public function getTextPayload()
-	{
-		return $this->textPayload;
-	}
-	public function setTimestamp($timestamp)
-	{
-		$this->timestamp = $timestamp;
-	}
-	public function getTimestamp()
-	{
-		return $this->timestamp;
-	}
-	public function setTrace($trace)
-	{
-		$this->trace = $trace;
-	}
-	public function getTrace()
-	{
-		return $this->trace;
-	}
-	public function setTraceSampled($traceSampled)
-	{
-		$this->traceSampled = $traceSampled;
-	}
-	public function getTraceSampled()
-	{
-		return $this->traceSampled;
-	}
+  /**
+   * @param Google_Service_Logging_HttpRequest
+   */
+  public function setHttpRequest(Google_Service_Logging_HttpRequest $httpRequest)
+  {
+    $this->httpRequest = $httpRequest;
+  }
+  /**
+   * @return Google_Service_Logging_HttpRequest
+   */
+  public function getHttpRequest()
+  {
+    return $this->httpRequest;
+  }
+  public function setInsertId($insertId)
+  {
+    $this->insertId = $insertId;
+  }
+  public function getInsertId()
+  {
+    return $this->insertId;
+  }
+  public function setJsonPayload($jsonPayload)
+  {
+    $this->jsonPayload = $jsonPayload;
+  }
+  public function getJsonPayload()
+  {
+    return $this->jsonPayload;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setLogName($logName)
+  {
+    $this->logName = $logName;
+  }
+  public function getLogName()
+  {
+    return $this->logName;
+  }
+  /**
+   * @param Google_Service_Logging_MonitoredResourceMetadata
+   */
+  public function setMetadata(Google_Service_Logging_MonitoredResourceMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_Logging_MonitoredResourceMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  /**
+   * @param Google_Service_Logging_LogEntryOperation
+   */
+  public function setOperation(Google_Service_Logging_LogEntryOperation $operation)
+  {
+    $this->operation = $operation;
+  }
+  /**
+   * @return Google_Service_Logging_LogEntryOperation
+   */
+  public function getOperation()
+  {
+    return $this->operation;
+  }
+  public function setProtoPayload($protoPayload)
+  {
+    $this->protoPayload = $protoPayload;
+  }
+  public function getProtoPayload()
+  {
+    return $this->protoPayload;
+  }
+  public function setReceiveTimestamp($receiveTimestamp)
+  {
+    $this->receiveTimestamp = $receiveTimestamp;
+  }
+  public function getReceiveTimestamp()
+  {
+    return $this->receiveTimestamp;
+  }
+  /**
+   * @param Google_Service_Logging_MonitoredResource
+   */
+  public function setResource(Google_Service_Logging_MonitoredResource $resource)
+  {
+    $this->resource = $resource;
+  }
+  /**
+   * @return Google_Service_Logging_MonitoredResource
+   */
+  public function getResource()
+  {
+    return $this->resource;
+  }
+  public function setSeverity($severity)
+  {
+    $this->severity = $severity;
+  }
+  public function getSeverity()
+  {
+    return $this->severity;
+  }
+  /**
+   * @param Google_Service_Logging_LogEntrySourceLocation
+   */
+  public function setSourceLocation(Google_Service_Logging_LogEntrySourceLocation $sourceLocation)
+  {
+    $this->sourceLocation = $sourceLocation;
+  }
+  /**
+   * @return Google_Service_Logging_LogEntrySourceLocation
+   */
+  public function getSourceLocation()
+  {
+    return $this->sourceLocation;
+  }
+  public function setSpanId($spanId)
+  {
+    $this->spanId = $spanId;
+  }
+  public function getSpanId()
+  {
+    return $this->spanId;
+  }
+  public function setTextPayload($textPayload)
+  {
+    $this->textPayload = $textPayload;
+  }
+  public function getTextPayload()
+  {
+    return $this->textPayload;
+  }
+  public function setTimestamp($timestamp)
+  {
+    $this->timestamp = $timestamp;
+  }
+  public function getTimestamp()
+  {
+    return $this->timestamp;
+  }
+  public function setTrace($trace)
+  {
+    $this->trace = $trace;
+  }
+  public function getTrace()
+  {
+    return $this->trace;
+  }
+  public function setTraceSampled($traceSampled)
+  {
+    $this->traceSampled = $traceSampled;
+  }
+  public function getTraceSampled()
+  {
+    return $this->traceSampled;
+  }
 }

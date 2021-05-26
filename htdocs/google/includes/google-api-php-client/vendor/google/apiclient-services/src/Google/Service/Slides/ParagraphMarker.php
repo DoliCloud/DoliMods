@@ -17,37 +17,37 @@
 
 class Google_Service_Slides_ParagraphMarker extends Google_Model
 {
-	protected $bulletType = 'Google_Service_Slides_Bullet';
-	protected $bulletDataType = '';
-	protected $styleType = 'Google_Service_Slides_ParagraphStyle';
-	protected $styleDataType = '';
+  protected $bulletType = 'Google_Service_Slides_Bullet';
+  protected $bulletDataType = '';
+  protected $styleType = 'Google_Service_Slides_ParagraphStyle';
+  protected $styleDataType = '';
 
-	/**
-	 * @param Google_Service_Slides_Bullet
-	 */
-	public function setBullet(Google_Service_Slides_Bullet $bullet)
-	{
-		$this->bullet = $bullet;
-	}
-	/**
-	 * @return Google_Service_Slides_Bullet
-	 */
-	public function getBullet()
-	{
-		return $this->bullet;
-	}
-	/**
-	 * @param Google_Service_Slides_ParagraphStyle
-	 */
-	public function setStyle(Google_Service_Slides_ParagraphStyle $style)
-	{
-		$this->style = $style;
-	}
-	/**
-	 * @return Google_Service_Slides_ParagraphStyle
-	 */
-	public function getStyle()
-	{
-		return $this->style;
-	}
+  /**
+   * @param Google_Service_Slides_Bullet
+   */
+  public function setBullet(Google_Service_Slides_Bullet $bullet)
+  {
+    $this->bullet = $bullet;
+  }
+  /**
+   * @return Google_Service_Slides_Bullet
+   */
+  public function getBullet()
+  {
+    return $this->bullet;
+  }
+  /**
+   * @param Google_Service_Slides_ParagraphStyle
+   */
+  public function setStyle(Google_Service_Slides_ParagraphStyle $style)
+  {
+    $this->style = $style;
+  }
+  /**
+   * @return Google_Service_Slides_ParagraphStyle
+   */
+  public function getStyle()
+  {
+    return $this->style;
+  }
 }

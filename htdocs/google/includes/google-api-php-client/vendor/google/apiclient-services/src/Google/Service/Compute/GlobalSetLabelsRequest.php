@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_GlobalSetLabelsRequest extends Google_Model
 {
-	public $labelFingerprint;
-	public $labels;
+  public $labelFingerprint;
+  public $labels;
 
-	public function setLabelFingerprint($labelFingerprint)
-	{
-		$this->labelFingerprint = $labelFingerprint;
-	}
-	public function getLabelFingerprint()
-	{
-		return $this->labelFingerprint;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
+  public function setLabelFingerprint($labelFingerprint)
+  {
+    $this->labelFingerprint = $labelFingerprint;
+  }
+  public function getLabelFingerprint()
+  {
+    return $this->labelFingerprint;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
 }

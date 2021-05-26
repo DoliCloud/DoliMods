@@ -17,68 +17,68 @@
 
 class Google_Service_Slides_AffineTransform extends Google_Model
 {
-	public $scaleX;
-	public $scaleY;
-	public $shearX;
-	public $shearY;
-	public $translateX;
-	public $translateY;
-	public $unit;
+  public $scaleX;
+  public $scaleY;
+  public $shearX;
+  public $shearY;
+  public $translateX;
+  public $translateY;
+  public $unit;
 
-	public function setScaleX($scaleX)
-	{
-		$this->scaleX = $scaleX;
-	}
-	public function getScaleX()
-	{
-		return $this->scaleX;
-	}
-	public function setScaleY($scaleY)
-	{
-		$this->scaleY = $scaleY;
-	}
-	public function getScaleY()
-	{
-		return $this->scaleY;
-	}
-	public function setShearX($shearX)
-	{
-		$this->shearX = $shearX;
-	}
-	public function getShearX()
-	{
-		return $this->shearX;
-	}
-	public function setShearY($shearY)
-	{
-		$this->shearY = $shearY;
-	}
-	public function getShearY()
-	{
-		return $this->shearY;
-	}
-	public function setTranslateX($translateX)
-	{
-		$this->translateX = $translateX;
-	}
-	public function getTranslateX()
-	{
-		return $this->translateX;
-	}
-	public function setTranslateY($translateY)
-	{
-		$this->translateY = $translateY;
-	}
-	public function getTranslateY()
-	{
-		return $this->translateY;
-	}
-	public function setUnit($unit)
-	{
-		$this->unit = $unit;
-	}
-	public function getUnit()
-	{
-		return $this->unit;
-	}
+  public function setScaleX($scaleX)
+  {
+    $this->scaleX = $scaleX;
+  }
+  public function getScaleX()
+  {
+    return $this->scaleX;
+  }
+  public function setScaleY($scaleY)
+  {
+    $this->scaleY = $scaleY;
+  }
+  public function getScaleY()
+  {
+    return $this->scaleY;
+  }
+  public function setShearX($shearX)
+  {
+    $this->shearX = $shearX;
+  }
+  public function getShearX()
+  {
+    return $this->shearX;
+  }
+  public function setShearY($shearY)
+  {
+    $this->shearY = $shearY;
+  }
+  public function getShearY()
+  {
+    return $this->shearY;
+  }
+  public function setTranslateX($translateX)
+  {
+    $this->translateX = $translateX;
+  }
+  public function getTranslateX()
+  {
+    return $this->translateX;
+  }
+  public function setTranslateY($translateY)
+  {
+    $this->translateY = $translateY;
+  }
+  public function getTranslateY()
+  {
+    return $this->translateY;
+  }
+  public function setUnit($unit)
+  {
+    $this->unit = $unit;
+  }
+  public function getUnit()
+  {
+    return $this->unit;
+  }
 }

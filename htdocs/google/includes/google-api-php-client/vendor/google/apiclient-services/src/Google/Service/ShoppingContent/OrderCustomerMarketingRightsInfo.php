@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_OrderCustomerMarketingRightsInfo extends Google_Model
 {
-	public $explicitMarketingPreference;
-	public $lastUpdatedTimestamp;
-	public $marketingEmailAddress;
+  public $explicitMarketingPreference;
+  public $lastUpdatedTimestamp;
+  public $marketingEmailAddress;
 
-	public function setExplicitMarketingPreference($explicitMarketingPreference)
-	{
-		$this->explicitMarketingPreference = $explicitMarketingPreference;
-	}
-	public function getExplicitMarketingPreference()
-	{
-		return $this->explicitMarketingPreference;
-	}
-	public function setLastUpdatedTimestamp($lastUpdatedTimestamp)
-	{
-		$this->lastUpdatedTimestamp = $lastUpdatedTimestamp;
-	}
-	public function getLastUpdatedTimestamp()
-	{
-		return $this->lastUpdatedTimestamp;
-	}
-	public function setMarketingEmailAddress($marketingEmailAddress)
-	{
-		$this->marketingEmailAddress = $marketingEmailAddress;
-	}
-	public function getMarketingEmailAddress()
-	{
-		return $this->marketingEmailAddress;
-	}
+  public function setExplicitMarketingPreference($explicitMarketingPreference)
+  {
+    $this->explicitMarketingPreference = $explicitMarketingPreference;
+  }
+  public function getExplicitMarketingPreference()
+  {
+    return $this->explicitMarketingPreference;
+  }
+  public function setLastUpdatedTimestamp($lastUpdatedTimestamp)
+  {
+    $this->lastUpdatedTimestamp = $lastUpdatedTimestamp;
+  }
+  public function getLastUpdatedTimestamp()
+  {
+    return $this->lastUpdatedTimestamp;
+  }
+  public function setMarketingEmailAddress($marketingEmailAddress)
+  {
+    $this->marketingEmailAddress = $marketingEmailAddress;
+  }
+  public function getMarketingEmailAddress()
+  {
+    return $this->marketingEmailAddress;
+  }
 }

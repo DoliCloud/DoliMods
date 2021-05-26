@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_DoubleVerifyFraudInvalidTraffic extends Google_Model
 {
-	public $avoidInsufficientOption;
-	public $avoidedFraudOption;
+  public $avoidInsufficientOption;
+  public $avoidedFraudOption;
 
-	public function setAvoidInsufficientOption($avoidInsufficientOption)
-	{
-		$this->avoidInsufficientOption = $avoidInsufficientOption;
-	}
-	public function getAvoidInsufficientOption()
-	{
-		return $this->avoidInsufficientOption;
-	}
-	public function setAvoidedFraudOption($avoidedFraudOption)
-	{
-		$this->avoidedFraudOption = $avoidedFraudOption;
-	}
-	public function getAvoidedFraudOption()
-	{
-		return $this->avoidedFraudOption;
-	}
+  public function setAvoidInsufficientOption($avoidInsufficientOption)
+  {
+    $this->avoidInsufficientOption = $avoidInsufficientOption;
+  }
+  public function getAvoidInsufficientOption()
+  {
+    return $this->avoidInsufficientOption;
+  }
+  public function setAvoidedFraudOption($avoidedFraudOption)
+  {
+    $this->avoidedFraudOption = $avoidedFraudOption;
+  }
+  public function getAvoidedFraudOption()
+  {
+    return $this->avoidedFraudOption;
+  }
 }

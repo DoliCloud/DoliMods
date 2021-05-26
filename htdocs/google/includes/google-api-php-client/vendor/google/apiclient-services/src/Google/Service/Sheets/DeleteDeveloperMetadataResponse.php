@@ -17,22 +17,22 @@
 
 class Google_Service_Sheets_DeleteDeveloperMetadataResponse extends Google_Collection
 {
-	protected $collection_key = 'deletedDeveloperMetadata';
-	protected $deletedDeveloperMetadataType = 'Google_Service_Sheets_DeveloperMetadata';
-	protected $deletedDeveloperMetadataDataType = 'array';
+  protected $collection_key = 'deletedDeveloperMetadata';
+  protected $deletedDeveloperMetadataType = 'Google_Service_Sheets_DeveloperMetadata';
+  protected $deletedDeveloperMetadataDataType = 'array';
 
-	/**
-	 * @param Google_Service_Sheets_DeveloperMetadata
-	 */
-	public function setDeletedDeveloperMetadata($deletedDeveloperMetadata)
-	{
-		$this->deletedDeveloperMetadata = $deletedDeveloperMetadata;
-	}
-	/**
-	 * @return Google_Service_Sheets_DeveloperMetadata
-	 */
-	public function getDeletedDeveloperMetadata()
-	{
-		return $this->deletedDeveloperMetadata;
-	}
+  /**
+   * @param Google_Service_Sheets_DeveloperMetadata[]
+   */
+  public function setDeletedDeveloperMetadata($deletedDeveloperMetadata)
+  {
+    $this->deletedDeveloperMetadata = $deletedDeveloperMetadata;
+  }
+  /**
+   * @return Google_Service_Sheets_DeveloperMetadata[]
+   */
+  public function getDeletedDeveloperMetadata()
+  {
+    return $this->deletedDeveloperMetadata;
+  }
 }

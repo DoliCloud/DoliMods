@@ -17,50 +17,50 @@
 
 class Google_Service_AndroidProvisioningPartner_DeviceIdentifier extends Google_Model
 {
-	public $imei;
-	public $manufacturer;
-	public $meid;
-	public $model;
-	public $serialNumber;
+  public $imei;
+  public $manufacturer;
+  public $meid;
+  public $model;
+  public $serialNumber;
 
-	public function setImei($imei)
-	{
-		$this->imei = $imei;
-	}
-	public function getImei()
-	{
-		return $this->imei;
-	}
-	public function setManufacturer($manufacturer)
-	{
-		$this->manufacturer = $manufacturer;
-	}
-	public function getManufacturer()
-	{
-		return $this->manufacturer;
-	}
-	public function setMeid($meid)
-	{
-		$this->meid = $meid;
-	}
-	public function getMeid()
-	{
-		return $this->meid;
-	}
-	public function setModel($model)
-	{
-		$this->model = $model;
-	}
-	public function getModel()
-	{
-		return $this->model;
-	}
-	public function setSerialNumber($serialNumber)
-	{
-		$this->serialNumber = $serialNumber;
-	}
-	public function getSerialNumber()
-	{
-		return $this->serialNumber;
-	}
+  public function setImei($imei)
+  {
+    $this->imei = $imei;
+  }
+  public function getImei()
+  {
+    return $this->imei;
+  }
+  public function setManufacturer($manufacturer)
+  {
+    $this->manufacturer = $manufacturer;
+  }
+  public function getManufacturer()
+  {
+    return $this->manufacturer;
+  }
+  public function setMeid($meid)
+  {
+    $this->meid = $meid;
+  }
+  public function getMeid()
+  {
+    return $this->meid;
+  }
+  public function setModel($model)
+  {
+    $this->model = $model;
+  }
+  public function getModel()
+  {
+    return $this->model;
+  }
+  public function setSerialNumber($serialNumber)
+  {
+    $this->serialNumber = $serialNumber;
+  }
+  public function getSerialNumber()
+  {
+    return $this->serialNumber;
+  }
 }

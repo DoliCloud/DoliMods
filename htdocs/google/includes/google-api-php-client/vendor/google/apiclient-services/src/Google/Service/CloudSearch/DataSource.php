@@ -17,85 +17,85 @@
 
 class Google_Service_CloudSearch_DataSource extends Google_Collection
 {
-	protected $collection_key = 'operationIds';
-	public $disableModifications;
-	public $disableServing;
-	public $displayName;
-	public $indexingServiceAccounts;
-	protected $itemsVisibilityType = 'Google_Service_CloudSearch_GSuitePrincipal';
-	protected $itemsVisibilityDataType = 'array';
-	public $name;
-	public $operationIds;
-	public $shortName;
+  protected $collection_key = 'operationIds';
+  public $disableModifications;
+  public $disableServing;
+  public $displayName;
+  public $indexingServiceAccounts;
+  protected $itemsVisibilityType = 'Google_Service_CloudSearch_GSuitePrincipal';
+  protected $itemsVisibilityDataType = 'array';
+  public $name;
+  public $operationIds;
+  public $shortName;
 
-	public function setDisableModifications($disableModifications)
-	{
-		$this->disableModifications = $disableModifications;
-	}
-	public function getDisableModifications()
-	{
-		return $this->disableModifications;
-	}
-	public function setDisableServing($disableServing)
-	{
-		$this->disableServing = $disableServing;
-	}
-	public function getDisableServing()
-	{
-		return $this->disableServing;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setIndexingServiceAccounts($indexingServiceAccounts)
-	{
-		$this->indexingServiceAccounts = $indexingServiceAccounts;
-	}
-	public function getIndexingServiceAccounts()
-	{
-		return $this->indexingServiceAccounts;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_GSuitePrincipal
-	 */
-	public function setItemsVisibility($itemsVisibility)
-	{
-		$this->itemsVisibility = $itemsVisibility;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_GSuitePrincipal
-	 */
-	public function getItemsVisibility()
-	{
-		return $this->itemsVisibility;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOperationIds($operationIds)
-	{
-		$this->operationIds = $operationIds;
-	}
-	public function getOperationIds()
-	{
-		return $this->operationIds;
-	}
-	public function setShortName($shortName)
-	{
-		$this->shortName = $shortName;
-	}
-	public function getShortName()
-	{
-		return $this->shortName;
-	}
+  public function setDisableModifications($disableModifications)
+  {
+    $this->disableModifications = $disableModifications;
+  }
+  public function getDisableModifications()
+  {
+    return $this->disableModifications;
+  }
+  public function setDisableServing($disableServing)
+  {
+    $this->disableServing = $disableServing;
+  }
+  public function getDisableServing()
+  {
+    return $this->disableServing;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setIndexingServiceAccounts($indexingServiceAccounts)
+  {
+    $this->indexingServiceAccounts = $indexingServiceAccounts;
+  }
+  public function getIndexingServiceAccounts()
+  {
+    return $this->indexingServiceAccounts;
+  }
+  /**
+   * @param Google_Service_CloudSearch_GSuitePrincipal[]
+   */
+  public function setItemsVisibility($itemsVisibility)
+  {
+    $this->itemsVisibility = $itemsVisibility;
+  }
+  /**
+   * @return Google_Service_CloudSearch_GSuitePrincipal[]
+   */
+  public function getItemsVisibility()
+  {
+    return $this->itemsVisibility;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOperationIds($operationIds)
+  {
+    $this->operationIds = $operationIds;
+  }
+  public function getOperationIds()
+  {
+    return $this->operationIds;
+  }
+  public function setShortName($shortName)
+  {
+    $this->shortName = $shortName;
+  }
+  public function getShortName()
+  {
+    return $this->shortName;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_CloudHealthcare_DicomStore extends Google_Model
 {
-	public $labels;
-	public $name;
-	protected $notificationConfigType = 'Google_Service_CloudHealthcare_NotificationConfig';
-	protected $notificationConfigDataType = '';
+  public $labels;
+  public $name;
+  protected $notificationConfigType = 'Google_Service_CloudHealthcare_NotificationConfig';
+  protected $notificationConfigDataType = '';
 
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_CloudHealthcare_NotificationConfig
-	 */
-	public function setNotificationConfig(Google_Service_CloudHealthcare_NotificationConfig $notificationConfig)
-	{
-		$this->notificationConfig = $notificationConfig;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_NotificationConfig
-	 */
-	public function getNotificationConfig()
-	{
-		return $this->notificationConfig;
-	}
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_CloudHealthcare_NotificationConfig
+   */
+  public function setNotificationConfig(Google_Service_CloudHealthcare_NotificationConfig $notificationConfig)
+  {
+    $this->notificationConfig = $notificationConfig;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_NotificationConfig
+   */
+  public function getNotificationConfig()
+  {
+    return $this->notificationConfig;
+  }
 }

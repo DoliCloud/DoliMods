@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidPublisher_BundlesListResponse extends Google_Collection
 {
-	protected $collection_key = 'bundles';
-	protected $bundlesType = 'Google_Service_AndroidPublisher_Bundle';
-	protected $bundlesDataType = 'array';
-	public $kind;
+  protected $collection_key = 'bundles';
+  protected $bundlesType = 'Google_Service_AndroidPublisher_Bundle';
+  protected $bundlesDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_AndroidPublisher_Bundle
-	 */
-	public function setBundles($bundles)
-	{
-		$this->bundles = $bundles;
-	}
-	/**
-	 * @return Google_Service_AndroidPublisher_Bundle
-	 */
-	public function getBundles()
-	{
-		return $this->bundles;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_AndroidPublisher_Bundle[]
+   */
+  public function setBundles($bundles)
+  {
+    $this->bundles = $bundles;
+  }
+  /**
+   * @return Google_Service_AndroidPublisher_Bundle[]
+   */
+  public function getBundles()
+  {
+    return $this->bundles;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

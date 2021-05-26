@@ -17,68 +17,68 @@
 
 class Google_Service_FirebaseDynamicLinks_IosInfo extends Google_Model
 {
-	public $iosAppStoreId;
-	public $iosBundleId;
-	public $iosCustomScheme;
-	public $iosFallbackLink;
-	public $iosIpadBundleId;
-	public $iosIpadFallbackLink;
-	public $iosMinimumVersion;
+  public $iosAppStoreId;
+  public $iosBundleId;
+  public $iosCustomScheme;
+  public $iosFallbackLink;
+  public $iosIpadBundleId;
+  public $iosIpadFallbackLink;
+  public $iosMinimumVersion;
 
-	public function setIosAppStoreId($iosAppStoreId)
-	{
-		$this->iosAppStoreId = $iosAppStoreId;
-	}
-	public function getIosAppStoreId()
-	{
-		return $this->iosAppStoreId;
-	}
-	public function setIosBundleId($iosBundleId)
-	{
-		$this->iosBundleId = $iosBundleId;
-	}
-	public function getIosBundleId()
-	{
-		return $this->iosBundleId;
-	}
-	public function setIosCustomScheme($iosCustomScheme)
-	{
-		$this->iosCustomScheme = $iosCustomScheme;
-	}
-	public function getIosCustomScheme()
-	{
-		return $this->iosCustomScheme;
-	}
-	public function setIosFallbackLink($iosFallbackLink)
-	{
-		$this->iosFallbackLink = $iosFallbackLink;
-	}
-	public function getIosFallbackLink()
-	{
-		return $this->iosFallbackLink;
-	}
-	public function setIosIpadBundleId($iosIpadBundleId)
-	{
-		$this->iosIpadBundleId = $iosIpadBundleId;
-	}
-	public function getIosIpadBundleId()
-	{
-		return $this->iosIpadBundleId;
-	}
-	public function setIosIpadFallbackLink($iosIpadFallbackLink)
-	{
-		$this->iosIpadFallbackLink = $iosIpadFallbackLink;
-	}
-	public function getIosIpadFallbackLink()
-	{
-		return $this->iosIpadFallbackLink;
-	}
-	public function setIosMinimumVersion($iosMinimumVersion)
-	{
-		$this->iosMinimumVersion = $iosMinimumVersion;
-	}
-	public function getIosMinimumVersion()
-	{
-		return $this->iosMinimumVersion;
-	}
+  public function setIosAppStoreId($iosAppStoreId)
+  {
+    $this->iosAppStoreId = $iosAppStoreId;
+  }
+  public function getIosAppStoreId()
+  {
+    return $this->iosAppStoreId;
+  }
+  public function setIosBundleId($iosBundleId)
+  {
+    $this->iosBundleId = $iosBundleId;
+  }
+  public function getIosBundleId()
+  {
+    return $this->iosBundleId;
+  }
+  public function setIosCustomScheme($iosCustomScheme)
+  {
+    $this->iosCustomScheme = $iosCustomScheme;
+  }
+  public function getIosCustomScheme()
+  {
+    return $this->iosCustomScheme;
+  }
+  public function setIosFallbackLink($iosFallbackLink)
+  {
+    $this->iosFallbackLink = $iosFallbackLink;
+  }
+  public function getIosFallbackLink()
+  {
+    return $this->iosFallbackLink;
+  }
+  public function setIosIpadBundleId($iosIpadBundleId)
+  {
+    $this->iosIpadBundleId = $iosIpadBundleId;
+  }
+  public function getIosIpadBundleId()
+  {
+    return $this->iosIpadBundleId;
+  }
+  public function setIosIpadFallbackLink($iosIpadFallbackLink)
+  {
+    $this->iosIpadFallbackLink = $iosIpadFallbackLink;
+  }
+  public function getIosIpadFallbackLink()
+  {
+    return $this->iosIpadFallbackLink;
+  }
+  public function setIosMinimumVersion($iosMinimumVersion)
+  {
+    $this->iosMinimumVersion = $iosMinimumVersion;
+  }
+  public function getIosMinimumVersion()
+  {
+    return $this->iosMinimumVersion;
+  }
 }

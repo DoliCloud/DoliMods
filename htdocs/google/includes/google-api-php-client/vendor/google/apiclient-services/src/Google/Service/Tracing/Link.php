@@ -17,32 +17,32 @@
 
 class Google_Service_Tracing_Link extends Google_Model
 {
-	public $spanId;
-	public $traceId;
-	public $type;
+  public $spanId;
+  public $traceId;
+  public $type;
 
-	public function setSpanId($spanId)
-	{
-		$this->spanId = $spanId;
-	}
-	public function getSpanId()
-	{
-		return $this->spanId;
-	}
-	public function setTraceId($traceId)
-	{
-		$this->traceId = $traceId;
-	}
-	public function getTraceId()
-	{
-		return $this->traceId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setSpanId($spanId)
+  {
+    $this->spanId = $spanId;
+  }
+  public function getSpanId()
+  {
+    return $this->spanId;
+  }
+  public function setTraceId($traceId)
+  {
+    $this->traceId = $traceId;
+  }
+  public function getTraceId()
+  {
+    return $this->traceId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

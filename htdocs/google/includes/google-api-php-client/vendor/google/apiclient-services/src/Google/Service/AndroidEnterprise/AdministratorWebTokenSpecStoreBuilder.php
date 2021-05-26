@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidEnterprise_AdministratorWebTokenSpecStoreBuilder extends Google_Model
 {
-	public $enabled;
+  public $enabled;
 
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
-	}
-	public function getEnabled()
-	{
-		return $this->enabled;
-	}
+  public function setEnabled($enabled)
+  {
+    $this->enabled = $enabled;
+  }
+  public function getEnabled()
+  {
+    return $this->enabled;
+  }
 }

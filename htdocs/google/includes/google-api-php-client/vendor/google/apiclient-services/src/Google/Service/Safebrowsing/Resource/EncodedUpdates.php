@@ -25,22 +25,22 @@
  */
 class Google_Service_Safebrowsing_Resource_EncodedUpdates extends Google_Service_Resource
 {
-	/**
-	 * (encodedUpdates.get)
-	 *
-	 * @param string $encodedRequest A serialized FetchThreatListUpdatesRequest
-	 *                               proto.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string clientId A client ID that uniquely identifies the client
-	 * implementation of the Safe Browsing API.
-	 * @opt_param string clientVersion The version of the client implementation.
-	 * @return Google_Service_Safebrowsing_FetchThreatListUpdatesResponse
-	 */
-	public function get($encodedRequest, $optParams = array())
-	{
-		$params = array('encodedRequest' => $encodedRequest);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Safebrowsing_FetchThreatListUpdatesResponse");
-	}
+  /**
+   * (encodedUpdates.get)
+   *
+   * @param string $encodedRequest A serialized FetchThreatListUpdatesRequest
+   * proto.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string clientId A client ID that uniquely identifies the client
+   * implementation of the Safe Browsing API.
+   * @opt_param string clientVersion The version of the client implementation.
+   * @return Google_Service_Safebrowsing_FetchThreatListUpdatesResponse
+   */
+  public function get($encodedRequest, $optParams = array())
+  {
+    $params = array('encodedRequest' => $encodedRequest);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Safebrowsing_FetchThreatListUpdatesResponse");
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Sheets_BooleanCondition extends Google_Collection
 {
-	protected $collection_key = 'values';
-	public $type;
-	protected $valuesType = 'Google_Service_Sheets_ConditionValue';
-	protected $valuesDataType = 'array';
+  protected $collection_key = 'values';
+  public $type;
+  protected $valuesType = 'Google_Service_Sheets_ConditionValue';
+  protected $valuesDataType = 'array';
 
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	/**
-	 * @param Google_Service_Sheets_ConditionValue
-	 */
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	/**
-	 * @return Google_Service_Sheets_ConditionValue
-	 */
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  /**
+   * @param Google_Service_Sheets_ConditionValue[]
+   */
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  /**
+   * @return Google_Service_Sheets_ConditionValue[]
+   */
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

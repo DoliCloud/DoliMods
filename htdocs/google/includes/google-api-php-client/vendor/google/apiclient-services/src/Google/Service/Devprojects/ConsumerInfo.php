@@ -17,33 +17,33 @@
 
 class Google_Service_Devprojects_ConsumerInfo extends Google_Model
 {
-	public $activationStatus;
-	public $kind;
-	protected $quotaInformationType = 'Google_Service_Devprojects_QuotaInfo';
-	protected $quotaInformationDataType = '';
+  public $activationStatus;
+  public $kind;
+  protected $quotaInformationType = 'Google_Service_Devprojects_QuotaInfo';
+  protected $quotaInformationDataType = '';
 
-	public function setActivationStatus($activationStatus)
-	{
-		$this->activationStatus = $activationStatus;
-	}
-	public function getActivationStatus()
-	{
-		return $this->activationStatus;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setQuotaInformation(Google_Service_Devprojects_QuotaInfo $quotaInformation)
-	{
-		$this->quotaInformation = $quotaInformation;
-	}
-	public function getQuotaInformation()
-	{
-		return $this->quotaInformation;
-	}
+  public function setActivationStatus($activationStatus)
+  {
+    $this->activationStatus = $activationStatus;
+  }
+  public function getActivationStatus()
+  {
+    return $this->activationStatus;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setQuotaInformation(Google_Service_Devprojects_QuotaInfo $quotaInformation)
+  {
+    $this->quotaInformation = $quotaInformation;
+  }
+  public function getQuotaInformation()
+  {
+    return $this->quotaInformation;
+  }
 }

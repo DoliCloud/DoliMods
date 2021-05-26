@@ -17,30 +17,30 @@
 
 class Google_Service_PhotosLibrary_Location extends Google_Model
 {
-	protected $latlngType = 'Google_Service_PhotosLibrary_LatLng';
-	protected $latlngDataType = '';
-	public $locationName;
+  protected $latlngType = 'Google_Service_PhotosLibrary_LatLng';
+  protected $latlngDataType = '';
+  public $locationName;
 
-	/**
-	 * @param Google_Service_PhotosLibrary_LatLng
-	 */
-	public function setLatlng(Google_Service_PhotosLibrary_LatLng $latlng)
-	{
-		$this->latlng = $latlng;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_LatLng
-	 */
-	public function getLatlng()
-	{
-		return $this->latlng;
-	}
-	public function setLocationName($locationName)
-	{
-		$this->locationName = $locationName;
-	}
-	public function getLocationName()
-	{
-		return $this->locationName;
-	}
+  /**
+   * @param Google_Service_PhotosLibrary_LatLng
+   */
+  public function setLatlng(Google_Service_PhotosLibrary_LatLng $latlng)
+  {
+    $this->latlng = $latlng;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_LatLng
+   */
+  public function getLatlng()
+  {
+    return $this->latlng;
+  }
+  public function setLocationName($locationName)
+  {
+    $this->locationName = $locationName;
+  }
+  public function getLocationName()
+  {
+    return $this->locationName;
+  }
 }

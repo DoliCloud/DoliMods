@@ -17,15 +17,15 @@
 
 class Google_Service_FirebaseRules_Metadata extends Google_Collection
 {
-	protected $collection_key = 'services';
-	public $services;
+  protected $collection_key = 'services';
+  public $services;
 
-	public function setServices($services)
-	{
-		$this->services = $services;
-	}
-	public function getServices()
-	{
-		return $this->services;
-	}
+  public function setServices($services)
+  {
+    $this->services = $services;
+  }
+  public function getServices()
+  {
+    return $this->services;
+  }
 }

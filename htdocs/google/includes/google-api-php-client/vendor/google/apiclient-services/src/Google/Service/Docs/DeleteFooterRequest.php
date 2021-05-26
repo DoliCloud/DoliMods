@@ -17,14 +17,14 @@
 
 class Google_Service_Docs_DeleteFooterRequest extends Google_Model
 {
-	public $footerId;
+  public $footerId;
 
-	public function setFooterId($footerId)
-	{
-		$this->footerId = $footerId;
-	}
-	public function getFooterId()
-	{
-		return $this->footerId;
-	}
+  public function setFooterId($footerId)
+  {
+    $this->footerId = $footerId;
+  }
+  public function getFooterId()
+  {
+    return $this->footerId;
+  }
 }

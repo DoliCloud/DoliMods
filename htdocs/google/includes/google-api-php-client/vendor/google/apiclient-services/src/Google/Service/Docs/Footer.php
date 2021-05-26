@@ -17,31 +17,31 @@
 
 class Google_Service_Docs_Footer extends Google_Collection
 {
-	protected $collection_key = 'content';
-	protected $contentType = 'Google_Service_Docs_StructuralElement';
-	protected $contentDataType = 'array';
-	public $footerId;
+  protected $collection_key = 'content';
+  protected $contentType = 'Google_Service_Docs_StructuralElement';
+  protected $contentDataType = 'array';
+  public $footerId;
 
-	/**
-	 * @param Google_Service_Docs_StructuralElement
-	 */
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	/**
-	 * @return Google_Service_Docs_StructuralElement
-	 */
-	public function getContent()
-	{
-		return $this->content;
-	}
-	public function setFooterId($footerId)
-	{
-		$this->footerId = $footerId;
-	}
-	public function getFooterId()
-	{
-		return $this->footerId;
-	}
+  /**
+   * @param Google_Service_Docs_StructuralElement[]
+   */
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  /**
+   * @return Google_Service_Docs_StructuralElement[]
+   */
+  public function getContent()
+  {
+    return $this->content;
+  }
+  public function setFooterId($footerId)
+  {
+    $this->footerId = $footerId;
+  }
+  public function getFooterId()
+  {
+    return $this->footerId;
+  }
 }

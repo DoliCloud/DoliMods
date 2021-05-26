@@ -17,86 +17,95 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Instance extends Google_Model
 {
-	public $createdAt;
-	public $description;
-	public $diskEncryptionKeyName;
-	public $displayName;
-	public $host;
-	public $lastModifiedAt;
-	public $location;
-	public $name;
-	public $port;
+  public $createdAt;
+  public $description;
+  public $diskEncryptionKeyName;
+  public $displayName;
+  public $host;
+  public $lastModifiedAt;
+  public $location;
+  public $name;
+  public $port;
+  public $state;
 
-	public function setCreatedAt($createdAt)
-	{
-		$this->createdAt = $createdAt;
-	}
-	public function getCreatedAt()
-	{
-		return $this->createdAt;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDiskEncryptionKeyName($diskEncryptionKeyName)
-	{
-		$this->diskEncryptionKeyName = $diskEncryptionKeyName;
-	}
-	public function getDiskEncryptionKeyName()
-	{
-		return $this->diskEncryptionKeyName;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setHost($host)
-	{
-		$this->host = $host;
-	}
-	public function getHost()
-	{
-		return $this->host;
-	}
-	public function setLastModifiedAt($lastModifiedAt)
-	{
-		$this->lastModifiedAt = $lastModifiedAt;
-	}
-	public function getLastModifiedAt()
-	{
-		return $this->lastModifiedAt;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPort($port)
-	{
-		$this->port = $port;
-	}
-	public function getPort()
-	{
-		return $this->port;
-	}
+  public function setCreatedAt($createdAt)
+  {
+    $this->createdAt = $createdAt;
+  }
+  public function getCreatedAt()
+  {
+    return $this->createdAt;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDiskEncryptionKeyName($diskEncryptionKeyName)
+  {
+    $this->diskEncryptionKeyName = $diskEncryptionKeyName;
+  }
+  public function getDiskEncryptionKeyName()
+  {
+    return $this->diskEncryptionKeyName;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setHost($host)
+  {
+    $this->host = $host;
+  }
+  public function getHost()
+  {
+    return $this->host;
+  }
+  public function setLastModifiedAt($lastModifiedAt)
+  {
+    $this->lastModifiedAt = $lastModifiedAt;
+  }
+  public function getLastModifiedAt()
+  {
+    return $this->lastModifiedAt;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPort($port)
+  {
+    $this->port = $port;
+  }
+  public function getPort()
+  {
+    return $this->port;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

@@ -17,49 +17,49 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ExecutionCapabilities extends Google_Collection
 {
-	protected $collection_key = 'supportedNodeProperties';
-	public $digestFunction;
-	public $execEnabled;
-	protected $executionPriorityCapabilitiesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities';
-	protected $executionPriorityCapabilitiesDataType = '';
-	public $supportedNodeProperties;
+  protected $collection_key = 'supportedNodeProperties';
+  public $digestFunction;
+  public $execEnabled;
+  protected $executionPriorityCapabilitiesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities';
+  protected $executionPriorityCapabilitiesDataType = '';
+  public $supportedNodeProperties;
 
-	public function setDigestFunction($digestFunction)
-	{
-		$this->digestFunction = $digestFunction;
-	}
-	public function getDigestFunction()
-	{
-		return $this->digestFunction;
-	}
-	public function setExecEnabled($execEnabled)
-	{
-		$this->execEnabled = $execEnabled;
-	}
-	public function getExecEnabled()
-	{
-		return $this->execEnabled;
-	}
-	/**
-	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities
-	 */
-	public function setExecutionPriorityCapabilities(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities $executionPriorityCapabilities)
-	{
-		$this->executionPriorityCapabilities = $executionPriorityCapabilities;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities
-	 */
-	public function getExecutionPriorityCapabilities()
-	{
-		return $this->executionPriorityCapabilities;
-	}
-	public function setSupportedNodeProperties($supportedNodeProperties)
-	{
-		$this->supportedNodeProperties = $supportedNodeProperties;
-	}
-	public function getSupportedNodeProperties()
-	{
-		return $this->supportedNodeProperties;
-	}
+  public function setDigestFunction($digestFunction)
+  {
+    $this->digestFunction = $digestFunction;
+  }
+  public function getDigestFunction()
+  {
+    return $this->digestFunction;
+  }
+  public function setExecEnabled($execEnabled)
+  {
+    $this->execEnabled = $execEnabled;
+  }
+  public function getExecEnabled()
+  {
+    return $this->execEnabled;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities
+   */
+  public function setExecutionPriorityCapabilities(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities $executionPriorityCapabilities)
+  {
+    $this->executionPriorityCapabilities = $executionPriorityCapabilities;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PriorityCapabilities
+   */
+  public function getExecutionPriorityCapabilities()
+  {
+    return $this->executionPriorityCapabilities;
+  }
+  public function setSupportedNodeProperties($supportedNodeProperties)
+  {
+    $this->supportedNodeProperties = $supportedNodeProperties;
+  }
+  public function getSupportedNodeProperties()
+  {
+    return $this->supportedNodeProperties;
+  }
 }

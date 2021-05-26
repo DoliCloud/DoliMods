@@ -17,38 +17,38 @@
 
 class Google_Service_NetworkManagement_Trace extends Google_Collection
 {
-	protected $collection_key = 'steps';
-	protected $endpointInfoType = 'Google_Service_NetworkManagement_EndpointInfo';
-	protected $endpointInfoDataType = '';
-	protected $stepsType = 'Google_Service_NetworkManagement_Step';
-	protected $stepsDataType = 'array';
+  protected $collection_key = 'steps';
+  protected $endpointInfoType = 'Google_Service_NetworkManagement_EndpointInfo';
+  protected $endpointInfoDataType = '';
+  protected $stepsType = 'Google_Service_NetworkManagement_Step';
+  protected $stepsDataType = 'array';
 
-	/**
-	 * @param Google_Service_NetworkManagement_EndpointInfo
-	 */
-	public function setEndpointInfo(Google_Service_NetworkManagement_EndpointInfo $endpointInfo)
-	{
-		$this->endpointInfo = $endpointInfo;
-	}
-	/**
-	 * @return Google_Service_NetworkManagement_EndpointInfo
-	 */
-	public function getEndpointInfo()
-	{
-		return $this->endpointInfo;
-	}
-	/**
-	 * @param Google_Service_NetworkManagement_Step
-	 */
-	public function setSteps($steps)
-	{
-		$this->steps = $steps;
-	}
-	/**
-	 * @return Google_Service_NetworkManagement_Step
-	 */
-	public function getSteps()
-	{
-		return $this->steps;
-	}
+  /**
+   * @param Google_Service_NetworkManagement_EndpointInfo
+   */
+  public function setEndpointInfo(Google_Service_NetworkManagement_EndpointInfo $endpointInfo)
+  {
+    $this->endpointInfo = $endpointInfo;
+  }
+  /**
+   * @return Google_Service_NetworkManagement_EndpointInfo
+   */
+  public function getEndpointInfo()
+  {
+    return $this->endpointInfo;
+  }
+  /**
+   * @param Google_Service_NetworkManagement_Step[]
+   */
+  public function setSteps($steps)
+  {
+    $this->steps = $steps;
+  }
+  /**
+   * @return Google_Service_NetworkManagement_Step[]
+   */
+  public function getSteps()
+  {
+    return $this->steps;
+  }
 }

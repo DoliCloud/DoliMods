@@ -17,79 +17,79 @@
 
 class Google_Service_Dfareporting_CrossDimensionReachReportCompatibleFields extends Google_Collection
 {
-	protected $collection_key = 'overlapMetrics';
-	protected $breakdownType = 'Google_Service_Dfareporting_Dimension';
-	protected $breakdownDataType = 'array';
-	protected $dimensionFiltersType = 'Google_Service_Dfareporting_Dimension';
-	protected $dimensionFiltersDataType = 'array';
-	public $kind;
-	protected $metricsType = 'Google_Service_Dfareporting_Metric';
-	protected $metricsDataType = 'array';
-	protected $overlapMetricsType = 'Google_Service_Dfareporting_Metric';
-	protected $overlapMetricsDataType = 'array';
+  protected $collection_key = 'overlapMetrics';
+  protected $breakdownType = 'Google_Service_Dfareporting_Dimension';
+  protected $breakdownDataType = 'array';
+  protected $dimensionFiltersType = 'Google_Service_Dfareporting_Dimension';
+  protected $dimensionFiltersDataType = 'array';
+  public $kind;
+  protected $metricsType = 'Google_Service_Dfareporting_Metric';
+  protected $metricsDataType = 'array';
+  protected $overlapMetricsType = 'Google_Service_Dfareporting_Metric';
+  protected $overlapMetricsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dfareporting_Dimension
-	 */
-	public function setBreakdown($breakdown)
-	{
-		$this->breakdown = $breakdown;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Dimension
-	 */
-	public function getBreakdown()
-	{
-		return $this->breakdown;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Dimension
-	 */
-	public function setDimensionFilters($dimensionFilters)
-	{
-		$this->dimensionFilters = $dimensionFilters;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Dimension
-	 */
-	public function getDimensionFilters()
-	{
-		return $this->dimensionFilters;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Metric
-	 */
-	public function setMetrics($metrics)
-	{
-		$this->metrics = $metrics;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Metric
-	 */
-	public function getMetrics()
-	{
-		return $this->metrics;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Metric
-	 */
-	public function setOverlapMetrics($overlapMetrics)
-	{
-		$this->overlapMetrics = $overlapMetrics;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Metric
-	 */
-	public function getOverlapMetrics()
-	{
-		return $this->overlapMetrics;
-	}
+  /**
+   * @param Google_Service_Dfareporting_Dimension[]
+   */
+  public function setBreakdown($breakdown)
+  {
+    $this->breakdown = $breakdown;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Dimension[]
+   */
+  public function getBreakdown()
+  {
+    return $this->breakdown;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Dimension[]
+   */
+  public function setDimensionFilters($dimensionFilters)
+  {
+    $this->dimensionFilters = $dimensionFilters;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Dimension[]
+   */
+  public function getDimensionFilters()
+  {
+    return $this->dimensionFilters;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Metric[]
+   */
+  public function setMetrics($metrics)
+  {
+    $this->metrics = $metrics;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Metric[]
+   */
+  public function getMetrics()
+  {
+    return $this->metrics;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Metric[]
+   */
+  public function setOverlapMetrics($overlapMetrics)
+  {
+    $this->overlapMetrics = $overlapMetrics;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Metric[]
+   */
+  public function getOverlapMetrics()
+  {
+    return $this->overlapMetrics;
+  }
 }

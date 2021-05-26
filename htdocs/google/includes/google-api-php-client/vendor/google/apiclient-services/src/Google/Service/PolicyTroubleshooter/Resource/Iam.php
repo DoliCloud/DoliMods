@@ -25,19 +25,19 @@
  */
 class Google_Service_PolicyTroubleshooter_Resource_Iam extends Google_Service_Resource
 {
-	/**
-	 * Checks whether a member has a specific permission for a specific resource,
-	 * and explains why the member does or does not have that permission.
-	 * (iam.troubleshoot)
-	 *
-	 * @param Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1TroubleshootIamPolicyRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1TroubleshootIamPolicyResponse
-	 */
-	public function troubleshoot(Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1TroubleshootIamPolicyRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('troubleshoot', array($params), "Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1TroubleshootIamPolicyResponse");
-	}
+  /**
+   * Checks whether a member has a specific permission for a specific resource,
+   * and explains why the member does or does not have that permission.
+   * (iam.troubleshoot)
+   *
+   * @param Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1TroubleshootIamPolicyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1TroubleshootIamPolicyResponse
+   */
+  public function troubleshoot(Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1TroubleshootIamPolicyRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('troubleshoot', array($params), "Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1TroubleshootIamPolicyResponse");
+  }
 }

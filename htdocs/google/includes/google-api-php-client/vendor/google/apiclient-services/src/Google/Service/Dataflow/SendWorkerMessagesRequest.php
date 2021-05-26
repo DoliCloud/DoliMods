@@ -17,31 +17,31 @@
 
 class Google_Service_Dataflow_SendWorkerMessagesRequest extends Google_Collection
 {
-	protected $collection_key = 'workerMessages';
-	public $location;
-	protected $workerMessagesType = 'Google_Service_Dataflow_WorkerMessage';
-	protected $workerMessagesDataType = 'array';
+  protected $collection_key = 'workerMessages';
+  public $location;
+  protected $workerMessagesType = 'Google_Service_Dataflow_WorkerMessage';
+  protected $workerMessagesDataType = 'array';
 
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	/**
-	 * @param Google_Service_Dataflow_WorkerMessage
-	 */
-	public function setWorkerMessages($workerMessages)
-	{
-		$this->workerMessages = $workerMessages;
-	}
-	/**
-	 * @return Google_Service_Dataflow_WorkerMessage
-	 */
-	public function getWorkerMessages()
-	{
-		return $this->workerMessages;
-	}
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  /**
+   * @param Google_Service_Dataflow_WorkerMessage[]
+   */
+  public function setWorkerMessages($workerMessages)
+  {
+    $this->workerMessages = $workerMessages;
+  }
+  /**
+   * @return Google_Service_Dataflow_WorkerMessage[]
+   */
+  public function getWorkerMessages()
+  {
+    return $this->workerMessages;
+  }
 }

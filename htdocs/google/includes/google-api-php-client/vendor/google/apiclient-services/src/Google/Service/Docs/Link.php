@@ -17,32 +17,32 @@
 
 class Google_Service_Docs_Link extends Google_Model
 {
-	public $bookmarkId;
-	public $headingId;
-	public $url;
+  public $bookmarkId;
+  public $headingId;
+  public $url;
 
-	public function setBookmarkId($bookmarkId)
-	{
-		$this->bookmarkId = $bookmarkId;
-	}
-	public function getBookmarkId()
-	{
-		return $this->bookmarkId;
-	}
-	public function setHeadingId($headingId)
-	{
-		$this->headingId = $headingId;
-	}
-	public function getHeadingId()
-	{
-		return $this->headingId;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setBookmarkId($bookmarkId)
+  {
+    $this->bookmarkId = $bookmarkId;
+  }
+  public function getBookmarkId()
+  {
+    return $this->bookmarkId;
+  }
+  public function setHeadingId($headingId)
+  {
+    $this->headingId = $headingId;
+  }
+  public function getHeadingId()
+  {
+    return $this->headingId;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

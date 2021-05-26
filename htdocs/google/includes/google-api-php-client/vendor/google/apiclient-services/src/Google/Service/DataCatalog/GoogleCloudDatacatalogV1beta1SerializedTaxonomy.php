@@ -17,40 +17,49 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedTaxonomy extends Google_Collection
 {
-	protected $collection_key = 'policyTags';
-	public $description;
-	public $displayName;
-	protected $policyTagsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag';
-	protected $policyTagsDataType = 'array';
+  protected $collection_key = 'policyTags';
+  public $activatedPolicyTypes;
+  public $description;
+  public $displayName;
+  protected $policyTagsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag';
+  protected $policyTagsDataType = 'array';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag
-	 */
-	public function setPolicyTags($policyTags)
-	{
-		$this->policyTags = $policyTags;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag
-	 */
-	public function getPolicyTags()
-	{
-		return $this->policyTags;
-	}
+  public function setActivatedPolicyTypes($activatedPolicyTypes)
+  {
+    $this->activatedPolicyTypes = $activatedPolicyTypes;
+  }
+  public function getActivatedPolicyTypes()
+  {
+    return $this->activatedPolicyTypes;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag[]
+   */
+  public function setPolicyTags($policyTags)
+  {
+    $this->policyTags = $policyTags;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SerializedPolicyTag[]
+   */
+  public function getPolicyTags()
+  {
+    return $this->policyTags;
+  }
 }

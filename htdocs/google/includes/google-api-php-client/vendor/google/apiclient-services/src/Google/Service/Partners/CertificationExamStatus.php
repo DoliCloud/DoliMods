@@ -17,23 +17,23 @@
 
 class Google_Service_Partners_CertificationExamStatus extends Google_Model
 {
-	public $numberUsersPass;
-	public $type;
+  public $numberUsersPass;
+  public $type;
 
-	public function setNumberUsersPass($numberUsersPass)
-	{
-		$this->numberUsersPass = $numberUsersPass;
-	}
-	public function getNumberUsersPass()
-	{
-		return $this->numberUsersPass;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setNumberUsersPass($numberUsersPass)
+  {
+    $this->numberUsersPass = $numberUsersPass;
+  }
+  public function getNumberUsersPass()
+  {
+    return $this->numberUsersPass;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

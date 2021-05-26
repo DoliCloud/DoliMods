@@ -17,167 +17,167 @@
 
 class Google_Service_ServiceControl_AuditLog extends Google_Collection
 {
-	protected $collection_key = 'authorizationInfo';
-	protected $authenticationInfoType = 'Google_Service_ServiceControl_AuthenticationInfo';
-	protected $authenticationInfoDataType = '';
-	protected $authorizationInfoType = 'Google_Service_ServiceControl_AuthorizationInfo';
-	protected $authorizationInfoDataType = 'array';
-	public $metadata;
-	public $methodName;
-	public $numResponseItems;
-	public $request;
-	protected $requestMetadataType = 'Google_Service_ServiceControl_RequestMetadata';
-	protected $requestMetadataDataType = '';
-	protected $resourceLocationType = 'Google_Service_ServiceControl_ResourceLocation';
-	protected $resourceLocationDataType = '';
-	public $resourceName;
-	public $resourceOriginalState;
-	public $response;
-	public $serviceData;
-	public $serviceName;
-	protected $statusType = 'Google_Service_ServiceControl_Status';
-	protected $statusDataType = '';
+  protected $collection_key = 'authorizationInfo';
+  protected $authenticationInfoType = 'Google_Service_ServiceControl_AuthenticationInfo';
+  protected $authenticationInfoDataType = '';
+  protected $authorizationInfoType = 'Google_Service_ServiceControl_AuthorizationInfo';
+  protected $authorizationInfoDataType = 'array';
+  public $metadata;
+  public $methodName;
+  public $numResponseItems;
+  public $request;
+  protected $requestMetadataType = 'Google_Service_ServiceControl_RequestMetadata';
+  protected $requestMetadataDataType = '';
+  protected $resourceLocationType = 'Google_Service_ServiceControl_ResourceLocation';
+  protected $resourceLocationDataType = '';
+  public $resourceName;
+  public $resourceOriginalState;
+  public $response;
+  public $serviceData;
+  public $serviceName;
+  protected $statusType = 'Google_Service_ServiceControl_Status';
+  protected $statusDataType = '';
 
-	/**
-	 * @param Google_Service_ServiceControl_AuthenticationInfo
-	 */
-	public function setAuthenticationInfo(Google_Service_ServiceControl_AuthenticationInfo $authenticationInfo)
-	{
-		$this->authenticationInfo = $authenticationInfo;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_AuthenticationInfo
-	 */
-	public function getAuthenticationInfo()
-	{
-		return $this->authenticationInfo;
-	}
-	/**
-	 * @param Google_Service_ServiceControl_AuthorizationInfo
-	 */
-	public function setAuthorizationInfo($authorizationInfo)
-	{
-		$this->authorizationInfo = $authorizationInfo;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_AuthorizationInfo
-	 */
-	public function getAuthorizationInfo()
-	{
-		return $this->authorizationInfo;
-	}
-	public function setMetadata($metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setMethodName($methodName)
-	{
-		$this->methodName = $methodName;
-	}
-	public function getMethodName()
-	{
-		return $this->methodName;
-	}
-	public function setNumResponseItems($numResponseItems)
-	{
-		$this->numResponseItems = $numResponseItems;
-	}
-	public function getNumResponseItems()
-	{
-		return $this->numResponseItems;
-	}
-	public function setRequest($request)
-	{
-		$this->request = $request;
-	}
-	public function getRequest()
-	{
-		return $this->request;
-	}
-	/**
-	 * @param Google_Service_ServiceControl_RequestMetadata
-	 */
-	public function setRequestMetadata(Google_Service_ServiceControl_RequestMetadata $requestMetadata)
-	{
-		$this->requestMetadata = $requestMetadata;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_RequestMetadata
-	 */
-	public function getRequestMetadata()
-	{
-		return $this->requestMetadata;
-	}
-	/**
-	 * @param Google_Service_ServiceControl_ResourceLocation
-	 */
-	public function setResourceLocation(Google_Service_ServiceControl_ResourceLocation $resourceLocation)
-	{
-		$this->resourceLocation = $resourceLocation;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_ResourceLocation
-	 */
-	public function getResourceLocation()
-	{
-		return $this->resourceLocation;
-	}
-	public function setResourceName($resourceName)
-	{
-		$this->resourceName = $resourceName;
-	}
-	public function getResourceName()
-	{
-		return $this->resourceName;
-	}
-	public function setResourceOriginalState($resourceOriginalState)
-	{
-		$this->resourceOriginalState = $resourceOriginalState;
-	}
-	public function getResourceOriginalState()
-	{
-		return $this->resourceOriginalState;
-	}
-	public function setResponse($response)
-	{
-		$this->response = $response;
-	}
-	public function getResponse()
-	{
-		return $this->response;
-	}
-	public function setServiceData($serviceData)
-	{
-		$this->serviceData = $serviceData;
-	}
-	public function getServiceData()
-	{
-		return $this->serviceData;
-	}
-	public function setServiceName($serviceName)
-	{
-		$this->serviceName = $serviceName;
-	}
-	public function getServiceName()
-	{
-		return $this->serviceName;
-	}
-	/**
-	 * @param Google_Service_ServiceControl_Status
-	 */
-	public function setStatus(Google_Service_ServiceControl_Status $status)
-	{
-		$this->status = $status;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_Status
-	 */
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  /**
+   * @param Google_Service_ServiceControl_AuthenticationInfo
+   */
+  public function setAuthenticationInfo(Google_Service_ServiceControl_AuthenticationInfo $authenticationInfo)
+  {
+    $this->authenticationInfo = $authenticationInfo;
+  }
+  /**
+   * @return Google_Service_ServiceControl_AuthenticationInfo
+   */
+  public function getAuthenticationInfo()
+  {
+    return $this->authenticationInfo;
+  }
+  /**
+   * @param Google_Service_ServiceControl_AuthorizationInfo[]
+   */
+  public function setAuthorizationInfo($authorizationInfo)
+  {
+    $this->authorizationInfo = $authorizationInfo;
+  }
+  /**
+   * @return Google_Service_ServiceControl_AuthorizationInfo[]
+   */
+  public function getAuthorizationInfo()
+  {
+    return $this->authorizationInfo;
+  }
+  public function setMetadata($metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setMethodName($methodName)
+  {
+    $this->methodName = $methodName;
+  }
+  public function getMethodName()
+  {
+    return $this->methodName;
+  }
+  public function setNumResponseItems($numResponseItems)
+  {
+    $this->numResponseItems = $numResponseItems;
+  }
+  public function getNumResponseItems()
+  {
+    return $this->numResponseItems;
+  }
+  public function setRequest($request)
+  {
+    $this->request = $request;
+  }
+  public function getRequest()
+  {
+    return $this->request;
+  }
+  /**
+   * @param Google_Service_ServiceControl_RequestMetadata
+   */
+  public function setRequestMetadata(Google_Service_ServiceControl_RequestMetadata $requestMetadata)
+  {
+    $this->requestMetadata = $requestMetadata;
+  }
+  /**
+   * @return Google_Service_ServiceControl_RequestMetadata
+   */
+  public function getRequestMetadata()
+  {
+    return $this->requestMetadata;
+  }
+  /**
+   * @param Google_Service_ServiceControl_ResourceLocation
+   */
+  public function setResourceLocation(Google_Service_ServiceControl_ResourceLocation $resourceLocation)
+  {
+    $this->resourceLocation = $resourceLocation;
+  }
+  /**
+   * @return Google_Service_ServiceControl_ResourceLocation
+   */
+  public function getResourceLocation()
+  {
+    return $this->resourceLocation;
+  }
+  public function setResourceName($resourceName)
+  {
+    $this->resourceName = $resourceName;
+  }
+  public function getResourceName()
+  {
+    return $this->resourceName;
+  }
+  public function setResourceOriginalState($resourceOriginalState)
+  {
+    $this->resourceOriginalState = $resourceOriginalState;
+  }
+  public function getResourceOriginalState()
+  {
+    return $this->resourceOriginalState;
+  }
+  public function setResponse($response)
+  {
+    $this->response = $response;
+  }
+  public function getResponse()
+  {
+    return $this->response;
+  }
+  public function setServiceData($serviceData)
+  {
+    $this->serviceData = $serviceData;
+  }
+  public function getServiceData()
+  {
+    return $this->serviceData;
+  }
+  public function setServiceName($serviceName)
+  {
+    $this->serviceName = $serviceName;
+  }
+  public function getServiceName()
+  {
+    return $this->serviceName;
+  }
+  /**
+   * @param Google_Service_ServiceControl_Status
+   */
+  public function setStatus(Google_Service_ServiceControl_Status $status)
+  {
+    $this->status = $status;
+  }
+  /**
+   * @return Google_Service_ServiceControl_Status
+   */
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

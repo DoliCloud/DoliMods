@@ -25,17 +25,17 @@
  */
 class Google_Service_GroupsMigration_Resource_Archive extends Google_Service_Resource
 {
-	/**
-	 * Inserts a new mail into the archive of the Google group. (archive.insert)
-	 *
-	 * @param string $groupId The group ID
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_GroupsMigration_Groups
-	 */
-	public function insert($groupId, $optParams = array())
-	{
-		$params = array('groupId' => $groupId);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_GroupsMigration_Groups");
-	}
+  /**
+   * Inserts a new mail into the archive of the Google group. (archive.insert)
+   *
+   * @param string $groupId The group ID
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_GroupsMigration_Groups
+   */
+  public function insert($groupId, $optParams = array())
+  {
+    $params = array('groupId' => $groupId);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_GroupsMigration_Groups");
+  }
 }

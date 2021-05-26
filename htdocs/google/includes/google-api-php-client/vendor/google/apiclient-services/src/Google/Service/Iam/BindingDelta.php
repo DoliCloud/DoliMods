@@ -17,48 +17,48 @@
 
 class Google_Service_Iam_BindingDelta extends Google_Model
 {
-	public $action;
-	protected $conditionType = 'Google_Service_Iam_Expr';
-	protected $conditionDataType = '';
-	public $member;
-	public $role;
+  public $action;
+  protected $conditionType = 'Google_Service_Iam_Expr';
+  protected $conditionDataType = '';
+  public $member;
+  public $role;
 
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-	public function getAction()
-	{
-		return $this->action;
-	}
-	/**
-	 * @param Google_Service_Iam_Expr
-	 */
-	public function setCondition(Google_Service_Iam_Expr $condition)
-	{
-		$this->condition = $condition;
-	}
-	/**
-	 * @return Google_Service_Iam_Expr
-	 */
-	public function getCondition()
-	{
-		return $this->condition;
-	}
-	public function setMember($member)
-	{
-		$this->member = $member;
-	}
-	public function getMember()
-	{
-		return $this->member;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  public function getAction()
+  {
+    return $this->action;
+  }
+  /**
+   * @param Google_Service_Iam_Expr
+   */
+  public function setCondition(Google_Service_Iam_Expr $condition)
+  {
+    $this->condition = $condition;
+  }
+  /**
+   * @return Google_Service_Iam_Expr
+   */
+  public function getCondition()
+  {
+    return $this->condition;
+  }
+  public function setMember($member)
+  {
+    $this->member = $member;
+  }
+  public function getMember()
+  {
+    return $this->member;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_SASPortalTesting_SasPortalValidateInstallerRequest extends Google_Model
 {
-	public $encodedSecret;
-	public $installerId;
-	public $secret;
+  public $encodedSecret;
+  public $installerId;
+  public $secret;
 
-	public function setEncodedSecret($encodedSecret)
-	{
-		$this->encodedSecret = $encodedSecret;
-	}
-	public function getEncodedSecret()
-	{
-		return $this->encodedSecret;
-	}
-	public function setInstallerId($installerId)
-	{
-		$this->installerId = $installerId;
-	}
-	public function getInstallerId()
-	{
-		return $this->installerId;
-	}
-	public function setSecret($secret)
-	{
-		$this->secret = $secret;
-	}
-	public function getSecret()
-	{
-		return $this->secret;
-	}
+  public function setEncodedSecret($encodedSecret)
+  {
+    $this->encodedSecret = $encodedSecret;
+  }
+  public function getEncodedSecret()
+  {
+    return $this->encodedSecret;
+  }
+  public function setInstallerId($installerId)
+  {
+    $this->installerId = $installerId;
+  }
+  public function getInstallerId()
+  {
+    return $this->installerId;
+  }
+  public function setSecret($secret)
+  {
+    $this->secret = $secret;
+  }
+  public function getSecret()
+  {
+    return $this->secret;
+  }
 }

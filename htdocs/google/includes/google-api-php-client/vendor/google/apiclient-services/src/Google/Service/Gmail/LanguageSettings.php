@@ -17,14 +17,14 @@
 
 class Google_Service_Gmail_LanguageSettings extends Google_Model
 {
-	public $displayLanguage;
+  public $displayLanguage;
 
-	public function setDisplayLanguage($displayLanguage)
-	{
-		$this->displayLanguage = $displayLanguage;
-	}
-	public function getDisplayLanguage()
-	{
-		return $this->displayLanguage;
-	}
+  public function setDisplayLanguage($displayLanguage)
+  {
+    $this->displayLanguage = $displayLanguage;
+  }
+  public function getDisplayLanguage()
+  {
+    return $this->displayLanguage;
+  }
 }

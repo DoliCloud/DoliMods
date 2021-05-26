@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceUser_LabelDescriptor extends Google_Model
 {
-	public $description;
-	public $key;
-	public $valueType;
+  public $description;
+  public $key;
+  public $valueType;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setValueType($valueType)
-	{
-		$this->valueType = $valueType;
-	}
-	public function getValueType()
-	{
-		return $this->valueType;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setValueType($valueType)
+  {
+    $this->valueType = $valueType;
+  }
+  public function getValueType()
+  {
+    return $this->valueType;
+  }
 }

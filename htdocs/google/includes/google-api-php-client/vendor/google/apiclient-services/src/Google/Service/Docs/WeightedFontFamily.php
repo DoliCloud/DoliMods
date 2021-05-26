@@ -17,23 +17,23 @@
 
 class Google_Service_Docs_WeightedFontFamily extends Google_Model
 {
-	public $fontFamily;
-	public $weight;
+  public $fontFamily;
+  public $weight;
 
-	public function setFontFamily($fontFamily)
-	{
-		$this->fontFamily = $fontFamily;
-	}
-	public function getFontFamily()
-	{
-		return $this->fontFamily;
-	}
-	public function setWeight($weight)
-	{
-		$this->weight = $weight;
-	}
-	public function getWeight()
-	{
-		return $this->weight;
-	}
+  public function setFontFamily($fontFamily)
+  {
+    $this->fontFamily = $fontFamily;
+  }
+  public function getFontFamily()
+  {
+    return $this->fontFamily;
+  }
+  public function setWeight($weight)
+  {
+    $this->weight = $weight;
+  }
+  public function getWeight()
+  {
+    return $this->weight;
+  }
 }

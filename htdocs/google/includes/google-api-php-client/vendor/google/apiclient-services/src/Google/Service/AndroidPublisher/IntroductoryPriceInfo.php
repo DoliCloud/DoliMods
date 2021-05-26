@@ -17,41 +17,41 @@
 
 class Google_Service_AndroidPublisher_IntroductoryPriceInfo extends Google_Model
 {
-	public $introductoryPriceAmountMicros;
-	public $introductoryPriceCurrencyCode;
-	public $introductoryPriceCycles;
-	public $introductoryPricePeriod;
+  public $introductoryPriceAmountMicros;
+  public $introductoryPriceCurrencyCode;
+  public $introductoryPriceCycles;
+  public $introductoryPricePeriod;
 
-	public function setIntroductoryPriceAmountMicros($introductoryPriceAmountMicros)
-	{
-		$this->introductoryPriceAmountMicros = $introductoryPriceAmountMicros;
-	}
-	public function getIntroductoryPriceAmountMicros()
-	{
-		return $this->introductoryPriceAmountMicros;
-	}
-	public function setIntroductoryPriceCurrencyCode($introductoryPriceCurrencyCode)
-	{
-		$this->introductoryPriceCurrencyCode = $introductoryPriceCurrencyCode;
-	}
-	public function getIntroductoryPriceCurrencyCode()
-	{
-		return $this->introductoryPriceCurrencyCode;
-	}
-	public function setIntroductoryPriceCycles($introductoryPriceCycles)
-	{
-		$this->introductoryPriceCycles = $introductoryPriceCycles;
-	}
-	public function getIntroductoryPriceCycles()
-	{
-		return $this->introductoryPriceCycles;
-	}
-	public function setIntroductoryPricePeriod($introductoryPricePeriod)
-	{
-		$this->introductoryPricePeriod = $introductoryPricePeriod;
-	}
-	public function getIntroductoryPricePeriod()
-	{
-		return $this->introductoryPricePeriod;
-	}
+  public function setIntroductoryPriceAmountMicros($introductoryPriceAmountMicros)
+  {
+    $this->introductoryPriceAmountMicros = $introductoryPriceAmountMicros;
+  }
+  public function getIntroductoryPriceAmountMicros()
+  {
+    return $this->introductoryPriceAmountMicros;
+  }
+  public function setIntroductoryPriceCurrencyCode($introductoryPriceCurrencyCode)
+  {
+    $this->introductoryPriceCurrencyCode = $introductoryPriceCurrencyCode;
+  }
+  public function getIntroductoryPriceCurrencyCode()
+  {
+    return $this->introductoryPriceCurrencyCode;
+  }
+  public function setIntroductoryPriceCycles($introductoryPriceCycles)
+  {
+    $this->introductoryPriceCycles = $introductoryPriceCycles;
+  }
+  public function getIntroductoryPriceCycles()
+  {
+    return $this->introductoryPriceCycles;
+  }
+  public function setIntroductoryPricePeriod($introductoryPricePeriod)
+  {
+    $this->introductoryPricePeriod = $introductoryPricePeriod;
+  }
+  public function getIntroductoryPricePeriod()
+  {
+    return $this->introductoryPricePeriod;
+  }
 }

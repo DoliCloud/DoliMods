@@ -17,48 +17,48 @@
 
 class Google_Service_Vision_ProductSet extends Google_Model
 {
-	public $displayName;
-	protected $indexErrorType = 'Google_Service_Vision_Status';
-	protected $indexErrorDataType = '';
-	public $indexTime;
-	public $name;
+  public $displayName;
+  protected $indexErrorType = 'Google_Service_Vision_Status';
+  protected $indexErrorDataType = '';
+  public $indexTime;
+  public $name;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	/**
-	 * @param Google_Service_Vision_Status
-	 */
-	public function setIndexError(Google_Service_Vision_Status $indexError)
-	{
-		$this->indexError = $indexError;
-	}
-	/**
-	 * @return Google_Service_Vision_Status
-	 */
-	public function getIndexError()
-	{
-		return $this->indexError;
-	}
-	public function setIndexTime($indexTime)
-	{
-		$this->indexTime = $indexTime;
-	}
-	public function getIndexTime()
-	{
-		return $this->indexTime;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  /**
+   * @param Google_Service_Vision_Status
+   */
+  public function setIndexError(Google_Service_Vision_Status $indexError)
+  {
+    $this->indexError = $indexError;
+  }
+  /**
+   * @return Google_Service_Vision_Status
+   */
+  public function getIndexError()
+  {
+    return $this->indexError;
+  }
+  public function setIndexTime($indexTime)
+  {
+    $this->indexTime = $indexTime;
+  }
+  public function getIndexTime()
+  {
+    return $this->indexTime;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

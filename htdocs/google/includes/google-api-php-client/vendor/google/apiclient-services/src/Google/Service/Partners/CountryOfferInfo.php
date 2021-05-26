@@ -17,41 +17,41 @@
 
 class Google_Service_Partners_CountryOfferInfo extends Google_Model
 {
-	public $getYAmount;
-	public $offerCountryCode;
-	public $offerType;
-	public $spendXAmount;
+  public $getYAmount;
+  public $offerCountryCode;
+  public $offerType;
+  public $spendXAmount;
 
-	public function setGetYAmount($getYAmount)
-	{
-		$this->getYAmount = $getYAmount;
-	}
-	public function getGetYAmount()
-	{
-		return $this->getYAmount;
-	}
-	public function setOfferCountryCode($offerCountryCode)
-	{
-		$this->offerCountryCode = $offerCountryCode;
-	}
-	public function getOfferCountryCode()
-	{
-		return $this->offerCountryCode;
-	}
-	public function setOfferType($offerType)
-	{
-		$this->offerType = $offerType;
-	}
-	public function getOfferType()
-	{
-		return $this->offerType;
-	}
-	public function setSpendXAmount($spendXAmount)
-	{
-		$this->spendXAmount = $spendXAmount;
-	}
-	public function getSpendXAmount()
-	{
-		return $this->spendXAmount;
-	}
+  public function setGetYAmount($getYAmount)
+  {
+    $this->getYAmount = $getYAmount;
+  }
+  public function getGetYAmount()
+  {
+    return $this->getYAmount;
+  }
+  public function setOfferCountryCode($offerCountryCode)
+  {
+    $this->offerCountryCode = $offerCountryCode;
+  }
+  public function getOfferCountryCode()
+  {
+    return $this->offerCountryCode;
+  }
+  public function setOfferType($offerType)
+  {
+    $this->offerType = $offerType;
+  }
+  public function getOfferType()
+  {
+    return $this->offerType;
+  }
+  public function setSpendXAmount($spendXAmount)
+  {
+    $this->spendXAmount = $spendXAmount;
+  }
+  public function getSpendXAmount()
+  {
+    return $this->spendXAmount;
+  }
 }

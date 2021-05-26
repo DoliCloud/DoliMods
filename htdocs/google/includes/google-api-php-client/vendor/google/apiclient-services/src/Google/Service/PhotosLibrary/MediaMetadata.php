@@ -17,64 +17,64 @@
 
 class Google_Service_PhotosLibrary_MediaMetadata extends Google_Model
 {
-	public $creationTime;
-	public $height;
-	protected $photoType = 'Google_Service_PhotosLibrary_Photo';
-	protected $photoDataType = '';
-	protected $videoType = 'Google_Service_PhotosLibrary_Video';
-	protected $videoDataType = '';
-	public $width;
+  public $creationTime;
+  public $height;
+  protected $photoType = 'Google_Service_PhotosLibrary_Photo';
+  protected $photoDataType = '';
+  protected $videoType = 'Google_Service_PhotosLibrary_Video';
+  protected $videoDataType = '';
+  public $width;
 
-	public function setCreationTime($creationTime)
-	{
-		$this->creationTime = $creationTime;
-	}
-	public function getCreationTime()
-	{
-		return $this->creationTime;
-	}
-	public function setHeight($height)
-	{
-		$this->height = $height;
-	}
-	public function getHeight()
-	{
-		return $this->height;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_Photo
-	 */
-	public function setPhoto(Google_Service_PhotosLibrary_Photo $photo)
-	{
-		$this->photo = $photo;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_Photo
-	 */
-	public function getPhoto()
-	{
-		return $this->photo;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_Video
-	 */
-	public function setVideo(Google_Service_PhotosLibrary_Video $video)
-	{
-		$this->video = $video;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_Video
-	 */
-	public function getVideo()
-	{
-		return $this->video;
-	}
-	public function setWidth($width)
-	{
-		$this->width = $width;
-	}
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  public function setCreationTime($creationTime)
+  {
+    $this->creationTime = $creationTime;
+  }
+  public function getCreationTime()
+  {
+    return $this->creationTime;
+  }
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_Photo
+   */
+  public function setPhoto(Google_Service_PhotosLibrary_Photo $photo)
+  {
+    $this->photo = $photo;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_Photo
+   */
+  public function getPhoto()
+  {
+    return $this->photo;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_Video
+   */
+  public function setVideo(Google_Service_PhotosLibrary_Video $video)
+  {
+    $this->video = $video;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_Video
+   */
+  public function getVideo()
+  {
+    return $this->video;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

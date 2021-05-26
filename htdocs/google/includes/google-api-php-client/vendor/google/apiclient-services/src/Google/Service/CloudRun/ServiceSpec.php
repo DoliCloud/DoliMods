@@ -17,38 +17,38 @@
 
 class Google_Service_CloudRun_ServiceSpec extends Google_Collection
 {
-	protected $collection_key = 'traffic';
-	protected $templateType = 'Google_Service_CloudRun_RevisionTemplate';
-	protected $templateDataType = '';
-	protected $trafficType = 'Google_Service_CloudRun_TrafficTarget';
-	protected $trafficDataType = 'array';
+  protected $collection_key = 'traffic';
+  protected $templateType = 'Google_Service_CloudRun_RevisionTemplate';
+  protected $templateDataType = '';
+  protected $trafficType = 'Google_Service_CloudRun_TrafficTarget';
+  protected $trafficDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudRun_RevisionTemplate
-	 */
-	public function setTemplate(Google_Service_CloudRun_RevisionTemplate $template)
-	{
-		$this->template = $template;
-	}
-	/**
-	 * @return Google_Service_CloudRun_RevisionTemplate
-	 */
-	public function getTemplate()
-	{
-		return $this->template;
-	}
-	/**
-	 * @param Google_Service_CloudRun_TrafficTarget
-	 */
-	public function setTraffic($traffic)
-	{
-		$this->traffic = $traffic;
-	}
-	/**
-	 * @return Google_Service_CloudRun_TrafficTarget
-	 */
-	public function getTraffic()
-	{
-		return $this->traffic;
-	}
+  /**
+   * @param Google_Service_CloudRun_RevisionTemplate
+   */
+  public function setTemplate(Google_Service_CloudRun_RevisionTemplate $template)
+  {
+    $this->template = $template;
+  }
+  /**
+   * @return Google_Service_CloudRun_RevisionTemplate
+   */
+  public function getTemplate()
+  {
+    return $this->template;
+  }
+  /**
+   * @param Google_Service_CloudRun_TrafficTarget[]
+   */
+  public function setTraffic($traffic)
+  {
+    $this->traffic = $traffic;
+  }
+  /**
+   * @return Google_Service_CloudRun_TrafficTarget[]
+   */
+  public function getTraffic()
+  {
+    return $this->traffic;
+  }
 }

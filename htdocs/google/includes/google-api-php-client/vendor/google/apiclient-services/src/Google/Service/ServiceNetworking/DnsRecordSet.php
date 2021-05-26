@@ -17,42 +17,42 @@
 
 class Google_Service_ServiceNetworking_DnsRecordSet extends Google_Collection
 {
-	protected $collection_key = 'data';
-	public $data;
-	public $domain;
-	public $ttl;
-	public $type;
+  protected $collection_key = 'data';
+  public $data;
+  public $domain;
+  public $ttl;
+  public $type;
 
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setDomain($domain)
-	{
-		$this->domain = $domain;
-	}
-	public function getDomain()
-	{
-		return $this->domain;
-	}
-	public function setTtl($ttl)
-	{
-		$this->ttl = $ttl;
-	}
-	public function getTtl()
-	{
-		return $this->ttl;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setDomain($domain)
+  {
+    $this->domain = $domain;
+  }
+  public function getDomain()
+  {
+    return $this->domain;
+  }
+  public function setTtl($ttl)
+  {
+    $this->ttl = $ttl;
+  }
+  public function getTtl()
+  {
+    return $this->ttl;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

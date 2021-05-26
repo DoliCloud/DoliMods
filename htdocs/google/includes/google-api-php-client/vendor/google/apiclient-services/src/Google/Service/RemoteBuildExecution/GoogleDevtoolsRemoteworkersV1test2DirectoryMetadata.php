@@ -17,30 +17,30 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2DirectoryMetadata extends Google_Model
 {
-	protected $digestType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
-	protected $digestDataType = '';
-	public $path;
+  protected $digestType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
+  protected $digestDataType = '';
+  public $path;
 
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-	 */
-	public function setDigest(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $digest)
-	{
-		$this->digest = $digest;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-	 */
-	public function getDigest()
-	{
-		return $this->digest;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+   */
+  public function setDigest(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $digest)
+  {
+    $this->digest = $digest;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+   */
+  public function getDigest()
+  {
+    return $this->digest;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
 }

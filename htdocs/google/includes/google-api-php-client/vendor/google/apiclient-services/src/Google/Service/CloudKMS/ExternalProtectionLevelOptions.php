@@ -17,14 +17,14 @@
 
 class Google_Service_CloudKMS_ExternalProtectionLevelOptions extends Google_Model
 {
-	public $externalKeyUri;
+  public $externalKeyUri;
 
-	public function setExternalKeyUri($externalKeyUri)
-	{
-		$this->externalKeyUri = $externalKeyUri;
-	}
-	public function getExternalKeyUri()
-	{
-		return $this->externalKeyUri;
-	}
+  public function setExternalKeyUri($externalKeyUri)
+  {
+    $this->externalKeyUri = $externalKeyUri;
+  }
+  public function getExternalKeyUri()
+  {
+    return $this->externalKeyUri;
+  }
 }

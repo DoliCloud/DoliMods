@@ -17,46 +17,46 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ImageRedactionConfig extends Google_Model
 {
-	protected $infoTypeType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
-	protected $infoTypeDataType = '';
-	public $redactAllText;
-	protected $redactionColorType = 'Google_Service_DLP_GooglePrivacyDlpV2Color';
-	protected $redactionColorDataType = '';
+  protected $infoTypeType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
+  protected $infoTypeDataType = '';
+  public $redactAllText;
+  protected $redactionColorType = 'Google_Service_DLP_GooglePrivacyDlpV2Color';
+  protected $redactionColorDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
-	 */
-	public function setInfoType(Google_Service_DLP_GooglePrivacyDlpV2InfoType $infoType)
-	{
-		$this->infoType = $infoType;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
-	 */
-	public function getInfoType()
-	{
-		return $this->infoType;
-	}
-	public function setRedactAllText($redactAllText)
-	{
-		$this->redactAllText = $redactAllText;
-	}
-	public function getRedactAllText()
-	{
-		return $this->redactAllText;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Color
-	 */
-	public function setRedactionColor(Google_Service_DLP_GooglePrivacyDlpV2Color $redactionColor)
-	{
-		$this->redactionColor = $redactionColor;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Color
-	 */
-	public function getRedactionColor()
-	{
-		return $this->redactionColor;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
+   */
+  public function setInfoType(Google_Service_DLP_GooglePrivacyDlpV2InfoType $infoType)
+  {
+    $this->infoType = $infoType;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
+   */
+  public function getInfoType()
+  {
+    return $this->infoType;
+  }
+  public function setRedactAllText($redactAllText)
+  {
+    $this->redactAllText = $redactAllText;
+  }
+  public function getRedactAllText()
+  {
+    return $this->redactAllText;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Color
+   */
+  public function setRedactionColor(Google_Service_DLP_GooglePrivacyDlpV2Color $redactionColor)
+  {
+    $this->redactionColor = $redactionColor;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Color
+   */
+  public function getRedactionColor()
+  {
+    return $this->redactionColor;
+  }
 }

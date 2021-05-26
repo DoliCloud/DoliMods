@@ -25,49 +25,50 @@
  */
 class Google_Service_ArtifactRegistry_Resource_ProjectsLocationsRepositoriesPackages extends Google_Service_Resource
 {
-	/**
-	 * Deletes a package and all of its versions and tags. The returned operation
-	 * will complete once the package has been deleted. (packages.delete)
-	 *
-	 * @param string $name The name of the package to delete.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ArtifactRegistry_Operation
-	 */
-	public function delete($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params), "Google_Service_ArtifactRegistry_Operation");
-	}
-	/**
-	 * Gets a package. (packages.get)
-	 *
-	 * @param string $name The name of the package to retrieve.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ArtifactRegistry_Package
-	 */
-	public function get($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_ArtifactRegistry_Package");
-	}
-	/**
-	 * Lists packages. (packages.listProjectsLocationsRepositoriesPackages)
-	 *
-	 * @param string $parent The name of the parent resource whose packages will be
-	 *                       listed.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param int pageSize The maximum number of packages to return.
-	 * @opt_param string pageToken The next_page_token value returned from a
-	 * previous list request, if any.
-	 * @return Google_Service_ArtifactRegistry_ListPackagesResponse
-	 */
-	public function listProjectsLocationsRepositoriesPackages($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_ArtifactRegistry_ListPackagesResponse");
-	}
+  /**
+   * Deletes a package and all of its versions and tags. The returned operation
+   * will complete once the package has been deleted. (packages.delete)
+   *
+   * @param string $name The name of the package to delete.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ArtifactRegistry_Operation
+   */
+  public function delete($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_ArtifactRegistry_Operation");
+  }
+  /**
+   * Gets a package. (packages.get)
+   *
+   * @param string $name The name of the package to retrieve.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ArtifactRegistry_Package
+   */
+  public function get($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_ArtifactRegistry_Package");
+  }
+  /**
+   * Lists packages. (packages.listProjectsLocationsRepositoriesPackages)
+   *
+   * @param string $parent The name of the parent resource whose packages will be
+   * listed.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize The maximum number of packages to return. Maximum
+   * page size is 10,000.
+   * @opt_param string pageToken The next_page_token value returned from a
+   * previous list request, if any.
+   * @return Google_Service_ArtifactRegistry_ListPackagesResponse
+   */
+  public function listProjectsLocationsRepositoriesPackages($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_ArtifactRegistry_ListPackagesResponse");
+  }
 }

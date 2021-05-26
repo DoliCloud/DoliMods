@@ -17,77 +17,77 @@
 
 class Google_Service_Dfareporting_AdSlot extends Google_Model
 {
-	public $comment;
-	public $compatibility;
-	public $height;
-	public $linkedPlacementId;
-	public $name;
-	public $paymentSourceType;
-	public $primary;
-	public $width;
+  public $comment;
+  public $compatibility;
+  public $height;
+  public $linkedPlacementId;
+  public $name;
+  public $paymentSourceType;
+  public $primary;
+  public $width;
 
-	public function setComment($comment)
-	{
-		$this->comment = $comment;
-	}
-	public function getComment()
-	{
-		return $this->comment;
-	}
-	public function setCompatibility($compatibility)
-	{
-		$this->compatibility = $compatibility;
-	}
-	public function getCompatibility()
-	{
-		return $this->compatibility;
-	}
-	public function setHeight($height)
-	{
-		$this->height = $height;
-	}
-	public function getHeight()
-	{
-		return $this->height;
-	}
-	public function setLinkedPlacementId($linkedPlacementId)
-	{
-		$this->linkedPlacementId = $linkedPlacementId;
-	}
-	public function getLinkedPlacementId()
-	{
-		return $this->linkedPlacementId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPaymentSourceType($paymentSourceType)
-	{
-		$this->paymentSourceType = $paymentSourceType;
-	}
-	public function getPaymentSourceType()
-	{
-		return $this->paymentSourceType;
-	}
-	public function setPrimary($primary)
-	{
-		$this->primary = $primary;
-	}
-	public function getPrimary()
-	{
-		return $this->primary;
-	}
-	public function setWidth($width)
-	{
-		$this->width = $width;
-	}
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  public function setComment($comment)
+  {
+    $this->comment = $comment;
+  }
+  public function getComment()
+  {
+    return $this->comment;
+  }
+  public function setCompatibility($compatibility)
+  {
+    $this->compatibility = $compatibility;
+  }
+  public function getCompatibility()
+  {
+    return $this->compatibility;
+  }
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setLinkedPlacementId($linkedPlacementId)
+  {
+    $this->linkedPlacementId = $linkedPlacementId;
+  }
+  public function getLinkedPlacementId()
+  {
+    return $this->linkedPlacementId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPaymentSourceType($paymentSourceType)
+  {
+    $this->paymentSourceType = $paymentSourceType;
+  }
+  public function getPaymentSourceType()
+  {
+    return $this->paymentSourceType;
+  }
+  public function setPrimary($primary)
+  {
+    $this->primary = $primary;
+  }
+  public function getPrimary()
+  {
+    return $this->primary;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

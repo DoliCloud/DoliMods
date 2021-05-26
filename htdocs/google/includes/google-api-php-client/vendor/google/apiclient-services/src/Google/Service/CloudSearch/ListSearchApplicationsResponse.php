@@ -17,31 +17,31 @@
 
 class Google_Service_CloudSearch_ListSearchApplicationsResponse extends Google_Collection
 {
-	protected $collection_key = 'searchApplications';
-	public $nextPageToken;
-	protected $searchApplicationsType = 'Google_Service_CloudSearch_SearchApplication';
-	protected $searchApplicationsDataType = 'array';
+  protected $collection_key = 'searchApplications';
+  public $nextPageToken;
+  protected $searchApplicationsType = 'Google_Service_CloudSearch_SearchApplication';
+  protected $searchApplicationsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_SearchApplication
-	 */
-	public function setSearchApplications($searchApplications)
-	{
-		$this->searchApplications = $searchApplications;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_SearchApplication
-	 */
-	public function getSearchApplications()
-	{
-		return $this->searchApplications;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_CloudSearch_SearchApplication[]
+   */
+  public function setSearchApplications($searchApplications)
+  {
+    $this->searchApplications = $searchApplications;
+  }
+  /**
+   * @return Google_Service_CloudSearch_SearchApplication[]
+   */
+  public function getSearchApplications()
+  {
+    return $this->searchApplications;
+  }
 }

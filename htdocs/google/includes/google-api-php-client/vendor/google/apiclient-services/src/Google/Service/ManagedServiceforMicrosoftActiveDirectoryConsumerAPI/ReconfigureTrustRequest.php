@@ -17,24 +17,24 @@
 
 class Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_ReconfigureTrustRequest extends Google_Collection
 {
-	protected $collection_key = 'targetDnsIpAddresses';
-	public $targetDnsIpAddresses;
-	public $targetDomainName;
+  protected $collection_key = 'targetDnsIpAddresses';
+  public $targetDnsIpAddresses;
+  public $targetDomainName;
 
-	public function setTargetDnsIpAddresses($targetDnsIpAddresses)
-	{
-		$this->targetDnsIpAddresses = $targetDnsIpAddresses;
-	}
-	public function getTargetDnsIpAddresses()
-	{
-		return $this->targetDnsIpAddresses;
-	}
-	public function setTargetDomainName($targetDomainName)
-	{
-		$this->targetDomainName = $targetDomainName;
-	}
-	public function getTargetDomainName()
-	{
-		return $this->targetDomainName;
-	}
+  public function setTargetDnsIpAddresses($targetDnsIpAddresses)
+  {
+    $this->targetDnsIpAddresses = $targetDnsIpAddresses;
+  }
+  public function getTargetDnsIpAddresses()
+  {
+    return $this->targetDnsIpAddresses;
+  }
+  public function setTargetDomainName($targetDomainName)
+  {
+    $this->targetDomainName = $targetDomainName;
+  }
+  public function getTargetDomainName()
+  {
+    return $this->targetDomainName;
+  }
 }

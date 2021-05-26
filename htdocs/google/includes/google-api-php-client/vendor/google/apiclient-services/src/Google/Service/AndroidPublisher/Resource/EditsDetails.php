@@ -25,48 +25,48 @@
  */
 class Google_Service_AndroidPublisher_Resource_EditsDetails extends Google_Service_Resource
 {
-	/**
-	 * Gets details of an app. (details.get)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_AppDetails
-	 */
-	public function get($packageName, $editId, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_AndroidPublisher_AppDetails");
-	}
-	/**
-	 * Patches details of an app. (details.patch)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param Google_Service_AndroidPublisher_AppDetails $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_AppDetails
-	 */
-	public function patch($packageName, $editId, Google_Service_AndroidPublisher_AppDetails $postBody, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('patch', array($params), "Google_Service_AndroidPublisher_AppDetails");
-	}
-	/**
-	 * Updates details of an app. (details.update)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param Google_Service_AndroidPublisher_AppDetails $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_AppDetails
-	 */
-	public function update($packageName, $editId, Google_Service_AndroidPublisher_AppDetails $postBody, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_AndroidPublisher_AppDetails");
-	}
+  /**
+   * Gets details of an app. (details.get)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_AppDetails
+   */
+  public function get($packageName, $editId, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_AndroidPublisher_AppDetails");
+  }
+  /**
+   * Patches details of an app. (details.patch)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param Google_Service_AndroidPublisher_AppDetails $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_AppDetails
+   */
+  public function patch($packageName, $editId, Google_Service_AndroidPublisher_AppDetails $postBody, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', array($params), "Google_Service_AndroidPublisher_AppDetails");
+  }
+  /**
+   * Updates details of an app. (details.update)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param Google_Service_AndroidPublisher_AppDetails $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_AppDetails
+   */
+  public function update($packageName, $editId, Google_Service_AndroidPublisher_AppDetails $postBody, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_AndroidPublisher_AppDetails");
+  }
 }

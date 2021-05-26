@@ -17,49 +17,49 @@
 
 class Google_Service_CloudTalentSolution_CompensationFilter extends Google_Collection
 {
-	protected $collection_key = 'units';
-	public $includeJobsWithUnspecifiedCompensationRange;
-	protected $rangeType = 'Google_Service_CloudTalentSolution_CompensationRange';
-	protected $rangeDataType = '';
-	public $type;
-	public $units;
+  protected $collection_key = 'units';
+  public $includeJobsWithUnspecifiedCompensationRange;
+  protected $rangeType = 'Google_Service_CloudTalentSolution_CompensationRange';
+  protected $rangeDataType = '';
+  public $type;
+  public $units;
 
-	public function setIncludeJobsWithUnspecifiedCompensationRange($includeJobsWithUnspecifiedCompensationRange)
-	{
-		$this->includeJobsWithUnspecifiedCompensationRange = $includeJobsWithUnspecifiedCompensationRange;
-	}
-	public function getIncludeJobsWithUnspecifiedCompensationRange()
-	{
-		return $this->includeJobsWithUnspecifiedCompensationRange;
-	}
-	/**
-	 * @param Google_Service_CloudTalentSolution_CompensationRange
-	 */
-	public function setRange(Google_Service_CloudTalentSolution_CompensationRange $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_CloudTalentSolution_CompensationRange
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setUnits($units)
-	{
-		$this->units = $units;
-	}
-	public function getUnits()
-	{
-		return $this->units;
-	}
+  public function setIncludeJobsWithUnspecifiedCompensationRange($includeJobsWithUnspecifiedCompensationRange)
+  {
+    $this->includeJobsWithUnspecifiedCompensationRange = $includeJobsWithUnspecifiedCompensationRange;
+  }
+  public function getIncludeJobsWithUnspecifiedCompensationRange()
+  {
+    return $this->includeJobsWithUnspecifiedCompensationRange;
+  }
+  /**
+   * @param Google_Service_CloudTalentSolution_CompensationRange
+   */
+  public function setRange(Google_Service_CloudTalentSolution_CompensationRange $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_CloudTalentSolution_CompensationRange
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setUnits($units)
+  {
+    $this->units = $units;
+  }
+  public function getUnits()
+  {
+    return $this->units;
+  }
 }

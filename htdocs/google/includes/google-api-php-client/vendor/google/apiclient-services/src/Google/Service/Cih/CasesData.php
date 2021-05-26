@@ -17,61 +17,61 @@
 
 class Google_Service_Cih_CasesData extends Google_Model
 {
-	protected $agentType = 'Google_Service_Cih_CasesInteractionSource';
-	protected $agentDataType = '';
-	public $assignedGaia;
-	public $emailType;
-	public $messageId;
-	public $state;
-	protected $userIdType = 'Google_Service_Cih_UserId';
-	protected $userIdDataType = '';
+  protected $agentType = 'Google_Service_Cih_CasesInteractionSource';
+  protected $agentDataType = '';
+  public $assignedGaia;
+  public $emailType;
+  public $messageId;
+  public $state;
+  protected $userIdType = 'Google_Service_Cih_UserId';
+  protected $userIdDataType = '';
 
-	public function setAgent(Google_Service_Cih_CasesInteractionSource $agent)
-	{
-		$this->agent = $agent;
-	}
-	public function getAgent()
-	{
-		return $this->agent;
-	}
-	public function setAssignedGaia($assignedGaia)
-	{
-		$this->assignedGaia = $assignedGaia;
-	}
-	public function getAssignedGaia()
-	{
-		return $this->assignedGaia;
-	}
-	public function setEmailType($emailType)
-	{
-		$this->emailType = $emailType;
-	}
-	public function getEmailType()
-	{
-		return $this->emailType;
-	}
-	public function setMessageId($messageId)
-	{
-		$this->messageId = $messageId;
-	}
-	public function getMessageId()
-	{
-		return $this->messageId;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setUserId(Google_Service_Cih_UserId $userId)
-	{
-		$this->userId = $userId;
-	}
-	public function getUserId()
-	{
-		return $this->userId;
-	}
+  public function setAgent(Google_Service_Cih_CasesInteractionSource $agent)
+  {
+    $this->agent = $agent;
+  }
+  public function getAgent()
+  {
+    return $this->agent;
+  }
+  public function setAssignedGaia($assignedGaia)
+  {
+    $this->assignedGaia = $assignedGaia;
+  }
+  public function getAssignedGaia()
+  {
+    return $this->assignedGaia;
+  }
+  public function setEmailType($emailType)
+  {
+    $this->emailType = $emailType;
+  }
+  public function getEmailType()
+  {
+    return $this->emailType;
+  }
+  public function setMessageId($messageId)
+  {
+    $this->messageId = $messageId;
+  }
+  public function getMessageId()
+  {
+    return $this->messageId;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setUserId(Google_Service_Cih_UserId $userId)
+  {
+    $this->userId = $userId;
+  }
+  public function getUserId()
+  {
+    return $this->userId;
+  }
 }

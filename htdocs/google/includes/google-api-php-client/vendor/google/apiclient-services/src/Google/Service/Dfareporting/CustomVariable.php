@@ -17,32 +17,32 @@
 
 class Google_Service_Dfareporting_CustomVariable extends Google_Model
 {
-	public $index;
-	public $kind;
-	public $value;
+  public $index;
+  public $kind;
+  public $value;
 
-	public function setIndex($index)
-	{
-		$this->index = $index;
-	}
-	public function getIndex()
-	{
-		return $this->index;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setIndex($index)
+  {
+    $this->index = $index;
+  }
+  public function getIndex()
+  {
+    return $this->index;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

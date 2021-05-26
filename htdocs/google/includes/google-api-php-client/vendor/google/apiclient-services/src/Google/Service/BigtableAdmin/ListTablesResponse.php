@@ -17,31 +17,31 @@
 
 class Google_Service_BigtableAdmin_ListTablesResponse extends Google_Collection
 {
-	protected $collection_key = 'tables';
-	public $nextPageToken;
-	protected $tablesType = 'Google_Service_BigtableAdmin_Table';
-	protected $tablesDataType = 'array';
+  protected $collection_key = 'tables';
+  public $nextPageToken;
+  protected $tablesType = 'Google_Service_BigtableAdmin_Table';
+  protected $tablesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_BigtableAdmin_Table
-	 */
-	public function setTables($tables)
-	{
-		$this->tables = $tables;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_Table
-	 */
-	public function getTables()
-	{
-		return $this->tables;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_BigtableAdmin_Table[]
+   */
+  public function setTables($tables)
+  {
+    $this->tables = $tables;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_Table[]
+   */
+  public function getTables()
+  {
+    return $this->tables;
+  }
 }

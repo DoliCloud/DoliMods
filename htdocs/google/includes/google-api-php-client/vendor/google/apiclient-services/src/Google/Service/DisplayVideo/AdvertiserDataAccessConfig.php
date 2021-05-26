@@ -17,21 +17,21 @@
 
 class Google_Service_DisplayVideo_AdvertiserDataAccessConfig extends Google_Model
 {
-	protected $sdfConfigType = 'Google_Service_DisplayVideo_AdvertiserSdfConfig';
-	protected $sdfConfigDataType = '';
+  protected $sdfConfigType = 'Google_Service_DisplayVideo_AdvertiserSdfConfig';
+  protected $sdfConfigDataType = '';
 
-	/**
-	 * @param Google_Service_DisplayVideo_AdvertiserSdfConfig
-	 */
-	public function setSdfConfig(Google_Service_DisplayVideo_AdvertiserSdfConfig $sdfConfig)
-	{
-		$this->sdfConfig = $sdfConfig;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_AdvertiserSdfConfig
-	 */
-	public function getSdfConfig()
-	{
-		return $this->sdfConfig;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_AdvertiserSdfConfig
+   */
+  public function setSdfConfig(Google_Service_DisplayVideo_AdvertiserSdfConfig $sdfConfig)
+  {
+    $this->sdfConfig = $sdfConfig;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_AdvertiserSdfConfig
+   */
+  public function getSdfConfig()
+  {
+    return $this->sdfConfig;
+  }
 }

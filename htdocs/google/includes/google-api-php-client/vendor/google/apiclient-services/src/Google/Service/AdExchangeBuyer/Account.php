@@ -17,94 +17,94 @@
 
 class Google_Service_AdExchangeBuyer_Account extends Google_Collection
 {
-	protected $collection_key = 'bidderLocation';
-	public $applyPretargetingToNonGuaranteedDeals;
-	protected $bidderLocationType = 'Google_Service_AdExchangeBuyer_AccountBidderLocation';
-	protected $bidderLocationDataType = 'array';
-	public $cookieMatchingNid;
-	public $cookieMatchingUrl;
-	public $id;
-	public $kind;
-	public $maximumActiveCreatives;
-	public $maximumTotalQps;
-	public $numberActiveCreatives;
+  protected $collection_key = 'bidderLocation';
+  public $applyPretargetingToNonGuaranteedDeals;
+  protected $bidderLocationType = 'Google_Service_AdExchangeBuyer_AccountBidderLocation';
+  protected $bidderLocationDataType = 'array';
+  public $cookieMatchingNid;
+  public $cookieMatchingUrl;
+  public $id;
+  public $kind;
+  public $maximumActiveCreatives;
+  public $maximumTotalQps;
+  public $numberActiveCreatives;
 
-	public function setApplyPretargetingToNonGuaranteedDeals($applyPretargetingToNonGuaranteedDeals)
-	{
-		$this->applyPretargetingToNonGuaranteedDeals = $applyPretargetingToNonGuaranteedDeals;
-	}
-	public function getApplyPretargetingToNonGuaranteedDeals()
-	{
-		return $this->applyPretargetingToNonGuaranteedDeals;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyer_AccountBidderLocation
-	 */
-	public function setBidderLocation($bidderLocation)
-	{
-		$this->bidderLocation = $bidderLocation;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyer_AccountBidderLocation
-	 */
-	public function getBidderLocation()
-	{
-		return $this->bidderLocation;
-	}
-	public function setCookieMatchingNid($cookieMatchingNid)
-	{
-		$this->cookieMatchingNid = $cookieMatchingNid;
-	}
-	public function getCookieMatchingNid()
-	{
-		return $this->cookieMatchingNid;
-	}
-	public function setCookieMatchingUrl($cookieMatchingUrl)
-	{
-		$this->cookieMatchingUrl = $cookieMatchingUrl;
-	}
-	public function getCookieMatchingUrl()
-	{
-		return $this->cookieMatchingUrl;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setMaximumActiveCreatives($maximumActiveCreatives)
-	{
-		$this->maximumActiveCreatives = $maximumActiveCreatives;
-	}
-	public function getMaximumActiveCreatives()
-	{
-		return $this->maximumActiveCreatives;
-	}
-	public function setMaximumTotalQps($maximumTotalQps)
-	{
-		$this->maximumTotalQps = $maximumTotalQps;
-	}
-	public function getMaximumTotalQps()
-	{
-		return $this->maximumTotalQps;
-	}
-	public function setNumberActiveCreatives($numberActiveCreatives)
-	{
-		$this->numberActiveCreatives = $numberActiveCreatives;
-	}
-	public function getNumberActiveCreatives()
-	{
-		return $this->numberActiveCreatives;
-	}
+  public function setApplyPretargetingToNonGuaranteedDeals($applyPretargetingToNonGuaranteedDeals)
+  {
+    $this->applyPretargetingToNonGuaranteedDeals = $applyPretargetingToNonGuaranteedDeals;
+  }
+  public function getApplyPretargetingToNonGuaranteedDeals()
+  {
+    return $this->applyPretargetingToNonGuaranteedDeals;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyer_AccountBidderLocation[]
+   */
+  public function setBidderLocation($bidderLocation)
+  {
+    $this->bidderLocation = $bidderLocation;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyer_AccountBidderLocation[]
+   */
+  public function getBidderLocation()
+  {
+    return $this->bidderLocation;
+  }
+  public function setCookieMatchingNid($cookieMatchingNid)
+  {
+    $this->cookieMatchingNid = $cookieMatchingNid;
+  }
+  public function getCookieMatchingNid()
+  {
+    return $this->cookieMatchingNid;
+  }
+  public function setCookieMatchingUrl($cookieMatchingUrl)
+  {
+    $this->cookieMatchingUrl = $cookieMatchingUrl;
+  }
+  public function getCookieMatchingUrl()
+  {
+    return $this->cookieMatchingUrl;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setMaximumActiveCreatives($maximumActiveCreatives)
+  {
+    $this->maximumActiveCreatives = $maximumActiveCreatives;
+  }
+  public function getMaximumActiveCreatives()
+  {
+    return $this->maximumActiveCreatives;
+  }
+  public function setMaximumTotalQps($maximumTotalQps)
+  {
+    $this->maximumTotalQps = $maximumTotalQps;
+  }
+  public function getMaximumTotalQps()
+  {
+    return $this->maximumTotalQps;
+  }
+  public function setNumberActiveCreatives($numberActiveCreatives)
+  {
+    $this->numberActiveCreatives = $numberActiveCreatives;
+  }
+  public function getNumberActiveCreatives()
+  {
+    return $this->numberActiveCreatives;
+  }
 }

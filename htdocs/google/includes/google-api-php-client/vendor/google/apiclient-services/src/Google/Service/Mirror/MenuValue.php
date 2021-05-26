@@ -17,32 +17,32 @@
 
 class Google_Service_Mirror_MenuValue extends Google_Model
 {
-	public $displayName;
-	public $iconUrl;
-	public $state;
+  public $displayName;
+  public $iconUrl;
+  public $state;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setIconUrl($iconUrl)
-	{
-		$this->iconUrl = $iconUrl;
-	}
-	public function getIconUrl()
-	{
-		return $this->iconUrl;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setIconUrl($iconUrl)
+  {
+    $this->iconUrl = $iconUrl;
+  }
+  public function getIconUrl()
+  {
+    return $this->iconUrl;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

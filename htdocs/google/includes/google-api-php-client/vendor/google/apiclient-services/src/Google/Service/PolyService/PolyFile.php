@@ -17,32 +17,32 @@
 
 class Google_Service_PolyService_PolyFile extends Google_Model
 {
-	public $contentType;
-	public $relativePath;
-	public $url;
+  public $contentType;
+  public $relativePath;
+  public $url;
 
-	public function setContentType($contentType)
-	{
-		$this->contentType = $contentType;
-	}
-	public function getContentType()
-	{
-		return $this->contentType;
-	}
-	public function setRelativePath($relativePath)
-	{
-		$this->relativePath = $relativePath;
-	}
-	public function getRelativePath()
-	{
-		return $this->relativePath;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setContentType($contentType)
+  {
+    $this->contentType = $contentType;
+  }
+  public function getContentType()
+  {
+    return $this->contentType;
+  }
+  public function setRelativePath($relativePath)
+  {
+    $this->relativePath = $relativePath;
+  }
+  public function getRelativePath()
+  {
+    return $this->relativePath;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

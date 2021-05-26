@@ -17,23 +17,23 @@
 
 class Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination extends Google_Model
 {
-	public $force;
-	public $tableUri;
+  public $force;
+  public $tableUri;
 
-	public function setForce($force)
-	{
-		$this->force = $force;
-	}
-	public function getForce()
-	{
-		return $this->force;
-	}
-	public function setTableUri($tableUri)
-	{
-		$this->tableUri = $tableUri;
-	}
-	public function getTableUri()
-	{
-		return $this->tableUri;
-	}
+  public function setForce($force)
+  {
+    $this->force = $force;
+  }
+  public function getForce()
+  {
+    return $this->force;
+  }
+  public function setTableUri($tableUri)
+  {
+    $this->tableUri = $tableUri;
+  }
+  public function getTableUri()
+  {
+    return $this->tableUri;
+  }
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_Bigquery_ArimaCoefficients extends Google_Collection
 {
-	protected $collection_key = 'movingAverageCoefficients';
-	public $autoRegressiveCoefficients;
-	public $interceptCoefficient;
-	public $movingAverageCoefficients;
+  protected $collection_key = 'movingAverageCoefficients';
+  public $autoRegressiveCoefficients;
+  public $interceptCoefficient;
+  public $movingAverageCoefficients;
 
-	public function setAutoRegressiveCoefficients($autoRegressiveCoefficients)
-	{
-		$this->autoRegressiveCoefficients = $autoRegressiveCoefficients;
-	}
-	public function getAutoRegressiveCoefficients()
-	{
-		return $this->autoRegressiveCoefficients;
-	}
-	public function setInterceptCoefficient($interceptCoefficient)
-	{
-		$this->interceptCoefficient = $interceptCoefficient;
-	}
-	public function getInterceptCoefficient()
-	{
-		return $this->interceptCoefficient;
-	}
-	public function setMovingAverageCoefficients($movingAverageCoefficients)
-	{
-		$this->movingAverageCoefficients = $movingAverageCoefficients;
-	}
-	public function getMovingAverageCoefficients()
-	{
-		return $this->movingAverageCoefficients;
-	}
+  public function setAutoRegressiveCoefficients($autoRegressiveCoefficients)
+  {
+    $this->autoRegressiveCoefficients = $autoRegressiveCoefficients;
+  }
+  public function getAutoRegressiveCoefficients()
+  {
+    return $this->autoRegressiveCoefficients;
+  }
+  public function setInterceptCoefficient($interceptCoefficient)
+  {
+    $this->interceptCoefficient = $interceptCoefficient;
+  }
+  public function getInterceptCoefficient()
+  {
+    return $this->interceptCoefficient;
+  }
+  public function setMovingAverageCoefficients($movingAverageCoefficients)
+  {
+    $this->movingAverageCoefficients = $movingAverageCoefficients;
+  }
+  public function getMovingAverageCoefficients()
+  {
+    return $this->movingAverageCoefficients;
+  }
 }

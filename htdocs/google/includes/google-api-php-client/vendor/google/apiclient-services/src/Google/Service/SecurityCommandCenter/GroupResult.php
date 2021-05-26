@@ -17,23 +17,23 @@
 
 class Google_Service_SecurityCommandCenter_GroupResult extends Google_Model
 {
-	public $count;
-	public $properties;
+  public $count;
+  public $properties;
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	public function setProperties($properties)
-	{
-		$this->properties = $properties;
-	}
-	public function getProperties()
-	{
-		return $this->properties;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  public function setProperties($properties)
+  {
+    $this->properties = $properties;
+  }
+  public function getProperties()
+  {
+    return $this->properties;
+  }
 }

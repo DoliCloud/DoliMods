@@ -17,31 +17,31 @@
 
 class Google_Service_Bigquery_Row extends Google_Collection
 {
-	protected $collection_key = 'entries';
-	public $actualLabel;
-	protected $entriesType = 'Google_Service_Bigquery_Entry';
-	protected $entriesDataType = 'array';
+  protected $collection_key = 'entries';
+  public $actualLabel;
+  protected $entriesType = 'Google_Service_Bigquery_Entry';
+  protected $entriesDataType = 'array';
 
-	public function setActualLabel($actualLabel)
-	{
-		$this->actualLabel = $actualLabel;
-	}
-	public function getActualLabel()
-	{
-		return $this->actualLabel;
-	}
-	/**
-	 * @param Google_Service_Bigquery_Entry
-	 */
-	public function setEntries($entries)
-	{
-		$this->entries = $entries;
-	}
-	/**
-	 * @return Google_Service_Bigquery_Entry
-	 */
-	public function getEntries()
-	{
-		return $this->entries;
-	}
+  public function setActualLabel($actualLabel)
+  {
+    $this->actualLabel = $actualLabel;
+  }
+  public function getActualLabel()
+  {
+    return $this->actualLabel;
+  }
+  /**
+   * @param Google_Service_Bigquery_Entry[]
+   */
+  public function setEntries($entries)
+  {
+    $this->entries = $entries;
+  }
+  /**
+   * @return Google_Service_Bigquery_Entry[]
+   */
+  public function getEntries()
+  {
+    return $this->entries;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_YouTubeReporting_GdataDiffDownloadResponse extends Google_Model
 {
-	protected $objectLocationType = 'Google_Service_YouTubeReporting_GdataCompositeMedia';
-	protected $objectLocationDataType = '';
+  protected $objectLocationType = 'Google_Service_YouTubeReporting_GdataCompositeMedia';
+  protected $objectLocationDataType = '';
 
-	/**
-	 * @param Google_Service_YouTubeReporting_GdataCompositeMedia
-	 */
-	public function setObjectLocation(Google_Service_YouTubeReporting_GdataCompositeMedia $objectLocation)
-	{
-		$this->objectLocation = $objectLocation;
-	}
-	/**
-	 * @return Google_Service_YouTubeReporting_GdataCompositeMedia
-	 */
-	public function getObjectLocation()
-	{
-		return $this->objectLocation;
-	}
+  /**
+   * @param Google_Service_YouTubeReporting_GdataCompositeMedia
+   */
+  public function setObjectLocation(Google_Service_YouTubeReporting_GdataCompositeMedia $objectLocation)
+  {
+    $this->objectLocation = $objectLocation;
+  }
+  /**
+   * @return Google_Service_YouTubeReporting_GdataCompositeMedia
+   */
+  public function getObjectLocation()
+  {
+    return $this->objectLocation;
+  }
 }

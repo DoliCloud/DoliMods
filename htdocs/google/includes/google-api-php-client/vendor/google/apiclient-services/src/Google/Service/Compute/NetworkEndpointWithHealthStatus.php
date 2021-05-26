@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_NetworkEndpointWithHealthStatus extends Google_Collection
 {
-	protected $collection_key = 'healths';
-	protected $healthsType = 'Google_Service_Compute_HealthStatusForNetworkEndpoint';
-	protected $healthsDataType = 'array';
-	protected $networkEndpointType = 'Google_Service_Compute_NetworkEndpoint';
-	protected $networkEndpointDataType = '';
+  protected $collection_key = 'healths';
+  protected $healthsType = 'Google_Service_Compute_HealthStatusForNetworkEndpoint';
+  protected $healthsDataType = 'array';
+  protected $networkEndpointType = 'Google_Service_Compute_NetworkEndpoint';
+  protected $networkEndpointDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_HealthStatusForNetworkEndpoint
-	 */
-	public function setHealths($healths)
-	{
-		$this->healths = $healths;
-	}
-	/**
-	 * @return Google_Service_Compute_HealthStatusForNetworkEndpoint
-	 */
-	public function getHealths()
-	{
-		return $this->healths;
-	}
-	/**
-	 * @param Google_Service_Compute_NetworkEndpoint
-	 */
-	public function setNetworkEndpoint(Google_Service_Compute_NetworkEndpoint $networkEndpoint)
-	{
-		$this->networkEndpoint = $networkEndpoint;
-	}
-	/**
-	 * @return Google_Service_Compute_NetworkEndpoint
-	 */
-	public function getNetworkEndpoint()
-	{
-		return $this->networkEndpoint;
-	}
+  /**
+   * @param Google_Service_Compute_HealthStatusForNetworkEndpoint[]
+   */
+  public function setHealths($healths)
+  {
+    $this->healths = $healths;
+  }
+  /**
+   * @return Google_Service_Compute_HealthStatusForNetworkEndpoint[]
+   */
+  public function getHealths()
+  {
+    return $this->healths;
+  }
+  /**
+   * @param Google_Service_Compute_NetworkEndpoint
+   */
+  public function setNetworkEndpoint(Google_Service_Compute_NetworkEndpoint $networkEndpoint)
+  {
+    $this->networkEndpoint = $networkEndpoint;
+  }
+  /**
+   * @return Google_Service_Compute_NetworkEndpoint
+   */
+  public function getNetworkEndpoint()
+  {
+    return $this->networkEndpoint;
+  }
 }

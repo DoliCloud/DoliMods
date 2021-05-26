@@ -17,38 +17,38 @@
 
 class Google_Service_AdExchangeBuyerII_CreativeSpecification extends Google_Collection
 {
-	protected $collection_key = 'creativeCompanionSizes';
-	protected $creativeCompanionSizesType = 'Google_Service_AdExchangeBuyerII_AdSize';
-	protected $creativeCompanionSizesDataType = 'array';
-	protected $creativeSizeType = 'Google_Service_AdExchangeBuyerII_AdSize';
-	protected $creativeSizeDataType = '';
+  protected $collection_key = 'creativeCompanionSizes';
+  protected $creativeCompanionSizesType = 'Google_Service_AdExchangeBuyerII_AdSize';
+  protected $creativeCompanionSizesDataType = 'array';
+  protected $creativeSizeType = 'Google_Service_AdExchangeBuyerII_AdSize';
+  protected $creativeSizeDataType = '';
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_AdSize
-	 */
-	public function setCreativeCompanionSizes($creativeCompanionSizes)
-	{
-		$this->creativeCompanionSizes = $creativeCompanionSizes;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_AdSize
-	 */
-	public function getCreativeCompanionSizes()
-	{
-		return $this->creativeCompanionSizes;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_AdSize
-	 */
-	public function setCreativeSize(Google_Service_AdExchangeBuyerII_AdSize $creativeSize)
-	{
-		$this->creativeSize = $creativeSize;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_AdSize
-	 */
-	public function getCreativeSize()
-	{
-		return $this->creativeSize;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_AdSize[]
+   */
+  public function setCreativeCompanionSizes($creativeCompanionSizes)
+  {
+    $this->creativeCompanionSizes = $creativeCompanionSizes;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_AdSize[]
+   */
+  public function getCreativeCompanionSizes()
+  {
+    return $this->creativeCompanionSizes;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_AdSize
+   */
+  public function setCreativeSize(Google_Service_AdExchangeBuyerII_AdSize $creativeSize)
+  {
+    $this->creativeSize = $creativeSize;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_AdSize
+   */
+  public function getCreativeSize()
+  {
+    return $this->creativeSize;
+  }
 }

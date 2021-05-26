@@ -17,32 +17,32 @@
 
 class Google_Service_FirebaseManagement_ProjectInfo extends Google_Model
 {
-	public $displayName;
-	public $locationId;
-	public $project;
+  public $displayName;
+  public $locationId;
+  public $project;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setLocationId($locationId)
-	{
-		$this->locationId = $locationId;
-	}
-	public function getLocationId()
-	{
-		return $this->locationId;
-	}
-	public function setProject($project)
-	{
-		$this->project = $project;
-	}
-	public function getProject()
-	{
-		return $this->project;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
+  }
+  public function setProject($project)
+  {
+    $this->project = $project;
+  }
+  public function getProject()
+  {
+    return $this->project;
+  }
 }

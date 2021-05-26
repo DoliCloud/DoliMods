@@ -17,69 +17,69 @@
 
 class Google_Service_CloudDebugger_SourceContext extends Google_Model
 {
-	protected $cloudRepoType = 'Google_Service_CloudDebugger_CloudRepoSourceContext';
-	protected $cloudRepoDataType = '';
-	protected $cloudWorkspaceType = 'Google_Service_CloudDebugger_CloudWorkspaceSourceContext';
-	protected $cloudWorkspaceDataType = '';
-	protected $gerritType = 'Google_Service_CloudDebugger_GerritSourceContext';
-	protected $gerritDataType = '';
-	protected $gitType = 'Google_Service_CloudDebugger_GitSourceContext';
-	protected $gitDataType = '';
+  protected $cloudRepoType = 'Google_Service_CloudDebugger_CloudRepoSourceContext';
+  protected $cloudRepoDataType = '';
+  protected $cloudWorkspaceType = 'Google_Service_CloudDebugger_CloudWorkspaceSourceContext';
+  protected $cloudWorkspaceDataType = '';
+  protected $gerritType = 'Google_Service_CloudDebugger_GerritSourceContext';
+  protected $gerritDataType = '';
+  protected $gitType = 'Google_Service_CloudDebugger_GitSourceContext';
+  protected $gitDataType = '';
 
-	/**
-	 * @param Google_Service_CloudDebugger_CloudRepoSourceContext
-	 */
-	public function setCloudRepo(Google_Service_CloudDebugger_CloudRepoSourceContext $cloudRepo)
-	{
-		$this->cloudRepo = $cloudRepo;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_CloudRepoSourceContext
-	 */
-	public function getCloudRepo()
-	{
-		return $this->cloudRepo;
-	}
-	/**
-	 * @param Google_Service_CloudDebugger_CloudWorkspaceSourceContext
-	 */
-	public function setCloudWorkspace(Google_Service_CloudDebugger_CloudWorkspaceSourceContext $cloudWorkspace)
-	{
-		$this->cloudWorkspace = $cloudWorkspace;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_CloudWorkspaceSourceContext
-	 */
-	public function getCloudWorkspace()
-	{
-		return $this->cloudWorkspace;
-	}
-	/**
-	 * @param Google_Service_CloudDebugger_GerritSourceContext
-	 */
-	public function setGerrit(Google_Service_CloudDebugger_GerritSourceContext $gerrit)
-	{
-		$this->gerrit = $gerrit;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_GerritSourceContext
-	 */
-	public function getGerrit()
-	{
-		return $this->gerrit;
-	}
-	/**
-	 * @param Google_Service_CloudDebugger_GitSourceContext
-	 */
-	public function setGit(Google_Service_CloudDebugger_GitSourceContext $git)
-	{
-		$this->git = $git;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_GitSourceContext
-	 */
-	public function getGit()
-	{
-		return $this->git;
-	}
+  /**
+   * @param Google_Service_CloudDebugger_CloudRepoSourceContext
+   */
+  public function setCloudRepo(Google_Service_CloudDebugger_CloudRepoSourceContext $cloudRepo)
+  {
+    $this->cloudRepo = $cloudRepo;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_CloudRepoSourceContext
+   */
+  public function getCloudRepo()
+  {
+    return $this->cloudRepo;
+  }
+  /**
+   * @param Google_Service_CloudDebugger_CloudWorkspaceSourceContext
+   */
+  public function setCloudWorkspace(Google_Service_CloudDebugger_CloudWorkspaceSourceContext $cloudWorkspace)
+  {
+    $this->cloudWorkspace = $cloudWorkspace;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_CloudWorkspaceSourceContext
+   */
+  public function getCloudWorkspace()
+  {
+    return $this->cloudWorkspace;
+  }
+  /**
+   * @param Google_Service_CloudDebugger_GerritSourceContext
+   */
+  public function setGerrit(Google_Service_CloudDebugger_GerritSourceContext $gerrit)
+  {
+    $this->gerrit = $gerrit;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_GerritSourceContext
+   */
+  public function getGerrit()
+  {
+    return $this->gerrit;
+  }
+  /**
+   * @param Google_Service_CloudDebugger_GitSourceContext
+   */
+  public function setGit(Google_Service_CloudDebugger_GitSourceContext $git)
+  {
+    $this->git = $git;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_GitSourceContext
+   */
+  public function getGit()
+  {
+    return $this->git;
+  }
 }

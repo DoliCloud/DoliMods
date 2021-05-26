@@ -17,22 +17,22 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ImageLocation extends Google_Collection
 {
-	protected $collection_key = 'boundingBoxes';
-	protected $boundingBoxesType = 'Google_Service_DLP_GooglePrivacyDlpV2BoundingBox';
-	protected $boundingBoxesDataType = 'array';
+  protected $collection_key = 'boundingBoxes';
+  protected $boundingBoxesType = 'Google_Service_DLP_GooglePrivacyDlpV2BoundingBox';
+  protected $boundingBoxesDataType = 'array';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2BoundingBox
-	 */
-	public function setBoundingBoxes($boundingBoxes)
-	{
-		$this->boundingBoxes = $boundingBoxes;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2BoundingBox
-	 */
-	public function getBoundingBoxes()
-	{
-		return $this->boundingBoxes;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2BoundingBox[]
+   */
+  public function setBoundingBoxes($boundingBoxes)
+  {
+    $this->boundingBoxes = $boundingBoxes;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2BoundingBox[]
+   */
+  public function getBoundingBoxes()
+  {
+    return $this->boundingBoxes;
+  }
 }

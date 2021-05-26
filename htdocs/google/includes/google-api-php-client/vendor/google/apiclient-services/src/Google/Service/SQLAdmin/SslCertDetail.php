@@ -17,30 +17,30 @@
 
 class Google_Service_SQLAdmin_SslCertDetail extends Google_Model
 {
-	protected $certInfoType = 'Google_Service_SQLAdmin_SslCert';
-	protected $certInfoDataType = '';
-	public $certPrivateKey;
+  protected $certInfoType = 'Google_Service_SQLAdmin_SslCert';
+  protected $certInfoDataType = '';
+  public $certPrivateKey;
 
-	/**
-	 * @param Google_Service_SQLAdmin_SslCert
-	 */
-	public function setCertInfo(Google_Service_SQLAdmin_SslCert $certInfo)
-	{
-		$this->certInfo = $certInfo;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_SslCert
-	 */
-	public function getCertInfo()
-	{
-		return $this->certInfo;
-	}
-	public function setCertPrivateKey($certPrivateKey)
-	{
-		$this->certPrivateKey = $certPrivateKey;
-	}
-	public function getCertPrivateKey()
-	{
-		return $this->certPrivateKey;
-	}
+  /**
+   * @param Google_Service_SQLAdmin_SslCert
+   */
+  public function setCertInfo(Google_Service_SQLAdmin_SslCert $certInfo)
+  {
+    $this->certInfo = $certInfo;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_SslCert
+   */
+  public function getCertInfo()
+  {
+    return $this->certInfo;
+  }
+  public function setCertPrivateKey($certPrivateKey)
+  {
+    $this->certPrivateKey = $certPrivateKey;
+  }
+  public function getCertPrivateKey()
+  {
+    return $this->certPrivateKey;
+  }
 }

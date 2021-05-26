@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_ReturnpolicyListResponse extends Google_Collection
 {
-	protected $collection_key = 'resources';
-	public $kind;
-	protected $resourcesType = 'Google_Service_ShoppingContent_ReturnPolicy';
-	protected $resourcesDataType = 'array';
+  protected $collection_key = 'resources';
+  public $kind;
+  protected $resourcesType = 'Google_Service_ShoppingContent_ReturnPolicy';
+  protected $resourcesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_ReturnPolicy
-	 */
-	public function setResources($resources)
-	{
-		$this->resources = $resources;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_ReturnPolicy
-	 */
-	public function getResources()
-	{
-		return $this->resources;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_ReturnPolicy[]
+   */
+  public function setResources($resources)
+  {
+    $this->resources = $resources;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_ReturnPolicy[]
+   */
+  public function getResources()
+  {
+    return $this->resources;
+  }
 }

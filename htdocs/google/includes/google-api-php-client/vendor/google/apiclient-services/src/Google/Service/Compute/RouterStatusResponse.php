@@ -17,30 +17,30 @@
 
 class Google_Service_Compute_RouterStatusResponse extends Google_Model
 {
-	public $kind;
-	protected $resultType = 'Google_Service_Compute_RouterStatus';
-	protected $resultDataType = '';
+  public $kind;
+  protected $resultType = 'Google_Service_Compute_RouterStatus';
+  protected $resultDataType = '';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Compute_RouterStatus
-	 */
-	public function setResult(Google_Service_Compute_RouterStatus $result)
-	{
-		$this->result = $result;
-	}
-	/**
-	 * @return Google_Service_Compute_RouterStatus
-	 */
-	public function getResult()
-	{
-		return $this->result;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Compute_RouterStatus
+   */
+  public function setResult(Google_Service_Compute_RouterStatus $result)
+  {
+    $this->result = $result;
+  }
+  /**
+   * @return Google_Service_Compute_RouterStatus
+   */
+  public function getResult()
+  {
+    return $this->result;
+  }
 }

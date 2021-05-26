@@ -17,30 +17,30 @@
 
 class Google_Service_Bigquery_RangePartitioning extends Google_Model
 {
-	public $field;
-	protected $rangeType = 'Google_Service_Bigquery_RangePartitioningRange';
-	protected $rangeDataType = '';
+  public $field;
+  protected $rangeType = 'Google_Service_Bigquery_RangePartitioningRange';
+  protected $rangeDataType = '';
 
-	public function setField($field)
-	{
-		$this->field = $field;
-	}
-	public function getField()
-	{
-		return $this->field;
-	}
-	/**
-	 * @param Google_Service_Bigquery_RangePartitioningRange
-	 */
-	public function setRange(Google_Service_Bigquery_RangePartitioningRange $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Bigquery_RangePartitioningRange
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
+  public function setField($field)
+  {
+    $this->field = $field;
+  }
+  public function getField()
+  {
+    return $this->field;
+  }
+  /**
+   * @param Google_Service_Bigquery_RangePartitioningRange
+   */
+  public function setRange(Google_Service_Bigquery_RangePartitioningRange $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Bigquery_RangePartitioningRange
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

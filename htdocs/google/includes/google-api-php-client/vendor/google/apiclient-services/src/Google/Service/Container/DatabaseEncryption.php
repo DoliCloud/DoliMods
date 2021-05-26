@@ -17,23 +17,23 @@
 
 class Google_Service_Container_DatabaseEncryption extends Google_Model
 {
-	public $keyName;
-	public $state;
+  public $keyName;
+  public $state;
 
-	public function setKeyName($keyName)
-	{
-		$this->keyName = $keyName;
-	}
-	public function getKeyName()
-	{
-		return $this->keyName;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setKeyName($keyName)
+  {
+    $this->keyName = $keyName;
+  }
+  public function getKeyName()
+  {
+    return $this->keyName;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

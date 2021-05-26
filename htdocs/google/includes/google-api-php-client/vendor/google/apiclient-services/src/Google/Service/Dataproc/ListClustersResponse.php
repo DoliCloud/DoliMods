@@ -17,31 +17,31 @@
 
 class Google_Service_Dataproc_ListClustersResponse extends Google_Collection
 {
-	protected $collection_key = 'clusters';
-	protected $clustersType = 'Google_Service_Dataproc_Cluster';
-	protected $clustersDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'clusters';
+  protected $clustersType = 'Google_Service_Dataproc_Cluster';
+  protected $clustersDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dataproc_Cluster
-	 */
-	public function setClusters($clusters)
-	{
-		$this->clusters = $clusters;
-	}
-	/**
-	 * @return Google_Service_Dataproc_Cluster
-	 */
-	public function getClusters()
-	{
-		return $this->clusters;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dataproc_Cluster[]
+   */
+  public function setClusters($clusters)
+  {
+    $this->clusters = $clusters;
+  }
+  /**
+   * @return Google_Service_Dataproc_Cluster[]
+   */
+  public function getClusters()
+  {
+    return $this->clusters;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_DeploymentManager_TypesListResponse extends Google_Collection
 {
-	protected $collection_key = 'types';
-	public $nextPageToken;
-	protected $typesType = 'Google_Service_DeploymentManager_Type';
-	protected $typesDataType = 'array';
+  protected $collection_key = 'types';
+  public $nextPageToken;
+  protected $typesType = 'Google_Service_DeploymentManager_Type';
+  protected $typesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_DeploymentManager_Type
-	 */
-	public function setTypes($types)
-	{
-		$this->types = $types;
-	}
-	/**
-	 * @return Google_Service_DeploymentManager_Type
-	 */
-	public function getTypes()
-	{
-		return $this->types;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_DeploymentManager_Type[]
+   */
+  public function setTypes($types)
+  {
+    $this->types = $types;
+  }
+  /**
+   * @return Google_Service_DeploymentManager_Type[]
+   */
+  public function getTypes()
+  {
+    return $this->types;
+  }
 }

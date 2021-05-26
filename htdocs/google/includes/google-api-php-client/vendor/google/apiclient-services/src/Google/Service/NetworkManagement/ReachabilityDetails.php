@@ -17,56 +17,56 @@
 
 class Google_Service_NetworkManagement_ReachabilityDetails extends Google_Collection
 {
-	protected $collection_key = 'traces';
-	protected $errorType = 'Google_Service_NetworkManagement_Status';
-	protected $errorDataType = '';
-	public $result;
-	protected $tracesType = 'Google_Service_NetworkManagement_Trace';
-	protected $tracesDataType = 'array';
-	public $verifyTime;
+  protected $collection_key = 'traces';
+  protected $errorType = 'Google_Service_NetworkManagement_Status';
+  protected $errorDataType = '';
+  public $result;
+  protected $tracesType = 'Google_Service_NetworkManagement_Trace';
+  protected $tracesDataType = 'array';
+  public $verifyTime;
 
-	/**
-	 * @param Google_Service_NetworkManagement_Status
-	 */
-	public function setError(Google_Service_NetworkManagement_Status $error)
-	{
-		$this->error = $error;
-	}
-	/**
-	 * @return Google_Service_NetworkManagement_Status
-	 */
-	public function getError()
-	{
-		return $this->error;
-	}
-	public function setResult($result)
-	{
-		$this->result = $result;
-	}
-	public function getResult()
-	{
-		return $this->result;
-	}
-	/**
-	 * @param Google_Service_NetworkManagement_Trace
-	 */
-	public function setTraces($traces)
-	{
-		$this->traces = $traces;
-	}
-	/**
-	 * @return Google_Service_NetworkManagement_Trace
-	 */
-	public function getTraces()
-	{
-		return $this->traces;
-	}
-	public function setVerifyTime($verifyTime)
-	{
-		$this->verifyTime = $verifyTime;
-	}
-	public function getVerifyTime()
-	{
-		return $this->verifyTime;
-	}
+  /**
+   * @param Google_Service_NetworkManagement_Status
+   */
+  public function setError(Google_Service_NetworkManagement_Status $error)
+  {
+    $this->error = $error;
+  }
+  /**
+   * @return Google_Service_NetworkManagement_Status
+   */
+  public function getError()
+  {
+    return $this->error;
+  }
+  public function setResult($result)
+  {
+    $this->result = $result;
+  }
+  public function getResult()
+  {
+    return $this->result;
+  }
+  /**
+   * @param Google_Service_NetworkManagement_Trace[]
+   */
+  public function setTraces($traces)
+  {
+    $this->traces = $traces;
+  }
+  /**
+   * @return Google_Service_NetworkManagement_Trace[]
+   */
+  public function getTraces()
+  {
+    return $this->traces;
+  }
+  public function setVerifyTime($verifyTime)
+  {
+    $this->verifyTime = $verifyTime;
+  }
+  public function getVerifyTime()
+  {
+    return $this->verifyTime;
+  }
 }

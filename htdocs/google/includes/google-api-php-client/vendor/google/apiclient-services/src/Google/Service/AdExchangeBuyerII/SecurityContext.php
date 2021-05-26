@@ -17,15 +17,15 @@
 
 class Google_Service_AdExchangeBuyerII_SecurityContext extends Google_Collection
 {
-	protected $collection_key = 'securities';
-	public $securities;
+  protected $collection_key = 'securities';
+  public $securities;
 
-	public function setSecurities($securities)
-	{
-		$this->securities = $securities;
-	}
-	public function getSecurities()
-	{
-		return $this->securities;
-	}
+  public function setSecurities($securities)
+  {
+    $this->securities = $securities;
+  }
+  public function getSecurities()
+  {
+    return $this->securities;
+  }
 }

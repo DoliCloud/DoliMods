@@ -25,41 +25,41 @@
  */
 class Google_Service_AndroidPublisher_Resource_EditsBundles extends Google_Service_Resource
 {
-	/**
-	 * Lists all current Android App Bundles of the app and edit.
-	 * (bundles.listEditsBundles)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_BundlesListResponse
-	 */
-	public function listEditsBundles($packageName, $editId, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AndroidPublisher_BundlesListResponse");
-	}
-	/**
-	 * Uploads a new Android App Bundle to this edit. If you are using the Google
-	 * API client libraries, please increase the timeout of the http request before
-	 * calling this endpoint (a timeout of 2 minutes is recommended). See [Timeouts
-	 * and Errors](https://developers.google.com/api-client-library/java/google-api-
-	 * java-client/errors) for an example in java. (bundles.upload)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param bool ackBundleInstallationWarning Must be set to true if the
-	 * bundle installation may trigger a warning on user devices (for example, if
-	 * installation size may be over a threshold, typically 100 MB).
-	 * @return Google_Service_AndroidPublisher_Bundle
-	 */
-	public function upload($packageName, $editId, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId);
-		$params = array_merge($params, $optParams);
-		return $this->call('upload', array($params), "Google_Service_AndroidPublisher_Bundle");
-	}
+  /**
+   * Lists all current Android App Bundles of the app and edit.
+   * (bundles.listEditsBundles)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_BundlesListResponse
+   */
+  public function listEditsBundles($packageName, $editId, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AndroidPublisher_BundlesListResponse");
+  }
+  /**
+   * Uploads a new Android App Bundle to this edit. If you are using the Google
+   * API client libraries, please increase the timeout of the http request before
+   * calling this endpoint (a timeout of 2 minutes is recommended). See [Timeouts
+   * and Errors](https://developers.google.com/api-client-library/java/google-api-
+   * java-client/errors) for an example in java. (bundles.upload)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param bool ackBundleInstallationWarning Must be set to true if the
+   * bundle installation may trigger a warning on user devices (for example, if
+   * installation size may be over a threshold, typically 100 MB).
+   * @return Google_Service_AndroidPublisher_Bundle
+   */
+  public function upload($packageName, $editId, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId);
+    $params = array_merge($params, $optParams);
+    return $this->call('upload', array($params), "Google_Service_AndroidPublisher_Bundle");
+  }
 }

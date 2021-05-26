@@ -17,31 +17,31 @@
 
 class Google_Service_Dns_PolicyAlternativeNameServerConfig extends Google_Collection
 {
-	protected $collection_key = 'targetNameServers';
-	public $kind;
-	protected $targetNameServersType = 'Google_Service_Dns_PolicyAlternativeNameServerConfigTargetNameServer';
-	protected $targetNameServersDataType = 'array';
+  protected $collection_key = 'targetNameServers';
+  public $kind;
+  protected $targetNameServersType = 'Google_Service_Dns_PolicyAlternativeNameServerConfigTargetNameServer';
+  protected $targetNameServersDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dns_PolicyAlternativeNameServerConfigTargetNameServer
-	 */
-	public function setTargetNameServers($targetNameServers)
-	{
-		$this->targetNameServers = $targetNameServers;
-	}
-	/**
-	 * @return Google_Service_Dns_PolicyAlternativeNameServerConfigTargetNameServer
-	 */
-	public function getTargetNameServers()
-	{
-		return $this->targetNameServers;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dns_PolicyAlternativeNameServerConfigTargetNameServer[]
+   */
+  public function setTargetNameServers($targetNameServers)
+  {
+    $this->targetNameServers = $targetNameServers;
+  }
+  /**
+   * @return Google_Service_Dns_PolicyAlternativeNameServerConfigTargetNameServer[]
+   */
+  public function getTargetNameServers()
+  {
+    return $this->targetNameServers;
+  }
 }

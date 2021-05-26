@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Attributes extends Google_Collection
 {
-	protected $collection_key = 'attribute';
-	protected $attributeType = 'Google_Service_Apigee_GoogleCloudApigeeV1Attribute';
-	protected $attributeDataType = 'array';
+  protected $collection_key = 'attribute';
+  protected $attributeType = 'Google_Service_Apigee_GoogleCloudApigeeV1Attribute';
+  protected $attributeDataType = 'array';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Attribute
-	 */
-	public function setAttribute($attribute)
-	{
-		$this->attribute = $attribute;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Attribute
-	 */
-	public function getAttribute()
-	{
-		return $this->attribute;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1Attribute[]
+   */
+  public function setAttribute($attribute)
+  {
+    $this->attribute = $attribute;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1Attribute[]
+   */
+  public function getAttribute()
+  {
+    return $this->attribute;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_BigtableAdmin_ListAppProfilesResponse extends Google_Collection
 {
-	protected $collection_key = 'failedLocations';
-	protected $appProfilesType = 'Google_Service_BigtableAdmin_AppProfile';
-	protected $appProfilesDataType = 'array';
-	public $failedLocations;
-	public $nextPageToken;
+  protected $collection_key = 'failedLocations';
+  protected $appProfilesType = 'Google_Service_BigtableAdmin_AppProfile';
+  protected $appProfilesDataType = 'array';
+  public $failedLocations;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_BigtableAdmin_AppProfile
-	 */
-	public function setAppProfiles($appProfiles)
-	{
-		$this->appProfiles = $appProfiles;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_AppProfile
-	 */
-	public function getAppProfiles()
-	{
-		return $this->appProfiles;
-	}
-	public function setFailedLocations($failedLocations)
-	{
-		$this->failedLocations = $failedLocations;
-	}
-	public function getFailedLocations()
-	{
-		return $this->failedLocations;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_BigtableAdmin_AppProfile[]
+   */
+  public function setAppProfiles($appProfiles)
+  {
+    $this->appProfiles = $appProfiles;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_AppProfile[]
+   */
+  public function getAppProfiles()
+  {
+    return $this->appProfiles;
+  }
+  public function setFailedLocations($failedLocations)
+  {
+    $this->failedLocations = $failedLocations;
+  }
+  public function getFailedLocations()
+  {
+    return $this->failedLocations;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

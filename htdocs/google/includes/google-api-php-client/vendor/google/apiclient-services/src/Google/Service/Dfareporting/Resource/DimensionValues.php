@@ -25,23 +25,23 @@
  */
 class Google_Service_Dfareporting_Resource_DimensionValues extends Google_Service_Resource
 {
-	/**
-	 * Retrieves list of report dimension values for a list of filters.
-	 * (dimensionValues.query)
-	 *
-	 * @param string $profileId The DFA user profile ID.
-	 * @param Google_Service_Dfareporting_DimensionValueRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param int maxResults Maximum number of results to return.
-	 * @opt_param string pageToken The value of the nextToken from the previous
-	 * result page.
-	 * @return Google_Service_Dfareporting_DimensionValueList
-	 */
-	public function query($profileId, Google_Service_Dfareporting_DimensionValueRequest $postBody, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('query', array($params), "Google_Service_Dfareporting_DimensionValueList");
-	}
+  /**
+   * Retrieves list of report dimension values for a list of filters.
+   * (dimensionValues.query)
+   *
+   * @param string $profileId The Campaign Manager 360 user profile ID.
+   * @param Google_Service_Dfareporting_DimensionValueRequest $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int maxResults Maximum number of results to return.
+   * @opt_param string pageToken The value of the nextToken from the previous
+   * result page.
+   * @return Google_Service_Dfareporting_DimensionValueList
+   */
+  public function query($profileId, Google_Service_Dfareporting_DimensionValueRequest $postBody, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('query', array($params), "Google_Service_Dfareporting_DimensionValueList");
+  }
 }

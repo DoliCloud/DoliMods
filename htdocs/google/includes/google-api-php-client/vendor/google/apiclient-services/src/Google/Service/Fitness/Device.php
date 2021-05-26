@@ -17,50 +17,50 @@
 
 class Google_Service_Fitness_Device extends Google_Model
 {
-	public $manufacturer;
-	public $model;
-	public $type;
-	public $uid;
-	public $version;
+  public $manufacturer;
+  public $model;
+  public $type;
+  public $uid;
+  public $version;
 
-	public function setManufacturer($manufacturer)
-	{
-		$this->manufacturer = $manufacturer;
-	}
-	public function getManufacturer()
-	{
-		return $this->manufacturer;
-	}
-	public function setModel($model)
-	{
-		$this->model = $model;
-	}
-	public function getModel()
-	{
-		return $this->model;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setUid($uid)
-	{
-		$this->uid = $uid;
-	}
-	public function getUid()
-	{
-		return $this->uid;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setManufacturer($manufacturer)
+  {
+    $this->manufacturer = $manufacturer;
+  }
+  public function getManufacturer()
+  {
+    return $this->manufacturer;
+  }
+  public function setModel($model)
+  {
+    $this->model = $model;
+  }
+  public function getModel()
+  {
+    return $this->model;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setUid($uid)
+  {
+    $this->uid = $uid;
+  }
+  public function getUid()
+  {
+    return $this->uid;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

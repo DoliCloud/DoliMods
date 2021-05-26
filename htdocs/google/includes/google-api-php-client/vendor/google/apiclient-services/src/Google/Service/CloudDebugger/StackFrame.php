@@ -17,63 +17,63 @@
 
 class Google_Service_CloudDebugger_StackFrame extends Google_Collection
 {
-	protected $collection_key = 'locals';
-	protected $argumentsType = 'Google_Service_CloudDebugger_Variable';
-	protected $argumentsDataType = 'array';
-	public $function;
-	protected $localsType = 'Google_Service_CloudDebugger_Variable';
-	protected $localsDataType = 'array';
-	protected $locationType = 'Google_Service_CloudDebugger_SourceLocation';
-	protected $locationDataType = '';
+  protected $collection_key = 'locals';
+  protected $argumentsType = 'Google_Service_CloudDebugger_Variable';
+  protected $argumentsDataType = 'array';
+  public $function;
+  protected $localsType = 'Google_Service_CloudDebugger_Variable';
+  protected $localsDataType = 'array';
+  protected $locationType = 'Google_Service_CloudDebugger_SourceLocation';
+  protected $locationDataType = '';
 
-	/**
-	 * @param Google_Service_CloudDebugger_Variable
-	 */
-	public function setArguments($arguments)
-	{
-		$this->arguments = $arguments;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_Variable
-	 */
-	public function getArguments()
-	{
-		return $this->arguments;
-	}
-	public function setFunction($function)
-	{
-		$this->function = $function;
-	}
-	public function getFunction()
-	{
-		return $this->function;
-	}
-	/**
-	 * @param Google_Service_CloudDebugger_Variable
-	 */
-	public function setLocals($locals)
-	{
-		$this->locals = $locals;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_Variable
-	 */
-	public function getLocals()
-	{
-		return $this->locals;
-	}
-	/**
-	 * @param Google_Service_CloudDebugger_SourceLocation
-	 */
-	public function setLocation(Google_Service_CloudDebugger_SourceLocation $location)
-	{
-		$this->location = $location;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_SourceLocation
-	 */
-	public function getLocation()
-	{
-		return $this->location;
-	}
+  /**
+   * @param Google_Service_CloudDebugger_Variable[]
+   */
+  public function setArguments($arguments)
+  {
+    $this->arguments = $arguments;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_Variable[]
+   */
+  public function getArguments()
+  {
+    return $this->arguments;
+  }
+  public function setFunction($function)
+  {
+    $this->function = $function;
+  }
+  public function getFunction()
+  {
+    return $this->function;
+  }
+  /**
+   * @param Google_Service_CloudDebugger_Variable[]
+   */
+  public function setLocals($locals)
+  {
+    $this->locals = $locals;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_Variable[]
+   */
+  public function getLocals()
+  {
+    return $this->locals;
+  }
+  /**
+   * @param Google_Service_CloudDebugger_SourceLocation
+   */
+  public function setLocation(Google_Service_CloudDebugger_SourceLocation $location)
+  {
+    $this->location = $location;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_SourceLocation
+   */
+  public function getLocation()
+  {
+    return $this->location;
+  }
 }

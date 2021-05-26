@@ -17,31 +17,31 @@
 
 class Google_Service_Replicapool_Metadata extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $fingerPrint;
-	protected $itemsType = 'Google_Service_Replicapool_MetadataItem';
-	protected $itemsDataType = 'array';
+  protected $collection_key = 'items';
+  public $fingerPrint;
+  protected $itemsType = 'Google_Service_Replicapool_MetadataItem';
+  protected $itemsDataType = 'array';
 
-	public function setFingerPrint($fingerPrint)
-	{
-		$this->fingerPrint = $fingerPrint;
-	}
-	public function getFingerPrint()
-	{
-		return $this->fingerPrint;
-	}
-	/**
-	 * @param Google_Service_Replicapool_MetadataItem
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Replicapool_MetadataItem
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
+  public function setFingerPrint($fingerPrint)
+  {
+    $this->fingerPrint = $fingerPrint;
+  }
+  public function getFingerPrint()
+  {
+    return $this->fingerPrint;
+  }
+  /**
+   * @param Google_Service_Replicapool_MetadataItem
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Replicapool_MetadataItem
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
 }

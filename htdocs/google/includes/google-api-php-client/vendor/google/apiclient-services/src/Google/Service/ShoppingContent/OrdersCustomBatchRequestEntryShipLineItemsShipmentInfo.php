@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo extends Google_Model
 {
-	public $carrier;
-	public $shipmentId;
-	public $trackingId;
+  public $carrier;
+  public $shipmentId;
+  public $trackingId;
 
-	public function setCarrier($carrier)
-	{
-		$this->carrier = $carrier;
-	}
-	public function getCarrier()
-	{
-		return $this->carrier;
-	}
-	public function setShipmentId($shipmentId)
-	{
-		$this->shipmentId = $shipmentId;
-	}
-	public function getShipmentId()
-	{
-		return $this->shipmentId;
-	}
-	public function setTrackingId($trackingId)
-	{
-		$this->trackingId = $trackingId;
-	}
-	public function getTrackingId()
-	{
-		return $this->trackingId;
-	}
+  public function setCarrier($carrier)
+  {
+    $this->carrier = $carrier;
+  }
+  public function getCarrier()
+  {
+    return $this->carrier;
+  }
+  public function setShipmentId($shipmentId)
+  {
+    $this->shipmentId = $shipmentId;
+  }
+  public function getShipmentId()
+  {
+    return $this->shipmentId;
+  }
+  public function setTrackingId($trackingId)
+  {
+    $this->trackingId = $trackingId;
+  }
+  public function getTrackingId()
+  {
+    return $this->trackingId;
+  }
 }

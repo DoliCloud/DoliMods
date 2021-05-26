@@ -17,21 +17,21 @@
 
 class Google_Service_Compute_SecurityPoliciesWafConfig extends Google_Model
 {
-	protected $wafRulesType = 'Google_Service_Compute_PreconfiguredWafSet';
-	protected $wafRulesDataType = '';
+  protected $wafRulesType = 'Google_Service_Compute_PreconfiguredWafSet';
+  protected $wafRulesDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_PreconfiguredWafSet
-	 */
-	public function setWafRules(Google_Service_Compute_PreconfiguredWafSet $wafRules)
-	{
-		$this->wafRules = $wafRules;
-	}
-	/**
-	 * @return Google_Service_Compute_PreconfiguredWafSet
-	 */
-	public function getWafRules()
-	{
-		return $this->wafRules;
-	}
+  /**
+   * @param Google_Service_Compute_PreconfiguredWafSet
+   */
+  public function setWafRules(Google_Service_Compute_PreconfiguredWafSet $wafRules)
+  {
+    $this->wafRules = $wafRules;
+  }
+  /**
+   * @return Google_Service_Compute_PreconfiguredWafSet
+   */
+  public function getWafRules()
+  {
+    return $this->wafRules;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Devprojects_CloudStorageSection extends Google_Model
 {
-	public $kind;
-	public $status;
+  public $kind;
+  public $status;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

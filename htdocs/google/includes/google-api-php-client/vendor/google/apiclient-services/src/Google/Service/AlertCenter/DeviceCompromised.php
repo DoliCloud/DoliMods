@@ -17,31 +17,31 @@
 
 class Google_Service_AlertCenter_DeviceCompromised extends Google_Collection
 {
-	protected $collection_key = 'events';
-	public $email;
-	protected $eventsType = 'Google_Service_AlertCenter_DeviceCompromisedSecurityDetail';
-	protected $eventsDataType = 'array';
+  protected $collection_key = 'events';
+  public $email;
+  protected $eventsType = 'Google_Service_AlertCenter_DeviceCompromisedSecurityDetail';
+  protected $eventsDataType = 'array';
 
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	/**
-	 * @param Google_Service_AlertCenter_DeviceCompromisedSecurityDetail
-	 */
-	public function setEvents($events)
-	{
-		$this->events = $events;
-	}
-	/**
-	 * @return Google_Service_AlertCenter_DeviceCompromisedSecurityDetail
-	 */
-	public function getEvents()
-	{
-		return $this->events;
-	}
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  /**
+   * @param Google_Service_AlertCenter_DeviceCompromisedSecurityDetail[]
+   */
+  public function setEvents($events)
+  {
+    $this->events = $events;
+  }
+  /**
+   * @return Google_Service_AlertCenter_DeviceCompromisedSecurityDetail[]
+   */
+  public function getEvents()
+  {
+    return $this->events;
+  }
 }

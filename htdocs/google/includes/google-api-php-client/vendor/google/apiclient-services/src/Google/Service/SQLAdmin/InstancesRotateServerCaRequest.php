@@ -17,21 +17,21 @@
 
 class Google_Service_SQLAdmin_InstancesRotateServerCaRequest extends Google_Model
 {
-	protected $rotateServerCaContextType = 'Google_Service_SQLAdmin_RotateServerCaContext';
-	protected $rotateServerCaContextDataType = '';
+  protected $rotateServerCaContextType = 'Google_Service_SQLAdmin_RotateServerCaContext';
+  protected $rotateServerCaContextDataType = '';
 
-	/**
-	 * @param Google_Service_SQLAdmin_RotateServerCaContext
-	 */
-	public function setRotateServerCaContext(Google_Service_SQLAdmin_RotateServerCaContext $rotateServerCaContext)
-	{
-		$this->rotateServerCaContext = $rotateServerCaContext;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_RotateServerCaContext
-	 */
-	public function getRotateServerCaContext()
-	{
-		return $this->rotateServerCaContext;
-	}
+  /**
+   * @param Google_Service_SQLAdmin_RotateServerCaContext
+   */
+  public function setRotateServerCaContext(Google_Service_SQLAdmin_RotateServerCaContext $rotateServerCaContext)
+  {
+    $this->rotateServerCaContext = $rotateServerCaContext;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_RotateServerCaContext
+   */
+  public function getRotateServerCaContext()
+  {
+    return $this->rotateServerCaContext;
+  }
 }

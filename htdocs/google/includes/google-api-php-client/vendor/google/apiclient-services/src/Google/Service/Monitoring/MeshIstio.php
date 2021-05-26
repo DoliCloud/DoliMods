@@ -17,32 +17,32 @@
 
 class Google_Service_Monitoring_MeshIstio extends Google_Model
 {
-	public $meshUid;
-	public $serviceName;
-	public $serviceNamespace;
+  public $meshUid;
+  public $serviceName;
+  public $serviceNamespace;
 
-	public function setMeshUid($meshUid)
-	{
-		$this->meshUid = $meshUid;
-	}
-	public function getMeshUid()
-	{
-		return $this->meshUid;
-	}
-	public function setServiceName($serviceName)
-	{
-		$this->serviceName = $serviceName;
-	}
-	public function getServiceName()
-	{
-		return $this->serviceName;
-	}
-	public function setServiceNamespace($serviceNamespace)
-	{
-		$this->serviceNamespace = $serviceNamespace;
-	}
-	public function getServiceNamespace()
-	{
-		return $this->serviceNamespace;
-	}
+  public function setMeshUid($meshUid)
+  {
+    $this->meshUid = $meshUid;
+  }
+  public function getMeshUid()
+  {
+    return $this->meshUid;
+  }
+  public function setServiceName($serviceName)
+  {
+    $this->serviceName = $serviceName;
+  }
+  public function getServiceName()
+  {
+    return $this->serviceName;
+  }
+  public function setServiceNamespace($serviceNamespace)
+  {
+    $this->serviceNamespace = $serviceNamespace;
+  }
+  public function getServiceNamespace()
+  {
+    return $this->serviceNamespace;
+  }
 }

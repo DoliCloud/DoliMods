@@ -17,70 +17,70 @@
 
 class Google_Service_YouTube_ChannelBrandingSettings extends Google_Collection
 {
-	protected $collection_key = 'hints';
-	protected $channelType = 'Google_Service_YouTube_ChannelSettings';
-	protected $channelDataType = '';
-	protected $hintsType = 'Google_Service_YouTube_PropertyValue';
-	protected $hintsDataType = 'array';
-	protected $imageType = 'Google_Service_YouTube_ImageSettings';
-	protected $imageDataType = '';
-	protected $watchType = 'Google_Service_YouTube_WatchSettings';
-	protected $watchDataType = '';
+  protected $collection_key = 'hints';
+  protected $channelType = 'Google_Service_YouTube_ChannelSettings';
+  protected $channelDataType = '';
+  protected $hintsType = 'Google_Service_YouTube_PropertyValue';
+  protected $hintsDataType = 'array';
+  protected $imageType = 'Google_Service_YouTube_ImageSettings';
+  protected $imageDataType = '';
+  protected $watchType = 'Google_Service_YouTube_WatchSettings';
+  protected $watchDataType = '';
 
-	/**
-	 * @param Google_Service_YouTube_ChannelSettings
-	 */
-	public function setChannel(Google_Service_YouTube_ChannelSettings $channel)
-	{
-		$this->channel = $channel;
-	}
-	/**
-	 * @return Google_Service_YouTube_ChannelSettings
-	 */
-	public function getChannel()
-	{
-		return $this->channel;
-	}
-	/**
-	 * @param Google_Service_YouTube_PropertyValue
-	 */
-	public function setHints($hints)
-	{
-		$this->hints = $hints;
-	}
-	/**
-	 * @return Google_Service_YouTube_PropertyValue
-	 */
-	public function getHints()
-	{
-		return $this->hints;
-	}
-	/**
-	 * @param Google_Service_YouTube_ImageSettings
-	 */
-	public function setImage(Google_Service_YouTube_ImageSettings $image)
-	{
-		$this->image = $image;
-	}
-	/**
-	 * @return Google_Service_YouTube_ImageSettings
-	 */
-	public function getImage()
-	{
-		return $this->image;
-	}
-	/**
-	 * @param Google_Service_YouTube_WatchSettings
-	 */
-	public function setWatch(Google_Service_YouTube_WatchSettings $watch)
-	{
-		$this->watch = $watch;
-	}
-	/**
-	 * @return Google_Service_YouTube_WatchSettings
-	 */
-	public function getWatch()
-	{
-		return $this->watch;
-	}
+  /**
+   * @param Google_Service_YouTube_ChannelSettings
+   */
+  public function setChannel(Google_Service_YouTube_ChannelSettings $channel)
+  {
+    $this->channel = $channel;
+  }
+  /**
+   * @return Google_Service_YouTube_ChannelSettings
+   */
+  public function getChannel()
+  {
+    return $this->channel;
+  }
+  /**
+   * @param Google_Service_YouTube_PropertyValue[]
+   */
+  public function setHints($hints)
+  {
+    $this->hints = $hints;
+  }
+  /**
+   * @return Google_Service_YouTube_PropertyValue[]
+   */
+  public function getHints()
+  {
+    return $this->hints;
+  }
+  /**
+   * @param Google_Service_YouTube_ImageSettings
+   */
+  public function setImage(Google_Service_YouTube_ImageSettings $image)
+  {
+    $this->image = $image;
+  }
+  /**
+   * @return Google_Service_YouTube_ImageSettings
+   */
+  public function getImage()
+  {
+    return $this->image;
+  }
+  /**
+   * @param Google_Service_YouTube_WatchSettings
+   */
+  public function setWatch(Google_Service_YouTube_WatchSettings $watch)
+  {
+    $this->watch = $watch;
+  }
+  /**
+   * @return Google_Service_YouTube_WatchSettings
+   */
+  public function getWatch()
+  {
+    return $this->watch;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_DisplayVideo_BulkEditLineItemAssignedTargetingOptionsRequest extends Google_Collection
 {
-	protected $collection_key = 'deleteRequests';
-	protected $createRequestsType = 'Google_Service_DisplayVideo_CreateAssignedTargetingOptionsRequest';
-	protected $createRequestsDataType = 'array';
-	protected $deleteRequestsType = 'Google_Service_DisplayVideo_DeleteAssignedTargetingOptionsRequest';
-	protected $deleteRequestsDataType = 'array';
+  protected $collection_key = 'deleteRequests';
+  protected $createRequestsType = 'Google_Service_DisplayVideo_CreateAssignedTargetingOptionsRequest';
+  protected $createRequestsDataType = 'array';
+  protected $deleteRequestsType = 'Google_Service_DisplayVideo_DeleteAssignedTargetingOptionsRequest';
+  protected $deleteRequestsDataType = 'array';
 
-	/**
-	 * @param Google_Service_DisplayVideo_CreateAssignedTargetingOptionsRequest
-	 */
-	public function setCreateRequests($createRequests)
-	{
-		$this->createRequests = $createRequests;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_CreateAssignedTargetingOptionsRequest
-	 */
-	public function getCreateRequests()
-	{
-		return $this->createRequests;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_DeleteAssignedTargetingOptionsRequest
-	 */
-	public function setDeleteRequests($deleteRequests)
-	{
-		$this->deleteRequests = $deleteRequests;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_DeleteAssignedTargetingOptionsRequest
-	 */
-	public function getDeleteRequests()
-	{
-		return $this->deleteRequests;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_CreateAssignedTargetingOptionsRequest[]
+   */
+  public function setCreateRequests($createRequests)
+  {
+    $this->createRequests = $createRequests;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_CreateAssignedTargetingOptionsRequest[]
+   */
+  public function getCreateRequests()
+  {
+    return $this->createRequests;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_DeleteAssignedTargetingOptionsRequest[]
+   */
+  public function setDeleteRequests($deleteRequests)
+  {
+    $this->deleteRequests = $deleteRequests;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_DeleteAssignedTargetingOptionsRequest[]
+   */
+  public function getDeleteRequests()
+  {
+    return $this->deleteRequests;
+  }
 }

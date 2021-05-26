@@ -17,64 +17,64 @@
 
 class Google_Service_Sheets_PieChartSpec extends Google_Model
 {
-	protected $domainType = 'Google_Service_Sheets_ChartData';
-	protected $domainDataType = '';
-	public $legendPosition;
-	public $pieHole;
-	protected $seriesType = 'Google_Service_Sheets_ChartData';
-	protected $seriesDataType = '';
-	public $threeDimensional;
+  protected $domainType = 'Google_Service_Sheets_ChartData';
+  protected $domainDataType = '';
+  public $legendPosition;
+  public $pieHole;
+  protected $seriesType = 'Google_Service_Sheets_ChartData';
+  protected $seriesDataType = '';
+  public $threeDimensional;
 
-	/**
-	 * @param Google_Service_Sheets_ChartData
-	 */
-	public function setDomain(Google_Service_Sheets_ChartData $domain)
-	{
-		$this->domain = $domain;
-	}
-	/**
-	 * @return Google_Service_Sheets_ChartData
-	 */
-	public function getDomain()
-	{
-		return $this->domain;
-	}
-	public function setLegendPosition($legendPosition)
-	{
-		$this->legendPosition = $legendPosition;
-	}
-	public function getLegendPosition()
-	{
-		return $this->legendPosition;
-	}
-	public function setPieHole($pieHole)
-	{
-		$this->pieHole = $pieHole;
-	}
-	public function getPieHole()
-	{
-		return $this->pieHole;
-	}
-	/**
-	 * @param Google_Service_Sheets_ChartData
-	 */
-	public function setSeries(Google_Service_Sheets_ChartData $series)
-	{
-		$this->series = $series;
-	}
-	/**
-	 * @return Google_Service_Sheets_ChartData
-	 */
-	public function getSeries()
-	{
-		return $this->series;
-	}
-	public function setThreeDimensional($threeDimensional)
-	{
-		$this->threeDimensional = $threeDimensional;
-	}
-	public function getThreeDimensional()
-	{
-		return $this->threeDimensional;
-	}
+  /**
+   * @param Google_Service_Sheets_ChartData
+   */
+  public function setDomain(Google_Service_Sheets_ChartData $domain)
+  {
+    $this->domain = $domain;
+  }
+  /**
+   * @return Google_Service_Sheets_ChartData
+   */
+  public function getDomain()
+  {
+    return $this->domain;
+  }
+  public function setLegendPosition($legendPosition)
+  {
+    $this->legendPosition = $legendPosition;
+  }
+  public function getLegendPosition()
+  {
+    return $this->legendPosition;
+  }
+  public function setPieHole($pieHole)
+  {
+    $this->pieHole = $pieHole;
+  }
+  public function getPieHole()
+  {
+    return $this->pieHole;
+  }
+  /**
+   * @param Google_Service_Sheets_ChartData
+   */
+  public function setSeries(Google_Service_Sheets_ChartData $series)
+  {
+    $this->series = $series;
+  }
+  /**
+   * @return Google_Service_Sheets_ChartData
+   */
+  public function getSeries()
+  {
+    return $this->series;
+  }
+  public function setThreeDimensional($threeDimensional)
+  {
+    $this->threeDimensional = $threeDimensional;
+  }
+  public function getThreeDimensional()
+  {
+    return $this->threeDimensional;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Container_Metric extends Google_Model
 {
-	public $doubleValue;
-	public $intValue;
-	public $name;
-	public $stringValue;
+  public $doubleValue;
+  public $intValue;
+  public $name;
+  public $stringValue;
 
-	public function setDoubleValue($doubleValue)
-	{
-		$this->doubleValue = $doubleValue;
-	}
-	public function getDoubleValue()
-	{
-		return $this->doubleValue;
-	}
-	public function setIntValue($intValue)
-	{
-		$this->intValue = $intValue;
-	}
-	public function getIntValue()
-	{
-		return $this->intValue;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setStringValue($stringValue)
-	{
-		$this->stringValue = $stringValue;
-	}
-	public function getStringValue()
-	{
-		return $this->stringValue;
-	}
+  public function setDoubleValue($doubleValue)
+  {
+    $this->doubleValue = $doubleValue;
+  }
+  public function getDoubleValue()
+  {
+    return $this->doubleValue;
+  }
+  public function setIntValue($intValue)
+  {
+    $this->intValue = $intValue;
+  }
+  public function getIntValue()
+  {
+    return $this->intValue;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setStringValue($stringValue)
+  {
+    $this->stringValue = $stringValue;
+  }
+  public function getStringValue()
+  {
+    return $this->stringValue;
+  }
 }

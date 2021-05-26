@@ -17,23 +17,23 @@
 
 class Google_Service_Bigquery_CategoryCount extends Google_Model
 {
-	public $category;
-	public $count;
+  public $category;
+  public $count;
 
-	public function setCategory($category)
-	{
-		$this->category = $category;
-	}
-	public function getCategory()
-	{
-		return $this->category;
-	}
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
+  public function setCategory($category)
+  {
+    $this->category = $category;
+  }
+  public function getCategory()
+  {
+    return $this->category;
+  }
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
 }

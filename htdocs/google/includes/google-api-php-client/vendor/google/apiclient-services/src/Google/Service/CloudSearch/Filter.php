@@ -17,37 +17,37 @@
 
 class Google_Service_CloudSearch_Filter extends Google_Model
 {
-	protected $compositeFilterType = 'Google_Service_CloudSearch_CompositeFilter';
-	protected $compositeFilterDataType = '';
-	protected $valueFilterType = 'Google_Service_CloudSearch_ValueFilter';
-	protected $valueFilterDataType = '';
+  protected $compositeFilterType = 'Google_Service_CloudSearch_CompositeFilter';
+  protected $compositeFilterDataType = '';
+  protected $valueFilterType = 'Google_Service_CloudSearch_ValueFilter';
+  protected $valueFilterDataType = '';
 
-	/**
-	 * @param Google_Service_CloudSearch_CompositeFilter
-	 */
-	public function setCompositeFilter(Google_Service_CloudSearch_CompositeFilter $compositeFilter)
-	{
-		$this->compositeFilter = $compositeFilter;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_CompositeFilter
-	 */
-	public function getCompositeFilter()
-	{
-		return $this->compositeFilter;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_ValueFilter
-	 */
-	public function setValueFilter(Google_Service_CloudSearch_ValueFilter $valueFilter)
-	{
-		$this->valueFilter = $valueFilter;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_ValueFilter
-	 */
-	public function getValueFilter()
-	{
-		return $this->valueFilter;
-	}
+  /**
+   * @param Google_Service_CloudSearch_CompositeFilter
+   */
+  public function setCompositeFilter(Google_Service_CloudSearch_CompositeFilter $compositeFilter)
+  {
+    $this->compositeFilter = $compositeFilter;
+  }
+  /**
+   * @return Google_Service_CloudSearch_CompositeFilter
+   */
+  public function getCompositeFilter()
+  {
+    return $this->compositeFilter;
+  }
+  /**
+   * @param Google_Service_CloudSearch_ValueFilter
+   */
+  public function setValueFilter(Google_Service_CloudSearch_ValueFilter $valueFilter)
+  {
+    $this->valueFilter = $valueFilter;
+  }
+  /**
+   * @return Google_Service_CloudSearch_ValueFilter
+   */
+  public function getValueFilter()
+  {
+    return $this->valueFilter;
+  }
 }

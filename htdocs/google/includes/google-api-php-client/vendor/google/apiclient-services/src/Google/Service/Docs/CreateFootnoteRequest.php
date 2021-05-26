@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_CreateFootnoteRequest extends Google_Model
 {
-	protected $endOfSegmentLocationType = 'Google_Service_Docs_EndOfSegmentLocation';
-	protected $endOfSegmentLocationDataType = '';
-	protected $locationType = 'Google_Service_Docs_Location';
-	protected $locationDataType = '';
+  protected $endOfSegmentLocationType = 'Google_Service_Docs_EndOfSegmentLocation';
+  protected $endOfSegmentLocationDataType = '';
+  protected $locationType = 'Google_Service_Docs_Location';
+  protected $locationDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_EndOfSegmentLocation
-	 */
-	public function setEndOfSegmentLocation(Google_Service_Docs_EndOfSegmentLocation $endOfSegmentLocation)
-	{
-		$this->endOfSegmentLocation = $endOfSegmentLocation;
-	}
-	/**
-	 * @return Google_Service_Docs_EndOfSegmentLocation
-	 */
-	public function getEndOfSegmentLocation()
-	{
-		return $this->endOfSegmentLocation;
-	}
-	/**
-	 * @param Google_Service_Docs_Location
-	 */
-	public function setLocation(Google_Service_Docs_Location $location)
-	{
-		$this->location = $location;
-	}
-	/**
-	 * @return Google_Service_Docs_Location
-	 */
-	public function getLocation()
-	{
-		return $this->location;
-	}
+  /**
+   * @param Google_Service_Docs_EndOfSegmentLocation
+   */
+  public function setEndOfSegmentLocation(Google_Service_Docs_EndOfSegmentLocation $endOfSegmentLocation)
+  {
+    $this->endOfSegmentLocation = $endOfSegmentLocation;
+  }
+  /**
+   * @return Google_Service_Docs_EndOfSegmentLocation
+   */
+  public function getEndOfSegmentLocation()
+  {
+    return $this->endOfSegmentLocation;
+  }
+  /**
+   * @param Google_Service_Docs_Location
+   */
+  public function setLocation(Google_Service_Docs_Location $location)
+  {
+    $this->location = $location;
+  }
+  /**
+   * @return Google_Service_Docs_Location
+   */
+  public function getLocation()
+  {
+    return $this->location;
+  }
 }

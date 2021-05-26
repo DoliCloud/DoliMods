@@ -17,73 +17,73 @@
 
 class Google_Service_Firestore_Target extends Google_Model
 {
-	protected $documentsType = 'Google_Service_Firestore_DocumentsTarget';
-	protected $documentsDataType = '';
-	public $once;
-	protected $queryType = 'Google_Service_Firestore_QueryTarget';
-	protected $queryDataType = '';
-	public $readTime;
-	public $resumeToken;
-	public $targetId;
+  protected $documentsType = 'Google_Service_Firestore_DocumentsTarget';
+  protected $documentsDataType = '';
+  public $once;
+  protected $queryType = 'Google_Service_Firestore_QueryTarget';
+  protected $queryDataType = '';
+  public $readTime;
+  public $resumeToken;
+  public $targetId;
 
-	/**
-	 * @param Google_Service_Firestore_DocumentsTarget
-	 */
-	public function setDocuments(Google_Service_Firestore_DocumentsTarget $documents)
-	{
-		$this->documents = $documents;
-	}
-	/**
-	 * @return Google_Service_Firestore_DocumentsTarget
-	 */
-	public function getDocuments()
-	{
-		return $this->documents;
-	}
-	public function setOnce($once)
-	{
-		$this->once = $once;
-	}
-	public function getOnce()
-	{
-		return $this->once;
-	}
-	/**
-	 * @param Google_Service_Firestore_QueryTarget
-	 */
-	public function setQuery(Google_Service_Firestore_QueryTarget $query)
-	{
-		$this->query = $query;
-	}
-	/**
-	 * @return Google_Service_Firestore_QueryTarget
-	 */
-	public function getQuery()
-	{
-		return $this->query;
-	}
-	public function setReadTime($readTime)
-	{
-		$this->readTime = $readTime;
-	}
-	public function getReadTime()
-	{
-		return $this->readTime;
-	}
-	public function setResumeToken($resumeToken)
-	{
-		$this->resumeToken = $resumeToken;
-	}
-	public function getResumeToken()
-	{
-		return $this->resumeToken;
-	}
-	public function setTargetId($targetId)
-	{
-		$this->targetId = $targetId;
-	}
-	public function getTargetId()
-	{
-		return $this->targetId;
-	}
+  /**
+   * @param Google_Service_Firestore_DocumentsTarget
+   */
+  public function setDocuments(Google_Service_Firestore_DocumentsTarget $documents)
+  {
+    $this->documents = $documents;
+  }
+  /**
+   * @return Google_Service_Firestore_DocumentsTarget
+   */
+  public function getDocuments()
+  {
+    return $this->documents;
+  }
+  public function setOnce($once)
+  {
+    $this->once = $once;
+  }
+  public function getOnce()
+  {
+    return $this->once;
+  }
+  /**
+   * @param Google_Service_Firestore_QueryTarget
+   */
+  public function setQuery(Google_Service_Firestore_QueryTarget $query)
+  {
+    $this->query = $query;
+  }
+  /**
+   * @return Google_Service_Firestore_QueryTarget
+   */
+  public function getQuery()
+  {
+    return $this->query;
+  }
+  public function setReadTime($readTime)
+  {
+    $this->readTime = $readTime;
+  }
+  public function getReadTime()
+  {
+    return $this->readTime;
+  }
+  public function setResumeToken($resumeToken)
+  {
+    $this->resumeToken = $resumeToken;
+  }
+  public function getResumeToken()
+  {
+    return $this->resumeToken;
+  }
+  public function setTargetId($targetId)
+  {
+    $this->targetId = $targetId;
+  }
+  public function getTargetId()
+  {
+    return $this->targetId;
+  }
 }

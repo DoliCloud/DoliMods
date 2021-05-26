@@ -17,14 +17,14 @@
 
 class Google_Service_CloudTasks_RunTaskRequest extends Google_Model
 {
-	public $responseView;
+  public $responseView;
 
-	public function setResponseView($responseView)
-	{
-		$this->responseView = $responseView;
-	}
-	public function getResponseView()
-	{
-		return $this->responseView;
-	}
+  public function setResponseView($responseView)
+  {
+    $this->responseView = $responseView;
+  }
+  public function getResponseView()
+  {
+    return $this->responseView;
+  }
 }

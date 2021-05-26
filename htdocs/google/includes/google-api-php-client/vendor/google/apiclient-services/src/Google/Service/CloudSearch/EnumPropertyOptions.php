@@ -17,47 +17,47 @@
 
 class Google_Service_CloudSearch_EnumPropertyOptions extends Google_Collection
 {
-	protected $collection_key = 'possibleValues';
-	protected $operatorOptionsType = 'Google_Service_CloudSearch_EnumOperatorOptions';
-	protected $operatorOptionsDataType = '';
-	public $orderedRanking;
-	protected $possibleValuesType = 'Google_Service_CloudSearch_EnumValuePair';
-	protected $possibleValuesDataType = 'array';
+  protected $collection_key = 'possibleValues';
+  protected $operatorOptionsType = 'Google_Service_CloudSearch_EnumOperatorOptions';
+  protected $operatorOptionsDataType = '';
+  public $orderedRanking;
+  protected $possibleValuesType = 'Google_Service_CloudSearch_EnumValuePair';
+  protected $possibleValuesDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudSearch_EnumOperatorOptions
-	 */
-	public function setOperatorOptions(Google_Service_CloudSearch_EnumOperatorOptions $operatorOptions)
-	{
-		$this->operatorOptions = $operatorOptions;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_EnumOperatorOptions
-	 */
-	public function getOperatorOptions()
-	{
-		return $this->operatorOptions;
-	}
-	public function setOrderedRanking($orderedRanking)
-	{
-		$this->orderedRanking = $orderedRanking;
-	}
-	public function getOrderedRanking()
-	{
-		return $this->orderedRanking;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_EnumValuePair
-	 */
-	public function setPossibleValues($possibleValues)
-	{
-		$this->possibleValues = $possibleValues;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_EnumValuePair
-	 */
-	public function getPossibleValues()
-	{
-		return $this->possibleValues;
-	}
+  /**
+   * @param Google_Service_CloudSearch_EnumOperatorOptions
+   */
+  public function setOperatorOptions(Google_Service_CloudSearch_EnumOperatorOptions $operatorOptions)
+  {
+    $this->operatorOptions = $operatorOptions;
+  }
+  /**
+   * @return Google_Service_CloudSearch_EnumOperatorOptions
+   */
+  public function getOperatorOptions()
+  {
+    return $this->operatorOptions;
+  }
+  public function setOrderedRanking($orderedRanking)
+  {
+    $this->orderedRanking = $orderedRanking;
+  }
+  public function getOrderedRanking()
+  {
+    return $this->orderedRanking;
+  }
+  /**
+   * @param Google_Service_CloudSearch_EnumValuePair[]
+   */
+  public function setPossibleValues($possibleValues)
+  {
+    $this->possibleValues = $possibleValues;
+  }
+  /**
+   * @return Google_Service_CloudSearch_EnumValuePair[]
+   */
+  public function getPossibleValues()
+  {
+    return $this->possibleValues;
+  }
 }

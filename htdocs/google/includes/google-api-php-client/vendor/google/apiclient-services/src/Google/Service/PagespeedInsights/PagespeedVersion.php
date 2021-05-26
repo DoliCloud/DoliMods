@@ -17,23 +17,23 @@
 
 class Google_Service_PagespeedInsights_PagespeedVersion extends Google_Model
 {
-	public $major;
-	public $minor;
+  public $major;
+  public $minor;
 
-	public function setMajor($major)
-	{
-		$this->major = $major;
-	}
-	public function getMajor()
-	{
-		return $this->major;
-	}
-	public function setMinor($minor)
-	{
-		$this->minor = $minor;
-	}
-	public function getMinor()
-	{
-		return $this->minor;
-	}
+  public function setMajor($major)
+  {
+    $this->major = $major;
+  }
+  public function getMajor()
+  {
+    return $this->major;
+  }
+  public function setMinor($minor)
+  {
+    $this->minor = $minor;
+  }
+  public function getMinor()
+  {
+    return $this->minor;
+  }
 }

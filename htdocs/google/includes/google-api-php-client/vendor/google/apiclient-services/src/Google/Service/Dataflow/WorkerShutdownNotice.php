@@ -17,14 +17,14 @@
 
 class Google_Service_Dataflow_WorkerShutdownNotice extends Google_Model
 {
-	public $reason;
+  public $reason;
 
-	public function setReason($reason)
-	{
-		$this->reason = $reason;
-	}
-	public function getReason()
-	{
-		return $this->reason;
-	}
+  public function setReason($reason)
+  {
+    $this->reason = $reason;
+  }
+  public function getReason()
+  {
+    return $this->reason;
+  }
 }

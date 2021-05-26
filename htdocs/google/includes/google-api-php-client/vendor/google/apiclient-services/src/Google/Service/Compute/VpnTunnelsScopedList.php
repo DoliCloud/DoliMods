@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_VpnTunnelsScopedList extends Google_Collection
 {
-	protected $collection_key = 'vpnTunnels';
-	protected $vpnTunnelsType = 'Google_Service_Compute_VpnTunnel';
-	protected $vpnTunnelsDataType = 'array';
-	protected $warningType = 'Google_Service_Compute_VpnTunnelsScopedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'vpnTunnels';
+  protected $vpnTunnelsType = 'Google_Service_Compute_VpnTunnel';
+  protected $vpnTunnelsDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_VpnTunnelsScopedListWarning';
+  protected $warningDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_VpnTunnel
-	 */
-	public function setVpnTunnels($vpnTunnels)
-	{
-		$this->vpnTunnels = $vpnTunnels;
-	}
-	/**
-	 * @return Google_Service_Compute_VpnTunnel
-	 */
-	public function getVpnTunnels()
-	{
-		return $this->vpnTunnels;
-	}
-	/**
-	 * @param Google_Service_Compute_VpnTunnelsScopedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_VpnTunnelsScopedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_VpnTunnelsScopedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Compute_VpnTunnel[]
+   */
+  public function setVpnTunnels($vpnTunnels)
+  {
+    $this->vpnTunnels = $vpnTunnels;
+  }
+  /**
+   * @return Google_Service_Compute_VpnTunnel[]
+   */
+  public function getVpnTunnels()
+  {
+    return $this->vpnTunnels;
+  }
+  /**
+   * @param Google_Service_Compute_VpnTunnelsScopedListWarning
+   */
+  public function setWarning(Google_Service_Compute_VpnTunnelsScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_VpnTunnelsScopedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

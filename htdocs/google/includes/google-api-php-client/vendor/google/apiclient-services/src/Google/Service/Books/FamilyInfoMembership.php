@@ -17,50 +17,50 @@
 
 class Google_Service_Books_FamilyInfoMembership extends Google_Model
 {
-	public $acquirePermission;
-	public $ageGroup;
-	public $allowedMaturityRating;
-	public $isInFamily;
-	public $role;
+  public $acquirePermission;
+  public $ageGroup;
+  public $allowedMaturityRating;
+  public $isInFamily;
+  public $role;
 
-	public function setAcquirePermission($acquirePermission)
-	{
-		$this->acquirePermission = $acquirePermission;
-	}
-	public function getAcquirePermission()
-	{
-		return $this->acquirePermission;
-	}
-	public function setAgeGroup($ageGroup)
-	{
-		$this->ageGroup = $ageGroup;
-	}
-	public function getAgeGroup()
-	{
-		return $this->ageGroup;
-	}
-	public function setAllowedMaturityRating($allowedMaturityRating)
-	{
-		$this->allowedMaturityRating = $allowedMaturityRating;
-	}
-	public function getAllowedMaturityRating()
-	{
-		return $this->allowedMaturityRating;
-	}
-	public function setIsInFamily($isInFamily)
-	{
-		$this->isInFamily = $isInFamily;
-	}
-	public function getIsInFamily()
-	{
-		return $this->isInFamily;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
+  public function setAcquirePermission($acquirePermission)
+  {
+    $this->acquirePermission = $acquirePermission;
+  }
+  public function getAcquirePermission()
+  {
+    return $this->acquirePermission;
+  }
+  public function setAgeGroup($ageGroup)
+  {
+    $this->ageGroup = $ageGroup;
+  }
+  public function getAgeGroup()
+  {
+    return $this->ageGroup;
+  }
+  public function setAllowedMaturityRating($allowedMaturityRating)
+  {
+    $this->allowedMaturityRating = $allowedMaturityRating;
+  }
+  public function getAllowedMaturityRating()
+  {
+    return $this->allowedMaturityRating;
+  }
+  public function setIsInFamily($isInFamily)
+  {
+    $this->isInFamily = $isInFamily;
+  }
+  public function getIsInFamily()
+  {
+    return $this->isInFamily;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
 }

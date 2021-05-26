@@ -17,30 +17,30 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo extends Google_Model
 {
-	public $currentPage;
-	protected $formInfoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo';
-	protected $formInfoDataType = '';
+  public $currentPage;
+  protected $formInfoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo';
+  protected $formInfoDataType = '';
 
-	public function setCurrentPage($currentPage)
-	{
-		$this->currentPage = $currentPage;
-	}
-	public function getCurrentPage()
-	{
-		return $this->currentPage;
-	}
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo
-	 */
-	public function setFormInfo(Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo $formInfo)
-	{
-		$this->formInfo = $formInfo;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo
-	 */
-	public function getFormInfo()
-	{
-		return $this->formInfo;
-	}
+  public function setCurrentPage($currentPage)
+  {
+    $this->currentPage = $currentPage;
+  }
+  public function getCurrentPage()
+  {
+    return $this->currentPage;
+  }
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo
+   */
+  public function setFormInfo(Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo $formInfo)
+  {
+    $this->formInfo = $formInfo;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfo
+   */
+  public function getFormInfo()
+  {
+    return $this->formInfo;
+  }
 }

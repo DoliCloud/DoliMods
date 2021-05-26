@@ -17,14 +17,14 @@
 
 class Google_Service_ShoppingContent_OrdersAcknowledgeRequest extends Google_Model
 {
-	public $operationId;
+  public $operationId;
 
-	public function setOperationId($operationId)
-	{
-		$this->operationId = $operationId;
-	}
-	public function getOperationId()
-	{
-		return $this->operationId;
-	}
+  public function setOperationId($operationId)
+  {
+    $this->operationId = $operationId;
+  }
+  public function getOperationId()
+  {
+    return $this->operationId;
+  }
 }

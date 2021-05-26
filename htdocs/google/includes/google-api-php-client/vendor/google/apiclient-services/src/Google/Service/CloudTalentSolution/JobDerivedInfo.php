@@ -17,31 +17,31 @@
 
 class Google_Service_CloudTalentSolution_JobDerivedInfo extends Google_Collection
 {
-	protected $collection_key = 'locations';
-	public $jobCategories;
-	protected $locationsType = 'Google_Service_CloudTalentSolution_Location';
-	protected $locationsDataType = 'array';
+  protected $collection_key = 'locations';
+  public $jobCategories;
+  protected $locationsType = 'Google_Service_CloudTalentSolution_Location';
+  protected $locationsDataType = 'array';
 
-	public function setJobCategories($jobCategories)
-	{
-		$this->jobCategories = $jobCategories;
-	}
-	public function getJobCategories()
-	{
-		return $this->jobCategories;
-	}
-	/**
-	 * @param Google_Service_CloudTalentSolution_Location
-	 */
-	public function setLocations($locations)
-	{
-		$this->locations = $locations;
-	}
-	/**
-	 * @return Google_Service_CloudTalentSolution_Location
-	 */
-	public function getLocations()
-	{
-		return $this->locations;
-	}
+  public function setJobCategories($jobCategories)
+  {
+    $this->jobCategories = $jobCategories;
+  }
+  public function getJobCategories()
+  {
+    return $this->jobCategories;
+  }
+  /**
+   * @param Google_Service_CloudTalentSolution_Location[]
+   */
+  public function setLocations($locations)
+  {
+    $this->locations = $locations;
+  }
+  /**
+   * @return Google_Service_CloudTalentSolution_Location[]
+   */
+  public function getLocations()
+  {
+    return $this->locations;
+  }
 }

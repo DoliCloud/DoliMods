@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_LinkedContentReferenceSuggestionState extends Google_Model
 {
-	protected $sheetsChartReferenceSuggestionStateType = 'Google_Service_Docs_SheetsChartReferenceSuggestionState';
-	protected $sheetsChartReferenceSuggestionStateDataType = '';
+  protected $sheetsChartReferenceSuggestionStateType = 'Google_Service_Docs_SheetsChartReferenceSuggestionState';
+  protected $sheetsChartReferenceSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_SheetsChartReferenceSuggestionState
-	 */
-	public function setSheetsChartReferenceSuggestionState(Google_Service_Docs_SheetsChartReferenceSuggestionState $sheetsChartReferenceSuggestionState)
-	{
-		$this->sheetsChartReferenceSuggestionState = $sheetsChartReferenceSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_SheetsChartReferenceSuggestionState
-	 */
-	public function getSheetsChartReferenceSuggestionState()
-	{
-		return $this->sheetsChartReferenceSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_SheetsChartReferenceSuggestionState
+   */
+  public function setSheetsChartReferenceSuggestionState(Google_Service_Docs_SheetsChartReferenceSuggestionState $sheetsChartReferenceSuggestionState)
+  {
+    $this->sheetsChartReferenceSuggestionState = $sheetsChartReferenceSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_SheetsChartReferenceSuggestionState
+   */
+  public function getSheetsChartReferenceSuggestionState()
+  {
+    return $this->sheetsChartReferenceSuggestionState;
+  }
 }

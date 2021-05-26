@@ -17,33 +17,42 @@
 
 class Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties extends Google_Collection
 {
-	protected $collection_key = 'storageLocations';
-	public $guestFlush;
-	public $labels;
-	public $storageLocations;
+  protected $collection_key = 'storageLocations';
+  public $chainName;
+  public $guestFlush;
+  public $labels;
+  public $storageLocations;
 
-	public function setGuestFlush($guestFlush)
-	{
-		$this->guestFlush = $guestFlush;
-	}
-	public function getGuestFlush()
-	{
-		return $this->guestFlush;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setStorageLocations($storageLocations)
-	{
-		$this->storageLocations = $storageLocations;
-	}
-	public function getStorageLocations()
-	{
-		return $this->storageLocations;
-	}
+  public function setChainName($chainName)
+  {
+    $this->chainName = $chainName;
+  }
+  public function getChainName()
+  {
+    return $this->chainName;
+  }
+  public function setGuestFlush($guestFlush)
+  {
+    $this->guestFlush = $guestFlush;
+  }
+  public function getGuestFlush()
+  {
+    return $this->guestFlush;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setStorageLocations($storageLocations)
+  {
+    $this->storageLocations = $storageLocations;
+  }
+  public function getStorageLocations()
+  {
+    return $this->storageLocations;
+  }
 }

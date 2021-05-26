@@ -17,24 +17,33 @@
 
 class Google_Service_SecurityCommandCenter_AssetDiscoveryConfig extends Google_Collection
 {
-	protected $collection_key = 'projectIds';
-	public $inclusionMode;
-	public $projectIds;
+  protected $collection_key = 'projectIds';
+  public $folderIds;
+  public $inclusionMode;
+  public $projectIds;
 
-	public function setInclusionMode($inclusionMode)
-	{
-		$this->inclusionMode = $inclusionMode;
-	}
-	public function getInclusionMode()
-	{
-		return $this->inclusionMode;
-	}
-	public function setProjectIds($projectIds)
-	{
-		$this->projectIds = $projectIds;
-	}
-	public function getProjectIds()
-	{
-		return $this->projectIds;
-	}
+  public function setFolderIds($folderIds)
+  {
+    $this->folderIds = $folderIds;
+  }
+  public function getFolderIds()
+  {
+    return $this->folderIds;
+  }
+  public function setInclusionMode($inclusionMode)
+  {
+    $this->inclusionMode = $inclusionMode;
+  }
+  public function getInclusionMode()
+  {
+    return $this->inclusionMode;
+  }
+  public function setProjectIds($projectIds)
+  {
+    $this->projectIds = $projectIds;
+  }
+  public function getProjectIds()
+  {
+    return $this->projectIds;
+  }
 }

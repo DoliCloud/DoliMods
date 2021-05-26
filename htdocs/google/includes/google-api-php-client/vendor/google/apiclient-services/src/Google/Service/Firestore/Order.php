@@ -17,30 +17,30 @@
 
 class Google_Service_Firestore_Order extends Google_Model
 {
-	public $direction;
-	protected $fieldType = 'Google_Service_Firestore_FieldReference';
-	protected $fieldDataType = '';
+  public $direction;
+  protected $fieldType = 'Google_Service_Firestore_FieldReference';
+  protected $fieldDataType = '';
 
-	public function setDirection($direction)
-	{
-		$this->direction = $direction;
-	}
-	public function getDirection()
-	{
-		return $this->direction;
-	}
-	/**
-	 * @param Google_Service_Firestore_FieldReference
-	 */
-	public function setField(Google_Service_Firestore_FieldReference $field)
-	{
-		$this->field = $field;
-	}
-	/**
-	 * @return Google_Service_Firestore_FieldReference
-	 */
-	public function getField()
-	{
-		return $this->field;
-	}
+  public function setDirection($direction)
+  {
+    $this->direction = $direction;
+  }
+  public function getDirection()
+  {
+    return $this->direction;
+  }
+  /**
+   * @param Google_Service_Firestore_FieldReference
+   */
+  public function setField(Google_Service_Firestore_FieldReference $field)
+  {
+    $this->field = $field;
+  }
+  /**
+   * @return Google_Service_Firestore_FieldReference
+   */
+  public function getField()
+  {
+    return $this->field;
+  }
 }

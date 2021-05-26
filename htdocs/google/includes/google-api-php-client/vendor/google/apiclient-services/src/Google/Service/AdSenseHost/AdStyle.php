@@ -17,55 +17,55 @@
 
 class Google_Service_AdSenseHost_AdStyle extends Google_Model
 {
-	protected $colorsType = 'Google_Service_AdSenseHost_AdStyleColors';
-	protected $colorsDataType = '';
-	public $corners;
-	protected $fontType = 'Google_Service_AdSenseHost_AdStyleFont';
-	protected $fontDataType = '';
-	public $kind;
+  protected $colorsType = 'Google_Service_AdSenseHost_AdStyleColors';
+  protected $colorsDataType = '';
+  public $corners;
+  protected $fontType = 'Google_Service_AdSenseHost_AdStyleFont';
+  protected $fontDataType = '';
+  public $kind;
 
-	/**
-	 * @param Google_Service_AdSenseHost_AdStyleColors
-	 */
-	public function setColors(Google_Service_AdSenseHost_AdStyleColors $colors)
-	{
-		$this->colors = $colors;
-	}
-	/**
-	 * @return Google_Service_AdSenseHost_AdStyleColors
-	 */
-	public function getColors()
-	{
-		return $this->colors;
-	}
-	public function setCorners($corners)
-	{
-		$this->corners = $corners;
-	}
-	public function getCorners()
-	{
-		return $this->corners;
-	}
-	/**
-	 * @param Google_Service_AdSenseHost_AdStyleFont
-	 */
-	public function setFont(Google_Service_AdSenseHost_AdStyleFont $font)
-	{
-		$this->font = $font;
-	}
-	/**
-	 * @return Google_Service_AdSenseHost_AdStyleFont
-	 */
-	public function getFont()
-	{
-		return $this->font;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_AdSenseHost_AdStyleColors
+   */
+  public function setColors(Google_Service_AdSenseHost_AdStyleColors $colors)
+  {
+    $this->colors = $colors;
+  }
+  /**
+   * @return Google_Service_AdSenseHost_AdStyleColors
+   */
+  public function getColors()
+  {
+    return $this->colors;
+  }
+  public function setCorners($corners)
+  {
+    $this->corners = $corners;
+  }
+  public function getCorners()
+  {
+    return $this->corners;
+  }
+  /**
+   * @param Google_Service_AdSenseHost_AdStyleFont
+   */
+  public function setFont(Google_Service_AdSenseHost_AdStyleFont $font)
+  {
+    $this->font = $font;
+  }
+  /**
+   * @return Google_Service_AdSenseHost_AdStyleFont
+   */
+  public function getFont()
+  {
+    return $this->font;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_YouTube_VideoAbuseReportReasonSnippet extends Google_Collection
 {
-	protected $collection_key = 'secondaryReasons';
-	public $label;
-	protected $secondaryReasonsType = 'Google_Service_YouTube_VideoAbuseReportSecondaryReason';
-	protected $secondaryReasonsDataType = 'array';
+  protected $collection_key = 'secondaryReasons';
+  public $label;
+  protected $secondaryReasonsType = 'Google_Service_YouTube_VideoAbuseReportSecondaryReason';
+  protected $secondaryReasonsDataType = 'array';
 
-	public function setLabel($label)
-	{
-		$this->label = $label;
-	}
-	public function getLabel()
-	{
-		return $this->label;
-	}
-	/**
-	 * @param Google_Service_YouTube_VideoAbuseReportSecondaryReason
-	 */
-	public function setSecondaryReasons($secondaryReasons)
-	{
-		$this->secondaryReasons = $secondaryReasons;
-	}
-	/**
-	 * @return Google_Service_YouTube_VideoAbuseReportSecondaryReason
-	 */
-	public function getSecondaryReasons()
-	{
-		return $this->secondaryReasons;
-	}
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+  public function getLabel()
+  {
+    return $this->label;
+  }
+  /**
+   * @param Google_Service_YouTube_VideoAbuseReportSecondaryReason[]
+   */
+  public function setSecondaryReasons($secondaryReasons)
+  {
+    $this->secondaryReasons = $secondaryReasons;
+  }
+  /**
+   * @return Google_Service_YouTube_VideoAbuseReportSecondaryReason[]
+   */
+  public function getSecondaryReasons()
+  {
+    return $this->secondaryReasons;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_ManufacturerCenter_ProductDetail extends Google_Model
 {
-	public $attributeName;
-	public $attributeValue;
-	public $sectionName;
+  public $attributeName;
+  public $attributeValue;
+  public $sectionName;
 
-	public function setAttributeName($attributeName)
-	{
-		$this->attributeName = $attributeName;
-	}
-	public function getAttributeName()
-	{
-		return $this->attributeName;
-	}
-	public function setAttributeValue($attributeValue)
-	{
-		$this->attributeValue = $attributeValue;
-	}
-	public function getAttributeValue()
-	{
-		return $this->attributeValue;
-	}
-	public function setSectionName($sectionName)
-	{
-		$this->sectionName = $sectionName;
-	}
-	public function getSectionName()
-	{
-		return $this->sectionName;
-	}
+  public function setAttributeName($attributeName)
+  {
+    $this->attributeName = $attributeName;
+  }
+  public function getAttributeName()
+  {
+    return $this->attributeName;
+  }
+  public function setAttributeValue($attributeValue)
+  {
+    $this->attributeValue = $attributeValue;
+  }
+  public function getAttributeValue()
+  {
+    return $this->attributeValue;
+  }
+  public function setSectionName($sectionName)
+  {
+    $this->sectionName = $sectionName;
+  }
+  public function getSectionName()
+  {
+    return $this->sectionName;
+  }
 }

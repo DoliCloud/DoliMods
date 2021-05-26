@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_RouterNatLogConfig extends Google_Model
 {
-	public $enable;
-	public $filter;
+  public $enable;
+  public $filter;
 
-	public function setEnable($enable)
-	{
-		$this->enable = $enable;
-	}
-	public function getEnable()
-	{
-		return $this->enable;
-	}
-	public function setFilter($filter)
-	{
-		$this->filter = $filter;
-	}
-	public function getFilter()
-	{
-		return $this->filter;
-	}
+  public function setEnable($enable)
+  {
+    $this->enable = $enable;
+  }
+  public function getEnable()
+  {
+    return $this->enable;
+  }
+  public function setFilter($filter)
+  {
+    $this->filter = $filter;
+  }
+  public function getFilter()
+  {
+    return $this->filter;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_CreativeFieldsListResponse extends Google_Collection
 {
-	protected $collection_key = 'creativeFields';
-	protected $creativeFieldsType = 'Google_Service_Dfareporting_CreativeField';
-	protected $creativeFieldsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'creativeFields';
+  protected $creativeFieldsType = 'Google_Service_Dfareporting_CreativeField';
+  protected $creativeFieldsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dfareporting_CreativeField
-	 */
-	public function setCreativeFields($creativeFields)
-	{
-		$this->creativeFields = $creativeFields;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_CreativeField
-	 */
-	public function getCreativeFields()
-	{
-		return $this->creativeFields;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dfareporting_CreativeField[]
+   */
+  public function setCreativeFields($creativeFields)
+  {
+    $this->creativeFields = $creativeFields;
+  }
+  /**
+   * @return Google_Service_Dfareporting_CreativeField[]
+   */
+  public function getCreativeFields()
+  {
+    return $this->creativeFields;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

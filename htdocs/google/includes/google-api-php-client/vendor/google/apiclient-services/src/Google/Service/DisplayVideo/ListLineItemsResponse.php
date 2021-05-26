@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListLineItemsResponse extends Google_Collection
 {
-	protected $collection_key = 'lineItems';
-	protected $lineItemsType = 'Google_Service_DisplayVideo_LineItem';
-	protected $lineItemsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'lineItems';
+  protected $lineItemsType = 'Google_Service_DisplayVideo_LineItem';
+  protected $lineItemsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DisplayVideo_LineItem
-	 */
-	public function setLineItems($lineItems)
-	{
-		$this->lineItems = $lineItems;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_LineItem
-	 */
-	public function getLineItems()
-	{
-		return $this->lineItems;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_LineItem[]
+   */
+  public function setLineItems($lineItems)
+  {
+    $this->lineItems = $lineItems;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_LineItem[]
+   */
+  public function getLineItems()
+  {
+    return $this->lineItems;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

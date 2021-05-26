@@ -17,23 +17,23 @@
 
 class Google_Service_Directory_UserAbout extends Google_Model
 {
-	public $contentType;
-	public $value;
+  public $contentType;
+  public $value;
 
-	public function setContentType($contentType)
-	{
-		$this->contentType = $contentType;
-	}
-	public function getContentType()
-	{
-		return $this->contentType;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setContentType($contentType)
+  {
+    $this->contentType = $contentType;
+  }
+  public function getContentType()
+  {
+    return $this->contentType;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

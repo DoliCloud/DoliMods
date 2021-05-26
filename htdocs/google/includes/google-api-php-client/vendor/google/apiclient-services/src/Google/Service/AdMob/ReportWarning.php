@@ -17,23 +17,23 @@
 
 class Google_Service_AdMob_ReportWarning extends Google_Model
 {
-	public $description;
-	public $type;
+  public $description;
+  public $type;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

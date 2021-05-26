@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState extends Google_Model
 {
-	public $state;
-	public $unsatisfiedReason;
+  public $state;
+  public $unsatisfiedReason;
 
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setUnsatisfiedReason($unsatisfiedReason)
-	{
-		$this->unsatisfiedReason = $unsatisfiedReason;
-	}
-	public function getUnsatisfiedReason()
-	{
-		return $this->unsatisfiedReason;
-	}
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setUnsatisfiedReason($unsatisfiedReason)
+  {
+    $this->unsatisfiedReason = $unsatisfiedReason;
+  }
+  public function getUnsatisfiedReason()
+  {
+    return $this->unsatisfiedReason;
+  }
 }

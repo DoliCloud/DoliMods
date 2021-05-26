@@ -17,32 +17,32 @@
 
 class Google_Service_Devprojects_ProjectsUndeleteRequest extends Google_Model
 {
-	public $disableAuthorizationCheck;
-	public $projectId;
-	public $whitelistId;
+  public $disableAuthorizationCheck;
+  public $projectId;
+  public $whitelistId;
 
-	public function setDisableAuthorizationCheck($disableAuthorizationCheck)
-	{
-		$this->disableAuthorizationCheck = $disableAuthorizationCheck;
-	}
-	public function getDisableAuthorizationCheck()
-	{
-		return $this->disableAuthorizationCheck;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setWhitelistId($whitelistId)
-	{
-		$this->whitelistId = $whitelistId;
-	}
-	public function getWhitelistId()
-	{
-		return $this->whitelistId;
-	}
+  public function setDisableAuthorizationCheck($disableAuthorizationCheck)
+  {
+    $this->disableAuthorizationCheck = $disableAuthorizationCheck;
+  }
+  public function getDisableAuthorizationCheck()
+  {
+    return $this->disableAuthorizationCheck;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setWhitelistId($whitelistId)
+  {
+    $this->whitelistId = $whitelistId;
+  }
+  public function getWhitelistId()
+  {
+    return $this->whitelistId;
+  }
 }

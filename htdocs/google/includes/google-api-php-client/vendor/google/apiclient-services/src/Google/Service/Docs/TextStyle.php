@@ -17,139 +17,139 @@
 
 class Google_Service_Docs_TextStyle extends Google_Model
 {
-	protected $backgroundColorType = 'Google_Service_Docs_OptionalColor';
-	protected $backgroundColorDataType = '';
-	public $baselineOffset;
-	public $bold;
-	protected $fontSizeType = 'Google_Service_Docs_Dimension';
-	protected $fontSizeDataType = '';
-	protected $foregroundColorType = 'Google_Service_Docs_OptionalColor';
-	protected $foregroundColorDataType = '';
-	public $italic;
-	protected $linkType = 'Google_Service_Docs_Link';
-	protected $linkDataType = '';
-	public $smallCaps;
-	public $strikethrough;
-	public $underline;
-	protected $weightedFontFamilyType = 'Google_Service_Docs_WeightedFontFamily';
-	protected $weightedFontFamilyDataType = '';
+  protected $backgroundColorType = 'Google_Service_Docs_OptionalColor';
+  protected $backgroundColorDataType = '';
+  public $baselineOffset;
+  public $bold;
+  protected $fontSizeType = 'Google_Service_Docs_Dimension';
+  protected $fontSizeDataType = '';
+  protected $foregroundColorType = 'Google_Service_Docs_OptionalColor';
+  protected $foregroundColorDataType = '';
+  public $italic;
+  protected $linkType = 'Google_Service_Docs_Link';
+  protected $linkDataType = '';
+  public $smallCaps;
+  public $strikethrough;
+  public $underline;
+  protected $weightedFontFamilyType = 'Google_Service_Docs_WeightedFontFamily';
+  protected $weightedFontFamilyDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_OptionalColor
-	 */
-	public function setBackgroundColor(Google_Service_Docs_OptionalColor $backgroundColor)
-	{
-		$this->backgroundColor = $backgroundColor;
-	}
-	/**
-	 * @return Google_Service_Docs_OptionalColor
-	 */
-	public function getBackgroundColor()
-	{
-		return $this->backgroundColor;
-	}
-	public function setBaselineOffset($baselineOffset)
-	{
-		$this->baselineOffset = $baselineOffset;
-	}
-	public function getBaselineOffset()
-	{
-		return $this->baselineOffset;
-	}
-	public function setBold($bold)
-	{
-		$this->bold = $bold;
-	}
-	public function getBold()
-	{
-		return $this->bold;
-	}
-	/**
-	 * @param Google_Service_Docs_Dimension
-	 */
-	public function setFontSize(Google_Service_Docs_Dimension $fontSize)
-	{
-		$this->fontSize = $fontSize;
-	}
-	/**
-	 * @return Google_Service_Docs_Dimension
-	 */
-	public function getFontSize()
-	{
-		return $this->fontSize;
-	}
-	/**
-	 * @param Google_Service_Docs_OptionalColor
-	 */
-	public function setForegroundColor(Google_Service_Docs_OptionalColor $foregroundColor)
-	{
-		$this->foregroundColor = $foregroundColor;
-	}
-	/**
-	 * @return Google_Service_Docs_OptionalColor
-	 */
-	public function getForegroundColor()
-	{
-		return $this->foregroundColor;
-	}
-	public function setItalic($italic)
-	{
-		$this->italic = $italic;
-	}
-	public function getItalic()
-	{
-		return $this->italic;
-	}
-	/**
-	 * @param Google_Service_Docs_Link
-	 */
-	public function setLink(Google_Service_Docs_Link $link)
-	{
-		$this->link = $link;
-	}
-	/**
-	 * @return Google_Service_Docs_Link
-	 */
-	public function getLink()
-	{
-		return $this->link;
-	}
-	public function setSmallCaps($smallCaps)
-	{
-		$this->smallCaps = $smallCaps;
-	}
-	public function getSmallCaps()
-	{
-		return $this->smallCaps;
-	}
-	public function setStrikethrough($strikethrough)
-	{
-		$this->strikethrough = $strikethrough;
-	}
-	public function getStrikethrough()
-	{
-		return $this->strikethrough;
-	}
-	public function setUnderline($underline)
-	{
-		$this->underline = $underline;
-	}
-	public function getUnderline()
-	{
-		return $this->underline;
-	}
-	/**
-	 * @param Google_Service_Docs_WeightedFontFamily
-	 */
-	public function setWeightedFontFamily(Google_Service_Docs_WeightedFontFamily $weightedFontFamily)
-	{
-		$this->weightedFontFamily = $weightedFontFamily;
-	}
-	/**
-	 * @return Google_Service_Docs_WeightedFontFamily
-	 */
-	public function getWeightedFontFamily()
-	{
-		return $this->weightedFontFamily;
-	}
+  /**
+   * @param Google_Service_Docs_OptionalColor
+   */
+  public function setBackgroundColor(Google_Service_Docs_OptionalColor $backgroundColor)
+  {
+    $this->backgroundColor = $backgroundColor;
+  }
+  /**
+   * @return Google_Service_Docs_OptionalColor
+   */
+  public function getBackgroundColor()
+  {
+    return $this->backgroundColor;
+  }
+  public function setBaselineOffset($baselineOffset)
+  {
+    $this->baselineOffset = $baselineOffset;
+  }
+  public function getBaselineOffset()
+  {
+    return $this->baselineOffset;
+  }
+  public function setBold($bold)
+  {
+    $this->bold = $bold;
+  }
+  public function getBold()
+  {
+    return $this->bold;
+  }
+  /**
+   * @param Google_Service_Docs_Dimension
+   */
+  public function setFontSize(Google_Service_Docs_Dimension $fontSize)
+  {
+    $this->fontSize = $fontSize;
+  }
+  /**
+   * @return Google_Service_Docs_Dimension
+   */
+  public function getFontSize()
+  {
+    return $this->fontSize;
+  }
+  /**
+   * @param Google_Service_Docs_OptionalColor
+   */
+  public function setForegroundColor(Google_Service_Docs_OptionalColor $foregroundColor)
+  {
+    $this->foregroundColor = $foregroundColor;
+  }
+  /**
+   * @return Google_Service_Docs_OptionalColor
+   */
+  public function getForegroundColor()
+  {
+    return $this->foregroundColor;
+  }
+  public function setItalic($italic)
+  {
+    $this->italic = $italic;
+  }
+  public function getItalic()
+  {
+    return $this->italic;
+  }
+  /**
+   * @param Google_Service_Docs_Link
+   */
+  public function setLink(Google_Service_Docs_Link $link)
+  {
+    $this->link = $link;
+  }
+  /**
+   * @return Google_Service_Docs_Link
+   */
+  public function getLink()
+  {
+    return $this->link;
+  }
+  public function setSmallCaps($smallCaps)
+  {
+    $this->smallCaps = $smallCaps;
+  }
+  public function getSmallCaps()
+  {
+    return $this->smallCaps;
+  }
+  public function setStrikethrough($strikethrough)
+  {
+    $this->strikethrough = $strikethrough;
+  }
+  public function getStrikethrough()
+  {
+    return $this->strikethrough;
+  }
+  public function setUnderline($underline)
+  {
+    $this->underline = $underline;
+  }
+  public function getUnderline()
+  {
+    return $this->underline;
+  }
+  /**
+   * @param Google_Service_Docs_WeightedFontFamily
+   */
+  public function setWeightedFontFamily(Google_Service_Docs_WeightedFontFamily $weightedFontFamily)
+  {
+    $this->weightedFontFamily = $weightedFontFamily;
+  }
+  /**
+   * @return Google_Service_Docs_WeightedFontFamily
+   */
+  public function getWeightedFontFamily()
+  {
+    return $this->weightedFontFamily;
+  }
 }

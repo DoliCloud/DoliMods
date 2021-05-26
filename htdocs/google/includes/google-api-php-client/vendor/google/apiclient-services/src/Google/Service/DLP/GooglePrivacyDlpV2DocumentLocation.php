@@ -17,14 +17,14 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DocumentLocation extends Google_Model
 {
-	public $fileOffset;
+  public $fileOffset;
 
-	public function setFileOffset($fileOffset)
-	{
-		$this->fileOffset = $fileOffset;
-	}
-	public function getFileOffset()
-	{
-		return $this->fileOffset;
-	}
+  public function setFileOffset($fileOffset)
+  {
+    $this->fileOffset = $fileOffset;
+  }
+  public function getFileOffset()
+  {
+    return $this->fileOffset;
+  }
 }

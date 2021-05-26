@@ -17,39 +17,39 @@
 
 class Google_Service_Monitoring_CollectdValue extends Google_Model
 {
-	public $dataSourceName;
-	public $dataSourceType;
-	protected $valueType = 'Google_Service_Monitoring_TypedValue';
-	protected $valueDataType = '';
+  public $dataSourceName;
+  public $dataSourceType;
+  protected $valueType = 'Google_Service_Monitoring_TypedValue';
+  protected $valueDataType = '';
 
-	public function setDataSourceName($dataSourceName)
-	{
-		$this->dataSourceName = $dataSourceName;
-	}
-	public function getDataSourceName()
-	{
-		return $this->dataSourceName;
-	}
-	public function setDataSourceType($dataSourceType)
-	{
-		$this->dataSourceType = $dataSourceType;
-	}
-	public function getDataSourceType()
-	{
-		return $this->dataSourceType;
-	}
-	/**
-	 * @param Google_Service_Monitoring_TypedValue
-	 */
-	public function setValue(Google_Service_Monitoring_TypedValue $value)
-	{
-		$this->value = $value;
-	}
-	/**
-	 * @return Google_Service_Monitoring_TypedValue
-	 */
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setDataSourceName($dataSourceName)
+  {
+    $this->dataSourceName = $dataSourceName;
+  }
+  public function getDataSourceName()
+  {
+    return $this->dataSourceName;
+  }
+  public function setDataSourceType($dataSourceType)
+  {
+    $this->dataSourceType = $dataSourceType;
+  }
+  public function getDataSourceType()
+  {
+    return $this->dataSourceType;
+  }
+  /**
+   * @param Google_Service_Monitoring_TypedValue
+   */
+  public function setValue(Google_Service_Monitoring_TypedValue $value)
+  {
+    $this->value = $value;
+  }
+  /**
+   * @return Google_Service_Monitoring_TypedValue
+   */
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

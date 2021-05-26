@@ -17,21 +17,21 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ImportTaxonomiesRequest extends Google_Model
 {
-	protected $inlineSourceType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1InlineSource';
-	protected $inlineSourceDataType = '';
+  protected $inlineSourceType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1InlineSource';
+  protected $inlineSourceDataType = '';
 
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1InlineSource
-	 */
-	public function setInlineSource(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1InlineSource $inlineSource)
-	{
-		$this->inlineSource = $inlineSource;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1InlineSource
-	 */
-	public function getInlineSource()
-	{
-		return $this->inlineSource;
-	}
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1InlineSource
+   */
+  public function setInlineSource(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1InlineSource $inlineSource)
+  {
+    $this->inlineSource = $inlineSource;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1InlineSource
+   */
+  public function getInlineSource()
+  {
+    return $this->inlineSource;
+  }
 }

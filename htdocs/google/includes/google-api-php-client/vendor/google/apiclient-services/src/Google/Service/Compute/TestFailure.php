@@ -17,41 +17,41 @@
 
 class Google_Service_Compute_TestFailure extends Google_Model
 {
-	public $actualService;
-	public $expectedService;
-	public $host;
-	public $path;
+  public $actualService;
+  public $expectedService;
+  public $host;
+  public $path;
 
-	public function setActualService($actualService)
-	{
-		$this->actualService = $actualService;
-	}
-	public function getActualService()
-	{
-		return $this->actualService;
-	}
-	public function setExpectedService($expectedService)
-	{
-		$this->expectedService = $expectedService;
-	}
-	public function getExpectedService()
-	{
-		return $this->expectedService;
-	}
-	public function setHost($host)
-	{
-		$this->host = $host;
-	}
-	public function getHost()
-	{
-		return $this->host;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
+  public function setActualService($actualService)
+  {
+    $this->actualService = $actualService;
+  }
+  public function getActualService()
+  {
+    return $this->actualService;
+  }
+  public function setExpectedService($expectedService)
+  {
+    $this->expectedService = $expectedService;
+  }
+  public function getExpectedService()
+  {
+    return $this->expectedService;
+  }
+  public function setHost($host)
+  {
+    $this->host = $host;
+  }
+  public function getHost()
+  {
+    return $this->host;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
 }

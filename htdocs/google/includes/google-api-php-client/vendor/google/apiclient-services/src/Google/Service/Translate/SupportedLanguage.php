@@ -17,41 +17,41 @@
 
 class Google_Service_Translate_SupportedLanguage extends Google_Model
 {
-	public $displayName;
-	public $languageCode;
-	public $supportSource;
-	public $supportTarget;
+  public $displayName;
+  public $languageCode;
+  public $supportSource;
+  public $supportTarget;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	public function setSupportSource($supportSource)
-	{
-		$this->supportSource = $supportSource;
-	}
-	public function getSupportSource()
-	{
-		return $this->supportSource;
-	}
-	public function setSupportTarget($supportTarget)
-	{
-		$this->supportTarget = $supportTarget;
-	}
-	public function getSupportTarget()
-	{
-		return $this->supportTarget;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  public function setSupportSource($supportSource)
+  {
+    $this->supportSource = $supportSource;
+  }
+  public function getSupportSource()
+  {
+    return $this->supportSource;
+  }
+  public function setSupportTarget($supportTarget)
+  {
+    $this->supportTarget = $supportTarget;
+  }
+  public function getSupportTarget()
+  {
+    return $this->supportTarget;
+  }
 }

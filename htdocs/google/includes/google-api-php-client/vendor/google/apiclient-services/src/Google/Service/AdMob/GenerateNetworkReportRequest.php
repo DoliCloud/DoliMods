@@ -17,21 +17,21 @@
 
 class Google_Service_AdMob_GenerateNetworkReportRequest extends Google_Model
 {
-	protected $reportSpecType = 'Google_Service_AdMob_NetworkReportSpec';
-	protected $reportSpecDataType = '';
+  protected $reportSpecType = 'Google_Service_AdMob_NetworkReportSpec';
+  protected $reportSpecDataType = '';
 
-	/**
-	 * @param Google_Service_AdMob_NetworkReportSpec
-	 */
-	public function setReportSpec(Google_Service_AdMob_NetworkReportSpec $reportSpec)
-	{
-		$this->reportSpec = $reportSpec;
-	}
-	/**
-	 * @return Google_Service_AdMob_NetworkReportSpec
-	 */
-	public function getReportSpec()
-	{
-		return $this->reportSpec;
-	}
+  /**
+   * @param Google_Service_AdMob_NetworkReportSpec
+   */
+  public function setReportSpec(Google_Service_AdMob_NetworkReportSpec $reportSpec)
+  {
+    $this->reportSpec = $reportSpec;
+  }
+  /**
+   * @return Google_Service_AdMob_NetworkReportSpec
+   */
+  public function getReportSpec()
+  {
+    return $this->reportSpec;
+  }
 }

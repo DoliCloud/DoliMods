@@ -17,15 +17,15 @@
 
 class Google_Service_SemanticTile_Row extends Google_Collection
 {
-	protected $collection_key = 'altitudeDiffs';
-	public $altitudeDiffs;
+  protected $collection_key = 'altitudeDiffs';
+  public $altitudeDiffs;
 
-	public function setAltitudeDiffs($altitudeDiffs)
-	{
-		$this->altitudeDiffs = $altitudeDiffs;
-	}
-	public function getAltitudeDiffs()
-	{
-		return $this->altitudeDiffs;
-	}
+  public function setAltitudeDiffs($altitudeDiffs)
+  {
+    $this->altitudeDiffs = $altitudeDiffs;
+  }
+  public function getAltitudeDiffs()
+  {
+    return $this->altitudeDiffs;
+  }
 }

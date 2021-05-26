@@ -17,14 +17,14 @@
 
 class Google_Service_Testing_CancelTestMatrixResponse extends Google_Model
 {
-	public $testState;
+  public $testState;
 
-	public function setTestState($testState)
-	{
-		$this->testState = $testState;
-	}
-	public function getTestState()
-	{
-		return $this->testState;
-	}
+  public function setTestState($testState)
+  {
+    $this->testState = $testState;
+  }
+  public function getTestState()
+  {
+    return $this->testState;
+  }
 }

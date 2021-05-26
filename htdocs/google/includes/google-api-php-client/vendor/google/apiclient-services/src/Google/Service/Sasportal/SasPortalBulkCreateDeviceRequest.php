@@ -17,14 +17,14 @@
 
 class Google_Service_Sasportal_SasPortalBulkCreateDeviceRequest extends Google_Model
 {
-	public $csv;
+  public $csv;
 
-	public function setCsv($csv)
-	{
-		$this->csv = $csv;
-	}
-	public function getCsv()
-	{
-		return $this->csv;
-	}
+  public function setCsv($csv)
+  {
+    $this->csv = $csv;
+  }
+  public function getCsv()
+  {
+    return $this->csv;
+  }
 }

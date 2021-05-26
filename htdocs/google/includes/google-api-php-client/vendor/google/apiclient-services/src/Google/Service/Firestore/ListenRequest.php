@@ -17,39 +17,39 @@
 
 class Google_Service_Firestore_ListenRequest extends Google_Model
 {
-	protected $addTargetType = 'Google_Service_Firestore_Target';
-	protected $addTargetDataType = '';
-	public $labels;
-	public $removeTarget;
+  protected $addTargetType = 'Google_Service_Firestore_Target';
+  protected $addTargetDataType = '';
+  public $labels;
+  public $removeTarget;
 
-	/**
-	 * @param Google_Service_Firestore_Target
-	 */
-	public function setAddTarget(Google_Service_Firestore_Target $addTarget)
-	{
-		$this->addTarget = $addTarget;
-	}
-	/**
-	 * @return Google_Service_Firestore_Target
-	 */
-	public function getAddTarget()
-	{
-		return $this->addTarget;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setRemoveTarget($removeTarget)
-	{
-		$this->removeTarget = $removeTarget;
-	}
-	public function getRemoveTarget()
-	{
-		return $this->removeTarget;
-	}
+  /**
+   * @param Google_Service_Firestore_Target
+   */
+  public function setAddTarget(Google_Service_Firestore_Target $addTarget)
+  {
+    $this->addTarget = $addTarget;
+  }
+  /**
+   * @return Google_Service_Firestore_Target
+   */
+  public function getAddTarget()
+  {
+    return $this->addTarget;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setRemoveTarget($removeTarget)
+  {
+    $this->removeTarget = $removeTarget;
+  }
+  public function getRemoveTarget()
+  {
+    return $this->removeTarget;
+  }
 }

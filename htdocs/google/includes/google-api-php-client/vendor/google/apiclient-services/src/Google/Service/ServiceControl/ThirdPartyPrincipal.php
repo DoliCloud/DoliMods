@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceControl_ThirdPartyPrincipal extends Google_Model
 {
-	public $thirdPartyClaims;
+  public $thirdPartyClaims;
 
-	public function setThirdPartyClaims($thirdPartyClaims)
-	{
-		$this->thirdPartyClaims = $thirdPartyClaims;
-	}
-	public function getThirdPartyClaims()
-	{
-		return $this->thirdPartyClaims;
-	}
+  public function setThirdPartyClaims($thirdPartyClaims)
+  {
+    $this->thirdPartyClaims = $thirdPartyClaims;
+  }
+  public function getThirdPartyClaims()
+  {
+    return $this->thirdPartyClaims;
+  }
 }

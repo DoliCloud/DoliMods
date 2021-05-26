@@ -17,23 +17,23 @@
 
 class Google_Service_Analytics_GoalVisitNumPagesDetails extends Google_Model
 {
-	public $comparisonType;
-	public $comparisonValue;
+  public $comparisonType;
+  public $comparisonValue;
 
-	public function setComparisonType($comparisonType)
-	{
-		$this->comparisonType = $comparisonType;
-	}
-	public function getComparisonType()
-	{
-		return $this->comparisonType;
-	}
-	public function setComparisonValue($comparisonValue)
-	{
-		$this->comparisonValue = $comparisonValue;
-	}
-	public function getComparisonValue()
-	{
-		return $this->comparisonValue;
-	}
+  public function setComparisonType($comparisonType)
+  {
+    $this->comparisonType = $comparisonType;
+  }
+  public function getComparisonType()
+  {
+    return $this->comparisonType;
+  }
+  public function setComparisonValue($comparisonValue)
+  {
+    $this->comparisonValue = $comparisonValue;
+  }
+  public function getComparisonValue()
+  {
+    return $this->comparisonValue;
+  }
 }

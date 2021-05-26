@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_BackendServiceFailoverPolicy extends Google_Model
 {
-	public $disableConnectionDrainOnFailover;
-	public $dropTrafficIfUnhealthy;
-	public $failoverRatio;
+  public $disableConnectionDrainOnFailover;
+  public $dropTrafficIfUnhealthy;
+  public $failoverRatio;
 
-	public function setDisableConnectionDrainOnFailover($disableConnectionDrainOnFailover)
-	{
-		$this->disableConnectionDrainOnFailover = $disableConnectionDrainOnFailover;
-	}
-	public function getDisableConnectionDrainOnFailover()
-	{
-		return $this->disableConnectionDrainOnFailover;
-	}
-	public function setDropTrafficIfUnhealthy($dropTrafficIfUnhealthy)
-	{
-		$this->dropTrafficIfUnhealthy = $dropTrafficIfUnhealthy;
-	}
-	public function getDropTrafficIfUnhealthy()
-	{
-		return $this->dropTrafficIfUnhealthy;
-	}
-	public function setFailoverRatio($failoverRatio)
-	{
-		$this->failoverRatio = $failoverRatio;
-	}
-	public function getFailoverRatio()
-	{
-		return $this->failoverRatio;
-	}
+  public function setDisableConnectionDrainOnFailover($disableConnectionDrainOnFailover)
+  {
+    $this->disableConnectionDrainOnFailover = $disableConnectionDrainOnFailover;
+  }
+  public function getDisableConnectionDrainOnFailover()
+  {
+    return $this->disableConnectionDrainOnFailover;
+  }
+  public function setDropTrafficIfUnhealthy($dropTrafficIfUnhealthy)
+  {
+    $this->dropTrafficIfUnhealthy = $dropTrafficIfUnhealthy;
+  }
+  public function getDropTrafficIfUnhealthy()
+  {
+    return $this->dropTrafficIfUnhealthy;
+  }
+  public function setFailoverRatio($failoverRatio)
+  {
+    $this->failoverRatio = $failoverRatio;
+  }
+  public function getFailoverRatio()
+  {
+    return $this->failoverRatio;
+  }
 }

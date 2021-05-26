@@ -17,31 +17,31 @@
 
 class Google_Service_Docs_Footnote extends Google_Collection
 {
-	protected $collection_key = 'content';
-	protected $contentType = 'Google_Service_Docs_StructuralElement';
-	protected $contentDataType = 'array';
-	public $footnoteId;
+  protected $collection_key = 'content';
+  protected $contentType = 'Google_Service_Docs_StructuralElement';
+  protected $contentDataType = 'array';
+  public $footnoteId;
 
-	/**
-	 * @param Google_Service_Docs_StructuralElement
-	 */
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	/**
-	 * @return Google_Service_Docs_StructuralElement
-	 */
-	public function getContent()
-	{
-		return $this->content;
-	}
-	public function setFootnoteId($footnoteId)
-	{
-		$this->footnoteId = $footnoteId;
-	}
-	public function getFootnoteId()
-	{
-		return $this->footnoteId;
-	}
+  /**
+   * @param Google_Service_Docs_StructuralElement[]
+   */
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  /**
+   * @return Google_Service_Docs_StructuralElement[]
+   */
+  public function getContent()
+  {
+    return $this->content;
+  }
+  public function setFootnoteId($footnoteId)
+  {
+    $this->footnoteId = $footnoteId;
+  }
+  public function getFootnoteId()
+  {
+    return $this->footnoteId;
+  }
 }

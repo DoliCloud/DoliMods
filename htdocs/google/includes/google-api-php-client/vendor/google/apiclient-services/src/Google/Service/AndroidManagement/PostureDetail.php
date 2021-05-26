@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidManagement_PostureDetail extends Google_Collection
 {
-	protected $collection_key = 'advice';
-	protected $adviceType = 'Google_Service_AndroidManagement_UserFacingMessage';
-	protected $adviceDataType = 'array';
-	public $securityRisk;
+  protected $collection_key = 'advice';
+  protected $adviceType = 'Google_Service_AndroidManagement_UserFacingMessage';
+  protected $adviceDataType = 'array';
+  public $securityRisk;
 
-	/**
-	 * @param Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function setAdvice($advice)
-	{
-		$this->advice = $advice;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function getAdvice()
-	{
-		return $this->advice;
-	}
-	public function setSecurityRisk($securityRisk)
-	{
-		$this->securityRisk = $securityRisk;
-	}
-	public function getSecurityRisk()
-	{
-		return $this->securityRisk;
-	}
+  /**
+   * @param Google_Service_AndroidManagement_UserFacingMessage[]
+   */
+  public function setAdvice($advice)
+  {
+    $this->advice = $advice;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_UserFacingMessage[]
+   */
+  public function getAdvice()
+  {
+    return $this->advice;
+  }
+  public function setSecurityRisk($securityRisk)
+  {
+    $this->securityRisk = $securityRisk;
+  }
+  public function getSecurityRisk()
+  {
+    return $this->securityRisk;
+  }
 }

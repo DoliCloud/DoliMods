@@ -17,24 +17,24 @@
 
 class Google_Service_Manager_Tag extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $fingerPrint;
-	public $items;
+  protected $collection_key = 'items';
+  public $fingerPrint;
+  public $items;
 
-	public function setFingerPrint($fingerPrint)
-	{
-		$this->fingerPrint = $fingerPrint;
-	}
-	public function getFingerPrint()
-	{
-		return $this->fingerPrint;
-	}
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	public function getItems()
-	{
-		return $this->items;
-	}
+  public function setFingerPrint($fingerPrint)
+  {
+    $this->fingerPrint = $fingerPrint;
+  }
+  public function getFingerPrint()
+  {
+    return $this->fingerPrint;
+  }
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  public function getItems()
+  {
+    return $this->items;
+  }
 }

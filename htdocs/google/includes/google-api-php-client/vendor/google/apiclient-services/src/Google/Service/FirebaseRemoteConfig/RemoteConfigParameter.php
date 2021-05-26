@@ -17,46 +17,46 @@
 
 class Google_Service_FirebaseRemoteConfig_RemoteConfigParameter extends Google_Model
 {
-	protected $conditionalValuesType = 'Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue';
-	protected $conditionalValuesDataType = 'map';
-	protected $defaultValueType = 'Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue';
-	protected $defaultValueDataType = '';
-	public $description;
+  protected $conditionalValuesType = 'Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue';
+  protected $conditionalValuesDataType = 'map';
+  protected $defaultValueType = 'Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue';
+  protected $defaultValueDataType = '';
+  public $description;
 
-	/**
-	 * @param Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue
-	 */
-	public function setConditionalValues($conditionalValues)
-	{
-		$this->conditionalValues = $conditionalValues;
-	}
-	/**
-	 * @return Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue
-	 */
-	public function getConditionalValues()
-	{
-		return $this->conditionalValues;
-	}
-	/**
-	 * @param Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue
-	 */
-	public function setDefaultValue(Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue $defaultValue)
-	{
-		$this->defaultValue = $defaultValue;
-	}
-	/**
-	 * @return Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue
-	 */
-	public function getDefaultValue()
-	{
-		return $this->defaultValue;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
+  /**
+   * @param Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue
+   */
+  public function setConditionalValues($conditionalValues)
+  {
+    $this->conditionalValues = $conditionalValues;
+  }
+  /**
+   * @return Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue
+   */
+  public function getConditionalValues()
+  {
+    return $this->conditionalValues;
+  }
+  /**
+   * @param Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue
+   */
+  public function setDefaultValue(Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue $defaultValue)
+  {
+    $this->defaultValue = $defaultValue;
+  }
+  /**
+   * @return Google_Service_FirebaseRemoteConfig_RemoteConfigParameterValue
+   */
+  public function getDefaultValue()
+  {
+    return $this->defaultValue;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
 }

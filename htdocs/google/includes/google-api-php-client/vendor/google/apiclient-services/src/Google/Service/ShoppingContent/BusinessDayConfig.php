@@ -17,15 +17,15 @@
 
 class Google_Service_ShoppingContent_BusinessDayConfig extends Google_Collection
 {
-	protected $collection_key = 'businessDays';
-	public $businessDays;
+  protected $collection_key = 'businessDays';
+  public $businessDays;
 
-	public function setBusinessDays($businessDays)
-	{
-		$this->businessDays = $businessDays;
-	}
-	public function getBusinessDays()
-	{
-		return $this->businessDays;
-	}
+  public function setBusinessDays($businessDays)
+  {
+    $this->businessDays = $businessDays;
+  }
+  public function getBusinessDays()
+  {
+    return $this->businessDays;
+  }
 }

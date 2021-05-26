@@ -17,46 +17,46 @@
 
 class Google_Service_Docs_UpdateTextStyleRequest extends Google_Model
 {
-	public $fields;
-	protected $rangeType = 'Google_Service_Docs_Range';
-	protected $rangeDataType = '';
-	protected $textStyleType = 'Google_Service_Docs_TextStyle';
-	protected $textStyleDataType = '';
+  public $fields;
+  protected $rangeType = 'Google_Service_Docs_Range';
+  protected $rangeDataType = '';
+  protected $textStyleType = 'Google_Service_Docs_TextStyle';
+  protected $textStyleDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	/**
-	 * @param Google_Service_Docs_Range
-	 */
-	public function setRange(Google_Service_Docs_Range $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Docs_Range
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
-	/**
-	 * @param Google_Service_Docs_TextStyle
-	 */
-	public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
-	{
-		$this->textStyle = $textStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_TextStyle
-	 */
-	public function getTextStyle()
-	{
-		return $this->textStyle;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  /**
+   * @param Google_Service_Docs_Range
+   */
+  public function setRange(Google_Service_Docs_Range $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Docs_Range
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
+  /**
+   * @param Google_Service_Docs_TextStyle
+   */
+  public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
+  {
+    $this->textStyle = $textStyle;
+  }
+  /**
+   * @return Google_Service_Docs_TextStyle
+   */
+  public function getTextStyle()
+  {
+    return $this->textStyle;
+  }
 }

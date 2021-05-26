@@ -17,22 +17,22 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationResult extends Google_Collection
 {
-	protected $collection_key = 'kMapEstimationHistogram';
-	protected $kMapEstimationHistogramType = 'Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationHistogramBucket';
-	protected $kMapEstimationHistogramDataType = 'array';
+  protected $collection_key = 'kMapEstimationHistogram';
+  protected $kMapEstimationHistogramType = 'Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationHistogramBucket';
+  protected $kMapEstimationHistogramDataType = 'array';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationHistogramBucket
-	 */
-	public function setKMapEstimationHistogram($kMapEstimationHistogram)
-	{
-		$this->kMapEstimationHistogram = $kMapEstimationHistogram;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationHistogramBucket
-	 */
-	public function getKMapEstimationHistogram()
-	{
-		return $this->kMapEstimationHistogram;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationHistogramBucket[]
+   */
+  public function setKMapEstimationHistogram($kMapEstimationHistogram)
+  {
+    $this->kMapEstimationHistogram = $kMapEstimationHistogram;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationHistogramBucket[]
+   */
+  public function getKMapEstimationHistogram()
+  {
+    return $this->kMapEstimationHistogram;
+  }
 }

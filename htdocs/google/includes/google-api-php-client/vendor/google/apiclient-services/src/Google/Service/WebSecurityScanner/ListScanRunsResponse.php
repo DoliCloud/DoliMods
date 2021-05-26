@@ -17,31 +17,31 @@
 
 class Google_Service_WebSecurityScanner_ListScanRunsResponse extends Google_Collection
 {
-	protected $collection_key = 'scanRuns';
-	public $nextPageToken;
-	protected $scanRunsType = 'Google_Service_WebSecurityScanner_ScanRun';
-	protected $scanRunsDataType = 'array';
+  protected $collection_key = 'scanRuns';
+  public $nextPageToken;
+  protected $scanRunsType = 'Google_Service_WebSecurityScanner_ScanRun';
+  protected $scanRunsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_WebSecurityScanner_ScanRun
-	 */
-	public function setScanRuns($scanRuns)
-	{
-		$this->scanRuns = $scanRuns;
-	}
-	/**
-	 * @return Google_Service_WebSecurityScanner_ScanRun
-	 */
-	public function getScanRuns()
-	{
-		return $this->scanRuns;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_WebSecurityScanner_ScanRun
+   */
+  public function setScanRuns($scanRuns)
+  {
+    $this->scanRuns = $scanRuns;
+  }
+  /**
+   * @return Google_Service_WebSecurityScanner_ScanRun
+   */
+  public function getScanRuns()
+  {
+    return $this->scanRuns;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Sheets_MatchedValueRange extends Google_Collection
 {
-	protected $collection_key = 'dataFilters';
-	protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
-	protected $dataFiltersDataType = 'array';
-	protected $valueRangeType = 'Google_Service_Sheets_ValueRange';
-	protected $valueRangeDataType = '';
+  protected $collection_key = 'dataFilters';
+  protected $dataFiltersType = 'Google_Service_Sheets_DataFilter';
+  protected $dataFiltersDataType = 'array';
+  protected $valueRangeType = 'Google_Service_Sheets_ValueRange';
+  protected $valueRangeDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_DataFilter
-	 */
-	public function setDataFilters($dataFilters)
-	{
-		$this->dataFilters = $dataFilters;
-	}
-	/**
-	 * @return Google_Service_Sheets_DataFilter
-	 */
-	public function getDataFilters()
-	{
-		return $this->dataFilters;
-	}
-	/**
-	 * @param Google_Service_Sheets_ValueRange
-	 */
-	public function setValueRange(Google_Service_Sheets_ValueRange $valueRange)
-	{
-		$this->valueRange = $valueRange;
-	}
-	/**
-	 * @return Google_Service_Sheets_ValueRange
-	 */
-	public function getValueRange()
-	{
-		return $this->valueRange;
-	}
+  /**
+   * @param Google_Service_Sheets_DataFilter[]
+   */
+  public function setDataFilters($dataFilters)
+  {
+    $this->dataFilters = $dataFilters;
+  }
+  /**
+   * @return Google_Service_Sheets_DataFilter[]
+   */
+  public function getDataFilters()
+  {
+    return $this->dataFilters;
+  }
+  /**
+   * @param Google_Service_Sheets_ValueRange
+   */
+  public function setValueRange(Google_Service_Sheets_ValueRange $valueRange)
+  {
+    $this->valueRange = $valueRange;
+  }
+  /**
+   * @return Google_Service_Sheets_ValueRange
+   */
+  public function getValueRange()
+  {
+    return $this->valueRange;
+  }
 }

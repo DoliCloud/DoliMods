@@ -17,31 +17,31 @@
 
 class Google_Service_PostmasterTools_ListDomainsResponse extends Google_Collection
 {
-	protected $collection_key = 'domains';
-	protected $domainsType = 'Google_Service_PostmasterTools_Domain';
-	protected $domainsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'domains';
+  protected $domainsType = 'Google_Service_PostmasterTools_Domain';
+  protected $domainsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_PostmasterTools_Domain
-	 */
-	public function setDomains($domains)
-	{
-		$this->domains = $domains;
-	}
-	/**
-	 * @return Google_Service_PostmasterTools_Domain
-	 */
-	public function getDomains()
-	{
-		return $this->domains;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_PostmasterTools_Domain[]
+   */
+  public function setDomains($domains)
+  {
+    $this->domains = $domains;
+  }
+  /**
+   * @return Google_Service_PostmasterTools_Domain[]
+   */
+  public function getDomains()
+  {
+    return $this->domains;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

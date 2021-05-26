@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListSitesResponse extends Google_Collection
 {
-	protected $collection_key = 'sites';
-	public $nextPageToken;
-	protected $sitesType = 'Google_Service_DisplayVideo_Site';
-	protected $sitesDataType = 'array';
+  protected $collection_key = 'sites';
+  public $nextPageToken;
+  protected $sitesType = 'Google_Service_DisplayVideo_Site';
+  protected $sitesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_Site
-	 */
-	public function setSites($sites)
-	{
-		$this->sites = $sites;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_Site
-	 */
-	public function getSites()
-	{
-		return $this->sites;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_Site[]
+   */
+  public function setSites($sites)
+  {
+    $this->sites = $sites;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_Site[]
+   */
+  public function getSites()
+  {
+    return $this->sites;
+  }
 }

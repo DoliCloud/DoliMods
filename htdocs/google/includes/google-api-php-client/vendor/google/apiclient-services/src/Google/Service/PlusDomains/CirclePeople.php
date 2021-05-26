@@ -17,14 +17,14 @@
 
 class Google_Service_PlusDomains_CirclePeople extends Google_Model
 {
-	public $totalItems;
+  public $totalItems;
 
-	public function setTotalItems($totalItems)
-	{
-		$this->totalItems = $totalItems;
-	}
-	public function getTotalItems()
-	{
-		return $this->totalItems;
-	}
+  public function setTotalItems($totalItems)
+  {
+    $this->totalItems = $totalItems;
+  }
+  public function getTotalItems()
+  {
+    return $this->totalItems;
+  }
 }

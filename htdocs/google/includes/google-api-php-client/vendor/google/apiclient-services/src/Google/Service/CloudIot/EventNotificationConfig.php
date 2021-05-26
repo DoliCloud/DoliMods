@@ -17,23 +17,23 @@
 
 class Google_Service_CloudIot_EventNotificationConfig extends Google_Model
 {
-	public $pubsubTopicName;
-	public $subfolderMatches;
+  public $pubsubTopicName;
+  public $subfolderMatches;
 
-	public function setPubsubTopicName($pubsubTopicName)
-	{
-		$this->pubsubTopicName = $pubsubTopicName;
-	}
-	public function getPubsubTopicName()
-	{
-		return $this->pubsubTopicName;
-	}
-	public function setSubfolderMatches($subfolderMatches)
-	{
-		$this->subfolderMatches = $subfolderMatches;
-	}
-	public function getSubfolderMatches()
-	{
-		return $this->subfolderMatches;
-	}
+  public function setPubsubTopicName($pubsubTopicName)
+  {
+    $this->pubsubTopicName = $pubsubTopicName;
+  }
+  public function getPubsubTopicName()
+  {
+    return $this->pubsubTopicName;
+  }
+  public function setSubfolderMatches($subfolderMatches)
+  {
+    $this->subfolderMatches = $subfolderMatches;
+  }
+  public function getSubfolderMatches()
+  {
+    return $this->subfolderMatches;
+  }
 }

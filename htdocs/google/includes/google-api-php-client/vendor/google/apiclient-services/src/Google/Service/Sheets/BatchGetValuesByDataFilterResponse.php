@@ -17,31 +17,31 @@
 
 class Google_Service_Sheets_BatchGetValuesByDataFilterResponse extends Google_Collection
 {
-	protected $collection_key = 'valueRanges';
-	public $spreadsheetId;
-	protected $valueRangesType = 'Google_Service_Sheets_MatchedValueRange';
-	protected $valueRangesDataType = 'array';
+  protected $collection_key = 'valueRanges';
+  public $spreadsheetId;
+  protected $valueRangesType = 'Google_Service_Sheets_MatchedValueRange';
+  protected $valueRangesDataType = 'array';
 
-	public function setSpreadsheetId($spreadsheetId)
-	{
-		$this->spreadsheetId = $spreadsheetId;
-	}
-	public function getSpreadsheetId()
-	{
-		return $this->spreadsheetId;
-	}
-	/**
-	 * @param Google_Service_Sheets_MatchedValueRange
-	 */
-	public function setValueRanges($valueRanges)
-	{
-		$this->valueRanges = $valueRanges;
-	}
-	/**
-	 * @return Google_Service_Sheets_MatchedValueRange
-	 */
-	public function getValueRanges()
-	{
-		return $this->valueRanges;
-	}
+  public function setSpreadsheetId($spreadsheetId)
+  {
+    $this->spreadsheetId = $spreadsheetId;
+  }
+  public function getSpreadsheetId()
+  {
+    return $this->spreadsheetId;
+  }
+  /**
+   * @param Google_Service_Sheets_MatchedValueRange[]
+   */
+  public function setValueRanges($valueRanges)
+  {
+    $this->valueRanges = $valueRanges;
+  }
+  /**
+   * @return Google_Service_Sheets_MatchedValueRange[]
+   */
+  public function getValueRanges()
+  {
+    return $this->valueRanges;
+  }
 }

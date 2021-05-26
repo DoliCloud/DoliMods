@@ -17,39 +17,39 @@
 
 class Google_Service_Slides_UpdateShapePropertiesRequest extends Google_Model
 {
-	public $fields;
-	public $objectId;
-	protected $shapePropertiesType = 'Google_Service_Slides_ShapeProperties';
-	protected $shapePropertiesDataType = '';
+  public $fields;
+  public $objectId;
+  protected $shapePropertiesType = 'Google_Service_Slides_ShapeProperties';
+  protected $shapePropertiesDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
-	/**
-	 * @param Google_Service_Slides_ShapeProperties
-	 */
-	public function setShapeProperties(Google_Service_Slides_ShapeProperties $shapeProperties)
-	{
-		$this->shapeProperties = $shapeProperties;
-	}
-	/**
-	 * @return Google_Service_Slides_ShapeProperties
-	 */
-	public function getShapeProperties()
-	{
-		return $this->shapeProperties;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
+  /**
+   * @param Google_Service_Slides_ShapeProperties
+   */
+  public function setShapeProperties(Google_Service_Slides_ShapeProperties $shapeProperties)
+  {
+    $this->shapeProperties = $shapeProperties;
+  }
+  /**
+   * @return Google_Service_Slides_ShapeProperties
+   */
+  public function getShapeProperties()
+  {
+    return $this->shapeProperties;
+  }
 }

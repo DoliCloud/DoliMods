@@ -17,77 +17,77 @@
 
 class Google_Service_CloudBuild_RepoSource extends Google_Model
 {
-	public $branchName;
-	public $commitSha;
-	public $dir;
-	public $invertRegex;
-	public $projectId;
-	public $repoName;
-	public $substitutions;
-	public $tagName;
+  public $branchName;
+  public $commitSha;
+  public $dir;
+  public $invertRegex;
+  public $projectId;
+  public $repoName;
+  public $substitutions;
+  public $tagName;
 
-	public function setBranchName($branchName)
-	{
-		$this->branchName = $branchName;
-	}
-	public function getBranchName()
-	{
-		return $this->branchName;
-	}
-	public function setCommitSha($commitSha)
-	{
-		$this->commitSha = $commitSha;
-	}
-	public function getCommitSha()
-	{
-		return $this->commitSha;
-	}
-	public function setDir($dir)
-	{
-		$this->dir = $dir;
-	}
-	public function getDir()
-	{
-		return $this->dir;
-	}
-	public function setInvertRegex($invertRegex)
-	{
-		$this->invertRegex = $invertRegex;
-	}
-	public function getInvertRegex()
-	{
-		return $this->invertRegex;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setRepoName($repoName)
-	{
-		$this->repoName = $repoName;
-	}
-	public function getRepoName()
-	{
-		return $this->repoName;
-	}
-	public function setSubstitutions($substitutions)
-	{
-		$this->substitutions = $substitutions;
-	}
-	public function getSubstitutions()
-	{
-		return $this->substitutions;
-	}
-	public function setTagName($tagName)
-	{
-		$this->tagName = $tagName;
-	}
-	public function getTagName()
-	{
-		return $this->tagName;
-	}
+  public function setBranchName($branchName)
+  {
+    $this->branchName = $branchName;
+  }
+  public function getBranchName()
+  {
+    return $this->branchName;
+  }
+  public function setCommitSha($commitSha)
+  {
+    $this->commitSha = $commitSha;
+  }
+  public function getCommitSha()
+  {
+    return $this->commitSha;
+  }
+  public function setDir($dir)
+  {
+    $this->dir = $dir;
+  }
+  public function getDir()
+  {
+    return $this->dir;
+  }
+  public function setInvertRegex($invertRegex)
+  {
+    $this->invertRegex = $invertRegex;
+  }
+  public function getInvertRegex()
+  {
+    return $this->invertRegex;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setRepoName($repoName)
+  {
+    $this->repoName = $repoName;
+  }
+  public function getRepoName()
+  {
+    return $this->repoName;
+  }
+  public function setSubstitutions($substitutions)
+  {
+    $this->substitutions = $substitutions;
+  }
+  public function getSubstitutions()
+  {
+    return $this->substitutions;
+  }
+  public function setTagName($tagName)
+  {
+    $this->tagName = $tagName;
+  }
+  public function getTagName()
+  {
+    return $this->tagName;
+  }
 }

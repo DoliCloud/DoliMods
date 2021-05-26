@@ -25,17 +25,17 @@
  */
 class Google_Service_DoubleClickBidManager_Resource_Sdf extends Google_Service_Resource
 {
-	/**
-	 * Retrieves entities in SDF format. (sdf.download)
-	 *
-	 * @param Google_Service_DoubleClickBidManager_DownloadRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_DoubleClickBidManager_DownloadResponse
-	 */
-	public function download(Google_Service_DoubleClickBidManager_DownloadRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('download', array($params), "Google_Service_DoubleClickBidManager_DownloadResponse");
-	}
+  /**
+   * Retrieves entities in SDF format. (sdf.download)
+   *
+   * @param Google_Service_DoubleClickBidManager_DownloadRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DoubleClickBidManager_DownloadResponse
+   */
+  public function download(Google_Service_DoubleClickBidManager_DownloadRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('download', array($params), "Google_Service_DoubleClickBidManager_DownloadResponse");
+  }
 }

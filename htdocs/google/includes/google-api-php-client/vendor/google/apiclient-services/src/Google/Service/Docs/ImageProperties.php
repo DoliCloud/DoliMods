@@ -17,75 +17,75 @@
 
 class Google_Service_Docs_ImageProperties extends Google_Model
 {
-	public $angle;
-	public $brightness;
-	public $contentUri;
-	public $contrast;
-	protected $cropPropertiesType = 'Google_Service_Docs_CropProperties';
-	protected $cropPropertiesDataType = '';
-	public $sourceUri;
-	public $transparency;
+  public $angle;
+  public $brightness;
+  public $contentUri;
+  public $contrast;
+  protected $cropPropertiesType = 'Google_Service_Docs_CropProperties';
+  protected $cropPropertiesDataType = '';
+  public $sourceUri;
+  public $transparency;
 
-	public function setAngle($angle)
-	{
-		$this->angle = $angle;
-	}
-	public function getAngle()
-	{
-		return $this->angle;
-	}
-	public function setBrightness($brightness)
-	{
-		$this->brightness = $brightness;
-	}
-	public function getBrightness()
-	{
-		return $this->brightness;
-	}
-	public function setContentUri($contentUri)
-	{
-		$this->contentUri = $contentUri;
-	}
-	public function getContentUri()
-	{
-		return $this->contentUri;
-	}
-	public function setContrast($contrast)
-	{
-		$this->contrast = $contrast;
-	}
-	public function getContrast()
-	{
-		return $this->contrast;
-	}
-	/**
-	 * @param Google_Service_Docs_CropProperties
-	 */
-	public function setCropProperties(Google_Service_Docs_CropProperties $cropProperties)
-	{
-		$this->cropProperties = $cropProperties;
-	}
-	/**
-	 * @return Google_Service_Docs_CropProperties
-	 */
-	public function getCropProperties()
-	{
-		return $this->cropProperties;
-	}
-	public function setSourceUri($sourceUri)
-	{
-		$this->sourceUri = $sourceUri;
-	}
-	public function getSourceUri()
-	{
-		return $this->sourceUri;
-	}
-	public function setTransparency($transparency)
-	{
-		$this->transparency = $transparency;
-	}
-	public function getTransparency()
-	{
-		return $this->transparency;
-	}
+  public function setAngle($angle)
+  {
+    $this->angle = $angle;
+  }
+  public function getAngle()
+  {
+    return $this->angle;
+  }
+  public function setBrightness($brightness)
+  {
+    $this->brightness = $brightness;
+  }
+  public function getBrightness()
+  {
+    return $this->brightness;
+  }
+  public function setContentUri($contentUri)
+  {
+    $this->contentUri = $contentUri;
+  }
+  public function getContentUri()
+  {
+    return $this->contentUri;
+  }
+  public function setContrast($contrast)
+  {
+    $this->contrast = $contrast;
+  }
+  public function getContrast()
+  {
+    return $this->contrast;
+  }
+  /**
+   * @param Google_Service_Docs_CropProperties
+   */
+  public function setCropProperties(Google_Service_Docs_CropProperties $cropProperties)
+  {
+    $this->cropProperties = $cropProperties;
+  }
+  /**
+   * @return Google_Service_Docs_CropProperties
+   */
+  public function getCropProperties()
+  {
+    return $this->cropProperties;
+  }
+  public function setSourceUri($sourceUri)
+  {
+    $this->sourceUri = $sourceUri;
+  }
+  public function getSourceUri()
+  {
+    return $this->sourceUri;
+  }
+  public function setTransparency($transparency)
+  {
+    $this->transparency = $transparency;
+  }
+  public function getTransparency()
+  {
+    return $this->transparency;
+  }
 }

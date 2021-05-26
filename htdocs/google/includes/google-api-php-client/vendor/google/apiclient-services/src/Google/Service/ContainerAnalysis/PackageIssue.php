@@ -17,46 +17,46 @@
 
 class Google_Service_ContainerAnalysis_PackageIssue extends Google_Model
 {
-	protected $affectedLocationType = 'Google_Service_ContainerAnalysis_VulnerabilityLocation';
-	protected $affectedLocationDataType = '';
-	protected $fixedLocationType = 'Google_Service_ContainerAnalysis_VulnerabilityLocation';
-	protected $fixedLocationDataType = '';
-	public $severityName;
+  protected $affectedLocationType = 'Google_Service_ContainerAnalysis_VulnerabilityLocation';
+  protected $affectedLocationDataType = '';
+  protected $fixedLocationType = 'Google_Service_ContainerAnalysis_VulnerabilityLocation';
+  protected $fixedLocationDataType = '';
+  public $severityName;
 
-	/**
-	 * @param Google_Service_ContainerAnalysis_VulnerabilityLocation
-	 */
-	public function setAffectedLocation(Google_Service_ContainerAnalysis_VulnerabilityLocation $affectedLocation)
-	{
-		$this->affectedLocation = $affectedLocation;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_VulnerabilityLocation
-	 */
-	public function getAffectedLocation()
-	{
-		return $this->affectedLocation;
-	}
-	/**
-	 * @param Google_Service_ContainerAnalysis_VulnerabilityLocation
-	 */
-	public function setFixedLocation(Google_Service_ContainerAnalysis_VulnerabilityLocation $fixedLocation)
-	{
-		$this->fixedLocation = $fixedLocation;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_VulnerabilityLocation
-	 */
-	public function getFixedLocation()
-	{
-		return $this->fixedLocation;
-	}
-	public function setSeverityName($severityName)
-	{
-		$this->severityName = $severityName;
-	}
-	public function getSeverityName()
-	{
-		return $this->severityName;
-	}
+  /**
+   * @param Google_Service_ContainerAnalysis_VulnerabilityLocation
+   */
+  public function setAffectedLocation(Google_Service_ContainerAnalysis_VulnerabilityLocation $affectedLocation)
+  {
+    $this->affectedLocation = $affectedLocation;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_VulnerabilityLocation
+   */
+  public function getAffectedLocation()
+  {
+    return $this->affectedLocation;
+  }
+  /**
+   * @param Google_Service_ContainerAnalysis_VulnerabilityLocation
+   */
+  public function setFixedLocation(Google_Service_ContainerAnalysis_VulnerabilityLocation $fixedLocation)
+  {
+    $this->fixedLocation = $fixedLocation;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_VulnerabilityLocation
+   */
+  public function getFixedLocation()
+  {
+    return $this->fixedLocation;
+  }
+  public function setSeverityName($severityName)
+  {
+    $this->severityName = $severityName;
+  }
+  public function getSeverityName()
+  {
+    return $this->severityName;
+  }
 }

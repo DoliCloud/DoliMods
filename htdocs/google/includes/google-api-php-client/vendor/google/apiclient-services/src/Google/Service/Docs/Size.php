@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_Size extends Google_Model
 {
-	protected $heightType = 'Google_Service_Docs_Dimension';
-	protected $heightDataType = '';
-	protected $widthType = 'Google_Service_Docs_Dimension';
-	protected $widthDataType = '';
+  protected $heightType = 'Google_Service_Docs_Dimension';
+  protected $heightDataType = '';
+  protected $widthType = 'Google_Service_Docs_Dimension';
+  protected $widthDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_Dimension
-	 */
-	public function setHeight(Google_Service_Docs_Dimension $height)
-	{
-		$this->height = $height;
-	}
-	/**
-	 * @return Google_Service_Docs_Dimension
-	 */
-	public function getHeight()
-	{
-		return $this->height;
-	}
-	/**
-	 * @param Google_Service_Docs_Dimension
-	 */
-	public function setWidth(Google_Service_Docs_Dimension $width)
-	{
-		$this->width = $width;
-	}
-	/**
-	 * @return Google_Service_Docs_Dimension
-	 */
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  /**
+   * @param Google_Service_Docs_Dimension
+   */
+  public function setHeight(Google_Service_Docs_Dimension $height)
+  {
+    $this->height = $height;
+  }
+  /**
+   * @return Google_Service_Docs_Dimension
+   */
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  /**
+   * @param Google_Service_Docs_Dimension
+   */
+  public function setWidth(Google_Service_Docs_Dimension $width)
+  {
+    $this->width = $width;
+  }
+  /**
+   * @return Google_Service_Docs_Dimension
+   */
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

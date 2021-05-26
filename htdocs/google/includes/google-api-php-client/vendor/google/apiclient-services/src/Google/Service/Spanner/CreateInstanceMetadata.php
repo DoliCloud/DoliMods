@@ -17,48 +17,48 @@
 
 class Google_Service_Spanner_CreateInstanceMetadata extends Google_Model
 {
-	public $cancelTime;
-	public $endTime;
-	protected $instanceType = 'Google_Service_Spanner_Instance';
-	protected $instanceDataType = '';
-	public $startTime;
+  public $cancelTime;
+  public $endTime;
+  protected $instanceType = 'Google_Service_Spanner_Instance';
+  protected $instanceDataType = '';
+  public $startTime;
 
-	public function setCancelTime($cancelTime)
-	{
-		$this->cancelTime = $cancelTime;
-	}
-	public function getCancelTime()
-	{
-		return $this->cancelTime;
-	}
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	/**
-	 * @param Google_Service_Spanner_Instance
-	 */
-	public function setInstance(Google_Service_Spanner_Instance $instance)
-	{
-		$this->instance = $instance;
-	}
-	/**
-	 * @return Google_Service_Spanner_Instance
-	 */
-	public function getInstance()
-	{
-		return $this->instance;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setCancelTime($cancelTime)
+  {
+    $this->cancelTime = $cancelTime;
+  }
+  public function getCancelTime()
+  {
+    return $this->cancelTime;
+  }
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  /**
+   * @param Google_Service_Spanner_Instance
+   */
+  public function setInstance(Google_Service_Spanner_Instance $instance)
+  {
+    $this->instance = $instance;
+  }
+  /**
+   * @return Google_Service_Spanner_Instance
+   */
+  public function getInstance()
+  {
+    return $this->instance;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

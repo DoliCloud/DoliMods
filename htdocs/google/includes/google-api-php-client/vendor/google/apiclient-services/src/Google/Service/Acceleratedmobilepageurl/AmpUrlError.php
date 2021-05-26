@@ -17,32 +17,32 @@
 
 class Google_Service_Acceleratedmobilepageurl_AmpUrlError extends Google_Model
 {
-	public $errorCode;
-	public $errorMessage;
-	public $originalUrl;
+  public $errorCode;
+  public $errorMessage;
+  public $originalUrl;
 
-	public function setErrorCode($errorCode)
-	{
-		$this->errorCode = $errorCode;
-	}
-	public function getErrorCode()
-	{
-		return $this->errorCode;
-	}
-	public function setErrorMessage($errorMessage)
-	{
-		$this->errorMessage = $errorMessage;
-	}
-	public function getErrorMessage()
-	{
-		return $this->errorMessage;
-	}
-	public function setOriginalUrl($originalUrl)
-	{
-		$this->originalUrl = $originalUrl;
-	}
-	public function getOriginalUrl()
-	{
-		return $this->originalUrl;
-	}
+  public function setErrorCode($errorCode)
+  {
+    $this->errorCode = $errorCode;
+  }
+  public function getErrorCode()
+  {
+    return $this->errorCode;
+  }
+  public function setErrorMessage($errorMessage)
+  {
+    $this->errorMessage = $errorMessage;
+  }
+  public function getErrorMessage()
+  {
+    return $this->errorMessage;
+  }
+  public function setOriginalUrl($originalUrl)
+  {
+    $this->originalUrl = $originalUrl;
+  }
+  public function getOriginalUrl()
+  {
+    return $this->originalUrl;
+  }
 }

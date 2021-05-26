@@ -17,53 +17,53 @@
 
 class Google_Service_AndroidManagement_SetupAction extends Google_Model
 {
-	protected $descriptionType = 'Google_Service_AndroidManagement_UserFacingMessage';
-	protected $descriptionDataType = '';
-	protected $launchAppType = 'Google_Service_AndroidManagement_LaunchAppAction';
-	protected $launchAppDataType = '';
-	protected $titleType = 'Google_Service_AndroidManagement_UserFacingMessage';
-	protected $titleDataType = '';
+  protected $descriptionType = 'Google_Service_AndroidManagement_UserFacingMessage';
+  protected $descriptionDataType = '';
+  protected $launchAppType = 'Google_Service_AndroidManagement_LaunchAppAction';
+  protected $launchAppDataType = '';
+  protected $titleType = 'Google_Service_AndroidManagement_UserFacingMessage';
+  protected $titleDataType = '';
 
-	/**
-	 * @param Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function setDescription(Google_Service_AndroidManagement_UserFacingMessage $description)
-	{
-		$this->description = $description;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	/**
-	 * @param Google_Service_AndroidManagement_LaunchAppAction
-	 */
-	public function setLaunchApp(Google_Service_AndroidManagement_LaunchAppAction $launchApp)
-	{
-		$this->launchApp = $launchApp;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_LaunchAppAction
-	 */
-	public function getLaunchApp()
-	{
-		return $this->launchApp;
-	}
-	/**
-	 * @param Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function setTitle(Google_Service_AndroidManagement_UserFacingMessage $title)
-	{
-		$this->title = $title;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  /**
+   * @param Google_Service_AndroidManagement_UserFacingMessage
+   */
+  public function setDescription(Google_Service_AndroidManagement_UserFacingMessage $description)
+  {
+    $this->description = $description;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_UserFacingMessage
+   */
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  /**
+   * @param Google_Service_AndroidManagement_LaunchAppAction
+   */
+  public function setLaunchApp(Google_Service_AndroidManagement_LaunchAppAction $launchApp)
+  {
+    $this->launchApp = $launchApp;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_LaunchAppAction
+   */
+  public function getLaunchApp()
+  {
+    return $this->launchApp;
+  }
+  /**
+   * @param Google_Service_AndroidManagement_UserFacingMessage
+   */
+  public function setTitle(Google_Service_AndroidManagement_UserFacingMessage $title)
+  {
+    $this->title = $title;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_UserFacingMessage
+   */
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

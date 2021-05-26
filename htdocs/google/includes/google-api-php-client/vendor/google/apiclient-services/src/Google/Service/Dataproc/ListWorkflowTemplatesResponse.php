@@ -17,31 +17,31 @@
 
 class Google_Service_Dataproc_ListWorkflowTemplatesResponse extends Google_Collection
 {
-	protected $collection_key = 'templates';
-	public $nextPageToken;
-	protected $templatesType = 'Google_Service_Dataproc_WorkflowTemplate';
-	protected $templatesDataType = 'array';
+  protected $collection_key = 'templates';
+  public $nextPageToken;
+  protected $templatesType = 'Google_Service_Dataproc_WorkflowTemplate';
+  protected $templatesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Dataproc_WorkflowTemplate
-	 */
-	public function setTemplates($templates)
-	{
-		$this->templates = $templates;
-	}
-	/**
-	 * @return Google_Service_Dataproc_WorkflowTemplate
-	 */
-	public function getTemplates()
-	{
-		return $this->templates;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Dataproc_WorkflowTemplate[]
+   */
+  public function setTemplates($templates)
+  {
+    $this->templates = $templates;
+  }
+  /**
+   * @return Google_Service_Dataproc_WorkflowTemplate[]
+   */
+  public function getTemplates()
+  {
+    return $this->templates;
+  }
 }

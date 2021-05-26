@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_PreconfiguredWafSet extends Google_Collection
 {
-	protected $collection_key = 'expressionSets';
-	protected $expressionSetsType = 'Google_Service_Compute_WafExpressionSet';
-	protected $expressionSetsDataType = 'array';
+  protected $collection_key = 'expressionSets';
+  protected $expressionSetsType = 'Google_Service_Compute_WafExpressionSet';
+  protected $expressionSetsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Compute_WafExpressionSet
-	 */
-	public function setExpressionSets($expressionSets)
-	{
-		$this->expressionSets = $expressionSets;
-	}
-	/**
-	 * @return Google_Service_Compute_WafExpressionSet
-	 */
-	public function getExpressionSets()
-	{
-		return $this->expressionSets;
-	}
+  /**
+   * @param Google_Service_Compute_WafExpressionSet[]
+   */
+  public function setExpressionSets($expressionSets)
+  {
+    $this->expressionSets = $expressionSets;
+  }
+  /**
+   * @return Google_Service_Compute_WafExpressionSet[]
+   */
+  public function getExpressionSets()
+  {
+    return $this->expressionSets;
+  }
 }

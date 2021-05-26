@@ -17,51 +17,60 @@
 
 class Google_Service_FirebaseManagement_WebApp extends Google_Collection
 {
-	protected $collection_key = 'appUrls';
-	public $appId;
-	public $appUrls;
-	public $displayName;
-	public $name;
-	public $projectId;
+  protected $collection_key = 'appUrls';
+  public $appId;
+  public $appUrls;
+  public $displayName;
+  public $name;
+  public $projectId;
+  public $webId;
 
-	public function setAppId($appId)
-	{
-		$this->appId = $appId;
-	}
-	public function getAppId()
-	{
-		return $this->appId;
-	}
-	public function setAppUrls($appUrls)
-	{
-		$this->appUrls = $appUrls;
-	}
-	public function getAppUrls()
-	{
-		return $this->appUrls;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
+  public function setAppId($appId)
+  {
+    $this->appId = $appId;
+  }
+  public function getAppId()
+  {
+    return $this->appId;
+  }
+  public function setAppUrls($appUrls)
+  {
+    $this->appUrls = $appUrls;
+  }
+  public function getAppUrls()
+  {
+    return $this->appUrls;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setWebId($webId)
+  {
+    $this->webId = $webId;
+  }
+  public function getWebId()
+  {
+    return $this->webId;
+  }
 }

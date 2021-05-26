@@ -17,24 +17,24 @@
 
 class Google_Service_CloudHealthcare_FieldMetadata extends Google_Collection
 {
-	protected $collection_key = 'paths';
-	public $action;
-	public $paths;
+  protected $collection_key = 'paths';
+  public $action;
+  public $paths;
 
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-	public function getAction()
-	{
-		return $this->action;
-	}
-	public function setPaths($paths)
-	{
-		$this->paths = $paths;
-	}
-	public function getPaths()
-	{
-		return $this->paths;
-	}
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  public function getAction()
+  {
+    return $this->action;
+  }
+  public function setPaths($paths)
+  {
+    $this->paths = $paths;
+  }
+  public function getPaths()
+  {
+    return $this->paths;
+  }
 }

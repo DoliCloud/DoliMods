@@ -17,56 +17,56 @@
 
 class Google_Service_Compute_HttpHeaderAction extends Google_Collection
 {
-	protected $collection_key = 'responseHeadersToRemove';
-	protected $requestHeadersToAddType = 'Google_Service_Compute_HttpHeaderOption';
-	protected $requestHeadersToAddDataType = 'array';
-	public $requestHeadersToRemove;
-	protected $responseHeadersToAddType = 'Google_Service_Compute_HttpHeaderOption';
-	protected $responseHeadersToAddDataType = 'array';
-	public $responseHeadersToRemove;
+  protected $collection_key = 'responseHeadersToRemove';
+  protected $requestHeadersToAddType = 'Google_Service_Compute_HttpHeaderOption';
+  protected $requestHeadersToAddDataType = 'array';
+  public $requestHeadersToRemove;
+  protected $responseHeadersToAddType = 'Google_Service_Compute_HttpHeaderOption';
+  protected $responseHeadersToAddDataType = 'array';
+  public $responseHeadersToRemove;
 
-	/**
-	 * @param Google_Service_Compute_HttpHeaderOption
-	 */
-	public function setRequestHeadersToAdd($requestHeadersToAdd)
-	{
-		$this->requestHeadersToAdd = $requestHeadersToAdd;
-	}
-	/**
-	 * @return Google_Service_Compute_HttpHeaderOption
-	 */
-	public function getRequestHeadersToAdd()
-	{
-		return $this->requestHeadersToAdd;
-	}
-	public function setRequestHeadersToRemove($requestHeadersToRemove)
-	{
-		$this->requestHeadersToRemove = $requestHeadersToRemove;
-	}
-	public function getRequestHeadersToRemove()
-	{
-		return $this->requestHeadersToRemove;
-	}
-	/**
-	 * @param Google_Service_Compute_HttpHeaderOption
-	 */
-	public function setResponseHeadersToAdd($responseHeadersToAdd)
-	{
-		$this->responseHeadersToAdd = $responseHeadersToAdd;
-	}
-	/**
-	 * @return Google_Service_Compute_HttpHeaderOption
-	 */
-	public function getResponseHeadersToAdd()
-	{
-		return $this->responseHeadersToAdd;
-	}
-	public function setResponseHeadersToRemove($responseHeadersToRemove)
-	{
-		$this->responseHeadersToRemove = $responseHeadersToRemove;
-	}
-	public function getResponseHeadersToRemove()
-	{
-		return $this->responseHeadersToRemove;
-	}
+  /**
+   * @param Google_Service_Compute_HttpHeaderOption[]
+   */
+  public function setRequestHeadersToAdd($requestHeadersToAdd)
+  {
+    $this->requestHeadersToAdd = $requestHeadersToAdd;
+  }
+  /**
+   * @return Google_Service_Compute_HttpHeaderOption[]
+   */
+  public function getRequestHeadersToAdd()
+  {
+    return $this->requestHeadersToAdd;
+  }
+  public function setRequestHeadersToRemove($requestHeadersToRemove)
+  {
+    $this->requestHeadersToRemove = $requestHeadersToRemove;
+  }
+  public function getRequestHeadersToRemove()
+  {
+    return $this->requestHeadersToRemove;
+  }
+  /**
+   * @param Google_Service_Compute_HttpHeaderOption[]
+   */
+  public function setResponseHeadersToAdd($responseHeadersToAdd)
+  {
+    $this->responseHeadersToAdd = $responseHeadersToAdd;
+  }
+  /**
+   * @return Google_Service_Compute_HttpHeaderOption[]
+   */
+  public function getResponseHeadersToAdd()
+  {
+    return $this->responseHeadersToAdd;
+  }
+  public function setResponseHeadersToRemove($responseHeadersToRemove)
+  {
+    $this->responseHeadersToRemove = $responseHeadersToRemove;
+  }
+  public function getResponseHeadersToRemove()
+  {
+    return $this->responseHeadersToRemove;
+  }
 }

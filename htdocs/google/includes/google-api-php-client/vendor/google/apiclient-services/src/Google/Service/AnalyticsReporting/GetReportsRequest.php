@@ -17,31 +17,31 @@
 
 class Google_Service_AnalyticsReporting_GetReportsRequest extends Google_Collection
 {
-	protected $collection_key = 'reportRequests';
-	protected $reportRequestsType = 'Google_Service_AnalyticsReporting_ReportRequest';
-	protected $reportRequestsDataType = 'array';
-	public $useResourceQuotas;
+  protected $collection_key = 'reportRequests';
+  protected $reportRequestsType = 'Google_Service_AnalyticsReporting_ReportRequest';
+  protected $reportRequestsDataType = 'array';
+  public $useResourceQuotas;
 
-	/**
-	 * @param Google_Service_AnalyticsReporting_ReportRequest
-	 */
-	public function setReportRequests($reportRequests)
-	{
-		$this->reportRequests = $reportRequests;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_ReportRequest
-	 */
-	public function getReportRequests()
-	{
-		return $this->reportRequests;
-	}
-	public function setUseResourceQuotas($useResourceQuotas)
-	{
-		$this->useResourceQuotas = $useResourceQuotas;
-	}
-	public function getUseResourceQuotas()
-	{
-		return $this->useResourceQuotas;
-	}
+  /**
+   * @param Google_Service_AnalyticsReporting_ReportRequest[]
+   */
+  public function setReportRequests($reportRequests)
+  {
+    $this->reportRequests = $reportRequests;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_ReportRequest[]
+   */
+  public function getReportRequests()
+  {
+    return $this->reportRequests;
+  }
+  public function setUseResourceQuotas($useResourceQuotas)
+  {
+    $this->useResourceQuotas = $useResourceQuotas;
+  }
+  public function getUseResourceQuotas()
+  {
+    return $this->useResourceQuotas;
+  }
 }

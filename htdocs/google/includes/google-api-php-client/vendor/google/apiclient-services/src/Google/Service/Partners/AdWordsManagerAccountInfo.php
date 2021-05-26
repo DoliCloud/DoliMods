@@ -17,23 +17,23 @@
 
 class Google_Service_Partners_AdWordsManagerAccountInfo extends Google_Model
 {
-	public $customerName;
-	public $id;
+  public $customerName;
+  public $id;
 
-	public function setCustomerName($customerName)
-	{
-		$this->customerName = $customerName;
-	}
-	public function getCustomerName()
-	{
-		return $this->customerName;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
+  public function setCustomerName($customerName)
+  {
+    $this->customerName = $customerName;
+  }
+  public function getCustomerName()
+  {
+    return $this->customerName;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
 }

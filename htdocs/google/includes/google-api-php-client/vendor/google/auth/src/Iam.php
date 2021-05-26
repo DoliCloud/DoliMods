@@ -28,72 +28,72 @@ use GuzzleHttp\Psr7;
  */
 class Iam
 {
-	const IAM_API_ROOT = 'https://iamcredentials.googleapis.com/v1';
-	const SIGN_BLOB_PATH = '%s:signBlob?alt=json';
-	const SERVICE_ACCOUNT_NAME = 'projects/-/serviceAccounts/%s';
+    const IAM_API_ROOT = 'https://iamcredentials.googleapis.com/v1';
+    const SIGN_BLOB_PATH = '%s:signBlob?alt=json';
+    const SERVICE_ACCOUNT_NAME = 'projects/-/serviceAccounts/%s';
 
-	/**
-	 * @var callable
-	 */
-	private $httpHandler;
+    /**
+     * @var callable
+     */
+    private $httpHandler;
 
-	/**
-	 * @param callable $httpHandler [optional] The HTTP Handler to send requests.
-	 */
-	public function __construct(callable $httpHandler = null)
-	{
-		$this->httpHandler = $httpHandler
-			?: HttpHandlerFactory::build(HttpClientCache::getHttpClient());
-	}
+    /**
+     * @param callable $httpHandler [optional] The HTTP Handler to send requests.
+     */
+    public function __construct(callable $httpHandler = null)
+    {
+        $this->httpHandler = $httpHandler
+            ?: HttpHandlerFactory::build(HttpClientCache::getHttpClient());
+    }
 
-	/**
-	 * Sign a string using the IAM signBlob API.
-	 *
-	 * Note that signing using IAM requires your service account to have the
-	 * `iam.serviceAccounts.signBlob` permission, part of the "Service Account
-	 * Token Creator" IAM role.
-	 *
-	 * @param string $email The service account email.
-	 * @param string $accessToken An access token from the service account.
-	 * @param string $stringToSign The string to be signed.
-	 * @param array $delegates [optional] A list of service account emails to
-	 *                         add to the delegate chain. If omitted, the value of `$email` will
-	 *                         be used.
-	 * @return string The signed string, base64-encoded.
-	 */
-	public function signBlob($email, $accessToken, $stringToSign, array $delegates = [])
-	{
-		$httpHandler = $this->httpHandler;
-		$name = sprintf(self::SERVICE_ACCOUNT_NAME, $email);
-		$uri = self::IAM_API_ROOT . '/' . sprintf(self::SIGN_BLOB_PATH, $name);
+    /**
+     * Sign a string using the IAM signBlob API.
+     *
+     * Note that signing using IAM requires your service account to have the
+     * `iam.serviceAccounts.signBlob` permission, part of the "Service Account
+     * Token Creator" IAM role.
+     *
+     * @param string $email The service account email.
+     * @param string $accessToken An access token from the service account.
+     * @param string $stringToSign The string to be signed.
+     * @param array $delegates [optional] A list of service account emails to
+     *        add to the delegate chain. If omitted, the value of `$email` will
+     *        be used.
+     * @return string The signed string, base64-encoded.
+     */
+    public function signBlob($email, $accessToken, $stringToSign, array $delegates = [])
+    {
+        $httpHandler = $this->httpHandler;
+        $name = sprintf(self::SERVICE_ACCOUNT_NAME, $email);
+        $uri = self::IAM_API_ROOT . '/' . sprintf(self::SIGN_BLOB_PATH, $name);
 
-		if ($delegates) {
-			foreach ($delegates as &$delegate) {
-				$delegate = sprintf(self::SERVICE_ACCOUNT_NAME, $delegate);
-			}
-		} else {
-			$delegates = [$name];
-		}
+        if ($delegates) {
+            foreach ($delegates as &$delegate) {
+                $delegate = sprintf(self::SERVICE_ACCOUNT_NAME, $delegate);
+            }
+        } else {
+            $delegates = [$name];
+        }
 
-		$body = [
-			'delegates' => $delegates,
-			'payload' => base64_encode($stringToSign),
-		];
+        $body = [
+            'delegates' => $delegates,
+            'payload' => base64_encode($stringToSign),
+        ];
 
-		$headers = [
-			'Authorization' => 'Bearer ' . $accessToken
-		];
+        $headers = [
+            'Authorization' => 'Bearer ' . $accessToken
+        ];
 
-		$request = new Psr7\Request(
-			'POST',
-			$uri,
-			$headers,
-			Psr7\stream_for(json_encode($body))
-		);
+        $request = new Psr7\Request(
+            'POST',
+            $uri,
+            $headers,
+            Psr7\stream_for(json_encode($body))
+        );
 
-		$res = $httpHandler($request);
-		$body = json_decode((string) $res->getBody(), true);
+        $res = $httpHandler($request);
+        $body = json_decode((string) $res->getBody(), true);
 
-		return $body['signedBlob'];
-	}
+        return $body['signedBlob'];
+    }
 }

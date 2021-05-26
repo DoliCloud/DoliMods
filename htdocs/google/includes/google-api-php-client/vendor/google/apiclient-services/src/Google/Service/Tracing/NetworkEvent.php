@@ -17,41 +17,41 @@
 
 class Google_Service_Tracing_NetworkEvent extends Google_Model
 {
-	public $messageId;
-	public $messageSize;
-	public $time;
-	public $type;
+  public $messageId;
+  public $messageSize;
+  public $time;
+  public $type;
 
-	public function setMessageId($messageId)
-	{
-		$this->messageId = $messageId;
-	}
-	public function getMessageId()
-	{
-		return $this->messageId;
-	}
-	public function setMessageSize($messageSize)
-	{
-		$this->messageSize = $messageSize;
-	}
-	public function getMessageSize()
-	{
-		return $this->messageSize;
-	}
-	public function setTime($time)
-	{
-		$this->time = $time;
-	}
-	public function getTime()
-	{
-		return $this->time;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setMessageId($messageId)
+  {
+    $this->messageId = $messageId;
+  }
+  public function getMessageId()
+  {
+    return $this->messageId;
+  }
+  public function setMessageSize($messageSize)
+  {
+    $this->messageSize = $messageSize;
+  }
+  public function getMessageSize()
+  {
+    return $this->messageSize;
+  }
+  public function setTime($time)
+  {
+    $this->time = $time;
+  }
+  public function getTime()
+  {
+    return $this->time;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

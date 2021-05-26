@@ -17,46 +17,46 @@
 
 class Google_Service_Spectrum_GeoLocation extends Google_Model
 {
-	public $confidence;
-	protected $pointType = 'Google_Service_Spectrum_GeoLocationEllipse';
-	protected $pointDataType = '';
-	protected $regionType = 'Google_Service_Spectrum_GeoLocationPolygon';
-	protected $regionDataType = '';
+  public $confidence;
+  protected $pointType = 'Google_Service_Spectrum_GeoLocationEllipse';
+  protected $pointDataType = '';
+  protected $regionType = 'Google_Service_Spectrum_GeoLocationPolygon';
+  protected $regionDataType = '';
 
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
-	/**
-	 * @param Google_Service_Spectrum_GeoLocationEllipse
-	 */
-	public function setPoint(Google_Service_Spectrum_GeoLocationEllipse $point)
-	{
-		$this->point = $point;
-	}
-	/**
-	 * @return Google_Service_Spectrum_GeoLocationEllipse
-	 */
-	public function getPoint()
-	{
-		return $this->point;
-	}
-	/**
-	 * @param Google_Service_Spectrum_GeoLocationPolygon
-	 */
-	public function setRegion(Google_Service_Spectrum_GeoLocationPolygon $region)
-	{
-		$this->region = $region;
-	}
-	/**
-	 * @return Google_Service_Spectrum_GeoLocationPolygon
-	 */
-	public function getRegion()
-	{
-		return $this->region;
-	}
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
+  /**
+   * @param Google_Service_Spectrum_GeoLocationEllipse
+   */
+  public function setPoint(Google_Service_Spectrum_GeoLocationEllipse $point)
+  {
+    $this->point = $point;
+  }
+  /**
+   * @return Google_Service_Spectrum_GeoLocationEllipse
+   */
+  public function getPoint()
+  {
+    return $this->point;
+  }
+  /**
+   * @param Google_Service_Spectrum_GeoLocationPolygon
+   */
+  public function setRegion(Google_Service_Spectrum_GeoLocationPolygon $region)
+  {
+    $this->region = $region;
+  }
+  /**
+   * @return Google_Service_Spectrum_GeoLocationPolygon
+   */
+  public function getRegion()
+  {
+    return $this->region;
+  }
 }

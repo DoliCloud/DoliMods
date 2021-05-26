@@ -17,30 +17,30 @@
 
 class Google_Service_CloudAsset_CreateFeedRequest extends Google_Model
 {
-	protected $feedType = 'Google_Service_CloudAsset_Feed';
-	protected $feedDataType = '';
-	public $feedId;
+  protected $feedType = 'Google_Service_CloudAsset_Feed';
+  protected $feedDataType = '';
+  public $feedId;
 
-	/**
-	 * @param Google_Service_CloudAsset_Feed
-	 */
-	public function setFeed(Google_Service_CloudAsset_Feed $feed)
-	{
-		$this->feed = $feed;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_Feed
-	 */
-	public function getFeed()
-	{
-		return $this->feed;
-	}
-	public function setFeedId($feedId)
-	{
-		$this->feedId = $feedId;
-	}
-	public function getFeedId()
-	{
-		return $this->feedId;
-	}
+  /**
+   * @param Google_Service_CloudAsset_Feed
+   */
+  public function setFeed(Google_Service_CloudAsset_Feed $feed)
+  {
+    $this->feed = $feed;
+  }
+  /**
+   * @return Google_Service_CloudAsset_Feed
+   */
+  public function getFeed()
+  {
+    return $this->feed;
+  }
+  public function setFeedId($feedId)
+  {
+    $this->feedId = $feedId;
+  }
+  public function getFeedId()
+  {
+    return $this->feedId;
+  }
 }

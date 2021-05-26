@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_LiveStreamContentDetails extends Google_Model
 {
-	public $closedCaptionsIngestionUrl;
-	public $isReusable;
+  public $closedCaptionsIngestionUrl;
+  public $isReusable;
 
-	public function setClosedCaptionsIngestionUrl($closedCaptionsIngestionUrl)
-	{
-		$this->closedCaptionsIngestionUrl = $closedCaptionsIngestionUrl;
-	}
-	public function getClosedCaptionsIngestionUrl()
-	{
-		return $this->closedCaptionsIngestionUrl;
-	}
-	public function setIsReusable($isReusable)
-	{
-		$this->isReusable = $isReusable;
-	}
-	public function getIsReusable()
-	{
-		return $this->isReusable;
-	}
+  public function setClosedCaptionsIngestionUrl($closedCaptionsIngestionUrl)
+  {
+    $this->closedCaptionsIngestionUrl = $closedCaptionsIngestionUrl;
+  }
+  public function getClosedCaptionsIngestionUrl()
+  {
+    return $this->closedCaptionsIngestionUrl;
+  }
+  public function setIsReusable($isReusable)
+  {
+    $this->isReusable = $isReusable;
+  }
+  public function getIsReusable()
+  {
+    return $this->isReusable;
+  }
 }

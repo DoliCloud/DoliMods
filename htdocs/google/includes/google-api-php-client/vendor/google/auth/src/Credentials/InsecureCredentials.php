@@ -26,45 +26,45 @@ use Google\Auth\FetchAuthTokenInterface;
  */
 class InsecureCredentials implements FetchAuthTokenInterface
 {
-	/**
-	 * @var array
-	 */
-	private $token = [
-		'access_token' => ''
-	];
+    /**
+     * @var array
+     */
+    private $token = [
+        'access_token' => ''
+    ];
 
-	/**
-	 * Fetches the auth token. In this case it returns an empty string.
-	 *
-	 * @param callable $httpHandler
-	 * @return array A set of auth related metadata, containing the following
-	 * keys:
-	 *   - access_token (string)
-	 */
-	public function fetchAuthToken(callable $httpHandler = null)
-	{
-		return $this->token;
-	}
+    /**
+     * Fetches the auth token. In this case it returns an empty string.
+     *
+     * @param callable $httpHandler
+     * @return array A set of auth related metadata, containing the following
+     * keys:
+     *   - access_token (string)
+     */
+    public function fetchAuthToken(callable $httpHandler = null)
+    {
+        return $this->token;
+    }
 
-	/**
-	 * Returns the cache key. In this case it returns a null value, disabling
-	 * caching.
-	 *
-	 * @return string|null
-	 */
-	public function getCacheKey()
-	{
-		return null;
-	}
+    /**
+     * Returns the cache key. In this case it returns a null value, disabling
+     * caching.
+     *
+     * @return string|null
+     */
+    public function getCacheKey()
+    {
+        return null;
+    }
 
-	/**
-	 * Fetches the last received token. In this case, it returns the same empty string
-	 * auth token.
-	 *
-	 * @return array
-	 */
-	public function getLastReceivedToken()
-	{
-		return $this->token;
-	}
+    /**
+     * Fetches the last received token. In this case, it returns the same empty string
+     * auth token.
+     *
+     * @return array
+     */
+    public function getLastReceivedToken()
+    {
+        return $this->token;
+    }
 }

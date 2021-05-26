@@ -17,46 +17,46 @@
 
 class Google_Service_Indexing_UrlNotificationMetadata extends Google_Model
 {
-	protected $latestRemoveType = 'Google_Service_Indexing_UrlNotification';
-	protected $latestRemoveDataType = '';
-	protected $latestUpdateType = 'Google_Service_Indexing_UrlNotification';
-	protected $latestUpdateDataType = '';
-	public $url;
+  protected $latestRemoveType = 'Google_Service_Indexing_UrlNotification';
+  protected $latestRemoveDataType = '';
+  protected $latestUpdateType = 'Google_Service_Indexing_UrlNotification';
+  protected $latestUpdateDataType = '';
+  public $url;
 
-	/**
-	 * @param Google_Service_Indexing_UrlNotification
-	 */
-	public function setLatestRemove(Google_Service_Indexing_UrlNotification $latestRemove)
-	{
-		$this->latestRemove = $latestRemove;
-	}
-	/**
-	 * @return Google_Service_Indexing_UrlNotification
-	 */
-	public function getLatestRemove()
-	{
-		return $this->latestRemove;
-	}
-	/**
-	 * @param Google_Service_Indexing_UrlNotification
-	 */
-	public function setLatestUpdate(Google_Service_Indexing_UrlNotification $latestUpdate)
-	{
-		$this->latestUpdate = $latestUpdate;
-	}
-	/**
-	 * @return Google_Service_Indexing_UrlNotification
-	 */
-	public function getLatestUpdate()
-	{
-		return $this->latestUpdate;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  /**
+   * @param Google_Service_Indexing_UrlNotification
+   */
+  public function setLatestRemove(Google_Service_Indexing_UrlNotification $latestRemove)
+  {
+    $this->latestRemove = $latestRemove;
+  }
+  /**
+   * @return Google_Service_Indexing_UrlNotification
+   */
+  public function getLatestRemove()
+  {
+    return $this->latestRemove;
+  }
+  /**
+   * @param Google_Service_Indexing_UrlNotification
+   */
+  public function setLatestUpdate(Google_Service_Indexing_UrlNotification $latestUpdate)
+  {
+    $this->latestUpdate = $latestUpdate;
+  }
+  /**
+   * @return Google_Service_Indexing_UrlNotification
+   */
+  public function getLatestUpdate()
+  {
+    return $this->latestUpdate;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

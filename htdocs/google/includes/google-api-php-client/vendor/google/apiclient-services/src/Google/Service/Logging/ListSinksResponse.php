@@ -17,31 +17,31 @@
 
 class Google_Service_Logging_ListSinksResponse extends Google_Collection
 {
-	protected $collection_key = 'sinks';
-	public $nextPageToken;
-	protected $sinksType = 'Google_Service_Logging_LogSink';
-	protected $sinksDataType = 'array';
+  protected $collection_key = 'sinks';
+  public $nextPageToken;
+  protected $sinksType = 'Google_Service_Logging_LogSink';
+  protected $sinksDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Logging_LogSink
-	 */
-	public function setSinks($sinks)
-	{
-		$this->sinks = $sinks;
-	}
-	/**
-	 * @return Google_Service_Logging_LogSink
-	 */
-	public function getSinks()
-	{
-		return $this->sinks;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Logging_LogSink[]
+   */
+  public function setSinks($sinks)
+  {
+    $this->sinks = $sinks;
+  }
+  /**
+   * @return Google_Service_Logging_LogSink[]
+   */
+  public function getSinks()
+  {
+    return $this->sinks;
+  }
 }

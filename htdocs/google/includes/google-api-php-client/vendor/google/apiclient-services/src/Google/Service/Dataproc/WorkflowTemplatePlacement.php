@@ -17,37 +17,37 @@
 
 class Google_Service_Dataproc_WorkflowTemplatePlacement extends Google_Model
 {
-	protected $clusterSelectorType = 'Google_Service_Dataproc_ClusterSelector';
-	protected $clusterSelectorDataType = '';
-	protected $managedClusterType = 'Google_Service_Dataproc_ManagedCluster';
-	protected $managedClusterDataType = '';
+  protected $clusterSelectorType = 'Google_Service_Dataproc_ClusterSelector';
+  protected $clusterSelectorDataType = '';
+  protected $managedClusterType = 'Google_Service_Dataproc_ManagedCluster';
+  protected $managedClusterDataType = '';
 
-	/**
-	 * @param Google_Service_Dataproc_ClusterSelector
-	 */
-	public function setClusterSelector(Google_Service_Dataproc_ClusterSelector $clusterSelector)
-	{
-		$this->clusterSelector = $clusterSelector;
-	}
-	/**
-	 * @return Google_Service_Dataproc_ClusterSelector
-	 */
-	public function getClusterSelector()
-	{
-		return $this->clusterSelector;
-	}
-	/**
-	 * @param Google_Service_Dataproc_ManagedCluster
-	 */
-	public function setManagedCluster(Google_Service_Dataproc_ManagedCluster $managedCluster)
-	{
-		$this->managedCluster = $managedCluster;
-	}
-	/**
-	 * @return Google_Service_Dataproc_ManagedCluster
-	 */
-	public function getManagedCluster()
-	{
-		return $this->managedCluster;
-	}
+  /**
+   * @param Google_Service_Dataproc_ClusterSelector
+   */
+  public function setClusterSelector(Google_Service_Dataproc_ClusterSelector $clusterSelector)
+  {
+    $this->clusterSelector = $clusterSelector;
+  }
+  /**
+   * @return Google_Service_Dataproc_ClusterSelector
+   */
+  public function getClusterSelector()
+  {
+    return $this->clusterSelector;
+  }
+  /**
+   * @param Google_Service_Dataproc_ManagedCluster
+   */
+  public function setManagedCluster(Google_Service_Dataproc_ManagedCluster $managedCluster)
+  {
+    $this->managedCluster = $managedCluster;
+  }
+  /**
+   * @return Google_Service_Dataproc_ManagedCluster
+   */
+  public function getManagedCluster()
+  {
+    return $this->managedCluster;
+  }
 }

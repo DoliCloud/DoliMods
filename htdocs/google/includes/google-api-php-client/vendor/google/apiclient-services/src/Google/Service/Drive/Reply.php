@@ -17,93 +17,93 @@
 
 class Google_Service_Drive_Reply extends Google_Model
 {
-	public $action;
-	protected $authorType = 'Google_Service_Drive_User';
-	protected $authorDataType = '';
-	public $content;
-	public $createdTime;
-	public $deleted;
-	public $htmlContent;
-	public $id;
-	public $kind;
-	public $modifiedTime;
+  public $action;
+  protected $authorType = 'Google_Service_Drive_User';
+  protected $authorDataType = '';
+  public $content;
+  public $createdTime;
+  public $deleted;
+  public $htmlContent;
+  public $id;
+  public $kind;
+  public $modifiedTime;
 
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-	public function getAction()
-	{
-		return $this->action;
-	}
-	/**
-	 * @param Google_Service_Drive_User
-	 */
-	public function setAuthor(Google_Service_Drive_User $author)
-	{
-		$this->author = $author;
-	}
-	/**
-	 * @return Google_Service_Drive_User
-	 */
-	public function getAuthor()
-	{
-		return $this->author;
-	}
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	public function getContent()
-	{
-		return $this->content;
-	}
-	public function setCreatedTime($createdTime)
-	{
-		$this->createdTime = $createdTime;
-	}
-	public function getCreatedTime()
-	{
-		return $this->createdTime;
-	}
-	public function setDeleted($deleted)
-	{
-		$this->deleted = $deleted;
-	}
-	public function getDeleted()
-	{
-		return $this->deleted;
-	}
-	public function setHtmlContent($htmlContent)
-	{
-		$this->htmlContent = $htmlContent;
-	}
-	public function getHtmlContent()
-	{
-		return $this->htmlContent;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setModifiedTime($modifiedTime)
-	{
-		$this->modifiedTime = $modifiedTime;
-	}
-	public function getModifiedTime()
-	{
-		return $this->modifiedTime;
-	}
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  public function getAction()
+  {
+    return $this->action;
+  }
+  /**
+   * @param Google_Service_Drive_User
+   */
+  public function setAuthor(Google_Service_Drive_User $author)
+  {
+    $this->author = $author;
+  }
+  /**
+   * @return Google_Service_Drive_User
+   */
+  public function getAuthor()
+  {
+    return $this->author;
+  }
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  public function getContent()
+  {
+    return $this->content;
+  }
+  public function setCreatedTime($createdTime)
+  {
+    $this->createdTime = $createdTime;
+  }
+  public function getCreatedTime()
+  {
+    return $this->createdTime;
+  }
+  public function setDeleted($deleted)
+  {
+    $this->deleted = $deleted;
+  }
+  public function getDeleted()
+  {
+    return $this->deleted;
+  }
+  public function setHtmlContent($htmlContent)
+  {
+    $this->htmlContent = $htmlContent;
+  }
+  public function getHtmlContent()
+  {
+    return $this->htmlContent;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setModifiedTime($modifiedTime)
+  {
+    $this->modifiedTime = $modifiedTime;
+  }
+  public function getModifiedTime()
+  {
+    return $this->modifiedTime;
+  }
 }

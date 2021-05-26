@@ -17,23 +17,23 @@
 
 class Google_Service_Genomics_WorkerReleasedEvent extends Google_Model
 {
-	public $instance;
-	public $zone;
+  public $instance;
+  public $zone;
 
-	public function setInstance($instance)
-	{
-		$this->instance = $instance;
-	}
-	public function getInstance()
-	{
-		return $this->instance;
-	}
-	public function setZone($zone)
-	{
-		$this->zone = $zone;
-	}
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  public function setInstance($instance)
+  {
+    $this->instance = $instance;
+  }
+  public function getInstance()
+  {
+    return $this->instance;
+  }
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

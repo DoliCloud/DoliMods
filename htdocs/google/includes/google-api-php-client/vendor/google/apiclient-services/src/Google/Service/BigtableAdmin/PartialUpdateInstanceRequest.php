@@ -17,30 +17,30 @@
 
 class Google_Service_BigtableAdmin_PartialUpdateInstanceRequest extends Google_Model
 {
-	protected $instanceType = 'Google_Service_BigtableAdmin_Instance';
-	protected $instanceDataType = '';
-	public $updateMask;
+  protected $instanceType = 'Google_Service_BigtableAdmin_Instance';
+  protected $instanceDataType = '';
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_BigtableAdmin_Instance
-	 */
-	public function setInstance(Google_Service_BigtableAdmin_Instance $instance)
-	{
-		$this->instance = $instance;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_Instance
-	 */
-	public function getInstance()
-	{
-		return $this->instance;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_BigtableAdmin_Instance
+   */
+  public function setInstance(Google_Service_BigtableAdmin_Instance $instance)
+  {
+    $this->instance = $instance;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_Instance
+   */
+  public function getInstance()
+  {
+    return $this->instance;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

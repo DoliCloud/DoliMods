@@ -17,14 +17,14 @@
 
 class Google_Service_YouTube_PlaylistPlayer extends Google_Model
 {
-	public $embedHtml;
+  public $embedHtml;
 
-	public function setEmbedHtml($embedHtml)
-	{
-		$this->embedHtml = $embedHtml;
-	}
-	public function getEmbedHtml()
-	{
-		return $this->embedHtml;
-	}
+  public function setEmbedHtml($embedHtml)
+  {
+    $this->embedHtml = $embedHtml;
+  }
+  public function getEmbedHtml()
+  {
+    return $this->embedHtml;
+  }
 }

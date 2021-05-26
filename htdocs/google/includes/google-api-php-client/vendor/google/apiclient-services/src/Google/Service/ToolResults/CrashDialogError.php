@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_CrashDialogError extends Google_Model
 {
-	public $crashPackage;
+  public $crashPackage;
 
-	public function setCrashPackage($crashPackage)
-	{
-		$this->crashPackage = $crashPackage;
-	}
-	public function getCrashPackage()
-	{
-		return $this->crashPackage;
-	}
+  public function setCrashPackage($crashPackage)
+  {
+    $this->crashPackage = $crashPackage;
+  }
+  public function getCrashPackage()
+  {
+    return $this->crashPackage;
+  }
 }

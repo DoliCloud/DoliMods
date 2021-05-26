@@ -17,50 +17,50 @@
 
 class Google_Service_Reports_UsageReportEntity extends Google_Model
 {
-	public $customerId;
-	public $entityId;
-	public $profileId;
-	public $type;
-	public $userEmail;
+  public $customerId;
+  public $entityId;
+  public $profileId;
+  public $type;
+  public $userEmail;
 
-	public function setCustomerId($customerId)
-	{
-		$this->customerId = $customerId;
-	}
-	public function getCustomerId()
-	{
-		return $this->customerId;
-	}
-	public function setEntityId($entityId)
-	{
-		$this->entityId = $entityId;
-	}
-	public function getEntityId()
-	{
-		return $this->entityId;
-	}
-	public function setProfileId($profileId)
-	{
-		$this->profileId = $profileId;
-	}
-	public function getProfileId()
-	{
-		return $this->profileId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setUserEmail($userEmail)
-	{
-		$this->userEmail = $userEmail;
-	}
-	public function getUserEmail()
-	{
-		return $this->userEmail;
-	}
+  public function setCustomerId($customerId)
+  {
+    $this->customerId = $customerId;
+  }
+  public function getCustomerId()
+  {
+    return $this->customerId;
+  }
+  public function setEntityId($entityId)
+  {
+    $this->entityId = $entityId;
+  }
+  public function getEntityId()
+  {
+    return $this->entityId;
+  }
+  public function setProfileId($profileId)
+  {
+    $this->profileId = $profileId;
+  }
+  public function getProfileId()
+  {
+    return $this->profileId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setUserEmail($userEmail)
+  {
+    $this->userEmail = $userEmail;
+  }
+  public function getUserEmail()
+  {
+    return $this->userEmail;
+  }
 }

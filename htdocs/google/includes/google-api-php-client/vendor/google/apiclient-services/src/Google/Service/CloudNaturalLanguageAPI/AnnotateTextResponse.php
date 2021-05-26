@@ -17,55 +17,55 @@
 
 class Google_Service_CloudNaturalLanguageAPI_AnnotateTextResponse extends Google_Collection
 {
-	protected $collection_key = 'tokens';
-	protected $documentSentimentType = 'Google_Service_CloudNaturalLanguageAPI_Sentiment';
-	protected $documentSentimentDataType = '';
-	protected $entitiesType = 'Google_Service_CloudNaturalLanguageAPI_Entity';
-	protected $entitiesDataType = 'array';
-	public $language;
-	protected $sentencesType = 'Google_Service_CloudNaturalLanguageAPI_Sentence';
-	protected $sentencesDataType = 'array';
-	protected $tokensType = 'Google_Service_CloudNaturalLanguageAPI_Token';
-	protected $tokensDataType = 'array';
+  protected $collection_key = 'tokens';
+  protected $documentSentimentType = 'Google_Service_CloudNaturalLanguageAPI_Sentiment';
+  protected $documentSentimentDataType = '';
+  protected $entitiesType = 'Google_Service_CloudNaturalLanguageAPI_Entity';
+  protected $entitiesDataType = 'array';
+  public $language;
+  protected $sentencesType = 'Google_Service_CloudNaturalLanguageAPI_Sentence';
+  protected $sentencesDataType = 'array';
+  protected $tokensType = 'Google_Service_CloudNaturalLanguageAPI_Token';
+  protected $tokensDataType = 'array';
 
-	public function setDocumentSentiment(Google_Service_CloudNaturalLanguageAPI_Sentiment $documentSentiment)
-	{
-		$this->documentSentiment = $documentSentiment;
-	}
-	public function getDocumentSentiment()
-	{
-		return $this->documentSentiment;
-	}
-	public function setEntities($entities)
-	{
-		$this->entities = $entities;
-	}
-	public function getEntities()
-	{
-		return $this->entities;
-	}
-	public function setLanguage($language)
-	{
-		$this->language = $language;
-	}
-	public function getLanguage()
-	{
-		return $this->language;
-	}
-	public function setSentences($sentences)
-	{
-		$this->sentences = $sentences;
-	}
-	public function getSentences()
-	{
-		return $this->sentences;
-	}
-	public function setTokens($tokens)
-	{
-		$this->tokens = $tokens;
-	}
-	public function getTokens()
-	{
-		return $this->tokens;
-	}
+  public function setDocumentSentiment(Google_Service_CloudNaturalLanguageAPI_Sentiment $documentSentiment)
+  {
+    $this->documentSentiment = $documentSentiment;
+  }
+  public function getDocumentSentiment()
+  {
+    return $this->documentSentiment;
+  }
+  public function setEntities($entities)
+  {
+    $this->entities = $entities;
+  }
+  public function getEntities()
+  {
+    return $this->entities;
+  }
+  public function setLanguage($language)
+  {
+    $this->language = $language;
+  }
+  public function getLanguage()
+  {
+    return $this->language;
+  }
+  public function setSentences($sentences)
+  {
+    $this->sentences = $sentences;
+  }
+  public function getSentences()
+  {
+    return $this->sentences;
+  }
+  public function setTokens($tokens)
+  {
+    $this->tokens = $tokens;
+  }
+  public function getTokens()
+  {
+    return $this->tokens;
+  }
 }

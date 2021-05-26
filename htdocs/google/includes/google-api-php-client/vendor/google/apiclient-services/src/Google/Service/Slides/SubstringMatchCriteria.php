@@ -17,23 +17,23 @@
 
 class Google_Service_Slides_SubstringMatchCriteria extends Google_Model
 {
-	public $matchCase;
-	public $text;
+  public $matchCase;
+  public $text;
 
-	public function setMatchCase($matchCase)
-	{
-		$this->matchCase = $matchCase;
-	}
-	public function getMatchCase()
-	{
-		return $this->matchCase;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  public function setMatchCase($matchCase)
+  {
+    $this->matchCase = $matchCase;
+  }
+  public function getMatchCase()
+  {
+    return $this->matchCase;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

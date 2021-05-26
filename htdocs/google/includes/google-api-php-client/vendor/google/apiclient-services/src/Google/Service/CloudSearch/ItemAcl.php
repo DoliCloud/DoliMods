@@ -17,72 +17,72 @@
 
 class Google_Service_CloudSearch_ItemAcl extends Google_Collection
 {
-	protected $collection_key = 'readers';
-	public $aclInheritanceType;
-	protected $deniedReadersType = 'Google_Service_CloudSearch_Principal';
-	protected $deniedReadersDataType = 'array';
-	public $inheritAclFrom;
-	protected $ownersType = 'Google_Service_CloudSearch_Principal';
-	protected $ownersDataType = 'array';
-	protected $readersType = 'Google_Service_CloudSearch_Principal';
-	protected $readersDataType = 'array';
+  protected $collection_key = 'readers';
+  public $aclInheritanceType;
+  protected $deniedReadersType = 'Google_Service_CloudSearch_Principal';
+  protected $deniedReadersDataType = 'array';
+  public $inheritAclFrom;
+  protected $ownersType = 'Google_Service_CloudSearch_Principal';
+  protected $ownersDataType = 'array';
+  protected $readersType = 'Google_Service_CloudSearch_Principal';
+  protected $readersDataType = 'array';
 
-	public function setAclInheritanceType($aclInheritanceType)
-	{
-		$this->aclInheritanceType = $aclInheritanceType;
-	}
-	public function getAclInheritanceType()
-	{
-		return $this->aclInheritanceType;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_Principal
-	 */
-	public function setDeniedReaders($deniedReaders)
-	{
-		$this->deniedReaders = $deniedReaders;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Principal
-	 */
-	public function getDeniedReaders()
-	{
-		return $this->deniedReaders;
-	}
-	public function setInheritAclFrom($inheritAclFrom)
-	{
-		$this->inheritAclFrom = $inheritAclFrom;
-	}
-	public function getInheritAclFrom()
-	{
-		return $this->inheritAclFrom;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_Principal
-	 */
-	public function setOwners($owners)
-	{
-		$this->owners = $owners;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Principal
-	 */
-	public function getOwners()
-	{
-		return $this->owners;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_Principal
-	 */
-	public function setReaders($readers)
-	{
-		$this->readers = $readers;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Principal
-	 */
-	public function getReaders()
-	{
-		return $this->readers;
-	}
+  public function setAclInheritanceType($aclInheritanceType)
+  {
+    $this->aclInheritanceType = $aclInheritanceType;
+  }
+  public function getAclInheritanceType()
+  {
+    return $this->aclInheritanceType;
+  }
+  /**
+   * @param Google_Service_CloudSearch_Principal[]
+   */
+  public function setDeniedReaders($deniedReaders)
+  {
+    $this->deniedReaders = $deniedReaders;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Principal[]
+   */
+  public function getDeniedReaders()
+  {
+    return $this->deniedReaders;
+  }
+  public function setInheritAclFrom($inheritAclFrom)
+  {
+    $this->inheritAclFrom = $inheritAclFrom;
+  }
+  public function getInheritAclFrom()
+  {
+    return $this->inheritAclFrom;
+  }
+  /**
+   * @param Google_Service_CloudSearch_Principal[]
+   */
+  public function setOwners($owners)
+  {
+    $this->owners = $owners;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Principal[]
+   */
+  public function getOwners()
+  {
+    return $this->owners;
+  }
+  /**
+   * @param Google_Service_CloudSearch_Principal[]
+   */
+  public function setReaders($readers)
+  {
+    $this->readers = $readers;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Principal[]
+   */
+  public function getReaders()
+  {
+    return $this->readers;
+  }
 }

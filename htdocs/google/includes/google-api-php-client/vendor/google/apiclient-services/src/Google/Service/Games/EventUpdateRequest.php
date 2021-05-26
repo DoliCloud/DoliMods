@@ -17,32 +17,32 @@
 
 class Google_Service_Games_EventUpdateRequest extends Google_Model
 {
-	public $definitionId;
-	public $kind;
-	public $updateCount;
+  public $definitionId;
+  public $kind;
+  public $updateCount;
 
-	public function setDefinitionId($definitionId)
-	{
-		$this->definitionId = $definitionId;
-	}
-	public function getDefinitionId()
-	{
-		return $this->definitionId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setUpdateCount($updateCount)
-	{
-		$this->updateCount = $updateCount;
-	}
-	public function getUpdateCount()
-	{
-		return $this->updateCount;
-	}
+  public function setDefinitionId($definitionId)
+  {
+    $this->definitionId = $definitionId;
+  }
+  public function getDefinitionId()
+  {
+    return $this->definitionId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setUpdateCount($updateCount)
+  {
+    $this->updateCount = $updateCount;
+  }
+  public function getUpdateCount()
+  {
+    return $this->updateCount;
+  }
 }

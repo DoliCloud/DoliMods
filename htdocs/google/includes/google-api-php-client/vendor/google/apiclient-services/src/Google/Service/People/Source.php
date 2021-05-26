@@ -17,42 +17,42 @@
 
 class Google_Service_People_Source extends Google_Model
 {
-	public $etag;
-	public $id;
-	protected $profileMetadataType = 'Google_Service_People_ProfileMetadata';
-	protected $profileMetadataDataType = '';
-	public $type;
+  public $etag;
+  public $id;
+  protected $profileMetadataType = 'Google_Service_People_ProfileMetadata';
+  protected $profileMetadataDataType = '';
+  public $type;
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setProfileMetadata(Google_Service_People_ProfileMetadata $profileMetadata)
-	{
-		$this->profileMetadata = $profileMetadata;
-	}
-	public function getProfileMetadata()
-	{
-		return $this->profileMetadata;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setProfileMetadata(Google_Service_People_ProfileMetadata $profileMetadata)
+  {
+    $this->profileMetadata = $profileMetadata;
+  }
+  public function getProfileMetadata()
+  {
+    return $this->profileMetadata;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

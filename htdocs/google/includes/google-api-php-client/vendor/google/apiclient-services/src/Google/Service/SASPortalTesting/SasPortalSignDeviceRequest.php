@@ -17,21 +17,21 @@
 
 class Google_Service_SASPortalTesting_SasPortalSignDeviceRequest extends Google_Model
 {
-	protected $deviceType = 'Google_Service_SASPortalTesting_SasPortalDevice';
-	protected $deviceDataType = '';
+  protected $deviceType = 'Google_Service_SASPortalTesting_SasPortalDevice';
+  protected $deviceDataType = '';
 
-	/**
-	 * @param Google_Service_SASPortalTesting_SasPortalDevice
-	 */
-	public function setDevice(Google_Service_SASPortalTesting_SasPortalDevice $device)
-	{
-		$this->device = $device;
-	}
-	/**
-	 * @return Google_Service_SASPortalTesting_SasPortalDevice
-	 */
-	public function getDevice()
-	{
-		return $this->device;
-	}
+  /**
+   * @param Google_Service_SASPortalTesting_SasPortalDevice
+   */
+  public function setDevice(Google_Service_SASPortalTesting_SasPortalDevice $device)
+  {
+    $this->device = $device;
+  }
+  /**
+   * @return Google_Service_SASPortalTesting_SasPortalDevice
+   */
+  public function getDevice()
+  {
+    return $this->device;
+  }
 }

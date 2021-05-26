@@ -17,30 +17,30 @@
 
 class Google_Service_ShoppingContent_TestOrderDeliveryDetails extends Google_Model
 {
-	protected $addressType = 'Google_Service_ShoppingContent_TestOrderAddress';
-	protected $addressDataType = '';
-	public $phoneNumber;
+  protected $addressType = 'Google_Service_ShoppingContent_TestOrderAddress';
+  protected $addressDataType = '';
+  public $phoneNumber;
 
-	/**
-	 * @param Google_Service_ShoppingContent_TestOrderAddress
-	 */
-	public function setAddress(Google_Service_ShoppingContent_TestOrderAddress $address)
-	{
-		$this->address = $address;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_TestOrderAddress
-	 */
-	public function getAddress()
-	{
-		return $this->address;
-	}
-	public function setPhoneNumber($phoneNumber)
-	{
-		$this->phoneNumber = $phoneNumber;
-	}
-	public function getPhoneNumber()
-	{
-		return $this->phoneNumber;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_TestOrderAddress
+   */
+  public function setAddress(Google_Service_ShoppingContent_TestOrderAddress $address)
+  {
+    $this->address = $address;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_TestOrderAddress
+   */
+  public function getAddress()
+  {
+    return $this->address;
+  }
+  public function setPhoneNumber($phoneNumber)
+  {
+    $this->phoneNumber = $phoneNumber;
+  }
+  public function getPhoneNumber()
+  {
+    return $this->phoneNumber;
+  }
 }

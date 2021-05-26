@@ -17,23 +17,14 @@
 
 class Google_Service_CloudIAP_OAuthSettings extends Google_Model
 {
-	public $clientId;
-	public $loginHint;
+  public $loginHint;
 
-	public function setClientId($clientId)
-	{
-		$this->clientId = $clientId;
-	}
-	public function getClientId()
-	{
-		return $this->clientId;
-	}
-	public function setLoginHint($loginHint)
-	{
-		$this->loginHint = $loginHint;
-	}
-	public function getLoginHint()
-	{
-		return $this->loginHint;
-	}
+  public function setLoginHint($loginHint)
+  {
+    $this->loginHint = $loginHint;
+  }
+  public function getLoginHint()
+  {
+    return $this->loginHint;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Dataproc_InstantiateWorkflowTemplateRequest extends Google_Model
 {
-	public $parameters;
-	public $requestId;
-	public $version;
+  public $parameters;
+  public $requestId;
+  public $version;
 
-	public function setParameters($parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
-	public function setRequestId($requestId)
-	{
-		$this->requestId = $requestId;
-	}
-	public function getRequestId()
-	{
-		return $this->requestId;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setParameters($parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
+  public function setRequestId($requestId)
+  {
+    $this->requestId = $requestId;
+  }
+  public function getRequestId()
+  {
+    return $this->requestId;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

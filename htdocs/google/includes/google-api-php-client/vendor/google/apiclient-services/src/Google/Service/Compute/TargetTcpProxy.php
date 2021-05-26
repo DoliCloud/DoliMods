@@ -17,77 +17,77 @@
 
 class Google_Service_Compute_TargetTcpProxy extends Google_Model
 {
-	public $creationTimestamp;
-	public $description;
-	public $id;
-	public $kind;
-	public $name;
-	public $proxyHeader;
-	public $selfLink;
-	public $service;
+  public $creationTimestamp;
+  public $description;
+  public $id;
+  public $kind;
+  public $name;
+  public $proxyHeader;
+  public $selfLink;
+  public $service;
 
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setProxyHeader($proxyHeader)
-	{
-		$this->proxyHeader = $proxyHeader;
-	}
-	public function getProxyHeader()
-	{
-		return $this->proxyHeader;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setService($service)
-	{
-		$this->service = $service;
-	}
-	public function getService()
-	{
-		return $this->service;
-	}
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setProxyHeader($proxyHeader)
+  {
+    $this->proxyHeader = $proxyHeader;
+  }
+  public function getProxyHeader()
+  {
+    return $this->proxyHeader;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setService($service)
+  {
+    $this->service = $service;
+  }
+  public function getService()
+  {
+    return $this->service;
+  }
 }

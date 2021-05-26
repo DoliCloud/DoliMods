@@ -17,31 +17,31 @@
 
 class Google_Service_Bigquery_TableDataInsertAllResponse extends Google_Collection
 {
-	protected $collection_key = 'insertErrors';
-	protected $insertErrorsType = 'Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors';
-	protected $insertErrorsDataType = 'array';
-	public $kind;
+  protected $collection_key = 'insertErrors';
+  protected $insertErrorsType = 'Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors';
+  protected $insertErrorsDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors
-	 */
-	public function setInsertErrors($insertErrors)
-	{
-		$this->insertErrors = $insertErrors;
-	}
-	/**
-	 * @return Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors
-	 */
-	public function getInsertErrors()
-	{
-		return $this->insertErrors;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors[]
+   */
+  public function setInsertErrors($insertErrors)
+  {
+    $this->insertErrors = $insertErrors;
+  }
+  /**
+   * @return Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors[]
+   */
+  public function getInsertErrors()
+  {
+    return $this->insertErrors;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

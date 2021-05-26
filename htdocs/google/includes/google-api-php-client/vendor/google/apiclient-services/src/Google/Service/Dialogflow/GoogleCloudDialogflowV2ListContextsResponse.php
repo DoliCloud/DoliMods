@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2ListContextsResponse extends Google_Collection
 {
-	protected $collection_key = 'contexts';
-	protected $contextsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Context';
-	protected $contextsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'contexts';
+  protected $contextsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Context';
+  protected $contextsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Context
-	 */
-	public function setContexts($contexts)
-	{
-		$this->contexts = $contexts;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Context
-	 */
-	public function getContexts()
-	{
-		return $this->contexts;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Context[]
+   */
+  public function setContexts($contexts)
+  {
+    $this->contexts = $contexts;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Context[]
+   */
+  public function getContexts()
+  {
+    return $this->contexts;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

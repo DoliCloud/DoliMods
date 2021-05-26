@@ -17,31 +17,31 @@
 
 class Google_Service_BigQueryDataTransfer_ListDataSourcesResponse extends Google_Collection
 {
-	protected $collection_key = 'dataSources';
-	protected $dataSourcesType = 'Google_Service_BigQueryDataTransfer_DataSource';
-	protected $dataSourcesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'dataSources';
+  protected $dataSourcesType = 'Google_Service_BigQueryDataTransfer_DataSource';
+  protected $dataSourcesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_BigQueryDataTransfer_DataSource
-	 */
-	public function setDataSources($dataSources)
-	{
-		$this->dataSources = $dataSources;
-	}
-	/**
-	 * @return Google_Service_BigQueryDataTransfer_DataSource
-	 */
-	public function getDataSources()
-	{
-		return $this->dataSources;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_BigQueryDataTransfer_DataSource[]
+   */
+  public function setDataSources($dataSources)
+  {
+    $this->dataSources = $dataSources;
+  }
+  /**
+   * @return Google_Service_BigQueryDataTransfer_DataSource[]
+   */
+  public function getDataSources()
+  {
+    return $this->dataSources;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_GenderTargetingOptionDetails extends Google_Model
 {
-	public $gender;
+  public $gender;
 
-	public function setGender($gender)
-	{
-		$this->gender = $gender;
-	}
-	public function getGender()
-	{
-		return $this->gender;
-	}
+  public function setGender($gender)
+  {
+    $this->gender = $gender;
+  }
+  public function getGender()
+  {
+    return $this->gender;
+  }
 }

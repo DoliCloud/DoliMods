@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListFirstAndThirdPartyAudiencesResponse extends Google_Collection
 {
-	protected $collection_key = 'firstAndThirdPartyAudiences';
-	protected $firstAndThirdPartyAudiencesType = 'Google_Service_DisplayVideo_FirstAndThirdPartyAudience';
-	protected $firstAndThirdPartyAudiencesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'firstAndThirdPartyAudiences';
+  protected $firstAndThirdPartyAudiencesType = 'Google_Service_DisplayVideo_FirstAndThirdPartyAudience';
+  protected $firstAndThirdPartyAudiencesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DisplayVideo_FirstAndThirdPartyAudience
-	 */
-	public function setFirstAndThirdPartyAudiences($firstAndThirdPartyAudiences)
-	{
-		$this->firstAndThirdPartyAudiences = $firstAndThirdPartyAudiences;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_FirstAndThirdPartyAudience
-	 */
-	public function getFirstAndThirdPartyAudiences()
-	{
-		return $this->firstAndThirdPartyAudiences;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_FirstAndThirdPartyAudience[]
+   */
+  public function setFirstAndThirdPartyAudiences($firstAndThirdPartyAudiences)
+  {
+    $this->firstAndThirdPartyAudiences = $firstAndThirdPartyAudiences;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_FirstAndThirdPartyAudience[]
+   */
+  public function getFirstAndThirdPartyAudiences()
+  {
+    return $this->firstAndThirdPartyAudiences;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

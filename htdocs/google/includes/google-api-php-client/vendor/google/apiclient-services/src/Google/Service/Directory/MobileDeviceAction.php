@@ -17,14 +17,14 @@
 
 class Google_Service_Directory_MobileDeviceAction extends Google_Model
 {
-	public $action;
+  public $action;
 
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-	public function getAction()
-	{
-		return $this->action;
-	}
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  public function getAction()
+  {
+    return $this->action;
+  }
 }

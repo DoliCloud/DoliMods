@@ -17,24 +17,24 @@
 
 class Google_Service_YouTube_VideoContentDetailsRegionRestriction extends Google_Collection
 {
-	protected $collection_key = 'blocked';
-	public $allowed;
-	public $blocked;
+  protected $collection_key = 'blocked';
+  public $allowed;
+  public $blocked;
 
-	public function setAllowed($allowed)
-	{
-		$this->allowed = $allowed;
-	}
-	public function getAllowed()
-	{
-		return $this->allowed;
-	}
-	public function setBlocked($blocked)
-	{
-		$this->blocked = $blocked;
-	}
-	public function getBlocked()
-	{
-		return $this->blocked;
-	}
+  public function setAllowed($allowed)
+  {
+    $this->allowed = $allowed;
+  }
+  public function getAllowed()
+  {
+    return $this->allowed;
+  }
+  public function setBlocked($blocked)
+  {
+    $this->blocked = $blocked;
+  }
+  public function getBlocked()
+  {
+    return $this->blocked;
+  }
 }

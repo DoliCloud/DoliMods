@@ -25,23 +25,23 @@
  */
 class Google_Service_PlayMovies_Resource_AccountsStoreInfosCountry extends Google_Service_Resource
 {
-	/**
-	 * Get a StoreInfo given its video id and country.
-	 *
-	 * See _Authentication and Authorization rules_ and _Get methods rules_ for more
-	 * information about this method. (country.get)
-	 *
-	 * @param string $accountId REQUIRED. See _General rules_ for more information
-	 *                          about this field.
-	 * @param string $videoId REQUIRED. Video ID.
-	 * @param string $country REQUIRED. Edit country.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_PlayMovies_StoreInfo
-	 */
-	public function get($accountId, $videoId, $country, $optParams = array())
-	{
-		$params = array('accountId' => $accountId, 'videoId' => $videoId, 'country' => $country);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_PlayMovies_StoreInfo");
-	}
+  /**
+   * Get a StoreInfo given its video id and country.
+   *
+   * See _Authentication and Authorization rules_ and _Get methods rules_ for more
+   * information about this method. (country.get)
+   *
+   * @param string $accountId REQUIRED. See _General rules_ for more information
+   * about this field.
+   * @param string $videoId REQUIRED. Video ID.
+   * @param string $country REQUIRED. Edit country.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_PlayMovies_StoreInfo
+   */
+  public function get($accountId, $videoId, $country, $optParams = array())
+  {
+    $params = array('accountId' => $accountId, 'videoId' => $videoId, 'country' => $country);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_PlayMovies_StoreInfo");
+  }
 }

@@ -17,51 +17,51 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1PolicyTag extends Google_Collection
 {
-	protected $collection_key = 'childPolicyTags';
-	public $childPolicyTags;
-	public $description;
-	public $displayName;
-	public $name;
-	public $parentPolicyTag;
+  protected $collection_key = 'childPolicyTags';
+  public $childPolicyTags;
+  public $description;
+  public $displayName;
+  public $name;
+  public $parentPolicyTag;
 
-	public function setChildPolicyTags($childPolicyTags)
-	{
-		$this->childPolicyTags = $childPolicyTags;
-	}
-	public function getChildPolicyTags()
-	{
-		return $this->childPolicyTags;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setParentPolicyTag($parentPolicyTag)
-	{
-		$this->parentPolicyTag = $parentPolicyTag;
-	}
-	public function getParentPolicyTag()
-	{
-		return $this->parentPolicyTag;
-	}
+  public function setChildPolicyTags($childPolicyTags)
+  {
+    $this->childPolicyTags = $childPolicyTags;
+  }
+  public function getChildPolicyTags()
+  {
+    return $this->childPolicyTags;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setParentPolicyTag($parentPolicyTag)
+  {
+    $this->parentPolicyTag = $parentPolicyTag;
+  }
+  public function getParentPolicyTag()
+  {
+    return $this->parentPolicyTag;
+  }
 }

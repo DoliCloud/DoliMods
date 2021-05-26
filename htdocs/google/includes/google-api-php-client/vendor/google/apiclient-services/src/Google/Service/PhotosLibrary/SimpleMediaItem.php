@@ -17,14 +17,14 @@
 
 class Google_Service_PhotosLibrary_SimpleMediaItem extends Google_Model
 {
-	public $uploadToken;
+  public $uploadToken;
 
-	public function setUploadToken($uploadToken)
-	{
-		$this->uploadToken = $uploadToken;
-	}
-	public function getUploadToken()
-	{
-		return $this->uploadToken;
-	}
+  public function setUploadToken($uploadToken)
+  {
+    $this->uploadToken = $uploadToken;
+  }
+  public function getUploadToken()
+  {
+    return $this->uploadToken;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_VideoAbuseReportSecondaryReason extends Google_Model
 {
-	public $id;
-	public $label;
+  public $id;
+  public $label;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setLabel($label)
-	{
-		$this->label = $label;
-	}
-	public function getLabel()
-	{
-		return $this->label;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+  public function getLabel()
+  {
+    return $this->label;
+  }
 }

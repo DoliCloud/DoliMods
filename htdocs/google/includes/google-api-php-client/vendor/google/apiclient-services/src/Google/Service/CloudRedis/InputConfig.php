@@ -17,21 +17,21 @@
 
 class Google_Service_CloudRedis_InputConfig extends Google_Model
 {
-	protected $gcsSourceType = 'Google_Service_CloudRedis_GcsSource';
-	protected $gcsSourceDataType = '';
+  protected $gcsSourceType = 'Google_Service_CloudRedis_GcsSource';
+  protected $gcsSourceDataType = '';
 
-	/**
-	 * @param Google_Service_CloudRedis_GcsSource
-	 */
-	public function setGcsSource(Google_Service_CloudRedis_GcsSource $gcsSource)
-	{
-		$this->gcsSource = $gcsSource;
-	}
-	/**
-	 * @return Google_Service_CloudRedis_GcsSource
-	 */
-	public function getGcsSource()
-	{
-		return $this->gcsSource;
-	}
+  /**
+   * @param Google_Service_CloudRedis_GcsSource
+   */
+  public function setGcsSource(Google_Service_CloudRedis_GcsSource $gcsSource)
+  {
+    $this->gcsSource = $gcsSource;
+  }
+  /**
+   * @return Google_Service_CloudRedis_GcsSource
+   */
+  public function getGcsSource()
+  {
+    return $this->gcsSource;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1GcsFileSpec extends Google_Model
 {
-	public $filePath;
-	protected $gcsTimestampsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps';
-	protected $gcsTimestampsDataType = '';
-	public $sizeBytes;
+  public $filePath;
+  protected $gcsTimestampsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps';
+  protected $gcsTimestampsDataType = '';
+  public $sizeBytes;
 
-	public function setFilePath($filePath)
-	{
-		$this->filePath = $filePath;
-	}
-	public function getFilePath()
-	{
-		return $this->filePath;
-	}
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps
-	 */
-	public function setGcsTimestamps(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps $gcsTimestamps)
-	{
-		$this->gcsTimestamps = $gcsTimestamps;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps
-	 */
-	public function getGcsTimestamps()
-	{
-		return $this->gcsTimestamps;
-	}
-	public function setSizeBytes($sizeBytes)
-	{
-		$this->sizeBytes = $sizeBytes;
-	}
-	public function getSizeBytes()
-	{
-		return $this->sizeBytes;
-	}
+  public function setFilePath($filePath)
+  {
+    $this->filePath = $filePath;
+  }
+  public function getFilePath()
+  {
+    return $this->filePath;
+  }
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps
+   */
+  public function setGcsTimestamps(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps $gcsTimestamps)
+  {
+    $this->gcsTimestamps = $gcsTimestamps;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps
+   */
+  public function getGcsTimestamps()
+  {
+    return $this->gcsTimestamps;
+  }
+  public function setSizeBytes($sizeBytes)
+  {
+    $this->sizeBytes = $sizeBytes;
+  }
+  public function getSizeBytes()
+  {
+    return $this->sizeBytes;
+  }
 }

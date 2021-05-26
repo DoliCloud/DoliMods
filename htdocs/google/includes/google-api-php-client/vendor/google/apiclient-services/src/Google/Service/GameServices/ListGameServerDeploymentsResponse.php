@@ -17,40 +17,40 @@
 
 class Google_Service_GameServices_ListGameServerDeploymentsResponse extends Google_Collection
 {
-	protected $collection_key = 'unreachable';
-	protected $gameServerDeploymentsType = 'Google_Service_GameServices_GameServerDeployment';
-	protected $gameServerDeploymentsDataType = 'array';
-	public $nextPageToken;
-	public $unreachable;
+  protected $collection_key = 'unreachable';
+  protected $gameServerDeploymentsType = 'Google_Service_GameServices_GameServerDeployment';
+  protected $gameServerDeploymentsDataType = 'array';
+  public $nextPageToken;
+  public $unreachable;
 
-	/**
-	 * @param Google_Service_GameServices_GameServerDeployment
-	 */
-	public function setGameServerDeployments($gameServerDeployments)
-	{
-		$this->gameServerDeployments = $gameServerDeployments;
-	}
-	/**
-	 * @return Google_Service_GameServices_GameServerDeployment
-	 */
-	public function getGameServerDeployments()
-	{
-		return $this->gameServerDeployments;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setUnreachable($unreachable)
-	{
-		$this->unreachable = $unreachable;
-	}
-	public function getUnreachable()
-	{
-		return $this->unreachable;
-	}
+  /**
+   * @param Google_Service_GameServices_GameServerDeployment[]
+   */
+  public function setGameServerDeployments($gameServerDeployments)
+  {
+    $this->gameServerDeployments = $gameServerDeployments;
+  }
+  /**
+   * @return Google_Service_GameServices_GameServerDeployment[]
+   */
+  public function getGameServerDeployments()
+  {
+    return $this->gameServerDeployments;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setUnreachable($unreachable)
+  {
+    $this->unreachable = $unreachable;
+  }
+  public function getUnreachable()
+  {
+    return $this->unreachable;
+  }
 }

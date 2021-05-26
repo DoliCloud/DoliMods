@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_Size extends Google_Model
 {
-	public $height;
-	public $iab;
-	public $id;
-	public $kind;
-	public $width;
+  public $height;
+  public $iab;
+  public $id;
+  public $kind;
+  public $width;
 
-	public function setHeight($height)
-	{
-		$this->height = $height;
-	}
-	public function getHeight()
-	{
-		return $this->height;
-	}
-	public function setIab($iab)
-	{
-		$this->iab = $iab;
-	}
-	public function getIab()
-	{
-		return $this->iab;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setWidth($width)
-	{
-		$this->width = $width;
-	}
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setIab($iab)
+  {
+    $this->iab = $iab;
+  }
+  public function getIab()
+  {
+    return $this->iab;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

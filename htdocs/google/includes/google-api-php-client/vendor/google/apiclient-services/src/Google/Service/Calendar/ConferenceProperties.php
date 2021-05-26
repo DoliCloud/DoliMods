@@ -17,15 +17,15 @@
 
 class Google_Service_Calendar_ConferenceProperties extends Google_Collection
 {
-	protected $collection_key = 'allowedConferenceSolutionTypes';
-	public $allowedConferenceSolutionTypes;
+  protected $collection_key = 'allowedConferenceSolutionTypes';
+  public $allowedConferenceSolutionTypes;
 
-	public function setAllowedConferenceSolutionTypes($allowedConferenceSolutionTypes)
-	{
-		$this->allowedConferenceSolutionTypes = $allowedConferenceSolutionTypes;
-	}
-	public function getAllowedConferenceSolutionTypes()
-	{
-		return $this->allowedConferenceSolutionTypes;
-	}
+  public function setAllowedConferenceSolutionTypes($allowedConferenceSolutionTypes)
+  {
+    $this->allowedConferenceSolutionTypes = $allowedConferenceSolutionTypes;
+  }
+  public function getAllowedConferenceSolutionTypes()
+  {
+    return $this->allowedConferenceSolutionTypes;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_ShoppingContent_ProductSubscriptionCost extends Google_Model
 {
-	protected $amountType = 'Google_Service_ShoppingContent_Price';
-	protected $amountDataType = '';
-	public $period;
-	public $periodLength;
+  protected $amountType = 'Google_Service_ShoppingContent_Price';
+  protected $amountDataType = '';
+  public $period;
+  public $periodLength;
 
-	/**
-	 * @param Google_Service_ShoppingContent_Price
-	 */
-	public function setAmount(Google_Service_ShoppingContent_Price $amount)
-	{
-		$this->amount = $amount;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_Price
-	 */
-	public function getAmount()
-	{
-		return $this->amount;
-	}
-	public function setPeriod($period)
-	{
-		$this->period = $period;
-	}
-	public function getPeriod()
-	{
-		return $this->period;
-	}
-	public function setPeriodLength($periodLength)
-	{
-		$this->periodLength = $periodLength;
-	}
-	public function getPeriodLength()
-	{
-		return $this->periodLength;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_Price
+   */
+  public function setAmount(Google_Service_ShoppingContent_Price $amount)
+  {
+    $this->amount = $amount;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_Price
+   */
+  public function getAmount()
+  {
+    return $this->amount;
+  }
+  public function setPeriod($period)
+  {
+    $this->period = $period;
+  }
+  public function getPeriod()
+  {
+    return $this->period;
+  }
+  public function setPeriodLength($periodLength)
+  {
+    $this->periodLength = $periodLength;
+  }
+  public function getPeriodLength()
+  {
+    return $this->periodLength;
+  }
 }

@@ -17,35 +17,35 @@
 
 class Google_Service_Devprojects_TosesCheckResponse extends Google_Collection
 {
-	protected $collection_key = 'pending';
-	protected $acceptedType = 'Google_Service_Devprojects_Acceptance';
-	protected $acceptedDataType = 'array';
-	public $kind;
-	protected $pendingType = 'Google_Service_Devprojects_AcceptanceRequired';
-	protected $pendingDataType = 'array';
+  protected $collection_key = 'pending';
+  protected $acceptedType = 'Google_Service_Devprojects_Acceptance';
+  protected $acceptedDataType = 'array';
+  public $kind;
+  protected $pendingType = 'Google_Service_Devprojects_AcceptanceRequired';
+  protected $pendingDataType = 'array';
 
-	public function setAccepted($accepted)
-	{
-		$this->accepted = $accepted;
-	}
-	public function getAccepted()
-	{
-		return $this->accepted;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setPending($pending)
-	{
-		$this->pending = $pending;
-	}
-	public function getPending()
-	{
-		return $this->pending;
-	}
+  public function setAccepted($accepted)
+  {
+    $this->accepted = $accepted;
+  }
+  public function getAccepted()
+  {
+    return $this->accepted;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setPending($pending)
+  {
+    $this->pending = $pending;
+  }
+  public function getPending()
+  {
+    return $this->pending;
+  }
 }

@@ -37,98 +37,98 @@ use InvalidArgumentException;
  */
 class Registry
 {
-	/**
-	 * List of all loggers in the registry (by named indexes)
-	 *
-	 * @var Logger[]
-	 */
-	private static $loggers = array();
+    /**
+     * List of all loggers in the registry (by named indexes)
+     *
+     * @var Logger[]
+     */
+    private static $loggers = array();
 
-	/**
-	 * Adds new logging channel to the registry
-	 *
-	 * @param  Logger                    $logger    Instance of the logging channel
-	 * @param  string|null               $name      Name of the logging channel ($logger->getName() by default)
-	 * @param  bool                      $overwrite Overwrite instance in the registry if the given name already exists?
-	 * @throws \InvalidArgumentException If $overwrite set to false and named Logger instance already exists
-	 */
-	public static function addLogger(Logger $logger, $name = null, $overwrite = false)
-	{
-		$name = $name ?: $logger->getName();
+    /**
+     * Adds new logging channel to the registry
+     *
+     * @param  Logger                    $logger    Instance of the logging channel
+     * @param  string|null               $name      Name of the logging channel ($logger->getName() by default)
+     * @param  bool                      $overwrite Overwrite instance in the registry if the given name already exists?
+     * @throws \InvalidArgumentException If $overwrite set to false and named Logger instance already exists
+     */
+    public static function addLogger(Logger $logger, $name = null, $overwrite = false)
+    {
+        $name = $name ?: $logger->getName();
 
-		if (isset(self::$loggers[$name]) && !$overwrite) {
-			throw new InvalidArgumentException('Logger with the given name already exists');
-		}
+        if (isset(self::$loggers[$name]) && !$overwrite) {
+            throw new InvalidArgumentException('Logger with the given name already exists');
+        }
 
-		self::$loggers[$name] = $logger;
-	}
+        self::$loggers[$name] = $logger;
+    }
 
-	/**
-	 * Checks if such logging channel exists by name or instance
-	 *
-	 * @param string|Logger $logger Name or logger instance
-	 */
-	public static function hasLogger($logger)
-	{
-		if ($logger instanceof Logger) {
-			$index = array_search($logger, self::$loggers, true);
+    /**
+     * Checks if such logging channel exists by name or instance
+     *
+     * @param string|Logger $logger Name or logger instance
+     */
+    public static function hasLogger($logger)
+    {
+        if ($logger instanceof Logger) {
+            $index = array_search($logger, self::$loggers, true);
 
-			return false !== $index;
-		} else {
-			return isset(self::$loggers[$logger]);
-		}
-	}
+            return false !== $index;
+        } else {
+            return isset(self::$loggers[$logger]);
+        }
+    }
 
-	/**
-	 * Removes instance from registry by name or instance
-	 *
-	 * @param string|Logger $logger Name or logger instance
-	 */
-	public static function removeLogger($logger)
-	{
-		if ($logger instanceof Logger) {
-			if (false !== ($idx = array_search($logger, self::$loggers, true))) {
-				unset(self::$loggers[$idx]);
-			}
-		} else {
-			unset(self::$loggers[$logger]);
-		}
-	}
+    /**
+     * Removes instance from registry by name or instance
+     *
+     * @param string|Logger $logger Name or logger instance
+     */
+    public static function removeLogger($logger)
+    {
+        if ($logger instanceof Logger) {
+            if (false !== ($idx = array_search($logger, self::$loggers, true))) {
+                unset(self::$loggers[$idx]);
+            }
+        } else {
+            unset(self::$loggers[$logger]);
+        }
+    }
 
-	/**
-	 * Clears the registry
-	 */
-	public static function clear()
-	{
-		self::$loggers = array();
-	}
+    /**
+     * Clears the registry
+     */
+    public static function clear()
+    {
+        self::$loggers = array();
+    }
 
-	/**
-	 * Gets Logger instance from the registry
-	 *
-	 * @param  string                    $name Name of the requested Logger instance
-	 * @throws \InvalidArgumentException If named Logger instance is not in the registry
-	 * @return Logger                    Requested instance of Logger
-	 */
-	public static function getInstance($name)
-	{
-		if (!isset(self::$loggers[$name])) {
-			throw new InvalidArgumentException(sprintf('Requested "%s" logger instance is not in the registry', $name));
-		}
+    /**
+     * Gets Logger instance from the registry
+     *
+     * @param  string                    $name Name of the requested Logger instance
+     * @throws \InvalidArgumentException If named Logger instance is not in the registry
+     * @return Logger                    Requested instance of Logger
+     */
+    public static function getInstance($name)
+    {
+        if (!isset(self::$loggers[$name])) {
+            throw new InvalidArgumentException(sprintf('Requested "%s" logger instance is not in the registry', $name));
+        }
 
-		return self::$loggers[$name];
-	}
+        return self::$loggers[$name];
+    }
 
-	/**
-	 * Gets Logger instance from the registry via static method call
-	 *
-	 * @param  string                    $name      Name of the requested Logger instance
-	 * @param  array                     $arguments Arguments passed to static method call
-	 * @throws \InvalidArgumentException If named Logger instance is not in the registry
-	 * @return Logger                    Requested instance of Logger
-	 */
-	public static function __callStatic($name, $arguments)
-	{
-		return self::getInstance($name);
-	}
+    /**
+     * Gets Logger instance from the registry via static method call
+     *
+     * @param  string                    $name      Name of the requested Logger instance
+     * @param  array                     $arguments Arguments passed to static method call
+     * @throws \InvalidArgumentException If named Logger instance is not in the registry
+     * @return Logger                    Requested instance of Logger
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return self::getInstance($name);
+    }
 }

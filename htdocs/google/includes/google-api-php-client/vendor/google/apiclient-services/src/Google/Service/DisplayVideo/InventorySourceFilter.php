@@ -17,15 +17,15 @@
 
 class Google_Service_DisplayVideo_InventorySourceFilter extends Google_Collection
 {
-	protected $collection_key = 'inventorySourceIds';
-	public $inventorySourceIds;
+  protected $collection_key = 'inventorySourceIds';
+  public $inventorySourceIds;
 
-	public function setInventorySourceIds($inventorySourceIds)
-	{
-		$this->inventorySourceIds = $inventorySourceIds;
-	}
-	public function getInventorySourceIds()
-	{
-		return $this->inventorySourceIds;
-	}
+  public function setInventorySourceIds($inventorySourceIds)
+  {
+    $this->inventorySourceIds = $inventorySourceIds;
+  }
+  public function getInventorySourceIds()
+  {
+    return $this->inventorySourceIds;
+  }
 }

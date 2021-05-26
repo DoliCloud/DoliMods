@@ -17,57 +17,57 @@
 
 class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemItem extends Google_Model
 {
-	protected $amountType = 'Google_Service_ShoppingContent_MonetaryAmount';
-	protected $amountDataType = '';
-	public $fullRefund;
-	public $lineItemId;
-	public $productId;
-	public $quantity;
+  protected $amountType = 'Google_Service_ShoppingContent_MonetaryAmount';
+  protected $amountDataType = '';
+  public $fullRefund;
+  public $lineItemId;
+  public $productId;
+  public $quantity;
 
-	/**
-	 * @param Google_Service_ShoppingContent_MonetaryAmount
-	 */
-	public function setAmount(Google_Service_ShoppingContent_MonetaryAmount $amount)
-	{
-		$this->amount = $amount;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_MonetaryAmount
-	 */
-	public function getAmount()
-	{
-		return $this->amount;
-	}
-	public function setFullRefund($fullRefund)
-	{
-		$this->fullRefund = $fullRefund;
-	}
-	public function getFullRefund()
-	{
-		return $this->fullRefund;
-	}
-	public function setLineItemId($lineItemId)
-	{
-		$this->lineItemId = $lineItemId;
-	}
-	public function getLineItemId()
-	{
-		return $this->lineItemId;
-	}
-	public function setProductId($productId)
-	{
-		$this->productId = $productId;
-	}
-	public function getProductId()
-	{
-		return $this->productId;
-	}
-	public function setQuantity($quantity)
-	{
-		$this->quantity = $quantity;
-	}
-	public function getQuantity()
-	{
-		return $this->quantity;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_MonetaryAmount
+   */
+  public function setAmount(Google_Service_ShoppingContent_MonetaryAmount $amount)
+  {
+    $this->amount = $amount;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_MonetaryAmount
+   */
+  public function getAmount()
+  {
+    return $this->amount;
+  }
+  public function setFullRefund($fullRefund)
+  {
+    $this->fullRefund = $fullRefund;
+  }
+  public function getFullRefund()
+  {
+    return $this->fullRefund;
+  }
+  public function setLineItemId($lineItemId)
+  {
+    $this->lineItemId = $lineItemId;
+  }
+  public function getLineItemId()
+  {
+    return $this->lineItemId;
+  }
+  public function setProductId($productId)
+  {
+    $this->productId = $productId;
+  }
+  public function getProductId()
+  {
+    return $this->productId;
+  }
+  public function setQuantity($quantity)
+  {
+    $this->quantity = $quantity;
+  }
+  public function getQuantity()
+  {
+    return $this->quantity;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_WebSecurityScanner_Schedule extends Google_Model
 {
-	public $intervalDurationDays;
-	public $scheduleTime;
+  public $intervalDurationDays;
+  public $scheduleTime;
 
-	public function setIntervalDurationDays($intervalDurationDays)
-	{
-		$this->intervalDurationDays = $intervalDurationDays;
-	}
-	public function getIntervalDurationDays()
-	{
-		return $this->intervalDurationDays;
-	}
-	public function setScheduleTime($scheduleTime)
-	{
-		$this->scheduleTime = $scheduleTime;
-	}
-	public function getScheduleTime()
-	{
-		return $this->scheduleTime;
-	}
+  public function setIntervalDurationDays($intervalDurationDays)
+  {
+    $this->intervalDurationDays = $intervalDurationDays;
+  }
+  public function getIntervalDurationDays()
+  {
+    return $this->intervalDurationDays;
+  }
+  public function setScheduleTime($scheduleTime)
+  {
+    $this->scheduleTime = $scheduleTime;
+  }
+  public function getScheduleTime()
+  {
+    return $this->scheduleTime;
+  }
 }

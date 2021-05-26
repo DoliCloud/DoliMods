@@ -17,119 +17,110 @@
 
 class Google_Service_ServiceNetworking_HttpRule extends Google_Collection
 {
-	protected $collection_key = 'additionalBindings';
-	protected $additionalBindingsType = 'Google_Service_ServiceNetworking_HttpRule';
-	protected $additionalBindingsDataType = 'array';
-	public $allowHalfDuplex;
-	public $body;
-	protected $customType = 'Google_Service_ServiceNetworking_CustomHttpPattern';
-	protected $customDataType = '';
-	public $delete;
-	public $get;
-	public $patch;
-	public $post;
-	public $put;
-	public $responseBody;
-	public $selector;
+  protected $collection_key = 'additionalBindings';
+  protected $additionalBindingsType = 'Google_Service_ServiceNetworking_HttpRule';
+  protected $additionalBindingsDataType = 'array';
+  public $body;
+  protected $customType = 'Google_Service_ServiceNetworking_CustomHttpPattern';
+  protected $customDataType = '';
+  public $delete;
+  public $get;
+  public $patch;
+  public $post;
+  public $put;
+  public $responseBody;
+  public $selector;
 
-	/**
-	 * @param Google_Service_ServiceNetworking_HttpRule
-	 */
-	public function setAdditionalBindings($additionalBindings)
-	{
-		$this->additionalBindings = $additionalBindings;
-	}
-	/**
-	 * @return Google_Service_ServiceNetworking_HttpRule
-	 */
-	public function getAdditionalBindings()
-	{
-		return $this->additionalBindings;
-	}
-	public function setAllowHalfDuplex($allowHalfDuplex)
-	{
-		$this->allowHalfDuplex = $allowHalfDuplex;
-	}
-	public function getAllowHalfDuplex()
-	{
-		return $this->allowHalfDuplex;
-	}
-	public function setBody($body)
-	{
-		$this->body = $body;
-	}
-	public function getBody()
-	{
-		return $this->body;
-	}
-	/**
-	 * @param Google_Service_ServiceNetworking_CustomHttpPattern
-	 */
-	public function setCustom(Google_Service_ServiceNetworking_CustomHttpPattern $custom)
-	{
-		$this->custom = $custom;
-	}
-	/**
-	 * @return Google_Service_ServiceNetworking_CustomHttpPattern
-	 */
-	public function getCustom()
-	{
-		return $this->custom;
-	}
-	public function setDelete($delete)
-	{
-		$this->delete = $delete;
-	}
-	public function getDelete()
-	{
-		return $this->delete;
-	}
-	public function setGet($get)
-	{
-		$this->get = $get;
-	}
-	public function getGet()
-	{
-		return $this->get;
-	}
-	public function setPatch($patch)
-	{
-		$this->patch = $patch;
-	}
-	public function getPatch()
-	{
-		return $this->patch;
-	}
-	public function setPost($post)
-	{
-		$this->post = $post;
-	}
-	public function getPost()
-	{
-		return $this->post;
-	}
-	public function setPut($put)
-	{
-		$this->put = $put;
-	}
-	public function getPut()
-	{
-		return $this->put;
-	}
-	public function setResponseBody($responseBody)
-	{
-		$this->responseBody = $responseBody;
-	}
-	public function getResponseBody()
-	{
-		return $this->responseBody;
-	}
-	public function setSelector($selector)
-	{
-		$this->selector = $selector;
-	}
-	public function getSelector()
-	{
-		return $this->selector;
-	}
+  /**
+   * @param Google_Service_ServiceNetworking_HttpRule[]
+   */
+  public function setAdditionalBindings($additionalBindings)
+  {
+    $this->additionalBindings = $additionalBindings;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_HttpRule[]
+   */
+  public function getAdditionalBindings()
+  {
+    return $this->additionalBindings;
+  }
+  public function setBody($body)
+  {
+    $this->body = $body;
+  }
+  public function getBody()
+  {
+    return $this->body;
+  }
+  /**
+   * @param Google_Service_ServiceNetworking_CustomHttpPattern
+   */
+  public function setCustom(Google_Service_ServiceNetworking_CustomHttpPattern $custom)
+  {
+    $this->custom = $custom;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_CustomHttpPattern
+   */
+  public function getCustom()
+  {
+    return $this->custom;
+  }
+  public function setDelete($delete)
+  {
+    $this->delete = $delete;
+  }
+  public function getDelete()
+  {
+    return $this->delete;
+  }
+  public function setGet($get)
+  {
+    $this->get = $get;
+  }
+  public function getGet()
+  {
+    return $this->get;
+  }
+  public function setPatch($patch)
+  {
+    $this->patch = $patch;
+  }
+  public function getPatch()
+  {
+    return $this->patch;
+  }
+  public function setPost($post)
+  {
+    $this->post = $post;
+  }
+  public function getPost()
+  {
+    return $this->post;
+  }
+  public function setPut($put)
+  {
+    $this->put = $put;
+  }
+  public function getPut()
+  {
+    return $this->put;
+  }
+  public function setResponseBody($responseBody)
+  {
+    $this->responseBody = $responseBody;
+  }
+  public function getResponseBody()
+  {
+    return $this->responseBody;
+  }
+  public function setSelector($selector)
+  {
+    $this->selector = $selector;
+  }
+  public function getSelector()
+  {
+    return $this->selector;
+  }
 }

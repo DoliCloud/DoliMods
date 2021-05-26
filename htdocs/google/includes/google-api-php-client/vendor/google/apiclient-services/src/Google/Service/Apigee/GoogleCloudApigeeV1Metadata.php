@@ -17,24 +17,24 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Metadata extends Google_Collection
 {
-	protected $collection_key = 'notices';
-	public $errors;
-	public $notices;
+  protected $collection_key = 'notices';
+  public $errors;
+  public $notices;
 
-	public function setErrors($errors)
-	{
-		$this->errors = $errors;
-	}
-	public function getErrors()
-	{
-		return $this->errors;
-	}
-	public function setNotices($notices)
-	{
-		$this->notices = $notices;
-	}
-	public function getNotices()
-	{
-		return $this->notices;
-	}
+  public function setErrors($errors)
+  {
+    $this->errors = $errors;
+  }
+  public function getErrors()
+  {
+    return $this->errors;
+  }
+  public function setNotices($notices)
+  {
+    $this->notices = $notices;
+  }
+  public function getNotices()
+  {
+    return $this->notices;
+  }
 }

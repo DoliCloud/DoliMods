@@ -17,32 +17,32 @@
 
 class Google_Service_CloudIAP_IdentityAwareProxyClient extends Google_Model
 {
-	public $displayName;
-	public $name;
-	public $secret;
+  public $displayName;
+  public $name;
+  public $secret;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSecret($secret)
-	{
-		$this->secret = $secret;
-	}
-	public function getSecret()
-	{
-		return $this->secret;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSecret($secret)
+  {
+    $this->secret = $secret;
+  }
+  public function getSecret()
+  {
+    return $this->secret;
+  }
 }

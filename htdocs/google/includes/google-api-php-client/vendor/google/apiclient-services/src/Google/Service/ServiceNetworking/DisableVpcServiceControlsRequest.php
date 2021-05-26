@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceNetworking_DisableVpcServiceControlsRequest extends Google_Model
 {
-	public $consumerNetwork;
+  public $consumerNetwork;
 
-	public function setConsumerNetwork($consumerNetwork)
-	{
-		$this->consumerNetwork = $consumerNetwork;
-	}
-	public function getConsumerNetwork()
-	{
-		return $this->consumerNetwork;
-	}
+  public function setConsumerNetwork($consumerNetwork)
+  {
+    $this->consumerNetwork = $consumerNetwork;
+  }
+  public function getConsumerNetwork()
+  {
+    return $this->consumerNetwork;
+  }
 }

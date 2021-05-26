@@ -17,21 +17,21 @@
 
 class Google_Service_AndroidPublisher_ApksAddExternallyHostedRequest extends Google_Model
 {
-	protected $externallyHostedApkType = 'Google_Service_AndroidPublisher_ExternallyHostedApk';
-	protected $externallyHostedApkDataType = '';
+  protected $externallyHostedApkType = 'Google_Service_AndroidPublisher_ExternallyHostedApk';
+  protected $externallyHostedApkDataType = '';
 
-	/**
-	 * @param Google_Service_AndroidPublisher_ExternallyHostedApk
-	 */
-	public function setExternallyHostedApk(Google_Service_AndroidPublisher_ExternallyHostedApk $externallyHostedApk)
-	{
-		$this->externallyHostedApk = $externallyHostedApk;
-	}
-	/**
-	 * @return Google_Service_AndroidPublisher_ExternallyHostedApk
-	 */
-	public function getExternallyHostedApk()
-	{
-		return $this->externallyHostedApk;
-	}
+  /**
+   * @param Google_Service_AndroidPublisher_ExternallyHostedApk
+   */
+  public function setExternallyHostedApk(Google_Service_AndroidPublisher_ExternallyHostedApk $externallyHostedApk)
+  {
+    $this->externallyHostedApk = $externallyHostedApk;
+  }
+  /**
+   * @return Google_Service_AndroidPublisher_ExternallyHostedApk
+   */
+  public function getExternallyHostedApk()
+  {
+    return $this->externallyHostedApk;
+  }
 }

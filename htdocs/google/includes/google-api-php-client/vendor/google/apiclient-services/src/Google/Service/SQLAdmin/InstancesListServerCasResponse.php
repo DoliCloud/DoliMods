@@ -17,40 +17,40 @@
 
 class Google_Service_SQLAdmin_InstancesListServerCasResponse extends Google_Collection
 {
-	protected $collection_key = 'certs';
-	public $activeVersion;
-	protected $certsType = 'Google_Service_SQLAdmin_SslCert';
-	protected $certsDataType = 'array';
-	public $kind;
+  protected $collection_key = 'certs';
+  public $activeVersion;
+  protected $certsType = 'Google_Service_SQLAdmin_SslCert';
+  protected $certsDataType = 'array';
+  public $kind;
 
-	public function setActiveVersion($activeVersion)
-	{
-		$this->activeVersion = $activeVersion;
-	}
-	public function getActiveVersion()
-	{
-		return $this->activeVersion;
-	}
-	/**
-	 * @param Google_Service_SQLAdmin_SslCert
-	 */
-	public function setCerts($certs)
-	{
-		$this->certs = $certs;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_SslCert
-	 */
-	public function getCerts()
-	{
-		return $this->certs;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setActiveVersion($activeVersion)
+  {
+    $this->activeVersion = $activeVersion;
+  }
+  public function getActiveVersion()
+  {
+    return $this->activeVersion;
+  }
+  /**
+   * @param Google_Service_SQLAdmin_SslCert[]
+   */
+  public function setCerts($certs)
+  {
+    $this->certs = $certs;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_SslCert[]
+   */
+  public function getCerts()
+  {
+    return $this->certs;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

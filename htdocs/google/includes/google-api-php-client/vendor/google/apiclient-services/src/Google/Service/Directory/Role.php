@@ -17,85 +17,85 @@
 
 class Google_Service_Directory_Role extends Google_Collection
 {
-	protected $collection_key = 'rolePrivileges';
-	public $etag;
-	public $isSuperAdminRole;
-	public $isSystemRole;
-	public $kind;
-	public $roleDescription;
-	public $roleId;
-	public $roleName;
-	protected $rolePrivilegesType = 'Google_Service_Directory_RoleRolePrivileges';
-	protected $rolePrivilegesDataType = 'array';
+  protected $collection_key = 'rolePrivileges';
+  public $etag;
+  public $isSuperAdminRole;
+  public $isSystemRole;
+  public $kind;
+  public $roleDescription;
+  public $roleId;
+  public $roleName;
+  protected $rolePrivilegesType = 'Google_Service_Directory_RoleRolePrivileges';
+  protected $rolePrivilegesDataType = 'array';
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setIsSuperAdminRole($isSuperAdminRole)
-	{
-		$this->isSuperAdminRole = $isSuperAdminRole;
-	}
-	public function getIsSuperAdminRole()
-	{
-		return $this->isSuperAdminRole;
-	}
-	public function setIsSystemRole($isSystemRole)
-	{
-		$this->isSystemRole = $isSystemRole;
-	}
-	public function getIsSystemRole()
-	{
-		return $this->isSystemRole;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setRoleDescription($roleDescription)
-	{
-		$this->roleDescription = $roleDescription;
-	}
-	public function getRoleDescription()
-	{
-		return $this->roleDescription;
-	}
-	public function setRoleId($roleId)
-	{
-		$this->roleId = $roleId;
-	}
-	public function getRoleId()
-	{
-		return $this->roleId;
-	}
-	public function setRoleName($roleName)
-	{
-		$this->roleName = $roleName;
-	}
-	public function getRoleName()
-	{
-		return $this->roleName;
-	}
-	/**
-	 * @param Google_Service_Directory_RoleRolePrivileges
-	 */
-	public function setRolePrivileges($rolePrivileges)
-	{
-		$this->rolePrivileges = $rolePrivileges;
-	}
-	/**
-	 * @return Google_Service_Directory_RoleRolePrivileges
-	 */
-	public function getRolePrivileges()
-	{
-		return $this->rolePrivileges;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setIsSuperAdminRole($isSuperAdminRole)
+  {
+    $this->isSuperAdminRole = $isSuperAdminRole;
+  }
+  public function getIsSuperAdminRole()
+  {
+    return $this->isSuperAdminRole;
+  }
+  public function setIsSystemRole($isSystemRole)
+  {
+    $this->isSystemRole = $isSystemRole;
+  }
+  public function getIsSystemRole()
+  {
+    return $this->isSystemRole;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setRoleDescription($roleDescription)
+  {
+    $this->roleDescription = $roleDescription;
+  }
+  public function getRoleDescription()
+  {
+    return $this->roleDescription;
+  }
+  public function setRoleId($roleId)
+  {
+    $this->roleId = $roleId;
+  }
+  public function getRoleId()
+  {
+    return $this->roleId;
+  }
+  public function setRoleName($roleName)
+  {
+    $this->roleName = $roleName;
+  }
+  public function getRoleName()
+  {
+    return $this->roleName;
+  }
+  /**
+   * @param Google_Service_Directory_RoleRolePrivileges[]
+   */
+  public function setRolePrivileges($rolePrivileges)
+  {
+    $this->rolePrivileges = $rolePrivileges;
+  }
+  /**
+   * @return Google_Service_Directory_RoleRolePrivileges[]
+   */
+  public function getRolePrivileges()
+  {
+    return $this->rolePrivileges;
+  }
 }

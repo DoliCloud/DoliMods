@@ -25,19 +25,19 @@
  */
 class Google_Service_Blogger_Resource_PageViews extends Google_Service_Resource
 {
-	/**
-	 * Gets page views by blog id. (pageViews.get)
-	 *
-	 * @param string $blogId
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string range
-	 * @return Google_Service_Blogger_Pageviews
-	 */
-	public function get($blogId, $optParams = array())
-	{
-		$params = array('blogId' => $blogId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Blogger_Pageviews");
-	}
+  /**
+   * Gets page views by blog id. (pageViews.get)
+   *
+   * @param string $blogId
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string range
+   * @return Google_Service_Blogger_Pageviews
+   */
+  public function get($blogId, $optParams = array())
+  {
+    $params = array('blogId' => $blogId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Blogger_Pageviews");
+  }
 }

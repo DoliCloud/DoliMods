@@ -17,41 +17,41 @@
 
 class Google_Service_FirebaseManagement_AdminSdkConfig extends Google_Model
 {
-	public $databaseURL;
-	public $locationId;
-	public $projectId;
-	public $storageBucket;
+  public $databaseURL;
+  public $locationId;
+  public $projectId;
+  public $storageBucket;
 
-	public function setDatabaseURL($databaseURL)
-	{
-		$this->databaseURL = $databaseURL;
-	}
-	public function getDatabaseURL()
-	{
-		return $this->databaseURL;
-	}
-	public function setLocationId($locationId)
-	{
-		$this->locationId = $locationId;
-	}
-	public function getLocationId()
-	{
-		return $this->locationId;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setStorageBucket($storageBucket)
-	{
-		$this->storageBucket = $storageBucket;
-	}
-	public function getStorageBucket()
-	{
-		return $this->storageBucket;
-	}
+  public function setDatabaseURL($databaseURL)
+  {
+    $this->databaseURL = $databaseURL;
+  }
+  public function getDatabaseURL()
+  {
+    return $this->databaseURL;
+  }
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setStorageBucket($storageBucket)
+  {
+    $this->storageBucket = $storageBucket;
+  }
+  public function getStorageBucket()
+  {
+    return $this->storageBucket;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Monitoring_Trigger extends Google_Model
 {
-	public $count;
-	public $percent;
+  public $count;
+  public $percent;
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	public function setPercent($percent)
-	{
-		$this->percent = $percent;
-	}
-	public function getPercent()
-	{
-		return $this->percent;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  public function setPercent($percent)
+  {
+    $this->percent = $percent;
+  }
+  public function getPercent()
+  {
+    return $this->percent;
+  }
 }

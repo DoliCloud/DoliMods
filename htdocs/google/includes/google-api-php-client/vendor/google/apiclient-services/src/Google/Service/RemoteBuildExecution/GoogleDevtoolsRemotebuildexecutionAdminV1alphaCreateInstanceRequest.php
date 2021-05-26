@@ -17,39 +17,39 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaCreateInstanceRequest extends Google_Model
 {
-	protected $instanceType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance';
-	protected $instanceDataType = '';
-	public $instanceId;
-	public $parent;
+  protected $instanceType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance';
+  protected $instanceDataType = '';
+  public $instanceId;
+  public $parent;
 
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
-	 */
-	public function setInstance(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance $instance)
-	{
-		$this->instance = $instance;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
-	 */
-	public function getInstance()
-	{
-		return $this->instance;
-	}
-	public function setInstanceId($instanceId)
-	{
-		$this->instanceId = $instanceId;
-	}
-	public function getInstanceId()
-	{
-		return $this->instanceId;
-	}
-	public function setParent($parent)
-	{
-		$this->parent = $parent;
-	}
-	public function getParent()
-	{
-		return $this->parent;
-	}
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
+   */
+  public function setInstance(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance $instance)
+  {
+    $this->instance = $instance;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
+   */
+  public function getInstance()
+  {
+    return $this->instance;
+  }
+  public function setInstanceId($instanceId)
+  {
+    $this->instanceId = $instanceId;
+  }
+  public function getInstanceId()
+  {
+    return $this->instanceId;
+  }
+  public function setParent($parent)
+  {
+    $this->parent = $parent;
+  }
+  public function getParent()
+  {
+    return $this->parent;
+  }
 }

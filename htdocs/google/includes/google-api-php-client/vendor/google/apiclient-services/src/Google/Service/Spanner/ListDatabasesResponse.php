@@ -17,31 +17,31 @@
 
 class Google_Service_Spanner_ListDatabasesResponse extends Google_Collection
 {
-	protected $collection_key = 'databases';
-	protected $databasesType = 'Google_Service_Spanner_Database';
-	protected $databasesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'databases';
+  protected $databasesType = 'Google_Service_Spanner_Database';
+  protected $databasesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Spanner_Database
-	 */
-	public function setDatabases($databases)
-	{
-		$this->databases = $databases;
-	}
-	/**
-	 * @return Google_Service_Spanner_Database
-	 */
-	public function getDatabases()
-	{
-		return $this->databases;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Spanner_Database[]
+   */
+  public function setDatabases($databases)
+  {
+    $this->databases = $databases;
+  }
+  /**
+   * @return Google_Service_Spanner_Database[]
+   */
+  public function getDatabases()
+  {
+    return $this->databases;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

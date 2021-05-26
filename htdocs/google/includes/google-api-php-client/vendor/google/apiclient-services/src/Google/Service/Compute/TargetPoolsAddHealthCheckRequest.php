@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_TargetPoolsAddHealthCheckRequest extends Google_Collection
 {
-	protected $collection_key = 'healthChecks';
-	protected $healthChecksType = 'Google_Service_Compute_HealthCheckReference';
-	protected $healthChecksDataType = 'array';
+  protected $collection_key = 'healthChecks';
+  protected $healthChecksType = 'Google_Service_Compute_HealthCheckReference';
+  protected $healthChecksDataType = 'array';
 
-	/**
-	 * @param Google_Service_Compute_HealthCheckReference
-	 */
-	public function setHealthChecks($healthChecks)
-	{
-		$this->healthChecks = $healthChecks;
-	}
-	/**
-	 * @return Google_Service_Compute_HealthCheckReference
-	 */
-	public function getHealthChecks()
-	{
-		return $this->healthChecks;
-	}
+  /**
+   * @param Google_Service_Compute_HealthCheckReference[]
+   */
+  public function setHealthChecks($healthChecks)
+  {
+    $this->healthChecks = $healthChecks;
+  }
+  /**
+   * @return Google_Service_Compute_HealthCheckReference[]
+   */
+  public function getHealthChecks()
+  {
+    return $this->healthChecks;
+  }
 }

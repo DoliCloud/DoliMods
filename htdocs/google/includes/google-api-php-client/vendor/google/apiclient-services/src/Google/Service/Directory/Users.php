@@ -17,61 +17,61 @@
 
 class Google_Service_Directory_Users extends Google_Collection
 {
-	protected $collection_key = 'users';
-	protected $internal_gapi_mappings = array(
-		"triggerEvent" => "trigger_event",
-	);
-	public $etag;
-	public $kind;
-	public $nextPageToken;
-	public $triggerEvent;
-	protected $usersType = 'Google_Service_Directory_User';
-	protected $usersDataType = 'array';
+  protected $collection_key = 'users';
+  protected $internal_gapi_mappings = array(
+        "triggerEvent" => "trigger_event",
+  );
+  public $etag;
+  public $kind;
+  public $nextPageToken;
+  public $triggerEvent;
+  protected $usersType = 'Google_Service_Directory_User';
+  protected $usersDataType = 'array';
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setTriggerEvent($triggerEvent)
-	{
-		$this->triggerEvent = $triggerEvent;
-	}
-	public function getTriggerEvent()
-	{
-		return $this->triggerEvent;
-	}
-	/**
-	 * @param Google_Service_Directory_User
-	 */
-	public function setUsers($users)
-	{
-		$this->users = $users;
-	}
-	/**
-	 * @return Google_Service_Directory_User
-	 */
-	public function getUsers()
-	{
-		return $this->users;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setTriggerEvent($triggerEvent)
+  {
+    $this->triggerEvent = $triggerEvent;
+  }
+  public function getTriggerEvent()
+  {
+    return $this->triggerEvent;
+  }
+  /**
+   * @param Google_Service_Directory_User[]
+   */
+  public function setUsers($users)
+  {
+    $this->users = $users;
+  }
+  /**
+   * @return Google_Service_Directory_User[]
+   */
+  public function getUsers()
+  {
+    return $this->users;
+  }
 }

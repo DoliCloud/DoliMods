@@ -17,41 +17,41 @@
 
 class Google_Service_Verifiedaccess_VerifyChallengeResponseResult extends Google_Model
 {
-	public $deviceEnrollmentId;
-	public $devicePermanentId;
-	public $signedPublicKeyAndChallenge;
-	public $verificationOutput;
+  public $deviceEnrollmentId;
+  public $devicePermanentId;
+  public $signedPublicKeyAndChallenge;
+  public $verificationOutput;
 
-	public function setDeviceEnrollmentId($deviceEnrollmentId)
-	{
-		$this->deviceEnrollmentId = $deviceEnrollmentId;
-	}
-	public function getDeviceEnrollmentId()
-	{
-		return $this->deviceEnrollmentId;
-	}
-	public function setDevicePermanentId($devicePermanentId)
-	{
-		$this->devicePermanentId = $devicePermanentId;
-	}
-	public function getDevicePermanentId()
-	{
-		return $this->devicePermanentId;
-	}
-	public function setSignedPublicKeyAndChallenge($signedPublicKeyAndChallenge)
-	{
-		$this->signedPublicKeyAndChallenge = $signedPublicKeyAndChallenge;
-	}
-	public function getSignedPublicKeyAndChallenge()
-	{
-		return $this->signedPublicKeyAndChallenge;
-	}
-	public function setVerificationOutput($verificationOutput)
-	{
-		$this->verificationOutput = $verificationOutput;
-	}
-	public function getVerificationOutput()
-	{
-		return $this->verificationOutput;
-	}
+  public function setDeviceEnrollmentId($deviceEnrollmentId)
+  {
+    $this->deviceEnrollmentId = $deviceEnrollmentId;
+  }
+  public function getDeviceEnrollmentId()
+  {
+    return $this->deviceEnrollmentId;
+  }
+  public function setDevicePermanentId($devicePermanentId)
+  {
+    $this->devicePermanentId = $devicePermanentId;
+  }
+  public function getDevicePermanentId()
+  {
+    return $this->devicePermanentId;
+  }
+  public function setSignedPublicKeyAndChallenge($signedPublicKeyAndChallenge)
+  {
+    $this->signedPublicKeyAndChallenge = $signedPublicKeyAndChallenge;
+  }
+  public function getSignedPublicKeyAndChallenge()
+  {
+    return $this->signedPublicKeyAndChallenge;
+  }
+  public function setVerificationOutput($verificationOutput)
+  {
+    $this->verificationOutput = $verificationOutput;
+  }
+  public function getVerificationOutput()
+  {
+    return $this->verificationOutput;
+  }
 }

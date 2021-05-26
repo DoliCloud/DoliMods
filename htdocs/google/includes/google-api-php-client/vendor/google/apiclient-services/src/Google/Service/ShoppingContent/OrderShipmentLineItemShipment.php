@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_OrderShipmentLineItemShipment extends Google_Model
 {
-	public $lineItemId;
-	public $productId;
-	public $quantity;
+  public $lineItemId;
+  public $productId;
+  public $quantity;
 
-	public function setLineItemId($lineItemId)
-	{
-		$this->lineItemId = $lineItemId;
-	}
-	public function getLineItemId()
-	{
-		return $this->lineItemId;
-	}
-	public function setProductId($productId)
-	{
-		$this->productId = $productId;
-	}
-	public function getProductId()
-	{
-		return $this->productId;
-	}
-	public function setQuantity($quantity)
-	{
-		$this->quantity = $quantity;
-	}
-	public function getQuantity()
-	{
-		return $this->quantity;
-	}
+  public function setLineItemId($lineItemId)
+  {
+    $this->lineItemId = $lineItemId;
+  }
+  public function getLineItemId()
+  {
+    return $this->lineItemId;
+  }
+  public function setProductId($productId)
+  {
+    $this->productId = $productId;
+  }
+  public function getProductId()
+  {
+    return $this->productId;
+  }
+  public function setQuantity($quantity)
+  {
+    $this->quantity = $quantity;
+  }
+  public function getQuantity()
+  {
+    return $this->quantity;
+  }
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_ToolResults_EncounteredNonAndroidUiWidgetScreen extends Google_Collection
 {
-	protected $collection_key = 'screenIds';
-	public $distinctScreens;
-	public $screenIds;
+  protected $collection_key = 'screenIds';
+  public $distinctScreens;
+  public $screenIds;
 
-	public function setDistinctScreens($distinctScreens)
-	{
-		$this->distinctScreens = $distinctScreens;
-	}
-	public function getDistinctScreens()
-	{
-		return $this->distinctScreens;
-	}
-	public function setScreenIds($screenIds)
-	{
-		$this->screenIds = $screenIds;
-	}
-	public function getScreenIds()
-	{
-		return $this->screenIds;
-	}
+  public function setDistinctScreens($distinctScreens)
+  {
+    $this->distinctScreens = $distinctScreens;
+  }
+  public function getDistinctScreens()
+  {
+    return $this->distinctScreens;
+  }
+  public function setScreenIds($screenIds)
+  {
+    $this->screenIds = $screenIds;
+  }
+  public function getScreenIds()
+  {
+    return $this->screenIds;
+  }
 }

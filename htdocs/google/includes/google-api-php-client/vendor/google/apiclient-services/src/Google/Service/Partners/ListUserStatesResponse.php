@@ -17,31 +17,31 @@
 
 class Google_Service_Partners_ListUserStatesResponse extends Google_Collection
 {
-	protected $collection_key = 'userStates';
-	protected $responseMetadataType = 'Google_Service_Partners_ResponseMetadata';
-	protected $responseMetadataDataType = '';
-	public $userStates;
+  protected $collection_key = 'userStates';
+  protected $responseMetadataType = 'Google_Service_Partners_ResponseMetadata';
+  protected $responseMetadataDataType = '';
+  public $userStates;
 
-	/**
-	 * @param Google_Service_Partners_ResponseMetadata
-	 */
-	public function setResponseMetadata(Google_Service_Partners_ResponseMetadata $responseMetadata)
-	{
-		$this->responseMetadata = $responseMetadata;
-	}
-	/**
-	 * @return Google_Service_Partners_ResponseMetadata
-	 */
-	public function getResponseMetadata()
-	{
-		return $this->responseMetadata;
-	}
-	public function setUserStates($userStates)
-	{
-		$this->userStates = $userStates;
-	}
-	public function getUserStates()
-	{
-		return $this->userStates;
-	}
+  /**
+   * @param Google_Service_Partners_ResponseMetadata
+   */
+  public function setResponseMetadata(Google_Service_Partners_ResponseMetadata $responseMetadata)
+  {
+    $this->responseMetadata = $responseMetadata;
+  }
+  /**
+   * @return Google_Service_Partners_ResponseMetadata
+   */
+  public function getResponseMetadata()
+  {
+    return $this->responseMetadata;
+  }
+  public function setUserStates($userStates)
+  {
+    $this->userStates = $userStates;
+  }
+  public function getUserStates()
+  {
+    return $this->userStates;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_TPU_NetworkEndpoint extends Google_Model
 {
-	public $ipAddress;
-	public $port;
+  public $ipAddress;
+  public $port;
 
-	public function setIpAddress($ipAddress)
-	{
-		$this->ipAddress = $ipAddress;
-	}
-	public function getIpAddress()
-	{
-		return $this->ipAddress;
-	}
-	public function setPort($port)
-	{
-		$this->port = $port;
-	}
-	public function getPort()
-	{
-		return $this->port;
-	}
+  public function setIpAddress($ipAddress)
+  {
+    $this->ipAddress = $ipAddress;
+  }
+  public function getIpAddress()
+  {
+    return $this->ipAddress;
+  }
+  public function setPort($port)
+  {
+    $this->port = $port;
+  }
+  public function getPort()
+  {
+    return $this->port;
+  }
 }

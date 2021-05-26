@@ -17,23 +17,23 @@
 
 class Google_Service_SQLAdmin_DiskEncryptionStatus extends Google_Model
 {
-	public $kind;
-	public $kmsKeyVersionName;
+  public $kind;
+  public $kmsKeyVersionName;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setKmsKeyVersionName($kmsKeyVersionName)
-	{
-		$this->kmsKeyVersionName = $kmsKeyVersionName;
-	}
-	public function getKmsKeyVersionName()
-	{
-		return $this->kmsKeyVersionName;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setKmsKeyVersionName($kmsKeyVersionName)
+  {
+    $this->kmsKeyVersionName = $kmsKeyVersionName;
+  }
+  public function getKmsKeyVersionName()
+  {
+    return $this->kmsKeyVersionName;
+  }
 }

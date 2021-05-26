@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceConsumerManagement_JwtLocation extends Google_Model
 {
-	public $header;
-	public $query;
-	public $valuePrefix;
+  public $header;
+  public $query;
+  public $valuePrefix;
 
-	public function setHeader($header)
-	{
-		$this->header = $header;
-	}
-	public function getHeader()
-	{
-		return $this->header;
-	}
-	public function setQuery($query)
-	{
-		$this->query = $query;
-	}
-	public function getQuery()
-	{
-		return $this->query;
-	}
-	public function setValuePrefix($valuePrefix)
-	{
-		$this->valuePrefix = $valuePrefix;
-	}
-	public function getValuePrefix()
-	{
-		return $this->valuePrefix;
-	}
+  public function setHeader($header)
+  {
+    $this->header = $header;
+  }
+  public function getHeader()
+  {
+    return $this->header;
+  }
+  public function setQuery($query)
+  {
+    $this->query = $query;
+  }
+  public function getQuery()
+  {
+    return $this->query;
+  }
+  public function setValuePrefix($valuePrefix)
+  {
+    $this->valuePrefix = $valuePrefix;
+  }
+  public function getValuePrefix()
+  {
+    return $this->valuePrefix;
+  }
 }

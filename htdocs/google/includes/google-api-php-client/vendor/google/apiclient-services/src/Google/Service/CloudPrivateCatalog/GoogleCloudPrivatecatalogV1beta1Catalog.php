@@ -17,50 +17,50 @@
 
 class Google_Service_CloudPrivateCatalog_GoogleCloudPrivatecatalogV1beta1Catalog extends Google_Model
 {
-	public $createTime;
-	public $description;
-	public $displayName;
-	public $name;
-	public $updateTime;
+  public $createTime;
+  public $description;
+  public $displayName;
+  public $name;
+  public $updateTime;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

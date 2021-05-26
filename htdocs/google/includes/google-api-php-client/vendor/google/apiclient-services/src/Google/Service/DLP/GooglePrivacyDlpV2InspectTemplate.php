@@ -17,66 +17,66 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate extends Google_Model
 {
-	public $createTime;
-	public $description;
-	public $displayName;
-	protected $inspectConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectConfig';
-	protected $inspectConfigDataType = '';
-	public $name;
-	public $updateTime;
+  public $createTime;
+  public $description;
+  public $displayName;
+  protected $inspectConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectConfig';
+  protected $inspectConfigDataType = '';
+  public $name;
+  public $updateTime;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
-	 */
-	public function setInspectConfig(Google_Service_DLP_GooglePrivacyDlpV2InspectConfig $inspectConfig)
-	{
-		$this->inspectConfig = $inspectConfig;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
-	 */
-	public function getInspectConfig()
-	{
-		return $this->inspectConfig;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
+   */
+  public function setInspectConfig(Google_Service_DLP_GooglePrivacyDlpV2InspectConfig $inspectConfig)
+  {
+    $this->inspectConfig = $inspectConfig;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectConfig
+   */
+  public function getInspectConfig()
+  {
+    return $this->inspectConfig;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

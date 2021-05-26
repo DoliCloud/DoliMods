@@ -17,33 +17,33 @@
 
 class Google_Service_Storagetransfer_NotificationConfig extends Google_Collection
 {
-	protected $collection_key = 'eventTypes';
-	public $eventTypes;
-	public $payloadFormat;
-	public $pubsubTopic;
+  protected $collection_key = 'eventTypes';
+  public $eventTypes;
+  public $payloadFormat;
+  public $pubsubTopic;
 
-	public function setEventTypes($eventTypes)
-	{
-		$this->eventTypes = $eventTypes;
-	}
-	public function getEventTypes()
-	{
-		return $this->eventTypes;
-	}
-	public function setPayloadFormat($payloadFormat)
-	{
-		$this->payloadFormat = $payloadFormat;
-	}
-	public function getPayloadFormat()
-	{
-		return $this->payloadFormat;
-	}
-	public function setPubsubTopic($pubsubTopic)
-	{
-		$this->pubsubTopic = $pubsubTopic;
-	}
-	public function getPubsubTopic()
-	{
-		return $this->pubsubTopic;
-	}
+  public function setEventTypes($eventTypes)
+  {
+    $this->eventTypes = $eventTypes;
+  }
+  public function getEventTypes()
+  {
+    return $this->eventTypes;
+  }
+  public function setPayloadFormat($payloadFormat)
+  {
+    $this->payloadFormat = $payloadFormat;
+  }
+  public function getPayloadFormat()
+  {
+    return $this->payloadFormat;
+  }
+  public function setPubsubTopic($pubsubTopic)
+  {
+    $this->pubsubTopic = $pubsubTopic;
+  }
+  public function getPubsubTopic()
+  {
+    return $this->pubsubTopic;
+  }
 }

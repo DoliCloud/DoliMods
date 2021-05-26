@@ -17,22 +17,22 @@
 
 class Google_Service_Docs_NamedStylesSuggestionState extends Google_Collection
 {
-	protected $collection_key = 'stylesSuggestionStates';
-	protected $stylesSuggestionStatesType = 'Google_Service_Docs_NamedStyleSuggestionState';
-	protected $stylesSuggestionStatesDataType = 'array';
+  protected $collection_key = 'stylesSuggestionStates';
+  protected $stylesSuggestionStatesType = 'Google_Service_Docs_NamedStyleSuggestionState';
+  protected $stylesSuggestionStatesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Docs_NamedStyleSuggestionState
-	 */
-	public function setStylesSuggestionStates($stylesSuggestionStates)
-	{
-		$this->stylesSuggestionStates = $stylesSuggestionStates;
-	}
-	/**
-	 * @return Google_Service_Docs_NamedStyleSuggestionState
-	 */
-	public function getStylesSuggestionStates()
-	{
-		return $this->stylesSuggestionStates;
-	}
+  /**
+   * @param Google_Service_Docs_NamedStyleSuggestionState[]
+   */
+  public function setStylesSuggestionStates($stylesSuggestionStates)
+  {
+    $this->stylesSuggestionStates = $stylesSuggestionStates;
+  }
+  /**
+   * @return Google_Service_Docs_NamedStyleSuggestionState[]
+   */
+  public function getStylesSuggestionStates()
+  {
+    return $this->stylesSuggestionStates;
+  }
 }

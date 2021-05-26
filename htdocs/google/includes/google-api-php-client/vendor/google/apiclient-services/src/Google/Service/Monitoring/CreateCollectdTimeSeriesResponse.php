@@ -17,38 +17,38 @@
 
 class Google_Service_Monitoring_CreateCollectdTimeSeriesResponse extends Google_Collection
 {
-	protected $collection_key = 'payloadErrors';
-	protected $payloadErrorsType = 'Google_Service_Monitoring_CollectdPayloadError';
-	protected $payloadErrorsDataType = 'array';
-	protected $summaryType = 'Google_Service_Monitoring_CreateTimeSeriesSummary';
-	protected $summaryDataType = '';
+  protected $collection_key = 'payloadErrors';
+  protected $payloadErrorsType = 'Google_Service_Monitoring_CollectdPayloadError';
+  protected $payloadErrorsDataType = 'array';
+  protected $summaryType = 'Google_Service_Monitoring_CreateTimeSeriesSummary';
+  protected $summaryDataType = '';
 
-	/**
-	 * @param Google_Service_Monitoring_CollectdPayloadError
-	 */
-	public function setPayloadErrors($payloadErrors)
-	{
-		$this->payloadErrors = $payloadErrors;
-	}
-	/**
-	 * @return Google_Service_Monitoring_CollectdPayloadError
-	 */
-	public function getPayloadErrors()
-	{
-		return $this->payloadErrors;
-	}
-	/**
-	 * @param Google_Service_Monitoring_CreateTimeSeriesSummary
-	 */
-	public function setSummary(Google_Service_Monitoring_CreateTimeSeriesSummary $summary)
-	{
-		$this->summary = $summary;
-	}
-	/**
-	 * @return Google_Service_Monitoring_CreateTimeSeriesSummary
-	 */
-	public function getSummary()
-	{
-		return $this->summary;
-	}
+  /**
+   * @param Google_Service_Monitoring_CollectdPayloadError[]
+   */
+  public function setPayloadErrors($payloadErrors)
+  {
+    $this->payloadErrors = $payloadErrors;
+  }
+  /**
+   * @return Google_Service_Monitoring_CollectdPayloadError[]
+   */
+  public function getPayloadErrors()
+  {
+    return $this->payloadErrors;
+  }
+  /**
+   * @param Google_Service_Monitoring_CreateTimeSeriesSummary
+   */
+  public function setSummary(Google_Service_Monitoring_CreateTimeSeriesSummary $summary)
+  {
+    $this->summary = $summary;
+  }
+  /**
+   * @return Google_Service_Monitoring_CreateTimeSeriesSummary
+   */
+  public function getSummary()
+  {
+    return $this->summary;
+  }
 }

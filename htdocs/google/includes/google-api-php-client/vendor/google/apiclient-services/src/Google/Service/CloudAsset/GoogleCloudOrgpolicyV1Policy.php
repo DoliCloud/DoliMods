@@ -17,89 +17,89 @@
 
 class Google_Service_CloudAsset_GoogleCloudOrgpolicyV1Policy extends Google_Model
 {
-	protected $booleanPolicyType = 'Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy';
-	protected $booleanPolicyDataType = '';
-	public $constraint;
-	public $etag;
-	protected $listPolicyType = 'Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy';
-	protected $listPolicyDataType = '';
-	protected $restoreDefaultType = 'Google_Service_CloudAsset_GoogleCloudOrgpolicyV1RestoreDefault';
-	protected $restoreDefaultDataType = '';
-	public $updateTime;
-	public $version;
+  protected $booleanPolicyType = 'Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy';
+  protected $booleanPolicyDataType = '';
+  public $constraint;
+  public $etag;
+  protected $listPolicyType = 'Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy';
+  protected $listPolicyDataType = '';
+  protected $restoreDefaultType = 'Google_Service_CloudAsset_GoogleCloudOrgpolicyV1RestoreDefault';
+  protected $restoreDefaultDataType = '';
+  public $updateTime;
+  public $version;
 
-	/**
-	 * @param Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy
-	 */
-	public function setBooleanPolicy(Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy $booleanPolicy)
-	{
-		$this->booleanPolicy = $booleanPolicy;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy
-	 */
-	public function getBooleanPolicy()
-	{
-		return $this->booleanPolicy;
-	}
-	public function setConstraint($constraint)
-	{
-		$this->constraint = $constraint;
-	}
-	public function getConstraint()
-	{
-		return $this->constraint;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	/**
-	 * @param Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy
-	 */
-	public function setListPolicy(Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy $listPolicy)
-	{
-		$this->listPolicy = $listPolicy;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy
-	 */
-	public function getListPolicy()
-	{
-		return $this->listPolicy;
-	}
-	/**
-	 * @param Google_Service_CloudAsset_GoogleCloudOrgpolicyV1RestoreDefault
-	 */
-	public function setRestoreDefault(Google_Service_CloudAsset_GoogleCloudOrgpolicyV1RestoreDefault $restoreDefault)
-	{
-		$this->restoreDefault = $restoreDefault;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_GoogleCloudOrgpolicyV1RestoreDefault
-	 */
-	public function getRestoreDefault()
-	{
-		return $this->restoreDefault;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy
+   */
+  public function setBooleanPolicy(Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy $booleanPolicy)
+  {
+    $this->booleanPolicy = $booleanPolicy;
+  }
+  /**
+   * @return Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy
+   */
+  public function getBooleanPolicy()
+  {
+    return $this->booleanPolicy;
+  }
+  public function setConstraint($constraint)
+  {
+    $this->constraint = $constraint;
+  }
+  public function getConstraint()
+  {
+    return $this->constraint;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy
+   */
+  public function setListPolicy(Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy $listPolicy)
+  {
+    $this->listPolicy = $listPolicy;
+  }
+  /**
+   * @return Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy
+   */
+  public function getListPolicy()
+  {
+    return $this->listPolicy;
+  }
+  /**
+   * @param Google_Service_CloudAsset_GoogleCloudOrgpolicyV1RestoreDefault
+   */
+  public function setRestoreDefault(Google_Service_CloudAsset_GoogleCloudOrgpolicyV1RestoreDefault $restoreDefault)
+  {
+    $this->restoreDefault = $restoreDefault;
+  }
+  /**
+   * @return Google_Service_CloudAsset_GoogleCloudOrgpolicyV1RestoreDefault
+   */
+  public function getRestoreDefault()
+  {
+    return $this->restoreDefault;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

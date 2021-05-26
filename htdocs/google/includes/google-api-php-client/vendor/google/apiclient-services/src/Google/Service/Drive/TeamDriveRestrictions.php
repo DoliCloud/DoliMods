@@ -17,41 +17,41 @@
 
 class Google_Service_Drive_TeamDriveRestrictions extends Google_Model
 {
-	public $adminManagedRestrictions;
-	public $copyRequiresWriterPermission;
-	public $domainUsersOnly;
-	public $teamMembersOnly;
+  public $adminManagedRestrictions;
+  public $copyRequiresWriterPermission;
+  public $domainUsersOnly;
+  public $teamMembersOnly;
 
-	public function setAdminManagedRestrictions($adminManagedRestrictions)
-	{
-		$this->adminManagedRestrictions = $adminManagedRestrictions;
-	}
-	public function getAdminManagedRestrictions()
-	{
-		return $this->adminManagedRestrictions;
-	}
-	public function setCopyRequiresWriterPermission($copyRequiresWriterPermission)
-	{
-		$this->copyRequiresWriterPermission = $copyRequiresWriterPermission;
-	}
-	public function getCopyRequiresWriterPermission()
-	{
-		return $this->copyRequiresWriterPermission;
-	}
-	public function setDomainUsersOnly($domainUsersOnly)
-	{
-		$this->domainUsersOnly = $domainUsersOnly;
-	}
-	public function getDomainUsersOnly()
-	{
-		return $this->domainUsersOnly;
-	}
-	public function setTeamMembersOnly($teamMembersOnly)
-	{
-		$this->teamMembersOnly = $teamMembersOnly;
-	}
-	public function getTeamMembersOnly()
-	{
-		return $this->teamMembersOnly;
-	}
+  public function setAdminManagedRestrictions($adminManagedRestrictions)
+  {
+    $this->adminManagedRestrictions = $adminManagedRestrictions;
+  }
+  public function getAdminManagedRestrictions()
+  {
+    return $this->adminManagedRestrictions;
+  }
+  public function setCopyRequiresWriterPermission($copyRequiresWriterPermission)
+  {
+    $this->copyRequiresWriterPermission = $copyRequiresWriterPermission;
+  }
+  public function getCopyRequiresWriterPermission()
+  {
+    return $this->copyRequiresWriterPermission;
+  }
+  public function setDomainUsersOnly($domainUsersOnly)
+  {
+    $this->domainUsersOnly = $domainUsersOnly;
+  }
+  public function getDomainUsersOnly()
+  {
+    return $this->domainUsersOnly;
+  }
+  public function setTeamMembersOnly($teamMembersOnly)
+  {
+    $this->teamMembersOnly = $teamMembersOnly;
+  }
+  public function getTeamMembersOnly()
+  {
+    return $this->teamMembersOnly;
+  }
 }

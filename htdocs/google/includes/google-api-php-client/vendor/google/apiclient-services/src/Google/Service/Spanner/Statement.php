@@ -17,39 +17,39 @@
 
 class Google_Service_Spanner_Statement extends Google_Model
 {
-	protected $paramTypesType = 'Google_Service_Spanner_Type';
-	protected $paramTypesDataType = 'map';
-	public $params;
-	public $sql;
+  protected $paramTypesType = 'Google_Service_Spanner_Type';
+  protected $paramTypesDataType = 'map';
+  public $params;
+  public $sql;
 
-	/**
-	 * @param Google_Service_Spanner_Type
-	 */
-	public function setParamTypes($paramTypes)
-	{
-		$this->paramTypes = $paramTypes;
-	}
-	/**
-	 * @return Google_Service_Spanner_Type
-	 */
-	public function getParamTypes()
-	{
-		return $this->paramTypes;
-	}
-	public function setParams($params)
-	{
-		$this->params = $params;
-	}
-	public function getParams()
-	{
-		return $this->params;
-	}
-	public function setSql($sql)
-	{
-		$this->sql = $sql;
-	}
-	public function getSql()
-	{
-		return $this->sql;
-	}
+  /**
+   * @param Google_Service_Spanner_Type[]
+   */
+  public function setParamTypes($paramTypes)
+  {
+    $this->paramTypes = $paramTypes;
+  }
+  /**
+   * @return Google_Service_Spanner_Type[]
+   */
+  public function getParamTypes()
+  {
+    return $this->paramTypes;
+  }
+  public function setParams($params)
+  {
+    $this->params = $params;
+  }
+  public function getParams()
+  {
+    return $this->params;
+  }
+  public function setSql($sql)
+  {
+    $this->sql = $sql;
+  }
+  public function getSql()
+  {
+    return $this->sql;
+  }
 }

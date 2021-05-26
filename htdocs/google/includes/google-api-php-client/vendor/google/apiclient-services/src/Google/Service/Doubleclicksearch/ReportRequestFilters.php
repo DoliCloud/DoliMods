@@ -17,40 +17,40 @@
 
 class Google_Service_Doubleclicksearch_ReportRequestFilters extends Google_Collection
 {
-	protected $collection_key = 'values';
-	protected $columnType = 'Google_Service_Doubleclicksearch_ReportApiColumnSpec';
-	protected $columnDataType = '';
-	public $operator;
-	public $values;
+  protected $collection_key = 'values';
+  protected $columnType = 'Google_Service_Doubleclicksearch_ReportApiColumnSpec';
+  protected $columnDataType = '';
+  public $operator;
+  public $values;
 
-	/**
-	 * @param Google_Service_Doubleclicksearch_ReportApiColumnSpec
-	 */
-	public function setColumn(Google_Service_Doubleclicksearch_ReportApiColumnSpec $column)
-	{
-		$this->column = $column;
-	}
-	/**
-	 * @return Google_Service_Doubleclicksearch_ReportApiColumnSpec
-	 */
-	public function getColumn()
-	{
-		return $this->column;
-	}
-	public function setOperator($operator)
-	{
-		$this->operator = $operator;
-	}
-	public function getOperator()
-	{
-		return $this->operator;
-	}
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  /**
+   * @param Google_Service_Doubleclicksearch_ReportApiColumnSpec
+   */
+  public function setColumn(Google_Service_Doubleclicksearch_ReportApiColumnSpec $column)
+  {
+    $this->column = $column;
+  }
+  /**
+   * @return Google_Service_Doubleclicksearch_ReportApiColumnSpec
+   */
+  public function getColumn()
+  {
+    return $this->column;
+  }
+  public function setOperator($operator)
+  {
+    $this->operator = $operator;
+  }
+  public function getOperator()
+  {
+    return $this->operator;
+  }
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

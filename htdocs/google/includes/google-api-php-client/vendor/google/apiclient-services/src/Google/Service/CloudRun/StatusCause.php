@@ -17,32 +17,32 @@
 
 class Google_Service_CloudRun_StatusCause extends Google_Model
 {
-	public $field;
-	public $message;
-	public $reason;
+  public $field;
+  public $message;
+  public $reason;
 
-	public function setField($field)
-	{
-		$this->field = $field;
-	}
-	public function getField()
-	{
-		return $this->field;
-	}
-	public function setMessage($message)
-	{
-		$this->message = $message;
-	}
-	public function getMessage()
-	{
-		return $this->message;
-	}
-	public function setReason($reason)
-	{
-		$this->reason = $reason;
-	}
-	public function getReason()
-	{
-		return $this->reason;
-	}
+  public function setField($field)
+  {
+    $this->field = $field;
+  }
+  public function getField()
+  {
+    return $this->field;
+  }
+  public function setMessage($message)
+  {
+    $this->message = $message;
+  }
+  public function getMessage()
+  {
+    return $this->message;
+  }
+  public function setReason($reason)
+  {
+    $this->reason = $reason;
+  }
+  public function getReason()
+  {
+    return $this->reason;
+  }
 }

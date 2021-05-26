@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_TrackingFloodlightActivityConfig extends Google_Model
 {
-	public $floodlightActivityId;
-	public $postClickLookbackWindowDays;
-	public $postViewLookbackWindowDays;
+  public $floodlightActivityId;
+  public $postClickLookbackWindowDays;
+  public $postViewLookbackWindowDays;
 
-	public function setFloodlightActivityId($floodlightActivityId)
-	{
-		$this->floodlightActivityId = $floodlightActivityId;
-	}
-	public function getFloodlightActivityId()
-	{
-		return $this->floodlightActivityId;
-	}
-	public function setPostClickLookbackWindowDays($postClickLookbackWindowDays)
-	{
-		$this->postClickLookbackWindowDays = $postClickLookbackWindowDays;
-	}
-	public function getPostClickLookbackWindowDays()
-	{
-		return $this->postClickLookbackWindowDays;
-	}
-	public function setPostViewLookbackWindowDays($postViewLookbackWindowDays)
-	{
-		$this->postViewLookbackWindowDays = $postViewLookbackWindowDays;
-	}
-	public function getPostViewLookbackWindowDays()
-	{
-		return $this->postViewLookbackWindowDays;
-	}
+  public function setFloodlightActivityId($floodlightActivityId)
+  {
+    $this->floodlightActivityId = $floodlightActivityId;
+  }
+  public function getFloodlightActivityId()
+  {
+    return $this->floodlightActivityId;
+  }
+  public function setPostClickLookbackWindowDays($postClickLookbackWindowDays)
+  {
+    $this->postClickLookbackWindowDays = $postClickLookbackWindowDays;
+  }
+  public function getPostClickLookbackWindowDays()
+  {
+    return $this->postClickLookbackWindowDays;
+  }
+  public function setPostViewLookbackWindowDays($postViewLookbackWindowDays)
+  {
+    $this->postViewLookbackWindowDays = $postViewLookbackWindowDays;
+  }
+  public function getPostViewLookbackWindowDays()
+  {
+    return $this->postViewLookbackWindowDays;
+  }
 }

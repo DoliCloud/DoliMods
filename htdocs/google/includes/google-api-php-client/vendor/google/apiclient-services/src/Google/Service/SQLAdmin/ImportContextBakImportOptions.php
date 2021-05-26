@@ -17,21 +17,21 @@
 
 class Google_Service_SQLAdmin_ImportContextBakImportOptions extends Google_Model
 {
-	protected $encryptionOptionsType = 'Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions';
-	protected $encryptionOptionsDataType = '';
+  protected $encryptionOptionsType = 'Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions';
+  protected $encryptionOptionsDataType = '';
 
-	/**
-	 * @param Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions
-	 */
-	public function setEncryptionOptions(Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions $encryptionOptions)
-	{
-		$this->encryptionOptions = $encryptionOptions;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions
-	 */
-	public function getEncryptionOptions()
-	{
-		return $this->encryptionOptions;
-	}
+  /**
+   * @param Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions
+   */
+  public function setEncryptionOptions(Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions $encryptionOptions)
+  {
+    $this->encryptionOptions = $encryptionOptions;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions
+   */
+  public function getEncryptionOptions()
+  {
+    return $this->encryptionOptions;
+  }
 }

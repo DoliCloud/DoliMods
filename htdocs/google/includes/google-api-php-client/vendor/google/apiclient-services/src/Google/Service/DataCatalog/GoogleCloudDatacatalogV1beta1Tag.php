@@ -17,57 +17,57 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Tag extends Google_Model
 {
-	public $column;
-	protected $fieldsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagField';
-	protected $fieldsDataType = 'map';
-	public $name;
-	public $template;
-	public $templateDisplayName;
+  public $column;
+  protected $fieldsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagField';
+  protected $fieldsDataType = 'map';
+  public $name;
+  public $template;
+  public $templateDisplayName;
 
-	public function setColumn($column)
-	{
-		$this->column = $column;
-	}
-	public function getColumn()
-	{
-		return $this->column;
-	}
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagField
-	 */
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagField
-	 */
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setTemplate($template)
-	{
-		$this->template = $template;
-	}
-	public function getTemplate()
-	{
-		return $this->template;
-	}
-	public function setTemplateDisplayName($templateDisplayName)
-	{
-		$this->templateDisplayName = $templateDisplayName;
-	}
-	public function getTemplateDisplayName()
-	{
-		return $this->templateDisplayName;
-	}
+  public function setColumn($column)
+  {
+    $this->column = $column;
+  }
+  public function getColumn()
+  {
+    return $this->column;
+  }
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagField[]
+   */
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1TagField[]
+   */
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setTemplate($template)
+  {
+    $this->template = $template;
+  }
+  public function getTemplate()
+  {
+    return $this->template;
+  }
+  public function setTemplateDisplayName($templateDisplayName)
+  {
+    $this->templateDisplayName = $templateDisplayName;
+  }
+  public function getTemplateDisplayName()
+  {
+    return $this->templateDisplayName;
+  }
 }

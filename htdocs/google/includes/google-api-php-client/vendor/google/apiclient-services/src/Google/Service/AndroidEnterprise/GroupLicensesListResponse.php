@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidEnterprise_GroupLicensesListResponse extends Google_Collection
 {
-	protected $collection_key = 'groupLicense';
-	protected $groupLicenseType = 'Google_Service_AndroidEnterprise_GroupLicense';
-	protected $groupLicenseDataType = 'array';
+  protected $collection_key = 'groupLicense';
+  protected $groupLicenseType = 'Google_Service_AndroidEnterprise_GroupLicense';
+  protected $groupLicenseDataType = 'array';
 
-	/**
-	 * @param Google_Service_AndroidEnterprise_GroupLicense
-	 */
-	public function setGroupLicense($groupLicense)
-	{
-		$this->groupLicense = $groupLicense;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_GroupLicense
-	 */
-	public function getGroupLicense()
-	{
-		return $this->groupLicense;
-	}
+  /**
+   * @param Google_Service_AndroidEnterprise_GroupLicense[]
+   */
+  public function setGroupLicense($groupLicense)
+  {
+    $this->groupLicense = $groupLicense;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_GroupLicense[]
+   */
+  public function getGroupLicense()
+  {
+    return $this->groupLicense;
+  }
 }

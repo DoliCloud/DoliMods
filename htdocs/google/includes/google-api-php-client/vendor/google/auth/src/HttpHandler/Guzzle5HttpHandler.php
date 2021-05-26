@@ -27,100 +27,100 @@ use Psr\Http\Message\ResponseInterface;
 
 class Guzzle5HttpHandler
 {
-	/**
-	 * @var ClientInterface
-	 */
-	private $client;
+    /**
+     * @var ClientInterface
+     */
+    private $client;
 
-	/**
-	 * @param ClientInterface $client
-	 */
-	public function __construct(ClientInterface $client)
-	{
-		$this->client = $client;
-	}
+    /**
+     * @param ClientInterface $client
+     */
+    public function __construct(ClientInterface $client)
+    {
+        $this->client = $client;
+    }
 
-	/**
-	 * Accepts a PSR-7 Request and an array of options and returns a PSR-7 response.
-	 *
-	 * @param RequestInterface $request
-	 * @param array $options
-	 * @return ResponseInterface
-	 */
-	public function __invoke(RequestInterface $request, array $options = [])
-	{
-		$response = $this->client->send(
-			$this->createGuzzle5Request($request, $options)
-		);
+    /**
+     * Accepts a PSR-7 Request and an array of options and returns a PSR-7 response.
+     *
+     * @param RequestInterface $request
+     * @param array $options
+     * @return ResponseInterface
+     */
+    public function __invoke(RequestInterface $request, array $options = [])
+    {
+        $response = $this->client->send(
+            $this->createGuzzle5Request($request, $options)
+        );
 
-		return $this->createPsr7Response($response);
-	}
+        return $this->createPsr7Response($response);
+    }
 
-	/**
-	 * Accepts a PSR-7 request and an array of options and returns a PromiseInterface
-	 *
-	 * @param RequestInterface $request
-	 * @param array $options
-	 * @return Promise
-	 */
-	public function async(RequestInterface $request, array $options = [])
-	{
-		if (!class_exists('GuzzleHttp\Promise\Promise')) {
-			throw new Exception('Install guzzlehttp/promises to use async with Guzzle 5');
-		}
+    /**
+     * Accepts a PSR-7 request and an array of options and returns a PromiseInterface
+     *
+     * @param RequestInterface $request
+     * @param array $options
+     * @return Promise
+     */
+    public function async(RequestInterface $request, array $options = [])
+    {
+        if (!class_exists('GuzzleHttp\Promise\Promise')) {
+            throw new Exception('Install guzzlehttp/promises to use async with Guzzle 5');
+        }
 
-		$futureResponse = $this->client->send(
-			$this->createGuzzle5Request(
-				$request,
-				['future' => true] + $options
-			)
-		);
+        $futureResponse = $this->client->send(
+            $this->createGuzzle5Request(
+                $request,
+                ['future' => true] + $options
+            )
+        );
 
-		$promise = new Promise(
-			function () use ($futureResponse) {
-				try {
-					$futureResponse->wait();
-				} catch (Exception $e) {
-					// The promise is already delivered when the exception is
-					// thrown, so don't rethrow it.
-				}
-			},
-			[$futureResponse, 'cancel']
-		);
+        $promise = new Promise(
+            function () use ($futureResponse) {
+                try {
+                    $futureResponse->wait();
+                } catch (Exception $e) {
+                    // The promise is already delivered when the exception is
+                    // thrown, so don't rethrow it.
+                }
+            },
+            [$futureResponse, 'cancel']
+        );
 
-		$futureResponse->then([$promise, 'resolve'], [$promise, 'reject']);
+        $futureResponse->then([$promise, 'resolve'], [$promise, 'reject']);
 
-		return $promise->then(
-			function (Guzzle5ResponseInterface $response) {
-				// Adapt the Guzzle 5 Response to a PSR-7 Response.
-				return $this->createPsr7Response($response);
-			},
-			function (Exception $e) {
-				return new RejectedPromise($e);
-			}
-		);
-	}
+        return $promise->then(
+            function (Guzzle5ResponseInterface $response) {
+                // Adapt the Guzzle 5 Response to a PSR-7 Response.
+                return $this->createPsr7Response($response);
+            },
+            function (Exception $e) {
+                return new RejectedPromise($e);
+            }
+        );
+    }
 
-	private function createGuzzle5Request(RequestInterface $request, array $options)
-	{
-		return $this->client->createRequest(
-			$request->getMethod(),
-			$request->getUri(),
-			array_merge_recursive([
-				'headers' => $request->getHeaders(),
-				'body' => $request->getBody(),
-			], $options)
-		);
-	}
+    private function createGuzzle5Request(RequestInterface $request, array $options)
+    {
+        return $this->client->createRequest(
+            $request->getMethod(),
+            $request->getUri(),
+            array_merge_recursive([
+                'headers' => $request->getHeaders(),
+                'body' => $request->getBody(),
+            ], $options)
+        );
+    }
 
-	private function createPsr7Response(Guzzle5ResponseInterface $response)
-	{
-		return new Response(
-			$response->getStatusCode(),
-			$response->getHeaders() ?: [],
-			$response->getBody(),
-			$response->getProtocolVersion(),
-			$response->getReasonPhrase()
-		);
-	}
+    private function createPsr7Response(Guzzle5ResponseInterface $response)
+    {
+        return new Response(
+            $response->getStatusCode(),
+            $response->getHeaders() ?: [],
+            $response->getBody(),
+            $response->getProtocolVersion(),
+            $response->getReasonPhrase()
+        );
+    }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Vision_BatchOperationMetadata extends Google_Model
 {
-	public $endTime;
-	public $state;
-	public $submitTime;
+  public $endTime;
+  public $state;
+  public $submitTime;
 
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setSubmitTime($submitTime)
-	{
-		$this->submitTime = $submitTime;
-	}
-	public function getSubmitTime()
-	{
-		return $this->submitTime;
-	}
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setSubmitTime($submitTime)
+  {
+    $this->submitTime = $submitTime;
+  }
+  public function getSubmitTime()
+  {
+    return $this->submitTime;
+  }
 }

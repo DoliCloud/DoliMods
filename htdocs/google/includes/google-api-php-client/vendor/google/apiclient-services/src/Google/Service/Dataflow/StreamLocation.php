@@ -17,69 +17,69 @@
 
 class Google_Service_Dataflow_StreamLocation extends Google_Model
 {
-	protected $customSourceLocationType = 'Google_Service_Dataflow_CustomSourceLocation';
-	protected $customSourceLocationDataType = '';
-	protected $pubsubLocationType = 'Google_Service_Dataflow_PubsubLocation';
-	protected $pubsubLocationDataType = '';
-	protected $sideInputLocationType = 'Google_Service_Dataflow_StreamingSideInputLocation';
-	protected $sideInputLocationDataType = '';
-	protected $streamingStageLocationType = 'Google_Service_Dataflow_StreamingStageLocation';
-	protected $streamingStageLocationDataType = '';
+  protected $customSourceLocationType = 'Google_Service_Dataflow_CustomSourceLocation';
+  protected $customSourceLocationDataType = '';
+  protected $pubsubLocationType = 'Google_Service_Dataflow_PubsubLocation';
+  protected $pubsubLocationDataType = '';
+  protected $sideInputLocationType = 'Google_Service_Dataflow_StreamingSideInputLocation';
+  protected $sideInputLocationDataType = '';
+  protected $streamingStageLocationType = 'Google_Service_Dataflow_StreamingStageLocation';
+  protected $streamingStageLocationDataType = '';
 
-	/**
-	 * @param Google_Service_Dataflow_CustomSourceLocation
-	 */
-	public function setCustomSourceLocation(Google_Service_Dataflow_CustomSourceLocation $customSourceLocation)
-	{
-		$this->customSourceLocation = $customSourceLocation;
-	}
-	/**
-	 * @return Google_Service_Dataflow_CustomSourceLocation
-	 */
-	public function getCustomSourceLocation()
-	{
-		return $this->customSourceLocation;
-	}
-	/**
-	 * @param Google_Service_Dataflow_PubsubLocation
-	 */
-	public function setPubsubLocation(Google_Service_Dataflow_PubsubLocation $pubsubLocation)
-	{
-		$this->pubsubLocation = $pubsubLocation;
-	}
-	/**
-	 * @return Google_Service_Dataflow_PubsubLocation
-	 */
-	public function getPubsubLocation()
-	{
-		return $this->pubsubLocation;
-	}
-	/**
-	 * @param Google_Service_Dataflow_StreamingSideInputLocation
-	 */
-	public function setSideInputLocation(Google_Service_Dataflow_StreamingSideInputLocation $sideInputLocation)
-	{
-		$this->sideInputLocation = $sideInputLocation;
-	}
-	/**
-	 * @return Google_Service_Dataflow_StreamingSideInputLocation
-	 */
-	public function getSideInputLocation()
-	{
-		return $this->sideInputLocation;
-	}
-	/**
-	 * @param Google_Service_Dataflow_StreamingStageLocation
-	 */
-	public function setStreamingStageLocation(Google_Service_Dataflow_StreamingStageLocation $streamingStageLocation)
-	{
-		$this->streamingStageLocation = $streamingStageLocation;
-	}
-	/**
-	 * @return Google_Service_Dataflow_StreamingStageLocation
-	 */
-	public function getStreamingStageLocation()
-	{
-		return $this->streamingStageLocation;
-	}
+  /**
+   * @param Google_Service_Dataflow_CustomSourceLocation
+   */
+  public function setCustomSourceLocation(Google_Service_Dataflow_CustomSourceLocation $customSourceLocation)
+  {
+    $this->customSourceLocation = $customSourceLocation;
+  }
+  /**
+   * @return Google_Service_Dataflow_CustomSourceLocation
+   */
+  public function getCustomSourceLocation()
+  {
+    return $this->customSourceLocation;
+  }
+  /**
+   * @param Google_Service_Dataflow_PubsubLocation
+   */
+  public function setPubsubLocation(Google_Service_Dataflow_PubsubLocation $pubsubLocation)
+  {
+    $this->pubsubLocation = $pubsubLocation;
+  }
+  /**
+   * @return Google_Service_Dataflow_PubsubLocation
+   */
+  public function getPubsubLocation()
+  {
+    return $this->pubsubLocation;
+  }
+  /**
+   * @param Google_Service_Dataflow_StreamingSideInputLocation
+   */
+  public function setSideInputLocation(Google_Service_Dataflow_StreamingSideInputLocation $sideInputLocation)
+  {
+    $this->sideInputLocation = $sideInputLocation;
+  }
+  /**
+   * @return Google_Service_Dataflow_StreamingSideInputLocation
+   */
+  public function getSideInputLocation()
+  {
+    return $this->sideInputLocation;
+  }
+  /**
+   * @param Google_Service_Dataflow_StreamingStageLocation
+   */
+  public function setStreamingStageLocation(Google_Service_Dataflow_StreamingStageLocation $streamingStageLocation)
+  {
+    $this->streamingStageLocation = $streamingStageLocation;
+  }
+  /**
+   * @return Google_Service_Dataflow_StreamingStageLocation
+   */
+  public function getStreamingStageLocation()
+  {
+    return $this->streamingStageLocation;
+  }
 }

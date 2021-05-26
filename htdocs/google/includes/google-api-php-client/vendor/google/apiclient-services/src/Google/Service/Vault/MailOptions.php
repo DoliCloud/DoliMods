@@ -17,14 +17,14 @@
 
 class Google_Service_Vault_MailOptions extends Google_Model
 {
-	public $excludeDrafts;
+  public $excludeDrafts;
 
-	public function setExcludeDrafts($excludeDrafts)
-	{
-		$this->excludeDrafts = $excludeDrafts;
-	}
-	public function getExcludeDrafts()
-	{
-		return $this->excludeDrafts;
-	}
+  public function setExcludeDrafts($excludeDrafts)
+  {
+    $this->excludeDrafts = $excludeDrafts;
+  }
+  public function getExcludeDrafts()
+  {
+    return $this->excludeDrafts;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_CloudMonitoring_ListTimeseriesDescriptorsRequest extends Google_Model
 {
-	public $kind;
+  public $kind;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

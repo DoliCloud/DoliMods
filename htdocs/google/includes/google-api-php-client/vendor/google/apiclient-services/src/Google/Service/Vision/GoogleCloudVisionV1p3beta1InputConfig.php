@@ -17,39 +17,39 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p3beta1InputConfig extends Google_Model
 {
-	public $content;
-	protected $gcsSourceType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource';
-	protected $gcsSourceDataType = '';
-	public $mimeType;
+  public $content;
+  protected $gcsSourceType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource';
+  protected $gcsSourceDataType = '';
+  public $mimeType;
 
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	public function getContent()
-	{
-		return $this->content;
-	}
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource
-	 */
-	public function setGcsSource(Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource $gcsSource)
-	{
-		$this->gcsSource = $gcsSource;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource
-	 */
-	public function getGcsSource()
-	{
-		return $this->gcsSource;
-	}
-	public function setMimeType($mimeType)
-	{
-		$this->mimeType = $mimeType;
-	}
-	public function getMimeType()
-	{
-		return $this->mimeType;
-	}
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  public function getContent()
+  {
+    return $this->content;
+  }
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource
+   */
+  public function setGcsSource(Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource $gcsSource)
+  {
+    $this->gcsSource = $gcsSource;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1GcsSource
+   */
+  public function getGcsSource()
+  {
+    return $this->gcsSource;
+  }
+  public function setMimeType($mimeType)
+  {
+    $this->mimeType = $mimeType;
+  }
+  public function getMimeType()
+  {
+    return $this->mimeType;
+  }
 }

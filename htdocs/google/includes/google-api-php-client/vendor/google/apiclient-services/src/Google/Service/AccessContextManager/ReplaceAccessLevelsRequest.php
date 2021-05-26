@@ -17,31 +17,31 @@
 
 class Google_Service_AccessContextManager_ReplaceAccessLevelsRequest extends Google_Collection
 {
-	protected $collection_key = 'accessLevels';
-	protected $accessLevelsType = 'Google_Service_AccessContextManager_AccessLevel';
-	protected $accessLevelsDataType = 'array';
-	public $etag;
+  protected $collection_key = 'accessLevels';
+  protected $accessLevelsType = 'Google_Service_AccessContextManager_AccessLevel';
+  protected $accessLevelsDataType = 'array';
+  public $etag;
 
-	/**
-	 * @param Google_Service_AccessContextManager_AccessLevel
-	 */
-	public function setAccessLevels($accessLevels)
-	{
-		$this->accessLevels = $accessLevels;
-	}
-	/**
-	 * @return Google_Service_AccessContextManager_AccessLevel
-	 */
-	public function getAccessLevels()
-	{
-		return $this->accessLevels;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
+  /**
+   * @param Google_Service_AccessContextManager_AccessLevel[]
+   */
+  public function setAccessLevels($accessLevels)
+  {
+    $this->accessLevels = $accessLevels;
+  }
+  /**
+   * @return Google_Service_AccessContextManager_AccessLevel[]
+   */
+  public function getAccessLevels()
+  {
+    return $this->accessLevels;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
 }

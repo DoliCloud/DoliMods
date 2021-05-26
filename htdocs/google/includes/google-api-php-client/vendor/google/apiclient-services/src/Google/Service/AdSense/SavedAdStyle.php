@@ -17,48 +17,48 @@
 
 class Google_Service_AdSense_SavedAdStyle extends Google_Model
 {
-	protected $adStyleType = 'Google_Service_AdSense_AdStyle';
-	protected $adStyleDataType = '';
-	public $id;
-	public $kind;
-	public $name;
+  protected $adStyleType = 'Google_Service_AdSense_AdStyle';
+  protected $adStyleDataType = '';
+  public $id;
+  public $kind;
+  public $name;
 
-	/**
-	 * @param Google_Service_AdSense_AdStyle
-	 */
-	public function setAdStyle(Google_Service_AdSense_AdStyle $adStyle)
-	{
-		$this->adStyle = $adStyle;
-	}
-	/**
-	 * @return Google_Service_AdSense_AdStyle
-	 */
-	public function getAdStyle()
-	{
-		return $this->adStyle;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  /**
+   * @param Google_Service_AdSense_AdStyle
+   */
+  public function setAdStyle(Google_Service_AdSense_AdStyle $adStyle)
+  {
+    $this->adStyle = $adStyle;
+  }
+  /**
+   * @return Google_Service_AdSense_AdStyle
+   */
+  public function getAdStyle()
+  {
+    return $this->adStyle;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

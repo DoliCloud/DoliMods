@@ -17,59 +17,59 @@
 
 class Google_Service_PolyService_ObjParseError extends Google_Model
 {
-	public $code;
-	public $endIndex;
-	public $filePath;
-	public $line;
-	public $lineNumber;
-	public $startIndex;
+  public $code;
+  public $endIndex;
+  public $filePath;
+  public $line;
+  public $lineNumber;
+  public $startIndex;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setEndIndex($endIndex)
-	{
-		$this->endIndex = $endIndex;
-	}
-	public function getEndIndex()
-	{
-		return $this->endIndex;
-	}
-	public function setFilePath($filePath)
-	{
-		$this->filePath = $filePath;
-	}
-	public function getFilePath()
-	{
-		return $this->filePath;
-	}
-	public function setLine($line)
-	{
-		$this->line = $line;
-	}
-	public function getLine()
-	{
-		return $this->line;
-	}
-	public function setLineNumber($lineNumber)
-	{
-		$this->lineNumber = $lineNumber;
-	}
-	public function getLineNumber()
-	{
-		return $this->lineNumber;
-	}
-	public function setStartIndex($startIndex)
-	{
-		$this->startIndex = $startIndex;
-	}
-	public function getStartIndex()
-	{
-		return $this->startIndex;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setEndIndex($endIndex)
+  {
+    $this->endIndex = $endIndex;
+  }
+  public function getEndIndex()
+  {
+    return $this->endIndex;
+  }
+  public function setFilePath($filePath)
+  {
+    $this->filePath = $filePath;
+  }
+  public function getFilePath()
+  {
+    return $this->filePath;
+  }
+  public function setLine($line)
+  {
+    $this->line = $line;
+  }
+  public function getLine()
+  {
+    return $this->line;
+  }
+  public function setLineNumber($lineNumber)
+  {
+    $this->lineNumber = $lineNumber;
+  }
+  public function getLineNumber()
+  {
+    return $this->lineNumber;
+  }
+  public function setStartIndex($startIndex)
+  {
+    $this->startIndex = $startIndex;
+  }
+  public function getStartIndex()
+  {
+    return $this->startIndex;
+  }
 }

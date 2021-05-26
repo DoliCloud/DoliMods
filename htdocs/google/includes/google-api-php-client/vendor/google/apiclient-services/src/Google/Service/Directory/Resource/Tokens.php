@@ -25,50 +25,50 @@
  */
 class Google_Service_Directory_Resource_Tokens extends Google_Service_Resource
 {
-	/**
-	 * Delete all access tokens issued by a user for an application. (tokens.delete)
-	 *
-	 * @param string $userKey Identifies the user in the API request. The value can
-	 *                        be the user's primary email address, alias email address, or unique user ID.
-	 * @param string $clientId The Client ID of the application the token is issued
-	 *                         to.
-	 * @param array $optParams Optional parameters.
-	 */
-	public function delete($userKey, $clientId, $optParams = array())
-	{
-		$params = array('userKey' => $userKey, 'clientId' => $clientId);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params));
-	}
-	/**
-	 * Get information about an access token issued by a user. (tokens.get)
-	 *
-	 * @param string $userKey Identifies the user in the API request. The value can
-	 *                        be the user's primary email address, alias email address, or unique user ID.
-	 * @param string $clientId The Client ID of the application the token is issued
-	 *                         to.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Directory_Token
-	 */
-	public function get($userKey, $clientId, $optParams = array())
-	{
-		$params = array('userKey' => $userKey, 'clientId' => $clientId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Directory_Token");
-	}
-	/**
-	 * Returns the set of tokens specified user has issued to 3rd party
-	 * applications. (tokens.listTokens)
-	 *
-	 * @param string $userKey Identifies the user in the API request. The value can
-	 *                        be the user's primary email address, alias email address, or unique user ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Directory_Tokens
-	 */
-	public function listTokens($userKey, $optParams = array())
-	{
-		$params = array('userKey' => $userKey);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Directory_Tokens");
-	}
+  /**
+   * Delete all access tokens issued by a user for an application. (tokens.delete)
+   *
+   * @param string $userKey Identifies the user in the API request. The value can
+   * be the user's primary email address, alias email address, or unique user ID.
+   * @param string $clientId The Client ID of the application the token is issued
+   * to.
+   * @param array $optParams Optional parameters.
+   */
+  public function delete($userKey, $clientId, $optParams = array())
+  {
+    $params = array('userKey' => $userKey, 'clientId' => $clientId);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params));
+  }
+  /**
+   * Get information about an access token issued by a user. (tokens.get)
+   *
+   * @param string $userKey Identifies the user in the API request. The value can
+   * be the user's primary email address, alias email address, or unique user ID.
+   * @param string $clientId The Client ID of the application the token is issued
+   * to.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Directory_Token
+   */
+  public function get($userKey, $clientId, $optParams = array())
+  {
+    $params = array('userKey' => $userKey, 'clientId' => $clientId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Directory_Token");
+  }
+  /**
+   * Returns the set of tokens specified user has issued to 3rd party
+   * applications. (tokens.listTokens)
+   *
+   * @param string $userKey Identifies the user in the API request. The value can
+   * be the user's primary email address, alias email address, or unique user ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Directory_Tokens
+   */
+  public function listTokens($userKey, $optParams = array())
+  {
+    $params = array('userKey' => $userKey);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Directory_Tokens");
+  }
 }

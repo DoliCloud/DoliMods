@@ -35,44 +35,44 @@
  */
 class Google_Service_CommentAnalyzer extends Google_Service
 {
-	/** View your email address. */
-	const USERINFO_EMAIL =
-	  "https://www.googleapis.com/auth/userinfo.email";
+  /** View your email address. */
+  const USERINFO_EMAIL =
+      "https://www.googleapis.com/auth/userinfo.email";
 
-	public $comments;
+  public $comments;
+  
+  /**
+   * Constructs the internal representation of the CommentAnalyzer service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://commentanalyzer.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1alpha1';
+    $this->serviceName = 'commentanalyzer';
 
-	/**
-	 * Constructs the internal representation of the CommentAnalyzer service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://commentanalyzer.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1alpha1';
-		$this->serviceName = 'commentanalyzer';
-
-		$this->comments = new Google_Service_CommentAnalyzer_Resource_Comments(
-		$this,
-		$this->serviceName,
-		'comments',
-		array(
-		  'methods' => array(
-			'analyze' => array(
-			  'path' => 'v1alpha1/comments:analyze',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'suggestscore' => array(
-			  'path' => 'v1alpha1/comments:suggestscore',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-	}
+    $this->comments = new Google_Service_CommentAnalyzer_Resource_Comments(
+        $this,
+        $this->serviceName,
+        'comments',
+        array(
+          'methods' => array(
+            'analyze' => array(
+              'path' => 'v1alpha1/comments:analyze',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'suggestscore' => array(
+              'path' => 'v1alpha1/comments:suggestscore',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+  }
 }

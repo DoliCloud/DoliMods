@@ -17,40 +17,40 @@
 
 class Google_Service_Drive_PermissionList extends Google_Collection
 {
-	protected $collection_key = 'permissions';
-	public $kind;
-	public $nextPageToken;
-	protected $permissionsType = 'Google_Service_Drive_Permission';
-	protected $permissionsDataType = 'array';
+  protected $collection_key = 'permissions';
+  public $kind;
+  public $nextPageToken;
+  protected $permissionsType = 'Google_Service_Drive_Permission';
+  protected $permissionsDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Drive_Permission
-	 */
-	public function setPermissions($permissions)
-	{
-		$this->permissions = $permissions;
-	}
-	/**
-	 * @return Google_Service_Drive_Permission
-	 */
-	public function getPermissions()
-	{
-		return $this->permissions;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Drive_Permission[]
+   */
+  public function setPermissions($permissions)
+  {
+    $this->permissions = $permissions;
+  }
+  /**
+   * @return Google_Service_Drive_Permission[]
+   */
+  public function getPermissions()
+  {
+    return $this->permissions;
+  }
 }

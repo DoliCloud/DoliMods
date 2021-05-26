@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListEnvironmentResourcesResponse extends Google_Collection
 {
-	protected $collection_key = 'resourceFile';
-	protected $resourceFileType = 'Google_Service_Apigee_GoogleCloudApigeeV1ResourceFile';
-	protected $resourceFileDataType = 'array';
+  protected $collection_key = 'resourceFile';
+  protected $resourceFileType = 'Google_Service_Apigee_GoogleCloudApigeeV1ResourceFile';
+  protected $resourceFileDataType = 'array';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1ResourceFile
-	 */
-	public function setResourceFile($resourceFile)
-	{
-		$this->resourceFile = $resourceFile;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ResourceFile
-	 */
-	public function getResourceFile()
-	{
-		return $this->resourceFile;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1ResourceFile[]
+   */
+  public function setResourceFile($resourceFile)
+  {
+    $this->resourceFile = $resourceFile;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1ResourceFile[]
+   */
+  public function getResourceFile()
+  {
+    return $this->resourceFile;
+  }
 }

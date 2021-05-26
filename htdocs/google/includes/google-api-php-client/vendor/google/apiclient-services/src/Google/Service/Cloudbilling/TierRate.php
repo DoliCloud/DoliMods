@@ -17,30 +17,30 @@
 
 class Google_Service_Cloudbilling_TierRate extends Google_Model
 {
-	public $startUsageAmount;
-	protected $unitPriceType = 'Google_Service_Cloudbilling_Money';
-	protected $unitPriceDataType = '';
+  public $startUsageAmount;
+  protected $unitPriceType = 'Google_Service_Cloudbilling_Money';
+  protected $unitPriceDataType = '';
 
-	public function setStartUsageAmount($startUsageAmount)
-	{
-		$this->startUsageAmount = $startUsageAmount;
-	}
-	public function getStartUsageAmount()
-	{
-		return $this->startUsageAmount;
-	}
-	/**
-	 * @param Google_Service_Cloudbilling_Money
-	 */
-	public function setUnitPrice(Google_Service_Cloudbilling_Money $unitPrice)
-	{
-		$this->unitPrice = $unitPrice;
-	}
-	/**
-	 * @return Google_Service_Cloudbilling_Money
-	 */
-	public function getUnitPrice()
-	{
-		return $this->unitPrice;
-	}
+  public function setStartUsageAmount($startUsageAmount)
+  {
+    $this->startUsageAmount = $startUsageAmount;
+  }
+  public function getStartUsageAmount()
+  {
+    return $this->startUsageAmount;
+  }
+  /**
+   * @param Google_Service_Cloudbilling_Money
+   */
+  public function setUnitPrice(Google_Service_Cloudbilling_Money $unitPrice)
+  {
+    $this->unitPrice = $unitPrice;
+  }
+  /**
+   * @return Google_Service_Cloudbilling_Money
+   */
+  public function getUnitPrice()
+  {
+    return $this->unitPrice;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Partners_DebugInfo extends Google_Model
 {
-	public $serverInfo;
-	public $serverTraceInfo;
-	public $serviceUrl;
+  public $serverInfo;
+  public $serverTraceInfo;
+  public $serviceUrl;
 
-	public function setServerInfo($serverInfo)
-	{
-		$this->serverInfo = $serverInfo;
-	}
-	public function getServerInfo()
-	{
-		return $this->serverInfo;
-	}
-	public function setServerTraceInfo($serverTraceInfo)
-	{
-		$this->serverTraceInfo = $serverTraceInfo;
-	}
-	public function getServerTraceInfo()
-	{
-		return $this->serverTraceInfo;
-	}
-	public function setServiceUrl($serviceUrl)
-	{
-		$this->serviceUrl = $serviceUrl;
-	}
-	public function getServiceUrl()
-	{
-		return $this->serviceUrl;
-	}
+  public function setServerInfo($serverInfo)
+  {
+    $this->serverInfo = $serverInfo;
+  }
+  public function getServerInfo()
+  {
+    return $this->serverInfo;
+  }
+  public function setServerTraceInfo($serverTraceInfo)
+  {
+    $this->serverTraceInfo = $serverTraceInfo;
+  }
+  public function getServerTraceInfo()
+  {
+    return $this->serverTraceInfo;
+  }
+  public function setServiceUrl($serviceUrl)
+  {
+    $this->serviceUrl = $serviceUrl;
+  }
+  public function getServiceUrl()
+  {
+    return $this->serviceUrl;
+  }
 }

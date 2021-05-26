@@ -17,21 +17,21 @@
 
 class Google_Service_Sheets_CandlestickSeries extends Google_Model
 {
-	protected $dataType = 'Google_Service_Sheets_ChartData';
-	protected $dataDataType = '';
+  protected $dataType = 'Google_Service_Sheets_ChartData';
+  protected $dataDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_ChartData
-	 */
-	public function setData(Google_Service_Sheets_ChartData $data)
-	{
-		$this->data = $data;
-	}
-	/**
-	 * @return Google_Service_Sheets_ChartData
-	 */
-	public function getData()
-	{
-		return $this->data;
-	}
+  /**
+   * @param Google_Service_Sheets_ChartData
+   */
+  public function setData(Google_Service_Sheets_ChartData $data)
+  {
+    $this->data = $data;
+  }
+  /**
+   * @return Google_Service_Sheets_ChartData
+   */
+  public function getData()
+  {
+    return $this->data;
+  }
 }

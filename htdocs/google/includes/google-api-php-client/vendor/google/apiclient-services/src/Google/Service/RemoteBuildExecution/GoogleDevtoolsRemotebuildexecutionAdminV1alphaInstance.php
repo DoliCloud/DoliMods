@@ -17,41 +17,57 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance extends Google_Model
 {
-	public $location;
-	public $loggingEnabled;
-	public $name;
-	public $state;
+  protected $featurePolicyType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaFeaturePolicy';
+  protected $featurePolicyDataType = '';
+  public $location;
+  public $loggingEnabled;
+  public $name;
+  public $state;
 
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setLoggingEnabled($loggingEnabled)
-	{
-		$this->loggingEnabled = $loggingEnabled;
-	}
-	public function getLoggingEnabled()
-	{
-		return $this->loggingEnabled;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaFeaturePolicy
+   */
+  public function setFeaturePolicy(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaFeaturePolicy $featurePolicy)
+  {
+    $this->featurePolicy = $featurePolicy;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaFeaturePolicy
+   */
+  public function getFeaturePolicy()
+  {
+    return $this->featurePolicy;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setLoggingEnabled($loggingEnabled)
+  {
+    $this->loggingEnabled = $loggingEnabled;
+  }
+  public function getLoggingEnabled()
+  {
+    return $this->loggingEnabled;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

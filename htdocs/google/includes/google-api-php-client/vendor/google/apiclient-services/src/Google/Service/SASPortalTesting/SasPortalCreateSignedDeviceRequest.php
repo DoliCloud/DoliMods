@@ -17,23 +17,23 @@
 
 class Google_Service_SASPortalTesting_SasPortalCreateSignedDeviceRequest extends Google_Model
 {
-	public $encodedDevice;
-	public $installerId;
+  public $encodedDevice;
+  public $installerId;
 
-	public function setEncodedDevice($encodedDevice)
-	{
-		$this->encodedDevice = $encodedDevice;
-	}
-	public function getEncodedDevice()
-	{
-		return $this->encodedDevice;
-	}
-	public function setInstallerId($installerId)
-	{
-		$this->installerId = $installerId;
-	}
-	public function getInstallerId()
-	{
-		return $this->installerId;
-	}
+  public function setEncodedDevice($encodedDevice)
+  {
+    $this->encodedDevice = $encodedDevice;
+  }
+  public function getEncodedDevice()
+  {
+    return $this->encodedDevice;
+  }
+  public function setInstallerId($installerId)
+  {
+    $this->installerId = $installerId;
+  }
+  public function getInstallerId()
+  {
+    return $this->installerId;
+  }
 }

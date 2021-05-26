@@ -17,37 +17,37 @@
 
 class Google_Service_Sheets_BooleanRule extends Google_Model
 {
-	protected $conditionType = 'Google_Service_Sheets_BooleanCondition';
-	protected $conditionDataType = '';
-	protected $formatType = 'Google_Service_Sheets_CellFormat';
-	protected $formatDataType = '';
+  protected $conditionType = 'Google_Service_Sheets_BooleanCondition';
+  protected $conditionDataType = '';
+  protected $formatType = 'Google_Service_Sheets_CellFormat';
+  protected $formatDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_BooleanCondition
-	 */
-	public function setCondition(Google_Service_Sheets_BooleanCondition $condition)
-	{
-		$this->condition = $condition;
-	}
-	/**
-	 * @return Google_Service_Sheets_BooleanCondition
-	 */
-	public function getCondition()
-	{
-		return $this->condition;
-	}
-	/**
-	 * @param Google_Service_Sheets_CellFormat
-	 */
-	public function setFormat(Google_Service_Sheets_CellFormat $format)
-	{
-		$this->format = $format;
-	}
-	/**
-	 * @return Google_Service_Sheets_CellFormat
-	 */
-	public function getFormat()
-	{
-		return $this->format;
-	}
+  /**
+   * @param Google_Service_Sheets_BooleanCondition
+   */
+  public function setCondition(Google_Service_Sheets_BooleanCondition $condition)
+  {
+    $this->condition = $condition;
+  }
+  /**
+   * @return Google_Service_Sheets_BooleanCondition
+   */
+  public function getCondition()
+  {
+    return $this->condition;
+  }
+  /**
+   * @param Google_Service_Sheets_CellFormat
+   */
+  public function setFormat(Google_Service_Sheets_CellFormat $format)
+  {
+    $this->format = $format;
+  }
+  /**
+   * @return Google_Service_Sheets_CellFormat
+   */
+  public function getFormat()
+  {
+    return $this->format;
+  }
 }

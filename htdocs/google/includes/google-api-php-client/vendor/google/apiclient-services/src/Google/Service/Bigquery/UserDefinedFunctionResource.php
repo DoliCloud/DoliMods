@@ -17,23 +17,23 @@
 
 class Google_Service_Bigquery_UserDefinedFunctionResource extends Google_Model
 {
-	public $inlineCode;
-	public $resourceUri;
+  public $inlineCode;
+  public $resourceUri;
 
-	public function setInlineCode($inlineCode)
-	{
-		$this->inlineCode = $inlineCode;
-	}
-	public function getInlineCode()
-	{
-		return $this->inlineCode;
-	}
-	public function setResourceUri($resourceUri)
-	{
-		$this->resourceUri = $resourceUri;
-	}
-	public function getResourceUri()
-	{
-		return $this->resourceUri;
-	}
+  public function setInlineCode($inlineCode)
+  {
+    $this->inlineCode = $inlineCode;
+  }
+  public function getInlineCode()
+  {
+    return $this->inlineCode;
+  }
+  public function setResourceUri($resourceUri)
+  {
+    $this->resourceUri = $resourceUri;
+  }
+  public function getResourceUri()
+  {
+    return $this->resourceUri;
+  }
 }

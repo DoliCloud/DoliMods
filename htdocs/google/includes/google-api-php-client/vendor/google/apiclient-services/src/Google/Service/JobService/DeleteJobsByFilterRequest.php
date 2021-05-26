@@ -17,30 +17,30 @@
 
 class Google_Service_JobService_DeleteJobsByFilterRequest extends Google_Model
 {
-	public $disableFastProcess;
-	protected $filterType = 'Google_Service_JobService_Filter';
-	protected $filterDataType = '';
+  public $disableFastProcess;
+  protected $filterType = 'Google_Service_JobService_Filter';
+  protected $filterDataType = '';
 
-	public function setDisableFastProcess($disableFastProcess)
-	{
-		$this->disableFastProcess = $disableFastProcess;
-	}
-	public function getDisableFastProcess()
-	{
-		return $this->disableFastProcess;
-	}
-	/**
-	 * @param Google_Service_JobService_Filter
-	 */
-	public function setFilter(Google_Service_JobService_Filter $filter)
-	{
-		$this->filter = $filter;
-	}
-	/**
-	 * @return Google_Service_JobService_Filter
-	 */
-	public function getFilter()
-	{
-		return $this->filter;
-	}
+  public function setDisableFastProcess($disableFastProcess)
+  {
+    $this->disableFastProcess = $disableFastProcess;
+  }
+  public function getDisableFastProcess()
+  {
+    return $this->disableFastProcess;
+  }
+  /**
+   * @param Google_Service_JobService_Filter
+   */
+  public function setFilter(Google_Service_JobService_Filter $filter)
+  {
+    $this->filter = $filter;
+  }
+  /**
+   * @return Google_Service_JobService_Filter
+   */
+  public function getFilter()
+  {
+    return $this->filter;
+  }
 }

@@ -25,18 +25,18 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsEnvironmentsCaches extends Google_Service_Resource
 {
-	/**
-	 * Deletes a cache. (caches.delete)
-	 *
-	 * @param string $name Required. Cache resource name of the form:     `organizat
-	 *                     ions/{organization_id}/environments/{environment_id}/caches/{cache_id}`
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Apigee_GoogleProtobufEmpty
-	 */
-	public function delete($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params), "Google_Service_Apigee_GoogleProtobufEmpty");
-	}
+  /**
+   * Deletes a cache. (caches.delete)
+   *
+   * @param string $name Required. Cache resource name of the form: `organizations
+   * /{organization_id}/environments/{environment_id}/caches/{cache_id}`
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Apigee_GoogleProtobufEmpty
+   */
+  public function delete($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_Apigee_GoogleProtobufEmpty");
+  }
 }

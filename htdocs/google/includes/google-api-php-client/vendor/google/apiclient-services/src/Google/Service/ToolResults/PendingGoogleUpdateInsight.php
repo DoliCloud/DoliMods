@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_PendingGoogleUpdateInsight extends Google_Model
 {
-	public $nameOfGoogleLibrary;
+  public $nameOfGoogleLibrary;
 
-	public function setNameOfGoogleLibrary($nameOfGoogleLibrary)
-	{
-		$this->nameOfGoogleLibrary = $nameOfGoogleLibrary;
-	}
-	public function getNameOfGoogleLibrary()
-	{
-		return $this->nameOfGoogleLibrary;
-	}
+  public function setNameOfGoogleLibrary($nameOfGoogleLibrary)
+  {
+    $this->nameOfGoogleLibrary = $nameOfGoogleLibrary;
+  }
+  public function getNameOfGoogleLibrary()
+  {
+    return $this->nameOfGoogleLibrary;
+  }
 }

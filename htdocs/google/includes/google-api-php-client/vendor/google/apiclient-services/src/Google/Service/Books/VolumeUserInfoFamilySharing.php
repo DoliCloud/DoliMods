@@ -17,32 +17,32 @@
 
 class Google_Service_Books_VolumeUserInfoFamilySharing extends Google_Model
 {
-	public $familyRole;
-	public $isSharingAllowed;
-	public $isSharingDisabledByFop;
+  public $familyRole;
+  public $isSharingAllowed;
+  public $isSharingDisabledByFop;
 
-	public function setFamilyRole($familyRole)
-	{
-		$this->familyRole = $familyRole;
-	}
-	public function getFamilyRole()
-	{
-		return $this->familyRole;
-	}
-	public function setIsSharingAllowed($isSharingAllowed)
-	{
-		$this->isSharingAllowed = $isSharingAllowed;
-	}
-	public function getIsSharingAllowed()
-	{
-		return $this->isSharingAllowed;
-	}
-	public function setIsSharingDisabledByFop($isSharingDisabledByFop)
-	{
-		$this->isSharingDisabledByFop = $isSharingDisabledByFop;
-	}
-	public function getIsSharingDisabledByFop()
-	{
-		return $this->isSharingDisabledByFop;
-	}
+  public function setFamilyRole($familyRole)
+  {
+    $this->familyRole = $familyRole;
+  }
+  public function getFamilyRole()
+  {
+    return $this->familyRole;
+  }
+  public function setIsSharingAllowed($isSharingAllowed)
+  {
+    $this->isSharingAllowed = $isSharingAllowed;
+  }
+  public function getIsSharingAllowed()
+  {
+    return $this->isSharingAllowed;
+  }
+  public function setIsSharingDisabledByFop($isSharingDisabledByFop)
+  {
+    $this->isSharingDisabledByFop = $isSharingDisabledByFop;
+  }
+  public function getIsSharingDisabledByFop()
+  {
+    return $this->isSharingDisabledByFop;
+  }
 }

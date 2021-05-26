@@ -17,14 +17,14 @@
 
 class Google_Service_BigQueryDataTransfer_EmailPreferences extends Google_Model
 {
-	public $enableFailureEmail;
+  public $enableFailureEmail;
 
-	public function setEnableFailureEmail($enableFailureEmail)
-	{
-		$this->enableFailureEmail = $enableFailureEmail;
-	}
-	public function getEnableFailureEmail()
-	{
-		return $this->enableFailureEmail;
-	}
+  public function setEnableFailureEmail($enableFailureEmail)
+  {
+    $this->enableFailureEmail = $enableFailureEmail;
+  }
+  public function getEnableFailureEmail()
+  {
+    return $this->enableFailureEmail;
+  }
 }

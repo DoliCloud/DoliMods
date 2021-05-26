@@ -17,15 +17,15 @@
 
 class Google_Service_Classroom_IndividualStudentsOptions extends Google_Collection
 {
-	protected $collection_key = 'studentIds';
-	public $studentIds;
+  protected $collection_key = 'studentIds';
+  public $studentIds;
 
-	public function setStudentIds($studentIds)
-	{
-		$this->studentIds = $studentIds;
-	}
-	public function getStudentIds()
-	{
-		return $this->studentIds;
-	}
+  public function setStudentIds($studentIds)
+  {
+    $this->studentIds = $studentIds;
+  }
+  public function getStudentIds()
+  {
+    return $this->studentIds;
+  }
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedBullet extends Google_Model
 {
-	protected $bulletType = 'Google_Service_Docs_Bullet';
-	protected $bulletDataType = '';
-	protected $bulletSuggestionStateType = 'Google_Service_Docs_BulletSuggestionState';
-	protected $bulletSuggestionStateDataType = '';
+  protected $bulletType = 'Google_Service_Docs_Bullet';
+  protected $bulletDataType = '';
+  protected $bulletSuggestionStateType = 'Google_Service_Docs_BulletSuggestionState';
+  protected $bulletSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_Bullet
-	 */
-	public function setBullet(Google_Service_Docs_Bullet $bullet)
-	{
-		$this->bullet = $bullet;
-	}
-	/**
-	 * @return Google_Service_Docs_Bullet
-	 */
-	public function getBullet()
-	{
-		return $this->bullet;
-	}
-	/**
-	 * @param Google_Service_Docs_BulletSuggestionState
-	 */
-	public function setBulletSuggestionState(Google_Service_Docs_BulletSuggestionState $bulletSuggestionState)
-	{
-		$this->bulletSuggestionState = $bulletSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_BulletSuggestionState
-	 */
-	public function getBulletSuggestionState()
-	{
-		return $this->bulletSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_Bullet
+   */
+  public function setBullet(Google_Service_Docs_Bullet $bullet)
+  {
+    $this->bullet = $bullet;
+  }
+  /**
+   * @return Google_Service_Docs_Bullet
+   */
+  public function getBullet()
+  {
+    return $this->bullet;
+  }
+  /**
+   * @param Google_Service_Docs_BulletSuggestionState
+   */
+  public function setBulletSuggestionState(Google_Service_Docs_BulletSuggestionState $bulletSuggestionState)
+  {
+    $this->bulletSuggestionState = $bulletSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_BulletSuggestionState
+   */
+  public function getBulletSuggestionState()
+  {
+    return $this->bulletSuggestionState;
+  }
 }

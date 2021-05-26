@@ -17,67 +17,67 @@
 
 class Google_Service_Calendar_FreeBusyRequest extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $calendarExpansionMax;
-	public $groupExpansionMax;
-	protected $itemsType = 'Google_Service_Calendar_FreeBusyRequestItem';
-	protected $itemsDataType = 'array';
-	public $timeMax;
-	public $timeMin;
-	public $timeZone;
+  protected $collection_key = 'items';
+  public $calendarExpansionMax;
+  public $groupExpansionMax;
+  protected $itemsType = 'Google_Service_Calendar_FreeBusyRequestItem';
+  protected $itemsDataType = 'array';
+  public $timeMax;
+  public $timeMin;
+  public $timeZone;
 
-	public function setCalendarExpansionMax($calendarExpansionMax)
-	{
-		$this->calendarExpansionMax = $calendarExpansionMax;
-	}
-	public function getCalendarExpansionMax()
-	{
-		return $this->calendarExpansionMax;
-	}
-	public function setGroupExpansionMax($groupExpansionMax)
-	{
-		$this->groupExpansionMax = $groupExpansionMax;
-	}
-	public function getGroupExpansionMax()
-	{
-		return $this->groupExpansionMax;
-	}
-	/**
-	 * @param Google_Service_Calendar_FreeBusyRequestItem
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Calendar_FreeBusyRequestItem
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setTimeMax($timeMax)
-	{
-		$this->timeMax = $timeMax;
-	}
-	public function getTimeMax()
-	{
-		return $this->timeMax;
-	}
-	public function setTimeMin($timeMin)
-	{
-		$this->timeMin = $timeMin;
-	}
-	public function getTimeMin()
-	{
-		return $this->timeMin;
-	}
-	public function setTimeZone($timeZone)
-	{
-		$this->timeZone = $timeZone;
-	}
-	public function getTimeZone()
-	{
-		return $this->timeZone;
-	}
+  public function setCalendarExpansionMax($calendarExpansionMax)
+  {
+    $this->calendarExpansionMax = $calendarExpansionMax;
+  }
+  public function getCalendarExpansionMax()
+  {
+    return $this->calendarExpansionMax;
+  }
+  public function setGroupExpansionMax($groupExpansionMax)
+  {
+    $this->groupExpansionMax = $groupExpansionMax;
+  }
+  public function getGroupExpansionMax()
+  {
+    return $this->groupExpansionMax;
+  }
+  /**
+   * @param Google_Service_Calendar_FreeBusyRequestItem[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Calendar_FreeBusyRequestItem[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setTimeMax($timeMax)
+  {
+    $this->timeMax = $timeMax;
+  }
+  public function getTimeMax()
+  {
+    return $this->timeMax;
+  }
+  public function setTimeMin($timeMin)
+  {
+    $this->timeMin = $timeMin;
+  }
+  public function getTimeMin()
+  {
+    return $this->timeMin;
+  }
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  public function getTimeZone()
+  {
+    return $this->timeZone;
+  }
 }

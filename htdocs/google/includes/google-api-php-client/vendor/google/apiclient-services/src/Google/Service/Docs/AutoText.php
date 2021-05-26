@@ -17,65 +17,65 @@
 
 class Google_Service_Docs_AutoText extends Google_Collection
 {
-	protected $collection_key = 'suggestedInsertionIds';
-	public $suggestedDeletionIds;
-	public $suggestedInsertionIds;
-	protected $suggestedTextStyleChangesType = 'Google_Service_Docs_SuggestedTextStyle';
-	protected $suggestedTextStyleChangesDataType = 'map';
-	protected $textStyleType = 'Google_Service_Docs_TextStyle';
-	protected $textStyleDataType = '';
-	public $type;
+  protected $collection_key = 'suggestedInsertionIds';
+  public $suggestedDeletionIds;
+  public $suggestedInsertionIds;
+  protected $suggestedTextStyleChangesType = 'Google_Service_Docs_SuggestedTextStyle';
+  protected $suggestedTextStyleChangesDataType = 'map';
+  protected $textStyleType = 'Google_Service_Docs_TextStyle';
+  protected $textStyleDataType = '';
+  public $type;
 
-	public function setSuggestedDeletionIds($suggestedDeletionIds)
-	{
-		$this->suggestedDeletionIds = $suggestedDeletionIds;
-	}
-	public function getSuggestedDeletionIds()
-	{
-		return $this->suggestedDeletionIds;
-	}
-	public function setSuggestedInsertionIds($suggestedInsertionIds)
-	{
-		$this->suggestedInsertionIds = $suggestedInsertionIds;
-	}
-	public function getSuggestedInsertionIds()
-	{
-		return $this->suggestedInsertionIds;
-	}
-	/**
-	 * @param Google_Service_Docs_SuggestedTextStyle
-	 */
-	public function setSuggestedTextStyleChanges($suggestedTextStyleChanges)
-	{
-		$this->suggestedTextStyleChanges = $suggestedTextStyleChanges;
-	}
-	/**
-	 * @return Google_Service_Docs_SuggestedTextStyle
-	 */
-	public function getSuggestedTextStyleChanges()
-	{
-		return $this->suggestedTextStyleChanges;
-	}
-	/**
-	 * @param Google_Service_Docs_TextStyle
-	 */
-	public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
-	{
-		$this->textStyle = $textStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_TextStyle
-	 */
-	public function getTextStyle()
-	{
-		return $this->textStyle;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setSuggestedDeletionIds($suggestedDeletionIds)
+  {
+    $this->suggestedDeletionIds = $suggestedDeletionIds;
+  }
+  public function getSuggestedDeletionIds()
+  {
+    return $this->suggestedDeletionIds;
+  }
+  public function setSuggestedInsertionIds($suggestedInsertionIds)
+  {
+    $this->suggestedInsertionIds = $suggestedInsertionIds;
+  }
+  public function getSuggestedInsertionIds()
+  {
+    return $this->suggestedInsertionIds;
+  }
+  /**
+   * @param Google_Service_Docs_SuggestedTextStyle[]
+   */
+  public function setSuggestedTextStyleChanges($suggestedTextStyleChanges)
+  {
+    $this->suggestedTextStyleChanges = $suggestedTextStyleChanges;
+  }
+  /**
+   * @return Google_Service_Docs_SuggestedTextStyle[]
+   */
+  public function getSuggestedTextStyleChanges()
+  {
+    return $this->suggestedTextStyleChanges;
+  }
+  /**
+   * @param Google_Service_Docs_TextStyle
+   */
+  public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
+  {
+    $this->textStyle = $textStyle;
+  }
+  /**
+   * @return Google_Service_Docs_TextStyle
+   */
+  public function getTextStyle()
+  {
+    return $this->textStyle;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

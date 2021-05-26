@@ -17,14 +17,14 @@
 
 class Google_Service_DoubleClickBidManager_DownloadLineItemsResponse extends Google_Model
 {
-	public $lineItems;
+  public $lineItems;
 
-	public function setLineItems($lineItems)
-	{
-		$this->lineItems = $lineItems;
-	}
-	public function getLineItems()
-	{
-		return $this->lineItems;
-	}
+  public function setLineItems($lineItems)
+  {
+    $this->lineItems = $lineItems;
+  }
+  public function getLineItems()
+  {
+    return $this->lineItems;
+  }
 }

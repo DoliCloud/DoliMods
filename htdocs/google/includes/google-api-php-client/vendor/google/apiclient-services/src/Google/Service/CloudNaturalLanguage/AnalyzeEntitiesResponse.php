@@ -17,31 +17,31 @@
 
 class Google_Service_CloudNaturalLanguage_AnalyzeEntitiesResponse extends Google_Collection
 {
-	protected $collection_key = 'entities';
-	protected $entitiesType = 'Google_Service_CloudNaturalLanguage_Entity';
-	protected $entitiesDataType = 'array';
-	public $language;
+  protected $collection_key = 'entities';
+  protected $entitiesType = 'Google_Service_CloudNaturalLanguage_Entity';
+  protected $entitiesDataType = 'array';
+  public $language;
 
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_Entity
-	 */
-	public function setEntities($entities)
-	{
-		$this->entities = $entities;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_Entity
-	 */
-	public function getEntities()
-	{
-		return $this->entities;
-	}
-	public function setLanguage($language)
-	{
-		$this->language = $language;
-	}
-	public function getLanguage()
-	{
-		return $this->language;
-	}
+  /**
+   * @param Google_Service_CloudNaturalLanguage_Entity[]
+   */
+  public function setEntities($entities)
+  {
+    $this->entities = $entities;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_Entity[]
+   */
+  public function getEntities()
+  {
+    return $this->entities;
+  }
+  public function setLanguage($language)
+  {
+    $this->language = $language;
+  }
+  public function getLanguage()
+  {
+    return $this->language;
+  }
 }

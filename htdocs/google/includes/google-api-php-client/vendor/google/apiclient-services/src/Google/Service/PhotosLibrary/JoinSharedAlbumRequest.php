@@ -17,14 +17,14 @@
 
 class Google_Service_PhotosLibrary_JoinSharedAlbumRequest extends Google_Model
 {
-	public $shareToken;
+  public $shareToken;
 
-	public function setShareToken($shareToken)
-	{
-		$this->shareToken = $shareToken;
-	}
-	public function getShareToken()
-	{
-		return $this->shareToken;
-	}
+  public function setShareToken($shareToken)
+  {
+    $this->shareToken = $shareToken;
+  }
+  public function getShareToken()
+  {
+    return $this->shareToken;
+  }
 }

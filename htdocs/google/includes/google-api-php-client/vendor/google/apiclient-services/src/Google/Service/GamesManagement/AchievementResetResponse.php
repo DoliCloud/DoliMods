@@ -17,41 +17,41 @@
 
 class Google_Service_GamesManagement_AchievementResetResponse extends Google_Model
 {
-	public $currentState;
-	public $definitionId;
-	public $kind;
-	public $updateOccurred;
+  public $currentState;
+  public $definitionId;
+  public $kind;
+  public $updateOccurred;
 
-	public function setCurrentState($currentState)
-	{
-		$this->currentState = $currentState;
-	}
-	public function getCurrentState()
-	{
-		return $this->currentState;
-	}
-	public function setDefinitionId($definitionId)
-	{
-		$this->definitionId = $definitionId;
-	}
-	public function getDefinitionId()
-	{
-		return $this->definitionId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setUpdateOccurred($updateOccurred)
-	{
-		$this->updateOccurred = $updateOccurred;
-	}
-	public function getUpdateOccurred()
-	{
-		return $this->updateOccurred;
-	}
+  public function setCurrentState($currentState)
+  {
+    $this->currentState = $currentState;
+  }
+  public function getCurrentState()
+  {
+    return $this->currentState;
+  }
+  public function setDefinitionId($definitionId)
+  {
+    $this->definitionId = $definitionId;
+  }
+  public function getDefinitionId()
+  {
+    return $this->definitionId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setUpdateOccurred($updateOccurred)
+  {
+    $this->updateOccurred = $updateOccurred;
+  }
+  public function getUpdateOccurred()
+  {
+    return $this->updateOccurred;
+  }
 }

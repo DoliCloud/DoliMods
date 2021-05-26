@@ -17,31 +17,31 @@
 
 class Google_Service_SystemsManagement_ListPatchJobInstanceDetailsResponse extends Google_Collection
 {
-	protected $collection_key = 'patchJobInstanceDetails';
-	public $nextPageToken;
-	protected $patchJobInstanceDetailsType = 'Google_Service_SystemsManagement_PatchJobInstanceDetails';
-	protected $patchJobInstanceDetailsDataType = 'array';
+  protected $collection_key = 'patchJobInstanceDetails';
+  public $nextPageToken;
+  protected $patchJobInstanceDetailsType = 'Google_Service_SystemsManagement_PatchJobInstanceDetails';
+  protected $patchJobInstanceDetailsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_SystemsManagement_PatchJobInstanceDetails
-	 */
-	public function setPatchJobInstanceDetails($patchJobInstanceDetails)
-	{
-		$this->patchJobInstanceDetails = $patchJobInstanceDetails;
-	}
-	/**
-	 * @return Google_Service_SystemsManagement_PatchJobInstanceDetails
-	 */
-	public function getPatchJobInstanceDetails()
-	{
-		return $this->patchJobInstanceDetails;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_SystemsManagement_PatchJobInstanceDetails
+   */
+  public function setPatchJobInstanceDetails($patchJobInstanceDetails)
+  {
+    $this->patchJobInstanceDetails = $patchJobInstanceDetails;
+  }
+  /**
+   * @return Google_Service_SystemsManagement_PatchJobInstanceDetails
+   */
+  public function getPatchJobInstanceDetails()
+  {
+    return $this->patchJobInstanceDetails;
+  }
 }

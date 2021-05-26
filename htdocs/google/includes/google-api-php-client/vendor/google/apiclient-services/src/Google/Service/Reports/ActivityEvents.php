@@ -17,40 +17,40 @@
 
 class Google_Service_Reports_ActivityEvents extends Google_Collection
 {
-	protected $collection_key = 'parameters';
-	public $name;
-	protected $parametersType = 'Google_Service_Reports_ActivityEventsParameters';
-	protected $parametersDataType = 'array';
-	public $type;
+  protected $collection_key = 'parameters';
+  public $name;
+  protected $parametersType = 'Google_Service_Reports_ActivityEventsParameters';
+  protected $parametersDataType = 'array';
+  public $type;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Reports_ActivityEventsParameters
-	 */
-	public function setParameters($parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	/**
-	 * @return Google_Service_Reports_ActivityEventsParameters
-	 */
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Reports_ActivityEventsParameters[]
+   */
+  public function setParameters($parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  /**
+   * @return Google_Service_Reports_ActivityEventsParameters[]
+   */
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

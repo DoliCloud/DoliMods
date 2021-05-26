@@ -17,14 +17,14 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1RenameTagTemplateFieldRequest extends Google_Model
 {
-	public $newTagTemplateFieldId;
+  public $newTagTemplateFieldId;
 
-	public function setNewTagTemplateFieldId($newTagTemplateFieldId)
-	{
-		$this->newTagTemplateFieldId = $newTagTemplateFieldId;
-	}
-	public function getNewTagTemplateFieldId()
-	{
-		return $this->newTagTemplateFieldId;
-	}
+  public function setNewTagTemplateFieldId($newTagTemplateFieldId)
+  {
+    $this->newTagTemplateFieldId = $newTagTemplateFieldId;
+  }
+  public function getNewTagTemplateFieldId()
+  {
+    return $this->newTagTemplateFieldId;
+  }
 }

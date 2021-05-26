@@ -17,23 +17,23 @@
 
 class Google_Service_Vault_MailExportOptions extends Google_Model
 {
-	public $exportFormat;
-	public $showConfidentialModeContent;
+  public $exportFormat;
+  public $showConfidentialModeContent;
 
-	public function setExportFormat($exportFormat)
-	{
-		$this->exportFormat = $exportFormat;
-	}
-	public function getExportFormat()
-	{
-		return $this->exportFormat;
-	}
-	public function setShowConfidentialModeContent($showConfidentialModeContent)
-	{
-		$this->showConfidentialModeContent = $showConfidentialModeContent;
-	}
-	public function getShowConfidentialModeContent()
-	{
-		return $this->showConfidentialModeContent;
-	}
+  public function setExportFormat($exportFormat)
+  {
+    $this->exportFormat = $exportFormat;
+  }
+  public function getExportFormat()
+  {
+    return $this->exportFormat;
+  }
+  public function setShowConfidentialModeContent($showConfidentialModeContent)
+  {
+    $this->showConfidentialModeContent = $showConfidentialModeContent;
+  }
+  public function getShowConfidentialModeContent()
+  {
+    return $this->showConfidentialModeContent;
+  }
 }

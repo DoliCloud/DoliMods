@@ -17,23 +17,23 @@
 
 class Google_Service_Customsearch_SearchUrl extends Google_Model
 {
-	public $template;
-	public $type;
+  public $template;
+  public $type;
 
-	public function setTemplate($template)
-	{
-		$this->template = $template;
-	}
-	public function getTemplate()
-	{
-		return $this->template;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setTemplate($template)
+  {
+    $this->template = $template;
+  }
+  public function getTemplate()
+  {
+    return $this->template;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

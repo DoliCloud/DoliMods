@@ -17,33 +17,33 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CloudStorageRegexFileSet extends Google_Collection
 {
-	protected $collection_key = 'includeRegex';
-	public $bucketName;
-	public $excludeRegex;
-	public $includeRegex;
+  protected $collection_key = 'includeRegex';
+  public $bucketName;
+  public $excludeRegex;
+  public $includeRegex;
 
-	public function setBucketName($bucketName)
-	{
-		$this->bucketName = $bucketName;
-	}
-	public function getBucketName()
-	{
-		return $this->bucketName;
-	}
-	public function setExcludeRegex($excludeRegex)
-	{
-		$this->excludeRegex = $excludeRegex;
-	}
-	public function getExcludeRegex()
-	{
-		return $this->excludeRegex;
-	}
-	public function setIncludeRegex($includeRegex)
-	{
-		$this->includeRegex = $includeRegex;
-	}
-	public function getIncludeRegex()
-	{
-		return $this->includeRegex;
-	}
+  public function setBucketName($bucketName)
+  {
+    $this->bucketName = $bucketName;
+  }
+  public function getBucketName()
+  {
+    return $this->bucketName;
+  }
+  public function setExcludeRegex($excludeRegex)
+  {
+    $this->excludeRegex = $excludeRegex;
+  }
+  public function getExcludeRegex()
+  {
+    return $this->excludeRegex;
+  }
+  public function setIncludeRegex($includeRegex)
+  {
+    $this->includeRegex = $includeRegex;
+  }
+  public function getIncludeRegex()
+  {
+    return $this->includeRegex;
+  }
 }

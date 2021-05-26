@@ -17,31 +17,31 @@
 
 class Google_Service_DriveActivity_QueryDriveActivityResponse extends Google_Collection
 {
-	protected $collection_key = 'activities';
-	protected $activitiesType = 'Google_Service_DriveActivity_DriveActivity';
-	protected $activitiesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'activities';
+  protected $activitiesType = 'Google_Service_DriveActivity_DriveActivity';
+  protected $activitiesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DriveActivity_DriveActivity
-	 */
-	public function setActivities($activities)
-	{
-		$this->activities = $activities;
-	}
-	/**
-	 * @return Google_Service_DriveActivity_DriveActivity
-	 */
-	public function getActivities()
-	{
-		return $this->activities;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DriveActivity_DriveActivity[]
+   */
+  public function setActivities($activities)
+  {
+    $this->activities = $activities;
+  }
+  /**
+   * @return Google_Service_DriveActivity_DriveActivity[]
+   */
+  public function getActivities()
+  {
+    return $this->activities;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

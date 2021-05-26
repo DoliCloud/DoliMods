@@ -17,14 +17,14 @@
 
 class Google_Service_Container_BigQueryDestination extends Google_Model
 {
-	public $datasetId;
+  public $datasetId;
 
-	public function setDatasetId($datasetId)
-	{
-		$this->datasetId = $datasetId;
-	}
-	public function getDatasetId()
-	{
-		return $this->datasetId;
-	}
+  public function setDatasetId($datasetId)
+  {
+    $this->datasetId = $datasetId;
+  }
+  public function getDatasetId()
+  {
+    return $this->datasetId;
+  }
 }

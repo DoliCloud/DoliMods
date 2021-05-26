@@ -17,14 +17,14 @@
 
 class Google_Service_HomeGraphService_QueryResponsePayload extends Google_Model
 {
-	public $devices;
+  public $devices;
 
-	public function setDevices($devices)
-	{
-		$this->devices = $devices;
-	}
-	public function getDevices()
-	{
-		return $this->devices;
-	}
+  public function setDevices($devices)
+  {
+    $this->devices = $devices;
+  }
+  public function getDevices()
+  {
+    return $this->devices;
+  }
 }

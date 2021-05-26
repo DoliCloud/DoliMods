@@ -17,59 +17,59 @@
 
 class Google_Service_CloudRun_TrafficTarget extends Google_Model
 {
-	public $configurationName;
-	public $latestRevision;
-	public $percent;
-	public $revisionName;
-	public $tag;
-	public $url;
+  public $configurationName;
+  public $latestRevision;
+  public $percent;
+  public $revisionName;
+  public $tag;
+  public $url;
 
-	public function setConfigurationName($configurationName)
-	{
-		$this->configurationName = $configurationName;
-	}
-	public function getConfigurationName()
-	{
-		return $this->configurationName;
-	}
-	public function setLatestRevision($latestRevision)
-	{
-		$this->latestRevision = $latestRevision;
-	}
-	public function getLatestRevision()
-	{
-		return $this->latestRevision;
-	}
-	public function setPercent($percent)
-	{
-		$this->percent = $percent;
-	}
-	public function getPercent()
-	{
-		return $this->percent;
-	}
-	public function setRevisionName($revisionName)
-	{
-		$this->revisionName = $revisionName;
-	}
-	public function getRevisionName()
-	{
-		return $this->revisionName;
-	}
-	public function setTag($tag)
-	{
-		$this->tag = $tag;
-	}
-	public function getTag()
-	{
-		return $this->tag;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setConfigurationName($configurationName)
+  {
+    $this->configurationName = $configurationName;
+  }
+  public function getConfigurationName()
+  {
+    return $this->configurationName;
+  }
+  public function setLatestRevision($latestRevision)
+  {
+    $this->latestRevision = $latestRevision;
+  }
+  public function getLatestRevision()
+  {
+    return $this->latestRevision;
+  }
+  public function setPercent($percent)
+  {
+    $this->percent = $percent;
+  }
+  public function getPercent()
+  {
+    return $this->percent;
+  }
+  public function setRevisionName($revisionName)
+  {
+    $this->revisionName = $revisionName;
+  }
+  public function getRevisionName()
+  {
+    return $this->revisionName;
+  }
+  public function setTag($tag)
+  {
+    $this->tag = $tag;
+  }
+  public function getTag()
+  {
+    return $this->tag;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

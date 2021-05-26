@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SuggestTrialsRequest extends Google_Model
 {
-	public $clientId;
-	public $suggestionCount;
+  public $clientId;
+  public $suggestionCount;
 
-	public function setClientId($clientId)
-	{
-		$this->clientId = $clientId;
-	}
-	public function getClientId()
-	{
-		return $this->clientId;
-	}
-	public function setSuggestionCount($suggestionCount)
-	{
-		$this->suggestionCount = $suggestionCount;
-	}
-	public function getSuggestionCount()
-	{
-		return $this->suggestionCount;
-	}
+  public function setClientId($clientId)
+  {
+    $this->clientId = $clientId;
+  }
+  public function getClientId()
+  {
+    return $this->clientId;
+  }
+  public function setSuggestionCount($suggestionCount)
+  {
+    $this->suggestionCount = $suggestionCount;
+  }
+  public function getSuggestionCount()
+  {
+    return $this->suggestionCount;
+  }
 }

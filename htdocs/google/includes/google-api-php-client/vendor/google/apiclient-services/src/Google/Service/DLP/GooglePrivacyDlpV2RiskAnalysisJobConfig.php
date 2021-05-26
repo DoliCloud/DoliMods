@@ -17,54 +17,54 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2RiskAnalysisJobConfig extends Google_Collection
 {
-	protected $collection_key = 'actions';
-	protected $actionsType = 'Google_Service_DLP_GooglePrivacyDlpV2Action';
-	protected $actionsDataType = 'array';
-	protected $privacyMetricType = 'Google_Service_DLP_GooglePrivacyDlpV2PrivacyMetric';
-	protected $privacyMetricDataType = '';
-	protected $sourceTableType = 'Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable';
-	protected $sourceTableDataType = '';
+  protected $collection_key = 'actions';
+  protected $actionsType = 'Google_Service_DLP_GooglePrivacyDlpV2Action';
+  protected $actionsDataType = 'array';
+  protected $privacyMetricType = 'Google_Service_DLP_GooglePrivacyDlpV2PrivacyMetric';
+  protected $privacyMetricDataType = '';
+  protected $sourceTableType = 'Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable';
+  protected $sourceTableDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Action
-	 */
-	public function setActions($actions)
-	{
-		$this->actions = $actions;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Action
-	 */
-	public function getActions()
-	{
-		return $this->actions;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2PrivacyMetric
-	 */
-	public function setPrivacyMetric(Google_Service_DLP_GooglePrivacyDlpV2PrivacyMetric $privacyMetric)
-	{
-		$this->privacyMetric = $privacyMetric;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2PrivacyMetric
-	 */
-	public function getPrivacyMetric()
-	{
-		return $this->privacyMetric;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
-	 */
-	public function setSourceTable(Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable $sourceTable)
-	{
-		$this->sourceTable = $sourceTable;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
-	 */
-	public function getSourceTable()
-	{
-		return $this->sourceTable;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Action[]
+   */
+  public function setActions($actions)
+  {
+    $this->actions = $actions;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Action[]
+   */
+  public function getActions()
+  {
+    return $this->actions;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2PrivacyMetric
+   */
+  public function setPrivacyMetric(Google_Service_DLP_GooglePrivacyDlpV2PrivacyMetric $privacyMetric)
+  {
+    $this->privacyMetric = $privacyMetric;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2PrivacyMetric
+   */
+  public function getPrivacyMetric()
+  {
+    return $this->privacyMetric;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
+   */
+  public function setSourceTable(Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable $sourceTable)
+  {
+    $this->sourceTable = $sourceTable;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
+   */
+  public function getSourceTable()
+  {
+    return $this->sourceTable;
+  }
 }

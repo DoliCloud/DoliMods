@@ -17,140 +17,140 @@
 
 class Google_Service_TagManager_Environment extends Google_Model
 {
-	public $accountId;
-	public $authorizationCode;
-	public $authorizationTimestamp;
-	public $containerId;
-	public $containerVersionId;
-	public $description;
-	public $enableDebug;
-	public $environmentId;
-	public $fingerprint;
-	public $name;
-	public $path;
-	public $tagManagerUrl;
-	public $type;
-	public $url;
-	public $workspaceId;
+  public $accountId;
+  public $authorizationCode;
+  public $authorizationTimestamp;
+  public $containerId;
+  public $containerVersionId;
+  public $description;
+  public $enableDebug;
+  public $environmentId;
+  public $fingerprint;
+  public $name;
+  public $path;
+  public $tagManagerUrl;
+  public $type;
+  public $url;
+  public $workspaceId;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	public function setAuthorizationCode($authorizationCode)
-	{
-		$this->authorizationCode = $authorizationCode;
-	}
-	public function getAuthorizationCode()
-	{
-		return $this->authorizationCode;
-	}
-	public function setAuthorizationTimestamp($authorizationTimestamp)
-	{
-		$this->authorizationTimestamp = $authorizationTimestamp;
-	}
-	public function getAuthorizationTimestamp()
-	{
-		return $this->authorizationTimestamp;
-	}
-	public function setContainerId($containerId)
-	{
-		$this->containerId = $containerId;
-	}
-	public function getContainerId()
-	{
-		return $this->containerId;
-	}
-	public function setContainerVersionId($containerVersionId)
-	{
-		$this->containerVersionId = $containerVersionId;
-	}
-	public function getContainerVersionId()
-	{
-		return $this->containerVersionId;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setEnableDebug($enableDebug)
-	{
-		$this->enableDebug = $enableDebug;
-	}
-	public function getEnableDebug()
-	{
-		return $this->enableDebug;
-	}
-	public function setEnvironmentId($environmentId)
-	{
-		$this->environmentId = $environmentId;
-	}
-	public function getEnvironmentId()
-	{
-		return $this->environmentId;
-	}
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
-	public function setTagManagerUrl($tagManagerUrl)
-	{
-		$this->tagManagerUrl = $tagManagerUrl;
-	}
-	public function getTagManagerUrl()
-	{
-		return $this->tagManagerUrl;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
-	public function setWorkspaceId($workspaceId)
-	{
-		$this->workspaceId = $workspaceId;
-	}
-	public function getWorkspaceId()
-	{
-		return $this->workspaceId;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  public function setAuthorizationCode($authorizationCode)
+  {
+    $this->authorizationCode = $authorizationCode;
+  }
+  public function getAuthorizationCode()
+  {
+    return $this->authorizationCode;
+  }
+  public function setAuthorizationTimestamp($authorizationTimestamp)
+  {
+    $this->authorizationTimestamp = $authorizationTimestamp;
+  }
+  public function getAuthorizationTimestamp()
+  {
+    return $this->authorizationTimestamp;
+  }
+  public function setContainerId($containerId)
+  {
+    $this->containerId = $containerId;
+  }
+  public function getContainerId()
+  {
+    return $this->containerId;
+  }
+  public function setContainerVersionId($containerVersionId)
+  {
+    $this->containerVersionId = $containerVersionId;
+  }
+  public function getContainerVersionId()
+  {
+    return $this->containerVersionId;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setEnableDebug($enableDebug)
+  {
+    $this->enableDebug = $enableDebug;
+  }
+  public function getEnableDebug()
+  {
+    return $this->enableDebug;
+  }
+  public function setEnvironmentId($environmentId)
+  {
+    $this->environmentId = $environmentId;
+  }
+  public function getEnvironmentId()
+  {
+    return $this->environmentId;
+  }
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
+  public function setTagManagerUrl($tagManagerUrl)
+  {
+    $this->tagManagerUrl = $tagManagerUrl;
+  }
+  public function getTagManagerUrl()
+  {
+    return $this->tagManagerUrl;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
+  public function setWorkspaceId($workspaceId)
+  {
+    $this->workspaceId = $workspaceId;
+  }
+  public function getWorkspaceId()
+  {
+    return $this->workspaceId;
+  }
 }

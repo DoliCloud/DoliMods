@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_DayPartTargeting extends Google_Collection
 {
-	protected $collection_key = 'dayParts';
-	protected $dayPartsType = 'Google_Service_AdExchangeBuyerII_DayPart';
-	protected $dayPartsDataType = 'array';
-	public $timeZoneType;
+  protected $collection_key = 'dayParts';
+  protected $dayPartsType = 'Google_Service_AdExchangeBuyerII_DayPart';
+  protected $dayPartsDataType = 'array';
+  public $timeZoneType;
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_DayPart
-	 */
-	public function setDayParts($dayParts)
-	{
-		$this->dayParts = $dayParts;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_DayPart
-	 */
-	public function getDayParts()
-	{
-		return $this->dayParts;
-	}
-	public function setTimeZoneType($timeZoneType)
-	{
-		$this->timeZoneType = $timeZoneType;
-	}
-	public function getTimeZoneType()
-	{
-		return $this->timeZoneType;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_DayPart[]
+   */
+  public function setDayParts($dayParts)
+  {
+    $this->dayParts = $dayParts;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_DayPart[]
+   */
+  public function getDayParts()
+  {
+    return $this->dayParts;
+  }
+  public function setTimeZoneType($timeZoneType)
+  {
+    $this->timeZoneType = $timeZoneType;
+  }
+  public function getTimeZoneType()
+  {
+    return $this->timeZoneType;
+  }
 }

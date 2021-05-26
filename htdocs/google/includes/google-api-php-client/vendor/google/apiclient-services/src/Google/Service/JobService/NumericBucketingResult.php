@@ -17,40 +17,40 @@
 
 class Google_Service_JobService_NumericBucketingResult extends Google_Collection
 {
-	protected $collection_key = 'counts';
-	protected $countsType = 'Google_Service_JobService_BucketizedCount';
-	protected $countsDataType = 'array';
-	public $maxValue;
-	public $minValue;
+  protected $collection_key = 'counts';
+  protected $countsType = 'Google_Service_JobService_BucketizedCount';
+  protected $countsDataType = 'array';
+  public $maxValue;
+  public $minValue;
 
-	/**
-	 * @param Google_Service_JobService_BucketizedCount
-	 */
-	public function setCounts($counts)
-	{
-		$this->counts = $counts;
-	}
-	/**
-	 * @return Google_Service_JobService_BucketizedCount
-	 */
-	public function getCounts()
-	{
-		return $this->counts;
-	}
-	public function setMaxValue($maxValue)
-	{
-		$this->maxValue = $maxValue;
-	}
-	public function getMaxValue()
-	{
-		return $this->maxValue;
-	}
-	public function setMinValue($minValue)
-	{
-		$this->minValue = $minValue;
-	}
-	public function getMinValue()
-	{
-		return $this->minValue;
-	}
+  /**
+   * @param Google_Service_JobService_BucketizedCount
+   */
+  public function setCounts($counts)
+  {
+    $this->counts = $counts;
+  }
+  /**
+   * @return Google_Service_JobService_BucketizedCount
+   */
+  public function getCounts()
+  {
+    return $this->counts;
+  }
+  public function setMaxValue($maxValue)
+  {
+    $this->maxValue = $maxValue;
+  }
+  public function getMaxValue()
+  {
+    return $this->maxValue;
+  }
+  public function setMinValue($minValue)
+  {
+    $this->minValue = $minValue;
+  }
+  public function getMinValue()
+  {
+    return $this->minValue;
+  }
 }

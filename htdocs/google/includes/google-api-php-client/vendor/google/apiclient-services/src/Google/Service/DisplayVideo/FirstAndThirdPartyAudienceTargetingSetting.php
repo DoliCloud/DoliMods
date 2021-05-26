@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_FirstAndThirdPartyAudienceTargetingSetting extends Google_Model
 {
-	public $firstAndThirdPartyAudienceId;
-	public $recency;
+  public $firstAndThirdPartyAudienceId;
+  public $recency;
 
-	public function setFirstAndThirdPartyAudienceId($firstAndThirdPartyAudienceId)
-	{
-		$this->firstAndThirdPartyAudienceId = $firstAndThirdPartyAudienceId;
-	}
-	public function getFirstAndThirdPartyAudienceId()
-	{
-		return $this->firstAndThirdPartyAudienceId;
-	}
-	public function setRecency($recency)
-	{
-		$this->recency = $recency;
-	}
-	public function getRecency()
-	{
-		return $this->recency;
-	}
+  public function setFirstAndThirdPartyAudienceId($firstAndThirdPartyAudienceId)
+  {
+    $this->firstAndThirdPartyAudienceId = $firstAndThirdPartyAudienceId;
+  }
+  public function getFirstAndThirdPartyAudienceId()
+  {
+    return $this->firstAndThirdPartyAudienceId;
+  }
+  public function setRecency($recency)
+  {
+    $this->recency = $recency;
+  }
+  public function getRecency()
+  {
+    return $this->recency;
+  }
 }

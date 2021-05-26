@@ -17,93 +17,93 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1OperationMetadata extends Google_Model
 {
-	public $createTime;
-	public $endTime;
-	public $isCancellationRequested;
-	public $labels;
-	public $modelName;
-	public $operationType;
-	public $projectNumber;
-	public $startTime;
-	protected $versionType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version';
-	protected $versionDataType = '';
+  public $createTime;
+  public $endTime;
+  public $isCancellationRequested;
+  public $labels;
+  public $modelName;
+  public $operationType;
+  public $projectNumber;
+  public $startTime;
+  protected $versionType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version';
+  protected $versionDataType = '';
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setIsCancellationRequested($isCancellationRequested)
-	{
-		$this->isCancellationRequested = $isCancellationRequested;
-	}
-	public function getIsCancellationRequested()
-	{
-		return $this->isCancellationRequested;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setModelName($modelName)
-	{
-		$this->modelName = $modelName;
-	}
-	public function getModelName()
-	{
-		return $this->modelName;
-	}
-	public function setOperationType($operationType)
-	{
-		$this->operationType = $operationType;
-	}
-	public function getOperationType()
-	{
-		return $this->operationType;
-	}
-	public function setProjectNumber($projectNumber)
-	{
-		$this->projectNumber = $projectNumber;
-	}
-	public function getProjectNumber()
-	{
-		return $this->projectNumber;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
-	/**
-	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version
-	 */
-	public function setVersion(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version $version)
-	{
-		$this->version = $version;
-	}
-	/**
-	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version
-	 */
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setIsCancellationRequested($isCancellationRequested)
+  {
+    $this->isCancellationRequested = $isCancellationRequested;
+  }
+  public function getIsCancellationRequested()
+  {
+    return $this->isCancellationRequested;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setModelName($modelName)
+  {
+    $this->modelName = $modelName;
+  }
+  public function getModelName()
+  {
+    return $this->modelName;
+  }
+  public function setOperationType($operationType)
+  {
+    $this->operationType = $operationType;
+  }
+  public function getOperationType()
+  {
+    return $this->operationType;
+  }
+  public function setProjectNumber($projectNumber)
+  {
+    $this->projectNumber = $projectNumber;
+  }
+  public function getProjectNumber()
+  {
+    return $this->projectNumber;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version
+   */
+  public function setVersion(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version $version)
+  {
+    $this->version = $version;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version
+   */
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

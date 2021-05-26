@@ -17,32 +17,32 @@
 
 class Google_Service_CloudRun_KeyToPath extends Google_Model
 {
-	public $key;
-	public $mode;
-	public $path;
+  public $key;
+  public $mode;
+  public $path;
 
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setMode($mode)
-	{
-		$this->mode = $mode;
-	}
-	public function getMode()
-	{
-		return $this->mode;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
+  public function getMode()
+  {
+    return $this->mode;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_InlineObjectProperties extends Google_Model
 {
-	protected $embeddedObjectType = 'Google_Service_Docs_EmbeddedObject';
-	protected $embeddedObjectDataType = '';
+  protected $embeddedObjectType = 'Google_Service_Docs_EmbeddedObject';
+  protected $embeddedObjectDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_EmbeddedObject
-	 */
-	public function setEmbeddedObject(Google_Service_Docs_EmbeddedObject $embeddedObject)
-	{
-		$this->embeddedObject = $embeddedObject;
-	}
-	/**
-	 * @return Google_Service_Docs_EmbeddedObject
-	 */
-	public function getEmbeddedObject()
-	{
-		return $this->embeddedObject;
-	}
+  /**
+   * @param Google_Service_Docs_EmbeddedObject
+   */
+  public function setEmbeddedObject(Google_Service_Docs_EmbeddedObject $embeddedObject)
+  {
+    $this->embeddedObject = $embeddedObject;
+  }
+  /**
+   * @return Google_Service_Docs_EmbeddedObject
+   */
+  public function getEmbeddedObject()
+  {
+    return $this->embeddedObject;
+  }
 }

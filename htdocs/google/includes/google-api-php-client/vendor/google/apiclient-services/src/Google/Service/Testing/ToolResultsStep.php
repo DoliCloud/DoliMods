@@ -17,41 +17,41 @@
 
 class Google_Service_Testing_ToolResultsStep extends Google_Model
 {
-	public $executionId;
-	public $historyId;
-	public $projectId;
-	public $stepId;
+  public $executionId;
+  public $historyId;
+  public $projectId;
+  public $stepId;
 
-	public function setExecutionId($executionId)
-	{
-		$this->executionId = $executionId;
-	}
-	public function getExecutionId()
-	{
-		return $this->executionId;
-	}
-	public function setHistoryId($historyId)
-	{
-		$this->historyId = $historyId;
-	}
-	public function getHistoryId()
-	{
-		return $this->historyId;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setStepId($stepId)
-	{
-		$this->stepId = $stepId;
-	}
-	public function getStepId()
-	{
-		return $this->stepId;
-	}
+  public function setExecutionId($executionId)
+  {
+    $this->executionId = $executionId;
+  }
+  public function getExecutionId()
+  {
+    return $this->executionId;
+  }
+  public function setHistoryId($historyId)
+  {
+    $this->historyId = $historyId;
+  }
+  public function getHistoryId()
+  {
+    return $this->historyId;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setStepId($stepId)
+  {
+    $this->stepId = $stepId;
+  }
+  public function getStepId()
+  {
+    return $this->stepId;
+  }
 }

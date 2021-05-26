@@ -25,16 +25,16 @@
  */
 class Google_Service_Oauth2_Resource_Userinfo extends Google_Service_Resource
 {
-	/**
-	 * (userinfo.get)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Oauth2_Userinfo
-	 */
-	public function get($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Oauth2_Userinfo");
-	}
+  /**
+   * (userinfo.get)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Oauth2_Userinfo
+   */
+  public function get($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Oauth2_Userinfo");
+  }
 }

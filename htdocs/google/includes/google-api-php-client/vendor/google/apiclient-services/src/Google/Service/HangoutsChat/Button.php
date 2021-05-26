@@ -17,37 +17,37 @@
 
 class Google_Service_HangoutsChat_Button extends Google_Model
 {
-	protected $imageButtonType = 'Google_Service_HangoutsChat_ImageButton';
-	protected $imageButtonDataType = '';
-	protected $textButtonType = 'Google_Service_HangoutsChat_TextButton';
-	protected $textButtonDataType = '';
+  protected $imageButtonType = 'Google_Service_HangoutsChat_ImageButton';
+  protected $imageButtonDataType = '';
+  protected $textButtonType = 'Google_Service_HangoutsChat_TextButton';
+  protected $textButtonDataType = '';
 
-	/**
-	 * @param Google_Service_HangoutsChat_ImageButton
-	 */
-	public function setImageButton(Google_Service_HangoutsChat_ImageButton $imageButton)
-	{
-		$this->imageButton = $imageButton;
-	}
-	/**
-	 * @return Google_Service_HangoutsChat_ImageButton
-	 */
-	public function getImageButton()
-	{
-		return $this->imageButton;
-	}
-	/**
-	 * @param Google_Service_HangoutsChat_TextButton
-	 */
-	public function setTextButton(Google_Service_HangoutsChat_TextButton $textButton)
-	{
-		$this->textButton = $textButton;
-	}
-	/**
-	 * @return Google_Service_HangoutsChat_TextButton
-	 */
-	public function getTextButton()
-	{
-		return $this->textButton;
-	}
+  /**
+   * @param Google_Service_HangoutsChat_ImageButton
+   */
+  public function setImageButton(Google_Service_HangoutsChat_ImageButton $imageButton)
+  {
+    $this->imageButton = $imageButton;
+  }
+  /**
+   * @return Google_Service_HangoutsChat_ImageButton
+   */
+  public function getImageButton()
+  {
+    return $this->imageButton;
+  }
+  /**
+   * @param Google_Service_HangoutsChat_TextButton
+   */
+  public function setTextButton(Google_Service_HangoutsChat_TextButton $textButton)
+  {
+    $this->textButton = $textButton;
+  }
+  /**
+   * @return Google_Service_HangoutsChat_TextButton
+   */
+  public function getTextButton()
+  {
+    return $this->textButton;
+  }
 }

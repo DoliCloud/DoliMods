@@ -17,55 +17,55 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p3beta1Symbol extends Google_Model
 {
-	protected $boundingBoxType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1BoundingPoly';
-	protected $boundingBoxDataType = '';
-	public $confidence;
-	protected $propertyType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationTextProperty';
-	protected $propertyDataType = '';
-	public $text;
+  protected $boundingBoxType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1BoundingPoly';
+  protected $boundingBoxDataType = '';
+  public $confidence;
+  protected $propertyType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationTextProperty';
+  protected $propertyDataType = '';
+  public $text;
 
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1BoundingPoly
-	 */
-	public function setBoundingBox(Google_Service_Vision_GoogleCloudVisionV1p3beta1BoundingPoly $boundingBox)
-	{
-		$this->boundingBox = $boundingBox;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1BoundingPoly
-	 */
-	public function getBoundingBox()
-	{
-		return $this->boundingBox;
-	}
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationTextProperty
-	 */
-	public function setProperty(Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationTextProperty $property)
-	{
-		$this->property = $property;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationTextProperty
-	 */
-	public function getProperty()
-	{
-		return $this->property;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1BoundingPoly
+   */
+  public function setBoundingBox(Google_Service_Vision_GoogleCloudVisionV1p3beta1BoundingPoly $boundingBox)
+  {
+    $this->boundingBox = $boundingBox;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1BoundingPoly
+   */
+  public function getBoundingBox()
+  {
+    return $this->boundingBox;
+  }
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationTextProperty
+   */
+  public function setProperty(Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationTextProperty $property)
+  {
+    $this->property = $property;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1TextAnnotationTextProperty
+   */
+  public function getProperty()
+  {
+    return $this->property;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

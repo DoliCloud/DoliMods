@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_ShipmentTrackingInfo extends Google_Model
 {
-	public $carrier;
-	public $trackingNumber;
+  public $carrier;
+  public $trackingNumber;
 
-	public function setCarrier($carrier)
-	{
-		$this->carrier = $carrier;
-	}
-	public function getCarrier()
-	{
-		return $this->carrier;
-	}
-	public function setTrackingNumber($trackingNumber)
-	{
-		$this->trackingNumber = $trackingNumber;
-	}
-	public function getTrackingNumber()
-	{
-		return $this->trackingNumber;
-	}
+  public function setCarrier($carrier)
+  {
+    $this->carrier = $carrier;
+  }
+  public function getCarrier()
+  {
+    return $this->carrier;
+  }
+  public function setTrackingNumber($trackingNumber)
+  {
+    $this->trackingNumber = $trackingNumber;
+  }
+  public function getTrackingNumber()
+  {
+    return $this->trackingNumber;
+  }
 }

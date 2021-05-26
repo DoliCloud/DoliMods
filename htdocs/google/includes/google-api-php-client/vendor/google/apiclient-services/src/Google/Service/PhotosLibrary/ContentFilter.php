@@ -17,24 +17,24 @@
 
 class Google_Service_PhotosLibrary_ContentFilter extends Google_Collection
 {
-	protected $collection_key = 'includedContentCategories';
-	public $excludedContentCategories;
-	public $includedContentCategories;
+  protected $collection_key = 'includedContentCategories';
+  public $excludedContentCategories;
+  public $includedContentCategories;
 
-	public function setExcludedContentCategories($excludedContentCategories)
-	{
-		$this->excludedContentCategories = $excludedContentCategories;
-	}
-	public function getExcludedContentCategories()
-	{
-		return $this->excludedContentCategories;
-	}
-	public function setIncludedContentCategories($includedContentCategories)
-	{
-		$this->includedContentCategories = $includedContentCategories;
-	}
-	public function getIncludedContentCategories()
-	{
-		return $this->includedContentCategories;
-	}
+  public function setExcludedContentCategories($excludedContentCategories)
+  {
+    $this->excludedContentCategories = $excludedContentCategories;
+  }
+  public function getExcludedContentCategories()
+  {
+    return $this->excludedContentCategories;
+  }
+  public function setIncludedContentCategories($includedContentCategories)
+  {
+    $this->includedContentCategories = $includedContentCategories;
+  }
+  public function getIncludedContentCategories()
+  {
+    return $this->includedContentCategories;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_AppAssignedTargetingOptionDetails extends Google_Model
 {
-	public $appId;
-	public $displayName;
-	public $negative;
+  public $appId;
+  public $displayName;
+  public $negative;
 
-	public function setAppId($appId)
-	{
-		$this->appId = $appId;
-	}
-	public function getAppId()
-	{
-		return $this->appId;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setNegative($negative)
-	{
-		$this->negative = $negative;
-	}
-	public function getNegative()
-	{
-		return $this->negative;
-	}
+  public function setAppId($appId)
+  {
+    $this->appId = $appId;
+  }
+  public function getAppId()
+  {
+    return $this->appId;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setNegative($negative)
+  {
+    $this->negative = $negative;
+  }
+  public function getNegative()
+  {
+    return $this->negative;
+  }
 }

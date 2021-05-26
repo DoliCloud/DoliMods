@@ -17,24 +17,24 @@
 
 class Google_Service_JobService_CustomFieldFilter extends Google_Collection
 {
-	protected $collection_key = 'queries';
-	public $queries;
-	public $type;
+  protected $collection_key = 'queries';
+  public $queries;
+  public $type;
 
-	public function setQueries($queries)
-	{
-		$this->queries = $queries;
-	}
-	public function getQueries()
-	{
-		return $this->queries;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setQueries($queries)
+  {
+    $this->queries = $queries;
+  }
+  public function getQueries()
+  {
+    return $this->queries;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

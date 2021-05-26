@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedListProperties extends Google_Model
 {
-	protected $listPropertiesType = 'Google_Service_Docs_ListProperties';
-	protected $listPropertiesDataType = '';
-	protected $listPropertiesSuggestionStateType = 'Google_Service_Docs_ListPropertiesSuggestionState';
-	protected $listPropertiesSuggestionStateDataType = '';
+  protected $listPropertiesType = 'Google_Service_Docs_ListProperties';
+  protected $listPropertiesDataType = '';
+  protected $listPropertiesSuggestionStateType = 'Google_Service_Docs_ListPropertiesSuggestionState';
+  protected $listPropertiesSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_ListProperties
-	 */
-	public function setListProperties(Google_Service_Docs_ListProperties $listProperties)
-	{
-		$this->listProperties = $listProperties;
-	}
-	/**
-	 * @return Google_Service_Docs_ListProperties
-	 */
-	public function getListProperties()
-	{
-		return $this->listProperties;
-	}
-	/**
-	 * @param Google_Service_Docs_ListPropertiesSuggestionState
-	 */
-	public function setListPropertiesSuggestionState(Google_Service_Docs_ListPropertiesSuggestionState $listPropertiesSuggestionState)
-	{
-		$this->listPropertiesSuggestionState = $listPropertiesSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_ListPropertiesSuggestionState
-	 */
-	public function getListPropertiesSuggestionState()
-	{
-		return $this->listPropertiesSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_ListProperties
+   */
+  public function setListProperties(Google_Service_Docs_ListProperties $listProperties)
+  {
+    $this->listProperties = $listProperties;
+  }
+  /**
+   * @return Google_Service_Docs_ListProperties
+   */
+  public function getListProperties()
+  {
+    return $this->listProperties;
+  }
+  /**
+   * @param Google_Service_Docs_ListPropertiesSuggestionState
+   */
+  public function setListPropertiesSuggestionState(Google_Service_Docs_ListPropertiesSuggestionState $listPropertiesSuggestionState)
+  {
+    $this->listPropertiesSuggestionState = $listPropertiesSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_ListPropertiesSuggestionState
+   */
+  public function getListPropertiesSuggestionState()
+  {
+    return $this->listPropertiesSuggestionState;
+  }
 }

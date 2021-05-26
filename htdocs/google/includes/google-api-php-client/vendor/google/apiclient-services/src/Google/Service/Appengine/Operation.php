@@ -17,57 +17,57 @@
 
 class Google_Service_Appengine_Operation extends Google_Model
 {
-	public $done;
-	protected $errorType = 'Google_Service_Appengine_Status';
-	protected $errorDataType = '';
-	public $metadata;
-	public $name;
-	public $response;
+  public $done;
+  protected $errorType = 'Google_Service_Appengine_Status';
+  protected $errorDataType = '';
+  public $metadata;
+  public $name;
+  public $response;
 
-	public function setDone($done)
-	{
-		$this->done = $done;
-	}
-	public function getDone()
-	{
-		return $this->done;
-	}
-	/**
-	 * @param Google_Service_Appengine_Status
-	 */
-	public function setError(Google_Service_Appengine_Status $error)
-	{
-		$this->error = $error;
-	}
-	/**
-	 * @return Google_Service_Appengine_Status
-	 */
-	public function getError()
-	{
-		return $this->error;
-	}
-	public function setMetadata($metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setResponse($response)
-	{
-		$this->response = $response;
-	}
-	public function getResponse()
-	{
-		return $this->response;
-	}
+  public function setDone($done)
+  {
+    $this->done = $done;
+  }
+  public function getDone()
+  {
+    return $this->done;
+  }
+  /**
+   * @param Google_Service_Appengine_Status
+   */
+  public function setError(Google_Service_Appengine_Status $error)
+  {
+    $this->error = $error;
+  }
+  /**
+   * @return Google_Service_Appengine_Status
+   */
+  public function getError()
+  {
+    return $this->error;
+  }
+  public function setMetadata($metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setResponse($response)
+  {
+    $this->response = $response;
+  }
+  public function getResponse()
+  {
+    return $this->response;
+  }
 }

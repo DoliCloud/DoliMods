@@ -17,60 +17,60 @@
 
 class Google_Service_Dfareporting_AccountPermission extends Google_Collection
 {
-	protected $collection_key = 'accountProfiles';
-	public $accountProfiles;
-	public $id;
-	public $kind;
-	public $level;
-	public $name;
-	public $permissionGroupId;
+  protected $collection_key = 'accountProfiles';
+  public $accountProfiles;
+  public $id;
+  public $kind;
+  public $level;
+  public $name;
+  public $permissionGroupId;
 
-	public function setAccountProfiles($accountProfiles)
-	{
-		$this->accountProfiles = $accountProfiles;
-	}
-	public function getAccountProfiles()
-	{
-		return $this->accountProfiles;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLevel($level)
-	{
-		$this->level = $level;
-	}
-	public function getLevel()
-	{
-		return $this->level;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPermissionGroupId($permissionGroupId)
-	{
-		$this->permissionGroupId = $permissionGroupId;
-	}
-	public function getPermissionGroupId()
-	{
-		return $this->permissionGroupId;
-	}
+  public function setAccountProfiles($accountProfiles)
+  {
+    $this->accountProfiles = $accountProfiles;
+  }
+  public function getAccountProfiles()
+  {
+    return $this->accountProfiles;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLevel($level)
+  {
+    $this->level = $level;
+  }
+  public function getLevel()
+  {
+    return $this->level;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPermissionGroupId($permissionGroupId)
+  {
+    $this->permissionGroupId = $permissionGroupId;
+  }
+  public function getPermissionGroupId()
+  {
+    return $this->permissionGroupId;
+  }
 }

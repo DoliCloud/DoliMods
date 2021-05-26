@@ -17,32 +17,32 @@
 
 class Google_Service_Fitness_DataTypeField extends Google_Model
 {
-	public $format;
-	public $name;
-	public $optional;
+  public $format;
+  public $name;
+  public $optional;
 
-	public function setFormat($format)
-	{
-		$this->format = $format;
-	}
-	public function getFormat()
-	{
-		return $this->format;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOptional($optional)
-	{
-		$this->optional = $optional;
-	}
-	public function getOptional()
-	{
-		return $this->optional;
-	}
+  public function setFormat($format)
+  {
+    $this->format = $format;
+  }
+  public function getFormat()
+  {
+    return $this->format;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOptional($optional)
+  {
+    $this->optional = $optional;
+  }
+  public function getOptional()
+  {
+    return $this->optional;
+  }
 }

@@ -17,74 +17,74 @@
 
 class Google_Service_Customsearch_Promotion extends Google_Collection
 {
-	protected $collection_key = 'bodyLines';
-	protected $bodyLinesType = 'Google_Service_Customsearch_PromotionBodyLines';
-	protected $bodyLinesDataType = 'array';
-	public $displayLink;
-	public $htmlTitle;
-	protected $imageType = 'Google_Service_Customsearch_PromotionImage';
-	protected $imageDataType = '';
-	public $link;
-	public $title;
+  protected $collection_key = 'bodyLines';
+  protected $bodyLinesType = 'Google_Service_Customsearch_PromotionBodyLines';
+  protected $bodyLinesDataType = 'array';
+  public $displayLink;
+  public $htmlTitle;
+  protected $imageType = 'Google_Service_Customsearch_PromotionImage';
+  protected $imageDataType = '';
+  public $link;
+  public $title;
 
-	/**
-	 * @param Google_Service_Customsearch_PromotionBodyLines
-	 */
-	public function setBodyLines($bodyLines)
-	{
-		$this->bodyLines = $bodyLines;
-	}
-	/**
-	 * @return Google_Service_Customsearch_PromotionBodyLines
-	 */
-	public function getBodyLines()
-	{
-		return $this->bodyLines;
-	}
-	public function setDisplayLink($displayLink)
-	{
-		$this->displayLink = $displayLink;
-	}
-	public function getDisplayLink()
-	{
-		return $this->displayLink;
-	}
-	public function setHtmlTitle($htmlTitle)
-	{
-		$this->htmlTitle = $htmlTitle;
-	}
-	public function getHtmlTitle()
-	{
-		return $this->htmlTitle;
-	}
-	/**
-	 * @param Google_Service_Customsearch_PromotionImage
-	 */
-	public function setImage(Google_Service_Customsearch_PromotionImage $image)
-	{
-		$this->image = $image;
-	}
-	/**
-	 * @return Google_Service_Customsearch_PromotionImage
-	 */
-	public function getImage()
-	{
-		return $this->image;
-	}
-	public function setLink($link)
-	{
-		$this->link = $link;
-	}
-	public function getLink()
-	{
-		return $this->link;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  /**
+   * @param Google_Service_Customsearch_PromotionBodyLines
+   */
+  public function setBodyLines($bodyLines)
+  {
+    $this->bodyLines = $bodyLines;
+  }
+  /**
+   * @return Google_Service_Customsearch_PromotionBodyLines
+   */
+  public function getBodyLines()
+  {
+    return $this->bodyLines;
+  }
+  public function setDisplayLink($displayLink)
+  {
+    $this->displayLink = $displayLink;
+  }
+  public function getDisplayLink()
+  {
+    return $this->displayLink;
+  }
+  public function setHtmlTitle($htmlTitle)
+  {
+    $this->htmlTitle = $htmlTitle;
+  }
+  public function getHtmlTitle()
+  {
+    return $this->htmlTitle;
+  }
+  /**
+   * @param Google_Service_Customsearch_PromotionImage
+   */
+  public function setImage(Google_Service_Customsearch_PromotionImage $image)
+  {
+    $this->image = $image;
+  }
+  /**
+   * @return Google_Service_Customsearch_PromotionImage
+   */
+  public function getImage()
+  {
+    return $this->image;
+  }
+  public function setLink($link)
+  {
+    $this->link = $link;
+  }
+  public function getLink()
+  {
+    return $this->link;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

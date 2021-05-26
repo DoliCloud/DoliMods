@@ -17,32 +17,32 @@
 
 class Google_Service_CloudResourceManager_ProjectCreationStatus extends Google_Model
 {
-	public $createTime;
-	public $gettable;
-	public $ready;
+  public $createTime;
+  public $gettable;
+  public $ready;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setGettable($gettable)
-	{
-		$this->gettable = $gettable;
-	}
-	public function getGettable()
-	{
-		return $this->gettable;
-	}
-	public function setReady($ready)
-	{
-		$this->ready = $ready;
-	}
-	public function getReady()
-	{
-		return $this->ready;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setGettable($gettable)
+  {
+    $this->gettable = $gettable;
+  }
+  public function getGettable()
+  {
+    return $this->gettable;
+  }
+  public function setReady($ready)
+  {
+    $this->ready = $ready;
+  }
+  public function getReady()
+  {
+    return $this->ready;
+  }
 }

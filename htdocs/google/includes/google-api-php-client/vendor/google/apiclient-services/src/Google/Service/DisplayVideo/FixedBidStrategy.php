@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_FixedBidStrategy extends Google_Model
 {
-	public $bidAmountMicros;
+  public $bidAmountMicros;
 
-	public function setBidAmountMicros($bidAmountMicros)
-	{
-		$this->bidAmountMicros = $bidAmountMicros;
-	}
-	public function getBidAmountMicros()
-	{
-		return $this->bidAmountMicros;
-	}
+  public function setBidAmountMicros($bidAmountMicros)
+  {
+    $this->bidAmountMicros = $bidAmountMicros;
+  }
+  public function getBidAmountMicros()
+  {
+    return $this->bidAmountMicros;
+  }
 }

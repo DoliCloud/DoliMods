@@ -17,53 +17,53 @@
 
 class Google_Service_Logging_BucketOptions extends Google_Model
 {
-	protected $explicitBucketsType = 'Google_Service_Logging_Explicit';
-	protected $explicitBucketsDataType = '';
-	protected $exponentialBucketsType = 'Google_Service_Logging_Exponential';
-	protected $exponentialBucketsDataType = '';
-	protected $linearBucketsType = 'Google_Service_Logging_Linear';
-	protected $linearBucketsDataType = '';
+  protected $explicitBucketsType = 'Google_Service_Logging_Explicit';
+  protected $explicitBucketsDataType = '';
+  protected $exponentialBucketsType = 'Google_Service_Logging_Exponential';
+  protected $exponentialBucketsDataType = '';
+  protected $linearBucketsType = 'Google_Service_Logging_Linear';
+  protected $linearBucketsDataType = '';
 
-	/**
-	 * @param Google_Service_Logging_Explicit
-	 */
-	public function setExplicitBuckets(Google_Service_Logging_Explicit $explicitBuckets)
-	{
-		$this->explicitBuckets = $explicitBuckets;
-	}
-	/**
-	 * @return Google_Service_Logging_Explicit
-	 */
-	public function getExplicitBuckets()
-	{
-		return $this->explicitBuckets;
-	}
-	/**
-	 * @param Google_Service_Logging_Exponential
-	 */
-	public function setExponentialBuckets(Google_Service_Logging_Exponential $exponentialBuckets)
-	{
-		$this->exponentialBuckets = $exponentialBuckets;
-	}
-	/**
-	 * @return Google_Service_Logging_Exponential
-	 */
-	public function getExponentialBuckets()
-	{
-		return $this->exponentialBuckets;
-	}
-	/**
-	 * @param Google_Service_Logging_Linear
-	 */
-	public function setLinearBuckets(Google_Service_Logging_Linear $linearBuckets)
-	{
-		$this->linearBuckets = $linearBuckets;
-	}
-	/**
-	 * @return Google_Service_Logging_Linear
-	 */
-	public function getLinearBuckets()
-	{
-		return $this->linearBuckets;
-	}
+  /**
+   * @param Google_Service_Logging_Explicit
+   */
+  public function setExplicitBuckets(Google_Service_Logging_Explicit $explicitBuckets)
+  {
+    $this->explicitBuckets = $explicitBuckets;
+  }
+  /**
+   * @return Google_Service_Logging_Explicit
+   */
+  public function getExplicitBuckets()
+  {
+    return $this->explicitBuckets;
+  }
+  /**
+   * @param Google_Service_Logging_Exponential
+   */
+  public function setExponentialBuckets(Google_Service_Logging_Exponential $exponentialBuckets)
+  {
+    $this->exponentialBuckets = $exponentialBuckets;
+  }
+  /**
+   * @return Google_Service_Logging_Exponential
+   */
+  public function getExponentialBuckets()
+  {
+    return $this->exponentialBuckets;
+  }
+  /**
+   * @param Google_Service_Logging_Linear
+   */
+  public function setLinearBuckets(Google_Service_Logging_Linear $linearBuckets)
+  {
+    $this->linearBuckets = $linearBuckets;
+  }
+  /**
+   * @return Google_Service_Logging_Linear
+   */
+  public function getLinearBuckets()
+  {
+    return $this->linearBuckets;
+  }
 }

@@ -17,58 +17,58 @@
 
 class Google_Service_Storage_Policy extends Google_Collection
 {
-	protected $collection_key = 'bindings';
-	protected $bindingsType = 'Google_Service_Storage_PolicyBindings';
-	protected $bindingsDataType = 'array';
-	public $etag;
-	public $kind;
-	public $resourceId;
-	public $version;
+  protected $collection_key = 'bindings';
+  protected $bindingsType = 'Google_Service_Storage_PolicyBindings';
+  protected $bindingsDataType = 'array';
+  public $etag;
+  public $kind;
+  public $resourceId;
+  public $version;
 
-	/**
-	 * @param Google_Service_Storage_PolicyBindings
-	 */
-	public function setBindings($bindings)
-	{
-		$this->bindings = $bindings;
-	}
-	/**
-	 * @return Google_Service_Storage_PolicyBindings
-	 */
-	public function getBindings()
-	{
-		return $this->bindings;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setResourceId($resourceId)
-	{
-		$this->resourceId = $resourceId;
-	}
-	public function getResourceId()
-	{
-		return $this->resourceId;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_Storage_PolicyBindings[]
+   */
+  public function setBindings($bindings)
+  {
+    $this->bindings = $bindings;
+  }
+  /**
+   * @return Google_Service_Storage_PolicyBindings[]
+   */
+  public function getBindings()
+  {
+    return $this->bindings;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setResourceId($resourceId)
+  {
+    $this->resourceId = $resourceId;
+  }
+  public function getResourceId()
+  {
+    return $this->resourceId;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

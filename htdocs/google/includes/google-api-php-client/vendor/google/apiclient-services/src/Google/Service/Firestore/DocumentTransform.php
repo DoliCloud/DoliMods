@@ -17,31 +17,31 @@
 
 class Google_Service_Firestore_DocumentTransform extends Google_Collection
 {
-	protected $collection_key = 'fieldTransforms';
-	public $document;
-	protected $fieldTransformsType = 'Google_Service_Firestore_FieldTransform';
-	protected $fieldTransformsDataType = 'array';
+  protected $collection_key = 'fieldTransforms';
+  public $document;
+  protected $fieldTransformsType = 'Google_Service_Firestore_FieldTransform';
+  protected $fieldTransformsDataType = 'array';
 
-	public function setDocument($document)
-	{
-		$this->document = $document;
-	}
-	public function getDocument()
-	{
-		return $this->document;
-	}
-	/**
-	 * @param Google_Service_Firestore_FieldTransform
-	 */
-	public function setFieldTransforms($fieldTransforms)
-	{
-		$this->fieldTransforms = $fieldTransforms;
-	}
-	/**
-	 * @return Google_Service_Firestore_FieldTransform
-	 */
-	public function getFieldTransforms()
-	{
-		return $this->fieldTransforms;
-	}
+  public function setDocument($document)
+  {
+    $this->document = $document;
+  }
+  public function getDocument()
+  {
+    return $this->document;
+  }
+  /**
+   * @param Google_Service_Firestore_FieldTransform[]
+   */
+  public function setFieldTransforms($fieldTransforms)
+  {
+    $this->fieldTransforms = $fieldTransforms;
+  }
+  /**
+   * @return Google_Service_Firestore_FieldTransform[]
+   */
+  public function getFieldTransforms()
+  {
+    return $this->fieldTransforms;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ReplaceValueConfig extends Google_Model
 {
-	protected $newValueType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
-	protected $newValueDataType = '';
+  protected $newValueType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
+  protected $newValueDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Value
-	 */
-	public function setNewValue(Google_Service_DLP_GooglePrivacyDlpV2Value $newValue)
-	{
-		$this->newValue = $newValue;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Value
-	 */
-	public function getNewValue()
-	{
-		return $this->newValue;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Value
+   */
+  public function setNewValue(Google_Service_DLP_GooglePrivacyDlpV2Value $newValue)
+  {
+    $this->newValue = $newValue;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Value
+   */
+  public function getNewValue()
+  {
+    return $this->newValue;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_AdvertiserLandingPagesListResponse extends Google_Collection
 {
-	protected $collection_key = 'landingPages';
-	public $kind;
-	protected $landingPagesType = 'Google_Service_Dfareporting_LandingPage';
-	protected $landingPagesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'landingPages';
+  public $kind;
+  protected $landingPagesType = 'Google_Service_Dfareporting_LandingPage';
+  protected $landingPagesDataType = 'array';
+  public $nextPageToken;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_LandingPage
-	 */
-	public function setLandingPages($landingPages)
-	{
-		$this->landingPages = $landingPages;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_LandingPage
-	 */
-	public function getLandingPages()
-	{
-		return $this->landingPages;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_LandingPage[]
+   */
+  public function setLandingPages($landingPages)
+  {
+    $this->landingPages = $landingPages;
+  }
+  /**
+   * @return Google_Service_Dfareporting_LandingPage[]
+   */
+  public function getLandingPages()
+  {
+    return $this->landingPages;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

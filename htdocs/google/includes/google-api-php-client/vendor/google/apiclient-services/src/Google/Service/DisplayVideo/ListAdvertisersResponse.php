@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListAdvertisersResponse extends Google_Collection
 {
-	protected $collection_key = 'advertisers';
-	protected $advertisersType = 'Google_Service_DisplayVideo_Advertiser';
-	protected $advertisersDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'advertisers';
+  protected $advertisersType = 'Google_Service_DisplayVideo_Advertiser';
+  protected $advertisersDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DisplayVideo_Advertiser
-	 */
-	public function setAdvertisers($advertisers)
-	{
-		$this->advertisers = $advertisers;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_Advertiser
-	 */
-	public function getAdvertisers()
-	{
-		return $this->advertisers;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_Advertiser[]
+   */
+  public function setAdvertisers($advertisers)
+  {
+    $this->advertisers = $advertisers;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_Advertiser[]
+   */
+  public function getAdvertisers()
+  {
+    return $this->advertisers;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

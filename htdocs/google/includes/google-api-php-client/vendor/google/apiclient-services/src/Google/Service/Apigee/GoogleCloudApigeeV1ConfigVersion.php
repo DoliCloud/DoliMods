@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ConfigVersion extends Google_Model
 {
-	public $majorVersion;
-	public $minorVersion;
+  public $majorVersion;
+  public $minorVersion;
 
-	public function setMajorVersion($majorVersion)
-	{
-		$this->majorVersion = $majorVersion;
-	}
-	public function getMajorVersion()
-	{
-		return $this->majorVersion;
-	}
-	public function setMinorVersion($minorVersion)
-	{
-		$this->minorVersion = $minorVersion;
-	}
-	public function getMinorVersion()
-	{
-		return $this->minorVersion;
-	}
+  public function setMajorVersion($majorVersion)
+  {
+    $this->majorVersion = $majorVersion;
+  }
+  public function getMajorVersion()
+  {
+    return $this->majorVersion;
+  }
+  public function setMinorVersion($minorVersion)
+  {
+    $this->minorVersion = $minorVersion;
+  }
+  public function getMinorVersion()
+  {
+    return $this->minorVersion;
+  }
 }

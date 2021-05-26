@@ -17,31 +17,31 @@
 
 class Google_Service_SecurityCommandCenter_ListNotificationConfigsResponse extends Google_Collection
 {
-	protected $collection_key = 'notificationConfigs';
-	public $nextPageToken;
-	protected $notificationConfigsType = 'Google_Service_SecurityCommandCenter_NotificationConfig';
-	protected $notificationConfigsDataType = 'array';
+  protected $collection_key = 'notificationConfigs';
+  public $nextPageToken;
+  protected $notificationConfigsType = 'Google_Service_SecurityCommandCenter_NotificationConfig';
+  protected $notificationConfigsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_SecurityCommandCenter_NotificationConfig
-	 */
-	public function setNotificationConfigs($notificationConfigs)
-	{
-		$this->notificationConfigs = $notificationConfigs;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_NotificationConfig
-	 */
-	public function getNotificationConfigs()
-	{
-		return $this->notificationConfigs;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_SecurityCommandCenter_NotificationConfig[]
+   */
+  public function setNotificationConfigs($notificationConfigs)
+  {
+    $this->notificationConfigs = $notificationConfigs;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_NotificationConfig[]
+   */
+  public function getNotificationConfigs()
+  {
+    return $this->notificationConfigs;
+  }
 }

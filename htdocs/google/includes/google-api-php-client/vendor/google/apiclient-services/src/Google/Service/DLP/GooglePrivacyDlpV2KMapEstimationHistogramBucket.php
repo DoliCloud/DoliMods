@@ -17,58 +17,58 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationHistogramBucket extends Google_Collection
 {
-	protected $collection_key = 'bucketValues';
-	public $bucketSize;
-	public $bucketValueCount;
-	protected $bucketValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationQuasiIdValues';
-	protected $bucketValuesDataType = 'array';
-	public $maxAnonymity;
-	public $minAnonymity;
+  protected $collection_key = 'bucketValues';
+  public $bucketSize;
+  public $bucketValueCount;
+  protected $bucketValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationQuasiIdValues';
+  protected $bucketValuesDataType = 'array';
+  public $maxAnonymity;
+  public $minAnonymity;
 
-	public function setBucketSize($bucketSize)
-	{
-		$this->bucketSize = $bucketSize;
-	}
-	public function getBucketSize()
-	{
-		return $this->bucketSize;
-	}
-	public function setBucketValueCount($bucketValueCount)
-	{
-		$this->bucketValueCount = $bucketValueCount;
-	}
-	public function getBucketValueCount()
-	{
-		return $this->bucketValueCount;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationQuasiIdValues
-	 */
-	public function setBucketValues($bucketValues)
-	{
-		$this->bucketValues = $bucketValues;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationQuasiIdValues
-	 */
-	public function getBucketValues()
-	{
-		return $this->bucketValues;
-	}
-	public function setMaxAnonymity($maxAnonymity)
-	{
-		$this->maxAnonymity = $maxAnonymity;
-	}
-	public function getMaxAnonymity()
-	{
-		return $this->maxAnonymity;
-	}
-	public function setMinAnonymity($minAnonymity)
-	{
-		$this->minAnonymity = $minAnonymity;
-	}
-	public function getMinAnonymity()
-	{
-		return $this->minAnonymity;
-	}
+  public function setBucketSize($bucketSize)
+  {
+    $this->bucketSize = $bucketSize;
+  }
+  public function getBucketSize()
+  {
+    return $this->bucketSize;
+  }
+  public function setBucketValueCount($bucketValueCount)
+  {
+    $this->bucketValueCount = $bucketValueCount;
+  }
+  public function getBucketValueCount()
+  {
+    return $this->bucketValueCount;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationQuasiIdValues[]
+   */
+  public function setBucketValues($bucketValues)
+  {
+    $this->bucketValues = $bucketValues;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2KMapEstimationQuasiIdValues[]
+   */
+  public function getBucketValues()
+  {
+    return $this->bucketValues;
+  }
+  public function setMaxAnonymity($maxAnonymity)
+  {
+    $this->maxAnonymity = $maxAnonymity;
+  }
+  public function getMaxAnonymity()
+  {
+    return $this->maxAnonymity;
+  }
+  public function setMinAnonymity($minAnonymity)
+  {
+    $this->minAnonymity = $minAnonymity;
+  }
+  public function getMinAnonymity()
+  {
+    return $this->minAnonymity;
+  }
 }

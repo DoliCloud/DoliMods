@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSearch_ItemStructuredData extends Google_Model
 {
-	public $hash;
-	protected $objectType = 'Google_Service_CloudSearch_StructuredDataObject';
-	protected $objectDataType = '';
+  public $hash;
+  protected $objectType = 'Google_Service_CloudSearch_StructuredDataObject';
+  protected $objectDataType = '';
 
-	public function setHash($hash)
-	{
-		$this->hash = $hash;
-	}
-	public function getHash()
-	{
-		return $this->hash;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_StructuredDataObject
-	 */
-	public function setObject(Google_Service_CloudSearch_StructuredDataObject $object)
-	{
-		$this->object = $object;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_StructuredDataObject
-	 */
-	public function getObject()
-	{
-		return $this->object;
-	}
+  public function setHash($hash)
+  {
+    $this->hash = $hash;
+  }
+  public function getHash()
+  {
+    return $this->hash;
+  }
+  /**
+   * @param Google_Service_CloudSearch_StructuredDataObject
+   */
+  public function setObject(Google_Service_CloudSearch_StructuredDataObject $object)
+  {
+    $this->object = $object;
+  }
+  /**
+   * @return Google_Service_CloudSearch_StructuredDataObject
+   */
+  public function getObject()
+  {
+    return $this->object;
+  }
 }

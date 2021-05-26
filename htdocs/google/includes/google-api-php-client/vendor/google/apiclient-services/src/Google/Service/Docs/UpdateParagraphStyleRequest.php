@@ -17,46 +17,46 @@
 
 class Google_Service_Docs_UpdateParagraphStyleRequest extends Google_Model
 {
-	public $fields;
-	protected $paragraphStyleType = 'Google_Service_Docs_ParagraphStyle';
-	protected $paragraphStyleDataType = '';
-	protected $rangeType = 'Google_Service_Docs_Range';
-	protected $rangeDataType = '';
+  public $fields;
+  protected $paragraphStyleType = 'Google_Service_Docs_ParagraphStyle';
+  protected $paragraphStyleDataType = '';
+  protected $rangeType = 'Google_Service_Docs_Range';
+  protected $rangeDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	/**
-	 * @param Google_Service_Docs_ParagraphStyle
-	 */
-	public function setParagraphStyle(Google_Service_Docs_ParagraphStyle $paragraphStyle)
-	{
-		$this->paragraphStyle = $paragraphStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_ParagraphStyle
-	 */
-	public function getParagraphStyle()
-	{
-		return $this->paragraphStyle;
-	}
-	/**
-	 * @param Google_Service_Docs_Range
-	 */
-	public function setRange(Google_Service_Docs_Range $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Docs_Range
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  /**
+   * @param Google_Service_Docs_ParagraphStyle
+   */
+  public function setParagraphStyle(Google_Service_Docs_ParagraphStyle $paragraphStyle)
+  {
+    $this->paragraphStyle = $paragraphStyle;
+  }
+  /**
+   * @return Google_Service_Docs_ParagraphStyle
+   */
+  public function getParagraphStyle()
+  {
+    return $this->paragraphStyle;
+  }
+  /**
+   * @param Google_Service_Docs_Range
+   */
+  public function setRange(Google_Service_Docs_Range $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Docs_Range
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

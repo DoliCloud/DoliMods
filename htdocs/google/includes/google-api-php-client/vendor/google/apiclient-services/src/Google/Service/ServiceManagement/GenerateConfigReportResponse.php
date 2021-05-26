@@ -17,56 +17,56 @@
 
 class Google_Service_ServiceManagement_GenerateConfigReportResponse extends Google_Collection
 {
-	protected $collection_key = 'diagnostics';
-	protected $changeReportsType = 'Google_Service_ServiceManagement_ChangeReport';
-	protected $changeReportsDataType = 'array';
-	protected $diagnosticsType = 'Google_Service_ServiceManagement_Diagnostic';
-	protected $diagnosticsDataType = 'array';
-	public $id;
-	public $serviceName;
+  protected $collection_key = 'diagnostics';
+  protected $changeReportsType = 'Google_Service_ServiceManagement_ChangeReport';
+  protected $changeReportsDataType = 'array';
+  protected $diagnosticsType = 'Google_Service_ServiceManagement_Diagnostic';
+  protected $diagnosticsDataType = 'array';
+  public $id;
+  public $serviceName;
 
-	/**
-	 * @param Google_Service_ServiceManagement_ChangeReport
-	 */
-	public function setChangeReports($changeReports)
-	{
-		$this->changeReports = $changeReports;
-	}
-	/**
-	 * @return Google_Service_ServiceManagement_ChangeReport
-	 */
-	public function getChangeReports()
-	{
-		return $this->changeReports;
-	}
-	/**
-	 * @param Google_Service_ServiceManagement_Diagnostic
-	 */
-	public function setDiagnostics($diagnostics)
-	{
-		$this->diagnostics = $diagnostics;
-	}
-	/**
-	 * @return Google_Service_ServiceManagement_Diagnostic
-	 */
-	public function getDiagnostics()
-	{
-		return $this->diagnostics;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setServiceName($serviceName)
-	{
-		$this->serviceName = $serviceName;
-	}
-	public function getServiceName()
-	{
-		return $this->serviceName;
-	}
+  /**
+   * @param Google_Service_ServiceManagement_ChangeReport[]
+   */
+  public function setChangeReports($changeReports)
+  {
+    $this->changeReports = $changeReports;
+  }
+  /**
+   * @return Google_Service_ServiceManagement_ChangeReport[]
+   */
+  public function getChangeReports()
+  {
+    return $this->changeReports;
+  }
+  /**
+   * @param Google_Service_ServiceManagement_Diagnostic[]
+   */
+  public function setDiagnostics($diagnostics)
+  {
+    $this->diagnostics = $diagnostics;
+  }
+  /**
+   * @return Google_Service_ServiceManagement_Diagnostic[]
+   */
+  public function getDiagnostics()
+  {
+    return $this->diagnostics;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setServiceName($serviceName)
+  {
+    $this->serviceName = $serviceName;
+  }
+  public function getServiceName()
+  {
+    return $this->serviceName;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Storagetransfer_ListTransferJobsResponse extends Google_Collection
 {
-	protected $collection_key = 'transferJobs';
-	public $nextPageToken;
-	protected $transferJobsType = 'Google_Service_Storagetransfer_TransferJob';
-	protected $transferJobsDataType = 'array';
+  protected $collection_key = 'transferJobs';
+  public $nextPageToken;
+  protected $transferJobsType = 'Google_Service_Storagetransfer_TransferJob';
+  protected $transferJobsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Storagetransfer_TransferJob
-	 */
-	public function setTransferJobs($transferJobs)
-	{
-		$this->transferJobs = $transferJobs;
-	}
-	/**
-	 * @return Google_Service_Storagetransfer_TransferJob
-	 */
-	public function getTransferJobs()
-	{
-		return $this->transferJobs;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Storagetransfer_TransferJob[]
+   */
+  public function setTransferJobs($transferJobs)
+  {
+    $this->transferJobs = $transferJobs;
+  }
+  /**
+   * @return Google_Service_Storagetransfer_TransferJob[]
+   */
+  public function getTransferJobs()
+  {
+    return $this->transferJobs;
+  }
 }

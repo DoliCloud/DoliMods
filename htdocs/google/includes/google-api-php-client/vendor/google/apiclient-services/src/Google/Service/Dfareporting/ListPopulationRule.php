@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_ListPopulationRule extends Google_Collection
 {
-	protected $collection_key = 'listPopulationClauses';
-	public $floodlightActivityId;
-	public $floodlightActivityName;
-	protected $listPopulationClausesType = 'Google_Service_Dfareporting_ListPopulationClause';
-	protected $listPopulationClausesDataType = 'array';
+  protected $collection_key = 'listPopulationClauses';
+  public $floodlightActivityId;
+  public $floodlightActivityName;
+  protected $listPopulationClausesType = 'Google_Service_Dfareporting_ListPopulationClause';
+  protected $listPopulationClausesDataType = 'array';
 
-	public function setFloodlightActivityId($floodlightActivityId)
-	{
-		$this->floodlightActivityId = $floodlightActivityId;
-	}
-	public function getFloodlightActivityId()
-	{
-		return $this->floodlightActivityId;
-	}
-	public function setFloodlightActivityName($floodlightActivityName)
-	{
-		$this->floodlightActivityName = $floodlightActivityName;
-	}
-	public function getFloodlightActivityName()
-	{
-		return $this->floodlightActivityName;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_ListPopulationClause
-	 */
-	public function setListPopulationClauses($listPopulationClauses)
-	{
-		$this->listPopulationClauses = $listPopulationClauses;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_ListPopulationClause
-	 */
-	public function getListPopulationClauses()
-	{
-		return $this->listPopulationClauses;
-	}
+  public function setFloodlightActivityId($floodlightActivityId)
+  {
+    $this->floodlightActivityId = $floodlightActivityId;
+  }
+  public function getFloodlightActivityId()
+  {
+    return $this->floodlightActivityId;
+  }
+  public function setFloodlightActivityName($floodlightActivityName)
+  {
+    $this->floodlightActivityName = $floodlightActivityName;
+  }
+  public function getFloodlightActivityName()
+  {
+    return $this->floodlightActivityName;
+  }
+  /**
+   * @param Google_Service_Dfareporting_ListPopulationClause[]
+   */
+  public function setListPopulationClauses($listPopulationClauses)
+  {
+    $this->listPopulationClauses = $listPopulationClauses;
+  }
+  /**
+   * @return Google_Service_Dfareporting_ListPopulationClause[]
+   */
+  public function getListPopulationClauses()
+  {
+    return $this->listPopulationClauses;
+  }
 }

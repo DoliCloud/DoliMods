@@ -17,49 +17,49 @@
 
 class Google_Service_ShoppingContent_DatafeedStatusError extends Google_Collection
 {
-	protected $collection_key = 'examples';
-	public $code;
-	public $count;
-	protected $examplesType = 'Google_Service_ShoppingContent_DatafeedStatusExample';
-	protected $examplesDataType = 'array';
-	public $message;
+  protected $collection_key = 'examples';
+  public $code;
+  public $count;
+  protected $examplesType = 'Google_Service_ShoppingContent_DatafeedStatusExample';
+  protected $examplesDataType = 'array';
+  public $message;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_DatafeedStatusExample
-	 */
-	public function setExamples($examples)
-	{
-		$this->examples = $examples;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_DatafeedStatusExample
-	 */
-	public function getExamples()
-	{
-		return $this->examples;
-	}
-	public function setMessage($message)
-	{
-		$this->message = $message;
-	}
-	public function getMessage()
-	{
-		return $this->message;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_DatafeedStatusExample[]
+   */
+  public function setExamples($examples)
+  {
+    $this->examples = $examples;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_DatafeedStatusExample[]
+   */
+  public function getExamples()
+  {
+    return $this->examples;
+  }
+  public function setMessage($message)
+  {
+    $this->message = $message;
+  }
+  public function getMessage()
+  {
+    return $this->message;
+  }
 }

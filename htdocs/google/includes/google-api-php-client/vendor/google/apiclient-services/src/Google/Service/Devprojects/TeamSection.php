@@ -17,52 +17,52 @@
 
 class Google_Service_Devprojects_TeamSection extends Google_Collection
 {
-	protected $collection_key = 'member';
-	public $editorGroupId;
-	public $kind;
-	protected $memberType = 'Google_Service_Devprojects_ActiveMember';
-	protected $memberDataType = 'array';
-	public $ownerGroupId;
-	public $teamId;
+  protected $collection_key = 'member';
+  public $editorGroupId;
+  public $kind;
+  protected $memberType = 'Google_Service_Devprojects_ActiveMember';
+  protected $memberDataType = 'array';
+  public $ownerGroupId;
+  public $teamId;
 
-	public function setEditorGroupId($editorGroupId)
-	{
-		$this->editorGroupId = $editorGroupId;
-	}
-	public function getEditorGroupId()
-	{
-		return $this->editorGroupId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setMember($member)
-	{
-		$this->member = $member;
-	}
-	public function getMember()
-	{
-		return $this->member;
-	}
-	public function setOwnerGroupId($ownerGroupId)
-	{
-		$this->ownerGroupId = $ownerGroupId;
-	}
-	public function getOwnerGroupId()
-	{
-		return $this->ownerGroupId;
-	}
-	public function setTeamId($teamId)
-	{
-		$this->teamId = $teamId;
-	}
-	public function getTeamId()
-	{
-		return $this->teamId;
-	}
+  public function setEditorGroupId($editorGroupId)
+  {
+    $this->editorGroupId = $editorGroupId;
+  }
+  public function getEditorGroupId()
+  {
+    return $this->editorGroupId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setMember($member)
+  {
+    $this->member = $member;
+  }
+  public function getMember()
+  {
+    return $this->member;
+  }
+  public function setOwnerGroupId($ownerGroupId)
+  {
+    $this->ownerGroupId = $ownerGroupId;
+  }
+  public function getOwnerGroupId()
+  {
+    return $this->ownerGroupId;
+  }
+  public function setTeamId($teamId)
+  {
+    $this->teamId = $teamId;
+  }
+  public function getTeamId()
+  {
+    return $this->teamId;
+  }
 }

@@ -36,101 +36,101 @@ use GuzzleHttp\Event\SubscriberInterface;
  */
 class AuthTokenSubscriber implements SubscriberInterface
 {
-	/**
-	 * @var callable
-	 */
-	private $httpHandler;
+    /**
+     * @var callable
+     */
+    private $httpHandler;
 
-	/**
-	 * @var FetchAuthTokenInterface
-	 */
-	private $fetcher;
+    /**
+     * @var FetchAuthTokenInterface
+     */
+    private $fetcher;
 
-	/**
-	 * @var callable
-	 */
-	private $tokenCallback;
+    /**
+     * @var callable
+     */
+    private $tokenCallback;
 
-	/**
-	 * Creates a new AuthTokenSubscriber.
-	 *
-	 * @param FetchAuthTokenInterface $fetcher is used to fetch the auth token
-	 * @param callable $httpHandler (optional) http client to fetch the token.
-	 * @param callable $tokenCallback (optional) function to be called when a new token is fetched.
-	 */
-	public function __construct(
-		FetchAuthTokenInterface $fetcher,
-		callable $httpHandler = null,
-		callable $tokenCallback = null
-	) {
-		$this->fetcher = $fetcher;
-		$this->httpHandler = $httpHandler;
-		$this->tokenCallback = $tokenCallback;
-	}
+    /**
+     * Creates a new AuthTokenSubscriber.
+     *
+     * @param FetchAuthTokenInterface $fetcher is used to fetch the auth token
+     * @param callable $httpHandler (optional) http client to fetch the token.
+     * @param callable $tokenCallback (optional) function to be called when a new token is fetched.
+     */
+    public function __construct(
+        FetchAuthTokenInterface $fetcher,
+        callable $httpHandler = null,
+        callable $tokenCallback = null
+    ) {
+        $this->fetcher = $fetcher;
+        $this->httpHandler = $httpHandler;
+        $this->tokenCallback = $tokenCallback;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEvents()
-	{
-		return ['before' => ['onBefore', RequestEvents::SIGN_REQUEST]];
-	}
+    /**
+     * @return array
+     */
+    public function getEvents()
+    {
+        return ['before' => ['onBefore', RequestEvents::SIGN_REQUEST]];
+    }
 
-	/**
-	 * Updates the request with an Authorization header when auth is 'fetched_auth_token'.
-	 *
-	 * Example:
-	 * ```
-	 * use GuzzleHttp\Client;
-	 * use Google\Auth\OAuth2;
-	 * use Google\Auth\Subscriber\AuthTokenSubscriber;
-	 *
-	 * $config = [..<oauth config param>.];
-	 * $oauth2 = new OAuth2($config)
-	 * $subscriber = new AuthTokenSubscriber($oauth2);
-	 *
-	 * $client = new Client([
-	 *     'base_url' => 'https://www.googleapis.com/taskqueue/v1beta2/projects/',
-	 *     'defaults' => ['auth' => 'google_auth']
-	 * ]);
-	 * $client->getEmitter()->attach($subscriber);
-	 *
-	 * $res = $client->get('myproject/taskqueues/myqueue');
-	 * ```
-	 *
-	 * @param BeforeEvent $event
-	 */
-	public function onBefore(BeforeEvent $event)
-	{
-		// Requests using "auth"="google_auth" will be authorized.
-		$request = $event->getRequest();
-		if ($request->getConfig()['auth'] != 'google_auth') {
-			return;
-		}
+    /**
+     * Updates the request with an Authorization header when auth is 'fetched_auth_token'.
+     *
+     * Example:
+     * ```
+     * use GuzzleHttp\Client;
+     * use Google\Auth\OAuth2;
+     * use Google\Auth\Subscriber\AuthTokenSubscriber;
+     *
+     * $config = [..<oauth config param>.];
+     * $oauth2 = new OAuth2($config)
+     * $subscriber = new AuthTokenSubscriber($oauth2);
+     *
+     * $client = new Client([
+     *     'base_url' => 'https://www.googleapis.com/taskqueue/v1beta2/projects/',
+     *     'defaults' => ['auth' => 'google_auth']
+     * ]);
+     * $client->getEmitter()->attach($subscriber);
+     *
+     * $res = $client->get('myproject/taskqueues/myqueue');
+     * ```
+     *
+     * @param BeforeEvent $event
+     */
+    public function onBefore(BeforeEvent $event)
+    {
+        // Requests using "auth"="google_auth" will be authorized.
+        $request = $event->getRequest();
+        if ($request->getConfig()['auth'] != 'google_auth') {
+            return;
+        }
 
-		// Fetch the auth token.
-		$auth_tokens = $this->fetcher->fetchAuthToken($this->httpHandler);
-		if (array_key_exists('access_token', $auth_tokens)) {
-			$request->setHeader('authorization', 'Bearer ' . $auth_tokens['access_token']);
+        // Fetch the auth token.
+        $auth_tokens = $this->fetcher->fetchAuthToken($this->httpHandler);
+        if (array_key_exists('access_token', $auth_tokens)) {
+            $request->setHeader('authorization', 'Bearer ' . $auth_tokens['access_token']);
 
-			// notify the callback if applicable
-			if ($this->tokenCallback) {
-				call_user_func($this->tokenCallback, $this->fetcher->getCacheKey(), $auth_tokens['access_token']);
-			}
-		}
+            // notify the callback if applicable
+            if ($this->tokenCallback) {
+                call_user_func($this->tokenCallback, $this->fetcher->getCacheKey(), $auth_tokens['access_token']);
+            }
+        }
 
-		if ($quotaProject = $this->getQuotaProject()) {
-			$request->setHeader(
-				GetQuotaProjectInterface::X_GOOG_USER_PROJECT_HEADER,
-				$quotaProject
-			);
-		}
-	}
+        if ($quotaProject = $this->getQuotaProject()) {
+            $request->setHeader(
+                GetQuotaProjectInterface::X_GOOG_USER_PROJECT_HEADER,
+                $quotaProject
+            );
+        }
+    }
 
-	private function getQuotaProject()
-	{
-		if ($this->fetcher instanceof GetQuotaProjectInterface) {
-			return $this->fetcher->getQuotaProject();
-		}
-	}
+    private function getQuotaProject()
+    {
+        if ($this->fetcher instanceof GetQuotaProjectInterface) {
+            return $this->fetcher->getQuotaProject();
+        }
+    }
 }

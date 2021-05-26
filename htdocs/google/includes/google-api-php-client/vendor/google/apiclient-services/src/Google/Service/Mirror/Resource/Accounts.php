@@ -25,22 +25,22 @@
  */
 class Google_Service_Mirror_Resource_Accounts extends Google_Service_Resource
 {
-	/**
-	 * Inserts a new account for a user (accounts.insert)
-	 *
-	 * @param string $userToken The ID for the user.
-	 * @param string $accountType Account type to be passed to Android Account
-	 *                            Manager.
-	 * @param string $accountName The name of the account to be passed to the
-	 *                            Android Account Manager.
-	 * @param Google_Service_Mirror_Account $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Mirror_Account
-	 */
-	public function insert($userToken, $accountType, $accountName, Google_Service_Mirror_Account $postBody, $optParams = array())
-	{
-		$params = array('userToken' => $userToken, 'accountType' => $accountType, 'accountName' => $accountName, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_Mirror_Account");
-	}
+  /**
+   * Inserts a new account for a user (accounts.insert)
+   *
+   * @param string $userToken The ID for the user.
+   * @param string $accountType Account type to be passed to Android Account
+   * Manager.
+   * @param string $accountName The name of the account to be passed to the
+   * Android Account Manager.
+   * @param Google_Service_Mirror_Account $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Mirror_Account
+   */
+  public function insert($userToken, $accountType, $accountName, Google_Service_Mirror_Account $postBody, $optParams = array())
+  {
+    $params = array('userToken' => $userToken, 'accountType' => $accountType, 'accountName' => $accountName, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Mirror_Account");
+  }
 }

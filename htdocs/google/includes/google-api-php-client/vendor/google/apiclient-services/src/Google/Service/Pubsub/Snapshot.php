@@ -17,41 +17,41 @@
 
 class Google_Service_Pubsub_Snapshot extends Google_Model
 {
-	public $expireTime;
-	public $labels;
-	public $name;
-	public $topic;
+  public $expireTime;
+  public $labels;
+  public $name;
+  public $topic;
 
-	public function setExpireTime($expireTime)
-	{
-		$this->expireTime = $expireTime;
-	}
-	public function getExpireTime()
-	{
-		return $this->expireTime;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setTopic($topic)
-	{
-		$this->topic = $topic;
-	}
-	public function getTopic()
-	{
-		return $this->topic;
-	}
+  public function setExpireTime($expireTime)
+  {
+    $this->expireTime = $expireTime;
+  }
+  public function getExpireTime()
+  {
+    return $this->expireTime;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setTopic($topic)
+  {
+    $this->topic = $topic;
+  }
+  public function getTopic()
+  {
+    return $this->topic;
+  }
 }

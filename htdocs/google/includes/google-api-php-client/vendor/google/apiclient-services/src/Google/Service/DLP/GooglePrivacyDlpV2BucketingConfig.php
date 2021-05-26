@@ -17,22 +17,22 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2BucketingConfig extends Google_Collection
 {
-	protected $collection_key = 'buckets';
-	protected $bucketsType = 'Google_Service_DLP_GooglePrivacyDlpV2Bucket';
-	protected $bucketsDataType = 'array';
+  protected $collection_key = 'buckets';
+  protected $bucketsType = 'Google_Service_DLP_GooglePrivacyDlpV2Bucket';
+  protected $bucketsDataType = 'array';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Bucket
-	 */
-	public function setBuckets($buckets)
-	{
-		$this->buckets = $buckets;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Bucket
-	 */
-	public function getBuckets()
-	{
-		return $this->buckets;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Bucket[]
+   */
+  public function setBuckets($buckets)
+  {
+    $this->buckets = $buckets;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Bucket[]
+   */
+  public function getBuckets()
+  {
+    return $this->buckets;
+  }
 }

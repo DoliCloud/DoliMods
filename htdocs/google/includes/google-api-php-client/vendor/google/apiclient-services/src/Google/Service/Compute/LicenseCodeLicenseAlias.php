@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_LicenseCodeLicenseAlias extends Google_Model
 {
-	public $description;
-	public $selfLink;
+  public $description;
+  public $selfLink;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
 }

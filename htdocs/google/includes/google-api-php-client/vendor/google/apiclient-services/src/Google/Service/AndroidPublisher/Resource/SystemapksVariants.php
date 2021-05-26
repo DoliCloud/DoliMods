@@ -25,65 +25,65 @@
  */
 class Google_Service_AndroidPublisher_Resource_SystemapksVariants extends Google_Service_Resource
 {
-	/**
-	 * Creates an APK which is suitable for inclusion in a system image from an
-	 * already uploaded Android App Bundle. (variants.create)
-	 *
-	 * @param string $packageName Unique identifier of the Android app.
-	 * @param string $versionCode The version code of the App Bundle.
-	 * @param Google_Service_AndroidPublisher_Variant $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_Variant
-	 */
-	public function create($packageName, $versionCode, Google_Service_AndroidPublisher_Variant $postBody, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'versionCode' => $versionCode, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('create', array($params), "Google_Service_AndroidPublisher_Variant");
-	}
-	/**
-	 * Downloads a previously created system APK which is suitable for inclusion in
-	 * a system image. (variants.download)
-	 *
-	 * @param string $packageName Unique identifier of the Android app.
-	 * @param string $versionCode The version code of the App Bundle.
-	 * @param string $variantId The ID of a previously created system APK variant.
-	 * @param array $optParams Optional parameters.
-	 */
-	public function download($packageName, $versionCode, $variantId, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'versionCode' => $versionCode, 'variantId' => $variantId);
-		$params = array_merge($params, $optParams);
-		return $this->call('download', array($params));
-	}
-	/**
-	 * Returns a previously created system APK variant. (variants.get)
-	 *
-	 * @param string $packageName Unique identifier of the Android app.
-	 * @param string $versionCode The version code of the App Bundle.
-	 * @param string $variantId The ID of a previously created system APK variant.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_Variant
-	 */
-	public function get($packageName, $versionCode, $variantId, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'versionCode' => $versionCode, 'variantId' => $variantId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_AndroidPublisher_Variant");
-	}
-	/**
-	 * Returns the list of previously created system APK variants.
-	 * (variants.listSystemapksVariants)
-	 *
-	 * @param string $packageName Unique identifier of the Android app.
-	 * @param string $versionCode The version code of the App Bundle.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_SystemApksListResponse
-	 */
-	public function listSystemapksVariants($packageName, $versionCode, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'versionCode' => $versionCode);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AndroidPublisher_SystemApksListResponse");
-	}
+  /**
+   * Creates an APK which is suitable for inclusion in a system image from an
+   * already uploaded Android App Bundle. (variants.create)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $versionCode The version code of the App Bundle.
+   * @param Google_Service_AndroidPublisher_Variant $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_Variant
+   */
+  public function create($packageName, $versionCode, Google_Service_AndroidPublisher_Variant $postBody, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'versionCode' => $versionCode, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('create', array($params), "Google_Service_AndroidPublisher_Variant");
+  }
+  /**
+   * Downloads a previously created system APK which is suitable for inclusion in
+   * a system image. (variants.download)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $versionCode The version code of the App Bundle.
+   * @param string $variantId The ID of a previously created system APK variant.
+   * @param array $optParams Optional parameters.
+   */
+  public function download($packageName, $versionCode, $variantId, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'versionCode' => $versionCode, 'variantId' => $variantId);
+    $params = array_merge($params, $optParams);
+    return $this->call('download', array($params));
+  }
+  /**
+   * Returns a previously created system APK variant. (variants.get)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $versionCode The version code of the App Bundle.
+   * @param string $variantId The ID of a previously created system APK variant.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_Variant
+   */
+  public function get($packageName, $versionCode, $variantId, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'versionCode' => $versionCode, 'variantId' => $variantId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_AndroidPublisher_Variant");
+  }
+  /**
+   * Returns the list of previously created system APK variants.
+   * (variants.listSystemapksVariants)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $versionCode The version code of the App Bundle.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_SystemApksListResponse
+   */
+  public function listSystemapksVariants($packageName, $versionCode, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'versionCode' => $versionCode);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AndroidPublisher_SystemApksListResponse");
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Vision_PurgeProductsRequest extends Google_Model
 {
-	public $deleteOrphanProducts;
-	public $force;
-	protected $productSetPurgeConfigType = 'Google_Service_Vision_ProductSetPurgeConfig';
-	protected $productSetPurgeConfigDataType = '';
+  public $deleteOrphanProducts;
+  public $force;
+  protected $productSetPurgeConfigType = 'Google_Service_Vision_ProductSetPurgeConfig';
+  protected $productSetPurgeConfigDataType = '';
 
-	public function setDeleteOrphanProducts($deleteOrphanProducts)
-	{
-		$this->deleteOrphanProducts = $deleteOrphanProducts;
-	}
-	public function getDeleteOrphanProducts()
-	{
-		return $this->deleteOrphanProducts;
-	}
-	public function setForce($force)
-	{
-		$this->force = $force;
-	}
-	public function getForce()
-	{
-		return $this->force;
-	}
-	/**
-	 * @param Google_Service_Vision_ProductSetPurgeConfig
-	 */
-	public function setProductSetPurgeConfig(Google_Service_Vision_ProductSetPurgeConfig $productSetPurgeConfig)
-	{
-		$this->productSetPurgeConfig = $productSetPurgeConfig;
-	}
-	/**
-	 * @return Google_Service_Vision_ProductSetPurgeConfig
-	 */
-	public function getProductSetPurgeConfig()
-	{
-		return $this->productSetPurgeConfig;
-	}
+  public function setDeleteOrphanProducts($deleteOrphanProducts)
+  {
+    $this->deleteOrphanProducts = $deleteOrphanProducts;
+  }
+  public function getDeleteOrphanProducts()
+  {
+    return $this->deleteOrphanProducts;
+  }
+  public function setForce($force)
+  {
+    $this->force = $force;
+  }
+  public function getForce()
+  {
+    return $this->force;
+  }
+  /**
+   * @param Google_Service_Vision_ProductSetPurgeConfig
+   */
+  public function setProductSetPurgeConfig(Google_Service_Vision_ProductSetPurgeConfig $productSetPurgeConfig)
+  {
+    $this->productSetPurgeConfig = $productSetPurgeConfig;
+  }
+  /**
+   * @return Google_Service_Vision_ProductSetPurgeConfig
+   */
+  public function getProductSetPurgeConfig()
+  {
+    return $this->productSetPurgeConfig;
+  }
 }

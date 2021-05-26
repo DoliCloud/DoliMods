@@ -17,30 +17,30 @@
 
 class Google_Service_Docs_InsertTableColumnRequest extends Google_Model
 {
-	public $insertRight;
-	protected $tableCellLocationType = 'Google_Service_Docs_TableCellLocation';
-	protected $tableCellLocationDataType = '';
+  public $insertRight;
+  protected $tableCellLocationType = 'Google_Service_Docs_TableCellLocation';
+  protected $tableCellLocationDataType = '';
 
-	public function setInsertRight($insertRight)
-	{
-		$this->insertRight = $insertRight;
-	}
-	public function getInsertRight()
-	{
-		return $this->insertRight;
-	}
-	/**
-	 * @param Google_Service_Docs_TableCellLocation
-	 */
-	public function setTableCellLocation(Google_Service_Docs_TableCellLocation $tableCellLocation)
-	{
-		$this->tableCellLocation = $tableCellLocation;
-	}
-	/**
-	 * @return Google_Service_Docs_TableCellLocation
-	 */
-	public function getTableCellLocation()
-	{
-		return $this->tableCellLocation;
-	}
+  public function setInsertRight($insertRight)
+  {
+    $this->insertRight = $insertRight;
+  }
+  public function getInsertRight()
+  {
+    return $this->insertRight;
+  }
+  /**
+   * @param Google_Service_Docs_TableCellLocation
+   */
+  public function setTableCellLocation(Google_Service_Docs_TableCellLocation $tableCellLocation)
+  {
+    $this->tableCellLocation = $tableCellLocation;
+  }
+  /**
+   * @return Google_Service_Docs_TableCellLocation
+   */
+  public function getTableCellLocation()
+  {
+    return $this->tableCellLocation;
+  }
 }

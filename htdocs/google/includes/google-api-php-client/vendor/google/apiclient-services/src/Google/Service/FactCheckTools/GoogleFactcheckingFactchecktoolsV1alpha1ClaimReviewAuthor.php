@@ -17,23 +17,23 @@
 
 class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor extends Google_Model
 {
-	public $imageUrl;
-	public $name;
+  public $imageUrl;
+  public $name;
 
-	public function setImageUrl($imageUrl)
-	{
-		$this->imageUrl = $imageUrl;
-	}
-	public function getImageUrl()
-	{
-		return $this->imageUrl;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setImageUrl($imageUrl)
+  {
+    $this->imageUrl = $imageUrl;
+  }
+  public function getImageUrl()
+  {
+    return $this->imageUrl;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

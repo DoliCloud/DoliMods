@@ -25,27 +25,27 @@
  */
 class Google_Service_Pagespeedonline_Resource_Pagespeedapi extends Google_Service_Resource
 {
-	/**
-	 * Runs PageSpeed analysis on the page at the specified URL, and returns
-	 * PageSpeed scores, a list of suggestions to make that page faster, and other
-	 * information. (pagespeedapi.runpagespeed)
-	 *
-	 * @param string $url The URL to fetch and analyze
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string category A Lighthouse category to run; if none are given,
-	 * only Performance category will be run
-	 * @opt_param string locale The locale used to localize formatted results
-	 * @opt_param string strategy The analysis strategy (desktop or mobile) to use,
-	 * and desktop is the default
-	 * @opt_param string utm_campaign Campaign name for analytics.
-	 * @opt_param string utm_source Campaign source for analytics.
-	 * @return Google_Service_Pagespeedonline_PagespeedApiPagespeedResponseV5
-	 */
-	public function runpagespeed($url, $optParams = array())
-	{
-		$params = array('url' => $url);
-		$params = array_merge($params, $optParams);
-		return $this->call('runpagespeed', array($params), "Google_Service_Pagespeedonline_PagespeedApiPagespeedResponseV5");
-	}
+  /**
+   * Runs PageSpeed analysis on the page at the specified URL, and returns
+   * PageSpeed scores, a list of suggestions to make that page faster, and other
+   * information. (pagespeedapi.runpagespeed)
+   *
+   * @param string $url The URL to fetch and analyze
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string category A Lighthouse category to run; if none are given,
+   * only Performance category will be run
+   * @opt_param string locale The locale used to localize formatted results
+   * @opt_param string strategy The analysis strategy (desktop or mobile) to use,
+   * and desktop is the default
+   * @opt_param string utm_campaign Campaign name for analytics.
+   * @opt_param string utm_source Campaign source for analytics.
+   * @return Google_Service_Pagespeedonline_PagespeedApiPagespeedResponseV5
+   */
+  public function runpagespeed($url, $optParams = array())
+  {
+    $params = array('url' => $url);
+    $params = array_merge($params, $optParams);
+    return $this->call('runpagespeed', array($params), "Google_Service_Pagespeedonline_PagespeedApiPagespeedResponseV5");
+  }
 }

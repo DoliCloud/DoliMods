@@ -17,31 +17,31 @@
 
 class Google_Service_CloudHealthcare_ListFhirStoresResponse extends Google_Collection
 {
-	protected $collection_key = 'fhirStores';
-	protected $fhirStoresType = 'Google_Service_CloudHealthcare_FhirStore';
-	protected $fhirStoresDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'fhirStores';
+  protected $fhirStoresType = 'Google_Service_CloudHealthcare_FhirStore';
+  protected $fhirStoresDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_CloudHealthcare_FhirStore
-	 */
-	public function setFhirStores($fhirStores)
-	{
-		$this->fhirStores = $fhirStores;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_FhirStore
-	 */
-	public function getFhirStores()
-	{
-		return $this->fhirStores;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_CloudHealthcare_FhirStore[]
+   */
+  public function setFhirStores($fhirStores)
+  {
+    $this->fhirStores = $fhirStores;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_FhirStore[]
+   */
+  public function getFhirStores()
+  {
+    return $this->fhirStores;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

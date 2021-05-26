@@ -17,40 +17,40 @@
 
 class Google_Service_Clouderrorreporting_ListGroupStatsResponse extends Google_Collection
 {
-	protected $collection_key = 'errorGroupStats';
-	protected $errorGroupStatsType = 'Google_Service_Clouderrorreporting_ErrorGroupStats';
-	protected $errorGroupStatsDataType = 'array';
-	public $nextPageToken;
-	public $timeRangeBegin;
+  protected $collection_key = 'errorGroupStats';
+  protected $errorGroupStatsType = 'Google_Service_Clouderrorreporting_ErrorGroupStats';
+  protected $errorGroupStatsDataType = 'array';
+  public $nextPageToken;
+  public $timeRangeBegin;
 
-	/**
-	 * @param Google_Service_Clouderrorreporting_ErrorGroupStats
-	 */
-	public function setErrorGroupStats($errorGroupStats)
-	{
-		$this->errorGroupStats = $errorGroupStats;
-	}
-	/**
-	 * @return Google_Service_Clouderrorreporting_ErrorGroupStats
-	 */
-	public function getErrorGroupStats()
-	{
-		return $this->errorGroupStats;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setTimeRangeBegin($timeRangeBegin)
-	{
-		$this->timeRangeBegin = $timeRangeBegin;
-	}
-	public function getTimeRangeBegin()
-	{
-		return $this->timeRangeBegin;
-	}
+  /**
+   * @param Google_Service_Clouderrorreporting_ErrorGroupStats[]
+   */
+  public function setErrorGroupStats($errorGroupStats)
+  {
+    $this->errorGroupStats = $errorGroupStats;
+  }
+  /**
+   * @return Google_Service_Clouderrorreporting_ErrorGroupStats[]
+   */
+  public function getErrorGroupStats()
+  {
+    return $this->errorGroupStats;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setTimeRangeBegin($timeRangeBegin)
+  {
+    $this->timeRangeBegin = $timeRangeBegin;
+  }
+  public function getTimeRangeBegin()
+  {
+    return $this->timeRangeBegin;
+  }
 }

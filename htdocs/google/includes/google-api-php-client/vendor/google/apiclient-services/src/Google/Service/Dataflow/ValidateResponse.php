@@ -17,30 +17,30 @@
 
 class Google_Service_Dataflow_ValidateResponse extends Google_Model
 {
-	public $errorMessage;
-	protected $queryInfoType = 'Google_Service_Dataflow_QueryInfo';
-	protected $queryInfoDataType = '';
+  public $errorMessage;
+  protected $queryInfoType = 'Google_Service_Dataflow_QueryInfo';
+  protected $queryInfoDataType = '';
 
-	public function setErrorMessage($errorMessage)
-	{
-		$this->errorMessage = $errorMessage;
-	}
-	public function getErrorMessage()
-	{
-		return $this->errorMessage;
-	}
-	/**
-	 * @param Google_Service_Dataflow_QueryInfo
-	 */
-	public function setQueryInfo(Google_Service_Dataflow_QueryInfo $queryInfo)
-	{
-		$this->queryInfo = $queryInfo;
-	}
-	/**
-	 * @return Google_Service_Dataflow_QueryInfo
-	 */
-	public function getQueryInfo()
-	{
-		return $this->queryInfo;
-	}
+  public function setErrorMessage($errorMessage)
+  {
+    $this->errorMessage = $errorMessage;
+  }
+  public function getErrorMessage()
+  {
+    return $this->errorMessage;
+  }
+  /**
+   * @param Google_Service_Dataflow_QueryInfo
+   */
+  public function setQueryInfo(Google_Service_Dataflow_QueryInfo $queryInfo)
+  {
+    $this->queryInfo = $queryInfo;
+  }
+  /**
+   * @return Google_Service_Dataflow_QueryInfo
+   */
+  public function getQueryInfo()
+  {
+    return $this->queryInfo;
+  }
 }

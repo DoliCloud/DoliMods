@@ -17,22 +17,22 @@
 
 class Google_Service_Spanner_BatchCreateSessionsResponse extends Google_Collection
 {
-	protected $collection_key = 'session';
-	protected $sessionType = 'Google_Service_Spanner_Session';
-	protected $sessionDataType = 'array';
+  protected $collection_key = 'session';
+  protected $sessionType = 'Google_Service_Spanner_Session';
+  protected $sessionDataType = 'array';
 
-	/**
-	 * @param Google_Service_Spanner_Session
-	 */
-	public function setSession($session)
-	{
-		$this->session = $session;
-	}
-	/**
-	 * @return Google_Service_Spanner_Session
-	 */
-	public function getSession()
-	{
-		return $this->session;
-	}
+  /**
+   * @param Google_Service_Spanner_Session[]
+   */
+  public function setSession($session)
+  {
+    $this->session = $session;
+  }
+  /**
+   * @return Google_Service_Spanner_Session[]
+   */
+  public function getSession()
+  {
+    return $this->session;
+  }
 }

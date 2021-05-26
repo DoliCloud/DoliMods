@@ -17,31 +17,31 @@
 
 class Google_Service_StreetViewPublish_ListPhotosResponse extends Google_Collection
 {
-	protected $collection_key = 'photos';
-	public $nextPageToken;
-	protected $photosType = 'Google_Service_StreetViewPublish_Photo';
-	protected $photosDataType = 'array';
+  protected $collection_key = 'photos';
+  public $nextPageToken;
+  protected $photosType = 'Google_Service_StreetViewPublish_Photo';
+  protected $photosDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_StreetViewPublish_Photo
-	 */
-	public function setPhotos($photos)
-	{
-		$this->photos = $photos;
-	}
-	/**
-	 * @return Google_Service_StreetViewPublish_Photo
-	 */
-	public function getPhotos()
-	{
-		return $this->photos;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_StreetViewPublish_Photo[]
+   */
+  public function setPhotos($photos)
+  {
+    $this->photos = $photos;
+  }
+  /**
+   * @return Google_Service_StreetViewPublish_Photo[]
+   */
+  public function getPhotos()
+  {
+    return $this->photos;
+  }
 }

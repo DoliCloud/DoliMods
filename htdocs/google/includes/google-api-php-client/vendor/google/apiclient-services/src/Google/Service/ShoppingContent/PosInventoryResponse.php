@@ -17,93 +17,93 @@
 
 class Google_Service_ShoppingContent_PosInventoryResponse extends Google_Model
 {
-	public $contentLanguage;
-	public $gtin;
-	public $itemId;
-	public $kind;
-	protected $priceType = 'Google_Service_ShoppingContent_Price';
-	protected $priceDataType = '';
-	public $quantity;
-	public $storeCode;
-	public $targetCountry;
-	public $timestamp;
+  public $contentLanguage;
+  public $gtin;
+  public $itemId;
+  public $kind;
+  protected $priceType = 'Google_Service_ShoppingContent_Price';
+  protected $priceDataType = '';
+  public $quantity;
+  public $storeCode;
+  public $targetCountry;
+  public $timestamp;
 
-	public function setContentLanguage($contentLanguage)
-	{
-		$this->contentLanguage = $contentLanguage;
-	}
-	public function getContentLanguage()
-	{
-		return $this->contentLanguage;
-	}
-	public function setGtin($gtin)
-	{
-		$this->gtin = $gtin;
-	}
-	public function getGtin()
-	{
-		return $this->gtin;
-	}
-	public function setItemId($itemId)
-	{
-		$this->itemId = $itemId;
-	}
-	public function getItemId()
-	{
-		return $this->itemId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_Price
-	 */
-	public function setPrice(Google_Service_ShoppingContent_Price $price)
-	{
-		$this->price = $price;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_Price
-	 */
-	public function getPrice()
-	{
-		return $this->price;
-	}
-	public function setQuantity($quantity)
-	{
-		$this->quantity = $quantity;
-	}
-	public function getQuantity()
-	{
-		return $this->quantity;
-	}
-	public function setStoreCode($storeCode)
-	{
-		$this->storeCode = $storeCode;
-	}
-	public function getStoreCode()
-	{
-		return $this->storeCode;
-	}
-	public function setTargetCountry($targetCountry)
-	{
-		$this->targetCountry = $targetCountry;
-	}
-	public function getTargetCountry()
-	{
-		return $this->targetCountry;
-	}
-	public function setTimestamp($timestamp)
-	{
-		$this->timestamp = $timestamp;
-	}
-	public function getTimestamp()
-	{
-		return $this->timestamp;
-	}
+  public function setContentLanguage($contentLanguage)
+  {
+    $this->contentLanguage = $contentLanguage;
+  }
+  public function getContentLanguage()
+  {
+    return $this->contentLanguage;
+  }
+  public function setGtin($gtin)
+  {
+    $this->gtin = $gtin;
+  }
+  public function getGtin()
+  {
+    return $this->gtin;
+  }
+  public function setItemId($itemId)
+  {
+    $this->itemId = $itemId;
+  }
+  public function getItemId()
+  {
+    return $this->itemId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_Price
+   */
+  public function setPrice(Google_Service_ShoppingContent_Price $price)
+  {
+    $this->price = $price;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_Price
+   */
+  public function getPrice()
+  {
+    return $this->price;
+  }
+  public function setQuantity($quantity)
+  {
+    $this->quantity = $quantity;
+  }
+  public function getQuantity()
+  {
+    return $this->quantity;
+  }
+  public function setStoreCode($storeCode)
+  {
+    $this->storeCode = $storeCode;
+  }
+  public function getStoreCode()
+  {
+    return $this->storeCode;
+  }
+  public function setTargetCountry($targetCountry)
+  {
+    $this->targetCountry = $targetCountry;
+  }
+  public function getTargetCountry()
+  {
+    return $this->targetCountry;
+  }
+  public function setTimestamp($timestamp)
+  {
+    $this->timestamp = $timestamp;
+  }
+  public function getTimestamp()
+  {
+    return $this->timestamp;
+  }
 }

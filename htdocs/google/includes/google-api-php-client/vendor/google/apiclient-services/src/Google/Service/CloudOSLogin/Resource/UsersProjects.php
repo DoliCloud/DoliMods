@@ -25,20 +25,20 @@
  */
 class Google_Service_CloudOSLogin_Resource_UsersProjects extends Google_Service_Resource
 {
-	/**
-	 * Deletes a POSIX account. (projects.delete)
-	 *
-	 * @param string $name Required. A reference to the POSIX account to update.
-	 *                     POSIX accounts are identified by the project ID they are associated with. A
-	 *                     reference to the POSIX account is in format
-	 *                     `users/{user}/projects/{project}`.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_CloudOSLogin_OsloginEmpty
-	 */
-	public function delete($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params), "Google_Service_CloudOSLogin_OsloginEmpty");
-	}
+  /**
+   * Deletes a POSIX account. (projects.delete)
+   *
+   * @param string $name Required. A reference to the POSIX account to update.
+   * POSIX accounts are identified by the project ID they are associated with. A
+   * reference to the POSIX account is in format
+   * `users/{user}/projects/{project}`.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_CloudOSLogin_OsloginEmpty
+   */
+  public function delete($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_CloudOSLogin_OsloginEmpty");
+  }
 }

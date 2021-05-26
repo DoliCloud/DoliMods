@@ -17,66 +17,66 @@
 
 class Google_Service_YouTube_CommentThreadSnippet extends Google_Model
 {
-	public $canReply;
-	public $channelId;
-	public $isPublic;
-	protected $topLevelCommentType = 'Google_Service_YouTube_Comment';
-	protected $topLevelCommentDataType = '';
-	public $totalReplyCount;
-	public $videoId;
+  public $canReply;
+  public $channelId;
+  public $isPublic;
+  protected $topLevelCommentType = 'Google_Service_YouTube_Comment';
+  protected $topLevelCommentDataType = '';
+  public $totalReplyCount;
+  public $videoId;
 
-	public function setCanReply($canReply)
-	{
-		$this->canReply = $canReply;
-	}
-	public function getCanReply()
-	{
-		return $this->canReply;
-	}
-	public function setChannelId($channelId)
-	{
-		$this->channelId = $channelId;
-	}
-	public function getChannelId()
-	{
-		return $this->channelId;
-	}
-	public function setIsPublic($isPublic)
-	{
-		$this->isPublic = $isPublic;
-	}
-	public function getIsPublic()
-	{
-		return $this->isPublic;
-	}
-	/**
-	 * @param Google_Service_YouTube_Comment
-	 */
-	public function setTopLevelComment(Google_Service_YouTube_Comment $topLevelComment)
-	{
-		$this->topLevelComment = $topLevelComment;
-	}
-	/**
-	 * @return Google_Service_YouTube_Comment
-	 */
-	public function getTopLevelComment()
-	{
-		return $this->topLevelComment;
-	}
-	public function setTotalReplyCount($totalReplyCount)
-	{
-		$this->totalReplyCount = $totalReplyCount;
-	}
-	public function getTotalReplyCount()
-	{
-		return $this->totalReplyCount;
-	}
-	public function setVideoId($videoId)
-	{
-		$this->videoId = $videoId;
-	}
-	public function getVideoId()
-	{
-		return $this->videoId;
-	}
+  public function setCanReply($canReply)
+  {
+    $this->canReply = $canReply;
+  }
+  public function getCanReply()
+  {
+    return $this->canReply;
+  }
+  public function setChannelId($channelId)
+  {
+    $this->channelId = $channelId;
+  }
+  public function getChannelId()
+  {
+    return $this->channelId;
+  }
+  public function setIsPublic($isPublic)
+  {
+    $this->isPublic = $isPublic;
+  }
+  public function getIsPublic()
+  {
+    return $this->isPublic;
+  }
+  /**
+   * @param Google_Service_YouTube_Comment
+   */
+  public function setTopLevelComment(Google_Service_YouTube_Comment $topLevelComment)
+  {
+    $this->topLevelComment = $topLevelComment;
+  }
+  /**
+   * @return Google_Service_YouTube_Comment
+   */
+  public function getTopLevelComment()
+  {
+    return $this->topLevelComment;
+  }
+  public function setTotalReplyCount($totalReplyCount)
+  {
+    $this->totalReplyCount = $totalReplyCount;
+  }
+  public function getTotalReplyCount()
+  {
+    return $this->totalReplyCount;
+  }
+  public function setVideoId($videoId)
+  {
+    $this->videoId = $videoId;
+  }
+  public function getVideoId()
+  {
+    return $this->videoId;
+  }
 }

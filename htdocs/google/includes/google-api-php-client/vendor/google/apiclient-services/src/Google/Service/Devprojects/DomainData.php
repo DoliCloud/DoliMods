@@ -17,87 +17,87 @@
 
 class Google_Service_Devprojects_DomainData extends Google_Collection
 {
-	protected $collection_key = 'projects';
-	public $contract;
-	public $domainAccountCurrencyCode;
-	public $domainName;
-	public $kind;
-	public $projects;
-	public $provisionable;
-	public $reactivatable;
-	public $respayState;
-	public $suspendable;
+  protected $collection_key = 'projects';
+  public $contract;
+  public $domainAccountCurrencyCode;
+  public $domainName;
+  public $kind;
+  public $projects;
+  public $provisionable;
+  public $reactivatable;
+  public $respayState;
+  public $suspendable;
 
-	public function setContract($contract)
-	{
-		$this->contract = $contract;
-	}
-	public function getContract()
-	{
-		return $this->contract;
-	}
-	public function setDomainAccountCurrencyCode($domainAccountCurrencyCode)
-	{
-		$this->domainAccountCurrencyCode = $domainAccountCurrencyCode;
-	}
-	public function getDomainAccountCurrencyCode()
-	{
-		return $this->domainAccountCurrencyCode;
-	}
-	public function setDomainName($domainName)
-	{
-		$this->domainName = $domainName;
-	}
-	public function getDomainName()
-	{
-		return $this->domainName;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setProjects($projects)
-	{
-		$this->projects = $projects;
-	}
-	public function getProjects()
-	{
-		return $this->projects;
-	}
-	public function setProvisionable($provisionable)
-	{
-		$this->provisionable = $provisionable;
-	}
-	public function getProvisionable()
-	{
-		return $this->provisionable;
-	}
-	public function setReactivatable($reactivatable)
-	{
-		$this->reactivatable = $reactivatable;
-	}
-	public function getReactivatable()
-	{
-		return $this->reactivatable;
-	}
-	public function setRespayState($respayState)
-	{
-		$this->respayState = $respayState;
-	}
-	public function getRespayState()
-	{
-		return $this->respayState;
-	}
-	public function setSuspendable($suspendable)
-	{
-		$this->suspendable = $suspendable;
-	}
-	public function getSuspendable()
-	{
-		return $this->suspendable;
-	}
+  public function setContract($contract)
+  {
+    $this->contract = $contract;
+  }
+  public function getContract()
+  {
+    return $this->contract;
+  }
+  public function setDomainAccountCurrencyCode($domainAccountCurrencyCode)
+  {
+    $this->domainAccountCurrencyCode = $domainAccountCurrencyCode;
+  }
+  public function getDomainAccountCurrencyCode()
+  {
+    return $this->domainAccountCurrencyCode;
+  }
+  public function setDomainName($domainName)
+  {
+    $this->domainName = $domainName;
+  }
+  public function getDomainName()
+  {
+    return $this->domainName;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setProjects($projects)
+  {
+    $this->projects = $projects;
+  }
+  public function getProjects()
+  {
+    return $this->projects;
+  }
+  public function setProvisionable($provisionable)
+  {
+    $this->provisionable = $provisionable;
+  }
+  public function getProvisionable()
+  {
+    return $this->provisionable;
+  }
+  public function setReactivatable($reactivatable)
+  {
+    $this->reactivatable = $reactivatable;
+  }
+  public function getReactivatable()
+  {
+    return $this->reactivatable;
+  }
+  public function setRespayState($respayState)
+  {
+    $this->respayState = $respayState;
+  }
+  public function getRespayState()
+  {
+    return $this->respayState;
+  }
+  public function setSuspendable($suspendable)
+  {
+    $this->suspendable = $suspendable;
+  }
+  public function getSuspendable()
+  {
+    return $this->suspendable;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_ThirdPartyTrackingUrl extends Google_Model
 {
-	public $thirdPartyUrlType;
-	public $url;
+  public $thirdPartyUrlType;
+  public $url;
 
-	public function setThirdPartyUrlType($thirdPartyUrlType)
-	{
-		$this->thirdPartyUrlType = $thirdPartyUrlType;
-	}
-	public function getThirdPartyUrlType()
-	{
-		return $this->thirdPartyUrlType;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setThirdPartyUrlType($thirdPartyUrlType)
+  {
+    $this->thirdPartyUrlType = $thirdPartyUrlType;
+  }
+  public function getThirdPartyUrlType()
+  {
+    return $this->thirdPartyUrlType;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

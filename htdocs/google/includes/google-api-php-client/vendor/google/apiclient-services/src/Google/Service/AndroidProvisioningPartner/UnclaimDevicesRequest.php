@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidProvisioningPartner_UnclaimDevicesRequest extends Google_Collection
 {
-	protected $collection_key = 'unclaims';
-	protected $unclaimsType = 'Google_Service_AndroidProvisioningPartner_PartnerUnclaim';
-	protected $unclaimsDataType = 'array';
+  protected $collection_key = 'unclaims';
+  protected $unclaimsType = 'Google_Service_AndroidProvisioningPartner_PartnerUnclaim';
+  protected $unclaimsDataType = 'array';
 
-	/**
-	 * @param Google_Service_AndroidProvisioningPartner_PartnerUnclaim
-	 */
-	public function setUnclaims($unclaims)
-	{
-		$this->unclaims = $unclaims;
-	}
-	/**
-	 * @return Google_Service_AndroidProvisioningPartner_PartnerUnclaim
-	 */
-	public function getUnclaims()
-	{
-		return $this->unclaims;
-	}
+  /**
+   * @param Google_Service_AndroidProvisioningPartner_PartnerUnclaim[]
+   */
+  public function setUnclaims($unclaims)
+  {
+    $this->unclaims = $unclaims;
+  }
+  /**
+   * @return Google_Service_AndroidProvisioningPartner_PartnerUnclaim[]
+   */
+  public function getUnclaims()
+  {
+    return $this->unclaims;
+  }
 }

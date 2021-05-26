@@ -25,62 +25,62 @@
  */
 class Google_Service_Vault_Resource_MattersExports extends Google_Service_Resource
 {
-	/**
-	 * Creates an Export. (exports.create)
-	 *
-	 * @param string $matterId The matter ID.
-	 * @param Google_Service_Vault_Export $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Vault_Export
-	 */
-	public function create($matterId, Google_Service_Vault_Export $postBody, $optParams = array())
-	{
-		$params = array('matterId' => $matterId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('create', array($params), "Google_Service_Vault_Export");
-	}
-	/**
-	 * Deletes an Export. (exports.delete)
-	 *
-	 * @param string $matterId The matter ID.
-	 * @param string $exportId The export ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Vault_VaultEmpty
-	 */
-	public function delete($matterId, $exportId, $optParams = array())
-	{
-		$params = array('matterId' => $matterId, 'exportId' => $exportId);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params), "Google_Service_Vault_VaultEmpty");
-	}
-	/**
-	 * Gets an Export. (exports.get)
-	 *
-	 * @param string $matterId The matter ID.
-	 * @param string $exportId The export ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Vault_Export
-	 */
-	public function get($matterId, $exportId, $optParams = array())
-	{
-		$params = array('matterId' => $matterId, 'exportId' => $exportId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Vault_Export");
-	}
-	/**
-	 * Lists Exports. (exports.listMattersExports)
-	 *
-	 * @param string $matterId The matter ID.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string pageToken The pagination token as returned in the response.
-	 * @opt_param int pageSize The number of exports to return in the response.
-	 * @return Google_Service_Vault_ListExportsResponse
-	 */
-	public function listMattersExports($matterId, $optParams = array())
-	{
-		$params = array('matterId' => $matterId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Vault_ListExportsResponse");
-	}
+  /**
+   * Creates an Export. (exports.create)
+   *
+   * @param string $matterId The matter ID.
+   * @param Google_Service_Vault_Export $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Vault_Export
+   */
+  public function create($matterId, Google_Service_Vault_Export $postBody, $optParams = array())
+  {
+    $params = array('matterId' => $matterId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('create', array($params), "Google_Service_Vault_Export");
+  }
+  /**
+   * Deletes an Export. (exports.delete)
+   *
+   * @param string $matterId The matter ID.
+   * @param string $exportId The export ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Vault_VaultEmpty
+   */
+  public function delete($matterId, $exportId, $optParams = array())
+  {
+    $params = array('matterId' => $matterId, 'exportId' => $exportId);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_Vault_VaultEmpty");
+  }
+  /**
+   * Gets an Export. (exports.get)
+   *
+   * @param string $matterId The matter ID.
+   * @param string $exportId The export ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Vault_Export
+   */
+  public function get($matterId, $exportId, $optParams = array())
+  {
+    $params = array('matterId' => $matterId, 'exportId' => $exportId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Vault_Export");
+  }
+  /**
+   * Lists Exports. (exports.listMattersExports)
+   *
+   * @param string $matterId The matter ID.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize The number of exports to return in the response.
+   * @opt_param string pageToken The pagination token as returned in the response.
+   * @return Google_Service_Vault_ListExportsResponse
+   */
+  public function listMattersExports($matterId, $optParams = array())
+  {
+    $params = array('matterId' => $matterId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Vault_ListExportsResponse");
+  }
 }

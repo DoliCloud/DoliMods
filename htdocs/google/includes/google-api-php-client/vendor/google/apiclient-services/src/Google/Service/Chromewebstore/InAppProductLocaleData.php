@@ -17,32 +17,32 @@
 
 class Google_Service_Chromewebstore_InAppProductLocaleData extends Google_Model
 {
-	public $description;
-	public $languageCode;
-	public $title;
+  public $description;
+  public $languageCode;
+  public $title;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

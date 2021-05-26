@@ -17,32 +17,32 @@
 
 class Google_Service_Spanner_ReplicaInfo extends Google_Model
 {
-	public $defaultLeaderLocation;
-	public $location;
-	public $type;
+  public $defaultLeaderLocation;
+  public $location;
+  public $type;
 
-	public function setDefaultLeaderLocation($defaultLeaderLocation)
-	{
-		$this->defaultLeaderLocation = $defaultLeaderLocation;
-	}
-	public function getDefaultLeaderLocation()
-	{
-		return $this->defaultLeaderLocation;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDefaultLeaderLocation($defaultLeaderLocation)
+  {
+    $this->defaultLeaderLocation = $defaultLeaderLocation;
+  }
+  public function getDefaultLeaderLocation()
+  {
+    return $this->defaultLeaderLocation;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

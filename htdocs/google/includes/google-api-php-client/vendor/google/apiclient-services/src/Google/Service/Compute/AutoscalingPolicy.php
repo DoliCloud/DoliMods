@@ -17,90 +17,106 @@
 
 class Google_Service_Compute_AutoscalingPolicy extends Google_Collection
 {
-	protected $collection_key = 'customMetricUtilizations';
-	public $coolDownPeriodSec;
-	protected $cpuUtilizationType = 'Google_Service_Compute_AutoscalingPolicyCpuUtilization';
-	protected $cpuUtilizationDataType = '';
-	protected $customMetricUtilizationsType = 'Google_Service_Compute_AutoscalingPolicyCustomMetricUtilization';
-	protected $customMetricUtilizationsDataType = 'array';
-	protected $loadBalancingUtilizationType = 'Google_Service_Compute_AutoscalingPolicyLoadBalancingUtilization';
-	protected $loadBalancingUtilizationDataType = '';
-	public $maxNumReplicas;
-	public $minNumReplicas;
-	public $mode;
+  protected $collection_key = 'customMetricUtilizations';
+  public $coolDownPeriodSec;
+  protected $cpuUtilizationType = 'Google_Service_Compute_AutoscalingPolicyCpuUtilization';
+  protected $cpuUtilizationDataType = '';
+  protected $customMetricUtilizationsType = 'Google_Service_Compute_AutoscalingPolicyCustomMetricUtilization';
+  protected $customMetricUtilizationsDataType = 'array';
+  protected $loadBalancingUtilizationType = 'Google_Service_Compute_AutoscalingPolicyLoadBalancingUtilization';
+  protected $loadBalancingUtilizationDataType = '';
+  public $maxNumReplicas;
+  public $minNumReplicas;
+  public $mode;
+  protected $scaleInControlType = 'Google_Service_Compute_AutoscalingPolicyScaleInControl';
+  protected $scaleInControlDataType = '';
 
-	public function setCoolDownPeriodSec($coolDownPeriodSec)
-	{
-		$this->coolDownPeriodSec = $coolDownPeriodSec;
-	}
-	public function getCoolDownPeriodSec()
-	{
-		return $this->coolDownPeriodSec;
-	}
-	/**
-	 * @param Google_Service_Compute_AutoscalingPolicyCpuUtilization
-	 */
-	public function setCpuUtilization(Google_Service_Compute_AutoscalingPolicyCpuUtilization $cpuUtilization)
-	{
-		$this->cpuUtilization = $cpuUtilization;
-	}
-	/**
-	 * @return Google_Service_Compute_AutoscalingPolicyCpuUtilization
-	 */
-	public function getCpuUtilization()
-	{
-		return $this->cpuUtilization;
-	}
-	/**
-	 * @param Google_Service_Compute_AutoscalingPolicyCustomMetricUtilization
-	 */
-	public function setCustomMetricUtilizations($customMetricUtilizations)
-	{
-		$this->customMetricUtilizations = $customMetricUtilizations;
-	}
-	/**
-	 * @return Google_Service_Compute_AutoscalingPolicyCustomMetricUtilization
-	 */
-	public function getCustomMetricUtilizations()
-	{
-		return $this->customMetricUtilizations;
-	}
-	/**
-	 * @param Google_Service_Compute_AutoscalingPolicyLoadBalancingUtilization
-	 */
-	public function setLoadBalancingUtilization(Google_Service_Compute_AutoscalingPolicyLoadBalancingUtilization $loadBalancingUtilization)
-	{
-		$this->loadBalancingUtilization = $loadBalancingUtilization;
-	}
-	/**
-	 * @return Google_Service_Compute_AutoscalingPolicyLoadBalancingUtilization
-	 */
-	public function getLoadBalancingUtilization()
-	{
-		return $this->loadBalancingUtilization;
-	}
-	public function setMaxNumReplicas($maxNumReplicas)
-	{
-		$this->maxNumReplicas = $maxNumReplicas;
-	}
-	public function getMaxNumReplicas()
-	{
-		return $this->maxNumReplicas;
-	}
-	public function setMinNumReplicas($minNumReplicas)
-	{
-		$this->minNumReplicas = $minNumReplicas;
-	}
-	public function getMinNumReplicas()
-	{
-		return $this->minNumReplicas;
-	}
-	public function setMode($mode)
-	{
-		$this->mode = $mode;
-	}
-	public function getMode()
-	{
-		return $this->mode;
-	}
+  public function setCoolDownPeriodSec($coolDownPeriodSec)
+  {
+    $this->coolDownPeriodSec = $coolDownPeriodSec;
+  }
+  public function getCoolDownPeriodSec()
+  {
+    return $this->coolDownPeriodSec;
+  }
+  /**
+   * @param Google_Service_Compute_AutoscalingPolicyCpuUtilization
+   */
+  public function setCpuUtilization(Google_Service_Compute_AutoscalingPolicyCpuUtilization $cpuUtilization)
+  {
+    $this->cpuUtilization = $cpuUtilization;
+  }
+  /**
+   * @return Google_Service_Compute_AutoscalingPolicyCpuUtilization
+   */
+  public function getCpuUtilization()
+  {
+    return $this->cpuUtilization;
+  }
+  /**
+   * @param Google_Service_Compute_AutoscalingPolicyCustomMetricUtilization[]
+   */
+  public function setCustomMetricUtilizations($customMetricUtilizations)
+  {
+    $this->customMetricUtilizations = $customMetricUtilizations;
+  }
+  /**
+   * @return Google_Service_Compute_AutoscalingPolicyCustomMetricUtilization[]
+   */
+  public function getCustomMetricUtilizations()
+  {
+    return $this->customMetricUtilizations;
+  }
+  /**
+   * @param Google_Service_Compute_AutoscalingPolicyLoadBalancingUtilization
+   */
+  public function setLoadBalancingUtilization(Google_Service_Compute_AutoscalingPolicyLoadBalancingUtilization $loadBalancingUtilization)
+  {
+    $this->loadBalancingUtilization = $loadBalancingUtilization;
+  }
+  /**
+   * @return Google_Service_Compute_AutoscalingPolicyLoadBalancingUtilization
+   */
+  public function getLoadBalancingUtilization()
+  {
+    return $this->loadBalancingUtilization;
+  }
+  public function setMaxNumReplicas($maxNumReplicas)
+  {
+    $this->maxNumReplicas = $maxNumReplicas;
+  }
+  public function getMaxNumReplicas()
+  {
+    return $this->maxNumReplicas;
+  }
+  public function setMinNumReplicas($minNumReplicas)
+  {
+    $this->minNumReplicas = $minNumReplicas;
+  }
+  public function getMinNumReplicas()
+  {
+    return $this->minNumReplicas;
+  }
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
+  public function getMode()
+  {
+    return $this->mode;
+  }
+  /**
+   * @param Google_Service_Compute_AutoscalingPolicyScaleInControl
+   */
+  public function setScaleInControl(Google_Service_Compute_AutoscalingPolicyScaleInControl $scaleInControl)
+  {
+    $this->scaleInControl = $scaleInControl;
+  }
+  /**
+   * @return Google_Service_Compute_AutoscalingPolicyScaleInControl
+   */
+  public function getScaleInControl()
+  {
+    return $this->scaleInControl;
+  }
 }

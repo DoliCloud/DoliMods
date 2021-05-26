@@ -17,64 +17,64 @@
 
 class Google_Service_Taskqueue_TaskQueue extends Google_Model
 {
-	protected $aclType = 'Google_Service_Taskqueue_TaskQueueAcl';
-	protected $aclDataType = '';
-	public $id;
-	public $kind;
-	public $maxLeases;
-	protected $statsType = 'Google_Service_Taskqueue_TaskQueueStats';
-	protected $statsDataType = '';
+  protected $aclType = 'Google_Service_Taskqueue_TaskQueueAcl';
+  protected $aclDataType = '';
+  public $id;
+  public $kind;
+  public $maxLeases;
+  protected $statsType = 'Google_Service_Taskqueue_TaskQueueStats';
+  protected $statsDataType = '';
 
-	/**
-	 * @param Google_Service_Taskqueue_TaskQueueAcl
-	 */
-	public function setAcl(Google_Service_Taskqueue_TaskQueueAcl $acl)
-	{
-		$this->acl = $acl;
-	}
-	/**
-	 * @return Google_Service_Taskqueue_TaskQueueAcl
-	 */
-	public function getAcl()
-	{
-		return $this->acl;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setMaxLeases($maxLeases)
-	{
-		$this->maxLeases = $maxLeases;
-	}
-	public function getMaxLeases()
-	{
-		return $this->maxLeases;
-	}
-	/**
-	 * @param Google_Service_Taskqueue_TaskQueueStats
-	 */
-	public function setStats(Google_Service_Taskqueue_TaskQueueStats $stats)
-	{
-		$this->stats = $stats;
-	}
-	/**
-	 * @return Google_Service_Taskqueue_TaskQueueStats
-	 */
-	public function getStats()
-	{
-		return $this->stats;
-	}
+  /**
+   * @param Google_Service_Taskqueue_TaskQueueAcl
+   */
+  public function setAcl(Google_Service_Taskqueue_TaskQueueAcl $acl)
+  {
+    $this->acl = $acl;
+  }
+  /**
+   * @return Google_Service_Taskqueue_TaskQueueAcl
+   */
+  public function getAcl()
+  {
+    return $this->acl;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setMaxLeases($maxLeases)
+  {
+    $this->maxLeases = $maxLeases;
+  }
+  public function getMaxLeases()
+  {
+    return $this->maxLeases;
+  }
+  /**
+   * @param Google_Service_Taskqueue_TaskQueueStats
+   */
+  public function setStats(Google_Service_Taskqueue_TaskQueueStats $stats)
+  {
+    $this->stats = $stats;
+  }
+  /**
+   * @return Google_Service_Taskqueue_TaskQueueStats
+   */
+  public function getStats()
+  {
+    return $this->stats;
+  }
 }

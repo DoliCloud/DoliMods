@@ -17,30 +17,30 @@
 
 class Google_Service_Dataproc_BasicAutoscalingAlgorithm extends Google_Model
 {
-	public $cooldownPeriod;
-	protected $yarnConfigType = 'Google_Service_Dataproc_BasicYarnAutoscalingConfig';
-	protected $yarnConfigDataType = '';
+  public $cooldownPeriod;
+  protected $yarnConfigType = 'Google_Service_Dataproc_BasicYarnAutoscalingConfig';
+  protected $yarnConfigDataType = '';
 
-	public function setCooldownPeriod($cooldownPeriod)
-	{
-		$this->cooldownPeriod = $cooldownPeriod;
-	}
-	public function getCooldownPeriod()
-	{
-		return $this->cooldownPeriod;
-	}
-	/**
-	 * @param Google_Service_Dataproc_BasicYarnAutoscalingConfig
-	 */
-	public function setYarnConfig(Google_Service_Dataproc_BasicYarnAutoscalingConfig $yarnConfig)
-	{
-		$this->yarnConfig = $yarnConfig;
-	}
-	/**
-	 * @return Google_Service_Dataproc_BasicYarnAutoscalingConfig
-	 */
-	public function getYarnConfig()
-	{
-		return $this->yarnConfig;
-	}
+  public function setCooldownPeriod($cooldownPeriod)
+  {
+    $this->cooldownPeriod = $cooldownPeriod;
+  }
+  public function getCooldownPeriod()
+  {
+    return $this->cooldownPeriod;
+  }
+  /**
+   * @param Google_Service_Dataproc_BasicYarnAutoscalingConfig
+   */
+  public function setYarnConfig(Google_Service_Dataproc_BasicYarnAutoscalingConfig $yarnConfig)
+  {
+    $this->yarnConfig = $yarnConfig;
+  }
+  /**
+   * @return Google_Service_Dataproc_BasicYarnAutoscalingConfig
+   */
+  public function getYarnConfig()
+  {
+    return $this->yarnConfig;
+  }
 }

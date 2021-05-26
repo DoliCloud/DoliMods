@@ -17,30 +17,30 @@
 
 class Google_Service_Vision_Image extends Google_Model
 {
-	public $content;
-	protected $sourceType = 'Google_Service_Vision_ImageSource';
-	protected $sourceDataType = '';
+  public $content;
+  protected $sourceType = 'Google_Service_Vision_ImageSource';
+  protected $sourceDataType = '';
 
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	public function getContent()
-	{
-		return $this->content;
-	}
-	/**
-	 * @param Google_Service_Vision_ImageSource
-	 */
-	public function setSource(Google_Service_Vision_ImageSource $source)
-	{
-		$this->source = $source;
-	}
-	/**
-	 * @return Google_Service_Vision_ImageSource
-	 */
-	public function getSource()
-	{
-		return $this->source;
-	}
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  public function getContent()
+  {
+    return $this->content;
+  }
+  /**
+   * @param Google_Service_Vision_ImageSource
+   */
+  public function setSource(Google_Service_Vision_ImageSource $source)
+  {
+    $this->source = $source;
+  }
+  /**
+   * @return Google_Service_Vision_ImageSource
+   */
+  public function getSource()
+  {
+    return $this->source;
+  }
 }

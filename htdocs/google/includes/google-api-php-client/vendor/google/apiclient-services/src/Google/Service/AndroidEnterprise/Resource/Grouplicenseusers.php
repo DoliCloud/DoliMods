@@ -25,20 +25,20 @@
  */
 class Google_Service_AndroidEnterprise_Resource_Grouplicenseusers extends Google_Service_Resource
 {
-	/**
-	 * Retrieves the IDs of the users who have been granted entitlements under the
-	 * license. (grouplicenseusers.listGrouplicenseusers)
-	 *
-	 * @param string $enterpriseId The ID of the enterprise.
-	 * @param string $groupLicenseId The ID of the product the group license is for,
-	 *                               e.g. "app:com.google.android.gm".
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidEnterprise_GroupLicenseUsersListResponse
-	 */
-	public function listGrouplicenseusers($enterpriseId, $groupLicenseId, $optParams = array())
-	{
-		$params = array('enterpriseId' => $enterpriseId, 'groupLicenseId' => $groupLicenseId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AndroidEnterprise_GroupLicenseUsersListResponse");
-	}
+  /**
+   * Retrieves the IDs of the users who have been granted entitlements under the
+   * license. (grouplicenseusers.listGrouplicenseusers)
+   *
+   * @param string $enterpriseId The ID of the enterprise.
+   * @param string $groupLicenseId The ID of the product the group license is for,
+   * e.g. "app:com.google.android.gm".
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidEnterprise_GroupLicenseUsersListResponse
+   */
+  public function listGrouplicenseusers($enterpriseId, $groupLicenseId, $optParams = array())
+  {
+    $params = array('enterpriseId' => $enterpriseId, 'groupLicenseId' => $groupLicenseId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AndroidEnterprise_GroupLicenseUsersListResponse");
+  }
 }

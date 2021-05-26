@@ -17,24 +17,24 @@
 
 class Google_Service_Cloudbilling_GeoTaxonomy extends Google_Collection
 {
-	protected $collection_key = 'regions';
-	public $regions;
-	public $type;
+  protected $collection_key = 'regions';
+  public $regions;
+  public $type;
 
-	public function setRegions($regions)
-	{
-		$this->regions = $regions;
-	}
-	public function getRegions()
-	{
-		return $this->regions;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setRegions($regions)
+  {
+    $this->regions = $regions;
+  }
+  public function getRegions()
+  {
+    return $this->regions;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_CloudLifeSciences_Network extends Google_Model
 {
-	public $network;
-	public $subnetwork;
-	public $usePrivateAddress;
+  public $network;
+  public $subnetwork;
+  public $usePrivateAddress;
 
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setSubnetwork($subnetwork)
-	{
-		$this->subnetwork = $subnetwork;
-	}
-	public function getSubnetwork()
-	{
-		return $this->subnetwork;
-	}
-	public function setUsePrivateAddress($usePrivateAddress)
-	{
-		$this->usePrivateAddress = $usePrivateAddress;
-	}
-	public function getUsePrivateAddress()
-	{
-		return $this->usePrivateAddress;
-	}
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setSubnetwork($subnetwork)
+  {
+    $this->subnetwork = $subnetwork;
+  }
+  public function getSubnetwork()
+  {
+    return $this->subnetwork;
+  }
+  public function setUsePrivateAddress($usePrivateAddress)
+  {
+    $this->usePrivateAddress = $usePrivateAddress;
+  }
+  public function getUsePrivateAddress()
+  {
+    return $this->usePrivateAddress;
+  }
 }

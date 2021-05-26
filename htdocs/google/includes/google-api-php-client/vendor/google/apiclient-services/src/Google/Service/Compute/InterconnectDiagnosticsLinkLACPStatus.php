@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_InterconnectDiagnosticsLinkLACPStatus extends Google_Model
 {
-	public $googleSystemId;
-	public $neighborSystemId;
-	public $state;
+  public $googleSystemId;
+  public $neighborSystemId;
+  public $state;
 
-	public function setGoogleSystemId($googleSystemId)
-	{
-		$this->googleSystemId = $googleSystemId;
-	}
-	public function getGoogleSystemId()
-	{
-		return $this->googleSystemId;
-	}
-	public function setNeighborSystemId($neighborSystemId)
-	{
-		$this->neighborSystemId = $neighborSystemId;
-	}
-	public function getNeighborSystemId()
-	{
-		return $this->neighborSystemId;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setGoogleSystemId($googleSystemId)
+  {
+    $this->googleSystemId = $googleSystemId;
+  }
+  public function getGoogleSystemId()
+  {
+    return $this->googleSystemId;
+  }
+  public function setNeighborSystemId($neighborSystemId)
+  {
+    $this->neighborSystemId = $neighborSystemId;
+  }
+  public function getNeighborSystemId()
+  {
+    return $this->neighborSystemId;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Dataproc_ClusterSelector extends Google_Model
 {
-	public $clusterLabels;
-	public $zone;
+  public $clusterLabels;
+  public $zone;
 
-	public function setClusterLabels($clusterLabels)
-	{
-		$this->clusterLabels = $clusterLabels;
-	}
-	public function getClusterLabels()
-	{
-		return $this->clusterLabels;
-	}
-	public function setZone($zone)
-	{
-		$this->zone = $zone;
-	}
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  public function setClusterLabels($clusterLabels)
+  {
+    $this->clusterLabels = $clusterLabels;
+  }
+  public function getClusterLabels()
+  {
+    return $this->clusterLabels;
+  }
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

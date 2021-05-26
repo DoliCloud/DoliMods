@@ -17,23 +17,23 @@
 
 class Google_Service_CloudFilestore_GoogleCloudSaasacceleratorManagementProvidersV1ProvisionedResource extends Google_Model
 {
-	public $resourceType;
-	public $resourceUrl;
+  public $resourceType;
+  public $resourceUrl;
 
-	public function setResourceType($resourceType)
-	{
-		$this->resourceType = $resourceType;
-	}
-	public function getResourceType()
-	{
-		return $this->resourceType;
-	}
-	public function setResourceUrl($resourceUrl)
-	{
-		$this->resourceUrl = $resourceUrl;
-	}
-	public function getResourceUrl()
-	{
-		return $this->resourceUrl;
-	}
+  public function setResourceType($resourceType)
+  {
+    $this->resourceType = $resourceType;
+  }
+  public function getResourceType()
+  {
+    return $this->resourceType;
+  }
+  public function setResourceUrl($resourceUrl)
+  {
+    $this->resourceUrl = $resourceUrl;
+  }
+  public function getResourceUrl()
+  {
+    return $this->resourceUrl;
+  }
 }

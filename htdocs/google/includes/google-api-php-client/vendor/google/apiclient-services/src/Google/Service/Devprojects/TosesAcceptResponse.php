@@ -17,35 +17,35 @@
 
 class Google_Service_Devprojects_TosesAcceptResponse extends Google_Collection
 {
-	protected $collection_key = 'denied';
-	protected $confirmedType = 'Google_Service_Devprojects_Acceptance';
-	protected $confirmedDataType = 'array';
-	protected $deniedType = 'Google_Service_Devprojects_AcceptanceDenied';
-	protected $deniedDataType = 'array';
-	public $kind;
+  protected $collection_key = 'denied';
+  protected $confirmedType = 'Google_Service_Devprojects_Acceptance';
+  protected $confirmedDataType = 'array';
+  protected $deniedType = 'Google_Service_Devprojects_AcceptanceDenied';
+  protected $deniedDataType = 'array';
+  public $kind;
 
-	public function setConfirmed($confirmed)
-	{
-		$this->confirmed = $confirmed;
-	}
-	public function getConfirmed()
-	{
-		return $this->confirmed;
-	}
-	public function setDenied($denied)
-	{
-		$this->denied = $denied;
-	}
-	public function getDenied()
-	{
-		return $this->denied;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setConfirmed($confirmed)
+  {
+    $this->confirmed = $confirmed;
+  }
+  public function getConfirmed()
+  {
+    return $this->confirmed;
+  }
+  public function setDenied($denied)
+  {
+    $this->denied = $denied;
+  }
+  public function getDenied()
+  {
+    return $this->denied;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

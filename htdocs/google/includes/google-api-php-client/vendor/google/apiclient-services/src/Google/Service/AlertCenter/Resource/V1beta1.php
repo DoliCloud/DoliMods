@@ -25,37 +25,37 @@
  */
 class Google_Service_AlertCenter_Resource_V1beta1 extends Google_Service_Resource
 {
-	/**
-	 * Returns customer-level settings. (v1beta1.getSettings)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string customerId Optional. The unique identifier of the G Suite
-	 * organization account of the customer the alert settings are associated with.
-	 * Inferred from the caller identity if not provided.
-	 * @return Google_Service_AlertCenter_Settings
-	 */
-	public function getSettings($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('getSettings', array($params), "Google_Service_AlertCenter_Settings");
-	}
-	/**
-	 * Updates the customer-level settings. (v1beta1.updateSettings)
-	 *
-	 * @param Google_Service_AlertCenter_Settings $postBody
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string customerId Optional. The unique identifier of the G Suite
-	 * organization account of the customer the alert settings are associated with.
-	 * Inferred from the caller identity if not provided.
-	 * @return Google_Service_AlertCenter_Settings
-	 */
-	public function updateSettings(Google_Service_AlertCenter_Settings $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('updateSettings', array($params), "Google_Service_AlertCenter_Settings");
-	}
+  /**
+   * Returns customer-level settings. (v1beta1.getSettings)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string customerId Optional. The unique identifier of the G Suite
+   * organization account of the customer the alert settings are associated with.
+   * Inferred from the caller identity if not provided.
+   * @return Google_Service_AlertCenter_Settings
+   */
+  public function getSettings($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getSettings', array($params), "Google_Service_AlertCenter_Settings");
+  }
+  /**
+   * Updates the customer-level settings. (v1beta1.updateSettings)
+   *
+   * @param Google_Service_AlertCenter_Settings $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string customerId Optional. The unique identifier of the G Suite
+   * organization account of the customer the alert settings are associated with.
+   * Inferred from the caller identity if not provided.
+   * @return Google_Service_AlertCenter_Settings
+   */
+  public function updateSettings(Google_Service_AlertCenter_Settings $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('updateSettings', array($params), "Google_Service_AlertCenter_Settings");
+  }
 }

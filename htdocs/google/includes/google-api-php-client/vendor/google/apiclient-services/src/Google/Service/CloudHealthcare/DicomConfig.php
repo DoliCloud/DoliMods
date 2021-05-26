@@ -17,55 +17,55 @@
 
 class Google_Service_CloudHealthcare_DicomConfig extends Google_Model
 {
-	public $filterProfile;
-	protected $keepListType = 'Google_Service_CloudHealthcare_TagFilterList';
-	protected $keepListDataType = '';
-	protected $removeListType = 'Google_Service_CloudHealthcare_TagFilterList';
-	protected $removeListDataType = '';
-	public $skipIdRedaction;
+  public $filterProfile;
+  protected $keepListType = 'Google_Service_CloudHealthcare_TagFilterList';
+  protected $keepListDataType = '';
+  protected $removeListType = 'Google_Service_CloudHealthcare_TagFilterList';
+  protected $removeListDataType = '';
+  public $skipIdRedaction;
 
-	public function setFilterProfile($filterProfile)
-	{
-		$this->filterProfile = $filterProfile;
-	}
-	public function getFilterProfile()
-	{
-		return $this->filterProfile;
-	}
-	/**
-	 * @param Google_Service_CloudHealthcare_TagFilterList
-	 */
-	public function setKeepList(Google_Service_CloudHealthcare_TagFilterList $keepList)
-	{
-		$this->keepList = $keepList;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_TagFilterList
-	 */
-	public function getKeepList()
-	{
-		return $this->keepList;
-	}
-	/**
-	 * @param Google_Service_CloudHealthcare_TagFilterList
-	 */
-	public function setRemoveList(Google_Service_CloudHealthcare_TagFilterList $removeList)
-	{
-		$this->removeList = $removeList;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_TagFilterList
-	 */
-	public function getRemoveList()
-	{
-		return $this->removeList;
-	}
-	public function setSkipIdRedaction($skipIdRedaction)
-	{
-		$this->skipIdRedaction = $skipIdRedaction;
-	}
-	public function getSkipIdRedaction()
-	{
-		return $this->skipIdRedaction;
-	}
+  public function setFilterProfile($filterProfile)
+  {
+    $this->filterProfile = $filterProfile;
+  }
+  public function getFilterProfile()
+  {
+    return $this->filterProfile;
+  }
+  /**
+   * @param Google_Service_CloudHealthcare_TagFilterList
+   */
+  public function setKeepList(Google_Service_CloudHealthcare_TagFilterList $keepList)
+  {
+    $this->keepList = $keepList;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_TagFilterList
+   */
+  public function getKeepList()
+  {
+    return $this->keepList;
+  }
+  /**
+   * @param Google_Service_CloudHealthcare_TagFilterList
+   */
+  public function setRemoveList(Google_Service_CloudHealthcare_TagFilterList $removeList)
+  {
+    $this->removeList = $removeList;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_TagFilterList
+   */
+  public function getRemoveList()
+  {
+    return $this->removeList;
+  }
+  public function setSkipIdRedaction($skipIdRedaction)
+  {
+    $this->skipIdRedaction = $skipIdRedaction;
+  }
+  public function getSkipIdRedaction()
+  {
+    return $this->skipIdRedaction;
+  }
 }

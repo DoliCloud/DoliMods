@@ -25,27 +25,27 @@
  */
 class Google_Service_Fitness_Resource_UsersDataSourcesDataPointChanges extends Google_Service_Resource
 {
-	/**
-	 * Queries for user's data point changes for a particular data source.
-	 * (dataPointChanges.listUsersDataSourcesDataPointChanges)
-	 *
-	 * @param string $userId List data points for the person identified. Use me to
-	 *                       indicate the authenticated user. Only me is supported at this time.
-	 * @param string $dataSourceId The data stream ID of the data source that
-	 *                             created the dataset.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string pageToken The continuation token, which is used to page
-	 * through large result sets. To get the next page of results, set this
-	 * parameter to the value of nextPageToken from the previous response.
-	 * @opt_param int limit If specified, no more than this many data point changes
-	 * will be included in the response.
-	 * @return Google_Service_Fitness_ListDataPointChangesResponse
-	 */
-	public function listUsersDataSourcesDataPointChanges($userId, $dataSourceId, $optParams = array())
-	{
-		$params = array('userId' => $userId, 'dataSourceId' => $dataSourceId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Fitness_ListDataPointChangesResponse");
-	}
+  /**
+   * Queries for user's data point changes for a particular data source.
+   * (dataPointChanges.listUsersDataSourcesDataPointChanges)
+   *
+   * @param string $userId List data points for the person identified. Use me to
+   * indicate the authenticated user. Only me is supported at this time.
+   * @param string $dataSourceId The data stream ID of the data source that
+   * created the dataset.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int limit If specified, no more than this many data point changes
+   * will be included in the response.
+   * @opt_param string pageToken The continuation token, which is used to page
+   * through large result sets. To get the next page of results, set this
+   * parameter to the value of nextPageToken from the previous response.
+   * @return Google_Service_Fitness_ListDataPointChangesResponse
+   */
+  public function listUsersDataSourcesDataPointChanges($userId, $dataSourceId, $optParams = array())
+  {
+    $params = array('userId' => $userId, 'dataSourceId' => $dataSourceId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Fitness_ListDataPointChangesResponse");
+  }
 }

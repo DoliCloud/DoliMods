@@ -17,46 +17,46 @@
 
 class Google_Service_Compute_SecurityPolicyRuleMatcher extends Google_Model
 {
-	protected $configType = 'Google_Service_Compute_SecurityPolicyRuleMatcherConfig';
-	protected $configDataType = '';
-	protected $exprType = 'Google_Service_Compute_Expr';
-	protected $exprDataType = '';
-	public $versionedExpr;
+  protected $configType = 'Google_Service_Compute_SecurityPolicyRuleMatcherConfig';
+  protected $configDataType = '';
+  protected $exprType = 'Google_Service_Compute_Expr';
+  protected $exprDataType = '';
+  public $versionedExpr;
 
-	/**
-	 * @param Google_Service_Compute_SecurityPolicyRuleMatcherConfig
-	 */
-	public function setConfig(Google_Service_Compute_SecurityPolicyRuleMatcherConfig $config)
-	{
-		$this->config = $config;
-	}
-	/**
-	 * @return Google_Service_Compute_SecurityPolicyRuleMatcherConfig
-	 */
-	public function getConfig()
-	{
-		return $this->config;
-	}
-	/**
-	 * @param Google_Service_Compute_Expr
-	 */
-	public function setExpr(Google_Service_Compute_Expr $expr)
-	{
-		$this->expr = $expr;
-	}
-	/**
-	 * @return Google_Service_Compute_Expr
-	 */
-	public function getExpr()
-	{
-		return $this->expr;
-	}
-	public function setVersionedExpr($versionedExpr)
-	{
-		$this->versionedExpr = $versionedExpr;
-	}
-	public function getVersionedExpr()
-	{
-		return $this->versionedExpr;
-	}
+  /**
+   * @param Google_Service_Compute_SecurityPolicyRuleMatcherConfig
+   */
+  public function setConfig(Google_Service_Compute_SecurityPolicyRuleMatcherConfig $config)
+  {
+    $this->config = $config;
+  }
+  /**
+   * @return Google_Service_Compute_SecurityPolicyRuleMatcherConfig
+   */
+  public function getConfig()
+  {
+    return $this->config;
+  }
+  /**
+   * @param Google_Service_Compute_Expr
+   */
+  public function setExpr(Google_Service_Compute_Expr $expr)
+  {
+    $this->expr = $expr;
+  }
+  /**
+   * @return Google_Service_Compute_Expr
+   */
+  public function getExpr()
+  {
+    return $this->expr;
+  }
+  public function setVersionedExpr($versionedExpr)
+  {
+    $this->versionedExpr = $versionedExpr;
+  }
+  public function getVersionedExpr()
+  {
+    return $this->versionedExpr;
+  }
 }

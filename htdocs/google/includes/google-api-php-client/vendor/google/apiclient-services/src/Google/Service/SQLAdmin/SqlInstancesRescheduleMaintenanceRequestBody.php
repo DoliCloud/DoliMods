@@ -17,21 +17,21 @@
 
 class Google_Service_SQLAdmin_SqlInstancesRescheduleMaintenanceRequestBody extends Google_Model
 {
-	protected $rescheduleType = 'Google_Service_SQLAdmin_Reschedule';
-	protected $rescheduleDataType = '';
+  protected $rescheduleType = 'Google_Service_SQLAdmin_Reschedule';
+  protected $rescheduleDataType = '';
 
-	/**
-	 * @param Google_Service_SQLAdmin_Reschedule
-	 */
-	public function setReschedule(Google_Service_SQLAdmin_Reschedule $reschedule)
-	{
-		$this->reschedule = $reschedule;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_Reschedule
-	 */
-	public function getReschedule()
-	{
-		return $this->reschedule;
-	}
+  /**
+   * @param Google_Service_SQLAdmin_Reschedule
+   */
+  public function setReschedule(Google_Service_SQLAdmin_Reschedule $reschedule)
+  {
+    $this->reschedule = $reschedule;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_Reschedule
+   */
+  public function getReschedule()
+  {
+    return $this->reschedule;
+  }
 }

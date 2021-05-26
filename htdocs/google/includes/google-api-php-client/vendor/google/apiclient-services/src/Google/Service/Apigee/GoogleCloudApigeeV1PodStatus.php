@@ -17,86 +17,86 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1PodStatus extends Google_Model
 {
-	public $appVersion;
-	public $deploymentStatus;
-	public $deploymentStatusTime;
-	public $deploymentTime;
-	public $podName;
-	public $podStatus;
-	public $podStatusTime;
-	public $statusCode;
-	public $statusCodeDetails;
+  public $appVersion;
+  public $deploymentStatus;
+  public $deploymentStatusTime;
+  public $deploymentTime;
+  public $podName;
+  public $podStatus;
+  public $podStatusTime;
+  public $statusCode;
+  public $statusCodeDetails;
 
-	public function setAppVersion($appVersion)
-	{
-		$this->appVersion = $appVersion;
-	}
-	public function getAppVersion()
-	{
-		return $this->appVersion;
-	}
-	public function setDeploymentStatus($deploymentStatus)
-	{
-		$this->deploymentStatus = $deploymentStatus;
-	}
-	public function getDeploymentStatus()
-	{
-		return $this->deploymentStatus;
-	}
-	public function setDeploymentStatusTime($deploymentStatusTime)
-	{
-		$this->deploymentStatusTime = $deploymentStatusTime;
-	}
-	public function getDeploymentStatusTime()
-	{
-		return $this->deploymentStatusTime;
-	}
-	public function setDeploymentTime($deploymentTime)
-	{
-		$this->deploymentTime = $deploymentTime;
-	}
-	public function getDeploymentTime()
-	{
-		return $this->deploymentTime;
-	}
-	public function setPodName($podName)
-	{
-		$this->podName = $podName;
-	}
-	public function getPodName()
-	{
-		return $this->podName;
-	}
-	public function setPodStatus($podStatus)
-	{
-		$this->podStatus = $podStatus;
-	}
-	public function getPodStatus()
-	{
-		return $this->podStatus;
-	}
-	public function setPodStatusTime($podStatusTime)
-	{
-		$this->podStatusTime = $podStatusTime;
-	}
-	public function getPodStatusTime()
-	{
-		return $this->podStatusTime;
-	}
-	public function setStatusCode($statusCode)
-	{
-		$this->statusCode = $statusCode;
-	}
-	public function getStatusCode()
-	{
-		return $this->statusCode;
-	}
-	public function setStatusCodeDetails($statusCodeDetails)
-	{
-		$this->statusCodeDetails = $statusCodeDetails;
-	}
-	public function getStatusCodeDetails()
-	{
-		return $this->statusCodeDetails;
-	}
+  public function setAppVersion($appVersion)
+  {
+    $this->appVersion = $appVersion;
+  }
+  public function getAppVersion()
+  {
+    return $this->appVersion;
+  }
+  public function setDeploymentStatus($deploymentStatus)
+  {
+    $this->deploymentStatus = $deploymentStatus;
+  }
+  public function getDeploymentStatus()
+  {
+    return $this->deploymentStatus;
+  }
+  public function setDeploymentStatusTime($deploymentStatusTime)
+  {
+    $this->deploymentStatusTime = $deploymentStatusTime;
+  }
+  public function getDeploymentStatusTime()
+  {
+    return $this->deploymentStatusTime;
+  }
+  public function setDeploymentTime($deploymentTime)
+  {
+    $this->deploymentTime = $deploymentTime;
+  }
+  public function getDeploymentTime()
+  {
+    return $this->deploymentTime;
+  }
+  public function setPodName($podName)
+  {
+    $this->podName = $podName;
+  }
+  public function getPodName()
+  {
+    return $this->podName;
+  }
+  public function setPodStatus($podStatus)
+  {
+    $this->podStatus = $podStatus;
+  }
+  public function getPodStatus()
+  {
+    return $this->podStatus;
+  }
+  public function setPodStatusTime($podStatusTime)
+  {
+    $this->podStatusTime = $podStatusTime;
+  }
+  public function getPodStatusTime()
+  {
+    return $this->podStatusTime;
+  }
+  public function setStatusCode($statusCode)
+  {
+    $this->statusCode = $statusCode;
+  }
+  public function getStatusCode()
+  {
+    return $this->statusCode;
+  }
+  public function setStatusCodeDetails($statusCodeDetails)
+  {
+    $this->statusCodeDetails = $statusCodeDetails;
+  }
+  public function getStatusCodeDetails()
+  {
+    return $this->statusCodeDetails;
+  }
 }

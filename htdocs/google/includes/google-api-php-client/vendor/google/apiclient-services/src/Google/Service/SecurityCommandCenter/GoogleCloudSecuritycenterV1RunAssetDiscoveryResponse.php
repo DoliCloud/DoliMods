@@ -17,23 +17,23 @@
 
 class Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1RunAssetDiscoveryResponse extends Google_Model
 {
-	public $duration;
-	public $state;
+  public $duration;
+  public $state;
 
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

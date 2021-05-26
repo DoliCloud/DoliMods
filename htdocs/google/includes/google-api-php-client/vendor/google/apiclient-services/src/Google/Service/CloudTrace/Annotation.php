@@ -17,37 +17,37 @@
 
 class Google_Service_CloudTrace_Annotation extends Google_Model
 {
-	protected $attributesType = 'Google_Service_CloudTrace_Attributes';
-	protected $attributesDataType = '';
-	protected $descriptionType = 'Google_Service_CloudTrace_TruncatableString';
-	protected $descriptionDataType = '';
+  protected $attributesType = 'Google_Service_CloudTrace_Attributes';
+  protected $attributesDataType = '';
+  protected $descriptionType = 'Google_Service_CloudTrace_TruncatableString';
+  protected $descriptionDataType = '';
 
-	/**
-	 * @param Google_Service_CloudTrace_Attributes
-	 */
-	public function setAttributes(Google_Service_CloudTrace_Attributes $attributes)
-	{
-		$this->attributes = $attributes;
-	}
-	/**
-	 * @return Google_Service_CloudTrace_Attributes
-	 */
-	public function getAttributes()
-	{
-		return $this->attributes;
-	}
-	/**
-	 * @param Google_Service_CloudTrace_TruncatableString
-	 */
-	public function setDescription(Google_Service_CloudTrace_TruncatableString $description)
-	{
-		$this->description = $description;
-	}
-	/**
-	 * @return Google_Service_CloudTrace_TruncatableString
-	 */
-	public function getDescription()
-	{
-		return $this->description;
-	}
+  /**
+   * @param Google_Service_CloudTrace_Attributes
+   */
+  public function setAttributes(Google_Service_CloudTrace_Attributes $attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  /**
+   * @return Google_Service_CloudTrace_Attributes
+   */
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
+  /**
+   * @param Google_Service_CloudTrace_TruncatableString
+   */
+  public function setDescription(Google_Service_CloudTrace_TruncatableString $description)
+  {
+    $this->description = $description;
+  }
+  /**
+   * @return Google_Service_CloudTrace_TruncatableString
+   */
+  public function getDescription()
+  {
+    return $this->description;
+  }
 }

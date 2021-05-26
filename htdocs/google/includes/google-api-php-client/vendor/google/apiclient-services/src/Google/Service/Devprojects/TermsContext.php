@@ -17,32 +17,32 @@
 
 class Google_Service_Devprojects_TermsContext extends Google_Model
 {
-	public $kind;
-	public $projectId;
-	public $userId;
+  public $kind;
+  public $projectId;
+  public $userId;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setUserId($userId)
-	{
-		$this->userId = $userId;
-	}
-	public function getUserId()
-	{
-		return $this->userId;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setUserId($userId)
+  {
+    $this->userId = $userId;
+  }
+  public function getUserId()
+  {
+    return $this->userId;
+  }
 }

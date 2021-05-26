@@ -17,56 +17,56 @@
 
 class Google_Service_Mirror_Account extends Google_Collection
 {
-	protected $collection_key = 'userData';
-	protected $authTokensType = 'Google_Service_Mirror_AuthToken';
-	protected $authTokensDataType = 'array';
-	public $features;
-	public $password;
-	protected $userDataType = 'Google_Service_Mirror_UserData';
-	protected $userDataDataType = 'array';
+  protected $collection_key = 'userData';
+  protected $authTokensType = 'Google_Service_Mirror_AuthToken';
+  protected $authTokensDataType = 'array';
+  public $features;
+  public $password;
+  protected $userDataType = 'Google_Service_Mirror_UserData';
+  protected $userDataDataType = 'array';
 
-	/**
-	 * @param Google_Service_Mirror_AuthToken
-	 */
-	public function setAuthTokens($authTokens)
-	{
-		$this->authTokens = $authTokens;
-	}
-	/**
-	 * @return Google_Service_Mirror_AuthToken
-	 */
-	public function getAuthTokens()
-	{
-		return $this->authTokens;
-	}
-	public function setFeatures($features)
-	{
-		$this->features = $features;
-	}
-	public function getFeatures()
-	{
-		return $this->features;
-	}
-	public function setPassword($password)
-	{
-		$this->password = $password;
-	}
-	public function getPassword()
-	{
-		return $this->password;
-	}
-	/**
-	 * @param Google_Service_Mirror_UserData
-	 */
-	public function setUserData($userData)
-	{
-		$this->userData = $userData;
-	}
-	/**
-	 * @return Google_Service_Mirror_UserData
-	 */
-	public function getUserData()
-	{
-		return $this->userData;
-	}
+  /**
+   * @param Google_Service_Mirror_AuthToken
+   */
+  public function setAuthTokens($authTokens)
+  {
+    $this->authTokens = $authTokens;
+  }
+  /**
+   * @return Google_Service_Mirror_AuthToken
+   */
+  public function getAuthTokens()
+  {
+    return $this->authTokens;
+  }
+  public function setFeatures($features)
+  {
+    $this->features = $features;
+  }
+  public function getFeatures()
+  {
+    return $this->features;
+  }
+  public function setPassword($password)
+  {
+    $this->password = $password;
+  }
+  public function getPassword()
+  {
+    return $this->password;
+  }
+  /**
+   * @param Google_Service_Mirror_UserData
+   */
+  public function setUserData($userData)
+  {
+    $this->userData = $userData;
+  }
+  /**
+   * @return Google_Service_Mirror_UserData
+   */
+  public function getUserData()
+  {
+    return $this->userData;
+  }
 }

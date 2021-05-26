@@ -17,24 +17,24 @@
 
 class Google_Service_CloudTalentSolution_JobEvent extends Google_Collection
 {
-	protected $collection_key = 'jobs';
-	public $jobs;
-	public $type;
+  protected $collection_key = 'jobs';
+  public $jobs;
+  public $type;
 
-	public function setJobs($jobs)
-	{
-		$this->jobs = $jobs;
-	}
-	public function getJobs()
-	{
-		return $this->jobs;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setJobs($jobs)
+  {
+    $this->jobs = $jobs;
+  }
+  public function getJobs()
+  {
+    return $this->jobs;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

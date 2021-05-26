@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceConsumerManagement_ListTenancyUnitsResponse extends Google_Collection
 {
-	protected $collection_key = 'tenancyUnits';
-	public $nextPageToken;
-	protected $tenancyUnitsType = 'Google_Service_ServiceConsumerManagement_TenancyUnit';
-	protected $tenancyUnitsDataType = 'array';
+  protected $collection_key = 'tenancyUnits';
+  public $nextPageToken;
+  protected $tenancyUnitsType = 'Google_Service_ServiceConsumerManagement_TenancyUnit';
+  protected $tenancyUnitsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_ServiceConsumerManagement_TenancyUnit
-	 */
-	public function setTenancyUnits($tenancyUnits)
-	{
-		$this->tenancyUnits = $tenancyUnits;
-	}
-	/**
-	 * @return Google_Service_ServiceConsumerManagement_TenancyUnit
-	 */
-	public function getTenancyUnits()
-	{
-		return $this->tenancyUnits;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_ServiceConsumerManagement_TenancyUnit[]
+   */
+  public function setTenancyUnits($tenancyUnits)
+  {
+    $this->tenancyUnits = $tenancyUnits;
+  }
+  /**
+   * @return Google_Service_ServiceConsumerManagement_TenancyUnit[]
+   */
+  public function getTenancyUnits()
+  {
+    return $this->tenancyUnits;
+  }
 }

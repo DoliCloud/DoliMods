@@ -17,23 +17,23 @@
 
 class Google_Service_CloudHealthcare_Hl7V2NotificationConfig extends Google_Model
 {
-	public $filter;
-	public $pubsubTopic;
+  public $filter;
+  public $pubsubTopic;
 
-	public function setFilter($filter)
-	{
-		$this->filter = $filter;
-	}
-	public function getFilter()
-	{
-		return $this->filter;
-	}
-	public function setPubsubTopic($pubsubTopic)
-	{
-		$this->pubsubTopic = $pubsubTopic;
-	}
-	public function getPubsubTopic()
-	{
-		return $this->pubsubTopic;
-	}
+  public function setFilter($filter)
+  {
+    $this->filter = $filter;
+  }
+  public function getFilter()
+  {
+    return $this->filter;
+  }
+  public function setPubsubTopic($pubsubTopic)
+  {
+    $this->pubsubTopic = $pubsubTopic;
+  }
+  public function getPubsubTopic()
+  {
+    return $this->pubsubTopic;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidPublisher_LocalizedText extends Google_Model
 {
-	public $language;
-	public $text;
+  public $language;
+  public $text;
 
-	public function setLanguage($language)
-	{
-		$this->language = $language;
-	}
-	public function getLanguage()
-	{
-		return $this->language;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  public function setLanguage($language)
+  {
+    $this->language = $language;
+  }
+  public function getLanguage()
+  {
+    return $this->language;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

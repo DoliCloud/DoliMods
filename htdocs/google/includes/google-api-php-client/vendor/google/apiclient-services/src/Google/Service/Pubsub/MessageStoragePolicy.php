@@ -17,15 +17,15 @@
 
 class Google_Service_Pubsub_MessageStoragePolicy extends Google_Collection
 {
-	protected $collection_key = 'allowedPersistenceRegions';
-	public $allowedPersistenceRegions;
+  protected $collection_key = 'allowedPersistenceRegions';
+  public $allowedPersistenceRegions;
 
-	public function setAllowedPersistenceRegions($allowedPersistenceRegions)
-	{
-		$this->allowedPersistenceRegions = $allowedPersistenceRegions;
-	}
-	public function getAllowedPersistenceRegions()
-	{
-		return $this->allowedPersistenceRegions;
-	}
+  public function setAllowedPersistenceRegions($allowedPersistenceRegions)
+  {
+    $this->allowedPersistenceRegions = $allowedPersistenceRegions;
+  }
+  public function getAllowedPersistenceRegions()
+  {
+    return $this->allowedPersistenceRegions;
+  }
 }

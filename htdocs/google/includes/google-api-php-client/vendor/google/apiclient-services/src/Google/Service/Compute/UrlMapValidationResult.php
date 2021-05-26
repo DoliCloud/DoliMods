@@ -17,49 +17,49 @@
 
 class Google_Service_Compute_UrlMapValidationResult extends Google_Collection
 {
-	protected $collection_key = 'testFailures';
-	public $loadErrors;
-	public $loadSucceeded;
-	protected $testFailuresType = 'Google_Service_Compute_TestFailure';
-	protected $testFailuresDataType = 'array';
-	public $testPassed;
+  protected $collection_key = 'testFailures';
+  public $loadErrors;
+  public $loadSucceeded;
+  protected $testFailuresType = 'Google_Service_Compute_TestFailure';
+  protected $testFailuresDataType = 'array';
+  public $testPassed;
 
-	public function setLoadErrors($loadErrors)
-	{
-		$this->loadErrors = $loadErrors;
-	}
-	public function getLoadErrors()
-	{
-		return $this->loadErrors;
-	}
-	public function setLoadSucceeded($loadSucceeded)
-	{
-		$this->loadSucceeded = $loadSucceeded;
-	}
-	public function getLoadSucceeded()
-	{
-		return $this->loadSucceeded;
-	}
-	/**
-	 * @param Google_Service_Compute_TestFailure
-	 */
-	public function setTestFailures($testFailures)
-	{
-		$this->testFailures = $testFailures;
-	}
-	/**
-	 * @return Google_Service_Compute_TestFailure
-	 */
-	public function getTestFailures()
-	{
-		return $this->testFailures;
-	}
-	public function setTestPassed($testPassed)
-	{
-		$this->testPassed = $testPassed;
-	}
-	public function getTestPassed()
-	{
-		return $this->testPassed;
-	}
+  public function setLoadErrors($loadErrors)
+  {
+    $this->loadErrors = $loadErrors;
+  }
+  public function getLoadErrors()
+  {
+    return $this->loadErrors;
+  }
+  public function setLoadSucceeded($loadSucceeded)
+  {
+    $this->loadSucceeded = $loadSucceeded;
+  }
+  public function getLoadSucceeded()
+  {
+    return $this->loadSucceeded;
+  }
+  /**
+   * @param Google_Service_Compute_TestFailure[]
+   */
+  public function setTestFailures($testFailures)
+  {
+    $this->testFailures = $testFailures;
+  }
+  /**
+   * @return Google_Service_Compute_TestFailure[]
+   */
+  public function getTestFailures()
+  {
+    return $this->testFailures;
+  }
+  public function setTestPassed($testPassed)
+  {
+    $this->testPassed = $testPassed;
+  }
+  public function getTestPassed()
+  {
+    return $this->testPassed;
+  }
 }

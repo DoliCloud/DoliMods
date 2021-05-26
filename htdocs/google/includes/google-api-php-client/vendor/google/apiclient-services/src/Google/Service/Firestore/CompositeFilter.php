@@ -17,31 +17,31 @@
 
 class Google_Service_Firestore_CompositeFilter extends Google_Collection
 {
-	protected $collection_key = 'filters';
-	protected $filtersType = 'Google_Service_Firestore_Filter';
-	protected $filtersDataType = 'array';
-	public $op;
+  protected $collection_key = 'filters';
+  protected $filtersType = 'Google_Service_Firestore_Filter';
+  protected $filtersDataType = 'array';
+  public $op;
 
-	/**
-	 * @param Google_Service_Firestore_Filter
-	 */
-	public function setFilters($filters)
-	{
-		$this->filters = $filters;
-	}
-	/**
-	 * @return Google_Service_Firestore_Filter
-	 */
-	public function getFilters()
-	{
-		return $this->filters;
-	}
-	public function setOp($op)
-	{
-		$this->op = $op;
-	}
-	public function getOp()
-	{
-		return $this->op;
-	}
+  /**
+   * @param Google_Service_Firestore_Filter[]
+   */
+  public function setFilters($filters)
+  {
+    $this->filters = $filters;
+  }
+  /**
+   * @return Google_Service_Firestore_Filter[]
+   */
+  public function getFilters()
+  {
+    return $this->filters;
+  }
+  public function setOp($op)
+  {
+    $this->op = $op;
+  }
+  public function getOp()
+  {
+    return $this->op;
+  }
 }

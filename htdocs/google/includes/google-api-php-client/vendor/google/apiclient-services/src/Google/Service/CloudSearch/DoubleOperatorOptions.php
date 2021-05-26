@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_DoubleOperatorOptions extends Google_Model
 {
-	public $operatorName;
+  public $operatorName;
 
-	public function setOperatorName($operatorName)
-	{
-		$this->operatorName = $operatorName;
-	}
-	public function getOperatorName()
-	{
-		return $this->operatorName;
-	}
+  public function setOperatorName($operatorName)
+  {
+    $this->operatorName = $operatorName;
+  }
+  public function getOperatorName()
+  {
+    return $this->operatorName;
+  }
 }

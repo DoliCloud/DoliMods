@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListCustomReportsResponse extends Google_Collection
 {
-	protected $collection_key = 'qualifier';
-	protected $qualifierType = 'Google_Service_Apigee_GoogleCloudApigeeV1CustomReport';
-	protected $qualifierDataType = 'array';
+  protected $collection_key = 'qualifier';
+  protected $qualifierType = 'Google_Service_Apigee_GoogleCloudApigeeV1CustomReport';
+  protected $qualifierDataType = 'array';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1CustomReport
-	 */
-	public function setQualifier($qualifier)
-	{
-		$this->qualifier = $qualifier;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1CustomReport
-	 */
-	public function getQualifier()
-	{
-		return $this->qualifier;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1CustomReport[]
+   */
+  public function setQualifier($qualifier)
+  {
+    $this->qualifier = $qualifier;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1CustomReport[]
+   */
+  public function getQualifier()
+  {
+    return $this->qualifier;
+  }
 }

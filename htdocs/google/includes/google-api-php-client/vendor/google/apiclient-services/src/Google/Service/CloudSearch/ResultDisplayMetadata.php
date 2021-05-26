@@ -17,31 +17,31 @@
 
 class Google_Service_CloudSearch_ResultDisplayMetadata extends Google_Collection
 {
-	protected $collection_key = 'metalines';
-	protected $metalinesType = 'Google_Service_CloudSearch_ResultDisplayLine';
-	protected $metalinesDataType = 'array';
-	public $objectTypeLabel;
+  protected $collection_key = 'metalines';
+  protected $metalinesType = 'Google_Service_CloudSearch_ResultDisplayLine';
+  protected $metalinesDataType = 'array';
+  public $objectTypeLabel;
 
-	/**
-	 * @param Google_Service_CloudSearch_ResultDisplayLine
-	 */
-	public function setMetalines($metalines)
-	{
-		$this->metalines = $metalines;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_ResultDisplayLine
-	 */
-	public function getMetalines()
-	{
-		return $this->metalines;
-	}
-	public function setObjectTypeLabel($objectTypeLabel)
-	{
-		$this->objectTypeLabel = $objectTypeLabel;
-	}
-	public function getObjectTypeLabel()
-	{
-		return $this->objectTypeLabel;
-	}
+  /**
+   * @param Google_Service_CloudSearch_ResultDisplayLine[]
+   */
+  public function setMetalines($metalines)
+  {
+    $this->metalines = $metalines;
+  }
+  /**
+   * @return Google_Service_CloudSearch_ResultDisplayLine[]
+   */
+  public function getMetalines()
+  {
+    return $this->metalines;
+  }
+  public function setObjectTypeLabel($objectTypeLabel)
+  {
+    $this->objectTypeLabel = $objectTypeLabel;
+  }
+  public function getObjectTypeLabel()
+  {
+    return $this->objectTypeLabel;
+  }
 }

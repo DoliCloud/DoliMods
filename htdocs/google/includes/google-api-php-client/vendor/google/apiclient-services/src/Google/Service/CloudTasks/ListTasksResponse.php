@@ -17,31 +17,31 @@
 
 class Google_Service_CloudTasks_ListTasksResponse extends Google_Collection
 {
-	protected $collection_key = 'tasks';
-	public $nextPageToken;
-	protected $tasksType = 'Google_Service_CloudTasks_Task';
-	protected $tasksDataType = 'array';
+  protected $collection_key = 'tasks';
+  public $nextPageToken;
+  protected $tasksType = 'Google_Service_CloudTasks_Task';
+  protected $tasksDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_CloudTasks_Task
-	 */
-	public function setTasks($tasks)
-	{
-		$this->tasks = $tasks;
-	}
-	/**
-	 * @return Google_Service_CloudTasks_Task
-	 */
-	public function getTasks()
-	{
-		return $this->tasks;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_CloudTasks_Task[]
+   */
+  public function setTasks($tasks)
+  {
+    $this->tasks = $tasks;
+  }
+  /**
+   * @return Google_Service_CloudTasks_Task[]
+   */
+  public function getTasks()
+  {
+    return $this->tasks;
+  }
 }

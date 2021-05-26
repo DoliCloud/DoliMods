@@ -17,55 +17,55 @@
 
 class Google_Service_CloudAsset_IamPolicySearchResult extends Google_Model
 {
-	protected $explanationType = 'Google_Service_CloudAsset_Explanation';
-	protected $explanationDataType = '';
-	protected $policyType = 'Google_Service_CloudAsset_Policy';
-	protected $policyDataType = '';
-	public $project;
-	public $resource;
+  protected $explanationType = 'Google_Service_CloudAsset_Explanation';
+  protected $explanationDataType = '';
+  protected $policyType = 'Google_Service_CloudAsset_Policy';
+  protected $policyDataType = '';
+  public $project;
+  public $resource;
 
-	/**
-	 * @param Google_Service_CloudAsset_Explanation
-	 */
-	public function setExplanation(Google_Service_CloudAsset_Explanation $explanation)
-	{
-		$this->explanation = $explanation;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_Explanation
-	 */
-	public function getExplanation()
-	{
-		return $this->explanation;
-	}
-	/**
-	 * @param Google_Service_CloudAsset_Policy
-	 */
-	public function setPolicy(Google_Service_CloudAsset_Policy $policy)
-	{
-		$this->policy = $policy;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_Policy
-	 */
-	public function getPolicy()
-	{
-		return $this->policy;
-	}
-	public function setProject($project)
-	{
-		$this->project = $project;
-	}
-	public function getProject()
-	{
-		return $this->project;
-	}
-	public function setResource($resource)
-	{
-		$this->resource = $resource;
-	}
-	public function getResource()
-	{
-		return $this->resource;
-	}
+  /**
+   * @param Google_Service_CloudAsset_Explanation
+   */
+  public function setExplanation(Google_Service_CloudAsset_Explanation $explanation)
+  {
+    $this->explanation = $explanation;
+  }
+  /**
+   * @return Google_Service_CloudAsset_Explanation
+   */
+  public function getExplanation()
+  {
+    return $this->explanation;
+  }
+  /**
+   * @param Google_Service_CloudAsset_Policy
+   */
+  public function setPolicy(Google_Service_CloudAsset_Policy $policy)
+  {
+    $this->policy = $policy;
+  }
+  /**
+   * @return Google_Service_CloudAsset_Policy
+   */
+  public function getPolicy()
+  {
+    return $this->policy;
+  }
+  public function setProject($project)
+  {
+    $this->project = $project;
+  }
+  public function getProject()
+  {
+    return $this->project;
+  }
+  public function setResource($resource)
+  {
+    $this->resource = $resource;
+  }
+  public function getResource()
+  {
+    return $this->resource;
+  }
 }

@@ -25,19 +25,19 @@
  */
 class Google_Service_HangoutsChat_Resource_SpacesMessagesAttachments extends Google_Service_Resource
 {
-	/**
-	 * Gets the metadata of a message attachment. The attachment data is fetched
-	 * using the media API. (attachments.get)
-	 *
-	 * @param string $name Resource name of the attachment, in the form
-	 *                     "spaces/messages/attachments".
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_HangoutsChat_Attachment
-	 */
-	public function get($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_HangoutsChat_Attachment");
-	}
+  /**
+   * Gets the metadata of a message attachment. The attachment data is fetched
+   * using the media API. (attachments.get)
+   *
+   * @param string $name Resource name of the attachment, in the form
+   * "spaces/messages/attachments".
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_HangoutsChat_Attachment
+   */
+  public function get($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_HangoutsChat_Attachment");
+  }
 }

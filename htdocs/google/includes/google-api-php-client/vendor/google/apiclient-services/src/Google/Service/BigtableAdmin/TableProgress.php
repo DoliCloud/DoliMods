@@ -17,32 +17,32 @@
 
 class Google_Service_BigtableAdmin_TableProgress extends Google_Model
 {
-	public $estimatedCopiedBytes;
-	public $estimatedSizeBytes;
-	public $state;
+  public $estimatedCopiedBytes;
+  public $estimatedSizeBytes;
+  public $state;
 
-	public function setEstimatedCopiedBytes($estimatedCopiedBytes)
-	{
-		$this->estimatedCopiedBytes = $estimatedCopiedBytes;
-	}
-	public function getEstimatedCopiedBytes()
-	{
-		return $this->estimatedCopiedBytes;
-	}
-	public function setEstimatedSizeBytes($estimatedSizeBytes)
-	{
-		$this->estimatedSizeBytes = $estimatedSizeBytes;
-	}
-	public function getEstimatedSizeBytes()
-	{
-		return $this->estimatedSizeBytes;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setEstimatedCopiedBytes($estimatedCopiedBytes)
+  {
+    $this->estimatedCopiedBytes = $estimatedCopiedBytes;
+  }
+  public function getEstimatedCopiedBytes()
+  {
+    return $this->estimatedCopiedBytes;
+  }
+  public function setEstimatedSizeBytes($estimatedSizeBytes)
+  {
+    $this->estimatedSizeBytes = $estimatedSizeBytes;
+  }
+  public function getEstimatedSizeBytes()
+  {
+    return $this->estimatedSizeBytes;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

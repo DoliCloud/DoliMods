@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_NodeGroupsSetNodeTemplateRequest extends Google_Model
 {
-	public $nodeTemplate;
+  public $nodeTemplate;
 
-	public function setNodeTemplate($nodeTemplate)
-	{
-		$this->nodeTemplate = $nodeTemplate;
-	}
-	public function getNodeTemplate()
-	{
-		return $this->nodeTemplate;
-	}
+  public function setNodeTemplate($nodeTemplate)
+  {
+    $this->nodeTemplate = $nodeTemplate;
+  }
+  public function getNodeTemplate()
+  {
+    return $this->nodeTemplate;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Pubsub_ExpirationPolicy extends Google_Model
 {
-	public $ttl;
+  public $ttl;
 
-	public function setTtl($ttl)
-	{
-		$this->ttl = $ttl;
-	}
-	public function getTtl()
-	{
-		return $this->ttl;
-	}
+  public function setTtl($ttl)
+  {
+    $this->ttl = $ttl;
+  }
+  public function getTtl()
+  {
+    return $this->ttl;
+  }
 }

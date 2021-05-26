@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_CombinedAudience extends Google_Model
 {
-	public $combinedAudienceId;
-	public $displayName;
-	public $name;
+  public $combinedAudienceId;
+  public $displayName;
+  public $name;
 
-	public function setCombinedAudienceId($combinedAudienceId)
-	{
-		$this->combinedAudienceId = $combinedAudienceId;
-	}
-	public function getCombinedAudienceId()
-	{
-		return $this->combinedAudienceId;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setCombinedAudienceId($combinedAudienceId)
+  {
+    $this->combinedAudienceId = $combinedAudienceId;
+  }
+  public function getCombinedAudienceId()
+  {
+    return $this->combinedAudienceId;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Vision_TextProperty extends Google_Collection
 {
-	protected $collection_key = 'detectedLanguages';
-	protected $detectedBreakType = 'Google_Service_Vision_DetectedBreak';
-	protected $detectedBreakDataType = '';
-	protected $detectedLanguagesType = 'Google_Service_Vision_DetectedLanguage';
-	protected $detectedLanguagesDataType = 'array';
+  protected $collection_key = 'detectedLanguages';
+  protected $detectedBreakType = 'Google_Service_Vision_DetectedBreak';
+  protected $detectedBreakDataType = '';
+  protected $detectedLanguagesType = 'Google_Service_Vision_DetectedLanguage';
+  protected $detectedLanguagesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Vision_DetectedBreak
-	 */
-	public function setDetectedBreak(Google_Service_Vision_DetectedBreak $detectedBreak)
-	{
-		$this->detectedBreak = $detectedBreak;
-	}
-	/**
-	 * @return Google_Service_Vision_DetectedBreak
-	 */
-	public function getDetectedBreak()
-	{
-		return $this->detectedBreak;
-	}
-	/**
-	 * @param Google_Service_Vision_DetectedLanguage
-	 */
-	public function setDetectedLanguages($detectedLanguages)
-	{
-		$this->detectedLanguages = $detectedLanguages;
-	}
-	/**
-	 * @return Google_Service_Vision_DetectedLanguage
-	 */
-	public function getDetectedLanguages()
-	{
-		return $this->detectedLanguages;
-	}
+  /**
+   * @param Google_Service_Vision_DetectedBreak
+   */
+  public function setDetectedBreak(Google_Service_Vision_DetectedBreak $detectedBreak)
+  {
+    $this->detectedBreak = $detectedBreak;
+  }
+  /**
+   * @return Google_Service_Vision_DetectedBreak
+   */
+  public function getDetectedBreak()
+  {
+    return $this->detectedBreak;
+  }
+  /**
+   * @param Google_Service_Vision_DetectedLanguage[]
+   */
+  public function setDetectedLanguages($detectedLanguages)
+  {
+    $this->detectedLanguages = $detectedLanguages;
+  }
+  /**
+   * @return Google_Service_Vision_DetectedLanguage[]
+   */
+  public function getDetectedLanguages()
+  {
+    return $this->detectedLanguages;
+  }
 }

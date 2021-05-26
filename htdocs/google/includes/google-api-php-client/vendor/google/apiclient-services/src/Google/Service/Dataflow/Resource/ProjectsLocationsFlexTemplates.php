@@ -25,22 +25,22 @@
  */
 class Google_Service_Dataflow_Resource_ProjectsLocationsFlexTemplates extends Google_Service_Resource
 {
-	/**
-	 * Launch a job with a FlexTemplate. (flexTemplates.launch)
-	 *
-	 * @param string $projectId Required. The ID of the Cloud Platform project that
-	 *                          the job belongs to.
-	 * @param string $location Required. The [regional endpoint]
-	 *                         (https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) to which
-	 *                         to direct the request. E.g., us-central1, us-west1.
-	 * @param Google_Service_Dataflow_LaunchFlexTemplateRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dataflow_LaunchFlexTemplateResponse
-	 */
-	public function launch($projectId, $location, Google_Service_Dataflow_LaunchFlexTemplateRequest $postBody, $optParams = array())
-	{
-		$params = array('projectId' => $projectId, 'location' => $location, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('launch', array($params), "Google_Service_Dataflow_LaunchFlexTemplateResponse");
-	}
+  /**
+   * Launch a job with a FlexTemplate. (flexTemplates.launch)
+   *
+   * @param string $projectId Required. The ID of the Cloud Platform project that
+   * the job belongs to.
+   * @param string $location Required. The [regional endpoint]
+   * (https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) to which
+   * to direct the request. E.g., us-central1, us-west1.
+   * @param Google_Service_Dataflow_LaunchFlexTemplateRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dataflow_LaunchFlexTemplateResponse
+   */
+  public function launch($projectId, $location, Google_Service_Dataflow_LaunchFlexTemplateRequest $postBody, $optParams = array())
+  {
+    $params = array('projectId' => $projectId, 'location' => $location, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('launch', array($params), "Google_Service_Dataflow_LaunchFlexTemplateResponse");
+  }
 }

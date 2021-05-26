@@ -17,49 +17,49 @@
 
 class Google_Service_Drive_FileList extends Google_Collection
 {
-	protected $collection_key = 'files';
-	protected $filesType = 'Google_Service_Drive_DriveFile';
-	protected $filesDataType = 'array';
-	public $incompleteSearch;
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'files';
+  protected $filesType = 'Google_Service_Drive_DriveFile';
+  protected $filesDataType = 'array';
+  public $incompleteSearch;
+  public $kind;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Drive_DriveFile
-	 */
-	public function setFiles($files)
-	{
-		$this->files = $files;
-	}
-	/**
-	 * @return Google_Service_Drive_DriveFile
-	 */
-	public function getFiles()
-	{
-		return $this->files;
-	}
-	public function setIncompleteSearch($incompleteSearch)
-	{
-		$this->incompleteSearch = $incompleteSearch;
-	}
-	public function getIncompleteSearch()
-	{
-		return $this->incompleteSearch;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Drive_DriveFile[]
+   */
+  public function setFiles($files)
+  {
+    $this->files = $files;
+  }
+  /**
+   * @return Google_Service_Drive_DriveFile[]
+   */
+  public function getFiles()
+  {
+    return $this->files;
+  }
+  public function setIncompleteSearch($incompleteSearch)
+  {
+    $this->incompleteSearch = $incompleteSearch;
+  }
+  public function getIncompleteSearch()
+  {
+    return $this->incompleteSearch;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,49 +17,49 @@
 
 class Google_Service_PlusDomains_Acl extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $description;
-	public $domainRestricted;
-	protected $itemsType = 'Google_Service_PlusDomains_PlusDomainsAclentryResource';
-	protected $itemsDataType = 'array';
-	public $kind;
+  protected $collection_key = 'items';
+  public $description;
+  public $domainRestricted;
+  protected $itemsType = 'Google_Service_PlusDomains_PlusDomainsAclentryResource';
+  protected $itemsDataType = 'array';
+  public $kind;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDomainRestricted($domainRestricted)
-	{
-		$this->domainRestricted = $domainRestricted;
-	}
-	public function getDomainRestricted()
-	{
-		return $this->domainRestricted;
-	}
-	/**
-	 * @param Google_Service_PlusDomains_PlusDomainsAclentryResource
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_PlusDomains_PlusDomainsAclentryResource
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDomainRestricted($domainRestricted)
+  {
+    $this->domainRestricted = $domainRestricted;
+  }
+  public function getDomainRestricted()
+  {
+    return $this->domainRestricted;
+  }
+  /**
+   * @param Google_Service_PlusDomains_PlusDomainsAclentryResource
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_PlusDomains_PlusDomainsAclentryResource
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

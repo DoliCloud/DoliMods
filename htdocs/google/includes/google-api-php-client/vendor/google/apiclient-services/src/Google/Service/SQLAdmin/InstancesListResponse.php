@@ -17,56 +17,56 @@
 
 class Google_Service_SQLAdmin_InstancesListResponse extends Google_Collection
 {
-	protected $collection_key = 'warnings';
-	protected $itemsType = 'Google_Service_SQLAdmin_DatabaseInstance';
-	protected $itemsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
-	protected $warningsType = 'Google_Service_SQLAdmin_ApiWarning';
-	protected $warningsDataType = 'array';
+  protected $collection_key = 'warnings';
+  protected $itemsType = 'Google_Service_SQLAdmin_DatabaseInstance';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  protected $warningsType = 'Google_Service_SQLAdmin_ApiWarning';
+  protected $warningsDataType = 'array';
 
-	/**
-	 * @param Google_Service_SQLAdmin_DatabaseInstance
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_DatabaseInstance
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_SQLAdmin_ApiWarning
-	 */
-	public function setWarnings($warnings)
-	{
-		$this->warnings = $warnings;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_ApiWarning
-	 */
-	public function getWarnings()
-	{
-		return $this->warnings;
-	}
+  /**
+   * @param Google_Service_SQLAdmin_DatabaseInstance[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_DatabaseInstance[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_SQLAdmin_ApiWarning[]
+   */
+  public function setWarnings($warnings)
+  {
+    $this->warnings = $warnings;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_ApiWarning[]
+   */
+  public function getWarnings()
+  {
+    return $this->warnings;
+  }
 }

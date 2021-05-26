@@ -17,14 +17,14 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1RejoinUserEventsRequest extends Google_Model
 {
-	public $userEventRejoinScope;
+  public $userEventRejoinScope;
 
-	public function setUserEventRejoinScope($userEventRejoinScope)
-	{
-		$this->userEventRejoinScope = $userEventRejoinScope;
-	}
-	public function getUserEventRejoinScope()
-	{
-		return $this->userEventRejoinScope;
-	}
+  public function setUserEventRejoinScope($userEventRejoinScope)
+  {
+    $this->userEventRejoinScope = $userEventRejoinScope;
+  }
+  public function getUserEventRejoinScope()
+  {
+    return $this->userEventRejoinScope;
+  }
 }

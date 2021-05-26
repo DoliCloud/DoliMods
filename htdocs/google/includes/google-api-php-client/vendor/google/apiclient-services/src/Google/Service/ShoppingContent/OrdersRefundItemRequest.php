@@ -17,65 +17,65 @@
 
 class Google_Service_ShoppingContent_OrdersRefundItemRequest extends Google_Collection
 {
-	protected $collection_key = 'items';
-	protected $itemsType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemItem';
-	protected $itemsDataType = 'array';
-	public $operationId;
-	public $reason;
-	public $reasonText;
-	protected $shippingType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemShipping';
-	protected $shippingDataType = '';
+  protected $collection_key = 'items';
+  protected $itemsType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemItem';
+  protected $itemsDataType = 'array';
+  public $operationId;
+  public $reason;
+  public $reasonText;
+  protected $shippingType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemShipping';
+  protected $shippingDataType = '';
 
-	/**
-	 * @param Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemItem
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemItem
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setOperationId($operationId)
-	{
-		$this->operationId = $operationId;
-	}
-	public function getOperationId()
-	{
-		return $this->operationId;
-	}
-	public function setReason($reason)
-	{
-		$this->reason = $reason;
-	}
-	public function getReason()
-	{
-		return $this->reason;
-	}
-	public function setReasonText($reasonText)
-	{
-		$this->reasonText = $reasonText;
-	}
-	public function getReasonText()
-	{
-		return $this->reasonText;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemShipping
-	 */
-	public function setShipping(Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemShipping $shipping)
-	{
-		$this->shipping = $shipping;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemShipping
-	 */
-	public function getShipping()
-	{
-		return $this->shipping;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemItem[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemItem[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setOperationId($operationId)
+  {
+    $this->operationId = $operationId;
+  }
+  public function getOperationId()
+  {
+    return $this->operationId;
+  }
+  public function setReason($reason)
+  {
+    $this->reason = $reason;
+  }
+  public function getReason()
+  {
+    return $this->reason;
+  }
+  public function setReasonText($reasonText)
+  {
+    $this->reasonText = $reasonText;
+  }
+  public function getReasonText()
+  {
+    return $this->reasonText;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemShipping
+   */
+  public function setShipping(Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemShipping $shipping)
+  {
+    $this->shipping = $shipping;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefundItemShipping
+   */
+  public function getShipping()
+  {
+    return $this->shipping;
+  }
 }

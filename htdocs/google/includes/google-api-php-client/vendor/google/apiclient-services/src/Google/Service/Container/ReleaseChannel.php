@@ -17,14 +17,14 @@
 
 class Google_Service_Container_ReleaseChannel extends Google_Model
 {
-	public $channel;
+  public $channel;
 
-	public function setChannel($channel)
-	{
-		$this->channel = $channel;
-	}
-	public function getChannel()
-	{
-		return $this->channel;
-	}
+  public function setChannel($channel)
+  {
+    $this->channel = $channel;
+  }
+  public function getChannel()
+  {
+    return $this->channel;
+  }
 }

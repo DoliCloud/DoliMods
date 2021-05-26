@@ -17,32 +17,32 @@
 
 class Google_Service_WebSecurityScanner_CrawledUrl extends Google_Model
 {
-	public $body;
-	public $httpMethod;
-	public $url;
+  public $body;
+  public $httpMethod;
+  public $url;
 
-	public function setBody($body)
-	{
-		$this->body = $body;
-	}
-	public function getBody()
-	{
-		return $this->body;
-	}
-	public function setHttpMethod($httpMethod)
-	{
-		$this->httpMethod = $httpMethod;
-	}
-	public function getHttpMethod()
-	{
-		return $this->httpMethod;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setBody($body)
+  {
+    $this->body = $body;
+  }
+  public function getBody()
+  {
+    return $this->body;
+  }
+  public function setHttpMethod($httpMethod)
+  {
+    $this->httpMethod = $httpMethod;
+  }
+  public function getHttpMethod()
+  {
+    return $this->httpMethod;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

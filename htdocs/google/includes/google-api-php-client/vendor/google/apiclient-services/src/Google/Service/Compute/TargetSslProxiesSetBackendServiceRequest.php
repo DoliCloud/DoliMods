@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_TargetSslProxiesSetBackendServiceRequest extends Google_Model
 {
-	public $service;
+  public $service;
 
-	public function setService($service)
-	{
-		$this->service = $service;
-	}
-	public function getService()
-	{
-		return $this->service;
-	}
+  public function setService($service)
+  {
+    $this->service = $service;
+  }
+  public function getService()
+  {
+    return $this->service;
+  }
 }

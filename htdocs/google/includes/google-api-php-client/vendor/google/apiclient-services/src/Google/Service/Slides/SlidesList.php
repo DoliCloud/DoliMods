@@ -17,30 +17,30 @@
 
 class Google_Service_Slides_SlidesList extends Google_Model
 {
-	public $listId;
-	protected $nestingLevelType = 'Google_Service_Slides_NestingLevel';
-	protected $nestingLevelDataType = 'map';
+  public $listId;
+  protected $nestingLevelType = 'Google_Service_Slides_NestingLevel';
+  protected $nestingLevelDataType = 'map';
 
-	public function setListId($listId)
-	{
-		$this->listId = $listId;
-	}
-	public function getListId()
-	{
-		return $this->listId;
-	}
-	/**
-	 * @param Google_Service_Slides_NestingLevel
-	 */
-	public function setNestingLevel($nestingLevel)
-	{
-		$this->nestingLevel = $nestingLevel;
-	}
-	/**
-	 * @return Google_Service_Slides_NestingLevel
-	 */
-	public function getNestingLevel()
-	{
-		return $this->nestingLevel;
-	}
+  public function setListId($listId)
+  {
+    $this->listId = $listId;
+  }
+  public function getListId()
+  {
+    return $this->listId;
+  }
+  /**
+   * @param Google_Service_Slides_NestingLevel[]
+   */
+  public function setNestingLevel($nestingLevel)
+  {
+    $this->nestingLevel = $nestingLevel;
+  }
+  /**
+   * @return Google_Service_Slides_NestingLevel[]
+   */
+  public function getNestingLevel()
+  {
+    return $this->nestingLevel;
+  }
 }

@@ -17,46 +17,46 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsage extends Google_Model
 {
-	public $cpuUsedPercent;
-	protected $diskUsageType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat';
-	protected $diskUsageDataType = '';
-	protected $memoryUsageType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat';
-	protected $memoryUsageDataType = '';
+  public $cpuUsedPercent;
+  protected $diskUsageType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat';
+  protected $diskUsageDataType = '';
+  protected $memoryUsageType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat';
+  protected $memoryUsageDataType = '';
 
-	public function setCpuUsedPercent($cpuUsedPercent)
-	{
-		$this->cpuUsedPercent = $cpuUsedPercent;
-	}
-	public function getCpuUsedPercent()
-	{
-		return $this->cpuUsedPercent;
-	}
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat
-	 */
-	public function setDiskUsage(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat $diskUsage)
-	{
-		$this->diskUsage = $diskUsage;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat
-	 */
-	public function getDiskUsage()
-	{
-		return $this->diskUsage;
-	}
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat
-	 */
-	public function setMemoryUsage(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat $memoryUsage)
-	{
-		$this->memoryUsage = $memoryUsage;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat
-	 */
-	public function getMemoryUsage()
-	{
-		return $this->memoryUsage;
-	}
+  public function setCpuUsedPercent($cpuUsedPercent)
+  {
+    $this->cpuUsedPercent = $cpuUsedPercent;
+  }
+  public function getCpuUsedPercent()
+  {
+    return $this->cpuUsedPercent;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat
+   */
+  public function setDiskUsage(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat $diskUsage)
+  {
+    $this->diskUsage = $diskUsage;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat
+   */
+  public function getDiskUsage()
+  {
+    return $this->diskUsage;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat
+   */
+  public function setMemoryUsage(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat $memoryUsage)
+  {
+    $this->memoryUsage = $memoryUsage;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotResourceUsageStat
+   */
+  public function getMemoryUsage()
+  {
+    return $this->memoryUsage;
+  }
 }

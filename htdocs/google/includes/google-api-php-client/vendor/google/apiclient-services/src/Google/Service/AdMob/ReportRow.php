@@ -17,37 +17,37 @@
 
 class Google_Service_AdMob_ReportRow extends Google_Model
 {
-	protected $dimensionValuesType = 'Google_Service_AdMob_ReportRowDimensionValue';
-	protected $dimensionValuesDataType = 'map';
-	protected $metricValuesType = 'Google_Service_AdMob_ReportRowMetricValue';
-	protected $metricValuesDataType = 'map';
+  protected $dimensionValuesType = 'Google_Service_AdMob_ReportRowDimensionValue';
+  protected $dimensionValuesDataType = 'map';
+  protected $metricValuesType = 'Google_Service_AdMob_ReportRowMetricValue';
+  protected $metricValuesDataType = 'map';
 
-	/**
-	 * @param Google_Service_AdMob_ReportRowDimensionValue
-	 */
-	public function setDimensionValues($dimensionValues)
-	{
-		$this->dimensionValues = $dimensionValues;
-	}
-	/**
-	 * @return Google_Service_AdMob_ReportRowDimensionValue
-	 */
-	public function getDimensionValues()
-	{
-		return $this->dimensionValues;
-	}
-	/**
-	 * @param Google_Service_AdMob_ReportRowMetricValue
-	 */
-	public function setMetricValues($metricValues)
-	{
-		$this->metricValues = $metricValues;
-	}
-	/**
-	 * @return Google_Service_AdMob_ReportRowMetricValue
-	 */
-	public function getMetricValues()
-	{
-		return $this->metricValues;
-	}
+  /**
+   * @param Google_Service_AdMob_ReportRowDimensionValue[]
+   */
+  public function setDimensionValues($dimensionValues)
+  {
+    $this->dimensionValues = $dimensionValues;
+  }
+  /**
+   * @return Google_Service_AdMob_ReportRowDimensionValue[]
+   */
+  public function getDimensionValues()
+  {
+    return $this->dimensionValues;
+  }
+  /**
+   * @param Google_Service_AdMob_ReportRowMetricValue[]
+   */
+  public function setMetricValues($metricValues)
+  {
+    $this->metricValues = $metricValues;
+  }
+  /**
+   * @return Google_Service_AdMob_ReportRowMetricValue[]
+   */
+  public function getMetricValues()
+  {
+    return $this->metricValues;
+  }
 }

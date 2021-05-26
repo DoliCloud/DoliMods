@@ -17,80 +17,80 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserEvent extends Google_Model
 {
-	protected $eventDetailType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1EventDetail';
-	protected $eventDetailDataType = '';
-	public $eventSource;
-	public $eventTime;
-	public $eventType;
-	protected $productEventDetailType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail';
-	protected $productEventDetailDataType = '';
-	protected $userInfoType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo';
-	protected $userInfoDataType = '';
+  protected $eventDetailType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1EventDetail';
+  protected $eventDetailDataType = '';
+  public $eventSource;
+  public $eventTime;
+  public $eventType;
+  protected $productEventDetailType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail';
+  protected $productEventDetailDataType = '';
+  protected $userInfoType = 'Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo';
+  protected $userInfoDataType = '';
 
-	/**
-	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1EventDetail
-	 */
-	public function setEventDetail(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1EventDetail $eventDetail)
-	{
-		$this->eventDetail = $eventDetail;
-	}
-	/**
-	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1EventDetail
-	 */
-	public function getEventDetail()
-	{
-		return $this->eventDetail;
-	}
-	public function setEventSource($eventSource)
-	{
-		$this->eventSource = $eventSource;
-	}
-	public function getEventSource()
-	{
-		return $this->eventSource;
-	}
-	public function setEventTime($eventTime)
-	{
-		$this->eventTime = $eventTime;
-	}
-	public function getEventTime()
-	{
-		return $this->eventTime;
-	}
-	public function setEventType($eventType)
-	{
-		$this->eventType = $eventType;
-	}
-	public function getEventType()
-	{
-		return $this->eventType;
-	}
-	/**
-	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail
-	 */
-	public function setProductEventDetail(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail $productEventDetail)
-	{
-		$this->productEventDetail = $productEventDetail;
-	}
-	/**
-	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail
-	 */
-	public function getProductEventDetail()
-	{
-		return $this->productEventDetail;
-	}
-	/**
-	 * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo
-	 */
-	public function setUserInfo(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo $userInfo)
-	{
-		$this->userInfo = $userInfo;
-	}
-	/**
-	 * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo
-	 */
-	public function getUserInfo()
-	{
-		return $this->userInfo;
-	}
+  /**
+   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1EventDetail
+   */
+  public function setEventDetail(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1EventDetail $eventDetail)
+  {
+    $this->eventDetail = $eventDetail;
+  }
+  /**
+   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1EventDetail
+   */
+  public function getEventDetail()
+  {
+    return $this->eventDetail;
+  }
+  public function setEventSource($eventSource)
+  {
+    $this->eventSource = $eventSource;
+  }
+  public function getEventSource()
+  {
+    return $this->eventSource;
+  }
+  public function setEventTime($eventTime)
+  {
+    $this->eventTime = $eventTime;
+  }
+  public function getEventTime()
+  {
+    return $this->eventTime;
+  }
+  public function setEventType($eventType)
+  {
+    $this->eventType = $eventType;
+  }
+  public function getEventType()
+  {
+    return $this->eventType;
+  }
+  /**
+   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail
+   */
+  public function setProductEventDetail(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail $productEventDetail)
+  {
+    $this->productEventDetail = $productEventDetail;
+  }
+  /**
+   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ProductEventDetail
+   */
+  public function getProductEventDetail()
+  {
+    return $this->productEventDetail;
+  }
+  /**
+   * @param Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo
+   */
+  public function setUserInfo(Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo $userInfo)
+  {
+    $this->userInfo = $userInfo;
+  }
+  /**
+   * @return Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo
+   */
+  public function getUserInfo()
+  {
+    return $this->userInfo;
+  }
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_ContainerAnalysis_ScanConfig extends Google_Model
 {
-	public $createTime;
-	public $description;
-	public $enabled;
-	public $name;
-	public $updateTime;
+  public $createTime;
+  public $description;
+  public $enabled;
+  public $name;
+  public $updateTime;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
-	}
-	public function getEnabled()
-	{
-		return $this->enabled;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setEnabled($enabled)
+  {
+    $this->enabled = $enabled;
+  }
+  public function getEnabled()
+  {
+    return $this->enabled;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

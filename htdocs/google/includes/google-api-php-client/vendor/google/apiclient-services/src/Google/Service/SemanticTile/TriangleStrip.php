@@ -17,15 +17,15 @@
 
 class Google_Service_SemanticTile_TriangleStrip extends Google_Collection
 {
-	protected $collection_key = 'vertexIndices';
-	public $vertexIndices;
+  protected $collection_key = 'vertexIndices';
+  public $vertexIndices;
 
-	public function setVertexIndices($vertexIndices)
-	{
-		$this->vertexIndices = $vertexIndices;
-	}
-	public function getVertexIndices()
-	{
-		return $this->vertexIndices;
-	}
+  public function setVertexIndices($vertexIndices)
+  {
+    $this->vertexIndices = $vertexIndices;
+  }
+  public function getVertexIndices()
+  {
+    return $this->vertexIndices;
+  }
 }

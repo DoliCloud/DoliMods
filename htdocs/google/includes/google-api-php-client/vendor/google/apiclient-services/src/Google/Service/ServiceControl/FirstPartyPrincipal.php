@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceControl_FirstPartyPrincipal extends Google_Model
 {
-	public $principalEmail;
-	public $serviceMetadata;
+  public $principalEmail;
+  public $serviceMetadata;
 
-	public function setPrincipalEmail($principalEmail)
-	{
-		$this->principalEmail = $principalEmail;
-	}
-	public function getPrincipalEmail()
-	{
-		return $this->principalEmail;
-	}
-	public function setServiceMetadata($serviceMetadata)
-	{
-		$this->serviceMetadata = $serviceMetadata;
-	}
-	public function getServiceMetadata()
-	{
-		return $this->serviceMetadata;
-	}
+  public function setPrincipalEmail($principalEmail)
+  {
+    $this->principalEmail = $principalEmail;
+  }
+  public function getPrincipalEmail()
+  {
+    return $this->principalEmail;
+  }
+  public function setServiceMetadata($serviceMetadata)
+  {
+    $this->serviceMetadata = $serviceMetadata;
+  }
+  public function getServiceMetadata()
+  {
+    return $this->serviceMetadata;
+  }
 }

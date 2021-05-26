@@ -17,37 +17,37 @@
 
 class Google_Service_AdExchangeBuyerII_OperatingSystemTargeting extends Google_Model
 {
-	protected $operatingSystemCriteriaType = 'Google_Service_AdExchangeBuyerII_CriteriaTargeting';
-	protected $operatingSystemCriteriaDataType = '';
-	protected $operatingSystemVersionCriteriaType = 'Google_Service_AdExchangeBuyerII_CriteriaTargeting';
-	protected $operatingSystemVersionCriteriaDataType = '';
+  protected $operatingSystemCriteriaType = 'Google_Service_AdExchangeBuyerII_CriteriaTargeting';
+  protected $operatingSystemCriteriaDataType = '';
+  protected $operatingSystemVersionCriteriaType = 'Google_Service_AdExchangeBuyerII_CriteriaTargeting';
+  protected $operatingSystemVersionCriteriaDataType = '';
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_CriteriaTargeting
-	 */
-	public function setOperatingSystemCriteria(Google_Service_AdExchangeBuyerII_CriteriaTargeting $operatingSystemCriteria)
-	{
-		$this->operatingSystemCriteria = $operatingSystemCriteria;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_CriteriaTargeting
-	 */
-	public function getOperatingSystemCriteria()
-	{
-		return $this->operatingSystemCriteria;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_CriteriaTargeting
-	 */
-	public function setOperatingSystemVersionCriteria(Google_Service_AdExchangeBuyerII_CriteriaTargeting $operatingSystemVersionCriteria)
-	{
-		$this->operatingSystemVersionCriteria = $operatingSystemVersionCriteria;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_CriteriaTargeting
-	 */
-	public function getOperatingSystemVersionCriteria()
-	{
-		return $this->operatingSystemVersionCriteria;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_CriteriaTargeting
+   */
+  public function setOperatingSystemCriteria(Google_Service_AdExchangeBuyerII_CriteriaTargeting $operatingSystemCriteria)
+  {
+    $this->operatingSystemCriteria = $operatingSystemCriteria;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_CriteriaTargeting
+   */
+  public function getOperatingSystemCriteria()
+  {
+    return $this->operatingSystemCriteria;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_CriteriaTargeting
+   */
+  public function setOperatingSystemVersionCriteria(Google_Service_AdExchangeBuyerII_CriteriaTargeting $operatingSystemVersionCriteria)
+  {
+    $this->operatingSystemVersionCriteria = $operatingSystemVersionCriteria;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_CriteriaTargeting
+   */
+  public function getOperatingSystemVersionCriteria()
+  {
+    return $this->operatingSystemVersionCriteria;
+  }
 }

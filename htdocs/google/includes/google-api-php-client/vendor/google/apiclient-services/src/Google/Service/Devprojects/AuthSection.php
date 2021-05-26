@@ -17,107 +17,107 @@
 
 class Google_Service_Devprojects_AuthSection extends Google_Collection
 {
-	protected $collection_key = 'termsOfServiceUrl';
-	public $atMaximumClients;
-	protected $clientType = 'Google_Service_Devprojects_Client';
-	protected $clientDataType = 'array';
-	public $displayName;
-	public $homePageUrl;
-	public $iconUrl;
-	public $kind;
-	protected $plusPageInfoType = 'Google_Service_Devprojects_PlusPageInfo';
-	protected $plusPageInfoDataType = '';
-	public $plusPageObfuscatedId;
-	public $privacyPolicyUrl;
-	public $supportEmail;
-	public $termsOfServiceUrl;
+  protected $collection_key = 'termsOfServiceUrl';
+  public $atMaximumClients;
+  protected $clientType = 'Google_Service_Devprojects_Client';
+  protected $clientDataType = 'array';
+  public $displayName;
+  public $homePageUrl;
+  public $iconUrl;
+  public $kind;
+  protected $plusPageInfoType = 'Google_Service_Devprojects_PlusPageInfo';
+  protected $plusPageInfoDataType = '';
+  public $plusPageObfuscatedId;
+  public $privacyPolicyUrl;
+  public $supportEmail;
+  public $termsOfServiceUrl;
 
-	public function setAtMaximumClients($atMaximumClients)
-	{
-		$this->atMaximumClients = $atMaximumClients;
-	}
-	public function getAtMaximumClients()
-	{
-		return $this->atMaximumClients;
-	}
-	public function setClient($client)
-	{
-		$this->client = $client;
-	}
-	public function getClient()
-	{
-		return $this->client;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setHomePageUrl($homePageUrl)
-	{
-		$this->homePageUrl = $homePageUrl;
-	}
-	public function getHomePageUrl()
-	{
-		return $this->homePageUrl;
-	}
-	public function setIconUrl($iconUrl)
-	{
-		$this->iconUrl = $iconUrl;
-	}
-	public function getIconUrl()
-	{
-		return $this->iconUrl;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setPlusPageInfo(Google_Service_Devprojects_PlusPageInfo $plusPageInfo)
-	{
-		$this->plusPageInfo = $plusPageInfo;
-	}
-	public function getPlusPageInfo()
-	{
-		return $this->plusPageInfo;
-	}
-	public function setPlusPageObfuscatedId($plusPageObfuscatedId)
-	{
-		$this->plusPageObfuscatedId = $plusPageObfuscatedId;
-	}
-	public function getPlusPageObfuscatedId()
-	{
-		return $this->plusPageObfuscatedId;
-	}
-	public function setPrivacyPolicyUrl($privacyPolicyUrl)
-	{
-		$this->privacyPolicyUrl = $privacyPolicyUrl;
-	}
-	public function getPrivacyPolicyUrl()
-	{
-		return $this->privacyPolicyUrl;
-	}
-	public function setSupportEmail($supportEmail)
-	{
-		$this->supportEmail = $supportEmail;
-	}
-	public function getSupportEmail()
-	{
-		return $this->supportEmail;
-	}
-	public function setTermsOfServiceUrl($termsOfServiceUrl)
-	{
-		$this->termsOfServiceUrl = $termsOfServiceUrl;
-	}
-	public function getTermsOfServiceUrl()
-	{
-		return $this->termsOfServiceUrl;
-	}
+  public function setAtMaximumClients($atMaximumClients)
+  {
+    $this->atMaximumClients = $atMaximumClients;
+  }
+  public function getAtMaximumClients()
+  {
+    return $this->atMaximumClients;
+  }
+  public function setClient($client)
+  {
+    $this->client = $client;
+  }
+  public function getClient()
+  {
+    return $this->client;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setHomePageUrl($homePageUrl)
+  {
+    $this->homePageUrl = $homePageUrl;
+  }
+  public function getHomePageUrl()
+  {
+    return $this->homePageUrl;
+  }
+  public function setIconUrl($iconUrl)
+  {
+    $this->iconUrl = $iconUrl;
+  }
+  public function getIconUrl()
+  {
+    return $this->iconUrl;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setPlusPageInfo(Google_Service_Devprojects_PlusPageInfo $plusPageInfo)
+  {
+    $this->plusPageInfo = $plusPageInfo;
+  }
+  public function getPlusPageInfo()
+  {
+    return $this->plusPageInfo;
+  }
+  public function setPlusPageObfuscatedId($plusPageObfuscatedId)
+  {
+    $this->plusPageObfuscatedId = $plusPageObfuscatedId;
+  }
+  public function getPlusPageObfuscatedId()
+  {
+    return $this->plusPageObfuscatedId;
+  }
+  public function setPrivacyPolicyUrl($privacyPolicyUrl)
+  {
+    $this->privacyPolicyUrl = $privacyPolicyUrl;
+  }
+  public function getPrivacyPolicyUrl()
+  {
+    return $this->privacyPolicyUrl;
+  }
+  public function setSupportEmail($supportEmail)
+  {
+    $this->supportEmail = $supportEmail;
+  }
+  public function getSupportEmail()
+  {
+    return $this->supportEmail;
+  }
+  public function setTermsOfServiceUrl($termsOfServiceUrl)
+  {
+    $this->termsOfServiceUrl = $termsOfServiceUrl;
+  }
+  public function getTermsOfServiceUrl()
+  {
+    return $this->termsOfServiceUrl;
+  }
 }

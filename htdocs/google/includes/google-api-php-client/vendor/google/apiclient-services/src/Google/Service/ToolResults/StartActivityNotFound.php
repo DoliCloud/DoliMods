@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_StartActivityNotFound extends Google_Model
 {
-	public $action;
-	public $uri;
+  public $action;
+  public $uri;
 
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-	public function getAction()
-	{
-		return $this->action;
-	}
-	public function setUri($uri)
-	{
-		$this->uri = $uri;
-	}
-	public function getUri()
-	{
-		return $this->uri;
-	}
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  public function getAction()
+  {
+    return $this->action;
+  }
+  public function setUri($uri)
+  {
+    $this->uri = $uri;
+  }
+  public function getUri()
+  {
+    return $this->uri;
+  }
 }

@@ -17,47 +17,47 @@
 
 class Google_Service_Bigquery_QueryParameterType extends Google_Collection
 {
-	protected $collection_key = 'structTypes';
-	protected $arrayTypeType = 'Google_Service_Bigquery_QueryParameterType';
-	protected $arrayTypeDataType = '';
-	protected $structTypesType = 'Google_Service_Bigquery_QueryParameterTypeStructTypes';
-	protected $structTypesDataType = 'array';
-	public $type;
+  protected $collection_key = 'structTypes';
+  protected $arrayTypeType = 'Google_Service_Bigquery_QueryParameterType';
+  protected $arrayTypeDataType = '';
+  protected $structTypesType = 'Google_Service_Bigquery_QueryParameterTypeStructTypes';
+  protected $structTypesDataType = 'array';
+  public $type;
 
-	/**
-	 * @param Google_Service_Bigquery_QueryParameterType
-	 */
-	public function setArrayType(Google_Service_Bigquery_QueryParameterType $arrayType)
-	{
-		$this->arrayType = $arrayType;
-	}
-	/**
-	 * @return Google_Service_Bigquery_QueryParameterType
-	 */
-	public function getArrayType()
-	{
-		return $this->arrayType;
-	}
-	/**
-	 * @param Google_Service_Bigquery_QueryParameterTypeStructTypes
-	 */
-	public function setStructTypes($structTypes)
-	{
-		$this->structTypes = $structTypes;
-	}
-	/**
-	 * @return Google_Service_Bigquery_QueryParameterTypeStructTypes
-	 */
-	public function getStructTypes()
-	{
-		return $this->structTypes;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  /**
+   * @param Google_Service_Bigquery_QueryParameterType
+   */
+  public function setArrayType(Google_Service_Bigquery_QueryParameterType $arrayType)
+  {
+    $this->arrayType = $arrayType;
+  }
+  /**
+   * @return Google_Service_Bigquery_QueryParameterType
+   */
+  public function getArrayType()
+  {
+    return $this->arrayType;
+  }
+  /**
+   * @param Google_Service_Bigquery_QueryParameterTypeStructTypes[]
+   */
+  public function setStructTypes($structTypes)
+  {
+    $this->structTypes = $structTypes;
+  }
+  /**
+   * @return Google_Service_Bigquery_QueryParameterTypeStructTypes[]
+   */
+  public function getStructTypes()
+  {
+    return $this->structTypes;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

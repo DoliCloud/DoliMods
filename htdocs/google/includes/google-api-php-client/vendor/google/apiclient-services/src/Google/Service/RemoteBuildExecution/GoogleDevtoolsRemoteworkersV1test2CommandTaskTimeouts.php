@@ -17,32 +17,32 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskTimeouts extends Google_Model
 {
-	public $execution;
-	public $idle;
-	public $shutdown;
+  public $execution;
+  public $idle;
+  public $shutdown;
 
-	public function setExecution($execution)
-	{
-		$this->execution = $execution;
-	}
-	public function getExecution()
-	{
-		return $this->execution;
-	}
-	public function setIdle($idle)
-	{
-		$this->idle = $idle;
-	}
-	public function getIdle()
-	{
-		return $this->idle;
-	}
-	public function setShutdown($shutdown)
-	{
-		$this->shutdown = $shutdown;
-	}
-	public function getShutdown()
-	{
-		return $this->shutdown;
-	}
+  public function setExecution($execution)
+  {
+    $this->execution = $execution;
+  }
+  public function getExecution()
+  {
+    return $this->execution;
+  }
+  public function setIdle($idle)
+  {
+    $this->idle = $idle;
+  }
+  public function getIdle()
+  {
+    return $this->idle;
+  }
+  public function setShutdown($shutdown)
+  {
+    $this->shutdown = $shutdown;
+  }
+  public function getShutdown()
+  {
+    return $this->shutdown;
+  }
 }

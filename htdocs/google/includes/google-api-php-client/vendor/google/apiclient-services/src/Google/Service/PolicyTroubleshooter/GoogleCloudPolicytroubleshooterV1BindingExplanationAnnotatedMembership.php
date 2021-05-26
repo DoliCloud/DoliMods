@@ -17,23 +17,23 @@
 
 class Google_Service_PolicyTroubleshooter_GoogleCloudPolicytroubleshooterV1BindingExplanationAnnotatedMembership extends Google_Model
 {
-	public $membership;
-	public $relevance;
+  public $membership;
+  public $relevance;
 
-	public function setMembership($membership)
-	{
-		$this->membership = $membership;
-	}
-	public function getMembership()
-	{
-		return $this->membership;
-	}
-	public function setRelevance($relevance)
-	{
-		$this->relevance = $relevance;
-	}
-	public function getRelevance()
-	{
-		return $this->relevance;
-	}
+  public function setMembership($membership)
+  {
+    $this->membership = $membership;
+  }
+  public function getMembership()
+  {
+    return $this->membership;
+  }
+  public function setRelevance($relevance)
+  {
+    $this->relevance = $relevance;
+  }
+  public function getRelevance()
+  {
+    return $this->relevance;
+  }
 }

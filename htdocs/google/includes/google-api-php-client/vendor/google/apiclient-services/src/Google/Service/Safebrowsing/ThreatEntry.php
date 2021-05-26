@@ -17,32 +17,32 @@
 
 class Google_Service_Safebrowsing_ThreatEntry extends Google_Model
 {
-	public $digest;
-	public $hash;
-	public $url;
+  public $digest;
+  public $hash;
+  public $url;
 
-	public function setDigest($digest)
-	{
-		$this->digest = $digest;
-	}
-	public function getDigest()
-	{
-		return $this->digest;
-	}
-	public function setHash($hash)
-	{
-		$this->hash = $hash;
-	}
-	public function getHash()
-	{
-		return $this->hash;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setDigest($digest)
+  {
+    $this->digest = $digest;
+  }
+  public function getDigest()
+  {
+    return $this->digest;
+  }
+  public function setHash($hash)
+  {
+    $this->hash = $hash;
+  }
+  public function getHash()
+  {
+    return $this->hash;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

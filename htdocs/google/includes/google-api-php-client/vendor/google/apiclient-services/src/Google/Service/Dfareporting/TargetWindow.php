@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_TargetWindow extends Google_Model
 {
-	public $customHtml;
-	public $targetWindowOption;
+  public $customHtml;
+  public $targetWindowOption;
 
-	public function setCustomHtml($customHtml)
-	{
-		$this->customHtml = $customHtml;
-	}
-	public function getCustomHtml()
-	{
-		return $this->customHtml;
-	}
-	public function setTargetWindowOption($targetWindowOption)
-	{
-		$this->targetWindowOption = $targetWindowOption;
-	}
-	public function getTargetWindowOption()
-	{
-		return $this->targetWindowOption;
-	}
+  public function setCustomHtml($customHtml)
+  {
+    $this->customHtml = $customHtml;
+  }
+  public function getCustomHtml()
+  {
+    return $this->customHtml;
+  }
+  public function setTargetWindowOption($targetWindowOption)
+  {
+    $this->targetWindowOption = $targetWindowOption;
+  }
+  public function getTargetWindowOption()
+  {
+    return $this->targetWindowOption;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Monitoring_TimeSeriesDescriptor extends Google_Collection
 {
-	protected $collection_key = 'pointDescriptors';
-	protected $labelDescriptorsType = 'Google_Service_Monitoring_LabelDescriptor';
-	protected $labelDescriptorsDataType = 'array';
-	protected $pointDescriptorsType = 'Google_Service_Monitoring_ValueDescriptor';
-	protected $pointDescriptorsDataType = 'array';
+  protected $collection_key = 'pointDescriptors';
+  protected $labelDescriptorsType = 'Google_Service_Monitoring_LabelDescriptor';
+  protected $labelDescriptorsDataType = 'array';
+  protected $pointDescriptorsType = 'Google_Service_Monitoring_ValueDescriptor';
+  protected $pointDescriptorsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Monitoring_LabelDescriptor
-	 */
-	public function setLabelDescriptors($labelDescriptors)
-	{
-		$this->labelDescriptors = $labelDescriptors;
-	}
-	/**
-	 * @return Google_Service_Monitoring_LabelDescriptor
-	 */
-	public function getLabelDescriptors()
-	{
-		return $this->labelDescriptors;
-	}
-	/**
-	 * @param Google_Service_Monitoring_ValueDescriptor
-	 */
-	public function setPointDescriptors($pointDescriptors)
-	{
-		$this->pointDescriptors = $pointDescriptors;
-	}
-	/**
-	 * @return Google_Service_Monitoring_ValueDescriptor
-	 */
-	public function getPointDescriptors()
-	{
-		return $this->pointDescriptors;
-	}
+  /**
+   * @param Google_Service_Monitoring_LabelDescriptor[]
+   */
+  public function setLabelDescriptors($labelDescriptors)
+  {
+    $this->labelDescriptors = $labelDescriptors;
+  }
+  /**
+   * @return Google_Service_Monitoring_LabelDescriptor[]
+   */
+  public function getLabelDescriptors()
+  {
+    return $this->labelDescriptors;
+  }
+  /**
+   * @param Google_Service_Monitoring_ValueDescriptor[]
+   */
+  public function setPointDescriptors($pointDescriptors)
+  {
+    $this->pointDescriptors = $pointDescriptors;
+  }
+  /**
+   * @return Google_Service_Monitoring_ValueDescriptor[]
+   */
+  public function getPointDescriptors()
+  {
+    return $this->pointDescriptors;
+  }
 }

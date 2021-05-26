@@ -17,119 +17,137 @@
 
 class Google_Service_AndroidManagement_ApplicationPolicy extends Google_Collection
 {
-	protected $collection_key = 'permissionGrants';
-	public $accessibleTrackIds;
-	public $defaultPermissionPolicy;
-	public $delegatedScopes;
-	public $disabled;
-	public $installType;
-	public $lockTaskAllowed;
-	public $managedConfiguration;
-	protected $managedConfigurationTemplateType = 'Google_Service_AndroidManagement_ManagedConfigurationTemplate';
-	protected $managedConfigurationTemplateDataType = '';
-	public $minimumVersionCode;
-	public $packageName;
-	protected $permissionGrantsType = 'Google_Service_AndroidManagement_PermissionGrant';
-	protected $permissionGrantsDataType = 'array';
+  protected $collection_key = 'permissionGrants';
+  public $accessibleTrackIds;
+  public $autoUpdateMode;
+  public $connectedWorkAndPersonalApp;
+  public $defaultPermissionPolicy;
+  public $delegatedScopes;
+  public $disabled;
+  public $installType;
+  public $lockTaskAllowed;
+  public $managedConfiguration;
+  protected $managedConfigurationTemplateType = 'Google_Service_AndroidManagement_ManagedConfigurationTemplate';
+  protected $managedConfigurationTemplateDataType = '';
+  public $minimumVersionCode;
+  public $packageName;
+  protected $permissionGrantsType = 'Google_Service_AndroidManagement_PermissionGrant';
+  protected $permissionGrantsDataType = 'array';
 
-	public function setAccessibleTrackIds($accessibleTrackIds)
-	{
-		$this->accessibleTrackIds = $accessibleTrackIds;
-	}
-	public function getAccessibleTrackIds()
-	{
-		return $this->accessibleTrackIds;
-	}
-	public function setDefaultPermissionPolicy($defaultPermissionPolicy)
-	{
-		$this->defaultPermissionPolicy = $defaultPermissionPolicy;
-	}
-	public function getDefaultPermissionPolicy()
-	{
-		return $this->defaultPermissionPolicy;
-	}
-	public function setDelegatedScopes($delegatedScopes)
-	{
-		$this->delegatedScopes = $delegatedScopes;
-	}
-	public function getDelegatedScopes()
-	{
-		return $this->delegatedScopes;
-	}
-	public function setDisabled($disabled)
-	{
-		$this->disabled = $disabled;
-	}
-	public function getDisabled()
-	{
-		return $this->disabled;
-	}
-	public function setInstallType($installType)
-	{
-		$this->installType = $installType;
-	}
-	public function getInstallType()
-	{
-		return $this->installType;
-	}
-	public function setLockTaskAllowed($lockTaskAllowed)
-	{
-		$this->lockTaskAllowed = $lockTaskAllowed;
-	}
-	public function getLockTaskAllowed()
-	{
-		return $this->lockTaskAllowed;
-	}
-	public function setManagedConfiguration($managedConfiguration)
-	{
-		$this->managedConfiguration = $managedConfiguration;
-	}
-	public function getManagedConfiguration()
-	{
-		return $this->managedConfiguration;
-	}
-	/**
-	 * @param Google_Service_AndroidManagement_ManagedConfigurationTemplate
-	 */
-	public function setManagedConfigurationTemplate(Google_Service_AndroidManagement_ManagedConfigurationTemplate $managedConfigurationTemplate)
-	{
-		$this->managedConfigurationTemplate = $managedConfigurationTemplate;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_ManagedConfigurationTemplate
-	 */
-	public function getManagedConfigurationTemplate()
-	{
-		return $this->managedConfigurationTemplate;
-	}
-	public function setMinimumVersionCode($minimumVersionCode)
-	{
-		$this->minimumVersionCode = $minimumVersionCode;
-	}
-	public function getMinimumVersionCode()
-	{
-		return $this->minimumVersionCode;
-	}
-	public function setPackageName($packageName)
-	{
-		$this->packageName = $packageName;
-	}
-	public function getPackageName()
-	{
-		return $this->packageName;
-	}
-	/**
-	 * @param Google_Service_AndroidManagement_PermissionGrant
-	 */
-	public function setPermissionGrants($permissionGrants)
-	{
-		$this->permissionGrants = $permissionGrants;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_PermissionGrant
-	 */
-	public function getPermissionGrants()
-	{
-		return $this->permissionGrants;
-	}
+  public function setAccessibleTrackIds($accessibleTrackIds)
+  {
+    $this->accessibleTrackIds = $accessibleTrackIds;
+  }
+  public function getAccessibleTrackIds()
+  {
+    return $this->accessibleTrackIds;
+  }
+  public function setAutoUpdateMode($autoUpdateMode)
+  {
+    $this->autoUpdateMode = $autoUpdateMode;
+  }
+  public function getAutoUpdateMode()
+  {
+    return $this->autoUpdateMode;
+  }
+  public function setConnectedWorkAndPersonalApp($connectedWorkAndPersonalApp)
+  {
+    $this->connectedWorkAndPersonalApp = $connectedWorkAndPersonalApp;
+  }
+  public function getConnectedWorkAndPersonalApp()
+  {
+    return $this->connectedWorkAndPersonalApp;
+  }
+  public function setDefaultPermissionPolicy($defaultPermissionPolicy)
+  {
+    $this->defaultPermissionPolicy = $defaultPermissionPolicy;
+  }
+  public function getDefaultPermissionPolicy()
+  {
+    return $this->defaultPermissionPolicy;
+  }
+  public function setDelegatedScopes($delegatedScopes)
+  {
+    $this->delegatedScopes = $delegatedScopes;
+  }
+  public function getDelegatedScopes()
+  {
+    return $this->delegatedScopes;
+  }
+  public function setDisabled($disabled)
+  {
+    $this->disabled = $disabled;
+  }
+  public function getDisabled()
+  {
+    return $this->disabled;
+  }
+  public function setInstallType($installType)
+  {
+    $this->installType = $installType;
+  }
+  public function getInstallType()
+  {
+    return $this->installType;
+  }
+  public function setLockTaskAllowed($lockTaskAllowed)
+  {
+    $this->lockTaskAllowed = $lockTaskAllowed;
+  }
+  public function getLockTaskAllowed()
+  {
+    return $this->lockTaskAllowed;
+  }
+  public function setManagedConfiguration($managedConfiguration)
+  {
+    $this->managedConfiguration = $managedConfiguration;
+  }
+  public function getManagedConfiguration()
+  {
+    return $this->managedConfiguration;
+  }
+  /**
+   * @param Google_Service_AndroidManagement_ManagedConfigurationTemplate
+   */
+  public function setManagedConfigurationTemplate(Google_Service_AndroidManagement_ManagedConfigurationTemplate $managedConfigurationTemplate)
+  {
+    $this->managedConfigurationTemplate = $managedConfigurationTemplate;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_ManagedConfigurationTemplate
+   */
+  public function getManagedConfigurationTemplate()
+  {
+    return $this->managedConfigurationTemplate;
+  }
+  public function setMinimumVersionCode($minimumVersionCode)
+  {
+    $this->minimumVersionCode = $minimumVersionCode;
+  }
+  public function getMinimumVersionCode()
+  {
+    return $this->minimumVersionCode;
+  }
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
+  /**
+   * @param Google_Service_AndroidManagement_PermissionGrant[]
+   */
+  public function setPermissionGrants($permissionGrants)
+  {
+    $this->permissionGrants = $permissionGrants;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_PermissionGrant[]
+   */
+  public function getPermissionGrants()
+  {
+    return $this->permissionGrants;
+  }
 }

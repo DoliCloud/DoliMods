@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_VpnGatewayStatus extends Google_Collection
 {
-	protected $collection_key = 'vpnConnections';
-	protected $vpnConnectionsType = 'Google_Service_Compute_VpnGatewayStatusVpnConnection';
-	protected $vpnConnectionsDataType = 'array';
+  protected $collection_key = 'vpnConnections';
+  protected $vpnConnectionsType = 'Google_Service_Compute_VpnGatewayStatusVpnConnection';
+  protected $vpnConnectionsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Compute_VpnGatewayStatusVpnConnection
-	 */
-	public function setVpnConnections($vpnConnections)
-	{
-		$this->vpnConnections = $vpnConnections;
-	}
-	/**
-	 * @return Google_Service_Compute_VpnGatewayStatusVpnConnection
-	 */
-	public function getVpnConnections()
-	{
-		return $this->vpnConnections;
-	}
+  /**
+   * @param Google_Service_Compute_VpnGatewayStatusVpnConnection[]
+   */
+  public function setVpnConnections($vpnConnections)
+  {
+    $this->vpnConnections = $vpnConnections;
+  }
+  /**
+   * @return Google_Service_Compute_VpnGatewayStatusVpnConnection[]
+   */
+  public function getVpnConnections()
+  {
+    return $this->vpnConnections;
+  }
 }

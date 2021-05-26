@@ -17,31 +17,31 @@
 
 class Google_Service_RealTimeBidding_DownloadSizeEvidence extends Google_Collection
 {
-	protected $collection_key = 'topUrlDownloadSizeBreakdowns';
-	protected $topUrlDownloadSizeBreakdownsType = 'Google_Service_RealTimeBidding_UrlDownloadSize';
-	protected $topUrlDownloadSizeBreakdownsDataType = 'array';
-	public $totalDownloadSizeKb;
+  protected $collection_key = 'topUrlDownloadSizeBreakdowns';
+  protected $topUrlDownloadSizeBreakdownsType = 'Google_Service_RealTimeBidding_UrlDownloadSize';
+  protected $topUrlDownloadSizeBreakdownsDataType = 'array';
+  public $totalDownloadSizeKb;
 
-	/**
-	 * @param Google_Service_RealTimeBidding_UrlDownloadSize
-	 */
-	public function setTopUrlDownloadSizeBreakdowns($topUrlDownloadSizeBreakdowns)
-	{
-		$this->topUrlDownloadSizeBreakdowns = $topUrlDownloadSizeBreakdowns;
-	}
-	/**
-	 * @return Google_Service_RealTimeBidding_UrlDownloadSize
-	 */
-	public function getTopUrlDownloadSizeBreakdowns()
-	{
-		return $this->topUrlDownloadSizeBreakdowns;
-	}
-	public function setTotalDownloadSizeKb($totalDownloadSizeKb)
-	{
-		$this->totalDownloadSizeKb = $totalDownloadSizeKb;
-	}
-	public function getTotalDownloadSizeKb()
-	{
-		return $this->totalDownloadSizeKb;
-	}
+  /**
+   * @param Google_Service_RealTimeBidding_UrlDownloadSize[]
+   */
+  public function setTopUrlDownloadSizeBreakdowns($topUrlDownloadSizeBreakdowns)
+  {
+    $this->topUrlDownloadSizeBreakdowns = $topUrlDownloadSizeBreakdowns;
+  }
+  /**
+   * @return Google_Service_RealTimeBidding_UrlDownloadSize[]
+   */
+  public function getTopUrlDownloadSizeBreakdowns()
+  {
+    return $this->topUrlDownloadSizeBreakdowns;
+  }
+  public function setTotalDownloadSizeKb($totalDownloadSizeKb)
+  {
+    $this->totalDownloadSizeKb = $totalDownloadSizeKb;
+  }
+  public function getTotalDownloadSizeKb()
+  {
+    return $this->totalDownloadSizeKb;
+  }
 }

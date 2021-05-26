@@ -17,22 +17,22 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Schema extends Google_Collection
 {
-	protected $collection_key = 'columns';
-	protected $columnsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema';
-	protected $columnsDataType = 'array';
+  protected $collection_key = 'columns';
+  protected $columnsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema';
+  protected $columnsDataType = 'array';
 
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema
-	 */
-	public function setColumns($columns)
-	{
-		$this->columns = $columns;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema
-	 */
-	public function getColumns()
-	{
-		return $this->columns;
-	}
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema[]
+   */
+  public function setColumns($columns)
+  {
+    $this->columns = $columns;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ColumnSchema[]
+   */
+  public function getColumns()
+  {
+    return $this->columns;
+  }
 }

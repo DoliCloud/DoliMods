@@ -17,50 +17,50 @@
 
 class Google_Service_Devprojects_TermInfo extends Google_Model
 {
-	public $kind;
-	public $serviceType;
-	public $termsVersion;
-	public $timestampMs;
-	public $tosId;
+  public $kind;
+  public $serviceType;
+  public $termsVersion;
+  public $timestampMs;
+  public $tosId;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setServiceType($serviceType)
-	{
-		$this->serviceType = $serviceType;
-	}
-	public function getServiceType()
-	{
-		return $this->serviceType;
-	}
-	public function setTermsVersion($termsVersion)
-	{
-		$this->termsVersion = $termsVersion;
-	}
-	public function getTermsVersion()
-	{
-		return $this->termsVersion;
-	}
-	public function setTimestampMs($timestampMs)
-	{
-		$this->timestampMs = $timestampMs;
-	}
-	public function getTimestampMs()
-	{
-		return $this->timestampMs;
-	}
-	public function setTosId($tosId)
-	{
-		$this->tosId = $tosId;
-	}
-	public function getTosId()
-	{
-		return $this->tosId;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setServiceType($serviceType)
+  {
+    $this->serviceType = $serviceType;
+  }
+  public function getServiceType()
+  {
+    return $this->serviceType;
+  }
+  public function setTermsVersion($termsVersion)
+  {
+    $this->termsVersion = $termsVersion;
+  }
+  public function getTermsVersion()
+  {
+    return $this->termsVersion;
+  }
+  public function setTimestampMs($timestampMs)
+  {
+    $this->timestampMs = $timestampMs;
+  }
+  public function getTimestampMs()
+  {
+    return $this->timestampMs;
+  }
+  public function setTosId($tosId)
+  {
+    $this->tosId = $tosId;
+  }
+  public function getTosId()
+  {
+    return $this->tosId;
+  }
 }

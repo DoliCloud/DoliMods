@@ -17,24 +17,24 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Keystore extends Google_Collection
 {
-	protected $collection_key = 'aliases';
-	public $aliases;
-	public $name;
+  protected $collection_key = 'aliases';
+  public $aliases;
+  public $name;
 
-	public function setAliases($aliases)
-	{
-		$this->aliases = $aliases;
-	}
-	public function getAliases()
-	{
-		return $this->aliases;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setAliases($aliases)
+  {
+    $this->aliases = $aliases;
+  }
+  public function getAliases()
+  {
+    return $this->aliases;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

@@ -17,77 +17,77 @@
 
 class Google_Service_Dfareporting_ListPopulationTerm extends Google_Model
 {
-	public $contains;
-	public $negation;
-	public $operator;
-	public $remarketingListId;
-	public $type;
-	public $value;
-	public $variableFriendlyName;
-	public $variableName;
+  public $contains;
+  public $negation;
+  public $operator;
+  public $remarketingListId;
+  public $type;
+  public $value;
+  public $variableFriendlyName;
+  public $variableName;
 
-	public function setContains($contains)
-	{
-		$this->contains = $contains;
-	}
-	public function getContains()
-	{
-		return $this->contains;
-	}
-	public function setNegation($negation)
-	{
-		$this->negation = $negation;
-	}
-	public function getNegation()
-	{
-		return $this->negation;
-	}
-	public function setOperator($operator)
-	{
-		$this->operator = $operator;
-	}
-	public function getOperator()
-	{
-		return $this->operator;
-	}
-	public function setRemarketingListId($remarketingListId)
-	{
-		$this->remarketingListId = $remarketingListId;
-	}
-	public function getRemarketingListId()
-	{
-		return $this->remarketingListId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
-	public function setVariableFriendlyName($variableFriendlyName)
-	{
-		$this->variableFriendlyName = $variableFriendlyName;
-	}
-	public function getVariableFriendlyName()
-	{
-		return $this->variableFriendlyName;
-	}
-	public function setVariableName($variableName)
-	{
-		$this->variableName = $variableName;
-	}
-	public function getVariableName()
-	{
-		return $this->variableName;
-	}
+  public function setContains($contains)
+  {
+    $this->contains = $contains;
+  }
+  public function getContains()
+  {
+    return $this->contains;
+  }
+  public function setNegation($negation)
+  {
+    $this->negation = $negation;
+  }
+  public function getNegation()
+  {
+    return $this->negation;
+  }
+  public function setOperator($operator)
+  {
+    $this->operator = $operator;
+  }
+  public function getOperator()
+  {
+    return $this->operator;
+  }
+  public function setRemarketingListId($remarketingListId)
+  {
+    $this->remarketingListId = $remarketingListId;
+  }
+  public function getRemarketingListId()
+  {
+    return $this->remarketingListId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
+  public function setVariableFriendlyName($variableFriendlyName)
+  {
+    $this->variableFriendlyName = $variableFriendlyName;
+  }
+  public function getVariableFriendlyName()
+  {
+    return $this->variableFriendlyName;
+  }
+  public function setVariableName($variableName)
+  {
+    $this->variableName = $variableName;
+  }
+  public function getVariableName()
+  {
+    return $this->variableName;
+  }
 }

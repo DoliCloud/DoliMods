@@ -17,31 +17,31 @@
 
 class Google_Service_Cloudbilling_ListServicesResponse extends Google_Collection
 {
-	protected $collection_key = 'services';
-	public $nextPageToken;
-	protected $servicesType = 'Google_Service_Cloudbilling_Service';
-	protected $servicesDataType = 'array';
+  protected $collection_key = 'services';
+  public $nextPageToken;
+  protected $servicesType = 'Google_Service_Cloudbilling_Service';
+  protected $servicesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Cloudbilling_Service
-	 */
-	public function setServices($services)
-	{
-		$this->services = $services;
-	}
-	/**
-	 * @return Google_Service_Cloudbilling_Service
-	 */
-	public function getServices()
-	{
-		return $this->services;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Cloudbilling_Service[]
+   */
+  public function setServices($services)
+  {
+    $this->services = $services;
+  }
+  /**
+   * @return Google_Service_Cloudbilling_Service[]
+   */
+  public function getServices()
+  {
+    return $this->services;
+  }
 }

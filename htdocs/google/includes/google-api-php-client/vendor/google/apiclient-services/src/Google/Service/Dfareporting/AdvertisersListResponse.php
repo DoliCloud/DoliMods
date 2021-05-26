@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_AdvertisersListResponse extends Google_Collection
 {
-	protected $collection_key = 'advertisers';
-	protected $advertisersType = 'Google_Service_Dfareporting_Advertiser';
-	protected $advertisersDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'advertisers';
+  protected $advertisersType = 'Google_Service_Dfareporting_Advertiser';
+  protected $advertisersDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dfareporting_Advertiser
-	 */
-	public function setAdvertisers($advertisers)
-	{
-		$this->advertisers = $advertisers;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Advertiser
-	 */
-	public function getAdvertisers()
-	{
-		return $this->advertisers;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dfareporting_Advertiser[]
+   */
+  public function setAdvertisers($advertisers)
+  {
+    $this->advertisers = $advertisers;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Advertiser[]
+   */
+  public function getAdvertisers()
+  {
+    return $this->advertisers;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,49 +17,49 @@
 
 class Google_Service_Firestore_WriteRequest extends Google_Collection
 {
-	protected $collection_key = 'writes';
-	public $labels;
-	public $streamId;
-	public $streamToken;
-	protected $writesType = 'Google_Service_Firestore_Write';
-	protected $writesDataType = 'array';
+  protected $collection_key = 'writes';
+  public $labels;
+  public $streamId;
+  public $streamToken;
+  protected $writesType = 'Google_Service_Firestore_Write';
+  protected $writesDataType = 'array';
 
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setStreamId($streamId)
-	{
-		$this->streamId = $streamId;
-	}
-	public function getStreamId()
-	{
-		return $this->streamId;
-	}
-	public function setStreamToken($streamToken)
-	{
-		$this->streamToken = $streamToken;
-	}
-	public function getStreamToken()
-	{
-		return $this->streamToken;
-	}
-	/**
-	 * @param Google_Service_Firestore_Write
-	 */
-	public function setWrites($writes)
-	{
-		$this->writes = $writes;
-	}
-	/**
-	 * @return Google_Service_Firestore_Write
-	 */
-	public function getWrites()
-	{
-		return $this->writes;
-	}
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setStreamId($streamId)
+  {
+    $this->streamId = $streamId;
+  }
+  public function getStreamId()
+  {
+    return $this->streamId;
+  }
+  public function setStreamToken($streamToken)
+  {
+    $this->streamToken = $streamToken;
+  }
+  public function getStreamToken()
+  {
+    return $this->streamToken;
+  }
+  /**
+   * @param Google_Service_Firestore_Write[]
+   */
+  public function setWrites($writes)
+  {
+    $this->writes = $writes;
+  }
+  /**
+   * @return Google_Service_Firestore_Write[]
+   */
+  public function getWrites()
+  {
+    return $this->writes;
+  }
 }

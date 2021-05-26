@@ -17,63 +17,63 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p1beta1Word extends Google_Collection
 {
-	protected $collection_key = 'symbols';
-	protected $boundingBoxType = 'Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly';
-	protected $boundingBoxDataType = '';
-	public $confidence;
-	protected $propertyType = 'Google_Service_Vision_GoogleCloudVisionV1p1beta1TextAnnotationTextProperty';
-	protected $propertyDataType = '';
-	protected $symbolsType = 'Google_Service_Vision_GoogleCloudVisionV1p1beta1Symbol';
-	protected $symbolsDataType = 'array';
+  protected $collection_key = 'symbols';
+  protected $boundingBoxType = 'Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly';
+  protected $boundingBoxDataType = '';
+  public $confidence;
+  protected $propertyType = 'Google_Service_Vision_GoogleCloudVisionV1p1beta1TextAnnotationTextProperty';
+  protected $propertyDataType = '';
+  protected $symbolsType = 'Google_Service_Vision_GoogleCloudVisionV1p1beta1Symbol';
+  protected $symbolsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly
-	 */
-	public function setBoundingBox(Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly $boundingBox)
-	{
-		$this->boundingBox = $boundingBox;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly
-	 */
-	public function getBoundingBox()
-	{
-		return $this->boundingBox;
-	}
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p1beta1TextAnnotationTextProperty
-	 */
-	public function setProperty(Google_Service_Vision_GoogleCloudVisionV1p1beta1TextAnnotationTextProperty $property)
-	{
-		$this->property = $property;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p1beta1TextAnnotationTextProperty
-	 */
-	public function getProperty()
-	{
-		return $this->property;
-	}
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p1beta1Symbol
-	 */
-	public function setSymbols($symbols)
-	{
-		$this->symbols = $symbols;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p1beta1Symbol
-	 */
-	public function getSymbols()
-	{
-		return $this->symbols;
-	}
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly
+   */
+  public function setBoundingBox(Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly $boundingBox)
+  {
+    $this->boundingBox = $boundingBox;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly
+   */
+  public function getBoundingBox()
+  {
+    return $this->boundingBox;
+  }
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p1beta1TextAnnotationTextProperty
+   */
+  public function setProperty(Google_Service_Vision_GoogleCloudVisionV1p1beta1TextAnnotationTextProperty $property)
+  {
+    $this->property = $property;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p1beta1TextAnnotationTextProperty
+   */
+  public function getProperty()
+  {
+    return $this->property;
+  }
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p1beta1Symbol[]
+   */
+  public function setSymbols($symbols)
+  {
+    $this->symbols = $symbols;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p1beta1Symbol[]
+   */
+  public function getSymbols()
+  {
+    return $this->symbols;
+  }
 }

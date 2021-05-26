@@ -17,14 +17,14 @@
 
 class Google_Service_StreetViewPublish_PhotoId extends Google_Model
 {
-	public $id;
+  public $id;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
 }

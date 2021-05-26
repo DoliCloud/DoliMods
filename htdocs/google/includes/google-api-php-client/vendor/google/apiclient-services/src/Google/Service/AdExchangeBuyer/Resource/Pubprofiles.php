@@ -25,18 +25,18 @@
  */
 class Google_Service_AdExchangeBuyer_Resource_Pubprofiles extends Google_Service_Resource
 {
-	/**
-	 * Gets the requested publisher profile(s) by publisher accountId.
-	 * (pubprofiles.listPubprofiles)
-	 *
-	 * @param int $accountId The accountId of the publisher to get profiles for.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AdExchangeBuyer_GetPublisherProfilesByAccountIdResponse
-	 */
-	public function listPubprofiles($accountId, $optParams = array())
-	{
-		$params = array('accountId' => $accountId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_GetPublisherProfilesByAccountIdResponse");
-	}
+  /**
+   * Gets the requested publisher profile(s) by publisher accountId.
+   * (pubprofiles.listPubprofiles)
+   *
+   * @param int $accountId The accountId of the publisher to get profiles for.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AdExchangeBuyer_GetPublisherProfilesByAccountIdResponse
+   */
+  public function listPubprofiles($accountId, $optParams = array())
+  {
+    $params = array('accountId' => $accountId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_GetPublisherProfilesByAccountIdResponse");
+  }
 }

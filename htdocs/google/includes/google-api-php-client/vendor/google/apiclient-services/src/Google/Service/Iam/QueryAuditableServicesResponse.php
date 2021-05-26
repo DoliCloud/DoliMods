@@ -17,22 +17,22 @@
 
 class Google_Service_Iam_QueryAuditableServicesResponse extends Google_Collection
 {
-	protected $collection_key = 'services';
-	protected $servicesType = 'Google_Service_Iam_AuditableService';
-	protected $servicesDataType = 'array';
+  protected $collection_key = 'services';
+  protected $servicesType = 'Google_Service_Iam_AuditableService';
+  protected $servicesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Iam_AuditableService
-	 */
-	public function setServices($services)
-	{
-		$this->services = $services;
-	}
-	/**
-	 * @return Google_Service_Iam_AuditableService
-	 */
-	public function getServices()
-	{
-		return $this->services;
-	}
+  /**
+   * @param Google_Service_Iam_AuditableService[]
+   */
+  public function setServices($services)
+  {
+    $this->services = $services;
+  }
+  /**
+   * @return Google_Service_Iam_AuditableService[]
+   */
+  public function getServices()
+  {
+    return $this->services;
+  }
 }

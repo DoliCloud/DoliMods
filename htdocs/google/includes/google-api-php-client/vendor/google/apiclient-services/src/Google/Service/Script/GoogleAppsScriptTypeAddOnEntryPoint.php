@@ -17,59 +17,59 @@
 
 class Google_Service_Script_GoogleAppsScriptTypeAddOnEntryPoint extends Google_Model
 {
-	public $addOnType;
-	public $description;
-	public $helpUrl;
-	public $postInstallTipUrl;
-	public $reportIssueUrl;
-	public $title;
+  public $addOnType;
+  public $description;
+  public $helpUrl;
+  public $postInstallTipUrl;
+  public $reportIssueUrl;
+  public $title;
 
-	public function setAddOnType($addOnType)
-	{
-		$this->addOnType = $addOnType;
-	}
-	public function getAddOnType()
-	{
-		return $this->addOnType;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setHelpUrl($helpUrl)
-	{
-		$this->helpUrl = $helpUrl;
-	}
-	public function getHelpUrl()
-	{
-		return $this->helpUrl;
-	}
-	public function setPostInstallTipUrl($postInstallTipUrl)
-	{
-		$this->postInstallTipUrl = $postInstallTipUrl;
-	}
-	public function getPostInstallTipUrl()
-	{
-		return $this->postInstallTipUrl;
-	}
-	public function setReportIssueUrl($reportIssueUrl)
-	{
-		$this->reportIssueUrl = $reportIssueUrl;
-	}
-	public function getReportIssueUrl()
-	{
-		return $this->reportIssueUrl;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setAddOnType($addOnType)
+  {
+    $this->addOnType = $addOnType;
+  }
+  public function getAddOnType()
+  {
+    return $this->addOnType;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setHelpUrl($helpUrl)
+  {
+    $this->helpUrl = $helpUrl;
+  }
+  public function getHelpUrl()
+  {
+    return $this->helpUrl;
+  }
+  public function setPostInstallTipUrl($postInstallTipUrl)
+  {
+    $this->postInstallTipUrl = $postInstallTipUrl;
+  }
+  public function getPostInstallTipUrl()
+  {
+    return $this->postInstallTipUrl;
+  }
+  public function setReportIssueUrl($reportIssueUrl)
+  {
+    $this->reportIssueUrl = $reportIssueUrl;
+  }
+  public function getReportIssueUrl()
+  {
+    return $this->reportIssueUrl;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

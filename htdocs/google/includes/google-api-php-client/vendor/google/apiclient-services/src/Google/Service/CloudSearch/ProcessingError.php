@@ -17,40 +17,40 @@
 
 class Google_Service_CloudSearch_ProcessingError extends Google_Collection
 {
-	protected $collection_key = 'fieldViolations';
-	public $code;
-	public $errorMessage;
-	protected $fieldViolationsType = 'Google_Service_CloudSearch_FieldViolation';
-	protected $fieldViolationsDataType = 'array';
+  protected $collection_key = 'fieldViolations';
+  public $code;
+  public $errorMessage;
+  protected $fieldViolationsType = 'Google_Service_CloudSearch_FieldViolation';
+  protected $fieldViolationsDataType = 'array';
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setErrorMessage($errorMessage)
-	{
-		$this->errorMessage = $errorMessage;
-	}
-	public function getErrorMessage()
-	{
-		return $this->errorMessage;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_FieldViolation
-	 */
-	public function setFieldViolations($fieldViolations)
-	{
-		$this->fieldViolations = $fieldViolations;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_FieldViolation
-	 */
-	public function getFieldViolations()
-	{
-		return $this->fieldViolations;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setErrorMessage($errorMessage)
+  {
+    $this->errorMessage = $errorMessage;
+  }
+  public function getErrorMessage()
+  {
+    return $this->errorMessage;
+  }
+  /**
+   * @param Google_Service_CloudSearch_FieldViolation[]
+   */
+  public function setFieldViolations($fieldViolations)
+  {
+    $this->fieldViolations = $fieldViolations;
+  }
+  /**
+   * @return Google_Service_CloudSearch_FieldViolation[]
+   */
+  public function getFieldViolations()
+  {
+    return $this->fieldViolations;
+  }
 }

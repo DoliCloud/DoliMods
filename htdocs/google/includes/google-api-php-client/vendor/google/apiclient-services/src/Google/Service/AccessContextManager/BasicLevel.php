@@ -17,31 +17,31 @@
 
 class Google_Service_AccessContextManager_BasicLevel extends Google_Collection
 {
-	protected $collection_key = 'conditions';
-	public $combiningFunction;
-	protected $conditionsType = 'Google_Service_AccessContextManager_Condition';
-	protected $conditionsDataType = 'array';
+  protected $collection_key = 'conditions';
+  public $combiningFunction;
+  protected $conditionsType = 'Google_Service_AccessContextManager_Condition';
+  protected $conditionsDataType = 'array';
 
-	public function setCombiningFunction($combiningFunction)
-	{
-		$this->combiningFunction = $combiningFunction;
-	}
-	public function getCombiningFunction()
-	{
-		return $this->combiningFunction;
-	}
-	/**
-	 * @param Google_Service_AccessContextManager_Condition
-	 */
-	public function setConditions($conditions)
-	{
-		$this->conditions = $conditions;
-	}
-	/**
-	 * @return Google_Service_AccessContextManager_Condition
-	 */
-	public function getConditions()
-	{
-		return $this->conditions;
-	}
+  public function setCombiningFunction($combiningFunction)
+  {
+    $this->combiningFunction = $combiningFunction;
+  }
+  public function getCombiningFunction()
+  {
+    return $this->combiningFunction;
+  }
+  /**
+   * @param Google_Service_AccessContextManager_Condition[]
+   */
+  public function setConditions($conditions)
+  {
+    $this->conditions = $conditions;
+  }
+  /**
+   * @return Google_Service_AccessContextManager_Condition[]
+   */
+  public function getConditions()
+  {
+    return $this->conditions;
+  }
 }

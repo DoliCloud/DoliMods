@@ -17,23 +17,23 @@
 
 class Google_Service_PhotosLibrary_ContributorInfo extends Google_Model
 {
-	public $displayName;
-	public $profilePictureBaseUrl;
+  public $displayName;
+  public $profilePictureBaseUrl;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setProfilePictureBaseUrl($profilePictureBaseUrl)
-	{
-		$this->profilePictureBaseUrl = $profilePictureBaseUrl;
-	}
-	public function getProfilePictureBaseUrl()
-	{
-		return $this->profilePictureBaseUrl;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setProfilePictureBaseUrl($profilePictureBaseUrl)
+  {
+    $this->profilePictureBaseUrl = $profilePictureBaseUrl;
+  }
+  public function getProfilePictureBaseUrl()
+  {
+    return $this->profilePictureBaseUrl;
+  }
 }

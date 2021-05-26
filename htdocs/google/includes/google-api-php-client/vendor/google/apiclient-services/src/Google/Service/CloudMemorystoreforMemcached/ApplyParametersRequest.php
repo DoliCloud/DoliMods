@@ -17,24 +17,24 @@
 
 class Google_Service_CloudMemorystoreforMemcached_ApplyParametersRequest extends Google_Collection
 {
-	protected $collection_key = 'nodeIds';
-	public $applyAll;
-	public $nodeIds;
+  protected $collection_key = 'nodeIds';
+  public $applyAll;
+  public $nodeIds;
 
-	public function setApplyAll($applyAll)
-	{
-		$this->applyAll = $applyAll;
-	}
-	public function getApplyAll()
-	{
-		return $this->applyAll;
-	}
-	public function setNodeIds($nodeIds)
-	{
-		$this->nodeIds = $nodeIds;
-	}
-	public function getNodeIds()
-	{
-		return $this->nodeIds;
-	}
+  public function setApplyAll($applyAll)
+  {
+    $this->applyAll = $applyAll;
+  }
+  public function getApplyAll()
+  {
+    return $this->applyAll;
+  }
+  public function setNodeIds($nodeIds)
+  {
+    $this->nodeIds = $nodeIds;
+  }
+  public function getNodeIds()
+  {
+    return $this->nodeIds;
+  }
 }

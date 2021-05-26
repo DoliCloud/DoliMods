@@ -17,51 +17,51 @@
 
 class Google_Service_Testing_IosVersion extends Google_Collection
 {
-	protected $collection_key = 'tags';
-	public $id;
-	public $majorVersion;
-	public $minorVersion;
-	public $supportedXcodeVersionIds;
-	public $tags;
+  protected $collection_key = 'tags';
+  public $id;
+  public $majorVersion;
+  public $minorVersion;
+  public $supportedXcodeVersionIds;
+  public $tags;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setMajorVersion($majorVersion)
-	{
-		$this->majorVersion = $majorVersion;
-	}
-	public function getMajorVersion()
-	{
-		return $this->majorVersion;
-	}
-	public function setMinorVersion($minorVersion)
-	{
-		$this->minorVersion = $minorVersion;
-	}
-	public function getMinorVersion()
-	{
-		return $this->minorVersion;
-	}
-	public function setSupportedXcodeVersionIds($supportedXcodeVersionIds)
-	{
-		$this->supportedXcodeVersionIds = $supportedXcodeVersionIds;
-	}
-	public function getSupportedXcodeVersionIds()
-	{
-		return $this->supportedXcodeVersionIds;
-	}
-	public function setTags($tags)
-	{
-		$this->tags = $tags;
-	}
-	public function getTags()
-	{
-		return $this->tags;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setMajorVersion($majorVersion)
+  {
+    $this->majorVersion = $majorVersion;
+  }
+  public function getMajorVersion()
+  {
+    return $this->majorVersion;
+  }
+  public function setMinorVersion($minorVersion)
+  {
+    $this->minorVersion = $minorVersion;
+  }
+  public function getMinorVersion()
+  {
+    return $this->minorVersion;
+  }
+  public function setSupportedXcodeVersionIds($supportedXcodeVersionIds)
+  {
+    $this->supportedXcodeVersionIds = $supportedXcodeVersionIds;
+  }
+  public function getSupportedXcodeVersionIds()
+  {
+    return $this->supportedXcodeVersionIds;
+  }
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  public function getTags()
+  {
+    return $this->tags;
+  }
 }

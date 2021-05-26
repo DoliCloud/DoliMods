@@ -30,237 +30,237 @@
  */
 class Google_Service_CloudFunctions extends Google_Service
 {
-	/** View and manage your data across Google Cloud Platform services. */
-	const CLOUD_PLATFORM =
-	  "https://www.googleapis.com/auth/cloud-platform";
+  /** View and manage your data across Google Cloud Platform services. */
+  const CLOUD_PLATFORM =
+      "https://www.googleapis.com/auth/cloud-platform";
 
-	public $operations;
-	public $projects_locations;
-	public $projects_locations_functions;
+  public $operations;
+  public $projects_locations;
+  public $projects_locations_functions;
 
-	/**
-	 * Constructs the internal representation of the CloudFunctions service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://cloudfunctions.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1';
-		$this->serviceName = 'cloudfunctions';
+  /**
+   * Constructs the internal representation of the CloudFunctions service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://cloudfunctions.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1';
+    $this->serviceName = 'cloudfunctions';
 
-		$this->operations = new Google_Service_CloudFunctions_Resource_Operations(
-		$this,
-		$this->serviceName,
-		'operations',
-		array(
-		  'methods' => array(
-			'get' => array(
-			  'path' => 'v1/{+name}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/operations',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'name' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'filter' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->projects_locations = new Google_Service_CloudFunctions_Resource_ProjectsLocations(
-		$this,
-		$this->serviceName,
-		'locations',
-		array(
-		  'methods' => array(
-			'list' => array(
-			  'path' => 'v1/{+name}/locations',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'filter' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->projects_locations_functions = new Google_Service_CloudFunctions_Resource_ProjectsLocationsFunctions(
-		$this,
-		$this->serviceName,
-		'functions',
-		array(
-		  'methods' => array(
-			'call' => array(
-			  'path' => 'v1/{+name}:call',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'create' => array(
-			  'path' => 'v1/{+location}/functions',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'location' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'delete' => array(
-			  'path' => 'v1/{+name}',
-			  'httpMethod' => 'DELETE',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'generateDownloadUrl' => array(
-			  'path' => 'v1/{+name}:generateDownloadUrl',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'generateUploadUrl' => array(
-			  'path' => 'v1/{+parent}/functions:generateUploadUrl',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'parent' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'get' => array(
-			  'path' => 'v1/{+name}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'getIamPolicy' => array(
-			  'path' => 'v1/{+resource}:getIamPolicy',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'options.requestedPolicyVersion' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/{+parent}/functions',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'parent' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'patch' => array(
-			  'path' => 'v1/{+name}',
-			  'httpMethod' => 'PATCH',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'updateMask' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'setIamPolicy' => array(
-			  'path' => 'v1/{+resource}:setIamPolicy',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'testIamPermissions' => array(
-			  'path' => 'v1/{+resource}:testIamPermissions',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->operations = new Google_Service_CloudFunctions_Resource_Operations(
+        $this,
+        $this->serviceName,
+        'operations',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/operations',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'name' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->projects_locations = new Google_Service_CloudFunctions_Resource_ProjectsLocations(
+        $this,
+        $this->serviceName,
+        'locations',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'v1/{+name}/locations',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->projects_locations_functions = new Google_Service_CloudFunctions_Resource_ProjectsLocationsFunctions(
+        $this,
+        $this->serviceName,
+        'functions',
+        array(
+          'methods' => array(
+            'call' => array(
+              'path' => 'v1/{+name}:call',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'create' => array(
+              'path' => 'v1/{+location}/functions',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'location' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'delete' => array(
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'generateDownloadUrl' => array(
+              'path' => 'v1/{+name}:generateDownloadUrl',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'generateUploadUrl' => array(
+              'path' => 'v1/{+parent}/functions:generateUploadUrl',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'parent' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'getIamPolicy' => array(
+              'path' => 'v1/{+resource}:getIamPolicy',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'options.requestedPolicyVersion' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/{+parent}/functions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'parent' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'updateMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'setIamPolicy' => array(
+              'path' => 'v1/{+resource}:setIamPolicy',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'testIamPermissions' => array(
+              'path' => 'v1/{+resource}:testIamPermissions',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

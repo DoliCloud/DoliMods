@@ -17,40 +17,40 @@
 
 class Google_Service_Sheets_DataFilterValueRange extends Google_Collection
 {
-	protected $collection_key = 'values';
-	protected $dataFilterType = 'Google_Service_Sheets_DataFilter';
-	protected $dataFilterDataType = '';
-	public $majorDimension;
-	public $values;
+  protected $collection_key = 'values';
+  protected $dataFilterType = 'Google_Service_Sheets_DataFilter';
+  protected $dataFilterDataType = '';
+  public $majorDimension;
+  public $values;
 
-	/**
-	 * @param Google_Service_Sheets_DataFilter
-	 */
-	public function setDataFilter(Google_Service_Sheets_DataFilter $dataFilter)
-	{
-		$this->dataFilter = $dataFilter;
-	}
-	/**
-	 * @return Google_Service_Sheets_DataFilter
-	 */
-	public function getDataFilter()
-	{
-		return $this->dataFilter;
-	}
-	public function setMajorDimension($majorDimension)
-	{
-		$this->majorDimension = $majorDimension;
-	}
-	public function getMajorDimension()
-	{
-		return $this->majorDimension;
-	}
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  /**
+   * @param Google_Service_Sheets_DataFilter
+   */
+  public function setDataFilter(Google_Service_Sheets_DataFilter $dataFilter)
+  {
+    $this->dataFilter = $dataFilter;
+  }
+  /**
+   * @return Google_Service_Sheets_DataFilter
+   */
+  public function getDataFilter()
+  {
+    return $this->dataFilter;
+  }
+  public function setMajorDimension($majorDimension)
+  {
+    $this->majorDimension = $majorDimension;
+  }
+  public function getMajorDimension()
+  {
+    return $this->majorDimension;
+  }
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

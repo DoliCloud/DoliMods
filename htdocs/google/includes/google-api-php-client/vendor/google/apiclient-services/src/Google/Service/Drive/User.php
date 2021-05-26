@@ -17,59 +17,59 @@
 
 class Google_Service_Drive_User extends Google_Model
 {
-	public $displayName;
-	public $emailAddress;
-	public $kind;
-	public $me;
-	public $permissionId;
-	public $photoLink;
+  public $displayName;
+  public $emailAddress;
+  public $kind;
+  public $me;
+  public $permissionId;
+  public $photoLink;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setEmailAddress($emailAddress)
-	{
-		$this->emailAddress = $emailAddress;
-	}
-	public function getEmailAddress()
-	{
-		return $this->emailAddress;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setMe($me)
-	{
-		$this->me = $me;
-	}
-	public function getMe()
-	{
-		return $this->me;
-	}
-	public function setPermissionId($permissionId)
-	{
-		$this->permissionId = $permissionId;
-	}
-	public function getPermissionId()
-	{
-		return $this->permissionId;
-	}
-	public function setPhotoLink($photoLink)
-	{
-		$this->photoLink = $photoLink;
-	}
-	public function getPhotoLink()
-	{
-		return $this->photoLink;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setEmailAddress($emailAddress)
+  {
+    $this->emailAddress = $emailAddress;
+  }
+  public function getEmailAddress()
+  {
+    return $this->emailAddress;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setMe($me)
+  {
+    $this->me = $me;
+  }
+  public function getMe()
+  {
+    return $this->me;
+  }
+  public function setPermissionId($permissionId)
+  {
+    $this->permissionId = $permissionId;
+  }
+  public function getPermissionId()
+  {
+    return $this->permissionId;
+  }
+  public function setPhotoLink($photoLink)
+  {
+    $this->photoLink = $photoLink;
+  }
+  public function getPhotoLink()
+  {
+    return $this->photoLink;
+  }
 }

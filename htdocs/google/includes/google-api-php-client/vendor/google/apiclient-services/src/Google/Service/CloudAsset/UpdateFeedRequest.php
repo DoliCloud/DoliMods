@@ -17,30 +17,30 @@
 
 class Google_Service_CloudAsset_UpdateFeedRequest extends Google_Model
 {
-	protected $feedType = 'Google_Service_CloudAsset_Feed';
-	protected $feedDataType = '';
-	public $updateMask;
+  protected $feedType = 'Google_Service_CloudAsset_Feed';
+  protected $feedDataType = '';
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_CloudAsset_Feed
-	 */
-	public function setFeed(Google_Service_CloudAsset_Feed $feed)
-	{
-		$this->feed = $feed;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_Feed
-	 */
-	public function getFeed()
-	{
-		return $this->feed;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_CloudAsset_Feed
+   */
+  public function setFeed(Google_Service_CloudAsset_Feed $feed)
+  {
+    $this->feed = $feed;
+  }
+  /**
+   * @return Google_Service_CloudAsset_Feed
+   */
+  public function getFeed()
+  {
+    return $this->feed;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

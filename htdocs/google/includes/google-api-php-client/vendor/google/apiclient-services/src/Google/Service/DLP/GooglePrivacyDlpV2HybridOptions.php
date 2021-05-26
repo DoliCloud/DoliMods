@@ -17,49 +17,49 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2HybridOptions extends Google_Collection
 {
-	protected $collection_key = 'requiredFindingLabelKeys';
-	public $description;
-	public $labels;
-	public $requiredFindingLabelKeys;
-	protected $tableOptionsType = 'Google_Service_DLP_GooglePrivacyDlpV2TableOptions';
-	protected $tableOptionsDataType = '';
+  protected $collection_key = 'requiredFindingLabelKeys';
+  public $description;
+  public $labels;
+  public $requiredFindingLabelKeys;
+  protected $tableOptionsType = 'Google_Service_DLP_GooglePrivacyDlpV2TableOptions';
+  protected $tableOptionsDataType = '';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setRequiredFindingLabelKeys($requiredFindingLabelKeys)
-	{
-		$this->requiredFindingLabelKeys = $requiredFindingLabelKeys;
-	}
-	public function getRequiredFindingLabelKeys()
-	{
-		return $this->requiredFindingLabelKeys;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2TableOptions
-	 */
-	public function setTableOptions(Google_Service_DLP_GooglePrivacyDlpV2TableOptions $tableOptions)
-	{
-		$this->tableOptions = $tableOptions;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2TableOptions
-	 */
-	public function getTableOptions()
-	{
-		return $this->tableOptions;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setRequiredFindingLabelKeys($requiredFindingLabelKeys)
+  {
+    $this->requiredFindingLabelKeys = $requiredFindingLabelKeys;
+  }
+  public function getRequiredFindingLabelKeys()
+  {
+    return $this->requiredFindingLabelKeys;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2TableOptions
+   */
+  public function setTableOptions(Google_Service_DLP_GooglePrivacyDlpV2TableOptions $tableOptions)
+  {
+    $this->tableOptions = $tableOptions;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2TableOptions
+   */
+  public function getTableOptions()
+  {
+    return $this->tableOptions;
+  }
 }

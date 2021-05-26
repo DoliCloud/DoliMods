@@ -17,32 +17,32 @@
 
 class Google_Service_Bigquery_JobReference extends Google_Model
 {
-	public $jobId;
-	public $location;
-	public $projectId;
+  public $jobId;
+  public $location;
+  public $projectId;
 
-	public function setJobId($jobId)
-	{
-		$this->jobId = $jobId;
-	}
-	public function getJobId()
-	{
-		return $this->jobId;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
+  public function setJobId($jobId)
+  {
+    $this->jobId = $jobId;
+  }
+  public function getJobId()
+  {
+    return $this->jobId;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
 }

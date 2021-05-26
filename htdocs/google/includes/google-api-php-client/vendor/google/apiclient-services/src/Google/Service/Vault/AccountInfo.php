@@ -17,15 +17,15 @@
 
 class Google_Service_Vault_AccountInfo extends Google_Collection
 {
-	protected $collection_key = 'emails';
-	public $emails;
+  protected $collection_key = 'emails';
+  public $emails;
 
-	public function setEmails($emails)
-	{
-		$this->emails = $emails;
-	}
-	public function getEmails()
-	{
-		return $this->emails;
-	}
+  public function setEmails($emails)
+  {
+    $this->emails = $emails;
+  }
+  public function getEmails()
+  {
+    return $this->emails;
+  }
 }

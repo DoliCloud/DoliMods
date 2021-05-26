@@ -17,23 +17,23 @@
 
 class Google_Service_CloudKMS_CryptoKeyVersionTemplate extends Google_Model
 {
-	public $algorithm;
-	public $protectionLevel;
+  public $algorithm;
+  public $protectionLevel;
 
-	public function setAlgorithm($algorithm)
-	{
-		$this->algorithm = $algorithm;
-	}
-	public function getAlgorithm()
-	{
-		return $this->algorithm;
-	}
-	public function setProtectionLevel($protectionLevel)
-	{
-		$this->protectionLevel = $protectionLevel;
-	}
-	public function getProtectionLevel()
-	{
-		return $this->protectionLevel;
-	}
+  public function setAlgorithm($algorithm)
+  {
+    $this->algorithm = $algorithm;
+  }
+  public function getAlgorithm()
+  {
+    return $this->algorithm;
+  }
+  public function setProtectionLevel($protectionLevel)
+  {
+    $this->protectionLevel = $protectionLevel;
+  }
+  public function getProtectionLevel()
+  {
+    return $this->protectionLevel;
+  }
 }

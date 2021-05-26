@@ -17,39 +17,39 @@
 
 class Google_Service_Slides_UpdatePageElementTransformRequest extends Google_Model
 {
-	public $applyMode;
-	public $objectId;
-	protected $transformType = 'Google_Service_Slides_AffineTransform';
-	protected $transformDataType = '';
+  public $applyMode;
+  public $objectId;
+  protected $transformType = 'Google_Service_Slides_AffineTransform';
+  protected $transformDataType = '';
 
-	public function setApplyMode($applyMode)
-	{
-		$this->applyMode = $applyMode;
-	}
-	public function getApplyMode()
-	{
-		return $this->applyMode;
-	}
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
-	/**
-	 * @param Google_Service_Slides_AffineTransform
-	 */
-	public function setTransform(Google_Service_Slides_AffineTransform $transform)
-	{
-		$this->transform = $transform;
-	}
-	/**
-	 * @return Google_Service_Slides_AffineTransform
-	 */
-	public function getTransform()
-	{
-		return $this->transform;
-	}
+  public function setApplyMode($applyMode)
+  {
+    $this->applyMode = $applyMode;
+  }
+  public function getApplyMode()
+  {
+    return $this->applyMode;
+  }
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
+  /**
+   * @param Google_Service_Slides_AffineTransform
+   */
+  public function setTransform(Google_Service_Slides_AffineTransform $transform)
+  {
+    $this->transform = $transform;
+  }
+  /**
+   * @return Google_Service_Slides_AffineTransform
+   */
+  public function getTransform()
+  {
+    return $this->transform;
+  }
 }

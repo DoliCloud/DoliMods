@@ -17,45 +17,45 @@
 
 class Google_Service_Cloudlatencytest_Stats extends Google_Collection
 {
-	protected $collection_key = 'stringValues';
-	protected $doubleValuesType = 'Google_Service_Cloudlatencytest_DoubleValue';
-	protected $doubleValuesDataType = 'array';
-	protected $intValuesType = 'Google_Service_Cloudlatencytest_IntValue';
-	protected $intValuesDataType = 'array';
-	protected $stringValuesType = 'Google_Service_Cloudlatencytest_StringValue';
-	protected $stringValuesDataType = 'array';
-	public $time;
+  protected $collection_key = 'stringValues';
+  protected $doubleValuesType = 'Google_Service_Cloudlatencytest_DoubleValue';
+  protected $doubleValuesDataType = 'array';
+  protected $intValuesType = 'Google_Service_Cloudlatencytest_IntValue';
+  protected $intValuesDataType = 'array';
+  protected $stringValuesType = 'Google_Service_Cloudlatencytest_StringValue';
+  protected $stringValuesDataType = 'array';
+  public $time;
 
-	public function setDoubleValues($doubleValues)
-	{
-		$this->doubleValues = $doubleValues;
-	}
-	public function getDoubleValues()
-	{
-		return $this->doubleValues;
-	}
-	public function setIntValues($intValues)
-	{
-		$this->intValues = $intValues;
-	}
-	public function getIntValues()
-	{
-		return $this->intValues;
-	}
-	public function setStringValues($stringValues)
-	{
-		$this->stringValues = $stringValues;
-	}
-	public function getStringValues()
-	{
-		return $this->stringValues;
-	}
-	public function setTime($time)
-	{
-		$this->time = $time;
-	}
-	public function getTime()
-	{
-		return $this->time;
-	}
+  public function setDoubleValues($doubleValues)
+  {
+    $this->doubleValues = $doubleValues;
+  }
+  public function getDoubleValues()
+  {
+    return $this->doubleValues;
+  }
+  public function setIntValues($intValues)
+  {
+    $this->intValues = $intValues;
+  }
+  public function getIntValues()
+  {
+    return $this->intValues;
+  }
+  public function setStringValues($stringValues)
+  {
+    $this->stringValues = $stringValues;
+  }
+  public function getStringValues()
+  {
+    return $this->stringValues;
+  }
+  public function setTime($time)
+  {
+    $this->time = $time;
+  }
+  public function getTime()
+  {
+    return $this->time;
+  }
 }

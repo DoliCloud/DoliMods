@@ -17,59 +17,68 @@
 
 class Google_Service_Logging_LogBucket extends Google_Model
 {
-	public $createTime;
-	public $description;
-	public $lifecycleState;
-	public $name;
-	public $retentionDays;
-	public $updateTime;
+  public $createTime;
+  public $description;
+  public $lifecycleState;
+  public $locked;
+  public $name;
+  public $retentionDays;
+  public $updateTime;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setLifecycleState($lifecycleState)
-	{
-		$this->lifecycleState = $lifecycleState;
-	}
-	public function getLifecycleState()
-	{
-		return $this->lifecycleState;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRetentionDays($retentionDays)
-	{
-		$this->retentionDays = $retentionDays;
-	}
-	public function getRetentionDays()
-	{
-		return $this->retentionDays;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setLifecycleState($lifecycleState)
+  {
+    $this->lifecycleState = $lifecycleState;
+  }
+  public function getLifecycleState()
+  {
+    return $this->lifecycleState;
+  }
+  public function setLocked($locked)
+  {
+    $this->locked = $locked;
+  }
+  public function getLocked()
+  {
+    return $this->locked;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRetentionDays($retentionDays)
+  {
+    $this->retentionDays = $retentionDays;
+  }
+  public function getRetentionDays()
+  {
+    return $this->retentionDays;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

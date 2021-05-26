@@ -17,32 +17,32 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps extends Google_Model
 {
-	public $createTime;
-	public $expireTime;
-	public $updateTime;
+  public $createTime;
+  public $expireTime;
+  public $updateTime;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setExpireTime($expireTime)
-	{
-		$this->expireTime = $expireTime;
-	}
-	public function getExpireTime()
-	{
-		return $this->expireTime;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setExpireTime($expireTime)
+  {
+    $this->expireTime = $expireTime;
+  }
+  public function getExpireTime()
+  {
+    return $this->expireTime;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

@@ -17,87 +17,87 @@
 
 class Google_Service_Devprojects_RobotCreationParameters extends Google_Collection
 {
-	protected $collection_key = 'authRedirectUri';
-	public $authClientType;
-	public $authRedirectUri;
-	public $friendlyName;
-	public $kind;
-	public $loasRoleForContainerOwnedRobot;
-	public $robotConfigName;
-	public $robotEnvironment;
-	public $robotType;
-	public $teamRole;
+  protected $collection_key = 'authRedirectUri';
+  public $authClientType;
+  public $authRedirectUri;
+  public $friendlyName;
+  public $kind;
+  public $loasRoleForContainerOwnedRobot;
+  public $robotConfigName;
+  public $robotEnvironment;
+  public $robotType;
+  public $teamRole;
 
-	public function setAuthClientType($authClientType)
-	{
-		$this->authClientType = $authClientType;
-	}
-	public function getAuthClientType()
-	{
-		return $this->authClientType;
-	}
-	public function setAuthRedirectUri($authRedirectUri)
-	{
-		$this->authRedirectUri = $authRedirectUri;
-	}
-	public function getAuthRedirectUri()
-	{
-		return $this->authRedirectUri;
-	}
-	public function setFriendlyName($friendlyName)
-	{
-		$this->friendlyName = $friendlyName;
-	}
-	public function getFriendlyName()
-	{
-		return $this->friendlyName;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLoasRoleForContainerOwnedRobot($loasRoleForContainerOwnedRobot)
-	{
-		$this->loasRoleForContainerOwnedRobot = $loasRoleForContainerOwnedRobot;
-	}
-	public function getLoasRoleForContainerOwnedRobot()
-	{
-		return $this->loasRoleForContainerOwnedRobot;
-	}
-	public function setRobotConfigName($robotConfigName)
-	{
-		$this->robotConfigName = $robotConfigName;
-	}
-	public function getRobotConfigName()
-	{
-		return $this->robotConfigName;
-	}
-	public function setRobotEnvironment($robotEnvironment)
-	{
-		$this->robotEnvironment = $robotEnvironment;
-	}
-	public function getRobotEnvironment()
-	{
-		return $this->robotEnvironment;
-	}
-	public function setRobotType($robotType)
-	{
-		$this->robotType = $robotType;
-	}
-	public function getRobotType()
-	{
-		return $this->robotType;
-	}
-	public function setTeamRole($teamRole)
-	{
-		$this->teamRole = $teamRole;
-	}
-	public function getTeamRole()
-	{
-		return $this->teamRole;
-	}
+  public function setAuthClientType($authClientType)
+  {
+    $this->authClientType = $authClientType;
+  }
+  public function getAuthClientType()
+  {
+    return $this->authClientType;
+  }
+  public function setAuthRedirectUri($authRedirectUri)
+  {
+    $this->authRedirectUri = $authRedirectUri;
+  }
+  public function getAuthRedirectUri()
+  {
+    return $this->authRedirectUri;
+  }
+  public function setFriendlyName($friendlyName)
+  {
+    $this->friendlyName = $friendlyName;
+  }
+  public function getFriendlyName()
+  {
+    return $this->friendlyName;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLoasRoleForContainerOwnedRobot($loasRoleForContainerOwnedRobot)
+  {
+    $this->loasRoleForContainerOwnedRobot = $loasRoleForContainerOwnedRobot;
+  }
+  public function getLoasRoleForContainerOwnedRobot()
+  {
+    return $this->loasRoleForContainerOwnedRobot;
+  }
+  public function setRobotConfigName($robotConfigName)
+  {
+    $this->robotConfigName = $robotConfigName;
+  }
+  public function getRobotConfigName()
+  {
+    return $this->robotConfigName;
+  }
+  public function setRobotEnvironment($robotEnvironment)
+  {
+    $this->robotEnvironment = $robotEnvironment;
+  }
+  public function getRobotEnvironment()
+  {
+    return $this->robotEnvironment;
+  }
+  public function setRobotType($robotType)
+  {
+    $this->robotType = $robotType;
+  }
+  public function getRobotType()
+  {
+    return $this->robotType;
+  }
+  public function setTeamRole($teamRole)
+  {
+    $this->teamRole = $teamRole;
+  }
+  public function getTeamRole()
+  {
+    return $this->teamRole;
+  }
 }

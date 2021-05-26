@@ -17,46 +17,46 @@
 
 class Google_Service_AdMob_ReportHeader extends Google_Model
 {
-	protected $dateRangeType = 'Google_Service_AdMob_DateRange';
-	protected $dateRangeDataType = '';
-	protected $localizationSettingsType = 'Google_Service_AdMob_LocalizationSettings';
-	protected $localizationSettingsDataType = '';
-	public $reportingTimeZone;
+  protected $dateRangeType = 'Google_Service_AdMob_DateRange';
+  protected $dateRangeDataType = '';
+  protected $localizationSettingsType = 'Google_Service_AdMob_LocalizationSettings';
+  protected $localizationSettingsDataType = '';
+  public $reportingTimeZone;
 
-	/**
-	 * @param Google_Service_AdMob_DateRange
-	 */
-	public function setDateRange(Google_Service_AdMob_DateRange $dateRange)
-	{
-		$this->dateRange = $dateRange;
-	}
-	/**
-	 * @return Google_Service_AdMob_DateRange
-	 */
-	public function getDateRange()
-	{
-		return $this->dateRange;
-	}
-	/**
-	 * @param Google_Service_AdMob_LocalizationSettings
-	 */
-	public function setLocalizationSettings(Google_Service_AdMob_LocalizationSettings $localizationSettings)
-	{
-		$this->localizationSettings = $localizationSettings;
-	}
-	/**
-	 * @return Google_Service_AdMob_LocalizationSettings
-	 */
-	public function getLocalizationSettings()
-	{
-		return $this->localizationSettings;
-	}
-	public function setReportingTimeZone($reportingTimeZone)
-	{
-		$this->reportingTimeZone = $reportingTimeZone;
-	}
-	public function getReportingTimeZone()
-	{
-		return $this->reportingTimeZone;
-	}
+  /**
+   * @param Google_Service_AdMob_DateRange
+   */
+  public function setDateRange(Google_Service_AdMob_DateRange $dateRange)
+  {
+    $this->dateRange = $dateRange;
+  }
+  /**
+   * @return Google_Service_AdMob_DateRange
+   */
+  public function getDateRange()
+  {
+    return $this->dateRange;
+  }
+  /**
+   * @param Google_Service_AdMob_LocalizationSettings
+   */
+  public function setLocalizationSettings(Google_Service_AdMob_LocalizationSettings $localizationSettings)
+  {
+    $this->localizationSettings = $localizationSettings;
+  }
+  /**
+   * @return Google_Service_AdMob_LocalizationSettings
+   */
+  public function getLocalizationSettings()
+  {
+    return $this->localizationSettings;
+  }
+  public function setReportingTimeZone($reportingTimeZone)
+  {
+    $this->reportingTimeZone = $reportingTimeZone;
+  }
+  public function getReportingTimeZone()
+  {
+    return $this->reportingTimeZone;
+  }
 }

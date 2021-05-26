@@ -17,39 +17,39 @@
 
 class Google_Service_AndroidEnterprise_DeviceReportUpdateEvent extends Google_Model
 {
-	public $deviceId;
-	protected $reportType = 'Google_Service_AndroidEnterprise_DeviceReport';
-	protected $reportDataType = '';
-	public $userId;
+  public $deviceId;
+  protected $reportType = 'Google_Service_AndroidEnterprise_DeviceReport';
+  protected $reportDataType = '';
+  public $userId;
 
-	public function setDeviceId($deviceId)
-	{
-		$this->deviceId = $deviceId;
-	}
-	public function getDeviceId()
-	{
-		return $this->deviceId;
-	}
-	/**
-	 * @param Google_Service_AndroidEnterprise_DeviceReport
-	 */
-	public function setReport(Google_Service_AndroidEnterprise_DeviceReport $report)
-	{
-		$this->report = $report;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_DeviceReport
-	 */
-	public function getReport()
-	{
-		return $this->report;
-	}
-	public function setUserId($userId)
-	{
-		$this->userId = $userId;
-	}
-	public function getUserId()
-	{
-		return $this->userId;
-	}
+  public function setDeviceId($deviceId)
+  {
+    $this->deviceId = $deviceId;
+  }
+  public function getDeviceId()
+  {
+    return $this->deviceId;
+  }
+  /**
+   * @param Google_Service_AndroidEnterprise_DeviceReport
+   */
+  public function setReport(Google_Service_AndroidEnterprise_DeviceReport $report)
+  {
+    $this->report = $report;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_DeviceReport
+   */
+  public function getReport()
+  {
+    return $this->report;
+  }
+  public function setUserId($userId)
+  {
+    $this->userId = $userId;
+  }
+  public function getUserId()
+  {
+    return $this->userId;
+  }
 }

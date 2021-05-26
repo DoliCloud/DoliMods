@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceNetworking_ValidateConsumerConfigResponse extends Google_Model
 {
-	public $isValid;
-	public $validationError;
+  public $isValid;
+  public $validationError;
 
-	public function setIsValid($isValid)
-	{
-		$this->isValid = $isValid;
-	}
-	public function getIsValid()
-	{
-		return $this->isValid;
-	}
-	public function setValidationError($validationError)
-	{
-		$this->validationError = $validationError;
-	}
-	public function getValidationError()
-	{
-		return $this->validationError;
-	}
+  public function setIsValid($isValid)
+  {
+    $this->isValid = $isValid;
+  }
+  public function getIsValid()
+  {
+    return $this->isValid;
+  }
+  public function setValidationError($validationError)
+  {
+    $this->validationError = $validationError;
+  }
+  public function getValidationError()
+  {
+    return $this->validationError;
+  }
 }

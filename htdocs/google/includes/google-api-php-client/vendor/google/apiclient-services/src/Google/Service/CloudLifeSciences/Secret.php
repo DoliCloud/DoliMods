@@ -17,23 +17,23 @@
 
 class Google_Service_CloudLifeSciences_Secret extends Google_Model
 {
-	public $cipherText;
-	public $keyName;
+  public $cipherText;
+  public $keyName;
 
-	public function setCipherText($cipherText)
-	{
-		$this->cipherText = $cipherText;
-	}
-	public function getCipherText()
-	{
-		return $this->cipherText;
-	}
-	public function setKeyName($keyName)
-	{
-		$this->keyName = $keyName;
-	}
-	public function getKeyName()
-	{
-		return $this->keyName;
-	}
+  public function setCipherText($cipherText)
+  {
+    $this->cipherText = $cipherText;
+  }
+  public function getCipherText()
+  {
+    return $this->cipherText;
+  }
+  public function setKeyName($keyName)
+  {
+    $this->keyName = $keyName;
+  }
+  public function getKeyName()
+  {
+    return $this->keyName;
+  }
 }

@@ -17,60 +17,60 @@
 
 class Google_Service_Cih_GammaData extends Google_Model
 {
-	public $campaignId;
-	public $dispatchId;
-	public $experimentId;
-	public $gammaProductId;
-	public $nodeId;
-	protected $uaidType = 'Google_Service_Cih_Uaid';
-	protected $uaidDataType = '';
+  public $campaignId;
+  public $dispatchId;
+  public $experimentId;
+  public $gammaProductId;
+  public $nodeId;
+  protected $uaidType = 'Google_Service_Cih_Uaid';
+  protected $uaidDataType = '';
 
-	public function setCampaignId($campaignId)
-	{
-		$this->campaignId = $campaignId;
-	}
-	public function getCampaignId()
-	{
-		return $this->campaignId;
-	}
-	public function setDispatchId($dispatchId)
-	{
-		$this->dispatchId = $dispatchId;
-	}
-	public function getDispatchId()
-	{
-		return $this->dispatchId;
-	}
-	public function setExperimentId($experimentId)
-	{
-		$this->experimentId = $experimentId;
-	}
-	public function getExperimentId()
-	{
-		return $this->experimentId;
-	}
-	public function setGammaProductId($gammaProductId)
-	{
-		$this->gammaProductId = $gammaProductId;
-	}
-	public function getGammaProductId()
-	{
-		return $this->gammaProductId;
-	}
-	public function setNodeId($nodeId)
-	{
-		$this->nodeId = $nodeId;
-	}
-	public function getNodeId()
-	{
-		return $this->nodeId;
-	}
-	public function setUaid(Google_Service_Cih_Uaid $uaid)
-	{
-		$this->uaid = $uaid;
-	}
-	public function getUaid()
-	{
-		return $this->uaid;
-	}
+  public function setCampaignId($campaignId)
+  {
+    $this->campaignId = $campaignId;
+  }
+  public function getCampaignId()
+  {
+    return $this->campaignId;
+  }
+  public function setDispatchId($dispatchId)
+  {
+    $this->dispatchId = $dispatchId;
+  }
+  public function getDispatchId()
+  {
+    return $this->dispatchId;
+  }
+  public function setExperimentId($experimentId)
+  {
+    $this->experimentId = $experimentId;
+  }
+  public function getExperimentId()
+  {
+    return $this->experimentId;
+  }
+  public function setGammaProductId($gammaProductId)
+  {
+    $this->gammaProductId = $gammaProductId;
+  }
+  public function getGammaProductId()
+  {
+    return $this->gammaProductId;
+  }
+  public function setNodeId($nodeId)
+  {
+    $this->nodeId = $nodeId;
+  }
+  public function getNodeId()
+  {
+    return $this->nodeId;
+  }
+  public function setUaid(Google_Service_Cih_Uaid $uaid)
+  {
+    $this->uaid = $uaid;
+  }
+  public function getUaid()
+  {
+    return $this->uaid;
+  }
 }

@@ -17,57 +17,57 @@
 
 class Google_Service_Compute_NotificationEndpointGrpcSettings extends Google_Model
 {
-	public $authority;
-	public $endpoint;
-	public $payloadName;
-	protected $resendIntervalType = 'Google_Service_Compute_Duration';
-	protected $resendIntervalDataType = '';
-	public $retryDurationSec;
+  public $authority;
+  public $endpoint;
+  public $payloadName;
+  protected $resendIntervalType = 'Google_Service_Compute_Duration';
+  protected $resendIntervalDataType = '';
+  public $retryDurationSec;
 
-	public function setAuthority($authority)
-	{
-		$this->authority = $authority;
-	}
-	public function getAuthority()
-	{
-		return $this->authority;
-	}
-	public function setEndpoint($endpoint)
-	{
-		$this->endpoint = $endpoint;
-	}
-	public function getEndpoint()
-	{
-		return $this->endpoint;
-	}
-	public function setPayloadName($payloadName)
-	{
-		$this->payloadName = $payloadName;
-	}
-	public function getPayloadName()
-	{
-		return $this->payloadName;
-	}
-	/**
-	 * @param Google_Service_Compute_Duration
-	 */
-	public function setResendInterval(Google_Service_Compute_Duration $resendInterval)
-	{
-		$this->resendInterval = $resendInterval;
-	}
-	/**
-	 * @return Google_Service_Compute_Duration
-	 */
-	public function getResendInterval()
-	{
-		return $this->resendInterval;
-	}
-	public function setRetryDurationSec($retryDurationSec)
-	{
-		$this->retryDurationSec = $retryDurationSec;
-	}
-	public function getRetryDurationSec()
-	{
-		return $this->retryDurationSec;
-	}
+  public function setAuthority($authority)
+  {
+    $this->authority = $authority;
+  }
+  public function getAuthority()
+  {
+    return $this->authority;
+  }
+  public function setEndpoint($endpoint)
+  {
+    $this->endpoint = $endpoint;
+  }
+  public function getEndpoint()
+  {
+    return $this->endpoint;
+  }
+  public function setPayloadName($payloadName)
+  {
+    $this->payloadName = $payloadName;
+  }
+  public function getPayloadName()
+  {
+    return $this->payloadName;
+  }
+  /**
+   * @param Google_Service_Compute_Duration
+   */
+  public function setResendInterval(Google_Service_Compute_Duration $resendInterval)
+  {
+    $this->resendInterval = $resendInterval;
+  }
+  /**
+   * @return Google_Service_Compute_Duration
+   */
+  public function getResendInterval()
+  {
+    return $this->resendInterval;
+  }
+  public function setRetryDurationSec($retryDurationSec)
+  {
+    $this->retryDurationSec = $retryDurationSec;
+  }
+  public function getRetryDurationSec()
+  {
+    return $this->retryDurationSec;
+  }
 }

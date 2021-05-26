@@ -17,30 +17,30 @@
 
 class Google_Service_FirebaseRules_VisitedExpression extends Google_Model
 {
-	protected $sourcePositionType = 'Google_Service_FirebaseRules_SourcePosition';
-	protected $sourcePositionDataType = '';
-	public $value;
+  protected $sourcePositionType = 'Google_Service_FirebaseRules_SourcePosition';
+  protected $sourcePositionDataType = '';
+  public $value;
 
-	/**
-	 * @param Google_Service_FirebaseRules_SourcePosition
-	 */
-	public function setSourcePosition(Google_Service_FirebaseRules_SourcePosition $sourcePosition)
-	{
-		$this->sourcePosition = $sourcePosition;
-	}
-	/**
-	 * @return Google_Service_FirebaseRules_SourcePosition
-	 */
-	public function getSourcePosition()
-	{
-		return $this->sourcePosition;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  /**
+   * @param Google_Service_FirebaseRules_SourcePosition
+   */
+  public function setSourcePosition(Google_Service_FirebaseRules_SourcePosition $sourcePosition)
+  {
+    $this->sourcePosition = $sourcePosition;
+  }
+  /**
+   * @return Google_Service_FirebaseRules_SourcePosition
+   */
+  public function getSourcePosition()
+  {
+    return $this->sourcePosition;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

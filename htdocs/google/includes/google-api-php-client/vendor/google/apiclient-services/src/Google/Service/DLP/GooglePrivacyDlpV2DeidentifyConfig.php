@@ -17,53 +17,53 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DeidentifyConfig extends Google_Model
 {
-	protected $infoTypeTransformationsType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations';
-	protected $infoTypeTransformationsDataType = '';
-	protected $recordTransformationsType = 'Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations';
-	protected $recordTransformationsDataType = '';
-	protected $transformationErrorHandlingType = 'Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling';
-	protected $transformationErrorHandlingDataType = '';
+  protected $infoTypeTransformationsType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations';
+  protected $infoTypeTransformationsDataType = '';
+  protected $recordTransformationsType = 'Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations';
+  protected $recordTransformationsDataType = '';
+  protected $transformationErrorHandlingType = 'Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling';
+  protected $transformationErrorHandlingDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations
-	 */
-	public function setInfoTypeTransformations(Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations $infoTypeTransformations)
-	{
-		$this->infoTypeTransformations = $infoTypeTransformations;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations
-	 */
-	public function getInfoTypeTransformations()
-	{
-		return $this->infoTypeTransformations;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations
-	 */
-	public function setRecordTransformations(Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations $recordTransformations)
-	{
-		$this->recordTransformations = $recordTransformations;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations
-	 */
-	public function getRecordTransformations()
-	{
-		return $this->recordTransformations;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling
-	 */
-	public function setTransformationErrorHandling(Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling $transformationErrorHandling)
-	{
-		$this->transformationErrorHandling = $transformationErrorHandling;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling
-	 */
-	public function getTransformationErrorHandling()
-	{
-		return $this->transformationErrorHandling;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations
+   */
+  public function setInfoTypeTransformations(Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations $infoTypeTransformations)
+  {
+    $this->infoTypeTransformations = $infoTypeTransformations;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InfoTypeTransformations
+   */
+  public function getInfoTypeTransformations()
+  {
+    return $this->infoTypeTransformations;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations
+   */
+  public function setRecordTransformations(Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations $recordTransformations)
+  {
+    $this->recordTransformations = $recordTransformations;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations
+   */
+  public function getRecordTransformations()
+  {
+    return $this->recordTransformations;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling
+   */
+  public function setTransformationErrorHandling(Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling $transformationErrorHandling)
+  {
+    $this->transformationErrorHandling = $transformationErrorHandling;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2TransformationErrorHandling
+   */
+  public function getTransformationErrorHandling()
+  {
+    return $this->transformationErrorHandling;
+  }
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Compute_ExchangedPeeringRoute extends Google_Model
 {
-	public $destRange;
-	public $imported;
-	public $nextHopRegion;
-	public $priority;
-	public $type;
+  public $destRange;
+  public $imported;
+  public $nextHopRegion;
+  public $priority;
+  public $type;
 
-	public function setDestRange($destRange)
-	{
-		$this->destRange = $destRange;
-	}
-	public function getDestRange()
-	{
-		return $this->destRange;
-	}
-	public function setImported($imported)
-	{
-		$this->imported = $imported;
-	}
-	public function getImported()
-	{
-		return $this->imported;
-	}
-	public function setNextHopRegion($nextHopRegion)
-	{
-		$this->nextHopRegion = $nextHopRegion;
-	}
-	public function getNextHopRegion()
-	{
-		return $this->nextHopRegion;
-	}
-	public function setPriority($priority)
-	{
-		$this->priority = $priority;
-	}
-	public function getPriority()
-	{
-		return $this->priority;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDestRange($destRange)
+  {
+    $this->destRange = $destRange;
+  }
+  public function getDestRange()
+  {
+    return $this->destRange;
+  }
+  public function setImported($imported)
+  {
+    $this->imported = $imported;
+  }
+  public function getImported()
+  {
+    return $this->imported;
+  }
+  public function setNextHopRegion($nextHopRegion)
+  {
+    $this->nextHopRegion = $nextHopRegion;
+  }
+  public function getNextHopRegion()
+  {
+    return $this->nextHopRegion;
+  }
+  public function setPriority($priority)
+  {
+    $this->priority = $priority;
+  }
+  public function getPriority()
+  {
+    return $this->priority;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

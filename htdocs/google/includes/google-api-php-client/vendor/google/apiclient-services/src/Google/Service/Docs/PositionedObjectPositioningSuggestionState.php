@@ -17,32 +17,32 @@
 
 class Google_Service_Docs_PositionedObjectPositioningSuggestionState extends Google_Model
 {
-	public $layoutSuggested;
-	public $leftOffsetSuggested;
-	public $topOffsetSuggested;
+  public $layoutSuggested;
+  public $leftOffsetSuggested;
+  public $topOffsetSuggested;
 
-	public function setLayoutSuggested($layoutSuggested)
-	{
-		$this->layoutSuggested = $layoutSuggested;
-	}
-	public function getLayoutSuggested()
-	{
-		return $this->layoutSuggested;
-	}
-	public function setLeftOffsetSuggested($leftOffsetSuggested)
-	{
-		$this->leftOffsetSuggested = $leftOffsetSuggested;
-	}
-	public function getLeftOffsetSuggested()
-	{
-		return $this->leftOffsetSuggested;
-	}
-	public function setTopOffsetSuggested($topOffsetSuggested)
-	{
-		$this->topOffsetSuggested = $topOffsetSuggested;
-	}
-	public function getTopOffsetSuggested()
-	{
-		return $this->topOffsetSuggested;
-	}
+  public function setLayoutSuggested($layoutSuggested)
+  {
+    $this->layoutSuggested = $layoutSuggested;
+  }
+  public function getLayoutSuggested()
+  {
+    return $this->layoutSuggested;
+  }
+  public function setLeftOffsetSuggested($leftOffsetSuggested)
+  {
+    $this->leftOffsetSuggested = $leftOffsetSuggested;
+  }
+  public function getLeftOffsetSuggested()
+  {
+    return $this->leftOffsetSuggested;
+  }
+  public function setTopOffsetSuggested($topOffsetSuggested)
+  {
+    $this->topOffsetSuggested = $topOffsetSuggested;
+  }
+  public function getTopOffsetSuggested()
+  {
+    return $this->topOffsetSuggested;
+  }
 }

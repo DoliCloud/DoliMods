@@ -17,67 +17,67 @@
 
 class Google_Service_Dataproc_SparkRJob extends Google_Collection
 {
-	protected $collection_key = 'fileUris';
-	public $archiveUris;
-	public $args;
-	public $fileUris;
-	protected $loggingConfigType = 'Google_Service_Dataproc_LoggingConfig';
-	protected $loggingConfigDataType = '';
-	public $mainRFileUri;
-	public $properties;
+  protected $collection_key = 'fileUris';
+  public $archiveUris;
+  public $args;
+  public $fileUris;
+  protected $loggingConfigType = 'Google_Service_Dataproc_LoggingConfig';
+  protected $loggingConfigDataType = '';
+  public $mainRFileUri;
+  public $properties;
 
-	public function setArchiveUris($archiveUris)
-	{
-		$this->archiveUris = $archiveUris;
-	}
-	public function getArchiveUris()
-	{
-		return $this->archiveUris;
-	}
-	public function setArgs($args)
-	{
-		$this->args = $args;
-	}
-	public function getArgs()
-	{
-		return $this->args;
-	}
-	public function setFileUris($fileUris)
-	{
-		$this->fileUris = $fileUris;
-	}
-	public function getFileUris()
-	{
-		return $this->fileUris;
-	}
-	/**
-	 * @param Google_Service_Dataproc_LoggingConfig
-	 */
-	public function setLoggingConfig(Google_Service_Dataproc_LoggingConfig $loggingConfig)
-	{
-		$this->loggingConfig = $loggingConfig;
-	}
-	/**
-	 * @return Google_Service_Dataproc_LoggingConfig
-	 */
-	public function getLoggingConfig()
-	{
-		return $this->loggingConfig;
-	}
-	public function setMainRFileUri($mainRFileUri)
-	{
-		$this->mainRFileUri = $mainRFileUri;
-	}
-	public function getMainRFileUri()
-	{
-		return $this->mainRFileUri;
-	}
-	public function setProperties($properties)
-	{
-		$this->properties = $properties;
-	}
-	public function getProperties()
-	{
-		return $this->properties;
-	}
+  public function setArchiveUris($archiveUris)
+  {
+    $this->archiveUris = $archiveUris;
+  }
+  public function getArchiveUris()
+  {
+    return $this->archiveUris;
+  }
+  public function setArgs($args)
+  {
+    $this->args = $args;
+  }
+  public function getArgs()
+  {
+    return $this->args;
+  }
+  public function setFileUris($fileUris)
+  {
+    $this->fileUris = $fileUris;
+  }
+  public function getFileUris()
+  {
+    return $this->fileUris;
+  }
+  /**
+   * @param Google_Service_Dataproc_LoggingConfig
+   */
+  public function setLoggingConfig(Google_Service_Dataproc_LoggingConfig $loggingConfig)
+  {
+    $this->loggingConfig = $loggingConfig;
+  }
+  /**
+   * @return Google_Service_Dataproc_LoggingConfig
+   */
+  public function getLoggingConfig()
+  {
+    return $this->loggingConfig;
+  }
+  public function setMainRFileUri($mainRFileUri)
+  {
+    $this->mainRFileUri = $mainRFileUri;
+  }
+  public function getMainRFileUri()
+  {
+    return $this->mainRFileUri;
+  }
+  public function setProperties($properties)
+  {
+    $this->properties = $properties;
+  }
+  public function getProperties()
+  {
+    return $this->properties;
+  }
 }

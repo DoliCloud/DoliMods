@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_FixedOrPercent extends Google_Model
 {
-	public $calculated;
-	public $fixed;
-	public $percent;
+  public $calculated;
+  public $fixed;
+  public $percent;
 
-	public function setCalculated($calculated)
-	{
-		$this->calculated = $calculated;
-	}
-	public function getCalculated()
-	{
-		return $this->calculated;
-	}
-	public function setFixed($fixed)
-	{
-		$this->fixed = $fixed;
-	}
-	public function getFixed()
-	{
-		return $this->fixed;
-	}
-	public function setPercent($percent)
-	{
-		$this->percent = $percent;
-	}
-	public function getPercent()
-	{
-		return $this->percent;
-	}
+  public function setCalculated($calculated)
+  {
+    $this->calculated = $calculated;
+  }
+  public function getCalculated()
+  {
+    return $this->calculated;
+  }
+  public function setFixed($fixed)
+  {
+    $this->fixed = $fixed;
+  }
+  public function getFixed()
+  {
+    return $this->fixed;
+  }
+  public function setPercent($percent)
+  {
+    $this->percent = $percent;
+  }
+  public function getPercent()
+  {
+    return $this->percent;
+  }
 }

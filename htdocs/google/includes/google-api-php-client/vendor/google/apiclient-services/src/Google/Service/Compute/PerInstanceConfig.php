@@ -17,23 +17,48 @@
 
 class Google_Service_Compute_PerInstanceConfig extends Google_Model
 {
-	public $fingerprint;
-	public $name;
+  public $fingerprint;
+  public $name;
+  protected $preservedStateType = 'Google_Service_Compute_PreservedState';
+  protected $preservedStateDataType = '';
+  public $status;
 
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Compute_PreservedState
+   */
+  public function setPreservedState(Google_Service_Compute_PreservedState $preservedState)
+  {
+    $this->preservedState = $preservedState;
+  }
+  /**
+   * @return Google_Service_Compute_PreservedState
+   */
+  public function getPreservedState()
+  {
+    return $this->preservedState;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

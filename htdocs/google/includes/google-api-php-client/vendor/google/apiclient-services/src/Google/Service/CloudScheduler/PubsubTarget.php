@@ -17,32 +17,32 @@
 
 class Google_Service_CloudScheduler_PubsubTarget extends Google_Model
 {
-	public $attributes;
-	public $data;
-	public $topicName;
+  public $attributes;
+  public $data;
+  public $topicName;
 
-	public function setAttributes($attributes)
-	{
-		$this->attributes = $attributes;
-	}
-	public function getAttributes()
-	{
-		return $this->attributes;
-	}
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setTopicName($topicName)
-	{
-		$this->topicName = $topicName;
-	}
-	public function getTopicName()
-	{
-		return $this->topicName;
-	}
+  public function setAttributes($attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setTopicName($topicName)
+  {
+    $this->topicName = $topicName;
+  }
+  public function getTopicName()
+  {
+    return $this->topicName;
+  }
 }

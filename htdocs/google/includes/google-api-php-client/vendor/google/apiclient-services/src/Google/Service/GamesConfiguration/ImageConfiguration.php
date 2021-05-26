@@ -17,41 +17,41 @@
 
 class Google_Service_GamesConfiguration_ImageConfiguration extends Google_Model
 {
-	public $imageType;
-	public $kind;
-	public $resourceId;
-	public $url;
+  public $imageType;
+  public $kind;
+  public $resourceId;
+  public $url;
 
-	public function setImageType($imageType)
-	{
-		$this->imageType = $imageType;
-	}
-	public function getImageType()
-	{
-		return $this->imageType;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setResourceId($resourceId)
-	{
-		$this->resourceId = $resourceId;
-	}
-	public function getResourceId()
-	{
-		return $this->resourceId;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setImageType($imageType)
+  {
+    $this->imageType = $imageType;
+  }
+  public function getImageType()
+  {
+    return $this->imageType;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setResourceId($resourceId)
+  {
+    $this->resourceId = $resourceId;
+  }
+  public function getResourceId()
+  {
+    return $this->resourceId;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

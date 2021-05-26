@@ -17,23 +17,23 @@
 
 class Google_Service_HomeGraphService_ReportStateAndNotificationDevice extends Google_Model
 {
-	public $notifications;
-	public $states;
+  public $notifications;
+  public $states;
 
-	public function setNotifications($notifications)
-	{
-		$this->notifications = $notifications;
-	}
-	public function getNotifications()
-	{
-		return $this->notifications;
-	}
-	public function setStates($states)
-	{
-		$this->states = $states;
-	}
-	public function getStates()
-	{
-		return $this->states;
-	}
+  public function setNotifications($notifications)
+  {
+    $this->notifications = $notifications;
+  }
+  public function getNotifications()
+  {
+    return $this->notifications;
+  }
+  public function setStates($states)
+  {
+    $this->states = $states;
+  }
+  public function getStates()
+  {
+    return $this->states;
+  }
 }

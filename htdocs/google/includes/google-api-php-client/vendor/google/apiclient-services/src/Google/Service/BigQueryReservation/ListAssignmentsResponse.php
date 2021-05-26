@@ -17,31 +17,31 @@
 
 class Google_Service_BigQueryReservation_ListAssignmentsResponse extends Google_Collection
 {
-	protected $collection_key = 'assignments';
-	protected $assignmentsType = 'Google_Service_BigQueryReservation_Assignment';
-	protected $assignmentsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'assignments';
+  protected $assignmentsType = 'Google_Service_BigQueryReservation_Assignment';
+  protected $assignmentsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_BigQueryReservation_Assignment
-	 */
-	public function setAssignments($assignments)
-	{
-		$this->assignments = $assignments;
-	}
-	/**
-	 * @return Google_Service_BigQueryReservation_Assignment
-	 */
-	public function getAssignments()
-	{
-		return $this->assignments;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_BigQueryReservation_Assignment[]
+   */
+  public function setAssignments($assignments)
+  {
+    $this->assignments = $assignments;
+  }
+  /**
+   * @return Google_Service_BigQueryReservation_Assignment[]
+   */
+  public function getAssignments()
+  {
+    return $this->assignments;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

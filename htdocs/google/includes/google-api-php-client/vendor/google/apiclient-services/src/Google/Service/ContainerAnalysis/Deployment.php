@@ -17,69 +17,69 @@
 
 class Google_Service_ContainerAnalysis_Deployment extends Google_Collection
 {
-	protected $collection_key = 'resourceUri';
-	public $address;
-	public $config;
-	public $deployTime;
-	public $platform;
-	public $resourceUri;
-	public $undeployTime;
-	public $userEmail;
+  protected $collection_key = 'resourceUri';
+  public $address;
+  public $config;
+  public $deployTime;
+  public $platform;
+  public $resourceUri;
+  public $undeployTime;
+  public $userEmail;
 
-	public function setAddress($address)
-	{
-		$this->address = $address;
-	}
-	public function getAddress()
-	{
-		return $this->address;
-	}
-	public function setConfig($config)
-	{
-		$this->config = $config;
-	}
-	public function getConfig()
-	{
-		return $this->config;
-	}
-	public function setDeployTime($deployTime)
-	{
-		$this->deployTime = $deployTime;
-	}
-	public function getDeployTime()
-	{
-		return $this->deployTime;
-	}
-	public function setPlatform($platform)
-	{
-		$this->platform = $platform;
-	}
-	public function getPlatform()
-	{
-		return $this->platform;
-	}
-	public function setResourceUri($resourceUri)
-	{
-		$this->resourceUri = $resourceUri;
-	}
-	public function getResourceUri()
-	{
-		return $this->resourceUri;
-	}
-	public function setUndeployTime($undeployTime)
-	{
-		$this->undeployTime = $undeployTime;
-	}
-	public function getUndeployTime()
-	{
-		return $this->undeployTime;
-	}
-	public function setUserEmail($userEmail)
-	{
-		$this->userEmail = $userEmail;
-	}
-	public function getUserEmail()
-	{
-		return $this->userEmail;
-	}
+  public function setAddress($address)
+  {
+    $this->address = $address;
+  }
+  public function getAddress()
+  {
+    return $this->address;
+  }
+  public function setConfig($config)
+  {
+    $this->config = $config;
+  }
+  public function getConfig()
+  {
+    return $this->config;
+  }
+  public function setDeployTime($deployTime)
+  {
+    $this->deployTime = $deployTime;
+  }
+  public function getDeployTime()
+  {
+    return $this->deployTime;
+  }
+  public function setPlatform($platform)
+  {
+    $this->platform = $platform;
+  }
+  public function getPlatform()
+  {
+    return $this->platform;
+  }
+  public function setResourceUri($resourceUri)
+  {
+    $this->resourceUri = $resourceUri;
+  }
+  public function getResourceUri()
+  {
+    return $this->resourceUri;
+  }
+  public function setUndeployTime($undeployTime)
+  {
+    $this->undeployTime = $undeployTime;
+  }
+  public function getUndeployTime()
+  {
+    return $this->undeployTime;
+  }
+  public function setUserEmail($userEmail)
+  {
+    $this->userEmail = $userEmail;
+  }
+  public function getUserEmail()
+  {
+    return $this->userEmail;
+  }
 }

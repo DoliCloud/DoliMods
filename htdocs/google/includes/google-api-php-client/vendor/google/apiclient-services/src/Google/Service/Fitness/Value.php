@@ -17,49 +17,49 @@
 
 class Google_Service_Fitness_Value extends Google_Collection
 {
-	protected $collection_key = 'mapVal';
-	public $fpVal;
-	public $intVal;
-	protected $mapValType = 'Google_Service_Fitness_ValueMapValEntry';
-	protected $mapValDataType = 'array';
-	public $stringVal;
+  protected $collection_key = 'mapVal';
+  public $fpVal;
+  public $intVal;
+  protected $mapValType = 'Google_Service_Fitness_ValueMapValEntry';
+  protected $mapValDataType = 'array';
+  public $stringVal;
 
-	public function setFpVal($fpVal)
-	{
-		$this->fpVal = $fpVal;
-	}
-	public function getFpVal()
-	{
-		return $this->fpVal;
-	}
-	public function setIntVal($intVal)
-	{
-		$this->intVal = $intVal;
-	}
-	public function getIntVal()
-	{
-		return $this->intVal;
-	}
-	/**
-	 * @param Google_Service_Fitness_ValueMapValEntry
-	 */
-	public function setMapVal($mapVal)
-	{
-		$this->mapVal = $mapVal;
-	}
-	/**
-	 * @return Google_Service_Fitness_ValueMapValEntry
-	 */
-	public function getMapVal()
-	{
-		return $this->mapVal;
-	}
-	public function setStringVal($stringVal)
-	{
-		$this->stringVal = $stringVal;
-	}
-	public function getStringVal()
-	{
-		return $this->stringVal;
-	}
+  public function setFpVal($fpVal)
+  {
+    $this->fpVal = $fpVal;
+  }
+  public function getFpVal()
+  {
+    return $this->fpVal;
+  }
+  public function setIntVal($intVal)
+  {
+    $this->intVal = $intVal;
+  }
+  public function getIntVal()
+  {
+    return $this->intVal;
+  }
+  /**
+   * @param Google_Service_Fitness_ValueMapValEntry[]
+   */
+  public function setMapVal($mapVal)
+  {
+    $this->mapVal = $mapVal;
+  }
+  /**
+   * @return Google_Service_Fitness_ValueMapValEntry[]
+   */
+  public function getMapVal()
+  {
+    return $this->mapVal;
+  }
+  public function setStringVal($stringVal)
+  {
+    $this->stringVal = $stringVal;
+  }
+  public function getStringVal()
+  {
+    return $this->stringVal;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_ToolResults_MultiStep extends Google_Model
 {
-	public $multistepNumber;
-	protected $primaryStepType = 'Google_Service_ToolResults_PrimaryStep';
-	protected $primaryStepDataType = '';
-	public $primaryStepId;
+  public $multistepNumber;
+  protected $primaryStepType = 'Google_Service_ToolResults_PrimaryStep';
+  protected $primaryStepDataType = '';
+  public $primaryStepId;
 
-	public function setMultistepNumber($multistepNumber)
-	{
-		$this->multistepNumber = $multistepNumber;
-	}
-	public function getMultistepNumber()
-	{
-		return $this->multistepNumber;
-	}
-	/**
-	 * @param Google_Service_ToolResults_PrimaryStep
-	 */
-	public function setPrimaryStep(Google_Service_ToolResults_PrimaryStep $primaryStep)
-	{
-		$this->primaryStep = $primaryStep;
-	}
-	/**
-	 * @return Google_Service_ToolResults_PrimaryStep
-	 */
-	public function getPrimaryStep()
-	{
-		return $this->primaryStep;
-	}
-	public function setPrimaryStepId($primaryStepId)
-	{
-		$this->primaryStepId = $primaryStepId;
-	}
-	public function getPrimaryStepId()
-	{
-		return $this->primaryStepId;
-	}
+  public function setMultistepNumber($multistepNumber)
+  {
+    $this->multistepNumber = $multistepNumber;
+  }
+  public function getMultistepNumber()
+  {
+    return $this->multistepNumber;
+  }
+  /**
+   * @param Google_Service_ToolResults_PrimaryStep
+   */
+  public function setPrimaryStep(Google_Service_ToolResults_PrimaryStep $primaryStep)
+  {
+    $this->primaryStep = $primaryStep;
+  }
+  /**
+   * @return Google_Service_ToolResults_PrimaryStep
+   */
+  public function getPrimaryStep()
+  {
+    return $this->primaryStep;
+  }
+  public function setPrimaryStepId($primaryStepId)
+  {
+    $this->primaryStepId = $primaryStepId;
+  }
+  public function getPrimaryStepId()
+  {
+    return $this->primaryStepId;
+  }
 }

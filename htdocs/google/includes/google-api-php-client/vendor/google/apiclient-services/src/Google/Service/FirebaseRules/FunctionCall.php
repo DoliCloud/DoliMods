@@ -17,24 +17,24 @@
 
 class Google_Service_FirebaseRules_FunctionCall extends Google_Collection
 {
-	protected $collection_key = 'args';
-	public $args;
-	public $function;
+  protected $collection_key = 'args';
+  public $args;
+  public $function;
 
-	public function setArgs($args)
-	{
-		$this->args = $args;
-	}
-	public function getArgs()
-	{
-		return $this->args;
-	}
-	public function setFunction($function)
-	{
-		$this->function = $function;
-	}
-	public function getFunction()
-	{
-		return $this->function;
-	}
+  public function setArgs($args)
+  {
+    $this->args = $args;
+  }
+  public function getArgs()
+  {
+    return $this->args;
+  }
+  public function setFunction($function)
+  {
+    $this->function = $function;
+  }
+  public function getFunction()
+  {
+    return $this->function;
+  }
 }

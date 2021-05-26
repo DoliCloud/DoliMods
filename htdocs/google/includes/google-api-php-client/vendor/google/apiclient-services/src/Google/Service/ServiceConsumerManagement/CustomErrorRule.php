@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceConsumerManagement_CustomErrorRule extends Google_Model
 {
-	public $isErrorType;
-	public $selector;
+  public $isErrorType;
+  public $selector;
 
-	public function setIsErrorType($isErrorType)
-	{
-		$this->isErrorType = $isErrorType;
-	}
-	public function getIsErrorType()
-	{
-		return $this->isErrorType;
-	}
-	public function setSelector($selector)
-	{
-		$this->selector = $selector;
-	}
-	public function getSelector()
-	{
-		return $this->selector;
-	}
+  public function setIsErrorType($isErrorType)
+  {
+    $this->isErrorType = $isErrorType;
+  }
+  public function getIsErrorType()
+  {
+    return $this->isErrorType;
+  }
+  public function setSelector($selector)
+  {
+    $this->selector = $selector;
+  }
+  public function getSelector()
+  {
+    return $this->selector;
+  }
 }

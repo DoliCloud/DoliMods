@@ -17,58 +17,58 @@
 
 class Google_Service_Slides_ReplaceAllShapesWithImageRequest extends Google_Collection
 {
-	protected $collection_key = 'pageObjectIds';
-	protected $containsTextType = 'Google_Service_Slides_SubstringMatchCriteria';
-	protected $containsTextDataType = '';
-	public $imageReplaceMethod;
-	public $imageUrl;
-	public $pageObjectIds;
-	public $replaceMethod;
+  protected $collection_key = 'pageObjectIds';
+  protected $containsTextType = 'Google_Service_Slides_SubstringMatchCriteria';
+  protected $containsTextDataType = '';
+  public $imageReplaceMethod;
+  public $imageUrl;
+  public $pageObjectIds;
+  public $replaceMethod;
 
-	/**
-	 * @param Google_Service_Slides_SubstringMatchCriteria
-	 */
-	public function setContainsText(Google_Service_Slides_SubstringMatchCriteria $containsText)
-	{
-		$this->containsText = $containsText;
-	}
-	/**
-	 * @return Google_Service_Slides_SubstringMatchCriteria
-	 */
-	public function getContainsText()
-	{
-		return $this->containsText;
-	}
-	public function setImageReplaceMethod($imageReplaceMethod)
-	{
-		$this->imageReplaceMethod = $imageReplaceMethod;
-	}
-	public function getImageReplaceMethod()
-	{
-		return $this->imageReplaceMethod;
-	}
-	public function setImageUrl($imageUrl)
-	{
-		$this->imageUrl = $imageUrl;
-	}
-	public function getImageUrl()
-	{
-		return $this->imageUrl;
-	}
-	public function setPageObjectIds($pageObjectIds)
-	{
-		$this->pageObjectIds = $pageObjectIds;
-	}
-	public function getPageObjectIds()
-	{
-		return $this->pageObjectIds;
-	}
-	public function setReplaceMethod($replaceMethod)
-	{
-		$this->replaceMethod = $replaceMethod;
-	}
-	public function getReplaceMethod()
-	{
-		return $this->replaceMethod;
-	}
+  /**
+   * @param Google_Service_Slides_SubstringMatchCriteria
+   */
+  public function setContainsText(Google_Service_Slides_SubstringMatchCriteria $containsText)
+  {
+    $this->containsText = $containsText;
+  }
+  /**
+   * @return Google_Service_Slides_SubstringMatchCriteria
+   */
+  public function getContainsText()
+  {
+    return $this->containsText;
+  }
+  public function setImageReplaceMethod($imageReplaceMethod)
+  {
+    $this->imageReplaceMethod = $imageReplaceMethod;
+  }
+  public function getImageReplaceMethod()
+  {
+    return $this->imageReplaceMethod;
+  }
+  public function setImageUrl($imageUrl)
+  {
+    $this->imageUrl = $imageUrl;
+  }
+  public function getImageUrl()
+  {
+    return $this->imageUrl;
+  }
+  public function setPageObjectIds($pageObjectIds)
+  {
+    $this->pageObjectIds = $pageObjectIds;
+  }
+  public function getPageObjectIds()
+  {
+    return $this->pageObjectIds;
+  }
+  public function setReplaceMethod($replaceMethod)
+  {
+    $this->replaceMethod = $replaceMethod;
+  }
+  public function getReplaceMethod()
+  {
+    return $this->replaceMethod;
+  }
 }

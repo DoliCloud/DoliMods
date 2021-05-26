@@ -17,23 +17,23 @@
 
 class Google_Service_Webmasters_WmxSite extends Google_Model
 {
-	public $permissionLevel;
-	public $siteUrl;
+  public $permissionLevel;
+  public $siteUrl;
 
-	public function setPermissionLevel($permissionLevel)
-	{
-		$this->permissionLevel = $permissionLevel;
-	}
-	public function getPermissionLevel()
-	{
-		return $this->permissionLevel;
-	}
-	public function setSiteUrl($siteUrl)
-	{
-		$this->siteUrl = $siteUrl;
-	}
-	public function getSiteUrl()
-	{
-		return $this->siteUrl;
-	}
+  public function setPermissionLevel($permissionLevel)
+  {
+    $this->permissionLevel = $permissionLevel;
+  }
+  public function getPermissionLevel()
+  {
+    return $this->permissionLevel;
+  }
+  public function setSiteUrl($siteUrl)
+  {
+    $this->siteUrl = $siteUrl;
+  }
+  public function getSiteUrl()
+  {
+    return $this->siteUrl;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DebugSessionTransaction extends Google_Collection
 {
-	protected $collection_key = 'point';
-	public $completed;
-	protected $pointType = 'Google_Service_Apigee_GoogleCloudApigeeV1Point';
-	protected $pointDataType = 'array';
+  protected $collection_key = 'point';
+  public $completed;
+  protected $pointType = 'Google_Service_Apigee_GoogleCloudApigeeV1Point';
+  protected $pointDataType = 'array';
 
-	public function setCompleted($completed)
-	{
-		$this->completed = $completed;
-	}
-	public function getCompleted()
-	{
-		return $this->completed;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Point
-	 */
-	public function setPoint($point)
-	{
-		$this->point = $point;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Point
-	 */
-	public function getPoint()
-	{
-		return $this->point;
-	}
+  public function setCompleted($completed)
+  {
+    $this->completed = $completed;
+  }
+  public function getCompleted()
+  {
+    return $this->completed;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1Point[]
+   */
+  public function setPoint($point)
+  {
+    $this->point = $point;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1Point[]
+   */
+  public function getPoint()
+  {
+    return $this->point;
+  }
 }

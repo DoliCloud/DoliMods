@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_DirectorySitesListResponse extends Google_Collection
 {
-	protected $collection_key = 'directorySites';
-	protected $directorySitesType = 'Google_Service_Dfareporting_DirectorySite';
-	protected $directorySitesDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'directorySites';
+  protected $directorySitesType = 'Google_Service_Dfareporting_DirectorySite';
+  protected $directorySitesDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dfareporting_DirectorySite
-	 */
-	public function setDirectorySites($directorySites)
-	{
-		$this->directorySites = $directorySites;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_DirectorySite
-	 */
-	public function getDirectorySites()
-	{
-		return $this->directorySites;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dfareporting_DirectorySite[]
+   */
+  public function setDirectorySites($directorySites)
+  {
+    $this->directorySites = $directorySites;
+  }
+  /**
+   * @return Google_Service_Dfareporting_DirectorySite[]
+   */
+  public function getDirectorySites()
+  {
+    return $this->directorySites;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

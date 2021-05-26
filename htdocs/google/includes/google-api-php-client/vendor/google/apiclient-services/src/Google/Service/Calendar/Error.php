@@ -17,23 +17,23 @@
 
 class Google_Service_Calendar_Error extends Google_Model
 {
-	public $domain;
-	public $reason;
+  public $domain;
+  public $reason;
 
-	public function setDomain($domain)
-	{
-		$this->domain = $domain;
-	}
-	public function getDomain()
-	{
-		return $this->domain;
-	}
-	public function setReason($reason)
-	{
-		$this->reason = $reason;
-	}
-	public function getReason()
-	{
-		return $this->reason;
-	}
+  public function setDomain($domain)
+  {
+    $this->domain = $domain;
+  }
+  public function getDomain()
+  {
+    return $this->domain;
+  }
+  public function setReason($reason)
+  {
+    $this->reason = $reason;
+  }
+  public function getReason()
+  {
+    return $this->reason;
+  }
 }

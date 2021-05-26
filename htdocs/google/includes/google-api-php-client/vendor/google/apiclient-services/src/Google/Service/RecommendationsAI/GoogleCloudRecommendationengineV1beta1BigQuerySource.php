@@ -17,50 +17,50 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1BigQuerySource extends Google_Model
 {
-	public $dataSchema;
-	public $datasetId;
-	public $gcsStagingDir;
-	public $projectId;
-	public $tableId;
+  public $dataSchema;
+  public $datasetId;
+  public $gcsStagingDir;
+  public $projectId;
+  public $tableId;
 
-	public function setDataSchema($dataSchema)
-	{
-		$this->dataSchema = $dataSchema;
-	}
-	public function getDataSchema()
-	{
-		return $this->dataSchema;
-	}
-	public function setDatasetId($datasetId)
-	{
-		$this->datasetId = $datasetId;
-	}
-	public function getDatasetId()
-	{
-		return $this->datasetId;
-	}
-	public function setGcsStagingDir($gcsStagingDir)
-	{
-		$this->gcsStagingDir = $gcsStagingDir;
-	}
-	public function getGcsStagingDir()
-	{
-		return $this->gcsStagingDir;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setTableId($tableId)
-	{
-		$this->tableId = $tableId;
-	}
-	public function getTableId()
-	{
-		return $this->tableId;
-	}
+  public function setDataSchema($dataSchema)
+  {
+    $this->dataSchema = $dataSchema;
+  }
+  public function getDataSchema()
+  {
+    return $this->dataSchema;
+  }
+  public function setDatasetId($datasetId)
+  {
+    $this->datasetId = $datasetId;
+  }
+  public function getDatasetId()
+  {
+    return $this->datasetId;
+  }
+  public function setGcsStagingDir($gcsStagingDir)
+  {
+    $this->gcsStagingDir = $gcsStagingDir;
+  }
+  public function getGcsStagingDir()
+  {
+    return $this->gcsStagingDir;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setTableId($tableId)
+  {
+    $this->tableId = $tableId;
+  }
+  public function getTableId()
+  {
+    return $this->tableId;
+  }
 }

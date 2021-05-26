@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_PivotGroupValueMetadata extends Google_Model
 {
-	public $collapsed;
-	protected $valueType = 'Google_Service_Sheets_ExtendedValue';
-	protected $valueDataType = '';
+  public $collapsed;
+  protected $valueType = 'Google_Service_Sheets_ExtendedValue';
+  protected $valueDataType = '';
 
-	public function setCollapsed($collapsed)
-	{
-		$this->collapsed = $collapsed;
-	}
-	public function getCollapsed()
-	{
-		return $this->collapsed;
-	}
-	/**
-	 * @param Google_Service_Sheets_ExtendedValue
-	 */
-	public function setValue(Google_Service_Sheets_ExtendedValue $value)
-	{
-		$this->value = $value;
-	}
-	/**
-	 * @return Google_Service_Sheets_ExtendedValue
-	 */
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setCollapsed($collapsed)
+  {
+    $this->collapsed = $collapsed;
+  }
+  public function getCollapsed()
+  {
+    return $this->collapsed;
+  }
+  /**
+   * @param Google_Service_Sheets_ExtendedValue
+   */
+  public function setValue(Google_Service_Sheets_ExtendedValue $value)
+  {
+    $this->value = $value;
+  }
+  /**
+   * @return Google_Service_Sheets_ExtendedValue
+   */
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

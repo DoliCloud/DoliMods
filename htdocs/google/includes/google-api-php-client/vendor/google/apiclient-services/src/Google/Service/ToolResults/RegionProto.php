@@ -17,41 +17,41 @@
 
 class Google_Service_ToolResults_RegionProto extends Google_Model
 {
-	public $heightPx;
-	public $leftPx;
-	public $topPx;
-	public $widthPx;
+  public $heightPx;
+  public $leftPx;
+  public $topPx;
+  public $widthPx;
 
-	public function setHeightPx($heightPx)
-	{
-		$this->heightPx = $heightPx;
-	}
-	public function getHeightPx()
-	{
-		return $this->heightPx;
-	}
-	public function setLeftPx($leftPx)
-	{
-		$this->leftPx = $leftPx;
-	}
-	public function getLeftPx()
-	{
-		return $this->leftPx;
-	}
-	public function setTopPx($topPx)
-	{
-		$this->topPx = $topPx;
-	}
-	public function getTopPx()
-	{
-		return $this->topPx;
-	}
-	public function setWidthPx($widthPx)
-	{
-		$this->widthPx = $widthPx;
-	}
-	public function getWidthPx()
-	{
-		return $this->widthPx;
-	}
+  public function setHeightPx($heightPx)
+  {
+    $this->heightPx = $heightPx;
+  }
+  public function getHeightPx()
+  {
+    return $this->heightPx;
+  }
+  public function setLeftPx($leftPx)
+  {
+    $this->leftPx = $leftPx;
+  }
+  public function getLeftPx()
+  {
+    return $this->leftPx;
+  }
+  public function setTopPx($topPx)
+  {
+    $this->topPx = $topPx;
+  }
+  public function getTopPx()
+  {
+    return $this->topPx;
+  }
+  public function setWidthPx($widthPx)
+  {
+    $this->widthPx = $widthPx;
+  }
+  public function getWidthPx()
+  {
+    return $this->widthPx;
+  }
 }

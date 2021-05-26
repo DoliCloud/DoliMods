@@ -17,23 +17,23 @@
 
 class Google_Service_CloudIot_PublicKeyCredential extends Google_Model
 {
-	public $format;
-	public $key;
+  public $format;
+  public $key;
 
-	public function setFormat($format)
-	{
-		$this->format = $format;
-	}
-	public function getFormat()
-	{
-		return $this->format;
-	}
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
+  public function setFormat($format)
+  {
+    $this->format = $format;
+  }
+  public function getFormat()
+  {
+    return $this->format;
+  }
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
 }

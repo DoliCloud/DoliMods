@@ -17,58 +17,58 @@
 
 class Google_Service_Books_Volumeannotations extends Google_Collection
 {
-	protected $collection_key = 'items';
-	protected $itemsType = 'Google_Service_Books_Volumeannotation';
-	protected $itemsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
-	public $totalItems;
-	public $version;
+  protected $collection_key = 'items';
+  protected $itemsType = 'Google_Service_Books_Volumeannotation';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  public $totalItems;
+  public $version;
 
-	/**
-	 * @param Google_Service_Books_Volumeannotation
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Books_Volumeannotation
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setTotalItems($totalItems)
-	{
-		$this->totalItems = $totalItems;
-	}
-	public function getTotalItems()
-	{
-		return $this->totalItems;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_Books_Volumeannotation[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Books_Volumeannotation[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setTotalItems($totalItems)
+  {
+    $this->totalItems = $totalItems;
+  }
+  public function getTotalItems()
+  {
+    return $this->totalItems;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

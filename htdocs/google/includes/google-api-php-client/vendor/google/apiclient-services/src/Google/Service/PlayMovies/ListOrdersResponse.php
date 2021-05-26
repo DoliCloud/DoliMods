@@ -17,40 +17,40 @@
 
 class Google_Service_PlayMovies_ListOrdersResponse extends Google_Collection
 {
-	protected $collection_key = 'orders';
-	public $nextPageToken;
-	protected $ordersType = 'Google_Service_PlayMovies_Order';
-	protected $ordersDataType = 'array';
-	public $totalSize;
+  protected $collection_key = 'orders';
+  public $nextPageToken;
+  protected $ordersType = 'Google_Service_PlayMovies_Order';
+  protected $ordersDataType = 'array';
+  public $totalSize;
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_PlayMovies_Order
-	 */
-	public function setOrders($orders)
-	{
-		$this->orders = $orders;
-	}
-	/**
-	 * @return Google_Service_PlayMovies_Order
-	 */
-	public function getOrders()
-	{
-		return $this->orders;
-	}
-	public function setTotalSize($totalSize)
-	{
-		$this->totalSize = $totalSize;
-	}
-	public function getTotalSize()
-	{
-		return $this->totalSize;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_PlayMovies_Order
+   */
+  public function setOrders($orders)
+  {
+    $this->orders = $orders;
+  }
+  /**
+   * @return Google_Service_PlayMovies_Order
+   */
+  public function getOrders()
+  {
+    return $this->orders;
+  }
+  public function setTotalSize($totalSize)
+  {
+    $this->totalSize = $totalSize;
+  }
+  public function getTotalSize()
+  {
+    return $this->totalSize;
+  }
 }

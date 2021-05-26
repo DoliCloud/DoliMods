@@ -17,14 +17,14 @@
 
 class Google_Service_Docs_BackgroundSuggestionState extends Google_Model
 {
-	public $backgroundColorSuggested;
+  public $backgroundColorSuggested;
 
-	public function setBackgroundColorSuggested($backgroundColorSuggested)
-	{
-		$this->backgroundColorSuggested = $backgroundColorSuggested;
-	}
-	public function getBackgroundColorSuggested()
-	{
-		return $this->backgroundColorSuggested;
-	}
+  public function setBackgroundColorSuggested($backgroundColorSuggested)
+  {
+    $this->backgroundColorSuggested = $backgroundColorSuggested;
+  }
+  public function getBackgroundColorSuggested()
+  {
+    return $this->backgroundColorSuggested;
+  }
 }

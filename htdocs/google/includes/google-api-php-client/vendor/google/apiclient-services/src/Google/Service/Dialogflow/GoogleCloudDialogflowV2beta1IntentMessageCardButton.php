@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageCardButton extends Google_Model
 {
-	public $postback;
-	public $text;
+  public $postback;
+  public $text;
 
-	public function setPostback($postback)
-	{
-		$this->postback = $postback;
-	}
-	public function getPostback()
-	{
-		return $this->postback;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  public function setPostback($postback)
+  {
+    $this->postback = $postback;
+  }
+  public function getPostback()
+  {
+    return $this->postback;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

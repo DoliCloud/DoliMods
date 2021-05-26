@@ -17,14 +17,14 @@
 
 class Google_Service_CloudIot_HttpConfig extends Google_Model
 {
-	public $httpEnabledState;
+  public $httpEnabledState;
 
-	public function setHttpEnabledState($httpEnabledState)
-	{
-		$this->httpEnabledState = $httpEnabledState;
-	}
-	public function getHttpEnabledState()
-	{
-		return $this->httpEnabledState;
-	}
+  public function setHttpEnabledState($httpEnabledState)
+  {
+    $this->httpEnabledState = $httpEnabledState;
+  }
+  public function getHttpEnabledState()
+  {
+    return $this->httpEnabledState;
+  }
 }

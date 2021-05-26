@@ -17,102 +17,111 @@
 
 class Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding extends Google_Model
 {
-	public $category;
-	public $createTime;
-	public $eventTime;
-	public $externalUri;
-	public $name;
-	public $parent;
-	public $resourceName;
-	protected $securityMarksType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks';
-	protected $securityMarksDataType = '';
-	public $sourceProperties;
-	public $state;
+  public $category;
+  public $createTime;
+  public $eventTime;
+  public $externalUri;
+  public $name;
+  public $parent;
+  public $resourceName;
+  protected $securityMarksType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks';
+  protected $securityMarksDataType = '';
+  public $severity;
+  public $sourceProperties;
+  public $state;
 
-	public function setCategory($category)
-	{
-		$this->category = $category;
-	}
-	public function getCategory()
-	{
-		return $this->category;
-	}
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setEventTime($eventTime)
-	{
-		$this->eventTime = $eventTime;
-	}
-	public function getEventTime()
-	{
-		return $this->eventTime;
-	}
-	public function setExternalUri($externalUri)
-	{
-		$this->externalUri = $externalUri;
-	}
-	public function getExternalUri()
-	{
-		return $this->externalUri;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setParent($parent)
-	{
-		$this->parent = $parent;
-	}
-	public function getParent()
-	{
-		return $this->parent;
-	}
-	public function setResourceName($resourceName)
-	{
-		$this->resourceName = $resourceName;
-	}
-	public function getResourceName()
-	{
-		return $this->resourceName;
-	}
-	/**
-	 * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks
-	 */
-	public function setSecurityMarks(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks $securityMarks)
-	{
-		$this->securityMarks = $securityMarks;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks
-	 */
-	public function getSecurityMarks()
-	{
-		return $this->securityMarks;
-	}
-	public function setSourceProperties($sourceProperties)
-	{
-		$this->sourceProperties = $sourceProperties;
-	}
-	public function getSourceProperties()
-	{
-		return $this->sourceProperties;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setCategory($category)
+  {
+    $this->category = $category;
+  }
+  public function getCategory()
+  {
+    return $this->category;
+  }
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setEventTime($eventTime)
+  {
+    $this->eventTime = $eventTime;
+  }
+  public function getEventTime()
+  {
+    return $this->eventTime;
+  }
+  public function setExternalUri($externalUri)
+  {
+    $this->externalUri = $externalUri;
+  }
+  public function getExternalUri()
+  {
+    return $this->externalUri;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setParent($parent)
+  {
+    $this->parent = $parent;
+  }
+  public function getParent()
+  {
+    return $this->parent;
+  }
+  public function setResourceName($resourceName)
+  {
+    $this->resourceName = $resourceName;
+  }
+  public function getResourceName()
+  {
+    return $this->resourceName;
+  }
+  /**
+   * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks
+   */
+  public function setSecurityMarks(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks $securityMarks)
+  {
+    $this->securityMarks = $securityMarks;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks
+   */
+  public function getSecurityMarks()
+  {
+    return $this->securityMarks;
+  }
+  public function setSeverity($severity)
+  {
+    $this->severity = $severity;
+  }
+  public function getSeverity()
+  {
+    return $this->severity;
+  }
+  public function setSourceProperties($sourceProperties)
+  {
+    $this->sourceProperties = $sourceProperties;
+  }
+  public function getSourceProperties()
+  {
+    return $this->sourceProperties;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

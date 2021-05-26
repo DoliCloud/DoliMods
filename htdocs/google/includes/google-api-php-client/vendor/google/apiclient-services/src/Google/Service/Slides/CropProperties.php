@@ -17,50 +17,50 @@
 
 class Google_Service_Slides_CropProperties extends Google_Model
 {
-	public $angle;
-	public $bottomOffset;
-	public $leftOffset;
-	public $rightOffset;
-	public $topOffset;
+  public $angle;
+  public $bottomOffset;
+  public $leftOffset;
+  public $rightOffset;
+  public $topOffset;
 
-	public function setAngle($angle)
-	{
-		$this->angle = $angle;
-	}
-	public function getAngle()
-	{
-		return $this->angle;
-	}
-	public function setBottomOffset($bottomOffset)
-	{
-		$this->bottomOffset = $bottomOffset;
-	}
-	public function getBottomOffset()
-	{
-		return $this->bottomOffset;
-	}
-	public function setLeftOffset($leftOffset)
-	{
-		$this->leftOffset = $leftOffset;
-	}
-	public function getLeftOffset()
-	{
-		return $this->leftOffset;
-	}
-	public function setRightOffset($rightOffset)
-	{
-		$this->rightOffset = $rightOffset;
-	}
-	public function getRightOffset()
-	{
-		return $this->rightOffset;
-	}
-	public function setTopOffset($topOffset)
-	{
-		$this->topOffset = $topOffset;
-	}
-	public function getTopOffset()
-	{
-		return $this->topOffset;
-	}
+  public function setAngle($angle)
+  {
+    $this->angle = $angle;
+  }
+  public function getAngle()
+  {
+    return $this->angle;
+  }
+  public function setBottomOffset($bottomOffset)
+  {
+    $this->bottomOffset = $bottomOffset;
+  }
+  public function getBottomOffset()
+  {
+    return $this->bottomOffset;
+  }
+  public function setLeftOffset($leftOffset)
+  {
+    $this->leftOffset = $leftOffset;
+  }
+  public function getLeftOffset()
+  {
+    return $this->leftOffset;
+  }
+  public function setRightOffset($rightOffset)
+  {
+    $this->rightOffset = $rightOffset;
+  }
+  public function getRightOffset()
+  {
+    return $this->rightOffset;
+  }
+  public function setTopOffset($topOffset)
+  {
+    $this->topOffset = $topOffset;
+  }
+  public function getTopOffset()
+  {
+    return $this->topOffset;
+  }
 }

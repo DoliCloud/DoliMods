@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_ConnectionDraining extends Google_Model
 {
-	public $drainingTimeoutSec;
+  public $drainingTimeoutSec;
 
-	public function setDrainingTimeoutSec($drainingTimeoutSec)
-	{
-		$this->drainingTimeoutSec = $drainingTimeoutSec;
-	}
-	public function getDrainingTimeoutSec()
-	{
-		return $this->drainingTimeoutSec;
-	}
+  public function setDrainingTimeoutSec($drainingTimeoutSec)
+  {
+    $this->drainingTimeoutSec = $drainingTimeoutSec;
+  }
+  public function getDrainingTimeoutSec()
+  {
+    return $this->drainingTimeoutSec;
+  }
 }

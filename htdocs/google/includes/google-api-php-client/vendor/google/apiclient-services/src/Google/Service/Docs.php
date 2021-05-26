@@ -30,76 +30,76 @@
  */
 class Google_Service_Docs extends Google_Service
 {
-	/** View and manage your Google Docs documents. */
-	const DOCUMENTS =
-	  "https://www.googleapis.com/auth/documents";
-	/** View your Google Docs documents. */
-	const DOCUMENTS_READONLY =
-	  "https://www.googleapis.com/auth/documents.readonly";
-	/** See, edit, create, and delete all of your Google Drive files. */
-	const DRIVE =
-	  "https://www.googleapis.com/auth/drive";
-	/** View and manage Google Drive files and folders that you have opened or created with this app. */
-	const DRIVE_FILE =
-	  "https://www.googleapis.com/auth/drive.file";
-	/** See and download all your Google Drive files. */
-	const DRIVE_READONLY =
-	  "https://www.googleapis.com/auth/drive.readonly";
+  /** View and manage your Google Docs documents. */
+  const DOCUMENTS =
+      "https://www.googleapis.com/auth/documents";
+  /** View your Google Docs documents. */
+  const DOCUMENTS_READONLY =
+      "https://www.googleapis.com/auth/documents.readonly";
+  /** See, edit, create, and delete all of your Google Drive files. */
+  const DRIVE =
+      "https://www.googleapis.com/auth/drive";
+  /** View and manage Google Drive files and folders that you have opened or created with this app. */
+  const DRIVE_FILE =
+      "https://www.googleapis.com/auth/drive.file";
+  /** See and download all your Google Drive files. */
+  const DRIVE_READONLY =
+      "https://www.googleapis.com/auth/drive.readonly";
 
-	public $documents;
+  public $documents;
 
-	/**
-	 * Constructs the internal representation of the Docs service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://docs.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1';
-		$this->serviceName = 'docs';
+  /**
+   * Constructs the internal representation of the Docs service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://docs.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1';
+    $this->serviceName = 'docs';
 
-		$this->documents = new Google_Service_Docs_Resource_Documents(
-		$this,
-		$this->serviceName,
-		'documents',
-		array(
-		  'methods' => array(
-			'batchUpdate' => array(
-			  'path' => 'v1/documents/{documentId}:batchUpdate',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'documentId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'create' => array(
-			  'path' => 'v1/documents',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'get' => array(
-			  'path' => 'v1/documents/{documentId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'documentId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'suggestionsViewMode' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->documents = new Google_Service_Docs_Resource_Documents(
+        $this,
+        $this->serviceName,
+        'documents',
+        array(
+          'methods' => array(
+            'batchUpdate' => array(
+              'path' => 'v1/documents/{documentId}:batchUpdate',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'documentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'create' => array(
+              'path' => 'v1/documents',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'get' => array(
+              'path' => 'v1/documents/{documentId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'documentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'suggestionsViewMode' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

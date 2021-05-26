@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_UserRolesListResponse extends Google_Collection
 {
-	protected $collection_key = 'userRoles';
-	public $kind;
-	public $nextPageToken;
-	protected $userRolesType = 'Google_Service_Dfareporting_UserRole';
-	protected $userRolesDataType = 'array';
+  protected $collection_key = 'userRoles';
+  public $kind;
+  public $nextPageToken;
+  protected $userRolesType = 'Google_Service_Dfareporting_UserRole';
+  protected $userRolesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_UserRole
-	 */
-	public function setUserRoles($userRoles)
-	{
-		$this->userRoles = $userRoles;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_UserRole
-	 */
-	public function getUserRoles()
-	{
-		return $this->userRoles;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Dfareporting_UserRole[]
+   */
+  public function setUserRoles($userRoles)
+  {
+    $this->userRoles = $userRoles;
+  }
+  /**
+   * @return Google_Service_Dfareporting_UserRole[]
+   */
+  public function getUserRoles()
+  {
+    return $this->userRoles;
+  }
 }

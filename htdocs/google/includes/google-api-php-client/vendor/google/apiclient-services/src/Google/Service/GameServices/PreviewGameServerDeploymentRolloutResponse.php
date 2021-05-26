@@ -17,40 +17,40 @@
 
 class Google_Service_GameServices_PreviewGameServerDeploymentRolloutResponse extends Google_Collection
 {
-	protected $collection_key = 'unavailable';
-	public $etag;
-	protected $targetStateType = 'Google_Service_GameServices_TargetState';
-	protected $targetStateDataType = '';
-	public $unavailable;
+  protected $collection_key = 'unavailable';
+  public $etag;
+  protected $targetStateType = 'Google_Service_GameServices_TargetState';
+  protected $targetStateDataType = '';
+  public $unavailable;
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	/**
-	 * @param Google_Service_GameServices_TargetState
-	 */
-	public function setTargetState(Google_Service_GameServices_TargetState $targetState)
-	{
-		$this->targetState = $targetState;
-	}
-	/**
-	 * @return Google_Service_GameServices_TargetState
-	 */
-	public function getTargetState()
-	{
-		return $this->targetState;
-	}
-	public function setUnavailable($unavailable)
-	{
-		$this->unavailable = $unavailable;
-	}
-	public function getUnavailable()
-	{
-		return $this->unavailable;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param Google_Service_GameServices_TargetState
+   */
+  public function setTargetState(Google_Service_GameServices_TargetState $targetState)
+  {
+    $this->targetState = $targetState;
+  }
+  /**
+   * @return Google_Service_GameServices_TargetState
+   */
+  public function getTargetState()
+  {
+    return $this->targetState;
+  }
+  public function setUnavailable($unavailable)
+  {
+    $this->unavailable = $unavailable;
+  }
+  public function getUnavailable()
+  {
+    return $this->unavailable;
+  }
 }

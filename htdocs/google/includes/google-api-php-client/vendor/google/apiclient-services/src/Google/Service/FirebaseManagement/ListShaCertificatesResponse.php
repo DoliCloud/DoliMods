@@ -17,22 +17,22 @@
 
 class Google_Service_FirebaseManagement_ListShaCertificatesResponse extends Google_Collection
 {
-	protected $collection_key = 'certificates';
-	protected $certificatesType = 'Google_Service_FirebaseManagement_ShaCertificate';
-	protected $certificatesDataType = 'array';
+  protected $collection_key = 'certificates';
+  protected $certificatesType = 'Google_Service_FirebaseManagement_ShaCertificate';
+  protected $certificatesDataType = 'array';
 
-	/**
-	 * @param Google_Service_FirebaseManagement_ShaCertificate
-	 */
-	public function setCertificates($certificates)
-	{
-		$this->certificates = $certificates;
-	}
-	/**
-	 * @return Google_Service_FirebaseManagement_ShaCertificate
-	 */
-	public function getCertificates()
-	{
-		return $this->certificates;
-	}
+  /**
+   * @param Google_Service_FirebaseManagement_ShaCertificate[]
+   */
+  public function setCertificates($certificates)
+  {
+    $this->certificates = $certificates;
+  }
+  /**
+   * @return Google_Service_FirebaseManagement_ShaCertificate[]
+   */
+  public function getCertificates()
+  {
+    return $this->certificates;
+  }
 }

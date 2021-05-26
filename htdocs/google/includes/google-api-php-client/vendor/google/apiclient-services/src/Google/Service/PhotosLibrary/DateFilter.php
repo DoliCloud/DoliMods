@@ -17,38 +17,38 @@
 
 class Google_Service_PhotosLibrary_DateFilter extends Google_Collection
 {
-	protected $collection_key = 'ranges';
-	protected $datesType = 'Google_Service_PhotosLibrary_Date';
-	protected $datesDataType = 'array';
-	protected $rangesType = 'Google_Service_PhotosLibrary_DateRange';
-	protected $rangesDataType = 'array';
+  protected $collection_key = 'ranges';
+  protected $datesType = 'Google_Service_PhotosLibrary_Date';
+  protected $datesDataType = 'array';
+  protected $rangesType = 'Google_Service_PhotosLibrary_DateRange';
+  protected $rangesDataType = 'array';
 
-	/**
-	 * @param Google_Service_PhotosLibrary_Date
-	 */
-	public function setDates($dates)
-	{
-		$this->dates = $dates;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_Date
-	 */
-	public function getDates()
-	{
-		return $this->dates;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_DateRange
-	 */
-	public function setRanges($ranges)
-	{
-		$this->ranges = $ranges;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_DateRange
-	 */
-	public function getRanges()
-	{
-		return $this->ranges;
-	}
+  /**
+   * @param Google_Service_PhotosLibrary_Date
+   */
+  public function setDates($dates)
+  {
+    $this->dates = $dates;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_Date
+   */
+  public function getDates()
+  {
+    return $this->dates;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_DateRange
+   */
+  public function setRanges($ranges)
+  {
+    $this->ranges = $ranges;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_DateRange
+   */
+  public function getRanges()
+  {
+    return $this->ranges;
+  }
 }

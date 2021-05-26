@@ -25,31 +25,31 @@
  */
 class Google_Service_Dfareporting_Resource_VideoFormats extends Google_Service_Resource
 {
-	/**
-	 * Gets one video format by ID. (videoFormats.get)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param int $id Video format ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_VideoFormat
-	 */
-	public function get($profileId, $id, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'id' => $id);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Dfareporting_VideoFormat");
-	}
-	/**
-	 * Lists available video formats. (videoFormats.listVideoFormats)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_VideoFormatsListResponse
-	 */
-	public function listVideoFormats($profileId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Dfareporting_VideoFormatsListResponse");
-	}
+  /**
+   * Gets one video format by ID. (videoFormats.get)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param int $id Video format ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_VideoFormat
+   */
+  public function get($profileId, $id, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Dfareporting_VideoFormat");
+  }
+  /**
+   * Lists available video formats. (videoFormats.listVideoFormats)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_VideoFormatsListResponse
+   */
+  public function listVideoFormats($profileId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Dfareporting_VideoFormatsListResponse");
+  }
 }

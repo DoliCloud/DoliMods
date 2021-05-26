@@ -17,57 +17,57 @@
 
 class Google_Service_YouTube_ActivityContentDetailsSocial extends Google_Model
 {
-	public $author;
-	public $imageUrl;
-	public $referenceUrl;
-	protected $resourceIdType = 'Google_Service_YouTube_ResourceId';
-	protected $resourceIdDataType = '';
-	public $type;
+  public $author;
+  public $imageUrl;
+  public $referenceUrl;
+  protected $resourceIdType = 'Google_Service_YouTube_ResourceId';
+  protected $resourceIdDataType = '';
+  public $type;
 
-	public function setAuthor($author)
-	{
-		$this->author = $author;
-	}
-	public function getAuthor()
-	{
-		return $this->author;
-	}
-	public function setImageUrl($imageUrl)
-	{
-		$this->imageUrl = $imageUrl;
-	}
-	public function getImageUrl()
-	{
-		return $this->imageUrl;
-	}
-	public function setReferenceUrl($referenceUrl)
-	{
-		$this->referenceUrl = $referenceUrl;
-	}
-	public function getReferenceUrl()
-	{
-		return $this->referenceUrl;
-	}
-	/**
-	 * @param Google_Service_YouTube_ResourceId
-	 */
-	public function setResourceId(Google_Service_YouTube_ResourceId $resourceId)
-	{
-		$this->resourceId = $resourceId;
-	}
-	/**
-	 * @return Google_Service_YouTube_ResourceId
-	 */
-	public function getResourceId()
-	{
-		return $this->resourceId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setAuthor($author)
+  {
+    $this->author = $author;
+  }
+  public function getAuthor()
+  {
+    return $this->author;
+  }
+  public function setImageUrl($imageUrl)
+  {
+    $this->imageUrl = $imageUrl;
+  }
+  public function getImageUrl()
+  {
+    return $this->imageUrl;
+  }
+  public function setReferenceUrl($referenceUrl)
+  {
+    $this->referenceUrl = $referenceUrl;
+  }
+  public function getReferenceUrl()
+  {
+    return $this->referenceUrl;
+  }
+  /**
+   * @param Google_Service_YouTube_ResourceId
+   */
+  public function setResourceId(Google_Service_YouTube_ResourceId $resourceId)
+  {
+    $this->resourceId = $resourceId;
+  }
+  /**
+   * @return Google_Service_YouTube_ResourceId
+   */
+  public function getResourceId()
+  {
+    return $this->resourceId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

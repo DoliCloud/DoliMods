@@ -17,14 +17,14 @@
 
 class Google_Service_Directory_UserUndelete extends Google_Model
 {
-	public $orgUnitPath;
+  public $orgUnitPath;
 
-	public function setOrgUnitPath($orgUnitPath)
-	{
-		$this->orgUnitPath = $orgUnitPath;
-	}
-	public function getOrgUnitPath()
-	{
-		return $this->orgUnitPath;
-	}
+  public function setOrgUnitPath($orgUnitPath)
+  {
+    $this->orgUnitPath = $orgUnitPath;
+  }
+  public function getOrgUnitPath()
+  {
+    return $this->orgUnitPath;
+  }
 }

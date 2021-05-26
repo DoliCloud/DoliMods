@@ -17,21 +17,21 @@
 
 class Google_Service_CloudSearch_TimestampPropertyOptions extends Google_Model
 {
-	protected $operatorOptionsType = 'Google_Service_CloudSearch_TimestampOperatorOptions';
-	protected $operatorOptionsDataType = '';
+  protected $operatorOptionsType = 'Google_Service_CloudSearch_TimestampOperatorOptions';
+  protected $operatorOptionsDataType = '';
 
-	/**
-	 * @param Google_Service_CloudSearch_TimestampOperatorOptions
-	 */
-	public function setOperatorOptions(Google_Service_CloudSearch_TimestampOperatorOptions $operatorOptions)
-	{
-		$this->operatorOptions = $operatorOptions;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_TimestampOperatorOptions
-	 */
-	public function getOperatorOptions()
-	{
-		return $this->operatorOptions;
-	}
+  /**
+   * @param Google_Service_CloudSearch_TimestampOperatorOptions
+   */
+  public function setOperatorOptions(Google_Service_CloudSearch_TimestampOperatorOptions $operatorOptions)
+  {
+    $this->operatorOptions = $operatorOptions;
+  }
+  /**
+   * @return Google_Service_CloudSearch_TimestampOperatorOptions
+   */
+  public function getOperatorOptions()
+  {
+    return $this->operatorOptions;
+  }
 }

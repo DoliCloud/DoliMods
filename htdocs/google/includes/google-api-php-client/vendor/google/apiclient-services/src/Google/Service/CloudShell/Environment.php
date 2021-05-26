@@ -17,121 +17,87 @@
 
 class Google_Service_CloudShell_Environment extends Google_Collection
 {
-	protected $collection_key = 'webPorts';
-	public $dockerImage;
-	public $id;
-	public $name;
-	protected $publicKeysType = 'Google_Service_CloudShell_PublicKey';
-	protected $publicKeysDataType = 'array';
-	public $size;
-	public $sshHost;
-	public $sshPort;
-	public $sshUsername;
-	public $state;
-	public $vmSizeExpireTime;
-	public $webHost;
-	public $webPorts;
+  protected $collection_key = 'publicKeys';
+  public $dockerImage;
+  public $id;
+  public $name;
+  public $publicKeys;
+  public $sshHost;
+  public $sshPort;
+  public $sshUsername;
+  public $state;
+  public $webHost;
 
-	public function setDockerImage($dockerImage)
-	{
-		$this->dockerImage = $dockerImage;
-	}
-	public function getDockerImage()
-	{
-		return $this->dockerImage;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_CloudShell_PublicKey
-	 */
-	public function setPublicKeys($publicKeys)
-	{
-		$this->publicKeys = $publicKeys;
-	}
-	/**
-	 * @return Google_Service_CloudShell_PublicKey
-	 */
-	public function getPublicKeys()
-	{
-		return $this->publicKeys;
-	}
-	public function setSize($size)
-	{
-		$this->size = $size;
-	}
-	public function getSize()
-	{
-		return $this->size;
-	}
-	public function setSshHost($sshHost)
-	{
-		$this->sshHost = $sshHost;
-	}
-	public function getSshHost()
-	{
-		return $this->sshHost;
-	}
-	public function setSshPort($sshPort)
-	{
-		$this->sshPort = $sshPort;
-	}
-	public function getSshPort()
-	{
-		return $this->sshPort;
-	}
-	public function setSshUsername($sshUsername)
-	{
-		$this->sshUsername = $sshUsername;
-	}
-	public function getSshUsername()
-	{
-		return $this->sshUsername;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setVmSizeExpireTime($vmSizeExpireTime)
-	{
-		$this->vmSizeExpireTime = $vmSizeExpireTime;
-	}
-	public function getVmSizeExpireTime()
-	{
-		return $this->vmSizeExpireTime;
-	}
-	public function setWebHost($webHost)
-	{
-		$this->webHost = $webHost;
-	}
-	public function getWebHost()
-	{
-		return $this->webHost;
-	}
-	public function setWebPorts($webPorts)
-	{
-		$this->webPorts = $webPorts;
-	}
-	public function getWebPorts()
-	{
-		return $this->webPorts;
-	}
+  public function setDockerImage($dockerImage)
+  {
+    $this->dockerImage = $dockerImage;
+  }
+  public function getDockerImage()
+  {
+    return $this->dockerImage;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPublicKeys($publicKeys)
+  {
+    $this->publicKeys = $publicKeys;
+  }
+  public function getPublicKeys()
+  {
+    return $this->publicKeys;
+  }
+  public function setSshHost($sshHost)
+  {
+    $this->sshHost = $sshHost;
+  }
+  public function getSshHost()
+  {
+    return $this->sshHost;
+  }
+  public function setSshPort($sshPort)
+  {
+    $this->sshPort = $sshPort;
+  }
+  public function getSshPort()
+  {
+    return $this->sshPort;
+  }
+  public function setSshUsername($sshUsername)
+  {
+    $this->sshUsername = $sshUsername;
+  }
+  public function getSshUsername()
+  {
+    return $this->sshUsername;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setWebHost($webHost)
+  {
+    $this->webHost = $webHost;
+  }
+  public function getWebHost()
+  {
+    return $this->webHost;
+  }
 }

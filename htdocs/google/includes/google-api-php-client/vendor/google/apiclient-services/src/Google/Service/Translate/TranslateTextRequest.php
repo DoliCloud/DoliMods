@@ -17,76 +17,76 @@
 
 class Google_Service_Translate_TranslateTextRequest extends Google_Collection
 {
-	protected $collection_key = 'contents';
-	public $contents;
-	protected $glossaryConfigType = 'Google_Service_Translate_TranslateTextGlossaryConfig';
-	protected $glossaryConfigDataType = '';
-	public $labels;
-	public $mimeType;
-	public $model;
-	public $sourceLanguageCode;
-	public $targetLanguageCode;
+  protected $collection_key = 'contents';
+  public $contents;
+  protected $glossaryConfigType = 'Google_Service_Translate_TranslateTextGlossaryConfig';
+  protected $glossaryConfigDataType = '';
+  public $labels;
+  public $mimeType;
+  public $model;
+  public $sourceLanguageCode;
+  public $targetLanguageCode;
 
-	public function setContents($contents)
-	{
-		$this->contents = $contents;
-	}
-	public function getContents()
-	{
-		return $this->contents;
-	}
-	/**
-	 * @param Google_Service_Translate_TranslateTextGlossaryConfig
-	 */
-	public function setGlossaryConfig(Google_Service_Translate_TranslateTextGlossaryConfig $glossaryConfig)
-	{
-		$this->glossaryConfig = $glossaryConfig;
-	}
-	/**
-	 * @return Google_Service_Translate_TranslateTextGlossaryConfig
-	 */
-	public function getGlossaryConfig()
-	{
-		return $this->glossaryConfig;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setMimeType($mimeType)
-	{
-		$this->mimeType = $mimeType;
-	}
-	public function getMimeType()
-	{
-		return $this->mimeType;
-	}
-	public function setModel($model)
-	{
-		$this->model = $model;
-	}
-	public function getModel()
-	{
-		return $this->model;
-	}
-	public function setSourceLanguageCode($sourceLanguageCode)
-	{
-		$this->sourceLanguageCode = $sourceLanguageCode;
-	}
-	public function getSourceLanguageCode()
-	{
-		return $this->sourceLanguageCode;
-	}
-	public function setTargetLanguageCode($targetLanguageCode)
-	{
-		$this->targetLanguageCode = $targetLanguageCode;
-	}
-	public function getTargetLanguageCode()
-	{
-		return $this->targetLanguageCode;
-	}
+  public function setContents($contents)
+  {
+    $this->contents = $contents;
+  }
+  public function getContents()
+  {
+    return $this->contents;
+  }
+  /**
+   * @param Google_Service_Translate_TranslateTextGlossaryConfig
+   */
+  public function setGlossaryConfig(Google_Service_Translate_TranslateTextGlossaryConfig $glossaryConfig)
+  {
+    $this->glossaryConfig = $glossaryConfig;
+  }
+  /**
+   * @return Google_Service_Translate_TranslateTextGlossaryConfig
+   */
+  public function getGlossaryConfig()
+  {
+    return $this->glossaryConfig;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setMimeType($mimeType)
+  {
+    $this->mimeType = $mimeType;
+  }
+  public function getMimeType()
+  {
+    return $this->mimeType;
+  }
+  public function setModel($model)
+  {
+    $this->model = $model;
+  }
+  public function getModel()
+  {
+    return $this->model;
+  }
+  public function setSourceLanguageCode($sourceLanguageCode)
+  {
+    $this->sourceLanguageCode = $sourceLanguageCode;
+  }
+  public function getSourceLanguageCode()
+  {
+    return $this->sourceLanguageCode;
+  }
+  public function setTargetLanguageCode($targetLanguageCode)
+  {
+    $this->targetLanguageCode = $targetLanguageCode;
+  }
+  public function getTargetLanguageCode()
+  {
+    return $this->targetLanguageCode;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_ResourcePolicyHourlyCycle extends Google_Model
 {
-	public $duration;
-	public $hoursInCycle;
-	public $startTime;
+  public $duration;
+  public $hoursInCycle;
+  public $startTime;
 
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	public function setHoursInCycle($hoursInCycle)
-	{
-		$this->hoursInCycle = $hoursInCycle;
-	}
-	public function getHoursInCycle()
-	{
-		return $this->hoursInCycle;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  public function setHoursInCycle($hoursInCycle)
+  {
+    $this->hoursInCycle = $hoursInCycle;
+  }
+  public function getHoursInCycle()
+  {
+    return $this->hoursInCycle;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

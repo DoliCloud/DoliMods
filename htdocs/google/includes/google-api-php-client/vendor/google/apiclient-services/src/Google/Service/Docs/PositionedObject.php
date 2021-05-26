@@ -17,65 +17,65 @@
 
 class Google_Service_Docs_PositionedObject extends Google_Collection
 {
-	protected $collection_key = 'suggestedDeletionIds';
-	public $objectId;
-	protected $positionedObjectPropertiesType = 'Google_Service_Docs_PositionedObjectProperties';
-	protected $positionedObjectPropertiesDataType = '';
-	public $suggestedDeletionIds;
-	public $suggestedInsertionId;
-	protected $suggestedPositionedObjectPropertiesChangesType = 'Google_Service_Docs_SuggestedPositionedObjectProperties';
-	protected $suggestedPositionedObjectPropertiesChangesDataType = 'map';
+  protected $collection_key = 'suggestedDeletionIds';
+  public $objectId;
+  protected $positionedObjectPropertiesType = 'Google_Service_Docs_PositionedObjectProperties';
+  protected $positionedObjectPropertiesDataType = '';
+  public $suggestedDeletionIds;
+  public $suggestedInsertionId;
+  protected $suggestedPositionedObjectPropertiesChangesType = 'Google_Service_Docs_SuggestedPositionedObjectProperties';
+  protected $suggestedPositionedObjectPropertiesChangesDataType = 'map';
 
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
-	/**
-	 * @param Google_Service_Docs_PositionedObjectProperties
-	 */
-	public function setPositionedObjectProperties(Google_Service_Docs_PositionedObjectProperties $positionedObjectProperties)
-	{
-		$this->positionedObjectProperties = $positionedObjectProperties;
-	}
-	/**
-	 * @return Google_Service_Docs_PositionedObjectProperties
-	 */
-	public function getPositionedObjectProperties()
-	{
-		return $this->positionedObjectProperties;
-	}
-	public function setSuggestedDeletionIds($suggestedDeletionIds)
-	{
-		$this->suggestedDeletionIds = $suggestedDeletionIds;
-	}
-	public function getSuggestedDeletionIds()
-	{
-		return $this->suggestedDeletionIds;
-	}
-	public function setSuggestedInsertionId($suggestedInsertionId)
-	{
-		$this->suggestedInsertionId = $suggestedInsertionId;
-	}
-	public function getSuggestedInsertionId()
-	{
-		return $this->suggestedInsertionId;
-	}
-	/**
-	 * @param Google_Service_Docs_SuggestedPositionedObjectProperties
-	 */
-	public function setSuggestedPositionedObjectPropertiesChanges($suggestedPositionedObjectPropertiesChanges)
-	{
-		$this->suggestedPositionedObjectPropertiesChanges = $suggestedPositionedObjectPropertiesChanges;
-	}
-	/**
-	 * @return Google_Service_Docs_SuggestedPositionedObjectProperties
-	 */
-	public function getSuggestedPositionedObjectPropertiesChanges()
-	{
-		return $this->suggestedPositionedObjectPropertiesChanges;
-	}
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
+  /**
+   * @param Google_Service_Docs_PositionedObjectProperties
+   */
+  public function setPositionedObjectProperties(Google_Service_Docs_PositionedObjectProperties $positionedObjectProperties)
+  {
+    $this->positionedObjectProperties = $positionedObjectProperties;
+  }
+  /**
+   * @return Google_Service_Docs_PositionedObjectProperties
+   */
+  public function getPositionedObjectProperties()
+  {
+    return $this->positionedObjectProperties;
+  }
+  public function setSuggestedDeletionIds($suggestedDeletionIds)
+  {
+    $this->suggestedDeletionIds = $suggestedDeletionIds;
+  }
+  public function getSuggestedDeletionIds()
+  {
+    return $this->suggestedDeletionIds;
+  }
+  public function setSuggestedInsertionId($suggestedInsertionId)
+  {
+    $this->suggestedInsertionId = $suggestedInsertionId;
+  }
+  public function getSuggestedInsertionId()
+  {
+    return $this->suggestedInsertionId;
+  }
+  /**
+   * @param Google_Service_Docs_SuggestedPositionedObjectProperties[]
+   */
+  public function setSuggestedPositionedObjectPropertiesChanges($suggestedPositionedObjectPropertiesChanges)
+  {
+    $this->suggestedPositionedObjectPropertiesChanges = $suggestedPositionedObjectPropertiesChanges;
+  }
+  /**
+   * @return Google_Service_Docs_SuggestedPositionedObjectProperties[]
+   */
+  public function getSuggestedPositionedObjectPropertiesChanges()
+  {
+    return $this->suggestedPositionedObjectPropertiesChanges;
+  }
 }

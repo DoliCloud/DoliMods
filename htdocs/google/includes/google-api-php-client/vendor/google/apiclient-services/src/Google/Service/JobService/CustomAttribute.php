@@ -17,39 +17,39 @@
 
 class Google_Service_JobService_CustomAttribute extends Google_Model
 {
-	public $filterable;
-	public $longValue;
-	protected $stringValuesType = 'Google_Service_JobService_StringValues';
-	protected $stringValuesDataType = '';
+  public $filterable;
+  public $longValue;
+  protected $stringValuesType = 'Google_Service_JobService_StringValues';
+  protected $stringValuesDataType = '';
 
-	public function setFilterable($filterable)
-	{
-		$this->filterable = $filterable;
-	}
-	public function getFilterable()
-	{
-		return $this->filterable;
-	}
-	public function setLongValue($longValue)
-	{
-		$this->longValue = $longValue;
-	}
-	public function getLongValue()
-	{
-		return $this->longValue;
-	}
-	/**
-	 * @param Google_Service_JobService_StringValues
-	 */
-	public function setStringValues(Google_Service_JobService_StringValues $stringValues)
-	{
-		$this->stringValues = $stringValues;
-	}
-	/**
-	 * @return Google_Service_JobService_StringValues
-	 */
-	public function getStringValues()
-	{
-		return $this->stringValues;
-	}
+  public function setFilterable($filterable)
+  {
+    $this->filterable = $filterable;
+  }
+  public function getFilterable()
+  {
+    return $this->filterable;
+  }
+  public function setLongValue($longValue)
+  {
+    $this->longValue = $longValue;
+  }
+  public function getLongValue()
+  {
+    return $this->longValue;
+  }
+  /**
+   * @param Google_Service_JobService_StringValues
+   */
+  public function setStringValues(Google_Service_JobService_StringValues $stringValues)
+  {
+    $this->stringValues = $stringValues;
+  }
+  /**
+   * @return Google_Service_JobService_StringValues
+   */
+  public function getStringValues()
+  {
+    return $this->stringValues;
+  }
 }

@@ -17,65 +17,65 @@
 
 class Google_Service_DisplayVideo_ReviewStatusInfo extends Google_Collection
 {
-	protected $collection_key = 'publisherReviewStatuses';
-	public $approvalStatus;
-	public $contentAndPolicyReviewStatus;
-	public $creativeAndLandingPageReviewStatus;
-	protected $exchangeReviewStatusesType = 'Google_Service_DisplayVideo_ExchangeReviewStatus';
-	protected $exchangeReviewStatusesDataType = 'array';
-	protected $publisherReviewStatusesType = 'Google_Service_DisplayVideo_PublisherReviewStatus';
-	protected $publisherReviewStatusesDataType = 'array';
+  protected $collection_key = 'publisherReviewStatuses';
+  public $approvalStatus;
+  public $contentAndPolicyReviewStatus;
+  public $creativeAndLandingPageReviewStatus;
+  protected $exchangeReviewStatusesType = 'Google_Service_DisplayVideo_ExchangeReviewStatus';
+  protected $exchangeReviewStatusesDataType = 'array';
+  protected $publisherReviewStatusesType = 'Google_Service_DisplayVideo_PublisherReviewStatus';
+  protected $publisherReviewStatusesDataType = 'array';
 
-	public function setApprovalStatus($approvalStatus)
-	{
-		$this->approvalStatus = $approvalStatus;
-	}
-	public function getApprovalStatus()
-	{
-		return $this->approvalStatus;
-	}
-	public function setContentAndPolicyReviewStatus($contentAndPolicyReviewStatus)
-	{
-		$this->contentAndPolicyReviewStatus = $contentAndPolicyReviewStatus;
-	}
-	public function getContentAndPolicyReviewStatus()
-	{
-		return $this->contentAndPolicyReviewStatus;
-	}
-	public function setCreativeAndLandingPageReviewStatus($creativeAndLandingPageReviewStatus)
-	{
-		$this->creativeAndLandingPageReviewStatus = $creativeAndLandingPageReviewStatus;
-	}
-	public function getCreativeAndLandingPageReviewStatus()
-	{
-		return $this->creativeAndLandingPageReviewStatus;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_ExchangeReviewStatus
-	 */
-	public function setExchangeReviewStatuses($exchangeReviewStatuses)
-	{
-		$this->exchangeReviewStatuses = $exchangeReviewStatuses;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_ExchangeReviewStatus
-	 */
-	public function getExchangeReviewStatuses()
-	{
-		return $this->exchangeReviewStatuses;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_PublisherReviewStatus
-	 */
-	public function setPublisherReviewStatuses($publisherReviewStatuses)
-	{
-		$this->publisherReviewStatuses = $publisherReviewStatuses;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_PublisherReviewStatus
-	 */
-	public function getPublisherReviewStatuses()
-	{
-		return $this->publisherReviewStatuses;
-	}
+  public function setApprovalStatus($approvalStatus)
+  {
+    $this->approvalStatus = $approvalStatus;
+  }
+  public function getApprovalStatus()
+  {
+    return $this->approvalStatus;
+  }
+  public function setContentAndPolicyReviewStatus($contentAndPolicyReviewStatus)
+  {
+    $this->contentAndPolicyReviewStatus = $contentAndPolicyReviewStatus;
+  }
+  public function getContentAndPolicyReviewStatus()
+  {
+    return $this->contentAndPolicyReviewStatus;
+  }
+  public function setCreativeAndLandingPageReviewStatus($creativeAndLandingPageReviewStatus)
+  {
+    $this->creativeAndLandingPageReviewStatus = $creativeAndLandingPageReviewStatus;
+  }
+  public function getCreativeAndLandingPageReviewStatus()
+  {
+    return $this->creativeAndLandingPageReviewStatus;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_ExchangeReviewStatus[]
+   */
+  public function setExchangeReviewStatuses($exchangeReviewStatuses)
+  {
+    $this->exchangeReviewStatuses = $exchangeReviewStatuses;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_ExchangeReviewStatus[]
+   */
+  public function getExchangeReviewStatuses()
+  {
+    return $this->exchangeReviewStatuses;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_PublisherReviewStatus[]
+   */
+  public function setPublisherReviewStatuses($publisherReviewStatuses)
+  {
+    $this->publisherReviewStatuses = $publisherReviewStatuses;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_PublisherReviewStatus[]
+   */
+  public function getPublisherReviewStatuses()
+  {
+    return $this->publisherReviewStatuses;
+  }
 }

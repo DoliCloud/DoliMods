@@ -25,69 +25,69 @@
  */
 class Google_Service_DomainsRDAP_Resource_V1 extends Google_Service_Resource
 {
-	/**
-	 * The RDAP API recognizes this command from the RDAP specification but does not
-	 * support it. The response is a formatted 501 error. (v1.getDomains)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_DomainsRDAP_RdapResponse
-	 */
-	public function getDomains($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('getDomains', array($params), "Google_Service_DomainsRDAP_RdapResponse");
-	}
-	/**
-	 * The RDAP API recognizes this command from the RDAP specification but does not
-	 * support it. The response is a formatted 501 error. (v1.getEntities)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_DomainsRDAP_RdapResponse
-	 */
-	public function getEntities($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('getEntities', array($params), "Google_Service_DomainsRDAP_RdapResponse");
-	}
-	/**
-	 * Get help information for the RDAP API, including links to documentation.
-	 * (v1.getHelp)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_DomainsRDAP_HttpBody
-	 */
-	public function getHelp($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('getHelp', array($params), "Google_Service_DomainsRDAP_HttpBody");
-	}
-	/**
-	 * The RDAP API recognizes this command from the RDAP specification but does not
-	 * support it. The response is a formatted 501 error. (v1.getIp)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_DomainsRDAP_HttpBody
-	 */
-	public function getIp($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('getIp', array($params), "Google_Service_DomainsRDAP_HttpBody");
-	}
-	/**
-	 * The RDAP API recognizes this command from the RDAP specification but does not
-	 * support it. The response is a formatted 501 error. (v1.getNameservers)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_DomainsRDAP_RdapResponse
-	 */
-	public function getNameservers($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('getNameservers', array($params), "Google_Service_DomainsRDAP_RdapResponse");
-	}
+  /**
+   * The RDAP API recognizes this command from the RDAP specification but does not
+   * support it. The response is a formatted 501 error. (v1.getDomains)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DomainsRDAP_RdapResponse
+   */
+  public function getDomains($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getDomains', array($params), "Google_Service_DomainsRDAP_RdapResponse");
+  }
+  /**
+   * The RDAP API recognizes this command from the RDAP specification but does not
+   * support it. The response is a formatted 501 error. (v1.getEntities)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DomainsRDAP_RdapResponse
+   */
+  public function getEntities($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getEntities', array($params), "Google_Service_DomainsRDAP_RdapResponse");
+  }
+  /**
+   * Get help information for the RDAP API, including links to documentation.
+   * (v1.getHelp)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DomainsRDAP_HttpBody
+   */
+  public function getHelp($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getHelp', array($params), "Google_Service_DomainsRDAP_HttpBody");
+  }
+  /**
+   * The RDAP API recognizes this command from the RDAP specification but does not
+   * support it. The response is a formatted 501 error. (v1.getIp)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DomainsRDAP_HttpBody
+   */
+  public function getIp($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getIp', array($params), "Google_Service_DomainsRDAP_HttpBody");
+  }
+  /**
+   * The RDAP API recognizes this command from the RDAP specification but does not
+   * support it. The response is a formatted 501 error. (v1.getNameservers)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DomainsRDAP_RdapResponse
+   */
+  public function getNameservers($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getNameservers', array($params), "Google_Service_DomainsRDAP_RdapResponse");
+  }
 }

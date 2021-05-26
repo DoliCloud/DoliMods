@@ -17,21 +17,21 @@
 
 class Google_Service_CloudSearch_BooleanPropertyOptions extends Google_Model
 {
-	protected $operatorOptionsType = 'Google_Service_CloudSearch_BooleanOperatorOptions';
-	protected $operatorOptionsDataType = '';
+  protected $operatorOptionsType = 'Google_Service_CloudSearch_BooleanOperatorOptions';
+  protected $operatorOptionsDataType = '';
 
-	/**
-	 * @param Google_Service_CloudSearch_BooleanOperatorOptions
-	 */
-	public function setOperatorOptions(Google_Service_CloudSearch_BooleanOperatorOptions $operatorOptions)
-	{
-		$this->operatorOptions = $operatorOptions;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_BooleanOperatorOptions
-	 */
-	public function getOperatorOptions()
-	{
-		return $this->operatorOptions;
-	}
+  /**
+   * @param Google_Service_CloudSearch_BooleanOperatorOptions
+   */
+  public function setOperatorOptions(Google_Service_CloudSearch_BooleanOperatorOptions $operatorOptions)
+  {
+    $this->operatorOptions = $operatorOptions;
+  }
+  /**
+   * @return Google_Service_CloudSearch_BooleanOperatorOptions
+   */
+  public function getOperatorOptions()
+  {
+    return $this->operatorOptions;
+  }
 }

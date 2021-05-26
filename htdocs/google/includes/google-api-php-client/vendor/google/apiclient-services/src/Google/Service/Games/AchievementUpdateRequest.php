@@ -17,64 +17,64 @@
 
 class Google_Service_Games_AchievementUpdateRequest extends Google_Model
 {
-	public $achievementId;
-	protected $incrementPayloadType = 'Google_Service_Games_GamesAchievementIncrement';
-	protected $incrementPayloadDataType = '';
-	public $kind;
-	protected $setStepsAtLeastPayloadType = 'Google_Service_Games_GamesAchievementSetStepsAtLeast';
-	protected $setStepsAtLeastPayloadDataType = '';
-	public $updateType;
+  public $achievementId;
+  protected $incrementPayloadType = 'Google_Service_Games_GamesAchievementIncrement';
+  protected $incrementPayloadDataType = '';
+  public $kind;
+  protected $setStepsAtLeastPayloadType = 'Google_Service_Games_GamesAchievementSetStepsAtLeast';
+  protected $setStepsAtLeastPayloadDataType = '';
+  public $updateType;
 
-	public function setAchievementId($achievementId)
-	{
-		$this->achievementId = $achievementId;
-	}
-	public function getAchievementId()
-	{
-		return $this->achievementId;
-	}
-	/**
-	 * @param Google_Service_Games_GamesAchievementIncrement
-	 */
-	public function setIncrementPayload(Google_Service_Games_GamesAchievementIncrement $incrementPayload)
-	{
-		$this->incrementPayload = $incrementPayload;
-	}
-	/**
-	 * @return Google_Service_Games_GamesAchievementIncrement
-	 */
-	public function getIncrementPayload()
-	{
-		return $this->incrementPayload;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Games_GamesAchievementSetStepsAtLeast
-	 */
-	public function setSetStepsAtLeastPayload(Google_Service_Games_GamesAchievementSetStepsAtLeast $setStepsAtLeastPayload)
-	{
-		$this->setStepsAtLeastPayload = $setStepsAtLeastPayload;
-	}
-	/**
-	 * @return Google_Service_Games_GamesAchievementSetStepsAtLeast
-	 */
-	public function getSetStepsAtLeastPayload()
-	{
-		return $this->setStepsAtLeastPayload;
-	}
-	public function setUpdateType($updateType)
-	{
-		$this->updateType = $updateType;
-	}
-	public function getUpdateType()
-	{
-		return $this->updateType;
-	}
+  public function setAchievementId($achievementId)
+  {
+    $this->achievementId = $achievementId;
+  }
+  public function getAchievementId()
+  {
+    return $this->achievementId;
+  }
+  /**
+   * @param Google_Service_Games_GamesAchievementIncrement
+   */
+  public function setIncrementPayload(Google_Service_Games_GamesAchievementIncrement $incrementPayload)
+  {
+    $this->incrementPayload = $incrementPayload;
+  }
+  /**
+   * @return Google_Service_Games_GamesAchievementIncrement
+   */
+  public function getIncrementPayload()
+  {
+    return $this->incrementPayload;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Games_GamesAchievementSetStepsAtLeast
+   */
+  public function setSetStepsAtLeastPayload(Google_Service_Games_GamesAchievementSetStepsAtLeast $setStepsAtLeastPayload)
+  {
+    $this->setStepsAtLeastPayload = $setStepsAtLeastPayload;
+  }
+  /**
+   * @return Google_Service_Games_GamesAchievementSetStepsAtLeast
+   */
+  public function getSetStepsAtLeastPayload()
+  {
+    return $this->setStepsAtLeastPayload;
+  }
+  public function setUpdateType($updateType)
+  {
+    $this->updateType = $updateType;
+  }
+  public function getUpdateType()
+  {
+    return $this->updateType;
+  }
 }

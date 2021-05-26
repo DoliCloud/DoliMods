@@ -17,31 +17,31 @@
 
 class Google_Service_Classroom_ListStudentSubmissionsResponse extends Google_Collection
 {
-	protected $collection_key = 'studentSubmissions';
-	public $nextPageToken;
-	protected $studentSubmissionsType = 'Google_Service_Classroom_StudentSubmission';
-	protected $studentSubmissionsDataType = 'array';
+  protected $collection_key = 'studentSubmissions';
+  public $nextPageToken;
+  protected $studentSubmissionsType = 'Google_Service_Classroom_StudentSubmission';
+  protected $studentSubmissionsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Classroom_StudentSubmission
-	 */
-	public function setStudentSubmissions($studentSubmissions)
-	{
-		$this->studentSubmissions = $studentSubmissions;
-	}
-	/**
-	 * @return Google_Service_Classroom_StudentSubmission
-	 */
-	public function getStudentSubmissions()
-	{
-		return $this->studentSubmissions;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Classroom_StudentSubmission[]
+   */
+  public function setStudentSubmissions($studentSubmissions)
+  {
+    $this->studentSubmissions = $studentSubmissions;
+  }
+  /**
+   * @return Google_Service_Classroom_StudentSubmission[]
+   */
+  public function getStudentSubmissions()
+  {
+    return $this->studentSubmissions;
+  }
 }

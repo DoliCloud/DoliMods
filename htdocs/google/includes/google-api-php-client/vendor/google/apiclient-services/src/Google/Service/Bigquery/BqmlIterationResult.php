@@ -17,50 +17,50 @@
 
 class Google_Service_Bigquery_BqmlIterationResult extends Google_Model
 {
-	public $durationMs;
-	public $evalLoss;
-	public $index;
-	public $learnRate;
-	public $trainingLoss;
+  public $durationMs;
+  public $evalLoss;
+  public $index;
+  public $learnRate;
+  public $trainingLoss;
 
-	public function setDurationMs($durationMs)
-	{
-		$this->durationMs = $durationMs;
-	}
-	public function getDurationMs()
-	{
-		return $this->durationMs;
-	}
-	public function setEvalLoss($evalLoss)
-	{
-		$this->evalLoss = $evalLoss;
-	}
-	public function getEvalLoss()
-	{
-		return $this->evalLoss;
-	}
-	public function setIndex($index)
-	{
-		$this->index = $index;
-	}
-	public function getIndex()
-	{
-		return $this->index;
-	}
-	public function setLearnRate($learnRate)
-	{
-		$this->learnRate = $learnRate;
-	}
-	public function getLearnRate()
-	{
-		return $this->learnRate;
-	}
-	public function setTrainingLoss($trainingLoss)
-	{
-		$this->trainingLoss = $trainingLoss;
-	}
-	public function getTrainingLoss()
-	{
-		return $this->trainingLoss;
-	}
+  public function setDurationMs($durationMs)
+  {
+    $this->durationMs = $durationMs;
+  }
+  public function getDurationMs()
+  {
+    return $this->durationMs;
+  }
+  public function setEvalLoss($evalLoss)
+  {
+    $this->evalLoss = $evalLoss;
+  }
+  public function getEvalLoss()
+  {
+    return $this->evalLoss;
+  }
+  public function setIndex($index)
+  {
+    $this->index = $index;
+  }
+  public function getIndex()
+  {
+    return $this->index;
+  }
+  public function setLearnRate($learnRate)
+  {
+    $this->learnRate = $learnRate;
+  }
+  public function getLearnRate()
+  {
+    return $this->learnRate;
+  }
+  public function setTrainingLoss($trainingLoss)
+  {
+    $this->trainingLoss = $trainingLoss;
+  }
+  public function getTrainingLoss()
+  {
+    return $this->trainingLoss;
+  }
 }

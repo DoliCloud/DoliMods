@@ -17,24 +17,24 @@
 
 class Google_Service_ServiceNetworking_RangeReservation extends Google_Collection
 {
-	protected $collection_key = 'secondaryRangeIpPrefixLengths';
-	public $ipPrefixLength;
-	public $secondaryRangeIpPrefixLengths;
+  protected $collection_key = 'secondaryRangeIpPrefixLengths';
+  public $ipPrefixLength;
+  public $secondaryRangeIpPrefixLengths;
 
-	public function setIpPrefixLength($ipPrefixLength)
-	{
-		$this->ipPrefixLength = $ipPrefixLength;
-	}
-	public function getIpPrefixLength()
-	{
-		return $this->ipPrefixLength;
-	}
-	public function setSecondaryRangeIpPrefixLengths($secondaryRangeIpPrefixLengths)
-	{
-		$this->secondaryRangeIpPrefixLengths = $secondaryRangeIpPrefixLengths;
-	}
-	public function getSecondaryRangeIpPrefixLengths()
-	{
-		return $this->secondaryRangeIpPrefixLengths;
-	}
+  public function setIpPrefixLength($ipPrefixLength)
+  {
+    $this->ipPrefixLength = $ipPrefixLength;
+  }
+  public function getIpPrefixLength()
+  {
+    return $this->ipPrefixLength;
+  }
+  public function setSecondaryRangeIpPrefixLengths($secondaryRangeIpPrefixLengths)
+  {
+    $this->secondaryRangeIpPrefixLengths = $secondaryRangeIpPrefixLengths;
+  }
+  public function getSecondaryRangeIpPrefixLengths()
+  {
+    return $this->secondaryRangeIpPrefixLengths;
+  }
 }

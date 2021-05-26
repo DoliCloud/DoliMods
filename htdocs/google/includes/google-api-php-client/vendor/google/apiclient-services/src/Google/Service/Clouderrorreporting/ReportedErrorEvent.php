@@ -17,55 +17,55 @@
 
 class Google_Service_Clouderrorreporting_ReportedErrorEvent extends Google_Model
 {
-	protected $contextType = 'Google_Service_Clouderrorreporting_ErrorContext';
-	protected $contextDataType = '';
-	public $eventTime;
-	public $message;
-	protected $serviceContextType = 'Google_Service_Clouderrorreporting_ServiceContext';
-	protected $serviceContextDataType = '';
+  protected $contextType = 'Google_Service_Clouderrorreporting_ErrorContext';
+  protected $contextDataType = '';
+  public $eventTime;
+  public $message;
+  protected $serviceContextType = 'Google_Service_Clouderrorreporting_ServiceContext';
+  protected $serviceContextDataType = '';
 
-	/**
-	 * @param Google_Service_Clouderrorreporting_ErrorContext
-	 */
-	public function setContext(Google_Service_Clouderrorreporting_ErrorContext $context)
-	{
-		$this->context = $context;
-	}
-	/**
-	 * @return Google_Service_Clouderrorreporting_ErrorContext
-	 */
-	public function getContext()
-	{
-		return $this->context;
-	}
-	public function setEventTime($eventTime)
-	{
-		$this->eventTime = $eventTime;
-	}
-	public function getEventTime()
-	{
-		return $this->eventTime;
-	}
-	public function setMessage($message)
-	{
-		$this->message = $message;
-	}
-	public function getMessage()
-	{
-		return $this->message;
-	}
-	/**
-	 * @param Google_Service_Clouderrorreporting_ServiceContext
-	 */
-	public function setServiceContext(Google_Service_Clouderrorreporting_ServiceContext $serviceContext)
-	{
-		$this->serviceContext = $serviceContext;
-	}
-	/**
-	 * @return Google_Service_Clouderrorreporting_ServiceContext
-	 */
-	public function getServiceContext()
-	{
-		return $this->serviceContext;
-	}
+  /**
+   * @param Google_Service_Clouderrorreporting_ErrorContext
+   */
+  public function setContext(Google_Service_Clouderrorreporting_ErrorContext $context)
+  {
+    $this->context = $context;
+  }
+  /**
+   * @return Google_Service_Clouderrorreporting_ErrorContext
+   */
+  public function getContext()
+  {
+    return $this->context;
+  }
+  public function setEventTime($eventTime)
+  {
+    $this->eventTime = $eventTime;
+  }
+  public function getEventTime()
+  {
+    return $this->eventTime;
+  }
+  public function setMessage($message)
+  {
+    $this->message = $message;
+  }
+  public function getMessage()
+  {
+    return $this->message;
+  }
+  /**
+   * @param Google_Service_Clouderrorreporting_ServiceContext
+   */
+  public function setServiceContext(Google_Service_Clouderrorreporting_ServiceContext $serviceContext)
+  {
+    $this->serviceContext = $serviceContext;
+  }
+  /**
+   * @return Google_Service_Clouderrorreporting_ServiceContext
+   */
+  public function getServiceContext()
+  {
+    return $this->serviceContext;
+  }
 }

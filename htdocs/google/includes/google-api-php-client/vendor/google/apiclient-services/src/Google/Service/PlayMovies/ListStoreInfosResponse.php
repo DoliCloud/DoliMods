@@ -17,40 +17,40 @@
 
 class Google_Service_PlayMovies_ListStoreInfosResponse extends Google_Collection
 {
-	protected $collection_key = 'storeInfos';
-	public $nextPageToken;
-	protected $storeInfosType = 'Google_Service_PlayMovies_StoreInfo';
-	protected $storeInfosDataType = 'array';
-	public $totalSize;
+  protected $collection_key = 'storeInfos';
+  public $nextPageToken;
+  protected $storeInfosType = 'Google_Service_PlayMovies_StoreInfo';
+  protected $storeInfosDataType = 'array';
+  public $totalSize;
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_PlayMovies_StoreInfo
-	 */
-	public function setStoreInfos($storeInfos)
-	{
-		$this->storeInfos = $storeInfos;
-	}
-	/**
-	 * @return Google_Service_PlayMovies_StoreInfo
-	 */
-	public function getStoreInfos()
-	{
-		return $this->storeInfos;
-	}
-	public function setTotalSize($totalSize)
-	{
-		$this->totalSize = $totalSize;
-	}
-	public function getTotalSize()
-	{
-		return $this->totalSize;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_PlayMovies_StoreInfo
+   */
+  public function setStoreInfos($storeInfos)
+  {
+    $this->storeInfos = $storeInfos;
+  }
+  /**
+   * @return Google_Service_PlayMovies_StoreInfo
+   */
+  public function getStoreInfos()
+  {
+    return $this->storeInfos;
+  }
+  public function setTotalSize($totalSize)
+  {
+    $this->totalSize = $totalSize;
+  }
+  public function getTotalSize()
+  {
+    return $this->totalSize;
+  }
 }

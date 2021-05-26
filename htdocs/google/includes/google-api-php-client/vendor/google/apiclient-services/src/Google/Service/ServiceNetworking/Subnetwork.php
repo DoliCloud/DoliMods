@@ -15,43 +15,60 @@
  * the License.
  */
 
-class Google_Service_ServiceNetworking_Subnetwork extends Google_Model
+class Google_Service_ServiceNetworking_Subnetwork extends Google_Collection
 {
-	public $ipCidrRange;
-	public $name;
-	public $network;
-	public $outsideAllocation;
+  protected $collection_key = 'secondaryIpRanges';
+  public $ipCidrRange;
+  public $name;
+  public $network;
+  public $outsideAllocation;
+  protected $secondaryIpRangesType = 'Google_Service_ServiceNetworking_SecondaryIpRange';
+  protected $secondaryIpRangesDataType = 'array';
 
-	public function setIpCidrRange($ipCidrRange)
-	{
-		$this->ipCidrRange = $ipCidrRange;
-	}
-	public function getIpCidrRange()
-	{
-		return $this->ipCidrRange;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setOutsideAllocation($outsideAllocation)
-	{
-		$this->outsideAllocation = $outsideAllocation;
-	}
-	public function getOutsideAllocation()
-	{
-		return $this->outsideAllocation;
-	}
+  public function setIpCidrRange($ipCidrRange)
+  {
+    $this->ipCidrRange = $ipCidrRange;
+  }
+  public function getIpCidrRange()
+  {
+    return $this->ipCidrRange;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setOutsideAllocation($outsideAllocation)
+  {
+    $this->outsideAllocation = $outsideAllocation;
+  }
+  public function getOutsideAllocation()
+  {
+    return $this->outsideAllocation;
+  }
+  /**
+   * @param Google_Service_ServiceNetworking_SecondaryIpRange[]
+   */
+  public function setSecondaryIpRanges($secondaryIpRanges)
+  {
+    $this->secondaryIpRanges = $secondaryIpRanges;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_SecondaryIpRange[]
+   */
+  public function getSecondaryIpRanges()
+  {
+    return $this->secondaryIpRanges;
+  }
 }

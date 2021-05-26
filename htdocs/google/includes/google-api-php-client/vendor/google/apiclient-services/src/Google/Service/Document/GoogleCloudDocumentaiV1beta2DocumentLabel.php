@@ -17,32 +17,32 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentLabel extends Google_Model
 {
-	public $automlModel;
-	public $confidence;
-	public $name;
+  public $automlModel;
+  public $confidence;
+  public $name;
 
-	public function setAutomlModel($automlModel)
-	{
-		$this->automlModel = $automlModel;
-	}
-	public function getAutomlModel()
-	{
-		return $this->automlModel;
-	}
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setAutomlModel($automlModel)
+  {
+    $this->automlModel = $automlModel;
+  }
+  public function getAutomlModel()
+  {
+    return $this->automlModel;
+  }
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

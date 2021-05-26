@@ -17,23 +17,23 @@
 
 class Google_Service_Sheets_DeleteConditionalFormatRuleRequest extends Google_Model
 {
-	public $index;
-	public $sheetId;
+  public $index;
+  public $sheetId;
 
-	public function setIndex($index)
-	{
-		$this->index = $index;
-	}
-	public function getIndex()
-	{
-		return $this->index;
-	}
-	public function setSheetId($sheetId)
-	{
-		$this->sheetId = $sheetId;
-	}
-	public function getSheetId()
-	{
-		return $this->sheetId;
-	}
+  public function setIndex($index)
+  {
+    $this->index = $index;
+  }
+  public function getIndex()
+  {
+    return $this->index;
+  }
+  public function setSheetId($sheetId)
+  {
+    $this->sheetId = $sheetId;
+  }
+  public function getSheetId()
+  {
+    return $this->sheetId;
+  }
 }

@@ -17,95 +17,95 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ExecutedActionMetadata extends Google_Model
 {
-	public $executionCompletedTimestamp;
-	public $executionStartTimestamp;
-	public $inputFetchCompletedTimestamp;
-	public $inputFetchStartTimestamp;
-	public $outputUploadCompletedTimestamp;
-	public $outputUploadStartTimestamp;
-	public $queuedTimestamp;
-	public $worker;
-	public $workerCompletedTimestamp;
-	public $workerStartTimestamp;
+  public $executionCompletedTimestamp;
+  public $executionStartTimestamp;
+  public $inputFetchCompletedTimestamp;
+  public $inputFetchStartTimestamp;
+  public $outputUploadCompletedTimestamp;
+  public $outputUploadStartTimestamp;
+  public $queuedTimestamp;
+  public $worker;
+  public $workerCompletedTimestamp;
+  public $workerStartTimestamp;
 
-	public function setExecutionCompletedTimestamp($executionCompletedTimestamp)
-	{
-		$this->executionCompletedTimestamp = $executionCompletedTimestamp;
-	}
-	public function getExecutionCompletedTimestamp()
-	{
-		return $this->executionCompletedTimestamp;
-	}
-	public function setExecutionStartTimestamp($executionStartTimestamp)
-	{
-		$this->executionStartTimestamp = $executionStartTimestamp;
-	}
-	public function getExecutionStartTimestamp()
-	{
-		return $this->executionStartTimestamp;
-	}
-	public function setInputFetchCompletedTimestamp($inputFetchCompletedTimestamp)
-	{
-		$this->inputFetchCompletedTimestamp = $inputFetchCompletedTimestamp;
-	}
-	public function getInputFetchCompletedTimestamp()
-	{
-		return $this->inputFetchCompletedTimestamp;
-	}
-	public function setInputFetchStartTimestamp($inputFetchStartTimestamp)
-	{
-		$this->inputFetchStartTimestamp = $inputFetchStartTimestamp;
-	}
-	public function getInputFetchStartTimestamp()
-	{
-		return $this->inputFetchStartTimestamp;
-	}
-	public function setOutputUploadCompletedTimestamp($outputUploadCompletedTimestamp)
-	{
-		$this->outputUploadCompletedTimestamp = $outputUploadCompletedTimestamp;
-	}
-	public function getOutputUploadCompletedTimestamp()
-	{
-		return $this->outputUploadCompletedTimestamp;
-	}
-	public function setOutputUploadStartTimestamp($outputUploadStartTimestamp)
-	{
-		$this->outputUploadStartTimestamp = $outputUploadStartTimestamp;
-	}
-	public function getOutputUploadStartTimestamp()
-	{
-		return $this->outputUploadStartTimestamp;
-	}
-	public function setQueuedTimestamp($queuedTimestamp)
-	{
-		$this->queuedTimestamp = $queuedTimestamp;
-	}
-	public function getQueuedTimestamp()
-	{
-		return $this->queuedTimestamp;
-	}
-	public function setWorker($worker)
-	{
-		$this->worker = $worker;
-	}
-	public function getWorker()
-	{
-		return $this->worker;
-	}
-	public function setWorkerCompletedTimestamp($workerCompletedTimestamp)
-	{
-		$this->workerCompletedTimestamp = $workerCompletedTimestamp;
-	}
-	public function getWorkerCompletedTimestamp()
-	{
-		return $this->workerCompletedTimestamp;
-	}
-	public function setWorkerStartTimestamp($workerStartTimestamp)
-	{
-		$this->workerStartTimestamp = $workerStartTimestamp;
-	}
-	public function getWorkerStartTimestamp()
-	{
-		return $this->workerStartTimestamp;
-	}
+  public function setExecutionCompletedTimestamp($executionCompletedTimestamp)
+  {
+    $this->executionCompletedTimestamp = $executionCompletedTimestamp;
+  }
+  public function getExecutionCompletedTimestamp()
+  {
+    return $this->executionCompletedTimestamp;
+  }
+  public function setExecutionStartTimestamp($executionStartTimestamp)
+  {
+    $this->executionStartTimestamp = $executionStartTimestamp;
+  }
+  public function getExecutionStartTimestamp()
+  {
+    return $this->executionStartTimestamp;
+  }
+  public function setInputFetchCompletedTimestamp($inputFetchCompletedTimestamp)
+  {
+    $this->inputFetchCompletedTimestamp = $inputFetchCompletedTimestamp;
+  }
+  public function getInputFetchCompletedTimestamp()
+  {
+    return $this->inputFetchCompletedTimestamp;
+  }
+  public function setInputFetchStartTimestamp($inputFetchStartTimestamp)
+  {
+    $this->inputFetchStartTimestamp = $inputFetchStartTimestamp;
+  }
+  public function getInputFetchStartTimestamp()
+  {
+    return $this->inputFetchStartTimestamp;
+  }
+  public function setOutputUploadCompletedTimestamp($outputUploadCompletedTimestamp)
+  {
+    $this->outputUploadCompletedTimestamp = $outputUploadCompletedTimestamp;
+  }
+  public function getOutputUploadCompletedTimestamp()
+  {
+    return $this->outputUploadCompletedTimestamp;
+  }
+  public function setOutputUploadStartTimestamp($outputUploadStartTimestamp)
+  {
+    $this->outputUploadStartTimestamp = $outputUploadStartTimestamp;
+  }
+  public function getOutputUploadStartTimestamp()
+  {
+    return $this->outputUploadStartTimestamp;
+  }
+  public function setQueuedTimestamp($queuedTimestamp)
+  {
+    $this->queuedTimestamp = $queuedTimestamp;
+  }
+  public function getQueuedTimestamp()
+  {
+    return $this->queuedTimestamp;
+  }
+  public function setWorker($worker)
+  {
+    $this->worker = $worker;
+  }
+  public function getWorker()
+  {
+    return $this->worker;
+  }
+  public function setWorkerCompletedTimestamp($workerCompletedTimestamp)
+  {
+    $this->workerCompletedTimestamp = $workerCompletedTimestamp;
+  }
+  public function getWorkerCompletedTimestamp()
+  {
+    return $this->workerCompletedTimestamp;
+  }
+  public function setWorkerStartTimestamp($workerStartTimestamp)
+  {
+    $this->workerStartTimestamp = $workerStartTimestamp;
+  }
+  public function getWorkerStartTimestamp()
+  {
+    return $this->workerStartTimestamp;
+  }
 }

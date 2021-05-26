@@ -17,14 +17,14 @@
 
 class Google_Service_Vision_ImportProductSetsGcsSource extends Google_Model
 {
-	public $csvFileUri;
+  public $csvFileUri;
 
-	public function setCsvFileUri($csvFileUri)
-	{
-		$this->csvFileUri = $csvFileUri;
-	}
-	public function getCsvFileUri()
-	{
-		return $this->csvFileUri;
-	}
+  public function setCsvFileUri($csvFileUri)
+  {
+    $this->csvFileUri = $csvFileUri;
+  }
+  public function getCsvFileUri()
+  {
+    return $this->csvFileUri;
+  }
 }

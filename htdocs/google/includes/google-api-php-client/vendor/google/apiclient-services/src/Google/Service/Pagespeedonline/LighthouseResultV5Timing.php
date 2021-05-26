@@ -17,14 +17,14 @@
 
 class Google_Service_Pagespeedonline_LighthouseResultV5Timing extends Google_Model
 {
-	public $total;
+  public $total;
 
-	public function setTotal($total)
-	{
-		$this->total = $total;
-	}
-	public function getTotal()
-	{
-		return $this->total;
-	}
+  public function setTotal($total)
+  {
+    $this->total = $total;
+  }
+  public function getTotal()
+  {
+    return $this->total;
+  }
 }

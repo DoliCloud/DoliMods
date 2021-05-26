@@ -17,32 +17,32 @@
 
 class Google_Service_Devprojects_ActivationLinksValidateRequest extends Google_Model
 {
-	public $activationLink;
-	public $expectedProjectId;
-	public $whitelistId;
+  public $activationLink;
+  public $expectedProjectId;
+  public $whitelistId;
 
-	public function setActivationLink($activationLink)
-	{
-		$this->activationLink = $activationLink;
-	}
-	public function getActivationLink()
-	{
-		return $this->activationLink;
-	}
-	public function setExpectedProjectId($expectedProjectId)
-	{
-		$this->expectedProjectId = $expectedProjectId;
-	}
-	public function getExpectedProjectId()
-	{
-		return $this->expectedProjectId;
-	}
-	public function setWhitelistId($whitelistId)
-	{
-		$this->whitelistId = $whitelistId;
-	}
-	public function getWhitelistId()
-	{
-		return $this->whitelistId;
-	}
+  public function setActivationLink($activationLink)
+  {
+    $this->activationLink = $activationLink;
+  }
+  public function getActivationLink()
+  {
+    return $this->activationLink;
+  }
+  public function setExpectedProjectId($expectedProjectId)
+  {
+    $this->expectedProjectId = $expectedProjectId;
+  }
+  public function getExpectedProjectId()
+  {
+    return $this->expectedProjectId;
+  }
+  public function setWhitelistId($whitelistId)
+  {
+    $this->whitelistId = $whitelistId;
+  }
+  public function getWhitelistId()
+  {
+    return $this->whitelistId;
+  }
 }

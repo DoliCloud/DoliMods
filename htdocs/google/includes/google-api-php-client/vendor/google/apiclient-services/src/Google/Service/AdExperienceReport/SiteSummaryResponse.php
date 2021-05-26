@@ -17,46 +17,46 @@
 
 class Google_Service_AdExperienceReport_SiteSummaryResponse extends Google_Model
 {
-	protected $desktopSummaryType = 'Google_Service_AdExperienceReport_PlatformSummary';
-	protected $desktopSummaryDataType = '';
-	protected $mobileSummaryType = 'Google_Service_AdExperienceReport_PlatformSummary';
-	protected $mobileSummaryDataType = '';
-	public $reviewedSite;
+  protected $desktopSummaryType = 'Google_Service_AdExperienceReport_PlatformSummary';
+  protected $desktopSummaryDataType = '';
+  protected $mobileSummaryType = 'Google_Service_AdExperienceReport_PlatformSummary';
+  protected $mobileSummaryDataType = '';
+  public $reviewedSite;
 
-	/**
-	 * @param Google_Service_AdExperienceReport_PlatformSummary
-	 */
-	public function setDesktopSummary(Google_Service_AdExperienceReport_PlatformSummary $desktopSummary)
-	{
-		$this->desktopSummary = $desktopSummary;
-	}
-	/**
-	 * @return Google_Service_AdExperienceReport_PlatformSummary
-	 */
-	public function getDesktopSummary()
-	{
-		return $this->desktopSummary;
-	}
-	/**
-	 * @param Google_Service_AdExperienceReport_PlatformSummary
-	 */
-	public function setMobileSummary(Google_Service_AdExperienceReport_PlatformSummary $mobileSummary)
-	{
-		$this->mobileSummary = $mobileSummary;
-	}
-	/**
-	 * @return Google_Service_AdExperienceReport_PlatformSummary
-	 */
-	public function getMobileSummary()
-	{
-		return $this->mobileSummary;
-	}
-	public function setReviewedSite($reviewedSite)
-	{
-		$this->reviewedSite = $reviewedSite;
-	}
-	public function getReviewedSite()
-	{
-		return $this->reviewedSite;
-	}
+  /**
+   * @param Google_Service_AdExperienceReport_PlatformSummary
+   */
+  public function setDesktopSummary(Google_Service_AdExperienceReport_PlatformSummary $desktopSummary)
+  {
+    $this->desktopSummary = $desktopSummary;
+  }
+  /**
+   * @return Google_Service_AdExperienceReport_PlatformSummary
+   */
+  public function getDesktopSummary()
+  {
+    return $this->desktopSummary;
+  }
+  /**
+   * @param Google_Service_AdExperienceReport_PlatformSummary
+   */
+  public function setMobileSummary(Google_Service_AdExperienceReport_PlatformSummary $mobileSummary)
+  {
+    $this->mobileSummary = $mobileSummary;
+  }
+  /**
+   * @return Google_Service_AdExperienceReport_PlatformSummary
+   */
+  public function getMobileSummary()
+  {
+    return $this->mobileSummary;
+  }
+  public function setReviewedSite($reviewedSite)
+  {
+    $this->reviewedSite = $reviewedSite;
+  }
+  public function getReviewedSite()
+  {
+    return $this->reviewedSite;
+  }
 }

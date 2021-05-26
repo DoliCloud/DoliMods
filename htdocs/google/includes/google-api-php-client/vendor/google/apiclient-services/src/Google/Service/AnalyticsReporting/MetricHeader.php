@@ -17,38 +17,38 @@
 
 class Google_Service_AnalyticsReporting_MetricHeader extends Google_Collection
 {
-	protected $collection_key = 'pivotHeaders';
-	protected $metricHeaderEntriesType = 'Google_Service_AnalyticsReporting_MetricHeaderEntry';
-	protected $metricHeaderEntriesDataType = 'array';
-	protected $pivotHeadersType = 'Google_Service_AnalyticsReporting_PivotHeader';
-	protected $pivotHeadersDataType = 'array';
+  protected $collection_key = 'pivotHeaders';
+  protected $metricHeaderEntriesType = 'Google_Service_AnalyticsReporting_MetricHeaderEntry';
+  protected $metricHeaderEntriesDataType = 'array';
+  protected $pivotHeadersType = 'Google_Service_AnalyticsReporting_PivotHeader';
+  protected $pivotHeadersDataType = 'array';
 
-	/**
-	 * @param Google_Service_AnalyticsReporting_MetricHeaderEntry
-	 */
-	public function setMetricHeaderEntries($metricHeaderEntries)
-	{
-		$this->metricHeaderEntries = $metricHeaderEntries;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_MetricHeaderEntry
-	 */
-	public function getMetricHeaderEntries()
-	{
-		return $this->metricHeaderEntries;
-	}
-	/**
-	 * @param Google_Service_AnalyticsReporting_PivotHeader
-	 */
-	public function setPivotHeaders($pivotHeaders)
-	{
-		$this->pivotHeaders = $pivotHeaders;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_PivotHeader
-	 */
-	public function getPivotHeaders()
-	{
-		return $this->pivotHeaders;
-	}
+  /**
+   * @param Google_Service_AnalyticsReporting_MetricHeaderEntry[]
+   */
+  public function setMetricHeaderEntries($metricHeaderEntries)
+  {
+    $this->metricHeaderEntries = $metricHeaderEntries;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_MetricHeaderEntry[]
+   */
+  public function getMetricHeaderEntries()
+  {
+    return $this->metricHeaderEntries;
+  }
+  /**
+   * @param Google_Service_AnalyticsReporting_PivotHeader[]
+   */
+  public function setPivotHeaders($pivotHeaders)
+  {
+    $this->pivotHeaders = $pivotHeaders;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_PivotHeader[]
+   */
+  public function getPivotHeaders()
+  {
+    return $this->pivotHeaders;
+  }
 }

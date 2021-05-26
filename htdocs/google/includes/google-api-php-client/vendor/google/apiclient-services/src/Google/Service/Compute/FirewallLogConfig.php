@@ -17,14 +17,23 @@
 
 class Google_Service_Compute_FirewallLogConfig extends Google_Model
 {
-	public $enable;
+  public $enable;
+  public $metadata;
 
-	public function setEnable($enable)
-	{
-		$this->enable = $enable;
-	}
-	public function getEnable()
-	{
-		return $this->enable;
-	}
+  public function setEnable($enable)
+  {
+    $this->enable = $enable;
+  }
+  public function getEnable()
+  {
+    return $this->enable;
+  }
+  public function setMetadata($metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
 }

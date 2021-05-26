@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidProvisioningPartner_CustomerListDpcsResponse extends Google_Collection
 {
-	protected $collection_key = 'dpcs';
-	protected $dpcsType = 'Google_Service_AndroidProvisioningPartner_Dpc';
-	protected $dpcsDataType = 'array';
+  protected $collection_key = 'dpcs';
+  protected $dpcsType = 'Google_Service_AndroidProvisioningPartner_Dpc';
+  protected $dpcsDataType = 'array';
 
-	/**
-	 * @param Google_Service_AndroidProvisioningPartner_Dpc
-	 */
-	public function setDpcs($dpcs)
-	{
-		$this->dpcs = $dpcs;
-	}
-	/**
-	 * @return Google_Service_AndroidProvisioningPartner_Dpc
-	 */
-	public function getDpcs()
-	{
-		return $this->dpcs;
-	}
+  /**
+   * @param Google_Service_AndroidProvisioningPartner_Dpc[]
+   */
+  public function setDpcs($dpcs)
+  {
+    $this->dpcs = $dpcs;
+  }
+  /**
+   * @return Google_Service_AndroidProvisioningPartner_Dpc[]
+   */
+  public function getDpcs()
+  {
+    return $this->dpcs;
+  }
 }

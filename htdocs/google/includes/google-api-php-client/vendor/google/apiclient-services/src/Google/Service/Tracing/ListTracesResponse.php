@@ -17,25 +17,25 @@
 
 class Google_Service_Tracing_ListTracesResponse extends Google_Collection
 {
-	protected $collection_key = 'traces';
-	public $nextPageToken;
-	protected $tracesType = 'Google_Service_Tracing_Trace';
-	protected $tracesDataType = 'array';
+  protected $collection_key = 'traces';
+  public $nextPageToken;
+  protected $tracesType = 'Google_Service_Tracing_Trace';
+  protected $tracesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setTraces($traces)
-	{
-		$this->traces = $traces;
-	}
-	public function getTraces()
-	{
-		return $this->traces;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setTraces($traces)
+  {
+    $this->traces = $traces;
+  }
+  public function getTraces()
+  {
+    return $this->traces;
+  }
 }

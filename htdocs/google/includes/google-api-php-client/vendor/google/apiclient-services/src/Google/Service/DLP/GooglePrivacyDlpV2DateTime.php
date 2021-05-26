@@ -17,62 +17,62 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DateTime extends Google_Model
 {
-	protected $dateType = 'Google_Service_DLP_GoogleTypeDate';
-	protected $dateDataType = '';
-	public $dayOfWeek;
-	protected $timeType = 'Google_Service_DLP_GoogleTypeTimeOfDay';
-	protected $timeDataType = '';
-	protected $timeZoneType = 'Google_Service_DLP_GooglePrivacyDlpV2TimeZone';
-	protected $timeZoneDataType = '';
+  protected $dateType = 'Google_Service_DLP_GoogleTypeDate';
+  protected $dateDataType = '';
+  public $dayOfWeek;
+  protected $timeType = 'Google_Service_DLP_GoogleTypeTimeOfDay';
+  protected $timeDataType = '';
+  protected $timeZoneType = 'Google_Service_DLP_GooglePrivacyDlpV2TimeZone';
+  protected $timeZoneDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GoogleTypeDate
-	 */
-	public function setDate(Google_Service_DLP_GoogleTypeDate $date)
-	{
-		$this->date = $date;
-	}
-	/**
-	 * @return Google_Service_DLP_GoogleTypeDate
-	 */
-	public function getDate()
-	{
-		return $this->date;
-	}
-	public function setDayOfWeek($dayOfWeek)
-	{
-		$this->dayOfWeek = $dayOfWeek;
-	}
-	public function getDayOfWeek()
-	{
-		return $this->dayOfWeek;
-	}
-	/**
-	 * @param Google_Service_DLP_GoogleTypeTimeOfDay
-	 */
-	public function setTime(Google_Service_DLP_GoogleTypeTimeOfDay $time)
-	{
-		$this->time = $time;
-	}
-	/**
-	 * @return Google_Service_DLP_GoogleTypeTimeOfDay
-	 */
-	public function getTime()
-	{
-		return $this->time;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2TimeZone
-	 */
-	public function setTimeZone(Google_Service_DLP_GooglePrivacyDlpV2TimeZone $timeZone)
-	{
-		$this->timeZone = $timeZone;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2TimeZone
-	 */
-	public function getTimeZone()
-	{
-		return $this->timeZone;
-	}
+  /**
+   * @param Google_Service_DLP_GoogleTypeDate
+   */
+  public function setDate(Google_Service_DLP_GoogleTypeDate $date)
+  {
+    $this->date = $date;
+  }
+  /**
+   * @return Google_Service_DLP_GoogleTypeDate
+   */
+  public function getDate()
+  {
+    return $this->date;
+  }
+  public function setDayOfWeek($dayOfWeek)
+  {
+    $this->dayOfWeek = $dayOfWeek;
+  }
+  public function getDayOfWeek()
+  {
+    return $this->dayOfWeek;
+  }
+  /**
+   * @param Google_Service_DLP_GoogleTypeTimeOfDay
+   */
+  public function setTime(Google_Service_DLP_GoogleTypeTimeOfDay $time)
+  {
+    $this->time = $time;
+  }
+  /**
+   * @return Google_Service_DLP_GoogleTypeTimeOfDay
+   */
+  public function getTime()
+  {
+    return $this->time;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2TimeZone
+   */
+  public function setTimeZone(Google_Service_DLP_GooglePrivacyDlpV2TimeZone $timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2TimeZone
+   */
+  public function getTimeZone()
+  {
+    return $this->timeZone;
+  }
 }

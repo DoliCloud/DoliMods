@@ -25,25 +25,25 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsEnvironmentsAnalyticsAdmin extends Google_Service_Resource
 {
-	/**
-	 * Get a list of metrics and dimensions which can be used for creating analytics
-	 * queries and reports. Each schema element contains the name of the field with
-	 * its associated type and if it is either custom field or standard field.
-	 * (admin.getSchemav2)
-	 *
-	 * @param string $name Required. The parent organization and environment names.
-	 *                     Must be of the form
-	 *                     `organizations/{org}/environments/{env}/analytics/admin/schemav2`.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string type Required. Type refers to the dataset name whose schema
-	 * needs to be retrieved E.g. type=fact or type=agg_cus1
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Schema
-	 */
-	public function getSchemav2($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('getSchemav2', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1Schema");
-	}
+  /**
+   * Get a list of metrics and dimensions which can be used for creating analytics
+   * queries and reports. Each schema element contains the name of the field with
+   * its associated type and if it is either custom field or standard field.
+   * (admin.getSchemav2)
+   *
+   * @param string $name Required. The parent organization and environment names.
+   * Must be of the form
+   * `organizations/{org}/environments/{env}/analytics/admin/schemav2`.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string type Required. Type refers to the dataset name whose schema
+   * needs to be retrieved E.g. type=fact or type=agg_cus1
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1Schema
+   */
+  public function getSchemav2($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('getSchemav2', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1Schema");
+  }
 }

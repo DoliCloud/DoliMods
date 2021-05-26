@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceConsumerManagement_V1DefaultIdentity extends Google_Model
 {
-	public $email;
-	public $name;
-	public $uniqueId;
+  public $email;
+  public $name;
+  public $uniqueId;
 
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUniqueId($uniqueId)
-	{
-		$this->uniqueId = $uniqueId;
-	}
-	public function getUniqueId()
-	{
-		return $this->uniqueId;
-	}
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUniqueId($uniqueId)
+  {
+    $this->uniqueId = $uniqueId;
+  }
+  public function getUniqueId()
+  {
+    return $this->uniqueId;
+  }
 }

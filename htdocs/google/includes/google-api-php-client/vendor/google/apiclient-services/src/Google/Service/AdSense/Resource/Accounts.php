@@ -25,37 +25,37 @@
  */
 class Google_Service_AdSense_Resource_Accounts extends Google_Service_Resource
 {
-	/**
-	 * Get information about the selected AdSense account. (accounts.get)
-	 *
-	 * @param string $accountId Account to get information about.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param bool tree Whether the tree of sub accounts should be returned.
-	 * @return Google_Service_AdSense_Account
-	 */
-	public function get($accountId, $optParams = array())
-	{
-		$params = array('accountId' => $accountId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_AdSense_Account");
-	}
-	/**
-	 * List all accounts available to this AdSense account. (accounts.listAccounts)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string pageToken A continuation token, used to page through
-	 * accounts. To retrieve the next page, set this parameter to the value of
-	 * "nextPageToken" from the previous response.
-	 * @opt_param int maxResults The maximum number of accounts to include in the
-	 * response, used for paging.
-	 * @return Google_Service_AdSense_Accounts
-	 */
-	public function listAccounts($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AdSense_Accounts");
-	}
+  /**
+   * Get information about the selected AdSense account. (accounts.get)
+   *
+   * @param string $accountId Account to get information about.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param bool tree Whether the tree of sub accounts should be returned.
+   * @return Google_Service_AdSense_Account
+   */
+  public function get($accountId, $optParams = array())
+  {
+    $params = array('accountId' => $accountId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_AdSense_Account");
+  }
+  /**
+   * List all accounts available to this AdSense account. (accounts.listAccounts)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int maxResults The maximum number of accounts to include in the
+   * response, used for paging.
+   * @opt_param string pageToken A continuation token, used to page through
+   * accounts. To retrieve the next page, set this parameter to the value of
+   * "nextPageToken" from the previous response.
+   * @return Google_Service_AdSense_Accounts
+   */
+  public function listAccounts($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AdSense_Accounts");
+  }
 }

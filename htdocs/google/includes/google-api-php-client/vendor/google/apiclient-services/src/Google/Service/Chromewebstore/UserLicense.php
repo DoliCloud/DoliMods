@@ -17,59 +17,59 @@
 
 class Google_Service_Chromewebstore_UserLicense extends Google_Model
 {
-	public $accessLevel;
-	public $createdTime;
-	public $itemId;
-	public $kind;
-	public $maxAgeSecs;
-	public $result;
+  public $accessLevel;
+  public $createdTime;
+  public $itemId;
+  public $kind;
+  public $maxAgeSecs;
+  public $result;
 
-	public function setAccessLevel($accessLevel)
-	{
-		$this->accessLevel = $accessLevel;
-	}
-	public function getAccessLevel()
-	{
-		return $this->accessLevel;
-	}
-	public function setCreatedTime($createdTime)
-	{
-		$this->createdTime = $createdTime;
-	}
-	public function getCreatedTime()
-	{
-		return $this->createdTime;
-	}
-	public function setItemId($itemId)
-	{
-		$this->itemId = $itemId;
-	}
-	public function getItemId()
-	{
-		return $this->itemId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setMaxAgeSecs($maxAgeSecs)
-	{
-		$this->maxAgeSecs = $maxAgeSecs;
-	}
-	public function getMaxAgeSecs()
-	{
-		return $this->maxAgeSecs;
-	}
-	public function setResult($result)
-	{
-		$this->result = $result;
-	}
-	public function getResult()
-	{
-		return $this->result;
-	}
+  public function setAccessLevel($accessLevel)
+  {
+    $this->accessLevel = $accessLevel;
+  }
+  public function getAccessLevel()
+  {
+    return $this->accessLevel;
+  }
+  public function setCreatedTime($createdTime)
+  {
+    $this->createdTime = $createdTime;
+  }
+  public function getCreatedTime()
+  {
+    return $this->createdTime;
+  }
+  public function setItemId($itemId)
+  {
+    $this->itemId = $itemId;
+  }
+  public function getItemId()
+  {
+    return $this->itemId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setMaxAgeSecs($maxAgeSecs)
+  {
+    $this->maxAgeSecs = $maxAgeSecs;
+  }
+  public function getMaxAgeSecs()
+  {
+    return $this->maxAgeSecs;
+  }
+  public function setResult($result)
+  {
+    $this->result = $result;
+  }
+  public function getResult()
+  {
+    return $this->result;
+  }
 }

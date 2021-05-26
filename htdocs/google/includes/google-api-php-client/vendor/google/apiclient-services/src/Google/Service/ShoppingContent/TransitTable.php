@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_TransitTable extends Google_Collection
 {
-	protected $collection_key = 'transitTimeLabels';
-	public $postalCodeGroupNames;
-	protected $rowsType = 'Google_Service_ShoppingContent_TransitTableTransitTimeRow';
-	protected $rowsDataType = 'array';
-	public $transitTimeLabels;
+  protected $collection_key = 'transitTimeLabels';
+  public $postalCodeGroupNames;
+  protected $rowsType = 'Google_Service_ShoppingContent_TransitTableTransitTimeRow';
+  protected $rowsDataType = 'array';
+  public $transitTimeLabels;
 
-	public function setPostalCodeGroupNames($postalCodeGroupNames)
-	{
-		$this->postalCodeGroupNames = $postalCodeGroupNames;
-	}
-	public function getPostalCodeGroupNames()
-	{
-		return $this->postalCodeGroupNames;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_TransitTableTransitTimeRow
-	 */
-	public function setRows($rows)
-	{
-		$this->rows = $rows;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_TransitTableTransitTimeRow
-	 */
-	public function getRows()
-	{
-		return $this->rows;
-	}
-	public function setTransitTimeLabels($transitTimeLabels)
-	{
-		$this->transitTimeLabels = $transitTimeLabels;
-	}
-	public function getTransitTimeLabels()
-	{
-		return $this->transitTimeLabels;
-	}
+  public function setPostalCodeGroupNames($postalCodeGroupNames)
+  {
+    $this->postalCodeGroupNames = $postalCodeGroupNames;
+  }
+  public function getPostalCodeGroupNames()
+  {
+    return $this->postalCodeGroupNames;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_TransitTableTransitTimeRow[]
+   */
+  public function setRows($rows)
+  {
+    $this->rows = $rows;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_TransitTableTransitTimeRow[]
+   */
+  public function getRows()
+  {
+    return $this->rows;
+  }
+  public function setTransitTimeLabels($transitTimeLabels)
+  {
+    $this->transitTimeLabels = $transitTimeLabels;
+  }
+  public function getTransitTimeLabels()
+  {
+    return $this->transitTimeLabels;
+  }
 }

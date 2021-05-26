@@ -17,41 +17,41 @@
 
 class Google_Service_Appengine_EndpointsApiService extends Google_Model
 {
-	public $configId;
-	public $disableTraceSampling;
-	public $name;
-	public $rolloutStrategy;
+  public $configId;
+  public $disableTraceSampling;
+  public $name;
+  public $rolloutStrategy;
 
-	public function setConfigId($configId)
-	{
-		$this->configId = $configId;
-	}
-	public function getConfigId()
-	{
-		return $this->configId;
-	}
-	public function setDisableTraceSampling($disableTraceSampling)
-	{
-		$this->disableTraceSampling = $disableTraceSampling;
-	}
-	public function getDisableTraceSampling()
-	{
-		return $this->disableTraceSampling;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRolloutStrategy($rolloutStrategy)
-	{
-		$this->rolloutStrategy = $rolloutStrategy;
-	}
-	public function getRolloutStrategy()
-	{
-		return $this->rolloutStrategy;
-	}
+  public function setConfigId($configId)
+  {
+    $this->configId = $configId;
+  }
+  public function getConfigId()
+  {
+    return $this->configId;
+  }
+  public function setDisableTraceSampling($disableTraceSampling)
+  {
+    $this->disableTraceSampling = $disableTraceSampling;
+  }
+  public function getDisableTraceSampling()
+  {
+    return $this->disableTraceSampling;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRolloutStrategy($rolloutStrategy)
+  {
+    $this->rolloutStrategy = $rolloutStrategy;
+  }
+  public function getRolloutStrategy()
+  {
+    return $this->rolloutStrategy;
+  }
 }

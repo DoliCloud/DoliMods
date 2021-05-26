@@ -17,22 +17,22 @@
 
 class Google_Service_Docs_Body extends Google_Collection
 {
-	protected $collection_key = 'content';
-	protected $contentType = 'Google_Service_Docs_StructuralElement';
-	protected $contentDataType = 'array';
+  protected $collection_key = 'content';
+  protected $contentType = 'Google_Service_Docs_StructuralElement';
+  protected $contentDataType = 'array';
 
-	/**
-	 * @param Google_Service_Docs_StructuralElement
-	 */
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	/**
-	 * @return Google_Service_Docs_StructuralElement
-	 */
-	public function getContent()
-	{
-		return $this->content;
-	}
+  /**
+   * @param Google_Service_Docs_StructuralElement[]
+   */
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  /**
+   * @return Google_Service_Docs_StructuralElement[]
+   */
+  public function getContent()
+  {
+    return $this->content;
+  }
 }

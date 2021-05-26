@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_PlacementStrategiesListResponse extends Google_Collection
 {
-	protected $collection_key = 'placementStrategies';
-	public $kind;
-	public $nextPageToken;
-	protected $placementStrategiesType = 'Google_Service_Dfareporting_PlacementStrategy';
-	protected $placementStrategiesDataType = 'array';
+  protected $collection_key = 'placementStrategies';
+  public $kind;
+  public $nextPageToken;
+  protected $placementStrategiesType = 'Google_Service_Dfareporting_PlacementStrategy';
+  protected $placementStrategiesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_PlacementStrategy
-	 */
-	public function setPlacementStrategies($placementStrategies)
-	{
-		$this->placementStrategies = $placementStrategies;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_PlacementStrategy
-	 */
-	public function getPlacementStrategies()
-	{
-		return $this->placementStrategies;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Dfareporting_PlacementStrategy[]
+   */
+  public function setPlacementStrategies($placementStrategies)
+  {
+    $this->placementStrategies = $placementStrategies;
+  }
+  /**
+   * @return Google_Service_Dfareporting_PlacementStrategy[]
+   */
+  public function getPlacementStrategies()
+  {
+    return $this->placementStrategies;
+  }
 }

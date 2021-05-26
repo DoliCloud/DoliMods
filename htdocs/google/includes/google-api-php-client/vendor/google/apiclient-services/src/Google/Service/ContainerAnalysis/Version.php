@@ -17,41 +17,41 @@
 
 class Google_Service_ContainerAnalysis_Version extends Google_Model
 {
-	public $epoch;
-	public $kind;
-	public $name;
-	public $revision;
+  public $epoch;
+  public $kind;
+  public $name;
+  public $revision;
 
-	public function setEpoch($epoch)
-	{
-		$this->epoch = $epoch;
-	}
-	public function getEpoch()
-	{
-		return $this->epoch;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRevision($revision)
-	{
-		$this->revision = $revision;
-	}
-	public function getRevision()
-	{
-		return $this->revision;
-	}
+  public function setEpoch($epoch)
+  {
+    $this->epoch = $epoch;
+  }
+  public function getEpoch()
+  {
+    return $this->epoch;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRevision($revision)
+  {
+    $this->revision = $revision;
+  }
+  public function getRevision()
+  {
+    return $this->revision;
+  }
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_Devprojects_EmbeddingParameters extends Google_Model
 {
-	protected $displayUrlType = 'Google_Service_Devprojects_QueryUrl';
-	protected $displayUrlDataType = '';
-	public $kind;
+  protected $displayUrlType = 'Google_Service_Devprojects_QueryUrl';
+  protected $displayUrlDataType = '';
+  public $kind;
 
-	public function setDisplayUrl(Google_Service_Devprojects_QueryUrl $displayUrl)
-	{
-		$this->displayUrl = $displayUrl;
-	}
-	public function getDisplayUrl()
-	{
-		return $this->displayUrl;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setDisplayUrl(Google_Service_Devprojects_QueryUrl $displayUrl)
+  {
+    $this->displayUrl = $displayUrl;
+  }
+  public function getDisplayUrl()
+  {
+    return $this->displayUrl;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

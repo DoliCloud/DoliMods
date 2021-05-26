@@ -17,21 +17,21 @@
 
 class Google_Service_HomeGraphService_StateAndNotificationPayload extends Google_Model
 {
-	protected $devicesType = 'Google_Service_HomeGraphService_ReportStateAndNotificationDevice';
-	protected $devicesDataType = '';
+  protected $devicesType = 'Google_Service_HomeGraphService_ReportStateAndNotificationDevice';
+  protected $devicesDataType = '';
 
-	/**
-	 * @param Google_Service_HomeGraphService_ReportStateAndNotificationDevice
-	 */
-	public function setDevices(Google_Service_HomeGraphService_ReportStateAndNotificationDevice $devices)
-	{
-		$this->devices = $devices;
-	}
-	/**
-	 * @return Google_Service_HomeGraphService_ReportStateAndNotificationDevice
-	 */
-	public function getDevices()
-	{
-		return $this->devices;
-	}
+  /**
+   * @param Google_Service_HomeGraphService_ReportStateAndNotificationDevice
+   */
+  public function setDevices(Google_Service_HomeGraphService_ReportStateAndNotificationDevice $devices)
+  {
+    $this->devices = $devices;
+  }
+  /**
+   * @return Google_Service_HomeGraphService_ReportStateAndNotificationDevice
+   */
+  public function getDevices()
+  {
+    return $this->devices;
+  }
 }

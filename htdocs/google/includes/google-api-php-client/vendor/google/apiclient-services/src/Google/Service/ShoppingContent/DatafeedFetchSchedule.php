@@ -17,86 +17,86 @@
 
 class Google_Service_ShoppingContent_DatafeedFetchSchedule extends Google_Model
 {
-	public $dayOfMonth;
-	public $fetchUrl;
-	public $hour;
-	public $minuteOfHour;
-	public $password;
-	public $paused;
-	public $timeZone;
-	public $username;
-	public $weekday;
+  public $dayOfMonth;
+  public $fetchUrl;
+  public $hour;
+  public $minuteOfHour;
+  public $password;
+  public $paused;
+  public $timeZone;
+  public $username;
+  public $weekday;
 
-	public function setDayOfMonth($dayOfMonth)
-	{
-		$this->dayOfMonth = $dayOfMonth;
-	}
-	public function getDayOfMonth()
-	{
-		return $this->dayOfMonth;
-	}
-	public function setFetchUrl($fetchUrl)
-	{
-		$this->fetchUrl = $fetchUrl;
-	}
-	public function getFetchUrl()
-	{
-		return $this->fetchUrl;
-	}
-	public function setHour($hour)
-	{
-		$this->hour = $hour;
-	}
-	public function getHour()
-	{
-		return $this->hour;
-	}
-	public function setMinuteOfHour($minuteOfHour)
-	{
-		$this->minuteOfHour = $minuteOfHour;
-	}
-	public function getMinuteOfHour()
-	{
-		return $this->minuteOfHour;
-	}
-	public function setPassword($password)
-	{
-		$this->password = $password;
-	}
-	public function getPassword()
-	{
-		return $this->password;
-	}
-	public function setPaused($paused)
-	{
-		$this->paused = $paused;
-	}
-	public function getPaused()
-	{
-		return $this->paused;
-	}
-	public function setTimeZone($timeZone)
-	{
-		$this->timeZone = $timeZone;
-	}
-	public function getTimeZone()
-	{
-		return $this->timeZone;
-	}
-	public function setUsername($username)
-	{
-		$this->username = $username;
-	}
-	public function getUsername()
-	{
-		return $this->username;
-	}
-	public function setWeekday($weekday)
-	{
-		$this->weekday = $weekday;
-	}
-	public function getWeekday()
-	{
-		return $this->weekday;
-	}
+  public function setDayOfMonth($dayOfMonth)
+  {
+    $this->dayOfMonth = $dayOfMonth;
+  }
+  public function getDayOfMonth()
+  {
+    return $this->dayOfMonth;
+  }
+  public function setFetchUrl($fetchUrl)
+  {
+    $this->fetchUrl = $fetchUrl;
+  }
+  public function getFetchUrl()
+  {
+    return $this->fetchUrl;
+  }
+  public function setHour($hour)
+  {
+    $this->hour = $hour;
+  }
+  public function getHour()
+  {
+    return $this->hour;
+  }
+  public function setMinuteOfHour($minuteOfHour)
+  {
+    $this->minuteOfHour = $minuteOfHour;
+  }
+  public function getMinuteOfHour()
+  {
+    return $this->minuteOfHour;
+  }
+  public function setPassword($password)
+  {
+    $this->password = $password;
+  }
+  public function getPassword()
+  {
+    return $this->password;
+  }
+  public function setPaused($paused)
+  {
+    $this->paused = $paused;
+  }
+  public function getPaused()
+  {
+    return $this->paused;
+  }
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  public function getTimeZone()
+  {
+    return $this->timeZone;
+  }
+  public function setUsername($username)
+  {
+    $this->username = $username;
+  }
+  public function getUsername()
+  {
+    return $this->username;
+  }
+  public function setWeekday($weekday)
+  {
+    $this->weekday = $weekday;
+  }
+  public function getWeekday()
+  {
+    return $this->weekday;
+  }
 }

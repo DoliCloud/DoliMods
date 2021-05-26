@@ -17,49 +17,49 @@
 
 class Google_Service_PeopleService_ListContactGroupsResponse extends Google_Collection
 {
-	protected $collection_key = 'contactGroups';
-	protected $contactGroupsType = 'Google_Service_PeopleService_ContactGroup';
-	protected $contactGroupsDataType = 'array';
-	public $nextPageToken;
-	public $nextSyncToken;
-	public $totalItems;
+  protected $collection_key = 'contactGroups';
+  protected $contactGroupsType = 'Google_Service_PeopleService_ContactGroup';
+  protected $contactGroupsDataType = 'array';
+  public $nextPageToken;
+  public $nextSyncToken;
+  public $totalItems;
 
-	/**
-	 * @param Google_Service_PeopleService_ContactGroup
-	 */
-	public function setContactGroups($contactGroups)
-	{
-		$this->contactGroups = $contactGroups;
-	}
-	/**
-	 * @return Google_Service_PeopleService_ContactGroup
-	 */
-	public function getContactGroups()
-	{
-		return $this->contactGroups;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setNextSyncToken($nextSyncToken)
-	{
-		$this->nextSyncToken = $nextSyncToken;
-	}
-	public function getNextSyncToken()
-	{
-		return $this->nextSyncToken;
-	}
-	public function setTotalItems($totalItems)
-	{
-		$this->totalItems = $totalItems;
-	}
-	public function getTotalItems()
-	{
-		return $this->totalItems;
-	}
+  /**
+   * @param Google_Service_PeopleService_ContactGroup[]
+   */
+  public function setContactGroups($contactGroups)
+  {
+    $this->contactGroups = $contactGroups;
+  }
+  /**
+   * @return Google_Service_PeopleService_ContactGroup[]
+   */
+  public function getContactGroups()
+  {
+    return $this->contactGroups;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setNextSyncToken($nextSyncToken)
+  {
+    $this->nextSyncToken = $nextSyncToken;
+  }
+  public function getNextSyncToken()
+  {
+    return $this->nextSyncToken;
+  }
+  public function setTotalItems($totalItems)
+  {
+    $this->totalItems = $totalItems;
+  }
+  public function getTotalItems()
+  {
+    return $this->totalItems;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_LinkService extends Google_Model
 {
-	public $service;
-	public $status;
+  public $service;
+  public $status;
 
-	public function setService($service)
-	{
-		$this->service = $service;
-	}
-	public function getService()
-	{
-		return $this->service;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setService($service)
+  {
+    $this->service = $service;
+  }
+  public function getService()
+  {
+    return $this->service;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

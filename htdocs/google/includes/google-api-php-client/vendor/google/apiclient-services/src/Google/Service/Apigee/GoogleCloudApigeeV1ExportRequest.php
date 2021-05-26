@@ -17,66 +17,66 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ExportRequest extends Google_Model
 {
-	public $csvDelimiter;
-	public $datastoreName;
-	protected $dateRangeType = 'Google_Service_Apigee_GoogleCloudApigeeV1DateRange';
-	protected $dateRangeDataType = '';
-	public $description;
-	public $name;
-	public $outputFormat;
+  public $csvDelimiter;
+  public $datastoreName;
+  protected $dateRangeType = 'Google_Service_Apigee_GoogleCloudApigeeV1DateRange';
+  protected $dateRangeDataType = '';
+  public $description;
+  public $name;
+  public $outputFormat;
 
-	public function setCsvDelimiter($csvDelimiter)
-	{
-		$this->csvDelimiter = $csvDelimiter;
-	}
-	public function getCsvDelimiter()
-	{
-		return $this->csvDelimiter;
-	}
-	public function setDatastoreName($datastoreName)
-	{
-		$this->datastoreName = $datastoreName;
-	}
-	public function getDatastoreName()
-	{
-		return $this->datastoreName;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1DateRange
-	 */
-	public function setDateRange(Google_Service_Apigee_GoogleCloudApigeeV1DateRange $dateRange)
-	{
-		$this->dateRange = $dateRange;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DateRange
-	 */
-	public function getDateRange()
-	{
-		return $this->dateRange;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOutputFormat($outputFormat)
-	{
-		$this->outputFormat = $outputFormat;
-	}
-	public function getOutputFormat()
-	{
-		return $this->outputFormat;
-	}
+  public function setCsvDelimiter($csvDelimiter)
+  {
+    $this->csvDelimiter = $csvDelimiter;
+  }
+  public function getCsvDelimiter()
+  {
+    return $this->csvDelimiter;
+  }
+  public function setDatastoreName($datastoreName)
+  {
+    $this->datastoreName = $datastoreName;
+  }
+  public function getDatastoreName()
+  {
+    return $this->datastoreName;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1DateRange
+   */
+  public function setDateRange(Google_Service_Apigee_GoogleCloudApigeeV1DateRange $dateRange)
+  {
+    $this->dateRange = $dateRange;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1DateRange
+   */
+  public function getDateRange()
+  {
+    return $this->dateRange;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOutputFormat($outputFormat)
+  {
+    $this->outputFormat = $outputFormat;
+  }
+  public function getOutputFormat()
+  {
+    return $this->outputFormat;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Devprojects_IamSection extends Google_Model
 {
-	public $iamEnabled;
-	public $kind;
+  public $iamEnabled;
+  public $kind;
 
-	public function setIamEnabled($iamEnabled)
-	{
-		$this->iamEnabled = $iamEnabled;
-	}
-	public function getIamEnabled()
-	{
-		return $this->iamEnabled;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setIamEnabled($iamEnabled)
+  {
+    $this->iamEnabled = $iamEnabled;
+  }
+  public function getIamEnabled()
+  {
+    return $this->iamEnabled;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

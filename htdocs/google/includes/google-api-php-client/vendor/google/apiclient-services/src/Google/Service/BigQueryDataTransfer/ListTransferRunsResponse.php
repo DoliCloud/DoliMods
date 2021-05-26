@@ -17,31 +17,31 @@
 
 class Google_Service_BigQueryDataTransfer_ListTransferRunsResponse extends Google_Collection
 {
-	protected $collection_key = 'transferRuns';
-	public $nextPageToken;
-	protected $transferRunsType = 'Google_Service_BigQueryDataTransfer_TransferRun';
-	protected $transferRunsDataType = 'array';
+  protected $collection_key = 'transferRuns';
+  public $nextPageToken;
+  protected $transferRunsType = 'Google_Service_BigQueryDataTransfer_TransferRun';
+  protected $transferRunsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_BigQueryDataTransfer_TransferRun
-	 */
-	public function setTransferRuns($transferRuns)
-	{
-		$this->transferRuns = $transferRuns;
-	}
-	/**
-	 * @return Google_Service_BigQueryDataTransfer_TransferRun
-	 */
-	public function getTransferRuns()
-	{
-		return $this->transferRuns;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_BigQueryDataTransfer_TransferRun[]
+   */
+  public function setTransferRuns($transferRuns)
+  {
+    $this->transferRuns = $transferRuns;
+  }
+  /**
+   * @return Google_Service_BigQueryDataTransfer_TransferRun[]
+   */
+  public function getTransferRuns()
+  {
+    return $this->transferRuns;
+  }
 }

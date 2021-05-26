@@ -17,40 +17,40 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleFilter extends Google_Collection
 {
-	protected $collection_key = 'includedTypes';
-	public $includedTypes;
-	public $maxLocationCount;
-	protected $spacingType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions';
-	protected $spacingDataType = '';
+  protected $collection_key = 'includedTypes';
+  public $includedTypes;
+  public $maxLocationCount;
+  protected $spacingType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions';
+  protected $spacingDataType = '';
 
-	public function setIncludedTypes($includedTypes)
-	{
-		$this->includedTypes = $includedTypes;
-	}
-	public function getIncludedTypes()
-	{
-		return $this->includedTypes;
-	}
-	public function setMaxLocationCount($maxLocationCount)
-	{
-		$this->maxLocationCount = $maxLocationCount;
-	}
-	public function getMaxLocationCount()
-	{
-		return $this->maxLocationCount;
-	}
-	/**
-	 * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions
-	 */
-	public function setSpacing(Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions $spacing)
-	{
-		$this->spacing = $spacing;
-	}
-	/**
-	 * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions
-	 */
-	public function getSpacing()
-	{
-		return $this->spacing;
-	}
+  public function setIncludedTypes($includedTypes)
+  {
+    $this->includedTypes = $includedTypes;
+  }
+  public function getIncludedTypes()
+  {
+    return $this->includedTypes;
+  }
+  public function setMaxLocationCount($maxLocationCount)
+  {
+    $this->maxLocationCount = $maxLocationCount;
+  }
+  public function getMaxLocationCount()
+  {
+    return $this->maxLocationCount;
+  }
+  /**
+   * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions
+   */
+  public function setSpacing(Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions $spacing)
+  {
+    $this->spacing = $spacing;
+  }
+  /**
+   * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SampleSpacingOptions
+   */
+  public function getSpacing()
+  {
+    return $this->spacing;
+  }
 }

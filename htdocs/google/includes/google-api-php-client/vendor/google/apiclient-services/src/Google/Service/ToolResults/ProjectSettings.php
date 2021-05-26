@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_ProjectSettings extends Google_Model
 {
-	public $defaultBucket;
-	public $name;
+  public $defaultBucket;
+  public $name;
 
-	public function setDefaultBucket($defaultBucket)
-	{
-		$this->defaultBucket = $defaultBucket;
-	}
-	public function getDefaultBucket()
-	{
-		return $this->defaultBucket;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setDefaultBucket($defaultBucket)
+  {
+    $this->defaultBucket = $defaultBucket;
+  }
+  public function getDefaultBucket()
+  {
+    return $this->defaultBucket;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

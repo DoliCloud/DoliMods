@@ -17,50 +17,50 @@
 
 class Google_Service_Docs_CropProperties extends Google_Model
 {
-	public $angle;
-	public $offsetBottom;
-	public $offsetLeft;
-	public $offsetRight;
-	public $offsetTop;
+  public $angle;
+  public $offsetBottom;
+  public $offsetLeft;
+  public $offsetRight;
+  public $offsetTop;
 
-	public function setAngle($angle)
-	{
-		$this->angle = $angle;
-	}
-	public function getAngle()
-	{
-		return $this->angle;
-	}
-	public function setOffsetBottom($offsetBottom)
-	{
-		$this->offsetBottom = $offsetBottom;
-	}
-	public function getOffsetBottom()
-	{
-		return $this->offsetBottom;
-	}
-	public function setOffsetLeft($offsetLeft)
-	{
-		$this->offsetLeft = $offsetLeft;
-	}
-	public function getOffsetLeft()
-	{
-		return $this->offsetLeft;
-	}
-	public function setOffsetRight($offsetRight)
-	{
-		$this->offsetRight = $offsetRight;
-	}
-	public function getOffsetRight()
-	{
-		return $this->offsetRight;
-	}
-	public function setOffsetTop($offsetTop)
-	{
-		$this->offsetTop = $offsetTop;
-	}
-	public function getOffsetTop()
-	{
-		return $this->offsetTop;
-	}
+  public function setAngle($angle)
+  {
+    $this->angle = $angle;
+  }
+  public function getAngle()
+  {
+    return $this->angle;
+  }
+  public function setOffsetBottom($offsetBottom)
+  {
+    $this->offsetBottom = $offsetBottom;
+  }
+  public function getOffsetBottom()
+  {
+    return $this->offsetBottom;
+  }
+  public function setOffsetLeft($offsetLeft)
+  {
+    $this->offsetLeft = $offsetLeft;
+  }
+  public function getOffsetLeft()
+  {
+    return $this->offsetLeft;
+  }
+  public function setOffsetRight($offsetRight)
+  {
+    $this->offsetRight = $offsetRight;
+  }
+  public function getOffsetRight()
+  {
+    return $this->offsetRight;
+  }
+  public function setOffsetTop($offsetTop)
+  {
+    $this->offsetTop = $offsetTop;
+  }
+  public function getOffsetTop()
+  {
+    return $this->offsetTop;
+  }
 }

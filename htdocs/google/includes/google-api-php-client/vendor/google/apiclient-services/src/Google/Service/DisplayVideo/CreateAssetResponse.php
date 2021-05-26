@@ -17,21 +17,21 @@
 
 class Google_Service_DisplayVideo_CreateAssetResponse extends Google_Model
 {
-	protected $assetType = 'Google_Service_DisplayVideo_Asset';
-	protected $assetDataType = '';
+  protected $assetType = 'Google_Service_DisplayVideo_Asset';
+  protected $assetDataType = '';
 
-	/**
-	 * @param Google_Service_DisplayVideo_Asset
-	 */
-	public function setAsset(Google_Service_DisplayVideo_Asset $asset)
-	{
-		$this->asset = $asset;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_Asset
-	 */
-	public function getAsset()
-	{
-		return $this->asset;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_Asset
+   */
+  public function setAsset(Google_Service_DisplayVideo_Asset $asset)
+  {
+    $this->asset = $asset;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_Asset
+   */
+  public function getAsset()
+  {
+    return $this->asset;
+  }
 }

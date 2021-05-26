@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_InterconnectAttachmentPrivateInfo extends Google_Model
 {
-	public $tag8021q;
+  public $tag8021q;
 
-	public function setTag8021q($tag8021q)
-	{
-		$this->tag8021q = $tag8021q;
-	}
-	public function getTag8021q()
-	{
-		return $this->tag8021q;
-	}
+  public function setTag8021q($tag8021q)
+  {
+    $this->tag8021q = $tag8021q;
+  }
+  public function getTag8021q()
+  {
+    return $this->tag8021q;
+  }
 }

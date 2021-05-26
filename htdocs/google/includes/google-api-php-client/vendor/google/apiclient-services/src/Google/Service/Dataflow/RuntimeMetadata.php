@@ -17,38 +17,38 @@
 
 class Google_Service_Dataflow_RuntimeMetadata extends Google_Collection
 {
-	protected $collection_key = 'parameters';
-	protected $parametersType = 'Google_Service_Dataflow_ParameterMetadata';
-	protected $parametersDataType = 'array';
-	protected $sdkInfoType = 'Google_Service_Dataflow_SDKInfo';
-	protected $sdkInfoDataType = '';
+  protected $collection_key = 'parameters';
+  protected $parametersType = 'Google_Service_Dataflow_ParameterMetadata';
+  protected $parametersDataType = 'array';
+  protected $sdkInfoType = 'Google_Service_Dataflow_SDKInfo';
+  protected $sdkInfoDataType = '';
 
-	/**
-	 * @param Google_Service_Dataflow_ParameterMetadata
-	 */
-	public function setParameters($parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	/**
-	 * @return Google_Service_Dataflow_ParameterMetadata
-	 */
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
-	/**
-	 * @param Google_Service_Dataflow_SDKInfo
-	 */
-	public function setSdkInfo(Google_Service_Dataflow_SDKInfo $sdkInfo)
-	{
-		$this->sdkInfo = $sdkInfo;
-	}
-	/**
-	 * @return Google_Service_Dataflow_SDKInfo
-	 */
-	public function getSdkInfo()
-	{
-		return $this->sdkInfo;
-	}
+  /**
+   * @param Google_Service_Dataflow_ParameterMetadata[]
+   */
+  public function setParameters($parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  /**
+   * @return Google_Service_Dataflow_ParameterMetadata[]
+   */
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
+  /**
+   * @param Google_Service_Dataflow_SDKInfo
+   */
+  public function setSdkInfo(Google_Service_Dataflow_SDKInfo $sdkInfo)
+  {
+    $this->sdkInfo = $sdkInfo;
+  }
+  /**
+   * @return Google_Service_Dataflow_SDKInfo
+   */
+  public function getSdkInfo()
+  {
+    return $this->sdkInfo;
+  }
 }

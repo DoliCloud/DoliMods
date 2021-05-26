@@ -17,81 +17,81 @@
 
 class Google_Service_SemanticTile_Feature extends Google_Collection
 {
-	protected $collection_key = 'relations';
-	public $displayName;
-	protected $geometryType = 'Google_Service_SemanticTile_Geometry';
-	protected $geometryDataType = '';
-	public $placeId;
-	protected $relationsType = 'Google_Service_SemanticTile_Relation';
-	protected $relationsDataType = 'array';
-	protected $segmentInfoType = 'Google_Service_SemanticTile_SegmentInfo';
-	protected $segmentInfoDataType = '';
-	public $type;
+  protected $collection_key = 'relations';
+  public $displayName;
+  protected $geometryType = 'Google_Service_SemanticTile_Geometry';
+  protected $geometryDataType = '';
+  public $placeId;
+  protected $relationsType = 'Google_Service_SemanticTile_Relation';
+  protected $relationsDataType = 'array';
+  protected $segmentInfoType = 'Google_Service_SemanticTile_SegmentInfo';
+  protected $segmentInfoDataType = '';
+  public $type;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	/**
-	 * @param Google_Service_SemanticTile_Geometry
-	 */
-	public function setGeometry(Google_Service_SemanticTile_Geometry $geometry)
-	{
-		$this->geometry = $geometry;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_Geometry
-	 */
-	public function getGeometry()
-	{
-		return $this->geometry;
-	}
-	public function setPlaceId($placeId)
-	{
-		$this->placeId = $placeId;
-	}
-	public function getPlaceId()
-	{
-		return $this->placeId;
-	}
-	/**
-	 * @param Google_Service_SemanticTile_Relation
-	 */
-	public function setRelations($relations)
-	{
-		$this->relations = $relations;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_Relation
-	 */
-	public function getRelations()
-	{
-		return $this->relations;
-	}
-	/**
-	 * @param Google_Service_SemanticTile_SegmentInfo
-	 */
-	public function setSegmentInfo(Google_Service_SemanticTile_SegmentInfo $segmentInfo)
-	{
-		$this->segmentInfo = $segmentInfo;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_SegmentInfo
-	 */
-	public function getSegmentInfo()
-	{
-		return $this->segmentInfo;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  /**
+   * @param Google_Service_SemanticTile_Geometry
+   */
+  public function setGeometry(Google_Service_SemanticTile_Geometry $geometry)
+  {
+    $this->geometry = $geometry;
+  }
+  /**
+   * @return Google_Service_SemanticTile_Geometry
+   */
+  public function getGeometry()
+  {
+    return $this->geometry;
+  }
+  public function setPlaceId($placeId)
+  {
+    $this->placeId = $placeId;
+  }
+  public function getPlaceId()
+  {
+    return $this->placeId;
+  }
+  /**
+   * @param Google_Service_SemanticTile_Relation[]
+   */
+  public function setRelations($relations)
+  {
+    $this->relations = $relations;
+  }
+  /**
+   * @return Google_Service_SemanticTile_Relation[]
+   */
+  public function getRelations()
+  {
+    return $this->relations;
+  }
+  /**
+   * @param Google_Service_SemanticTile_SegmentInfo
+   */
+  public function setSegmentInfo(Google_Service_SemanticTile_SegmentInfo $segmentInfo)
+  {
+    $this->segmentInfo = $segmentInfo;
+  }
+  /**
+   * @return Google_Service_SemanticTile_SegmentInfo
+   */
+  public function getSegmentInfo()
+  {
+    return $this->segmentInfo;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

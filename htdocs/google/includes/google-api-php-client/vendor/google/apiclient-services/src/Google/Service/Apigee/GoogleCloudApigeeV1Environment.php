@@ -17,66 +17,66 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Environment extends Google_Model
 {
-	public $createdAt;
-	public $description;
-	public $displayName;
-	public $lastModifiedAt;
-	public $name;
-	protected $propertiesType = 'Google_Service_Apigee_GoogleCloudApigeeV1Properties';
-	protected $propertiesDataType = '';
+  public $createdAt;
+  public $description;
+  public $displayName;
+  public $lastModifiedAt;
+  public $name;
+  protected $propertiesType = 'Google_Service_Apigee_GoogleCloudApigeeV1Properties';
+  protected $propertiesDataType = '';
 
-	public function setCreatedAt($createdAt)
-	{
-		$this->createdAt = $createdAt;
-	}
-	public function getCreatedAt()
-	{
-		return $this->createdAt;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setLastModifiedAt($lastModifiedAt)
-	{
-		$this->lastModifiedAt = $lastModifiedAt;
-	}
-	public function getLastModifiedAt()
-	{
-		return $this->lastModifiedAt;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Properties
-	 */
-	public function setProperties(Google_Service_Apigee_GoogleCloudApigeeV1Properties $properties)
-	{
-		$this->properties = $properties;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Properties
-	 */
-	public function getProperties()
-	{
-		return $this->properties;
-	}
+  public function setCreatedAt($createdAt)
+  {
+    $this->createdAt = $createdAt;
+  }
+  public function getCreatedAt()
+  {
+    return $this->createdAt;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setLastModifiedAt($lastModifiedAt)
+  {
+    $this->lastModifiedAt = $lastModifiedAt;
+  }
+  public function getLastModifiedAt()
+  {
+    return $this->lastModifiedAt;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1Properties
+   */
+  public function setProperties(Google_Service_Apigee_GoogleCloudApigeeV1Properties $properties)
+  {
+    $this->properties = $properties;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1Properties
+   */
+  public function getProperties()
+  {
+    return $this->properties;
+  }
 }

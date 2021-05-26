@@ -17,63 +17,63 @@
 
 class Google_Service_PolyService_Format extends Google_Collection
 {
-	protected $collection_key = 'resources';
-	protected $formatComplexityType = 'Google_Service_PolyService_FormatComplexity';
-	protected $formatComplexityDataType = '';
-	public $formatType;
-	protected $resourcesType = 'Google_Service_PolyService_PolyFile';
-	protected $resourcesDataType = 'array';
-	protected $rootType = 'Google_Service_PolyService_PolyFile';
-	protected $rootDataType = '';
+  protected $collection_key = 'resources';
+  protected $formatComplexityType = 'Google_Service_PolyService_FormatComplexity';
+  protected $formatComplexityDataType = '';
+  public $formatType;
+  protected $resourcesType = 'Google_Service_PolyService_PolyFile';
+  protected $resourcesDataType = 'array';
+  protected $rootType = 'Google_Service_PolyService_PolyFile';
+  protected $rootDataType = '';
 
-	/**
-	 * @param Google_Service_PolyService_FormatComplexity
-	 */
-	public function setFormatComplexity(Google_Service_PolyService_FormatComplexity $formatComplexity)
-	{
-		$this->formatComplexity = $formatComplexity;
-	}
-	/**
-	 * @return Google_Service_PolyService_FormatComplexity
-	 */
-	public function getFormatComplexity()
-	{
-		return $this->formatComplexity;
-	}
-	public function setFormatType($formatType)
-	{
-		$this->formatType = $formatType;
-	}
-	public function getFormatType()
-	{
-		return $this->formatType;
-	}
-	/**
-	 * @param Google_Service_PolyService_PolyFile
-	 */
-	public function setResources($resources)
-	{
-		$this->resources = $resources;
-	}
-	/**
-	 * @return Google_Service_PolyService_PolyFile
-	 */
-	public function getResources()
-	{
-		return $this->resources;
-	}
-	/**
-	 * @param Google_Service_PolyService_PolyFile
-	 */
-	public function setRoot(Google_Service_PolyService_PolyFile $root)
-	{
-		$this->root = $root;
-	}
-	/**
-	 * @return Google_Service_PolyService_PolyFile
-	 */
-	public function getRoot()
-	{
-		return $this->root;
-	}
+  /**
+   * @param Google_Service_PolyService_FormatComplexity
+   */
+  public function setFormatComplexity(Google_Service_PolyService_FormatComplexity $formatComplexity)
+  {
+    $this->formatComplexity = $formatComplexity;
+  }
+  /**
+   * @return Google_Service_PolyService_FormatComplexity
+   */
+  public function getFormatComplexity()
+  {
+    return $this->formatComplexity;
+  }
+  public function setFormatType($formatType)
+  {
+    $this->formatType = $formatType;
+  }
+  public function getFormatType()
+  {
+    return $this->formatType;
+  }
+  /**
+   * @param Google_Service_PolyService_PolyFile[]
+   */
+  public function setResources($resources)
+  {
+    $this->resources = $resources;
+  }
+  /**
+   * @return Google_Service_PolyService_PolyFile[]
+   */
+  public function getResources()
+  {
+    return $this->resources;
+  }
+  /**
+   * @param Google_Service_PolyService_PolyFile
+   */
+  public function setRoot(Google_Service_PolyService_PolyFile $root)
+  {
+    $this->root = $root;
+  }
+  /**
+   * @return Google_Service_PolyService_PolyFile
+   */
+  public function getRoot()
+  {
+    return $this->root;
+  }
 }

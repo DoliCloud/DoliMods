@@ -17,77 +17,77 @@
 
 class Google_Service_Iam_Permission extends Google_Model
 {
-	public $apiDisabled;
-	public $customRolesSupportLevel;
-	public $description;
-	public $name;
-	public $onlyInPredefinedRoles;
-	public $primaryPermission;
-	public $stage;
-	public $title;
+  public $apiDisabled;
+  public $customRolesSupportLevel;
+  public $description;
+  public $name;
+  public $onlyInPredefinedRoles;
+  public $primaryPermission;
+  public $stage;
+  public $title;
 
-	public function setApiDisabled($apiDisabled)
-	{
-		$this->apiDisabled = $apiDisabled;
-	}
-	public function getApiDisabled()
-	{
-		return $this->apiDisabled;
-	}
-	public function setCustomRolesSupportLevel($customRolesSupportLevel)
-	{
-		$this->customRolesSupportLevel = $customRolesSupportLevel;
-	}
-	public function getCustomRolesSupportLevel()
-	{
-		return $this->customRolesSupportLevel;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOnlyInPredefinedRoles($onlyInPredefinedRoles)
-	{
-		$this->onlyInPredefinedRoles = $onlyInPredefinedRoles;
-	}
-	public function getOnlyInPredefinedRoles()
-	{
-		return $this->onlyInPredefinedRoles;
-	}
-	public function setPrimaryPermission($primaryPermission)
-	{
-		$this->primaryPermission = $primaryPermission;
-	}
-	public function getPrimaryPermission()
-	{
-		return $this->primaryPermission;
-	}
-	public function setStage($stage)
-	{
-		$this->stage = $stage;
-	}
-	public function getStage()
-	{
-		return $this->stage;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setApiDisabled($apiDisabled)
+  {
+    $this->apiDisabled = $apiDisabled;
+  }
+  public function getApiDisabled()
+  {
+    return $this->apiDisabled;
+  }
+  public function setCustomRolesSupportLevel($customRolesSupportLevel)
+  {
+    $this->customRolesSupportLevel = $customRolesSupportLevel;
+  }
+  public function getCustomRolesSupportLevel()
+  {
+    return $this->customRolesSupportLevel;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOnlyInPredefinedRoles($onlyInPredefinedRoles)
+  {
+    $this->onlyInPredefinedRoles = $onlyInPredefinedRoles;
+  }
+  public function getOnlyInPredefinedRoles()
+  {
+    return $this->onlyInPredefinedRoles;
+  }
+  public function setPrimaryPermission($primaryPermission)
+  {
+    $this->primaryPermission = $primaryPermission;
+  }
+  public function getPrimaryPermission()
+  {
+    return $this->primaryPermission;
+  }
+  public function setStage($stage)
+  {
+    $this->stage = $stage;
+  }
+  public function getStage()
+  {
+    return $this->stage;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

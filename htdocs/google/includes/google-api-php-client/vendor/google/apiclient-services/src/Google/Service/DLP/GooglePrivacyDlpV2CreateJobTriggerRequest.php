@@ -17,39 +17,39 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CreateJobTriggerRequest extends Google_Model
 {
-	protected $jobTriggerType = 'Google_Service_DLP_GooglePrivacyDlpV2JobTrigger';
-	protected $jobTriggerDataType = '';
-	public $locationId;
-	public $triggerId;
+  protected $jobTriggerType = 'Google_Service_DLP_GooglePrivacyDlpV2JobTrigger';
+  protected $jobTriggerDataType = '';
+  public $locationId;
+  public $triggerId;
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
-	 */
-	public function setJobTrigger(Google_Service_DLP_GooglePrivacyDlpV2JobTrigger $jobTrigger)
-	{
-		$this->jobTrigger = $jobTrigger;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
-	 */
-	public function getJobTrigger()
-	{
-		return $this->jobTrigger;
-	}
-	public function setLocationId($locationId)
-	{
-		$this->locationId = $locationId;
-	}
-	public function getLocationId()
-	{
-		return $this->locationId;
-	}
-	public function setTriggerId($triggerId)
-	{
-		$this->triggerId = $triggerId;
-	}
-	public function getTriggerId()
-	{
-		return $this->triggerId;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
+   */
+  public function setJobTrigger(Google_Service_DLP_GooglePrivacyDlpV2JobTrigger $jobTrigger)
+  {
+    $this->jobTrigger = $jobTrigger;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2JobTrigger
+   */
+  public function getJobTrigger()
+  {
+    return $this->jobTrigger;
+  }
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
+  }
+  public function setTriggerId($triggerId)
+  {
+    $this->triggerId = $triggerId;
+  }
+  public function getTriggerId()
+  {
+    return $this->triggerId;
+  }
 }

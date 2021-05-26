@@ -17,41 +17,41 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Reference extends Google_Model
 {
-	public $description;
-	public $name;
-	public $refers;
-	public $resourceType;
+  public $description;
+  public $name;
+  public $refers;
+  public $resourceType;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRefers($refers)
-	{
-		$this->refers = $refers;
-	}
-	public function getRefers()
-	{
-		return $this->refers;
-	}
-	public function setResourceType($resourceType)
-	{
-		$this->resourceType = $resourceType;
-	}
-	public function getResourceType()
-	{
-		return $this->resourceType;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRefers($refers)
+  {
+    $this->refers = $refers;
+  }
+  public function getRefers()
+  {
+    return $this->refers;
+  }
+  public function setResourceType($resourceType)
+  {
+    $this->resourceType = $resourceType;
+  }
+  public function getResourceType()
+  {
+    return $this->resourceType;
+  }
 }

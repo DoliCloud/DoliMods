@@ -17,23 +17,23 @@
 
 class Google_Service_WebSecurityScanner_ViolatingResource extends Google_Model
 {
-	public $contentType;
-	public $resourceUrl;
+  public $contentType;
+  public $resourceUrl;
 
-	public function setContentType($contentType)
-	{
-		$this->contentType = $contentType;
-	}
-	public function getContentType()
-	{
-		return $this->contentType;
-	}
-	public function setResourceUrl($resourceUrl)
-	{
-		$this->resourceUrl = $resourceUrl;
-	}
-	public function getResourceUrl()
-	{
-		return $this->resourceUrl;
-	}
+  public function setContentType($contentType)
+  {
+    $this->contentType = $contentType;
+  }
+  public function getContentType()
+  {
+    return $this->contentType;
+  }
+  public function setResourceUrl($resourceUrl)
+  {
+    $this->resourceUrl = $resourceUrl;
+  }
+  public function getResourceUrl()
+  {
+    return $this->resourceUrl;
+  }
 }

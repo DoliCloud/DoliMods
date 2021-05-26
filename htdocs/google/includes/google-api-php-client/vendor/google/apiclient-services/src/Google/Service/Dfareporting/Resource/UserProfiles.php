@@ -25,29 +25,29 @@
  */
 class Google_Service_Dfareporting_Resource_UserProfiles extends Google_Service_Resource
 {
-	/**
-	 * Gets one user profile by ID. (userProfiles.get)
-	 *
-	 * @param string $profileId The user profile ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_UserProfile
-	 */
-	public function get($profileId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Dfareporting_UserProfile");
-	}
-	/**
-	 * Retrieves list of user profiles for a user. (userProfiles.listUserProfiles)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_UserProfileList
-	 */
-	public function listUserProfiles($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Dfareporting_UserProfileList");
-	}
+  /**
+   * Gets one user profile by ID. (userProfiles.get)
+   *
+   * @param string $profileId The user profile ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_UserProfile
+   */
+  public function get($profileId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Dfareporting_UserProfile");
+  }
+  /**
+   * Retrieves list of user profiles for a user. (userProfiles.listUserProfiles)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_UserProfileList
+   */
+  public function listUserProfiles($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Dfareporting_UserProfileList");
+  }
 }

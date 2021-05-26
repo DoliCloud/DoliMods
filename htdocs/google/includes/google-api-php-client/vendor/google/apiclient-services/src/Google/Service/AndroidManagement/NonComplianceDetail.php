@@ -17,59 +17,59 @@
 
 class Google_Service_AndroidManagement_NonComplianceDetail extends Google_Model
 {
-	public $currentValue;
-	public $fieldPath;
-	public $installationFailureReason;
-	public $nonComplianceReason;
-	public $packageName;
-	public $settingName;
+  public $currentValue;
+  public $fieldPath;
+  public $installationFailureReason;
+  public $nonComplianceReason;
+  public $packageName;
+  public $settingName;
 
-	public function setCurrentValue($currentValue)
-	{
-		$this->currentValue = $currentValue;
-	}
-	public function getCurrentValue()
-	{
-		return $this->currentValue;
-	}
-	public function setFieldPath($fieldPath)
-	{
-		$this->fieldPath = $fieldPath;
-	}
-	public function getFieldPath()
-	{
-		return $this->fieldPath;
-	}
-	public function setInstallationFailureReason($installationFailureReason)
-	{
-		$this->installationFailureReason = $installationFailureReason;
-	}
-	public function getInstallationFailureReason()
-	{
-		return $this->installationFailureReason;
-	}
-	public function setNonComplianceReason($nonComplianceReason)
-	{
-		$this->nonComplianceReason = $nonComplianceReason;
-	}
-	public function getNonComplianceReason()
-	{
-		return $this->nonComplianceReason;
-	}
-	public function setPackageName($packageName)
-	{
-		$this->packageName = $packageName;
-	}
-	public function getPackageName()
-	{
-		return $this->packageName;
-	}
-	public function setSettingName($settingName)
-	{
-		$this->settingName = $settingName;
-	}
-	public function getSettingName()
-	{
-		return $this->settingName;
-	}
+  public function setCurrentValue($currentValue)
+  {
+    $this->currentValue = $currentValue;
+  }
+  public function getCurrentValue()
+  {
+    return $this->currentValue;
+  }
+  public function setFieldPath($fieldPath)
+  {
+    $this->fieldPath = $fieldPath;
+  }
+  public function getFieldPath()
+  {
+    return $this->fieldPath;
+  }
+  public function setInstallationFailureReason($installationFailureReason)
+  {
+    $this->installationFailureReason = $installationFailureReason;
+  }
+  public function getInstallationFailureReason()
+  {
+    return $this->installationFailureReason;
+  }
+  public function setNonComplianceReason($nonComplianceReason)
+  {
+    $this->nonComplianceReason = $nonComplianceReason;
+  }
+  public function getNonComplianceReason()
+  {
+    return $this->nonComplianceReason;
+  }
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
+  public function setSettingName($settingName)
+  {
+    $this->settingName = $settingName;
+  }
+  public function getSettingName()
+  {
+    return $this->settingName;
+  }
 }

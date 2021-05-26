@@ -17,39 +17,39 @@
 
 class Google_Service_Sheets_SourceAndDestination extends Google_Model
 {
-	public $dimension;
-	public $fillLength;
-	protected $sourceType = 'Google_Service_Sheets_GridRange';
-	protected $sourceDataType = '';
+  public $dimension;
+  public $fillLength;
+  protected $sourceType = 'Google_Service_Sheets_GridRange';
+  protected $sourceDataType = '';
 
-	public function setDimension($dimension)
-	{
-		$this->dimension = $dimension;
-	}
-	public function getDimension()
-	{
-		return $this->dimension;
-	}
-	public function setFillLength($fillLength)
-	{
-		$this->fillLength = $fillLength;
-	}
-	public function getFillLength()
-	{
-		return $this->fillLength;
-	}
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setSource(Google_Service_Sheets_GridRange $source)
-	{
-		$this->source = $source;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getSource()
-	{
-		return $this->source;
-	}
+  public function setDimension($dimension)
+  {
+    $this->dimension = $dimension;
+  }
+  public function getDimension()
+  {
+    return $this->dimension;
+  }
+  public function setFillLength($fillLength)
+  {
+    $this->fillLength = $fillLength;
+  }
+  public function getFillLength()
+  {
+    return $this->fillLength;
+  }
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setSource(Google_Service_Sheets_GridRange $source)
+  {
+    $this->source = $source;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getSource()
+  {
+    return $this->source;
+  }
 }

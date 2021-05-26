@@ -17,42 +17,42 @@
 
 class Google_Service_CloudFilestore_NetworkConfig extends Google_Collection
 {
-	protected $collection_key = 'modes';
-	public $ipAddresses;
-	public $modes;
-	public $network;
-	public $reservedIpRange;
+  protected $collection_key = 'modes';
+  public $ipAddresses;
+  public $modes;
+  public $network;
+  public $reservedIpRange;
 
-	public function setIpAddresses($ipAddresses)
-	{
-		$this->ipAddresses = $ipAddresses;
-	}
-	public function getIpAddresses()
-	{
-		return $this->ipAddresses;
-	}
-	public function setModes($modes)
-	{
-		$this->modes = $modes;
-	}
-	public function getModes()
-	{
-		return $this->modes;
-	}
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setReservedIpRange($reservedIpRange)
-	{
-		$this->reservedIpRange = $reservedIpRange;
-	}
-	public function getReservedIpRange()
-	{
-		return $this->reservedIpRange;
-	}
+  public function setIpAddresses($ipAddresses)
+  {
+    $this->ipAddresses = $ipAddresses;
+  }
+  public function getIpAddresses()
+  {
+    return $this->ipAddresses;
+  }
+  public function setModes($modes)
+  {
+    $this->modes = $modes;
+  }
+  public function getModes()
+  {
+    return $this->modes;
+  }
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setReservedIpRange($reservedIpRange)
+  {
+    $this->reservedIpRange = $reservedIpRange;
+  }
+  public function getReservedIpRange()
+  {
+    return $this->reservedIpRange;
+  }
 }

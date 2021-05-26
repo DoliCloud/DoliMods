@@ -25,22 +25,22 @@
  */
 class Google_Service_Proximitybeacon_Resource_V1beta1 extends Google_Service_Resource
 {
-	/**
-	 * Gets the Proximity Beacon API's current public key and associated parameters
-	 * used to initiate the Diffie-Hellman key exchange required to register a
-	 * beacon that broadcasts the Eddystone-EID format. This key changes
-	 * periodically; clients may cache it and re-use the same public key to
-	 * provision and register multiple beacons. However, clients should be prepared
-	 * to refresh this key when they encounter an error registering an Eddystone-EID
-	 * beacon. (v1beta1.getEidparams)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Proximitybeacon_EphemeralIdRegistrationParams
-	 */
-	public function getEidparams($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('getEidparams', array($params), "Google_Service_Proximitybeacon_EphemeralIdRegistrationParams");
-	}
+  /**
+   * Gets the Proximity Beacon API's current public key and associated parameters
+   * used to initiate the Diffie-Hellman key exchange required to register a
+   * beacon that broadcasts the Eddystone-EID format. This key changes
+   * periodically; clients may cache it and re-use the same public key to
+   * provision and register multiple beacons. However, clients should be prepared
+   * to refresh this key when they encounter an error registering an Eddystone-EID
+   * beacon. (v1beta1.getEidparams)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Proximitybeacon_EphemeralIdRegistrationParams
+   */
+  public function getEidparams($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getEidparams', array($params), "Google_Service_Proximitybeacon_EphemeralIdRegistrationParams");
+  }
 }

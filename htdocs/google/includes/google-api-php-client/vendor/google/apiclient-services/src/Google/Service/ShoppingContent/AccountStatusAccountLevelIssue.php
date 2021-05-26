@@ -17,68 +17,68 @@
 
 class Google_Service_ShoppingContent_AccountStatusAccountLevelIssue extends Google_Model
 {
-	public $country;
-	public $destination;
-	public $detail;
-	public $documentation;
-	public $id;
-	public $severity;
-	public $title;
+  public $country;
+  public $destination;
+  public $detail;
+  public $documentation;
+  public $id;
+  public $severity;
+  public $title;
 
-	public function setCountry($country)
-	{
-		$this->country = $country;
-	}
-	public function getCountry()
-	{
-		return $this->country;
-	}
-	public function setDestination($destination)
-	{
-		$this->destination = $destination;
-	}
-	public function getDestination()
-	{
-		return $this->destination;
-	}
-	public function setDetail($detail)
-	{
-		$this->detail = $detail;
-	}
-	public function getDetail()
-	{
-		return $this->detail;
-	}
-	public function setDocumentation($documentation)
-	{
-		$this->documentation = $documentation;
-	}
-	public function getDocumentation()
-	{
-		return $this->documentation;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setSeverity($severity)
-	{
-		$this->severity = $severity;
-	}
-	public function getSeverity()
-	{
-		return $this->severity;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setCountry($country)
+  {
+    $this->country = $country;
+  }
+  public function getCountry()
+  {
+    return $this->country;
+  }
+  public function setDestination($destination)
+  {
+    $this->destination = $destination;
+  }
+  public function getDestination()
+  {
+    return $this->destination;
+  }
+  public function setDetail($detail)
+  {
+    $this->detail = $detail;
+  }
+  public function getDetail()
+  {
+    return $this->detail;
+  }
+  public function setDocumentation($documentation)
+  {
+    $this->documentation = $documentation;
+  }
+  public function getDocumentation()
+  {
+    return $this->documentation;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setSeverity($severity)
+  {
+    $this->severity = $severity;
+  }
+  public function getSeverity()
+  {
+    return $this->severity;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

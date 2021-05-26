@@ -17,31 +17,31 @@
 
 class Google_Service_HangoutsChat_Section extends Google_Collection
 {
-	protected $collection_key = 'widgets';
-	public $header;
-	protected $widgetsType = 'Google_Service_HangoutsChat_WidgetMarkup';
-	protected $widgetsDataType = 'array';
+  protected $collection_key = 'widgets';
+  public $header;
+  protected $widgetsType = 'Google_Service_HangoutsChat_WidgetMarkup';
+  protected $widgetsDataType = 'array';
 
-	public function setHeader($header)
-	{
-		$this->header = $header;
-	}
-	public function getHeader()
-	{
-		return $this->header;
-	}
-	/**
-	 * @param Google_Service_HangoutsChat_WidgetMarkup
-	 */
-	public function setWidgets($widgets)
-	{
-		$this->widgets = $widgets;
-	}
-	/**
-	 * @return Google_Service_HangoutsChat_WidgetMarkup
-	 */
-	public function getWidgets()
-	{
-		return $this->widgets;
-	}
+  public function setHeader($header)
+  {
+    $this->header = $header;
+  }
+  public function getHeader()
+  {
+    return $this->header;
+  }
+  /**
+   * @param Google_Service_HangoutsChat_WidgetMarkup[]
+   */
+  public function setWidgets($widgets)
+  {
+    $this->widgets = $widgets;
+  }
+  /**
+   * @return Google_Service_HangoutsChat_WidgetMarkup[]
+   */
+  public function getWidgets()
+  {
+    return $this->widgets;
+  }
 }

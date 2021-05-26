@@ -17,23 +17,23 @@
 
 class Google_Service_Drive_StartPageToken extends Google_Model
 {
-	public $kind;
-	public $startPageToken;
+  public $kind;
+  public $startPageToken;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setStartPageToken($startPageToken)
-	{
-		$this->startPageToken = $startPageToken;
-	}
-	public function getStartPageToken()
-	{
-		return $this->startPageToken;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setStartPageToken($startPageToken)
+  {
+    $this->startPageToken = $startPageToken;
+  }
+  public function getStartPageToken()
+  {
+    return $this->startPageToken;
+  }
 }

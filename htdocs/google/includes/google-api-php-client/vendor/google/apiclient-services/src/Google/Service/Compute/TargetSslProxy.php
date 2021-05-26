@@ -17,96 +17,96 @@
 
 class Google_Service_Compute_TargetSslProxy extends Google_Collection
 {
-	protected $collection_key = 'sslCertificates';
-	public $creationTimestamp;
-	public $description;
-	public $id;
-	public $kind;
-	public $name;
-	public $proxyHeader;
-	public $selfLink;
-	public $service;
-	public $sslCertificates;
-	public $sslPolicy;
+  protected $collection_key = 'sslCertificates';
+  public $creationTimestamp;
+  public $description;
+  public $id;
+  public $kind;
+  public $name;
+  public $proxyHeader;
+  public $selfLink;
+  public $service;
+  public $sslCertificates;
+  public $sslPolicy;
 
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setProxyHeader($proxyHeader)
-	{
-		$this->proxyHeader = $proxyHeader;
-	}
-	public function getProxyHeader()
-	{
-		return $this->proxyHeader;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setService($service)
-	{
-		$this->service = $service;
-	}
-	public function getService()
-	{
-		return $this->service;
-	}
-	public function setSslCertificates($sslCertificates)
-	{
-		$this->sslCertificates = $sslCertificates;
-	}
-	public function getSslCertificates()
-	{
-		return $this->sslCertificates;
-	}
-	public function setSslPolicy($sslPolicy)
-	{
-		$this->sslPolicy = $sslPolicy;
-	}
-	public function getSslPolicy()
-	{
-		return $this->sslPolicy;
-	}
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setProxyHeader($proxyHeader)
+  {
+    $this->proxyHeader = $proxyHeader;
+  }
+  public function getProxyHeader()
+  {
+    return $this->proxyHeader;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setService($service)
+  {
+    $this->service = $service;
+  }
+  public function getService()
+  {
+    return $this->service;
+  }
+  public function setSslCertificates($sslCertificates)
+  {
+    $this->sslCertificates = $sslCertificates;
+  }
+  public function getSslCertificates()
+  {
+    return $this->sslCertificates;
+  }
+  public function setSslPolicy($sslPolicy)
+  {
+    $this->sslPolicy = $sslPolicy;
+  }
+  public function getSslPolicy()
+  {
+    return $this->sslPolicy;
+  }
 }

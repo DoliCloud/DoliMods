@@ -17,14 +17,14 @@
 
 class Google_Service_SASPortalTesting_SasPortalMoveDeviceRequest extends Google_Model
 {
-	public $destination;
+  public $destination;
 
-	public function setDestination($destination)
-	{
-		$this->destination = $destination;
-	}
-	public function getDestination()
-	{
-		return $this->destination;
-	}
+  public function setDestination($destination)
+  {
+    $this->destination = $destination;
+  }
+  public function getDestination()
+  {
+    return $this->destination;
+  }
 }

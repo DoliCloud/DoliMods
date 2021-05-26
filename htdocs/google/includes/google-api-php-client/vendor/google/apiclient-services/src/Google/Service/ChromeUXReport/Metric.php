@@ -17,38 +17,38 @@
 
 class Google_Service_ChromeUXReport_Metric extends Google_Collection
 {
-	protected $collection_key = 'histogram';
-	protected $histogramType = 'Google_Service_ChromeUXReport_Bin';
-	protected $histogramDataType = 'array';
-	protected $percentilesType = 'Google_Service_ChromeUXReport_Percentiles';
-	protected $percentilesDataType = '';
+  protected $collection_key = 'histogram';
+  protected $histogramType = 'Google_Service_ChromeUXReport_Bin';
+  protected $histogramDataType = 'array';
+  protected $percentilesType = 'Google_Service_ChromeUXReport_Percentiles';
+  protected $percentilesDataType = '';
 
-	/**
-	 * @param Google_Service_ChromeUXReport_Bin
-	 */
-	public function setHistogram($histogram)
-	{
-		$this->histogram = $histogram;
-	}
-	/**
-	 * @return Google_Service_ChromeUXReport_Bin
-	 */
-	public function getHistogram()
-	{
-		return $this->histogram;
-	}
-	/**
-	 * @param Google_Service_ChromeUXReport_Percentiles
-	 */
-	public function setPercentiles(Google_Service_ChromeUXReport_Percentiles $percentiles)
-	{
-		$this->percentiles = $percentiles;
-	}
-	/**
-	 * @return Google_Service_ChromeUXReport_Percentiles
-	 */
-	public function getPercentiles()
-	{
-		return $this->percentiles;
-	}
+  /**
+   * @param Google_Service_ChromeUXReport_Bin[]
+   */
+  public function setHistogram($histogram)
+  {
+    $this->histogram = $histogram;
+  }
+  /**
+   * @return Google_Service_ChromeUXReport_Bin[]
+   */
+  public function getHistogram()
+  {
+    return $this->histogram;
+  }
+  /**
+   * @param Google_Service_ChromeUXReport_Percentiles
+   */
+  public function setPercentiles(Google_Service_ChromeUXReport_Percentiles $percentiles)
+  {
+    $this->percentiles = $percentiles;
+  }
+  /**
+   * @return Google_Service_ChromeUXReport_Percentiles
+   */
+  public function getPercentiles()
+  {
+    return $this->percentiles;
+  }
 }

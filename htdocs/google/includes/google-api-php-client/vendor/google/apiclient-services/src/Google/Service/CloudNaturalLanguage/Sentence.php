@@ -17,37 +17,37 @@
 
 class Google_Service_CloudNaturalLanguage_Sentence extends Google_Model
 {
-	protected $sentimentType = 'Google_Service_CloudNaturalLanguage_Sentiment';
-	protected $sentimentDataType = '';
-	protected $textType = 'Google_Service_CloudNaturalLanguage_TextSpan';
-	protected $textDataType = '';
+  protected $sentimentType = 'Google_Service_CloudNaturalLanguage_Sentiment';
+  protected $sentimentDataType = '';
+  protected $textType = 'Google_Service_CloudNaturalLanguage_TextSpan';
+  protected $textDataType = '';
 
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_Sentiment
-	 */
-	public function setSentiment(Google_Service_CloudNaturalLanguage_Sentiment $sentiment)
-	{
-		$this->sentiment = $sentiment;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_Sentiment
-	 */
-	public function getSentiment()
-	{
-		return $this->sentiment;
-	}
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_TextSpan
-	 */
-	public function setText(Google_Service_CloudNaturalLanguage_TextSpan $text)
-	{
-		$this->text = $text;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_TextSpan
-	 */
-	public function getText()
-	{
-		return $this->text;
-	}
+  /**
+   * @param Google_Service_CloudNaturalLanguage_Sentiment
+   */
+  public function setSentiment(Google_Service_CloudNaturalLanguage_Sentiment $sentiment)
+  {
+    $this->sentiment = $sentiment;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_Sentiment
+   */
+  public function getSentiment()
+  {
+    return $this->sentiment;
+  }
+  /**
+   * @param Google_Service_CloudNaturalLanguage_TextSpan
+   */
+  public function setText(Google_Service_CloudNaturalLanguage_TextSpan $text)
+  {
+    $this->text = $text;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_TextSpan
+   */
+  public function getText()
+  {
+    return $this->text;
+  }
 }

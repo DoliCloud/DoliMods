@@ -17,103 +17,103 @@
 
 class Google_Service_ServiceManagement_Field extends Google_Collection
 {
-	protected $collection_key = 'options';
-	public $cardinality;
-	public $defaultValue;
-	public $jsonName;
-	public $kind;
-	public $name;
-	public $number;
-	public $oneofIndex;
-	protected $optionsType = 'Google_Service_ServiceManagement_Option';
-	protected $optionsDataType = 'array';
-	public $packed;
-	public $typeUrl;
+  protected $collection_key = 'options';
+  public $cardinality;
+  public $defaultValue;
+  public $jsonName;
+  public $kind;
+  public $name;
+  public $number;
+  public $oneofIndex;
+  protected $optionsType = 'Google_Service_ServiceManagement_Option';
+  protected $optionsDataType = 'array';
+  public $packed;
+  public $typeUrl;
 
-	public function setCardinality($cardinality)
-	{
-		$this->cardinality = $cardinality;
-	}
-	public function getCardinality()
-	{
-		return $this->cardinality;
-	}
-	public function setDefaultValue($defaultValue)
-	{
-		$this->defaultValue = $defaultValue;
-	}
-	public function getDefaultValue()
-	{
-		return $this->defaultValue;
-	}
-	public function setJsonName($jsonName)
-	{
-		$this->jsonName = $jsonName;
-	}
-	public function getJsonName()
-	{
-		return $this->jsonName;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setNumber($number)
-	{
-		$this->number = $number;
-	}
-	public function getNumber()
-	{
-		return $this->number;
-	}
-	public function setOneofIndex($oneofIndex)
-	{
-		$this->oneofIndex = $oneofIndex;
-	}
-	public function getOneofIndex()
-	{
-		return $this->oneofIndex;
-	}
-	/**
-	 * @param Google_Service_ServiceManagement_Option
-	 */
-	public function setOptions($options)
-	{
-		$this->options = $options;
-	}
-	/**
-	 * @return Google_Service_ServiceManagement_Option
-	 */
-	public function getOptions()
-	{
-		return $this->options;
-	}
-	public function setPacked($packed)
-	{
-		$this->packed = $packed;
-	}
-	public function getPacked()
-	{
-		return $this->packed;
-	}
-	public function setTypeUrl($typeUrl)
-	{
-		$this->typeUrl = $typeUrl;
-	}
-	public function getTypeUrl()
-	{
-		return $this->typeUrl;
-	}
+  public function setCardinality($cardinality)
+  {
+    $this->cardinality = $cardinality;
+  }
+  public function getCardinality()
+  {
+    return $this->cardinality;
+  }
+  public function setDefaultValue($defaultValue)
+  {
+    $this->defaultValue = $defaultValue;
+  }
+  public function getDefaultValue()
+  {
+    return $this->defaultValue;
+  }
+  public function setJsonName($jsonName)
+  {
+    $this->jsonName = $jsonName;
+  }
+  public function getJsonName()
+  {
+    return $this->jsonName;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNumber($number)
+  {
+    $this->number = $number;
+  }
+  public function getNumber()
+  {
+    return $this->number;
+  }
+  public function setOneofIndex($oneofIndex)
+  {
+    $this->oneofIndex = $oneofIndex;
+  }
+  public function getOneofIndex()
+  {
+    return $this->oneofIndex;
+  }
+  /**
+   * @param Google_Service_ServiceManagement_Option[]
+   */
+  public function setOptions($options)
+  {
+    $this->options = $options;
+  }
+  /**
+   * @return Google_Service_ServiceManagement_Option[]
+   */
+  public function getOptions()
+  {
+    return $this->options;
+  }
+  public function setPacked($packed)
+  {
+    $this->packed = $packed;
+  }
+  public function getPacked()
+  {
+    return $this->packed;
+  }
+  public function setTypeUrl($typeUrl)
+  {
+    $this->typeUrl = $typeUrl;
+  }
+  public function getTypeUrl()
+  {
+    return $this->typeUrl;
+  }
 }

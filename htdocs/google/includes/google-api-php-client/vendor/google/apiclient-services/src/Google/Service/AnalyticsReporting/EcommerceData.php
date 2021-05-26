@@ -17,56 +17,56 @@
 
 class Google_Service_AnalyticsReporting_EcommerceData extends Google_Collection
 {
-	protected $collection_key = 'products';
-	public $actionType;
-	public $ecommerceType;
-	protected $productsType = 'Google_Service_AnalyticsReporting_ProductData';
-	protected $productsDataType = 'array';
-	protected $transactionType = 'Google_Service_AnalyticsReporting_TransactionData';
-	protected $transactionDataType = '';
+  protected $collection_key = 'products';
+  public $actionType;
+  public $ecommerceType;
+  protected $productsType = 'Google_Service_AnalyticsReporting_ProductData';
+  protected $productsDataType = 'array';
+  protected $transactionType = 'Google_Service_AnalyticsReporting_TransactionData';
+  protected $transactionDataType = '';
 
-	public function setActionType($actionType)
-	{
-		$this->actionType = $actionType;
-	}
-	public function getActionType()
-	{
-		return $this->actionType;
-	}
-	public function setEcommerceType($ecommerceType)
-	{
-		$this->ecommerceType = $ecommerceType;
-	}
-	public function getEcommerceType()
-	{
-		return $this->ecommerceType;
-	}
-	/**
-	 * @param Google_Service_AnalyticsReporting_ProductData
-	 */
-	public function setProducts($products)
-	{
-		$this->products = $products;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_ProductData
-	 */
-	public function getProducts()
-	{
-		return $this->products;
-	}
-	/**
-	 * @param Google_Service_AnalyticsReporting_TransactionData
-	 */
-	public function setTransaction(Google_Service_AnalyticsReporting_TransactionData $transaction)
-	{
-		$this->transaction = $transaction;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_TransactionData
-	 */
-	public function getTransaction()
-	{
-		return $this->transaction;
-	}
+  public function setActionType($actionType)
+  {
+    $this->actionType = $actionType;
+  }
+  public function getActionType()
+  {
+    return $this->actionType;
+  }
+  public function setEcommerceType($ecommerceType)
+  {
+    $this->ecommerceType = $ecommerceType;
+  }
+  public function getEcommerceType()
+  {
+    return $this->ecommerceType;
+  }
+  /**
+   * @param Google_Service_AnalyticsReporting_ProductData[]
+   */
+  public function setProducts($products)
+  {
+    $this->products = $products;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_ProductData[]
+   */
+  public function getProducts()
+  {
+    return $this->products;
+  }
+  /**
+   * @param Google_Service_AnalyticsReporting_TransactionData
+   */
+  public function setTransaction(Google_Service_AnalyticsReporting_TransactionData $transaction)
+  {
+    $this->transaction = $transaction;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_TransactionData
+   */
+  public function getTransaction()
+  {
+    return $this->transaction;
+  }
 }

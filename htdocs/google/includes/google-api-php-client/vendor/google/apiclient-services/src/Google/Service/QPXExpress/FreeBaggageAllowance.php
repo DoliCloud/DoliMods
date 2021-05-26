@@ -17,67 +17,67 @@
 
 class Google_Service_QPXExpress_FreeBaggageAllowance extends Google_Collection
 {
-	protected $collection_key = 'bagDescriptor';
-	protected $bagDescriptorType = 'Google_Service_QPXExpress_BagDescriptor';
-	protected $bagDescriptorDataType = 'array';
-	public $kilos;
-	public $kilosPerPiece;
-	public $kind;
-	public $pieces;
-	public $pounds;
+  protected $collection_key = 'bagDescriptor';
+  protected $bagDescriptorType = 'Google_Service_QPXExpress_BagDescriptor';
+  protected $bagDescriptorDataType = 'array';
+  public $kilos;
+  public $kilosPerPiece;
+  public $kind;
+  public $pieces;
+  public $pounds;
 
-	/**
-	 * @param Google_Service_QPXExpress_BagDescriptor
-	 */
-	public function setBagDescriptor($bagDescriptor)
-	{
-		$this->bagDescriptor = $bagDescriptor;
-	}
-	/**
-	 * @return Google_Service_QPXExpress_BagDescriptor
-	 */
-	public function getBagDescriptor()
-	{
-		return $this->bagDescriptor;
-	}
-	public function setKilos($kilos)
-	{
-		$this->kilos = $kilos;
-	}
-	public function getKilos()
-	{
-		return $this->kilos;
-	}
-	public function setKilosPerPiece($kilosPerPiece)
-	{
-		$this->kilosPerPiece = $kilosPerPiece;
-	}
-	public function getKilosPerPiece()
-	{
-		return $this->kilosPerPiece;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setPieces($pieces)
-	{
-		$this->pieces = $pieces;
-	}
-	public function getPieces()
-	{
-		return $this->pieces;
-	}
-	public function setPounds($pounds)
-	{
-		$this->pounds = $pounds;
-	}
-	public function getPounds()
-	{
-		return $this->pounds;
-	}
+  /**
+   * @param Google_Service_QPXExpress_BagDescriptor
+   */
+  public function setBagDescriptor($bagDescriptor)
+  {
+    $this->bagDescriptor = $bagDescriptor;
+  }
+  /**
+   * @return Google_Service_QPXExpress_BagDescriptor
+   */
+  public function getBagDescriptor()
+  {
+    return $this->bagDescriptor;
+  }
+  public function setKilos($kilos)
+  {
+    $this->kilos = $kilos;
+  }
+  public function getKilos()
+  {
+    return $this->kilos;
+  }
+  public function setKilosPerPiece($kilosPerPiece)
+  {
+    $this->kilosPerPiece = $kilosPerPiece;
+  }
+  public function getKilosPerPiece()
+  {
+    return $this->kilosPerPiece;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setPieces($pieces)
+  {
+    $this->pieces = $pieces;
+  }
+  public function getPieces()
+  {
+    return $this->pieces;
+  }
+  public function setPounds($pounds)
+  {
+    $this->pounds = $pounds;
+  }
+  public function getPounds()
+  {
+    return $this->pounds;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_Metaline extends Google_Collection
 {
-	protected $collection_key = 'properties';
-	protected $propertiesType = 'Google_Service_CloudSearch_DisplayedProperty';
-	protected $propertiesDataType = 'array';
+  protected $collection_key = 'properties';
+  protected $propertiesType = 'Google_Service_CloudSearch_DisplayedProperty';
+  protected $propertiesDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudSearch_DisplayedProperty
-	 */
-	public function setProperties($properties)
-	{
-		$this->properties = $properties;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_DisplayedProperty
-	 */
-	public function getProperties()
-	{
-		return $this->properties;
-	}
+  /**
+   * @param Google_Service_CloudSearch_DisplayedProperty[]
+   */
+  public function setProperties($properties)
+  {
+    $this->properties = $properties;
+  }
+  /**
+   * @return Google_Service_CloudSearch_DisplayedProperty[]
+   */
+  public function getProperties()
+  {
+    return $this->properties;
+  }
 }

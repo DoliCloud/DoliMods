@@ -17,35 +17,35 @@
 
 class Google_Service_Devprojects_VerdictRestriction extends Google_Collection
 {
-	protected $collection_key = 'context';
-	protected $contextType = 'Google_Service_Devprojects_Context';
-	protected $contextDataType = 'array';
-	public $kind;
-	protected $userRestrictionType = 'Google_Service_Devprojects_UserRestriction';
-	protected $userRestrictionDataType = '';
+  protected $collection_key = 'context';
+  protected $contextType = 'Google_Service_Devprojects_Context';
+  protected $contextDataType = 'array';
+  public $kind;
+  protected $userRestrictionType = 'Google_Service_Devprojects_UserRestriction';
+  protected $userRestrictionDataType = '';
 
-	public function setContext($context)
-	{
-		$this->context = $context;
-	}
-	public function getContext()
-	{
-		return $this->context;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setUserRestriction(Google_Service_Devprojects_UserRestriction $userRestriction)
-	{
-		$this->userRestriction = $userRestriction;
-	}
-	public function getUserRestriction()
-	{
-		return $this->userRestriction;
-	}
+  public function setContext($context)
+  {
+    $this->context = $context;
+  }
+  public function getContext()
+  {
+    return $this->context;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setUserRestriction(Google_Service_Devprojects_UserRestriction $userRestriction)
+  {
+    $this->userRestriction = $userRestriction;
+  }
+  public function getUserRestriction()
+  {
+    return $this->userRestriction;
+  }
 }

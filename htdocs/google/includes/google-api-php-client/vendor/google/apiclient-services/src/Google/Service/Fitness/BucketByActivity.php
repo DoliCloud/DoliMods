@@ -17,23 +17,23 @@
 
 class Google_Service_Fitness_BucketByActivity extends Google_Model
 {
-	public $activityDataSourceId;
-	public $minDurationMillis;
+  public $activityDataSourceId;
+  public $minDurationMillis;
 
-	public function setActivityDataSourceId($activityDataSourceId)
-	{
-		$this->activityDataSourceId = $activityDataSourceId;
-	}
-	public function getActivityDataSourceId()
-	{
-		return $this->activityDataSourceId;
-	}
-	public function setMinDurationMillis($minDurationMillis)
-	{
-		$this->minDurationMillis = $minDurationMillis;
-	}
-	public function getMinDurationMillis()
-	{
-		return $this->minDurationMillis;
-	}
+  public function setActivityDataSourceId($activityDataSourceId)
+  {
+    $this->activityDataSourceId = $activityDataSourceId;
+  }
+  public function getActivityDataSourceId()
+  {
+    return $this->activityDataSourceId;
+  }
+  public function setMinDurationMillis($minDurationMillis)
+  {
+    $this->minDurationMillis = $minDurationMillis;
+  }
+  public function getMinDurationMillis()
+  {
+    return $this->minDurationMillis;
+  }
 }

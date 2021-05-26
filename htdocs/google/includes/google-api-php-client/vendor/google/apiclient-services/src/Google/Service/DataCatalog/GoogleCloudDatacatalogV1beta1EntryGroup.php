@@ -17,48 +17,48 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1EntryGroup extends Google_Model
 {
-	protected $dataCatalogTimestampsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps';
-	protected $dataCatalogTimestampsDataType = '';
-	public $description;
-	public $displayName;
-	public $name;
+  protected $dataCatalogTimestampsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps';
+  protected $dataCatalogTimestampsDataType = '';
+  public $description;
+  public $displayName;
+  public $name;
 
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps
-	 */
-	public function setDataCatalogTimestamps(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps $dataCatalogTimestamps)
-	{
-		$this->dataCatalogTimestamps = $dataCatalogTimestamps;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps
-	 */
-	public function getDataCatalogTimestamps()
-	{
-		return $this->dataCatalogTimestamps;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps
+   */
+  public function setDataCatalogTimestamps(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps $dataCatalogTimestamps)
+  {
+    $this->dataCatalogTimestamps = $dataCatalogTimestamps;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SystemTimestamps
+   */
+  public function getDataCatalogTimestamps()
+  {
+    return $this->dataCatalogTimestamps;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

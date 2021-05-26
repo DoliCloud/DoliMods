@@ -17,14 +17,14 @@
 
 class Google_Service_Dataflow_MountedDataDisk extends Google_Model
 {
-	public $dataDisk;
+  public $dataDisk;
 
-	public function setDataDisk($dataDisk)
-	{
-		$this->dataDisk = $dataDisk;
-	}
-	public function getDataDisk()
-	{
-		return $this->dataDisk;
-	}
+  public function setDataDisk($dataDisk)
+  {
+    $this->dataDisk = $dataDisk;
+  }
+  public function getDataDisk()
+  {
+    return $this->dataDisk;
+  }
 }

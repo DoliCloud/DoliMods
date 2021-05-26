@@ -17,14 +17,14 @@
 
 class Google_Service_YouTube_ThirdPartyLinkStatus extends Google_Model
 {
-	public $linkStatus;
+  public $linkStatus;
 
-	public function setLinkStatus($linkStatus)
-	{
-		$this->linkStatus = $linkStatus;
-	}
-	public function getLinkStatus()
-	{
-		return $this->linkStatus;
-	}
+  public function setLinkStatus($linkStatus)
+  {
+    $this->linkStatus = $linkStatus;
+  }
+  public function getLinkStatus()
+  {
+    return $this->linkStatus;
+  }
 }

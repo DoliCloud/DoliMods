@@ -17,50 +17,50 @@
 
 class Google_Service_Monitoring_Group extends Google_Model
 {
-	public $displayName;
-	public $filter;
-	public $isCluster;
-	public $name;
-	public $parentName;
+  public $displayName;
+  public $filter;
+  public $isCluster;
+  public $name;
+  public $parentName;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setFilter($filter)
-	{
-		$this->filter = $filter;
-	}
-	public function getFilter()
-	{
-		return $this->filter;
-	}
-	public function setIsCluster($isCluster)
-	{
-		$this->isCluster = $isCluster;
-	}
-	public function getIsCluster()
-	{
-		return $this->isCluster;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setParentName($parentName)
-	{
-		$this->parentName = $parentName;
-	}
-	public function getParentName()
-	{
-		return $this->parentName;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setFilter($filter)
+  {
+    $this->filter = $filter;
+  }
+  public function getFilter()
+  {
+    return $this->filter;
+  }
+  public function setIsCluster($isCluster)
+  {
+    $this->isCluster = $isCluster;
+  }
+  public function getIsCluster()
+  {
+    return $this->isCluster;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setParentName($parentName)
+  {
+    $this->parentName = $parentName;
+  }
+  public function getParentName()
+  {
+    return $this->parentName;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_AnalyticsReporting_Metric extends Google_Model
 {
-	public $alias;
-	public $expression;
-	public $formattingType;
+  public $alias;
+  public $expression;
+  public $formattingType;
 
-	public function setAlias($alias)
-	{
-		$this->alias = $alias;
-	}
-	public function getAlias()
-	{
-		return $this->alias;
-	}
-	public function setExpression($expression)
-	{
-		$this->expression = $expression;
-	}
-	public function getExpression()
-	{
-		return $this->expression;
-	}
-	public function setFormattingType($formattingType)
-	{
-		$this->formattingType = $formattingType;
-	}
-	public function getFormattingType()
-	{
-		return $this->formattingType;
-	}
+  public function setAlias($alias)
+  {
+    $this->alias = $alias;
+  }
+  public function getAlias()
+  {
+    return $this->alias;
+  }
+  public function setExpression($expression)
+  {
+    $this->expression = $expression;
+  }
+  public function getExpression()
+  {
+    return $this->expression;
+  }
+  public function setFormattingType($formattingType)
+  {
+    $this->formattingType = $formattingType;
+  }
+  public function getFormattingType()
+  {
+    return $this->formattingType;
+  }
 }

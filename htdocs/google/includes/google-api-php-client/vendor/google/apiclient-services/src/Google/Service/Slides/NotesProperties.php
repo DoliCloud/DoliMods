@@ -17,14 +17,14 @@
 
 class Google_Service_Slides_NotesProperties extends Google_Model
 {
-	public $speakerNotesObjectId;
+  public $speakerNotesObjectId;
 
-	public function setSpeakerNotesObjectId($speakerNotesObjectId)
-	{
-		$this->speakerNotesObjectId = $speakerNotesObjectId;
-	}
-	public function getSpeakerNotesObjectId()
-	{
-		return $this->speakerNotesObjectId;
-	}
+  public function setSpeakerNotesObjectId($speakerNotesObjectId)
+  {
+    $this->speakerNotesObjectId = $speakerNotesObjectId;
+  }
+  public function getSpeakerNotesObjectId()
+  {
+    return $this->speakerNotesObjectId;
+  }
 }

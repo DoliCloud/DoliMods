@@ -17,56 +17,56 @@
 
 class Google_Service_Games_PlayerLeaderboardScoreListResponse extends Google_Collection
 {
-	protected $collection_key = 'items';
-	protected $itemsType = 'Google_Service_Games_PlayerLeaderboardScore';
-	protected $itemsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
-	protected $playerType = 'Google_Service_Games_Player';
-	protected $playerDataType = '';
+  protected $collection_key = 'items';
+  protected $itemsType = 'Google_Service_Games_PlayerLeaderboardScore';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  protected $playerType = 'Google_Service_Games_Player';
+  protected $playerDataType = '';
 
-	/**
-	 * @param Google_Service_Games_PlayerLeaderboardScore
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Games_PlayerLeaderboardScore
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Games_Player
-	 */
-	public function setPlayer(Google_Service_Games_Player $player)
-	{
-		$this->player = $player;
-	}
-	/**
-	 * @return Google_Service_Games_Player
-	 */
-	public function getPlayer()
-	{
-		return $this->player;
-	}
+  /**
+   * @param Google_Service_Games_PlayerLeaderboardScore[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Games_PlayerLeaderboardScore[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Games_Player
+   */
+  public function setPlayer(Google_Service_Games_Player $player)
+  {
+    $this->player = $player;
+  }
+  /**
+   * @return Google_Service_Games_Player
+   */
+  public function getPlayer()
+  {
+    return $this->player;
+  }
 }

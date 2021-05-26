@@ -17,30 +17,30 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldType extends Google_Model
 {
-	protected $enumTypeType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType';
-	protected $enumTypeDataType = '';
-	public $primitiveType;
+  protected $enumTypeType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType';
+  protected $enumTypeDataType = '';
+  public $primitiveType;
 
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType
-	 */
-	public function setEnumType(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType $enumType)
-	{
-		$this->enumType = $enumType;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType
-	 */
-	public function getEnumType()
-	{
-		return $this->enumType;
-	}
-	public function setPrimitiveType($primitiveType)
-	{
-		$this->primitiveType = $primitiveType;
-	}
-	public function getPrimitiveType()
-	{
-		return $this->primitiveType;
-	}
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType
+   */
+  public function setEnumType(Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType $enumType)
+  {
+    $this->enumType = $enumType;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType
+   */
+  public function getEnumType()
+  {
+    return $this->enumType;
+  }
+  public function setPrimitiveType($primitiveType)
+  {
+    $this->primitiveType = $primitiveType;
+  }
+  public function getPrimitiveType()
+  {
+    return $this->primitiveType;
+  }
 }

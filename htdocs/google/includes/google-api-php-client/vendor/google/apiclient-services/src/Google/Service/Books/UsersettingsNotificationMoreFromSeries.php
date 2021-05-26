@@ -17,17 +17,17 @@
 
 class Google_Service_Books_UsersettingsNotificationMoreFromSeries extends Google_Model
 {
-	protected $internal_gapi_mappings = array(
-		"optedState" => "opted_state",
-	);
-	public $optedState;
+  protected $internal_gapi_mappings = array(
+        "optedState" => "opted_state",
+  );
+  public $optedState;
 
-	public function setOptedState($optedState)
-	{
-		$this->optedState = $optedState;
-	}
-	public function getOptedState()
-	{
-		return $this->optedState;
-	}
+  public function setOptedState($optedState)
+  {
+    $this->optedState = $optedState;
+  }
+  public function getOptedState()
+  {
+    return $this->optedState;
+  }
 }

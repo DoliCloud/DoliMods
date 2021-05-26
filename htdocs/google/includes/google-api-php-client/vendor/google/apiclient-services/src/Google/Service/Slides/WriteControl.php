@@ -17,14 +17,14 @@
 
 class Google_Service_Slides_WriteControl extends Google_Model
 {
-	public $requiredRevisionId;
+  public $requiredRevisionId;
 
-	public function setRequiredRevisionId($requiredRevisionId)
-	{
-		$this->requiredRevisionId = $requiredRevisionId;
-	}
-	public function getRequiredRevisionId()
-	{
-		return $this->requiredRevisionId;
-	}
+  public function setRequiredRevisionId($requiredRevisionId)
+  {
+    $this->requiredRevisionId = $requiredRevisionId;
+  }
+  public function getRequiredRevisionId()
+  {
+    return $this->requiredRevisionId;
+  }
 }

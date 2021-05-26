@@ -17,30 +17,30 @@
 
 class Google_Service_Dns_ManagedZonePeeringConfig extends Google_Model
 {
-	public $kind;
-	protected $targetNetworkType = 'Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork';
-	protected $targetNetworkDataType = '';
+  public $kind;
+  protected $targetNetworkType = 'Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork';
+  protected $targetNetworkDataType = '';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork
-	 */
-	public function setTargetNetwork(Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork $targetNetwork)
-	{
-		$this->targetNetwork = $targetNetwork;
-	}
-	/**
-	 * @return Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork
-	 */
-	public function getTargetNetwork()
-	{
-		return $this->targetNetwork;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork
+   */
+  public function setTargetNetwork(Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork $targetNetwork)
+  {
+    $this->targetNetwork = $targetNetwork;
+  }
+  /**
+   * @return Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork
+   */
+  public function getTargetNetwork()
+  {
+    return $this->targetNetwork;
+  }
 }

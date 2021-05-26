@@ -17,14 +17,14 @@
 
 class Google_Service_Dataflow_StreamingStageLocation extends Google_Model
 {
-	public $streamId;
+  public $streamId;
 
-	public function setStreamId($streamId)
-	{
-		$this->streamId = $streamId;
-	}
-	public function getStreamId()
-	{
-		return $this->streamId;
-	}
+  public function setStreamId($streamId)
+  {
+    $this->streamId = $streamId;
+  }
+  public function getStreamId()
+  {
+    return $this->streamId;
+  }
 }

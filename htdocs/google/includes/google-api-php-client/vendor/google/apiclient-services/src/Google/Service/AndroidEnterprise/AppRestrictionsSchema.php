@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidEnterprise_AppRestrictionsSchema extends Google_Collection
 {
-	protected $collection_key = 'restrictions';
-	public $kind;
-	protected $restrictionsType = 'Google_Service_AndroidEnterprise_AppRestrictionsSchemaRestriction';
-	protected $restrictionsDataType = 'array';
+  protected $collection_key = 'restrictions';
+  public $kind;
+  protected $restrictionsType = 'Google_Service_AndroidEnterprise_AppRestrictionsSchemaRestriction';
+  protected $restrictionsDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_AndroidEnterprise_AppRestrictionsSchemaRestriction
-	 */
-	public function setRestrictions($restrictions)
-	{
-		$this->restrictions = $restrictions;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_AppRestrictionsSchemaRestriction
-	 */
-	public function getRestrictions()
-	{
-		return $this->restrictions;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_AndroidEnterprise_AppRestrictionsSchemaRestriction[]
+   */
+  public function setRestrictions($restrictions)
+  {
+    $this->restrictions = $restrictions;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_AppRestrictionsSchemaRestriction[]
+   */
+  public function getRestrictions()
+  {
+    return $this->restrictions;
+  }
 }

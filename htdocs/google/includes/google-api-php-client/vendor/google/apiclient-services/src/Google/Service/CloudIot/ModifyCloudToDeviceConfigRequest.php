@@ -17,23 +17,23 @@
 
 class Google_Service_CloudIot_ModifyCloudToDeviceConfigRequest extends Google_Model
 {
-	public $binaryData;
-	public $versionToUpdate;
+  public $binaryData;
+  public $versionToUpdate;
 
-	public function setBinaryData($binaryData)
-	{
-		$this->binaryData = $binaryData;
-	}
-	public function getBinaryData()
-	{
-		return $this->binaryData;
-	}
-	public function setVersionToUpdate($versionToUpdate)
-	{
-		$this->versionToUpdate = $versionToUpdate;
-	}
-	public function getVersionToUpdate()
-	{
-		return $this->versionToUpdate;
-	}
+  public function setBinaryData($binaryData)
+  {
+    $this->binaryData = $binaryData;
+  }
+  public function getBinaryData()
+  {
+    return $this->binaryData;
+  }
+  public function setVersionToUpdate($versionToUpdate)
+  {
+    $this->versionToUpdate = $versionToUpdate;
+  }
+  public function getVersionToUpdate()
+  {
+    return $this->versionToUpdate;
+  }
 }

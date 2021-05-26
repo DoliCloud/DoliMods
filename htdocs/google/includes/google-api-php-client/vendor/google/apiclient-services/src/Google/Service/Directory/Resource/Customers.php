@@ -25,45 +25,45 @@
  */
 class Google_Service_Directory_Resource_Customers extends Google_Service_Resource
 {
-	/**
-	 * Retrieves a customer. (customers.get)
-	 *
-	 * @param string $customerKey Id of the customer to be retrieved
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Directory_Customer
-	 */
-	public function get($customerKey, $optParams = array())
-	{
-		$params = array('customerKey' => $customerKey);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Directory_Customer");
-	}
-	/**
-	 * Updates a customer. This method supports patch semantics. (customers.patch)
-	 *
-	 * @param string $customerKey Id of the customer to be updated
-	 * @param Google_Service_Directory_Customer $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Directory_Customer
-	 */
-	public function patch($customerKey, Google_Service_Directory_Customer $postBody, $optParams = array())
-	{
-		$params = array('customerKey' => $customerKey, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('patch', array($params), "Google_Service_Directory_Customer");
-	}
-	/**
-	 * Updates a customer. (customers.update)
-	 *
-	 * @param string $customerKey Id of the customer to be updated
-	 * @param Google_Service_Directory_Customer $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Directory_Customer
-	 */
-	public function update($customerKey, Google_Service_Directory_Customer $postBody, $optParams = array())
-	{
-		$params = array('customerKey' => $customerKey, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_Directory_Customer");
-	}
+  /**
+   * Retrieves a customer. (customers.get)
+   *
+   * @param string $customerKey Id of the customer to be retrieved
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Directory_Customer
+   */
+  public function get($customerKey, $optParams = array())
+  {
+    $params = array('customerKey' => $customerKey);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Directory_Customer");
+  }
+  /**
+   * Patch Customers via Apiary Patch Orchestration (customers.patch)
+   *
+   * @param string $customerKey Id of the customer to be updated
+   * @param Google_Service_Directory_Customer $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Directory_Customer
+   */
+  public function patch($customerKey, Google_Service_Directory_Customer $postBody, $optParams = array())
+  {
+    $params = array('customerKey' => $customerKey, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', array($params), "Google_Service_Directory_Customer");
+  }
+  /**
+   * Updates a customer. (customers.update)
+   *
+   * @param string $customerKey Id of the customer to be updated
+   * @param Google_Service_Directory_Customer $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Directory_Customer
+   */
+  public function update($customerKey, Google_Service_Directory_Customer $postBody, $optParams = array())
+  {
+    $params = array('customerKey' => $customerKey, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_Directory_Customer");
+  }
 }

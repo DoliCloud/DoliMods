@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_ConversionsBatchUpdateResponse extends Google_Collection
 {
-	protected $collection_key = 'status';
-	public $hasFailures;
-	public $kind;
-	protected $statusType = 'Google_Service_Dfareporting_ConversionStatus';
-	protected $statusDataType = 'array';
+  protected $collection_key = 'status';
+  public $hasFailures;
+  public $kind;
+  protected $statusType = 'Google_Service_Dfareporting_ConversionStatus';
+  protected $statusDataType = 'array';
 
-	public function setHasFailures($hasFailures)
-	{
-		$this->hasFailures = $hasFailures;
-	}
-	public function getHasFailures()
-	{
-		return $this->hasFailures;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_ConversionStatus
-	 */
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_ConversionStatus
-	 */
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setHasFailures($hasFailures)
+  {
+    $this->hasFailures = $hasFailures;
+  }
+  public function getHasFailures()
+  {
+    return $this->hasFailures;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_ConversionStatus[]
+   */
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  /**
+   * @return Google_Service_Dfareporting_ConversionStatus[]
+   */
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

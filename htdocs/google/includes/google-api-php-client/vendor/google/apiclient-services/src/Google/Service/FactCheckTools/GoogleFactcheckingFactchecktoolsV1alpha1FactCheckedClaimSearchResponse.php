@@ -17,31 +17,31 @@
 
 class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1FactCheckedClaimSearchResponse extends Google_Collection
 {
-	protected $collection_key = 'claims';
-	protected $claimsType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Claim';
-	protected $claimsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'claims';
+  protected $claimsType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Claim';
+  protected $claimsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Claim
-	 */
-	public function setClaims($claims)
-	{
-		$this->claims = $claims;
-	}
-	/**
-	 * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Claim
-	 */
-	public function getClaims()
-	{
-		return $this->claims;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Claim[]
+   */
+  public function setClaims($claims)
+  {
+    $this->claims = $claims;
+  }
+  /**
+   * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Claim[]
+   */
+  public function getClaims()
+  {
+    return $this->claims;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,90 +17,90 @@
 
 class Google_Service_CommentAnalyzer_SuggestCommentScoreRequest extends Google_Collection
 {
-	protected $collection_key = 'languages';
-	protected $attributeScoresType = 'Google_Service_CommentAnalyzer_AttributeScores';
-	protected $attributeScoresDataType = 'map';
-	public $clientToken;
-	protected $commentType = 'Google_Service_CommentAnalyzer_TextEntry';
-	protected $commentDataType = '';
-	public $communityId;
-	protected $contextType = 'Google_Service_CommentAnalyzer_Context';
-	protected $contextDataType = '';
-	public $languages;
-	public $sessionId;
+  protected $collection_key = 'languages';
+  protected $attributeScoresType = 'Google_Service_CommentAnalyzer_AttributeScores';
+  protected $attributeScoresDataType = 'map';
+  public $clientToken;
+  protected $commentType = 'Google_Service_CommentAnalyzer_TextEntry';
+  protected $commentDataType = '';
+  public $communityId;
+  protected $contextType = 'Google_Service_CommentAnalyzer_Context';
+  protected $contextDataType = '';
+  public $languages;
+  public $sessionId;
 
-	/**
-	 * @param Google_Service_CommentAnalyzer_AttributeScores
-	 */
-	public function setAttributeScores($attributeScores)
-	{
-		$this->attributeScores = $attributeScores;
-	}
-	/**
-	 * @return Google_Service_CommentAnalyzer_AttributeScores
-	 */
-	public function getAttributeScores()
-	{
-		return $this->attributeScores;
-	}
-	public function setClientToken($clientToken)
-	{
-		$this->clientToken = $clientToken;
-	}
-	public function getClientToken()
-	{
-		return $this->clientToken;
-	}
-	/**
-	 * @param Google_Service_CommentAnalyzer_TextEntry
-	 */
-	public function setComment(Google_Service_CommentAnalyzer_TextEntry $comment)
-	{
-		$this->comment = $comment;
-	}
-	/**
-	 * @return Google_Service_CommentAnalyzer_TextEntry
-	 */
-	public function getComment()
-	{
-		return $this->comment;
-	}
-	public function setCommunityId($communityId)
-	{
-		$this->communityId = $communityId;
-	}
-	public function getCommunityId()
-	{
-		return $this->communityId;
-	}
-	/**
-	 * @param Google_Service_CommentAnalyzer_Context
-	 */
-	public function setContext(Google_Service_CommentAnalyzer_Context $context)
-	{
-		$this->context = $context;
-	}
-	/**
-	 * @return Google_Service_CommentAnalyzer_Context
-	 */
-	public function getContext()
-	{
-		return $this->context;
-	}
-	public function setLanguages($languages)
-	{
-		$this->languages = $languages;
-	}
-	public function getLanguages()
-	{
-		return $this->languages;
-	}
-	public function setSessionId($sessionId)
-	{
-		$this->sessionId = $sessionId;
-	}
-	public function getSessionId()
-	{
-		return $this->sessionId;
-	}
+  /**
+   * @param Google_Service_CommentAnalyzer_AttributeScores
+   */
+  public function setAttributeScores($attributeScores)
+  {
+    $this->attributeScores = $attributeScores;
+  }
+  /**
+   * @return Google_Service_CommentAnalyzer_AttributeScores
+   */
+  public function getAttributeScores()
+  {
+    return $this->attributeScores;
+  }
+  public function setClientToken($clientToken)
+  {
+    $this->clientToken = $clientToken;
+  }
+  public function getClientToken()
+  {
+    return $this->clientToken;
+  }
+  /**
+   * @param Google_Service_CommentAnalyzer_TextEntry
+   */
+  public function setComment(Google_Service_CommentAnalyzer_TextEntry $comment)
+  {
+    $this->comment = $comment;
+  }
+  /**
+   * @return Google_Service_CommentAnalyzer_TextEntry
+   */
+  public function getComment()
+  {
+    return $this->comment;
+  }
+  public function setCommunityId($communityId)
+  {
+    $this->communityId = $communityId;
+  }
+  public function getCommunityId()
+  {
+    return $this->communityId;
+  }
+  /**
+   * @param Google_Service_CommentAnalyzer_Context
+   */
+  public function setContext(Google_Service_CommentAnalyzer_Context $context)
+  {
+    $this->context = $context;
+  }
+  /**
+   * @return Google_Service_CommentAnalyzer_Context
+   */
+  public function getContext()
+  {
+    return $this->context;
+  }
+  public function setLanguages($languages)
+  {
+    $this->languages = $languages;
+  }
+  public function getLanguages()
+  {
+    return $this->languages;
+  }
+  public function setSessionId($sessionId)
+  {
+    $this->sessionId = $sessionId;
+  }
+  public function getSessionId()
+  {
+    return $this->sessionId;
+  }
 }

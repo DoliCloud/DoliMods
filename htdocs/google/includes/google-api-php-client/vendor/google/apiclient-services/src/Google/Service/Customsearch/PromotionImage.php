@@ -17,32 +17,32 @@
 
 class Google_Service_Customsearch_PromotionImage extends Google_Model
 {
-	public $height;
-	public $source;
-	public $width;
+  public $height;
+  public $source;
+  public $width;
 
-	public function setHeight($height)
-	{
-		$this->height = $height;
-	}
-	public function getHeight()
-	{
-		return $this->height;
-	}
-	public function setSource($source)
-	{
-		$this->source = $source;
-	}
-	public function getSource()
-	{
-		return $this->source;
-	}
-	public function setWidth($width)
-	{
-		$this->width = $width;
-	}
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setSource($source)
+  {
+    $this->source = $source;
+  }
+  public function getSource()
+  {
+    return $this->source;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

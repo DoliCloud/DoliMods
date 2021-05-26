@@ -17,65 +17,65 @@
 
 class Google_Service_QPXExpress_TripOption extends Google_Collection
 {
-	protected $collection_key = 'slice';
-	public $id;
-	public $kind;
-	protected $pricingType = 'Google_Service_QPXExpress_PricingInfo';
-	protected $pricingDataType = 'array';
-	public $saleTotal;
-	protected $sliceType = 'Google_Service_QPXExpress_SliceInfo';
-	protected $sliceDataType = 'array';
+  protected $collection_key = 'slice';
+  public $id;
+  public $kind;
+  protected $pricingType = 'Google_Service_QPXExpress_PricingInfo';
+  protected $pricingDataType = 'array';
+  public $saleTotal;
+  protected $sliceType = 'Google_Service_QPXExpress_SliceInfo';
+  protected $sliceDataType = 'array';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_QPXExpress_PricingInfo
-	 */
-	public function setPricing($pricing)
-	{
-		$this->pricing = $pricing;
-	}
-	/**
-	 * @return Google_Service_QPXExpress_PricingInfo
-	 */
-	public function getPricing()
-	{
-		return $this->pricing;
-	}
-	public function setSaleTotal($saleTotal)
-	{
-		$this->saleTotal = $saleTotal;
-	}
-	public function getSaleTotal()
-	{
-		return $this->saleTotal;
-	}
-	/**
-	 * @param Google_Service_QPXExpress_SliceInfo
-	 */
-	public function setSlice($slice)
-	{
-		$this->slice = $slice;
-	}
-	/**
-	 * @return Google_Service_QPXExpress_SliceInfo
-	 */
-	public function getSlice()
-	{
-		return $this->slice;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_QPXExpress_PricingInfo
+   */
+  public function setPricing($pricing)
+  {
+    $this->pricing = $pricing;
+  }
+  /**
+   * @return Google_Service_QPXExpress_PricingInfo
+   */
+  public function getPricing()
+  {
+    return $this->pricing;
+  }
+  public function setSaleTotal($saleTotal)
+  {
+    $this->saleTotal = $saleTotal;
+  }
+  public function getSaleTotal()
+  {
+    return $this->saleTotal;
+  }
+  /**
+   * @param Google_Service_QPXExpress_SliceInfo
+   */
+  public function setSlice($slice)
+  {
+    $this->slice = $slice;
+  }
+  /**
+   * @return Google_Service_QPXExpress_SliceInfo
+   */
+  public function getSlice()
+  {
+    return $this->slice;
+  }
 }

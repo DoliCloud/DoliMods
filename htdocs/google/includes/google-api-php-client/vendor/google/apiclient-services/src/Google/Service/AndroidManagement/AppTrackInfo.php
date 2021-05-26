@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidManagement_AppTrackInfo extends Google_Model
 {
-	public $trackAlias;
-	public $trackId;
+  public $trackAlias;
+  public $trackId;
 
-	public function setTrackAlias($trackAlias)
-	{
-		$this->trackAlias = $trackAlias;
-	}
-	public function getTrackAlias()
-	{
-		return $this->trackAlias;
-	}
-	public function setTrackId($trackId)
-	{
-		$this->trackId = $trackId;
-	}
-	public function getTrackId()
-	{
-		return $this->trackId;
-	}
+  public function setTrackAlias($trackAlias)
+  {
+    $this->trackAlias = $trackAlias;
+  }
+  public function getTrackAlias()
+  {
+    return $this->trackAlias;
+  }
+  public function setTrackId($trackId)
+  {
+    $this->trackId = $trackId;
+  }
+  public function getTrackId()
+  {
+    return $this->trackId;
+  }
 }

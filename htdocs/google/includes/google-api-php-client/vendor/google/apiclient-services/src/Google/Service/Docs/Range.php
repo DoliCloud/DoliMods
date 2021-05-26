@@ -17,32 +17,32 @@
 
 class Google_Service_Docs_Range extends Google_Model
 {
-	public $endIndex;
-	public $segmentId;
-	public $startIndex;
+  public $endIndex;
+  public $segmentId;
+  public $startIndex;
 
-	public function setEndIndex($endIndex)
-	{
-		$this->endIndex = $endIndex;
-	}
-	public function getEndIndex()
-	{
-		return $this->endIndex;
-	}
-	public function setSegmentId($segmentId)
-	{
-		$this->segmentId = $segmentId;
-	}
-	public function getSegmentId()
-	{
-		return $this->segmentId;
-	}
-	public function setStartIndex($startIndex)
-	{
-		$this->startIndex = $startIndex;
-	}
-	public function getStartIndex()
-	{
-		return $this->startIndex;
-	}
+  public function setEndIndex($endIndex)
+  {
+    $this->endIndex = $endIndex;
+  }
+  public function getEndIndex()
+  {
+    return $this->endIndex;
+  }
+  public function setSegmentId($segmentId)
+  {
+    $this->segmentId = $segmentId;
+  }
+  public function getSegmentId()
+  {
+    return $this->segmentId;
+  }
+  public function setStartIndex($startIndex)
+  {
+    $this->startIndex = $startIndex;
+  }
+  public function getStartIndex()
+  {
+    return $this->startIndex;
+  }
 }

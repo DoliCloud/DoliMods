@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_DynamicTargetingKeysListResponse extends Google_Collection
 {
-	protected $collection_key = 'dynamicTargetingKeys';
-	protected $dynamicTargetingKeysType = 'Google_Service_Dfareporting_DynamicTargetingKey';
-	protected $dynamicTargetingKeysDataType = 'array';
-	public $kind;
+  protected $collection_key = 'dynamicTargetingKeys';
+  protected $dynamicTargetingKeysType = 'Google_Service_Dfareporting_DynamicTargetingKey';
+  protected $dynamicTargetingKeysDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_Dfareporting_DynamicTargetingKey
-	 */
-	public function setDynamicTargetingKeys($dynamicTargetingKeys)
-	{
-		$this->dynamicTargetingKeys = $dynamicTargetingKeys;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_DynamicTargetingKey
-	 */
-	public function getDynamicTargetingKeys()
-	{
-		return $this->dynamicTargetingKeys;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_Dfareporting_DynamicTargetingKey[]
+   */
+  public function setDynamicTargetingKeys($dynamicTargetingKeys)
+  {
+    $this->dynamicTargetingKeys = $dynamicTargetingKeys;
+  }
+  /**
+   * @return Google_Service_Dfareporting_DynamicTargetingKey[]
+   */
+  public function getDynamicTargetingKeys()
+  {
+    return $this->dynamicTargetingKeys;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

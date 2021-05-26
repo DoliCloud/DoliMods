@@ -17,23 +17,23 @@
 
 class Google_Service_Manager_DeployState extends Google_Model
 {
-	public $details;
-	public $status;
+  public $details;
+  public $status;
 
-	public function setDetails($details)
-	{
-		$this->details = $details;
-	}
-	public function getDetails()
-	{
-		return $this->details;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setDetails($details)
+  {
+    $this->details = $details;
+  }
+  public function getDetails()
+  {
+    return $this->details;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

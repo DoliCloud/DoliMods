@@ -17,81 +17,81 @@
 
 class Google_Service_Sheets_WaterfallChartSpec extends Google_Collection
 {
-	protected $collection_key = 'series';
-	protected $connectorLineStyleType = 'Google_Service_Sheets_LineStyle';
-	protected $connectorLineStyleDataType = '';
-	protected $domainType = 'Google_Service_Sheets_WaterfallChartDomain';
-	protected $domainDataType = '';
-	public $firstValueIsTotal;
-	public $hideConnectorLines;
-	protected $seriesType = 'Google_Service_Sheets_WaterfallChartSeries';
-	protected $seriesDataType = 'array';
-	public $stackedType;
+  protected $collection_key = 'series';
+  protected $connectorLineStyleType = 'Google_Service_Sheets_LineStyle';
+  protected $connectorLineStyleDataType = '';
+  protected $domainType = 'Google_Service_Sheets_WaterfallChartDomain';
+  protected $domainDataType = '';
+  public $firstValueIsTotal;
+  public $hideConnectorLines;
+  protected $seriesType = 'Google_Service_Sheets_WaterfallChartSeries';
+  protected $seriesDataType = 'array';
+  public $stackedType;
 
-	/**
-	 * @param Google_Service_Sheets_LineStyle
-	 */
-	public function setConnectorLineStyle(Google_Service_Sheets_LineStyle $connectorLineStyle)
-	{
-		$this->connectorLineStyle = $connectorLineStyle;
-	}
-	/**
-	 * @return Google_Service_Sheets_LineStyle
-	 */
-	public function getConnectorLineStyle()
-	{
-		return $this->connectorLineStyle;
-	}
-	/**
-	 * @param Google_Service_Sheets_WaterfallChartDomain
-	 */
-	public function setDomain(Google_Service_Sheets_WaterfallChartDomain $domain)
-	{
-		$this->domain = $domain;
-	}
-	/**
-	 * @return Google_Service_Sheets_WaterfallChartDomain
-	 */
-	public function getDomain()
-	{
-		return $this->domain;
-	}
-	public function setFirstValueIsTotal($firstValueIsTotal)
-	{
-		$this->firstValueIsTotal = $firstValueIsTotal;
-	}
-	public function getFirstValueIsTotal()
-	{
-		return $this->firstValueIsTotal;
-	}
-	public function setHideConnectorLines($hideConnectorLines)
-	{
-		$this->hideConnectorLines = $hideConnectorLines;
-	}
-	public function getHideConnectorLines()
-	{
-		return $this->hideConnectorLines;
-	}
-	/**
-	 * @param Google_Service_Sheets_WaterfallChartSeries
-	 */
-	public function setSeries($series)
-	{
-		$this->series = $series;
-	}
-	/**
-	 * @return Google_Service_Sheets_WaterfallChartSeries
-	 */
-	public function getSeries()
-	{
-		return $this->series;
-	}
-	public function setStackedType($stackedType)
-	{
-		$this->stackedType = $stackedType;
-	}
-	public function getStackedType()
-	{
-		return $this->stackedType;
-	}
+  /**
+   * @param Google_Service_Sheets_LineStyle
+   */
+  public function setConnectorLineStyle(Google_Service_Sheets_LineStyle $connectorLineStyle)
+  {
+    $this->connectorLineStyle = $connectorLineStyle;
+  }
+  /**
+   * @return Google_Service_Sheets_LineStyle
+   */
+  public function getConnectorLineStyle()
+  {
+    return $this->connectorLineStyle;
+  }
+  /**
+   * @param Google_Service_Sheets_WaterfallChartDomain
+   */
+  public function setDomain(Google_Service_Sheets_WaterfallChartDomain $domain)
+  {
+    $this->domain = $domain;
+  }
+  /**
+   * @return Google_Service_Sheets_WaterfallChartDomain
+   */
+  public function getDomain()
+  {
+    return $this->domain;
+  }
+  public function setFirstValueIsTotal($firstValueIsTotal)
+  {
+    $this->firstValueIsTotal = $firstValueIsTotal;
+  }
+  public function getFirstValueIsTotal()
+  {
+    return $this->firstValueIsTotal;
+  }
+  public function setHideConnectorLines($hideConnectorLines)
+  {
+    $this->hideConnectorLines = $hideConnectorLines;
+  }
+  public function getHideConnectorLines()
+  {
+    return $this->hideConnectorLines;
+  }
+  /**
+   * @param Google_Service_Sheets_WaterfallChartSeries[]
+   */
+  public function setSeries($series)
+  {
+    $this->series = $series;
+  }
+  /**
+   * @return Google_Service_Sheets_WaterfallChartSeries[]
+   */
+  public function getSeries()
+  {
+    return $this->series;
+  }
+  public function setStackedType($stackedType)
+  {
+    $this->stackedType = $stackedType;
+  }
+  public function getStackedType()
+  {
+    return $this->stackedType;
+  }
 }

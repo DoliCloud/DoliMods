@@ -17,50 +17,50 @@
 
 class Google_Service_CloudScheduler_RetryConfig extends Google_Model
 {
-	public $maxBackoffDuration;
-	public $maxDoublings;
-	public $maxRetryDuration;
-	public $minBackoffDuration;
-	public $retryCount;
+  public $maxBackoffDuration;
+  public $maxDoublings;
+  public $maxRetryDuration;
+  public $minBackoffDuration;
+  public $retryCount;
 
-	public function setMaxBackoffDuration($maxBackoffDuration)
-	{
-		$this->maxBackoffDuration = $maxBackoffDuration;
-	}
-	public function getMaxBackoffDuration()
-	{
-		return $this->maxBackoffDuration;
-	}
-	public function setMaxDoublings($maxDoublings)
-	{
-		$this->maxDoublings = $maxDoublings;
-	}
-	public function getMaxDoublings()
-	{
-		return $this->maxDoublings;
-	}
-	public function setMaxRetryDuration($maxRetryDuration)
-	{
-		$this->maxRetryDuration = $maxRetryDuration;
-	}
-	public function getMaxRetryDuration()
-	{
-		return $this->maxRetryDuration;
-	}
-	public function setMinBackoffDuration($minBackoffDuration)
-	{
-		$this->minBackoffDuration = $minBackoffDuration;
-	}
-	public function getMinBackoffDuration()
-	{
-		return $this->minBackoffDuration;
-	}
-	public function setRetryCount($retryCount)
-	{
-		$this->retryCount = $retryCount;
-	}
-	public function getRetryCount()
-	{
-		return $this->retryCount;
-	}
+  public function setMaxBackoffDuration($maxBackoffDuration)
+  {
+    $this->maxBackoffDuration = $maxBackoffDuration;
+  }
+  public function getMaxBackoffDuration()
+  {
+    return $this->maxBackoffDuration;
+  }
+  public function setMaxDoublings($maxDoublings)
+  {
+    $this->maxDoublings = $maxDoublings;
+  }
+  public function getMaxDoublings()
+  {
+    return $this->maxDoublings;
+  }
+  public function setMaxRetryDuration($maxRetryDuration)
+  {
+    $this->maxRetryDuration = $maxRetryDuration;
+  }
+  public function getMaxRetryDuration()
+  {
+    return $this->maxRetryDuration;
+  }
+  public function setMinBackoffDuration($minBackoffDuration)
+  {
+    $this->minBackoffDuration = $minBackoffDuration;
+  }
+  public function getMinBackoffDuration()
+  {
+    return $this->minBackoffDuration;
+  }
+  public function setRetryCount($retryCount)
+  {
+    $this->retryCount = $retryCount;
+  }
+  public function getRetryCount()
+  {
+    return $this->retryCount;
+  }
 }

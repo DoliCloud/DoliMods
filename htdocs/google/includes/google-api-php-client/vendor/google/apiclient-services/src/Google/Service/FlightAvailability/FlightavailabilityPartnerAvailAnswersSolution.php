@@ -17,56 +17,56 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSolution extends Google_Collection
 {
-	protected $collection_key = 'segmentCounts';
-	protected $constraintsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints';
-	protected $constraintsDataType = '';
-	public $narrative;
-	protected $segmentCountsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSegmentCounts';
-	protected $segmentCountsDataType = 'array';
-	public $timestampTime;
+  protected $collection_key = 'segmentCounts';
+  protected $constraintsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints';
+  protected $constraintsDataType = '';
+  public $narrative;
+  protected $segmentCountsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSegmentCounts';
+  protected $segmentCountsDataType = 'array';
+  public $timestampTime;
 
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints
-	 */
-	public function setConstraints(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints $constraints)
-	{
-		$this->constraints = $constraints;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints
-	 */
-	public function getConstraints()
-	{
-		return $this->constraints;
-	}
-	public function setNarrative($narrative)
-	{
-		$this->narrative = $narrative;
-	}
-	public function getNarrative()
-	{
-		return $this->narrative;
-	}
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSegmentCounts
-	 */
-	public function setSegmentCounts($segmentCounts)
-	{
-		$this->segmentCounts = $segmentCounts;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSegmentCounts
-	 */
-	public function getSegmentCounts()
-	{
-		return $this->segmentCounts;
-	}
-	public function setTimestampTime($timestampTime)
-	{
-		$this->timestampTime = $timestampTime;
-	}
-	public function getTimestampTime()
-	{
-		return $this->timestampTime;
-	}
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints
+   */
+  public function setConstraints(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints $constraints)
+  {
+    $this->constraints = $constraints;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints
+   */
+  public function getConstraints()
+  {
+    return $this->constraints;
+  }
+  public function setNarrative($narrative)
+  {
+    $this->narrative = $narrative;
+  }
+  public function getNarrative()
+  {
+    return $this->narrative;
+  }
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSegmentCounts
+   */
+  public function setSegmentCounts($segmentCounts)
+  {
+    $this->segmentCounts = $segmentCounts;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSegmentCounts
+   */
+  public function getSegmentCounts()
+  {
+    return $this->segmentCounts;
+  }
+  public function setTimestampTime($timestampTime)
+  {
+    $this->timestampTime = $timestampTime;
+  }
+  public function getTimestampTime()
+  {
+    return $this->timestampTime;
+  }
 }

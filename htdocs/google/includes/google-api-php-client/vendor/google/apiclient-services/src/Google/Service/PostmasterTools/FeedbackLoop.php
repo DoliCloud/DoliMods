@@ -17,23 +17,23 @@
 
 class Google_Service_PostmasterTools_FeedbackLoop extends Google_Model
 {
-	public $id;
-	public $spamRatio;
+  public $id;
+  public $spamRatio;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setSpamRatio($spamRatio)
-	{
-		$this->spamRatio = $spamRatio;
-	}
-	public function getSpamRatio()
-	{
-		return $this->spamRatio;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setSpamRatio($spamRatio)
+  {
+    $this->spamRatio = $spamRatio;
+  }
+  public function getSpamRatio()
+  {
+    return $this->spamRatio;
+  }
 }

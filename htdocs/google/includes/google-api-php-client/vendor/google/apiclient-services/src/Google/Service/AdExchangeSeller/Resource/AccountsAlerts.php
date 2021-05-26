@@ -25,21 +25,21 @@
  */
 class Google_Service_AdExchangeSeller_Resource_AccountsAlerts extends Google_Service_Resource
 {
-	/**
-	 * List the alerts for this Ad Exchange account. (alerts.listAccountsAlerts)
-	 *
-	 * @param string $accountId Account owning the alerts.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string locale The locale to use for translating alert messages.
-	 * The account locale will be used if this is not supplied. The AdSense default
-	 * (English) will be used if the supplied locale is invalid or unsupported.
-	 * @return Google_Service_AdExchangeSeller_Alerts
-	 */
-	public function listAccountsAlerts($accountId, $optParams = array())
-	{
-		$params = array('accountId' => $accountId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AdExchangeSeller_Alerts");
-	}
+  /**
+   * List the alerts for this Ad Exchange account. (alerts.listAccountsAlerts)
+   *
+   * @param string $accountId Account owning the alerts.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string locale The locale to use for translating alert messages.
+   * The account locale will be used if this is not supplied. The AdSense default
+   * (English) will be used if the supplied locale is invalid or unsupported.
+   * @return Google_Service_AdExchangeSeller_Alerts
+   */
+  public function listAccountsAlerts($accountId, $optParams = array())
+  {
+    $params = array('accountId' => $accountId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AdExchangeSeller_Alerts");
+  }
 }

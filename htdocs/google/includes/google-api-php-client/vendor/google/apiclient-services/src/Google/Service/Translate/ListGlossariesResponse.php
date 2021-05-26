@@ -17,31 +17,31 @@
 
 class Google_Service_Translate_ListGlossariesResponse extends Google_Collection
 {
-	protected $collection_key = 'glossaries';
-	protected $glossariesType = 'Google_Service_Translate_Glossary';
-	protected $glossariesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'glossaries';
+  protected $glossariesType = 'Google_Service_Translate_Glossary';
+  protected $glossariesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Translate_Glossary
-	 */
-	public function setGlossaries($glossaries)
-	{
-		$this->glossaries = $glossaries;
-	}
-	/**
-	 * @return Google_Service_Translate_Glossary
-	 */
-	public function getGlossaries()
-	{
-		return $this->glossaries;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Translate_Glossary[]
+   */
+  public function setGlossaries($glossaries)
+  {
+    $this->glossaries = $glossaries;
+  }
+  /**
+   * @return Google_Service_Translate_Glossary[]
+   */
+  public function getGlossaries()
+  {
+    return $this->glossaries;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

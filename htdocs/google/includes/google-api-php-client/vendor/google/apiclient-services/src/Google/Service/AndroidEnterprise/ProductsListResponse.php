@@ -17,54 +17,54 @@
 
 class Google_Service_AndroidEnterprise_ProductsListResponse extends Google_Collection
 {
-	protected $collection_key = 'product';
-	protected $pageInfoType = 'Google_Service_AndroidEnterprise_PageInfo';
-	protected $pageInfoDataType = '';
-	protected $productType = 'Google_Service_AndroidEnterprise_Product';
-	protected $productDataType = 'array';
-	protected $tokenPaginationType = 'Google_Service_AndroidEnterprise_TokenPagination';
-	protected $tokenPaginationDataType = '';
+  protected $collection_key = 'product';
+  protected $pageInfoType = 'Google_Service_AndroidEnterprise_PageInfo';
+  protected $pageInfoDataType = '';
+  protected $productType = 'Google_Service_AndroidEnterprise_Product';
+  protected $productDataType = 'array';
+  protected $tokenPaginationType = 'Google_Service_AndroidEnterprise_TokenPagination';
+  protected $tokenPaginationDataType = '';
 
-	/**
-	 * @param Google_Service_AndroidEnterprise_PageInfo
-	 */
-	public function setPageInfo(Google_Service_AndroidEnterprise_PageInfo $pageInfo)
-	{
-		$this->pageInfo = $pageInfo;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_PageInfo
-	 */
-	public function getPageInfo()
-	{
-		return $this->pageInfo;
-	}
-	/**
-	 * @param Google_Service_AndroidEnterprise_Product
-	 */
-	public function setProduct($product)
-	{
-		$this->product = $product;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_Product
-	 */
-	public function getProduct()
-	{
-		return $this->product;
-	}
-	/**
-	 * @param Google_Service_AndroidEnterprise_TokenPagination
-	 */
-	public function setTokenPagination(Google_Service_AndroidEnterprise_TokenPagination $tokenPagination)
-	{
-		$this->tokenPagination = $tokenPagination;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_TokenPagination
-	 */
-	public function getTokenPagination()
-	{
-		return $this->tokenPagination;
-	}
+  /**
+   * @param Google_Service_AndroidEnterprise_PageInfo
+   */
+  public function setPageInfo(Google_Service_AndroidEnterprise_PageInfo $pageInfo)
+  {
+    $this->pageInfo = $pageInfo;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_PageInfo
+   */
+  public function getPageInfo()
+  {
+    return $this->pageInfo;
+  }
+  /**
+   * @param Google_Service_AndroidEnterprise_Product[]
+   */
+  public function setProduct($product)
+  {
+    $this->product = $product;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_Product[]
+   */
+  public function getProduct()
+  {
+    return $this->product;
+  }
+  /**
+   * @param Google_Service_AndroidEnterprise_TokenPagination
+   */
+  public function setTokenPagination(Google_Service_AndroidEnterprise_TokenPagination $tokenPagination)
+  {
+    $this->tokenPagination = $tokenPagination;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_TokenPagination
+   */
+  public function getTokenPagination()
+  {
+    return $this->tokenPagination;
+  }
 }

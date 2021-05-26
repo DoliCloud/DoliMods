@@ -17,22 +17,22 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumType extends Google_Collection
 {
-	protected $collection_key = 'allowedValues';
-	protected $allowedValuesType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumTypeEnumValue';
-	protected $allowedValuesDataType = 'array';
+  protected $collection_key = 'allowedValues';
+  protected $allowedValuesType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumTypeEnumValue';
+  protected $allowedValuesDataType = 'array';
 
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumTypeEnumValue
-	 */
-	public function setAllowedValues($allowedValues)
-	{
-		$this->allowedValues = $allowedValues;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumTypeEnumValue
-	 */
-	public function getAllowedValues()
-	{
-		return $this->allowedValues;
-	}
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumTypeEnumValue[]
+   */
+  public function setAllowedValues($allowedValues)
+  {
+    $this->allowedValues = $allowedValues;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1FieldTypeEnumTypeEnumValue[]
+   */
+  public function getAllowedValues()
+  {
+    return $this->allowedValues;
+  }
 }

@@ -17,15 +17,15 @@
 
 class Google_Service_GameServices_RealmSelector extends Google_Collection
 {
-	protected $collection_key = 'realms';
-	public $realms;
+  protected $collection_key = 'realms';
+  public $realms;
 
-	public function setRealms($realms)
-	{
-		$this->realms = $realms;
-	}
-	public function getRealms()
-	{
-		return $this->realms;
-	}
+  public function setRealms($realms)
+  {
+    $this->realms = $realms;
+  }
+  public function getRealms()
+  {
+    return $this->realms;
+  }
 }

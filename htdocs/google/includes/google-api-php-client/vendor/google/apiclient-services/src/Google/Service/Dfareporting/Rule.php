@@ -17,32 +17,32 @@
 
 class Google_Service_Dfareporting_Rule extends Google_Model
 {
-	public $assetId;
-	public $name;
-	public $targetingTemplateId;
+  public $assetId;
+  public $name;
+  public $targetingTemplateId;
 
-	public function setAssetId($assetId)
-	{
-		$this->assetId = $assetId;
-	}
-	public function getAssetId()
-	{
-		return $this->assetId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setTargetingTemplateId($targetingTemplateId)
-	{
-		$this->targetingTemplateId = $targetingTemplateId;
-	}
-	public function getTargetingTemplateId()
-	{
-		return $this->targetingTemplateId;
-	}
+  public function setAssetId($assetId)
+  {
+    $this->assetId = $assetId;
+  }
+  public function getAssetId()
+  {
+    return $this->assetId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setTargetingTemplateId($targetingTemplateId)
+  {
+    $this->targetingTemplateId = $targetingTemplateId;
+  }
+  public function getTargetingTemplateId()
+  {
+    return $this->targetingTemplateId;
+  }
 }

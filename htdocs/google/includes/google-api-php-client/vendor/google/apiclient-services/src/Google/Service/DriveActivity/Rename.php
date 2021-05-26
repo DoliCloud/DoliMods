@@ -17,23 +17,23 @@
 
 class Google_Service_DriveActivity_Rename extends Google_Model
 {
-	public $newTitle;
-	public $oldTitle;
+  public $newTitle;
+  public $oldTitle;
 
-	public function setNewTitle($newTitle)
-	{
-		$this->newTitle = $newTitle;
-	}
-	public function getNewTitle()
-	{
-		return $this->newTitle;
-	}
-	public function setOldTitle($oldTitle)
-	{
-		$this->oldTitle = $oldTitle;
-	}
-	public function getOldTitle()
-	{
-		return $this->oldTitle;
-	}
+  public function setNewTitle($newTitle)
+  {
+    $this->newTitle = $newTitle;
+  }
+  public function getNewTitle()
+  {
+    return $this->newTitle;
+  }
+  public function setOldTitle($oldTitle)
+  {
+    $this->oldTitle = $oldTitle;
+  }
+  public function getOldTitle()
+  {
+    return $this->oldTitle;
+  }
 }

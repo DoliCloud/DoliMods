@@ -17,141 +17,141 @@
 
 class Google_Service_Testing_AndroidModel extends Google_Collection
 {
-	protected $collection_key = 'tags';
-	public $brand;
-	public $codename;
-	public $form;
-	public $formFactor;
-	public $id;
-	public $lowFpsVideoRecording;
-	public $manufacturer;
-	public $name;
-	public $screenDensity;
-	public $screenX;
-	public $screenY;
-	public $supportedAbis;
-	public $supportedVersionIds;
-	public $tags;
-	public $thumbnailUrl;
+  protected $collection_key = 'tags';
+  public $brand;
+  public $codename;
+  public $form;
+  public $formFactor;
+  public $id;
+  public $lowFpsVideoRecording;
+  public $manufacturer;
+  public $name;
+  public $screenDensity;
+  public $screenX;
+  public $screenY;
+  public $supportedAbis;
+  public $supportedVersionIds;
+  public $tags;
+  public $thumbnailUrl;
 
-	public function setBrand($brand)
-	{
-		$this->brand = $brand;
-	}
-	public function getBrand()
-	{
-		return $this->brand;
-	}
-	public function setCodename($codename)
-	{
-		$this->codename = $codename;
-	}
-	public function getCodename()
-	{
-		return $this->codename;
-	}
-	public function setForm($form)
-	{
-		$this->form = $form;
-	}
-	public function getForm()
-	{
-		return $this->form;
-	}
-	public function setFormFactor($formFactor)
-	{
-		$this->formFactor = $formFactor;
-	}
-	public function getFormFactor()
-	{
-		return $this->formFactor;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setLowFpsVideoRecording($lowFpsVideoRecording)
-	{
-		$this->lowFpsVideoRecording = $lowFpsVideoRecording;
-	}
-	public function getLowFpsVideoRecording()
-	{
-		return $this->lowFpsVideoRecording;
-	}
-	public function setManufacturer($manufacturer)
-	{
-		$this->manufacturer = $manufacturer;
-	}
-	public function getManufacturer()
-	{
-		return $this->manufacturer;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setScreenDensity($screenDensity)
-	{
-		$this->screenDensity = $screenDensity;
-	}
-	public function getScreenDensity()
-	{
-		return $this->screenDensity;
-	}
-	public function setScreenX($screenX)
-	{
-		$this->screenX = $screenX;
-	}
-	public function getScreenX()
-	{
-		return $this->screenX;
-	}
-	public function setScreenY($screenY)
-	{
-		$this->screenY = $screenY;
-	}
-	public function getScreenY()
-	{
-		return $this->screenY;
-	}
-	public function setSupportedAbis($supportedAbis)
-	{
-		$this->supportedAbis = $supportedAbis;
-	}
-	public function getSupportedAbis()
-	{
-		return $this->supportedAbis;
-	}
-	public function setSupportedVersionIds($supportedVersionIds)
-	{
-		$this->supportedVersionIds = $supportedVersionIds;
-	}
-	public function getSupportedVersionIds()
-	{
-		return $this->supportedVersionIds;
-	}
-	public function setTags($tags)
-	{
-		$this->tags = $tags;
-	}
-	public function getTags()
-	{
-		return $this->tags;
-	}
-	public function setThumbnailUrl($thumbnailUrl)
-	{
-		$this->thumbnailUrl = $thumbnailUrl;
-	}
-	public function getThumbnailUrl()
-	{
-		return $this->thumbnailUrl;
-	}
+  public function setBrand($brand)
+  {
+    $this->brand = $brand;
+  }
+  public function getBrand()
+  {
+    return $this->brand;
+  }
+  public function setCodename($codename)
+  {
+    $this->codename = $codename;
+  }
+  public function getCodename()
+  {
+    return $this->codename;
+  }
+  public function setForm($form)
+  {
+    $this->form = $form;
+  }
+  public function getForm()
+  {
+    return $this->form;
+  }
+  public function setFormFactor($formFactor)
+  {
+    $this->formFactor = $formFactor;
+  }
+  public function getFormFactor()
+  {
+    return $this->formFactor;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setLowFpsVideoRecording($lowFpsVideoRecording)
+  {
+    $this->lowFpsVideoRecording = $lowFpsVideoRecording;
+  }
+  public function getLowFpsVideoRecording()
+  {
+    return $this->lowFpsVideoRecording;
+  }
+  public function setManufacturer($manufacturer)
+  {
+    $this->manufacturer = $manufacturer;
+  }
+  public function getManufacturer()
+  {
+    return $this->manufacturer;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setScreenDensity($screenDensity)
+  {
+    $this->screenDensity = $screenDensity;
+  }
+  public function getScreenDensity()
+  {
+    return $this->screenDensity;
+  }
+  public function setScreenX($screenX)
+  {
+    $this->screenX = $screenX;
+  }
+  public function getScreenX()
+  {
+    return $this->screenX;
+  }
+  public function setScreenY($screenY)
+  {
+    $this->screenY = $screenY;
+  }
+  public function getScreenY()
+  {
+    return $this->screenY;
+  }
+  public function setSupportedAbis($supportedAbis)
+  {
+    $this->supportedAbis = $supportedAbis;
+  }
+  public function getSupportedAbis()
+  {
+    return $this->supportedAbis;
+  }
+  public function setSupportedVersionIds($supportedVersionIds)
+  {
+    $this->supportedVersionIds = $supportedVersionIds;
+  }
+  public function getSupportedVersionIds()
+  {
+    return $this->supportedVersionIds;
+  }
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  public function getTags()
+  {
+    return $this->tags;
+  }
+  public function setThumbnailUrl($thumbnailUrl)
+  {
+    $this->thumbnailUrl = $thumbnailUrl;
+  }
+  public function getThumbnailUrl()
+  {
+    return $this->thumbnailUrl;
+  }
 }

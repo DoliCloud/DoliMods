@@ -33,164 +33,164 @@ class Google_Service_Reportcard extends Google_Service
 {
 
 
-	public $mutes;
-	public $notices;
+  public $mutes;
+  public $notices;
+  
+  /**
+   * Constructs the internal representation of the Reportcard service.
+   *
+   * @param Google_Client $client
+   */
+  public function __construct(Google_Client $client)
+  {
+    parent::__construct($client);
+    $this->rootUrl = 'https://www.googleapis.com/';
+    $this->servicePath = 'reportcard/v1/';
+    $this->version = 'v1';
+    $this->serviceName = 'reportcard';
 
-	/**
-	 * Constructs the internal representation of the Reportcard service.
-	 *
-	 * @param Google_Client $client
-	 */
-	public function __construct(Google_Client $client)
-	{
-		parent::__construct($client);
-		$this->rootUrl = 'https://www.googleapis.com/';
-		$this->servicePath = 'reportcard/v1/';
-		$this->version = 'v1';
-		$this->serviceName = 'reportcard';
-
-		$this->mutes = new Google_Service_Reportcard_Resource_Mutes(
-		$this,
-		$this->serviceName,
-		'mutes',
-		array(
-		  'methods' => array(
-			'delete' => array(
-			  'path' => 'mutes/{mutesId}',
-			  'httpMethod' => 'DELETE',
-			  'parameters' => array(
-				'mutesId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'get' => array(
-			  'path' => 'mutes/{mutesId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'mutesId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'insert' => array(
-			  'path' => 'mutes',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'list' => array(
-			  'path' => 'mutes',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'consumer' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'groupKey' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'sourceKey' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'supplier' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'patch' => array(
-			  'path' => 'mutes/{mutesId}',
-			  'httpMethod' => 'PATCH',
-			  'parameters' => array(
-				'mutesId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'update' => array(
-			  'path' => 'mutes/{mutesId}',
-			  'httpMethod' => 'PUT',
-			  'parameters' => array(
-				'mutesId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->notices = new Google_Service_Reportcard_Resource_Notices(
-		$this,
-		$this->serviceName,
-		'notices',
-		array(
-		  'methods' => array(
-			'delete' => array(
-			  'path' => 'notices/{noticesId}',
-			  'httpMethod' => 'DELETE',
-			  'parameters' => array(
-				'noticesId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'get' => array(
-			  'path' => 'notices/{noticesId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'noticesId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'insert' => array(
-			  'path' => 'notices',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'list' => array(
-			  'path' => 'notices',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'consumer' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				  'repeated' => true,
-				),
-				'showMuted' => array(
-				  'location' => 'query',
-				  'type' => 'boolean',
-				),
-			  ),
-			),'patch' => array(
-			  'path' => 'notices/{noticesId}',
-			  'httpMethod' => 'PATCH',
-			  'parameters' => array(
-				'noticesId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'update' => array(
-			  'path' => 'notices/{noticesId}',
-			  'httpMethod' => 'PUT',
-			  'parameters' => array(
-				'noticesId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->mutes = new Google_Service_Reportcard_Resource_Mutes(
+        $this,
+        $this->serviceName,
+        'mutes',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => 'mutes/{mutesId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'mutesId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'mutes/{mutesId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'mutesId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => 'mutes',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'list' => array(
+              'path' => 'mutes',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'consumer' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'groupKey' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'sourceKey' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'supplier' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'mutes/{mutesId}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'mutesId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'update' => array(
+              'path' => 'mutes/{mutesId}',
+              'httpMethod' => 'PUT',
+              'parameters' => array(
+                'mutesId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->notices = new Google_Service_Reportcard_Resource_Notices(
+        $this,
+        $this->serviceName,
+        'notices',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => 'notices/{noticesId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'noticesId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'notices/{noticesId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'noticesId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => 'notices',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'list' => array(
+              'path' => 'notices',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'consumer' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+                'showMuted' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'notices/{noticesId}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'noticesId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'update' => array(
+              'path' => 'notices/{noticesId}',
+              'httpMethod' => 'PUT',
+              'parameters' => array(
+                'noticesId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

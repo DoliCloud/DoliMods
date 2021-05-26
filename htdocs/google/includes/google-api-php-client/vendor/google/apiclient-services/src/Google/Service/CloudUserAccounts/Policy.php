@@ -17,81 +17,81 @@
 
 class Google_Service_CloudUserAccounts_Policy extends Google_Collection
 {
-	protected $collection_key = 'rules';
-	protected $auditConfigsType = 'Google_Service_CloudUserAccounts_AuditConfig';
-	protected $auditConfigsDataType = 'array';
-	protected $bindingsType = 'Google_Service_CloudUserAccounts_Binding';
-	protected $bindingsDataType = 'array';
-	public $etag;
-	public $iamOwned;
-	protected $rulesType = 'Google_Service_CloudUserAccounts_Rule';
-	protected $rulesDataType = 'array';
-	public $version;
+  protected $collection_key = 'rules';
+  protected $auditConfigsType = 'Google_Service_CloudUserAccounts_AuditConfig';
+  protected $auditConfigsDataType = 'array';
+  protected $bindingsType = 'Google_Service_CloudUserAccounts_Binding';
+  protected $bindingsDataType = 'array';
+  public $etag;
+  public $iamOwned;
+  protected $rulesType = 'Google_Service_CloudUserAccounts_Rule';
+  protected $rulesDataType = 'array';
+  public $version;
 
-	/**
-	 * @param Google_Service_CloudUserAccounts_AuditConfig
-	 */
-	public function setAuditConfigs($auditConfigs)
-	{
-		$this->auditConfigs = $auditConfigs;
-	}
-	/**
-	 * @return Google_Service_CloudUserAccounts_AuditConfig
-	 */
-	public function getAuditConfigs()
-	{
-		return $this->auditConfigs;
-	}
-	/**
-	 * @param Google_Service_CloudUserAccounts_Binding
-	 */
-	public function setBindings($bindings)
-	{
-		$this->bindings = $bindings;
-	}
-	/**
-	 * @return Google_Service_CloudUserAccounts_Binding
-	 */
-	public function getBindings()
-	{
-		return $this->bindings;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setIamOwned($iamOwned)
-	{
-		$this->iamOwned = $iamOwned;
-	}
-	public function getIamOwned()
-	{
-		return $this->iamOwned;
-	}
-	/**
-	 * @param Google_Service_CloudUserAccounts_Rule
-	 */
-	public function setRules($rules)
-	{
-		$this->rules = $rules;
-	}
-	/**
-	 * @return Google_Service_CloudUserAccounts_Rule
-	 */
-	public function getRules()
-	{
-		return $this->rules;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_CloudUserAccounts_AuditConfig
+   */
+  public function setAuditConfigs($auditConfigs)
+  {
+    $this->auditConfigs = $auditConfigs;
+  }
+  /**
+   * @return Google_Service_CloudUserAccounts_AuditConfig
+   */
+  public function getAuditConfigs()
+  {
+    return $this->auditConfigs;
+  }
+  /**
+   * @param Google_Service_CloudUserAccounts_Binding
+   */
+  public function setBindings($bindings)
+  {
+    $this->bindings = $bindings;
+  }
+  /**
+   * @return Google_Service_CloudUserAccounts_Binding
+   */
+  public function getBindings()
+  {
+    return $this->bindings;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setIamOwned($iamOwned)
+  {
+    $this->iamOwned = $iamOwned;
+  }
+  public function getIamOwned()
+  {
+    return $this->iamOwned;
+  }
+  /**
+   * @param Google_Service_CloudUserAccounts_Rule
+   */
+  public function setRules($rules)
+  {
+    $this->rules = $rules;
+  }
+  /**
+   * @return Google_Service_CloudUserAccounts_Rule
+   */
+  public function getRules()
+  {
+    return $this->rules;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

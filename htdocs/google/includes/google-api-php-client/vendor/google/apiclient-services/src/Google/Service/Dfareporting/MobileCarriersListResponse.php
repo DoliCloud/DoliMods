@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_MobileCarriersListResponse extends Google_Collection
 {
-	protected $collection_key = 'mobileCarriers';
-	public $kind;
-	protected $mobileCarriersType = 'Google_Service_Dfareporting_MobileCarrier';
-	protected $mobileCarriersDataType = 'array';
+  protected $collection_key = 'mobileCarriers';
+  public $kind;
+  protected $mobileCarriersType = 'Google_Service_Dfareporting_MobileCarrier';
+  protected $mobileCarriersDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_MobileCarrier
-	 */
-	public function setMobileCarriers($mobileCarriers)
-	{
-		$this->mobileCarriers = $mobileCarriers;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_MobileCarrier
-	 */
-	public function getMobileCarriers()
-	{
-		return $this->mobileCarriers;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_MobileCarrier[]
+   */
+  public function setMobileCarriers($mobileCarriers)
+  {
+    $this->mobileCarriers = $mobileCarriers;
+  }
+  /**
+   * @return Google_Service_Dfareporting_MobileCarrier[]
+   */
+  public function getMobileCarriers()
+  {
+    return $this->mobileCarriers;
+  }
 }

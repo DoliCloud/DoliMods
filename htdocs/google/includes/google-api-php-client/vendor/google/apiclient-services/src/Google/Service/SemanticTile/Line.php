@@ -17,30 +17,30 @@
 
 class Google_Service_SemanticTile_Line extends Google_Model
 {
-	protected $vertexOffsetsType = 'Google_Service_SemanticTile_Vertex2DList';
-	protected $vertexOffsetsDataType = '';
-	public $zOrder;
+  protected $vertexOffsetsType = 'Google_Service_SemanticTile_Vertex2DList';
+  protected $vertexOffsetsDataType = '';
+  public $zOrder;
 
-	/**
-	 * @param Google_Service_SemanticTile_Vertex2DList
-	 */
-	public function setVertexOffsets(Google_Service_SemanticTile_Vertex2DList $vertexOffsets)
-	{
-		$this->vertexOffsets = $vertexOffsets;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_Vertex2DList
-	 */
-	public function getVertexOffsets()
-	{
-		return $this->vertexOffsets;
-	}
-	public function setZOrder($zOrder)
-	{
-		$this->zOrder = $zOrder;
-	}
-	public function getZOrder()
-	{
-		return $this->zOrder;
-	}
+  /**
+   * @param Google_Service_SemanticTile_Vertex2DList
+   */
+  public function setVertexOffsets(Google_Service_SemanticTile_Vertex2DList $vertexOffsets)
+  {
+    $this->vertexOffsets = $vertexOffsets;
+  }
+  /**
+   * @return Google_Service_SemanticTile_Vertex2DList
+   */
+  public function getVertexOffsets()
+  {
+    return $this->vertexOffsets;
+  }
+  public function setZOrder($zOrder)
+  {
+    $this->zOrder = $zOrder;
+  }
+  public function getZOrder()
+  {
+    return $this->zOrder;
+  }
 }

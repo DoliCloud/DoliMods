@@ -17,65 +17,65 @@
 
 class Google_Service_Spectrum_PawsVerifyDeviceResponse extends Google_Collection
 {
-	protected $collection_key = 'deviceValidities';
-	protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
-	protected $databaseChangeDataType = '';
-	protected $deviceValiditiesType = 'Google_Service_Spectrum_DeviceValidity';
-	protected $deviceValiditiesDataType = 'array';
-	public $kind;
-	public $type;
-	public $version;
+  protected $collection_key = 'deviceValidities';
+  protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
+  protected $databaseChangeDataType = '';
+  protected $deviceValiditiesType = 'Google_Service_Spectrum_DeviceValidity';
+  protected $deviceValiditiesDataType = 'array';
+  public $kind;
+  public $type;
+  public $version;
 
-	/**
-	 * @param Google_Service_Spectrum_DbUpdateSpec
-	 */
-	public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
-	{
-		$this->databaseChange = $databaseChange;
-	}
-	/**
-	 * @return Google_Service_Spectrum_DbUpdateSpec
-	 */
-	public function getDatabaseChange()
-	{
-		return $this->databaseChange;
-	}
-	/**
-	 * @param Google_Service_Spectrum_DeviceValidity
-	 */
-	public function setDeviceValidities($deviceValidities)
-	{
-		$this->deviceValidities = $deviceValidities;
-	}
-	/**
-	 * @return Google_Service_Spectrum_DeviceValidity
-	 */
-	public function getDeviceValidities()
-	{
-		return $this->deviceValidities;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_Spectrum_DbUpdateSpec
+   */
+  public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
+  {
+    $this->databaseChange = $databaseChange;
+  }
+  /**
+   * @return Google_Service_Spectrum_DbUpdateSpec
+   */
+  public function getDatabaseChange()
+  {
+    return $this->databaseChange;
+  }
+  /**
+   * @param Google_Service_Spectrum_DeviceValidity
+   */
+  public function setDeviceValidities($deviceValidities)
+  {
+    $this->deviceValidities = $deviceValidities;
+  }
+  /**
+   * @return Google_Service_Spectrum_DeviceValidity
+   */
+  public function getDeviceValidities()
+  {
+    return $this->deviceValidities;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

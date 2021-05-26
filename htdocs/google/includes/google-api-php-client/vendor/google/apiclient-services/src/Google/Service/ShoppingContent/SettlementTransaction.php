@@ -17,62 +17,62 @@
 
 class Google_Service_ShoppingContent_SettlementTransaction extends Google_Model
 {
-	protected $amountType = 'Google_Service_ShoppingContent_SettlementTransactionAmount';
-	protected $amountDataType = '';
-	protected $identifiersType = 'Google_Service_ShoppingContent_SettlementTransactionIdentifiers';
-	protected $identifiersDataType = '';
-	public $kind;
-	protected $transactionType = 'Google_Service_ShoppingContent_SettlementTransactionTransaction';
-	protected $transactionDataType = '';
+  protected $amountType = 'Google_Service_ShoppingContent_SettlementTransactionAmount';
+  protected $amountDataType = '';
+  protected $identifiersType = 'Google_Service_ShoppingContent_SettlementTransactionIdentifiers';
+  protected $identifiersDataType = '';
+  public $kind;
+  protected $transactionType = 'Google_Service_ShoppingContent_SettlementTransactionTransaction';
+  protected $transactionDataType = '';
 
-	/**
-	 * @param Google_Service_ShoppingContent_SettlementTransactionAmount
-	 */
-	public function setAmount(Google_Service_ShoppingContent_SettlementTransactionAmount $amount)
-	{
-		$this->amount = $amount;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_SettlementTransactionAmount
-	 */
-	public function getAmount()
-	{
-		return $this->amount;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_SettlementTransactionIdentifiers
-	 */
-	public function setIdentifiers(Google_Service_ShoppingContent_SettlementTransactionIdentifiers $identifiers)
-	{
-		$this->identifiers = $identifiers;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_SettlementTransactionIdentifiers
-	 */
-	public function getIdentifiers()
-	{
-		return $this->identifiers;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_SettlementTransactionTransaction
-	 */
-	public function setTransaction(Google_Service_ShoppingContent_SettlementTransactionTransaction $transaction)
-	{
-		$this->transaction = $transaction;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_SettlementTransactionTransaction
-	 */
-	public function getTransaction()
-	{
-		return $this->transaction;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_SettlementTransactionAmount
+   */
+  public function setAmount(Google_Service_ShoppingContent_SettlementTransactionAmount $amount)
+  {
+    $this->amount = $amount;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_SettlementTransactionAmount
+   */
+  public function getAmount()
+  {
+    return $this->amount;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_SettlementTransactionIdentifiers
+   */
+  public function setIdentifiers(Google_Service_ShoppingContent_SettlementTransactionIdentifiers $identifiers)
+  {
+    $this->identifiers = $identifiers;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_SettlementTransactionIdentifiers
+   */
+  public function getIdentifiers()
+  {
+    return $this->identifiers;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_SettlementTransactionTransaction
+   */
+  public function setTransaction(Google_Service_ShoppingContent_SettlementTransactionTransaction $transaction)
+  {
+    $this->transaction = $transaction;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_SettlementTransactionTransaction
+   */
+  public function getTransaction()
+  {
+    return $this->transaction;
+  }
 }

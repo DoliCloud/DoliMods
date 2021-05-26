@@ -17,14 +17,14 @@
 
 class Google_Service_ConsumerSurveys_SurveysStartRequest extends Google_Model
 {
-	public $maxCostPerResponseNanos;
+  public $maxCostPerResponseNanos;
 
-	public function setMaxCostPerResponseNanos($maxCostPerResponseNanos)
-	{
-		$this->maxCostPerResponseNanos = $maxCostPerResponseNanos;
-	}
-	public function getMaxCostPerResponseNanos()
-	{
-		return $this->maxCostPerResponseNanos;
-	}
+  public function setMaxCostPerResponseNanos($maxCostPerResponseNanos)
+  {
+    $this->maxCostPerResponseNanos = $maxCostPerResponseNanos;
+  }
+  public function getMaxCostPerResponseNanos()
+  {
+    return $this->maxCostPerResponseNanos;
+  }
 }

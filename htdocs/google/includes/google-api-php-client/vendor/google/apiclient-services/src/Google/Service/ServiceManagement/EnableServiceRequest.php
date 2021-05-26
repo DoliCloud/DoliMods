@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceManagement_EnableServiceRequest extends Google_Model
 {
-	public $consumerId;
+  public $consumerId;
 
-	public function setConsumerId($consumerId)
-	{
-		$this->consumerId = $consumerId;
-	}
-	public function getConsumerId()
-	{
-		return $this->consumerId;
-	}
+  public function setConsumerId($consumerId)
+  {
+    $this->consumerId = $consumerId;
+  }
+  public function getConsumerId()
+  {
+    return $this->consumerId;
+  }
 }

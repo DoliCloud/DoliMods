@@ -17,37 +17,46 @@
 
 class Google_Service_ServiceControl_ServiceAccountDelegationInfo extends Google_Model
 {
-	protected $firstPartyPrincipalType = 'Google_Service_ServiceControl_FirstPartyPrincipal';
-	protected $firstPartyPrincipalDataType = '';
-	protected $thirdPartyPrincipalType = 'Google_Service_ServiceControl_ThirdPartyPrincipal';
-	protected $thirdPartyPrincipalDataType = '';
+  protected $firstPartyPrincipalType = 'Google_Service_ServiceControl_FirstPartyPrincipal';
+  protected $firstPartyPrincipalDataType = '';
+  public $principalSubject;
+  protected $thirdPartyPrincipalType = 'Google_Service_ServiceControl_ThirdPartyPrincipal';
+  protected $thirdPartyPrincipalDataType = '';
 
-	/**
-	 * @param Google_Service_ServiceControl_FirstPartyPrincipal
-	 */
-	public function setFirstPartyPrincipal(Google_Service_ServiceControl_FirstPartyPrincipal $firstPartyPrincipal)
-	{
-		$this->firstPartyPrincipal = $firstPartyPrincipal;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_FirstPartyPrincipal
-	 */
-	public function getFirstPartyPrincipal()
-	{
-		return $this->firstPartyPrincipal;
-	}
-	/**
-	 * @param Google_Service_ServiceControl_ThirdPartyPrincipal
-	 */
-	public function setThirdPartyPrincipal(Google_Service_ServiceControl_ThirdPartyPrincipal $thirdPartyPrincipal)
-	{
-		$this->thirdPartyPrincipal = $thirdPartyPrincipal;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_ThirdPartyPrincipal
-	 */
-	public function getThirdPartyPrincipal()
-	{
-		return $this->thirdPartyPrincipal;
-	}
+  /**
+   * @param Google_Service_ServiceControl_FirstPartyPrincipal
+   */
+  public function setFirstPartyPrincipal(Google_Service_ServiceControl_FirstPartyPrincipal $firstPartyPrincipal)
+  {
+    $this->firstPartyPrincipal = $firstPartyPrincipal;
+  }
+  /**
+   * @return Google_Service_ServiceControl_FirstPartyPrincipal
+   */
+  public function getFirstPartyPrincipal()
+  {
+    return $this->firstPartyPrincipal;
+  }
+  public function setPrincipalSubject($principalSubject)
+  {
+    $this->principalSubject = $principalSubject;
+  }
+  public function getPrincipalSubject()
+  {
+    return $this->principalSubject;
+  }
+  /**
+   * @param Google_Service_ServiceControl_ThirdPartyPrincipal
+   */
+  public function setThirdPartyPrincipal(Google_Service_ServiceControl_ThirdPartyPrincipal $thirdPartyPrincipal)
+  {
+    $this->thirdPartyPrincipal = $thirdPartyPrincipal;
+  }
+  /**
+   * @return Google_Service_ServiceControl_ThirdPartyPrincipal
+   */
+  public function getThirdPartyPrincipal()
+  {
+    return $this->thirdPartyPrincipal;
+  }
 }

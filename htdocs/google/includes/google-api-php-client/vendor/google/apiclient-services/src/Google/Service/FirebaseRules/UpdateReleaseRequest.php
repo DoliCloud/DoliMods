@@ -17,30 +17,30 @@
 
 class Google_Service_FirebaseRules_UpdateReleaseRequest extends Google_Model
 {
-	protected $releaseType = 'Google_Service_FirebaseRules_Release';
-	protected $releaseDataType = '';
-	public $updateMask;
+  protected $releaseType = 'Google_Service_FirebaseRules_Release';
+  protected $releaseDataType = '';
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_FirebaseRules_Release
-	 */
-	public function setRelease(Google_Service_FirebaseRules_Release $release)
-	{
-		$this->release = $release;
-	}
-	/**
-	 * @return Google_Service_FirebaseRules_Release
-	 */
-	public function getRelease()
-	{
-		return $this->release;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_FirebaseRules_Release
+   */
+  public function setRelease(Google_Service_FirebaseRules_Release $release)
+  {
+    $this->release = $release;
+  }
+  /**
+   * @return Google_Service_FirebaseRules_Release
+   */
+  public function getRelease()
+  {
+    return $this->release;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

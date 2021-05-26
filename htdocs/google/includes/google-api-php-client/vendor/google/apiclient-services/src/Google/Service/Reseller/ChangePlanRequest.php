@@ -17,57 +17,57 @@
 
 class Google_Service_Reseller_ChangePlanRequest extends Google_Model
 {
-	public $dealCode;
-	public $kind;
-	public $planName;
-	public $purchaseOrderId;
-	protected $seatsType = 'Google_Service_Reseller_Seats';
-	protected $seatsDataType = '';
+  public $dealCode;
+  public $kind;
+  public $planName;
+  public $purchaseOrderId;
+  protected $seatsType = 'Google_Service_Reseller_Seats';
+  protected $seatsDataType = '';
 
-	public function setDealCode($dealCode)
-	{
-		$this->dealCode = $dealCode;
-	}
-	public function getDealCode()
-	{
-		return $this->dealCode;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setPlanName($planName)
-	{
-		$this->planName = $planName;
-	}
-	public function getPlanName()
-	{
-		return $this->planName;
-	}
-	public function setPurchaseOrderId($purchaseOrderId)
-	{
-		$this->purchaseOrderId = $purchaseOrderId;
-	}
-	public function getPurchaseOrderId()
-	{
-		return $this->purchaseOrderId;
-	}
-	/**
-	 * @param Google_Service_Reseller_Seats
-	 */
-	public function setSeats(Google_Service_Reseller_Seats $seats)
-	{
-		$this->seats = $seats;
-	}
-	/**
-	 * @return Google_Service_Reseller_Seats
-	 */
-	public function getSeats()
-	{
-		return $this->seats;
-	}
+  public function setDealCode($dealCode)
+  {
+    $this->dealCode = $dealCode;
+  }
+  public function getDealCode()
+  {
+    return $this->dealCode;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setPlanName($planName)
+  {
+    $this->planName = $planName;
+  }
+  public function getPlanName()
+  {
+    return $this->planName;
+  }
+  public function setPurchaseOrderId($purchaseOrderId)
+  {
+    $this->purchaseOrderId = $purchaseOrderId;
+  }
+  public function getPurchaseOrderId()
+  {
+    return $this->purchaseOrderId;
+  }
+  /**
+   * @param Google_Service_Reseller_Seats
+   */
+  public function setSeats(Google_Service_Reseller_Seats $seats)
+  {
+    $this->seats = $seats;
+  }
+  /**
+   * @return Google_Service_Reseller_Seats
+   */
+  public function getSeats()
+  {
+    return $this->seats;
+  }
 }

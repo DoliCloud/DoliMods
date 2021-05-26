@@ -17,39 +17,39 @@
 
 class Google_Service_PeopleService_Biography extends Google_Model
 {
-	public $contentType;
-	protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
-	protected $metadataDataType = '';
-	public $value;
+  public $contentType;
+  protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
+  protected $metadataDataType = '';
+  public $value;
 
-	public function setContentType($contentType)
-	{
-		$this->contentType = $contentType;
-	}
-	public function getContentType()
-	{
-		return $this->contentType;
-	}
-	/**
-	 * @param Google_Service_PeopleService_FieldMetadata
-	 */
-	public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_PeopleService_FieldMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setContentType($contentType)
+  {
+    $this->contentType = $contentType;
+  }
+  public function getContentType()
+  {
+    return $this->contentType;
+  }
+  /**
+   * @param Google_Service_PeopleService_FieldMetadata
+   */
+  public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_PeopleService_FieldMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

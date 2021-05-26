@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_PubSubIODetails extends Google_Model
 {
-	public $subscription;
-	public $topic;
+  public $subscription;
+  public $topic;
 
-	public function setSubscription($subscription)
-	{
-		$this->subscription = $subscription;
-	}
-	public function getSubscription()
-	{
-		return $this->subscription;
-	}
-	public function setTopic($topic)
-	{
-		$this->topic = $topic;
-	}
-	public function getTopic()
-	{
-		return $this->topic;
-	}
+  public function setSubscription($subscription)
+  {
+    $this->subscription = $subscription;
+  }
+  public function getSubscription()
+  {
+    return $this->subscription;
+  }
+  public function setTopic($topic)
+  {
+    $this->topic = $topic;
+  }
+  public function getTopic()
+  {
+    return $this->topic;
+  }
 }

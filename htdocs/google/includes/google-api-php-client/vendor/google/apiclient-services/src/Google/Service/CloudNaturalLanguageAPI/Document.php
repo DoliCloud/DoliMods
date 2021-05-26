@@ -17,41 +17,41 @@
 
 class Google_Service_CloudNaturalLanguageAPI_Document extends Google_Model
 {
-	public $content;
-	public $gcsContentUri;
-	public $language;
-	public $type;
+  public $content;
+  public $gcsContentUri;
+  public $language;
+  public $type;
 
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	public function getContent()
-	{
-		return $this->content;
-	}
-	public function setGcsContentUri($gcsContentUri)
-	{
-		$this->gcsContentUri = $gcsContentUri;
-	}
-	public function getGcsContentUri()
-	{
-		return $this->gcsContentUri;
-	}
-	public function setLanguage($language)
-	{
-		$this->language = $language;
-	}
-	public function getLanguage()
-	{
-		return $this->language;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  public function getContent()
+  {
+    return $this->content;
+  }
+  public function setGcsContentUri($gcsContentUri)
+  {
+    $this->gcsContentUri = $gcsContentUri;
+  }
+  public function getGcsContentUri()
+  {
+    return $this->gcsContentUri;
+  }
+  public function setLanguage($language)
+  {
+    $this->language = $language;
+  }
+  public function getLanguage()
+  {
+    return $this->language;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

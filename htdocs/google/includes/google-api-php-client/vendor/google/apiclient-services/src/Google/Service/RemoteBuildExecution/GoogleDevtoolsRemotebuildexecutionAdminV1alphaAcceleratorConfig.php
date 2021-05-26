@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig extends Google_Model
 {
-	public $acceleratorCount;
-	public $acceleratorType;
+  public $acceleratorCount;
+  public $acceleratorType;
 
-	public function setAcceleratorCount($acceleratorCount)
-	{
-		$this->acceleratorCount = $acceleratorCount;
-	}
-	public function getAcceleratorCount()
-	{
-		return $this->acceleratorCount;
-	}
-	public function setAcceleratorType($acceleratorType)
-	{
-		$this->acceleratorType = $acceleratorType;
-	}
-	public function getAcceleratorType()
-	{
-		return $this->acceleratorType;
-	}
+  public function setAcceleratorCount($acceleratorCount)
+  {
+    $this->acceleratorCount = $acceleratorCount;
+  }
+  public function getAcceleratorCount()
+  {
+    return $this->acceleratorCount;
+  }
+  public function setAcceleratorType($acceleratorType)
+  {
+    $this->acceleratorType = $acceleratorType;
+  }
+  public function getAcceleratorType()
+  {
+    return $this->acceleratorType;
+  }
 }

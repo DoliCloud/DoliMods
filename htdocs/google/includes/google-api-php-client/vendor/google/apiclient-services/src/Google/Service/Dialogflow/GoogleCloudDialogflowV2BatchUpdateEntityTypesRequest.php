@@ -17,48 +17,48 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2BatchUpdateEntityTypesRequest extends Google_Model
 {
-	protected $entityTypeBatchInlineType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeBatch';
-	protected $entityTypeBatchInlineDataType = '';
-	public $entityTypeBatchUri;
-	public $languageCode;
-	public $updateMask;
+  protected $entityTypeBatchInlineType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeBatch';
+  protected $entityTypeBatchInlineDataType = '';
+  public $entityTypeBatchUri;
+  public $languageCode;
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeBatch
-	 */
-	public function setEntityTypeBatchInline(Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeBatch $entityTypeBatchInline)
-	{
-		$this->entityTypeBatchInline = $entityTypeBatchInline;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeBatch
-	 */
-	public function getEntityTypeBatchInline()
-	{
-		return $this->entityTypeBatchInline;
-	}
-	public function setEntityTypeBatchUri($entityTypeBatchUri)
-	{
-		$this->entityTypeBatchUri = $entityTypeBatchUri;
-	}
-	public function getEntityTypeBatchUri()
-	{
-		return $this->entityTypeBatchUri;
-	}
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeBatch
+   */
+  public function setEntityTypeBatchInline(Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeBatch $entityTypeBatchInline)
+  {
+    $this->entityTypeBatchInline = $entityTypeBatchInline;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityTypeBatch
+   */
+  public function getEntityTypeBatchInline()
+  {
+    return $this->entityTypeBatchInline;
+  }
+  public function setEntityTypeBatchUri($entityTypeBatchUri)
+  {
+    $this->entityTypeBatchUri = $entityTypeBatchUri;
+  }
+  public function getEntityTypeBatchUri()
+  {
+    return $this->entityTypeBatchUri;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

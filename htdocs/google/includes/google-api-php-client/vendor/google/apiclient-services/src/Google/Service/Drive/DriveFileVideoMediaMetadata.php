@@ -17,32 +17,32 @@
 
 class Google_Service_Drive_DriveFileVideoMediaMetadata extends Google_Model
 {
-	public $durationMillis;
-	public $height;
-	public $width;
+  public $durationMillis;
+  public $height;
+  public $width;
 
-	public function setDurationMillis($durationMillis)
-	{
-		$this->durationMillis = $durationMillis;
-	}
-	public function getDurationMillis()
-	{
-		return $this->durationMillis;
-	}
-	public function setHeight($height)
-	{
-		$this->height = $height;
-	}
-	public function getHeight()
-	{
-		return $this->height;
-	}
-	public function setWidth($width)
-	{
-		$this->width = $width;
-	}
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  public function setDurationMillis($durationMillis)
+  {
+    $this->durationMillis = $durationMillis;
+  }
+  public function getDurationMillis()
+  {
+    return $this->durationMillis;
+  }
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

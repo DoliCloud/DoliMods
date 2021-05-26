@@ -17,14 +17,14 @@
 
 class Google_Service_Genomics_PullStoppedEvent extends Google_Model
 {
-	public $imageUri;
+  public $imageUri;
 
-	public function setImageUri($imageUri)
-	{
-		$this->imageUri = $imageUri;
-	}
-	public function getImageUri()
-	{
-		return $this->imageUri;
-	}
+  public function setImageUri($imageUri)
+  {
+    $this->imageUri = $imageUri;
+  }
+  public function getImageUri()
+  {
+    return $this->imageUri;
+  }
 }

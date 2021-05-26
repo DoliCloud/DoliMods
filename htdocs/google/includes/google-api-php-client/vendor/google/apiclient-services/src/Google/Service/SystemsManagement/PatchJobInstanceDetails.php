@@ -17,50 +17,50 @@
 
 class Google_Service_SystemsManagement_PatchJobInstanceDetails extends Google_Model
 {
-	public $attemptCount;
-	public $failureReason;
-	public $instanceSystemId;
-	public $name;
-	public $state;
+  public $attemptCount;
+  public $failureReason;
+  public $instanceSystemId;
+  public $name;
+  public $state;
 
-	public function setAttemptCount($attemptCount)
-	{
-		$this->attemptCount = $attemptCount;
-	}
-	public function getAttemptCount()
-	{
-		return $this->attemptCount;
-	}
-	public function setFailureReason($failureReason)
-	{
-		$this->failureReason = $failureReason;
-	}
-	public function getFailureReason()
-	{
-		return $this->failureReason;
-	}
-	public function setInstanceSystemId($instanceSystemId)
-	{
-		$this->instanceSystemId = $instanceSystemId;
-	}
-	public function getInstanceSystemId()
-	{
-		return $this->instanceSystemId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setAttemptCount($attemptCount)
+  {
+    $this->attemptCount = $attemptCount;
+  }
+  public function getAttemptCount()
+  {
+    return $this->attemptCount;
+  }
+  public function setFailureReason($failureReason)
+  {
+    $this->failureReason = $failureReason;
+  }
+  public function getFailureReason()
+  {
+    return $this->failureReason;
+  }
+  public function setInstanceSystemId($instanceSystemId)
+  {
+    $this->instanceSystemId = $instanceSystemId;
+  }
+  public function getInstanceSystemId()
+  {
+    return $this->instanceSystemId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

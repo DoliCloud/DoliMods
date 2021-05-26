@@ -17,31 +17,31 @@
 
 class Google_Service_Iam_QueryTestablePermissionsResponse extends Google_Collection
 {
-	protected $collection_key = 'permissions';
-	public $nextPageToken;
-	protected $permissionsType = 'Google_Service_Iam_Permission';
-	protected $permissionsDataType = 'array';
+  protected $collection_key = 'permissions';
+  public $nextPageToken;
+  protected $permissionsType = 'Google_Service_Iam_Permission';
+  protected $permissionsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Iam_Permission
-	 */
-	public function setPermissions($permissions)
-	{
-		$this->permissions = $permissions;
-	}
-	/**
-	 * @return Google_Service_Iam_Permission
-	 */
-	public function getPermissions()
-	{
-		return $this->permissions;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Iam_Permission[]
+   */
+  public function setPermissions($permissions)
+  {
+    $this->permissions = $permissions;
+  }
+  /**
+   * @return Google_Service_Iam_Permission[]
+   */
+  public function getPermissions()
+  {
+    return $this->permissions;
+  }
 }

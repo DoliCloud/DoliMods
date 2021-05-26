@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_ViewabilityAssignedTargetingOptionDetails extends Google_Model
 {
-	public $targetingOptionId;
-	public $viewability;
+  public $targetingOptionId;
+  public $viewability;
 
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
-	public function setViewability($viewability)
-	{
-		$this->viewability = $viewability;
-	}
-	public function getViewability()
-	{
-		return $this->viewability;
-	}
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
+  public function setViewability($viewability)
+  {
+    $this->viewability = $viewability;
+  }
+  public function getViewability()
+  {
+    return $this->viewability;
+  }
 }

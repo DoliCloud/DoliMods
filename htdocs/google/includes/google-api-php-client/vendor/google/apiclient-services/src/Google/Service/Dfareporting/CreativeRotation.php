@@ -17,49 +17,49 @@
 
 class Google_Service_Dfareporting_CreativeRotation extends Google_Collection
 {
-	protected $collection_key = 'creativeAssignments';
-	protected $creativeAssignmentsType = 'Google_Service_Dfareporting_CreativeAssignment';
-	protected $creativeAssignmentsDataType = 'array';
-	public $creativeOptimizationConfigurationId;
-	public $type;
-	public $weightCalculationStrategy;
+  protected $collection_key = 'creativeAssignments';
+  protected $creativeAssignmentsType = 'Google_Service_Dfareporting_CreativeAssignment';
+  protected $creativeAssignmentsDataType = 'array';
+  public $creativeOptimizationConfigurationId;
+  public $type;
+  public $weightCalculationStrategy;
 
-	/**
-	 * @param Google_Service_Dfareporting_CreativeAssignment
-	 */
-	public function setCreativeAssignments($creativeAssignments)
-	{
-		$this->creativeAssignments = $creativeAssignments;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_CreativeAssignment
-	 */
-	public function getCreativeAssignments()
-	{
-		return $this->creativeAssignments;
-	}
-	public function setCreativeOptimizationConfigurationId($creativeOptimizationConfigurationId)
-	{
-		$this->creativeOptimizationConfigurationId = $creativeOptimizationConfigurationId;
-	}
-	public function getCreativeOptimizationConfigurationId()
-	{
-		return $this->creativeOptimizationConfigurationId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setWeightCalculationStrategy($weightCalculationStrategy)
-	{
-		$this->weightCalculationStrategy = $weightCalculationStrategy;
-	}
-	public function getWeightCalculationStrategy()
-	{
-		return $this->weightCalculationStrategy;
-	}
+  /**
+   * @param Google_Service_Dfareporting_CreativeAssignment[]
+   */
+  public function setCreativeAssignments($creativeAssignments)
+  {
+    $this->creativeAssignments = $creativeAssignments;
+  }
+  /**
+   * @return Google_Service_Dfareporting_CreativeAssignment[]
+   */
+  public function getCreativeAssignments()
+  {
+    return $this->creativeAssignments;
+  }
+  public function setCreativeOptimizationConfigurationId($creativeOptimizationConfigurationId)
+  {
+    $this->creativeOptimizationConfigurationId = $creativeOptimizationConfigurationId;
+  }
+  public function getCreativeOptimizationConfigurationId()
+  {
+    return $this->creativeOptimizationConfigurationId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setWeightCalculationStrategy($weightCalculationStrategy)
+  {
+    $this->weightCalculationStrategy = $weightCalculationStrategy;
+  }
+  public function getWeightCalculationStrategy()
+  {
+    return $this->weightCalculationStrategy;
+  }
 }

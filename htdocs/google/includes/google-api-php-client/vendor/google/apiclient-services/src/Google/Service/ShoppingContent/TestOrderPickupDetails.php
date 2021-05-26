@@ -17,56 +17,56 @@
 
 class Google_Service_ShoppingContent_TestOrderPickupDetails extends Google_Collection
 {
-	protected $collection_key = 'pickupPersons';
-	public $locationCode;
-	protected $pickupLocationAddressType = 'Google_Service_ShoppingContent_TestOrderAddress';
-	protected $pickupLocationAddressDataType = '';
-	public $pickupLocationType;
-	protected $pickupPersonsType = 'Google_Service_ShoppingContent_TestOrderPickupDetailsPickupPerson';
-	protected $pickupPersonsDataType = 'array';
+  protected $collection_key = 'pickupPersons';
+  public $locationCode;
+  protected $pickupLocationAddressType = 'Google_Service_ShoppingContent_TestOrderAddress';
+  protected $pickupLocationAddressDataType = '';
+  public $pickupLocationType;
+  protected $pickupPersonsType = 'Google_Service_ShoppingContent_TestOrderPickupDetailsPickupPerson';
+  protected $pickupPersonsDataType = 'array';
 
-	public function setLocationCode($locationCode)
-	{
-		$this->locationCode = $locationCode;
-	}
-	public function getLocationCode()
-	{
-		return $this->locationCode;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_TestOrderAddress
-	 */
-	public function setPickupLocationAddress(Google_Service_ShoppingContent_TestOrderAddress $pickupLocationAddress)
-	{
-		$this->pickupLocationAddress = $pickupLocationAddress;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_TestOrderAddress
-	 */
-	public function getPickupLocationAddress()
-	{
-		return $this->pickupLocationAddress;
-	}
-	public function setPickupLocationType($pickupLocationType)
-	{
-		$this->pickupLocationType = $pickupLocationType;
-	}
-	public function getPickupLocationType()
-	{
-		return $this->pickupLocationType;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_TestOrderPickupDetailsPickupPerson
-	 */
-	public function setPickupPersons($pickupPersons)
-	{
-		$this->pickupPersons = $pickupPersons;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_TestOrderPickupDetailsPickupPerson
-	 */
-	public function getPickupPersons()
-	{
-		return $this->pickupPersons;
-	}
+  public function setLocationCode($locationCode)
+  {
+    $this->locationCode = $locationCode;
+  }
+  public function getLocationCode()
+  {
+    return $this->locationCode;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_TestOrderAddress
+   */
+  public function setPickupLocationAddress(Google_Service_ShoppingContent_TestOrderAddress $pickupLocationAddress)
+  {
+    $this->pickupLocationAddress = $pickupLocationAddress;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_TestOrderAddress
+   */
+  public function getPickupLocationAddress()
+  {
+    return $this->pickupLocationAddress;
+  }
+  public function setPickupLocationType($pickupLocationType)
+  {
+    $this->pickupLocationType = $pickupLocationType;
+  }
+  public function getPickupLocationType()
+  {
+    return $this->pickupLocationType;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_TestOrderPickupDetailsPickupPerson[]
+   */
+  public function setPickupPersons($pickupPersons)
+  {
+    $this->pickupPersons = $pickupPersons;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_TestOrderPickupDetailsPickupPerson[]
+   */
+  public function getPickupPersons()
+  {
+    return $this->pickupPersons;
+  }
 }

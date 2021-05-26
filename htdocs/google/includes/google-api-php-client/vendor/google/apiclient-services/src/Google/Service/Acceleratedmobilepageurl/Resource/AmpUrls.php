@@ -25,18 +25,18 @@
  */
 class Google_Service_Acceleratedmobilepageurl_Resource_AmpUrls extends Google_Service_Resource
 {
-	/**
-	 * Returns AMP URL(s) and equivalent [AMP Cache URL(s)](/amp/cache/overview#amp-
-	 * cache-url-format). (ampUrls.batchGet)
-	 *
-	 * @param Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsResponse
-	 */
-	public function batchGet(Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('batchGet', array($params), "Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsResponse");
-	}
+  /**
+   * Returns AMP URL(s) and equivalent [AMP Cache URL(s)](/amp/cache/overview#amp-
+   * cache-url-format). (ampUrls.batchGet)
+   *
+   * @param Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsResponse
+   */
+  public function batchGet(Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchGet', array($params), "Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsResponse");
+  }
 }

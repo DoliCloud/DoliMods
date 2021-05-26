@@ -17,30 +17,30 @@
 
 class Google_Service_SASPortalTesting_SasPortalDpaMoveList extends Google_Model
 {
-	public $dpaId;
-	protected $frequencyRangeType = 'Google_Service_SASPortalTesting_SasPortalFrequencyRange';
-	protected $frequencyRangeDataType = '';
+  public $dpaId;
+  protected $frequencyRangeType = 'Google_Service_SASPortalTesting_SasPortalFrequencyRange';
+  protected $frequencyRangeDataType = '';
 
-	public function setDpaId($dpaId)
-	{
-		$this->dpaId = $dpaId;
-	}
-	public function getDpaId()
-	{
-		return $this->dpaId;
-	}
-	/**
-	 * @param Google_Service_SASPortalTesting_SasPortalFrequencyRange
-	 */
-	public function setFrequencyRange(Google_Service_SASPortalTesting_SasPortalFrequencyRange $frequencyRange)
-	{
-		$this->frequencyRange = $frequencyRange;
-	}
-	/**
-	 * @return Google_Service_SASPortalTesting_SasPortalFrequencyRange
-	 */
-	public function getFrequencyRange()
-	{
-		return $this->frequencyRange;
-	}
+  public function setDpaId($dpaId)
+  {
+    $this->dpaId = $dpaId;
+  }
+  public function getDpaId()
+  {
+    return $this->dpaId;
+  }
+  /**
+   * @param Google_Service_SASPortalTesting_SasPortalFrequencyRange
+   */
+  public function setFrequencyRange(Google_Service_SASPortalTesting_SasPortalFrequencyRange $frequencyRange)
+  {
+    $this->frequencyRange = $frequencyRange;
+  }
+  /**
+   * @return Google_Service_SASPortalTesting_SasPortalFrequencyRange
+   */
+  public function getFrequencyRange()
+  {
+    return $this->frequencyRange;
+  }
 }

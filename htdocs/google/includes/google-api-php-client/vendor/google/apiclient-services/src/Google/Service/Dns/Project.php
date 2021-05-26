@@ -17,48 +17,48 @@
 
 class Google_Service_Dns_Project extends Google_Model
 {
-	public $id;
-	public $kind;
-	public $number;
-	protected $quotaType = 'Google_Service_Dns_Quota';
-	protected $quotaDataType = '';
+  public $id;
+  public $kind;
+  public $number;
+  protected $quotaType = 'Google_Service_Dns_Quota';
+  protected $quotaDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNumber($number)
-	{
-		$this->number = $number;
-	}
-	public function getNumber()
-	{
-		return $this->number;
-	}
-	/**
-	 * @param Google_Service_Dns_Quota
-	 */
-	public function setQuota(Google_Service_Dns_Quota $quota)
-	{
-		$this->quota = $quota;
-	}
-	/**
-	 * @return Google_Service_Dns_Quota
-	 */
-	public function getQuota()
-	{
-		return $this->quota;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNumber($number)
+  {
+    $this->number = $number;
+  }
+  public function getNumber()
+  {
+    return $this->number;
+  }
+  /**
+   * @param Google_Service_Dns_Quota
+   */
+  public function setQuota(Google_Service_Dns_Quota $quota)
+  {
+    $this->quota = $quota;
+  }
+  /**
+   * @return Google_Service_Dns_Quota
+   */
+  public function getQuota()
+  {
+    return $this->quota;
+  }
 }

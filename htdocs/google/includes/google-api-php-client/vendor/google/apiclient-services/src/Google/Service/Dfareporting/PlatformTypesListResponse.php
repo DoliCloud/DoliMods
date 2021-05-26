@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_PlatformTypesListResponse extends Google_Collection
 {
-	protected $collection_key = 'platformTypes';
-	public $kind;
-	protected $platformTypesType = 'Google_Service_Dfareporting_PlatformType';
-	protected $platformTypesDataType = 'array';
+  protected $collection_key = 'platformTypes';
+  public $kind;
+  protected $platformTypesType = 'Google_Service_Dfareporting_PlatformType';
+  protected $platformTypesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_PlatformType
-	 */
-	public function setPlatformTypes($platformTypes)
-	{
-		$this->platformTypes = $platformTypes;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_PlatformType
-	 */
-	public function getPlatformTypes()
-	{
-		return $this->platformTypes;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_PlatformType[]
+   */
+  public function setPlatformTypes($platformTypes)
+  {
+    $this->platformTypes = $platformTypes;
+  }
+  /**
+   * @return Google_Service_Dfareporting_PlatformType[]
+   */
+  public function getPlatformTypes()
+  {
+    return $this->platformTypes;
+  }
 }

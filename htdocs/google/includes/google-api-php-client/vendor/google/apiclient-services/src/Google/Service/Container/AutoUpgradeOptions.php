@@ -17,23 +17,23 @@
 
 class Google_Service_Container_AutoUpgradeOptions extends Google_Model
 {
-	public $autoUpgradeStartTime;
-	public $description;
+  public $autoUpgradeStartTime;
+  public $description;
 
-	public function setAutoUpgradeStartTime($autoUpgradeStartTime)
-	{
-		$this->autoUpgradeStartTime = $autoUpgradeStartTime;
-	}
-	public function getAutoUpgradeStartTime()
-	{
-		return $this->autoUpgradeStartTime;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
+  public function setAutoUpgradeStartTime($autoUpgradeStartTime)
+  {
+    $this->autoUpgradeStartTime = $autoUpgradeStartTime;
+  }
+  public function getAutoUpgradeStartTime()
+  {
+    return $this->autoUpgradeStartTime;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
 }

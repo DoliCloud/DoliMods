@@ -17,22 +17,22 @@
 
 class Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup extends Google_Collection
 {
-	protected $collection_key = 'settings';
-	protected $settingsType = 'Google_Service_DisplayVideo_FirstAndThirdPartyAudienceTargetingSetting';
-	protected $settingsDataType = 'array';
+  protected $collection_key = 'settings';
+  protected $settingsType = 'Google_Service_DisplayVideo_FirstAndThirdPartyAudienceTargetingSetting';
+  protected $settingsDataType = 'array';
 
-	/**
-	 * @param Google_Service_DisplayVideo_FirstAndThirdPartyAudienceTargetingSetting
-	 */
-	public function setSettings($settings)
-	{
-		$this->settings = $settings;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_FirstAndThirdPartyAudienceTargetingSetting
-	 */
-	public function getSettings()
-	{
-		return $this->settings;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_FirstAndThirdPartyAudienceTargetingSetting[]
+   */
+  public function setSettings($settings)
+  {
+    $this->settings = $settings;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_FirstAndThirdPartyAudienceTargetingSetting[]
+   */
+  public function getSettings()
+  {
+    return $this->settings;
+  }
 }

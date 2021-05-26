@@ -17,41 +17,41 @@
 
 class Google_Service_Cloudbilling_Service extends Google_Model
 {
-	public $businessEntityName;
-	public $displayName;
-	public $name;
-	public $serviceId;
+  public $businessEntityName;
+  public $displayName;
+  public $name;
+  public $serviceId;
 
-	public function setBusinessEntityName($businessEntityName)
-	{
-		$this->businessEntityName = $businessEntityName;
-	}
-	public function getBusinessEntityName()
-	{
-		return $this->businessEntityName;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setServiceId($serviceId)
-	{
-		$this->serviceId = $serviceId;
-	}
-	public function getServiceId()
-	{
-		return $this->serviceId;
-	}
+  public function setBusinessEntityName($businessEntityName)
+  {
+    $this->businessEntityName = $businessEntityName;
+  }
+  public function getBusinessEntityName()
+  {
+    return $this->businessEntityName;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setServiceId($serviceId)
+  {
+    $this->serviceId = $serviceId;
+  }
+  public function getServiceId()
+  {
+    return $this->serviceId;
+  }
 }

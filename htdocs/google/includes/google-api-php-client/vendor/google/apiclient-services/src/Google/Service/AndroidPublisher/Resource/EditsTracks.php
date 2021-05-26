@@ -25,65 +25,65 @@
  */
 class Google_Service_AndroidPublisher_Resource_EditsTracks extends Google_Service_Resource
 {
-	/**
-	 * Gets a track. (tracks.get)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param string $track Identifier of the track.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_Track
-	 */
-	public function get($packageName, $editId, $track, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_AndroidPublisher_Track");
-	}
-	/**
-	 * Lists all tracks. (tracks.listEditsTracks)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_TracksListResponse
-	 */
-	public function listEditsTracks($packageName, $editId, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AndroidPublisher_TracksListResponse");
-	}
-	/**
-	 * Patches a track. (tracks.patch)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param string $track Identifier of the track.
-	 * @param Google_Service_AndroidPublisher_Track $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_Track
-	 */
-	public function patch($packageName, $editId, $track, Google_Service_AndroidPublisher_Track $postBody, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('patch', array($params), "Google_Service_AndroidPublisher_Track");
-	}
-	/**
-	 * Updates a track. (tracks.update)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param string $track Identifier of the track.
-	 * @param Google_Service_AndroidPublisher_Track $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_Track
-	 */
-	public function update($packageName, $editId, $track, Google_Service_AndroidPublisher_Track $postBody, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_AndroidPublisher_Track");
-	}
+  /**
+   * Gets a track. (tracks.get)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param string $track Identifier of the track.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_Track
+   */
+  public function get($packageName, $editId, $track, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_AndroidPublisher_Track");
+  }
+  /**
+   * Lists all tracks. (tracks.listEditsTracks)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_TracksListResponse
+   */
+  public function listEditsTracks($packageName, $editId, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AndroidPublisher_TracksListResponse");
+  }
+  /**
+   * Patches a track. (tracks.patch)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param string $track Identifier of the track.
+   * @param Google_Service_AndroidPublisher_Track $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_Track
+   */
+  public function patch($packageName, $editId, $track, Google_Service_AndroidPublisher_Track $postBody, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', array($params), "Google_Service_AndroidPublisher_Track");
+  }
+  /**
+   * Updates a track. (tracks.update)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param string $track Identifier of the track.
+   * @param Google_Service_AndroidPublisher_Track $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_Track
+   */
+  public function update($packageName, $editId, $track, Google_Service_AndroidPublisher_Track $postBody, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_AndroidPublisher_Track");
+  }
 }

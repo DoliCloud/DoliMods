@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_IosTestLoop extends Google_Model
 {
-	public $bundleId;
+  public $bundleId;
 
-	public function setBundleId($bundleId)
-	{
-		$this->bundleId = $bundleId;
-	}
-	public function getBundleId()
-	{
-		return $this->bundleId;
-	}
+  public function setBundleId($bundleId)
+  {
+    $this->bundleId = $bundleId;
+  }
+  public function getBundleId()
+  {
+    return $this->bundleId;
+  }
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_Apigee_GoogleApiHttpBody extends Google_Collection
 {
-	protected $collection_key = 'extensions';
-	public $contentType;
-	public $data;
-	public $extensions;
+  protected $collection_key = 'extensions';
+  public $contentType;
+  public $data;
+  public $extensions;
 
-	public function setContentType($contentType)
-	{
-		$this->contentType = $contentType;
-	}
-	public function getContentType()
-	{
-		return $this->contentType;
-	}
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setExtensions($extensions)
-	{
-		$this->extensions = $extensions;
-	}
-	public function getExtensions()
-	{
-		return $this->extensions;
-	}
+  public function setContentType($contentType)
+  {
+    $this->contentType = $contentType;
+  }
+  public function getContentType()
+  {
+    return $this->contentType;
+  }
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setExtensions($extensions)
+  {
+    $this->extensions = $extensions;
+  }
+  public function getExtensions()
+  {
+    return $this->extensions;
+  }
 }

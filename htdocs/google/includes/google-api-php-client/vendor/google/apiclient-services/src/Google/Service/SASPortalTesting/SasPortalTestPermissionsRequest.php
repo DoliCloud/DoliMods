@@ -17,24 +17,24 @@
 
 class Google_Service_SASPortalTesting_SasPortalTestPermissionsRequest extends Google_Collection
 {
-	protected $collection_key = 'permissions';
-	public $permissions;
-	public $resource;
+  protected $collection_key = 'permissions';
+  public $permissions;
+  public $resource;
 
-	public function setPermissions($permissions)
-	{
-		$this->permissions = $permissions;
-	}
-	public function getPermissions()
-	{
-		return $this->permissions;
-	}
-	public function setResource($resource)
-	{
-		$this->resource = $resource;
-	}
-	public function getResource()
-	{
-		return $this->resource;
-	}
+  public function setPermissions($permissions)
+  {
+    $this->permissions = $permissions;
+  }
+  public function getPermissions()
+  {
+    return $this->permissions;
+  }
+  public function setResource($resource)
+  {
+    $this->resource = $resource;
+  }
+  public function getResource()
+  {
+    return $this->resource;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Cloudbilling_ListSkusResponse extends Google_Collection
 {
-	protected $collection_key = 'skus';
-	public $nextPageToken;
-	protected $skusType = 'Google_Service_Cloudbilling_Sku';
-	protected $skusDataType = 'array';
+  protected $collection_key = 'skus';
+  public $nextPageToken;
+  protected $skusType = 'Google_Service_Cloudbilling_Sku';
+  protected $skusDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Cloudbilling_Sku
-	 */
-	public function setSkus($skus)
-	{
-		$this->skus = $skus;
-	}
-	/**
-	 * @return Google_Service_Cloudbilling_Sku
-	 */
-	public function getSkus()
-	{
-		return $this->skus;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Cloudbilling_Sku[]
+   */
+  public function setSkus($skus)
+  {
+    $this->skus = $skus;
+  }
+  /**
+   * @return Google_Service_Cloudbilling_Sku[]
+   */
+  public function getSkus()
+  {
+    return $this->skus;
+  }
 }

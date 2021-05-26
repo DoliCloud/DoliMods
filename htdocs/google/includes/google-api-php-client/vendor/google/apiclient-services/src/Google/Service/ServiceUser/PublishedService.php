@@ -17,30 +17,30 @@
 
 class Google_Service_ServiceUser_PublishedService extends Google_Model
 {
-	public $name;
-	protected $serviceType = 'Google_Service_ServiceUser_Service';
-	protected $serviceDataType = '';
+  public $name;
+  protected $serviceType = 'Google_Service_ServiceUser_Service';
+  protected $serviceDataType = '';
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_ServiceUser_Service
-	 */
-	public function setService(Google_Service_ServiceUser_Service $service)
-	{
-		$this->service = $service;
-	}
-	/**
-	 * @return Google_Service_ServiceUser_Service
-	 */
-	public function getService()
-	{
-		return $this->service;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_ServiceUser_Service
+   */
+  public function setService(Google_Service_ServiceUser_Service $service)
+  {
+    $this->service = $service;
+  }
+  /**
+   * @return Google_Service_ServiceUser_Service
+   */
+  public function getService()
+  {
+    return $this->service;
+  }
 }

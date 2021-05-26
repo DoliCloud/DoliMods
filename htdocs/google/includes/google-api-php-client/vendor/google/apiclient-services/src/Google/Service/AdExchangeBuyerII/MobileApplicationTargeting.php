@@ -17,21 +17,21 @@
 
 class Google_Service_AdExchangeBuyerII_MobileApplicationTargeting extends Google_Model
 {
-	protected $firstPartyTargetingType = 'Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting';
-	protected $firstPartyTargetingDataType = '';
+  protected $firstPartyTargetingType = 'Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting';
+  protected $firstPartyTargetingDataType = '';
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting
-	 */
-	public function setFirstPartyTargeting(Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting $firstPartyTargeting)
-	{
-		$this->firstPartyTargeting = $firstPartyTargeting;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting
-	 */
-	public function getFirstPartyTargeting()
-	{
-		return $this->firstPartyTargeting;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting
+   */
+  public function setFirstPartyTargeting(Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting $firstPartyTargeting)
+  {
+    $this->firstPartyTargeting = $firstPartyTargeting;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_FirstPartyMobileApplicationTargeting
+   */
+  public function getFirstPartyTargeting()
+  {
+    return $this->firstPartyTargeting;
+  }
 }

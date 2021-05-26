@@ -17,32 +17,32 @@
 
 class Google_Service_Clouderrorreporting_ServiceContext extends Google_Model
 {
-	public $resourceType;
-	public $service;
-	public $version;
+  public $resourceType;
+  public $service;
+  public $version;
 
-	public function setResourceType($resourceType)
-	{
-		$this->resourceType = $resourceType;
-	}
-	public function getResourceType()
-	{
-		return $this->resourceType;
-	}
-	public function setService($service)
-	{
-		$this->service = $service;
-	}
-	public function getService()
-	{
-		return $this->service;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setResourceType($resourceType)
+  {
+    $this->resourceType = $resourceType;
+  }
+  public function getResourceType()
+  {
+    return $this->resourceType;
+  }
+  public function setService($service)
+  {
+    $this->service = $service;
+  }
+  public function getService()
+  {
+    return $this->service;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1CustomLevel extends Google_Model
 {
-	protected $exprType = 'Google_Service_CloudAsset_Expr';
-	protected $exprDataType = '';
+  protected $exprType = 'Google_Service_CloudAsset_Expr';
+  protected $exprDataType = '';
 
-	/**
-	 * @param Google_Service_CloudAsset_Expr
-	 */
-	public function setExpr(Google_Service_CloudAsset_Expr $expr)
-	{
-		$this->expr = $expr;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_Expr
-	 */
-	public function getExpr()
-	{
-		return $this->expr;
-	}
+  /**
+   * @param Google_Service_CloudAsset_Expr
+   */
+  public function setExpr(Google_Service_CloudAsset_Expr $expr)
+  {
+    $this->expr = $expr;
+  }
+  /**
+   * @return Google_Service_CloudAsset_Expr
+   */
+  public function getExpr()
+  {
+    return $this->expr;
+  }
 }

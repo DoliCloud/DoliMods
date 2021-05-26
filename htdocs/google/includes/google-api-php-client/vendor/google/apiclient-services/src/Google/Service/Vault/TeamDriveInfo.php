@@ -17,15 +17,15 @@
 
 class Google_Service_Vault_TeamDriveInfo extends Google_Collection
 {
-	protected $collection_key = 'teamDriveIds';
-	public $teamDriveIds;
+  protected $collection_key = 'teamDriveIds';
+  public $teamDriveIds;
 
-	public function setTeamDriveIds($teamDriveIds)
-	{
-		$this->teamDriveIds = $teamDriveIds;
-	}
-	public function getTeamDriveIds()
-	{
-		return $this->teamDriveIds;
-	}
+  public function setTeamDriveIds($teamDriveIds)
+  {
+    $this->teamDriveIds = $teamDriveIds;
+  }
+  public function getTeamDriveIds()
+  {
+    return $this->teamDriveIds;
+  }
 }

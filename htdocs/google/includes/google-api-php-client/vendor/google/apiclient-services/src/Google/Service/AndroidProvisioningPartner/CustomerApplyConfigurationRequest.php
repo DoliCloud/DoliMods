@@ -17,30 +17,30 @@
 
 class Google_Service_AndroidProvisioningPartner_CustomerApplyConfigurationRequest extends Google_Model
 {
-	public $configuration;
-	protected $deviceType = 'Google_Service_AndroidProvisioningPartner_DeviceReference';
-	protected $deviceDataType = '';
+  public $configuration;
+  protected $deviceType = 'Google_Service_AndroidProvisioningPartner_DeviceReference';
+  protected $deviceDataType = '';
 
-	public function setConfiguration($configuration)
-	{
-		$this->configuration = $configuration;
-	}
-	public function getConfiguration()
-	{
-		return $this->configuration;
-	}
-	/**
-	 * @param Google_Service_AndroidProvisioningPartner_DeviceReference
-	 */
-	public function setDevice(Google_Service_AndroidProvisioningPartner_DeviceReference $device)
-	{
-		$this->device = $device;
-	}
-	/**
-	 * @return Google_Service_AndroidProvisioningPartner_DeviceReference
-	 */
-	public function getDevice()
-	{
-		return $this->device;
-	}
+  public function setConfiguration($configuration)
+  {
+    $this->configuration = $configuration;
+  }
+  public function getConfiguration()
+  {
+    return $this->configuration;
+  }
+  /**
+   * @param Google_Service_AndroidProvisioningPartner_DeviceReference
+   */
+  public function setDevice(Google_Service_AndroidProvisioningPartner_DeviceReference $device)
+  {
+    $this->device = $device;
+  }
+  /**
+   * @return Google_Service_AndroidProvisioningPartner_DeviceReference
+   */
+  public function getDevice()
+  {
+    return $this->device;
+  }
 }

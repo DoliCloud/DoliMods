@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_PosDataProviders extends Google_Collection
 {
-	protected $collection_key = 'posDataProviders';
-	public $country;
-	protected $posDataProvidersType = 'Google_Service_ShoppingContent_PosDataProvidersPosDataProvider';
-	protected $posDataProvidersDataType = 'array';
+  protected $collection_key = 'posDataProviders';
+  public $country;
+  protected $posDataProvidersType = 'Google_Service_ShoppingContent_PosDataProvidersPosDataProvider';
+  protected $posDataProvidersDataType = 'array';
 
-	public function setCountry($country)
-	{
-		$this->country = $country;
-	}
-	public function getCountry()
-	{
-		return $this->country;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_PosDataProvidersPosDataProvider
-	 */
-	public function setPosDataProviders($posDataProviders)
-	{
-		$this->posDataProviders = $posDataProviders;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_PosDataProvidersPosDataProvider
-	 */
-	public function getPosDataProviders()
-	{
-		return $this->posDataProviders;
-	}
+  public function setCountry($country)
+  {
+    $this->country = $country;
+  }
+  public function getCountry()
+  {
+    return $this->country;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_PosDataProvidersPosDataProvider[]
+   */
+  public function setPosDataProviders($posDataProviders)
+  {
+    $this->posDataProviders = $posDataProviders;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_PosDataProvidersPosDataProvider[]
+   */
+  public function getPosDataProviders()
+  {
+    return $this->posDataProviders;
+  }
 }

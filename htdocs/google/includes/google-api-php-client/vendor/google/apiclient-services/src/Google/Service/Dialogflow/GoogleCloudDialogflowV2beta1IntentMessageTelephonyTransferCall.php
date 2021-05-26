@@ -17,14 +17,14 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageTelephonyTransferCall extends Google_Model
 {
-	public $phoneNumber;
+  public $phoneNumber;
 
-	public function setPhoneNumber($phoneNumber)
-	{
-		$this->phoneNumber = $phoneNumber;
-	}
-	public function getPhoneNumber()
-	{
-		return $this->phoneNumber;
-	}
+  public function setPhoneNumber($phoneNumber)
+  {
+    $this->phoneNumber = $phoneNumber;
+  }
+  public function getPhoneNumber()
+  {
+    return $this->phoneNumber;
+  }
 }

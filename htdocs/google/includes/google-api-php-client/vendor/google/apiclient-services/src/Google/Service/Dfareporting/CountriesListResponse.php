@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_CountriesListResponse extends Google_Collection
 {
-	protected $collection_key = 'countries';
-	protected $countriesType = 'Google_Service_Dfareporting_Country';
-	protected $countriesDataType = 'array';
-	public $kind;
+  protected $collection_key = 'countries';
+  protected $countriesType = 'Google_Service_Dfareporting_Country';
+  protected $countriesDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_Dfareporting_Country
-	 */
-	public function setCountries($countries)
-	{
-		$this->countries = $countries;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Country
-	 */
-	public function getCountries()
-	{
-		return $this->countries;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_Dfareporting_Country[]
+   */
+  public function setCountries($countries)
+  {
+    $this->countries = $countries;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Country[]
+   */
+  public function getCountries()
+  {
+    return $this->countries;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

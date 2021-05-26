@@ -17,69 +17,69 @@
 
 class Google_Service_ConsumerSurveys_SurveyAudience extends Google_Collection
 {
-	protected $collection_key = 'languages';
-	public $ages;
-	public $country;
-	public $countrySubdivision;
-	public $gender;
-	public $languages;
-	public $mobileAppPanelId;
-	public $populationSource;
+  protected $collection_key = 'languages';
+  public $ages;
+  public $country;
+  public $countrySubdivision;
+  public $gender;
+  public $languages;
+  public $mobileAppPanelId;
+  public $populationSource;
 
-	public function setAges($ages)
-	{
-		$this->ages = $ages;
-	}
-	public function getAges()
-	{
-		return $this->ages;
-	}
-	public function setCountry($country)
-	{
-		$this->country = $country;
-	}
-	public function getCountry()
-	{
-		return $this->country;
-	}
-	public function setCountrySubdivision($countrySubdivision)
-	{
-		$this->countrySubdivision = $countrySubdivision;
-	}
-	public function getCountrySubdivision()
-	{
-		return $this->countrySubdivision;
-	}
-	public function setGender($gender)
-	{
-		$this->gender = $gender;
-	}
-	public function getGender()
-	{
-		return $this->gender;
-	}
-	public function setLanguages($languages)
-	{
-		$this->languages = $languages;
-	}
-	public function getLanguages()
-	{
-		return $this->languages;
-	}
-	public function setMobileAppPanelId($mobileAppPanelId)
-	{
-		$this->mobileAppPanelId = $mobileAppPanelId;
-	}
-	public function getMobileAppPanelId()
-	{
-		return $this->mobileAppPanelId;
-	}
-	public function setPopulationSource($populationSource)
-	{
-		$this->populationSource = $populationSource;
-	}
-	public function getPopulationSource()
-	{
-		return $this->populationSource;
-	}
+  public function setAges($ages)
+  {
+    $this->ages = $ages;
+  }
+  public function getAges()
+  {
+    return $this->ages;
+  }
+  public function setCountry($country)
+  {
+    $this->country = $country;
+  }
+  public function getCountry()
+  {
+    return $this->country;
+  }
+  public function setCountrySubdivision($countrySubdivision)
+  {
+    $this->countrySubdivision = $countrySubdivision;
+  }
+  public function getCountrySubdivision()
+  {
+    return $this->countrySubdivision;
+  }
+  public function setGender($gender)
+  {
+    $this->gender = $gender;
+  }
+  public function getGender()
+  {
+    return $this->gender;
+  }
+  public function setLanguages($languages)
+  {
+    $this->languages = $languages;
+  }
+  public function getLanguages()
+  {
+    return $this->languages;
+  }
+  public function setMobileAppPanelId($mobileAppPanelId)
+  {
+    $this->mobileAppPanelId = $mobileAppPanelId;
+  }
+  public function getMobileAppPanelId()
+  {
+    return $this->mobileAppPanelId;
+  }
+  public function setPopulationSource($populationSource)
+  {
+    $this->populationSource = $populationSource;
+  }
+  public function getPopulationSource()
+  {
+    return $this->populationSource;
+  }
 }

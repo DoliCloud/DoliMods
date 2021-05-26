@@ -17,14 +17,14 @@
 
 class Google_Service_Slides_WordArt extends Google_Model
 {
-	public $renderedText;
+  public $renderedText;
 
-	public function setRenderedText($renderedText)
-	{
-		$this->renderedText = $renderedText;
-	}
-	public function getRenderedText()
-	{
-		return $this->renderedText;
-	}
+  public function setRenderedText($renderedText)
+  {
+    $this->renderedText = $renderedText;
+  }
+  public function getRenderedText()
+  {
+    return $this->renderedText;
+  }
 }

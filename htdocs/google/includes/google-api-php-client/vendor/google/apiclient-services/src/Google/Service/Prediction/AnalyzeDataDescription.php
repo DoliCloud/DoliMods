@@ -17,38 +17,38 @@
 
 class Google_Service_Prediction_AnalyzeDataDescription extends Google_Collection
 {
-	protected $collection_key = 'features';
-	protected $featuresType = 'Google_Service_Prediction_AnalyzeDataDescriptionFeatures';
-	protected $featuresDataType = 'array';
-	protected $outputFeatureType = 'Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature';
-	protected $outputFeatureDataType = '';
+  protected $collection_key = 'features';
+  protected $featuresType = 'Google_Service_Prediction_AnalyzeDataDescriptionFeatures';
+  protected $featuresDataType = 'array';
+  protected $outputFeatureType = 'Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature';
+  protected $outputFeatureDataType = '';
 
-	/**
-	 * @param Google_Service_Prediction_AnalyzeDataDescriptionFeatures
-	 */
-	public function setFeatures($features)
-	{
-		$this->features = $features;
-	}
-	/**
-	 * @return Google_Service_Prediction_AnalyzeDataDescriptionFeatures
-	 */
-	public function getFeatures()
-	{
-		return $this->features;
-	}
-	/**
-	 * @param Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature
-	 */
-	public function setOutputFeature(Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature $outputFeature)
-	{
-		$this->outputFeature = $outputFeature;
-	}
-	/**
-	 * @return Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature
-	 */
-	public function getOutputFeature()
-	{
-		return $this->outputFeature;
-	}
+  /**
+   * @param Google_Service_Prediction_AnalyzeDataDescriptionFeatures
+   */
+  public function setFeatures($features)
+  {
+    $this->features = $features;
+  }
+  /**
+   * @return Google_Service_Prediction_AnalyzeDataDescriptionFeatures
+   */
+  public function getFeatures()
+  {
+    return $this->features;
+  }
+  /**
+   * @param Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature
+   */
+  public function setOutputFeature(Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature $outputFeature)
+  {
+    $this->outputFeature = $outputFeature;
+  }
+  /**
+   * @return Google_Service_Prediction_AnalyzeDataDescriptionOutputFeature
+   */
+  public function getOutputFeature()
+  {
+    return $this->outputFeature;
+  }
 }

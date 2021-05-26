@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_ResourcePolicyWeeklyCycleDayOfWeek extends Google_Model
 {
-	public $day;
-	public $duration;
-	public $startTime;
+  public $day;
+  public $duration;
+  public $startTime;
 
-	public function setDay($day)
-	{
-		$this->day = $day;
-	}
-	public function getDay()
-	{
-		return $this->day;
-	}
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setDay($day)
+  {
+    $this->day = $day;
+  }
+  public function getDay()
+  {
+    return $this->day;
+  }
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_CloudHealthcare_TextConfig extends Google_Collection
 {
-	protected $collection_key = 'transformations';
-	protected $transformationsType = 'Google_Service_CloudHealthcare_InfoTypeTransformation';
-	protected $transformationsDataType = 'array';
+  protected $collection_key = 'transformations';
+  protected $transformationsType = 'Google_Service_CloudHealthcare_InfoTypeTransformation';
+  protected $transformationsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudHealthcare_InfoTypeTransformation
-	 */
-	public function setTransformations($transformations)
-	{
-		$this->transformations = $transformations;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_InfoTypeTransformation
-	 */
-	public function getTransformations()
-	{
-		return $this->transformations;
-	}
+  /**
+   * @param Google_Service_CloudHealthcare_InfoTypeTransformation[]
+   */
+  public function setTransformations($transformations)
+  {
+    $this->transformations = $transformations;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_InfoTypeTransformation[]
+   */
+  public function getTransformations()
+  {
+    return $this->transformations;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_DateValues extends Google_Collection
 {
-	protected $collection_key = 'values';
-	protected $valuesType = 'Google_Service_CloudSearch_Date';
-	protected $valuesDataType = 'array';
+  protected $collection_key = 'values';
+  protected $valuesType = 'Google_Service_CloudSearch_Date';
+  protected $valuesDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudSearch_Date
-	 */
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Date
-	 */
-	public function getValues()
-	{
-		return $this->values;
-	}
+  /**
+   * @param Google_Service_CloudSearch_Date[]
+   */
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Date[]
+   */
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

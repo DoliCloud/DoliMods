@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_ResourcePoliciesScopedList extends Google_Collection
 {
-	protected $collection_key = 'resourcePolicies';
-	protected $resourcePoliciesType = 'Google_Service_Compute_ResourcePolicy';
-	protected $resourcePoliciesDataType = 'array';
-	protected $warningType = 'Google_Service_Compute_ResourcePoliciesScopedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'resourcePolicies';
+  protected $resourcePoliciesType = 'Google_Service_Compute_ResourcePolicy';
+  protected $resourcePoliciesDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_ResourcePoliciesScopedListWarning';
+  protected $warningDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_ResourcePolicy
-	 */
-	public function setResourcePolicies($resourcePolicies)
-	{
-		$this->resourcePolicies = $resourcePolicies;
-	}
-	/**
-	 * @return Google_Service_Compute_ResourcePolicy
-	 */
-	public function getResourcePolicies()
-	{
-		return $this->resourcePolicies;
-	}
-	/**
-	 * @param Google_Service_Compute_ResourcePoliciesScopedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_ResourcePoliciesScopedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_ResourcePoliciesScopedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Compute_ResourcePolicy[]
+   */
+  public function setResourcePolicies($resourcePolicies)
+  {
+    $this->resourcePolicies = $resourcePolicies;
+  }
+  /**
+   * @return Google_Service_Compute_ResourcePolicy[]
+   */
+  public function getResourcePolicies()
+  {
+    return $this->resourcePolicies;
+  }
+  /**
+   * @param Google_Service_Compute_ResourcePoliciesScopedListWarning
+   */
+  public function setWarning(Google_Service_Compute_ResourcePoliciesScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_ResourcePoliciesScopedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

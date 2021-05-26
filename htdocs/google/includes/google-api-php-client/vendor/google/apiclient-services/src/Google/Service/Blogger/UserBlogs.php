@@ -17,14 +17,14 @@
 
 class Google_Service_Blogger_UserBlogs extends Google_Model
 {
-	public $selfLink;
+  public $selfLink;
 
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
 }

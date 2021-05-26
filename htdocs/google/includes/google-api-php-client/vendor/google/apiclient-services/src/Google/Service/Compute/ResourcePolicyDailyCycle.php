@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_ResourcePolicyDailyCycle extends Google_Model
 {
-	public $daysInCycle;
-	public $duration;
-	public $startTime;
+  public $daysInCycle;
+  public $duration;
+  public $startTime;
 
-	public function setDaysInCycle($daysInCycle)
-	{
-		$this->daysInCycle = $daysInCycle;
-	}
-	public function getDaysInCycle()
-	{
-		return $this->daysInCycle;
-	}
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setDaysInCycle($daysInCycle)
+  {
+    $this->daysInCycle = $daysInCycle;
+  }
+  public function getDaysInCycle()
+  {
+    return $this->daysInCycle;
+  }
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

@@ -25,30 +25,28 @@
  */
 class Google_Service_CloudSearch_Resource_DebugIdentitysourcesItems extends Google_Service_Resource
 {
-	/**
-	 * Lists names of items associated with an unmapped identity.
-	 *
-	 * **Note:** This API requires an admin account to execute.
-	 * (items.listForunmappedidentity)
-	 *
-	 * @param string $parent The name of the identity source, in the following
-	 *                       format: identitysources/{source_id}}
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string userResourceName
-	 * @opt_param string pageToken The next_page_token value returned from a
-	 * previous List request, if any.
-	 * @opt_param int pageSize Maximum number of items to fetch in a request.
-	 * Defaults to 100.
-	 * @opt_param bool debugOptions.enableDebugging If you are asked by Google to
-	 * help with debugging, set this field. Otherwise, ignore this field.
-	 * @opt_param string groupResourceName
-	 * @return Google_Service_CloudSearch_ListItemNamesForUnmappedIdentityResponse
-	 */
-	public function listForunmappedidentity($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('listForunmappedidentity', array($params), "Google_Service_CloudSearch_ListItemNamesForUnmappedIdentityResponse");
-	}
+  /**
+   * Lists names of items associated with an unmapped identity. **Note:** This API
+   * requires an admin account to execute. (items.listForunmappedidentity)
+   *
+   * @param string $parent The name of the identity source, in the following
+   * format: identitysources/{source_id}}
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param bool debugOptions.enableDebugging If you are asked by Google to
+   * help with debugging, set this field. Otherwise, ignore this field.
+   * @opt_param string groupResourceName
+   * @opt_param int pageSize Maximum number of items to fetch in a request.
+   * Defaults to 100.
+   * @opt_param string pageToken The next_page_token value returned from a
+   * previous List request, if any.
+   * @opt_param string userResourceName
+   * @return Google_Service_CloudSearch_ListItemNamesForUnmappedIdentityResponse
+   */
+  public function listForunmappedidentity($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('listForunmappedidentity', array($params), "Google_Service_CloudSearch_ListItemNamesForUnmappedIdentityResponse");
+  }
 }

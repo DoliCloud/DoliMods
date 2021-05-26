@@ -17,39 +17,39 @@
 
 class Google_Service_Docs_TableCellLocation extends Google_Model
 {
-	public $columnIndex;
-	public $rowIndex;
-	protected $tableStartLocationType = 'Google_Service_Docs_Location';
-	protected $tableStartLocationDataType = '';
+  public $columnIndex;
+  public $rowIndex;
+  protected $tableStartLocationType = 'Google_Service_Docs_Location';
+  protected $tableStartLocationDataType = '';
 
-	public function setColumnIndex($columnIndex)
-	{
-		$this->columnIndex = $columnIndex;
-	}
-	public function getColumnIndex()
-	{
-		return $this->columnIndex;
-	}
-	public function setRowIndex($rowIndex)
-	{
-		$this->rowIndex = $rowIndex;
-	}
-	public function getRowIndex()
-	{
-		return $this->rowIndex;
-	}
-	/**
-	 * @param Google_Service_Docs_Location
-	 */
-	public function setTableStartLocation(Google_Service_Docs_Location $tableStartLocation)
-	{
-		$this->tableStartLocation = $tableStartLocation;
-	}
-	/**
-	 * @return Google_Service_Docs_Location
-	 */
-	public function getTableStartLocation()
-	{
-		return $this->tableStartLocation;
-	}
+  public function setColumnIndex($columnIndex)
+  {
+    $this->columnIndex = $columnIndex;
+  }
+  public function getColumnIndex()
+  {
+    return $this->columnIndex;
+  }
+  public function setRowIndex($rowIndex)
+  {
+    $this->rowIndex = $rowIndex;
+  }
+  public function getRowIndex()
+  {
+    return $this->rowIndex;
+  }
+  /**
+   * @param Google_Service_Docs_Location
+   */
+  public function setTableStartLocation(Google_Service_Docs_Location $tableStartLocation)
+  {
+    $this->tableStartLocation = $tableStartLocation;
+  }
+  /**
+   * @return Google_Service_Docs_Location
+   */
+  public function getTableStartLocation()
+  {
+    return $this->tableStartLocation;
+  }
 }

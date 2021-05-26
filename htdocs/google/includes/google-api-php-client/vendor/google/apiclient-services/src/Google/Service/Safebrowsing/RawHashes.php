@@ -17,23 +17,23 @@
 
 class Google_Service_Safebrowsing_RawHashes extends Google_Model
 {
-	public $prefixSize;
-	public $rawHashes;
+  public $prefixSize;
+  public $rawHashes;
 
-	public function setPrefixSize($prefixSize)
-	{
-		$this->prefixSize = $prefixSize;
-	}
-	public function getPrefixSize()
-	{
-		return $this->prefixSize;
-	}
-	public function setRawHashes($rawHashes)
-	{
-		$this->rawHashes = $rawHashes;
-	}
-	public function getRawHashes()
-	{
-		return $this->rawHashes;
-	}
+  public function setPrefixSize($prefixSize)
+  {
+    $this->prefixSize = $prefixSize;
+  }
+  public function getPrefixSize()
+  {
+    return $this->prefixSize;
+  }
+  public function setRawHashes($rawHashes)
+  {
+    $this->rawHashes = $rawHashes;
+  }
+  public function getRawHashes()
+  {
+    return $this->rawHashes;
+  }
 }

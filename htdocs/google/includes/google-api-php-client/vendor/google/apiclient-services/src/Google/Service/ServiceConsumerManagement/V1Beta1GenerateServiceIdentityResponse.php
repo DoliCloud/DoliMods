@@ -17,21 +17,21 @@
 
 class Google_Service_ServiceConsumerManagement_V1Beta1GenerateServiceIdentityResponse extends Google_Model
 {
-	protected $identityType = 'Google_Service_ServiceConsumerManagement_V1Beta1ServiceIdentity';
-	protected $identityDataType = '';
+  protected $identityType = 'Google_Service_ServiceConsumerManagement_V1Beta1ServiceIdentity';
+  protected $identityDataType = '';
 
-	/**
-	 * @param Google_Service_ServiceConsumerManagement_V1Beta1ServiceIdentity
-	 */
-	public function setIdentity(Google_Service_ServiceConsumerManagement_V1Beta1ServiceIdentity $identity)
-	{
-		$this->identity = $identity;
-	}
-	/**
-	 * @return Google_Service_ServiceConsumerManagement_V1Beta1ServiceIdentity
-	 */
-	public function getIdentity()
-	{
-		return $this->identity;
-	}
+  /**
+   * @param Google_Service_ServiceConsumerManagement_V1Beta1ServiceIdentity
+   */
+  public function setIdentity(Google_Service_ServiceConsumerManagement_V1Beta1ServiceIdentity $identity)
+  {
+    $this->identity = $identity;
+  }
+  /**
+   * @return Google_Service_ServiceConsumerManagement_V1Beta1ServiceIdentity
+   */
+  public function getIdentity()
+  {
+    return $this->identity;
+  }
 }

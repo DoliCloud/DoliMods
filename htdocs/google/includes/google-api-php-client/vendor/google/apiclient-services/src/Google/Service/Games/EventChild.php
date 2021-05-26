@@ -17,23 +17,23 @@
 
 class Google_Service_Games_EventChild extends Google_Model
 {
-	public $childId;
-	public $kind;
+  public $childId;
+  public $kind;
 
-	public function setChildId($childId)
-	{
-		$this->childId = $childId;
-	}
-	public function getChildId()
-	{
-		return $this->childId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setChildId($childId)
+  {
+    $this->childId = $childId;
+  }
+  public function getChildId()
+  {
+    return $this->childId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

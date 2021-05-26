@@ -17,31 +17,31 @@
 
 class Google_Service_Compute_VmEndpointNatMappings extends Google_Collection
 {
-	protected $collection_key = 'interfaceNatMappings';
-	public $instanceName;
-	protected $interfaceNatMappingsType = 'Google_Service_Compute_VmEndpointNatMappingsInterfaceNatMappings';
-	protected $interfaceNatMappingsDataType = 'array';
+  protected $collection_key = 'interfaceNatMappings';
+  public $instanceName;
+  protected $interfaceNatMappingsType = 'Google_Service_Compute_VmEndpointNatMappingsInterfaceNatMappings';
+  protected $interfaceNatMappingsDataType = 'array';
 
-	public function setInstanceName($instanceName)
-	{
-		$this->instanceName = $instanceName;
-	}
-	public function getInstanceName()
-	{
-		return $this->instanceName;
-	}
-	/**
-	 * @param Google_Service_Compute_VmEndpointNatMappingsInterfaceNatMappings
-	 */
-	public function setInterfaceNatMappings($interfaceNatMappings)
-	{
-		$this->interfaceNatMappings = $interfaceNatMappings;
-	}
-	/**
-	 * @return Google_Service_Compute_VmEndpointNatMappingsInterfaceNatMappings
-	 */
-	public function getInterfaceNatMappings()
-	{
-		return $this->interfaceNatMappings;
-	}
+  public function setInstanceName($instanceName)
+  {
+    $this->instanceName = $instanceName;
+  }
+  public function getInstanceName()
+  {
+    return $this->instanceName;
+  }
+  /**
+   * @param Google_Service_Compute_VmEndpointNatMappingsInterfaceNatMappings[]
+   */
+  public function setInterfaceNatMappings($interfaceNatMappings)
+  {
+    $this->interfaceNatMappings = $interfaceNatMappings;
+  }
+  /**
+   * @return Google_Service_Compute_VmEndpointNatMappingsInterfaceNatMappings[]
+   */
+  public function getInterfaceNatMappings()
+  {
+    return $this->interfaceNatMappings;
+  }
 }

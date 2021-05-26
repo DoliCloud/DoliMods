@@ -17,32 +17,32 @@
 
 class Google_Service_FirebaseManagement_ShaCertificate extends Google_Model
 {
-	public $certType;
-	public $name;
-	public $shaHash;
+  public $certType;
+  public $name;
+  public $shaHash;
 
-	public function setCertType($certType)
-	{
-		$this->certType = $certType;
-	}
-	public function getCertType()
-	{
-		return $this->certType;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setShaHash($shaHash)
-	{
-		$this->shaHash = $shaHash;
-	}
-	public function getShaHash()
-	{
-		return $this->shaHash;
-	}
+  public function setCertType($certType)
+  {
+    $this->certType = $certType;
+  }
+  public function getCertType()
+  {
+    return $this->certType;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setShaHash($shaHash)
+  {
+    $this->shaHash = $shaHash;
+  }
+  public function getShaHash()
+  {
+    return $this->shaHash;
+  }
 }

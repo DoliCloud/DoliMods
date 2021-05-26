@@ -17,31 +17,31 @@
 
 class Google_Service_Sasportal_SasPortalPolicy extends Google_Collection
 {
-	protected $collection_key = 'assignments';
-	protected $assignmentsType = 'Google_Service_Sasportal_SasPortalAssignment';
-	protected $assignmentsDataType = 'array';
-	public $etag;
+  protected $collection_key = 'assignments';
+  protected $assignmentsType = 'Google_Service_Sasportal_SasPortalAssignment';
+  protected $assignmentsDataType = 'array';
+  public $etag;
 
-	/**
-	 * @param Google_Service_Sasportal_SasPortalAssignment
-	 */
-	public function setAssignments($assignments)
-	{
-		$this->assignments = $assignments;
-	}
-	/**
-	 * @return Google_Service_Sasportal_SasPortalAssignment
-	 */
-	public function getAssignments()
-	{
-		return $this->assignments;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
+  /**
+   * @param Google_Service_Sasportal_SasPortalAssignment[]
+   */
+  public function setAssignments($assignments)
+  {
+    $this->assignments = $assignments;
+  }
+  /**
+   * @return Google_Service_Sasportal_SasPortalAssignment[]
+   */
+  public function getAssignments()
+  {
+    return $this->assignments;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
 }

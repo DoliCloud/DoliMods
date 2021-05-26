@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_AgeRangeTargetingOptionDetails extends Google_Model
 {
-	public $ageRange;
+  public $ageRange;
 
-	public function setAgeRange($ageRange)
-	{
-		$this->ageRange = $ageRange;
-	}
-	public function getAgeRange()
-	{
-		return $this->ageRange;
-	}
+  public function setAgeRange($ageRange)
+  {
+    $this->ageRange = $ageRange;
+  }
+  public function getAgeRange()
+  {
+    return $this->ageRange;
+  }
 }

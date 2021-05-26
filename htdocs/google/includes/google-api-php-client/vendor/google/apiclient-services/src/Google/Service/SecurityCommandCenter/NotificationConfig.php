@@ -17,57 +17,57 @@
 
 class Google_Service_SecurityCommandCenter_NotificationConfig extends Google_Model
 {
-	public $description;
-	public $name;
-	public $pubsubTopic;
-	public $serviceAccount;
-	protected $streamingConfigType = 'Google_Service_SecurityCommandCenter_StreamingConfig';
-	protected $streamingConfigDataType = '';
+  public $description;
+  public $name;
+  public $pubsubTopic;
+  public $serviceAccount;
+  protected $streamingConfigType = 'Google_Service_SecurityCommandCenter_StreamingConfig';
+  protected $streamingConfigDataType = '';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPubsubTopic($pubsubTopic)
-	{
-		$this->pubsubTopic = $pubsubTopic;
-	}
-	public function getPubsubTopic()
-	{
-		return $this->pubsubTopic;
-	}
-	public function setServiceAccount($serviceAccount)
-	{
-		$this->serviceAccount = $serviceAccount;
-	}
-	public function getServiceAccount()
-	{
-		return $this->serviceAccount;
-	}
-	/**
-	 * @param Google_Service_SecurityCommandCenter_StreamingConfig
-	 */
-	public function setStreamingConfig(Google_Service_SecurityCommandCenter_StreamingConfig $streamingConfig)
-	{
-		$this->streamingConfig = $streamingConfig;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_StreamingConfig
-	 */
-	public function getStreamingConfig()
-	{
-		return $this->streamingConfig;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPubsubTopic($pubsubTopic)
+  {
+    $this->pubsubTopic = $pubsubTopic;
+  }
+  public function getPubsubTopic()
+  {
+    return $this->pubsubTopic;
+  }
+  public function setServiceAccount($serviceAccount)
+  {
+    $this->serviceAccount = $serviceAccount;
+  }
+  public function getServiceAccount()
+  {
+    return $this->serviceAccount;
+  }
+  /**
+   * @param Google_Service_SecurityCommandCenter_StreamingConfig
+   */
+  public function setStreamingConfig(Google_Service_SecurityCommandCenter_StreamingConfig $streamingConfig)
+  {
+    $this->streamingConfig = $streamingConfig;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_StreamingConfig
+   */
+  public function getStreamingConfig()
+  {
+    return $this->streamingConfig;
+  }
 }

@@ -17,65 +17,65 @@
 
 class Google_Service_Partners_RequestMetadata extends Google_Collection
 {
-	protected $collection_key = 'experimentIds';
-	public $experimentIds;
-	public $locale;
-	public $partnersSessionId;
-	protected $trafficSourceType = 'Google_Service_Partners_TrafficSource';
-	protected $trafficSourceDataType = '';
-	protected $userOverridesType = 'Google_Service_Partners_UserOverrides';
-	protected $userOverridesDataType = '';
+  protected $collection_key = 'experimentIds';
+  public $experimentIds;
+  public $locale;
+  public $partnersSessionId;
+  protected $trafficSourceType = 'Google_Service_Partners_TrafficSource';
+  protected $trafficSourceDataType = '';
+  protected $userOverridesType = 'Google_Service_Partners_UserOverrides';
+  protected $userOverridesDataType = '';
 
-	public function setExperimentIds($experimentIds)
-	{
-		$this->experimentIds = $experimentIds;
-	}
-	public function getExperimentIds()
-	{
-		return $this->experimentIds;
-	}
-	public function setLocale($locale)
-	{
-		$this->locale = $locale;
-	}
-	public function getLocale()
-	{
-		return $this->locale;
-	}
-	public function setPartnersSessionId($partnersSessionId)
-	{
-		$this->partnersSessionId = $partnersSessionId;
-	}
-	public function getPartnersSessionId()
-	{
-		return $this->partnersSessionId;
-	}
-	/**
-	 * @param Google_Service_Partners_TrafficSource
-	 */
-	public function setTrafficSource(Google_Service_Partners_TrafficSource $trafficSource)
-	{
-		$this->trafficSource = $trafficSource;
-	}
-	/**
-	 * @return Google_Service_Partners_TrafficSource
-	 */
-	public function getTrafficSource()
-	{
-		return $this->trafficSource;
-	}
-	/**
-	 * @param Google_Service_Partners_UserOverrides
-	 */
-	public function setUserOverrides(Google_Service_Partners_UserOverrides $userOverrides)
-	{
-		$this->userOverrides = $userOverrides;
-	}
-	/**
-	 * @return Google_Service_Partners_UserOverrides
-	 */
-	public function getUserOverrides()
-	{
-		return $this->userOverrides;
-	}
+  public function setExperimentIds($experimentIds)
+  {
+    $this->experimentIds = $experimentIds;
+  }
+  public function getExperimentIds()
+  {
+    return $this->experimentIds;
+  }
+  public function setLocale($locale)
+  {
+    $this->locale = $locale;
+  }
+  public function getLocale()
+  {
+    return $this->locale;
+  }
+  public function setPartnersSessionId($partnersSessionId)
+  {
+    $this->partnersSessionId = $partnersSessionId;
+  }
+  public function getPartnersSessionId()
+  {
+    return $this->partnersSessionId;
+  }
+  /**
+   * @param Google_Service_Partners_TrafficSource
+   */
+  public function setTrafficSource(Google_Service_Partners_TrafficSource $trafficSource)
+  {
+    $this->trafficSource = $trafficSource;
+  }
+  /**
+   * @return Google_Service_Partners_TrafficSource
+   */
+  public function getTrafficSource()
+  {
+    return $this->trafficSource;
+  }
+  /**
+   * @param Google_Service_Partners_UserOverrides
+   */
+  public function setUserOverrides(Google_Service_Partners_UserOverrides $userOverrides)
+  {
+    $this->userOverrides = $userOverrides;
+  }
+  /**
+   * @return Google_Service_Partners_UserOverrides
+   */
+  public function getUserOverrides()
+  {
+    return $this->userOverrides;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Docs_EmbeddedObjectBorderSuggestionState extends Google_Model
 {
-	public $colorSuggested;
-	public $dashStyleSuggested;
-	public $propertyStateSuggested;
-	public $widthSuggested;
+  public $colorSuggested;
+  public $dashStyleSuggested;
+  public $propertyStateSuggested;
+  public $widthSuggested;
 
-	public function setColorSuggested($colorSuggested)
-	{
-		$this->colorSuggested = $colorSuggested;
-	}
-	public function getColorSuggested()
-	{
-		return $this->colorSuggested;
-	}
-	public function setDashStyleSuggested($dashStyleSuggested)
-	{
-		$this->dashStyleSuggested = $dashStyleSuggested;
-	}
-	public function getDashStyleSuggested()
-	{
-		return $this->dashStyleSuggested;
-	}
-	public function setPropertyStateSuggested($propertyStateSuggested)
-	{
-		$this->propertyStateSuggested = $propertyStateSuggested;
-	}
-	public function getPropertyStateSuggested()
-	{
-		return $this->propertyStateSuggested;
-	}
-	public function setWidthSuggested($widthSuggested)
-	{
-		$this->widthSuggested = $widthSuggested;
-	}
-	public function getWidthSuggested()
-	{
-		return $this->widthSuggested;
-	}
+  public function setColorSuggested($colorSuggested)
+  {
+    $this->colorSuggested = $colorSuggested;
+  }
+  public function getColorSuggested()
+  {
+    return $this->colorSuggested;
+  }
+  public function setDashStyleSuggested($dashStyleSuggested)
+  {
+    $this->dashStyleSuggested = $dashStyleSuggested;
+  }
+  public function getDashStyleSuggested()
+  {
+    return $this->dashStyleSuggested;
+  }
+  public function setPropertyStateSuggested($propertyStateSuggested)
+  {
+    $this->propertyStateSuggested = $propertyStateSuggested;
+  }
+  public function getPropertyStateSuggested()
+  {
+    return $this->propertyStateSuggested;
+  }
+  public function setWidthSuggested($widthSuggested)
+  {
+    $this->widthSuggested = $widthSuggested;
+  }
+  public function getWidthSuggested()
+  {
+    return $this->widthSuggested;
+  }
 }

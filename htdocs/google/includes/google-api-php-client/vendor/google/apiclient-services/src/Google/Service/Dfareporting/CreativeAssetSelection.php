@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_CreativeAssetSelection extends Google_Collection
 {
-	protected $collection_key = 'rules';
-	public $defaultAssetId;
-	protected $rulesType = 'Google_Service_Dfareporting_Rule';
-	protected $rulesDataType = 'array';
+  protected $collection_key = 'rules';
+  public $defaultAssetId;
+  protected $rulesType = 'Google_Service_Dfareporting_Rule';
+  protected $rulesDataType = 'array';
 
-	public function setDefaultAssetId($defaultAssetId)
-	{
-		$this->defaultAssetId = $defaultAssetId;
-	}
-	public function getDefaultAssetId()
-	{
-		return $this->defaultAssetId;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Rule
-	 */
-	public function setRules($rules)
-	{
-		$this->rules = $rules;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Rule
-	 */
-	public function getRules()
-	{
-		return $this->rules;
-	}
+  public function setDefaultAssetId($defaultAssetId)
+  {
+    $this->defaultAssetId = $defaultAssetId;
+  }
+  public function getDefaultAssetId()
+  {
+    return $this->defaultAssetId;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Rule[]
+   */
+  public function setRules($rules)
+  {
+    $this->rules = $rules;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Rule[]
+   */
+  public function getRules()
+  {
+    return $this->rules;
+  }
 }

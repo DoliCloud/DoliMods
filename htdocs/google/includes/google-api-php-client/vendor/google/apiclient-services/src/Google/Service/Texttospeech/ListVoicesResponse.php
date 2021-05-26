@@ -17,22 +17,22 @@
 
 class Google_Service_Texttospeech_ListVoicesResponse extends Google_Collection
 {
-	protected $collection_key = 'voices';
-	protected $voicesType = 'Google_Service_Texttospeech_Voice';
-	protected $voicesDataType = 'array';
+  protected $collection_key = 'voices';
+  protected $voicesType = 'Google_Service_Texttospeech_Voice';
+  protected $voicesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Texttospeech_Voice
-	 */
-	public function setVoices($voices)
-	{
-		$this->voices = $voices;
-	}
-	/**
-	 * @return Google_Service_Texttospeech_Voice
-	 */
-	public function getVoices()
-	{
-		return $this->voices;
-	}
+  /**
+   * @param Google_Service_Texttospeech_Voice[]
+   */
+  public function setVoices($voices)
+  {
+    $this->voices = $voices;
+  }
+  /**
+   * @return Google_Service_Texttospeech_Voice[]
+   */
+  public function getVoices()
+  {
+    return $this->voices;
+  }
 }

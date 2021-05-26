@@ -17,59 +17,59 @@
 
 class Google_Service_Directory_DomainAlias extends Google_Model
 {
-	public $creationTime;
-	public $domainAliasName;
-	public $etag;
-	public $kind;
-	public $parentDomainName;
-	public $verified;
+  public $creationTime;
+  public $domainAliasName;
+  public $etag;
+  public $kind;
+  public $parentDomainName;
+  public $verified;
 
-	public function setCreationTime($creationTime)
-	{
-		$this->creationTime = $creationTime;
-	}
-	public function getCreationTime()
-	{
-		return $this->creationTime;
-	}
-	public function setDomainAliasName($domainAliasName)
-	{
-		$this->domainAliasName = $domainAliasName;
-	}
-	public function getDomainAliasName()
-	{
-		return $this->domainAliasName;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setParentDomainName($parentDomainName)
-	{
-		$this->parentDomainName = $parentDomainName;
-	}
-	public function getParentDomainName()
-	{
-		return $this->parentDomainName;
-	}
-	public function setVerified($verified)
-	{
-		$this->verified = $verified;
-	}
-	public function getVerified()
-	{
-		return $this->verified;
-	}
+  public function setCreationTime($creationTime)
+  {
+    $this->creationTime = $creationTime;
+  }
+  public function getCreationTime()
+  {
+    return $this->creationTime;
+  }
+  public function setDomainAliasName($domainAliasName)
+  {
+    $this->domainAliasName = $domainAliasName;
+  }
+  public function getDomainAliasName()
+  {
+    return $this->domainAliasName;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setParentDomainName($parentDomainName)
+  {
+    $this->parentDomainName = $parentDomainName;
+  }
+  public function getParentDomainName()
+  {
+    return $this->parentDomainName;
+  }
+  public function setVerified($verified)
+  {
+    $this->verified = $verified;
+  }
+  public function getVerified()
+  {
+    return $this->verified;
+  }
 }

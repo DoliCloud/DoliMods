@@ -17,84 +17,93 @@
 
 class Google_Service_SQLAdmin_User extends Google_Model
 {
-	public $etag;
-	public $host;
-	public $instance;
-	public $kind;
-	public $name;
-	public $password;
-	public $project;
-	protected $sqlserverUserDetailsType = 'Google_Service_SQLAdmin_SqlServerUserDetails';
-	protected $sqlserverUserDetailsDataType = '';
+  public $etag;
+  public $host;
+  public $instance;
+  public $kind;
+  public $name;
+  public $password;
+  public $project;
+  protected $sqlserverUserDetailsType = 'Google_Service_SQLAdmin_SqlServerUserDetails';
+  protected $sqlserverUserDetailsDataType = '';
+  public $type;
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setHost($host)
-	{
-		$this->host = $host;
-	}
-	public function getHost()
-	{
-		return $this->host;
-	}
-	public function setInstance($instance)
-	{
-		$this->instance = $instance;
-	}
-	public function getInstance()
-	{
-		return $this->instance;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPassword($password)
-	{
-		$this->password = $password;
-	}
-	public function getPassword()
-	{
-		return $this->password;
-	}
-	public function setProject($project)
-	{
-		$this->project = $project;
-	}
-	public function getProject()
-	{
-		return $this->project;
-	}
-	/**
-	 * @param Google_Service_SQLAdmin_SqlServerUserDetails
-	 */
-	public function setSqlserverUserDetails(Google_Service_SQLAdmin_SqlServerUserDetails $sqlserverUserDetails)
-	{
-		$this->sqlserverUserDetails = $sqlserverUserDetails;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_SqlServerUserDetails
-	 */
-	public function getSqlserverUserDetails()
-	{
-		return $this->sqlserverUserDetails;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setHost($host)
+  {
+    $this->host = $host;
+  }
+  public function getHost()
+  {
+    return $this->host;
+  }
+  public function setInstance($instance)
+  {
+    $this->instance = $instance;
+  }
+  public function getInstance()
+  {
+    return $this->instance;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPassword($password)
+  {
+    $this->password = $password;
+  }
+  public function getPassword()
+  {
+    return $this->password;
+  }
+  public function setProject($project)
+  {
+    $this->project = $project;
+  }
+  public function getProject()
+  {
+    return $this->project;
+  }
+  /**
+   * @param Google_Service_SQLAdmin_SqlServerUserDetails
+   */
+  public function setSqlserverUserDetails(Google_Service_SQLAdmin_SqlServerUserDetails $sqlserverUserDetails)
+  {
+    $this->sqlserverUserDetails = $sqlserverUserDetails;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_SqlServerUserDetails
+   */
+  public function getSqlserverUserDetails()
+  {
+    return $this->sqlserverUserDetails;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

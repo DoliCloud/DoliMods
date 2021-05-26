@@ -17,23 +17,23 @@
 
 class Google_Service_SQLAdmin_RotateServerCaContext extends Google_Model
 {
-	public $kind;
-	public $nextVersion;
+  public $kind;
+  public $nextVersion;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextVersion($nextVersion)
-	{
-		$this->nextVersion = $nextVersion;
-	}
-	public function getNextVersion()
-	{
-		return $this->nextVersion;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextVersion($nextVersion)
+  {
+    $this->nextVersion = $nextVersion;
+  }
+  public function getNextVersion()
+  {
+    return $this->nextVersion;
+  }
 }

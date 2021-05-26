@@ -17,47 +17,47 @@
 
 class Google_Service_Bigquery_QueryParameterValue extends Google_Collection
 {
-	protected $collection_key = 'arrayValues';
-	protected $arrayValuesType = 'Google_Service_Bigquery_QueryParameterValue';
-	protected $arrayValuesDataType = 'array';
-	protected $structValuesType = 'Google_Service_Bigquery_QueryParameterValue';
-	protected $structValuesDataType = 'map';
-	public $value;
+  protected $collection_key = 'arrayValues';
+  protected $arrayValuesType = 'Google_Service_Bigquery_QueryParameterValue';
+  protected $arrayValuesDataType = 'array';
+  protected $structValuesType = 'Google_Service_Bigquery_QueryParameterValue';
+  protected $structValuesDataType = 'map';
+  public $value;
 
-	/**
-	 * @param Google_Service_Bigquery_QueryParameterValue
-	 */
-	public function setArrayValues($arrayValues)
-	{
-		$this->arrayValues = $arrayValues;
-	}
-	/**
-	 * @return Google_Service_Bigquery_QueryParameterValue
-	 */
-	public function getArrayValues()
-	{
-		return $this->arrayValues;
-	}
-	/**
-	 * @param Google_Service_Bigquery_QueryParameterValue
-	 */
-	public function setStructValues($structValues)
-	{
-		$this->structValues = $structValues;
-	}
-	/**
-	 * @return Google_Service_Bigquery_QueryParameterValue
-	 */
-	public function getStructValues()
-	{
-		return $this->structValues;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  /**
+   * @param Google_Service_Bigquery_QueryParameterValue[]
+   */
+  public function setArrayValues($arrayValues)
+  {
+    $this->arrayValues = $arrayValues;
+  }
+  /**
+   * @return Google_Service_Bigquery_QueryParameterValue[]
+   */
+  public function getArrayValues()
+  {
+    return $this->arrayValues;
+  }
+  /**
+   * @param Google_Service_Bigquery_QueryParameterValue[]
+   */
+  public function setStructValues($structValues)
+  {
+    $this->structValues = $structValues;
+  }
+  /**
+   * @return Google_Service_Bigquery_QueryParameterValue[]
+   */
+  public function getStructValues()
+  {
+    return $this->structValues;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_SQLAdmin_Reschedule extends Google_Model
 {
-	public $rescheduleType;
-	public $scheduleTime;
+  public $rescheduleType;
+  public $scheduleTime;
 
-	public function setRescheduleType($rescheduleType)
-	{
-		$this->rescheduleType = $rescheduleType;
-	}
-	public function getRescheduleType()
-	{
-		return $this->rescheduleType;
-	}
-	public function setScheduleTime($scheduleTime)
-	{
-		$this->scheduleTime = $scheduleTime;
-	}
-	public function getScheduleTime()
-	{
-		return $this->scheduleTime;
-	}
+  public function setRescheduleType($rescheduleType)
+  {
+    $this->rescheduleType = $rescheduleType;
+  }
+  public function getRescheduleType()
+  {
+    return $this->rescheduleType;
+  }
+  public function setScheduleTime($scheduleTime)
+  {
+    $this->scheduleTime = $scheduleTime;
+  }
+  public function getScheduleTime()
+  {
+    return $this->scheduleTime;
+  }
 }

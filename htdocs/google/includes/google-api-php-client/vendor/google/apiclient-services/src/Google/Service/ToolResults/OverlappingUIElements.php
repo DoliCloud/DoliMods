@@ -17,24 +17,24 @@
 
 class Google_Service_ToolResults_OverlappingUIElements extends Google_Collection
 {
-	protected $collection_key = 'resourceName';
-	public $resourceName;
-	public $screenId;
+  protected $collection_key = 'resourceName';
+  public $resourceName;
+  public $screenId;
 
-	public function setResourceName($resourceName)
-	{
-		$this->resourceName = $resourceName;
-	}
-	public function getResourceName()
-	{
-		return $this->resourceName;
-	}
-	public function setScreenId($screenId)
-	{
-		$this->screenId = $screenId;
-	}
-	public function getScreenId()
-	{
-		return $this->screenId;
-	}
+  public function setResourceName($resourceName)
+  {
+    $this->resourceName = $resourceName;
+  }
+  public function getResourceName()
+  {
+    return $this->resourceName;
+  }
+  public function setScreenId($screenId)
+  {
+    $this->screenId = $screenId;
+  }
+  public function getScreenId()
+  {
+    return $this->screenId;
+  }
 }

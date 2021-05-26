@@ -17,14 +17,14 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageTelephonyPlayAudio extends Google_Model
 {
-	public $audioUri;
+  public $audioUri;
 
-	public function setAudioUri($audioUri)
-	{
-		$this->audioUri = $audioUri;
-	}
-	public function getAudioUri()
-	{
-		return $this->audioUri;
-	}
+  public function setAudioUri($audioUri)
+  {
+    $this->audioUri = $audioUri;
+  }
+  public function getAudioUri()
+  {
+    return $this->audioUri;
+  }
 }

@@ -17,60 +17,60 @@
 
 class Google_Service_CloudUserAccounts_Condition extends Google_Collection
 {
-	protected $collection_key = 'values';
-	public $iam;
-	public $op;
-	public $svc;
-	public $sys;
-	public $value;
-	public $values;
+  protected $collection_key = 'values';
+  public $iam;
+  public $op;
+  public $svc;
+  public $sys;
+  public $value;
+  public $values;
 
-	public function setIam($iam)
-	{
-		$this->iam = $iam;
-	}
-	public function getIam()
-	{
-		return $this->iam;
-	}
-	public function setOp($op)
-	{
-		$this->op = $op;
-	}
-	public function getOp()
-	{
-		return $this->op;
-	}
-	public function setSvc($svc)
-	{
-		$this->svc = $svc;
-	}
-	public function getSvc()
-	{
-		return $this->svc;
-	}
-	public function setSys($sys)
-	{
-		$this->sys = $sys;
-	}
-	public function getSys()
-	{
-		return $this->sys;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setIam($iam)
+  {
+    $this->iam = $iam;
+  }
+  public function getIam()
+  {
+    return $this->iam;
+  }
+  public function setOp($op)
+  {
+    $this->op = $op;
+  }
+  public function getOp()
+  {
+    return $this->op;
+  }
+  public function setSvc($svc)
+  {
+    $this->svc = $svc;
+  }
+  public function getSvc()
+  {
+    return $this->svc;
+  }
+  public function setSys($sys)
+  {
+    $this->sys = $sys;
+  }
+  public function getSys()
+  {
+    return $this->sys;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

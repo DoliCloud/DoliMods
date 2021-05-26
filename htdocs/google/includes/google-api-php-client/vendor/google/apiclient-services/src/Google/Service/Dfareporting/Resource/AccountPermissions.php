@@ -25,32 +25,32 @@
  */
 class Google_Service_Dfareporting_Resource_AccountPermissions extends Google_Service_Resource
 {
-	/**
-	 * Gets one account permission by ID. (accountPermissions.get)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param string $id Account permission ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_AccountPermission
-	 */
-	public function get($profileId, $id, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'id' => $id);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Dfareporting_AccountPermission");
-	}
-	/**
-	 * Retrieves the list of account permissions.
-	 * (accountPermissions.listAccountPermissions)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_AccountPermissionsListResponse
-	 */
-	public function listAccountPermissions($profileId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Dfareporting_AccountPermissionsListResponse");
-	}
+  /**
+   * Gets one account permission by ID. (accountPermissions.get)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param string $id Account permission ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_AccountPermission
+   */
+  public function get($profileId, $id, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Dfareporting_AccountPermission");
+  }
+  /**
+   * Retrieves the list of account permissions.
+   * (accountPermissions.listAccountPermissions)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_AccountPermissionsListResponse
+   */
+  public function listAccountPermissions($profileId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Dfareporting_AccountPermissionsListResponse");
+  }
 }

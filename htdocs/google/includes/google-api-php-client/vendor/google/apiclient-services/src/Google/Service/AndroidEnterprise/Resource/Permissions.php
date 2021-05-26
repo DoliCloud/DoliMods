@@ -25,21 +25,21 @@
  */
 class Google_Service_AndroidEnterprise_Resource_Permissions extends Google_Service_Resource
 {
-	/**
-	 * Retrieves details of an Android app permission for display to an enterprise
-	 * admin. (permissions.get)
-	 *
-	 * @param string $permissionId The ID of the permission.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string language The BCP47 tag for the user's preferred language
-	 * (e.g. "en-US", "de")
-	 * @return Google_Service_AndroidEnterprise_Permission
-	 */
-	public function get($permissionId, $optParams = array())
-	{
-		$params = array('permissionId' => $permissionId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_AndroidEnterprise_Permission");
-	}
+  /**
+   * Retrieves details of an Android app permission for display to an enterprise
+   * admin. (permissions.get)
+   *
+   * @param string $permissionId The ID of the permission.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string language The BCP47 tag for the user's preferred language
+   * (e.g. "en-US", "de")
+   * @return Google_Service_AndroidEnterprise_Permission
+   */
+  public function get($permissionId, $optParams = array())
+  {
+    $params = array('permissionId' => $permissionId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_AndroidEnterprise_Permission");
+  }
 }

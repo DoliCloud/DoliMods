@@ -17,30 +17,30 @@
 
 class Google_Service_SecretManager_AccessSecretVersionResponse extends Google_Model
 {
-	public $name;
-	protected $payloadType = 'Google_Service_SecretManager_SecretPayload';
-	protected $payloadDataType = '';
+  public $name;
+  protected $payloadType = 'Google_Service_SecretManager_SecretPayload';
+  protected $payloadDataType = '';
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_SecretManager_SecretPayload
-	 */
-	public function setPayload(Google_Service_SecretManager_SecretPayload $payload)
-	{
-		$this->payload = $payload;
-	}
-	/**
-	 * @return Google_Service_SecretManager_SecretPayload
-	 */
-	public function getPayload()
-	{
-		return $this->payload;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_SecretManager_SecretPayload
+   */
+  public function setPayload(Google_Service_SecretManager_SecretPayload $payload)
+  {
+    $this->payload = $payload;
+  }
+  /**
+   * @return Google_Service_SecretManager_SecretPayload
+   */
+  public function getPayload()
+  {
+    return $this->payload;
+  }
 }

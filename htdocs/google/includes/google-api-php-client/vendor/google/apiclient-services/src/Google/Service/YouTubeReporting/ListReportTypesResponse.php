@@ -17,31 +17,31 @@
 
 class Google_Service_YouTubeReporting_ListReportTypesResponse extends Google_Collection
 {
-	protected $collection_key = 'reportTypes';
-	public $nextPageToken;
-	protected $reportTypesType = 'Google_Service_YouTubeReporting_ReportType';
-	protected $reportTypesDataType = 'array';
+  protected $collection_key = 'reportTypes';
+  public $nextPageToken;
+  protected $reportTypesType = 'Google_Service_YouTubeReporting_ReportType';
+  protected $reportTypesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_YouTubeReporting_ReportType
-	 */
-	public function setReportTypes($reportTypes)
-	{
-		$this->reportTypes = $reportTypes;
-	}
-	/**
-	 * @return Google_Service_YouTubeReporting_ReportType
-	 */
-	public function getReportTypes()
-	{
-		return $this->reportTypes;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_YouTubeReporting_ReportType[]
+   */
+  public function setReportTypes($reportTypes)
+  {
+    $this->reportTypes = $reportTypes;
+  }
+  /**
+   * @return Google_Service_YouTubeReporting_ReportType[]
+   */
+  public function getReportTypes()
+  {
+    return $this->reportTypes;
+  }
 }

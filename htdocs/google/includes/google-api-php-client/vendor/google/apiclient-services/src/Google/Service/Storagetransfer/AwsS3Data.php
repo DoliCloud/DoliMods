@@ -17,30 +17,30 @@
 
 class Google_Service_Storagetransfer_AwsS3Data extends Google_Model
 {
-	protected $awsAccessKeyType = 'Google_Service_Storagetransfer_AwsAccessKey';
-	protected $awsAccessKeyDataType = '';
-	public $bucketName;
+  protected $awsAccessKeyType = 'Google_Service_Storagetransfer_AwsAccessKey';
+  protected $awsAccessKeyDataType = '';
+  public $bucketName;
 
-	/**
-	 * @param Google_Service_Storagetransfer_AwsAccessKey
-	 */
-	public function setAwsAccessKey(Google_Service_Storagetransfer_AwsAccessKey $awsAccessKey)
-	{
-		$this->awsAccessKey = $awsAccessKey;
-	}
-	/**
-	 * @return Google_Service_Storagetransfer_AwsAccessKey
-	 */
-	public function getAwsAccessKey()
-	{
-		return $this->awsAccessKey;
-	}
-	public function setBucketName($bucketName)
-	{
-		$this->bucketName = $bucketName;
-	}
-	public function getBucketName()
-	{
-		return $this->bucketName;
-	}
+  /**
+   * @param Google_Service_Storagetransfer_AwsAccessKey
+   */
+  public function setAwsAccessKey(Google_Service_Storagetransfer_AwsAccessKey $awsAccessKey)
+  {
+    $this->awsAccessKey = $awsAccessKey;
+  }
+  /**
+   * @return Google_Service_Storagetransfer_AwsAccessKey
+   */
+  public function getAwsAccessKey()
+  {
+    return $this->awsAccessKey;
+  }
+  public function setBucketName($bucketName)
+  {
+    $this->bucketName = $bucketName;
+  }
+  public function getBucketName()
+  {
+    return $this->bucketName;
+  }
 }

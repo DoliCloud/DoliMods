@@ -17,96 +17,96 @@
 
 class Google_Service_YouTube_LiveBroadcast extends Google_Model
 {
-	protected $contentDetailsType = 'Google_Service_YouTube_LiveBroadcastContentDetails';
-	protected $contentDetailsDataType = '';
-	public $etag;
-	public $id;
-	public $kind;
-	protected $snippetType = 'Google_Service_YouTube_LiveBroadcastSnippet';
-	protected $snippetDataType = '';
-	protected $statisticsType = 'Google_Service_YouTube_LiveBroadcastStatistics';
-	protected $statisticsDataType = '';
-	protected $statusType = 'Google_Service_YouTube_LiveBroadcastStatus';
-	protected $statusDataType = '';
+  protected $contentDetailsType = 'Google_Service_YouTube_LiveBroadcastContentDetails';
+  protected $contentDetailsDataType = '';
+  public $etag;
+  public $id;
+  public $kind;
+  protected $snippetType = 'Google_Service_YouTube_LiveBroadcastSnippet';
+  protected $snippetDataType = '';
+  protected $statisticsType = 'Google_Service_YouTube_LiveBroadcastStatistics';
+  protected $statisticsDataType = '';
+  protected $statusType = 'Google_Service_YouTube_LiveBroadcastStatus';
+  protected $statusDataType = '';
 
-	/**
-	 * @param Google_Service_YouTube_LiveBroadcastContentDetails
-	 */
-	public function setContentDetails(Google_Service_YouTube_LiveBroadcastContentDetails $contentDetails)
-	{
-		$this->contentDetails = $contentDetails;
-	}
-	/**
-	 * @return Google_Service_YouTube_LiveBroadcastContentDetails
-	 */
-	public function getContentDetails()
-	{
-		return $this->contentDetails;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_YouTube_LiveBroadcastSnippet
-	 */
-	public function setSnippet(Google_Service_YouTube_LiveBroadcastSnippet $snippet)
-	{
-		$this->snippet = $snippet;
-	}
-	/**
-	 * @return Google_Service_YouTube_LiveBroadcastSnippet
-	 */
-	public function getSnippet()
-	{
-		return $this->snippet;
-	}
-	/**
-	 * @param Google_Service_YouTube_LiveBroadcastStatistics
-	 */
-	public function setStatistics(Google_Service_YouTube_LiveBroadcastStatistics $statistics)
-	{
-		$this->statistics = $statistics;
-	}
-	/**
-	 * @return Google_Service_YouTube_LiveBroadcastStatistics
-	 */
-	public function getStatistics()
-	{
-		return $this->statistics;
-	}
-	/**
-	 * @param Google_Service_YouTube_LiveBroadcastStatus
-	 */
-	public function setStatus(Google_Service_YouTube_LiveBroadcastStatus $status)
-	{
-		$this->status = $status;
-	}
-	/**
-	 * @return Google_Service_YouTube_LiveBroadcastStatus
-	 */
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  /**
+   * @param Google_Service_YouTube_LiveBroadcastContentDetails
+   */
+  public function setContentDetails(Google_Service_YouTube_LiveBroadcastContentDetails $contentDetails)
+  {
+    $this->contentDetails = $contentDetails;
+  }
+  /**
+   * @return Google_Service_YouTube_LiveBroadcastContentDetails
+   */
+  public function getContentDetails()
+  {
+    return $this->contentDetails;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_YouTube_LiveBroadcastSnippet
+   */
+  public function setSnippet(Google_Service_YouTube_LiveBroadcastSnippet $snippet)
+  {
+    $this->snippet = $snippet;
+  }
+  /**
+   * @return Google_Service_YouTube_LiveBroadcastSnippet
+   */
+  public function getSnippet()
+  {
+    return $this->snippet;
+  }
+  /**
+   * @param Google_Service_YouTube_LiveBroadcastStatistics
+   */
+  public function setStatistics(Google_Service_YouTube_LiveBroadcastStatistics $statistics)
+  {
+    $this->statistics = $statistics;
+  }
+  /**
+   * @return Google_Service_YouTube_LiveBroadcastStatistics
+   */
+  public function getStatistics()
+  {
+    return $this->statistics;
+  }
+  /**
+   * @param Google_Service_YouTube_LiveBroadcastStatus
+   */
+  public function setStatus(Google_Service_YouTube_LiveBroadcastStatus $status)
+  {
+    $this->status = $status;
+  }
+  /**
+   * @return Google_Service_YouTube_LiveBroadcastStatus
+   */
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

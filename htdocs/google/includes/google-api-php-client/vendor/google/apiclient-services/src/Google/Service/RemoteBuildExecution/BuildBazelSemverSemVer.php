@@ -17,41 +17,41 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelSemverSemVer extends Google_Model
 {
-	public $major;
-	public $minor;
-	public $patch;
-	public $prerelease;
+  public $major;
+  public $minor;
+  public $patch;
+  public $prerelease;
 
-	public function setMajor($major)
-	{
-		$this->major = $major;
-	}
-	public function getMajor()
-	{
-		return $this->major;
-	}
-	public function setMinor($minor)
-	{
-		$this->minor = $minor;
-	}
-	public function getMinor()
-	{
-		return $this->minor;
-	}
-	public function setPatch($patch)
-	{
-		$this->patch = $patch;
-	}
-	public function getPatch()
-	{
-		return $this->patch;
-	}
-	public function setPrerelease($prerelease)
-	{
-		$this->prerelease = $prerelease;
-	}
-	public function getPrerelease()
-	{
-		return $this->prerelease;
-	}
+  public function setMajor($major)
+  {
+    $this->major = $major;
+  }
+  public function getMajor()
+  {
+    return $this->major;
+  }
+  public function setMinor($minor)
+  {
+    $this->minor = $minor;
+  }
+  public function getMinor()
+  {
+    return $this->minor;
+  }
+  public function setPatch($patch)
+  {
+    $this->patch = $patch;
+  }
+  public function getPatch()
+  {
+    return $this->patch;
+  }
+  public function setPrerelease($prerelease)
+  {
+    $this->prerelease = $prerelease;
+  }
+  public function getPrerelease()
+  {
+    return $this->prerelease;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_AnalyticsReporting_DateRangeValues extends Google_Collection
 {
-	protected $collection_key = 'values';
-	protected $pivotValueRegionsType = 'Google_Service_AnalyticsReporting_PivotValueRegion';
-	protected $pivotValueRegionsDataType = 'array';
-	public $values;
+  protected $collection_key = 'values';
+  protected $pivotValueRegionsType = 'Google_Service_AnalyticsReporting_PivotValueRegion';
+  protected $pivotValueRegionsDataType = 'array';
+  public $values;
 
-	/**
-	 * @param Google_Service_AnalyticsReporting_PivotValueRegion
-	 */
-	public function setPivotValueRegions($pivotValueRegions)
-	{
-		$this->pivotValueRegions = $pivotValueRegions;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_PivotValueRegion
-	 */
-	public function getPivotValueRegions()
-	{
-		return $this->pivotValueRegions;
-	}
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  /**
+   * @param Google_Service_AnalyticsReporting_PivotValueRegion[]
+   */
+  public function setPivotValueRegions($pivotValueRegions)
+  {
+    $this->pivotValueRegions = $pivotValueRegions;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_PivotValueRegion[]
+   */
+  public function getPivotValueRegions()
+  {
+    return $this->pivotValueRegions;
+  }
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_DebugOptions extends Google_Model
 {
-	public $enableDebugging;
+  public $enableDebugging;
 
-	public function setEnableDebugging($enableDebugging)
-	{
-		$this->enableDebugging = $enableDebugging;
-	}
-	public function getEnableDebugging()
-	{
-		return $this->enableDebugging;
-	}
+  public function setEnableDebugging($enableDebugging)
+  {
+    $this->enableDebugging = $enableDebugging;
+  }
+  public function getEnableDebugging()
+  {
+    return $this->enableDebugging;
+  }
 }

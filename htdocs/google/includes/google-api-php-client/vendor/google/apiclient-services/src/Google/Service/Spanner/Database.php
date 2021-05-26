@@ -17,48 +17,48 @@
 
 class Google_Service_Spanner_Database extends Google_Model
 {
-	public $createTime;
-	public $name;
-	protected $restoreInfoType = 'Google_Service_Spanner_RestoreInfo';
-	protected $restoreInfoDataType = '';
-	public $state;
+  public $createTime;
+  public $name;
+  protected $restoreInfoType = 'Google_Service_Spanner_RestoreInfo';
+  protected $restoreInfoDataType = '';
+  public $state;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Spanner_RestoreInfo
-	 */
-	public function setRestoreInfo(Google_Service_Spanner_RestoreInfo $restoreInfo)
-	{
-		$this->restoreInfo = $restoreInfo;
-	}
-	/**
-	 * @return Google_Service_Spanner_RestoreInfo
-	 */
-	public function getRestoreInfo()
-	{
-		return $this->restoreInfo;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Spanner_RestoreInfo
+   */
+  public function setRestoreInfo(Google_Service_Spanner_RestoreInfo $restoreInfo)
+  {
+    $this->restoreInfo = $restoreInfo;
+  }
+  /**
+   * @return Google_Service_Spanner_RestoreInfo
+   */
+  public function getRestoreInfo()
+  {
+    return $this->restoreInfo;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

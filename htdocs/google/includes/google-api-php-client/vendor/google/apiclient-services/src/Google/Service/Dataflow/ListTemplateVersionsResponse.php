@@ -17,31 +17,31 @@
 
 class Google_Service_Dataflow_ListTemplateVersionsResponse extends Google_Collection
 {
-	protected $collection_key = 'templateVersions';
-	public $nextPageToken;
-	protected $templateVersionsType = 'Google_Service_Dataflow_TemplateVersion';
-	protected $templateVersionsDataType = 'array';
+  protected $collection_key = 'templateVersions';
+  public $nextPageToken;
+  protected $templateVersionsType = 'Google_Service_Dataflow_TemplateVersion';
+  protected $templateVersionsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Dataflow_TemplateVersion
-	 */
-	public function setTemplateVersions($templateVersions)
-	{
-		$this->templateVersions = $templateVersions;
-	}
-	/**
-	 * @return Google_Service_Dataflow_TemplateVersion
-	 */
-	public function getTemplateVersions()
-	{
-		return $this->templateVersions;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Dataflow_TemplateVersion[]
+   */
+  public function setTemplateVersions($templateVersions)
+  {
+    $this->templateVersions = $templateVersions;
+  }
+  /**
+   * @return Google_Service_Dataflow_TemplateVersion[]
+   */
+  public function getTemplateVersions()
+  {
+    return $this->templateVersions;
+  }
 }

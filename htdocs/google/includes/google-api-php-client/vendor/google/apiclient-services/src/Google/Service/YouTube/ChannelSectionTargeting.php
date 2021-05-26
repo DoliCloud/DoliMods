@@ -17,33 +17,33 @@
 
 class Google_Service_YouTube_ChannelSectionTargeting extends Google_Collection
 {
-	protected $collection_key = 'regions';
-	public $countries;
-	public $languages;
-	public $regions;
+  protected $collection_key = 'regions';
+  public $countries;
+  public $languages;
+  public $regions;
 
-	public function setCountries($countries)
-	{
-		$this->countries = $countries;
-	}
-	public function getCountries()
-	{
-		return $this->countries;
-	}
-	public function setLanguages($languages)
-	{
-		$this->languages = $languages;
-	}
-	public function getLanguages()
-	{
-		return $this->languages;
-	}
-	public function setRegions($regions)
-	{
-		$this->regions = $regions;
-	}
-	public function getRegions()
-	{
-		return $this->regions;
-	}
+  public function setCountries($countries)
+  {
+    $this->countries = $countries;
+  }
+  public function getCountries()
+  {
+    return $this->countries;
+  }
+  public function setLanguages($languages)
+  {
+    $this->languages = $languages;
+  }
+  public function getLanguages()
+  {
+    return $this->languages;
+  }
+  public function setRegions($regions)
+  {
+    $this->regions = $regions;
+  }
+  public function getRegions()
+  {
+    return $this->regions;
+  }
 }

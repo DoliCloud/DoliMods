@@ -17,32 +17,32 @@
 
 class Google_Service_CloudHealthcare_ProgressCounter extends Google_Model
 {
-	public $failure;
-	public $pending;
-	public $success;
+  public $failure;
+  public $pending;
+  public $success;
 
-	public function setFailure($failure)
-	{
-		$this->failure = $failure;
-	}
-	public function getFailure()
-	{
-		return $this->failure;
-	}
-	public function setPending($pending)
-	{
-		$this->pending = $pending;
-	}
-	public function getPending()
-	{
-		return $this->pending;
-	}
-	public function setSuccess($success)
-	{
-		$this->success = $success;
-	}
-	public function getSuccess()
-	{
-		return $this->success;
-	}
+  public function setFailure($failure)
+  {
+    $this->failure = $failure;
+  }
+  public function getFailure()
+  {
+    return $this->failure;
+  }
+  public function setPending($pending)
+  {
+    $this->pending = $pending;
+  }
+  public function getPending()
+  {
+    return $this->pending;
+  }
+  public function setSuccess($success)
+  {
+    $this->success = $success;
+  }
+  public function getSuccess()
+  {
+    return $this->success;
+  }
 }

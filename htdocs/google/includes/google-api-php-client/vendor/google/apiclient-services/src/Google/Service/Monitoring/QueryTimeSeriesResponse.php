@@ -17,63 +17,63 @@
 
 class Google_Service_Monitoring_QueryTimeSeriesResponse extends Google_Collection
 {
-	protected $collection_key = 'timeSeriesData';
-	public $nextPageToken;
-	protected $partialErrorsType = 'Google_Service_Monitoring_Status';
-	protected $partialErrorsDataType = 'array';
-	protected $timeSeriesDataType = 'Google_Service_Monitoring_TimeSeriesData';
-	protected $timeSeriesDataDataType = 'array';
-	protected $timeSeriesDescriptorType = 'Google_Service_Monitoring_TimeSeriesDescriptor';
-	protected $timeSeriesDescriptorDataType = '';
+  protected $collection_key = 'timeSeriesData';
+  public $nextPageToken;
+  protected $partialErrorsType = 'Google_Service_Monitoring_Status';
+  protected $partialErrorsDataType = 'array';
+  protected $timeSeriesDataType = 'Google_Service_Monitoring_TimeSeriesData';
+  protected $timeSeriesDataDataType = 'array';
+  protected $timeSeriesDescriptorType = 'Google_Service_Monitoring_TimeSeriesDescriptor';
+  protected $timeSeriesDescriptorDataType = '';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Monitoring_Status
-	 */
-	public function setPartialErrors($partialErrors)
-	{
-		$this->partialErrors = $partialErrors;
-	}
-	/**
-	 * @return Google_Service_Monitoring_Status
-	 */
-	public function getPartialErrors()
-	{
-		return $this->partialErrors;
-	}
-	/**
-	 * @param Google_Service_Monitoring_TimeSeriesData
-	 */
-	public function setTimeSeriesData($timeSeriesData)
-	{
-		$this->timeSeriesData = $timeSeriesData;
-	}
-	/**
-	 * @return Google_Service_Monitoring_TimeSeriesData
-	 */
-	public function getTimeSeriesData()
-	{
-		return $this->timeSeriesData;
-	}
-	/**
-	 * @param Google_Service_Monitoring_TimeSeriesDescriptor
-	 */
-	public function setTimeSeriesDescriptor(Google_Service_Monitoring_TimeSeriesDescriptor $timeSeriesDescriptor)
-	{
-		$this->timeSeriesDescriptor = $timeSeriesDescriptor;
-	}
-	/**
-	 * @return Google_Service_Monitoring_TimeSeriesDescriptor
-	 */
-	public function getTimeSeriesDescriptor()
-	{
-		return $this->timeSeriesDescriptor;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Monitoring_Status[]
+   */
+  public function setPartialErrors($partialErrors)
+  {
+    $this->partialErrors = $partialErrors;
+  }
+  /**
+   * @return Google_Service_Monitoring_Status[]
+   */
+  public function getPartialErrors()
+  {
+    return $this->partialErrors;
+  }
+  /**
+   * @param Google_Service_Monitoring_TimeSeriesData[]
+   */
+  public function setTimeSeriesData($timeSeriesData)
+  {
+    $this->timeSeriesData = $timeSeriesData;
+  }
+  /**
+   * @return Google_Service_Monitoring_TimeSeriesData[]
+   */
+  public function getTimeSeriesData()
+  {
+    return $this->timeSeriesData;
+  }
+  /**
+   * @param Google_Service_Monitoring_TimeSeriesDescriptor
+   */
+  public function setTimeSeriesDescriptor(Google_Service_Monitoring_TimeSeriesDescriptor $timeSeriesDescriptor)
+  {
+    $this->timeSeriesDescriptor = $timeSeriesDescriptor;
+  }
+  /**
+   * @return Google_Service_Monitoring_TimeSeriesDescriptor
+   */
+  public function getTimeSeriesDescriptor()
+  {
+    return $this->timeSeriesDescriptor;
+  }
 }

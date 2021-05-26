@@ -17,23 +17,23 @@
 
 class Google_Service_Monitoring_GetNotificationChannelVerificationCodeResponse extends Google_Model
 {
-	public $code;
-	public $expireTime;
+  public $code;
+  public $expireTime;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setExpireTime($expireTime)
-	{
-		$this->expireTime = $expireTime;
-	}
-	public function getExpireTime()
-	{
-		return $this->expireTime;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setExpireTime($expireTime)
+  {
+    $this->expireTime = $expireTime;
+  }
+  public function getExpireTime()
+  {
+    return $this->expireTime;
+  }
 }

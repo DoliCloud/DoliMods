@@ -17,21 +17,21 @@
 
 class Google_Service_AndroidProvisioningPartner_CustomerRemoveConfigurationRequest extends Google_Model
 {
-	protected $deviceType = 'Google_Service_AndroidProvisioningPartner_DeviceReference';
-	protected $deviceDataType = '';
+  protected $deviceType = 'Google_Service_AndroidProvisioningPartner_DeviceReference';
+  protected $deviceDataType = '';
 
-	/**
-	 * @param Google_Service_AndroidProvisioningPartner_DeviceReference
-	 */
-	public function setDevice(Google_Service_AndroidProvisioningPartner_DeviceReference $device)
-	{
-		$this->device = $device;
-	}
-	/**
-	 * @return Google_Service_AndroidProvisioningPartner_DeviceReference
-	 */
-	public function getDevice()
-	{
-		return $this->device;
-	}
+  /**
+   * @param Google_Service_AndroidProvisioningPartner_DeviceReference
+   */
+  public function setDevice(Google_Service_AndroidProvisioningPartner_DeviceReference $device)
+  {
+    $this->device = $device;
+  }
+  /**
+   * @return Google_Service_AndroidProvisioningPartner_DeviceReference
+   */
+  public function getDevice()
+  {
+    return $this->device;
+  }
 }

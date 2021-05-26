@@ -17,30 +17,39 @@
 
 class Google_Service_YouTube_TestItem extends Google_Model
 {
-	public $id;
-	protected $snippetType = 'Google_Service_YouTube_TestItemTestItemSnippet';
-	protected $snippetDataType = '';
+  public $gaia;
+  public $id;
+  protected $snippetType = 'Google_Service_YouTube_TestItemTestItemSnippet';
+  protected $snippetDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_YouTube_TestItemTestItemSnippet
-	 */
-	public function setSnippet(Google_Service_YouTube_TestItemTestItemSnippet $snippet)
-	{
-		$this->snippet = $snippet;
-	}
-	/**
-	 * @return Google_Service_YouTube_TestItemTestItemSnippet
-	 */
-	public function getSnippet()
-	{
-		return $this->snippet;
-	}
+  public function setGaia($gaia)
+  {
+    $this->gaia = $gaia;
+  }
+  public function getGaia()
+  {
+    return $this->gaia;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_YouTube_TestItemTestItemSnippet
+   */
+  public function setSnippet(Google_Service_YouTube_TestItemTestItemSnippet $snippet)
+  {
+    $this->snippet = $snippet;
+  }
+  /**
+   * @return Google_Service_YouTube_TestItemTestItemSnippet
+   */
+  public function getSnippet()
+  {
+    return $this->snippet;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1SecurityMarks extends Google_Model
 {
-	public $marks;
-	public $name;
+  public $marks;
+  public $name;
 
-	public function setMarks($marks)
-	{
-		$this->marks = $marks;
-	}
-	public function getMarks()
-	{
-		return $this->marks;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setMarks($marks)
+  {
+    $this->marks = $marks;
+  }
+  public function getMarks()
+  {
+    return $this->marks;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

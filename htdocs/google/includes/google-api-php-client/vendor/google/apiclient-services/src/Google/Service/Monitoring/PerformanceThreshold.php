@@ -17,46 +17,46 @@
 
 class Google_Service_Monitoring_PerformanceThreshold extends Google_Model
 {
-	protected $basicSliPerformanceType = 'Google_Service_Monitoring_BasicSli';
-	protected $basicSliPerformanceDataType = '';
-	protected $performanceType = 'Google_Service_Monitoring_RequestBasedSli';
-	protected $performanceDataType = '';
-	public $threshold;
+  protected $basicSliPerformanceType = 'Google_Service_Monitoring_BasicSli';
+  protected $basicSliPerformanceDataType = '';
+  protected $performanceType = 'Google_Service_Monitoring_RequestBasedSli';
+  protected $performanceDataType = '';
+  public $threshold;
 
-	/**
-	 * @param Google_Service_Monitoring_BasicSli
-	 */
-	public function setBasicSliPerformance(Google_Service_Monitoring_BasicSli $basicSliPerformance)
-	{
-		$this->basicSliPerformance = $basicSliPerformance;
-	}
-	/**
-	 * @return Google_Service_Monitoring_BasicSli
-	 */
-	public function getBasicSliPerformance()
-	{
-		return $this->basicSliPerformance;
-	}
-	/**
-	 * @param Google_Service_Monitoring_RequestBasedSli
-	 */
-	public function setPerformance(Google_Service_Monitoring_RequestBasedSli $performance)
-	{
-		$this->performance = $performance;
-	}
-	/**
-	 * @return Google_Service_Monitoring_RequestBasedSli
-	 */
-	public function getPerformance()
-	{
-		return $this->performance;
-	}
-	public function setThreshold($threshold)
-	{
-		$this->threshold = $threshold;
-	}
-	public function getThreshold()
-	{
-		return $this->threshold;
-	}
+  /**
+   * @param Google_Service_Monitoring_BasicSli
+   */
+  public function setBasicSliPerformance(Google_Service_Monitoring_BasicSli $basicSliPerformance)
+  {
+    $this->basicSliPerformance = $basicSliPerformance;
+  }
+  /**
+   * @return Google_Service_Monitoring_BasicSli
+   */
+  public function getBasicSliPerformance()
+  {
+    return $this->basicSliPerformance;
+  }
+  /**
+   * @param Google_Service_Monitoring_RequestBasedSli
+   */
+  public function setPerformance(Google_Service_Monitoring_RequestBasedSli $performance)
+  {
+    $this->performance = $performance;
+  }
+  /**
+   * @return Google_Service_Monitoring_RequestBasedSli
+   */
+  public function getPerformance()
+  {
+    return $this->performance;
+  }
+  public function setThreshold($threshold)
+  {
+    $this->threshold = $threshold;
+  }
+  public function getThreshold()
+  {
+    return $this->threshold;
+  }
 }

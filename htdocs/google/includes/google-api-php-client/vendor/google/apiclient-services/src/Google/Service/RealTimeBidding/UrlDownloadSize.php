@@ -17,23 +17,23 @@
 
 class Google_Service_RealTimeBidding_UrlDownloadSize extends Google_Model
 {
-	public $downloadSizeKb;
-	public $normalizedUrl;
+  public $downloadSizeKb;
+  public $normalizedUrl;
 
-	public function setDownloadSizeKb($downloadSizeKb)
-	{
-		$this->downloadSizeKb = $downloadSizeKb;
-	}
-	public function getDownloadSizeKb()
-	{
-		return $this->downloadSizeKb;
-	}
-	public function setNormalizedUrl($normalizedUrl)
-	{
-		$this->normalizedUrl = $normalizedUrl;
-	}
-	public function getNormalizedUrl()
-	{
-		return $this->normalizedUrl;
-	}
+  public function setDownloadSizeKb($downloadSizeKb)
+  {
+    $this->downloadSizeKb = $downloadSizeKb;
+  }
+  public function getDownloadSizeKb()
+  {
+    return $this->downloadSizeKb;
+  }
+  public function setNormalizedUrl($normalizedUrl)
+  {
+    $this->normalizedUrl = $normalizedUrl;
+  }
+  public function getNormalizedUrl()
+  {
+    return $this->normalizedUrl;
+  }
 }

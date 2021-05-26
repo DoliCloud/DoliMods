@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2RecordCondition extends Google_Model
 {
-	protected $expressionsType = 'Google_Service_DLP_GooglePrivacyDlpV2Expressions';
-	protected $expressionsDataType = '';
+  protected $expressionsType = 'Google_Service_DLP_GooglePrivacyDlpV2Expressions';
+  protected $expressionsDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Expressions
-	 */
-	public function setExpressions(Google_Service_DLP_GooglePrivacyDlpV2Expressions $expressions)
-	{
-		$this->expressions = $expressions;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Expressions
-	 */
-	public function getExpressions()
-	{
-		return $this->expressions;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Expressions
+   */
+  public function setExpressions(Google_Service_DLP_GooglePrivacyDlpV2Expressions $expressions)
+  {
+    $this->expressions = $expressions;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Expressions
+   */
+  public function getExpressions()
+  {
+    return $this->expressions;
+  }
 }

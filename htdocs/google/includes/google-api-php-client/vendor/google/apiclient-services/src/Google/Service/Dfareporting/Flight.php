@@ -17,41 +17,41 @@
 
 class Google_Service_Dfareporting_Flight extends Google_Model
 {
-	public $endDate;
-	public $rateOrCost;
-	public $startDate;
-	public $units;
+  public $endDate;
+  public $rateOrCost;
+  public $startDate;
+  public $units;
 
-	public function setEndDate($endDate)
-	{
-		$this->endDate = $endDate;
-	}
-	public function getEndDate()
-	{
-		return $this->endDate;
-	}
-	public function setRateOrCost($rateOrCost)
-	{
-		$this->rateOrCost = $rateOrCost;
-	}
-	public function getRateOrCost()
-	{
-		return $this->rateOrCost;
-	}
-	public function setStartDate($startDate)
-	{
-		$this->startDate = $startDate;
-	}
-	public function getStartDate()
-	{
-		return $this->startDate;
-	}
-	public function setUnits($units)
-	{
-		$this->units = $units;
-	}
-	public function getUnits()
-	{
-		return $this->units;
-	}
+  public function setEndDate($endDate)
+  {
+    $this->endDate = $endDate;
+  }
+  public function getEndDate()
+  {
+    return $this->endDate;
+  }
+  public function setRateOrCost($rateOrCost)
+  {
+    $this->rateOrCost = $rateOrCost;
+  }
+  public function getRateOrCost()
+  {
+    return $this->rateOrCost;
+  }
+  public function setStartDate($startDate)
+  {
+    $this->startDate = $startDate;
+  }
+  public function getStartDate()
+  {
+    return $this->startDate;
+  }
+  public function setUnits($units)
+  {
+    $this->units = $units;
+  }
+  public function getUnits()
+  {
+    return $this->units;
+  }
 }

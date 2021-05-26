@@ -17,14 +17,14 @@
 
 class Google_Service_Vision_WebDetectionParams extends Google_Model
 {
-	public $includeGeoResults;
+  public $includeGeoResults;
 
-	public function setIncludeGeoResults($includeGeoResults)
-	{
-		$this->includeGeoResults = $includeGeoResults;
-	}
-	public function getIncludeGeoResults()
-	{
-		return $this->includeGeoResults;
-	}
+  public function setIncludeGeoResults($includeGeoResults)
+  {
+    $this->includeGeoResults = $includeGeoResults;
+  }
+  public function getIncludeGeoResults()
+  {
+    return $this->includeGeoResults;
+  }
 }

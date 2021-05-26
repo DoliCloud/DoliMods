@@ -17,31 +17,31 @@
 
 class Google_Service_DeploymentManager_DeploymentsListResponse extends Google_Collection
 {
-	protected $collection_key = 'deployments';
-	protected $deploymentsType = 'Google_Service_DeploymentManager_Deployment';
-	protected $deploymentsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'deployments';
+  protected $deploymentsType = 'Google_Service_DeploymentManager_Deployment';
+  protected $deploymentsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DeploymentManager_Deployment
-	 */
-	public function setDeployments($deployments)
-	{
-		$this->deployments = $deployments;
-	}
-	/**
-	 * @return Google_Service_DeploymentManager_Deployment
-	 */
-	public function getDeployments()
-	{
-		return $this->deployments;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DeploymentManager_Deployment[]
+   */
+  public function setDeployments($deployments)
+  {
+    $this->deployments = $deployments;
+  }
+  /**
+   * @return Google_Service_DeploymentManager_Deployment[]
+   */
+  public function getDeployments()
+  {
+    return $this->deployments;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

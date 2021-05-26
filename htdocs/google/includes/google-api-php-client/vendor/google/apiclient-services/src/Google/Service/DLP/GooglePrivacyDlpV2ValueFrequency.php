@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ValueFrequency extends Google_Model
 {
-	public $count;
-	protected $valueType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
-	protected $valueDataType = '';
+  public $count;
+  protected $valueType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
+  protected $valueDataType = '';
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Value
-	 */
-	public function setValue(Google_Service_DLP_GooglePrivacyDlpV2Value $value)
-	{
-		$this->value = $value;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Value
-	 */
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Value
+   */
+  public function setValue(Google_Service_DLP_GooglePrivacyDlpV2Value $value)
+  {
+    $this->value = $value;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Value
+   */
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

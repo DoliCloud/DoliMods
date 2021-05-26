@@ -17,39 +17,39 @@
 
 class Google_Service_Docs_Bullet extends Google_Model
 {
-	public $listId;
-	public $nestingLevel;
-	protected $textStyleType = 'Google_Service_Docs_TextStyle';
-	protected $textStyleDataType = '';
+  public $listId;
+  public $nestingLevel;
+  protected $textStyleType = 'Google_Service_Docs_TextStyle';
+  protected $textStyleDataType = '';
 
-	public function setListId($listId)
-	{
-		$this->listId = $listId;
-	}
-	public function getListId()
-	{
-		return $this->listId;
-	}
-	public function setNestingLevel($nestingLevel)
-	{
-		$this->nestingLevel = $nestingLevel;
-	}
-	public function getNestingLevel()
-	{
-		return $this->nestingLevel;
-	}
-	/**
-	 * @param Google_Service_Docs_TextStyle
-	 */
-	public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
-	{
-		$this->textStyle = $textStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_TextStyle
-	 */
-	public function getTextStyle()
-	{
-		return $this->textStyle;
-	}
+  public function setListId($listId)
+  {
+    $this->listId = $listId;
+  }
+  public function getListId()
+  {
+    return $this->listId;
+  }
+  public function setNestingLevel($nestingLevel)
+  {
+    $this->nestingLevel = $nestingLevel;
+  }
+  public function getNestingLevel()
+  {
+    return $this->nestingLevel;
+  }
+  /**
+   * @param Google_Service_Docs_TextStyle
+   */
+  public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
+  {
+    $this->textStyle = $textStyle;
+  }
+  /**
+   * @return Google_Service_Docs_TextStyle
+   */
+  public function getTextStyle()
+  {
+    return $this->textStyle;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ExplicitContentAnnotation extends Google_Collection
 {
-	protected $collection_key = 'frames';
-	protected $framesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ExplicitContentFrame';
-	protected $framesDataType = 'array';
-	public $version;
+  protected $collection_key = 'frames';
+  protected $framesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ExplicitContentFrame';
+  protected $framesDataType = 'array';
+  public $version;
 
-	/**
-	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ExplicitContentFrame
-	 */
-	public function setFrames($frames)
-	{
-		$this->frames = $frames;
-	}
-	/**
-	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ExplicitContentFrame
-	 */
-	public function getFrames()
-	{
-		return $this->frames;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ExplicitContentFrame[]
+   */
+  public function setFrames($frames)
+  {
+    $this->frames = $frames;
+  }
+  /**
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ExplicitContentFrame[]
+   */
+  public function getFrames()
+  {
+    return $this->frames;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

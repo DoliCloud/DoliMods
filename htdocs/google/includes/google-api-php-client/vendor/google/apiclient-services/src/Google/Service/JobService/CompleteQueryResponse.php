@@ -17,38 +17,38 @@
 
 class Google_Service_JobService_CompleteQueryResponse extends Google_Collection
 {
-	protected $collection_key = 'completionResults';
-	protected $completionResultsType = 'Google_Service_JobService_CompletionResult';
-	protected $completionResultsDataType = 'array';
-	protected $metadataType = 'Google_Service_JobService_ResponseMetadata';
-	protected $metadataDataType = '';
+  protected $collection_key = 'completionResults';
+  protected $completionResultsType = 'Google_Service_JobService_CompletionResult';
+  protected $completionResultsDataType = 'array';
+  protected $metadataType = 'Google_Service_JobService_ResponseMetadata';
+  protected $metadataDataType = '';
 
-	/**
-	 * @param Google_Service_JobService_CompletionResult
-	 */
-	public function setCompletionResults($completionResults)
-	{
-		$this->completionResults = $completionResults;
-	}
-	/**
-	 * @return Google_Service_JobService_CompletionResult
-	 */
-	public function getCompletionResults()
-	{
-		return $this->completionResults;
-	}
-	/**
-	 * @param Google_Service_JobService_ResponseMetadata
-	 */
-	public function setMetadata(Google_Service_JobService_ResponseMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_JobService_ResponseMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
+  /**
+   * @param Google_Service_JobService_CompletionResult
+   */
+  public function setCompletionResults($completionResults)
+  {
+    $this->completionResults = $completionResults;
+  }
+  /**
+   * @return Google_Service_JobService_CompletionResult
+   */
+  public function getCompletionResults()
+  {
+    return $this->completionResults;
+  }
+  /**
+   * @param Google_Service_JobService_ResponseMetadata
+   */
+  public function setMetadata(Google_Service_JobService_ResponseMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_JobService_ResponseMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
 }

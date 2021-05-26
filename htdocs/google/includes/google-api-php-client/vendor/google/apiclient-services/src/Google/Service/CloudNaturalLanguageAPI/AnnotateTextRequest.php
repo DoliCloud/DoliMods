@@ -17,34 +17,34 @@
 
 class Google_Service_CloudNaturalLanguageAPI_AnnotateTextRequest extends Google_Model
 {
-	protected $documentType = 'Google_Service_CloudNaturalLanguageAPI_Document';
-	protected $documentDataType = '';
-	public $encodingType;
-	protected $featuresType = 'Google_Service_CloudNaturalLanguageAPI_Features';
-	protected $featuresDataType = '';
+  protected $documentType = 'Google_Service_CloudNaturalLanguageAPI_Document';
+  protected $documentDataType = '';
+  public $encodingType;
+  protected $featuresType = 'Google_Service_CloudNaturalLanguageAPI_Features';
+  protected $featuresDataType = '';
 
-	public function setDocument(Google_Service_CloudNaturalLanguageAPI_Document $document)
-	{
-		$this->document = $document;
-	}
-	public function getDocument()
-	{
-		return $this->document;
-	}
-	public function setEncodingType($encodingType)
-	{
-		$this->encodingType = $encodingType;
-	}
-	public function getEncodingType()
-	{
-		return $this->encodingType;
-	}
-	public function setFeatures(Google_Service_CloudNaturalLanguageAPI_Features $features)
-	{
-		$this->features = $features;
-	}
-	public function getFeatures()
-	{
-		return $this->features;
-	}
+  public function setDocument(Google_Service_CloudNaturalLanguageAPI_Document $document)
+  {
+    $this->document = $document;
+  }
+  public function getDocument()
+  {
+    return $this->document;
+  }
+  public function setEncodingType($encodingType)
+  {
+    $this->encodingType = $encodingType;
+  }
+  public function getEncodingType()
+  {
+    return $this->encodingType;
+  }
+  public function setFeatures(Google_Service_CloudNaturalLanguageAPI_Features $features)
+  {
+    $this->features = $features;
+  }
+  public function getFeatures()
+  {
+    return $this->features;
+  }
 }

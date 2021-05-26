@@ -17,14 +17,14 @@
 
 class Google_Service_SemanticTile_RoadInfo extends Google_Model
 {
-	public $isPrivate;
+  public $isPrivate;
 
-	public function setIsPrivate($isPrivate)
-	{
-		$this->isPrivate = $isPrivate;
-	}
-	public function getIsPrivate()
-	{
-		return $this->isPrivate;
-	}
+  public function setIsPrivate($isPrivate)
+  {
+    $this->isPrivate = $isPrivate;
+  }
+  public function getIsPrivate()
+  {
+    return $this->isPrivate;
+  }
 }

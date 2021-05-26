@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_ShippingsettingsGetSupportedHolidaysResponse extends Google_Collection
 {
-	protected $collection_key = 'holidays';
-	protected $holidaysType = 'Google_Service_ShoppingContent_HolidaysHoliday';
-	protected $holidaysDataType = 'array';
-	public $kind;
+  protected $collection_key = 'holidays';
+  protected $holidaysType = 'Google_Service_ShoppingContent_HolidaysHoliday';
+  protected $holidaysDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_ShoppingContent_HolidaysHoliday
-	 */
-	public function setHolidays($holidays)
-	{
-		$this->holidays = $holidays;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_HolidaysHoliday
-	 */
-	public function getHolidays()
-	{
-		return $this->holidays;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_HolidaysHoliday[]
+   */
+  public function setHolidays($holidays)
+  {
+    $this->holidays = $holidays;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_HolidaysHoliday[]
+   */
+  public function getHolidays()
+  {
+    return $this->holidays;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

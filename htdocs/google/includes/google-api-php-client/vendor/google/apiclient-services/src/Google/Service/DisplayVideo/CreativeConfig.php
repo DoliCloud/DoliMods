@@ -17,46 +17,46 @@
 
 class Google_Service_DisplayVideo_CreativeConfig extends Google_Model
 {
-	public $creativeType;
-	protected $displayCreativeConfigType = 'Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig';
-	protected $displayCreativeConfigDataType = '';
-	protected $videoCreativeConfigType = 'Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig';
-	protected $videoCreativeConfigDataType = '';
+  public $creativeType;
+  protected $displayCreativeConfigType = 'Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig';
+  protected $displayCreativeConfigDataType = '';
+  protected $videoCreativeConfigType = 'Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig';
+  protected $videoCreativeConfigDataType = '';
 
-	public function setCreativeType($creativeType)
-	{
-		$this->creativeType = $creativeType;
-	}
-	public function getCreativeType()
-	{
-		return $this->creativeType;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig
-	 */
-	public function setDisplayCreativeConfig(Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig $displayCreativeConfig)
-	{
-		$this->displayCreativeConfig = $displayCreativeConfig;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig
-	 */
-	public function getDisplayCreativeConfig()
-	{
-		return $this->displayCreativeConfig;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig
-	 */
-	public function setVideoCreativeConfig(Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig $videoCreativeConfig)
-	{
-		$this->videoCreativeConfig = $videoCreativeConfig;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig
-	 */
-	public function getVideoCreativeConfig()
-	{
-		return $this->videoCreativeConfig;
-	}
+  public function setCreativeType($creativeType)
+  {
+    $this->creativeType = $creativeType;
+  }
+  public function getCreativeType()
+  {
+    return $this->creativeType;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig
+   */
+  public function setDisplayCreativeConfig(Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig $displayCreativeConfig)
+  {
+    $this->displayCreativeConfig = $displayCreativeConfig;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_InventorySourceDisplayCreativeConfig
+   */
+  public function getDisplayCreativeConfig()
+  {
+    return $this->displayCreativeConfig;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig
+   */
+  public function setVideoCreativeConfig(Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig $videoCreativeConfig)
+  {
+    $this->videoCreativeConfig = $videoCreativeConfig;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_InventorySourceVideoCreativeConfig
+   */
+  public function getVideoCreativeConfig()
+  {
+    return $this->videoCreativeConfig;
+  }
 }

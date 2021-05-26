@@ -22,52 +22,52 @@ use Monolog\ResettableInterface;
  */
 trait ProcessableHandlerTrait
 {
-	/**
-	 * @var callable[]
-	 */
-	protected $processors = [];
+    /**
+     * @var callable[]
+     */
+    protected $processors = [];
 
-	/**
-	 * {@inheritdoc}
-	 * @suppress PhanTypeMismatchReturn
-	 */
-	public function pushProcessor($callback): HandlerInterface
-	{
-		array_unshift($this->processors, $callback);
+    /**
+     * {@inheritdoc}
+     * @suppress PhanTypeMismatchReturn
+     */
+    public function pushProcessor($callback): HandlerInterface
+    {
+        array_unshift($this->processors, $callback);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function popProcessor(): callable
-	{
-		if (!$this->processors) {
-			throw new \LogicException('You tried to pop from an empty processor stack.');
-		}
+    /**
+     * {@inheritdoc}
+     */
+    public function popProcessor(): callable
+    {
+        if (!$this->processors) {
+            throw new \LogicException('You tried to pop from an empty processor stack.');
+        }
 
-		return array_shift($this->processors);
-	}
+        return array_shift($this->processors);
+    }
 
-	/**
-	 * Processes a record.
-	 */
-	protected function processRecord(array $record): array
-	{
-		foreach ($this->processors as $processor) {
-			$record = $processor($record);
-		}
+    /**
+     * Processes a record.
+     */
+    protected function processRecord(array $record): array
+    {
+        foreach ($this->processors as $processor) {
+            $record = $processor($record);
+        }
 
-		return $record;
-	}
+        return $record;
+    }
 
-	protected function resetProcessors(): void
-	{
-		foreach ($this->processors as $processor) {
-			if ($processor instanceof ResettableInterface) {
-				$processor->reset();
-			}
-		}
-	}
+    protected function resetProcessors(): void
+    {
+        foreach ($this->processors as $processor) {
+            if ($processor instanceof ResettableInterface) {
+                $processor->reset();
+            }
+        }
+    }
 }

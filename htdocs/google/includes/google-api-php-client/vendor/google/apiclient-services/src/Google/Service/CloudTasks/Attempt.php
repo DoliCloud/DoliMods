@@ -17,48 +17,48 @@
 
 class Google_Service_CloudTasks_Attempt extends Google_Model
 {
-	public $dispatchTime;
-	protected $responseStatusType = 'Google_Service_CloudTasks_Status';
-	protected $responseStatusDataType = '';
-	public $responseTime;
-	public $scheduleTime;
+  public $dispatchTime;
+  protected $responseStatusType = 'Google_Service_CloudTasks_Status';
+  protected $responseStatusDataType = '';
+  public $responseTime;
+  public $scheduleTime;
 
-	public function setDispatchTime($dispatchTime)
-	{
-		$this->dispatchTime = $dispatchTime;
-	}
-	public function getDispatchTime()
-	{
-		return $this->dispatchTime;
-	}
-	/**
-	 * @param Google_Service_CloudTasks_Status
-	 */
-	public function setResponseStatus(Google_Service_CloudTasks_Status $responseStatus)
-	{
-		$this->responseStatus = $responseStatus;
-	}
-	/**
-	 * @return Google_Service_CloudTasks_Status
-	 */
-	public function getResponseStatus()
-	{
-		return $this->responseStatus;
-	}
-	public function setResponseTime($responseTime)
-	{
-		$this->responseTime = $responseTime;
-	}
-	public function getResponseTime()
-	{
-		return $this->responseTime;
-	}
-	public function setScheduleTime($scheduleTime)
-	{
-		$this->scheduleTime = $scheduleTime;
-	}
-	public function getScheduleTime()
-	{
-		return $this->scheduleTime;
-	}
+  public function setDispatchTime($dispatchTime)
+  {
+    $this->dispatchTime = $dispatchTime;
+  }
+  public function getDispatchTime()
+  {
+    return $this->dispatchTime;
+  }
+  /**
+   * @param Google_Service_CloudTasks_Status
+   */
+  public function setResponseStatus(Google_Service_CloudTasks_Status $responseStatus)
+  {
+    $this->responseStatus = $responseStatus;
+  }
+  /**
+   * @return Google_Service_CloudTasks_Status
+   */
+  public function getResponseStatus()
+  {
+    return $this->responseStatus;
+  }
+  public function setResponseTime($responseTime)
+  {
+    $this->responseTime = $responseTime;
+  }
+  public function getResponseTime()
+  {
+    return $this->responseTime;
+  }
+  public function setScheduleTime($scheduleTime)
+  {
+    $this->scheduleTime = $scheduleTime;
+  }
+  public function getScheduleTime()
+  {
+    return $this->scheduleTime;
+  }
 }

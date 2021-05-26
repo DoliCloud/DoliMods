@@ -17,55 +17,55 @@
 
 class Google_Service_ShoppingContent_ShippingsettingsCustomBatchResponseEntry extends Google_Model
 {
-	public $batchId;
-	protected $errorsType = 'Google_Service_ShoppingContent_Errors';
-	protected $errorsDataType = '';
-	public $kind;
-	protected $shippingSettingsType = 'Google_Service_ShoppingContent_ShippingSettings';
-	protected $shippingSettingsDataType = '';
+  public $batchId;
+  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsDataType = '';
+  public $kind;
+  protected $shippingSettingsType = 'Google_Service_ShoppingContent_ShippingSettings';
+  protected $shippingSettingsDataType = '';
 
-	public function setBatchId($batchId)
-	{
-		$this->batchId = $batchId;
-	}
-	public function getBatchId()
-	{
-		return $this->batchId;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_Errors
-	 */
-	public function setErrors(Google_Service_ShoppingContent_Errors $errors)
-	{
-		$this->errors = $errors;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_Errors
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_ShippingSettings
-	 */
-	public function setShippingSettings(Google_Service_ShoppingContent_ShippingSettings $shippingSettings)
-	{
-		$this->shippingSettings = $shippingSettings;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_ShippingSettings
-	 */
-	public function getShippingSettings()
-	{
-		return $this->shippingSettings;
-	}
+  public function setBatchId($batchId)
+  {
+    $this->batchId = $batchId;
+  }
+  public function getBatchId()
+  {
+    return $this->batchId;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_Errors
+   */
+  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  {
+    $this->errors = $errors;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_Errors
+   */
+  public function getErrors()
+  {
+    return $this->errors;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_ShippingSettings
+   */
+  public function setShippingSettings(Google_Service_ShoppingContent_ShippingSettings $shippingSettings)
+  {
+    $this->shippingSettings = $shippingSettings;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_ShippingSettings
+   */
+  public function getShippingSettings()
+  {
+    return $this->shippingSettings;
+  }
 }

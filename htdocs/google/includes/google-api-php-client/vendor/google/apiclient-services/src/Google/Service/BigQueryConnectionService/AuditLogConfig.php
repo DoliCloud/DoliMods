@@ -17,24 +17,24 @@
 
 class Google_Service_BigQueryConnectionService_AuditLogConfig extends Google_Collection
 {
-	protected $collection_key = 'exemptedMembers';
-	public $exemptedMembers;
-	public $logType;
+  protected $collection_key = 'exemptedMembers';
+  public $exemptedMembers;
+  public $logType;
 
-	public function setExemptedMembers($exemptedMembers)
-	{
-		$this->exemptedMembers = $exemptedMembers;
-	}
-	public function getExemptedMembers()
-	{
-		return $this->exemptedMembers;
-	}
-	public function setLogType($logType)
-	{
-		$this->logType = $logType;
-	}
-	public function getLogType()
-	{
-		return $this->logType;
-	}
+  public function setExemptedMembers($exemptedMembers)
+  {
+    $this->exemptedMembers = $exemptedMembers;
+  }
+  public function getExemptedMembers()
+  {
+    return $this->exemptedMembers;
+  }
+  public function setLogType($logType)
+  {
+    $this->logType = $logType;
+  }
+  public function getLogType()
+  {
+    return $this->logType;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1TrialParameter extends Google_Model
 {
-	public $floatValue;
-	public $intValue;
-	public $parameter;
-	public $stringValue;
+  public $floatValue;
+  public $intValue;
+  public $parameter;
+  public $stringValue;
 
-	public function setFloatValue($floatValue)
-	{
-		$this->floatValue = $floatValue;
-	}
-	public function getFloatValue()
-	{
-		return $this->floatValue;
-	}
-	public function setIntValue($intValue)
-	{
-		$this->intValue = $intValue;
-	}
-	public function getIntValue()
-	{
-		return $this->intValue;
-	}
-	public function setParameter($parameter)
-	{
-		$this->parameter = $parameter;
-	}
-	public function getParameter()
-	{
-		return $this->parameter;
-	}
-	public function setStringValue($stringValue)
-	{
-		$this->stringValue = $stringValue;
-	}
-	public function getStringValue()
-	{
-		return $this->stringValue;
-	}
+  public function setFloatValue($floatValue)
+  {
+    $this->floatValue = $floatValue;
+  }
+  public function getFloatValue()
+  {
+    return $this->floatValue;
+  }
+  public function setIntValue($intValue)
+  {
+    $this->intValue = $intValue;
+  }
+  public function getIntValue()
+  {
+    return $this->intValue;
+  }
+  public function setParameter($parameter)
+  {
+    $this->parameter = $parameter;
+  }
+  public function getParameter()
+  {
+    return $this->parameter;
+  }
+  public function setStringValue($stringValue)
+  {
+    $this->stringValue = $stringValue;
+  }
+  public function getStringValue()
+  {
+    return $this->stringValue;
+  }
 }

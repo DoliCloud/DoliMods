@@ -17,42 +17,42 @@
 
 class Google_Service_SystemsManagement_YumSettings extends Google_Collection
 {
-	protected $collection_key = 'exclusivePackages';
-	public $excludes;
-	public $exclusivePackages;
-	public $minimal;
-	public $security;
+  protected $collection_key = 'exclusivePackages';
+  public $excludes;
+  public $exclusivePackages;
+  public $minimal;
+  public $security;
 
-	public function setExcludes($excludes)
-	{
-		$this->excludes = $excludes;
-	}
-	public function getExcludes()
-	{
-		return $this->excludes;
-	}
-	public function setExclusivePackages($exclusivePackages)
-	{
-		$this->exclusivePackages = $exclusivePackages;
-	}
-	public function getExclusivePackages()
-	{
-		return $this->exclusivePackages;
-	}
-	public function setMinimal($minimal)
-	{
-		$this->minimal = $minimal;
-	}
-	public function getMinimal()
-	{
-		return $this->minimal;
-	}
-	public function setSecurity($security)
-	{
-		$this->security = $security;
-	}
-	public function getSecurity()
-	{
-		return $this->security;
-	}
+  public function setExcludes($excludes)
+  {
+    $this->excludes = $excludes;
+  }
+  public function getExcludes()
+  {
+    return $this->excludes;
+  }
+  public function setExclusivePackages($exclusivePackages)
+  {
+    $this->exclusivePackages = $exclusivePackages;
+  }
+  public function getExclusivePackages()
+  {
+    return $this->exclusivePackages;
+  }
+  public function setMinimal($minimal)
+  {
+    $this->minimal = $minimal;
+  }
+  public function getMinimal()
+  {
+    return $this->minimal;
+  }
+  public function setSecurity($security)
+  {
+    $this->security = $security;
+  }
+  public function getSecurity()
+  {
+    return $this->security;
+  }
 }

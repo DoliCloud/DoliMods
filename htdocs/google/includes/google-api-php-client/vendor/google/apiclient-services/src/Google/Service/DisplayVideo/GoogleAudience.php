@@ -17,41 +17,41 @@
 
 class Google_Service_DisplayVideo_GoogleAudience extends Google_Model
 {
-	public $displayName;
-	public $googleAudienceId;
-	public $googleAudienceType;
-	public $name;
+  public $displayName;
+  public $googleAudienceId;
+  public $googleAudienceType;
+  public $name;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setGoogleAudienceId($googleAudienceId)
-	{
-		$this->googleAudienceId = $googleAudienceId;
-	}
-	public function getGoogleAudienceId()
-	{
-		return $this->googleAudienceId;
-	}
-	public function setGoogleAudienceType($googleAudienceType)
-	{
-		$this->googleAudienceType = $googleAudienceType;
-	}
-	public function getGoogleAudienceType()
-	{
-		return $this->googleAudienceType;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setGoogleAudienceId($googleAudienceId)
+  {
+    $this->googleAudienceId = $googleAudienceId;
+  }
+  public function getGoogleAudienceId()
+  {
+    return $this->googleAudienceId;
+  }
+  public function setGoogleAudienceType($googleAudienceType)
+  {
+    $this->googleAudienceType = $googleAudienceType;
+  }
+  public function getGoogleAudienceType()
+  {
+    return $this->googleAudienceType;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

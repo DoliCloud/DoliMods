@@ -17,37 +17,37 @@
 
 class Google_Service_AdExchangeBuyerII_AbsoluteDateRange extends Google_Model
 {
-	protected $endDateType = 'Google_Service_AdExchangeBuyerII_Date';
-	protected $endDateDataType = '';
-	protected $startDateType = 'Google_Service_AdExchangeBuyerII_Date';
-	protected $startDateDataType = '';
+  protected $endDateType = 'Google_Service_AdExchangeBuyerII_Date';
+  protected $endDateDataType = '';
+  protected $startDateType = 'Google_Service_AdExchangeBuyerII_Date';
+  protected $startDateDataType = '';
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_Date
-	 */
-	public function setEndDate(Google_Service_AdExchangeBuyerII_Date $endDate)
-	{
-		$this->endDate = $endDate;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_Date
-	 */
-	public function getEndDate()
-	{
-		return $this->endDate;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_Date
-	 */
-	public function setStartDate(Google_Service_AdExchangeBuyerII_Date $startDate)
-	{
-		$this->startDate = $startDate;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_Date
-	 */
-	public function getStartDate()
-	{
-		return $this->startDate;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_Date
+   */
+  public function setEndDate(Google_Service_AdExchangeBuyerII_Date $endDate)
+  {
+    $this->endDate = $endDate;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_Date
+   */
+  public function getEndDate()
+  {
+    return $this->endDate;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_Date
+   */
+  public function setStartDate(Google_Service_AdExchangeBuyerII_Date $startDate)
+  {
+    $this->startDate = $startDate;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_Date
+   */
+  public function getStartDate()
+  {
+    return $this->startDate;
+  }
 }

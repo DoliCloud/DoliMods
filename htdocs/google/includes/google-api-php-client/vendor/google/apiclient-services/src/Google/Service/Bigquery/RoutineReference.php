@@ -17,32 +17,32 @@
 
 class Google_Service_Bigquery_RoutineReference extends Google_Model
 {
-	public $datasetId;
-	public $projectId;
-	public $routineId;
+  public $datasetId;
+  public $projectId;
+  public $routineId;
 
-	public function setDatasetId($datasetId)
-	{
-		$this->datasetId = $datasetId;
-	}
-	public function getDatasetId()
-	{
-		return $this->datasetId;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setRoutineId($routineId)
-	{
-		$this->routineId = $routineId;
-	}
-	public function getRoutineId()
-	{
-		return $this->routineId;
-	}
+  public function setDatasetId($datasetId)
+  {
+    $this->datasetId = $datasetId;
+  }
+  public function getDatasetId()
+  {
+    return $this->datasetId;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setRoutineId($routineId)
+  {
+    $this->routineId = $routineId;
+  }
+  public function getRoutineId()
+  {
+    return $this->routineId;
+  }
 }

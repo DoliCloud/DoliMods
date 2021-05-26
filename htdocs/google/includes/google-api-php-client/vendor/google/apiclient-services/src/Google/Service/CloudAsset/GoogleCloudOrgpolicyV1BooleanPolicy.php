@@ -17,14 +17,14 @@
 
 class Google_Service_CloudAsset_GoogleCloudOrgpolicyV1BooleanPolicy extends Google_Model
 {
-	public $enforced;
+  public $enforced;
 
-	public function setEnforced($enforced)
-	{
-		$this->enforced = $enforced;
-	}
-	public function getEnforced()
-	{
-		return $this->enforced;
-	}
+  public function setEnforced($enforced)
+  {
+    $this->enforced = $enforced;
+  }
+  public function getEnforced()
+  {
+    return $this->enforced;
+  }
 }

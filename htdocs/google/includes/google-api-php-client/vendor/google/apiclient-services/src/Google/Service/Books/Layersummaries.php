@@ -17,40 +17,40 @@
 
 class Google_Service_Books_Layersummaries extends Google_Collection
 {
-	protected $collection_key = 'items';
-	protected $itemsType = 'Google_Service_Books_Layersummary';
-	protected $itemsDataType = 'array';
-	public $kind;
-	public $totalItems;
+  protected $collection_key = 'items';
+  protected $itemsType = 'Google_Service_Books_Layersummary';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $totalItems;
 
-	/**
-	 * @param Google_Service_Books_Layersummary
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Books_Layersummary
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setTotalItems($totalItems)
-	{
-		$this->totalItems = $totalItems;
-	}
-	public function getTotalItems()
-	{
-		return $this->totalItems;
-	}
+  /**
+   * @param Google_Service_Books_Layersummary[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Books_Layersummary[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setTotalItems($totalItems)
+  {
+    $this->totalItems = $totalItems;
+  }
+  public function getTotalItems()
+  {
+    return $this->totalItems;
+  }
 }

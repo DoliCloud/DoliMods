@@ -17,33 +17,33 @@
 
 class Google_Service_Spanner_Write extends Google_Collection
 {
-	protected $collection_key = 'values';
-	public $columns;
-	public $table;
-	public $values;
+  protected $collection_key = 'values';
+  public $columns;
+  public $table;
+  public $values;
 
-	public function setColumns($columns)
-	{
-		$this->columns = $columns;
-	}
-	public function getColumns()
-	{
-		return $this->columns;
-	}
-	public function setTable($table)
-	{
-		$this->table = $table;
-	}
-	public function getTable()
-	{
-		return $this->table;
-	}
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setColumns($columns)
+  {
+    $this->columns = $columns;
+  }
+  public function getColumns()
+  {
+    return $this->columns;
+  }
+  public function setTable($table)
+  {
+    $this->table = $table;
+  }
+  public function getTable()
+  {
+    return $this->table;
+  }
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

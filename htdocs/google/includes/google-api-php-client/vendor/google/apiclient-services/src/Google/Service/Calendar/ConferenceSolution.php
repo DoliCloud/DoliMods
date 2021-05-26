@@ -17,39 +17,39 @@
 
 class Google_Service_Calendar_ConferenceSolution extends Google_Model
 {
-	public $iconUri;
-	protected $keyType = 'Google_Service_Calendar_ConferenceSolutionKey';
-	protected $keyDataType = '';
-	public $name;
+  public $iconUri;
+  protected $keyType = 'Google_Service_Calendar_ConferenceSolutionKey';
+  protected $keyDataType = '';
+  public $name;
 
-	public function setIconUri($iconUri)
-	{
-		$this->iconUri = $iconUri;
-	}
-	public function getIconUri()
-	{
-		return $this->iconUri;
-	}
-	/**
-	 * @param Google_Service_Calendar_ConferenceSolutionKey
-	 */
-	public function setKey(Google_Service_Calendar_ConferenceSolutionKey $key)
-	{
-		$this->key = $key;
-	}
-	/**
-	 * @return Google_Service_Calendar_ConferenceSolutionKey
-	 */
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setIconUri($iconUri)
+  {
+    $this->iconUri = $iconUri;
+  }
+  public function getIconUri()
+  {
+    return $this->iconUri;
+  }
+  /**
+   * @param Google_Service_Calendar_ConferenceSolutionKey
+   */
+  public function setKey(Google_Service_Calendar_ConferenceSolutionKey $key)
+  {
+    $this->key = $key;
+  }
+  /**
+   * @return Google_Service_Calendar_ConferenceSolutionKey
+   */
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

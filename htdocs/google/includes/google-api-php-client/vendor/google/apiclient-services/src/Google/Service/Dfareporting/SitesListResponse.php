@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_SitesListResponse extends Google_Collection
 {
-	protected $collection_key = 'sites';
-	public $kind;
-	public $nextPageToken;
-	protected $sitesType = 'Google_Service_Dfareporting_Site';
-	protected $sitesDataType = 'array';
+  protected $collection_key = 'sites';
+  public $kind;
+  public $nextPageToken;
+  protected $sitesType = 'Google_Service_Dfareporting_Site';
+  protected $sitesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Site
-	 */
-	public function setSites($sites)
-	{
-		$this->sites = $sites;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Site
-	 */
-	public function getSites()
-	{
-		return $this->sites;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Site[]
+   */
+  public function setSites($sites)
+  {
+    $this->sites = $sites;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Site[]
+   */
+  public function getSites()
+  {
+    return $this->sites;
+  }
 }

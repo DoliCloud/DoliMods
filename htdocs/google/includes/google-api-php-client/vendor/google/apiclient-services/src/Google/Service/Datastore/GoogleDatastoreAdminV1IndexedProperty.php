@@ -17,23 +17,23 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1IndexedProperty extends Google_Model
 {
-	public $direction;
-	public $name;
+  public $direction;
+  public $name;
 
-	public function setDirection($direction)
-	{
-		$this->direction = $direction;
-	}
-	public function getDirection()
-	{
-		return $this->direction;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setDirection($direction)
+  {
+    $this->direction = $direction;
+  }
+  public function getDirection()
+  {
+    return $this->direction;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

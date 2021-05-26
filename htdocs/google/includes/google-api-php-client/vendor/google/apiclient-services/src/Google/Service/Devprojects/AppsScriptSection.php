@@ -17,25 +17,25 @@
 
 class Google_Service_Devprojects_AppsScriptSection extends Google_Collection
 {
-	protected $collection_key = 'app';
-	protected $appType = 'Google_Service_Devprojects_ManagedEntityMetadata';
-	protected $appDataType = 'array';
-	public $kind;
+  protected $collection_key = 'app';
+  protected $appType = 'Google_Service_Devprojects_ManagedEntityMetadata';
+  protected $appDataType = 'array';
+  public $kind;
 
-	public function setApp($app)
-	{
-		$this->app = $app;
-	}
-	public function getApp()
-	{
-		return $this->app;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setApp($app)
+  {
+    $this->app = $app;
+  }
+  public function getApp()
+  {
+    return $this->app;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

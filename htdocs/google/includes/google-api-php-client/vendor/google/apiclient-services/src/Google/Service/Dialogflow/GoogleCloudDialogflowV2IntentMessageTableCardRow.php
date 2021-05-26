@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardRow extends Google_Collection
 {
-	protected $collection_key = 'cells';
-	protected $cellsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardCell';
-	protected $cellsDataType = 'array';
-	public $dividerAfter;
+  protected $collection_key = 'cells';
+  protected $cellsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardCell';
+  protected $cellsDataType = 'array';
+  public $dividerAfter;
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardCell
-	 */
-	public function setCells($cells)
-	{
-		$this->cells = $cells;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardCell
-	 */
-	public function getCells()
-	{
-		return $this->cells;
-	}
-	public function setDividerAfter($dividerAfter)
-	{
-		$this->dividerAfter = $dividerAfter;
-	}
-	public function getDividerAfter()
-	{
-		return $this->dividerAfter;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardCell[]
+   */
+  public function setCells($cells)
+  {
+    $this->cells = $cells;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardCell[]
+   */
+  public function getCells()
+  {
+    return $this->cells;
+  }
+  public function setDividerAfter($dividerAfter)
+  {
+    $this->dividerAfter = $dividerAfter;
+  }
+  public function getDividerAfter()
+  {
+    return $this->dividerAfter;
+  }
 }

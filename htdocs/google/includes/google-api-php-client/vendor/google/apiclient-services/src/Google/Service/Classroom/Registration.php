@@ -17,55 +17,55 @@
 
 class Google_Service_Classroom_Registration extends Google_Model
 {
-	protected $cloudPubsubTopicType = 'Google_Service_Classroom_CloudPubsubTopic';
-	protected $cloudPubsubTopicDataType = '';
-	public $expiryTime;
-	protected $feedType = 'Google_Service_Classroom_Feed';
-	protected $feedDataType = '';
-	public $registrationId;
+  protected $cloudPubsubTopicType = 'Google_Service_Classroom_CloudPubsubTopic';
+  protected $cloudPubsubTopicDataType = '';
+  public $expiryTime;
+  protected $feedType = 'Google_Service_Classroom_Feed';
+  protected $feedDataType = '';
+  public $registrationId;
 
-	/**
-	 * @param Google_Service_Classroom_CloudPubsubTopic
-	 */
-	public function setCloudPubsubTopic(Google_Service_Classroom_CloudPubsubTopic $cloudPubsubTopic)
-	{
-		$this->cloudPubsubTopic = $cloudPubsubTopic;
-	}
-	/**
-	 * @return Google_Service_Classroom_CloudPubsubTopic
-	 */
-	public function getCloudPubsubTopic()
-	{
-		return $this->cloudPubsubTopic;
-	}
-	public function setExpiryTime($expiryTime)
-	{
-		$this->expiryTime = $expiryTime;
-	}
-	public function getExpiryTime()
-	{
-		return $this->expiryTime;
-	}
-	/**
-	 * @param Google_Service_Classroom_Feed
-	 */
-	public function setFeed(Google_Service_Classroom_Feed $feed)
-	{
-		$this->feed = $feed;
-	}
-	/**
-	 * @return Google_Service_Classroom_Feed
-	 */
-	public function getFeed()
-	{
-		return $this->feed;
-	}
-	public function setRegistrationId($registrationId)
-	{
-		$this->registrationId = $registrationId;
-	}
-	public function getRegistrationId()
-	{
-		return $this->registrationId;
-	}
+  /**
+   * @param Google_Service_Classroom_CloudPubsubTopic
+   */
+  public function setCloudPubsubTopic(Google_Service_Classroom_CloudPubsubTopic $cloudPubsubTopic)
+  {
+    $this->cloudPubsubTopic = $cloudPubsubTopic;
+  }
+  /**
+   * @return Google_Service_Classroom_CloudPubsubTopic
+   */
+  public function getCloudPubsubTopic()
+  {
+    return $this->cloudPubsubTopic;
+  }
+  public function setExpiryTime($expiryTime)
+  {
+    $this->expiryTime = $expiryTime;
+  }
+  public function getExpiryTime()
+  {
+    return $this->expiryTime;
+  }
+  /**
+   * @param Google_Service_Classroom_Feed
+   */
+  public function setFeed(Google_Service_Classroom_Feed $feed)
+  {
+    $this->feed = $feed;
+  }
+  /**
+   * @return Google_Service_Classroom_Feed
+   */
+  public function getFeed()
+  {
+    return $this->feed;
+  }
+  public function setRegistrationId($registrationId)
+  {
+    $this->registrationId = $registrationId;
+  }
+  public function getRegistrationId()
+  {
+    return $this->registrationId;
+  }
 }

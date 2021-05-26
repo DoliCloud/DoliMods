@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_BasicChartDomain extends Google_Model
 {
-	protected $domainType = 'Google_Service_Sheets_ChartData';
-	protected $domainDataType = '';
-	public $reversed;
+  protected $domainType = 'Google_Service_Sheets_ChartData';
+  protected $domainDataType = '';
+  public $reversed;
 
-	/**
-	 * @param Google_Service_Sheets_ChartData
-	 */
-	public function setDomain(Google_Service_Sheets_ChartData $domain)
-	{
-		$this->domain = $domain;
-	}
-	/**
-	 * @return Google_Service_Sheets_ChartData
-	 */
-	public function getDomain()
-	{
-		return $this->domain;
-	}
-	public function setReversed($reversed)
-	{
-		$this->reversed = $reversed;
-	}
-	public function getReversed()
-	{
-		return $this->reversed;
-	}
+  /**
+   * @param Google_Service_Sheets_ChartData
+   */
+  public function setDomain(Google_Service_Sheets_ChartData $domain)
+  {
+    $this->domain = $domain;
+  }
+  /**
+   * @return Google_Service_Sheets_ChartData
+   */
+  public function getDomain()
+  {
+    return $this->domain;
+  }
+  public function setReversed($reversed)
+  {
+    $this->reversed = $reversed;
+  }
+  public function getReversed()
+  {
+    return $this->reversed;
+  }
 }

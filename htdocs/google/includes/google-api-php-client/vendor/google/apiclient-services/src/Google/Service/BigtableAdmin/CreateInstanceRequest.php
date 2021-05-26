@@ -17,55 +17,55 @@
 
 class Google_Service_BigtableAdmin_CreateInstanceRequest extends Google_Model
 {
-	protected $clustersType = 'Google_Service_BigtableAdmin_Cluster';
-	protected $clustersDataType = 'map';
-	protected $instanceType = 'Google_Service_BigtableAdmin_Instance';
-	protected $instanceDataType = '';
-	public $instanceId;
-	public $parent;
+  protected $clustersType = 'Google_Service_BigtableAdmin_Cluster';
+  protected $clustersDataType = 'map';
+  protected $instanceType = 'Google_Service_BigtableAdmin_Instance';
+  protected $instanceDataType = '';
+  public $instanceId;
+  public $parent;
 
-	/**
-	 * @param Google_Service_BigtableAdmin_Cluster
-	 */
-	public function setClusters($clusters)
-	{
-		$this->clusters = $clusters;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_Cluster
-	 */
-	public function getClusters()
-	{
-		return $this->clusters;
-	}
-	/**
-	 * @param Google_Service_BigtableAdmin_Instance
-	 */
-	public function setInstance(Google_Service_BigtableAdmin_Instance $instance)
-	{
-		$this->instance = $instance;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_Instance
-	 */
-	public function getInstance()
-	{
-		return $this->instance;
-	}
-	public function setInstanceId($instanceId)
-	{
-		$this->instanceId = $instanceId;
-	}
-	public function getInstanceId()
-	{
-		return $this->instanceId;
-	}
-	public function setParent($parent)
-	{
-		$this->parent = $parent;
-	}
-	public function getParent()
-	{
-		return $this->parent;
-	}
+  /**
+   * @param Google_Service_BigtableAdmin_Cluster[]
+   */
+  public function setClusters($clusters)
+  {
+    $this->clusters = $clusters;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_Cluster[]
+   */
+  public function getClusters()
+  {
+    return $this->clusters;
+  }
+  /**
+   * @param Google_Service_BigtableAdmin_Instance
+   */
+  public function setInstance(Google_Service_BigtableAdmin_Instance $instance)
+  {
+    $this->instance = $instance;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_Instance
+   */
+  public function getInstance()
+  {
+    return $this->instance;
+  }
+  public function setInstanceId($instanceId)
+  {
+    $this->instanceId = $instanceId;
+  }
+  public function getInstanceId()
+  {
+    return $this->instanceId;
+  }
+  public function setParent($parent)
+  {
+    $this->parent = $parent;
+  }
+  public function getParent()
+  {
+    return $this->parent;
+  }
 }

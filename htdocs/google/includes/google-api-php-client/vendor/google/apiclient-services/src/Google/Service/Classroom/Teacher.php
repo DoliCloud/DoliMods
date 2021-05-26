@@ -17,39 +17,39 @@
 
 class Google_Service_Classroom_Teacher extends Google_Model
 {
-	public $courseId;
-	protected $profileType = 'Google_Service_Classroom_UserProfile';
-	protected $profileDataType = '';
-	public $userId;
+  public $courseId;
+  protected $profileType = 'Google_Service_Classroom_UserProfile';
+  protected $profileDataType = '';
+  public $userId;
 
-	public function setCourseId($courseId)
-	{
-		$this->courseId = $courseId;
-	}
-	public function getCourseId()
-	{
-		return $this->courseId;
-	}
-	/**
-	 * @param Google_Service_Classroom_UserProfile
-	 */
-	public function setProfile(Google_Service_Classroom_UserProfile $profile)
-	{
-		$this->profile = $profile;
-	}
-	/**
-	 * @return Google_Service_Classroom_UserProfile
-	 */
-	public function getProfile()
-	{
-		return $this->profile;
-	}
-	public function setUserId($userId)
-	{
-		$this->userId = $userId;
-	}
-	public function getUserId()
-	{
-		return $this->userId;
-	}
+  public function setCourseId($courseId)
+  {
+    $this->courseId = $courseId;
+  }
+  public function getCourseId()
+  {
+    return $this->courseId;
+  }
+  /**
+   * @param Google_Service_Classroom_UserProfile
+   */
+  public function setProfile(Google_Service_Classroom_UserProfile $profile)
+  {
+    $this->profile = $profile;
+  }
+  /**
+   * @return Google_Service_Classroom_UserProfile
+   */
+  public function getProfile()
+  {
+    return $this->profile;
+  }
+  public function setUserId($userId)
+  {
+    $this->userId = $userId;
+  }
+  public function getUserId()
+  {
+    return $this->userId;
+  }
 }

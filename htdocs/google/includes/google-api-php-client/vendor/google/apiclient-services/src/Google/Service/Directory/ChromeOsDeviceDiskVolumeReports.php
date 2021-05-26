@@ -17,22 +17,22 @@
 
 class Google_Service_Directory_ChromeOsDeviceDiskVolumeReports extends Google_Collection
 {
-	protected $collection_key = 'volumeInfo';
-	protected $volumeInfoType = 'Google_Service_Directory_ChromeOsDeviceDiskVolumeReportsVolumeInfo';
-	protected $volumeInfoDataType = 'array';
+  protected $collection_key = 'volumeInfo';
+  protected $volumeInfoType = 'Google_Service_Directory_ChromeOsDeviceDiskVolumeReportsVolumeInfo';
+  protected $volumeInfoDataType = 'array';
 
-	/**
-	 * @param Google_Service_Directory_ChromeOsDeviceDiskVolumeReportsVolumeInfo
-	 */
-	public function setVolumeInfo($volumeInfo)
-	{
-		$this->volumeInfo = $volumeInfo;
-	}
-	/**
-	 * @return Google_Service_Directory_ChromeOsDeviceDiskVolumeReportsVolumeInfo
-	 */
-	public function getVolumeInfo()
-	{
-		return $this->volumeInfo;
-	}
+  /**
+   * @param Google_Service_Directory_ChromeOsDeviceDiskVolumeReportsVolumeInfo[]
+   */
+  public function setVolumeInfo($volumeInfo)
+  {
+    $this->volumeInfo = $volumeInfo;
+  }
+  /**
+   * @return Google_Service_Directory_ChromeOsDeviceDiskVolumeReportsVolumeInfo[]
+   */
+  public function getVolumeInfo()
+  {
+    return $this->volumeInfo;
+  }
 }

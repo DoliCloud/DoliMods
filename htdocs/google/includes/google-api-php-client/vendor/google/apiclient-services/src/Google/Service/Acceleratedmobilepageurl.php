@@ -33,37 +33,37 @@ class Google_Service_Acceleratedmobilepageurl extends Google_Service
 {
 
 
-	public $ampUrls;
+  public $ampUrls;
 
-	/**
-	 * Constructs the internal representation of the Acceleratedmobilepageurl
-	 * service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://acceleratedmobilepageurl.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1';
-		$this->serviceName = 'acceleratedmobilepageurl';
+  /**
+   * Constructs the internal representation of the Acceleratedmobilepageurl
+   * service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://acceleratedmobilepageurl.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1';
+    $this->serviceName = 'acceleratedmobilepageurl';
 
-		$this->ampUrls = new Google_Service_Acceleratedmobilepageurl_Resource_AmpUrls(
-		$this,
-		$this->serviceName,
-		'ampUrls',
-		array(
-		  'methods' => array(
-			'batchGet' => array(
-			  'path' => 'v1/ampUrls:batchGet',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-	}
+    $this->ampUrls = new Google_Service_Acceleratedmobilepageurl_Resource_AmpUrls(
+        $this,
+        $this->serviceName,
+        'ampUrls',
+        array(
+          'methods' => array(
+            'batchGet' => array(
+              'path' => 'v1/ampUrls:batchGet',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+  }
 }

@@ -17,59 +17,59 @@
 
 class Google_Service_Spanner_ReadOnly extends Google_Model
 {
-	public $exactStaleness;
-	public $maxStaleness;
-	public $minReadTimestamp;
-	public $readTimestamp;
-	public $returnReadTimestamp;
-	public $strong;
+  public $exactStaleness;
+  public $maxStaleness;
+  public $minReadTimestamp;
+  public $readTimestamp;
+  public $returnReadTimestamp;
+  public $strong;
 
-	public function setExactStaleness($exactStaleness)
-	{
-		$this->exactStaleness = $exactStaleness;
-	}
-	public function getExactStaleness()
-	{
-		return $this->exactStaleness;
-	}
-	public function setMaxStaleness($maxStaleness)
-	{
-		$this->maxStaleness = $maxStaleness;
-	}
-	public function getMaxStaleness()
-	{
-		return $this->maxStaleness;
-	}
-	public function setMinReadTimestamp($minReadTimestamp)
-	{
-		$this->minReadTimestamp = $minReadTimestamp;
-	}
-	public function getMinReadTimestamp()
-	{
-		return $this->minReadTimestamp;
-	}
-	public function setReadTimestamp($readTimestamp)
-	{
-		$this->readTimestamp = $readTimestamp;
-	}
-	public function getReadTimestamp()
-	{
-		return $this->readTimestamp;
-	}
-	public function setReturnReadTimestamp($returnReadTimestamp)
-	{
-		$this->returnReadTimestamp = $returnReadTimestamp;
-	}
-	public function getReturnReadTimestamp()
-	{
-		return $this->returnReadTimestamp;
-	}
-	public function setStrong($strong)
-	{
-		$this->strong = $strong;
-	}
-	public function getStrong()
-	{
-		return $this->strong;
-	}
+  public function setExactStaleness($exactStaleness)
+  {
+    $this->exactStaleness = $exactStaleness;
+  }
+  public function getExactStaleness()
+  {
+    return $this->exactStaleness;
+  }
+  public function setMaxStaleness($maxStaleness)
+  {
+    $this->maxStaleness = $maxStaleness;
+  }
+  public function getMaxStaleness()
+  {
+    return $this->maxStaleness;
+  }
+  public function setMinReadTimestamp($minReadTimestamp)
+  {
+    $this->minReadTimestamp = $minReadTimestamp;
+  }
+  public function getMinReadTimestamp()
+  {
+    return $this->minReadTimestamp;
+  }
+  public function setReadTimestamp($readTimestamp)
+  {
+    $this->readTimestamp = $readTimestamp;
+  }
+  public function getReadTimestamp()
+  {
+    return $this->readTimestamp;
+  }
+  public function setReturnReadTimestamp($returnReadTimestamp)
+  {
+    $this->returnReadTimestamp = $returnReadTimestamp;
+  }
+  public function getReturnReadTimestamp()
+  {
+    return $this->returnReadTimestamp;
+  }
+  public function setStrong($strong)
+  {
+    $this->strong = $strong;
+  }
+  public function getStrong()
+  {
+    return $this->strong;
+  }
 }

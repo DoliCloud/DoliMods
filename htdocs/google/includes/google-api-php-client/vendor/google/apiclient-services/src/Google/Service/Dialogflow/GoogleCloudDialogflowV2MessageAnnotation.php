@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2MessageAnnotation extends Google_Collection
 {
-	protected $collection_key = 'parts';
-	public $containEntities;
-	protected $partsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2AnnotatedMessagePart';
-	protected $partsDataType = 'array';
+  protected $collection_key = 'parts';
+  public $containEntities;
+  protected $partsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2AnnotatedMessagePart';
+  protected $partsDataType = 'array';
 
-	public function setContainEntities($containEntities)
-	{
-		$this->containEntities = $containEntities;
-	}
-	public function getContainEntities()
-	{
-		return $this->containEntities;
-	}
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2AnnotatedMessagePart
-	 */
-	public function setParts($parts)
-	{
-		$this->parts = $parts;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2AnnotatedMessagePart
-	 */
-	public function getParts()
-	{
-		return $this->parts;
-	}
+  public function setContainEntities($containEntities)
+  {
+    $this->containEntities = $containEntities;
+  }
+  public function getContainEntities()
+  {
+    return $this->containEntities;
+  }
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2AnnotatedMessagePart[]
+   */
+  public function setParts($parts)
+  {
+    $this->parts = $parts;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2AnnotatedMessagePart[]
+   */
+  public function getParts()
+  {
+    return $this->parts;
+  }
 }

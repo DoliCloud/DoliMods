@@ -17,39 +17,39 @@
 
 class Google_Service_CloudSearch_Interaction extends Google_Model
 {
-	public $interactionTime;
-	protected $principalType = 'Google_Service_CloudSearch_Principal';
-	protected $principalDataType = '';
-	public $type;
+  public $interactionTime;
+  protected $principalType = 'Google_Service_CloudSearch_Principal';
+  protected $principalDataType = '';
+  public $type;
 
-	public function setInteractionTime($interactionTime)
-	{
-		$this->interactionTime = $interactionTime;
-	}
-	public function getInteractionTime()
-	{
-		return $this->interactionTime;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_Principal
-	 */
-	public function setPrincipal(Google_Service_CloudSearch_Principal $principal)
-	{
-		$this->principal = $principal;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Principal
-	 */
-	public function getPrincipal()
-	{
-		return $this->principal;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setInteractionTime($interactionTime)
+  {
+    $this->interactionTime = $interactionTime;
+  }
+  public function getInteractionTime()
+  {
+    return $this->interactionTime;
+  }
+  /**
+   * @param Google_Service_CloudSearch_Principal
+   */
+  public function setPrincipal(Google_Service_CloudSearch_Principal $principal)
+  {
+    $this->principal = $principal;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Principal
+   */
+  public function getPrincipal()
+  {
+    return $this->principal;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

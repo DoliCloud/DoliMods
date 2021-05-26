@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_NegativeKeyword extends Google_Model
 {
-	public $keywordValue;
-	public $name;
+  public $keywordValue;
+  public $name;
 
-	public function setKeywordValue($keywordValue)
-	{
-		$this->keywordValue = $keywordValue;
-	}
-	public function getKeywordValue()
-	{
-		return $this->keywordValue;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setKeywordValue($keywordValue)
+  {
+    $this->keywordValue = $keywordValue;
+  }
+  public function getKeywordValue()
+  {
+    return $this->keywordValue;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

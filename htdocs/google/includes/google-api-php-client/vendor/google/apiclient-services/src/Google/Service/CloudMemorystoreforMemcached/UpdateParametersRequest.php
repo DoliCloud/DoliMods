@@ -17,30 +17,30 @@
 
 class Google_Service_CloudMemorystoreforMemcached_UpdateParametersRequest extends Google_Model
 {
-	protected $parametersType = 'Google_Service_CloudMemorystoreforMemcached_MemcacheParameters';
-	protected $parametersDataType = '';
-	public $updateMask;
+  protected $parametersType = 'Google_Service_CloudMemorystoreforMemcached_MemcacheParameters';
+  protected $parametersDataType = '';
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_CloudMemorystoreforMemcached_MemcacheParameters
-	 */
-	public function setParameters(Google_Service_CloudMemorystoreforMemcached_MemcacheParameters $parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	/**
-	 * @return Google_Service_CloudMemorystoreforMemcached_MemcacheParameters
-	 */
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_CloudMemorystoreforMemcached_MemcacheParameters
+   */
+  public function setParameters(Google_Service_CloudMemorystoreforMemcached_MemcacheParameters $parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  /**
+   * @return Google_Service_CloudMemorystoreforMemcached_MemcacheParameters
+   */
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

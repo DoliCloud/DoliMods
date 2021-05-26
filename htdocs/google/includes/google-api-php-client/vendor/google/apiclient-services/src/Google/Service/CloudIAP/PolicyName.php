@@ -17,32 +17,32 @@
 
 class Google_Service_CloudIAP_PolicyName extends Google_Model
 {
-	public $id;
-	public $region;
-	public $type;
+  public $id;
+  public $region;
+  public $type;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setRegion($region)
-	{
-		$this->region = $region;
-	}
-	public function getRegion()
-	{
-		return $this->region;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setRegion($region)
+  {
+    $this->region = $region;
+  }
+  public function getRegion()
+  {
+    return $this->region;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

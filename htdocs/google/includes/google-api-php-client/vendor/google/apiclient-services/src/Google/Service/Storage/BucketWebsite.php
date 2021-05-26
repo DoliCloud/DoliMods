@@ -17,23 +17,23 @@
 
 class Google_Service_Storage_BucketWebsite extends Google_Model
 {
-	public $mainPageSuffix;
-	public $notFoundPage;
+  public $mainPageSuffix;
+  public $notFoundPage;
 
-	public function setMainPageSuffix($mainPageSuffix)
-	{
-		$this->mainPageSuffix = $mainPageSuffix;
-	}
-	public function getMainPageSuffix()
-	{
-		return $this->mainPageSuffix;
-	}
-	public function setNotFoundPage($notFoundPage)
-	{
-		$this->notFoundPage = $notFoundPage;
-	}
-	public function getNotFoundPage()
-	{
-		return $this->notFoundPage;
-	}
+  public function setMainPageSuffix($mainPageSuffix)
+  {
+    $this->mainPageSuffix = $mainPageSuffix;
+  }
+  public function getMainPageSuffix()
+  {
+    return $this->mainPageSuffix;
+  }
+  public function setNotFoundPage($notFoundPage)
+  {
+    $this->notFoundPage = $notFoundPage;
+  }
+  public function getNotFoundPage()
+  {
+    return $this->notFoundPage;
+  }
 }

@@ -17,47 +17,47 @@
 
 class Google_Service_ShoppingContent_ShipmentInvoice extends Google_Collection
 {
-	protected $collection_key = 'lineItemInvoices';
-	protected $invoiceSummaryType = 'Google_Service_ShoppingContent_InvoiceSummary';
-	protected $invoiceSummaryDataType = '';
-	protected $lineItemInvoicesType = 'Google_Service_ShoppingContent_ShipmentInvoiceLineItemInvoice';
-	protected $lineItemInvoicesDataType = 'array';
-	public $shipmentGroupId;
+  protected $collection_key = 'lineItemInvoices';
+  protected $invoiceSummaryType = 'Google_Service_ShoppingContent_InvoiceSummary';
+  protected $invoiceSummaryDataType = '';
+  protected $lineItemInvoicesType = 'Google_Service_ShoppingContent_ShipmentInvoiceLineItemInvoice';
+  protected $lineItemInvoicesDataType = 'array';
+  public $shipmentGroupId;
 
-	/**
-	 * @param Google_Service_ShoppingContent_InvoiceSummary
-	 */
-	public function setInvoiceSummary(Google_Service_ShoppingContent_InvoiceSummary $invoiceSummary)
-	{
-		$this->invoiceSummary = $invoiceSummary;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_InvoiceSummary
-	 */
-	public function getInvoiceSummary()
-	{
-		return $this->invoiceSummary;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_ShipmentInvoiceLineItemInvoice
-	 */
-	public function setLineItemInvoices($lineItemInvoices)
-	{
-		$this->lineItemInvoices = $lineItemInvoices;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_ShipmentInvoiceLineItemInvoice
-	 */
-	public function getLineItemInvoices()
-	{
-		return $this->lineItemInvoices;
-	}
-	public function setShipmentGroupId($shipmentGroupId)
-	{
-		$this->shipmentGroupId = $shipmentGroupId;
-	}
-	public function getShipmentGroupId()
-	{
-		return $this->shipmentGroupId;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_InvoiceSummary
+   */
+  public function setInvoiceSummary(Google_Service_ShoppingContent_InvoiceSummary $invoiceSummary)
+  {
+    $this->invoiceSummary = $invoiceSummary;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_InvoiceSummary
+   */
+  public function getInvoiceSummary()
+  {
+    return $this->invoiceSummary;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_ShipmentInvoiceLineItemInvoice[]
+   */
+  public function setLineItemInvoices($lineItemInvoices)
+  {
+    $this->lineItemInvoices = $lineItemInvoices;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_ShipmentInvoiceLineItemInvoice[]
+   */
+  public function getLineItemInvoices()
+  {
+    return $this->lineItemInvoices;
+  }
+  public function setShipmentGroupId($shipmentGroupId)
+  {
+    $this->shipmentGroupId = $shipmentGroupId;
+  }
+  public function getShipmentGroupId()
+  {
+    return $this->shipmentGroupId;
+  }
 }

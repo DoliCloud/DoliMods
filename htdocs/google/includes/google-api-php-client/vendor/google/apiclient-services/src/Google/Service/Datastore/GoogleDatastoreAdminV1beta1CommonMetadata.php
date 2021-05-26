@@ -17,50 +17,50 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1beta1CommonMetadata extends Google_Model
 {
-	public $endTime;
-	public $labels;
-	public $operationType;
-	public $startTime;
-	public $state;
+  public $endTime;
+  public $labels;
+  public $operationType;
+  public $startTime;
+  public $state;
 
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setOperationType($operationType)
-	{
-		$this->operationType = $operationType;
-	}
-	public function getOperationType()
-	{
-		return $this->operationType;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setOperationType($operationType)
+  {
+    $this->operationType = $operationType;
+  }
+  public function getOperationType()
+  {
+    return $this->operationType;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

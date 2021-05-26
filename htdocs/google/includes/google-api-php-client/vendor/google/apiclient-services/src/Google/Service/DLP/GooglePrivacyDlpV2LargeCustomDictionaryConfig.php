@@ -17,53 +17,53 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryConfig extends Google_Model
 {
-	protected $bigQueryFieldType = 'Google_Service_DLP_GooglePrivacyDlpV2BigQueryField';
-	protected $bigQueryFieldDataType = '';
-	protected $cloudStorageFileSetType = 'Google_Service_DLP_GooglePrivacyDlpV2CloudStorageFileSet';
-	protected $cloudStorageFileSetDataType = '';
-	protected $outputPathType = 'Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath';
-	protected $outputPathDataType = '';
+  protected $bigQueryFieldType = 'Google_Service_DLP_GooglePrivacyDlpV2BigQueryField';
+  protected $bigQueryFieldDataType = '';
+  protected $cloudStorageFileSetType = 'Google_Service_DLP_GooglePrivacyDlpV2CloudStorageFileSet';
+  protected $cloudStorageFileSetDataType = '';
+  protected $outputPathType = 'Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath';
+  protected $outputPathDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2BigQueryField
-	 */
-	public function setBigQueryField(Google_Service_DLP_GooglePrivacyDlpV2BigQueryField $bigQueryField)
-	{
-		$this->bigQueryField = $bigQueryField;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2BigQueryField
-	 */
-	public function getBigQueryField()
-	{
-		return $this->bigQueryField;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2CloudStorageFileSet
-	 */
-	public function setCloudStorageFileSet(Google_Service_DLP_GooglePrivacyDlpV2CloudStorageFileSet $cloudStorageFileSet)
-	{
-		$this->cloudStorageFileSet = $cloudStorageFileSet;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2CloudStorageFileSet
-	 */
-	public function getCloudStorageFileSet()
-	{
-		return $this->cloudStorageFileSet;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath
-	 */
-	public function setOutputPath(Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath $outputPath)
-	{
-		$this->outputPath = $outputPath;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath
-	 */
-	public function getOutputPath()
-	{
-		return $this->outputPath;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2BigQueryField
+   */
+  public function setBigQueryField(Google_Service_DLP_GooglePrivacyDlpV2BigQueryField $bigQueryField)
+  {
+    $this->bigQueryField = $bigQueryField;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2BigQueryField
+   */
+  public function getBigQueryField()
+  {
+    return $this->bigQueryField;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2CloudStorageFileSet
+   */
+  public function setCloudStorageFileSet(Google_Service_DLP_GooglePrivacyDlpV2CloudStorageFileSet $cloudStorageFileSet)
+  {
+    $this->cloudStorageFileSet = $cloudStorageFileSet;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2CloudStorageFileSet
+   */
+  public function getCloudStorageFileSet()
+  {
+    return $this->cloudStorageFileSet;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath
+   */
+  public function setOutputPath(Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath $outputPath)
+  {
+    $this->outputPath = $outputPath;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath
+   */
+  public function getOutputPath()
+  {
+    return $this->outputPath;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_ModifyTemplateVersionTagRequest extends Google_Model
 {
-	public $removeOnly;
-	public $tag;
+  public $removeOnly;
+  public $tag;
 
-	public function setRemoveOnly($removeOnly)
-	{
-		$this->removeOnly = $removeOnly;
-	}
-	public function getRemoveOnly()
-	{
-		return $this->removeOnly;
-	}
-	public function setTag($tag)
-	{
-		$this->tag = $tag;
-	}
-	public function getTag()
-	{
-		return $this->tag;
-	}
+  public function setRemoveOnly($removeOnly)
+  {
+    $this->removeOnly = $removeOnly;
+  }
+  public function getRemoveOnly()
+  {
+    return $this->removeOnly;
+  }
+  public function setTag($tag)
+  {
+    $this->tag = $tag;
+  }
+  public function getTag()
+  {
+    return $this->tag;
+  }
 }

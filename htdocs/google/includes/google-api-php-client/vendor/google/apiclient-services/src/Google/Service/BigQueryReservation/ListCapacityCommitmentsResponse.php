@@ -17,31 +17,31 @@
 
 class Google_Service_BigQueryReservation_ListCapacityCommitmentsResponse extends Google_Collection
 {
-	protected $collection_key = 'capacityCommitments';
-	protected $capacityCommitmentsType = 'Google_Service_BigQueryReservation_CapacityCommitment';
-	protected $capacityCommitmentsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'capacityCommitments';
+  protected $capacityCommitmentsType = 'Google_Service_BigQueryReservation_CapacityCommitment';
+  protected $capacityCommitmentsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_BigQueryReservation_CapacityCommitment
-	 */
-	public function setCapacityCommitments($capacityCommitments)
-	{
-		$this->capacityCommitments = $capacityCommitments;
-	}
-	/**
-	 * @return Google_Service_BigQueryReservation_CapacityCommitment
-	 */
-	public function getCapacityCommitments()
-	{
-		return $this->capacityCommitments;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_BigQueryReservation_CapacityCommitment[]
+   */
+  public function setCapacityCommitments($capacityCommitments)
+  {
+    $this->capacityCommitments = $capacityCommitments;
+  }
+  /**
+   * @return Google_Service_BigQueryReservation_CapacityCommitment[]
+   */
+  public function getCapacityCommitments()
+  {
+    return $this->capacityCommitments;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Storagetransfer_AzureCredentials extends Google_Model
 {
-	public $sasToken;
+  public $sasToken;
 
-	public function setSasToken($sasToken)
-	{
-		$this->sasToken = $sasToken;
-	}
-	public function getSasToken()
-	{
-		return $this->sasToken;
-	}
+  public function setSasToken($sasToken)
+  {
+    $this->sasToken = $sasToken;
+  }
+  public function getSasToken()
+  {
+    return $this->sasToken;
+  }
 }

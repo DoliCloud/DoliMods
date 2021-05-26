@@ -17,32 +17,32 @@
 
 class Google_Service_Container_NodeTaint extends Google_Model
 {
-	public $effect;
-	public $key;
-	public $value;
+  public $effect;
+  public $key;
+  public $value;
 
-	public function setEffect($effect)
-	{
-		$this->effect = $effect;
-	}
-	public function getEffect()
-	{
-		return $this->effect;
-	}
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setEffect($effect)
+  {
+    $this->effect = $effect;
+  }
+  public function getEffect()
+  {
+    return $this->effect;
+  }
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

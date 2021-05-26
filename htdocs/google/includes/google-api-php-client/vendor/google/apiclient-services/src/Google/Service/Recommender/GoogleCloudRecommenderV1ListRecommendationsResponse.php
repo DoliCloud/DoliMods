@@ -17,31 +17,31 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1ListRecommendationsResponse extends Google_Collection
 {
-	protected $collection_key = 'recommendations';
-	public $nextPageToken;
-	protected $recommendationsType = 'Google_Service_Recommender_GoogleCloudRecommenderV1Recommendation';
-	protected $recommendationsDataType = 'array';
+  protected $collection_key = 'recommendations';
+  public $nextPageToken;
+  protected $recommendationsType = 'Google_Service_Recommender_GoogleCloudRecommenderV1Recommendation';
+  protected $recommendationsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Recommender_GoogleCloudRecommenderV1Recommendation
-	 */
-	public function setRecommendations($recommendations)
-	{
-		$this->recommendations = $recommendations;
-	}
-	/**
-	 * @return Google_Service_Recommender_GoogleCloudRecommenderV1Recommendation
-	 */
-	public function getRecommendations()
-	{
-		return $this->recommendations;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Recommender_GoogleCloudRecommenderV1Recommendation[]
+   */
+  public function setRecommendations($recommendations)
+  {
+    $this->recommendations = $recommendations;
+  }
+  /**
+   * @return Google_Service_Recommender_GoogleCloudRecommenderV1Recommendation[]
+   */
+  public function getRecommendations()
+  {
+    return $this->recommendations;
+  }
 }

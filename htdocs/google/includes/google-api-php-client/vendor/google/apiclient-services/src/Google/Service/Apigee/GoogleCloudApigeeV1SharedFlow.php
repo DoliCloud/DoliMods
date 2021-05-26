@@ -17,49 +17,49 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1SharedFlow extends Google_Collection
 {
-	protected $collection_key = 'revision';
-	public $latestRevisionId;
-	protected $metaDataType = 'Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata';
-	protected $metaDataDataType = '';
-	public $name;
-	public $revision;
+  protected $collection_key = 'revision';
+  public $latestRevisionId;
+  protected $metaDataType = 'Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata';
+  protected $metaDataDataType = '';
+  public $name;
+  public $revision;
 
-	public function setLatestRevisionId($latestRevisionId)
-	{
-		$this->latestRevisionId = $latestRevisionId;
-	}
-	public function getLatestRevisionId()
-	{
-		return $this->latestRevisionId;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata
-	 */
-	public function setMetaData(Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata $metaData)
-	{
-		$this->metaData = $metaData;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata
-	 */
-	public function getMetaData()
-	{
-		return $this->metaData;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRevision($revision)
-	{
-		$this->revision = $revision;
-	}
-	public function getRevision()
-	{
-		return $this->revision;
-	}
+  public function setLatestRevisionId($latestRevisionId)
+  {
+    $this->latestRevisionId = $latestRevisionId;
+  }
+  public function getLatestRevisionId()
+  {
+    return $this->latestRevisionId;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata
+   */
+  public function setMetaData(Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata $metaData)
+  {
+    $this->metaData = $metaData;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata
+   */
+  public function getMetaData()
+  {
+    return $this->metaData;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRevision($revision)
+  {
+    $this->revision = $revision;
+  }
+  public function getRevision()
+  {
+    return $this->revision;
+  }
 }

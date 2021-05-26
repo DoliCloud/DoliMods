@@ -17,69 +17,69 @@
 
 class Google_Service_Spanner_Backup extends Google_Collection
 {
-	protected $collection_key = 'referencingDatabases';
-	public $createTime;
-	public $database;
-	public $expireTime;
-	public $name;
-	public $referencingDatabases;
-	public $sizeBytes;
-	public $state;
+  protected $collection_key = 'referencingDatabases';
+  public $createTime;
+  public $database;
+  public $expireTime;
+  public $name;
+  public $referencingDatabases;
+  public $sizeBytes;
+  public $state;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDatabase($database)
-	{
-		$this->database = $database;
-	}
-	public function getDatabase()
-	{
-		return $this->database;
-	}
-	public function setExpireTime($expireTime)
-	{
-		$this->expireTime = $expireTime;
-	}
-	public function getExpireTime()
-	{
-		return $this->expireTime;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setReferencingDatabases($referencingDatabases)
-	{
-		$this->referencingDatabases = $referencingDatabases;
-	}
-	public function getReferencingDatabases()
-	{
-		return $this->referencingDatabases;
-	}
-	public function setSizeBytes($sizeBytes)
-	{
-		$this->sizeBytes = $sizeBytes;
-	}
-	public function getSizeBytes()
-	{
-		return $this->sizeBytes;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDatabase($database)
+  {
+    $this->database = $database;
+  }
+  public function getDatabase()
+  {
+    return $this->database;
+  }
+  public function setExpireTime($expireTime)
+  {
+    $this->expireTime = $expireTime;
+  }
+  public function getExpireTime()
+  {
+    return $this->expireTime;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setReferencingDatabases($referencingDatabases)
+  {
+    $this->referencingDatabases = $referencingDatabases;
+  }
+  public function getReferencingDatabases()
+  {
+    return $this->referencingDatabases;
+  }
+  public function setSizeBytes($sizeBytes)
+  {
+    $this->sizeBytes = $sizeBytes;
+  }
+  public function getSizeBytes()
+  {
+    return $this->sizeBytes;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

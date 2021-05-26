@@ -17,50 +17,50 @@
 
 class Google_Service_AdExchangeBuyer_TargetingValueDayPartTargetingDayPart extends Google_Model
 {
-	public $dayOfWeek;
-	public $endHour;
-	public $endMinute;
-	public $startHour;
-	public $startMinute;
+  public $dayOfWeek;
+  public $endHour;
+  public $endMinute;
+  public $startHour;
+  public $startMinute;
 
-	public function setDayOfWeek($dayOfWeek)
-	{
-		$this->dayOfWeek = $dayOfWeek;
-	}
-	public function getDayOfWeek()
-	{
-		return $this->dayOfWeek;
-	}
-	public function setEndHour($endHour)
-	{
-		$this->endHour = $endHour;
-	}
-	public function getEndHour()
-	{
-		return $this->endHour;
-	}
-	public function setEndMinute($endMinute)
-	{
-		$this->endMinute = $endMinute;
-	}
-	public function getEndMinute()
-	{
-		return $this->endMinute;
-	}
-	public function setStartHour($startHour)
-	{
-		$this->startHour = $startHour;
-	}
-	public function getStartHour()
-	{
-		return $this->startHour;
-	}
-	public function setStartMinute($startMinute)
-	{
-		$this->startMinute = $startMinute;
-	}
-	public function getStartMinute()
-	{
-		return $this->startMinute;
-	}
+  public function setDayOfWeek($dayOfWeek)
+  {
+    $this->dayOfWeek = $dayOfWeek;
+  }
+  public function getDayOfWeek()
+  {
+    return $this->dayOfWeek;
+  }
+  public function setEndHour($endHour)
+  {
+    $this->endHour = $endHour;
+  }
+  public function getEndHour()
+  {
+    return $this->endHour;
+  }
+  public function setEndMinute($endMinute)
+  {
+    $this->endMinute = $endMinute;
+  }
+  public function getEndMinute()
+  {
+    return $this->endMinute;
+  }
+  public function setStartHour($startHour)
+  {
+    $this->startHour = $startHour;
+  }
+  public function getStartHour()
+  {
+    return $this->startHour;
+  }
+  public function setStartMinute($startMinute)
+  {
+    $this->startMinute = $startMinute;
+  }
+  public function getStartMinute()
+  {
+    return $this->startMinute;
+  }
 }

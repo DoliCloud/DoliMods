@@ -17,48 +17,48 @@
 
 class Google_Service_Slides_CreateVideoRequest extends Google_Model
 {
-	protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
-	protected $elementPropertiesDataType = '';
-	public $id;
-	public $objectId;
-	public $source;
+  protected $elementPropertiesType = 'Google_Service_Slides_PageElementProperties';
+  protected $elementPropertiesDataType = '';
+  public $id;
+  public $objectId;
+  public $source;
 
-	/**
-	 * @param Google_Service_Slides_PageElementProperties
-	 */
-	public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
-	{
-		$this->elementProperties = $elementProperties;
-	}
-	/**
-	 * @return Google_Service_Slides_PageElementProperties
-	 */
-	public function getElementProperties()
-	{
-		return $this->elementProperties;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
-	public function setSource($source)
-	{
-		$this->source = $source;
-	}
-	public function getSource()
-	{
-		return $this->source;
-	}
+  /**
+   * @param Google_Service_Slides_PageElementProperties
+   */
+  public function setElementProperties(Google_Service_Slides_PageElementProperties $elementProperties)
+  {
+    $this->elementProperties = $elementProperties;
+  }
+  /**
+   * @return Google_Service_Slides_PageElementProperties
+   */
+  public function getElementProperties()
+  {
+    return $this->elementProperties;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
+  public function setSource($source)
+  {
+    $this->source = $source;
+  }
+  public function getSource()
+  {
+    return $this->source;
+  }
 }

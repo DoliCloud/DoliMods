@@ -25,56 +25,56 @@
  */
 class Google_Service_Mirror_Resource_Subscriptions extends Google_Service_Resource
 {
-	/**
-	 * Deletes a subscription. (subscriptions.delete)
-	 *
-	 * @param string $id The ID of the subscription.
-	 * @param array $optParams Optional parameters.
-	 */
-	public function delete($id, $optParams = array())
-	{
-		$params = array('id' => $id);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params));
-	}
-	/**
-	 * Creates a new subscription. (subscriptions.insert)
-	 *
-	 * @param Google_Service_Mirror_Subscription $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Mirror_Subscription
-	 */
-	public function insert(Google_Service_Mirror_Subscription $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_Mirror_Subscription");
-	}
-	/**
-	 * Retrieves a list of subscriptions for the authenticated user and service.
-	 * (subscriptions.listSubscriptions)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Mirror_SubscriptionsListResponse
-	 */
-	public function listSubscriptions($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Mirror_SubscriptionsListResponse");
-	}
-	/**
-	 * Updates an existing subscription in place. (subscriptions.update)
-	 *
-	 * @param string $id The ID of the subscription.
-	 * @param Google_Service_Mirror_Subscription $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Mirror_Subscription
-	 */
-	public function update($id, Google_Service_Mirror_Subscription $postBody, $optParams = array())
-	{
-		$params = array('id' => $id, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_Mirror_Subscription");
-	}
+  /**
+   * Deletes a subscription. (subscriptions.delete)
+   *
+   * @param string $id The ID of the subscription.
+   * @param array $optParams Optional parameters.
+   */
+  public function delete($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params));
+  }
+  /**
+   * Creates a new subscription. (subscriptions.insert)
+   *
+   * @param Google_Service_Mirror_Subscription $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Mirror_Subscription
+   */
+  public function insert(Google_Service_Mirror_Subscription $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Mirror_Subscription");
+  }
+  /**
+   * Retrieves a list of subscriptions for the authenticated user and service.
+   * (subscriptions.listSubscriptions)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Mirror_SubscriptionsListResponse
+   */
+  public function listSubscriptions($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Mirror_SubscriptionsListResponse");
+  }
+  /**
+   * Updates an existing subscription in place. (subscriptions.update)
+   *
+   * @param string $id The ID of the subscription.
+   * @param Google_Service_Mirror_Subscription $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Mirror_Subscription
+   */
+  public function update($id, Google_Service_Mirror_Subscription $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_Mirror_Subscription");
+  }
 }

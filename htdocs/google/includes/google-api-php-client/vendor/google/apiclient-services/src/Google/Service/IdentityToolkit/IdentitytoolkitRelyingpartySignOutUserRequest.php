@@ -17,23 +17,23 @@
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartySignOutUserRequest extends Google_Model
 {
-	public $instanceId;
-	public $localId;
+  public $instanceId;
+  public $localId;
 
-	public function setInstanceId($instanceId)
-	{
-		$this->instanceId = $instanceId;
-	}
-	public function getInstanceId()
-	{
-		return $this->instanceId;
-	}
-	public function setLocalId($localId)
-	{
-		$this->localId = $localId;
-	}
-	public function getLocalId()
-	{
-		return $this->localId;
-	}
+  public function setInstanceId($instanceId)
+  {
+    $this->instanceId = $instanceId;
+  }
+  public function getInstanceId()
+  {
+    return $this->instanceId;
+  }
+  public function setLocalId($localId)
+  {
+    $this->localId = $localId;
+  }
+  public function getLocalId()
+  {
+    return $this->localId;
+  }
 }

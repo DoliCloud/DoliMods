@@ -17,14 +17,14 @@
 
 class Google_Service_AdExchangeBuyerII_RealtimeTimeRange extends Google_Model
 {
-	public $startTimestamp;
+  public $startTimestamp;
 
-	public function setStartTimestamp($startTimestamp)
-	{
-		$this->startTimestamp = $startTimestamp;
-	}
-	public function getStartTimestamp()
-	{
-		return $this->startTimestamp;
-	}
+  public function setStartTimestamp($startTimestamp)
+  {
+    $this->startTimestamp = $startTimestamp;
+  }
+  public function getStartTimestamp()
+  {
+    return $this->startTimestamp;
+  }
 }

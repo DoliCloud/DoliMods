@@ -17,41 +17,41 @@
 
 class Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod extends Google_Model
 {
-	public $carrier;
-	public $maxDaysInTransit;
-	public $methodName;
-	public $minDaysInTransit;
+  public $carrier;
+  public $maxDaysInTransit;
+  public $methodName;
+  public $minDaysInTransit;
 
-	public function setCarrier($carrier)
-	{
-		$this->carrier = $carrier;
-	}
-	public function getCarrier()
-	{
-		return $this->carrier;
-	}
-	public function setMaxDaysInTransit($maxDaysInTransit)
-	{
-		$this->maxDaysInTransit = $maxDaysInTransit;
-	}
-	public function getMaxDaysInTransit()
-	{
-		return $this->maxDaysInTransit;
-	}
-	public function setMethodName($methodName)
-	{
-		$this->methodName = $methodName;
-	}
-	public function getMethodName()
-	{
-		return $this->methodName;
-	}
-	public function setMinDaysInTransit($minDaysInTransit)
-	{
-		$this->minDaysInTransit = $minDaysInTransit;
-	}
-	public function getMinDaysInTransit()
-	{
-		return $this->minDaysInTransit;
-	}
+  public function setCarrier($carrier)
+  {
+    $this->carrier = $carrier;
+  }
+  public function getCarrier()
+  {
+    return $this->carrier;
+  }
+  public function setMaxDaysInTransit($maxDaysInTransit)
+  {
+    $this->maxDaysInTransit = $maxDaysInTransit;
+  }
+  public function getMaxDaysInTransit()
+  {
+    return $this->maxDaysInTransit;
+  }
+  public function setMethodName($methodName)
+  {
+    $this->methodName = $methodName;
+  }
+  public function getMethodName()
+  {
+    return $this->methodName;
+  }
+  public function setMinDaysInTransit($minDaysInTransit)
+  {
+    $this->minDaysInTransit = $minDaysInTransit;
+  }
+  public function getMinDaysInTransit()
+  {
+    return $this->minDaysInTransit;
+  }
 }

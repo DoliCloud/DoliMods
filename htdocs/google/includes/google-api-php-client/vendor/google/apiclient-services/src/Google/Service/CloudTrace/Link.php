@@ -17,48 +17,48 @@
 
 class Google_Service_CloudTrace_Link extends Google_Model
 {
-	protected $attributesType = 'Google_Service_CloudTrace_Attributes';
-	protected $attributesDataType = '';
-	public $spanId;
-	public $traceId;
-	public $type;
+  protected $attributesType = 'Google_Service_CloudTrace_Attributes';
+  protected $attributesDataType = '';
+  public $spanId;
+  public $traceId;
+  public $type;
 
-	/**
-	 * @param Google_Service_CloudTrace_Attributes
-	 */
-	public function setAttributes(Google_Service_CloudTrace_Attributes $attributes)
-	{
-		$this->attributes = $attributes;
-	}
-	/**
-	 * @return Google_Service_CloudTrace_Attributes
-	 */
-	public function getAttributes()
-	{
-		return $this->attributes;
-	}
-	public function setSpanId($spanId)
-	{
-		$this->spanId = $spanId;
-	}
-	public function getSpanId()
-	{
-		return $this->spanId;
-	}
-	public function setTraceId($traceId)
-	{
-		$this->traceId = $traceId;
-	}
-	public function getTraceId()
-	{
-		return $this->traceId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  /**
+   * @param Google_Service_CloudTrace_Attributes
+   */
+  public function setAttributes(Google_Service_CloudTrace_Attributes $attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  /**
+   * @return Google_Service_CloudTrace_Attributes
+   */
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
+  public function setSpanId($spanId)
+  {
+    $this->spanId = $spanId;
+  }
+  public function getSpanId()
+  {
+    return $this->spanId;
+  }
+  public function setTraceId($traceId)
+  {
+    $this->traceId = $traceId;
+  }
+  public function getTraceId()
+  {
+    return $this->traceId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

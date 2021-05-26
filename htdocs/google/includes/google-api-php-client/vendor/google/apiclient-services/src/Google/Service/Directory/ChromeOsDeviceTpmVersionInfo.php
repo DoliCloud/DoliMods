@@ -17,59 +17,59 @@
 
 class Google_Service_Directory_ChromeOsDeviceTpmVersionInfo extends Google_Model
 {
-	public $family;
-	public $firmwareVersion;
-	public $manufacturer;
-	public $specLevel;
-	public $tpmModel;
-	public $vendorSpecific;
+  public $family;
+  public $firmwareVersion;
+  public $manufacturer;
+  public $specLevel;
+  public $tpmModel;
+  public $vendorSpecific;
 
-	public function setFamily($family)
-	{
-		$this->family = $family;
-	}
-	public function getFamily()
-	{
-		return $this->family;
-	}
-	public function setFirmwareVersion($firmwareVersion)
-	{
-		$this->firmwareVersion = $firmwareVersion;
-	}
-	public function getFirmwareVersion()
-	{
-		return $this->firmwareVersion;
-	}
-	public function setManufacturer($manufacturer)
-	{
-		$this->manufacturer = $manufacturer;
-	}
-	public function getManufacturer()
-	{
-		return $this->manufacturer;
-	}
-	public function setSpecLevel($specLevel)
-	{
-		$this->specLevel = $specLevel;
-	}
-	public function getSpecLevel()
-	{
-		return $this->specLevel;
-	}
-	public function setTpmModel($tpmModel)
-	{
-		$this->tpmModel = $tpmModel;
-	}
-	public function getTpmModel()
-	{
-		return $this->tpmModel;
-	}
-	public function setVendorSpecific($vendorSpecific)
-	{
-		$this->vendorSpecific = $vendorSpecific;
-	}
-	public function getVendorSpecific()
-	{
-		return $this->vendorSpecific;
-	}
+  public function setFamily($family)
+  {
+    $this->family = $family;
+  }
+  public function getFamily()
+  {
+    return $this->family;
+  }
+  public function setFirmwareVersion($firmwareVersion)
+  {
+    $this->firmwareVersion = $firmwareVersion;
+  }
+  public function getFirmwareVersion()
+  {
+    return $this->firmwareVersion;
+  }
+  public function setManufacturer($manufacturer)
+  {
+    $this->manufacturer = $manufacturer;
+  }
+  public function getManufacturer()
+  {
+    return $this->manufacturer;
+  }
+  public function setSpecLevel($specLevel)
+  {
+    $this->specLevel = $specLevel;
+  }
+  public function getSpecLevel()
+  {
+    return $this->specLevel;
+  }
+  public function setTpmModel($tpmModel)
+  {
+    $this->tpmModel = $tpmModel;
+  }
+  public function getTpmModel()
+  {
+    return $this->tpmModel;
+  }
+  public function setVendorSpecific($vendorSpecific)
+  {
+    $this->vendorSpecific = $vendorSpecific;
+  }
+  public function getVendorSpecific()
+  {
+    return $this->vendorSpecific;
+  }
 }

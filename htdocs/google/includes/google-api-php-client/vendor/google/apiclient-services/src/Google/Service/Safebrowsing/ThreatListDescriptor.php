@@ -17,32 +17,32 @@
 
 class Google_Service_Safebrowsing_ThreatListDescriptor extends Google_Model
 {
-	public $platformType;
-	public $threatEntryType;
-	public $threatType;
+  public $platformType;
+  public $threatEntryType;
+  public $threatType;
 
-	public function setPlatformType($platformType)
-	{
-		$this->platformType = $platformType;
-	}
-	public function getPlatformType()
-	{
-		return $this->platformType;
-	}
-	public function setThreatEntryType($threatEntryType)
-	{
-		$this->threatEntryType = $threatEntryType;
-	}
-	public function getThreatEntryType()
-	{
-		return $this->threatEntryType;
-	}
-	public function setThreatType($threatType)
-	{
-		$this->threatType = $threatType;
-	}
-	public function getThreatType()
-	{
-		return $this->threatType;
-	}
+  public function setPlatformType($platformType)
+  {
+    $this->platformType = $platformType;
+  }
+  public function getPlatformType()
+  {
+    return $this->platformType;
+  }
+  public function setThreatEntryType($threatEntryType)
+  {
+    $this->threatEntryType = $threatEntryType;
+  }
+  public function getThreatEntryType()
+  {
+    return $this->threatEntryType;
+  }
+  public function setThreatType($threatType)
+  {
+    $this->threatType = $threatType;
+  }
+  public function getThreatType()
+  {
+    return $this->threatType;
+  }
 }

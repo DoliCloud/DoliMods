@@ -17,50 +17,50 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DatastoreConfig extends Google_Model
 {
-	public $bucketName;
-	public $datasetName;
-	public $path;
-	public $projectId;
-	public $tablePrefix;
+  public $bucketName;
+  public $datasetName;
+  public $path;
+  public $projectId;
+  public $tablePrefix;
 
-	public function setBucketName($bucketName)
-	{
-		$this->bucketName = $bucketName;
-	}
-	public function getBucketName()
-	{
-		return $this->bucketName;
-	}
-	public function setDatasetName($datasetName)
-	{
-		$this->datasetName = $datasetName;
-	}
-	public function getDatasetName()
-	{
-		return $this->datasetName;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setTablePrefix($tablePrefix)
-	{
-		$this->tablePrefix = $tablePrefix;
-	}
-	public function getTablePrefix()
-	{
-		return $this->tablePrefix;
-	}
+  public function setBucketName($bucketName)
+  {
+    $this->bucketName = $bucketName;
+  }
+  public function getBucketName()
+  {
+    return $this->bucketName;
+  }
+  public function setDatasetName($datasetName)
+  {
+    $this->datasetName = $datasetName;
+  }
+  public function getDatasetName()
+  {
+    return $this->datasetName;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setTablePrefix($tablePrefix)
+  {
+    $this->tablePrefix = $tablePrefix;
+  }
+  public function getTablePrefix()
+  {
+    return $this->tablePrefix;
+  }
 }

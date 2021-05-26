@@ -17,31 +17,31 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1ListInsightsResponse extends Google_Collection
 {
-	protected $collection_key = 'insights';
-	protected $insightsType = 'Google_Service_Recommender_GoogleCloudRecommenderV1Insight';
-	protected $insightsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'insights';
+  protected $insightsType = 'Google_Service_Recommender_GoogleCloudRecommenderV1Insight';
+  protected $insightsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Recommender_GoogleCloudRecommenderV1Insight
-	 */
-	public function setInsights($insights)
-	{
-		$this->insights = $insights;
-	}
-	/**
-	 * @return Google_Service_Recommender_GoogleCloudRecommenderV1Insight
-	 */
-	public function getInsights()
-	{
-		return $this->insights;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Recommender_GoogleCloudRecommenderV1Insight[]
+   */
+  public function setInsights($insights)
+  {
+    $this->insights = $insights;
+  }
+  /**
+   * @return Google_Service_Recommender_GoogleCloudRecommenderV1Insight[]
+   */
+  public function getInsights()
+  {
+    return $this->insights;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

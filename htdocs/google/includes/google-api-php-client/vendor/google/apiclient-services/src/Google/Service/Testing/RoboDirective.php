@@ -17,32 +17,32 @@
 
 class Google_Service_Testing_RoboDirective extends Google_Model
 {
-	public $actionType;
-	public $inputText;
-	public $resourceName;
+  public $actionType;
+  public $inputText;
+  public $resourceName;
 
-	public function setActionType($actionType)
-	{
-		$this->actionType = $actionType;
-	}
-	public function getActionType()
-	{
-		return $this->actionType;
-	}
-	public function setInputText($inputText)
-	{
-		$this->inputText = $inputText;
-	}
-	public function getInputText()
-	{
-		return $this->inputText;
-	}
-	public function setResourceName($resourceName)
-	{
-		$this->resourceName = $resourceName;
-	}
-	public function getResourceName()
-	{
-		return $this->resourceName;
-	}
+  public function setActionType($actionType)
+  {
+    $this->actionType = $actionType;
+  }
+  public function getActionType()
+  {
+    return $this->actionType;
+  }
+  public function setInputText($inputText)
+  {
+    $this->inputText = $inputText;
+  }
+  public function getInputText()
+  {
+    return $this->inputText;
+  }
+  public function setResourceName($resourceName)
+  {
+    $this->resourceName = $resourceName;
+  }
+  public function getResourceName()
+  {
+    return $this->resourceName;
+  }
 }

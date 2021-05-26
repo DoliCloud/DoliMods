@@ -25,20 +25,20 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsEnvironmentsSharedflowsDeployments extends Google_Service_Resource
 {
-	/**
-	 * Lists all deployments of a shared flow in an environment.
-	 * (deployments.listOrganizationsEnvironmentsSharedflowsDeployments)
-	 *
-	 * @param string $parent Required. Name representing a shared flow in an
-	 *                       environment in the following format:
-	 *                       `organizations/{org}/environments/{env}/sharedflows/{sharedflow}`
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
-	 */
-	public function listOrganizationsEnvironmentsSharedflowsDeployments($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
-	}
+  /**
+   * Lists all deployments of a shared flow in an environment.
+   * (deployments.listOrganizationsEnvironmentsSharedflowsDeployments)
+   *
+   * @param string $parent Required. Name representing a shared flow in an
+   * environment in the following format:
+   * `organizations/{org}/environments/{env}/sharedflows/{sharedflow}`
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
+   */
+  public function listOrganizationsEnvironmentsSharedflowsDeployments($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
+  }
 }

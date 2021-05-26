@@ -17,22 +17,22 @@
 
 class Google_Service_Classroom_ModifyAttachmentsRequest extends Google_Collection
 {
-	protected $collection_key = 'addAttachments';
-	protected $addAttachmentsType = 'Google_Service_Classroom_Attachment';
-	protected $addAttachmentsDataType = 'array';
+  protected $collection_key = 'addAttachments';
+  protected $addAttachmentsType = 'Google_Service_Classroom_Attachment';
+  protected $addAttachmentsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Classroom_Attachment
-	 */
-	public function setAddAttachments($addAttachments)
-	{
-		$this->addAttachments = $addAttachments;
-	}
-	/**
-	 * @return Google_Service_Classroom_Attachment
-	 */
-	public function getAddAttachments()
-	{
-		return $this->addAttachments;
-	}
+  /**
+   * @param Google_Service_Classroom_Attachment[]
+   */
+  public function setAddAttachments($addAttachments)
+  {
+    $this->addAttachments = $addAttachments;
+  }
+  /**
+   * @return Google_Service_Classroom_Attachment[]
+   */
+  public function getAddAttachments()
+  {
+    return $this->addAttachments;
+  }
 }

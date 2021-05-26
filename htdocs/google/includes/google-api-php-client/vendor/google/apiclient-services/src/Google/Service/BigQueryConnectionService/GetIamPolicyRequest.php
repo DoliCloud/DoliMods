@@ -17,21 +17,21 @@
 
 class Google_Service_BigQueryConnectionService_GetIamPolicyRequest extends Google_Model
 {
-	protected $optionsType = 'Google_Service_BigQueryConnectionService_GetPolicyOptions';
-	protected $optionsDataType = '';
+  protected $optionsType = 'Google_Service_BigQueryConnectionService_GetPolicyOptions';
+  protected $optionsDataType = '';
 
-	/**
-	 * @param Google_Service_BigQueryConnectionService_GetPolicyOptions
-	 */
-	public function setOptions(Google_Service_BigQueryConnectionService_GetPolicyOptions $options)
-	{
-		$this->options = $options;
-	}
-	/**
-	 * @return Google_Service_BigQueryConnectionService_GetPolicyOptions
-	 */
-	public function getOptions()
-	{
-		return $this->options;
-	}
+  /**
+   * @param Google_Service_BigQueryConnectionService_GetPolicyOptions
+   */
+  public function setOptions(Google_Service_BigQueryConnectionService_GetPolicyOptions $options)
+  {
+    $this->options = $options;
+  }
+  /**
+   * @return Google_Service_BigQueryConnectionService_GetPolicyOptions
+   */
+  public function getOptions()
+  {
+    return $this->options;
+  }
 }

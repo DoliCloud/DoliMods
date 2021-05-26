@@ -17,30 +17,30 @@
 
 class Google_Service_ShoppingContent_OrderLineItemProductFee extends Google_Model
 {
-	protected $amountType = 'Google_Service_ShoppingContent_Price';
-	protected $amountDataType = '';
-	public $name;
+  protected $amountType = 'Google_Service_ShoppingContent_Price';
+  protected $amountDataType = '';
+  public $name;
 
-	/**
-	 * @param Google_Service_ShoppingContent_Price
-	 */
-	public function setAmount(Google_Service_ShoppingContent_Price $amount)
-	{
-		$this->amount = $amount;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_Price
-	 */
-	public function getAmount()
-	{
-		return $this->amount;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_Price
+   */
+  public function setAmount(Google_Service_ShoppingContent_Price $amount)
+  {
+    $this->amount = $amount;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_Price
+   */
+  public function getAmount()
+  {
+    return $this->amount;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

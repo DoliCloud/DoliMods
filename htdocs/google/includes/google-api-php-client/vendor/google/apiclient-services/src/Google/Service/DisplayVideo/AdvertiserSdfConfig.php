@@ -17,30 +17,30 @@
 
 class Google_Service_DisplayVideo_AdvertiserSdfConfig extends Google_Model
 {
-	public $overridePartnerSdfConfig;
-	protected $sdfConfigType = 'Google_Service_DisplayVideo_SdfConfig';
-	protected $sdfConfigDataType = '';
+  public $overridePartnerSdfConfig;
+  protected $sdfConfigType = 'Google_Service_DisplayVideo_SdfConfig';
+  protected $sdfConfigDataType = '';
 
-	public function setOverridePartnerSdfConfig($overridePartnerSdfConfig)
-	{
-		$this->overridePartnerSdfConfig = $overridePartnerSdfConfig;
-	}
-	public function getOverridePartnerSdfConfig()
-	{
-		return $this->overridePartnerSdfConfig;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_SdfConfig
-	 */
-	public function setSdfConfig(Google_Service_DisplayVideo_SdfConfig $sdfConfig)
-	{
-		$this->sdfConfig = $sdfConfig;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_SdfConfig
-	 */
-	public function getSdfConfig()
-	{
-		return $this->sdfConfig;
-	}
+  public function setOverridePartnerSdfConfig($overridePartnerSdfConfig)
+  {
+    $this->overridePartnerSdfConfig = $overridePartnerSdfConfig;
+  }
+  public function getOverridePartnerSdfConfig()
+  {
+    return $this->overridePartnerSdfConfig;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_SdfConfig
+   */
+  public function setSdfConfig(Google_Service_DisplayVideo_SdfConfig $sdfConfig)
+  {
+    $this->sdfConfig = $sdfConfig;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_SdfConfig
+   */
+  public function getSdfConfig()
+  {
+    return $this->sdfConfig;
+  }
 }

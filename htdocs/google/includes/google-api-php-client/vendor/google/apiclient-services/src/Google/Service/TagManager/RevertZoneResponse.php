@@ -17,21 +17,21 @@
 
 class Google_Service_TagManager_RevertZoneResponse extends Google_Model
 {
-	protected $zoneType = 'Google_Service_TagManager_Zone';
-	protected $zoneDataType = '';
+  protected $zoneType = 'Google_Service_TagManager_Zone';
+  protected $zoneDataType = '';
 
-	/**
-	 * @param Google_Service_TagManager_Zone
-	 */
-	public function setZone(Google_Service_TagManager_Zone $zone)
-	{
-		$this->zone = $zone;
-	}
-	/**
-	 * @return Google_Service_TagManager_Zone
-	 */
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  /**
+   * @param Google_Service_TagManager_Zone
+   */
+  public function setZone(Google_Service_TagManager_Zone $zone)
+  {
+    $this->zone = $zone;
+  }
+  /**
+   * @return Google_Service_TagManager_Zone
+   */
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

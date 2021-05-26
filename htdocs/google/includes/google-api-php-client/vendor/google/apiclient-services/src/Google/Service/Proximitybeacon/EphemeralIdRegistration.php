@@ -17,59 +17,59 @@
 
 class Google_Service_Proximitybeacon_EphemeralIdRegistration extends Google_Model
 {
-	public $beaconEcdhPublicKey;
-	public $beaconIdentityKey;
-	public $initialClockValue;
-	public $initialEid;
-	public $rotationPeriodExponent;
-	public $serviceEcdhPublicKey;
+  public $beaconEcdhPublicKey;
+  public $beaconIdentityKey;
+  public $initialClockValue;
+  public $initialEid;
+  public $rotationPeriodExponent;
+  public $serviceEcdhPublicKey;
 
-	public function setBeaconEcdhPublicKey($beaconEcdhPublicKey)
-	{
-		$this->beaconEcdhPublicKey = $beaconEcdhPublicKey;
-	}
-	public function getBeaconEcdhPublicKey()
-	{
-		return $this->beaconEcdhPublicKey;
-	}
-	public function setBeaconIdentityKey($beaconIdentityKey)
-	{
-		$this->beaconIdentityKey = $beaconIdentityKey;
-	}
-	public function getBeaconIdentityKey()
-	{
-		return $this->beaconIdentityKey;
-	}
-	public function setInitialClockValue($initialClockValue)
-	{
-		$this->initialClockValue = $initialClockValue;
-	}
-	public function getInitialClockValue()
-	{
-		return $this->initialClockValue;
-	}
-	public function setInitialEid($initialEid)
-	{
-		$this->initialEid = $initialEid;
-	}
-	public function getInitialEid()
-	{
-		return $this->initialEid;
-	}
-	public function setRotationPeriodExponent($rotationPeriodExponent)
-	{
-		$this->rotationPeriodExponent = $rotationPeriodExponent;
-	}
-	public function getRotationPeriodExponent()
-	{
-		return $this->rotationPeriodExponent;
-	}
-	public function setServiceEcdhPublicKey($serviceEcdhPublicKey)
-	{
-		$this->serviceEcdhPublicKey = $serviceEcdhPublicKey;
-	}
-	public function getServiceEcdhPublicKey()
-	{
-		return $this->serviceEcdhPublicKey;
-	}
+  public function setBeaconEcdhPublicKey($beaconEcdhPublicKey)
+  {
+    $this->beaconEcdhPublicKey = $beaconEcdhPublicKey;
+  }
+  public function getBeaconEcdhPublicKey()
+  {
+    return $this->beaconEcdhPublicKey;
+  }
+  public function setBeaconIdentityKey($beaconIdentityKey)
+  {
+    $this->beaconIdentityKey = $beaconIdentityKey;
+  }
+  public function getBeaconIdentityKey()
+  {
+    return $this->beaconIdentityKey;
+  }
+  public function setInitialClockValue($initialClockValue)
+  {
+    $this->initialClockValue = $initialClockValue;
+  }
+  public function getInitialClockValue()
+  {
+    return $this->initialClockValue;
+  }
+  public function setInitialEid($initialEid)
+  {
+    $this->initialEid = $initialEid;
+  }
+  public function getInitialEid()
+  {
+    return $this->initialEid;
+  }
+  public function setRotationPeriodExponent($rotationPeriodExponent)
+  {
+    $this->rotationPeriodExponent = $rotationPeriodExponent;
+  }
+  public function getRotationPeriodExponent()
+  {
+    return $this->rotationPeriodExponent;
+  }
+  public function setServiceEcdhPublicKey($serviceEcdhPublicKey)
+  {
+    $this->serviceEcdhPublicKey = $serviceEcdhPublicKey;
+  }
+  public function getServiceEcdhPublicKey()
+  {
+    return $this->serviceEcdhPublicKey;
+  }
 }

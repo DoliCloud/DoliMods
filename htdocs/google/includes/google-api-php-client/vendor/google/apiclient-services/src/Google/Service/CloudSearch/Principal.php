@@ -17,39 +17,39 @@
 
 class Google_Service_CloudSearch_Principal extends Google_Model
 {
-	public $groupResourceName;
-	protected $gsuitePrincipalType = 'Google_Service_CloudSearch_GSuitePrincipal';
-	protected $gsuitePrincipalDataType = '';
-	public $userResourceName;
+  public $groupResourceName;
+  protected $gsuitePrincipalType = 'Google_Service_CloudSearch_GSuitePrincipal';
+  protected $gsuitePrincipalDataType = '';
+  public $userResourceName;
 
-	public function setGroupResourceName($groupResourceName)
-	{
-		$this->groupResourceName = $groupResourceName;
-	}
-	public function getGroupResourceName()
-	{
-		return $this->groupResourceName;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_GSuitePrincipal
-	 */
-	public function setGsuitePrincipal(Google_Service_CloudSearch_GSuitePrincipal $gsuitePrincipal)
-	{
-		$this->gsuitePrincipal = $gsuitePrincipal;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_GSuitePrincipal
-	 */
-	public function getGsuitePrincipal()
-	{
-		return $this->gsuitePrincipal;
-	}
-	public function setUserResourceName($userResourceName)
-	{
-		$this->userResourceName = $userResourceName;
-	}
-	public function getUserResourceName()
-	{
-		return $this->userResourceName;
-	}
+  public function setGroupResourceName($groupResourceName)
+  {
+    $this->groupResourceName = $groupResourceName;
+  }
+  public function getGroupResourceName()
+  {
+    return $this->groupResourceName;
+  }
+  /**
+   * @param Google_Service_CloudSearch_GSuitePrincipal
+   */
+  public function setGsuitePrincipal(Google_Service_CloudSearch_GSuitePrincipal $gsuitePrincipal)
+  {
+    $this->gsuitePrincipal = $gsuitePrincipal;
+  }
+  /**
+   * @return Google_Service_CloudSearch_GSuitePrincipal
+   */
+  public function getGsuitePrincipal()
+  {
+    return $this->gsuitePrincipal;
+  }
+  public function setUserResourceName($userResourceName)
+  {
+    $this->userResourceName = $userResourceName;
+  }
+  public function getUserResourceName()
+  {
+    return $this->userResourceName;
+  }
 }

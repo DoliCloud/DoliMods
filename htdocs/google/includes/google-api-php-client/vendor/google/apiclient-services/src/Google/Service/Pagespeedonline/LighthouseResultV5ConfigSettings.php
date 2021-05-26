@@ -17,32 +17,32 @@
 
 class Google_Service_Pagespeedonline_LighthouseResultV5ConfigSettings extends Google_Model
 {
-	public $emulatedFormFactor;
-	public $locale;
-	public $onlyCategories;
+  public $emulatedFormFactor;
+  public $locale;
+  public $onlyCategories;
 
-	public function setEmulatedFormFactor($emulatedFormFactor)
-	{
-		$this->emulatedFormFactor = $emulatedFormFactor;
-	}
-	public function getEmulatedFormFactor()
-	{
-		return $this->emulatedFormFactor;
-	}
-	public function setLocale($locale)
-	{
-		$this->locale = $locale;
-	}
-	public function getLocale()
-	{
-		return $this->locale;
-	}
-	public function setOnlyCategories($onlyCategories)
-	{
-		$this->onlyCategories = $onlyCategories;
-	}
-	public function getOnlyCategories()
-	{
-		return $this->onlyCategories;
-	}
+  public function setEmulatedFormFactor($emulatedFormFactor)
+  {
+    $this->emulatedFormFactor = $emulatedFormFactor;
+  }
+  public function getEmulatedFormFactor()
+  {
+    return $this->emulatedFormFactor;
+  }
+  public function setLocale($locale)
+  {
+    $this->locale = $locale;
+  }
+  public function getLocale()
+  {
+    return $this->locale;
+  }
+  public function setOnlyCategories($onlyCategories)
+  {
+    $this->onlyCategories = $onlyCategories;
+  }
+  public function getOnlyCategories()
+  {
+    return $this->onlyCategories;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidProvisioningPartner_DevicesLongRunningOperationResponse extends Google_Collection
 {
-	protected $collection_key = 'perDeviceStatus';
-	protected $perDeviceStatusType = 'Google_Service_AndroidProvisioningPartner_OperationPerDevice';
-	protected $perDeviceStatusDataType = 'array';
-	public $successCount;
+  protected $collection_key = 'perDeviceStatus';
+  protected $perDeviceStatusType = 'Google_Service_AndroidProvisioningPartner_OperationPerDevice';
+  protected $perDeviceStatusDataType = 'array';
+  public $successCount;
 
-	/**
-	 * @param Google_Service_AndroidProvisioningPartner_OperationPerDevice
-	 */
-	public function setPerDeviceStatus($perDeviceStatus)
-	{
-		$this->perDeviceStatus = $perDeviceStatus;
-	}
-	/**
-	 * @return Google_Service_AndroidProvisioningPartner_OperationPerDevice
-	 */
-	public function getPerDeviceStatus()
-	{
-		return $this->perDeviceStatus;
-	}
-	public function setSuccessCount($successCount)
-	{
-		$this->successCount = $successCount;
-	}
-	public function getSuccessCount()
-	{
-		return $this->successCount;
-	}
+  /**
+   * @param Google_Service_AndroidProvisioningPartner_OperationPerDevice[]
+   */
+  public function setPerDeviceStatus($perDeviceStatus)
+  {
+    $this->perDeviceStatus = $perDeviceStatus;
+  }
+  /**
+   * @return Google_Service_AndroidProvisioningPartner_OperationPerDevice[]
+   */
+  public function getPerDeviceStatus()
+  {
+    return $this->perDeviceStatus;
+  }
+  public function setSuccessCount($successCount)
+  {
+    $this->successCount = $successCount;
+  }
+  public function getSuccessCount()
+  {
+    return $this->successCount;
+  }
 }

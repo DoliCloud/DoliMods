@@ -17,14 +17,14 @@
 
 class Google_Service_Autoscaler_AutoscalingPolicyCpuUtilization extends Google_Model
 {
-	public $utilizationTarget;
+  public $utilizationTarget;
 
-	public function setUtilizationTarget($utilizationTarget)
-	{
-		$this->utilizationTarget = $utilizationTarget;
-	}
-	public function getUtilizationTarget()
-	{
-		return $this->utilizationTarget;
-	}
+  public function setUtilizationTarget($utilizationTarget)
+  {
+    $this->utilizationTarget = $utilizationTarget;
+  }
+  public function getUtilizationTarget()
+  {
+    return $this->utilizationTarget;
+  }
 }

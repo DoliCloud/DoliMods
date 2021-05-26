@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_GetCustomerUserStatsResponse extends Google_Collection
 {
-	protected $collection_key = 'stats';
-	protected $statsType = 'Google_Service_CloudSearch_CustomerUserStats';
-	protected $statsDataType = 'array';
+  protected $collection_key = 'stats';
+  protected $statsType = 'Google_Service_CloudSearch_CustomerUserStats';
+  protected $statsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudSearch_CustomerUserStats
-	 */
-	public function setStats($stats)
-	{
-		$this->stats = $stats;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_CustomerUserStats
-	 */
-	public function getStats()
-	{
-		return $this->stats;
-	}
+  /**
+   * @param Google_Service_CloudSearch_CustomerUserStats[]
+   */
+  public function setStats($stats)
+  {
+    $this->stats = $stats;
+  }
+  /**
+   * @return Google_Service_CloudSearch_CustomerUserStats[]
+   */
+  public function getStats()
+  {
+    return $this->stats;
+  }
 }

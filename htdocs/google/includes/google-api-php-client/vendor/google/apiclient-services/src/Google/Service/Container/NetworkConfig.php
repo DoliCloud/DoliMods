@@ -17,32 +17,48 @@
 
 class Google_Service_Container_NetworkConfig extends Google_Model
 {
-	public $enableIntraNodeVisibility;
-	public $network;
-	public $subnetwork;
+  protected $defaultSnatStatusType = 'Google_Service_Container_DefaultSnatStatus';
+  protected $defaultSnatStatusDataType = '';
+  public $enableIntraNodeVisibility;
+  public $network;
+  public $subnetwork;
 
-	public function setEnableIntraNodeVisibility($enableIntraNodeVisibility)
-	{
-		$this->enableIntraNodeVisibility = $enableIntraNodeVisibility;
-	}
-	public function getEnableIntraNodeVisibility()
-	{
-		return $this->enableIntraNodeVisibility;
-	}
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setSubnetwork($subnetwork)
-	{
-		$this->subnetwork = $subnetwork;
-	}
-	public function getSubnetwork()
-	{
-		return $this->subnetwork;
-	}
+  /**
+   * @param Google_Service_Container_DefaultSnatStatus
+   */
+  public function setDefaultSnatStatus(Google_Service_Container_DefaultSnatStatus $defaultSnatStatus)
+  {
+    $this->defaultSnatStatus = $defaultSnatStatus;
+  }
+  /**
+   * @return Google_Service_Container_DefaultSnatStatus
+   */
+  public function getDefaultSnatStatus()
+  {
+    return $this->defaultSnatStatus;
+  }
+  public function setEnableIntraNodeVisibility($enableIntraNodeVisibility)
+  {
+    $this->enableIntraNodeVisibility = $enableIntraNodeVisibility;
+  }
+  public function getEnableIntraNodeVisibility()
+  {
+    return $this->enableIntraNodeVisibility;
+  }
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setSubnetwork($subnetwork)
+  {
+    $this->subnetwork = $subnetwork;
+  }
+  public function getSubnetwork()
+  {
+    return $this->subnetwork;
+  }
 }

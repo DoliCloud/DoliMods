@@ -17,32 +17,32 @@
 
 class Google_Service_Docs_ReplaceNamedRangeContentRequest extends Google_Model
 {
-	public $namedRangeId;
-	public $namedRangeName;
-	public $text;
+  public $namedRangeId;
+  public $namedRangeName;
+  public $text;
 
-	public function setNamedRangeId($namedRangeId)
-	{
-		$this->namedRangeId = $namedRangeId;
-	}
-	public function getNamedRangeId()
-	{
-		return $this->namedRangeId;
-	}
-	public function setNamedRangeName($namedRangeName)
-	{
-		$this->namedRangeName = $namedRangeName;
-	}
-	public function getNamedRangeName()
-	{
-		return $this->namedRangeName;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  public function setNamedRangeId($namedRangeId)
+  {
+    $this->namedRangeId = $namedRangeId;
+  }
+  public function getNamedRangeId()
+  {
+    return $this->namedRangeId;
+  }
+  public function setNamedRangeName($namedRangeName)
+  {
+    $this->namedRangeName = $namedRangeName;
+  }
+  public function getNamedRangeName()
+  {
+    return $this->namedRangeName;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

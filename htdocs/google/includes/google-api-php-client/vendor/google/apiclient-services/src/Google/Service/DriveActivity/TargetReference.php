@@ -17,53 +17,53 @@
 
 class Google_Service_DriveActivity_TargetReference extends Google_Model
 {
-	protected $driveType = 'Google_Service_DriveActivity_DriveReference';
-	protected $driveDataType = '';
-	protected $driveItemType = 'Google_Service_DriveActivity_DriveItemReference';
-	protected $driveItemDataType = '';
-	protected $teamDriveType = 'Google_Service_DriveActivity_TeamDriveReference';
-	protected $teamDriveDataType = '';
+  protected $driveType = 'Google_Service_DriveActivity_DriveReference';
+  protected $driveDataType = '';
+  protected $driveItemType = 'Google_Service_DriveActivity_DriveItemReference';
+  protected $driveItemDataType = '';
+  protected $teamDriveType = 'Google_Service_DriveActivity_TeamDriveReference';
+  protected $teamDriveDataType = '';
 
-	/**
-	 * @param Google_Service_DriveActivity_DriveReference
-	 */
-	public function setDrive(Google_Service_DriveActivity_DriveReference $drive)
-	{
-		$this->drive = $drive;
-	}
-	/**
-	 * @return Google_Service_DriveActivity_DriveReference
-	 */
-	public function getDrive()
-	{
-		return $this->drive;
-	}
-	/**
-	 * @param Google_Service_DriveActivity_DriveItemReference
-	 */
-	public function setDriveItem(Google_Service_DriveActivity_DriveItemReference $driveItem)
-	{
-		$this->driveItem = $driveItem;
-	}
-	/**
-	 * @return Google_Service_DriveActivity_DriveItemReference
-	 */
-	public function getDriveItem()
-	{
-		return $this->driveItem;
-	}
-	/**
-	 * @param Google_Service_DriveActivity_TeamDriveReference
-	 */
-	public function setTeamDrive(Google_Service_DriveActivity_TeamDriveReference $teamDrive)
-	{
-		$this->teamDrive = $teamDrive;
-	}
-	/**
-	 * @return Google_Service_DriveActivity_TeamDriveReference
-	 */
-	public function getTeamDrive()
-	{
-		return $this->teamDrive;
-	}
+  /**
+   * @param Google_Service_DriveActivity_DriveReference
+   */
+  public function setDrive(Google_Service_DriveActivity_DriveReference $drive)
+  {
+    $this->drive = $drive;
+  }
+  /**
+   * @return Google_Service_DriveActivity_DriveReference
+   */
+  public function getDrive()
+  {
+    return $this->drive;
+  }
+  /**
+   * @param Google_Service_DriveActivity_DriveItemReference
+   */
+  public function setDriveItem(Google_Service_DriveActivity_DriveItemReference $driveItem)
+  {
+    $this->driveItem = $driveItem;
+  }
+  /**
+   * @return Google_Service_DriveActivity_DriveItemReference
+   */
+  public function getDriveItem()
+  {
+    return $this->driveItem;
+  }
+  /**
+   * @param Google_Service_DriveActivity_TeamDriveReference
+   */
+  public function setTeamDrive(Google_Service_DriveActivity_TeamDriveReference $teamDrive)
+  {
+    $this->teamDrive = $teamDrive;
+  }
+  /**
+   * @return Google_Service_DriveActivity_TeamDriveReference
+   */
+  public function getTeamDrive()
+  {
+    return $this->teamDrive;
+  }
 }

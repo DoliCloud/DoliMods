@@ -17,32 +17,32 @@
 
 class Google_Service_AdExchangeBuyerII_CreativeDealAssociation extends Google_Model
 {
-	public $accountId;
-	public $creativeId;
-	public $dealsId;
+  public $accountId;
+  public $creativeId;
+  public $dealsId;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	public function setCreativeId($creativeId)
-	{
-		$this->creativeId = $creativeId;
-	}
-	public function getCreativeId()
-	{
-		return $this->creativeId;
-	}
-	public function setDealsId($dealsId)
-	{
-		$this->dealsId = $dealsId;
-	}
-	public function getDealsId()
-	{
-		return $this->dealsId;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  public function setCreativeId($creativeId)
+  {
+    $this->creativeId = $creativeId;
+  }
+  public function getCreativeId()
+  {
+    return $this->creativeId;
+  }
+  public function setDealsId($dealsId)
+  {
+    $this->dealsId = $dealsId;
+  }
+  public function getDealsId()
+  {
+    return $this->dealsId;
+  }
 }

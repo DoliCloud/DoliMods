@@ -17,32 +17,32 @@
 
 class Google_Service_Devprojects_BucketId extends Google_Model
 {
-	public $bucketName;
-	public $kind;
-	public $namespace;
+  public $bucketName;
+  public $kind;
+  public $namespace;
 
-	public function setBucketName($bucketName)
-	{
-		$this->bucketName = $bucketName;
-	}
-	public function getBucketName()
-	{
-		return $this->bucketName;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNamespace($namespace)
-	{
-		$this->namespace = $namespace;
-	}
-	public function getNamespace()
-	{
-		return $this->namespace;
-	}
+  public function setBucketName($bucketName)
+  {
+    $this->bucketName = $bucketName;
+  }
+  public function getBucketName()
+  {
+    return $this->bucketName;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNamespace($namespace)
+  {
+    $this->namespace = $namespace;
+  }
+  public function getNamespace()
+  {
+    return $this->namespace;
+  }
 }

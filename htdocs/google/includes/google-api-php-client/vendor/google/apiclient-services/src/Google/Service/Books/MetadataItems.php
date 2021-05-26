@@ -17,54 +17,54 @@
 
 class Google_Service_Books_MetadataItems extends Google_Model
 {
-	protected $internal_gapi_mappings = array(
-		"downloadUrl" => "download_url",
-		"encryptedKey" => "encrypted_key",
-	);
-	public $downloadUrl;
-	public $encryptedKey;
-	public $language;
-	public $size;
-	public $version;
+  protected $internal_gapi_mappings = array(
+        "downloadUrl" => "download_url",
+        "encryptedKey" => "encrypted_key",
+  );
+  public $downloadUrl;
+  public $encryptedKey;
+  public $language;
+  public $size;
+  public $version;
 
-	public function setDownloadUrl($downloadUrl)
-	{
-		$this->downloadUrl = $downloadUrl;
-	}
-	public function getDownloadUrl()
-	{
-		return $this->downloadUrl;
-	}
-	public function setEncryptedKey($encryptedKey)
-	{
-		$this->encryptedKey = $encryptedKey;
-	}
-	public function getEncryptedKey()
-	{
-		return $this->encryptedKey;
-	}
-	public function setLanguage($language)
-	{
-		$this->language = $language;
-	}
-	public function getLanguage()
-	{
-		return $this->language;
-	}
-	public function setSize($size)
-	{
-		$this->size = $size;
-	}
-	public function getSize()
-	{
-		return $this->size;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setDownloadUrl($downloadUrl)
+  {
+    $this->downloadUrl = $downloadUrl;
+  }
+  public function getDownloadUrl()
+  {
+    return $this->downloadUrl;
+  }
+  public function setEncryptedKey($encryptedKey)
+  {
+    $this->encryptedKey = $encryptedKey;
+  }
+  public function getEncryptedKey()
+  {
+    return $this->encryptedKey;
+  }
+  public function setLanguage($language)
+  {
+    $this->language = $language;
+  }
+  public function getLanguage()
+  {
+    return $this->language;
+  }
+  public function setSize($size)
+  {
+    $this->size = $size;
+  }
+  public function getSize()
+  {
+    return $this->size;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

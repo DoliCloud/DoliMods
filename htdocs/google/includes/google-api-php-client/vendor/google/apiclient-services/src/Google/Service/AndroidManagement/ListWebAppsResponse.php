@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidManagement_ListWebAppsResponse extends Google_Collection
 {
-	protected $collection_key = 'webApps';
-	public $nextPageToken;
-	protected $webAppsType = 'Google_Service_AndroidManagement_WebApp';
-	protected $webAppsDataType = 'array';
+  protected $collection_key = 'webApps';
+  public $nextPageToken;
+  protected $webAppsType = 'Google_Service_AndroidManagement_WebApp';
+  protected $webAppsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_AndroidManagement_WebApp
-	 */
-	public function setWebApps($webApps)
-	{
-		$this->webApps = $webApps;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_WebApp
-	 */
-	public function getWebApps()
-	{
-		return $this->webApps;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_AndroidManagement_WebApp[]
+   */
+  public function setWebApps($webApps)
+  {
+    $this->webApps = $webApps;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_WebApp[]
+   */
+  public function getWebApps()
+  {
+    return $this->webApps;
+  }
 }

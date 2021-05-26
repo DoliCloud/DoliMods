@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceUsage_ImportConsumerOverridesResponse extends Google_Collection
 {
-	protected $collection_key = 'overrides';
-	protected $overridesType = 'Google_Service_ServiceUsage_QuotaOverride';
-	protected $overridesDataType = 'array';
+  protected $collection_key = 'overrides';
+  protected $overridesType = 'Google_Service_ServiceUsage_QuotaOverride';
+  protected $overridesDataType = 'array';
 
-	/**
-	 * @param Google_Service_ServiceUsage_QuotaOverride
-	 */
-	public function setOverrides($overrides)
-	{
-		$this->overrides = $overrides;
-	}
-	/**
-	 * @return Google_Service_ServiceUsage_QuotaOverride
-	 */
-	public function getOverrides()
-	{
-		return $this->overrides;
-	}
+  /**
+   * @param Google_Service_ServiceUsage_QuotaOverride[]
+   */
+  public function setOverrides($overrides)
+  {
+    $this->overrides = $overrides;
+  }
+  /**
+   * @return Google_Service_ServiceUsage_QuotaOverride[]
+   */
+  public function getOverrides()
+  {
+    return $this->overrides;
+  }
 }

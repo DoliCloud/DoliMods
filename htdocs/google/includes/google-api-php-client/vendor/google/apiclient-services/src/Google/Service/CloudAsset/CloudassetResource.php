@@ -17,68 +17,68 @@
 
 class Google_Service_CloudAsset_CloudassetResource extends Google_Model
 {
-	public $data;
-	public $discoveryDocumentUri;
-	public $discoveryName;
-	public $location;
-	public $parent;
-	public $resourceUrl;
-	public $version;
+  public $data;
+  public $discoveryDocumentUri;
+  public $discoveryName;
+  public $location;
+  public $parent;
+  public $resourceUrl;
+  public $version;
 
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setDiscoveryDocumentUri($discoveryDocumentUri)
-	{
-		$this->discoveryDocumentUri = $discoveryDocumentUri;
-	}
-	public function getDiscoveryDocumentUri()
-	{
-		return $this->discoveryDocumentUri;
-	}
-	public function setDiscoveryName($discoveryName)
-	{
-		$this->discoveryName = $discoveryName;
-	}
-	public function getDiscoveryName()
-	{
-		return $this->discoveryName;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setParent($parent)
-	{
-		$this->parent = $parent;
-	}
-	public function getParent()
-	{
-		return $this->parent;
-	}
-	public function setResourceUrl($resourceUrl)
-	{
-		$this->resourceUrl = $resourceUrl;
-	}
-	public function getResourceUrl()
-	{
-		return $this->resourceUrl;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setDiscoveryDocumentUri($discoveryDocumentUri)
+  {
+    $this->discoveryDocumentUri = $discoveryDocumentUri;
+  }
+  public function getDiscoveryDocumentUri()
+  {
+    return $this->discoveryDocumentUri;
+  }
+  public function setDiscoveryName($discoveryName)
+  {
+    $this->discoveryName = $discoveryName;
+  }
+  public function getDiscoveryName()
+  {
+    return $this->discoveryName;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setParent($parent)
+  {
+    $this->parent = $parent;
+  }
+  public function getParent()
+  {
+    return $this->parent;
+  }
+  public function setResourceUrl($resourceUrl)
+  {
+    $this->resourceUrl = $resourceUrl;
+  }
+  public function getResourceUrl()
+  {
+    return $this->resourceUrl;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

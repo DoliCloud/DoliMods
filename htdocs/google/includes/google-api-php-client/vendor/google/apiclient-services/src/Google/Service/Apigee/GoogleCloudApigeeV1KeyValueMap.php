@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1KeyValueMap extends Google_Model
 {
-	public $encrypted;
-	public $name;
+  public $encrypted;
+  public $name;
 
-	public function setEncrypted($encrypted)
-	{
-		$this->encrypted = $encrypted;
-	}
-	public function getEncrypted()
-	{
-		return $this->encrypted;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setEncrypted($encrypted)
+  {
+    $this->encrypted = $encrypted;
+  }
+  public function getEncrypted()
+  {
+    return $this->encrypted;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

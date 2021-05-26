@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidManagement_WipeAction extends Google_Model
 {
-	public $preserveFrp;
-	public $wipeAfterDays;
+  public $preserveFrp;
+  public $wipeAfterDays;
 
-	public function setPreserveFrp($preserveFrp)
-	{
-		$this->preserveFrp = $preserveFrp;
-	}
-	public function getPreserveFrp()
-	{
-		return $this->preserveFrp;
-	}
-	public function setWipeAfterDays($wipeAfterDays)
-	{
-		$this->wipeAfterDays = $wipeAfterDays;
-	}
-	public function getWipeAfterDays()
-	{
-		return $this->wipeAfterDays;
-	}
+  public function setPreserveFrp($preserveFrp)
+  {
+    $this->preserveFrp = $preserveFrp;
+  }
+  public function getPreserveFrp()
+  {
+    return $this->preserveFrp;
+  }
+  public function setWipeAfterDays($wipeAfterDays)
+  {
+    $this->wipeAfterDays = $wipeAfterDays;
+  }
+  public function getWipeAfterDays()
+  {
+    return $this->wipeAfterDays;
+  }
 }

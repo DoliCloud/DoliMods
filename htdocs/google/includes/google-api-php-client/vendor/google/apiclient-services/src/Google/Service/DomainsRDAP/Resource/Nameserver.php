@@ -25,18 +25,18 @@
  */
 class Google_Service_DomainsRDAP_Resource_Nameserver extends Google_Service_Resource
 {
-	/**
-	 * The RDAP API recognizes this command from the RDAP specification but does not
-	 * support it. The response is a formatted 501 error. (nameserver.get)
-	 *
-	 * @param string $nameserverId
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_DomainsRDAP_RdapResponse
-	 */
-	public function get($nameserverId, $optParams = array())
-	{
-		$params = array('nameserverId' => $nameserverId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_DomainsRDAP_RdapResponse");
-	}
+  /**
+   * The RDAP API recognizes this command from the RDAP specification but does not
+   * support it. The response is a formatted 501 error. (nameserver.get)
+   *
+   * @param string $nameserverId
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DomainsRDAP_RdapResponse
+   */
+  public function get($nameserverId, $optParams = array())
+  {
+    $params = array('nameserverId' => $nameserverId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_DomainsRDAP_RdapResponse");
+  }
 }

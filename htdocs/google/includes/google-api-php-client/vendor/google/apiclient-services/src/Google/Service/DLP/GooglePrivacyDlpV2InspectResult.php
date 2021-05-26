@@ -17,31 +17,31 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2InspectResult extends Google_Collection
 {
-	protected $collection_key = 'findings';
-	protected $findingsType = 'Google_Service_DLP_GooglePrivacyDlpV2Finding';
-	protected $findingsDataType = 'array';
-	public $findingsTruncated;
+  protected $collection_key = 'findings';
+  protected $findingsType = 'Google_Service_DLP_GooglePrivacyDlpV2Finding';
+  protected $findingsDataType = 'array';
+  public $findingsTruncated;
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Finding
-	 */
-	public function setFindings($findings)
-	{
-		$this->findings = $findings;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Finding
-	 */
-	public function getFindings()
-	{
-		return $this->findings;
-	}
-	public function setFindingsTruncated($findingsTruncated)
-	{
-		$this->findingsTruncated = $findingsTruncated;
-	}
-	public function getFindingsTruncated()
-	{
-		return $this->findingsTruncated;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Finding[]
+   */
+  public function setFindings($findings)
+  {
+    $this->findings = $findings;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Finding[]
+   */
+  public function getFindings()
+  {
+    return $this->findings;
+  }
+  public function setFindingsTruncated($findingsTruncated)
+  {
+    $this->findingsTruncated = $findingsTruncated;
+  }
+  public function getFindingsTruncated()
+  {
+    return $this->findingsTruncated;
+  }
 }

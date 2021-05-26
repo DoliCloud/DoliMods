@@ -17,31 +17,31 @@
 
 class Google_Service_Classroom_ListInvitationsResponse extends Google_Collection
 {
-	protected $collection_key = 'invitations';
-	protected $invitationsType = 'Google_Service_Classroom_Invitation';
-	protected $invitationsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'invitations';
+  protected $invitationsType = 'Google_Service_Classroom_Invitation';
+  protected $invitationsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Classroom_Invitation
-	 */
-	public function setInvitations($invitations)
-	{
-		$this->invitations = $invitations;
-	}
-	/**
-	 * @return Google_Service_Classroom_Invitation
-	 */
-	public function getInvitations()
-	{
-		return $this->invitations;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Classroom_Invitation[]
+   */
+  public function setInvitations($invitations)
+  {
+    $this->invitations = $invitations;
+  }
+  /**
+   * @return Google_Service_Classroom_Invitation[]
+   */
+  public function getInvitations()
+  {
+    return $this->invitations;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_PeopleService_ListDirectoryPeopleResponse extends Google_Collection
 {
-	protected $collection_key = 'people';
-	public $nextPageToken;
-	public $nextSyncToken;
-	protected $peopleType = 'Google_Service_PeopleService_Person';
-	protected $peopleDataType = 'array';
+  protected $collection_key = 'people';
+  public $nextPageToken;
+  public $nextSyncToken;
+  protected $peopleType = 'Google_Service_PeopleService_Person';
+  protected $peopleDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setNextSyncToken($nextSyncToken)
-	{
-		$this->nextSyncToken = $nextSyncToken;
-	}
-	public function getNextSyncToken()
-	{
-		return $this->nextSyncToken;
-	}
-	/**
-	 * @param Google_Service_PeopleService_Person
-	 */
-	public function setPeople($people)
-	{
-		$this->people = $people;
-	}
-	/**
-	 * @return Google_Service_PeopleService_Person
-	 */
-	public function getPeople()
-	{
-		return $this->people;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setNextSyncToken($nextSyncToken)
+  {
+    $this->nextSyncToken = $nextSyncToken;
+  }
+  public function getNextSyncToken()
+  {
+    return $this->nextSyncToken;
+  }
+  /**
+   * @param Google_Service_PeopleService_Person[]
+   */
+  public function setPeople($people)
+  {
+    $this->people = $people;
+  }
+  /**
+   * @return Google_Service_PeopleService_Person[]
+   */
+  public function getPeople()
+  {
+    return $this->people;
+  }
 }

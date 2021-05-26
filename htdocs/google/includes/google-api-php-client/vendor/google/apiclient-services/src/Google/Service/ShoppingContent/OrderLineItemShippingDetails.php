@@ -17,57 +17,57 @@
 
 class Google_Service_ShoppingContent_OrderLineItemShippingDetails extends Google_Model
 {
-	public $deliverByDate;
-	protected $methodType = 'Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod';
-	protected $methodDataType = '';
-	public $pickupPromiseInMinutes;
-	public $shipByDate;
-	public $type;
+  public $deliverByDate;
+  protected $methodType = 'Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod';
+  protected $methodDataType = '';
+  public $pickupPromiseInMinutes;
+  public $shipByDate;
+  public $type;
 
-	public function setDeliverByDate($deliverByDate)
-	{
-		$this->deliverByDate = $deliverByDate;
-	}
-	public function getDeliverByDate()
-	{
-		return $this->deliverByDate;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod
-	 */
-	public function setMethod(Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod $method)
-	{
-		$this->method = $method;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod
-	 */
-	public function getMethod()
-	{
-		return $this->method;
-	}
-	public function setPickupPromiseInMinutes($pickupPromiseInMinutes)
-	{
-		$this->pickupPromiseInMinutes = $pickupPromiseInMinutes;
-	}
-	public function getPickupPromiseInMinutes()
-	{
-		return $this->pickupPromiseInMinutes;
-	}
-	public function setShipByDate($shipByDate)
-	{
-		$this->shipByDate = $shipByDate;
-	}
-	public function getShipByDate()
-	{
-		return $this->shipByDate;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDeliverByDate($deliverByDate)
+  {
+    $this->deliverByDate = $deliverByDate;
+  }
+  public function getDeliverByDate()
+  {
+    return $this->deliverByDate;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod
+   */
+  public function setMethod(Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod $method)
+  {
+    $this->method = $method;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod
+   */
+  public function getMethod()
+  {
+    return $this->method;
+  }
+  public function setPickupPromiseInMinutes($pickupPromiseInMinutes)
+  {
+    $this->pickupPromiseInMinutes = $pickupPromiseInMinutes;
+  }
+  public function getPickupPromiseInMinutes()
+  {
+    return $this->pickupPromiseInMinutes;
+  }
+  public function setShipByDate($shipByDate)
+  {
+    $this->shipByDate = $shipByDate;
+  }
+  public function getShipByDate()
+  {
+    return $this->shipByDate;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

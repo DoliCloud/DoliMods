@@ -17,14 +17,14 @@
 
 class Google_Service_CloudHealthcare_SearchResourcesRequest extends Google_Model
 {
-	public $resourceType;
+  public $resourceType;
 
-	public function setResourceType($resourceType)
-	{
-		$this->resourceType = $resourceType;
-	}
-	public function getResourceType()
-	{
-		return $this->resourceType;
-	}
+  public function setResourceType($resourceType)
+  {
+    $this->resourceType = $resourceType;
+  }
+  public function getResourceType()
+  {
+    return $this->resourceType;
+  }
 }

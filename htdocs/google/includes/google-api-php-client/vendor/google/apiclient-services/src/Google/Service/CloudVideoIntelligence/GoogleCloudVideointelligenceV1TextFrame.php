@@ -17,30 +17,30 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1TextFrame extends Google_Model
 {
-	protected $rotatedBoundingBoxType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1NormalizedBoundingPoly';
-	protected $rotatedBoundingBoxDataType = '';
-	public $timeOffset;
+  protected $rotatedBoundingBoxType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1NormalizedBoundingPoly';
+  protected $rotatedBoundingBoxDataType = '';
+  public $timeOffset;
 
-	/**
-	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1NormalizedBoundingPoly
-	 */
-	public function setRotatedBoundingBox(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1NormalizedBoundingPoly $rotatedBoundingBox)
-	{
-		$this->rotatedBoundingBox = $rotatedBoundingBox;
-	}
-	/**
-	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1NormalizedBoundingPoly
-	 */
-	public function getRotatedBoundingBox()
-	{
-		return $this->rotatedBoundingBox;
-	}
-	public function setTimeOffset($timeOffset)
-	{
-		$this->timeOffset = $timeOffset;
-	}
-	public function getTimeOffset()
-	{
-		return $this->timeOffset;
-	}
+  /**
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1NormalizedBoundingPoly
+   */
+  public function setRotatedBoundingBox(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1NormalizedBoundingPoly $rotatedBoundingBox)
+  {
+    $this->rotatedBoundingBox = $rotatedBoundingBox;
+  }
+  /**
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1NormalizedBoundingPoly
+   */
+  public function getRotatedBoundingBox()
+  {
+    return $this->rotatedBoundingBox;
+  }
+  public function setTimeOffset($timeOffset)
+  {
+    $this->timeOffset = $timeOffset;
+  }
+  public function getTimeOffset()
+  {
+    return $this->timeOffset;
+  }
 }

@@ -17,44 +17,44 @@
 
 class Google_Service_Coordinate_Job extends Google_Collection
 {
-	protected $collection_key = 'jobChange';
-	public $id;
-	protected $jobChangeType = 'Google_Service_Coordinate_JobChange';
-	protected $jobChangeDataType = 'array';
-	public $kind;
-	protected $stateType = 'Google_Service_Coordinate_JobState';
-	protected $stateDataType = '';
+  protected $collection_key = 'jobChange';
+  public $id;
+  protected $jobChangeType = 'Google_Service_Coordinate_JobChange';
+  protected $jobChangeDataType = 'array';
+  public $kind;
+  protected $stateType = 'Google_Service_Coordinate_JobState';
+  protected $stateDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setJobChange($jobChange)
-	{
-		$this->jobChange = $jobChange;
-	}
-	public function getJobChange()
-	{
-		return $this->jobChange;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setState(Google_Service_Coordinate_JobState $state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setJobChange($jobChange)
+  {
+    $this->jobChange = $jobChange;
+  }
+  public function getJobChange()
+  {
+    return $this->jobChange;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setState(Google_Service_Coordinate_JobState $state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

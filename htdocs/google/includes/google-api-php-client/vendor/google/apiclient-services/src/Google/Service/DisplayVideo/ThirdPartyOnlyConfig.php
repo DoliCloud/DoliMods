@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_ThirdPartyOnlyConfig extends Google_Model
 {
-	public $pixelOrderIdReportingEnabled;
+  public $pixelOrderIdReportingEnabled;
 
-	public function setPixelOrderIdReportingEnabled($pixelOrderIdReportingEnabled)
-	{
-		$this->pixelOrderIdReportingEnabled = $pixelOrderIdReportingEnabled;
-	}
-	public function getPixelOrderIdReportingEnabled()
-	{
-		return $this->pixelOrderIdReportingEnabled;
-	}
+  public function setPixelOrderIdReportingEnabled($pixelOrderIdReportingEnabled)
+  {
+    $this->pixelOrderIdReportingEnabled = $pixelOrderIdReportingEnabled;
+  }
+  public function getPixelOrderIdReportingEnabled()
+  {
+    return $this->pixelOrderIdReportingEnabled;
+  }
 }

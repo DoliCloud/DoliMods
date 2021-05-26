@@ -17,57 +17,57 @@
 
 class Google_Service_Container_SetNetworkPolicyRequest extends Google_Model
 {
-	public $clusterId;
-	public $name;
-	protected $networkPolicyType = 'Google_Service_Container_NetworkPolicy';
-	protected $networkPolicyDataType = '';
-	public $projectId;
-	public $zone;
+  public $clusterId;
+  public $name;
+  protected $networkPolicyType = 'Google_Service_Container_NetworkPolicy';
+  protected $networkPolicyDataType = '';
+  public $projectId;
+  public $zone;
 
-	public function setClusterId($clusterId)
-	{
-		$this->clusterId = $clusterId;
-	}
-	public function getClusterId()
-	{
-		return $this->clusterId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Container_NetworkPolicy
-	 */
-	public function setNetworkPolicy(Google_Service_Container_NetworkPolicy $networkPolicy)
-	{
-		$this->networkPolicy = $networkPolicy;
-	}
-	/**
-	 * @return Google_Service_Container_NetworkPolicy
-	 */
-	public function getNetworkPolicy()
-	{
-		return $this->networkPolicy;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setZone($zone)
-	{
-		$this->zone = $zone;
-	}
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  public function setClusterId($clusterId)
+  {
+    $this->clusterId = $clusterId;
+  }
+  public function getClusterId()
+  {
+    return $this->clusterId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Container_NetworkPolicy
+   */
+  public function setNetworkPolicy(Google_Service_Container_NetworkPolicy $networkPolicy)
+  {
+    $this->networkPolicy = $networkPolicy;
+  }
+  /**
+   * @return Google_Service_Container_NetworkPolicy
+   */
+  public function getNetworkPolicy()
+  {
+    return $this->networkPolicy;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

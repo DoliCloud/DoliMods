@@ -17,147 +17,147 @@
 
 class Google_Service_YouTube_CommentSnippet extends Google_Model
 {
-	protected $authorChannelIdType = 'Google_Service_YouTube_CommentSnippetAuthorChannelId';
-	protected $authorChannelIdDataType = '';
-	public $authorChannelUrl;
-	public $authorDisplayName;
-	public $authorProfileImageUrl;
-	public $canRate;
-	public $channelId;
-	public $likeCount;
-	public $moderationStatus;
-	public $parentId;
-	public $publishedAt;
-	public $textDisplay;
-	public $textOriginal;
-	public $updatedAt;
-	public $videoId;
-	public $viewerRating;
+  protected $authorChannelIdType = 'Google_Service_YouTube_CommentSnippetAuthorChannelId';
+  protected $authorChannelIdDataType = '';
+  public $authorChannelUrl;
+  public $authorDisplayName;
+  public $authorProfileImageUrl;
+  public $canRate;
+  public $channelId;
+  public $likeCount;
+  public $moderationStatus;
+  public $parentId;
+  public $publishedAt;
+  public $textDisplay;
+  public $textOriginal;
+  public $updatedAt;
+  public $videoId;
+  public $viewerRating;
 
-	/**
-	 * @param Google_Service_YouTube_CommentSnippetAuthorChannelId
-	 */
-	public function setAuthorChannelId(Google_Service_YouTube_CommentSnippetAuthorChannelId $authorChannelId)
-	{
-		$this->authorChannelId = $authorChannelId;
-	}
-	/**
-	 * @return Google_Service_YouTube_CommentSnippetAuthorChannelId
-	 */
-	public function getAuthorChannelId()
-	{
-		return $this->authorChannelId;
-	}
-	public function setAuthorChannelUrl($authorChannelUrl)
-	{
-		$this->authorChannelUrl = $authorChannelUrl;
-	}
-	public function getAuthorChannelUrl()
-	{
-		return $this->authorChannelUrl;
-	}
-	public function setAuthorDisplayName($authorDisplayName)
-	{
-		$this->authorDisplayName = $authorDisplayName;
-	}
-	public function getAuthorDisplayName()
-	{
-		return $this->authorDisplayName;
-	}
-	public function setAuthorProfileImageUrl($authorProfileImageUrl)
-	{
-		$this->authorProfileImageUrl = $authorProfileImageUrl;
-	}
-	public function getAuthorProfileImageUrl()
-	{
-		return $this->authorProfileImageUrl;
-	}
-	public function setCanRate($canRate)
-	{
-		$this->canRate = $canRate;
-	}
-	public function getCanRate()
-	{
-		return $this->canRate;
-	}
-	public function setChannelId($channelId)
-	{
-		$this->channelId = $channelId;
-	}
-	public function getChannelId()
-	{
-		return $this->channelId;
-	}
-	public function setLikeCount($likeCount)
-	{
-		$this->likeCount = $likeCount;
-	}
-	public function getLikeCount()
-	{
-		return $this->likeCount;
-	}
-	public function setModerationStatus($moderationStatus)
-	{
-		$this->moderationStatus = $moderationStatus;
-	}
-	public function getModerationStatus()
-	{
-		return $this->moderationStatus;
-	}
-	public function setParentId($parentId)
-	{
-		$this->parentId = $parentId;
-	}
-	public function getParentId()
-	{
-		return $this->parentId;
-	}
-	public function setPublishedAt($publishedAt)
-	{
-		$this->publishedAt = $publishedAt;
-	}
-	public function getPublishedAt()
-	{
-		return $this->publishedAt;
-	}
-	public function setTextDisplay($textDisplay)
-	{
-		$this->textDisplay = $textDisplay;
-	}
-	public function getTextDisplay()
-	{
-		return $this->textDisplay;
-	}
-	public function setTextOriginal($textOriginal)
-	{
-		$this->textOriginal = $textOriginal;
-	}
-	public function getTextOriginal()
-	{
-		return $this->textOriginal;
-	}
-	public function setUpdatedAt($updatedAt)
-	{
-		$this->updatedAt = $updatedAt;
-	}
-	public function getUpdatedAt()
-	{
-		return $this->updatedAt;
-	}
-	public function setVideoId($videoId)
-	{
-		$this->videoId = $videoId;
-	}
-	public function getVideoId()
-	{
-		return $this->videoId;
-	}
-	public function setViewerRating($viewerRating)
-	{
-		$this->viewerRating = $viewerRating;
-	}
-	public function getViewerRating()
-	{
-		return $this->viewerRating;
-	}
+  /**
+   * @param Google_Service_YouTube_CommentSnippetAuthorChannelId
+   */
+  public function setAuthorChannelId(Google_Service_YouTube_CommentSnippetAuthorChannelId $authorChannelId)
+  {
+    $this->authorChannelId = $authorChannelId;
+  }
+  /**
+   * @return Google_Service_YouTube_CommentSnippetAuthorChannelId
+   */
+  public function getAuthorChannelId()
+  {
+    return $this->authorChannelId;
+  }
+  public function setAuthorChannelUrl($authorChannelUrl)
+  {
+    $this->authorChannelUrl = $authorChannelUrl;
+  }
+  public function getAuthorChannelUrl()
+  {
+    return $this->authorChannelUrl;
+  }
+  public function setAuthorDisplayName($authorDisplayName)
+  {
+    $this->authorDisplayName = $authorDisplayName;
+  }
+  public function getAuthorDisplayName()
+  {
+    return $this->authorDisplayName;
+  }
+  public function setAuthorProfileImageUrl($authorProfileImageUrl)
+  {
+    $this->authorProfileImageUrl = $authorProfileImageUrl;
+  }
+  public function getAuthorProfileImageUrl()
+  {
+    return $this->authorProfileImageUrl;
+  }
+  public function setCanRate($canRate)
+  {
+    $this->canRate = $canRate;
+  }
+  public function getCanRate()
+  {
+    return $this->canRate;
+  }
+  public function setChannelId($channelId)
+  {
+    $this->channelId = $channelId;
+  }
+  public function getChannelId()
+  {
+    return $this->channelId;
+  }
+  public function setLikeCount($likeCount)
+  {
+    $this->likeCount = $likeCount;
+  }
+  public function getLikeCount()
+  {
+    return $this->likeCount;
+  }
+  public function setModerationStatus($moderationStatus)
+  {
+    $this->moderationStatus = $moderationStatus;
+  }
+  public function getModerationStatus()
+  {
+    return $this->moderationStatus;
+  }
+  public function setParentId($parentId)
+  {
+    $this->parentId = $parentId;
+  }
+  public function getParentId()
+  {
+    return $this->parentId;
+  }
+  public function setPublishedAt($publishedAt)
+  {
+    $this->publishedAt = $publishedAt;
+  }
+  public function getPublishedAt()
+  {
+    return $this->publishedAt;
+  }
+  public function setTextDisplay($textDisplay)
+  {
+    $this->textDisplay = $textDisplay;
+  }
+  public function getTextDisplay()
+  {
+    return $this->textDisplay;
+  }
+  public function setTextOriginal($textOriginal)
+  {
+    $this->textOriginal = $textOriginal;
+  }
+  public function getTextOriginal()
+  {
+    return $this->textOriginal;
+  }
+  public function setUpdatedAt($updatedAt)
+  {
+    $this->updatedAt = $updatedAt;
+  }
+  public function getUpdatedAt()
+  {
+    return $this->updatedAt;
+  }
+  public function setVideoId($videoId)
+  {
+    $this->videoId = $videoId;
+  }
+  public function getVideoId()
+  {
+    return $this->videoId;
+  }
+  public function setViewerRating($viewerRating)
+  {
+    $this->viewerRating = $viewerRating;
+  }
+  public function getViewerRating()
+  {
+    return $this->viewerRating;
+  }
 }

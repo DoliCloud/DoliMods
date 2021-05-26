@@ -17,21 +17,21 @@
 
 class Google_Service_Vision_ImportProductSetsInputConfig extends Google_Model
 {
-	protected $gcsSourceType = 'Google_Service_Vision_ImportProductSetsGcsSource';
-	protected $gcsSourceDataType = '';
+  protected $gcsSourceType = 'Google_Service_Vision_ImportProductSetsGcsSource';
+  protected $gcsSourceDataType = '';
 
-	/**
-	 * @param Google_Service_Vision_ImportProductSetsGcsSource
-	 */
-	public function setGcsSource(Google_Service_Vision_ImportProductSetsGcsSource $gcsSource)
-	{
-		$this->gcsSource = $gcsSource;
-	}
-	/**
-	 * @return Google_Service_Vision_ImportProductSetsGcsSource
-	 */
-	public function getGcsSource()
-	{
-		return $this->gcsSource;
-	}
+  /**
+   * @param Google_Service_Vision_ImportProductSetsGcsSource
+   */
+  public function setGcsSource(Google_Service_Vision_ImportProductSetsGcsSource $gcsSource)
+  {
+    $this->gcsSource = $gcsSource;
+  }
+  /**
+   * @return Google_Service_Vision_ImportProductSetsGcsSource
+   */
+  public function getGcsSource()
+  {
+    return $this->gcsSource;
+  }
 }

@@ -17,85 +17,85 @@
 
 class Google_Service_Books_GeolayerdataGeo extends Google_Collection
 {
-	protected $collection_key = 'boundary';
-	public $boundary;
-	public $cachePolicy;
-	public $countryCode;
-	public $latitude;
-	public $longitude;
-	public $mapType;
-	protected $viewportType = 'Google_Service_Books_GeolayerdataGeoViewport';
-	protected $viewportDataType = '';
-	public $zoom;
+  protected $collection_key = 'boundary';
+  public $boundary;
+  public $cachePolicy;
+  public $countryCode;
+  public $latitude;
+  public $longitude;
+  public $mapType;
+  protected $viewportType = 'Google_Service_Books_GeolayerdataGeoViewport';
+  protected $viewportDataType = '';
+  public $zoom;
 
-	public function setBoundary($boundary)
-	{
-		$this->boundary = $boundary;
-	}
-	public function getBoundary()
-	{
-		return $this->boundary;
-	}
-	public function setCachePolicy($cachePolicy)
-	{
-		$this->cachePolicy = $cachePolicy;
-	}
-	public function getCachePolicy()
-	{
-		return $this->cachePolicy;
-	}
-	public function setCountryCode($countryCode)
-	{
-		$this->countryCode = $countryCode;
-	}
-	public function getCountryCode()
-	{
-		return $this->countryCode;
-	}
-	public function setLatitude($latitude)
-	{
-		$this->latitude = $latitude;
-	}
-	public function getLatitude()
-	{
-		return $this->latitude;
-	}
-	public function setLongitude($longitude)
-	{
-		$this->longitude = $longitude;
-	}
-	public function getLongitude()
-	{
-		return $this->longitude;
-	}
-	public function setMapType($mapType)
-	{
-		$this->mapType = $mapType;
-	}
-	public function getMapType()
-	{
-		return $this->mapType;
-	}
-	/**
-	 * @param Google_Service_Books_GeolayerdataGeoViewport
-	 */
-	public function setViewport(Google_Service_Books_GeolayerdataGeoViewport $viewport)
-	{
-		$this->viewport = $viewport;
-	}
-	/**
-	 * @return Google_Service_Books_GeolayerdataGeoViewport
-	 */
-	public function getViewport()
-	{
-		return $this->viewport;
-	}
-	public function setZoom($zoom)
-	{
-		$this->zoom = $zoom;
-	}
-	public function getZoom()
-	{
-		return $this->zoom;
-	}
+  public function setBoundary($boundary)
+  {
+    $this->boundary = $boundary;
+  }
+  public function getBoundary()
+  {
+    return $this->boundary;
+  }
+  public function setCachePolicy($cachePolicy)
+  {
+    $this->cachePolicy = $cachePolicy;
+  }
+  public function getCachePolicy()
+  {
+    return $this->cachePolicy;
+  }
+  public function setCountryCode($countryCode)
+  {
+    $this->countryCode = $countryCode;
+  }
+  public function getCountryCode()
+  {
+    return $this->countryCode;
+  }
+  public function setLatitude($latitude)
+  {
+    $this->latitude = $latitude;
+  }
+  public function getLatitude()
+  {
+    return $this->latitude;
+  }
+  public function setLongitude($longitude)
+  {
+    $this->longitude = $longitude;
+  }
+  public function getLongitude()
+  {
+    return $this->longitude;
+  }
+  public function setMapType($mapType)
+  {
+    $this->mapType = $mapType;
+  }
+  public function getMapType()
+  {
+    return $this->mapType;
+  }
+  /**
+   * @param Google_Service_Books_GeolayerdataGeoViewport
+   */
+  public function setViewport(Google_Service_Books_GeolayerdataGeoViewport $viewport)
+  {
+    $this->viewport = $viewport;
+  }
+  /**
+   * @return Google_Service_Books_GeolayerdataGeoViewport
+   */
+  public function getViewport()
+  {
+    return $this->viewport;
+  }
+  public function setZoom($zoom)
+  {
+    $this->zoom = $zoom;
+  }
+  public function getZoom()
+  {
+    return $this->zoom;
+  }
 }

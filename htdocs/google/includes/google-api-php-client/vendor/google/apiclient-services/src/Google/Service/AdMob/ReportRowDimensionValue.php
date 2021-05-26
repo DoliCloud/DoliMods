@@ -17,23 +17,23 @@
 
 class Google_Service_AdMob_ReportRowDimensionValue extends Google_Model
 {
-	public $displayLabel;
-	public $value;
+  public $displayLabel;
+  public $value;
 
-	public function setDisplayLabel($displayLabel)
-	{
-		$this->displayLabel = $displayLabel;
-	}
-	public function getDisplayLabel()
-	{
-		return $this->displayLabel;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setDisplayLabel($displayLabel)
+  {
+    $this->displayLabel = $displayLabel;
+  }
+  public function getDisplayLabel()
+  {
+    return $this->displayLabel;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

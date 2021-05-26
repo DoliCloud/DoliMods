@@ -17,34 +17,34 @@
 
 class Google_Service_People_Birthday extends Google_Model
 {
-	protected $dateType = 'Google_Service_People_Date';
-	protected $dateDataType = '';
-	protected $metadataType = 'Google_Service_People_FieldMetadata';
-	protected $metadataDataType = '';
-	public $text;
+  protected $dateType = 'Google_Service_People_Date';
+  protected $dateDataType = '';
+  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataDataType = '';
+  public $text;
 
-	public function setDate(Google_Service_People_Date $date)
-	{
-		$this->date = $date;
-	}
-	public function getDate()
-	{
-		return $this->date;
-	}
-	public function setMetadata(Google_Service_People_FieldMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  public function setDate(Google_Service_People_Date $date)
+  {
+    $this->date = $date;
+  }
+  public function getDate()
+  {
+    return $this->date;
+  }
+  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

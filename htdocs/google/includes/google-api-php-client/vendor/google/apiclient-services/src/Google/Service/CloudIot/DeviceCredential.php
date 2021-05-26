@@ -17,30 +17,30 @@
 
 class Google_Service_CloudIot_DeviceCredential extends Google_Model
 {
-	public $expirationTime;
-	protected $publicKeyType = 'Google_Service_CloudIot_PublicKeyCredential';
-	protected $publicKeyDataType = '';
+  public $expirationTime;
+  protected $publicKeyType = 'Google_Service_CloudIot_PublicKeyCredential';
+  protected $publicKeyDataType = '';
 
-	public function setExpirationTime($expirationTime)
-	{
-		$this->expirationTime = $expirationTime;
-	}
-	public function getExpirationTime()
-	{
-		return $this->expirationTime;
-	}
-	/**
-	 * @param Google_Service_CloudIot_PublicKeyCredential
-	 */
-	public function setPublicKey(Google_Service_CloudIot_PublicKeyCredential $publicKey)
-	{
-		$this->publicKey = $publicKey;
-	}
-	/**
-	 * @return Google_Service_CloudIot_PublicKeyCredential
-	 */
-	public function getPublicKey()
-	{
-		return $this->publicKey;
-	}
+  public function setExpirationTime($expirationTime)
+  {
+    $this->expirationTime = $expirationTime;
+  }
+  public function getExpirationTime()
+  {
+    return $this->expirationTime;
+  }
+  /**
+   * @param Google_Service_CloudIot_PublicKeyCredential
+   */
+  public function setPublicKey(Google_Service_CloudIot_PublicKeyCredential $publicKey)
+  {
+    $this->publicKey = $publicKey;
+  }
+  /**
+   * @return Google_Service_CloudIot_PublicKeyCredential
+   */
+  public function getPublicKey()
+  {
+    return $this->publicKey;
+  }
 }

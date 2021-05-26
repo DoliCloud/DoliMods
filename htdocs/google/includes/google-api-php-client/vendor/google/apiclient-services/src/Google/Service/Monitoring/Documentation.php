@@ -17,23 +17,23 @@
 
 class Google_Service_Monitoring_Documentation extends Google_Model
 {
-	public $content;
-	public $mimeType;
+  public $content;
+  public $mimeType;
 
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	public function getContent()
-	{
-		return $this->content;
-	}
-	public function setMimeType($mimeType)
-	{
-		$this->mimeType = $mimeType;
-	}
-	public function getMimeType()
-	{
-		return $this->mimeType;
-	}
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  public function getContent()
+  {
+    return $this->content;
+  }
+  public function setMimeType($mimeType)
+  {
+    $this->mimeType = $mimeType;
+  }
+  public function getMimeType()
+  {
+    return $this->mimeType;
+  }
 }

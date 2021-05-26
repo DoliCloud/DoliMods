@@ -17,15 +17,15 @@
 
 class Google_Service_Compute_NodeGroupsDeleteNodesRequest extends Google_Collection
 {
-	protected $collection_key = 'nodes';
-	public $nodes;
+  protected $collection_key = 'nodes';
+  public $nodes;
 
-	public function setNodes($nodes)
-	{
-		$this->nodes = $nodes;
-	}
-	public function getNodes()
-	{
-		return $this->nodes;
-	}
+  public function setNodes($nodes)
+  {
+    $this->nodes = $nodes;
+  }
+  public function getNodes()
+  {
+    return $this->nodes;
+  }
 }

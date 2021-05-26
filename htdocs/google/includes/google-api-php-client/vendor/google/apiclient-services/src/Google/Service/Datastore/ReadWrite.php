@@ -17,14 +17,14 @@
 
 class Google_Service_Datastore_ReadWrite extends Google_Model
 {
-	public $previousTransaction;
+  public $previousTransaction;
 
-	public function setPreviousTransaction($previousTransaction)
-	{
-		$this->previousTransaction = $previousTransaction;
-	}
-	public function getPreviousTransaction()
-	{
-		return $this->previousTransaction;
-	}
+  public function setPreviousTransaction($previousTransaction)
+  {
+    $this->previousTransaction = $previousTransaction;
+  }
+  public function getPreviousTransaction()
+  {
+    return $this->previousTransaction;
+  }
 }

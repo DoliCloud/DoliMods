@@ -30,131 +30,131 @@
  */
 class Google_Service_People extends Google_Service
 {
-	/** Manage your contacts. */
-	const CONTACTS =
-	  "https://www.googleapis.com/auth/contacts";
-	/** View your contacts. */
-	const CONTACTS_READONLY =
-	  "https://www.googleapis.com/auth/contacts.readonly";
-	/** Know the list of people in your circles, your age range, and language. */
-	const PLUS_LOGIN =
-	  "https://www.googleapis.com/auth/plus.login";
-	/** View your street addresses. */
-	const USER_ADDRESSES_READ =
-	  "https://www.googleapis.com/auth/user.addresses.read";
-	/** View your complete date of birth. */
-	const USER_BIRTHDAY_READ =
-	  "https://www.googleapis.com/auth/user.birthday.read";
-	/** View your email addresses. */
-	const USER_EMAILS_READ =
-	  "https://www.googleapis.com/auth/user.emails.read";
-	/** View your phone numbers. */
-	const USER_PHONENUMBERS_READ =
-	  "https://www.googleapis.com/auth/user.phonenumbers.read";
-	/** View your email address. */
-	const USERINFO_EMAIL =
-	  "https://www.googleapis.com/auth/userinfo.email";
-	/** View your basic profile info. */
-	const USERINFO_PROFILE =
-	  "https://www.googleapis.com/auth/userinfo.profile";
+  /** Manage your contacts. */
+  const CONTACTS =
+      "https://www.googleapis.com/auth/contacts";
+  /** View your contacts. */
+  const CONTACTS_READONLY =
+      "https://www.googleapis.com/auth/contacts.readonly";
+  /** Know the list of people in your circles, your age range, and language. */
+  const PLUS_LOGIN =
+      "https://www.googleapis.com/auth/plus.login";
+  /** View your street addresses. */
+  const USER_ADDRESSES_READ =
+      "https://www.googleapis.com/auth/user.addresses.read";
+  /** View your complete date of birth. */
+  const USER_BIRTHDAY_READ =
+      "https://www.googleapis.com/auth/user.birthday.read";
+  /** View your email addresses. */
+  const USER_EMAILS_READ =
+      "https://www.googleapis.com/auth/user.emails.read";
+  /** View your phone numbers. */
+  const USER_PHONENUMBERS_READ =
+      "https://www.googleapis.com/auth/user.phonenumbers.read";
+  /** View your email address. */
+  const USERINFO_EMAIL =
+      "https://www.googleapis.com/auth/userinfo.email";
+  /** View your basic profile info. */
+  const USERINFO_PROFILE =
+      "https://www.googleapis.com/auth/userinfo.profile";
 
-	public $people;
-	public $people_connections;
+  public $people;
+  public $people_connections;
+  
+  /**
+   * Constructs the internal representation of the People service.
+   *
+   * @param Google_Client $client
+   */
+  public function __construct(Google_Client $client)
+  {
+    parent::__construct($client);
+    $this->rootUrl = 'https://people.googleapis.com/';
+    $this->servicePath = '';
+    $this->version = 'v1';
+    $this->serviceName = 'people';
 
-	/**
-	 * Constructs the internal representation of the People service.
-	 *
-	 * @param Google_Client $client
-	 */
-	public function __construct(Google_Client $client)
-	{
-		parent::__construct($client);
-		$this->rootUrl = 'https://people.googleapis.com/';
-		$this->servicePath = '';
-		$this->version = 'v1';
-		$this->serviceName = 'people';
-
-		$this->people = new Google_Service_People_Resource_People(
-		$this,
-		$this->serviceName,
-		'people',
-		array(
-		  'methods' => array(
-			'get' => array(
-			  'path' => 'v1/{+resourceName}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'resourceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'requestMask.includeField' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'getBatchGet' => array(
-			  'path' => 'v1/people:batchGet',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'requestMask.includeField' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'resourceNames' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				  'repeated' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->people_connections = new Google_Service_People_Resource_PeopleConnections(
-		$this,
-		$this->serviceName,
-		'connections',
-		array(
-		  'methods' => array(
-			'list' => array(
-			  'path' => 'v1/{+resourceName}/connections',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'resourceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'sortOrder' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'requestSyncToken' => array(
-				  'location' => 'query',
-				  'type' => 'boolean',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'requestMask.includeField' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'syncToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->people = new Google_Service_People_Resource_People(
+        $this,
+        $this->serviceName,
+        'people',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'v1/{+resourceName}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'resourceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'requestMask.includeField' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'getBatchGet' => array(
+              'path' => 'v1/people:batchGet',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'requestMask.includeField' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'resourceNames' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->people_connections = new Google_Service_People_Resource_PeopleConnections(
+        $this,
+        $this->serviceName,
+        'connections',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'v1/{+resourceName}/connections',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'resourceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'sortOrder' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'requestSyncToken' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'requestMask.includeField' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

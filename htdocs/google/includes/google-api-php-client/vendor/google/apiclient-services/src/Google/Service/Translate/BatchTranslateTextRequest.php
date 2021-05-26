@@ -17,90 +17,90 @@
 
 class Google_Service_Translate_BatchTranslateTextRequest extends Google_Collection
 {
-	protected $collection_key = 'targetLanguageCodes';
-	protected $glossariesType = 'Google_Service_Translate_TranslateTextGlossaryConfig';
-	protected $glossariesDataType = 'map';
-	protected $inputConfigsType = 'Google_Service_Translate_InputConfig';
-	protected $inputConfigsDataType = 'array';
-	public $labels;
-	public $models;
-	protected $outputConfigType = 'Google_Service_Translate_OutputConfig';
-	protected $outputConfigDataType = '';
-	public $sourceLanguageCode;
-	public $targetLanguageCodes;
+  protected $collection_key = 'targetLanguageCodes';
+  protected $glossariesType = 'Google_Service_Translate_TranslateTextGlossaryConfig';
+  protected $glossariesDataType = 'map';
+  protected $inputConfigsType = 'Google_Service_Translate_InputConfig';
+  protected $inputConfigsDataType = 'array';
+  public $labels;
+  public $models;
+  protected $outputConfigType = 'Google_Service_Translate_OutputConfig';
+  protected $outputConfigDataType = '';
+  public $sourceLanguageCode;
+  public $targetLanguageCodes;
 
-	/**
-	 * @param Google_Service_Translate_TranslateTextGlossaryConfig
-	 */
-	public function setGlossaries($glossaries)
-	{
-		$this->glossaries = $glossaries;
-	}
-	/**
-	 * @return Google_Service_Translate_TranslateTextGlossaryConfig
-	 */
-	public function getGlossaries()
-	{
-		return $this->glossaries;
-	}
-	/**
-	 * @param Google_Service_Translate_InputConfig
-	 */
-	public function setInputConfigs($inputConfigs)
-	{
-		$this->inputConfigs = $inputConfigs;
-	}
-	/**
-	 * @return Google_Service_Translate_InputConfig
-	 */
-	public function getInputConfigs()
-	{
-		return $this->inputConfigs;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setModels($models)
-	{
-		$this->models = $models;
-	}
-	public function getModels()
-	{
-		return $this->models;
-	}
-	/**
-	 * @param Google_Service_Translate_OutputConfig
-	 */
-	public function setOutputConfig(Google_Service_Translate_OutputConfig $outputConfig)
-	{
-		$this->outputConfig = $outputConfig;
-	}
-	/**
-	 * @return Google_Service_Translate_OutputConfig
-	 */
-	public function getOutputConfig()
-	{
-		return $this->outputConfig;
-	}
-	public function setSourceLanguageCode($sourceLanguageCode)
-	{
-		$this->sourceLanguageCode = $sourceLanguageCode;
-	}
-	public function getSourceLanguageCode()
-	{
-		return $this->sourceLanguageCode;
-	}
-	public function setTargetLanguageCodes($targetLanguageCodes)
-	{
-		$this->targetLanguageCodes = $targetLanguageCodes;
-	}
-	public function getTargetLanguageCodes()
-	{
-		return $this->targetLanguageCodes;
-	}
+  /**
+   * @param Google_Service_Translate_TranslateTextGlossaryConfig[]
+   */
+  public function setGlossaries($glossaries)
+  {
+    $this->glossaries = $glossaries;
+  }
+  /**
+   * @return Google_Service_Translate_TranslateTextGlossaryConfig[]
+   */
+  public function getGlossaries()
+  {
+    return $this->glossaries;
+  }
+  /**
+   * @param Google_Service_Translate_InputConfig[]
+   */
+  public function setInputConfigs($inputConfigs)
+  {
+    $this->inputConfigs = $inputConfigs;
+  }
+  /**
+   * @return Google_Service_Translate_InputConfig[]
+   */
+  public function getInputConfigs()
+  {
+    return $this->inputConfigs;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setModels($models)
+  {
+    $this->models = $models;
+  }
+  public function getModels()
+  {
+    return $this->models;
+  }
+  /**
+   * @param Google_Service_Translate_OutputConfig
+   */
+  public function setOutputConfig(Google_Service_Translate_OutputConfig $outputConfig)
+  {
+    $this->outputConfig = $outputConfig;
+  }
+  /**
+   * @return Google_Service_Translate_OutputConfig
+   */
+  public function getOutputConfig()
+  {
+    return $this->outputConfig;
+  }
+  public function setSourceLanguageCode($sourceLanguageCode)
+  {
+    $this->sourceLanguageCode = $sourceLanguageCode;
+  }
+  public function getSourceLanguageCode()
+  {
+    return $this->sourceLanguageCode;
+  }
+  public function setTargetLanguageCodes($targetLanguageCodes)
+  {
+    $this->targetLanguageCodes = $targetLanguageCodes;
+  }
+  public function getTargetLanguageCodes()
+  {
+    return $this->targetLanguageCodes;
+  }
 }

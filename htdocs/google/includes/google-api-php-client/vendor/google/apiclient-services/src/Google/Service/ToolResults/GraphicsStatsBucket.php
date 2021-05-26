@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_GraphicsStatsBucket extends Google_Model
 {
-	public $frameCount;
-	public $renderMillis;
+  public $frameCount;
+  public $renderMillis;
 
-	public function setFrameCount($frameCount)
-	{
-		$this->frameCount = $frameCount;
-	}
-	public function getFrameCount()
-	{
-		return $this->frameCount;
-	}
-	public function setRenderMillis($renderMillis)
-	{
-		$this->renderMillis = $renderMillis;
-	}
-	public function getRenderMillis()
-	{
-		return $this->renderMillis;
-	}
+  public function setFrameCount($frameCount)
+  {
+    $this->frameCount = $frameCount;
+  }
+  public function getFrameCount()
+  {
+    return $this->frameCount;
+  }
+  public function setRenderMillis($renderMillis)
+  {
+    $this->renderMillis = $renderMillis;
+  }
+  public function getRenderMillis()
+  {
+    return $this->renderMillis;
+  }
 }

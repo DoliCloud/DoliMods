@@ -17,21 +17,21 @@
 
 class Google_Service_CloudAsset_FeedOutputConfig extends Google_Model
 {
-	protected $pubsubDestinationType = 'Google_Service_CloudAsset_PubsubDestination';
-	protected $pubsubDestinationDataType = '';
+  protected $pubsubDestinationType = 'Google_Service_CloudAsset_PubsubDestination';
+  protected $pubsubDestinationDataType = '';
 
-	/**
-	 * @param Google_Service_CloudAsset_PubsubDestination
-	 */
-	public function setPubsubDestination(Google_Service_CloudAsset_PubsubDestination $pubsubDestination)
-	{
-		$this->pubsubDestination = $pubsubDestination;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_PubsubDestination
-	 */
-	public function getPubsubDestination()
-	{
-		return $this->pubsubDestination;
-	}
+  /**
+   * @param Google_Service_CloudAsset_PubsubDestination
+   */
+  public function setPubsubDestination(Google_Service_CloudAsset_PubsubDestination $pubsubDestination)
+  {
+    $this->pubsubDestination = $pubsubDestination;
+  }
+  /**
+   * @return Google_Service_CloudAsset_PubsubDestination
+   */
+  public function getPubsubDestination()
+  {
+    return $this->pubsubDestination;
+  }
 }

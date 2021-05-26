@@ -17,23 +17,23 @@
 
 class Google_Service_Resourceviews_ServiceEndpoint extends Google_Model
 {
-	public $name;
-	public $port;
+  public $name;
+  public $port;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPort($port)
-	{
-		$this->port = $port;
-	}
-	public function getPort()
-	{
-		return $this->port;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPort($port)
+  {
+    $this->port = $port;
+  }
+  public function getPort()
+  {
+    return $this->port;
+  }
 }

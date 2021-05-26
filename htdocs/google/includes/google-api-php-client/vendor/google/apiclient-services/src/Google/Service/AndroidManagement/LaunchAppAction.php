@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidManagement_LaunchAppAction extends Google_Model
 {
-	public $packageName;
+  public $packageName;
 
-	public function setPackageName($packageName)
-	{
-		$this->packageName = $packageName;
-	}
-	public function getPackageName()
-	{
-		return $this->packageName;
-	}
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_PacketMirroringsScopedList extends Google_Collection
 {
-	protected $collection_key = 'packetMirrorings';
-	protected $packetMirroringsType = 'Google_Service_Compute_PacketMirroring';
-	protected $packetMirroringsDataType = 'array';
-	protected $warningType = 'Google_Service_Compute_PacketMirroringsScopedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'packetMirrorings';
+  protected $packetMirroringsType = 'Google_Service_Compute_PacketMirroring';
+  protected $packetMirroringsDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_PacketMirroringsScopedListWarning';
+  protected $warningDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_PacketMirroring
-	 */
-	public function setPacketMirrorings($packetMirrorings)
-	{
-		$this->packetMirrorings = $packetMirrorings;
-	}
-	/**
-	 * @return Google_Service_Compute_PacketMirroring
-	 */
-	public function getPacketMirrorings()
-	{
-		return $this->packetMirrorings;
-	}
-	/**
-	 * @param Google_Service_Compute_PacketMirroringsScopedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_PacketMirroringsScopedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_PacketMirroringsScopedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Compute_PacketMirroring[]
+   */
+  public function setPacketMirrorings($packetMirrorings)
+  {
+    $this->packetMirrorings = $packetMirrorings;
+  }
+  /**
+   * @return Google_Service_Compute_PacketMirroring[]
+   */
+  public function getPacketMirrorings()
+  {
+    return $this->packetMirrorings;
+  }
+  /**
+   * @param Google_Service_Compute_PacketMirroringsScopedListWarning
+   */
+  public function setWarning(Google_Service_Compute_PacketMirroringsScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_PacketMirroringsScopedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

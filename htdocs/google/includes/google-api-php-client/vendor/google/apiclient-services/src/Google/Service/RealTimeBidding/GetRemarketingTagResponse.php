@@ -17,14 +17,14 @@
 
 class Google_Service_RealTimeBidding_GetRemarketingTagResponse extends Google_Model
 {
-	public $snippet;
+  public $snippet;
 
-	public function setSnippet($snippet)
-	{
-		$this->snippet = $snippet;
-	}
-	public function getSnippet()
-	{
-		return $this->snippet;
-	}
+  public function setSnippet($snippet)
+  {
+    $this->snippet = $snippet;
+  }
+  public function getSnippet()
+  {
+    return $this->snippet;
+  }
 }

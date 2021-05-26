@@ -17,41 +17,41 @@
 
 class Google_Service_FirebaseDynamicLinksAPI_AndroidInfo extends Google_Model
 {
-	public $androidFallbackLink;
-	public $androidLink;
-	public $androidMinPackageVersionCode;
-	public $androidPackageName;
+  public $androidFallbackLink;
+  public $androidLink;
+  public $androidMinPackageVersionCode;
+  public $androidPackageName;
 
-	public function setAndroidFallbackLink($androidFallbackLink)
-	{
-		$this->androidFallbackLink = $androidFallbackLink;
-	}
-	public function getAndroidFallbackLink()
-	{
-		return $this->androidFallbackLink;
-	}
-	public function setAndroidLink($androidLink)
-	{
-		$this->androidLink = $androidLink;
-	}
-	public function getAndroidLink()
-	{
-		return $this->androidLink;
-	}
-	public function setAndroidMinPackageVersionCode($androidMinPackageVersionCode)
-	{
-		$this->androidMinPackageVersionCode = $androidMinPackageVersionCode;
-	}
-	public function getAndroidMinPackageVersionCode()
-	{
-		return $this->androidMinPackageVersionCode;
-	}
-	public function setAndroidPackageName($androidPackageName)
-	{
-		$this->androidPackageName = $androidPackageName;
-	}
-	public function getAndroidPackageName()
-	{
-		return $this->androidPackageName;
-	}
+  public function setAndroidFallbackLink($androidFallbackLink)
+  {
+    $this->androidFallbackLink = $androidFallbackLink;
+  }
+  public function getAndroidFallbackLink()
+  {
+    return $this->androidFallbackLink;
+  }
+  public function setAndroidLink($androidLink)
+  {
+    $this->androidLink = $androidLink;
+  }
+  public function getAndroidLink()
+  {
+    return $this->androidLink;
+  }
+  public function setAndroidMinPackageVersionCode($androidMinPackageVersionCode)
+  {
+    $this->androidMinPackageVersionCode = $androidMinPackageVersionCode;
+  }
+  public function getAndroidMinPackageVersionCode()
+  {
+    return $this->androidMinPackageVersionCode;
+  }
+  public function setAndroidPackageName($androidPackageName)
+  {
+    $this->androidPackageName = $androidPackageName;
+  }
+  public function getAndroidPackageName()
+  {
+    return $this->androidPackageName;
+  }
 }

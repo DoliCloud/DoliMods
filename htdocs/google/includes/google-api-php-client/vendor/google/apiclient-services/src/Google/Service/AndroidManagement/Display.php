@@ -17,68 +17,68 @@
 
 class Google_Service_AndroidManagement_Display extends Google_Model
 {
-	public $density;
-	public $displayId;
-	public $height;
-	public $name;
-	public $refreshRate;
-	public $state;
-	public $width;
+  public $density;
+  public $displayId;
+  public $height;
+  public $name;
+  public $refreshRate;
+  public $state;
+  public $width;
 
-	public function setDensity($density)
-	{
-		$this->density = $density;
-	}
-	public function getDensity()
-	{
-		return $this->density;
-	}
-	public function setDisplayId($displayId)
-	{
-		$this->displayId = $displayId;
-	}
-	public function getDisplayId()
-	{
-		return $this->displayId;
-	}
-	public function setHeight($height)
-	{
-		$this->height = $height;
-	}
-	public function getHeight()
-	{
-		return $this->height;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRefreshRate($refreshRate)
-	{
-		$this->refreshRate = $refreshRate;
-	}
-	public function getRefreshRate()
-	{
-		return $this->refreshRate;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setWidth($width)
-	{
-		$this->width = $width;
-	}
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  public function setDensity($density)
+  {
+    $this->density = $density;
+  }
+  public function getDensity()
+  {
+    return $this->density;
+  }
+  public function setDisplayId($displayId)
+  {
+    $this->displayId = $displayId;
+  }
+  public function getDisplayId()
+  {
+    return $this->displayId;
+  }
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRefreshRate($refreshRate)
+  {
+    $this->refreshRate = $refreshRate;
+  }
+  public function getRefreshRate()
+  {
+    return $this->refreshRate;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

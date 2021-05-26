@@ -17,49 +17,49 @@
 
 class Google_Service_Blogger_BlogUserInfo extends Google_Model
 {
-	protected $internal_gapi_mappings = array(
-		"blogUserInfo" => "blog_user_info",
-	);
-	protected $blogType = 'Google_Service_Blogger_Blog';
-	protected $blogDataType = '';
-	protected $blogUserInfoType = 'Google_Service_Blogger_BlogPerUserInfo';
-	protected $blogUserInfoDataType = '';
-	public $kind;
+  protected $internal_gapi_mappings = array(
+        "blogUserInfo" => "blog_user_info",
+  );
+  protected $blogType = 'Google_Service_Blogger_Blog';
+  protected $blogDataType = '';
+  protected $blogUserInfoType = 'Google_Service_Blogger_BlogPerUserInfo';
+  protected $blogUserInfoDataType = '';
+  public $kind;
 
-	/**
-	 * @param Google_Service_Blogger_Blog
-	 */
-	public function setBlog(Google_Service_Blogger_Blog $blog)
-	{
-		$this->blog = $blog;
-	}
-	/**
-	 * @return Google_Service_Blogger_Blog
-	 */
-	public function getBlog()
-	{
-		return $this->blog;
-	}
-	/**
-	 * @param Google_Service_Blogger_BlogPerUserInfo
-	 */
-	public function setBlogUserInfo(Google_Service_Blogger_BlogPerUserInfo $blogUserInfo)
-	{
-		$this->blogUserInfo = $blogUserInfo;
-	}
-	/**
-	 * @return Google_Service_Blogger_BlogPerUserInfo
-	 */
-	public function getBlogUserInfo()
-	{
-		return $this->blogUserInfo;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_Blogger_Blog
+   */
+  public function setBlog(Google_Service_Blogger_Blog $blog)
+  {
+    $this->blog = $blog;
+  }
+  /**
+   * @return Google_Service_Blogger_Blog
+   */
+  public function getBlog()
+  {
+    return $this->blog;
+  }
+  /**
+   * @param Google_Service_Blogger_BlogPerUserInfo
+   */
+  public function setBlogUserInfo(Google_Service_Blogger_BlogPerUserInfo $blogUserInfo)
+  {
+    $this->blogUserInfo = $blogUserInfo;
+  }
+  /**
+   * @return Google_Service_Blogger_BlogPerUserInfo
+   */
+  public function getBlogUserInfo()
+  {
+    return $this->blogUserInfo;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

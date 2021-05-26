@@ -17,53 +17,53 @@
 
 class Google_Service_Monitoring_ServiceLevelIndicator extends Google_Model
 {
-	protected $basicSliType = 'Google_Service_Monitoring_BasicSli';
-	protected $basicSliDataType = '';
-	protected $requestBasedType = 'Google_Service_Monitoring_RequestBasedSli';
-	protected $requestBasedDataType = '';
-	protected $windowsBasedType = 'Google_Service_Monitoring_WindowsBasedSli';
-	protected $windowsBasedDataType = '';
+  protected $basicSliType = 'Google_Service_Monitoring_BasicSli';
+  protected $basicSliDataType = '';
+  protected $requestBasedType = 'Google_Service_Monitoring_RequestBasedSli';
+  protected $requestBasedDataType = '';
+  protected $windowsBasedType = 'Google_Service_Monitoring_WindowsBasedSli';
+  protected $windowsBasedDataType = '';
 
-	/**
-	 * @param Google_Service_Monitoring_BasicSli
-	 */
-	public function setBasicSli(Google_Service_Monitoring_BasicSli $basicSli)
-	{
-		$this->basicSli = $basicSli;
-	}
-	/**
-	 * @return Google_Service_Monitoring_BasicSli
-	 */
-	public function getBasicSli()
-	{
-		return $this->basicSli;
-	}
-	/**
-	 * @param Google_Service_Monitoring_RequestBasedSli
-	 */
-	public function setRequestBased(Google_Service_Monitoring_RequestBasedSli $requestBased)
-	{
-		$this->requestBased = $requestBased;
-	}
-	/**
-	 * @return Google_Service_Monitoring_RequestBasedSli
-	 */
-	public function getRequestBased()
-	{
-		return $this->requestBased;
-	}
-	/**
-	 * @param Google_Service_Monitoring_WindowsBasedSli
-	 */
-	public function setWindowsBased(Google_Service_Monitoring_WindowsBasedSli $windowsBased)
-	{
-		$this->windowsBased = $windowsBased;
-	}
-	/**
-	 * @return Google_Service_Monitoring_WindowsBasedSli
-	 */
-	public function getWindowsBased()
-	{
-		return $this->windowsBased;
-	}
+  /**
+   * @param Google_Service_Monitoring_BasicSli
+   */
+  public function setBasicSli(Google_Service_Monitoring_BasicSli $basicSli)
+  {
+    $this->basicSli = $basicSli;
+  }
+  /**
+   * @return Google_Service_Monitoring_BasicSli
+   */
+  public function getBasicSli()
+  {
+    return $this->basicSli;
+  }
+  /**
+   * @param Google_Service_Monitoring_RequestBasedSli
+   */
+  public function setRequestBased(Google_Service_Monitoring_RequestBasedSli $requestBased)
+  {
+    $this->requestBased = $requestBased;
+  }
+  /**
+   * @return Google_Service_Monitoring_RequestBasedSli
+   */
+  public function getRequestBased()
+  {
+    return $this->requestBased;
+  }
+  /**
+   * @param Google_Service_Monitoring_WindowsBasedSli
+   */
+  public function setWindowsBased(Google_Service_Monitoring_WindowsBasedSli $windowsBased)
+  {
+    $this->windowsBased = $windowsBased;
+  }
+  /**
+   * @return Google_Service_Monitoring_WindowsBasedSli
+   */
+  public function getWindowsBased()
+  {
+    return $this->windowsBased;
+  }
 }

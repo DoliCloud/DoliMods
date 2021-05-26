@@ -17,40 +17,40 @@
 
 class Google_Service_Firestore_DocumentChange extends Google_Collection
 {
-	protected $collection_key = 'targetIds';
-	protected $documentType = 'Google_Service_Firestore_Document';
-	protected $documentDataType = '';
-	public $removedTargetIds;
-	public $targetIds;
+  protected $collection_key = 'targetIds';
+  protected $documentType = 'Google_Service_Firestore_Document';
+  protected $documentDataType = '';
+  public $removedTargetIds;
+  public $targetIds;
 
-	/**
-	 * @param Google_Service_Firestore_Document
-	 */
-	public function setDocument(Google_Service_Firestore_Document $document)
-	{
-		$this->document = $document;
-	}
-	/**
-	 * @return Google_Service_Firestore_Document
-	 */
-	public function getDocument()
-	{
-		return $this->document;
-	}
-	public function setRemovedTargetIds($removedTargetIds)
-	{
-		$this->removedTargetIds = $removedTargetIds;
-	}
-	public function getRemovedTargetIds()
-	{
-		return $this->removedTargetIds;
-	}
-	public function setTargetIds($targetIds)
-	{
-		$this->targetIds = $targetIds;
-	}
-	public function getTargetIds()
-	{
-		return $this->targetIds;
-	}
+  /**
+   * @param Google_Service_Firestore_Document
+   */
+  public function setDocument(Google_Service_Firestore_Document $document)
+  {
+    $this->document = $document;
+  }
+  /**
+   * @return Google_Service_Firestore_Document
+   */
+  public function getDocument()
+  {
+    return $this->document;
+  }
+  public function setRemovedTargetIds($removedTargetIds)
+  {
+    $this->removedTargetIds = $removedTargetIds;
+  }
+  public function getRemovedTargetIds()
+  {
+    return $this->removedTargetIds;
+  }
+  public function setTargetIds($targetIds)
+  {
+    $this->targetIds = $targetIds;
+  }
+  public function getTargetIds()
+  {
+    return $this->targetIds;
+  }
 }

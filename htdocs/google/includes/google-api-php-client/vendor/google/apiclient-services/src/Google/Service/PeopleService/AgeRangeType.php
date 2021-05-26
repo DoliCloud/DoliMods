@@ -17,30 +17,30 @@
 
 class Google_Service_PeopleService_AgeRangeType extends Google_Model
 {
-	public $ageRange;
-	protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
-	protected $metadataDataType = '';
+  public $ageRange;
+  protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
+  protected $metadataDataType = '';
 
-	public function setAgeRange($ageRange)
-	{
-		$this->ageRange = $ageRange;
-	}
-	public function getAgeRange()
-	{
-		return $this->ageRange;
-	}
-	/**
-	 * @param Google_Service_PeopleService_FieldMetadata
-	 */
-	public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_PeopleService_FieldMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
+  public function setAgeRange($ageRange)
+  {
+    $this->ageRange = $ageRange;
+  }
+  public function getAgeRange()
+  {
+    return $this->ageRange;
+  }
+  /**
+   * @param Google_Service_PeopleService_FieldMetadata
+   */
+  public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_PeopleService_FieldMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
 }

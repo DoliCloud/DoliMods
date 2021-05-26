@@ -17,24 +17,24 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2SpeechContext extends Google_Collection
 {
-	protected $collection_key = 'phrases';
-	public $boost;
-	public $phrases;
+  protected $collection_key = 'phrases';
+  public $boost;
+  public $phrases;
 
-	public function setBoost($boost)
-	{
-		$this->boost = $boost;
-	}
-	public function getBoost()
-	{
-		return $this->boost;
-	}
-	public function setPhrases($phrases)
-	{
-		$this->phrases = $phrases;
-	}
-	public function getPhrases()
-	{
-		return $this->phrases;
-	}
+  public function setBoost($boost)
+  {
+    $this->boost = $boost;
+  }
+  public function getBoost()
+  {
+    return $this->boost;
+  }
+  public function setPhrases($phrases)
+  {
+    $this->phrases = $phrases;
+  }
+  public function getPhrases()
+  {
+    return $this->phrases;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_SQLAdmin_ExportContextSqlExportOptionsMysqlExportOptions extends Google_Model
 {
-	public $masterData;
+  public $masterData;
 
-	public function setMasterData($masterData)
-	{
-		$this->masterData = $masterData;
-	}
-	public function getMasterData()
-	{
-		return $this->masterData;
-	}
+  public function setMasterData($masterData)
+  {
+    $this->masterData = $masterData;
+  }
+  public function getMasterData()
+  {
+    return $this->masterData;
+  }
 }

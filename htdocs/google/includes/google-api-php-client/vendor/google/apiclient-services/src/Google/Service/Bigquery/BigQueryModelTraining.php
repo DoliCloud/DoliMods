@@ -17,23 +17,23 @@
 
 class Google_Service_Bigquery_BigQueryModelTraining extends Google_Model
 {
-	public $currentIteration;
-	public $expectedTotalIterations;
+  public $currentIteration;
+  public $expectedTotalIterations;
 
-	public function setCurrentIteration($currentIteration)
-	{
-		$this->currentIteration = $currentIteration;
-	}
-	public function getCurrentIteration()
-	{
-		return $this->currentIteration;
-	}
-	public function setExpectedTotalIterations($expectedTotalIterations)
-	{
-		$this->expectedTotalIterations = $expectedTotalIterations;
-	}
-	public function getExpectedTotalIterations()
-	{
-		return $this->expectedTotalIterations;
-	}
+  public function setCurrentIteration($currentIteration)
+  {
+    $this->currentIteration = $currentIteration;
+  }
+  public function getCurrentIteration()
+  {
+    return $this->currentIteration;
+  }
+  public function setExpectedTotalIterations($expectedTotalIterations)
+  {
+    $this->expectedTotalIterations = $expectedTotalIterations;
+  }
+  public function getExpectedTotalIterations()
+  {
+    return $this->expectedTotalIterations;
+  }
 }

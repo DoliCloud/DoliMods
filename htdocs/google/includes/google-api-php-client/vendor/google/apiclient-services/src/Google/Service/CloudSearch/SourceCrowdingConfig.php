@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_SourceCrowdingConfig extends Google_Model
 {
-	public $numResults;
-	public $numSuggestions;
+  public $numResults;
+  public $numSuggestions;
 
-	public function setNumResults($numResults)
-	{
-		$this->numResults = $numResults;
-	}
-	public function getNumResults()
-	{
-		return $this->numResults;
-	}
-	public function setNumSuggestions($numSuggestions)
-	{
-		$this->numSuggestions = $numSuggestions;
-	}
-	public function getNumSuggestions()
-	{
-		return $this->numSuggestions;
-	}
+  public function setNumResults($numResults)
+  {
+    $this->numResults = $numResults;
+  }
+  public function getNumResults()
+  {
+    return $this->numResults;
+  }
+  public function setNumSuggestions($numSuggestions)
+  {
+    $this->numSuggestions = $numSuggestions;
+  }
+  public function getNumSuggestions()
+  {
+    return $this->numSuggestions;
+  }
 }

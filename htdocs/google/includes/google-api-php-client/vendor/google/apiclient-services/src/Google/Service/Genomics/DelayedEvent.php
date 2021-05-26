@@ -17,24 +17,24 @@
 
 class Google_Service_Genomics_DelayedEvent extends Google_Collection
 {
-	protected $collection_key = 'metrics';
-	public $cause;
-	public $metrics;
+  protected $collection_key = 'metrics';
+  public $cause;
+  public $metrics;
 
-	public function setCause($cause)
-	{
-		$this->cause = $cause;
-	}
-	public function getCause()
-	{
-		return $this->cause;
-	}
-	public function setMetrics($metrics)
-	{
-		$this->metrics = $metrics;
-	}
-	public function getMetrics()
-	{
-		return $this->metrics;
-	}
+  public function setCause($cause)
+  {
+    $this->cause = $cause;
+  }
+  public function getCause()
+  {
+    return $this->cause;
+  }
+  public function setMetrics($metrics)
+  {
+    $this->metrics = $metrics;
+  }
+  public function getMetrics()
+  {
+    return $this->metrics;
+  }
 }

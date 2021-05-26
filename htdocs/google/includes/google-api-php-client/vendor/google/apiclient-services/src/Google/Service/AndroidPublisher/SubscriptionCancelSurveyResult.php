@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidPublisher_SubscriptionCancelSurveyResult extends Google_Model
 {
-	public $cancelSurveyReason;
-	public $userInputCancelReason;
+  public $cancelSurveyReason;
+  public $userInputCancelReason;
 
-	public function setCancelSurveyReason($cancelSurveyReason)
-	{
-		$this->cancelSurveyReason = $cancelSurveyReason;
-	}
-	public function getCancelSurveyReason()
-	{
-		return $this->cancelSurveyReason;
-	}
-	public function setUserInputCancelReason($userInputCancelReason)
-	{
-		$this->userInputCancelReason = $userInputCancelReason;
-	}
-	public function getUserInputCancelReason()
-	{
-		return $this->userInputCancelReason;
-	}
+  public function setCancelSurveyReason($cancelSurveyReason)
+  {
+    $this->cancelSurveyReason = $cancelSurveyReason;
+  }
+  public function getCancelSurveyReason()
+  {
+    return $this->cancelSurveyReason;
+  }
+  public function setUserInputCancelReason($userInputCancelReason)
+  {
+    $this->userInputCancelReason = $userInputCancelReason;
+  }
+  public function getUserInputCancelReason()
+  {
+    return $this->userInputCancelReason;
+  }
 }

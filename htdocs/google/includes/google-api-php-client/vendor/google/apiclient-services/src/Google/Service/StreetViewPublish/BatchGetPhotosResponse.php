@@ -17,22 +17,22 @@
 
 class Google_Service_StreetViewPublish_BatchGetPhotosResponse extends Google_Collection
 {
-	protected $collection_key = 'results';
-	protected $resultsType = 'Google_Service_StreetViewPublish_PhotoResponse';
-	protected $resultsDataType = 'array';
+  protected $collection_key = 'results';
+  protected $resultsType = 'Google_Service_StreetViewPublish_PhotoResponse';
+  protected $resultsDataType = 'array';
 
-	/**
-	 * @param Google_Service_StreetViewPublish_PhotoResponse
-	 */
-	public function setResults($results)
-	{
-		$this->results = $results;
-	}
-	/**
-	 * @return Google_Service_StreetViewPublish_PhotoResponse
-	 */
-	public function getResults()
-	{
-		return $this->results;
-	}
+  /**
+   * @param Google_Service_StreetViewPublish_PhotoResponse[]
+   */
+  public function setResults($results)
+  {
+    $this->results = $results;
+  }
+  /**
+   * @return Google_Service_StreetViewPublish_PhotoResponse[]
+   */
+  public function getResults()
+  {
+    return $this->results;
+  }
 }

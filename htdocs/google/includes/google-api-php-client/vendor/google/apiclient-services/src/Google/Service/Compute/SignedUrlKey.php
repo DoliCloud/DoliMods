@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_SignedUrlKey extends Google_Model
 {
-	public $keyName;
-	public $keyValue;
+  public $keyName;
+  public $keyValue;
 
-	public function setKeyName($keyName)
-	{
-		$this->keyName = $keyName;
-	}
-	public function getKeyName()
-	{
-		return $this->keyName;
-	}
-	public function setKeyValue($keyValue)
-	{
-		$this->keyValue = $keyValue;
-	}
-	public function getKeyValue()
-	{
-		return $this->keyValue;
-	}
+  public function setKeyName($keyName)
+  {
+    $this->keyName = $keyName;
+  }
+  public function getKeyName()
+  {
+    return $this->keyName;
+  }
+  public function setKeyValue($keyValue)
+  {
+    $this->keyValue = $keyValue;
+  }
+  public function getKeyValue()
+  {
+    return $this->keyValue;
+  }
 }

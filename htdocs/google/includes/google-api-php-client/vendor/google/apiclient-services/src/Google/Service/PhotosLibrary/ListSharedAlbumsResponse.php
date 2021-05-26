@@ -17,31 +17,31 @@
 
 class Google_Service_PhotosLibrary_ListSharedAlbumsResponse extends Google_Collection
 {
-	protected $collection_key = 'sharedAlbums';
-	public $nextPageToken;
-	protected $sharedAlbumsType = 'Google_Service_PhotosLibrary_Album';
-	protected $sharedAlbumsDataType = 'array';
+  protected $collection_key = 'sharedAlbums';
+  public $nextPageToken;
+  protected $sharedAlbumsType = 'Google_Service_PhotosLibrary_Album';
+  protected $sharedAlbumsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_Album
-	 */
-	public function setSharedAlbums($sharedAlbums)
-	{
-		$this->sharedAlbums = $sharedAlbums;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_Album
-	 */
-	public function getSharedAlbums()
-	{
-		return $this->sharedAlbums;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_Album
+   */
+  public function setSharedAlbums($sharedAlbums)
+  {
+    $this->sharedAlbums = $sharedAlbums;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_Album
+   */
+  public function getSharedAlbums()
+  {
+    return $this->sharedAlbums;
+  }
 }

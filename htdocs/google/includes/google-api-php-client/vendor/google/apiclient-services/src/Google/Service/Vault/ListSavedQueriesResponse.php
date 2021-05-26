@@ -17,31 +17,31 @@
 
 class Google_Service_Vault_ListSavedQueriesResponse extends Google_Collection
 {
-	protected $collection_key = 'savedQueries';
-	public $nextPageToken;
-	protected $savedQueriesType = 'Google_Service_Vault_SavedQuery';
-	protected $savedQueriesDataType = 'array';
+  protected $collection_key = 'savedQueries';
+  public $nextPageToken;
+  protected $savedQueriesType = 'Google_Service_Vault_SavedQuery';
+  protected $savedQueriesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Vault_SavedQuery
-	 */
-	public function setSavedQueries($savedQueries)
-	{
-		$this->savedQueries = $savedQueries;
-	}
-	/**
-	 * @return Google_Service_Vault_SavedQuery
-	 */
-	public function getSavedQueries()
-	{
-		return $this->savedQueries;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Vault_SavedQuery[]
+   */
+  public function setSavedQueries($savedQueries)
+  {
+    $this->savedQueries = $savedQueries;
+  }
+  /**
+   * @return Google_Service_Vault_SavedQuery[]
+   */
+  public function getSavedQueries()
+  {
+    return $this->savedQueries;
+  }
 }

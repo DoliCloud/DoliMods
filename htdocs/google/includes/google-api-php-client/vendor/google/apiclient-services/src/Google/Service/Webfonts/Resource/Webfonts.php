@@ -25,19 +25,19 @@
  */
 class Google_Service_Webfonts_Resource_Webfonts extends Google_Service_Resource
 {
-	/**
-	 * Retrieves the list of fonts currently served by the Google Fonts Developer
-	 * API. (webfonts.listWebfonts)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string sort Enables sorting of the list.
-	 * @return Google_Service_Webfonts_WebfontList
-	 */
-	public function listWebfonts($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Webfonts_WebfontList");
-	}
+  /**
+   * Retrieves the list of fonts currently served by the Google Fonts Developer
+   * API. (webfonts.listWebfonts)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string sort Enables sorting of the list.
+   * @return Google_Service_Webfonts_WebfontList
+   */
+  public function listWebfonts($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Webfonts_WebfontList");
+  }
 }

@@ -17,59 +17,59 @@
 
 class Google_Service_NetworkManagement_Endpoint extends Google_Model
 {
-	public $instance;
-	public $ipAddress;
-	public $network;
-	public $networkType;
-	public $port;
-	public $projectId;
+  public $instance;
+  public $ipAddress;
+  public $network;
+  public $networkType;
+  public $port;
+  public $projectId;
 
-	public function setInstance($instance)
-	{
-		$this->instance = $instance;
-	}
-	public function getInstance()
-	{
-		return $this->instance;
-	}
-	public function setIpAddress($ipAddress)
-	{
-		$this->ipAddress = $ipAddress;
-	}
-	public function getIpAddress()
-	{
-		return $this->ipAddress;
-	}
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setNetworkType($networkType)
-	{
-		$this->networkType = $networkType;
-	}
-	public function getNetworkType()
-	{
-		return $this->networkType;
-	}
-	public function setPort($port)
-	{
-		$this->port = $port;
-	}
-	public function getPort()
-	{
-		return $this->port;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
+  public function setInstance($instance)
+  {
+    $this->instance = $instance;
+  }
+  public function getInstance()
+  {
+    return $this->instance;
+  }
+  public function setIpAddress($ipAddress)
+  {
+    $this->ipAddress = $ipAddress;
+  }
+  public function getIpAddress()
+  {
+    return $this->ipAddress;
+  }
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setNetworkType($networkType)
+  {
+    $this->networkType = $networkType;
+  }
+  public function getNetworkType()
+  {
+    return $this->networkType;
+  }
+  public function setPort($port)
+  {
+    $this->port = $port;
+  }
+  public function getPort()
+  {
+    return $this->port;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
 }

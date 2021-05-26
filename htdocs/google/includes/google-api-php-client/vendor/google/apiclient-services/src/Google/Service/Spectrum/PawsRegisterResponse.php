@@ -17,48 +17,48 @@
 
 class Google_Service_Spectrum_PawsRegisterResponse extends Google_Model
 {
-	protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
-	protected $databaseChangeDataType = '';
-	public $kind;
-	public $type;
-	public $version;
+  protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
+  protected $databaseChangeDataType = '';
+  public $kind;
+  public $type;
+  public $version;
 
-	/**
-	 * @param Google_Service_Spectrum_DbUpdateSpec
-	 */
-	public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
-	{
-		$this->databaseChange = $databaseChange;
-	}
-	/**
-	 * @return Google_Service_Spectrum_DbUpdateSpec
-	 */
-	public function getDatabaseChange()
-	{
-		return $this->databaseChange;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_Spectrum_DbUpdateSpec
+   */
+  public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
+  {
+    $this->databaseChange = $databaseChange;
+  }
+  /**
+   * @return Google_Service_Spectrum_DbUpdateSpec
+   */
+  public function getDatabaseChange()
+  {
+    return $this->databaseChange;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

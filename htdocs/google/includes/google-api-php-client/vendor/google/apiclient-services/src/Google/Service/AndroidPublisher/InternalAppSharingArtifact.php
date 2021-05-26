@@ -17,32 +17,32 @@
 
 class Google_Service_AndroidPublisher_InternalAppSharingArtifact extends Google_Model
 {
-	public $certificateFingerprint;
-	public $downloadUrl;
-	public $sha256;
+  public $certificateFingerprint;
+  public $downloadUrl;
+  public $sha256;
 
-	public function setCertificateFingerprint($certificateFingerprint)
-	{
-		$this->certificateFingerprint = $certificateFingerprint;
-	}
-	public function getCertificateFingerprint()
-	{
-		return $this->certificateFingerprint;
-	}
-	public function setDownloadUrl($downloadUrl)
-	{
-		$this->downloadUrl = $downloadUrl;
-	}
-	public function getDownloadUrl()
-	{
-		return $this->downloadUrl;
-	}
-	public function setSha256($sha256)
-	{
-		$this->sha256 = $sha256;
-	}
-	public function getSha256()
-	{
-		return $this->sha256;
-	}
+  public function setCertificateFingerprint($certificateFingerprint)
+  {
+    $this->certificateFingerprint = $certificateFingerprint;
+  }
+  public function getCertificateFingerprint()
+  {
+    return $this->certificateFingerprint;
+  }
+  public function setDownloadUrl($downloadUrl)
+  {
+    $this->downloadUrl = $downloadUrl;
+  }
+  public function getDownloadUrl()
+  {
+    return $this->downloadUrl;
+  }
+  public function setSha256($sha256)
+  {
+    $this->sha256 = $sha256;
+  }
+  public function getSha256()
+  {
+    return $this->sha256;
+  }
 }

@@ -17,46 +17,46 @@
 
 class Google_Service_CloudRun_Volume extends Google_Model
 {
-	protected $configMapType = 'Google_Service_CloudRun_ConfigMapVolumeSource';
-	protected $configMapDataType = '';
-	public $name;
-	protected $secretType = 'Google_Service_CloudRun_SecretVolumeSource';
-	protected $secretDataType = '';
+  protected $configMapType = 'Google_Service_CloudRun_ConfigMapVolumeSource';
+  protected $configMapDataType = '';
+  public $name;
+  protected $secretType = 'Google_Service_CloudRun_SecretVolumeSource';
+  protected $secretDataType = '';
 
-	/**
-	 * @param Google_Service_CloudRun_ConfigMapVolumeSource
-	 */
-	public function setConfigMap(Google_Service_CloudRun_ConfigMapVolumeSource $configMap)
-	{
-		$this->configMap = $configMap;
-	}
-	/**
-	 * @return Google_Service_CloudRun_ConfigMapVolumeSource
-	 */
-	public function getConfigMap()
-	{
-		return $this->configMap;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_CloudRun_SecretVolumeSource
-	 */
-	public function setSecret(Google_Service_CloudRun_SecretVolumeSource $secret)
-	{
-		$this->secret = $secret;
-	}
-	/**
-	 * @return Google_Service_CloudRun_SecretVolumeSource
-	 */
-	public function getSecret()
-	{
-		return $this->secret;
-	}
+  /**
+   * @param Google_Service_CloudRun_ConfigMapVolumeSource
+   */
+  public function setConfigMap(Google_Service_CloudRun_ConfigMapVolumeSource $configMap)
+  {
+    $this->configMap = $configMap;
+  }
+  /**
+   * @return Google_Service_CloudRun_ConfigMapVolumeSource
+   */
+  public function getConfigMap()
+  {
+    return $this->configMap;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_CloudRun_SecretVolumeSource
+   */
+  public function setSecret(Google_Service_CloudRun_SecretVolumeSource $secret)
+  {
+    $this->secret = $secret;
+  }
+  /**
+   * @return Google_Service_CloudRun_SecretVolumeSource
+   */
+  public function getSecret()
+  {
+    return $this->secret;
+  }
 }

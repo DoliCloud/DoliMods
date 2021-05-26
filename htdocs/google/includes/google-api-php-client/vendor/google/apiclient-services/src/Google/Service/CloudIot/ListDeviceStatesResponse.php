@@ -17,22 +17,22 @@
 
 class Google_Service_CloudIot_ListDeviceStatesResponse extends Google_Collection
 {
-	protected $collection_key = 'deviceStates';
-	protected $deviceStatesType = 'Google_Service_CloudIot_DeviceState';
-	protected $deviceStatesDataType = 'array';
+  protected $collection_key = 'deviceStates';
+  protected $deviceStatesType = 'Google_Service_CloudIot_DeviceState';
+  protected $deviceStatesDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudIot_DeviceState
-	 */
-	public function setDeviceStates($deviceStates)
-	{
-		$this->deviceStates = $deviceStates;
-	}
-	/**
-	 * @return Google_Service_CloudIot_DeviceState
-	 */
-	public function getDeviceStates()
-	{
-		return $this->deviceStates;
-	}
+  /**
+   * @param Google_Service_CloudIot_DeviceState[]
+   */
+  public function setDeviceStates($deviceStates)
+  {
+    $this->deviceStates = $deviceStates;
+  }
+  /**
+   * @return Google_Service_CloudIot_DeviceState[]
+   */
+  public function getDeviceStates()
+  {
+    return $this->deviceStates;
+  }
 }

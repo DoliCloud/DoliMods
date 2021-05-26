@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoCommonName extends Google_Model
 {
-	public $value;
-	public $wildcardMatch;
+  public $value;
+  public $wildcardMatch;
 
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
-	public function setWildcardMatch($wildcardMatch)
-	{
-		$this->wildcardMatch = $wildcardMatch;
-	}
-	public function getWildcardMatch()
-	{
-		return $this->wildcardMatch;
-	}
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
+  public function setWildcardMatch($wildcardMatch)
+  {
+    $this->wildcardMatch = $wildcardMatch;
+  }
+  public function getWildcardMatch()
+  {
+    return $this->wildcardMatch;
+  }
 }

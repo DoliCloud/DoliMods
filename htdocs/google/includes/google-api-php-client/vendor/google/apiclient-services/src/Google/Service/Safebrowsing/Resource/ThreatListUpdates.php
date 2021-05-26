@@ -25,18 +25,18 @@
  */
 class Google_Service_Safebrowsing_Resource_ThreatListUpdates extends Google_Service_Resource
 {
-	/**
-	 * Fetches the most recent threat list updates. A client can request updates for
-	 * multiple lists at once. (threatListUpdates.fetch)
-	 *
-	 * @param Google_Service_Safebrowsing_FetchThreatListUpdatesRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Safebrowsing_FetchThreatListUpdatesResponse
-	 */
-	public function fetch(Google_Service_Safebrowsing_FetchThreatListUpdatesRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('fetch', array($params), "Google_Service_Safebrowsing_FetchThreatListUpdatesResponse");
-	}
+  /**
+   * Fetches the most recent threat list updates. A client can request updates for
+   * multiple lists at once. (threatListUpdates.fetch)
+   *
+   * @param Google_Service_Safebrowsing_FetchThreatListUpdatesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Safebrowsing_FetchThreatListUpdatesResponse
+   */
+  public function fetch(Google_Service_Safebrowsing_FetchThreatListUpdatesRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('fetch', array($params), "Google_Service_Safebrowsing_FetchThreatListUpdatesResponse");
+  }
 }

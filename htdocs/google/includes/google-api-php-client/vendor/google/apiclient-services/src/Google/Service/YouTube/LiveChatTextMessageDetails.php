@@ -17,14 +17,14 @@
 
 class Google_Service_YouTube_LiveChatTextMessageDetails extends Google_Model
 {
-	public $messageText;
+  public $messageText;
 
-	public function setMessageText($messageText)
-	{
-		$this->messageText = $messageText;
-	}
-	public function getMessageText()
-	{
-		return $this->messageText;
-	}
+  public function setMessageText($messageText)
+  {
+    $this->messageText = $messageText;
+  }
+  public function getMessageText()
+  {
+    return $this->messageText;
+  }
 }

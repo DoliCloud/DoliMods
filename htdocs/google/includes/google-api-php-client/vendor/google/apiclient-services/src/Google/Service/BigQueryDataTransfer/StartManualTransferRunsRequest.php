@@ -17,30 +17,30 @@
 
 class Google_Service_BigQueryDataTransfer_StartManualTransferRunsRequest extends Google_Model
 {
-	public $requestedRunTime;
-	protected $requestedTimeRangeType = 'Google_Service_BigQueryDataTransfer_TimeRange';
-	protected $requestedTimeRangeDataType = '';
+  public $requestedRunTime;
+  protected $requestedTimeRangeType = 'Google_Service_BigQueryDataTransfer_TimeRange';
+  protected $requestedTimeRangeDataType = '';
 
-	public function setRequestedRunTime($requestedRunTime)
-	{
-		$this->requestedRunTime = $requestedRunTime;
-	}
-	public function getRequestedRunTime()
-	{
-		return $this->requestedRunTime;
-	}
-	/**
-	 * @param Google_Service_BigQueryDataTransfer_TimeRange
-	 */
-	public function setRequestedTimeRange(Google_Service_BigQueryDataTransfer_TimeRange $requestedTimeRange)
-	{
-		$this->requestedTimeRange = $requestedTimeRange;
-	}
-	/**
-	 * @return Google_Service_BigQueryDataTransfer_TimeRange
-	 */
-	public function getRequestedTimeRange()
-	{
-		return $this->requestedTimeRange;
-	}
+  public function setRequestedRunTime($requestedRunTime)
+  {
+    $this->requestedRunTime = $requestedRunTime;
+  }
+  public function getRequestedRunTime()
+  {
+    return $this->requestedRunTime;
+  }
+  /**
+   * @param Google_Service_BigQueryDataTransfer_TimeRange
+   */
+  public function setRequestedTimeRange(Google_Service_BigQueryDataTransfer_TimeRange $requestedTimeRange)
+  {
+    $this->requestedTimeRange = $requestedTimeRange;
+  }
+  /**
+   * @return Google_Service_BigQueryDataTransfer_TimeRange
+   */
+  public function getRequestedTimeRange()
+  {
+    return $this->requestedTimeRange;
+  }
 }

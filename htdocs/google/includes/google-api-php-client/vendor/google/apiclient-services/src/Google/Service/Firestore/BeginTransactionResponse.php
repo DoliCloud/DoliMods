@@ -17,14 +17,14 @@
 
 class Google_Service_Firestore_BeginTransactionResponse extends Google_Model
 {
-	public $transaction;
+  public $transaction;
 
-	public function setTransaction($transaction)
-	{
-		$this->transaction = $transaction;
-	}
-	public function getTransaction()
-	{
-		return $this->transaction;
-	}
+  public function setTransaction($transaction)
+  {
+    $this->transaction = $transaction;
+  }
+  public function getTransaction()
+  {
+    return $this->transaction;
+  }
 }

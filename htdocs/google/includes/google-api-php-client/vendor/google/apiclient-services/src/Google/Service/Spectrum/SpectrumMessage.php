@@ -17,31 +17,31 @@
 
 class Google_Service_Spectrum_SpectrumMessage extends Google_Collection
 {
-	protected $collection_key = 'frequencyRanges';
-	public $bandwidth;
-	protected $frequencyRangesType = 'Google_Service_Spectrum_FrequencyRange';
-	protected $frequencyRangesDataType = 'array';
+  protected $collection_key = 'frequencyRanges';
+  public $bandwidth;
+  protected $frequencyRangesType = 'Google_Service_Spectrum_FrequencyRange';
+  protected $frequencyRangesDataType = 'array';
 
-	public function setBandwidth($bandwidth)
-	{
-		$this->bandwidth = $bandwidth;
-	}
-	public function getBandwidth()
-	{
-		return $this->bandwidth;
-	}
-	/**
-	 * @param Google_Service_Spectrum_FrequencyRange
-	 */
-	public function setFrequencyRanges($frequencyRanges)
-	{
-		$this->frequencyRanges = $frequencyRanges;
-	}
-	/**
-	 * @return Google_Service_Spectrum_FrequencyRange
-	 */
-	public function getFrequencyRanges()
-	{
-		return $this->frequencyRanges;
-	}
+  public function setBandwidth($bandwidth)
+  {
+    $this->bandwidth = $bandwidth;
+  }
+  public function getBandwidth()
+  {
+    return $this->bandwidth;
+  }
+  /**
+   * @param Google_Service_Spectrum_FrequencyRange
+   */
+  public function setFrequencyRanges($frequencyRanges)
+  {
+    $this->frequencyRanges = $frequencyRanges;
+  }
+  /**
+   * @return Google_Service_Spectrum_FrequencyRange
+   */
+  public function getFrequencyRanges()
+  {
+    return $this->frequencyRanges;
+  }
 }

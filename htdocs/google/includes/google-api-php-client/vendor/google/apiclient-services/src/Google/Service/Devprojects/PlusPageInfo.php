@@ -17,41 +17,41 @@
 
 class Google_Service_Devprojects_PlusPageInfo extends Google_Model
 {
-	public $kind;
-	public $name;
-	public $vanityUrl;
-	public $verified;
+  public $kind;
+  public $name;
+  public $vanityUrl;
+  public $verified;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setVanityUrl($vanityUrl)
-	{
-		$this->vanityUrl = $vanityUrl;
-	}
-	public function getVanityUrl()
-	{
-		return $this->vanityUrl;
-	}
-	public function setVerified($verified)
-	{
-		$this->verified = $verified;
-	}
-	public function getVerified()
-	{
-		return $this->verified;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setVanityUrl($vanityUrl)
+  {
+    $this->vanityUrl = $vanityUrl;
+  }
+  public function getVanityUrl()
+  {
+    return $this->vanityUrl;
+  }
+  public function setVerified($verified)
+  {
+    $this->verified = $verified;
+  }
+  public function getVerified()
+  {
+    return $this->verified;
+  }
 }

@@ -17,104 +17,104 @@
 
 class Google_Service_CloudOSLogin_PosixAccount extends Google_Model
 {
-	public $accountId;
-	public $gecos;
-	public $gid;
-	public $homeDirectory;
-	public $name;
-	public $operatingSystemType;
-	public $primary;
-	public $shell;
-	public $systemId;
-	public $uid;
-	public $username;
+  public $accountId;
+  public $gecos;
+  public $gid;
+  public $homeDirectory;
+  public $name;
+  public $operatingSystemType;
+  public $primary;
+  public $shell;
+  public $systemId;
+  public $uid;
+  public $username;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	public function setGecos($gecos)
-	{
-		$this->gecos = $gecos;
-	}
-	public function getGecos()
-	{
-		return $this->gecos;
-	}
-	public function setGid($gid)
-	{
-		$this->gid = $gid;
-	}
-	public function getGid()
-	{
-		return $this->gid;
-	}
-	public function setHomeDirectory($homeDirectory)
-	{
-		$this->homeDirectory = $homeDirectory;
-	}
-	public function getHomeDirectory()
-	{
-		return $this->homeDirectory;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOperatingSystemType($operatingSystemType)
-	{
-		$this->operatingSystemType = $operatingSystemType;
-	}
-	public function getOperatingSystemType()
-	{
-		return $this->operatingSystemType;
-	}
-	public function setPrimary($primary)
-	{
-		$this->primary = $primary;
-	}
-	public function getPrimary()
-	{
-		return $this->primary;
-	}
-	public function setShell($shell)
-	{
-		$this->shell = $shell;
-	}
-	public function getShell()
-	{
-		return $this->shell;
-	}
-	public function setSystemId($systemId)
-	{
-		$this->systemId = $systemId;
-	}
-	public function getSystemId()
-	{
-		return $this->systemId;
-	}
-	public function setUid($uid)
-	{
-		$this->uid = $uid;
-	}
-	public function getUid()
-	{
-		return $this->uid;
-	}
-	public function setUsername($username)
-	{
-		$this->username = $username;
-	}
-	public function getUsername()
-	{
-		return $this->username;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  public function setGecos($gecos)
+  {
+    $this->gecos = $gecos;
+  }
+  public function getGecos()
+  {
+    return $this->gecos;
+  }
+  public function setGid($gid)
+  {
+    $this->gid = $gid;
+  }
+  public function getGid()
+  {
+    return $this->gid;
+  }
+  public function setHomeDirectory($homeDirectory)
+  {
+    $this->homeDirectory = $homeDirectory;
+  }
+  public function getHomeDirectory()
+  {
+    return $this->homeDirectory;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOperatingSystemType($operatingSystemType)
+  {
+    $this->operatingSystemType = $operatingSystemType;
+  }
+  public function getOperatingSystemType()
+  {
+    return $this->operatingSystemType;
+  }
+  public function setPrimary($primary)
+  {
+    $this->primary = $primary;
+  }
+  public function getPrimary()
+  {
+    return $this->primary;
+  }
+  public function setShell($shell)
+  {
+    $this->shell = $shell;
+  }
+  public function getShell()
+  {
+    return $this->shell;
+  }
+  public function setSystemId($systemId)
+  {
+    $this->systemId = $systemId;
+  }
+  public function getSystemId()
+  {
+    return $this->systemId;
+  }
+  public function setUid($uid)
+  {
+    $this->uid = $uid;
+  }
+  public function getUid()
+  {
+    return $this->uid;
+  }
+  public function setUsername($username)
+  {
+    $this->username = $username;
+  }
+  public function getUsername()
+  {
+    return $this->username;
+  }
 }

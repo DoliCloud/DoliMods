@@ -17,48 +17,48 @@
 
 class Google_Service_Slides_InsertTextRequest extends Google_Model
 {
-	protected $cellLocationType = 'Google_Service_Slides_TableCellLocation';
-	protected $cellLocationDataType = '';
-	public $insertionIndex;
-	public $objectId;
-	public $text;
+  protected $cellLocationType = 'Google_Service_Slides_TableCellLocation';
+  protected $cellLocationDataType = '';
+  public $insertionIndex;
+  public $objectId;
+  public $text;
 
-	/**
-	 * @param Google_Service_Slides_TableCellLocation
-	 */
-	public function setCellLocation(Google_Service_Slides_TableCellLocation $cellLocation)
-	{
-		$this->cellLocation = $cellLocation;
-	}
-	/**
-	 * @return Google_Service_Slides_TableCellLocation
-	 */
-	public function getCellLocation()
-	{
-		return $this->cellLocation;
-	}
-	public function setInsertionIndex($insertionIndex)
-	{
-		$this->insertionIndex = $insertionIndex;
-	}
-	public function getInsertionIndex()
-	{
-		return $this->insertionIndex;
-	}
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  /**
+   * @param Google_Service_Slides_TableCellLocation
+   */
+  public function setCellLocation(Google_Service_Slides_TableCellLocation $cellLocation)
+  {
+    $this->cellLocation = $cellLocation;
+  }
+  /**
+   * @return Google_Service_Slides_TableCellLocation
+   */
+  public function getCellLocation()
+  {
+    return $this->cellLocation;
+  }
+  public function setInsertionIndex($insertionIndex)
+  {
+    $this->insertionIndex = $insertionIndex;
+  }
+  public function getInsertionIndex()
+  {
+    return $this->insertionIndex;
+  }
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie extends Google_Model
 {
-	public $name;
-	public $path;
-	protected $ttlType = 'Google_Service_Compute_Duration';
-	protected $ttlDataType = '';
+  public $name;
+  public $path;
+  protected $ttlType = 'Google_Service_Compute_Duration';
+  protected $ttlDataType = '';
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
-	/**
-	 * @param Google_Service_Compute_Duration
-	 */
-	public function setTtl(Google_Service_Compute_Duration $ttl)
-	{
-		$this->ttl = $ttl;
-	}
-	/**
-	 * @return Google_Service_Compute_Duration
-	 */
-	public function getTtl()
-	{
-		return $this->ttl;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
+  /**
+   * @param Google_Service_Compute_Duration
+   */
+  public function setTtl(Google_Service_Compute_Duration $ttl)
+  {
+    $this->ttl = $ttl;
+  }
+  /**
+   * @return Google_Service_Compute_Duration
+   */
+  public function getTtl()
+  {
+    return $this->ttl;
+  }
 }

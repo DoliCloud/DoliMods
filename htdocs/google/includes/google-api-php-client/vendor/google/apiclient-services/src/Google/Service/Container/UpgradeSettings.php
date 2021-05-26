@@ -17,23 +17,23 @@
 
 class Google_Service_Container_UpgradeSettings extends Google_Model
 {
-	public $maxSurge;
-	public $maxUnavailable;
+  public $maxSurge;
+  public $maxUnavailable;
 
-	public function setMaxSurge($maxSurge)
-	{
-		$this->maxSurge = $maxSurge;
-	}
-	public function getMaxSurge()
-	{
-		return $this->maxSurge;
-	}
-	public function setMaxUnavailable($maxUnavailable)
-	{
-		$this->maxUnavailable = $maxUnavailable;
-	}
-	public function getMaxUnavailable()
-	{
-		return $this->maxUnavailable;
-	}
+  public function setMaxSurge($maxSurge)
+  {
+    $this->maxSurge = $maxSurge;
+  }
+  public function getMaxSurge()
+  {
+    return $this->maxSurge;
+  }
+  public function setMaxUnavailable($maxUnavailable)
+  {
+    $this->maxUnavailable = $maxUnavailable;
+  }
+  public function getMaxUnavailable()
+  {
+    return $this->maxUnavailable;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceNetworking_DnsZone extends Google_Model
 {
-	public $dnsSuffix;
-	public $name;
+  public $dnsSuffix;
+  public $name;
 
-	public function setDnsSuffix($dnsSuffix)
-	{
-		$this->dnsSuffix = $dnsSuffix;
-	}
-	public function getDnsSuffix()
-	{
-		return $this->dnsSuffix;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setDnsSuffix($dnsSuffix)
+  {
+    $this->dnsSuffix = $dnsSuffix;
+  }
+  public function getDnsSuffix()
+  {
+    return $this->dnsSuffix;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

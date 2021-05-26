@@ -17,85 +17,85 @@
 
 class Google_Service_ToolResults_IosTest extends Google_Model
 {
-	protected $iosAppInfoType = 'Google_Service_ToolResults_IosAppInfo';
-	protected $iosAppInfoDataType = '';
-	protected $iosRoboTestType = 'Google_Service_ToolResults_IosRoboTest';
-	protected $iosRoboTestDataType = '';
-	protected $iosTestLoopType = 'Google_Service_ToolResults_IosTestLoop';
-	protected $iosTestLoopDataType = '';
-	protected $iosXcTestType = 'Google_Service_ToolResults_IosXcTest';
-	protected $iosXcTestDataType = '';
-	protected $testTimeoutType = 'Google_Service_ToolResults_Duration';
-	protected $testTimeoutDataType = '';
+  protected $iosAppInfoType = 'Google_Service_ToolResults_IosAppInfo';
+  protected $iosAppInfoDataType = '';
+  protected $iosRoboTestType = 'Google_Service_ToolResults_IosRoboTest';
+  protected $iosRoboTestDataType = '';
+  protected $iosTestLoopType = 'Google_Service_ToolResults_IosTestLoop';
+  protected $iosTestLoopDataType = '';
+  protected $iosXcTestType = 'Google_Service_ToolResults_IosXcTest';
+  protected $iosXcTestDataType = '';
+  protected $testTimeoutType = 'Google_Service_ToolResults_Duration';
+  protected $testTimeoutDataType = '';
 
-	/**
-	 * @param Google_Service_ToolResults_IosAppInfo
-	 */
-	public function setIosAppInfo(Google_Service_ToolResults_IosAppInfo $iosAppInfo)
-	{
-		$this->iosAppInfo = $iosAppInfo;
-	}
-	/**
-	 * @return Google_Service_ToolResults_IosAppInfo
-	 */
-	public function getIosAppInfo()
-	{
-		return $this->iosAppInfo;
-	}
-	/**
-	 * @param Google_Service_ToolResults_IosRoboTest
-	 */
-	public function setIosRoboTest(Google_Service_ToolResults_IosRoboTest $iosRoboTest)
-	{
-		$this->iosRoboTest = $iosRoboTest;
-	}
-	/**
-	 * @return Google_Service_ToolResults_IosRoboTest
-	 */
-	public function getIosRoboTest()
-	{
-		return $this->iosRoboTest;
-	}
-	/**
-	 * @param Google_Service_ToolResults_IosTestLoop
-	 */
-	public function setIosTestLoop(Google_Service_ToolResults_IosTestLoop $iosTestLoop)
-	{
-		$this->iosTestLoop = $iosTestLoop;
-	}
-	/**
-	 * @return Google_Service_ToolResults_IosTestLoop
-	 */
-	public function getIosTestLoop()
-	{
-		return $this->iosTestLoop;
-	}
-	/**
-	 * @param Google_Service_ToolResults_IosXcTest
-	 */
-	public function setIosXcTest(Google_Service_ToolResults_IosXcTest $iosXcTest)
-	{
-		$this->iosXcTest = $iosXcTest;
-	}
-	/**
-	 * @return Google_Service_ToolResults_IosXcTest
-	 */
-	public function getIosXcTest()
-	{
-		return $this->iosXcTest;
-	}
-	/**
-	 * @param Google_Service_ToolResults_Duration
-	 */
-	public function setTestTimeout(Google_Service_ToolResults_Duration $testTimeout)
-	{
-		$this->testTimeout = $testTimeout;
-	}
-	/**
-	 * @return Google_Service_ToolResults_Duration
-	 */
-	public function getTestTimeout()
-	{
-		return $this->testTimeout;
-	}
+  /**
+   * @param Google_Service_ToolResults_IosAppInfo
+   */
+  public function setIosAppInfo(Google_Service_ToolResults_IosAppInfo $iosAppInfo)
+  {
+    $this->iosAppInfo = $iosAppInfo;
+  }
+  /**
+   * @return Google_Service_ToolResults_IosAppInfo
+   */
+  public function getIosAppInfo()
+  {
+    return $this->iosAppInfo;
+  }
+  /**
+   * @param Google_Service_ToolResults_IosRoboTest
+   */
+  public function setIosRoboTest(Google_Service_ToolResults_IosRoboTest $iosRoboTest)
+  {
+    $this->iosRoboTest = $iosRoboTest;
+  }
+  /**
+   * @return Google_Service_ToolResults_IosRoboTest
+   */
+  public function getIosRoboTest()
+  {
+    return $this->iosRoboTest;
+  }
+  /**
+   * @param Google_Service_ToolResults_IosTestLoop
+   */
+  public function setIosTestLoop(Google_Service_ToolResults_IosTestLoop $iosTestLoop)
+  {
+    $this->iosTestLoop = $iosTestLoop;
+  }
+  /**
+   * @return Google_Service_ToolResults_IosTestLoop
+   */
+  public function getIosTestLoop()
+  {
+    return $this->iosTestLoop;
+  }
+  /**
+   * @param Google_Service_ToolResults_IosXcTest
+   */
+  public function setIosXcTest(Google_Service_ToolResults_IosXcTest $iosXcTest)
+  {
+    $this->iosXcTest = $iosXcTest;
+  }
+  /**
+   * @return Google_Service_ToolResults_IosXcTest
+   */
+  public function getIosXcTest()
+  {
+    return $this->iosXcTest;
+  }
+  /**
+   * @param Google_Service_ToolResults_Duration
+   */
+  public function setTestTimeout(Google_Service_ToolResults_Duration $testTimeout)
+  {
+    $this->testTimeout = $testTimeout;
+  }
+  /**
+   * @return Google_Service_ToolResults_Duration
+   */
+  public function getTestTimeout()
+  {
+    return $this->testTimeout;
+  }
 }

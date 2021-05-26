@@ -17,50 +17,50 @@
 
 class Google_Service_ShoppingContent_HolidayCutoff extends Google_Model
 {
-	public $deadlineDate;
-	public $deadlineHour;
-	public $deadlineTimezone;
-	public $holidayId;
-	public $visibleFromDate;
+  public $deadlineDate;
+  public $deadlineHour;
+  public $deadlineTimezone;
+  public $holidayId;
+  public $visibleFromDate;
 
-	public function setDeadlineDate($deadlineDate)
-	{
-		$this->deadlineDate = $deadlineDate;
-	}
-	public function getDeadlineDate()
-	{
-		return $this->deadlineDate;
-	}
-	public function setDeadlineHour($deadlineHour)
-	{
-		$this->deadlineHour = $deadlineHour;
-	}
-	public function getDeadlineHour()
-	{
-		return $this->deadlineHour;
-	}
-	public function setDeadlineTimezone($deadlineTimezone)
-	{
-		$this->deadlineTimezone = $deadlineTimezone;
-	}
-	public function getDeadlineTimezone()
-	{
-		return $this->deadlineTimezone;
-	}
-	public function setHolidayId($holidayId)
-	{
-		$this->holidayId = $holidayId;
-	}
-	public function getHolidayId()
-	{
-		return $this->holidayId;
-	}
-	public function setVisibleFromDate($visibleFromDate)
-	{
-		$this->visibleFromDate = $visibleFromDate;
-	}
-	public function getVisibleFromDate()
-	{
-		return $this->visibleFromDate;
-	}
+  public function setDeadlineDate($deadlineDate)
+  {
+    $this->deadlineDate = $deadlineDate;
+  }
+  public function getDeadlineDate()
+  {
+    return $this->deadlineDate;
+  }
+  public function setDeadlineHour($deadlineHour)
+  {
+    $this->deadlineHour = $deadlineHour;
+  }
+  public function getDeadlineHour()
+  {
+    return $this->deadlineHour;
+  }
+  public function setDeadlineTimezone($deadlineTimezone)
+  {
+    $this->deadlineTimezone = $deadlineTimezone;
+  }
+  public function getDeadlineTimezone()
+  {
+    return $this->deadlineTimezone;
+  }
+  public function setHolidayId($holidayId)
+  {
+    $this->holidayId = $holidayId;
+  }
+  public function getHolidayId()
+  {
+    return $this->holidayId;
+  }
+  public function setVisibleFromDate($visibleFromDate)
+  {
+    $this->visibleFromDate = $visibleFromDate;
+  }
+  public function getVisibleFromDate()
+  {
+    return $this->visibleFromDate;
+  }
 }

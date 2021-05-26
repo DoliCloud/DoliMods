@@ -17,59 +17,59 @@
 
 class Google_Service_IdentityToolkit_EmailTemplate extends Google_Model
 {
-	public $body;
-	public $format;
-	public $from;
-	public $fromDisplayName;
-	public $replyTo;
-	public $subject;
+  public $body;
+  public $format;
+  public $from;
+  public $fromDisplayName;
+  public $replyTo;
+  public $subject;
 
-	public function setBody($body)
-	{
-		$this->body = $body;
-	}
-	public function getBody()
-	{
-		return $this->body;
-	}
-	public function setFormat($format)
-	{
-		$this->format = $format;
-	}
-	public function getFormat()
-	{
-		return $this->format;
-	}
-	public function setFrom($from)
-	{
-		$this->from = $from;
-	}
-	public function getFrom()
-	{
-		return $this->from;
-	}
-	public function setFromDisplayName($fromDisplayName)
-	{
-		$this->fromDisplayName = $fromDisplayName;
-	}
-	public function getFromDisplayName()
-	{
-		return $this->fromDisplayName;
-	}
-	public function setReplyTo($replyTo)
-	{
-		$this->replyTo = $replyTo;
-	}
-	public function getReplyTo()
-	{
-		return $this->replyTo;
-	}
-	public function setSubject($subject)
-	{
-		$this->subject = $subject;
-	}
-	public function getSubject()
-	{
-		return $this->subject;
-	}
+  public function setBody($body)
+  {
+    $this->body = $body;
+  }
+  public function getBody()
+  {
+    return $this->body;
+  }
+  public function setFormat($format)
+  {
+    $this->format = $format;
+  }
+  public function getFormat()
+  {
+    return $this->format;
+  }
+  public function setFrom($from)
+  {
+    $this->from = $from;
+  }
+  public function getFrom()
+  {
+    return $this->from;
+  }
+  public function setFromDisplayName($fromDisplayName)
+  {
+    $this->fromDisplayName = $fromDisplayName;
+  }
+  public function getFromDisplayName()
+  {
+    return $this->fromDisplayName;
+  }
+  public function setReplyTo($replyTo)
+  {
+    $this->replyTo = $replyTo;
+  }
+  public function getReplyTo()
+  {
+    return $this->replyTo;
+  }
+  public function setSubject($subject)
+  {
+    $this->subject = $subject;
+  }
+  public function getSubject()
+  {
+    return $this->subject;
+  }
 }

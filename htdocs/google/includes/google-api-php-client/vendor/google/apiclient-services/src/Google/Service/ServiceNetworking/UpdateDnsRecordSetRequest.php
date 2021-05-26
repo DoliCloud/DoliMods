@@ -17,55 +17,55 @@
 
 class Google_Service_ServiceNetworking_UpdateDnsRecordSetRequest extends Google_Model
 {
-	public $consumerNetwork;
-	protected $existingDnsRecordSetType = 'Google_Service_ServiceNetworking_DnsRecordSet';
-	protected $existingDnsRecordSetDataType = '';
-	protected $newDnsRecordSetType = 'Google_Service_ServiceNetworking_DnsRecordSet';
-	protected $newDnsRecordSetDataType = '';
-	public $zone;
+  public $consumerNetwork;
+  protected $existingDnsRecordSetType = 'Google_Service_ServiceNetworking_DnsRecordSet';
+  protected $existingDnsRecordSetDataType = '';
+  protected $newDnsRecordSetType = 'Google_Service_ServiceNetworking_DnsRecordSet';
+  protected $newDnsRecordSetDataType = '';
+  public $zone;
 
-	public function setConsumerNetwork($consumerNetwork)
-	{
-		$this->consumerNetwork = $consumerNetwork;
-	}
-	public function getConsumerNetwork()
-	{
-		return $this->consumerNetwork;
-	}
-	/**
-	 * @param Google_Service_ServiceNetworking_DnsRecordSet
-	 */
-	public function setExistingDnsRecordSet(Google_Service_ServiceNetworking_DnsRecordSet $existingDnsRecordSet)
-	{
-		$this->existingDnsRecordSet = $existingDnsRecordSet;
-	}
-	/**
-	 * @return Google_Service_ServiceNetworking_DnsRecordSet
-	 */
-	public function getExistingDnsRecordSet()
-	{
-		return $this->existingDnsRecordSet;
-	}
-	/**
-	 * @param Google_Service_ServiceNetworking_DnsRecordSet
-	 */
-	public function setNewDnsRecordSet(Google_Service_ServiceNetworking_DnsRecordSet $newDnsRecordSet)
-	{
-		$this->newDnsRecordSet = $newDnsRecordSet;
-	}
-	/**
-	 * @return Google_Service_ServiceNetworking_DnsRecordSet
-	 */
-	public function getNewDnsRecordSet()
-	{
-		return $this->newDnsRecordSet;
-	}
-	public function setZone($zone)
-	{
-		$this->zone = $zone;
-	}
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  public function setConsumerNetwork($consumerNetwork)
+  {
+    $this->consumerNetwork = $consumerNetwork;
+  }
+  public function getConsumerNetwork()
+  {
+    return $this->consumerNetwork;
+  }
+  /**
+   * @param Google_Service_ServiceNetworking_DnsRecordSet
+   */
+  public function setExistingDnsRecordSet(Google_Service_ServiceNetworking_DnsRecordSet $existingDnsRecordSet)
+  {
+    $this->existingDnsRecordSet = $existingDnsRecordSet;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_DnsRecordSet
+   */
+  public function getExistingDnsRecordSet()
+  {
+    return $this->existingDnsRecordSet;
+  }
+  /**
+   * @param Google_Service_ServiceNetworking_DnsRecordSet
+   */
+  public function setNewDnsRecordSet(Google_Service_ServiceNetworking_DnsRecordSet $newDnsRecordSet)
+  {
+    $this->newDnsRecordSet = $newDnsRecordSet;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_DnsRecordSet
+   */
+  public function getNewDnsRecordSet()
+  {
+    return $this->newDnsRecordSet;
+  }
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

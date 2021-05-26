@@ -17,46 +17,46 @@
 
 class Google_Service_Slides_PageElementProperties extends Google_Model
 {
-	public $pageObjectId;
-	protected $sizeType = 'Google_Service_Slides_Size';
-	protected $sizeDataType = '';
-	protected $transformType = 'Google_Service_Slides_AffineTransform';
-	protected $transformDataType = '';
+  public $pageObjectId;
+  protected $sizeType = 'Google_Service_Slides_Size';
+  protected $sizeDataType = '';
+  protected $transformType = 'Google_Service_Slides_AffineTransform';
+  protected $transformDataType = '';
 
-	public function setPageObjectId($pageObjectId)
-	{
-		$this->pageObjectId = $pageObjectId;
-	}
-	public function getPageObjectId()
-	{
-		return $this->pageObjectId;
-	}
-	/**
-	 * @param Google_Service_Slides_Size
-	 */
-	public function setSize(Google_Service_Slides_Size $size)
-	{
-		$this->size = $size;
-	}
-	/**
-	 * @return Google_Service_Slides_Size
-	 */
-	public function getSize()
-	{
-		return $this->size;
-	}
-	/**
-	 * @param Google_Service_Slides_AffineTransform
-	 */
-	public function setTransform(Google_Service_Slides_AffineTransform $transform)
-	{
-		$this->transform = $transform;
-	}
-	/**
-	 * @return Google_Service_Slides_AffineTransform
-	 */
-	public function getTransform()
-	{
-		return $this->transform;
-	}
+  public function setPageObjectId($pageObjectId)
+  {
+    $this->pageObjectId = $pageObjectId;
+  }
+  public function getPageObjectId()
+  {
+    return $this->pageObjectId;
+  }
+  /**
+   * @param Google_Service_Slides_Size
+   */
+  public function setSize(Google_Service_Slides_Size $size)
+  {
+    $this->size = $size;
+  }
+  /**
+   * @return Google_Service_Slides_Size
+   */
+  public function getSize()
+  {
+    return $this->size;
+  }
+  /**
+   * @param Google_Service_Slides_AffineTransform
+   */
+  public function setTransform(Google_Service_Slides_AffineTransform $transform)
+  {
+    $this->transform = $transform;
+  }
+  /**
+   * @return Google_Service_Slides_AffineTransform
+   */
+  public function getTransform()
+  {
+    return $this->transform;
+  }
 }

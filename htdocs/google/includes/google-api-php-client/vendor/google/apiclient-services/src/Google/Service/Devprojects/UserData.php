@@ -17,33 +17,33 @@
 
 class Google_Service_Devprojects_UserData extends Google_Model
 {
-	public $id;
-	public $kind;
-	protected $termsOfServiceType = 'Google_Service_Devprojects_UsersTermsOfService';
-	protected $termsOfServiceDataType = '';
+  public $id;
+  public $kind;
+  protected $termsOfServiceType = 'Google_Service_Devprojects_UsersTermsOfService';
+  protected $termsOfServiceDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setTermsOfService(Google_Service_Devprojects_UsersTermsOfService $termsOfService)
-	{
-		$this->termsOfService = $termsOfService;
-	}
-	public function getTermsOfService()
-	{
-		return $this->termsOfService;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setTermsOfService(Google_Service_Devprojects_UsersTermsOfService $termsOfService)
+  {
+    $this->termsOfService = $termsOfService;
+  }
+  public function getTermsOfService()
+  {
+    return $this->termsOfService;
+  }
 }

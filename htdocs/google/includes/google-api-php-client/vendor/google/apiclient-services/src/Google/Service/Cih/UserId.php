@@ -17,41 +17,41 @@
 
 class Google_Service_Cih_UserId extends Google_Model
 {
-	public $customerId;
-	public $email;
-	public $gaiaId;
-	public $name;
+  public $customerId;
+  public $email;
+  public $gaiaId;
+  public $name;
 
-	public function setCustomerId($customerId)
-	{
-		$this->customerId = $customerId;
-	}
-	public function getCustomerId()
-	{
-		return $this->customerId;
-	}
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	public function setGaiaId($gaiaId)
-	{
-		$this->gaiaId = $gaiaId;
-	}
-	public function getGaiaId()
-	{
-		return $this->gaiaId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setCustomerId($customerId)
+  {
+    $this->customerId = $customerId;
+  }
+  public function getCustomerId()
+  {
+    return $this->customerId;
+  }
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  public function setGaiaId($gaiaId)
+  {
+    $this->gaiaId = $gaiaId;
+  }
+  public function getGaiaId()
+  {
+    return $this->gaiaId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

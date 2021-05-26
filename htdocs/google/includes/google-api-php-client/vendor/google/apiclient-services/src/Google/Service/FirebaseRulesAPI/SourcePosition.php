@@ -17,32 +17,32 @@
 
 class Google_Service_FirebaseRulesAPI_SourcePosition extends Google_Model
 {
-	public $column;
-	public $fileName;
-	public $line;
+  public $column;
+  public $fileName;
+  public $line;
 
-	public function setColumn($column)
-	{
-		$this->column = $column;
-	}
-	public function getColumn()
-	{
-		return $this->column;
-	}
-	public function setFileName($fileName)
-	{
-		$this->fileName = $fileName;
-	}
-	public function getFileName()
-	{
-		return $this->fileName;
-	}
-	public function setLine($line)
-	{
-		$this->line = $line;
-	}
-	public function getLine()
-	{
-		return $this->line;
-	}
+  public function setColumn($column)
+  {
+    $this->column = $column;
+  }
+  public function getColumn()
+  {
+    return $this->column;
+  }
+  public function setFileName($fileName)
+  {
+    $this->fileName = $fileName;
+  }
+  public function getFileName()
+  {
+    return $this->fileName;
+  }
+  public function setLine($line)
+  {
+    $this->line = $line;
+  }
+  public function getLine()
+  {
+    return $this->line;
+  }
 }

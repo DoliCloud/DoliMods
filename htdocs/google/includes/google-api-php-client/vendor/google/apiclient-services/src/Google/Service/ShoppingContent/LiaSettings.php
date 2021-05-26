@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_LiaSettings extends Google_Collection
 {
-	protected $collection_key = 'countrySettings';
-	public $accountId;
-	protected $countrySettingsType = 'Google_Service_ShoppingContent_LiaCountrySettings';
-	protected $countrySettingsDataType = 'array';
-	public $kind;
+  protected $collection_key = 'countrySettings';
+  public $accountId;
+  protected $countrySettingsType = 'Google_Service_ShoppingContent_LiaCountrySettings';
+  protected $countrySettingsDataType = 'array';
+  public $kind;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_LiaCountrySettings
-	 */
-	public function setCountrySettings($countrySettings)
-	{
-		$this->countrySettings = $countrySettings;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_LiaCountrySettings
-	 */
-	public function getCountrySettings()
-	{
-		return $this->countrySettings;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_LiaCountrySettings[]
+   */
+  public function setCountrySettings($countrySettings)
+  {
+    $this->countrySettings = $countrySettings;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_LiaCountrySettings[]
+   */
+  public function getCountrySettings()
+  {
+    return $this->countrySettings;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Reseller_Seats extends Google_Model
 {
-	public $kind;
-	public $licensedNumberOfSeats;
-	public $maximumNumberOfSeats;
-	public $numberOfSeats;
+  public $kind;
+  public $licensedNumberOfSeats;
+  public $maximumNumberOfSeats;
+  public $numberOfSeats;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLicensedNumberOfSeats($licensedNumberOfSeats)
-	{
-		$this->licensedNumberOfSeats = $licensedNumberOfSeats;
-	}
-	public function getLicensedNumberOfSeats()
-	{
-		return $this->licensedNumberOfSeats;
-	}
-	public function setMaximumNumberOfSeats($maximumNumberOfSeats)
-	{
-		$this->maximumNumberOfSeats = $maximumNumberOfSeats;
-	}
-	public function getMaximumNumberOfSeats()
-	{
-		return $this->maximumNumberOfSeats;
-	}
-	public function setNumberOfSeats($numberOfSeats)
-	{
-		$this->numberOfSeats = $numberOfSeats;
-	}
-	public function getNumberOfSeats()
-	{
-		return $this->numberOfSeats;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLicensedNumberOfSeats($licensedNumberOfSeats)
+  {
+    $this->licensedNumberOfSeats = $licensedNumberOfSeats;
+  }
+  public function getLicensedNumberOfSeats()
+  {
+    return $this->licensedNumberOfSeats;
+  }
+  public function setMaximumNumberOfSeats($maximumNumberOfSeats)
+  {
+    $this->maximumNumberOfSeats = $maximumNumberOfSeats;
+  }
+  public function getMaximumNumberOfSeats()
+  {
+    return $this->maximumNumberOfSeats;
+  }
+  public function setNumberOfSeats($numberOfSeats)
+  {
+    $this->numberOfSeats = $numberOfSeats;
+  }
+  public function getNumberOfSeats()
+  {
+    return $this->numberOfSeats;
+  }
 }

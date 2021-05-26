@@ -17,44 +17,44 @@
 
 class Google_Service_Cih_UserInteractionsListResponse extends Google_Collection
 {
-	protected $collection_key = 'items';
-	protected $entityType = 'Google_Service_Cih_Entity';
-	protected $entityDataType = 'array';
-	protected $itemsType = 'Google_Service_Cih_UserInteraction';
-	protected $itemsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'items';
+  protected $entityType = 'Google_Service_Cih_Entity';
+  protected $entityDataType = 'array';
+  protected $itemsType = 'Google_Service_Cih_UserInteraction';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	public function setEntity($entity)
-	{
-		$this->entity = $entity;
-	}
-	public function getEntity()
-	{
-		return $this->entity;
-	}
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setEntity($entity)
+  {
+    $this->entity = $entity;
+  }
+  public function getEntity()
+  {
+    return $this->entity;
+  }
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

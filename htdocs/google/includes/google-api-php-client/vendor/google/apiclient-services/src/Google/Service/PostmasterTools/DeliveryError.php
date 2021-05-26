@@ -17,32 +17,32 @@
 
 class Google_Service_PostmasterTools_DeliveryError extends Google_Model
 {
-	public $errorClass;
-	public $errorRatio;
-	public $errorType;
+  public $errorClass;
+  public $errorRatio;
+  public $errorType;
 
-	public function setErrorClass($errorClass)
-	{
-		$this->errorClass = $errorClass;
-	}
-	public function getErrorClass()
-	{
-		return $this->errorClass;
-	}
-	public function setErrorRatio($errorRatio)
-	{
-		$this->errorRatio = $errorRatio;
-	}
-	public function getErrorRatio()
-	{
-		return $this->errorRatio;
-	}
-	public function setErrorType($errorType)
-	{
-		$this->errorType = $errorType;
-	}
-	public function getErrorType()
-	{
-		return $this->errorType;
-	}
+  public function setErrorClass($errorClass)
+  {
+    $this->errorClass = $errorClass;
+  }
+  public function getErrorClass()
+  {
+    return $this->errorClass;
+  }
+  public function setErrorRatio($errorRatio)
+  {
+    $this->errorRatio = $errorRatio;
+  }
+  public function getErrorRatio()
+  {
+    return $this->errorRatio;
+  }
+  public function setErrorType($errorType)
+  {
+    $this->errorType = $errorType;
+  }
+  public function getErrorType()
+  {
+    return $this->errorType;
+  }
 }

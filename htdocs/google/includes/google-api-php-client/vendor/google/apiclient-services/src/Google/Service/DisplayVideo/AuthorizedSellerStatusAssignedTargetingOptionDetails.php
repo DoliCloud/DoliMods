@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_AuthorizedSellerStatusAssignedTargetingOptionDetails extends Google_Model
 {
-	public $authorizedSellerStatus;
-	public $targetingOptionId;
+  public $authorizedSellerStatus;
+  public $targetingOptionId;
 
-	public function setAuthorizedSellerStatus($authorizedSellerStatus)
-	{
-		$this->authorizedSellerStatus = $authorizedSellerStatus;
-	}
-	public function getAuthorizedSellerStatus()
-	{
-		return $this->authorizedSellerStatus;
-	}
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
+  public function setAuthorizedSellerStatus($authorizedSellerStatus)
+  {
+    $this->authorizedSellerStatus = $authorizedSellerStatus;
+  }
+  public function getAuthorizedSellerStatus()
+  {
+    return $this->authorizedSellerStatus;
+  }
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
 }

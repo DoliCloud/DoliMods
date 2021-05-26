@@ -17,14 +17,14 @@
 
 class Google_Service_Calendar_ConferenceParametersAddOnParameters extends Google_Model
 {
-	public $parameters;
+  public $parameters;
 
-	public function setParameters($parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
+  public function setParameters($parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
 }

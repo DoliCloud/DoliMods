@@ -17,41 +17,41 @@
 
 class Google_Service_Vision_ObjectAnnotation extends Google_Model
 {
-	public $languageCode;
-	public $mid;
-	public $name;
-	public $score;
+  public $languageCode;
+  public $mid;
+  public $name;
+  public $score;
 
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	public function setMid($mid)
-	{
-		$this->mid = $mid;
-	}
-	public function getMid()
-	{
-		return $this->mid;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setScore($score)
-	{
-		$this->score = $score;
-	}
-	public function getScore()
-	{
-		return $this->score;
-	}
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  public function setMid($mid)
+  {
+    $this->mid = $mid;
+  }
+  public function getMid()
+  {
+    return $this->mid;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setScore($score)
+  {
+    $this->score = $score;
+  }
+  public function getScore()
+  {
+    return $this->score;
+  }
 }

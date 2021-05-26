@@ -17,23 +17,23 @@
 
 class Google_Service_ToolResults_Any extends Google_Model
 {
-	public $typeUrl;
-	public $value;
+  public $typeUrl;
+  public $value;
 
-	public function setTypeUrl($typeUrl)
-	{
-		$this->typeUrl = $typeUrl;
-	}
-	public function getTypeUrl()
-	{
-		return $this->typeUrl;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setTypeUrl($typeUrl)
+  {
+    $this->typeUrl = $typeUrl;
+  }
+  public function getTypeUrl()
+  {
+    return $this->typeUrl;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

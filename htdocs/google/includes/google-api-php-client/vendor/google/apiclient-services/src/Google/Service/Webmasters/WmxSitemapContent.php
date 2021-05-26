@@ -17,32 +17,32 @@
 
 class Google_Service_Webmasters_WmxSitemapContent extends Google_Model
 {
-	public $indexed;
-	public $submitted;
-	public $type;
+  public $indexed;
+  public $submitted;
+  public $type;
 
-	public function setIndexed($indexed)
-	{
-		$this->indexed = $indexed;
-	}
-	public function getIndexed()
-	{
-		return $this->indexed;
-	}
-	public function setSubmitted($submitted)
-	{
-		$this->submitted = $submitted;
-	}
-	public function getSubmitted()
-	{
-		return $this->submitted;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setIndexed($indexed)
+  {
+    $this->indexed = $indexed;
+  }
+  public function getIndexed()
+  {
+    return $this->indexed;
+  }
+  public function setSubmitted($submitted)
+  {
+    $this->submitted = $submitted;
+  }
+  public function getSubmitted()
+  {
+    return $this->submitted;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

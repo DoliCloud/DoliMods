@@ -17,41 +17,41 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1PredictionOutput extends Google_Model
 {
-	public $errorCount;
-	public $nodeHours;
-	public $outputPath;
-	public $predictionCount;
+  public $errorCount;
+  public $nodeHours;
+  public $outputPath;
+  public $predictionCount;
 
-	public function setErrorCount($errorCount)
-	{
-		$this->errorCount = $errorCount;
-	}
-	public function getErrorCount()
-	{
-		return $this->errorCount;
-	}
-	public function setNodeHours($nodeHours)
-	{
-		$this->nodeHours = $nodeHours;
-	}
-	public function getNodeHours()
-	{
-		return $this->nodeHours;
-	}
-	public function setOutputPath($outputPath)
-	{
-		$this->outputPath = $outputPath;
-	}
-	public function getOutputPath()
-	{
-		return $this->outputPath;
-	}
-	public function setPredictionCount($predictionCount)
-	{
-		$this->predictionCount = $predictionCount;
-	}
-	public function getPredictionCount()
-	{
-		return $this->predictionCount;
-	}
+  public function setErrorCount($errorCount)
+  {
+    $this->errorCount = $errorCount;
+  }
+  public function getErrorCount()
+  {
+    return $this->errorCount;
+  }
+  public function setNodeHours($nodeHours)
+  {
+    $this->nodeHours = $nodeHours;
+  }
+  public function getNodeHours()
+  {
+    return $this->nodeHours;
+  }
+  public function setOutputPath($outputPath)
+  {
+    $this->outputPath = $outputPath;
+  }
+  public function getOutputPath()
+  {
+    return $this->outputPath;
+  }
+  public function setPredictionCount($predictionCount)
+  {
+    $this->predictionCount = $predictionCount;
+  }
+  public function getPredictionCount()
+  {
+    return $this->predictionCount;
+  }
 }

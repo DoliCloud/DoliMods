@@ -17,33 +17,33 @@
 
 class Google_Service_FirebaseManagement_Location extends Google_Collection
 {
-	protected $collection_key = 'features';
-	public $features;
-	public $locationId;
-	public $type;
+  protected $collection_key = 'features';
+  public $features;
+  public $locationId;
+  public $type;
 
-	public function setFeatures($features)
-	{
-		$this->features = $features;
-	}
-	public function getFeatures()
-	{
-		return $this->features;
-	}
-	public function setLocationId($locationId)
-	{
-		$this->locationId = $locationId;
-	}
-	public function getLocationId()
-	{
-		return $this->locationId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setFeatures($features)
+  {
+    $this->features = $features;
+  }
+  public function getFeatures()
+  {
+    return $this->features;
+  }
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

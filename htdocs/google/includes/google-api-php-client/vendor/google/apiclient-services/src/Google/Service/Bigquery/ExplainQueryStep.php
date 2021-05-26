@@ -17,24 +17,24 @@
 
 class Google_Service_Bigquery_ExplainQueryStep extends Google_Collection
 {
-	protected $collection_key = 'substeps';
-	public $kind;
-	public $substeps;
+  protected $collection_key = 'substeps';
+  public $kind;
+  public $substeps;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setSubsteps($substeps)
-	{
-		$this->substeps = $substeps;
-	}
-	public function getSubsteps()
-	{
-		return $this->substeps;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setSubsteps($substeps)
+  {
+    $this->substeps = $substeps;
+  }
+  public function getSubsteps()
+  {
+    return $this->substeps;
+  }
 }

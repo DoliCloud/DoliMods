@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedTableCellStyle extends Google_Model
 {
-	protected $tableCellStyleType = 'Google_Service_Docs_TableCellStyle';
-	protected $tableCellStyleDataType = '';
-	protected $tableCellStyleSuggestionStateType = 'Google_Service_Docs_TableCellStyleSuggestionState';
-	protected $tableCellStyleSuggestionStateDataType = '';
+  protected $tableCellStyleType = 'Google_Service_Docs_TableCellStyle';
+  protected $tableCellStyleDataType = '';
+  protected $tableCellStyleSuggestionStateType = 'Google_Service_Docs_TableCellStyleSuggestionState';
+  protected $tableCellStyleSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_TableCellStyle
-	 */
-	public function setTableCellStyle(Google_Service_Docs_TableCellStyle $tableCellStyle)
-	{
-		$this->tableCellStyle = $tableCellStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_TableCellStyle
-	 */
-	public function getTableCellStyle()
-	{
-		return $this->tableCellStyle;
-	}
-	/**
-	 * @param Google_Service_Docs_TableCellStyleSuggestionState
-	 */
-	public function setTableCellStyleSuggestionState(Google_Service_Docs_TableCellStyleSuggestionState $tableCellStyleSuggestionState)
-	{
-		$this->tableCellStyleSuggestionState = $tableCellStyleSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_TableCellStyleSuggestionState
-	 */
-	public function getTableCellStyleSuggestionState()
-	{
-		return $this->tableCellStyleSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_TableCellStyle
+   */
+  public function setTableCellStyle(Google_Service_Docs_TableCellStyle $tableCellStyle)
+  {
+    $this->tableCellStyle = $tableCellStyle;
+  }
+  /**
+   * @return Google_Service_Docs_TableCellStyle
+   */
+  public function getTableCellStyle()
+  {
+    return $this->tableCellStyle;
+  }
+  /**
+   * @param Google_Service_Docs_TableCellStyleSuggestionState
+   */
+  public function setTableCellStyleSuggestionState(Google_Service_Docs_TableCellStyleSuggestionState $tableCellStyleSuggestionState)
+  {
+    $this->tableCellStyleSuggestionState = $tableCellStyleSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_TableCellStyleSuggestionState
+   */
+  public function getTableCellStyleSuggestionState()
+  {
+    return $this->tableCellStyleSuggestionState;
+  }
 }

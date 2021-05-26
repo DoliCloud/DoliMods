@@ -17,14 +17,14 @@
 
 class Google_Service_Firestore_FieldReference extends Google_Model
 {
-	public $fieldPath;
+  public $fieldPath;
 
-	public function setFieldPath($fieldPath)
-	{
-		$this->fieldPath = $fieldPath;
-	}
-	public function getFieldPath()
-	{
-		return $this->fieldPath;
-	}
+  public function setFieldPath($fieldPath)
+  {
+    $this->fieldPath = $fieldPath;
+  }
+  public function getFieldPath()
+  {
+    return $this->fieldPath;
+  }
 }

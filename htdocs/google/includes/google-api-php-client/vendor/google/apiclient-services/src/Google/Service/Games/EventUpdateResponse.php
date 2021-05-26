@@ -17,63 +17,63 @@
 
 class Google_Service_Games_EventUpdateResponse extends Google_Collection
 {
-	protected $collection_key = 'playerEvents';
-	protected $batchFailuresType = 'Google_Service_Games_EventBatchRecordFailure';
-	protected $batchFailuresDataType = 'array';
-	protected $eventFailuresType = 'Google_Service_Games_EventRecordFailure';
-	protected $eventFailuresDataType = 'array';
-	public $kind;
-	protected $playerEventsType = 'Google_Service_Games_PlayerEvent';
-	protected $playerEventsDataType = 'array';
+  protected $collection_key = 'playerEvents';
+  protected $batchFailuresType = 'Google_Service_Games_EventBatchRecordFailure';
+  protected $batchFailuresDataType = 'array';
+  protected $eventFailuresType = 'Google_Service_Games_EventRecordFailure';
+  protected $eventFailuresDataType = 'array';
+  public $kind;
+  protected $playerEventsType = 'Google_Service_Games_PlayerEvent';
+  protected $playerEventsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Games_EventBatchRecordFailure
-	 */
-	public function setBatchFailures($batchFailures)
-	{
-		$this->batchFailures = $batchFailures;
-	}
-	/**
-	 * @return Google_Service_Games_EventBatchRecordFailure
-	 */
-	public function getBatchFailures()
-	{
-		return $this->batchFailures;
-	}
-	/**
-	 * @param Google_Service_Games_EventRecordFailure
-	 */
-	public function setEventFailures($eventFailures)
-	{
-		$this->eventFailures = $eventFailures;
-	}
-	/**
-	 * @return Google_Service_Games_EventRecordFailure
-	 */
-	public function getEventFailures()
-	{
-		return $this->eventFailures;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Games_PlayerEvent
-	 */
-	public function setPlayerEvents($playerEvents)
-	{
-		$this->playerEvents = $playerEvents;
-	}
-	/**
-	 * @return Google_Service_Games_PlayerEvent
-	 */
-	public function getPlayerEvents()
-	{
-		return $this->playerEvents;
-	}
+  /**
+   * @param Google_Service_Games_EventBatchRecordFailure[]
+   */
+  public function setBatchFailures($batchFailures)
+  {
+    $this->batchFailures = $batchFailures;
+  }
+  /**
+   * @return Google_Service_Games_EventBatchRecordFailure[]
+   */
+  public function getBatchFailures()
+  {
+    return $this->batchFailures;
+  }
+  /**
+   * @param Google_Service_Games_EventRecordFailure[]
+   */
+  public function setEventFailures($eventFailures)
+  {
+    $this->eventFailures = $eventFailures;
+  }
+  /**
+   * @return Google_Service_Games_EventRecordFailure[]
+   */
+  public function getEventFailures()
+  {
+    return $this->eventFailures;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Games_PlayerEvent[]
+   */
+  public function setPlayerEvents($playerEvents)
+  {
+    $this->playerEvents = $playerEvents;
+  }
+  /**
+   * @return Google_Service_Games_PlayerEvent[]
+   */
+  public function getPlayerEvents()
+  {
+    return $this->playerEvents;
+  }
 }

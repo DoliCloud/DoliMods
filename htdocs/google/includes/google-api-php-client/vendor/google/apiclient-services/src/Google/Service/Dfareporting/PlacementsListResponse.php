@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_PlacementsListResponse extends Google_Collection
 {
-	protected $collection_key = 'placements';
-	public $kind;
-	public $nextPageToken;
-	protected $placementsType = 'Google_Service_Dfareporting_Placement';
-	protected $placementsDataType = 'array';
+  protected $collection_key = 'placements';
+  public $kind;
+  public $nextPageToken;
+  protected $placementsType = 'Google_Service_Dfareporting_Placement';
+  protected $placementsDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Placement
-	 */
-	public function setPlacements($placements)
-	{
-		$this->placements = $placements;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Placement
-	 */
-	public function getPlacements()
-	{
-		return $this->placements;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Placement[]
+   */
+  public function setPlacements($placements)
+  {
+    $this->placements = $placements;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Placement[]
+   */
+  public function getPlacements()
+  {
+    return $this->placements;
+  }
 }

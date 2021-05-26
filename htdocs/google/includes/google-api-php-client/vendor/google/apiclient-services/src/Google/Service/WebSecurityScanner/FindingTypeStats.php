@@ -17,23 +17,23 @@
 
 class Google_Service_WebSecurityScanner_FindingTypeStats extends Google_Model
 {
-	public $findingCount;
-	public $findingType;
+  public $findingCount;
+  public $findingType;
 
-	public function setFindingCount($findingCount)
-	{
-		$this->findingCount = $findingCount;
-	}
-	public function getFindingCount()
-	{
-		return $this->findingCount;
-	}
-	public function setFindingType($findingType)
-	{
-		$this->findingType = $findingType;
-	}
-	public function getFindingType()
-	{
-		return $this->findingType;
-	}
+  public function setFindingCount($findingCount)
+  {
+    $this->findingCount = $findingCount;
+  }
+  public function getFindingCount()
+  {
+    return $this->findingCount;
+  }
+  public function setFindingType($findingType)
+  {
+    $this->findingType = $findingType;
+  }
+  public function getFindingType()
+  {
+    return $this->findingType;
+  }
 }

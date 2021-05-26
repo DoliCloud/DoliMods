@@ -17,41 +17,41 @@
 
 class Google_Service_CloudIot_GatewayConfig extends Google_Model
 {
-	public $gatewayAuthMethod;
-	public $gatewayType;
-	public $lastAccessedGatewayId;
-	public $lastAccessedGatewayTime;
+  public $gatewayAuthMethod;
+  public $gatewayType;
+  public $lastAccessedGatewayId;
+  public $lastAccessedGatewayTime;
 
-	public function setGatewayAuthMethod($gatewayAuthMethod)
-	{
-		$this->gatewayAuthMethod = $gatewayAuthMethod;
-	}
-	public function getGatewayAuthMethod()
-	{
-		return $this->gatewayAuthMethod;
-	}
-	public function setGatewayType($gatewayType)
-	{
-		$this->gatewayType = $gatewayType;
-	}
-	public function getGatewayType()
-	{
-		return $this->gatewayType;
-	}
-	public function setLastAccessedGatewayId($lastAccessedGatewayId)
-	{
-		$this->lastAccessedGatewayId = $lastAccessedGatewayId;
-	}
-	public function getLastAccessedGatewayId()
-	{
-		return $this->lastAccessedGatewayId;
-	}
-	public function setLastAccessedGatewayTime($lastAccessedGatewayTime)
-	{
-		$this->lastAccessedGatewayTime = $lastAccessedGatewayTime;
-	}
-	public function getLastAccessedGatewayTime()
-	{
-		return $this->lastAccessedGatewayTime;
-	}
+  public function setGatewayAuthMethod($gatewayAuthMethod)
+  {
+    $this->gatewayAuthMethod = $gatewayAuthMethod;
+  }
+  public function getGatewayAuthMethod()
+  {
+    return $this->gatewayAuthMethod;
+  }
+  public function setGatewayType($gatewayType)
+  {
+    $this->gatewayType = $gatewayType;
+  }
+  public function getGatewayType()
+  {
+    return $this->gatewayType;
+  }
+  public function setLastAccessedGatewayId($lastAccessedGatewayId)
+  {
+    $this->lastAccessedGatewayId = $lastAccessedGatewayId;
+  }
+  public function getLastAccessedGatewayId()
+  {
+    return $this->lastAccessedGatewayId;
+  }
+  public function setLastAccessedGatewayTime($lastAccessedGatewayTime)
+  {
+    $this->lastAccessedGatewayTime = $lastAccessedGatewayTime;
+  }
+  public function getLastAccessedGatewayTime()
+  {
+    return $this->lastAccessedGatewayTime;
+  }
 }

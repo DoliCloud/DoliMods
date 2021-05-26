@@ -17,31 +17,31 @@
 
 class Google_Service_Vault_ListExportsResponse extends Google_Collection
 {
-	protected $collection_key = 'exports';
-	protected $exportsType = 'Google_Service_Vault_Export';
-	protected $exportsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'exports';
+  protected $exportsType = 'Google_Service_Vault_Export';
+  protected $exportsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Vault_Export
-	 */
-	public function setExports($exports)
-	{
-		$this->exports = $exports;
-	}
-	/**
-	 * @return Google_Service_Vault_Export
-	 */
-	public function getExports()
-	{
-		return $this->exports;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Vault_Export[]
+   */
+  public function setExports($exports)
+  {
+    $this->exports = $exports;
+  }
+  /**
+   * @return Google_Service_Vault_Export[]
+   */
+  public function getExports()
+  {
+    return $this->exports;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Container_HttpCacheControlResponseHeader extends Google_Model
 {
-	public $age;
-	public $directive;
-	public $expires;
+  public $age;
+  public $directive;
+  public $expires;
 
-	public function setAge($age)
-	{
-		$this->age = $age;
-	}
-	public function getAge()
-	{
-		return $this->age;
-	}
-	public function setDirective($directive)
-	{
-		$this->directive = $directive;
-	}
-	public function getDirective()
-	{
-		return $this->directive;
-	}
-	public function setExpires($expires)
-	{
-		$this->expires = $expires;
-	}
-	public function getExpires()
-	{
-		return $this->expires;
-	}
+  public function setAge($age)
+  {
+    $this->age = $age;
+  }
+  public function getAge()
+  {
+    return $this->age;
+  }
+  public function setDirective($directive)
+  {
+    $this->directive = $directive;
+  }
+  public function getDirective()
+  {
+    return $this->directive;
+  }
+  public function setExpires($expires)
+  {
+    $this->expires = $expires;
+  }
+  public function getExpires()
+  {
+    return $this->expires;
+  }
 }

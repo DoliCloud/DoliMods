@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_TargetSslProxiesSetProxyHeaderRequest extends Google_Model
 {
-	public $proxyHeader;
+  public $proxyHeader;
 
-	public function setProxyHeader($proxyHeader)
-	{
-		$this->proxyHeader = $proxyHeader;
-	}
-	public function getProxyHeader()
-	{
-		return $this->proxyHeader;
-	}
+  public function setProxyHeader($proxyHeader)
+  {
+    $this->proxyHeader = $proxyHeader;
+  }
+  public function getProxyHeader()
+  {
+    return $this->proxyHeader;
+  }
 }

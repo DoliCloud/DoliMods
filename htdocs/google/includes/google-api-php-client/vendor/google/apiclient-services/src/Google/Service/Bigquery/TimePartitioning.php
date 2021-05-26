@@ -17,41 +17,41 @@
 
 class Google_Service_Bigquery_TimePartitioning extends Google_Model
 {
-	public $expirationMs;
-	public $field;
-	public $requirePartitionFilter;
-	public $type;
+  public $expirationMs;
+  public $field;
+  public $requirePartitionFilter;
+  public $type;
 
-	public function setExpirationMs($expirationMs)
-	{
-		$this->expirationMs = $expirationMs;
-	}
-	public function getExpirationMs()
-	{
-		return $this->expirationMs;
-	}
-	public function setField($field)
-	{
-		$this->field = $field;
-	}
-	public function getField()
-	{
-		return $this->field;
-	}
-	public function setRequirePartitionFilter($requirePartitionFilter)
-	{
-		$this->requirePartitionFilter = $requirePartitionFilter;
-	}
-	public function getRequirePartitionFilter()
-	{
-		return $this->requirePartitionFilter;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setExpirationMs($expirationMs)
+  {
+    $this->expirationMs = $expirationMs;
+  }
+  public function getExpirationMs()
+  {
+    return $this->expirationMs;
+  }
+  public function setField($field)
+  {
+    $this->field = $field;
+  }
+  public function getField()
+  {
+    return $this->field;
+  }
+  public function setRequirePartitionFilter($requirePartitionFilter)
+  {
+    $this->requirePartitionFilter = $requirePartitionFilter;
+  }
+  public function getRequirePartitionFilter()
+  {
+    return $this->requirePartitionFilter;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

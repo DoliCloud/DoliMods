@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_UrlRewrite extends Google_Model
 {
-	public $hostRewrite;
-	public $pathPrefixRewrite;
+  public $hostRewrite;
+  public $pathPrefixRewrite;
 
-	public function setHostRewrite($hostRewrite)
-	{
-		$this->hostRewrite = $hostRewrite;
-	}
-	public function getHostRewrite()
-	{
-		return $this->hostRewrite;
-	}
-	public function setPathPrefixRewrite($pathPrefixRewrite)
-	{
-		$this->pathPrefixRewrite = $pathPrefixRewrite;
-	}
-	public function getPathPrefixRewrite()
-	{
-		return $this->pathPrefixRewrite;
-	}
+  public function setHostRewrite($hostRewrite)
+  {
+    $this->hostRewrite = $hostRewrite;
+  }
+  public function getHostRewrite()
+  {
+    return $this->hostRewrite;
+  }
+  public function setPathPrefixRewrite($pathPrefixRewrite)
+  {
+    $this->pathPrefixRewrite = $pathPrefixRewrite;
+  }
+  public function getPathPrefixRewrite()
+  {
+    return $this->pathPrefixRewrite;
+  }
 }

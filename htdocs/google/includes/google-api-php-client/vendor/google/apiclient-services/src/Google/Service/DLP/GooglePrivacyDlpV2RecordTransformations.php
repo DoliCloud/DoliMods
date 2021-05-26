@@ -17,38 +17,38 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2RecordTransformations extends Google_Collection
 {
-	protected $collection_key = 'recordSuppressions';
-	protected $fieldTransformationsType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldTransformation';
-	protected $fieldTransformationsDataType = 'array';
-	protected $recordSuppressionsType = 'Google_Service_DLP_GooglePrivacyDlpV2RecordSuppression';
-	protected $recordSuppressionsDataType = 'array';
+  protected $collection_key = 'recordSuppressions';
+  protected $fieldTransformationsType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldTransformation';
+  protected $fieldTransformationsDataType = 'array';
+  protected $recordSuppressionsType = 'Google_Service_DLP_GooglePrivacyDlpV2RecordSuppression';
+  protected $recordSuppressionsDataType = 'array';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2FieldTransformation
-	 */
-	public function setFieldTransformations($fieldTransformations)
-	{
-		$this->fieldTransformations = $fieldTransformations;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2FieldTransformation
-	 */
-	public function getFieldTransformations()
-	{
-		return $this->fieldTransformations;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2RecordSuppression
-	 */
-	public function setRecordSuppressions($recordSuppressions)
-	{
-		$this->recordSuppressions = $recordSuppressions;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2RecordSuppression
-	 */
-	public function getRecordSuppressions()
-	{
-		return $this->recordSuppressions;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2FieldTransformation[]
+   */
+  public function setFieldTransformations($fieldTransformations)
+  {
+    $this->fieldTransformations = $fieldTransformations;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2FieldTransformation[]
+   */
+  public function getFieldTransformations()
+  {
+    return $this->fieldTransformations;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2RecordSuppression[]
+   */
+  public function setRecordSuppressions($recordSuppressions)
+  {
+    $this->recordSuppressions = $recordSuppressions;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2RecordSuppression[]
+   */
+  public function getRecordSuppressions()
+  {
+    return $this->recordSuppressions;
+  }
 }

@@ -17,33 +17,33 @@
 
 class Google_Service_AndroidPublisher_InAppProductListing extends Google_Collection
 {
-	protected $collection_key = 'benefits';
-	public $benefits;
-	public $description;
-	public $title;
+  protected $collection_key = 'benefits';
+  public $benefits;
+  public $description;
+  public $title;
 
-	public function setBenefits($benefits)
-	{
-		$this->benefits = $benefits;
-	}
-	public function getBenefits()
-	{
-		return $this->benefits;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setBenefits($benefits)
+  {
+    $this->benefits = $benefits;
+  }
+  public function getBenefits()
+  {
+    return $this->benefits;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

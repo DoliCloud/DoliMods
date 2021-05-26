@@ -17,40 +17,40 @@
 
 class Google_Service_Fusiontables_StyleFunctionGradient extends Google_Collection
 {
-	protected $collection_key = 'colors';
-	protected $colorsType = 'Google_Service_Fusiontables_StyleFunctionGradientColors';
-	protected $colorsDataType = 'array';
-	public $max;
-	public $min;
+  protected $collection_key = 'colors';
+  protected $colorsType = 'Google_Service_Fusiontables_StyleFunctionGradientColors';
+  protected $colorsDataType = 'array';
+  public $max;
+  public $min;
 
-	/**
-	 * @param Google_Service_Fusiontables_StyleFunctionGradientColors
-	 */
-	public function setColors($colors)
-	{
-		$this->colors = $colors;
-	}
-	/**
-	 * @return Google_Service_Fusiontables_StyleFunctionGradientColors
-	 */
-	public function getColors()
-	{
-		return $this->colors;
-	}
-	public function setMax($max)
-	{
-		$this->max = $max;
-	}
-	public function getMax()
-	{
-		return $this->max;
-	}
-	public function setMin($min)
-	{
-		$this->min = $min;
-	}
-	public function getMin()
-	{
-		return $this->min;
-	}
+  /**
+   * @param Google_Service_Fusiontables_StyleFunctionGradientColors
+   */
+  public function setColors($colors)
+  {
+    $this->colors = $colors;
+  }
+  /**
+   * @return Google_Service_Fusiontables_StyleFunctionGradientColors
+   */
+  public function getColors()
+  {
+    return $this->colors;
+  }
+  public function setMax($max)
+  {
+    $this->max = $max;
+  }
+  public function getMax()
+  {
+    return $this->max;
+  }
+  public function setMin($min)
+  {
+    $this->min = $min;
+  }
+  public function getMin()
+  {
+    return $this->min;
+  }
 }

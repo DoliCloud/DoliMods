@@ -17,114 +17,114 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2Agent extends Google_Collection
 {
-	protected $collection_key = 'supportedLanguageCodes';
-	public $apiVersion;
-	public $avatarUri;
-	public $classificationThreshold;
-	public $defaultLanguageCode;
-	public $description;
-	public $displayName;
-	public $enableLogging;
-	public $matchMode;
-	public $parent;
-	public $supportedLanguageCodes;
-	public $tier;
-	public $timeZone;
+  protected $collection_key = 'supportedLanguageCodes';
+  public $apiVersion;
+  public $avatarUri;
+  public $classificationThreshold;
+  public $defaultLanguageCode;
+  public $description;
+  public $displayName;
+  public $enableLogging;
+  public $matchMode;
+  public $parent;
+  public $supportedLanguageCodes;
+  public $tier;
+  public $timeZone;
 
-	public function setApiVersion($apiVersion)
-	{
-		$this->apiVersion = $apiVersion;
-	}
-	public function getApiVersion()
-	{
-		return $this->apiVersion;
-	}
-	public function setAvatarUri($avatarUri)
-	{
-		$this->avatarUri = $avatarUri;
-	}
-	public function getAvatarUri()
-	{
-		return $this->avatarUri;
-	}
-	public function setClassificationThreshold($classificationThreshold)
-	{
-		$this->classificationThreshold = $classificationThreshold;
-	}
-	public function getClassificationThreshold()
-	{
-		return $this->classificationThreshold;
-	}
-	public function setDefaultLanguageCode($defaultLanguageCode)
-	{
-		$this->defaultLanguageCode = $defaultLanguageCode;
-	}
-	public function getDefaultLanguageCode()
-	{
-		return $this->defaultLanguageCode;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setEnableLogging($enableLogging)
-	{
-		$this->enableLogging = $enableLogging;
-	}
-	public function getEnableLogging()
-	{
-		return $this->enableLogging;
-	}
-	public function setMatchMode($matchMode)
-	{
-		$this->matchMode = $matchMode;
-	}
-	public function getMatchMode()
-	{
-		return $this->matchMode;
-	}
-	public function setParent($parent)
-	{
-		$this->parent = $parent;
-	}
-	public function getParent()
-	{
-		return $this->parent;
-	}
-	public function setSupportedLanguageCodes($supportedLanguageCodes)
-	{
-		$this->supportedLanguageCodes = $supportedLanguageCodes;
-	}
-	public function getSupportedLanguageCodes()
-	{
-		return $this->supportedLanguageCodes;
-	}
-	public function setTier($tier)
-	{
-		$this->tier = $tier;
-	}
-	public function getTier()
-	{
-		return $this->tier;
-	}
-	public function setTimeZone($timeZone)
-	{
-		$this->timeZone = $timeZone;
-	}
-	public function getTimeZone()
-	{
-		return $this->timeZone;
-	}
+  public function setApiVersion($apiVersion)
+  {
+    $this->apiVersion = $apiVersion;
+  }
+  public function getApiVersion()
+  {
+    return $this->apiVersion;
+  }
+  public function setAvatarUri($avatarUri)
+  {
+    $this->avatarUri = $avatarUri;
+  }
+  public function getAvatarUri()
+  {
+    return $this->avatarUri;
+  }
+  public function setClassificationThreshold($classificationThreshold)
+  {
+    $this->classificationThreshold = $classificationThreshold;
+  }
+  public function getClassificationThreshold()
+  {
+    return $this->classificationThreshold;
+  }
+  public function setDefaultLanguageCode($defaultLanguageCode)
+  {
+    $this->defaultLanguageCode = $defaultLanguageCode;
+  }
+  public function getDefaultLanguageCode()
+  {
+    return $this->defaultLanguageCode;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setEnableLogging($enableLogging)
+  {
+    $this->enableLogging = $enableLogging;
+  }
+  public function getEnableLogging()
+  {
+    return $this->enableLogging;
+  }
+  public function setMatchMode($matchMode)
+  {
+    $this->matchMode = $matchMode;
+  }
+  public function getMatchMode()
+  {
+    return $this->matchMode;
+  }
+  public function setParent($parent)
+  {
+    $this->parent = $parent;
+  }
+  public function getParent()
+  {
+    return $this->parent;
+  }
+  public function setSupportedLanguageCodes($supportedLanguageCodes)
+  {
+    $this->supportedLanguageCodes = $supportedLanguageCodes;
+  }
+  public function getSupportedLanguageCodes()
+  {
+    return $this->supportedLanguageCodes;
+  }
+  public function setTier($tier)
+  {
+    $this->tier = $tier;
+  }
+  public function getTier()
+  {
+    return $this->tier;
+  }
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  public function getTimeZone()
+  {
+    return $this->timeZone;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Compute_ZoneListWarning extends Google_Collection
 {
-	protected $collection_key = 'data';
-	public $code;
-	protected $dataType = 'Google_Service_Compute_ZoneListWarningData';
-	protected $dataDataType = 'array';
-	public $message;
+  protected $collection_key = 'data';
+  public $code;
+  protected $dataType = 'Google_Service_Compute_ZoneListWarningData';
+  protected $dataDataType = 'array';
+  public $message;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	/**
-	 * @param Google_Service_Compute_ZoneListWarningData
-	 */
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	/**
-	 * @return Google_Service_Compute_ZoneListWarningData
-	 */
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setMessage($message)
-	{
-		$this->message = $message;
-	}
-	public function getMessage()
-	{
-		return $this->message;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  /**
+   * @param Google_Service_Compute_ZoneListWarningData[]
+   */
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  /**
+   * @return Google_Service_Compute_ZoneListWarningData[]
+   */
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setMessage($message)
+  {
+    $this->message = $message;
+  }
+  public function getMessage()
+  {
+    return $this->message;
+  }
 }

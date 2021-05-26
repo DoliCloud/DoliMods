@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyer_EditAllOrderDealsResponse extends Google_Collection
 {
-	protected $collection_key = 'deals';
-	protected $dealsType = 'Google_Service_AdExchangeBuyer_MarketplaceDeal';
-	protected $dealsDataType = 'array';
-	public $orderRevisionNumber;
+  protected $collection_key = 'deals';
+  protected $dealsType = 'Google_Service_AdExchangeBuyer_MarketplaceDeal';
+  protected $dealsDataType = 'array';
+  public $orderRevisionNumber;
 
-	/**
-	 * @param Google_Service_AdExchangeBuyer_MarketplaceDeal
-	 */
-	public function setDeals($deals)
-	{
-		$this->deals = $deals;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyer_MarketplaceDeal
-	 */
-	public function getDeals()
-	{
-		return $this->deals;
-	}
-	public function setOrderRevisionNumber($orderRevisionNumber)
-	{
-		$this->orderRevisionNumber = $orderRevisionNumber;
-	}
-	public function getOrderRevisionNumber()
-	{
-		return $this->orderRevisionNumber;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyer_MarketplaceDeal[]
+   */
+  public function setDeals($deals)
+  {
+    $this->deals = $deals;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyer_MarketplaceDeal[]
+   */
+  public function getDeals()
+  {
+    return $this->deals;
+  }
+  public function setOrderRevisionNumber($orderRevisionNumber)
+  {
+    $this->orderRevisionNumber = $orderRevisionNumber;
+  }
+  public function getOrderRevisionNumber()
+  {
+    return $this->orderRevisionNumber;
+  }
 }

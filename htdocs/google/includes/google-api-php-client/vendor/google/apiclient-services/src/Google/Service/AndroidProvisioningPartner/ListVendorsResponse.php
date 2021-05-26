@@ -17,40 +17,40 @@
 
 class Google_Service_AndroidProvisioningPartner_ListVendorsResponse extends Google_Collection
 {
-	protected $collection_key = 'vendors';
-	public $nextPageToken;
-	public $totalSize;
-	protected $vendorsType = 'Google_Service_AndroidProvisioningPartner_Company';
-	protected $vendorsDataType = 'array';
+  protected $collection_key = 'vendors';
+  public $nextPageToken;
+  public $totalSize;
+  protected $vendorsType = 'Google_Service_AndroidProvisioningPartner_Company';
+  protected $vendorsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setTotalSize($totalSize)
-	{
-		$this->totalSize = $totalSize;
-	}
-	public function getTotalSize()
-	{
-		return $this->totalSize;
-	}
-	/**
-	 * @param Google_Service_AndroidProvisioningPartner_Company
-	 */
-	public function setVendors($vendors)
-	{
-		$this->vendors = $vendors;
-	}
-	/**
-	 * @return Google_Service_AndroidProvisioningPartner_Company
-	 */
-	public function getVendors()
-	{
-		return $this->vendors;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setTotalSize($totalSize)
+  {
+    $this->totalSize = $totalSize;
+  }
+  public function getTotalSize()
+  {
+    return $this->totalSize;
+  }
+  /**
+   * @param Google_Service_AndroidProvisioningPartner_Company[]
+   */
+  public function setVendors($vendors)
+  {
+    $this->vendors = $vendors;
+  }
+  /**
+   * @return Google_Service_AndroidProvisioningPartner_Company[]
+   */
+  public function getVendors()
+  {
+    return $this->vendors;
+  }
 }

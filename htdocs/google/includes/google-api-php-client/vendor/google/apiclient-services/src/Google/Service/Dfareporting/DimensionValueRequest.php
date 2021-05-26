@@ -17,58 +17,58 @@
 
 class Google_Service_Dfareporting_DimensionValueRequest extends Google_Collection
 {
-	protected $collection_key = 'filters';
-	public $dimensionName;
-	public $endDate;
-	protected $filtersType = 'Google_Service_Dfareporting_DimensionFilter';
-	protected $filtersDataType = 'array';
-	public $kind;
-	public $startDate;
+  protected $collection_key = 'filters';
+  public $dimensionName;
+  public $endDate;
+  protected $filtersType = 'Google_Service_Dfareporting_DimensionFilter';
+  protected $filtersDataType = 'array';
+  public $kind;
+  public $startDate;
 
-	public function setDimensionName($dimensionName)
-	{
-		$this->dimensionName = $dimensionName;
-	}
-	public function getDimensionName()
-	{
-		return $this->dimensionName;
-	}
-	public function setEndDate($endDate)
-	{
-		$this->endDate = $endDate;
-	}
-	public function getEndDate()
-	{
-		return $this->endDate;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_DimensionFilter
-	 */
-	public function setFilters($filters)
-	{
-		$this->filters = $filters;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_DimensionFilter
-	 */
-	public function getFilters()
-	{
-		return $this->filters;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setStartDate($startDate)
-	{
-		$this->startDate = $startDate;
-	}
-	public function getStartDate()
-	{
-		return $this->startDate;
-	}
+  public function setDimensionName($dimensionName)
+  {
+    $this->dimensionName = $dimensionName;
+  }
+  public function getDimensionName()
+  {
+    return $this->dimensionName;
+  }
+  public function setEndDate($endDate)
+  {
+    $this->endDate = $endDate;
+  }
+  public function getEndDate()
+  {
+    return $this->endDate;
+  }
+  /**
+   * @param Google_Service_Dfareporting_DimensionFilter[]
+   */
+  public function setFilters($filters)
+  {
+    $this->filters = $filters;
+  }
+  /**
+   * @return Google_Service_Dfareporting_DimensionFilter[]
+   */
+  public function getFilters()
+  {
+    return $this->filters;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setStartDate($startDate)
+  {
+    $this->startDate = $startDate;
+  }
+  public function getStartDate()
+  {
+    return $this->startDate;
+  }
 }

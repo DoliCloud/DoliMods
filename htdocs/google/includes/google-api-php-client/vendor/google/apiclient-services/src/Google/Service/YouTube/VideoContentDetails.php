@@ -17,116 +17,116 @@
 
 class Google_Service_YouTube_VideoContentDetails extends Google_Model
 {
-	public $caption;
-	protected $contentRatingType = 'Google_Service_YouTube_ContentRating';
-	protected $contentRatingDataType = '';
-	protected $countryRestrictionType = 'Google_Service_YouTube_AccessPolicy';
-	protected $countryRestrictionDataType = '';
-	public $definition;
-	public $dimension;
-	public $duration;
-	public $hasCustomThumbnail;
-	public $licensedContent;
-	public $projection;
-	protected $regionRestrictionType = 'Google_Service_YouTube_VideoContentDetailsRegionRestriction';
-	protected $regionRestrictionDataType = '';
+  public $caption;
+  protected $contentRatingType = 'Google_Service_YouTube_ContentRating';
+  protected $contentRatingDataType = '';
+  protected $countryRestrictionType = 'Google_Service_YouTube_AccessPolicy';
+  protected $countryRestrictionDataType = '';
+  public $definition;
+  public $dimension;
+  public $duration;
+  public $hasCustomThumbnail;
+  public $licensedContent;
+  public $projection;
+  protected $regionRestrictionType = 'Google_Service_YouTube_VideoContentDetailsRegionRestriction';
+  protected $regionRestrictionDataType = '';
 
-	public function setCaption($caption)
-	{
-		$this->caption = $caption;
-	}
-	public function getCaption()
-	{
-		return $this->caption;
-	}
-	/**
-	 * @param Google_Service_YouTube_ContentRating
-	 */
-	public function setContentRating(Google_Service_YouTube_ContentRating $contentRating)
-	{
-		$this->contentRating = $contentRating;
-	}
-	/**
-	 * @return Google_Service_YouTube_ContentRating
-	 */
-	public function getContentRating()
-	{
-		return $this->contentRating;
-	}
-	/**
-	 * @param Google_Service_YouTube_AccessPolicy
-	 */
-	public function setCountryRestriction(Google_Service_YouTube_AccessPolicy $countryRestriction)
-	{
-		$this->countryRestriction = $countryRestriction;
-	}
-	/**
-	 * @return Google_Service_YouTube_AccessPolicy
-	 */
-	public function getCountryRestriction()
-	{
-		return $this->countryRestriction;
-	}
-	public function setDefinition($definition)
-	{
-		$this->definition = $definition;
-	}
-	public function getDefinition()
-	{
-		return $this->definition;
-	}
-	public function setDimension($dimension)
-	{
-		$this->dimension = $dimension;
-	}
-	public function getDimension()
-	{
-		return $this->dimension;
-	}
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	public function setHasCustomThumbnail($hasCustomThumbnail)
-	{
-		$this->hasCustomThumbnail = $hasCustomThumbnail;
-	}
-	public function getHasCustomThumbnail()
-	{
-		return $this->hasCustomThumbnail;
-	}
-	public function setLicensedContent($licensedContent)
-	{
-		$this->licensedContent = $licensedContent;
-	}
-	public function getLicensedContent()
-	{
-		return $this->licensedContent;
-	}
-	public function setProjection($projection)
-	{
-		$this->projection = $projection;
-	}
-	public function getProjection()
-	{
-		return $this->projection;
-	}
-	/**
-	 * @param Google_Service_YouTube_VideoContentDetailsRegionRestriction
-	 */
-	public function setRegionRestriction(Google_Service_YouTube_VideoContentDetailsRegionRestriction $regionRestriction)
-	{
-		$this->regionRestriction = $regionRestriction;
-	}
-	/**
-	 * @return Google_Service_YouTube_VideoContentDetailsRegionRestriction
-	 */
-	public function getRegionRestriction()
-	{
-		return $this->regionRestriction;
-	}
+  public function setCaption($caption)
+  {
+    $this->caption = $caption;
+  }
+  public function getCaption()
+  {
+    return $this->caption;
+  }
+  /**
+   * @param Google_Service_YouTube_ContentRating
+   */
+  public function setContentRating(Google_Service_YouTube_ContentRating $contentRating)
+  {
+    $this->contentRating = $contentRating;
+  }
+  /**
+   * @return Google_Service_YouTube_ContentRating
+   */
+  public function getContentRating()
+  {
+    return $this->contentRating;
+  }
+  /**
+   * @param Google_Service_YouTube_AccessPolicy
+   */
+  public function setCountryRestriction(Google_Service_YouTube_AccessPolicy $countryRestriction)
+  {
+    $this->countryRestriction = $countryRestriction;
+  }
+  /**
+   * @return Google_Service_YouTube_AccessPolicy
+   */
+  public function getCountryRestriction()
+  {
+    return $this->countryRestriction;
+  }
+  public function setDefinition($definition)
+  {
+    $this->definition = $definition;
+  }
+  public function getDefinition()
+  {
+    return $this->definition;
+  }
+  public function setDimension($dimension)
+  {
+    $this->dimension = $dimension;
+  }
+  public function getDimension()
+  {
+    return $this->dimension;
+  }
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  public function setHasCustomThumbnail($hasCustomThumbnail)
+  {
+    $this->hasCustomThumbnail = $hasCustomThumbnail;
+  }
+  public function getHasCustomThumbnail()
+  {
+    return $this->hasCustomThumbnail;
+  }
+  public function setLicensedContent($licensedContent)
+  {
+    $this->licensedContent = $licensedContent;
+  }
+  public function getLicensedContent()
+  {
+    return $this->licensedContent;
+  }
+  public function setProjection($projection)
+  {
+    $this->projection = $projection;
+  }
+  public function getProjection()
+  {
+    return $this->projection;
+  }
+  /**
+   * @param Google_Service_YouTube_VideoContentDetailsRegionRestriction
+   */
+  public function setRegionRestriction(Google_Service_YouTube_VideoContentDetailsRegionRestriction $regionRestriction)
+  {
+    $this->regionRestriction = $regionRestriction;
+  }
+  /**
+   * @return Google_Service_YouTube_VideoContentDetailsRegionRestriction
+   */
+  public function getRegionRestriction()
+  {
+    return $this->regionRestriction;
+  }
 }

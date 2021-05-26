@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_StreamingSideInputLocation extends Google_Model
 {
-	public $stateFamily;
-	public $tag;
+  public $stateFamily;
+  public $tag;
 
-	public function setStateFamily($stateFamily)
-	{
-		$this->stateFamily = $stateFamily;
-	}
-	public function getStateFamily()
-	{
-		return $this->stateFamily;
-	}
-	public function setTag($tag)
-	{
-		$this->tag = $tag;
-	}
-	public function getTag()
-	{
-		return $this->tag;
-	}
+  public function setStateFamily($stateFamily)
+  {
+    $this->stateFamily = $stateFamily;
+  }
+  public function getStateFamily()
+  {
+    return $this->stateFamily;
+  }
+  public function setTag($tag)
+  {
+    $this->tag = $tag;
+  }
+  public function getTag()
+  {
+    return $this->tag;
+  }
 }

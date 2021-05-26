@@ -17,39 +17,39 @@
 
 class Google_Service_Reseller_SubscriptionPlan extends Google_Model
 {
-	protected $commitmentIntervalType = 'Google_Service_Reseller_SubscriptionPlanCommitmentInterval';
-	protected $commitmentIntervalDataType = '';
-	public $isCommitmentPlan;
-	public $planName;
+  protected $commitmentIntervalType = 'Google_Service_Reseller_SubscriptionPlanCommitmentInterval';
+  protected $commitmentIntervalDataType = '';
+  public $isCommitmentPlan;
+  public $planName;
 
-	/**
-	 * @param Google_Service_Reseller_SubscriptionPlanCommitmentInterval
-	 */
-	public function setCommitmentInterval(Google_Service_Reseller_SubscriptionPlanCommitmentInterval $commitmentInterval)
-	{
-		$this->commitmentInterval = $commitmentInterval;
-	}
-	/**
-	 * @return Google_Service_Reseller_SubscriptionPlanCommitmentInterval
-	 */
-	public function getCommitmentInterval()
-	{
-		return $this->commitmentInterval;
-	}
-	public function setIsCommitmentPlan($isCommitmentPlan)
-	{
-		$this->isCommitmentPlan = $isCommitmentPlan;
-	}
-	public function getIsCommitmentPlan()
-	{
-		return $this->isCommitmentPlan;
-	}
-	public function setPlanName($planName)
-	{
-		$this->planName = $planName;
-	}
-	public function getPlanName()
-	{
-		return $this->planName;
-	}
+  /**
+   * @param Google_Service_Reseller_SubscriptionPlanCommitmentInterval
+   */
+  public function setCommitmentInterval(Google_Service_Reseller_SubscriptionPlanCommitmentInterval $commitmentInterval)
+  {
+    $this->commitmentInterval = $commitmentInterval;
+  }
+  /**
+   * @return Google_Service_Reseller_SubscriptionPlanCommitmentInterval
+   */
+  public function getCommitmentInterval()
+  {
+    return $this->commitmentInterval;
+  }
+  public function setIsCommitmentPlan($isCommitmentPlan)
+  {
+    $this->isCommitmentPlan = $isCommitmentPlan;
+  }
+  public function getIsCommitmentPlan()
+  {
+    return $this->isCommitmentPlan;
+  }
+  public function setPlanName($planName)
+  {
+    $this->planName = $planName;
+  }
+  public function getPlanName()
+  {
+    return $this->planName;
+  }
 }

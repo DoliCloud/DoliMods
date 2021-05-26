@@ -17,54 +17,54 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraints extends Google_Collection
 {
-	protected $collection_key = 'sameBookingCodes';
-	protected $diffBookingCodesType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence';
-	protected $diffBookingCodesDataType = 'array';
-	protected $marriedSegmentsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraint';
-	protected $marriedSegmentsDataType = 'array';
-	protected $sameBookingCodesType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence';
-	protected $sameBookingCodesDataType = 'array';
+  protected $collection_key = 'sameBookingCodes';
+  protected $diffBookingCodesType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence';
+  protected $diffBookingCodesDataType = 'array';
+  protected $marriedSegmentsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraint';
+  protected $marriedSegmentsDataType = 'array';
+  protected $sameBookingCodesType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence';
+  protected $sameBookingCodesDataType = 'array';
 
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence
-	 */
-	public function setDiffBookingCodes($diffBookingCodes)
-	{
-		$this->diffBookingCodes = $diffBookingCodes;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence
-	 */
-	public function getDiffBookingCodes()
-	{
-		return $this->diffBookingCodes;
-	}
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraint
-	 */
-	public function setMarriedSegments($marriedSegments)
-	{
-		$this->marriedSegments = $marriedSegments;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraint
-	 */
-	public function getMarriedSegments()
-	{
-		return $this->marriedSegments;
-	}
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence
-	 */
-	public function setSameBookingCodes($sameBookingCodes)
-	{
-		$this->sameBookingCodes = $sameBookingCodes;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence
-	 */
-	public function getSameBookingCodes()
-	{
-		return $this->sameBookingCodes;
-	}
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence
+   */
+  public function setDiffBookingCodes($diffBookingCodes)
+  {
+    $this->diffBookingCodes = $diffBookingCodes;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence
+   */
+  public function getDiffBookingCodes()
+  {
+    return $this->diffBookingCodes;
+  }
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraint
+   */
+  public function setMarriedSegments($marriedSegments)
+  {
+    $this->marriedSegments = $marriedSegments;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraint
+   */
+  public function getMarriedSegments()
+  {
+    return $this->marriedSegments;
+  }
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence
+   */
+  public function setSameBookingCodes($sameBookingCodes)
+  {
+    $this->sameBookingCodes = $sameBookingCodes;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraintWithEquivalence
+   */
+  public function getSameBookingCodes()
+  {
+    return $this->sameBookingCodes;
+  }
 }

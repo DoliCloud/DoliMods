@@ -17,15 +17,15 @@
 
 class Google_Service_Gmail_BatchDeleteMessagesRequest extends Google_Collection
 {
-	protected $collection_key = 'ids';
-	public $ids;
+  protected $collection_key = 'ids';
+  public $ids;
 
-	public function setIds($ids)
-	{
-		$this->ids = $ids;
-	}
-	public function getIds()
-	{
-		return $this->ids;
-	}
+  public function setIds($ids)
+  {
+    $this->ids = $ids;
+  }
+  public function getIds()
+  {
+    return $this->ids;
+  }
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_AdExchangeBuyer_DealServingMetadata extends Google_Model
 {
-	public $alcoholAdsAllowed;
-	protected $dealPauseStatusType = 'Google_Service_AdExchangeBuyer_DealServingMetadataDealPauseStatus';
-	protected $dealPauseStatusDataType = '';
+  public $alcoholAdsAllowed;
+  protected $dealPauseStatusType = 'Google_Service_AdExchangeBuyer_DealServingMetadataDealPauseStatus';
+  protected $dealPauseStatusDataType = '';
 
-	public function setAlcoholAdsAllowed($alcoholAdsAllowed)
-	{
-		$this->alcoholAdsAllowed = $alcoholAdsAllowed;
-	}
-	public function getAlcoholAdsAllowed()
-	{
-		return $this->alcoholAdsAllowed;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyer_DealServingMetadataDealPauseStatus
-	 */
-	public function setDealPauseStatus(Google_Service_AdExchangeBuyer_DealServingMetadataDealPauseStatus $dealPauseStatus)
-	{
-		$this->dealPauseStatus = $dealPauseStatus;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyer_DealServingMetadataDealPauseStatus
-	 */
-	public function getDealPauseStatus()
-	{
-		return $this->dealPauseStatus;
-	}
+  public function setAlcoholAdsAllowed($alcoholAdsAllowed)
+  {
+    $this->alcoholAdsAllowed = $alcoholAdsAllowed;
+  }
+  public function getAlcoholAdsAllowed()
+  {
+    return $this->alcoholAdsAllowed;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyer_DealServingMetadataDealPauseStatus
+   */
+  public function setDealPauseStatus(Google_Service_AdExchangeBuyer_DealServingMetadataDealPauseStatus $dealPauseStatus)
+  {
+    $this->dealPauseStatus = $dealPauseStatus;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyer_DealServingMetadataDealPauseStatus
+   */
+  public function getDealPauseStatus()
+  {
+    return $this->dealPauseStatus;
+  }
 }

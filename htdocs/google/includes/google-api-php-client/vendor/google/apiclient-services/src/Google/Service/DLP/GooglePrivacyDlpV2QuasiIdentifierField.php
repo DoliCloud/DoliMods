@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2QuasiIdentifierField extends Google_Model
 {
-	public $customTag;
-	protected $fieldType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
-	protected $fieldDataType = '';
+  public $customTag;
+  protected $fieldType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
+  protected $fieldDataType = '';
 
-	public function setCustomTag($customTag)
-	{
-		$this->customTag = $customTag;
-	}
-	public function getCustomTag()
-	{
-		return $this->customTag;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
-	 */
-	public function setField(Google_Service_DLP_GooglePrivacyDlpV2FieldId $field)
-	{
-		$this->field = $field;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
-	 */
-	public function getField()
-	{
-		return $this->field;
-	}
+  public function setCustomTag($customTag)
+  {
+    $this->customTag = $customTag;
+  }
+  public function getCustomTag()
+  {
+    return $this->customTag;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
+   */
+  public function setField(Google_Service_DLP_GooglePrivacyDlpV2FieldId $field)
+  {
+    $this->field = $field;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
+   */
+  public function getField()
+  {
+    return $this->field;
+  }
 }

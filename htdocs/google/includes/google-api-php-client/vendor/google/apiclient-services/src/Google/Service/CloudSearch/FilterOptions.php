@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSearch_FilterOptions extends Google_Model
 {
-	protected $filterType = 'Google_Service_CloudSearch_Filter';
-	protected $filterDataType = '';
-	public $objectType;
+  protected $filterType = 'Google_Service_CloudSearch_Filter';
+  protected $filterDataType = '';
+  public $objectType;
 
-	/**
-	 * @param Google_Service_CloudSearch_Filter
-	 */
-	public function setFilter(Google_Service_CloudSearch_Filter $filter)
-	{
-		$this->filter = $filter;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Filter
-	 */
-	public function getFilter()
-	{
-		return $this->filter;
-	}
-	public function setObjectType($objectType)
-	{
-		$this->objectType = $objectType;
-	}
-	public function getObjectType()
-	{
-		return $this->objectType;
-	}
+  /**
+   * @param Google_Service_CloudSearch_Filter
+   */
+  public function setFilter(Google_Service_CloudSearch_Filter $filter)
+  {
+    $this->filter = $filter;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Filter
+   */
+  public function getFilter()
+  {
+    return $this->filter;
+  }
+  public function setObjectType($objectType)
+  {
+    $this->objectType = $objectType;
+  }
+  public function getObjectType()
+  {
+    return $this->objectType;
+  }
 }

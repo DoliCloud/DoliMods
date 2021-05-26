@@ -17,57 +17,57 @@
 
 class Google_Service_ShoppingContent_OrdersRefundOrderRequest extends Google_Model
 {
-	protected $amountType = 'Google_Service_ShoppingContent_MonetaryAmount';
-	protected $amountDataType = '';
-	public $fullRefund;
-	public $operationId;
-	public $reason;
-	public $reasonText;
+  protected $amountType = 'Google_Service_ShoppingContent_MonetaryAmount';
+  protected $amountDataType = '';
+  public $fullRefund;
+  public $operationId;
+  public $reason;
+  public $reasonText;
 
-	/**
-	 * @param Google_Service_ShoppingContent_MonetaryAmount
-	 */
-	public function setAmount(Google_Service_ShoppingContent_MonetaryAmount $amount)
-	{
-		$this->amount = $amount;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_MonetaryAmount
-	 */
-	public function getAmount()
-	{
-		return $this->amount;
-	}
-	public function setFullRefund($fullRefund)
-	{
-		$this->fullRefund = $fullRefund;
-	}
-	public function getFullRefund()
-	{
-		return $this->fullRefund;
-	}
-	public function setOperationId($operationId)
-	{
-		$this->operationId = $operationId;
-	}
-	public function getOperationId()
-	{
-		return $this->operationId;
-	}
-	public function setReason($reason)
-	{
-		$this->reason = $reason;
-	}
-	public function getReason()
-	{
-		return $this->reason;
-	}
-	public function setReasonText($reasonText)
-	{
-		$this->reasonText = $reasonText;
-	}
-	public function getReasonText()
-	{
-		return $this->reasonText;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_MonetaryAmount
+   */
+  public function setAmount(Google_Service_ShoppingContent_MonetaryAmount $amount)
+  {
+    $this->amount = $amount;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_MonetaryAmount
+   */
+  public function getAmount()
+  {
+    return $this->amount;
+  }
+  public function setFullRefund($fullRefund)
+  {
+    $this->fullRefund = $fullRefund;
+  }
+  public function getFullRefund()
+  {
+    return $this->fullRefund;
+  }
+  public function setOperationId($operationId)
+  {
+    $this->operationId = $operationId;
+  }
+  public function getOperationId()
+  {
+    return $this->operationId;
+  }
+  public function setReason($reason)
+  {
+    $this->reason = $reason;
+  }
+  public function getReason()
+  {
+    return $this->reason;
+  }
+  public function setReasonText($reasonText)
+  {
+    $this->reasonText = $reasonText;
+  }
+  public function getReasonText()
+  {
+    return $this->reasonText;
+  }
 }

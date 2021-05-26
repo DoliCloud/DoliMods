@@ -17,58 +17,58 @@
 
 class Google_Service_CloudMonitoring_ListTimeseriesDescriptorsResponse extends Google_Collection
 {
-	protected $collection_key = 'timeseries';
-	public $kind;
-	public $nextPageToken;
-	public $oldest;
-	protected $timeseriesType = 'Google_Service_CloudMonitoring_TimeseriesDescriptor';
-	protected $timeseriesDataType = 'array';
-	public $youngest;
+  protected $collection_key = 'timeseries';
+  public $kind;
+  public $nextPageToken;
+  public $oldest;
+  protected $timeseriesType = 'Google_Service_CloudMonitoring_TimeseriesDescriptor';
+  protected $timeseriesDataType = 'array';
+  public $youngest;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setOldest($oldest)
-	{
-		$this->oldest = $oldest;
-	}
-	public function getOldest()
-	{
-		return $this->oldest;
-	}
-	/**
-	 * @param Google_Service_CloudMonitoring_TimeseriesDescriptor
-	 */
-	public function setTimeseries($timeseries)
-	{
-		$this->timeseries = $timeseries;
-	}
-	/**
-	 * @return Google_Service_CloudMonitoring_TimeseriesDescriptor
-	 */
-	public function getTimeseries()
-	{
-		return $this->timeseries;
-	}
-	public function setYoungest($youngest)
-	{
-		$this->youngest = $youngest;
-	}
-	public function getYoungest()
-	{
-		return $this->youngest;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setOldest($oldest)
+  {
+    $this->oldest = $oldest;
+  }
+  public function getOldest()
+  {
+    return $this->oldest;
+  }
+  /**
+   * @param Google_Service_CloudMonitoring_TimeseriesDescriptor
+   */
+  public function setTimeseries($timeseries)
+  {
+    $this->timeseries = $timeseries;
+  }
+  /**
+   * @return Google_Service_CloudMonitoring_TimeseriesDescriptor
+   */
+  public function getTimeseries()
+  {
+    return $this->timeseries;
+  }
+  public function setYoungest($youngest)
+  {
+    $this->youngest = $youngest;
+  }
+  public function getYoungest()
+  {
+    return $this->youngest;
+  }
 }

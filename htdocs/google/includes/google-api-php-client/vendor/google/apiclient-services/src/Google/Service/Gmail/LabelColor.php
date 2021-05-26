@@ -17,23 +17,23 @@
 
 class Google_Service_Gmail_LabelColor extends Google_Model
 {
-	public $backgroundColor;
-	public $textColor;
+  public $backgroundColor;
+  public $textColor;
 
-	public function setBackgroundColor($backgroundColor)
-	{
-		$this->backgroundColor = $backgroundColor;
-	}
-	public function getBackgroundColor()
-	{
-		return $this->backgroundColor;
-	}
-	public function setTextColor($textColor)
-	{
-		$this->textColor = $textColor;
-	}
-	public function getTextColor()
-	{
-		return $this->textColor;
-	}
+  public function setBackgroundColor($backgroundColor)
+  {
+    $this->backgroundColor = $backgroundColor;
+  }
+  public function getBackgroundColor()
+  {
+    return $this->backgroundColor;
+  }
+  public function setTextColor($textColor)
+  {
+    $this->textColor = $textColor;
+  }
+  public function getTextColor()
+  {
+    return $this->textColor;
+  }
 }

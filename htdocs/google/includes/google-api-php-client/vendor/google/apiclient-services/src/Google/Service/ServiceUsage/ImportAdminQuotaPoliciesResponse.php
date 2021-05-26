@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceUsage_ImportAdminQuotaPoliciesResponse extends Google_Collection
 {
-	protected $collection_key = 'policies';
-	protected $policiesType = 'Google_Service_ServiceUsage_AdminQuotaPolicy';
-	protected $policiesDataType = 'array';
+  protected $collection_key = 'policies';
+  protected $policiesType = 'Google_Service_ServiceUsage_AdminQuotaPolicy';
+  protected $policiesDataType = 'array';
 
-	/**
-	 * @param Google_Service_ServiceUsage_AdminQuotaPolicy
-	 */
-	public function setPolicies($policies)
-	{
-		$this->policies = $policies;
-	}
-	/**
-	 * @return Google_Service_ServiceUsage_AdminQuotaPolicy
-	 */
-	public function getPolicies()
-	{
-		return $this->policies;
-	}
+  /**
+   * @param Google_Service_ServiceUsage_AdminQuotaPolicy[]
+   */
+  public function setPolicies($policies)
+  {
+    $this->policies = $policies;
+  }
+  /**
+   * @return Google_Service_ServiceUsage_AdminQuotaPolicy[]
+   */
+  public function getPolicies()
+  {
+    return $this->policies;
+  }
 }

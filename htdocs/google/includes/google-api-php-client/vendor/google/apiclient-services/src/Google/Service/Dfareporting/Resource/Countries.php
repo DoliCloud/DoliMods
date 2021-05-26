@@ -25,31 +25,31 @@
  */
 class Google_Service_Dfareporting_Resource_Countries extends Google_Service_Resource
 {
-	/**
-	 * Gets one country by ID. (countries.get)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param string $dartId Country DART ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_Country
-	 */
-	public function get($profileId, $dartId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'dartId' => $dartId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Dfareporting_Country");
-	}
-	/**
-	 * Retrieves a list of countries. (countries.listCountries)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_CountriesListResponse
-	 */
-	public function listCountries($profileId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Dfareporting_CountriesListResponse");
-	}
+  /**
+   * Gets one country by ID. (countries.get)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param string $dartId Country DART ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_Country
+   */
+  public function get($profileId, $dartId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'dartId' => $dartId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Dfareporting_Country");
+  }
+  /**
+   * Retrieves a list of countries. (countries.listCountries)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_CountriesListResponse
+   */
+  public function listCountries($profileId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Dfareporting_CountriesListResponse");
+  }
 }

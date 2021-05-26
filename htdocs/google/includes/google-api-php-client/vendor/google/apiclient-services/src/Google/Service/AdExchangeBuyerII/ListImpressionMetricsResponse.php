@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListImpressionMetricsResponse extends Google_Collection
 {
-	protected $collection_key = 'impressionMetricsRows';
-	protected $impressionMetricsRowsType = 'Google_Service_AdExchangeBuyerII_ImpressionMetricsRow';
-	protected $impressionMetricsRowsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'impressionMetricsRows';
+  protected $impressionMetricsRowsType = 'Google_Service_AdExchangeBuyerII_ImpressionMetricsRow';
+  protected $impressionMetricsRowsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_ImpressionMetricsRow
-	 */
-	public function setImpressionMetricsRows($impressionMetricsRows)
-	{
-		$this->impressionMetricsRows = $impressionMetricsRows;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_ImpressionMetricsRow
-	 */
-	public function getImpressionMetricsRows()
-	{
-		return $this->impressionMetricsRows;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_ImpressionMetricsRow[]
+   */
+  public function setImpressionMetricsRows($impressionMetricsRows)
+  {
+    $this->impressionMetricsRows = $impressionMetricsRows;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_ImpressionMetricsRow[]
+   */
+  public function getImpressionMetricsRows()
+  {
+    return $this->impressionMetricsRows;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

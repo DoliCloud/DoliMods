@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_UpdateFilterViewRequest extends Google_Model
 {
-	public $fields;
-	protected $filterType = 'Google_Service_Sheets_FilterView';
-	protected $filterDataType = '';
+  public $fields;
+  protected $filterType = 'Google_Service_Sheets_FilterView';
+  protected $filterDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	/**
-	 * @param Google_Service_Sheets_FilterView
-	 */
-	public function setFilter(Google_Service_Sheets_FilterView $filter)
-	{
-		$this->filter = $filter;
-	}
-	/**
-	 * @return Google_Service_Sheets_FilterView
-	 */
-	public function getFilter()
-	{
-		return $this->filter;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  /**
+   * @param Google_Service_Sheets_FilterView
+   */
+  public function setFilter(Google_Service_Sheets_FilterView $filter)
+  {
+    $this->filter = $filter;
+  }
+  /**
+   * @return Google_Service_Sheets_FilterView
+   */
+  public function getFilter()
+  {
+    return $this->filter;
+  }
 }

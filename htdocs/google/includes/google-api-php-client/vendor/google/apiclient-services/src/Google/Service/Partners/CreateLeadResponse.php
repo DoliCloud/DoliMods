@@ -17,46 +17,46 @@
 
 class Google_Service_Partners_CreateLeadResponse extends Google_Model
 {
-	protected $leadType = 'Google_Service_Partners_Lead';
-	protected $leadDataType = '';
-	public $recaptchaStatus;
-	protected $responseMetadataType = 'Google_Service_Partners_ResponseMetadata';
-	protected $responseMetadataDataType = '';
+  protected $leadType = 'Google_Service_Partners_Lead';
+  protected $leadDataType = '';
+  public $recaptchaStatus;
+  protected $responseMetadataType = 'Google_Service_Partners_ResponseMetadata';
+  protected $responseMetadataDataType = '';
 
-	/**
-	 * @param Google_Service_Partners_Lead
-	 */
-	public function setLead(Google_Service_Partners_Lead $lead)
-	{
-		$this->lead = $lead;
-	}
-	/**
-	 * @return Google_Service_Partners_Lead
-	 */
-	public function getLead()
-	{
-		return $this->lead;
-	}
-	public function setRecaptchaStatus($recaptchaStatus)
-	{
-		$this->recaptchaStatus = $recaptchaStatus;
-	}
-	public function getRecaptchaStatus()
-	{
-		return $this->recaptchaStatus;
-	}
-	/**
-	 * @param Google_Service_Partners_ResponseMetadata
-	 */
-	public function setResponseMetadata(Google_Service_Partners_ResponseMetadata $responseMetadata)
-	{
-		$this->responseMetadata = $responseMetadata;
-	}
-	/**
-	 * @return Google_Service_Partners_ResponseMetadata
-	 */
-	public function getResponseMetadata()
-	{
-		return $this->responseMetadata;
-	}
+  /**
+   * @param Google_Service_Partners_Lead
+   */
+  public function setLead(Google_Service_Partners_Lead $lead)
+  {
+    $this->lead = $lead;
+  }
+  /**
+   * @return Google_Service_Partners_Lead
+   */
+  public function getLead()
+  {
+    return $this->lead;
+  }
+  public function setRecaptchaStatus($recaptchaStatus)
+  {
+    $this->recaptchaStatus = $recaptchaStatus;
+  }
+  public function getRecaptchaStatus()
+  {
+    return $this->recaptchaStatus;
+  }
+  /**
+   * @param Google_Service_Partners_ResponseMetadata
+   */
+  public function setResponseMetadata(Google_Service_Partners_ResponseMetadata $responseMetadata)
+  {
+    $this->responseMetadata = $responseMetadata;
+  }
+  /**
+   * @return Google_Service_Partners_ResponseMetadata
+   */
+  public function getResponseMetadata()
+  {
+    return $this->responseMetadata;
+  }
 }

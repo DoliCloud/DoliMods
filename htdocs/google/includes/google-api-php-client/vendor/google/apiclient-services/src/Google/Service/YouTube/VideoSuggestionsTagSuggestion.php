@@ -17,24 +17,24 @@
 
 class Google_Service_YouTube_VideoSuggestionsTagSuggestion extends Google_Collection
 {
-	protected $collection_key = 'categoryRestricts';
-	public $categoryRestricts;
-	public $tag;
+  protected $collection_key = 'categoryRestricts';
+  public $categoryRestricts;
+  public $tag;
 
-	public function setCategoryRestricts($categoryRestricts)
-	{
-		$this->categoryRestricts = $categoryRestricts;
-	}
-	public function getCategoryRestricts()
-	{
-		return $this->categoryRestricts;
-	}
-	public function setTag($tag)
-	{
-		$this->tag = $tag;
-	}
-	public function getTag()
-	{
-		return $this->tag;
-	}
+  public function setCategoryRestricts($categoryRestricts)
+  {
+    $this->categoryRestricts = $categoryRestricts;
+  }
+  public function getCategoryRestricts()
+  {
+    return $this->categoryRestricts;
+  }
+  public function setTag($tag)
+  {
+    $this->tag = $tag;
+  }
+  public function getTag()
+  {
+    return $this->tag;
+  }
 }

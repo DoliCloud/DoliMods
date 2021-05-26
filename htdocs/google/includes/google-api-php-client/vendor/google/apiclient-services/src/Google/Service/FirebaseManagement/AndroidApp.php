@@ -17,50 +17,50 @@
 
 class Google_Service_FirebaseManagement_AndroidApp extends Google_Model
 {
-	public $appId;
-	public $displayName;
-	public $name;
-	public $packageName;
-	public $projectId;
+  public $appId;
+  public $displayName;
+  public $name;
+  public $packageName;
+  public $projectId;
 
-	public function setAppId($appId)
-	{
-		$this->appId = $appId;
-	}
-	public function getAppId()
-	{
-		return $this->appId;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPackageName($packageName)
-	{
-		$this->packageName = $packageName;
-	}
-	public function getPackageName()
-	{
-		return $this->packageName;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
+  public function setAppId($appId)
+  {
+    $this->appId = $appId;
+  }
+  public function getAppId()
+  {
+    return $this->appId;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_PagespeedInsights_ConfigSettings extends Google_Model
 {
-	public $channel;
-	public $emulatedFormFactor;
-	public $locale;
-	public $onlyCategories;
+  public $channel;
+  public $emulatedFormFactor;
+  public $locale;
+  public $onlyCategories;
 
-	public function setChannel($channel)
-	{
-		$this->channel = $channel;
-	}
-	public function getChannel()
-	{
-		return $this->channel;
-	}
-	public function setEmulatedFormFactor($emulatedFormFactor)
-	{
-		$this->emulatedFormFactor = $emulatedFormFactor;
-	}
-	public function getEmulatedFormFactor()
-	{
-		return $this->emulatedFormFactor;
-	}
-	public function setLocale($locale)
-	{
-		$this->locale = $locale;
-	}
-	public function getLocale()
-	{
-		return $this->locale;
-	}
-	public function setOnlyCategories($onlyCategories)
-	{
-		$this->onlyCategories = $onlyCategories;
-	}
-	public function getOnlyCategories()
-	{
-		return $this->onlyCategories;
-	}
+  public function setChannel($channel)
+  {
+    $this->channel = $channel;
+  }
+  public function getChannel()
+  {
+    return $this->channel;
+  }
+  public function setEmulatedFormFactor($emulatedFormFactor)
+  {
+    $this->emulatedFormFactor = $emulatedFormFactor;
+  }
+  public function getEmulatedFormFactor()
+  {
+    return $this->emulatedFormFactor;
+  }
+  public function setLocale($locale)
+  {
+    $this->locale = $locale;
+  }
+  public function getLocale()
+  {
+    return $this->locale;
+  }
+  public function setOnlyCategories($onlyCategories)
+  {
+    $this->onlyCategories = $onlyCategories;
+  }
+  public function getOnlyCategories()
+  {
+    return $this->onlyCategories;
+  }
 }

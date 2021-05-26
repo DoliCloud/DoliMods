@@ -17,21 +17,62 @@
 
 class Google_Service_Sheets_ChartData extends Google_Model
 {
-	protected $sourceRangeType = 'Google_Service_Sheets_ChartSourceRange';
-	protected $sourceRangeDataType = '';
+  public $aggregateType;
+  protected $columnReferenceType = 'Google_Service_Sheets_DataSourceColumnReference';
+  protected $columnReferenceDataType = '';
+  protected $groupRuleType = 'Google_Service_Sheets_ChartGroupRule';
+  protected $groupRuleDataType = '';
+  protected $sourceRangeType = 'Google_Service_Sheets_ChartSourceRange';
+  protected $sourceRangeDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_ChartSourceRange
-	 */
-	public function setSourceRange(Google_Service_Sheets_ChartSourceRange $sourceRange)
-	{
-		$this->sourceRange = $sourceRange;
-	}
-	/**
-	 * @return Google_Service_Sheets_ChartSourceRange
-	 */
-	public function getSourceRange()
-	{
-		return $this->sourceRange;
-	}
+  public function setAggregateType($aggregateType)
+  {
+    $this->aggregateType = $aggregateType;
+  }
+  public function getAggregateType()
+  {
+    return $this->aggregateType;
+  }
+  /**
+   * @param Google_Service_Sheets_DataSourceColumnReference
+   */
+  public function setColumnReference(Google_Service_Sheets_DataSourceColumnReference $columnReference)
+  {
+    $this->columnReference = $columnReference;
+  }
+  /**
+   * @return Google_Service_Sheets_DataSourceColumnReference
+   */
+  public function getColumnReference()
+  {
+    return $this->columnReference;
+  }
+  /**
+   * @param Google_Service_Sheets_ChartGroupRule
+   */
+  public function setGroupRule(Google_Service_Sheets_ChartGroupRule $groupRule)
+  {
+    $this->groupRule = $groupRule;
+  }
+  /**
+   * @return Google_Service_Sheets_ChartGroupRule
+   */
+  public function getGroupRule()
+  {
+    return $this->groupRule;
+  }
+  /**
+   * @param Google_Service_Sheets_ChartSourceRange
+   */
+  public function setSourceRange(Google_Service_Sheets_ChartSourceRange $sourceRange)
+  {
+    $this->sourceRange = $sourceRange;
+  }
+  /**
+   * @return Google_Service_Sheets_ChartSourceRange
+   */
+  public function getSourceRange()
+  {
+    return $this->sourceRange;
+  }
 }

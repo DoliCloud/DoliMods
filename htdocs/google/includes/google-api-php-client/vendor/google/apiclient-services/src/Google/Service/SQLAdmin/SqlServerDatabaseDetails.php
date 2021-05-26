@@ -17,23 +17,23 @@
 
 class Google_Service_SQLAdmin_SqlServerDatabaseDetails extends Google_Model
 {
-	public $compatibilityLevel;
-	public $recoveryModel;
+  public $compatibilityLevel;
+  public $recoveryModel;
 
-	public function setCompatibilityLevel($compatibilityLevel)
-	{
-		$this->compatibilityLevel = $compatibilityLevel;
-	}
-	public function getCompatibilityLevel()
-	{
-		return $this->compatibilityLevel;
-	}
-	public function setRecoveryModel($recoveryModel)
-	{
-		$this->recoveryModel = $recoveryModel;
-	}
-	public function getRecoveryModel()
-	{
-		return $this->recoveryModel;
-	}
+  public function setCompatibilityLevel($compatibilityLevel)
+  {
+    $this->compatibilityLevel = $compatibilityLevel;
+  }
+  public function getCompatibilityLevel()
+  {
+    return $this->compatibilityLevel;
+  }
+  public function setRecoveryModel($recoveryModel)
+  {
+    $this->recoveryModel = $recoveryModel;
+  }
+  public function getRecoveryModel()
+  {
+    return $this->recoveryModel;
+  }
 }

@@ -17,47 +17,47 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3LogPlayerReportsRequest extends Google_Collection
 {
-	protected $collection_key = 'playerReports';
-	protected $clientInfoType = 'Google_Service_PlayableLocations_GoogleMapsUnityClientInfo';
-	protected $clientInfoDataType = '';
-	protected $playerReportsType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3PlayerReport';
-	protected $playerReportsDataType = 'array';
-	public $requestId;
+  protected $collection_key = 'playerReports';
+  protected $clientInfoType = 'Google_Service_PlayableLocations_GoogleMapsUnityClientInfo';
+  protected $clientInfoDataType = '';
+  protected $playerReportsType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3PlayerReport';
+  protected $playerReportsDataType = 'array';
+  public $requestId;
 
-	/**
-	 * @param Google_Service_PlayableLocations_GoogleMapsUnityClientInfo
-	 */
-	public function setClientInfo(Google_Service_PlayableLocations_GoogleMapsUnityClientInfo $clientInfo)
-	{
-		$this->clientInfo = $clientInfo;
-	}
-	/**
-	 * @return Google_Service_PlayableLocations_GoogleMapsUnityClientInfo
-	 */
-	public function getClientInfo()
-	{
-		return $this->clientInfo;
-	}
-	/**
-	 * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3PlayerReport
-	 */
-	public function setPlayerReports($playerReports)
-	{
-		$this->playerReports = $playerReports;
-	}
-	/**
-	 * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3PlayerReport
-	 */
-	public function getPlayerReports()
-	{
-		return $this->playerReports;
-	}
-	public function setRequestId($requestId)
-	{
-		$this->requestId = $requestId;
-	}
-	public function getRequestId()
-	{
-		return $this->requestId;
-	}
+  /**
+   * @param Google_Service_PlayableLocations_GoogleMapsUnityClientInfo
+   */
+  public function setClientInfo(Google_Service_PlayableLocations_GoogleMapsUnityClientInfo $clientInfo)
+  {
+    $this->clientInfo = $clientInfo;
+  }
+  /**
+   * @return Google_Service_PlayableLocations_GoogleMapsUnityClientInfo
+   */
+  public function getClientInfo()
+  {
+    return $this->clientInfo;
+  }
+  /**
+   * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3PlayerReport[]
+   */
+  public function setPlayerReports($playerReports)
+  {
+    $this->playerReports = $playerReports;
+  }
+  /**
+   * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3PlayerReport[]
+   */
+  public function getPlayerReports()
+  {
+    return $this->playerReports;
+  }
+  public function setRequestId($requestId)
+  {
+    $this->requestId = $requestId;
+  }
+  public function getRequestId()
+  {
+    return $this->requestId;
+  }
 }

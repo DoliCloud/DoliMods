@@ -17,23 +17,23 @@
 
 class Google_Service_Translate_TranslateTextGlossaryConfig extends Google_Model
 {
-	public $glossary;
-	public $ignoreCase;
+  public $glossary;
+  public $ignoreCase;
 
-	public function setGlossary($glossary)
-	{
-		$this->glossary = $glossary;
-	}
-	public function getGlossary()
-	{
-		return $this->glossary;
-	}
-	public function setIgnoreCase($ignoreCase)
-	{
-		$this->ignoreCase = $ignoreCase;
-	}
-	public function getIgnoreCase()
-	{
-		return $this->ignoreCase;
-	}
+  public function setGlossary($glossary)
+  {
+    $this->glossary = $glossary;
+  }
+  public function getGlossary()
+  {
+    return $this->glossary;
+  }
+  public function setIgnoreCase($ignoreCase)
+  {
+    $this->ignoreCase = $ignoreCase;
+  }
+  public function getIgnoreCase()
+  {
+    return $this->ignoreCase;
+  }
 }

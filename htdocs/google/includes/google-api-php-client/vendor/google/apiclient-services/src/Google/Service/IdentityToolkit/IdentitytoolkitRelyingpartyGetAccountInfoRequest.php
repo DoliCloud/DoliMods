@@ -17,51 +17,51 @@
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetAccountInfoRequest extends Google_Collection
 {
-	protected $collection_key = 'phoneNumber';
-	public $delegatedProjectNumber;
-	public $email;
-	public $idToken;
-	public $localId;
-	public $phoneNumber;
+  protected $collection_key = 'phoneNumber';
+  public $delegatedProjectNumber;
+  public $email;
+  public $idToken;
+  public $localId;
+  public $phoneNumber;
 
-	public function setDelegatedProjectNumber($delegatedProjectNumber)
-	{
-		$this->delegatedProjectNumber = $delegatedProjectNumber;
-	}
-	public function getDelegatedProjectNumber()
-	{
-		return $this->delegatedProjectNumber;
-	}
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	public function setIdToken($idToken)
-	{
-		$this->idToken = $idToken;
-	}
-	public function getIdToken()
-	{
-		return $this->idToken;
-	}
-	public function setLocalId($localId)
-	{
-		$this->localId = $localId;
-	}
-	public function getLocalId()
-	{
-		return $this->localId;
-	}
-	public function setPhoneNumber($phoneNumber)
-	{
-		$this->phoneNumber = $phoneNumber;
-	}
-	public function getPhoneNumber()
-	{
-		return $this->phoneNumber;
-	}
+  public function setDelegatedProjectNumber($delegatedProjectNumber)
+  {
+    $this->delegatedProjectNumber = $delegatedProjectNumber;
+  }
+  public function getDelegatedProjectNumber()
+  {
+    return $this->delegatedProjectNumber;
+  }
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  public function setIdToken($idToken)
+  {
+    $this->idToken = $idToken;
+  }
+  public function getIdToken()
+  {
+    return $this->idToken;
+  }
+  public function setLocalId($localId)
+  {
+    $this->localId = $localId;
+  }
+  public function getLocalId()
+  {
+    return $this->localId;
+  }
+  public function setPhoneNumber($phoneNumber)
+  {
+    $this->phoneNumber = $phoneNumber;
+  }
+  public function getPhoneNumber()
+  {
+    return $this->phoneNumber;
+  }
 }

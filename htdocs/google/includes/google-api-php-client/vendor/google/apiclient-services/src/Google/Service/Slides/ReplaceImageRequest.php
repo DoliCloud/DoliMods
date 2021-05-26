@@ -17,32 +17,32 @@
 
 class Google_Service_Slides_ReplaceImageRequest extends Google_Model
 {
-	public $imageObjectId;
-	public $imageReplaceMethod;
-	public $url;
+  public $imageObjectId;
+  public $imageReplaceMethod;
+  public $url;
 
-	public function setImageObjectId($imageObjectId)
-	{
-		$this->imageObjectId = $imageObjectId;
-	}
-	public function getImageObjectId()
-	{
-		return $this->imageObjectId;
-	}
-	public function setImageReplaceMethod($imageReplaceMethod)
-	{
-		$this->imageReplaceMethod = $imageReplaceMethod;
-	}
-	public function getImageReplaceMethod()
-	{
-		return $this->imageReplaceMethod;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setImageObjectId($imageObjectId)
+  {
+    $this->imageObjectId = $imageObjectId;
+  }
+  public function getImageObjectId()
+  {
+    return $this->imageObjectId;
+  }
+  public function setImageReplaceMethod($imageReplaceMethod)
+  {
+    $this->imageReplaceMethod = $imageReplaceMethod;
+  }
+  public function getImageReplaceMethod()
+  {
+    return $this->imageReplaceMethod;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

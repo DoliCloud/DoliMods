@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_SearchQualityMetadata extends Google_Model
 {
-	public $quality;
+  public $quality;
 
-	public function setQuality($quality)
-	{
-		$this->quality = $quality;
-	}
-	public function getQuality()
-	{
-		return $this->quality;
-	}
+  public function setQuality($quality)
+  {
+    $this->quality = $quality;
+  }
+  public function getQuality()
+  {
+    return $this->quality;
+  }
 }

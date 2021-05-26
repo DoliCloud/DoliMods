@@ -17,60 +17,60 @@
 
 class Google_Service_Compute_SubnetworkLogConfig extends Google_Collection
 {
-	protected $collection_key = 'metadataFields';
-	public $aggregationInterval;
-	public $enable;
-	public $filterExpr;
-	public $flowSampling;
-	public $metadata;
-	public $metadataFields;
+  protected $collection_key = 'metadataFields';
+  public $aggregationInterval;
+  public $enable;
+  public $filterExpr;
+  public $flowSampling;
+  public $metadata;
+  public $metadataFields;
 
-	public function setAggregationInterval($aggregationInterval)
-	{
-		$this->aggregationInterval = $aggregationInterval;
-	}
-	public function getAggregationInterval()
-	{
-		return $this->aggregationInterval;
-	}
-	public function setEnable($enable)
-	{
-		$this->enable = $enable;
-	}
-	public function getEnable()
-	{
-		return $this->enable;
-	}
-	public function setFilterExpr($filterExpr)
-	{
-		$this->filterExpr = $filterExpr;
-	}
-	public function getFilterExpr()
-	{
-		return $this->filterExpr;
-	}
-	public function setFlowSampling($flowSampling)
-	{
-		$this->flowSampling = $flowSampling;
-	}
-	public function getFlowSampling()
-	{
-		return $this->flowSampling;
-	}
-	public function setMetadata($metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setMetadataFields($metadataFields)
-	{
-		$this->metadataFields = $metadataFields;
-	}
-	public function getMetadataFields()
-	{
-		return $this->metadataFields;
-	}
+  public function setAggregationInterval($aggregationInterval)
+  {
+    $this->aggregationInterval = $aggregationInterval;
+  }
+  public function getAggregationInterval()
+  {
+    return $this->aggregationInterval;
+  }
+  public function setEnable($enable)
+  {
+    $this->enable = $enable;
+  }
+  public function getEnable()
+  {
+    return $this->enable;
+  }
+  public function setFilterExpr($filterExpr)
+  {
+    $this->filterExpr = $filterExpr;
+  }
+  public function getFilterExpr()
+  {
+    return $this->filterExpr;
+  }
+  public function setFlowSampling($flowSampling)
+  {
+    $this->flowSampling = $flowSampling;
+  }
+  public function getFlowSampling()
+  {
+    return $this->flowSampling;
+  }
+  public function setMetadata($metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setMetadataFields($metadataFields)
+  {
+    $this->metadataFields = $metadataFields;
+  }
+  public function getMetadataFields()
+  {
+    return $this->metadataFields;
+  }
 }

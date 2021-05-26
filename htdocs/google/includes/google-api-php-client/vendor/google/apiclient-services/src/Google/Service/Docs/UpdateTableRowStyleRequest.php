@@ -17,56 +17,56 @@
 
 class Google_Service_Docs_UpdateTableRowStyleRequest extends Google_Collection
 {
-	protected $collection_key = 'rowIndices';
-	public $fields;
-	public $rowIndices;
-	protected $tableRowStyleType = 'Google_Service_Docs_TableRowStyle';
-	protected $tableRowStyleDataType = '';
-	protected $tableStartLocationType = 'Google_Service_Docs_Location';
-	protected $tableStartLocationDataType = '';
+  protected $collection_key = 'rowIndices';
+  public $fields;
+  public $rowIndices;
+  protected $tableRowStyleType = 'Google_Service_Docs_TableRowStyle';
+  protected $tableRowStyleDataType = '';
+  protected $tableStartLocationType = 'Google_Service_Docs_Location';
+  protected $tableStartLocationDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setRowIndices($rowIndices)
-	{
-		$this->rowIndices = $rowIndices;
-	}
-	public function getRowIndices()
-	{
-		return $this->rowIndices;
-	}
-	/**
-	 * @param Google_Service_Docs_TableRowStyle
-	 */
-	public function setTableRowStyle(Google_Service_Docs_TableRowStyle $tableRowStyle)
-	{
-		$this->tableRowStyle = $tableRowStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_TableRowStyle
-	 */
-	public function getTableRowStyle()
-	{
-		return $this->tableRowStyle;
-	}
-	/**
-	 * @param Google_Service_Docs_Location
-	 */
-	public function setTableStartLocation(Google_Service_Docs_Location $tableStartLocation)
-	{
-		$this->tableStartLocation = $tableStartLocation;
-	}
-	/**
-	 * @return Google_Service_Docs_Location
-	 */
-	public function getTableStartLocation()
-	{
-		return $this->tableStartLocation;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setRowIndices($rowIndices)
+  {
+    $this->rowIndices = $rowIndices;
+  }
+  public function getRowIndices()
+  {
+    return $this->rowIndices;
+  }
+  /**
+   * @param Google_Service_Docs_TableRowStyle
+   */
+  public function setTableRowStyle(Google_Service_Docs_TableRowStyle $tableRowStyle)
+  {
+    $this->tableRowStyle = $tableRowStyle;
+  }
+  /**
+   * @return Google_Service_Docs_TableRowStyle
+   */
+  public function getTableRowStyle()
+  {
+    return $this->tableRowStyle;
+  }
+  /**
+   * @param Google_Service_Docs_Location
+   */
+  public function setTableStartLocation(Google_Service_Docs_Location $tableStartLocation)
+  {
+    $this->tableStartLocation = $tableStartLocation;
+  }
+  /**
+   * @return Google_Service_Docs_Location
+   */
+  public function getTableStartLocation()
+  {
+    return $this->tableStartLocation;
+  }
 }

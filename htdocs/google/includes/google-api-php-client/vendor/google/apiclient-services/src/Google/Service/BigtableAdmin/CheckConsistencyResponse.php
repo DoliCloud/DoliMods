@@ -17,14 +17,14 @@
 
 class Google_Service_BigtableAdmin_CheckConsistencyResponse extends Google_Model
 {
-	public $consistent;
+  public $consistent;
 
-	public function setConsistent($consistent)
-	{
-		$this->consistent = $consistent;
-	}
-	public function getConsistent()
-	{
-		return $this->consistent;
-	}
+  public function setConsistent($consistent)
+  {
+    $this->consistent = $consistent;
+  }
+  public function getConsistent()
+  {
+    return $this->consistent;
+  }
 }

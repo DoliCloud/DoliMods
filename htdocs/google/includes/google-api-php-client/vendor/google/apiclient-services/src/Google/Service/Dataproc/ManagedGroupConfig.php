@@ -17,23 +17,23 @@
 
 class Google_Service_Dataproc_ManagedGroupConfig extends Google_Model
 {
-	public $instanceGroupManagerName;
-	public $instanceTemplateName;
+  public $instanceGroupManagerName;
+  public $instanceTemplateName;
 
-	public function setInstanceGroupManagerName($instanceGroupManagerName)
-	{
-		$this->instanceGroupManagerName = $instanceGroupManagerName;
-	}
-	public function getInstanceGroupManagerName()
-	{
-		return $this->instanceGroupManagerName;
-	}
-	public function setInstanceTemplateName($instanceTemplateName)
-	{
-		$this->instanceTemplateName = $instanceTemplateName;
-	}
-	public function getInstanceTemplateName()
-	{
-		return $this->instanceTemplateName;
-	}
+  public function setInstanceGroupManagerName($instanceGroupManagerName)
+  {
+    $this->instanceGroupManagerName = $instanceGroupManagerName;
+  }
+  public function getInstanceGroupManagerName()
+  {
+    return $this->instanceGroupManagerName;
+  }
+  public function setInstanceTemplateName($instanceTemplateName)
+  {
+    $this->instanceTemplateName = $instanceTemplateName;
+  }
+  public function getInstanceTemplateName()
+  {
+    return $this->instanceTemplateName;
+  }
 }

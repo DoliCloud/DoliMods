@@ -17,41 +17,41 @@
 
 class Google_Service_Dataflow_JobMessage extends Google_Model
 {
-	public $id;
-	public $messageImportance;
-	public $messageText;
-	public $time;
+  public $id;
+  public $messageImportance;
+  public $messageText;
+  public $time;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setMessageImportance($messageImportance)
-	{
-		$this->messageImportance = $messageImportance;
-	}
-	public function getMessageImportance()
-	{
-		return $this->messageImportance;
-	}
-	public function setMessageText($messageText)
-	{
-		$this->messageText = $messageText;
-	}
-	public function getMessageText()
-	{
-		return $this->messageText;
-	}
-	public function setTime($time)
-	{
-		$this->time = $time;
-	}
-	public function getTime()
-	{
-		return $this->time;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setMessageImportance($messageImportance)
+  {
+    $this->messageImportance = $messageImportance;
+  }
+  public function getMessageImportance()
+  {
+    return $this->messageImportance;
+  }
+  public function setMessageText($messageText)
+  {
+    $this->messageText = $messageText;
+  }
+  public function getMessageText()
+  {
+    return $this->messageText;
+  }
+  public function setTime($time)
+  {
+    $this->time = $time;
+  }
+  public function getTime()
+  {
+    return $this->time;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_ToolResults_SuccessDetail extends Google_Model
 {
-	public $otherNativeCrash;
+  public $otherNativeCrash;
 
-	public function setOtherNativeCrash($otherNativeCrash)
-	{
-		$this->otherNativeCrash = $otherNativeCrash;
-	}
-	public function getOtherNativeCrash()
-	{
-		return $this->otherNativeCrash;
-	}
+  public function setOtherNativeCrash($otherNativeCrash)
+  {
+    $this->otherNativeCrash = $otherNativeCrash;
+  }
+  public function getOtherNativeCrash()
+  {
+    return $this->otherNativeCrash;
+  }
 }

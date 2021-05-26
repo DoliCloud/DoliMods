@@ -17,15 +17,15 @@
 
 class Google_Service_Vision_CropHintsParams extends Google_Collection
 {
-	protected $collection_key = 'aspectRatios';
-	public $aspectRatios;
+  protected $collection_key = 'aspectRatios';
+  public $aspectRatios;
 
-	public function setAspectRatios($aspectRatios)
-	{
-		$this->aspectRatios = $aspectRatios;
-	}
-	public function getAspectRatios()
-	{
-		return $this->aspectRatios;
-	}
+  public function setAspectRatios($aspectRatios)
+  {
+    $this->aspectRatios = $aspectRatios;
+  }
+  public function getAspectRatios()
+  {
+    return $this->aspectRatios;
+  }
 }

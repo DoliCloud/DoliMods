@@ -17,40 +17,40 @@
 
 class Google_Service_Dataflow_StructuredMessage extends Google_Collection
 {
-	protected $collection_key = 'parameters';
-	public $messageKey;
-	public $messageText;
-	protected $parametersType = 'Google_Service_Dataflow_Parameter';
-	protected $parametersDataType = 'array';
+  protected $collection_key = 'parameters';
+  public $messageKey;
+  public $messageText;
+  protected $parametersType = 'Google_Service_Dataflow_Parameter';
+  protected $parametersDataType = 'array';
 
-	public function setMessageKey($messageKey)
-	{
-		$this->messageKey = $messageKey;
-	}
-	public function getMessageKey()
-	{
-		return $this->messageKey;
-	}
-	public function setMessageText($messageText)
-	{
-		$this->messageText = $messageText;
-	}
-	public function getMessageText()
-	{
-		return $this->messageText;
-	}
-	/**
-	 * @param Google_Service_Dataflow_Parameter
-	 */
-	public function setParameters($parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	/**
-	 * @return Google_Service_Dataflow_Parameter
-	 */
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
+  public function setMessageKey($messageKey)
+  {
+    $this->messageKey = $messageKey;
+  }
+  public function getMessageKey()
+  {
+    return $this->messageKey;
+  }
+  public function setMessageText($messageText)
+  {
+    $this->messageText = $messageText;
+  }
+  public function getMessageText()
+  {
+    return $this->messageText;
+  }
+  /**
+   * @param Google_Service_Dataflow_Parameter[]
+   */
+  public function setParameters($parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  /**
+   * @return Google_Service_Dataflow_Parameter[]
+   */
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
 }

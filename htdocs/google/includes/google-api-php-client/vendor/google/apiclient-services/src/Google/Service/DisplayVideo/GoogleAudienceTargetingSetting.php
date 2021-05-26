@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_GoogleAudienceTargetingSetting extends Google_Model
 {
-	public $googleAudienceId;
+  public $googleAudienceId;
 
-	public function setGoogleAudienceId($googleAudienceId)
-	{
-		$this->googleAudienceId = $googleAudienceId;
-	}
-	public function getGoogleAudienceId()
-	{
-		return $this->googleAudienceId;
-	}
+  public function setGoogleAudienceId($googleAudienceId)
+  {
+    $this->googleAudienceId = $googleAudienceId;
+  }
+  public function getGoogleAudienceId()
+  {
+    return $this->googleAudienceId;
+  }
 }

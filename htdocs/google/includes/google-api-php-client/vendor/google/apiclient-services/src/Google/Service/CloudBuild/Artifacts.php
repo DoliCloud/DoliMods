@@ -17,31 +17,31 @@
 
 class Google_Service_CloudBuild_Artifacts extends Google_Collection
 {
-	protected $collection_key = 'images';
-	public $images;
-	protected $objectsType = 'Google_Service_CloudBuild_ArtifactObjects';
-	protected $objectsDataType = '';
+  protected $collection_key = 'images';
+  public $images;
+  protected $objectsType = 'Google_Service_CloudBuild_ArtifactObjects';
+  protected $objectsDataType = '';
 
-	public function setImages($images)
-	{
-		$this->images = $images;
-	}
-	public function getImages()
-	{
-		return $this->images;
-	}
-	/**
-	 * @param Google_Service_CloudBuild_ArtifactObjects
-	 */
-	public function setObjects(Google_Service_CloudBuild_ArtifactObjects $objects)
-	{
-		$this->objects = $objects;
-	}
-	/**
-	 * @return Google_Service_CloudBuild_ArtifactObjects
-	 */
-	public function getObjects()
-	{
-		return $this->objects;
-	}
+  public function setImages($images)
+  {
+    $this->images = $images;
+  }
+  public function getImages()
+  {
+    return $this->images;
+  }
+  /**
+   * @param Google_Service_CloudBuild_ArtifactObjects
+   */
+  public function setObjects(Google_Service_CloudBuild_ArtifactObjects $objects)
+  {
+    $this->objects = $objects;
+  }
+  /**
+   * @return Google_Service_CloudBuild_ArtifactObjects
+   */
+  public function getObjects()
+  {
+    return $this->objects;
+  }
 }

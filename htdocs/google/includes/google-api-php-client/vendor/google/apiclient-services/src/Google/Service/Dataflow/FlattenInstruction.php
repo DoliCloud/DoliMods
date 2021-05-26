@@ -17,22 +17,22 @@
 
 class Google_Service_Dataflow_FlattenInstruction extends Google_Collection
 {
-	protected $collection_key = 'inputs';
-	protected $inputsType = 'Google_Service_Dataflow_InstructionInput';
-	protected $inputsDataType = 'array';
+  protected $collection_key = 'inputs';
+  protected $inputsType = 'Google_Service_Dataflow_InstructionInput';
+  protected $inputsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dataflow_InstructionInput
-	 */
-	public function setInputs($inputs)
-	{
-		$this->inputs = $inputs;
-	}
-	/**
-	 * @return Google_Service_Dataflow_InstructionInput
-	 */
-	public function getInputs()
-	{
-		return $this->inputs;
-	}
+  /**
+   * @param Google_Service_Dataflow_InstructionInput[]
+   */
+  public function setInputs($inputs)
+  {
+    $this->inputs = $inputs;
+  }
+  /**
+   * @return Google_Service_Dataflow_InstructionInput[]
+   */
+  public function getInputs()
+  {
+    return $this->inputs;
+  }
 }

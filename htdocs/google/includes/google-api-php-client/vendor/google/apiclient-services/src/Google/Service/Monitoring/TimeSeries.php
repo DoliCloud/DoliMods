@@ -17,88 +17,97 @@
 
 class Google_Service_Monitoring_TimeSeries extends Google_Collection
 {
-	protected $collection_key = 'points';
-	protected $metadataType = 'Google_Service_Monitoring_MonitoredResourceMetadata';
-	protected $metadataDataType = '';
-	protected $metricType = 'Google_Service_Monitoring_Metric';
-	protected $metricDataType = '';
-	public $metricKind;
-	protected $pointsType = 'Google_Service_Monitoring_Point';
-	protected $pointsDataType = 'array';
-	protected $resourceType = 'Google_Service_Monitoring_MonitoredResource';
-	protected $resourceDataType = '';
-	public $valueType;
+  protected $collection_key = 'points';
+  protected $metadataType = 'Google_Service_Monitoring_MonitoredResourceMetadata';
+  protected $metadataDataType = '';
+  protected $metricType = 'Google_Service_Monitoring_Metric';
+  protected $metricDataType = '';
+  public $metricKind;
+  protected $pointsType = 'Google_Service_Monitoring_Point';
+  protected $pointsDataType = 'array';
+  protected $resourceType = 'Google_Service_Monitoring_MonitoredResource';
+  protected $resourceDataType = '';
+  public $unit;
+  public $valueType;
 
-	/**
-	 * @param Google_Service_Monitoring_MonitoredResourceMetadata
-	 */
-	public function setMetadata(Google_Service_Monitoring_MonitoredResourceMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_Monitoring_MonitoredResourceMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	/**
-	 * @param Google_Service_Monitoring_Metric
-	 */
-	public function setMetric(Google_Service_Monitoring_Metric $metric)
-	{
-		$this->metric = $metric;
-	}
-	/**
-	 * @return Google_Service_Monitoring_Metric
-	 */
-	public function getMetric()
-	{
-		return $this->metric;
-	}
-	public function setMetricKind($metricKind)
-	{
-		$this->metricKind = $metricKind;
-	}
-	public function getMetricKind()
-	{
-		return $this->metricKind;
-	}
-	/**
-	 * @param Google_Service_Monitoring_Point
-	 */
-	public function setPoints($points)
-	{
-		$this->points = $points;
-	}
-	/**
-	 * @return Google_Service_Monitoring_Point
-	 */
-	public function getPoints()
-	{
-		return $this->points;
-	}
-	/**
-	 * @param Google_Service_Monitoring_MonitoredResource
-	 */
-	public function setResource(Google_Service_Monitoring_MonitoredResource $resource)
-	{
-		$this->resource = $resource;
-	}
-	/**
-	 * @return Google_Service_Monitoring_MonitoredResource
-	 */
-	public function getResource()
-	{
-		return $this->resource;
-	}
-	public function setValueType($valueType)
-	{
-		$this->valueType = $valueType;
-	}
-	public function getValueType()
-	{
-		return $this->valueType;
-	}
+  /**
+   * @param Google_Service_Monitoring_MonitoredResourceMetadata
+   */
+  public function setMetadata(Google_Service_Monitoring_MonitoredResourceMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_Monitoring_MonitoredResourceMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  /**
+   * @param Google_Service_Monitoring_Metric
+   */
+  public function setMetric(Google_Service_Monitoring_Metric $metric)
+  {
+    $this->metric = $metric;
+  }
+  /**
+   * @return Google_Service_Monitoring_Metric
+   */
+  public function getMetric()
+  {
+    return $this->metric;
+  }
+  public function setMetricKind($metricKind)
+  {
+    $this->metricKind = $metricKind;
+  }
+  public function getMetricKind()
+  {
+    return $this->metricKind;
+  }
+  /**
+   * @param Google_Service_Monitoring_Point[]
+   */
+  public function setPoints($points)
+  {
+    $this->points = $points;
+  }
+  /**
+   * @return Google_Service_Monitoring_Point[]
+   */
+  public function getPoints()
+  {
+    return $this->points;
+  }
+  /**
+   * @param Google_Service_Monitoring_MonitoredResource
+   */
+  public function setResource(Google_Service_Monitoring_MonitoredResource $resource)
+  {
+    $this->resource = $resource;
+  }
+  /**
+   * @return Google_Service_Monitoring_MonitoredResource
+   */
+  public function getResource()
+  {
+    return $this->resource;
+  }
+  public function setUnit($unit)
+  {
+    $this->unit = $unit;
+  }
+  public function getUnit()
+  {
+    return $this->unit;
+  }
+  public function setValueType($valueType)
+  {
+    $this->valueType = $valueType;
+  }
+  public function getValueType()
+  {
+    return $this->valueType;
+  }
 }

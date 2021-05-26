@@ -17,41 +17,41 @@
 
 class Google_Service_CloudKMS_EncryptRequest extends Google_Model
 {
-	public $additionalAuthenticatedData;
-	public $additionalAuthenticatedDataCrc32c;
-	public $plaintext;
-	public $plaintextCrc32c;
+  public $additionalAuthenticatedData;
+  public $additionalAuthenticatedDataCrc32c;
+  public $plaintext;
+  public $plaintextCrc32c;
 
-	public function setAdditionalAuthenticatedData($additionalAuthenticatedData)
-	{
-		$this->additionalAuthenticatedData = $additionalAuthenticatedData;
-	}
-	public function getAdditionalAuthenticatedData()
-	{
-		return $this->additionalAuthenticatedData;
-	}
-	public function setAdditionalAuthenticatedDataCrc32c($additionalAuthenticatedDataCrc32c)
-	{
-		$this->additionalAuthenticatedDataCrc32c = $additionalAuthenticatedDataCrc32c;
-	}
-	public function getAdditionalAuthenticatedDataCrc32c()
-	{
-		return $this->additionalAuthenticatedDataCrc32c;
-	}
-	public function setPlaintext($plaintext)
-	{
-		$this->plaintext = $plaintext;
-	}
-	public function getPlaintext()
-	{
-		return $this->plaintext;
-	}
-	public function setPlaintextCrc32c($plaintextCrc32c)
-	{
-		$this->plaintextCrc32c = $plaintextCrc32c;
-	}
-	public function getPlaintextCrc32c()
-	{
-		return $this->plaintextCrc32c;
-	}
+  public function setAdditionalAuthenticatedData($additionalAuthenticatedData)
+  {
+    $this->additionalAuthenticatedData = $additionalAuthenticatedData;
+  }
+  public function getAdditionalAuthenticatedData()
+  {
+    return $this->additionalAuthenticatedData;
+  }
+  public function setAdditionalAuthenticatedDataCrc32c($additionalAuthenticatedDataCrc32c)
+  {
+    $this->additionalAuthenticatedDataCrc32c = $additionalAuthenticatedDataCrc32c;
+  }
+  public function getAdditionalAuthenticatedDataCrc32c()
+  {
+    return $this->additionalAuthenticatedDataCrc32c;
+  }
+  public function setPlaintext($plaintext)
+  {
+    $this->plaintext = $plaintext;
+  }
+  public function getPlaintext()
+  {
+    return $this->plaintext;
+  }
+  public function setPlaintextCrc32c($plaintextCrc32c)
+  {
+    $this->plaintextCrc32c = $plaintextCrc32c;
+  }
+  public function getPlaintextCrc32c()
+  {
+    return $this->plaintextCrc32c;
+  }
 }

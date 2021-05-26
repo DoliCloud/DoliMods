@@ -17,66 +17,66 @@
 
 class Google_Service_Dataflow_Position extends Google_Model
 {
-	public $byteOffset;
-	protected $concatPositionType = 'Google_Service_Dataflow_ConcatPosition';
-	protected $concatPositionDataType = '';
-	public $end;
-	public $key;
-	public $recordIndex;
-	public $shufflePosition;
+  public $byteOffset;
+  protected $concatPositionType = 'Google_Service_Dataflow_ConcatPosition';
+  protected $concatPositionDataType = '';
+  public $end;
+  public $key;
+  public $recordIndex;
+  public $shufflePosition;
 
-	public function setByteOffset($byteOffset)
-	{
-		$this->byteOffset = $byteOffset;
-	}
-	public function getByteOffset()
-	{
-		return $this->byteOffset;
-	}
-	/**
-	 * @param Google_Service_Dataflow_ConcatPosition
-	 */
-	public function setConcatPosition(Google_Service_Dataflow_ConcatPosition $concatPosition)
-	{
-		$this->concatPosition = $concatPosition;
-	}
-	/**
-	 * @return Google_Service_Dataflow_ConcatPosition
-	 */
-	public function getConcatPosition()
-	{
-		return $this->concatPosition;
-	}
-	public function setEnd($end)
-	{
-		$this->end = $end;
-	}
-	public function getEnd()
-	{
-		return $this->end;
-	}
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setRecordIndex($recordIndex)
-	{
-		$this->recordIndex = $recordIndex;
-	}
-	public function getRecordIndex()
-	{
-		return $this->recordIndex;
-	}
-	public function setShufflePosition($shufflePosition)
-	{
-		$this->shufflePosition = $shufflePosition;
-	}
-	public function getShufflePosition()
-	{
-		return $this->shufflePosition;
-	}
+  public function setByteOffset($byteOffset)
+  {
+    $this->byteOffset = $byteOffset;
+  }
+  public function getByteOffset()
+  {
+    return $this->byteOffset;
+  }
+  /**
+   * @param Google_Service_Dataflow_ConcatPosition
+   */
+  public function setConcatPosition(Google_Service_Dataflow_ConcatPosition $concatPosition)
+  {
+    $this->concatPosition = $concatPosition;
+  }
+  /**
+   * @return Google_Service_Dataflow_ConcatPosition
+   */
+  public function getConcatPosition()
+  {
+    return $this->concatPosition;
+  }
+  public function setEnd($end)
+  {
+    $this->end = $end;
+  }
+  public function getEnd()
+  {
+    return $this->end;
+  }
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setRecordIndex($recordIndex)
+  {
+    $this->recordIndex = $recordIndex;
+  }
+  public function getRecordIndex()
+  {
+    return $this->recordIndex;
+  }
+  public function setShufflePosition($shufflePosition)
+  {
+    $this->shufflePosition = $shufflePosition;
+  }
+  public function getShufflePosition()
+  {
+    return $this->shufflePosition;
+  }
 }

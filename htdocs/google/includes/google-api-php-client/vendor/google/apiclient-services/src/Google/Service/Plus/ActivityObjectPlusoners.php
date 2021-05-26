@@ -17,23 +17,23 @@
 
 class Google_Service_Plus_ActivityObjectPlusoners extends Google_Model
 {
-	public $selfLink;
-	public $totalItems;
+  public $selfLink;
+  public $totalItems;
 
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setTotalItems($totalItems)
-	{
-		$this->totalItems = $totalItems;
-	}
-	public function getTotalItems()
-	{
-		return $this->totalItems;
-	}
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setTotalItems($totalItems)
+  {
+    $this->totalItems = $totalItems;
+  }
+  public function getTotalItems()
+  {
+    return $this->totalItems;
+  }
 }

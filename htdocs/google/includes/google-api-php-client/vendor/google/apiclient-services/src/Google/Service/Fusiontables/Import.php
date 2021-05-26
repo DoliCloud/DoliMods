@@ -17,23 +17,23 @@
 
 class Google_Service_Fusiontables_Import extends Google_Model
 {
-	public $kind;
-	public $numRowsReceived;
+  public $kind;
+  public $numRowsReceived;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNumRowsReceived($numRowsReceived)
-	{
-		$this->numRowsReceived = $numRowsReceived;
-	}
-	public function getNumRowsReceived()
-	{
-		return $this->numRowsReceived;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNumRowsReceived($numRowsReceived)
+  {
+    $this->numRowsReceived = $numRowsReceived;
+  }
+  public function getNumRowsReceived()
+  {
+    return $this->numRowsReceived;
+  }
 }

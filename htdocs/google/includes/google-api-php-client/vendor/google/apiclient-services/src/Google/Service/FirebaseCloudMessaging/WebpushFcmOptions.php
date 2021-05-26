@@ -17,23 +17,23 @@
 
 class Google_Service_FirebaseCloudMessaging_WebpushFcmOptions extends Google_Model
 {
-	public $analyticsLabel;
-	public $link;
+  public $analyticsLabel;
+  public $link;
 
-	public function setAnalyticsLabel($analyticsLabel)
-	{
-		$this->analyticsLabel = $analyticsLabel;
-	}
-	public function getAnalyticsLabel()
-	{
-		return $this->analyticsLabel;
-	}
-	public function setLink($link)
-	{
-		$this->link = $link;
-	}
-	public function getLink()
-	{
-		return $this->link;
-	}
+  public function setAnalyticsLabel($analyticsLabel)
+  {
+    $this->analyticsLabel = $analyticsLabel;
+  }
+  public function getAnalyticsLabel()
+  {
+    return $this->analyticsLabel;
+  }
+  public function setLink($link)
+  {
+    $this->link = $link;
+  }
+  public function getLink()
+  {
+    return $this->link;
+  }
 }

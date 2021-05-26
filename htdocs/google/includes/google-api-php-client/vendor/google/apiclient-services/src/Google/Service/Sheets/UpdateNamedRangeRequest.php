@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_UpdateNamedRangeRequest extends Google_Model
 {
-	public $fields;
-	protected $namedRangeType = 'Google_Service_Sheets_NamedRange';
-	protected $namedRangeDataType = '';
+  public $fields;
+  protected $namedRangeType = 'Google_Service_Sheets_NamedRange';
+  protected $namedRangeDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	/**
-	 * @param Google_Service_Sheets_NamedRange
-	 */
-	public function setNamedRange(Google_Service_Sheets_NamedRange $namedRange)
-	{
-		$this->namedRange = $namedRange;
-	}
-	/**
-	 * @return Google_Service_Sheets_NamedRange
-	 */
-	public function getNamedRange()
-	{
-		return $this->namedRange;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  /**
+   * @param Google_Service_Sheets_NamedRange
+   */
+  public function setNamedRange(Google_Service_Sheets_NamedRange $namedRange)
+  {
+    $this->namedRange = $namedRange;
+  }
+  /**
+   * @return Google_Service_Sheets_NamedRange
+   */
+  public function getNamedRange()
+  {
+    return $this->namedRange;
+  }
 }

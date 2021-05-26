@@ -25,23 +25,23 @@
  */
 class Google_Service_Coordinate_Resource_Team extends Google_Service_Resource
 {
-	/**
-	 * Retrieves a list of teams for a user. (team.listTeam)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param bool admin Whether to include teams for which the user has the
-	 * Admin role.
-	 * @opt_param bool dispatcher Whether to include teams for which the user has
-	 * the Dispatcher role.
-	 * @opt_param bool worker Whether to include teams for which the user has the
-	 * Worker role.
-	 * @return Google_Service_Coordinate_TeamListResponse
-	 */
-	public function listTeam($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Coordinate_TeamListResponse");
-	}
+  /**
+   * Retrieves a list of teams for a user. (team.listTeam)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param bool admin Whether to include teams for which the user has the
+   * Admin role.
+   * @opt_param bool dispatcher Whether to include teams for which the user has
+   * the Dispatcher role.
+   * @opt_param bool worker Whether to include teams for which the user has the
+   * Worker role.
+   * @return Google_Service_Coordinate_TeamListResponse
+   */
+  public function listTeam($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Coordinate_TeamListResponse");
+  }
 }

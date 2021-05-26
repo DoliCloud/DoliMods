@@ -17,31 +17,31 @@
 
 class Google_Service_FirebaseManagement_ListFirebaseProjectsResponse extends Google_Collection
 {
-	protected $collection_key = 'results';
-	public $nextPageToken;
-	protected $resultsType = 'Google_Service_FirebaseManagement_FirebaseProject';
-	protected $resultsDataType = 'array';
+  protected $collection_key = 'results';
+  public $nextPageToken;
+  protected $resultsType = 'Google_Service_FirebaseManagement_FirebaseProject';
+  protected $resultsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_FirebaseManagement_FirebaseProject
-	 */
-	public function setResults($results)
-	{
-		$this->results = $results;
-	}
-	/**
-	 * @return Google_Service_FirebaseManagement_FirebaseProject
-	 */
-	public function getResults()
-	{
-		return $this->results;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_FirebaseManagement_FirebaseProject[]
+   */
+  public function setResults($results)
+  {
+    $this->results = $results;
+  }
+  /**
+   * @return Google_Service_FirebaseManagement_FirebaseProject[]
+   */
+  public function getResults()
+  {
+    return $this->results;
+  }
 }

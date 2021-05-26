@@ -15,52 +15,69 @@
  * the License.
  */
 
-class Google_Service_SecurityCommandCenter_SecuritycenterResource extends Google_Model
+class Google_Service_SecurityCommandCenter_SecuritycenterResource extends Google_Collection
 {
-	public $name;
-	public $parentDisplayName;
-	public $parentName;
-	public $projectDisplayName;
-	public $projectName;
+  protected $collection_key = 'folders';
+  protected $foldersType = 'Google_Service_SecurityCommandCenter_Folder';
+  protected $foldersDataType = 'array';
+  public $name;
+  public $parentDisplayName;
+  public $parentName;
+  public $projectDisplayName;
+  public $projectName;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setParentDisplayName($parentDisplayName)
-	{
-		$this->parentDisplayName = $parentDisplayName;
-	}
-	public function getParentDisplayName()
-	{
-		return $this->parentDisplayName;
-	}
-	public function setParentName($parentName)
-	{
-		$this->parentName = $parentName;
-	}
-	public function getParentName()
-	{
-		return $this->parentName;
-	}
-	public function setProjectDisplayName($projectDisplayName)
-	{
-		$this->projectDisplayName = $projectDisplayName;
-	}
-	public function getProjectDisplayName()
-	{
-		return $this->projectDisplayName;
-	}
-	public function setProjectName($projectName)
-	{
-		$this->projectName = $projectName;
-	}
-	public function getProjectName()
-	{
-		return $this->projectName;
-	}
+  /**
+   * @param Google_Service_SecurityCommandCenter_Folder[]
+   */
+  public function setFolders($folders)
+  {
+    $this->folders = $folders;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_Folder[]
+   */
+  public function getFolders()
+  {
+    return $this->folders;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setParentDisplayName($parentDisplayName)
+  {
+    $this->parentDisplayName = $parentDisplayName;
+  }
+  public function getParentDisplayName()
+  {
+    return $this->parentDisplayName;
+  }
+  public function setParentName($parentName)
+  {
+    $this->parentName = $parentName;
+  }
+  public function getParentName()
+  {
+    return $this->parentName;
+  }
+  public function setProjectDisplayName($projectDisplayName)
+  {
+    $this->projectDisplayName = $projectDisplayName;
+  }
+  public function getProjectDisplayName()
+  {
+    return $this->projectDisplayName;
+  }
+  public function setProjectName($projectName)
+  {
+    $this->projectName = $projectName;
+  }
+  public function getProjectName()
+  {
+    return $this->projectName;
+  }
 }

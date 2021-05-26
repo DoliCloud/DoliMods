@@ -17,24 +17,24 @@
 
 class Google_Service_ServiceUsage_MonitoringDestination extends Google_Collection
 {
-	protected $collection_key = 'metrics';
-	public $metrics;
-	public $monitoredResource;
+  protected $collection_key = 'metrics';
+  public $metrics;
+  public $monitoredResource;
 
-	public function setMetrics($metrics)
-	{
-		$this->metrics = $metrics;
-	}
-	public function getMetrics()
-	{
-		return $this->metrics;
-	}
-	public function setMonitoredResource($monitoredResource)
-	{
-		$this->monitoredResource = $monitoredResource;
-	}
-	public function getMonitoredResource()
-	{
-		return $this->monitoredResource;
-	}
+  public function setMetrics($metrics)
+  {
+    $this->metrics = $metrics;
+  }
+  public function getMetrics()
+  {
+    return $this->metrics;
+  }
+  public function setMonitoredResource($monitoredResource)
+  {
+    $this->monitoredResource = $monitoredResource;
+  }
+  public function getMonitoredResource()
+  {
+    return $this->monitoredResource;
+  }
 }

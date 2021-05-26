@@ -17,62 +17,62 @@
 
 class Google_Service_CloudNaturalLanguage_Token extends Google_Model
 {
-	protected $dependencyEdgeType = 'Google_Service_CloudNaturalLanguage_DependencyEdge';
-	protected $dependencyEdgeDataType = '';
-	public $lemma;
-	protected $partOfSpeechType = 'Google_Service_CloudNaturalLanguage_PartOfSpeech';
-	protected $partOfSpeechDataType = '';
-	protected $textType = 'Google_Service_CloudNaturalLanguage_TextSpan';
-	protected $textDataType = '';
+  protected $dependencyEdgeType = 'Google_Service_CloudNaturalLanguage_DependencyEdge';
+  protected $dependencyEdgeDataType = '';
+  public $lemma;
+  protected $partOfSpeechType = 'Google_Service_CloudNaturalLanguage_PartOfSpeech';
+  protected $partOfSpeechDataType = '';
+  protected $textType = 'Google_Service_CloudNaturalLanguage_TextSpan';
+  protected $textDataType = '';
 
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_DependencyEdge
-	 */
-	public function setDependencyEdge(Google_Service_CloudNaturalLanguage_DependencyEdge $dependencyEdge)
-	{
-		$this->dependencyEdge = $dependencyEdge;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_DependencyEdge
-	 */
-	public function getDependencyEdge()
-	{
-		return $this->dependencyEdge;
-	}
-	public function setLemma($lemma)
-	{
-		$this->lemma = $lemma;
-	}
-	public function getLemma()
-	{
-		return $this->lemma;
-	}
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_PartOfSpeech
-	 */
-	public function setPartOfSpeech(Google_Service_CloudNaturalLanguage_PartOfSpeech $partOfSpeech)
-	{
-		$this->partOfSpeech = $partOfSpeech;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_PartOfSpeech
-	 */
-	public function getPartOfSpeech()
-	{
-		return $this->partOfSpeech;
-	}
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_TextSpan
-	 */
-	public function setText(Google_Service_CloudNaturalLanguage_TextSpan $text)
-	{
-		$this->text = $text;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_TextSpan
-	 */
-	public function getText()
-	{
-		return $this->text;
-	}
+  /**
+   * @param Google_Service_CloudNaturalLanguage_DependencyEdge
+   */
+  public function setDependencyEdge(Google_Service_CloudNaturalLanguage_DependencyEdge $dependencyEdge)
+  {
+    $this->dependencyEdge = $dependencyEdge;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_DependencyEdge
+   */
+  public function getDependencyEdge()
+  {
+    return $this->dependencyEdge;
+  }
+  public function setLemma($lemma)
+  {
+    $this->lemma = $lemma;
+  }
+  public function getLemma()
+  {
+    return $this->lemma;
+  }
+  /**
+   * @param Google_Service_CloudNaturalLanguage_PartOfSpeech
+   */
+  public function setPartOfSpeech(Google_Service_CloudNaturalLanguage_PartOfSpeech $partOfSpeech)
+  {
+    $this->partOfSpeech = $partOfSpeech;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_PartOfSpeech
+   */
+  public function getPartOfSpeech()
+  {
+    return $this->partOfSpeech;
+  }
+  /**
+   * @param Google_Service_CloudNaturalLanguage_TextSpan
+   */
+  public function setText(Google_Service_CloudNaturalLanguage_TextSpan $text)
+  {
+    $this->text = $text;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_TextSpan
+   */
+  public function getText()
+  {
+    return $this->text;
+  }
 }

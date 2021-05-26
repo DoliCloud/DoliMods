@@ -17,14 +17,30 @@
 
 class Google_Service_SecretManager_Replica extends Google_Model
 {
-	public $location;
+  protected $customerManagedEncryptionType = 'Google_Service_SecretManager_CustomerManagedEncryption';
+  protected $customerManagedEncryptionDataType = '';
+  public $location;
 
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
+  /**
+   * @param Google_Service_SecretManager_CustomerManagedEncryption
+   */
+  public function setCustomerManagedEncryption(Google_Service_SecretManager_CustomerManagedEncryption $customerManagedEncryption)
+  {
+    $this->customerManagedEncryption = $customerManagedEncryption;
+  }
+  /**
+   * @return Google_Service_SecretManager_CustomerManagedEncryption
+   */
+  public function getCustomerManagedEncryption()
+  {
+    return $this->customerManagedEncryption;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
 }

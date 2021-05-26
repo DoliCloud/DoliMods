@@ -17,21 +17,21 @@
 
 class Google_Service_Sheets_AddSlicerRequest extends Google_Model
 {
-	protected $slicerType = 'Google_Service_Sheets_Slicer';
-	protected $slicerDataType = '';
+  protected $slicerType = 'Google_Service_Sheets_Slicer';
+  protected $slicerDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_Slicer
-	 */
-	public function setSlicer(Google_Service_Sheets_Slicer $slicer)
-	{
-		$this->slicer = $slicer;
-	}
-	/**
-	 * @return Google_Service_Sheets_Slicer
-	 */
-	public function getSlicer()
-	{
-		return $this->slicer;
-	}
+  /**
+   * @param Google_Service_Sheets_Slicer
+   */
+  public function setSlicer(Google_Service_Sheets_Slicer $slicer)
+  {
+    $this->slicer = $slicer;
+  }
+  /**
+   * @return Google_Service_Sheets_Slicer
+   */
+  public function getSlicer()
+  {
+    return $this->slicer;
+  }
 }

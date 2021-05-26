@@ -17,23 +17,23 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2AdminTemp extends Google_Model
 {
-	public $arg;
-	public $command;
+  public $arg;
+  public $command;
 
-	public function setArg($arg)
-	{
-		$this->arg = $arg;
-	}
-	public function getArg()
-	{
-		return $this->arg;
-	}
-	public function setCommand($command)
-	{
-		$this->command = $command;
-	}
-	public function getCommand()
-	{
-		return $this->command;
-	}
+  public function setArg($arg)
+  {
+    $this->arg = $arg;
+  }
+  public function getArg()
+  {
+    return $this->arg;
+  }
+  public function setCommand($command)
+  {
+    $this->command = $command;
+  }
+  public function getCommand()
+  {
+    return $this->command;
+  }
 }

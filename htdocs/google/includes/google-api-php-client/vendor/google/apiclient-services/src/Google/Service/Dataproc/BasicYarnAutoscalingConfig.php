@@ -17,50 +17,50 @@
 
 class Google_Service_Dataproc_BasicYarnAutoscalingConfig extends Google_Model
 {
-	public $gracefulDecommissionTimeout;
-	public $scaleDownFactor;
-	public $scaleDownMinWorkerFraction;
-	public $scaleUpFactor;
-	public $scaleUpMinWorkerFraction;
+  public $gracefulDecommissionTimeout;
+  public $scaleDownFactor;
+  public $scaleDownMinWorkerFraction;
+  public $scaleUpFactor;
+  public $scaleUpMinWorkerFraction;
 
-	public function setGracefulDecommissionTimeout($gracefulDecommissionTimeout)
-	{
-		$this->gracefulDecommissionTimeout = $gracefulDecommissionTimeout;
-	}
-	public function getGracefulDecommissionTimeout()
-	{
-		return $this->gracefulDecommissionTimeout;
-	}
-	public function setScaleDownFactor($scaleDownFactor)
-	{
-		$this->scaleDownFactor = $scaleDownFactor;
-	}
-	public function getScaleDownFactor()
-	{
-		return $this->scaleDownFactor;
-	}
-	public function setScaleDownMinWorkerFraction($scaleDownMinWorkerFraction)
-	{
-		$this->scaleDownMinWorkerFraction = $scaleDownMinWorkerFraction;
-	}
-	public function getScaleDownMinWorkerFraction()
-	{
-		return $this->scaleDownMinWorkerFraction;
-	}
-	public function setScaleUpFactor($scaleUpFactor)
-	{
-		$this->scaleUpFactor = $scaleUpFactor;
-	}
-	public function getScaleUpFactor()
-	{
-		return $this->scaleUpFactor;
-	}
-	public function setScaleUpMinWorkerFraction($scaleUpMinWorkerFraction)
-	{
-		$this->scaleUpMinWorkerFraction = $scaleUpMinWorkerFraction;
-	}
-	public function getScaleUpMinWorkerFraction()
-	{
-		return $this->scaleUpMinWorkerFraction;
-	}
+  public function setGracefulDecommissionTimeout($gracefulDecommissionTimeout)
+  {
+    $this->gracefulDecommissionTimeout = $gracefulDecommissionTimeout;
+  }
+  public function getGracefulDecommissionTimeout()
+  {
+    return $this->gracefulDecommissionTimeout;
+  }
+  public function setScaleDownFactor($scaleDownFactor)
+  {
+    $this->scaleDownFactor = $scaleDownFactor;
+  }
+  public function getScaleDownFactor()
+  {
+    return $this->scaleDownFactor;
+  }
+  public function setScaleDownMinWorkerFraction($scaleDownMinWorkerFraction)
+  {
+    $this->scaleDownMinWorkerFraction = $scaleDownMinWorkerFraction;
+  }
+  public function getScaleDownMinWorkerFraction()
+  {
+    return $this->scaleDownMinWorkerFraction;
+  }
+  public function setScaleUpFactor($scaleUpFactor)
+  {
+    $this->scaleUpFactor = $scaleUpFactor;
+  }
+  public function getScaleUpFactor()
+  {
+    return $this->scaleUpFactor;
+  }
+  public function setScaleUpMinWorkerFraction($scaleUpMinWorkerFraction)
+  {
+    $this->scaleUpMinWorkerFraction = $scaleUpMinWorkerFraction;
+  }
+  public function getScaleUpMinWorkerFraction()
+  {
+    return $this->scaleUpMinWorkerFraction;
+  }
 }

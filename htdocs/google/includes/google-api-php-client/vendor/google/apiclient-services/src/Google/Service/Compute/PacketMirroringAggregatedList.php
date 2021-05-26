@@ -15,75 +15,85 @@
  * the License.
  */
 
-class Google_Service_Compute_PacketMirroringAggregatedList extends Google_Model
+class Google_Service_Compute_PacketMirroringAggregatedList extends Google_Collection
 {
-	public $id;
-	protected $itemsType = 'Google_Service_Compute_PacketMirroringsScopedList';
-	protected $itemsDataType = 'map';
-	public $kind;
-	public $nextPageToken;
-	public $selfLink;
-	protected $warningType = 'Google_Service_Compute_PacketMirroringAggregatedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'unreachables';
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_PacketMirroringsScopedList';
+  protected $itemsDataType = 'map';
+  public $kind;
+  public $nextPageToken;
+  public $selfLink;
+  public $unreachables;
+  protected $warningType = 'Google_Service_Compute_PacketMirroringAggregatedListWarning';
+  protected $warningDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_Compute_PacketMirroringsScopedList
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Compute_PacketMirroringsScopedList
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	/**
-	 * @param Google_Service_Compute_PacketMirroringAggregatedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_PacketMirroringAggregatedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_PacketMirroringAggregatedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_Compute_PacketMirroringsScopedList[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Compute_PacketMirroringsScopedList[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setUnreachables($unreachables)
+  {
+    $this->unreachables = $unreachables;
+  }
+  public function getUnreachables()
+  {
+    return $this->unreachables;
+  }
+  /**
+   * @param Google_Service_Compute_PacketMirroringAggregatedListWarning
+   */
+  public function setWarning(Google_Service_Compute_PacketMirroringAggregatedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_PacketMirroringAggregatedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

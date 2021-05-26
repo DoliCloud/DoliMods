@@ -17,30 +17,30 @@
 
 class Google_Service_SQLAdmin_DemoteMasterConfiguration extends Google_Model
 {
-	public $kind;
-	protected $mysqlReplicaConfigurationType = 'Google_Service_SQLAdmin_DemoteMasterMySqlReplicaConfiguration';
-	protected $mysqlReplicaConfigurationDataType = '';
+  public $kind;
+  protected $mysqlReplicaConfigurationType = 'Google_Service_SQLAdmin_DemoteMasterMySqlReplicaConfiguration';
+  protected $mysqlReplicaConfigurationDataType = '';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_SQLAdmin_DemoteMasterMySqlReplicaConfiguration
-	 */
-	public function setMysqlReplicaConfiguration(Google_Service_SQLAdmin_DemoteMasterMySqlReplicaConfiguration $mysqlReplicaConfiguration)
-	{
-		$this->mysqlReplicaConfiguration = $mysqlReplicaConfiguration;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_DemoteMasterMySqlReplicaConfiguration
-	 */
-	public function getMysqlReplicaConfiguration()
-	{
-		return $this->mysqlReplicaConfiguration;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_SQLAdmin_DemoteMasterMySqlReplicaConfiguration
+   */
+  public function setMysqlReplicaConfiguration(Google_Service_SQLAdmin_DemoteMasterMySqlReplicaConfiguration $mysqlReplicaConfiguration)
+  {
+    $this->mysqlReplicaConfiguration = $mysqlReplicaConfiguration;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_DemoteMasterMySqlReplicaConfiguration
+   */
+  public function getMysqlReplicaConfiguration()
+  {
+    return $this->mysqlReplicaConfiguration;
+  }
 }

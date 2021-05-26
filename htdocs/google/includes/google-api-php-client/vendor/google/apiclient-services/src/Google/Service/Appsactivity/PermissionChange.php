@@ -17,38 +17,38 @@
 
 class Google_Service_Appsactivity_PermissionChange extends Google_Collection
 {
-	protected $collection_key = 'removedPermissions';
-	protected $addedPermissionsType = 'Google_Service_Appsactivity_Permission';
-	protected $addedPermissionsDataType = 'array';
-	protected $removedPermissionsType = 'Google_Service_Appsactivity_Permission';
-	protected $removedPermissionsDataType = 'array';
+  protected $collection_key = 'removedPermissions';
+  protected $addedPermissionsType = 'Google_Service_Appsactivity_Permission';
+  protected $addedPermissionsDataType = 'array';
+  protected $removedPermissionsType = 'Google_Service_Appsactivity_Permission';
+  protected $removedPermissionsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Appsactivity_Permission
-	 */
-	public function setAddedPermissions($addedPermissions)
-	{
-		$this->addedPermissions = $addedPermissions;
-	}
-	/**
-	 * @return Google_Service_Appsactivity_Permission
-	 */
-	public function getAddedPermissions()
-	{
-		return $this->addedPermissions;
-	}
-	/**
-	 * @param Google_Service_Appsactivity_Permission
-	 */
-	public function setRemovedPermissions($removedPermissions)
-	{
-		$this->removedPermissions = $removedPermissions;
-	}
-	/**
-	 * @return Google_Service_Appsactivity_Permission
-	 */
-	public function getRemovedPermissions()
-	{
-		return $this->removedPermissions;
-	}
+  /**
+   * @param Google_Service_Appsactivity_Permission
+   */
+  public function setAddedPermissions($addedPermissions)
+  {
+    $this->addedPermissions = $addedPermissions;
+  }
+  /**
+   * @return Google_Service_Appsactivity_Permission
+   */
+  public function getAddedPermissions()
+  {
+    return $this->addedPermissions;
+  }
+  /**
+   * @param Google_Service_Appsactivity_Permission
+   */
+  public function setRemovedPermissions($removedPermissions)
+  {
+    $this->removedPermissions = $removedPermissions;
+  }
+  /**
+   * @return Google_Service_Appsactivity_Permission
+   */
+  public function getRemovedPermissions()
+  {
+    return $this->removedPermissions;
+  }
 }

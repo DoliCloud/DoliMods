@@ -17,33 +17,33 @@
 
 class Google_Service_DisplayVideo_DoubleVerifyBrandSafetyCategories extends Google_Collection
 {
-	protected $collection_key = 'avoidedMediumSeverityCategories';
-	public $avoidUnknownBrandSafetyCategory;
-	public $avoidedHighSeverityCategories;
-	public $avoidedMediumSeverityCategories;
+  protected $collection_key = 'avoidedMediumSeverityCategories';
+  public $avoidUnknownBrandSafetyCategory;
+  public $avoidedHighSeverityCategories;
+  public $avoidedMediumSeverityCategories;
 
-	public function setAvoidUnknownBrandSafetyCategory($avoidUnknownBrandSafetyCategory)
-	{
-		$this->avoidUnknownBrandSafetyCategory = $avoidUnknownBrandSafetyCategory;
-	}
-	public function getAvoidUnknownBrandSafetyCategory()
-	{
-		return $this->avoidUnknownBrandSafetyCategory;
-	}
-	public function setAvoidedHighSeverityCategories($avoidedHighSeverityCategories)
-	{
-		$this->avoidedHighSeverityCategories = $avoidedHighSeverityCategories;
-	}
-	public function getAvoidedHighSeverityCategories()
-	{
-		return $this->avoidedHighSeverityCategories;
-	}
-	public function setAvoidedMediumSeverityCategories($avoidedMediumSeverityCategories)
-	{
-		$this->avoidedMediumSeverityCategories = $avoidedMediumSeverityCategories;
-	}
-	public function getAvoidedMediumSeverityCategories()
-	{
-		return $this->avoidedMediumSeverityCategories;
-	}
+  public function setAvoidUnknownBrandSafetyCategory($avoidUnknownBrandSafetyCategory)
+  {
+    $this->avoidUnknownBrandSafetyCategory = $avoidUnknownBrandSafetyCategory;
+  }
+  public function getAvoidUnknownBrandSafetyCategory()
+  {
+    return $this->avoidUnknownBrandSafetyCategory;
+  }
+  public function setAvoidedHighSeverityCategories($avoidedHighSeverityCategories)
+  {
+    $this->avoidedHighSeverityCategories = $avoidedHighSeverityCategories;
+  }
+  public function getAvoidedHighSeverityCategories()
+  {
+    return $this->avoidedHighSeverityCategories;
+  }
+  public function setAvoidedMediumSeverityCategories($avoidedMediumSeverityCategories)
+  {
+    $this->avoidedMediumSeverityCategories = $avoidedMediumSeverityCategories;
+  }
+  public function getAvoidedMediumSeverityCategories()
+  {
+    return $this->avoidedMediumSeverityCategories;
+  }
 }

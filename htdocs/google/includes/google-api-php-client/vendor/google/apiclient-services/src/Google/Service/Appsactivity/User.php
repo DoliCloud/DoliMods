@@ -17,57 +17,57 @@
 
 class Google_Service_Appsactivity_User extends Google_Model
 {
-	public $isDeleted;
-	public $isMe;
-	public $name;
-	public $permissionId;
-	protected $photoType = 'Google_Service_Appsactivity_Photo';
-	protected $photoDataType = '';
+  public $isDeleted;
+  public $isMe;
+  public $name;
+  public $permissionId;
+  protected $photoType = 'Google_Service_Appsactivity_Photo';
+  protected $photoDataType = '';
 
-	public function setIsDeleted($isDeleted)
-	{
-		$this->isDeleted = $isDeleted;
-	}
-	public function getIsDeleted()
-	{
-		return $this->isDeleted;
-	}
-	public function setIsMe($isMe)
-	{
-		$this->isMe = $isMe;
-	}
-	public function getIsMe()
-	{
-		return $this->isMe;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPermissionId($permissionId)
-	{
-		$this->permissionId = $permissionId;
-	}
-	public function getPermissionId()
-	{
-		return $this->permissionId;
-	}
-	/**
-	 * @param Google_Service_Appsactivity_Photo
-	 */
-	public function setPhoto(Google_Service_Appsactivity_Photo $photo)
-	{
-		$this->photo = $photo;
-	}
-	/**
-	 * @return Google_Service_Appsactivity_Photo
-	 */
-	public function getPhoto()
-	{
-		return $this->photo;
-	}
+  public function setIsDeleted($isDeleted)
+  {
+    $this->isDeleted = $isDeleted;
+  }
+  public function getIsDeleted()
+  {
+    return $this->isDeleted;
+  }
+  public function setIsMe($isMe)
+  {
+    $this->isMe = $isMe;
+  }
+  public function getIsMe()
+  {
+    return $this->isMe;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPermissionId($permissionId)
+  {
+    $this->permissionId = $permissionId;
+  }
+  public function getPermissionId()
+  {
+    return $this->permissionId;
+  }
+  /**
+   * @param Google_Service_Appsactivity_Photo
+   */
+  public function setPhoto(Google_Service_Appsactivity_Photo $photo)
+  {
+    $this->photo = $photo;
+  }
+  /**
+   * @return Google_Service_Appsactivity_Photo
+   */
+  public function getPhoto()
+  {
+    return $this->photo;
+  }
 }

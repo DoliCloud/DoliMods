@@ -17,32 +17,32 @@
 
 class Google_Service_Sheets_AppendDimensionRequest extends Google_Model
 {
-	public $dimension;
-	public $length;
-	public $sheetId;
+  public $dimension;
+  public $length;
+  public $sheetId;
 
-	public function setDimension($dimension)
-	{
-		$this->dimension = $dimension;
-	}
-	public function getDimension()
-	{
-		return $this->dimension;
-	}
-	public function setLength($length)
-	{
-		$this->length = $length;
-	}
-	public function getLength()
-	{
-		return $this->length;
-	}
-	public function setSheetId($sheetId)
-	{
-		$this->sheetId = $sheetId;
-	}
-	public function getSheetId()
-	{
-		return $this->sheetId;
-	}
+  public function setDimension($dimension)
+  {
+    $this->dimension = $dimension;
+  }
+  public function getDimension()
+  {
+    return $this->dimension;
+  }
+  public function setLength($length)
+  {
+    $this->length = $length;
+  }
+  public function getLength()
+  {
+    return $this->length;
+  }
+  public function setSheetId($sheetId)
+  {
+    $this->sheetId = $sheetId;
+  }
+  public function getSheetId()
+  {
+    return $this->sheetId;
+  }
 }

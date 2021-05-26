@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListPublisherProfilesResponse extends Google_Collection
 {
-	protected $collection_key = 'publisherProfiles';
-	public $nextPageToken;
-	protected $publisherProfilesType = 'Google_Service_AdExchangeBuyerII_PublisherProfile';
-	protected $publisherProfilesDataType = 'array';
+  protected $collection_key = 'publisherProfiles';
+  public $nextPageToken;
+  protected $publisherProfilesType = 'Google_Service_AdExchangeBuyerII_PublisherProfile';
+  protected $publisherProfilesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_PublisherProfile
-	 */
-	public function setPublisherProfiles($publisherProfiles)
-	{
-		$this->publisherProfiles = $publisherProfiles;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_PublisherProfile
-	 */
-	public function getPublisherProfiles()
-	{
-		return $this->publisherProfiles;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_PublisherProfile[]
+   */
+  public function setPublisherProfiles($publisherProfiles)
+  {
+    $this->publisherProfiles = $publisherProfiles;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_PublisherProfile[]
+   */
+  public function getPublisherProfiles()
+  {
+    return $this->publisherProfiles;
+  }
 }

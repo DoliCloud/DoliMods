@@ -17,22 +17,22 @@
 
 class Google_Service_ToolResults_ListScreenshotClustersResponse extends Google_Collection
 {
-	protected $collection_key = 'clusters';
-	protected $clustersType = 'Google_Service_ToolResults_ScreenshotCluster';
-	protected $clustersDataType = 'array';
+  protected $collection_key = 'clusters';
+  protected $clustersType = 'Google_Service_ToolResults_ScreenshotCluster';
+  protected $clustersDataType = 'array';
 
-	/**
-	 * @param Google_Service_ToolResults_ScreenshotCluster
-	 */
-	public function setClusters($clusters)
-	{
-		$this->clusters = $clusters;
-	}
-	/**
-	 * @return Google_Service_ToolResults_ScreenshotCluster
-	 */
-	public function getClusters()
-	{
-		return $this->clusters;
-	}
+  /**
+   * @param Google_Service_ToolResults_ScreenshotCluster[]
+   */
+  public function setClusters($clusters)
+  {
+    $this->clusters = $clusters;
+  }
+  /**
+   * @return Google_Service_ToolResults_ScreenshotCluster[]
+   */
+  public function getClusters()
+  {
+    return $this->clusters;
+  }
 }

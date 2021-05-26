@@ -17,15 +17,24 @@
 
 class Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource extends Google_Collection
 {
-	protected $collection_key = 'uris';
-	public $uris;
+  protected $collection_key = 'uris';
+  public $uris;
+  public $useWildcards;
 
-	public function setUris($uris)
-	{
-		$this->uris = $uris;
-	}
-	public function getUris()
-	{
-		return $this->uris;
-	}
+  public function setUris($uris)
+  {
+    $this->uris = $uris;
+  }
+  public function getUris()
+  {
+    return $this->uris;
+  }
+  public function setUseWildcards($useWildcards)
+  {
+    $this->useWildcards = $useWildcards;
+  }
+  public function getUseWildcards()
+  {
+    return $this->useWildcards;
+  }
 }

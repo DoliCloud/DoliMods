@@ -25,50 +25,50 @@
  */
 class Google_Service_ConsumerSurveys_Resource_Mobileapppanels extends Google_Service_Resource
 {
-	/**
-	 * Retrieves a MobileAppPanel that is available to the authenticated user.
-	 * (mobileapppanels.get)
-	 *
-	 * @param string $panelId External URL ID for the panel.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ConsumerSurveys_MobileAppPanel
-	 */
-	public function get($panelId, $optParams = array())
-	{
-		$params = array('panelId' => $panelId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_ConsumerSurveys_MobileAppPanel");
-	}
-	/**
-	 * Lists the MobileAppPanels available to the authenticated user.
-	 * (mobileapppanels.listMobileapppanels)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string maxResults
-	 * @opt_param string startIndex
-	 * @opt_param string token
-	 * @return Google_Service_ConsumerSurveys_MobileAppPanelsListResponse
-	 */
-	public function listMobileapppanels($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_ConsumerSurveys_MobileAppPanelsListResponse");
-	}
-	/**
-	 * Updates a MobileAppPanel. Currently the only property that can be updated is
-	 * the owners property. (mobileapppanels.update)
-	 *
-	 * @param string $panelId External URL ID for the panel.
-	 * @param Google_Service_ConsumerSurveys_MobileAppPanel $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ConsumerSurveys_MobileAppPanel
-	 */
-	public function update($panelId, Google_Service_ConsumerSurveys_MobileAppPanel $postBody, $optParams = array())
-	{
-		$params = array('panelId' => $panelId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_ConsumerSurveys_MobileAppPanel");
-	}
+  /**
+   * Retrieves a MobileAppPanel that is available to the authenticated user.
+   * (mobileapppanels.get)
+   *
+   * @param string $panelId External URL ID for the panel.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ConsumerSurveys_MobileAppPanel
+   */
+  public function get($panelId, $optParams = array())
+  {
+    $params = array('panelId' => $panelId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_ConsumerSurveys_MobileAppPanel");
+  }
+  /**
+   * Lists the MobileAppPanels available to the authenticated user.
+   * (mobileapppanels.listMobileapppanels)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string maxResults
+   * @opt_param string startIndex
+   * @opt_param string token
+   * @return Google_Service_ConsumerSurveys_MobileAppPanelsListResponse
+   */
+  public function listMobileapppanels($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_ConsumerSurveys_MobileAppPanelsListResponse");
+  }
+  /**
+   * Updates a MobileAppPanel. Currently the only property that can be updated is
+   * the owners property. (mobileapppanels.update)
+   *
+   * @param string $panelId External URL ID for the panel.
+   * @param Google_Service_ConsumerSurveys_MobileAppPanel $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ConsumerSurveys_MobileAppPanel
+   */
+  public function update($panelId, Google_Service_ConsumerSurveys_MobileAppPanel $postBody, $optParams = array())
+  {
+    $params = array('panelId' => $panelId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_ConsumerSurveys_MobileAppPanel");
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2QuoteInfo extends Google_Model
 {
-	protected $dateTimeType = 'Google_Service_DLP_GooglePrivacyDlpV2DateTime';
-	protected $dateTimeDataType = '';
+  protected $dateTimeType = 'Google_Service_DLP_GooglePrivacyDlpV2DateTime';
+  protected $dateTimeDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2DateTime
-	 */
-	public function setDateTime(Google_Service_DLP_GooglePrivacyDlpV2DateTime $dateTime)
-	{
-		$this->dateTime = $dateTime;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2DateTime
-	 */
-	public function getDateTime()
-	{
-		return $this->dateTime;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2DateTime
+   */
+  public function setDateTime(Google_Service_DLP_GooglePrivacyDlpV2DateTime $dateTime)
+  {
+    $this->dateTime = $dateTime;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2DateTime
+   */
+  public function getDateTime()
+  {
+    return $this->dateTime;
+  }
 }

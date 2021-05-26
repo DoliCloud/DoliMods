@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedPositionedObjectProperties extends Google_Model
 {
-	protected $positionedObjectPropertiesType = 'Google_Service_Docs_PositionedObjectProperties';
-	protected $positionedObjectPropertiesDataType = '';
-	protected $positionedObjectPropertiesSuggestionStateType = 'Google_Service_Docs_PositionedObjectPropertiesSuggestionState';
-	protected $positionedObjectPropertiesSuggestionStateDataType = '';
+  protected $positionedObjectPropertiesType = 'Google_Service_Docs_PositionedObjectProperties';
+  protected $positionedObjectPropertiesDataType = '';
+  protected $positionedObjectPropertiesSuggestionStateType = 'Google_Service_Docs_PositionedObjectPropertiesSuggestionState';
+  protected $positionedObjectPropertiesSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_PositionedObjectProperties
-	 */
-	public function setPositionedObjectProperties(Google_Service_Docs_PositionedObjectProperties $positionedObjectProperties)
-	{
-		$this->positionedObjectProperties = $positionedObjectProperties;
-	}
-	/**
-	 * @return Google_Service_Docs_PositionedObjectProperties
-	 */
-	public function getPositionedObjectProperties()
-	{
-		return $this->positionedObjectProperties;
-	}
-	/**
-	 * @param Google_Service_Docs_PositionedObjectPropertiesSuggestionState
-	 */
-	public function setPositionedObjectPropertiesSuggestionState(Google_Service_Docs_PositionedObjectPropertiesSuggestionState $positionedObjectPropertiesSuggestionState)
-	{
-		$this->positionedObjectPropertiesSuggestionState = $positionedObjectPropertiesSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_PositionedObjectPropertiesSuggestionState
-	 */
-	public function getPositionedObjectPropertiesSuggestionState()
-	{
-		return $this->positionedObjectPropertiesSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_PositionedObjectProperties
+   */
+  public function setPositionedObjectProperties(Google_Service_Docs_PositionedObjectProperties $positionedObjectProperties)
+  {
+    $this->positionedObjectProperties = $positionedObjectProperties;
+  }
+  /**
+   * @return Google_Service_Docs_PositionedObjectProperties
+   */
+  public function getPositionedObjectProperties()
+  {
+    return $this->positionedObjectProperties;
+  }
+  /**
+   * @param Google_Service_Docs_PositionedObjectPropertiesSuggestionState
+   */
+  public function setPositionedObjectPropertiesSuggestionState(Google_Service_Docs_PositionedObjectPropertiesSuggestionState $positionedObjectPropertiesSuggestionState)
+  {
+    $this->positionedObjectPropertiesSuggestionState = $positionedObjectPropertiesSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_PositionedObjectPropertiesSuggestionState
+   */
+  public function getPositionedObjectPropertiesSuggestionState()
+  {
+    return $this->positionedObjectPropertiesSuggestionState;
+  }
 }

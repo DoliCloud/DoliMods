@@ -17,32 +17,32 @@
 
 class Google_Service_YouTube_Entity extends Google_Model
 {
-	public $id;
-	public $typeId;
-	public $url;
+  public $id;
+  public $typeId;
+  public $url;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setTypeId($typeId)
-	{
-		$this->typeId = $typeId;
-	}
-	public function getTypeId()
-	{
-		return $this->typeId;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setTypeId($typeId)
+  {
+    $this->typeId = $typeId;
+  }
+  public function getTypeId()
+  {
+    return $this->typeId;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

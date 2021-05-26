@@ -17,42 +17,42 @@
 
 class Google_Service_ToolResults_AndroidInstrumentationTest extends Google_Collection
 {
-	protected $collection_key = 'testTargets';
-	public $testPackageId;
-	public $testRunnerClass;
-	public $testTargets;
-	public $useOrchestrator;
+  protected $collection_key = 'testTargets';
+  public $testPackageId;
+  public $testRunnerClass;
+  public $testTargets;
+  public $useOrchestrator;
 
-	public function setTestPackageId($testPackageId)
-	{
-		$this->testPackageId = $testPackageId;
-	}
-	public function getTestPackageId()
-	{
-		return $this->testPackageId;
-	}
-	public function setTestRunnerClass($testRunnerClass)
-	{
-		$this->testRunnerClass = $testRunnerClass;
-	}
-	public function getTestRunnerClass()
-	{
-		return $this->testRunnerClass;
-	}
-	public function setTestTargets($testTargets)
-	{
-		$this->testTargets = $testTargets;
-	}
-	public function getTestTargets()
-	{
-		return $this->testTargets;
-	}
-	public function setUseOrchestrator($useOrchestrator)
-	{
-		$this->useOrchestrator = $useOrchestrator;
-	}
-	public function getUseOrchestrator()
-	{
-		return $this->useOrchestrator;
-	}
+  public function setTestPackageId($testPackageId)
+  {
+    $this->testPackageId = $testPackageId;
+  }
+  public function getTestPackageId()
+  {
+    return $this->testPackageId;
+  }
+  public function setTestRunnerClass($testRunnerClass)
+  {
+    $this->testRunnerClass = $testRunnerClass;
+  }
+  public function getTestRunnerClass()
+  {
+    return $this->testRunnerClass;
+  }
+  public function setTestTargets($testTargets)
+  {
+    $this->testTargets = $testTargets;
+  }
+  public function getTestTargets()
+  {
+    return $this->testTargets;
+  }
+  public function setUseOrchestrator($useOrchestrator)
+  {
+    $this->useOrchestrator = $useOrchestrator;
+  }
+  public function getUseOrchestrator()
+  {
+    return $this->useOrchestrator;
+  }
 }

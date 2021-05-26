@@ -17,32 +17,32 @@
 
 class Google_Service_AdExchangeBuyerII_FrequencyCap extends Google_Model
 {
-	public $maxImpressions;
-	public $numTimeUnits;
-	public $timeUnitType;
+  public $maxImpressions;
+  public $numTimeUnits;
+  public $timeUnitType;
 
-	public function setMaxImpressions($maxImpressions)
-	{
-		$this->maxImpressions = $maxImpressions;
-	}
-	public function getMaxImpressions()
-	{
-		return $this->maxImpressions;
-	}
-	public function setNumTimeUnits($numTimeUnits)
-	{
-		$this->numTimeUnits = $numTimeUnits;
-	}
-	public function getNumTimeUnits()
-	{
-		return $this->numTimeUnits;
-	}
-	public function setTimeUnitType($timeUnitType)
-	{
-		$this->timeUnitType = $timeUnitType;
-	}
-	public function getTimeUnitType()
-	{
-		return $this->timeUnitType;
-	}
+  public function setMaxImpressions($maxImpressions)
+  {
+    $this->maxImpressions = $maxImpressions;
+  }
+  public function getMaxImpressions()
+  {
+    return $this->maxImpressions;
+  }
+  public function setNumTimeUnits($numTimeUnits)
+  {
+    $this->numTimeUnits = $numTimeUnits;
+  }
+  public function getNumTimeUnits()
+  {
+    return $this->numTimeUnits;
+  }
+  public function setTimeUnitType($timeUnitType)
+  {
+    $this->timeUnitType = $timeUnitType;
+  }
+  public function getTimeUnitType()
+  {
+    return $this->timeUnitType;
+  }
 }

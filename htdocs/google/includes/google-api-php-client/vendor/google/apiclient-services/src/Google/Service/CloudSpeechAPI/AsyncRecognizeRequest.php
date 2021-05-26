@@ -17,25 +17,25 @@
 
 class Google_Service_CloudSpeechAPI_AsyncRecognizeRequest extends Google_Model
 {
-	protected $audioType = 'Google_Service_CloudSpeechAPI_RecognitionAudio';
-	protected $audioDataType = '';
-	protected $configType = 'Google_Service_CloudSpeechAPI_RecognitionConfig';
-	protected $configDataType = '';
+  protected $audioType = 'Google_Service_CloudSpeechAPI_RecognitionAudio';
+  protected $audioDataType = '';
+  protected $configType = 'Google_Service_CloudSpeechAPI_RecognitionConfig';
+  protected $configDataType = '';
 
-	public function setAudio(Google_Service_CloudSpeechAPI_RecognitionAudio $audio)
-	{
-		$this->audio = $audio;
-	}
-	public function getAudio()
-	{
-		return $this->audio;
-	}
-	public function setConfig(Google_Service_CloudSpeechAPI_RecognitionConfig $config)
-	{
-		$this->config = $config;
-	}
-	public function getConfig()
-	{
-		return $this->config;
-	}
+  public function setAudio(Google_Service_CloudSpeechAPI_RecognitionAudio $audio)
+  {
+    $this->audio = $audio;
+  }
+  public function getAudio()
+  {
+    return $this->audio;
+  }
+  public function setConfig(Google_Service_CloudSpeechAPI_RecognitionConfig $config)
+  {
+    $this->config = $config;
+  }
+  public function getConfig()
+  {
+    return $this->config;
+  }
 }

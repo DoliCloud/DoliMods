@@ -17,64 +17,64 @@
 
 class Google_Service_YouTube_InvideoBranding extends Google_Model
 {
-	public $imageBytes;
-	public $imageUrl;
-	protected $positionType = 'Google_Service_YouTube_InvideoPosition';
-	protected $positionDataType = '';
-	public $targetChannelId;
-	protected $timingType = 'Google_Service_YouTube_InvideoTiming';
-	protected $timingDataType = '';
+  public $imageBytes;
+  public $imageUrl;
+  protected $positionType = 'Google_Service_YouTube_InvideoPosition';
+  protected $positionDataType = '';
+  public $targetChannelId;
+  protected $timingType = 'Google_Service_YouTube_InvideoTiming';
+  protected $timingDataType = '';
 
-	public function setImageBytes($imageBytes)
-	{
-		$this->imageBytes = $imageBytes;
-	}
-	public function getImageBytes()
-	{
-		return $this->imageBytes;
-	}
-	public function setImageUrl($imageUrl)
-	{
-		$this->imageUrl = $imageUrl;
-	}
-	public function getImageUrl()
-	{
-		return $this->imageUrl;
-	}
-	/**
-	 * @param Google_Service_YouTube_InvideoPosition
-	 */
-	public function setPosition(Google_Service_YouTube_InvideoPosition $position)
-	{
-		$this->position = $position;
-	}
-	/**
-	 * @return Google_Service_YouTube_InvideoPosition
-	 */
-	public function getPosition()
-	{
-		return $this->position;
-	}
-	public function setTargetChannelId($targetChannelId)
-	{
-		$this->targetChannelId = $targetChannelId;
-	}
-	public function getTargetChannelId()
-	{
-		return $this->targetChannelId;
-	}
-	/**
-	 * @param Google_Service_YouTube_InvideoTiming
-	 */
-	public function setTiming(Google_Service_YouTube_InvideoTiming $timing)
-	{
-		$this->timing = $timing;
-	}
-	/**
-	 * @return Google_Service_YouTube_InvideoTiming
-	 */
-	public function getTiming()
-	{
-		return $this->timing;
-	}
+  public function setImageBytes($imageBytes)
+  {
+    $this->imageBytes = $imageBytes;
+  }
+  public function getImageBytes()
+  {
+    return $this->imageBytes;
+  }
+  public function setImageUrl($imageUrl)
+  {
+    $this->imageUrl = $imageUrl;
+  }
+  public function getImageUrl()
+  {
+    return $this->imageUrl;
+  }
+  /**
+   * @param Google_Service_YouTube_InvideoPosition
+   */
+  public function setPosition(Google_Service_YouTube_InvideoPosition $position)
+  {
+    $this->position = $position;
+  }
+  /**
+   * @return Google_Service_YouTube_InvideoPosition
+   */
+  public function getPosition()
+  {
+    return $this->position;
+  }
+  public function setTargetChannelId($targetChannelId)
+  {
+    $this->targetChannelId = $targetChannelId;
+  }
+  public function getTargetChannelId()
+  {
+    return $this->targetChannelId;
+  }
+  /**
+   * @param Google_Service_YouTube_InvideoTiming
+   */
+  public function setTiming(Google_Service_YouTube_InvideoTiming $timing)
+  {
+    $this->timing = $timing;
+  }
+  /**
+   * @return Google_Service_YouTube_InvideoTiming
+   */
+  public function getTiming()
+  {
+    return $this->timing;
+  }
 }

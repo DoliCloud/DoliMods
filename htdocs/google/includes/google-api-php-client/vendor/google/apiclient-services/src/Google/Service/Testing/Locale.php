@@ -17,42 +17,42 @@
 
 class Google_Service_Testing_Locale extends Google_Collection
 {
-	protected $collection_key = 'tags';
-	public $id;
-	public $name;
-	public $region;
-	public $tags;
+  protected $collection_key = 'tags';
+  public $id;
+  public $name;
+  public $region;
+  public $tags;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRegion($region)
-	{
-		$this->region = $region;
-	}
-	public function getRegion()
-	{
-		return $this->region;
-	}
-	public function setTags($tags)
-	{
-		$this->tags = $tags;
-	}
-	public function getTags()
-	{
-		return $this->tags;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRegion($region)
+  {
+    $this->region = $region;
+  }
+  public function getRegion()
+  {
+    return $this->region;
+  }
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  public function getTags()
+  {
+    return $this->tags;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Storagetransfer_AwsAccessKey extends Google_Model
 {
-	public $accessKeyId;
-	public $secretAccessKey;
+  public $accessKeyId;
+  public $secretAccessKey;
 
-	public function setAccessKeyId($accessKeyId)
-	{
-		$this->accessKeyId = $accessKeyId;
-	}
-	public function getAccessKeyId()
-	{
-		return $this->accessKeyId;
-	}
-	public function setSecretAccessKey($secretAccessKey)
-	{
-		$this->secretAccessKey = $secretAccessKey;
-	}
-	public function getSecretAccessKey()
-	{
-		return $this->secretAccessKey;
-	}
+  public function setAccessKeyId($accessKeyId)
+  {
+    $this->accessKeyId = $accessKeyId;
+  }
+  public function getAccessKeyId()
+  {
+    return $this->accessKeyId;
+  }
+  public function setSecretAccessKey($secretAccessKey)
+  {
+    $this->secretAccessKey = $secretAccessKey;
+  }
+  public function getSecretAccessKey()
+  {
+    return $this->secretAccessKey;
+  }
 }

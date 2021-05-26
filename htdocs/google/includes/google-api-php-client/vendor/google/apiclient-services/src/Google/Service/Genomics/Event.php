@@ -17,32 +17,32 @@
 
 class Google_Service_Genomics_Event extends Google_Model
 {
-	public $description;
-	public $details;
-	public $timestamp;
+  public $description;
+  public $details;
+  public $timestamp;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDetails($details)
-	{
-		$this->details = $details;
-	}
-	public function getDetails()
-	{
-		return $this->details;
-	}
-	public function setTimestamp($timestamp)
-	{
-		$this->timestamp = $timestamp;
-	}
-	public function getTimestamp()
-	{
-		return $this->timestamp;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDetails($details)
+  {
+    $this->details = $details;
+  }
+  public function getDetails()
+  {
+    return $this->details;
+  }
+  public function setTimestamp($timestamp)
+  {
+    $this->timestamp = $timestamp;
+  }
+  public function getTimestamp()
+  {
+    return $this->timestamp;
+  }
 }

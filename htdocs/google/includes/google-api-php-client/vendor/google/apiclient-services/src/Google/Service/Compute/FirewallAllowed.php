@@ -17,27 +17,27 @@
 
 class Google_Service_Compute_FirewallAllowed extends Google_Collection
 {
-	protected $collection_key = 'ports';
-	protected $internal_gapi_mappings = array(
-		"iPProtocol" => "IPProtocol",
-	);
-	public $iPProtocol;
-	public $ports;
+  protected $collection_key = 'ports';
+  protected $internal_gapi_mappings = array(
+        "iPProtocol" => "IPProtocol",
+  );
+  public $iPProtocol;
+  public $ports;
 
-	public function setIPProtocol($iPProtocol)
-	{
-		$this->iPProtocol = $iPProtocol;
-	}
-	public function getIPProtocol()
-	{
-		return $this->iPProtocol;
-	}
-	public function setPorts($ports)
-	{
-		$this->ports = $ports;
-	}
-	public function getPorts()
-	{
-		return $this->ports;
-	}
+  public function setIPProtocol($iPProtocol)
+  {
+    $this->iPProtocol = $iPProtocol;
+  }
+  public function getIPProtocol()
+  {
+    return $this->iPProtocol;
+  }
+  public function setPorts($ports)
+  {
+    $this->ports = $ports;
+  }
+  public function getPorts()
+  {
+    return $this->ports;
+  }
 }

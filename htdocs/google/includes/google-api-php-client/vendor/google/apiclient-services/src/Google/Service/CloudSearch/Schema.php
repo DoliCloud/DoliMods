@@ -17,31 +17,31 @@
 
 class Google_Service_CloudSearch_Schema extends Google_Collection
 {
-	protected $collection_key = 'operationIds';
-	protected $objectDefinitionsType = 'Google_Service_CloudSearch_ObjectDefinition';
-	protected $objectDefinitionsDataType = 'array';
-	public $operationIds;
+  protected $collection_key = 'operationIds';
+  protected $objectDefinitionsType = 'Google_Service_CloudSearch_ObjectDefinition';
+  protected $objectDefinitionsDataType = 'array';
+  public $operationIds;
 
-	/**
-	 * @param Google_Service_CloudSearch_ObjectDefinition
-	 */
-	public function setObjectDefinitions($objectDefinitions)
-	{
-		$this->objectDefinitions = $objectDefinitions;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_ObjectDefinition
-	 */
-	public function getObjectDefinitions()
-	{
-		return $this->objectDefinitions;
-	}
-	public function setOperationIds($operationIds)
-	{
-		$this->operationIds = $operationIds;
-	}
-	public function getOperationIds()
-	{
-		return $this->operationIds;
-	}
+  /**
+   * @param Google_Service_CloudSearch_ObjectDefinition[]
+   */
+  public function setObjectDefinitions($objectDefinitions)
+  {
+    $this->objectDefinitions = $objectDefinitions;
+  }
+  /**
+   * @return Google_Service_CloudSearch_ObjectDefinition[]
+   */
+  public function getObjectDefinitions()
+  {
+    return $this->objectDefinitions;
+  }
+  public function setOperationIds($operationIds)
+  {
+    $this->operationIds = $operationIds;
+  }
+  public function getOperationIds()
+  {
+    return $this->operationIds;
+  }
 }

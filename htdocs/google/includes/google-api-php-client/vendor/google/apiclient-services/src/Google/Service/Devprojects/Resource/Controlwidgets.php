@@ -25,22 +25,22 @@
  */
 class Google_Service_Devprojects_Resource_Controlwidgets extends Google_Service_Resource
 {
-	/**
-	 * Get embedding parameters for a control widget (controlwidgets.embed)
-	 *
-	 * @param string $projectId Project that might be relevant to the widget.
-	 * @param string $widgetId The definition ID of the control widget.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string kv Column separated key value parameters
-	 * @opt_param string whitelistId The whitelist project ID. See
-	 * Projects.Insert.whitelist_id documentation for details.
-	 * @return Google_Service_Devprojects_EmbeddingParameters
-	 */
-	public function embed($projectId, $widgetId, $optParams = array())
-	{
-		$params = array('projectId' => $projectId, 'widgetId' => $widgetId);
-		$params = array_merge($params, $optParams);
-		return $this->call('embed', array($params), "Google_Service_Devprojects_EmbeddingParameters");
-	}
+  /**
+   * Get embedding parameters for a control widget (controlwidgets.embed)
+   *
+   * @param string $projectId Project that might be relevant to the widget.
+   * @param string $widgetId The definition ID of the control widget.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string kv Column separated key value parameters
+   * @opt_param string whitelistId The whitelist project ID. See
+   * Projects.Insert.whitelist_id documentation for details.
+   * @return Google_Service_Devprojects_EmbeddingParameters
+   */
+  public function embed($projectId, $widgetId, $optParams = array())
+  {
+    $params = array('projectId' => $projectId, 'widgetId' => $widgetId);
+    $params = array_merge($params, $optParams);
+    return $this->call('embed', array($params), "Google_Service_Devprojects_EmbeddingParameters");
+  }
 }

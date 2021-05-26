@@ -17,23 +17,23 @@
 
 class Google_Service_Container_NetworkPolicy extends Google_Model
 {
-	public $enabled;
-	public $provider;
+  public $enabled;
+  public $provider;
 
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
-	}
-	public function getEnabled()
-	{
-		return $this->enabled;
-	}
-	public function setProvider($provider)
-	{
-		$this->provider = $provider;
-	}
-	public function getProvider()
-	{
-		return $this->provider;
-	}
+  public function setEnabled($enabled)
+  {
+    $this->enabled = $enabled;
+  }
+  public function getEnabled()
+  {
+    return $this->enabled;
+  }
+  public function setProvider($provider)
+  {
+    $this->provider = $provider;
+  }
+  public function getProvider()
+  {
+    return $this->provider;
+  }
 }

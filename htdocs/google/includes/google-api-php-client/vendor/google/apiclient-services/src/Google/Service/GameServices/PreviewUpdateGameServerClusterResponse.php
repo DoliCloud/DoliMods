@@ -17,30 +17,30 @@
 
 class Google_Service_GameServices_PreviewUpdateGameServerClusterResponse extends Google_Model
 {
-	public $etag;
-	protected $targetStateType = 'Google_Service_GameServices_TargetState';
-	protected $targetStateDataType = '';
+  public $etag;
+  protected $targetStateType = 'Google_Service_GameServices_TargetState';
+  protected $targetStateDataType = '';
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	/**
-	 * @param Google_Service_GameServices_TargetState
-	 */
-	public function setTargetState(Google_Service_GameServices_TargetState $targetState)
-	{
-		$this->targetState = $targetState;
-	}
-	/**
-	 * @return Google_Service_GameServices_TargetState
-	 */
-	public function getTargetState()
-	{
-		return $this->targetState;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param Google_Service_GameServices_TargetState
+   */
+  public function setTargetState(Google_Service_GameServices_TargetState $targetState)
+  {
+    $this->targetState = $targetState;
+  }
+  /**
+   * @return Google_Service_GameServices_TargetState
+   */
+  public function getTargetState()
+  {
+    return $this->targetState;
+  }
 }

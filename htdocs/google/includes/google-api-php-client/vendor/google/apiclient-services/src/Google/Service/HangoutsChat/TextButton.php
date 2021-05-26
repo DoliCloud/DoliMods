@@ -17,30 +17,30 @@
 
 class Google_Service_HangoutsChat_TextButton extends Google_Model
 {
-	protected $onClickType = 'Google_Service_HangoutsChat_OnClick';
-	protected $onClickDataType = '';
-	public $text;
+  protected $onClickType = 'Google_Service_HangoutsChat_OnClick';
+  protected $onClickDataType = '';
+  public $text;
 
-	/**
-	 * @param Google_Service_HangoutsChat_OnClick
-	 */
-	public function setOnClick(Google_Service_HangoutsChat_OnClick $onClick)
-	{
-		$this->onClick = $onClick;
-	}
-	/**
-	 * @return Google_Service_HangoutsChat_OnClick
-	 */
-	public function getOnClick()
-	{
-		return $this->onClick;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  /**
+   * @param Google_Service_HangoutsChat_OnClick
+   */
+  public function setOnClick(Google_Service_HangoutsChat_OnClick $onClick)
+  {
+    $this->onClick = $onClick;
+  }
+  /**
+   * @return Google_Service_HangoutsChat_OnClick
+   */
+  public function getOnClick()
+  {
+    return $this->onClick;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

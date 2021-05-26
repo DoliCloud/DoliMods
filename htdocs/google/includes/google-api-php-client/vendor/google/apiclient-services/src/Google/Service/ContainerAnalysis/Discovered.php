@@ -17,64 +17,48 @@
 
 class Google_Service_ContainerAnalysis_Discovered extends Google_Model
 {
-	public $analysisStatus;
-	protected $analysisStatusErrorType = 'Google_Service_ContainerAnalysis_Status';
-	protected $analysisStatusErrorDataType = '';
-	public $continuousAnalysis;
-	public $cpe;
-	protected $operationType = 'Google_Service_ContainerAnalysis_Operation';
-	protected $operationDataType = '';
+  public $analysisStatus;
+  protected $analysisStatusErrorType = 'Google_Service_ContainerAnalysis_Status';
+  protected $analysisStatusErrorDataType = '';
+  public $continuousAnalysis;
+  public $lastAnalysisTime;
 
-	public function setAnalysisStatus($analysisStatus)
-	{
-		$this->analysisStatus = $analysisStatus;
-	}
-	public function getAnalysisStatus()
-	{
-		return $this->analysisStatus;
-	}
-	/**
-	 * @param Google_Service_ContainerAnalysis_Status
-	 */
-	public function setAnalysisStatusError(Google_Service_ContainerAnalysis_Status $analysisStatusError)
-	{
-		$this->analysisStatusError = $analysisStatusError;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_Status
-	 */
-	public function getAnalysisStatusError()
-	{
-		return $this->analysisStatusError;
-	}
-	public function setContinuousAnalysis($continuousAnalysis)
-	{
-		$this->continuousAnalysis = $continuousAnalysis;
-	}
-	public function getContinuousAnalysis()
-	{
-		return $this->continuousAnalysis;
-	}
-	public function setCpe($cpe)
-	{
-		$this->cpe = $cpe;
-	}
-	public function getCpe()
-	{
-		return $this->cpe;
-	}
-	/**
-	 * @param Google_Service_ContainerAnalysis_Operation
-	 */
-	public function setOperation(Google_Service_ContainerAnalysis_Operation $operation)
-	{
-		$this->operation = $operation;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_Operation
-	 */
-	public function getOperation()
-	{
-		return $this->operation;
-	}
+  public function setAnalysisStatus($analysisStatus)
+  {
+    $this->analysisStatus = $analysisStatus;
+  }
+  public function getAnalysisStatus()
+  {
+    return $this->analysisStatus;
+  }
+  /**
+   * @param Google_Service_ContainerAnalysis_Status
+   */
+  public function setAnalysisStatusError(Google_Service_ContainerAnalysis_Status $analysisStatusError)
+  {
+    $this->analysisStatusError = $analysisStatusError;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_Status
+   */
+  public function getAnalysisStatusError()
+  {
+    return $this->analysisStatusError;
+  }
+  public function setContinuousAnalysis($continuousAnalysis)
+  {
+    $this->continuousAnalysis = $continuousAnalysis;
+  }
+  public function getContinuousAnalysis()
+  {
+    return $this->continuousAnalysis;
+  }
+  public function setLastAnalysisTime($lastAnalysisTime)
+  {
+    $this->lastAnalysisTime = $lastAnalysisTime;
+  }
+  public function getLastAnalysisTime()
+  {
+    return $this->lastAnalysisTime;
+  }
 }

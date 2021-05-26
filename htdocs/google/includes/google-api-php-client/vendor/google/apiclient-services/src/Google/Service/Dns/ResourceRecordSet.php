@@ -17,60 +17,76 @@
 
 class Google_Service_Dns_ResourceRecordSet extends Google_Collection
 {
-	protected $collection_key = 'signatureRrdatas';
-	public $kind;
-	public $name;
-	public $rrdatas;
-	public $signatureRrdatas;
-	public $ttl;
-	public $type;
+  protected $collection_key = 'signatureRrdatas';
+  public $kind;
+  public $name;
+  protected $routingPolicyType = 'Google_Service_Dns_RRSetRoutingPolicy';
+  protected $routingPolicyDataType = '';
+  public $rrdatas;
+  public $signatureRrdatas;
+  public $ttl;
+  public $type;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRrdatas($rrdatas)
-	{
-		$this->rrdatas = $rrdatas;
-	}
-	public function getRrdatas()
-	{
-		return $this->rrdatas;
-	}
-	public function setSignatureRrdatas($signatureRrdatas)
-	{
-		$this->signatureRrdatas = $signatureRrdatas;
-	}
-	public function getSignatureRrdatas()
-	{
-		return $this->signatureRrdatas;
-	}
-	public function setTtl($ttl)
-	{
-		$this->ttl = $ttl;
-	}
-	public function getTtl()
-	{
-		return $this->ttl;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Dns_RRSetRoutingPolicy
+   */
+  public function setRoutingPolicy(Google_Service_Dns_RRSetRoutingPolicy $routingPolicy)
+  {
+    $this->routingPolicy = $routingPolicy;
+  }
+  /**
+   * @return Google_Service_Dns_RRSetRoutingPolicy
+   */
+  public function getRoutingPolicy()
+  {
+    return $this->routingPolicy;
+  }
+  public function setRrdatas($rrdatas)
+  {
+    $this->rrdatas = $rrdatas;
+  }
+  public function getRrdatas()
+  {
+    return $this->rrdatas;
+  }
+  public function setSignatureRrdatas($signatureRrdatas)
+  {
+    $this->signatureRrdatas = $signatureRrdatas;
+  }
+  public function getSignatureRrdatas()
+  {
+    return $this->signatureRrdatas;
+  }
+  public function setTtl($ttl)
+  {
+    $this->ttl = $ttl;
+  }
+  public function getTtl()
+  {
+    return $this->ttl;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

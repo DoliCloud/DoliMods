@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_TargetHttpsProxiesSetQuicOverrideRequest extends Google_Model
 {
-	public $quicOverride;
+  public $quicOverride;
 
-	public function setQuicOverride($quicOverride)
-	{
-		$this->quicOverride = $quicOverride;
-	}
-	public function getQuicOverride()
-	{
-		return $this->quicOverride;
-	}
+  public function setQuicOverride($quicOverride)
+  {
+    $this->quicOverride = $quicOverride;
+  }
+  public function getQuicOverride()
+  {
+    return $this->quicOverride;
+  }
 }

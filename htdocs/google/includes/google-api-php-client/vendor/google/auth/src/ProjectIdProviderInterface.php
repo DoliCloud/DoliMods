@@ -22,11 +22,11 @@ namespace Google\Auth;
  */
 interface ProjectIdProviderInterface
 {
-	/**
-	 * Get the project ID.
-	 *
-	 * @param callable $httpHandler Callback which delivers psr7 request
-	 * @return string|null
-	 */
-	public function getProjectId(callable $httpHandler = null);
+    /**
+     * Get the project ID.
+     *
+     * @param callable $httpHandler Callback which delivers psr7 request
+     * @return string|null
+     */
+    public function getProjectId(callable $httpHandler = null);
 }

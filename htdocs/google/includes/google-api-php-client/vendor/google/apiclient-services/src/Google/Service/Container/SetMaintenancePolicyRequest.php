@@ -17,57 +17,57 @@
 
 class Google_Service_Container_SetMaintenancePolicyRequest extends Google_Model
 {
-	public $clusterId;
-	protected $maintenancePolicyType = 'Google_Service_Container_MaintenancePolicy';
-	protected $maintenancePolicyDataType = '';
-	public $name;
-	public $projectId;
-	public $zone;
+  public $clusterId;
+  protected $maintenancePolicyType = 'Google_Service_Container_MaintenancePolicy';
+  protected $maintenancePolicyDataType = '';
+  public $name;
+  public $projectId;
+  public $zone;
 
-	public function setClusterId($clusterId)
-	{
-		$this->clusterId = $clusterId;
-	}
-	public function getClusterId()
-	{
-		return $this->clusterId;
-	}
-	/**
-	 * @param Google_Service_Container_MaintenancePolicy
-	 */
-	public function setMaintenancePolicy(Google_Service_Container_MaintenancePolicy $maintenancePolicy)
-	{
-		$this->maintenancePolicy = $maintenancePolicy;
-	}
-	/**
-	 * @return Google_Service_Container_MaintenancePolicy
-	 */
-	public function getMaintenancePolicy()
-	{
-		return $this->maintenancePolicy;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setZone($zone)
-	{
-		$this->zone = $zone;
-	}
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  public function setClusterId($clusterId)
+  {
+    $this->clusterId = $clusterId;
+  }
+  public function getClusterId()
+  {
+    return $this->clusterId;
+  }
+  /**
+   * @param Google_Service_Container_MaintenancePolicy
+   */
+  public function setMaintenancePolicy(Google_Service_Container_MaintenancePolicy $maintenancePolicy)
+  {
+    $this->maintenancePolicy = $maintenancePolicy;
+  }
+  /**
+   * @return Google_Service_Container_MaintenancePolicy
+   */
+  public function getMaintenancePolicy()
+  {
+    return $this->maintenancePolicy;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

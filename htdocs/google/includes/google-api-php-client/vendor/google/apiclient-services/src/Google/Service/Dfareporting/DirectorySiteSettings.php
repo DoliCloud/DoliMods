@@ -17,48 +17,48 @@
 
 class Google_Service_Dfareporting_DirectorySiteSettings extends Google_Model
 {
-	public $activeViewOptOut;
-	protected $dfpSettingsType = 'Google_Service_Dfareporting_DfpSettings';
-	protected $dfpSettingsDataType = '';
-	public $instreamVideoPlacementAccepted;
-	public $interstitialPlacementAccepted;
+  public $activeViewOptOut;
+  protected $dfpSettingsType = 'Google_Service_Dfareporting_DfpSettings';
+  protected $dfpSettingsDataType = '';
+  public $instreamVideoPlacementAccepted;
+  public $interstitialPlacementAccepted;
 
-	public function setActiveViewOptOut($activeViewOptOut)
-	{
-		$this->activeViewOptOut = $activeViewOptOut;
-	}
-	public function getActiveViewOptOut()
-	{
-		return $this->activeViewOptOut;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_DfpSettings
-	 */
-	public function setDfpSettings(Google_Service_Dfareporting_DfpSettings $dfpSettings)
-	{
-		$this->dfpSettings = $dfpSettings;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_DfpSettings
-	 */
-	public function getDfpSettings()
-	{
-		return $this->dfpSettings;
-	}
-	public function setInstreamVideoPlacementAccepted($instreamVideoPlacementAccepted)
-	{
-		$this->instreamVideoPlacementAccepted = $instreamVideoPlacementAccepted;
-	}
-	public function getInstreamVideoPlacementAccepted()
-	{
-		return $this->instreamVideoPlacementAccepted;
-	}
-	public function setInterstitialPlacementAccepted($interstitialPlacementAccepted)
-	{
-		$this->interstitialPlacementAccepted = $interstitialPlacementAccepted;
-	}
-	public function getInterstitialPlacementAccepted()
-	{
-		return $this->interstitialPlacementAccepted;
-	}
+  public function setActiveViewOptOut($activeViewOptOut)
+  {
+    $this->activeViewOptOut = $activeViewOptOut;
+  }
+  public function getActiveViewOptOut()
+  {
+    return $this->activeViewOptOut;
+  }
+  /**
+   * @param Google_Service_Dfareporting_DfpSettings
+   */
+  public function setDfpSettings(Google_Service_Dfareporting_DfpSettings $dfpSettings)
+  {
+    $this->dfpSettings = $dfpSettings;
+  }
+  /**
+   * @return Google_Service_Dfareporting_DfpSettings
+   */
+  public function getDfpSettings()
+  {
+    return $this->dfpSettings;
+  }
+  public function setInstreamVideoPlacementAccepted($instreamVideoPlacementAccepted)
+  {
+    $this->instreamVideoPlacementAccepted = $instreamVideoPlacementAccepted;
+  }
+  public function getInstreamVideoPlacementAccepted()
+  {
+    return $this->instreamVideoPlacementAccepted;
+  }
+  public function setInterstitialPlacementAccepted($interstitialPlacementAccepted)
+  {
+    $this->interstitialPlacementAccepted = $interstitialPlacementAccepted;
+  }
+  public function getInterstitialPlacementAccepted()
+  {
+    return $this->interstitialPlacementAccepted;
+  }
 }

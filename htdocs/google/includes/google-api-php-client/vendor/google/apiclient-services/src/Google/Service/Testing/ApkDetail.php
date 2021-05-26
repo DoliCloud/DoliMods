@@ -17,21 +17,21 @@
 
 class Google_Service_Testing_ApkDetail extends Google_Model
 {
-	protected $apkManifestType = 'Google_Service_Testing_ApkManifest';
-	protected $apkManifestDataType = '';
+  protected $apkManifestType = 'Google_Service_Testing_ApkManifest';
+  protected $apkManifestDataType = '';
 
-	/**
-	 * @param Google_Service_Testing_ApkManifest
-	 */
-	public function setApkManifest(Google_Service_Testing_ApkManifest $apkManifest)
-	{
-		$this->apkManifest = $apkManifest;
-	}
-	/**
-	 * @return Google_Service_Testing_ApkManifest
-	 */
-	public function getApkManifest()
-	{
-		return $this->apkManifest;
-	}
+  /**
+   * @param Google_Service_Testing_ApkManifest
+   */
+  public function setApkManifest(Google_Service_Testing_ApkManifest $apkManifest)
+  {
+    $this->apkManifest = $apkManifest;
+  }
+  /**
+   * @return Google_Service_Testing_ApkManifest
+   */
+  public function getApkManifest()
+  {
+    return $this->apkManifest;
+  }
 }

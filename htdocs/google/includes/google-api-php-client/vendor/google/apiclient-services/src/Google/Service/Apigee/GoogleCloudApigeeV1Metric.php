@@ -17,24 +17,24 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Metric extends Google_Collection
 {
-	protected $collection_key = 'values';
-	public $name;
-	public $values;
+  protected $collection_key = 'values';
+  public $name;
+  public $values;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

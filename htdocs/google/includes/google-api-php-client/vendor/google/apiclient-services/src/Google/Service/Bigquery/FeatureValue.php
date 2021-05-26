@@ -17,39 +17,39 @@
 
 class Google_Service_Bigquery_FeatureValue extends Google_Model
 {
-	protected $categoricalValueType = 'Google_Service_Bigquery_CategoricalValue';
-	protected $categoricalValueDataType = '';
-	public $featureColumn;
-	public $numericalValue;
+  protected $categoricalValueType = 'Google_Service_Bigquery_CategoricalValue';
+  protected $categoricalValueDataType = '';
+  public $featureColumn;
+  public $numericalValue;
 
-	/**
-	 * @param Google_Service_Bigquery_CategoricalValue
-	 */
-	public function setCategoricalValue(Google_Service_Bigquery_CategoricalValue $categoricalValue)
-	{
-		$this->categoricalValue = $categoricalValue;
-	}
-	/**
-	 * @return Google_Service_Bigquery_CategoricalValue
-	 */
-	public function getCategoricalValue()
-	{
-		return $this->categoricalValue;
-	}
-	public function setFeatureColumn($featureColumn)
-	{
-		$this->featureColumn = $featureColumn;
-	}
-	public function getFeatureColumn()
-	{
-		return $this->featureColumn;
-	}
-	public function setNumericalValue($numericalValue)
-	{
-		$this->numericalValue = $numericalValue;
-	}
-	public function getNumericalValue()
-	{
-		return $this->numericalValue;
-	}
+  /**
+   * @param Google_Service_Bigquery_CategoricalValue
+   */
+  public function setCategoricalValue(Google_Service_Bigquery_CategoricalValue $categoricalValue)
+  {
+    $this->categoricalValue = $categoricalValue;
+  }
+  /**
+   * @return Google_Service_Bigquery_CategoricalValue
+   */
+  public function getCategoricalValue()
+  {
+    return $this->categoricalValue;
+  }
+  public function setFeatureColumn($featureColumn)
+  {
+    $this->featureColumn = $featureColumn;
+  }
+  public function getFeatureColumn()
+  {
+    return $this->featureColumn;
+  }
+  public function setNumericalValue($numericalValue)
+  {
+    $this->numericalValue = $numericalValue;
+  }
+  public function getNumericalValue()
+  {
+    return $this->numericalValue;
+  }
 }

@@ -17,59 +17,59 @@
 
 class Google_Service_TagManager_Account extends Google_Model
 {
-	public $accountId;
-	public $fingerprint;
-	public $name;
-	public $path;
-	public $shareData;
-	public $tagManagerUrl;
+  public $accountId;
+  public $fingerprint;
+  public $name;
+  public $path;
+  public $shareData;
+  public $tagManagerUrl;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
-	public function setShareData($shareData)
-	{
-		$this->shareData = $shareData;
-	}
-	public function getShareData()
-	{
-		return $this->shareData;
-	}
-	public function setTagManagerUrl($tagManagerUrl)
-	{
-		$this->tagManagerUrl = $tagManagerUrl;
-	}
-	public function getTagManagerUrl()
-	{
-		return $this->tagManagerUrl;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
+  public function setShareData($shareData)
+  {
+    $this->shareData = $shareData;
+  }
+  public function getShareData()
+  {
+    return $this->shareData;
+  }
+  public function setTagManagerUrl($tagManagerUrl)
+  {
+    $this->tagManagerUrl = $tagManagerUrl;
+  }
+  public function getTagManagerUrl()
+  {
+    return $this->tagManagerUrl;
+  }
 }

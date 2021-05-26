@@ -17,24 +17,24 @@
 
 class Google_Service_Dataflow_DataDiskAssignment extends Google_Collection
 {
-	protected $collection_key = 'dataDisks';
-	public $dataDisks;
-	public $vmInstance;
+  protected $collection_key = 'dataDisks';
+  public $dataDisks;
+  public $vmInstance;
 
-	public function setDataDisks($dataDisks)
-	{
-		$this->dataDisks = $dataDisks;
-	}
-	public function getDataDisks()
-	{
-		return $this->dataDisks;
-	}
-	public function setVmInstance($vmInstance)
-	{
-		$this->vmInstance = $vmInstance;
-	}
-	public function getVmInstance()
-	{
-		return $this->vmInstance;
-	}
+  public function setDataDisks($dataDisks)
+  {
+    $this->dataDisks = $dataDisks;
+  }
+  public function getDataDisks()
+  {
+    return $this->dataDisks;
+  }
+  public function setVmInstance($vmInstance)
+  {
+    $this->vmInstance = $vmInstance;
+  }
+  public function getVmInstance()
+  {
+    return $this->vmInstance;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p2beta1Property extends Google_Model
 {
-	public $name;
-	public $uint64Value;
-	public $value;
+  public $name;
+  public $uint64Value;
+  public $value;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUint64Value($uint64Value)
-	{
-		$this->uint64Value = $uint64Value;
-	}
-	public function getUint64Value()
-	{
-		return $this->uint64Value;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUint64Value($uint64Value)
+  {
+    $this->uint64Value = $uint64Value;
+  }
+  public function getUint64Value()
+  {
+    return $this->uint64Value;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

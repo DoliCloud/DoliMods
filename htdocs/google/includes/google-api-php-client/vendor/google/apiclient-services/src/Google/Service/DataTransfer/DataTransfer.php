@@ -17,85 +17,85 @@
 
 class Google_Service_DataTransfer_DataTransfer extends Google_Collection
 {
-	protected $collection_key = 'applicationDataTransfers';
-	protected $applicationDataTransfersType = 'Google_Service_DataTransfer_ApplicationDataTransfer';
-	protected $applicationDataTransfersDataType = 'array';
-	public $etag;
-	public $id;
-	public $kind;
-	public $newOwnerUserId;
-	public $oldOwnerUserId;
-	public $overallTransferStatusCode;
-	public $requestTime;
+  protected $collection_key = 'applicationDataTransfers';
+  protected $applicationDataTransfersType = 'Google_Service_DataTransfer_ApplicationDataTransfer';
+  protected $applicationDataTransfersDataType = 'array';
+  public $etag;
+  public $id;
+  public $kind;
+  public $newOwnerUserId;
+  public $oldOwnerUserId;
+  public $overallTransferStatusCode;
+  public $requestTime;
 
-	/**
-	 * @param Google_Service_DataTransfer_ApplicationDataTransfer
-	 */
-	public function setApplicationDataTransfers($applicationDataTransfers)
-	{
-		$this->applicationDataTransfers = $applicationDataTransfers;
-	}
-	/**
-	 * @return Google_Service_DataTransfer_ApplicationDataTransfer
-	 */
-	public function getApplicationDataTransfers()
-	{
-		return $this->applicationDataTransfers;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNewOwnerUserId($newOwnerUserId)
-	{
-		$this->newOwnerUserId = $newOwnerUserId;
-	}
-	public function getNewOwnerUserId()
-	{
-		return $this->newOwnerUserId;
-	}
-	public function setOldOwnerUserId($oldOwnerUserId)
-	{
-		$this->oldOwnerUserId = $oldOwnerUserId;
-	}
-	public function getOldOwnerUserId()
-	{
-		return $this->oldOwnerUserId;
-	}
-	public function setOverallTransferStatusCode($overallTransferStatusCode)
-	{
-		$this->overallTransferStatusCode = $overallTransferStatusCode;
-	}
-	public function getOverallTransferStatusCode()
-	{
-		return $this->overallTransferStatusCode;
-	}
-	public function setRequestTime($requestTime)
-	{
-		$this->requestTime = $requestTime;
-	}
-	public function getRequestTime()
-	{
-		return $this->requestTime;
-	}
+  /**
+   * @param Google_Service_DataTransfer_ApplicationDataTransfer[]
+   */
+  public function setApplicationDataTransfers($applicationDataTransfers)
+  {
+    $this->applicationDataTransfers = $applicationDataTransfers;
+  }
+  /**
+   * @return Google_Service_DataTransfer_ApplicationDataTransfer[]
+   */
+  public function getApplicationDataTransfers()
+  {
+    return $this->applicationDataTransfers;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNewOwnerUserId($newOwnerUserId)
+  {
+    $this->newOwnerUserId = $newOwnerUserId;
+  }
+  public function getNewOwnerUserId()
+  {
+    return $this->newOwnerUserId;
+  }
+  public function setOldOwnerUserId($oldOwnerUserId)
+  {
+    $this->oldOwnerUserId = $oldOwnerUserId;
+  }
+  public function getOldOwnerUserId()
+  {
+    return $this->oldOwnerUserId;
+  }
+  public function setOverallTransferStatusCode($overallTransferStatusCode)
+  {
+    $this->overallTransferStatusCode = $overallTransferStatusCode;
+  }
+  public function getOverallTransferStatusCode()
+  {
+    return $this->overallTransferStatusCode;
+  }
+  public function setRequestTime($requestTime)
+  {
+    $this->requestTime = $requestTime;
+  }
+  public function getRequestTime()
+  {
+    return $this->requestTime;
+  }
 }

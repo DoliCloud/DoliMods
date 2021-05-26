@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_SourceSplitOptions extends Google_Model
 {
-	public $desiredBundleSizeBytes;
-	public $desiredShardSizeBytes;
+  public $desiredBundleSizeBytes;
+  public $desiredShardSizeBytes;
 
-	public function setDesiredBundleSizeBytes($desiredBundleSizeBytes)
-	{
-		$this->desiredBundleSizeBytes = $desiredBundleSizeBytes;
-	}
-	public function getDesiredBundleSizeBytes()
-	{
-		return $this->desiredBundleSizeBytes;
-	}
-	public function setDesiredShardSizeBytes($desiredShardSizeBytes)
-	{
-		$this->desiredShardSizeBytes = $desiredShardSizeBytes;
-	}
-	public function getDesiredShardSizeBytes()
-	{
-		return $this->desiredShardSizeBytes;
-	}
+  public function setDesiredBundleSizeBytes($desiredBundleSizeBytes)
+  {
+    $this->desiredBundleSizeBytes = $desiredBundleSizeBytes;
+  }
+  public function getDesiredBundleSizeBytes()
+  {
+    return $this->desiredBundleSizeBytes;
+  }
+  public function setDesiredShardSizeBytes($desiredShardSizeBytes)
+  {
+    $this->desiredShardSizeBytes = $desiredShardSizeBytes;
+  }
+  public function getDesiredShardSizeBytes()
+  {
+    return $this->desiredShardSizeBytes;
+  }
 }

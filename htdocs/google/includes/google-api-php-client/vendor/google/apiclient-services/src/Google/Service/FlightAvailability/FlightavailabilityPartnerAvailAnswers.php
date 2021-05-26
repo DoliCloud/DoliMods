@@ -17,31 +17,31 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswers extends Google_Collection
 {
-	protected $collection_key = 'answers';
-	protected $answersType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersAnswer';
-	protected $answersDataType = 'array';
-	public $narrative;
+  protected $collection_key = 'answers';
+  protected $answersType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersAnswer';
+  protected $answersDataType = 'array';
+  public $narrative;
 
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersAnswer
-	 */
-	public function setAnswers($answers)
-	{
-		$this->answers = $answers;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersAnswer
-	 */
-	public function getAnswers()
-	{
-		return $this->answers;
-	}
-	public function setNarrative($narrative)
-	{
-		$this->narrative = $narrative;
-	}
-	public function getNarrative()
-	{
-		return $this->narrative;
-	}
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersAnswer
+   */
+  public function setAnswers($answers)
+  {
+    $this->answers = $answers;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersAnswer
+   */
+  public function getAnswers()
+  {
+    return $this->answers;
+  }
+  public function setNarrative($narrative)
+  {
+    $this->narrative = $narrative;
+  }
+  public function getNarrative()
+  {
+    return $this->narrative;
+  }
 }

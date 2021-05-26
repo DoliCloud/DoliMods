@@ -17,40 +17,40 @@
 
 class Google_Service_Reseller_Subscriptions extends Google_Collection
 {
-	protected $collection_key = 'subscriptions';
-	public $kind;
-	public $nextPageToken;
-	protected $subscriptionsType = 'Google_Service_Reseller_Subscription';
-	protected $subscriptionsDataType = 'array';
+  protected $collection_key = 'subscriptions';
+  public $kind;
+  public $nextPageToken;
+  protected $subscriptionsType = 'Google_Service_Reseller_Subscription';
+  protected $subscriptionsDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Reseller_Subscription
-	 */
-	public function setSubscriptions($subscriptions)
-	{
-		$this->subscriptions = $subscriptions;
-	}
-	/**
-	 * @return Google_Service_Reseller_Subscription
-	 */
-	public function getSubscriptions()
-	{
-		return $this->subscriptions;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Reseller_Subscription[]
+   */
+  public function setSubscriptions($subscriptions)
+  {
+    $this->subscriptions = $subscriptions;
+  }
+  /**
+   * @return Google_Service_Reseller_Subscription[]
+   */
+  public function getSubscriptions()
+  {
+    return $this->subscriptions;
+  }
 }

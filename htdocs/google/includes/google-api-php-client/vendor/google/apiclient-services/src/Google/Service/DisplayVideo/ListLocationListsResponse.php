@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListLocationListsResponse extends Google_Collection
 {
-	protected $collection_key = 'locationLists';
-	protected $locationListsType = 'Google_Service_DisplayVideo_LocationList';
-	protected $locationListsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'locationLists';
+  protected $locationListsType = 'Google_Service_DisplayVideo_LocationList';
+  protected $locationListsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DisplayVideo_LocationList
-	 */
-	public function setLocationLists($locationLists)
-	{
-		$this->locationLists = $locationLists;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_LocationList
-	 */
-	public function getLocationLists()
-	{
-		return $this->locationLists;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_LocationList[]
+   */
+  public function setLocationLists($locationLists)
+  {
+    $this->locationLists = $locationLists;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_LocationList[]
+   */
+  public function getLocationLists()
+  {
+    return $this->locationLists;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

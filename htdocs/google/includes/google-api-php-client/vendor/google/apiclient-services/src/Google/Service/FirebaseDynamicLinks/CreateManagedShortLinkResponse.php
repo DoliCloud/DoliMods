@@ -17,47 +17,47 @@
 
 class Google_Service_FirebaseDynamicLinks_CreateManagedShortLinkResponse extends Google_Collection
 {
-	protected $collection_key = 'warning';
-	protected $managedShortLinkType = 'Google_Service_FirebaseDynamicLinks_ManagedShortLink';
-	protected $managedShortLinkDataType = '';
-	public $previewLink;
-	protected $warningType = 'Google_Service_FirebaseDynamicLinks_DynamicLinkWarning';
-	protected $warningDataType = 'array';
+  protected $collection_key = 'warning';
+  protected $managedShortLinkType = 'Google_Service_FirebaseDynamicLinks_ManagedShortLink';
+  protected $managedShortLinkDataType = '';
+  public $previewLink;
+  protected $warningType = 'Google_Service_FirebaseDynamicLinks_DynamicLinkWarning';
+  protected $warningDataType = 'array';
 
-	/**
-	 * @param Google_Service_FirebaseDynamicLinks_ManagedShortLink
-	 */
-	public function setManagedShortLink(Google_Service_FirebaseDynamicLinks_ManagedShortLink $managedShortLink)
-	{
-		$this->managedShortLink = $managedShortLink;
-	}
-	/**
-	 * @return Google_Service_FirebaseDynamicLinks_ManagedShortLink
-	 */
-	public function getManagedShortLink()
-	{
-		return $this->managedShortLink;
-	}
-	public function setPreviewLink($previewLink)
-	{
-		$this->previewLink = $previewLink;
-	}
-	public function getPreviewLink()
-	{
-		return $this->previewLink;
-	}
-	/**
-	 * @param Google_Service_FirebaseDynamicLinks_DynamicLinkWarning
-	 */
-	public function setWarning($warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_FirebaseDynamicLinks_DynamicLinkWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_FirebaseDynamicLinks_ManagedShortLink
+   */
+  public function setManagedShortLink(Google_Service_FirebaseDynamicLinks_ManagedShortLink $managedShortLink)
+  {
+    $this->managedShortLink = $managedShortLink;
+  }
+  /**
+   * @return Google_Service_FirebaseDynamicLinks_ManagedShortLink
+   */
+  public function getManagedShortLink()
+  {
+    return $this->managedShortLink;
+  }
+  public function setPreviewLink($previewLink)
+  {
+    $this->previewLink = $previewLink;
+  }
+  public function getPreviewLink()
+  {
+    return $this->previewLink;
+  }
+  /**
+   * @param Google_Service_FirebaseDynamicLinks_DynamicLinkWarning[]
+   */
+  public function setWarning($warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_FirebaseDynamicLinks_DynamicLinkWarning[]
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

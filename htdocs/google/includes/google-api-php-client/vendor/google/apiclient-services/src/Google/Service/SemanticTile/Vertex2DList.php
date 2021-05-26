@@ -17,24 +17,24 @@
 
 class Google_Service_SemanticTile_Vertex2DList extends Google_Collection
 {
-	protected $collection_key = 'yOffsets';
-	public $xOffsets;
-	public $yOffsets;
+  protected $collection_key = 'yOffsets';
+  public $xOffsets;
+  public $yOffsets;
 
-	public function setXOffsets($xOffsets)
-	{
-		$this->xOffsets = $xOffsets;
-	}
-	public function getXOffsets()
-	{
-		return $this->xOffsets;
-	}
-	public function setYOffsets($yOffsets)
-	{
-		$this->yOffsets = $yOffsets;
-	}
-	public function getYOffsets()
-	{
-		return $this->yOffsets;
-	}
+  public function setXOffsets($xOffsets)
+  {
+    $this->xOffsets = $xOffsets;
+  }
+  public function getXOffsets()
+  {
+    return $this->xOffsets;
+  }
+  public function setYOffsets($yOffsets)
+  {
+    $this->yOffsets = $yOffsets;
+  }
+  public function getYOffsets()
+  {
+    return $this->yOffsets;
+  }
 }

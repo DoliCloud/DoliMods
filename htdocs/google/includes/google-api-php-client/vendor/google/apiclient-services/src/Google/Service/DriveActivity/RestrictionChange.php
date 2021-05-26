@@ -17,23 +17,23 @@
 
 class Google_Service_DriveActivity_RestrictionChange extends Google_Model
 {
-	public $feature;
-	public $newRestriction;
+  public $feature;
+  public $newRestriction;
 
-	public function setFeature($feature)
-	{
-		$this->feature = $feature;
-	}
-	public function getFeature()
-	{
-		return $this->feature;
-	}
-	public function setNewRestriction($newRestriction)
-	{
-		$this->newRestriction = $newRestriction;
-	}
-	public function getNewRestriction()
-	{
-		return $this->newRestriction;
-	}
+  public function setFeature($feature)
+  {
+    $this->feature = $feature;
+  }
+  public function getFeature()
+  {
+    return $this->feature;
+  }
+  public function setNewRestriction($newRestriction)
+  {
+    $this->newRestriction = $newRestriction;
+  }
+  public function getNewRestriction()
+  {
+    return $this->newRestriction;
+  }
 }

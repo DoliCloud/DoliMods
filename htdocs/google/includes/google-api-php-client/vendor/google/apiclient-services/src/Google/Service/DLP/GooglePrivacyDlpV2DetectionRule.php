@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DetectionRule extends Google_Model
 {
-	protected $hotwordRuleType = 'Google_Service_DLP_GooglePrivacyDlpV2HotwordRule';
-	protected $hotwordRuleDataType = '';
+  protected $hotwordRuleType = 'Google_Service_DLP_GooglePrivacyDlpV2HotwordRule';
+  protected $hotwordRuleDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2HotwordRule
-	 */
-	public function setHotwordRule(Google_Service_DLP_GooglePrivacyDlpV2HotwordRule $hotwordRule)
-	{
-		$this->hotwordRule = $hotwordRule;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2HotwordRule
-	 */
-	public function getHotwordRule()
-	{
-		return $this->hotwordRule;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2HotwordRule
+   */
+  public function setHotwordRule(Google_Service_DLP_GooglePrivacyDlpV2HotwordRule $hotwordRule)
+  {
+    $this->hotwordRule = $hotwordRule;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2HotwordRule
+   */
+  public function getHotwordRule()
+  {
+    return $this->hotwordRule;
+  }
 }

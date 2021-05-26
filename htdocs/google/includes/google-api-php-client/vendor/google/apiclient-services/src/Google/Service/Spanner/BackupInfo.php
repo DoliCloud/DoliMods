@@ -17,32 +17,32 @@
 
 class Google_Service_Spanner_BackupInfo extends Google_Model
 {
-	public $backup;
-	public $createTime;
-	public $sourceDatabase;
+  public $backup;
+  public $createTime;
+  public $sourceDatabase;
 
-	public function setBackup($backup)
-	{
-		$this->backup = $backup;
-	}
-	public function getBackup()
-	{
-		return $this->backup;
-	}
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setSourceDatabase($sourceDatabase)
-	{
-		$this->sourceDatabase = $sourceDatabase;
-	}
-	public function getSourceDatabase()
-	{
-		return $this->sourceDatabase;
-	}
+  public function setBackup($backup)
+  {
+    $this->backup = $backup;
+  }
+  public function getBackup()
+  {
+    return $this->backup;
+  }
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setSourceDatabase($sourceDatabase)
+  {
+    $this->sourceDatabase = $sourceDatabase;
+  }
+  public function getSourceDatabase()
+  {
+    return $this->sourceDatabase;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_AccountUserProfilesListResponse extends Google_Collection
 {
-	protected $collection_key = 'accountUserProfiles';
-	protected $accountUserProfilesType = 'Google_Service_Dfareporting_AccountUserProfile';
-	protected $accountUserProfilesDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'accountUserProfiles';
+  protected $accountUserProfilesType = 'Google_Service_Dfareporting_AccountUserProfile';
+  protected $accountUserProfilesDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dfareporting_AccountUserProfile
-	 */
-	public function setAccountUserProfiles($accountUserProfiles)
-	{
-		$this->accountUserProfiles = $accountUserProfiles;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_AccountUserProfile
-	 */
-	public function getAccountUserProfiles()
-	{
-		return $this->accountUserProfiles;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dfareporting_AccountUserProfile[]
+   */
+  public function setAccountUserProfiles($accountUserProfiles)
+  {
+    $this->accountUserProfiles = $accountUserProfiles;
+  }
+  /**
+   * @return Google_Service_Dfareporting_AccountUserProfile[]
+   */
+  public function getAccountUserProfiles()
+  {
+    return $this->accountUserProfiles;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

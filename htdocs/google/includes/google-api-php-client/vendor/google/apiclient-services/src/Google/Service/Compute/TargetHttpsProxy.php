@@ -17,105 +17,132 @@
 
 class Google_Service_Compute_TargetHttpsProxy extends Google_Collection
 {
-	protected $collection_key = 'sslCertificates';
-	public $creationTimestamp;
-	public $description;
-	public $id;
-	public $kind;
-	public $name;
-	public $quicOverride;
-	public $region;
-	public $selfLink;
-	public $sslCertificates;
-	public $sslPolicy;
-	public $urlMap;
+  protected $collection_key = 'sslCertificates';
+  public $authorizationPolicy;
+  public $creationTimestamp;
+  public $description;
+  public $id;
+  public $kind;
+  public $name;
+  public $proxyBind;
+  public $quicOverride;
+  public $region;
+  public $selfLink;
+  public $serverTlsPolicy;
+  public $sslCertificates;
+  public $sslPolicy;
+  public $urlMap;
 
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setQuicOverride($quicOverride)
-	{
-		$this->quicOverride = $quicOverride;
-	}
-	public function getQuicOverride()
-	{
-		return $this->quicOverride;
-	}
-	public function setRegion($region)
-	{
-		$this->region = $region;
-	}
-	public function getRegion()
-	{
-		return $this->region;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setSslCertificates($sslCertificates)
-	{
-		$this->sslCertificates = $sslCertificates;
-	}
-	public function getSslCertificates()
-	{
-		return $this->sslCertificates;
-	}
-	public function setSslPolicy($sslPolicy)
-	{
-		$this->sslPolicy = $sslPolicy;
-	}
-	public function getSslPolicy()
-	{
-		return $this->sslPolicy;
-	}
-	public function setUrlMap($urlMap)
-	{
-		$this->urlMap = $urlMap;
-	}
-	public function getUrlMap()
-	{
-		return $this->urlMap;
-	}
+  public function setAuthorizationPolicy($authorizationPolicy)
+  {
+    $this->authorizationPolicy = $authorizationPolicy;
+  }
+  public function getAuthorizationPolicy()
+  {
+    return $this->authorizationPolicy;
+  }
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setProxyBind($proxyBind)
+  {
+    $this->proxyBind = $proxyBind;
+  }
+  public function getProxyBind()
+  {
+    return $this->proxyBind;
+  }
+  public function setQuicOverride($quicOverride)
+  {
+    $this->quicOverride = $quicOverride;
+  }
+  public function getQuicOverride()
+  {
+    return $this->quicOverride;
+  }
+  public function setRegion($region)
+  {
+    $this->region = $region;
+  }
+  public function getRegion()
+  {
+    return $this->region;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setServerTlsPolicy($serverTlsPolicy)
+  {
+    $this->serverTlsPolicy = $serverTlsPolicy;
+  }
+  public function getServerTlsPolicy()
+  {
+    return $this->serverTlsPolicy;
+  }
+  public function setSslCertificates($sslCertificates)
+  {
+    $this->sslCertificates = $sslCertificates;
+  }
+  public function getSslCertificates()
+  {
+    return $this->sslCertificates;
+  }
+  public function setSslPolicy($sslPolicy)
+  {
+    $this->sslPolicy = $sslPolicy;
+  }
+  public function getSslPolicy()
+  {
+    return $this->sslPolicy;
+  }
+  public function setUrlMap($urlMap)
+  {
+    $this->urlMap = $urlMap;
+  }
+  public function getUrlMap()
+  {
+    return $this->urlMap;
+  }
 }

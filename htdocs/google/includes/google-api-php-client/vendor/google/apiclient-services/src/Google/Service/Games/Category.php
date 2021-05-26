@@ -17,32 +17,32 @@
 
 class Google_Service_Games_Category extends Google_Model
 {
-	public $category;
-	public $experiencePoints;
-	public $kind;
+  public $category;
+  public $experiencePoints;
+  public $kind;
 
-	public function setCategory($category)
-	{
-		$this->category = $category;
-	}
-	public function getCategory()
-	{
-		return $this->category;
-	}
-	public function setExperiencePoints($experiencePoints)
-	{
-		$this->experiencePoints = $experiencePoints;
-	}
-	public function getExperiencePoints()
-	{
-		return $this->experiencePoints;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setCategory($category)
+  {
+    $this->category = $category;
+  }
+  public function getCategory()
+  {
+    return $this->category;
+  }
+  public function setExperiencePoints($experiencePoints)
+  {
+    $this->experiencePoints = $experiencePoints;
+  }
+  public function getExperiencePoints()
+  {
+    return $this->experiencePoints;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

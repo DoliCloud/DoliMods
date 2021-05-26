@@ -17,32 +17,32 @@
 
 class Google_Service_Cih_HelpcenterData extends Google_Model
 {
-	public $internalHelpCenterName;
-	public $isApiClient;
-	public $referer;
+  public $internalHelpCenterName;
+  public $isApiClient;
+  public $referer;
 
-	public function setInternalHelpCenterName($internalHelpCenterName)
-	{
-		$this->internalHelpCenterName = $internalHelpCenterName;
-	}
-	public function getInternalHelpCenterName()
-	{
-		return $this->internalHelpCenterName;
-	}
-	public function setIsApiClient($isApiClient)
-	{
-		$this->isApiClient = $isApiClient;
-	}
-	public function getIsApiClient()
-	{
-		return $this->isApiClient;
-	}
-	public function setReferer($referer)
-	{
-		$this->referer = $referer;
-	}
-	public function getReferer()
-	{
-		return $this->referer;
-	}
+  public function setInternalHelpCenterName($internalHelpCenterName)
+  {
+    $this->internalHelpCenterName = $internalHelpCenterName;
+  }
+  public function getInternalHelpCenterName()
+  {
+    return $this->internalHelpCenterName;
+  }
+  public function setIsApiClient($isApiClient)
+  {
+    $this->isApiClient = $isApiClient;
+  }
+  public function getIsApiClient()
+  {
+    return $this->isApiClient;
+  }
+  public function setReferer($referer)
+  {
+    $this->referer = $referer;
+  }
+  public function getReferer()
+  {
+    return $this->referer;
+  }
 }

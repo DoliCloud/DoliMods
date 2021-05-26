@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidEnterprise_AppState extends Google_Collection
 {
-	protected $collection_key = 'keyedAppState';
-	protected $keyedAppStateType = 'Google_Service_AndroidEnterprise_KeyedAppState';
-	protected $keyedAppStateDataType = 'array';
-	public $packageName;
+  protected $collection_key = 'keyedAppState';
+  protected $keyedAppStateType = 'Google_Service_AndroidEnterprise_KeyedAppState';
+  protected $keyedAppStateDataType = 'array';
+  public $packageName;
 
-	/**
-	 * @param Google_Service_AndroidEnterprise_KeyedAppState
-	 */
-	public function setKeyedAppState($keyedAppState)
-	{
-		$this->keyedAppState = $keyedAppState;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_KeyedAppState
-	 */
-	public function getKeyedAppState()
-	{
-		return $this->keyedAppState;
-	}
-	public function setPackageName($packageName)
-	{
-		$this->packageName = $packageName;
-	}
-	public function getPackageName()
-	{
-		return $this->packageName;
-	}
+  /**
+   * @param Google_Service_AndroidEnterprise_KeyedAppState[]
+   */
+  public function setKeyedAppState($keyedAppState)
+  {
+    $this->keyedAppState = $keyedAppState;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_KeyedAppState[]
+   */
+  public function getKeyedAppState()
+  {
+    return $this->keyedAppState;
+  }
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
 }

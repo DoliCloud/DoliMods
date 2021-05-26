@@ -17,14 +17,14 @@
 
 class Google_Service_SQLAdmin_SslCertsInsertRequest extends Google_Model
 {
-	public $commonName;
+  public $commonName;
 
-	public function setCommonName($commonName)
-	{
-		$this->commonName = $commonName;
-	}
-	public function getCommonName()
-	{
-		return $this->commonName;
-	}
+  public function setCommonName($commonName)
+  {
+    $this->commonName = $commonName;
+  }
+  public function getCommonName()
+  {
+    return $this->commonName;
+  }
 }

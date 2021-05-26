@@ -17,32 +17,32 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1DetectedAttribute extends Google_Model
 {
-	public $confidence;
-	public $name;
-	public $value;
+  public $confidence;
+  public $name;
+  public $value;
 
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

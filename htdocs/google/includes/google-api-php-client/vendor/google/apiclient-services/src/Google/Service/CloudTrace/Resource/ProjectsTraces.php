@@ -25,20 +25,20 @@
  */
 class Google_Service_CloudTrace_Resource_ProjectsTraces extends Google_Service_Resource
 {
-	/**
-	 * Sends new spans to new or existing traces. You cannot update existing spans.
-	 * (traces.batchWrite)
-	 *
-	 * @param string $name Required. The name of the project where the spans belong.
-	 *                     The format is `projects/[PROJECT_ID]`.
-	 * @param Google_Service_CloudTrace_BatchWriteSpansRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_CloudTrace_CloudtraceEmpty
-	 */
-	public function batchWrite($name, Google_Service_CloudTrace_BatchWriteSpansRequest $postBody, $optParams = array())
-	{
-		$params = array('name' => $name, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('batchWrite', array($params), "Google_Service_CloudTrace_CloudtraceEmpty");
-	}
+  /**
+   * Sends new spans to new or existing traces. You cannot update existing spans.
+   * (traces.batchWrite)
+   *
+   * @param string $name Required. The name of the project where the spans belong.
+   * The format is `projects/[PROJECT_ID]`.
+   * @param Google_Service_CloudTrace_BatchWriteSpansRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_CloudTrace_CloudtraceEmpty
+   */
+  public function batchWrite($name, Google_Service_CloudTrace_BatchWriteSpansRequest $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchWrite', array($params), "Google_Service_CloudTrace_CloudtraceEmpty");
+  }
 }

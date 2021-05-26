@@ -17,14 +17,14 @@
 
 class Google_Service_CloudRedis_FailoverInstanceRequest extends Google_Model
 {
-	public $dataProtectionMode;
+  public $dataProtectionMode;
 
-	public function setDataProtectionMode($dataProtectionMode)
-	{
-		$this->dataProtectionMode = $dataProtectionMode;
-	}
-	public function getDataProtectionMode()
-	{
-		return $this->dataProtectionMode;
-	}
+  public function setDataProtectionMode($dataProtectionMode)
+  {
+    $this->dataProtectionMode = $dataProtectionMode;
+  }
+  public function getDataProtectionMode()
+  {
+    return $this->dataProtectionMode;
+  }
 }

@@ -25,20 +25,20 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsApisDeployments extends Google_Service_Resource
 {
-	/**
-	 * Lists all deployments of an API proxy.
-	 * (deployments.listOrganizationsApisDeployments)
-	 *
-	 * @param string $parent Required. Name of the API proxy for which to return
-	 *                       deployment information in the following format:
-	 *                       `organizations/{org}/apis/{api}`
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
-	 */
-	public function listOrganizationsApisDeployments($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
-	}
+  /**
+   * Lists all deployments of an API proxy.
+   * (deployments.listOrganizationsApisDeployments)
+   *
+   * @param string $parent Required. Name of the API proxy for which to return
+   * deployment information in the following format:
+   * `organizations/{org}/apis/{api}`
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
+   */
+  public function listOrganizationsApisDeployments($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
+  }
 }

@@ -17,46 +17,46 @@
 
 class Google_Service_AndroidProvisioningPartner_UpdateMetadataArguments extends Google_Model
 {
-	public $deviceId;
-	protected $deviceIdentifierType = 'Google_Service_AndroidProvisioningPartner_DeviceIdentifier';
-	protected $deviceIdentifierDataType = '';
-	protected $deviceMetadataType = 'Google_Service_AndroidProvisioningPartner_DeviceMetadata';
-	protected $deviceMetadataDataType = '';
+  public $deviceId;
+  protected $deviceIdentifierType = 'Google_Service_AndroidProvisioningPartner_DeviceIdentifier';
+  protected $deviceIdentifierDataType = '';
+  protected $deviceMetadataType = 'Google_Service_AndroidProvisioningPartner_DeviceMetadata';
+  protected $deviceMetadataDataType = '';
 
-	public function setDeviceId($deviceId)
-	{
-		$this->deviceId = $deviceId;
-	}
-	public function getDeviceId()
-	{
-		return $this->deviceId;
-	}
-	/**
-	 * @param Google_Service_AndroidProvisioningPartner_DeviceIdentifier
-	 */
-	public function setDeviceIdentifier(Google_Service_AndroidProvisioningPartner_DeviceIdentifier $deviceIdentifier)
-	{
-		$this->deviceIdentifier = $deviceIdentifier;
-	}
-	/**
-	 * @return Google_Service_AndroidProvisioningPartner_DeviceIdentifier
-	 */
-	public function getDeviceIdentifier()
-	{
-		return $this->deviceIdentifier;
-	}
-	/**
-	 * @param Google_Service_AndroidProvisioningPartner_DeviceMetadata
-	 */
-	public function setDeviceMetadata(Google_Service_AndroidProvisioningPartner_DeviceMetadata $deviceMetadata)
-	{
-		$this->deviceMetadata = $deviceMetadata;
-	}
-	/**
-	 * @return Google_Service_AndroidProvisioningPartner_DeviceMetadata
-	 */
-	public function getDeviceMetadata()
-	{
-		return $this->deviceMetadata;
-	}
+  public function setDeviceId($deviceId)
+  {
+    $this->deviceId = $deviceId;
+  }
+  public function getDeviceId()
+  {
+    return $this->deviceId;
+  }
+  /**
+   * @param Google_Service_AndroidProvisioningPartner_DeviceIdentifier
+   */
+  public function setDeviceIdentifier(Google_Service_AndroidProvisioningPartner_DeviceIdentifier $deviceIdentifier)
+  {
+    $this->deviceIdentifier = $deviceIdentifier;
+  }
+  /**
+   * @return Google_Service_AndroidProvisioningPartner_DeviceIdentifier
+   */
+  public function getDeviceIdentifier()
+  {
+    return $this->deviceIdentifier;
+  }
+  /**
+   * @param Google_Service_AndroidProvisioningPartner_DeviceMetadata
+   */
+  public function setDeviceMetadata(Google_Service_AndroidProvisioningPartner_DeviceMetadata $deviceMetadata)
+  {
+    $this->deviceMetadata = $deviceMetadata;
+  }
+  /**
+   * @return Google_Service_AndroidProvisioningPartner_DeviceMetadata
+   */
+  public function getDeviceMetadata()
+  {
+    return $this->deviceMetadata;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_CloudDebugger_ListBreakpointsResponse extends Google_Collection
 {
-	protected $collection_key = 'breakpoints';
-	protected $breakpointsType = 'Google_Service_CloudDebugger_Breakpoint';
-	protected $breakpointsDataType = 'array';
-	public $nextWaitToken;
+  protected $collection_key = 'breakpoints';
+  protected $breakpointsType = 'Google_Service_CloudDebugger_Breakpoint';
+  protected $breakpointsDataType = 'array';
+  public $nextWaitToken;
 
-	/**
-	 * @param Google_Service_CloudDebugger_Breakpoint
-	 */
-	public function setBreakpoints($breakpoints)
-	{
-		$this->breakpoints = $breakpoints;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_Breakpoint
-	 */
-	public function getBreakpoints()
-	{
-		return $this->breakpoints;
-	}
-	public function setNextWaitToken($nextWaitToken)
-	{
-		$this->nextWaitToken = $nextWaitToken;
-	}
-	public function getNextWaitToken()
-	{
-		return $this->nextWaitToken;
-	}
+  /**
+   * @param Google_Service_CloudDebugger_Breakpoint[]
+   */
+  public function setBreakpoints($breakpoints)
+  {
+    $this->breakpoints = $breakpoints;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_Breakpoint[]
+   */
+  public function getBreakpoints()
+  {
+    return $this->breakpoints;
+  }
+  public function setNextWaitToken($nextWaitToken)
+  {
+    $this->nextWaitToken = $nextWaitToken;
+  }
+  public function getNextWaitToken()
+  {
+    return $this->nextWaitToken;
+  }
 }

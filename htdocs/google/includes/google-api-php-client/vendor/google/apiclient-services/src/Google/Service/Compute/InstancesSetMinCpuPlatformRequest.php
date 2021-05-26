@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_InstancesSetMinCpuPlatformRequest extends Google_Model
 {
-	public $minCpuPlatform;
+  public $minCpuPlatform;
 
-	public function setMinCpuPlatform($minCpuPlatform)
-	{
-		$this->minCpuPlatform = $minCpuPlatform;
-	}
-	public function getMinCpuPlatform()
-	{
-		return $this->minCpuPlatform;
-	}
+  public function setMinCpuPlatform($minCpuPlatform)
+  {
+    $this->minCpuPlatform = $minCpuPlatform;
+  }
+  public function getMinCpuPlatform()
+  {
+    return $this->minCpuPlatform;
+  }
 }

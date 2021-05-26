@@ -17,31 +17,31 @@
 
 class Google_Service_PhotosLibrary_ListAlbumsResponse extends Google_Collection
 {
-	protected $collection_key = 'albums';
-	protected $albumsType = 'Google_Service_PhotosLibrary_Album';
-	protected $albumsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'albums';
+  protected $albumsType = 'Google_Service_PhotosLibrary_Album';
+  protected $albumsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_PhotosLibrary_Album
-	 */
-	public function setAlbums($albums)
-	{
-		$this->albums = $albums;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_Album
-	 */
-	public function getAlbums()
-	{
-		return $this->albums;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_PhotosLibrary_Album
+   */
+  public function setAlbums($albums)
+  {
+    $this->albums = $albums;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_Album
+   */
+  public function getAlbums()
+  {
+    return $this->albums;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

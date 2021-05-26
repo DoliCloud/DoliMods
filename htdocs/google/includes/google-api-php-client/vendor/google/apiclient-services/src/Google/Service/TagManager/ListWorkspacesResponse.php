@@ -17,31 +17,31 @@
 
 class Google_Service_TagManager_ListWorkspacesResponse extends Google_Collection
 {
-	protected $collection_key = 'workspace';
-	public $nextPageToken;
-	protected $workspaceType = 'Google_Service_TagManager_Workspace';
-	protected $workspaceDataType = 'array';
+  protected $collection_key = 'workspace';
+  public $nextPageToken;
+  protected $workspaceType = 'Google_Service_TagManager_Workspace';
+  protected $workspaceDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_TagManager_Workspace
-	 */
-	public function setWorkspace($workspace)
-	{
-		$this->workspace = $workspace;
-	}
-	/**
-	 * @return Google_Service_TagManager_Workspace
-	 */
-	public function getWorkspace()
-	{
-		return $this->workspace;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_TagManager_Workspace[]
+   */
+  public function setWorkspace($workspace)
+  {
+    $this->workspace = $workspace;
+  }
+  /**
+   * @return Google_Service_TagManager_Workspace[]
+   */
+  public function getWorkspace()
+  {
+    return $this->workspace;
+  }
 }

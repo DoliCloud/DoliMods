@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceUser_MetricDescriptorMetadata extends Google_Model
 {
-	public $ingestDelay;
-	public $launchStage;
-	public $samplePeriod;
+  public $ingestDelay;
+  public $launchStage;
+  public $samplePeriod;
 
-	public function setIngestDelay($ingestDelay)
-	{
-		$this->ingestDelay = $ingestDelay;
-	}
-	public function getIngestDelay()
-	{
-		return $this->ingestDelay;
-	}
-	public function setLaunchStage($launchStage)
-	{
-		$this->launchStage = $launchStage;
-	}
-	public function getLaunchStage()
-	{
-		return $this->launchStage;
-	}
-	public function setSamplePeriod($samplePeriod)
-	{
-		$this->samplePeriod = $samplePeriod;
-	}
-	public function getSamplePeriod()
-	{
-		return $this->samplePeriod;
-	}
+  public function setIngestDelay($ingestDelay)
+  {
+    $this->ingestDelay = $ingestDelay;
+  }
+  public function getIngestDelay()
+  {
+    return $this->ingestDelay;
+  }
+  public function setLaunchStage($launchStage)
+  {
+    $this->launchStage = $launchStage;
+  }
+  public function getLaunchStage()
+  {
+    return $this->launchStage;
+  }
+  public function setSamplePeriod($samplePeriod)
+  {
+    $this->samplePeriod = $samplePeriod;
+  }
+  public function getSamplePeriod()
+  {
+    return $this->samplePeriod;
+  }
 }

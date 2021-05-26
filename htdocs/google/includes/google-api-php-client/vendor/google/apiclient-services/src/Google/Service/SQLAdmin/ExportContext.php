@@ -17,83 +17,83 @@
 
 class Google_Service_SQLAdmin_ExportContext extends Google_Collection
 {
-	protected $collection_key = 'databases';
-	protected $csvExportOptionsType = 'Google_Service_SQLAdmin_ExportContextCsvExportOptions';
-	protected $csvExportOptionsDataType = '';
-	public $databases;
-	public $fileType;
-	public $kind;
-	public $offload;
-	protected $sqlExportOptionsType = 'Google_Service_SQLAdmin_ExportContextSqlExportOptions';
-	protected $sqlExportOptionsDataType = '';
-	public $uri;
+  protected $collection_key = 'databases';
+  protected $csvExportOptionsType = 'Google_Service_SQLAdmin_ExportContextCsvExportOptions';
+  protected $csvExportOptionsDataType = '';
+  public $databases;
+  public $fileType;
+  public $kind;
+  public $offload;
+  protected $sqlExportOptionsType = 'Google_Service_SQLAdmin_ExportContextSqlExportOptions';
+  protected $sqlExportOptionsDataType = '';
+  public $uri;
 
-	/**
-	 * @param Google_Service_SQLAdmin_ExportContextCsvExportOptions
-	 */
-	public function setCsvExportOptions(Google_Service_SQLAdmin_ExportContextCsvExportOptions $csvExportOptions)
-	{
-		$this->csvExportOptions = $csvExportOptions;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_ExportContextCsvExportOptions
-	 */
-	public function getCsvExportOptions()
-	{
-		return $this->csvExportOptions;
-	}
-	public function setDatabases($databases)
-	{
-		$this->databases = $databases;
-	}
-	public function getDatabases()
-	{
-		return $this->databases;
-	}
-	public function setFileType($fileType)
-	{
-		$this->fileType = $fileType;
-	}
-	public function getFileType()
-	{
-		return $this->fileType;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setOffload($offload)
-	{
-		$this->offload = $offload;
-	}
-	public function getOffload()
-	{
-		return $this->offload;
-	}
-	/**
-	 * @param Google_Service_SQLAdmin_ExportContextSqlExportOptions
-	 */
-	public function setSqlExportOptions(Google_Service_SQLAdmin_ExportContextSqlExportOptions $sqlExportOptions)
-	{
-		$this->sqlExportOptions = $sqlExportOptions;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_ExportContextSqlExportOptions
-	 */
-	public function getSqlExportOptions()
-	{
-		return $this->sqlExportOptions;
-	}
-	public function setUri($uri)
-	{
-		$this->uri = $uri;
-	}
-	public function getUri()
-	{
-		return $this->uri;
-	}
+  /**
+   * @param Google_Service_SQLAdmin_ExportContextCsvExportOptions
+   */
+  public function setCsvExportOptions(Google_Service_SQLAdmin_ExportContextCsvExportOptions $csvExportOptions)
+  {
+    $this->csvExportOptions = $csvExportOptions;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_ExportContextCsvExportOptions
+   */
+  public function getCsvExportOptions()
+  {
+    return $this->csvExportOptions;
+  }
+  public function setDatabases($databases)
+  {
+    $this->databases = $databases;
+  }
+  public function getDatabases()
+  {
+    return $this->databases;
+  }
+  public function setFileType($fileType)
+  {
+    $this->fileType = $fileType;
+  }
+  public function getFileType()
+  {
+    return $this->fileType;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setOffload($offload)
+  {
+    $this->offload = $offload;
+  }
+  public function getOffload()
+  {
+    return $this->offload;
+  }
+  /**
+   * @param Google_Service_SQLAdmin_ExportContextSqlExportOptions
+   */
+  public function setSqlExportOptions(Google_Service_SQLAdmin_ExportContextSqlExportOptions $sqlExportOptions)
+  {
+    $this->sqlExportOptions = $sqlExportOptions;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_ExportContextSqlExportOptions
+   */
+  public function getSqlExportOptions()
+  {
+    return $this->sqlExportOptions;
+  }
+  public function setUri($uri)
+  {
+    $this->uri = $uri;
+  }
+  public function getUri()
+  {
+    return $this->uri;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidPublisher_TracksListResponse extends Google_Collection
 {
-	protected $collection_key = 'tracks';
-	public $kind;
-	protected $tracksType = 'Google_Service_AndroidPublisher_Track';
-	protected $tracksDataType = 'array';
+  protected $collection_key = 'tracks';
+  public $kind;
+  protected $tracksType = 'Google_Service_AndroidPublisher_Track';
+  protected $tracksDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_AndroidPublisher_Track
-	 */
-	public function setTracks($tracks)
-	{
-		$this->tracks = $tracks;
-	}
-	/**
-	 * @return Google_Service_AndroidPublisher_Track
-	 */
-	public function getTracks()
-	{
-		return $this->tracks;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_AndroidPublisher_Track[]
+   */
+  public function setTracks($tracks)
+  {
+    $this->tracks = $tracks;
+  }
+  /**
+   * @return Google_Service_AndroidPublisher_Track[]
+   */
+  public function getTracks()
+  {
+    return $this->tracks;
+  }
 }

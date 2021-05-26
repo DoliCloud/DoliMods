@@ -17,53 +17,53 @@
 
 class Google_Service_Compute_ResourcePolicySnapshotSchedulePolicy extends Google_Model
 {
-	protected $retentionPolicyType = 'Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy';
-	protected $retentionPolicyDataType = '';
-	protected $scheduleType = 'Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySchedule';
-	protected $scheduleDataType = '';
-	protected $snapshotPropertiesType = 'Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties';
-	protected $snapshotPropertiesDataType = '';
+  protected $retentionPolicyType = 'Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy';
+  protected $retentionPolicyDataType = '';
+  protected $scheduleType = 'Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySchedule';
+  protected $scheduleDataType = '';
+  protected $snapshotPropertiesType = 'Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties';
+  protected $snapshotPropertiesDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy
-	 */
-	public function setRetentionPolicy(Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy $retentionPolicy)
-	{
-		$this->retentionPolicy = $retentionPolicy;
-	}
-	/**
-	 * @return Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy
-	 */
-	public function getRetentionPolicy()
-	{
-		return $this->retentionPolicy;
-	}
-	/**
-	 * @param Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySchedule
-	 */
-	public function setSchedule(Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySchedule $schedule)
-	{
-		$this->schedule = $schedule;
-	}
-	/**
-	 * @return Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySchedule
-	 */
-	public function getSchedule()
-	{
-		return $this->schedule;
-	}
-	/**
-	 * @param Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties
-	 */
-	public function setSnapshotProperties(Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties $snapshotProperties)
-	{
-		$this->snapshotProperties = $snapshotProperties;
-	}
-	/**
-	 * @return Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties
-	 */
-	public function getSnapshotProperties()
-	{
-		return $this->snapshotProperties;
-	}
+  /**
+   * @param Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy
+   */
+  public function setRetentionPolicy(Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy $retentionPolicy)
+  {
+    $this->retentionPolicy = $retentionPolicy;
+  }
+  /**
+   * @return Google_Service_Compute_ResourcePolicySnapshotSchedulePolicyRetentionPolicy
+   */
+  public function getRetentionPolicy()
+  {
+    return $this->retentionPolicy;
+  }
+  /**
+   * @param Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySchedule
+   */
+  public function setSchedule(Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySchedule $schedule)
+  {
+    $this->schedule = $schedule;
+  }
+  /**
+   * @return Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySchedule
+   */
+  public function getSchedule()
+  {
+    return $this->schedule;
+  }
+  /**
+   * @param Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties
+   */
+  public function setSnapshotProperties(Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties $snapshotProperties)
+  {
+    $this->snapshotProperties = $snapshotProperties;
+  }
+  /**
+   * @return Google_Service_Compute_ResourcePolicySnapshotSchedulePolicySnapshotProperties
+   */
+  public function getSnapshotProperties()
+  {
+    return $this->snapshotProperties;
+  }
 }

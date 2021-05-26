@@ -17,30 +17,30 @@
 
 class Google_Service_Gmail_Draft extends Google_Model
 {
-	public $id;
-	protected $messageType = 'Google_Service_Gmail_Message';
-	protected $messageDataType = '';
+  public $id;
+  protected $messageType = 'Google_Service_Gmail_Message';
+  protected $messageDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_Gmail_Message
-	 */
-	public function setMessage(Google_Service_Gmail_Message $message)
-	{
-		$this->message = $message;
-	}
-	/**
-	 * @return Google_Service_Gmail_Message
-	 */
-	public function getMessage()
-	{
-		return $this->message;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_Gmail_Message
+   */
+  public function setMessage(Google_Service_Gmail_Message $message)
+  {
+    $this->message = $message;
+  }
+  /**
+   * @return Google_Service_Gmail_Message
+   */
+  public function getMessage()
+  {
+    return $this->message;
+  }
 }

@@ -17,135 +17,135 @@
 
 class Google_Service_Bigquery_Routine extends Google_Collection
 {
-	protected $collection_key = 'importedLibraries';
-	protected $argumentsType = 'Google_Service_Bigquery_Argument';
-	protected $argumentsDataType = 'array';
-	public $creationTime;
-	public $definitionBody;
-	public $description;
-	public $determinismLevel;
-	public $etag;
-	public $importedLibraries;
-	public $language;
-	public $lastModifiedTime;
-	protected $returnTypeType = 'Google_Service_Bigquery_StandardSqlDataType';
-	protected $returnTypeDataType = '';
-	protected $routineReferenceType = 'Google_Service_Bigquery_RoutineReference';
-	protected $routineReferenceDataType = '';
-	public $routineType;
+  protected $collection_key = 'importedLibraries';
+  protected $argumentsType = 'Google_Service_Bigquery_Argument';
+  protected $argumentsDataType = 'array';
+  public $creationTime;
+  public $definitionBody;
+  public $description;
+  public $determinismLevel;
+  public $etag;
+  public $importedLibraries;
+  public $language;
+  public $lastModifiedTime;
+  protected $returnTypeType = 'Google_Service_Bigquery_StandardSqlDataType';
+  protected $returnTypeDataType = '';
+  protected $routineReferenceType = 'Google_Service_Bigquery_RoutineReference';
+  protected $routineReferenceDataType = '';
+  public $routineType;
 
-	/**
-	 * @param Google_Service_Bigquery_Argument
-	 */
-	public function setArguments($arguments)
-	{
-		$this->arguments = $arguments;
-	}
-	/**
-	 * @return Google_Service_Bigquery_Argument
-	 */
-	public function getArguments()
-	{
-		return $this->arguments;
-	}
-	public function setCreationTime($creationTime)
-	{
-		$this->creationTime = $creationTime;
-	}
-	public function getCreationTime()
-	{
-		return $this->creationTime;
-	}
-	public function setDefinitionBody($definitionBody)
-	{
-		$this->definitionBody = $definitionBody;
-	}
-	public function getDefinitionBody()
-	{
-		return $this->definitionBody;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDeterminismLevel($determinismLevel)
-	{
-		$this->determinismLevel = $determinismLevel;
-	}
-	public function getDeterminismLevel()
-	{
-		return $this->determinismLevel;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setImportedLibraries($importedLibraries)
-	{
-		$this->importedLibraries = $importedLibraries;
-	}
-	public function getImportedLibraries()
-	{
-		return $this->importedLibraries;
-	}
-	public function setLanguage($language)
-	{
-		$this->language = $language;
-	}
-	public function getLanguage()
-	{
-		return $this->language;
-	}
-	public function setLastModifiedTime($lastModifiedTime)
-	{
-		$this->lastModifiedTime = $lastModifiedTime;
-	}
-	public function getLastModifiedTime()
-	{
-		return $this->lastModifiedTime;
-	}
-	/**
-	 * @param Google_Service_Bigquery_StandardSqlDataType
-	 */
-	public function setReturnType(Google_Service_Bigquery_StandardSqlDataType $returnType)
-	{
-		$this->returnType = $returnType;
-	}
-	/**
-	 * @return Google_Service_Bigquery_StandardSqlDataType
-	 */
-	public function getReturnType()
-	{
-		return $this->returnType;
-	}
-	/**
-	 * @param Google_Service_Bigquery_RoutineReference
-	 */
-	public function setRoutineReference(Google_Service_Bigquery_RoutineReference $routineReference)
-	{
-		$this->routineReference = $routineReference;
-	}
-	/**
-	 * @return Google_Service_Bigquery_RoutineReference
-	 */
-	public function getRoutineReference()
-	{
-		return $this->routineReference;
-	}
-	public function setRoutineType($routineType)
-	{
-		$this->routineType = $routineType;
-	}
-	public function getRoutineType()
-	{
-		return $this->routineType;
-	}
+  /**
+   * @param Google_Service_Bigquery_Argument[]
+   */
+  public function setArguments($arguments)
+  {
+    $this->arguments = $arguments;
+  }
+  /**
+   * @return Google_Service_Bigquery_Argument[]
+   */
+  public function getArguments()
+  {
+    return $this->arguments;
+  }
+  public function setCreationTime($creationTime)
+  {
+    $this->creationTime = $creationTime;
+  }
+  public function getCreationTime()
+  {
+    return $this->creationTime;
+  }
+  public function setDefinitionBody($definitionBody)
+  {
+    $this->definitionBody = $definitionBody;
+  }
+  public function getDefinitionBody()
+  {
+    return $this->definitionBody;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDeterminismLevel($determinismLevel)
+  {
+    $this->determinismLevel = $determinismLevel;
+  }
+  public function getDeterminismLevel()
+  {
+    return $this->determinismLevel;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setImportedLibraries($importedLibraries)
+  {
+    $this->importedLibraries = $importedLibraries;
+  }
+  public function getImportedLibraries()
+  {
+    return $this->importedLibraries;
+  }
+  public function setLanguage($language)
+  {
+    $this->language = $language;
+  }
+  public function getLanguage()
+  {
+    return $this->language;
+  }
+  public function setLastModifiedTime($lastModifiedTime)
+  {
+    $this->lastModifiedTime = $lastModifiedTime;
+  }
+  public function getLastModifiedTime()
+  {
+    return $this->lastModifiedTime;
+  }
+  /**
+   * @param Google_Service_Bigquery_StandardSqlDataType
+   */
+  public function setReturnType(Google_Service_Bigquery_StandardSqlDataType $returnType)
+  {
+    $this->returnType = $returnType;
+  }
+  /**
+   * @return Google_Service_Bigquery_StandardSqlDataType
+   */
+  public function getReturnType()
+  {
+    return $this->returnType;
+  }
+  /**
+   * @param Google_Service_Bigquery_RoutineReference
+   */
+  public function setRoutineReference(Google_Service_Bigquery_RoutineReference $routineReference)
+  {
+    $this->routineReference = $routineReference;
+  }
+  /**
+   * @return Google_Service_Bigquery_RoutineReference
+   */
+  public function getRoutineReference()
+  {
+    return $this->routineReference;
+  }
+  public function setRoutineType($routineType)
+  {
+    $this->routineType = $routineType;
+  }
+  public function getRoutineType()
+  {
+    return $this->routineType;
+  }
 }

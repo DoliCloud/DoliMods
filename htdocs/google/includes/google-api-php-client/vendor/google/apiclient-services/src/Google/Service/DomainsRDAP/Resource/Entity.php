@@ -25,18 +25,18 @@
  */
 class Google_Service_DomainsRDAP_Resource_Entity extends Google_Service_Resource
 {
-	/**
-	 * The RDAP API recognizes this command from the RDAP specification but does not
-	 * support it. The response is a formatted 501 error. (entity.get)
-	 *
-	 * @param string $entityId
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_DomainsRDAP_RdapResponse
-	 */
-	public function get($entityId, $optParams = array())
-	{
-		$params = array('entityId' => $entityId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_DomainsRDAP_RdapResponse");
-	}
+  /**
+   * The RDAP API recognizes this command from the RDAP specification but does not
+   * support it. The response is a formatted 501 error. (entity.get)
+   *
+   * @param string $entityId
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DomainsRDAP_RdapResponse
+   */
+  public function get($entityId, $optParams = array())
+  {
+    $params = array('entityId' => $entityId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_DomainsRDAP_RdapResponse");
+  }
 }

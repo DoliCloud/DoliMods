@@ -17,30 +17,30 @@
 
 class Google_Service_CloudDebugger_CloudWorkspaceId extends Google_Model
 {
-	public $name;
-	protected $repoIdType = 'Google_Service_CloudDebugger_RepoId';
-	protected $repoIdDataType = '';
+  public $name;
+  protected $repoIdType = 'Google_Service_CloudDebugger_RepoId';
+  protected $repoIdDataType = '';
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_CloudDebugger_RepoId
-	 */
-	public function setRepoId(Google_Service_CloudDebugger_RepoId $repoId)
-	{
-		$this->repoId = $repoId;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_RepoId
-	 */
-	public function getRepoId()
-	{
-		return $this->repoId;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_CloudDebugger_RepoId
+   */
+  public function setRepoId(Google_Service_CloudDebugger_RepoId $repoId)
+  {
+    $this->repoId = $repoId;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_RepoId
+   */
+  public function getRepoId()
+  {
+    return $this->repoId;
+  }
 }

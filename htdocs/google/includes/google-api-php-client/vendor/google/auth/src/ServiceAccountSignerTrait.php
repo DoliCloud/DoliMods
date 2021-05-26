@@ -24,34 +24,34 @@ use phpseclib\Crypt\RSA;
  */
 trait ServiceAccountSignerTrait
 {
-	/**
-	 * Sign a string using the service account private key.
-	 *
-	 * @param string $stringToSign
-	 * @param bool $forceOpenssl Whether to use OpenSSL regardless of
-	 *                           whether phpseclib is installed. **Defaults to** `false`.
-	 * @return string
-	 */
-	public function signBlob($stringToSign, $forceOpenssl = false)
-	{
-		$privateKey = $this->auth->getSigningKey();
+    /**
+     * Sign a string using the service account private key.
+     *
+     * @param string $stringToSign
+     * @param bool $forceOpenssl Whether to use OpenSSL regardless of
+     *        whether phpseclib is installed. **Defaults to** `false`.
+     * @return string
+     */
+    public function signBlob($stringToSign, $forceOpenssl = false)
+    {
+        $privateKey = $this->auth->getSigningKey();
 
-		$signedString = '';
-		if (class_exists('\\phpseclib\\Crypt\\RSA') && !$forceOpenssl) {
-			$rsa = new RSA;
-			$rsa->loadKey($privateKey);
-			$rsa->setSignatureMode(RSA::SIGNATURE_PKCS1);
-			$rsa->setHash('sha256');
+        $signedString = '';
+        if (class_exists('\\phpseclib\\Crypt\\RSA') && !$forceOpenssl) {
+            $rsa = new RSA;
+            $rsa->loadKey($privateKey);
+            $rsa->setSignatureMode(RSA::SIGNATURE_PKCS1);
+            $rsa->setHash('sha256');
 
-			$signedString = $rsa->sign($stringToSign);
-		} elseif (extension_loaded('openssl')) {
-			openssl_sign($stringToSign, $signedString, $privateKey, 'sha256WithRSAEncryption');
-		} else {
-			// @codeCoverageIgnoreStart
-			throw new \RuntimeException('OpenSSL is not installed.');
-		}
-		// @codeCoverageIgnoreEnd
+            $signedString = $rsa->sign($stringToSign);
+        } elseif (extension_loaded('openssl')) {
+            openssl_sign($stringToSign, $signedString, $privateKey, 'sha256WithRSAEncryption');
+        } else {
+            // @codeCoverageIgnoreStart
+            throw new \RuntimeException('OpenSSL is not installed.');
+        }
+        // @codeCoverageIgnoreEnd
 
-		return base64_encode($signedString);
-	}
+        return base64_encode($signedString);
+    }
 }

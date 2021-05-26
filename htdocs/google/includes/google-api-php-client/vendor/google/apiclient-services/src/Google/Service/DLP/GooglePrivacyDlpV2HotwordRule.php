@@ -17,53 +17,53 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2HotwordRule extends Google_Model
 {
-	protected $hotwordRegexType = 'Google_Service_DLP_GooglePrivacyDlpV2Regex';
-	protected $hotwordRegexDataType = '';
-	protected $likelihoodAdjustmentType = 'Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment';
-	protected $likelihoodAdjustmentDataType = '';
-	protected $proximityType = 'Google_Service_DLP_GooglePrivacyDlpV2Proximity';
-	protected $proximityDataType = '';
+  protected $hotwordRegexType = 'Google_Service_DLP_GooglePrivacyDlpV2Regex';
+  protected $hotwordRegexDataType = '';
+  protected $likelihoodAdjustmentType = 'Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment';
+  protected $likelihoodAdjustmentDataType = '';
+  protected $proximityType = 'Google_Service_DLP_GooglePrivacyDlpV2Proximity';
+  protected $proximityDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Regex
-	 */
-	public function setHotwordRegex(Google_Service_DLP_GooglePrivacyDlpV2Regex $hotwordRegex)
-	{
-		$this->hotwordRegex = $hotwordRegex;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Regex
-	 */
-	public function getHotwordRegex()
-	{
-		return $this->hotwordRegex;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment
-	 */
-	public function setLikelihoodAdjustment(Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment $likelihoodAdjustment)
-	{
-		$this->likelihoodAdjustment = $likelihoodAdjustment;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment
-	 */
-	public function getLikelihoodAdjustment()
-	{
-		return $this->likelihoodAdjustment;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Proximity
-	 */
-	public function setProximity(Google_Service_DLP_GooglePrivacyDlpV2Proximity $proximity)
-	{
-		$this->proximity = $proximity;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Proximity
-	 */
-	public function getProximity()
-	{
-		return $this->proximity;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Regex
+   */
+  public function setHotwordRegex(Google_Service_DLP_GooglePrivacyDlpV2Regex $hotwordRegex)
+  {
+    $this->hotwordRegex = $hotwordRegex;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Regex
+   */
+  public function getHotwordRegex()
+  {
+    return $this->hotwordRegex;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment
+   */
+  public function setLikelihoodAdjustment(Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment $likelihoodAdjustment)
+  {
+    $this->likelihoodAdjustment = $likelihoodAdjustment;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2LikelihoodAdjustment
+   */
+  public function getLikelihoodAdjustment()
+  {
+    return $this->likelihoodAdjustment;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Proximity
+   */
+  public function setProximity(Google_Service_DLP_GooglePrivacyDlpV2Proximity $proximity)
+  {
+    $this->proximity = $proximity;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Proximity
+   */
+  public function getProximity()
+  {
+    return $this->proximity;
+  }
 }

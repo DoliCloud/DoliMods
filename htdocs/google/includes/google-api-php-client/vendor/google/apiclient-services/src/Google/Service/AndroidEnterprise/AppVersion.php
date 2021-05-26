@@ -17,51 +17,51 @@
 
 class Google_Service_AndroidEnterprise_AppVersion extends Google_Collection
 {
-	protected $collection_key = 'trackId';
-	public $isProduction;
-	public $track;
-	public $trackId;
-	public $versionCode;
-	public $versionString;
+  protected $collection_key = 'trackId';
+  public $isProduction;
+  public $track;
+  public $trackId;
+  public $versionCode;
+  public $versionString;
 
-	public function setIsProduction($isProduction)
-	{
-		$this->isProduction = $isProduction;
-	}
-	public function getIsProduction()
-	{
-		return $this->isProduction;
-	}
-	public function setTrack($track)
-	{
-		$this->track = $track;
-	}
-	public function getTrack()
-	{
-		return $this->track;
-	}
-	public function setTrackId($trackId)
-	{
-		$this->trackId = $trackId;
-	}
-	public function getTrackId()
-	{
-		return $this->trackId;
-	}
-	public function setVersionCode($versionCode)
-	{
-		$this->versionCode = $versionCode;
-	}
-	public function getVersionCode()
-	{
-		return $this->versionCode;
-	}
-	public function setVersionString($versionString)
-	{
-		$this->versionString = $versionString;
-	}
-	public function getVersionString()
-	{
-		return $this->versionString;
-	}
+  public function setIsProduction($isProduction)
+  {
+    $this->isProduction = $isProduction;
+  }
+  public function getIsProduction()
+  {
+    return $this->isProduction;
+  }
+  public function setTrack($track)
+  {
+    $this->track = $track;
+  }
+  public function getTrack()
+  {
+    return $this->track;
+  }
+  public function setTrackId($trackId)
+  {
+    $this->trackId = $trackId;
+  }
+  public function getTrackId()
+  {
+    return $this->trackId;
+  }
+  public function setVersionCode($versionCode)
+  {
+    $this->versionCode = $versionCode;
+  }
+  public function getVersionCode()
+  {
+    return $this->versionCode;
+  }
+  public function setVersionString($versionString)
+  {
+    $this->versionString = $versionString;
+  }
+  public function getVersionString()
+  {
+    return $this->versionString;
+  }
 }

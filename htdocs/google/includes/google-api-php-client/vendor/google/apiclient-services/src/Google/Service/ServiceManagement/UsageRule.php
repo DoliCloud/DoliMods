@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceManagement_UsageRule extends Google_Model
 {
-	public $allowUnregisteredCalls;
-	public $selector;
-	public $skipServiceControl;
+  public $allowUnregisteredCalls;
+  public $selector;
+  public $skipServiceControl;
 
-	public function setAllowUnregisteredCalls($allowUnregisteredCalls)
-	{
-		$this->allowUnregisteredCalls = $allowUnregisteredCalls;
-	}
-	public function getAllowUnregisteredCalls()
-	{
-		return $this->allowUnregisteredCalls;
-	}
-	public function setSelector($selector)
-	{
-		$this->selector = $selector;
-	}
-	public function getSelector()
-	{
-		return $this->selector;
-	}
-	public function setSkipServiceControl($skipServiceControl)
-	{
-		$this->skipServiceControl = $skipServiceControl;
-	}
-	public function getSkipServiceControl()
-	{
-		return $this->skipServiceControl;
-	}
+  public function setAllowUnregisteredCalls($allowUnregisteredCalls)
+  {
+    $this->allowUnregisteredCalls = $allowUnregisteredCalls;
+  }
+  public function getAllowUnregisteredCalls()
+  {
+    return $this->allowUnregisteredCalls;
+  }
+  public function setSelector($selector)
+  {
+    $this->selector = $selector;
+  }
+  public function getSelector()
+  {
+    return $this->selector;
+  }
+  public function setSkipServiceControl($skipServiceControl)
+  {
+    $this->skipServiceControl = $skipServiceControl;
+  }
+  public function getSkipServiceControl()
+  {
+    return $this->skipServiceControl;
+  }
 }

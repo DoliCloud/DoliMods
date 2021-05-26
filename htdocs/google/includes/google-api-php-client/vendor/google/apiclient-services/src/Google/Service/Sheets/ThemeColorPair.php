@@ -17,29 +17,29 @@
 
 class Google_Service_Sheets_ThemeColorPair extends Google_Model
 {
-	protected $colorDataType = '';
-	public $colorType;
+  protected $colorDataType = '';
+  public $colorType;
 
-	/**
-	 * @param Google_Service_Sheets_ColorStyle
-	 */
-	public function setColor(Google_Service_Sheets_ColorStyle $color)
-	{
-		$this->color = $color;
-	}
-	/**
-	 * @return Google_Service_Sheets_ColorStyle
-	 */
-	public function getColor()
-	{
-		return $this->color;
-	}
-	public function setColorType($colorType)
-	{
-		$this->colorType = $colorType;
-	}
-	public function getColorType()
-	{
-		return $this->colorType;
-	}
+  /**
+   * @param Google_Service_Sheets_ColorStyle
+   */
+  public function setColor(Google_Service_Sheets_ColorStyle $color)
+  {
+    $this->color = $color;
+  }
+  /**
+   * @return Google_Service_Sheets_ColorStyle
+   */
+  public function getColor()
+  {
+    return $this->color;
+  }
+  public function setColorType($colorType)
+  {
+    $this->colorType = $colorType;
+  }
+  public function getColorType()
+  {
+    return $this->colorType;
+  }
 }

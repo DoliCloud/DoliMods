@@ -17,15 +17,15 @@
 
 class Google_Service_BigQueryReservation_MergeCapacityCommitmentsRequest extends Google_Collection
 {
-	protected $collection_key = 'capacityCommitmentIds';
-	public $capacityCommitmentIds;
+  protected $collection_key = 'capacityCommitmentIds';
+  public $capacityCommitmentIds;
 
-	public function setCapacityCommitmentIds($capacityCommitmentIds)
-	{
-		$this->capacityCommitmentIds = $capacityCommitmentIds;
-	}
-	public function getCapacityCommitmentIds()
-	{
-		return $this->capacityCommitmentIds;
-	}
+  public function setCapacityCommitmentIds($capacityCommitmentIds)
+  {
+    $this->capacityCommitmentIds = $capacityCommitmentIds;
+  }
+  public function getCapacityCommitmentIds()
+  {
+    return $this->capacityCommitmentIds;
+  }
 }

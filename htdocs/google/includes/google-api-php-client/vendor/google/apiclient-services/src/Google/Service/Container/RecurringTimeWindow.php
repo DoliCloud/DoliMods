@@ -17,30 +17,30 @@
 
 class Google_Service_Container_RecurringTimeWindow extends Google_Model
 {
-	public $recurrence;
-	protected $windowType = 'Google_Service_Container_TimeWindow';
-	protected $windowDataType = '';
+  public $recurrence;
+  protected $windowType = 'Google_Service_Container_TimeWindow';
+  protected $windowDataType = '';
 
-	public function setRecurrence($recurrence)
-	{
-		$this->recurrence = $recurrence;
-	}
-	public function getRecurrence()
-	{
-		return $this->recurrence;
-	}
-	/**
-	 * @param Google_Service_Container_TimeWindow
-	 */
-	public function setWindow(Google_Service_Container_TimeWindow $window)
-	{
-		$this->window = $window;
-	}
-	/**
-	 * @return Google_Service_Container_TimeWindow
-	 */
-	public function getWindow()
-	{
-		return $this->window;
-	}
+  public function setRecurrence($recurrence)
+  {
+    $this->recurrence = $recurrence;
+  }
+  public function getRecurrence()
+  {
+    return $this->recurrence;
+  }
+  /**
+   * @param Google_Service_Container_TimeWindow
+   */
+  public function setWindow(Google_Service_Container_TimeWindow $window)
+  {
+    $this->window = $window;
+  }
+  /**
+   * @return Google_Service_Container_TimeWindow
+   */
+  public function getWindow()
+  {
+    return $this->window;
+  }
 }

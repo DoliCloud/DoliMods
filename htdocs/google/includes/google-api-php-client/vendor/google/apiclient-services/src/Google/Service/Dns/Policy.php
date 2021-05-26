@@ -17,92 +17,92 @@
 
 class Google_Service_Dns_Policy extends Google_Collection
 {
-	protected $collection_key = 'networks';
-	protected $alternativeNameServerConfigType = 'Google_Service_Dns_PolicyAlternativeNameServerConfig';
-	protected $alternativeNameServerConfigDataType = '';
-	public $description;
-	public $enableInboundForwarding;
-	public $enableLogging;
-	public $id;
-	public $kind;
-	public $name;
-	protected $networksType = 'Google_Service_Dns_PolicyNetwork';
-	protected $networksDataType = 'array';
+  protected $collection_key = 'networks';
+  protected $alternativeNameServerConfigType = 'Google_Service_Dns_PolicyAlternativeNameServerConfig';
+  protected $alternativeNameServerConfigDataType = '';
+  public $description;
+  public $enableInboundForwarding;
+  public $enableLogging;
+  public $id;
+  public $kind;
+  public $name;
+  protected $networksType = 'Google_Service_Dns_PolicyNetwork';
+  protected $networksDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dns_PolicyAlternativeNameServerConfig
-	 */
-	public function setAlternativeNameServerConfig(Google_Service_Dns_PolicyAlternativeNameServerConfig $alternativeNameServerConfig)
-	{
-		$this->alternativeNameServerConfig = $alternativeNameServerConfig;
-	}
-	/**
-	 * @return Google_Service_Dns_PolicyAlternativeNameServerConfig
-	 */
-	public function getAlternativeNameServerConfig()
-	{
-		return $this->alternativeNameServerConfig;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setEnableInboundForwarding($enableInboundForwarding)
-	{
-		$this->enableInboundForwarding = $enableInboundForwarding;
-	}
-	public function getEnableInboundForwarding()
-	{
-		return $this->enableInboundForwarding;
-	}
-	public function setEnableLogging($enableLogging)
-	{
-		$this->enableLogging = $enableLogging;
-	}
-	public function getEnableLogging()
-	{
-		return $this->enableLogging;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Dns_PolicyNetwork
-	 */
-	public function setNetworks($networks)
-	{
-		$this->networks = $networks;
-	}
-	/**
-	 * @return Google_Service_Dns_PolicyNetwork
-	 */
-	public function getNetworks()
-	{
-		return $this->networks;
-	}
+  /**
+   * @param Google_Service_Dns_PolicyAlternativeNameServerConfig
+   */
+  public function setAlternativeNameServerConfig(Google_Service_Dns_PolicyAlternativeNameServerConfig $alternativeNameServerConfig)
+  {
+    $this->alternativeNameServerConfig = $alternativeNameServerConfig;
+  }
+  /**
+   * @return Google_Service_Dns_PolicyAlternativeNameServerConfig
+   */
+  public function getAlternativeNameServerConfig()
+  {
+    return $this->alternativeNameServerConfig;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setEnableInboundForwarding($enableInboundForwarding)
+  {
+    $this->enableInboundForwarding = $enableInboundForwarding;
+  }
+  public function getEnableInboundForwarding()
+  {
+    return $this->enableInboundForwarding;
+  }
+  public function setEnableLogging($enableLogging)
+  {
+    $this->enableLogging = $enableLogging;
+  }
+  public function getEnableLogging()
+  {
+    return $this->enableLogging;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Dns_PolicyNetwork[]
+   */
+  public function setNetworks($networks)
+  {
+    $this->networks = $networks;
+  }
+  /**
+   * @return Google_Service_Dns_PolicyNetwork[]
+   */
+  public function getNetworks()
+  {
+    return $this->networks;
+  }
 }

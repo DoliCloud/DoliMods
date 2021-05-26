@@ -17,71 +17,71 @@
 
 class Google_Service_Slides_TextElement extends Google_Model
 {
-	protected $autoTextType = 'Google_Service_Slides_AutoText';
-	protected $autoTextDataType = '';
-	public $endIndex;
-	protected $paragraphMarkerType = 'Google_Service_Slides_ParagraphMarker';
-	protected $paragraphMarkerDataType = '';
-	public $startIndex;
-	protected $textRunType = 'Google_Service_Slides_TextRun';
-	protected $textRunDataType = '';
+  protected $autoTextType = 'Google_Service_Slides_AutoText';
+  protected $autoTextDataType = '';
+  public $endIndex;
+  protected $paragraphMarkerType = 'Google_Service_Slides_ParagraphMarker';
+  protected $paragraphMarkerDataType = '';
+  public $startIndex;
+  protected $textRunType = 'Google_Service_Slides_TextRun';
+  protected $textRunDataType = '';
 
-	/**
-	 * @param Google_Service_Slides_AutoText
-	 */
-	public function setAutoText(Google_Service_Slides_AutoText $autoText)
-	{
-		$this->autoText = $autoText;
-	}
-	/**
-	 * @return Google_Service_Slides_AutoText
-	 */
-	public function getAutoText()
-	{
-		return $this->autoText;
-	}
-	public function setEndIndex($endIndex)
-	{
-		$this->endIndex = $endIndex;
-	}
-	public function getEndIndex()
-	{
-		return $this->endIndex;
-	}
-	/**
-	 * @param Google_Service_Slides_ParagraphMarker
-	 */
-	public function setParagraphMarker(Google_Service_Slides_ParagraphMarker $paragraphMarker)
-	{
-		$this->paragraphMarker = $paragraphMarker;
-	}
-	/**
-	 * @return Google_Service_Slides_ParagraphMarker
-	 */
-	public function getParagraphMarker()
-	{
-		return $this->paragraphMarker;
-	}
-	public function setStartIndex($startIndex)
-	{
-		$this->startIndex = $startIndex;
-	}
-	public function getStartIndex()
-	{
-		return $this->startIndex;
-	}
-	/**
-	 * @param Google_Service_Slides_TextRun
-	 */
-	public function setTextRun(Google_Service_Slides_TextRun $textRun)
-	{
-		$this->textRun = $textRun;
-	}
-	/**
-	 * @return Google_Service_Slides_TextRun
-	 */
-	public function getTextRun()
-	{
-		return $this->textRun;
-	}
+  /**
+   * @param Google_Service_Slides_AutoText
+   */
+  public function setAutoText(Google_Service_Slides_AutoText $autoText)
+  {
+    $this->autoText = $autoText;
+  }
+  /**
+   * @return Google_Service_Slides_AutoText
+   */
+  public function getAutoText()
+  {
+    return $this->autoText;
+  }
+  public function setEndIndex($endIndex)
+  {
+    $this->endIndex = $endIndex;
+  }
+  public function getEndIndex()
+  {
+    return $this->endIndex;
+  }
+  /**
+   * @param Google_Service_Slides_ParagraphMarker
+   */
+  public function setParagraphMarker(Google_Service_Slides_ParagraphMarker $paragraphMarker)
+  {
+    $this->paragraphMarker = $paragraphMarker;
+  }
+  /**
+   * @return Google_Service_Slides_ParagraphMarker
+   */
+  public function getParagraphMarker()
+  {
+    return $this->paragraphMarker;
+  }
+  public function setStartIndex($startIndex)
+  {
+    $this->startIndex = $startIndex;
+  }
+  public function getStartIndex()
+  {
+    return $this->startIndex;
+  }
+  /**
+   * @param Google_Service_Slides_TextRun
+   */
+  public function setTextRun(Google_Service_Slides_TextRun $textRun)
+  {
+    $this->textRun = $textRun;
+  }
+  /**
+   * @return Google_Service_Slides_TextRun
+   */
+  public function getTextRun()
+  {
+    return $this->textRun;
+  }
 }

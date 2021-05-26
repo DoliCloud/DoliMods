@@ -17,49 +17,49 @@
 
 class Google_Service_Firestore_GoogleFirestoreAdminV1IndexConfig extends Google_Collection
 {
-	protected $collection_key = 'indexes';
-	public $ancestorField;
-	protected $indexesType = 'Google_Service_Firestore_GoogleFirestoreAdminV1Index';
-	protected $indexesDataType = 'array';
-	public $reverting;
-	public $usesAncestorConfig;
+  protected $collection_key = 'indexes';
+  public $ancestorField;
+  protected $indexesType = 'Google_Service_Firestore_GoogleFirestoreAdminV1Index';
+  protected $indexesDataType = 'array';
+  public $reverting;
+  public $usesAncestorConfig;
 
-	public function setAncestorField($ancestorField)
-	{
-		$this->ancestorField = $ancestorField;
-	}
-	public function getAncestorField()
-	{
-		return $this->ancestorField;
-	}
-	/**
-	 * @param Google_Service_Firestore_GoogleFirestoreAdminV1Index
-	 */
-	public function setIndexes($indexes)
-	{
-		$this->indexes = $indexes;
-	}
-	/**
-	 * @return Google_Service_Firestore_GoogleFirestoreAdminV1Index
-	 */
-	public function getIndexes()
-	{
-		return $this->indexes;
-	}
-	public function setReverting($reverting)
-	{
-		$this->reverting = $reverting;
-	}
-	public function getReverting()
-	{
-		return $this->reverting;
-	}
-	public function setUsesAncestorConfig($usesAncestorConfig)
-	{
-		$this->usesAncestorConfig = $usesAncestorConfig;
-	}
-	public function getUsesAncestorConfig()
-	{
-		return $this->usesAncestorConfig;
-	}
+  public function setAncestorField($ancestorField)
+  {
+    $this->ancestorField = $ancestorField;
+  }
+  public function getAncestorField()
+  {
+    return $this->ancestorField;
+  }
+  /**
+   * @param Google_Service_Firestore_GoogleFirestoreAdminV1Index[]
+   */
+  public function setIndexes($indexes)
+  {
+    $this->indexes = $indexes;
+  }
+  /**
+   * @return Google_Service_Firestore_GoogleFirestoreAdminV1Index[]
+   */
+  public function getIndexes()
+  {
+    return $this->indexes;
+  }
+  public function setReverting($reverting)
+  {
+    $this->reverting = $reverting;
+  }
+  public function getReverting()
+  {
+    return $this->reverting;
+  }
+  public function setUsesAncestorConfig($usesAncestorConfig)
+  {
+    $this->usesAncestorConfig = $usesAncestorConfig;
+  }
+  public function getUsesAncestorConfig()
+  {
+    return $this->usesAncestorConfig;
+  }
 }

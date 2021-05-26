@@ -17,22 +17,22 @@
 
 class Google_Service_Testing_NetworkConfigurationCatalog extends Google_Collection
 {
-	protected $collection_key = 'configurations';
-	protected $configurationsType = 'Google_Service_Testing_NetworkConfiguration';
-	protected $configurationsDataType = 'array';
+  protected $collection_key = 'configurations';
+  protected $configurationsType = 'Google_Service_Testing_NetworkConfiguration';
+  protected $configurationsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Testing_NetworkConfiguration
-	 */
-	public function setConfigurations($configurations)
-	{
-		$this->configurations = $configurations;
-	}
-	/**
-	 * @return Google_Service_Testing_NetworkConfiguration
-	 */
-	public function getConfigurations()
-	{
-		return $this->configurations;
-	}
+  /**
+   * @param Google_Service_Testing_NetworkConfiguration[]
+   */
+  public function setConfigurations($configurations)
+  {
+    $this->configurations = $configurations;
+  }
+  /**
+   * @return Google_Service_Testing_NetworkConfiguration[]
+   */
+  public function getConfigurations()
+  {
+    return $this->configurations;
+  }
 }

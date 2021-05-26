@@ -17,37 +17,37 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2InspectionRule extends Google_Model
 {
-	protected $exclusionRuleType = 'Google_Service_DLP_GooglePrivacyDlpV2ExclusionRule';
-	protected $exclusionRuleDataType = '';
-	protected $hotwordRuleType = 'Google_Service_DLP_GooglePrivacyDlpV2HotwordRule';
-	protected $hotwordRuleDataType = '';
+  protected $exclusionRuleType = 'Google_Service_DLP_GooglePrivacyDlpV2ExclusionRule';
+  protected $exclusionRuleDataType = '';
+  protected $hotwordRuleType = 'Google_Service_DLP_GooglePrivacyDlpV2HotwordRule';
+  protected $hotwordRuleDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2ExclusionRule
-	 */
-	public function setExclusionRule(Google_Service_DLP_GooglePrivacyDlpV2ExclusionRule $exclusionRule)
-	{
-		$this->exclusionRule = $exclusionRule;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2ExclusionRule
-	 */
-	public function getExclusionRule()
-	{
-		return $this->exclusionRule;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2HotwordRule
-	 */
-	public function setHotwordRule(Google_Service_DLP_GooglePrivacyDlpV2HotwordRule $hotwordRule)
-	{
-		$this->hotwordRule = $hotwordRule;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2HotwordRule
-	 */
-	public function getHotwordRule()
-	{
-		return $this->hotwordRule;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2ExclusionRule
+   */
+  public function setExclusionRule(Google_Service_DLP_GooglePrivacyDlpV2ExclusionRule $exclusionRule)
+  {
+    $this->exclusionRule = $exclusionRule;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2ExclusionRule
+   */
+  public function getExclusionRule()
+  {
+    return $this->exclusionRule;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2HotwordRule
+   */
+  public function setHotwordRule(Google_Service_DLP_GooglePrivacyDlpV2HotwordRule $hotwordRule)
+  {
+    $this->hotwordRule = $hotwordRule;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2HotwordRule
+   */
+  public function getHotwordRule()
+  {
+    return $this->hotwordRule;
+  }
 }

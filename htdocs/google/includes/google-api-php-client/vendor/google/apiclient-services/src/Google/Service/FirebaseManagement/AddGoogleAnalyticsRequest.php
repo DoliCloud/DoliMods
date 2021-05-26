@@ -17,23 +17,23 @@
 
 class Google_Service_FirebaseManagement_AddGoogleAnalyticsRequest extends Google_Model
 {
-	public $analyticsAccountId;
-	public $analyticsPropertyId;
+  public $analyticsAccountId;
+  public $analyticsPropertyId;
 
-	public function setAnalyticsAccountId($analyticsAccountId)
-	{
-		$this->analyticsAccountId = $analyticsAccountId;
-	}
-	public function getAnalyticsAccountId()
-	{
-		return $this->analyticsAccountId;
-	}
-	public function setAnalyticsPropertyId($analyticsPropertyId)
-	{
-		$this->analyticsPropertyId = $analyticsPropertyId;
-	}
-	public function getAnalyticsPropertyId()
-	{
-		return $this->analyticsPropertyId;
-	}
+  public function setAnalyticsAccountId($analyticsAccountId)
+  {
+    $this->analyticsAccountId = $analyticsAccountId;
+  }
+  public function getAnalyticsAccountId()
+  {
+    return $this->analyticsAccountId;
+  }
+  public function setAnalyticsPropertyId($analyticsPropertyId)
+  {
+    $this->analyticsPropertyId = $analyticsPropertyId;
+  }
+  public function getAnalyticsPropertyId()
+  {
+    return $this->analyticsPropertyId;
+  }
 }

@@ -17,56 +17,56 @@
 
 class Google_Service_ToolResults_NonSdkApiInsight extends Google_Collection
 {
-	protected $collection_key = 'exampleTraceMessages';
-	public $exampleTraceMessages;
-	public $matcherId;
-	protected $pendingGoogleUpdateInsightType = 'Google_Service_ToolResults_PendingGoogleUpdateInsight';
-	protected $pendingGoogleUpdateInsightDataType = '';
-	protected $upgradeInsightType = 'Google_Service_ToolResults_UpgradeInsight';
-	protected $upgradeInsightDataType = '';
+  protected $collection_key = 'exampleTraceMessages';
+  public $exampleTraceMessages;
+  public $matcherId;
+  protected $pendingGoogleUpdateInsightType = 'Google_Service_ToolResults_PendingGoogleUpdateInsight';
+  protected $pendingGoogleUpdateInsightDataType = '';
+  protected $upgradeInsightType = 'Google_Service_ToolResults_UpgradeInsight';
+  protected $upgradeInsightDataType = '';
 
-	public function setExampleTraceMessages($exampleTraceMessages)
-	{
-		$this->exampleTraceMessages = $exampleTraceMessages;
-	}
-	public function getExampleTraceMessages()
-	{
-		return $this->exampleTraceMessages;
-	}
-	public function setMatcherId($matcherId)
-	{
-		$this->matcherId = $matcherId;
-	}
-	public function getMatcherId()
-	{
-		return $this->matcherId;
-	}
-	/**
-	 * @param Google_Service_ToolResults_PendingGoogleUpdateInsight
-	 */
-	public function setPendingGoogleUpdateInsight(Google_Service_ToolResults_PendingGoogleUpdateInsight $pendingGoogleUpdateInsight)
-	{
-		$this->pendingGoogleUpdateInsight = $pendingGoogleUpdateInsight;
-	}
-	/**
-	 * @return Google_Service_ToolResults_PendingGoogleUpdateInsight
-	 */
-	public function getPendingGoogleUpdateInsight()
-	{
-		return $this->pendingGoogleUpdateInsight;
-	}
-	/**
-	 * @param Google_Service_ToolResults_UpgradeInsight
-	 */
-	public function setUpgradeInsight(Google_Service_ToolResults_UpgradeInsight $upgradeInsight)
-	{
-		$this->upgradeInsight = $upgradeInsight;
-	}
-	/**
-	 * @return Google_Service_ToolResults_UpgradeInsight
-	 */
-	public function getUpgradeInsight()
-	{
-		return $this->upgradeInsight;
-	}
+  public function setExampleTraceMessages($exampleTraceMessages)
+  {
+    $this->exampleTraceMessages = $exampleTraceMessages;
+  }
+  public function getExampleTraceMessages()
+  {
+    return $this->exampleTraceMessages;
+  }
+  public function setMatcherId($matcherId)
+  {
+    $this->matcherId = $matcherId;
+  }
+  public function getMatcherId()
+  {
+    return $this->matcherId;
+  }
+  /**
+   * @param Google_Service_ToolResults_PendingGoogleUpdateInsight
+   */
+  public function setPendingGoogleUpdateInsight(Google_Service_ToolResults_PendingGoogleUpdateInsight $pendingGoogleUpdateInsight)
+  {
+    $this->pendingGoogleUpdateInsight = $pendingGoogleUpdateInsight;
+  }
+  /**
+   * @return Google_Service_ToolResults_PendingGoogleUpdateInsight
+   */
+  public function getPendingGoogleUpdateInsight()
+  {
+    return $this->pendingGoogleUpdateInsight;
+  }
+  /**
+   * @param Google_Service_ToolResults_UpgradeInsight
+   */
+  public function setUpgradeInsight(Google_Service_ToolResults_UpgradeInsight $upgradeInsight)
+  {
+    $this->upgradeInsight = $upgradeInsight;
+  }
+  /**
+   * @return Google_Service_ToolResults_UpgradeInsight
+   */
+  public function getUpgradeInsight()
+  {
+    return $this->upgradeInsight;
+  }
 }

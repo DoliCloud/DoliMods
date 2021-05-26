@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidManagement_ManagedConfigurationTemplate extends Google_Model
 {
-	public $configurationVariables;
-	public $templateId;
+  public $configurationVariables;
+  public $templateId;
 
-	public function setConfigurationVariables($configurationVariables)
-	{
-		$this->configurationVariables = $configurationVariables;
-	}
-	public function getConfigurationVariables()
-	{
-		return $this->configurationVariables;
-	}
-	public function setTemplateId($templateId)
-	{
-		$this->templateId = $templateId;
-	}
-	public function getTemplateId()
-	{
-		return $this->templateId;
-	}
+  public function setConfigurationVariables($configurationVariables)
+  {
+    $this->configurationVariables = $configurationVariables;
+  }
+  public function getConfigurationVariables()
+  {
+    return $this->configurationVariables;
+  }
+  public function setTemplateId($templateId)
+  {
+    $this->templateId = $templateId;
+  }
+  public function getTemplateId()
+  {
+    return $this->templateId;
+  }
 }

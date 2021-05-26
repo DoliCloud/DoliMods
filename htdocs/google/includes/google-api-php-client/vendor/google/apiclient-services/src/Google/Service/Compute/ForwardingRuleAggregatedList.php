@@ -15,75 +15,85 @@
  * the License.
  */
 
-class Google_Service_Compute_ForwardingRuleAggregatedList extends Google_Model
+class Google_Service_Compute_ForwardingRuleAggregatedList extends Google_Collection
 {
-	public $id;
-	protected $itemsType = 'Google_Service_Compute_ForwardingRulesScopedList';
-	protected $itemsDataType = 'map';
-	public $kind;
-	public $nextPageToken;
-	public $selfLink;
-	protected $warningType = 'Google_Service_Compute_ForwardingRuleAggregatedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'unreachables';
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_ForwardingRulesScopedList';
+  protected $itemsDataType = 'map';
+  public $kind;
+  public $nextPageToken;
+  public $selfLink;
+  public $unreachables;
+  protected $warningType = 'Google_Service_Compute_ForwardingRuleAggregatedListWarning';
+  protected $warningDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_Compute_ForwardingRulesScopedList
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Compute_ForwardingRulesScopedList
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	/**
-	 * @param Google_Service_Compute_ForwardingRuleAggregatedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_ForwardingRuleAggregatedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_ForwardingRuleAggregatedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_Compute_ForwardingRulesScopedList[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Compute_ForwardingRulesScopedList[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setUnreachables($unreachables)
+  {
+    $this->unreachables = $unreachables;
+  }
+  public function getUnreachables()
+  {
+    return $this->unreachables;
+  }
+  /**
+   * @param Google_Service_Compute_ForwardingRuleAggregatedListWarning
+   */
+  public function setWarning(Google_Service_Compute_ForwardingRuleAggregatedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_ForwardingRuleAggregatedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

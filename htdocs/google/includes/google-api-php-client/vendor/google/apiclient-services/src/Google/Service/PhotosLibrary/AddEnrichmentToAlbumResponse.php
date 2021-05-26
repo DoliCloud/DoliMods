@@ -17,21 +17,21 @@
 
 class Google_Service_PhotosLibrary_AddEnrichmentToAlbumResponse extends Google_Model
 {
-	protected $enrichmentItemType = 'Google_Service_PhotosLibrary_EnrichmentItem';
-	protected $enrichmentItemDataType = '';
+  protected $enrichmentItemType = 'Google_Service_PhotosLibrary_EnrichmentItem';
+  protected $enrichmentItemDataType = '';
 
-	/**
-	 * @param Google_Service_PhotosLibrary_EnrichmentItem
-	 */
-	public function setEnrichmentItem(Google_Service_PhotosLibrary_EnrichmentItem $enrichmentItem)
-	{
-		$this->enrichmentItem = $enrichmentItem;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_EnrichmentItem
-	 */
-	public function getEnrichmentItem()
-	{
-		return $this->enrichmentItem;
-	}
+  /**
+   * @param Google_Service_PhotosLibrary_EnrichmentItem
+   */
+  public function setEnrichmentItem(Google_Service_PhotosLibrary_EnrichmentItem $enrichmentItem)
+  {
+    $this->enrichmentItem = $enrichmentItem;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_EnrichmentItem
+   */
+  public function getEnrichmentItem()
+  {
+    return $this->enrichmentItem;
+  }
 }

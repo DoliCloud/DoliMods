@@ -17,46 +17,46 @@
 
 class Google_Service_Books_Geolayerdata extends Google_Model
 {
-	protected $commonType = 'Google_Service_Books_GeolayerdataCommon';
-	protected $commonDataType = '';
-	protected $geoType = 'Google_Service_Books_GeolayerdataGeo';
-	protected $geoDataType = '';
-	public $kind;
+  protected $commonType = 'Google_Service_Books_GeolayerdataCommon';
+  protected $commonDataType = '';
+  protected $geoType = 'Google_Service_Books_GeolayerdataGeo';
+  protected $geoDataType = '';
+  public $kind;
 
-	/**
-	 * @param Google_Service_Books_GeolayerdataCommon
-	 */
-	public function setCommon(Google_Service_Books_GeolayerdataCommon $common)
-	{
-		$this->common = $common;
-	}
-	/**
-	 * @return Google_Service_Books_GeolayerdataCommon
-	 */
-	public function getCommon()
-	{
-		return $this->common;
-	}
-	/**
-	 * @param Google_Service_Books_GeolayerdataGeo
-	 */
-	public function setGeo(Google_Service_Books_GeolayerdataGeo $geo)
-	{
-		$this->geo = $geo;
-	}
-	/**
-	 * @return Google_Service_Books_GeolayerdataGeo
-	 */
-	public function getGeo()
-	{
-		return $this->geo;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_Books_GeolayerdataCommon
+   */
+  public function setCommon(Google_Service_Books_GeolayerdataCommon $common)
+  {
+    $this->common = $common;
+  }
+  /**
+   * @return Google_Service_Books_GeolayerdataCommon
+   */
+  public function getCommon()
+  {
+    return $this->common;
+  }
+  /**
+   * @param Google_Service_Books_GeolayerdataGeo
+   */
+  public function setGeo(Google_Service_Books_GeolayerdataGeo $geo)
+  {
+    $this->geo = $geo;
+  }
+  /**
+   * @return Google_Service_Books_GeolayerdataGeo
+   */
+  public function getGeo()
+  {
+    return $this->geo;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

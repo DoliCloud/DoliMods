@@ -17,32 +17,32 @@
 
 class Google_Service_ToolResults_SkippedDetail extends Google_Model
 {
-	public $incompatibleAppVersion;
-	public $incompatibleArchitecture;
-	public $incompatibleDevice;
+  public $incompatibleAppVersion;
+  public $incompatibleArchitecture;
+  public $incompatibleDevice;
 
-	public function setIncompatibleAppVersion($incompatibleAppVersion)
-	{
-		$this->incompatibleAppVersion = $incompatibleAppVersion;
-	}
-	public function getIncompatibleAppVersion()
-	{
-		return $this->incompatibleAppVersion;
-	}
-	public function setIncompatibleArchitecture($incompatibleArchitecture)
-	{
-		$this->incompatibleArchitecture = $incompatibleArchitecture;
-	}
-	public function getIncompatibleArchitecture()
-	{
-		return $this->incompatibleArchitecture;
-	}
-	public function setIncompatibleDevice($incompatibleDevice)
-	{
-		$this->incompatibleDevice = $incompatibleDevice;
-	}
-	public function getIncompatibleDevice()
-	{
-		return $this->incompatibleDevice;
-	}
+  public function setIncompatibleAppVersion($incompatibleAppVersion)
+  {
+    $this->incompatibleAppVersion = $incompatibleAppVersion;
+  }
+  public function getIncompatibleAppVersion()
+  {
+    return $this->incompatibleAppVersion;
+  }
+  public function setIncompatibleArchitecture($incompatibleArchitecture)
+  {
+    $this->incompatibleArchitecture = $incompatibleArchitecture;
+  }
+  public function getIncompatibleArchitecture()
+  {
+    return $this->incompatibleArchitecture;
+  }
+  public function setIncompatibleDevice($incompatibleDevice)
+  {
+    $this->incompatibleDevice = $incompatibleDevice;
+  }
+  public function getIncompatibleDevice()
+  {
+    return $this->incompatibleDevice;
+  }
 }

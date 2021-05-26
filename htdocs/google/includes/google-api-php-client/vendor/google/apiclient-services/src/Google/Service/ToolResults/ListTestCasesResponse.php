@@ -17,31 +17,31 @@
 
 class Google_Service_ToolResults_ListTestCasesResponse extends Google_Collection
 {
-	protected $collection_key = 'testCases';
-	public $nextPageToken;
-	protected $testCasesType = 'Google_Service_ToolResults_TestCase';
-	protected $testCasesDataType = 'array';
+  protected $collection_key = 'testCases';
+  public $nextPageToken;
+  protected $testCasesType = 'Google_Service_ToolResults_TestCase';
+  protected $testCasesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_ToolResults_TestCase
-	 */
-	public function setTestCases($testCases)
-	{
-		$this->testCases = $testCases;
-	}
-	/**
-	 * @return Google_Service_ToolResults_TestCase
-	 */
-	public function getTestCases()
-	{
-		return $this->testCases;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_ToolResults_TestCase[]
+   */
+  public function setTestCases($testCases)
+  {
+    $this->testCases = $testCases;
+  }
+  /**
+   * @return Google_Service_ToolResults_TestCase[]
+   */
+  public function getTestCases()
+  {
+    return $this->testCases;
+  }
 }

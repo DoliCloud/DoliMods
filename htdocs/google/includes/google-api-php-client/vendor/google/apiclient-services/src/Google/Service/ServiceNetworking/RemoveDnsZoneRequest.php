@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceNetworking_RemoveDnsZoneRequest extends Google_Model
 {
-	public $consumerNetwork;
-	public $name;
+  public $consumerNetwork;
+  public $name;
 
-	public function setConsumerNetwork($consumerNetwork)
-	{
-		$this->consumerNetwork = $consumerNetwork;
-	}
-	public function getConsumerNetwork()
-	{
-		return $this->consumerNetwork;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setConsumerNetwork($consumerNetwork)
+  {
+    $this->consumerNetwork = $consumerNetwork;
+  }
+  public function getConsumerNetwork()
+  {
+    return $this->consumerNetwork;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo extends Google_Model
 {
-	public $displayName;
-	public $justCollected;
-	public $required;
-	public $state;
-	public $value;
+  public $displayName;
+  public $justCollected;
+  public $required;
+  public $state;
+  public $value;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setJustCollected($justCollected)
-	{
-		$this->justCollected = $justCollected;
-	}
-	public function getJustCollected()
-	{
-		return $this->justCollected;
-	}
-	public function setRequired($required)
-	{
-		$this->required = $required;
-	}
-	public function getRequired()
-	{
-		return $this->required;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setJustCollected($justCollected)
+  {
+    $this->justCollected = $justCollected;
+  }
+  public function getJustCollected()
+  {
+    return $this->justCollected;
+  }
+  public function setRequired($required)
+  {
+    $this->required = $required;
+  }
+  public function getRequired()
+  {
+    return $this->required;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

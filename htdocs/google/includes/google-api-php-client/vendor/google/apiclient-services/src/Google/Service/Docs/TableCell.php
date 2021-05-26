@@ -17,90 +17,90 @@
 
 class Google_Service_Docs_TableCell extends Google_Collection
 {
-	protected $collection_key = 'suggestedInsertionIds';
-	protected $contentType = 'Google_Service_Docs_StructuralElement';
-	protected $contentDataType = 'array';
-	public $endIndex;
-	public $startIndex;
-	public $suggestedDeletionIds;
-	public $suggestedInsertionIds;
-	protected $suggestedTableCellStyleChangesType = 'Google_Service_Docs_SuggestedTableCellStyle';
-	protected $suggestedTableCellStyleChangesDataType = 'map';
-	protected $tableCellStyleType = 'Google_Service_Docs_TableCellStyle';
-	protected $tableCellStyleDataType = '';
+  protected $collection_key = 'suggestedInsertionIds';
+  protected $contentType = 'Google_Service_Docs_StructuralElement';
+  protected $contentDataType = 'array';
+  public $endIndex;
+  public $startIndex;
+  public $suggestedDeletionIds;
+  public $suggestedInsertionIds;
+  protected $suggestedTableCellStyleChangesType = 'Google_Service_Docs_SuggestedTableCellStyle';
+  protected $suggestedTableCellStyleChangesDataType = 'map';
+  protected $tableCellStyleType = 'Google_Service_Docs_TableCellStyle';
+  protected $tableCellStyleDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_StructuralElement
-	 */
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	/**
-	 * @return Google_Service_Docs_StructuralElement
-	 */
-	public function getContent()
-	{
-		return $this->content;
-	}
-	public function setEndIndex($endIndex)
-	{
-		$this->endIndex = $endIndex;
-	}
-	public function getEndIndex()
-	{
-		return $this->endIndex;
-	}
-	public function setStartIndex($startIndex)
-	{
-		$this->startIndex = $startIndex;
-	}
-	public function getStartIndex()
-	{
-		return $this->startIndex;
-	}
-	public function setSuggestedDeletionIds($suggestedDeletionIds)
-	{
-		$this->suggestedDeletionIds = $suggestedDeletionIds;
-	}
-	public function getSuggestedDeletionIds()
-	{
-		return $this->suggestedDeletionIds;
-	}
-	public function setSuggestedInsertionIds($suggestedInsertionIds)
-	{
-		$this->suggestedInsertionIds = $suggestedInsertionIds;
-	}
-	public function getSuggestedInsertionIds()
-	{
-		return $this->suggestedInsertionIds;
-	}
-	/**
-	 * @param Google_Service_Docs_SuggestedTableCellStyle
-	 */
-	public function setSuggestedTableCellStyleChanges($suggestedTableCellStyleChanges)
-	{
-		$this->suggestedTableCellStyleChanges = $suggestedTableCellStyleChanges;
-	}
-	/**
-	 * @return Google_Service_Docs_SuggestedTableCellStyle
-	 */
-	public function getSuggestedTableCellStyleChanges()
-	{
-		return $this->suggestedTableCellStyleChanges;
-	}
-	/**
-	 * @param Google_Service_Docs_TableCellStyle
-	 */
-	public function setTableCellStyle(Google_Service_Docs_TableCellStyle $tableCellStyle)
-	{
-		$this->tableCellStyle = $tableCellStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_TableCellStyle
-	 */
-	public function getTableCellStyle()
-	{
-		return $this->tableCellStyle;
-	}
+  /**
+   * @param Google_Service_Docs_StructuralElement[]
+   */
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  /**
+   * @return Google_Service_Docs_StructuralElement[]
+   */
+  public function getContent()
+  {
+    return $this->content;
+  }
+  public function setEndIndex($endIndex)
+  {
+    $this->endIndex = $endIndex;
+  }
+  public function getEndIndex()
+  {
+    return $this->endIndex;
+  }
+  public function setStartIndex($startIndex)
+  {
+    $this->startIndex = $startIndex;
+  }
+  public function getStartIndex()
+  {
+    return $this->startIndex;
+  }
+  public function setSuggestedDeletionIds($suggestedDeletionIds)
+  {
+    $this->suggestedDeletionIds = $suggestedDeletionIds;
+  }
+  public function getSuggestedDeletionIds()
+  {
+    return $this->suggestedDeletionIds;
+  }
+  public function setSuggestedInsertionIds($suggestedInsertionIds)
+  {
+    $this->suggestedInsertionIds = $suggestedInsertionIds;
+  }
+  public function getSuggestedInsertionIds()
+  {
+    return $this->suggestedInsertionIds;
+  }
+  /**
+   * @param Google_Service_Docs_SuggestedTableCellStyle[]
+   */
+  public function setSuggestedTableCellStyleChanges($suggestedTableCellStyleChanges)
+  {
+    $this->suggestedTableCellStyleChanges = $suggestedTableCellStyleChanges;
+  }
+  /**
+   * @return Google_Service_Docs_SuggestedTableCellStyle[]
+   */
+  public function getSuggestedTableCellStyleChanges()
+  {
+    return $this->suggestedTableCellStyleChanges;
+  }
+  /**
+   * @param Google_Service_Docs_TableCellStyle
+   */
+  public function setTableCellStyle(Google_Service_Docs_TableCellStyle $tableCellStyle)
+  {
+    $this->tableCellStyle = $tableCellStyle;
+  }
+  /**
+   * @return Google_Service_Docs_TableCellStyle
+   */
+  public function getTableCellStyle()
+  {
+    return $this->tableCellStyle;
+  }
 }

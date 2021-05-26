@@ -25,42 +25,42 @@
  */
 class Google_Service_ServiceNetworking_Resource_ServicesDnsZones extends Google_Service_Resource
 {
-	/**
-	 * Service producers can use this method to add private DNS zones in the shared
-	 * producer host project and matching peering zones in the consumer project.
-	 * (dnsZones.add)
-	 *
-	 * @param string $parent Required. The service that is managing peering
-	 *                       connectivity for a service producer's organization. For Google services that
-	 *                       support this functionality, this value is
-	 *                       `services/servicenetworking.googleapis.com`.
-	 * @param Google_Service_ServiceNetworking_AddDnsZoneRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ServiceNetworking_Operation
-	 */
-	public function add($parent, Google_Service_ServiceNetworking_AddDnsZoneRequest $postBody, $optParams = array())
-	{
-		$params = array('parent' => $parent, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('add', array($params), "Google_Service_ServiceNetworking_Operation");
-	}
-	/**
-	 * Service producers can use this method to remove private DNS zones in the
-	 * shared producer host project and matching peering zones in the consumer
-	 * project. (dnsZones.remove)
-	 *
-	 * @param string $parent Required. The service that is managing peering
-	 *                       connectivity for a service producer's organization. For Google services that
-	 *                       support this functionality, this value is
-	 *                       `services/servicenetworking.googleapis.com`.
-	 * @param Google_Service_ServiceNetworking_RemoveDnsZoneRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ServiceNetworking_Operation
-	 */
-	public function remove($parent, Google_Service_ServiceNetworking_RemoveDnsZoneRequest $postBody, $optParams = array())
-	{
-		$params = array('parent' => $parent, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('remove', array($params), "Google_Service_ServiceNetworking_Operation");
-	}
+  /**
+   * Service producers can use this method to add private DNS zones in the shared
+   * producer host project and matching peering zones in the consumer project.
+   * (dnsZones.add)
+   *
+   * @param string $parent Required. The service that is managing peering
+   * connectivity for a service producer's organization. For Google services that
+   * support this functionality, this value is
+   * `services/servicenetworking.googleapis.com`.
+   * @param Google_Service_ServiceNetworking_AddDnsZoneRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ServiceNetworking_Operation
+   */
+  public function add($parent, Google_Service_ServiceNetworking_AddDnsZoneRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('add', array($params), "Google_Service_ServiceNetworking_Operation");
+  }
+  /**
+   * Service producers can use this method to remove private DNS zones in the
+   * shared producer host project and matching peering zones in the consumer
+   * project. (dnsZones.remove)
+   *
+   * @param string $parent Required. The service that is managing peering
+   * connectivity for a service producer's organization. For Google services that
+   * support this functionality, this value is
+   * `services/servicenetworking.googleapis.com`.
+   * @param Google_Service_ServiceNetworking_RemoveDnsZoneRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ServiceNetworking_Operation
+   */
+  public function remove($parent, Google_Service_ServiceNetworking_RemoveDnsZoneRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('remove', array($params), "Google_Service_ServiceNetworking_Operation");
+  }
 }

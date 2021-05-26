@@ -17,23 +17,23 @@
 
 class Google_Service_Vision_WebLabel extends Google_Model
 {
-	public $label;
-	public $languageCode;
+  public $label;
+  public $languageCode;
 
-	public function setLabel($label)
-	{
-		$this->label = $label;
-	}
-	public function getLabel()
-	{
-		return $this->label;
-	}
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+  public function getLabel()
+  {
+    return $this->label;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
 }

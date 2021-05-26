@@ -17,53 +17,53 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CryptoDeterministicConfig extends Google_Model
 {
-	protected $contextType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
-	protected $contextDataType = '';
-	protected $cryptoKeyType = 'Google_Service_DLP_GooglePrivacyDlpV2CryptoKey';
-	protected $cryptoKeyDataType = '';
-	protected $surrogateInfoTypeType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
-	protected $surrogateInfoTypeDataType = '';
+  protected $contextType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
+  protected $contextDataType = '';
+  protected $cryptoKeyType = 'Google_Service_DLP_GooglePrivacyDlpV2CryptoKey';
+  protected $cryptoKeyDataType = '';
+  protected $surrogateInfoTypeType = 'Google_Service_DLP_GooglePrivacyDlpV2InfoType';
+  protected $surrogateInfoTypeDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
-	 */
-	public function setContext(Google_Service_DLP_GooglePrivacyDlpV2FieldId $context)
-	{
-		$this->context = $context;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
-	 */
-	public function getContext()
-	{
-		return $this->context;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2CryptoKey
-	 */
-	public function setCryptoKey(Google_Service_DLP_GooglePrivacyDlpV2CryptoKey $cryptoKey)
-	{
-		$this->cryptoKey = $cryptoKey;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2CryptoKey
-	 */
-	public function getCryptoKey()
-	{
-		return $this->cryptoKey;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
-	 */
-	public function setSurrogateInfoType(Google_Service_DLP_GooglePrivacyDlpV2InfoType $surrogateInfoType)
-	{
-		$this->surrogateInfoType = $surrogateInfoType;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
-	 */
-	public function getSurrogateInfoType()
-	{
-		return $this->surrogateInfoType;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
+   */
+  public function setContext(Google_Service_DLP_GooglePrivacyDlpV2FieldId $context)
+  {
+    $this->context = $context;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
+   */
+  public function getContext()
+  {
+    return $this->context;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2CryptoKey
+   */
+  public function setCryptoKey(Google_Service_DLP_GooglePrivacyDlpV2CryptoKey $cryptoKey)
+  {
+    $this->cryptoKey = $cryptoKey;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2CryptoKey
+   */
+  public function getCryptoKey()
+  {
+    return $this->cryptoKey;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InfoType
+   */
+  public function setSurrogateInfoType(Google_Service_DLP_GooglePrivacyDlpV2InfoType $surrogateInfoType)
+  {
+    $this->surrogateInfoType = $surrogateInfoType;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InfoType
+   */
+  public function getSurrogateInfoType()
+  {
+    return $this->surrogateInfoType;
+  }
 }

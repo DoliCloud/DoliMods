@@ -17,23 +17,23 @@
 
 class Google_Service_AdExchangeBuyer_PretargetingConfigPlacements extends Google_Model
 {
-	public $token;
-	public $type;
+  public $token;
+  public $type;
 
-	public function setToken($token)
-	{
-		$this->token = $token;
-	}
-	public function getToken()
-	{
-		return $this->token;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setToken($token)
+  {
+    $this->token = $token;
+  }
+  public function getToken()
+  {
+    return $this->token;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

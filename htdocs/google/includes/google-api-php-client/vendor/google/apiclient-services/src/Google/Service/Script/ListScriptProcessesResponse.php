@@ -17,31 +17,31 @@
 
 class Google_Service_Script_ListScriptProcessesResponse extends Google_Collection
 {
-	protected $collection_key = 'processes';
-	public $nextPageToken;
-	protected $processesType = 'Google_Service_Script_GoogleAppsScriptTypeProcess';
-	protected $processesDataType = 'array';
+  protected $collection_key = 'processes';
+  public $nextPageToken;
+  protected $processesType = 'Google_Service_Script_GoogleAppsScriptTypeProcess';
+  protected $processesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Script_GoogleAppsScriptTypeProcess
-	 */
-	public function setProcesses($processes)
-	{
-		$this->processes = $processes;
-	}
-	/**
-	 * @return Google_Service_Script_GoogleAppsScriptTypeProcess
-	 */
-	public function getProcesses()
-	{
-		return $this->processes;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Script_GoogleAppsScriptTypeProcess[]
+   */
+  public function setProcesses($processes)
+  {
+    $this->processes = $processes;
+  }
+  /**
+   * @return Google_Service_Script_GoogleAppsScriptTypeProcess[]
+   */
+  public function getProcesses()
+  {
+    return $this->processes;
+  }
 }

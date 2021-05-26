@@ -17,64 +17,64 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2HybridFindingDetails extends Google_Model
 {
-	protected $containerDetailsType = 'Google_Service_DLP_GooglePrivacyDlpV2Container';
-	protected $containerDetailsDataType = '';
-	public $fileOffset;
-	public $labels;
-	public $rowOffset;
-	protected $tableOptionsType = 'Google_Service_DLP_GooglePrivacyDlpV2TableOptions';
-	protected $tableOptionsDataType = '';
+  protected $containerDetailsType = 'Google_Service_DLP_GooglePrivacyDlpV2Container';
+  protected $containerDetailsDataType = '';
+  public $fileOffset;
+  public $labels;
+  public $rowOffset;
+  protected $tableOptionsType = 'Google_Service_DLP_GooglePrivacyDlpV2TableOptions';
+  protected $tableOptionsDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Container
-	 */
-	public function setContainerDetails(Google_Service_DLP_GooglePrivacyDlpV2Container $containerDetails)
-	{
-		$this->containerDetails = $containerDetails;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Container
-	 */
-	public function getContainerDetails()
-	{
-		return $this->containerDetails;
-	}
-	public function setFileOffset($fileOffset)
-	{
-		$this->fileOffset = $fileOffset;
-	}
-	public function getFileOffset()
-	{
-		return $this->fileOffset;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setRowOffset($rowOffset)
-	{
-		$this->rowOffset = $rowOffset;
-	}
-	public function getRowOffset()
-	{
-		return $this->rowOffset;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2TableOptions
-	 */
-	public function setTableOptions(Google_Service_DLP_GooglePrivacyDlpV2TableOptions $tableOptions)
-	{
-		$this->tableOptions = $tableOptions;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2TableOptions
-	 */
-	public function getTableOptions()
-	{
-		return $this->tableOptions;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Container
+   */
+  public function setContainerDetails(Google_Service_DLP_GooglePrivacyDlpV2Container $containerDetails)
+  {
+    $this->containerDetails = $containerDetails;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Container
+   */
+  public function getContainerDetails()
+  {
+    return $this->containerDetails;
+  }
+  public function setFileOffset($fileOffset)
+  {
+    $this->fileOffset = $fileOffset;
+  }
+  public function getFileOffset()
+  {
+    return $this->fileOffset;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setRowOffset($rowOffset)
+  {
+    $this->rowOffset = $rowOffset;
+  }
+  public function getRowOffset()
+  {
+    return $this->rowOffset;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2TableOptions
+   */
+  public function setTableOptions(Google_Service_DLP_GooglePrivacyDlpV2TableOptions $tableOptions)
+  {
+    $this->tableOptions = $tableOptions;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2TableOptions
+   */
+  public function getTableOptions()
+  {
+    return $this->tableOptions;
+  }
 }

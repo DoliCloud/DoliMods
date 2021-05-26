@@ -17,41 +17,41 @@
 
 class Google_Service_Script_Version extends Google_Model
 {
-	public $createTime;
-	public $description;
-	public $scriptId;
-	public $versionNumber;
+  public $createTime;
+  public $description;
+  public $scriptId;
+  public $versionNumber;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setScriptId($scriptId)
-	{
-		$this->scriptId = $scriptId;
-	}
-	public function getScriptId()
-	{
-		return $this->scriptId;
-	}
-	public function setVersionNumber($versionNumber)
-	{
-		$this->versionNumber = $versionNumber;
-	}
-	public function getVersionNumber()
-	{
-		return $this->versionNumber;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setScriptId($scriptId)
+  {
+    $this->scriptId = $scriptId;
+  }
+  public function getScriptId()
+  {
+    return $this->scriptId;
+  }
+  public function setVersionNumber($versionNumber)
+  {
+    $this->versionNumber = $versionNumber;
+  }
+  public function getVersionNumber()
+  {
+    return $this->versionNumber;
+  }
 }

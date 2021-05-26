@@ -17,74 +17,74 @@
 
 class Google_Service_CloudNaturalLanguage_Entity extends Google_Collection
 {
-	protected $collection_key = 'mentions';
-	protected $mentionsType = 'Google_Service_CloudNaturalLanguage_EntityMention';
-	protected $mentionsDataType = 'array';
-	public $metadata;
-	public $name;
-	public $salience;
-	protected $sentimentType = 'Google_Service_CloudNaturalLanguage_Sentiment';
-	protected $sentimentDataType = '';
-	public $type;
+  protected $collection_key = 'mentions';
+  protected $mentionsType = 'Google_Service_CloudNaturalLanguage_EntityMention';
+  protected $mentionsDataType = 'array';
+  public $metadata;
+  public $name;
+  public $salience;
+  protected $sentimentType = 'Google_Service_CloudNaturalLanguage_Sentiment';
+  protected $sentimentDataType = '';
+  public $type;
 
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_EntityMention
-	 */
-	public function setMentions($mentions)
-	{
-		$this->mentions = $mentions;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_EntityMention
-	 */
-	public function getMentions()
-	{
-		return $this->mentions;
-	}
-	public function setMetadata($metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSalience($salience)
-	{
-		$this->salience = $salience;
-	}
-	public function getSalience()
-	{
-		return $this->salience;
-	}
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_Sentiment
-	 */
-	public function setSentiment(Google_Service_CloudNaturalLanguage_Sentiment $sentiment)
-	{
-		$this->sentiment = $sentiment;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_Sentiment
-	 */
-	public function getSentiment()
-	{
-		return $this->sentiment;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  /**
+   * @param Google_Service_CloudNaturalLanguage_EntityMention[]
+   */
+  public function setMentions($mentions)
+  {
+    $this->mentions = $mentions;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_EntityMention[]
+   */
+  public function getMentions()
+  {
+    return $this->mentions;
+  }
+  public function setMetadata($metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSalience($salience)
+  {
+    $this->salience = $salience;
+  }
+  public function getSalience()
+  {
+    return $this->salience;
+  }
+  /**
+   * @param Google_Service_CloudNaturalLanguage_Sentiment
+   */
+  public function setSentiment(Google_Service_CloudNaturalLanguage_Sentiment $sentiment)
+  {
+    $this->sentiment = $sentiment;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_Sentiment
+   */
+  public function getSentiment()
+  {
+    return $this->sentiment;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

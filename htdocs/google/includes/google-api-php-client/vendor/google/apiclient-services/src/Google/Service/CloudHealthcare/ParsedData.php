@@ -17,22 +17,22 @@
 
 class Google_Service_CloudHealthcare_ParsedData extends Google_Collection
 {
-	protected $collection_key = 'segments';
-	protected $segmentsType = 'Google_Service_CloudHealthcare_Segment';
-	protected $segmentsDataType = 'array';
+  protected $collection_key = 'segments';
+  protected $segmentsType = 'Google_Service_CloudHealthcare_Segment';
+  protected $segmentsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudHealthcare_Segment
-	 */
-	public function setSegments($segments)
-	{
-		$this->segments = $segments;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_Segment
-	 */
-	public function getSegments()
-	{
-		return $this->segments;
-	}
+  /**
+   * @param Google_Service_CloudHealthcare_Segment[]
+   */
+  public function setSegments($segments)
+  {
+    $this->segments = $segments;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_Segment[]
+   */
+  public function getSegments()
+  {
+    return $this->segments;
+  }
 }

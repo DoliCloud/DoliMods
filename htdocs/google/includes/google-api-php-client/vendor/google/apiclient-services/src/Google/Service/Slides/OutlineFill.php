@@ -17,21 +17,21 @@
 
 class Google_Service_Slides_OutlineFill extends Google_Model
 {
-	protected $solidFillType = 'Google_Service_Slides_SolidFill';
-	protected $solidFillDataType = '';
+  protected $solidFillType = 'Google_Service_Slides_SolidFill';
+  protected $solidFillDataType = '';
 
-	/**
-	 * @param Google_Service_Slides_SolidFill
-	 */
-	public function setSolidFill(Google_Service_Slides_SolidFill $solidFill)
-	{
-		$this->solidFill = $solidFill;
-	}
-	/**
-	 * @return Google_Service_Slides_SolidFill
-	 */
-	public function getSolidFill()
-	{
-		return $this->solidFill;
-	}
+  /**
+   * @param Google_Service_Slides_SolidFill
+   */
+  public function setSolidFill(Google_Service_Slides_SolidFill $solidFill)
+  {
+    $this->solidFill = $solidFill;
+  }
+  /**
+   * @return Google_Service_Slides_SolidFill
+   */
+  public function getSolidFill()
+  {
+    return $this->solidFill;
+  }
 }

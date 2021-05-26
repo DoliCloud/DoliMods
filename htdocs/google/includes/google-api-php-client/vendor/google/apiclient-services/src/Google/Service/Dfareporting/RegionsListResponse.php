@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_RegionsListResponse extends Google_Collection
 {
-	protected $collection_key = 'regions';
-	public $kind;
-	protected $regionsType = 'Google_Service_Dfareporting_Region';
-	protected $regionsDataType = 'array';
+  protected $collection_key = 'regions';
+  public $kind;
+  protected $regionsType = 'Google_Service_Dfareporting_Region';
+  protected $regionsDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Region
-	 */
-	public function setRegions($regions)
-	{
-		$this->regions = $regions;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Region
-	 */
-	public function getRegions()
-	{
-		return $this->regions;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Region[]
+   */
+  public function setRegions($regions)
+  {
+    $this->regions = $regions;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Region[]
+   */
+  public function getRegions()
+  {
+    return $this->regions;
+  }
 }

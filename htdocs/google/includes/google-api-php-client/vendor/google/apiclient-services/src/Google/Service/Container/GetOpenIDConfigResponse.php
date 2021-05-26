@@ -17,93 +17,93 @@
 
 class Google_Service_Container_GetOpenIDConfigResponse extends Google_Collection
 {
-	protected $collection_key = 'subject_types_supported';
-	protected $internal_gapi_mappings = array(
-		"claimsSupported" => "claims_supported",
-		"grantTypes" => "grant_types",
-		"idTokenSigningAlgValuesSupported" => "id_token_signing_alg_values_supported",
-		"jwksUri" => "jwks_uri",
-		"responseTypesSupported" => "response_types_supported",
-		"subjectTypesSupported" => "subject_types_supported",
-	);
-	protected $cacheHeaderType = 'Google_Service_Container_HttpCacheControlResponseHeader';
-	protected $cacheHeaderDataType = '';
-	public $claimsSupported;
-	public $grantTypes;
-	public $idTokenSigningAlgValuesSupported;
-	public $issuer;
-	public $jwksUri;
-	public $responseTypesSupported;
-	public $subjectTypesSupported;
+  protected $collection_key = 'subject_types_supported';
+  protected $internal_gapi_mappings = array(
+        "claimsSupported" => "claims_supported",
+        "grantTypes" => "grant_types",
+        "idTokenSigningAlgValuesSupported" => "id_token_signing_alg_values_supported",
+        "jwksUri" => "jwks_uri",
+        "responseTypesSupported" => "response_types_supported",
+        "subjectTypesSupported" => "subject_types_supported",
+  );
+  protected $cacheHeaderType = 'Google_Service_Container_HttpCacheControlResponseHeader';
+  protected $cacheHeaderDataType = '';
+  public $claimsSupported;
+  public $grantTypes;
+  public $idTokenSigningAlgValuesSupported;
+  public $issuer;
+  public $jwksUri;
+  public $responseTypesSupported;
+  public $subjectTypesSupported;
 
-	/**
-	 * @param Google_Service_Container_HttpCacheControlResponseHeader
-	 */
-	public function setCacheHeader(Google_Service_Container_HttpCacheControlResponseHeader $cacheHeader)
-	{
-		$this->cacheHeader = $cacheHeader;
-	}
-	/**
-	 * @return Google_Service_Container_HttpCacheControlResponseHeader
-	 */
-	public function getCacheHeader()
-	{
-		return $this->cacheHeader;
-	}
-	public function setClaimsSupported($claimsSupported)
-	{
-		$this->claimsSupported = $claimsSupported;
-	}
-	public function getClaimsSupported()
-	{
-		return $this->claimsSupported;
-	}
-	public function setGrantTypes($grantTypes)
-	{
-		$this->grantTypes = $grantTypes;
-	}
-	public function getGrantTypes()
-	{
-		return $this->grantTypes;
-	}
-	public function setIdTokenSigningAlgValuesSupported($idTokenSigningAlgValuesSupported)
-	{
-		$this->idTokenSigningAlgValuesSupported = $idTokenSigningAlgValuesSupported;
-	}
-	public function getIdTokenSigningAlgValuesSupported()
-	{
-		return $this->idTokenSigningAlgValuesSupported;
-	}
-	public function setIssuer($issuer)
-	{
-		$this->issuer = $issuer;
-	}
-	public function getIssuer()
-	{
-		return $this->issuer;
-	}
-	public function setJwksUri($jwksUri)
-	{
-		$this->jwksUri = $jwksUri;
-	}
-	public function getJwksUri()
-	{
-		return $this->jwksUri;
-	}
-	public function setResponseTypesSupported($responseTypesSupported)
-	{
-		$this->responseTypesSupported = $responseTypesSupported;
-	}
-	public function getResponseTypesSupported()
-	{
-		return $this->responseTypesSupported;
-	}
-	public function setSubjectTypesSupported($subjectTypesSupported)
-	{
-		$this->subjectTypesSupported = $subjectTypesSupported;
-	}
-	public function getSubjectTypesSupported()
-	{
-		return $this->subjectTypesSupported;
-	}
+  /**
+   * @param Google_Service_Container_HttpCacheControlResponseHeader
+   */
+  public function setCacheHeader(Google_Service_Container_HttpCacheControlResponseHeader $cacheHeader)
+  {
+    $this->cacheHeader = $cacheHeader;
+  }
+  /**
+   * @return Google_Service_Container_HttpCacheControlResponseHeader
+   */
+  public function getCacheHeader()
+  {
+    return $this->cacheHeader;
+  }
+  public function setClaimsSupported($claimsSupported)
+  {
+    $this->claimsSupported = $claimsSupported;
+  }
+  public function getClaimsSupported()
+  {
+    return $this->claimsSupported;
+  }
+  public function setGrantTypes($grantTypes)
+  {
+    $this->grantTypes = $grantTypes;
+  }
+  public function getGrantTypes()
+  {
+    return $this->grantTypes;
+  }
+  public function setIdTokenSigningAlgValuesSupported($idTokenSigningAlgValuesSupported)
+  {
+    $this->idTokenSigningAlgValuesSupported = $idTokenSigningAlgValuesSupported;
+  }
+  public function getIdTokenSigningAlgValuesSupported()
+  {
+    return $this->idTokenSigningAlgValuesSupported;
+  }
+  public function setIssuer($issuer)
+  {
+    $this->issuer = $issuer;
+  }
+  public function getIssuer()
+  {
+    return $this->issuer;
+  }
+  public function setJwksUri($jwksUri)
+  {
+    $this->jwksUri = $jwksUri;
+  }
+  public function getJwksUri()
+  {
+    return $this->jwksUri;
+  }
+  public function setResponseTypesSupported($responseTypesSupported)
+  {
+    $this->responseTypesSupported = $responseTypesSupported;
+  }
+  public function getResponseTypesSupported()
+  {
+    return $this->responseTypesSupported;
+  }
+  public function setSubjectTypesSupported($subjectTypesSupported)
+  {
+    $this->subjectTypesSupported = $subjectTypesSupported;
+  }
+  public function getSubjectTypesSupported()
+  {
+    return $this->subjectTypesSupported;
+  }
 }

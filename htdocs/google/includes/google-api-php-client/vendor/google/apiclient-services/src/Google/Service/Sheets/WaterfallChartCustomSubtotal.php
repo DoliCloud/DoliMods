@@ -17,32 +17,32 @@
 
 class Google_Service_Sheets_WaterfallChartCustomSubtotal extends Google_Model
 {
-	public $dataIsSubtotal;
-	public $label;
-	public $subtotalIndex;
+  public $dataIsSubtotal;
+  public $label;
+  public $subtotalIndex;
 
-	public function setDataIsSubtotal($dataIsSubtotal)
-	{
-		$this->dataIsSubtotal = $dataIsSubtotal;
-	}
-	public function getDataIsSubtotal()
-	{
-		return $this->dataIsSubtotal;
-	}
-	public function setLabel($label)
-	{
-		$this->label = $label;
-	}
-	public function getLabel()
-	{
-		return $this->label;
-	}
-	public function setSubtotalIndex($subtotalIndex)
-	{
-		$this->subtotalIndex = $subtotalIndex;
-	}
-	public function getSubtotalIndex()
-	{
-		return $this->subtotalIndex;
-	}
+  public function setDataIsSubtotal($dataIsSubtotal)
+  {
+    $this->dataIsSubtotal = $dataIsSubtotal;
+  }
+  public function getDataIsSubtotal()
+  {
+    return $this->dataIsSubtotal;
+  }
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+  public function getLabel()
+  {
+    return $this->label;
+  }
+  public function setSubtotalIndex($subtotalIndex)
+  {
+    $this->subtotalIndex = $subtotalIndex;
+  }
+  public function getSubtotalIndex()
+  {
+    return $this->subtotalIndex;
+  }
 }

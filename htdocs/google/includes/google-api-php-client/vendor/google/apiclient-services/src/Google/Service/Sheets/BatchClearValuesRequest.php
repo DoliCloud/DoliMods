@@ -17,15 +17,15 @@
 
 class Google_Service_Sheets_BatchClearValuesRequest extends Google_Collection
 {
-	protected $collection_key = 'ranges';
-	public $ranges;
+  protected $collection_key = 'ranges';
+  public $ranges;
 
-	public function setRanges($ranges)
-	{
-		$this->ranges = $ranges;
-	}
-	public function getRanges()
-	{
-		return $this->ranges;
-	}
+  public function setRanges($ranges)
+  {
+    $this->ranges = $ranges;
+  }
+  public function getRanges()
+  {
+    return $this->ranges;
+  }
 }

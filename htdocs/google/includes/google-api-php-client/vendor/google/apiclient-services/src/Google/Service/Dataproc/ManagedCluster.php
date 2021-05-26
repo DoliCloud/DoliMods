@@ -17,39 +17,39 @@
 
 class Google_Service_Dataproc_ManagedCluster extends Google_Model
 {
-	public $clusterName;
-	protected $configType = 'Google_Service_Dataproc_ClusterConfig';
-	protected $configDataType = '';
-	public $labels;
+  public $clusterName;
+  protected $configType = 'Google_Service_Dataproc_ClusterConfig';
+  protected $configDataType = '';
+  public $labels;
 
-	public function setClusterName($clusterName)
-	{
-		$this->clusterName = $clusterName;
-	}
-	public function getClusterName()
-	{
-		return $this->clusterName;
-	}
-	/**
-	 * @param Google_Service_Dataproc_ClusterConfig
-	 */
-	public function setConfig(Google_Service_Dataproc_ClusterConfig $config)
-	{
-		$this->config = $config;
-	}
-	/**
-	 * @return Google_Service_Dataproc_ClusterConfig
-	 */
-	public function getConfig()
-	{
-		return $this->config;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
+  public function setClusterName($clusterName)
+  {
+    $this->clusterName = $clusterName;
+  }
+  public function getClusterName()
+  {
+    return $this->clusterName;
+  }
+  /**
+   * @param Google_Service_Dataproc_ClusterConfig
+   */
+  public function setConfig(Google_Service_Dataproc_ClusterConfig $config)
+  {
+    $this->config = $config;
+  }
+  /**
+   * @return Google_Service_Dataproc_ClusterConfig
+   */
+  public function getConfig()
+  {
+    return $this->config;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
 }

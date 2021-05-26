@@ -17,54 +17,54 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReport extends Google_Collection
 {
-	protected $collection_key = 'routingConflicts';
-	protected $routingChangesType = 'Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingChange';
-	protected $routingChangesDataType = 'array';
-	protected $routingConflictsType = 'Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingConflict';
-	protected $routingConflictsDataType = 'array';
-	protected $validationErrorsType = 'Google_Service_Apigee_GoogleRpcPreconditionFailure';
-	protected $validationErrorsDataType = '';
+  protected $collection_key = 'routingConflicts';
+  protected $routingChangesType = 'Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingChange';
+  protected $routingChangesDataType = 'array';
+  protected $routingConflictsType = 'Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingConflict';
+  protected $routingConflictsDataType = 'array';
+  protected $validationErrorsType = 'Google_Service_Apigee_GoogleRpcPreconditionFailure';
+  protected $validationErrorsDataType = '';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingChange
-	 */
-	public function setRoutingChanges($routingChanges)
-	{
-		$this->routingChanges = $routingChanges;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingChange
-	 */
-	public function getRoutingChanges()
-	{
-		return $this->routingChanges;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingConflict
-	 */
-	public function setRoutingConflicts($routingConflicts)
-	{
-		$this->routingConflicts = $routingConflicts;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingConflict
-	 */
-	public function getRoutingConflicts()
-	{
-		return $this->routingConflicts;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleRpcPreconditionFailure
-	 */
-	public function setValidationErrors(Google_Service_Apigee_GoogleRpcPreconditionFailure $validationErrors)
-	{
-		$this->validationErrors = $validationErrors;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleRpcPreconditionFailure
-	 */
-	public function getValidationErrors()
-	{
-		return $this->validationErrors;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingChange[]
+   */
+  public function setRoutingChanges($routingChanges)
+  {
+    $this->routingChanges = $routingChanges;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingChange[]
+   */
+  public function getRoutingChanges()
+  {
+    return $this->routingChanges;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingConflict[]
+   */
+  public function setRoutingConflicts($routingConflicts)
+  {
+    $this->routingConflicts = $routingConflicts;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingConflict[]
+   */
+  public function getRoutingConflicts()
+  {
+    return $this->routingConflicts;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleRpcPreconditionFailure
+   */
+  public function setValidationErrors(Google_Service_Apigee_GoogleRpcPreconditionFailure $validationErrors)
+  {
+    $this->validationErrors = $validationErrors;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleRpcPreconditionFailure
+   */
+  public function getValidationErrors()
+  {
+    return $this->validationErrors;
+  }
 }

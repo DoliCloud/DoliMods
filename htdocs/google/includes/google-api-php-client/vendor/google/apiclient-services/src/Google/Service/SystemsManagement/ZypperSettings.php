@@ -17,60 +17,60 @@
 
 class Google_Service_SystemsManagement_ZypperSettings extends Google_Collection
 {
-	protected $collection_key = 'severities';
-	public $categories;
-	public $excludes;
-	public $exclusivePatches;
-	public $severities;
-	public $withOptional;
-	public $withUpdate;
+  protected $collection_key = 'severities';
+  public $categories;
+  public $excludes;
+  public $exclusivePatches;
+  public $severities;
+  public $withOptional;
+  public $withUpdate;
 
-	public function setCategories($categories)
-	{
-		$this->categories = $categories;
-	}
-	public function getCategories()
-	{
-		return $this->categories;
-	}
-	public function setExcludes($excludes)
-	{
-		$this->excludes = $excludes;
-	}
-	public function getExcludes()
-	{
-		return $this->excludes;
-	}
-	public function setExclusivePatches($exclusivePatches)
-	{
-		$this->exclusivePatches = $exclusivePatches;
-	}
-	public function getExclusivePatches()
-	{
-		return $this->exclusivePatches;
-	}
-	public function setSeverities($severities)
-	{
-		$this->severities = $severities;
-	}
-	public function getSeverities()
-	{
-		return $this->severities;
-	}
-	public function setWithOptional($withOptional)
-	{
-		$this->withOptional = $withOptional;
-	}
-	public function getWithOptional()
-	{
-		return $this->withOptional;
-	}
-	public function setWithUpdate($withUpdate)
-	{
-		$this->withUpdate = $withUpdate;
-	}
-	public function getWithUpdate()
-	{
-		return $this->withUpdate;
-	}
+  public function setCategories($categories)
+  {
+    $this->categories = $categories;
+  }
+  public function getCategories()
+  {
+    return $this->categories;
+  }
+  public function setExcludes($excludes)
+  {
+    $this->excludes = $excludes;
+  }
+  public function getExcludes()
+  {
+    return $this->excludes;
+  }
+  public function setExclusivePatches($exclusivePatches)
+  {
+    $this->exclusivePatches = $exclusivePatches;
+  }
+  public function getExclusivePatches()
+  {
+    return $this->exclusivePatches;
+  }
+  public function setSeverities($severities)
+  {
+    $this->severities = $severities;
+  }
+  public function getSeverities()
+  {
+    return $this->severities;
+  }
+  public function setWithOptional($withOptional)
+  {
+    $this->withOptional = $withOptional;
+  }
+  public function getWithOptional()
+  {
+    return $this->withOptional;
+  }
+  public function setWithUpdate($withUpdate)
+  {
+    $this->withUpdate = $withUpdate;
+  }
+  public function getWithUpdate()
+  {
+    return $this->withUpdate;
+  }
 }

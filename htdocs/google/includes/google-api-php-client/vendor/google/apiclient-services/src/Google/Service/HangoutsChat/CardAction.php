@@ -17,30 +17,30 @@
 
 class Google_Service_HangoutsChat_CardAction extends Google_Model
 {
-	public $actionLabel;
-	protected $onClickType = 'Google_Service_HangoutsChat_OnClick';
-	protected $onClickDataType = '';
+  public $actionLabel;
+  protected $onClickType = 'Google_Service_HangoutsChat_OnClick';
+  protected $onClickDataType = '';
 
-	public function setActionLabel($actionLabel)
-	{
-		$this->actionLabel = $actionLabel;
-	}
-	public function getActionLabel()
-	{
-		return $this->actionLabel;
-	}
-	/**
-	 * @param Google_Service_HangoutsChat_OnClick
-	 */
-	public function setOnClick(Google_Service_HangoutsChat_OnClick $onClick)
-	{
-		$this->onClick = $onClick;
-	}
-	/**
-	 * @return Google_Service_HangoutsChat_OnClick
-	 */
-	public function getOnClick()
-	{
-		return $this->onClick;
-	}
+  public function setActionLabel($actionLabel)
+  {
+    $this->actionLabel = $actionLabel;
+  }
+  public function getActionLabel()
+  {
+    return $this->actionLabel;
+  }
+  /**
+   * @param Google_Service_HangoutsChat_OnClick
+   */
+  public function setOnClick(Google_Service_HangoutsChat_OnClick $onClick)
+  {
+    $this->onClick = $onClick;
+  }
+  /**
+   * @return Google_Service_HangoutsChat_OnClick
+   */
+  public function getOnClick()
+  {
+    return $this->onClick;
+  }
 }

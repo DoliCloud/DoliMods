@@ -17,73 +17,89 @@
 
 class Google_Service_SystemsManagement_ExecutePatchJobRequest extends Google_Model
 {
-	public $description;
-	public $displayName;
-	public $dryRun;
-	public $duration;
-	protected $instanceFilterType = 'Google_Service_SystemsManagement_PatchInstanceFilter';
-	protected $instanceFilterDataType = '';
-	protected $patchConfigType = 'Google_Service_SystemsManagement_PatchConfig';
-	protected $patchConfigDataType = '';
+  public $description;
+  public $displayName;
+  public $dryRun;
+  public $duration;
+  protected $instanceFilterType = 'Google_Service_SystemsManagement_PatchInstanceFilter';
+  protected $instanceFilterDataType = '';
+  protected $patchConfigType = 'Google_Service_SystemsManagement_PatchConfig';
+  protected $patchConfigDataType = '';
+  protected $rolloutType = 'Google_Service_SystemsManagement_PatchRollout';
+  protected $rolloutDataType = '';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setDryRun($dryRun)
-	{
-		$this->dryRun = $dryRun;
-	}
-	public function getDryRun()
-	{
-		return $this->dryRun;
-	}
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	/**
-	 * @param Google_Service_SystemsManagement_PatchInstanceFilter
-	 */
-	public function setInstanceFilter(Google_Service_SystemsManagement_PatchInstanceFilter $instanceFilter)
-	{
-		$this->instanceFilter = $instanceFilter;
-	}
-	/**
-	 * @return Google_Service_SystemsManagement_PatchInstanceFilter
-	 */
-	public function getInstanceFilter()
-	{
-		return $this->instanceFilter;
-	}
-	/**
-	 * @param Google_Service_SystemsManagement_PatchConfig
-	 */
-	public function setPatchConfig(Google_Service_SystemsManagement_PatchConfig $patchConfig)
-	{
-		$this->patchConfig = $patchConfig;
-	}
-	/**
-	 * @return Google_Service_SystemsManagement_PatchConfig
-	 */
-	public function getPatchConfig()
-	{
-		return $this->patchConfig;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setDryRun($dryRun)
+  {
+    $this->dryRun = $dryRun;
+  }
+  public function getDryRun()
+  {
+    return $this->dryRun;
+  }
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  /**
+   * @param Google_Service_SystemsManagement_PatchInstanceFilter
+   */
+  public function setInstanceFilter(Google_Service_SystemsManagement_PatchInstanceFilter $instanceFilter)
+  {
+    $this->instanceFilter = $instanceFilter;
+  }
+  /**
+   * @return Google_Service_SystemsManagement_PatchInstanceFilter
+   */
+  public function getInstanceFilter()
+  {
+    return $this->instanceFilter;
+  }
+  /**
+   * @param Google_Service_SystemsManagement_PatchConfig
+   */
+  public function setPatchConfig(Google_Service_SystemsManagement_PatchConfig $patchConfig)
+  {
+    $this->patchConfig = $patchConfig;
+  }
+  /**
+   * @return Google_Service_SystemsManagement_PatchConfig
+   */
+  public function getPatchConfig()
+  {
+    return $this->patchConfig;
+  }
+  /**
+   * @param Google_Service_SystemsManagement_PatchRollout
+   */
+  public function setRollout(Google_Service_SystemsManagement_PatchRollout $rollout)
+  {
+    $this->rollout = $rollout;
+  }
+  /**
+   * @return Google_Service_SystemsManagement_PatchRollout
+   */
+  public function getRollout()
+  {
+    return $this->rollout;
+  }
 }

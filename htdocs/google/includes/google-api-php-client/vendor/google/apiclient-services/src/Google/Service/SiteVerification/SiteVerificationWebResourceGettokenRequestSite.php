@@ -17,23 +17,23 @@
 
 class Google_Service_SiteVerification_SiteVerificationWebResourceGettokenRequestSite extends Google_Model
 {
-	public $identifier;
-	public $type;
+  public $identifier;
+  public $type;
 
-	public function setIdentifier($identifier)
-	{
-		$this->identifier = $identifier;
-	}
-	public function getIdentifier()
-	{
-		return $this->identifier;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setIdentifier($identifier)
+  {
+    $this->identifier = $identifier;
+  }
+  public function getIdentifier()
+  {
+    return $this->identifier;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

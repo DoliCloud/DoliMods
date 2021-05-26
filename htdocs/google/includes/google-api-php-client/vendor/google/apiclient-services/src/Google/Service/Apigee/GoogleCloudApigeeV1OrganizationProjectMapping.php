@@ -17,24 +17,24 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1OrganizationProjectMapping extends Google_Collection
 {
-	protected $collection_key = 'projectIds';
-	public $organization;
-	public $projectIds;
+  protected $collection_key = 'projectIds';
+  public $organization;
+  public $projectIds;
 
-	public function setOrganization($organization)
-	{
-		$this->organization = $organization;
-	}
-	public function getOrganization()
-	{
-		return $this->organization;
-	}
-	public function setProjectIds($projectIds)
-	{
-		$this->projectIds = $projectIds;
-	}
-	public function getProjectIds()
-	{
-		return $this->projectIds;
-	}
+  public function setOrganization($organization)
+  {
+    $this->organization = $organization;
+  }
+  public function getOrganization()
+  {
+    return $this->organization;
+  }
+  public function setProjectIds($projectIds)
+  {
+    $this->projectIds = $projectIds;
+  }
+  public function getProjectIds()
+  {
+    return $this->projectIds;
+  }
 }

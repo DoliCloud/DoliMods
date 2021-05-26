@@ -17,59 +17,59 @@
 
 class Google_Service_Dataflow_WorkerSettings extends Google_Model
 {
-	public $baseUrl;
-	public $reportingEnabled;
-	public $servicePath;
-	public $shuffleServicePath;
-	public $tempStoragePrefix;
-	public $workerId;
+  public $baseUrl;
+  public $reportingEnabled;
+  public $servicePath;
+  public $shuffleServicePath;
+  public $tempStoragePrefix;
+  public $workerId;
 
-	public function setBaseUrl($baseUrl)
-	{
-		$this->baseUrl = $baseUrl;
-	}
-	public function getBaseUrl()
-	{
-		return $this->baseUrl;
-	}
-	public function setReportingEnabled($reportingEnabled)
-	{
-		$this->reportingEnabled = $reportingEnabled;
-	}
-	public function getReportingEnabled()
-	{
-		return $this->reportingEnabled;
-	}
-	public function setServicePath($servicePath)
-	{
-		$this->servicePath = $servicePath;
-	}
-	public function getServicePath()
-	{
-		return $this->servicePath;
-	}
-	public function setShuffleServicePath($shuffleServicePath)
-	{
-		$this->shuffleServicePath = $shuffleServicePath;
-	}
-	public function getShuffleServicePath()
-	{
-		return $this->shuffleServicePath;
-	}
-	public function setTempStoragePrefix($tempStoragePrefix)
-	{
-		$this->tempStoragePrefix = $tempStoragePrefix;
-	}
-	public function getTempStoragePrefix()
-	{
-		return $this->tempStoragePrefix;
-	}
-	public function setWorkerId($workerId)
-	{
-		$this->workerId = $workerId;
-	}
-	public function getWorkerId()
-	{
-		return $this->workerId;
-	}
+  public function setBaseUrl($baseUrl)
+  {
+    $this->baseUrl = $baseUrl;
+  }
+  public function getBaseUrl()
+  {
+    return $this->baseUrl;
+  }
+  public function setReportingEnabled($reportingEnabled)
+  {
+    $this->reportingEnabled = $reportingEnabled;
+  }
+  public function getReportingEnabled()
+  {
+    return $this->reportingEnabled;
+  }
+  public function setServicePath($servicePath)
+  {
+    $this->servicePath = $servicePath;
+  }
+  public function getServicePath()
+  {
+    return $this->servicePath;
+  }
+  public function setShuffleServicePath($shuffleServicePath)
+  {
+    $this->shuffleServicePath = $shuffleServicePath;
+  }
+  public function getShuffleServicePath()
+  {
+    return $this->shuffleServicePath;
+  }
+  public function setTempStoragePrefix($tempStoragePrefix)
+  {
+    $this->tempStoragePrefix = $tempStoragePrefix;
+  }
+  public function getTempStoragePrefix()
+  {
+    return $this->tempStoragePrefix;
+  }
+  public function setWorkerId($workerId)
+  {
+    $this->workerId = $workerId;
+  }
+  public function getWorkerId()
+  {
+    return $this->workerId;
+  }
 }

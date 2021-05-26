@@ -17,95 +17,136 @@
 
 class Google_Service_Sheets_PivotTable extends Google_Collection
 {
-	protected $collection_key = 'values';
-	protected $columnsType = 'Google_Service_Sheets_PivotGroup';
-	protected $columnsDataType = 'array';
-	protected $criteriaType = 'Google_Service_Sheets_PivotFilterCriteria';
-	protected $criteriaDataType = 'map';
-	protected $rowsType = 'Google_Service_Sheets_PivotGroup';
-	protected $rowsDataType = 'array';
-	protected $sourceType = 'Google_Service_Sheets_GridRange';
-	protected $sourceDataType = '';
-	public $valueLayout;
-	protected $valuesType = 'Google_Service_Sheets_PivotValue';
-	protected $valuesDataType = 'array';
+  protected $collection_key = 'values';
+  protected $columnsType = 'Google_Service_Sheets_PivotGroup';
+  protected $columnsDataType = 'array';
+  protected $criteriaType = 'Google_Service_Sheets_PivotFilterCriteria';
+  protected $criteriaDataType = 'map';
+  protected $dataExecutionStatusType = 'Google_Service_Sheets_DataExecutionStatus';
+  protected $dataExecutionStatusDataType = '';
+  public $dataSourceId;
+  protected $filterSpecsType = 'Google_Service_Sheets_PivotFilterSpec';
+  protected $filterSpecsDataType = 'array';
+  protected $rowsType = 'Google_Service_Sheets_PivotGroup';
+  protected $rowsDataType = 'array';
+  protected $sourceType = 'Google_Service_Sheets_GridRange';
+  protected $sourceDataType = '';
+  public $valueLayout;
+  protected $valuesType = 'Google_Service_Sheets_PivotValue';
+  protected $valuesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Sheets_PivotGroup
-	 */
-	public function setColumns($columns)
-	{
-		$this->columns = $columns;
-	}
-	/**
-	 * @return Google_Service_Sheets_PivotGroup
-	 */
-	public function getColumns()
-	{
-		return $this->columns;
-	}
-	/**
-	 * @param Google_Service_Sheets_PivotFilterCriteria
-	 */
-	public function setCriteria($criteria)
-	{
-		$this->criteria = $criteria;
-	}
-	/**
-	 * @return Google_Service_Sheets_PivotFilterCriteria
-	 */
-	public function getCriteria()
-	{
-		return $this->criteria;
-	}
-	/**
-	 * @param Google_Service_Sheets_PivotGroup
-	 */
-	public function setRows($rows)
-	{
-		$this->rows = $rows;
-	}
-	/**
-	 * @return Google_Service_Sheets_PivotGroup
-	 */
-	public function getRows()
-	{
-		return $this->rows;
-	}
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setSource(Google_Service_Sheets_GridRange $source)
-	{
-		$this->source = $source;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getSource()
-	{
-		return $this->source;
-	}
-	public function setValueLayout($valueLayout)
-	{
-		$this->valueLayout = $valueLayout;
-	}
-	public function getValueLayout()
-	{
-		return $this->valueLayout;
-	}
-	/**
-	 * @param Google_Service_Sheets_PivotValue
-	 */
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	/**
-	 * @return Google_Service_Sheets_PivotValue
-	 */
-	public function getValues()
-	{
-		return $this->values;
-	}
+  /**
+   * @param Google_Service_Sheets_PivotGroup[]
+   */
+  public function setColumns($columns)
+  {
+    $this->columns = $columns;
+  }
+  /**
+   * @return Google_Service_Sheets_PivotGroup[]
+   */
+  public function getColumns()
+  {
+    return $this->columns;
+  }
+  /**
+   * @param Google_Service_Sheets_PivotFilterCriteria[]
+   */
+  public function setCriteria($criteria)
+  {
+    $this->criteria = $criteria;
+  }
+  /**
+   * @return Google_Service_Sheets_PivotFilterCriteria[]
+   */
+  public function getCriteria()
+  {
+    return $this->criteria;
+  }
+  /**
+   * @param Google_Service_Sheets_DataExecutionStatus
+   */
+  public function setDataExecutionStatus(Google_Service_Sheets_DataExecutionStatus $dataExecutionStatus)
+  {
+    $this->dataExecutionStatus = $dataExecutionStatus;
+  }
+  /**
+   * @return Google_Service_Sheets_DataExecutionStatus
+   */
+  public function getDataExecutionStatus()
+  {
+    return $this->dataExecutionStatus;
+  }
+  public function setDataSourceId($dataSourceId)
+  {
+    $this->dataSourceId = $dataSourceId;
+  }
+  public function getDataSourceId()
+  {
+    return $this->dataSourceId;
+  }
+  /**
+   * @param Google_Service_Sheets_PivotFilterSpec[]
+   */
+  public function setFilterSpecs($filterSpecs)
+  {
+    $this->filterSpecs = $filterSpecs;
+  }
+  /**
+   * @return Google_Service_Sheets_PivotFilterSpec[]
+   */
+  public function getFilterSpecs()
+  {
+    return $this->filterSpecs;
+  }
+  /**
+   * @param Google_Service_Sheets_PivotGroup[]
+   */
+  public function setRows($rows)
+  {
+    $this->rows = $rows;
+  }
+  /**
+   * @return Google_Service_Sheets_PivotGroup[]
+   */
+  public function getRows()
+  {
+    return $this->rows;
+  }
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setSource(Google_Service_Sheets_GridRange $source)
+  {
+    $this->source = $source;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getSource()
+  {
+    return $this->source;
+  }
+  public function setValueLayout($valueLayout)
+  {
+    $this->valueLayout = $valueLayout;
+  }
+  public function getValueLayout()
+  {
+    return $this->valueLayout;
+  }
+  /**
+   * @param Google_Service_Sheets_PivotValue[]
+   */
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  /**
+   * @return Google_Service_Sheets_PivotValue[]
+   */
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

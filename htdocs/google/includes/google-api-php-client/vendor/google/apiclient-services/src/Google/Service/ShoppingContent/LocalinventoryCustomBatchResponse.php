@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_LocalinventoryCustomBatchResponse extends Google_Collection
 {
-	protected $collection_key = 'entries';
-	protected $entriesType = 'Google_Service_ShoppingContent_LocalinventoryCustomBatchResponseEntry';
-	protected $entriesDataType = 'array';
-	public $kind;
+  protected $collection_key = 'entries';
+  protected $entriesType = 'Google_Service_ShoppingContent_LocalinventoryCustomBatchResponseEntry';
+  protected $entriesDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_ShoppingContent_LocalinventoryCustomBatchResponseEntry
-	 */
-	public function setEntries($entries)
-	{
-		$this->entries = $entries;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_LocalinventoryCustomBatchResponseEntry
-	 */
-	public function getEntries()
-	{
-		return $this->entries;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_LocalinventoryCustomBatchResponseEntry[]
+   */
+  public function setEntries($entries)
+  {
+    $this->entries = $entries;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_LocalinventoryCustomBatchResponseEntry[]
+   */
+  public function getEntries()
+  {
+    return $this->entries;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

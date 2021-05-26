@@ -17,94 +17,94 @@
 
 class Google_Service_GameServices_OperationMetadata extends Google_Collection
 {
-	protected $collection_key = 'unreachable';
-	public $apiVersion;
-	public $createTime;
-	public $endTime;
-	protected $operationStatusType = 'Google_Service_GameServices_OperationStatus';
-	protected $operationStatusDataType = 'map';
-	public $requestedCancellation;
-	public $statusMessage;
-	public $target;
-	public $unreachable;
-	public $verb;
+  protected $collection_key = 'unreachable';
+  public $apiVersion;
+  public $createTime;
+  public $endTime;
+  protected $operationStatusType = 'Google_Service_GameServices_OperationStatus';
+  protected $operationStatusDataType = 'map';
+  public $requestedCancellation;
+  public $statusMessage;
+  public $target;
+  public $unreachable;
+  public $verb;
 
-	public function setApiVersion($apiVersion)
-	{
-		$this->apiVersion = $apiVersion;
-	}
-	public function getApiVersion()
-	{
-		return $this->apiVersion;
-	}
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	/**
-	 * @param Google_Service_GameServices_OperationStatus
-	 */
-	public function setOperationStatus($operationStatus)
-	{
-		$this->operationStatus = $operationStatus;
-	}
-	/**
-	 * @return Google_Service_GameServices_OperationStatus
-	 */
-	public function getOperationStatus()
-	{
-		return $this->operationStatus;
-	}
-	public function setRequestedCancellation($requestedCancellation)
-	{
-		$this->requestedCancellation = $requestedCancellation;
-	}
-	public function getRequestedCancellation()
-	{
-		return $this->requestedCancellation;
-	}
-	public function setStatusMessage($statusMessage)
-	{
-		$this->statusMessage = $statusMessage;
-	}
-	public function getStatusMessage()
-	{
-		return $this->statusMessage;
-	}
-	public function setTarget($target)
-	{
-		$this->target = $target;
-	}
-	public function getTarget()
-	{
-		return $this->target;
-	}
-	public function setUnreachable($unreachable)
-	{
-		$this->unreachable = $unreachable;
-	}
-	public function getUnreachable()
-	{
-		return $this->unreachable;
-	}
-	public function setVerb($verb)
-	{
-		$this->verb = $verb;
-	}
-	public function getVerb()
-	{
-		return $this->verb;
-	}
+  public function setApiVersion($apiVersion)
+  {
+    $this->apiVersion = $apiVersion;
+  }
+  public function getApiVersion()
+  {
+    return $this->apiVersion;
+  }
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  /**
+   * @param Google_Service_GameServices_OperationStatus[]
+   */
+  public function setOperationStatus($operationStatus)
+  {
+    $this->operationStatus = $operationStatus;
+  }
+  /**
+   * @return Google_Service_GameServices_OperationStatus[]
+   */
+  public function getOperationStatus()
+  {
+    return $this->operationStatus;
+  }
+  public function setRequestedCancellation($requestedCancellation)
+  {
+    $this->requestedCancellation = $requestedCancellation;
+  }
+  public function getRequestedCancellation()
+  {
+    return $this->requestedCancellation;
+  }
+  public function setStatusMessage($statusMessage)
+  {
+    $this->statusMessage = $statusMessage;
+  }
+  public function getStatusMessage()
+  {
+    return $this->statusMessage;
+  }
+  public function setTarget($target)
+  {
+    $this->target = $target;
+  }
+  public function getTarget()
+  {
+    return $this->target;
+  }
+  public function setUnreachable($unreachable)
+  {
+    $this->unreachable = $unreachable;
+  }
+  public function getUnreachable()
+  {
+    return $this->unreachable;
+  }
+  public function setVerb($verb)
+  {
+    $this->verb = $verb;
+  }
+  public function getVerb()
+  {
+    return $this->verb;
+  }
 }

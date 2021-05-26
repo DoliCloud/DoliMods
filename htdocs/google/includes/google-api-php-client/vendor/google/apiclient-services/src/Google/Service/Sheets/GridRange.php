@@ -17,50 +17,50 @@
 
 class Google_Service_Sheets_GridRange extends Google_Model
 {
-	public $endColumnIndex;
-	public $endRowIndex;
-	public $sheetId;
-	public $startColumnIndex;
-	public $startRowIndex;
+  public $endColumnIndex;
+  public $endRowIndex;
+  public $sheetId;
+  public $startColumnIndex;
+  public $startRowIndex;
 
-	public function setEndColumnIndex($endColumnIndex)
-	{
-		$this->endColumnIndex = $endColumnIndex;
-	}
-	public function getEndColumnIndex()
-	{
-		return $this->endColumnIndex;
-	}
-	public function setEndRowIndex($endRowIndex)
-	{
-		$this->endRowIndex = $endRowIndex;
-	}
-	public function getEndRowIndex()
-	{
-		return $this->endRowIndex;
-	}
-	public function setSheetId($sheetId)
-	{
-		$this->sheetId = $sheetId;
-	}
-	public function getSheetId()
-	{
-		return $this->sheetId;
-	}
-	public function setStartColumnIndex($startColumnIndex)
-	{
-		$this->startColumnIndex = $startColumnIndex;
-	}
-	public function getStartColumnIndex()
-	{
-		return $this->startColumnIndex;
-	}
-	public function setStartRowIndex($startRowIndex)
-	{
-		$this->startRowIndex = $startRowIndex;
-	}
-	public function getStartRowIndex()
-	{
-		return $this->startRowIndex;
-	}
+  public function setEndColumnIndex($endColumnIndex)
+  {
+    $this->endColumnIndex = $endColumnIndex;
+  }
+  public function getEndColumnIndex()
+  {
+    return $this->endColumnIndex;
+  }
+  public function setEndRowIndex($endRowIndex)
+  {
+    $this->endRowIndex = $endRowIndex;
+  }
+  public function getEndRowIndex()
+  {
+    return $this->endRowIndex;
+  }
+  public function setSheetId($sheetId)
+  {
+    $this->sheetId = $sheetId;
+  }
+  public function getSheetId()
+  {
+    return $this->sheetId;
+  }
+  public function setStartColumnIndex($startColumnIndex)
+  {
+    $this->startColumnIndex = $startColumnIndex;
+  }
+  public function getStartColumnIndex()
+  {
+    return $this->startColumnIndex;
+  }
+  public function setStartRowIndex($startRowIndex)
+  {
+    $this->startRowIndex = $startRowIndex;
+  }
+  public function getStartRowIndex()
+  {
+    return $this->startRowIndex;
+  }
 }

@@ -17,55 +17,55 @@
 
 class Google_Service_RealTimeBidding_UrlRestriction extends Google_Model
 {
-	protected $endDateType = 'Google_Service_RealTimeBidding_Date';
-	protected $endDateDataType = '';
-	public $restrictionType;
-	protected $startDateType = 'Google_Service_RealTimeBidding_Date';
-	protected $startDateDataType = '';
-	public $url;
+  protected $endDateType = 'Google_Service_RealTimeBidding_Date';
+  protected $endDateDataType = '';
+  public $restrictionType;
+  protected $startDateType = 'Google_Service_RealTimeBidding_Date';
+  protected $startDateDataType = '';
+  public $url;
 
-	/**
-	 * @param Google_Service_RealTimeBidding_Date
-	 */
-	public function setEndDate(Google_Service_RealTimeBidding_Date $endDate)
-	{
-		$this->endDate = $endDate;
-	}
-	/**
-	 * @return Google_Service_RealTimeBidding_Date
-	 */
-	public function getEndDate()
-	{
-		return $this->endDate;
-	}
-	public function setRestrictionType($restrictionType)
-	{
-		$this->restrictionType = $restrictionType;
-	}
-	public function getRestrictionType()
-	{
-		return $this->restrictionType;
-	}
-	/**
-	 * @param Google_Service_RealTimeBidding_Date
-	 */
-	public function setStartDate(Google_Service_RealTimeBidding_Date $startDate)
-	{
-		$this->startDate = $startDate;
-	}
-	/**
-	 * @return Google_Service_RealTimeBidding_Date
-	 */
-	public function getStartDate()
-	{
-		return $this->startDate;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  /**
+   * @param Google_Service_RealTimeBidding_Date
+   */
+  public function setEndDate(Google_Service_RealTimeBidding_Date $endDate)
+  {
+    $this->endDate = $endDate;
+  }
+  /**
+   * @return Google_Service_RealTimeBidding_Date
+   */
+  public function getEndDate()
+  {
+    return $this->endDate;
+  }
+  public function setRestrictionType($restrictionType)
+  {
+    $this->restrictionType = $restrictionType;
+  }
+  public function getRestrictionType()
+  {
+    return $this->restrictionType;
+  }
+  /**
+   * @param Google_Service_RealTimeBidding_Date
+   */
+  public function setStartDate(Google_Service_RealTimeBidding_Date $startDate)
+  {
+    $this->startDate = $startDate;
+  }
+  /**
+   * @return Google_Service_RealTimeBidding_Date
+   */
+  public function getStartDate()
+  {
+    return $this->startDate;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

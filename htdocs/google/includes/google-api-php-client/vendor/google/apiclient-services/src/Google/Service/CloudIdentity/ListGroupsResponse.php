@@ -17,31 +17,31 @@
 
 class Google_Service_CloudIdentity_ListGroupsResponse extends Google_Collection
 {
-	protected $collection_key = 'groups';
-	protected $groupsType = 'Google_Service_CloudIdentity_Group';
-	protected $groupsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'groups';
+  protected $groupsType = 'Google_Service_CloudIdentity_Group';
+  protected $groupsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_CloudIdentity_Group
-	 */
-	public function setGroups($groups)
-	{
-		$this->groups = $groups;
-	}
-	/**
-	 * @return Google_Service_CloudIdentity_Group
-	 */
-	public function getGroups()
-	{
-		return $this->groups;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_CloudIdentity_Group[]
+   */
+  public function setGroups($groups)
+  {
+    $this->groups = $groups;
+  }
+  /**
+   * @return Google_Service_CloudIdentity_Group[]
+   */
+  public function getGroups()
+  {
+    return $this->groups;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

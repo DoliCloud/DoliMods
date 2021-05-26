@@ -17,15 +17,15 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersConstraint extends Google_Collection
 {
-	protected $collection_key = 'segmentIndices';
-	public $segmentIndices;
+  protected $collection_key = 'segmentIndices';
+  public $segmentIndices;
 
-	public function setSegmentIndices($segmentIndices)
-	{
-		$this->segmentIndices = $segmentIndices;
-	}
-	public function getSegmentIndices()
-	{
-		return $this->segmentIndices;
-	}
+  public function setSegmentIndices($segmentIndices)
+  {
+    $this->segmentIndices = $segmentIndices;
+  }
+  public function getSegmentIndices()
+  {
+    return $this->segmentIndices;
+  }
 }

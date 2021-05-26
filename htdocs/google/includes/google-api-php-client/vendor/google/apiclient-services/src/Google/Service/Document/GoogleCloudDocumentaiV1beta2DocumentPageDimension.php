@@ -17,32 +17,32 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageDimension extends Google_Model
 {
-	public $height;
-	public $unit;
-	public $width;
+  public $height;
+  public $unit;
+  public $width;
 
-	public function setHeight($height)
-	{
-		$this->height = $height;
-	}
-	public function getHeight()
-	{
-		return $this->height;
-	}
-	public function setUnit($unit)
-	{
-		$this->unit = $unit;
-	}
-	public function getUnit()
-	{
-		return $this->unit;
-	}
-	public function setWidth($width)
-	{
-		$this->width = $width;
-	}
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setUnit($unit)
+  {
+    $this->unit = $unit;
+  }
+  public function getUnit()
+  {
+    return $this->unit;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

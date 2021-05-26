@@ -17,24 +17,24 @@
 
 class Google_Service_CloudSearch_ListItemNamesForUnmappedIdentityResponse extends Google_Collection
 {
-	protected $collection_key = 'itemNames';
-	public $itemNames;
-	public $nextPageToken;
+  protected $collection_key = 'itemNames';
+  public $itemNames;
+  public $nextPageToken;
 
-	public function setItemNames($itemNames)
-	{
-		$this->itemNames = $itemNames;
-	}
-	public function getItemNames()
-	{
-		return $this->itemNames;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setItemNames($itemNames)
+  {
+    $this->itemNames = $itemNames;
+  }
+  public function getItemNames()
+  {
+    return $this->itemNames;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

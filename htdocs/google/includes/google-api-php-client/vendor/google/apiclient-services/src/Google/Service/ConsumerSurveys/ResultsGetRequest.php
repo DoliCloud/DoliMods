@@ -17,21 +17,21 @@
 
 class Google_Service_ConsumerSurveys_ResultsGetRequest extends Google_Model
 {
-	protected $resultMaskType = 'Google_Service_ConsumerSurveys_ResultsMask';
-	protected $resultMaskDataType = '';
+  protected $resultMaskType = 'Google_Service_ConsumerSurveys_ResultsMask';
+  protected $resultMaskDataType = '';
 
-	/**
-	 * @param Google_Service_ConsumerSurveys_ResultsMask
-	 */
-	public function setResultMask(Google_Service_ConsumerSurveys_ResultsMask $resultMask)
-	{
-		$this->resultMask = $resultMask;
-	}
-	/**
-	 * @return Google_Service_ConsumerSurveys_ResultsMask
-	 */
-	public function getResultMask()
-	{
-		return $this->resultMask;
-	}
+  /**
+   * @param Google_Service_ConsumerSurveys_ResultsMask
+   */
+  public function setResultMask(Google_Service_ConsumerSurveys_ResultsMask $resultMask)
+  {
+    $this->resultMask = $resultMask;
+  }
+  /**
+   * @return Google_Service_ConsumerSurveys_ResultsMask
+   */
+  public function getResultMask()
+  {
+    return $this->resultMask;
+  }
 }

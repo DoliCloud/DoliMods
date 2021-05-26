@@ -17,39 +17,39 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1ExportEntitiesRequest extends Google_Model
 {
-	protected $entityFilterType = 'Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter';
-	protected $entityFilterDataType = '';
-	public $labels;
-	public $outputUrlPrefix;
+  protected $entityFilterType = 'Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter';
+  protected $entityFilterDataType = '';
+  public $labels;
+  public $outputUrlPrefix;
 
-	/**
-	 * @param Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter
-	 */
-	public function setEntityFilter(Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter $entityFilter)
-	{
-		$this->entityFilter = $entityFilter;
-	}
-	/**
-	 * @return Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter
-	 */
-	public function getEntityFilter()
-	{
-		return $this->entityFilter;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setOutputUrlPrefix($outputUrlPrefix)
-	{
-		$this->outputUrlPrefix = $outputUrlPrefix;
-	}
-	public function getOutputUrlPrefix()
-	{
-		return $this->outputUrlPrefix;
-	}
+  /**
+   * @param Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter
+   */
+  public function setEntityFilter(Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter $entityFilter)
+  {
+    $this->entityFilter = $entityFilter;
+  }
+  /**
+   * @return Google_Service_Datastore_GoogleDatastoreAdminV1EntityFilter
+   */
+  public function getEntityFilter()
+  {
+    return $this->entityFilter;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setOutputUrlPrefix($outputUrlPrefix)
+  {
+    $this->outputUrlPrefix = $outputUrlPrefix;
+  }
+  public function getOutputUrlPrefix()
+  {
+    return $this->outputUrlPrefix;
+  }
 }

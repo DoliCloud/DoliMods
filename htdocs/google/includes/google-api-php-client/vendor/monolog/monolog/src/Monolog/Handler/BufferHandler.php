@@ -25,124 +25,124 @@ use Monolog\Formatter\FormatterInterface;
  */
 class BufferHandler extends AbstractHandler
 {
-	protected $handler;
-	protected $bufferSize = 0;
-	protected $bufferLimit;
-	protected $flushOnOverflow;
-	protected $buffer = array();
-	protected $initialized = false;
+    protected $handler;
+    protected $bufferSize = 0;
+    protected $bufferLimit;
+    protected $flushOnOverflow;
+    protected $buffer = array();
+    protected $initialized = false;
 
-	/**
-	 * @param HandlerInterface $handler         Handler.
-	 * @param int              $bufferLimit     How many entries should be buffered at most, beyond that the oldest items are removed from the buffer.
-	 * @param int              $level           The minimum logging level at which this handler will be triggered
-	 * @param bool             $bubble          Whether the messages that are handled can bubble up the stack or not
-	 * @param bool             $flushOnOverflow If true, the buffer is flushed when the max size has been reached, by default oldest entries are discarded
-	 */
-	public function __construct(HandlerInterface $handler, $bufferLimit = 0, $level = Logger::DEBUG, $bubble = true, $flushOnOverflow = false)
-	{
-		parent::__construct($level, $bubble);
-		$this->handler = $handler;
-		$this->bufferLimit = (int) $bufferLimit;
-		$this->flushOnOverflow = $flushOnOverflow;
-	}
+    /**
+     * @param HandlerInterface $handler         Handler.
+     * @param int              $bufferLimit     How many entries should be buffered at most, beyond that the oldest items are removed from the buffer.
+     * @param int              $level           The minimum logging level at which this handler will be triggered
+     * @param bool             $bubble          Whether the messages that are handled can bubble up the stack or not
+     * @param bool             $flushOnOverflow If true, the buffer is flushed when the max size has been reached, by default oldest entries are discarded
+     */
+    public function __construct(HandlerInterface $handler, $bufferLimit = 0, $level = Logger::DEBUG, $bubble = true, $flushOnOverflow = false)
+    {
+        parent::__construct($level, $bubble);
+        $this->handler = $handler;
+        $this->bufferLimit = (int) $bufferLimit;
+        $this->flushOnOverflow = $flushOnOverflow;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function handle(array $record)
-	{
-		if ($record['level'] < $this->level) {
-			return false;
-		}
+    /**
+     * {@inheritdoc}
+     */
+    public function handle(array $record)
+    {
+        if ($record['level'] < $this->level) {
+            return false;
+        }
 
-		if (!$this->initialized) {
-			// __destructor() doesn't get called on Fatal errors
-			register_shutdown_function(array($this, 'close'));
-			$this->initialized = true;
-		}
+        if (!$this->initialized) {
+            // __destructor() doesn't get called on Fatal errors
+            register_shutdown_function(array($this, 'close'));
+            $this->initialized = true;
+        }
 
-		if ($this->bufferLimit > 0 && $this->bufferSize === $this->bufferLimit) {
-			if ($this->flushOnOverflow) {
-				$this->flush();
-			} else {
-				array_shift($this->buffer);
-				$this->bufferSize--;
-			}
-		}
+        if ($this->bufferLimit > 0 && $this->bufferSize === $this->bufferLimit) {
+            if ($this->flushOnOverflow) {
+                $this->flush();
+            } else {
+                array_shift($this->buffer);
+                $this->bufferSize--;
+            }
+        }
 
-		if ($this->processors) {
-			foreach ($this->processors as $processor) {
-				$record = call_user_func($processor, $record);
-			}
-		}
+        if ($this->processors) {
+            foreach ($this->processors as $processor) {
+                $record = call_user_func($processor, $record);
+            }
+        }
 
-		$this->buffer[] = $record;
-		$this->bufferSize++;
+        $this->buffer[] = $record;
+        $this->bufferSize++;
 
-		return false === $this->bubble;
-	}
+        return false === $this->bubble;
+    }
 
-	public function flush()
-	{
-		if ($this->bufferSize === 0) {
-			return;
-		}
+    public function flush()
+    {
+        if ($this->bufferSize === 0) {
+            return;
+        }
 
-		$this->handler->handleBatch($this->buffer);
-		$this->clear();
-	}
+        $this->handler->handleBatch($this->buffer);
+        $this->clear();
+    }
 
-	public function __destruct()
-	{
-		// suppress the parent behavior since we already have register_shutdown_function()
-		// to call close(), and the reference contained there will prevent this from being
-		// GC'd until the end of the request
-	}
+    public function __destruct()
+    {
+        // suppress the parent behavior since we already have register_shutdown_function()
+        // to call close(), and the reference contained there will prevent this from being
+        // GC'd until the end of the request
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function close()
-	{
-		$this->flush();
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function close()
+    {
+        $this->flush();
+    }
 
-	/**
-	 * Clears the buffer without flushing any messages down to the wrapped handler.
-	 */
-	public function clear()
-	{
-		$this->bufferSize = 0;
-		$this->buffer = array();
-	}
+    /**
+     * Clears the buffer without flushing any messages down to the wrapped handler.
+     */
+    public function clear()
+    {
+        $this->bufferSize = 0;
+        $this->buffer = array();
+    }
 
-	public function reset()
-	{
-		$this->flush();
+    public function reset()
+    {
+        $this->flush();
 
-		parent::reset();
+        parent::reset();
 
-		if ($this->handler instanceof ResettableInterface) {
-			$this->handler->reset();
-		}
-	}
+        if ($this->handler instanceof ResettableInterface) {
+            $this->handler->reset();
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setFormatter(FormatterInterface $formatter)
-	{
-		$this->handler->setFormatter($formatter);
+    /**
+     * {@inheritdoc}
+     */
+    public function setFormatter(FormatterInterface $formatter)
+    {
+        $this->handler->setFormatter($formatter);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getFormatter()
-	{
-		return $this->handler->getFormatter();
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getFormatter()
+    {
+        return $this->handler->getFormatter();
+    }
 }

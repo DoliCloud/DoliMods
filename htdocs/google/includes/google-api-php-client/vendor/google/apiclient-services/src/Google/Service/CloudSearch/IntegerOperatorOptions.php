@@ -17,32 +17,32 @@
 
 class Google_Service_CloudSearch_IntegerOperatorOptions extends Google_Model
 {
-	public $greaterThanOperatorName;
-	public $lessThanOperatorName;
-	public $operatorName;
+  public $greaterThanOperatorName;
+  public $lessThanOperatorName;
+  public $operatorName;
 
-	public function setGreaterThanOperatorName($greaterThanOperatorName)
-	{
-		$this->greaterThanOperatorName = $greaterThanOperatorName;
-	}
-	public function getGreaterThanOperatorName()
-	{
-		return $this->greaterThanOperatorName;
-	}
-	public function setLessThanOperatorName($lessThanOperatorName)
-	{
-		$this->lessThanOperatorName = $lessThanOperatorName;
-	}
-	public function getLessThanOperatorName()
-	{
-		return $this->lessThanOperatorName;
-	}
-	public function setOperatorName($operatorName)
-	{
-		$this->operatorName = $operatorName;
-	}
-	public function getOperatorName()
-	{
-		return $this->operatorName;
-	}
+  public function setGreaterThanOperatorName($greaterThanOperatorName)
+  {
+    $this->greaterThanOperatorName = $greaterThanOperatorName;
+  }
+  public function getGreaterThanOperatorName()
+  {
+    return $this->greaterThanOperatorName;
+  }
+  public function setLessThanOperatorName($lessThanOperatorName)
+  {
+    $this->lessThanOperatorName = $lessThanOperatorName;
+  }
+  public function getLessThanOperatorName()
+  {
+    return $this->lessThanOperatorName;
+  }
+  public function setOperatorName($operatorName)
+  {
+    $this->operatorName = $operatorName;
+  }
+  public function getOperatorName()
+  {
+    return $this->operatorName;
+  }
 }

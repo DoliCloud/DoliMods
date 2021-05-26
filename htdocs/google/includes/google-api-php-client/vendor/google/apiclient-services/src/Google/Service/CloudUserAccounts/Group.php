@@ -17,69 +17,69 @@
 
 class Google_Service_CloudUserAccounts_Group extends Google_Collection
 {
-	protected $collection_key = 'members';
-	public $creationTimestamp;
-	public $description;
-	public $id;
-	public $kind;
-	public $members;
-	public $name;
-	public $selfLink;
+  protected $collection_key = 'members';
+  public $creationTimestamp;
+  public $description;
+  public $id;
+  public $kind;
+  public $members;
+  public $name;
+  public $selfLink;
 
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setMembers($members)
-	{
-		$this->members = $members;
-	}
-	public function getMembers()
-	{
-		return $this->members;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setMembers($members)
+  {
+    $this->members = $members;
+  }
+  public function getMembers()
+  {
+    return $this->members;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
 }

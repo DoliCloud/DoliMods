@@ -25,23 +25,23 @@
  */
 class Google_Service_CloudRun_Resource_ProjectsLocationsAuthorizeddomains extends Google_Service_Resource
 {
-	/**
-	 * List authorized domains.
-	 * (authorizeddomains.listProjectsLocationsAuthorizeddomains)
-	 *
-	 * @param string $parent Name of the parent Application resource. Example:
-	 *                       `apps/myapp`.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string pageToken Continuation token for fetching the next page of
-	 * results.
-	 * @opt_param int pageSize Maximum results to return per page.
-	 * @return Google_Service_CloudRun_ListAuthorizedDomainsResponse
-	 */
-	public function listProjectsLocationsAuthorizeddomains($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_CloudRun_ListAuthorizedDomainsResponse");
-	}
+  /**
+   * List authorized domains.
+   * (authorizeddomains.listProjectsLocationsAuthorizeddomains)
+   *
+   * @param string $parent Name of the parent Project resource. Example:
+   * `projects/myproject`.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize Maximum results to return per page.
+   * @opt_param string pageToken Continuation token for fetching the next page of
+   * results.
+   * @return Google_Service_CloudRun_ListAuthorizedDomainsResponse
+   */
+  public function listProjectsLocationsAuthorizeddomains($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_CloudRun_ListAuthorizedDomainsResponse");
+  }
 }

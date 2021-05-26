@@ -17,31 +17,31 @@
 
 class Google_Service_CloudHealthcare_ListMessagesResponse extends Google_Collection
 {
-	protected $collection_key = 'hl7V2Messages';
-	protected $hl7V2MessagesType = 'Google_Service_CloudHealthcare_Message';
-	protected $hl7V2MessagesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'hl7V2Messages';
+  protected $hl7V2MessagesType = 'Google_Service_CloudHealthcare_Message';
+  protected $hl7V2MessagesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_CloudHealthcare_Message
-	 */
-	public function setHl7V2Messages($hl7V2Messages)
-	{
-		$this->hl7V2Messages = $hl7V2Messages;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_Message
-	 */
-	public function getHl7V2Messages()
-	{
-		return $this->hl7V2Messages;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_CloudHealthcare_Message[]
+   */
+  public function setHl7V2Messages($hl7V2Messages)
+  {
+    $this->hl7V2Messages = $hl7V2Messages;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_Message[]
+   */
+  public function getHl7V2Messages()
+  {
+    return $this->hl7V2Messages;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

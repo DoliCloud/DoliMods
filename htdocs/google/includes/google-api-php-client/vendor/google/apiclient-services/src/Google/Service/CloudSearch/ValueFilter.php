@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSearch_ValueFilter extends Google_Model
 {
-	public $operatorName;
-	protected $valueType = 'Google_Service_CloudSearch_Value';
-	protected $valueDataType = '';
+  public $operatorName;
+  protected $valueType = 'Google_Service_CloudSearch_Value';
+  protected $valueDataType = '';
 
-	public function setOperatorName($operatorName)
-	{
-		$this->operatorName = $operatorName;
-	}
-	public function getOperatorName()
-	{
-		return $this->operatorName;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_Value
-	 */
-	public function setValue(Google_Service_CloudSearch_Value $value)
-	{
-		$this->value = $value;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Value
-	 */
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setOperatorName($operatorName)
+  {
+    $this->operatorName = $operatorName;
+  }
+  public function getOperatorName()
+  {
+    return $this->operatorName;
+  }
+  /**
+   * @param Google_Service_CloudSearch_Value
+   */
+  public function setValue(Google_Service_CloudSearch_Value $value)
+  {
+    $this->value = $value;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Value
+   */
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

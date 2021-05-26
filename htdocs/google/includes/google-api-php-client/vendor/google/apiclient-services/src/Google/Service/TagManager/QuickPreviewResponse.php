@@ -17,46 +17,46 @@
 
 class Google_Service_TagManager_QuickPreviewResponse extends Google_Model
 {
-	public $compilerError;
-	protected $containerVersionType = 'Google_Service_TagManager_ContainerVersion';
-	protected $containerVersionDataType = '';
-	protected $syncStatusType = 'Google_Service_TagManager_SyncStatus';
-	protected $syncStatusDataType = '';
+  public $compilerError;
+  protected $containerVersionType = 'Google_Service_TagManager_ContainerVersion';
+  protected $containerVersionDataType = '';
+  protected $syncStatusType = 'Google_Service_TagManager_SyncStatus';
+  protected $syncStatusDataType = '';
 
-	public function setCompilerError($compilerError)
-	{
-		$this->compilerError = $compilerError;
-	}
-	public function getCompilerError()
-	{
-		return $this->compilerError;
-	}
-	/**
-	 * @param Google_Service_TagManager_ContainerVersion
-	 */
-	public function setContainerVersion(Google_Service_TagManager_ContainerVersion $containerVersion)
-	{
-		$this->containerVersion = $containerVersion;
-	}
-	/**
-	 * @return Google_Service_TagManager_ContainerVersion
-	 */
-	public function getContainerVersion()
-	{
-		return $this->containerVersion;
-	}
-	/**
-	 * @param Google_Service_TagManager_SyncStatus
-	 */
-	public function setSyncStatus(Google_Service_TagManager_SyncStatus $syncStatus)
-	{
-		$this->syncStatus = $syncStatus;
-	}
-	/**
-	 * @return Google_Service_TagManager_SyncStatus
-	 */
-	public function getSyncStatus()
-	{
-		return $this->syncStatus;
-	}
+  public function setCompilerError($compilerError)
+  {
+    $this->compilerError = $compilerError;
+  }
+  public function getCompilerError()
+  {
+    return $this->compilerError;
+  }
+  /**
+   * @param Google_Service_TagManager_ContainerVersion
+   */
+  public function setContainerVersion(Google_Service_TagManager_ContainerVersion $containerVersion)
+  {
+    $this->containerVersion = $containerVersion;
+  }
+  /**
+   * @return Google_Service_TagManager_ContainerVersion
+   */
+  public function getContainerVersion()
+  {
+    return $this->containerVersion;
+  }
+  /**
+   * @param Google_Service_TagManager_SyncStatus
+   */
+  public function setSyncStatus(Google_Service_TagManager_SyncStatus $syncStatus)
+  {
+    $this->syncStatus = $syncStatus;
+  }
+  /**
+   * @return Google_Service_TagManager_SyncStatus
+   */
+  public function getSyncStatus()
+  {
+    return $this->syncStatus;
+  }
 }

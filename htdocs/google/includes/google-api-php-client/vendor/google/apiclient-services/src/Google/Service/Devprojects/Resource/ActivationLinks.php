@@ -25,45 +25,45 @@
  */
 class Google_Service_Devprojects_Resource_ActivationLinks extends Google_Service_Resource
 {
-	/**
-	 * Generate activation links, a proper whitelist id is required.
-	 * (activationLinks.insert)
-	 *
-	 * @param Google_Service_Devprojects_ActivationLinksCollection $postBody
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string user Use for access control temporarily
-	 * @opt_param string whitelistId The whitelist project ID. See
-	 * Projects.Insert.whitelist_id documentation for details.
-	 * @return Google_Service_Devprojects_ActivationLinksCollection
-	 */
-	public function insert(Google_Service_Devprojects_ActivationLinksCollection $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_Devprojects_ActivationLinksCollection");
-	}
-	/**
-	 * Validates an activation link. If successful, returns either the token OR type
-	 * for the API OR respectively component being activated and the key value pairs
-	 * contained in the signup token. For more details regarding sign-up tokens
-	 * please see: - for first-party (Google) APIs -
-	 * 'https://sites.google.com/a/google.com/developer-console/developer-console-
-	 * services/the-devrel-shard#TOC-Creating-signup-urls-a.k.a.-activation-tokens-'
-	 * - for third-party (Swarm/Endpoint) APIs - the producer-initiated activation
-	 * flow details here http://go/apiproduceconsume (activationLinks.validate)
-	 *
-	 * @param Google_Service_Devprojects_ActivationLinksValidateRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string whitelistId The whitelist project ID. See
-	 * Projects.Insert.whitelist_id documentation for details.
-	 * @return Google_Service_Devprojects_ActivationLinksValidateResponse
-	 */
-	public function validate(Google_Service_Devprojects_ActivationLinksValidateRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('validate', array($params), "Google_Service_Devprojects_ActivationLinksValidateResponse");
-	}
+  /**
+   * Generate activation links, a proper whitelist id is required.
+   * (activationLinks.insert)
+   *
+   * @param Google_Service_Devprojects_ActivationLinksCollection $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string user Use for access control temporarily
+   * @opt_param string whitelistId The whitelist project ID. See
+   * Projects.Insert.whitelist_id documentation for details.
+   * @return Google_Service_Devprojects_ActivationLinksCollection
+   */
+  public function insert(Google_Service_Devprojects_ActivationLinksCollection $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Devprojects_ActivationLinksCollection");
+  }
+  /**
+   * Validates an activation link. If successful, returns either the token OR type
+   * for the API OR respectively component being activated and the key value pairs
+   * contained in the signup token. For more details regarding sign-up tokens
+   * please see: - for first-party (Google) APIs -
+   * 'https://sites.google.com/a/google.com/developer-console/developer-console-
+   * services/the-devrel-shard#TOC-Creating-signup-urls-a.k.a.-activation-tokens-'
+   * - for third-party (Swarm/Endpoint) APIs - the producer-initiated activation
+   * flow details here http://go/apiproduceconsume (activationLinks.validate)
+   *
+   * @param Google_Service_Devprojects_ActivationLinksValidateRequest $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string whitelistId The whitelist project ID. See
+   * Projects.Insert.whitelist_id documentation for details.
+   * @return Google_Service_Devprojects_ActivationLinksValidateResponse
+   */
+  public function validate(Google_Service_Devprojects_ActivationLinksValidateRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('validate', array($params), "Google_Service_Devprojects_ActivationLinksValidateResponse");
+  }
 }

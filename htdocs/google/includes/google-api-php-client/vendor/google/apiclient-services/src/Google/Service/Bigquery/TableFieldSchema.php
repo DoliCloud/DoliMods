@@ -17,90 +17,90 @@
 
 class Google_Service_Bigquery_TableFieldSchema extends Google_Collection
 {
-	protected $collection_key = 'fields';
-	protected $categoriesType = 'Google_Service_Bigquery_TableFieldSchemaCategories';
-	protected $categoriesDataType = '';
-	public $description;
-	protected $fieldsType = 'Google_Service_Bigquery_TableFieldSchema';
-	protected $fieldsDataType = 'array';
-	public $mode;
-	public $name;
-	protected $policyTagsType = 'Google_Service_Bigquery_TableFieldSchemaPolicyTags';
-	protected $policyTagsDataType = '';
-	public $type;
+  protected $collection_key = 'fields';
+  protected $categoriesType = 'Google_Service_Bigquery_TableFieldSchemaCategories';
+  protected $categoriesDataType = '';
+  public $description;
+  protected $fieldsType = 'Google_Service_Bigquery_TableFieldSchema';
+  protected $fieldsDataType = 'array';
+  public $mode;
+  public $name;
+  protected $policyTagsType = 'Google_Service_Bigquery_TableFieldSchemaPolicyTags';
+  protected $policyTagsDataType = '';
+  public $type;
 
-	/**
-	 * @param Google_Service_Bigquery_TableFieldSchemaCategories
-	 */
-	public function setCategories(Google_Service_Bigquery_TableFieldSchemaCategories $categories)
-	{
-		$this->categories = $categories;
-	}
-	/**
-	 * @return Google_Service_Bigquery_TableFieldSchemaCategories
-	 */
-	public function getCategories()
-	{
-		return $this->categories;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	/**
-	 * @param Google_Service_Bigquery_TableFieldSchema
-	 */
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	/**
-	 * @return Google_Service_Bigquery_TableFieldSchema
-	 */
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setMode($mode)
-	{
-		$this->mode = $mode;
-	}
-	public function getMode()
-	{
-		return $this->mode;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Bigquery_TableFieldSchemaPolicyTags
-	 */
-	public function setPolicyTags(Google_Service_Bigquery_TableFieldSchemaPolicyTags $policyTags)
-	{
-		$this->policyTags = $policyTags;
-	}
-	/**
-	 * @return Google_Service_Bigquery_TableFieldSchemaPolicyTags
-	 */
-	public function getPolicyTags()
-	{
-		return $this->policyTags;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  /**
+   * @param Google_Service_Bigquery_TableFieldSchemaCategories
+   */
+  public function setCategories(Google_Service_Bigquery_TableFieldSchemaCategories $categories)
+  {
+    $this->categories = $categories;
+  }
+  /**
+   * @return Google_Service_Bigquery_TableFieldSchemaCategories
+   */
+  public function getCategories()
+  {
+    return $this->categories;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  /**
+   * @param Google_Service_Bigquery_TableFieldSchema[]
+   */
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  /**
+   * @return Google_Service_Bigquery_TableFieldSchema[]
+   */
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
+  public function getMode()
+  {
+    return $this->mode;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Bigquery_TableFieldSchemaPolicyTags
+   */
+  public function setPolicyTags(Google_Service_Bigquery_TableFieldSchemaPolicyTags $policyTags)
+  {
+    $this->policyTags = $policyTags;
+  }
+  /**
+   * @return Google_Service_Bigquery_TableFieldSchemaPolicyTags
+   */
+  public function getPolicyTags()
+  {
+    return $this->policyTags;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

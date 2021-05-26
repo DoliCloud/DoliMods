@@ -17,37 +17,37 @@
 
 class Google_Service_CloudRun_EnvVarSource extends Google_Model
 {
-	protected $configMapKeyRefType = 'Google_Service_CloudRun_ConfigMapKeySelector';
-	protected $configMapKeyRefDataType = '';
-	protected $secretKeyRefType = 'Google_Service_CloudRun_SecretKeySelector';
-	protected $secretKeyRefDataType = '';
+  protected $configMapKeyRefType = 'Google_Service_CloudRun_ConfigMapKeySelector';
+  protected $configMapKeyRefDataType = '';
+  protected $secretKeyRefType = 'Google_Service_CloudRun_SecretKeySelector';
+  protected $secretKeyRefDataType = '';
 
-	/**
-	 * @param Google_Service_CloudRun_ConfigMapKeySelector
-	 */
-	public function setConfigMapKeyRef(Google_Service_CloudRun_ConfigMapKeySelector $configMapKeyRef)
-	{
-		$this->configMapKeyRef = $configMapKeyRef;
-	}
-	/**
-	 * @return Google_Service_CloudRun_ConfigMapKeySelector
-	 */
-	public function getConfigMapKeyRef()
-	{
-		return $this->configMapKeyRef;
-	}
-	/**
-	 * @param Google_Service_CloudRun_SecretKeySelector
-	 */
-	public function setSecretKeyRef(Google_Service_CloudRun_SecretKeySelector $secretKeyRef)
-	{
-		$this->secretKeyRef = $secretKeyRef;
-	}
-	/**
-	 * @return Google_Service_CloudRun_SecretKeySelector
-	 */
-	public function getSecretKeyRef()
-	{
-		return $this->secretKeyRef;
-	}
+  /**
+   * @param Google_Service_CloudRun_ConfigMapKeySelector
+   */
+  public function setConfigMapKeyRef(Google_Service_CloudRun_ConfigMapKeySelector $configMapKeyRef)
+  {
+    $this->configMapKeyRef = $configMapKeyRef;
+  }
+  /**
+   * @return Google_Service_CloudRun_ConfigMapKeySelector
+   */
+  public function getConfigMapKeyRef()
+  {
+    return $this->configMapKeyRef;
+  }
+  /**
+   * @param Google_Service_CloudRun_SecretKeySelector
+   */
+  public function setSecretKeyRef(Google_Service_CloudRun_SecretKeySelector $secretKeyRef)
+  {
+    $this->secretKeyRef = $secretKeyRef;
+  }
+  /**
+   * @return Google_Service_CloudRun_SecretKeySelector
+   */
+  public function getSecretKeyRef()
+  {
+    return $this->secretKeyRef;
+  }
 }

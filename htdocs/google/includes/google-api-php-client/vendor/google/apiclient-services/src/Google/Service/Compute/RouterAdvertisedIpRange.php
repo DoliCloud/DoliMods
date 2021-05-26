@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_RouterAdvertisedIpRange extends Google_Model
 {
-	public $description;
-	public $range;
+  public $description;
+  public $range;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setRange($range)
-	{
-		$this->range = $range;
-	}
-	public function getRange()
-	{
-		return $this->range;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setRange($range)
+  {
+    $this->range = $range;
+  }
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

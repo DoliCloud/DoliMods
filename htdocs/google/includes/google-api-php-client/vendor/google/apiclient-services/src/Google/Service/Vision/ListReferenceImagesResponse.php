@@ -17,40 +17,40 @@
 
 class Google_Service_Vision_ListReferenceImagesResponse extends Google_Collection
 {
-	protected $collection_key = 'referenceImages';
-	public $nextPageToken;
-	public $pageSize;
-	protected $referenceImagesType = 'Google_Service_Vision_ReferenceImage';
-	protected $referenceImagesDataType = 'array';
+  protected $collection_key = 'referenceImages';
+  public $nextPageToken;
+  public $pageSize;
+  protected $referenceImagesType = 'Google_Service_Vision_ReferenceImage';
+  protected $referenceImagesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setPageSize($pageSize)
-	{
-		$this->pageSize = $pageSize;
-	}
-	public function getPageSize()
-	{
-		return $this->pageSize;
-	}
-	/**
-	 * @param Google_Service_Vision_ReferenceImage
-	 */
-	public function setReferenceImages($referenceImages)
-	{
-		$this->referenceImages = $referenceImages;
-	}
-	/**
-	 * @return Google_Service_Vision_ReferenceImage
-	 */
-	public function getReferenceImages()
-	{
-		return $this->referenceImages;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setPageSize($pageSize)
+  {
+    $this->pageSize = $pageSize;
+  }
+  public function getPageSize()
+  {
+    return $this->pageSize;
+  }
+  /**
+   * @param Google_Service_Vision_ReferenceImage[]
+   */
+  public function setReferenceImages($referenceImages)
+  {
+    $this->referenceImages = $referenceImages;
+  }
+  /**
+   * @return Google_Service_Vision_ReferenceImage[]
+   */
+  public function getReferenceImages()
+  {
+    return $this->referenceImages;
+  }
 }

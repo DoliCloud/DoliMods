@@ -17,38 +17,38 @@
 
 class Google_Service_ServiceConsumerManagement_Monitoring extends Google_Collection
 {
-	protected $collection_key = 'producerDestinations';
-	protected $consumerDestinationsType = 'Google_Service_ServiceConsumerManagement_MonitoringDestination';
-	protected $consumerDestinationsDataType = 'array';
-	protected $producerDestinationsType = 'Google_Service_ServiceConsumerManagement_MonitoringDestination';
-	protected $producerDestinationsDataType = 'array';
+  protected $collection_key = 'producerDestinations';
+  protected $consumerDestinationsType = 'Google_Service_ServiceConsumerManagement_MonitoringDestination';
+  protected $consumerDestinationsDataType = 'array';
+  protected $producerDestinationsType = 'Google_Service_ServiceConsumerManagement_MonitoringDestination';
+  protected $producerDestinationsDataType = 'array';
 
-	/**
-	 * @param Google_Service_ServiceConsumerManagement_MonitoringDestination
-	 */
-	public function setConsumerDestinations($consumerDestinations)
-	{
-		$this->consumerDestinations = $consumerDestinations;
-	}
-	/**
-	 * @return Google_Service_ServiceConsumerManagement_MonitoringDestination
-	 */
-	public function getConsumerDestinations()
-	{
-		return $this->consumerDestinations;
-	}
-	/**
-	 * @param Google_Service_ServiceConsumerManagement_MonitoringDestination
-	 */
-	public function setProducerDestinations($producerDestinations)
-	{
-		$this->producerDestinations = $producerDestinations;
-	}
-	/**
-	 * @return Google_Service_ServiceConsumerManagement_MonitoringDestination
-	 */
-	public function getProducerDestinations()
-	{
-		return $this->producerDestinations;
-	}
+  /**
+   * @param Google_Service_ServiceConsumerManagement_MonitoringDestination[]
+   */
+  public function setConsumerDestinations($consumerDestinations)
+  {
+    $this->consumerDestinations = $consumerDestinations;
+  }
+  /**
+   * @return Google_Service_ServiceConsumerManagement_MonitoringDestination[]
+   */
+  public function getConsumerDestinations()
+  {
+    return $this->consumerDestinations;
+  }
+  /**
+   * @param Google_Service_ServiceConsumerManagement_MonitoringDestination[]
+   */
+  public function setProducerDestinations($producerDestinations)
+  {
+    $this->producerDestinations = $producerDestinations;
+  }
+  /**
+   * @return Google_Service_ServiceConsumerManagement_MonitoringDestination[]
+   */
+  public function getProducerDestinations()
+  {
+    return $this->producerDestinations;
+  }
 }

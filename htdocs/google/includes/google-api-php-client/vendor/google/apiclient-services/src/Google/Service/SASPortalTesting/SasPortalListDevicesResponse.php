@@ -17,31 +17,31 @@
 
 class Google_Service_SASPortalTesting_SasPortalListDevicesResponse extends Google_Collection
 {
-	protected $collection_key = 'devices';
-	protected $devicesType = 'Google_Service_SASPortalTesting_SasPortalDevice';
-	protected $devicesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'devices';
+  protected $devicesType = 'Google_Service_SASPortalTesting_SasPortalDevice';
+  protected $devicesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_SASPortalTesting_SasPortalDevice
-	 */
-	public function setDevices($devices)
-	{
-		$this->devices = $devices;
-	}
-	/**
-	 * @return Google_Service_SASPortalTesting_SasPortalDevice
-	 */
-	public function getDevices()
-	{
-		return $this->devices;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_SASPortalTesting_SasPortalDevice[]
+   */
+  public function setDevices($devices)
+  {
+    $this->devices = $devices;
+  }
+  /**
+   * @return Google_Service_SASPortalTesting_SasPortalDevice[]
+   */
+  public function getDevices()
+  {
+    return $this->devices;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

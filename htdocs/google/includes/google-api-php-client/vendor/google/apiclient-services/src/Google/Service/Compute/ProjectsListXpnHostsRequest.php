@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_ProjectsListXpnHostsRequest extends Google_Model
 {
-	public $organization;
+  public $organization;
 
-	public function setOrganization($organization)
-	{
-		$this->organization = $organization;
-	}
-	public function getOrganization()
-	{
-		return $this->organization;
-	}
+  public function setOrganization($organization)
+  {
+    $this->organization = $organization;
+  }
+  public function getOrganization()
+  {
+    return $this->organization;
+  }
 }

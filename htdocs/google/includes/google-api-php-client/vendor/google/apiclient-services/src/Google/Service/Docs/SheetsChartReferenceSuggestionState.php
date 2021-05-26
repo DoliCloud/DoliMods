@@ -17,23 +17,23 @@
 
 class Google_Service_Docs_SheetsChartReferenceSuggestionState extends Google_Model
 {
-	public $chartIdSuggested;
-	public $spreadsheetIdSuggested;
+  public $chartIdSuggested;
+  public $spreadsheetIdSuggested;
 
-	public function setChartIdSuggested($chartIdSuggested)
-	{
-		$this->chartIdSuggested = $chartIdSuggested;
-	}
-	public function getChartIdSuggested()
-	{
-		return $this->chartIdSuggested;
-	}
-	public function setSpreadsheetIdSuggested($spreadsheetIdSuggested)
-	{
-		$this->spreadsheetIdSuggested = $spreadsheetIdSuggested;
-	}
-	public function getSpreadsheetIdSuggested()
-	{
-		return $this->spreadsheetIdSuggested;
-	}
+  public function setChartIdSuggested($chartIdSuggested)
+  {
+    $this->chartIdSuggested = $chartIdSuggested;
+  }
+  public function getChartIdSuggested()
+  {
+    return $this->chartIdSuggested;
+  }
+  public function setSpreadsheetIdSuggested($spreadsheetIdSuggested)
+  {
+    $this->spreadsheetIdSuggested = $spreadsheetIdSuggested;
+  }
+  public function getSpreadsheetIdSuggested()
+  {
+    return $this->spreadsheetIdSuggested;
+  }
 }

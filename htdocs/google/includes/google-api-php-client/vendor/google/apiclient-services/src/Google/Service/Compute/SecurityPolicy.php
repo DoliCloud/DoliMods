@@ -17,85 +17,85 @@
 
 class Google_Service_Compute_SecurityPolicy extends Google_Collection
 {
-	protected $collection_key = 'rules';
-	public $creationTimestamp;
-	public $description;
-	public $fingerprint;
-	public $id;
-	public $kind;
-	public $name;
-	protected $rulesType = 'Google_Service_Compute_SecurityPolicyRule';
-	protected $rulesDataType = 'array';
-	public $selfLink;
+  protected $collection_key = 'rules';
+  public $creationTimestamp;
+  public $description;
+  public $fingerprint;
+  public $id;
+  public $kind;
+  public $name;
+  protected $rulesType = 'Google_Service_Compute_SecurityPolicyRule';
+  protected $rulesDataType = 'array';
+  public $selfLink;
 
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Compute_SecurityPolicyRule
-	 */
-	public function setRules($rules)
-	{
-		$this->rules = $rules;
-	}
-	/**
-	 * @return Google_Service_Compute_SecurityPolicyRule
-	 */
-	public function getRules()
-	{
-		return $this->rules;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Compute_SecurityPolicyRule[]
+   */
+  public function setRules($rules)
+  {
+    $this->rules = $rules;
+  }
+  /**
+   * @return Google_Service_Compute_SecurityPolicyRule[]
+   */
+  public function getRules()
+  {
+    return $this->rules;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
 }

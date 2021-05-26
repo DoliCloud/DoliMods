@@ -17,30 +17,30 @@
 
 class Google_Service_CloudKMS_AsymmetricSignRequest extends Google_Model
 {
-	protected $digestType = 'Google_Service_CloudKMS_Digest';
-	protected $digestDataType = '';
-	public $digestCrc32c;
+  protected $digestType = 'Google_Service_CloudKMS_Digest';
+  protected $digestDataType = '';
+  public $digestCrc32c;
 
-	/**
-	 * @param Google_Service_CloudKMS_Digest
-	 */
-	public function setDigest(Google_Service_CloudKMS_Digest $digest)
-	{
-		$this->digest = $digest;
-	}
-	/**
-	 * @return Google_Service_CloudKMS_Digest
-	 */
-	public function getDigest()
-	{
-		return $this->digest;
-	}
-	public function setDigestCrc32c($digestCrc32c)
-	{
-		$this->digestCrc32c = $digestCrc32c;
-	}
-	public function getDigestCrc32c()
-	{
-		return $this->digestCrc32c;
-	}
+  /**
+   * @param Google_Service_CloudKMS_Digest
+   */
+  public function setDigest(Google_Service_CloudKMS_Digest $digest)
+  {
+    $this->digest = $digest;
+  }
+  /**
+   * @return Google_Service_CloudKMS_Digest
+   */
+  public function getDigest()
+  {
+    return $this->digest;
+  }
+  public function setDigestCrc32c($digestCrc32c)
+  {
+    $this->digestCrc32c = $digestCrc32c;
+  }
+  public function getDigestCrc32c()
+  {
+    return $this->digestCrc32c;
+  }
 }

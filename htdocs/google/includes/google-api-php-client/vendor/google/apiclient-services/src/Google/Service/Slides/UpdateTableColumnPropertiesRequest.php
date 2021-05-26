@@ -17,49 +17,49 @@
 
 class Google_Service_Slides_UpdateTableColumnPropertiesRequest extends Google_Collection
 {
-	protected $collection_key = 'columnIndices';
-	public $columnIndices;
-	public $fields;
-	public $objectId;
-	protected $tableColumnPropertiesType = 'Google_Service_Slides_TableColumnProperties';
-	protected $tableColumnPropertiesDataType = '';
+  protected $collection_key = 'columnIndices';
+  public $columnIndices;
+  public $fields;
+  public $objectId;
+  protected $tableColumnPropertiesType = 'Google_Service_Slides_TableColumnProperties';
+  protected $tableColumnPropertiesDataType = '';
 
-	public function setColumnIndices($columnIndices)
-	{
-		$this->columnIndices = $columnIndices;
-	}
-	public function getColumnIndices()
-	{
-		return $this->columnIndices;
-	}
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
-	/**
-	 * @param Google_Service_Slides_TableColumnProperties
-	 */
-	public function setTableColumnProperties(Google_Service_Slides_TableColumnProperties $tableColumnProperties)
-	{
-		$this->tableColumnProperties = $tableColumnProperties;
-	}
-	/**
-	 * @return Google_Service_Slides_TableColumnProperties
-	 */
-	public function getTableColumnProperties()
-	{
-		return $this->tableColumnProperties;
-	}
+  public function setColumnIndices($columnIndices)
+  {
+    $this->columnIndices = $columnIndices;
+  }
+  public function getColumnIndices()
+  {
+    return $this->columnIndices;
+  }
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
+  /**
+   * @param Google_Service_Slides_TableColumnProperties
+   */
+  public function setTableColumnProperties(Google_Service_Slides_TableColumnProperties $tableColumnProperties)
+  {
+    $this->tableColumnProperties = $tableColumnProperties;
+  }
+  /**
+   * @return Google_Service_Slides_TableColumnProperties
+   */
+  public function getTableColumnProperties()
+  {
+    return $this->tableColumnProperties;
+  }
 }

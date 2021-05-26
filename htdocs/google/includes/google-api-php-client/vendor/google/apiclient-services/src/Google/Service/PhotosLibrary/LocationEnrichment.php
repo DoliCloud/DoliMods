@@ -17,21 +17,21 @@
 
 class Google_Service_PhotosLibrary_LocationEnrichment extends Google_Model
 {
-	protected $locationType = 'Google_Service_PhotosLibrary_Location';
-	protected $locationDataType = '';
+  protected $locationType = 'Google_Service_PhotosLibrary_Location';
+  protected $locationDataType = '';
 
-	/**
-	 * @param Google_Service_PhotosLibrary_Location
-	 */
-	public function setLocation(Google_Service_PhotosLibrary_Location $location)
-	{
-		$this->location = $location;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_Location
-	 */
-	public function getLocation()
-	{
-		return $this->location;
-	}
+  /**
+   * @param Google_Service_PhotosLibrary_Location
+   */
+  public function setLocation(Google_Service_PhotosLibrary_Location $location)
+  {
+    $this->location = $location;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_Location
+   */
+  public function getLocation()
+  {
+    return $this->location;
+  }
 }

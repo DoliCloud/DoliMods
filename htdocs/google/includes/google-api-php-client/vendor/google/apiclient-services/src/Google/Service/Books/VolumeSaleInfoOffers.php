@@ -17,71 +17,71 @@
 
 class Google_Service_Books_VolumeSaleInfoOffers extends Google_Model
 {
-	public $finskyOfferType;
-	public $giftable;
-	protected $listPriceType = 'Google_Service_Books_VolumeSaleInfoOffersListPrice';
-	protected $listPriceDataType = '';
-	protected $rentalDurationType = 'Google_Service_Books_VolumeSaleInfoOffersRentalDuration';
-	protected $rentalDurationDataType = '';
-	protected $retailPriceType = 'Google_Service_Books_VolumeSaleInfoOffersRetailPrice';
-	protected $retailPriceDataType = '';
+  public $finskyOfferType;
+  public $giftable;
+  protected $listPriceType = 'Google_Service_Books_VolumeSaleInfoOffersListPrice';
+  protected $listPriceDataType = '';
+  protected $rentalDurationType = 'Google_Service_Books_VolumeSaleInfoOffersRentalDuration';
+  protected $rentalDurationDataType = '';
+  protected $retailPriceType = 'Google_Service_Books_VolumeSaleInfoOffersRetailPrice';
+  protected $retailPriceDataType = '';
 
-	public function setFinskyOfferType($finskyOfferType)
-	{
-		$this->finskyOfferType = $finskyOfferType;
-	}
-	public function getFinskyOfferType()
-	{
-		return $this->finskyOfferType;
-	}
-	public function setGiftable($giftable)
-	{
-		$this->giftable = $giftable;
-	}
-	public function getGiftable()
-	{
-		return $this->giftable;
-	}
-	/**
-	 * @param Google_Service_Books_VolumeSaleInfoOffersListPrice
-	 */
-	public function setListPrice(Google_Service_Books_VolumeSaleInfoOffersListPrice $listPrice)
-	{
-		$this->listPrice = $listPrice;
-	}
-	/**
-	 * @return Google_Service_Books_VolumeSaleInfoOffersListPrice
-	 */
-	public function getListPrice()
-	{
-		return $this->listPrice;
-	}
-	/**
-	 * @param Google_Service_Books_VolumeSaleInfoOffersRentalDuration
-	 */
-	public function setRentalDuration(Google_Service_Books_VolumeSaleInfoOffersRentalDuration $rentalDuration)
-	{
-		$this->rentalDuration = $rentalDuration;
-	}
-	/**
-	 * @return Google_Service_Books_VolumeSaleInfoOffersRentalDuration
-	 */
-	public function getRentalDuration()
-	{
-		return $this->rentalDuration;
-	}
-	/**
-	 * @param Google_Service_Books_VolumeSaleInfoOffersRetailPrice
-	 */
-	public function setRetailPrice(Google_Service_Books_VolumeSaleInfoOffersRetailPrice $retailPrice)
-	{
-		$this->retailPrice = $retailPrice;
-	}
-	/**
-	 * @return Google_Service_Books_VolumeSaleInfoOffersRetailPrice
-	 */
-	public function getRetailPrice()
-	{
-		return $this->retailPrice;
-	}
+  public function setFinskyOfferType($finskyOfferType)
+  {
+    $this->finskyOfferType = $finskyOfferType;
+  }
+  public function getFinskyOfferType()
+  {
+    return $this->finskyOfferType;
+  }
+  public function setGiftable($giftable)
+  {
+    $this->giftable = $giftable;
+  }
+  public function getGiftable()
+  {
+    return $this->giftable;
+  }
+  /**
+   * @param Google_Service_Books_VolumeSaleInfoOffersListPrice
+   */
+  public function setListPrice(Google_Service_Books_VolumeSaleInfoOffersListPrice $listPrice)
+  {
+    $this->listPrice = $listPrice;
+  }
+  /**
+   * @return Google_Service_Books_VolumeSaleInfoOffersListPrice
+   */
+  public function getListPrice()
+  {
+    return $this->listPrice;
+  }
+  /**
+   * @param Google_Service_Books_VolumeSaleInfoOffersRentalDuration
+   */
+  public function setRentalDuration(Google_Service_Books_VolumeSaleInfoOffersRentalDuration $rentalDuration)
+  {
+    $this->rentalDuration = $rentalDuration;
+  }
+  /**
+   * @return Google_Service_Books_VolumeSaleInfoOffersRentalDuration
+   */
+  public function getRentalDuration()
+  {
+    return $this->rentalDuration;
+  }
+  /**
+   * @param Google_Service_Books_VolumeSaleInfoOffersRetailPrice
+   */
+  public function setRetailPrice(Google_Service_Books_VolumeSaleInfoOffersRetailPrice $retailPrice)
+  {
+    $this->retailPrice = $retailPrice;
+  }
+  /**
+   * @return Google_Service_Books_VolumeSaleInfoOffersRetailPrice
+   */
+  public function getRetailPrice()
+  {
+    return $this->retailPrice;
+  }
 }

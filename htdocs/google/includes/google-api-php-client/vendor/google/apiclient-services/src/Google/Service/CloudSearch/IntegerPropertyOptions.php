@@ -17,48 +17,48 @@
 
 class Google_Service_CloudSearch_IntegerPropertyOptions extends Google_Model
 {
-	public $maximumValue;
-	public $minimumValue;
-	protected $operatorOptionsType = 'Google_Service_CloudSearch_IntegerOperatorOptions';
-	protected $operatorOptionsDataType = '';
-	public $orderedRanking;
+  public $maximumValue;
+  public $minimumValue;
+  protected $operatorOptionsType = 'Google_Service_CloudSearch_IntegerOperatorOptions';
+  protected $operatorOptionsDataType = '';
+  public $orderedRanking;
 
-	public function setMaximumValue($maximumValue)
-	{
-		$this->maximumValue = $maximumValue;
-	}
-	public function getMaximumValue()
-	{
-		return $this->maximumValue;
-	}
-	public function setMinimumValue($minimumValue)
-	{
-		$this->minimumValue = $minimumValue;
-	}
-	public function getMinimumValue()
-	{
-		return $this->minimumValue;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_IntegerOperatorOptions
-	 */
-	public function setOperatorOptions(Google_Service_CloudSearch_IntegerOperatorOptions $operatorOptions)
-	{
-		$this->operatorOptions = $operatorOptions;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_IntegerOperatorOptions
-	 */
-	public function getOperatorOptions()
-	{
-		return $this->operatorOptions;
-	}
-	public function setOrderedRanking($orderedRanking)
-	{
-		$this->orderedRanking = $orderedRanking;
-	}
-	public function getOrderedRanking()
-	{
-		return $this->orderedRanking;
-	}
+  public function setMaximumValue($maximumValue)
+  {
+    $this->maximumValue = $maximumValue;
+  }
+  public function getMaximumValue()
+  {
+    return $this->maximumValue;
+  }
+  public function setMinimumValue($minimumValue)
+  {
+    $this->minimumValue = $minimumValue;
+  }
+  public function getMinimumValue()
+  {
+    return $this->minimumValue;
+  }
+  /**
+   * @param Google_Service_CloudSearch_IntegerOperatorOptions
+   */
+  public function setOperatorOptions(Google_Service_CloudSearch_IntegerOperatorOptions $operatorOptions)
+  {
+    $this->operatorOptions = $operatorOptions;
+  }
+  /**
+   * @return Google_Service_CloudSearch_IntegerOperatorOptions
+   */
+  public function getOperatorOptions()
+  {
+    return $this->operatorOptions;
+  }
+  public function setOrderedRanking($orderedRanking)
+  {
+    $this->orderedRanking = $orderedRanking;
+  }
+  public function getOrderedRanking()
+  {
+    return $this->orderedRanking;
+  }
 }

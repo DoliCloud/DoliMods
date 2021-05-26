@@ -17,46 +17,46 @@
 
 class Google_Service_CloudNaturalLanguage_AnnotateTextRequest extends Google_Model
 {
-	protected $documentType = 'Google_Service_CloudNaturalLanguage_Document';
-	protected $documentDataType = '';
-	public $encodingType;
-	protected $featuresType = 'Google_Service_CloudNaturalLanguage_Features';
-	protected $featuresDataType = '';
+  protected $documentType = 'Google_Service_CloudNaturalLanguage_Document';
+  protected $documentDataType = '';
+  public $encodingType;
+  protected $featuresType = 'Google_Service_CloudNaturalLanguage_Features';
+  protected $featuresDataType = '';
 
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_Document
-	 */
-	public function setDocument(Google_Service_CloudNaturalLanguage_Document $document)
-	{
-		$this->document = $document;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_Document
-	 */
-	public function getDocument()
-	{
-		return $this->document;
-	}
-	public function setEncodingType($encodingType)
-	{
-		$this->encodingType = $encodingType;
-	}
-	public function getEncodingType()
-	{
-		return $this->encodingType;
-	}
-	/**
-	 * @param Google_Service_CloudNaturalLanguage_Features
-	 */
-	public function setFeatures(Google_Service_CloudNaturalLanguage_Features $features)
-	{
-		$this->features = $features;
-	}
-	/**
-	 * @return Google_Service_CloudNaturalLanguage_Features
-	 */
-	public function getFeatures()
-	{
-		return $this->features;
-	}
+  /**
+   * @param Google_Service_CloudNaturalLanguage_Document
+   */
+  public function setDocument(Google_Service_CloudNaturalLanguage_Document $document)
+  {
+    $this->document = $document;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_Document
+   */
+  public function getDocument()
+  {
+    return $this->document;
+  }
+  public function setEncodingType($encodingType)
+  {
+    $this->encodingType = $encodingType;
+  }
+  public function getEncodingType()
+  {
+    return $this->encodingType;
+  }
+  /**
+   * @param Google_Service_CloudNaturalLanguage_Features
+   */
+  public function setFeatures(Google_Service_CloudNaturalLanguage_Features $features)
+  {
+    $this->features = $features;
+  }
+  /**
+   * @return Google_Service_CloudNaturalLanguage_Features
+   */
+  public function getFeatures()
+  {
+    return $this->features;
+  }
 }

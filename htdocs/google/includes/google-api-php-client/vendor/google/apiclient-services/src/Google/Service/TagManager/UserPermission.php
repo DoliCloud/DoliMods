@@ -17,65 +17,65 @@
 
 class Google_Service_TagManager_UserPermission extends Google_Collection
 {
-	protected $collection_key = 'containerAccess';
-	protected $accountAccessType = 'Google_Service_TagManager_AccountAccess';
-	protected $accountAccessDataType = '';
-	public $accountId;
-	protected $containerAccessType = 'Google_Service_TagManager_ContainerAccess';
-	protected $containerAccessDataType = 'array';
-	public $emailAddress;
-	public $path;
+  protected $collection_key = 'containerAccess';
+  protected $accountAccessType = 'Google_Service_TagManager_AccountAccess';
+  protected $accountAccessDataType = '';
+  public $accountId;
+  protected $containerAccessType = 'Google_Service_TagManager_ContainerAccess';
+  protected $containerAccessDataType = 'array';
+  public $emailAddress;
+  public $path;
 
-	/**
-	 * @param Google_Service_TagManager_AccountAccess
-	 */
-	public function setAccountAccess(Google_Service_TagManager_AccountAccess $accountAccess)
-	{
-		$this->accountAccess = $accountAccess;
-	}
-	/**
-	 * @return Google_Service_TagManager_AccountAccess
-	 */
-	public function getAccountAccess()
-	{
-		return $this->accountAccess;
-	}
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	/**
-	 * @param Google_Service_TagManager_ContainerAccess
-	 */
-	public function setContainerAccess($containerAccess)
-	{
-		$this->containerAccess = $containerAccess;
-	}
-	/**
-	 * @return Google_Service_TagManager_ContainerAccess
-	 */
-	public function getContainerAccess()
-	{
-		return $this->containerAccess;
-	}
-	public function setEmailAddress($emailAddress)
-	{
-		$this->emailAddress = $emailAddress;
-	}
-	public function getEmailAddress()
-	{
-		return $this->emailAddress;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
+  /**
+   * @param Google_Service_TagManager_AccountAccess
+   */
+  public function setAccountAccess(Google_Service_TagManager_AccountAccess $accountAccess)
+  {
+    $this->accountAccess = $accountAccess;
+  }
+  /**
+   * @return Google_Service_TagManager_AccountAccess
+   */
+  public function getAccountAccess()
+  {
+    return $this->accountAccess;
+  }
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  /**
+   * @param Google_Service_TagManager_ContainerAccess[]
+   */
+  public function setContainerAccess($containerAccess)
+  {
+    $this->containerAccess = $containerAccess;
+  }
+  /**
+   * @return Google_Service_TagManager_ContainerAccess[]
+   */
+  public function getContainerAccess()
+  {
+    return $this->containerAccess;
+  }
+  public function setEmailAddress($emailAddress)
+  {
+    $this->emailAddress = $emailAddress;
+  }
+  public function getEmailAddress()
+  {
+    return $this->emailAddress;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
 }

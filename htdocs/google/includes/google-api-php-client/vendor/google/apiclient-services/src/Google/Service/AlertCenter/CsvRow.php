@@ -17,15 +17,15 @@
 
 class Google_Service_AlertCenter_CsvRow extends Google_Collection
 {
-	protected $collection_key = 'entries';
-	public $entries;
+  protected $collection_key = 'entries';
+  public $entries;
 
-	public function setEntries($entries)
-	{
-		$this->entries = $entries;
-	}
-	public function getEntries()
-	{
-		return $this->entries;
-	}
+  public function setEntries($entries)
+  {
+    $this->entries = $entries;
+  }
+  public function getEntries()
+  {
+    return $this->entries;
+  }
 }

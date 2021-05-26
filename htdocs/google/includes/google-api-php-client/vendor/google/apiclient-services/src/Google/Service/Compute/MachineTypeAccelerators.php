@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_MachineTypeAccelerators extends Google_Model
 {
-	public $guestAcceleratorCount;
-	public $guestAcceleratorType;
+  public $guestAcceleratorCount;
+  public $guestAcceleratorType;
 
-	public function setGuestAcceleratorCount($guestAcceleratorCount)
-	{
-		$this->guestAcceleratorCount = $guestAcceleratorCount;
-	}
-	public function getGuestAcceleratorCount()
-	{
-		return $this->guestAcceleratorCount;
-	}
-	public function setGuestAcceleratorType($guestAcceleratorType)
-	{
-		$this->guestAcceleratorType = $guestAcceleratorType;
-	}
-	public function getGuestAcceleratorType()
-	{
-		return $this->guestAcceleratorType;
-	}
+  public function setGuestAcceleratorCount($guestAcceleratorCount)
+  {
+    $this->guestAcceleratorCount = $guestAcceleratorCount;
+  }
+  public function getGuestAcceleratorCount()
+  {
+    return $this->guestAcceleratorCount;
+  }
+  public function setGuestAcceleratorType($guestAcceleratorType)
+  {
+    $this->guestAcceleratorType = $guestAcceleratorType;
+  }
+  public function getGuestAcceleratorType()
+  {
+    return $this->guestAcceleratorType;
+  }
 }

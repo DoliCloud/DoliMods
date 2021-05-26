@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSimpleResponses extends Google_Collection
 {
-	protected $collection_key = 'simpleResponses';
-	protected $simpleResponsesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSimpleResponse';
-	protected $simpleResponsesDataType = 'array';
+  protected $collection_key = 'simpleResponses';
+  protected $simpleResponsesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSimpleResponse';
+  protected $simpleResponsesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSimpleResponse
-	 */
-	public function setSimpleResponses($simpleResponses)
-	{
-		$this->simpleResponses = $simpleResponses;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSimpleResponse
-	 */
-	public function getSimpleResponses()
-	{
-		return $this->simpleResponses;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSimpleResponse[]
+   */
+  public function setSimpleResponses($simpleResponses)
+  {
+    $this->simpleResponses = $simpleResponses;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageSimpleResponse[]
+   */
+  public function getSimpleResponses()
+  {
+    return $this->simpleResponses;
+  }
 }

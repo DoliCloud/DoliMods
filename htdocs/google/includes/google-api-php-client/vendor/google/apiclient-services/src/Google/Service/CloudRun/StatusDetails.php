@@ -17,67 +17,67 @@
 
 class Google_Service_CloudRun_StatusDetails extends Google_Collection
 {
-	protected $collection_key = 'causes';
-	protected $causesType = 'Google_Service_CloudRun_StatusCause';
-	protected $causesDataType = 'array';
-	public $group;
-	public $kind;
-	public $name;
-	public $retryAfterSeconds;
-	public $uid;
+  protected $collection_key = 'causes';
+  protected $causesType = 'Google_Service_CloudRun_StatusCause';
+  protected $causesDataType = 'array';
+  public $group;
+  public $kind;
+  public $name;
+  public $retryAfterSeconds;
+  public $uid;
 
-	/**
-	 * @param Google_Service_CloudRun_StatusCause
-	 */
-	public function setCauses($causes)
-	{
-		$this->causes = $causes;
-	}
-	/**
-	 * @return Google_Service_CloudRun_StatusCause
-	 */
-	public function getCauses()
-	{
-		return $this->causes;
-	}
-	public function setGroup($group)
-	{
-		$this->group = $group;
-	}
-	public function getGroup()
-	{
-		return $this->group;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRetryAfterSeconds($retryAfterSeconds)
-	{
-		$this->retryAfterSeconds = $retryAfterSeconds;
-	}
-	public function getRetryAfterSeconds()
-	{
-		return $this->retryAfterSeconds;
-	}
-	public function setUid($uid)
-	{
-		$this->uid = $uid;
-	}
-	public function getUid()
-	{
-		return $this->uid;
-	}
+  /**
+   * @param Google_Service_CloudRun_StatusCause[]
+   */
+  public function setCauses($causes)
+  {
+    $this->causes = $causes;
+  }
+  /**
+   * @return Google_Service_CloudRun_StatusCause[]
+   */
+  public function getCauses()
+  {
+    return $this->causes;
+  }
+  public function setGroup($group)
+  {
+    $this->group = $group;
+  }
+  public function getGroup()
+  {
+    return $this->group;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRetryAfterSeconds($retryAfterSeconds)
+  {
+    $this->retryAfterSeconds = $retryAfterSeconds;
+  }
+  public function getRetryAfterSeconds()
+  {
+    return $this->retryAfterSeconds;
+  }
+  public function setUid($uid)
+  {
+    $this->uid = $uid;
+  }
+  public function getUid()
+  {
+    return $this->uid;
+  }
 }

@@ -17,72 +17,72 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion extends Google_Collection
 {
-	protected $collection_key = 'errors';
-	protected $configType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig';
-	protected $configDataType = '';
-	public $createTime;
-	protected $errorsType = 'Google_Service_DLP_GooglePrivacyDlpV2Error';
-	protected $errorsDataType = 'array';
-	public $state;
-	protected $statsType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats';
-	protected $statsDataType = '';
+  protected $collection_key = 'errors';
+  protected $configType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig';
+  protected $configDataType = '';
+  public $createTime;
+  protected $errorsType = 'Google_Service_DLP_GooglePrivacyDlpV2Error';
+  protected $errorsDataType = 'array';
+  public $state;
+  protected $statsType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats';
+  protected $statsDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
-	 */
-	public function setConfig(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig $config)
-	{
-		$this->config = $config;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
-	 */
-	public function getConfig()
-	{
-		return $this->config;
-	}
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Error
-	 */
-	public function setErrors($errors)
-	{
-		$this->errors = $errors;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Error
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats
-	 */
-	public function setStats(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats $stats)
-	{
-		$this->stats = $stats;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats
-	 */
-	public function getStats()
-	{
-		return $this->stats;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
+   */
+  public function setConfig(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig $config)
+  {
+    $this->config = $config;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeConfig
+   */
+  public function getConfig()
+  {
+    return $this->config;
+  }
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Error[]
+   */
+  public function setErrors($errors)
+  {
+    $this->errors = $errors;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Error[]
+   */
+  public function getErrors()
+  {
+    return $this->errors;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats
+   */
+  public function setStats(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats $stats)
+  {
+    $this->stats = $stats;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats
+   */
+  public function getStats()
+  {
+    return $this->stats;
+  }
 }

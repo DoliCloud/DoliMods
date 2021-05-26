@@ -17,50 +17,50 @@
 
 class Google_Service_DisplayVideo_Channel extends Google_Model
 {
-	public $advertiserId;
-	public $channelId;
-	public $displayName;
-	public $name;
-	public $partnerId;
+  public $advertiserId;
+  public $channelId;
+  public $displayName;
+  public $name;
+  public $partnerId;
 
-	public function setAdvertiserId($advertiserId)
-	{
-		$this->advertiserId = $advertiserId;
-	}
-	public function getAdvertiserId()
-	{
-		return $this->advertiserId;
-	}
-	public function setChannelId($channelId)
-	{
-		$this->channelId = $channelId;
-	}
-	public function getChannelId()
-	{
-		return $this->channelId;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPartnerId($partnerId)
-	{
-		$this->partnerId = $partnerId;
-	}
-	public function getPartnerId()
-	{
-		return $this->partnerId;
-	}
+  public function setAdvertiserId($advertiserId)
+  {
+    $this->advertiserId = $advertiserId;
+  }
+  public function getAdvertiserId()
+  {
+    return $this->advertiserId;
+  }
+  public function setChannelId($channelId)
+  {
+    $this->channelId = $channelId;
+  }
+  public function getChannelId()
+  {
+    return $this->channelId;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPartnerId($partnerId)
+  {
+    $this->partnerId = $partnerId;
+  }
+  public function getPartnerId()
+  {
+    return $this->partnerId;
+  }
 }

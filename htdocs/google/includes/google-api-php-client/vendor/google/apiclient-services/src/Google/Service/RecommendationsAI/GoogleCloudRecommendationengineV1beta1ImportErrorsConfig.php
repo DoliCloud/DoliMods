@@ -17,14 +17,14 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1ImportErrorsConfig extends Google_Model
 {
-	public $gcsPrefix;
+  public $gcsPrefix;
 
-	public function setGcsPrefix($gcsPrefix)
-	{
-		$this->gcsPrefix = $gcsPrefix;
-	}
-	public function getGcsPrefix()
-	{
-		return $this->gcsPrefix;
-	}
+  public function setGcsPrefix($gcsPrefix)
+  {
+    $this->gcsPrefix = $gcsPrefix;
+  }
+  public function getGcsPrefix()
+  {
+    return $this->gcsPrefix;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2SentimentAnalysisResult extends Google_Model
 {
-	protected $queryTextSentimentType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Sentiment';
-	protected $queryTextSentimentDataType = '';
+  protected $queryTextSentimentType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Sentiment';
+  protected $queryTextSentimentDataType = '';
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Sentiment
-	 */
-	public function setQueryTextSentiment(Google_Service_Dialogflow_GoogleCloudDialogflowV2Sentiment $queryTextSentiment)
-	{
-		$this->queryTextSentiment = $queryTextSentiment;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Sentiment
-	 */
-	public function getQueryTextSentiment()
-	{
-		return $this->queryTextSentiment;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Sentiment
+   */
+  public function setQueryTextSentiment(Google_Service_Dialogflow_GoogleCloudDialogflowV2Sentiment $queryTextSentiment)
+  {
+    $this->queryTextSentiment = $queryTextSentiment;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Sentiment
+   */
+  public function getQueryTextSentiment()
+  {
+    return $this->queryTextSentiment;
+  }
 }

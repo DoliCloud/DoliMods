@@ -56,6 +56,8 @@ $code = GETPOST("code");
 $state = GETPOST('state');
 $scope = GETPOST('scope');
 
+$mesgs = '';
+
 
 /*
  * Actions
@@ -89,12 +91,15 @@ if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code) {		// We are n
 	}
 	$post = rtrim($post, '&');
 
+
 	$result = getURLContent('https://accounts.google.com/o/oauth2/token', 'POST', $post);
 
 	$response=json_decode($result['content'], true);
 
 	// response should be an array like array('access_token' => , 'token_type' => 'Bearer', 'expires_in' => int 3600)
 	if (empty($response['access_token'])) {
+		$mesgs = $response['error'];
+		$mesgs .= "<br>\n".$response['error_description'];
 	} else {
 		// The token is the full string into $result['content'] like '{"access_token":"ya29.iQEPBPUAVLXeVq1-QnC6-SHydA9czPX3ySJ5SfYSo5ZIMfFEl5MTs62no8hZp5jUUsm3QVHTrBg7hw","expires_in":3600,"created":1433463453}';
 		//var_dump($response);
@@ -117,8 +122,8 @@ if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code) {		// We are n
 
 
 
-// After this, should never be used, except for test purpose
-// ---------------------------------------------------------
+// After this, should never be used, except for test purpose or if error
+// ---------------------------------------------------------------------
 
 /*
  * View
@@ -130,9 +135,7 @@ $max_results = 10;
 
 llxHeader();
 
-
-
-print '<iframe src="http://www.google.com/calendar/embed?showTitle=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23f4f4f4&amp;src=eldy10%40gmail.com&amp;color=%237A367A&amp;ctz=Europe%2FParis" style=" border-width:0 " width="100%" height="600" frameborder="0" scrolling="no">zob</iframe>';
+print $mesgs;
 
 
 // Get contacts using oauth

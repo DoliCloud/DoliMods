@@ -15,25 +15,35 @@
  * the License.
  */
 
-class Google_Service_DataFusion_Version extends Google_Model
+class Google_Service_DataFusion_Version extends Google_Collection
 {
-	public $defaultVersion;
-	public $versionNumber;
+  protected $collection_key = 'availableFeatures';
+  public $availableFeatures;
+  public $defaultVersion;
+  public $versionNumber;
 
-	public function setDefaultVersion($defaultVersion)
-	{
-		$this->defaultVersion = $defaultVersion;
-	}
-	public function getDefaultVersion()
-	{
-		return $this->defaultVersion;
-	}
-	public function setVersionNumber($versionNumber)
-	{
-		$this->versionNumber = $versionNumber;
-	}
-	public function getVersionNumber()
-	{
-		return $this->versionNumber;
-	}
+  public function setAvailableFeatures($availableFeatures)
+  {
+    $this->availableFeatures = $availableFeatures;
+  }
+  public function getAvailableFeatures()
+  {
+    return $this->availableFeatures;
+  }
+  public function setDefaultVersion($defaultVersion)
+  {
+    $this->defaultVersion = $defaultVersion;
+  }
+  public function getDefaultVersion()
+  {
+    return $this->defaultVersion;
+  }
+  public function setVersionNumber($versionNumber)
+  {
+    $this->versionNumber = $versionNumber;
+  }
+  public function getVersionNumber()
+  {
+    return $this->versionNumber;
+  }
 }

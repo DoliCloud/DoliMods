@@ -17,40 +17,40 @@
 
 class Google_Service_Compute_WafExpressionSet extends Google_Collection
 {
-	protected $collection_key = 'expressions';
-	public $aliases;
-	protected $expressionsType = 'Google_Service_Compute_WafExpressionSetExpression';
-	protected $expressionsDataType = 'array';
-	public $id;
+  protected $collection_key = 'expressions';
+  public $aliases;
+  protected $expressionsType = 'Google_Service_Compute_WafExpressionSetExpression';
+  protected $expressionsDataType = 'array';
+  public $id;
 
-	public function setAliases($aliases)
-	{
-		$this->aliases = $aliases;
-	}
-	public function getAliases()
-	{
-		return $this->aliases;
-	}
-	/**
-	 * @param Google_Service_Compute_WafExpressionSetExpression
-	 */
-	public function setExpressions($expressions)
-	{
-		$this->expressions = $expressions;
-	}
-	/**
-	 * @return Google_Service_Compute_WafExpressionSetExpression
-	 */
-	public function getExpressions()
-	{
-		return $this->expressions;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
+  public function setAliases($aliases)
+  {
+    $this->aliases = $aliases;
+  }
+  public function getAliases()
+  {
+    return $this->aliases;
+  }
+  /**
+   * @param Google_Service_Compute_WafExpressionSetExpression[]
+   */
+  public function setExpressions($expressions)
+  {
+    $this->expressions = $expressions;
+  }
+  /**
+   * @return Google_Service_Compute_WafExpressionSetExpression[]
+   */
+  public function getExpressions()
+  {
+    return $this->expressions;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
 }

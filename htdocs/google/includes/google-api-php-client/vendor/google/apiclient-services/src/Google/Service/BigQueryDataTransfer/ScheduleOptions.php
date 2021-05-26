@@ -17,32 +17,32 @@
 
 class Google_Service_BigQueryDataTransfer_ScheduleOptions extends Google_Model
 {
-	public $disableAutoScheduling;
-	public $endTime;
-	public $startTime;
+  public $disableAutoScheduling;
+  public $endTime;
+  public $startTime;
 
-	public function setDisableAutoScheduling($disableAutoScheduling)
-	{
-		$this->disableAutoScheduling = $disableAutoScheduling;
-	}
-	public function getDisableAutoScheduling()
-	{
-		return $this->disableAutoScheduling;
-	}
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setDisableAutoScheduling($disableAutoScheduling)
+  {
+    $this->disableAutoScheduling = $disableAutoScheduling;
+  }
+  public function getDisableAutoScheduling()
+  {
+    return $this->disableAutoScheduling;
+  }
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

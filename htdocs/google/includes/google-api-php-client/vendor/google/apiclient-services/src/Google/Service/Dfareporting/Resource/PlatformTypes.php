@@ -25,31 +25,31 @@
  */
 class Google_Service_Dfareporting_Resource_PlatformTypes extends Google_Service_Resource
 {
-	/**
-	 * Gets one platform type by ID. (platformTypes.get)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param string $id Platform type ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_PlatformType
-	 */
-	public function get($profileId, $id, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'id' => $id);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Dfareporting_PlatformType");
-	}
-	/**
-	 * Retrieves a list of platform types. (platformTypes.listPlatformTypes)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_PlatformTypesListResponse
-	 */
-	public function listPlatformTypes($profileId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Dfareporting_PlatformTypesListResponse");
-	}
+  /**
+   * Gets one platform type by ID. (platformTypes.get)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param string $id Platform type ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_PlatformType
+   */
+  public function get($profileId, $id, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Dfareporting_PlatformType");
+  }
+  /**
+   * Retrieves a list of platform types. (platformTypes.listPlatformTypes)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_PlatformTypesListResponse
+   */
+  public function listPlatformTypes($profileId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Dfareporting_PlatformTypesListResponse");
+  }
 }

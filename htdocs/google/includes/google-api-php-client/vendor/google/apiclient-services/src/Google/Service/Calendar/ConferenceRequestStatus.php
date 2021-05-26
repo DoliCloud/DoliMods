@@ -17,14 +17,14 @@
 
 class Google_Service_Calendar_ConferenceRequestStatus extends Google_Model
 {
-	public $statusCode;
+  public $statusCode;
 
-	public function setStatusCode($statusCode)
-	{
-		$this->statusCode = $statusCode;
-	}
-	public function getStatusCode()
-	{
-		return $this->statusCode;
-	}
+  public function setStatusCode($statusCode)
+  {
+    $this->statusCode = $statusCode;
+  }
+  public function getStatusCode()
+  {
+    return $this->statusCode;
+  }
 }

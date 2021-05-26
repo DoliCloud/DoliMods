@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_SensitiveCategoryTargetingOptionDetails extends Google_Model
 {
-	public $sensitiveCategory;
+  public $sensitiveCategory;
 
-	public function setSensitiveCategory($sensitiveCategory)
-	{
-		$this->sensitiveCategory = $sensitiveCategory;
-	}
-	public function getSensitiveCategory()
-	{
-		return $this->sensitiveCategory;
-	}
+  public function setSensitiveCategory($sensitiveCategory)
+  {
+    $this->sensitiveCategory = $sensitiveCategory;
+  }
+  public function getSensitiveCategory()
+  {
+    return $this->sensitiveCategory;
+  }
 }

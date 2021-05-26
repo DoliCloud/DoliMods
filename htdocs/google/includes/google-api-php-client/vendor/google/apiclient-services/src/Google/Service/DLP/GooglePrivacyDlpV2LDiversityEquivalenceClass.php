@@ -17,56 +17,56 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2LDiversityEquivalenceClass extends Google_Collection
 {
-	protected $collection_key = 'topSensitiveValues';
-	public $equivalenceClassSize;
-	public $numDistinctSensitiveValues;
-	protected $quasiIdsValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
-	protected $quasiIdsValuesDataType = 'array';
-	protected $topSensitiveValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2ValueFrequency';
-	protected $topSensitiveValuesDataType = 'array';
+  protected $collection_key = 'topSensitiveValues';
+  public $equivalenceClassSize;
+  public $numDistinctSensitiveValues;
+  protected $quasiIdsValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2Value';
+  protected $quasiIdsValuesDataType = 'array';
+  protected $topSensitiveValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2ValueFrequency';
+  protected $topSensitiveValuesDataType = 'array';
 
-	public function setEquivalenceClassSize($equivalenceClassSize)
-	{
-		$this->equivalenceClassSize = $equivalenceClassSize;
-	}
-	public function getEquivalenceClassSize()
-	{
-		return $this->equivalenceClassSize;
-	}
-	public function setNumDistinctSensitiveValues($numDistinctSensitiveValues)
-	{
-		$this->numDistinctSensitiveValues = $numDistinctSensitiveValues;
-	}
-	public function getNumDistinctSensitiveValues()
-	{
-		return $this->numDistinctSensitiveValues;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Value
-	 */
-	public function setQuasiIdsValues($quasiIdsValues)
-	{
-		$this->quasiIdsValues = $quasiIdsValues;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Value
-	 */
-	public function getQuasiIdsValues()
-	{
-		return $this->quasiIdsValues;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2ValueFrequency
-	 */
-	public function setTopSensitiveValues($topSensitiveValues)
-	{
-		$this->topSensitiveValues = $topSensitiveValues;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2ValueFrequency
-	 */
-	public function getTopSensitiveValues()
-	{
-		return $this->topSensitiveValues;
-	}
+  public function setEquivalenceClassSize($equivalenceClassSize)
+  {
+    $this->equivalenceClassSize = $equivalenceClassSize;
+  }
+  public function getEquivalenceClassSize()
+  {
+    return $this->equivalenceClassSize;
+  }
+  public function setNumDistinctSensitiveValues($numDistinctSensitiveValues)
+  {
+    $this->numDistinctSensitiveValues = $numDistinctSensitiveValues;
+  }
+  public function getNumDistinctSensitiveValues()
+  {
+    return $this->numDistinctSensitiveValues;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Value[]
+   */
+  public function setQuasiIdsValues($quasiIdsValues)
+  {
+    $this->quasiIdsValues = $quasiIdsValues;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Value[]
+   */
+  public function getQuasiIdsValues()
+  {
+    return $this->quasiIdsValues;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2ValueFrequency[]
+   */
+  public function setTopSensitiveValues($topSensitiveValues)
+  {
+    $this->topSensitiveValues = $topSensitiveValues;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2ValueFrequency[]
+   */
+  public function getTopSensitiveValues()
+  {
+    return $this->topSensitiveValues;
+  }
 }

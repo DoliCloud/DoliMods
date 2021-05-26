@@ -17,22 +17,22 @@
 
 class Google_Service_Compute_InstancesStartWithEncryptionKeyRequest extends Google_Collection
 {
-	protected $collection_key = 'disks';
-	protected $disksType = 'Google_Service_Compute_CustomerEncryptionKeyProtectedDisk';
-	protected $disksDataType = 'array';
+  protected $collection_key = 'disks';
+  protected $disksType = 'Google_Service_Compute_CustomerEncryptionKeyProtectedDisk';
+  protected $disksDataType = 'array';
 
-	/**
-	 * @param Google_Service_Compute_CustomerEncryptionKeyProtectedDisk
-	 */
-	public function setDisks($disks)
-	{
-		$this->disks = $disks;
-	}
-	/**
-	 * @return Google_Service_Compute_CustomerEncryptionKeyProtectedDisk
-	 */
-	public function getDisks()
-	{
-		return $this->disks;
-	}
+  /**
+   * @param Google_Service_Compute_CustomerEncryptionKeyProtectedDisk[]
+   */
+  public function setDisks($disks)
+  {
+    $this->disks = $disks;
+  }
+  /**
+   * @return Google_Service_Compute_CustomerEncryptionKeyProtectedDisk[]
+   */
+  public function getDisks()
+  {
+    return $this->disks;
+  }
 }

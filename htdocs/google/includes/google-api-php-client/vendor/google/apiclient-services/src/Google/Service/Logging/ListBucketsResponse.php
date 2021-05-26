@@ -17,31 +17,31 @@
 
 class Google_Service_Logging_ListBucketsResponse extends Google_Collection
 {
-	protected $collection_key = 'buckets';
-	protected $bucketsType = 'Google_Service_Logging_LogBucket';
-	protected $bucketsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'buckets';
+  protected $bucketsType = 'Google_Service_Logging_LogBucket';
+  protected $bucketsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Logging_LogBucket
-	 */
-	public function setBuckets($buckets)
-	{
-		$this->buckets = $buckets;
-	}
-	/**
-	 * @return Google_Service_Logging_LogBucket
-	 */
-	public function getBuckets()
-	{
-		return $this->buckets;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Logging_LogBucket[]
+   */
+  public function setBuckets($buckets)
+  {
+    $this->buckets = $buckets;
+  }
+  /**
+   * @return Google_Service_Logging_LogBucket[]
+   */
+  public function getBuckets()
+  {
+    return $this->buckets;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

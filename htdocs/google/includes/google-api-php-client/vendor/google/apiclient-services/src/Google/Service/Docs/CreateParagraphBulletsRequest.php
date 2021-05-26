@@ -17,30 +17,30 @@
 
 class Google_Service_Docs_CreateParagraphBulletsRequest extends Google_Model
 {
-	public $bulletPreset;
-	protected $rangeType = 'Google_Service_Docs_Range';
-	protected $rangeDataType = '';
+  public $bulletPreset;
+  protected $rangeType = 'Google_Service_Docs_Range';
+  protected $rangeDataType = '';
 
-	public function setBulletPreset($bulletPreset)
-	{
-		$this->bulletPreset = $bulletPreset;
-	}
-	public function getBulletPreset()
-	{
-		return $this->bulletPreset;
-	}
-	/**
-	 * @param Google_Service_Docs_Range
-	 */
-	public function setRange(Google_Service_Docs_Range $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Docs_Range
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
+  public function setBulletPreset($bulletPreset)
+  {
+    $this->bulletPreset = $bulletPreset;
+  }
+  public function getBulletPreset()
+  {
+    return $this->bulletPreset;
+  }
+  /**
+   * @param Google_Service_Docs_Range
+   */
+  public function setRange(Google_Service_Docs_Range $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Docs_Range
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

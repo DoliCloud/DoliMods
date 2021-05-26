@@ -17,46 +17,46 @@
 
 class Google_Service_Datastore_PropertyFilter extends Google_Model
 {
-	public $op;
-	protected $propertyType = 'Google_Service_Datastore_PropertyReference';
-	protected $propertyDataType = '';
-	protected $valueType = 'Google_Service_Datastore_Value';
-	protected $valueDataType = '';
+  public $op;
+  protected $propertyType = 'Google_Service_Datastore_PropertyReference';
+  protected $propertyDataType = '';
+  protected $valueType = 'Google_Service_Datastore_Value';
+  protected $valueDataType = '';
 
-	public function setOp($op)
-	{
-		$this->op = $op;
-	}
-	public function getOp()
-	{
-		return $this->op;
-	}
-	/**
-	 * @param Google_Service_Datastore_PropertyReference
-	 */
-	public function setProperty(Google_Service_Datastore_PropertyReference $property)
-	{
-		$this->property = $property;
-	}
-	/**
-	 * @return Google_Service_Datastore_PropertyReference
-	 */
-	public function getProperty()
-	{
-		return $this->property;
-	}
-	/**
-	 * @param Google_Service_Datastore_Value
-	 */
-	public function setValue(Google_Service_Datastore_Value $value)
-	{
-		$this->value = $value;
-	}
-	/**
-	 * @return Google_Service_Datastore_Value
-	 */
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setOp($op)
+  {
+    $this->op = $op;
+  }
+  public function getOp()
+  {
+    return $this->op;
+  }
+  /**
+   * @param Google_Service_Datastore_PropertyReference
+   */
+  public function setProperty(Google_Service_Datastore_PropertyReference $property)
+  {
+    $this->property = $property;
+  }
+  /**
+   * @return Google_Service_Datastore_PropertyReference
+   */
+  public function getProperty()
+  {
+    return $this->property;
+  }
+  /**
+   * @param Google_Service_Datastore_Value
+   */
+  public function setValue(Google_Service_Datastore_Value $value)
+  {
+    $this->value = $value;
+  }
+  /**
+   * @return Google_Service_Datastore_Value
+   */
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

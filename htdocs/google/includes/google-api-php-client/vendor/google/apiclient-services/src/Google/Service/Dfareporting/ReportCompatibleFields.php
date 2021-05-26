@@ -17,79 +17,79 @@
 
 class Google_Service_Dfareporting_ReportCompatibleFields extends Google_Collection
 {
-	protected $collection_key = 'pivotedActivityMetrics';
-	protected $dimensionFiltersType = 'Google_Service_Dfareporting_Dimension';
-	protected $dimensionFiltersDataType = 'array';
-	protected $dimensionsType = 'Google_Service_Dfareporting_Dimension';
-	protected $dimensionsDataType = 'array';
-	public $kind;
-	protected $metricsType = 'Google_Service_Dfareporting_Metric';
-	protected $metricsDataType = 'array';
-	protected $pivotedActivityMetricsType = 'Google_Service_Dfareporting_Metric';
-	protected $pivotedActivityMetricsDataType = 'array';
+  protected $collection_key = 'pivotedActivityMetrics';
+  protected $dimensionFiltersType = 'Google_Service_Dfareporting_Dimension';
+  protected $dimensionFiltersDataType = 'array';
+  protected $dimensionsType = 'Google_Service_Dfareporting_Dimension';
+  protected $dimensionsDataType = 'array';
+  public $kind;
+  protected $metricsType = 'Google_Service_Dfareporting_Metric';
+  protected $metricsDataType = 'array';
+  protected $pivotedActivityMetricsType = 'Google_Service_Dfareporting_Metric';
+  protected $pivotedActivityMetricsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dfareporting_Dimension
-	 */
-	public function setDimensionFilters($dimensionFilters)
-	{
-		$this->dimensionFilters = $dimensionFilters;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Dimension
-	 */
-	public function getDimensionFilters()
-	{
-		return $this->dimensionFilters;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Dimension
-	 */
-	public function setDimensions($dimensions)
-	{
-		$this->dimensions = $dimensions;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Dimension
-	 */
-	public function getDimensions()
-	{
-		return $this->dimensions;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Metric
-	 */
-	public function setMetrics($metrics)
-	{
-		$this->metrics = $metrics;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Metric
-	 */
-	public function getMetrics()
-	{
-		return $this->metrics;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Metric
-	 */
-	public function setPivotedActivityMetrics($pivotedActivityMetrics)
-	{
-		$this->pivotedActivityMetrics = $pivotedActivityMetrics;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Metric
-	 */
-	public function getPivotedActivityMetrics()
-	{
-		return $this->pivotedActivityMetrics;
-	}
+  /**
+   * @param Google_Service_Dfareporting_Dimension[]
+   */
+  public function setDimensionFilters($dimensionFilters)
+  {
+    $this->dimensionFilters = $dimensionFilters;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Dimension[]
+   */
+  public function getDimensionFilters()
+  {
+    return $this->dimensionFilters;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Dimension[]
+   */
+  public function setDimensions($dimensions)
+  {
+    $this->dimensions = $dimensions;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Dimension[]
+   */
+  public function getDimensions()
+  {
+    return $this->dimensions;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Metric[]
+   */
+  public function setMetrics($metrics)
+  {
+    $this->metrics = $metrics;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Metric[]
+   */
+  public function getMetrics()
+  {
+    return $this->metrics;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Metric[]
+   */
+  public function setPivotedActivityMetrics($pivotedActivityMetrics)
+  {
+    $this->pivotedActivityMetrics = $pivotedActivityMetrics;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Metric[]
+   */
+  public function getPivotedActivityMetrics()
+  {
+    return $this->pivotedActivityMetrics;
+  }
 }

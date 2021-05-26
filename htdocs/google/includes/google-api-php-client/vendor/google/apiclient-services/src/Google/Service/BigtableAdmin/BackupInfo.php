@@ -17,41 +17,41 @@
 
 class Google_Service_BigtableAdmin_BackupInfo extends Google_Model
 {
-	public $backup;
-	public $endTime;
-	public $sourceTable;
-	public $startTime;
+  public $backup;
+  public $endTime;
+  public $sourceTable;
+  public $startTime;
 
-	public function setBackup($backup)
-	{
-		$this->backup = $backup;
-	}
-	public function getBackup()
-	{
-		return $this->backup;
-	}
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setSourceTable($sourceTable)
-	{
-		$this->sourceTable = $sourceTable;
-	}
-	public function getSourceTable()
-	{
-		return $this->sourceTable;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setBackup($backup)
+  {
+    $this->backup = $backup;
+  }
+  public function getBackup()
+  {
+    return $this->backup;
+  }
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setSourceTable($sourceTable)
+  {
+    $this->sourceTable = $sourceTable;
+  }
+  public function getSourceTable()
+  {
+    return $this->sourceTable;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

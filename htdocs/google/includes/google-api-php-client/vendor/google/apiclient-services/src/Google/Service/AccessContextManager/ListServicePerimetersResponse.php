@@ -17,31 +17,31 @@
 
 class Google_Service_AccessContextManager_ListServicePerimetersResponse extends Google_Collection
 {
-	protected $collection_key = 'servicePerimeters';
-	public $nextPageToken;
-	protected $servicePerimetersType = 'Google_Service_AccessContextManager_ServicePerimeter';
-	protected $servicePerimetersDataType = 'array';
+  protected $collection_key = 'servicePerimeters';
+  public $nextPageToken;
+  protected $servicePerimetersType = 'Google_Service_AccessContextManager_ServicePerimeter';
+  protected $servicePerimetersDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_AccessContextManager_ServicePerimeter
-	 */
-	public function setServicePerimeters($servicePerimeters)
-	{
-		$this->servicePerimeters = $servicePerimeters;
-	}
-	/**
-	 * @return Google_Service_AccessContextManager_ServicePerimeter
-	 */
-	public function getServicePerimeters()
-	{
-		return $this->servicePerimeters;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_AccessContextManager_ServicePerimeter[]
+   */
+  public function setServicePerimeters($servicePerimeters)
+  {
+    $this->servicePerimeters = $servicePerimeters;
+  }
+  /**
+   * @return Google_Service_AccessContextManager_ServicePerimeter[]
+   */
+  public function getServicePerimeters()
+  {
+    return $this->servicePerimeters;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_CloudHealthcare_Segment extends Google_Model
 {
-	public $fields;
-	public $segmentId;
-	public $setId;
+  public $fields;
+  public $segmentId;
+  public $setId;
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setSegmentId($segmentId)
-	{
-		$this->segmentId = $segmentId;
-	}
-	public function getSegmentId()
-	{
-		return $this->segmentId;
-	}
-	public function setSetId($setId)
-	{
-		$this->setId = $setId;
-	}
-	public function getSetId()
-	{
-		return $this->setId;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setSegmentId($segmentId)
+  {
+    $this->segmentId = $segmentId;
+  }
+  public function getSegmentId()
+  {
+    return $this->segmentId;
+  }
+  public function setSetId($setId)
+  {
+    $this->setId = $setId;
+  }
+  public function getSetId()
+  {
+    return $this->setId;
+  }
 }

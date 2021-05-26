@@ -17,23 +17,23 @@
 
 class Google_Service_BigtableAdmin_DropRowRangeRequest extends Google_Model
 {
-	public $deleteAllDataFromTable;
-	public $rowKeyPrefix;
+  public $deleteAllDataFromTable;
+  public $rowKeyPrefix;
 
-	public function setDeleteAllDataFromTable($deleteAllDataFromTable)
-	{
-		$this->deleteAllDataFromTable = $deleteAllDataFromTable;
-	}
-	public function getDeleteAllDataFromTable()
-	{
-		return $this->deleteAllDataFromTable;
-	}
-	public function setRowKeyPrefix($rowKeyPrefix)
-	{
-		$this->rowKeyPrefix = $rowKeyPrefix;
-	}
-	public function getRowKeyPrefix()
-	{
-		return $this->rowKeyPrefix;
-	}
+  public function setDeleteAllDataFromTable($deleteAllDataFromTable)
+  {
+    $this->deleteAllDataFromTable = $deleteAllDataFromTable;
+  }
+  public function getDeleteAllDataFromTable()
+  {
+    return $this->deleteAllDataFromTable;
+  }
+  public function setRowKeyPrefix($rowKeyPrefix)
+  {
+    $this->rowKeyPrefix = $rowKeyPrefix;
+  }
+  public function getRowKeyPrefix()
+  {
+    return $this->rowKeyPrefix;
+  }
 }

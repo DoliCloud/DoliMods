@@ -17,14 +17,14 @@
 
 class Google_Service_Monitoring_AppEngine extends Google_Model
 {
-	public $moduleId;
+  public $moduleId;
 
-	public function setModuleId($moduleId)
-	{
-		$this->moduleId = $moduleId;
-	}
-	public function getModuleId()
-	{
-		return $this->moduleId;
-	}
+  public function setModuleId($moduleId)
+  {
+    $this->moduleId = $moduleId;
+  }
+  public function getModuleId()
+  {
+    return $this->moduleId;
+  }
 }

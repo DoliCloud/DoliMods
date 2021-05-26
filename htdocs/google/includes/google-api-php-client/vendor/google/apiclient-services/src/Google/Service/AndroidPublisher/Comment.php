@@ -17,37 +17,37 @@
 
 class Google_Service_AndroidPublisher_Comment extends Google_Model
 {
-	protected $developerCommentType = 'Google_Service_AndroidPublisher_DeveloperComment';
-	protected $developerCommentDataType = '';
-	protected $userCommentType = 'Google_Service_AndroidPublisher_UserComment';
-	protected $userCommentDataType = '';
+  protected $developerCommentType = 'Google_Service_AndroidPublisher_DeveloperComment';
+  protected $developerCommentDataType = '';
+  protected $userCommentType = 'Google_Service_AndroidPublisher_UserComment';
+  protected $userCommentDataType = '';
 
-	/**
-	 * @param Google_Service_AndroidPublisher_DeveloperComment
-	 */
-	public function setDeveloperComment(Google_Service_AndroidPublisher_DeveloperComment $developerComment)
-	{
-		$this->developerComment = $developerComment;
-	}
-	/**
-	 * @return Google_Service_AndroidPublisher_DeveloperComment
-	 */
-	public function getDeveloperComment()
-	{
-		return $this->developerComment;
-	}
-	/**
-	 * @param Google_Service_AndroidPublisher_UserComment
-	 */
-	public function setUserComment(Google_Service_AndroidPublisher_UserComment $userComment)
-	{
-		$this->userComment = $userComment;
-	}
-	/**
-	 * @return Google_Service_AndroidPublisher_UserComment
-	 */
-	public function getUserComment()
-	{
-		return $this->userComment;
-	}
+  /**
+   * @param Google_Service_AndroidPublisher_DeveloperComment
+   */
+  public function setDeveloperComment(Google_Service_AndroidPublisher_DeveloperComment $developerComment)
+  {
+    $this->developerComment = $developerComment;
+  }
+  /**
+   * @return Google_Service_AndroidPublisher_DeveloperComment
+   */
+  public function getDeveloperComment()
+  {
+    return $this->developerComment;
+  }
+  /**
+   * @param Google_Service_AndroidPublisher_UserComment
+   */
+  public function setUserComment(Google_Service_AndroidPublisher_UserComment $userComment)
+  {
+    $this->userComment = $userComment;
+  }
+  /**
+   * @return Google_Service_AndroidPublisher_UserComment
+   */
+  public function getUserComment()
+  {
+    return $this->userComment;
+  }
 }

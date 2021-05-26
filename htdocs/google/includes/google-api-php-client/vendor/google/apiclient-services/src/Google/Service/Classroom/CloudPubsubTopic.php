@@ -17,14 +17,14 @@
 
 class Google_Service_Classroom_CloudPubsubTopic extends Google_Model
 {
-	public $topicName;
+  public $topicName;
 
-	public function setTopicName($topicName)
-	{
-		$this->topicName = $topicName;
-	}
-	public function getTopicName()
-	{
-		return $this->topicName;
-	}
+  public function setTopicName($topicName)
+  {
+    $this->topicName = $topicName;
+  }
+  public function getTopicName()
+  {
+    return $this->topicName;
+  }
 }

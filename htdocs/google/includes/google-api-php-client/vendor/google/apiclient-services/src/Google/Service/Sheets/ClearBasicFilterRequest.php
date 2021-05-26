@@ -17,14 +17,14 @@
 
 class Google_Service_Sheets_ClearBasicFilterRequest extends Google_Model
 {
-	public $sheetId;
+  public $sheetId;
 
-	public function setSheetId($sheetId)
-	{
-		$this->sheetId = $sheetId;
-	}
-	public function getSheetId()
-	{
-		return $this->sheetId;
-	}
+  public function setSheetId($sheetId)
+  {
+    $this->sheetId = $sheetId;
+  }
+  public function getSheetId()
+  {
+    return $this->sheetId;
+  }
 }

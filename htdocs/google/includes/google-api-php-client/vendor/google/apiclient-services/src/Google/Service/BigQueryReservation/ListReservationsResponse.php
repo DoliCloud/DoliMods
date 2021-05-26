@@ -17,31 +17,31 @@
 
 class Google_Service_BigQueryReservation_ListReservationsResponse extends Google_Collection
 {
-	protected $collection_key = 'reservations';
-	public $nextPageToken;
-	protected $reservationsType = 'Google_Service_BigQueryReservation_Reservation';
-	protected $reservationsDataType = 'array';
+  protected $collection_key = 'reservations';
+  public $nextPageToken;
+  protected $reservationsType = 'Google_Service_BigQueryReservation_Reservation';
+  protected $reservationsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_BigQueryReservation_Reservation
-	 */
-	public function setReservations($reservations)
-	{
-		$this->reservations = $reservations;
-	}
-	/**
-	 * @return Google_Service_BigQueryReservation_Reservation
-	 */
-	public function getReservations()
-	{
-		return $this->reservations;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_BigQueryReservation_Reservation[]
+   */
+  public function setReservations($reservations)
+  {
+    $this->reservations = $reservations;
+  }
+  /**
+   * @return Google_Service_BigQueryReservation_Reservation[]
+   */
+  public function getReservations()
+  {
+    return $this->reservations;
+  }
 }

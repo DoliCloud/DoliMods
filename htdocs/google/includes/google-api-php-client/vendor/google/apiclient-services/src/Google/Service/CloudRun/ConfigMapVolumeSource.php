@@ -17,49 +17,49 @@
 
 class Google_Service_CloudRun_ConfigMapVolumeSource extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $defaultMode;
-	protected $itemsType = 'Google_Service_CloudRun_KeyToPath';
-	protected $itemsDataType = 'array';
-	public $name;
-	public $optional;
+  protected $collection_key = 'items';
+  public $defaultMode;
+  protected $itemsType = 'Google_Service_CloudRun_KeyToPath';
+  protected $itemsDataType = 'array';
+  public $name;
+  public $optional;
 
-	public function setDefaultMode($defaultMode)
-	{
-		$this->defaultMode = $defaultMode;
-	}
-	public function getDefaultMode()
-	{
-		return $this->defaultMode;
-	}
-	/**
-	 * @param Google_Service_CloudRun_KeyToPath
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_CloudRun_KeyToPath
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOptional($optional)
-	{
-		$this->optional = $optional;
-	}
-	public function getOptional()
-	{
-		return $this->optional;
-	}
+  public function setDefaultMode($defaultMode)
+  {
+    $this->defaultMode = $defaultMode;
+  }
+  public function getDefaultMode()
+  {
+    return $this->defaultMode;
+  }
+  /**
+   * @param Google_Service_CloudRun_KeyToPath[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_CloudRun_KeyToPath[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOptional($optional)
+  {
+    $this->optional = $optional;
+  }
+  public function getOptional()
+  {
+    return $this->optional;
+  }
 }

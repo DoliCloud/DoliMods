@@ -17,41 +17,41 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p2beta1NormalizedBoundingBox extends Google_Model
 {
-	public $bottom;
-	public $left;
-	public $right;
-	public $top;
+  public $bottom;
+  public $left;
+  public $right;
+  public $top;
 
-	public function setBottom($bottom)
-	{
-		$this->bottom = $bottom;
-	}
-	public function getBottom()
-	{
-		return $this->bottom;
-	}
-	public function setLeft($left)
-	{
-		$this->left = $left;
-	}
-	public function getLeft()
-	{
-		return $this->left;
-	}
-	public function setRight($right)
-	{
-		$this->right = $right;
-	}
-	public function getRight()
-	{
-		return $this->right;
-	}
-	public function setTop($top)
-	{
-		$this->top = $top;
-	}
-	public function getTop()
-	{
-		return $this->top;
-	}
+  public function setBottom($bottom)
+  {
+    $this->bottom = $bottom;
+  }
+  public function getBottom()
+  {
+    return $this->bottom;
+  }
+  public function setLeft($left)
+  {
+    $this->left = $left;
+  }
+  public function getLeft()
+  {
+    return $this->left;
+  }
+  public function setRight($right)
+  {
+    $this->right = $right;
+  }
+  public function getRight()
+  {
+    return $this->right;
+  }
+  public function setTop($top)
+  {
+    $this->top = $top;
+  }
+  public function getTop()
+  {
+    return $this->top;
+  }
 }

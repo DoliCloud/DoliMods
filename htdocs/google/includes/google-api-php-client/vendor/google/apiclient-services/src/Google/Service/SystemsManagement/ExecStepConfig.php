@@ -17,49 +17,49 @@
 
 class Google_Service_SystemsManagement_ExecStepConfig extends Google_Collection
 {
-	protected $collection_key = 'allowedSuccessCodes';
-	public $allowedSuccessCodes;
-	protected $gcsObjectType = 'Google_Service_SystemsManagement_GcsObject';
-	protected $gcsObjectDataType = '';
-	public $interpreter;
-	public $localPath;
+  protected $collection_key = 'allowedSuccessCodes';
+  public $allowedSuccessCodes;
+  protected $gcsObjectType = 'Google_Service_SystemsManagement_GcsObject';
+  protected $gcsObjectDataType = '';
+  public $interpreter;
+  public $localPath;
 
-	public function setAllowedSuccessCodes($allowedSuccessCodes)
-	{
-		$this->allowedSuccessCodes = $allowedSuccessCodes;
-	}
-	public function getAllowedSuccessCodes()
-	{
-		return $this->allowedSuccessCodes;
-	}
-	/**
-	 * @param Google_Service_SystemsManagement_GcsObject
-	 */
-	public function setGcsObject(Google_Service_SystemsManagement_GcsObject $gcsObject)
-	{
-		$this->gcsObject = $gcsObject;
-	}
-	/**
-	 * @return Google_Service_SystemsManagement_GcsObject
-	 */
-	public function getGcsObject()
-	{
-		return $this->gcsObject;
-	}
-	public function setInterpreter($interpreter)
-	{
-		$this->interpreter = $interpreter;
-	}
-	public function getInterpreter()
-	{
-		return $this->interpreter;
-	}
-	public function setLocalPath($localPath)
-	{
-		$this->localPath = $localPath;
-	}
-	public function getLocalPath()
-	{
-		return $this->localPath;
-	}
+  public function setAllowedSuccessCodes($allowedSuccessCodes)
+  {
+    $this->allowedSuccessCodes = $allowedSuccessCodes;
+  }
+  public function getAllowedSuccessCodes()
+  {
+    return $this->allowedSuccessCodes;
+  }
+  /**
+   * @param Google_Service_SystemsManagement_GcsObject
+   */
+  public function setGcsObject(Google_Service_SystemsManagement_GcsObject $gcsObject)
+  {
+    $this->gcsObject = $gcsObject;
+  }
+  /**
+   * @return Google_Service_SystemsManagement_GcsObject
+   */
+  public function getGcsObject()
+  {
+    return $this->gcsObject;
+  }
+  public function setInterpreter($interpreter)
+  {
+    $this->interpreter = $interpreter;
+  }
+  public function getInterpreter()
+  {
+    return $this->interpreter;
+  }
+  public function setLocalPath($localPath)
+  {
+    $this->localPath = $localPath;
+  }
+  public function getLocalPath()
+  {
+    return $this->localPath;
+  }
 }

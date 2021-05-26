@@ -17,57 +17,57 @@
 
 class Google_Service_Monitoring_TypedValue extends Google_Model
 {
-	public $boolValue;
-	protected $distributionValueType = 'Google_Service_Monitoring_Distribution';
-	protected $distributionValueDataType = '';
-	public $doubleValue;
-	public $int64Value;
-	public $stringValue;
+  public $boolValue;
+  protected $distributionValueType = 'Google_Service_Monitoring_Distribution';
+  protected $distributionValueDataType = '';
+  public $doubleValue;
+  public $int64Value;
+  public $stringValue;
 
-	public function setBoolValue($boolValue)
-	{
-		$this->boolValue = $boolValue;
-	}
-	public function getBoolValue()
-	{
-		return $this->boolValue;
-	}
-	/**
-	 * @param Google_Service_Monitoring_Distribution
-	 */
-	public function setDistributionValue(Google_Service_Monitoring_Distribution $distributionValue)
-	{
-		$this->distributionValue = $distributionValue;
-	}
-	/**
-	 * @return Google_Service_Monitoring_Distribution
-	 */
-	public function getDistributionValue()
-	{
-		return $this->distributionValue;
-	}
-	public function setDoubleValue($doubleValue)
-	{
-		$this->doubleValue = $doubleValue;
-	}
-	public function getDoubleValue()
-	{
-		return $this->doubleValue;
-	}
-	public function setInt64Value($int64Value)
-	{
-		$this->int64Value = $int64Value;
-	}
-	public function getInt64Value()
-	{
-		return $this->int64Value;
-	}
-	public function setStringValue($stringValue)
-	{
-		$this->stringValue = $stringValue;
-	}
-	public function getStringValue()
-	{
-		return $this->stringValue;
-	}
+  public function setBoolValue($boolValue)
+  {
+    $this->boolValue = $boolValue;
+  }
+  public function getBoolValue()
+  {
+    return $this->boolValue;
+  }
+  /**
+   * @param Google_Service_Monitoring_Distribution
+   */
+  public function setDistributionValue(Google_Service_Monitoring_Distribution $distributionValue)
+  {
+    $this->distributionValue = $distributionValue;
+  }
+  /**
+   * @return Google_Service_Monitoring_Distribution
+   */
+  public function getDistributionValue()
+  {
+    return $this->distributionValue;
+  }
+  public function setDoubleValue($doubleValue)
+  {
+    $this->doubleValue = $doubleValue;
+  }
+  public function getDoubleValue()
+  {
+    return $this->doubleValue;
+  }
+  public function setInt64Value($int64Value)
+  {
+    $this->int64Value = $int64Value;
+  }
+  public function getInt64Value()
+  {
+    return $this->int64Value;
+  }
+  public function setStringValue($stringValue)
+  {
+    $this->stringValue = $stringValue;
+  }
+  public function getStringValue()
+  {
+    return $this->stringValue;
+  }
 }

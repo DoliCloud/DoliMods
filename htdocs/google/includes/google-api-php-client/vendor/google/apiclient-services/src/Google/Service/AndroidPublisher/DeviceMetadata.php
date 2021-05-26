@@ -17,104 +17,104 @@
 
 class Google_Service_AndroidPublisher_DeviceMetadata extends Google_Model
 {
-	public $cpuMake;
-	public $cpuModel;
-	public $deviceClass;
-	public $glEsVersion;
-	public $manufacturer;
-	public $nativePlatform;
-	public $productName;
-	public $ramMb;
-	public $screenDensityDpi;
-	public $screenHeightPx;
-	public $screenWidthPx;
+  public $cpuMake;
+  public $cpuModel;
+  public $deviceClass;
+  public $glEsVersion;
+  public $manufacturer;
+  public $nativePlatform;
+  public $productName;
+  public $ramMb;
+  public $screenDensityDpi;
+  public $screenHeightPx;
+  public $screenWidthPx;
 
-	public function setCpuMake($cpuMake)
-	{
-		$this->cpuMake = $cpuMake;
-	}
-	public function getCpuMake()
-	{
-		return $this->cpuMake;
-	}
-	public function setCpuModel($cpuModel)
-	{
-		$this->cpuModel = $cpuModel;
-	}
-	public function getCpuModel()
-	{
-		return $this->cpuModel;
-	}
-	public function setDeviceClass($deviceClass)
-	{
-		$this->deviceClass = $deviceClass;
-	}
-	public function getDeviceClass()
-	{
-		return $this->deviceClass;
-	}
-	public function setGlEsVersion($glEsVersion)
-	{
-		$this->glEsVersion = $glEsVersion;
-	}
-	public function getGlEsVersion()
-	{
-		return $this->glEsVersion;
-	}
-	public function setManufacturer($manufacturer)
-	{
-		$this->manufacturer = $manufacturer;
-	}
-	public function getManufacturer()
-	{
-		return $this->manufacturer;
-	}
-	public function setNativePlatform($nativePlatform)
-	{
-		$this->nativePlatform = $nativePlatform;
-	}
-	public function getNativePlatform()
-	{
-		return $this->nativePlatform;
-	}
-	public function setProductName($productName)
-	{
-		$this->productName = $productName;
-	}
-	public function getProductName()
-	{
-		return $this->productName;
-	}
-	public function setRamMb($ramMb)
-	{
-		$this->ramMb = $ramMb;
-	}
-	public function getRamMb()
-	{
-		return $this->ramMb;
-	}
-	public function setScreenDensityDpi($screenDensityDpi)
-	{
-		$this->screenDensityDpi = $screenDensityDpi;
-	}
-	public function getScreenDensityDpi()
-	{
-		return $this->screenDensityDpi;
-	}
-	public function setScreenHeightPx($screenHeightPx)
-	{
-		$this->screenHeightPx = $screenHeightPx;
-	}
-	public function getScreenHeightPx()
-	{
-		return $this->screenHeightPx;
-	}
-	public function setScreenWidthPx($screenWidthPx)
-	{
-		$this->screenWidthPx = $screenWidthPx;
-	}
-	public function getScreenWidthPx()
-	{
-		return $this->screenWidthPx;
-	}
+  public function setCpuMake($cpuMake)
+  {
+    $this->cpuMake = $cpuMake;
+  }
+  public function getCpuMake()
+  {
+    return $this->cpuMake;
+  }
+  public function setCpuModel($cpuModel)
+  {
+    $this->cpuModel = $cpuModel;
+  }
+  public function getCpuModel()
+  {
+    return $this->cpuModel;
+  }
+  public function setDeviceClass($deviceClass)
+  {
+    $this->deviceClass = $deviceClass;
+  }
+  public function getDeviceClass()
+  {
+    return $this->deviceClass;
+  }
+  public function setGlEsVersion($glEsVersion)
+  {
+    $this->glEsVersion = $glEsVersion;
+  }
+  public function getGlEsVersion()
+  {
+    return $this->glEsVersion;
+  }
+  public function setManufacturer($manufacturer)
+  {
+    $this->manufacturer = $manufacturer;
+  }
+  public function getManufacturer()
+  {
+    return $this->manufacturer;
+  }
+  public function setNativePlatform($nativePlatform)
+  {
+    $this->nativePlatform = $nativePlatform;
+  }
+  public function getNativePlatform()
+  {
+    return $this->nativePlatform;
+  }
+  public function setProductName($productName)
+  {
+    $this->productName = $productName;
+  }
+  public function getProductName()
+  {
+    return $this->productName;
+  }
+  public function setRamMb($ramMb)
+  {
+    $this->ramMb = $ramMb;
+  }
+  public function getRamMb()
+  {
+    return $this->ramMb;
+  }
+  public function setScreenDensityDpi($screenDensityDpi)
+  {
+    $this->screenDensityDpi = $screenDensityDpi;
+  }
+  public function getScreenDensityDpi()
+  {
+    return $this->screenDensityDpi;
+  }
+  public function setScreenHeightPx($screenHeightPx)
+  {
+    $this->screenHeightPx = $screenHeightPx;
+  }
+  public function getScreenHeightPx()
+  {
+    return $this->screenHeightPx;
+  }
+  public function setScreenWidthPx($screenWidthPx)
+  {
+    $this->screenWidthPx = $screenWidthPx;
+  }
+  public function getScreenWidthPx()
+  {
+    return $this->screenWidthPx;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_BigtableAdmin_ClusterState extends Google_Model
 {
-	public $replicationState;
+  public $replicationState;
 
-	public function setReplicationState($replicationState)
-	{
-		$this->replicationState = $replicationState;
-	}
-	public function getReplicationState()
-	{
-		return $this->replicationState;
-	}
+  public function setReplicationState($replicationState)
+  {
+    $this->replicationState = $replicationState;
+  }
+  public function getReplicationState()
+  {
+    return $this->replicationState;
+  }
 }

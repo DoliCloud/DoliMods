@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1AccessRemove extends Google_Model
 {
-	public $name;
-	public $success;
+  public $name;
+  public $success;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSuccess($success)
-	{
-		$this->success = $success;
-	}
-	public function getSuccess()
-	{
-		return $this->success;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSuccess($success)
+  {
+    $this->success = $success;
+  }
+  public function getSuccess()
+  {
+    return $this->success;
+  }
 }

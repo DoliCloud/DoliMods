@@ -17,14 +17,14 @@
 
 class Google_Service_CloudResourceManager_FolderOperationError extends Google_Model
 {
-	public $errorMessageId;
+  public $errorMessageId;
 
-	public function setErrorMessageId($errorMessageId)
-	{
-		$this->errorMessageId = $errorMessageId;
-	}
-	public function getErrorMessageId()
-	{
-		return $this->errorMessageId;
-	}
+  public function setErrorMessageId($errorMessageId)
+  {
+    $this->errorMessageId = $errorMessageId;
+  }
+  public function getErrorMessageId()
+  {
+    return $this->errorMessageId;
+  }
 }

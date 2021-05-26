@@ -17,50 +17,50 @@
 
 class Google_Service_CloudComposer_SoftwareConfig extends Google_Model
 {
-	public $airflowConfigOverrides;
-	public $envVariables;
-	public $imageVersion;
-	public $pypiPackages;
-	public $pythonVersion;
+  public $airflowConfigOverrides;
+  public $envVariables;
+  public $imageVersion;
+  public $pypiPackages;
+  public $pythonVersion;
 
-	public function setAirflowConfigOverrides($airflowConfigOverrides)
-	{
-		$this->airflowConfigOverrides = $airflowConfigOverrides;
-	}
-	public function getAirflowConfigOverrides()
-	{
-		return $this->airflowConfigOverrides;
-	}
-	public function setEnvVariables($envVariables)
-	{
-		$this->envVariables = $envVariables;
-	}
-	public function getEnvVariables()
-	{
-		return $this->envVariables;
-	}
-	public function setImageVersion($imageVersion)
-	{
-		$this->imageVersion = $imageVersion;
-	}
-	public function getImageVersion()
-	{
-		return $this->imageVersion;
-	}
-	public function setPypiPackages($pypiPackages)
-	{
-		$this->pypiPackages = $pypiPackages;
-	}
-	public function getPypiPackages()
-	{
-		return $this->pypiPackages;
-	}
-	public function setPythonVersion($pythonVersion)
-	{
-		$this->pythonVersion = $pythonVersion;
-	}
-	public function getPythonVersion()
-	{
-		return $this->pythonVersion;
-	}
+  public function setAirflowConfigOverrides($airflowConfigOverrides)
+  {
+    $this->airflowConfigOverrides = $airflowConfigOverrides;
+  }
+  public function getAirflowConfigOverrides()
+  {
+    return $this->airflowConfigOverrides;
+  }
+  public function setEnvVariables($envVariables)
+  {
+    $this->envVariables = $envVariables;
+  }
+  public function getEnvVariables()
+  {
+    return $this->envVariables;
+  }
+  public function setImageVersion($imageVersion)
+  {
+    $this->imageVersion = $imageVersion;
+  }
+  public function getImageVersion()
+  {
+    return $this->imageVersion;
+  }
+  public function setPypiPackages($pypiPackages)
+  {
+    $this->pypiPackages = $pypiPackages;
+  }
+  public function getPypiPackages()
+  {
+    return $this->pypiPackages;
+  }
+  public function setPythonVersion($pythonVersion)
+  {
+    $this->pythonVersion = $pythonVersion;
+  }
+  public function getPythonVersion()
+  {
+    return $this->pythonVersion;
+  }
 }

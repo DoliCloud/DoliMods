@@ -25,17 +25,17 @@
  */
 class Google_Service_Dfareporting_Resource_Browsers extends Google_Service_Resource
 {
-	/**
-	 * Retrieves a list of browsers. (browsers.listBrowsers)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_BrowsersListResponse
-	 */
-	public function listBrowsers($profileId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Dfareporting_BrowsersListResponse");
-	}
+  /**
+   * Retrieves a list of browsers. (browsers.listBrowsers)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_BrowsersListResponse
+   */
+  public function listBrowsers($profileId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Dfareporting_BrowsersListResponse");
+  }
 }

@@ -17,111 +17,111 @@
 
 class Google_Service_Games_Snapshot extends Google_Model
 {
-	protected $coverImageType = 'Google_Service_Games_SnapshotImage';
-	protected $coverImageDataType = '';
-	public $description;
-	public $driveId;
-	public $durationMillis;
-	public $id;
-	public $kind;
-	public $lastModifiedMillis;
-	public $progressValue;
-	public $title;
-	public $type;
-	public $uniqueName;
+  protected $coverImageType = 'Google_Service_Games_SnapshotImage';
+  protected $coverImageDataType = '';
+  public $description;
+  public $driveId;
+  public $durationMillis;
+  public $id;
+  public $kind;
+  public $lastModifiedMillis;
+  public $progressValue;
+  public $title;
+  public $type;
+  public $uniqueName;
 
-	/**
-	 * @param Google_Service_Games_SnapshotImage
-	 */
-	public function setCoverImage(Google_Service_Games_SnapshotImage $coverImage)
-	{
-		$this->coverImage = $coverImage;
-	}
-	/**
-	 * @return Google_Service_Games_SnapshotImage
-	 */
-	public function getCoverImage()
-	{
-		return $this->coverImage;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDriveId($driveId)
-	{
-		$this->driveId = $driveId;
-	}
-	public function getDriveId()
-	{
-		return $this->driveId;
-	}
-	public function setDurationMillis($durationMillis)
-	{
-		$this->durationMillis = $durationMillis;
-	}
-	public function getDurationMillis()
-	{
-		return $this->durationMillis;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLastModifiedMillis($lastModifiedMillis)
-	{
-		$this->lastModifiedMillis = $lastModifiedMillis;
-	}
-	public function getLastModifiedMillis()
-	{
-		return $this->lastModifiedMillis;
-	}
-	public function setProgressValue($progressValue)
-	{
-		$this->progressValue = $progressValue;
-	}
-	public function getProgressValue()
-	{
-		return $this->progressValue;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setUniqueName($uniqueName)
-	{
-		$this->uniqueName = $uniqueName;
-	}
-	public function getUniqueName()
-	{
-		return $this->uniqueName;
-	}
+  /**
+   * @param Google_Service_Games_SnapshotImage
+   */
+  public function setCoverImage(Google_Service_Games_SnapshotImage $coverImage)
+  {
+    $this->coverImage = $coverImage;
+  }
+  /**
+   * @return Google_Service_Games_SnapshotImage
+   */
+  public function getCoverImage()
+  {
+    return $this->coverImage;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDriveId($driveId)
+  {
+    $this->driveId = $driveId;
+  }
+  public function getDriveId()
+  {
+    return $this->driveId;
+  }
+  public function setDurationMillis($durationMillis)
+  {
+    $this->durationMillis = $durationMillis;
+  }
+  public function getDurationMillis()
+  {
+    return $this->durationMillis;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLastModifiedMillis($lastModifiedMillis)
+  {
+    $this->lastModifiedMillis = $lastModifiedMillis;
+  }
+  public function getLastModifiedMillis()
+  {
+    return $this->lastModifiedMillis;
+  }
+  public function setProgressValue($progressValue)
+  {
+    $this->progressValue = $progressValue;
+  }
+  public function getProgressValue()
+  {
+    return $this->progressValue;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setUniqueName($uniqueName)
+  {
+    $this->uniqueName = $uniqueName;
+  }
+  public function getUniqueName()
+  {
+    return $this->uniqueName;
+  }
 }

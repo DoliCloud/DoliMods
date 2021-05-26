@@ -17,40 +17,40 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSegmentCounts extends Google_Collection
 {
-	protected $collection_key = 'seatCounts';
-	public $narrative;
-	protected $seatCountsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCount';
-	protected $seatCountsDataType = 'array';
-	public $segmentIndex;
+  protected $collection_key = 'seatCounts';
+  public $narrative;
+  protected $seatCountsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCount';
+  protected $seatCountsDataType = 'array';
+  public $segmentIndex;
 
-	public function setNarrative($narrative)
-	{
-		$this->narrative = $narrative;
-	}
-	public function getNarrative()
-	{
-		return $this->narrative;
-	}
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCount
-	 */
-	public function setSeatCounts($seatCounts)
-	{
-		$this->seatCounts = $seatCounts;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCount
-	 */
-	public function getSeatCounts()
-	{
-		return $this->seatCounts;
-	}
-	public function setSegmentIndex($segmentIndex)
-	{
-		$this->segmentIndex = $segmentIndex;
-	}
-	public function getSegmentIndex()
-	{
-		return $this->segmentIndex;
-	}
+  public function setNarrative($narrative)
+  {
+    $this->narrative = $narrative;
+  }
+  public function getNarrative()
+  {
+    return $this->narrative;
+  }
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCount
+   */
+  public function setSeatCounts($seatCounts)
+  {
+    $this->seatCounts = $seatCounts;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswersSeatCount
+   */
+  public function getSeatCounts()
+  {
+    return $this->seatCounts;
+  }
+  public function setSegmentIndex($segmentIndex)
+  {
+    $this->segmentIndex = $segmentIndex;
+  }
+  public function getSegmentIndex()
+  {
+    return $this->segmentIndex;
+  }
 }

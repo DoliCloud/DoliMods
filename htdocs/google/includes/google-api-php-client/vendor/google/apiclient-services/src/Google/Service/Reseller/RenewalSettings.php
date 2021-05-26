@@ -17,23 +17,23 @@
 
 class Google_Service_Reseller_RenewalSettings extends Google_Model
 {
-	public $kind;
-	public $renewalType;
+  public $kind;
+  public $renewalType;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setRenewalType($renewalType)
-	{
-		$this->renewalType = $renewalType;
-	}
-	public function getRenewalType()
-	{
-		return $this->renewalType;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setRenewalType($renewalType)
+  {
+    $this->renewalType = $renewalType;
+  }
+  public function getRenewalType()
+  {
+    return $this->renewalType;
+  }
 }

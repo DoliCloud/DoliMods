@@ -25,20 +25,21 @@
  */
 class Google_Service_AdMob_Resource_AccountsMediationReport extends Google_Service_Resource
 {
-	/**
-	 * Generates an AdMob Mediation report based on the provided report
-	 * specification. (mediationReport.generate)
-	 *
-	 * @param string $parent Resource name of the account to generate the report
-	 *                       for. Example: accounts/pub-9876543210987654
-	 * @param Google_Service_AdMob_GenerateMediationReportRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AdMob_GenerateMediationReportResponse
-	 */
-	public function generate($parent, Google_Service_AdMob_GenerateMediationReportRequest $postBody, $optParams = array())
-	{
-		$params = array('parent' => $parent, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('generate', array($params), "Google_Service_AdMob_GenerateMediationReportResponse");
-	}
+  /**
+   * Generates an AdMob Mediation report based on the provided report
+   * specification. Returns result of a server-side streaming RPC. The result is
+   * returned in a sequence of responses. (mediationReport.generate)
+   *
+   * @param string $parent Resource name of the account to generate the report
+   * for. Example: accounts/pub-9876543210987654
+   * @param Google_Service_AdMob_GenerateMediationReportRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AdMob_GenerateMediationReportResponse
+   */
+  public function generate($parent, Google_Service_AdMob_GenerateMediationReportRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('generate', array($params), "Google_Service_AdMob_GenerateMediationReportResponse");
+  }
 }

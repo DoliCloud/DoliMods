@@ -17,41 +17,41 @@
 
 class Google_Service_Appengine_FirewallRule extends Google_Model
 {
-	public $action;
-	public $description;
-	public $priority;
-	public $sourceRange;
+  public $action;
+  public $description;
+  public $priority;
+  public $sourceRange;
 
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-	public function getAction()
-	{
-		return $this->action;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setPriority($priority)
-	{
-		$this->priority = $priority;
-	}
-	public function getPriority()
-	{
-		return $this->priority;
-	}
-	public function setSourceRange($sourceRange)
-	{
-		$this->sourceRange = $sourceRange;
-	}
-	public function getSourceRange()
-	{
-		return $this->sourceRange;
-	}
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  public function getAction()
+  {
+    return $this->action;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setPriority($priority)
+  {
+    $this->priority = $priority;
+  }
+  public function getPriority()
+  {
+    return $this->priority;
+  }
+  public function setSourceRange($sourceRange)
+  {
+    $this->sourceRange = $sourceRange;
+  }
+  public function getSourceRange()
+  {
+    return $this->sourceRange;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Libraryagent_GoogleExampleLibraryagentV1Book extends Google_Model
 {
-	public $author;
-	public $name;
-	public $read;
-	public $title;
+  public $author;
+  public $name;
+  public $read;
+  public $title;
 
-	public function setAuthor($author)
-	{
-		$this->author = $author;
-	}
-	public function getAuthor()
-	{
-		return $this->author;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRead($read)
-	{
-		$this->read = $read;
-	}
-	public function getRead()
-	{
-		return $this->read;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setAuthor($author)
+  {
+    $this->author = $author;
+  }
+  public function getAuthor()
+  {
+    return $this->author;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRead($read)
+  {
+    $this->read = $read;
+  }
+  public function getRead()
+  {
+    return $this->read;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

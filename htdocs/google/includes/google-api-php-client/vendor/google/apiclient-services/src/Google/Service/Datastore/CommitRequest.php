@@ -17,40 +17,40 @@
 
 class Google_Service_Datastore_CommitRequest extends Google_Collection
 {
-	protected $collection_key = 'mutations';
-	public $mode;
-	protected $mutationsType = 'Google_Service_Datastore_Mutation';
-	protected $mutationsDataType = 'array';
-	public $transaction;
+  protected $collection_key = 'mutations';
+  public $mode;
+  protected $mutationsType = 'Google_Service_Datastore_Mutation';
+  protected $mutationsDataType = 'array';
+  public $transaction;
 
-	public function setMode($mode)
-	{
-		$this->mode = $mode;
-	}
-	public function getMode()
-	{
-		return $this->mode;
-	}
-	/**
-	 * @param Google_Service_Datastore_Mutation
-	 */
-	public function setMutations($mutations)
-	{
-		$this->mutations = $mutations;
-	}
-	/**
-	 * @return Google_Service_Datastore_Mutation
-	 */
-	public function getMutations()
-	{
-		return $this->mutations;
-	}
-	public function setTransaction($transaction)
-	{
-		$this->transaction = $transaction;
-	}
-	public function getTransaction()
-	{
-		return $this->transaction;
-	}
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
+  public function getMode()
+  {
+    return $this->mode;
+  }
+  /**
+   * @param Google_Service_Datastore_Mutation[]
+   */
+  public function setMutations($mutations)
+  {
+    $this->mutations = $mutations;
+  }
+  /**
+   * @return Google_Service_Datastore_Mutation[]
+   */
+  public function getMutations()
+  {
+    return $this->mutations;
+  }
+  public function setTransaction($transaction)
+  {
+    $this->transaction = $transaction;
+  }
+  public function getTransaction()
+  {
+    return $this->transaction;
+  }
 }

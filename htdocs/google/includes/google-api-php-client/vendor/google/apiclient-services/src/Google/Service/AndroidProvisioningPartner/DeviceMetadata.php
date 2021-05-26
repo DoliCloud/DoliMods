@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidProvisioningPartner_DeviceMetadata extends Google_Model
 {
-	public $entries;
+  public $entries;
 
-	public function setEntries($entries)
-	{
-		$this->entries = $entries;
-	}
-	public function getEntries()
-	{
-		return $this->entries;
-	}
+  public function setEntries($entries)
+  {
+    $this->entries = $entries;
+  }
+  public function getEntries()
+  {
+    return $this->entries;
+  }
 }

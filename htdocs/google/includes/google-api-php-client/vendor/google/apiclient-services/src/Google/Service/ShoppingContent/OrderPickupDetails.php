@@ -17,56 +17,56 @@
 
 class Google_Service_ShoppingContent_OrderPickupDetails extends Google_Collection
 {
-	protected $collection_key = 'collectors';
-	protected $addressType = 'Google_Service_ShoppingContent_OrderAddress';
-	protected $addressDataType = '';
-	protected $collectorsType = 'Google_Service_ShoppingContent_OrderPickupDetailsCollector';
-	protected $collectorsDataType = 'array';
-	public $locationId;
-	public $pickupType;
+  protected $collection_key = 'collectors';
+  protected $addressType = 'Google_Service_ShoppingContent_OrderAddress';
+  protected $addressDataType = '';
+  protected $collectorsType = 'Google_Service_ShoppingContent_OrderPickupDetailsCollector';
+  protected $collectorsDataType = 'array';
+  public $locationId;
+  public $pickupType;
 
-	/**
-	 * @param Google_Service_ShoppingContent_OrderAddress
-	 */
-	public function setAddress(Google_Service_ShoppingContent_OrderAddress $address)
-	{
-		$this->address = $address;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_OrderAddress
-	 */
-	public function getAddress()
-	{
-		return $this->address;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_OrderPickupDetailsCollector
-	 */
-	public function setCollectors($collectors)
-	{
-		$this->collectors = $collectors;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_OrderPickupDetailsCollector
-	 */
-	public function getCollectors()
-	{
-		return $this->collectors;
-	}
-	public function setLocationId($locationId)
-	{
-		$this->locationId = $locationId;
-	}
-	public function getLocationId()
-	{
-		return $this->locationId;
-	}
-	public function setPickupType($pickupType)
-	{
-		$this->pickupType = $pickupType;
-	}
-	public function getPickupType()
-	{
-		return $this->pickupType;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_OrderAddress
+   */
+  public function setAddress(Google_Service_ShoppingContent_OrderAddress $address)
+  {
+    $this->address = $address;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_OrderAddress
+   */
+  public function getAddress()
+  {
+    return $this->address;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_OrderPickupDetailsCollector[]
+   */
+  public function setCollectors($collectors)
+  {
+    $this->collectors = $collectors;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_OrderPickupDetailsCollector[]
+   */
+  public function getCollectors()
+  {
+    return $this->collectors;
+  }
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
+  }
+  public function setPickupType($pickupType)
+  {
+    $this->pickupType = $pickupType;
+  }
+  public function getPickupType()
+  {
+    return $this->pickupType;
+  }
 }

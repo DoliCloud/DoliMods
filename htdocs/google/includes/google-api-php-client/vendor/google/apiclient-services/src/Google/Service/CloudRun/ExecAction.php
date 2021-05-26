@@ -15,16 +15,17 @@
  * the License.
  */
 
-class Google_Service_CloudRun_ExecAction extends Google_Model
+class Google_Service_CloudRun_ExecAction extends Google_Collection
 {
-	public $command;
+  protected $collection_key = 'command';
+  public $command;
 
-	public function setCommand($command)
-	{
-		$this->command = $command;
-	}
-	public function getCommand()
-	{
-		return $this->command;
-	}
+  public function setCommand($command)
+  {
+    $this->command = $command;
+  }
+  public function getCommand()
+  {
+    return $this->command;
+  }
 }

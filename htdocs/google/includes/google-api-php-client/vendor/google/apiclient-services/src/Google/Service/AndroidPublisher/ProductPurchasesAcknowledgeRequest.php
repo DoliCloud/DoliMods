@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidPublisher_ProductPurchasesAcknowledgeRequest extends Google_Model
 {
-	public $developerPayload;
+  public $developerPayload;
 
-	public function setDeveloperPayload($developerPayload)
-	{
-		$this->developerPayload = $developerPayload;
-	}
-	public function getDeveloperPayload()
-	{
-		return $this->developerPayload;
-	}
+  public function setDeveloperPayload($developerPayload)
+  {
+    $this->developerPayload = $developerPayload;
+  }
+  public function getDeveloperPayload()
+  {
+    return $this->developerPayload;
+  }
 }

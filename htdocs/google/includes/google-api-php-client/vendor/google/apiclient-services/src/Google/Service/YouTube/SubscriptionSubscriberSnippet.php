@@ -17,48 +17,48 @@
 
 class Google_Service_YouTube_SubscriptionSubscriberSnippet extends Google_Model
 {
-	public $channelId;
-	public $description;
-	protected $thumbnailsType = 'Google_Service_YouTube_ThumbnailDetails';
-	protected $thumbnailsDataType = '';
-	public $title;
+  public $channelId;
+  public $description;
+  protected $thumbnailsType = 'Google_Service_YouTube_ThumbnailDetails';
+  protected $thumbnailsDataType = '';
+  public $title;
 
-	public function setChannelId($channelId)
-	{
-		$this->channelId = $channelId;
-	}
-	public function getChannelId()
-	{
-		return $this->channelId;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	/**
-	 * @param Google_Service_YouTube_ThumbnailDetails
-	 */
-	public function setThumbnails(Google_Service_YouTube_ThumbnailDetails $thumbnails)
-	{
-		$this->thumbnails = $thumbnails;
-	}
-	/**
-	 * @return Google_Service_YouTube_ThumbnailDetails
-	 */
-	public function getThumbnails()
-	{
-		return $this->thumbnails;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setChannelId($channelId)
+  {
+    $this->channelId = $channelId;
+  }
+  public function getChannelId()
+  {
+    return $this->channelId;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  /**
+   * @param Google_Service_YouTube_ThumbnailDetails
+   */
+  public function setThumbnails(Google_Service_YouTube_ThumbnailDetails $thumbnails)
+  {
+    $this->thumbnails = $thumbnails;
+  }
+  /**
+   * @return Google_Service_YouTube_ThumbnailDetails
+   */
+  public function getThumbnails()
+  {
+    return $this->thumbnails;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

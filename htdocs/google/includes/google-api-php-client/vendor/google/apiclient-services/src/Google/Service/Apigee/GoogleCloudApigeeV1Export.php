@@ -17,86 +17,86 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1Export extends Google_Model
 {
-	public $created;
-	public $datastoreName;
-	public $description;
-	public $error;
-	public $executionTime;
-	public $name;
-	public $self;
-	public $state;
-	public $updated;
+  public $created;
+  public $datastoreName;
+  public $description;
+  public $error;
+  public $executionTime;
+  public $name;
+  public $self;
+  public $state;
+  public $updated;
 
-	public function setCreated($created)
-	{
-		$this->created = $created;
-	}
-	public function getCreated()
-	{
-		return $this->created;
-	}
-	public function setDatastoreName($datastoreName)
-	{
-		$this->datastoreName = $datastoreName;
-	}
-	public function getDatastoreName()
-	{
-		return $this->datastoreName;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setError($error)
-	{
-		$this->error = $error;
-	}
-	public function getError()
-	{
-		return $this->error;
-	}
-	public function setExecutionTime($executionTime)
-	{
-		$this->executionTime = $executionTime;
-	}
-	public function getExecutionTime()
-	{
-		return $this->executionTime;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSelf($self)
-	{
-		$this->self = $self;
-	}
-	public function getSelf()
-	{
-		return $this->self;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setUpdated($updated)
-	{
-		$this->updated = $updated;
-	}
-	public function getUpdated()
-	{
-		return $this->updated;
-	}
+  public function setCreated($created)
+  {
+    $this->created = $created;
+  }
+  public function getCreated()
+  {
+    return $this->created;
+  }
+  public function setDatastoreName($datastoreName)
+  {
+    $this->datastoreName = $datastoreName;
+  }
+  public function getDatastoreName()
+  {
+    return $this->datastoreName;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setError($error)
+  {
+    $this->error = $error;
+  }
+  public function getError()
+  {
+    return $this->error;
+  }
+  public function setExecutionTime($executionTime)
+  {
+    $this->executionTime = $executionTime;
+  }
+  public function getExecutionTime()
+  {
+    return $this->executionTime;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSelf($self)
+  {
+    $this->self = $self;
+  }
+  public function getSelf()
+  {
+    return $this->self;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setUpdated($updated)
+  {
+    $this->updated = $updated;
+  }
+  public function getUpdated()
+  {
+    return $this->updated;
+  }
 }

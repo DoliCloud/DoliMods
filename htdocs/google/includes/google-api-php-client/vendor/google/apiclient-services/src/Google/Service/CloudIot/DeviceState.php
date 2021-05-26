@@ -17,23 +17,23 @@
 
 class Google_Service_CloudIot_DeviceState extends Google_Model
 {
-	public $binaryData;
-	public $updateTime;
+  public $binaryData;
+  public $updateTime;
 
-	public function setBinaryData($binaryData)
-	{
-		$this->binaryData = $binaryData;
-	}
-	public function getBinaryData()
-	{
-		return $this->binaryData;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setBinaryData($binaryData)
+  {
+    $this->binaryData = $binaryData;
+  }
+  public function getBinaryData()
+  {
+    return $this->binaryData;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

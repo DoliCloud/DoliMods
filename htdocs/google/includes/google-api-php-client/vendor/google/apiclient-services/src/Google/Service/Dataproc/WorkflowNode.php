@@ -17,51 +17,51 @@
 
 class Google_Service_Dataproc_WorkflowNode extends Google_Collection
 {
-	protected $collection_key = 'prerequisiteStepIds';
-	public $error;
-	public $jobId;
-	public $prerequisiteStepIds;
-	public $state;
-	public $stepId;
+  protected $collection_key = 'prerequisiteStepIds';
+  public $error;
+  public $jobId;
+  public $prerequisiteStepIds;
+  public $state;
+  public $stepId;
 
-	public function setError($error)
-	{
-		$this->error = $error;
-	}
-	public function getError()
-	{
-		return $this->error;
-	}
-	public function setJobId($jobId)
-	{
-		$this->jobId = $jobId;
-	}
-	public function getJobId()
-	{
-		return $this->jobId;
-	}
-	public function setPrerequisiteStepIds($prerequisiteStepIds)
-	{
-		$this->prerequisiteStepIds = $prerequisiteStepIds;
-	}
-	public function getPrerequisiteStepIds()
-	{
-		return $this->prerequisiteStepIds;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setStepId($stepId)
-	{
-		$this->stepId = $stepId;
-	}
-	public function getStepId()
-	{
-		return $this->stepId;
-	}
+  public function setError($error)
+  {
+    $this->error = $error;
+  }
+  public function getError()
+  {
+    return $this->error;
+  }
+  public function setJobId($jobId)
+  {
+    $this->jobId = $jobId;
+  }
+  public function getJobId()
+  {
+    return $this->jobId;
+  }
+  public function setPrerequisiteStepIds($prerequisiteStepIds)
+  {
+    $this->prerequisiteStepIds = $prerequisiteStepIds;
+  }
+  public function getPrerequisiteStepIds()
+  {
+    return $this->prerequisiteStepIds;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setStepId($stepId)
+  {
+    $this->stepId = $stepId;
+  }
+  public function getStepId()
+  {
+    return $this->stepId;
+  }
 }

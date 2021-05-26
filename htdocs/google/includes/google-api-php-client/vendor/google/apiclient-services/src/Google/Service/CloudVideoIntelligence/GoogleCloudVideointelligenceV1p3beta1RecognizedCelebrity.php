@@ -17,30 +17,30 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1RecognizedCelebrity extends Google_Model
 {
-	protected $celebrityType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Celebrity';
-	protected $celebrityDataType = '';
-	public $confidence;
+  protected $celebrityType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Celebrity';
+  protected $celebrityDataType = '';
+  public $confidence;
 
-	/**
-	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Celebrity
-	 */
-	public function setCelebrity(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Celebrity $celebrity)
-	{
-		$this->celebrity = $celebrity;
-	}
-	/**
-	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Celebrity
-	 */
-	public function getCelebrity()
-	{
-		return $this->celebrity;
-	}
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
+  /**
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Celebrity
+   */
+  public function setCelebrity(Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Celebrity $celebrity)
+  {
+    $this->celebrity = $celebrity;
+  }
+  /**
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1Celebrity
+   */
+  public function getCelebrity()
+  {
+    return $this->celebrity;
+  }
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
 }

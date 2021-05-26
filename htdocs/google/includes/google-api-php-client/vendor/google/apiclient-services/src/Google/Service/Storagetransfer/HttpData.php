@@ -17,14 +17,14 @@
 
 class Google_Service_Storagetransfer_HttpData extends Google_Model
 {
-	public $listUrl;
+  public $listUrl;
 
-	public function setListUrl($listUrl)
-	{
-		$this->listUrl = $listUrl;
-	}
-	public function getListUrl()
-	{
-		return $this->listUrl;
-	}
+  public function setListUrl($listUrl)
+  {
+    $this->listUrl = $listUrl;
+  }
+  public function getListUrl()
+  {
+    return $this->listUrl;
+  }
 }

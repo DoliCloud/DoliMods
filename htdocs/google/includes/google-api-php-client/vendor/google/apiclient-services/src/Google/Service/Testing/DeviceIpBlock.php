@@ -17,39 +17,39 @@
 
 class Google_Service_Testing_DeviceIpBlock extends Google_Model
 {
-	protected $addedDateType = 'Google_Service_Testing_Date';
-	protected $addedDateDataType = '';
-	public $block;
-	public $form;
+  protected $addedDateType = 'Google_Service_Testing_Date';
+  protected $addedDateDataType = '';
+  public $block;
+  public $form;
 
-	/**
-	 * @param Google_Service_Testing_Date
-	 */
-	public function setAddedDate(Google_Service_Testing_Date $addedDate)
-	{
-		$this->addedDate = $addedDate;
-	}
-	/**
-	 * @return Google_Service_Testing_Date
-	 */
-	public function getAddedDate()
-	{
-		return $this->addedDate;
-	}
-	public function setBlock($block)
-	{
-		$this->block = $block;
-	}
-	public function getBlock()
-	{
-		return $this->block;
-	}
-	public function setForm($form)
-	{
-		$this->form = $form;
-	}
-	public function getForm()
-	{
-		return $this->form;
-	}
+  /**
+   * @param Google_Service_Testing_Date
+   */
+  public function setAddedDate(Google_Service_Testing_Date $addedDate)
+  {
+    $this->addedDate = $addedDate;
+  }
+  /**
+   * @return Google_Service_Testing_Date
+   */
+  public function getAddedDate()
+  {
+    return $this->addedDate;
+  }
+  public function setBlock($block)
+  {
+    $this->block = $block;
+  }
+  public function getBlock()
+  {
+    return $this->block;
+  }
+  public function setForm($form)
+  {
+    $this->form = $form;
+  }
+  public function getForm()
+  {
+    return $this->form;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_UserRewardedContentTargetingOptionDetails extends Google_Model
 {
-	public $userRewardedContent;
+  public $userRewardedContent;
 
-	public function setUserRewardedContent($userRewardedContent)
-	{
-		$this->userRewardedContent = $userRewardedContent;
-	}
-	public function getUserRewardedContent()
-	{
-		return $this->userRewardedContent;
-	}
+  public function setUserRewardedContent($userRewardedContent)
+  {
+    $this->userRewardedContent = $userRewardedContent;
+  }
+  public function getUserRewardedContent()
+  {
+    return $this->userRewardedContent;
+  }
 }

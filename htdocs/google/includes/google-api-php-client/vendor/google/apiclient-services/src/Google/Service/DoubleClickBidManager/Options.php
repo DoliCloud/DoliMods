@@ -17,14 +17,30 @@
 
 class Google_Service_DoubleClickBidManager_Options extends Google_Model
 {
-	public $includeOnlyTargetedUserLists;
+  public $includeOnlyTargetedUserLists;
+  protected $pathQueryOptionsType = 'Google_Service_DoubleClickBidManager_PathQueryOptions';
+  protected $pathQueryOptionsDataType = '';
 
-	public function setIncludeOnlyTargetedUserLists($includeOnlyTargetedUserLists)
-	{
-		$this->includeOnlyTargetedUserLists = $includeOnlyTargetedUserLists;
-	}
-	public function getIncludeOnlyTargetedUserLists()
-	{
-		return $this->includeOnlyTargetedUserLists;
-	}
+  public function setIncludeOnlyTargetedUserLists($includeOnlyTargetedUserLists)
+  {
+    $this->includeOnlyTargetedUserLists = $includeOnlyTargetedUserLists;
+  }
+  public function getIncludeOnlyTargetedUserLists()
+  {
+    return $this->includeOnlyTargetedUserLists;
+  }
+  /**
+   * @param Google_Service_DoubleClickBidManager_PathQueryOptions
+   */
+  public function setPathQueryOptions(Google_Service_DoubleClickBidManager_PathQueryOptions $pathQueryOptions)
+  {
+    $this->pathQueryOptions = $pathQueryOptions;
+  }
+  /**
+   * @return Google_Service_DoubleClickBidManager_PathQueryOptions
+   */
+  public function getPathQueryOptions()
+  {
+    return $this->pathQueryOptions;
+  }
 }

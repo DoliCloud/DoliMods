@@ -25,20 +25,20 @@
  */
 class Google_Service_YouTube_Resource_MembershipsLevels extends Google_Service_Resource
 {
-	/**
-	 * Retrieves a list of all pricing levels offered by a creator to the fans.
-	 * (membershipsLevels.listMembershipsLevels)
-	 *
-	 * @param string|array $part The part parameter specifies the membershipsLevel
-	 *                           resource parts that the API response will include. Supported values are id
-	 *                           and snippet.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_YouTube_MembershipsLevelListResponse
-	 */
-	public function listMembershipsLevels($part, $optParams = array())
-	{
-		$params = array('part' => $part);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_YouTube_MembershipsLevelListResponse");
-	}
+  /**
+   * Retrieves a list of all pricing levels offered by a creator to the fans.
+   * (membershipsLevels.listMembershipsLevels)
+   *
+   * @param string|array $part The *part* parameter specifies the membershipsLevel
+   * resource parts that the API response will include. Supported values are id
+   * and snippet.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_YouTube_MembershipsLevelListResponse
+   */
+  public function listMembershipsLevels($part, $optParams = array())
+  {
+    $params = array('part' => $part);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_YouTube_MembershipsLevelListResponse");
+  }
 }

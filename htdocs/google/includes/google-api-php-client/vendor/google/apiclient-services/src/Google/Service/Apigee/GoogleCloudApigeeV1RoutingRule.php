@@ -17,23 +17,50 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1RoutingRule extends Google_Model
 {
-	public $basepath;
-	public $environment;
+  public $basepath;
+  public $envGroupRevision;
+  public $environment;
+  public $receiver;
+  public $updateTime;
 
-	public function setBasepath($basepath)
-	{
-		$this->basepath = $basepath;
-	}
-	public function getBasepath()
-	{
-		return $this->basepath;
-	}
-	public function setEnvironment($environment)
-	{
-		$this->environment = $environment;
-	}
-	public function getEnvironment()
-	{
-		return $this->environment;
-	}
+  public function setBasepath($basepath)
+  {
+    $this->basepath = $basepath;
+  }
+  public function getBasepath()
+  {
+    return $this->basepath;
+  }
+  public function setEnvGroupRevision($envGroupRevision)
+  {
+    $this->envGroupRevision = $envGroupRevision;
+  }
+  public function getEnvGroupRevision()
+  {
+    return $this->envGroupRevision;
+  }
+  public function setEnvironment($environment)
+  {
+    $this->environment = $environment;
+  }
+  public function getEnvironment()
+  {
+    return $this->environment;
+  }
+  public function setReceiver($receiver)
+  {
+    $this->receiver = $receiver;
+  }
+  public function getReceiver()
+  {
+    return $this->receiver;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

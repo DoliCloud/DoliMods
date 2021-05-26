@@ -17,53 +17,53 @@
 
 class Google_Service_AdExchangeBuyerII_TechnologyTargeting extends Google_Model
 {
-	protected $deviceCapabilityTargetingType = 'Google_Service_AdExchangeBuyerII_CriteriaTargeting';
-	protected $deviceCapabilityTargetingDataType = '';
-	protected $deviceCategoryTargetingType = 'Google_Service_AdExchangeBuyerII_CriteriaTargeting';
-	protected $deviceCategoryTargetingDataType = '';
-	protected $operatingSystemTargetingType = 'Google_Service_AdExchangeBuyerII_OperatingSystemTargeting';
-	protected $operatingSystemTargetingDataType = '';
+  protected $deviceCapabilityTargetingType = 'Google_Service_AdExchangeBuyerII_CriteriaTargeting';
+  protected $deviceCapabilityTargetingDataType = '';
+  protected $deviceCategoryTargetingType = 'Google_Service_AdExchangeBuyerII_CriteriaTargeting';
+  protected $deviceCategoryTargetingDataType = '';
+  protected $operatingSystemTargetingType = 'Google_Service_AdExchangeBuyerII_OperatingSystemTargeting';
+  protected $operatingSystemTargetingDataType = '';
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_CriteriaTargeting
-	 */
-	public function setDeviceCapabilityTargeting(Google_Service_AdExchangeBuyerII_CriteriaTargeting $deviceCapabilityTargeting)
-	{
-		$this->deviceCapabilityTargeting = $deviceCapabilityTargeting;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_CriteriaTargeting
-	 */
-	public function getDeviceCapabilityTargeting()
-	{
-		return $this->deviceCapabilityTargeting;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_CriteriaTargeting
-	 */
-	public function setDeviceCategoryTargeting(Google_Service_AdExchangeBuyerII_CriteriaTargeting $deviceCategoryTargeting)
-	{
-		$this->deviceCategoryTargeting = $deviceCategoryTargeting;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_CriteriaTargeting
-	 */
-	public function getDeviceCategoryTargeting()
-	{
-		return $this->deviceCategoryTargeting;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_OperatingSystemTargeting
-	 */
-	public function setOperatingSystemTargeting(Google_Service_AdExchangeBuyerII_OperatingSystemTargeting $operatingSystemTargeting)
-	{
-		$this->operatingSystemTargeting = $operatingSystemTargeting;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_OperatingSystemTargeting
-	 */
-	public function getOperatingSystemTargeting()
-	{
-		return $this->operatingSystemTargeting;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_CriteriaTargeting
+   */
+  public function setDeviceCapabilityTargeting(Google_Service_AdExchangeBuyerII_CriteriaTargeting $deviceCapabilityTargeting)
+  {
+    $this->deviceCapabilityTargeting = $deviceCapabilityTargeting;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_CriteriaTargeting
+   */
+  public function getDeviceCapabilityTargeting()
+  {
+    return $this->deviceCapabilityTargeting;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_CriteriaTargeting
+   */
+  public function setDeviceCategoryTargeting(Google_Service_AdExchangeBuyerII_CriteriaTargeting $deviceCategoryTargeting)
+  {
+    $this->deviceCategoryTargeting = $deviceCategoryTargeting;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_CriteriaTargeting
+   */
+  public function getDeviceCategoryTargeting()
+  {
+    return $this->deviceCategoryTargeting;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_OperatingSystemTargeting
+   */
+  public function setOperatingSystemTargeting(Google_Service_AdExchangeBuyerII_OperatingSystemTargeting $operatingSystemTargeting)
+  {
+    $this->operatingSystemTargeting = $operatingSystemTargeting;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_OperatingSystemTargeting
+   */
+  public function getOperatingSystemTargeting()
+  {
+    return $this->operatingSystemTargeting;
+  }
 }

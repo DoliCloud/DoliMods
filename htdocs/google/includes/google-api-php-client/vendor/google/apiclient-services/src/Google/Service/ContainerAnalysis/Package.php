@@ -17,31 +17,31 @@
 
 class Google_Service_ContainerAnalysis_Package extends Google_Collection
 {
-	protected $collection_key = 'distribution';
-	protected $distributionType = 'Google_Service_ContainerAnalysis_Distribution';
-	protected $distributionDataType = 'array';
-	public $name;
+  protected $collection_key = 'distribution';
+  protected $distributionType = 'Google_Service_ContainerAnalysis_Distribution';
+  protected $distributionDataType = 'array';
+  public $name;
 
-	/**
-	 * @param Google_Service_ContainerAnalysis_Distribution
-	 */
-	public function setDistribution($distribution)
-	{
-		$this->distribution = $distribution;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_Distribution
-	 */
-	public function getDistribution()
-	{
-		return $this->distribution;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  /**
+   * @param Google_Service_ContainerAnalysis_Distribution[]
+   */
+  public function setDistribution($distribution)
+  {
+    $this->distribution = $distribution;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_Distribution[]
+   */
+  public function getDistribution()
+  {
+    return $this->distribution;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

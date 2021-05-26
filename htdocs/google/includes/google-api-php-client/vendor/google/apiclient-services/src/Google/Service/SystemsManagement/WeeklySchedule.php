@@ -17,14 +17,14 @@
 
 class Google_Service_SystemsManagement_WeeklySchedule extends Google_Model
 {
-	public $dayOfWeek;
+  public $dayOfWeek;
 
-	public function setDayOfWeek($dayOfWeek)
-	{
-		$this->dayOfWeek = $dayOfWeek;
-	}
-	public function getDayOfWeek()
-	{
-		return $this->dayOfWeek;
-	}
+  public function setDayOfWeek($dayOfWeek)
+  {
+    $this->dayOfWeek = $dayOfWeek;
+  }
+  public function getDayOfWeek()
+  {
+    return $this->dayOfWeek;
+  }
 }

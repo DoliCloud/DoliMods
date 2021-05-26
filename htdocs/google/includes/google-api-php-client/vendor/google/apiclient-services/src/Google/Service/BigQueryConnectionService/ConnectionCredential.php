@@ -17,21 +17,21 @@
 
 class Google_Service_BigQueryConnectionService_ConnectionCredential extends Google_Model
 {
-	protected $cloudSqlType = 'Google_Service_BigQueryConnectionService_CloudSqlCredential';
-	protected $cloudSqlDataType = '';
+  protected $cloudSqlType = 'Google_Service_BigQueryConnectionService_CloudSqlCredential';
+  protected $cloudSqlDataType = '';
 
-	/**
-	 * @param Google_Service_BigQueryConnectionService_CloudSqlCredential
-	 */
-	public function setCloudSql(Google_Service_BigQueryConnectionService_CloudSqlCredential $cloudSql)
-	{
-		$this->cloudSql = $cloudSql;
-	}
-	/**
-	 * @return Google_Service_BigQueryConnectionService_CloudSqlCredential
-	 */
-	public function getCloudSql()
-	{
-		return $this->cloudSql;
-	}
+  /**
+   * @param Google_Service_BigQueryConnectionService_CloudSqlCredential
+   */
+  public function setCloudSql(Google_Service_BigQueryConnectionService_CloudSqlCredential $cloudSql)
+  {
+    $this->cloudSql = $cloudSql;
+  }
+  /**
+   * @return Google_Service_BigQueryConnectionService_CloudSqlCredential
+   */
+  public function getCloudSql()
+  {
+    return $this->cloudSql;
+  }
 }

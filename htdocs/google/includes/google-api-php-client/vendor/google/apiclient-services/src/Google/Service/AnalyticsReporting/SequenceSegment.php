@@ -17,31 +17,31 @@
 
 class Google_Service_AnalyticsReporting_SequenceSegment extends Google_Collection
 {
-	protected $collection_key = 'segmentSequenceSteps';
-	public $firstStepShouldMatchFirstHit;
-	protected $segmentSequenceStepsType = 'Google_Service_AnalyticsReporting_SegmentSequenceStep';
-	protected $segmentSequenceStepsDataType = 'array';
+  protected $collection_key = 'segmentSequenceSteps';
+  public $firstStepShouldMatchFirstHit;
+  protected $segmentSequenceStepsType = 'Google_Service_AnalyticsReporting_SegmentSequenceStep';
+  protected $segmentSequenceStepsDataType = 'array';
 
-	public function setFirstStepShouldMatchFirstHit($firstStepShouldMatchFirstHit)
-	{
-		$this->firstStepShouldMatchFirstHit = $firstStepShouldMatchFirstHit;
-	}
-	public function getFirstStepShouldMatchFirstHit()
-	{
-		return $this->firstStepShouldMatchFirstHit;
-	}
-	/**
-	 * @param Google_Service_AnalyticsReporting_SegmentSequenceStep
-	 */
-	public function setSegmentSequenceSteps($segmentSequenceSteps)
-	{
-		$this->segmentSequenceSteps = $segmentSequenceSteps;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_SegmentSequenceStep
-	 */
-	public function getSegmentSequenceSteps()
-	{
-		return $this->segmentSequenceSteps;
-	}
+  public function setFirstStepShouldMatchFirstHit($firstStepShouldMatchFirstHit)
+  {
+    $this->firstStepShouldMatchFirstHit = $firstStepShouldMatchFirstHit;
+  }
+  public function getFirstStepShouldMatchFirstHit()
+  {
+    return $this->firstStepShouldMatchFirstHit;
+  }
+  /**
+   * @param Google_Service_AnalyticsReporting_SegmentSequenceStep[]
+   */
+  public function setSegmentSequenceSteps($segmentSequenceSteps)
+  {
+    $this->segmentSequenceSteps = $segmentSequenceSteps;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_SegmentSequenceStep[]
+   */
+  public function getSegmentSequenceSteps()
+  {
+    return $this->segmentSequenceSteps;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_YouTube_LiveChatFanFundingEventDetails extends Google_Model
 {
-	public $amountDisplayString;
-	public $amountMicros;
-	public $currency;
-	public $userComment;
+  public $amountDisplayString;
+  public $amountMicros;
+  public $currency;
+  public $userComment;
 
-	public function setAmountDisplayString($amountDisplayString)
-	{
-		$this->amountDisplayString = $amountDisplayString;
-	}
-	public function getAmountDisplayString()
-	{
-		return $this->amountDisplayString;
-	}
-	public function setAmountMicros($amountMicros)
-	{
-		$this->amountMicros = $amountMicros;
-	}
-	public function getAmountMicros()
-	{
-		return $this->amountMicros;
-	}
-	public function setCurrency($currency)
-	{
-		$this->currency = $currency;
-	}
-	public function getCurrency()
-	{
-		return $this->currency;
-	}
-	public function setUserComment($userComment)
-	{
-		$this->userComment = $userComment;
-	}
-	public function getUserComment()
-	{
-		return $this->userComment;
-	}
+  public function setAmountDisplayString($amountDisplayString)
+  {
+    $this->amountDisplayString = $amountDisplayString;
+  }
+  public function getAmountDisplayString()
+  {
+    return $this->amountDisplayString;
+  }
+  public function setAmountMicros($amountMicros)
+  {
+    $this->amountMicros = $amountMicros;
+  }
+  public function getAmountMicros()
+  {
+    return $this->amountMicros;
+  }
+  public function setCurrency($currency)
+  {
+    $this->currency = $currency;
+  }
+  public function getCurrency()
+  {
+    return $this->currency;
+  }
+  public function setUserComment($userComment)
+  {
+    $this->userComment = $userComment;
+  }
+  public function getUserComment()
+  {
+    return $this->userComment;
+  }
 }

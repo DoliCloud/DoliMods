@@ -17,22 +17,22 @@
 
 class Google_Service_ShoppingContent_ReturnpolicyCustomBatchRequest extends Google_Collection
 {
-	protected $collection_key = 'entries';
-	protected $entriesType = 'Google_Service_ShoppingContent_ReturnpolicyCustomBatchRequestEntry';
-	protected $entriesDataType = 'array';
+  protected $collection_key = 'entries';
+  protected $entriesType = 'Google_Service_ShoppingContent_ReturnpolicyCustomBatchRequestEntry';
+  protected $entriesDataType = 'array';
 
-	/**
-	 * @param Google_Service_ShoppingContent_ReturnpolicyCustomBatchRequestEntry
-	 */
-	public function setEntries($entries)
-	{
-		$this->entries = $entries;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_ReturnpolicyCustomBatchRequestEntry
-	 */
-	public function getEntries()
-	{
-		return $this->entries;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_ReturnpolicyCustomBatchRequestEntry[]
+   */
+  public function setEntries($entries)
+  {
+    $this->entries = $entries;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_ReturnpolicyCustomBatchRequestEntry[]
+   */
+  public function getEntries()
+  {
+    return $this->entries;
+  }
 }

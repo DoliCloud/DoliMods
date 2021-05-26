@@ -17,59 +17,59 @@
 
 class Google_Service_Bigquery_ScriptStackFrame extends Google_Model
 {
-	public $endColumn;
-	public $endLine;
-	public $procedureId;
-	public $startColumn;
-	public $startLine;
-	public $text;
+  public $endColumn;
+  public $endLine;
+  public $procedureId;
+  public $startColumn;
+  public $startLine;
+  public $text;
 
-	public function setEndColumn($endColumn)
-	{
-		$this->endColumn = $endColumn;
-	}
-	public function getEndColumn()
-	{
-		return $this->endColumn;
-	}
-	public function setEndLine($endLine)
-	{
-		$this->endLine = $endLine;
-	}
-	public function getEndLine()
-	{
-		return $this->endLine;
-	}
-	public function setProcedureId($procedureId)
-	{
-		$this->procedureId = $procedureId;
-	}
-	public function getProcedureId()
-	{
-		return $this->procedureId;
-	}
-	public function setStartColumn($startColumn)
-	{
-		$this->startColumn = $startColumn;
-	}
-	public function getStartColumn()
-	{
-		return $this->startColumn;
-	}
-	public function setStartLine($startLine)
-	{
-		$this->startLine = $startLine;
-	}
-	public function getStartLine()
-	{
-		return $this->startLine;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  public function setEndColumn($endColumn)
+  {
+    $this->endColumn = $endColumn;
+  }
+  public function getEndColumn()
+  {
+    return $this->endColumn;
+  }
+  public function setEndLine($endLine)
+  {
+    $this->endLine = $endLine;
+  }
+  public function getEndLine()
+  {
+    return $this->endLine;
+  }
+  public function setProcedureId($procedureId)
+  {
+    $this->procedureId = $procedureId;
+  }
+  public function getProcedureId()
+  {
+    return $this->procedureId;
+  }
+  public function setStartColumn($startColumn)
+  {
+    $this->startColumn = $startColumn;
+  }
+  public function getStartColumn()
+  {
+    return $this->startColumn;
+  }
+  public function setStartLine($startLine)
+  {
+    $this->startLine = $startLine;
+  }
+  public function getStartLine()
+  {
+    return $this->startLine;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

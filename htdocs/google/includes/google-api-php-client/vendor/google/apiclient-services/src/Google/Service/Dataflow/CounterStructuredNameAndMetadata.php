@@ -17,37 +17,37 @@
 
 class Google_Service_Dataflow_CounterStructuredNameAndMetadata extends Google_Model
 {
-	protected $metadataType = 'Google_Service_Dataflow_CounterMetadata';
-	protected $metadataDataType = '';
-	protected $nameType = 'Google_Service_Dataflow_CounterStructuredName';
-	protected $nameDataType = '';
+  protected $metadataType = 'Google_Service_Dataflow_CounterMetadata';
+  protected $metadataDataType = '';
+  protected $nameType = 'Google_Service_Dataflow_CounterStructuredName';
+  protected $nameDataType = '';
 
-	/**
-	 * @param Google_Service_Dataflow_CounterMetadata
-	 */
-	public function setMetadata(Google_Service_Dataflow_CounterMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_Dataflow_CounterMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	/**
-	 * @param Google_Service_Dataflow_CounterStructuredName
-	 */
-	public function setName(Google_Service_Dataflow_CounterStructuredName $name)
-	{
-		$this->name = $name;
-	}
-	/**
-	 * @return Google_Service_Dataflow_CounterStructuredName
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
+  /**
+   * @param Google_Service_Dataflow_CounterMetadata
+   */
+  public function setMetadata(Google_Service_Dataflow_CounterMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_Dataflow_CounterMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  /**
+   * @param Google_Service_Dataflow_CounterStructuredName
+   */
+  public function setName(Google_Service_Dataflow_CounterStructuredName $name)
+  {
+    $this->name = $name;
+  }
+  /**
+   * @return Google_Service_Dataflow_CounterStructuredName
+   */
+  public function getName()
+  {
+    return $this->name;
+  }
 }

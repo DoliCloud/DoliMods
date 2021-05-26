@@ -25,48 +25,48 @@
  */
 class Google_Service_Urlshortener_Resource_Url extends Google_Service_Resource
 {
-	/**
-	 * Expands a short URL or gets creation time and analytics. (url.get)
-	 *
-	 * @param string $shortUrl The short URL, including the protocol.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string projection Additional information to return.
-	 * @return Google_Service_Urlshortener_Url
-	 */
-	public function get($shortUrl, $optParams = array())
-	{
-		$params = array('shortUrl' => $shortUrl);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Urlshortener_Url");
-	}
-	/**
-	 * Creates a new short URL. (url.insert)
-	 *
-	 * @param Google_Service_Urlshortener_Url $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Urlshortener_Url
-	 */
-	public function insert(Google_Service_Urlshortener_Url $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_Urlshortener_Url");
-	}
-	/**
-	 * Retrieves a list of URLs shortened by a user. (url.listUrl)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string projection Additional information to return.
-	 * @opt_param string start-token Token for requesting successive pages of
-	 * results.
-	 * @return Google_Service_Urlshortener_UrlHistory
-	 */
-	public function listUrl($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Urlshortener_UrlHistory");
-	}
+  /**
+   * Expands a short URL or gets creation time and analytics. (url.get)
+   *
+   * @param string $shortUrl The short URL, including the protocol.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string projection Additional information to return.
+   * @return Google_Service_Urlshortener_Url
+   */
+  public function get($shortUrl, $optParams = array())
+  {
+    $params = array('shortUrl' => $shortUrl);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Urlshortener_Url");
+  }
+  /**
+   * Creates a new short URL. (url.insert)
+   *
+   * @param Google_Service_Urlshortener_Url $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Urlshortener_Url
+   */
+  public function insert(Google_Service_Urlshortener_Url $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Urlshortener_Url");
+  }
+  /**
+   * Retrieves a list of URLs shortened by a user. (url.listUrl)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string projection Additional information to return.
+   * @opt_param string start-token Token for requesting successive pages of
+   * results.
+   * @return Google_Service_Urlshortener_UrlHistory
+   */
+  public function listUrl($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Urlshortener_UrlHistory");
+  }
 }

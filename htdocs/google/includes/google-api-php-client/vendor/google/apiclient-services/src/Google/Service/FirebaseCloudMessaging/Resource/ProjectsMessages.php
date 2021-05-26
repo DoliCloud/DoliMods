@@ -25,22 +25,22 @@
  */
 class Google_Service_FirebaseCloudMessaging_Resource_ProjectsMessages extends Google_Service_Resource
 {
-	/**
-	 * Send a message to specified target (a registration token, topic or
-	 * condition). (messages.send)
-	 *
-	 * @param string $parent Required. It contains the Firebase project id (i.e. the
-	 *                       unique identifier for your Firebase project), in the format of
-	 *                       `projects/{project_id}`. For legacy support, the numeric project number with
-	 *                       no padding is also supported in the format of `projects/{project_number}`.
-	 * @param Google_Service_FirebaseCloudMessaging_SendMessageRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_FirebaseCloudMessaging_Message
-	 */
-	public function send($parent, Google_Service_FirebaseCloudMessaging_SendMessageRequest $postBody, $optParams = array())
-	{
-		$params = array('parent' => $parent, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('send', array($params), "Google_Service_FirebaseCloudMessaging_Message");
-	}
+  /**
+   * Send a message to specified target (a registration token, topic or
+   * condition). (messages.send)
+   *
+   * @param string $parent Required. It contains the Firebase project id (i.e. the
+   * unique identifier for your Firebase project), in the format of
+   * `projects/{project_id}`. For legacy support, the numeric project number with
+   * no padding is also supported in the format of `projects/{project_number}`.
+   * @param Google_Service_FirebaseCloudMessaging_SendMessageRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_FirebaseCloudMessaging_Message
+   */
+  public function send($parent, Google_Service_FirebaseCloudMessaging_SendMessageRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('send', array($params), "Google_Service_FirebaseCloudMessaging_Message");
+  }
 }

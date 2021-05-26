@@ -17,24 +17,24 @@
 
 class Google_Service_ServiceConsumerManagement_ServiceAccountConfig extends Google_Collection
 {
-	protected $collection_key = 'tenantProjectRoles';
-	public $accountId;
-	public $tenantProjectRoles;
+  protected $collection_key = 'tenantProjectRoles';
+  public $accountId;
+  public $tenantProjectRoles;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	public function setTenantProjectRoles($tenantProjectRoles)
-	{
-		$this->tenantProjectRoles = $tenantProjectRoles;
-	}
-	public function getTenantProjectRoles()
-	{
-		return $this->tenantProjectRoles;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  public function setTenantProjectRoles($tenantProjectRoles)
+  {
+    $this->tenantProjectRoles = $tenantProjectRoles;
+  }
+  public function getTenantProjectRoles()
+  {
+    return $this->tenantProjectRoles;
+  }
 }

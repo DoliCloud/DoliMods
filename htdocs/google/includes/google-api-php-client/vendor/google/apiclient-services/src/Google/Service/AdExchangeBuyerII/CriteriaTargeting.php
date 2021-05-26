@@ -17,24 +17,24 @@
 
 class Google_Service_AdExchangeBuyerII_CriteriaTargeting extends Google_Collection
 {
-	protected $collection_key = 'targetedCriteriaIds';
-	public $excludedCriteriaIds;
-	public $targetedCriteriaIds;
+  protected $collection_key = 'targetedCriteriaIds';
+  public $excludedCriteriaIds;
+  public $targetedCriteriaIds;
 
-	public function setExcludedCriteriaIds($excludedCriteriaIds)
-	{
-		$this->excludedCriteriaIds = $excludedCriteriaIds;
-	}
-	public function getExcludedCriteriaIds()
-	{
-		return $this->excludedCriteriaIds;
-	}
-	public function setTargetedCriteriaIds($targetedCriteriaIds)
-	{
-		$this->targetedCriteriaIds = $targetedCriteriaIds;
-	}
-	public function getTargetedCriteriaIds()
-	{
-		return $this->targetedCriteriaIds;
-	}
+  public function setExcludedCriteriaIds($excludedCriteriaIds)
+  {
+    $this->excludedCriteriaIds = $excludedCriteriaIds;
+  }
+  public function getExcludedCriteriaIds()
+  {
+    return $this->excludedCriteriaIds;
+  }
+  public function setTargetedCriteriaIds($targetedCriteriaIds)
+  {
+    $this->targetedCriteriaIds = $targetedCriteriaIds;
+  }
+  public function getTargetedCriteriaIds()
+  {
+    return $this->targetedCriteriaIds;
+  }
 }

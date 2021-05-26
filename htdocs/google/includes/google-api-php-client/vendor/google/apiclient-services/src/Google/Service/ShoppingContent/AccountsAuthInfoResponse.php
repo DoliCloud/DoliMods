@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_AccountsAuthInfoResponse extends Google_Collection
 {
-	protected $collection_key = 'accountIdentifiers';
-	protected $accountIdentifiersType = 'Google_Service_ShoppingContent_AccountIdentifier';
-	protected $accountIdentifiersDataType = 'array';
-	public $kind;
+  protected $collection_key = 'accountIdentifiers';
+  protected $accountIdentifiersType = 'Google_Service_ShoppingContent_AccountIdentifier';
+  protected $accountIdentifiersDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_ShoppingContent_AccountIdentifier
-	 */
-	public function setAccountIdentifiers($accountIdentifiers)
-	{
-		$this->accountIdentifiers = $accountIdentifiers;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_AccountIdentifier
-	 */
-	public function getAccountIdentifiers()
-	{
-		return $this->accountIdentifiers;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_AccountIdentifier[]
+   */
+  public function setAccountIdentifiers($accountIdentifiers)
+  {
+    $this->accountIdentifiers = $accountIdentifiers;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_AccountIdentifier[]
+   */
+  public function getAccountIdentifiers()
+  {
+    return $this->accountIdentifiers;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

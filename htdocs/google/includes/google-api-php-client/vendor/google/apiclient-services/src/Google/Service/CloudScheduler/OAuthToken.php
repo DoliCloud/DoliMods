@@ -17,23 +17,23 @@
 
 class Google_Service_CloudScheduler_OAuthToken extends Google_Model
 {
-	public $scope;
-	public $serviceAccountEmail;
+  public $scope;
+  public $serviceAccountEmail;
 
-	public function setScope($scope)
-	{
-		$this->scope = $scope;
-	}
-	public function getScope()
-	{
-		return $this->scope;
-	}
-	public function setServiceAccountEmail($serviceAccountEmail)
-	{
-		$this->serviceAccountEmail = $serviceAccountEmail;
-	}
-	public function getServiceAccountEmail()
-	{
-		return $this->serviceAccountEmail;
-	}
+  public function setScope($scope)
+  {
+    $this->scope = $scope;
+  }
+  public function getScope()
+  {
+    return $this->scope;
+  }
+  public function setServiceAccountEmail($serviceAccountEmail)
+  {
+    $this->serviceAccountEmail = $serviceAccountEmail;
+  }
+  public function getServiceAccountEmail()
+  {
+    return $this->serviceAccountEmail;
+  }
 }

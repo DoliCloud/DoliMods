@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListInventorySourcesResponse extends Google_Collection
 {
-	protected $collection_key = 'inventorySources';
-	protected $inventorySourcesType = 'Google_Service_DisplayVideo_InventorySource';
-	protected $inventorySourcesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'inventorySources';
+  protected $inventorySourcesType = 'Google_Service_DisplayVideo_InventorySource';
+  protected $inventorySourcesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DisplayVideo_InventorySource
-	 */
-	public function setInventorySources($inventorySources)
-	{
-		$this->inventorySources = $inventorySources;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_InventorySource
-	 */
-	public function getInventorySources()
-	{
-		return $this->inventorySources;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_InventorySource[]
+   */
+  public function setInventorySources($inventorySources)
+  {
+    $this->inventorySources = $inventorySources;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_InventorySource[]
+   */
+  public function getInventorySources()
+  {
+    return $this->inventorySources;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

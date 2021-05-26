@@ -17,38 +17,38 @@
 
 class Google_Service_JobService_GetHistogramResponse extends Google_Collection
 {
-	protected $collection_key = 'results';
-	protected $metadataType = 'Google_Service_JobService_ResponseMetadata';
-	protected $metadataDataType = '';
-	protected $resultsType = 'Google_Service_JobService_HistogramResult';
-	protected $resultsDataType = 'array';
+  protected $collection_key = 'results';
+  protected $metadataType = 'Google_Service_JobService_ResponseMetadata';
+  protected $metadataDataType = '';
+  protected $resultsType = 'Google_Service_JobService_HistogramResult';
+  protected $resultsDataType = 'array';
 
-	/**
-	 * @param Google_Service_JobService_ResponseMetadata
-	 */
-	public function setMetadata(Google_Service_JobService_ResponseMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_JobService_ResponseMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	/**
-	 * @param Google_Service_JobService_HistogramResult
-	 */
-	public function setResults($results)
-	{
-		$this->results = $results;
-	}
-	/**
-	 * @return Google_Service_JobService_HistogramResult
-	 */
-	public function getResults()
-	{
-		return $this->results;
-	}
+  /**
+   * @param Google_Service_JobService_ResponseMetadata
+   */
+  public function setMetadata(Google_Service_JobService_ResponseMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_JobService_ResponseMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  /**
+   * @param Google_Service_JobService_HistogramResult
+   */
+  public function setResults($results)
+  {
+    $this->results = $results;
+  }
+  /**
+   * @return Google_Service_JobService_HistogramResult
+   */
+  public function getResults()
+  {
+    return $this->results;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Dataflow_ListSnapshotsResponse extends Google_Collection
 {
-	protected $collection_key = 'snapshots';
-	protected $snapshotsType = 'Google_Service_Dataflow_Snapshot';
-	protected $snapshotsDataType = 'array';
+  protected $collection_key = 'snapshots';
+  protected $snapshotsType = 'Google_Service_Dataflow_Snapshot';
+  protected $snapshotsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dataflow_Snapshot
-	 */
-	public function setSnapshots($snapshots)
-	{
-		$this->snapshots = $snapshots;
-	}
-	/**
-	 * @return Google_Service_Dataflow_Snapshot
-	 */
-	public function getSnapshots()
-	{
-		return $this->snapshots;
-	}
+  /**
+   * @param Google_Service_Dataflow_Snapshot[]
+   */
+  public function setSnapshots($snapshots)
+  {
+    $this->snapshots = $snapshots;
+  }
+  /**
+   * @return Google_Service_Dataflow_Snapshot[]
+   */
+  public function getSnapshots()
+  {
+    return $this->snapshots;
+  }
 }

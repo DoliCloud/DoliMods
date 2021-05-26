@@ -17,31 +17,31 @@
 
 class Google_Service_ConsumerSurveys_FieldMask extends Google_Collection
 {
-	protected $collection_key = 'fields';
-	protected $fieldsType = 'Google_Service_ConsumerSurveys_FieldMask';
-	protected $fieldsDataType = 'array';
-	public $id;
+  protected $collection_key = 'fields';
+  protected $fieldsType = 'Google_Service_ConsumerSurveys_FieldMask';
+  protected $fieldsDataType = 'array';
+  public $id;
 
-	/**
-	 * @param Google_Service_ConsumerSurveys_FieldMask
-	 */
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	/**
-	 * @return Google_Service_ConsumerSurveys_FieldMask
-	 */
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
+  /**
+   * @param Google_Service_ConsumerSurveys_FieldMask
+   */
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  /**
+   * @return Google_Service_ConsumerSurveys_FieldMask
+   */
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
 }

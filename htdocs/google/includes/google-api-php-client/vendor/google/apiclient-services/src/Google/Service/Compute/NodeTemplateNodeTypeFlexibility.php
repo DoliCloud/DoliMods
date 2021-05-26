@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_NodeTemplateNodeTypeFlexibility extends Google_Model
 {
-	public $cpus;
-	public $localSsd;
-	public $memory;
+  public $cpus;
+  public $localSsd;
+  public $memory;
 
-	public function setCpus($cpus)
-	{
-		$this->cpus = $cpus;
-	}
-	public function getCpus()
-	{
-		return $this->cpus;
-	}
-	public function setLocalSsd($localSsd)
-	{
-		$this->localSsd = $localSsd;
-	}
-	public function getLocalSsd()
-	{
-		return $this->localSsd;
-	}
-	public function setMemory($memory)
-	{
-		$this->memory = $memory;
-	}
-	public function getMemory()
-	{
-		return $this->memory;
-	}
+  public function setCpus($cpus)
+  {
+    $this->cpus = $cpus;
+  }
+  public function getCpus()
+  {
+    return $this->cpus;
+  }
+  public function setLocalSsd($localSsd)
+  {
+    $this->localSsd = $localSsd;
+  }
+  public function getLocalSsd()
+  {
+    return $this->localSsd;
+  }
+  public function setMemory($memory)
+  {
+    $this->memory = $memory;
+  }
+  public function getMemory()
+  {
+    return $this->memory;
+  }
 }

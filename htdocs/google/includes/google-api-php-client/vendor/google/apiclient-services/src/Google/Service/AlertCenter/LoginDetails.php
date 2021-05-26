@@ -17,23 +17,23 @@
 
 class Google_Service_AlertCenter_LoginDetails extends Google_Model
 {
-	public $ipAddress;
-	public $loginTime;
+  public $ipAddress;
+  public $loginTime;
 
-	public function setIpAddress($ipAddress)
-	{
-		$this->ipAddress = $ipAddress;
-	}
-	public function getIpAddress()
-	{
-		return $this->ipAddress;
-	}
-	public function setLoginTime($loginTime)
-	{
-		$this->loginTime = $loginTime;
-	}
-	public function getLoginTime()
-	{
-		return $this->loginTime;
-	}
+  public function setIpAddress($ipAddress)
+  {
+    $this->ipAddress = $ipAddress;
+  }
+  public function getIpAddress()
+  {
+    return $this->ipAddress;
+  }
+  public function setLoginTime($loginTime)
+  {
+    $this->loginTime = $loginTime;
+  }
+  public function getLoginTime()
+  {
+    return $this->loginTime;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_CloudBuild_NotifierSpec extends Google_Collection
 {
-	protected $collection_key = 'secrets';
-	protected $notificationType = 'Google_Service_CloudBuild_Notification';
-	protected $notificationDataType = '';
-	protected $secretsType = 'Google_Service_CloudBuild_NotifierSecret';
-	protected $secretsDataType = 'array';
+  protected $collection_key = 'secrets';
+  protected $notificationType = 'Google_Service_CloudBuild_Notification';
+  protected $notificationDataType = '';
+  protected $secretsType = 'Google_Service_CloudBuild_NotifierSecret';
+  protected $secretsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudBuild_Notification
-	 */
-	public function setNotification(Google_Service_CloudBuild_Notification $notification)
-	{
-		$this->notification = $notification;
-	}
-	/**
-	 * @return Google_Service_CloudBuild_Notification
-	 */
-	public function getNotification()
-	{
-		return $this->notification;
-	}
-	/**
-	 * @param Google_Service_CloudBuild_NotifierSecret
-	 */
-	public function setSecrets($secrets)
-	{
-		$this->secrets = $secrets;
-	}
-	/**
-	 * @return Google_Service_CloudBuild_NotifierSecret
-	 */
-	public function getSecrets()
-	{
-		return $this->secrets;
-	}
+  /**
+   * @param Google_Service_CloudBuild_Notification
+   */
+  public function setNotification(Google_Service_CloudBuild_Notification $notification)
+  {
+    $this->notification = $notification;
+  }
+  /**
+   * @return Google_Service_CloudBuild_Notification
+   */
+  public function getNotification()
+  {
+    return $this->notification;
+  }
+  /**
+   * @param Google_Service_CloudBuild_NotifierSecret[]
+   */
+  public function setSecrets($secrets)
+  {
+    $this->secrets = $secrets;
+  }
+  /**
+   * @return Google_Service_CloudBuild_NotifierSecret[]
+   */
+  public function getSecrets()
+  {
+    return $this->secrets;
+  }
 }

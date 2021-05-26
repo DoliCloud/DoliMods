@@ -17,40 +17,40 @@
 
 class Google_Service_Directory_ChromeOsDeviceCpuStatusReports extends Google_Collection
 {
-	protected $collection_key = 'cpuUtilizationPercentageInfo';
-	protected $cpuTemperatureInfoType = 'Google_Service_Directory_ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo';
-	protected $cpuTemperatureInfoDataType = 'array';
-	public $cpuUtilizationPercentageInfo;
-	public $reportTime;
+  protected $collection_key = 'cpuUtilizationPercentageInfo';
+  protected $cpuTemperatureInfoType = 'Google_Service_Directory_ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo';
+  protected $cpuTemperatureInfoDataType = 'array';
+  public $cpuUtilizationPercentageInfo;
+  public $reportTime;
 
-	/**
-	 * @param Google_Service_Directory_ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo
-	 */
-	public function setCpuTemperatureInfo($cpuTemperatureInfo)
-	{
-		$this->cpuTemperatureInfo = $cpuTemperatureInfo;
-	}
-	/**
-	 * @return Google_Service_Directory_ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo
-	 */
-	public function getCpuTemperatureInfo()
-	{
-		return $this->cpuTemperatureInfo;
-	}
-	public function setCpuUtilizationPercentageInfo($cpuUtilizationPercentageInfo)
-	{
-		$this->cpuUtilizationPercentageInfo = $cpuUtilizationPercentageInfo;
-	}
-	public function getCpuUtilizationPercentageInfo()
-	{
-		return $this->cpuUtilizationPercentageInfo;
-	}
-	public function setReportTime($reportTime)
-	{
-		$this->reportTime = $reportTime;
-	}
-	public function getReportTime()
-	{
-		return $this->reportTime;
-	}
+  /**
+   * @param Google_Service_Directory_ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo[]
+   */
+  public function setCpuTemperatureInfo($cpuTemperatureInfo)
+  {
+    $this->cpuTemperatureInfo = $cpuTemperatureInfo;
+  }
+  /**
+   * @return Google_Service_Directory_ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo[]
+   */
+  public function getCpuTemperatureInfo()
+  {
+    return $this->cpuTemperatureInfo;
+  }
+  public function setCpuUtilizationPercentageInfo($cpuUtilizationPercentageInfo)
+  {
+    $this->cpuUtilizationPercentageInfo = $cpuUtilizationPercentageInfo;
+  }
+  public function getCpuUtilizationPercentageInfo()
+  {
+    return $this->cpuUtilizationPercentageInfo;
+  }
+  public function setReportTime($reportTime)
+  {
+    $this->reportTime = $reportTime;
+  }
+  public function getReportTime()
+  {
+    return $this->reportTime;
+  }
 }

@@ -17,67 +17,67 @@
 
 class Google_Service_PagespeedInsights_UserPageLoadMetricV5 extends Google_Collection
 {
-	protected $collection_key = 'distributions';
-	public $category;
-	protected $distributionsType = 'Google_Service_PagespeedInsights_Bucket';
-	protected $distributionsDataType = 'array';
-	public $formFactor;
-	public $median;
-	public $metricId;
-	public $percentile;
+  protected $collection_key = 'distributions';
+  public $category;
+  protected $distributionsType = 'Google_Service_PagespeedInsights_Bucket';
+  protected $distributionsDataType = 'array';
+  public $formFactor;
+  public $median;
+  public $metricId;
+  public $percentile;
 
-	public function setCategory($category)
-	{
-		$this->category = $category;
-	}
-	public function getCategory()
-	{
-		return $this->category;
-	}
-	/**
-	 * @param Google_Service_PagespeedInsights_Bucket
-	 */
-	public function setDistributions($distributions)
-	{
-		$this->distributions = $distributions;
-	}
-	/**
-	 * @return Google_Service_PagespeedInsights_Bucket
-	 */
-	public function getDistributions()
-	{
-		return $this->distributions;
-	}
-	public function setFormFactor($formFactor)
-	{
-		$this->formFactor = $formFactor;
-	}
-	public function getFormFactor()
-	{
-		return $this->formFactor;
-	}
-	public function setMedian($median)
-	{
-		$this->median = $median;
-	}
-	public function getMedian()
-	{
-		return $this->median;
-	}
-	public function setMetricId($metricId)
-	{
-		$this->metricId = $metricId;
-	}
-	public function getMetricId()
-	{
-		return $this->metricId;
-	}
-	public function setPercentile($percentile)
-	{
-		$this->percentile = $percentile;
-	}
-	public function getPercentile()
-	{
-		return $this->percentile;
-	}
+  public function setCategory($category)
+  {
+    $this->category = $category;
+  }
+  public function getCategory()
+  {
+    return $this->category;
+  }
+  /**
+   * @param Google_Service_PagespeedInsights_Bucket[]
+   */
+  public function setDistributions($distributions)
+  {
+    $this->distributions = $distributions;
+  }
+  /**
+   * @return Google_Service_PagespeedInsights_Bucket[]
+   */
+  public function getDistributions()
+  {
+    return $this->distributions;
+  }
+  public function setFormFactor($formFactor)
+  {
+    $this->formFactor = $formFactor;
+  }
+  public function getFormFactor()
+  {
+    return $this->formFactor;
+  }
+  public function setMedian($median)
+  {
+    $this->median = $median;
+  }
+  public function getMedian()
+  {
+    return $this->median;
+  }
+  public function setMetricId($metricId)
+  {
+    $this->metricId = $metricId;
+  }
+  public function getMetricId()
+  {
+    return $this->metricId;
+  }
+  public function setPercentile($percentile)
+  {
+    $this->percentile = $percentile;
+  }
+  public function getPercentile()
+  {
+    return $this->percentile;
+  }
 }

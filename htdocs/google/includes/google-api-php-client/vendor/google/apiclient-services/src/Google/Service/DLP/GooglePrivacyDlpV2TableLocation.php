@@ -17,14 +17,14 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2TableLocation extends Google_Model
 {
-	public $rowIndex;
+  public $rowIndex;
 
-	public function setRowIndex($rowIndex)
-	{
-		$this->rowIndex = $rowIndex;
-	}
-	public function getRowIndex()
-	{
-		return $this->rowIndex;
-	}
+  public function setRowIndex($rowIndex)
+  {
+    $this->rowIndex = $rowIndex;
+  }
+  public function getRowIndex()
+  {
+    return $this->rowIndex;
+  }
 }

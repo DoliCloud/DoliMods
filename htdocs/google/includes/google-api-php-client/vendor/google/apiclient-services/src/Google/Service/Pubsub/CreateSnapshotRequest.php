@@ -17,23 +17,23 @@
 
 class Google_Service_Pubsub_CreateSnapshotRequest extends Google_Model
 {
-	public $labels;
-	public $subscription;
+  public $labels;
+  public $subscription;
 
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setSubscription($subscription)
-	{
-		$this->subscription = $subscription;
-	}
-	public function getSubscription()
-	{
-		return $this->subscription;
-	}
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setSubscription($subscription)
+  {
+    $this->subscription = $subscription;
+  }
+  public function getSubscription()
+  {
+    return $this->subscription;
+  }
 }

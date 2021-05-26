@@ -17,24 +17,24 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2BatchDeleteEntitiesRequest extends Google_Collection
 {
-	protected $collection_key = 'entityValues';
-	public $entityValues;
-	public $languageCode;
+  protected $collection_key = 'entityValues';
+  public $entityValues;
+  public $languageCode;
 
-	public function setEntityValues($entityValues)
-	{
-		$this->entityValues = $entityValues;
-	}
-	public function getEntityValues()
-	{
-		return $this->entityValues;
-	}
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
+  public function setEntityValues($entityValues)
+  {
+    $this->entityValues = $entityValues;
+  }
+  public function getEntityValues()
+  {
+    return $this->entityValues;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
 }

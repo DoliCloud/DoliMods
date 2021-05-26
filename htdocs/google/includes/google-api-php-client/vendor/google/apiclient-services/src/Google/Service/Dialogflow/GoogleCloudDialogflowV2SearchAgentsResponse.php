@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2SearchAgentsResponse extends Google_Collection
 {
-	protected $collection_key = 'agents';
-	protected $agentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Agent';
-	protected $agentsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'agents';
+  protected $agentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Agent';
+  protected $agentsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Agent
-	 */
-	public function setAgents($agents)
-	{
-		$this->agents = $agents;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Agent
-	 */
-	public function getAgents()
-	{
-		return $this->agents;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Agent[]
+   */
+  public function setAgents($agents)
+  {
+    $this->agents = $agents;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Agent[]
+   */
+  public function getAgents()
+  {
+    return $this->agents;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

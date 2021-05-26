@@ -31,175 +31,178 @@
  */
 class Google_Service_Storagetransfer extends Google_Service
 {
-	/** View and manage your data across Google Cloud Platform services. */
-	const CLOUD_PLATFORM =
-	  "https://www.googleapis.com/auth/cloud-platform";
+  /** View and manage your data across Google Cloud Platform services. */
+  const CLOUD_PLATFORM =
+      "https://www.googleapis.com/auth/cloud-platform";
 
-	public $googleServiceAccounts;
-	public $transferJobs;
-	public $transferOperations;
+  public $googleServiceAccounts;
+  public $transferJobs;
+  public $transferOperations;
 
-	/**
-	 * Constructs the internal representation of the Storagetransfer service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://storagetransfer.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1';
-		$this->serviceName = 'storagetransfer';
+  /**
+   * Constructs the internal representation of the Storagetransfer service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://storagetransfer.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1';
+    $this->serviceName = 'storagetransfer';
 
-		$this->googleServiceAccounts = new Google_Service_Storagetransfer_Resource_GoogleServiceAccounts(
-		$this,
-		$this->serviceName,
-		'googleServiceAccounts',
-		array(
-		  'methods' => array(
-			'get' => array(
-			  'path' => 'v1/googleServiceAccounts/{projectId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'projectId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->transferJobs = new Google_Service_Storagetransfer_Resource_TransferJobs(
-		$this,
-		$this->serviceName,
-		'transferJobs',
-		array(
-		  'methods' => array(
-			'create' => array(
-			  'path' => 'v1/transferJobs',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'get' => array(
-			  'path' => 'v1/{+jobName}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'jobName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'projectId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/transferJobs',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'filter' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-			  ),
-			),'patch' => array(
-			  'path' => 'v1/{+jobName}',
-			  'httpMethod' => 'PATCH',
-			  'parameters' => array(
-				'jobName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->transferOperations = new Google_Service_Storagetransfer_Resource_TransferOperations(
-		$this,
-		$this->serviceName,
-		'transferOperations',
-		array(
-		  'methods' => array(
-			'cancel' => array(
-			  'path' => 'v1/{+name}:cancel',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'get' => array(
-			  'path' => 'v1/{+name}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/{+name}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'filter' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'pause' => array(
-			  'path' => 'v1/{+name}:pause',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'resume' => array(
-			  'path' => 'v1/{+name}:resume',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->googleServiceAccounts = new Google_Service_Storagetransfer_Resource_GoogleServiceAccounts(
+        $this,
+        $this->serviceName,
+        'googleServiceAccounts',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'v1/googleServiceAccounts/{projectId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'projectId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->transferJobs = new Google_Service_Storagetransfer_Resource_TransferJobs(
+        $this,
+        $this->serviceName,
+        'transferJobs',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v1/transferJobs',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'get' => array(
+              'path' => 'v1/{+jobName}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'jobName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'projectId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/transferJobs',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'v1/{+jobName}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'jobName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->transferOperations = new Google_Service_Storagetransfer_Resource_TransferOperations(
+        $this,
+        $this->serviceName,
+        'transferOperations',
+        array(
+          'methods' => array(
+            'cancel' => array(
+              'path' => 'v1/{+name}:cancel',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'pause' => array(
+              'path' => 'v1/{+name}:pause',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'resume' => array(
+              'path' => 'v1/{+name}:resume',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

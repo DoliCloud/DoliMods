@@ -17,32 +17,32 @@
 
 class Google_Service_SQLAdmin_ImportContextBakImportOptionsEncryptionOptions extends Google_Model
 {
-	public $certPath;
-	public $pvkPassword;
-	public $pvkPath;
+  public $certPath;
+  public $pvkPassword;
+  public $pvkPath;
 
-	public function setCertPath($certPath)
-	{
-		$this->certPath = $certPath;
-	}
-	public function getCertPath()
-	{
-		return $this->certPath;
-	}
-	public function setPvkPassword($pvkPassword)
-	{
-		$this->pvkPassword = $pvkPassword;
-	}
-	public function getPvkPassword()
-	{
-		return $this->pvkPassword;
-	}
-	public function setPvkPath($pvkPath)
-	{
-		$this->pvkPath = $pvkPath;
-	}
-	public function getPvkPath()
-	{
-		return $this->pvkPath;
-	}
+  public function setCertPath($certPath)
+  {
+    $this->certPath = $certPath;
+  }
+  public function getCertPath()
+  {
+    return $this->certPath;
+  }
+  public function setPvkPassword($pvkPassword)
+  {
+    $this->pvkPassword = $pvkPassword;
+  }
+  public function getPvkPassword()
+  {
+    return $this->pvkPassword;
+  }
+  public function setPvkPath($pvkPath)
+  {
+    $this->pvkPath = $pvkPath;
+  }
+  public function getPvkPath()
+  {
+    return $this->pvkPath;
+  }
 }

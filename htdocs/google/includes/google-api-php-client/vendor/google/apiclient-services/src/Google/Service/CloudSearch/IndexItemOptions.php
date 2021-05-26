@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_IndexItemOptions extends Google_Model
 {
-	public $allowUnknownGsuitePrincipals;
+  public $allowUnknownGsuitePrincipals;
 
-	public function setAllowUnknownGsuitePrincipals($allowUnknownGsuitePrincipals)
-	{
-		$this->allowUnknownGsuitePrincipals = $allowUnknownGsuitePrincipals;
-	}
-	public function getAllowUnknownGsuitePrincipals()
-	{
-		return $this->allowUnknownGsuitePrincipals;
-	}
+  public function setAllowUnknownGsuitePrincipals($allowUnknownGsuitePrincipals)
+  {
+    $this->allowUnknownGsuitePrincipals = $allowUnknownGsuitePrincipals;
+  }
+  public function getAllowUnknownGsuitePrincipals()
+  {
+    return $this->allowUnknownGsuitePrincipals;
+  }
 }

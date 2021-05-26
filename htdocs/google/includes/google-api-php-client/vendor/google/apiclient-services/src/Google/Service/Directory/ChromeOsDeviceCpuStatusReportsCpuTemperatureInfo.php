@@ -17,23 +17,23 @@
 
 class Google_Service_Directory_ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo extends Google_Model
 {
-	public $label;
-	public $temperature;
+  public $label;
+  public $temperature;
 
-	public function setLabel($label)
-	{
-		$this->label = $label;
-	}
-	public function getLabel()
-	{
-		return $this->label;
-	}
-	public function setTemperature($temperature)
-	{
-		$this->temperature = $temperature;
-	}
-	public function getTemperature()
-	{
-		return $this->temperature;
-	}
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+  public function getLabel()
+  {
+    return $this->label;
+  }
+  public function setTemperature($temperature)
+  {
+    $this->temperature = $temperature;
+  }
+  public function getTemperature()
+  {
+    return $this->temperature;
+  }
 }

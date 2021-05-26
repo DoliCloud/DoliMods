@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_ResultCounts extends Google_Collection
 {
-	protected $collection_key = 'sourceResultCounts';
-	protected $sourceResultCountsType = 'Google_Service_CloudSearch_SourceResultCount';
-	protected $sourceResultCountsDataType = 'array';
+  protected $collection_key = 'sourceResultCounts';
+  protected $sourceResultCountsType = 'Google_Service_CloudSearch_SourceResultCount';
+  protected $sourceResultCountsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudSearch_SourceResultCount
-	 */
-	public function setSourceResultCounts($sourceResultCounts)
-	{
-		$this->sourceResultCounts = $sourceResultCounts;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_SourceResultCount
-	 */
-	public function getSourceResultCounts()
-	{
-		return $this->sourceResultCounts;
-	}
+  /**
+   * @param Google_Service_CloudSearch_SourceResultCount[]
+   */
+  public function setSourceResultCounts($sourceResultCounts)
+  {
+    $this->sourceResultCounts = $sourceResultCounts;
+  }
+  /**
+   * @return Google_Service_CloudSearch_SourceResultCount[]
+   */
+  public function getSourceResultCounts()
+  {
+    return $this->sourceResultCounts;
+  }
 }

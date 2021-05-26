@@ -17,31 +17,31 @@
 
 class Google_Service_ArtifactRegistry_ListFilesResponse extends Google_Collection
 {
-	protected $collection_key = 'files';
-	protected $filesType = 'Google_Service_ArtifactRegistry_ArtifactregistryFile';
-	protected $filesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'files';
+  protected $filesType = 'Google_Service_ArtifactRegistry_ArtifactregistryFile';
+  protected $filesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_ArtifactRegistry_ArtifactregistryFile
-	 */
-	public function setFiles($files)
-	{
-		$this->files = $files;
-	}
-	/**
-	 * @return Google_Service_ArtifactRegistry_ArtifactregistryFile
-	 */
-	public function getFiles()
-	{
-		return $this->files;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_ArtifactRegistry_ArtifactregistryFile[]
+   */
+  public function setFiles($files)
+  {
+    $this->files = $files;
+  }
+  /**
+   * @return Google_Service_ArtifactRegistry_ArtifactregistryFile[]
+   */
+  public function getFiles()
+  {
+    return $this->files;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

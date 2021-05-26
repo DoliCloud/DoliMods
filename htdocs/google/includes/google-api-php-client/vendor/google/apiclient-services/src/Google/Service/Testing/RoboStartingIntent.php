@@ -17,46 +17,46 @@
 
 class Google_Service_Testing_RoboStartingIntent extends Google_Model
 {
-	protected $launcherActivityType = 'Google_Service_Testing_LauncherActivityIntent';
-	protected $launcherActivityDataType = '';
-	protected $startActivityType = 'Google_Service_Testing_StartActivityIntent';
-	protected $startActivityDataType = '';
-	public $timeout;
+  protected $launcherActivityType = 'Google_Service_Testing_LauncherActivityIntent';
+  protected $launcherActivityDataType = '';
+  protected $startActivityType = 'Google_Service_Testing_StartActivityIntent';
+  protected $startActivityDataType = '';
+  public $timeout;
 
-	/**
-	 * @param Google_Service_Testing_LauncherActivityIntent
-	 */
-	public function setLauncherActivity(Google_Service_Testing_LauncherActivityIntent $launcherActivity)
-	{
-		$this->launcherActivity = $launcherActivity;
-	}
-	/**
-	 * @return Google_Service_Testing_LauncherActivityIntent
-	 */
-	public function getLauncherActivity()
-	{
-		return $this->launcherActivity;
-	}
-	/**
-	 * @param Google_Service_Testing_StartActivityIntent
-	 */
-	public function setStartActivity(Google_Service_Testing_StartActivityIntent $startActivity)
-	{
-		$this->startActivity = $startActivity;
-	}
-	/**
-	 * @return Google_Service_Testing_StartActivityIntent
-	 */
-	public function getStartActivity()
-	{
-		return $this->startActivity;
-	}
-	public function setTimeout($timeout)
-	{
-		$this->timeout = $timeout;
-	}
-	public function getTimeout()
-	{
-		return $this->timeout;
-	}
+  /**
+   * @param Google_Service_Testing_LauncherActivityIntent
+   */
+  public function setLauncherActivity(Google_Service_Testing_LauncherActivityIntent $launcherActivity)
+  {
+    $this->launcherActivity = $launcherActivity;
+  }
+  /**
+   * @return Google_Service_Testing_LauncherActivityIntent
+   */
+  public function getLauncherActivity()
+  {
+    return $this->launcherActivity;
+  }
+  /**
+   * @param Google_Service_Testing_StartActivityIntent
+   */
+  public function setStartActivity(Google_Service_Testing_StartActivityIntent $startActivity)
+  {
+    $this->startActivity = $startActivity;
+  }
+  /**
+   * @return Google_Service_Testing_StartActivityIntent
+   */
+  public function getStartActivity()
+  {
+    return $this->startActivity;
+  }
+  public function setTimeout($timeout)
+  {
+    $this->timeout = $timeout;
+  }
+  public function getTimeout()
+  {
+    return $this->timeout;
+  }
 }

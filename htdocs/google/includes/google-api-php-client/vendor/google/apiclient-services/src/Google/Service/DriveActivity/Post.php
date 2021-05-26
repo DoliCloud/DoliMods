@@ -17,14 +17,14 @@
 
 class Google_Service_DriveActivity_Post extends Google_Model
 {
-	public $subtype;
+  public $subtype;
 
-	public function setSubtype($subtype)
-	{
-		$this->subtype = $subtype;
-	}
-	public function getSubtype()
-	{
-		return $this->subtype;
-	}
+  public function setSubtype($subtype)
+  {
+    $this->subtype = $subtype;
+  }
+  public function getSubtype()
+  {
+    return $this->subtype;
+  }
 }

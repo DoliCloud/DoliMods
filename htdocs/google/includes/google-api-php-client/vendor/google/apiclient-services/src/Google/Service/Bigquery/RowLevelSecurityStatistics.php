@@ -17,14 +17,14 @@
 
 class Google_Service_Bigquery_RowLevelSecurityStatistics extends Google_Model
 {
-	public $rowLevelSecurityApplied;
+  public $rowLevelSecurityApplied;
 
-	public function setRowLevelSecurityApplied($rowLevelSecurityApplied)
-	{
-		$this->rowLevelSecurityApplied = $rowLevelSecurityApplied;
-	}
-	public function getRowLevelSecurityApplied()
-	{
-		return $this->rowLevelSecurityApplied;
-	}
+  public function setRowLevelSecurityApplied($rowLevelSecurityApplied)
+  {
+    $this->rowLevelSecurityApplied = $rowLevelSecurityApplied;
+  }
+  public function getRowLevelSecurityApplied()
+  {
+    return $this->rowLevelSecurityApplied;
+  }
 }

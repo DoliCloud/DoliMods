@@ -17,58 +17,58 @@
 
 class Google_Service_SystemsManagement_PatchInstanceFilter extends Google_Collection
 {
-	protected $collection_key = 'zones';
-	public $all;
-	protected $groupLabelsType = 'Google_Service_SystemsManagement_PatchInstanceFilterGroupLabel';
-	protected $groupLabelsDataType = 'array';
-	public $instanceNamePrefixes;
-	public $instances;
-	public $zones;
+  protected $collection_key = 'zones';
+  public $all;
+  protected $groupLabelsType = 'Google_Service_SystemsManagement_PatchInstanceFilterGroupLabel';
+  protected $groupLabelsDataType = 'array';
+  public $instanceNamePrefixes;
+  public $instances;
+  public $zones;
 
-	public function setAll($all)
-	{
-		$this->all = $all;
-	}
-	public function getAll()
-	{
-		return $this->all;
-	}
-	/**
-	 * @param Google_Service_SystemsManagement_PatchInstanceFilterGroupLabel
-	 */
-	public function setGroupLabels($groupLabels)
-	{
-		$this->groupLabels = $groupLabels;
-	}
-	/**
-	 * @return Google_Service_SystemsManagement_PatchInstanceFilterGroupLabel
-	 */
-	public function getGroupLabels()
-	{
-		return $this->groupLabels;
-	}
-	public function setInstanceNamePrefixes($instanceNamePrefixes)
-	{
-		$this->instanceNamePrefixes = $instanceNamePrefixes;
-	}
-	public function getInstanceNamePrefixes()
-	{
-		return $this->instanceNamePrefixes;
-	}
-	public function setInstances($instances)
-	{
-		$this->instances = $instances;
-	}
-	public function getInstances()
-	{
-		return $this->instances;
-	}
-	public function setZones($zones)
-	{
-		$this->zones = $zones;
-	}
-	public function getZones()
-	{
-		return $this->zones;
-	}
+  public function setAll($all)
+  {
+    $this->all = $all;
+  }
+  public function getAll()
+  {
+    return $this->all;
+  }
+  /**
+   * @param Google_Service_SystemsManagement_PatchInstanceFilterGroupLabel
+   */
+  public function setGroupLabels($groupLabels)
+  {
+    $this->groupLabels = $groupLabels;
+  }
+  /**
+   * @return Google_Service_SystemsManagement_PatchInstanceFilterGroupLabel
+   */
+  public function getGroupLabels()
+  {
+    return $this->groupLabels;
+  }
+  public function setInstanceNamePrefixes($instanceNamePrefixes)
+  {
+    $this->instanceNamePrefixes = $instanceNamePrefixes;
+  }
+  public function getInstanceNamePrefixes()
+  {
+    return $this->instanceNamePrefixes;
+  }
+  public function setInstances($instances)
+  {
+    $this->instances = $instances;
+  }
+  public function getInstances()
+  {
+    return $this->instances;
+  }
+  public function setZones($zones)
+  {
+    $this->zones = $zones;
+  }
+  public function getZones()
+  {
+    return $this->zones;
+  }
 }

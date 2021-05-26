@@ -17,62 +17,46 @@
 
 class Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1NotificationMessage extends Google_Model
 {
-	protected $findingType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding';
-	protected $findingDataType = '';
-	public $notificationConfigName;
-	protected $resourceType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Resource';
-	protected $resourceDataType = '';
-	protected $temporalAssetType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1TemporalAsset';
-	protected $temporalAssetDataType = '';
+  protected $findingType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding';
+  protected $findingDataType = '';
+  public $notificationConfigName;
+  protected $resourceType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Resource';
+  protected $resourceDataType = '';
 
-	/**
-	 * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding
-	 */
-	public function setFinding(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding $finding)
-	{
-		$this->finding = $finding;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding
-	 */
-	public function getFinding()
-	{
-		return $this->finding;
-	}
-	public function setNotificationConfigName($notificationConfigName)
-	{
-		$this->notificationConfigName = $notificationConfigName;
-	}
-	public function getNotificationConfigName()
-	{
-		return $this->notificationConfigName;
-	}
-	/**
-	 * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Resource
-	 */
-	public function setResource(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Resource $resource)
-	{
-		$this->resource = $resource;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Resource
-	 */
-	public function getResource()
-	{
-		return $this->resource;
-	}
-	/**
-	 * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1TemporalAsset
-	 */
-	public function setTemporalAsset(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1TemporalAsset $temporalAsset)
-	{
-		$this->temporalAsset = $temporalAsset;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1TemporalAsset
-	 */
-	public function getTemporalAsset()
-	{
-		return $this->temporalAsset;
-	}
+  /**
+   * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding
+   */
+  public function setFinding(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding $finding)
+  {
+    $this->finding = $finding;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Finding
+   */
+  public function getFinding()
+  {
+    return $this->finding;
+  }
+  public function setNotificationConfigName($notificationConfigName)
+  {
+    $this->notificationConfigName = $notificationConfigName;
+  }
+  public function getNotificationConfigName()
+  {
+    return $this->notificationConfigName;
+  }
+  /**
+   * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Resource
+   */
+  public function setResource(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Resource $resource)
+  {
+    $this->resource = $resource;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1p1beta1Resource
+   */
+  public function getResource()
+  {
+    return $this->resource;
+  }
 }

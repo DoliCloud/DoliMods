@@ -17,14 +17,14 @@
 
 class Google_Service_Vision_ProductSetPurgeConfig extends Google_Model
 {
-	public $productSetId;
+  public $productSetId;
 
-	public function setProductSetId($productSetId)
-	{
-		$this->productSetId = $productSetId;
-	}
-	public function getProductSetId()
-	{
-		return $this->productSetId;
-	}
+  public function setProductSetId($productSetId)
+  {
+    $this->productSetId = $productSetId;
+  }
+  public function getProductSetId()
+  {
+    return $this->productSetId;
+  }
 }

@@ -17,89 +17,89 @@
 
 class Google_Service_Translate_Glossary extends Google_Model
 {
-	public $endTime;
-	public $entryCount;
-	protected $inputConfigType = 'Google_Service_Translate_GlossaryInputConfig';
-	protected $inputConfigDataType = '';
-	protected $languageCodesSetType = 'Google_Service_Translate_LanguageCodesSet';
-	protected $languageCodesSetDataType = '';
-	protected $languagePairType = 'Google_Service_Translate_LanguageCodePair';
-	protected $languagePairDataType = '';
-	public $name;
-	public $submitTime;
+  public $endTime;
+  public $entryCount;
+  protected $inputConfigType = 'Google_Service_Translate_GlossaryInputConfig';
+  protected $inputConfigDataType = '';
+  protected $languageCodesSetType = 'Google_Service_Translate_LanguageCodesSet';
+  protected $languageCodesSetDataType = '';
+  protected $languagePairType = 'Google_Service_Translate_LanguageCodePair';
+  protected $languagePairDataType = '';
+  public $name;
+  public $submitTime;
 
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setEntryCount($entryCount)
-	{
-		$this->entryCount = $entryCount;
-	}
-	public function getEntryCount()
-	{
-		return $this->entryCount;
-	}
-	/**
-	 * @param Google_Service_Translate_GlossaryInputConfig
-	 */
-	public function setInputConfig(Google_Service_Translate_GlossaryInputConfig $inputConfig)
-	{
-		$this->inputConfig = $inputConfig;
-	}
-	/**
-	 * @return Google_Service_Translate_GlossaryInputConfig
-	 */
-	public function getInputConfig()
-	{
-		return $this->inputConfig;
-	}
-	/**
-	 * @param Google_Service_Translate_LanguageCodesSet
-	 */
-	public function setLanguageCodesSet(Google_Service_Translate_LanguageCodesSet $languageCodesSet)
-	{
-		$this->languageCodesSet = $languageCodesSet;
-	}
-	/**
-	 * @return Google_Service_Translate_LanguageCodesSet
-	 */
-	public function getLanguageCodesSet()
-	{
-		return $this->languageCodesSet;
-	}
-	/**
-	 * @param Google_Service_Translate_LanguageCodePair
-	 */
-	public function setLanguagePair(Google_Service_Translate_LanguageCodePair $languagePair)
-	{
-		$this->languagePair = $languagePair;
-	}
-	/**
-	 * @return Google_Service_Translate_LanguageCodePair
-	 */
-	public function getLanguagePair()
-	{
-		return $this->languagePair;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSubmitTime($submitTime)
-	{
-		$this->submitTime = $submitTime;
-	}
-	public function getSubmitTime()
-	{
-		return $this->submitTime;
-	}
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setEntryCount($entryCount)
+  {
+    $this->entryCount = $entryCount;
+  }
+  public function getEntryCount()
+  {
+    return $this->entryCount;
+  }
+  /**
+   * @param Google_Service_Translate_GlossaryInputConfig
+   */
+  public function setInputConfig(Google_Service_Translate_GlossaryInputConfig $inputConfig)
+  {
+    $this->inputConfig = $inputConfig;
+  }
+  /**
+   * @return Google_Service_Translate_GlossaryInputConfig
+   */
+  public function getInputConfig()
+  {
+    return $this->inputConfig;
+  }
+  /**
+   * @param Google_Service_Translate_LanguageCodesSet
+   */
+  public function setLanguageCodesSet(Google_Service_Translate_LanguageCodesSet $languageCodesSet)
+  {
+    $this->languageCodesSet = $languageCodesSet;
+  }
+  /**
+   * @return Google_Service_Translate_LanguageCodesSet
+   */
+  public function getLanguageCodesSet()
+  {
+    return $this->languageCodesSet;
+  }
+  /**
+   * @param Google_Service_Translate_LanguageCodePair
+   */
+  public function setLanguagePair(Google_Service_Translate_LanguageCodePair $languagePair)
+  {
+    $this->languagePair = $languagePair;
+  }
+  /**
+   * @return Google_Service_Translate_LanguageCodePair
+   */
+  public function getLanguagePair()
+  {
+    return $this->languagePair;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSubmitTime($submitTime)
+  {
+    $this->submitTime = $submitTime;
+  }
+  public function getSubmitTime()
+  {
+    return $this->submitTime;
+  }
 }

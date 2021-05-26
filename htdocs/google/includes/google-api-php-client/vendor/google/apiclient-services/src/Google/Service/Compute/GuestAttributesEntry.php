@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_GuestAttributesEntry extends Google_Model
 {
-	public $key;
-	public $namespace;
-	public $value;
+  public $key;
+  public $namespace;
+  public $value;
 
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setNamespace($namespace)
-	{
-		$this->namespace = $namespace;
-	}
-	public function getNamespace()
-	{
-		return $this->namespace;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setNamespace($namespace)
+  {
+    $this->namespace = $namespace;
+  }
+  public function getNamespace()
+  {
+    return $this->namespace;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

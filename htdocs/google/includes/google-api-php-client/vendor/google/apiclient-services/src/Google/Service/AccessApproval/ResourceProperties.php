@@ -17,14 +17,14 @@
 
 class Google_Service_AccessApproval_ResourceProperties extends Google_Model
 {
-	public $excludesDescendants;
+  public $excludesDescendants;
 
-	public function setExcludesDescendants($excludesDescendants)
-	{
-		$this->excludesDescendants = $excludesDescendants;
-	}
-	public function getExcludesDescendants()
-	{
-		return $this->excludesDescendants;
-	}
+  public function setExcludesDescendants($excludesDescendants)
+  {
+    $this->excludesDescendants = $excludesDescendants;
+  }
+  public function getExcludesDescendants()
+  {
+    return $this->excludesDescendants;
+  }
 }

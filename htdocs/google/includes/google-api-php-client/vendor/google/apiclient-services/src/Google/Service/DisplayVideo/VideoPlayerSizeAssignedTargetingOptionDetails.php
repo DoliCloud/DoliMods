@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_VideoPlayerSizeAssignedTargetingOptionDetails extends Google_Model
 {
-	public $targetingOptionId;
-	public $videoPlayerSize;
+  public $targetingOptionId;
+  public $videoPlayerSize;
 
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
-	public function setVideoPlayerSize($videoPlayerSize)
-	{
-		$this->videoPlayerSize = $videoPlayerSize;
-	}
-	public function getVideoPlayerSize()
-	{
-		return $this->videoPlayerSize;
-	}
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
+  public function setVideoPlayerSize($videoPlayerSize)
+  {
+    $this->videoPlayerSize = $videoPlayerSize;
+  }
+  public function getVideoPlayerSize()
+  {
+    return $this->videoPlayerSize;
+  }
 }

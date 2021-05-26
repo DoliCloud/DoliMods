@@ -17,21 +17,37 @@
 
 class Google_Service_ContainerAnalysis_Attestation extends Google_Model
 {
-	protected $pgpSignedAttestationType = 'Google_Service_ContainerAnalysis_PgpSignedAttestation';
-	protected $pgpSignedAttestationDataType = '';
+  protected $genericSignedAttestationType = 'Google_Service_ContainerAnalysis_GenericSignedAttestation';
+  protected $genericSignedAttestationDataType = '';
+  protected $pgpSignedAttestationType = 'Google_Service_ContainerAnalysis_PgpSignedAttestation';
+  protected $pgpSignedAttestationDataType = '';
 
-	/**
-	 * @param Google_Service_ContainerAnalysis_PgpSignedAttestation
-	 */
-	public function setPgpSignedAttestation(Google_Service_ContainerAnalysis_PgpSignedAttestation $pgpSignedAttestation)
-	{
-		$this->pgpSignedAttestation = $pgpSignedAttestation;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_PgpSignedAttestation
-	 */
-	public function getPgpSignedAttestation()
-	{
-		return $this->pgpSignedAttestation;
-	}
+  /**
+   * @param Google_Service_ContainerAnalysis_GenericSignedAttestation
+   */
+  public function setGenericSignedAttestation(Google_Service_ContainerAnalysis_GenericSignedAttestation $genericSignedAttestation)
+  {
+    $this->genericSignedAttestation = $genericSignedAttestation;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_GenericSignedAttestation
+   */
+  public function getGenericSignedAttestation()
+  {
+    return $this->genericSignedAttestation;
+  }
+  /**
+   * @param Google_Service_ContainerAnalysis_PgpSignedAttestation
+   */
+  public function setPgpSignedAttestation(Google_Service_ContainerAnalysis_PgpSignedAttestation $pgpSignedAttestation)
+  {
+    $this->pgpSignedAttestation = $pgpSignedAttestation;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_PgpSignedAttestation
+   */
+  public function getPgpSignedAttestation()
+  {
+    return $this->pgpSignedAttestation;
+  }
 }

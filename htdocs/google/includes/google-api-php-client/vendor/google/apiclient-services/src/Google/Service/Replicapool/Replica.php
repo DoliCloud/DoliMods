@@ -17,39 +17,39 @@
 
 class Google_Service_Replicapool_Replica extends Google_Model
 {
-	public $name;
-	public $selfLink;
-	protected $statusType = 'Google_Service_Replicapool_ReplicaStatus';
-	protected $statusDataType = '';
+  public $name;
+  public $selfLink;
+  protected $statusType = 'Google_Service_Replicapool_ReplicaStatus';
+  protected $statusDataType = '';
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	/**
-	 * @param Google_Service_Replicapool_ReplicaStatus
-	 */
-	public function setStatus(Google_Service_Replicapool_ReplicaStatus $status)
-	{
-		$this->status = $status;
-	}
-	/**
-	 * @return Google_Service_Replicapool_ReplicaStatus
-	 */
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  /**
+   * @param Google_Service_Replicapool_ReplicaStatus
+   */
+  public function setStatus(Google_Service_Replicapool_ReplicaStatus $status)
+  {
+    $this->status = $status;
+  }
+  /**
+   * @return Google_Service_Replicapool_ReplicaStatus
+   */
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

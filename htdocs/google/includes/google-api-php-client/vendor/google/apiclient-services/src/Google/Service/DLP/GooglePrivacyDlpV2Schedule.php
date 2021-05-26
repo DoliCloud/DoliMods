@@ -17,14 +17,14 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2Schedule extends Google_Model
 {
-	public $recurrencePeriodDuration;
+  public $recurrencePeriodDuration;
 
-	public function setRecurrencePeriodDuration($recurrencePeriodDuration)
-	{
-		$this->recurrencePeriodDuration = $recurrencePeriodDuration;
-	}
-	public function getRecurrencePeriodDuration()
-	{
-		return $this->recurrencePeriodDuration;
-	}
+  public function setRecurrencePeriodDuration($recurrencePeriodDuration)
+  {
+    $this->recurrencePeriodDuration = $recurrencePeriodDuration;
+  }
+  public function getRecurrencePeriodDuration()
+  {
+    return $this->recurrencePeriodDuration;
+  }
 }

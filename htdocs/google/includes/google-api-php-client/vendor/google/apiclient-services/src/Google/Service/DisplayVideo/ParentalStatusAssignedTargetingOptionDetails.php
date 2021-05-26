@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_ParentalStatusAssignedTargetingOptionDetails extends Google_Model
 {
-	public $parentalStatus;
-	public $targetingOptionId;
+  public $parentalStatus;
+  public $targetingOptionId;
 
-	public function setParentalStatus($parentalStatus)
-	{
-		$this->parentalStatus = $parentalStatus;
-	}
-	public function getParentalStatus()
-	{
-		return $this->parentalStatus;
-	}
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
+  public function setParentalStatus($parentalStatus)
+  {
+    $this->parentalStatus = $parentalStatus;
+  }
+  public function getParentalStatus()
+  {
+    return $this->parentalStatus;
+  }
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_EmailAddress extends Google_Model
 {
-	public $emailAddress;
+  public $emailAddress;
 
-	public function setEmailAddress($emailAddress)
-	{
-		$this->emailAddress = $emailAddress;
-	}
-	public function getEmailAddress()
-	{
-		return $this->emailAddress;
-	}
+  public function setEmailAddress($emailAddress)
+  {
+    $this->emailAddress = $emailAddress;
+  }
+  public function getEmailAddress()
+  {
+    return $this->emailAddress;
+  }
 }

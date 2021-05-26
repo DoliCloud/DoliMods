@@ -17,46 +17,46 @@
 
 class Google_Service_Compute_InstanceManagedByIgmError extends Google_Model
 {
-	protected $errorType = 'Google_Service_Compute_InstanceManagedByIgmErrorManagedInstanceError';
-	protected $errorDataType = '';
-	protected $instanceActionDetailsType = 'Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails';
-	protected $instanceActionDetailsDataType = '';
-	public $timestamp;
+  protected $errorType = 'Google_Service_Compute_InstanceManagedByIgmErrorManagedInstanceError';
+  protected $errorDataType = '';
+  protected $instanceActionDetailsType = 'Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails';
+  protected $instanceActionDetailsDataType = '';
+  public $timestamp;
 
-	/**
-	 * @param Google_Service_Compute_InstanceManagedByIgmErrorManagedInstanceError
-	 */
-	public function setError(Google_Service_Compute_InstanceManagedByIgmErrorManagedInstanceError $error)
-	{
-		$this->error = $error;
-	}
-	/**
-	 * @return Google_Service_Compute_InstanceManagedByIgmErrorManagedInstanceError
-	 */
-	public function getError()
-	{
-		return $this->error;
-	}
-	/**
-	 * @param Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails
-	 */
-	public function setInstanceActionDetails(Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails $instanceActionDetails)
-	{
-		$this->instanceActionDetails = $instanceActionDetails;
-	}
-	/**
-	 * @return Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails
-	 */
-	public function getInstanceActionDetails()
-	{
-		return $this->instanceActionDetails;
-	}
-	public function setTimestamp($timestamp)
-	{
-		$this->timestamp = $timestamp;
-	}
-	public function getTimestamp()
-	{
-		return $this->timestamp;
-	}
+  /**
+   * @param Google_Service_Compute_InstanceManagedByIgmErrorManagedInstanceError
+   */
+  public function setError(Google_Service_Compute_InstanceManagedByIgmErrorManagedInstanceError $error)
+  {
+    $this->error = $error;
+  }
+  /**
+   * @return Google_Service_Compute_InstanceManagedByIgmErrorManagedInstanceError
+   */
+  public function getError()
+  {
+    return $this->error;
+  }
+  /**
+   * @param Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails
+   */
+  public function setInstanceActionDetails(Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails $instanceActionDetails)
+  {
+    $this->instanceActionDetails = $instanceActionDetails;
+  }
+  /**
+   * @return Google_Service_Compute_InstanceManagedByIgmErrorInstanceActionDetails
+   */
+  public function getInstanceActionDetails()
+  {
+    return $this->instanceActionDetails;
+  }
+  public function setTimestamp($timestamp)
+  {
+    $this->timestamp = $timestamp;
+  }
+  public function getTimestamp()
+  {
+    return $this->timestamp;
+  }
 }

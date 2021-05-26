@@ -17,46 +17,46 @@
 
 class Google_Service_AdExchangeBuyerII_DayPart extends Google_Model
 {
-	public $dayOfWeek;
-	protected $endTimeType = 'Google_Service_AdExchangeBuyerII_TimeOfDay';
-	protected $endTimeDataType = '';
-	protected $startTimeType = 'Google_Service_AdExchangeBuyerII_TimeOfDay';
-	protected $startTimeDataType = '';
+  public $dayOfWeek;
+  protected $endTimeType = 'Google_Service_AdExchangeBuyerII_TimeOfDay';
+  protected $endTimeDataType = '';
+  protected $startTimeType = 'Google_Service_AdExchangeBuyerII_TimeOfDay';
+  protected $startTimeDataType = '';
 
-	public function setDayOfWeek($dayOfWeek)
-	{
-		$this->dayOfWeek = $dayOfWeek;
-	}
-	public function getDayOfWeek()
-	{
-		return $this->dayOfWeek;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_TimeOfDay
-	 */
-	public function setEndTime(Google_Service_AdExchangeBuyerII_TimeOfDay $endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_TimeOfDay
-	 */
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_TimeOfDay
-	 */
-	public function setStartTime(Google_Service_AdExchangeBuyerII_TimeOfDay $startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_TimeOfDay
-	 */
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setDayOfWeek($dayOfWeek)
+  {
+    $this->dayOfWeek = $dayOfWeek;
+  }
+  public function getDayOfWeek()
+  {
+    return $this->dayOfWeek;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_TimeOfDay
+   */
+  public function setEndTime(Google_Service_AdExchangeBuyerII_TimeOfDay $endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_TimeOfDay
+   */
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_TimeOfDay
+   */
+  public function setStartTime(Google_Service_AdExchangeBuyerII_TimeOfDay $startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_TimeOfDay
+   */
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

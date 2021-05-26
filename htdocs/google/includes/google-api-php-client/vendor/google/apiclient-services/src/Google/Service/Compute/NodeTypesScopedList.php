@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_NodeTypesScopedList extends Google_Collection
 {
-	protected $collection_key = 'nodeTypes';
-	protected $nodeTypesType = 'Google_Service_Compute_NodeType';
-	protected $nodeTypesDataType = 'array';
-	protected $warningType = 'Google_Service_Compute_NodeTypesScopedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'nodeTypes';
+  protected $nodeTypesType = 'Google_Service_Compute_NodeType';
+  protected $nodeTypesDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_NodeTypesScopedListWarning';
+  protected $warningDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_NodeType
-	 */
-	public function setNodeTypes($nodeTypes)
-	{
-		$this->nodeTypes = $nodeTypes;
-	}
-	/**
-	 * @return Google_Service_Compute_NodeType
-	 */
-	public function getNodeTypes()
-	{
-		return $this->nodeTypes;
-	}
-	/**
-	 * @param Google_Service_Compute_NodeTypesScopedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_NodeTypesScopedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_NodeTypesScopedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Compute_NodeType[]
+   */
+  public function setNodeTypes($nodeTypes)
+  {
+    $this->nodeTypes = $nodeTypes;
+  }
+  /**
+   * @return Google_Service_Compute_NodeType[]
+   */
+  public function getNodeTypes()
+  {
+    return $this->nodeTypes;
+  }
+  /**
+   * @param Google_Service_Compute_NodeTypesScopedListWarning
+   */
+  public function setWarning(Google_Service_Compute_NodeTypesScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_NodeTypesScopedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

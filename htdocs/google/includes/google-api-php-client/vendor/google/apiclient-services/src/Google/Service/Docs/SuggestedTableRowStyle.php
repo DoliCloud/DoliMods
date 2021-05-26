@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedTableRowStyle extends Google_Model
 {
-	protected $tableRowStyleType = 'Google_Service_Docs_TableRowStyle';
-	protected $tableRowStyleDataType = '';
-	protected $tableRowStyleSuggestionStateType = 'Google_Service_Docs_TableRowStyleSuggestionState';
-	protected $tableRowStyleSuggestionStateDataType = '';
+  protected $tableRowStyleType = 'Google_Service_Docs_TableRowStyle';
+  protected $tableRowStyleDataType = '';
+  protected $tableRowStyleSuggestionStateType = 'Google_Service_Docs_TableRowStyleSuggestionState';
+  protected $tableRowStyleSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_TableRowStyle
-	 */
-	public function setTableRowStyle(Google_Service_Docs_TableRowStyle $tableRowStyle)
-	{
-		$this->tableRowStyle = $tableRowStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_TableRowStyle
-	 */
-	public function getTableRowStyle()
-	{
-		return $this->tableRowStyle;
-	}
-	/**
-	 * @param Google_Service_Docs_TableRowStyleSuggestionState
-	 */
-	public function setTableRowStyleSuggestionState(Google_Service_Docs_TableRowStyleSuggestionState $tableRowStyleSuggestionState)
-	{
-		$this->tableRowStyleSuggestionState = $tableRowStyleSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_TableRowStyleSuggestionState
-	 */
-	public function getTableRowStyleSuggestionState()
-	{
-		return $this->tableRowStyleSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_TableRowStyle
+   */
+  public function setTableRowStyle(Google_Service_Docs_TableRowStyle $tableRowStyle)
+  {
+    $this->tableRowStyle = $tableRowStyle;
+  }
+  /**
+   * @return Google_Service_Docs_TableRowStyle
+   */
+  public function getTableRowStyle()
+  {
+    return $this->tableRowStyle;
+  }
+  /**
+   * @param Google_Service_Docs_TableRowStyleSuggestionState
+   */
+  public function setTableRowStyleSuggestionState(Google_Service_Docs_TableRowStyleSuggestionState $tableRowStyleSuggestionState)
+  {
+    $this->tableRowStyleSuggestionState = $tableRowStyleSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_TableRowStyleSuggestionState
+   */
+  public function getTableRowStyleSuggestionState()
+  {
+    return $this->tableRowStyleSuggestionState;
+  }
 }

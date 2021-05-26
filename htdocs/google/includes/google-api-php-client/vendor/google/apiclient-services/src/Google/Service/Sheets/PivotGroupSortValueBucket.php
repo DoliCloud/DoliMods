@@ -17,31 +17,31 @@
 
 class Google_Service_Sheets_PivotGroupSortValueBucket extends Google_Collection
 {
-	protected $collection_key = 'buckets';
-	protected $bucketsType = 'Google_Service_Sheets_ExtendedValue';
-	protected $bucketsDataType = 'array';
-	public $valuesIndex;
+  protected $collection_key = 'buckets';
+  protected $bucketsType = 'Google_Service_Sheets_ExtendedValue';
+  protected $bucketsDataType = 'array';
+  public $valuesIndex;
 
-	/**
-	 * @param Google_Service_Sheets_ExtendedValue
-	 */
-	public function setBuckets($buckets)
-	{
-		$this->buckets = $buckets;
-	}
-	/**
-	 * @return Google_Service_Sheets_ExtendedValue
-	 */
-	public function getBuckets()
-	{
-		return $this->buckets;
-	}
-	public function setValuesIndex($valuesIndex)
-	{
-		$this->valuesIndex = $valuesIndex;
-	}
-	public function getValuesIndex()
-	{
-		return $this->valuesIndex;
-	}
+  /**
+   * @param Google_Service_Sheets_ExtendedValue[]
+   */
+  public function setBuckets($buckets)
+  {
+    $this->buckets = $buckets;
+  }
+  /**
+   * @return Google_Service_Sheets_ExtendedValue[]
+   */
+  public function getBuckets()
+  {
+    return $this->buckets;
+  }
+  public function setValuesIndex($valuesIndex)
+  {
+    $this->valuesIndex = $valuesIndex;
+  }
+  public function getValuesIndex()
+  {
+    return $this->valuesIndex;
+  }
 }

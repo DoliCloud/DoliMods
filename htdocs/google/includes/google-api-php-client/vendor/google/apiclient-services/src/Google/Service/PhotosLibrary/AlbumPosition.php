@@ -17,32 +17,32 @@
 
 class Google_Service_PhotosLibrary_AlbumPosition extends Google_Model
 {
-	public $position;
-	public $relativeEnrichmentItemId;
-	public $relativeMediaItemId;
+  public $position;
+  public $relativeEnrichmentItemId;
+  public $relativeMediaItemId;
 
-	public function setPosition($position)
-	{
-		$this->position = $position;
-	}
-	public function getPosition()
-	{
-		return $this->position;
-	}
-	public function setRelativeEnrichmentItemId($relativeEnrichmentItemId)
-	{
-		$this->relativeEnrichmentItemId = $relativeEnrichmentItemId;
-	}
-	public function getRelativeEnrichmentItemId()
-	{
-		return $this->relativeEnrichmentItemId;
-	}
-	public function setRelativeMediaItemId($relativeMediaItemId)
-	{
-		$this->relativeMediaItemId = $relativeMediaItemId;
-	}
-	public function getRelativeMediaItemId()
-	{
-		return $this->relativeMediaItemId;
-	}
+  public function setPosition($position)
+  {
+    $this->position = $position;
+  }
+  public function getPosition()
+  {
+    return $this->position;
+  }
+  public function setRelativeEnrichmentItemId($relativeEnrichmentItemId)
+  {
+    $this->relativeEnrichmentItemId = $relativeEnrichmentItemId;
+  }
+  public function getRelativeEnrichmentItemId()
+  {
+    return $this->relativeEnrichmentItemId;
+  }
+  public function setRelativeMediaItemId($relativeMediaItemId)
+  {
+    $this->relativeMediaItemId = $relativeMediaItemId;
+  }
+  public function getRelativeMediaItemId()
+  {
+    return $this->relativeMediaItemId;
+  }
 }

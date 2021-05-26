@@ -17,21 +17,21 @@
 
 class Google_Service_CloudMemorystoreforMemcached_GoogleCloudMemcacheV1beta2LocationMetadata extends Google_Model
 {
-	protected $availableZonesType = 'Google_Service_CloudMemorystoreforMemcached_ZoneMetadata';
-	protected $availableZonesDataType = 'map';
+  protected $availableZonesType = 'Google_Service_CloudMemorystoreforMemcached_ZoneMetadata';
+  protected $availableZonesDataType = 'map';
 
-	/**
-	 * @param Google_Service_CloudMemorystoreforMemcached_ZoneMetadata
-	 */
-	public function setAvailableZones($availableZones)
-	{
-		$this->availableZones = $availableZones;
-	}
-	/**
-	 * @return Google_Service_CloudMemorystoreforMemcached_ZoneMetadata
-	 */
-	public function getAvailableZones()
-	{
-		return $this->availableZones;
-	}
+  /**
+   * @param Google_Service_CloudMemorystoreforMemcached_ZoneMetadata[]
+   */
+  public function setAvailableZones($availableZones)
+  {
+    $this->availableZones = $availableZones;
+  }
+  /**
+   * @return Google_Service_CloudMemorystoreforMemcached_ZoneMetadata[]
+   */
+  public function getAvailableZones()
+  {
+    return $this->availableZones;
+  }
 }

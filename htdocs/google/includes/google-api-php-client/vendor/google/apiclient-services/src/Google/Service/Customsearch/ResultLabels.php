@@ -17,35 +17,35 @@
 
 class Google_Service_Customsearch_ResultLabels extends Google_Model
 {
-	protected $internal_gapi_mappings = array(
-		"labelWithOp" => "label_with_op",
-	);
-	public $displayName;
-	public $labelWithOp;
-	public $name;
+  protected $internal_gapi_mappings = array(
+        "labelWithOp" => "label_with_op",
+  );
+  public $displayName;
+  public $labelWithOp;
+  public $name;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setLabelWithOp($labelWithOp)
-	{
-		$this->labelWithOp = $labelWithOp;
-	}
-	public function getLabelWithOp()
-	{
-		return $this->labelWithOp;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setLabelWithOp($labelWithOp)
+  {
+    $this->labelWithOp = $labelWithOp;
+  }
+  public function getLabelWithOp()
+  {
+    return $this->labelWithOp;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

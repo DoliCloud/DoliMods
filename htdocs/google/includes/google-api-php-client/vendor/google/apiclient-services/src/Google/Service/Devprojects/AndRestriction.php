@@ -17,25 +17,25 @@
 
 class Google_Service_Devprojects_AndRestriction extends Google_Collection
 {
-	protected $collection_key = 'child';
-	protected $childType = 'Google_Service_Devprojects_UserRestriction';
-	protected $childDataType = 'array';
-	public $kind;
+  protected $collection_key = 'child';
+  protected $childType = 'Google_Service_Devprojects_UserRestriction';
+  protected $childDataType = 'array';
+  public $kind;
 
-	public function setChild($child)
-	{
-		$this->child = $child;
-	}
-	public function getChild()
-	{
-		return $this->child;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setChild($child)
+  {
+    $this->child = $child;
+  }
+  public function getChild()
+  {
+    return $this->child;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

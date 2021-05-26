@@ -17,40 +17,40 @@
 
 class Google_Service_AdExchangeBuyerII_CreativeRestrictions extends Google_Collection
 {
-	protected $collection_key = 'creativeSpecifications';
-	public $creativeFormat;
-	protected $creativeSpecificationsType = 'Google_Service_AdExchangeBuyerII_CreativeSpecification';
-	protected $creativeSpecificationsDataType = 'array';
-	public $skippableAdType;
+  protected $collection_key = 'creativeSpecifications';
+  public $creativeFormat;
+  protected $creativeSpecificationsType = 'Google_Service_AdExchangeBuyerII_CreativeSpecification';
+  protected $creativeSpecificationsDataType = 'array';
+  public $skippableAdType;
 
-	public function setCreativeFormat($creativeFormat)
-	{
-		$this->creativeFormat = $creativeFormat;
-	}
-	public function getCreativeFormat()
-	{
-		return $this->creativeFormat;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_CreativeSpecification
-	 */
-	public function setCreativeSpecifications($creativeSpecifications)
-	{
-		$this->creativeSpecifications = $creativeSpecifications;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_CreativeSpecification
-	 */
-	public function getCreativeSpecifications()
-	{
-		return $this->creativeSpecifications;
-	}
-	public function setSkippableAdType($skippableAdType)
-	{
-		$this->skippableAdType = $skippableAdType;
-	}
-	public function getSkippableAdType()
-	{
-		return $this->skippableAdType;
-	}
+  public function setCreativeFormat($creativeFormat)
+  {
+    $this->creativeFormat = $creativeFormat;
+  }
+  public function getCreativeFormat()
+  {
+    return $this->creativeFormat;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_CreativeSpecification[]
+   */
+  public function setCreativeSpecifications($creativeSpecifications)
+  {
+    $this->creativeSpecifications = $creativeSpecifications;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_CreativeSpecification[]
+   */
+  public function getCreativeSpecifications()
+  {
+    return $this->creativeSpecifications;
+  }
+  public function setSkippableAdType($skippableAdType)
+  {
+    $this->skippableAdType = $skippableAdType;
+  }
+  public function getSkippableAdType()
+  {
+    return $this->skippableAdType;
+  }
 }

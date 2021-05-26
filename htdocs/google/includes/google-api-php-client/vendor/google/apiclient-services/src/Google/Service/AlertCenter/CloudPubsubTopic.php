@@ -17,23 +17,23 @@
 
 class Google_Service_AlertCenter_CloudPubsubTopic extends Google_Model
 {
-	public $payloadFormat;
-	public $topicName;
+  public $payloadFormat;
+  public $topicName;
 
-	public function setPayloadFormat($payloadFormat)
-	{
-		$this->payloadFormat = $payloadFormat;
-	}
-	public function getPayloadFormat()
-	{
-		return $this->payloadFormat;
-	}
-	public function setTopicName($topicName)
-	{
-		$this->topicName = $topicName;
-	}
-	public function getTopicName()
-	{
-		return $this->topicName;
-	}
+  public function setPayloadFormat($payloadFormat)
+  {
+    $this->payloadFormat = $payloadFormat;
+  }
+  public function getPayloadFormat()
+  {
+    return $this->payloadFormat;
+  }
+  public function setTopicName($topicName)
+  {
+    $this->topicName = $topicName;
+  }
+  public function getTopicName()
+  {
+    return $this->topicName;
+  }
 }

@@ -17,85 +17,85 @@
 
 class Google_Service_Appengine_OperationMetadataV1Alpha extends Google_Collection
 {
-	protected $collection_key = 'warning';
-	protected $createVersionMetadataType = 'Google_Service_Appengine_CreateVersionMetadataV1Alpha';
-	protected $createVersionMetadataDataType = '';
-	public $endTime;
-	public $ephemeralMessage;
-	public $insertTime;
-	public $method;
-	public $target;
-	public $user;
-	public $warning;
+  protected $collection_key = 'warning';
+  protected $createVersionMetadataType = 'Google_Service_Appengine_CreateVersionMetadataV1Alpha';
+  protected $createVersionMetadataDataType = '';
+  public $endTime;
+  public $ephemeralMessage;
+  public $insertTime;
+  public $method;
+  public $target;
+  public $user;
+  public $warning;
 
-	/**
-	 * @param Google_Service_Appengine_CreateVersionMetadataV1Alpha
-	 */
-	public function setCreateVersionMetadata(Google_Service_Appengine_CreateVersionMetadataV1Alpha $createVersionMetadata)
-	{
-		$this->createVersionMetadata = $createVersionMetadata;
-	}
-	/**
-	 * @return Google_Service_Appengine_CreateVersionMetadataV1Alpha
-	 */
-	public function getCreateVersionMetadata()
-	{
-		return $this->createVersionMetadata;
-	}
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setEphemeralMessage($ephemeralMessage)
-	{
-		$this->ephemeralMessage = $ephemeralMessage;
-	}
-	public function getEphemeralMessage()
-	{
-		return $this->ephemeralMessage;
-	}
-	public function setInsertTime($insertTime)
-	{
-		$this->insertTime = $insertTime;
-	}
-	public function getInsertTime()
-	{
-		return $this->insertTime;
-	}
-	public function setMethod($method)
-	{
-		$this->method = $method;
-	}
-	public function getMethod()
-	{
-		return $this->method;
-	}
-	public function setTarget($target)
-	{
-		$this->target = $target;
-	}
-	public function getTarget()
-	{
-		return $this->target;
-	}
-	public function setUser($user)
-	{
-		$this->user = $user;
-	}
-	public function getUser()
-	{
-		return $this->user;
-	}
-	public function setWarning($warning)
-	{
-		$this->warning = $warning;
-	}
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Appengine_CreateVersionMetadataV1Alpha
+   */
+  public function setCreateVersionMetadata(Google_Service_Appengine_CreateVersionMetadataV1Alpha $createVersionMetadata)
+  {
+    $this->createVersionMetadata = $createVersionMetadata;
+  }
+  /**
+   * @return Google_Service_Appengine_CreateVersionMetadataV1Alpha
+   */
+  public function getCreateVersionMetadata()
+  {
+    return $this->createVersionMetadata;
+  }
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setEphemeralMessage($ephemeralMessage)
+  {
+    $this->ephemeralMessage = $ephemeralMessage;
+  }
+  public function getEphemeralMessage()
+  {
+    return $this->ephemeralMessage;
+  }
+  public function setInsertTime($insertTime)
+  {
+    $this->insertTime = $insertTime;
+  }
+  public function getInsertTime()
+  {
+    return $this->insertTime;
+  }
+  public function setMethod($method)
+  {
+    $this->method = $method;
+  }
+  public function getMethod()
+  {
+    return $this->method;
+  }
+  public function setTarget($target)
+  {
+    $this->target = $target;
+  }
+  public function getTarget()
+  {
+    return $this->target;
+  }
+  public function setUser($user)
+  {
+    $this->user = $user;
+  }
+  public function getUser()
+  {
+    return $this->user;
+  }
+  public function setWarning($warning)
+  {
+    $this->warning = $warning;
+  }
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

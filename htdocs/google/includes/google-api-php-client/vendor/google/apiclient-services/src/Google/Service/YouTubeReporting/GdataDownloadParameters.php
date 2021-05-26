@@ -17,23 +17,23 @@
 
 class Google_Service_YouTubeReporting_GdataDownloadParameters extends Google_Model
 {
-	public $allowGzipCompression;
-	public $ignoreRange;
+  public $allowGzipCompression;
+  public $ignoreRange;
 
-	public function setAllowGzipCompression($allowGzipCompression)
-	{
-		$this->allowGzipCompression = $allowGzipCompression;
-	}
-	public function getAllowGzipCompression()
-	{
-		return $this->allowGzipCompression;
-	}
-	public function setIgnoreRange($ignoreRange)
-	{
-		$this->ignoreRange = $ignoreRange;
-	}
-	public function getIgnoreRange()
-	{
-		return $this->ignoreRange;
-	}
+  public function setAllowGzipCompression($allowGzipCompression)
+  {
+    $this->allowGzipCompression = $allowGzipCompression;
+  }
+  public function getAllowGzipCompression()
+  {
+    return $this->allowGzipCompression;
+  }
+  public function setIgnoreRange($ignoreRange)
+  {
+    $this->ignoreRange = $ignoreRange;
+  }
+  public function getIgnoreRange()
+  {
+    return $this->ignoreRange;
+  }
 }

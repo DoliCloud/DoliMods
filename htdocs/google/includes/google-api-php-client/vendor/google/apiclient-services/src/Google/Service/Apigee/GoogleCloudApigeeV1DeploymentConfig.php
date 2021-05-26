@@ -17,59 +17,59 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DeploymentConfig extends Google_Model
 {
-	public $attributes;
-	public $basePath;
-	public $location;
-	public $name;
-	public $proxyUid;
-	public $uid;
+  public $attributes;
+  public $basePath;
+  public $location;
+  public $name;
+  public $proxyUid;
+  public $uid;
 
-	public function setAttributes($attributes)
-	{
-		$this->attributes = $attributes;
-	}
-	public function getAttributes()
-	{
-		return $this->attributes;
-	}
-	public function setBasePath($basePath)
-	{
-		$this->basePath = $basePath;
-	}
-	public function getBasePath()
-	{
-		return $this->basePath;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setProxyUid($proxyUid)
-	{
-		$this->proxyUid = $proxyUid;
-	}
-	public function getProxyUid()
-	{
-		return $this->proxyUid;
-	}
-	public function setUid($uid)
-	{
-		$this->uid = $uid;
-	}
-	public function getUid()
-	{
-		return $this->uid;
-	}
+  public function setAttributes($attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
+  public function setBasePath($basePath)
+  {
+    $this->basePath = $basePath;
+  }
+  public function getBasePath()
+  {
+    return $this->basePath;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setProxyUid($proxyUid)
+  {
+    $this->proxyUid = $proxyUid;
+  }
+  public function getProxyUid()
+  {
+    return $this->proxyUid;
+  }
+  public function setUid($uid)
+  {
+    $this->uid = $uid;
+  }
+  public function getUid()
+  {
+    return $this->uid;
+  }
 }

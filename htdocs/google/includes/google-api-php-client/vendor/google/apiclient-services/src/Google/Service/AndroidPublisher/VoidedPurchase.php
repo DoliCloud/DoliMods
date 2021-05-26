@@ -17,68 +17,68 @@
 
 class Google_Service_AndroidPublisher_VoidedPurchase extends Google_Model
 {
-	public $kind;
-	public $orderId;
-	public $purchaseTimeMillis;
-	public $purchaseToken;
-	public $voidedReason;
-	public $voidedSource;
-	public $voidedTimeMillis;
+  public $kind;
+  public $orderId;
+  public $purchaseTimeMillis;
+  public $purchaseToken;
+  public $voidedReason;
+  public $voidedSource;
+  public $voidedTimeMillis;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setOrderId($orderId)
-	{
-		$this->orderId = $orderId;
-	}
-	public function getOrderId()
-	{
-		return $this->orderId;
-	}
-	public function setPurchaseTimeMillis($purchaseTimeMillis)
-	{
-		$this->purchaseTimeMillis = $purchaseTimeMillis;
-	}
-	public function getPurchaseTimeMillis()
-	{
-		return $this->purchaseTimeMillis;
-	}
-	public function setPurchaseToken($purchaseToken)
-	{
-		$this->purchaseToken = $purchaseToken;
-	}
-	public function getPurchaseToken()
-	{
-		return $this->purchaseToken;
-	}
-	public function setVoidedReason($voidedReason)
-	{
-		$this->voidedReason = $voidedReason;
-	}
-	public function getVoidedReason()
-	{
-		return $this->voidedReason;
-	}
-	public function setVoidedSource($voidedSource)
-	{
-		$this->voidedSource = $voidedSource;
-	}
-	public function getVoidedSource()
-	{
-		return $this->voidedSource;
-	}
-	public function setVoidedTimeMillis($voidedTimeMillis)
-	{
-		$this->voidedTimeMillis = $voidedTimeMillis;
-	}
-	public function getVoidedTimeMillis()
-	{
-		return $this->voidedTimeMillis;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setOrderId($orderId)
+  {
+    $this->orderId = $orderId;
+  }
+  public function getOrderId()
+  {
+    return $this->orderId;
+  }
+  public function setPurchaseTimeMillis($purchaseTimeMillis)
+  {
+    $this->purchaseTimeMillis = $purchaseTimeMillis;
+  }
+  public function getPurchaseTimeMillis()
+  {
+    return $this->purchaseTimeMillis;
+  }
+  public function setPurchaseToken($purchaseToken)
+  {
+    $this->purchaseToken = $purchaseToken;
+  }
+  public function getPurchaseToken()
+  {
+    return $this->purchaseToken;
+  }
+  public function setVoidedReason($voidedReason)
+  {
+    $this->voidedReason = $voidedReason;
+  }
+  public function getVoidedReason()
+  {
+    return $this->voidedReason;
+  }
+  public function setVoidedSource($voidedSource)
+  {
+    $this->voidedSource = $voidedSource;
+  }
+  public function getVoidedSource()
+  {
+    return $this->voidedSource;
+  }
+  public function setVoidedTimeMillis($voidedTimeMillis)
+  {
+    $this->voidedTimeMillis = $voidedTimeMillis;
+  }
+  public function getVoidedTimeMillis()
+  {
+    return $this->voidedTimeMillis;
+  }
 }

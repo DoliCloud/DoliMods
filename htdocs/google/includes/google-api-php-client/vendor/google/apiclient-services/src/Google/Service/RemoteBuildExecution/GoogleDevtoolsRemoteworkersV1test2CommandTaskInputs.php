@@ -17,72 +17,72 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputs extends Google_Collection
 {
-	protected $collection_key = 'inlineBlobs';
-	public $arguments;
-	protected $environmentVariablesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputsEnvironmentVariable';
-	protected $environmentVariablesDataType = 'array';
-	protected $filesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
-	protected $filesDataType = 'array';
-	protected $inlineBlobsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Blob';
-	protected $inlineBlobsDataType = 'array';
-	public $workingDirectory;
+  protected $collection_key = 'inlineBlobs';
+  public $arguments;
+  protected $environmentVariablesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputsEnvironmentVariable';
+  protected $environmentVariablesDataType = 'array';
+  protected $filesType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
+  protected $filesDataType = 'array';
+  protected $inlineBlobsType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Blob';
+  protected $inlineBlobsDataType = 'array';
+  public $workingDirectory;
 
-	public function setArguments($arguments)
-	{
-		$this->arguments = $arguments;
-	}
-	public function getArguments()
-	{
-		return $this->arguments;
-	}
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputsEnvironmentVariable
-	 */
-	public function setEnvironmentVariables($environmentVariables)
-	{
-		$this->environmentVariables = $environmentVariables;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputsEnvironmentVariable
-	 */
-	public function getEnvironmentVariables()
-	{
-		return $this->environmentVariables;
-	}
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-	 */
-	public function setFiles($files)
-	{
-		$this->files = $files;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-	 */
-	public function getFiles()
-	{
-		return $this->files;
-	}
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Blob
-	 */
-	public function setInlineBlobs($inlineBlobs)
-	{
-		$this->inlineBlobs = $inlineBlobs;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Blob
-	 */
-	public function getInlineBlobs()
-	{
-		return $this->inlineBlobs;
-	}
-	public function setWorkingDirectory($workingDirectory)
-	{
-		$this->workingDirectory = $workingDirectory;
-	}
-	public function getWorkingDirectory()
-	{
-		return $this->workingDirectory;
-	}
+  public function setArguments($arguments)
+  {
+    $this->arguments = $arguments;
+  }
+  public function getArguments()
+  {
+    return $this->arguments;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputsEnvironmentVariable[]
+   */
+  public function setEnvironmentVariables($environmentVariables)
+  {
+    $this->environmentVariables = $environmentVariables;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2CommandTaskInputsEnvironmentVariable[]
+   */
+  public function getEnvironmentVariables()
+  {
+    return $this->environmentVariables;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest[]
+   */
+  public function setFiles($files)
+  {
+    $this->files = $files;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest[]
+   */
+  public function getFiles()
+  {
+    return $this->files;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Blob[]
+   */
+  public function setInlineBlobs($inlineBlobs)
+  {
+    $this->inlineBlobs = $inlineBlobs;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Blob[]
+   */
+  public function getInlineBlobs()
+  {
+    return $this->inlineBlobs;
+  }
+  public function setWorkingDirectory($workingDirectory)
+  {
+    $this->workingDirectory = $workingDirectory;
+  }
+  public function getWorkingDirectory()
+  {
+    return $this->workingDirectory;
+  }
 }

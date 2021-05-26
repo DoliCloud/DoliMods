@@ -17,38 +17,38 @@
 
 class Google_Service_Acceleratedmobilepageurl_BatchGetAmpUrlsResponse extends Google_Collection
 {
-	protected $collection_key = 'urlErrors';
-	protected $ampUrlsType = 'Google_Service_Acceleratedmobilepageurl_AmpUrl';
-	protected $ampUrlsDataType = 'array';
-	protected $urlErrorsType = 'Google_Service_Acceleratedmobilepageurl_AmpUrlError';
-	protected $urlErrorsDataType = 'array';
+  protected $collection_key = 'urlErrors';
+  protected $ampUrlsType = 'Google_Service_Acceleratedmobilepageurl_AmpUrl';
+  protected $ampUrlsDataType = 'array';
+  protected $urlErrorsType = 'Google_Service_Acceleratedmobilepageurl_AmpUrlError';
+  protected $urlErrorsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Acceleratedmobilepageurl_AmpUrl
-	 */
-	public function setAmpUrls($ampUrls)
-	{
-		$this->ampUrls = $ampUrls;
-	}
-	/**
-	 * @return Google_Service_Acceleratedmobilepageurl_AmpUrl
-	 */
-	public function getAmpUrls()
-	{
-		return $this->ampUrls;
-	}
-	/**
-	 * @param Google_Service_Acceleratedmobilepageurl_AmpUrlError
-	 */
-	public function setUrlErrors($urlErrors)
-	{
-		$this->urlErrors = $urlErrors;
-	}
-	/**
-	 * @return Google_Service_Acceleratedmobilepageurl_AmpUrlError
-	 */
-	public function getUrlErrors()
-	{
-		return $this->urlErrors;
-	}
+  /**
+   * @param Google_Service_Acceleratedmobilepageurl_AmpUrl[]
+   */
+  public function setAmpUrls($ampUrls)
+  {
+    $this->ampUrls = $ampUrls;
+  }
+  /**
+   * @return Google_Service_Acceleratedmobilepageurl_AmpUrl[]
+   */
+  public function getAmpUrls()
+  {
+    return $this->ampUrls;
+  }
+  /**
+   * @param Google_Service_Acceleratedmobilepageurl_AmpUrlError[]
+   */
+  public function setUrlErrors($urlErrors)
+  {
+    $this->urlErrors = $urlErrors;
+  }
+  /**
+   * @return Google_Service_Acceleratedmobilepageurl_AmpUrlError[]
+   */
+  public function getUrlErrors()
+  {
+    return $this->urlErrors;
+  }
 }

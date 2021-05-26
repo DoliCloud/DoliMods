@@ -17,24 +17,24 @@
 
 class Google_Service_AdExchangeBuyerII_VideoTargeting extends Google_Collection
 {
-	protected $collection_key = 'targetedPositionTypes';
-	public $excludedPositionTypes;
-	public $targetedPositionTypes;
+  protected $collection_key = 'targetedPositionTypes';
+  public $excludedPositionTypes;
+  public $targetedPositionTypes;
 
-	public function setExcludedPositionTypes($excludedPositionTypes)
-	{
-		$this->excludedPositionTypes = $excludedPositionTypes;
-	}
-	public function getExcludedPositionTypes()
-	{
-		return $this->excludedPositionTypes;
-	}
-	public function setTargetedPositionTypes($targetedPositionTypes)
-	{
-		$this->targetedPositionTypes = $targetedPositionTypes;
-	}
-	public function getTargetedPositionTypes()
-	{
-		return $this->targetedPositionTypes;
-	}
+  public function setExcludedPositionTypes($excludedPositionTypes)
+  {
+    $this->excludedPositionTypes = $excludedPositionTypes;
+  }
+  public function getExcludedPositionTypes()
+  {
+    return $this->excludedPositionTypes;
+  }
+  public function setTargetedPositionTypes($targetedPositionTypes)
+  {
+    $this->targetedPositionTypes = $targetedPositionTypes;
+  }
+  public function getTargetedPositionTypes()
+  {
+    return $this->targetedPositionTypes;
+  }
 }

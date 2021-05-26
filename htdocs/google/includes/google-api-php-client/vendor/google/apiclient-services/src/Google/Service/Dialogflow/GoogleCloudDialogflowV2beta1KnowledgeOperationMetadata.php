@@ -17,14 +17,14 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1KnowledgeOperationMetadata extends Google_Model
 {
-	public $state;
+  public $state;
 
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

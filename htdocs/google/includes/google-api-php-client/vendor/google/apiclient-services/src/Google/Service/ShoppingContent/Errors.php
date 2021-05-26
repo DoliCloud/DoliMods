@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_Errors extends Google_Collection
 {
-	protected $collection_key = 'errors';
-	public $code;
-	protected $errorsType = 'Google_Service_ShoppingContent_Error';
-	protected $errorsDataType = 'array';
-	public $message;
+  protected $collection_key = 'errors';
+  public $code;
+  protected $errorsType = 'Google_Service_ShoppingContent_Error';
+  protected $errorsDataType = 'array';
+  public $message;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_Error
-	 */
-	public function setErrors($errors)
-	{
-		$this->errors = $errors;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_Error
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
-	public function setMessage($message)
-	{
-		$this->message = $message;
-	}
-	public function getMessage()
-	{
-		return $this->message;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_Error[]
+   */
+  public function setErrors($errors)
+  {
+    $this->errors = $errors;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_Error[]
+   */
+  public function getErrors()
+  {
+    return $this->errors;
+  }
+  public function setMessage($message)
+  {
+    $this->message = $message;
+  }
+  public function getMessage()
+  {
+    return $this->message;
+  }
 }

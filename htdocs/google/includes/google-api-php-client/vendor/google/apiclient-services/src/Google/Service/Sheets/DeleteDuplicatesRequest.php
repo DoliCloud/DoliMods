@@ -17,38 +17,38 @@
 
 class Google_Service_Sheets_DeleteDuplicatesRequest extends Google_Collection
 {
-	protected $collection_key = 'comparisonColumns';
-	protected $comparisonColumnsType = 'Google_Service_Sheets_DimensionRange';
-	protected $comparisonColumnsDataType = 'array';
-	protected $rangeType = 'Google_Service_Sheets_GridRange';
-	protected $rangeDataType = '';
+  protected $collection_key = 'comparisonColumns';
+  protected $comparisonColumnsType = 'Google_Service_Sheets_DimensionRange';
+  protected $comparisonColumnsDataType = 'array';
+  protected $rangeType = 'Google_Service_Sheets_GridRange';
+  protected $rangeDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_DimensionRange
-	 */
-	public function setComparisonColumns($comparisonColumns)
-	{
-		$this->comparisonColumns = $comparisonColumns;
-	}
-	/**
-	 * @return Google_Service_Sheets_DimensionRange
-	 */
-	public function getComparisonColumns()
-	{
-		return $this->comparisonColumns;
-	}
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setRange(Google_Service_Sheets_GridRange $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
+  /**
+   * @param Google_Service_Sheets_DimensionRange[]
+   */
+  public function setComparisonColumns($comparisonColumns)
+  {
+    $this->comparisonColumns = $comparisonColumns;
+  }
+  /**
+   * @return Google_Service_Sheets_DimensionRange[]
+   */
+  public function getComparisonColumns()
+  {
+    return $this->comparisonColumns;
+  }
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setRange(Google_Service_Sheets_GridRange $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

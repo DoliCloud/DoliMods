@@ -17,23 +17,23 @@
 
 class Google_Service_CloudHealthcare_Dataset extends Google_Model
 {
-	public $name;
-	public $timeZone;
+  public $name;
+  public $timeZone;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setTimeZone($timeZone)
-	{
-		$this->timeZone = $timeZone;
-	}
-	public function getTimeZone()
-	{
-		return $this->timeZone;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  public function getTimeZone()
+  {
+    return $this->timeZone;
+  }
 }

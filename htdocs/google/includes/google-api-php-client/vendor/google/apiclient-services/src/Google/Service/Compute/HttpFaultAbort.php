@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_HttpFaultAbort extends Google_Model
 {
-	public $httpStatus;
-	public $percentage;
+  public $httpStatus;
+  public $percentage;
 
-	public function setHttpStatus($httpStatus)
-	{
-		$this->httpStatus = $httpStatus;
-	}
-	public function getHttpStatus()
-	{
-		return $this->httpStatus;
-	}
-	public function setPercentage($percentage)
-	{
-		$this->percentage = $percentage;
-	}
-	public function getPercentage()
-	{
-		return $this->percentage;
-	}
+  public function setHttpStatus($httpStatus)
+  {
+    $this->httpStatus = $httpStatus;
+  }
+  public function getHttpStatus()
+  {
+    return $this->httpStatus;
+  }
+  public function setPercentage($percentage)
+  {
+    $this->percentage = $percentage;
+  }
+  public function getPercentage()
+  {
+    return $this->percentage;
+  }
 }

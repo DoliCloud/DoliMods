@@ -1,3 +1,35 @@
+## 1.14.3 (10/16/2020)
+
+ * [fix]: add expires_at to GCECredentials (#314)
+
+## 1.14.2 (10/14/2020)
+
+* [fix]: Better FetchAuthTokenCache and getLastReceivedToken (#311)
+
+## 1.14.1 (10/05/2020)
+
+* [fix]: variable typo (#310)
+
+## 1.14.0 (10/02/2020)
+
+* [feat]: Add support for default scopes (#306)
+
+## 1.13.0 (9/18/2020)
+
+* [feat]: Add service account identity support to GCECredentials (#304)
+
+## 1.12.0 (8/31/2020)
+
+* [feat]: Add QuotaProject option to getMiddleware (#296)
+* [feat]: Add caching for calls to GCECredentials::onGce (#301)
+* [feat]: Add updateMetadata function to token cache (#298)
+* [fix]: Use quota_project_id instead of quota_project (#299)
+
+## 1.11.1 (7/27/2020)
+
+* [fix]: catch ConnectException in GCE check (#294)
+* [docs]: Adds [reference docs](https://googleapis.github.io/google-auth-library-php/master)
+
 ## 1.11.0 (7/22/2020)
 
 * [feat]: Check cache expiration (#291)

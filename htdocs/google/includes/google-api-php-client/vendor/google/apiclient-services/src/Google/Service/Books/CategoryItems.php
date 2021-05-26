@@ -17,32 +17,32 @@
 
 class Google_Service_Books_CategoryItems extends Google_Model
 {
-	public $badgeUrl;
-	public $categoryId;
-	public $name;
+  public $badgeUrl;
+  public $categoryId;
+  public $name;
 
-	public function setBadgeUrl($badgeUrl)
-	{
-		$this->badgeUrl = $badgeUrl;
-	}
-	public function getBadgeUrl()
-	{
-		return $this->badgeUrl;
-	}
-	public function setCategoryId($categoryId)
-	{
-		$this->categoryId = $categoryId;
-	}
-	public function getCategoryId()
-	{
-		return $this->categoryId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setBadgeUrl($badgeUrl)
+  {
+    $this->badgeUrl = $badgeUrl;
+  }
+  public function getBadgeUrl()
+  {
+    return $this->badgeUrl;
+  }
+  public function setCategoryId($categoryId)
+  {
+    $this->categoryId = $categoryId;
+  }
+  public function getCategoryId()
+  {
+    return $this->categoryId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

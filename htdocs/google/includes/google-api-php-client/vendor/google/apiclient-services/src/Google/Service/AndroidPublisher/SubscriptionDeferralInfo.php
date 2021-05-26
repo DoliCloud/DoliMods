@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidPublisher_SubscriptionDeferralInfo extends Google_Model
 {
-	public $desiredExpiryTimeMillis;
-	public $expectedExpiryTimeMillis;
+  public $desiredExpiryTimeMillis;
+  public $expectedExpiryTimeMillis;
 
-	public function setDesiredExpiryTimeMillis($desiredExpiryTimeMillis)
-	{
-		$this->desiredExpiryTimeMillis = $desiredExpiryTimeMillis;
-	}
-	public function getDesiredExpiryTimeMillis()
-	{
-		return $this->desiredExpiryTimeMillis;
-	}
-	public function setExpectedExpiryTimeMillis($expectedExpiryTimeMillis)
-	{
-		$this->expectedExpiryTimeMillis = $expectedExpiryTimeMillis;
-	}
-	public function getExpectedExpiryTimeMillis()
-	{
-		return $this->expectedExpiryTimeMillis;
-	}
+  public function setDesiredExpiryTimeMillis($desiredExpiryTimeMillis)
+  {
+    $this->desiredExpiryTimeMillis = $desiredExpiryTimeMillis;
+  }
+  public function getDesiredExpiryTimeMillis()
+  {
+    return $this->desiredExpiryTimeMillis;
+  }
+  public function setExpectedExpiryTimeMillis($expectedExpiryTimeMillis)
+  {
+    $this->expectedExpiryTimeMillis = $expectedExpiryTimeMillis;
+  }
+  public function getExpectedExpiryTimeMillis()
+  {
+    return $this->expectedExpiryTimeMillis;
+  }
 }

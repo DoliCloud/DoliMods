@@ -17,37 +17,37 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2Trigger extends Google_Model
 {
-	protected $manualType = 'Google_Service_DLP_GooglePrivacyDlpV2Manual';
-	protected $manualDataType = '';
-	protected $scheduleType = 'Google_Service_DLP_GooglePrivacyDlpV2Schedule';
-	protected $scheduleDataType = '';
+  protected $manualType = 'Google_Service_DLP_GooglePrivacyDlpV2Manual';
+  protected $manualDataType = '';
+  protected $scheduleType = 'Google_Service_DLP_GooglePrivacyDlpV2Schedule';
+  protected $scheduleDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Manual
-	 */
-	public function setManual(Google_Service_DLP_GooglePrivacyDlpV2Manual $manual)
-	{
-		$this->manual = $manual;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Manual
-	 */
-	public function getManual()
-	{
-		return $this->manual;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2Schedule
-	 */
-	public function setSchedule(Google_Service_DLP_GooglePrivacyDlpV2Schedule $schedule)
-	{
-		$this->schedule = $schedule;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2Schedule
-	 */
-	public function getSchedule()
-	{
-		return $this->schedule;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Manual
+   */
+  public function setManual(Google_Service_DLP_GooglePrivacyDlpV2Manual $manual)
+  {
+    $this->manual = $manual;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Manual
+   */
+  public function getManual()
+  {
+    return $this->manual;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2Schedule
+   */
+  public function setSchedule(Google_Service_DLP_GooglePrivacyDlpV2Schedule $schedule)
+  {
+    $this->schedule = $schedule;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2Schedule
+   */
+  public function getSchedule()
+  {
+    return $this->schedule;
+  }
 }

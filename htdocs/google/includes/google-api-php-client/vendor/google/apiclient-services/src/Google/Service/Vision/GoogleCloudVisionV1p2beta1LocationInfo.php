@@ -17,21 +17,21 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p2beta1LocationInfo extends Google_Model
 {
-	protected $latLngType = 'Google_Service_Vision_LatLng';
-	protected $latLngDataType = '';
+  protected $latLngType = 'Google_Service_Vision_LatLng';
+  protected $latLngDataType = '';
 
-	/**
-	 * @param Google_Service_Vision_LatLng
-	 */
-	public function setLatLng(Google_Service_Vision_LatLng $latLng)
-	{
-		$this->latLng = $latLng;
-	}
-	/**
-	 * @return Google_Service_Vision_LatLng
-	 */
-	public function getLatLng()
-	{
-		return $this->latLng;
-	}
+  /**
+   * @param Google_Service_Vision_LatLng
+   */
+  public function setLatLng(Google_Service_Vision_LatLng $latLng)
+  {
+    $this->latLng = $latLng;
+  }
+  /**
+   * @return Google_Service_Vision_LatLng
+   */
+  public function getLatLng()
+  {
+    return $this->latLng;
+  }
 }

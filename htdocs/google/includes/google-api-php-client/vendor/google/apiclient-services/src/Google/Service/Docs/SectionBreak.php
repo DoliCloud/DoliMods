@@ -17,40 +17,40 @@
 
 class Google_Service_Docs_SectionBreak extends Google_Collection
 {
-	protected $collection_key = 'suggestedInsertionIds';
-	protected $sectionStyleType = 'Google_Service_Docs_SectionStyle';
-	protected $sectionStyleDataType = '';
-	public $suggestedDeletionIds;
-	public $suggestedInsertionIds;
+  protected $collection_key = 'suggestedInsertionIds';
+  protected $sectionStyleType = 'Google_Service_Docs_SectionStyle';
+  protected $sectionStyleDataType = '';
+  public $suggestedDeletionIds;
+  public $suggestedInsertionIds;
 
-	/**
-	 * @param Google_Service_Docs_SectionStyle
-	 */
-	public function setSectionStyle(Google_Service_Docs_SectionStyle $sectionStyle)
-	{
-		$this->sectionStyle = $sectionStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_SectionStyle
-	 */
-	public function getSectionStyle()
-	{
-		return $this->sectionStyle;
-	}
-	public function setSuggestedDeletionIds($suggestedDeletionIds)
-	{
-		$this->suggestedDeletionIds = $suggestedDeletionIds;
-	}
-	public function getSuggestedDeletionIds()
-	{
-		return $this->suggestedDeletionIds;
-	}
-	public function setSuggestedInsertionIds($suggestedInsertionIds)
-	{
-		$this->suggestedInsertionIds = $suggestedInsertionIds;
-	}
-	public function getSuggestedInsertionIds()
-	{
-		return $this->suggestedInsertionIds;
-	}
+  /**
+   * @param Google_Service_Docs_SectionStyle
+   */
+  public function setSectionStyle(Google_Service_Docs_SectionStyle $sectionStyle)
+  {
+    $this->sectionStyle = $sectionStyle;
+  }
+  /**
+   * @return Google_Service_Docs_SectionStyle
+   */
+  public function getSectionStyle()
+  {
+    return $this->sectionStyle;
+  }
+  public function setSuggestedDeletionIds($suggestedDeletionIds)
+  {
+    $this->suggestedDeletionIds = $suggestedDeletionIds;
+  }
+  public function getSuggestedDeletionIds()
+  {
+    return $this->suggestedDeletionIds;
+  }
+  public function setSuggestedInsertionIds($suggestedInsertionIds)
+  {
+    $this->suggestedInsertionIds = $suggestedInsertionIds;
+  }
+  public function getSuggestedInsertionIds()
+  {
+    return $this->suggestedInsertionIds;
+  }
 }

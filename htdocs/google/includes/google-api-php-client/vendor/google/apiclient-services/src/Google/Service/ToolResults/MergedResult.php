@@ -17,47 +17,47 @@
 
 class Google_Service_ToolResults_MergedResult extends Google_Collection
 {
-	protected $collection_key = 'testSuiteOverviews';
-	protected $outcomeType = 'Google_Service_ToolResults_Outcome';
-	protected $outcomeDataType = '';
-	public $state;
-	protected $testSuiteOverviewsType = 'Google_Service_ToolResults_TestSuiteOverview';
-	protected $testSuiteOverviewsDataType = 'array';
+  protected $collection_key = 'testSuiteOverviews';
+  protected $outcomeType = 'Google_Service_ToolResults_Outcome';
+  protected $outcomeDataType = '';
+  public $state;
+  protected $testSuiteOverviewsType = 'Google_Service_ToolResults_TestSuiteOverview';
+  protected $testSuiteOverviewsDataType = 'array';
 
-	/**
-	 * @param Google_Service_ToolResults_Outcome
-	 */
-	public function setOutcome(Google_Service_ToolResults_Outcome $outcome)
-	{
-		$this->outcome = $outcome;
-	}
-	/**
-	 * @return Google_Service_ToolResults_Outcome
-	 */
-	public function getOutcome()
-	{
-		return $this->outcome;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	/**
-	 * @param Google_Service_ToolResults_TestSuiteOverview
-	 */
-	public function setTestSuiteOverviews($testSuiteOverviews)
-	{
-		$this->testSuiteOverviews = $testSuiteOverviews;
-	}
-	/**
-	 * @return Google_Service_ToolResults_TestSuiteOverview
-	 */
-	public function getTestSuiteOverviews()
-	{
-		return $this->testSuiteOverviews;
-	}
+  /**
+   * @param Google_Service_ToolResults_Outcome
+   */
+  public function setOutcome(Google_Service_ToolResults_Outcome $outcome)
+  {
+    $this->outcome = $outcome;
+  }
+  /**
+   * @return Google_Service_ToolResults_Outcome
+   */
+  public function getOutcome()
+  {
+    return $this->outcome;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  /**
+   * @param Google_Service_ToolResults_TestSuiteOverview[]
+   */
+  public function setTestSuiteOverviews($testSuiteOverviews)
+  {
+    $this->testSuiteOverviews = $testSuiteOverviews;
+  }
+  /**
+   * @return Google_Service_ToolResults_TestSuiteOverview[]
+   */
+  public function getTestSuiteOverviews()
+  {
+    return $this->testSuiteOverviews;
+  }
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_DisplayVideo_AdvertiserAdServerConfig extends Google_Model
 {
-	protected $cmHybridConfigType = 'Google_Service_DisplayVideo_CmHybridConfig';
-	protected $cmHybridConfigDataType = '';
-	protected $thirdPartyOnlyConfigType = 'Google_Service_DisplayVideo_ThirdPartyOnlyConfig';
-	protected $thirdPartyOnlyConfigDataType = '';
+  protected $cmHybridConfigType = 'Google_Service_DisplayVideo_CmHybridConfig';
+  protected $cmHybridConfigDataType = '';
+  protected $thirdPartyOnlyConfigType = 'Google_Service_DisplayVideo_ThirdPartyOnlyConfig';
+  protected $thirdPartyOnlyConfigDataType = '';
 
-	/**
-	 * @param Google_Service_DisplayVideo_CmHybridConfig
-	 */
-	public function setCmHybridConfig(Google_Service_DisplayVideo_CmHybridConfig $cmHybridConfig)
-	{
-		$this->cmHybridConfig = $cmHybridConfig;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_CmHybridConfig
-	 */
-	public function getCmHybridConfig()
-	{
-		return $this->cmHybridConfig;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_ThirdPartyOnlyConfig
-	 */
-	public function setThirdPartyOnlyConfig(Google_Service_DisplayVideo_ThirdPartyOnlyConfig $thirdPartyOnlyConfig)
-	{
-		$this->thirdPartyOnlyConfig = $thirdPartyOnlyConfig;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_ThirdPartyOnlyConfig
-	 */
-	public function getThirdPartyOnlyConfig()
-	{
-		return $this->thirdPartyOnlyConfig;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_CmHybridConfig
+   */
+  public function setCmHybridConfig(Google_Service_DisplayVideo_CmHybridConfig $cmHybridConfig)
+  {
+    $this->cmHybridConfig = $cmHybridConfig;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_CmHybridConfig
+   */
+  public function getCmHybridConfig()
+  {
+    return $this->cmHybridConfig;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_ThirdPartyOnlyConfig
+   */
+  public function setThirdPartyOnlyConfig(Google_Service_DisplayVideo_ThirdPartyOnlyConfig $thirdPartyOnlyConfig)
+  {
+    $this->thirdPartyOnlyConfig = $thirdPartyOnlyConfig;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_ThirdPartyOnlyConfig
+   */
+  public function getThirdPartyOnlyConfig()
+  {
+    return $this->thirdPartyOnlyConfig;
+  }
 }

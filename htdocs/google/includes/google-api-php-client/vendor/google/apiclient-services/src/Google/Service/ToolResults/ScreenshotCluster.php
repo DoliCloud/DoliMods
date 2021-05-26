@@ -17,56 +17,56 @@
 
 class Google_Service_ToolResults_ScreenshotCluster extends Google_Collection
 {
-	protected $collection_key = 'screens';
-	public $activity;
-	public $clusterId;
-	protected $keyScreenType = 'Google_Service_ToolResults_Screen';
-	protected $keyScreenDataType = '';
-	protected $screensType = 'Google_Service_ToolResults_Screen';
-	protected $screensDataType = 'array';
+  protected $collection_key = 'screens';
+  public $activity;
+  public $clusterId;
+  protected $keyScreenType = 'Google_Service_ToolResults_Screen';
+  protected $keyScreenDataType = '';
+  protected $screensType = 'Google_Service_ToolResults_Screen';
+  protected $screensDataType = 'array';
 
-	public function setActivity($activity)
-	{
-		$this->activity = $activity;
-	}
-	public function getActivity()
-	{
-		return $this->activity;
-	}
-	public function setClusterId($clusterId)
-	{
-		$this->clusterId = $clusterId;
-	}
-	public function getClusterId()
-	{
-		return $this->clusterId;
-	}
-	/**
-	 * @param Google_Service_ToolResults_Screen
-	 */
-	public function setKeyScreen(Google_Service_ToolResults_Screen $keyScreen)
-	{
-		$this->keyScreen = $keyScreen;
-	}
-	/**
-	 * @return Google_Service_ToolResults_Screen
-	 */
-	public function getKeyScreen()
-	{
-		return $this->keyScreen;
-	}
-	/**
-	 * @param Google_Service_ToolResults_Screen
-	 */
-	public function setScreens($screens)
-	{
-		$this->screens = $screens;
-	}
-	/**
-	 * @return Google_Service_ToolResults_Screen
-	 */
-	public function getScreens()
-	{
-		return $this->screens;
-	}
+  public function setActivity($activity)
+  {
+    $this->activity = $activity;
+  }
+  public function getActivity()
+  {
+    return $this->activity;
+  }
+  public function setClusterId($clusterId)
+  {
+    $this->clusterId = $clusterId;
+  }
+  public function getClusterId()
+  {
+    return $this->clusterId;
+  }
+  /**
+   * @param Google_Service_ToolResults_Screen
+   */
+  public function setKeyScreen(Google_Service_ToolResults_Screen $keyScreen)
+  {
+    $this->keyScreen = $keyScreen;
+  }
+  /**
+   * @return Google_Service_ToolResults_Screen
+   */
+  public function getKeyScreen()
+  {
+    return $this->keyScreen;
+  }
+  /**
+   * @param Google_Service_ToolResults_Screen[]
+   */
+  public function setScreens($screens)
+  {
+    $this->screens = $screens;
+  }
+  /**
+   * @return Google_Service_ToolResults_Screen[]
+   */
+  public function getScreens()
+  {
+    return $this->screens;
+  }
 }

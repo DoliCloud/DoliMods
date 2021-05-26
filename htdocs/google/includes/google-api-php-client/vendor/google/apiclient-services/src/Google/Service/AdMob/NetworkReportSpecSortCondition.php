@@ -17,32 +17,32 @@
 
 class Google_Service_AdMob_NetworkReportSpecSortCondition extends Google_Model
 {
-	public $dimension;
-	public $metric;
-	public $order;
+  public $dimension;
+  public $metric;
+  public $order;
 
-	public function setDimension($dimension)
-	{
-		$this->dimension = $dimension;
-	}
-	public function getDimension()
-	{
-		return $this->dimension;
-	}
-	public function setMetric($metric)
-	{
-		$this->metric = $metric;
-	}
-	public function getMetric()
-	{
-		return $this->metric;
-	}
-	public function setOrder($order)
-	{
-		$this->order = $order;
-	}
-	public function getOrder()
-	{
-		return $this->order;
-	}
+  public function setDimension($dimension)
+  {
+    $this->dimension = $dimension;
+  }
+  public function getDimension()
+  {
+    return $this->dimension;
+  }
+  public function setMetric($metric)
+  {
+    $this->metric = $metric;
+  }
+  public function getMetric()
+  {
+    return $this->metric;
+  }
+  public function setOrder($order)
+  {
+    $this->order = $order;
+  }
+  public function getOrder()
+  {
+    return $this->order;
+  }
 }

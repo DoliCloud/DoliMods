@@ -17,55 +17,55 @@
 
 class Google_Service_CloudBuild_NotifierConfig extends Google_Model
 {
-	public $apiVersion;
-	public $kind;
-	protected $metadataType = 'Google_Service_CloudBuild_NotifierMetadata';
-	protected $metadataDataType = '';
-	protected $specType = 'Google_Service_CloudBuild_NotifierSpec';
-	protected $specDataType = '';
+  public $apiVersion;
+  public $kind;
+  protected $metadataType = 'Google_Service_CloudBuild_NotifierMetadata';
+  protected $metadataDataType = '';
+  protected $specType = 'Google_Service_CloudBuild_NotifierSpec';
+  protected $specDataType = '';
 
-	public function setApiVersion($apiVersion)
-	{
-		$this->apiVersion = $apiVersion;
-	}
-	public function getApiVersion()
-	{
-		return $this->apiVersion;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_CloudBuild_NotifierMetadata
-	 */
-	public function setMetadata(Google_Service_CloudBuild_NotifierMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_CloudBuild_NotifierMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	/**
-	 * @param Google_Service_CloudBuild_NotifierSpec
-	 */
-	public function setSpec(Google_Service_CloudBuild_NotifierSpec $spec)
-	{
-		$this->spec = $spec;
-	}
-	/**
-	 * @return Google_Service_CloudBuild_NotifierSpec
-	 */
-	public function getSpec()
-	{
-		return $this->spec;
-	}
+  public function setApiVersion($apiVersion)
+  {
+    $this->apiVersion = $apiVersion;
+  }
+  public function getApiVersion()
+  {
+    return $this->apiVersion;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_CloudBuild_NotifierMetadata
+   */
+  public function setMetadata(Google_Service_CloudBuild_NotifierMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_CloudBuild_NotifierMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  /**
+   * @param Google_Service_CloudBuild_NotifierSpec
+   */
+  public function setSpec(Google_Service_CloudBuild_NotifierSpec $spec)
+  {
+    $this->spec = $spec;
+  }
+  /**
+   * @return Google_Service_CloudBuild_NotifierSpec
+   */
+  public function getSpec()
+  {
+    return $this->spec;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_ServiceConsumerManagement_V1GenerateDefaultIdentityResponse extends Google_Model
 {
-	public $attachStatus;
-	protected $identityType = 'Google_Service_ServiceConsumerManagement_V1DefaultIdentity';
-	protected $identityDataType = '';
-	public $role;
+  public $attachStatus;
+  protected $identityType = 'Google_Service_ServiceConsumerManagement_V1DefaultIdentity';
+  protected $identityDataType = '';
+  public $role;
 
-	public function setAttachStatus($attachStatus)
-	{
-		$this->attachStatus = $attachStatus;
-	}
-	public function getAttachStatus()
-	{
-		return $this->attachStatus;
-	}
-	/**
-	 * @param Google_Service_ServiceConsumerManagement_V1DefaultIdentity
-	 */
-	public function setIdentity(Google_Service_ServiceConsumerManagement_V1DefaultIdentity $identity)
-	{
-		$this->identity = $identity;
-	}
-	/**
-	 * @return Google_Service_ServiceConsumerManagement_V1DefaultIdentity
-	 */
-	public function getIdentity()
-	{
-		return $this->identity;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
+  public function setAttachStatus($attachStatus)
+  {
+    $this->attachStatus = $attachStatus;
+  }
+  public function getAttachStatus()
+  {
+    return $this->attachStatus;
+  }
+  /**
+   * @param Google_Service_ServiceConsumerManagement_V1DefaultIdentity
+   */
+  public function setIdentity(Google_Service_ServiceConsumerManagement_V1DefaultIdentity $identity)
+  {
+    $this->identity = $identity;
+  }
+  /**
+   * @return Google_Service_ServiceConsumerManagement_V1DefaultIdentity
+   */
+  public function getIdentity()
+  {
+    return $this->identity;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
 }

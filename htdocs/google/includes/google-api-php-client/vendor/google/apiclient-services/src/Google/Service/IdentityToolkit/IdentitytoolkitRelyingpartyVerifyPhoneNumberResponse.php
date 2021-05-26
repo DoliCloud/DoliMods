@@ -17,95 +17,95 @@
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyVerifyPhoneNumberResponse extends Google_Model
 {
-	public $expiresIn;
-	public $idToken;
-	public $isNewUser;
-	public $localId;
-	public $phoneNumber;
-	public $refreshToken;
-	public $temporaryProof;
-	public $temporaryProofExpiresIn;
-	public $verificationProof;
-	public $verificationProofExpiresIn;
+  public $expiresIn;
+  public $idToken;
+  public $isNewUser;
+  public $localId;
+  public $phoneNumber;
+  public $refreshToken;
+  public $temporaryProof;
+  public $temporaryProofExpiresIn;
+  public $verificationProof;
+  public $verificationProofExpiresIn;
 
-	public function setExpiresIn($expiresIn)
-	{
-		$this->expiresIn = $expiresIn;
-	}
-	public function getExpiresIn()
-	{
-		return $this->expiresIn;
-	}
-	public function setIdToken($idToken)
-	{
-		$this->idToken = $idToken;
-	}
-	public function getIdToken()
-	{
-		return $this->idToken;
-	}
-	public function setIsNewUser($isNewUser)
-	{
-		$this->isNewUser = $isNewUser;
-	}
-	public function getIsNewUser()
-	{
-		return $this->isNewUser;
-	}
-	public function setLocalId($localId)
-	{
-		$this->localId = $localId;
-	}
-	public function getLocalId()
-	{
-		return $this->localId;
-	}
-	public function setPhoneNumber($phoneNumber)
-	{
-		$this->phoneNumber = $phoneNumber;
-	}
-	public function getPhoneNumber()
-	{
-		return $this->phoneNumber;
-	}
-	public function setRefreshToken($refreshToken)
-	{
-		$this->refreshToken = $refreshToken;
-	}
-	public function getRefreshToken()
-	{
-		return $this->refreshToken;
-	}
-	public function setTemporaryProof($temporaryProof)
-	{
-		$this->temporaryProof = $temporaryProof;
-	}
-	public function getTemporaryProof()
-	{
-		return $this->temporaryProof;
-	}
-	public function setTemporaryProofExpiresIn($temporaryProofExpiresIn)
-	{
-		$this->temporaryProofExpiresIn = $temporaryProofExpiresIn;
-	}
-	public function getTemporaryProofExpiresIn()
-	{
-		return $this->temporaryProofExpiresIn;
-	}
-	public function setVerificationProof($verificationProof)
-	{
-		$this->verificationProof = $verificationProof;
-	}
-	public function getVerificationProof()
-	{
-		return $this->verificationProof;
-	}
-	public function setVerificationProofExpiresIn($verificationProofExpiresIn)
-	{
-		$this->verificationProofExpiresIn = $verificationProofExpiresIn;
-	}
-	public function getVerificationProofExpiresIn()
-	{
-		return $this->verificationProofExpiresIn;
-	}
+  public function setExpiresIn($expiresIn)
+  {
+    $this->expiresIn = $expiresIn;
+  }
+  public function getExpiresIn()
+  {
+    return $this->expiresIn;
+  }
+  public function setIdToken($idToken)
+  {
+    $this->idToken = $idToken;
+  }
+  public function getIdToken()
+  {
+    return $this->idToken;
+  }
+  public function setIsNewUser($isNewUser)
+  {
+    $this->isNewUser = $isNewUser;
+  }
+  public function getIsNewUser()
+  {
+    return $this->isNewUser;
+  }
+  public function setLocalId($localId)
+  {
+    $this->localId = $localId;
+  }
+  public function getLocalId()
+  {
+    return $this->localId;
+  }
+  public function setPhoneNumber($phoneNumber)
+  {
+    $this->phoneNumber = $phoneNumber;
+  }
+  public function getPhoneNumber()
+  {
+    return $this->phoneNumber;
+  }
+  public function setRefreshToken($refreshToken)
+  {
+    $this->refreshToken = $refreshToken;
+  }
+  public function getRefreshToken()
+  {
+    return $this->refreshToken;
+  }
+  public function setTemporaryProof($temporaryProof)
+  {
+    $this->temporaryProof = $temporaryProof;
+  }
+  public function getTemporaryProof()
+  {
+    return $this->temporaryProof;
+  }
+  public function setTemporaryProofExpiresIn($temporaryProofExpiresIn)
+  {
+    $this->temporaryProofExpiresIn = $temporaryProofExpiresIn;
+  }
+  public function getTemporaryProofExpiresIn()
+  {
+    return $this->temporaryProofExpiresIn;
+  }
+  public function setVerificationProof($verificationProof)
+  {
+    $this->verificationProof = $verificationProof;
+  }
+  public function getVerificationProof()
+  {
+    return $this->verificationProof;
+  }
+  public function setVerificationProofExpiresIn($verificationProofExpiresIn)
+  {
+    $this->verificationProofExpiresIn = $verificationProofExpiresIn;
+  }
+  public function getVerificationProofExpiresIn()
+  {
+    return $this->verificationProofExpiresIn;
+  }
 }

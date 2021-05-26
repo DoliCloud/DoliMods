@@ -17,67 +17,67 @@
 
 class Google_Service_Directory_Schema extends Google_Collection
 {
-	protected $collection_key = 'fields';
-	public $displayName;
-	public $etag;
-	protected $fieldsType = 'Google_Service_Directory_SchemaFieldSpec';
-	protected $fieldsDataType = 'array';
-	public $kind;
-	public $schemaId;
-	public $schemaName;
+  protected $collection_key = 'fields';
+  public $displayName;
+  public $etag;
+  protected $fieldsType = 'Google_Service_Directory_SchemaFieldSpec';
+  protected $fieldsDataType = 'array';
+  public $kind;
+  public $schemaId;
+  public $schemaName;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	/**
-	 * @param Google_Service_Directory_SchemaFieldSpec
-	 */
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	/**
-	 * @return Google_Service_Directory_SchemaFieldSpec
-	 */
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setSchemaId($schemaId)
-	{
-		$this->schemaId = $schemaId;
-	}
-	public function getSchemaId()
-	{
-		return $this->schemaId;
-	}
-	public function setSchemaName($schemaName)
-	{
-		$this->schemaName = $schemaName;
-	}
-	public function getSchemaName()
-	{
-		return $this->schemaName;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param Google_Service_Directory_SchemaFieldSpec[]
+   */
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  /**
+   * @return Google_Service_Directory_SchemaFieldSpec[]
+   */
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setSchemaId($schemaId)
+  {
+    $this->schemaId = $schemaId;
+  }
+  public function getSchemaId()
+  {
+    return $this->schemaId;
+  }
+  public function setSchemaName($schemaName)
+  {
+    $this->schemaName = $schemaName;
+  }
+  public function getSchemaName()
+  {
+    return $this->schemaName;
+  }
 }

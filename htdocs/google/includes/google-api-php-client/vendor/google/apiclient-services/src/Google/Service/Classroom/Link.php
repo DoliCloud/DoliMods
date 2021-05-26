@@ -17,32 +17,32 @@
 
 class Google_Service_Classroom_Link extends Google_Model
 {
-	public $thumbnailUrl;
-	public $title;
-	public $url;
+  public $thumbnailUrl;
+  public $title;
+  public $url;
 
-	public function setThumbnailUrl($thumbnailUrl)
-	{
-		$this->thumbnailUrl = $thumbnailUrl;
-	}
-	public function getThumbnailUrl()
-	{
-		return $this->thumbnailUrl;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setThumbnailUrl($thumbnailUrl)
+  {
+    $this->thumbnailUrl = $thumbnailUrl;
+  }
+  public function getThumbnailUrl()
+  {
+    return $this->thumbnailUrl;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

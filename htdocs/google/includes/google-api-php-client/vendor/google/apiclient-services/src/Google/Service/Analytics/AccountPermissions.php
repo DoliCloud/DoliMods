@@ -17,15 +17,15 @@
 
 class Google_Service_Analytics_AccountPermissions extends Google_Collection
 {
-	protected $collection_key = 'effective';
-	public $effective;
+  protected $collection_key = 'effective';
+  public $effective;
 
-	public function setEffective($effective)
-	{
-		$this->effective = $effective;
-	}
-	public function getEffective()
-	{
-		return $this->effective;
-	}
+  public function setEffective($effective)
+  {
+    $this->effective = $effective;
+  }
+  public function getEffective()
+  {
+    return $this->effective;
+  }
 }

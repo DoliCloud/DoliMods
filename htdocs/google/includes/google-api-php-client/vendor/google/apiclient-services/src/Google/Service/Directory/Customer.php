@@ -17,93 +17,93 @@
 
 class Google_Service_Directory_Customer extends Google_Model
 {
-	public $alternateEmail;
-	public $customerCreationTime;
-	public $customerDomain;
-	public $etag;
-	public $id;
-	public $kind;
-	public $language;
-	public $phoneNumber;
-	protected $postalAddressType = 'Google_Service_Directory_CustomerPostalAddress';
-	protected $postalAddressDataType = '';
+  public $alternateEmail;
+  public $customerCreationTime;
+  public $customerDomain;
+  public $etag;
+  public $id;
+  public $kind;
+  public $language;
+  public $phoneNumber;
+  protected $postalAddressType = 'Google_Service_Directory_CustomerPostalAddress';
+  protected $postalAddressDataType = '';
 
-	public function setAlternateEmail($alternateEmail)
-	{
-		$this->alternateEmail = $alternateEmail;
-	}
-	public function getAlternateEmail()
-	{
-		return $this->alternateEmail;
-	}
-	public function setCustomerCreationTime($customerCreationTime)
-	{
-		$this->customerCreationTime = $customerCreationTime;
-	}
-	public function getCustomerCreationTime()
-	{
-		return $this->customerCreationTime;
-	}
-	public function setCustomerDomain($customerDomain)
-	{
-		$this->customerDomain = $customerDomain;
-	}
-	public function getCustomerDomain()
-	{
-		return $this->customerDomain;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLanguage($language)
-	{
-		$this->language = $language;
-	}
-	public function getLanguage()
-	{
-		return $this->language;
-	}
-	public function setPhoneNumber($phoneNumber)
-	{
-		$this->phoneNumber = $phoneNumber;
-	}
-	public function getPhoneNumber()
-	{
-		return $this->phoneNumber;
-	}
-	/**
-	 * @param Google_Service_Directory_CustomerPostalAddress
-	 */
-	public function setPostalAddress(Google_Service_Directory_CustomerPostalAddress $postalAddress)
-	{
-		$this->postalAddress = $postalAddress;
-	}
-	/**
-	 * @return Google_Service_Directory_CustomerPostalAddress
-	 */
-	public function getPostalAddress()
-	{
-		return $this->postalAddress;
-	}
+  public function setAlternateEmail($alternateEmail)
+  {
+    $this->alternateEmail = $alternateEmail;
+  }
+  public function getAlternateEmail()
+  {
+    return $this->alternateEmail;
+  }
+  public function setCustomerCreationTime($customerCreationTime)
+  {
+    $this->customerCreationTime = $customerCreationTime;
+  }
+  public function getCustomerCreationTime()
+  {
+    return $this->customerCreationTime;
+  }
+  public function setCustomerDomain($customerDomain)
+  {
+    $this->customerDomain = $customerDomain;
+  }
+  public function getCustomerDomain()
+  {
+    return $this->customerDomain;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLanguage($language)
+  {
+    $this->language = $language;
+  }
+  public function getLanguage()
+  {
+    return $this->language;
+  }
+  public function setPhoneNumber($phoneNumber)
+  {
+    $this->phoneNumber = $phoneNumber;
+  }
+  public function getPhoneNumber()
+  {
+    return $this->phoneNumber;
+  }
+  /**
+   * @param Google_Service_Directory_CustomerPostalAddress
+   */
+  public function setPostalAddress(Google_Service_Directory_CustomerPostalAddress $postalAddress)
+  {
+    $this->postalAddress = $postalAddress;
+  }
+  /**
+   * @return Google_Service_Directory_CustomerPostalAddress
+   */
+  public function getPostalAddress()
+  {
+    return $this->postalAddress;
+  }
 }

@@ -17,46 +17,46 @@
 
 class Google_Service_SecurityCommandCenter_ListFindingsResult extends Google_Model
 {
-	protected $findingType = 'Google_Service_SecurityCommandCenter_Finding';
-	protected $findingDataType = '';
-	protected $resourceType = 'Google_Service_SecurityCommandCenter_SecuritycenterResource';
-	protected $resourceDataType = '';
-	public $stateChange;
+  protected $findingType = 'Google_Service_SecurityCommandCenter_Finding';
+  protected $findingDataType = '';
+  protected $resourceType = 'Google_Service_SecurityCommandCenter_SecuritycenterResource';
+  protected $resourceDataType = '';
+  public $stateChange;
 
-	/**
-	 * @param Google_Service_SecurityCommandCenter_Finding
-	 */
-	public function setFinding(Google_Service_SecurityCommandCenter_Finding $finding)
-	{
-		$this->finding = $finding;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_Finding
-	 */
-	public function getFinding()
-	{
-		return $this->finding;
-	}
-	/**
-	 * @param Google_Service_SecurityCommandCenter_SecuritycenterResource
-	 */
-	public function setResource(Google_Service_SecurityCommandCenter_SecuritycenterResource $resource)
-	{
-		$this->resource = $resource;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_SecuritycenterResource
-	 */
-	public function getResource()
-	{
-		return $this->resource;
-	}
-	public function setStateChange($stateChange)
-	{
-		$this->stateChange = $stateChange;
-	}
-	public function getStateChange()
-	{
-		return $this->stateChange;
-	}
+  /**
+   * @param Google_Service_SecurityCommandCenter_Finding
+   */
+  public function setFinding(Google_Service_SecurityCommandCenter_Finding $finding)
+  {
+    $this->finding = $finding;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_Finding
+   */
+  public function getFinding()
+  {
+    return $this->finding;
+  }
+  /**
+   * @param Google_Service_SecurityCommandCenter_SecuritycenterResource
+   */
+  public function setResource(Google_Service_SecurityCommandCenter_SecuritycenterResource $resource)
+  {
+    $this->resource = $resource;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_SecuritycenterResource
+   */
+  public function getResource()
+  {
+    return $this->resource;
+  }
+  public function setStateChange($stateChange)
+  {
+    $this->stateChange = $stateChange;
+  }
+  public function getStateChange()
+  {
+    return $this->stateChange;
+  }
 }

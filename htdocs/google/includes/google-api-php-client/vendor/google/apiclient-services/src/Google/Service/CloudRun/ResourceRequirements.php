@@ -17,23 +17,23 @@
 
 class Google_Service_CloudRun_ResourceRequirements extends Google_Model
 {
-	public $limits;
-	public $requests;
+  public $limits;
+  public $requests;
 
-	public function setLimits($limits)
-	{
-		$this->limits = $limits;
-	}
-	public function getLimits()
-	{
-		return $this->limits;
-	}
-	public function setRequests($requests)
-	{
-		$this->requests = $requests;
-	}
-	public function getRequests()
-	{
-		return $this->requests;
-	}
+  public function setLimits($limits)
+  {
+    $this->limits = $limits;
+  }
+  public function getLimits()
+  {
+    return $this->limits;
+  }
+  public function setRequests($requests)
+  {
+    $this->requests = $requests;
+  }
+  public function getRequests()
+  {
+    return $this->requests;
+  }
 }

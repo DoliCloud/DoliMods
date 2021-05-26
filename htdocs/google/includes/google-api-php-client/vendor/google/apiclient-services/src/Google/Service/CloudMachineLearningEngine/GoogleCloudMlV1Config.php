@@ -17,14 +17,14 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Config extends Google_Model
 {
-	public $tpuServiceAccount;
+  public $tpuServiceAccount;
 
-	public function setTpuServiceAccount($tpuServiceAccount)
-	{
-		$this->tpuServiceAccount = $tpuServiceAccount;
-	}
-	public function getTpuServiceAccount()
-	{
-		return $this->tpuServiceAccount;
-	}
+  public function setTpuServiceAccount($tpuServiceAccount)
+  {
+    $this->tpuServiceAccount = $tpuServiceAccount;
+  }
+  public function getTpuServiceAccount()
+  {
+    return $this->tpuServiceAccount;
+  }
 }

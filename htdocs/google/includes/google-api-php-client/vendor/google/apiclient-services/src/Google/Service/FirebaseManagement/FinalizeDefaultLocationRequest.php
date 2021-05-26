@@ -17,14 +17,14 @@
 
 class Google_Service_FirebaseManagement_FinalizeDefaultLocationRequest extends Google_Model
 {
-	public $locationId;
+  public $locationId;
 
-	public function setLocationId($locationId)
-	{
-		$this->locationId = $locationId;
-	}
-	public function getLocationId()
-	{
-		return $this->locationId;
-	}
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
+  }
 }

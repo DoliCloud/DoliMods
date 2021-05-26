@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_UpdateDimensionGroupRequest extends Google_Model
 {
-	protected $dimensionGroupType = 'Google_Service_Sheets_DimensionGroup';
-	protected $dimensionGroupDataType = '';
-	public $fields;
+  protected $dimensionGroupType = 'Google_Service_Sheets_DimensionGroup';
+  protected $dimensionGroupDataType = '';
+  public $fields;
 
-	/**
-	 * @param Google_Service_Sheets_DimensionGroup
-	 */
-	public function setDimensionGroup(Google_Service_Sheets_DimensionGroup $dimensionGroup)
-	{
-		$this->dimensionGroup = $dimensionGroup;
-	}
-	/**
-	 * @return Google_Service_Sheets_DimensionGroup
-	 */
-	public function getDimensionGroup()
-	{
-		return $this->dimensionGroup;
-	}
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
+  /**
+   * @param Google_Service_Sheets_DimensionGroup
+   */
+  public function setDimensionGroup(Google_Service_Sheets_DimensionGroup $dimensionGroup)
+  {
+    $this->dimensionGroup = $dimensionGroup;
+  }
+  /**
+   * @return Google_Service_Sheets_DimensionGroup
+   */
+  public function getDimensionGroup()
+  {
+    return $this->dimensionGroup;
+  }
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
 }

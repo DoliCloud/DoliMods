@@ -17,50 +17,50 @@
 
 class Google_Service_Bigquery_RegressionMetrics extends Google_Model
 {
-	public $meanAbsoluteError;
-	public $meanSquaredError;
-	public $meanSquaredLogError;
-	public $medianAbsoluteError;
-	public $rSquared;
+  public $meanAbsoluteError;
+  public $meanSquaredError;
+  public $meanSquaredLogError;
+  public $medianAbsoluteError;
+  public $rSquared;
 
-	public function setMeanAbsoluteError($meanAbsoluteError)
-	{
-		$this->meanAbsoluteError = $meanAbsoluteError;
-	}
-	public function getMeanAbsoluteError()
-	{
-		return $this->meanAbsoluteError;
-	}
-	public function setMeanSquaredError($meanSquaredError)
-	{
-		$this->meanSquaredError = $meanSquaredError;
-	}
-	public function getMeanSquaredError()
-	{
-		return $this->meanSquaredError;
-	}
-	public function setMeanSquaredLogError($meanSquaredLogError)
-	{
-		$this->meanSquaredLogError = $meanSquaredLogError;
-	}
-	public function getMeanSquaredLogError()
-	{
-		return $this->meanSquaredLogError;
-	}
-	public function setMedianAbsoluteError($medianAbsoluteError)
-	{
-		$this->medianAbsoluteError = $medianAbsoluteError;
-	}
-	public function getMedianAbsoluteError()
-	{
-		return $this->medianAbsoluteError;
-	}
-	public function setRSquared($rSquared)
-	{
-		$this->rSquared = $rSquared;
-	}
-	public function getRSquared()
-	{
-		return $this->rSquared;
-	}
+  public function setMeanAbsoluteError($meanAbsoluteError)
+  {
+    $this->meanAbsoluteError = $meanAbsoluteError;
+  }
+  public function getMeanAbsoluteError()
+  {
+    return $this->meanAbsoluteError;
+  }
+  public function setMeanSquaredError($meanSquaredError)
+  {
+    $this->meanSquaredError = $meanSquaredError;
+  }
+  public function getMeanSquaredError()
+  {
+    return $this->meanSquaredError;
+  }
+  public function setMeanSquaredLogError($meanSquaredLogError)
+  {
+    $this->meanSquaredLogError = $meanSquaredLogError;
+  }
+  public function getMeanSquaredLogError()
+  {
+    return $this->meanSquaredLogError;
+  }
+  public function setMedianAbsoluteError($medianAbsoluteError)
+  {
+    $this->medianAbsoluteError = $medianAbsoluteError;
+  }
+  public function getMedianAbsoluteError()
+  {
+    return $this->medianAbsoluteError;
+  }
+  public function setRSquared($rSquared)
+  {
+    $this->rSquared = $rSquared;
+  }
+  public function getRSquared()
+  {
+    return $this->rSquared;
+  }
 }

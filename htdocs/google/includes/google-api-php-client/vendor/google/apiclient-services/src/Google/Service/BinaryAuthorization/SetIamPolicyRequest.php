@@ -17,21 +17,21 @@
 
 class Google_Service_BinaryAuthorization_SetIamPolicyRequest extends Google_Model
 {
-	protected $policyType = 'Google_Service_BinaryAuthorization_IamPolicy';
-	protected $policyDataType = '';
+  protected $policyType = 'Google_Service_BinaryAuthorization_IamPolicy';
+  protected $policyDataType = '';
 
-	/**
-	 * @param Google_Service_BinaryAuthorization_IamPolicy
-	 */
-	public function setPolicy(Google_Service_BinaryAuthorization_IamPolicy $policy)
-	{
-		$this->policy = $policy;
-	}
-	/**
-	 * @return Google_Service_BinaryAuthorization_IamPolicy
-	 */
-	public function getPolicy()
-	{
-		return $this->policy;
-	}
+  /**
+   * @param Google_Service_BinaryAuthorization_IamPolicy
+   */
+  public function setPolicy(Google_Service_BinaryAuthorization_IamPolicy $policy)
+  {
+    $this->policy = $policy;
+  }
+  /**
+   * @return Google_Service_BinaryAuthorization_IamPolicy
+   */
+  public function getPolicy()
+  {
+    return $this->policy;
+  }
 }

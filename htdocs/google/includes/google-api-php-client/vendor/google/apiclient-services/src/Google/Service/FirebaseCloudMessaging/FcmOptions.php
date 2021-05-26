@@ -17,14 +17,14 @@
 
 class Google_Service_FirebaseCloudMessaging_FcmOptions extends Google_Model
 {
-	public $analyticsLabel;
+  public $analyticsLabel;
 
-	public function setAnalyticsLabel($analyticsLabel)
-	{
-		$this->analyticsLabel = $analyticsLabel;
-	}
-	public function getAnalyticsLabel()
-	{
-		return $this->analyticsLabel;
-	}
+  public function setAnalyticsLabel($analyticsLabel)
+  {
+    $this->analyticsLabel = $analyticsLabel;
+  }
+  public function getAnalyticsLabel()
+  {
+    return $this->analyticsLabel;
+  }
 }

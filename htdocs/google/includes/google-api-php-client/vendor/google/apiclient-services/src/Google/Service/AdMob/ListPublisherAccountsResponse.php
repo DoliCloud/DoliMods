@@ -17,31 +17,31 @@
 
 class Google_Service_AdMob_ListPublisherAccountsResponse extends Google_Collection
 {
-	protected $collection_key = 'account';
-	protected $accountType = 'Google_Service_AdMob_PublisherAccount';
-	protected $accountDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'account';
+  protected $accountType = 'Google_Service_AdMob_PublisherAccount';
+  protected $accountDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_AdMob_PublisherAccount
-	 */
-	public function setAccount($account)
-	{
-		$this->account = $account;
-	}
-	/**
-	 * @return Google_Service_AdMob_PublisherAccount
-	 */
-	public function getAccount()
-	{
-		return $this->account;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_AdMob_PublisherAccount[]
+   */
+  public function setAccount($account)
+  {
+    $this->account = $account;
+  }
+  /**
+   * @return Google_Service_AdMob_PublisherAccount[]
+   */
+  public function getAccount()
+  {
+    return $this->account;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

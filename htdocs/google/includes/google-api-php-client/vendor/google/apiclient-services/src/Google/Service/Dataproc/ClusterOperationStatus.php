@@ -17,41 +17,41 @@
 
 class Google_Service_Dataproc_ClusterOperationStatus extends Google_Model
 {
-	public $details;
-	public $innerState;
-	public $state;
-	public $stateStartTime;
+  public $details;
+  public $innerState;
+  public $state;
+  public $stateStartTime;
 
-	public function setDetails($details)
-	{
-		$this->details = $details;
-	}
-	public function getDetails()
-	{
-		return $this->details;
-	}
-	public function setInnerState($innerState)
-	{
-		$this->innerState = $innerState;
-	}
-	public function getInnerState()
-	{
-		return $this->innerState;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setStateStartTime($stateStartTime)
-	{
-		$this->stateStartTime = $stateStartTime;
-	}
-	public function getStateStartTime()
-	{
-		return $this->stateStartTime;
-	}
+  public function setDetails($details)
+  {
+    $this->details = $details;
+  }
+  public function getDetails()
+  {
+    return $this->details;
+  }
+  public function setInnerState($innerState)
+  {
+    $this->innerState = $innerState;
+  }
+  public function getInnerState()
+  {
+    return $this->innerState;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setStateStartTime($stateStartTime)
+  {
+    $this->stateStartTime = $stateStartTime;
+  }
+  public function getStateStartTime()
+  {
+    return $this->stateStartTime;
+  }
 }

@@ -17,64 +17,64 @@
 
 class Google_Service_BigtableAdmin_RestoreTableMetadata extends Google_Model
 {
-	protected $backupInfoType = 'Google_Service_BigtableAdmin_BackupInfo';
-	protected $backupInfoDataType = '';
-	public $name;
-	public $optimizeTableOperationName;
-	protected $progressType = 'Google_Service_BigtableAdmin_OperationProgress';
-	protected $progressDataType = '';
-	public $sourceType;
+  protected $backupInfoType = 'Google_Service_BigtableAdmin_BackupInfo';
+  protected $backupInfoDataType = '';
+  public $name;
+  public $optimizeTableOperationName;
+  protected $progressType = 'Google_Service_BigtableAdmin_OperationProgress';
+  protected $progressDataType = '';
+  public $sourceType;
 
-	/**
-	 * @param Google_Service_BigtableAdmin_BackupInfo
-	 */
-	public function setBackupInfo(Google_Service_BigtableAdmin_BackupInfo $backupInfo)
-	{
-		$this->backupInfo = $backupInfo;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_BackupInfo
-	 */
-	public function getBackupInfo()
-	{
-		return $this->backupInfo;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOptimizeTableOperationName($optimizeTableOperationName)
-	{
-		$this->optimizeTableOperationName = $optimizeTableOperationName;
-	}
-	public function getOptimizeTableOperationName()
-	{
-		return $this->optimizeTableOperationName;
-	}
-	/**
-	 * @param Google_Service_BigtableAdmin_OperationProgress
-	 */
-	public function setProgress(Google_Service_BigtableAdmin_OperationProgress $progress)
-	{
-		$this->progress = $progress;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_OperationProgress
-	 */
-	public function getProgress()
-	{
-		return $this->progress;
-	}
-	public function setSourceType($sourceType)
-	{
-		$this->sourceType = $sourceType;
-	}
-	public function getSourceType()
-	{
-		return $this->sourceType;
-	}
+  /**
+   * @param Google_Service_BigtableAdmin_BackupInfo
+   */
+  public function setBackupInfo(Google_Service_BigtableAdmin_BackupInfo $backupInfo)
+  {
+    $this->backupInfo = $backupInfo;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_BackupInfo
+   */
+  public function getBackupInfo()
+  {
+    return $this->backupInfo;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOptimizeTableOperationName($optimizeTableOperationName)
+  {
+    $this->optimizeTableOperationName = $optimizeTableOperationName;
+  }
+  public function getOptimizeTableOperationName()
+  {
+    return $this->optimizeTableOperationName;
+  }
+  /**
+   * @param Google_Service_BigtableAdmin_OperationProgress
+   */
+  public function setProgress(Google_Service_BigtableAdmin_OperationProgress $progress)
+  {
+    $this->progress = $progress;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_OperationProgress
+   */
+  public function getProgress()
+  {
+    return $this->progress;
+  }
+  public function setSourceType($sourceType)
+  {
+    $this->sourceType = $sourceType;
+  }
+  public function getSourceType()
+  {
+    return $this->sourceType;
+  }
 }

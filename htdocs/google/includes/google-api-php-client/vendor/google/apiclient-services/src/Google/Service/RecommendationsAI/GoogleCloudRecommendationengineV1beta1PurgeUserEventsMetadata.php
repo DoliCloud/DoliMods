@@ -17,23 +17,23 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1PurgeUserEventsMetadata extends Google_Model
 {
-	public $createTime;
-	public $operationName;
+  public $createTime;
+  public $operationName;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setOperationName($operationName)
-	{
-		$this->operationName = $operationName;
-	}
-	public function getOperationName()
-	{
-		return $this->operationName;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setOperationName($operationName)
+  {
+    $this->operationName = $operationName;
+  }
+  public function getOperationName()
+  {
+    return $this->operationName;
+  }
 }

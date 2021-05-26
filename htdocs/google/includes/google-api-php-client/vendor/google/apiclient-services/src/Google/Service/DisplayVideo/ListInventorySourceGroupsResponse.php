@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListInventorySourceGroupsResponse extends Google_Collection
 {
-	protected $collection_key = 'inventorySourceGroups';
-	protected $inventorySourceGroupsType = 'Google_Service_DisplayVideo_InventorySourceGroup';
-	protected $inventorySourceGroupsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'inventorySourceGroups';
+  protected $inventorySourceGroupsType = 'Google_Service_DisplayVideo_InventorySourceGroup';
+  protected $inventorySourceGroupsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DisplayVideo_InventorySourceGroup
-	 */
-	public function setInventorySourceGroups($inventorySourceGroups)
-	{
-		$this->inventorySourceGroups = $inventorySourceGroups;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_InventorySourceGroup
-	 */
-	public function getInventorySourceGroups()
-	{
-		return $this->inventorySourceGroups;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_InventorySourceGroup[]
+   */
+  public function setInventorySourceGroups($inventorySourceGroups)
+  {
+    $this->inventorySourceGroups = $inventorySourceGroups;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_InventorySourceGroup[]
+   */
+  public function getInventorySourceGroups()
+  {
+    return $this->inventorySourceGroups;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

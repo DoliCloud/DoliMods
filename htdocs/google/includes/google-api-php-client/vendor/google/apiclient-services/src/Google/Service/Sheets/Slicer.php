@@ -17,46 +17,46 @@
 
 class Google_Service_Sheets_Slicer extends Google_Model
 {
-	protected $positionType = 'Google_Service_Sheets_EmbeddedObjectPosition';
-	protected $positionDataType = '';
-	public $slicerId;
-	protected $specType = 'Google_Service_Sheets_SlicerSpec';
-	protected $specDataType = '';
+  protected $positionType = 'Google_Service_Sheets_EmbeddedObjectPosition';
+  protected $positionDataType = '';
+  public $slicerId;
+  protected $specType = 'Google_Service_Sheets_SlicerSpec';
+  protected $specDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_EmbeddedObjectPosition
-	 */
-	public function setPosition(Google_Service_Sheets_EmbeddedObjectPosition $position)
-	{
-		$this->position = $position;
-	}
-	/**
-	 * @return Google_Service_Sheets_EmbeddedObjectPosition
-	 */
-	public function getPosition()
-	{
-		return $this->position;
-	}
-	public function setSlicerId($slicerId)
-	{
-		$this->slicerId = $slicerId;
-	}
-	public function getSlicerId()
-	{
-		return $this->slicerId;
-	}
-	/**
-	 * @param Google_Service_Sheets_SlicerSpec
-	 */
-	public function setSpec(Google_Service_Sheets_SlicerSpec $spec)
-	{
-		$this->spec = $spec;
-	}
-	/**
-	 * @return Google_Service_Sheets_SlicerSpec
-	 */
-	public function getSpec()
-	{
-		return $this->spec;
-	}
+  /**
+   * @param Google_Service_Sheets_EmbeddedObjectPosition
+   */
+  public function setPosition(Google_Service_Sheets_EmbeddedObjectPosition $position)
+  {
+    $this->position = $position;
+  }
+  /**
+   * @return Google_Service_Sheets_EmbeddedObjectPosition
+   */
+  public function getPosition()
+  {
+    return $this->position;
+  }
+  public function setSlicerId($slicerId)
+  {
+    $this->slicerId = $slicerId;
+  }
+  public function getSlicerId()
+  {
+    return $this->slicerId;
+  }
+  /**
+   * @param Google_Service_Sheets_SlicerSpec
+   */
+  public function setSpec(Google_Service_Sheets_SlicerSpec $spec)
+  {
+    $this->spec = $spec;
+  }
+  /**
+   * @return Google_Service_Sheets_SlicerSpec
+   */
+  public function getSpec()
+  {
+    return $this->spec;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Slides_Range extends Google_Model
 {
-	public $endIndex;
-	public $startIndex;
-	public $type;
+  public $endIndex;
+  public $startIndex;
+  public $type;
 
-	public function setEndIndex($endIndex)
-	{
-		$this->endIndex = $endIndex;
-	}
-	public function getEndIndex()
-	{
-		return $this->endIndex;
-	}
-	public function setStartIndex($startIndex)
-	{
-		$this->startIndex = $startIndex;
-	}
-	public function getStartIndex()
-	{
-		return $this->startIndex;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setEndIndex($endIndex)
+  {
+    $this->endIndex = $endIndex;
+  }
+  public function getEndIndex()
+  {
+    return $this->endIndex;
+  }
+  public function setStartIndex($startIndex)
+  {
+    $this->startIndex = $startIndex;
+  }
+  public function getStartIndex()
+  {
+    return $this->startIndex;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

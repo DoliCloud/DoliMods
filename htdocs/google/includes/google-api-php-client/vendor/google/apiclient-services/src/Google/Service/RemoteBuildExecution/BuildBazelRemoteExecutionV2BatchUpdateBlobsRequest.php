@@ -17,22 +17,22 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchUpdateBlobsRequest extends Google_Collection
 {
-	protected $collection_key = 'requests';
-	protected $requestsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchUpdateBlobsRequestRequest';
-	protected $requestsDataType = 'array';
+  protected $collection_key = 'requests';
+  protected $requestsType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchUpdateBlobsRequestRequest';
+  protected $requestsDataType = 'array';
 
-	/**
-	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchUpdateBlobsRequestRequest
-	 */
-	public function setRequests($requests)
-	{
-		$this->requests = $requests;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchUpdateBlobsRequestRequest
-	 */
-	public function getRequests()
-	{
-		return $this->requests;
-	}
+  /**
+   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchUpdateBlobsRequestRequest[]
+   */
+  public function setRequests($requests)
+  {
+    $this->requests = $requests;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2BatchUpdateBlobsRequestRequest[]
+   */
+  public function getRequests()
+  {
+    return $this->requests;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Sheets_SearchDeveloperMetadataResponse extends Google_Collection
 {
-	protected $collection_key = 'matchedDeveloperMetadata';
-	protected $matchedDeveloperMetadataType = 'Google_Service_Sheets_MatchedDeveloperMetadata';
-	protected $matchedDeveloperMetadataDataType = 'array';
+  protected $collection_key = 'matchedDeveloperMetadata';
+  protected $matchedDeveloperMetadataType = 'Google_Service_Sheets_MatchedDeveloperMetadata';
+  protected $matchedDeveloperMetadataDataType = 'array';
 
-	/**
-	 * @param Google_Service_Sheets_MatchedDeveloperMetadata
-	 */
-	public function setMatchedDeveloperMetadata($matchedDeveloperMetadata)
-	{
-		$this->matchedDeveloperMetadata = $matchedDeveloperMetadata;
-	}
-	/**
-	 * @return Google_Service_Sheets_MatchedDeveloperMetadata
-	 */
-	public function getMatchedDeveloperMetadata()
-	{
-		return $this->matchedDeveloperMetadata;
-	}
+  /**
+   * @param Google_Service_Sheets_MatchedDeveloperMetadata[]
+   */
+  public function setMatchedDeveloperMetadata($matchedDeveloperMetadata)
+  {
+    $this->matchedDeveloperMetadata = $matchedDeveloperMetadata;
+  }
+  /**
+   * @return Google_Service_Sheets_MatchedDeveloperMetadata[]
+   */
+  public function getMatchedDeveloperMetadata()
+  {
+    return $this->matchedDeveloperMetadata;
+  }
 }

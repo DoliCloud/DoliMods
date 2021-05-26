@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSearch_UnmappedIdentity extends Google_Model
 {
-	protected $externalIdentityType = 'Google_Service_CloudSearch_Principal';
-	protected $externalIdentityDataType = '';
-	public $resolutionStatusCode;
+  protected $externalIdentityType = 'Google_Service_CloudSearch_Principal';
+  protected $externalIdentityDataType = '';
+  public $resolutionStatusCode;
 
-	/**
-	 * @param Google_Service_CloudSearch_Principal
-	 */
-	public function setExternalIdentity(Google_Service_CloudSearch_Principal $externalIdentity)
-	{
-		$this->externalIdentity = $externalIdentity;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Principal
-	 */
-	public function getExternalIdentity()
-	{
-		return $this->externalIdentity;
-	}
-	public function setResolutionStatusCode($resolutionStatusCode)
-	{
-		$this->resolutionStatusCode = $resolutionStatusCode;
-	}
-	public function getResolutionStatusCode()
-	{
-		return $this->resolutionStatusCode;
-	}
+  /**
+   * @param Google_Service_CloudSearch_Principal
+   */
+  public function setExternalIdentity(Google_Service_CloudSearch_Principal $externalIdentity)
+  {
+    $this->externalIdentity = $externalIdentity;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Principal
+   */
+  public function getExternalIdentity()
+  {
+    return $this->externalIdentity;
+  }
+  public function setResolutionStatusCode($resolutionStatusCode)
+  {
+    $this->resolutionStatusCode = $resolutionStatusCode;
+  }
+  public function getResolutionStatusCode()
+  {
+    return $this->resolutionStatusCode;
+  }
 }

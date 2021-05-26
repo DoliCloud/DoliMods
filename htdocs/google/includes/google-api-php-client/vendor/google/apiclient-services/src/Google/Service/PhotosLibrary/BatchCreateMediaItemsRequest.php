@@ -17,47 +17,47 @@
 
 class Google_Service_PhotosLibrary_BatchCreateMediaItemsRequest extends Google_Collection
 {
-	protected $collection_key = 'newMediaItems';
-	public $albumId;
-	protected $albumPositionType = 'Google_Service_PhotosLibrary_AlbumPosition';
-	protected $albumPositionDataType = '';
-	protected $newMediaItemsType = 'Google_Service_PhotosLibrary_NewMediaItem';
-	protected $newMediaItemsDataType = 'array';
+  protected $collection_key = 'newMediaItems';
+  public $albumId;
+  protected $albumPositionType = 'Google_Service_PhotosLibrary_AlbumPosition';
+  protected $albumPositionDataType = '';
+  protected $newMediaItemsType = 'Google_Service_PhotosLibrary_NewMediaItem';
+  protected $newMediaItemsDataType = 'array';
 
-	public function setAlbumId($albumId)
-	{
-		$this->albumId = $albumId;
-	}
-	public function getAlbumId()
-	{
-		return $this->albumId;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_AlbumPosition
-	 */
-	public function setAlbumPosition(Google_Service_PhotosLibrary_AlbumPosition $albumPosition)
-	{
-		$this->albumPosition = $albumPosition;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_AlbumPosition
-	 */
-	public function getAlbumPosition()
-	{
-		return $this->albumPosition;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_NewMediaItem
-	 */
-	public function setNewMediaItems($newMediaItems)
-	{
-		$this->newMediaItems = $newMediaItems;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_NewMediaItem
-	 */
-	public function getNewMediaItems()
-	{
-		return $this->newMediaItems;
-	}
+  public function setAlbumId($albumId)
+  {
+    $this->albumId = $albumId;
+  }
+  public function getAlbumId()
+  {
+    return $this->albumId;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_AlbumPosition
+   */
+  public function setAlbumPosition(Google_Service_PhotosLibrary_AlbumPosition $albumPosition)
+  {
+    $this->albumPosition = $albumPosition;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_AlbumPosition
+   */
+  public function getAlbumPosition()
+  {
+    return $this->albumPosition;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_NewMediaItem
+   */
+  public function setNewMediaItems($newMediaItems)
+  {
+    $this->newMediaItems = $newMediaItems;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_NewMediaItem
+   */
+  public function getNewMediaItems()
+  {
+    return $this->newMediaItems;
+  }
 }

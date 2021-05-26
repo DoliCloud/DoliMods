@@ -17,22 +17,22 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p3beta1DominantColorsAnnotation extends Google_Collection
 {
-	protected $collection_key = 'colors';
-	protected $colorsType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1ColorInfo';
-	protected $colorsDataType = 'array';
+  protected $collection_key = 'colors';
+  protected $colorsType = 'Google_Service_Vision_GoogleCloudVisionV1p3beta1ColorInfo';
+  protected $colorsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1ColorInfo
-	 */
-	public function setColors($colors)
-	{
-		$this->colors = $colors;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1ColorInfo
-	 */
-	public function getColors()
-	{
-		return $this->colors;
-	}
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p3beta1ColorInfo[]
+   */
+  public function setColors($colors)
+  {
+    $this->colors = $colors;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p3beta1ColorInfo[]
+   */
+  public function getColors()
+  {
+    return $this->colors;
+  }
 }

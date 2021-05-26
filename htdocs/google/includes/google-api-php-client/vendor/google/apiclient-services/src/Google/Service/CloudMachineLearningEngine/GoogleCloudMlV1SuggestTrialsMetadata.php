@@ -17,41 +17,41 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SuggestTrialsMetadata extends Google_Model
 {
-	public $clientId;
-	public $createTime;
-	public $study;
-	public $suggestionCount;
+  public $clientId;
+  public $createTime;
+  public $study;
+  public $suggestionCount;
 
-	public function setClientId($clientId)
-	{
-		$this->clientId = $clientId;
-	}
-	public function getClientId()
-	{
-		return $this->clientId;
-	}
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setStudy($study)
-	{
-		$this->study = $study;
-	}
-	public function getStudy()
-	{
-		return $this->study;
-	}
-	public function setSuggestionCount($suggestionCount)
-	{
-		$this->suggestionCount = $suggestionCount;
-	}
-	public function getSuggestionCount()
-	{
-		return $this->suggestionCount;
-	}
+  public function setClientId($clientId)
+  {
+    $this->clientId = $clientId;
+  }
+  public function getClientId()
+  {
+    return $this->clientId;
+  }
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setStudy($study)
+  {
+    $this->study = $study;
+  }
+  public function getStudy()
+  {
+    return $this->study;
+  }
+  public function setSuggestionCount($suggestionCount)
+  {
+    $this->suggestionCount = $suggestionCount;
+  }
+  public function getSuggestionCount()
+  {
+    return $this->suggestionCount;
+  }
 }

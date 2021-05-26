@@ -17,33 +17,33 @@
 
 class Google_Service_Compute_HostRule extends Google_Collection
 {
-	protected $collection_key = 'hosts';
-	public $description;
-	public $hosts;
-	public $pathMatcher;
+  protected $collection_key = 'hosts';
+  public $description;
+  public $hosts;
+  public $pathMatcher;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setHosts($hosts)
-	{
-		$this->hosts = $hosts;
-	}
-	public function getHosts()
-	{
-		return $this->hosts;
-	}
-	public function setPathMatcher($pathMatcher)
-	{
-		$this->pathMatcher = $pathMatcher;
-	}
-	public function getPathMatcher()
-	{
-		return $this->pathMatcher;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setHosts($hosts)
+  {
+    $this->hosts = $hosts;
+  }
+  public function getHosts()
+  {
+    return $this->hosts;
+  }
+  public function setPathMatcher($pathMatcher)
+  {
+    $this->pathMatcher = $pathMatcher;
+  }
+  public function getPathMatcher()
+  {
+    return $this->pathMatcher;
+  }
 }

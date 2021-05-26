@@ -17,57 +17,57 @@
 
 class Google_Service_HomeGraphService_ReportStateAndNotificationRequest extends Google_Model
 {
-	public $agentUserId;
-	public $eventId;
-	public $followUpToken;
-	protected $payloadType = 'Google_Service_HomeGraphService_StateAndNotificationPayload';
-	protected $payloadDataType = '';
-	public $requestId;
+  public $agentUserId;
+  public $eventId;
+  public $followUpToken;
+  protected $payloadType = 'Google_Service_HomeGraphService_StateAndNotificationPayload';
+  protected $payloadDataType = '';
+  public $requestId;
 
-	public function setAgentUserId($agentUserId)
-	{
-		$this->agentUserId = $agentUserId;
-	}
-	public function getAgentUserId()
-	{
-		return $this->agentUserId;
-	}
-	public function setEventId($eventId)
-	{
-		$this->eventId = $eventId;
-	}
-	public function getEventId()
-	{
-		return $this->eventId;
-	}
-	public function setFollowUpToken($followUpToken)
-	{
-		$this->followUpToken = $followUpToken;
-	}
-	public function getFollowUpToken()
-	{
-		return $this->followUpToken;
-	}
-	/**
-	 * @param Google_Service_HomeGraphService_StateAndNotificationPayload
-	 */
-	public function setPayload(Google_Service_HomeGraphService_StateAndNotificationPayload $payload)
-	{
-		$this->payload = $payload;
-	}
-	/**
-	 * @return Google_Service_HomeGraphService_StateAndNotificationPayload
-	 */
-	public function getPayload()
-	{
-		return $this->payload;
-	}
-	public function setRequestId($requestId)
-	{
-		$this->requestId = $requestId;
-	}
-	public function getRequestId()
-	{
-		return $this->requestId;
-	}
+  public function setAgentUserId($agentUserId)
+  {
+    $this->agentUserId = $agentUserId;
+  }
+  public function getAgentUserId()
+  {
+    return $this->agentUserId;
+  }
+  public function setEventId($eventId)
+  {
+    $this->eventId = $eventId;
+  }
+  public function getEventId()
+  {
+    return $this->eventId;
+  }
+  public function setFollowUpToken($followUpToken)
+  {
+    $this->followUpToken = $followUpToken;
+  }
+  public function getFollowUpToken()
+  {
+    return $this->followUpToken;
+  }
+  /**
+   * @param Google_Service_HomeGraphService_StateAndNotificationPayload
+   */
+  public function setPayload(Google_Service_HomeGraphService_StateAndNotificationPayload $payload)
+  {
+    $this->payload = $payload;
+  }
+  /**
+   * @return Google_Service_HomeGraphService_StateAndNotificationPayload
+   */
+  public function getPayload()
+  {
+    return $this->payload;
+  }
+  public function setRequestId($requestId)
+  {
+    $this->requestId = $requestId;
+  }
+  public function getRequestId()
+  {
+    return $this->requestId;
+  }
 }

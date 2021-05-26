@@ -17,23 +17,23 @@
 
 class Google_Service_Appengine_RequestUtilization extends Google_Model
 {
-	public $targetConcurrentRequests;
-	public $targetRequestCountPerSecond;
+  public $targetConcurrentRequests;
+  public $targetRequestCountPerSecond;
 
-	public function setTargetConcurrentRequests($targetConcurrentRequests)
-	{
-		$this->targetConcurrentRequests = $targetConcurrentRequests;
-	}
-	public function getTargetConcurrentRequests()
-	{
-		return $this->targetConcurrentRequests;
-	}
-	public function setTargetRequestCountPerSecond($targetRequestCountPerSecond)
-	{
-		$this->targetRequestCountPerSecond = $targetRequestCountPerSecond;
-	}
-	public function getTargetRequestCountPerSecond()
-	{
-		return $this->targetRequestCountPerSecond;
-	}
+  public function setTargetConcurrentRequests($targetConcurrentRequests)
+  {
+    $this->targetConcurrentRequests = $targetConcurrentRequests;
+  }
+  public function getTargetConcurrentRequests()
+  {
+    return $this->targetConcurrentRequests;
+  }
+  public function setTargetRequestCountPerSecond($targetRequestCountPerSecond)
+  {
+    $this->targetRequestCountPerSecond = $targetRequestCountPerSecond;
+  }
+  public function getTargetRequestCountPerSecond()
+  {
+    return $this->targetRequestCountPerSecond;
+  }
 }

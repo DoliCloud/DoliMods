@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2UpdateInspectTemplateRequest extends Google_Model
 {
-	protected $inspectTemplateType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate';
-	protected $inspectTemplateDataType = '';
-	public $updateMask;
+  protected $inspectTemplateType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate';
+  protected $inspectTemplateDataType = '';
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
-	 */
-	public function setInspectTemplate(Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate $inspectTemplate)
-	{
-		$this->inspectTemplate = $inspectTemplate;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
-	 */
-	public function getInspectTemplate()
-	{
-		return $this->inspectTemplate;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
+   */
+  public function setInspectTemplate(Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate $inspectTemplate)
+  {
+    $this->inspectTemplate = $inspectTemplate;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
+   */
+  public function getInspectTemplate()
+  {
+    return $this->inspectTemplate;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

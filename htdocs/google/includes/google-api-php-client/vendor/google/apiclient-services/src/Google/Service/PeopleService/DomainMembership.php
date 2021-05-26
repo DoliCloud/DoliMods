@@ -17,14 +17,14 @@
 
 class Google_Service_PeopleService_DomainMembership extends Google_Model
 {
-	public $inViewerDomain;
+  public $inViewerDomain;
 
-	public function setInViewerDomain($inViewerDomain)
-	{
-		$this->inViewerDomain = $inViewerDomain;
-	}
-	public function getInViewerDomain()
-	{
-		return $this->inViewerDomain;
-	}
+  public function setInViewerDomain($inViewerDomain)
+  {
+    $this->inViewerDomain = $inViewerDomain;
+  }
+  public function getInViewerDomain()
+  {
+    return $this->inViewerDomain;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_SystemsManagement_ListPatchDeploymentsResponse extends Google_Collection
 {
-	protected $collection_key = 'patchDeployments';
-	public $nextPageToken;
-	protected $patchDeploymentsType = 'Google_Service_SystemsManagement_PatchDeployment';
-	protected $patchDeploymentsDataType = 'array';
+  protected $collection_key = 'patchDeployments';
+  public $nextPageToken;
+  protected $patchDeploymentsType = 'Google_Service_SystemsManagement_PatchDeployment';
+  protected $patchDeploymentsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_SystemsManagement_PatchDeployment
-	 */
-	public function setPatchDeployments($patchDeployments)
-	{
-		$this->patchDeployments = $patchDeployments;
-	}
-	/**
-	 * @return Google_Service_SystemsManagement_PatchDeployment
-	 */
-	public function getPatchDeployments()
-	{
-		return $this->patchDeployments;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_SystemsManagement_PatchDeployment
+   */
+  public function setPatchDeployments($patchDeployments)
+  {
+    $this->patchDeployments = $patchDeployments;
+  }
+  /**
+   * @return Google_Service_SystemsManagement_PatchDeployment
+   */
+  public function getPatchDeployments()
+  {
+    return $this->patchDeployments;
+  }
 }

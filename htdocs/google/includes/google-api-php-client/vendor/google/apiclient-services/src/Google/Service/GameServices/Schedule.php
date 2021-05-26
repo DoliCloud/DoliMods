@@ -17,41 +17,41 @@
 
 class Google_Service_GameServices_Schedule extends Google_Model
 {
-	public $cronJobDuration;
-	public $cronSpec;
-	public $endTime;
-	public $startTime;
+  public $cronJobDuration;
+  public $cronSpec;
+  public $endTime;
+  public $startTime;
 
-	public function setCronJobDuration($cronJobDuration)
-	{
-		$this->cronJobDuration = $cronJobDuration;
-	}
-	public function getCronJobDuration()
-	{
-		return $this->cronJobDuration;
-	}
-	public function setCronSpec($cronSpec)
-	{
-		$this->cronSpec = $cronSpec;
-	}
-	public function getCronSpec()
-	{
-		return $this->cronSpec;
-	}
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setCronJobDuration($cronJobDuration)
+  {
+    $this->cronJobDuration = $cronJobDuration;
+  }
+  public function getCronJobDuration()
+  {
+    return $this->cronJobDuration;
+  }
+  public function setCronSpec($cronSpec)
+  {
+    $this->cronSpec = $cronSpec;
+  }
+  public function getCronSpec()
+  {
+    return $this->cronSpec;
+  }
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

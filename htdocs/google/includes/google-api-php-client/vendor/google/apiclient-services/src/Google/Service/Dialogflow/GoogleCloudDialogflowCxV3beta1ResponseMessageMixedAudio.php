@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudio extends Google_Collection
 {
-	protected $collection_key = 'segments';
-	protected $segmentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudioSegment';
-	protected $segmentsDataType = 'array';
+  protected $collection_key = 'segments';
+  protected $segmentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudioSegment';
+  protected $segmentsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudioSegment
-	 */
-	public function setSegments($segments)
-	{
-		$this->segments = $segments;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudioSegment
-	 */
-	public function getSegments()
-	{
-		return $this->segments;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudioSegment[]
+   */
+  public function setSegments($segments)
+  {
+    $this->segments = $segments;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudioSegment[]
+   */
+  public function getSegments()
+  {
+    return $this->segments;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1ExplicitContentDetectionConfig extends Google_Model
 {
-	public $model;
+  public $model;
 
-	public function setModel($model)
-	{
-		$this->model = $model;
-	}
-	public function getModel()
-	{
-		return $this->model;
-	}
+  public function setModel($model)
+  {
+    $this->model = $model;
+  }
+  public function getModel()
+  {
+    return $this->model;
+  }
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedParagraphStyle extends Google_Model
 {
-	protected $paragraphStyleType = 'Google_Service_Docs_ParagraphStyle';
-	protected $paragraphStyleDataType = '';
-	protected $paragraphStyleSuggestionStateType = 'Google_Service_Docs_ParagraphStyleSuggestionState';
-	protected $paragraphStyleSuggestionStateDataType = '';
+  protected $paragraphStyleType = 'Google_Service_Docs_ParagraphStyle';
+  protected $paragraphStyleDataType = '';
+  protected $paragraphStyleSuggestionStateType = 'Google_Service_Docs_ParagraphStyleSuggestionState';
+  protected $paragraphStyleSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_ParagraphStyle
-	 */
-	public function setParagraphStyle(Google_Service_Docs_ParagraphStyle $paragraphStyle)
-	{
-		$this->paragraphStyle = $paragraphStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_ParagraphStyle
-	 */
-	public function getParagraphStyle()
-	{
-		return $this->paragraphStyle;
-	}
-	/**
-	 * @param Google_Service_Docs_ParagraphStyleSuggestionState
-	 */
-	public function setParagraphStyleSuggestionState(Google_Service_Docs_ParagraphStyleSuggestionState $paragraphStyleSuggestionState)
-	{
-		$this->paragraphStyleSuggestionState = $paragraphStyleSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_ParagraphStyleSuggestionState
-	 */
-	public function getParagraphStyleSuggestionState()
-	{
-		return $this->paragraphStyleSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_ParagraphStyle
+   */
+  public function setParagraphStyle(Google_Service_Docs_ParagraphStyle $paragraphStyle)
+  {
+    $this->paragraphStyle = $paragraphStyle;
+  }
+  /**
+   * @return Google_Service_Docs_ParagraphStyle
+   */
+  public function getParagraphStyle()
+  {
+    return $this->paragraphStyle;
+  }
+  /**
+   * @param Google_Service_Docs_ParagraphStyleSuggestionState
+   */
+  public function setParagraphStyleSuggestionState(Google_Service_Docs_ParagraphStyleSuggestionState $paragraphStyleSuggestionState)
+  {
+    $this->paragraphStyleSuggestionState = $paragraphStyleSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_ParagraphStyleSuggestionState
+   */
+  public function getParagraphStyleSuggestionState()
+  {
+    return $this->paragraphStyleSuggestionState;
+  }
 }

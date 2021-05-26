@@ -17,31 +17,31 @@
 
 class Google_Service_Datastore_GoogleLongrunningListOperationsResponse extends Google_Collection
 {
-	protected $collection_key = 'operations';
-	public $nextPageToken;
-	protected $operationsType = 'Google_Service_Datastore_GoogleLongrunningOperation';
-	protected $operationsDataType = 'array';
+  protected $collection_key = 'operations';
+  public $nextPageToken;
+  protected $operationsType = 'Google_Service_Datastore_GoogleLongrunningOperation';
+  protected $operationsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Datastore_GoogleLongrunningOperation
-	 */
-	public function setOperations($operations)
-	{
-		$this->operations = $operations;
-	}
-	/**
-	 * @return Google_Service_Datastore_GoogleLongrunningOperation
-	 */
-	public function getOperations()
-	{
-		return $this->operations;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Datastore_GoogleLongrunningOperation[]
+   */
+  public function setOperations($operations)
+  {
+    $this->operations = $operations;
+  }
+  /**
+   * @return Google_Service_Datastore_GoogleLongrunningOperation[]
+   */
+  public function getOperations()
+  {
+    return $this->operations;
+  }
 }

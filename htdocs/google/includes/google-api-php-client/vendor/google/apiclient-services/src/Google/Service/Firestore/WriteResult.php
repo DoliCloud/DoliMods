@@ -17,31 +17,31 @@
 
 class Google_Service_Firestore_WriteResult extends Google_Collection
 {
-	protected $collection_key = 'transformResults';
-	protected $transformResultsType = 'Google_Service_Firestore_Value';
-	protected $transformResultsDataType = 'array';
-	public $updateTime;
+  protected $collection_key = 'transformResults';
+  protected $transformResultsType = 'Google_Service_Firestore_Value';
+  protected $transformResultsDataType = 'array';
+  public $updateTime;
 
-	/**
-	 * @param Google_Service_Firestore_Value
-	 */
-	public function setTransformResults($transformResults)
-	{
-		$this->transformResults = $transformResults;
-	}
-	/**
-	 * @return Google_Service_Firestore_Value
-	 */
-	public function getTransformResults()
-	{
-		return $this->transformResults;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  /**
+   * @param Google_Service_Firestore_Value[]
+   */
+  public function setTransformResults($transformResults)
+  {
+    $this->transformResults = $transformResults;
+  }
+  /**
+   * @return Google_Service_Firestore_Value[]
+   */
+  public function getTransformResults()
+  {
+    return $this->transformResults;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

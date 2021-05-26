@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_InventorySourceGroup extends Google_Model
 {
-	public $displayName;
-	public $inventorySourceGroupId;
-	public $name;
+  public $displayName;
+  public $inventorySourceGroupId;
+  public $name;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setInventorySourceGroupId($inventorySourceGroupId)
-	{
-		$this->inventorySourceGroupId = $inventorySourceGroupId;
-	}
-	public function getInventorySourceGroupId()
-	{
-		return $this->inventorySourceGroupId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setInventorySourceGroupId($inventorySourceGroupId)
+  {
+    $this->inventorySourceGroupId = $inventorySourceGroupId;
+  }
+  public function getInventorySourceGroupId()
+  {
+    return $this->inventorySourceGroupId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

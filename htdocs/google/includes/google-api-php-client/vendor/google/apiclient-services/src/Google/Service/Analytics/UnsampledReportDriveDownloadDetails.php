@@ -17,14 +17,14 @@
 
 class Google_Service_Analytics_UnsampledReportDriveDownloadDetails extends Google_Model
 {
-	public $documentId;
+  public $documentId;
 
-	public function setDocumentId($documentId)
-	{
-		$this->documentId = $documentId;
-	}
-	public function getDocumentId()
-	{
-		return $this->documentId;
-	}
+  public function setDocumentId($documentId)
+  {
+    $this->documentId = $documentId;
+  }
+  public function getDocumentId()
+  {
+    return $this->documentId;
+  }
 }

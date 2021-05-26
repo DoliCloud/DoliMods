@@ -17,43 +17,43 @@
 
 class Google_Service_People_Event extends Google_Model
 {
-	protected $dateType = 'Google_Service_People_Date';
-	protected $dateDataType = '';
-	public $formattedType;
-	protected $metadataType = 'Google_Service_People_FieldMetadata';
-	protected $metadataDataType = '';
-	public $type;
+  protected $dateType = 'Google_Service_People_Date';
+  protected $dateDataType = '';
+  public $formattedType;
+  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataDataType = '';
+  public $type;
 
-	public function setDate(Google_Service_People_Date $date)
-	{
-		$this->date = $date;
-	}
-	public function getDate()
-	{
-		return $this->date;
-	}
-	public function setFormattedType($formattedType)
-	{
-		$this->formattedType = $formattedType;
-	}
-	public function getFormattedType()
-	{
-		return $this->formattedType;
-	}
-	public function setMetadata(Google_Service_People_FieldMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDate(Google_Service_People_Date $date)
+  {
+    $this->date = $date;
+  }
+  public function getDate()
+  {
+    return $this->date;
+  }
+  public function setFormattedType($formattedType)
+  {
+    $this->formattedType = $formattedType;
+  }
+  public function getFormattedType()
+  {
+    return $this->formattedType;
+  }
+  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

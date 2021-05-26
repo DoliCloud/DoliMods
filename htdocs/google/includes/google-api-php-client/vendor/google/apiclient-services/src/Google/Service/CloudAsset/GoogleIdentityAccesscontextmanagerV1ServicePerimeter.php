@@ -17,82 +17,82 @@
 
 class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeter extends Google_Model
 {
-	public $description;
-	public $name;
-	public $perimeterType;
-	protected $specType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig';
-	protected $specDataType = '';
-	protected $statusType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig';
-	protected $statusDataType = '';
-	public $title;
-	public $useExplicitDryRunSpec;
+  public $description;
+  public $name;
+  public $perimeterType;
+  protected $specType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig';
+  protected $specDataType = '';
+  protected $statusType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig';
+  protected $statusDataType = '';
+  public $title;
+  public $useExplicitDryRunSpec;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPerimeterType($perimeterType)
-	{
-		$this->perimeterType = $perimeterType;
-	}
-	public function getPerimeterType()
-	{
-		return $this->perimeterType;
-	}
-	/**
-	 * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
-	 */
-	public function setSpec(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig $spec)
-	{
-		$this->spec = $spec;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
-	 */
-	public function getSpec()
-	{
-		return $this->spec;
-	}
-	/**
-	 * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
-	 */
-	public function setStatus(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig $status)
-	{
-		$this->status = $status;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
-	 */
-	public function getStatus()
-	{
-		return $this->status;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
-	public function setUseExplicitDryRunSpec($useExplicitDryRunSpec)
-	{
-		$this->useExplicitDryRunSpec = $useExplicitDryRunSpec;
-	}
-	public function getUseExplicitDryRunSpec()
-	{
-		return $this->useExplicitDryRunSpec;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPerimeterType($perimeterType)
+  {
+    $this->perimeterType = $perimeterType;
+  }
+  public function getPerimeterType()
+  {
+    return $this->perimeterType;
+  }
+  /**
+   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
+   */
+  public function setSpec(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig $spec)
+  {
+    $this->spec = $spec;
+  }
+  /**
+   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
+   */
+  public function getSpec()
+  {
+    return $this->spec;
+  }
+  /**
+   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
+   */
+  public function setStatus(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig $status)
+  {
+    $this->status = $status;
+  }
+  /**
+   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
+   */
+  public function getStatus()
+  {
+    return $this->status;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
+  public function setUseExplicitDryRunSpec($useExplicitDryRunSpec)
+  {
+    $this->useExplicitDryRunSpec = $useExplicitDryRunSpec;
+  }
+  public function getUseExplicitDryRunSpec()
+  {
+    return $this->useExplicitDryRunSpec;
+  }
 }

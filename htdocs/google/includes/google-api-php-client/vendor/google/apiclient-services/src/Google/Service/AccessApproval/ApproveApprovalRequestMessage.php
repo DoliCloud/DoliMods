@@ -17,14 +17,14 @@
 
 class Google_Service_AccessApproval_ApproveApprovalRequestMessage extends Google_Model
 {
-	public $expireTime;
+  public $expireTime;
 
-	public function setExpireTime($expireTime)
-	{
-		$this->expireTime = $expireTime;
-	}
-	public function getExpireTime()
-	{
-		return $this->expireTime;
-	}
+  public function setExpireTime($expireTime)
+  {
+    $this->expireTime = $expireTime;
+  }
+  public function getExpireTime()
+  {
+    return $this->expireTime;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Monitoring_CreateTimeSeriesRequest extends Google_Collection
 {
-	protected $collection_key = 'timeSeries';
-	protected $timeSeriesType = 'Google_Service_Monitoring_TimeSeries';
-	protected $timeSeriesDataType = 'array';
+  protected $collection_key = 'timeSeries';
+  protected $timeSeriesType = 'Google_Service_Monitoring_TimeSeries';
+  protected $timeSeriesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Monitoring_TimeSeries
-	 */
-	public function setTimeSeries($timeSeries)
-	{
-		$this->timeSeries = $timeSeries;
-	}
-	/**
-	 * @return Google_Service_Monitoring_TimeSeries
-	 */
-	public function getTimeSeries()
-	{
-		return $this->timeSeries;
-	}
+  /**
+   * @param Google_Service_Monitoring_TimeSeries[]
+   */
+  public function setTimeSeries($timeSeries)
+  {
+    $this->timeSeries = $timeSeries;
+  }
+  /**
+   * @return Google_Service_Monitoring_TimeSeries[]
+   */
+  public function getTimeSeries()
+  {
+    return $this->timeSeries;
+  }
 }

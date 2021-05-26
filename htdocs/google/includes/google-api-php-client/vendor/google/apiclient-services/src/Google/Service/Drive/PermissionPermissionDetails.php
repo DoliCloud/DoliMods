@@ -17,41 +17,41 @@
 
 class Google_Service_Drive_PermissionPermissionDetails extends Google_Model
 {
-	public $inherited;
-	public $inheritedFrom;
-	public $permissionType;
-	public $role;
+  public $inherited;
+  public $inheritedFrom;
+  public $permissionType;
+  public $role;
 
-	public function setInherited($inherited)
-	{
-		$this->inherited = $inherited;
-	}
-	public function getInherited()
-	{
-		return $this->inherited;
-	}
-	public function setInheritedFrom($inheritedFrom)
-	{
-		$this->inheritedFrom = $inheritedFrom;
-	}
-	public function getInheritedFrom()
-	{
-		return $this->inheritedFrom;
-	}
-	public function setPermissionType($permissionType)
-	{
-		$this->permissionType = $permissionType;
-	}
-	public function getPermissionType()
-	{
-		return $this->permissionType;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
+  public function setInherited($inherited)
+  {
+    $this->inherited = $inherited;
+  }
+  public function getInherited()
+  {
+    return $this->inherited;
+  }
+  public function setInheritedFrom($inheritedFrom)
+  {
+    $this->inheritedFrom = $inheritedFrom;
+  }
+  public function getInheritedFrom()
+  {
+    return $this->inheritedFrom;
+  }
+  public function setPermissionType($permissionType)
+  {
+    $this->permissionType = $permissionType;
+  }
+  public function getPermissionType()
+  {
+    return $this->permissionType;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
 }

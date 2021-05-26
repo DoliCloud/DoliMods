@@ -17,14 +17,14 @@
 
 class Google_Service_AlertCenter_UndeleteAlertRequest extends Google_Model
 {
-	public $customerId;
+  public $customerId;
 
-	public function setCustomerId($customerId)
-	{
-		$this->customerId = $customerId;
-	}
-	public function getCustomerId()
-	{
-		return $this->customerId;
-	}
+  public function setCustomerId($customerId)
+  {
+    $this->customerId = $customerId;
+  }
+  public function getCustomerId()
+  {
+    return $this->customerId;
+  }
 }

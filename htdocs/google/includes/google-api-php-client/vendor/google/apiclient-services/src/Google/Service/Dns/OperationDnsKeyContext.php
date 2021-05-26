@@ -17,37 +17,37 @@
 
 class Google_Service_Dns_OperationDnsKeyContext extends Google_Model
 {
-	protected $newValueType = 'Google_Service_Dns_DnsKey';
-	protected $newValueDataType = '';
-	protected $oldValueType = 'Google_Service_Dns_DnsKey';
-	protected $oldValueDataType = '';
+  protected $newValueType = 'Google_Service_Dns_DnsKey';
+  protected $newValueDataType = '';
+  protected $oldValueType = 'Google_Service_Dns_DnsKey';
+  protected $oldValueDataType = '';
 
-	/**
-	 * @param Google_Service_Dns_DnsKey
-	 */
-	public function setNewValue(Google_Service_Dns_DnsKey $newValue)
-	{
-		$this->newValue = $newValue;
-	}
-	/**
-	 * @return Google_Service_Dns_DnsKey
-	 */
-	public function getNewValue()
-	{
-		return $this->newValue;
-	}
-	/**
-	 * @param Google_Service_Dns_DnsKey
-	 */
-	public function setOldValue(Google_Service_Dns_DnsKey $oldValue)
-	{
-		$this->oldValue = $oldValue;
-	}
-	/**
-	 * @return Google_Service_Dns_DnsKey
-	 */
-	public function getOldValue()
-	{
-		return $this->oldValue;
-	}
+  /**
+   * @param Google_Service_Dns_DnsKey
+   */
+  public function setNewValue(Google_Service_Dns_DnsKey $newValue)
+  {
+    $this->newValue = $newValue;
+  }
+  /**
+   * @return Google_Service_Dns_DnsKey
+   */
+  public function getNewValue()
+  {
+    return $this->newValue;
+  }
+  /**
+   * @param Google_Service_Dns_DnsKey
+   */
+  public function setOldValue(Google_Service_Dns_DnsKey $oldValue)
+  {
+    $this->oldValue = $oldValue;
+  }
+  /**
+   * @return Google_Service_Dns_DnsKey
+   */
+  public function getOldValue()
+  {
+    return $this->oldValue;
+  }
 }

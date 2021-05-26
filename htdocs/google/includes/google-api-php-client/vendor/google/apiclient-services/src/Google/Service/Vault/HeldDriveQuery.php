@@ -17,23 +17,23 @@
 
 class Google_Service_Vault_HeldDriveQuery extends Google_Model
 {
-	public $includeSharedDriveFiles;
-	public $includeTeamDriveFiles;
+  public $includeSharedDriveFiles;
+  public $includeTeamDriveFiles;
 
-	public function setIncludeSharedDriveFiles($includeSharedDriveFiles)
-	{
-		$this->includeSharedDriveFiles = $includeSharedDriveFiles;
-	}
-	public function getIncludeSharedDriveFiles()
-	{
-		return $this->includeSharedDriveFiles;
-	}
-	public function setIncludeTeamDriveFiles($includeTeamDriveFiles)
-	{
-		$this->includeTeamDriveFiles = $includeTeamDriveFiles;
-	}
-	public function getIncludeTeamDriveFiles()
-	{
-		return $this->includeTeamDriveFiles;
-	}
+  public function setIncludeSharedDriveFiles($includeSharedDriveFiles)
+  {
+    $this->includeSharedDriveFiles = $includeSharedDriveFiles;
+  }
+  public function getIncludeSharedDriveFiles()
+  {
+    return $this->includeSharedDriveFiles;
+  }
+  public function setIncludeTeamDriveFiles($includeTeamDriveFiles)
+  {
+    $this->includeTeamDriveFiles = $includeTeamDriveFiles;
+  }
+  public function getIncludeTeamDriveFiles()
+  {
+    return $this->includeTeamDriveFiles;
+  }
 }

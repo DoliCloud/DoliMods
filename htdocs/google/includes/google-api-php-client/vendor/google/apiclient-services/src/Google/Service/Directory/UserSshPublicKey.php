@@ -17,32 +17,32 @@
 
 class Google_Service_Directory_UserSshPublicKey extends Google_Model
 {
-	public $expirationTimeUsec;
-	public $fingerprint;
-	public $key;
+  public $expirationTimeUsec;
+  public $fingerprint;
+  public $key;
 
-	public function setExpirationTimeUsec($expirationTimeUsec)
-	{
-		$this->expirationTimeUsec = $expirationTimeUsec;
-	}
-	public function getExpirationTimeUsec()
-	{
-		return $this->expirationTimeUsec;
-	}
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
+  public function setExpirationTimeUsec($expirationTimeUsec)
+  {
+    $this->expirationTimeUsec = $expirationTimeUsec;
+  }
+  public function getExpirationTimeUsec()
+  {
+    return $this->expirationTimeUsec;
+  }
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
 }

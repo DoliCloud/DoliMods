@@ -32,381 +32,371 @@
  */
 class Google_Service_ServiceManagement extends Google_Service
 {
-	/** View and manage your data across Google Cloud Platform services. */
-	const CLOUD_PLATFORM =
-	  "https://www.googleapis.com/auth/cloud-platform";
-	/** View your data across Google Cloud Platform services. */
-	const CLOUD_PLATFORM_READ_ONLY =
-	  "https://www.googleapis.com/auth/cloud-platform.read-only";
-	/** Manage your Google API service configuration. */
-	const SERVICE_MANAGEMENT =
-	  "https://www.googleapis.com/auth/service.management";
-	/** View your Google API service configuration. */
-	const SERVICE_MANAGEMENT_READONLY =
-	  "https://www.googleapis.com/auth/service.management.readonly";
+  /** View and manage your data across Google Cloud Platform services. */
+  const CLOUD_PLATFORM =
+      "https://www.googleapis.com/auth/cloud-platform";
+  /** View your data across Google Cloud Platform services. */
+  const CLOUD_PLATFORM_READ_ONLY =
+      "https://www.googleapis.com/auth/cloud-platform.read-only";
+  /** Manage your Google API service configuration. */
+  const SERVICE_MANAGEMENT =
+      "https://www.googleapis.com/auth/service.management";
+  /** View your Google API service configuration. */
+  const SERVICE_MANAGEMENT_READONLY =
+      "https://www.googleapis.com/auth/service.management.readonly";
 
-	public $operations;
-	public $services;
-	public $services_configs;
-	public $services_consumers;
-	public $services_rollouts;
+  public $operations;
+  public $services;
+  public $services_configs;
+  public $services_consumers;
+  public $services_rollouts;
 
-	/**
-	 * Constructs the internal representation of the ServiceManagement service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://servicemanagement.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1';
-		$this->serviceName = 'servicemanagement';
+  /**
+   * Constructs the internal representation of the ServiceManagement service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://servicemanagement.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1';
+    $this->serviceName = 'servicemanagement';
 
-		$this->operations = new Google_Service_ServiceManagement_Resource_Operations(
-		$this,
-		$this->serviceName,
-		'operations',
-		array(
-		  'methods' => array(
-			'get' => array(
-			  'path' => 'v1/{+name}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/operations',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'name' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'filter' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->services = new Google_Service_ServiceManagement_Resource_Services(
-		$this,
-		$this->serviceName,
-		'services',
-		array(
-		  'methods' => array(
-			'create' => array(
-			  'path' => 'v1/services',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'delete' => array(
-			  'path' => 'v1/services/{serviceName}',
-			  'httpMethod' => 'DELETE',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'disable' => array(
-			  'path' => 'v1/services/{serviceName}:disable',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'enable' => array(
-			  'path' => 'v1/services/{serviceName}:enable',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'generateConfigReport' => array(
-			  'path' => 'v1/services:generateConfigReport',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'get' => array(
-			  'path' => 'v1/services/{serviceName}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'getConfig' => array(
-			  'path' => 'v1/services/{serviceName}/config',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'view' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'configId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'getIamPolicy' => array(
-			  'path' => 'v1/{+resource}:getIamPolicy',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/services',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'producerProjectId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'consumerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'setIamPolicy' => array(
-			  'path' => 'v1/{+resource}:setIamPolicy',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'testIamPermissions' => array(
-			  'path' => 'v1/{+resource}:testIamPermissions',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'undelete' => array(
-			  'path' => 'v1/services/{serviceName}:undelete',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->services_configs = new Google_Service_ServiceManagement_Resource_ServicesConfigs(
-		$this,
-		$this->serviceName,
-		'configs',
-		array(
-		  'methods' => array(
-			'create' => array(
-			  'path' => 'v1/services/{serviceName}/configs',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'get' => array(
-			  'path' => 'v1/services/{serviceName}/configs/{configId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'configId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'view' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/services/{serviceName}/configs',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'submit' => array(
-			  'path' => 'v1/services/{serviceName}/configs:submit',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->services_consumers = new Google_Service_ServiceManagement_Resource_ServicesConsumers(
-		$this,
-		$this->serviceName,
-		'consumers',
-		array(
-		  'methods' => array(
-			'getIamPolicy' => array(
-			  'path' => 'v1/{+resource}:getIamPolicy',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'setIamPolicy' => array(
-			  'path' => 'v1/{+resource}:setIamPolicy',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'testIamPermissions' => array(
-			  'path' => 'v1/{+resource}:testIamPermissions',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'resource' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->services_rollouts = new Google_Service_ServiceManagement_Resource_ServicesRollouts(
-		$this,
-		$this->serviceName,
-		'rollouts',
-		array(
-		  'methods' => array(
-			'create' => array(
-			  'path' => 'v1/services/{serviceName}/rollouts',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'get' => array(
-			  'path' => 'v1/services/{serviceName}/rollouts/{rolloutId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'rolloutId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/services/{serviceName}/rollouts',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'serviceName' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'filter' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->operations = new Google_Service_ServiceManagement_Resource_Operations(
+        $this,
+        $this->serviceName,
+        'operations',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/operations',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'name' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->services = new Google_Service_ServiceManagement_Resource_Services(
+        $this,
+        $this->serviceName,
+        'services',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v1/services',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'delete' => array(
+              'path' => 'v1/services/{serviceName}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'enable' => array(
+              'path' => 'v1/services/{serviceName}:enable',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'generateConfigReport' => array(
+              'path' => 'v1/services:generateConfigReport',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'get' => array(
+              'path' => 'v1/services/{serviceName}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'getConfig' => array(
+              'path' => 'v1/services/{serviceName}/config',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'configId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'view' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'getIamPolicy' => array(
+              'path' => 'v1/{+resource}:getIamPolicy',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/services',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'consumerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'producerProjectId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'setIamPolicy' => array(
+              'path' => 'v1/{+resource}:setIamPolicy',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'testIamPermissions' => array(
+              'path' => 'v1/{+resource}:testIamPermissions',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'undelete' => array(
+              'path' => 'v1/services/{serviceName}:undelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->services_configs = new Google_Service_ServiceManagement_Resource_ServicesConfigs(
+        $this,
+        $this->serviceName,
+        'configs',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v1/services/{serviceName}/configs',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'v1/services/{serviceName}/configs/{configId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'configId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'view' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/services/{serviceName}/configs',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'submit' => array(
+              'path' => 'v1/services/{serviceName}/configs:submit',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->services_consumers = new Google_Service_ServiceManagement_Resource_ServicesConsumers(
+        $this,
+        $this->serviceName,
+        'consumers',
+        array(
+          'methods' => array(
+            'getIamPolicy' => array(
+              'path' => 'v1/{+resource}:getIamPolicy',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'setIamPolicy' => array(
+              'path' => 'v1/{+resource}:setIamPolicy',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'testIamPermissions' => array(
+              'path' => 'v1/{+resource}:testIamPermissions',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'resource' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->services_rollouts = new Google_Service_ServiceManagement_Resource_ServicesRollouts(
+        $this,
+        $this->serviceName,
+        'rollouts',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v1/services/{serviceName}/rollouts',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'v1/services/{serviceName}/rollouts/{rolloutId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'rolloutId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/services/{serviceName}/rollouts',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'serviceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

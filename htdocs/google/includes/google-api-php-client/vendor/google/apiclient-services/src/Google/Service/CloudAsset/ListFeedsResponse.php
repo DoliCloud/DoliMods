@@ -17,22 +17,22 @@
 
 class Google_Service_CloudAsset_ListFeedsResponse extends Google_Collection
 {
-	protected $collection_key = 'feeds';
-	protected $feedsType = 'Google_Service_CloudAsset_Feed';
-	protected $feedsDataType = 'array';
+  protected $collection_key = 'feeds';
+  protected $feedsType = 'Google_Service_CloudAsset_Feed';
+  protected $feedsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudAsset_Feed
-	 */
-	public function setFeeds($feeds)
-	{
-		$this->feeds = $feeds;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_Feed
-	 */
-	public function getFeeds()
-	{
-		return $this->feeds;
-	}
+  /**
+   * @param Google_Service_CloudAsset_Feed[]
+   */
+  public function setFeeds($feeds)
+  {
+    $this->feeds = $feeds;
+  }
+  /**
+   * @return Google_Service_CloudAsset_Feed[]
+   */
+  public function getFeeds()
+  {
+    return $this->feeds;
+  }
 }

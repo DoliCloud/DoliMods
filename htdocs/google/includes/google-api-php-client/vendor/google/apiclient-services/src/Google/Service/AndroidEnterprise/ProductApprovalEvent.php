@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidEnterprise_ProductApprovalEvent extends Google_Model
 {
-	public $approved;
-	public $productId;
+  public $approved;
+  public $productId;
 
-	public function setApproved($approved)
-	{
-		$this->approved = $approved;
-	}
-	public function getApproved()
-	{
-		return $this->approved;
-	}
-	public function setProductId($productId)
-	{
-		$this->productId = $productId;
-	}
-	public function getProductId()
-	{
-		return $this->productId;
-	}
+  public function setApproved($approved)
+  {
+    $this->approved = $approved;
+  }
+  public function getApproved()
+  {
+    return $this->approved;
+  }
+  public function setProductId($productId)
+  {
+    $this->productId = $productId;
+  }
+  public function getProductId()
+  {
+    return $this->productId;
+  }
 }

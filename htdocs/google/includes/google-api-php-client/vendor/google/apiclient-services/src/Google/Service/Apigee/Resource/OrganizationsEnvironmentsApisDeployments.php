@@ -25,20 +25,20 @@
  */
 class Google_Service_Apigee_Resource_OrganizationsEnvironmentsApisDeployments extends Google_Service_Resource
 {
-	/**
-	 * Lists all deployments of an API proxy in an environment.
-	 * (deployments.listOrganizationsEnvironmentsApisDeployments)
-	 *
-	 * @param string $parent Required. Name representing an API proxy in an
-	 *                       environment in the following format:
-	 *                       `organizations/{org}/environments/{env}/apis/{api}`
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
-	 */
-	public function listOrganizationsEnvironmentsApisDeployments($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
-	}
+  /**
+   * Lists all deployments of an API proxy in an environment.
+   * (deployments.listOrganizationsEnvironmentsApisDeployments)
+   *
+   * @param string $parent Required. Name representing an API proxy in an
+   * environment in the following format:
+   * `organizations/{org}/environments/{env}/apis/{api}`
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse
+   */
+  public function listOrganizationsEnvironmentsApisDeployments($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse");
+  }
 }

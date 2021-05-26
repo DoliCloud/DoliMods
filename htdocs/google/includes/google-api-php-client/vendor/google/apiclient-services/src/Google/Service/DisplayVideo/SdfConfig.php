@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_SdfConfig extends Google_Model
 {
-	public $adminEmail;
-	public $version;
+  public $adminEmail;
+  public $version;
 
-	public function setAdminEmail($adminEmail)
-	{
-		$this->adminEmail = $adminEmail;
-	}
-	public function getAdminEmail()
-	{
-		return $this->adminEmail;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setAdminEmail($adminEmail)
+  {
+    $this->adminEmail = $adminEmail;
+  }
+  public function getAdminEmail()
+  {
+    return $this->adminEmail;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

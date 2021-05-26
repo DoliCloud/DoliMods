@@ -17,23 +17,23 @@
 
 class Google_Service_ContainerAnalysis_Layer extends Google_Model
 {
-	public $arguments;
-	public $directive;
+  public $arguments;
+  public $directive;
 
-	public function setArguments($arguments)
-	{
-		$this->arguments = $arguments;
-	}
-	public function getArguments()
-	{
-		return $this->arguments;
-	}
-	public function setDirective($directive)
-	{
-		$this->directive = $directive;
-	}
-	public function getDirective()
-	{
-		return $this->directive;
-	}
+  public function setArguments($arguments)
+  {
+    $this->arguments = $arguments;
+  }
+  public function getArguments()
+  {
+    return $this->arguments;
+  }
+  public function setDirective($directive)
+  {
+    $this->directive = $directive;
+  }
+  public function getDirective()
+  {
+    return $this->directive;
+  }
 }

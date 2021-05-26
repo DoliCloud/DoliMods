@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSearch_SearchApplicationSessionStats extends Google_Model
 {
-	protected $dateType = 'Google_Service_CloudSearch_Date';
-	protected $dateDataType = '';
-	public $searchSessionsCount;
+  protected $dateType = 'Google_Service_CloudSearch_Date';
+  protected $dateDataType = '';
+  public $searchSessionsCount;
 
-	/**
-	 * @param Google_Service_CloudSearch_Date
-	 */
-	public function setDate(Google_Service_CloudSearch_Date $date)
-	{
-		$this->date = $date;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_Date
-	 */
-	public function getDate()
-	{
-		return $this->date;
-	}
-	public function setSearchSessionsCount($searchSessionsCount)
-	{
-		$this->searchSessionsCount = $searchSessionsCount;
-	}
-	public function getSearchSessionsCount()
-	{
-		return $this->searchSessionsCount;
-	}
+  /**
+   * @param Google_Service_CloudSearch_Date
+   */
+  public function setDate(Google_Service_CloudSearch_Date $date)
+  {
+    $this->date = $date;
+  }
+  /**
+   * @return Google_Service_CloudSearch_Date
+   */
+  public function getDate()
+  {
+    return $this->date;
+  }
+  public function setSearchSessionsCount($searchSessionsCount)
+  {
+    $this->searchSessionsCount = $searchSessionsCount;
+  }
+  public function getSearchSessionsCount()
+  {
+    return $this->searchSessionsCount;
+  }
 }

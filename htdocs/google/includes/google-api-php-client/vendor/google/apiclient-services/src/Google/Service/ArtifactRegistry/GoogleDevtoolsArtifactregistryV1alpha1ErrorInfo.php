@@ -17,37 +17,37 @@
 
 class Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1ErrorInfo extends Google_Model
 {
-	protected $errorType = 'Google_Service_ArtifactRegistry_Status';
-	protected $errorDataType = '';
-	protected $gcsSourceType = 'Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource';
-	protected $gcsSourceDataType = '';
+  protected $errorType = 'Google_Service_ArtifactRegistry_Status';
+  protected $errorDataType = '';
+  protected $gcsSourceType = 'Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource';
+  protected $gcsSourceDataType = '';
 
-	/**
-	 * @param Google_Service_ArtifactRegistry_Status
-	 */
-	public function setError(Google_Service_ArtifactRegistry_Status $error)
-	{
-		$this->error = $error;
-	}
-	/**
-	 * @return Google_Service_ArtifactRegistry_Status
-	 */
-	public function getError()
-	{
-		return $this->error;
-	}
-	/**
-	 * @param Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource
-	 */
-	public function setGcsSource(Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource $gcsSource)
-	{
-		$this->gcsSource = $gcsSource;
-	}
-	/**
-	 * @return Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource
-	 */
-	public function getGcsSource()
-	{
-		return $this->gcsSource;
-	}
+  /**
+   * @param Google_Service_ArtifactRegistry_Status
+   */
+  public function setError(Google_Service_ArtifactRegistry_Status $error)
+  {
+    $this->error = $error;
+  }
+  /**
+   * @return Google_Service_ArtifactRegistry_Status
+   */
+  public function getError()
+  {
+    return $this->error;
+  }
+  /**
+   * @param Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource
+   */
+  public function setGcsSource(Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource $gcsSource)
+  {
+    $this->gcsSource = $gcsSource;
+  }
+  /**
+   * @return Google_Service_ArtifactRegistry_GoogleDevtoolsArtifactregistryV1alpha1GcsSource
+   */
+  public function getGcsSource()
+  {
+    return $this->gcsSource;
+  }
 }

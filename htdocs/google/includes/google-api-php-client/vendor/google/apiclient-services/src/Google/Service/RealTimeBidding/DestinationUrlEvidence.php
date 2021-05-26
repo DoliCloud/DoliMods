@@ -17,14 +17,14 @@
 
 class Google_Service_RealTimeBidding_DestinationUrlEvidence extends Google_Model
 {
-	public $destinationUrl;
+  public $destinationUrl;
 
-	public function setDestinationUrl($destinationUrl)
-	{
-		$this->destinationUrl = $destinationUrl;
-	}
-	public function getDestinationUrl()
-	{
-		return $this->destinationUrl;
-	}
+  public function setDestinationUrl($destinationUrl)
+  {
+    $this->destinationUrl = $destinationUrl;
+  }
+  public function getDestinationUrl()
+  {
+    return $this->destinationUrl;
+  }
 }

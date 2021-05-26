@@ -17,14 +17,14 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1EncryptionConfig extends Google_Model
 {
-	public $kmsKeyName;
+  public $kmsKeyName;
 
-	public function setKmsKeyName($kmsKeyName)
-	{
-		$this->kmsKeyName = $kmsKeyName;
-	}
-	public function getKmsKeyName()
-	{
-		return $this->kmsKeyName;
-	}
+  public function setKmsKeyName($kmsKeyName)
+  {
+    $this->kmsKeyName = $kmsKeyName;
+  }
+  public function getKmsKeyName()
+  {
+    return $this->kmsKeyName;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Testing_Shard extends Google_Model
 {
-	public $numShards;
-	public $shardIndex;
-	protected $testTargetsForShardType = 'Google_Service_Testing_TestTargetsForShard';
-	protected $testTargetsForShardDataType = '';
+  public $numShards;
+  public $shardIndex;
+  protected $testTargetsForShardType = 'Google_Service_Testing_TestTargetsForShard';
+  protected $testTargetsForShardDataType = '';
 
-	public function setNumShards($numShards)
-	{
-		$this->numShards = $numShards;
-	}
-	public function getNumShards()
-	{
-		return $this->numShards;
-	}
-	public function setShardIndex($shardIndex)
-	{
-		$this->shardIndex = $shardIndex;
-	}
-	public function getShardIndex()
-	{
-		return $this->shardIndex;
-	}
-	/**
-	 * @param Google_Service_Testing_TestTargetsForShard
-	 */
-	public function setTestTargetsForShard(Google_Service_Testing_TestTargetsForShard $testTargetsForShard)
-	{
-		$this->testTargetsForShard = $testTargetsForShard;
-	}
-	/**
-	 * @return Google_Service_Testing_TestTargetsForShard
-	 */
-	public function getTestTargetsForShard()
-	{
-		return $this->testTargetsForShard;
-	}
+  public function setNumShards($numShards)
+  {
+    $this->numShards = $numShards;
+  }
+  public function getNumShards()
+  {
+    return $this->numShards;
+  }
+  public function setShardIndex($shardIndex)
+  {
+    $this->shardIndex = $shardIndex;
+  }
+  public function getShardIndex()
+  {
+    return $this->shardIndex;
+  }
+  /**
+   * @param Google_Service_Testing_TestTargetsForShard
+   */
+  public function setTestTargetsForShard(Google_Service_Testing_TestTargetsForShard $testTargetsForShard)
+  {
+    $this->testTargetsForShard = $testTargetsForShard;
+  }
+  /**
+   * @return Google_Service_Testing_TestTargetsForShard
+   */
+  public function getTestTargetsForShard()
+  {
+    return $this->testTargetsForShard;
+  }
 }

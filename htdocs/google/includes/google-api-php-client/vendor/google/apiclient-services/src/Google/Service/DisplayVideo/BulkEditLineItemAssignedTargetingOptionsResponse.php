@@ -17,22 +17,22 @@
 
 class Google_Service_DisplayVideo_BulkEditLineItemAssignedTargetingOptionsResponse extends Google_Collection
 {
-	protected $collection_key = 'createdAssignedTargetingOptions';
-	protected $createdAssignedTargetingOptionsType = 'Google_Service_DisplayVideo_AssignedTargetingOption';
-	protected $createdAssignedTargetingOptionsDataType = 'array';
+  protected $collection_key = 'createdAssignedTargetingOptions';
+  protected $createdAssignedTargetingOptionsType = 'Google_Service_DisplayVideo_AssignedTargetingOption';
+  protected $createdAssignedTargetingOptionsDataType = 'array';
 
-	/**
-	 * @param Google_Service_DisplayVideo_AssignedTargetingOption
-	 */
-	public function setCreatedAssignedTargetingOptions($createdAssignedTargetingOptions)
-	{
-		$this->createdAssignedTargetingOptions = $createdAssignedTargetingOptions;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_AssignedTargetingOption
-	 */
-	public function getCreatedAssignedTargetingOptions()
-	{
-		return $this->createdAssignedTargetingOptions;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_AssignedTargetingOption[]
+   */
+  public function setCreatedAssignedTargetingOptions($createdAssignedTargetingOptions)
+  {
+    $this->createdAssignedTargetingOptions = $createdAssignedTargetingOptions;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_AssignedTargetingOption[]
+   */
+  public function getCreatedAssignedTargetingOptions()
+  {
+    return $this->createdAssignedTargetingOptions;
+  }
 }

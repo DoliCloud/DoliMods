@@ -17,15 +17,15 @@
 
 class Google_Service_Replicapool_PoolsDeleteRequest extends Google_Collection
 {
-	protected $collection_key = 'abandonInstances';
-	public $abandonInstances;
+  protected $collection_key = 'abandonInstances';
+  public $abandonInstances;
 
-	public function setAbandonInstances($abandonInstances)
-	{
-		$this->abandonInstances = $abandonInstances;
-	}
-	public function getAbandonInstances()
-	{
-		return $this->abandonInstances;
-	}
+  public function setAbandonInstances($abandonInstances)
+  {
+    $this->abandonInstances = $abandonInstances;
+  }
+  public function getAbandonInstances()
+  {
+    return $this->abandonInstances;
+  }
 }

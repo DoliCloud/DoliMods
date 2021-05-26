@@ -17,37 +17,37 @@
 
 class Google_Service_Testing_ShardingOption extends Google_Model
 {
-	protected $manualShardingType = 'Google_Service_Testing_ManualSharding';
-	protected $manualShardingDataType = '';
-	protected $uniformShardingType = 'Google_Service_Testing_UniformSharding';
-	protected $uniformShardingDataType = '';
+  protected $manualShardingType = 'Google_Service_Testing_ManualSharding';
+  protected $manualShardingDataType = '';
+  protected $uniformShardingType = 'Google_Service_Testing_UniformSharding';
+  protected $uniformShardingDataType = '';
 
-	/**
-	 * @param Google_Service_Testing_ManualSharding
-	 */
-	public function setManualSharding(Google_Service_Testing_ManualSharding $manualSharding)
-	{
-		$this->manualSharding = $manualSharding;
-	}
-	/**
-	 * @return Google_Service_Testing_ManualSharding
-	 */
-	public function getManualSharding()
-	{
-		return $this->manualSharding;
-	}
-	/**
-	 * @param Google_Service_Testing_UniformSharding
-	 */
-	public function setUniformSharding(Google_Service_Testing_UniformSharding $uniformSharding)
-	{
-		$this->uniformSharding = $uniformSharding;
-	}
-	/**
-	 * @return Google_Service_Testing_UniformSharding
-	 */
-	public function getUniformSharding()
-	{
-		return $this->uniformSharding;
-	}
+  /**
+   * @param Google_Service_Testing_ManualSharding
+   */
+  public function setManualSharding(Google_Service_Testing_ManualSharding $manualSharding)
+  {
+    $this->manualSharding = $manualSharding;
+  }
+  /**
+   * @return Google_Service_Testing_ManualSharding
+   */
+  public function getManualSharding()
+  {
+    return $this->manualSharding;
+  }
+  /**
+   * @param Google_Service_Testing_UniformSharding
+   */
+  public function setUniformSharding(Google_Service_Testing_UniformSharding $uniformSharding)
+  {
+    $this->uniformSharding = $uniformSharding;
+  }
+  /**
+   * @return Google_Service_Testing_UniformSharding
+   */
+  public function getUniformSharding()
+  {
+    return $this->uniformSharding;
+  }
 }

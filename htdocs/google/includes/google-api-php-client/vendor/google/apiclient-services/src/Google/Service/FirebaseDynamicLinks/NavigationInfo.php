@@ -17,14 +17,14 @@
 
 class Google_Service_FirebaseDynamicLinks_NavigationInfo extends Google_Model
 {
-	public $enableForcedRedirect;
+  public $enableForcedRedirect;
 
-	public function setEnableForcedRedirect($enableForcedRedirect)
-	{
-		$this->enableForcedRedirect = $enableForcedRedirect;
-	}
-	public function getEnableForcedRedirect()
-	{
-		return $this->enableForcedRedirect;
-	}
+  public function setEnableForcedRedirect($enableForcedRedirect)
+  {
+    $this->enableForcedRedirect = $enableForcedRedirect;
+  }
+  public function getEnableForcedRedirect()
+  {
+    return $this->enableForcedRedirect;
+  }
 }

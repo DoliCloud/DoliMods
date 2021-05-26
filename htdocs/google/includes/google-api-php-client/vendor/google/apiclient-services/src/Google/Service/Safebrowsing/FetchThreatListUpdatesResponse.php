@@ -17,31 +17,31 @@
 
 class Google_Service_Safebrowsing_FetchThreatListUpdatesResponse extends Google_Collection
 {
-	protected $collection_key = 'listUpdateResponses';
-	protected $listUpdateResponsesType = 'Google_Service_Safebrowsing_ListUpdateResponse';
-	protected $listUpdateResponsesDataType = 'array';
-	public $minimumWaitDuration;
+  protected $collection_key = 'listUpdateResponses';
+  protected $listUpdateResponsesType = 'Google_Service_Safebrowsing_ListUpdateResponse';
+  protected $listUpdateResponsesDataType = 'array';
+  public $minimumWaitDuration;
 
-	/**
-	 * @param Google_Service_Safebrowsing_ListUpdateResponse
-	 */
-	public function setListUpdateResponses($listUpdateResponses)
-	{
-		$this->listUpdateResponses = $listUpdateResponses;
-	}
-	/**
-	 * @return Google_Service_Safebrowsing_ListUpdateResponse
-	 */
-	public function getListUpdateResponses()
-	{
-		return $this->listUpdateResponses;
-	}
-	public function setMinimumWaitDuration($minimumWaitDuration)
-	{
-		$this->minimumWaitDuration = $minimumWaitDuration;
-	}
-	public function getMinimumWaitDuration()
-	{
-		return $this->minimumWaitDuration;
-	}
+  /**
+   * @param Google_Service_Safebrowsing_ListUpdateResponse[]
+   */
+  public function setListUpdateResponses($listUpdateResponses)
+  {
+    $this->listUpdateResponses = $listUpdateResponses;
+  }
+  /**
+   * @return Google_Service_Safebrowsing_ListUpdateResponse[]
+   */
+  public function getListUpdateResponses()
+  {
+    return $this->listUpdateResponses;
+  }
+  public function setMinimumWaitDuration($minimumWaitDuration)
+  {
+    $this->minimumWaitDuration = $minimumWaitDuration;
+  }
+  public function getMinimumWaitDuration()
+  {
+    return $this->minimumWaitDuration;
+  }
 }

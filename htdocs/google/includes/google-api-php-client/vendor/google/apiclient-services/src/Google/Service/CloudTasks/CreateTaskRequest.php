@@ -17,30 +17,30 @@
 
 class Google_Service_CloudTasks_CreateTaskRequest extends Google_Model
 {
-	public $responseView;
-	protected $taskType = 'Google_Service_CloudTasks_Task';
-	protected $taskDataType = '';
+  public $responseView;
+  protected $taskType = 'Google_Service_CloudTasks_Task';
+  protected $taskDataType = '';
 
-	public function setResponseView($responseView)
-	{
-		$this->responseView = $responseView;
-	}
-	public function getResponseView()
-	{
-		return $this->responseView;
-	}
-	/**
-	 * @param Google_Service_CloudTasks_Task
-	 */
-	public function setTask(Google_Service_CloudTasks_Task $task)
-	{
-		$this->task = $task;
-	}
-	/**
-	 * @return Google_Service_CloudTasks_Task
-	 */
-	public function getTask()
-	{
-		return $this->task;
-	}
+  public function setResponseView($responseView)
+  {
+    $this->responseView = $responseView;
+  }
+  public function getResponseView()
+  {
+    return $this->responseView;
+  }
+  /**
+   * @param Google_Service_CloudTasks_Task
+   */
+  public function setTask(Google_Service_CloudTasks_Task $task)
+  {
+    $this->task = $task;
+  }
+  /**
+   * @return Google_Service_CloudTasks_Task
+   */
+  public function getTask()
+  {
+    return $this->task;
+  }
 }

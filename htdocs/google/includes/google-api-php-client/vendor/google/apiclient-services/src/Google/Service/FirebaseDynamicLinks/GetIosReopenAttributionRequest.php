@@ -17,32 +17,32 @@
 
 class Google_Service_FirebaseDynamicLinks_GetIosReopenAttributionRequest extends Google_Model
 {
-	public $bundleId;
-	public $requestedLink;
-	public $sdkVersion;
+  public $bundleId;
+  public $requestedLink;
+  public $sdkVersion;
 
-	public function setBundleId($bundleId)
-	{
-		$this->bundleId = $bundleId;
-	}
-	public function getBundleId()
-	{
-		return $this->bundleId;
-	}
-	public function setRequestedLink($requestedLink)
-	{
-		$this->requestedLink = $requestedLink;
-	}
-	public function getRequestedLink()
-	{
-		return $this->requestedLink;
-	}
-	public function setSdkVersion($sdkVersion)
-	{
-		$this->sdkVersion = $sdkVersion;
-	}
-	public function getSdkVersion()
-	{
-		return $this->sdkVersion;
-	}
+  public function setBundleId($bundleId)
+  {
+    $this->bundleId = $bundleId;
+  }
+  public function getBundleId()
+  {
+    return $this->bundleId;
+  }
+  public function setRequestedLink($requestedLink)
+  {
+    $this->requestedLink = $requestedLink;
+  }
+  public function getRequestedLink()
+  {
+    return $this->requestedLink;
+  }
+  public function setSdkVersion($sdkVersion)
+  {
+    $this->sdkVersion = $sdkVersion;
+  }
+  public function getSdkVersion()
+  {
+    return $this->sdkVersion;
+  }
 }

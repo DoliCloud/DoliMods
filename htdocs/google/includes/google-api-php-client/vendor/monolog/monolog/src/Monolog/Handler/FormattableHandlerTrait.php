@@ -23,41 +23,41 @@ use Monolog\Formatter\LineFormatter;
  */
 trait FormattableHandlerTrait
 {
-	/**
-	 * @var FormatterInterface
-	 */
-	protected $formatter;
+    /**
+     * @var FormatterInterface
+     */
+    protected $formatter;
 
-	/**
-	 * {@inheritdoc}
-	 * @suppress PhanTypeMismatchReturn
-	 */
-	public function setFormatter(FormatterInterface $formatter): HandlerInterface
-	{
-		$this->formatter = $formatter;
+    /**
+     * {@inheritdoc}
+     * @suppress PhanTypeMismatchReturn
+     */
+    public function setFormatter(FormatterInterface $formatter): HandlerInterface
+    {
+        $this->formatter = $formatter;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getFormatter(): FormatterInterface
-	{
-		if (!$this->formatter) {
-			$this->formatter = $this->getDefaultFormatter();
-		}
+    /**
+     * {@inheritdoc}
+     */
+    public function getFormatter(): FormatterInterface
+    {
+        if (!$this->formatter) {
+            $this->formatter = $this->getDefaultFormatter();
+        }
 
-		return $this->formatter;
-	}
+        return $this->formatter;
+    }
 
-	/**
-	 * Gets the default formatter.
-	 *
-	 * Overwrite this if the LineFormatter is not a good default for your handler.
-	 */
-	protected function getDefaultFormatter(): FormatterInterface
-	{
-		return new LineFormatter();
-	}
+    /**
+     * Gets the default formatter.
+     *
+     * Overwrite this if the LineFormatter is not a good default for your handler.
+     */
+    protected function getDefaultFormatter(): FormatterInterface
+    {
+        return new LineFormatter();
+    }
 }

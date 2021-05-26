@@ -17,14 +17,14 @@
 
 class Google_Service_SearchConsole_MobileFriendlyIssue extends Google_Model
 {
-	public $rule;
+  public $rule;
 
-	public function setRule($rule)
-	{
-		$this->rule = $rule;
-	}
-	public function getRule()
-	{
-		return $this->rule;
-	}
+  public function setRule($rule)
+  {
+    $this->rule = $rule;
+  }
+  public function getRule()
+  {
+    return $this->rule;
+  }
 }

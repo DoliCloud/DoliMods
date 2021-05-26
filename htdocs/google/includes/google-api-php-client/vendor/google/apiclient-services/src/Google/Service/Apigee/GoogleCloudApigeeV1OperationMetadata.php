@@ -17,32 +17,32 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1OperationMetadata extends Google_Model
 {
-	public $operationType;
-	public $state;
-	public $targetResourceName;
+  public $operationType;
+  public $state;
+  public $targetResourceName;
 
-	public function setOperationType($operationType)
-	{
-		$this->operationType = $operationType;
-	}
-	public function getOperationType()
-	{
-		return $this->operationType;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setTargetResourceName($targetResourceName)
-	{
-		$this->targetResourceName = $targetResourceName;
-	}
-	public function getTargetResourceName()
-	{
-		return $this->targetResourceName;
-	}
+  public function setOperationType($operationType)
+  {
+    $this->operationType = $operationType;
+  }
+  public function getOperationType()
+  {
+    return $this->operationType;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setTargetResourceName($targetResourceName)
+  {
+    $this->targetResourceName = $targetResourceName;
+  }
+  public function getTargetResourceName()
+  {
+    return $this->targetResourceName;
+  }
 }

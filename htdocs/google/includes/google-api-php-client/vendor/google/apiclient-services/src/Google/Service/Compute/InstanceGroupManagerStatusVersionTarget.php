@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_InstanceGroupManagerStatusVersionTarget extends Google_Model
 {
-	public $isReached;
+  public $isReached;
 
-	public function setIsReached($isReached)
-	{
-		$this->isReached = $isReached;
-	}
-	public function getIsReached()
-	{
-		return $this->isReached;
-	}
+  public function setIsReached($isReached)
+  {
+    $this->isReached = $isReached;
+  }
+  public function getIsReached()
+  {
+    return $this->isReached;
+  }
 }

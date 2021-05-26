@@ -17,24 +17,24 @@
 
 class Google_Service_Compute_Tags extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $fingerprint;
-	public $items;
+  protected $collection_key = 'items';
+  public $fingerprint;
+  public $items;
 
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	public function getItems()
-	{
-		return $this->items;
-	}
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  public function getItems()
+  {
+    return $this->items;
+  }
 }

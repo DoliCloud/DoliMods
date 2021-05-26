@@ -17,32 +17,32 @@
 
 class Google_Service_CloudSearch_GSuitePrincipal extends Google_Model
 {
-	public $gsuiteDomain;
-	public $gsuiteGroupEmail;
-	public $gsuiteUserEmail;
+  public $gsuiteDomain;
+  public $gsuiteGroupEmail;
+  public $gsuiteUserEmail;
 
-	public function setGsuiteDomain($gsuiteDomain)
-	{
-		$this->gsuiteDomain = $gsuiteDomain;
-	}
-	public function getGsuiteDomain()
-	{
-		return $this->gsuiteDomain;
-	}
-	public function setGsuiteGroupEmail($gsuiteGroupEmail)
-	{
-		$this->gsuiteGroupEmail = $gsuiteGroupEmail;
-	}
-	public function getGsuiteGroupEmail()
-	{
-		return $this->gsuiteGroupEmail;
-	}
-	public function setGsuiteUserEmail($gsuiteUserEmail)
-	{
-		$this->gsuiteUserEmail = $gsuiteUserEmail;
-	}
-	public function getGsuiteUserEmail()
-	{
-		return $this->gsuiteUserEmail;
-	}
+  public function setGsuiteDomain($gsuiteDomain)
+  {
+    $this->gsuiteDomain = $gsuiteDomain;
+  }
+  public function getGsuiteDomain()
+  {
+    return $this->gsuiteDomain;
+  }
+  public function setGsuiteGroupEmail($gsuiteGroupEmail)
+  {
+    $this->gsuiteGroupEmail = $gsuiteGroupEmail;
+  }
+  public function getGsuiteGroupEmail()
+  {
+    return $this->gsuiteGroupEmail;
+  }
+  public function setGsuiteUserEmail($gsuiteUserEmail)
+  {
+    $this->gsuiteUserEmail = $gsuiteUserEmail;
+  }
+  public function getGsuiteUserEmail()
+  {
+    return $this->gsuiteUserEmail;
+  }
 }

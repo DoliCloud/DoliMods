@@ -17,32 +17,32 @@
 
 class Google_Service_YouTube_MembershipsDurationAtLevel extends Google_Model
 {
-	public $level;
-	public $memberSince;
-	public $memberTotalDurationMonths;
+  public $level;
+  public $memberSince;
+  public $memberTotalDurationMonths;
 
-	public function setLevel($level)
-	{
-		$this->level = $level;
-	}
-	public function getLevel()
-	{
-		return $this->level;
-	}
-	public function setMemberSince($memberSince)
-	{
-		$this->memberSince = $memberSince;
-	}
-	public function getMemberSince()
-	{
-		return $this->memberSince;
-	}
-	public function setMemberTotalDurationMonths($memberTotalDurationMonths)
-	{
-		$this->memberTotalDurationMonths = $memberTotalDurationMonths;
-	}
-	public function getMemberTotalDurationMonths()
-	{
-		return $this->memberTotalDurationMonths;
-	}
+  public function setLevel($level)
+  {
+    $this->level = $level;
+  }
+  public function getLevel()
+  {
+    return $this->level;
+  }
+  public function setMemberSince($memberSince)
+  {
+    $this->memberSince = $memberSince;
+  }
+  public function getMemberSince()
+  {
+    return $this->memberSince;
+  }
+  public function setMemberTotalDurationMonths($memberTotalDurationMonths)
+  {
+    $this->memberTotalDurationMonths = $memberTotalDurationMonths;
+  }
+  public function getMemberTotalDurationMonths()
+  {
+    return $this->memberTotalDurationMonths;
+  }
 }

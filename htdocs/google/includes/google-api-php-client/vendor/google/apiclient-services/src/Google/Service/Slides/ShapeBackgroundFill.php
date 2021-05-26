@@ -17,30 +17,30 @@
 
 class Google_Service_Slides_ShapeBackgroundFill extends Google_Model
 {
-	public $propertyState;
-	protected $solidFillType = 'Google_Service_Slides_SolidFill';
-	protected $solidFillDataType = '';
+  public $propertyState;
+  protected $solidFillType = 'Google_Service_Slides_SolidFill';
+  protected $solidFillDataType = '';
 
-	public function setPropertyState($propertyState)
-	{
-		$this->propertyState = $propertyState;
-	}
-	public function getPropertyState()
-	{
-		return $this->propertyState;
-	}
-	/**
-	 * @param Google_Service_Slides_SolidFill
-	 */
-	public function setSolidFill(Google_Service_Slides_SolidFill $solidFill)
-	{
-		$this->solidFill = $solidFill;
-	}
-	/**
-	 * @return Google_Service_Slides_SolidFill
-	 */
-	public function getSolidFill()
-	{
-		return $this->solidFill;
-	}
+  public function setPropertyState($propertyState)
+  {
+    $this->propertyState = $propertyState;
+  }
+  public function getPropertyState()
+  {
+    return $this->propertyState;
+  }
+  /**
+   * @param Google_Service_Slides_SolidFill
+   */
+  public function setSolidFill(Google_Service_Slides_SolidFill $solidFill)
+  {
+    $this->solidFill = $solidFill;
+  }
+  /**
+   * @return Google_Service_Slides_SolidFill
+   */
+  public function getSolidFill()
+  {
+    return $this->solidFill;
+  }
 }

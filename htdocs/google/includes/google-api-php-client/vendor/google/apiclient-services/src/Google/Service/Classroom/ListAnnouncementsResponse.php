@@ -17,31 +17,31 @@
 
 class Google_Service_Classroom_ListAnnouncementsResponse extends Google_Collection
 {
-	protected $collection_key = 'announcements';
-	protected $announcementsType = 'Google_Service_Classroom_Announcement';
-	protected $announcementsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'announcements';
+  protected $announcementsType = 'Google_Service_Classroom_Announcement';
+  protected $announcementsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Classroom_Announcement
-	 */
-	public function setAnnouncements($announcements)
-	{
-		$this->announcements = $announcements;
-	}
-	/**
-	 * @return Google_Service_Classroom_Announcement
-	 */
-	public function getAnnouncements()
-	{
-		return $this->announcements;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Classroom_Announcement[]
+   */
+  public function setAnnouncements($announcements)
+  {
+    $this->announcements = $announcements;
+  }
+  /**
+   * @return Google_Service_Classroom_Announcement[]
+   */
+  public function getAnnouncements()
+  {
+    return $this->announcements;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

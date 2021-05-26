@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_AdvertiserTargetingConfig extends Google_Model
 {
-	public $exemptTvFromViewabilityTargeting;
+  public $exemptTvFromViewabilityTargeting;
 
-	public function setExemptTvFromViewabilityTargeting($exemptTvFromViewabilityTargeting)
-	{
-		$this->exemptTvFromViewabilityTargeting = $exemptTvFromViewabilityTargeting;
-	}
-	public function getExemptTvFromViewabilityTargeting()
-	{
-		return $this->exemptTvFromViewabilityTargeting;
-	}
+  public function setExemptTvFromViewabilityTargeting($exemptTvFromViewabilityTargeting)
+  {
+    $this->exemptTvFromViewabilityTargeting = $exemptTvFromViewabilityTargeting;
+  }
+  public function getExemptTvFromViewabilityTargeting()
+  {
+    return $this->exemptTvFromViewabilityTargeting;
+  }
 }

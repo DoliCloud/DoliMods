@@ -17,23 +17,23 @@
 
 class Google_Service_Docs_Location extends Google_Model
 {
-	public $index;
-	public $segmentId;
+  public $index;
+  public $segmentId;
 
-	public function setIndex($index)
-	{
-		$this->index = $index;
-	}
-	public function getIndex()
-	{
-		return $this->index;
-	}
-	public function setSegmentId($segmentId)
-	{
-		$this->segmentId = $segmentId;
-	}
-	public function getSegmentId()
-	{
-		return $this->segmentId;
-	}
+  public function setIndex($index)
+  {
+    $this->index = $index;
+  }
+  public function getIndex()
+  {
+    return $this->index;
+  }
+  public function setSegmentId($segmentId)
+  {
+    $this->segmentId = $segmentId;
+  }
+  public function getSegmentId()
+  {
+    return $this->segmentId;
+  }
 }

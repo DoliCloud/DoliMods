@@ -17,39 +17,39 @@
 
 class Google_Service_CloudIot_PublicKeyCertificate extends Google_Model
 {
-	public $certificate;
-	public $format;
-	protected $x509DetailsType = 'Google_Service_CloudIot_X509CertificateDetails';
-	protected $x509DetailsDataType = '';
+  public $certificate;
+  public $format;
+  protected $x509DetailsType = 'Google_Service_CloudIot_X509CertificateDetails';
+  protected $x509DetailsDataType = '';
 
-	public function setCertificate($certificate)
-	{
-		$this->certificate = $certificate;
-	}
-	public function getCertificate()
-	{
-		return $this->certificate;
-	}
-	public function setFormat($format)
-	{
-		$this->format = $format;
-	}
-	public function getFormat()
-	{
-		return $this->format;
-	}
-	/**
-	 * @param Google_Service_CloudIot_X509CertificateDetails
-	 */
-	public function setX509Details(Google_Service_CloudIot_X509CertificateDetails $x509Details)
-	{
-		$this->x509Details = $x509Details;
-	}
-	/**
-	 * @return Google_Service_CloudIot_X509CertificateDetails
-	 */
-	public function getX509Details()
-	{
-		return $this->x509Details;
-	}
+  public function setCertificate($certificate)
+  {
+    $this->certificate = $certificate;
+  }
+  public function getCertificate()
+  {
+    return $this->certificate;
+  }
+  public function setFormat($format)
+  {
+    $this->format = $format;
+  }
+  public function getFormat()
+  {
+    return $this->format;
+  }
+  /**
+   * @param Google_Service_CloudIot_X509CertificateDetails
+   */
+  public function setX509Details(Google_Service_CloudIot_X509CertificateDetails $x509Details)
+  {
+    $this->x509Details = $x509Details;
+  }
+  /**
+   * @return Google_Service_CloudIot_X509CertificateDetails
+   */
+  public function getX509Details()
+  {
+    return $this->x509Details;
+  }
 }

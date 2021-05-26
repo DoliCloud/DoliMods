@@ -17,40 +17,40 @@
 
 class Google_Service_Directory_Schemas extends Google_Collection
 {
-	protected $collection_key = 'schemas';
-	public $etag;
-	public $kind;
-	protected $schemasType = 'Google_Service_Directory_Schema';
-	protected $schemasDataType = 'array';
+  protected $collection_key = 'schemas';
+  public $etag;
+  public $kind;
+  protected $schemasType = 'Google_Service_Directory_Schema';
+  protected $schemasDataType = 'array';
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Directory_Schema
-	 */
-	public function setSchemas($schemas)
-	{
-		$this->schemas = $schemas;
-	}
-	/**
-	 * @return Google_Service_Directory_Schema
-	 */
-	public function getSchemas()
-	{
-		return $this->schemas;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Directory_Schema[]
+   */
+  public function setSchemas($schemas)
+  {
+    $this->schemas = $schemas;
+  }
+  /**
+   * @return Google_Service_Directory_Schema[]
+   */
+  public function getSchemas()
+  {
+    return $this->schemas;
+  }
 }

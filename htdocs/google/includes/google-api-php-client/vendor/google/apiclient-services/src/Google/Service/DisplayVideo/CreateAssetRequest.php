@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_CreateAssetRequest extends Google_Model
 {
-	public $filename;
+  public $filename;
 
-	public function setFilename($filename)
-	{
-		$this->filename = $filename;
-	}
-	public function getFilename()
-	{
-		return $this->filename;
-	}
+  public function setFilename($filename)
+  {
+    $this->filename = $filename;
+  }
+  public function getFilename()
+  {
+    return $this->filename;
+  }
 }

@@ -17,56 +17,56 @@
 
 class Google_Service_Monitoring_MetricAbsence extends Google_Collection
 {
-	protected $collection_key = 'aggregations';
-	protected $aggregationsType = 'Google_Service_Monitoring_Aggregation';
-	protected $aggregationsDataType = 'array';
-	public $duration;
-	public $filter;
-	protected $triggerType = 'Google_Service_Monitoring_Trigger';
-	protected $triggerDataType = '';
+  protected $collection_key = 'aggregations';
+  protected $aggregationsType = 'Google_Service_Monitoring_Aggregation';
+  protected $aggregationsDataType = 'array';
+  public $duration;
+  public $filter;
+  protected $triggerType = 'Google_Service_Monitoring_Trigger';
+  protected $triggerDataType = '';
 
-	/**
-	 * @param Google_Service_Monitoring_Aggregation
-	 */
-	public function setAggregations($aggregations)
-	{
-		$this->aggregations = $aggregations;
-	}
-	/**
-	 * @return Google_Service_Monitoring_Aggregation
-	 */
-	public function getAggregations()
-	{
-		return $this->aggregations;
-	}
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	public function setFilter($filter)
-	{
-		$this->filter = $filter;
-	}
-	public function getFilter()
-	{
-		return $this->filter;
-	}
-	/**
-	 * @param Google_Service_Monitoring_Trigger
-	 */
-	public function setTrigger(Google_Service_Monitoring_Trigger $trigger)
-	{
-		$this->trigger = $trigger;
-	}
-	/**
-	 * @return Google_Service_Monitoring_Trigger
-	 */
-	public function getTrigger()
-	{
-		return $this->trigger;
-	}
+  /**
+   * @param Google_Service_Monitoring_Aggregation[]
+   */
+  public function setAggregations($aggregations)
+  {
+    $this->aggregations = $aggregations;
+  }
+  /**
+   * @return Google_Service_Monitoring_Aggregation[]
+   */
+  public function getAggregations()
+  {
+    return $this->aggregations;
+  }
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  public function setFilter($filter)
+  {
+    $this->filter = $filter;
+  }
+  public function getFilter()
+  {
+    return $this->filter;
+  }
+  /**
+   * @param Google_Service_Monitoring_Trigger
+   */
+  public function setTrigger(Google_Service_Monitoring_Trigger $trigger)
+  {
+    $this->trigger = $trigger;
+  }
+  /**
+   * @return Google_Service_Monitoring_Trigger
+   */
+  public function getTrigger()
+  {
+    return $this->trigger;
+  }
 }

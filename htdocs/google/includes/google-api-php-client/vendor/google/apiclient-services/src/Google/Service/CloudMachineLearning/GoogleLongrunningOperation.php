@@ -17,51 +17,51 @@
 
 class Google_Service_CloudMachineLearning_GoogleLongrunningOperation extends Google_Model
 {
-	public $done;
-	protected $errorType = 'Google_Service_CloudMachineLearning_GoogleRpcStatus';
-	protected $errorDataType = '';
-	public $metadata;
-	public $name;
-	public $response;
+  public $done;
+  protected $errorType = 'Google_Service_CloudMachineLearning_GoogleRpcStatus';
+  protected $errorDataType = '';
+  public $metadata;
+  public $name;
+  public $response;
 
-	public function setDone($done)
-	{
-		$this->done = $done;
-	}
-	public function getDone()
-	{
-		return $this->done;
-	}
-	public function setError(Google_Service_CloudMachineLearning_GoogleRpcStatus $error)
-	{
-		$this->error = $error;
-	}
-	public function getError()
-	{
-		return $this->error;
-	}
-	public function setMetadata($metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setResponse($response)
-	{
-		$this->response = $response;
-	}
-	public function getResponse()
-	{
-		return $this->response;
-	}
+  public function setDone($done)
+  {
+    $this->done = $done;
+  }
+  public function getDone()
+  {
+    return $this->done;
+  }
+  public function setError(Google_Service_CloudMachineLearning_GoogleRpcStatus $error)
+  {
+    $this->error = $error;
+  }
+  public function getError()
+  {
+    return $this->error;
+  }
+  public function setMetadata($metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setResponse($response)
+  {
+    $this->response = $response;
+  }
+  public function getResponse()
+  {
+    return $this->response;
+  }
 }

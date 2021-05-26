@@ -17,23 +17,23 @@
 
 class Google_Service_NetworkManagement_AbortInfo extends Google_Model
 {
-	public $cause;
-	public $resourceUri;
+  public $cause;
+  public $resourceUri;
 
-	public function setCause($cause)
-	{
-		$this->cause = $cause;
-	}
-	public function getCause()
-	{
-		return $this->cause;
-	}
-	public function setResourceUri($resourceUri)
-	{
-		$this->resourceUri = $resourceUri;
-	}
-	public function getResourceUri()
-	{
-		return $this->resourceUri;
-	}
+  public function setCause($cause)
+  {
+    $this->cause = $cause;
+  }
+  public function getCause()
+  {
+    return $this->cause;
+  }
+  public function setResourceUri($resourceUri)
+  {
+    $this->resourceUri = $resourceUri;
+  }
+  public function getResourceUri()
+  {
+    return $this->resourceUri;
+  }
 }

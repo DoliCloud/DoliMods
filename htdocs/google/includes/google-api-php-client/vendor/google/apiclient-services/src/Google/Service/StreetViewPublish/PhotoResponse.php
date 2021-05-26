@@ -17,37 +17,37 @@
 
 class Google_Service_StreetViewPublish_PhotoResponse extends Google_Model
 {
-	protected $photoType = 'Google_Service_StreetViewPublish_Photo';
-	protected $photoDataType = '';
-	protected $statusType = 'Google_Service_StreetViewPublish_Status';
-	protected $statusDataType = '';
+  protected $photoType = 'Google_Service_StreetViewPublish_Photo';
+  protected $photoDataType = '';
+  protected $statusType = 'Google_Service_StreetViewPublish_Status';
+  protected $statusDataType = '';
 
-	/**
-	 * @param Google_Service_StreetViewPublish_Photo
-	 */
-	public function setPhoto(Google_Service_StreetViewPublish_Photo $photo)
-	{
-		$this->photo = $photo;
-	}
-	/**
-	 * @return Google_Service_StreetViewPublish_Photo
-	 */
-	public function getPhoto()
-	{
-		return $this->photo;
-	}
-	/**
-	 * @param Google_Service_StreetViewPublish_Status
-	 */
-	public function setStatus(Google_Service_StreetViewPublish_Status $status)
-	{
-		$this->status = $status;
-	}
-	/**
-	 * @return Google_Service_StreetViewPublish_Status
-	 */
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  /**
+   * @param Google_Service_StreetViewPublish_Photo
+   */
+  public function setPhoto(Google_Service_StreetViewPublish_Photo $photo)
+  {
+    $this->photo = $photo;
+  }
+  /**
+   * @return Google_Service_StreetViewPublish_Photo
+   */
+  public function getPhoto()
+  {
+    return $this->photo;
+  }
+  /**
+   * @param Google_Service_StreetViewPublish_Status
+   */
+  public function setStatus(Google_Service_StreetViewPublish_Status $status)
+  {
+    $this->status = $status;
+  }
+  /**
+   * @return Google_Service_StreetViewPublish_Status
+   */
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_ReservationsResizeRequest extends Google_Model
 {
-	public $specificSkuCount;
+  public $specificSkuCount;
 
-	public function setSpecificSkuCount($specificSkuCount)
-	{
-		$this->specificSkuCount = $specificSkuCount;
-	}
-	public function getSpecificSkuCount()
-	{
-		return $this->specificSkuCount;
-	}
+  public function setSpecificSkuCount($specificSkuCount)
+  {
+    $this->specificSkuCount = $specificSkuCount;
+  }
+  public function getSpecificSkuCount()
+  {
+    return $this->specificSkuCount;
+  }
 }

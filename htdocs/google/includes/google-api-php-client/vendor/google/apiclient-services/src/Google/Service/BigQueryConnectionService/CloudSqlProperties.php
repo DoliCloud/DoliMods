@@ -17,48 +17,48 @@
 
 class Google_Service_BigQueryConnectionService_CloudSqlProperties extends Google_Model
 {
-	protected $credentialType = 'Google_Service_BigQueryConnectionService_CloudSqlCredential';
-	protected $credentialDataType = '';
-	public $database;
-	public $instanceId;
-	public $type;
+  protected $credentialType = 'Google_Service_BigQueryConnectionService_CloudSqlCredential';
+  protected $credentialDataType = '';
+  public $database;
+  public $instanceId;
+  public $type;
 
-	/**
-	 * @param Google_Service_BigQueryConnectionService_CloudSqlCredential
-	 */
-	public function setCredential(Google_Service_BigQueryConnectionService_CloudSqlCredential $credential)
-	{
-		$this->credential = $credential;
-	}
-	/**
-	 * @return Google_Service_BigQueryConnectionService_CloudSqlCredential
-	 */
-	public function getCredential()
-	{
-		return $this->credential;
-	}
-	public function setDatabase($database)
-	{
-		$this->database = $database;
-	}
-	public function getDatabase()
-	{
-		return $this->database;
-	}
-	public function setInstanceId($instanceId)
-	{
-		$this->instanceId = $instanceId;
-	}
-	public function getInstanceId()
-	{
-		return $this->instanceId;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  /**
+   * @param Google_Service_BigQueryConnectionService_CloudSqlCredential
+   */
+  public function setCredential(Google_Service_BigQueryConnectionService_CloudSqlCredential $credential)
+  {
+    $this->credential = $credential;
+  }
+  /**
+   * @return Google_Service_BigQueryConnectionService_CloudSqlCredential
+   */
+  public function getCredential()
+  {
+    return $this->credential;
+  }
+  public function setDatabase($database)
+  {
+    $this->database = $database;
+  }
+  public function getDatabase()
+  {
+    return $this->database;
+  }
+  public function setInstanceId($instanceId)
+  {
+    $this->instanceId = $instanceId;
+  }
+  public function getInstanceId()
+  {
+    return $this->instanceId;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

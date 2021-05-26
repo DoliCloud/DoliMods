@@ -17,40 +17,40 @@
 
 class Google_Service_Docs_TableOfContents extends Google_Collection
 {
-	protected $collection_key = 'suggestedInsertionIds';
-	protected $contentType = 'Google_Service_Docs_StructuralElement';
-	protected $contentDataType = 'array';
-	public $suggestedDeletionIds;
-	public $suggestedInsertionIds;
+  protected $collection_key = 'suggestedInsertionIds';
+  protected $contentType = 'Google_Service_Docs_StructuralElement';
+  protected $contentDataType = 'array';
+  public $suggestedDeletionIds;
+  public $suggestedInsertionIds;
 
-	/**
-	 * @param Google_Service_Docs_StructuralElement
-	 */
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	/**
-	 * @return Google_Service_Docs_StructuralElement
-	 */
-	public function getContent()
-	{
-		return $this->content;
-	}
-	public function setSuggestedDeletionIds($suggestedDeletionIds)
-	{
-		$this->suggestedDeletionIds = $suggestedDeletionIds;
-	}
-	public function getSuggestedDeletionIds()
-	{
-		return $this->suggestedDeletionIds;
-	}
-	public function setSuggestedInsertionIds($suggestedInsertionIds)
-	{
-		$this->suggestedInsertionIds = $suggestedInsertionIds;
-	}
-	public function getSuggestedInsertionIds()
-	{
-		return $this->suggestedInsertionIds;
-	}
+  /**
+   * @param Google_Service_Docs_StructuralElement[]
+   */
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  /**
+   * @return Google_Service_Docs_StructuralElement[]
+   */
+  public function getContent()
+  {
+    return $this->content;
+  }
+  public function setSuggestedDeletionIds($suggestedDeletionIds)
+  {
+    $this->suggestedDeletionIds = $suggestedDeletionIds;
+  }
+  public function getSuggestedDeletionIds()
+  {
+    return $this->suggestedDeletionIds;
+  }
+  public function setSuggestedInsertionIds($suggestedInsertionIds)
+  {
+    $this->suggestedInsertionIds = $suggestedInsertionIds;
+  }
+  public function getSuggestedInsertionIds()
+  {
+    return $this->suggestedInsertionIds;
+  }
 }

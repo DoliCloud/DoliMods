@@ -17,31 +17,31 @@
 
 class Google_Service_Firestore_GoogleFirestoreAdminV1ListFieldsResponse extends Google_Collection
 {
-	protected $collection_key = 'fields';
-	protected $fieldsType = 'Google_Service_Firestore_GoogleFirestoreAdminV1Field';
-	protected $fieldsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'fields';
+  protected $fieldsType = 'Google_Service_Firestore_GoogleFirestoreAdminV1Field';
+  protected $fieldsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Firestore_GoogleFirestoreAdminV1Field
-	 */
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	/**
-	 * @return Google_Service_Firestore_GoogleFirestoreAdminV1Field
-	 */
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Firestore_GoogleFirestoreAdminV1Field[]
+   */
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  /**
+   * @return Google_Service_Firestore_GoogleFirestoreAdminV1Field[]
+   */
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Spanner_Partition extends Google_Model
 {
-	public $partitionToken;
+  public $partitionToken;
 
-	public function setPartitionToken($partitionToken)
-	{
-		$this->partitionToken = $partitionToken;
-	}
-	public function getPartitionToken()
-	{
-		return $this->partitionToken;
-	}
+  public function setPartitionToken($partitionToken)
+  {
+    $this->partitionToken = $partitionToken;
+  }
+  public function getPartitionToken()
+  {
+    return $this->partitionToken;
+  }
 }

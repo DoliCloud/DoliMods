@@ -17,23 +17,23 @@
 
 class Google_Service_RealTimeBidding_MediaFile extends Google_Model
 {
-	public $bitrate;
-	public $mimeType;
+  public $bitrate;
+  public $mimeType;
 
-	public function setBitrate($bitrate)
-	{
-		$this->bitrate = $bitrate;
-	}
-	public function getBitrate()
-	{
-		return $this->bitrate;
-	}
-	public function setMimeType($mimeType)
-	{
-		$this->mimeType = $mimeType;
-	}
-	public function getMimeType()
-	{
-		return $this->mimeType;
-	}
+  public function setBitrate($bitrate)
+  {
+    $this->bitrate = $bitrate;
+  }
+  public function getBitrate()
+  {
+    return $this->bitrate;
+  }
+  public function setMimeType($mimeType)
+  {
+    $this->mimeType = $mimeType;
+  }
+  public function getMimeType()
+  {
+    return $this->mimeType;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_PacketMirroringMirroredResourceInfoInstanceInfo extends Google_Model
 {
-	public $canonicalUrl;
-	public $url;
+  public $canonicalUrl;
+  public $url;
 
-	public function setCanonicalUrl($canonicalUrl)
-	{
-		$this->canonicalUrl = $canonicalUrl;
-	}
-	public function getCanonicalUrl()
-	{
-		return $this->canonicalUrl;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setCanonicalUrl($canonicalUrl)
+  {
+    $this->canonicalUrl = $canonicalUrl;
+  }
+  public function getCanonicalUrl()
+  {
+    return $this->canonicalUrl;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

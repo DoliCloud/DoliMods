@@ -17,30 +17,30 @@
 
 class Google_Service_CloudTalentSolution_CompensationHistogramRequest extends Google_Model
 {
-	protected $bucketingOptionType = 'Google_Service_CloudTalentSolution_NumericBucketingOption';
-	protected $bucketingOptionDataType = '';
-	public $type;
+  protected $bucketingOptionType = 'Google_Service_CloudTalentSolution_NumericBucketingOption';
+  protected $bucketingOptionDataType = '';
+  public $type;
 
-	/**
-	 * @param Google_Service_CloudTalentSolution_NumericBucketingOption
-	 */
-	public function setBucketingOption(Google_Service_CloudTalentSolution_NumericBucketingOption $bucketingOption)
-	{
-		$this->bucketingOption = $bucketingOption;
-	}
-	/**
-	 * @return Google_Service_CloudTalentSolution_NumericBucketingOption
-	 */
-	public function getBucketingOption()
-	{
-		return $this->bucketingOption;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  /**
+   * @param Google_Service_CloudTalentSolution_NumericBucketingOption
+   */
+  public function setBucketingOption(Google_Service_CloudTalentSolution_NumericBucketingOption $bucketingOption)
+  {
+    $this->bucketingOption = $bucketingOption;
+  }
+  /**
+   * @return Google_Service_CloudTalentSolution_NumericBucketingOption
+   */
+  public function getBucketingOption()
+  {
+    return $this->bucketingOption;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

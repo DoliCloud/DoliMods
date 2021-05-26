@@ -17,14 +17,14 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1InsightRecommendationReference extends Google_Model
 {
-	public $recommendation;
+  public $recommendation;
 
-	public function setRecommendation($recommendation)
-	{
-		$this->recommendation = $recommendation;
-	}
-	public function getRecommendation()
-	{
-		return $this->recommendation;
-	}
+  public function setRecommendation($recommendation)
+  {
+    $this->recommendation = $recommendation;
+  }
+  public function getRecommendation()
+  {
+    return $this->recommendation;
+  }
 }

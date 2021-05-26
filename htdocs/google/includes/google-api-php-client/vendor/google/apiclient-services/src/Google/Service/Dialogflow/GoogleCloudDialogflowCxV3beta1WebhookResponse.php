@@ -17,80 +17,80 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponse extends Google_Model
 {
-	protected $fulfillmentResponseType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse';
-	protected $fulfillmentResponseDataType = '';
-	protected $pageInfoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo';
-	protected $pageInfoDataType = '';
-	public $payload;
-	protected $sessionInfoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo';
-	protected $sessionInfoDataType = '';
-	public $targetFlow;
-	public $targetPage;
+  protected $fulfillmentResponseType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse';
+  protected $fulfillmentResponseDataType = '';
+  protected $pageInfoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo';
+  protected $pageInfoDataType = '';
+  public $payload;
+  protected $sessionInfoType = 'Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo';
+  protected $sessionInfoDataType = '';
+  public $targetFlow;
+  public $targetPage;
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse
-	 */
-	public function setFulfillmentResponse(Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse $fulfillmentResponse)
-	{
-		$this->fulfillmentResponse = $fulfillmentResponse;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse
-	 */
-	public function getFulfillmentResponse()
-	{
-		return $this->fulfillmentResponse;
-	}
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo
-	 */
-	public function setPageInfo(Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo $pageInfo)
-	{
-		$this->pageInfo = $pageInfo;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo
-	 */
-	public function getPageInfo()
-	{
-		return $this->pageInfo;
-	}
-	public function setPayload($payload)
-	{
-		$this->payload = $payload;
-	}
-	public function getPayload()
-	{
-		return $this->payload;
-	}
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo
-	 */
-	public function setSessionInfo(Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo $sessionInfo)
-	{
-		$this->sessionInfo = $sessionInfo;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo
-	 */
-	public function getSessionInfo()
-	{
-		return $this->sessionInfo;
-	}
-	public function setTargetFlow($targetFlow)
-	{
-		$this->targetFlow = $targetFlow;
-	}
-	public function getTargetFlow()
-	{
-		return $this->targetFlow;
-	}
-	public function setTargetPage($targetPage)
-	{
-		$this->targetPage = $targetPage;
-	}
-	public function getTargetPage()
-	{
-		return $this->targetPage;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse
+   */
+  public function setFulfillmentResponse(Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse $fulfillmentResponse)
+  {
+    $this->fulfillmentResponse = $fulfillmentResponse;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse
+   */
+  public function getFulfillmentResponse()
+  {
+    return $this->fulfillmentResponse;
+  }
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo
+   */
+  public function setPageInfo(Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo $pageInfo)
+  {
+    $this->pageInfo = $pageInfo;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1PageInfo
+   */
+  public function getPageInfo()
+  {
+    return $this->pageInfo;
+  }
+  public function setPayload($payload)
+  {
+    $this->payload = $payload;
+  }
+  public function getPayload()
+  {
+    return $this->payload;
+  }
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo
+   */
+  public function setSessionInfo(Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo $sessionInfo)
+  {
+    $this->sessionInfo = $sessionInfo;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1SessionInfo
+   */
+  public function getSessionInfo()
+  {
+    return $this->sessionInfo;
+  }
+  public function setTargetFlow($targetFlow)
+  {
+    $this->targetFlow = $targetFlow;
+  }
+  public function getTargetFlow()
+  {
+    return $this->targetFlow;
+  }
+  public function setTargetPage($targetPage)
+  {
+    $this->targetPage = $targetPage;
+  }
+  public function getTargetPage()
+  {
+    return $this->targetPage;
+  }
 }

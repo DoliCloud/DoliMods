@@ -17,33 +17,33 @@
 
 class Google_Service_ShoppingContent_CarriersCarrier extends Google_Collection
 {
-	protected $collection_key = 'services';
-	public $country;
-	public $name;
-	public $services;
+  protected $collection_key = 'services';
+  public $country;
+  public $name;
+  public $services;
 
-	public function setCountry($country)
-	{
-		$this->country = $country;
-	}
-	public function getCountry()
-	{
-		return $this->country;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setServices($services)
-	{
-		$this->services = $services;
-	}
-	public function getServices()
-	{
-		return $this->services;
-	}
+  public function setCountry($country)
+  {
+    $this->country = $country;
+  }
+  public function getCountry()
+  {
+    return $this->country;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setServices($services)
+  {
+    $this->services = $services;
+  }
+  public function getServices()
+  {
+    return $this->services;
+  }
 }

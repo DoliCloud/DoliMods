@@ -17,48 +17,48 @@
 
 class Google_Service_AdExchangeBuyer_UpdatePrivateAuctionProposalRequest extends Google_Model
 {
-	public $externalDealId;
-	protected $noteType = 'Google_Service_AdExchangeBuyer_MarketplaceNote';
-	protected $noteDataType = '';
-	public $proposalRevisionNumber;
-	public $updateAction;
+  public $externalDealId;
+  protected $noteType = 'Google_Service_AdExchangeBuyer_MarketplaceNote';
+  protected $noteDataType = '';
+  public $proposalRevisionNumber;
+  public $updateAction;
 
-	public function setExternalDealId($externalDealId)
-	{
-		$this->externalDealId = $externalDealId;
-	}
-	public function getExternalDealId()
-	{
-		return $this->externalDealId;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyer_MarketplaceNote
-	 */
-	public function setNote(Google_Service_AdExchangeBuyer_MarketplaceNote $note)
-	{
-		$this->note = $note;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyer_MarketplaceNote
-	 */
-	public function getNote()
-	{
-		return $this->note;
-	}
-	public function setProposalRevisionNumber($proposalRevisionNumber)
-	{
-		$this->proposalRevisionNumber = $proposalRevisionNumber;
-	}
-	public function getProposalRevisionNumber()
-	{
-		return $this->proposalRevisionNumber;
-	}
-	public function setUpdateAction($updateAction)
-	{
-		$this->updateAction = $updateAction;
-	}
-	public function getUpdateAction()
-	{
-		return $this->updateAction;
-	}
+  public function setExternalDealId($externalDealId)
+  {
+    $this->externalDealId = $externalDealId;
+  }
+  public function getExternalDealId()
+  {
+    return $this->externalDealId;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyer_MarketplaceNote
+   */
+  public function setNote(Google_Service_AdExchangeBuyer_MarketplaceNote $note)
+  {
+    $this->note = $note;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyer_MarketplaceNote
+   */
+  public function getNote()
+  {
+    return $this->note;
+  }
+  public function setProposalRevisionNumber($proposalRevisionNumber)
+  {
+    $this->proposalRevisionNumber = $proposalRevisionNumber;
+  }
+  public function getProposalRevisionNumber()
+  {
+    return $this->proposalRevisionNumber;
+  }
+  public function setUpdateAction($updateAction)
+  {
+    $this->updateAction = $updateAction;
+  }
+  public function getUpdateAction()
+  {
+    return $this->updateAction;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_UrlMapsScopedList extends Google_Collection
 {
-	protected $collection_key = 'urlMaps';
-	protected $urlMapsType = 'Google_Service_Compute_UrlMap';
-	protected $urlMapsDataType = 'array';
-	protected $warningType = 'Google_Service_Compute_UrlMapsScopedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'urlMaps';
+  protected $urlMapsType = 'Google_Service_Compute_UrlMap';
+  protected $urlMapsDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_UrlMapsScopedListWarning';
+  protected $warningDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_UrlMap
-	 */
-	public function setUrlMaps($urlMaps)
-	{
-		$this->urlMaps = $urlMaps;
-	}
-	/**
-	 * @return Google_Service_Compute_UrlMap
-	 */
-	public function getUrlMaps()
-	{
-		return $this->urlMaps;
-	}
-	/**
-	 * @param Google_Service_Compute_UrlMapsScopedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_UrlMapsScopedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_UrlMapsScopedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Compute_UrlMap[]
+   */
+  public function setUrlMaps($urlMaps)
+  {
+    $this->urlMaps = $urlMaps;
+  }
+  /**
+   * @return Google_Service_Compute_UrlMap[]
+   */
+  public function getUrlMaps()
+  {
+    return $this->urlMaps;
+  }
+  /**
+   * @param Google_Service_Compute_UrlMapsScopedListWarning
+   */
+  public function setWarning(Google_Service_Compute_UrlMapsScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_UrlMapsScopedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

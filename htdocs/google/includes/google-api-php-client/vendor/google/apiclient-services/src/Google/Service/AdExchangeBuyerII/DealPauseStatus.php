@@ -17,50 +17,50 @@
 
 class Google_Service_AdExchangeBuyerII_DealPauseStatus extends Google_Model
 {
-	public $buyerPauseReason;
-	public $firstPausedBy;
-	public $hasBuyerPaused;
-	public $hasSellerPaused;
-	public $sellerPauseReason;
+  public $buyerPauseReason;
+  public $firstPausedBy;
+  public $hasBuyerPaused;
+  public $hasSellerPaused;
+  public $sellerPauseReason;
 
-	public function setBuyerPauseReason($buyerPauseReason)
-	{
-		$this->buyerPauseReason = $buyerPauseReason;
-	}
-	public function getBuyerPauseReason()
-	{
-		return $this->buyerPauseReason;
-	}
-	public function setFirstPausedBy($firstPausedBy)
-	{
-		$this->firstPausedBy = $firstPausedBy;
-	}
-	public function getFirstPausedBy()
-	{
-		return $this->firstPausedBy;
-	}
-	public function setHasBuyerPaused($hasBuyerPaused)
-	{
-		$this->hasBuyerPaused = $hasBuyerPaused;
-	}
-	public function getHasBuyerPaused()
-	{
-		return $this->hasBuyerPaused;
-	}
-	public function setHasSellerPaused($hasSellerPaused)
-	{
-		$this->hasSellerPaused = $hasSellerPaused;
-	}
-	public function getHasSellerPaused()
-	{
-		return $this->hasSellerPaused;
-	}
-	public function setSellerPauseReason($sellerPauseReason)
-	{
-		$this->sellerPauseReason = $sellerPauseReason;
-	}
-	public function getSellerPauseReason()
-	{
-		return $this->sellerPauseReason;
-	}
+  public function setBuyerPauseReason($buyerPauseReason)
+  {
+    $this->buyerPauseReason = $buyerPauseReason;
+  }
+  public function getBuyerPauseReason()
+  {
+    return $this->buyerPauseReason;
+  }
+  public function setFirstPausedBy($firstPausedBy)
+  {
+    $this->firstPausedBy = $firstPausedBy;
+  }
+  public function getFirstPausedBy()
+  {
+    return $this->firstPausedBy;
+  }
+  public function setHasBuyerPaused($hasBuyerPaused)
+  {
+    $this->hasBuyerPaused = $hasBuyerPaused;
+  }
+  public function getHasBuyerPaused()
+  {
+    return $this->hasBuyerPaused;
+  }
+  public function setHasSellerPaused($hasSellerPaused)
+  {
+    $this->hasSellerPaused = $hasSellerPaused;
+  }
+  public function getHasSellerPaused()
+  {
+    return $this->hasSellerPaused;
+  }
+  public function setSellerPauseReason($sellerPauseReason)
+  {
+    $this->sellerPauseReason = $sellerPauseReason;
+  }
+  public function getSellerPauseReason()
+  {
+    return $this->sellerPauseReason;
+  }
 }

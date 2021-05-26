@@ -17,58 +17,58 @@
 
 class Google_Service_Dataflow_ReportWorkItemStatusRequest extends Google_Collection
 {
-	protected $collection_key = 'workItemStatuses';
-	public $currentWorkerTime;
-	public $location;
-	public $unifiedWorkerRequest;
-	protected $workItemStatusesType = 'Google_Service_Dataflow_WorkItemStatus';
-	protected $workItemStatusesDataType = 'array';
-	public $workerId;
+  protected $collection_key = 'workItemStatuses';
+  public $currentWorkerTime;
+  public $location;
+  public $unifiedWorkerRequest;
+  protected $workItemStatusesType = 'Google_Service_Dataflow_WorkItemStatus';
+  protected $workItemStatusesDataType = 'array';
+  public $workerId;
 
-	public function setCurrentWorkerTime($currentWorkerTime)
-	{
-		$this->currentWorkerTime = $currentWorkerTime;
-	}
-	public function getCurrentWorkerTime()
-	{
-		return $this->currentWorkerTime;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setUnifiedWorkerRequest($unifiedWorkerRequest)
-	{
-		$this->unifiedWorkerRequest = $unifiedWorkerRequest;
-	}
-	public function getUnifiedWorkerRequest()
-	{
-		return $this->unifiedWorkerRequest;
-	}
-	/**
-	 * @param Google_Service_Dataflow_WorkItemStatus
-	 */
-	public function setWorkItemStatuses($workItemStatuses)
-	{
-		$this->workItemStatuses = $workItemStatuses;
-	}
-	/**
-	 * @return Google_Service_Dataflow_WorkItemStatus
-	 */
-	public function getWorkItemStatuses()
-	{
-		return $this->workItemStatuses;
-	}
-	public function setWorkerId($workerId)
-	{
-		$this->workerId = $workerId;
-	}
-	public function getWorkerId()
-	{
-		return $this->workerId;
-	}
+  public function setCurrentWorkerTime($currentWorkerTime)
+  {
+    $this->currentWorkerTime = $currentWorkerTime;
+  }
+  public function getCurrentWorkerTime()
+  {
+    return $this->currentWorkerTime;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setUnifiedWorkerRequest($unifiedWorkerRequest)
+  {
+    $this->unifiedWorkerRequest = $unifiedWorkerRequest;
+  }
+  public function getUnifiedWorkerRequest()
+  {
+    return $this->unifiedWorkerRequest;
+  }
+  /**
+   * @param Google_Service_Dataflow_WorkItemStatus[]
+   */
+  public function setWorkItemStatuses($workItemStatuses)
+  {
+    $this->workItemStatuses = $workItemStatuses;
+  }
+  /**
+   * @return Google_Service_Dataflow_WorkItemStatus[]
+   */
+  public function getWorkItemStatuses()
+  {
+    return $this->workItemStatuses;
+  }
+  public function setWorkerId($workerId)
+  {
+    $this->workerId = $workerId;
+  }
+  public function getWorkerId()
+  {
+    return $this->workerId;
+  }
 }

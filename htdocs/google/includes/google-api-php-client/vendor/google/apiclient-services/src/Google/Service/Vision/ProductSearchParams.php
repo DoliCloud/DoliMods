@@ -17,49 +17,49 @@
 
 class Google_Service_Vision_ProductSearchParams extends Google_Collection
 {
-	protected $collection_key = 'productCategories';
-	protected $boundingPolyType = 'Google_Service_Vision_BoundingPoly';
-	protected $boundingPolyDataType = '';
-	public $filter;
-	public $productCategories;
-	public $productSet;
+  protected $collection_key = 'productCategories';
+  protected $boundingPolyType = 'Google_Service_Vision_BoundingPoly';
+  protected $boundingPolyDataType = '';
+  public $filter;
+  public $productCategories;
+  public $productSet;
 
-	/**
-	 * @param Google_Service_Vision_BoundingPoly
-	 */
-	public function setBoundingPoly(Google_Service_Vision_BoundingPoly $boundingPoly)
-	{
-		$this->boundingPoly = $boundingPoly;
-	}
-	/**
-	 * @return Google_Service_Vision_BoundingPoly
-	 */
-	public function getBoundingPoly()
-	{
-		return $this->boundingPoly;
-	}
-	public function setFilter($filter)
-	{
-		$this->filter = $filter;
-	}
-	public function getFilter()
-	{
-		return $this->filter;
-	}
-	public function setProductCategories($productCategories)
-	{
-		$this->productCategories = $productCategories;
-	}
-	public function getProductCategories()
-	{
-		return $this->productCategories;
-	}
-	public function setProductSet($productSet)
-	{
-		$this->productSet = $productSet;
-	}
-	public function getProductSet()
-	{
-		return $this->productSet;
-	}
+  /**
+   * @param Google_Service_Vision_BoundingPoly
+   */
+  public function setBoundingPoly(Google_Service_Vision_BoundingPoly $boundingPoly)
+  {
+    $this->boundingPoly = $boundingPoly;
+  }
+  /**
+   * @return Google_Service_Vision_BoundingPoly
+   */
+  public function getBoundingPoly()
+  {
+    return $this->boundingPoly;
+  }
+  public function setFilter($filter)
+  {
+    $this->filter = $filter;
+  }
+  public function getFilter()
+  {
+    return $this->filter;
+  }
+  public function setProductCategories($productCategories)
+  {
+    $this->productCategories = $productCategories;
+  }
+  public function getProductCategories()
+  {
+    return $this->productCategories;
+  }
+  public function setProductSet($productSet)
+  {
+    $this->productSet = $productSet;
+  }
+  public function getProductSet()
+  {
+    return $this->productSet;
+  }
 }

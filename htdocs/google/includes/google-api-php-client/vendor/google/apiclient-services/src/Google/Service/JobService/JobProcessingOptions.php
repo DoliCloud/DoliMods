@@ -17,23 +17,23 @@
 
 class Google_Service_JobService_JobProcessingOptions extends Google_Model
 {
-	public $disableStreetAddressResolution;
-	public $htmlSanitization;
+  public $disableStreetAddressResolution;
+  public $htmlSanitization;
 
-	public function setDisableStreetAddressResolution($disableStreetAddressResolution)
-	{
-		$this->disableStreetAddressResolution = $disableStreetAddressResolution;
-	}
-	public function getDisableStreetAddressResolution()
-	{
-		return $this->disableStreetAddressResolution;
-	}
-	public function setHtmlSanitization($htmlSanitization)
-	{
-		$this->htmlSanitization = $htmlSanitization;
-	}
-	public function getHtmlSanitization()
-	{
-		return $this->htmlSanitization;
-	}
+  public function setDisableStreetAddressResolution($disableStreetAddressResolution)
+  {
+    $this->disableStreetAddressResolution = $disableStreetAddressResolution;
+  }
+  public function getDisableStreetAddressResolution()
+  {
+    return $this->disableStreetAddressResolution;
+  }
+  public function setHtmlSanitization($htmlSanitization)
+  {
+    $this->htmlSanitization = $htmlSanitization;
+  }
+  public function getHtmlSanitization()
+  {
+    return $this->htmlSanitization;
+  }
 }

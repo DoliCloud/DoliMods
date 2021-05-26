@@ -17,31 +17,31 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1ListTagsResponse extends Google_Collection
 {
-	protected $collection_key = 'tags';
-	public $nextPageToken;
-	protected $tagsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Tag';
-	protected $tagsDataType = 'array';
+  protected $collection_key = 'tags';
+  public $nextPageToken;
+  protected $tagsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Tag';
+  protected $tagsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Tag
-	 */
-	public function setTags($tags)
-	{
-		$this->tags = $tags;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Tag
-	 */
-	public function getTags()
-	{
-		return $this->tags;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Tag[]
+   */
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1Tag[]
+   */
+  public function getTags()
+  {
+    return $this->tags;
+  }
 }

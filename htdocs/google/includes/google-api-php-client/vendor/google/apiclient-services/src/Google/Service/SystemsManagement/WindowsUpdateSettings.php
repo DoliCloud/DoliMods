@@ -17,33 +17,33 @@
 
 class Google_Service_SystemsManagement_WindowsUpdateSettings extends Google_Collection
 {
-	protected $collection_key = 'exclusivePatches';
-	public $classifications;
-	public $excludes;
-	public $exclusivePatches;
+  protected $collection_key = 'exclusivePatches';
+  public $classifications;
+  public $excludes;
+  public $exclusivePatches;
 
-	public function setClassifications($classifications)
-	{
-		$this->classifications = $classifications;
-	}
-	public function getClassifications()
-	{
-		return $this->classifications;
-	}
-	public function setExcludes($excludes)
-	{
-		$this->excludes = $excludes;
-	}
-	public function getExcludes()
-	{
-		return $this->excludes;
-	}
-	public function setExclusivePatches($exclusivePatches)
-	{
-		$this->exclusivePatches = $exclusivePatches;
-	}
-	public function getExclusivePatches()
-	{
-		return $this->exclusivePatches;
-	}
+  public function setClassifications($classifications)
+  {
+    $this->classifications = $classifications;
+  }
+  public function getClassifications()
+  {
+    return $this->classifications;
+  }
+  public function setExcludes($excludes)
+  {
+    $this->excludes = $excludes;
+  }
+  public function getExcludes()
+  {
+    return $this->excludes;
+  }
+  public function setExclusivePatches($exclusivePatches)
+  {
+    $this->exclusivePatches = $exclusivePatches;
+  }
+  public function getExclusivePatches()
+  {
+    return $this->exclusivePatches;
+  }
 }

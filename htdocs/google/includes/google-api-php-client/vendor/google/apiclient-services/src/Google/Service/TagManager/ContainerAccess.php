@@ -17,23 +17,23 @@
 
 class Google_Service_TagManager_ContainerAccess extends Google_Model
 {
-	public $containerId;
-	public $permission;
+  public $containerId;
+  public $permission;
 
-	public function setContainerId($containerId)
-	{
-		$this->containerId = $containerId;
-	}
-	public function getContainerId()
-	{
-		return $this->containerId;
-	}
-	public function setPermission($permission)
-	{
-		$this->permission = $permission;
-	}
-	public function getPermission()
-	{
-		return $this->permission;
-	}
+  public function setContainerId($containerId)
+  {
+    $this->containerId = $containerId;
+  }
+  public function getContainerId()
+  {
+    return $this->containerId;
+  }
+  public function setPermission($permission)
+  {
+    $this->permission = $permission;
+  }
+  public function getPermission()
+  {
+    return $this->permission;
+  }
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_IdentityToolkit_VerifyCustomTokenResponse extends Google_Model
 {
-	public $expiresIn;
-	public $idToken;
-	public $isNewUser;
-	public $kind;
-	public $refreshToken;
+  public $expiresIn;
+  public $idToken;
+  public $isNewUser;
+  public $kind;
+  public $refreshToken;
 
-	public function setExpiresIn($expiresIn)
-	{
-		$this->expiresIn = $expiresIn;
-	}
-	public function getExpiresIn()
-	{
-		return $this->expiresIn;
-	}
-	public function setIdToken($idToken)
-	{
-		$this->idToken = $idToken;
-	}
-	public function getIdToken()
-	{
-		return $this->idToken;
-	}
-	public function setIsNewUser($isNewUser)
-	{
-		$this->isNewUser = $isNewUser;
-	}
-	public function getIsNewUser()
-	{
-		return $this->isNewUser;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setRefreshToken($refreshToken)
-	{
-		$this->refreshToken = $refreshToken;
-	}
-	public function getRefreshToken()
-	{
-		return $this->refreshToken;
-	}
+  public function setExpiresIn($expiresIn)
+  {
+    $this->expiresIn = $expiresIn;
+  }
+  public function getExpiresIn()
+  {
+    return $this->expiresIn;
+  }
+  public function setIdToken($idToken)
+  {
+    $this->idToken = $idToken;
+  }
+  public function getIdToken()
+  {
+    return $this->idToken;
+  }
+  public function setIsNewUser($isNewUser)
+  {
+    $this->isNewUser = $isNewUser;
+  }
+  public function getIsNewUser()
+  {
+    return $this->isNewUser;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setRefreshToken($refreshToken)
+  {
+    $this->refreshToken = $refreshToken;
+  }
+  public function getRefreshToken()
+  {
+    return $this->refreshToken;
+  }
 }

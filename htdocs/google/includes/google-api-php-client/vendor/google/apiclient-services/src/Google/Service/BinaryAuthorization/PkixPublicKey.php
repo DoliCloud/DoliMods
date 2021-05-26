@@ -17,23 +17,23 @@
 
 class Google_Service_BinaryAuthorization_PkixPublicKey extends Google_Model
 {
-	public $publicKeyPem;
-	public $signatureAlgorithm;
+  public $publicKeyPem;
+  public $signatureAlgorithm;
 
-	public function setPublicKeyPem($publicKeyPem)
-	{
-		$this->publicKeyPem = $publicKeyPem;
-	}
-	public function getPublicKeyPem()
-	{
-		return $this->publicKeyPem;
-	}
-	public function setSignatureAlgorithm($signatureAlgorithm)
-	{
-		$this->signatureAlgorithm = $signatureAlgorithm;
-	}
-	public function getSignatureAlgorithm()
-	{
-		return $this->signatureAlgorithm;
-	}
+  public function setPublicKeyPem($publicKeyPem)
+  {
+    $this->publicKeyPem = $publicKeyPem;
+  }
+  public function getPublicKeyPem()
+  {
+    return $this->publicKeyPem;
+  }
+  public function setSignatureAlgorithm($signatureAlgorithm)
+  {
+    $this->signatureAlgorithm = $signatureAlgorithm;
+  }
+  public function getSignatureAlgorithm()
+  {
+    return $this->signatureAlgorithm;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Sheets_EmbeddedObjectPosition extends Google_Model
 {
-	public $newSheet;
-	protected $overlayPositionType = 'Google_Service_Sheets_OverlayPosition';
-	protected $overlayPositionDataType = '';
-	public $sheetId;
+  public $newSheet;
+  protected $overlayPositionType = 'Google_Service_Sheets_OverlayPosition';
+  protected $overlayPositionDataType = '';
+  public $sheetId;
 
-	public function setNewSheet($newSheet)
-	{
-		$this->newSheet = $newSheet;
-	}
-	public function getNewSheet()
-	{
-		return $this->newSheet;
-	}
-	/**
-	 * @param Google_Service_Sheets_OverlayPosition
-	 */
-	public function setOverlayPosition(Google_Service_Sheets_OverlayPosition $overlayPosition)
-	{
-		$this->overlayPosition = $overlayPosition;
-	}
-	/**
-	 * @return Google_Service_Sheets_OverlayPosition
-	 */
-	public function getOverlayPosition()
-	{
-		return $this->overlayPosition;
-	}
-	public function setSheetId($sheetId)
-	{
-		$this->sheetId = $sheetId;
-	}
-	public function getSheetId()
-	{
-		return $this->sheetId;
-	}
+  public function setNewSheet($newSheet)
+  {
+    $this->newSheet = $newSheet;
+  }
+  public function getNewSheet()
+  {
+    return $this->newSheet;
+  }
+  /**
+   * @param Google_Service_Sheets_OverlayPosition
+   */
+  public function setOverlayPosition(Google_Service_Sheets_OverlayPosition $overlayPosition)
+  {
+    $this->overlayPosition = $overlayPosition;
+  }
+  /**
+   * @return Google_Service_Sheets_OverlayPosition
+   */
+  public function getOverlayPosition()
+  {
+    return $this->overlayPosition;
+  }
+  public function setSheetId($sheetId)
+  {
+    $this->sheetId = $sheetId;
+  }
+  public function getSheetId()
+  {
+    return $this->sheetId;
+  }
 }

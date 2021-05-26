@@ -25,38 +25,38 @@
  */
 class Google_Service_SASPortalTesting_Resource_CustomersNodesNodes extends Google_Service_Resource
 {
-	/**
-	 * Creates a new node. (nodes.create)
-	 *
-	 * @param string $parent Required. The parent resource name where the node is to
-	 *                       be created.
-	 * @param Google_Service_SASPortalTesting_SasPortalNode $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_SASPortalTesting_SasPortalNode
-	 */
-	public function create($parent, Google_Service_SASPortalTesting_SasPortalNode $postBody, $optParams = array())
-	{
-		$params = array('parent' => $parent, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('create', array($params), "Google_Service_SASPortalTesting_SasPortalNode");
-	}
-	/**
-	 * Lists nodes. (nodes.listCustomersNodesNodes)
-	 *
-	 * @param string $parent Required. The parent resource name, for example,
-	 *                       "nodes/1".
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param int pageSize The maximum number of nodes to return in the
-	 * response.
-	 * @opt_param string pageToken A pagination token returned from a previous call
-	 * to ListNodes method that indicates where this listing should continue from.
-	 * @return Google_Service_SASPortalTesting_SasPortalListNodesResponse
-	 */
-	public function listCustomersNodesNodes($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_SASPortalTesting_SasPortalListNodesResponse");
-	}
+  /**
+   * Creates a new node. (nodes.create)
+   *
+   * @param string $parent Required. The parent resource name where the node is to
+   * be created.
+   * @param Google_Service_SASPortalTesting_SasPortalNode $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_SASPortalTesting_SasPortalNode
+   */
+  public function create($parent, Google_Service_SASPortalTesting_SasPortalNode $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('create', array($params), "Google_Service_SASPortalTesting_SasPortalNode");
+  }
+  /**
+   * Lists nodes. (nodes.listCustomersNodesNodes)
+   *
+   * @param string $parent Required. The parent resource name, for example,
+   * "nodes/1".
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize The maximum number of nodes to return in the
+   * response.
+   * @opt_param string pageToken A pagination token returned from a previous call
+   * to ListNodes method that indicates where this listing should continue from.
+   * @return Google_Service_SASPortalTesting_SasPortalListNodesResponse
+   */
+  public function listCustomersNodesNodes($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_SASPortalTesting_SasPortalListNodesResponse");
+  }
 }

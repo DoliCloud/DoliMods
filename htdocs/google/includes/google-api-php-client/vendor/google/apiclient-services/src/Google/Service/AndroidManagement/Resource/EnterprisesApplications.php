@@ -25,22 +25,22 @@
  */
 class Google_Service_AndroidManagement_Resource_EnterprisesApplications extends Google_Service_Resource
 {
-	/**
-	 * Gets info about an application. (applications.get)
-	 *
-	 * @param string $name The name of the application in the form
-	 *                     enterprises/{enterpriseId}/applications/{package_name}.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string languageCode The preferred language for localized
-	 * application info, as a BCP47 tag (e.g. "en-US", "de"). If not specified the
-	 * default language of the application will be used.
-	 * @return Google_Service_AndroidManagement_Application
-	 */
-	public function get($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_AndroidManagement_Application");
-	}
+  /**
+   * Gets info about an application. (applications.get)
+   *
+   * @param string $name The name of the application in the form
+   * enterprises/{enterpriseId}/applications/{package_name}.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string languageCode The preferred language for localized
+   * application info, as a BCP47 tag (e.g. "en-US", "de"). If not specified the
+   * default language of the application will be used.
+   * @return Google_Service_AndroidManagement_Application
+   */
+  public function get($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_AndroidManagement_Application");
+  }
 }

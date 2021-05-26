@@ -17,30 +17,30 @@
 
 class Google_Service_Verifiedaccess_VerifyChallengeResponseRequest extends Google_Model
 {
-	protected $challengeResponseType = 'Google_Service_Verifiedaccess_SignedData';
-	protected $challengeResponseDataType = '';
-	public $expectedIdentity;
+  protected $challengeResponseType = 'Google_Service_Verifiedaccess_SignedData';
+  protected $challengeResponseDataType = '';
+  public $expectedIdentity;
 
-	/**
-	 * @param Google_Service_Verifiedaccess_SignedData
-	 */
-	public function setChallengeResponse(Google_Service_Verifiedaccess_SignedData $challengeResponse)
-	{
-		$this->challengeResponse = $challengeResponse;
-	}
-	/**
-	 * @return Google_Service_Verifiedaccess_SignedData
-	 */
-	public function getChallengeResponse()
-	{
-		return $this->challengeResponse;
-	}
-	public function setExpectedIdentity($expectedIdentity)
-	{
-		$this->expectedIdentity = $expectedIdentity;
-	}
-	public function getExpectedIdentity()
-	{
-		return $this->expectedIdentity;
-	}
+  /**
+   * @param Google_Service_Verifiedaccess_SignedData
+   */
+  public function setChallengeResponse(Google_Service_Verifiedaccess_SignedData $challengeResponse)
+  {
+    $this->challengeResponse = $challengeResponse;
+  }
+  /**
+   * @return Google_Service_Verifiedaccess_SignedData
+   */
+  public function getChallengeResponse()
+  {
+    return $this->challengeResponse;
+  }
+  public function setExpectedIdentity($expectedIdentity)
+  {
+    $this->expectedIdentity = $expectedIdentity;
+  }
+  public function getExpectedIdentity()
+  {
+    return $this->expectedIdentity;
+  }
 }

@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_UserRolePermission extends Google_Model
 {
-	public $availability;
-	public $id;
-	public $kind;
-	public $name;
-	public $permissionGroupId;
+  public $availability;
+  public $id;
+  public $kind;
+  public $name;
+  public $permissionGroupId;
 
-	public function setAvailability($availability)
-	{
-		$this->availability = $availability;
-	}
-	public function getAvailability()
-	{
-		return $this->availability;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPermissionGroupId($permissionGroupId)
-	{
-		$this->permissionGroupId = $permissionGroupId;
-	}
-	public function getPermissionGroupId()
-	{
-		return $this->permissionGroupId;
-	}
+  public function setAvailability($availability)
+  {
+    $this->availability = $availability;
+  }
+  public function getAvailability()
+  {
+    return $this->availability;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPermissionGroupId($permissionGroupId)
+  {
+    $this->permissionGroupId = $permissionGroupId;
+  }
+  public function getPermissionGroupId()
+  {
+    return $this->permissionGroupId;
+  }
 }

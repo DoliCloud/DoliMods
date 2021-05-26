@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListAsyncQueriesResponse extends Google_Collection
 {
-	protected $collection_key = 'queries';
-	protected $queriesType = 'Google_Service_Apigee_GoogleCloudApigeeV1AsyncQuery';
-	protected $queriesDataType = 'array';
+  protected $collection_key = 'queries';
+  protected $queriesType = 'Google_Service_Apigee_GoogleCloudApigeeV1AsyncQuery';
+  protected $queriesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1AsyncQuery
-	 */
-	public function setQueries($queries)
-	{
-		$this->queries = $queries;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1AsyncQuery
-	 */
-	public function getQueries()
-	{
-		return $this->queries;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1AsyncQuery[]
+   */
+  public function setQueries($queries)
+  {
+    $this->queries = $queries;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1AsyncQuery[]
+   */
+  public function getQueries()
+  {
+    return $this->queries;
+  }
 }

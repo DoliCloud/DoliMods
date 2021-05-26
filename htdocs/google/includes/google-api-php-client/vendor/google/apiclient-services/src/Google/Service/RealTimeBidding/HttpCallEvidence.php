@@ -17,15 +17,15 @@
 
 class Google_Service_RealTimeBidding_HttpCallEvidence extends Google_Collection
 {
-	protected $collection_key = 'urls';
-	public $urls;
+  protected $collection_key = 'urls';
+  public $urls;
 
-	public function setUrls($urls)
-	{
-		$this->urls = $urls;
-	}
-	public function getUrls()
-	{
-		return $this->urls;
-	}
+  public function setUrls($urls)
+  {
+    $this->urls = $urls;
+  }
+  public function getUrls()
+  {
+    return $this->urls;
+  }
 }

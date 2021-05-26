@@ -17,39 +17,39 @@
 
 class Google_Service_CommentAnalyzer_SpanScore extends Google_Model
 {
-	public $begin;
-	public $end;
-	protected $scoreType = 'Google_Service_CommentAnalyzer_Score';
-	protected $scoreDataType = '';
+  public $begin;
+  public $end;
+  protected $scoreType = 'Google_Service_CommentAnalyzer_Score';
+  protected $scoreDataType = '';
 
-	public function setBegin($begin)
-	{
-		$this->begin = $begin;
-	}
-	public function getBegin()
-	{
-		return $this->begin;
-	}
-	public function setEnd($end)
-	{
-		$this->end = $end;
-	}
-	public function getEnd()
-	{
-		return $this->end;
-	}
-	/**
-	 * @param Google_Service_CommentAnalyzer_Score
-	 */
-	public function setScore(Google_Service_CommentAnalyzer_Score $score)
-	{
-		$this->score = $score;
-	}
-	/**
-	 * @return Google_Service_CommentAnalyzer_Score
-	 */
-	public function getScore()
-	{
-		return $this->score;
-	}
+  public function setBegin($begin)
+  {
+    $this->begin = $begin;
+  }
+  public function getBegin()
+  {
+    return $this->begin;
+  }
+  public function setEnd($end)
+  {
+    $this->end = $end;
+  }
+  public function getEnd()
+  {
+    return $this->end;
+  }
+  /**
+   * @param Google_Service_CommentAnalyzer_Score
+   */
+  public function setScore(Google_Service_CommentAnalyzer_Score $score)
+  {
+    $this->score = $score;
+  }
+  /**
+   * @return Google_Service_CommentAnalyzer_Score
+   */
+  public function getScore()
+  {
+    return $this->score;
+  }
 }

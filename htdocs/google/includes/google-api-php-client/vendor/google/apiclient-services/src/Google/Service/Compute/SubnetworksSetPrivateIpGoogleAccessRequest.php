@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_SubnetworksSetPrivateIpGoogleAccessRequest extends Google_Model
 {
-	public $privateIpGoogleAccess;
+  public $privateIpGoogleAccess;
 
-	public function setPrivateIpGoogleAccess($privateIpGoogleAccess)
-	{
-		$this->privateIpGoogleAccess = $privateIpGoogleAccess;
-	}
-	public function getPrivateIpGoogleAccess()
-	{
-		return $this->privateIpGoogleAccess;
-	}
+  public function setPrivateIpGoogleAccess($privateIpGoogleAccess)
+  {
+    $this->privateIpGoogleAccess = $privateIpGoogleAccess;
+  }
+  public function getPrivateIpGoogleAccess()
+  {
+    return $this->privateIpGoogleAccess;
+  }
 }

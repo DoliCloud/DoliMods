@@ -17,58 +17,58 @@
 
 class Google_Service_Dfareporting_DeepLink extends Google_Collection
 {
-	protected $collection_key = 'remarketingListIds';
-	public $appUrl;
-	public $fallbackUrl;
-	public $kind;
-	protected $mobileAppType = 'Google_Service_Dfareporting_MobileApp';
-	protected $mobileAppDataType = '';
-	public $remarketingListIds;
+  protected $collection_key = 'remarketingListIds';
+  public $appUrl;
+  public $fallbackUrl;
+  public $kind;
+  protected $mobileAppType = 'Google_Service_Dfareporting_MobileApp';
+  protected $mobileAppDataType = '';
+  public $remarketingListIds;
 
-	public function setAppUrl($appUrl)
-	{
-		$this->appUrl = $appUrl;
-	}
-	public function getAppUrl()
-	{
-		return $this->appUrl;
-	}
-	public function setFallbackUrl($fallbackUrl)
-	{
-		$this->fallbackUrl = $fallbackUrl;
-	}
-	public function getFallbackUrl()
-	{
-		return $this->fallbackUrl;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_MobileApp
-	 */
-	public function setMobileApp(Google_Service_Dfareporting_MobileApp $mobileApp)
-	{
-		$this->mobileApp = $mobileApp;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_MobileApp
-	 */
-	public function getMobileApp()
-	{
-		return $this->mobileApp;
-	}
-	public function setRemarketingListIds($remarketingListIds)
-	{
-		$this->remarketingListIds = $remarketingListIds;
-	}
-	public function getRemarketingListIds()
-	{
-		return $this->remarketingListIds;
-	}
+  public function setAppUrl($appUrl)
+  {
+    $this->appUrl = $appUrl;
+  }
+  public function getAppUrl()
+  {
+    return $this->appUrl;
+  }
+  public function setFallbackUrl($fallbackUrl)
+  {
+    $this->fallbackUrl = $fallbackUrl;
+  }
+  public function getFallbackUrl()
+  {
+    return $this->fallbackUrl;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_MobileApp
+   */
+  public function setMobileApp(Google_Service_Dfareporting_MobileApp $mobileApp)
+  {
+    $this->mobileApp = $mobileApp;
+  }
+  /**
+   * @return Google_Service_Dfareporting_MobileApp
+   */
+  public function getMobileApp()
+  {
+    return $this->mobileApp;
+  }
+  public function setRemarketingListIds($remarketingListIds)
+  {
+    $this->remarketingListIds = $remarketingListIds;
+  }
+  public function getRemarketingListIds()
+  {
+    return $this->remarketingListIds;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListApiProxiesResponse extends Google_Collection
 {
-	protected $collection_key = 'proxies';
-	protected $proxiesType = 'Google_Service_Apigee_GoogleCloudApigeeV1ApiProxy';
-	protected $proxiesDataType = 'array';
+  protected $collection_key = 'proxies';
+  protected $proxiesType = 'Google_Service_Apigee_GoogleCloudApigeeV1ApiProxy';
+  protected $proxiesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1ApiProxy
-	 */
-	public function setProxies($proxies)
-	{
-		$this->proxies = $proxies;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1ApiProxy
-	 */
-	public function getProxies()
-	{
-		return $this->proxies;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1ApiProxy[]
+   */
+  public function setProxies($proxies)
+  {
+    $this->proxies = $proxies;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1ApiProxy[]
+   */
+  public function getProxies()
+  {
+    return $this->proxies;
+  }
 }

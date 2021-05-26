@@ -17,33 +17,33 @@
 
 class Google_Service_CloudUserAccounts_LinuxGroupView extends Google_Collection
 {
-	protected $collection_key = 'members';
-	public $gid;
-	public $groupName;
-	public $members;
+  protected $collection_key = 'members';
+  public $gid;
+  public $groupName;
+  public $members;
 
-	public function setGid($gid)
-	{
-		$this->gid = $gid;
-	}
-	public function getGid()
-	{
-		return $this->gid;
-	}
-	public function setGroupName($groupName)
-	{
-		$this->groupName = $groupName;
-	}
-	public function getGroupName()
-	{
-		return $this->groupName;
-	}
-	public function setMembers($members)
-	{
-		$this->members = $members;
-	}
-	public function getMembers()
-	{
-		return $this->members;
-	}
+  public function setGid($gid)
+  {
+    $this->gid = $gid;
+  }
+  public function getGid()
+  {
+    return $this->gid;
+  }
+  public function setGroupName($groupName)
+  {
+    $this->groupName = $groupName;
+  }
+  public function getGroupName()
+  {
+    return $this->groupName;
+  }
+  public function setMembers($members)
+  {
+    $this->members = $members;
+  }
+  public function getMembers()
+  {
+    return $this->members;
+  }
 }

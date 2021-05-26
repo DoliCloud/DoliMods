@@ -17,58 +17,58 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p2beta1Product extends Google_Collection
 {
-	protected $collection_key = 'productLabels';
-	public $description;
-	public $displayName;
-	public $name;
-	public $productCategory;
-	protected $productLabelsType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1ProductKeyValue';
-	protected $productLabelsDataType = 'array';
+  protected $collection_key = 'productLabels';
+  public $description;
+  public $displayName;
+  public $name;
+  public $productCategory;
+  protected $productLabelsType = 'Google_Service_Vision_GoogleCloudVisionV1p2beta1ProductKeyValue';
+  protected $productLabelsDataType = 'array';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setProductCategory($productCategory)
-	{
-		$this->productCategory = $productCategory;
-	}
-	public function getProductCategory()
-	{
-		return $this->productCategory;
-	}
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1ProductKeyValue
-	 */
-	public function setProductLabels($productLabels)
-	{
-		$this->productLabels = $productLabels;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1ProductKeyValue
-	 */
-	public function getProductLabels()
-	{
-		return $this->productLabels;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setProductCategory($productCategory)
+  {
+    $this->productCategory = $productCategory;
+  }
+  public function getProductCategory()
+  {
+    return $this->productCategory;
+  }
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p2beta1ProductKeyValue[]
+   */
+  public function setProductLabels($productLabels)
+  {
+    $this->productLabels = $productLabels;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p2beta1ProductKeyValue[]
+   */
+  public function getProductLabels()
+  {
+    return $this->productLabels;
+  }
 }

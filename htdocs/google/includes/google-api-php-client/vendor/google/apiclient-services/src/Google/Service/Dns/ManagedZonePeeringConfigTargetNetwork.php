@@ -17,32 +17,32 @@
 
 class Google_Service_Dns_ManagedZonePeeringConfigTargetNetwork extends Google_Model
 {
-	public $deactivateTime;
-	public $kind;
-	public $networkUrl;
+  public $deactivateTime;
+  public $kind;
+  public $networkUrl;
 
-	public function setDeactivateTime($deactivateTime)
-	{
-		$this->deactivateTime = $deactivateTime;
-	}
-	public function getDeactivateTime()
-	{
-		return $this->deactivateTime;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNetworkUrl($networkUrl)
-	{
-		$this->networkUrl = $networkUrl;
-	}
-	public function getNetworkUrl()
-	{
-		return $this->networkUrl;
-	}
+  public function setDeactivateTime($deactivateTime)
+  {
+    $this->deactivateTime = $deactivateTime;
+  }
+  public function getDeactivateTime()
+  {
+    return $this->deactivateTime;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNetworkUrl($networkUrl)
+  {
+    $this->networkUrl = $networkUrl;
+  }
+  public function getNetworkUrl()
+  {
+    return $this->networkUrl;
+  }
 }

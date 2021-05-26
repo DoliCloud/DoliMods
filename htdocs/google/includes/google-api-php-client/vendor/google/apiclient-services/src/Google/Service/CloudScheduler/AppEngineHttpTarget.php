@@ -17,57 +17,57 @@
 
 class Google_Service_CloudScheduler_AppEngineHttpTarget extends Google_Model
 {
-	protected $appEngineRoutingType = 'Google_Service_CloudScheduler_AppEngineRouting';
-	protected $appEngineRoutingDataType = '';
-	public $body;
-	public $headers;
-	public $httpMethod;
-	public $relativeUri;
+  protected $appEngineRoutingType = 'Google_Service_CloudScheduler_AppEngineRouting';
+  protected $appEngineRoutingDataType = '';
+  public $body;
+  public $headers;
+  public $httpMethod;
+  public $relativeUri;
 
-	/**
-	 * @param Google_Service_CloudScheduler_AppEngineRouting
-	 */
-	public function setAppEngineRouting(Google_Service_CloudScheduler_AppEngineRouting $appEngineRouting)
-	{
-		$this->appEngineRouting = $appEngineRouting;
-	}
-	/**
-	 * @return Google_Service_CloudScheduler_AppEngineRouting
-	 */
-	public function getAppEngineRouting()
-	{
-		return $this->appEngineRouting;
-	}
-	public function setBody($body)
-	{
-		$this->body = $body;
-	}
-	public function getBody()
-	{
-		return $this->body;
-	}
-	public function setHeaders($headers)
-	{
-		$this->headers = $headers;
-	}
-	public function getHeaders()
-	{
-		return $this->headers;
-	}
-	public function setHttpMethod($httpMethod)
-	{
-		$this->httpMethod = $httpMethod;
-	}
-	public function getHttpMethod()
-	{
-		return $this->httpMethod;
-	}
-	public function setRelativeUri($relativeUri)
-	{
-		$this->relativeUri = $relativeUri;
-	}
-	public function getRelativeUri()
-	{
-		return $this->relativeUri;
-	}
+  /**
+   * @param Google_Service_CloudScheduler_AppEngineRouting
+   */
+  public function setAppEngineRouting(Google_Service_CloudScheduler_AppEngineRouting $appEngineRouting)
+  {
+    $this->appEngineRouting = $appEngineRouting;
+  }
+  /**
+   * @return Google_Service_CloudScheduler_AppEngineRouting
+   */
+  public function getAppEngineRouting()
+  {
+    return $this->appEngineRouting;
+  }
+  public function setBody($body)
+  {
+    $this->body = $body;
+  }
+  public function getBody()
+  {
+    return $this->body;
+  }
+  public function setHeaders($headers)
+  {
+    $this->headers = $headers;
+  }
+  public function getHeaders()
+  {
+    return $this->headers;
+  }
+  public function setHttpMethod($httpMethod)
+  {
+    $this->httpMethod = $httpMethod;
+  }
+  public function getHttpMethod()
+  {
+    return $this->httpMethod;
+  }
+  public function setRelativeUri($relativeUri)
+  {
+    $this->relativeUri = $relativeUri;
+  }
+  public function getRelativeUri()
+  {
+    return $this->relativeUri;
+  }
 }

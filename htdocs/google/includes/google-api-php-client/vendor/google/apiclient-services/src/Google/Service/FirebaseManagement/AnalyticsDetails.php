@@ -17,38 +17,38 @@
 
 class Google_Service_FirebaseManagement_AnalyticsDetails extends Google_Collection
 {
-	protected $collection_key = 'streamMappings';
-	protected $analyticsPropertyType = 'Google_Service_FirebaseManagement_AnalyticsProperty';
-	protected $analyticsPropertyDataType = '';
-	protected $streamMappingsType = 'Google_Service_FirebaseManagement_StreamMapping';
-	protected $streamMappingsDataType = 'array';
+  protected $collection_key = 'streamMappings';
+  protected $analyticsPropertyType = 'Google_Service_FirebaseManagement_AnalyticsProperty';
+  protected $analyticsPropertyDataType = '';
+  protected $streamMappingsType = 'Google_Service_FirebaseManagement_StreamMapping';
+  protected $streamMappingsDataType = 'array';
 
-	/**
-	 * @param Google_Service_FirebaseManagement_AnalyticsProperty
-	 */
-	public function setAnalyticsProperty(Google_Service_FirebaseManagement_AnalyticsProperty $analyticsProperty)
-	{
-		$this->analyticsProperty = $analyticsProperty;
-	}
-	/**
-	 * @return Google_Service_FirebaseManagement_AnalyticsProperty
-	 */
-	public function getAnalyticsProperty()
-	{
-		return $this->analyticsProperty;
-	}
-	/**
-	 * @param Google_Service_FirebaseManagement_StreamMapping
-	 */
-	public function setStreamMappings($streamMappings)
-	{
-		$this->streamMappings = $streamMappings;
-	}
-	/**
-	 * @return Google_Service_FirebaseManagement_StreamMapping
-	 */
-	public function getStreamMappings()
-	{
-		return $this->streamMappings;
-	}
+  /**
+   * @param Google_Service_FirebaseManagement_AnalyticsProperty
+   */
+  public function setAnalyticsProperty(Google_Service_FirebaseManagement_AnalyticsProperty $analyticsProperty)
+  {
+    $this->analyticsProperty = $analyticsProperty;
+  }
+  /**
+   * @return Google_Service_FirebaseManagement_AnalyticsProperty
+   */
+  public function getAnalyticsProperty()
+  {
+    return $this->analyticsProperty;
+  }
+  /**
+   * @param Google_Service_FirebaseManagement_StreamMapping[]
+   */
+  public function setStreamMappings($streamMappings)
+  {
+    $this->streamMappings = $streamMappings;
+  }
+  /**
+   * @return Google_Service_FirebaseManagement_StreamMapping[]
+   */
+  public function getStreamMappings()
+  {
+    return $this->streamMappings;
+  }
 }

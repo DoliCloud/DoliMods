@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_OrdersCreateTestReturnResponse extends Google_Model
 {
-	public $kind;
-	public $returnId;
+  public $kind;
+  public $returnId;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setReturnId($returnId)
-	{
-		$this->returnId = $returnId;
-	}
-	public function getReturnId()
-	{
-		return $this->returnId;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setReturnId($returnId)
+  {
+    $this->returnId = $returnId;
+  }
+  public function getReturnId()
+  {
+    return $this->returnId;
+  }
 }

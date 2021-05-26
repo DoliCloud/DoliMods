@@ -17,39 +17,39 @@
 
 class Google_Service_Pubsub_PushConfig extends Google_Model
 {
-	public $attributes;
-	protected $oidcTokenType = 'Google_Service_Pubsub_OidcToken';
-	protected $oidcTokenDataType = '';
-	public $pushEndpoint;
+  public $attributes;
+  protected $oidcTokenType = 'Google_Service_Pubsub_OidcToken';
+  protected $oidcTokenDataType = '';
+  public $pushEndpoint;
 
-	public function setAttributes($attributes)
-	{
-		$this->attributes = $attributes;
-	}
-	public function getAttributes()
-	{
-		return $this->attributes;
-	}
-	/**
-	 * @param Google_Service_Pubsub_OidcToken
-	 */
-	public function setOidcToken(Google_Service_Pubsub_OidcToken $oidcToken)
-	{
-		$this->oidcToken = $oidcToken;
-	}
-	/**
-	 * @return Google_Service_Pubsub_OidcToken
-	 */
-	public function getOidcToken()
-	{
-		return $this->oidcToken;
-	}
-	public function setPushEndpoint($pushEndpoint)
-	{
-		$this->pushEndpoint = $pushEndpoint;
-	}
-	public function getPushEndpoint()
-	{
-		return $this->pushEndpoint;
-	}
+  public function setAttributes($attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
+  /**
+   * @param Google_Service_Pubsub_OidcToken
+   */
+  public function setOidcToken(Google_Service_Pubsub_OidcToken $oidcToken)
+  {
+    $this->oidcToken = $oidcToken;
+  }
+  /**
+   * @return Google_Service_Pubsub_OidcToken
+   */
+  public function getOidcToken()
+  {
+    return $this->oidcToken;
+  }
+  public function setPushEndpoint($pushEndpoint)
+  {
+    $this->pushEndpoint = $pushEndpoint;
+  }
+  public function getPushEndpoint()
+  {
+    return $this->pushEndpoint;
+  }
 }

@@ -17,58 +17,58 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2LDiversityHistogramBucket extends Google_Collection
 {
-	protected $collection_key = 'bucketValues';
-	public $bucketSize;
-	public $bucketValueCount;
-	protected $bucketValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2LDiversityEquivalenceClass';
-	protected $bucketValuesDataType = 'array';
-	public $sensitiveValueFrequencyLowerBound;
-	public $sensitiveValueFrequencyUpperBound;
+  protected $collection_key = 'bucketValues';
+  public $bucketSize;
+  public $bucketValueCount;
+  protected $bucketValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2LDiversityEquivalenceClass';
+  protected $bucketValuesDataType = 'array';
+  public $sensitiveValueFrequencyLowerBound;
+  public $sensitiveValueFrequencyUpperBound;
 
-	public function setBucketSize($bucketSize)
-	{
-		$this->bucketSize = $bucketSize;
-	}
-	public function getBucketSize()
-	{
-		return $this->bucketSize;
-	}
-	public function setBucketValueCount($bucketValueCount)
-	{
-		$this->bucketValueCount = $bucketValueCount;
-	}
-	public function getBucketValueCount()
-	{
-		return $this->bucketValueCount;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2LDiversityEquivalenceClass
-	 */
-	public function setBucketValues($bucketValues)
-	{
-		$this->bucketValues = $bucketValues;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2LDiversityEquivalenceClass
-	 */
-	public function getBucketValues()
-	{
-		return $this->bucketValues;
-	}
-	public function setSensitiveValueFrequencyLowerBound($sensitiveValueFrequencyLowerBound)
-	{
-		$this->sensitiveValueFrequencyLowerBound = $sensitiveValueFrequencyLowerBound;
-	}
-	public function getSensitiveValueFrequencyLowerBound()
-	{
-		return $this->sensitiveValueFrequencyLowerBound;
-	}
-	public function setSensitiveValueFrequencyUpperBound($sensitiveValueFrequencyUpperBound)
-	{
-		$this->sensitiveValueFrequencyUpperBound = $sensitiveValueFrequencyUpperBound;
-	}
-	public function getSensitiveValueFrequencyUpperBound()
-	{
-		return $this->sensitiveValueFrequencyUpperBound;
-	}
+  public function setBucketSize($bucketSize)
+  {
+    $this->bucketSize = $bucketSize;
+  }
+  public function getBucketSize()
+  {
+    return $this->bucketSize;
+  }
+  public function setBucketValueCount($bucketValueCount)
+  {
+    $this->bucketValueCount = $bucketValueCount;
+  }
+  public function getBucketValueCount()
+  {
+    return $this->bucketValueCount;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2LDiversityEquivalenceClass[]
+   */
+  public function setBucketValues($bucketValues)
+  {
+    $this->bucketValues = $bucketValues;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2LDiversityEquivalenceClass[]
+   */
+  public function getBucketValues()
+  {
+    return $this->bucketValues;
+  }
+  public function setSensitiveValueFrequencyLowerBound($sensitiveValueFrequencyLowerBound)
+  {
+    $this->sensitiveValueFrequencyLowerBound = $sensitiveValueFrequencyLowerBound;
+  }
+  public function getSensitiveValueFrequencyLowerBound()
+  {
+    return $this->sensitiveValueFrequencyLowerBound;
+  }
+  public function setSensitiveValueFrequencyUpperBound($sensitiveValueFrequencyUpperBound)
+  {
+    $this->sensitiveValueFrequencyUpperBound = $sensitiveValueFrequencyUpperBound;
+  }
+  public function getSensitiveValueFrequencyUpperBound()
+  {
+    return $this->sensitiveValueFrequencyUpperBound;
+  }
 }

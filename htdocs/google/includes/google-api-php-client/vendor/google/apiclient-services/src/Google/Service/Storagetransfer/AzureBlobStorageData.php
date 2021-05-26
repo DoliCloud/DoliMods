@@ -17,39 +17,39 @@
 
 class Google_Service_Storagetransfer_AzureBlobStorageData extends Google_Model
 {
-	protected $azureCredentialsType = 'Google_Service_Storagetransfer_AzureCredentials';
-	protected $azureCredentialsDataType = '';
-	public $container;
-	public $storageAccount;
+  protected $azureCredentialsType = 'Google_Service_Storagetransfer_AzureCredentials';
+  protected $azureCredentialsDataType = '';
+  public $container;
+  public $storageAccount;
 
-	/**
-	 * @param Google_Service_Storagetransfer_AzureCredentials
-	 */
-	public function setAzureCredentials(Google_Service_Storagetransfer_AzureCredentials $azureCredentials)
-	{
-		$this->azureCredentials = $azureCredentials;
-	}
-	/**
-	 * @return Google_Service_Storagetransfer_AzureCredentials
-	 */
-	public function getAzureCredentials()
-	{
-		return $this->azureCredentials;
-	}
-	public function setContainer($container)
-	{
-		$this->container = $container;
-	}
-	public function getContainer()
-	{
-		return $this->container;
-	}
-	public function setStorageAccount($storageAccount)
-	{
-		$this->storageAccount = $storageAccount;
-	}
-	public function getStorageAccount()
-	{
-		return $this->storageAccount;
-	}
+  /**
+   * @param Google_Service_Storagetransfer_AzureCredentials
+   */
+  public function setAzureCredentials(Google_Service_Storagetransfer_AzureCredentials $azureCredentials)
+  {
+    $this->azureCredentials = $azureCredentials;
+  }
+  /**
+   * @return Google_Service_Storagetransfer_AzureCredentials
+   */
+  public function getAzureCredentials()
+  {
+    return $this->azureCredentials;
+  }
+  public function setContainer($container)
+  {
+    $this->container = $container;
+  }
+  public function getContainer()
+  {
+    return $this->container;
+  }
+  public function setStorageAccount($storageAccount)
+  {
+    $this->storageAccount = $storageAccount;
+  }
+  public function getStorageAccount()
+  {
+    return $this->storageAccount;
+  }
 }

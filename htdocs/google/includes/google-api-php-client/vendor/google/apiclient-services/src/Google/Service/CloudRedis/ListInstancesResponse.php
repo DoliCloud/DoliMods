@@ -17,40 +17,40 @@
 
 class Google_Service_CloudRedis_ListInstancesResponse extends Google_Collection
 {
-	protected $collection_key = 'unreachable';
-	protected $instancesType = 'Google_Service_CloudRedis_Instance';
-	protected $instancesDataType = 'array';
-	public $nextPageToken;
-	public $unreachable;
+  protected $collection_key = 'unreachable';
+  protected $instancesType = 'Google_Service_CloudRedis_Instance';
+  protected $instancesDataType = 'array';
+  public $nextPageToken;
+  public $unreachable;
 
-	/**
-	 * @param Google_Service_CloudRedis_Instance
-	 */
-	public function setInstances($instances)
-	{
-		$this->instances = $instances;
-	}
-	/**
-	 * @return Google_Service_CloudRedis_Instance
-	 */
-	public function getInstances()
-	{
-		return $this->instances;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setUnreachable($unreachable)
-	{
-		$this->unreachable = $unreachable;
-	}
-	public function getUnreachable()
-	{
-		return $this->unreachable;
-	}
+  /**
+   * @param Google_Service_CloudRedis_Instance[]
+   */
+  public function setInstances($instances)
+  {
+    $this->instances = $instances;
+  }
+  /**
+   * @return Google_Service_CloudRedis_Instance[]
+   */
+  public function getInstances()
+  {
+    return $this->instances;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setUnreachable($unreachable)
+  {
+    $this->unreachable = $unreachable;
+  }
+  public function getUnreachable()
+  {
+    return $this->unreachable;
+  }
 }

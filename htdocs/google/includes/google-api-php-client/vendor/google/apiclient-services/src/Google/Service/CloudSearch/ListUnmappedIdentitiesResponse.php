@@ -17,31 +17,31 @@
 
 class Google_Service_CloudSearch_ListUnmappedIdentitiesResponse extends Google_Collection
 {
-	protected $collection_key = 'unmappedIdentities';
-	public $nextPageToken;
-	protected $unmappedIdentitiesType = 'Google_Service_CloudSearch_UnmappedIdentity';
-	protected $unmappedIdentitiesDataType = 'array';
+  protected $collection_key = 'unmappedIdentities';
+  public $nextPageToken;
+  protected $unmappedIdentitiesType = 'Google_Service_CloudSearch_UnmappedIdentity';
+  protected $unmappedIdentitiesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_UnmappedIdentity
-	 */
-	public function setUnmappedIdentities($unmappedIdentities)
-	{
-		$this->unmappedIdentities = $unmappedIdentities;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_UnmappedIdentity
-	 */
-	public function getUnmappedIdentities()
-	{
-		return $this->unmappedIdentities;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_CloudSearch_UnmappedIdentity[]
+   */
+  public function setUnmappedIdentities($unmappedIdentities)
+  {
+    $this->unmappedIdentities = $unmappedIdentities;
+  }
+  /**
+   * @return Google_Service_CloudSearch_UnmappedIdentity[]
+   */
+  public function getUnmappedIdentities()
+  {
+    return $this->unmappedIdentities;
+  }
 }

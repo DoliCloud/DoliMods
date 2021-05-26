@@ -17,85 +17,85 @@
 
 class Google_Service_Dfareporting_UserRole extends Google_Collection
 {
-	protected $collection_key = 'permissions';
-	public $accountId;
-	public $defaultUserRole;
-	public $id;
-	public $kind;
-	public $name;
-	public $parentUserRoleId;
-	protected $permissionsType = 'Google_Service_Dfareporting_UserRolePermission';
-	protected $permissionsDataType = 'array';
-	public $subaccountId;
+  protected $collection_key = 'permissions';
+  public $accountId;
+  public $defaultUserRole;
+  public $id;
+  public $kind;
+  public $name;
+  public $parentUserRoleId;
+  protected $permissionsType = 'Google_Service_Dfareporting_UserRolePermission';
+  protected $permissionsDataType = 'array';
+  public $subaccountId;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	public function setDefaultUserRole($defaultUserRole)
-	{
-		$this->defaultUserRole = $defaultUserRole;
-	}
-	public function getDefaultUserRole()
-	{
-		return $this->defaultUserRole;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setParentUserRoleId($parentUserRoleId)
-	{
-		$this->parentUserRoleId = $parentUserRoleId;
-	}
-	public function getParentUserRoleId()
-	{
-		return $this->parentUserRoleId;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_UserRolePermission
-	 */
-	public function setPermissions($permissions)
-	{
-		$this->permissions = $permissions;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_UserRolePermission
-	 */
-	public function getPermissions()
-	{
-		return $this->permissions;
-	}
-	public function setSubaccountId($subaccountId)
-	{
-		$this->subaccountId = $subaccountId;
-	}
-	public function getSubaccountId()
-	{
-		return $this->subaccountId;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  public function setDefaultUserRole($defaultUserRole)
+  {
+    $this->defaultUserRole = $defaultUserRole;
+  }
+  public function getDefaultUserRole()
+  {
+    return $this->defaultUserRole;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setParentUserRoleId($parentUserRoleId)
+  {
+    $this->parentUserRoleId = $parentUserRoleId;
+  }
+  public function getParentUserRoleId()
+  {
+    return $this->parentUserRoleId;
+  }
+  /**
+   * @param Google_Service_Dfareporting_UserRolePermission[]
+   */
+  public function setPermissions($permissions)
+  {
+    $this->permissions = $permissions;
+  }
+  /**
+   * @return Google_Service_Dfareporting_UserRolePermission[]
+   */
+  public function getPermissions()
+  {
+    return $this->permissions;
+  }
+  public function setSubaccountId($subaccountId)
+  {
+    $this->subaccountId = $subaccountId;
+  }
+  public function getSubaccountId()
+  {
+    return $this->subaccountId;
+  }
 }

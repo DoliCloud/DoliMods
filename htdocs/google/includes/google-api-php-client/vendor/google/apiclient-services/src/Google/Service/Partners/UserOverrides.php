@@ -17,23 +17,23 @@
 
 class Google_Service_Partners_UserOverrides extends Google_Model
 {
-	public $ipAddress;
-	public $userId;
+  public $ipAddress;
+  public $userId;
 
-	public function setIpAddress($ipAddress)
-	{
-		$this->ipAddress = $ipAddress;
-	}
-	public function getIpAddress()
-	{
-		return $this->ipAddress;
-	}
-	public function setUserId($userId)
-	{
-		$this->userId = $userId;
-	}
-	public function getUserId()
-	{
-		return $this->userId;
-	}
+  public function setIpAddress($ipAddress)
+  {
+    $this->ipAddress = $ipAddress;
+  }
+  public function getIpAddress()
+  {
+    return $this->ipAddress;
+  }
+  public function setUserId($userId)
+  {
+    $this->userId = $userId;
+  }
+  public function getUserId()
+  {
+    return $this->userId;
+  }
 }

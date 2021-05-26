@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_BulkListLineItemAssignedTargetingOptionsResponse extends Google_Collection
 {
-	protected $collection_key = 'assignedTargetingOptions';
-	protected $assignedTargetingOptionsType = 'Google_Service_DisplayVideo_AssignedTargetingOption';
-	protected $assignedTargetingOptionsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'assignedTargetingOptions';
+  protected $assignedTargetingOptionsType = 'Google_Service_DisplayVideo_AssignedTargetingOption';
+  protected $assignedTargetingOptionsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DisplayVideo_AssignedTargetingOption
-	 */
-	public function setAssignedTargetingOptions($assignedTargetingOptions)
-	{
-		$this->assignedTargetingOptions = $assignedTargetingOptions;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_AssignedTargetingOption
-	 */
-	public function getAssignedTargetingOptions()
-	{
-		return $this->assignedTargetingOptions;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_AssignedTargetingOption[]
+   */
+  public function setAssignedTargetingOptions($assignedTargetingOptions)
+  {
+    $this->assignedTargetingOptions = $assignedTargetingOptions;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_AssignedTargetingOption[]
+   */
+  public function getAssignedTargetingOptions()
+  {
+    return $this->assignedTargetingOptions;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

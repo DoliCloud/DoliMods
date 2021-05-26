@@ -17,32 +17,32 @@
 
 class Google_Service_Bigquery_ArimaFittingMetrics extends Google_Model
 {
-	public $aic;
-	public $logLikelihood;
-	public $variance;
+  public $aic;
+  public $logLikelihood;
+  public $variance;
 
-	public function setAic($aic)
-	{
-		$this->aic = $aic;
-	}
-	public function getAic()
-	{
-		return $this->aic;
-	}
-	public function setLogLikelihood($logLikelihood)
-	{
-		$this->logLikelihood = $logLikelihood;
-	}
-	public function getLogLikelihood()
-	{
-		return $this->logLikelihood;
-	}
-	public function setVariance($variance)
-	{
-		$this->variance = $variance;
-	}
-	public function getVariance()
-	{
-		return $this->variance;
-	}
+  public function setAic($aic)
+  {
+    $this->aic = $aic;
+  }
+  public function getAic()
+  {
+    return $this->aic;
+  }
+  public function setLogLikelihood($logLikelihood)
+  {
+    $this->logLikelihood = $logLikelihood;
+  }
+  public function getLogLikelihood()
+  {
+    return $this->logLikelihood;
+  }
+  public function setVariance($variance)
+  {
+    $this->variance = $variance;
+  }
+  public function getVariance()
+  {
+    return $this->variance;
+  }
 }

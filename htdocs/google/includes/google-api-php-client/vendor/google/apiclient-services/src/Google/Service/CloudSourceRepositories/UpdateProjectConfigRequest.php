@@ -17,30 +17,30 @@
 
 class Google_Service_CloudSourceRepositories_UpdateProjectConfigRequest extends Google_Model
 {
-	protected $projectConfigType = 'Google_Service_CloudSourceRepositories_ProjectConfig';
-	protected $projectConfigDataType = '';
-	public $updateMask;
+  protected $projectConfigType = 'Google_Service_CloudSourceRepositories_ProjectConfig';
+  protected $projectConfigDataType = '';
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_CloudSourceRepositories_ProjectConfig
-	 */
-	public function setProjectConfig(Google_Service_CloudSourceRepositories_ProjectConfig $projectConfig)
-	{
-		$this->projectConfig = $projectConfig;
-	}
-	/**
-	 * @return Google_Service_CloudSourceRepositories_ProjectConfig
-	 */
-	public function getProjectConfig()
-	{
-		return $this->projectConfig;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_CloudSourceRepositories_ProjectConfig
+   */
+  public function setProjectConfig(Google_Service_CloudSourceRepositories_ProjectConfig $projectConfig)
+  {
+    $this->projectConfig = $projectConfig;
+  }
+  /**
+   * @return Google_Service_CloudSourceRepositories_ProjectConfig
+   */
+  public function getProjectConfig()
+  {
+    return $this->projectConfig;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

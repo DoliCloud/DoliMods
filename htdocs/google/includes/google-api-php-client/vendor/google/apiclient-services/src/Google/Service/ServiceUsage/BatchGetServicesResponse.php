@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceUsage_BatchGetServicesResponse extends Google_Collection
 {
-	protected $collection_key = 'services';
-	protected $servicesType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1Service';
-	protected $servicesDataType = 'array';
+  protected $collection_key = 'services';
+  protected $servicesType = 'Google_Service_ServiceUsage_GoogleApiServiceusageV1Service';
+  protected $servicesDataType = 'array';
 
-	/**
-	 * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
-	 */
-	public function setServices($services)
-	{
-		$this->services = $services;
-	}
-	/**
-	 * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1Service
-	 */
-	public function getServices()
-	{
-		return $this->services;
-	}
+  /**
+   * @param Google_Service_ServiceUsage_GoogleApiServiceusageV1Service[]
+   */
+  public function setServices($services)
+  {
+    $this->services = $services;
+  }
+  /**
+   * @return Google_Service_ServiceUsage_GoogleApiServiceusageV1Service[]
+   */
+  public function getServices()
+  {
+    return $this->services;
+  }
 }

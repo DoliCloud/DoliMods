@@ -17,31 +17,31 @@
 
 class Google_Service_AccessContextManager_ListAccessLevelsResponse extends Google_Collection
 {
-	protected $collection_key = 'accessLevels';
-	protected $accessLevelsType = 'Google_Service_AccessContextManager_AccessLevel';
-	protected $accessLevelsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'accessLevels';
+  protected $accessLevelsType = 'Google_Service_AccessContextManager_AccessLevel';
+  protected $accessLevelsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_AccessContextManager_AccessLevel
-	 */
-	public function setAccessLevels($accessLevels)
-	{
-		$this->accessLevels = $accessLevels;
-	}
-	/**
-	 * @return Google_Service_AccessContextManager_AccessLevel
-	 */
-	public function getAccessLevels()
-	{
-		return $this->accessLevels;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_AccessContextManager_AccessLevel[]
+   */
+  public function setAccessLevels($accessLevels)
+  {
+    $this->accessLevels = $accessLevels;
+  }
+  /**
+   * @return Google_Service_AccessContextManager_AccessLevel[]
+   */
+  public function getAccessLevels()
+  {
+    return $this->accessLevels;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

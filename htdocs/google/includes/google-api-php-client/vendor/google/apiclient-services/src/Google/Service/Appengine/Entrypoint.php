@@ -17,14 +17,14 @@
 
 class Google_Service_Appengine_Entrypoint extends Google_Model
 {
-	public $shell;
+  public $shell;
 
-	public function setShell($shell)
-	{
-		$this->shell = $shell;
-	}
-	public function getShell()
-	{
-		return $this->shell;
-	}
+  public function setShell($shell)
+  {
+    $this->shell = $shell;
+  }
+  public function getShell()
+  {
+    return $this->shell;
+  }
 }

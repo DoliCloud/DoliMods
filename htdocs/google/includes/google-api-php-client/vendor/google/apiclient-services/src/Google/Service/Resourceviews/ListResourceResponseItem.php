@@ -17,23 +17,23 @@
 
 class Google_Service_Resourceviews_ListResourceResponseItem extends Google_Model
 {
-	public $endpoints;
-	public $resource;
+  public $endpoints;
+  public $resource;
 
-	public function setEndpoints($endpoints)
-	{
-		$this->endpoints = $endpoints;
-	}
-	public function getEndpoints()
-	{
-		return $this->endpoints;
-	}
-	public function setResource($resource)
-	{
-		$this->resource = $resource;
-	}
-	public function getResource()
-	{
-		return $this->resource;
-	}
+  public function setEndpoints($endpoints)
+  {
+    $this->endpoints = $endpoints;
+  }
+  public function getEndpoints()
+  {
+    return $this->endpoints;
+  }
+  public function setResource($resource)
+  {
+    $this->resource = $resource;
+  }
+  public function getResource()
+  {
+    return $this->resource;
+  }
 }

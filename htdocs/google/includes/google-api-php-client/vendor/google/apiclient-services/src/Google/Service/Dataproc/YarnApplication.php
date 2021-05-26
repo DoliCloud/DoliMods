@@ -17,41 +17,41 @@
 
 class Google_Service_Dataproc_YarnApplication extends Google_Model
 {
-	public $name;
-	public $progress;
-	public $state;
-	public $trackingUrl;
+  public $name;
+  public $progress;
+  public $state;
+  public $trackingUrl;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setProgress($progress)
-	{
-		$this->progress = $progress;
-	}
-	public function getProgress()
-	{
-		return $this->progress;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setTrackingUrl($trackingUrl)
-	{
-		$this->trackingUrl = $trackingUrl;
-	}
-	public function getTrackingUrl()
-	{
-		return $this->trackingUrl;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setProgress($progress)
+  {
+    $this->progress = $progress;
+  }
+  public function getProgress()
+  {
+    return $this->progress;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setTrackingUrl($trackingUrl)
+  {
+    $this->trackingUrl = $trackingUrl;
+  }
+  public function getTrackingUrl()
+  {
+    return $this->trackingUrl;
+  }
 }

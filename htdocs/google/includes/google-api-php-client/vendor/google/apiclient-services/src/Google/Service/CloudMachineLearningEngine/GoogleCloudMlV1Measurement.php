@@ -17,40 +17,40 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Measurement extends Google_Collection
 {
-	protected $collection_key = 'metrics';
-	public $elapsedTime;
-	protected $metricsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1MeasurementMetric';
-	protected $metricsDataType = 'array';
-	public $stepCount;
+  protected $collection_key = 'metrics';
+  public $elapsedTime;
+  protected $metricsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1MeasurementMetric';
+  protected $metricsDataType = 'array';
+  public $stepCount;
 
-	public function setElapsedTime($elapsedTime)
-	{
-		$this->elapsedTime = $elapsedTime;
-	}
-	public function getElapsedTime()
-	{
-		return $this->elapsedTime;
-	}
-	/**
-	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1MeasurementMetric
-	 */
-	public function setMetrics($metrics)
-	{
-		$this->metrics = $metrics;
-	}
-	/**
-	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1MeasurementMetric
-	 */
-	public function getMetrics()
-	{
-		return $this->metrics;
-	}
-	public function setStepCount($stepCount)
-	{
-		$this->stepCount = $stepCount;
-	}
-	public function getStepCount()
-	{
-		return $this->stepCount;
-	}
+  public function setElapsedTime($elapsedTime)
+  {
+    $this->elapsedTime = $elapsedTime;
+  }
+  public function getElapsedTime()
+  {
+    return $this->elapsedTime;
+  }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1MeasurementMetric[]
+   */
+  public function setMetrics($metrics)
+  {
+    $this->metrics = $metrics;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1MeasurementMetric[]
+   */
+  public function getMetrics()
+  {
+    return $this->metrics;
+  }
+  public function setStepCount($stepCount)
+  {
+    $this->stepCount = $stepCount;
+  }
+  public function getStepCount()
+  {
+    return $this->stepCount;
+  }
 }

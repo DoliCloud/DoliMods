@@ -17,69 +17,69 @@
 
 class Google_Service_Spanner_Instance extends Google_Collection
 {
-	protected $collection_key = 'endpointUris';
-	public $config;
-	public $displayName;
-	public $endpointUris;
-	public $labels;
-	public $name;
-	public $nodeCount;
-	public $state;
+  protected $collection_key = 'endpointUris';
+  public $config;
+  public $displayName;
+  public $endpointUris;
+  public $labels;
+  public $name;
+  public $nodeCount;
+  public $state;
 
-	public function setConfig($config)
-	{
-		$this->config = $config;
-	}
-	public function getConfig()
-	{
-		return $this->config;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setEndpointUris($endpointUris)
-	{
-		$this->endpointUris = $endpointUris;
-	}
-	public function getEndpointUris()
-	{
-		return $this->endpointUris;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setNodeCount($nodeCount)
-	{
-		$this->nodeCount = $nodeCount;
-	}
-	public function getNodeCount()
-	{
-		return $this->nodeCount;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setConfig($config)
+  {
+    $this->config = $config;
+  }
+  public function getConfig()
+  {
+    return $this->config;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setEndpointUris($endpointUris)
+  {
+    $this->endpointUris = $endpointUris;
+  }
+  public function getEndpointUris()
+  {
+    return $this->endpointUris;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNodeCount($nodeCount)
+  {
+    $this->nodeCount = $nodeCount;
+  }
+  public function getNodeCount()
+  {
+    return $this->nodeCount;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

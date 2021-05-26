@@ -17,32 +17,32 @@
 
 class Google_Service_Clouderrorreporting_SourceLocation extends Google_Model
 {
-	public $filePath;
-	public $functionName;
-	public $lineNumber;
+  public $filePath;
+  public $functionName;
+  public $lineNumber;
 
-	public function setFilePath($filePath)
-	{
-		$this->filePath = $filePath;
-	}
-	public function getFilePath()
-	{
-		return $this->filePath;
-	}
-	public function setFunctionName($functionName)
-	{
-		$this->functionName = $functionName;
-	}
-	public function getFunctionName()
-	{
-		return $this->functionName;
-	}
-	public function setLineNumber($lineNumber)
-	{
-		$this->lineNumber = $lineNumber;
-	}
-	public function getLineNumber()
-	{
-		return $this->lineNumber;
-	}
+  public function setFilePath($filePath)
+  {
+    $this->filePath = $filePath;
+  }
+  public function getFilePath()
+  {
+    return $this->filePath;
+  }
+  public function setFunctionName($functionName)
+  {
+    $this->functionName = $functionName;
+  }
+  public function getFunctionName()
+  {
+    return $this->functionName;
+  }
+  public function setLineNumber($lineNumber)
+  {
+    $this->lineNumber = $lineNumber;
+  }
+  public function getLineNumber()
+  {
+    return $this->lineNumber;
+  }
 }

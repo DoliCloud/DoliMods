@@ -17,31 +17,31 @@
 
 class Google_Service_HomeGraphService_SyncResponsePayload extends Google_Collection
 {
-	protected $collection_key = 'devices';
-	public $agentUserId;
-	protected $devicesType = 'Google_Service_HomeGraphService_Device';
-	protected $devicesDataType = 'array';
+  protected $collection_key = 'devices';
+  public $agentUserId;
+  protected $devicesType = 'Google_Service_HomeGraphService_Device';
+  protected $devicesDataType = 'array';
 
-	public function setAgentUserId($agentUserId)
-	{
-		$this->agentUserId = $agentUserId;
-	}
-	public function getAgentUserId()
-	{
-		return $this->agentUserId;
-	}
-	/**
-	 * @param Google_Service_HomeGraphService_Device
-	 */
-	public function setDevices($devices)
-	{
-		$this->devices = $devices;
-	}
-	/**
-	 * @return Google_Service_HomeGraphService_Device
-	 */
-	public function getDevices()
-	{
-		return $this->devices;
-	}
+  public function setAgentUserId($agentUserId)
+  {
+    $this->agentUserId = $agentUserId;
+  }
+  public function getAgentUserId()
+  {
+    return $this->agentUserId;
+  }
+  /**
+   * @param Google_Service_HomeGraphService_Device[]
+   */
+  public function setDevices($devices)
+  {
+    $this->devices = $devices;
+  }
+  /**
+   * @return Google_Service_HomeGraphService_Device[]
+   */
+  public function getDevices()
+  {
+    return $this->devices;
+  }
 }

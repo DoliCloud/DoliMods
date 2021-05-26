@@ -17,23 +17,23 @@
 
 class Google_Service_BigtableAdmin_RestoreTableRequest extends Google_Model
 {
-	public $backup;
-	public $tableId;
+  public $backup;
+  public $tableId;
 
-	public function setBackup($backup)
-	{
-		$this->backup = $backup;
-	}
-	public function getBackup()
-	{
-		return $this->backup;
-	}
-	public function setTableId($tableId)
-	{
-		$this->tableId = $tableId;
-	}
-	public function getTableId()
-	{
-		return $this->tableId;
-	}
+  public function setBackup($backup)
+  {
+    $this->backup = $backup;
+  }
+  public function getBackup()
+  {
+    return $this->backup;
+  }
+  public function setTableId($tableId)
+  {
+    $this->tableId = $tableId;
+  }
+  public function getTableId()
+  {
+    return $this->tableId;
+  }
 }

@@ -17,47 +17,47 @@
 
 class Google_Service_AnalyticsReporting_GetReportsResponse extends Google_Collection
 {
-	protected $collection_key = 'reports';
-	public $queryCost;
-	protected $reportsType = 'Google_Service_AnalyticsReporting_Report';
-	protected $reportsDataType = 'array';
-	protected $resourceQuotasRemainingType = 'Google_Service_AnalyticsReporting_ResourceQuotasRemaining';
-	protected $resourceQuotasRemainingDataType = '';
+  protected $collection_key = 'reports';
+  public $queryCost;
+  protected $reportsType = 'Google_Service_AnalyticsReporting_Report';
+  protected $reportsDataType = 'array';
+  protected $resourceQuotasRemainingType = 'Google_Service_AnalyticsReporting_ResourceQuotasRemaining';
+  protected $resourceQuotasRemainingDataType = '';
 
-	public function setQueryCost($queryCost)
-	{
-		$this->queryCost = $queryCost;
-	}
-	public function getQueryCost()
-	{
-		return $this->queryCost;
-	}
-	/**
-	 * @param Google_Service_AnalyticsReporting_Report
-	 */
-	public function setReports($reports)
-	{
-		$this->reports = $reports;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_Report
-	 */
-	public function getReports()
-	{
-		return $this->reports;
-	}
-	/**
-	 * @param Google_Service_AnalyticsReporting_ResourceQuotasRemaining
-	 */
-	public function setResourceQuotasRemaining(Google_Service_AnalyticsReporting_ResourceQuotasRemaining $resourceQuotasRemaining)
-	{
-		$this->resourceQuotasRemaining = $resourceQuotasRemaining;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_ResourceQuotasRemaining
-	 */
-	public function getResourceQuotasRemaining()
-	{
-		return $this->resourceQuotasRemaining;
-	}
+  public function setQueryCost($queryCost)
+  {
+    $this->queryCost = $queryCost;
+  }
+  public function getQueryCost()
+  {
+    return $this->queryCost;
+  }
+  /**
+   * @param Google_Service_AnalyticsReporting_Report[]
+   */
+  public function setReports($reports)
+  {
+    $this->reports = $reports;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_Report[]
+   */
+  public function getReports()
+  {
+    return $this->reports;
+  }
+  /**
+   * @param Google_Service_AnalyticsReporting_ResourceQuotasRemaining
+   */
+  public function setResourceQuotasRemaining(Google_Service_AnalyticsReporting_ResourceQuotasRemaining $resourceQuotasRemaining)
+  {
+    $this->resourceQuotasRemaining = $resourceQuotasRemaining;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_ResourceQuotasRemaining
+   */
+  public function getResourceQuotasRemaining()
+  {
+    return $this->resourceQuotasRemaining;
+  }
 }

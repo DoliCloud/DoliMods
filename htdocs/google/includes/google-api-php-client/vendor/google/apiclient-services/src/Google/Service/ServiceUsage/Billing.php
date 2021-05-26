@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceUsage_Billing extends Google_Collection
 {
-	protected $collection_key = 'consumerDestinations';
-	protected $consumerDestinationsType = 'Google_Service_ServiceUsage_BillingDestination';
-	protected $consumerDestinationsDataType = 'array';
+  protected $collection_key = 'consumerDestinations';
+  protected $consumerDestinationsType = 'Google_Service_ServiceUsage_BillingDestination';
+  protected $consumerDestinationsDataType = 'array';
 
-	/**
-	 * @param Google_Service_ServiceUsage_BillingDestination
-	 */
-	public function setConsumerDestinations($consumerDestinations)
-	{
-		$this->consumerDestinations = $consumerDestinations;
-	}
-	/**
-	 * @return Google_Service_ServiceUsage_BillingDestination
-	 */
-	public function getConsumerDestinations()
-	{
-		return $this->consumerDestinations;
-	}
+  /**
+   * @param Google_Service_ServiceUsage_BillingDestination[]
+   */
+  public function setConsumerDestinations($consumerDestinations)
+  {
+    $this->consumerDestinations = $consumerDestinations;
+  }
+  /**
+   * @return Google_Service_ServiceUsage_BillingDestination[]
+   */
+  public function getConsumerDestinations()
+  {
+    return $this->consumerDestinations;
+  }
 }

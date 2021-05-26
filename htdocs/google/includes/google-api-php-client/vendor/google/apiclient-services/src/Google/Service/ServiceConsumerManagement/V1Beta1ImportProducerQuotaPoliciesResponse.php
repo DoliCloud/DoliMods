@@ -17,22 +17,22 @@
 
 class Google_Service_ServiceConsumerManagement_V1Beta1ImportProducerQuotaPoliciesResponse extends Google_Collection
 {
-	protected $collection_key = 'policies';
-	protected $policiesType = 'Google_Service_ServiceConsumerManagement_V1Beta1ProducerQuotaPolicy';
-	protected $policiesDataType = 'array';
+  protected $collection_key = 'policies';
+  protected $policiesType = 'Google_Service_ServiceConsumerManagement_V1Beta1ProducerQuotaPolicy';
+  protected $policiesDataType = 'array';
 
-	/**
-	 * @param Google_Service_ServiceConsumerManagement_V1Beta1ProducerQuotaPolicy
-	 */
-	public function setPolicies($policies)
-	{
-		$this->policies = $policies;
-	}
-	/**
-	 * @return Google_Service_ServiceConsumerManagement_V1Beta1ProducerQuotaPolicy
-	 */
-	public function getPolicies()
-	{
-		return $this->policies;
-	}
+  /**
+   * @param Google_Service_ServiceConsumerManagement_V1Beta1ProducerQuotaPolicy[]
+   */
+  public function setPolicies($policies)
+  {
+    $this->policies = $policies;
+  }
+  /**
+   * @return Google_Service_ServiceConsumerManagement_V1Beta1ProducerQuotaPolicy[]
+   */
+  public function getPolicies()
+  {
+    return $this->policies;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1CheckTrialEarlyStoppingStateResponse extends Google_Model
 {
-	public $endTime;
-	public $shouldStop;
-	public $startTime;
+  public $endTime;
+  public $shouldStop;
+  public $startTime;
 
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setShouldStop($shouldStop)
-	{
-		$this->shouldStop = $shouldStop;
-	}
-	public function getShouldStop()
-	{
-		return $this->shouldStop;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setShouldStop($shouldStop)
+  {
+    $this->shouldStop = $shouldStop;
+  }
+  public function getShouldStop()
+  {
+    return $this->shouldStop;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

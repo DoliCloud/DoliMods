@@ -17,40 +17,40 @@
 
 class Google_Service_Slides_ReplaceAllTextRequest extends Google_Collection
 {
-	protected $collection_key = 'pageObjectIds';
-	protected $containsTextType = 'Google_Service_Slides_SubstringMatchCriteria';
-	protected $containsTextDataType = '';
-	public $pageObjectIds;
-	public $replaceText;
+  protected $collection_key = 'pageObjectIds';
+  protected $containsTextType = 'Google_Service_Slides_SubstringMatchCriteria';
+  protected $containsTextDataType = '';
+  public $pageObjectIds;
+  public $replaceText;
 
-	/**
-	 * @param Google_Service_Slides_SubstringMatchCriteria
-	 */
-	public function setContainsText(Google_Service_Slides_SubstringMatchCriteria $containsText)
-	{
-		$this->containsText = $containsText;
-	}
-	/**
-	 * @return Google_Service_Slides_SubstringMatchCriteria
-	 */
-	public function getContainsText()
-	{
-		return $this->containsText;
-	}
-	public function setPageObjectIds($pageObjectIds)
-	{
-		$this->pageObjectIds = $pageObjectIds;
-	}
-	public function getPageObjectIds()
-	{
-		return $this->pageObjectIds;
-	}
-	public function setReplaceText($replaceText)
-	{
-		$this->replaceText = $replaceText;
-	}
-	public function getReplaceText()
-	{
-		return $this->replaceText;
-	}
+  /**
+   * @param Google_Service_Slides_SubstringMatchCriteria
+   */
+  public function setContainsText(Google_Service_Slides_SubstringMatchCriteria $containsText)
+  {
+    $this->containsText = $containsText;
+  }
+  /**
+   * @return Google_Service_Slides_SubstringMatchCriteria
+   */
+  public function getContainsText()
+  {
+    return $this->containsText;
+  }
+  public function setPageObjectIds($pageObjectIds)
+  {
+    $this->pageObjectIds = $pageObjectIds;
+  }
+  public function getPageObjectIds()
+  {
+    return $this->pageObjectIds;
+  }
+  public function setReplaceText($replaceText)
+  {
+    $this->replaceText = $replaceText;
+  }
+  public function getReplaceText()
+  {
+    return $this->replaceText;
+  }
 }

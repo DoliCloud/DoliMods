@@ -17,14 +17,14 @@
 
 class Google_Service_Vault_HeldHangoutsChatQuery extends Google_Model
 {
-	public $includeRooms;
+  public $includeRooms;
 
-	public function setIncludeRooms($includeRooms)
-	{
-		$this->includeRooms = $includeRooms;
-	}
-	public function getIncludeRooms()
-	{
-		return $this->includeRooms;
-	}
+  public function setIncludeRooms($includeRooms)
+  {
+    $this->includeRooms = $includeRooms;
+  }
+  public function getIncludeRooms()
+  {
+    return $this->includeRooms;
+  }
 }

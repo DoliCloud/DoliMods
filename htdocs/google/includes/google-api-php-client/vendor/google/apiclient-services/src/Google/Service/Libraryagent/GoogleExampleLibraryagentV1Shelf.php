@@ -17,23 +17,23 @@
 
 class Google_Service_Libraryagent_GoogleExampleLibraryagentV1Shelf extends Google_Model
 {
-	public $name;
-	public $theme;
+  public $name;
+  public $theme;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setTheme($theme)
-	{
-		$this->theme = $theme;
-	}
-	public function getTheme()
-	{
-		return $this->theme;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setTheme($theme)
+  {
+    $this->theme = $theme;
+  }
+  public function getTheme()
+  {
+    return $this->theme;
+  }
 }

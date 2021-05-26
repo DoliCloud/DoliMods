@@ -17,90 +17,90 @@
 
 class Google_Service_Chromewebstore_Item extends Google_Collection
 {
-	protected $collection_key = 'statusDetail';
-	protected $internal_gapi_mappings = array(
-		"itemId" => "item_id",
-	);
-	public $crxVersion;
-	public $id;
-	public $itemError;
-	public $itemId;
-	public $kind;
-	public $publicKey;
-	public $status;
-	public $statusDetail;
-	public $uploadState;
+  protected $collection_key = 'statusDetail';
+  protected $internal_gapi_mappings = array(
+        "itemId" => "item_id",
+  );
+  public $crxVersion;
+  public $id;
+  public $itemError;
+  public $itemId;
+  public $kind;
+  public $publicKey;
+  public $status;
+  public $statusDetail;
+  public $uploadState;
 
-	public function setCrxVersion($crxVersion)
-	{
-		$this->crxVersion = $crxVersion;
-	}
-	public function getCrxVersion()
-	{
-		return $this->crxVersion;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setItemError($itemError)
-	{
-		$this->itemError = $itemError;
-	}
-	public function getItemError()
-	{
-		return $this->itemError;
-	}
-	public function setItemId($itemId)
-	{
-		$this->itemId = $itemId;
-	}
-	public function getItemId()
-	{
-		return $this->itemId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setPublicKey($publicKey)
-	{
-		$this->publicKey = $publicKey;
-	}
-	public function getPublicKey()
-	{
-		return $this->publicKey;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
-	public function setStatusDetail($statusDetail)
-	{
-		$this->statusDetail = $statusDetail;
-	}
-	public function getStatusDetail()
-	{
-		return $this->statusDetail;
-	}
-	public function setUploadState($uploadState)
-	{
-		$this->uploadState = $uploadState;
-	}
-	public function getUploadState()
-	{
-		return $this->uploadState;
-	}
+  public function setCrxVersion($crxVersion)
+  {
+    $this->crxVersion = $crxVersion;
+  }
+  public function getCrxVersion()
+  {
+    return $this->crxVersion;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setItemError($itemError)
+  {
+    $this->itemError = $itemError;
+  }
+  public function getItemError()
+  {
+    return $this->itemError;
+  }
+  public function setItemId($itemId)
+  {
+    $this->itemId = $itemId;
+  }
+  public function getItemId()
+  {
+    return $this->itemId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setPublicKey($publicKey)
+  {
+    $this->publicKey = $publicKey;
+  }
+  public function getPublicKey()
+  {
+    return $this->publicKey;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
+  public function setStatusDetail($statusDetail)
+  {
+    $this->statusDetail = $statusDetail;
+  }
+  public function getStatusDetail()
+  {
+    return $this->statusDetail;
+  }
+  public function setUploadState($uploadState)
+  {
+    $this->uploadState = $uploadState;
+  }
+  public function getUploadState()
+  {
+    return $this->uploadState;
+  }
 }

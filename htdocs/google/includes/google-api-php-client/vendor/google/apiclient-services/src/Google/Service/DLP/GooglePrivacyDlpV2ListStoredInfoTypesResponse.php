@@ -17,31 +17,31 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ListStoredInfoTypesResponse extends Google_Collection
 {
-	protected $collection_key = 'storedInfoTypes';
-	public $nextPageToken;
-	protected $storedInfoTypesType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoType';
-	protected $storedInfoTypesDataType = 'array';
+  protected $collection_key = 'storedInfoTypes';
+  public $nextPageToken;
+  protected $storedInfoTypesType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoType';
+  protected $storedInfoTypesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoType
-	 */
-	public function setStoredInfoTypes($storedInfoTypes)
-	{
-		$this->storedInfoTypes = $storedInfoTypes;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoType
-	 */
-	public function getStoredInfoTypes()
-	{
-		return $this->storedInfoTypes;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoType[]
+   */
+  public function setStoredInfoTypes($storedInfoTypes)
+  {
+    $this->storedInfoTypes = $storedInfoTypes;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoType[]
+   */
+  public function getStoredInfoTypes()
+  {
+    return $this->storedInfoTypes;
+  }
 }

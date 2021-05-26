@@ -17,71 +17,71 @@
 
 class Google_Service_BigtableAdmin_Table extends Google_Model
 {
-	protected $clusterStatesType = 'Google_Service_BigtableAdmin_ClusterState';
-	protected $clusterStatesDataType = 'map';
-	protected $columnFamiliesType = 'Google_Service_BigtableAdmin_ColumnFamily';
-	protected $columnFamiliesDataType = 'map';
-	public $granularity;
-	public $name;
-	protected $restoreInfoType = 'Google_Service_BigtableAdmin_RestoreInfo';
-	protected $restoreInfoDataType = '';
+  protected $clusterStatesType = 'Google_Service_BigtableAdmin_ClusterState';
+  protected $clusterStatesDataType = 'map';
+  protected $columnFamiliesType = 'Google_Service_BigtableAdmin_ColumnFamily';
+  protected $columnFamiliesDataType = 'map';
+  public $granularity;
+  public $name;
+  protected $restoreInfoType = 'Google_Service_BigtableAdmin_RestoreInfo';
+  protected $restoreInfoDataType = '';
 
-	/**
-	 * @param Google_Service_BigtableAdmin_ClusterState
-	 */
-	public function setClusterStates($clusterStates)
-	{
-		$this->clusterStates = $clusterStates;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_ClusterState
-	 */
-	public function getClusterStates()
-	{
-		return $this->clusterStates;
-	}
-	/**
-	 * @param Google_Service_BigtableAdmin_ColumnFamily
-	 */
-	public function setColumnFamilies($columnFamilies)
-	{
-		$this->columnFamilies = $columnFamilies;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_ColumnFamily
-	 */
-	public function getColumnFamilies()
-	{
-		return $this->columnFamilies;
-	}
-	public function setGranularity($granularity)
-	{
-		$this->granularity = $granularity;
-	}
-	public function getGranularity()
-	{
-		return $this->granularity;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_BigtableAdmin_RestoreInfo
-	 */
-	public function setRestoreInfo(Google_Service_BigtableAdmin_RestoreInfo $restoreInfo)
-	{
-		$this->restoreInfo = $restoreInfo;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_RestoreInfo
-	 */
-	public function getRestoreInfo()
-	{
-		return $this->restoreInfo;
-	}
+  /**
+   * @param Google_Service_BigtableAdmin_ClusterState[]
+   */
+  public function setClusterStates($clusterStates)
+  {
+    $this->clusterStates = $clusterStates;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_ClusterState[]
+   */
+  public function getClusterStates()
+  {
+    return $this->clusterStates;
+  }
+  /**
+   * @param Google_Service_BigtableAdmin_ColumnFamily[]
+   */
+  public function setColumnFamilies($columnFamilies)
+  {
+    $this->columnFamilies = $columnFamilies;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_ColumnFamily[]
+   */
+  public function getColumnFamilies()
+  {
+    return $this->columnFamilies;
+  }
+  public function setGranularity($granularity)
+  {
+    $this->granularity = $granularity;
+  }
+  public function getGranularity()
+  {
+    return $this->granularity;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_BigtableAdmin_RestoreInfo
+   */
+  public function setRestoreInfo(Google_Service_BigtableAdmin_RestoreInfo $restoreInfo)
+  {
+    $this->restoreInfo = $restoreInfo;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_RestoreInfo
+   */
+  public function getRestoreInfo()
+  {
+    return $this->restoreInfo;
+  }
 }

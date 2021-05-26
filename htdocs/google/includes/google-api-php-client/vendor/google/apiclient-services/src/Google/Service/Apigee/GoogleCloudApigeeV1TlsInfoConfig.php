@@ -17,101 +17,101 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1TlsInfoConfig extends Google_Collection
 {
-	protected $collection_key = 'protocols';
-	public $ciphers;
-	public $clientAuthEnabled;
-	protected $commonNameType = 'Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig';
-	protected $commonNameDataType = '';
-	public $enabled;
-	public $ignoreValidationErrors;
-	public $keyAlias;
-	protected $keyAliasReferenceType = 'Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference';
-	protected $keyAliasReferenceDataType = '';
-	public $protocols;
-	public $trustStore;
+  protected $collection_key = 'protocols';
+  public $ciphers;
+  public $clientAuthEnabled;
+  protected $commonNameType = 'Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig';
+  protected $commonNameDataType = '';
+  public $enabled;
+  public $ignoreValidationErrors;
+  public $keyAlias;
+  protected $keyAliasReferenceType = 'Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference';
+  protected $keyAliasReferenceDataType = '';
+  public $protocols;
+  public $trustStore;
 
-	public function setCiphers($ciphers)
-	{
-		$this->ciphers = $ciphers;
-	}
-	public function getCiphers()
-	{
-		return $this->ciphers;
-	}
-	public function setClientAuthEnabled($clientAuthEnabled)
-	{
-		$this->clientAuthEnabled = $clientAuthEnabled;
-	}
-	public function getClientAuthEnabled()
-	{
-		return $this->clientAuthEnabled;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig
-	 */
-	public function setCommonName(Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig $commonName)
-	{
-		$this->commonName = $commonName;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig
-	 */
-	public function getCommonName()
-	{
-		return $this->commonName;
-	}
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
-	}
-	public function getEnabled()
-	{
-		return $this->enabled;
-	}
-	public function setIgnoreValidationErrors($ignoreValidationErrors)
-	{
-		$this->ignoreValidationErrors = $ignoreValidationErrors;
-	}
-	public function getIgnoreValidationErrors()
-	{
-		return $this->ignoreValidationErrors;
-	}
-	public function setKeyAlias($keyAlias)
-	{
-		$this->keyAlias = $keyAlias;
-	}
-	public function getKeyAlias()
-	{
-		return $this->keyAlias;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference
-	 */
-	public function setKeyAliasReference(Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference $keyAliasReference)
-	{
-		$this->keyAliasReference = $keyAliasReference;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference
-	 */
-	public function getKeyAliasReference()
-	{
-		return $this->keyAliasReference;
-	}
-	public function setProtocols($protocols)
-	{
-		$this->protocols = $protocols;
-	}
-	public function getProtocols()
-	{
-		return $this->protocols;
-	}
-	public function setTrustStore($trustStore)
-	{
-		$this->trustStore = $trustStore;
-	}
-	public function getTrustStore()
-	{
-		return $this->trustStore;
-	}
+  public function setCiphers($ciphers)
+  {
+    $this->ciphers = $ciphers;
+  }
+  public function getCiphers()
+  {
+    return $this->ciphers;
+  }
+  public function setClientAuthEnabled($clientAuthEnabled)
+  {
+    $this->clientAuthEnabled = $clientAuthEnabled;
+  }
+  public function getClientAuthEnabled()
+  {
+    return $this->clientAuthEnabled;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig
+   */
+  public function setCommonName(Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig $commonName)
+  {
+    $this->commonName = $commonName;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig
+   */
+  public function getCommonName()
+  {
+    return $this->commonName;
+  }
+  public function setEnabled($enabled)
+  {
+    $this->enabled = $enabled;
+  }
+  public function getEnabled()
+  {
+    return $this->enabled;
+  }
+  public function setIgnoreValidationErrors($ignoreValidationErrors)
+  {
+    $this->ignoreValidationErrors = $ignoreValidationErrors;
+  }
+  public function getIgnoreValidationErrors()
+  {
+    return $this->ignoreValidationErrors;
+  }
+  public function setKeyAlias($keyAlias)
+  {
+    $this->keyAlias = $keyAlias;
+  }
+  public function getKeyAlias()
+  {
+    return $this->keyAlias;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference
+   */
+  public function setKeyAliasReference(Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference $keyAliasReference)
+  {
+    $this->keyAliasReference = $keyAliasReference;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1KeyAliasReference
+   */
+  public function getKeyAliasReference()
+  {
+    return $this->keyAliasReference;
+  }
+  public function setProtocols($protocols)
+  {
+    $this->protocols = $protocols;
+  }
+  public function getProtocols()
+  {
+    return $this->protocols;
+  }
+  public function setTrustStore($trustStore)
+  {
+    $this->trustStore = $trustStore;
+  }
+  public function getTrustStore()
+  {
+    return $this->trustStore;
+  }
 }

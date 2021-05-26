@@ -17,39 +17,39 @@
 
 class Google_Service_JobService_CustomAttributeHistogramResult extends Google_Model
 {
-	public $key;
-	protected $longValueHistogramResultType = 'Google_Service_JobService_NumericBucketingResult';
-	protected $longValueHistogramResultDataType = '';
-	public $stringValueHistogramResult;
+  public $key;
+  protected $longValueHistogramResultType = 'Google_Service_JobService_NumericBucketingResult';
+  protected $longValueHistogramResultDataType = '';
+  public $stringValueHistogramResult;
 
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	/**
-	 * @param Google_Service_JobService_NumericBucketingResult
-	 */
-	public function setLongValueHistogramResult(Google_Service_JobService_NumericBucketingResult $longValueHistogramResult)
-	{
-		$this->longValueHistogramResult = $longValueHistogramResult;
-	}
-	/**
-	 * @return Google_Service_JobService_NumericBucketingResult
-	 */
-	public function getLongValueHistogramResult()
-	{
-		return $this->longValueHistogramResult;
-	}
-	public function setStringValueHistogramResult($stringValueHistogramResult)
-	{
-		$this->stringValueHistogramResult = $stringValueHistogramResult;
-	}
-	public function getStringValueHistogramResult()
-	{
-		return $this->stringValueHistogramResult;
-	}
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  /**
+   * @param Google_Service_JobService_NumericBucketingResult
+   */
+  public function setLongValueHistogramResult(Google_Service_JobService_NumericBucketingResult $longValueHistogramResult)
+  {
+    $this->longValueHistogramResult = $longValueHistogramResult;
+  }
+  /**
+   * @return Google_Service_JobService_NumericBucketingResult
+   */
+  public function getLongValueHistogramResult()
+  {
+    return $this->longValueHistogramResult;
+  }
+  public function setStringValueHistogramResult($stringValueHistogramResult)
+  {
+    $this->stringValueHistogramResult = $stringValueHistogramResult;
+  }
+  public function getStringValueHistogramResult()
+  {
+    return $this->stringValueHistogramResult;
+  }
 }

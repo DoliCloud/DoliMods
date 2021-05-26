@@ -17,81 +17,81 @@
 
 class Google_Service_ServiceManagement_Type extends Google_Collection
 {
-	protected $collection_key = 'options';
-	protected $fieldsType = 'Google_Service_ServiceManagement_Field';
-	protected $fieldsDataType = 'array';
-	public $name;
-	public $oneofs;
-	protected $optionsType = 'Google_Service_ServiceManagement_Option';
-	protected $optionsDataType = 'array';
-	protected $sourceContextType = 'Google_Service_ServiceManagement_SourceContext';
-	protected $sourceContextDataType = '';
-	public $syntax;
+  protected $collection_key = 'options';
+  protected $fieldsType = 'Google_Service_ServiceManagement_Field';
+  protected $fieldsDataType = 'array';
+  public $name;
+  public $oneofs;
+  protected $optionsType = 'Google_Service_ServiceManagement_Option';
+  protected $optionsDataType = 'array';
+  protected $sourceContextType = 'Google_Service_ServiceManagement_SourceContext';
+  protected $sourceContextDataType = '';
+  public $syntax;
 
-	/**
-	 * @param Google_Service_ServiceManagement_Field
-	 */
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	/**
-	 * @return Google_Service_ServiceManagement_Field
-	 */
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOneofs($oneofs)
-	{
-		$this->oneofs = $oneofs;
-	}
-	public function getOneofs()
-	{
-		return $this->oneofs;
-	}
-	/**
-	 * @param Google_Service_ServiceManagement_Option
-	 */
-	public function setOptions($options)
-	{
-		$this->options = $options;
-	}
-	/**
-	 * @return Google_Service_ServiceManagement_Option
-	 */
-	public function getOptions()
-	{
-		return $this->options;
-	}
-	/**
-	 * @param Google_Service_ServiceManagement_SourceContext
-	 */
-	public function setSourceContext(Google_Service_ServiceManagement_SourceContext $sourceContext)
-	{
-		$this->sourceContext = $sourceContext;
-	}
-	/**
-	 * @return Google_Service_ServiceManagement_SourceContext
-	 */
-	public function getSourceContext()
-	{
-		return $this->sourceContext;
-	}
-	public function setSyntax($syntax)
-	{
-		$this->syntax = $syntax;
-	}
-	public function getSyntax()
-	{
-		return $this->syntax;
-	}
+  /**
+   * @param Google_Service_ServiceManagement_Field[]
+   */
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  /**
+   * @return Google_Service_ServiceManagement_Field[]
+   */
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOneofs($oneofs)
+  {
+    $this->oneofs = $oneofs;
+  }
+  public function getOneofs()
+  {
+    return $this->oneofs;
+  }
+  /**
+   * @param Google_Service_ServiceManagement_Option[]
+   */
+  public function setOptions($options)
+  {
+    $this->options = $options;
+  }
+  /**
+   * @return Google_Service_ServiceManagement_Option[]
+   */
+  public function getOptions()
+  {
+    return $this->options;
+  }
+  /**
+   * @param Google_Service_ServiceManagement_SourceContext
+   */
+  public function setSourceContext(Google_Service_ServiceManagement_SourceContext $sourceContext)
+  {
+    $this->sourceContext = $sourceContext;
+  }
+  /**
+   * @return Google_Service_ServiceManagement_SourceContext
+   */
+  public function getSourceContext()
+  {
+    return $this->sourceContext;
+  }
+  public function setSyntax($syntax)
+  {
+    $this->syntax = $syntax;
+  }
+  public function getSyntax()
+  {
+    return $this->syntax;
+  }
 }

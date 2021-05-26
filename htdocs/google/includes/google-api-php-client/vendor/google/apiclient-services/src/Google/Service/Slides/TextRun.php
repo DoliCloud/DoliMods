@@ -17,30 +17,30 @@
 
 class Google_Service_Slides_TextRun extends Google_Model
 {
-	public $content;
-	protected $styleType = 'Google_Service_Slides_TextStyle';
-	protected $styleDataType = '';
+  public $content;
+  protected $styleType = 'Google_Service_Slides_TextStyle';
+  protected $styleDataType = '';
 
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	public function getContent()
-	{
-		return $this->content;
-	}
-	/**
-	 * @param Google_Service_Slides_TextStyle
-	 */
-	public function setStyle(Google_Service_Slides_TextStyle $style)
-	{
-		$this->style = $style;
-	}
-	/**
-	 * @return Google_Service_Slides_TextStyle
-	 */
-	public function getStyle()
-	{
-		return $this->style;
-	}
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  public function getContent()
+  {
+    return $this->content;
+  }
+  /**
+   * @param Google_Service_Slides_TextStyle
+   */
+  public function setStyle(Google_Service_Slides_TextStyle $style)
+  {
+    $this->style = $style;
+  }
+  /**
+   * @return Google_Service_Slides_TextStyle
+   */
+  public function getStyle()
+  {
+    return $this->style;
+  }
 }

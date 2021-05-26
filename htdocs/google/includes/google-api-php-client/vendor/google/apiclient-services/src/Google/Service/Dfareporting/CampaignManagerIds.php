@@ -17,59 +17,59 @@
 
 class Google_Service_Dfareporting_CampaignManagerIds extends Google_Model
 {
-	public $adId;
-	public $campaignId;
-	public $creativeId;
-	public $kind;
-	public $placementId;
-	public $siteId;
+  public $adId;
+  public $campaignId;
+  public $creativeId;
+  public $kind;
+  public $placementId;
+  public $siteId;
 
-	public function setAdId($adId)
-	{
-		$this->adId = $adId;
-	}
-	public function getAdId()
-	{
-		return $this->adId;
-	}
-	public function setCampaignId($campaignId)
-	{
-		$this->campaignId = $campaignId;
-	}
-	public function getCampaignId()
-	{
-		return $this->campaignId;
-	}
-	public function setCreativeId($creativeId)
-	{
-		$this->creativeId = $creativeId;
-	}
-	public function getCreativeId()
-	{
-		return $this->creativeId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setPlacementId($placementId)
-	{
-		$this->placementId = $placementId;
-	}
-	public function getPlacementId()
-	{
-		return $this->placementId;
-	}
-	public function setSiteId($siteId)
-	{
-		$this->siteId = $siteId;
-	}
-	public function getSiteId()
-	{
-		return $this->siteId;
-	}
+  public function setAdId($adId)
+  {
+    $this->adId = $adId;
+  }
+  public function getAdId()
+  {
+    return $this->adId;
+  }
+  public function setCampaignId($campaignId)
+  {
+    $this->campaignId = $campaignId;
+  }
+  public function getCampaignId()
+  {
+    return $this->campaignId;
+  }
+  public function setCreativeId($creativeId)
+  {
+    $this->creativeId = $creativeId;
+  }
+  public function getCreativeId()
+  {
+    return $this->creativeId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setPlacementId($placementId)
+  {
+    $this->placementId = $placementId;
+  }
+  public function getPlacementId()
+  {
+    return $this->placementId;
+  }
+  public function setSiteId($siteId)
+  {
+    $this->siteId = $siteId;
+  }
+  public function getSiteId()
+  {
+    return $this->siteId;
+  }
 }

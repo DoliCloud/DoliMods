@@ -17,54 +17,54 @@
 
 class Google_Service_CloudTalentSolution_CompensationInfo extends Google_Collection
 {
-	protected $collection_key = 'entries';
-	protected $annualizedBaseCompensationRangeType = 'Google_Service_CloudTalentSolution_CompensationRange';
-	protected $annualizedBaseCompensationRangeDataType = '';
-	protected $annualizedTotalCompensationRangeType = 'Google_Service_CloudTalentSolution_CompensationRange';
-	protected $annualizedTotalCompensationRangeDataType = '';
-	protected $entriesType = 'Google_Service_CloudTalentSolution_CompensationEntry';
-	protected $entriesDataType = 'array';
+  protected $collection_key = 'entries';
+  protected $annualizedBaseCompensationRangeType = 'Google_Service_CloudTalentSolution_CompensationRange';
+  protected $annualizedBaseCompensationRangeDataType = '';
+  protected $annualizedTotalCompensationRangeType = 'Google_Service_CloudTalentSolution_CompensationRange';
+  protected $annualizedTotalCompensationRangeDataType = '';
+  protected $entriesType = 'Google_Service_CloudTalentSolution_CompensationEntry';
+  protected $entriesDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudTalentSolution_CompensationRange
-	 */
-	public function setAnnualizedBaseCompensationRange(Google_Service_CloudTalentSolution_CompensationRange $annualizedBaseCompensationRange)
-	{
-		$this->annualizedBaseCompensationRange = $annualizedBaseCompensationRange;
-	}
-	/**
-	 * @return Google_Service_CloudTalentSolution_CompensationRange
-	 */
-	public function getAnnualizedBaseCompensationRange()
-	{
-		return $this->annualizedBaseCompensationRange;
-	}
-	/**
-	 * @param Google_Service_CloudTalentSolution_CompensationRange
-	 */
-	public function setAnnualizedTotalCompensationRange(Google_Service_CloudTalentSolution_CompensationRange $annualizedTotalCompensationRange)
-	{
-		$this->annualizedTotalCompensationRange = $annualizedTotalCompensationRange;
-	}
-	/**
-	 * @return Google_Service_CloudTalentSolution_CompensationRange
-	 */
-	public function getAnnualizedTotalCompensationRange()
-	{
-		return $this->annualizedTotalCompensationRange;
-	}
-	/**
-	 * @param Google_Service_CloudTalentSolution_CompensationEntry
-	 */
-	public function setEntries($entries)
-	{
-		$this->entries = $entries;
-	}
-	/**
-	 * @return Google_Service_CloudTalentSolution_CompensationEntry
-	 */
-	public function getEntries()
-	{
-		return $this->entries;
-	}
+  /**
+   * @param Google_Service_CloudTalentSolution_CompensationRange
+   */
+  public function setAnnualizedBaseCompensationRange(Google_Service_CloudTalentSolution_CompensationRange $annualizedBaseCompensationRange)
+  {
+    $this->annualizedBaseCompensationRange = $annualizedBaseCompensationRange;
+  }
+  /**
+   * @return Google_Service_CloudTalentSolution_CompensationRange
+   */
+  public function getAnnualizedBaseCompensationRange()
+  {
+    return $this->annualizedBaseCompensationRange;
+  }
+  /**
+   * @param Google_Service_CloudTalentSolution_CompensationRange
+   */
+  public function setAnnualizedTotalCompensationRange(Google_Service_CloudTalentSolution_CompensationRange $annualizedTotalCompensationRange)
+  {
+    $this->annualizedTotalCompensationRange = $annualizedTotalCompensationRange;
+  }
+  /**
+   * @return Google_Service_CloudTalentSolution_CompensationRange
+   */
+  public function getAnnualizedTotalCompensationRange()
+  {
+    return $this->annualizedTotalCompensationRange;
+  }
+  /**
+   * @param Google_Service_CloudTalentSolution_CompensationEntry[]
+   */
+  public function setEntries($entries)
+  {
+    $this->entries = $entries;
+  }
+  /**
+   * @return Google_Service_CloudTalentSolution_CompensationEntry[]
+   */
+  public function getEntries()
+  {
+    return $this->entries;
+  }
 }

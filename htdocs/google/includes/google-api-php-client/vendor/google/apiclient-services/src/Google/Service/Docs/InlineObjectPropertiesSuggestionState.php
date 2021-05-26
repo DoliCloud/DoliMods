@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_InlineObjectPropertiesSuggestionState extends Google_Model
 {
-	protected $embeddedObjectSuggestionStateType = 'Google_Service_Docs_EmbeddedObjectSuggestionState';
-	protected $embeddedObjectSuggestionStateDataType = '';
+  protected $embeddedObjectSuggestionStateType = 'Google_Service_Docs_EmbeddedObjectSuggestionState';
+  protected $embeddedObjectSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_EmbeddedObjectSuggestionState
-	 */
-	public function setEmbeddedObjectSuggestionState(Google_Service_Docs_EmbeddedObjectSuggestionState $embeddedObjectSuggestionState)
-	{
-		$this->embeddedObjectSuggestionState = $embeddedObjectSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_EmbeddedObjectSuggestionState
-	 */
-	public function getEmbeddedObjectSuggestionState()
-	{
-		return $this->embeddedObjectSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_EmbeddedObjectSuggestionState
+   */
+  public function setEmbeddedObjectSuggestionState(Google_Service_Docs_EmbeddedObjectSuggestionState $embeddedObjectSuggestionState)
+  {
+    $this->embeddedObjectSuggestionState = $embeddedObjectSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_EmbeddedObjectSuggestionState
+   */
+  public function getEmbeddedObjectSuggestionState()
+  {
+    return $this->embeddedObjectSuggestionState;
+  }
 }

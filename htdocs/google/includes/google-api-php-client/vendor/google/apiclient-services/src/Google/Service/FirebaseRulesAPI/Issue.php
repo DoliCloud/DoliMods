@@ -17,33 +17,33 @@
 
 class Google_Service_FirebaseRulesAPI_Issue extends Google_Model
 {
-	public $description;
-	public $severity;
-	protected $sourcePositionType = 'Google_Service_FirebaseRulesAPI_SourcePosition';
-	protected $sourcePositionDataType = '';
+  public $description;
+  public $severity;
+  protected $sourcePositionType = 'Google_Service_FirebaseRulesAPI_SourcePosition';
+  protected $sourcePositionDataType = '';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setSeverity($severity)
-	{
-		$this->severity = $severity;
-	}
-	public function getSeverity()
-	{
-		return $this->severity;
-	}
-	public function setSourcePosition(Google_Service_FirebaseRulesAPI_SourcePosition $sourcePosition)
-	{
-		$this->sourcePosition = $sourcePosition;
-	}
-	public function getSourcePosition()
-	{
-		return $this->sourcePosition;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setSeverity($severity)
+  {
+    $this->severity = $severity;
+  }
+  public function getSeverity()
+  {
+    return $this->severity;
+  }
+  public function setSourcePosition(Google_Service_FirebaseRulesAPI_SourcePosition $sourcePosition)
+  {
+    $this->sourcePosition = $sourcePosition;
+  }
+  public function getSourcePosition()
+  {
+    return $this->sourcePosition;
+  }
 }

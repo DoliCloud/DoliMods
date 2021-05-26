@@ -17,31 +17,31 @@
 
 class Google_Service_Classroom_ListCourseWorkResponse extends Google_Collection
 {
-	protected $collection_key = 'courseWork';
-	protected $courseWorkType = 'Google_Service_Classroom_CourseWork';
-	protected $courseWorkDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'courseWork';
+  protected $courseWorkType = 'Google_Service_Classroom_CourseWork';
+  protected $courseWorkDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Classroom_CourseWork
-	 */
-	public function setCourseWork($courseWork)
-	{
-		$this->courseWork = $courseWork;
-	}
-	/**
-	 * @return Google_Service_Classroom_CourseWork
-	 */
-	public function getCourseWork()
-	{
-		return $this->courseWork;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Classroom_CourseWork[]
+   */
+  public function setCourseWork($courseWork)
+  {
+    $this->courseWork = $courseWork;
+  }
+  /**
+   * @return Google_Service_Classroom_CourseWork[]
+   */
+  public function getCourseWork()
+  {
+    return $this->courseWork;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

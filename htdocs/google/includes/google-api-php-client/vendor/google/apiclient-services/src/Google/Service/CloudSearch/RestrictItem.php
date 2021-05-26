@@ -17,78 +17,78 @@
 
 class Google_Service_CloudSearch_RestrictItem extends Google_Model
 {
-	protected $driveFollowUpRestrictType = 'Google_Service_CloudSearch_DriveFollowUpRestrict';
-	protected $driveFollowUpRestrictDataType = '';
-	protected $driveLocationRestrictType = 'Google_Service_CloudSearch_DriveLocationRestrict';
-	protected $driveLocationRestrictDataType = '';
-	protected $driveMimeTypeRestrictType = 'Google_Service_CloudSearch_DriveMimeTypeRestrict';
-	protected $driveMimeTypeRestrictDataType = '';
-	protected $driveTimeSpanRestrictType = 'Google_Service_CloudSearch_DriveTimeSpanRestrict';
-	protected $driveTimeSpanRestrictDataType = '';
-	public $searchOperator;
+  protected $driveFollowUpRestrictType = 'Google_Service_CloudSearch_DriveFollowUpRestrict';
+  protected $driveFollowUpRestrictDataType = '';
+  protected $driveLocationRestrictType = 'Google_Service_CloudSearch_DriveLocationRestrict';
+  protected $driveLocationRestrictDataType = '';
+  protected $driveMimeTypeRestrictType = 'Google_Service_CloudSearch_DriveMimeTypeRestrict';
+  protected $driveMimeTypeRestrictDataType = '';
+  protected $driveTimeSpanRestrictType = 'Google_Service_CloudSearch_DriveTimeSpanRestrict';
+  protected $driveTimeSpanRestrictDataType = '';
+  public $searchOperator;
 
-	/**
-	 * @param Google_Service_CloudSearch_DriveFollowUpRestrict
-	 */
-	public function setDriveFollowUpRestrict(Google_Service_CloudSearch_DriveFollowUpRestrict $driveFollowUpRestrict)
-	{
-		$this->driveFollowUpRestrict = $driveFollowUpRestrict;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_DriveFollowUpRestrict
-	 */
-	public function getDriveFollowUpRestrict()
-	{
-		return $this->driveFollowUpRestrict;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_DriveLocationRestrict
-	 */
-	public function setDriveLocationRestrict(Google_Service_CloudSearch_DriveLocationRestrict $driveLocationRestrict)
-	{
-		$this->driveLocationRestrict = $driveLocationRestrict;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_DriveLocationRestrict
-	 */
-	public function getDriveLocationRestrict()
-	{
-		return $this->driveLocationRestrict;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_DriveMimeTypeRestrict
-	 */
-	public function setDriveMimeTypeRestrict(Google_Service_CloudSearch_DriveMimeTypeRestrict $driveMimeTypeRestrict)
-	{
-		$this->driveMimeTypeRestrict = $driveMimeTypeRestrict;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_DriveMimeTypeRestrict
-	 */
-	public function getDriveMimeTypeRestrict()
-	{
-		return $this->driveMimeTypeRestrict;
-	}
-	/**
-	 * @param Google_Service_CloudSearch_DriveTimeSpanRestrict
-	 */
-	public function setDriveTimeSpanRestrict(Google_Service_CloudSearch_DriveTimeSpanRestrict $driveTimeSpanRestrict)
-	{
-		$this->driveTimeSpanRestrict = $driveTimeSpanRestrict;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_DriveTimeSpanRestrict
-	 */
-	public function getDriveTimeSpanRestrict()
-	{
-		return $this->driveTimeSpanRestrict;
-	}
-	public function setSearchOperator($searchOperator)
-	{
-		$this->searchOperator = $searchOperator;
-	}
-	public function getSearchOperator()
-	{
-		return $this->searchOperator;
-	}
+  /**
+   * @param Google_Service_CloudSearch_DriveFollowUpRestrict
+   */
+  public function setDriveFollowUpRestrict(Google_Service_CloudSearch_DriveFollowUpRestrict $driveFollowUpRestrict)
+  {
+    $this->driveFollowUpRestrict = $driveFollowUpRestrict;
+  }
+  /**
+   * @return Google_Service_CloudSearch_DriveFollowUpRestrict
+   */
+  public function getDriveFollowUpRestrict()
+  {
+    return $this->driveFollowUpRestrict;
+  }
+  /**
+   * @param Google_Service_CloudSearch_DriveLocationRestrict
+   */
+  public function setDriveLocationRestrict(Google_Service_CloudSearch_DriveLocationRestrict $driveLocationRestrict)
+  {
+    $this->driveLocationRestrict = $driveLocationRestrict;
+  }
+  /**
+   * @return Google_Service_CloudSearch_DriveLocationRestrict
+   */
+  public function getDriveLocationRestrict()
+  {
+    return $this->driveLocationRestrict;
+  }
+  /**
+   * @param Google_Service_CloudSearch_DriveMimeTypeRestrict
+   */
+  public function setDriveMimeTypeRestrict(Google_Service_CloudSearch_DriveMimeTypeRestrict $driveMimeTypeRestrict)
+  {
+    $this->driveMimeTypeRestrict = $driveMimeTypeRestrict;
+  }
+  /**
+   * @return Google_Service_CloudSearch_DriveMimeTypeRestrict
+   */
+  public function getDriveMimeTypeRestrict()
+  {
+    return $this->driveMimeTypeRestrict;
+  }
+  /**
+   * @param Google_Service_CloudSearch_DriveTimeSpanRestrict
+   */
+  public function setDriveTimeSpanRestrict(Google_Service_CloudSearch_DriveTimeSpanRestrict $driveTimeSpanRestrict)
+  {
+    $this->driveTimeSpanRestrict = $driveTimeSpanRestrict;
+  }
+  /**
+   * @return Google_Service_CloudSearch_DriveTimeSpanRestrict
+   */
+  public function getDriveTimeSpanRestrict()
+  {
+    return $this->driveTimeSpanRestrict;
+  }
+  public function setSearchOperator($searchOperator)
+  {
+    $this->searchOperator = $searchOperator;
+  }
+  public function getSearchOperator()
+  {
+    return $this->searchOperator;
+  }
 }

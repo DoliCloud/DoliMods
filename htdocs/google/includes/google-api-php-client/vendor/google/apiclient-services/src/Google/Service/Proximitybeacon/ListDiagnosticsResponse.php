@@ -17,31 +17,31 @@
 
 class Google_Service_Proximitybeacon_ListDiagnosticsResponse extends Google_Collection
 {
-	protected $collection_key = 'diagnostics';
-	protected $diagnosticsType = 'Google_Service_Proximitybeacon_Diagnostics';
-	protected $diagnosticsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'diagnostics';
+  protected $diagnosticsType = 'Google_Service_Proximitybeacon_Diagnostics';
+  protected $diagnosticsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Proximitybeacon_Diagnostics
-	 */
-	public function setDiagnostics($diagnostics)
-	{
-		$this->diagnostics = $diagnostics;
-	}
-	/**
-	 * @return Google_Service_Proximitybeacon_Diagnostics
-	 */
-	public function getDiagnostics()
-	{
-		return $this->diagnostics;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Proximitybeacon_Diagnostics
+   */
+  public function setDiagnostics($diagnostics)
+  {
+    $this->diagnostics = $diagnostics;
+  }
+  /**
+   * @return Google_Service_Proximitybeacon_Diagnostics
+   */
+  public function getDiagnostics()
+  {
+    return $this->diagnostics;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

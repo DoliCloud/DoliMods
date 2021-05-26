@@ -17,31 +17,31 @@
 
 class Google_Service_AnalyticsReporting_CohortGroup extends Google_Collection
 {
-	protected $collection_key = 'cohorts';
-	protected $cohortsType = 'Google_Service_AnalyticsReporting_Cohort';
-	protected $cohortsDataType = 'array';
-	public $lifetimeValue;
+  protected $collection_key = 'cohorts';
+  protected $cohortsType = 'Google_Service_AnalyticsReporting_Cohort';
+  protected $cohortsDataType = 'array';
+  public $lifetimeValue;
 
-	/**
-	 * @param Google_Service_AnalyticsReporting_Cohort
-	 */
-	public function setCohorts($cohorts)
-	{
-		$this->cohorts = $cohorts;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_Cohort
-	 */
-	public function getCohorts()
-	{
-		return $this->cohorts;
-	}
-	public function setLifetimeValue($lifetimeValue)
-	{
-		$this->lifetimeValue = $lifetimeValue;
-	}
-	public function getLifetimeValue()
-	{
-		return $this->lifetimeValue;
-	}
+  /**
+   * @param Google_Service_AnalyticsReporting_Cohort[]
+   */
+  public function setCohorts($cohorts)
+  {
+    $this->cohorts = $cohorts;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_Cohort[]
+   */
+  public function getCohorts()
+  {
+    return $this->cohorts;
+  }
+  public function setLifetimeValue($lifetimeValue)
+  {
+    $this->lifetimeValue = $lifetimeValue;
+  }
+  public function getLifetimeValue()
+  {
+    return $this->lifetimeValue;
+  }
 }

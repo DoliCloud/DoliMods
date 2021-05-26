@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_AccountAdsLink extends Google_Model
 {
-	public $adsId;
-	public $status;
+  public $adsId;
+  public $status;
 
-	public function setAdsId($adsId)
-	{
-		$this->adsId = $adsId;
-	}
-	public function getAdsId()
-	{
-		return $this->adsId;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setAdsId($adsId)
+  {
+    $this->adsId = $adsId;
+  }
+  public function getAdsId()
+  {
+    return $this->adsId;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

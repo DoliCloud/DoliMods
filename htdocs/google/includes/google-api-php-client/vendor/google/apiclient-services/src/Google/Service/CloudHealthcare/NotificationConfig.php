@@ -17,14 +17,14 @@
 
 class Google_Service_CloudHealthcare_NotificationConfig extends Google_Model
 {
-	public $pubsubTopic;
+  public $pubsubTopic;
 
-	public function setPubsubTopic($pubsubTopic)
-	{
-		$this->pubsubTopic = $pubsubTopic;
-	}
-	public function getPubsubTopic()
-	{
-		return $this->pubsubTopic;
-	}
+  public function setPubsubTopic($pubsubTopic)
+  {
+    $this->pubsubTopic = $pubsubTopic;
+  }
+  public function getPubsubTopic()
+  {
+    return $this->pubsubTopic;
+  }
 }

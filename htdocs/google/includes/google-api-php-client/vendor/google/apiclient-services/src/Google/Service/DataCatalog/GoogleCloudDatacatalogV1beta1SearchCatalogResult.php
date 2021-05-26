@@ -17,41 +17,41 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogResult extends Google_Model
 {
-	public $linkedResource;
-	public $relativeResourceName;
-	public $searchResultSubtype;
-	public $searchResultType;
+  public $linkedResource;
+  public $relativeResourceName;
+  public $searchResultSubtype;
+  public $searchResultType;
 
-	public function setLinkedResource($linkedResource)
-	{
-		$this->linkedResource = $linkedResource;
-	}
-	public function getLinkedResource()
-	{
-		return $this->linkedResource;
-	}
-	public function setRelativeResourceName($relativeResourceName)
-	{
-		$this->relativeResourceName = $relativeResourceName;
-	}
-	public function getRelativeResourceName()
-	{
-		return $this->relativeResourceName;
-	}
-	public function setSearchResultSubtype($searchResultSubtype)
-	{
-		$this->searchResultSubtype = $searchResultSubtype;
-	}
-	public function getSearchResultSubtype()
-	{
-		return $this->searchResultSubtype;
-	}
-	public function setSearchResultType($searchResultType)
-	{
-		$this->searchResultType = $searchResultType;
-	}
-	public function getSearchResultType()
-	{
-		return $this->searchResultType;
-	}
+  public function setLinkedResource($linkedResource)
+  {
+    $this->linkedResource = $linkedResource;
+  }
+  public function getLinkedResource()
+  {
+    return $this->linkedResource;
+  }
+  public function setRelativeResourceName($relativeResourceName)
+  {
+    $this->relativeResourceName = $relativeResourceName;
+  }
+  public function getRelativeResourceName()
+  {
+    return $this->relativeResourceName;
+  }
+  public function setSearchResultSubtype($searchResultSubtype)
+  {
+    $this->searchResultSubtype = $searchResultSubtype;
+  }
+  public function getSearchResultSubtype()
+  {
+    return $this->searchResultSubtype;
+  }
+  public function setSearchResultType($searchResultType)
+  {
+    $this->searchResultType = $searchResultType;
+  }
+  public function getSearchResultType()
+  {
+    return $this->searchResultType;
+  }
 }

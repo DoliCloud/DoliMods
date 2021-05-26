@@ -17,23 +17,23 @@
 
 class Google_Service_GameServices_FleetConfig extends Google_Model
 {
-	public $fleetSpec;
-	public $name;
+  public $fleetSpec;
+  public $name;
 
-	public function setFleetSpec($fleetSpec)
-	{
-		$this->fleetSpec = $fleetSpec;
-	}
-	public function getFleetSpec()
-	{
-		return $this->fleetSpec;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setFleetSpec($fleetSpec)
+  {
+    $this->fleetSpec = $fleetSpec;
+  }
+  public function getFleetSpec()
+  {
+    return $this->fleetSpec;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

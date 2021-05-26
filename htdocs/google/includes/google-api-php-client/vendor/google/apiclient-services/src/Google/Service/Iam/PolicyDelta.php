@@ -17,22 +17,22 @@
 
 class Google_Service_Iam_PolicyDelta extends Google_Collection
 {
-	protected $collection_key = 'bindingDeltas';
-	protected $bindingDeltasType = 'Google_Service_Iam_BindingDelta';
-	protected $bindingDeltasDataType = 'array';
+  protected $collection_key = 'bindingDeltas';
+  protected $bindingDeltasType = 'Google_Service_Iam_BindingDelta';
+  protected $bindingDeltasDataType = 'array';
 
-	/**
-	 * @param Google_Service_Iam_BindingDelta
-	 */
-	public function setBindingDeltas($bindingDeltas)
-	{
-		$this->bindingDeltas = $bindingDeltas;
-	}
-	/**
-	 * @return Google_Service_Iam_BindingDelta
-	 */
-	public function getBindingDeltas()
-	{
-		return $this->bindingDeltas;
-	}
+  /**
+   * @param Google_Service_Iam_BindingDelta[]
+   */
+  public function setBindingDeltas($bindingDeltas)
+  {
+    $this->bindingDeltas = $bindingDeltas;
+  }
+  /**
+   * @return Google_Service_Iam_BindingDelta[]
+   */
+  public function getBindingDeltas()
+  {
+    return $this->bindingDeltas;
+  }
 }

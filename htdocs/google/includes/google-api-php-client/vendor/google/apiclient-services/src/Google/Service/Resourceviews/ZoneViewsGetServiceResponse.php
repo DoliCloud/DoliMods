@@ -17,31 +17,31 @@
 
 class Google_Service_Resourceviews_ZoneViewsGetServiceResponse extends Google_Collection
 {
-	protected $collection_key = 'endpoints';
-	protected $endpointsType = 'Google_Service_Resourceviews_ServiceEndpoint';
-	protected $endpointsDataType = 'array';
-	public $fingerprint;
+  protected $collection_key = 'endpoints';
+  protected $endpointsType = 'Google_Service_Resourceviews_ServiceEndpoint';
+  protected $endpointsDataType = 'array';
+  public $fingerprint;
 
-	/**
-	 * @param Google_Service_Resourceviews_ServiceEndpoint
-	 */
-	public function setEndpoints($endpoints)
-	{
-		$this->endpoints = $endpoints;
-	}
-	/**
-	 * @return Google_Service_Resourceviews_ServiceEndpoint
-	 */
-	public function getEndpoints()
-	{
-		return $this->endpoints;
-	}
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
+  /**
+   * @param Google_Service_Resourceviews_ServiceEndpoint
+   */
+  public function setEndpoints($endpoints)
+  {
+    $this->endpoints = $endpoints;
+  }
+  /**
+   * @return Google_Service_Resourceviews_ServiceEndpoint
+   */
+  public function getEndpoints()
+  {
+    return $this->endpoints;
+  }
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
 }

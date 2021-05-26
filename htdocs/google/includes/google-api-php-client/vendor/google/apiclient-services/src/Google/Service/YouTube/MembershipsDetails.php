@@ -17,65 +17,65 @@
 
 class Google_Service_YouTube_MembershipsDetails extends Google_Collection
 {
-	protected $collection_key = 'membershipsDurationAtLevels';
-	public $accessibleLevels;
-	public $highestAccessibleLevel;
-	public $highestAccessibleLevelDisplayName;
-	protected $membershipsDurationType = 'Google_Service_YouTube_MembershipsDuration';
-	protected $membershipsDurationDataType = '';
-	protected $membershipsDurationAtLevelsType = 'Google_Service_YouTube_MembershipsDurationAtLevel';
-	protected $membershipsDurationAtLevelsDataType = 'array';
+  protected $collection_key = 'membershipsDurationAtLevels';
+  public $accessibleLevels;
+  public $highestAccessibleLevel;
+  public $highestAccessibleLevelDisplayName;
+  protected $membershipsDurationType = 'Google_Service_YouTube_MembershipsDuration';
+  protected $membershipsDurationDataType = '';
+  protected $membershipsDurationAtLevelsType = 'Google_Service_YouTube_MembershipsDurationAtLevel';
+  protected $membershipsDurationAtLevelsDataType = 'array';
 
-	public function setAccessibleLevels($accessibleLevels)
-	{
-		$this->accessibleLevels = $accessibleLevels;
-	}
-	public function getAccessibleLevels()
-	{
-		return $this->accessibleLevels;
-	}
-	public function setHighestAccessibleLevel($highestAccessibleLevel)
-	{
-		$this->highestAccessibleLevel = $highestAccessibleLevel;
-	}
-	public function getHighestAccessibleLevel()
-	{
-		return $this->highestAccessibleLevel;
-	}
-	public function setHighestAccessibleLevelDisplayName($highestAccessibleLevelDisplayName)
-	{
-		$this->highestAccessibleLevelDisplayName = $highestAccessibleLevelDisplayName;
-	}
-	public function getHighestAccessibleLevelDisplayName()
-	{
-		return $this->highestAccessibleLevelDisplayName;
-	}
-	/**
-	 * @param Google_Service_YouTube_MembershipsDuration
-	 */
-	public function setMembershipsDuration(Google_Service_YouTube_MembershipsDuration $membershipsDuration)
-	{
-		$this->membershipsDuration = $membershipsDuration;
-	}
-	/**
-	 * @return Google_Service_YouTube_MembershipsDuration
-	 */
-	public function getMembershipsDuration()
-	{
-		return $this->membershipsDuration;
-	}
-	/**
-	 * @param Google_Service_YouTube_MembershipsDurationAtLevel
-	 */
-	public function setMembershipsDurationAtLevels($membershipsDurationAtLevels)
-	{
-		$this->membershipsDurationAtLevels = $membershipsDurationAtLevels;
-	}
-	/**
-	 * @return Google_Service_YouTube_MembershipsDurationAtLevel
-	 */
-	public function getMembershipsDurationAtLevels()
-	{
-		return $this->membershipsDurationAtLevels;
-	}
+  public function setAccessibleLevels($accessibleLevels)
+  {
+    $this->accessibleLevels = $accessibleLevels;
+  }
+  public function getAccessibleLevels()
+  {
+    return $this->accessibleLevels;
+  }
+  public function setHighestAccessibleLevel($highestAccessibleLevel)
+  {
+    $this->highestAccessibleLevel = $highestAccessibleLevel;
+  }
+  public function getHighestAccessibleLevel()
+  {
+    return $this->highestAccessibleLevel;
+  }
+  public function setHighestAccessibleLevelDisplayName($highestAccessibleLevelDisplayName)
+  {
+    $this->highestAccessibleLevelDisplayName = $highestAccessibleLevelDisplayName;
+  }
+  public function getHighestAccessibleLevelDisplayName()
+  {
+    return $this->highestAccessibleLevelDisplayName;
+  }
+  /**
+   * @param Google_Service_YouTube_MembershipsDuration
+   */
+  public function setMembershipsDuration(Google_Service_YouTube_MembershipsDuration $membershipsDuration)
+  {
+    $this->membershipsDuration = $membershipsDuration;
+  }
+  /**
+   * @return Google_Service_YouTube_MembershipsDuration
+   */
+  public function getMembershipsDuration()
+  {
+    return $this->membershipsDuration;
+  }
+  /**
+   * @param Google_Service_YouTube_MembershipsDurationAtLevel[]
+   */
+  public function setMembershipsDurationAtLevels($membershipsDurationAtLevels)
+  {
+    $this->membershipsDurationAtLevels = $membershipsDurationAtLevels;
+  }
+  /**
+   * @return Google_Service_YouTube_MembershipsDurationAtLevel[]
+   */
+  public function getMembershipsDurationAtLevels()
+  {
+    return $this->membershipsDurationAtLevels;
+  }
 }

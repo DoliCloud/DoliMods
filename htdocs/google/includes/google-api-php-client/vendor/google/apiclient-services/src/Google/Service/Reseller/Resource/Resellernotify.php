@@ -25,48 +25,48 @@
  */
 class Google_Service_Reseller_Resource_Resellernotify extends Google_Service_Resource
 {
-	/**
-	 * Returns all the details of the watch corresponding to the reseller.
-	 * (resellernotify.getwatchdetails)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Reseller_ResellernotifyGetwatchdetailsResponse
-	 */
-	public function getwatchdetails($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('getwatchdetails', array($params), "Google_Service_Reseller_ResellernotifyGetwatchdetailsResponse");
-	}
-	/**
-	 * Registers a Reseller for receiving notifications. (resellernotify.register)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string serviceAccountEmailAddress The service account which will
-	 * own the created Cloud-PubSub topic.
-	 * @return Google_Service_Reseller_ResellernotifyResource
-	 */
-	public function register($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('register', array($params), "Google_Service_Reseller_ResellernotifyResource");
-	}
-	/**
-	 * Unregisters a Reseller for receiving notifications.
-	 * (resellernotify.unregister)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string serviceAccountEmailAddress The service account which owns
-	 * the Cloud-PubSub topic.
-	 * @return Google_Service_Reseller_ResellernotifyResource
-	 */
-	public function unregister($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('unregister', array($params), "Google_Service_Reseller_ResellernotifyResource");
-	}
+  /**
+   * Returns all the details of the watch corresponding to the reseller.
+   * (resellernotify.getwatchdetails)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Reseller_ResellernotifyGetwatchdetailsResponse
+   */
+  public function getwatchdetails($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getwatchdetails', array($params), "Google_Service_Reseller_ResellernotifyGetwatchdetailsResponse");
+  }
+  /**
+   * Registers a Reseller for receiving notifications. (resellernotify.register)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string serviceAccountEmailAddress The service account which will
+   * own the created Cloud-PubSub topic.
+   * @return Google_Service_Reseller_ResellernotifyResource
+   */
+  public function register($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('register', array($params), "Google_Service_Reseller_ResellernotifyResource");
+  }
+  /**
+   * Unregisters a Reseller for receiving notifications.
+   * (resellernotify.unregister)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string serviceAccountEmailAddress The service account which owns
+   * the Cloud-PubSub topic.
+   * @return Google_Service_Reseller_ResellernotifyResource
+   */
+  public function unregister($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('unregister', array($params), "Google_Service_Reseller_ResellernotifyResource");
+  }
 }

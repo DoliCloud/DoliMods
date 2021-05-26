@@ -17,23 +17,39 @@
 
 class Google_Service_CloudKMS_KeyOperationAttestation extends Google_Model
 {
-	public $content;
-	public $format;
+  protected $certChainsType = 'Google_Service_CloudKMS_CertificateChains';
+  protected $certChainsDataType = '';
+  public $content;
+  public $format;
 
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-	public function getContent()
-	{
-		return $this->content;
-	}
-	public function setFormat($format)
-	{
-		$this->format = $format;
-	}
-	public function getFormat()
-	{
-		return $this->format;
-	}
+  /**
+   * @param Google_Service_CloudKMS_CertificateChains
+   */
+  public function setCertChains(Google_Service_CloudKMS_CertificateChains $certChains)
+  {
+    $this->certChains = $certChains;
+  }
+  /**
+   * @return Google_Service_CloudKMS_CertificateChains
+   */
+  public function getCertChains()
+  {
+    return $this->certChains;
+  }
+  public function setContent($content)
+  {
+    $this->content = $content;
+  }
+  public function getContent()
+  {
+    return $this->content;
+  }
+  public function setFormat($format)
+  {
+    $this->format = $format;
+  }
+  public function getFormat()
+  {
+    return $this->format;
+  }
 }

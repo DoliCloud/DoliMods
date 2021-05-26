@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_InterconnectAttachmentPartnerMetadata extends Google_Model
 {
-	public $interconnectName;
-	public $partnerName;
-	public $portalUrl;
+  public $interconnectName;
+  public $partnerName;
+  public $portalUrl;
 
-	public function setInterconnectName($interconnectName)
-	{
-		$this->interconnectName = $interconnectName;
-	}
-	public function getInterconnectName()
-	{
-		return $this->interconnectName;
-	}
-	public function setPartnerName($partnerName)
-	{
-		$this->partnerName = $partnerName;
-	}
-	public function getPartnerName()
-	{
-		return $this->partnerName;
-	}
-	public function setPortalUrl($portalUrl)
-	{
-		$this->portalUrl = $portalUrl;
-	}
-	public function getPortalUrl()
-	{
-		return $this->portalUrl;
-	}
+  public function setInterconnectName($interconnectName)
+  {
+    $this->interconnectName = $interconnectName;
+  }
+  public function getInterconnectName()
+  {
+    return $this->interconnectName;
+  }
+  public function setPartnerName($partnerName)
+  {
+    $this->partnerName = $partnerName;
+  }
+  public function getPartnerName()
+  {
+    return $this->partnerName;
+  }
+  public function setPortalUrl($portalUrl)
+  {
+    $this->portalUrl = $portalUrl;
+  }
+  public function getPortalUrl()
+  {
+    return $this->portalUrl;
+  }
 }

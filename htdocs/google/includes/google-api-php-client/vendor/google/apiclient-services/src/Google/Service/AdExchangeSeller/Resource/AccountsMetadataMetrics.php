@@ -25,18 +25,18 @@
  */
 class Google_Service_AdExchangeSeller_Resource_AccountsMetadataMetrics extends Google_Service_Resource
 {
-	/**
-	 * List the metadata for the metrics available to this AdExchange account.
-	 * (metrics.listAccountsMetadataMetrics)
-	 *
-	 * @param string $accountId Account with visibility to the metrics.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AdExchangeSeller_Metadata
-	 */
-	public function listAccountsMetadataMetrics($accountId, $optParams = array())
-	{
-		$params = array('accountId' => $accountId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AdExchangeSeller_Metadata");
-	}
+  /**
+   * List the metadata for the metrics available to this AdExchange account.
+   * (metrics.listAccountsMetadataMetrics)
+   *
+   * @param string $accountId Account with visibility to the metrics.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AdExchangeSeller_Metadata
+   */
+  public function listAccountsMetadataMetrics($accountId, $optParams = array())
+  {
+    $params = array('accountId' => $accountId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AdExchangeSeller_Metadata");
+  }
 }

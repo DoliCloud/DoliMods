@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_ContentCategoriesListResponse extends Google_Collection
 {
-	protected $collection_key = 'contentCategories';
-	protected $contentCategoriesType = 'Google_Service_Dfareporting_ContentCategory';
-	protected $contentCategoriesDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'contentCategories';
+  protected $contentCategoriesType = 'Google_Service_Dfareporting_ContentCategory';
+  protected $contentCategoriesDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dfareporting_ContentCategory
-	 */
-	public function setContentCategories($contentCategories)
-	{
-		$this->contentCategories = $contentCategories;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_ContentCategory
-	 */
-	public function getContentCategories()
-	{
-		return $this->contentCategories;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dfareporting_ContentCategory[]
+   */
+  public function setContentCategories($contentCategories)
+  {
+    $this->contentCategories = $contentCategories;
+  }
+  /**
+   * @return Google_Service_Dfareporting_ContentCategory[]
+   */
+  public function getContentCategories()
+  {
+    return $this->contentCategories;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

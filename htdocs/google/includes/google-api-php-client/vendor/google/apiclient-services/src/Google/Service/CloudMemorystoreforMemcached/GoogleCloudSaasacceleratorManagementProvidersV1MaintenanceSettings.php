@@ -17,14 +17,30 @@
 
 class Google_Service_CloudMemorystoreforMemcached_GoogleCloudSaasacceleratorManagementProvidersV1MaintenanceSettings extends Google_Model
 {
-	public $exclude;
+  public $exclude;
+  protected $maintenancePoliciesType = 'Google_Service_CloudMemorystoreforMemcached_MaintenancePolicy';
+  protected $maintenancePoliciesDataType = 'map';
 
-	public function setExclude($exclude)
-	{
-		$this->exclude = $exclude;
-	}
-	public function getExclude()
-	{
-		return $this->exclude;
-	}
+  public function setExclude($exclude)
+  {
+    $this->exclude = $exclude;
+  }
+  public function getExclude()
+  {
+    return $this->exclude;
+  }
+  /**
+   * @param Google_Service_CloudMemorystoreforMemcached_MaintenancePolicy[]
+   */
+  public function setMaintenancePolicies($maintenancePolicies)
+  {
+    $this->maintenancePolicies = $maintenancePolicies;
+  }
+  /**
+   * @return Google_Service_CloudMemorystoreforMemcached_MaintenancePolicy[]
+   */
+  public function getMaintenancePolicies()
+  {
+    return $this->maintenancePolicies;
+  }
 }

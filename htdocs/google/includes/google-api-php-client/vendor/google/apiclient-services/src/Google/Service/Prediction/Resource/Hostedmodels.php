@@ -25,20 +25,20 @@
  */
 class Google_Service_Prediction_Resource_Hostedmodels extends Google_Service_Resource
 {
-	/**
-	 * Submit input and request an output against a hosted model.
-	 * (hostedmodels.predict)
-	 *
-	 * @param string $project The project associated with the model.
-	 * @param string $hostedModelName The name of a hosted model.
-	 * @param Google_Service_Prediction_Input $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Prediction_Output
-	 */
-	public function predict($project, $hostedModelName, Google_Service_Prediction_Input $postBody, $optParams = array())
-	{
-		$params = array('project' => $project, 'hostedModelName' => $hostedModelName, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('predict', array($params), "Google_Service_Prediction_Output");
-	}
+  /**
+   * Submit input and request an output against a hosted model.
+   * (hostedmodels.predict)
+   *
+   * @param string $project The project associated with the model.
+   * @param string $hostedModelName The name of a hosted model.
+   * @param Google_Service_Prediction_Input $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Prediction_Output
+   */
+  public function predict($project, $hostedModelName, Google_Service_Prediction_Input $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'hostedModelName' => $hostedModelName, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('predict', array($params), "Google_Service_Prediction_Output");
+  }
 }

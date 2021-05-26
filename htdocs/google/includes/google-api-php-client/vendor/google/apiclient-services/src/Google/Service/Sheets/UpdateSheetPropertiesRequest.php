@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_UpdateSheetPropertiesRequest extends Google_Model
 {
-	public $fields;
-	protected $propertiesType = 'Google_Service_Sheets_SheetProperties';
-	protected $propertiesDataType = '';
+  public $fields;
+  protected $propertiesType = 'Google_Service_Sheets_SheetProperties';
+  protected $propertiesDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	/**
-	 * @param Google_Service_Sheets_SheetProperties
-	 */
-	public function setProperties(Google_Service_Sheets_SheetProperties $properties)
-	{
-		$this->properties = $properties;
-	}
-	/**
-	 * @return Google_Service_Sheets_SheetProperties
-	 */
-	public function getProperties()
-	{
-		return $this->properties;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  /**
+   * @param Google_Service_Sheets_SheetProperties
+   */
+  public function setProperties(Google_Service_Sheets_SheetProperties $properties)
+  {
+    $this->properties = $properties;
+  }
+  /**
+   * @return Google_Service_Sheets_SheetProperties
+   */
+  public function getProperties()
+  {
+    return $this->properties;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_DeleteContentRangeRequest extends Google_Model
 {
-	protected $rangeType = 'Google_Service_Docs_Range';
-	protected $rangeDataType = '';
+  protected $rangeType = 'Google_Service_Docs_Range';
+  protected $rangeDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_Range
-	 */
-	public function setRange(Google_Service_Docs_Range $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Docs_Range
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
+  /**
+   * @param Google_Service_Docs_Range
+   */
+  public function setRange(Google_Service_Docs_Range $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Docs_Range
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

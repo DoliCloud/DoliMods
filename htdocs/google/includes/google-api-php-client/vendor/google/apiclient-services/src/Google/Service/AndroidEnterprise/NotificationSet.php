@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidEnterprise_NotificationSet extends Google_Collection
 {
-	protected $collection_key = 'notification';
-	protected $notificationType = 'Google_Service_AndroidEnterprise_Notification';
-	protected $notificationDataType = 'array';
-	public $notificationSetId;
+  protected $collection_key = 'notification';
+  protected $notificationType = 'Google_Service_AndroidEnterprise_Notification';
+  protected $notificationDataType = 'array';
+  public $notificationSetId;
 
-	/**
-	 * @param Google_Service_AndroidEnterprise_Notification
-	 */
-	public function setNotification($notification)
-	{
-		$this->notification = $notification;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_Notification
-	 */
-	public function getNotification()
-	{
-		return $this->notification;
-	}
-	public function setNotificationSetId($notificationSetId)
-	{
-		$this->notificationSetId = $notificationSetId;
-	}
-	public function getNotificationSetId()
-	{
-		return $this->notificationSetId;
-	}
+  /**
+   * @param Google_Service_AndroidEnterprise_Notification[]
+   */
+  public function setNotification($notification)
+  {
+    $this->notification = $notification;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_Notification[]
+   */
+  public function getNotification()
+  {
+    return $this->notification;
+  }
+  public function setNotificationSetId($notificationSetId)
+  {
+    $this->notificationSetId = $notificationSetId;
+  }
+  public function getNotificationSetId()
+  {
+    return $this->notificationSetId;
+  }
 }

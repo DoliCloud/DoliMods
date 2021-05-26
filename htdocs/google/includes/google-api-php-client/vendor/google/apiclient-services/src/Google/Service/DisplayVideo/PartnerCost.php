@@ -17,50 +17,50 @@
 
 class Google_Service_DisplayVideo_PartnerCost extends Google_Model
 {
-	public $costType;
-	public $feeAmount;
-	public $feePercentageMillis;
-	public $feeType;
-	public $invoiceType;
+  public $costType;
+  public $feeAmount;
+  public $feePercentageMillis;
+  public $feeType;
+  public $invoiceType;
 
-	public function setCostType($costType)
-	{
-		$this->costType = $costType;
-	}
-	public function getCostType()
-	{
-		return $this->costType;
-	}
-	public function setFeeAmount($feeAmount)
-	{
-		$this->feeAmount = $feeAmount;
-	}
-	public function getFeeAmount()
-	{
-		return $this->feeAmount;
-	}
-	public function setFeePercentageMillis($feePercentageMillis)
-	{
-		$this->feePercentageMillis = $feePercentageMillis;
-	}
-	public function getFeePercentageMillis()
-	{
-		return $this->feePercentageMillis;
-	}
-	public function setFeeType($feeType)
-	{
-		$this->feeType = $feeType;
-	}
-	public function getFeeType()
-	{
-		return $this->feeType;
-	}
-	public function setInvoiceType($invoiceType)
-	{
-		$this->invoiceType = $invoiceType;
-	}
-	public function getInvoiceType()
-	{
-		return $this->invoiceType;
-	}
+  public function setCostType($costType)
+  {
+    $this->costType = $costType;
+  }
+  public function getCostType()
+  {
+    return $this->costType;
+  }
+  public function setFeeAmount($feeAmount)
+  {
+    $this->feeAmount = $feeAmount;
+  }
+  public function getFeeAmount()
+  {
+    return $this->feeAmount;
+  }
+  public function setFeePercentageMillis($feePercentageMillis)
+  {
+    $this->feePercentageMillis = $feePercentageMillis;
+  }
+  public function getFeePercentageMillis()
+  {
+    return $this->feePercentageMillis;
+  }
+  public function setFeeType($feeType)
+  {
+    $this->feeType = $feeType;
+  }
+  public function getFeeType()
+  {
+    return $this->feeType;
+  }
+  public function setInvoiceType($invoiceType)
+  {
+    $this->invoiceType = $invoiceType;
+  }
+  public function getInvoiceType()
+  {
+    return $this->invoiceType;
+  }
 }

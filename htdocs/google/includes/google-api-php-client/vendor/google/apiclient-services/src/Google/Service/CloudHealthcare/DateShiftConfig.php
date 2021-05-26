@@ -17,14 +17,14 @@
 
 class Google_Service_CloudHealthcare_DateShiftConfig extends Google_Model
 {
-	public $cryptoKey;
+  public $cryptoKey;
 
-	public function setCryptoKey($cryptoKey)
-	{
-		$this->cryptoKey = $cryptoKey;
-	}
-	public function getCryptoKey()
-	{
-		return $this->cryptoKey;
-	}
+  public function setCryptoKey($cryptoKey)
+  {
+    $this->cryptoKey = $cryptoKey;
+  }
+  public function getCryptoKey()
+  {
+    return $this->cryptoKey;
+  }
 }

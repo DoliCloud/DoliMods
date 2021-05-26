@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_HealthCheckLogConfig extends Google_Model
 {
-	public $enable;
+  public $enable;
 
-	public function setEnable($enable)
-	{
-		$this->enable = $enable;
-	}
-	public function getEnable()
-	{
-		return $this->enable;
-	}
+  public function setEnable($enable)
+  {
+    $this->enable = $enable;
+  }
+  public function getEnable()
+  {
+    return $this->enable;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_HangoutsChat_DriveDataRef extends Google_Model
 {
-	public $driveFileId;
+  public $driveFileId;
 
-	public function setDriveFileId($driveFileId)
-	{
-		$this->driveFileId = $driveFileId;
-	}
-	public function getDriveFileId()
-	{
-		return $this->driveFileId;
-	}
+  public function setDriveFileId($driveFileId)
+  {
+    $this->driveFileId = $driveFileId;
+  }
+  public function getDriveFileId()
+  {
+    return $this->driveFileId;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_CloudLifeSciences_ContainerKilledEvent extends Google_Model
 {
-	public $actionId;
+  public $actionId;
 
-	public function setActionId($actionId)
-	{
-		$this->actionId = $actionId;
-	}
-	public function getActionId()
-	{
-		return $this->actionId;
-	}
+  public function setActionId($actionId)
+  {
+    $this->actionId = $actionId;
+  }
+  public function getActionId()
+  {
+    return $this->actionId;
+  }
 }

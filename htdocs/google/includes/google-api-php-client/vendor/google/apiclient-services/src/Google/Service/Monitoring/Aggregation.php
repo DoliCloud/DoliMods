@@ -17,42 +17,42 @@
 
 class Google_Service_Monitoring_Aggregation extends Google_Collection
 {
-	protected $collection_key = 'groupByFields';
-	public $alignmentPeriod;
-	public $crossSeriesReducer;
-	public $groupByFields;
-	public $perSeriesAligner;
+  protected $collection_key = 'groupByFields';
+  public $alignmentPeriod;
+  public $crossSeriesReducer;
+  public $groupByFields;
+  public $perSeriesAligner;
 
-	public function setAlignmentPeriod($alignmentPeriod)
-	{
-		$this->alignmentPeriod = $alignmentPeriod;
-	}
-	public function getAlignmentPeriod()
-	{
-		return $this->alignmentPeriod;
-	}
-	public function setCrossSeriesReducer($crossSeriesReducer)
-	{
-		$this->crossSeriesReducer = $crossSeriesReducer;
-	}
-	public function getCrossSeriesReducer()
-	{
-		return $this->crossSeriesReducer;
-	}
-	public function setGroupByFields($groupByFields)
-	{
-		$this->groupByFields = $groupByFields;
-	}
-	public function getGroupByFields()
-	{
-		return $this->groupByFields;
-	}
-	public function setPerSeriesAligner($perSeriesAligner)
-	{
-		$this->perSeriesAligner = $perSeriesAligner;
-	}
-	public function getPerSeriesAligner()
-	{
-		return $this->perSeriesAligner;
-	}
+  public function setAlignmentPeriod($alignmentPeriod)
+  {
+    $this->alignmentPeriod = $alignmentPeriod;
+  }
+  public function getAlignmentPeriod()
+  {
+    return $this->alignmentPeriod;
+  }
+  public function setCrossSeriesReducer($crossSeriesReducer)
+  {
+    $this->crossSeriesReducer = $crossSeriesReducer;
+  }
+  public function getCrossSeriesReducer()
+  {
+    return $this->crossSeriesReducer;
+  }
+  public function setGroupByFields($groupByFields)
+  {
+    $this->groupByFields = $groupByFields;
+  }
+  public function getGroupByFields()
+  {
+    return $this->groupByFields;
+  }
+  public function setPerSeriesAligner($perSeriesAligner)
+  {
+    $this->perSeriesAligner = $perSeriesAligner;
+  }
+  public function getPerSeriesAligner()
+  {
+    return $this->perSeriesAligner;
+  }
 }

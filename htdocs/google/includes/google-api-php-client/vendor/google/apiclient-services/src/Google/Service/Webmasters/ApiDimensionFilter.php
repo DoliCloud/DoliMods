@@ -17,32 +17,32 @@
 
 class Google_Service_Webmasters_ApiDimensionFilter extends Google_Model
 {
-	public $dimension;
-	public $expression;
-	public $operator;
+  public $dimension;
+  public $expression;
+  public $operator;
 
-	public function setDimension($dimension)
-	{
-		$this->dimension = $dimension;
-	}
-	public function getDimension()
-	{
-		return $this->dimension;
-	}
-	public function setExpression($expression)
-	{
-		$this->expression = $expression;
-	}
-	public function getExpression()
-	{
-		return $this->expression;
-	}
-	public function setOperator($operator)
-	{
-		$this->operator = $operator;
-	}
-	public function getOperator()
-	{
-		return $this->operator;
-	}
+  public function setDimension($dimension)
+  {
+    $this->dimension = $dimension;
+  }
+  public function getDimension()
+  {
+    return $this->dimension;
+  }
+  public function setExpression($expression)
+  {
+    $this->expression = $expression;
+  }
+  public function getExpression()
+  {
+    return $this->expression;
+  }
+  public function setOperator($operator)
+  {
+    $this->operator = $operator;
+  }
+  public function getOperator()
+  {
+    return $this->operator;
+  }
 }

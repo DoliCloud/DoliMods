@@ -17,21 +17,21 @@
 
 class Google_Service_Iam_UndeleteServiceAccountResponse extends Google_Model
 {
-	protected $restoredAccountType = 'Google_Service_Iam_ServiceAccount';
-	protected $restoredAccountDataType = '';
+  protected $restoredAccountType = 'Google_Service_Iam_ServiceAccount';
+  protected $restoredAccountDataType = '';
 
-	/**
-	 * @param Google_Service_Iam_ServiceAccount
-	 */
-	public function setRestoredAccount(Google_Service_Iam_ServiceAccount $restoredAccount)
-	{
-		$this->restoredAccount = $restoredAccount;
-	}
-	/**
-	 * @return Google_Service_Iam_ServiceAccount
-	 */
-	public function getRestoredAccount()
-	{
-		return $this->restoredAccount;
-	}
+  /**
+   * @param Google_Service_Iam_ServiceAccount
+   */
+  public function setRestoredAccount(Google_Service_Iam_ServiceAccount $restoredAccount)
+  {
+    $this->restoredAccount = $restoredAccount;
+  }
+  /**
+   * @return Google_Service_Iam_ServiceAccount
+   */
+  public function getRestoredAccount()
+  {
+    return $this->restoredAccount;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_Script_UpdateDeploymentRequest extends Google_Model
 {
-	protected $deploymentConfigType = 'Google_Service_Script_DeploymentConfig';
-	protected $deploymentConfigDataType = '';
+  protected $deploymentConfigType = 'Google_Service_Script_DeploymentConfig';
+  protected $deploymentConfigDataType = '';
 
-	/**
-	 * @param Google_Service_Script_DeploymentConfig
-	 */
-	public function setDeploymentConfig(Google_Service_Script_DeploymentConfig $deploymentConfig)
-	{
-		$this->deploymentConfig = $deploymentConfig;
-	}
-	/**
-	 * @return Google_Service_Script_DeploymentConfig
-	 */
-	public function getDeploymentConfig()
-	{
-		return $this->deploymentConfig;
-	}
+  /**
+   * @param Google_Service_Script_DeploymentConfig
+   */
+  public function setDeploymentConfig(Google_Service_Script_DeploymentConfig $deploymentConfig)
+  {
+    $this->deploymentConfig = $deploymentConfig;
+  }
+  /**
+   * @return Google_Service_Script_DeploymentConfig
+   */
+  public function getDeploymentConfig()
+  {
+    return $this->deploymentConfig;
+  }
 }

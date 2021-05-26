@@ -17,33 +17,33 @@
 
 class Google_Service_DisplayVideo_ParentEntityFilter extends Google_Collection
 {
-	protected $collection_key = 'filterIds';
-	public $fileType;
-	public $filterIds;
-	public $filterType;
+  protected $collection_key = 'filterIds';
+  public $fileType;
+  public $filterIds;
+  public $filterType;
 
-	public function setFileType($fileType)
-	{
-		$this->fileType = $fileType;
-	}
-	public function getFileType()
-	{
-		return $this->fileType;
-	}
-	public function setFilterIds($filterIds)
-	{
-		$this->filterIds = $filterIds;
-	}
-	public function getFilterIds()
-	{
-		return $this->filterIds;
-	}
-	public function setFilterType($filterType)
-	{
-		$this->filterType = $filterType;
-	}
-	public function getFilterType()
-	{
-		return $this->filterType;
-	}
+  public function setFileType($fileType)
+  {
+    $this->fileType = $fileType;
+  }
+  public function getFileType()
+  {
+    return $this->fileType;
+  }
+  public function setFilterIds($filterIds)
+  {
+    $this->filterIds = $filterIds;
+  }
+  public function getFilterIds()
+  {
+    return $this->filterIds;
+  }
+  public function setFilterType($filterType)
+  {
+    $this->filterType = $filterType;
+  }
+  public function getFilterType()
+  {
+    return $this->filterType;
+  }
 }

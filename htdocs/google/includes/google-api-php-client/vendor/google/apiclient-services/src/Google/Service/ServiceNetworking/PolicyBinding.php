@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceNetworking_PolicyBinding extends Google_Model
 {
-	public $member;
-	public $role;
+  public $member;
+  public $role;
 
-	public function setMember($member)
-	{
-		$this->member = $member;
-	}
-	public function getMember()
-	{
-		return $this->member;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
+  public function setMember($member)
+  {
+    $this->member = $member;
+  }
+  public function getMember()
+  {
+    return $this->member;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
 }

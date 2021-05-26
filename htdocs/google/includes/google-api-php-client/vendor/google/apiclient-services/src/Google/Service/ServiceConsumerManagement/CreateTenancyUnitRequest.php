@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceConsumerManagement_CreateTenancyUnitRequest extends Google_Model
 {
-	public $tenancyUnitId;
+  public $tenancyUnitId;
 
-	public function setTenancyUnitId($tenancyUnitId)
-	{
-		$this->tenancyUnitId = $tenancyUnitId;
-	}
-	public function getTenancyUnitId()
-	{
-		return $this->tenancyUnitId;
-	}
+  public function setTenancyUnitId($tenancyUnitId)
+  {
+    $this->tenancyUnitId = $tenancyUnitId;
+  }
+  public function getTenancyUnitId()
+  {
+    return $this->tenancyUnitId;
+  }
 }

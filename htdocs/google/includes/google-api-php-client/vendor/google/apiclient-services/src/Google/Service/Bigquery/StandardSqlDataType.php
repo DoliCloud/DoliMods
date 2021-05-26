@@ -17,46 +17,46 @@
 
 class Google_Service_Bigquery_StandardSqlDataType extends Google_Model
 {
-	protected $arrayElementTypeType = 'Google_Service_Bigquery_StandardSqlDataType';
-	protected $arrayElementTypeDataType = '';
-	protected $structTypeType = 'Google_Service_Bigquery_StandardSqlStructType';
-	protected $structTypeDataType = '';
-	public $typeKind;
+  protected $arrayElementTypeType = 'Google_Service_Bigquery_StandardSqlDataType';
+  protected $arrayElementTypeDataType = '';
+  protected $structTypeType = 'Google_Service_Bigquery_StandardSqlStructType';
+  protected $structTypeDataType = '';
+  public $typeKind;
 
-	/**
-	 * @param Google_Service_Bigquery_StandardSqlDataType
-	 */
-	public function setArrayElementType(Google_Service_Bigquery_StandardSqlDataType $arrayElementType)
-	{
-		$this->arrayElementType = $arrayElementType;
-	}
-	/**
-	 * @return Google_Service_Bigquery_StandardSqlDataType
-	 */
-	public function getArrayElementType()
-	{
-		return $this->arrayElementType;
-	}
-	/**
-	 * @param Google_Service_Bigquery_StandardSqlStructType
-	 */
-	public function setStructType(Google_Service_Bigquery_StandardSqlStructType $structType)
-	{
-		$this->structType = $structType;
-	}
-	/**
-	 * @return Google_Service_Bigquery_StandardSqlStructType
-	 */
-	public function getStructType()
-	{
-		return $this->structType;
-	}
-	public function setTypeKind($typeKind)
-	{
-		$this->typeKind = $typeKind;
-	}
-	public function getTypeKind()
-	{
-		return $this->typeKind;
-	}
+  /**
+   * @param Google_Service_Bigquery_StandardSqlDataType
+   */
+  public function setArrayElementType(Google_Service_Bigquery_StandardSqlDataType $arrayElementType)
+  {
+    $this->arrayElementType = $arrayElementType;
+  }
+  /**
+   * @return Google_Service_Bigquery_StandardSqlDataType
+   */
+  public function getArrayElementType()
+  {
+    return $this->arrayElementType;
+  }
+  /**
+   * @param Google_Service_Bigquery_StandardSqlStructType
+   */
+  public function setStructType(Google_Service_Bigquery_StandardSqlStructType $structType)
+  {
+    $this->structType = $structType;
+  }
+  /**
+   * @return Google_Service_Bigquery_StandardSqlStructType
+   */
+  public function getStructType()
+  {
+    return $this->structType;
+  }
+  public function setTypeKind($typeKind)
+  {
+    $this->typeKind = $typeKind;
+  }
+  public function getTypeKind()
+  {
+    return $this->typeKind;
+  }
 }

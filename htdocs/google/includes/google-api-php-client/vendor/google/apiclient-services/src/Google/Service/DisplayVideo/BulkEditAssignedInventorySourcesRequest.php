@@ -17,49 +17,49 @@
 
 class Google_Service_DisplayVideo_BulkEditAssignedInventorySourcesRequest extends Google_Collection
 {
-	protected $collection_key = 'deletedAssignedInventorySources';
-	public $advertiserId;
-	protected $createdAssignedInventorySourcesType = 'Google_Service_DisplayVideo_AssignedInventorySource';
-	protected $createdAssignedInventorySourcesDataType = 'array';
-	public $deletedAssignedInventorySources;
-	public $partnerId;
+  protected $collection_key = 'deletedAssignedInventorySources';
+  public $advertiserId;
+  protected $createdAssignedInventorySourcesType = 'Google_Service_DisplayVideo_AssignedInventorySource';
+  protected $createdAssignedInventorySourcesDataType = 'array';
+  public $deletedAssignedInventorySources;
+  public $partnerId;
 
-	public function setAdvertiserId($advertiserId)
-	{
-		$this->advertiserId = $advertiserId;
-	}
-	public function getAdvertiserId()
-	{
-		return $this->advertiserId;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_AssignedInventorySource
-	 */
-	public function setCreatedAssignedInventorySources($createdAssignedInventorySources)
-	{
-		$this->createdAssignedInventorySources = $createdAssignedInventorySources;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_AssignedInventorySource
-	 */
-	public function getCreatedAssignedInventorySources()
-	{
-		return $this->createdAssignedInventorySources;
-	}
-	public function setDeletedAssignedInventorySources($deletedAssignedInventorySources)
-	{
-		$this->deletedAssignedInventorySources = $deletedAssignedInventorySources;
-	}
-	public function getDeletedAssignedInventorySources()
-	{
-		return $this->deletedAssignedInventorySources;
-	}
-	public function setPartnerId($partnerId)
-	{
-		$this->partnerId = $partnerId;
-	}
-	public function getPartnerId()
-	{
-		return $this->partnerId;
-	}
+  public function setAdvertiserId($advertiserId)
+  {
+    $this->advertiserId = $advertiserId;
+  }
+  public function getAdvertiserId()
+  {
+    return $this->advertiserId;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_AssignedInventorySource[]
+   */
+  public function setCreatedAssignedInventorySources($createdAssignedInventorySources)
+  {
+    $this->createdAssignedInventorySources = $createdAssignedInventorySources;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_AssignedInventorySource[]
+   */
+  public function getCreatedAssignedInventorySources()
+  {
+    return $this->createdAssignedInventorySources;
+  }
+  public function setDeletedAssignedInventorySources($deletedAssignedInventorySources)
+  {
+    $this->deletedAssignedInventorySources = $deletedAssignedInventorySources;
+  }
+  public function getDeletedAssignedInventorySources()
+  {
+    return $this->deletedAssignedInventorySources;
+  }
+  public function setPartnerId($partnerId)
+  {
+    $this->partnerId = $partnerId;
+  }
+  public function getPartnerId()
+  {
+    return $this->partnerId;
+  }
 }

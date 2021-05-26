@@ -17,14 +17,14 @@
 
 class Google_Service_JobService_Filter extends Google_Model
 {
-	public $requisitionId;
+  public $requisitionId;
 
-	public function setRequisitionId($requisitionId)
-	{
-		$this->requisitionId = $requisitionId;
-	}
-	public function getRequisitionId()
-	{
-		return $this->requisitionId;
-	}
+  public function setRequisitionId($requisitionId)
+  {
+    $this->requisitionId = $requisitionId;
+  }
+  public function getRequisitionId()
+  {
+    return $this->requisitionId;
+  }
 }

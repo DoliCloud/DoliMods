@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1IntentMessageColumnProperties extends Google_Model
 {
-	public $header;
-	public $horizontalAlignment;
+  public $header;
+  public $horizontalAlignment;
 
-	public function setHeader($header)
-	{
-		$this->header = $header;
-	}
-	public function getHeader()
-	{
-		return $this->header;
-	}
-	public function setHorizontalAlignment($horizontalAlignment)
-	{
-		$this->horizontalAlignment = $horizontalAlignment;
-	}
-	public function getHorizontalAlignment()
-	{
-		return $this->horizontalAlignment;
-	}
+  public function setHeader($header)
+  {
+    $this->header = $header;
+  }
+  public function getHeader()
+  {
+    return $this->header;
+  }
+  public function setHorizontalAlignment($horizontalAlignment)
+  {
+    $this->horizontalAlignment = $horizontalAlignment;
+  }
+  public function getHorizontalAlignment()
+  {
+    return $this->horizontalAlignment;
+  }
 }

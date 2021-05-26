@@ -17,30 +17,30 @@
 
 class Google_Service_Sheets_MergeCellsRequest extends Google_Model
 {
-	public $mergeType;
-	protected $rangeType = 'Google_Service_Sheets_GridRange';
-	protected $rangeDataType = '';
+  public $mergeType;
+  protected $rangeType = 'Google_Service_Sheets_GridRange';
+  protected $rangeDataType = '';
 
-	public function setMergeType($mergeType)
-	{
-		$this->mergeType = $mergeType;
-	}
-	public function getMergeType()
-	{
-		return $this->mergeType;
-	}
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setRange(Google_Service_Sheets_GridRange $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
+  public function setMergeType($mergeType)
+  {
+    $this->mergeType = $mergeType;
+  }
+  public function getMergeType()
+  {
+    return $this->mergeType;
+  }
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setRange(Google_Service_Sheets_GridRange $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

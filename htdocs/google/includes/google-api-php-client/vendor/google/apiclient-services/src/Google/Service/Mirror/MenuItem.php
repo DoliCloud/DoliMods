@@ -17,70 +17,70 @@
 
 class Google_Service_Mirror_MenuItem extends Google_Collection
 {
-	protected $collection_key = 'values';
-	protected $internal_gapi_mappings = array(
-		"contextualCommand" => "contextual_command",
-	);
-	public $action;
-	public $contextualCommand;
-	public $id;
-	public $payload;
-	public $removeWhenSelected;
-	protected $valuesType = 'Google_Service_Mirror_MenuValue';
-	protected $valuesDataType = 'array';
+  protected $collection_key = 'values';
+  protected $internal_gapi_mappings = array(
+        "contextualCommand" => "contextual_command",
+  );
+  public $action;
+  public $contextualCommand;
+  public $id;
+  public $payload;
+  public $removeWhenSelected;
+  protected $valuesType = 'Google_Service_Mirror_MenuValue';
+  protected $valuesDataType = 'array';
 
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-	public function getAction()
-	{
-		return $this->action;
-	}
-	public function setContextualCommand($contextualCommand)
-	{
-		$this->contextualCommand = $contextualCommand;
-	}
-	public function getContextualCommand()
-	{
-		return $this->contextualCommand;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setPayload($payload)
-	{
-		$this->payload = $payload;
-	}
-	public function getPayload()
-	{
-		return $this->payload;
-	}
-	public function setRemoveWhenSelected($removeWhenSelected)
-	{
-		$this->removeWhenSelected = $removeWhenSelected;
-	}
-	public function getRemoveWhenSelected()
-	{
-		return $this->removeWhenSelected;
-	}
-	/**
-	 * @param Google_Service_Mirror_MenuValue
-	 */
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	/**
-	 * @return Google_Service_Mirror_MenuValue
-	 */
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  public function getAction()
+  {
+    return $this->action;
+  }
+  public function setContextualCommand($contextualCommand)
+  {
+    $this->contextualCommand = $contextualCommand;
+  }
+  public function getContextualCommand()
+  {
+    return $this->contextualCommand;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setPayload($payload)
+  {
+    $this->payload = $payload;
+  }
+  public function getPayload()
+  {
+    return $this->payload;
+  }
+  public function setRemoveWhenSelected($removeWhenSelected)
+  {
+    $this->removeWhenSelected = $removeWhenSelected;
+  }
+  public function getRemoveWhenSelected()
+  {
+    return $this->removeWhenSelected;
+  }
+  /**
+   * @param Google_Service_Mirror_MenuValue
+   */
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  /**
+   * @return Google_Service_Mirror_MenuValue
+   */
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

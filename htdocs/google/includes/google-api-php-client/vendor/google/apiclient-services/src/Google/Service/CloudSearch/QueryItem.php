@@ -17,14 +17,14 @@
 
 class Google_Service_CloudSearch_QueryItem extends Google_Model
 {
-	public $isSynthetic;
+  public $isSynthetic;
 
-	public function setIsSynthetic($isSynthetic)
-	{
-		$this->isSynthetic = $isSynthetic;
-	}
-	public function getIsSynthetic()
-	{
-		return $this->isSynthetic;
-	}
+  public function setIsSynthetic($isSynthetic)
+  {
+    $this->isSynthetic = $isSynthetic;
+  }
+  public function getIsSynthetic()
+  {
+    return $this->isSynthetic;
+  }
 }

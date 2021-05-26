@@ -17,83 +17,83 @@
 
 class Google_Service_Testing_AndroidVersion extends Google_Collection
 {
-	protected $collection_key = 'tags';
-	public $apiLevel;
-	public $codeName;
-	protected $distributionType = 'Google_Service_Testing_Distribution';
-	protected $distributionDataType = '';
-	public $id;
-	protected $releaseDateType = 'Google_Service_Testing_Date';
-	protected $releaseDateDataType = '';
-	public $tags;
-	public $versionString;
+  protected $collection_key = 'tags';
+  public $apiLevel;
+  public $codeName;
+  protected $distributionType = 'Google_Service_Testing_Distribution';
+  protected $distributionDataType = '';
+  public $id;
+  protected $releaseDateType = 'Google_Service_Testing_Date';
+  protected $releaseDateDataType = '';
+  public $tags;
+  public $versionString;
 
-	public function setApiLevel($apiLevel)
-	{
-		$this->apiLevel = $apiLevel;
-	}
-	public function getApiLevel()
-	{
-		return $this->apiLevel;
-	}
-	public function setCodeName($codeName)
-	{
-		$this->codeName = $codeName;
-	}
-	public function getCodeName()
-	{
-		return $this->codeName;
-	}
-	/**
-	 * @param Google_Service_Testing_Distribution
-	 */
-	public function setDistribution(Google_Service_Testing_Distribution $distribution)
-	{
-		$this->distribution = $distribution;
-	}
-	/**
-	 * @return Google_Service_Testing_Distribution
-	 */
-	public function getDistribution()
-	{
-		return $this->distribution;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_Testing_Date
-	 */
-	public function setReleaseDate(Google_Service_Testing_Date $releaseDate)
-	{
-		$this->releaseDate = $releaseDate;
-	}
-	/**
-	 * @return Google_Service_Testing_Date
-	 */
-	public function getReleaseDate()
-	{
-		return $this->releaseDate;
-	}
-	public function setTags($tags)
-	{
-		$this->tags = $tags;
-	}
-	public function getTags()
-	{
-		return $this->tags;
-	}
-	public function setVersionString($versionString)
-	{
-		$this->versionString = $versionString;
-	}
-	public function getVersionString()
-	{
-		return $this->versionString;
-	}
+  public function setApiLevel($apiLevel)
+  {
+    $this->apiLevel = $apiLevel;
+  }
+  public function getApiLevel()
+  {
+    return $this->apiLevel;
+  }
+  public function setCodeName($codeName)
+  {
+    $this->codeName = $codeName;
+  }
+  public function getCodeName()
+  {
+    return $this->codeName;
+  }
+  /**
+   * @param Google_Service_Testing_Distribution
+   */
+  public function setDistribution(Google_Service_Testing_Distribution $distribution)
+  {
+    $this->distribution = $distribution;
+  }
+  /**
+   * @return Google_Service_Testing_Distribution
+   */
+  public function getDistribution()
+  {
+    return $this->distribution;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_Testing_Date
+   */
+  public function setReleaseDate(Google_Service_Testing_Date $releaseDate)
+  {
+    $this->releaseDate = $releaseDate;
+  }
+  /**
+   * @return Google_Service_Testing_Date
+   */
+  public function getReleaseDate()
+  {
+    return $this->releaseDate;
+  }
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  public function getTags()
+  {
+    return $this->tags;
+  }
+  public function setVersionString($versionString)
+  {
+    $this->versionString = $versionString;
+  }
+  public function getVersionString()
+  {
+    return $this->versionString;
+  }
 }

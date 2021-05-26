@@ -17,14 +17,14 @@
 
 class Google_Service_CloudKMS_WrappingPublicKey extends Google_Model
 {
-	public $pem;
+  public $pem;
 
-	public function setPem($pem)
-	{
-		$this->pem = $pem;
-	}
-	public function getPem()
-	{
-		return $this->pem;
-	}
+  public function setPem($pem)
+  {
+    $this->pem = $pem;
+  }
+  public function getPem()
+  {
+    return $this->pem;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_HotKeyDetection extends Google_Model
 {
-	public $hotKeyAge;
-	public $systemName;
-	public $userStepName;
+  public $hotKeyAge;
+  public $systemName;
+  public $userStepName;
 
-	public function setHotKeyAge($hotKeyAge)
-	{
-		$this->hotKeyAge = $hotKeyAge;
-	}
-	public function getHotKeyAge()
-	{
-		return $this->hotKeyAge;
-	}
-	public function setSystemName($systemName)
-	{
-		$this->systemName = $systemName;
-	}
-	public function getSystemName()
-	{
-		return $this->systemName;
-	}
-	public function setUserStepName($userStepName)
-	{
-		$this->userStepName = $userStepName;
-	}
-	public function getUserStepName()
-	{
-		return $this->userStepName;
-	}
+  public function setHotKeyAge($hotKeyAge)
+  {
+    $this->hotKeyAge = $hotKeyAge;
+  }
+  public function getHotKeyAge()
+  {
+    return $this->hotKeyAge;
+  }
+  public function setSystemName($systemName)
+  {
+    $this->systemName = $systemName;
+  }
+  public function getSystemName()
+  {
+    return $this->systemName;
+  }
+  public function setUserStepName($userStepName)
+  {
+    $this->userStepName = $userStepName;
+  }
+  public function getUserStepName()
+  {
+    return $this->userStepName;
+  }
 }

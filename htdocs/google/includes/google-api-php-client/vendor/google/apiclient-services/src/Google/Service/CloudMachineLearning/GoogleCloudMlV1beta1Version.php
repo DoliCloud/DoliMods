@@ -17,59 +17,59 @@
 
 class Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Version extends Google_Model
 {
-	public $createTime;
-	public $deploymentUri;
-	public $description;
-	public $isDefault;
-	public $lastUseTime;
-	public $name;
+  public $createTime;
+  public $deploymentUri;
+  public $description;
+  public $isDefault;
+  public $lastUseTime;
+  public $name;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDeploymentUri($deploymentUri)
-	{
-		$this->deploymentUri = $deploymentUri;
-	}
-	public function getDeploymentUri()
-	{
-		return $this->deploymentUri;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setIsDefault($isDefault)
-	{
-		$this->isDefault = $isDefault;
-	}
-	public function getIsDefault()
-	{
-		return $this->isDefault;
-	}
-	public function setLastUseTime($lastUseTime)
-	{
-		$this->lastUseTime = $lastUseTime;
-	}
-	public function getLastUseTime()
-	{
-		return $this->lastUseTime;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDeploymentUri($deploymentUri)
+  {
+    $this->deploymentUri = $deploymentUri;
+  }
+  public function getDeploymentUri()
+  {
+    return $this->deploymentUri;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setIsDefault($isDefault)
+  {
+    $this->isDefault = $isDefault;
+  }
+  public function getIsDefault()
+  {
+    return $this->isDefault;
+  }
+  public function setLastUseTime($lastUseTime)
+  {
+    $this->lastUseTime = $lastUseTime;
+  }
+  public function getLastUseTime()
+  {
+    return $this->lastUseTime;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

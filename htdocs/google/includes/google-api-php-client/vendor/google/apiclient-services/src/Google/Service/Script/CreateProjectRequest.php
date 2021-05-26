@@ -17,23 +17,23 @@
 
 class Google_Service_Script_CreateProjectRequest extends Google_Model
 {
-	public $parentId;
-	public $title;
+  public $parentId;
+  public $title;
 
-	public function setParentId($parentId)
-	{
-		$this->parentId = $parentId;
-	}
-	public function getParentId()
-	{
-		return $this->parentId;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setParentId($parentId)
+  {
+    $this->parentId = $parentId;
+  }
+  public function getParentId()
+  {
+    return $this->parentId;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

@@ -17,110 +17,110 @@
 
 class Google_Service_Compute_Region extends Google_Collection
 {
-	protected $collection_key = 'zones';
-	public $creationTimestamp;
-	protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
-	protected $deprecatedDataType = '';
-	public $description;
-	public $id;
-	public $kind;
-	public $name;
-	protected $quotasType = 'Google_Service_Compute_Quota';
-	protected $quotasDataType = 'array';
-	public $selfLink;
-	public $status;
-	public $zones;
+  protected $collection_key = 'zones';
+  public $creationTimestamp;
+  protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
+  protected $deprecatedDataType = '';
+  public $description;
+  public $id;
+  public $kind;
+  public $name;
+  protected $quotasType = 'Google_Service_Compute_Quota';
+  protected $quotasDataType = 'array';
+  public $selfLink;
+  public $status;
+  public $zones;
 
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	/**
-	 * @param Google_Service_Compute_DeprecationStatus
-	 */
-	public function setDeprecated(Google_Service_Compute_DeprecationStatus $deprecated)
-	{
-		$this->deprecated = $deprecated;
-	}
-	/**
-	 * @return Google_Service_Compute_DeprecationStatus
-	 */
-	public function getDeprecated()
-	{
-		return $this->deprecated;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Compute_Quota
-	 */
-	public function setQuotas($quotas)
-	{
-		$this->quotas = $quotas;
-	}
-	/**
-	 * @return Google_Service_Compute_Quota
-	 */
-	public function getQuotas()
-	{
-		return $this->quotas;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
-	public function setZones($zones)
-	{
-		$this->zones = $zones;
-	}
-	public function getZones()
-	{
-		return $this->zones;
-	}
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  /**
+   * @param Google_Service_Compute_DeprecationStatus
+   */
+  public function setDeprecated(Google_Service_Compute_DeprecationStatus $deprecated)
+  {
+    $this->deprecated = $deprecated;
+  }
+  /**
+   * @return Google_Service_Compute_DeprecationStatus
+   */
+  public function getDeprecated()
+  {
+    return $this->deprecated;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Compute_Quota[]
+   */
+  public function setQuotas($quotas)
+  {
+    $this->quotas = $quotas;
+  }
+  /**
+   * @return Google_Service_Compute_Quota[]
+   */
+  public function getQuotas()
+  {
+    return $this->quotas;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
+  public function setZones($zones)
+  {
+    $this->zones = $zones;
+  }
+  public function getZones()
+  {
+    return $this->zones;
+  }
 }

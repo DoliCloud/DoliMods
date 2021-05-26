@@ -17,76 +17,76 @@
 
 class Google_Service_Directory_Domains extends Google_Collection
 {
-	protected $collection_key = 'domainAliases';
-	public $creationTime;
-	protected $domainAliasesType = 'Google_Service_Directory_DomainAlias';
-	protected $domainAliasesDataType = 'array';
-	public $domainName;
-	public $etag;
-	public $isPrimary;
-	public $kind;
-	public $verified;
+  protected $collection_key = 'domainAliases';
+  public $creationTime;
+  protected $domainAliasesType = 'Google_Service_Directory_DomainAlias';
+  protected $domainAliasesDataType = 'array';
+  public $domainName;
+  public $etag;
+  public $isPrimary;
+  public $kind;
+  public $verified;
 
-	public function setCreationTime($creationTime)
-	{
-		$this->creationTime = $creationTime;
-	}
-	public function getCreationTime()
-	{
-		return $this->creationTime;
-	}
-	/**
-	 * @param Google_Service_Directory_DomainAlias
-	 */
-	public function setDomainAliases($domainAliases)
-	{
-		$this->domainAliases = $domainAliases;
-	}
-	/**
-	 * @return Google_Service_Directory_DomainAlias
-	 */
-	public function getDomainAliases()
-	{
-		return $this->domainAliases;
-	}
-	public function setDomainName($domainName)
-	{
-		$this->domainName = $domainName;
-	}
-	public function getDomainName()
-	{
-		return $this->domainName;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setIsPrimary($isPrimary)
-	{
-		$this->isPrimary = $isPrimary;
-	}
-	public function getIsPrimary()
-	{
-		return $this->isPrimary;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setVerified($verified)
-	{
-		$this->verified = $verified;
-	}
-	public function getVerified()
-	{
-		return $this->verified;
-	}
+  public function setCreationTime($creationTime)
+  {
+    $this->creationTime = $creationTime;
+  }
+  public function getCreationTime()
+  {
+    return $this->creationTime;
+  }
+  /**
+   * @param Google_Service_Directory_DomainAlias[]
+   */
+  public function setDomainAliases($domainAliases)
+  {
+    $this->domainAliases = $domainAliases;
+  }
+  /**
+   * @return Google_Service_Directory_DomainAlias[]
+   */
+  public function getDomainAliases()
+  {
+    return $this->domainAliases;
+  }
+  public function setDomainName($domainName)
+  {
+    $this->domainName = $domainName;
+  }
+  public function getDomainName()
+  {
+    return $this->domainName;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setIsPrimary($isPrimary)
+  {
+    $this->isPrimary = $isPrimary;
+  }
+  public function getIsPrimary()
+  {
+    return $this->isPrimary;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setVerified($verified)
+  {
+    $this->verified = $verified;
+  }
+  public function getVerified()
+  {
+    return $this->verified;
+  }
 }

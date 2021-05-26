@@ -17,30 +17,30 @@
 
 class Google_Service_Books_FamilyInfo extends Google_Model
 {
-	public $kind;
-	protected $membershipType = 'Google_Service_Books_FamilyInfoMembership';
-	protected $membershipDataType = '';
+  public $kind;
+  protected $membershipType = 'Google_Service_Books_FamilyInfoMembership';
+  protected $membershipDataType = '';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Books_FamilyInfoMembership
-	 */
-	public function setMembership(Google_Service_Books_FamilyInfoMembership $membership)
-	{
-		$this->membership = $membership;
-	}
-	/**
-	 * @return Google_Service_Books_FamilyInfoMembership
-	 */
-	public function getMembership()
-	{
-		return $this->membership;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Books_FamilyInfoMembership
+   */
+  public function setMembership(Google_Service_Books_FamilyInfoMembership $membership)
+  {
+    $this->membership = $membership;
+  }
+  /**
+   * @return Google_Service_Books_FamilyInfoMembership
+   */
+  public function getMembership()
+  {
+    return $this->membership;
+  }
 }

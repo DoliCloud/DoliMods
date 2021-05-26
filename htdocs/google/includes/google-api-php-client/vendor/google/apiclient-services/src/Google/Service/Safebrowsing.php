@@ -36,154 +36,154 @@ class Google_Service_Safebrowsing extends Google_Service
 {
 
 
-	public $encodedFullHashes;
-	public $encodedUpdates;
-	public $fullHashes;
-	public $threatHits;
-	public $threatListUpdates;
-	public $threatLists;
-	public $threatMatches;
+  public $encodedFullHashes;
+  public $encodedUpdates;
+  public $fullHashes;
+  public $threatHits;
+  public $threatListUpdates;
+  public $threatLists;
+  public $threatMatches;
 
-	/**
-	 * Constructs the internal representation of the Safebrowsing service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://safebrowsing.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v4';
-		$this->serviceName = 'safebrowsing';
+  /**
+   * Constructs the internal representation of the Safebrowsing service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://safebrowsing.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v4';
+    $this->serviceName = 'safebrowsing';
 
-		$this->encodedFullHashes = new Google_Service_Safebrowsing_Resource_EncodedFullHashes(
-		$this,
-		$this->serviceName,
-		'encodedFullHashes',
-		array(
-		  'methods' => array(
-			'get' => array(
-			  'path' => 'v4/encodedFullHashes/{encodedRequest}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'encodedRequest' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'clientVersion' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'clientId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->encodedUpdates = new Google_Service_Safebrowsing_Resource_EncodedUpdates(
-		$this,
-		$this->serviceName,
-		'encodedUpdates',
-		array(
-		  'methods' => array(
-			'get' => array(
-			  'path' => 'v4/encodedUpdates/{encodedRequest}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'encodedRequest' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'clientId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'clientVersion' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->fullHashes = new Google_Service_Safebrowsing_Resource_FullHashes(
-		$this,
-		$this->serviceName,
-		'fullHashes',
-		array(
-		  'methods' => array(
-			'find' => array(
-			  'path' => 'v4/fullHashes:find',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-		$this->threatHits = new Google_Service_Safebrowsing_Resource_ThreatHits(
-		$this,
-		$this->serviceName,
-		'threatHits',
-		array(
-		  'methods' => array(
-			'create' => array(
-			  'path' => 'v4/threatHits',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-		$this->threatListUpdates = new Google_Service_Safebrowsing_Resource_ThreatListUpdates(
-		$this,
-		$this->serviceName,
-		'threatListUpdates',
-		array(
-		  'methods' => array(
-			'fetch' => array(
-			  'path' => 'v4/threatListUpdates:fetch',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-		$this->threatLists = new Google_Service_Safebrowsing_Resource_ThreatLists(
-		$this,
-		$this->serviceName,
-		'threatLists',
-		array(
-		  'methods' => array(
-			'list' => array(
-			  'path' => 'v4/threatLists',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-		$this->threatMatches = new Google_Service_Safebrowsing_Resource_ThreatMatches(
-		$this,
-		$this->serviceName,
-		'threatMatches',
-		array(
-		  'methods' => array(
-			'find' => array(
-			  'path' => 'v4/threatMatches:find',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-	}
+    $this->encodedFullHashes = new Google_Service_Safebrowsing_Resource_EncodedFullHashes(
+        $this,
+        $this->serviceName,
+        'encodedFullHashes',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'v4/encodedFullHashes/{encodedRequest}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'encodedRequest' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'clientId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'clientVersion' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->encodedUpdates = new Google_Service_Safebrowsing_Resource_EncodedUpdates(
+        $this,
+        $this->serviceName,
+        'encodedUpdates',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'v4/encodedUpdates/{encodedRequest}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'encodedRequest' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'clientId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'clientVersion' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->fullHashes = new Google_Service_Safebrowsing_Resource_FullHashes(
+        $this,
+        $this->serviceName,
+        'fullHashes',
+        array(
+          'methods' => array(
+            'find' => array(
+              'path' => 'v4/fullHashes:find',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+    $this->threatHits = new Google_Service_Safebrowsing_Resource_ThreatHits(
+        $this,
+        $this->serviceName,
+        'threatHits',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v4/threatHits',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+    $this->threatListUpdates = new Google_Service_Safebrowsing_Resource_ThreatListUpdates(
+        $this,
+        $this->serviceName,
+        'threatListUpdates',
+        array(
+          'methods' => array(
+            'fetch' => array(
+              'path' => 'v4/threatListUpdates:fetch',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+    $this->threatLists = new Google_Service_Safebrowsing_Resource_ThreatLists(
+        $this,
+        $this->serviceName,
+        'threatLists',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'v4/threatLists',
+              'httpMethod' => 'GET',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+    $this->threatMatches = new Google_Service_Safebrowsing_Resource_ThreatMatches(
+        $this,
+        $this->serviceName,
+        'threatMatches',
+        array(
+          'methods' => array(
+            'find' => array(
+              'path' => 'v4/threatMatches:find',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+  }
 }

@@ -17,42 +17,42 @@
 
 class Google_Service_ShoppingContent_DatafeedTarget extends Google_Collection
 {
-	protected $collection_key = 'includedDestinations';
-	public $country;
-	public $excludedDestinations;
-	public $includedDestinations;
-	public $language;
+  protected $collection_key = 'includedDestinations';
+  public $country;
+  public $excludedDestinations;
+  public $includedDestinations;
+  public $language;
 
-	public function setCountry($country)
-	{
-		$this->country = $country;
-	}
-	public function getCountry()
-	{
-		return $this->country;
-	}
-	public function setExcludedDestinations($excludedDestinations)
-	{
-		$this->excludedDestinations = $excludedDestinations;
-	}
-	public function getExcludedDestinations()
-	{
-		return $this->excludedDestinations;
-	}
-	public function setIncludedDestinations($includedDestinations)
-	{
-		$this->includedDestinations = $includedDestinations;
-	}
-	public function getIncludedDestinations()
-	{
-		return $this->includedDestinations;
-	}
-	public function setLanguage($language)
-	{
-		$this->language = $language;
-	}
-	public function getLanguage()
-	{
-		return $this->language;
-	}
+  public function setCountry($country)
+  {
+    $this->country = $country;
+  }
+  public function getCountry()
+  {
+    return $this->country;
+  }
+  public function setExcludedDestinations($excludedDestinations)
+  {
+    $this->excludedDestinations = $excludedDestinations;
+  }
+  public function getExcludedDestinations()
+  {
+    return $this->excludedDestinations;
+  }
+  public function setIncludedDestinations($includedDestinations)
+  {
+    $this->includedDestinations = $includedDestinations;
+  }
+  public function getIncludedDestinations()
+  {
+    return $this->includedDestinations;
+  }
+  public function setLanguage($language)
+  {
+    $this->language = $language;
+  }
+  public function getLanguage()
+  {
+    return $this->language;
+  }
 }

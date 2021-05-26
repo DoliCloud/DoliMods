@@ -17,15 +17,15 @@
 
 class Google_Service_AndroidPublisher_Testers extends Google_Collection
 {
-	protected $collection_key = 'googleGroups';
-	public $googleGroups;
+  protected $collection_key = 'googleGroups';
+  public $googleGroups;
 
-	public function setGoogleGroups($googleGroups)
-	{
-		$this->googleGroups = $googleGroups;
-	}
-	public function getGoogleGroups()
-	{
-		return $this->googleGroups;
-	}
+  public function setGoogleGroups($googleGroups)
+  {
+    $this->googleGroups = $googleGroups;
+  }
+  public function getGoogleGroups()
+  {
+    return $this->googleGroups;
+  }
 }

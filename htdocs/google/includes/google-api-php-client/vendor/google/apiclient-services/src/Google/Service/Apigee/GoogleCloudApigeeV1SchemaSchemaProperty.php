@@ -17,32 +17,32 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1SchemaSchemaProperty extends Google_Model
 {
-	public $createTime;
-	public $custom;
-	public $type;
+  public $createTime;
+  public $custom;
+  public $type;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setCustom($custom)
-	{
-		$this->custom = $custom;
-	}
-	public function getCustom()
-	{
-		return $this->custom;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setCustom($custom)
+  {
+    $this->custom = $custom;
+  }
+  public function getCustom()
+  {
+    return $this->custom;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

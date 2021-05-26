@@ -17,54 +17,54 @@
 
 class Google_Service_CivicInfo_RepresentativeInfoData extends Google_Collection
 {
-	protected $collection_key = 'officials';
-	protected $divisionsType = 'Google_Service_CivicInfo_GeographicDivision';
-	protected $divisionsDataType = 'map';
-	protected $officesType = 'Google_Service_CivicInfo_Office';
-	protected $officesDataType = 'array';
-	protected $officialsType = 'Google_Service_CivicInfo_Official';
-	protected $officialsDataType = 'array';
+  protected $collection_key = 'officials';
+  protected $divisionsType = 'Google_Service_CivicInfo_GeographicDivision';
+  protected $divisionsDataType = 'map';
+  protected $officesType = 'Google_Service_CivicInfo_Office';
+  protected $officesDataType = 'array';
+  protected $officialsType = 'Google_Service_CivicInfo_Official';
+  protected $officialsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CivicInfo_GeographicDivision
-	 */
-	public function setDivisions($divisions)
-	{
-		$this->divisions = $divisions;
-	}
-	/**
-	 * @return Google_Service_CivicInfo_GeographicDivision
-	 */
-	public function getDivisions()
-	{
-		return $this->divisions;
-	}
-	/**
-	 * @param Google_Service_CivicInfo_Office
-	 */
-	public function setOffices($offices)
-	{
-		$this->offices = $offices;
-	}
-	/**
-	 * @return Google_Service_CivicInfo_Office
-	 */
-	public function getOffices()
-	{
-		return $this->offices;
-	}
-	/**
-	 * @param Google_Service_CivicInfo_Official
-	 */
-	public function setOfficials($officials)
-	{
-		$this->officials = $officials;
-	}
-	/**
-	 * @return Google_Service_CivicInfo_Official
-	 */
-	public function getOfficials()
-	{
-		return $this->officials;
-	}
+  /**
+   * @param Google_Service_CivicInfo_GeographicDivision[]
+   */
+  public function setDivisions($divisions)
+  {
+    $this->divisions = $divisions;
+  }
+  /**
+   * @return Google_Service_CivicInfo_GeographicDivision[]
+   */
+  public function getDivisions()
+  {
+    return $this->divisions;
+  }
+  /**
+   * @param Google_Service_CivicInfo_Office[]
+   */
+  public function setOffices($offices)
+  {
+    $this->offices = $offices;
+  }
+  /**
+   * @return Google_Service_CivicInfo_Office[]
+   */
+  public function getOffices()
+  {
+    return $this->offices;
+  }
+  /**
+   * @param Google_Service_CivicInfo_Official[]
+   */
+  public function setOfficials($officials)
+  {
+    $this->officials = $officials;
+  }
+  /**
+   * @return Google_Service_CivicInfo_Official[]
+   */
+  public function getOfficials()
+  {
+    return $this->officials;
+  }
 }

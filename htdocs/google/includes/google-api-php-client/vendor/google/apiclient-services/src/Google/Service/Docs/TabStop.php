@@ -17,30 +17,30 @@
 
 class Google_Service_Docs_TabStop extends Google_Model
 {
-	public $alignment;
-	protected $offsetType = 'Google_Service_Docs_Dimension';
-	protected $offsetDataType = '';
+  public $alignment;
+  protected $offsetType = 'Google_Service_Docs_Dimension';
+  protected $offsetDataType = '';
 
-	public function setAlignment($alignment)
-	{
-		$this->alignment = $alignment;
-	}
-	public function getAlignment()
-	{
-		return $this->alignment;
-	}
-	/**
-	 * @param Google_Service_Docs_Dimension
-	 */
-	public function setOffset(Google_Service_Docs_Dimension $offset)
-	{
-		$this->offset = $offset;
-	}
-	/**
-	 * @return Google_Service_Docs_Dimension
-	 */
-	public function getOffset()
-	{
-		return $this->offset;
-	}
+  public function setAlignment($alignment)
+  {
+    $this->alignment = $alignment;
+  }
+  public function getAlignment()
+  {
+    return $this->alignment;
+  }
+  /**
+   * @param Google_Service_Docs_Dimension
+   */
+  public function setOffset(Google_Service_Docs_Dimension $offset)
+  {
+    $this->offset = $offset;
+  }
+  /**
+   * @return Google_Service_Docs_Dimension
+   */
+  public function getOffset()
+  {
+    return $this->offset;
+  }
 }

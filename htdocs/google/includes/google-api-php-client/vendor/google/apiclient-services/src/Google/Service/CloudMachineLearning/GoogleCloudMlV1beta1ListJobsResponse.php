@@ -17,25 +17,25 @@
 
 class Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1ListJobsResponse extends Google_Collection
 {
-	protected $collection_key = 'jobs';
-	protected $jobsType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Job';
-	protected $jobsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'jobs';
+  protected $jobsType = 'Google_Service_CloudMachineLearning_GoogleCloudMlV1beta1Job';
+  protected $jobsDataType = 'array';
+  public $nextPageToken;
 
-	public function setJobs($jobs)
-	{
-		$this->jobs = $jobs;
-	}
-	public function getJobs()
-	{
-		return $this->jobs;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setJobs($jobs)
+  {
+    $this->jobs = $jobs;
+  }
+  public function getJobs()
+  {
+    return $this->jobs;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

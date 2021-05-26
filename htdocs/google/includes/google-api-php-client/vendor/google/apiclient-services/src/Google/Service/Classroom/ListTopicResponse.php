@@ -17,31 +17,31 @@
 
 class Google_Service_Classroom_ListTopicResponse extends Google_Collection
 {
-	protected $collection_key = 'topic';
-	public $nextPageToken;
-	protected $topicType = 'Google_Service_Classroom_Topic';
-	protected $topicDataType = 'array';
+  protected $collection_key = 'topic';
+  public $nextPageToken;
+  protected $topicType = 'Google_Service_Classroom_Topic';
+  protected $topicDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Classroom_Topic
-	 */
-	public function setTopic($topic)
-	{
-		$this->topic = $topic;
-	}
-	/**
-	 * @return Google_Service_Classroom_Topic
-	 */
-	public function getTopic()
-	{
-		return $this->topic;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Classroom_Topic[]
+   */
+  public function setTopic($topic)
+  {
+    $this->topic = $topic;
+  }
+  /**
+   * @return Google_Service_Classroom_Topic[]
+   */
+  public function getTopic()
+  {
+    return $this->topic;
+  }
 }

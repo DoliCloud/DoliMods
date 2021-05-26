@@ -17,46 +17,46 @@
 
 class Google_Service_Sheets_CutPasteRequest extends Google_Model
 {
-	protected $destinationType = 'Google_Service_Sheets_GridCoordinate';
-	protected $destinationDataType = '';
-	public $pasteType;
-	protected $sourceType = 'Google_Service_Sheets_GridRange';
-	protected $sourceDataType = '';
+  protected $destinationType = 'Google_Service_Sheets_GridCoordinate';
+  protected $destinationDataType = '';
+  public $pasteType;
+  protected $sourceType = 'Google_Service_Sheets_GridRange';
+  protected $sourceDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_GridCoordinate
-	 */
-	public function setDestination(Google_Service_Sheets_GridCoordinate $destination)
-	{
-		$this->destination = $destination;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridCoordinate
-	 */
-	public function getDestination()
-	{
-		return $this->destination;
-	}
-	public function setPasteType($pasteType)
-	{
-		$this->pasteType = $pasteType;
-	}
-	public function getPasteType()
-	{
-		return $this->pasteType;
-	}
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setSource(Google_Service_Sheets_GridRange $source)
-	{
-		$this->source = $source;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getSource()
-	{
-		return $this->source;
-	}
+  /**
+   * @param Google_Service_Sheets_GridCoordinate
+   */
+  public function setDestination(Google_Service_Sheets_GridCoordinate $destination)
+  {
+    $this->destination = $destination;
+  }
+  /**
+   * @return Google_Service_Sheets_GridCoordinate
+   */
+  public function getDestination()
+  {
+    return $this->destination;
+  }
+  public function setPasteType($pasteType)
+  {
+    $this->pasteType = $pasteType;
+  }
+  public function getPasteType()
+  {
+    return $this->pasteType;
+  }
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setSource(Google_Service_Sheets_GridRange $source)
+  {
+    $this->source = $source;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getSource()
+  {
+    return $this->source;
+  }
 }

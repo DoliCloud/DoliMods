@@ -17,68 +17,68 @@
 
 class Google_Service_Directory_RoleAssignment extends Google_Model
 {
-	public $assignedTo;
-	public $etag;
-	public $kind;
-	public $orgUnitId;
-	public $roleAssignmentId;
-	public $roleId;
-	public $scopeType;
+  public $assignedTo;
+  public $etag;
+  public $kind;
+  public $orgUnitId;
+  public $roleAssignmentId;
+  public $roleId;
+  public $scopeType;
 
-	public function setAssignedTo($assignedTo)
-	{
-		$this->assignedTo = $assignedTo;
-	}
-	public function getAssignedTo()
-	{
-		return $this->assignedTo;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setOrgUnitId($orgUnitId)
-	{
-		$this->orgUnitId = $orgUnitId;
-	}
-	public function getOrgUnitId()
-	{
-		return $this->orgUnitId;
-	}
-	public function setRoleAssignmentId($roleAssignmentId)
-	{
-		$this->roleAssignmentId = $roleAssignmentId;
-	}
-	public function getRoleAssignmentId()
-	{
-		return $this->roleAssignmentId;
-	}
-	public function setRoleId($roleId)
-	{
-		$this->roleId = $roleId;
-	}
-	public function getRoleId()
-	{
-		return $this->roleId;
-	}
-	public function setScopeType($scopeType)
-	{
-		$this->scopeType = $scopeType;
-	}
-	public function getScopeType()
-	{
-		return $this->scopeType;
-	}
+  public function setAssignedTo($assignedTo)
+  {
+    $this->assignedTo = $assignedTo;
+  }
+  public function getAssignedTo()
+  {
+    return $this->assignedTo;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setOrgUnitId($orgUnitId)
+  {
+    $this->orgUnitId = $orgUnitId;
+  }
+  public function getOrgUnitId()
+  {
+    return $this->orgUnitId;
+  }
+  public function setRoleAssignmentId($roleAssignmentId)
+  {
+    $this->roleAssignmentId = $roleAssignmentId;
+  }
+  public function getRoleAssignmentId()
+  {
+    return $this->roleAssignmentId;
+  }
+  public function setRoleId($roleId)
+  {
+    $this->roleId = $roleId;
+  }
+  public function getRoleId()
+  {
+    return $this->roleId;
+  }
+  public function setScopeType($scopeType)
+  {
+    $this->scopeType = $scopeType;
+  }
+  public function getScopeType()
+  {
+    return $this->scopeType;
+  }
 }

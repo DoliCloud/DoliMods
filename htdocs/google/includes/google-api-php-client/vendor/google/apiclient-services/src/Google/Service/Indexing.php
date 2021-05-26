@@ -30,49 +30,49 @@
  */
 class Google_Service_Indexing extends Google_Service
 {
-	/** Submit data to Google for indexing. */
-	const INDEXING =
-	  "https://www.googleapis.com/auth/indexing";
+  /** Submit data to Google for indexing. */
+  const INDEXING =
+      "https://www.googleapis.com/auth/indexing";
 
-	public $urlNotifications;
+  public $urlNotifications;
 
-	/**
-	 * Constructs the internal representation of the Indexing service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://indexing.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v3';
-		$this->serviceName = 'indexing';
+  /**
+   * Constructs the internal representation of the Indexing service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://indexing.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v3';
+    $this->serviceName = 'indexing';
 
-		$this->urlNotifications = new Google_Service_Indexing_Resource_UrlNotifications(
-		$this,
-		$this->serviceName,
-		'urlNotifications',
-		array(
-		  'methods' => array(
-			'getMetadata' => array(
-			  'path' => 'v3/urlNotifications/metadata',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'url' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'publish' => array(
-			  'path' => 'v3/urlNotifications:publish',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-	}
+    $this->urlNotifications = new Google_Service_Indexing_Resource_UrlNotifications(
+        $this,
+        $this->serviceName,
+        'urlNotifications',
+        array(
+          'methods' => array(
+            'getMetadata' => array(
+              'path' => 'v3/urlNotifications/metadata',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'url' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'publish' => array(
+              'path' => 'v3/urlNotifications:publish',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+  }
 }

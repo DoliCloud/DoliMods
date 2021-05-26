@@ -17,60 +17,60 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1QueryMetadata extends Google_Collection
 {
-	protected $collection_key = 'metrics';
-	public $dimensions;
-	public $endTimestamp;
-	public $metrics;
-	public $outputFormat;
-	public $startTimestamp;
-	public $timeUnit;
+  protected $collection_key = 'metrics';
+  public $dimensions;
+  public $endTimestamp;
+  public $metrics;
+  public $outputFormat;
+  public $startTimestamp;
+  public $timeUnit;
 
-	public function setDimensions($dimensions)
-	{
-		$this->dimensions = $dimensions;
-	}
-	public function getDimensions()
-	{
-		return $this->dimensions;
-	}
-	public function setEndTimestamp($endTimestamp)
-	{
-		$this->endTimestamp = $endTimestamp;
-	}
-	public function getEndTimestamp()
-	{
-		return $this->endTimestamp;
-	}
-	public function setMetrics($metrics)
-	{
-		$this->metrics = $metrics;
-	}
-	public function getMetrics()
-	{
-		return $this->metrics;
-	}
-	public function setOutputFormat($outputFormat)
-	{
-		$this->outputFormat = $outputFormat;
-	}
-	public function getOutputFormat()
-	{
-		return $this->outputFormat;
-	}
-	public function setStartTimestamp($startTimestamp)
-	{
-		$this->startTimestamp = $startTimestamp;
-	}
-	public function getStartTimestamp()
-	{
-		return $this->startTimestamp;
-	}
-	public function setTimeUnit($timeUnit)
-	{
-		$this->timeUnit = $timeUnit;
-	}
-	public function getTimeUnit()
-	{
-		return $this->timeUnit;
-	}
+  public function setDimensions($dimensions)
+  {
+    $this->dimensions = $dimensions;
+  }
+  public function getDimensions()
+  {
+    return $this->dimensions;
+  }
+  public function setEndTimestamp($endTimestamp)
+  {
+    $this->endTimestamp = $endTimestamp;
+  }
+  public function getEndTimestamp()
+  {
+    return $this->endTimestamp;
+  }
+  public function setMetrics($metrics)
+  {
+    $this->metrics = $metrics;
+  }
+  public function getMetrics()
+  {
+    return $this->metrics;
+  }
+  public function setOutputFormat($outputFormat)
+  {
+    $this->outputFormat = $outputFormat;
+  }
+  public function getOutputFormat()
+  {
+    return $this->outputFormat;
+  }
+  public function setStartTimestamp($startTimestamp)
+  {
+    $this->startTimestamp = $startTimestamp;
+  }
+  public function getStartTimestamp()
+  {
+    return $this->startTimestamp;
+  }
+  public function setTimeUnit($timeUnit)
+  {
+    $this->timeUnit = $timeUnit;
+  }
+  public function getTimeUnit()
+  {
+    return $this->timeUnit;
+  }
 }

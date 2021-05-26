@@ -17,80 +17,80 @@
 
 class Google_Service_Directory_Member extends Google_Model
 {
-	protected $internal_gapi_mappings = array(
-		"deliverySettings" => "delivery_settings",
-	);
-	public $deliverySettings;
-	public $email;
-	public $etag;
-	public $id;
-	public $kind;
-	public $role;
-	public $status;
-	public $type;
+  protected $internal_gapi_mappings = array(
+        "deliverySettings" => "delivery_settings",
+  );
+  public $deliverySettings;
+  public $email;
+  public $etag;
+  public $id;
+  public $kind;
+  public $role;
+  public $status;
+  public $type;
 
-	public function setDeliverySettings($deliverySettings)
-	{
-		$this->deliverySettings = $deliverySettings;
-	}
-	public function getDeliverySettings()
-	{
-		return $this->deliverySettings;
-	}
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDeliverySettings($deliverySettings)
+  {
+    $this->deliverySettings = $deliverySettings;
+  }
+  public function getDeliverySettings()
+  {
+    return $this->deliverySettings;
+  }
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

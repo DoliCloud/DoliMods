@@ -25,46 +25,46 @@
  */
 class Google_Service_Sasportal_Resource_Policies extends Google_Service_Resource
 {
-	/**
-	 * Gets the access control policy for a resource. Returns an empty policy if the
-	 * resource exists and does not have a policy set. (policies.get)
-	 *
-	 * @param Google_Service_Sasportal_SasPortalGetPolicyRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Sasportal_SasPortalPolicy
-	 */
-	public function get(Google_Service_Sasportal_SasPortalGetPolicyRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Sasportal_SasPortalPolicy");
-	}
-	/**
-	 * Sets the access control policy on the specified resource. Replaces any
-	 * existing policy. (policies.set)
-	 *
-	 * @param Google_Service_Sasportal_SasPortalSetPolicyRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Sasportal_SasPortalPolicy
-	 */
-	public function set(Google_Service_Sasportal_SasPortalSetPolicyRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('set', array($params), "Google_Service_Sasportal_SasPortalPolicy");
-	}
-	/**
-	 * Returns permissions that a caller has on the specified resource.
-	 * (policies.test)
-	 *
-	 * @param Google_Service_Sasportal_SasPortalTestPermissionsRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Sasportal_SasPortalTestPermissionsResponse
-	 */
-	public function test(Google_Service_Sasportal_SasPortalTestPermissionsRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('test', array($params), "Google_Service_Sasportal_SasPortalTestPermissionsResponse");
-	}
+  /**
+   * Gets the access control policy for a resource. Returns an empty policy if the
+   * resource exists and does not have a policy set. (policies.get)
+   *
+   * @param Google_Service_Sasportal_SasPortalGetPolicyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Sasportal_SasPortalPolicy
+   */
+  public function get(Google_Service_Sasportal_SasPortalGetPolicyRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Sasportal_SasPortalPolicy");
+  }
+  /**
+   * Sets the access control policy on the specified resource. Replaces any
+   * existing policy. (policies.set)
+   *
+   * @param Google_Service_Sasportal_SasPortalSetPolicyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Sasportal_SasPortalPolicy
+   */
+  public function set(Google_Service_Sasportal_SasPortalSetPolicyRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('set', array($params), "Google_Service_Sasportal_SasPortalPolicy");
+  }
+  /**
+   * Returns permissions that a caller has on the specified resource.
+   * (policies.test)
+   *
+   * @param Google_Service_Sasportal_SasPortalTestPermissionsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Sasportal_SasPortalTestPermissionsResponse
+   */
+  public function test(Google_Service_Sasportal_SasPortalTestPermissionsRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('test', array($params), "Google_Service_Sasportal_SasPortalTestPermissionsResponse");
+  }
 }

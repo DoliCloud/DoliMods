@@ -17,23 +17,23 @@
 
 class Google_Service_SiteVerification_SiteVerificationWebResourceGettokenResponse extends Google_Model
 {
-	public $method;
-	public $token;
+  public $method;
+  public $token;
 
-	public function setMethod($method)
-	{
-		$this->method = $method;
-	}
-	public function getMethod()
-	{
-		return $this->method;
-	}
-	public function setToken($token)
-	{
-		$this->token = $token;
-	}
-	public function getToken()
-	{
-		return $this->token;
-	}
+  public function setMethod($method)
+  {
+    $this->method = $method;
+  }
+  public function getMethod()
+  {
+    return $this->method;
+  }
+  public function setToken($token)
+  {
+    $this->token = $token;
+  }
+  public function getToken()
+  {
+    return $this->token;
+  }
 }

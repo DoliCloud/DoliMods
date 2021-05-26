@@ -17,54 +17,54 @@
 
 class Google_Service_Script_Metrics extends Google_Collection
 {
-	protected $collection_key = 'totalExecutions';
-	protected $activeUsersType = 'Google_Service_Script_MetricsValue';
-	protected $activeUsersDataType = 'array';
-	protected $failedExecutionsType = 'Google_Service_Script_MetricsValue';
-	protected $failedExecutionsDataType = 'array';
-	protected $totalExecutionsType = 'Google_Service_Script_MetricsValue';
-	protected $totalExecutionsDataType = 'array';
+  protected $collection_key = 'totalExecutions';
+  protected $activeUsersType = 'Google_Service_Script_MetricsValue';
+  protected $activeUsersDataType = 'array';
+  protected $failedExecutionsType = 'Google_Service_Script_MetricsValue';
+  protected $failedExecutionsDataType = 'array';
+  protected $totalExecutionsType = 'Google_Service_Script_MetricsValue';
+  protected $totalExecutionsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Script_MetricsValue
-	 */
-	public function setActiveUsers($activeUsers)
-	{
-		$this->activeUsers = $activeUsers;
-	}
-	/**
-	 * @return Google_Service_Script_MetricsValue
-	 */
-	public function getActiveUsers()
-	{
-		return $this->activeUsers;
-	}
-	/**
-	 * @param Google_Service_Script_MetricsValue
-	 */
-	public function setFailedExecutions($failedExecutions)
-	{
-		$this->failedExecutions = $failedExecutions;
-	}
-	/**
-	 * @return Google_Service_Script_MetricsValue
-	 */
-	public function getFailedExecutions()
-	{
-		return $this->failedExecutions;
-	}
-	/**
-	 * @param Google_Service_Script_MetricsValue
-	 */
-	public function setTotalExecutions($totalExecutions)
-	{
-		$this->totalExecutions = $totalExecutions;
-	}
-	/**
-	 * @return Google_Service_Script_MetricsValue
-	 */
-	public function getTotalExecutions()
-	{
-		return $this->totalExecutions;
-	}
+  /**
+   * @param Google_Service_Script_MetricsValue[]
+   */
+  public function setActiveUsers($activeUsers)
+  {
+    $this->activeUsers = $activeUsers;
+  }
+  /**
+   * @return Google_Service_Script_MetricsValue[]
+   */
+  public function getActiveUsers()
+  {
+    return $this->activeUsers;
+  }
+  /**
+   * @param Google_Service_Script_MetricsValue[]
+   */
+  public function setFailedExecutions($failedExecutions)
+  {
+    $this->failedExecutions = $failedExecutions;
+  }
+  /**
+   * @return Google_Service_Script_MetricsValue[]
+   */
+  public function getFailedExecutions()
+  {
+    return $this->failedExecutions;
+  }
+  /**
+   * @param Google_Service_Script_MetricsValue[]
+   */
+  public function setTotalExecutions($totalExecutions)
+  {
+    $this->totalExecutions = $totalExecutions;
+  }
+  /**
+   * @return Google_Service_Script_MetricsValue[]
+   */
+  public function getTotalExecutions()
+  {
+    return $this->totalExecutions;
+  }
 }

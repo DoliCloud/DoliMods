@@ -17,23 +17,23 @@
 
 class Google_Service_Directory_ChromeOsDeviceLastKnownNetwork extends Google_Model
 {
-	public $ipAddress;
-	public $wanIpAddress;
+  public $ipAddress;
+  public $wanIpAddress;
 
-	public function setIpAddress($ipAddress)
-	{
-		$this->ipAddress = $ipAddress;
-	}
-	public function getIpAddress()
-	{
-		return $this->ipAddress;
-	}
-	public function setWanIpAddress($wanIpAddress)
-	{
-		$this->wanIpAddress = $wanIpAddress;
-	}
-	public function getWanIpAddress()
-	{
-		return $this->wanIpAddress;
-	}
+  public function setIpAddress($ipAddress)
+  {
+    $this->ipAddress = $ipAddress;
+  }
+  public function getIpAddress()
+  {
+    return $this->ipAddress;
+  }
+  public function setWanIpAddress($wanIpAddress)
+  {
+    $this->wanIpAddress = $wanIpAddress;
+  }
+  public function getWanIpAddress()
+  {
+    return $this->wanIpAddress;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_VpnGatewaysScopedList extends Google_Collection
 {
-	protected $collection_key = 'vpnGateways';
-	protected $vpnGatewaysType = 'Google_Service_Compute_VpnGateway';
-	protected $vpnGatewaysDataType = 'array';
-	protected $warningType = 'Google_Service_Compute_VpnGatewaysScopedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'vpnGateways';
+  protected $vpnGatewaysType = 'Google_Service_Compute_VpnGateway';
+  protected $vpnGatewaysDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_VpnGatewaysScopedListWarning';
+  protected $warningDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_VpnGateway
-	 */
-	public function setVpnGateways($vpnGateways)
-	{
-		$this->vpnGateways = $vpnGateways;
-	}
-	/**
-	 * @return Google_Service_Compute_VpnGateway
-	 */
-	public function getVpnGateways()
-	{
-		return $this->vpnGateways;
-	}
-	/**
-	 * @param Google_Service_Compute_VpnGatewaysScopedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_VpnGatewaysScopedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_VpnGatewaysScopedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Compute_VpnGateway[]
+   */
+  public function setVpnGateways($vpnGateways)
+  {
+    $this->vpnGateways = $vpnGateways;
+  }
+  /**
+   * @return Google_Service_Compute_VpnGateway[]
+   */
+  public function getVpnGateways()
+  {
+    return $this->vpnGateways;
+  }
+  /**
+   * @param Google_Service_Compute_VpnGatewaysScopedListWarning
+   */
+  public function setWarning(Google_Service_Compute_VpnGatewaysScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_VpnGatewaysScopedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

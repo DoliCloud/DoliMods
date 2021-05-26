@@ -17,32 +17,32 @@
 
 class Google_Service_SQLAdmin_SqlExternalSyncSettingError extends Google_Model
 {
-	public $detail;
-	public $kind;
-	public $type;
+  public $detail;
+  public $kind;
+  public $type;
 
-	public function setDetail($detail)
-	{
-		$this->detail = $detail;
-	}
-	public function getDetail()
-	{
-		return $this->detail;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDetail($detail)
+  {
+    $this->detail = $detail;
+  }
+  public function getDetail()
+  {
+    return $this->detail;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

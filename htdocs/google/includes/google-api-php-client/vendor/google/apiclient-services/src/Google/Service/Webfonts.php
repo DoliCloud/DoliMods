@@ -20,7 +20,7 @@
  *
  * <p>
  * The Google Web Fonts Developer API lets you retrieve information about web
- * fonts served     by Google.</p>
+ * fonts served by Google.</p>
  *
  * <p>
  * For more information about this service, see the API
@@ -33,41 +33,41 @@ class Google_Service_Webfonts extends Google_Service
 {
 
 
-	public $webfonts;
+  public $webfonts;
 
-	/**
-	 * Constructs the internal representation of the Webfonts service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://webfonts.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1';
-		$this->serviceName = 'webfonts';
+  /**
+   * Constructs the internal representation of the Webfonts service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://webfonts.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1';
+    $this->serviceName = 'webfonts';
 
-		$this->webfonts = new Google_Service_Webfonts_Resource_Webfonts(
-		$this,
-		$this->serviceName,
-		'webfonts',
-		array(
-		  'methods' => array(
-			'list' => array(
-			  'path' => 'v1/webfonts',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'sort' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->webfonts = new Google_Service_Webfonts_Resource_Webfonts(
+        $this,
+        $this->serviceName,
+        'webfonts',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'v1/webfonts',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'sort' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

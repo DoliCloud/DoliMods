@@ -17,31 +17,31 @@
 
 class Google_Service_Prediction_AnalyzeDataDescriptionFeaturesCategorical extends Google_Collection
 {
-	protected $collection_key = 'values';
-	public $count;
-	protected $valuesType = 'Google_Service_Prediction_AnalyzeDataDescriptionFeaturesCategoricalValues';
-	protected $valuesDataType = 'array';
+  protected $collection_key = 'values';
+  public $count;
+  protected $valuesType = 'Google_Service_Prediction_AnalyzeDataDescriptionFeaturesCategoricalValues';
+  protected $valuesDataType = 'array';
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	/**
-	 * @param Google_Service_Prediction_AnalyzeDataDescriptionFeaturesCategoricalValues
-	 */
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	/**
-	 * @return Google_Service_Prediction_AnalyzeDataDescriptionFeaturesCategoricalValues
-	 */
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  /**
+   * @param Google_Service_Prediction_AnalyzeDataDescriptionFeaturesCategoricalValues
+   */
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  /**
+   * @return Google_Service_Prediction_AnalyzeDataDescriptionFeaturesCategoricalValues
+   */
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

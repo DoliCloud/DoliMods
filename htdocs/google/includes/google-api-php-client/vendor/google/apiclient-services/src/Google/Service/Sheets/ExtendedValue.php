@@ -17,57 +17,57 @@
 
 class Google_Service_Sheets_ExtendedValue extends Google_Model
 {
-	public $boolValue;
-	protected $errorValueType = 'Google_Service_Sheets_ErrorValue';
-	protected $errorValueDataType = '';
-	public $formulaValue;
-	public $numberValue;
-	public $stringValue;
+  public $boolValue;
+  protected $errorValueType = 'Google_Service_Sheets_ErrorValue';
+  protected $errorValueDataType = '';
+  public $formulaValue;
+  public $numberValue;
+  public $stringValue;
 
-	public function setBoolValue($boolValue)
-	{
-		$this->boolValue = $boolValue;
-	}
-	public function getBoolValue()
-	{
-		return $this->boolValue;
-	}
-	/**
-	 * @param Google_Service_Sheets_ErrorValue
-	 */
-	public function setErrorValue(Google_Service_Sheets_ErrorValue $errorValue)
-	{
-		$this->errorValue = $errorValue;
-	}
-	/**
-	 * @return Google_Service_Sheets_ErrorValue
-	 */
-	public function getErrorValue()
-	{
-		return $this->errorValue;
-	}
-	public function setFormulaValue($formulaValue)
-	{
-		$this->formulaValue = $formulaValue;
-	}
-	public function getFormulaValue()
-	{
-		return $this->formulaValue;
-	}
-	public function setNumberValue($numberValue)
-	{
-		$this->numberValue = $numberValue;
-	}
-	public function getNumberValue()
-	{
-		return $this->numberValue;
-	}
-	public function setStringValue($stringValue)
-	{
-		$this->stringValue = $stringValue;
-	}
-	public function getStringValue()
-	{
-		return $this->stringValue;
-	}
+  public function setBoolValue($boolValue)
+  {
+    $this->boolValue = $boolValue;
+  }
+  public function getBoolValue()
+  {
+    return $this->boolValue;
+  }
+  /**
+   * @param Google_Service_Sheets_ErrorValue
+   */
+  public function setErrorValue(Google_Service_Sheets_ErrorValue $errorValue)
+  {
+    $this->errorValue = $errorValue;
+  }
+  /**
+   * @return Google_Service_Sheets_ErrorValue
+   */
+  public function getErrorValue()
+  {
+    return $this->errorValue;
+  }
+  public function setFormulaValue($formulaValue)
+  {
+    $this->formulaValue = $formulaValue;
+  }
+  public function getFormulaValue()
+  {
+    return $this->formulaValue;
+  }
+  public function setNumberValue($numberValue)
+  {
+    $this->numberValue = $numberValue;
+  }
+  public function getNumberValue()
+  {
+    return $this->numberValue;
+  }
+  public function setStringValue($stringValue)
+  {
+    $this->stringValue = $stringValue;
+  }
+  public function getStringValue()
+  {
+    return $this->stringValue;
+  }
 }

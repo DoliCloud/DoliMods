@@ -17,114 +17,114 @@
 
 class Google_Service_AlertCenter_ActivityRule extends Google_Collection
 {
-	protected $collection_key = 'supersededAlerts';
-	public $actionNames;
-	public $createTime;
-	public $description;
-	public $displayName;
-	public $name;
-	public $query;
-	public $supersededAlerts;
-	public $supersedingAlert;
-	public $threshold;
-	public $triggerSource;
-	public $updateTime;
-	public $windowSize;
+  protected $collection_key = 'supersededAlerts';
+  public $actionNames;
+  public $createTime;
+  public $description;
+  public $displayName;
+  public $name;
+  public $query;
+  public $supersededAlerts;
+  public $supersedingAlert;
+  public $threshold;
+  public $triggerSource;
+  public $updateTime;
+  public $windowSize;
 
-	public function setActionNames($actionNames)
-	{
-		$this->actionNames = $actionNames;
-	}
-	public function getActionNames()
-	{
-		return $this->actionNames;
-	}
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setQuery($query)
-	{
-		$this->query = $query;
-	}
-	public function getQuery()
-	{
-		return $this->query;
-	}
-	public function setSupersededAlerts($supersededAlerts)
-	{
-		$this->supersededAlerts = $supersededAlerts;
-	}
-	public function getSupersededAlerts()
-	{
-		return $this->supersededAlerts;
-	}
-	public function setSupersedingAlert($supersedingAlert)
-	{
-		$this->supersedingAlert = $supersedingAlert;
-	}
-	public function getSupersedingAlert()
-	{
-		return $this->supersedingAlert;
-	}
-	public function setThreshold($threshold)
-	{
-		$this->threshold = $threshold;
-	}
-	public function getThreshold()
-	{
-		return $this->threshold;
-	}
-	public function setTriggerSource($triggerSource)
-	{
-		$this->triggerSource = $triggerSource;
-	}
-	public function getTriggerSource()
-	{
-		return $this->triggerSource;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
-	public function setWindowSize($windowSize)
-	{
-		$this->windowSize = $windowSize;
-	}
-	public function getWindowSize()
-	{
-		return $this->windowSize;
-	}
+  public function setActionNames($actionNames)
+  {
+    $this->actionNames = $actionNames;
+  }
+  public function getActionNames()
+  {
+    return $this->actionNames;
+  }
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setQuery($query)
+  {
+    $this->query = $query;
+  }
+  public function getQuery()
+  {
+    return $this->query;
+  }
+  public function setSupersededAlerts($supersededAlerts)
+  {
+    $this->supersededAlerts = $supersededAlerts;
+  }
+  public function getSupersededAlerts()
+  {
+    return $this->supersededAlerts;
+  }
+  public function setSupersedingAlert($supersedingAlert)
+  {
+    $this->supersedingAlert = $supersedingAlert;
+  }
+  public function getSupersedingAlert()
+  {
+    return $this->supersedingAlert;
+  }
+  public function setThreshold($threshold)
+  {
+    $this->threshold = $threshold;
+  }
+  public function getThreshold()
+  {
+    return $this->threshold;
+  }
+  public function setTriggerSource($triggerSource)
+  {
+    $this->triggerSource = $triggerSource;
+  }
+  public function getTriggerSource()
+  {
+    return $this->triggerSource;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
+  public function setWindowSize($windowSize)
+  {
+    $this->windowSize = $windowSize;
+  }
+  public function getWindowSize()
+  {
+    return $this->windowSize;
+  }
 }

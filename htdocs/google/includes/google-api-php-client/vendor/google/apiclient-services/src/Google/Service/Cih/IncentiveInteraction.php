@@ -17,24 +17,24 @@
 
 class Google_Service_Cih_IncentiveInteraction extends Google_Model
 {
-	protected $monetaryRewardType = 'Google_Service_Cih_IncentiveInteractionMonetaryReward';
-	protected $monetaryRewardDataType = '';
-	public $type;
+  protected $monetaryRewardType = 'Google_Service_Cih_IncentiveInteractionMonetaryReward';
+  protected $monetaryRewardDataType = '';
+  public $type;
 
-	public function setMonetaryReward(Google_Service_Cih_IncentiveInteractionMonetaryReward $monetaryReward)
-	{
-		$this->monetaryReward = $monetaryReward;
-	}
-	public function getMonetaryReward()
-	{
-		return $this->monetaryReward;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setMonetaryReward(Google_Service_Cih_IncentiveInteractionMonetaryReward $monetaryReward)
+  {
+    $this->monetaryReward = $monetaryReward;
+  }
+  public function getMonetaryReward()
+  {
+    return $this->monetaryReward;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

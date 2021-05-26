@@ -25,18 +25,18 @@
  */
 class Google_Service_YouTubeReporting_Resource_Media extends Google_Service_Resource
 {
-	/**
-	 * Method for media download. Download is supported on the URI
-	 * `/v1/media/{+name}?alt=media`. (media.download)
-	 *
-	 * @param string $resourceName Name of the media that is being downloaded.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_YouTubeReporting_GdataMedia
-	 */
-	public function download($resourceName, $optParams = array())
-	{
-		$params = array('resourceName' => $resourceName);
-		$params = array_merge($params, $optParams);
-		return $this->call('download', array($params), "Google_Service_YouTubeReporting_GdataMedia");
-	}
+  /**
+   * Method for media download. Download is supported on the URI
+   * `/v1/media/{+name}?alt=media`. (media.download)
+   *
+   * @param string $resourceName Name of the media that is being downloaded.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_YouTubeReporting_GdataMedia
+   */
+  public function download($resourceName, $optParams = array())
+  {
+    $params = array('resourceName' => $resourceName);
+    $params = array_merge($params, $optParams);
+    return $this->call('download', array($params), "Google_Service_YouTubeReporting_GdataMedia");
+  }
 }

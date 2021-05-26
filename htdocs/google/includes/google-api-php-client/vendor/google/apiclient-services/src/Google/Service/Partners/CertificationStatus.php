@@ -17,49 +17,49 @@
 
 class Google_Service_Partners_CertificationStatus extends Google_Collection
 {
-	protected $collection_key = 'examStatuses';
-	protected $examStatusesType = 'Google_Service_Partners_CertificationExamStatus';
-	protected $examStatusesDataType = 'array';
-	public $isCertified;
-	public $type;
-	public $userCount;
+  protected $collection_key = 'examStatuses';
+  protected $examStatusesType = 'Google_Service_Partners_CertificationExamStatus';
+  protected $examStatusesDataType = 'array';
+  public $isCertified;
+  public $type;
+  public $userCount;
 
-	/**
-	 * @param Google_Service_Partners_CertificationExamStatus
-	 */
-	public function setExamStatuses($examStatuses)
-	{
-		$this->examStatuses = $examStatuses;
-	}
-	/**
-	 * @return Google_Service_Partners_CertificationExamStatus
-	 */
-	public function getExamStatuses()
-	{
-		return $this->examStatuses;
-	}
-	public function setIsCertified($isCertified)
-	{
-		$this->isCertified = $isCertified;
-	}
-	public function getIsCertified()
-	{
-		return $this->isCertified;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setUserCount($userCount)
-	{
-		$this->userCount = $userCount;
-	}
-	public function getUserCount()
-	{
-		return $this->userCount;
-	}
+  /**
+   * @param Google_Service_Partners_CertificationExamStatus
+   */
+  public function setExamStatuses($examStatuses)
+  {
+    $this->examStatuses = $examStatuses;
+  }
+  /**
+   * @return Google_Service_Partners_CertificationExamStatus
+   */
+  public function getExamStatuses()
+  {
+    return $this->examStatuses;
+  }
+  public function setIsCertified($isCertified)
+  {
+    $this->isCertified = $isCertified;
+  }
+  public function getIsCertified()
+  {
+    return $this->isCertified;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setUserCount($userCount)
+  {
+    $this->userCount = $userCount;
+  }
+  public function getUserCount()
+  {
+    return $this->userCount;
+  }
 }

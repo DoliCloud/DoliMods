@@ -15,25 +15,53 @@
  * the License.
  */
 
-class Google_Service_ShoppingContent_ProductStatusDestinationStatus extends Google_Model
+class Google_Service_ShoppingContent_ProductStatusDestinationStatus extends Google_Collection
 {
-	public $destination;
-	public $status;
+  protected $collection_key = 'pendingCountries';
+  public $approvedCountries;
+  public $destination;
+  public $disapprovedCountries;
+  public $pendingCountries;
+  public $status;
 
-	public function setDestination($destination)
-	{
-		$this->destination = $destination;
-	}
-	public function getDestination()
-	{
-		return $this->destination;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setApprovedCountries($approvedCountries)
+  {
+    $this->approvedCountries = $approvedCountries;
+  }
+  public function getApprovedCountries()
+  {
+    return $this->approvedCountries;
+  }
+  public function setDestination($destination)
+  {
+    $this->destination = $destination;
+  }
+  public function getDestination()
+  {
+    return $this->destination;
+  }
+  public function setDisapprovedCountries($disapprovedCountries)
+  {
+    $this->disapprovedCountries = $disapprovedCountries;
+  }
+  public function getDisapprovedCountries()
+  {
+    return $this->disapprovedCountries;
+  }
+  public function setPendingCountries($pendingCountries)
+  {
+    $this->pendingCountries = $pendingCountries;
+  }
+  public function getPendingCountries()
+  {
+    return $this->pendingCountries;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

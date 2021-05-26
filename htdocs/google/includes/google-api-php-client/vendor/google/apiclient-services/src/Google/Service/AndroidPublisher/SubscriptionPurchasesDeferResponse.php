@@ -17,14 +17,14 @@
 
 class Google_Service_AndroidPublisher_SubscriptionPurchasesDeferResponse extends Google_Model
 {
-	public $newExpiryTimeMillis;
+  public $newExpiryTimeMillis;
 
-	public function setNewExpiryTimeMillis($newExpiryTimeMillis)
-	{
-		$this->newExpiryTimeMillis = $newExpiryTimeMillis;
-	}
-	public function getNewExpiryTimeMillis()
-	{
-		return $this->newExpiryTimeMillis;
-	}
+  public function setNewExpiryTimeMillis($newExpiryTimeMillis)
+  {
+    $this->newExpiryTimeMillis = $newExpiryTimeMillis;
+  }
+  public function getNewExpiryTimeMillis()
+  {
+    return $this->newExpiryTimeMillis;
+  }
 }

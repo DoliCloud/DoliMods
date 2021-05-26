@@ -17,48 +17,48 @@
 
 class Google_Service_PeopleService_Relation extends Google_Model
 {
-	public $formattedType;
-	protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
-	protected $metadataDataType = '';
-	public $person;
-	public $type;
+  public $formattedType;
+  protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
+  protected $metadataDataType = '';
+  public $person;
+  public $type;
 
-	public function setFormattedType($formattedType)
-	{
-		$this->formattedType = $formattedType;
-	}
-	public function getFormattedType()
-	{
-		return $this->formattedType;
-	}
-	/**
-	 * @param Google_Service_PeopleService_FieldMetadata
-	 */
-	public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_PeopleService_FieldMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setPerson($person)
-	{
-		$this->person = $person;
-	}
-	public function getPerson()
-	{
-		return $this->person;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setFormattedType($formattedType)
+  {
+    $this->formattedType = $formattedType;
+  }
+  public function getFormattedType()
+  {
+    return $this->formattedType;
+  }
+  /**
+   * @param Google_Service_PeopleService_FieldMetadata
+   */
+  public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_PeopleService_FieldMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setPerson($person)
+  {
+    $this->person = $person;
+  }
+  public function getPerson()
+  {
+    return $this->person;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

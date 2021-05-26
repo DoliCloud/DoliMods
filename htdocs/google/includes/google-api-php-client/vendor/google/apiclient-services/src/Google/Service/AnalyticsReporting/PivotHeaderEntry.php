@@ -17,40 +17,40 @@
 
 class Google_Service_AnalyticsReporting_PivotHeaderEntry extends Google_Collection
 {
-	protected $collection_key = 'dimensionValues';
-	public $dimensionNames;
-	public $dimensionValues;
-	protected $metricType = 'Google_Service_AnalyticsReporting_MetricHeaderEntry';
-	protected $metricDataType = '';
+  protected $collection_key = 'dimensionValues';
+  public $dimensionNames;
+  public $dimensionValues;
+  protected $metricType = 'Google_Service_AnalyticsReporting_MetricHeaderEntry';
+  protected $metricDataType = '';
 
-	public function setDimensionNames($dimensionNames)
-	{
-		$this->dimensionNames = $dimensionNames;
-	}
-	public function getDimensionNames()
-	{
-		return $this->dimensionNames;
-	}
-	public function setDimensionValues($dimensionValues)
-	{
-		$this->dimensionValues = $dimensionValues;
-	}
-	public function getDimensionValues()
-	{
-		return $this->dimensionValues;
-	}
-	/**
-	 * @param Google_Service_AnalyticsReporting_MetricHeaderEntry
-	 */
-	public function setMetric(Google_Service_AnalyticsReporting_MetricHeaderEntry $metric)
-	{
-		$this->metric = $metric;
-	}
-	/**
-	 * @return Google_Service_AnalyticsReporting_MetricHeaderEntry
-	 */
-	public function getMetric()
-	{
-		return $this->metric;
-	}
+  public function setDimensionNames($dimensionNames)
+  {
+    $this->dimensionNames = $dimensionNames;
+  }
+  public function getDimensionNames()
+  {
+    return $this->dimensionNames;
+  }
+  public function setDimensionValues($dimensionValues)
+  {
+    $this->dimensionValues = $dimensionValues;
+  }
+  public function getDimensionValues()
+  {
+    return $this->dimensionValues;
+  }
+  /**
+   * @param Google_Service_AnalyticsReporting_MetricHeaderEntry
+   */
+  public function setMetric(Google_Service_AnalyticsReporting_MetricHeaderEntry $metric)
+  {
+    $this->metric = $metric;
+  }
+  /**
+   * @return Google_Service_AnalyticsReporting_MetricHeaderEntry
+   */
+  public function getMetric()
+  {
+    return $this->metric;
+  }
 }

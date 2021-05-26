@@ -17,49 +17,49 @@
 
 class Google_Service_DisplayVideo_BulkEditSitesRequest extends Google_Collection
 {
-	protected $collection_key = 'deletedSites';
-	public $advertiserId;
-	protected $createdSitesType = 'Google_Service_DisplayVideo_Site';
-	protected $createdSitesDataType = 'array';
-	public $deletedSites;
-	public $partnerId;
+  protected $collection_key = 'deletedSites';
+  public $advertiserId;
+  protected $createdSitesType = 'Google_Service_DisplayVideo_Site';
+  protected $createdSitesDataType = 'array';
+  public $deletedSites;
+  public $partnerId;
 
-	public function setAdvertiserId($advertiserId)
-	{
-		$this->advertiserId = $advertiserId;
-	}
-	public function getAdvertiserId()
-	{
-		return $this->advertiserId;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_Site
-	 */
-	public function setCreatedSites($createdSites)
-	{
-		$this->createdSites = $createdSites;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_Site
-	 */
-	public function getCreatedSites()
-	{
-		return $this->createdSites;
-	}
-	public function setDeletedSites($deletedSites)
-	{
-		$this->deletedSites = $deletedSites;
-	}
-	public function getDeletedSites()
-	{
-		return $this->deletedSites;
-	}
-	public function setPartnerId($partnerId)
-	{
-		$this->partnerId = $partnerId;
-	}
-	public function getPartnerId()
-	{
-		return $this->partnerId;
-	}
+  public function setAdvertiserId($advertiserId)
+  {
+    $this->advertiserId = $advertiserId;
+  }
+  public function getAdvertiserId()
+  {
+    return $this->advertiserId;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_Site[]
+   */
+  public function setCreatedSites($createdSites)
+  {
+    $this->createdSites = $createdSites;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_Site[]
+   */
+  public function getCreatedSites()
+  {
+    return $this->createdSites;
+  }
+  public function setDeletedSites($deletedSites)
+  {
+    $this->deletedSites = $deletedSites;
+  }
+  public function getDeletedSites()
+  {
+    return $this->deletedSites;
+  }
+  public function setPartnerId($partnerId)
+  {
+    $this->partnerId = $partnerId;
+  }
+  public function getPartnerId()
+  {
+    return $this->partnerId;
+  }
 }

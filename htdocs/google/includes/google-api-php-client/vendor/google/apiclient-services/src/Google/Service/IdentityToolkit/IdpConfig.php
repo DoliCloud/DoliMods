@@ -17,60 +17,60 @@
 
 class Google_Service_IdentityToolkit_IdpConfig extends Google_Collection
 {
-	protected $collection_key = 'whitelistedAudiences';
-	public $clientId;
-	public $enabled;
-	public $experimentPercent;
-	public $provider;
-	public $secret;
-	public $whitelistedAudiences;
+  protected $collection_key = 'whitelistedAudiences';
+  public $clientId;
+  public $enabled;
+  public $experimentPercent;
+  public $provider;
+  public $secret;
+  public $whitelistedAudiences;
 
-	public function setClientId($clientId)
-	{
-		$this->clientId = $clientId;
-	}
-	public function getClientId()
-	{
-		return $this->clientId;
-	}
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
-	}
-	public function getEnabled()
-	{
-		return $this->enabled;
-	}
-	public function setExperimentPercent($experimentPercent)
-	{
-		$this->experimentPercent = $experimentPercent;
-	}
-	public function getExperimentPercent()
-	{
-		return $this->experimentPercent;
-	}
-	public function setProvider($provider)
-	{
-		$this->provider = $provider;
-	}
-	public function getProvider()
-	{
-		return $this->provider;
-	}
-	public function setSecret($secret)
-	{
-		$this->secret = $secret;
-	}
-	public function getSecret()
-	{
-		return $this->secret;
-	}
-	public function setWhitelistedAudiences($whitelistedAudiences)
-	{
-		$this->whitelistedAudiences = $whitelistedAudiences;
-	}
-	public function getWhitelistedAudiences()
-	{
-		return $this->whitelistedAudiences;
-	}
+  public function setClientId($clientId)
+  {
+    $this->clientId = $clientId;
+  }
+  public function getClientId()
+  {
+    return $this->clientId;
+  }
+  public function setEnabled($enabled)
+  {
+    $this->enabled = $enabled;
+  }
+  public function getEnabled()
+  {
+    return $this->enabled;
+  }
+  public function setExperimentPercent($experimentPercent)
+  {
+    $this->experimentPercent = $experimentPercent;
+  }
+  public function getExperimentPercent()
+  {
+    return $this->experimentPercent;
+  }
+  public function setProvider($provider)
+  {
+    $this->provider = $provider;
+  }
+  public function getProvider()
+  {
+    return $this->provider;
+  }
+  public function setSecret($secret)
+  {
+    $this->secret = $secret;
+  }
+  public function getSecret()
+  {
+    return $this->secret;
+  }
+  public function setWhitelistedAudiences($whitelistedAudiences)
+  {
+    $this->whitelistedAudiences = $whitelistedAudiences;
+  }
+  public function getWhitelistedAudiences()
+  {
+    return $this->whitelistedAudiences;
+  }
 }

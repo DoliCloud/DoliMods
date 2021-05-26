@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_UrlAssignedTargetingOptionDetails extends Google_Model
 {
-	public $negative;
-	public $url;
+  public $negative;
+  public $url;
 
-	public function setNegative($negative)
-	{
-		$this->negative = $negative;
-	}
-	public function getNegative()
-	{
-		return $this->negative;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setNegative($negative)
+  {
+    $this->negative = $negative;
+  }
+  public function getNegative()
+  {
+    return $this->negative;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

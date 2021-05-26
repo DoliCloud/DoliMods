@@ -17,32 +17,32 @@
 
 class Google_Service_Cih_TraxAgent extends Google_Model
 {
-	public $email;
-	public $gaiaId;
-	public $name;
+  public $email;
+  public $gaiaId;
+  public $name;
 
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	public function setGaiaId($gaiaId)
-	{
-		$this->gaiaId = $gaiaId;
-	}
-	public function getGaiaId()
-	{
-		return $this->gaiaId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  public function setGaiaId($gaiaId)
+  {
+    $this->gaiaId = $gaiaId;
+  }
+  public function getGaiaId()
+  {
+    return $this->gaiaId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

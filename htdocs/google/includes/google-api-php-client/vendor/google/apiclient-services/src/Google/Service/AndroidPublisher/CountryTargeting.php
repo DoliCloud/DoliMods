@@ -17,24 +17,24 @@
 
 class Google_Service_AndroidPublisher_CountryTargeting extends Google_Collection
 {
-	protected $collection_key = 'countries';
-	public $countries;
-	public $includeRestOfWorld;
+  protected $collection_key = 'countries';
+  public $countries;
+  public $includeRestOfWorld;
 
-	public function setCountries($countries)
-	{
-		$this->countries = $countries;
-	}
-	public function getCountries()
-	{
-		return $this->countries;
-	}
-	public function setIncludeRestOfWorld($includeRestOfWorld)
-	{
-		$this->includeRestOfWorld = $includeRestOfWorld;
-	}
-	public function getIncludeRestOfWorld()
-	{
-		return $this->includeRestOfWorld;
-	}
+  public function setCountries($countries)
+  {
+    $this->countries = $countries;
+  }
+  public function getCountries()
+  {
+    return $this->countries;
+  }
+  public function setIncludeRestOfWorld($includeRestOfWorld)
+  {
+    $this->includeRestOfWorld = $includeRestOfWorld;
+  }
+  public function getIncludeRestOfWorld()
+  {
+    return $this->includeRestOfWorld;
+  }
 }

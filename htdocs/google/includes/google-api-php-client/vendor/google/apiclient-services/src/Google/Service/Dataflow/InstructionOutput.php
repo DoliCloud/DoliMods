@@ -17,59 +17,59 @@
 
 class Google_Service_Dataflow_InstructionOutput extends Google_Model
 {
-	public $codec;
-	public $name;
-	public $onlyCountKeyBytes;
-	public $onlyCountValueBytes;
-	public $originalName;
-	public $systemName;
+  public $codec;
+  public $name;
+  public $onlyCountKeyBytes;
+  public $onlyCountValueBytes;
+  public $originalName;
+  public $systemName;
 
-	public function setCodec($codec)
-	{
-		$this->codec = $codec;
-	}
-	public function getCodec()
-	{
-		return $this->codec;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOnlyCountKeyBytes($onlyCountKeyBytes)
-	{
-		$this->onlyCountKeyBytes = $onlyCountKeyBytes;
-	}
-	public function getOnlyCountKeyBytes()
-	{
-		return $this->onlyCountKeyBytes;
-	}
-	public function setOnlyCountValueBytes($onlyCountValueBytes)
-	{
-		$this->onlyCountValueBytes = $onlyCountValueBytes;
-	}
-	public function getOnlyCountValueBytes()
-	{
-		return $this->onlyCountValueBytes;
-	}
-	public function setOriginalName($originalName)
-	{
-		$this->originalName = $originalName;
-	}
-	public function getOriginalName()
-	{
-		return $this->originalName;
-	}
-	public function setSystemName($systemName)
-	{
-		$this->systemName = $systemName;
-	}
-	public function getSystemName()
-	{
-		return $this->systemName;
-	}
+  public function setCodec($codec)
+  {
+    $this->codec = $codec;
+  }
+  public function getCodec()
+  {
+    return $this->codec;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOnlyCountKeyBytes($onlyCountKeyBytes)
+  {
+    $this->onlyCountKeyBytes = $onlyCountKeyBytes;
+  }
+  public function getOnlyCountKeyBytes()
+  {
+    return $this->onlyCountKeyBytes;
+  }
+  public function setOnlyCountValueBytes($onlyCountValueBytes)
+  {
+    $this->onlyCountValueBytes = $onlyCountValueBytes;
+  }
+  public function getOnlyCountValueBytes()
+  {
+    return $this->onlyCountValueBytes;
+  }
+  public function setOriginalName($originalName)
+  {
+    $this->originalName = $originalName;
+  }
+  public function getOriginalName()
+  {
+    return $this->originalName;
+  }
+  public function setSystemName($systemName)
+  {
+    $this->systemName = $systemName;
+  }
+  public function getSystemName()
+  {
+    return $this->systemName;
+  }
 }

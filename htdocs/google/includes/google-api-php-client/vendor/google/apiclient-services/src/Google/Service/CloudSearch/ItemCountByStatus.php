@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_ItemCountByStatus extends Google_Model
 {
-	public $count;
-	public $statusCode;
+  public $count;
+  public $statusCode;
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	public function setStatusCode($statusCode)
-	{
-		$this->statusCode = $statusCode;
-	}
-	public function getStatusCode()
-	{
-		return $this->statusCode;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  public function setStatusCode($statusCode)
+  {
+    $this->statusCode = $statusCode;
+  }
+  public function getStatusCode()
+  {
+    return $this->statusCode;
+  }
 }

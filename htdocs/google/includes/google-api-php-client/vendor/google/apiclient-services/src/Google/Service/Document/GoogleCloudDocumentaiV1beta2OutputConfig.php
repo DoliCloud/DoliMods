@@ -17,30 +17,30 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta2OutputConfig extends Google_Model
 {
-	protected $gcsDestinationType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2GcsDestination';
-	protected $gcsDestinationDataType = '';
-	public $pagesPerShard;
+  protected $gcsDestinationType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2GcsDestination';
+  protected $gcsDestinationDataType = '';
+  public $pagesPerShard;
 
-	/**
-	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2GcsDestination
-	 */
-	public function setGcsDestination(Google_Service_Document_GoogleCloudDocumentaiV1beta2GcsDestination $gcsDestination)
-	{
-		$this->gcsDestination = $gcsDestination;
-	}
-	/**
-	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2GcsDestination
-	 */
-	public function getGcsDestination()
-	{
-		return $this->gcsDestination;
-	}
-	public function setPagesPerShard($pagesPerShard)
-	{
-		$this->pagesPerShard = $pagesPerShard;
-	}
-	public function getPagesPerShard()
-	{
-		return $this->pagesPerShard;
-	}
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2GcsDestination
+   */
+  public function setGcsDestination(Google_Service_Document_GoogleCloudDocumentaiV1beta2GcsDestination $gcsDestination)
+  {
+    $this->gcsDestination = $gcsDestination;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2GcsDestination
+   */
+  public function getGcsDestination()
+  {
+    return $this->gcsDestination;
+  }
+  public function setPagesPerShard($pagesPerShard)
+  {
+    $this->pagesPerShard = $pagesPerShard;
+  }
+  public function getPagesPerShard()
+  {
+    return $this->pagesPerShard;
+  }
 }

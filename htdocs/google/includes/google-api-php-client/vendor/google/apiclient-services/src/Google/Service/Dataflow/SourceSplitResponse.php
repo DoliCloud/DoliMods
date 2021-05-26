@@ -17,47 +17,47 @@
 
 class Google_Service_Dataflow_SourceSplitResponse extends Google_Collection
 {
-	protected $collection_key = 'shards';
-	protected $bundlesType = 'Google_Service_Dataflow_DerivedSource';
-	protected $bundlesDataType = 'array';
-	public $outcome;
-	protected $shardsType = 'Google_Service_Dataflow_SourceSplitShard';
-	protected $shardsDataType = 'array';
+  protected $collection_key = 'shards';
+  protected $bundlesType = 'Google_Service_Dataflow_DerivedSource';
+  protected $bundlesDataType = 'array';
+  public $outcome;
+  protected $shardsType = 'Google_Service_Dataflow_SourceSplitShard';
+  protected $shardsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dataflow_DerivedSource
-	 */
-	public function setBundles($bundles)
-	{
-		$this->bundles = $bundles;
-	}
-	/**
-	 * @return Google_Service_Dataflow_DerivedSource
-	 */
-	public function getBundles()
-	{
-		return $this->bundles;
-	}
-	public function setOutcome($outcome)
-	{
-		$this->outcome = $outcome;
-	}
-	public function getOutcome()
-	{
-		return $this->outcome;
-	}
-	/**
-	 * @param Google_Service_Dataflow_SourceSplitShard
-	 */
-	public function setShards($shards)
-	{
-		$this->shards = $shards;
-	}
-	/**
-	 * @return Google_Service_Dataflow_SourceSplitShard
-	 */
-	public function getShards()
-	{
-		return $this->shards;
-	}
+  /**
+   * @param Google_Service_Dataflow_DerivedSource[]
+   */
+  public function setBundles($bundles)
+  {
+    $this->bundles = $bundles;
+  }
+  /**
+   * @return Google_Service_Dataflow_DerivedSource[]
+   */
+  public function getBundles()
+  {
+    return $this->bundles;
+  }
+  public function setOutcome($outcome)
+  {
+    $this->outcome = $outcome;
+  }
+  public function getOutcome()
+  {
+    return $this->outcome;
+  }
+  /**
+   * @param Google_Service_Dataflow_SourceSplitShard[]
+   */
+  public function setShards($shards)
+  {
+    $this->shards = $shards;
+  }
+  /**
+   * @return Google_Service_Dataflow_SourceSplitShard[]
+   */
+  public function getShards()
+  {
+    return $this->shards;
+  }
 }

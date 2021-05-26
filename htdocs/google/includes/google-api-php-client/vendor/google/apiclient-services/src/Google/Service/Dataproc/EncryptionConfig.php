@@ -17,14 +17,14 @@
 
 class Google_Service_Dataproc_EncryptionConfig extends Google_Model
 {
-	public $gcePdKmsKeyName;
+  public $gcePdKmsKeyName;
 
-	public function setGcePdKmsKeyName($gcePdKmsKeyName)
-	{
-		$this->gcePdKmsKeyName = $gcePdKmsKeyName;
-	}
-	public function getGcePdKmsKeyName()
-	{
-		return $this->gcePdKmsKeyName;
-	}
+  public function setGcePdKmsKeyName($gcePdKmsKeyName)
+  {
+    $this->gcePdKmsKeyName = $gcePdKmsKeyName;
+  }
+  public function getGcePdKmsKeyName()
+  {
+    return $this->gcePdKmsKeyName;
+  }
 }

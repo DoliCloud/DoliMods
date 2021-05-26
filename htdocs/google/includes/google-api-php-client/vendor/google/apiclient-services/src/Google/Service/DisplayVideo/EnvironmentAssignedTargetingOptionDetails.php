@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_EnvironmentAssignedTargetingOptionDetails extends Google_Model
 {
-	public $environment;
-	public $targetingOptionId;
+  public $environment;
+  public $targetingOptionId;
 
-	public function setEnvironment($environment)
-	{
-		$this->environment = $environment;
-	}
-	public function getEnvironment()
-	{
-		return $this->environment;
-	}
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
+  public function setEnvironment($environment)
+  {
+    $this->environment = $environment;
+  }
+  public function getEnvironment()
+  {
+    return $this->environment;
+  }
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
 }

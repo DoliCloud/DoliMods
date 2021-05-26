@@ -25,16 +25,16 @@
  */
 class Google_Service_AdSense_Resource_Payments extends Google_Service_Resource
 {
-	/**
-	 * List the payments for this AdSense account. (payments.listPayments)
-	 *
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AdSense_Payments
-	 */
-	public function listPayments($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AdSense_Payments");
-	}
+  /**
+   * List the payments for this AdSense account. (payments.listPayments)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AdSense_Payments
+   */
+  public function listPayments($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AdSense_Payments");
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMemorystoreforMemcached_MemcacheParameters extends Google_Model
 {
-	public $id;
-	public $params;
+  public $id;
+  public $params;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setParams($params)
-	{
-		$this->params = $params;
-	}
-	public function getParams()
-	{
-		return $this->params;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setParams($params)
+  {
+    $this->params = $params;
+  }
+  public function getParams()
+  {
+    return $this->params;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2BatchUpdateEntityTypesResponse extends Google_Collection
 {
-	protected $collection_key = 'entityTypes';
-	protected $entityTypesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityType';
-	protected $entityTypesDataType = 'array';
+  protected $collection_key = 'entityTypes';
+  protected $entityTypesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityType';
+  protected $entityTypesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityType
-	 */
-	public function setEntityTypes($entityTypes)
-	{
-		$this->entityTypes = $entityTypes;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityType
-	 */
-	public function getEntityTypes()
-	{
-		return $this->entityTypes;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityType[]
+   */
+  public function setEntityTypes($entityTypes)
+  {
+    $this->entityTypes = $entityTypes;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2EntityType[]
+   */
+  public function getEntityTypes()
+  {
+    return $this->entityTypes;
+  }
 }

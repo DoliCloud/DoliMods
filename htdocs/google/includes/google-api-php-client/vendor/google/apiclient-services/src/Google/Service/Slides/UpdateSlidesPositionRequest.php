@@ -17,24 +17,24 @@
 
 class Google_Service_Slides_UpdateSlidesPositionRequest extends Google_Collection
 {
-	protected $collection_key = 'slideObjectIds';
-	public $insertionIndex;
-	public $slideObjectIds;
+  protected $collection_key = 'slideObjectIds';
+  public $insertionIndex;
+  public $slideObjectIds;
 
-	public function setInsertionIndex($insertionIndex)
-	{
-		$this->insertionIndex = $insertionIndex;
-	}
-	public function getInsertionIndex()
-	{
-		return $this->insertionIndex;
-	}
-	public function setSlideObjectIds($slideObjectIds)
-	{
-		$this->slideObjectIds = $slideObjectIds;
-	}
-	public function getSlideObjectIds()
-	{
-		return $this->slideObjectIds;
-	}
+  public function setInsertionIndex($insertionIndex)
+  {
+    $this->insertionIndex = $insertionIndex;
+  }
+  public function getInsertionIndex()
+  {
+    return $this->insertionIndex;
+  }
+  public function setSlideObjectIds($slideObjectIds)
+  {
+    $this->slideObjectIds = $slideObjectIds;
+  }
+  public function getSlideObjectIds()
+  {
+    return $this->slideObjectIds;
+  }
 }

@@ -25,32 +25,32 @@
  */
 class Google_Service_Dfareporting_Resource_UserRolePermissionGroups extends Google_Service_Resource
 {
-	/**
-	 * Gets one user role permission group by ID. (userRolePermissionGroups.get)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param string $id User role permission group ID.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_UserRolePermissionGroup
-	 */
-	public function get($profileId, $id, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'id' => $id);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Dfareporting_UserRolePermissionGroup");
-	}
-	/**
-	 * Gets a list of all supported user role permission groups.
-	 * (userRolePermissionGroups.listUserRolePermissionGroups)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_UserRolePermissionGroupsListResponse
-	 */
-	public function listUserRolePermissionGroups($profileId, $optParams = array())
-	{
-		$params = array('profileId' => $profileId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Dfareporting_UserRolePermissionGroupsListResponse");
-	}
+  /**
+   * Gets one user role permission group by ID. (userRolePermissionGroups.get)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param string $id User role permission group ID.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_UserRolePermissionGroup
+   */
+  public function get($profileId, $id, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Dfareporting_UserRolePermissionGroup");
+  }
+  /**
+   * Gets a list of all supported user role permission groups.
+   * (userRolePermissionGroups.listUserRolePermissionGroups)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_UserRolePermissionGroupsListResponse
+   */
+  public function listUserRolePermissionGroups($profileId, $optParams = array())
+  {
+    $params = array('profileId' => $profileId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Dfareporting_UserRolePermissionGroupsListResponse");
+  }
 }

@@ -17,56 +17,56 @@
 
 class Google_Service_Compute_VpnGatewayStatusVpnConnection extends Google_Collection
 {
-	protected $collection_key = 'tunnels';
-	public $peerExternalGateway;
-	public $peerGcpGateway;
-	protected $stateType = 'Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState';
-	protected $stateDataType = '';
-	protected $tunnelsType = 'Google_Service_Compute_VpnGatewayStatusTunnel';
-	protected $tunnelsDataType = 'array';
+  protected $collection_key = 'tunnels';
+  public $peerExternalGateway;
+  public $peerGcpGateway;
+  protected $stateType = 'Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState';
+  protected $stateDataType = '';
+  protected $tunnelsType = 'Google_Service_Compute_VpnGatewayStatusTunnel';
+  protected $tunnelsDataType = 'array';
 
-	public function setPeerExternalGateway($peerExternalGateway)
-	{
-		$this->peerExternalGateway = $peerExternalGateway;
-	}
-	public function getPeerExternalGateway()
-	{
-		return $this->peerExternalGateway;
-	}
-	public function setPeerGcpGateway($peerGcpGateway)
-	{
-		$this->peerGcpGateway = $peerGcpGateway;
-	}
-	public function getPeerGcpGateway()
-	{
-		return $this->peerGcpGateway;
-	}
-	/**
-	 * @param Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState
-	 */
-	public function setState(Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState $state)
-	{
-		$this->state = $state;
-	}
-	/**
-	 * @return Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState
-	 */
-	public function getState()
-	{
-		return $this->state;
-	}
-	/**
-	 * @param Google_Service_Compute_VpnGatewayStatusTunnel
-	 */
-	public function setTunnels($tunnels)
-	{
-		$this->tunnels = $tunnels;
-	}
-	/**
-	 * @return Google_Service_Compute_VpnGatewayStatusTunnel
-	 */
-	public function getTunnels()
-	{
-		return $this->tunnels;
-	}
+  public function setPeerExternalGateway($peerExternalGateway)
+  {
+    $this->peerExternalGateway = $peerExternalGateway;
+  }
+  public function getPeerExternalGateway()
+  {
+    return $this->peerExternalGateway;
+  }
+  public function setPeerGcpGateway($peerGcpGateway)
+  {
+    $this->peerGcpGateway = $peerGcpGateway;
+  }
+  public function getPeerGcpGateway()
+  {
+    return $this->peerGcpGateway;
+  }
+  /**
+   * @param Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState
+   */
+  public function setState(Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState $state)
+  {
+    $this->state = $state;
+  }
+  /**
+   * @return Google_Service_Compute_VpnGatewayStatusHighAvailabilityRequirementState
+   */
+  public function getState()
+  {
+    return $this->state;
+  }
+  /**
+   * @param Google_Service_Compute_VpnGatewayStatusTunnel[]
+   */
+  public function setTunnels($tunnels)
+  {
+    $this->tunnels = $tunnels;
+  }
+  /**
+   * @return Google_Service_Compute_VpnGatewayStatusTunnel[]
+   */
+  public function getTunnels()
+  {
+    return $this->tunnels;
+  }
 }

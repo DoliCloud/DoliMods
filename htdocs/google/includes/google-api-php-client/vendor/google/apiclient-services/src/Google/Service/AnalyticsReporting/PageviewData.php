@@ -17,23 +17,23 @@
 
 class Google_Service_AnalyticsReporting_PageviewData extends Google_Model
 {
-	public $pagePath;
-	public $pageTitle;
+  public $pagePath;
+  public $pageTitle;
 
-	public function setPagePath($pagePath)
-	{
-		$this->pagePath = $pagePath;
-	}
-	public function getPagePath()
-	{
-		return $this->pagePath;
-	}
-	public function setPageTitle($pageTitle)
-	{
-		$this->pageTitle = $pageTitle;
-	}
-	public function getPageTitle()
-	{
-		return $this->pageTitle;
-	}
+  public function setPagePath($pagePath)
+  {
+    $this->pagePath = $pagePath;
+  }
+  public function getPagePath()
+  {
+    return $this->pagePath;
+  }
+  public function setPageTitle($pageTitle)
+  {
+    $this->pageTitle = $pageTitle;
+  }
+  public function getPageTitle()
+  {
+    return $this->pageTitle;
+  }
 }

@@ -17,117 +17,117 @@
 
 class Google_Service_Sheets_UpdateBordersRequest extends Google_Model
 {
-	protected $bottomType = 'Google_Service_Sheets_Border';
-	protected $bottomDataType = '';
-	protected $innerHorizontalType = 'Google_Service_Sheets_Border';
-	protected $innerHorizontalDataType = '';
-	protected $innerVerticalType = 'Google_Service_Sheets_Border';
-	protected $innerVerticalDataType = '';
-	protected $leftType = 'Google_Service_Sheets_Border';
-	protected $leftDataType = '';
-	protected $rangeType = 'Google_Service_Sheets_GridRange';
-	protected $rangeDataType = '';
-	protected $rightType = 'Google_Service_Sheets_Border';
-	protected $rightDataType = '';
-	protected $topType = 'Google_Service_Sheets_Border';
-	protected $topDataType = '';
+  protected $bottomType = 'Google_Service_Sheets_Border';
+  protected $bottomDataType = '';
+  protected $innerHorizontalType = 'Google_Service_Sheets_Border';
+  protected $innerHorizontalDataType = '';
+  protected $innerVerticalType = 'Google_Service_Sheets_Border';
+  protected $innerVerticalDataType = '';
+  protected $leftType = 'Google_Service_Sheets_Border';
+  protected $leftDataType = '';
+  protected $rangeType = 'Google_Service_Sheets_GridRange';
+  protected $rangeDataType = '';
+  protected $rightType = 'Google_Service_Sheets_Border';
+  protected $rightDataType = '';
+  protected $topType = 'Google_Service_Sheets_Border';
+  protected $topDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_Border
-	 */
-	public function setBottom(Google_Service_Sheets_Border $bottom)
-	{
-		$this->bottom = $bottom;
-	}
-	/**
-	 * @return Google_Service_Sheets_Border
-	 */
-	public function getBottom()
-	{
-		return $this->bottom;
-	}
-	/**
-	 * @param Google_Service_Sheets_Border
-	 */
-	public function setInnerHorizontal(Google_Service_Sheets_Border $innerHorizontal)
-	{
-		$this->innerHorizontal = $innerHorizontal;
-	}
-	/**
-	 * @return Google_Service_Sheets_Border
-	 */
-	public function getInnerHorizontal()
-	{
-		return $this->innerHorizontal;
-	}
-	/**
-	 * @param Google_Service_Sheets_Border
-	 */
-	public function setInnerVertical(Google_Service_Sheets_Border $innerVertical)
-	{
-		$this->innerVertical = $innerVertical;
-	}
-	/**
-	 * @return Google_Service_Sheets_Border
-	 */
-	public function getInnerVertical()
-	{
-		return $this->innerVertical;
-	}
-	/**
-	 * @param Google_Service_Sheets_Border
-	 */
-	public function setLeft(Google_Service_Sheets_Border $left)
-	{
-		$this->left = $left;
-	}
-	/**
-	 * @return Google_Service_Sheets_Border
-	 */
-	public function getLeft()
-	{
-		return $this->left;
-	}
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setRange(Google_Service_Sheets_GridRange $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
-	/**
-	 * @param Google_Service_Sheets_Border
-	 */
-	public function setRight(Google_Service_Sheets_Border $right)
-	{
-		$this->right = $right;
-	}
-	/**
-	 * @return Google_Service_Sheets_Border
-	 */
-	public function getRight()
-	{
-		return $this->right;
-	}
-	/**
-	 * @param Google_Service_Sheets_Border
-	 */
-	public function setTop(Google_Service_Sheets_Border $top)
-	{
-		$this->top = $top;
-	}
-	/**
-	 * @return Google_Service_Sheets_Border
-	 */
-	public function getTop()
-	{
-		return $this->top;
-	}
+  /**
+   * @param Google_Service_Sheets_Border
+   */
+  public function setBottom(Google_Service_Sheets_Border $bottom)
+  {
+    $this->bottom = $bottom;
+  }
+  /**
+   * @return Google_Service_Sheets_Border
+   */
+  public function getBottom()
+  {
+    return $this->bottom;
+  }
+  /**
+   * @param Google_Service_Sheets_Border
+   */
+  public function setInnerHorizontal(Google_Service_Sheets_Border $innerHorizontal)
+  {
+    $this->innerHorizontal = $innerHorizontal;
+  }
+  /**
+   * @return Google_Service_Sheets_Border
+   */
+  public function getInnerHorizontal()
+  {
+    return $this->innerHorizontal;
+  }
+  /**
+   * @param Google_Service_Sheets_Border
+   */
+  public function setInnerVertical(Google_Service_Sheets_Border $innerVertical)
+  {
+    $this->innerVertical = $innerVertical;
+  }
+  /**
+   * @return Google_Service_Sheets_Border
+   */
+  public function getInnerVertical()
+  {
+    return $this->innerVertical;
+  }
+  /**
+   * @param Google_Service_Sheets_Border
+   */
+  public function setLeft(Google_Service_Sheets_Border $left)
+  {
+    $this->left = $left;
+  }
+  /**
+   * @return Google_Service_Sheets_Border
+   */
+  public function getLeft()
+  {
+    return $this->left;
+  }
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setRange(Google_Service_Sheets_GridRange $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
+  /**
+   * @param Google_Service_Sheets_Border
+   */
+  public function setRight(Google_Service_Sheets_Border $right)
+  {
+    $this->right = $right;
+  }
+  /**
+   * @return Google_Service_Sheets_Border
+   */
+  public function getRight()
+  {
+    return $this->right;
+  }
+  /**
+   * @param Google_Service_Sheets_Border
+   */
+  public function setTop(Google_Service_Sheets_Border $top)
+  {
+    $this->top = $top;
+  }
+  /**
+   * @return Google_Service_Sheets_Border
+   */
+  public function getTop()
+  {
+    return $this->top;
+  }
 }

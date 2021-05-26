@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_AdsListResponse extends Google_Collection
 {
-	protected $collection_key = 'ads';
-	protected $adsType = 'Google_Service_Dfareporting_Ad';
-	protected $adsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'ads';
+  protected $adsType = 'Google_Service_Dfareporting_Ad';
+  protected $adsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dfareporting_Ad
-	 */
-	public function setAds($ads)
-	{
-		$this->ads = $ads;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Ad
-	 */
-	public function getAds()
-	{
-		return $this->ads;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dfareporting_Ad[]
+   */
+  public function setAds($ads)
+  {
+    $this->ads = $ads;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Ad[]
+   */
+  public function getAds()
+  {
+    return $this->ads;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

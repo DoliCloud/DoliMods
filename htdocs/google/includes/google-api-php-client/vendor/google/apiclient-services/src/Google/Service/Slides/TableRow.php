@@ -17,54 +17,54 @@
 
 class Google_Service_Slides_TableRow extends Google_Collection
 {
-	protected $collection_key = 'tableCells';
-	protected $rowHeightType = 'Google_Service_Slides_Dimension';
-	protected $rowHeightDataType = '';
-	protected $tableCellsType = 'Google_Service_Slides_TableCell';
-	protected $tableCellsDataType = 'array';
-	protected $tableRowPropertiesType = 'Google_Service_Slides_TableRowProperties';
-	protected $tableRowPropertiesDataType = '';
+  protected $collection_key = 'tableCells';
+  protected $rowHeightType = 'Google_Service_Slides_Dimension';
+  protected $rowHeightDataType = '';
+  protected $tableCellsType = 'Google_Service_Slides_TableCell';
+  protected $tableCellsDataType = 'array';
+  protected $tableRowPropertiesType = 'Google_Service_Slides_TableRowProperties';
+  protected $tableRowPropertiesDataType = '';
 
-	/**
-	 * @param Google_Service_Slides_Dimension
-	 */
-	public function setRowHeight(Google_Service_Slides_Dimension $rowHeight)
-	{
-		$this->rowHeight = $rowHeight;
-	}
-	/**
-	 * @return Google_Service_Slides_Dimension
-	 */
-	public function getRowHeight()
-	{
-		return $this->rowHeight;
-	}
-	/**
-	 * @param Google_Service_Slides_TableCell
-	 */
-	public function setTableCells($tableCells)
-	{
-		$this->tableCells = $tableCells;
-	}
-	/**
-	 * @return Google_Service_Slides_TableCell
-	 */
-	public function getTableCells()
-	{
-		return $this->tableCells;
-	}
-	/**
-	 * @param Google_Service_Slides_TableRowProperties
-	 */
-	public function setTableRowProperties(Google_Service_Slides_TableRowProperties $tableRowProperties)
-	{
-		$this->tableRowProperties = $tableRowProperties;
-	}
-	/**
-	 * @return Google_Service_Slides_TableRowProperties
-	 */
-	public function getTableRowProperties()
-	{
-		return $this->tableRowProperties;
-	}
+  /**
+   * @param Google_Service_Slides_Dimension
+   */
+  public function setRowHeight(Google_Service_Slides_Dimension $rowHeight)
+  {
+    $this->rowHeight = $rowHeight;
+  }
+  /**
+   * @return Google_Service_Slides_Dimension
+   */
+  public function getRowHeight()
+  {
+    return $this->rowHeight;
+  }
+  /**
+   * @param Google_Service_Slides_TableCell[]
+   */
+  public function setTableCells($tableCells)
+  {
+    $this->tableCells = $tableCells;
+  }
+  /**
+   * @return Google_Service_Slides_TableCell[]
+   */
+  public function getTableCells()
+  {
+    return $this->tableCells;
+  }
+  /**
+   * @param Google_Service_Slides_TableRowProperties
+   */
+  public function setTableRowProperties(Google_Service_Slides_TableRowProperties $tableRowProperties)
+  {
+    $this->tableRowProperties = $tableRowProperties;
+  }
+  /**
+   * @return Google_Service_Slides_TableRowProperties
+   */
+  public function getTableRowProperties()
+  {
+    return $this->tableRowProperties;
+  }
 }

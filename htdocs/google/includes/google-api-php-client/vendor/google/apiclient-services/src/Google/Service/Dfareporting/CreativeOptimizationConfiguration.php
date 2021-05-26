@@ -17,49 +17,49 @@
 
 class Google_Service_Dfareporting_CreativeOptimizationConfiguration extends Google_Collection
 {
-	protected $collection_key = 'optimizationActivitys';
-	public $id;
-	public $name;
-	protected $optimizationActivitysType = 'Google_Service_Dfareporting_OptimizationActivity';
-	protected $optimizationActivitysDataType = 'array';
-	public $optimizationModel;
+  protected $collection_key = 'optimizationActivitys';
+  public $id;
+  public $name;
+  protected $optimizationActivitysType = 'Google_Service_Dfareporting_OptimizationActivity';
+  protected $optimizationActivitysDataType = 'array';
+  public $optimizationModel;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_OptimizationActivity
-	 */
-	public function setOptimizationActivitys($optimizationActivitys)
-	{
-		$this->optimizationActivitys = $optimizationActivitys;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_OptimizationActivity
-	 */
-	public function getOptimizationActivitys()
-	{
-		return $this->optimizationActivitys;
-	}
-	public function setOptimizationModel($optimizationModel)
-	{
-		$this->optimizationModel = $optimizationModel;
-	}
-	public function getOptimizationModel()
-	{
-		return $this->optimizationModel;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Dfareporting_OptimizationActivity[]
+   */
+  public function setOptimizationActivitys($optimizationActivitys)
+  {
+    $this->optimizationActivitys = $optimizationActivitys;
+  }
+  /**
+   * @return Google_Service_Dfareporting_OptimizationActivity[]
+   */
+  public function getOptimizationActivitys()
+  {
+    return $this->optimizationActivitys;
+  }
+  public function setOptimizationModel($optimizationModel)
+  {
+    $this->optimizationModel = $optimizationModel;
+  }
+  public function getOptimizationModel()
+  {
+    return $this->optimizationModel;
+  }
 }

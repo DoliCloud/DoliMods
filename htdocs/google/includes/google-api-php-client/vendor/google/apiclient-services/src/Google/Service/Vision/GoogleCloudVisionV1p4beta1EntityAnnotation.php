@@ -17,108 +17,108 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p4beta1EntityAnnotation extends Google_Collection
 {
-	protected $collection_key = 'properties';
-	protected $boundingPolyType = 'Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly';
-	protected $boundingPolyDataType = '';
-	public $confidence;
-	public $description;
-	public $locale;
-	protected $locationsType = 'Google_Service_Vision_GoogleCloudVisionV1p4beta1LocationInfo';
-	protected $locationsDataType = 'array';
-	public $mid;
-	protected $propertiesType = 'Google_Service_Vision_GoogleCloudVisionV1p4beta1Property';
-	protected $propertiesDataType = 'array';
-	public $score;
-	public $topicality;
+  protected $collection_key = 'properties';
+  protected $boundingPolyType = 'Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly';
+  protected $boundingPolyDataType = '';
+  public $confidence;
+  public $description;
+  public $locale;
+  protected $locationsType = 'Google_Service_Vision_GoogleCloudVisionV1p4beta1LocationInfo';
+  protected $locationsDataType = 'array';
+  public $mid;
+  protected $propertiesType = 'Google_Service_Vision_GoogleCloudVisionV1p4beta1Property';
+  protected $propertiesDataType = 'array';
+  public $score;
+  public $topicality;
 
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly
-	 */
-	public function setBoundingPoly(Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly $boundingPoly)
-	{
-		$this->boundingPoly = $boundingPoly;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly
-	 */
-	public function getBoundingPoly()
-	{
-		return $this->boundingPoly;
-	}
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setLocale($locale)
-	{
-		$this->locale = $locale;
-	}
-	public function getLocale()
-	{
-		return $this->locale;
-	}
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p4beta1LocationInfo
-	 */
-	public function setLocations($locations)
-	{
-		$this->locations = $locations;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p4beta1LocationInfo
-	 */
-	public function getLocations()
-	{
-		return $this->locations;
-	}
-	public function setMid($mid)
-	{
-		$this->mid = $mid;
-	}
-	public function getMid()
-	{
-		return $this->mid;
-	}
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p4beta1Property
-	 */
-	public function setProperties($properties)
-	{
-		$this->properties = $properties;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p4beta1Property
-	 */
-	public function getProperties()
-	{
-		return $this->properties;
-	}
-	public function setScore($score)
-	{
-		$this->score = $score;
-	}
-	public function getScore()
-	{
-		return $this->score;
-	}
-	public function setTopicality($topicality)
-	{
-		$this->topicality = $topicality;
-	}
-	public function getTopicality()
-	{
-		return $this->topicality;
-	}
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly
+   */
+  public function setBoundingPoly(Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly $boundingPoly)
+  {
+    $this->boundingPoly = $boundingPoly;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p4beta1BoundingPoly
+   */
+  public function getBoundingPoly()
+  {
+    return $this->boundingPoly;
+  }
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setLocale($locale)
+  {
+    $this->locale = $locale;
+  }
+  public function getLocale()
+  {
+    return $this->locale;
+  }
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p4beta1LocationInfo[]
+   */
+  public function setLocations($locations)
+  {
+    $this->locations = $locations;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p4beta1LocationInfo[]
+   */
+  public function getLocations()
+  {
+    return $this->locations;
+  }
+  public function setMid($mid)
+  {
+    $this->mid = $mid;
+  }
+  public function getMid()
+  {
+    return $this->mid;
+  }
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p4beta1Property[]
+   */
+  public function setProperties($properties)
+  {
+    $this->properties = $properties;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p4beta1Property[]
+   */
+  public function getProperties()
+  {
+    return $this->properties;
+  }
+  public function setScore($score)
+  {
+    $this->score = $score;
+  }
+  public function getScore()
+  {
+    return $this->score;
+  }
+  public function setTopicality($topicality)
+  {
+    $this->topicality = $topicality;
+  }
+  public function getTopicality()
+  {
+    return $this->topicality;
+  }
 }

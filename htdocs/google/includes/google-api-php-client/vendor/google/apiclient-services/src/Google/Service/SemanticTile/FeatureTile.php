@@ -17,81 +17,81 @@
 
 class Google_Service_SemanticTile_FeatureTile extends Google_Collection
 {
-	protected $collection_key = 'providers';
-	protected $coordinatesType = 'Google_Service_SemanticTile_TileCoordinates';
-	protected $coordinatesDataType = '';
-	protected $featuresType = 'Google_Service_SemanticTile_Feature';
-	protected $featuresDataType = 'array';
-	public $name;
-	protected $providersType = 'Google_Service_SemanticTile_ProviderInfo';
-	protected $providersDataType = 'array';
-	public $status;
-	public $versionId;
+  protected $collection_key = 'providers';
+  protected $coordinatesType = 'Google_Service_SemanticTile_TileCoordinates';
+  protected $coordinatesDataType = '';
+  protected $featuresType = 'Google_Service_SemanticTile_Feature';
+  protected $featuresDataType = 'array';
+  public $name;
+  protected $providersType = 'Google_Service_SemanticTile_ProviderInfo';
+  protected $providersDataType = 'array';
+  public $status;
+  public $versionId;
 
-	/**
-	 * @param Google_Service_SemanticTile_TileCoordinates
-	 */
-	public function setCoordinates(Google_Service_SemanticTile_TileCoordinates $coordinates)
-	{
-		$this->coordinates = $coordinates;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_TileCoordinates
-	 */
-	public function getCoordinates()
-	{
-		return $this->coordinates;
-	}
-	/**
-	 * @param Google_Service_SemanticTile_Feature
-	 */
-	public function setFeatures($features)
-	{
-		$this->features = $features;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_Feature
-	 */
-	public function getFeatures()
-	{
-		return $this->features;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_SemanticTile_ProviderInfo
-	 */
-	public function setProviders($providers)
-	{
-		$this->providers = $providers;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_ProviderInfo
-	 */
-	public function getProviders()
-	{
-		return $this->providers;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
-	public function setVersionId($versionId)
-	{
-		$this->versionId = $versionId;
-	}
-	public function getVersionId()
-	{
-		return $this->versionId;
-	}
+  /**
+   * @param Google_Service_SemanticTile_TileCoordinates
+   */
+  public function setCoordinates(Google_Service_SemanticTile_TileCoordinates $coordinates)
+  {
+    $this->coordinates = $coordinates;
+  }
+  /**
+   * @return Google_Service_SemanticTile_TileCoordinates
+   */
+  public function getCoordinates()
+  {
+    return $this->coordinates;
+  }
+  /**
+   * @param Google_Service_SemanticTile_Feature[]
+   */
+  public function setFeatures($features)
+  {
+    $this->features = $features;
+  }
+  /**
+   * @return Google_Service_SemanticTile_Feature[]
+   */
+  public function getFeatures()
+  {
+    return $this->features;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_SemanticTile_ProviderInfo[]
+   */
+  public function setProviders($providers)
+  {
+    $this->providers = $providers;
+  }
+  /**
+   * @return Google_Service_SemanticTile_ProviderInfo[]
+   */
+  public function getProviders()
+  {
+    return $this->providers;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
+  public function setVersionId($versionId)
+  {
+    $this->versionId = $versionId;
+  }
+  public function getVersionId()
+  {
+    return $this->versionId;
+  }
 }

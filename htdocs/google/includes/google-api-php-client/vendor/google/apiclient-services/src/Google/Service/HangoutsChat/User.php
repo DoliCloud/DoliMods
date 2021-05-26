@@ -17,41 +17,50 @@
 
 class Google_Service_HangoutsChat_User extends Google_Model
 {
-	public $displayName;
-	public $domainId;
-	public $name;
-	public $type;
+  public $displayName;
+  public $domainId;
+  public $isAnonymous;
+  public $name;
+  public $type;
 
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setDomainId($domainId)
-	{
-		$this->domainId = $domainId;
-	}
-	public function getDomainId()
-	{
-		return $this->domainId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setDomainId($domainId)
+  {
+    $this->domainId = $domainId;
+  }
+  public function getDomainId()
+  {
+    return $this->domainId;
+  }
+  public function setIsAnonymous($isAnonymous)
+  {
+    $this->isAnonymous = $isAnonymous;
+  }
+  public function getIsAnonymous()
+  {
+    return $this->isAnonymous;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

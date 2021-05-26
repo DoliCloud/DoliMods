@@ -17,47 +17,47 @@
 
 class Google_Service_Dfareporting_CustomEventStatus extends Google_Collection
 {
-	protected $collection_key = 'errors';
-	protected $customEventType = 'Google_Service_Dfareporting_CustomEvent';
-	protected $customEventDataType = '';
-	protected $errorsType = 'Google_Service_Dfareporting_CustomEventError';
-	protected $errorsDataType = 'array';
-	public $kind;
+  protected $collection_key = 'errors';
+  protected $customEventType = 'Google_Service_Dfareporting_CustomEvent';
+  protected $customEventDataType = '';
+  protected $errorsType = 'Google_Service_Dfareporting_CustomEventError';
+  protected $errorsDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_Dfareporting_CustomEvent
-	 */
-	public function setCustomEvent(Google_Service_Dfareporting_CustomEvent $customEvent)
-	{
-		$this->customEvent = $customEvent;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_CustomEvent
-	 */
-	public function getCustomEvent()
-	{
-		return $this->customEvent;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_CustomEventError
-	 */
-	public function setErrors($errors)
-	{
-		$this->errors = $errors;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_CustomEventError
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_Dfareporting_CustomEvent
+   */
+  public function setCustomEvent(Google_Service_Dfareporting_CustomEvent $customEvent)
+  {
+    $this->customEvent = $customEvent;
+  }
+  /**
+   * @return Google_Service_Dfareporting_CustomEvent
+   */
+  public function getCustomEvent()
+  {
+    return $this->customEvent;
+  }
+  /**
+   * @param Google_Service_Dfareporting_CustomEventError[]
+   */
+  public function setErrors($errors)
+  {
+    $this->errors = $errors;
+  }
+  /**
+   * @return Google_Service_Dfareporting_CustomEventError[]
+   */
+  public function getErrors()
+  {
+    return $this->errors;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

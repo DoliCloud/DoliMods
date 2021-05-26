@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceControl_ReportRequest extends Google_Collection
 {
-	protected $collection_key = 'operations';
-	protected $operationsType = 'Google_Service_ServiceControl_Operation';
-	protected $operationsDataType = 'array';
-	public $serviceConfigId;
+  protected $collection_key = 'operations';
+  protected $operationsType = 'Google_Service_ServiceControl_AttributeContext';
+  protected $operationsDataType = 'array';
+  public $serviceConfigId;
 
-	/**
-	 * @param Google_Service_ServiceControl_Operation
-	 */
-	public function setOperations($operations)
-	{
-		$this->operations = $operations;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_Operation
-	 */
-	public function getOperations()
-	{
-		return $this->operations;
-	}
-	public function setServiceConfigId($serviceConfigId)
-	{
-		$this->serviceConfigId = $serviceConfigId;
-	}
-	public function getServiceConfigId()
-	{
-		return $this->serviceConfigId;
-	}
+  /**
+   * @param Google_Service_ServiceControl_AttributeContext[]
+   */
+  public function setOperations($operations)
+  {
+    $this->operations = $operations;
+  }
+  /**
+   * @return Google_Service_ServiceControl_AttributeContext[]
+   */
+  public function getOperations()
+  {
+    return $this->operations;
+  }
+  public function setServiceConfigId($serviceConfigId)
+  {
+    $this->serviceConfigId = $serviceConfigId;
+  }
+  public function getServiceConfigId()
+  {
+    return $this->serviceConfigId;
+  }
 }

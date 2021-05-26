@@ -17,21 +17,21 @@
 
 class Google_Service_AdMob_GenerateMediationReportRequest extends Google_Model
 {
-	protected $reportSpecType = 'Google_Service_AdMob_MediationReportSpec';
-	protected $reportSpecDataType = '';
+  protected $reportSpecType = 'Google_Service_AdMob_MediationReportSpec';
+  protected $reportSpecDataType = '';
 
-	/**
-	 * @param Google_Service_AdMob_MediationReportSpec
-	 */
-	public function setReportSpec(Google_Service_AdMob_MediationReportSpec $reportSpec)
-	{
-		$this->reportSpec = $reportSpec;
-	}
-	/**
-	 * @return Google_Service_AdMob_MediationReportSpec
-	 */
-	public function getReportSpec()
-	{
-		return $this->reportSpec;
-	}
+  /**
+   * @param Google_Service_AdMob_MediationReportSpec
+   */
+  public function setReportSpec(Google_Service_AdMob_MediationReportSpec $reportSpec)
+  {
+    $this->reportSpec = $reportSpec;
+  }
+  /**
+   * @return Google_Service_AdMob_MediationReportSpec
+   */
+  public function getReportSpec()
+  {
+    return $this->reportSpec;
+  }
 }

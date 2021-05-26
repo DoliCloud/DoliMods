@@ -17,50 +17,50 @@
 
 class Google_Service_BigtableAdmin_Cluster extends Google_Model
 {
-	public $defaultStorageType;
-	public $location;
-	public $name;
-	public $serveNodes;
-	public $state;
+  public $defaultStorageType;
+  public $location;
+  public $name;
+  public $serveNodes;
+  public $state;
 
-	public function setDefaultStorageType($defaultStorageType)
-	{
-		$this->defaultStorageType = $defaultStorageType;
-	}
-	public function getDefaultStorageType()
-	{
-		return $this->defaultStorageType;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setServeNodes($serveNodes)
-	{
-		$this->serveNodes = $serveNodes;
-	}
-	public function getServeNodes()
-	{
-		return $this->serveNodes;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setDefaultStorageType($defaultStorageType)
+  {
+    $this->defaultStorageType = $defaultStorageType;
+  }
+  public function getDefaultStorageType()
+  {
+    return $this->defaultStorageType;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setServeNodes($serveNodes)
+  {
+    $this->serveNodes = $serveNodes;
+  }
+  public function getServeNodes()
+  {
+    return $this->serveNodes;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_Slides_GroupObjectsRequest extends Google_Collection
 {
-	protected $collection_key = 'childrenObjectIds';
-	public $childrenObjectIds;
-	public $groupObjectId;
+  protected $collection_key = 'childrenObjectIds';
+  public $childrenObjectIds;
+  public $groupObjectId;
 
-	public function setChildrenObjectIds($childrenObjectIds)
-	{
-		$this->childrenObjectIds = $childrenObjectIds;
-	}
-	public function getChildrenObjectIds()
-	{
-		return $this->childrenObjectIds;
-	}
-	public function setGroupObjectId($groupObjectId)
-	{
-		$this->groupObjectId = $groupObjectId;
-	}
-	public function getGroupObjectId()
-	{
-		return $this->groupObjectId;
-	}
+  public function setChildrenObjectIds($childrenObjectIds)
+  {
+    $this->childrenObjectIds = $childrenObjectIds;
+  }
+  public function getChildrenObjectIds()
+  {
+    return $this->childrenObjectIds;
+  }
+  public function setGroupObjectId($groupObjectId)
+  {
+    $this->groupObjectId = $groupObjectId;
+  }
+  public function getGroupObjectId()
+  {
+    return $this->groupObjectId;
+  }
 }

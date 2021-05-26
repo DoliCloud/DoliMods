@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_LanguagesListResponse extends Google_Collection
 {
-	protected $collection_key = 'languages';
-	public $kind;
-	protected $languagesType = 'Google_Service_Dfareporting_Language';
-	protected $languagesDataType = 'array';
+  protected $collection_key = 'languages';
+  public $kind;
+  protected $languagesType = 'Google_Service_Dfareporting_Language';
+  protected $languagesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Language
-	 */
-	public function setLanguages($languages)
-	{
-		$this->languages = $languages;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Language
-	 */
-	public function getLanguages()
-	{
-		return $this->languages;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Language[]
+   */
+  public function setLanguages($languages)
+  {
+    $this->languages = $languages;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Language[]
+   */
+  public function getLanguages()
+  {
+    return $this->languages;
+  }
 }

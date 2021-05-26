@@ -17,49 +17,49 @@
 
 class Google_Service_ShoppingContent_OrdersSetLineItemMetadataRequest extends Google_Collection
 {
-	protected $collection_key = 'annotations';
-	protected $annotationsType = 'Google_Service_ShoppingContent_OrderMerchantProvidedAnnotation';
-	protected $annotationsDataType = 'array';
-	public $lineItemId;
-	public $operationId;
-	public $productId;
+  protected $collection_key = 'annotations';
+  protected $annotationsType = 'Google_Service_ShoppingContent_OrderMerchantProvidedAnnotation';
+  protected $annotationsDataType = 'array';
+  public $lineItemId;
+  public $operationId;
+  public $productId;
 
-	/**
-	 * @param Google_Service_ShoppingContent_OrderMerchantProvidedAnnotation
-	 */
-	public function setAnnotations($annotations)
-	{
-		$this->annotations = $annotations;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_OrderMerchantProvidedAnnotation
-	 */
-	public function getAnnotations()
-	{
-		return $this->annotations;
-	}
-	public function setLineItemId($lineItemId)
-	{
-		$this->lineItemId = $lineItemId;
-	}
-	public function getLineItemId()
-	{
-		return $this->lineItemId;
-	}
-	public function setOperationId($operationId)
-	{
-		$this->operationId = $operationId;
-	}
-	public function getOperationId()
-	{
-		return $this->operationId;
-	}
-	public function setProductId($productId)
-	{
-		$this->productId = $productId;
-	}
-	public function getProductId()
-	{
-		return $this->productId;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_OrderMerchantProvidedAnnotation[]
+   */
+  public function setAnnotations($annotations)
+  {
+    $this->annotations = $annotations;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_OrderMerchantProvidedAnnotation[]
+   */
+  public function getAnnotations()
+  {
+    return $this->annotations;
+  }
+  public function setLineItemId($lineItemId)
+  {
+    $this->lineItemId = $lineItemId;
+  }
+  public function getLineItemId()
+  {
+    return $this->lineItemId;
+  }
+  public function setOperationId($operationId)
+  {
+    $this->operationId = $operationId;
+  }
+  public function getOperationId()
+  {
+    return $this->operationId;
+  }
+  public function setProductId($productId)
+  {
+    $this->productId = $productId;
+  }
+  public function getProductId()
+  {
+    return $this->productId;
+  }
 }

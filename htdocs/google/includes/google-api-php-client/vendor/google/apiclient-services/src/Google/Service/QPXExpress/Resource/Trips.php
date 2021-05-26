@@ -25,17 +25,17 @@
  */
 class Google_Service_QPXExpress_Resource_Trips extends Google_Service_Resource
 {
-	/**
-	 * Returns a list of flights. (trips.search)
-	 *
-	 * @param Google_Service_QPXExpress_TripsSearchRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_QPXExpress_TripsSearchResponse
-	 */
-	public function search(Google_Service_QPXExpress_TripsSearchRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('search', array($params), "Google_Service_QPXExpress_TripsSearchResponse");
-	}
+  /**
+   * Returns a list of flights. (trips.search)
+   *
+   * @param Google_Service_QPXExpress_TripsSearchRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_QPXExpress_TripsSearchResponse
+   */
+  public function search(Google_Service_QPXExpress_TripsSearchRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('search', array($params), "Google_Service_QPXExpress_TripsSearchResponse");
+  }
 }

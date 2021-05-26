@@ -1,2 +1,5 @@
-Use of google-api-php-client-v2.7.0-PHP5.6.zip
-Modification of file src/Google/Http/REST.php to add logs
+
+Use of google-api-php-client--PHP5.6.zip  version 2.9.1
+
+Modification of file src/Http/REST.php to add logs (See @CHANGE DOL_LDR)
+

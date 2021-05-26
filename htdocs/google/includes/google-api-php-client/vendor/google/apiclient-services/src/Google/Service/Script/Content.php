@@ -17,31 +17,31 @@
 
 class Google_Service_Script_Content extends Google_Collection
 {
-	protected $collection_key = 'files';
-	protected $filesType = 'Google_Service_Script_ScriptFile';
-	protected $filesDataType = 'array';
-	public $scriptId;
+  protected $collection_key = 'files';
+  protected $filesType = 'Google_Service_Script_ScriptFile';
+  protected $filesDataType = 'array';
+  public $scriptId;
 
-	/**
-	 * @param Google_Service_Script_ScriptFile
-	 */
-	public function setFiles($files)
-	{
-		$this->files = $files;
-	}
-	/**
-	 * @return Google_Service_Script_ScriptFile
-	 */
-	public function getFiles()
-	{
-		return $this->files;
-	}
-	public function setScriptId($scriptId)
-	{
-		$this->scriptId = $scriptId;
-	}
-	public function getScriptId()
-	{
-		return $this->scriptId;
-	}
+  /**
+   * @param Google_Service_Script_ScriptFile[]
+   */
+  public function setFiles($files)
+  {
+    $this->files = $files;
+  }
+  /**
+   * @return Google_Service_Script_ScriptFile[]
+   */
+  public function getFiles()
+  {
+    return $this->files;
+  }
+  public function setScriptId($scriptId)
+  {
+    $this->scriptId = $scriptId;
+  }
+  public function getScriptId()
+  {
+    return $this->scriptId;
+  }
 }

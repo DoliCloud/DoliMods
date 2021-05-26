@@ -17,41 +17,41 @@
 
 class Google_Service_Classroom_Invitation extends Google_Model
 {
-	public $courseId;
-	public $id;
-	public $role;
-	public $userId;
+  public $courseId;
+  public $id;
+  public $role;
+  public $userId;
 
-	public function setCourseId($courseId)
-	{
-		$this->courseId = $courseId;
-	}
-	public function getCourseId()
-	{
-		return $this->courseId;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
-	public function setUserId($userId)
-	{
-		$this->userId = $userId;
-	}
-	public function getUserId()
-	{
-		return $this->userId;
-	}
+  public function setCourseId($courseId)
+  {
+    $this->courseId = $courseId;
+  }
+  public function getCourseId()
+  {
+    return $this->courseId;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
+  public function setUserId($userId)
+  {
+    $this->userId = $userId;
+  }
+  public function getUserId()
+  {
+    return $this->userId;
+  }
 }

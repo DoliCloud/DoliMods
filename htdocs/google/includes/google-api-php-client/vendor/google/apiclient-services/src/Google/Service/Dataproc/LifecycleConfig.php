@@ -17,41 +17,41 @@
 
 class Google_Service_Dataproc_LifecycleConfig extends Google_Model
 {
-	public $autoDeleteTime;
-	public $autoDeleteTtl;
-	public $idleDeleteTtl;
-	public $idleStartTime;
+  public $autoDeleteTime;
+  public $autoDeleteTtl;
+  public $idleDeleteTtl;
+  public $idleStartTime;
 
-	public function setAutoDeleteTime($autoDeleteTime)
-	{
-		$this->autoDeleteTime = $autoDeleteTime;
-	}
-	public function getAutoDeleteTime()
-	{
-		return $this->autoDeleteTime;
-	}
-	public function setAutoDeleteTtl($autoDeleteTtl)
-	{
-		$this->autoDeleteTtl = $autoDeleteTtl;
-	}
-	public function getAutoDeleteTtl()
-	{
-		return $this->autoDeleteTtl;
-	}
-	public function setIdleDeleteTtl($idleDeleteTtl)
-	{
-		$this->idleDeleteTtl = $idleDeleteTtl;
-	}
-	public function getIdleDeleteTtl()
-	{
-		return $this->idleDeleteTtl;
-	}
-	public function setIdleStartTime($idleStartTime)
-	{
-		$this->idleStartTime = $idleStartTime;
-	}
-	public function getIdleStartTime()
-	{
-		return $this->idleStartTime;
-	}
+  public function setAutoDeleteTime($autoDeleteTime)
+  {
+    $this->autoDeleteTime = $autoDeleteTime;
+  }
+  public function getAutoDeleteTime()
+  {
+    return $this->autoDeleteTime;
+  }
+  public function setAutoDeleteTtl($autoDeleteTtl)
+  {
+    $this->autoDeleteTtl = $autoDeleteTtl;
+  }
+  public function getAutoDeleteTtl()
+  {
+    return $this->autoDeleteTtl;
+  }
+  public function setIdleDeleteTtl($idleDeleteTtl)
+  {
+    $this->idleDeleteTtl = $idleDeleteTtl;
+  }
+  public function getIdleDeleteTtl()
+  {
+    return $this->idleDeleteTtl;
+  }
+  public function setIdleStartTime($idleStartTime)
+  {
+    $this->idleStartTime = $idleStartTime;
+  }
+  public function getIdleStartTime()
+  {
+    return $this->idleStartTime;
+  }
 }

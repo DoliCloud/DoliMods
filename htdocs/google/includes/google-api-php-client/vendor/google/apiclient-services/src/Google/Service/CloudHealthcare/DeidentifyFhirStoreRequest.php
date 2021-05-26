@@ -17,46 +17,46 @@
 
 class Google_Service_CloudHealthcare_DeidentifyFhirStoreRequest extends Google_Model
 {
-	protected $configType = 'Google_Service_CloudHealthcare_DeidentifyConfig';
-	protected $configDataType = '';
-	public $destinationStore;
-	protected $resourceFilterType = 'Google_Service_CloudHealthcare_FhirFilter';
-	protected $resourceFilterDataType = '';
+  protected $configType = 'Google_Service_CloudHealthcare_DeidentifyConfig';
+  protected $configDataType = '';
+  public $destinationStore;
+  protected $resourceFilterType = 'Google_Service_CloudHealthcare_FhirFilter';
+  protected $resourceFilterDataType = '';
 
-	/**
-	 * @param Google_Service_CloudHealthcare_DeidentifyConfig
-	 */
-	public function setConfig(Google_Service_CloudHealthcare_DeidentifyConfig $config)
-	{
-		$this->config = $config;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_DeidentifyConfig
-	 */
-	public function getConfig()
-	{
-		return $this->config;
-	}
-	public function setDestinationStore($destinationStore)
-	{
-		$this->destinationStore = $destinationStore;
-	}
-	public function getDestinationStore()
-	{
-		return $this->destinationStore;
-	}
-	/**
-	 * @param Google_Service_CloudHealthcare_FhirFilter
-	 */
-	public function setResourceFilter(Google_Service_CloudHealthcare_FhirFilter $resourceFilter)
-	{
-		$this->resourceFilter = $resourceFilter;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_FhirFilter
-	 */
-	public function getResourceFilter()
-	{
-		return $this->resourceFilter;
-	}
+  /**
+   * @param Google_Service_CloudHealthcare_DeidentifyConfig
+   */
+  public function setConfig(Google_Service_CloudHealthcare_DeidentifyConfig $config)
+  {
+    $this->config = $config;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_DeidentifyConfig
+   */
+  public function getConfig()
+  {
+    return $this->config;
+  }
+  public function setDestinationStore($destinationStore)
+  {
+    $this->destinationStore = $destinationStore;
+  }
+  public function getDestinationStore()
+  {
+    return $this->destinationStore;
+  }
+  /**
+   * @param Google_Service_CloudHealthcare_FhirFilter
+   */
+  public function setResourceFilter(Google_Service_CloudHealthcare_FhirFilter $resourceFilter)
+  {
+    $this->resourceFilter = $resourceFilter;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_FhirFilter
+   */
+  public function getResourceFilter()
+  {
+    return $this->resourceFilter;
+  }
 }

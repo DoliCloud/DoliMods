@@ -17,94 +17,94 @@
 
 class Google_Service_CloudComposer_NodeConfig extends Google_Collection
 {
-	protected $collection_key = 'tags';
-	public $diskSizeGb;
-	protected $ipAllocationPolicyType = 'Google_Service_CloudComposer_IPAllocationPolicy';
-	protected $ipAllocationPolicyDataType = '';
-	public $location;
-	public $machineType;
-	public $network;
-	public $oauthScopes;
-	public $serviceAccount;
-	public $subnetwork;
-	public $tags;
+  protected $collection_key = 'tags';
+  public $diskSizeGb;
+  protected $ipAllocationPolicyType = 'Google_Service_CloudComposer_IPAllocationPolicy';
+  protected $ipAllocationPolicyDataType = '';
+  public $location;
+  public $machineType;
+  public $network;
+  public $oauthScopes;
+  public $serviceAccount;
+  public $subnetwork;
+  public $tags;
 
-	public function setDiskSizeGb($diskSizeGb)
-	{
-		$this->diskSizeGb = $diskSizeGb;
-	}
-	public function getDiskSizeGb()
-	{
-		return $this->diskSizeGb;
-	}
-	/**
-	 * @param Google_Service_CloudComposer_IPAllocationPolicy
-	 */
-	public function setIpAllocationPolicy(Google_Service_CloudComposer_IPAllocationPolicy $ipAllocationPolicy)
-	{
-		$this->ipAllocationPolicy = $ipAllocationPolicy;
-	}
-	/**
-	 * @return Google_Service_CloudComposer_IPAllocationPolicy
-	 */
-	public function getIpAllocationPolicy()
-	{
-		return $this->ipAllocationPolicy;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setMachineType($machineType)
-	{
-		$this->machineType = $machineType;
-	}
-	public function getMachineType()
-	{
-		return $this->machineType;
-	}
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setOauthScopes($oauthScopes)
-	{
-		$this->oauthScopes = $oauthScopes;
-	}
-	public function getOauthScopes()
-	{
-		return $this->oauthScopes;
-	}
-	public function setServiceAccount($serviceAccount)
-	{
-		$this->serviceAccount = $serviceAccount;
-	}
-	public function getServiceAccount()
-	{
-		return $this->serviceAccount;
-	}
-	public function setSubnetwork($subnetwork)
-	{
-		$this->subnetwork = $subnetwork;
-	}
-	public function getSubnetwork()
-	{
-		return $this->subnetwork;
-	}
-	public function setTags($tags)
-	{
-		$this->tags = $tags;
-	}
-	public function getTags()
-	{
-		return $this->tags;
-	}
+  public function setDiskSizeGb($diskSizeGb)
+  {
+    $this->diskSizeGb = $diskSizeGb;
+  }
+  public function getDiskSizeGb()
+  {
+    return $this->diskSizeGb;
+  }
+  /**
+   * @param Google_Service_CloudComposer_IPAllocationPolicy
+   */
+  public function setIpAllocationPolicy(Google_Service_CloudComposer_IPAllocationPolicy $ipAllocationPolicy)
+  {
+    $this->ipAllocationPolicy = $ipAllocationPolicy;
+  }
+  /**
+   * @return Google_Service_CloudComposer_IPAllocationPolicy
+   */
+  public function getIpAllocationPolicy()
+  {
+    return $this->ipAllocationPolicy;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setMachineType($machineType)
+  {
+    $this->machineType = $machineType;
+  }
+  public function getMachineType()
+  {
+    return $this->machineType;
+  }
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setOauthScopes($oauthScopes)
+  {
+    $this->oauthScopes = $oauthScopes;
+  }
+  public function getOauthScopes()
+  {
+    return $this->oauthScopes;
+  }
+  public function setServiceAccount($serviceAccount)
+  {
+    $this->serviceAccount = $serviceAccount;
+  }
+  public function getServiceAccount()
+  {
+    return $this->serviceAccount;
+  }
+  public function setSubnetwork($subnetwork)
+  {
+    $this->subnetwork = $subnetwork;
+  }
+  public function getSubnetwork()
+  {
+    return $this->subnetwork;
+  }
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  public function getTags()
+  {
+    return $this->tags;
+  }
 }

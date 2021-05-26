@@ -17,41 +17,50 @@
 
 class Google_Service_Pubsub_PubsubMessage extends Google_Model
 {
-	public $attributes;
-	public $data;
-	public $messageId;
-	public $publishTime;
+  public $attributes;
+  public $data;
+  public $messageId;
+  public $orderingKey;
+  public $publishTime;
 
-	public function setAttributes($attributes)
-	{
-		$this->attributes = $attributes;
-	}
-	public function getAttributes()
-	{
-		return $this->attributes;
-	}
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setMessageId($messageId)
-	{
-		$this->messageId = $messageId;
-	}
-	public function getMessageId()
-	{
-		return $this->messageId;
-	}
-	public function setPublishTime($publishTime)
-	{
-		$this->publishTime = $publishTime;
-	}
-	public function getPublishTime()
-	{
-		return $this->publishTime;
-	}
+  public function setAttributes($attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setMessageId($messageId)
+  {
+    $this->messageId = $messageId;
+  }
+  public function getMessageId()
+  {
+    return $this->messageId;
+  }
+  public function setOrderingKey($orderingKey)
+  {
+    $this->orderingKey = $orderingKey;
+  }
+  public function getOrderingKey()
+  {
+    return $this->orderingKey;
+  }
+  public function setPublishTime($publishTime)
+  {
+    $this->publishTime = $publishTime;
+  }
+  public function getPublishTime()
+  {
+    return $this->publishTime;
+  }
 }

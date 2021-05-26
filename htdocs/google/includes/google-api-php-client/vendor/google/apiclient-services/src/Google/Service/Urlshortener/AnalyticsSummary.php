@@ -17,85 +17,85 @@
 
 class Google_Service_Urlshortener_AnalyticsSummary extends Google_Model
 {
-	protected $allTimeType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
-	protected $allTimeDataType = '';
-	protected $dayType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
-	protected $dayDataType = '';
-	protected $monthType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
-	protected $monthDataType = '';
-	protected $twoHoursType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
-	protected $twoHoursDataType = '';
-	protected $weekType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
-	protected $weekDataType = '';
+  protected $allTimeType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
+  protected $allTimeDataType = '';
+  protected $dayType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
+  protected $dayDataType = '';
+  protected $monthType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
+  protected $monthDataType = '';
+  protected $twoHoursType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
+  protected $twoHoursDataType = '';
+  protected $weekType = 'Google_Service_Urlshortener_AnalyticsSnapshot';
+  protected $weekDataType = '';
 
-	/**
-	 * @param Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function setAllTime(Google_Service_Urlshortener_AnalyticsSnapshot $allTime)
-	{
-		$this->allTime = $allTime;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function getAllTime()
-	{
-		return $this->allTime;
-	}
-	/**
-	 * @param Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function setDay(Google_Service_Urlshortener_AnalyticsSnapshot $day)
-	{
-		$this->day = $day;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function getDay()
-	{
-		return $this->day;
-	}
-	/**
-	 * @param Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function setMonth(Google_Service_Urlshortener_AnalyticsSnapshot $month)
-	{
-		$this->month = $month;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function getMonth()
-	{
-		return $this->month;
-	}
-	/**
-	 * @param Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function setTwoHours(Google_Service_Urlshortener_AnalyticsSnapshot $twoHours)
-	{
-		$this->twoHours = $twoHours;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function getTwoHours()
-	{
-		return $this->twoHours;
-	}
-	/**
-	 * @param Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function setWeek(Google_Service_Urlshortener_AnalyticsSnapshot $week)
-	{
-		$this->week = $week;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_AnalyticsSnapshot
-	 */
-	public function getWeek()
-	{
-		return $this->week;
-	}
+  /**
+   * @param Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function setAllTime(Google_Service_Urlshortener_AnalyticsSnapshot $allTime)
+  {
+    $this->allTime = $allTime;
+  }
+  /**
+   * @return Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function getAllTime()
+  {
+    return $this->allTime;
+  }
+  /**
+   * @param Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function setDay(Google_Service_Urlshortener_AnalyticsSnapshot $day)
+  {
+    $this->day = $day;
+  }
+  /**
+   * @return Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function getDay()
+  {
+    return $this->day;
+  }
+  /**
+   * @param Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function setMonth(Google_Service_Urlshortener_AnalyticsSnapshot $month)
+  {
+    $this->month = $month;
+  }
+  /**
+   * @return Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function getMonth()
+  {
+    return $this->month;
+  }
+  /**
+   * @param Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function setTwoHours(Google_Service_Urlshortener_AnalyticsSnapshot $twoHours)
+  {
+    $this->twoHours = $twoHours;
+  }
+  /**
+   * @return Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function getTwoHours()
+  {
+    return $this->twoHours;
+  }
+  /**
+   * @param Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function setWeek(Google_Service_Urlshortener_AnalyticsSnapshot $week)
+  {
+    $this->week = $week;
+  }
+  /**
+   * @return Google_Service_Urlshortener_AnalyticsSnapshot
+   */
+  public function getWeek()
+  {
+    return $this->week;
+  }
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_Sheets_UpdateConditionalFormatRuleRequest extends Google_Model
 {
-	public $index;
-	public $newIndex;
-	protected $ruleType = 'Google_Service_Sheets_ConditionalFormatRule';
-	protected $ruleDataType = '';
-	public $sheetId;
+  public $index;
+  public $newIndex;
+  protected $ruleType = 'Google_Service_Sheets_ConditionalFormatRule';
+  protected $ruleDataType = '';
+  public $sheetId;
 
-	public function setIndex($index)
-	{
-		$this->index = $index;
-	}
-	public function getIndex()
-	{
-		return $this->index;
-	}
-	public function setNewIndex($newIndex)
-	{
-		$this->newIndex = $newIndex;
-	}
-	public function getNewIndex()
-	{
-		return $this->newIndex;
-	}
-	/**
-	 * @param Google_Service_Sheets_ConditionalFormatRule
-	 */
-	public function setRule(Google_Service_Sheets_ConditionalFormatRule $rule)
-	{
-		$this->rule = $rule;
-	}
-	/**
-	 * @return Google_Service_Sheets_ConditionalFormatRule
-	 */
-	public function getRule()
-	{
-		return $this->rule;
-	}
-	public function setSheetId($sheetId)
-	{
-		$this->sheetId = $sheetId;
-	}
-	public function getSheetId()
-	{
-		return $this->sheetId;
-	}
+  public function setIndex($index)
+  {
+    $this->index = $index;
+  }
+  public function getIndex()
+  {
+    return $this->index;
+  }
+  public function setNewIndex($newIndex)
+  {
+    $this->newIndex = $newIndex;
+  }
+  public function getNewIndex()
+  {
+    return $this->newIndex;
+  }
+  /**
+   * @param Google_Service_Sheets_ConditionalFormatRule
+   */
+  public function setRule(Google_Service_Sheets_ConditionalFormatRule $rule)
+  {
+    $this->rule = $rule;
+  }
+  /**
+   * @return Google_Service_Sheets_ConditionalFormatRule
+   */
+  public function getRule()
+  {
+    return $this->rule;
+  }
+  public function setSheetId($sheetId)
+  {
+    $this->sheetId = $sheetId;
+  }
+  public function getSheetId()
+  {
+    return $this->sheetId;
+  }
 }

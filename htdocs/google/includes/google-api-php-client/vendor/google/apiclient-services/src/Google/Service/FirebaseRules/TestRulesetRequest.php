@@ -17,37 +17,37 @@
 
 class Google_Service_FirebaseRules_TestRulesetRequest extends Google_Model
 {
-	protected $sourceType = 'Google_Service_FirebaseRules_Source';
-	protected $sourceDataType = '';
-	protected $testSuiteType = 'Google_Service_FirebaseRules_TestSuite';
-	protected $testSuiteDataType = '';
+  protected $sourceType = 'Google_Service_FirebaseRules_Source';
+  protected $sourceDataType = '';
+  protected $testSuiteType = 'Google_Service_FirebaseRules_TestSuite';
+  protected $testSuiteDataType = '';
 
-	/**
-	 * @param Google_Service_FirebaseRules_Source
-	 */
-	public function setSource(Google_Service_FirebaseRules_Source $source)
-	{
-		$this->source = $source;
-	}
-	/**
-	 * @return Google_Service_FirebaseRules_Source
-	 */
-	public function getSource()
-	{
-		return $this->source;
-	}
-	/**
-	 * @param Google_Service_FirebaseRules_TestSuite
-	 */
-	public function setTestSuite(Google_Service_FirebaseRules_TestSuite $testSuite)
-	{
-		$this->testSuite = $testSuite;
-	}
-	/**
-	 * @return Google_Service_FirebaseRules_TestSuite
-	 */
-	public function getTestSuite()
-	{
-		return $this->testSuite;
-	}
+  /**
+   * @param Google_Service_FirebaseRules_Source
+   */
+  public function setSource(Google_Service_FirebaseRules_Source $source)
+  {
+    $this->source = $source;
+  }
+  /**
+   * @return Google_Service_FirebaseRules_Source
+   */
+  public function getSource()
+  {
+    return $this->source;
+  }
+  /**
+   * @param Google_Service_FirebaseRules_TestSuite
+   */
+  public function setTestSuite(Google_Service_FirebaseRules_TestSuite $testSuite)
+  {
+    $this->testSuite = $testSuite;
+  }
+  /**
+   * @return Google_Service_FirebaseRules_TestSuite
+   */
+  public function getTestSuite()
+  {
+    return $this->testSuite;
+  }
 }

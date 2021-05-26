@@ -17,14 +17,14 @@
 
 class Google_Service_Testing_SystraceSetup extends Google_Model
 {
-	public $durationSeconds;
+  public $durationSeconds;
 
-	public function setDurationSeconds($durationSeconds)
-	{
-		$this->durationSeconds = $durationSeconds;
-	}
-	public function getDurationSeconds()
-	{
-		return $this->durationSeconds;
-	}
+  public function setDurationSeconds($durationSeconds)
+  {
+    $this->durationSeconds = $durationSeconds;
+  }
+  public function getDurationSeconds()
+  {
+    return $this->durationSeconds;
+  }
 }

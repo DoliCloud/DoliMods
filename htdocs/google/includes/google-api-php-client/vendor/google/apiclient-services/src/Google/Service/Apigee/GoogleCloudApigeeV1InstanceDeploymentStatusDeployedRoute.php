@@ -17,41 +17,41 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1InstanceDeploymentStatusDeployedRoute extends Google_Model
 {
-	public $basepath;
-	public $envgroup;
-	public $environment;
-	public $percentage;
+  public $basepath;
+  public $envgroup;
+  public $environment;
+  public $percentage;
 
-	public function setBasepath($basepath)
-	{
-		$this->basepath = $basepath;
-	}
-	public function getBasepath()
-	{
-		return $this->basepath;
-	}
-	public function setEnvgroup($envgroup)
-	{
-		$this->envgroup = $envgroup;
-	}
-	public function getEnvgroup()
-	{
-		return $this->envgroup;
-	}
-	public function setEnvironment($environment)
-	{
-		$this->environment = $environment;
-	}
-	public function getEnvironment()
-	{
-		return $this->environment;
-	}
-	public function setPercentage($percentage)
-	{
-		$this->percentage = $percentage;
-	}
-	public function getPercentage()
-	{
-		return $this->percentage;
-	}
+  public function setBasepath($basepath)
+  {
+    $this->basepath = $basepath;
+  }
+  public function getBasepath()
+  {
+    return $this->basepath;
+  }
+  public function setEnvgroup($envgroup)
+  {
+    $this->envgroup = $envgroup;
+  }
+  public function getEnvgroup()
+  {
+    return $this->envgroup;
+  }
+  public function setEnvironment($environment)
+  {
+    $this->environment = $environment;
+  }
+  public function getEnvironment()
+  {
+    return $this->environment;
+  }
+  public function setPercentage($percentage)
+  {
+    $this->percentage = $percentage;
+  }
+  public function getPercentage()
+  {
+    return $this->percentage;
+  }
 }

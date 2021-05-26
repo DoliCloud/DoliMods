@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMonitoring_PointDistributionUnderflowBucket extends Google_Model
 {
-	public $count;
-	public $upperBound;
+  public $count;
+  public $upperBound;
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	public function setUpperBound($upperBound)
-	{
-		$this->upperBound = $upperBound;
-	}
-	public function getUpperBound()
-	{
-		return $this->upperBound;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  public function setUpperBound($upperBound)
+  {
+    $this->upperBound = $upperBound;
+  }
+  public function getUpperBound()
+  {
+    return $this->upperBound;
+  }
 }

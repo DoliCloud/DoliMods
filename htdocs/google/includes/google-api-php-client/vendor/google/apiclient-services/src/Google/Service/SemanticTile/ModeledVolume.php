@@ -17,38 +17,38 @@
 
 class Google_Service_SemanticTile_ModeledVolume extends Google_Collection
 {
-	protected $collection_key = 'strips';
-	protected $stripsType = 'Google_Service_SemanticTile_TriangleStrip';
-	protected $stripsDataType = 'array';
-	protected $vertexOffsetsType = 'Google_Service_SemanticTile_Vertex3DList';
-	protected $vertexOffsetsDataType = '';
+  protected $collection_key = 'strips';
+  protected $stripsType = 'Google_Service_SemanticTile_TriangleStrip';
+  protected $stripsDataType = 'array';
+  protected $vertexOffsetsType = 'Google_Service_SemanticTile_Vertex3DList';
+  protected $vertexOffsetsDataType = '';
 
-	/**
-	 * @param Google_Service_SemanticTile_TriangleStrip
-	 */
-	public function setStrips($strips)
-	{
-		$this->strips = $strips;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_TriangleStrip
-	 */
-	public function getStrips()
-	{
-		return $this->strips;
-	}
-	/**
-	 * @param Google_Service_SemanticTile_Vertex3DList
-	 */
-	public function setVertexOffsets(Google_Service_SemanticTile_Vertex3DList $vertexOffsets)
-	{
-		$this->vertexOffsets = $vertexOffsets;
-	}
-	/**
-	 * @return Google_Service_SemanticTile_Vertex3DList
-	 */
-	public function getVertexOffsets()
-	{
-		return $this->vertexOffsets;
-	}
+  /**
+   * @param Google_Service_SemanticTile_TriangleStrip[]
+   */
+  public function setStrips($strips)
+  {
+    $this->strips = $strips;
+  }
+  /**
+   * @return Google_Service_SemanticTile_TriangleStrip[]
+   */
+  public function getStrips()
+  {
+    return $this->strips;
+  }
+  /**
+   * @param Google_Service_SemanticTile_Vertex3DList
+   */
+  public function setVertexOffsets(Google_Service_SemanticTile_Vertex3DList $vertexOffsets)
+  {
+    $this->vertexOffsets = $vertexOffsets;
+  }
+  /**
+   * @return Google_Service_SemanticTile_Vertex3DList
+   */
+  public function getVertexOffsets()
+  {
+    return $this->vertexOffsets;
+  }
 }

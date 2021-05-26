@@ -17,30 +17,30 @@
 
 class Google_Service_DisplayVideo_CampaignGoal extends Google_Model
 {
-	public $campaignGoalType;
-	protected $performanceGoalType = 'Google_Service_DisplayVideo_PerformanceGoal';
-	protected $performanceGoalDataType = '';
+  public $campaignGoalType;
+  protected $performanceGoalType = 'Google_Service_DisplayVideo_PerformanceGoal';
+  protected $performanceGoalDataType = '';
 
-	public function setCampaignGoalType($campaignGoalType)
-	{
-		$this->campaignGoalType = $campaignGoalType;
-	}
-	public function getCampaignGoalType()
-	{
-		return $this->campaignGoalType;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_PerformanceGoal
-	 */
-	public function setPerformanceGoal(Google_Service_DisplayVideo_PerformanceGoal $performanceGoal)
-	{
-		$this->performanceGoal = $performanceGoal;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_PerformanceGoal
-	 */
-	public function getPerformanceGoal()
-	{
-		return $this->performanceGoal;
-	}
+  public function setCampaignGoalType($campaignGoalType)
+  {
+    $this->campaignGoalType = $campaignGoalType;
+  }
+  public function getCampaignGoalType()
+  {
+    return $this->campaignGoalType;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_PerformanceGoal
+   */
+  public function setPerformanceGoal(Google_Service_DisplayVideo_PerformanceGoal $performanceGoal)
+  {
+    $this->performanceGoal = $performanceGoal;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_PerformanceGoal
+   */
+  public function getPerformanceGoal()
+  {
+    return $this->performanceGoal;
+  }
 }

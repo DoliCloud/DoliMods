@@ -17,64 +17,64 @@
 
 class Google_Service_Games_PlayerExperienceInfo extends Google_Model
 {
-	public $currentExperiencePoints;
-	protected $currentLevelType = 'Google_Service_Games_PlayerLevel';
-	protected $currentLevelDataType = '';
-	public $kind;
-	public $lastLevelUpTimestampMillis;
-	protected $nextLevelType = 'Google_Service_Games_PlayerLevel';
-	protected $nextLevelDataType = '';
+  public $currentExperiencePoints;
+  protected $currentLevelType = 'Google_Service_Games_PlayerLevel';
+  protected $currentLevelDataType = '';
+  public $kind;
+  public $lastLevelUpTimestampMillis;
+  protected $nextLevelType = 'Google_Service_Games_PlayerLevel';
+  protected $nextLevelDataType = '';
 
-	public function setCurrentExperiencePoints($currentExperiencePoints)
-	{
-		$this->currentExperiencePoints = $currentExperiencePoints;
-	}
-	public function getCurrentExperiencePoints()
-	{
-		return $this->currentExperiencePoints;
-	}
-	/**
-	 * @param Google_Service_Games_PlayerLevel
-	 */
-	public function setCurrentLevel(Google_Service_Games_PlayerLevel $currentLevel)
-	{
-		$this->currentLevel = $currentLevel;
-	}
-	/**
-	 * @return Google_Service_Games_PlayerLevel
-	 */
-	public function getCurrentLevel()
-	{
-		return $this->currentLevel;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLastLevelUpTimestampMillis($lastLevelUpTimestampMillis)
-	{
-		$this->lastLevelUpTimestampMillis = $lastLevelUpTimestampMillis;
-	}
-	public function getLastLevelUpTimestampMillis()
-	{
-		return $this->lastLevelUpTimestampMillis;
-	}
-	/**
-	 * @param Google_Service_Games_PlayerLevel
-	 */
-	public function setNextLevel(Google_Service_Games_PlayerLevel $nextLevel)
-	{
-		$this->nextLevel = $nextLevel;
-	}
-	/**
-	 * @return Google_Service_Games_PlayerLevel
-	 */
-	public function getNextLevel()
-	{
-		return $this->nextLevel;
-	}
+  public function setCurrentExperiencePoints($currentExperiencePoints)
+  {
+    $this->currentExperiencePoints = $currentExperiencePoints;
+  }
+  public function getCurrentExperiencePoints()
+  {
+    return $this->currentExperiencePoints;
+  }
+  /**
+   * @param Google_Service_Games_PlayerLevel
+   */
+  public function setCurrentLevel(Google_Service_Games_PlayerLevel $currentLevel)
+  {
+    $this->currentLevel = $currentLevel;
+  }
+  /**
+   * @return Google_Service_Games_PlayerLevel
+   */
+  public function getCurrentLevel()
+  {
+    return $this->currentLevel;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLastLevelUpTimestampMillis($lastLevelUpTimestampMillis)
+  {
+    $this->lastLevelUpTimestampMillis = $lastLevelUpTimestampMillis;
+  }
+  public function getLastLevelUpTimestampMillis()
+  {
+    return $this->lastLevelUpTimestampMillis;
+  }
+  /**
+   * @param Google_Service_Games_PlayerLevel
+   */
+  public function setNextLevel(Google_Service_Games_PlayerLevel $nextLevel)
+  {
+    $this->nextLevel = $nextLevel;
+  }
+  /**
+   * @return Google_Service_Games_PlayerLevel
+   */
+  public function getNextLevel()
+  {
+    return $this->nextLevel;
+  }
 }

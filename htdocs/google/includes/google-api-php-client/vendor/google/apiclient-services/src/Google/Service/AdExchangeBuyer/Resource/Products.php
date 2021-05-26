@@ -25,31 +25,31 @@
  */
 class Google_Service_AdExchangeBuyer_Resource_Products extends Google_Service_Resource
 {
-	/**
-	 * Gets the requested product by id. (products.get)
-	 *
-	 * @param string $productId The id for the product to get the head revision for.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AdExchangeBuyer_Product
-	 */
-	public function get($productId, $optParams = array())
-	{
-		$params = array('productId' => $productId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_Product");
-	}
-	/**
-	 * Gets the requested product. (products.search)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string pqlQuery The pql query used to query for products.
-	 * @return Google_Service_AdExchangeBuyer_GetOffersResponse
-	 */
-	public function search($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('search', array($params), "Google_Service_AdExchangeBuyer_GetOffersResponse");
-	}
+  /**
+   * Gets the requested product by id. (products.get)
+   *
+   * @param string $productId The id for the product to get the head revision for.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AdExchangeBuyer_Product
+   */
+  public function get($productId, $optParams = array())
+  {
+    $params = array('productId' => $productId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_Product");
+  }
+  /**
+   * Gets the requested product. (products.search)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string pqlQuery The pql query used to query for products.
+   * @return Google_Service_AdExchangeBuyer_GetOffersResponse
+   */
+  public function search($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('search', array($params), "Google_Service_AdExchangeBuyer_GetOffersResponse");
+  }
 }

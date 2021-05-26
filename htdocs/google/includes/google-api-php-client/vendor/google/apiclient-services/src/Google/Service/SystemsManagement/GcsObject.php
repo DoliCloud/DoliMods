@@ -17,32 +17,32 @@
 
 class Google_Service_SystemsManagement_GcsObject extends Google_Model
 {
-	public $bucket;
-	public $generationNumber;
-	public $object;
+  public $bucket;
+  public $generationNumber;
+  public $object;
 
-	public function setBucket($bucket)
-	{
-		$this->bucket = $bucket;
-	}
-	public function getBucket()
-	{
-		return $this->bucket;
-	}
-	public function setGenerationNumber($generationNumber)
-	{
-		$this->generationNumber = $generationNumber;
-	}
-	public function getGenerationNumber()
-	{
-		return $this->generationNumber;
-	}
-	public function setObject($object)
-	{
-		$this->object = $object;
-	}
-	public function getObject()
-	{
-		return $this->object;
-	}
+  public function setBucket($bucket)
+  {
+    $this->bucket = $bucket;
+  }
+  public function getBucket()
+  {
+    return $this->bucket;
+  }
+  public function setGenerationNumber($generationNumber)
+  {
+    $this->generationNumber = $generationNumber;
+  }
+  public function getGenerationNumber()
+  {
+    return $this->generationNumber;
+  }
+  public function setObject($object)
+  {
+    $this->object = $object;
+  }
+  public function getObject()
+  {
+    return $this->object;
+  }
 }

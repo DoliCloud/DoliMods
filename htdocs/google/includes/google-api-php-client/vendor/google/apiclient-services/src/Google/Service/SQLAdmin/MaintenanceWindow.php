@@ -17,41 +17,41 @@
 
 class Google_Service_SQLAdmin_MaintenanceWindow extends Google_Model
 {
-	public $day;
-	public $hour;
-	public $kind;
-	public $updateTrack;
+  public $day;
+  public $hour;
+  public $kind;
+  public $updateTrack;
 
-	public function setDay($day)
-	{
-		$this->day = $day;
-	}
-	public function getDay()
-	{
-		return $this->day;
-	}
-	public function setHour($hour)
-	{
-		$this->hour = $hour;
-	}
-	public function getHour()
-	{
-		return $this->hour;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setUpdateTrack($updateTrack)
-	{
-		$this->updateTrack = $updateTrack;
-	}
-	public function getUpdateTrack()
-	{
-		return $this->updateTrack;
-	}
+  public function setDay($day)
+  {
+    $this->day = $day;
+  }
+  public function getDay()
+  {
+    return $this->day;
+  }
+  public function setHour($hour)
+  {
+    $this->hour = $hour;
+  }
+  public function getHour()
+  {
+    return $this->hour;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setUpdateTrack($updateTrack)
+  {
+    $this->updateTrack = $updateTrack;
+  }
+  public function getUpdateTrack()
+  {
+    return $this->updateTrack;
+  }
 }

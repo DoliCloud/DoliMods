@@ -17,50 +17,50 @@
 
 class Google_Service_YouTube_ChannelStatistics extends Google_Model
 {
-	public $commentCount;
-	public $hiddenSubscriberCount;
-	public $subscriberCount;
-	public $videoCount;
-	public $viewCount;
+  public $commentCount;
+  public $hiddenSubscriberCount;
+  public $subscriberCount;
+  public $videoCount;
+  public $viewCount;
 
-	public function setCommentCount($commentCount)
-	{
-		$this->commentCount = $commentCount;
-	}
-	public function getCommentCount()
-	{
-		return $this->commentCount;
-	}
-	public function setHiddenSubscriberCount($hiddenSubscriberCount)
-	{
-		$this->hiddenSubscriberCount = $hiddenSubscriberCount;
-	}
-	public function getHiddenSubscriberCount()
-	{
-		return $this->hiddenSubscriberCount;
-	}
-	public function setSubscriberCount($subscriberCount)
-	{
-		$this->subscriberCount = $subscriberCount;
-	}
-	public function getSubscriberCount()
-	{
-		return $this->subscriberCount;
-	}
-	public function setVideoCount($videoCount)
-	{
-		$this->videoCount = $videoCount;
-	}
-	public function getVideoCount()
-	{
-		return $this->videoCount;
-	}
-	public function setViewCount($viewCount)
-	{
-		$this->viewCount = $viewCount;
-	}
-	public function getViewCount()
-	{
-		return $this->viewCount;
-	}
+  public function setCommentCount($commentCount)
+  {
+    $this->commentCount = $commentCount;
+  }
+  public function getCommentCount()
+  {
+    return $this->commentCount;
+  }
+  public function setHiddenSubscriberCount($hiddenSubscriberCount)
+  {
+    $this->hiddenSubscriberCount = $hiddenSubscriberCount;
+  }
+  public function getHiddenSubscriberCount()
+  {
+    return $this->hiddenSubscriberCount;
+  }
+  public function setSubscriberCount($subscriberCount)
+  {
+    $this->subscriberCount = $subscriberCount;
+  }
+  public function getSubscriberCount()
+  {
+    return $this->subscriberCount;
+  }
+  public function setVideoCount($videoCount)
+  {
+    $this->videoCount = $videoCount;
+  }
+  public function getVideoCount()
+  {
+    return $this->videoCount;
+  }
+  public function setViewCount($viewCount)
+  {
+    $this->viewCount = $viewCount;
+  }
+  public function getViewCount()
+  {
+    return $this->viewCount;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidEnterprise_MaintenanceWindow extends Google_Model
 {
-	public $durationMs;
-	public $startTimeAfterMidnightMs;
+  public $durationMs;
+  public $startTimeAfterMidnightMs;
 
-	public function setDurationMs($durationMs)
-	{
-		$this->durationMs = $durationMs;
-	}
-	public function getDurationMs()
-	{
-		return $this->durationMs;
-	}
-	public function setStartTimeAfterMidnightMs($startTimeAfterMidnightMs)
-	{
-		$this->startTimeAfterMidnightMs = $startTimeAfterMidnightMs;
-	}
-	public function getStartTimeAfterMidnightMs()
-	{
-		return $this->startTimeAfterMidnightMs;
-	}
+  public function setDurationMs($durationMs)
+  {
+    $this->durationMs = $durationMs;
+  }
+  public function getDurationMs()
+  {
+    return $this->durationMs;
+  }
+  public function setStartTimeAfterMidnightMs($startTimeAfterMidnightMs)
+  {
+    $this->startTimeAfterMidnightMs = $startTimeAfterMidnightMs;
+  }
+  public function getStartTimeAfterMidnightMs()
+  {
+    return $this->startTimeAfterMidnightMs;
+  }
 }

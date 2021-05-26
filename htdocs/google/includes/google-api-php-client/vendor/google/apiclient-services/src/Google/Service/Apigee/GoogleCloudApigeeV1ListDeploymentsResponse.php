@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListDeploymentsResponse extends Google_Collection
 {
-	protected $collection_key = 'deployments';
-	protected $deploymentsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Deployment';
-	protected $deploymentsDataType = 'array';
+  protected $collection_key = 'deployments';
+  protected $deploymentsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Deployment';
+  protected $deploymentsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Deployment
-	 */
-	public function setDeployments($deployments)
-	{
-		$this->deployments = $deployments;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Deployment
-	 */
-	public function getDeployments()
-	{
-		return $this->deployments;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1Deployment[]
+   */
+  public function setDeployments($deployments)
+  {
+    $this->deployments = $deployments;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1Deployment[]
+   */
+  public function getDeployments()
+  {
+    return $this->deployments;
+  }
 }

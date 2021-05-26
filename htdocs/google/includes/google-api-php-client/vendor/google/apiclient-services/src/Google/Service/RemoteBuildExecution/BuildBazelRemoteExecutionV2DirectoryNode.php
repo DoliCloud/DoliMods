@@ -17,30 +17,30 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2DirectoryNode extends Google_Model
 {
-	protected $digestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
-	protected $digestDataType = '';
-	public $name;
+  protected $digestType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest';
+  protected $digestDataType = '';
+  public $name;
 
-	/**
-	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-	 */
-	public function setDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $digest)
-	{
-		$this->digest = $digest;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
-	 */
-	public function getDigest()
-	{
-		return $this->digest;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  /**
+   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+   */
+  public function setDigest(Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest $digest)
+  {
+    $this->digest = $digest;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Digest
+   */
+  public function getDigest()
+  {
+    return $this->digest;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

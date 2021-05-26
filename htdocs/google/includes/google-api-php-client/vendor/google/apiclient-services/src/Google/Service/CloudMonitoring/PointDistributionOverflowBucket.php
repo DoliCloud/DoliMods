@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMonitoring_PointDistributionOverflowBucket extends Google_Model
 {
-	public $count;
-	public $lowerBound;
+  public $count;
+  public $lowerBound;
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	public function setLowerBound($lowerBound)
-	{
-		$this->lowerBound = $lowerBound;
-	}
-	public function getLowerBound()
-	{
-		return $this->lowerBound;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  public function setLowerBound($lowerBound)
+  {
+    $this->lowerBound = $lowerBound;
+  }
+  public function getLowerBound()
+  {
+    return $this->lowerBound;
+  }
 }

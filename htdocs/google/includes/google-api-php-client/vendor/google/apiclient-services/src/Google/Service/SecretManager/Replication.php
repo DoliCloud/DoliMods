@@ -17,37 +17,37 @@
 
 class Google_Service_SecretManager_Replication extends Google_Model
 {
-	protected $automaticType = 'Google_Service_SecretManager_Automatic';
-	protected $automaticDataType = '';
-	protected $userManagedType = 'Google_Service_SecretManager_UserManaged';
-	protected $userManagedDataType = '';
+  protected $automaticType = 'Google_Service_SecretManager_Automatic';
+  protected $automaticDataType = '';
+  protected $userManagedType = 'Google_Service_SecretManager_UserManaged';
+  protected $userManagedDataType = '';
 
-	/**
-	 * @param Google_Service_SecretManager_Automatic
-	 */
-	public function setAutomatic(Google_Service_SecretManager_Automatic $automatic)
-	{
-		$this->automatic = $automatic;
-	}
-	/**
-	 * @return Google_Service_SecretManager_Automatic
-	 */
-	public function getAutomatic()
-	{
-		return $this->automatic;
-	}
-	/**
-	 * @param Google_Service_SecretManager_UserManaged
-	 */
-	public function setUserManaged(Google_Service_SecretManager_UserManaged $userManaged)
-	{
-		$this->userManaged = $userManaged;
-	}
-	/**
-	 * @return Google_Service_SecretManager_UserManaged
-	 */
-	public function getUserManaged()
-	{
-		return $this->userManaged;
-	}
+  /**
+   * @param Google_Service_SecretManager_Automatic
+   */
+  public function setAutomatic(Google_Service_SecretManager_Automatic $automatic)
+  {
+    $this->automatic = $automatic;
+  }
+  /**
+   * @return Google_Service_SecretManager_Automatic
+   */
+  public function getAutomatic()
+  {
+    return $this->automatic;
+  }
+  /**
+   * @param Google_Service_SecretManager_UserManaged
+   */
+  public function setUserManaged(Google_Service_SecretManager_UserManaged $userManaged)
+  {
+    $this->userManaged = $userManaged;
+  }
+  /**
+   * @return Google_Service_SecretManager_UserManaged
+   */
+  public function getUserManaged()
+  {
+    return $this->userManaged;
+  }
 }

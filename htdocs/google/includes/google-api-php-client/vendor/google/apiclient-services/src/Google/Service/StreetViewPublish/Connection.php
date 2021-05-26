@@ -17,21 +17,21 @@
 
 class Google_Service_StreetViewPublish_Connection extends Google_Model
 {
-	protected $targetType = 'Google_Service_StreetViewPublish_PhotoId';
-	protected $targetDataType = '';
+  protected $targetType = 'Google_Service_StreetViewPublish_PhotoId';
+  protected $targetDataType = '';
 
-	/**
-	 * @param Google_Service_StreetViewPublish_PhotoId
-	 */
-	public function setTarget(Google_Service_StreetViewPublish_PhotoId $target)
-	{
-		$this->target = $target;
-	}
-	/**
-	 * @return Google_Service_StreetViewPublish_PhotoId
-	 */
-	public function getTarget()
-	{
-		return $this->target;
-	}
+  /**
+   * @param Google_Service_StreetViewPublish_PhotoId
+   */
+  public function setTarget(Google_Service_StreetViewPublish_PhotoId $target)
+  {
+    $this->target = $target;
+  }
+  /**
+   * @return Google_Service_StreetViewPublish_PhotoId
+   */
+  public function getTarget()
+  {
+    return $this->target;
+  }
 }

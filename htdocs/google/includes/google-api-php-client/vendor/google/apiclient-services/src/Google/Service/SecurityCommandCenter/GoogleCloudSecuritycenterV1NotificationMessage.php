@@ -17,46 +17,46 @@
 
 class Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1NotificationMessage extends Google_Model
 {
-	protected $findingType = 'Google_Service_SecurityCommandCenter_Finding';
-	protected $findingDataType = '';
-	public $notificationConfigName;
-	protected $resourceType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1Resource';
-	protected $resourceDataType = '';
+  protected $findingType = 'Google_Service_SecurityCommandCenter_Finding';
+  protected $findingDataType = '';
+  public $notificationConfigName;
+  protected $resourceType = 'Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1Resource';
+  protected $resourceDataType = '';
 
-	/**
-	 * @param Google_Service_SecurityCommandCenter_Finding
-	 */
-	public function setFinding(Google_Service_SecurityCommandCenter_Finding $finding)
-	{
-		$this->finding = $finding;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_Finding
-	 */
-	public function getFinding()
-	{
-		return $this->finding;
-	}
-	public function setNotificationConfigName($notificationConfigName)
-	{
-		$this->notificationConfigName = $notificationConfigName;
-	}
-	public function getNotificationConfigName()
-	{
-		return $this->notificationConfigName;
-	}
-	/**
-	 * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1Resource
-	 */
-	public function setResource(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1Resource $resource)
-	{
-		$this->resource = $resource;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1Resource
-	 */
-	public function getResource()
-	{
-		return $this->resource;
-	}
+  /**
+   * @param Google_Service_SecurityCommandCenter_Finding
+   */
+  public function setFinding(Google_Service_SecurityCommandCenter_Finding $finding)
+  {
+    $this->finding = $finding;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_Finding
+   */
+  public function getFinding()
+  {
+    return $this->finding;
+  }
+  public function setNotificationConfigName($notificationConfigName)
+  {
+    $this->notificationConfigName = $notificationConfigName;
+  }
+  public function getNotificationConfigName()
+  {
+    return $this->notificationConfigName;
+  }
+  /**
+   * @param Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1Resource
+   */
+  public function setResource(Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1Resource $resource)
+  {
+    $this->resource = $resource;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_GoogleCloudSecuritycenterV1Resource
+   */
+  public function getResource()
+  {
+    return $this->resource;
+  }
 }

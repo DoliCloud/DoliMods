@@ -17,32 +17,32 @@
 
 class Google_Service_Directory_UserGender extends Google_Model
 {
-	public $addressMeAs;
-	public $customGender;
-	public $type;
+  public $addressMeAs;
+  public $customGender;
+  public $type;
 
-	public function setAddressMeAs($addressMeAs)
-	{
-		$this->addressMeAs = $addressMeAs;
-	}
-	public function getAddressMeAs()
-	{
-		return $this->addressMeAs;
-	}
-	public function setCustomGender($customGender)
-	{
-		$this->customGender = $customGender;
-	}
-	public function getCustomGender()
-	{
-		return $this->customGender;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setAddressMeAs($addressMeAs)
+  {
+    $this->addressMeAs = $addressMeAs;
+  }
+  public function getAddressMeAs()
+  {
+    return $this->addressMeAs;
+  }
+  public function setCustomGender($customGender)
+  {
+    $this->customGender = $customGender;
+  }
+  public function getCustomGender()
+  {
+    return $this->customGender;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

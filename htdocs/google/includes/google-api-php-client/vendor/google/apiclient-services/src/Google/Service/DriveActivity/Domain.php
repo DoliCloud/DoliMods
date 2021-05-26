@@ -17,23 +17,23 @@
 
 class Google_Service_DriveActivity_Domain extends Google_Model
 {
-	public $legacyId;
-	public $name;
+  public $legacyId;
+  public $name;
 
-	public function setLegacyId($legacyId)
-	{
-		$this->legacyId = $legacyId;
-	}
-	public function getLegacyId()
-	{
-		return $this->legacyId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setLegacyId($legacyId)
+  {
+    $this->legacyId = $legacyId;
+  }
+  public function getLegacyId()
+  {
+    return $this->legacyId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

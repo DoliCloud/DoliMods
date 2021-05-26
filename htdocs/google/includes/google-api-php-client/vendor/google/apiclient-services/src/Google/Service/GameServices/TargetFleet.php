@@ -17,30 +17,30 @@
 
 class Google_Service_GameServices_TargetFleet extends Google_Model
 {
-	public $name;
-	protected $specSourceType = 'Google_Service_GameServices_SpecSource';
-	protected $specSourceDataType = '';
+  public $name;
+  protected $specSourceType = 'Google_Service_GameServices_SpecSource';
+  protected $specSourceDataType = '';
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_GameServices_SpecSource
-	 */
-	public function setSpecSource(Google_Service_GameServices_SpecSource $specSource)
-	{
-		$this->specSource = $specSource;
-	}
-	/**
-	 * @return Google_Service_GameServices_SpecSource
-	 */
-	public function getSpecSource()
-	{
-		return $this->specSource;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_GameServices_SpecSource
+   */
+  public function setSpecSource(Google_Service_GameServices_SpecSource $specSource)
+  {
+    $this->specSource = $specSource;
+  }
+  /**
+   * @return Google_Service_GameServices_SpecSource
+   */
+  public function getSpecSource()
+  {
+    return $this->specSource;
+  }
 }

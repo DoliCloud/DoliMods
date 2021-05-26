@@ -17,14 +17,14 @@
 
 class Google_Service_SQLAdmin_ExportContextCsvExportOptions extends Google_Model
 {
-	public $selectQuery;
+  public $selectQuery;
 
-	public function setSelectQuery($selectQuery)
-	{
-		$this->selectQuery = $selectQuery;
-	}
-	public function getSelectQuery()
-	{
-		return $this->selectQuery;
-	}
+  public function setSelectQuery($selectQuery)
+  {
+    $this->selectQuery = $selectQuery;
+  }
+  public function getSelectQuery()
+  {
+    return $this->selectQuery;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_AssignedLocation extends Google_Model
 {
-	public $assignedLocationId;
-	public $name;
-	public $targetingOptionId;
+  public $assignedLocationId;
+  public $name;
+  public $targetingOptionId;
 
-	public function setAssignedLocationId($assignedLocationId)
-	{
-		$this->assignedLocationId = $assignedLocationId;
-	}
-	public function getAssignedLocationId()
-	{
-		return $this->assignedLocationId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
+  public function setAssignedLocationId($assignedLocationId)
+  {
+    $this->assignedLocationId = $assignedLocationId;
+  }
+  public function getAssignedLocationId()
+  {
+    return $this->assignedLocationId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
 }

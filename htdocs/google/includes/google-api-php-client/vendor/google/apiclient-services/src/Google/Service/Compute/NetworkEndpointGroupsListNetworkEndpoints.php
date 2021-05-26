@@ -17,65 +17,65 @@
 
 class Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpoints extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $id;
-	protected $itemsType = 'Google_Service_Compute_NetworkEndpointWithHealthStatus';
-	protected $itemsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
-	protected $warningType = 'Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpointsWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'items';
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_NetworkEndpointWithHealthStatus';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  protected $warningType = 'Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpointsWarning';
+  protected $warningDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_Compute_NetworkEndpointWithHealthStatus
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Compute_NetworkEndpointWithHealthStatus
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpointsWarning
-	 */
-	public function setWarning(Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpointsWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpointsWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_Compute_NetworkEndpointWithHealthStatus[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Compute_NetworkEndpointWithHealthStatus[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpointsWarning
+   */
+  public function setWarning(Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpointsWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_NetworkEndpointGroupsListNetworkEndpointsWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

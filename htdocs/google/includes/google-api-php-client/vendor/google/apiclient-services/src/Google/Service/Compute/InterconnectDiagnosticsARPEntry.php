@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_InterconnectDiagnosticsARPEntry extends Google_Model
 {
-	public $ipAddress;
-	public $macAddress;
+  public $ipAddress;
+  public $macAddress;
 
-	public function setIpAddress($ipAddress)
-	{
-		$this->ipAddress = $ipAddress;
-	}
-	public function getIpAddress()
-	{
-		return $this->ipAddress;
-	}
-	public function setMacAddress($macAddress)
-	{
-		$this->macAddress = $macAddress;
-	}
-	public function getMacAddress()
-	{
-		return $this->macAddress;
-	}
+  public function setIpAddress($ipAddress)
+  {
+    $this->ipAddress = $ipAddress;
+  }
+  public function getIpAddress()
+  {
+    return $this->ipAddress;
+  }
+  public function setMacAddress($macAddress)
+  {
+    $this->macAddress = $macAddress;
+  }
+  public function getMacAddress()
+  {
+    return $this->macAddress;
+  }
 }

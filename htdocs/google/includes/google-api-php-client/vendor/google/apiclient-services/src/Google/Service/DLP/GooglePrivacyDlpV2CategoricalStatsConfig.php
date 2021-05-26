@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CategoricalStatsConfig extends Google_Model
 {
-	protected $fieldType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
-	protected $fieldDataType = '';
+  protected $fieldType = 'Google_Service_DLP_GooglePrivacyDlpV2FieldId';
+  protected $fieldDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
-	 */
-	public function setField(Google_Service_DLP_GooglePrivacyDlpV2FieldId $field)
-	{
-		$this->field = $field;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
-	 */
-	public function getField()
-	{
-		return $this->field;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2FieldId
+   */
+  public function setField(Google_Service_DLP_GooglePrivacyDlpV2FieldId $field)
+  {
+    $this->field = $field;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2FieldId
+   */
+  public function getField()
+  {
+    return $this->field;
+  }
 }

@@ -17,15 +17,15 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1FeatureMapFloatList extends Google_Collection
 {
-	protected $collection_key = 'value';
-	public $value;
+  protected $collection_key = 'value';
+  public $value;
 
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_Directory_ChromeOsDeviceSystemRamFreeReports extends Google_Collection
 {
-	protected $collection_key = 'systemRamFreeInfo';
-	public $reportTime;
-	public $systemRamFreeInfo;
+  protected $collection_key = 'systemRamFreeInfo';
+  public $reportTime;
+  public $systemRamFreeInfo;
 
-	public function setReportTime($reportTime)
-	{
-		$this->reportTime = $reportTime;
-	}
-	public function getReportTime()
-	{
-		return $this->reportTime;
-	}
-	public function setSystemRamFreeInfo($systemRamFreeInfo)
-	{
-		$this->systemRamFreeInfo = $systemRamFreeInfo;
-	}
-	public function getSystemRamFreeInfo()
-	{
-		return $this->systemRamFreeInfo;
-	}
+  public function setReportTime($reportTime)
+  {
+    $this->reportTime = $reportTime;
+  }
+  public function getReportTime()
+  {
+    return $this->reportTime;
+  }
+  public function setSystemRamFreeInfo($systemRamFreeInfo)
+  {
+    $this->systemRamFreeInfo = $systemRamFreeInfo;
+  }
+  public function getSystemRamFreeInfo()
+  {
+    return $this->systemRamFreeInfo;
+  }
 }

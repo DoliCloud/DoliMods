@@ -17,14 +17,14 @@
 
 class Google_Service_TagManager_AccountAccess extends Google_Model
 {
-	public $permission;
+  public $permission;
 
-	public function setPermission($permission)
-	{
-		$this->permission = $permission;
-	}
-	public function getPermission()
-	{
-		return $this->permission;
-	}
+  public function setPermission($permission)
+  {
+    $this->permission = $permission;
+  }
+  public function getPermission()
+  {
+    return $this->permission;
+  }
 }

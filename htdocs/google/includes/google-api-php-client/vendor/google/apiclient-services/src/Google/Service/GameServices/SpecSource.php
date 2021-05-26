@@ -17,23 +17,23 @@
 
 class Google_Service_GameServices_SpecSource extends Google_Model
 {
-	public $gameServerConfigName;
-	public $name;
+  public $gameServerConfigName;
+  public $name;
 
-	public function setGameServerConfigName($gameServerConfigName)
-	{
-		$this->gameServerConfigName = $gameServerConfigName;
-	}
-	public function getGameServerConfigName()
-	{
-		return $this->gameServerConfigName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setGameServerConfigName($gameServerConfigName)
+  {
+    $this->gameServerConfigName = $gameServerConfigName;
+  }
+  public function getGameServerConfigName()
+  {
+    return $this->gameServerConfigName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

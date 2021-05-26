@@ -17,32 +17,32 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1EntityMetadata extends Google_Model
 {
-	public $createdAt;
-	public $lastModifiedAt;
-	public $subType;
+  public $createdAt;
+  public $lastModifiedAt;
+  public $subType;
 
-	public function setCreatedAt($createdAt)
-	{
-		$this->createdAt = $createdAt;
-	}
-	public function getCreatedAt()
-	{
-		return $this->createdAt;
-	}
-	public function setLastModifiedAt($lastModifiedAt)
-	{
-		$this->lastModifiedAt = $lastModifiedAt;
-	}
-	public function getLastModifiedAt()
-	{
-		return $this->lastModifiedAt;
-	}
-	public function setSubType($subType)
-	{
-		$this->subType = $subType;
-	}
-	public function getSubType()
-	{
-		return $this->subType;
-	}
+  public function setCreatedAt($createdAt)
+  {
+    $this->createdAt = $createdAt;
+  }
+  public function getCreatedAt()
+  {
+    return $this->createdAt;
+  }
+  public function setLastModifiedAt($lastModifiedAt)
+  {
+    $this->lastModifiedAt = $lastModifiedAt;
+  }
+  public function getLastModifiedAt()
+  {
+    return $this->lastModifiedAt;
+  }
+  public function setSubType($subType)
+  {
+    $this->subType = $subType;
+  }
+  public function getSubType()
+  {
+    return $this->subType;
+  }
 }

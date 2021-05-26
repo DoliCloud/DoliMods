@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdRequest extends Google_Model
 {
-	public $merchantOrderId;
-	public $operationId;
+  public $merchantOrderId;
+  public $operationId;
 
-	public function setMerchantOrderId($merchantOrderId)
-	{
-		$this->merchantOrderId = $merchantOrderId;
-	}
-	public function getMerchantOrderId()
-	{
-		return $this->merchantOrderId;
-	}
-	public function setOperationId($operationId)
-	{
-		$this->operationId = $operationId;
-	}
-	public function getOperationId()
-	{
-		return $this->operationId;
-	}
+  public function setMerchantOrderId($merchantOrderId)
+  {
+    $this->merchantOrderId = $merchantOrderId;
+  }
+  public function getMerchantOrderId()
+  {
+    return $this->merchantOrderId;
+  }
+  public function setOperationId($operationId)
+  {
+    $this->operationId = $operationId;
+  }
+  public function getOperationId()
+  {
+    return $this->operationId;
+  }
 }

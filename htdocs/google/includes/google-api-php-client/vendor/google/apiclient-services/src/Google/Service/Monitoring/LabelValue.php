@@ -17,32 +17,32 @@
 
 class Google_Service_Monitoring_LabelValue extends Google_Model
 {
-	public $boolValue;
-	public $int64Value;
-	public $stringValue;
+  public $boolValue;
+  public $int64Value;
+  public $stringValue;
 
-	public function setBoolValue($boolValue)
-	{
-		$this->boolValue = $boolValue;
-	}
-	public function getBoolValue()
-	{
-		return $this->boolValue;
-	}
-	public function setInt64Value($int64Value)
-	{
-		$this->int64Value = $int64Value;
-	}
-	public function getInt64Value()
-	{
-		return $this->int64Value;
-	}
-	public function setStringValue($stringValue)
-	{
-		$this->stringValue = $stringValue;
-	}
-	public function getStringValue()
-	{
-		return $this->stringValue;
-	}
+  public function setBoolValue($boolValue)
+  {
+    $this->boolValue = $boolValue;
+  }
+  public function getBoolValue()
+  {
+    return $this->boolValue;
+  }
+  public function setInt64Value($int64Value)
+  {
+    $this->int64Value = $int64Value;
+  }
+  public function getInt64Value()
+  {
+    return $this->int64Value;
+  }
+  public function setStringValue($stringValue)
+  {
+    $this->stringValue = $stringValue;
+  }
+  public function getStringValue()
+  {
+    return $this->stringValue;
+  }
 }

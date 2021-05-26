@@ -17,22 +17,22 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ListTrialsResponse extends Google_Collection
 {
-	protected $collection_key = 'trials';
-	protected $trialsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial';
-	protected $trialsDataType = 'array';
+  protected $collection_key = 'trials';
+  protected $trialsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial';
+  protected $trialsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial
-	 */
-	public function setTrials($trials)
-	{
-		$this->trials = $trials;
-	}
-	/**
-	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial
-	 */
-	public function getTrials()
-	{
-		return $this->trials;
-	}
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial[]
+   */
+  public function setTrials($trials)
+  {
+    $this->trials = $trials;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Trial[]
+   */
+  public function getTrials()
+  {
+    return $this->trials;
+  }
 }

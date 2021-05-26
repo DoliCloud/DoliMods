@@ -17,14 +17,14 @@
 
 class Google_Service_CloudResourceManager_MoveFolderRequest extends Google_Model
 {
-	public $destinationParent;
+  public $destinationParent;
 
-	public function setDestinationParent($destinationParent)
-	{
-		$this->destinationParent = $destinationParent;
-	}
-	public function getDestinationParent()
-	{
-		return $this->destinationParent;
-	}
+  public function setDestinationParent($destinationParent)
+  {
+    $this->destinationParent = $destinationParent;
+  }
+  public function getDestinationParent()
+  {
+    return $this->destinationParent;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Bigquery_Cluster extends Google_Collection
 {
-	protected $collection_key = 'featureValues';
-	public $centroidId;
-	public $count;
-	protected $featureValuesType = 'Google_Service_Bigquery_FeatureValue';
-	protected $featureValuesDataType = 'array';
+  protected $collection_key = 'featureValues';
+  public $centroidId;
+  public $count;
+  protected $featureValuesType = 'Google_Service_Bigquery_FeatureValue';
+  protected $featureValuesDataType = 'array';
 
-	public function setCentroidId($centroidId)
-	{
-		$this->centroidId = $centroidId;
-	}
-	public function getCentroidId()
-	{
-		return $this->centroidId;
-	}
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	/**
-	 * @param Google_Service_Bigquery_FeatureValue
-	 */
-	public function setFeatureValues($featureValues)
-	{
-		$this->featureValues = $featureValues;
-	}
-	/**
-	 * @return Google_Service_Bigquery_FeatureValue
-	 */
-	public function getFeatureValues()
-	{
-		return $this->featureValues;
-	}
+  public function setCentroidId($centroidId)
+  {
+    $this->centroidId = $centroidId;
+  }
+  public function getCentroidId()
+  {
+    return $this->centroidId;
+  }
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  /**
+   * @param Google_Service_Bigquery_FeatureValue[]
+   */
+  public function setFeatureValues($featureValues)
+  {
+    $this->featureValues = $featureValues;
+  }
+  /**
+   * @return Google_Service_Bigquery_FeatureValue[]
+   */
+  public function getFeatureValues()
+  {
+    return $this->featureValues;
+  }
 }

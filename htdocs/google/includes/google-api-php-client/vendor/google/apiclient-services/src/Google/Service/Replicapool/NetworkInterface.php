@@ -17,40 +17,40 @@
 
 class Google_Service_Replicapool_NetworkInterface extends Google_Collection
 {
-	protected $collection_key = 'accessConfigs';
-	protected $accessConfigsType = 'Google_Service_Replicapool_AccessConfig';
-	protected $accessConfigsDataType = 'array';
-	public $network;
-	public $networkIp;
+  protected $collection_key = 'accessConfigs';
+  protected $accessConfigsType = 'Google_Service_Replicapool_AccessConfig';
+  protected $accessConfigsDataType = 'array';
+  public $network;
+  public $networkIp;
 
-	/**
-	 * @param Google_Service_Replicapool_AccessConfig
-	 */
-	public function setAccessConfigs($accessConfigs)
-	{
-		$this->accessConfigs = $accessConfigs;
-	}
-	/**
-	 * @return Google_Service_Replicapool_AccessConfig
-	 */
-	public function getAccessConfigs()
-	{
-		return $this->accessConfigs;
-	}
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setNetworkIp($networkIp)
-	{
-		$this->networkIp = $networkIp;
-	}
-	public function getNetworkIp()
-	{
-		return $this->networkIp;
-	}
+  /**
+   * @param Google_Service_Replicapool_AccessConfig
+   */
+  public function setAccessConfigs($accessConfigs)
+  {
+    $this->accessConfigs = $accessConfigs;
+  }
+  /**
+   * @return Google_Service_Replicapool_AccessConfig
+   */
+  public function getAccessConfigs()
+  {
+    return $this->accessConfigs;
+  }
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setNetworkIp($networkIp)
+  {
+    $this->networkIp = $networkIp;
+  }
+  public function getNetworkIp()
+  {
+    return $this->networkIp;
+  }
 }

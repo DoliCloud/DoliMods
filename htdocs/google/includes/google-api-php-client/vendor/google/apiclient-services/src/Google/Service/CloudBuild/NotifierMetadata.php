@@ -17,23 +17,23 @@
 
 class Google_Service_CloudBuild_NotifierMetadata extends Google_Model
 {
-	public $name;
-	public $notifier;
+  public $name;
+  public $notifier;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setNotifier($notifier)
-	{
-		$this->notifier = $notifier;
-	}
-	public function getNotifier()
-	{
-		return $this->notifier;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNotifier($notifier)
+  {
+    $this->notifier = $notifier;
+  }
+  public function getNotifier()
+  {
+    return $this->notifier;
+  }
 }

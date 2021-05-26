@@ -17,33 +17,33 @@
 
 class Google_Service_AndroidManagement_PersistentPreferredActivity extends Google_Collection
 {
-	protected $collection_key = 'categories';
-	public $actions;
-	public $categories;
-	public $receiverActivity;
+  protected $collection_key = 'categories';
+  public $actions;
+  public $categories;
+  public $receiverActivity;
 
-	public function setActions($actions)
-	{
-		$this->actions = $actions;
-	}
-	public function getActions()
-	{
-		return $this->actions;
-	}
-	public function setCategories($categories)
-	{
-		$this->categories = $categories;
-	}
-	public function getCategories()
-	{
-		return $this->categories;
-	}
-	public function setReceiverActivity($receiverActivity)
-	{
-		$this->receiverActivity = $receiverActivity;
-	}
-	public function getReceiverActivity()
-	{
-		return $this->receiverActivity;
-	}
+  public function setActions($actions)
+  {
+    $this->actions = $actions;
+  }
+  public function getActions()
+  {
+    return $this->actions;
+  }
+  public function setCategories($categories)
+  {
+    $this->categories = $categories;
+  }
+  public function getCategories()
+  {
+    return $this->categories;
+  }
+  public function setReceiverActivity($receiverActivity)
+  {
+    $this->receiverActivity = $receiverActivity;
+  }
+  public function getReceiverActivity()
+  {
+    return $this->receiverActivity;
+  }
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2MetadataLocation extends Google_Model
 {
-	protected $storageLabelType = 'Google_Service_DLP_GooglePrivacyDlpV2StorageMetadataLabel';
-	protected $storageLabelDataType = '';
-	public $type;
+  protected $storageLabelType = 'Google_Service_DLP_GooglePrivacyDlpV2StorageMetadataLabel';
+  protected $storageLabelDataType = '';
+  public $type;
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2StorageMetadataLabel
-	 */
-	public function setStorageLabel(Google_Service_DLP_GooglePrivacyDlpV2StorageMetadataLabel $storageLabel)
-	{
-		$this->storageLabel = $storageLabel;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2StorageMetadataLabel
-	 */
-	public function getStorageLabel()
-	{
-		return $this->storageLabel;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2StorageMetadataLabel
+   */
+  public function setStorageLabel(Google_Service_DLP_GooglePrivacyDlpV2StorageMetadataLabel $storageLabel)
+  {
+    $this->storageLabel = $storageLabel;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2StorageMetadataLabel
+   */
+  public function getStorageLabel()
+  {
+    return $this->storageLabel;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

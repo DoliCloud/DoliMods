@@ -17,30 +17,30 @@
 
 class Google_Service_Vision_OutputConfig extends Google_Model
 {
-	public $batchSize;
-	protected $gcsDestinationType = 'Google_Service_Vision_GcsDestination';
-	protected $gcsDestinationDataType = '';
+  public $batchSize;
+  protected $gcsDestinationType = 'Google_Service_Vision_GcsDestination';
+  protected $gcsDestinationDataType = '';
 
-	public function setBatchSize($batchSize)
-	{
-		$this->batchSize = $batchSize;
-	}
-	public function getBatchSize()
-	{
-		return $this->batchSize;
-	}
-	/**
-	 * @param Google_Service_Vision_GcsDestination
-	 */
-	public function setGcsDestination(Google_Service_Vision_GcsDestination $gcsDestination)
-	{
-		$this->gcsDestination = $gcsDestination;
-	}
-	/**
-	 * @return Google_Service_Vision_GcsDestination
-	 */
-	public function getGcsDestination()
-	{
-		return $this->gcsDestination;
-	}
+  public function setBatchSize($batchSize)
+  {
+    $this->batchSize = $batchSize;
+  }
+  public function getBatchSize()
+  {
+    return $this->batchSize;
+  }
+  /**
+   * @param Google_Service_Vision_GcsDestination
+   */
+  public function setGcsDestination(Google_Service_Vision_GcsDestination $gcsDestination)
+  {
+    $this->gcsDestination = $gcsDestination;
+  }
+  /**
+   * @return Google_Service_Vision_GcsDestination
+   */
+  public function getGcsDestination()
+  {
+    return $this->gcsDestination;
+  }
 }

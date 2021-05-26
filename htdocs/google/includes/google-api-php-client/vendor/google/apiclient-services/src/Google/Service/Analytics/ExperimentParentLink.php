@@ -17,23 +17,23 @@
 
 class Google_Service_Analytics_ExperimentParentLink extends Google_Model
 {
-	public $href;
-	public $type;
+  public $href;
+  public $type;
 
-	public function setHref($href)
-	{
-		$this->href = $href;
-	}
-	public function getHref()
-	{
-		return $this->href;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setHref($href)
+  {
+    $this->href = $href;
+  }
+  public function getHref()
+  {
+    return $this->href;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

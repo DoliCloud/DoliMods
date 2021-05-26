@@ -17,14 +17,14 @@
 
 class Google_Service_Dataflow_FileIODetails extends Google_Model
 {
-	public $filePattern;
+  public $filePattern;
 
-	public function setFilePattern($filePattern)
-	{
-		$this->filePattern = $filePattern;
-	}
-	public function getFilePattern()
-	{
-		return $this->filePattern;
-	}
+  public function setFilePattern($filePattern)
+  {
+    $this->filePattern = $filePattern;
+  }
+  public function getFilePattern()
+  {
+    return $this->filePattern;
+  }
 }

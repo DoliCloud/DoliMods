@@ -17,46 +17,46 @@
 
 class Google_Service_PlusDomains_PersonCover extends Google_Model
 {
-	protected $coverInfoType = 'Google_Service_PlusDomains_PersonCoverCoverInfo';
-	protected $coverInfoDataType = '';
-	protected $coverPhotoType = 'Google_Service_PlusDomains_PersonCoverCoverPhoto';
-	protected $coverPhotoDataType = '';
-	public $layout;
+  protected $coverInfoType = 'Google_Service_PlusDomains_PersonCoverCoverInfo';
+  protected $coverInfoDataType = '';
+  protected $coverPhotoType = 'Google_Service_PlusDomains_PersonCoverCoverPhoto';
+  protected $coverPhotoDataType = '';
+  public $layout;
 
-	/**
-	 * @param Google_Service_PlusDomains_PersonCoverCoverInfo
-	 */
-	public function setCoverInfo(Google_Service_PlusDomains_PersonCoverCoverInfo $coverInfo)
-	{
-		$this->coverInfo = $coverInfo;
-	}
-	/**
-	 * @return Google_Service_PlusDomains_PersonCoverCoverInfo
-	 */
-	public function getCoverInfo()
-	{
-		return $this->coverInfo;
-	}
-	/**
-	 * @param Google_Service_PlusDomains_PersonCoverCoverPhoto
-	 */
-	public function setCoverPhoto(Google_Service_PlusDomains_PersonCoverCoverPhoto $coverPhoto)
-	{
-		$this->coverPhoto = $coverPhoto;
-	}
-	/**
-	 * @return Google_Service_PlusDomains_PersonCoverCoverPhoto
-	 */
-	public function getCoverPhoto()
-	{
-		return $this->coverPhoto;
-	}
-	public function setLayout($layout)
-	{
-		$this->layout = $layout;
-	}
-	public function getLayout()
-	{
-		return $this->layout;
-	}
+  /**
+   * @param Google_Service_PlusDomains_PersonCoverCoverInfo
+   */
+  public function setCoverInfo(Google_Service_PlusDomains_PersonCoverCoverInfo $coverInfo)
+  {
+    $this->coverInfo = $coverInfo;
+  }
+  /**
+   * @return Google_Service_PlusDomains_PersonCoverCoverInfo
+   */
+  public function getCoverInfo()
+  {
+    return $this->coverInfo;
+  }
+  /**
+   * @param Google_Service_PlusDomains_PersonCoverCoverPhoto
+   */
+  public function setCoverPhoto(Google_Service_PlusDomains_PersonCoverCoverPhoto $coverPhoto)
+  {
+    $this->coverPhoto = $coverPhoto;
+  }
+  /**
+   * @return Google_Service_PlusDomains_PersonCoverCoverPhoto
+   */
+  public function getCoverPhoto()
+  {
+    return $this->coverPhoto;
+  }
+  public function setLayout($layout)
+  {
+    $this->layout = $layout;
+  }
+  public function getLayout()
+  {
+    return $this->layout;
+  }
 }

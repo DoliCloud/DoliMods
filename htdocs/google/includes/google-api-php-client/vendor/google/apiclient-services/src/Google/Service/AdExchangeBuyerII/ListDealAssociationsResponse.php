@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListDealAssociationsResponse extends Google_Collection
 {
-	protected $collection_key = 'associations';
-	protected $associationsType = 'Google_Service_AdExchangeBuyerII_CreativeDealAssociation';
-	protected $associationsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'associations';
+  protected $associationsType = 'Google_Service_AdExchangeBuyerII_CreativeDealAssociation';
+  protected $associationsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_CreativeDealAssociation
-	 */
-	public function setAssociations($associations)
-	{
-		$this->associations = $associations;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_CreativeDealAssociation
-	 */
-	public function getAssociations()
-	{
-		return $this->associations;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_CreativeDealAssociation[]
+   */
+  public function setAssociations($associations)
+  {
+    $this->associations = $associations;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_CreativeDealAssociation[]
+   */
+  public function getAssociations()
+  {
+    return $this->associations;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

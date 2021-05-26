@@ -25,21 +25,21 @@
  */
 class Google_Service_Monitoring_Resource_ProjectsCollectdTimeSeries extends Google_Service_Resource
 {
-	/**
-	 * Stackdriver Monitoring Agent only: Creates a new time series.This method is
-	 * only for use by the Stackdriver Monitoring Agent. Use
-	 * projects.timeSeries.create instead. (collectdTimeSeries.create)
-	 *
-	 * @param string $name The project in which to create the time series. The
-	 *                     format is: projects/[PROJECT_ID_OR_NUMBER]
-	 * @param Google_Service_Monitoring_CreateCollectdTimeSeriesRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Monitoring_CreateCollectdTimeSeriesResponse
-	 */
-	public function create($name, Google_Service_Monitoring_CreateCollectdTimeSeriesRequest $postBody, $optParams = array())
-	{
-		$params = array('name' => $name, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('create', array($params), "Google_Service_Monitoring_CreateCollectdTimeSeriesResponse");
-	}
+  /**
+   * Stackdriver Monitoring Agent only: Creates a new time series.This method is
+   * only for use by the Stackdriver Monitoring Agent. Use
+   * projects.timeSeries.create instead. (collectdTimeSeries.create)
+   *
+   * @param string $name The project in which to create the time series. The
+   * format is: projects/[PROJECT_ID_OR_NUMBER]
+   * @param Google_Service_Monitoring_CreateCollectdTimeSeriesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Monitoring_CreateCollectdTimeSeriesResponse
+   */
+  public function create($name, Google_Service_Monitoring_CreateCollectdTimeSeriesRequest $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('create', array($params), "Google_Service_Monitoring_CreateCollectdTimeSeriesResponse");
+  }
 }

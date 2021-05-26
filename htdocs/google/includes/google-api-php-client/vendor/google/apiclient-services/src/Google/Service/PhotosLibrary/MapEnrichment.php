@@ -17,37 +17,37 @@
 
 class Google_Service_PhotosLibrary_MapEnrichment extends Google_Model
 {
-	protected $destinationType = 'Google_Service_PhotosLibrary_Location';
-	protected $destinationDataType = '';
-	protected $originType = 'Google_Service_PhotosLibrary_Location';
-	protected $originDataType = '';
+  protected $destinationType = 'Google_Service_PhotosLibrary_Location';
+  protected $destinationDataType = '';
+  protected $originType = 'Google_Service_PhotosLibrary_Location';
+  protected $originDataType = '';
 
-	/**
-	 * @param Google_Service_PhotosLibrary_Location
-	 */
-	public function setDestination(Google_Service_PhotosLibrary_Location $destination)
-	{
-		$this->destination = $destination;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_Location
-	 */
-	public function getDestination()
-	{
-		return $this->destination;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_Location
-	 */
-	public function setOrigin(Google_Service_PhotosLibrary_Location $origin)
-	{
-		$this->origin = $origin;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_Location
-	 */
-	public function getOrigin()
-	{
-		return $this->origin;
-	}
+  /**
+   * @param Google_Service_PhotosLibrary_Location
+   */
+  public function setDestination(Google_Service_PhotosLibrary_Location $destination)
+  {
+    $this->destination = $destination;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_Location
+   */
+  public function getDestination()
+  {
+    return $this->destination;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_Location
+   */
+  public function setOrigin(Google_Service_PhotosLibrary_Location $origin)
+  {
+    $this->origin = $origin;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_Location
+   */
+  public function getOrigin()
+  {
+    return $this->origin;
+  }
 }

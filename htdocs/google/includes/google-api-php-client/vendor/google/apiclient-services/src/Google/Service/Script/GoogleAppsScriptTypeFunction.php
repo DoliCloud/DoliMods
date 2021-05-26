@@ -17,14 +17,14 @@
 
 class Google_Service_Script_GoogleAppsScriptTypeFunction extends Google_Model
 {
-	public $name;
+  public $name;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

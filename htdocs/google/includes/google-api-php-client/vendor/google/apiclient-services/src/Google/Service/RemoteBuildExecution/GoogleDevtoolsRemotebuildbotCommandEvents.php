@@ -17,41 +17,50 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildbotCommandEvents extends Google_Model
 {
-	public $dockerCacheHit;
-	public $inputCacheMiss;
-	public $numErrors;
-	public $numWarnings;
+  public $dockerCacheHit;
+  public $dockerImageName;
+  public $inputCacheMiss;
+  public $numErrors;
+  public $numWarnings;
 
-	public function setDockerCacheHit($dockerCacheHit)
-	{
-		$this->dockerCacheHit = $dockerCacheHit;
-	}
-	public function getDockerCacheHit()
-	{
-		return $this->dockerCacheHit;
-	}
-	public function setInputCacheMiss($inputCacheMiss)
-	{
-		$this->inputCacheMiss = $inputCacheMiss;
-	}
-	public function getInputCacheMiss()
-	{
-		return $this->inputCacheMiss;
-	}
-	public function setNumErrors($numErrors)
-	{
-		$this->numErrors = $numErrors;
-	}
-	public function getNumErrors()
-	{
-		return $this->numErrors;
-	}
-	public function setNumWarnings($numWarnings)
-	{
-		$this->numWarnings = $numWarnings;
-	}
-	public function getNumWarnings()
-	{
-		return $this->numWarnings;
-	}
+  public function setDockerCacheHit($dockerCacheHit)
+  {
+    $this->dockerCacheHit = $dockerCacheHit;
+  }
+  public function getDockerCacheHit()
+  {
+    return $this->dockerCacheHit;
+  }
+  public function setDockerImageName($dockerImageName)
+  {
+    $this->dockerImageName = $dockerImageName;
+  }
+  public function getDockerImageName()
+  {
+    return $this->dockerImageName;
+  }
+  public function setInputCacheMiss($inputCacheMiss)
+  {
+    $this->inputCacheMiss = $inputCacheMiss;
+  }
+  public function getInputCacheMiss()
+  {
+    return $this->inputCacheMiss;
+  }
+  public function setNumErrors($numErrors)
+  {
+    $this->numErrors = $numErrors;
+  }
+  public function getNumErrors()
+  {
+    return $this->numErrors;
+  }
+  public function setNumWarnings($numWarnings)
+  {
+    $this->numWarnings = $numWarnings;
+  }
+  public function getNumWarnings()
+  {
+    return $this->numWarnings;
+  }
 }

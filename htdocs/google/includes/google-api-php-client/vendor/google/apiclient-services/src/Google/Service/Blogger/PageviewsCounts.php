@@ -17,23 +17,23 @@
 
 class Google_Service_Blogger_PageviewsCounts extends Google_Model
 {
-	public $count;
-	public $timeRange;
+  public $count;
+  public $timeRange;
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
-	public function setTimeRange($timeRange)
-	{
-		$this->timeRange = $timeRange;
-	}
-	public function getTimeRange()
-	{
-		return $this->timeRange;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
+  public function setTimeRange($timeRange)
+  {
+    $this->timeRange = $timeRange;
+  }
+  public function getTimeRange()
+  {
+    return $this->timeRange;
+  }
 }

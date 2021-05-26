@@ -17,40 +17,40 @@
 
 class Google_Service_RealTimeBidding_PolicyTopicEntry extends Google_Collection
 {
-	protected $collection_key = 'evidences';
-	protected $evidencesType = 'Google_Service_RealTimeBidding_PolicyTopicEvidence';
-	protected $evidencesDataType = 'array';
-	public $helpCenterUrl;
-	public $policyTopic;
+  protected $collection_key = 'evidences';
+  protected $evidencesType = 'Google_Service_RealTimeBidding_PolicyTopicEvidence';
+  protected $evidencesDataType = 'array';
+  public $helpCenterUrl;
+  public $policyTopic;
 
-	/**
-	 * @param Google_Service_RealTimeBidding_PolicyTopicEvidence
-	 */
-	public function setEvidences($evidences)
-	{
-		$this->evidences = $evidences;
-	}
-	/**
-	 * @return Google_Service_RealTimeBidding_PolicyTopicEvidence
-	 */
-	public function getEvidences()
-	{
-		return $this->evidences;
-	}
-	public function setHelpCenterUrl($helpCenterUrl)
-	{
-		$this->helpCenterUrl = $helpCenterUrl;
-	}
-	public function getHelpCenterUrl()
-	{
-		return $this->helpCenterUrl;
-	}
-	public function setPolicyTopic($policyTopic)
-	{
-		$this->policyTopic = $policyTopic;
-	}
-	public function getPolicyTopic()
-	{
-		return $this->policyTopic;
-	}
+  /**
+   * @param Google_Service_RealTimeBidding_PolicyTopicEvidence[]
+   */
+  public function setEvidences($evidences)
+  {
+    $this->evidences = $evidences;
+  }
+  /**
+   * @return Google_Service_RealTimeBidding_PolicyTopicEvidence[]
+   */
+  public function getEvidences()
+  {
+    return $this->evidences;
+  }
+  public function setHelpCenterUrl($helpCenterUrl)
+  {
+    $this->helpCenterUrl = $helpCenterUrl;
+  }
+  public function getHelpCenterUrl()
+  {
+    return $this->helpCenterUrl;
+  }
+  public function setPolicyTopic($policyTopic)
+  {
+    $this->policyTopic = $policyTopic;
+  }
+  public function getPolicyTopic()
+  {
+    return $this->policyTopic;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Devprojects_AbuseType extends Google_Model
 {
-	public $id;
-	public $kind;
-	public $subtype;
+  public $id;
+  public $kind;
+  public $subtype;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setSubtype($subtype)
-	{
-		$this->subtype = $subtype;
-	}
-	public function getSubtype()
-	{
-		return $this->subtype;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setSubtype($subtype)
+  {
+    $this->subtype = $subtype;
+  }
+  public function getSubtype()
+  {
+    return $this->subtype;
+  }
 }

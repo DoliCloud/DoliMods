@@ -17,50 +17,50 @@
 
 class Google_Service_Sasportal_SasPortalDeviceModel extends Google_Model
 {
-	public $firmwareVersion;
-	public $hardwareVersion;
-	public $name;
-	public $softwareVersion;
-	public $vendor;
+  public $firmwareVersion;
+  public $hardwareVersion;
+  public $name;
+  public $softwareVersion;
+  public $vendor;
 
-	public function setFirmwareVersion($firmwareVersion)
-	{
-		$this->firmwareVersion = $firmwareVersion;
-	}
-	public function getFirmwareVersion()
-	{
-		return $this->firmwareVersion;
-	}
-	public function setHardwareVersion($hardwareVersion)
-	{
-		$this->hardwareVersion = $hardwareVersion;
-	}
-	public function getHardwareVersion()
-	{
-		return $this->hardwareVersion;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSoftwareVersion($softwareVersion)
-	{
-		$this->softwareVersion = $softwareVersion;
-	}
-	public function getSoftwareVersion()
-	{
-		return $this->softwareVersion;
-	}
-	public function setVendor($vendor)
-	{
-		$this->vendor = $vendor;
-	}
-	public function getVendor()
-	{
-		return $this->vendor;
-	}
+  public function setFirmwareVersion($firmwareVersion)
+  {
+    $this->firmwareVersion = $firmwareVersion;
+  }
+  public function getFirmwareVersion()
+  {
+    return $this->firmwareVersion;
+  }
+  public function setHardwareVersion($hardwareVersion)
+  {
+    $this->hardwareVersion = $hardwareVersion;
+  }
+  public function getHardwareVersion()
+  {
+    return $this->hardwareVersion;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSoftwareVersion($softwareVersion)
+  {
+    $this->softwareVersion = $softwareVersion;
+  }
+  public function getSoftwareVersion()
+  {
+    return $this->softwareVersion;
+  }
+  public function setVendor($vendor)
+  {
+    $this->vendor = $vendor;
+  }
+  public function getVendor()
+  {
+    return $this->vendor;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_YouTubeAnalytics_EmptyResponse extends Google_Model
 {
-	protected $errorsType = 'Google_Service_YouTubeAnalytics_Errors';
-	protected $errorsDataType = '';
+  protected $errorsType = 'Google_Service_YouTubeAnalytics_Errors';
+  protected $errorsDataType = '';
 
-	/**
-	 * @param Google_Service_YouTubeAnalytics_Errors
-	 */
-	public function setErrors(Google_Service_YouTubeAnalytics_Errors $errors)
-	{
-		$this->errors = $errors;
-	}
-	/**
-	 * @return Google_Service_YouTubeAnalytics_Errors
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
+  /**
+   * @param Google_Service_YouTubeAnalytics_Errors
+   */
+  public function setErrors(Google_Service_YouTubeAnalytics_Errors $errors)
+  {
+    $this->errors = $errors;
+  }
+  /**
+   * @return Google_Service_YouTubeAnalytics_Errors
+   */
+  public function getErrors()
+  {
+    return $this->errors;
+  }
 }

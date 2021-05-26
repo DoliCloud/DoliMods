@@ -17,60 +17,60 @@
 
 class Google_Service_Compute_VmEndpointNatMappingsInterfaceNatMappings extends Google_Collection
 {
-	protected $collection_key = 'natIpPortRanges';
-	public $drainNatIpPortRanges;
-	public $natIpPortRanges;
-	public $numTotalDrainNatPorts;
-	public $numTotalNatPorts;
-	public $sourceAliasIpRange;
-	public $sourceVirtualIp;
+  protected $collection_key = 'natIpPortRanges';
+  public $drainNatIpPortRanges;
+  public $natIpPortRanges;
+  public $numTotalDrainNatPorts;
+  public $numTotalNatPorts;
+  public $sourceAliasIpRange;
+  public $sourceVirtualIp;
 
-	public function setDrainNatIpPortRanges($drainNatIpPortRanges)
-	{
-		$this->drainNatIpPortRanges = $drainNatIpPortRanges;
-	}
-	public function getDrainNatIpPortRanges()
-	{
-		return $this->drainNatIpPortRanges;
-	}
-	public function setNatIpPortRanges($natIpPortRanges)
-	{
-		$this->natIpPortRanges = $natIpPortRanges;
-	}
-	public function getNatIpPortRanges()
-	{
-		return $this->natIpPortRanges;
-	}
-	public function setNumTotalDrainNatPorts($numTotalDrainNatPorts)
-	{
-		$this->numTotalDrainNatPorts = $numTotalDrainNatPorts;
-	}
-	public function getNumTotalDrainNatPorts()
-	{
-		return $this->numTotalDrainNatPorts;
-	}
-	public function setNumTotalNatPorts($numTotalNatPorts)
-	{
-		$this->numTotalNatPorts = $numTotalNatPorts;
-	}
-	public function getNumTotalNatPorts()
-	{
-		return $this->numTotalNatPorts;
-	}
-	public function setSourceAliasIpRange($sourceAliasIpRange)
-	{
-		$this->sourceAliasIpRange = $sourceAliasIpRange;
-	}
-	public function getSourceAliasIpRange()
-	{
-		return $this->sourceAliasIpRange;
-	}
-	public function setSourceVirtualIp($sourceVirtualIp)
-	{
-		$this->sourceVirtualIp = $sourceVirtualIp;
-	}
-	public function getSourceVirtualIp()
-	{
-		return $this->sourceVirtualIp;
-	}
+  public function setDrainNatIpPortRanges($drainNatIpPortRanges)
+  {
+    $this->drainNatIpPortRanges = $drainNatIpPortRanges;
+  }
+  public function getDrainNatIpPortRanges()
+  {
+    return $this->drainNatIpPortRanges;
+  }
+  public function setNatIpPortRanges($natIpPortRanges)
+  {
+    $this->natIpPortRanges = $natIpPortRanges;
+  }
+  public function getNatIpPortRanges()
+  {
+    return $this->natIpPortRanges;
+  }
+  public function setNumTotalDrainNatPorts($numTotalDrainNatPorts)
+  {
+    $this->numTotalDrainNatPorts = $numTotalDrainNatPorts;
+  }
+  public function getNumTotalDrainNatPorts()
+  {
+    return $this->numTotalDrainNatPorts;
+  }
+  public function setNumTotalNatPorts($numTotalNatPorts)
+  {
+    $this->numTotalNatPorts = $numTotalNatPorts;
+  }
+  public function getNumTotalNatPorts()
+  {
+    return $this->numTotalNatPorts;
+  }
+  public function setSourceAliasIpRange($sourceAliasIpRange)
+  {
+    $this->sourceAliasIpRange = $sourceAliasIpRange;
+  }
+  public function getSourceAliasIpRange()
+  {
+    return $this->sourceAliasIpRange;
+  }
+  public function setSourceVirtualIp($sourceVirtualIp)
+  {
+    $this->sourceVirtualIp = $sourceVirtualIp;
+  }
+  public function getSourceVirtualIp()
+  {
+    return $this->sourceVirtualIp;
+  }
 }

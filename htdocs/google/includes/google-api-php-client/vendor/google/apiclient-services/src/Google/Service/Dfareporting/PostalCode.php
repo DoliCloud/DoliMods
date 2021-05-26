@@ -17,50 +17,50 @@
 
 class Google_Service_Dfareporting_PostalCode extends Google_Model
 {
-	public $code;
-	public $countryCode;
-	public $countryDartId;
-	public $id;
-	public $kind;
+  public $code;
+  public $countryCode;
+  public $countryDartId;
+  public $id;
+  public $kind;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setCountryCode($countryCode)
-	{
-		$this->countryCode = $countryCode;
-	}
-	public function getCountryCode()
-	{
-		return $this->countryCode;
-	}
-	public function setCountryDartId($countryDartId)
-	{
-		$this->countryDartId = $countryDartId;
-	}
-	public function getCountryDartId()
-	{
-		return $this->countryDartId;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setCountryCode($countryCode)
+  {
+    $this->countryCode = $countryCode;
+  }
+  public function getCountryCode()
+  {
+    return $this->countryCode;
+  }
+  public function setCountryDartId($countryDartId)
+  {
+    $this->countryDartId = $countryDartId;
+  }
+  public function getCountryDartId()
+  {
+    return $this->countryDartId;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

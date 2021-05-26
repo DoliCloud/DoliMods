@@ -17,47 +17,47 @@
 
 class Google_Service_BigtableAdmin_CreateTableRequest extends Google_Collection
 {
-	protected $collection_key = 'initialSplits';
-	protected $initialSplitsType = 'Google_Service_BigtableAdmin_Split';
-	protected $initialSplitsDataType = 'array';
-	protected $tableType = 'Google_Service_BigtableAdmin_Table';
-	protected $tableDataType = '';
-	public $tableId;
+  protected $collection_key = 'initialSplits';
+  protected $initialSplitsType = 'Google_Service_BigtableAdmin_Split';
+  protected $initialSplitsDataType = 'array';
+  protected $tableType = 'Google_Service_BigtableAdmin_Table';
+  protected $tableDataType = '';
+  public $tableId;
 
-	/**
-	 * @param Google_Service_BigtableAdmin_Split
-	 */
-	public function setInitialSplits($initialSplits)
-	{
-		$this->initialSplits = $initialSplits;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_Split
-	 */
-	public function getInitialSplits()
-	{
-		return $this->initialSplits;
-	}
-	/**
-	 * @param Google_Service_BigtableAdmin_Table
-	 */
-	public function setTable(Google_Service_BigtableAdmin_Table $table)
-	{
-		$this->table = $table;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_Table
-	 */
-	public function getTable()
-	{
-		return $this->table;
-	}
-	public function setTableId($tableId)
-	{
-		$this->tableId = $tableId;
-	}
-	public function getTableId()
-	{
-		return $this->tableId;
-	}
+  /**
+   * @param Google_Service_BigtableAdmin_Split[]
+   */
+  public function setInitialSplits($initialSplits)
+  {
+    $this->initialSplits = $initialSplits;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_Split[]
+   */
+  public function getInitialSplits()
+  {
+    return $this->initialSplits;
+  }
+  /**
+   * @param Google_Service_BigtableAdmin_Table
+   */
+  public function setTable(Google_Service_BigtableAdmin_Table $table)
+  {
+    $this->table = $table;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_Table
+   */
+  public function getTable()
+  {
+    return $this->table;
+  }
+  public function setTableId($tableId)
+  {
+    $this->tableId = $tableId;
+  }
+  public function getTableId()
+  {
+    return $this->tableId;
+  }
 }

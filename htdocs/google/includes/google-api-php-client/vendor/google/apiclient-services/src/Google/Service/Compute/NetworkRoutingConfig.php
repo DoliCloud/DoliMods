@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_NetworkRoutingConfig extends Google_Model
 {
-	public $routingMode;
+  public $routingMode;
 
-	public function setRoutingMode($routingMode)
-	{
-		$this->routingMode = $routingMode;
-	}
-	public function getRoutingMode()
-	{
-		return $this->routingMode;
-	}
+  public function setRoutingMode($routingMode)
+  {
+    $this->routingMode = $routingMode;
+  }
+  public function getRoutingMode()
+  {
+    return $this->routingMode;
+  }
 }

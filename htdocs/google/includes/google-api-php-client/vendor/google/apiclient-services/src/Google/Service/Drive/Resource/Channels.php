@@ -25,16 +25,16 @@
  */
 class Google_Service_Drive_Resource_Channels extends Google_Service_Resource
 {
-	/**
-	 * Stop watching resources through this channel (channels.stop)
-	 *
-	 * @param Google_Service_Drive_Channel $postBody
-	 * @param array $optParams Optional parameters.
-	 */
-	public function stop(Google_Service_Drive_Channel $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('stop', array($params));
-	}
+  /**
+   * Stop watching resources through this channel (channels.stop)
+   *
+   * @param Google_Service_Drive_Channel $postBody
+   * @param array $optParams Optional parameters.
+   */
+  public function stop(Google_Service_Drive_Channel $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('stop', array($params));
+  }
 }

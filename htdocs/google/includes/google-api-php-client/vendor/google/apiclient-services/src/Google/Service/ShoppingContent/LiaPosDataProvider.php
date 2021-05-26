@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_LiaPosDataProvider extends Google_Model
 {
-	public $posDataProviderId;
-	public $posExternalAccountId;
+  public $posDataProviderId;
+  public $posExternalAccountId;
 
-	public function setPosDataProviderId($posDataProviderId)
-	{
-		$this->posDataProviderId = $posDataProviderId;
-	}
-	public function getPosDataProviderId()
-	{
-		return $this->posDataProviderId;
-	}
-	public function setPosExternalAccountId($posExternalAccountId)
-	{
-		$this->posExternalAccountId = $posExternalAccountId;
-	}
-	public function getPosExternalAccountId()
-	{
-		return $this->posExternalAccountId;
-	}
+  public function setPosDataProviderId($posDataProviderId)
+  {
+    $this->posDataProviderId = $posDataProviderId;
+  }
+  public function getPosDataProviderId()
+  {
+    return $this->posDataProviderId;
+  }
+  public function setPosExternalAccountId($posExternalAccountId)
+  {
+    $this->posExternalAccountId = $posExternalAccountId;
+  }
+  public function getPosExternalAccountId()
+  {
+    return $this->posExternalAccountId;
+  }
 }

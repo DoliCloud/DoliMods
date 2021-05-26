@@ -17,23 +17,23 @@
 
 class Google_Service_CloudHealthcare_ParserConfig extends Google_Model
 {
-	public $allowNullHeader;
-	public $segmentTerminator;
+  public $allowNullHeader;
+  public $segmentTerminator;
 
-	public function setAllowNullHeader($allowNullHeader)
-	{
-		$this->allowNullHeader = $allowNullHeader;
-	}
-	public function getAllowNullHeader()
-	{
-		return $this->allowNullHeader;
-	}
-	public function setSegmentTerminator($segmentTerminator)
-	{
-		$this->segmentTerminator = $segmentTerminator;
-	}
-	public function getSegmentTerminator()
-	{
-		return $this->segmentTerminator;
-	}
+  public function setAllowNullHeader($allowNullHeader)
+  {
+    $this->allowNullHeader = $allowNullHeader;
+  }
+  public function getAllowNullHeader()
+  {
+    return $this->allowNullHeader;
+  }
+  public function setSegmentTerminator($segmentTerminator)
+  {
+    $this->segmentTerminator = $segmentTerminator;
+  }
+  public function getSegmentTerminator()
+  {
+    return $this->segmentTerminator;
+  }
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_ServiceControl_AuthorizationInfo extends Google_Model
 {
-	public $granted;
-	public $permission;
-	public $resource;
-	protected $resourceAttributesType = 'Google_Service_ServiceControl_ServicecontrolResource';
-	protected $resourceAttributesDataType = '';
+  public $granted;
+  public $permission;
+  public $resource;
+  protected $resourceAttributesType = 'Google_Service_ServiceControl_ServicecontrolResource';
+  protected $resourceAttributesDataType = '';
 
-	public function setGranted($granted)
-	{
-		$this->granted = $granted;
-	}
-	public function getGranted()
-	{
-		return $this->granted;
-	}
-	public function setPermission($permission)
-	{
-		$this->permission = $permission;
-	}
-	public function getPermission()
-	{
-		return $this->permission;
-	}
-	public function setResource($resource)
-	{
-		$this->resource = $resource;
-	}
-	public function getResource()
-	{
-		return $this->resource;
-	}
-	/**
-	 * @param Google_Service_ServiceControl_ServicecontrolResource
-	 */
-	public function setResourceAttributes(Google_Service_ServiceControl_ServicecontrolResource $resourceAttributes)
-	{
-		$this->resourceAttributes = $resourceAttributes;
-	}
-	/**
-	 * @return Google_Service_ServiceControl_ServicecontrolResource
-	 */
-	public function getResourceAttributes()
-	{
-		return $this->resourceAttributes;
-	}
+  public function setGranted($granted)
+  {
+    $this->granted = $granted;
+  }
+  public function getGranted()
+  {
+    return $this->granted;
+  }
+  public function setPermission($permission)
+  {
+    $this->permission = $permission;
+  }
+  public function getPermission()
+  {
+    return $this->permission;
+  }
+  public function setResource($resource)
+  {
+    $this->resource = $resource;
+  }
+  public function getResource()
+  {
+    return $this->resource;
+  }
+  /**
+   * @param Google_Service_ServiceControl_ServicecontrolResource
+   */
+  public function setResourceAttributes(Google_Service_ServiceControl_ServicecontrolResource $resourceAttributes)
+  {
+    $this->resourceAttributes = $resourceAttributes;
+  }
+  /**
+   * @return Google_Service_ServiceControl_ServicecontrolResource
+   */
+  public function getResourceAttributes()
+  {
+    return $this->resourceAttributes;
+  }
 }

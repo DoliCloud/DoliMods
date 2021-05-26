@@ -17,41 +17,41 @@
 
 class Google_Service_ShoppingContent_OrderPromotionItem extends Google_Model
 {
-	public $lineItemId;
-	public $offerId;
-	public $productId;
-	public $quantity;
+  public $lineItemId;
+  public $offerId;
+  public $productId;
+  public $quantity;
 
-	public function setLineItemId($lineItemId)
-	{
-		$this->lineItemId = $lineItemId;
-	}
-	public function getLineItemId()
-	{
-		return $this->lineItemId;
-	}
-	public function setOfferId($offerId)
-	{
-		$this->offerId = $offerId;
-	}
-	public function getOfferId()
-	{
-		return $this->offerId;
-	}
-	public function setProductId($productId)
-	{
-		$this->productId = $productId;
-	}
-	public function getProductId()
-	{
-		return $this->productId;
-	}
-	public function setQuantity($quantity)
-	{
-		$this->quantity = $quantity;
-	}
-	public function getQuantity()
-	{
-		return $this->quantity;
-	}
+  public function setLineItemId($lineItemId)
+  {
+    $this->lineItemId = $lineItemId;
+  }
+  public function getLineItemId()
+  {
+    return $this->lineItemId;
+  }
+  public function setOfferId($offerId)
+  {
+    $this->offerId = $offerId;
+  }
+  public function getOfferId()
+  {
+    return $this->offerId;
+  }
+  public function setProductId($productId)
+  {
+    $this->productId = $productId;
+  }
+  public function getProductId()
+  {
+    return $this->productId;
+  }
+  public function setQuantity($quantity)
+  {
+    $this->quantity = $quantity;
+  }
+  public function getQuantity()
+  {
+    return $this->quantity;
+  }
 }

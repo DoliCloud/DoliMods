@@ -17,21 +17,21 @@
 
 class Google_Service_CloudIot_RegistryCredential extends Google_Model
 {
-	protected $publicKeyCertificateType = 'Google_Service_CloudIot_PublicKeyCertificate';
-	protected $publicKeyCertificateDataType = '';
+  protected $publicKeyCertificateType = 'Google_Service_CloudIot_PublicKeyCertificate';
+  protected $publicKeyCertificateDataType = '';
 
-	/**
-	 * @param Google_Service_CloudIot_PublicKeyCertificate
-	 */
-	public function setPublicKeyCertificate(Google_Service_CloudIot_PublicKeyCertificate $publicKeyCertificate)
-	{
-		$this->publicKeyCertificate = $publicKeyCertificate;
-	}
-	/**
-	 * @return Google_Service_CloudIot_PublicKeyCertificate
-	 */
-	public function getPublicKeyCertificate()
-	{
-		return $this->publicKeyCertificate;
-	}
+  /**
+   * @param Google_Service_CloudIot_PublicKeyCertificate
+   */
+  public function setPublicKeyCertificate(Google_Service_CloudIot_PublicKeyCertificate $publicKeyCertificate)
+  {
+    $this->publicKeyCertificate = $publicKeyCertificate;
+  }
+  /**
+   * @return Google_Service_CloudIot_PublicKeyCertificate
+   */
+  public function getPublicKeyCertificate()
+  {
+    return $this->publicKeyCertificate;
+  }
 }

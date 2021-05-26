@@ -17,34 +17,34 @@
 
 class Google_Service_People_ListConnectionsResponse extends Google_Collection
 {
-	protected $collection_key = 'connections';
-	protected $connectionsType = 'Google_Service_People_Person';
-	protected $connectionsDataType = 'array';
-	public $nextPageToken;
-	public $nextSyncToken;
+  protected $collection_key = 'connections';
+  protected $connectionsType = 'Google_Service_People_Person';
+  protected $connectionsDataType = 'array';
+  public $nextPageToken;
+  public $nextSyncToken;
 
-	public function setConnections($connections)
-	{
-		$this->connections = $connections;
-	}
-	public function getConnections()
-	{
-		return $this->connections;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setNextSyncToken($nextSyncToken)
-	{
-		$this->nextSyncToken = $nextSyncToken;
-	}
-	public function getNextSyncToken()
-	{
-		return $this->nextSyncToken;
-	}
+  public function setConnections($connections)
+  {
+    $this->connections = $connections;
+  }
+  public function getConnections()
+  {
+    return $this->connections;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setNextSyncToken($nextSyncToken)
+  {
+    $this->nextSyncToken = $nextSyncToken;
+  }
+  public function getNextSyncToken()
+  {
+    return $this->nextSyncToken;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Apigee_GoogleIamV1Binding extends Google_Collection
 {
-	protected $collection_key = 'members';
-	protected $conditionType = 'Google_Service_Apigee_GoogleTypeExpr';
-	protected $conditionDataType = '';
-	public $members;
-	public $role;
+  protected $collection_key = 'members';
+  protected $conditionType = 'Google_Service_Apigee_GoogleTypeExpr';
+  protected $conditionDataType = '';
+  public $members;
+  public $role;
 
-	/**
-	 * @param Google_Service_Apigee_GoogleTypeExpr
-	 */
-	public function setCondition(Google_Service_Apigee_GoogleTypeExpr $condition)
-	{
-		$this->condition = $condition;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleTypeExpr
-	 */
-	public function getCondition()
-	{
-		return $this->condition;
-	}
-	public function setMembers($members)
-	{
-		$this->members = $members;
-	}
-	public function getMembers()
-	{
-		return $this->members;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleTypeExpr
+   */
+  public function setCondition(Google_Service_Apigee_GoogleTypeExpr $condition)
+  {
+    $this->condition = $condition;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleTypeExpr
+   */
+  public function getCondition()
+  {
+    return $this->condition;
+  }
+  public function setMembers($members)
+  {
+    $this->members = $members;
+  }
+  public function getMembers()
+  {
+    return $this->members;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
 }

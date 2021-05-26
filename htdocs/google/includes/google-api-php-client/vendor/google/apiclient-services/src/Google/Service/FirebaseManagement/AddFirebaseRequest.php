@@ -17,32 +17,32 @@
 
 class Google_Service_FirebaseManagement_AddFirebaseRequest extends Google_Model
 {
-	public $locationId;
-	public $regionCode;
-	public $timeZone;
+  public $locationId;
+  public $regionCode;
+  public $timeZone;
 
-	public function setLocationId($locationId)
-	{
-		$this->locationId = $locationId;
-	}
-	public function getLocationId()
-	{
-		return $this->locationId;
-	}
-	public function setRegionCode($regionCode)
-	{
-		$this->regionCode = $regionCode;
-	}
-	public function getRegionCode()
-	{
-		return $this->regionCode;
-	}
-	public function setTimeZone($timeZone)
-	{
-		$this->timeZone = $timeZone;
-	}
-	public function getTimeZone()
-	{
-		return $this->timeZone;
-	}
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
+  }
+  public function setRegionCode($regionCode)
+  {
+    $this->regionCode = $regionCode;
+  }
+  public function getRegionCode()
+  {
+    return $this->regionCode;
+  }
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  public function getTimeZone()
+  {
+    return $this->timeZone;
+  }
 }

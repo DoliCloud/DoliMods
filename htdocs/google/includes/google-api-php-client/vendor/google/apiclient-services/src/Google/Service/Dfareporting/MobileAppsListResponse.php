@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_MobileAppsListResponse extends Google_Collection
 {
-	protected $collection_key = 'mobileApps';
-	public $kind;
-	protected $mobileAppsType = 'Google_Service_Dfareporting_MobileApp';
-	protected $mobileAppsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'mobileApps';
+  public $kind;
+  protected $mobileAppsType = 'Google_Service_Dfareporting_MobileApp';
+  protected $mobileAppsDataType = 'array';
+  public $nextPageToken;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_MobileApp
-	 */
-	public function setMobileApps($mobileApps)
-	{
-		$this->mobileApps = $mobileApps;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_MobileApp
-	 */
-	public function getMobileApps()
-	{
-		return $this->mobileApps;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_MobileApp[]
+   */
+  public function setMobileApps($mobileApps)
+  {
+    $this->mobileApps = $mobileApps;
+  }
+  /**
+   * @return Google_Service_Dfareporting_MobileApp[]
+   */
+  public function getMobileApps()
+  {
+    return $this->mobileApps;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

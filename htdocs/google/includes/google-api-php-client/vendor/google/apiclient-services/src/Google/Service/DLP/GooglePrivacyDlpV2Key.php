@@ -17,38 +17,38 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2Key extends Google_Collection
 {
-	protected $collection_key = 'path';
-	protected $partitionIdType = 'Google_Service_DLP_GooglePrivacyDlpV2PartitionId';
-	protected $partitionIdDataType = '';
-	protected $pathType = 'Google_Service_DLP_GooglePrivacyDlpV2PathElement';
-	protected $pathDataType = 'array';
+  protected $collection_key = 'path';
+  protected $partitionIdType = 'Google_Service_DLP_GooglePrivacyDlpV2PartitionId';
+  protected $partitionIdDataType = '';
+  protected $pathType = 'Google_Service_DLP_GooglePrivacyDlpV2PathElement';
+  protected $pathDataType = 'array';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2PartitionId
-	 */
-	public function setPartitionId(Google_Service_DLP_GooglePrivacyDlpV2PartitionId $partitionId)
-	{
-		$this->partitionId = $partitionId;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2PartitionId
-	 */
-	public function getPartitionId()
-	{
-		return $this->partitionId;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2PathElement
-	 */
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2PathElement
-	 */
-	public function getPath()
-	{
-		return $this->path;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2PartitionId
+   */
+  public function setPartitionId(Google_Service_DLP_GooglePrivacyDlpV2PartitionId $partitionId)
+  {
+    $this->partitionId = $partitionId;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2PartitionId
+   */
+  public function getPartitionId()
+  {
+    return $this->partitionId;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2PathElement[]
+   */
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2PathElement[]
+   */
+  public function getPath()
+  {
+    return $this->path;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Replicapoolupdater_RollingUpdateError extends Google_Collection
 {
-	protected $collection_key = 'errors';
-	protected $errorsType = 'Google_Service_Replicapoolupdater_RollingUpdateErrorErrors';
-	protected $errorsDataType = 'array';
+  protected $collection_key = 'errors';
+  protected $errorsType = 'Google_Service_Replicapoolupdater_RollingUpdateErrorErrors';
+  protected $errorsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Replicapoolupdater_RollingUpdateErrorErrors
-	 */
-	public function setErrors($errors)
-	{
-		$this->errors = $errors;
-	}
-	/**
-	 * @return Google_Service_Replicapoolupdater_RollingUpdateErrorErrors
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
+  /**
+   * @param Google_Service_Replicapoolupdater_RollingUpdateErrorErrors
+   */
+  public function setErrors($errors)
+  {
+    $this->errors = $errors;
+  }
+  /**
+   * @return Google_Service_Replicapoolupdater_RollingUpdateErrorErrors
+   */
+  public function getErrors()
+  {
+    return $this->errors;
+  }
 }

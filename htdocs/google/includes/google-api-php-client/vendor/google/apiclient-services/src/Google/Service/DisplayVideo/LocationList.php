@@ -17,50 +17,50 @@
 
 class Google_Service_DisplayVideo_LocationList extends Google_Model
 {
-	public $advertiserId;
-	public $displayName;
-	public $locationListId;
-	public $locationType;
-	public $name;
+  public $advertiserId;
+  public $displayName;
+  public $locationListId;
+  public $locationType;
+  public $name;
 
-	public function setAdvertiserId($advertiserId)
-	{
-		$this->advertiserId = $advertiserId;
-	}
-	public function getAdvertiserId()
-	{
-		return $this->advertiserId;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setLocationListId($locationListId)
-	{
-		$this->locationListId = $locationListId;
-	}
-	public function getLocationListId()
-	{
-		return $this->locationListId;
-	}
-	public function setLocationType($locationType)
-	{
-		$this->locationType = $locationType;
-	}
-	public function getLocationType()
-	{
-		return $this->locationType;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setAdvertiserId($advertiserId)
+  {
+    $this->advertiserId = $advertiserId;
+  }
+  public function getAdvertiserId()
+  {
+    return $this->advertiserId;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setLocationListId($locationListId)
+  {
+    $this->locationListId = $locationListId;
+  }
+  public function getLocationListId()
+  {
+    return $this->locationListId;
+  }
+  public function setLocationType($locationType)
+  {
+    $this->locationType = $locationType;
+  }
+  public function getLocationType()
+  {
+    return $this->locationType;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

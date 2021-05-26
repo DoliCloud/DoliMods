@@ -17,31 +17,31 @@
 
 class Google_Service_Replicapool_ReplicasListResponse extends Google_Collection
 {
-	protected $collection_key = 'resources';
-	public $nextPageToken;
-	protected $resourcesType = 'Google_Service_Replicapool_Replica';
-	protected $resourcesDataType = 'array';
+  protected $collection_key = 'resources';
+  public $nextPageToken;
+  protected $resourcesType = 'Google_Service_Replicapool_Replica';
+  protected $resourcesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Replicapool_Replica
-	 */
-	public function setResources($resources)
-	{
-		$this->resources = $resources;
-	}
-	/**
-	 * @return Google_Service_Replicapool_Replica
-	 */
-	public function getResources()
-	{
-		return $this->resources;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Replicapool_Replica
+   */
+  public function setResources($resources)
+  {
+    $this->resources = $resources;
+  }
+  /**
+   * @return Google_Service_Replicapool_Replica
+   */
+  public function getResources()
+  {
+    return $this->resources;
+  }
 }

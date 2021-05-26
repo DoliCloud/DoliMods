@@ -17,37 +17,37 @@
 
 class Google_Service_CloudHealthcare_ExportDicomDataRequest extends Google_Model
 {
-	protected $bigqueryDestinationType = 'Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination';
-	protected $bigqueryDestinationDataType = '';
-	protected $gcsDestinationType = 'Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomGcsDestination';
-	protected $gcsDestinationDataType = '';
+  protected $bigqueryDestinationType = 'Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination';
+  protected $bigqueryDestinationDataType = '';
+  protected $gcsDestinationType = 'Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomGcsDestination';
+  protected $gcsDestinationDataType = '';
 
-	/**
-	 * @param Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination
-	 */
-	public function setBigqueryDestination(Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination $bigqueryDestination)
-	{
-		$this->bigqueryDestination = $bigqueryDestination;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination
-	 */
-	public function getBigqueryDestination()
-	{
-		return $this->bigqueryDestination;
-	}
-	/**
-	 * @param Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomGcsDestination
-	 */
-	public function setGcsDestination(Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomGcsDestination $gcsDestination)
-	{
-		$this->gcsDestination = $gcsDestination;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomGcsDestination
-	 */
-	public function getGcsDestination()
-	{
-		return $this->gcsDestination;
-	}
+  /**
+   * @param Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination
+   */
+  public function setBigqueryDestination(Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination $bigqueryDestination)
+  {
+    $this->bigqueryDestination = $bigqueryDestination;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomBigQueryDestination
+   */
+  public function getBigqueryDestination()
+  {
+    return $this->bigqueryDestination;
+  }
+  /**
+   * @param Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomGcsDestination
+   */
+  public function setGcsDestination(Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomGcsDestination $gcsDestination)
+  {
+    $this->gcsDestination = $gcsDestination;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_GoogleCloudHealthcareV1DicomGcsDestination
+   */
+  public function getGcsDestination()
+  {
+    return $this->gcsDestination;
+  }
 }

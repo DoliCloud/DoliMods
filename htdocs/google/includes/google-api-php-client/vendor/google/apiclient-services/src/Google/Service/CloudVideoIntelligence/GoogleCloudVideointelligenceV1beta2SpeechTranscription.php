@@ -17,31 +17,31 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2SpeechTranscription extends Google_Collection
 {
-	protected $collection_key = 'alternatives';
-	protected $alternativesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2SpeechRecognitionAlternative';
-	protected $alternativesDataType = 'array';
-	public $languageCode;
+  protected $collection_key = 'alternatives';
+  protected $alternativesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2SpeechRecognitionAlternative';
+  protected $alternativesDataType = 'array';
+  public $languageCode;
 
-	/**
-	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2SpeechRecognitionAlternative
-	 */
-	public function setAlternatives($alternatives)
-	{
-		$this->alternatives = $alternatives;
-	}
-	/**
-	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2SpeechRecognitionAlternative
-	 */
-	public function getAlternatives()
-	{
-		return $this->alternatives;
-	}
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
+  /**
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2SpeechRecognitionAlternative[]
+   */
+  public function setAlternatives($alternatives)
+  {
+    $this->alternatives = $alternatives;
+  }
+  /**
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2SpeechRecognitionAlternative[]
+   */
+  public function getAlternatives()
+  {
+    return $this->alternatives;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
 }

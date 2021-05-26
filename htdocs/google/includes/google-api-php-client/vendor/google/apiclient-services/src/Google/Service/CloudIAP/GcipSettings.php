@@ -17,24 +17,24 @@
 
 class Google_Service_CloudIAP_GcipSettings extends Google_Collection
 {
-	protected $collection_key = 'tenantIds';
-	public $loginPageUri;
-	public $tenantIds;
+  protected $collection_key = 'tenantIds';
+  public $loginPageUri;
+  public $tenantIds;
 
-	public function setLoginPageUri($loginPageUri)
-	{
-		$this->loginPageUri = $loginPageUri;
-	}
-	public function getLoginPageUri()
-	{
-		return $this->loginPageUri;
-	}
-	public function setTenantIds($tenantIds)
-	{
-		$this->tenantIds = $tenantIds;
-	}
-	public function getTenantIds()
-	{
-		return $this->tenantIds;
-	}
+  public function setLoginPageUri($loginPageUri)
+  {
+    $this->loginPageUri = $loginPageUri;
+  }
+  public function getLoginPageUri()
+  {
+    return $this->loginPageUri;
+  }
+  public function setTenantIds($tenantIds)
+  {
+    $this->tenantIds = $tenantIds;
+  }
+  public function getTenantIds()
+  {
+    return $this->tenantIds;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_ResourcePolicyGroupPlacementPolicy extends Google_Model
 {
-	public $availabilityDomainCount;
-	public $collocation;
-	public $vmCount;
+  public $availabilityDomainCount;
+  public $collocation;
+  public $vmCount;
 
-	public function setAvailabilityDomainCount($availabilityDomainCount)
-	{
-		$this->availabilityDomainCount = $availabilityDomainCount;
-	}
-	public function getAvailabilityDomainCount()
-	{
-		return $this->availabilityDomainCount;
-	}
-	public function setCollocation($collocation)
-	{
-		$this->collocation = $collocation;
-	}
-	public function getCollocation()
-	{
-		return $this->collocation;
-	}
-	public function setVmCount($vmCount)
-	{
-		$this->vmCount = $vmCount;
-	}
-	public function getVmCount()
-	{
-		return $this->vmCount;
-	}
+  public function setAvailabilityDomainCount($availabilityDomainCount)
+  {
+    $this->availabilityDomainCount = $availabilityDomainCount;
+  }
+  public function getAvailabilityDomainCount()
+  {
+    return $this->availabilityDomainCount;
+  }
+  public function setCollocation($collocation)
+  {
+    $this->collocation = $collocation;
+  }
+  public function getCollocation()
+  {
+    return $this->collocation;
+  }
+  public function setVmCount($vmCount)
+  {
+    $this->vmCount = $vmCount;
+  }
+  public function getVmCount()
+  {
+    return $this->vmCount;
+  }
 }

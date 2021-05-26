@@ -17,23 +17,23 @@
 
 class Google_Service_IAMCredentials_SignBlobResponse extends Google_Model
 {
-	public $keyId;
-	public $signedBlob;
+  public $keyId;
+  public $signedBlob;
 
-	public function setKeyId($keyId)
-	{
-		$this->keyId = $keyId;
-	}
-	public function getKeyId()
-	{
-		return $this->keyId;
-	}
-	public function setSignedBlob($signedBlob)
-	{
-		$this->signedBlob = $signedBlob;
-	}
-	public function getSignedBlob()
-	{
-		return $this->signedBlob;
-	}
+  public function setKeyId($keyId)
+  {
+    $this->keyId = $keyId;
+  }
+  public function getKeyId()
+  {
+    return $this->keyId;
+  }
+  public function setSignedBlob($signedBlob)
+  {
+    $this->signedBlob = $signedBlob;
+  }
+  public function getSignedBlob()
+  {
+    return $this->signedBlob;
+  }
 }

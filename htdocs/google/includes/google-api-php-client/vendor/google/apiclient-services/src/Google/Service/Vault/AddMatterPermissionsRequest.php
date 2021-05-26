@@ -17,39 +17,39 @@
 
 class Google_Service_Vault_AddMatterPermissionsRequest extends Google_Model
 {
-	public $ccMe;
-	protected $matterPermissionType = 'Google_Service_Vault_MatterPermission';
-	protected $matterPermissionDataType = '';
-	public $sendEmails;
+  public $ccMe;
+  protected $matterPermissionType = 'Google_Service_Vault_MatterPermission';
+  protected $matterPermissionDataType = '';
+  public $sendEmails;
 
-	public function setCcMe($ccMe)
-	{
-		$this->ccMe = $ccMe;
-	}
-	public function getCcMe()
-	{
-		return $this->ccMe;
-	}
-	/**
-	 * @param Google_Service_Vault_MatterPermission
-	 */
-	public function setMatterPermission(Google_Service_Vault_MatterPermission $matterPermission)
-	{
-		$this->matterPermission = $matterPermission;
-	}
-	/**
-	 * @return Google_Service_Vault_MatterPermission
-	 */
-	public function getMatterPermission()
-	{
-		return $this->matterPermission;
-	}
-	public function setSendEmails($sendEmails)
-	{
-		$this->sendEmails = $sendEmails;
-	}
-	public function getSendEmails()
-	{
-		return $this->sendEmails;
-	}
+  public function setCcMe($ccMe)
+  {
+    $this->ccMe = $ccMe;
+  }
+  public function getCcMe()
+  {
+    return $this->ccMe;
+  }
+  /**
+   * @param Google_Service_Vault_MatterPermission
+   */
+  public function setMatterPermission(Google_Service_Vault_MatterPermission $matterPermission)
+  {
+    $this->matterPermission = $matterPermission;
+  }
+  /**
+   * @return Google_Service_Vault_MatterPermission
+   */
+  public function getMatterPermission()
+  {
+    return $this->matterPermission;
+  }
+  public function setSendEmails($sendEmails)
+  {
+    $this->sendEmails = $sendEmails;
+  }
+  public function getSendEmails()
+  {
+    return $this->sendEmails;
+  }
 }

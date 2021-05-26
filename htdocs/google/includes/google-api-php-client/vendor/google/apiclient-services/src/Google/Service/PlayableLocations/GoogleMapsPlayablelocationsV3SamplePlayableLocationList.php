@@ -17,22 +17,22 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationList extends Google_Collection
 {
-	protected $collection_key = 'locations';
-	protected $locationsType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocation';
-	protected $locationsDataType = 'array';
+  protected $collection_key = 'locations';
+  protected $locationsType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocation';
+  protected $locationsDataType = 'array';
 
-	/**
-	 * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocation
-	 */
-	public function setLocations($locations)
-	{
-		$this->locations = $locations;
-	}
-	/**
-	 * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocation
-	 */
-	public function getLocations()
-	{
-		return $this->locations;
-	}
+  /**
+   * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocation[]
+   */
+  public function setLocations($locations)
+  {
+    $this->locations = $locations;
+  }
+  /**
+   * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocation[]
+   */
+  public function getLocations()
+  {
+    return $this->locations;
+  }
 }

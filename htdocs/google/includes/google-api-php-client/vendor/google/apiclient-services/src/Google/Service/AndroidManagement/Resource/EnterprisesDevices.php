@@ -25,93 +25,93 @@
  */
 class Google_Service_AndroidManagement_Resource_EnterprisesDevices extends Google_Service_Resource
 {
-	/**
-	 * Deletes a device. This operation wipes the device. (devices.delete)
-	 *
-	 * @param string $name The name of the device in the form
-	 *                     enterprises/{enterpriseId}/devices/{deviceId}.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string wipeReasonMessage Optional. A short message displayed to
-	 * the user before wiping the work profile on personal devices. This has no
-	 * effect on company owned devices. The maximum message length is 200
-	 * characters.
-	 * @opt_param string wipeDataFlags Optional flags that control the device wiping
-	 * behavior.
-	 * @return Google_Service_AndroidManagement_AndroidmanagementEmpty
-	 */
-	public function delete($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params), "Google_Service_AndroidManagement_AndroidmanagementEmpty");
-	}
-	/**
-	 * Gets a device. (devices.get)
-	 *
-	 * @param string $name The name of the device in the form
-	 *                     enterprises/{enterpriseId}/devices/{deviceId}.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidManagement_Device
-	 */
-	public function get($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_AndroidManagement_Device");
-	}
-	/**
-	 * Issues a command to a device. The Operation resource returned contains a
-	 * Command in its metadata field. Use the get operation method to get the status
-	 * of the command. (devices.issueCommand)
-	 *
-	 * @param string $name The name of the device in the form
-	 *                     enterprises/{enterpriseId}/devices/{deviceId}.
-	 * @param Google_Service_AndroidManagement_Command $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidManagement_Operation
-	 */
-	public function issueCommand($name, Google_Service_AndroidManagement_Command $postBody, $optParams = array())
-	{
-		$params = array('name' => $name, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('issueCommand', array($params), "Google_Service_AndroidManagement_Operation");
-	}
-	/**
-	 * Lists devices for a given enterprise. (devices.listEnterprisesDevices)
-	 *
-	 * @param string $parent The name of the enterprise in the form
-	 *                       enterprises/{enterpriseId}.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param int pageSize The requested page size. The actual page size may be
-	 * fixed to a min or max value.
-	 * @opt_param string pageToken A token identifying a page of results returned by
-	 * the server.
-	 * @return Google_Service_AndroidManagement_ListDevicesResponse
-	 */
-	public function listEnterprisesDevices($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AndroidManagement_ListDevicesResponse");
-	}
-	/**
-	 * Updates a device. (devices.patch)
-	 *
-	 * @param string $name The name of the device in the form
-	 *                     enterprises/{enterpriseId}/devices/{deviceId}.
-	 * @param Google_Service_AndroidManagement_Device $postBody
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string updateMask The field mask indicating the fields to update.
-	 * If not set, all modifiable fields will be modified.
-	 * @return Google_Service_AndroidManagement_Device
-	 */
-	public function patch($name, Google_Service_AndroidManagement_Device $postBody, $optParams = array())
-	{
-		$params = array('name' => $name, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('patch', array($params), "Google_Service_AndroidManagement_Device");
-	}
+  /**
+   * Deletes a device. This operation wipes the device. (devices.delete)
+   *
+   * @param string $name The name of the device in the form
+   * enterprises/{enterpriseId}/devices/{deviceId}.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string wipeDataFlags Optional flags that control the device wiping
+   * behavior.
+   * @opt_param string wipeReasonMessage Optional. A short message displayed to
+   * the user before wiping the work profile on personal devices. This has no
+   * effect on company owned devices. The maximum message length is 200
+   * characters.
+   * @return Google_Service_AndroidManagement_AndroidmanagementEmpty
+   */
+  public function delete($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_AndroidManagement_AndroidmanagementEmpty");
+  }
+  /**
+   * Gets a device. (devices.get)
+   *
+   * @param string $name The name of the device in the form
+   * enterprises/{enterpriseId}/devices/{deviceId}.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidManagement_Device
+   */
+  public function get($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_AndroidManagement_Device");
+  }
+  /**
+   * Issues a command to a device. The Operation resource returned contains a
+   * Command in its metadata field. Use the get operation method to get the status
+   * of the command. (devices.issueCommand)
+   *
+   * @param string $name The name of the device in the form
+   * enterprises/{enterpriseId}/devices/{deviceId}.
+   * @param Google_Service_AndroidManagement_Command $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidManagement_Operation
+   */
+  public function issueCommand($name, Google_Service_AndroidManagement_Command $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('issueCommand', array($params), "Google_Service_AndroidManagement_Operation");
+  }
+  /**
+   * Lists devices for a given enterprise. (devices.listEnterprisesDevices)
+   *
+   * @param string $parent The name of the enterprise in the form
+   * enterprises/{enterpriseId}.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize The requested page size. The actual page size may be
+   * fixed to a min or max value.
+   * @opt_param string pageToken A token identifying a page of results returned by
+   * the server.
+   * @return Google_Service_AndroidManagement_ListDevicesResponse
+   */
+  public function listEnterprisesDevices($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AndroidManagement_ListDevicesResponse");
+  }
+  /**
+   * Updates a device. (devices.patch)
+   *
+   * @param string $name The name of the device in the form
+   * enterprises/{enterpriseId}/devices/{deviceId}.
+   * @param Google_Service_AndroidManagement_Device $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask The field mask indicating the fields to update.
+   * If not set, all modifiable fields will be modified.
+   * @return Google_Service_AndroidManagement_Device
+   */
+  public function patch($name, Google_Service_AndroidManagement_Device $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', array($params), "Google_Service_AndroidManagement_Device");
+  }
 }

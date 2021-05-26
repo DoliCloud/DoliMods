@@ -17,48 +17,48 @@
 
 class Google_Service_CloudTalentSolution_RequestMetadata extends Google_Model
 {
-	protected $deviceInfoType = 'Google_Service_CloudTalentSolution_DeviceInfo';
-	protected $deviceInfoDataType = '';
-	public $domain;
-	public $sessionId;
-	public $userId;
+  protected $deviceInfoType = 'Google_Service_CloudTalentSolution_DeviceInfo';
+  protected $deviceInfoDataType = '';
+  public $domain;
+  public $sessionId;
+  public $userId;
 
-	/**
-	 * @param Google_Service_CloudTalentSolution_DeviceInfo
-	 */
-	public function setDeviceInfo(Google_Service_CloudTalentSolution_DeviceInfo $deviceInfo)
-	{
-		$this->deviceInfo = $deviceInfo;
-	}
-	/**
-	 * @return Google_Service_CloudTalentSolution_DeviceInfo
-	 */
-	public function getDeviceInfo()
-	{
-		return $this->deviceInfo;
-	}
-	public function setDomain($domain)
-	{
-		$this->domain = $domain;
-	}
-	public function getDomain()
-	{
-		return $this->domain;
-	}
-	public function setSessionId($sessionId)
-	{
-		$this->sessionId = $sessionId;
-	}
-	public function getSessionId()
-	{
-		return $this->sessionId;
-	}
-	public function setUserId($userId)
-	{
-		$this->userId = $userId;
-	}
-	public function getUserId()
-	{
-		return $this->userId;
-	}
+  /**
+   * @param Google_Service_CloudTalentSolution_DeviceInfo
+   */
+  public function setDeviceInfo(Google_Service_CloudTalentSolution_DeviceInfo $deviceInfo)
+  {
+    $this->deviceInfo = $deviceInfo;
+  }
+  /**
+   * @return Google_Service_CloudTalentSolution_DeviceInfo
+   */
+  public function getDeviceInfo()
+  {
+    return $this->deviceInfo;
+  }
+  public function setDomain($domain)
+  {
+    $this->domain = $domain;
+  }
+  public function getDomain()
+  {
+    return $this->domain;
+  }
+  public function setSessionId($sessionId)
+  {
+    $this->sessionId = $sessionId;
+  }
+  public function getSessionId()
+  {
+    return $this->sessionId;
+  }
+  public function setUserId($userId)
+  {
+    $this->userId = $userId;
+  }
+  public function getUserId()
+  {
+    return $this->userId;
+  }
 }

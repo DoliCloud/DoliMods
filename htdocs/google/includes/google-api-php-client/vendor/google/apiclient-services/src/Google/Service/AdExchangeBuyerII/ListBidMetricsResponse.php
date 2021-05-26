@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListBidMetricsResponse extends Google_Collection
 {
-	protected $collection_key = 'bidMetricsRows';
-	protected $bidMetricsRowsType = 'Google_Service_AdExchangeBuyerII_BidMetricsRow';
-	protected $bidMetricsRowsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'bidMetricsRows';
+  protected $bidMetricsRowsType = 'Google_Service_AdExchangeBuyerII_BidMetricsRow';
+  protected $bidMetricsRowsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_BidMetricsRow
-	 */
-	public function setBidMetricsRows($bidMetricsRows)
-	{
-		$this->bidMetricsRows = $bidMetricsRows;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_BidMetricsRow
-	 */
-	public function getBidMetricsRows()
-	{
-		return $this->bidMetricsRows;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_BidMetricsRow[]
+   */
+  public function setBidMetricsRows($bidMetricsRows)
+  {
+    $this->bidMetricsRows = $bidMetricsRows;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_BidMetricsRow[]
+   */
+  public function getBidMetricsRows()
+  {
+    return $this->bidMetricsRows;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

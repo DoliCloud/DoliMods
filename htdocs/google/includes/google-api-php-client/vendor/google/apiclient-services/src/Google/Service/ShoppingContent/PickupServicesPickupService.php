@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_PickupServicesPickupService extends Google_Model
 {
-	public $carrierName;
-	public $country;
-	public $serviceName;
+  public $carrierName;
+  public $country;
+  public $serviceName;
 
-	public function setCarrierName($carrierName)
-	{
-		$this->carrierName = $carrierName;
-	}
-	public function getCarrierName()
-	{
-		return $this->carrierName;
-	}
-	public function setCountry($country)
-	{
-		$this->country = $country;
-	}
-	public function getCountry()
-	{
-		return $this->country;
-	}
-	public function setServiceName($serviceName)
-	{
-		$this->serviceName = $serviceName;
-	}
-	public function getServiceName()
-	{
-		return $this->serviceName;
-	}
+  public function setCarrierName($carrierName)
+  {
+    $this->carrierName = $carrierName;
+  }
+  public function getCarrierName()
+  {
+    return $this->carrierName;
+  }
+  public function setCountry($country)
+  {
+    $this->country = $country;
+  }
+  public function getCountry()
+  {
+    return $this->country;
+  }
+  public function setServiceName($serviceName)
+  {
+    $this->serviceName = $serviceName;
+  }
+  public function getServiceName()
+  {
+    return $this->serviceName;
+  }
 }

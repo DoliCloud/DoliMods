@@ -17,23 +17,23 @@
 
 class Google_Service_Firestore_ListCollectionIdsRequest extends Google_Model
 {
-	public $pageSize;
-	public $pageToken;
+  public $pageSize;
+  public $pageToken;
 
-	public function setPageSize($pageSize)
-	{
-		$this->pageSize = $pageSize;
-	}
-	public function getPageSize()
-	{
-		return $this->pageSize;
-	}
-	public function setPageToken($pageToken)
-	{
-		$this->pageToken = $pageToken;
-	}
-	public function getPageToken()
-	{
-		return $this->pageToken;
-	}
+  public function setPageSize($pageSize)
+  {
+    $this->pageSize = $pageSize;
+  }
+  public function getPageSize()
+  {
+    return $this->pageSize;
+  }
+  public function setPageToken($pageToken)
+  {
+    $this->pageToken = $pageToken;
+  }
+  public function getPageToken()
+  {
+    return $this->pageToken;
+  }
 }

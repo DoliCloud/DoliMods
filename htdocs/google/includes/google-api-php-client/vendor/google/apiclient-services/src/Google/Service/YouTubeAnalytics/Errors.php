@@ -17,40 +17,40 @@
 
 class Google_Service_YouTubeAnalytics_Errors extends Google_Collection
 {
-	protected $collection_key = 'error';
-	public $code;
-	protected $errorType = 'Google_Service_YouTubeAnalytics_ErrorProto';
-	protected $errorDataType = 'array';
-	public $requestId;
+  protected $collection_key = 'error';
+  public $code;
+  protected $errorType = 'Google_Service_YouTubeAnalytics_ErrorProto';
+  protected $errorDataType = 'array';
+  public $requestId;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	/**
-	 * @param Google_Service_YouTubeAnalytics_ErrorProto
-	 */
-	public function setError($error)
-	{
-		$this->error = $error;
-	}
-	/**
-	 * @return Google_Service_YouTubeAnalytics_ErrorProto
-	 */
-	public function getError()
-	{
-		return $this->error;
-	}
-	public function setRequestId($requestId)
-	{
-		$this->requestId = $requestId;
-	}
-	public function getRequestId()
-	{
-		return $this->requestId;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  /**
+   * @param Google_Service_YouTubeAnalytics_ErrorProto[]
+   */
+  public function setError($error)
+  {
+    $this->error = $error;
+  }
+  /**
+   * @return Google_Service_YouTubeAnalytics_ErrorProto[]
+   */
+  public function getError()
+  {
+    return $this->error;
+  }
+  public function setRequestId($requestId)
+  {
+    $this->requestId = $requestId;
+  }
+  public function getRequestId()
+  {
+    return $this->requestId;
+  }
 }

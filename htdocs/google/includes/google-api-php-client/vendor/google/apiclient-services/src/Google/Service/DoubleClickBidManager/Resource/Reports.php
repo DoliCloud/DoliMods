@@ -25,21 +25,21 @@
  */
 class Google_Service_DoubleClickBidManager_Resource_Reports extends Google_Service_Resource
 {
-	/**
-	 * Retrieves stored reports. (reports.listreports)
-	 *
-	 * @param string $queryId Query ID with which the reports are associated.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param int pageSize Maximum number of results per page. Must be between 1
-	 * and 100. Defaults to 100 if unspecified.
-	 * @opt_param string pageToken Optional pagination token.
-	 * @return Google_Service_DoubleClickBidManager_ListReportsResponse
-	 */
-	public function listreports($queryId, $optParams = array())
-	{
-		$params = array('queryId' => $queryId);
-		$params = array_merge($params, $optParams);
-		return $this->call('listreports', array($params), "Google_Service_DoubleClickBidManager_ListReportsResponse");
-	}
+  /**
+   * Retrieves stored reports. (reports.listreports)
+   *
+   * @param string $queryId Query ID with which the reports are associated.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize Maximum number of results per page. Must be between 1
+   * and 100. Defaults to 100 if unspecified.
+   * @opt_param string pageToken Optional pagination token.
+   * @return Google_Service_DoubleClickBidManager_ListReportsResponse
+   */
+  public function listreports($queryId, $optParams = array())
+  {
+    $params = array('queryId' => $queryId);
+    $params = array_merge($params, $optParams);
+    return $this->call('listreports', array($params), "Google_Service_DoubleClickBidManager_ListReportsResponse");
+  }
 }

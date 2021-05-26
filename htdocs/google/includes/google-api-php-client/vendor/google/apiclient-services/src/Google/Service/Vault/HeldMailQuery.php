@@ -17,32 +17,32 @@
 
 class Google_Service_Vault_HeldMailQuery extends Google_Model
 {
-	public $endTime;
-	public $startTime;
-	public $terms;
+  public $endTime;
+  public $startTime;
+  public $terms;
 
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
-	public function setTerms($terms)
-	{
-		$this->terms = $terms;
-	}
-	public function getTerms()
-	{
-		return $this->terms;
-	}
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
+  public function setTerms($terms)
+  {
+    $this->terms = $terms;
+  }
+  public function getTerms()
+  {
+    return $this->terms;
+  }
 }

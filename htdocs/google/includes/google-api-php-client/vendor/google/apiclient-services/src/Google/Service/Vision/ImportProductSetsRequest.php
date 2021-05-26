@@ -17,21 +17,21 @@
 
 class Google_Service_Vision_ImportProductSetsRequest extends Google_Model
 {
-	protected $inputConfigType = 'Google_Service_Vision_ImportProductSetsInputConfig';
-	protected $inputConfigDataType = '';
+  protected $inputConfigType = 'Google_Service_Vision_ImportProductSetsInputConfig';
+  protected $inputConfigDataType = '';
 
-	/**
-	 * @param Google_Service_Vision_ImportProductSetsInputConfig
-	 */
-	public function setInputConfig(Google_Service_Vision_ImportProductSetsInputConfig $inputConfig)
-	{
-		$this->inputConfig = $inputConfig;
-	}
-	/**
-	 * @return Google_Service_Vision_ImportProductSetsInputConfig
-	 */
-	public function getInputConfig()
-	{
-		return $this->inputConfig;
-	}
+  /**
+   * @param Google_Service_Vision_ImportProductSetsInputConfig
+   */
+  public function setInputConfig(Google_Service_Vision_ImportProductSetsInputConfig $inputConfig)
+  {
+    $this->inputConfig = $inputConfig;
+  }
+  /**
+   * @return Google_Service_Vision_ImportProductSetsInputConfig
+   */
+  public function getInputConfig()
+  {
+    return $this->inputConfig;
+  }
 }

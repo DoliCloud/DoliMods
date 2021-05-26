@@ -17,41 +17,41 @@
 
 class Google_Service_FirebaseRulesAPI_Release extends Google_Model
 {
-	public $createTime;
-	public $name;
-	public $rulesetName;
-	public $updateTime;
+  public $createTime;
+  public $name;
+  public $rulesetName;
+  public $updateTime;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRulesetName($rulesetName)
-	{
-		$this->rulesetName = $rulesetName;
-	}
-	public function getRulesetName()
-	{
-		return $this->rulesetName;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRulesetName($rulesetName)
+  {
+    $this->rulesetName = $rulesetName;
+  }
+  public function getRulesetName()
+  {
+    return $this->rulesetName;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

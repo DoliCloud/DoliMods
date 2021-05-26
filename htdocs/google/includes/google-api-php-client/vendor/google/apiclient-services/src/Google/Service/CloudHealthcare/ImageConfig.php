@@ -17,14 +17,14 @@
 
 class Google_Service_CloudHealthcare_ImageConfig extends Google_Model
 {
-	public $textRedactionMode;
+  public $textRedactionMode;
 
-	public function setTextRedactionMode($textRedactionMode)
-	{
-		$this->textRedactionMode = $textRedactionMode;
-	}
-	public function getTextRedactionMode()
-	{
-		return $this->textRedactionMode;
-	}
+  public function setTextRedactionMode($textRedactionMode)
+  {
+    $this->textRedactionMode = $textRedactionMode;
+  }
+  public function getTextRedactionMode()
+  {
+    return $this->textRedactionMode;
+  }
 }

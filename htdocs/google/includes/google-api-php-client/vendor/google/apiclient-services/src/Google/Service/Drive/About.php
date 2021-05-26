@@ -17,151 +17,151 @@
 
 class Google_Service_Drive_About extends Google_Collection
 {
-	protected $collection_key = 'teamDriveThemes';
-	public $appInstalled;
-	public $canCreateDrives;
-	public $canCreateTeamDrives;
-	protected $driveThemesType = 'Google_Service_Drive_AboutDriveThemes';
-	protected $driveThemesDataType = 'array';
-	public $exportFormats;
-	public $folderColorPalette;
-	public $importFormats;
-	public $kind;
-	public $maxImportSizes;
-	public $maxUploadSize;
-	protected $storageQuotaType = 'Google_Service_Drive_AboutStorageQuota';
-	protected $storageQuotaDataType = '';
-	protected $teamDriveThemesType = 'Google_Service_Drive_AboutTeamDriveThemes';
-	protected $teamDriveThemesDataType = 'array';
-	protected $userType = 'Google_Service_Drive_User';
-	protected $userDataType = '';
+  protected $collection_key = 'teamDriveThemes';
+  public $appInstalled;
+  public $canCreateDrives;
+  public $canCreateTeamDrives;
+  protected $driveThemesType = 'Google_Service_Drive_AboutDriveThemes';
+  protected $driveThemesDataType = 'array';
+  public $exportFormats;
+  public $folderColorPalette;
+  public $importFormats;
+  public $kind;
+  public $maxImportSizes;
+  public $maxUploadSize;
+  protected $storageQuotaType = 'Google_Service_Drive_AboutStorageQuota';
+  protected $storageQuotaDataType = '';
+  protected $teamDriveThemesType = 'Google_Service_Drive_AboutTeamDriveThemes';
+  protected $teamDriveThemesDataType = 'array';
+  protected $userType = 'Google_Service_Drive_User';
+  protected $userDataType = '';
 
-	public function setAppInstalled($appInstalled)
-	{
-		$this->appInstalled = $appInstalled;
-	}
-	public function getAppInstalled()
-	{
-		return $this->appInstalled;
-	}
-	public function setCanCreateDrives($canCreateDrives)
-	{
-		$this->canCreateDrives = $canCreateDrives;
-	}
-	public function getCanCreateDrives()
-	{
-		return $this->canCreateDrives;
-	}
-	public function setCanCreateTeamDrives($canCreateTeamDrives)
-	{
-		$this->canCreateTeamDrives = $canCreateTeamDrives;
-	}
-	public function getCanCreateTeamDrives()
-	{
-		return $this->canCreateTeamDrives;
-	}
-	/**
-	 * @param Google_Service_Drive_AboutDriveThemes
-	 */
-	public function setDriveThemes($driveThemes)
-	{
-		$this->driveThemes = $driveThemes;
-	}
-	/**
-	 * @return Google_Service_Drive_AboutDriveThemes
-	 */
-	public function getDriveThemes()
-	{
-		return $this->driveThemes;
-	}
-	public function setExportFormats($exportFormats)
-	{
-		$this->exportFormats = $exportFormats;
-	}
-	public function getExportFormats()
-	{
-		return $this->exportFormats;
-	}
-	public function setFolderColorPalette($folderColorPalette)
-	{
-		$this->folderColorPalette = $folderColorPalette;
-	}
-	public function getFolderColorPalette()
-	{
-		return $this->folderColorPalette;
-	}
-	public function setImportFormats($importFormats)
-	{
-		$this->importFormats = $importFormats;
-	}
-	public function getImportFormats()
-	{
-		return $this->importFormats;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setMaxImportSizes($maxImportSizes)
-	{
-		$this->maxImportSizes = $maxImportSizes;
-	}
-	public function getMaxImportSizes()
-	{
-		return $this->maxImportSizes;
-	}
-	public function setMaxUploadSize($maxUploadSize)
-	{
-		$this->maxUploadSize = $maxUploadSize;
-	}
-	public function getMaxUploadSize()
-	{
-		return $this->maxUploadSize;
-	}
-	/**
-	 * @param Google_Service_Drive_AboutStorageQuota
-	 */
-	public function setStorageQuota(Google_Service_Drive_AboutStorageQuota $storageQuota)
-	{
-		$this->storageQuota = $storageQuota;
-	}
-	/**
-	 * @return Google_Service_Drive_AboutStorageQuota
-	 */
-	public function getStorageQuota()
-	{
-		return $this->storageQuota;
-	}
-	/**
-	 * @param Google_Service_Drive_AboutTeamDriveThemes
-	 */
-	public function setTeamDriveThemes($teamDriveThemes)
-	{
-		$this->teamDriveThemes = $teamDriveThemes;
-	}
-	/**
-	 * @return Google_Service_Drive_AboutTeamDriveThemes
-	 */
-	public function getTeamDriveThemes()
-	{
-		return $this->teamDriveThemes;
-	}
-	/**
-	 * @param Google_Service_Drive_User
-	 */
-	public function setUser(Google_Service_Drive_User $user)
-	{
-		$this->user = $user;
-	}
-	/**
-	 * @return Google_Service_Drive_User
-	 */
-	public function getUser()
-	{
-		return $this->user;
-	}
+  public function setAppInstalled($appInstalled)
+  {
+    $this->appInstalled = $appInstalled;
+  }
+  public function getAppInstalled()
+  {
+    return $this->appInstalled;
+  }
+  public function setCanCreateDrives($canCreateDrives)
+  {
+    $this->canCreateDrives = $canCreateDrives;
+  }
+  public function getCanCreateDrives()
+  {
+    return $this->canCreateDrives;
+  }
+  public function setCanCreateTeamDrives($canCreateTeamDrives)
+  {
+    $this->canCreateTeamDrives = $canCreateTeamDrives;
+  }
+  public function getCanCreateTeamDrives()
+  {
+    return $this->canCreateTeamDrives;
+  }
+  /**
+   * @param Google_Service_Drive_AboutDriveThemes[]
+   */
+  public function setDriveThemes($driveThemes)
+  {
+    $this->driveThemes = $driveThemes;
+  }
+  /**
+   * @return Google_Service_Drive_AboutDriveThemes[]
+   */
+  public function getDriveThemes()
+  {
+    return $this->driveThemes;
+  }
+  public function setExportFormats($exportFormats)
+  {
+    $this->exportFormats = $exportFormats;
+  }
+  public function getExportFormats()
+  {
+    return $this->exportFormats;
+  }
+  public function setFolderColorPalette($folderColorPalette)
+  {
+    $this->folderColorPalette = $folderColorPalette;
+  }
+  public function getFolderColorPalette()
+  {
+    return $this->folderColorPalette;
+  }
+  public function setImportFormats($importFormats)
+  {
+    $this->importFormats = $importFormats;
+  }
+  public function getImportFormats()
+  {
+    return $this->importFormats;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setMaxImportSizes($maxImportSizes)
+  {
+    $this->maxImportSizes = $maxImportSizes;
+  }
+  public function getMaxImportSizes()
+  {
+    return $this->maxImportSizes;
+  }
+  public function setMaxUploadSize($maxUploadSize)
+  {
+    $this->maxUploadSize = $maxUploadSize;
+  }
+  public function getMaxUploadSize()
+  {
+    return $this->maxUploadSize;
+  }
+  /**
+   * @param Google_Service_Drive_AboutStorageQuota
+   */
+  public function setStorageQuota(Google_Service_Drive_AboutStorageQuota $storageQuota)
+  {
+    $this->storageQuota = $storageQuota;
+  }
+  /**
+   * @return Google_Service_Drive_AboutStorageQuota
+   */
+  public function getStorageQuota()
+  {
+    return $this->storageQuota;
+  }
+  /**
+   * @param Google_Service_Drive_AboutTeamDriveThemes[]
+   */
+  public function setTeamDriveThemes($teamDriveThemes)
+  {
+    $this->teamDriveThemes = $teamDriveThemes;
+  }
+  /**
+   * @return Google_Service_Drive_AboutTeamDriveThemes[]
+   */
+  public function getTeamDriveThemes()
+  {
+    return $this->teamDriveThemes;
+  }
+  /**
+   * @param Google_Service_Drive_User
+   */
+  public function setUser(Google_Service_Drive_User $user)
+  {
+    $this->user = $user;
+  }
+  /**
+   * @return Google_Service_Drive_User
+   */
+  public function getUser()
+  {
+    return $this->user;
+  }
 }

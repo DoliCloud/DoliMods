@@ -17,14 +17,14 @@
 
 class Google_Service_Container_ClientCertificateConfig extends Google_Model
 {
-	public $issueClientCertificate;
+  public $issueClientCertificate;
 
-	public function setIssueClientCertificate($issueClientCertificate)
-	{
-		$this->issueClientCertificate = $issueClientCertificate;
-	}
-	public function getIssueClientCertificate()
-	{
-		return $this->issueClientCertificate;
-	}
+  public function setIssueClientCertificate($issueClientCertificate)
+  {
+    $this->issueClientCertificate = $issueClientCertificate;
+  }
+  public function getIssueClientCertificate()
+  {
+    return $this->issueClientCertificate;
+  }
 }

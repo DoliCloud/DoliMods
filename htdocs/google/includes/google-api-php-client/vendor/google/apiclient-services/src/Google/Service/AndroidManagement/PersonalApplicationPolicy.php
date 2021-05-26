@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidManagement_PersonalApplicationPolicy extends Google_Model
 {
-	public $installType;
-	public $packageName;
+  public $installType;
+  public $packageName;
 
-	public function setInstallType($installType)
-	{
-		$this->installType = $installType;
-	}
-	public function getInstallType()
-	{
-		return $this->installType;
-	}
-	public function setPackageName($packageName)
-	{
-		$this->packageName = $packageName;
-	}
-	public function getPackageName()
-	{
-		return $this->packageName;
-	}
+  public function setInstallType($installType)
+  {
+    $this->installType = $installType;
+  }
+  public function getInstallType()
+  {
+    return $this->installType;
+  }
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
 }

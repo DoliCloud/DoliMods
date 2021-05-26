@@ -17,14 +17,14 @@
 
 class Google_Service_DisplayVideo_CustomListTargetingSetting extends Google_Model
 {
-	public $customListId;
+  public $customListId;
 
-	public function setCustomListId($customListId)
-	{
-		$this->customListId = $customListId;
-	}
-	public function getCustomListId()
-	{
-		return $this->customListId;
-	}
+  public function setCustomListId($customListId)
+  {
+    $this->customListId = $customListId;
+  }
+  public function getCustomListId()
+  {
+    return $this->customListId;
+  }
 }

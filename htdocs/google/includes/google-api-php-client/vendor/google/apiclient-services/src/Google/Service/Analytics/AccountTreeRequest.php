@@ -17,59 +17,59 @@
 
 class Google_Service_Analytics_AccountTreeRequest extends Google_Model
 {
-	public $accountName;
-	public $kind;
-	public $profileName;
-	public $timezone;
-	public $webpropertyName;
-	public $websiteUrl;
+  public $accountName;
+  public $kind;
+  public $profileName;
+  public $timezone;
+  public $webpropertyName;
+  public $websiteUrl;
 
-	public function setAccountName($accountName)
-	{
-		$this->accountName = $accountName;
-	}
-	public function getAccountName()
-	{
-		return $this->accountName;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setProfileName($profileName)
-	{
-		$this->profileName = $profileName;
-	}
-	public function getProfileName()
-	{
-		return $this->profileName;
-	}
-	public function setTimezone($timezone)
-	{
-		$this->timezone = $timezone;
-	}
-	public function getTimezone()
-	{
-		return $this->timezone;
-	}
-	public function setWebpropertyName($webpropertyName)
-	{
-		$this->webpropertyName = $webpropertyName;
-	}
-	public function getWebpropertyName()
-	{
-		return $this->webpropertyName;
-	}
-	public function setWebsiteUrl($websiteUrl)
-	{
-		$this->websiteUrl = $websiteUrl;
-	}
-	public function getWebsiteUrl()
-	{
-		return $this->websiteUrl;
-	}
+  public function setAccountName($accountName)
+  {
+    $this->accountName = $accountName;
+  }
+  public function getAccountName()
+  {
+    return $this->accountName;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setProfileName($profileName)
+  {
+    $this->profileName = $profileName;
+  }
+  public function getProfileName()
+  {
+    return $this->profileName;
+  }
+  public function setTimezone($timezone)
+  {
+    $this->timezone = $timezone;
+  }
+  public function getTimezone()
+  {
+    return $this->timezone;
+  }
+  public function setWebpropertyName($webpropertyName)
+  {
+    $this->webpropertyName = $webpropertyName;
+  }
+  public function getWebpropertyName()
+  {
+    return $this->webpropertyName;
+  }
+  public function setWebsiteUrl($websiteUrl)
+  {
+    $this->websiteUrl = $websiteUrl;
+  }
+  public function getWebsiteUrl()
+  {
+    return $this->websiteUrl;
+  }
 }

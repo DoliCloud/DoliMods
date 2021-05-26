@@ -17,22 +17,22 @@
 
 class Google_Service_Vault_RemoveHeldAccountsResponse extends Google_Collection
 {
-	protected $collection_key = 'statuses';
-	protected $statusesType = 'Google_Service_Vault_Status';
-	protected $statusesDataType = 'array';
+  protected $collection_key = 'statuses';
+  protected $statusesType = 'Google_Service_Vault_Status';
+  protected $statusesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Vault_Status
-	 */
-	public function setStatuses($statuses)
-	{
-		$this->statuses = $statuses;
-	}
-	/**
-	 * @return Google_Service_Vault_Status
-	 */
-	public function getStatuses()
-	{
-		return $this->statuses;
-	}
+  /**
+   * @param Google_Service_Vault_Status[]
+   */
+  public function setStatuses($statuses)
+  {
+    $this->statuses = $statuses;
+  }
+  /**
+   * @return Google_Service_Vault_Status[]
+   */
+  public function getStatuses()
+  {
+    return $this->statuses;
+  }
 }

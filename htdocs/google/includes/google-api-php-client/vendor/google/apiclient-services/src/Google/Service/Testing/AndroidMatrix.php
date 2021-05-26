@@ -17,42 +17,42 @@
 
 class Google_Service_Testing_AndroidMatrix extends Google_Collection
 {
-	protected $collection_key = 'orientations';
-	public $androidModelIds;
-	public $androidVersionIds;
-	public $locales;
-	public $orientations;
+  protected $collection_key = 'orientations';
+  public $androidModelIds;
+  public $androidVersionIds;
+  public $locales;
+  public $orientations;
 
-	public function setAndroidModelIds($androidModelIds)
-	{
-		$this->androidModelIds = $androidModelIds;
-	}
-	public function getAndroidModelIds()
-	{
-		return $this->androidModelIds;
-	}
-	public function setAndroidVersionIds($androidVersionIds)
-	{
-		$this->androidVersionIds = $androidVersionIds;
-	}
-	public function getAndroidVersionIds()
-	{
-		return $this->androidVersionIds;
-	}
-	public function setLocales($locales)
-	{
-		$this->locales = $locales;
-	}
-	public function getLocales()
-	{
-		return $this->locales;
-	}
-	public function setOrientations($orientations)
-	{
-		$this->orientations = $orientations;
-	}
-	public function getOrientations()
-	{
-		return $this->orientations;
-	}
+  public function setAndroidModelIds($androidModelIds)
+  {
+    $this->androidModelIds = $androidModelIds;
+  }
+  public function getAndroidModelIds()
+  {
+    return $this->androidModelIds;
+  }
+  public function setAndroidVersionIds($androidVersionIds)
+  {
+    $this->androidVersionIds = $androidVersionIds;
+  }
+  public function getAndroidVersionIds()
+  {
+    return $this->androidVersionIds;
+  }
+  public function setLocales($locales)
+  {
+    $this->locales = $locales;
+  }
+  public function getLocales()
+  {
+    return $this->locales;
+  }
+  public function setOrientations($orientations)
+  {
+    $this->orientations = $orientations;
+  }
+  public function getOrientations()
+  {
+    return $this->orientations;
+  }
 }

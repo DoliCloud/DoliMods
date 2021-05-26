@@ -17,33 +17,33 @@
 
 class Google_Service_Compute_SchedulingNodeAffinity extends Google_Collection
 {
-	protected $collection_key = 'values';
-	public $key;
-	public $operator;
-	public $values;
+  protected $collection_key = 'values';
+  public $key;
+  public $operator;
+  public $values;
 
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setOperator($operator)
-	{
-		$this->operator = $operator;
-	}
-	public function getOperator()
-	{
-		return $this->operator;
-	}
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setOperator($operator)
+  {
+    $this->operator = $operator;
+  }
+  public function getOperator()
+  {
+    return $this->operator;
+  }
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

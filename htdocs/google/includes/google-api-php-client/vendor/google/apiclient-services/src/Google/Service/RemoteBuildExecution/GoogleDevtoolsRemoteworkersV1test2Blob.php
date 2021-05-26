@@ -17,30 +17,30 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Blob extends Google_Model
 {
-	public $contents;
-	protected $digestType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
-	protected $digestDataType = '';
+  public $contents;
+  protected $digestType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest';
+  protected $digestDataType = '';
 
-	public function setContents($contents)
-	{
-		$this->contents = $contents;
-	}
-	public function getContents()
-	{
-		return $this->contents;
-	}
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-	 */
-	public function setDigest(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $digest)
-	{
-		$this->digest = $digest;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
-	 */
-	public function getDigest()
-	{
-		return $this->digest;
-	}
+  public function setContents($contents)
+  {
+    $this->contents = $contents;
+  }
+  public function getContents()
+  {
+    return $this->contents;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+   */
+  public function setDigest(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest $digest)
+  {
+    $this->digest = $digest;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemoteworkersV1test2Digest
+   */
+  public function getDigest()
+  {
+    return $this->digest;
+  }
 }

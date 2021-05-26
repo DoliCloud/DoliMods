@@ -25,39 +25,38 @@
  */
 class Google_Service_Clouderrorreporting_Resource_ProjectsGroups extends Google_Service_Resource
 {
-	/**
-	 * Get the specified group. (groups.get)
-	 *
-	 * @param string $groupName Required. The group resource name. Written as
-	 *                          `projects/{projectID}/groups/{group_name}`. Call
-	 *                          [`groupStats.list`](https://cloud.google.com/error-
-	 *                          reporting/reference/rest/v1beta1/projects.groupStats/list) to return a list
-	 *                          of groups belonging to this project.
-	 *
-	 *                          Example: `projects/my-project-123/groups/my-group`
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Clouderrorreporting_ErrorGroup
-	 */
-	public function get($groupName, $optParams = array())
-	{
-		$params = array('groupName' => $groupName);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Clouderrorreporting_ErrorGroup");
-	}
-	/**
-	 * Replace the data for the specified group. Fails if the group does not exist.
-	 * (groups.update)
-	 *
-	 * @param string $name The group resource name. Example: projects/my-
-	 *                     project-123/groups/CNSgkpnppqKCUw
-	 * @param Google_Service_Clouderrorreporting_ErrorGroup $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Clouderrorreporting_ErrorGroup
-	 */
-	public function update($name, Google_Service_Clouderrorreporting_ErrorGroup $postBody, $optParams = array())
-	{
-		$params = array('name' => $name, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_Clouderrorreporting_ErrorGroup");
-	}
+  /**
+   * Get the specified group. (groups.get)
+   *
+   * @param string $groupName Required. The group resource name. Written as
+   * `projects/{projectID}/groups/{group_name}`. Call
+   * [`groupStats.list`](https://cloud.google.com/error-
+   * reporting/reference/rest/v1beta1/projects.groupStats/list) to return a list
+   * of groups belonging to this project. Example: `projects/my-project-123/groups
+   * /my-group`
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Clouderrorreporting_ErrorGroup
+   */
+  public function get($groupName, $optParams = array())
+  {
+    $params = array('groupName' => $groupName);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Clouderrorreporting_ErrorGroup");
+  }
+  /**
+   * Replace the data for the specified group. Fails if the group does not exist.
+   * (groups.update)
+   *
+   * @param string $name The group resource name. Example: projects/my-
+   * project-123/groups/CNSgkpnppqKCUw
+   * @param Google_Service_Clouderrorreporting_ErrorGroup $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Clouderrorreporting_ErrorGroup
+   */
+  public function update($name, Google_Service_Clouderrorreporting_ErrorGroup $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_Clouderrorreporting_ErrorGroup");
+  }
 }

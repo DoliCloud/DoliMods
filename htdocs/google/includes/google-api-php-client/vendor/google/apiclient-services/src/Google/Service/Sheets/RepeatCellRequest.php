@@ -17,46 +17,46 @@
 
 class Google_Service_Sheets_RepeatCellRequest extends Google_Model
 {
-	protected $cellType = 'Google_Service_Sheets_CellData';
-	protected $cellDataType = '';
-	public $fields;
-	protected $rangeType = 'Google_Service_Sheets_GridRange';
-	protected $rangeDataType = '';
+  protected $cellType = 'Google_Service_Sheets_CellData';
+  protected $cellDataType = '';
+  public $fields;
+  protected $rangeType = 'Google_Service_Sheets_GridRange';
+  protected $rangeDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_CellData
-	 */
-	public function setCell(Google_Service_Sheets_CellData $cell)
-	{
-		$this->cell = $cell;
-	}
-	/**
-	 * @return Google_Service_Sheets_CellData
-	 */
-	public function getCell()
-	{
-		return $this->cell;
-	}
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setRange(Google_Service_Sheets_GridRange $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
+  /**
+   * @param Google_Service_Sheets_CellData
+   */
+  public function setCell(Google_Service_Sheets_CellData $cell)
+  {
+    $this->cell = $cell;
+  }
+  /**
+   * @return Google_Service_Sheets_CellData
+   */
+  public function getCell()
+  {
+    return $this->cell;
+  }
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setRange(Google_Service_Sheets_GridRange $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

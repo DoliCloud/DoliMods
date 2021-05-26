@@ -17,41 +17,41 @@
 
 class Google_Service_CloudMemorystoreforMemcached_GoogleCloudSaasacceleratorManagementProvidersV1SloExclusion extends Google_Model
 {
-	public $duration;
-	public $reason;
-	public $sliName;
-	public $startTime;
+  public $duration;
+  public $reason;
+  public $sliName;
+  public $startTime;
 
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
-	public function setReason($reason)
-	{
-		$this->reason = $reason;
-	}
-	public function getReason()
-	{
-		return $this->reason;
-	}
-	public function setSliName($sliName)
-	{
-		$this->sliName = $sliName;
-	}
-	public function getSliName()
-	{
-		return $this->sliName;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
+  public function setReason($reason)
+  {
+    $this->reason = $reason;
+  }
+  public function getReason()
+  {
+    return $this->reason;
+  }
+  public function setSliName($sliName)
+  {
+    $this->sliName = $sliName;
+  }
+  public function getSliName()
+  {
+    return $this->sliName;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
 }

@@ -17,57 +17,57 @@
 
 class Google_Service_Bigquery_ProjectListProjects extends Google_Model
 {
-	public $friendlyName;
-	public $id;
-	public $kind;
-	public $numericId;
-	protected $projectReferenceType = 'Google_Service_Bigquery_ProjectReference';
-	protected $projectReferenceDataType = '';
+  public $friendlyName;
+  public $id;
+  public $kind;
+  public $numericId;
+  protected $projectReferenceType = 'Google_Service_Bigquery_ProjectReference';
+  protected $projectReferenceDataType = '';
 
-	public function setFriendlyName($friendlyName)
-	{
-		$this->friendlyName = $friendlyName;
-	}
-	public function getFriendlyName()
-	{
-		return $this->friendlyName;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNumericId($numericId)
-	{
-		$this->numericId = $numericId;
-	}
-	public function getNumericId()
-	{
-		return $this->numericId;
-	}
-	/**
-	 * @param Google_Service_Bigquery_ProjectReference
-	 */
-	public function setProjectReference(Google_Service_Bigquery_ProjectReference $projectReference)
-	{
-		$this->projectReference = $projectReference;
-	}
-	/**
-	 * @return Google_Service_Bigquery_ProjectReference
-	 */
-	public function getProjectReference()
-	{
-		return $this->projectReference;
-	}
+  public function setFriendlyName($friendlyName)
+  {
+    $this->friendlyName = $friendlyName;
+  }
+  public function getFriendlyName()
+  {
+    return $this->friendlyName;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNumericId($numericId)
+  {
+    $this->numericId = $numericId;
+  }
+  public function getNumericId()
+  {
+    return $this->numericId;
+  }
+  /**
+   * @param Google_Service_Bigquery_ProjectReference
+   */
+  public function setProjectReference(Google_Service_Bigquery_ProjectReference $projectReference)
+  {
+    $this->projectReference = $projectReference;
+  }
+  /**
+   * @return Google_Service_Bigquery_ProjectReference
+   */
+  public function getProjectReference()
+  {
+    return $this->projectReference;
+  }
 }

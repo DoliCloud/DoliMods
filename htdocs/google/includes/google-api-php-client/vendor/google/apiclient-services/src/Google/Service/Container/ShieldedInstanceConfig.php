@@ -17,23 +17,23 @@
 
 class Google_Service_Container_ShieldedInstanceConfig extends Google_Model
 {
-	public $enableIntegrityMonitoring;
-	public $enableSecureBoot;
+  public $enableIntegrityMonitoring;
+  public $enableSecureBoot;
 
-	public function setEnableIntegrityMonitoring($enableIntegrityMonitoring)
-	{
-		$this->enableIntegrityMonitoring = $enableIntegrityMonitoring;
-	}
-	public function getEnableIntegrityMonitoring()
-	{
-		return $this->enableIntegrityMonitoring;
-	}
-	public function setEnableSecureBoot($enableSecureBoot)
-	{
-		$this->enableSecureBoot = $enableSecureBoot;
-	}
-	public function getEnableSecureBoot()
-	{
-		return $this->enableSecureBoot;
-	}
+  public function setEnableIntegrityMonitoring($enableIntegrityMonitoring)
+  {
+    $this->enableIntegrityMonitoring = $enableIntegrityMonitoring;
+  }
+  public function getEnableIntegrityMonitoring()
+  {
+    return $this->enableIntegrityMonitoring;
+  }
+  public function setEnableSecureBoot($enableSecureBoot)
+  {
+    $this->enableSecureBoot = $enableSecureBoot;
+  }
+  public function getEnableSecureBoot()
+  {
+    return $this->enableSecureBoot;
+  }
 }

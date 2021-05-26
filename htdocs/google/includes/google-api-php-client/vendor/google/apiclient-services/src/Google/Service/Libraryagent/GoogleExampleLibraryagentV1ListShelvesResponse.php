@@ -17,31 +17,31 @@
 
 class Google_Service_Libraryagent_GoogleExampleLibraryagentV1ListShelvesResponse extends Google_Collection
 {
-	protected $collection_key = 'shelves';
-	public $nextPageToken;
-	protected $shelvesType = 'Google_Service_Libraryagent_GoogleExampleLibraryagentV1Shelf';
-	protected $shelvesDataType = 'array';
+  protected $collection_key = 'shelves';
+  public $nextPageToken;
+  protected $shelvesType = 'Google_Service_Libraryagent_GoogleExampleLibraryagentV1Shelf';
+  protected $shelvesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Libraryagent_GoogleExampleLibraryagentV1Shelf
-	 */
-	public function setShelves($shelves)
-	{
-		$this->shelves = $shelves;
-	}
-	/**
-	 * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Shelf
-	 */
-	public function getShelves()
-	{
-		return $this->shelves;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Libraryagent_GoogleExampleLibraryagentV1Shelf[]
+   */
+  public function setShelves($shelves)
+  {
+    $this->shelves = $shelves;
+  }
+  /**
+   * @return Google_Service_Libraryagent_GoogleExampleLibraryagentV1Shelf[]
+   */
+  public function getShelves()
+  {
+    return $this->shelves;
+  }
 }

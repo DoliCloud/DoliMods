@@ -17,14 +17,14 @@
 
 class Google_Service_Datastore_GoogleDatastoreAdminV1ExportEntitiesResponse extends Google_Model
 {
-	public $outputUrl;
+  public $outputUrl;
 
-	public function setOutputUrl($outputUrl)
-	{
-		$this->outputUrl = $outputUrl;
-	}
-	public function getOutputUrl()
-	{
-		return $this->outputUrl;
-	}
+  public function setOutputUrl($outputUrl)
+  {
+    $this->outputUrl = $outputUrl;
+  }
+  public function getOutputUrl()
+  {
+    return $this->outputUrl;
+  }
 }

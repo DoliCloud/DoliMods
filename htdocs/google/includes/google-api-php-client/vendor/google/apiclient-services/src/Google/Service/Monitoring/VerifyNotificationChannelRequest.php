@@ -17,14 +17,14 @@
 
 class Google_Service_Monitoring_VerifyNotificationChannelRequest extends Google_Model
 {
-	public $code;
+  public $code;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
 }

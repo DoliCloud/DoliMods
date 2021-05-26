@@ -17,37 +17,37 @@
 
 class Google_Service_GameServices_DeployedFleetDetails extends Google_Model
 {
-	protected $deployedAutoscalerType = 'Google_Service_GameServices_DeployedFleetAutoscaler';
-	protected $deployedAutoscalerDataType = '';
-	protected $deployedFleetType = 'Google_Service_GameServices_DeployedFleet';
-	protected $deployedFleetDataType = '';
+  protected $deployedAutoscalerType = 'Google_Service_GameServices_DeployedFleetAutoscaler';
+  protected $deployedAutoscalerDataType = '';
+  protected $deployedFleetType = 'Google_Service_GameServices_DeployedFleet';
+  protected $deployedFleetDataType = '';
 
-	/**
-	 * @param Google_Service_GameServices_DeployedFleetAutoscaler
-	 */
-	public function setDeployedAutoscaler(Google_Service_GameServices_DeployedFleetAutoscaler $deployedAutoscaler)
-	{
-		$this->deployedAutoscaler = $deployedAutoscaler;
-	}
-	/**
-	 * @return Google_Service_GameServices_DeployedFleetAutoscaler
-	 */
-	public function getDeployedAutoscaler()
-	{
-		return $this->deployedAutoscaler;
-	}
-	/**
-	 * @param Google_Service_GameServices_DeployedFleet
-	 */
-	public function setDeployedFleet(Google_Service_GameServices_DeployedFleet $deployedFleet)
-	{
-		$this->deployedFleet = $deployedFleet;
-	}
-	/**
-	 * @return Google_Service_GameServices_DeployedFleet
-	 */
-	public function getDeployedFleet()
-	{
-		return $this->deployedFleet;
-	}
+  /**
+   * @param Google_Service_GameServices_DeployedFleetAutoscaler
+   */
+  public function setDeployedAutoscaler(Google_Service_GameServices_DeployedFleetAutoscaler $deployedAutoscaler)
+  {
+    $this->deployedAutoscaler = $deployedAutoscaler;
+  }
+  /**
+   * @return Google_Service_GameServices_DeployedFleetAutoscaler
+   */
+  public function getDeployedAutoscaler()
+  {
+    return $this->deployedAutoscaler;
+  }
+  /**
+   * @param Google_Service_GameServices_DeployedFleet
+   */
+  public function setDeployedFleet(Google_Service_GameServices_DeployedFleet $deployedFleet)
+  {
+    $this->deployedFleet = $deployedFleet;
+  }
+  /**
+   * @return Google_Service_GameServices_DeployedFleet
+   */
+  public function getDeployedFleet()
+  {
+    return $this->deployedFleet;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1FlowHook extends Google_Model
 {
-	public $continueOnError;
-	public $description;
-	public $flowHookPoint;
-	public $sharedFlow;
+  public $continueOnError;
+  public $description;
+  public $flowHookPoint;
+  public $sharedFlow;
 
-	public function setContinueOnError($continueOnError)
-	{
-		$this->continueOnError = $continueOnError;
-	}
-	public function getContinueOnError()
-	{
-		return $this->continueOnError;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setFlowHookPoint($flowHookPoint)
-	{
-		$this->flowHookPoint = $flowHookPoint;
-	}
-	public function getFlowHookPoint()
-	{
-		return $this->flowHookPoint;
-	}
-	public function setSharedFlow($sharedFlow)
-	{
-		$this->sharedFlow = $sharedFlow;
-	}
-	public function getSharedFlow()
-	{
-		return $this->sharedFlow;
-	}
+  public function setContinueOnError($continueOnError)
+  {
+    $this->continueOnError = $continueOnError;
+  }
+  public function getContinueOnError()
+  {
+    return $this->continueOnError;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setFlowHookPoint($flowHookPoint)
+  {
+    $this->flowHookPoint = $flowHookPoint;
+  }
+  public function getFlowHookPoint()
+  {
+    return $this->flowHookPoint;
+  }
+  public function setSharedFlow($sharedFlow)
+  {
+    $this->sharedFlow = $sharedFlow;
+  }
+  public function getSharedFlow()
+  {
+    return $this->sharedFlow;
+  }
 }

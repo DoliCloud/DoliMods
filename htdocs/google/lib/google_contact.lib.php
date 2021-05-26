@@ -315,8 +315,6 @@ function googleCreateContact($client, $object, $useremail = 'default')
 	} catch (Exception $e) {
 		die('ERROR:' . $e->getMessage());
 	}
-
-	return $ret;
 }
 
 

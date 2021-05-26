@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig extends Google_Model
 {
-	public $bigqueryTableName;
-	public $samplingPercentage;
+  public $bigqueryTableName;
+  public $samplingPercentage;
 
-	public function setBigqueryTableName($bigqueryTableName)
-	{
-		$this->bigqueryTableName = $bigqueryTableName;
-	}
-	public function getBigqueryTableName()
-	{
-		return $this->bigqueryTableName;
-	}
-	public function setSamplingPercentage($samplingPercentage)
-	{
-		$this->samplingPercentage = $samplingPercentage;
-	}
-	public function getSamplingPercentage()
-	{
-		return $this->samplingPercentage;
-	}
+  public function setBigqueryTableName($bigqueryTableName)
+  {
+    $this->bigqueryTableName = $bigqueryTableName;
+  }
+  public function getBigqueryTableName()
+  {
+    return $this->bigqueryTableName;
+  }
+  public function setSamplingPercentage($samplingPercentage)
+  {
+    $this->samplingPercentage = $samplingPercentage;
+  }
+  public function getSamplingPercentage()
+  {
+    return $this->samplingPercentage;
+  }
 }

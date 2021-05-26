@@ -17,23 +17,23 @@
 
 class Google_Service_ServiceUsage_EnableFailure extends Google_Model
 {
-	public $errorMessage;
-	public $serviceId;
+  public $errorMessage;
+  public $serviceId;
 
-	public function setErrorMessage($errorMessage)
-	{
-		$this->errorMessage = $errorMessage;
-	}
-	public function getErrorMessage()
-	{
-		return $this->errorMessage;
-	}
-	public function setServiceId($serviceId)
-	{
-		$this->serviceId = $serviceId;
-	}
-	public function getServiceId()
-	{
-		return $this->serviceId;
-	}
+  public function setErrorMessage($errorMessage)
+  {
+    $this->errorMessage = $errorMessage;
+  }
+  public function getErrorMessage()
+  {
+    return $this->errorMessage;
+  }
+  public function setServiceId($serviceId)
+  {
+    $this->serviceId = $serviceId;
+  }
+  public function getServiceId()
+  {
+    return $this->serviceId;
+  }
 }

@@ -17,15 +17,15 @@
 
 class Google_Service_Bigquery_TableFieldSchemaCategories extends Google_Collection
 {
-	protected $collection_key = 'names';
-	public $names;
+  protected $collection_key = 'names';
+  public $names;
 
-	public function setNames($names)
-	{
-		$this->names = $names;
-	}
-	public function getNames()
-	{
-		return $this->names;
-	}
+  public function setNames($names)
+  {
+    $this->names = $names;
+  }
+  public function getNames()
+  {
+    return $this->names;
+  }
 }

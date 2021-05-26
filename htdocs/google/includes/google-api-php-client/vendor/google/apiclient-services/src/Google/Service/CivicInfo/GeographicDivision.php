@@ -17,33 +17,33 @@
 
 class Google_Service_CivicInfo_GeographicDivision extends Google_Collection
 {
-	protected $collection_key = 'officeIndices';
-	public $alsoKnownAs;
-	public $name;
-	public $officeIndices;
+  protected $collection_key = 'officeIndices';
+  public $alsoKnownAs;
+  public $name;
+  public $officeIndices;
 
-	public function setAlsoKnownAs($alsoKnownAs)
-	{
-		$this->alsoKnownAs = $alsoKnownAs;
-	}
-	public function getAlsoKnownAs()
-	{
-		return $this->alsoKnownAs;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOfficeIndices($officeIndices)
-	{
-		$this->officeIndices = $officeIndices;
-	}
-	public function getOfficeIndices()
-	{
-		return $this->officeIndices;
-	}
+  public function setAlsoKnownAs($alsoKnownAs)
+  {
+    $this->alsoKnownAs = $alsoKnownAs;
+  }
+  public function getAlsoKnownAs()
+  {
+    return $this->alsoKnownAs;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOfficeIndices($officeIndices)
+  {
+    $this->officeIndices = $officeIndices;
+  }
+  public function getOfficeIndices()
+  {
+    return $this->officeIndices;
+  }
 }

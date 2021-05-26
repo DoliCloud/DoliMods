@@ -17,31 +17,31 @@
 
 class Google_Service_Monitoring_ListNotificationChannelDescriptorsResponse extends Google_Collection
 {
-	protected $collection_key = 'channelDescriptors';
-	protected $channelDescriptorsType = 'Google_Service_Monitoring_NotificationChannelDescriptor';
-	protected $channelDescriptorsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'channelDescriptors';
+  protected $channelDescriptorsType = 'Google_Service_Monitoring_NotificationChannelDescriptor';
+  protected $channelDescriptorsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Monitoring_NotificationChannelDescriptor
-	 */
-	public function setChannelDescriptors($channelDescriptors)
-	{
-		$this->channelDescriptors = $channelDescriptors;
-	}
-	/**
-	 * @return Google_Service_Monitoring_NotificationChannelDescriptor
-	 */
-	public function getChannelDescriptors()
-	{
-		return $this->channelDescriptors;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Monitoring_NotificationChannelDescriptor[]
+   */
+  public function setChannelDescriptors($channelDescriptors)
+  {
+    $this->channelDescriptors = $channelDescriptors;
+  }
+  /**
+   * @return Google_Service_Monitoring_NotificationChannelDescriptor[]
+   */
+  public function getChannelDescriptors()
+  {
+    return $this->channelDescriptors;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

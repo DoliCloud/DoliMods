@@ -17,15 +17,15 @@
 
 class Google_Service_AdExchangeBuyerII_AuctionContext extends Google_Collection
 {
-	protected $collection_key = 'auctionTypes';
-	public $auctionTypes;
+  protected $collection_key = 'auctionTypes';
+  public $auctionTypes;
 
-	public function setAuctionTypes($auctionTypes)
-	{
-		$this->auctionTypes = $auctionTypes;
-	}
-	public function getAuctionTypes()
-	{
-		return $this->auctionTypes;
-	}
+  public function setAuctionTypes($auctionTypes)
+  {
+    $this->auctionTypes = $auctionTypes;
+  }
+  public function getAuctionTypes()
+  {
+    return $this->auctionTypes;
+  }
 }

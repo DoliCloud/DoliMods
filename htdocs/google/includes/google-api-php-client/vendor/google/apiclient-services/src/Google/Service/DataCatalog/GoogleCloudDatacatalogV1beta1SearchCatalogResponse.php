@@ -17,40 +17,40 @@
 
 class Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogResponse extends Google_Collection
 {
-	protected $collection_key = 'unreachable';
-	public $nextPageToken;
-	protected $resultsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogResult';
-	protected $resultsDataType = 'array';
-	public $unreachable;
+  protected $collection_key = 'unreachable';
+  public $nextPageToken;
+  protected $resultsType = 'Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogResult';
+  protected $resultsDataType = 'array';
+  public $unreachable;
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogResult
-	 */
-	public function setResults($results)
-	{
-		$this->results = $results;
-	}
-	/**
-	 * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogResult
-	 */
-	public function getResults()
-	{
-		return $this->results;
-	}
-	public function setUnreachable($unreachable)
-	{
-		$this->unreachable = $unreachable;
-	}
-	public function getUnreachable()
-	{
-		return $this->unreachable;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogResult[]
+   */
+  public function setResults($results)
+  {
+    $this->results = $results;
+  }
+  /**
+   * @return Google_Service_DataCatalog_GoogleCloudDatacatalogV1beta1SearchCatalogResult[]
+   */
+  public function getResults()
+  {
+    return $this->results;
+  }
+  public function setUnreachable($unreachable)
+  {
+    $this->unreachable = $unreachable;
+  }
+  public function getUnreachable()
+  {
+    return $this->unreachable;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Safebrowsing_FetchThreatListUpdatesRequest extends Google_Collection
 {
-	protected $collection_key = 'listUpdateRequests';
-	protected $clientType = 'Google_Service_Safebrowsing_ClientInfo';
-	protected $clientDataType = '';
-	protected $listUpdateRequestsType = 'Google_Service_Safebrowsing_ListUpdateRequest';
-	protected $listUpdateRequestsDataType = 'array';
+  protected $collection_key = 'listUpdateRequests';
+  protected $clientType = 'Google_Service_Safebrowsing_ClientInfo';
+  protected $clientDataType = '';
+  protected $listUpdateRequestsType = 'Google_Service_Safebrowsing_ListUpdateRequest';
+  protected $listUpdateRequestsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Safebrowsing_ClientInfo
-	 */
-	public function setClient(Google_Service_Safebrowsing_ClientInfo $client)
-	{
-		$this->client = $client;
-	}
-	/**
-	 * @return Google_Service_Safebrowsing_ClientInfo
-	 */
-	public function getClient()
-	{
-		return $this->client;
-	}
-	/**
-	 * @param Google_Service_Safebrowsing_ListUpdateRequest
-	 */
-	public function setListUpdateRequests($listUpdateRequests)
-	{
-		$this->listUpdateRequests = $listUpdateRequests;
-	}
-	/**
-	 * @return Google_Service_Safebrowsing_ListUpdateRequest
-	 */
-	public function getListUpdateRequests()
-	{
-		return $this->listUpdateRequests;
-	}
+  /**
+   * @param Google_Service_Safebrowsing_ClientInfo
+   */
+  public function setClient(Google_Service_Safebrowsing_ClientInfo $client)
+  {
+    $this->client = $client;
+  }
+  /**
+   * @return Google_Service_Safebrowsing_ClientInfo
+   */
+  public function getClient()
+  {
+    return $this->client;
+  }
+  /**
+   * @param Google_Service_Safebrowsing_ListUpdateRequest[]
+   */
+  public function setListUpdateRequests($listUpdateRequests)
+  {
+    $this->listUpdateRequests = $listUpdateRequests;
+  }
+  /**
+   * @return Google_Service_Safebrowsing_ListUpdateRequest[]
+   */
+  public function getListUpdateRequests()
+  {
+    return $this->listUpdateRequests;
+  }
 }

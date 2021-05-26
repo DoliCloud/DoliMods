@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_Disk extends Google_Model
 {
-	public $diskType;
-	public $mountPoint;
-	public $sizeGb;
+  public $diskType;
+  public $mountPoint;
+  public $sizeGb;
 
-	public function setDiskType($diskType)
-	{
-		$this->diskType = $diskType;
-	}
-	public function getDiskType()
-	{
-		return $this->diskType;
-	}
-	public function setMountPoint($mountPoint)
-	{
-		$this->mountPoint = $mountPoint;
-	}
-	public function getMountPoint()
-	{
-		return $this->mountPoint;
-	}
-	public function setSizeGb($sizeGb)
-	{
-		$this->sizeGb = $sizeGb;
-	}
-	public function getSizeGb()
-	{
-		return $this->sizeGb;
-	}
+  public function setDiskType($diskType)
+  {
+    $this->diskType = $diskType;
+  }
+  public function getDiskType()
+  {
+    return $this->diskType;
+  }
+  public function setMountPoint($mountPoint)
+  {
+    $this->mountPoint = $mountPoint;
+  }
+  public function getMountPoint()
+  {
+    return $this->mountPoint;
+  }
+  public function setSizeGb($sizeGb)
+  {
+    $this->sizeGb = $sizeGb;
+  }
+  public function getSizeGb()
+  {
+    return $this->sizeGb;
+  }
 }

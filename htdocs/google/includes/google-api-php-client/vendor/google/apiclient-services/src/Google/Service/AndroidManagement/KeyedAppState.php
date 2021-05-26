@@ -17,59 +17,59 @@
 
 class Google_Service_AndroidManagement_KeyedAppState extends Google_Model
 {
-	public $createTime;
-	public $data;
-	public $key;
-	public $lastUpdateTime;
-	public $message;
-	public $severity;
+  public $createTime;
+  public $data;
+  public $key;
+  public $lastUpdateTime;
+  public $message;
+  public $severity;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setLastUpdateTime($lastUpdateTime)
-	{
-		$this->lastUpdateTime = $lastUpdateTime;
-	}
-	public function getLastUpdateTime()
-	{
-		return $this->lastUpdateTime;
-	}
-	public function setMessage($message)
-	{
-		$this->message = $message;
-	}
-	public function getMessage()
-	{
-		return $this->message;
-	}
-	public function setSeverity($severity)
-	{
-		$this->severity = $severity;
-	}
-	public function getSeverity()
-	{
-		return $this->severity;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setLastUpdateTime($lastUpdateTime)
+  {
+    $this->lastUpdateTime = $lastUpdateTime;
+  }
+  public function getLastUpdateTime()
+  {
+    return $this->lastUpdateTime;
+  }
+  public function setMessage($message)
+  {
+    $this->message = $message;
+  }
+  public function getMessage()
+  {
+    return $this->message;
+  }
+  public function setSeverity($severity)
+  {
+    $this->severity = $severity;
+  }
+  public function getSeverity()
+  {
+    return $this->severity;
+  }
 }

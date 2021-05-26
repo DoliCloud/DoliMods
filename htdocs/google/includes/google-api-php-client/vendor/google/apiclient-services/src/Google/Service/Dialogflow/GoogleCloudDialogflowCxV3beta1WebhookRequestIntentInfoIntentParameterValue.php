@@ -17,23 +17,23 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue extends Google_Model
 {
-	public $originalValue;
-	public $resolvedValue;
+  public $originalValue;
+  public $resolvedValue;
 
-	public function setOriginalValue($originalValue)
-	{
-		$this->originalValue = $originalValue;
-	}
-	public function getOriginalValue()
-	{
-		return $this->originalValue;
-	}
-	public function setResolvedValue($resolvedValue)
-	{
-		$this->resolvedValue = $resolvedValue;
-	}
-	public function getResolvedValue()
-	{
-		return $this->resolvedValue;
-	}
+  public function setOriginalValue($originalValue)
+  {
+    $this->originalValue = $originalValue;
+  }
+  public function getOriginalValue()
+  {
+    return $this->originalValue;
+  }
+  public function setResolvedValue($resolvedValue)
+  {
+    $this->resolvedValue = $resolvedValue;
+  }
+  public function getResolvedValue()
+  {
+    return $this->resolvedValue;
+  }
 }

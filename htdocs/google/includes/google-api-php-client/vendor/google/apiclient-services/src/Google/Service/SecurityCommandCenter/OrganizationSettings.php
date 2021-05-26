@@ -17,39 +17,39 @@
 
 class Google_Service_SecurityCommandCenter_OrganizationSettings extends Google_Model
 {
-	protected $assetDiscoveryConfigType = 'Google_Service_SecurityCommandCenter_AssetDiscoveryConfig';
-	protected $assetDiscoveryConfigDataType = '';
-	public $enableAssetDiscovery;
-	public $name;
+  protected $assetDiscoveryConfigType = 'Google_Service_SecurityCommandCenter_AssetDiscoveryConfig';
+  protected $assetDiscoveryConfigDataType = '';
+  public $enableAssetDiscovery;
+  public $name;
 
-	/**
-	 * @param Google_Service_SecurityCommandCenter_AssetDiscoveryConfig
-	 */
-	public function setAssetDiscoveryConfig(Google_Service_SecurityCommandCenter_AssetDiscoveryConfig $assetDiscoveryConfig)
-	{
-		$this->assetDiscoveryConfig = $assetDiscoveryConfig;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_AssetDiscoveryConfig
-	 */
-	public function getAssetDiscoveryConfig()
-	{
-		return $this->assetDiscoveryConfig;
-	}
-	public function setEnableAssetDiscovery($enableAssetDiscovery)
-	{
-		$this->enableAssetDiscovery = $enableAssetDiscovery;
-	}
-	public function getEnableAssetDiscovery()
-	{
-		return $this->enableAssetDiscovery;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  /**
+   * @param Google_Service_SecurityCommandCenter_AssetDiscoveryConfig
+   */
+  public function setAssetDiscoveryConfig(Google_Service_SecurityCommandCenter_AssetDiscoveryConfig $assetDiscoveryConfig)
+  {
+    $this->assetDiscoveryConfig = $assetDiscoveryConfig;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_AssetDiscoveryConfig
+   */
+  public function getAssetDiscoveryConfig()
+  {
+    return $this->assetDiscoveryConfig;
+  }
+  public function setEnableAssetDiscovery($enableAssetDiscovery)
+  {
+    $this->enableAssetDiscovery = $enableAssetDiscovery;
+  }
+  public function getEnableAssetDiscovery()
+  {
+    return $this->enableAssetDiscovery;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Script_DeploymentConfig extends Google_Model
 {
-	public $description;
-	public $manifestFileName;
-	public $scriptId;
-	public $versionNumber;
+  public $description;
+  public $manifestFileName;
+  public $scriptId;
+  public $versionNumber;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setManifestFileName($manifestFileName)
-	{
-		$this->manifestFileName = $manifestFileName;
-	}
-	public function getManifestFileName()
-	{
-		return $this->manifestFileName;
-	}
-	public function setScriptId($scriptId)
-	{
-		$this->scriptId = $scriptId;
-	}
-	public function getScriptId()
-	{
-		return $this->scriptId;
-	}
-	public function setVersionNumber($versionNumber)
-	{
-		$this->versionNumber = $versionNumber;
-	}
-	public function getVersionNumber()
-	{
-		return $this->versionNumber;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setManifestFileName($manifestFileName)
+  {
+    $this->manifestFileName = $manifestFileName;
+  }
+  public function getManifestFileName()
+  {
+    return $this->manifestFileName;
+  }
+  public function setScriptId($scriptId)
+  {
+    $this->scriptId = $scriptId;
+  }
+  public function getScriptId()
+  {
+    return $this->scriptId;
+  }
+  public function setVersionNumber($versionNumber)
+  {
+    $this->versionNumber = $versionNumber;
+  }
+  public function getVersionNumber()
+  {
+    return $this->versionNumber;
+  }
 }

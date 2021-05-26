@@ -17,23 +17,23 @@
 
 class Google_Service_Script_ScriptStackTraceElement extends Google_Model
 {
-	public $function;
-	public $lineNumber;
+  public $function;
+  public $lineNumber;
 
-	public function setFunction($function)
-	{
-		$this->function = $function;
-	}
-	public function getFunction()
-	{
-		return $this->function;
-	}
-	public function setLineNumber($lineNumber)
-	{
-		$this->lineNumber = $lineNumber;
-	}
-	public function getLineNumber()
-	{
-		return $this->lineNumber;
-	}
+  public function setFunction($function)
+  {
+    $this->function = $function;
+  }
+  public function getFunction()
+  {
+    return $this->function;
+  }
+  public function setLineNumber($lineNumber)
+  {
+    $this->lineNumber = $lineNumber;
+  }
+  public function getLineNumber()
+  {
+    return $this->lineNumber;
+  }
 }

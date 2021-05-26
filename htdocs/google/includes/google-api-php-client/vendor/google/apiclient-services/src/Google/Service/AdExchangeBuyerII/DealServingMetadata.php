@@ -17,21 +17,21 @@
 
 class Google_Service_AdExchangeBuyerII_DealServingMetadata extends Google_Model
 {
-	protected $dealPauseStatusType = 'Google_Service_AdExchangeBuyerII_DealPauseStatus';
-	protected $dealPauseStatusDataType = '';
+  protected $dealPauseStatusType = 'Google_Service_AdExchangeBuyerII_DealPauseStatus';
+  protected $dealPauseStatusDataType = '';
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_DealPauseStatus
-	 */
-	public function setDealPauseStatus(Google_Service_AdExchangeBuyerII_DealPauseStatus $dealPauseStatus)
-	{
-		$this->dealPauseStatus = $dealPauseStatus;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_DealPauseStatus
-	 */
-	public function getDealPauseStatus()
-	{
-		return $this->dealPauseStatus;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_DealPauseStatus
+   */
+  public function setDealPauseStatus(Google_Service_AdExchangeBuyerII_DealPauseStatus $dealPauseStatus)
+  {
+    $this->dealPauseStatus = $dealPauseStatus;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_DealPauseStatus
+   */
+  public function getDealPauseStatus()
+  {
+    return $this->dealPauseStatus;
+  }
 }

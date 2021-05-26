@@ -17,25 +17,25 @@
 
 class Google_Service_FirebaseRulesAPI_ListRulesetsResponse extends Google_Collection
 {
-	protected $collection_key = 'rulesets';
-	public $nextPageToken;
-	protected $rulesetsType = 'Google_Service_FirebaseRulesAPI_Ruleset';
-	protected $rulesetsDataType = 'array';
+  protected $collection_key = 'rulesets';
+  public $nextPageToken;
+  protected $rulesetsType = 'Google_Service_FirebaseRulesAPI_Ruleset';
+  protected $rulesetsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setRulesets($rulesets)
-	{
-		$this->rulesets = $rulesets;
-	}
-	public function getRulesets()
-	{
-		return $this->rulesets;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setRulesets($rulesets)
+  {
+    $this->rulesets = $rulesets;
+  }
+  public function getRulesets()
+  {
+    return $this->rulesets;
+  }
 }

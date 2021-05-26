@@ -17,39 +17,39 @@
 
 class Google_Service_Compute_ConsistentHashLoadBalancerSettings extends Google_Model
 {
-	protected $httpCookieType = 'Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie';
-	protected $httpCookieDataType = '';
-	public $httpHeaderName;
-	public $minimumRingSize;
+  protected $httpCookieType = 'Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie';
+  protected $httpCookieDataType = '';
+  public $httpHeaderName;
+  public $minimumRingSize;
 
-	/**
-	 * @param Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie
-	 */
-	public function setHttpCookie(Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie $httpCookie)
-	{
-		$this->httpCookie = $httpCookie;
-	}
-	/**
-	 * @return Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie
-	 */
-	public function getHttpCookie()
-	{
-		return $this->httpCookie;
-	}
-	public function setHttpHeaderName($httpHeaderName)
-	{
-		$this->httpHeaderName = $httpHeaderName;
-	}
-	public function getHttpHeaderName()
-	{
-		return $this->httpHeaderName;
-	}
-	public function setMinimumRingSize($minimumRingSize)
-	{
-		$this->minimumRingSize = $minimumRingSize;
-	}
-	public function getMinimumRingSize()
-	{
-		return $this->minimumRingSize;
-	}
+  /**
+   * @param Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie
+   */
+  public function setHttpCookie(Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie $httpCookie)
+  {
+    $this->httpCookie = $httpCookie;
+  }
+  /**
+   * @return Google_Service_Compute_ConsistentHashLoadBalancerSettingsHttpCookie
+   */
+  public function getHttpCookie()
+  {
+    return $this->httpCookie;
+  }
+  public function setHttpHeaderName($httpHeaderName)
+  {
+    $this->httpHeaderName = $httpHeaderName;
+  }
+  public function getHttpHeaderName()
+  {
+    return $this->httpHeaderName;
+  }
+  public function setMinimumRingSize($minimumRingSize)
+  {
+    $this->minimumRingSize = $minimumRingSize;
+  }
+  public function getMinimumRingSize()
+  {
+    return $this->minimumRingSize;
+  }
 }

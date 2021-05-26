@@ -17,49 +17,49 @@
 
 class Google_Service_QPXExpress_SegmentPricing extends Google_Collection
 {
-	protected $collection_key = 'freeBaggageOption';
-	public $fareId;
-	protected $freeBaggageOptionType = 'Google_Service_QPXExpress_FreeBaggageAllowance';
-	protected $freeBaggageOptionDataType = 'array';
-	public $kind;
-	public $segmentId;
+  protected $collection_key = 'freeBaggageOption';
+  public $fareId;
+  protected $freeBaggageOptionType = 'Google_Service_QPXExpress_FreeBaggageAllowance';
+  protected $freeBaggageOptionDataType = 'array';
+  public $kind;
+  public $segmentId;
 
-	public function setFareId($fareId)
-	{
-		$this->fareId = $fareId;
-	}
-	public function getFareId()
-	{
-		return $this->fareId;
-	}
-	/**
-	 * @param Google_Service_QPXExpress_FreeBaggageAllowance
-	 */
-	public function setFreeBaggageOption($freeBaggageOption)
-	{
-		$this->freeBaggageOption = $freeBaggageOption;
-	}
-	/**
-	 * @return Google_Service_QPXExpress_FreeBaggageAllowance
-	 */
-	public function getFreeBaggageOption()
-	{
-		return $this->freeBaggageOption;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setSegmentId($segmentId)
-	{
-		$this->segmentId = $segmentId;
-	}
-	public function getSegmentId()
-	{
-		return $this->segmentId;
-	}
+  public function setFareId($fareId)
+  {
+    $this->fareId = $fareId;
+  }
+  public function getFareId()
+  {
+    return $this->fareId;
+  }
+  /**
+   * @param Google_Service_QPXExpress_FreeBaggageAllowance
+   */
+  public function setFreeBaggageOption($freeBaggageOption)
+  {
+    $this->freeBaggageOption = $freeBaggageOption;
+  }
+  /**
+   * @return Google_Service_QPXExpress_FreeBaggageAllowance
+   */
+  public function getFreeBaggageOption()
+  {
+    return $this->freeBaggageOption;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setSegmentId($segmentId)
+  {
+    $this->segmentId = $segmentId;
+  }
+  public function getSegmentId()
+  {
+    return $this->segmentId;
+  }
 }

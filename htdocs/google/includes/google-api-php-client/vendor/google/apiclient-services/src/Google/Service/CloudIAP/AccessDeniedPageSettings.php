@@ -17,14 +17,14 @@
 
 class Google_Service_CloudIAP_AccessDeniedPageSettings extends Google_Model
 {
-	public $accessDeniedPageUri;
+  public $accessDeniedPageUri;
 
-	public function setAccessDeniedPageUri($accessDeniedPageUri)
-	{
-		$this->accessDeniedPageUri = $accessDeniedPageUri;
-	}
-	public function getAccessDeniedPageUri()
-	{
-		return $this->accessDeniedPageUri;
-	}
+  public function setAccessDeniedPageUri($accessDeniedPageUri)
+  {
+    $this->accessDeniedPageUri = $accessDeniedPageUri;
+  }
+  public function getAccessDeniedPageUri()
+  {
+    return $this->accessDeniedPageUri;
+  }
 }

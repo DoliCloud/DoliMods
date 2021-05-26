@@ -17,14 +17,14 @@
 
 class Google_Service_Testing_FileReference extends Google_Model
 {
-	public $gcsPath;
+  public $gcsPath;
 
-	public function setGcsPath($gcsPath)
-	{
-		$this->gcsPath = $gcsPath;
-	}
-	public function getGcsPath()
-	{
-		return $this->gcsPath;
-	}
+  public function setGcsPath($gcsPath)
+  {
+    $this->gcsPath = $gcsPath;
+  }
+  public function getGcsPath()
+  {
+    return $this->gcsPath;
+  }
 }

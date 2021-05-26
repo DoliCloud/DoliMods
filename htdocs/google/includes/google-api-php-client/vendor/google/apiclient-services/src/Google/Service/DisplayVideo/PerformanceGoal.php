@@ -17,41 +17,41 @@
 
 class Google_Service_DisplayVideo_PerformanceGoal extends Google_Model
 {
-	public $performanceGoalAmountMicros;
-	public $performanceGoalPercentageMicros;
-	public $performanceGoalString;
-	public $performanceGoalType;
+  public $performanceGoalAmountMicros;
+  public $performanceGoalPercentageMicros;
+  public $performanceGoalString;
+  public $performanceGoalType;
 
-	public function setPerformanceGoalAmountMicros($performanceGoalAmountMicros)
-	{
-		$this->performanceGoalAmountMicros = $performanceGoalAmountMicros;
-	}
-	public function getPerformanceGoalAmountMicros()
-	{
-		return $this->performanceGoalAmountMicros;
-	}
-	public function setPerformanceGoalPercentageMicros($performanceGoalPercentageMicros)
-	{
-		$this->performanceGoalPercentageMicros = $performanceGoalPercentageMicros;
-	}
-	public function getPerformanceGoalPercentageMicros()
-	{
-		return $this->performanceGoalPercentageMicros;
-	}
-	public function setPerformanceGoalString($performanceGoalString)
-	{
-		$this->performanceGoalString = $performanceGoalString;
-	}
-	public function getPerformanceGoalString()
-	{
-		return $this->performanceGoalString;
-	}
-	public function setPerformanceGoalType($performanceGoalType)
-	{
-		$this->performanceGoalType = $performanceGoalType;
-	}
-	public function getPerformanceGoalType()
-	{
-		return $this->performanceGoalType;
-	}
+  public function setPerformanceGoalAmountMicros($performanceGoalAmountMicros)
+  {
+    $this->performanceGoalAmountMicros = $performanceGoalAmountMicros;
+  }
+  public function getPerformanceGoalAmountMicros()
+  {
+    return $this->performanceGoalAmountMicros;
+  }
+  public function setPerformanceGoalPercentageMicros($performanceGoalPercentageMicros)
+  {
+    $this->performanceGoalPercentageMicros = $performanceGoalPercentageMicros;
+  }
+  public function getPerformanceGoalPercentageMicros()
+  {
+    return $this->performanceGoalPercentageMicros;
+  }
+  public function setPerformanceGoalString($performanceGoalString)
+  {
+    $this->performanceGoalString = $performanceGoalString;
+  }
+  public function getPerformanceGoalString()
+  {
+    return $this->performanceGoalString;
+  }
+  public function setPerformanceGoalType($performanceGoalType)
+  {
+    $this->performanceGoalType = $performanceGoalType;
+  }
+  public function getPerformanceGoalType()
+  {
+    return $this->performanceGoalType;
+  }
 }

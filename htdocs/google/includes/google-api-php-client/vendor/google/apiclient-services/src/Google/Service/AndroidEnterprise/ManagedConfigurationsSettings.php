@@ -17,32 +17,32 @@
 
 class Google_Service_AndroidEnterprise_ManagedConfigurationsSettings extends Google_Model
 {
-	public $lastUpdatedTimestampMillis;
-	public $mcmId;
-	public $name;
+  public $lastUpdatedTimestampMillis;
+  public $mcmId;
+  public $name;
 
-	public function setLastUpdatedTimestampMillis($lastUpdatedTimestampMillis)
-	{
-		$this->lastUpdatedTimestampMillis = $lastUpdatedTimestampMillis;
-	}
-	public function getLastUpdatedTimestampMillis()
-	{
-		return $this->lastUpdatedTimestampMillis;
-	}
-	public function setMcmId($mcmId)
-	{
-		$this->mcmId = $mcmId;
-	}
-	public function getMcmId()
-	{
-		return $this->mcmId;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setLastUpdatedTimestampMillis($lastUpdatedTimestampMillis)
+  {
+    $this->lastUpdatedTimestampMillis = $lastUpdatedTimestampMillis;
+  }
+  public function getLastUpdatedTimestampMillis()
+  {
+    return $this->lastUpdatedTimestampMillis;
+  }
+  public function setMcmId($mcmId)
+  {
+    $this->mcmId = $mcmId;
+  }
+  public function getMcmId()
+  {
+    return $this->mcmId;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_ServiceNetworking_SystemParameter extends Google_Model
 {
-	public $httpHeader;
-	public $name;
-	public $urlQueryParameter;
+  public $httpHeader;
+  public $name;
+  public $urlQueryParameter;
 
-	public function setHttpHeader($httpHeader)
-	{
-		$this->httpHeader = $httpHeader;
-	}
-	public function getHttpHeader()
-	{
-		return $this->httpHeader;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUrlQueryParameter($urlQueryParameter)
-	{
-		$this->urlQueryParameter = $urlQueryParameter;
-	}
-	public function getUrlQueryParameter()
-	{
-		return $this->urlQueryParameter;
-	}
+  public function setHttpHeader($httpHeader)
+  {
+    $this->httpHeader = $httpHeader;
+  }
+  public function getHttpHeader()
+  {
+    return $this->httpHeader;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUrlQueryParameter($urlQueryParameter)
+  {
+    $this->urlQueryParameter = $urlQueryParameter;
+  }
+  public function getUrlQueryParameter()
+  {
+    return $this->urlQueryParameter;
+  }
 }

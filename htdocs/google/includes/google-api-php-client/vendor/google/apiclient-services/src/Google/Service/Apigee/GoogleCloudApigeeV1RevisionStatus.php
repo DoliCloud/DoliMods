@@ -17,49 +17,49 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1RevisionStatus extends Google_Collection
 {
-	protected $collection_key = 'errors';
-	protected $errorsType = 'Google_Service_Apigee_GoogleCloudApigeeV1UpdateError';
-	protected $errorsDataType = 'array';
-	public $jsonSpec;
-	public $replicas;
-	public $revisionId;
+  protected $collection_key = 'errors';
+  protected $errorsType = 'Google_Service_Apigee_GoogleCloudApigeeV1UpdateError';
+  protected $errorsDataType = 'array';
+  public $jsonSpec;
+  public $replicas;
+  public $revisionId;
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1UpdateError
-	 */
-	public function setErrors($errors)
-	{
-		$this->errors = $errors;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1UpdateError
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
-	public function setJsonSpec($jsonSpec)
-	{
-		$this->jsonSpec = $jsonSpec;
-	}
-	public function getJsonSpec()
-	{
-		return $this->jsonSpec;
-	}
-	public function setReplicas($replicas)
-	{
-		$this->replicas = $replicas;
-	}
-	public function getReplicas()
-	{
-		return $this->replicas;
-	}
-	public function setRevisionId($revisionId)
-	{
-		$this->revisionId = $revisionId;
-	}
-	public function getRevisionId()
-	{
-		return $this->revisionId;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1UpdateError[]
+   */
+  public function setErrors($errors)
+  {
+    $this->errors = $errors;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1UpdateError[]
+   */
+  public function getErrors()
+  {
+    return $this->errors;
+  }
+  public function setJsonSpec($jsonSpec)
+  {
+    $this->jsonSpec = $jsonSpec;
+  }
+  public function getJsonSpec()
+  {
+    return $this->jsonSpec;
+  }
+  public function setReplicas($replicas)
+  {
+    $this->replicas = $replicas;
+  }
+  public function getReplicas()
+  {
+    return $this->replicas;
+  }
+  public function setRevisionId($revisionId)
+  {
+    $this->revisionId = $revisionId;
+  }
+  public function getRevisionId()
+  {
+    return $this->revisionId;
+  }
 }

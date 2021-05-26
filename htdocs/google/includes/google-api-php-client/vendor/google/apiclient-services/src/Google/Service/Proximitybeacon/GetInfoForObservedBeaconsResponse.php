@@ -17,22 +17,22 @@
 
 class Google_Service_Proximitybeacon_GetInfoForObservedBeaconsResponse extends Google_Collection
 {
-	protected $collection_key = 'beacons';
-	protected $beaconsType = 'Google_Service_Proximitybeacon_BeaconInfo';
-	protected $beaconsDataType = 'array';
+  protected $collection_key = 'beacons';
+  protected $beaconsType = 'Google_Service_Proximitybeacon_BeaconInfo';
+  protected $beaconsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Proximitybeacon_BeaconInfo
-	 */
-	public function setBeacons($beacons)
-	{
-		$this->beacons = $beacons;
-	}
-	/**
-	 * @return Google_Service_Proximitybeacon_BeaconInfo
-	 */
-	public function getBeacons()
-	{
-		return $this->beacons;
-	}
+  /**
+   * @param Google_Service_Proximitybeacon_BeaconInfo
+   */
+  public function setBeacons($beacons)
+  {
+    $this->beacons = $beacons;
+  }
+  /**
+   * @return Google_Service_Proximitybeacon_BeaconInfo
+   */
+  public function getBeacons()
+  {
+    return $this->beacons;
+  }
 }

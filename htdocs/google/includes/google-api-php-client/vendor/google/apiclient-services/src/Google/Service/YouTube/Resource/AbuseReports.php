@@ -25,20 +25,20 @@
  */
 class Google_Service_YouTube_Resource_AbuseReports extends Google_Service_Resource
 {
-	/**
-	 * Inserts a new resource into this collection. (abuseReports.insert)
-	 *
-	 * @param string|array $part The part parameter serves two purposes in this
-	 *                           operation. It identifies the properties that the write operation will set as
-	 *                           well as the properties that the API response will include.
-	 * @param Google_Service_YouTube_AbuseReport $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_YouTube_AbuseReport
-	 */
-	public function insert($part, Google_Service_YouTube_AbuseReport $postBody, $optParams = array())
-	{
-		$params = array('part' => $part, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_YouTube_AbuseReport");
-	}
+  /**
+   * Inserts a new resource into this collection. (abuseReports.insert)
+   *
+   * @param string|array $part The *part* parameter serves two purposes in this
+   * operation. It identifies the properties that the write operation will set as
+   * well as the properties that the API response will include.
+   * @param Google_Service_YouTube_AbuseReport $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_YouTube_AbuseReport
+   */
+  public function insert($part, Google_Service_YouTube_AbuseReport $postBody, $optParams = array())
+  {
+    $params = array('part' => $part, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_YouTube_AbuseReport");
+  }
 }

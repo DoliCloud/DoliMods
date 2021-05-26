@@ -25,39 +25,36 @@
  */
 class Google_Service_Vision_Resource_Images extends Google_Service_Resource
 {
-	/**
-	 * Run image detection and annotation for a batch of images. (images.annotate)
-	 *
-	 * @param Google_Service_Vision_BatchAnnotateImagesRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Vision_BatchAnnotateImagesResponse
-	 */
-	public function annotate(Google_Service_Vision_BatchAnnotateImagesRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('annotate', array($params), "Google_Service_Vision_BatchAnnotateImagesResponse");
-	}
-	/**
-	 * Run asynchronous image detection and annotation for a list of images.
-	 *
-	 * Progress and results can be retrieved through the
-	 * `google.longrunning.Operations` interface. `Operation.metadata` contains
-	 * `OperationMetadata` (metadata). `Operation.response` contains
-	 * `AsyncBatchAnnotateImagesResponse` (results).
-	 *
-	 * This service will write image annotation outputs to json files in customer
-	 * GCS bucket, each json file containing BatchAnnotateImagesResponse proto.
-	 * (images.asyncBatchAnnotate)
-	 *
-	 * @param Google_Service_Vision_AsyncBatchAnnotateImagesRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Vision_Operation
-	 */
-	public function asyncBatchAnnotate(Google_Service_Vision_AsyncBatchAnnotateImagesRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('asyncBatchAnnotate', array($params), "Google_Service_Vision_Operation");
-	}
+  /**
+   * Run image detection and annotation for a batch of images. (images.annotate)
+   *
+   * @param Google_Service_Vision_BatchAnnotateImagesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Vision_BatchAnnotateImagesResponse
+   */
+  public function annotate(Google_Service_Vision_BatchAnnotateImagesRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('annotate', array($params), "Google_Service_Vision_BatchAnnotateImagesResponse");
+  }
+  /**
+   * Run asynchronous image detection and annotation for a list of images.
+   * Progress and results can be retrieved through the
+   * `google.longrunning.Operations` interface. `Operation.metadata` contains
+   * `OperationMetadata` (metadata). `Operation.response` contains
+   * `AsyncBatchAnnotateImagesResponse` (results). This service will write image
+   * annotation outputs to json files in customer GCS bucket, each json file
+   * containing BatchAnnotateImagesResponse proto. (images.asyncBatchAnnotate)
+   *
+   * @param Google_Service_Vision_AsyncBatchAnnotateImagesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Vision_Operation
+   */
+  public function asyncBatchAnnotate(Google_Service_Vision_AsyncBatchAnnotateImagesRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('asyncBatchAnnotate', array($params), "Google_Service_Vision_Operation");
+  }
 }

@@ -15,59 +15,142 @@
  * the License.
  */
 
-class Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntity extends Google_Model
+class Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntity extends Google_Collection
 {
-	public $confidence;
-	public $mentionId;
-	public $mentionText;
-	protected $textAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor';
-	protected $textAnchorDataType = '';
-	public $type;
+  protected $collection_key = 'properties';
+  public $confidence;
+  public $id;
+  public $mentionId;
+  public $mentionText;
+  protected $normalizedValueType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntityNormalizedValue';
+  protected $normalizedValueDataType = '';
+  protected $pageAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageAnchor';
+  protected $pageAnchorDataType = '';
+  protected $propertiesType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntity';
+  protected $propertiesDataType = 'array';
+  protected $provenanceType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentProvenance';
+  protected $provenanceDataType = '';
+  public $redacted;
+  protected $textAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor';
+  protected $textAnchorDataType = '';
+  public $type;
 
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
-	public function setMentionId($mentionId)
-	{
-		$this->mentionId = $mentionId;
-	}
-	public function getMentionId()
-	{
-		return $this->mentionId;
-	}
-	public function setMentionText($mentionText)
-	{
-		$this->mentionText = $mentionText;
-	}
-	public function getMentionText()
-	{
-		return $this->mentionText;
-	}
-	/**
-	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor
-	 */
-	public function setTextAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor $textAnchor)
-	{
-		$this->textAnchor = $textAnchor;
-	}
-	/**
-	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor
-	 */
-	public function getTextAnchor()
-	{
-		return $this->textAnchor;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setMentionId($mentionId)
+  {
+    $this->mentionId = $mentionId;
+  }
+  public function getMentionId()
+  {
+    return $this->mentionId;
+  }
+  public function setMentionText($mentionText)
+  {
+    $this->mentionText = $mentionText;
+  }
+  public function getMentionText()
+  {
+    return $this->mentionText;
+  }
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntityNormalizedValue
+   */
+  public function setNormalizedValue(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntityNormalizedValue $normalizedValue)
+  {
+    $this->normalizedValue = $normalizedValue;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntityNormalizedValue
+   */
+  public function getNormalizedValue()
+  {
+    return $this->normalizedValue;
+  }
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageAnchor
+   */
+  public function setPageAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageAnchor $pageAnchor)
+  {
+    $this->pageAnchor = $pageAnchor;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentPageAnchor
+   */
+  public function getPageAnchor()
+  {
+    return $this->pageAnchor;
+  }
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntity[]
+   */
+  public function setProperties($properties)
+  {
+    $this->properties = $properties;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentEntity[]
+   */
+  public function getProperties()
+  {
+    return $this->properties;
+  }
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentProvenance
+   */
+  public function setProvenance(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentProvenance $provenance)
+  {
+    $this->provenance = $provenance;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentProvenance
+   */
+  public function getProvenance()
+  {
+    return $this->provenance;
+  }
+  public function setRedacted($redacted)
+  {
+    $this->redacted = $redacted;
+  }
+  public function getRedacted()
+  {
+    return $this->redacted;
+  }
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor
+   */
+  public function setTextAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor $textAnchor)
+  {
+    $this->textAnchor = $textAnchor;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta2DocumentTextAnchor
+   */
+  public function getTextAnchor()
+  {
+    return $this->textAnchor;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

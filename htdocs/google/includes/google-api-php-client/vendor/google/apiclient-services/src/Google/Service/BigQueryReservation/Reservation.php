@@ -17,32 +17,50 @@
 
 class Google_Service_BigQueryReservation_Reservation extends Google_Model
 {
-	public $ignoreIdleSlots;
-	public $name;
-	public $slotCapacity;
+  public $creationTime;
+  public $ignoreIdleSlots;
+  public $name;
+  public $slotCapacity;
+  public $updateTime;
 
-	public function setIgnoreIdleSlots($ignoreIdleSlots)
-	{
-		$this->ignoreIdleSlots = $ignoreIdleSlots;
-	}
-	public function getIgnoreIdleSlots()
-	{
-		return $this->ignoreIdleSlots;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSlotCapacity($slotCapacity)
-	{
-		$this->slotCapacity = $slotCapacity;
-	}
-	public function getSlotCapacity()
-	{
-		return $this->slotCapacity;
-	}
+  public function setCreationTime($creationTime)
+  {
+    $this->creationTime = $creationTime;
+  }
+  public function getCreationTime()
+  {
+    return $this->creationTime;
+  }
+  public function setIgnoreIdleSlots($ignoreIdleSlots)
+  {
+    $this->ignoreIdleSlots = $ignoreIdleSlots;
+  }
+  public function getIgnoreIdleSlots()
+  {
+    return $this->ignoreIdleSlots;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSlotCapacity($slotCapacity)
+  {
+    $this->slotCapacity = $slotCapacity;
+  }
+  public function getSlotCapacity()
+  {
+    return $this->slotCapacity;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_Container_AuthenticatorGroupsConfig extends Google_Model
 {
-	public $enabled;
-	public $securityGroup;
+  public $enabled;
+  public $securityGroup;
 
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
-	}
-	public function getEnabled()
-	{
-		return $this->enabled;
-	}
-	public function setSecurityGroup($securityGroup)
-	{
-		$this->securityGroup = $securityGroup;
-	}
-	public function getSecurityGroup()
-	{
-		return $this->securityGroup;
-	}
+  public function setEnabled($enabled)
+  {
+    $this->enabled = $enabled;
+  }
+  public function getEnabled()
+  {
+    return $this->enabled;
+  }
+  public function setSecurityGroup($securityGroup)
+  {
+    $this->securityGroup = $securityGroup;
+  }
+  public function getSecurityGroup()
+  {
+    return $this->securityGroup;
+  }
 }

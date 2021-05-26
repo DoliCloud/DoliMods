@@ -17,66 +17,66 @@
 
 class Google_Service_Sheets_UpdateValuesResponse extends Google_Model
 {
-	public $spreadsheetId;
-	public $updatedCells;
-	public $updatedColumns;
-	protected $updatedDataType = 'Google_Service_Sheets_ValueRange';
-	protected $updatedDataDataType = '';
-	public $updatedRange;
-	public $updatedRows;
+  public $spreadsheetId;
+  public $updatedCells;
+  public $updatedColumns;
+  protected $updatedDataType = 'Google_Service_Sheets_ValueRange';
+  protected $updatedDataDataType = '';
+  public $updatedRange;
+  public $updatedRows;
 
-	public function setSpreadsheetId($spreadsheetId)
-	{
-		$this->spreadsheetId = $spreadsheetId;
-	}
-	public function getSpreadsheetId()
-	{
-		return $this->spreadsheetId;
-	}
-	public function setUpdatedCells($updatedCells)
-	{
-		$this->updatedCells = $updatedCells;
-	}
-	public function getUpdatedCells()
-	{
-		return $this->updatedCells;
-	}
-	public function setUpdatedColumns($updatedColumns)
-	{
-		$this->updatedColumns = $updatedColumns;
-	}
-	public function getUpdatedColumns()
-	{
-		return $this->updatedColumns;
-	}
-	/**
-	 * @param Google_Service_Sheets_ValueRange
-	 */
-	public function setUpdatedData(Google_Service_Sheets_ValueRange $updatedData)
-	{
-		$this->updatedData = $updatedData;
-	}
-	/**
-	 * @return Google_Service_Sheets_ValueRange
-	 */
-	public function getUpdatedData()
-	{
-		return $this->updatedData;
-	}
-	public function setUpdatedRange($updatedRange)
-	{
-		$this->updatedRange = $updatedRange;
-	}
-	public function getUpdatedRange()
-	{
-		return $this->updatedRange;
-	}
-	public function setUpdatedRows($updatedRows)
-	{
-		$this->updatedRows = $updatedRows;
-	}
-	public function getUpdatedRows()
-	{
-		return $this->updatedRows;
-	}
+  public function setSpreadsheetId($spreadsheetId)
+  {
+    $this->spreadsheetId = $spreadsheetId;
+  }
+  public function getSpreadsheetId()
+  {
+    return $this->spreadsheetId;
+  }
+  public function setUpdatedCells($updatedCells)
+  {
+    $this->updatedCells = $updatedCells;
+  }
+  public function getUpdatedCells()
+  {
+    return $this->updatedCells;
+  }
+  public function setUpdatedColumns($updatedColumns)
+  {
+    $this->updatedColumns = $updatedColumns;
+  }
+  public function getUpdatedColumns()
+  {
+    return $this->updatedColumns;
+  }
+  /**
+   * @param Google_Service_Sheets_ValueRange
+   */
+  public function setUpdatedData(Google_Service_Sheets_ValueRange $updatedData)
+  {
+    $this->updatedData = $updatedData;
+  }
+  /**
+   * @return Google_Service_Sheets_ValueRange
+   */
+  public function getUpdatedData()
+  {
+    return $this->updatedData;
+  }
+  public function setUpdatedRange($updatedRange)
+  {
+    $this->updatedRange = $updatedRange;
+  }
+  public function getUpdatedRange()
+  {
+    return $this->updatedRange;
+  }
+  public function setUpdatedRows($updatedRows)
+  {
+    $this->updatedRows = $updatedRows;
+  }
+  public function getUpdatedRows()
+  {
+    return $this->updatedRows;
+  }
 }

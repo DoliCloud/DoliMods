@@ -17,40 +17,40 @@
 
 class Google_Service_Drive_TeamDriveList extends Google_Collection
 {
-	protected $collection_key = 'teamDrives';
-	public $kind;
-	public $nextPageToken;
-	protected $teamDrivesType = 'Google_Service_Drive_TeamDrive';
-	protected $teamDrivesDataType = 'array';
+  protected $collection_key = 'teamDrives';
+  public $kind;
+  public $nextPageToken;
+  protected $teamDrivesType = 'Google_Service_Drive_TeamDrive';
+  protected $teamDrivesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Drive_TeamDrive
-	 */
-	public function setTeamDrives($teamDrives)
-	{
-		$this->teamDrives = $teamDrives;
-	}
-	/**
-	 * @return Google_Service_Drive_TeamDrive
-	 */
-	public function getTeamDrives()
-	{
-		return $this->teamDrives;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Drive_TeamDrive[]
+   */
+  public function setTeamDrives($teamDrives)
+  {
+    $this->teamDrives = $teamDrives;
+  }
+  /**
+   * @return Google_Service_Drive_TeamDrive[]
+   */
+  public function getTeamDrives()
+  {
+    return $this->teamDrives;
+  }
 }

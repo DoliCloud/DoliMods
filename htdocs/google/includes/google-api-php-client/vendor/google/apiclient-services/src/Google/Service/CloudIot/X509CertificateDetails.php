@@ -17,59 +17,59 @@
 
 class Google_Service_CloudIot_X509CertificateDetails extends Google_Model
 {
-	public $expiryTime;
-	public $issuer;
-	public $publicKeyType;
-	public $signatureAlgorithm;
-	public $startTime;
-	public $subject;
+  public $expiryTime;
+  public $issuer;
+  public $publicKeyType;
+  public $signatureAlgorithm;
+  public $startTime;
+  public $subject;
 
-	public function setExpiryTime($expiryTime)
-	{
-		$this->expiryTime = $expiryTime;
-	}
-	public function getExpiryTime()
-	{
-		return $this->expiryTime;
-	}
-	public function setIssuer($issuer)
-	{
-		$this->issuer = $issuer;
-	}
-	public function getIssuer()
-	{
-		return $this->issuer;
-	}
-	public function setPublicKeyType($publicKeyType)
-	{
-		$this->publicKeyType = $publicKeyType;
-	}
-	public function getPublicKeyType()
-	{
-		return $this->publicKeyType;
-	}
-	public function setSignatureAlgorithm($signatureAlgorithm)
-	{
-		$this->signatureAlgorithm = $signatureAlgorithm;
-	}
-	public function getSignatureAlgorithm()
-	{
-		return $this->signatureAlgorithm;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
-	public function setSubject($subject)
-	{
-		$this->subject = $subject;
-	}
-	public function getSubject()
-	{
-		return $this->subject;
-	}
+  public function setExpiryTime($expiryTime)
+  {
+    $this->expiryTime = $expiryTime;
+  }
+  public function getExpiryTime()
+  {
+    return $this->expiryTime;
+  }
+  public function setIssuer($issuer)
+  {
+    $this->issuer = $issuer;
+  }
+  public function getIssuer()
+  {
+    return $this->issuer;
+  }
+  public function setPublicKeyType($publicKeyType)
+  {
+    $this->publicKeyType = $publicKeyType;
+  }
+  public function getPublicKeyType()
+  {
+    return $this->publicKeyType;
+  }
+  public function setSignatureAlgorithm($signatureAlgorithm)
+  {
+    $this->signatureAlgorithm = $signatureAlgorithm;
+  }
+  public function getSignatureAlgorithm()
+  {
+    return $this->signatureAlgorithm;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
+  public function setSubject($subject)
+  {
+    $this->subject = $subject;
+  }
+  public function getSubject()
+  {
+    return $this->subject;
+  }
 }

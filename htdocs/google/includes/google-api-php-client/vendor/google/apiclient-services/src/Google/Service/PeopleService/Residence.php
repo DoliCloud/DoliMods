@@ -17,39 +17,39 @@
 
 class Google_Service_PeopleService_Residence extends Google_Model
 {
-	public $current;
-	protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
-	protected $metadataDataType = '';
-	public $value;
+  public $current;
+  protected $metadataType = 'Google_Service_PeopleService_FieldMetadata';
+  protected $metadataDataType = '';
+  public $value;
 
-	public function setCurrent($current)
-	{
-		$this->current = $current;
-	}
-	public function getCurrent()
-	{
-		return $this->current;
-	}
-	/**
-	 * @param Google_Service_PeopleService_FieldMetadata
-	 */
-	public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_PeopleService_FieldMetadata
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setCurrent($current)
+  {
+    $this->current = $current;
+  }
+  public function getCurrent()
+  {
+    return $this->current;
+  }
+  /**
+   * @param Google_Service_PeopleService_FieldMetadata
+   */
+  public function setMetadata(Google_Service_PeopleService_FieldMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_PeopleService_FieldMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

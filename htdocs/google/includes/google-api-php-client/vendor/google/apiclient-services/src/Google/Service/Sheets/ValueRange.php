@@ -17,33 +17,33 @@
 
 class Google_Service_Sheets_ValueRange extends Google_Collection
 {
-	protected $collection_key = 'values';
-	public $majorDimension;
-	public $range;
-	public $values;
+  protected $collection_key = 'values';
+  public $majorDimension;
+  public $range;
+  public $values;
 
-	public function setMajorDimension($majorDimension)
-	{
-		$this->majorDimension = $majorDimension;
-	}
-	public function getMajorDimension()
-	{
-		return $this->majorDimension;
-	}
-	public function setRange($range)
-	{
-		$this->range = $range;
-	}
-	public function getRange()
-	{
-		return $this->range;
-	}
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-	public function getValues()
-	{
-		return $this->values;
-	}
+  public function setMajorDimension($majorDimension)
+  {
+    $this->majorDimension = $majorDimension;
+  }
+  public function getMajorDimension()
+  {
+    return $this->majorDimension;
+  }
+  public function setRange($range)
+  {
+    $this->range = $range;
+  }
+  public function getRange()
+  {
+    return $this->range;
+  }
+  public function setValues($values)
+  {
+    $this->values = $values;
+  }
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

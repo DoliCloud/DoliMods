@@ -17,22 +17,22 @@
 
 class Google_Service_Books_VolumeLayerInfo extends Google_Collection
 {
-	protected $collection_key = 'layers';
-	protected $layersType = 'Google_Service_Books_VolumeLayerInfoLayers';
-	protected $layersDataType = 'array';
+  protected $collection_key = 'layers';
+  protected $layersType = 'Google_Service_Books_VolumeLayerInfoLayers';
+  protected $layersDataType = 'array';
 
-	/**
-	 * @param Google_Service_Books_VolumeLayerInfoLayers
-	 */
-	public function setLayers($layers)
-	{
-		$this->layers = $layers;
-	}
-	/**
-	 * @return Google_Service_Books_VolumeLayerInfoLayers
-	 */
-	public function getLayers()
-	{
-		return $this->layers;
-	}
+  /**
+   * @param Google_Service_Books_VolumeLayerInfoLayers[]
+   */
+  public function setLayers($layers)
+  {
+    $this->layers = $layers;
+  }
+  /**
+   * @return Google_Service_Books_VolumeLayerInfoLayers[]
+   */
+  public function getLayers()
+  {
+    return $this->layers;
+  }
 }

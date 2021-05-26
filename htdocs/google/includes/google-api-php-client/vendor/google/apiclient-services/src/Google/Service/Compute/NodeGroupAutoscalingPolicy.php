@@ -17,32 +17,32 @@
 
 class Google_Service_Compute_NodeGroupAutoscalingPolicy extends Google_Model
 {
-	public $maxNodes;
-	public $minNodes;
-	public $mode;
+  public $maxNodes;
+  public $minNodes;
+  public $mode;
 
-	public function setMaxNodes($maxNodes)
-	{
-		$this->maxNodes = $maxNodes;
-	}
-	public function getMaxNodes()
-	{
-		return $this->maxNodes;
-	}
-	public function setMinNodes($minNodes)
-	{
-		$this->minNodes = $minNodes;
-	}
-	public function getMinNodes()
-	{
-		return $this->minNodes;
-	}
-	public function setMode($mode)
-	{
-		$this->mode = $mode;
-	}
-	public function getMode()
-	{
-		return $this->mode;
-	}
+  public function setMaxNodes($maxNodes)
+  {
+    $this->maxNodes = $maxNodes;
+  }
+  public function getMaxNodes()
+  {
+    return $this->maxNodes;
+  }
+  public function setMinNodes($minNodes)
+  {
+    $this->minNodes = $minNodes;
+  }
+  public function getMinNodes()
+  {
+    return $this->minNodes;
+  }
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
+  public function getMode()
+  {
+    return $this->mode;
+  }
 }

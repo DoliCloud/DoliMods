@@ -17,55 +17,55 @@
 
 class Google_Service_Replicapool_NewDisk extends Google_Model
 {
-	protected $attachmentType = 'Google_Service_Replicapool_DiskAttachment';
-	protected $attachmentDataType = '';
-	public $autoDelete;
-	public $boot;
-	protected $initializeParamsType = 'Google_Service_Replicapool_NewDiskInitializeParams';
-	protected $initializeParamsDataType = '';
+  protected $attachmentType = 'Google_Service_Replicapool_DiskAttachment';
+  protected $attachmentDataType = '';
+  public $autoDelete;
+  public $boot;
+  protected $initializeParamsType = 'Google_Service_Replicapool_NewDiskInitializeParams';
+  protected $initializeParamsDataType = '';
 
-	/**
-	 * @param Google_Service_Replicapool_DiskAttachment
-	 */
-	public function setAttachment(Google_Service_Replicapool_DiskAttachment $attachment)
-	{
-		$this->attachment = $attachment;
-	}
-	/**
-	 * @return Google_Service_Replicapool_DiskAttachment
-	 */
-	public function getAttachment()
-	{
-		return $this->attachment;
-	}
-	public function setAutoDelete($autoDelete)
-	{
-		$this->autoDelete = $autoDelete;
-	}
-	public function getAutoDelete()
-	{
-		return $this->autoDelete;
-	}
-	public function setBoot($boot)
-	{
-		$this->boot = $boot;
-	}
-	public function getBoot()
-	{
-		return $this->boot;
-	}
-	/**
-	 * @param Google_Service_Replicapool_NewDiskInitializeParams
-	 */
-	public function setInitializeParams(Google_Service_Replicapool_NewDiskInitializeParams $initializeParams)
-	{
-		$this->initializeParams = $initializeParams;
-	}
-	/**
-	 * @return Google_Service_Replicapool_NewDiskInitializeParams
-	 */
-	public function getInitializeParams()
-	{
-		return $this->initializeParams;
-	}
+  /**
+   * @param Google_Service_Replicapool_DiskAttachment
+   */
+  public function setAttachment(Google_Service_Replicapool_DiskAttachment $attachment)
+  {
+    $this->attachment = $attachment;
+  }
+  /**
+   * @return Google_Service_Replicapool_DiskAttachment
+   */
+  public function getAttachment()
+  {
+    return $this->attachment;
+  }
+  public function setAutoDelete($autoDelete)
+  {
+    $this->autoDelete = $autoDelete;
+  }
+  public function getAutoDelete()
+  {
+    return $this->autoDelete;
+  }
+  public function setBoot($boot)
+  {
+    $this->boot = $boot;
+  }
+  public function getBoot()
+  {
+    return $this->boot;
+  }
+  /**
+   * @param Google_Service_Replicapool_NewDiskInitializeParams
+   */
+  public function setInitializeParams(Google_Service_Replicapool_NewDiskInitializeParams $initializeParams)
+  {
+    $this->initializeParams = $initializeParams;
+  }
+  /**
+   * @return Google_Service_Replicapool_NewDiskInitializeParams
+   */
+  public function getInitializeParams()
+  {
+    return $this->initializeParams;
+  }
 }

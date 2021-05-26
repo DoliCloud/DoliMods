@@ -17,14 +17,14 @@
 
 class Google_Service_CloudHealthcare_CharacterMaskConfig extends Google_Model
 {
-	public $maskingCharacter;
+  public $maskingCharacter;
 
-	public function setMaskingCharacter($maskingCharacter)
-	{
-		$this->maskingCharacter = $maskingCharacter;
-	}
-	public function getMaskingCharacter()
-	{
-		return $this->maskingCharacter;
-	}
+  public function setMaskingCharacter($maskingCharacter)
+  {
+    $this->maskingCharacter = $maskingCharacter;
+  }
+  public function getMaskingCharacter()
+  {
+    return $this->maskingCharacter;
+  }
 }

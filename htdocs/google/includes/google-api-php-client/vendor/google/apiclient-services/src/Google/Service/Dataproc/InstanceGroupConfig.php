@@ -17,117 +17,133 @@
 
 class Google_Service_Dataproc_InstanceGroupConfig extends Google_Collection
 {
-	protected $collection_key = 'instanceNames';
-	protected $acceleratorsType = 'Google_Service_Dataproc_AcceleratorConfig';
-	protected $acceleratorsDataType = 'array';
-	protected $diskConfigType = 'Google_Service_Dataproc_DiskConfig';
-	protected $diskConfigDataType = '';
-	public $imageUri;
-	public $instanceNames;
-	public $isPreemptible;
-	public $machineTypeUri;
-	protected $managedGroupConfigType = 'Google_Service_Dataproc_ManagedGroupConfig';
-	protected $managedGroupConfigDataType = '';
-	public $minCpuPlatform;
-	public $numInstances;
-	public $preemptibility;
+  protected $collection_key = 'instanceReferences';
+  protected $acceleratorsType = 'Google_Service_Dataproc_AcceleratorConfig';
+  protected $acceleratorsDataType = 'array';
+  protected $diskConfigType = 'Google_Service_Dataproc_DiskConfig';
+  protected $diskConfigDataType = '';
+  public $imageUri;
+  public $instanceNames;
+  protected $instanceReferencesType = 'Google_Service_Dataproc_InstanceReference';
+  protected $instanceReferencesDataType = 'array';
+  public $isPreemptible;
+  public $machineTypeUri;
+  protected $managedGroupConfigType = 'Google_Service_Dataproc_ManagedGroupConfig';
+  protected $managedGroupConfigDataType = '';
+  public $minCpuPlatform;
+  public $numInstances;
+  public $preemptibility;
 
-	/**
-	 * @param Google_Service_Dataproc_AcceleratorConfig
-	 */
-	public function setAccelerators($accelerators)
-	{
-		$this->accelerators = $accelerators;
-	}
-	/**
-	 * @return Google_Service_Dataproc_AcceleratorConfig
-	 */
-	public function getAccelerators()
-	{
-		return $this->accelerators;
-	}
-	/**
-	 * @param Google_Service_Dataproc_DiskConfig
-	 */
-	public function setDiskConfig(Google_Service_Dataproc_DiskConfig $diskConfig)
-	{
-		$this->diskConfig = $diskConfig;
-	}
-	/**
-	 * @return Google_Service_Dataproc_DiskConfig
-	 */
-	public function getDiskConfig()
-	{
-		return $this->diskConfig;
-	}
-	public function setImageUri($imageUri)
-	{
-		$this->imageUri = $imageUri;
-	}
-	public function getImageUri()
-	{
-		return $this->imageUri;
-	}
-	public function setInstanceNames($instanceNames)
-	{
-		$this->instanceNames = $instanceNames;
-	}
-	public function getInstanceNames()
-	{
-		return $this->instanceNames;
-	}
-	public function setIsPreemptible($isPreemptible)
-	{
-		$this->isPreemptible = $isPreemptible;
-	}
-	public function getIsPreemptible()
-	{
-		return $this->isPreemptible;
-	}
-	public function setMachineTypeUri($machineTypeUri)
-	{
-		$this->machineTypeUri = $machineTypeUri;
-	}
-	public function getMachineTypeUri()
-	{
-		return $this->machineTypeUri;
-	}
-	/**
-	 * @param Google_Service_Dataproc_ManagedGroupConfig
-	 */
-	public function setManagedGroupConfig(Google_Service_Dataproc_ManagedGroupConfig $managedGroupConfig)
-	{
-		$this->managedGroupConfig = $managedGroupConfig;
-	}
-	/**
-	 * @return Google_Service_Dataproc_ManagedGroupConfig
-	 */
-	public function getManagedGroupConfig()
-	{
-		return $this->managedGroupConfig;
-	}
-	public function setMinCpuPlatform($minCpuPlatform)
-	{
-		$this->minCpuPlatform = $minCpuPlatform;
-	}
-	public function getMinCpuPlatform()
-	{
-		return $this->minCpuPlatform;
-	}
-	public function setNumInstances($numInstances)
-	{
-		$this->numInstances = $numInstances;
-	}
-	public function getNumInstances()
-	{
-		return $this->numInstances;
-	}
-	public function setPreemptibility($preemptibility)
-	{
-		$this->preemptibility = $preemptibility;
-	}
-	public function getPreemptibility()
-	{
-		return $this->preemptibility;
-	}
+  /**
+   * @param Google_Service_Dataproc_AcceleratorConfig[]
+   */
+  public function setAccelerators($accelerators)
+  {
+    $this->accelerators = $accelerators;
+  }
+  /**
+   * @return Google_Service_Dataproc_AcceleratorConfig[]
+   */
+  public function getAccelerators()
+  {
+    return $this->accelerators;
+  }
+  /**
+   * @param Google_Service_Dataproc_DiskConfig
+   */
+  public function setDiskConfig(Google_Service_Dataproc_DiskConfig $diskConfig)
+  {
+    $this->diskConfig = $diskConfig;
+  }
+  /**
+   * @return Google_Service_Dataproc_DiskConfig
+   */
+  public function getDiskConfig()
+  {
+    return $this->diskConfig;
+  }
+  public function setImageUri($imageUri)
+  {
+    $this->imageUri = $imageUri;
+  }
+  public function getImageUri()
+  {
+    return $this->imageUri;
+  }
+  public function setInstanceNames($instanceNames)
+  {
+    $this->instanceNames = $instanceNames;
+  }
+  public function getInstanceNames()
+  {
+    return $this->instanceNames;
+  }
+  /**
+   * @param Google_Service_Dataproc_InstanceReference[]
+   */
+  public function setInstanceReferences($instanceReferences)
+  {
+    $this->instanceReferences = $instanceReferences;
+  }
+  /**
+   * @return Google_Service_Dataproc_InstanceReference[]
+   */
+  public function getInstanceReferences()
+  {
+    return $this->instanceReferences;
+  }
+  public function setIsPreemptible($isPreemptible)
+  {
+    $this->isPreemptible = $isPreemptible;
+  }
+  public function getIsPreemptible()
+  {
+    return $this->isPreemptible;
+  }
+  public function setMachineTypeUri($machineTypeUri)
+  {
+    $this->machineTypeUri = $machineTypeUri;
+  }
+  public function getMachineTypeUri()
+  {
+    return $this->machineTypeUri;
+  }
+  /**
+   * @param Google_Service_Dataproc_ManagedGroupConfig
+   */
+  public function setManagedGroupConfig(Google_Service_Dataproc_ManagedGroupConfig $managedGroupConfig)
+  {
+    $this->managedGroupConfig = $managedGroupConfig;
+  }
+  /**
+   * @return Google_Service_Dataproc_ManagedGroupConfig
+   */
+  public function getManagedGroupConfig()
+  {
+    return $this->managedGroupConfig;
+  }
+  public function setMinCpuPlatform($minCpuPlatform)
+  {
+    $this->minCpuPlatform = $minCpuPlatform;
+  }
+  public function getMinCpuPlatform()
+  {
+    return $this->minCpuPlatform;
+  }
+  public function setNumInstances($numInstances)
+  {
+    $this->numInstances = $numInstances;
+  }
+  public function getNumInstances()
+  {
+    return $this->numInstances;
+  }
+  public function setPreemptibility($preemptibility)
+  {
+    $this->preemptibility = $preemptibility;
+  }
+  public function getPreemptibility()
+  {
+    return $this->preemptibility;
+  }
 }

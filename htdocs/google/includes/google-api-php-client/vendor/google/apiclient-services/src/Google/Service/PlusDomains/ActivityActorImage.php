@@ -17,14 +17,14 @@
 
 class Google_Service_PlusDomains_ActivityActorImage extends Google_Model
 {
-	public $url;
+  public $url;
 
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

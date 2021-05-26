@@ -17,49 +17,49 @@
 
 class Google_Service_Directory_Features extends Google_Collection
 {
-	protected $collection_key = 'features';
-	public $etag;
-	protected $featuresType = 'Google_Service_Directory_Feature';
-	protected $featuresDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'features';
+  public $etag;
+  protected $featuresType = 'Google_Service_Directory_Feature';
+  protected $featuresDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	/**
-	 * @param Google_Service_Directory_Feature
-	 */
-	public function setFeatures($features)
-	{
-		$this->features = $features;
-	}
-	/**
-	 * @return Google_Service_Directory_Feature
-	 */
-	public function getFeatures()
-	{
-		return $this->features;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param Google_Service_Directory_Feature[]
+   */
+  public function setFeatures($features)
+  {
+    $this->features = $features;
+  }
+  /**
+   * @return Google_Service_Directory_Feature[]
+   */
+  public function getFeatures()
+  {
+    return $this->features;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

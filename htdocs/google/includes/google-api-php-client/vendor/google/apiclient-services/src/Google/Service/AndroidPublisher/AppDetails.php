@@ -17,41 +17,41 @@
 
 class Google_Service_AndroidPublisher_AppDetails extends Google_Model
 {
-	public $contactEmail;
-	public $contactPhone;
-	public $contactWebsite;
-	public $defaultLanguage;
+  public $contactEmail;
+  public $contactPhone;
+  public $contactWebsite;
+  public $defaultLanguage;
 
-	public function setContactEmail($contactEmail)
-	{
-		$this->contactEmail = $contactEmail;
-	}
-	public function getContactEmail()
-	{
-		return $this->contactEmail;
-	}
-	public function setContactPhone($contactPhone)
-	{
-		$this->contactPhone = $contactPhone;
-	}
-	public function getContactPhone()
-	{
-		return $this->contactPhone;
-	}
-	public function setContactWebsite($contactWebsite)
-	{
-		$this->contactWebsite = $contactWebsite;
-	}
-	public function getContactWebsite()
-	{
-		return $this->contactWebsite;
-	}
-	public function setDefaultLanguage($defaultLanguage)
-	{
-		$this->defaultLanguage = $defaultLanguage;
-	}
-	public function getDefaultLanguage()
-	{
-		return $this->defaultLanguage;
-	}
+  public function setContactEmail($contactEmail)
+  {
+    $this->contactEmail = $contactEmail;
+  }
+  public function getContactEmail()
+  {
+    return $this->contactEmail;
+  }
+  public function setContactPhone($contactPhone)
+  {
+    $this->contactPhone = $contactPhone;
+  }
+  public function getContactPhone()
+  {
+    return $this->contactPhone;
+  }
+  public function setContactWebsite($contactWebsite)
+  {
+    $this->contactWebsite = $contactWebsite;
+  }
+  public function getContactWebsite()
+  {
+    return $this->contactWebsite;
+  }
+  public function setDefaultLanguage($defaultLanguage)
+  {
+    $this->defaultLanguage = $defaultLanguage;
+  }
+  public function getDefaultLanguage()
+  {
+    return $this->defaultLanguage;
+  }
 }

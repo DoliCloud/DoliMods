@@ -17,37 +17,37 @@
 
 class Google_Service_Monitoring_RequestBasedSli extends Google_Model
 {
-	protected $distributionCutType = 'Google_Service_Monitoring_DistributionCut';
-	protected $distributionCutDataType = '';
-	protected $goodTotalRatioType = 'Google_Service_Monitoring_TimeSeriesRatio';
-	protected $goodTotalRatioDataType = '';
+  protected $distributionCutType = 'Google_Service_Monitoring_DistributionCut';
+  protected $distributionCutDataType = '';
+  protected $goodTotalRatioType = 'Google_Service_Monitoring_TimeSeriesRatio';
+  protected $goodTotalRatioDataType = '';
 
-	/**
-	 * @param Google_Service_Monitoring_DistributionCut
-	 */
-	public function setDistributionCut(Google_Service_Monitoring_DistributionCut $distributionCut)
-	{
-		$this->distributionCut = $distributionCut;
-	}
-	/**
-	 * @return Google_Service_Monitoring_DistributionCut
-	 */
-	public function getDistributionCut()
-	{
-		return $this->distributionCut;
-	}
-	/**
-	 * @param Google_Service_Monitoring_TimeSeriesRatio
-	 */
-	public function setGoodTotalRatio(Google_Service_Monitoring_TimeSeriesRatio $goodTotalRatio)
-	{
-		$this->goodTotalRatio = $goodTotalRatio;
-	}
-	/**
-	 * @return Google_Service_Monitoring_TimeSeriesRatio
-	 */
-	public function getGoodTotalRatio()
-	{
-		return $this->goodTotalRatio;
-	}
+  /**
+   * @param Google_Service_Monitoring_DistributionCut
+   */
+  public function setDistributionCut(Google_Service_Monitoring_DistributionCut $distributionCut)
+  {
+    $this->distributionCut = $distributionCut;
+  }
+  /**
+   * @return Google_Service_Monitoring_DistributionCut
+   */
+  public function getDistributionCut()
+  {
+    return $this->distributionCut;
+  }
+  /**
+   * @param Google_Service_Monitoring_TimeSeriesRatio
+   */
+  public function setGoodTotalRatio(Google_Service_Monitoring_TimeSeriesRatio $goodTotalRatio)
+  {
+    $this->goodTotalRatio = $goodTotalRatio;
+  }
+  /**
+   * @return Google_Service_Monitoring_TimeSeriesRatio
+   */
+  public function getGoodTotalRatio()
+  {
+    return $this->goodTotalRatio;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListExportsResponse extends Google_Collection
 {
-	protected $collection_key = 'exports';
-	protected $exportsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Export';
-	protected $exportsDataType = 'array';
+  protected $collection_key = 'exports';
+  protected $exportsType = 'Google_Service_Apigee_GoogleCloudApigeeV1Export';
+  protected $exportsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Export
-	 */
-	public function setExports($exports)
-	{
-		$this->exports = $exports;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Export
-	 */
-	public function getExports()
-	{
-		return $this->exports;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1Export[]
+   */
+  public function setExports($exports)
+  {
+    $this->exports = $exports;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1Export[]
+   */
+  public function getExports()
+  {
+    return $this->exports;
+  }
 }

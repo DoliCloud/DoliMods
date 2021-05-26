@@ -17,32 +17,32 @@
 
 class Google_Service_Logging_CmekSettings extends Google_Model
 {
-	public $kmsKeyName;
-	public $name;
-	public $serviceAccountId;
+  public $kmsKeyName;
+  public $name;
+  public $serviceAccountId;
 
-	public function setKmsKeyName($kmsKeyName)
-	{
-		$this->kmsKeyName = $kmsKeyName;
-	}
-	public function getKmsKeyName()
-	{
-		return $this->kmsKeyName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setServiceAccountId($serviceAccountId)
-	{
-		$this->serviceAccountId = $serviceAccountId;
-	}
-	public function getServiceAccountId()
-	{
-		return $this->serviceAccountId;
-	}
+  public function setKmsKeyName($kmsKeyName)
+  {
+    $this->kmsKeyName = $kmsKeyName;
+  }
+  public function getKmsKeyName()
+  {
+    return $this->kmsKeyName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setServiceAccountId($serviceAccountId)
+  {
+    $this->serviceAccountId = $serviceAccountId;
+  }
+  public function getServiceAccountId()
+  {
+    return $this->serviceAccountId;
+  }
 }

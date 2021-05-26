@@ -17,63 +17,63 @@
 
 class Google_Service_TagManager_FolderEntities extends Google_Collection
 {
-	protected $collection_key = 'variable';
-	public $nextPageToken;
-	protected $tagType = 'Google_Service_TagManager_Tag';
-	protected $tagDataType = 'array';
-	protected $triggerType = 'Google_Service_TagManager_Trigger';
-	protected $triggerDataType = 'array';
-	protected $variableType = 'Google_Service_TagManager_Variable';
-	protected $variableDataType = 'array';
+  protected $collection_key = 'variable';
+  public $nextPageToken;
+  protected $tagType = 'Google_Service_TagManager_Tag';
+  protected $tagDataType = 'array';
+  protected $triggerType = 'Google_Service_TagManager_Trigger';
+  protected $triggerDataType = 'array';
+  protected $variableType = 'Google_Service_TagManager_Variable';
+  protected $variableDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_TagManager_Tag
-	 */
-	public function setTag($tag)
-	{
-		$this->tag = $tag;
-	}
-	/**
-	 * @return Google_Service_TagManager_Tag
-	 */
-	public function getTag()
-	{
-		return $this->tag;
-	}
-	/**
-	 * @param Google_Service_TagManager_Trigger
-	 */
-	public function setTrigger($trigger)
-	{
-		$this->trigger = $trigger;
-	}
-	/**
-	 * @return Google_Service_TagManager_Trigger
-	 */
-	public function getTrigger()
-	{
-		return $this->trigger;
-	}
-	/**
-	 * @param Google_Service_TagManager_Variable
-	 */
-	public function setVariable($variable)
-	{
-		$this->variable = $variable;
-	}
-	/**
-	 * @return Google_Service_TagManager_Variable
-	 */
-	public function getVariable()
-	{
-		return $this->variable;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_TagManager_Tag[]
+   */
+  public function setTag($tag)
+  {
+    $this->tag = $tag;
+  }
+  /**
+   * @return Google_Service_TagManager_Tag[]
+   */
+  public function getTag()
+  {
+    return $this->tag;
+  }
+  /**
+   * @param Google_Service_TagManager_Trigger[]
+   */
+  public function setTrigger($trigger)
+  {
+    $this->trigger = $trigger;
+  }
+  /**
+   * @return Google_Service_TagManager_Trigger[]
+   */
+  public function getTrigger()
+  {
+    return $this->trigger;
+  }
+  /**
+   * @param Google_Service_TagManager_Variable[]
+   */
+  public function setVariable($variable)
+  {
+    $this->variable = $variable;
+  }
+  /**
+   * @return Google_Service_TagManager_Variable[]
+   */
+  public function getVariable()
+  {
+    return $this->variable;
+  }
 }

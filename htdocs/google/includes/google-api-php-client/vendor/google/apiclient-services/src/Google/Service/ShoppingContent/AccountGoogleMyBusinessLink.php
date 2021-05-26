@@ -17,32 +17,32 @@
 
 class Google_Service_ShoppingContent_AccountGoogleMyBusinessLink extends Google_Model
 {
-	public $gmbAccountId;
-	public $gmbEmail;
-	public $status;
+  public $gmbAccountId;
+  public $gmbEmail;
+  public $status;
 
-	public function setGmbAccountId($gmbAccountId)
-	{
-		$this->gmbAccountId = $gmbAccountId;
-	}
-	public function getGmbAccountId()
-	{
-		return $this->gmbAccountId;
-	}
-	public function setGmbEmail($gmbEmail)
-	{
-		$this->gmbEmail = $gmbEmail;
-	}
-	public function getGmbEmail()
-	{
-		return $this->gmbEmail;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setGmbAccountId($gmbAccountId)
+  {
+    $this->gmbAccountId = $gmbAccountId;
+  }
+  public function getGmbAccountId()
+  {
+    return $this->gmbAccountId;
+  }
+  public function setGmbEmail($gmbEmail)
+  {
+    $this->gmbEmail = $gmbEmail;
+  }
+  public function getGmbEmail()
+  {
+    return $this->gmbEmail;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

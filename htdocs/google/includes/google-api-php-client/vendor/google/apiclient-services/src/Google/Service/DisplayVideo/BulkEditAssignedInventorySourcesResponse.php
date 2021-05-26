@@ -17,22 +17,22 @@
 
 class Google_Service_DisplayVideo_BulkEditAssignedInventorySourcesResponse extends Google_Collection
 {
-	protected $collection_key = 'assignedInventorySources';
-	protected $assignedInventorySourcesType = 'Google_Service_DisplayVideo_AssignedInventorySource';
-	protected $assignedInventorySourcesDataType = 'array';
+  protected $collection_key = 'assignedInventorySources';
+  protected $assignedInventorySourcesType = 'Google_Service_DisplayVideo_AssignedInventorySource';
+  protected $assignedInventorySourcesDataType = 'array';
 
-	/**
-	 * @param Google_Service_DisplayVideo_AssignedInventorySource
-	 */
-	public function setAssignedInventorySources($assignedInventorySources)
-	{
-		$this->assignedInventorySources = $assignedInventorySources;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_AssignedInventorySource
-	 */
-	public function getAssignedInventorySources()
-	{
-		return $this->assignedInventorySources;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_AssignedInventorySource[]
+   */
+  public function setAssignedInventorySources($assignedInventorySources)
+  {
+    $this->assignedInventorySources = $assignedInventorySources;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_AssignedInventorySource[]
+   */
+  public function getAssignedInventorySources()
+  {
+    return $this->assignedInventorySources;
+  }
 }

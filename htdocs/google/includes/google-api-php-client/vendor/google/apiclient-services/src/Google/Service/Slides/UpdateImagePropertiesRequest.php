@@ -17,39 +17,39 @@
 
 class Google_Service_Slides_UpdateImagePropertiesRequest extends Google_Model
 {
-	public $fields;
-	protected $imagePropertiesType = 'Google_Service_Slides_ImageProperties';
-	protected $imagePropertiesDataType = '';
-	public $objectId;
+  public $fields;
+  protected $imagePropertiesType = 'Google_Service_Slides_ImageProperties';
+  protected $imagePropertiesDataType = '';
+  public $objectId;
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	/**
-	 * @param Google_Service_Slides_ImageProperties
-	 */
-	public function setImageProperties(Google_Service_Slides_ImageProperties $imageProperties)
-	{
-		$this->imageProperties = $imageProperties;
-	}
-	/**
-	 * @return Google_Service_Slides_ImageProperties
-	 */
-	public function getImageProperties()
-	{
-		return $this->imageProperties;
-	}
-	public function setObjectId($objectId)
-	{
-		$this->objectId = $objectId;
-	}
-	public function getObjectId()
-	{
-		return $this->objectId;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  /**
+   * @param Google_Service_Slides_ImageProperties
+   */
+  public function setImageProperties(Google_Service_Slides_ImageProperties $imageProperties)
+  {
+    $this->imageProperties = $imageProperties;
+  }
+  /**
+   * @return Google_Service_Slides_ImageProperties
+   */
+  public function getImageProperties()
+  {
+    return $this->imageProperties;
+  }
+  public function setObjectId($objectId)
+  {
+    $this->objectId = $objectId;
+  }
+  public function getObjectId()
+  {
+    return $this->objectId;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_CloudTalentSolution_BatchDeleteJobsRequest extends Google_Model
 {
-	public $filter;
+  public $filter;
 
-	public function setFilter($filter)
-	{
-		$this->filter = $filter;
-	}
-	public function getFilter()
-	{
-		return $this->filter;
-	}
+  public function setFilter($filter)
+  {
+    $this->filter = $filter;
+  }
+  public function getFilter()
+  {
+    return $this->filter;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_Calendar_ConferenceParameters extends Google_Model
 {
-	protected $addOnParametersType = 'Google_Service_Calendar_ConferenceParametersAddOnParameters';
-	protected $addOnParametersDataType = '';
+  protected $addOnParametersType = 'Google_Service_Calendar_ConferenceParametersAddOnParameters';
+  protected $addOnParametersDataType = '';
 
-	/**
-	 * @param Google_Service_Calendar_ConferenceParametersAddOnParameters
-	 */
-	public function setAddOnParameters(Google_Service_Calendar_ConferenceParametersAddOnParameters $addOnParameters)
-	{
-		$this->addOnParameters = $addOnParameters;
-	}
-	/**
-	 * @return Google_Service_Calendar_ConferenceParametersAddOnParameters
-	 */
-	public function getAddOnParameters()
-	{
-		return $this->addOnParameters;
-	}
+  /**
+   * @param Google_Service_Calendar_ConferenceParametersAddOnParameters
+   */
+  public function setAddOnParameters(Google_Service_Calendar_ConferenceParametersAddOnParameters $addOnParameters)
+  {
+    $this->addOnParameters = $addOnParameters;
+  }
+  /**
+   * @return Google_Service_Calendar_ConferenceParametersAddOnParameters
+   */
+  public function getAddOnParameters()
+  {
+    return $this->addOnParameters;
+  }
 }

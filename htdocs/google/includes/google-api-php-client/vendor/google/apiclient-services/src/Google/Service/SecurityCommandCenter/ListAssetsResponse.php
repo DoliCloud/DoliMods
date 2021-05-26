@@ -17,49 +17,49 @@
 
 class Google_Service_SecurityCommandCenter_ListAssetsResponse extends Google_Collection
 {
-	protected $collection_key = 'listAssetsResults';
-	protected $listAssetsResultsType = 'Google_Service_SecurityCommandCenter_ListAssetsResult';
-	protected $listAssetsResultsDataType = 'array';
-	public $nextPageToken;
-	public $readTime;
-	public $totalSize;
+  protected $collection_key = 'listAssetsResults';
+  protected $listAssetsResultsType = 'Google_Service_SecurityCommandCenter_ListAssetsResult';
+  protected $listAssetsResultsDataType = 'array';
+  public $nextPageToken;
+  public $readTime;
+  public $totalSize;
 
-	/**
-	 * @param Google_Service_SecurityCommandCenter_ListAssetsResult
-	 */
-	public function setListAssetsResults($listAssetsResults)
-	{
-		$this->listAssetsResults = $listAssetsResults;
-	}
-	/**
-	 * @return Google_Service_SecurityCommandCenter_ListAssetsResult
-	 */
-	public function getListAssetsResults()
-	{
-		return $this->listAssetsResults;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setReadTime($readTime)
-	{
-		$this->readTime = $readTime;
-	}
-	public function getReadTime()
-	{
-		return $this->readTime;
-	}
-	public function setTotalSize($totalSize)
-	{
-		$this->totalSize = $totalSize;
-	}
-	public function getTotalSize()
-	{
-		return $this->totalSize;
-	}
+  /**
+   * @param Google_Service_SecurityCommandCenter_ListAssetsResult[]
+   */
+  public function setListAssetsResults($listAssetsResults)
+  {
+    $this->listAssetsResults = $listAssetsResults;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_ListAssetsResult[]
+   */
+  public function getListAssetsResults()
+  {
+    return $this->listAssetsResults;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setReadTime($readTime)
+  {
+    $this->readTime = $readTime;
+  }
+  public function getReadTime()
+  {
+    return $this->readTime;
+  }
+  public function setTotalSize($totalSize)
+  {
+    $this->totalSize = $totalSize;
+  }
+  public function getTotalSize()
+  {
+    return $this->totalSize;
+  }
 }

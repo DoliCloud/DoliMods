@@ -17,32 +17,32 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroupAttachment extends Google_Model
 {
-	public $createdAt;
-	public $environment;
-	public $name;
+  public $createdAt;
+  public $environment;
+  public $name;
 
-	public function setCreatedAt($createdAt)
-	{
-		$this->createdAt = $createdAt;
-	}
-	public function getCreatedAt()
-	{
-		return $this->createdAt;
-	}
-	public function setEnvironment($environment)
-	{
-		$this->environment = $environment;
-	}
-	public function getEnvironment()
-	{
-		return $this->environment;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setCreatedAt($createdAt)
+  {
+    $this->createdAt = $createdAt;
+  }
+  public function getCreatedAt()
+  {
+    return $this->createdAt;
+  }
+  public function setEnvironment($environment)
+  {
+    $this->environment = $environment;
+  }
+  public function getEnvironment()
+  {
+    return $this->environment;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

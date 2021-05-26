@@ -17,74 +17,74 @@
 
 class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkupPage extends Google_Collection
 {
-	protected $collection_key = 'claimReviewMarkups';
-	protected $claimReviewAuthorType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor';
-	protected $claimReviewAuthorDataType = '';
-	protected $claimReviewMarkupsType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkup';
-	protected $claimReviewMarkupsDataType = 'array';
-	public $name;
-	public $pageUrl;
-	public $publishDate;
-	public $versionId;
+  protected $collection_key = 'claimReviewMarkups';
+  protected $claimReviewAuthorType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor';
+  protected $claimReviewAuthorDataType = '';
+  protected $claimReviewMarkupsType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkup';
+  protected $claimReviewMarkupsDataType = 'array';
+  public $name;
+  public $pageUrl;
+  public $publishDate;
+  public $versionId;
 
-	/**
-	 * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor
-	 */
-	public function setClaimReviewAuthor(Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor $claimReviewAuthor)
-	{
-		$this->claimReviewAuthor = $claimReviewAuthor;
-	}
-	/**
-	 * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor
-	 */
-	public function getClaimReviewAuthor()
-	{
-		return $this->claimReviewAuthor;
-	}
-	/**
-	 * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkup
-	 */
-	public function setClaimReviewMarkups($claimReviewMarkups)
-	{
-		$this->claimReviewMarkups = $claimReviewMarkups;
-	}
-	/**
-	 * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkup
-	 */
-	public function getClaimReviewMarkups()
-	{
-		return $this->claimReviewMarkups;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPageUrl($pageUrl)
-	{
-		$this->pageUrl = $pageUrl;
-	}
-	public function getPageUrl()
-	{
-		return $this->pageUrl;
-	}
-	public function setPublishDate($publishDate)
-	{
-		$this->publishDate = $publishDate;
-	}
-	public function getPublishDate()
-	{
-		return $this->publishDate;
-	}
-	public function setVersionId($versionId)
-	{
-		$this->versionId = $versionId;
-	}
-	public function getVersionId()
-	{
-		return $this->versionId;
-	}
+  /**
+   * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor
+   */
+  public function setClaimReviewAuthor(Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor $claimReviewAuthor)
+  {
+    $this->claimReviewAuthor = $claimReviewAuthor;
+  }
+  /**
+   * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewAuthor
+   */
+  public function getClaimReviewAuthor()
+  {
+    return $this->claimReviewAuthor;
+  }
+  /**
+   * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkup[]
+   */
+  public function setClaimReviewMarkups($claimReviewMarkups)
+  {
+    $this->claimReviewMarkups = $claimReviewMarkups;
+  }
+  /**
+   * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkup[]
+   */
+  public function getClaimReviewMarkups()
+  {
+    return $this->claimReviewMarkups;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPageUrl($pageUrl)
+  {
+    $this->pageUrl = $pageUrl;
+  }
+  public function getPageUrl()
+  {
+    return $this->pageUrl;
+  }
+  public function setPublishDate($publishDate)
+  {
+    $this->publishDate = $publishDate;
+  }
+  public function getPublishDate()
+  {
+    return $this->publishDate;
+  }
+  public function setVersionId($versionId)
+  {
+    $this->versionId = $versionId;
+  }
+  public function getVersionId()
+  {
+    return $this->versionId;
+  }
 }

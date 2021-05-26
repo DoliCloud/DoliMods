@@ -17,32 +17,57 @@
 
 class Google_Service_CloudAsset_BigQueryDestination extends Google_Model
 {
-	public $dataset;
-	public $force;
-	public $table;
+  public $dataset;
+  public $force;
+  protected $partitionSpecType = 'Google_Service_CloudAsset_PartitionSpec';
+  protected $partitionSpecDataType = '';
+  public $separateTablesPerAssetType;
+  public $table;
 
-	public function setDataset($dataset)
-	{
-		$this->dataset = $dataset;
-	}
-	public function getDataset()
-	{
-		return $this->dataset;
-	}
-	public function setForce($force)
-	{
-		$this->force = $force;
-	}
-	public function getForce()
-	{
-		return $this->force;
-	}
-	public function setTable($table)
-	{
-		$this->table = $table;
-	}
-	public function getTable()
-	{
-		return $this->table;
-	}
+  public function setDataset($dataset)
+  {
+    $this->dataset = $dataset;
+  }
+  public function getDataset()
+  {
+    return $this->dataset;
+  }
+  public function setForce($force)
+  {
+    $this->force = $force;
+  }
+  public function getForce()
+  {
+    return $this->force;
+  }
+  /**
+   * @param Google_Service_CloudAsset_PartitionSpec
+   */
+  public function setPartitionSpec(Google_Service_CloudAsset_PartitionSpec $partitionSpec)
+  {
+    $this->partitionSpec = $partitionSpec;
+  }
+  /**
+   * @return Google_Service_CloudAsset_PartitionSpec
+   */
+  public function getPartitionSpec()
+  {
+    return $this->partitionSpec;
+  }
+  public function setSeparateTablesPerAssetType($separateTablesPerAssetType)
+  {
+    $this->separateTablesPerAssetType = $separateTablesPerAssetType;
+  }
+  public function getSeparateTablesPerAssetType()
+  {
+    return $this->separateTablesPerAssetType;
+  }
+  public function setTable($table)
+  {
+    $this->table = $table;
+  }
+  public function getTable()
+  {
+    return $this->table;
+  }
 }

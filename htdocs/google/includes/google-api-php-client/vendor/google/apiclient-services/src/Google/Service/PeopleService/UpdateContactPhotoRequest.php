@@ -17,33 +17,33 @@
 
 class Google_Service_PeopleService_UpdateContactPhotoRequest extends Google_Collection
 {
-	protected $collection_key = 'sources';
-	public $personFields;
-	public $photoBytes;
-	public $sources;
+  protected $collection_key = 'sources';
+  public $personFields;
+  public $photoBytes;
+  public $sources;
 
-	public function setPersonFields($personFields)
-	{
-		$this->personFields = $personFields;
-	}
-	public function getPersonFields()
-	{
-		return $this->personFields;
-	}
-	public function setPhotoBytes($photoBytes)
-	{
-		$this->photoBytes = $photoBytes;
-	}
-	public function getPhotoBytes()
-	{
-		return $this->photoBytes;
-	}
-	public function setSources($sources)
-	{
-		$this->sources = $sources;
-	}
-	public function getSources()
-	{
-		return $this->sources;
-	}
+  public function setPersonFields($personFields)
+  {
+    $this->personFields = $personFields;
+  }
+  public function getPersonFields()
+  {
+    return $this->personFields;
+  }
+  public function setPhotoBytes($photoBytes)
+  {
+    $this->photoBytes = $photoBytes;
+  }
+  public function getPhotoBytes()
+  {
+    return $this->photoBytes;
+  }
+  public function setSources($sources)
+  {
+    $this->sources = $sources;
+  }
+  public function getSources()
+  {
+    return $this->sources;
+  }
 }

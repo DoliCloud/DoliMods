@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidManagement_SecurityPosture extends Google_Collection
 {
-	protected $collection_key = 'postureDetails';
-	public $devicePosture;
-	protected $postureDetailsType = 'Google_Service_AndroidManagement_PostureDetail';
-	protected $postureDetailsDataType = 'array';
+  protected $collection_key = 'postureDetails';
+  public $devicePosture;
+  protected $postureDetailsType = 'Google_Service_AndroidManagement_PostureDetail';
+  protected $postureDetailsDataType = 'array';
 
-	public function setDevicePosture($devicePosture)
-	{
-		$this->devicePosture = $devicePosture;
-	}
-	public function getDevicePosture()
-	{
-		return $this->devicePosture;
-	}
-	/**
-	 * @param Google_Service_AndroidManagement_PostureDetail
-	 */
-	public function setPostureDetails($postureDetails)
-	{
-		$this->postureDetails = $postureDetails;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_PostureDetail
-	 */
-	public function getPostureDetails()
-	{
-		return $this->postureDetails;
-	}
+  public function setDevicePosture($devicePosture)
+  {
+    $this->devicePosture = $devicePosture;
+  }
+  public function getDevicePosture()
+  {
+    return $this->devicePosture;
+  }
+  /**
+   * @param Google_Service_AndroidManagement_PostureDetail[]
+   */
+  public function setPostureDetails($postureDetails)
+  {
+    $this->postureDetails = $postureDetails;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_PostureDetail[]
+   */
+  public function getPostureDetails()
+  {
+    return $this->postureDetails;
+  }
 }

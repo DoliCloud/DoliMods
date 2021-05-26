@@ -17,32 +17,32 @@
 
 class Google_Service_People_Date extends Google_Model
 {
-	public $day;
-	public $month;
-	public $year;
+  public $day;
+  public $month;
+  public $year;
 
-	public function setDay($day)
-	{
-		$this->day = $day;
-	}
-	public function getDay()
-	{
-		return $this->day;
-	}
-	public function setMonth($month)
-	{
-		$this->month = $month;
-	}
-	public function getMonth()
-	{
-		return $this->month;
-	}
-	public function setYear($year)
-	{
-		$this->year = $year;
-	}
-	public function getYear()
-	{
-		return $this->year;
-	}
+  public function setDay($day)
+  {
+    $this->day = $day;
+  }
+  public function getDay()
+  {
+    return $this->day;
+  }
+  public function setMonth($month)
+  {
+    $this->month = $month;
+  }
+  public function getMonth()
+  {
+    return $this->month;
+  }
+  public function setYear($year)
+  {
+    $this->year = $year;
+  }
+  public function getYear()
+  {
+    return $this->year;
+  }
 }

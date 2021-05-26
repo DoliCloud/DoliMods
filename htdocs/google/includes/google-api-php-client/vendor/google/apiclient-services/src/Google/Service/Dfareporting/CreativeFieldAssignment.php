@@ -17,23 +17,23 @@
 
 class Google_Service_Dfareporting_CreativeFieldAssignment extends Google_Model
 {
-	public $creativeFieldId;
-	public $creativeFieldValueId;
+  public $creativeFieldId;
+  public $creativeFieldValueId;
 
-	public function setCreativeFieldId($creativeFieldId)
-	{
-		$this->creativeFieldId = $creativeFieldId;
-	}
-	public function getCreativeFieldId()
-	{
-		return $this->creativeFieldId;
-	}
-	public function setCreativeFieldValueId($creativeFieldValueId)
-	{
-		$this->creativeFieldValueId = $creativeFieldValueId;
-	}
-	public function getCreativeFieldValueId()
-	{
-		return $this->creativeFieldValueId;
-	}
+  public function setCreativeFieldId($creativeFieldId)
+  {
+    $this->creativeFieldId = $creativeFieldId;
+  }
+  public function getCreativeFieldId()
+  {
+    return $this->creativeFieldId;
+  }
+  public function setCreativeFieldValueId($creativeFieldValueId)
+  {
+    $this->creativeFieldValueId = $creativeFieldValueId;
+  }
+  public function getCreativeFieldValueId()
+  {
+    return $this->creativeFieldValueId;
+  }
 }

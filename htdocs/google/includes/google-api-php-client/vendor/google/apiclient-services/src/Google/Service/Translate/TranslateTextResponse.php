@@ -17,38 +17,38 @@
 
 class Google_Service_Translate_TranslateTextResponse extends Google_Collection
 {
-	protected $collection_key = 'translations';
-	protected $glossaryTranslationsType = 'Google_Service_Translate_Translation';
-	protected $glossaryTranslationsDataType = 'array';
-	protected $translationsType = 'Google_Service_Translate_Translation';
-	protected $translationsDataType = 'array';
+  protected $collection_key = 'translations';
+  protected $glossaryTranslationsType = 'Google_Service_Translate_Translation';
+  protected $glossaryTranslationsDataType = 'array';
+  protected $translationsType = 'Google_Service_Translate_Translation';
+  protected $translationsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Translate_Translation
-	 */
-	public function setGlossaryTranslations($glossaryTranslations)
-	{
-		$this->glossaryTranslations = $glossaryTranslations;
-	}
-	/**
-	 * @return Google_Service_Translate_Translation
-	 */
-	public function getGlossaryTranslations()
-	{
-		return $this->glossaryTranslations;
-	}
-	/**
-	 * @param Google_Service_Translate_Translation
-	 */
-	public function setTranslations($translations)
-	{
-		$this->translations = $translations;
-	}
-	/**
-	 * @return Google_Service_Translate_Translation
-	 */
-	public function getTranslations()
-	{
-		return $this->translations;
-	}
+  /**
+   * @param Google_Service_Translate_Translation[]
+   */
+  public function setGlossaryTranslations($glossaryTranslations)
+  {
+    $this->glossaryTranslations = $glossaryTranslations;
+  }
+  /**
+   * @return Google_Service_Translate_Translation[]
+   */
+  public function getGlossaryTranslations()
+  {
+    return $this->glossaryTranslations;
+  }
+  /**
+   * @param Google_Service_Translate_Translation[]
+   */
+  public function setTranslations($translations)
+  {
+    $this->translations = $translations;
+  }
+  /**
+   * @return Google_Service_Translate_Translation[]
+   */
+  public function getTranslations()
+  {
+    return $this->translations;
+  }
 }

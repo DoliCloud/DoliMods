@@ -17,22 +17,22 @@
 
 class Google_Service_Bigquery_CategoricalValue extends Google_Collection
 {
-	protected $collection_key = 'categoryCounts';
-	protected $categoryCountsType = 'Google_Service_Bigquery_CategoryCount';
-	protected $categoryCountsDataType = 'array';
+  protected $collection_key = 'categoryCounts';
+  protected $categoryCountsType = 'Google_Service_Bigquery_CategoryCount';
+  protected $categoryCountsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Bigquery_CategoryCount
-	 */
-	public function setCategoryCounts($categoryCounts)
-	{
-		$this->categoryCounts = $categoryCounts;
-	}
-	/**
-	 * @return Google_Service_Bigquery_CategoryCount
-	 */
-	public function getCategoryCounts()
-	{
-		return $this->categoryCounts;
-	}
+  /**
+   * @param Google_Service_Bigquery_CategoryCount[]
+   */
+  public function setCategoryCounts($categoryCounts)
+  {
+    $this->categoryCounts = $categoryCounts;
+  }
+  /**
+   * @return Google_Service_Bigquery_CategoryCount[]
+   */
+  public function getCategoryCounts()
+  {
+    return $this->categoryCounts;
+  }
 }

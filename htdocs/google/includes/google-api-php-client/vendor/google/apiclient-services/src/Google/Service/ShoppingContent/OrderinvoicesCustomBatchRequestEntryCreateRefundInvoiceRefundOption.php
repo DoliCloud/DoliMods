@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption extends Google_Model
 {
-	public $description;
-	public $reason;
+  public $description;
+  public $reason;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setReason($reason)
-	{
-		$this->reason = $reason;
-	}
-	public function getReason()
-	{
-		return $this->reason;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setReason($reason)
+  {
+    $this->reason = $reason;
+  }
+  public function getReason()
+  {
+    return $this->reason;
+  }
 }

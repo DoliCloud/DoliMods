@@ -17,15 +17,15 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1OptimizedStatsNode extends Google_Collection
 {
-	protected $collection_key = 'data';
-	public $data;
+  protected $collection_key = 'data';
+  public $data;
 
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	public function getData()
-	{
-		return $this->data;
-	}
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  public function getData()
+  {
+    return $this->data;
+  }
 }

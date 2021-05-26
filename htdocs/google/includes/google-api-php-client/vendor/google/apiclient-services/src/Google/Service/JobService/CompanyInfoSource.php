@@ -17,41 +17,41 @@
 
 class Google_Service_JobService_CompanyInfoSource extends Google_Model
 {
-	public $freebaseMid;
-	public $gplusId;
-	public $mapsCid;
-	public $unknownTypeId;
+  public $freebaseMid;
+  public $gplusId;
+  public $mapsCid;
+  public $unknownTypeId;
 
-	public function setFreebaseMid($freebaseMid)
-	{
-		$this->freebaseMid = $freebaseMid;
-	}
-	public function getFreebaseMid()
-	{
-		return $this->freebaseMid;
-	}
-	public function setGplusId($gplusId)
-	{
-		$this->gplusId = $gplusId;
-	}
-	public function getGplusId()
-	{
-		return $this->gplusId;
-	}
-	public function setMapsCid($mapsCid)
-	{
-		$this->mapsCid = $mapsCid;
-	}
-	public function getMapsCid()
-	{
-		return $this->mapsCid;
-	}
-	public function setUnknownTypeId($unknownTypeId)
-	{
-		$this->unknownTypeId = $unknownTypeId;
-	}
-	public function getUnknownTypeId()
-	{
-		return $this->unknownTypeId;
-	}
+  public function setFreebaseMid($freebaseMid)
+  {
+    $this->freebaseMid = $freebaseMid;
+  }
+  public function getFreebaseMid()
+  {
+    return $this->freebaseMid;
+  }
+  public function setGplusId($gplusId)
+  {
+    $this->gplusId = $gplusId;
+  }
+  public function getGplusId()
+  {
+    return $this->gplusId;
+  }
+  public function setMapsCid($mapsCid)
+  {
+    $this->mapsCid = $mapsCid;
+  }
+  public function getMapsCid()
+  {
+    return $this->mapsCid;
+  }
+  public function setUnknownTypeId($unknownTypeId)
+  {
+    $this->unknownTypeId = $unknownTypeId;
+  }
+  public function getUnknownTypeId()
+  {
+    return $this->unknownTypeId;
+  }
 }

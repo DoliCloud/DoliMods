@@ -17,30 +17,30 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2OutputStorageConfig extends Google_Model
 {
-	public $outputSchema;
-	protected $tableType = 'Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable';
-	protected $tableDataType = '';
+  public $outputSchema;
+  protected $tableType = 'Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable';
+  protected $tableDataType = '';
 
-	public function setOutputSchema($outputSchema)
-	{
-		$this->outputSchema = $outputSchema;
-	}
-	public function getOutputSchema()
-	{
-		return $this->outputSchema;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
-	 */
-	public function setTable(Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable $table)
-	{
-		$this->table = $table;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
-	 */
-	public function getTable()
-	{
-		return $this->table;
-	}
+  public function setOutputSchema($outputSchema)
+  {
+    $this->outputSchema = $outputSchema;
+  }
+  public function getOutputSchema()
+  {
+    return $this->outputSchema;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
+   */
+  public function setTable(Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable $table)
+  {
+    $this->table = $table;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2BigQueryTable
+   */
+  public function getTable()
+  {
+    return $this->table;
+  }
 }

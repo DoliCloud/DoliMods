@@ -17,15 +17,15 @@
 
 class Google_Service_CloudUserAccounts_GroupsRemoveMemberRequest extends Google_Collection
 {
-	protected $collection_key = 'users';
-	public $users;
+  protected $collection_key = 'users';
+  public $users;
 
-	public function setUsers($users)
-	{
-		$this->users = $users;
-	}
-	public function getUsers()
-	{
-		return $this->users;
-	}
+  public function setUsers($users)
+  {
+    $this->users = $users;
+  }
+  public function getUsers()
+  {
+    return $this->users;
+  }
 }

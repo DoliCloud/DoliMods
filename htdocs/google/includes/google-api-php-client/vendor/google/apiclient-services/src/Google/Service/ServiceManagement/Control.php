@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceManagement_Control extends Google_Model
 {
-	public $environment;
+  public $environment;
 
-	public function setEnvironment($environment)
-	{
-		$this->environment = $environment;
-	}
-	public function getEnvironment()
-	{
-		return $this->environment;
-	}
+  public function setEnvironment($environment)
+  {
+    $this->environment = $environment;
+  }
+  public function getEnvironment()
+  {
+    return $this->environment;
+  }
 }

@@ -17,74 +17,74 @@
 
 class Google_Service_Games_LeaderboardScores extends Google_Collection
 {
-	protected $collection_key = 'items';
-	protected $itemsType = 'Google_Service_Games_LeaderboardEntry';
-	protected $itemsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
-	public $numScores;
-	protected $playerScoreType = 'Google_Service_Games_LeaderboardEntry';
-	protected $playerScoreDataType = '';
-	public $prevPageToken;
+  protected $collection_key = 'items';
+  protected $itemsType = 'Google_Service_Games_LeaderboardEntry';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  public $numScores;
+  protected $playerScoreType = 'Google_Service_Games_LeaderboardEntry';
+  protected $playerScoreDataType = '';
+  public $prevPageToken;
 
-	/**
-	 * @param Google_Service_Games_LeaderboardEntry
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Games_LeaderboardEntry
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setNumScores($numScores)
-	{
-		$this->numScores = $numScores;
-	}
-	public function getNumScores()
-	{
-		return $this->numScores;
-	}
-	/**
-	 * @param Google_Service_Games_LeaderboardEntry
-	 */
-	public function setPlayerScore(Google_Service_Games_LeaderboardEntry $playerScore)
-	{
-		$this->playerScore = $playerScore;
-	}
-	/**
-	 * @return Google_Service_Games_LeaderboardEntry
-	 */
-	public function getPlayerScore()
-	{
-		return $this->playerScore;
-	}
-	public function setPrevPageToken($prevPageToken)
-	{
-		$this->prevPageToken = $prevPageToken;
-	}
-	public function getPrevPageToken()
-	{
-		return $this->prevPageToken;
-	}
+  /**
+   * @param Google_Service_Games_LeaderboardEntry[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Games_LeaderboardEntry[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setNumScores($numScores)
+  {
+    $this->numScores = $numScores;
+  }
+  public function getNumScores()
+  {
+    return $this->numScores;
+  }
+  /**
+   * @param Google_Service_Games_LeaderboardEntry
+   */
+  public function setPlayerScore(Google_Service_Games_LeaderboardEntry $playerScore)
+  {
+    $this->playerScore = $playerScore;
+  }
+  /**
+   * @return Google_Service_Games_LeaderboardEntry
+   */
+  public function getPlayerScore()
+  {
+    return $this->playerScore;
+  }
+  public function setPrevPageToken($prevPageToken)
+  {
+    $this->prevPageToken = $prevPageToken;
+  }
+  public function getPrevPageToken()
+  {
+    return $this->prevPageToken;
+  }
 }

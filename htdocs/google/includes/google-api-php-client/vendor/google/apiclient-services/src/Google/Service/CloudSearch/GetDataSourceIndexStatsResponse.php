@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_GetDataSourceIndexStatsResponse extends Google_Collection
 {
-	protected $collection_key = 'stats';
-	protected $statsType = 'Google_Service_CloudSearch_DataSourceIndexStats';
-	protected $statsDataType = 'array';
+  protected $collection_key = 'stats';
+  protected $statsType = 'Google_Service_CloudSearch_DataSourceIndexStats';
+  protected $statsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudSearch_DataSourceIndexStats
-	 */
-	public function setStats($stats)
-	{
-		$this->stats = $stats;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_DataSourceIndexStats
-	 */
-	public function getStats()
-	{
-		return $this->stats;
-	}
+  /**
+   * @param Google_Service_CloudSearch_DataSourceIndexStats[]
+   */
+  public function setStats($stats)
+  {
+    $this->stats = $stats;
+  }
+  /**
+   * @return Google_Service_CloudSearch_DataSourceIndexStats[]
+   */
+  public function getStats()
+  {
+    return $this->stats;
+  }
 }

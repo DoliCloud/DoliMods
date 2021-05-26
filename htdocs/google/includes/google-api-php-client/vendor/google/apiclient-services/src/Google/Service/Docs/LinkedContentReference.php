@@ -17,21 +17,21 @@
 
 class Google_Service_Docs_LinkedContentReference extends Google_Model
 {
-	protected $sheetsChartReferenceType = 'Google_Service_Docs_SheetsChartReference';
-	protected $sheetsChartReferenceDataType = '';
+  protected $sheetsChartReferenceType = 'Google_Service_Docs_SheetsChartReference';
+  protected $sheetsChartReferenceDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_SheetsChartReference
-	 */
-	public function setSheetsChartReference(Google_Service_Docs_SheetsChartReference $sheetsChartReference)
-	{
-		$this->sheetsChartReference = $sheetsChartReference;
-	}
-	/**
-	 * @return Google_Service_Docs_SheetsChartReference
-	 */
-	public function getSheetsChartReference()
-	{
-		return $this->sheetsChartReference;
-	}
+  /**
+   * @param Google_Service_Docs_SheetsChartReference
+   */
+  public function setSheetsChartReference(Google_Service_Docs_SheetsChartReference $sheetsChartReference)
+  {
+    $this->sheetsChartReference = $sheetsChartReference;
+  }
+  /**
+   * @return Google_Service_Docs_SheetsChartReference
+   */
+  public function getSheetsChartReference()
+  {
+    return $this->sheetsChartReference;
+  }
 }

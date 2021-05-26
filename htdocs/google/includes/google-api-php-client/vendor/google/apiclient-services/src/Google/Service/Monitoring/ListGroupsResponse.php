@@ -17,31 +17,31 @@
 
 class Google_Service_Monitoring_ListGroupsResponse extends Google_Collection
 {
-	protected $collection_key = 'group';
-	protected $groupType = 'Google_Service_Monitoring_Group';
-	protected $groupDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'group';
+  protected $groupType = 'Google_Service_Monitoring_Group';
+  protected $groupDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Monitoring_Group
-	 */
-	public function setGroup($group)
-	{
-		$this->group = $group;
-	}
-	/**
-	 * @return Google_Service_Monitoring_Group
-	 */
-	public function getGroup()
-	{
-		return $this->group;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Monitoring_Group[]
+   */
+  public function setGroup($group)
+  {
+    $this->group = $group;
+  }
+  /**
+   * @return Google_Service_Monitoring_Group[]
+   */
+  public function getGroup()
+  {
+    return $this->group;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

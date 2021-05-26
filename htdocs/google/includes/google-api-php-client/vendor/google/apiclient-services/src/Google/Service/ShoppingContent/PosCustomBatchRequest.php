@@ -17,22 +17,22 @@
 
 class Google_Service_ShoppingContent_PosCustomBatchRequest extends Google_Collection
 {
-	protected $collection_key = 'entries';
-	protected $entriesType = 'Google_Service_ShoppingContent_PosCustomBatchRequestEntry';
-	protected $entriesDataType = 'array';
+  protected $collection_key = 'entries';
+  protected $entriesType = 'Google_Service_ShoppingContent_PosCustomBatchRequestEntry';
+  protected $entriesDataType = 'array';
 
-	/**
-	 * @param Google_Service_ShoppingContent_PosCustomBatchRequestEntry
-	 */
-	public function setEntries($entries)
-	{
-		$this->entries = $entries;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_PosCustomBatchRequestEntry
-	 */
-	public function getEntries()
-	{
-		return $this->entries;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_PosCustomBatchRequestEntry[]
+   */
+  public function setEntries($entries)
+  {
+    $this->entries = $entries;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_PosCustomBatchRequestEntry[]
+   */
+  public function getEntries()
+  {
+    return $this->entries;
+  }
 }

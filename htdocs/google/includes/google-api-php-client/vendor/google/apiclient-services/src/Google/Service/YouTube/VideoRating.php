@@ -17,23 +17,23 @@
 
 class Google_Service_YouTube_VideoRating extends Google_Model
 {
-	public $rating;
-	public $videoId;
+  public $rating;
+  public $videoId;
 
-	public function setRating($rating)
-	{
-		$this->rating = $rating;
-	}
-	public function getRating()
-	{
-		return $this->rating;
-	}
-	public function setVideoId($videoId)
-	{
-		$this->videoId = $videoId;
-	}
-	public function getVideoId()
-	{
-		return $this->videoId;
-	}
+  public function setRating($rating)
+  {
+    $this->rating = $rating;
+  }
+  public function getRating()
+  {
+    return $this->rating;
+  }
+  public function setVideoId($videoId)
+  {
+    $this->videoId = $videoId;
+  }
+  public function getVideoId()
+  {
+    return $this->videoId;
+  }
 }

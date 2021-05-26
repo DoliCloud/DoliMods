@@ -17,14 +17,14 @@
 
 class Google_Service_Dataflow_CustomSourceLocation extends Google_Model
 {
-	public $stateful;
+  public $stateful;
 
-	public function setStateful($stateful)
-	{
-		$this->stateful = $stateful;
-	}
-	public function getStateful()
-	{
-		return $this->stateful;
-	}
+  public function setStateful($stateful)
+  {
+    $this->stateful = $stateful;
+  }
+  public function getStateful()
+  {
+    return $this->stateful;
+  }
 }

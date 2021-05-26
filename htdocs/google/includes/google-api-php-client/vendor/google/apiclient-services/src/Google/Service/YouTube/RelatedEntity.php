@@ -17,21 +17,21 @@
 
 class Google_Service_YouTube_RelatedEntity extends Google_Model
 {
-	protected $entityType = 'Google_Service_YouTube_Entity';
-	protected $entityDataType = '';
+  protected $entityType = 'Google_Service_YouTube_Entity';
+  protected $entityDataType = '';
 
-	/**
-	 * @param Google_Service_YouTube_Entity
-	 */
-	public function setEntity(Google_Service_YouTube_Entity $entity)
-	{
-		$this->entity = $entity;
-	}
-	/**
-	 * @return Google_Service_YouTube_Entity
-	 */
-	public function getEntity()
-	{
-		return $this->entity;
-	}
+  /**
+   * @param Google_Service_YouTube_Entity
+   */
+  public function setEntity(Google_Service_YouTube_Entity $entity)
+  {
+    $this->entity = $entity;
+  }
+  /**
+   * @return Google_Service_YouTube_Entity
+   */
+  public function getEntity()
+  {
+    return $this->entity;
+  }
 }

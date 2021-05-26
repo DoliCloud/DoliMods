@@ -17,31 +17,31 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1CelebrityRecognitionAnnotation extends Google_Collection
 {
-	protected $collection_key = 'celebrityTracks';
-	protected $celebrityTracksType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1CelebrityTrack';
-	protected $celebrityTracksDataType = 'array';
-	public $version;
+  protected $collection_key = 'celebrityTracks';
+  protected $celebrityTracksType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1CelebrityTrack';
+  protected $celebrityTracksDataType = 'array';
+  public $version;
 
-	/**
-	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1CelebrityTrack
-	 */
-	public function setCelebrityTracks($celebrityTracks)
-	{
-		$this->celebrityTracks = $celebrityTracks;
-	}
-	/**
-	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1CelebrityTrack
-	 */
-	public function getCelebrityTracks()
-	{
-		return $this->celebrityTracks;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1CelebrityTrack[]
+   */
+  public function setCelebrityTracks($celebrityTracks)
+  {
+    $this->celebrityTracks = $celebrityTracks;
+  }
+  /**
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p3beta1CelebrityTrack[]
+   */
+  public function getCelebrityTracks()
+  {
+    return $this->celebrityTracks;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

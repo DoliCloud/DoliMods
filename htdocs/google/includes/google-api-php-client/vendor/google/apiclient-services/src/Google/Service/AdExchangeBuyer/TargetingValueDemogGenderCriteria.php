@@ -17,15 +17,15 @@
 
 class Google_Service_AdExchangeBuyer_TargetingValueDemogGenderCriteria extends Google_Collection
 {
-	protected $collection_key = 'demogGenderCriteriaIds';
-	public $demogGenderCriteriaIds;
+  protected $collection_key = 'demogGenderCriteriaIds';
+  public $demogGenderCriteriaIds;
 
-	public function setDemogGenderCriteriaIds($demogGenderCriteriaIds)
-	{
-		$this->demogGenderCriteriaIds = $demogGenderCriteriaIds;
-	}
-	public function getDemogGenderCriteriaIds()
-	{
-		return $this->demogGenderCriteriaIds;
-	}
+  public function setDemogGenderCriteriaIds($demogGenderCriteriaIds)
+  {
+    $this->demogGenderCriteriaIds = $demogGenderCriteriaIds;
+  }
+  public function getDemogGenderCriteriaIds()
+  {
+    return $this->demogGenderCriteriaIds;
+  }
 }

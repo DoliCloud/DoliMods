@@ -17,23 +17,23 @@
 
 class Google_Service_JobService_BucketRange extends Google_Model
 {
-	public $from;
-	public $to;
+  public $from;
+  public $to;
 
-	public function setFrom($from)
-	{
-		$this->from = $from;
-	}
-	public function getFrom()
-	{
-		return $this->from;
-	}
-	public function setTo($to)
-	{
-		$this->to = $to;
-	}
-	public function getTo()
-	{
-		return $this->to;
-	}
+  public function setFrom($from)
+  {
+    $this->from = $from;
+  }
+  public function getFrom()
+  {
+    return $this->from;
+  }
+  public function setTo($to)
+  {
+    $this->to = $to;
+  }
+  public function getTo()
+  {
+    return $this->to;
+  }
 }

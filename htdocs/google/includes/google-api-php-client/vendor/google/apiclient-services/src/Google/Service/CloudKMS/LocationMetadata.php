@@ -17,23 +17,23 @@
 
 class Google_Service_CloudKMS_LocationMetadata extends Google_Model
 {
-	public $ekmAvailable;
-	public $hsmAvailable;
+  public $ekmAvailable;
+  public $hsmAvailable;
 
-	public function setEkmAvailable($ekmAvailable)
-	{
-		$this->ekmAvailable = $ekmAvailable;
-	}
-	public function getEkmAvailable()
-	{
-		return $this->ekmAvailable;
-	}
-	public function setHsmAvailable($hsmAvailable)
-	{
-		$this->hsmAvailable = $hsmAvailable;
-	}
-	public function getHsmAvailable()
-	{
-		return $this->hsmAvailable;
-	}
+  public function setEkmAvailable($ekmAvailable)
+  {
+    $this->ekmAvailable = $ekmAvailable;
+  }
+  public function getEkmAvailable()
+  {
+    return $this->ekmAvailable;
+  }
+  public function setHsmAvailable($hsmAvailable)
+  {
+    $this->hsmAvailable = $hsmAvailable;
+  }
+  public function getHsmAvailable()
+  {
+    return $this->hsmAvailable;
+  }
 }

@@ -33,136 +33,136 @@ class Google_Service_CivicInfo extends Google_Service
 {
 
 
-	public $divisions;
-	public $elections;
-	public $representatives;
+  public $divisions;
+  public $elections;
+  public $representatives;
 
-	/**
-	 * Constructs the internal representation of the CivicInfo service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://civicinfo.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v2';
-		$this->serviceName = 'civicinfo';
+  /**
+   * Constructs the internal representation of the CivicInfo service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://civicinfo.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v2';
+    $this->serviceName = 'civicinfo';
 
-		$this->divisions = new Google_Service_CivicInfo_Resource_Divisions(
-		$this,
-		$this->serviceName,
-		'divisions',
-		array(
-		  'methods' => array(
-			'search' => array(
-			  'path' => 'civicinfo/v2/divisions',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'query' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->elections = new Google_Service_CivicInfo_Resource_Elections(
-		$this,
-		$this->serviceName,
-		'elections',
-		array(
-		  'methods' => array(
-			'electionQuery' => array(
-			  'path' => 'civicinfo/v2/elections',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(),
-			),'voterInfoQuery' => array(
-			  'path' => 'civicinfo/v2/voterinfo',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'address' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'officialOnly' => array(
-				  'location' => 'query',
-				  'type' => 'boolean',
-				),
-				'electionId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'returnAllAvailableData' => array(
-				  'location' => 'query',
-				  'type' => 'boolean',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->representatives = new Google_Service_CivicInfo_Resource_Representatives(
-		$this,
-		$this->serviceName,
-		'representatives',
-		array(
-		  'methods' => array(
-			'representativeInfoByAddress' => array(
-			  'path' => 'civicinfo/v2/representatives',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'address' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'roles' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				  'repeated' => true,
-				),
-				'levels' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				  'repeated' => true,
-				),
-				'includeOffices' => array(
-				  'location' => 'query',
-				  'type' => 'boolean',
-				),
-			  ),
-			),'representativeInfoByDivision' => array(
-			  'path' => 'civicinfo/v2/representatives/{ocdId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'ocdId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'roles' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				  'repeated' => true,
-				),
-				'recursive' => array(
-				  'location' => 'query',
-				  'type' => 'boolean',
-				),
-				'levels' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				  'repeated' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->divisions = new Google_Service_CivicInfo_Resource_Divisions(
+        $this,
+        $this->serviceName,
+        'divisions',
+        array(
+          'methods' => array(
+            'search' => array(
+              'path' => 'civicinfo/v2/divisions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'query' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->elections = new Google_Service_CivicInfo_Resource_Elections(
+        $this,
+        $this->serviceName,
+        'elections',
+        array(
+          'methods' => array(
+            'electionQuery' => array(
+              'path' => 'civicinfo/v2/elections',
+              'httpMethod' => 'GET',
+              'parameters' => array(),
+            ),'voterInfoQuery' => array(
+              'path' => 'civicinfo/v2/voterinfo',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'address' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'electionId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'officialOnly' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+                'returnAllAvailableData' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->representatives = new Google_Service_CivicInfo_Resource_Representatives(
+        $this,
+        $this->serviceName,
+        'representatives',
+        array(
+          'methods' => array(
+            'representativeInfoByAddress' => array(
+              'path' => 'civicinfo/v2/representatives',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'address' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'includeOffices' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+                'levels' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+                'roles' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+              ),
+            ),'representativeInfoByDivision' => array(
+              'path' => 'civicinfo/v2/representatives/{ocdId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'ocdId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'levels' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+                'recursive' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+                'roles' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

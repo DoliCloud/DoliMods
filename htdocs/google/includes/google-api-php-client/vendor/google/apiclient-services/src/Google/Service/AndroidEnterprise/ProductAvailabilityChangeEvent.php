@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidEnterprise_ProductAvailabilityChangeEvent extends Google_Model
 {
-	public $availabilityStatus;
-	public $productId;
+  public $availabilityStatus;
+  public $productId;
 
-	public function setAvailabilityStatus($availabilityStatus)
-	{
-		$this->availabilityStatus = $availabilityStatus;
-	}
-	public function getAvailabilityStatus()
-	{
-		return $this->availabilityStatus;
-	}
-	public function setProductId($productId)
-	{
-		$this->productId = $productId;
-	}
-	public function getProductId()
-	{
-		return $this->productId;
-	}
+  public function setAvailabilityStatus($availabilityStatus)
+  {
+    $this->availabilityStatus = $availabilityStatus;
+  }
+  public function getAvailabilityStatus()
+  {
+    return $this->availabilityStatus;
+  }
+  public function setProductId($productId)
+  {
+    $this->productId = $productId;
+  }
+  public function getProductId()
+  {
+    return $this->productId;
+  }
 }

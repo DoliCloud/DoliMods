@@ -17,39 +17,39 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p1beta1CropHint extends Google_Model
 {
-	protected $boundingPolyType = 'Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly';
-	protected $boundingPolyDataType = '';
-	public $confidence;
-	public $importanceFraction;
+  protected $boundingPolyType = 'Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly';
+  protected $boundingPolyDataType = '';
+  public $confidence;
+  public $importanceFraction;
 
-	/**
-	 * @param Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly
-	 */
-	public function setBoundingPoly(Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly $boundingPoly)
-	{
-		$this->boundingPoly = $boundingPoly;
-	}
-	/**
-	 * @return Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly
-	 */
-	public function getBoundingPoly()
-	{
-		return $this->boundingPoly;
-	}
-	public function setConfidence($confidence)
-	{
-		$this->confidence = $confidence;
-	}
-	public function getConfidence()
-	{
-		return $this->confidence;
-	}
-	public function setImportanceFraction($importanceFraction)
-	{
-		$this->importanceFraction = $importanceFraction;
-	}
-	public function getImportanceFraction()
-	{
-		return $this->importanceFraction;
-	}
+  /**
+   * @param Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly
+   */
+  public function setBoundingPoly(Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly $boundingPoly)
+  {
+    $this->boundingPoly = $boundingPoly;
+  }
+  /**
+   * @return Google_Service_Vision_GoogleCloudVisionV1p1beta1BoundingPoly
+   */
+  public function getBoundingPoly()
+  {
+    return $this->boundingPoly;
+  }
+  public function setConfidence($confidence)
+  {
+    $this->confidence = $confidence;
+  }
+  public function getConfidence()
+  {
+    return $this->confidence;
+  }
+  public function setImportanceFraction($importanceFraction)
+  {
+    $this->importanceFraction = $importanceFraction;
+  }
+  public function getImportanceFraction()
+  {
+    return $this->importanceFraction;
+  }
 }

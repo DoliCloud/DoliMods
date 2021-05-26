@@ -17,120 +17,120 @@
 
 class Google_Service_Compute_NodeType extends Google_Model
 {
-	public $cpuPlatform;
-	public $creationTimestamp;
-	protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
-	protected $deprecatedDataType = '';
-	public $description;
-	public $guestCpus;
-	public $id;
-	public $kind;
-	public $localSsdGb;
-	public $memoryMb;
-	public $name;
-	public $selfLink;
-	public $zone;
+  public $cpuPlatform;
+  public $creationTimestamp;
+  protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
+  protected $deprecatedDataType = '';
+  public $description;
+  public $guestCpus;
+  public $id;
+  public $kind;
+  public $localSsdGb;
+  public $memoryMb;
+  public $name;
+  public $selfLink;
+  public $zone;
 
-	public function setCpuPlatform($cpuPlatform)
-	{
-		$this->cpuPlatform = $cpuPlatform;
-	}
-	public function getCpuPlatform()
-	{
-		return $this->cpuPlatform;
-	}
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	/**
-	 * @param Google_Service_Compute_DeprecationStatus
-	 */
-	public function setDeprecated(Google_Service_Compute_DeprecationStatus $deprecated)
-	{
-		$this->deprecated = $deprecated;
-	}
-	/**
-	 * @return Google_Service_Compute_DeprecationStatus
-	 */
-	public function getDeprecated()
-	{
-		return $this->deprecated;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setGuestCpus($guestCpus)
-	{
-		$this->guestCpus = $guestCpus;
-	}
-	public function getGuestCpus()
-	{
-		return $this->guestCpus;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLocalSsdGb($localSsdGb)
-	{
-		$this->localSsdGb = $localSsdGb;
-	}
-	public function getLocalSsdGb()
-	{
-		return $this->localSsdGb;
-	}
-	public function setMemoryMb($memoryMb)
-	{
-		$this->memoryMb = $memoryMb;
-	}
-	public function getMemoryMb()
-	{
-		return $this->memoryMb;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setZone($zone)
-	{
-		$this->zone = $zone;
-	}
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  public function setCpuPlatform($cpuPlatform)
+  {
+    $this->cpuPlatform = $cpuPlatform;
+  }
+  public function getCpuPlatform()
+  {
+    return $this->cpuPlatform;
+  }
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  /**
+   * @param Google_Service_Compute_DeprecationStatus
+   */
+  public function setDeprecated(Google_Service_Compute_DeprecationStatus $deprecated)
+  {
+    $this->deprecated = $deprecated;
+  }
+  /**
+   * @return Google_Service_Compute_DeprecationStatus
+   */
+  public function getDeprecated()
+  {
+    return $this->deprecated;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setGuestCpus($guestCpus)
+  {
+    $this->guestCpus = $guestCpus;
+  }
+  public function getGuestCpus()
+  {
+    return $this->guestCpus;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLocalSsdGb($localSsdGb)
+  {
+    $this->localSsdGb = $localSsdGb;
+  }
+  public function getLocalSsdGb()
+  {
+    return $this->localSsdGb;
+  }
+  public function setMemoryMb($memoryMb)
+  {
+    $this->memoryMb = $memoryMb;
+  }
+  public function getMemoryMb()
+  {
+    return $this->memoryMb;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

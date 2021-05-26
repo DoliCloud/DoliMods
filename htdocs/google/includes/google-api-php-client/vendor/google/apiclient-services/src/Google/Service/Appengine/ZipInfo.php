@@ -17,23 +17,23 @@
 
 class Google_Service_Appengine_ZipInfo extends Google_Model
 {
-	public $filesCount;
-	public $sourceUrl;
+  public $filesCount;
+  public $sourceUrl;
 
-	public function setFilesCount($filesCount)
-	{
-		$this->filesCount = $filesCount;
-	}
-	public function getFilesCount()
-	{
-		return $this->filesCount;
-	}
-	public function setSourceUrl($sourceUrl)
-	{
-		$this->sourceUrl = $sourceUrl;
-	}
-	public function getSourceUrl()
-	{
-		return $this->sourceUrl;
-	}
+  public function setFilesCount($filesCount)
+  {
+    $this->filesCount = $filesCount;
+  }
+  public function getFilesCount()
+  {
+    return $this->filesCount;
+  }
+  public function setSourceUrl($sourceUrl)
+  {
+    $this->sourceUrl = $sourceUrl;
+  }
+  public function getSourceUrl()
+  {
+    return $this->sourceUrl;
+  }
 }

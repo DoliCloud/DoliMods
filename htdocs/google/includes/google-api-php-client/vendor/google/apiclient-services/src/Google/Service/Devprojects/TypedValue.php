@@ -17,32 +17,32 @@
 
 class Google_Service_Devprojects_TypedValue extends Google_Model
 {
-	public $doubleValue;
-	public $intValue;
-	public $kind;
+  public $doubleValue;
+  public $intValue;
+  public $kind;
 
-	public function setDoubleValue($doubleValue)
-	{
-		$this->doubleValue = $doubleValue;
-	}
-	public function getDoubleValue()
-	{
-		return $this->doubleValue;
-	}
-	public function setIntValue($intValue)
-	{
-		$this->intValue = $intValue;
-	}
-	public function getIntValue()
-	{
-		return $this->intValue;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setDoubleValue($doubleValue)
+  {
+    $this->doubleValue = $doubleValue;
+  }
+  public function getDoubleValue()
+  {
+    return $this->doubleValue;
+  }
+  public function setIntValue($intValue)
+  {
+    $this->intValue = $intValue;
+  }
+  public function getIntValue()
+  {
+    return $this->intValue;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

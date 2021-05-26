@@ -17,22 +17,22 @@
 
 class Google_Service_Dataflow_SendWorkerMessagesResponse extends Google_Collection
 {
-	protected $collection_key = 'workerMessageResponses';
-	protected $workerMessageResponsesType = 'Google_Service_Dataflow_WorkerMessageResponse';
-	protected $workerMessageResponsesDataType = 'array';
+  protected $collection_key = 'workerMessageResponses';
+  protected $workerMessageResponsesType = 'Google_Service_Dataflow_WorkerMessageResponse';
+  protected $workerMessageResponsesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dataflow_WorkerMessageResponse
-	 */
-	public function setWorkerMessageResponses($workerMessageResponses)
-	{
-		$this->workerMessageResponses = $workerMessageResponses;
-	}
-	/**
-	 * @return Google_Service_Dataflow_WorkerMessageResponse
-	 */
-	public function getWorkerMessageResponses()
-	{
-		return $this->workerMessageResponses;
-	}
+  /**
+   * @param Google_Service_Dataflow_WorkerMessageResponse[]
+   */
+  public function setWorkerMessageResponses($workerMessageResponses)
+  {
+    $this->workerMessageResponses = $workerMessageResponses;
+  }
+  /**
+   * @return Google_Service_Dataflow_WorkerMessageResponse[]
+   */
+  public function getWorkerMessageResponses()
+  {
+    return $this->workerMessageResponses;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_Docs_NamedRange extends Google_Collection
 {
-	protected $collection_key = 'ranges';
-	public $name;
-	public $namedRangeId;
-	protected $rangesType = 'Google_Service_Docs_Range';
-	protected $rangesDataType = 'array';
+  protected $collection_key = 'ranges';
+  public $name;
+  public $namedRangeId;
+  protected $rangesType = 'Google_Service_Docs_Range';
+  protected $rangesDataType = 'array';
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setNamedRangeId($namedRangeId)
-	{
-		$this->namedRangeId = $namedRangeId;
-	}
-	public function getNamedRangeId()
-	{
-		return $this->namedRangeId;
-	}
-	/**
-	 * @param Google_Service_Docs_Range
-	 */
-	public function setRanges($ranges)
-	{
-		$this->ranges = $ranges;
-	}
-	/**
-	 * @return Google_Service_Docs_Range
-	 */
-	public function getRanges()
-	{
-		return $this->ranges;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNamedRangeId($namedRangeId)
+  {
+    $this->namedRangeId = $namedRangeId;
+  }
+  public function getNamedRangeId()
+  {
+    return $this->namedRangeId;
+  }
+  /**
+   * @param Google_Service_Docs_Range[]
+   */
+  public function setRanges($ranges)
+  {
+    $this->ranges = $ranges;
+  }
+  /**
+   * @return Google_Service_Docs_Range[]
+   */
+  public function getRanges()
+  {
+    return $this->ranges;
+  }
 }

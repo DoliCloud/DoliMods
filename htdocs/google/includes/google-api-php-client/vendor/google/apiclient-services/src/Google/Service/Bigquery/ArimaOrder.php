@@ -17,32 +17,32 @@
 
 class Google_Service_Bigquery_ArimaOrder extends Google_Model
 {
-	public $d;
-	public $p;
-	public $q;
+  public $d;
+  public $p;
+  public $q;
 
-	public function setD($d)
-	{
-		$this->d = $d;
-	}
-	public function getD()
-	{
-		return $this->d;
-	}
-	public function setP($p)
-	{
-		$this->p = $p;
-	}
-	public function getP()
-	{
-		return $this->p;
-	}
-	public function setQ($q)
-	{
-		$this->q = $q;
-	}
-	public function getQ()
-	{
-		return $this->q;
-	}
+  public function setD($d)
+  {
+    $this->d = $d;
+  }
+  public function getD()
+  {
+    return $this->d;
+  }
+  public function setP($p)
+  {
+    $this->p = $p;
+  }
+  public function getP()
+  {
+    return $this->p;
+  }
+  public function setQ($q)
+  {
+    $this->q = $q;
+  }
+  public function getQ()
+  {
+    return $this->q;
+  }
 }

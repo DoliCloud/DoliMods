@@ -17,74 +17,74 @@
 
 class Google_Service_Compute_SubnetworkList extends Google_Collection
 {
-	protected $collection_key = 'items';
-	public $id;
-	protected $itemsType = 'Google_Service_Compute_Subnetwork';
-	protected $itemsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
-	public $selfLink;
-	protected $warningType = 'Google_Service_Compute_SubnetworkListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'items';
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_Subnetwork';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  public $selfLink;
+  protected $warningType = 'Google_Service_Compute_SubnetworkListWarning';
+  protected $warningDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_Compute_Subnetwork
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Compute_Subnetwork
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	/**
-	 * @param Google_Service_Compute_SubnetworkListWarning
-	 */
-	public function setWarning(Google_Service_Compute_SubnetworkListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_SubnetworkListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_Compute_Subnetwork[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Compute_Subnetwork[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  /**
+   * @param Google_Service_Compute_SubnetworkListWarning
+   */
+  public function setWarning(Google_Service_Compute_SubnetworkListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_SubnetworkListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_LineItemBudget extends Google_Model
 {
-	public $budgetAllocationType;
-	public $budgetUnit;
-	public $maxAmount;
+  public $budgetAllocationType;
+  public $budgetUnit;
+  public $maxAmount;
 
-	public function setBudgetAllocationType($budgetAllocationType)
-	{
-		$this->budgetAllocationType = $budgetAllocationType;
-	}
-	public function getBudgetAllocationType()
-	{
-		return $this->budgetAllocationType;
-	}
-	public function setBudgetUnit($budgetUnit)
-	{
-		$this->budgetUnit = $budgetUnit;
-	}
-	public function getBudgetUnit()
-	{
-		return $this->budgetUnit;
-	}
-	public function setMaxAmount($maxAmount)
-	{
-		$this->maxAmount = $maxAmount;
-	}
-	public function getMaxAmount()
-	{
-		return $this->maxAmount;
-	}
+  public function setBudgetAllocationType($budgetAllocationType)
+  {
+    $this->budgetAllocationType = $budgetAllocationType;
+  }
+  public function getBudgetAllocationType()
+  {
+    return $this->budgetAllocationType;
+  }
+  public function setBudgetUnit($budgetUnit)
+  {
+    $this->budgetUnit = $budgetUnit;
+  }
+  public function getBudgetUnit()
+  {
+    return $this->budgetUnit;
+  }
+  public function setMaxAmount($maxAmount)
+  {
+    $this->maxAmount = $maxAmount;
+  }
+  public function getMaxAmount()
+  {
+    return $this->maxAmount;
+  }
 }

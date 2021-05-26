@@ -25,30 +25,30 @@
  */
 class Google_Service_Verifiedaccess_Resource_Challenge extends Google_Service_Resource
 {
-	/**
-	 * CreateChallenge API (challenge.create)
-	 *
-	 * @param Google_Service_Verifiedaccess_VerifiedaccessEmpty $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Verifiedaccess_Challenge
-	 */
-	public function create(Google_Service_Verifiedaccess_VerifiedaccessEmpty $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('create', array($params), "Google_Service_Verifiedaccess_Challenge");
-	}
-	/**
-	 * VerifyChallengeResponse API (challenge.verify)
-	 *
-	 * @param Google_Service_Verifiedaccess_VerifyChallengeResponseRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Verifiedaccess_VerifyChallengeResponseResult
-	 */
-	public function verify(Google_Service_Verifiedaccess_VerifyChallengeResponseRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('verify', array($params), "Google_Service_Verifiedaccess_VerifyChallengeResponseResult");
-	}
+  /**
+   * CreateChallenge API (challenge.create)
+   *
+   * @param Google_Service_Verifiedaccess_VerifiedaccessEmpty $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Verifiedaccess_Challenge
+   */
+  public function create(Google_Service_Verifiedaccess_VerifiedaccessEmpty $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('create', array($params), "Google_Service_Verifiedaccess_Challenge");
+  }
+  /**
+   * VerifyChallengeResponse API (challenge.verify)
+   *
+   * @param Google_Service_Verifiedaccess_VerifyChallengeResponseRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Verifiedaccess_VerifyChallengeResponseResult
+   */
+  public function verify(Google_Service_Verifiedaccess_VerifyChallengeResponseRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('verify', array($params), "Google_Service_Verifiedaccess_VerifyChallengeResponseResult");
+  }
 }

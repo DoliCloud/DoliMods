@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_BackendServiceLogConfig extends Google_Model
 {
-	public $enable;
-	public $sampleRate;
+  public $enable;
+  public $sampleRate;
 
-	public function setEnable($enable)
-	{
-		$this->enable = $enable;
-	}
-	public function getEnable()
-	{
-		return $this->enable;
-	}
-	public function setSampleRate($sampleRate)
-	{
-		$this->sampleRate = $sampleRate;
-	}
-	public function getSampleRate()
-	{
-		return $this->sampleRate;
-	}
+  public function setEnable($enable)
+  {
+    $this->enable = $enable;
+  }
+  public function getEnable()
+  {
+    return $this->enable;
+  }
+  public function setSampleRate($sampleRate)
+  {
+    $this->sampleRate = $sampleRate;
+  }
+  public function getSampleRate()
+  {
+    return $this->sampleRate;
+  }
 }

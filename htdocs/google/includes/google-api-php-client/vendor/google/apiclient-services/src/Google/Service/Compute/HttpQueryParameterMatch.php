@@ -17,41 +17,41 @@
 
 class Google_Service_Compute_HttpQueryParameterMatch extends Google_Model
 {
-	public $exactMatch;
-	public $name;
-	public $presentMatch;
-	public $regexMatch;
+  public $exactMatch;
+  public $name;
+  public $presentMatch;
+  public $regexMatch;
 
-	public function setExactMatch($exactMatch)
-	{
-		$this->exactMatch = $exactMatch;
-	}
-	public function getExactMatch()
-	{
-		return $this->exactMatch;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPresentMatch($presentMatch)
-	{
-		$this->presentMatch = $presentMatch;
-	}
-	public function getPresentMatch()
-	{
-		return $this->presentMatch;
-	}
-	public function setRegexMatch($regexMatch)
-	{
-		$this->regexMatch = $regexMatch;
-	}
-	public function getRegexMatch()
-	{
-		return $this->regexMatch;
-	}
+  public function setExactMatch($exactMatch)
+  {
+    $this->exactMatch = $exactMatch;
+  }
+  public function getExactMatch()
+  {
+    return $this->exactMatch;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPresentMatch($presentMatch)
+  {
+    $this->presentMatch = $presentMatch;
+  }
+  public function getPresentMatch()
+  {
+    return $this->presentMatch;
+  }
+  public function setRegexMatch($regexMatch)
+  {
+    $this->regexMatch = $regexMatch;
+  }
+  public function getRegexMatch()
+  {
+    return $this->regexMatch;
+  }
 }

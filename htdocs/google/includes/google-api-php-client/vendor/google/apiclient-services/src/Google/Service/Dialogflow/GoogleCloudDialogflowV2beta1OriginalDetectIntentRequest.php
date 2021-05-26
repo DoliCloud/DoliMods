@@ -17,32 +17,32 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest extends Google_Model
 {
-	public $payload;
-	public $source;
-	public $version;
+  public $payload;
+  public $source;
+  public $version;
 
-	public function setPayload($payload)
-	{
-		$this->payload = $payload;
-	}
-	public function getPayload()
-	{
-		return $this->payload;
-	}
-	public function setSource($source)
-	{
-		$this->source = $source;
-	}
-	public function getSource()
-	{
-		return $this->source;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setPayload($payload)
+  {
+    $this->payload = $payload;
+  }
+  public function getPayload()
+  {
+    return $this->payload;
+  }
+  public function setSource($source)
+  {
+    $this->source = $source;
+  }
+  public function getSource()
+  {
+    return $this->source;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_Tracing_StackTrace extends Google_Model
 {
-	protected $stackFramesType = 'Google_Service_Tracing_StackFrames';
-	protected $stackFramesDataType = '';
-	public $stackTraceHashId;
+  protected $stackFramesType = 'Google_Service_Tracing_StackFrames';
+  protected $stackFramesDataType = '';
+  public $stackTraceHashId;
 
-	public function setStackFrames(Google_Service_Tracing_StackFrames $stackFrames)
-	{
-		$this->stackFrames = $stackFrames;
-	}
-	public function getStackFrames()
-	{
-		return $this->stackFrames;
-	}
-	public function setStackTraceHashId($stackTraceHashId)
-	{
-		$this->stackTraceHashId = $stackTraceHashId;
-	}
-	public function getStackTraceHashId()
-	{
-		return $this->stackTraceHashId;
-	}
+  public function setStackFrames(Google_Service_Tracing_StackFrames $stackFrames)
+  {
+    $this->stackFrames = $stackFrames;
+  }
+  public function getStackFrames()
+  {
+    return $this->stackFrames;
+  }
+  public function setStackTraceHashId($stackTraceHashId)
+  {
+    $this->stackTraceHashId = $stackTraceHashId;
+  }
+  public function getStackTraceHashId()
+  {
+    return $this->stackTraceHashId;
+  }
 }

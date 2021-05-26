@@ -17,51 +17,51 @@
 
 class Google_Service_CloudAsset_GoogleCloudOrgpolicyV1ListPolicy extends Google_Collection
 {
-	protected $collection_key = 'deniedValues';
-	public $allValues;
-	public $allowedValues;
-	public $deniedValues;
-	public $inheritFromParent;
-	public $suggestedValue;
+  protected $collection_key = 'deniedValues';
+  public $allValues;
+  public $allowedValues;
+  public $deniedValues;
+  public $inheritFromParent;
+  public $suggestedValue;
 
-	public function setAllValues($allValues)
-	{
-		$this->allValues = $allValues;
-	}
-	public function getAllValues()
-	{
-		return $this->allValues;
-	}
-	public function setAllowedValues($allowedValues)
-	{
-		$this->allowedValues = $allowedValues;
-	}
-	public function getAllowedValues()
-	{
-		return $this->allowedValues;
-	}
-	public function setDeniedValues($deniedValues)
-	{
-		$this->deniedValues = $deniedValues;
-	}
-	public function getDeniedValues()
-	{
-		return $this->deniedValues;
-	}
-	public function setInheritFromParent($inheritFromParent)
-	{
-		$this->inheritFromParent = $inheritFromParent;
-	}
-	public function getInheritFromParent()
-	{
-		return $this->inheritFromParent;
-	}
-	public function setSuggestedValue($suggestedValue)
-	{
-		$this->suggestedValue = $suggestedValue;
-	}
-	public function getSuggestedValue()
-	{
-		return $this->suggestedValue;
-	}
+  public function setAllValues($allValues)
+  {
+    $this->allValues = $allValues;
+  }
+  public function getAllValues()
+  {
+    return $this->allValues;
+  }
+  public function setAllowedValues($allowedValues)
+  {
+    $this->allowedValues = $allowedValues;
+  }
+  public function getAllowedValues()
+  {
+    return $this->allowedValues;
+  }
+  public function setDeniedValues($deniedValues)
+  {
+    $this->deniedValues = $deniedValues;
+  }
+  public function getDeniedValues()
+  {
+    return $this->deniedValues;
+  }
+  public function setInheritFromParent($inheritFromParent)
+  {
+    $this->inheritFromParent = $inheritFromParent;
+  }
+  public function getInheritFromParent()
+  {
+    return $this->inheritFromParent;
+  }
+  public function setSuggestedValue($suggestedValue)
+  {
+    $this->suggestedValue = $suggestedValue;
+  }
+  public function getSuggestedValue()
+  {
+    return $this->suggestedValue;
+  }
 }

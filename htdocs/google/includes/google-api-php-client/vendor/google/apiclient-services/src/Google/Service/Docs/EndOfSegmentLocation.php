@@ -17,14 +17,14 @@
 
 class Google_Service_Docs_EndOfSegmentLocation extends Google_Model
 {
-	public $segmentId;
+  public $segmentId;
 
-	public function setSegmentId($segmentId)
-	{
-		$this->segmentId = $segmentId;
-	}
-	public function getSegmentId()
-	{
-		return $this->segmentId;
-	}
+  public function setSegmentId($segmentId)
+  {
+    $this->segmentId = $segmentId;
+  }
+  public function getSegmentId()
+  {
+    return $this->segmentId;
+  }
 }

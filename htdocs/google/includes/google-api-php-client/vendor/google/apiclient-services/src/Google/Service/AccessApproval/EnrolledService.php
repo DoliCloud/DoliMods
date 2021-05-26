@@ -17,23 +17,23 @@
 
 class Google_Service_AccessApproval_EnrolledService extends Google_Model
 {
-	public $cloudProduct;
-	public $enrollmentLevel;
+  public $cloudProduct;
+  public $enrollmentLevel;
 
-	public function setCloudProduct($cloudProduct)
-	{
-		$this->cloudProduct = $cloudProduct;
-	}
-	public function getCloudProduct()
-	{
-		return $this->cloudProduct;
-	}
-	public function setEnrollmentLevel($enrollmentLevel)
-	{
-		$this->enrollmentLevel = $enrollmentLevel;
-	}
-	public function getEnrollmentLevel()
-	{
-		return $this->enrollmentLevel;
-	}
+  public function setCloudProduct($cloudProduct)
+  {
+    $this->cloudProduct = $cloudProduct;
+  }
+  public function getCloudProduct()
+  {
+    return $this->cloudProduct;
+  }
+  public function setEnrollmentLevel($enrollmentLevel)
+  {
+    $this->enrollmentLevel = $enrollmentLevel;
+  }
+  public function getEnrollmentLevel()
+  {
+    return $this->enrollmentLevel;
+  }
 }

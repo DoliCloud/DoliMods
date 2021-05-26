@@ -17,47 +17,47 @@
 
 class Google_Service_YouTube_LocalizedProperty extends Google_Collection
 {
-	protected $collection_key = 'localized';
-	public $default;
-	protected $defaultLanguageType = 'Google_Service_YouTube_LanguageTag';
-	protected $defaultLanguageDataType = '';
-	protected $localizedType = 'Google_Service_YouTube_LocalizedString';
-	protected $localizedDataType = 'array';
+  protected $collection_key = 'localized';
+  public $default;
+  protected $defaultLanguageType = 'Google_Service_YouTube_LanguageTag';
+  protected $defaultLanguageDataType = '';
+  protected $localizedType = 'Google_Service_YouTube_LocalizedString';
+  protected $localizedDataType = 'array';
 
-	public function setDefault($default)
-	{
-		$this->default = $default;
-	}
-	public function getDefault()
-	{
-		return $this->default;
-	}
-	/**
-	 * @param Google_Service_YouTube_LanguageTag
-	 */
-	public function setDefaultLanguage(Google_Service_YouTube_LanguageTag $defaultLanguage)
-	{
-		$this->defaultLanguage = $defaultLanguage;
-	}
-	/**
-	 * @return Google_Service_YouTube_LanguageTag
-	 */
-	public function getDefaultLanguage()
-	{
-		return $this->defaultLanguage;
-	}
-	/**
-	 * @param Google_Service_YouTube_LocalizedString
-	 */
-	public function setLocalized($localized)
-	{
-		$this->localized = $localized;
-	}
-	/**
-	 * @return Google_Service_YouTube_LocalizedString
-	 */
-	public function getLocalized()
-	{
-		return $this->localized;
-	}
+  public function setDefault($default)
+  {
+    $this->default = $default;
+  }
+  public function getDefault()
+  {
+    return $this->default;
+  }
+  /**
+   * @param Google_Service_YouTube_LanguageTag
+   */
+  public function setDefaultLanguage(Google_Service_YouTube_LanguageTag $defaultLanguage)
+  {
+    $this->defaultLanguage = $defaultLanguage;
+  }
+  /**
+   * @return Google_Service_YouTube_LanguageTag
+   */
+  public function getDefaultLanguage()
+  {
+    return $this->defaultLanguage;
+  }
+  /**
+   * @param Google_Service_YouTube_LocalizedString[]
+   */
+  public function setLocalized($localized)
+  {
+    $this->localized = $localized;
+  }
+  /**
+   * @return Google_Service_YouTube_LocalizedString[]
+   */
+  public function getLocalized()
+  {
+    return $this->localized;
+  }
 }

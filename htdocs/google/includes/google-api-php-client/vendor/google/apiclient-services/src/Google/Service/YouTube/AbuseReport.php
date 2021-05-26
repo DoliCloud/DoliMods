@@ -17,63 +17,63 @@
 
 class Google_Service_YouTube_AbuseReport extends Google_Collection
 {
-	protected $collection_key = 'relatedEntities';
-	protected $abuseTypesType = 'Google_Service_YouTube_AbuseType';
-	protected $abuseTypesDataType = 'array';
-	public $description;
-	protected $relatedEntitiesType = 'Google_Service_YouTube_RelatedEntity';
-	protected $relatedEntitiesDataType = 'array';
-	protected $subjectType = 'Google_Service_YouTube_Entity';
-	protected $subjectDataType = '';
+  protected $collection_key = 'relatedEntities';
+  protected $abuseTypesType = 'Google_Service_YouTube_AbuseType';
+  protected $abuseTypesDataType = 'array';
+  public $description;
+  protected $relatedEntitiesType = 'Google_Service_YouTube_RelatedEntity';
+  protected $relatedEntitiesDataType = 'array';
+  protected $subjectType = 'Google_Service_YouTube_Entity';
+  protected $subjectDataType = '';
 
-	/**
-	 * @param Google_Service_YouTube_AbuseType
-	 */
-	public function setAbuseTypes($abuseTypes)
-	{
-		$this->abuseTypes = $abuseTypes;
-	}
-	/**
-	 * @return Google_Service_YouTube_AbuseType
-	 */
-	public function getAbuseTypes()
-	{
-		return $this->abuseTypes;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	/**
-	 * @param Google_Service_YouTube_RelatedEntity
-	 */
-	public function setRelatedEntities($relatedEntities)
-	{
-		$this->relatedEntities = $relatedEntities;
-	}
-	/**
-	 * @return Google_Service_YouTube_RelatedEntity
-	 */
-	public function getRelatedEntities()
-	{
-		return $this->relatedEntities;
-	}
-	/**
-	 * @param Google_Service_YouTube_Entity
-	 */
-	public function setSubject(Google_Service_YouTube_Entity $subject)
-	{
-		$this->subject = $subject;
-	}
-	/**
-	 * @return Google_Service_YouTube_Entity
-	 */
-	public function getSubject()
-	{
-		return $this->subject;
-	}
+  /**
+   * @param Google_Service_YouTube_AbuseType[]
+   */
+  public function setAbuseTypes($abuseTypes)
+  {
+    $this->abuseTypes = $abuseTypes;
+  }
+  /**
+   * @return Google_Service_YouTube_AbuseType[]
+   */
+  public function getAbuseTypes()
+  {
+    return $this->abuseTypes;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  /**
+   * @param Google_Service_YouTube_RelatedEntity[]
+   */
+  public function setRelatedEntities($relatedEntities)
+  {
+    $this->relatedEntities = $relatedEntities;
+  }
+  /**
+   * @return Google_Service_YouTube_RelatedEntity[]
+   */
+  public function getRelatedEntities()
+  {
+    return $this->relatedEntities;
+  }
+  /**
+   * @param Google_Service_YouTube_Entity
+   */
+  public function setSubject(Google_Service_YouTube_Entity $subject)
+  {
+    $this->subject = $subject;
+  }
+  /**
+   * @return Google_Service_YouTube_Entity
+   */
+  public function getSubject()
+  {
+    return $this->subject;
+  }
 }

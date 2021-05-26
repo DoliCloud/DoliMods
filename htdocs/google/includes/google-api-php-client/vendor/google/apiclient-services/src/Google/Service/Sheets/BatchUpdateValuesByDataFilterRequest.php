@@ -17,58 +17,58 @@
 
 class Google_Service_Sheets_BatchUpdateValuesByDataFilterRequest extends Google_Collection
 {
-	protected $collection_key = 'data';
-	protected $dataType = 'Google_Service_Sheets_DataFilterValueRange';
-	protected $dataDataType = 'array';
-	public $includeValuesInResponse;
-	public $responseDateTimeRenderOption;
-	public $responseValueRenderOption;
-	public $valueInputOption;
+  protected $collection_key = 'data';
+  protected $dataType = 'Google_Service_Sheets_DataFilterValueRange';
+  protected $dataDataType = 'array';
+  public $includeValuesInResponse;
+  public $responseDateTimeRenderOption;
+  public $responseValueRenderOption;
+  public $valueInputOption;
 
-	/**
-	 * @param Google_Service_Sheets_DataFilterValueRange
-	 */
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	/**
-	 * @return Google_Service_Sheets_DataFilterValueRange
-	 */
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setIncludeValuesInResponse($includeValuesInResponse)
-	{
-		$this->includeValuesInResponse = $includeValuesInResponse;
-	}
-	public function getIncludeValuesInResponse()
-	{
-		return $this->includeValuesInResponse;
-	}
-	public function setResponseDateTimeRenderOption($responseDateTimeRenderOption)
-	{
-		$this->responseDateTimeRenderOption = $responseDateTimeRenderOption;
-	}
-	public function getResponseDateTimeRenderOption()
-	{
-		return $this->responseDateTimeRenderOption;
-	}
-	public function setResponseValueRenderOption($responseValueRenderOption)
-	{
-		$this->responseValueRenderOption = $responseValueRenderOption;
-	}
-	public function getResponseValueRenderOption()
-	{
-		return $this->responseValueRenderOption;
-	}
-	public function setValueInputOption($valueInputOption)
-	{
-		$this->valueInputOption = $valueInputOption;
-	}
-	public function getValueInputOption()
-	{
-		return $this->valueInputOption;
-	}
+  /**
+   * @param Google_Service_Sheets_DataFilterValueRange[]
+   */
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  /**
+   * @return Google_Service_Sheets_DataFilterValueRange[]
+   */
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setIncludeValuesInResponse($includeValuesInResponse)
+  {
+    $this->includeValuesInResponse = $includeValuesInResponse;
+  }
+  public function getIncludeValuesInResponse()
+  {
+    return $this->includeValuesInResponse;
+  }
+  public function setResponseDateTimeRenderOption($responseDateTimeRenderOption)
+  {
+    $this->responseDateTimeRenderOption = $responseDateTimeRenderOption;
+  }
+  public function getResponseDateTimeRenderOption()
+  {
+    return $this->responseDateTimeRenderOption;
+  }
+  public function setResponseValueRenderOption($responseValueRenderOption)
+  {
+    $this->responseValueRenderOption = $responseValueRenderOption;
+  }
+  public function getResponseValueRenderOption()
+  {
+    return $this->responseValueRenderOption;
+  }
+  public function setValueInputOption($valueInputOption)
+  {
+    $this->valueInputOption = $valueInputOption;
+  }
+  public function getValueInputOption()
+  {
+    return $this->valueInputOption;
+  }
 }

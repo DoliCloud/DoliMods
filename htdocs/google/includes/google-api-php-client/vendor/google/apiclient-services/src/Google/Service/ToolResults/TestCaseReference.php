@@ -17,32 +17,32 @@
 
 class Google_Service_ToolResults_TestCaseReference extends Google_Model
 {
-	public $className;
-	public $name;
-	public $testSuiteName;
+  public $className;
+  public $name;
+  public $testSuiteName;
 
-	public function setClassName($className)
-	{
-		$this->className = $className;
-	}
-	public function getClassName()
-	{
-		return $this->className;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setTestSuiteName($testSuiteName)
-	{
-		$this->testSuiteName = $testSuiteName;
-	}
-	public function getTestSuiteName()
-	{
-		return $this->testSuiteName;
-	}
+  public function setClassName($className)
+  {
+    $this->className = $className;
+  }
+  public function getClassName()
+  {
+    return $this->className;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setTestSuiteName($testSuiteName)
+  {
+    $this->testSuiteName = $testSuiteName;
+  }
+  public function getTestSuiteName()
+  {
+    return $this->testSuiteName;
+  }
 }

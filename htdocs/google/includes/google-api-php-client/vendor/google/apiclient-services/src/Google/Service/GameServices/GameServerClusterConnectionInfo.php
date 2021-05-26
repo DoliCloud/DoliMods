@@ -17,30 +17,30 @@
 
 class Google_Service_GameServices_GameServerClusterConnectionInfo extends Google_Model
 {
-	protected $gkeClusterReferenceType = 'Google_Service_GameServices_GkeClusterReference';
-	protected $gkeClusterReferenceDataType = '';
-	public $namespace;
+  protected $gkeClusterReferenceType = 'Google_Service_GameServices_GkeClusterReference';
+  protected $gkeClusterReferenceDataType = '';
+  public $namespace;
 
-	/**
-	 * @param Google_Service_GameServices_GkeClusterReference
-	 */
-	public function setGkeClusterReference(Google_Service_GameServices_GkeClusterReference $gkeClusterReference)
-	{
-		$this->gkeClusterReference = $gkeClusterReference;
-	}
-	/**
-	 * @return Google_Service_GameServices_GkeClusterReference
-	 */
-	public function getGkeClusterReference()
-	{
-		return $this->gkeClusterReference;
-	}
-	public function setNamespace($namespace)
-	{
-		$this->namespace = $namespace;
-	}
-	public function getNamespace()
-	{
-		return $this->namespace;
-	}
+  /**
+   * @param Google_Service_GameServices_GkeClusterReference
+   */
+  public function setGkeClusterReference(Google_Service_GameServices_GkeClusterReference $gkeClusterReference)
+  {
+    $this->gkeClusterReference = $gkeClusterReference;
+  }
+  /**
+   * @return Google_Service_GameServices_GkeClusterReference
+   */
+  public function getGkeClusterReference()
+  {
+    return $this->gkeClusterReference;
+  }
+  public function setNamespace($namespace)
+  {
+    $this->namespace = $namespace;
+  }
+  public function getNamespace()
+  {
+    return $this->namespace;
+  }
 }

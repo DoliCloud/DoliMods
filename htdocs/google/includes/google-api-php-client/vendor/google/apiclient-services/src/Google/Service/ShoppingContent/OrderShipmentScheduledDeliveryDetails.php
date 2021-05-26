@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_OrderShipmentScheduledDeliveryDetails extends Google_Model
 {
-	public $carrierPhoneNumber;
-	public $scheduledDate;
+  public $carrierPhoneNumber;
+  public $scheduledDate;
 
-	public function setCarrierPhoneNumber($carrierPhoneNumber)
-	{
-		$this->carrierPhoneNumber = $carrierPhoneNumber;
-	}
-	public function getCarrierPhoneNumber()
-	{
-		return $this->carrierPhoneNumber;
-	}
-	public function setScheduledDate($scheduledDate)
-	{
-		$this->scheduledDate = $scheduledDate;
-	}
-	public function getScheduledDate()
-	{
-		return $this->scheduledDate;
-	}
+  public function setCarrierPhoneNumber($carrierPhoneNumber)
+  {
+    $this->carrierPhoneNumber = $carrierPhoneNumber;
+  }
+  public function getCarrierPhoneNumber()
+  {
+    return $this->carrierPhoneNumber;
+  }
+  public function setScheduledDate($scheduledDate)
+  {
+    $this->scheduledDate = $scheduledDate;
+  }
+  public function getScheduledDate()
+  {
+    return $this->scheduledDate;
+  }
 }

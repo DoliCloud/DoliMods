@@ -17,56 +17,56 @@
 
 class Google_Service_Fitness_ListDataPointChangesResponse extends Google_Collection
 {
-	protected $collection_key = 'insertedDataPoint';
-	public $dataSourceId;
-	protected $deletedDataPointType = 'Google_Service_Fitness_DataPoint';
-	protected $deletedDataPointDataType = 'array';
-	protected $insertedDataPointType = 'Google_Service_Fitness_DataPoint';
-	protected $insertedDataPointDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'insertedDataPoint';
+  public $dataSourceId;
+  protected $deletedDataPointType = 'Google_Service_Fitness_DataPoint';
+  protected $deletedDataPointDataType = 'array';
+  protected $insertedDataPointType = 'Google_Service_Fitness_DataPoint';
+  protected $insertedDataPointDataType = 'array';
+  public $nextPageToken;
 
-	public function setDataSourceId($dataSourceId)
-	{
-		$this->dataSourceId = $dataSourceId;
-	}
-	public function getDataSourceId()
-	{
-		return $this->dataSourceId;
-	}
-	/**
-	 * @param Google_Service_Fitness_DataPoint
-	 */
-	public function setDeletedDataPoint($deletedDataPoint)
-	{
-		$this->deletedDataPoint = $deletedDataPoint;
-	}
-	/**
-	 * @return Google_Service_Fitness_DataPoint
-	 */
-	public function getDeletedDataPoint()
-	{
-		return $this->deletedDataPoint;
-	}
-	/**
-	 * @param Google_Service_Fitness_DataPoint
-	 */
-	public function setInsertedDataPoint($insertedDataPoint)
-	{
-		$this->insertedDataPoint = $insertedDataPoint;
-	}
-	/**
-	 * @return Google_Service_Fitness_DataPoint
-	 */
-	public function getInsertedDataPoint()
-	{
-		return $this->insertedDataPoint;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setDataSourceId($dataSourceId)
+  {
+    $this->dataSourceId = $dataSourceId;
+  }
+  public function getDataSourceId()
+  {
+    return $this->dataSourceId;
+  }
+  /**
+   * @param Google_Service_Fitness_DataPoint[]
+   */
+  public function setDeletedDataPoint($deletedDataPoint)
+  {
+    $this->deletedDataPoint = $deletedDataPoint;
+  }
+  /**
+   * @return Google_Service_Fitness_DataPoint[]
+   */
+  public function getDeletedDataPoint()
+  {
+    return $this->deletedDataPoint;
+  }
+  /**
+   * @param Google_Service_Fitness_DataPoint[]
+   */
+  public function setInsertedDataPoint($insertedDataPoint)
+  {
+    $this->insertedDataPoint = $insertedDataPoint;
+  }
+  /**
+   * @return Google_Service_Fitness_DataPoint[]
+   */
+  public function getInsertedDataPoint()
+  {
+    return $this->insertedDataPoint;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

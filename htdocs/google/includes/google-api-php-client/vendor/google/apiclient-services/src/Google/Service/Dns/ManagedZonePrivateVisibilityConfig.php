@@ -17,31 +17,31 @@
 
 class Google_Service_Dns_ManagedZonePrivateVisibilityConfig extends Google_Collection
 {
-	protected $collection_key = 'networks';
-	public $kind;
-	protected $networksType = 'Google_Service_Dns_ManagedZonePrivateVisibilityConfigNetwork';
-	protected $networksDataType = 'array';
+  protected $collection_key = 'networks';
+  public $kind;
+  protected $networksType = 'Google_Service_Dns_ManagedZonePrivateVisibilityConfigNetwork';
+  protected $networksDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dns_ManagedZonePrivateVisibilityConfigNetwork
-	 */
-	public function setNetworks($networks)
-	{
-		$this->networks = $networks;
-	}
-	/**
-	 * @return Google_Service_Dns_ManagedZonePrivateVisibilityConfigNetwork
-	 */
-	public function getNetworks()
-	{
-		return $this->networks;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dns_ManagedZonePrivateVisibilityConfigNetwork[]
+   */
+  public function setNetworks($networks)
+  {
+    $this->networks = $networks;
+  }
+  /**
+   * @return Google_Service_Dns_ManagedZonePrivateVisibilityConfigNetwork[]
+   */
+  public function getNetworks()
+  {
+    return $this->networks;
+  }
 }

@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_AcceleratorTypesScopedList extends Google_Collection
 {
-	protected $collection_key = 'acceleratorTypes';
-	protected $acceleratorTypesType = 'Google_Service_Compute_AcceleratorType';
-	protected $acceleratorTypesDataType = 'array';
-	protected $warningType = 'Google_Service_Compute_AcceleratorTypesScopedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'acceleratorTypes';
+  protected $acceleratorTypesType = 'Google_Service_Compute_AcceleratorType';
+  protected $acceleratorTypesDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_AcceleratorTypesScopedListWarning';
+  protected $warningDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_AcceleratorType
-	 */
-	public function setAcceleratorTypes($acceleratorTypes)
-	{
-		$this->acceleratorTypes = $acceleratorTypes;
-	}
-	/**
-	 * @return Google_Service_Compute_AcceleratorType
-	 */
-	public function getAcceleratorTypes()
-	{
-		return $this->acceleratorTypes;
-	}
-	/**
-	 * @param Google_Service_Compute_AcceleratorTypesScopedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_AcceleratorTypesScopedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_AcceleratorTypesScopedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Compute_AcceleratorType[]
+   */
+  public function setAcceleratorTypes($acceleratorTypes)
+  {
+    $this->acceleratorTypes = $acceleratorTypes;
+  }
+  /**
+   * @return Google_Service_Compute_AcceleratorType[]
+   */
+  public function getAcceleratorTypes()
+  {
+    return $this->acceleratorTypes;
+  }
+  /**
+   * @param Google_Service_Compute_AcceleratorTypesScopedListWarning
+   */
+  public function setWarning(Google_Service_Compute_AcceleratorTypesScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_AcceleratorTypesScopedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

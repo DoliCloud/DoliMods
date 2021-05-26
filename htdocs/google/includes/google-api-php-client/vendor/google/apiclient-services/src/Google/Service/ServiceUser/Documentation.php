@@ -17,65 +17,65 @@
 
 class Google_Service_ServiceUser_Documentation extends Google_Collection
 {
-	protected $collection_key = 'rules';
-	public $documentationRootUrl;
-	public $overview;
-	protected $pagesType = 'Google_Service_ServiceUser_Page';
-	protected $pagesDataType = 'array';
-	protected $rulesType = 'Google_Service_ServiceUser_DocumentationRule';
-	protected $rulesDataType = 'array';
-	public $summary;
+  protected $collection_key = 'rules';
+  public $documentationRootUrl;
+  public $overview;
+  protected $pagesType = 'Google_Service_ServiceUser_Page';
+  protected $pagesDataType = 'array';
+  protected $rulesType = 'Google_Service_ServiceUser_DocumentationRule';
+  protected $rulesDataType = 'array';
+  public $summary;
 
-	public function setDocumentationRootUrl($documentationRootUrl)
-	{
-		$this->documentationRootUrl = $documentationRootUrl;
-	}
-	public function getDocumentationRootUrl()
-	{
-		return $this->documentationRootUrl;
-	}
-	public function setOverview($overview)
-	{
-		$this->overview = $overview;
-	}
-	public function getOverview()
-	{
-		return $this->overview;
-	}
-	/**
-	 * @param Google_Service_ServiceUser_Page
-	 */
-	public function setPages($pages)
-	{
-		$this->pages = $pages;
-	}
-	/**
-	 * @return Google_Service_ServiceUser_Page
-	 */
-	public function getPages()
-	{
-		return $this->pages;
-	}
-	/**
-	 * @param Google_Service_ServiceUser_DocumentationRule
-	 */
-	public function setRules($rules)
-	{
-		$this->rules = $rules;
-	}
-	/**
-	 * @return Google_Service_ServiceUser_DocumentationRule
-	 */
-	public function getRules()
-	{
-		return $this->rules;
-	}
-	public function setSummary($summary)
-	{
-		$this->summary = $summary;
-	}
-	public function getSummary()
-	{
-		return $this->summary;
-	}
+  public function setDocumentationRootUrl($documentationRootUrl)
+  {
+    $this->documentationRootUrl = $documentationRootUrl;
+  }
+  public function getDocumentationRootUrl()
+  {
+    return $this->documentationRootUrl;
+  }
+  public function setOverview($overview)
+  {
+    $this->overview = $overview;
+  }
+  public function getOverview()
+  {
+    return $this->overview;
+  }
+  /**
+   * @param Google_Service_ServiceUser_Page
+   */
+  public function setPages($pages)
+  {
+    $this->pages = $pages;
+  }
+  /**
+   * @return Google_Service_ServiceUser_Page
+   */
+  public function getPages()
+  {
+    return $this->pages;
+  }
+  /**
+   * @param Google_Service_ServiceUser_DocumentationRule
+   */
+  public function setRules($rules)
+  {
+    $this->rules = $rules;
+  }
+  /**
+   * @return Google_Service_ServiceUser_DocumentationRule
+   */
+  public function getRules()
+  {
+    return $this->rules;
+  }
+  public function setSummary($summary)
+  {
+    $this->summary = $summary;
+  }
+  public function getSummary()
+  {
+    return $this->summary;
+  }
 }

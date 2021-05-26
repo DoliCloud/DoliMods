@@ -17,21 +17,21 @@
 
 class Google_Service_Partners_LogUserEventResponse extends Google_Model
 {
-	protected $responseMetadataType = 'Google_Service_Partners_ResponseMetadata';
-	protected $responseMetadataDataType = '';
+  protected $responseMetadataType = 'Google_Service_Partners_ResponseMetadata';
+  protected $responseMetadataDataType = '';
 
-	/**
-	 * @param Google_Service_Partners_ResponseMetadata
-	 */
-	public function setResponseMetadata(Google_Service_Partners_ResponseMetadata $responseMetadata)
-	{
-		$this->responseMetadata = $responseMetadata;
-	}
-	/**
-	 * @return Google_Service_Partners_ResponseMetadata
-	 */
-	public function getResponseMetadata()
-	{
-		return $this->responseMetadata;
-	}
+  /**
+   * @param Google_Service_Partners_ResponseMetadata
+   */
+  public function setResponseMetadata(Google_Service_Partners_ResponseMetadata $responseMetadata)
+  {
+    $this->responseMetadata = $responseMetadata;
+  }
+  /**
+   * @return Google_Service_Partners_ResponseMetadata
+   */
+  public function getResponseMetadata()
+  {
+    return $this->responseMetadata;
+  }
 }

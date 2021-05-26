@@ -17,50 +17,50 @@
 
 class Google_Service_FirebaseRules_SourcePosition extends Google_Model
 {
-	public $column;
-	public $currentOffset;
-	public $endOffset;
-	public $fileName;
-	public $line;
+  public $column;
+  public $currentOffset;
+  public $endOffset;
+  public $fileName;
+  public $line;
 
-	public function setColumn($column)
-	{
-		$this->column = $column;
-	}
-	public function getColumn()
-	{
-		return $this->column;
-	}
-	public function setCurrentOffset($currentOffset)
-	{
-		$this->currentOffset = $currentOffset;
-	}
-	public function getCurrentOffset()
-	{
-		return $this->currentOffset;
-	}
-	public function setEndOffset($endOffset)
-	{
-		$this->endOffset = $endOffset;
-	}
-	public function getEndOffset()
-	{
-		return $this->endOffset;
-	}
-	public function setFileName($fileName)
-	{
-		$this->fileName = $fileName;
-	}
-	public function getFileName()
-	{
-		return $this->fileName;
-	}
-	public function setLine($line)
-	{
-		$this->line = $line;
-	}
-	public function getLine()
-	{
-		return $this->line;
-	}
+  public function setColumn($column)
+  {
+    $this->column = $column;
+  }
+  public function getColumn()
+  {
+    return $this->column;
+  }
+  public function setCurrentOffset($currentOffset)
+  {
+    $this->currentOffset = $currentOffset;
+  }
+  public function getCurrentOffset()
+  {
+    return $this->currentOffset;
+  }
+  public function setEndOffset($endOffset)
+  {
+    $this->endOffset = $endOffset;
+  }
+  public function getEndOffset()
+  {
+    return $this->endOffset;
+  }
+  public function setFileName($fileName)
+  {
+    $this->fileName = $fileName;
+  }
+  public function getFileName()
+  {
+    return $this->fileName;
+  }
+  public function setLine($line)
+  {
+    $this->line = $line;
+  }
+  public function getLine()
+  {
+    return $this->line;
+  }
 }

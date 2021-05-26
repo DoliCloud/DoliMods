@@ -17,65 +17,74 @@
 
 class Google_Service_CloudIdentity_Membership extends Google_Collection
 {
-	protected $collection_key = 'roles';
-	public $createTime;
-	public $name;
-	protected $preferredMemberKeyType = 'Google_Service_CloudIdentity_EntityKey';
-	protected $preferredMemberKeyDataType = '';
-	protected $rolesType = 'Google_Service_CloudIdentity_MembershipRole';
-	protected $rolesDataType = 'array';
-	public $updateTime;
+  protected $collection_key = 'roles';
+  public $createTime;
+  public $name;
+  protected $preferredMemberKeyType = 'Google_Service_CloudIdentity_EntityKey';
+  protected $preferredMemberKeyDataType = '';
+  protected $rolesType = 'Google_Service_CloudIdentity_MembershipRole';
+  protected $rolesDataType = 'array';
+  public $type;
+  public $updateTime;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_CloudIdentity_EntityKey
-	 */
-	public function setPreferredMemberKey(Google_Service_CloudIdentity_EntityKey $preferredMemberKey)
-	{
-		$this->preferredMemberKey = $preferredMemberKey;
-	}
-	/**
-	 * @return Google_Service_CloudIdentity_EntityKey
-	 */
-	public function getPreferredMemberKey()
-	{
-		return $this->preferredMemberKey;
-	}
-	/**
-	 * @param Google_Service_CloudIdentity_MembershipRole
-	 */
-	public function setRoles($roles)
-	{
-		$this->roles = $roles;
-	}
-	/**
-	 * @return Google_Service_CloudIdentity_MembershipRole
-	 */
-	public function getRoles()
-	{
-		return $this->roles;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_CloudIdentity_EntityKey
+   */
+  public function setPreferredMemberKey(Google_Service_CloudIdentity_EntityKey $preferredMemberKey)
+  {
+    $this->preferredMemberKey = $preferredMemberKey;
+  }
+  /**
+   * @return Google_Service_CloudIdentity_EntityKey
+   */
+  public function getPreferredMemberKey()
+  {
+    return $this->preferredMemberKey;
+  }
+  /**
+   * @param Google_Service_CloudIdentity_MembershipRole[]
+   */
+  public function setRoles($roles)
+  {
+    $this->roles = $roles;
+  }
+  /**
+   * @return Google_Service_CloudIdentity_MembershipRole[]
+   */
+  public function getRoles()
+  {
+    return $this->roles;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

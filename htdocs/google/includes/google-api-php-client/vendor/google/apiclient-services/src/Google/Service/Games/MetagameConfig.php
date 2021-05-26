@@ -17,40 +17,40 @@
 
 class Google_Service_Games_MetagameConfig extends Google_Collection
 {
-	protected $collection_key = 'playerLevels';
-	public $currentVersion;
-	public $kind;
-	protected $playerLevelsType = 'Google_Service_Games_PlayerLevel';
-	protected $playerLevelsDataType = 'array';
+  protected $collection_key = 'playerLevels';
+  public $currentVersion;
+  public $kind;
+  protected $playerLevelsType = 'Google_Service_Games_PlayerLevel';
+  protected $playerLevelsDataType = 'array';
 
-	public function setCurrentVersion($currentVersion)
-	{
-		$this->currentVersion = $currentVersion;
-	}
-	public function getCurrentVersion()
-	{
-		return $this->currentVersion;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Games_PlayerLevel
-	 */
-	public function setPlayerLevels($playerLevels)
-	{
-		$this->playerLevels = $playerLevels;
-	}
-	/**
-	 * @return Google_Service_Games_PlayerLevel
-	 */
-	public function getPlayerLevels()
-	{
-		return $this->playerLevels;
-	}
+  public function setCurrentVersion($currentVersion)
+  {
+    $this->currentVersion = $currentVersion;
+  }
+  public function getCurrentVersion()
+  {
+    return $this->currentVersion;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Games_PlayerLevel[]
+   */
+  public function setPlayerLevels($playerLevels)
+  {
+    $this->playerLevels = $playerLevels;
+  }
+  /**
+   * @return Google_Service_Games_PlayerLevel[]
+   */
+  public function getPlayerLevels()
+  {
+    return $this->playerLevels;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Dataproc_DiagnoseClusterResults extends Google_Model
 {
-	public $outputUri;
+  public $outputUri;
 
-	public function setOutputUri($outputUri)
-	{
-		$this->outputUri = $outputUri;
-	}
-	public function getOutputUri()
-	{
-		return $this->outputUri;
-	}
+  public function setOutputUri($outputUri)
+  {
+    $this->outputUri = $outputUri;
+  }
+  public function getOutputUri()
+  {
+    return $this->outputUri;
+  }
 }

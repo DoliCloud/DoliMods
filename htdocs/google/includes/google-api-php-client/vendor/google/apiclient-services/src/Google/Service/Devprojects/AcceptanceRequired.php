@@ -17,33 +17,33 @@
 
 class Google_Service_Devprojects_AcceptanceRequired extends Google_Model
 {
-	public $kind;
-	public $reason;
-	protected $termsType = 'Google_Service_Devprojects_TermsVersion';
-	protected $termsDataType = '';
+  public $kind;
+  public $reason;
+  protected $termsType = 'Google_Service_Devprojects_TermsVersion';
+  protected $termsDataType = '';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setReason($reason)
-	{
-		$this->reason = $reason;
-	}
-	public function getReason()
-	{
-		return $this->reason;
-	}
-	public function setTerms(Google_Service_Devprojects_TermsVersion $terms)
-	{
-		$this->terms = $terms;
-	}
-	public function getTerms()
-	{
-		return $this->terms;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setReason($reason)
+  {
+    $this->reason = $reason;
+  }
+  public function getReason()
+  {
+    return $this->reason;
+  }
+  public function setTerms(Google_Service_Devprojects_TermsVersion $terms)
+  {
+    $this->terms = $terms;
+  }
+  public function getTerms()
+  {
+    return $this->terms;
+  }
 }

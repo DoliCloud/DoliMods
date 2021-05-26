@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_DeviceTypeAssignedTargetingOptionDetails extends Google_Model
 {
-	public $deviceType;
-	public $targetingOptionId;
+  public $deviceType;
+  public $targetingOptionId;
 
-	public function setDeviceType($deviceType)
-	{
-		$this->deviceType = $deviceType;
-	}
-	public function getDeviceType()
-	{
-		return $this->deviceType;
-	}
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
+  public function setDeviceType($deviceType)
+  {
+    $this->deviceType = $deviceType;
+  }
+  public function getDeviceType()
+  {
+    return $this->deviceType;
+  }
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_ServiceManagement_TrafficPercentStrategy extends Google_Model
 {
-	public $percentages;
+  public $percentages;
 
-	public function setPercentages($percentages)
-	{
-		$this->percentages = $percentages;
-	}
-	public function getPercentages()
-	{
-		return $this->percentages;
-	}
+  public function setPercentages($percentages)
+  {
+    $this->percentages = $percentages;
+  }
+  public function getPercentages()
+  {
+    return $this->percentages;
+  }
 }

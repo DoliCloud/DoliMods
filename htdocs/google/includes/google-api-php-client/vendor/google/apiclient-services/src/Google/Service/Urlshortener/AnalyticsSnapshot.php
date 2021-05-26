@@ -17,88 +17,88 @@
 
 class Google_Service_Urlshortener_AnalyticsSnapshot extends Google_Collection
 {
-	protected $collection_key = 'referrers';
-	protected $browsersType = 'Google_Service_Urlshortener_StringCount';
-	protected $browsersDataType = 'array';
-	protected $countriesType = 'Google_Service_Urlshortener_StringCount';
-	protected $countriesDataType = 'array';
-	public $longUrlClicks;
-	protected $platformsType = 'Google_Service_Urlshortener_StringCount';
-	protected $platformsDataType = 'array';
-	protected $referrersType = 'Google_Service_Urlshortener_StringCount';
-	protected $referrersDataType = 'array';
-	public $shortUrlClicks;
+  protected $collection_key = 'referrers';
+  protected $browsersType = 'Google_Service_Urlshortener_StringCount';
+  protected $browsersDataType = 'array';
+  protected $countriesType = 'Google_Service_Urlshortener_StringCount';
+  protected $countriesDataType = 'array';
+  public $longUrlClicks;
+  protected $platformsType = 'Google_Service_Urlshortener_StringCount';
+  protected $platformsDataType = 'array';
+  protected $referrersType = 'Google_Service_Urlshortener_StringCount';
+  protected $referrersDataType = 'array';
+  public $shortUrlClicks;
 
-	/**
-	 * @param Google_Service_Urlshortener_StringCount
-	 */
-	public function setBrowsers($browsers)
-	{
-		$this->browsers = $browsers;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_StringCount
-	 */
-	public function getBrowsers()
-	{
-		return $this->browsers;
-	}
-	/**
-	 * @param Google_Service_Urlshortener_StringCount
-	 */
-	public function setCountries($countries)
-	{
-		$this->countries = $countries;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_StringCount
-	 */
-	public function getCountries()
-	{
-		return $this->countries;
-	}
-	public function setLongUrlClicks($longUrlClicks)
-	{
-		$this->longUrlClicks = $longUrlClicks;
-	}
-	public function getLongUrlClicks()
-	{
-		return $this->longUrlClicks;
-	}
-	/**
-	 * @param Google_Service_Urlshortener_StringCount
-	 */
-	public function setPlatforms($platforms)
-	{
-		$this->platforms = $platforms;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_StringCount
-	 */
-	public function getPlatforms()
-	{
-		return $this->platforms;
-	}
-	/**
-	 * @param Google_Service_Urlshortener_StringCount
-	 */
-	public function setReferrers($referrers)
-	{
-		$this->referrers = $referrers;
-	}
-	/**
-	 * @return Google_Service_Urlshortener_StringCount
-	 */
-	public function getReferrers()
-	{
-		return $this->referrers;
-	}
-	public function setShortUrlClicks($shortUrlClicks)
-	{
-		$this->shortUrlClicks = $shortUrlClicks;
-	}
-	public function getShortUrlClicks()
-	{
-		return $this->shortUrlClicks;
-	}
+  /**
+   * @param Google_Service_Urlshortener_StringCount
+   */
+  public function setBrowsers($browsers)
+  {
+    $this->browsers = $browsers;
+  }
+  /**
+   * @return Google_Service_Urlshortener_StringCount
+   */
+  public function getBrowsers()
+  {
+    return $this->browsers;
+  }
+  /**
+   * @param Google_Service_Urlshortener_StringCount
+   */
+  public function setCountries($countries)
+  {
+    $this->countries = $countries;
+  }
+  /**
+   * @return Google_Service_Urlshortener_StringCount
+   */
+  public function getCountries()
+  {
+    return $this->countries;
+  }
+  public function setLongUrlClicks($longUrlClicks)
+  {
+    $this->longUrlClicks = $longUrlClicks;
+  }
+  public function getLongUrlClicks()
+  {
+    return $this->longUrlClicks;
+  }
+  /**
+   * @param Google_Service_Urlshortener_StringCount
+   */
+  public function setPlatforms($platforms)
+  {
+    $this->platforms = $platforms;
+  }
+  /**
+   * @return Google_Service_Urlshortener_StringCount
+   */
+  public function getPlatforms()
+  {
+    return $this->platforms;
+  }
+  /**
+   * @param Google_Service_Urlshortener_StringCount
+   */
+  public function setReferrers($referrers)
+  {
+    $this->referrers = $referrers;
+  }
+  /**
+   * @return Google_Service_Urlshortener_StringCount
+   */
+  public function getReferrers()
+  {
+    return $this->referrers;
+  }
+  public function setShortUrlClicks($shortUrlClicks)
+  {
+    $this->shortUrlClicks = $shortUrlClicks;
+  }
+  public function getShortUrlClicks()
+  {
+    return $this->shortUrlClicks;
+  }
 }

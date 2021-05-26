@@ -17,41 +17,41 @@
 
 class Google_Service_AndroidManagement_SigninDetail extends Google_Model
 {
-	public $allowPersonalUsage;
-	public $qrCode;
-	public $signinEnrollmentToken;
-	public $signinUrl;
+  public $allowPersonalUsage;
+  public $qrCode;
+  public $signinEnrollmentToken;
+  public $signinUrl;
 
-	public function setAllowPersonalUsage($allowPersonalUsage)
-	{
-		$this->allowPersonalUsage = $allowPersonalUsage;
-	}
-	public function getAllowPersonalUsage()
-	{
-		return $this->allowPersonalUsage;
-	}
-	public function setQrCode($qrCode)
-	{
-		$this->qrCode = $qrCode;
-	}
-	public function getQrCode()
-	{
-		return $this->qrCode;
-	}
-	public function setSigninEnrollmentToken($signinEnrollmentToken)
-	{
-		$this->signinEnrollmentToken = $signinEnrollmentToken;
-	}
-	public function getSigninEnrollmentToken()
-	{
-		return $this->signinEnrollmentToken;
-	}
-	public function setSigninUrl($signinUrl)
-	{
-		$this->signinUrl = $signinUrl;
-	}
-	public function getSigninUrl()
-	{
-		return $this->signinUrl;
-	}
+  public function setAllowPersonalUsage($allowPersonalUsage)
+  {
+    $this->allowPersonalUsage = $allowPersonalUsage;
+  }
+  public function getAllowPersonalUsage()
+  {
+    return $this->allowPersonalUsage;
+  }
+  public function setQrCode($qrCode)
+  {
+    $this->qrCode = $qrCode;
+  }
+  public function getQrCode()
+  {
+    return $this->qrCode;
+  }
+  public function setSigninEnrollmentToken($signinEnrollmentToken)
+  {
+    $this->signinEnrollmentToken = $signinEnrollmentToken;
+  }
+  public function getSigninEnrollmentToken()
+  {
+    return $this->signinEnrollmentToken;
+  }
+  public function setSigninUrl($signinUrl)
+  {
+    $this->signinUrl = $signinUrl;
+  }
+  public function getSigninUrl()
+  {
+    return $this->signinUrl;
+  }
 }

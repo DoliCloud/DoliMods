@@ -17,83 +17,83 @@
 
 class Google_Service_DomainsRDAP_RdapResponse extends Google_Collection
 {
-	protected $collection_key = 'rdapConformance';
-	public $description;
-	public $errorCode;
-	protected $jsonResponseType = 'Google_Service_DomainsRDAP_HttpBody';
-	protected $jsonResponseDataType = '';
-	public $lang;
-	protected $noticesType = 'Google_Service_DomainsRDAP_Notice';
-	protected $noticesDataType = 'array';
-	public $rdapConformance;
-	public $title;
+  protected $collection_key = 'rdapConformance';
+  public $description;
+  public $errorCode;
+  protected $jsonResponseType = 'Google_Service_DomainsRDAP_HttpBody';
+  protected $jsonResponseDataType = '';
+  public $lang;
+  protected $noticesType = 'Google_Service_DomainsRDAP_Notice';
+  protected $noticesDataType = 'array';
+  public $rdapConformance;
+  public $title;
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setErrorCode($errorCode)
-	{
-		$this->errorCode = $errorCode;
-	}
-	public function getErrorCode()
-	{
-		return $this->errorCode;
-	}
-	/**
-	 * @param Google_Service_DomainsRDAP_HttpBody
-	 */
-	public function setJsonResponse(Google_Service_DomainsRDAP_HttpBody $jsonResponse)
-	{
-		$this->jsonResponse = $jsonResponse;
-	}
-	/**
-	 * @return Google_Service_DomainsRDAP_HttpBody
-	 */
-	public function getJsonResponse()
-	{
-		return $this->jsonResponse;
-	}
-	public function setLang($lang)
-	{
-		$this->lang = $lang;
-	}
-	public function getLang()
-	{
-		return $this->lang;
-	}
-	/**
-	 * @param Google_Service_DomainsRDAP_Notice
-	 */
-	public function setNotices($notices)
-	{
-		$this->notices = $notices;
-	}
-	/**
-	 * @return Google_Service_DomainsRDAP_Notice
-	 */
-	public function getNotices()
-	{
-		return $this->notices;
-	}
-	public function setRdapConformance($rdapConformance)
-	{
-		$this->rdapConformance = $rdapConformance;
-	}
-	public function getRdapConformance()
-	{
-		return $this->rdapConformance;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setErrorCode($errorCode)
+  {
+    $this->errorCode = $errorCode;
+  }
+  public function getErrorCode()
+  {
+    return $this->errorCode;
+  }
+  /**
+   * @param Google_Service_DomainsRDAP_HttpBody
+   */
+  public function setJsonResponse(Google_Service_DomainsRDAP_HttpBody $jsonResponse)
+  {
+    $this->jsonResponse = $jsonResponse;
+  }
+  /**
+   * @return Google_Service_DomainsRDAP_HttpBody
+   */
+  public function getJsonResponse()
+  {
+    return $this->jsonResponse;
+  }
+  public function setLang($lang)
+  {
+    $this->lang = $lang;
+  }
+  public function getLang()
+  {
+    return $this->lang;
+  }
+  /**
+   * @param Google_Service_DomainsRDAP_Notice[]
+   */
+  public function setNotices($notices)
+  {
+    $this->notices = $notices;
+  }
+  /**
+   * @return Google_Service_DomainsRDAP_Notice[]
+   */
+  public function getNotices()
+  {
+    return $this->notices;
+  }
+  public function setRdapConformance($rdapConformance)
+  {
+    $this->rdapConformance = $rdapConformance;
+  }
+  public function getRdapConformance()
+  {
+    return $this->rdapConformance;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

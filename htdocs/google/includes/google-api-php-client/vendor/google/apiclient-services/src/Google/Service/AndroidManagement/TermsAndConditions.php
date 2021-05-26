@@ -17,37 +17,37 @@
 
 class Google_Service_AndroidManagement_TermsAndConditions extends Google_Model
 {
-	protected $contentType = 'Google_Service_AndroidManagement_UserFacingMessage';
-	protected $contentDataType = '';
-	protected $headerType = 'Google_Service_AndroidManagement_UserFacingMessage';
-	protected $headerDataType = '';
+  protected $contentType = 'Google_Service_AndroidManagement_UserFacingMessage';
+  protected $contentDataType = '';
+  protected $headerType = 'Google_Service_AndroidManagement_UserFacingMessage';
+  protected $headerDataType = '';
 
-	/**
-	 * @param Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function setContent(Google_Service_AndroidManagement_UserFacingMessage $content)
-	{
-		$this->content = $content;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function getContent()
-	{
-		return $this->content;
-	}
-	/**
-	 * @param Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function setHeader(Google_Service_AndroidManagement_UserFacingMessage $header)
-	{
-		$this->header = $header;
-	}
-	/**
-	 * @return Google_Service_AndroidManagement_UserFacingMessage
-	 */
-	public function getHeader()
-	{
-		return $this->header;
-	}
+  /**
+   * @param Google_Service_AndroidManagement_UserFacingMessage
+   */
+  public function setContent(Google_Service_AndroidManagement_UserFacingMessage $content)
+  {
+    $this->content = $content;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_UserFacingMessage
+   */
+  public function getContent()
+  {
+    return $this->content;
+  }
+  /**
+   * @param Google_Service_AndroidManagement_UserFacingMessage
+   */
+  public function setHeader(Google_Service_AndroidManagement_UserFacingMessage $header)
+  {
+    $this->header = $header;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_UserFacingMessage
+   */
+  public function getHeader()
+  {
+    return $this->header;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_Sheets_AddProtectedRangeRequest extends Google_Model
 {
-	protected $protectedRangeType = 'Google_Service_Sheets_ProtectedRange';
-	protected $protectedRangeDataType = '';
+  protected $protectedRangeType = 'Google_Service_Sheets_ProtectedRange';
+  protected $protectedRangeDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_ProtectedRange
-	 */
-	public function setProtectedRange(Google_Service_Sheets_ProtectedRange $protectedRange)
-	{
-		$this->protectedRange = $protectedRange;
-	}
-	/**
-	 * @return Google_Service_Sheets_ProtectedRange
-	 */
-	public function getProtectedRange()
-	{
-		return $this->protectedRange;
-	}
+  /**
+   * @param Google_Service_Sheets_ProtectedRange
+   */
+  public function setProtectedRange(Google_Service_Sheets_ProtectedRange $protectedRange)
+  {
+    $this->protectedRange = $protectedRange;
+  }
+  /**
+   * @return Google_Service_Sheets_ProtectedRange
+   */
+  public function getProtectedRange()
+  {
+    return $this->protectedRange;
+  }
 }

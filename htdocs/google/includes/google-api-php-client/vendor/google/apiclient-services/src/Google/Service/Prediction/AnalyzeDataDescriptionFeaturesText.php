@@ -17,14 +17,14 @@
 
 class Google_Service_Prediction_AnalyzeDataDescriptionFeaturesText extends Google_Model
 {
-	public $count;
+  public $count;
 
-	public function setCount($count)
-	{
-		$this->count = $count;
-	}
-	public function getCount()
-	{
-		return $this->count;
-	}
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
 }

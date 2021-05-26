@@ -17,115 +17,115 @@
 
 class Google_Service_SASPortalTesting_SasPortalDevice extends Google_Collection
 {
-	protected $collection_key = 'grants';
-	protected $activeConfigType = 'Google_Service_SASPortalTesting_SasPortalDeviceConfig';
-	protected $activeConfigDataType = '';
-	protected $deviceMetadataType = 'Google_Service_SASPortalTesting_SasPortalDeviceMetadata';
-	protected $deviceMetadataDataType = '';
-	public $displayName;
-	public $fccId;
-	protected $grantsType = 'Google_Service_SASPortalTesting_SasPortalDeviceGrant';
-	protected $grantsDataType = 'array';
-	public $name;
-	protected $preloadedConfigType = 'Google_Service_SASPortalTesting_SasPortalDeviceConfig';
-	protected $preloadedConfigDataType = '';
-	public $serialNumber;
-	public $state;
+  protected $collection_key = 'grants';
+  protected $activeConfigType = 'Google_Service_SASPortalTesting_SasPortalDeviceConfig';
+  protected $activeConfigDataType = '';
+  protected $deviceMetadataType = 'Google_Service_SASPortalTesting_SasPortalDeviceMetadata';
+  protected $deviceMetadataDataType = '';
+  public $displayName;
+  public $fccId;
+  protected $grantsType = 'Google_Service_SASPortalTesting_SasPortalDeviceGrant';
+  protected $grantsDataType = 'array';
+  public $name;
+  protected $preloadedConfigType = 'Google_Service_SASPortalTesting_SasPortalDeviceConfig';
+  protected $preloadedConfigDataType = '';
+  public $serialNumber;
+  public $state;
 
-	/**
-	 * @param Google_Service_SASPortalTesting_SasPortalDeviceConfig
-	 */
-	public function setActiveConfig(Google_Service_SASPortalTesting_SasPortalDeviceConfig $activeConfig)
-	{
-		$this->activeConfig = $activeConfig;
-	}
-	/**
-	 * @return Google_Service_SASPortalTesting_SasPortalDeviceConfig
-	 */
-	public function getActiveConfig()
-	{
-		return $this->activeConfig;
-	}
-	/**
-	 * @param Google_Service_SASPortalTesting_SasPortalDeviceMetadata
-	 */
-	public function setDeviceMetadata(Google_Service_SASPortalTesting_SasPortalDeviceMetadata $deviceMetadata)
-	{
-		$this->deviceMetadata = $deviceMetadata;
-	}
-	/**
-	 * @return Google_Service_SASPortalTesting_SasPortalDeviceMetadata
-	 */
-	public function getDeviceMetadata()
-	{
-		return $this->deviceMetadata;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setFccId($fccId)
-	{
-		$this->fccId = $fccId;
-	}
-	public function getFccId()
-	{
-		return $this->fccId;
-	}
-	/**
-	 * @param Google_Service_SASPortalTesting_SasPortalDeviceGrant
-	 */
-	public function setGrants($grants)
-	{
-		$this->grants = $grants;
-	}
-	/**
-	 * @return Google_Service_SASPortalTesting_SasPortalDeviceGrant
-	 */
-	public function getGrants()
-	{
-		return $this->grants;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_SASPortalTesting_SasPortalDeviceConfig
-	 */
-	public function setPreloadedConfig(Google_Service_SASPortalTesting_SasPortalDeviceConfig $preloadedConfig)
-	{
-		$this->preloadedConfig = $preloadedConfig;
-	}
-	/**
-	 * @return Google_Service_SASPortalTesting_SasPortalDeviceConfig
-	 */
-	public function getPreloadedConfig()
-	{
-		return $this->preloadedConfig;
-	}
-	public function setSerialNumber($serialNumber)
-	{
-		$this->serialNumber = $serialNumber;
-	}
-	public function getSerialNumber()
-	{
-		return $this->serialNumber;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  /**
+   * @param Google_Service_SASPortalTesting_SasPortalDeviceConfig
+   */
+  public function setActiveConfig(Google_Service_SASPortalTesting_SasPortalDeviceConfig $activeConfig)
+  {
+    $this->activeConfig = $activeConfig;
+  }
+  /**
+   * @return Google_Service_SASPortalTesting_SasPortalDeviceConfig
+   */
+  public function getActiveConfig()
+  {
+    return $this->activeConfig;
+  }
+  /**
+   * @param Google_Service_SASPortalTesting_SasPortalDeviceMetadata
+   */
+  public function setDeviceMetadata(Google_Service_SASPortalTesting_SasPortalDeviceMetadata $deviceMetadata)
+  {
+    $this->deviceMetadata = $deviceMetadata;
+  }
+  /**
+   * @return Google_Service_SASPortalTesting_SasPortalDeviceMetadata
+   */
+  public function getDeviceMetadata()
+  {
+    return $this->deviceMetadata;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setFccId($fccId)
+  {
+    $this->fccId = $fccId;
+  }
+  public function getFccId()
+  {
+    return $this->fccId;
+  }
+  /**
+   * @param Google_Service_SASPortalTesting_SasPortalDeviceGrant[]
+   */
+  public function setGrants($grants)
+  {
+    $this->grants = $grants;
+  }
+  /**
+   * @return Google_Service_SASPortalTesting_SasPortalDeviceGrant[]
+   */
+  public function getGrants()
+  {
+    return $this->grants;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_SASPortalTesting_SasPortalDeviceConfig
+   */
+  public function setPreloadedConfig(Google_Service_SASPortalTesting_SasPortalDeviceConfig $preloadedConfig)
+  {
+    $this->preloadedConfig = $preloadedConfig;
+  }
+  /**
+   * @return Google_Service_SASPortalTesting_SasPortalDeviceConfig
+   */
+  public function getPreloadedConfig()
+  {
+    return $this->preloadedConfig;
+  }
+  public function setSerialNumber($serialNumber)
+  {
+    $this->serialNumber = $serialNumber;
+  }
+  public function getSerialNumber()
+  {
+    return $this->serialNumber;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

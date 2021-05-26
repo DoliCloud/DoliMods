@@ -17,57 +17,57 @@
 
 class Google_Service_Dfareporting_VideoFormat extends Google_Model
 {
-	public $fileType;
-	public $id;
-	public $kind;
-	protected $resolutionType = 'Google_Service_Dfareporting_Size';
-	protected $resolutionDataType = '';
-	public $targetBitRate;
+  public $fileType;
+  public $id;
+  public $kind;
+  protected $resolutionType = 'Google_Service_Dfareporting_Size';
+  protected $resolutionDataType = '';
+  public $targetBitRate;
 
-	public function setFileType($fileType)
-	{
-		$this->fileType = $fileType;
-	}
-	public function getFileType()
-	{
-		return $this->fileType;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Size
-	 */
-	public function setResolution(Google_Service_Dfareporting_Size $resolution)
-	{
-		$this->resolution = $resolution;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Size
-	 */
-	public function getResolution()
-	{
-		return $this->resolution;
-	}
-	public function setTargetBitRate($targetBitRate)
-	{
-		$this->targetBitRate = $targetBitRate;
-	}
-	public function getTargetBitRate()
-	{
-		return $this->targetBitRate;
-	}
+  public function setFileType($fileType)
+  {
+    $this->fileType = $fileType;
+  }
+  public function getFileType()
+  {
+    return $this->fileType;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Size
+   */
+  public function setResolution(Google_Service_Dfareporting_Size $resolution)
+  {
+    $this->resolution = $resolution;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Size
+   */
+  public function getResolution()
+  {
+    return $this->resolution;
+  }
+  public function setTargetBitRate($targetBitRate)
+  {
+    $this->targetBitRate = $targetBitRate;
+  }
+  public function getTargetBitRate()
+  {
+    return $this->targetBitRate;
+  }
 }

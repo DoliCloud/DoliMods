@@ -17,33 +17,33 @@
 
 class Google_Service_Directory_Aliases extends Google_Collection
 {
-	protected $collection_key = 'aliases';
-	public $aliases;
-	public $etag;
-	public $kind;
+  protected $collection_key = 'aliases';
+  public $aliases;
+  public $etag;
+  public $kind;
 
-	public function setAliases($aliases)
-	{
-		$this->aliases = $aliases;
-	}
-	public function getAliases()
-	{
-		return $this->aliases;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setAliases($aliases)
+  {
+    $this->aliases = $aliases;
+  }
+  public function getAliases()
+  {
+    return $this->aliases;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

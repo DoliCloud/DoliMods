@@ -17,24 +17,24 @@
 
 class Google_Service_Slides_UpdatePageElementsZOrderRequest extends Google_Collection
 {
-	protected $collection_key = 'pageElementObjectIds';
-	public $operation;
-	public $pageElementObjectIds;
+  protected $collection_key = 'pageElementObjectIds';
+  public $operation;
+  public $pageElementObjectIds;
 
-	public function setOperation($operation)
-	{
-		$this->operation = $operation;
-	}
-	public function getOperation()
-	{
-		return $this->operation;
-	}
-	public function setPageElementObjectIds($pageElementObjectIds)
-	{
-		$this->pageElementObjectIds = $pageElementObjectIds;
-	}
-	public function getPageElementObjectIds()
-	{
-		return $this->pageElementObjectIds;
-	}
+  public function setOperation($operation)
+  {
+    $this->operation = $operation;
+  }
+  public function getOperation()
+  {
+    return $this->operation;
+  }
+  public function setPageElementObjectIds($pageElementObjectIds)
+  {
+    $this->pageElementObjectIds = $pageElementObjectIds;
+  }
+  public function getPageElementObjectIds()
+  {
+    return $this->pageElementObjectIds;
+  }
 }

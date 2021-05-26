@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_CustomList extends Google_Model
 {
-	public $customListId;
-	public $displayName;
-	public $name;
+  public $customListId;
+  public $displayName;
+  public $name;
 
-	public function setCustomListId($customListId)
-	{
-		$this->customListId = $customListId;
-	}
-	public function getCustomListId()
-	{
-		return $this->customListId;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setCustomListId($customListId)
+  {
+    $this->customListId = $customListId;
+  }
+  public function getCustomListId()
+  {
+    return $this->customListId;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

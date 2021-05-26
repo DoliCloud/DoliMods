@@ -17,69 +17,69 @@
 
 class Google_Service_Partners_Analytics extends Google_Model
 {
-	protected $contactsType = 'Google_Service_Partners_AnalyticsDataPoint';
-	protected $contactsDataType = '';
-	protected $eventDateType = 'Google_Service_Partners_Date';
-	protected $eventDateDataType = '';
-	protected $profileViewsType = 'Google_Service_Partners_AnalyticsDataPoint';
-	protected $profileViewsDataType = '';
-	protected $searchViewsType = 'Google_Service_Partners_AnalyticsDataPoint';
-	protected $searchViewsDataType = '';
+  protected $contactsType = 'Google_Service_Partners_AnalyticsDataPoint';
+  protected $contactsDataType = '';
+  protected $eventDateType = 'Google_Service_Partners_Date';
+  protected $eventDateDataType = '';
+  protected $profileViewsType = 'Google_Service_Partners_AnalyticsDataPoint';
+  protected $profileViewsDataType = '';
+  protected $searchViewsType = 'Google_Service_Partners_AnalyticsDataPoint';
+  protected $searchViewsDataType = '';
 
-	/**
-	 * @param Google_Service_Partners_AnalyticsDataPoint
-	 */
-	public function setContacts(Google_Service_Partners_AnalyticsDataPoint $contacts)
-	{
-		$this->contacts = $contacts;
-	}
-	/**
-	 * @return Google_Service_Partners_AnalyticsDataPoint
-	 */
-	public function getContacts()
-	{
-		return $this->contacts;
-	}
-	/**
-	 * @param Google_Service_Partners_Date
-	 */
-	public function setEventDate(Google_Service_Partners_Date $eventDate)
-	{
-		$this->eventDate = $eventDate;
-	}
-	/**
-	 * @return Google_Service_Partners_Date
-	 */
-	public function getEventDate()
-	{
-		return $this->eventDate;
-	}
-	/**
-	 * @param Google_Service_Partners_AnalyticsDataPoint
-	 */
-	public function setProfileViews(Google_Service_Partners_AnalyticsDataPoint $profileViews)
-	{
-		$this->profileViews = $profileViews;
-	}
-	/**
-	 * @return Google_Service_Partners_AnalyticsDataPoint
-	 */
-	public function getProfileViews()
-	{
-		return $this->profileViews;
-	}
-	/**
-	 * @param Google_Service_Partners_AnalyticsDataPoint
-	 */
-	public function setSearchViews(Google_Service_Partners_AnalyticsDataPoint $searchViews)
-	{
-		$this->searchViews = $searchViews;
-	}
-	/**
-	 * @return Google_Service_Partners_AnalyticsDataPoint
-	 */
-	public function getSearchViews()
-	{
-		return $this->searchViews;
-	}
+  /**
+   * @param Google_Service_Partners_AnalyticsDataPoint
+   */
+  public function setContacts(Google_Service_Partners_AnalyticsDataPoint $contacts)
+  {
+    $this->contacts = $contacts;
+  }
+  /**
+   * @return Google_Service_Partners_AnalyticsDataPoint
+   */
+  public function getContacts()
+  {
+    return $this->contacts;
+  }
+  /**
+   * @param Google_Service_Partners_Date
+   */
+  public function setEventDate(Google_Service_Partners_Date $eventDate)
+  {
+    $this->eventDate = $eventDate;
+  }
+  /**
+   * @return Google_Service_Partners_Date
+   */
+  public function getEventDate()
+  {
+    return $this->eventDate;
+  }
+  /**
+   * @param Google_Service_Partners_AnalyticsDataPoint
+   */
+  public function setProfileViews(Google_Service_Partners_AnalyticsDataPoint $profileViews)
+  {
+    $this->profileViews = $profileViews;
+  }
+  /**
+   * @return Google_Service_Partners_AnalyticsDataPoint
+   */
+  public function getProfileViews()
+  {
+    return $this->profileViews;
+  }
+  /**
+   * @param Google_Service_Partners_AnalyticsDataPoint
+   */
+  public function setSearchViews(Google_Service_Partners_AnalyticsDataPoint $searchViews)
+  {
+    $this->searchViews = $searchViews;
+  }
+  /**
+   * @return Google_Service_Partners_AnalyticsDataPoint
+   */
+  public function getSearchViews()
+  {
+    return $this->searchViews;
+  }
 }

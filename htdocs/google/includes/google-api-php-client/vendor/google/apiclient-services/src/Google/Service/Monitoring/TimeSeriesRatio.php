@@ -17,32 +17,32 @@
 
 class Google_Service_Monitoring_TimeSeriesRatio extends Google_Model
 {
-	public $badServiceFilter;
-	public $goodServiceFilter;
-	public $totalServiceFilter;
+  public $badServiceFilter;
+  public $goodServiceFilter;
+  public $totalServiceFilter;
 
-	public function setBadServiceFilter($badServiceFilter)
-	{
-		$this->badServiceFilter = $badServiceFilter;
-	}
-	public function getBadServiceFilter()
-	{
-		return $this->badServiceFilter;
-	}
-	public function setGoodServiceFilter($goodServiceFilter)
-	{
-		$this->goodServiceFilter = $goodServiceFilter;
-	}
-	public function getGoodServiceFilter()
-	{
-		return $this->goodServiceFilter;
-	}
-	public function setTotalServiceFilter($totalServiceFilter)
-	{
-		$this->totalServiceFilter = $totalServiceFilter;
-	}
-	public function getTotalServiceFilter()
-	{
-		return $this->totalServiceFilter;
-	}
+  public function setBadServiceFilter($badServiceFilter)
+  {
+    $this->badServiceFilter = $badServiceFilter;
+  }
+  public function getBadServiceFilter()
+  {
+    return $this->badServiceFilter;
+  }
+  public function setGoodServiceFilter($goodServiceFilter)
+  {
+    $this->goodServiceFilter = $goodServiceFilter;
+  }
+  public function getGoodServiceFilter()
+  {
+    return $this->goodServiceFilter;
+  }
+  public function setTotalServiceFilter($totalServiceFilter)
+  {
+    $this->totalServiceFilter = $totalServiceFilter;
+  }
+  public function getTotalServiceFilter()
+  {
+    return $this->totalServiceFilter;
+  }
 }

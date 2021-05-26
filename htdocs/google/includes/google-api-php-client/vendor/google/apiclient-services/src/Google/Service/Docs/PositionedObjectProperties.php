@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_PositionedObjectProperties extends Google_Model
 {
-	protected $embeddedObjectType = 'Google_Service_Docs_EmbeddedObject';
-	protected $embeddedObjectDataType = '';
-	protected $positioningType = 'Google_Service_Docs_PositionedObjectPositioning';
-	protected $positioningDataType = '';
+  protected $embeddedObjectType = 'Google_Service_Docs_EmbeddedObject';
+  protected $embeddedObjectDataType = '';
+  protected $positioningType = 'Google_Service_Docs_PositionedObjectPositioning';
+  protected $positioningDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_EmbeddedObject
-	 */
-	public function setEmbeddedObject(Google_Service_Docs_EmbeddedObject $embeddedObject)
-	{
-		$this->embeddedObject = $embeddedObject;
-	}
-	/**
-	 * @return Google_Service_Docs_EmbeddedObject
-	 */
-	public function getEmbeddedObject()
-	{
-		return $this->embeddedObject;
-	}
-	/**
-	 * @param Google_Service_Docs_PositionedObjectPositioning
-	 */
-	public function setPositioning(Google_Service_Docs_PositionedObjectPositioning $positioning)
-	{
-		$this->positioning = $positioning;
-	}
-	/**
-	 * @return Google_Service_Docs_PositionedObjectPositioning
-	 */
-	public function getPositioning()
-	{
-		return $this->positioning;
-	}
+  /**
+   * @param Google_Service_Docs_EmbeddedObject
+   */
+  public function setEmbeddedObject(Google_Service_Docs_EmbeddedObject $embeddedObject)
+  {
+    $this->embeddedObject = $embeddedObject;
+  }
+  /**
+   * @return Google_Service_Docs_EmbeddedObject
+   */
+  public function getEmbeddedObject()
+  {
+    return $this->embeddedObject;
+  }
+  /**
+   * @param Google_Service_Docs_PositionedObjectPositioning
+   */
+  public function setPositioning(Google_Service_Docs_PositionedObjectPositioning $positioning)
+  {
+    $this->positioning = $positioning;
+  }
+  /**
+   * @return Google_Service_Docs_PositionedObjectPositioning
+   */
+  public function getPositioning()
+  {
+    return $this->positioning;
+  }
 }

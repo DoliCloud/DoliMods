@@ -17,23 +17,23 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1CommonNameConfig extends Google_Model
 {
-	public $matchWildCards;
-	public $name;
+  public $matchWildCards;
+  public $name;
 
-	public function setMatchWildCards($matchWildCards)
-	{
-		$this->matchWildCards = $matchWildCards;
-	}
-	public function getMatchWildCards()
-	{
-		return $this->matchWildCards;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setMatchWildCards($matchWildCards)
+  {
+    $this->matchWildCards = $matchWildCards;
+  }
+  public function getMatchWildCards()
+  {
+    return $this->matchWildCards;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

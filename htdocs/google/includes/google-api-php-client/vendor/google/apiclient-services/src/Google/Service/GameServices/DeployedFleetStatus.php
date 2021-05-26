@@ -17,41 +17,41 @@
 
 class Google_Service_GameServices_DeployedFleetStatus extends Google_Model
 {
-	public $allocatedReplicas;
-	public $readyReplicas;
-	public $replicas;
-	public $reservedReplicas;
+  public $allocatedReplicas;
+  public $readyReplicas;
+  public $replicas;
+  public $reservedReplicas;
 
-	public function setAllocatedReplicas($allocatedReplicas)
-	{
-		$this->allocatedReplicas = $allocatedReplicas;
-	}
-	public function getAllocatedReplicas()
-	{
-		return $this->allocatedReplicas;
-	}
-	public function setReadyReplicas($readyReplicas)
-	{
-		$this->readyReplicas = $readyReplicas;
-	}
-	public function getReadyReplicas()
-	{
-		return $this->readyReplicas;
-	}
-	public function setReplicas($replicas)
-	{
-		$this->replicas = $replicas;
-	}
-	public function getReplicas()
-	{
-		return $this->replicas;
-	}
-	public function setReservedReplicas($reservedReplicas)
-	{
-		$this->reservedReplicas = $reservedReplicas;
-	}
-	public function getReservedReplicas()
-	{
-		return $this->reservedReplicas;
-	}
+  public function setAllocatedReplicas($allocatedReplicas)
+  {
+    $this->allocatedReplicas = $allocatedReplicas;
+  }
+  public function getAllocatedReplicas()
+  {
+    return $this->allocatedReplicas;
+  }
+  public function setReadyReplicas($readyReplicas)
+  {
+    $this->readyReplicas = $readyReplicas;
+  }
+  public function getReadyReplicas()
+  {
+    return $this->readyReplicas;
+  }
+  public function setReplicas($replicas)
+  {
+    $this->replicas = $replicas;
+  }
+  public function getReplicas()
+  {
+    return $this->replicas;
+  }
+  public function setReservedReplicas($reservedReplicas)
+  {
+    $this->reservedReplicas = $reservedReplicas;
+  }
+  public function getReservedReplicas()
+  {
+    return $this->reservedReplicas;
+  }
 }

@@ -17,40 +17,49 @@
 
 class Google_Service_CloudHealthcare_Binding extends Google_Collection
 {
-	protected $collection_key = 'members';
-	protected $conditionType = 'Google_Service_CloudHealthcare_Expr';
-	protected $conditionDataType = '';
-	public $members;
-	public $role;
+  protected $collection_key = 'members';
+  public $bindingId;
+  protected $conditionType = 'Google_Service_CloudHealthcare_Expr';
+  protected $conditionDataType = '';
+  public $members;
+  public $role;
 
-	/**
-	 * @param Google_Service_CloudHealthcare_Expr
-	 */
-	public function setCondition(Google_Service_CloudHealthcare_Expr $condition)
-	{
-		$this->condition = $condition;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_Expr
-	 */
-	public function getCondition()
-	{
-		return $this->condition;
-	}
-	public function setMembers($members)
-	{
-		$this->members = $members;
-	}
-	public function getMembers()
-	{
-		return $this->members;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
+  public function setBindingId($bindingId)
+  {
+    $this->bindingId = $bindingId;
+  }
+  public function getBindingId()
+  {
+    return $this->bindingId;
+  }
+  /**
+   * @param Google_Service_CloudHealthcare_Expr
+   */
+  public function setCondition(Google_Service_CloudHealthcare_Expr $condition)
+  {
+    $this->condition = $condition;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_Expr
+   */
+  public function getCondition()
+  {
+    return $this->condition;
+  }
+  public function setMembers($members)
+  {
+    $this->members = $members;
+  }
+  public function getMembers()
+  {
+    return $this->members;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
 }

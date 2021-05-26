@@ -17,65 +17,65 @@
 
 class Google_Service_Monitoring_BasicSli extends Google_Collection
 {
-	protected $collection_key = 'version';
-	protected $availabilityType = 'Google_Service_Monitoring_AvailabilityCriteria';
-	protected $availabilityDataType = '';
-	protected $latencyType = 'Google_Service_Monitoring_LatencyCriteria';
-	protected $latencyDataType = '';
-	public $location;
-	public $method;
-	public $version;
+  protected $collection_key = 'version';
+  protected $availabilityType = 'Google_Service_Monitoring_AvailabilityCriteria';
+  protected $availabilityDataType = '';
+  protected $latencyType = 'Google_Service_Monitoring_LatencyCriteria';
+  protected $latencyDataType = '';
+  public $location;
+  public $method;
+  public $version;
 
-	/**
-	 * @param Google_Service_Monitoring_AvailabilityCriteria
-	 */
-	public function setAvailability(Google_Service_Monitoring_AvailabilityCriteria $availability)
-	{
-		$this->availability = $availability;
-	}
-	/**
-	 * @return Google_Service_Monitoring_AvailabilityCriteria
-	 */
-	public function getAvailability()
-	{
-		return $this->availability;
-	}
-	/**
-	 * @param Google_Service_Monitoring_LatencyCriteria
-	 */
-	public function setLatency(Google_Service_Monitoring_LatencyCriteria $latency)
-	{
-		$this->latency = $latency;
-	}
-	/**
-	 * @return Google_Service_Monitoring_LatencyCriteria
-	 */
-	public function getLatency()
-	{
-		return $this->latency;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setMethod($method)
-	{
-		$this->method = $method;
-	}
-	public function getMethod()
-	{
-		return $this->method;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  /**
+   * @param Google_Service_Monitoring_AvailabilityCriteria
+   */
+  public function setAvailability(Google_Service_Monitoring_AvailabilityCriteria $availability)
+  {
+    $this->availability = $availability;
+  }
+  /**
+   * @return Google_Service_Monitoring_AvailabilityCriteria
+   */
+  public function getAvailability()
+  {
+    return $this->availability;
+  }
+  /**
+   * @param Google_Service_Monitoring_LatencyCriteria
+   */
+  public function setLatency(Google_Service_Monitoring_LatencyCriteria $latency)
+  {
+    $this->latency = $latency;
+  }
+  /**
+   * @return Google_Service_Monitoring_LatencyCriteria
+   */
+  public function getLatency()
+  {
+    return $this->latency;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setMethod($method)
+  {
+    $this->method = $method;
+  }
+  public function getMethod()
+  {
+    return $this->method;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

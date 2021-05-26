@@ -17,30 +17,30 @@
 
 class Google_Service_JobService_CommuteInfo extends Google_Model
 {
-	protected $jobLocationType = 'Google_Service_JobService_JobLocation';
-	protected $jobLocationDataType = '';
-	public $travelDuration;
+  protected $jobLocationType = 'Google_Service_JobService_JobLocation';
+  protected $jobLocationDataType = '';
+  public $travelDuration;
 
-	/**
-	 * @param Google_Service_JobService_JobLocation
-	 */
-	public function setJobLocation(Google_Service_JobService_JobLocation $jobLocation)
-	{
-		$this->jobLocation = $jobLocation;
-	}
-	/**
-	 * @return Google_Service_JobService_JobLocation
-	 */
-	public function getJobLocation()
-	{
-		return $this->jobLocation;
-	}
-	public function setTravelDuration($travelDuration)
-	{
-		$this->travelDuration = $travelDuration;
-	}
-	public function getTravelDuration()
-	{
-		return $this->travelDuration;
-	}
+  /**
+   * @param Google_Service_JobService_JobLocation
+   */
+  public function setJobLocation(Google_Service_JobService_JobLocation $jobLocation)
+  {
+    $this->jobLocation = $jobLocation;
+  }
+  /**
+   * @return Google_Service_JobService_JobLocation
+   */
+  public function getJobLocation()
+  {
+    return $this->jobLocation;
+  }
+  public function setTravelDuration($travelDuration)
+  {
+    $this->travelDuration = $travelDuration;
+  }
+  public function getTravelDuration()
+  {
+    return $this->travelDuration;
+  }
 }

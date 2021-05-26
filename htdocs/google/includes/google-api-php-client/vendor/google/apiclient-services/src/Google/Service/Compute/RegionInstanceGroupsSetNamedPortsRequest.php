@@ -17,31 +17,31 @@
 
 class Google_Service_Compute_RegionInstanceGroupsSetNamedPortsRequest extends Google_Collection
 {
-	protected $collection_key = 'namedPorts';
-	public $fingerprint;
-	protected $namedPortsType = 'Google_Service_Compute_NamedPort';
-	protected $namedPortsDataType = 'array';
+  protected $collection_key = 'namedPorts';
+  public $fingerprint;
+  protected $namedPortsType = 'Google_Service_Compute_NamedPort';
+  protected $namedPortsDataType = 'array';
 
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	/**
-	 * @param Google_Service_Compute_NamedPort
-	 */
-	public function setNamedPorts($namedPorts)
-	{
-		$this->namedPorts = $namedPorts;
-	}
-	/**
-	 * @return Google_Service_Compute_NamedPort
-	 */
-	public function getNamedPorts()
-	{
-		return $this->namedPorts;
-	}
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  /**
+   * @param Google_Service_Compute_NamedPort[]
+   */
+  public function setNamedPorts($namedPorts)
+  {
+    $this->namedPorts = $namedPorts;
+  }
+  /**
+   * @return Google_Service_Compute_NamedPort[]
+   */
+  public function getNamedPorts()
+  {
+    return $this->namedPorts;
+  }
 }

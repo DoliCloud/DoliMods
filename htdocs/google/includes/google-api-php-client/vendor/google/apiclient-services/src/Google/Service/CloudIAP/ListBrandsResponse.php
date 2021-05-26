@@ -17,22 +17,22 @@
 
 class Google_Service_CloudIAP_ListBrandsResponse extends Google_Collection
 {
-	protected $collection_key = 'brands';
-	protected $brandsType = 'Google_Service_CloudIAP_Brand';
-	protected $brandsDataType = 'array';
+  protected $collection_key = 'brands';
+  protected $brandsType = 'Google_Service_CloudIAP_Brand';
+  protected $brandsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudIAP_Brand
-	 */
-	public function setBrands($brands)
-	{
-		$this->brands = $brands;
-	}
-	/**
-	 * @return Google_Service_CloudIAP_Brand
-	 */
-	public function getBrands()
-	{
-		return $this->brands;
-	}
+  /**
+   * @param Google_Service_CloudIAP_Brand[]
+   */
+  public function setBrands($brands)
+  {
+    $this->brands = $brands;
+  }
+  /**
+   * @return Google_Service_CloudIAP_Brand[]
+   */
+  public function getBrands()
+  {
+    return $this->brands;
+  }
 }

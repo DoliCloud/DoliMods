@@ -17,40 +17,40 @@
 
 class Google_Service_Blogger_PostReplies extends Google_Collection
 {
-	protected $collection_key = 'items';
-	protected $itemsType = 'Google_Service_Blogger_Comment';
-	protected $itemsDataType = 'array';
-	public $selfLink;
-	public $totalItems;
+  protected $collection_key = 'items';
+  protected $itemsType = 'Google_Service_Blogger_Comment';
+  protected $itemsDataType = 'array';
+  public $selfLink;
+  public $totalItems;
 
-	/**
-	 * @param Google_Service_Blogger_Comment
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_Blogger_Comment
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setTotalItems($totalItems)
-	{
-		$this->totalItems = $totalItems;
-	}
-	public function getTotalItems()
-	{
-		return $this->totalItems;
-	}
+  /**
+   * @param Google_Service_Blogger_Comment[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_Blogger_Comment[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setTotalItems($totalItems)
+  {
+    $this->totalItems = $totalItems;
+  }
+  public function getTotalItems()
+  {
+    return $this->totalItems;
+  }
 }

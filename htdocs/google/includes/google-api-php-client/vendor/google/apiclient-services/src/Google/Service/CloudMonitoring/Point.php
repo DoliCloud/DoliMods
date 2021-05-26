@@ -17,75 +17,75 @@
 
 class Google_Service_CloudMonitoring_Point extends Google_Model
 {
-	public $boolValue;
-	protected $distributionValueType = 'Google_Service_CloudMonitoring_PointDistribution';
-	protected $distributionValueDataType = '';
-	public $doubleValue;
-	public $end;
-	public $int64Value;
-	public $start;
-	public $stringValue;
+  public $boolValue;
+  protected $distributionValueType = 'Google_Service_CloudMonitoring_PointDistribution';
+  protected $distributionValueDataType = '';
+  public $doubleValue;
+  public $end;
+  public $int64Value;
+  public $start;
+  public $stringValue;
 
-	public function setBoolValue($boolValue)
-	{
-		$this->boolValue = $boolValue;
-	}
-	public function getBoolValue()
-	{
-		return $this->boolValue;
-	}
-	/**
-	 * @param Google_Service_CloudMonitoring_PointDistribution
-	 */
-	public function setDistributionValue(Google_Service_CloudMonitoring_PointDistribution $distributionValue)
-	{
-		$this->distributionValue = $distributionValue;
-	}
-	/**
-	 * @return Google_Service_CloudMonitoring_PointDistribution
-	 */
-	public function getDistributionValue()
-	{
-		return $this->distributionValue;
-	}
-	public function setDoubleValue($doubleValue)
-	{
-		$this->doubleValue = $doubleValue;
-	}
-	public function getDoubleValue()
-	{
-		return $this->doubleValue;
-	}
-	public function setEnd($end)
-	{
-		$this->end = $end;
-	}
-	public function getEnd()
-	{
-		return $this->end;
-	}
-	public function setInt64Value($int64Value)
-	{
-		$this->int64Value = $int64Value;
-	}
-	public function getInt64Value()
-	{
-		return $this->int64Value;
-	}
-	public function setStart($start)
-	{
-		$this->start = $start;
-	}
-	public function getStart()
-	{
-		return $this->start;
-	}
-	public function setStringValue($stringValue)
-	{
-		$this->stringValue = $stringValue;
-	}
-	public function getStringValue()
-	{
-		return $this->stringValue;
-	}
+  public function setBoolValue($boolValue)
+  {
+    $this->boolValue = $boolValue;
+  }
+  public function getBoolValue()
+  {
+    return $this->boolValue;
+  }
+  /**
+   * @param Google_Service_CloudMonitoring_PointDistribution
+   */
+  public function setDistributionValue(Google_Service_CloudMonitoring_PointDistribution $distributionValue)
+  {
+    $this->distributionValue = $distributionValue;
+  }
+  /**
+   * @return Google_Service_CloudMonitoring_PointDistribution
+   */
+  public function getDistributionValue()
+  {
+    return $this->distributionValue;
+  }
+  public function setDoubleValue($doubleValue)
+  {
+    $this->doubleValue = $doubleValue;
+  }
+  public function getDoubleValue()
+  {
+    return $this->doubleValue;
+  }
+  public function setEnd($end)
+  {
+    $this->end = $end;
+  }
+  public function getEnd()
+  {
+    return $this->end;
+  }
+  public function setInt64Value($int64Value)
+  {
+    $this->int64Value = $int64Value;
+  }
+  public function getInt64Value()
+  {
+    return $this->int64Value;
+  }
+  public function setStart($start)
+  {
+    $this->start = $start;
+  }
+  public function getStart()
+  {
+    return $this->start;
+  }
+  public function setStringValue($stringValue)
+  {
+    $this->stringValue = $stringValue;
+  }
+  public function getStringValue()
+  {
+    return $this->stringValue;
+  }
 }

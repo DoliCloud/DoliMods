@@ -17,31 +17,31 @@
 
 class Google_Service_Spanner_ListInstancesResponse extends Google_Collection
 {
-	protected $collection_key = 'instances';
-	protected $instancesType = 'Google_Service_Spanner_Instance';
-	protected $instancesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'instances';
+  protected $instancesType = 'Google_Service_Spanner_Instance';
+  protected $instancesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Spanner_Instance
-	 */
-	public function setInstances($instances)
-	{
-		$this->instances = $instances;
-	}
-	/**
-	 * @return Google_Service_Spanner_Instance
-	 */
-	public function getInstances()
-	{
-		return $this->instances;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Spanner_Instance[]
+   */
+  public function setInstances($instances)
+  {
+    $this->instances = $instances;
+  }
+  /**
+   * @return Google_Service_Spanner_Instance[]
+   */
+  public function getInstances()
+  {
+    return $this->instances;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1StudyConfigParameterSpecDoubleValueSpec extends Google_Model
 {
-	public $maxValue;
-	public $minValue;
+  public $maxValue;
+  public $minValue;
 
-	public function setMaxValue($maxValue)
-	{
-		$this->maxValue = $maxValue;
-	}
-	public function getMaxValue()
-	{
-		return $this->maxValue;
-	}
-	public function setMinValue($minValue)
-	{
-		$this->minValue = $minValue;
-	}
-	public function getMinValue()
-	{
-		return $this->minValue;
-	}
+  public function setMaxValue($maxValue)
+  {
+    $this->maxValue = $maxValue;
+  }
+  public function getMaxValue()
+  {
+    return $this->maxValue;
+  }
+  public function setMinValue($minValue)
+  {
+    $this->minValue = $minValue;
+  }
+  public function getMinValue()
+  {
+    return $this->minValue;
+  }
 }

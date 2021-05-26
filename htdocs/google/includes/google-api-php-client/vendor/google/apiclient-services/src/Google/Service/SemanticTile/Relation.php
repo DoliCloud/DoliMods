@@ -17,23 +17,23 @@
 
 class Google_Service_SemanticTile_Relation extends Google_Model
 {
-	public $relatedFeatureIndex;
-	public $relationType;
+  public $relatedFeatureIndex;
+  public $relationType;
 
-	public function setRelatedFeatureIndex($relatedFeatureIndex)
-	{
-		$this->relatedFeatureIndex = $relatedFeatureIndex;
-	}
-	public function getRelatedFeatureIndex()
-	{
-		return $this->relatedFeatureIndex;
-	}
-	public function setRelationType($relationType)
-	{
-		$this->relationType = $relationType;
-	}
-	public function getRelationType()
-	{
-		return $this->relationType;
-	}
+  public function setRelatedFeatureIndex($relatedFeatureIndex)
+  {
+    $this->relatedFeatureIndex = $relatedFeatureIndex;
+  }
+  public function getRelatedFeatureIndex()
+  {
+    return $this->relatedFeatureIndex;
+  }
+  public function setRelationType($relationType)
+  {
+    $this->relationType = $relationType;
+  }
+  public function getRelationType()
+  {
+    return $this->relationType;
+  }
 }

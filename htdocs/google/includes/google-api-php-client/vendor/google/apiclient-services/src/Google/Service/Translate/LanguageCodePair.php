@@ -17,23 +17,23 @@
 
 class Google_Service_Translate_LanguageCodePair extends Google_Model
 {
-	public $sourceLanguageCode;
-	public $targetLanguageCode;
+  public $sourceLanguageCode;
+  public $targetLanguageCode;
 
-	public function setSourceLanguageCode($sourceLanguageCode)
-	{
-		$this->sourceLanguageCode = $sourceLanguageCode;
-	}
-	public function getSourceLanguageCode()
-	{
-		return $this->sourceLanguageCode;
-	}
-	public function setTargetLanguageCode($targetLanguageCode)
-	{
-		$this->targetLanguageCode = $targetLanguageCode;
-	}
-	public function getTargetLanguageCode()
-	{
-		return $this->targetLanguageCode;
-	}
+  public function setSourceLanguageCode($sourceLanguageCode)
+  {
+    $this->sourceLanguageCode = $sourceLanguageCode;
+  }
+  public function getSourceLanguageCode()
+  {
+    return $this->sourceLanguageCode;
+  }
+  public function setTargetLanguageCode($targetLanguageCode)
+  {
+    $this->targetLanguageCode = $targetLanguageCode;
+  }
+  public function getTargetLanguageCode()
+  {
+    return $this->targetLanguageCode;
+  }
 }

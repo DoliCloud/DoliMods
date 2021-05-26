@@ -25,20 +25,20 @@
  */
 class Google_Service_WebSecurityScanner_Resource_ProjectsScanConfigsScanRunsFindingTypeStats extends Google_Service_Resource
 {
-	/**
-	 * List all FindingTypeStats under a given ScanRun.
-	 * (findingTypeStats.listProjectsScanConfigsScanRunsFindingTypeStats)
-	 *
-	 * @param string $parent Required. The parent resource name, which should be a
-	 *                       scan run resource name in the format
-	 *                       'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_WebSecurityScanner_ListFindingTypeStatsResponse
-	 */
-	public function listProjectsScanConfigsScanRunsFindingTypeStats($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_WebSecurityScanner_ListFindingTypeStatsResponse");
-	}
+  /**
+   * List all FindingTypeStats under a given ScanRun.
+   * (findingTypeStats.listProjectsScanConfigsScanRunsFindingTypeStats)
+   *
+   * @param string $parent Required. The parent resource name, which should be a
+   * scan run resource name in the format
+   * 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_WebSecurityScanner_ListFindingTypeStatsResponse
+   */
+  public function listProjectsScanConfigsScanRunsFindingTypeStats($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_WebSecurityScanner_ListFindingTypeStatsResponse");
+  }
 }

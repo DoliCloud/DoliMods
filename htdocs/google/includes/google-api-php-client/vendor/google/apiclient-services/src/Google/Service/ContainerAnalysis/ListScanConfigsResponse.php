@@ -17,31 +17,31 @@
 
 class Google_Service_ContainerAnalysis_ListScanConfigsResponse extends Google_Collection
 {
-	protected $collection_key = 'scanConfigs';
-	public $nextPageToken;
-	protected $scanConfigsType = 'Google_Service_ContainerAnalysis_ScanConfig';
-	protected $scanConfigsDataType = 'array';
+  protected $collection_key = 'scanConfigs';
+  public $nextPageToken;
+  protected $scanConfigsType = 'Google_Service_ContainerAnalysis_ScanConfig';
+  protected $scanConfigsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_ContainerAnalysis_ScanConfig
-	 */
-	public function setScanConfigs($scanConfigs)
-	{
-		$this->scanConfigs = $scanConfigs;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_ScanConfig
-	 */
-	public function getScanConfigs()
-	{
-		return $this->scanConfigs;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_ContainerAnalysis_ScanConfig[]
+   */
+  public function setScanConfigs($scanConfigs)
+  {
+    $this->scanConfigs = $scanConfigs;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_ScanConfig[]
+   */
+  public function getScanConfigs()
+  {
+    return $this->scanConfigs;
+  }
 }

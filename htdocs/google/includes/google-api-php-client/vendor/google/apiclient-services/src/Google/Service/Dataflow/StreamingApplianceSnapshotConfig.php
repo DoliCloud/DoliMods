@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_StreamingApplianceSnapshotConfig extends Google_Model
 {
-	public $importStateEndpoint;
-	public $snapshotId;
+  public $importStateEndpoint;
+  public $snapshotId;
 
-	public function setImportStateEndpoint($importStateEndpoint)
-	{
-		$this->importStateEndpoint = $importStateEndpoint;
-	}
-	public function getImportStateEndpoint()
-	{
-		return $this->importStateEndpoint;
-	}
-	public function setSnapshotId($snapshotId)
-	{
-		$this->snapshotId = $snapshotId;
-	}
-	public function getSnapshotId()
-	{
-		return $this->snapshotId;
-	}
+  public function setImportStateEndpoint($importStateEndpoint)
+  {
+    $this->importStateEndpoint = $importStateEndpoint;
+  }
+  public function getImportStateEndpoint()
+  {
+    return $this->importStateEndpoint;
+  }
+  public function setSnapshotId($snapshotId)
+  {
+    $this->snapshotId = $snapshotId;
+  }
+  public function getSnapshotId()
+  {
+    return $this->snapshotId;
+  }
 }

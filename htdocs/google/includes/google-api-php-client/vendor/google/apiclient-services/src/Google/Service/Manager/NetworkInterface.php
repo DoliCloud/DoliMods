@@ -17,43 +17,43 @@
 
 class Google_Service_Manager_NetworkInterface extends Google_Collection
 {
-	protected $collection_key = 'accessConfigs';
-	protected $accessConfigsType = 'Google_Service_Manager_AccessConfig';
-	protected $accessConfigsDataType = 'array';
-	public $name;
-	public $network;
-	public $networkIp;
+  protected $collection_key = 'accessConfigs';
+  protected $accessConfigsType = 'Google_Service_Manager_AccessConfig';
+  protected $accessConfigsDataType = 'array';
+  public $name;
+  public $network;
+  public $networkIp;
 
-	public function setAccessConfigs($accessConfigs)
-	{
-		$this->accessConfigs = $accessConfigs;
-	}
-	public function getAccessConfigs()
-	{
-		return $this->accessConfigs;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setNetworkIp($networkIp)
-	{
-		$this->networkIp = $networkIp;
-	}
-	public function getNetworkIp()
-	{
-		return $this->networkIp;
-	}
+  public function setAccessConfigs($accessConfigs)
+  {
+    $this->accessConfigs = $accessConfigs;
+  }
+  public function getAccessConfigs()
+  {
+    return $this->accessConfigs;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setNetworkIp($networkIp)
+  {
+    $this->networkIp = $networkIp;
+  }
+  public function getNetworkIp()
+  {
+    return $this->networkIp;
+  }
 }

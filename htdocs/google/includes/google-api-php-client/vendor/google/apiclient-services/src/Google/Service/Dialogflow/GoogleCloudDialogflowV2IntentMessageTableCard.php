@@ -17,88 +17,88 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCard extends Google_Collection
 {
-	protected $collection_key = 'rows';
-	protected $buttonsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBasicCardButton';
-	protected $buttonsDataType = 'array';
-	protected $columnPropertiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageColumnProperties';
-	protected $columnPropertiesDataType = 'array';
-	protected $imageType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage';
-	protected $imageDataType = '';
-	protected $rowsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardRow';
-	protected $rowsDataType = 'array';
-	public $subtitle;
-	public $title;
+  protected $collection_key = 'rows';
+  protected $buttonsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBasicCardButton';
+  protected $buttonsDataType = 'array';
+  protected $columnPropertiesType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageColumnProperties';
+  protected $columnPropertiesDataType = 'array';
+  protected $imageType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage';
+  protected $imageDataType = '';
+  protected $rowsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardRow';
+  protected $rowsDataType = 'array';
+  public $subtitle;
+  public $title;
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBasicCardButton
-	 */
-	public function setButtons($buttons)
-	{
-		$this->buttons = $buttons;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBasicCardButton
-	 */
-	public function getButtons()
-	{
-		return $this->buttons;
-	}
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageColumnProperties
-	 */
-	public function setColumnProperties($columnProperties)
-	{
-		$this->columnProperties = $columnProperties;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageColumnProperties
-	 */
-	public function getColumnProperties()
-	{
-		return $this->columnProperties;
-	}
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
-	 */
-	public function setImage(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage $image)
-	{
-		$this->image = $image;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
-	 */
-	public function getImage()
-	{
-		return $this->image;
-	}
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardRow
-	 */
-	public function setRows($rows)
-	{
-		$this->rows = $rows;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardRow
-	 */
-	public function getRows()
-	{
-		return $this->rows;
-	}
-	public function setSubtitle($subtitle)
-	{
-		$this->subtitle = $subtitle;
-	}
-	public function getSubtitle()
-	{
-		return $this->subtitle;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-	public function getTitle()
-	{
-		return $this->title;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBasicCardButton[]
+   */
+  public function setButtons($buttons)
+  {
+    $this->buttons = $buttons;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageBasicCardButton[]
+   */
+  public function getButtons()
+  {
+    return $this->buttons;
+  }
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageColumnProperties[]
+   */
+  public function setColumnProperties($columnProperties)
+  {
+    $this->columnProperties = $columnProperties;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageColumnProperties[]
+   */
+  public function getColumnProperties()
+  {
+    return $this->columnProperties;
+  }
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
+   */
+  public function setImage(Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage $image)
+  {
+    $this->image = $image;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageImage
+   */
+  public function getImage()
+  {
+    return $this->image;
+  }
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardRow[]
+   */
+  public function setRows($rows)
+  {
+    $this->rows = $rows;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2IntentMessageTableCardRow[]
+   */
+  public function getRows()
+  {
+    return $this->rows;
+  }
+  public function setSubtitle($subtitle)
+  {
+    $this->subtitle = $subtitle;
+  }
+  public function getSubtitle()
+  {
+    return $this->subtitle;
+  }
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
+  public function getTitle()
+  {
+    return $this->title;
+  }
 }

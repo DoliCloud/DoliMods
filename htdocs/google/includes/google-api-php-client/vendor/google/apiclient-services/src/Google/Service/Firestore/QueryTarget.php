@@ -17,30 +17,30 @@
 
 class Google_Service_Firestore_QueryTarget extends Google_Model
 {
-	public $parent;
-	protected $structuredQueryType = 'Google_Service_Firestore_StructuredQuery';
-	protected $structuredQueryDataType = '';
+  public $parent;
+  protected $structuredQueryType = 'Google_Service_Firestore_StructuredQuery';
+  protected $structuredQueryDataType = '';
 
-	public function setParent($parent)
-	{
-		$this->parent = $parent;
-	}
-	public function getParent()
-	{
-		return $this->parent;
-	}
-	/**
-	 * @param Google_Service_Firestore_StructuredQuery
-	 */
-	public function setStructuredQuery(Google_Service_Firestore_StructuredQuery $structuredQuery)
-	{
-		$this->structuredQuery = $structuredQuery;
-	}
-	/**
-	 * @return Google_Service_Firestore_StructuredQuery
-	 */
-	public function getStructuredQuery()
-	{
-		return $this->structuredQuery;
-	}
+  public function setParent($parent)
+  {
+    $this->parent = $parent;
+  }
+  public function getParent()
+  {
+    return $this->parent;
+  }
+  /**
+   * @param Google_Service_Firestore_StructuredQuery
+   */
+  public function setStructuredQuery(Google_Service_Firestore_StructuredQuery $structuredQuery)
+  {
+    $this->structuredQuery = $structuredQuery;
+  }
+  /**
+   * @return Google_Service_Firestore_StructuredQuery
+   */
+  public function getStructuredQuery()
+  {
+    return $this->structuredQuery;
+  }
 }

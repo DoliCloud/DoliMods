@@ -30,193 +30,193 @@
  */
 class Google_Service_AlertCenter extends Google_Service
 {
-	/** See and delete your domain's G Suite alerts, and send alert feedback. */
-	const APPS_ALERTS =
-	  "https://www.googleapis.com/auth/apps.alerts";
+  /** See and delete your domain's G Suite alerts, and send alert feedback. */
+  const APPS_ALERTS =
+      "https://www.googleapis.com/auth/apps.alerts";
 
-	public $alerts;
-	public $alerts_feedback;
-	public $v1beta1;
+  public $alerts;
+  public $alerts_feedback;
+  public $v1beta1;
 
-	/**
-	 * Constructs the internal representation of the AlertCenter service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://alertcenter.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1beta1';
-		$this->serviceName = 'alertcenter';
+  /**
+   * Constructs the internal representation of the AlertCenter service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://alertcenter.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1beta1';
+    $this->serviceName = 'alertcenter';
 
-		$this->alerts = new Google_Service_AlertCenter_Resource_Alerts(
-		$this,
-		$this->serviceName,
-		'alerts',
-		array(
-		  'methods' => array(
-			'batchDelete' => array(
-			  'path' => 'v1beta1/alerts:batchDelete',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'batchUndelete' => array(
-			  'path' => 'v1beta1/alerts:batchUndelete',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'delete' => array(
-			  'path' => 'v1beta1/alerts/{alertId}',
-			  'httpMethod' => 'DELETE',
-			  'parameters' => array(
-				'alertId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'customerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'get' => array(
-			  'path' => 'v1beta1/alerts/{alertId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'alertId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'customerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'getMetadata' => array(
-			  'path' => 'v1beta1/alerts/{alertId}/metadata',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'alertId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'customerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1beta1/alerts',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'filter' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'orderBy' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'customerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-			  ),
-			),'undelete' => array(
-			  'path' => 'v1beta1/alerts/{alertId}:undelete',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'alertId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->alerts_feedback = new Google_Service_AlertCenter_Resource_AlertsFeedback(
-		$this,
-		$this->serviceName,
-		'feedback',
-		array(
-		  'methods' => array(
-			'create' => array(
-			  'path' => 'v1beta1/alerts/{alertId}/feedback',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'alertId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'customerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1beta1/alerts/{alertId}/feedback',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'alertId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'customerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'filter' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->v1beta1 = new Google_Service_AlertCenter_Resource_V1beta1(
-		$this,
-		$this->serviceName,
-		'v1beta1',
-		array(
-		  'methods' => array(
-			'getSettings' => array(
-			  'path' => 'v1beta1/settings',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'customerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'updateSettings' => array(
-			  'path' => 'v1beta1/settings',
-			  'httpMethod' => 'PATCH',
-			  'parameters' => array(
-				'customerId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->alerts = new Google_Service_AlertCenter_Resource_Alerts(
+        $this,
+        $this->serviceName,
+        'alerts',
+        array(
+          'methods' => array(
+            'batchDelete' => array(
+              'path' => 'v1beta1/alerts:batchDelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'batchUndelete' => array(
+              'path' => 'v1beta1/alerts:batchUndelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'delete' => array(
+              'path' => 'v1beta1/alerts/{alertId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'alertId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'v1beta1/alerts/{alertId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'alertId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'getMetadata' => array(
+              'path' => 'v1beta1/alerts/{alertId}/metadata',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'alertId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1beta1/alerts',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'orderBy' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'undelete' => array(
+              'path' => 'v1beta1/alerts/{alertId}:undelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'alertId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->alerts_feedback = new Google_Service_AlertCenter_Resource_AlertsFeedback(
+        $this,
+        $this->serviceName,
+        'feedback',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v1beta1/alerts/{alertId}/feedback',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'alertId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1beta1/alerts/{alertId}/feedback',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'alertId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->v1beta1 = new Google_Service_AlertCenter_Resource_V1beta1(
+        $this,
+        $this->serviceName,
+        'v1beta1',
+        array(
+          'methods' => array(
+            'getSettings' => array(
+              'path' => 'v1beta1/settings',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'updateSettings' => array(
+              'path' => 'v1beta1/settings',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

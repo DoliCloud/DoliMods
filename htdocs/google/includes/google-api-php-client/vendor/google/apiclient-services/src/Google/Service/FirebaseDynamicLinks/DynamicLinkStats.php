@@ -17,22 +17,22 @@
 
 class Google_Service_FirebaseDynamicLinks_DynamicLinkStats extends Google_Collection
 {
-	protected $collection_key = 'linkEventStats';
-	protected $linkEventStatsType = 'Google_Service_FirebaseDynamicLinks_DynamicLinkEventStat';
-	protected $linkEventStatsDataType = 'array';
+  protected $collection_key = 'linkEventStats';
+  protected $linkEventStatsType = 'Google_Service_FirebaseDynamicLinks_DynamicLinkEventStat';
+  protected $linkEventStatsDataType = 'array';
 
-	/**
-	 * @param Google_Service_FirebaseDynamicLinks_DynamicLinkEventStat
-	 */
-	public function setLinkEventStats($linkEventStats)
-	{
-		$this->linkEventStats = $linkEventStats;
-	}
-	/**
-	 * @return Google_Service_FirebaseDynamicLinks_DynamicLinkEventStat
-	 */
-	public function getLinkEventStats()
-	{
-		return $this->linkEventStats;
-	}
+  /**
+   * @param Google_Service_FirebaseDynamicLinks_DynamicLinkEventStat[]
+   */
+  public function setLinkEventStats($linkEventStats)
+  {
+    $this->linkEventStats = $linkEventStats;
+  }
+  /**
+   * @return Google_Service_FirebaseDynamicLinks_DynamicLinkEventStat[]
+   */
+  public function getLinkEventStats()
+  {
+    return $this->linkEventStats;
+  }
 }

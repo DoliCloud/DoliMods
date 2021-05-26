@@ -17,77 +17,77 @@
 
 class Google_Service_AdExchangeBuyer_MarketplaceNote extends Google_Model
 {
-	public $creatorRole;
-	public $dealId;
-	public $kind;
-	public $note;
-	public $noteId;
-	public $proposalId;
-	public $proposalRevisionNumber;
-	public $timestampMs;
+  public $creatorRole;
+  public $dealId;
+  public $kind;
+  public $note;
+  public $noteId;
+  public $proposalId;
+  public $proposalRevisionNumber;
+  public $timestampMs;
 
-	public function setCreatorRole($creatorRole)
-	{
-		$this->creatorRole = $creatorRole;
-	}
-	public function getCreatorRole()
-	{
-		return $this->creatorRole;
-	}
-	public function setDealId($dealId)
-	{
-		$this->dealId = $dealId;
-	}
-	public function getDealId()
-	{
-		return $this->dealId;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNote($note)
-	{
-		$this->note = $note;
-	}
-	public function getNote()
-	{
-		return $this->note;
-	}
-	public function setNoteId($noteId)
-	{
-		$this->noteId = $noteId;
-	}
-	public function getNoteId()
-	{
-		return $this->noteId;
-	}
-	public function setProposalId($proposalId)
-	{
-		$this->proposalId = $proposalId;
-	}
-	public function getProposalId()
-	{
-		return $this->proposalId;
-	}
-	public function setProposalRevisionNumber($proposalRevisionNumber)
-	{
-		$this->proposalRevisionNumber = $proposalRevisionNumber;
-	}
-	public function getProposalRevisionNumber()
-	{
-		return $this->proposalRevisionNumber;
-	}
-	public function setTimestampMs($timestampMs)
-	{
-		$this->timestampMs = $timestampMs;
-	}
-	public function getTimestampMs()
-	{
-		return $this->timestampMs;
-	}
+  public function setCreatorRole($creatorRole)
+  {
+    $this->creatorRole = $creatorRole;
+  }
+  public function getCreatorRole()
+  {
+    return $this->creatorRole;
+  }
+  public function setDealId($dealId)
+  {
+    $this->dealId = $dealId;
+  }
+  public function getDealId()
+  {
+    return $this->dealId;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNote($note)
+  {
+    $this->note = $note;
+  }
+  public function getNote()
+  {
+    return $this->note;
+  }
+  public function setNoteId($noteId)
+  {
+    $this->noteId = $noteId;
+  }
+  public function getNoteId()
+  {
+    return $this->noteId;
+  }
+  public function setProposalId($proposalId)
+  {
+    $this->proposalId = $proposalId;
+  }
+  public function getProposalId()
+  {
+    return $this->proposalId;
+  }
+  public function setProposalRevisionNumber($proposalRevisionNumber)
+  {
+    $this->proposalRevisionNumber = $proposalRevisionNumber;
+  }
+  public function getProposalRevisionNumber()
+  {
+    return $this->proposalRevisionNumber;
+  }
+  public function setTimestampMs($timestampMs)
+  {
+    $this->timestampMs = $timestampMs;
+  }
+  public function getTimestampMs()
+  {
+    return $this->timestampMs;
+  }
 }

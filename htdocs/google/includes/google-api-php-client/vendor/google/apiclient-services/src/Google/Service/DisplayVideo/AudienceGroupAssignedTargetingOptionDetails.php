@@ -17,102 +17,102 @@
 
 class Google_Service_DisplayVideo_AudienceGroupAssignedTargetingOptionDetails extends Google_Collection
 {
-	protected $collection_key = 'includedFirstAndThirdPartyAudienceGroups';
-	protected $excludedFirstAndThirdPartyAudienceGroupType = 'Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup';
-	protected $excludedFirstAndThirdPartyAudienceGroupDataType = '';
-	protected $excludedGoogleAudienceGroupType = 'Google_Service_DisplayVideo_GoogleAudienceGroup';
-	protected $excludedGoogleAudienceGroupDataType = '';
-	protected $includedCombinedAudienceGroupType = 'Google_Service_DisplayVideo_CombinedAudienceGroup';
-	protected $includedCombinedAudienceGroupDataType = '';
-	protected $includedCustomListGroupType = 'Google_Service_DisplayVideo_CustomListGroup';
-	protected $includedCustomListGroupDataType = '';
-	protected $includedFirstAndThirdPartyAudienceGroupsType = 'Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup';
-	protected $includedFirstAndThirdPartyAudienceGroupsDataType = 'array';
-	protected $includedGoogleAudienceGroupType = 'Google_Service_DisplayVideo_GoogleAudienceGroup';
-	protected $includedGoogleAudienceGroupDataType = '';
+  protected $collection_key = 'includedFirstAndThirdPartyAudienceGroups';
+  protected $excludedFirstAndThirdPartyAudienceGroupType = 'Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup';
+  protected $excludedFirstAndThirdPartyAudienceGroupDataType = '';
+  protected $excludedGoogleAudienceGroupType = 'Google_Service_DisplayVideo_GoogleAudienceGroup';
+  protected $excludedGoogleAudienceGroupDataType = '';
+  protected $includedCombinedAudienceGroupType = 'Google_Service_DisplayVideo_CombinedAudienceGroup';
+  protected $includedCombinedAudienceGroupDataType = '';
+  protected $includedCustomListGroupType = 'Google_Service_DisplayVideo_CustomListGroup';
+  protected $includedCustomListGroupDataType = '';
+  protected $includedFirstAndThirdPartyAudienceGroupsType = 'Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup';
+  protected $includedFirstAndThirdPartyAudienceGroupsDataType = 'array';
+  protected $includedGoogleAudienceGroupType = 'Google_Service_DisplayVideo_GoogleAudienceGroup';
+  protected $includedGoogleAudienceGroupDataType = '';
 
-	/**
-	 * @param Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup
-	 */
-	public function setExcludedFirstAndThirdPartyAudienceGroup(Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup $excludedFirstAndThirdPartyAudienceGroup)
-	{
-		$this->excludedFirstAndThirdPartyAudienceGroup = $excludedFirstAndThirdPartyAudienceGroup;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup
-	 */
-	public function getExcludedFirstAndThirdPartyAudienceGroup()
-	{
-		return $this->excludedFirstAndThirdPartyAudienceGroup;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_GoogleAudienceGroup
-	 */
-	public function setExcludedGoogleAudienceGroup(Google_Service_DisplayVideo_GoogleAudienceGroup $excludedGoogleAudienceGroup)
-	{
-		$this->excludedGoogleAudienceGroup = $excludedGoogleAudienceGroup;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_GoogleAudienceGroup
-	 */
-	public function getExcludedGoogleAudienceGroup()
-	{
-		return $this->excludedGoogleAudienceGroup;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_CombinedAudienceGroup
-	 */
-	public function setIncludedCombinedAudienceGroup(Google_Service_DisplayVideo_CombinedAudienceGroup $includedCombinedAudienceGroup)
-	{
-		$this->includedCombinedAudienceGroup = $includedCombinedAudienceGroup;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_CombinedAudienceGroup
-	 */
-	public function getIncludedCombinedAudienceGroup()
-	{
-		return $this->includedCombinedAudienceGroup;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_CustomListGroup
-	 */
-	public function setIncludedCustomListGroup(Google_Service_DisplayVideo_CustomListGroup $includedCustomListGroup)
-	{
-		$this->includedCustomListGroup = $includedCustomListGroup;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_CustomListGroup
-	 */
-	public function getIncludedCustomListGroup()
-	{
-		return $this->includedCustomListGroup;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup
-	 */
-	public function setIncludedFirstAndThirdPartyAudienceGroups($includedFirstAndThirdPartyAudienceGroups)
-	{
-		$this->includedFirstAndThirdPartyAudienceGroups = $includedFirstAndThirdPartyAudienceGroups;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup
-	 */
-	public function getIncludedFirstAndThirdPartyAudienceGroups()
-	{
-		return $this->includedFirstAndThirdPartyAudienceGroups;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_GoogleAudienceGroup
-	 */
-	public function setIncludedGoogleAudienceGroup(Google_Service_DisplayVideo_GoogleAudienceGroup $includedGoogleAudienceGroup)
-	{
-		$this->includedGoogleAudienceGroup = $includedGoogleAudienceGroup;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_GoogleAudienceGroup
-	 */
-	public function getIncludedGoogleAudienceGroup()
-	{
-		return $this->includedGoogleAudienceGroup;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup
+   */
+  public function setExcludedFirstAndThirdPartyAudienceGroup(Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup $excludedFirstAndThirdPartyAudienceGroup)
+  {
+    $this->excludedFirstAndThirdPartyAudienceGroup = $excludedFirstAndThirdPartyAudienceGroup;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup
+   */
+  public function getExcludedFirstAndThirdPartyAudienceGroup()
+  {
+    return $this->excludedFirstAndThirdPartyAudienceGroup;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_GoogleAudienceGroup
+   */
+  public function setExcludedGoogleAudienceGroup(Google_Service_DisplayVideo_GoogleAudienceGroup $excludedGoogleAudienceGroup)
+  {
+    $this->excludedGoogleAudienceGroup = $excludedGoogleAudienceGroup;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_GoogleAudienceGroup
+   */
+  public function getExcludedGoogleAudienceGroup()
+  {
+    return $this->excludedGoogleAudienceGroup;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_CombinedAudienceGroup
+   */
+  public function setIncludedCombinedAudienceGroup(Google_Service_DisplayVideo_CombinedAudienceGroup $includedCombinedAudienceGroup)
+  {
+    $this->includedCombinedAudienceGroup = $includedCombinedAudienceGroup;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_CombinedAudienceGroup
+   */
+  public function getIncludedCombinedAudienceGroup()
+  {
+    return $this->includedCombinedAudienceGroup;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_CustomListGroup
+   */
+  public function setIncludedCustomListGroup(Google_Service_DisplayVideo_CustomListGroup $includedCustomListGroup)
+  {
+    $this->includedCustomListGroup = $includedCustomListGroup;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_CustomListGroup
+   */
+  public function getIncludedCustomListGroup()
+  {
+    return $this->includedCustomListGroup;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup[]
+   */
+  public function setIncludedFirstAndThirdPartyAudienceGroups($includedFirstAndThirdPartyAudienceGroups)
+  {
+    $this->includedFirstAndThirdPartyAudienceGroups = $includedFirstAndThirdPartyAudienceGroups;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_FirstAndThirdPartyAudienceGroup[]
+   */
+  public function getIncludedFirstAndThirdPartyAudienceGroups()
+  {
+    return $this->includedFirstAndThirdPartyAudienceGroups;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_GoogleAudienceGroup
+   */
+  public function setIncludedGoogleAudienceGroup(Google_Service_DisplayVideo_GoogleAudienceGroup $includedGoogleAudienceGroup)
+  {
+    $this->includedGoogleAudienceGroup = $includedGoogleAudienceGroup;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_GoogleAudienceGroup
+   */
+  public function getIncludedGoogleAudienceGroup()
+  {
+    return $this->includedGoogleAudienceGroup;
+  }
 }

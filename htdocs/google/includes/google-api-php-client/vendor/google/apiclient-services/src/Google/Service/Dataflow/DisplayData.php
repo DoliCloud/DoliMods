@@ -17,113 +17,113 @@
 
 class Google_Service_Dataflow_DisplayData extends Google_Model
 {
-	public $boolValue;
-	public $durationValue;
-	public $floatValue;
-	public $int64Value;
-	public $javaClassValue;
-	public $key;
-	public $label;
-	public $namespace;
-	public $shortStrValue;
-	public $strValue;
-	public $timestampValue;
-	public $url;
+  public $boolValue;
+  public $durationValue;
+  public $floatValue;
+  public $int64Value;
+  public $javaClassValue;
+  public $key;
+  public $label;
+  public $namespace;
+  public $shortStrValue;
+  public $strValue;
+  public $timestampValue;
+  public $url;
 
-	public function setBoolValue($boolValue)
-	{
-		$this->boolValue = $boolValue;
-	}
-	public function getBoolValue()
-	{
-		return $this->boolValue;
-	}
-	public function setDurationValue($durationValue)
-	{
-		$this->durationValue = $durationValue;
-	}
-	public function getDurationValue()
-	{
-		return $this->durationValue;
-	}
-	public function setFloatValue($floatValue)
-	{
-		$this->floatValue = $floatValue;
-	}
-	public function getFloatValue()
-	{
-		return $this->floatValue;
-	}
-	public function setInt64Value($int64Value)
-	{
-		$this->int64Value = $int64Value;
-	}
-	public function getInt64Value()
-	{
-		return $this->int64Value;
-	}
-	public function setJavaClassValue($javaClassValue)
-	{
-		$this->javaClassValue = $javaClassValue;
-	}
-	public function getJavaClassValue()
-	{
-		return $this->javaClassValue;
-	}
-	public function setKey($key)
-	{
-		$this->key = $key;
-	}
-	public function getKey()
-	{
-		return $this->key;
-	}
-	public function setLabel($label)
-	{
-		$this->label = $label;
-	}
-	public function getLabel()
-	{
-		return $this->label;
-	}
-	public function setNamespace($namespace)
-	{
-		$this->namespace = $namespace;
-	}
-	public function getNamespace()
-	{
-		return $this->namespace;
-	}
-	public function setShortStrValue($shortStrValue)
-	{
-		$this->shortStrValue = $shortStrValue;
-	}
-	public function getShortStrValue()
-	{
-		return $this->shortStrValue;
-	}
-	public function setStrValue($strValue)
-	{
-		$this->strValue = $strValue;
-	}
-	public function getStrValue()
-	{
-		return $this->strValue;
-	}
-	public function setTimestampValue($timestampValue)
-	{
-		$this->timestampValue = $timestampValue;
-	}
-	public function getTimestampValue()
-	{
-		return $this->timestampValue;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setBoolValue($boolValue)
+  {
+    $this->boolValue = $boolValue;
+  }
+  public function getBoolValue()
+  {
+    return $this->boolValue;
+  }
+  public function setDurationValue($durationValue)
+  {
+    $this->durationValue = $durationValue;
+  }
+  public function getDurationValue()
+  {
+    return $this->durationValue;
+  }
+  public function setFloatValue($floatValue)
+  {
+    $this->floatValue = $floatValue;
+  }
+  public function getFloatValue()
+  {
+    return $this->floatValue;
+  }
+  public function setInt64Value($int64Value)
+  {
+    $this->int64Value = $int64Value;
+  }
+  public function getInt64Value()
+  {
+    return $this->int64Value;
+  }
+  public function setJavaClassValue($javaClassValue)
+  {
+    $this->javaClassValue = $javaClassValue;
+  }
+  public function getJavaClassValue()
+  {
+    return $this->javaClassValue;
+  }
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+  public function getLabel()
+  {
+    return $this->label;
+  }
+  public function setNamespace($namespace)
+  {
+    $this->namespace = $namespace;
+  }
+  public function getNamespace()
+  {
+    return $this->namespace;
+  }
+  public function setShortStrValue($shortStrValue)
+  {
+    $this->shortStrValue = $shortStrValue;
+  }
+  public function getShortStrValue()
+  {
+    return $this->shortStrValue;
+  }
+  public function setStrValue($strValue)
+  {
+    $this->strValue = $strValue;
+  }
+  public function getStrValue()
+  {
+    return $this->strValue;
+  }
+  public function setTimestampValue($timestampValue)
+  {
+    $this->timestampValue = $timestampValue;
+  }
+  public function getTimestampValue()
+  {
+    return $this->timestampValue;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

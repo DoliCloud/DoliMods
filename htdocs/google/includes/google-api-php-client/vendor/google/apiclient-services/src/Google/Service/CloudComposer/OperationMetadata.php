@@ -17,59 +17,59 @@
 
 class Google_Service_CloudComposer_OperationMetadata extends Google_Model
 {
-	public $createTime;
-	public $endTime;
-	public $operationType;
-	public $resource;
-	public $resourceUuid;
-	public $state;
+  public $createTime;
+  public $endTime;
+  public $operationType;
+  public $resource;
+  public $resourceUuid;
+  public $state;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setEndTime($endTime)
-	{
-		$this->endTime = $endTime;
-	}
-	public function getEndTime()
-	{
-		return $this->endTime;
-	}
-	public function setOperationType($operationType)
-	{
-		$this->operationType = $operationType;
-	}
-	public function getOperationType()
-	{
-		return $this->operationType;
-	}
-	public function setResource($resource)
-	{
-		$this->resource = $resource;
-	}
-	public function getResource()
-	{
-		return $this->resource;
-	}
-	public function setResourceUuid($resourceUuid)
-	{
-		$this->resourceUuid = $resourceUuid;
-	}
-	public function getResourceUuid()
-	{
-		return $this->resourceUuid;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  public function getEndTime()
+  {
+    return $this->endTime;
+  }
+  public function setOperationType($operationType)
+  {
+    $this->operationType = $operationType;
+  }
+  public function getOperationType()
+  {
+    return $this->operationType;
+  }
+  public function setResource($resource)
+  {
+    $this->resource = $resource;
+  }
+  public function getResource()
+  {
+    return $this->resource;
+  }
+  public function setResourceUuid($resourceUuid)
+  {
+    $this->resourceUuid = $resourceUuid;
+  }
+  public function getResourceUuid()
+  {
+    return $this->resourceUuid;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
 }

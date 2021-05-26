@@ -17,40 +17,40 @@
 
 class Google_Service_GameServices_ListGameServerConfigsResponse extends Google_Collection
 {
-	protected $collection_key = 'unreachable';
-	protected $gameServerConfigsType = 'Google_Service_GameServices_GameServerConfig';
-	protected $gameServerConfigsDataType = 'array';
-	public $nextPageToken;
-	public $unreachable;
+  protected $collection_key = 'unreachable';
+  protected $gameServerConfigsType = 'Google_Service_GameServices_GameServerConfig';
+  protected $gameServerConfigsDataType = 'array';
+  public $nextPageToken;
+  public $unreachable;
 
-	/**
-	 * @param Google_Service_GameServices_GameServerConfig
-	 */
-	public function setGameServerConfigs($gameServerConfigs)
-	{
-		$this->gameServerConfigs = $gameServerConfigs;
-	}
-	/**
-	 * @return Google_Service_GameServices_GameServerConfig
-	 */
-	public function getGameServerConfigs()
-	{
-		return $this->gameServerConfigs;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	public function setUnreachable($unreachable)
-	{
-		$this->unreachable = $unreachable;
-	}
-	public function getUnreachable()
-	{
-		return $this->unreachable;
-	}
+  /**
+   * @param Google_Service_GameServices_GameServerConfig[]
+   */
+  public function setGameServerConfigs($gameServerConfigs)
+  {
+    $this->gameServerConfigs = $gameServerConfigs;
+  }
+  /**
+   * @return Google_Service_GameServices_GameServerConfig[]
+   */
+  public function getGameServerConfigs()
+  {
+    return $this->gameServerConfigs;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  public function setUnreachable($unreachable)
+  {
+    $this->unreachable = $unreachable;
+  }
+  public function getUnreachable()
+  {
+    return $this->unreachable;
+  }
 }

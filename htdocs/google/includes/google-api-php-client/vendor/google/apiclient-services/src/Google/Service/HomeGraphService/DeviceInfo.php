@@ -17,41 +17,41 @@
 
 class Google_Service_HomeGraphService_DeviceInfo extends Google_Model
 {
-	public $hwVersion;
-	public $manufacturer;
-	public $model;
-	public $swVersion;
+  public $hwVersion;
+  public $manufacturer;
+  public $model;
+  public $swVersion;
 
-	public function setHwVersion($hwVersion)
-	{
-		$this->hwVersion = $hwVersion;
-	}
-	public function getHwVersion()
-	{
-		return $this->hwVersion;
-	}
-	public function setManufacturer($manufacturer)
-	{
-		$this->manufacturer = $manufacturer;
-	}
-	public function getManufacturer()
-	{
-		return $this->manufacturer;
-	}
-	public function setModel($model)
-	{
-		$this->model = $model;
-	}
-	public function getModel()
-	{
-		return $this->model;
-	}
-	public function setSwVersion($swVersion)
-	{
-		$this->swVersion = $swVersion;
-	}
-	public function getSwVersion()
-	{
-		return $this->swVersion;
-	}
+  public function setHwVersion($hwVersion)
+  {
+    $this->hwVersion = $hwVersion;
+  }
+  public function getHwVersion()
+  {
+    return $this->hwVersion;
+  }
+  public function setManufacturer($manufacturer)
+  {
+    $this->manufacturer = $manufacturer;
+  }
+  public function getManufacturer()
+  {
+    return $this->manufacturer;
+  }
+  public function setModel($model)
+  {
+    $this->model = $model;
+  }
+  public function getModel()
+  {
+    return $this->model;
+  }
+  public function setSwVersion($swVersion)
+  {
+    $this->swVersion = $swVersion;
+  }
+  public function getSwVersion()
+  {
+    return $this->swVersion;
+  }
 }

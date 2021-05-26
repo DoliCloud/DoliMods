@@ -17,65 +17,56 @@
 
 class Google_Service_Compute_AllocationSpecificSKUAllocationReservedInstanceProperties extends Google_Collection
 {
-	protected $collection_key = 'localSsds';
-	protected $guestAcceleratorsType = 'Google_Service_Compute_AcceleratorConfig';
-	protected $guestAcceleratorsDataType = 'array';
-	protected $localSsdsType = 'Google_Service_Compute_AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk';
-	protected $localSsdsDataType = 'array';
-	public $machineType;
-	public $maintenanceInterval;
-	public $minCpuPlatform;
+  protected $collection_key = 'localSsds';
+  protected $guestAcceleratorsType = 'Google_Service_Compute_AcceleratorConfig';
+  protected $guestAcceleratorsDataType = 'array';
+  protected $localSsdsType = 'Google_Service_Compute_AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk';
+  protected $localSsdsDataType = 'array';
+  public $machineType;
+  public $minCpuPlatform;
 
-	/**
-	 * @param Google_Service_Compute_AcceleratorConfig
-	 */
-	public function setGuestAccelerators($guestAccelerators)
-	{
-		$this->guestAccelerators = $guestAccelerators;
-	}
-	/**
-	 * @return Google_Service_Compute_AcceleratorConfig
-	 */
-	public function getGuestAccelerators()
-	{
-		return $this->guestAccelerators;
-	}
-	/**
-	 * @param Google_Service_Compute_AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk
-	 */
-	public function setLocalSsds($localSsds)
-	{
-		$this->localSsds = $localSsds;
-	}
-	/**
-	 * @return Google_Service_Compute_AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk
-	 */
-	public function getLocalSsds()
-	{
-		return $this->localSsds;
-	}
-	public function setMachineType($machineType)
-	{
-		$this->machineType = $machineType;
-	}
-	public function getMachineType()
-	{
-		return $this->machineType;
-	}
-	public function setMaintenanceInterval($maintenanceInterval)
-	{
-		$this->maintenanceInterval = $maintenanceInterval;
-	}
-	public function getMaintenanceInterval()
-	{
-		return $this->maintenanceInterval;
-	}
-	public function setMinCpuPlatform($minCpuPlatform)
-	{
-		$this->minCpuPlatform = $minCpuPlatform;
-	}
-	public function getMinCpuPlatform()
-	{
-		return $this->minCpuPlatform;
-	}
+  /**
+   * @param Google_Service_Compute_AcceleratorConfig[]
+   */
+  public function setGuestAccelerators($guestAccelerators)
+  {
+    $this->guestAccelerators = $guestAccelerators;
+  }
+  /**
+   * @return Google_Service_Compute_AcceleratorConfig[]
+   */
+  public function getGuestAccelerators()
+  {
+    return $this->guestAccelerators;
+  }
+  /**
+   * @param Google_Service_Compute_AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk[]
+   */
+  public function setLocalSsds($localSsds)
+  {
+    $this->localSsds = $localSsds;
+  }
+  /**
+   * @return Google_Service_Compute_AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk[]
+   */
+  public function getLocalSsds()
+  {
+    return $this->localSsds;
+  }
+  public function setMachineType($machineType)
+  {
+    $this->machineType = $machineType;
+  }
+  public function getMachineType()
+  {
+    return $this->machineType;
+  }
+  public function setMinCpuPlatform($minCpuPlatform)
+  {
+    $this->minCpuPlatform = $minCpuPlatform;
+  }
+  public function getMinCpuPlatform()
+  {
+    return $this->minCpuPlatform;
+  }
 }

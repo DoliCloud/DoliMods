@@ -17,47 +17,47 @@
 
 class Google_Service_JobService_HistogramFacets extends Google_Collection
 {
-	protected $collection_key = 'simpleHistogramFacets';
-	protected $compensationHistogramFacetsType = 'Google_Service_JobService_CompensationHistogramRequest';
-	protected $compensationHistogramFacetsDataType = 'array';
-	protected $customAttributeHistogramFacetsType = 'Google_Service_JobService_CustomAttributeHistogramRequest';
-	protected $customAttributeHistogramFacetsDataType = 'array';
-	public $simpleHistogramFacets;
+  protected $collection_key = 'simpleHistogramFacets';
+  protected $compensationHistogramFacetsType = 'Google_Service_JobService_CompensationHistogramRequest';
+  protected $compensationHistogramFacetsDataType = 'array';
+  protected $customAttributeHistogramFacetsType = 'Google_Service_JobService_CustomAttributeHistogramRequest';
+  protected $customAttributeHistogramFacetsDataType = 'array';
+  public $simpleHistogramFacets;
 
-	/**
-	 * @param Google_Service_JobService_CompensationHistogramRequest
-	 */
-	public function setCompensationHistogramFacets($compensationHistogramFacets)
-	{
-		$this->compensationHistogramFacets = $compensationHistogramFacets;
-	}
-	/**
-	 * @return Google_Service_JobService_CompensationHistogramRequest
-	 */
-	public function getCompensationHistogramFacets()
-	{
-		return $this->compensationHistogramFacets;
-	}
-	/**
-	 * @param Google_Service_JobService_CustomAttributeHistogramRequest
-	 */
-	public function setCustomAttributeHistogramFacets($customAttributeHistogramFacets)
-	{
-		$this->customAttributeHistogramFacets = $customAttributeHistogramFacets;
-	}
-	/**
-	 * @return Google_Service_JobService_CustomAttributeHistogramRequest
-	 */
-	public function getCustomAttributeHistogramFacets()
-	{
-		return $this->customAttributeHistogramFacets;
-	}
-	public function setSimpleHistogramFacets($simpleHistogramFacets)
-	{
-		$this->simpleHistogramFacets = $simpleHistogramFacets;
-	}
-	public function getSimpleHistogramFacets()
-	{
-		return $this->simpleHistogramFacets;
-	}
+  /**
+   * @param Google_Service_JobService_CompensationHistogramRequest
+   */
+  public function setCompensationHistogramFacets($compensationHistogramFacets)
+  {
+    $this->compensationHistogramFacets = $compensationHistogramFacets;
+  }
+  /**
+   * @return Google_Service_JobService_CompensationHistogramRequest
+   */
+  public function getCompensationHistogramFacets()
+  {
+    return $this->compensationHistogramFacets;
+  }
+  /**
+   * @param Google_Service_JobService_CustomAttributeHistogramRequest
+   */
+  public function setCustomAttributeHistogramFacets($customAttributeHistogramFacets)
+  {
+    $this->customAttributeHistogramFacets = $customAttributeHistogramFacets;
+  }
+  /**
+   * @return Google_Service_JobService_CustomAttributeHistogramRequest
+   */
+  public function getCustomAttributeHistogramFacets()
+  {
+    return $this->customAttributeHistogramFacets;
+  }
+  public function setSimpleHistogramFacets($simpleHistogramFacets)
+  {
+    $this->simpleHistogramFacets = $simpleHistogramFacets;
+  }
+  public function getSimpleHistogramFacets()
+  {
+    return $this->simpleHistogramFacets;
+  }
 }

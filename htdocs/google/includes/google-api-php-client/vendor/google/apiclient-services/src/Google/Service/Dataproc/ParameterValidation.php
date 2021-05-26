@@ -17,37 +17,37 @@
 
 class Google_Service_Dataproc_ParameterValidation extends Google_Model
 {
-	protected $regexType = 'Google_Service_Dataproc_RegexValidation';
-	protected $regexDataType = '';
-	protected $valuesType = 'Google_Service_Dataproc_ValueValidation';
-	protected $valuesDataType = '';
+  protected $regexType = 'Google_Service_Dataproc_RegexValidation';
+  protected $regexDataType = '';
+  protected $valuesType = 'Google_Service_Dataproc_ValueValidation';
+  protected $valuesDataType = '';
 
-	/**
-	 * @param Google_Service_Dataproc_RegexValidation
-	 */
-	public function setRegex(Google_Service_Dataproc_RegexValidation $regex)
-	{
-		$this->regex = $regex;
-	}
-	/**
-	 * @return Google_Service_Dataproc_RegexValidation
-	 */
-	public function getRegex()
-	{
-		return $this->regex;
-	}
-	/**
-	 * @param Google_Service_Dataproc_ValueValidation
-	 */
-	public function setValues(Google_Service_Dataproc_ValueValidation $values)
-	{
-		$this->values = $values;
-	}
-	/**
-	 * @return Google_Service_Dataproc_ValueValidation
-	 */
-	public function getValues()
-	{
-		return $this->values;
-	}
+  /**
+   * @param Google_Service_Dataproc_RegexValidation
+   */
+  public function setRegex(Google_Service_Dataproc_RegexValidation $regex)
+  {
+    $this->regex = $regex;
+  }
+  /**
+   * @return Google_Service_Dataproc_RegexValidation
+   */
+  public function getRegex()
+  {
+    return $this->regex;
+  }
+  /**
+   * @param Google_Service_Dataproc_ValueValidation
+   */
+  public function setValues(Google_Service_Dataproc_ValueValidation $values)
+  {
+    $this->values = $values;
+  }
+  /**
+   * @return Google_Service_Dataproc_ValueValidation
+   */
+  public function getValues()
+  {
+    return $this->values;
+  }
 }

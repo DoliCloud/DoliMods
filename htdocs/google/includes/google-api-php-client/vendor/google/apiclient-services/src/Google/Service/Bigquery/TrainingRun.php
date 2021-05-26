@@ -17,79 +17,95 @@
 
 class Google_Service_Bigquery_TrainingRun extends Google_Collection
 {
-	protected $collection_key = 'results';
-	protected $dataSplitResultType = 'Google_Service_Bigquery_DataSplitResult';
-	protected $dataSplitResultDataType = '';
-	protected $evaluationMetricsType = 'Google_Service_Bigquery_EvaluationMetrics';
-	protected $evaluationMetricsDataType = '';
-	protected $resultsType = 'Google_Service_Bigquery_IterationResult';
-	protected $resultsDataType = 'array';
-	public $startTime;
-	protected $trainingOptionsType = 'Google_Service_Bigquery_TrainingOptions';
-	protected $trainingOptionsDataType = '';
+  protected $collection_key = 'results';
+  protected $dataSplitResultType = 'Google_Service_Bigquery_DataSplitResult';
+  protected $dataSplitResultDataType = '';
+  protected $evaluationMetricsType = 'Google_Service_Bigquery_EvaluationMetrics';
+  protected $evaluationMetricsDataType = '';
+  protected $globalExplanationsType = 'Google_Service_Bigquery_GlobalExplanation';
+  protected $globalExplanationsDataType = 'array';
+  protected $resultsType = 'Google_Service_Bigquery_IterationResult';
+  protected $resultsDataType = 'array';
+  public $startTime;
+  protected $trainingOptionsType = 'Google_Service_Bigquery_TrainingOptions';
+  protected $trainingOptionsDataType = '';
 
-	/**
-	 * @param Google_Service_Bigquery_DataSplitResult
-	 */
-	public function setDataSplitResult(Google_Service_Bigquery_DataSplitResult $dataSplitResult)
-	{
-		$this->dataSplitResult = $dataSplitResult;
-	}
-	/**
-	 * @return Google_Service_Bigquery_DataSplitResult
-	 */
-	public function getDataSplitResult()
-	{
-		return $this->dataSplitResult;
-	}
-	/**
-	 * @param Google_Service_Bigquery_EvaluationMetrics
-	 */
-	public function setEvaluationMetrics(Google_Service_Bigquery_EvaluationMetrics $evaluationMetrics)
-	{
-		$this->evaluationMetrics = $evaluationMetrics;
-	}
-	/**
-	 * @return Google_Service_Bigquery_EvaluationMetrics
-	 */
-	public function getEvaluationMetrics()
-	{
-		return $this->evaluationMetrics;
-	}
-	/**
-	 * @param Google_Service_Bigquery_IterationResult
-	 */
-	public function setResults($results)
-	{
-		$this->results = $results;
-	}
-	/**
-	 * @return Google_Service_Bigquery_IterationResult
-	 */
-	public function getResults()
-	{
-		return $this->results;
-	}
-	public function setStartTime($startTime)
-	{
-		$this->startTime = $startTime;
-	}
-	public function getStartTime()
-	{
-		return $this->startTime;
-	}
-	/**
-	 * @param Google_Service_Bigquery_TrainingOptions
-	 */
-	public function setTrainingOptions(Google_Service_Bigquery_TrainingOptions $trainingOptions)
-	{
-		$this->trainingOptions = $trainingOptions;
-	}
-	/**
-	 * @return Google_Service_Bigquery_TrainingOptions
-	 */
-	public function getTrainingOptions()
-	{
-		return $this->trainingOptions;
-	}
+  /**
+   * @param Google_Service_Bigquery_DataSplitResult
+   */
+  public function setDataSplitResult(Google_Service_Bigquery_DataSplitResult $dataSplitResult)
+  {
+    $this->dataSplitResult = $dataSplitResult;
+  }
+  /**
+   * @return Google_Service_Bigquery_DataSplitResult
+   */
+  public function getDataSplitResult()
+  {
+    return $this->dataSplitResult;
+  }
+  /**
+   * @param Google_Service_Bigquery_EvaluationMetrics
+   */
+  public function setEvaluationMetrics(Google_Service_Bigquery_EvaluationMetrics $evaluationMetrics)
+  {
+    $this->evaluationMetrics = $evaluationMetrics;
+  }
+  /**
+   * @return Google_Service_Bigquery_EvaluationMetrics
+   */
+  public function getEvaluationMetrics()
+  {
+    return $this->evaluationMetrics;
+  }
+  /**
+   * @param Google_Service_Bigquery_GlobalExplanation[]
+   */
+  public function setGlobalExplanations($globalExplanations)
+  {
+    $this->globalExplanations = $globalExplanations;
+  }
+  /**
+   * @return Google_Service_Bigquery_GlobalExplanation[]
+   */
+  public function getGlobalExplanations()
+  {
+    return $this->globalExplanations;
+  }
+  /**
+   * @param Google_Service_Bigquery_IterationResult[]
+   */
+  public function setResults($results)
+  {
+    $this->results = $results;
+  }
+  /**
+   * @return Google_Service_Bigquery_IterationResult[]
+   */
+  public function getResults()
+  {
+    return $this->results;
+  }
+  public function setStartTime($startTime)
+  {
+    $this->startTime = $startTime;
+  }
+  public function getStartTime()
+  {
+    return $this->startTime;
+  }
+  /**
+   * @param Google_Service_Bigquery_TrainingOptions
+   */
+  public function setTrainingOptions(Google_Service_Bigquery_TrainingOptions $trainingOptions)
+  {
+    $this->trainingOptions = $trainingOptions;
+  }
+  /**
+   * @return Google_Service_Bigquery_TrainingOptions
+   */
+  public function getTrainingOptions()
+  {
+    return $this->trainingOptions;
+  }
 }

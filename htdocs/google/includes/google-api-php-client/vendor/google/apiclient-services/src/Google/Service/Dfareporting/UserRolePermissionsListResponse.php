@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_UserRolePermissionsListResponse extends Google_Collection
 {
-	protected $collection_key = 'userRolePermissions';
-	public $kind;
-	protected $userRolePermissionsType = 'Google_Service_Dfareporting_UserRolePermission';
-	protected $userRolePermissionsDataType = 'array';
+  protected $collection_key = 'userRolePermissions';
+  public $kind;
+  protected $userRolePermissionsType = 'Google_Service_Dfareporting_UserRolePermission';
+  protected $userRolePermissionsDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_UserRolePermission
-	 */
-	public function setUserRolePermissions($userRolePermissions)
-	{
-		$this->userRolePermissions = $userRolePermissions;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_UserRolePermission
-	 */
-	public function getUserRolePermissions()
-	{
-		return $this->userRolePermissions;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_UserRolePermission[]
+   */
+  public function setUserRolePermissions($userRolePermissions)
+  {
+    $this->userRolePermissions = $userRolePermissions;
+  }
+  /**
+   * @return Google_Service_Dfareporting_UserRolePermission[]
+   */
+  public function getUserRolePermissions()
+  {
+    return $this->userRolePermissions;
+  }
 }

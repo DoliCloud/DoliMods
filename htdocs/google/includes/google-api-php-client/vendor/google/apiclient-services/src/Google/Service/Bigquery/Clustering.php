@@ -17,15 +17,15 @@
 
 class Google_Service_Bigquery_Clustering extends Google_Collection
 {
-	protected $collection_key = 'fields';
-	public $fields;
+  protected $collection_key = 'fields';
+  public $fields;
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
 }

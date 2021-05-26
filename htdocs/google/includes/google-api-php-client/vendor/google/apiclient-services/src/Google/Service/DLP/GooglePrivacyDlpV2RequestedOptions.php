@@ -17,37 +17,37 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2RequestedOptions extends Google_Model
 {
-	protected $jobConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig';
-	protected $jobConfigDataType = '';
-	protected $snapshotInspectTemplateType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate';
-	protected $snapshotInspectTemplateDataType = '';
+  protected $jobConfigType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig';
+  protected $jobConfigDataType = '';
+  protected $snapshotInspectTemplateType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate';
+  protected $snapshotInspectTemplateDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig
-	 */
-	public function setJobConfig(Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig $jobConfig)
-	{
-		$this->jobConfig = $jobConfig;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig
-	 */
-	public function getJobConfig()
-	{
-		return $this->jobConfig;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
-	 */
-	public function setSnapshotInspectTemplate(Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate $snapshotInspectTemplate)
-	{
-		$this->snapshotInspectTemplate = $snapshotInspectTemplate;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
-	 */
-	public function getSnapshotInspectTemplate()
-	{
-		return $this->snapshotInspectTemplate;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig
+   */
+  public function setJobConfig(Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig $jobConfig)
+  {
+    $this->jobConfig = $jobConfig;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectJobConfig
+   */
+  public function getJobConfig()
+  {
+    return $this->jobConfig;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
+   */
+  public function setSnapshotInspectTemplate(Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate $snapshotInspectTemplate)
+  {
+    $this->snapshotInspectTemplate = $snapshotInspectTemplate;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
+   */
+  public function getSnapshotInspectTemplate()
+  {
+    return $this->snapshotInspectTemplate;
+  }
 }

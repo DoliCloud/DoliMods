@@ -17,41 +17,41 @@
 
 class Google_Service_Monitoring_ClusterIstio extends Google_Model
 {
-	public $clusterName;
-	public $location;
-	public $serviceName;
-	public $serviceNamespace;
+  public $clusterName;
+  public $location;
+  public $serviceName;
+  public $serviceNamespace;
 
-	public function setClusterName($clusterName)
-	{
-		$this->clusterName = $clusterName;
-	}
-	public function getClusterName()
-	{
-		return $this->clusterName;
-	}
-	public function setLocation($location)
-	{
-		$this->location = $location;
-	}
-	public function getLocation()
-	{
-		return $this->location;
-	}
-	public function setServiceName($serviceName)
-	{
-		$this->serviceName = $serviceName;
-	}
-	public function getServiceName()
-	{
-		return $this->serviceName;
-	}
-	public function setServiceNamespace($serviceNamespace)
-	{
-		$this->serviceNamespace = $serviceNamespace;
-	}
-	public function getServiceNamespace()
-	{
-		return $this->serviceNamespace;
-	}
+  public function setClusterName($clusterName)
+  {
+    $this->clusterName = $clusterName;
+  }
+  public function getClusterName()
+  {
+    return $this->clusterName;
+  }
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  public function getLocation()
+  {
+    return $this->location;
+  }
+  public function setServiceName($serviceName)
+  {
+    $this->serviceName = $serviceName;
+  }
+  public function getServiceName()
+  {
+    return $this->serviceName;
+  }
+  public function setServiceNamespace($serviceNamespace)
+  {
+    $this->serviceNamespace = $serviceNamespace;
+  }
+  public function getServiceNamespace()
+  {
+    return $this->serviceNamespace;
+  }
 }

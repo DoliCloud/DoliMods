@@ -17,67 +17,67 @@
 
 class Google_Service_GameServices_GameServerDeploymentRollout extends Google_Collection
 {
-	protected $collection_key = 'gameServerConfigOverrides';
-	public $createTime;
-	public $defaultGameServerConfig;
-	public $etag;
-	protected $gameServerConfigOverridesType = 'Google_Service_GameServices_GameServerConfigOverride';
-	protected $gameServerConfigOverridesDataType = 'array';
-	public $name;
-	public $updateTime;
+  protected $collection_key = 'gameServerConfigOverrides';
+  public $createTime;
+  public $defaultGameServerConfig;
+  public $etag;
+  protected $gameServerConfigOverridesType = 'Google_Service_GameServices_GameServerConfigOverride';
+  protected $gameServerConfigOverridesDataType = 'array';
+  public $name;
+  public $updateTime;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setDefaultGameServerConfig($defaultGameServerConfig)
-	{
-		$this->defaultGameServerConfig = $defaultGameServerConfig;
-	}
-	public function getDefaultGameServerConfig()
-	{
-		return $this->defaultGameServerConfig;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	/**
-	 * @param Google_Service_GameServices_GameServerConfigOverride
-	 */
-	public function setGameServerConfigOverrides($gameServerConfigOverrides)
-	{
-		$this->gameServerConfigOverrides = $gameServerConfigOverrides;
-	}
-	/**
-	 * @return Google_Service_GameServices_GameServerConfigOverride
-	 */
-	public function getGameServerConfigOverrides()
-	{
-		return $this->gameServerConfigOverrides;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setDefaultGameServerConfig($defaultGameServerConfig)
+  {
+    $this->defaultGameServerConfig = $defaultGameServerConfig;
+  }
+  public function getDefaultGameServerConfig()
+  {
+    return $this->defaultGameServerConfig;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param Google_Service_GameServices_GameServerConfigOverride[]
+   */
+  public function setGameServerConfigOverrides($gameServerConfigOverrides)
+  {
+    $this->gameServerConfigOverrides = $gameServerConfigOverrides;
+  }
+  /**
+   * @return Google_Service_GameServices_GameServerConfigOverride[]
+   */
+  public function getGameServerConfigOverrides()
+  {
+    return $this->gameServerConfigOverrides;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

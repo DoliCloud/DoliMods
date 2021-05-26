@@ -17,22 +17,22 @@
 
 class Google_Service_Safebrowsing_FindThreatMatchesResponse extends Google_Collection
 {
-	protected $collection_key = 'matches';
-	protected $matchesType = 'Google_Service_Safebrowsing_ThreatMatch';
-	protected $matchesDataType = 'array';
+  protected $collection_key = 'matches';
+  protected $matchesType = 'Google_Service_Safebrowsing_ThreatMatch';
+  protected $matchesDataType = 'array';
 
-	/**
-	 * @param Google_Service_Safebrowsing_ThreatMatch
-	 */
-	public function setMatches($matches)
-	{
-		$this->matches = $matches;
-	}
-	/**
-	 * @return Google_Service_Safebrowsing_ThreatMatch
-	 */
-	public function getMatches()
-	{
-		return $this->matches;
-	}
+  /**
+   * @param Google_Service_Safebrowsing_ThreatMatch[]
+   */
+  public function setMatches($matches)
+  {
+    $this->matches = $matches;
+  }
+  /**
+   * @return Google_Service_Safebrowsing_ThreatMatch[]
+   */
+  public function getMatches()
+  {
+    return $this->matches;
+  }
 }

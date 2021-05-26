@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_RegionalLocationListAssignedTargetingOptionDetails extends Google_Model
 {
-	public $negative;
-	public $regionalLocationListId;
+  public $negative;
+  public $regionalLocationListId;
 
-	public function setNegative($negative)
-	{
-		$this->negative = $negative;
-	}
-	public function getNegative()
-	{
-		return $this->negative;
-	}
-	public function setRegionalLocationListId($regionalLocationListId)
-	{
-		$this->regionalLocationListId = $regionalLocationListId;
-	}
-	public function getRegionalLocationListId()
-	{
-		return $this->regionalLocationListId;
-	}
+  public function setNegative($negative)
+  {
+    $this->negative = $negative;
+  }
+  public function getNegative()
+  {
+    return $this->negative;
+  }
+  public function setRegionalLocationListId($regionalLocationListId)
+  {
+    $this->regionalLocationListId = $regionalLocationListId;
+  }
+  public function getRegionalLocationListId()
+  {
+    return $this->regionalLocationListId;
+  }
 }

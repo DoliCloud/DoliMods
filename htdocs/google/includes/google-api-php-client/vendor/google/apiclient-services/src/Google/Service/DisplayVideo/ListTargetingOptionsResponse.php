@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListTargetingOptionsResponse extends Google_Collection
 {
-	protected $collection_key = 'targetingOptions';
-	public $nextPageToken;
-	protected $targetingOptionsType = 'Google_Service_DisplayVideo_TargetingOption';
-	protected $targetingOptionsDataType = 'array';
+  protected $collection_key = 'targetingOptions';
+  public $nextPageToken;
+  protected $targetingOptionsType = 'Google_Service_DisplayVideo_TargetingOption';
+  protected $targetingOptionsDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_DisplayVideo_TargetingOption
-	 */
-	public function setTargetingOptions($targetingOptions)
-	{
-		$this->targetingOptions = $targetingOptions;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_TargetingOption
-	 */
-	public function getTargetingOptions()
-	{
-		return $this->targetingOptions;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_DisplayVideo_TargetingOption[]
+   */
+  public function setTargetingOptions($targetingOptions)
+  {
+    $this->targetingOptions = $targetingOptions;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_TargetingOption[]
+   */
+  public function getTargetingOptions()
+  {
+    return $this->targetingOptions;
+  }
 }

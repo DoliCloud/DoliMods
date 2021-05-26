@@ -17,149 +17,149 @@
 
 class Google_Service_Bigquery_ExternalDataConfiguration extends Google_Collection
 {
-	protected $collection_key = 'sourceUris';
-	public $autodetect;
-	protected $bigtableOptionsType = 'Google_Service_Bigquery_BigtableOptions';
-	protected $bigtableOptionsDataType = '';
-	public $compression;
-	public $connectionId;
-	protected $csvOptionsType = 'Google_Service_Bigquery_CsvOptions';
-	protected $csvOptionsDataType = '';
-	protected $googleSheetsOptionsType = 'Google_Service_Bigquery_GoogleSheetsOptions';
-	protected $googleSheetsOptionsDataType = '';
-	protected $hivePartitioningOptionsType = 'Google_Service_Bigquery_HivePartitioningOptions';
-	protected $hivePartitioningOptionsDataType = '';
-	public $ignoreUnknownValues;
-	public $maxBadRecords;
-	protected $schemaType = 'Google_Service_Bigquery_TableSchema';
-	protected $schemaDataType = '';
-	public $sourceFormat;
-	public $sourceUris;
+  protected $collection_key = 'sourceUris';
+  public $autodetect;
+  protected $bigtableOptionsType = 'Google_Service_Bigquery_BigtableOptions';
+  protected $bigtableOptionsDataType = '';
+  public $compression;
+  public $connectionId;
+  protected $csvOptionsType = 'Google_Service_Bigquery_CsvOptions';
+  protected $csvOptionsDataType = '';
+  protected $googleSheetsOptionsType = 'Google_Service_Bigquery_GoogleSheetsOptions';
+  protected $googleSheetsOptionsDataType = '';
+  protected $hivePartitioningOptionsType = 'Google_Service_Bigquery_HivePartitioningOptions';
+  protected $hivePartitioningOptionsDataType = '';
+  public $ignoreUnknownValues;
+  public $maxBadRecords;
+  protected $schemaType = 'Google_Service_Bigquery_TableSchema';
+  protected $schemaDataType = '';
+  public $sourceFormat;
+  public $sourceUris;
 
-	public function setAutodetect($autodetect)
-	{
-		$this->autodetect = $autodetect;
-	}
-	public function getAutodetect()
-	{
-		return $this->autodetect;
-	}
-	/**
-	 * @param Google_Service_Bigquery_BigtableOptions
-	 */
-	public function setBigtableOptions(Google_Service_Bigquery_BigtableOptions $bigtableOptions)
-	{
-		$this->bigtableOptions = $bigtableOptions;
-	}
-	/**
-	 * @return Google_Service_Bigquery_BigtableOptions
-	 */
-	public function getBigtableOptions()
-	{
-		return $this->bigtableOptions;
-	}
-	public function setCompression($compression)
-	{
-		$this->compression = $compression;
-	}
-	public function getCompression()
-	{
-		return $this->compression;
-	}
-	public function setConnectionId($connectionId)
-	{
-		$this->connectionId = $connectionId;
-	}
-	public function getConnectionId()
-	{
-		return $this->connectionId;
-	}
-	/**
-	 * @param Google_Service_Bigquery_CsvOptions
-	 */
-	public function setCsvOptions(Google_Service_Bigquery_CsvOptions $csvOptions)
-	{
-		$this->csvOptions = $csvOptions;
-	}
-	/**
-	 * @return Google_Service_Bigquery_CsvOptions
-	 */
-	public function getCsvOptions()
-	{
-		return $this->csvOptions;
-	}
-	/**
-	 * @param Google_Service_Bigquery_GoogleSheetsOptions
-	 */
-	public function setGoogleSheetsOptions(Google_Service_Bigquery_GoogleSheetsOptions $googleSheetsOptions)
-	{
-		$this->googleSheetsOptions = $googleSheetsOptions;
-	}
-	/**
-	 * @return Google_Service_Bigquery_GoogleSheetsOptions
-	 */
-	public function getGoogleSheetsOptions()
-	{
-		return $this->googleSheetsOptions;
-	}
-	/**
-	 * @param Google_Service_Bigquery_HivePartitioningOptions
-	 */
-	public function setHivePartitioningOptions(Google_Service_Bigquery_HivePartitioningOptions $hivePartitioningOptions)
-	{
-		$this->hivePartitioningOptions = $hivePartitioningOptions;
-	}
-	/**
-	 * @return Google_Service_Bigquery_HivePartitioningOptions
-	 */
-	public function getHivePartitioningOptions()
-	{
-		return $this->hivePartitioningOptions;
-	}
-	public function setIgnoreUnknownValues($ignoreUnknownValues)
-	{
-		$this->ignoreUnknownValues = $ignoreUnknownValues;
-	}
-	public function getIgnoreUnknownValues()
-	{
-		return $this->ignoreUnknownValues;
-	}
-	public function setMaxBadRecords($maxBadRecords)
-	{
-		$this->maxBadRecords = $maxBadRecords;
-	}
-	public function getMaxBadRecords()
-	{
-		return $this->maxBadRecords;
-	}
-	/**
-	 * @param Google_Service_Bigquery_TableSchema
-	 */
-	public function setSchema(Google_Service_Bigquery_TableSchema $schema)
-	{
-		$this->schema = $schema;
-	}
-	/**
-	 * @return Google_Service_Bigquery_TableSchema
-	 */
-	public function getSchema()
-	{
-		return $this->schema;
-	}
-	public function setSourceFormat($sourceFormat)
-	{
-		$this->sourceFormat = $sourceFormat;
-	}
-	public function getSourceFormat()
-	{
-		return $this->sourceFormat;
-	}
-	public function setSourceUris($sourceUris)
-	{
-		$this->sourceUris = $sourceUris;
-	}
-	public function getSourceUris()
-	{
-		return $this->sourceUris;
-	}
+  public function setAutodetect($autodetect)
+  {
+    $this->autodetect = $autodetect;
+  }
+  public function getAutodetect()
+  {
+    return $this->autodetect;
+  }
+  /**
+   * @param Google_Service_Bigquery_BigtableOptions
+   */
+  public function setBigtableOptions(Google_Service_Bigquery_BigtableOptions $bigtableOptions)
+  {
+    $this->bigtableOptions = $bigtableOptions;
+  }
+  /**
+   * @return Google_Service_Bigquery_BigtableOptions
+   */
+  public function getBigtableOptions()
+  {
+    return $this->bigtableOptions;
+  }
+  public function setCompression($compression)
+  {
+    $this->compression = $compression;
+  }
+  public function getCompression()
+  {
+    return $this->compression;
+  }
+  public function setConnectionId($connectionId)
+  {
+    $this->connectionId = $connectionId;
+  }
+  public function getConnectionId()
+  {
+    return $this->connectionId;
+  }
+  /**
+   * @param Google_Service_Bigquery_CsvOptions
+   */
+  public function setCsvOptions(Google_Service_Bigquery_CsvOptions $csvOptions)
+  {
+    $this->csvOptions = $csvOptions;
+  }
+  /**
+   * @return Google_Service_Bigquery_CsvOptions
+   */
+  public function getCsvOptions()
+  {
+    return $this->csvOptions;
+  }
+  /**
+   * @param Google_Service_Bigquery_GoogleSheetsOptions
+   */
+  public function setGoogleSheetsOptions(Google_Service_Bigquery_GoogleSheetsOptions $googleSheetsOptions)
+  {
+    $this->googleSheetsOptions = $googleSheetsOptions;
+  }
+  /**
+   * @return Google_Service_Bigquery_GoogleSheetsOptions
+   */
+  public function getGoogleSheetsOptions()
+  {
+    return $this->googleSheetsOptions;
+  }
+  /**
+   * @param Google_Service_Bigquery_HivePartitioningOptions
+   */
+  public function setHivePartitioningOptions(Google_Service_Bigquery_HivePartitioningOptions $hivePartitioningOptions)
+  {
+    $this->hivePartitioningOptions = $hivePartitioningOptions;
+  }
+  /**
+   * @return Google_Service_Bigquery_HivePartitioningOptions
+   */
+  public function getHivePartitioningOptions()
+  {
+    return $this->hivePartitioningOptions;
+  }
+  public function setIgnoreUnknownValues($ignoreUnknownValues)
+  {
+    $this->ignoreUnknownValues = $ignoreUnknownValues;
+  }
+  public function getIgnoreUnknownValues()
+  {
+    return $this->ignoreUnknownValues;
+  }
+  public function setMaxBadRecords($maxBadRecords)
+  {
+    $this->maxBadRecords = $maxBadRecords;
+  }
+  public function getMaxBadRecords()
+  {
+    return $this->maxBadRecords;
+  }
+  /**
+   * @param Google_Service_Bigquery_TableSchema
+   */
+  public function setSchema(Google_Service_Bigquery_TableSchema $schema)
+  {
+    $this->schema = $schema;
+  }
+  /**
+   * @return Google_Service_Bigquery_TableSchema
+   */
+  public function getSchema()
+  {
+    return $this->schema;
+  }
+  public function setSourceFormat($sourceFormat)
+  {
+    $this->sourceFormat = $sourceFormat;
+  }
+  public function getSourceFormat()
+  {
+    return $this->sourceFormat;
+  }
+  public function setSourceUris($sourceUris)
+  {
+    $this->sourceUris = $sourceUris;
+  }
+  public function getSourceUris()
+  {
+    return $this->sourceUris;
+  }
 }

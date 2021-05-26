@@ -17,46 +17,46 @@
 
 class Google_Service_CloudHealthcare_DeidentifyDicomStoreRequest extends Google_Model
 {
-	protected $configType = 'Google_Service_CloudHealthcare_DeidentifyConfig';
-	protected $configDataType = '';
-	public $destinationStore;
-	protected $filterConfigType = 'Google_Service_CloudHealthcare_DicomFilterConfig';
-	protected $filterConfigDataType = '';
+  protected $configType = 'Google_Service_CloudHealthcare_DeidentifyConfig';
+  protected $configDataType = '';
+  public $destinationStore;
+  protected $filterConfigType = 'Google_Service_CloudHealthcare_DicomFilterConfig';
+  protected $filterConfigDataType = '';
 
-	/**
-	 * @param Google_Service_CloudHealthcare_DeidentifyConfig
-	 */
-	public function setConfig(Google_Service_CloudHealthcare_DeidentifyConfig $config)
-	{
-		$this->config = $config;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_DeidentifyConfig
-	 */
-	public function getConfig()
-	{
-		return $this->config;
-	}
-	public function setDestinationStore($destinationStore)
-	{
-		$this->destinationStore = $destinationStore;
-	}
-	public function getDestinationStore()
-	{
-		return $this->destinationStore;
-	}
-	/**
-	 * @param Google_Service_CloudHealthcare_DicomFilterConfig
-	 */
-	public function setFilterConfig(Google_Service_CloudHealthcare_DicomFilterConfig $filterConfig)
-	{
-		$this->filterConfig = $filterConfig;
-	}
-	/**
-	 * @return Google_Service_CloudHealthcare_DicomFilterConfig
-	 */
-	public function getFilterConfig()
-	{
-		return $this->filterConfig;
-	}
+  /**
+   * @param Google_Service_CloudHealthcare_DeidentifyConfig
+   */
+  public function setConfig(Google_Service_CloudHealthcare_DeidentifyConfig $config)
+  {
+    $this->config = $config;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_DeidentifyConfig
+   */
+  public function getConfig()
+  {
+    return $this->config;
+  }
+  public function setDestinationStore($destinationStore)
+  {
+    $this->destinationStore = $destinationStore;
+  }
+  public function getDestinationStore()
+  {
+    return $this->destinationStore;
+  }
+  /**
+   * @param Google_Service_CloudHealthcare_DicomFilterConfig
+   */
+  public function setFilterConfig(Google_Service_CloudHealthcare_DicomFilterConfig $filterConfig)
+  {
+    $this->filterConfig = $filterConfig;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_DicomFilterConfig
+   */
+  public function getFilterConfig()
+  {
+    return $this->filterConfig;
+  }
 }

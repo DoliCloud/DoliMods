@@ -17,39 +17,39 @@
 
 class Google_Service_PeopleService_FieldMetadata extends Google_Model
 {
-	public $primary;
-	protected $sourceType = 'Google_Service_PeopleService_Source';
-	protected $sourceDataType = '';
-	public $verified;
+  public $primary;
+  protected $sourceType = 'Google_Service_PeopleService_Source';
+  protected $sourceDataType = '';
+  public $verified;
 
-	public function setPrimary($primary)
-	{
-		$this->primary = $primary;
-	}
-	public function getPrimary()
-	{
-		return $this->primary;
-	}
-	/**
-	 * @param Google_Service_PeopleService_Source
-	 */
-	public function setSource(Google_Service_PeopleService_Source $source)
-	{
-		$this->source = $source;
-	}
-	/**
-	 * @return Google_Service_PeopleService_Source
-	 */
-	public function getSource()
-	{
-		return $this->source;
-	}
-	public function setVerified($verified)
-	{
-		$this->verified = $verified;
-	}
-	public function getVerified()
-	{
-		return $this->verified;
-	}
+  public function setPrimary($primary)
+  {
+    $this->primary = $primary;
+  }
+  public function getPrimary()
+  {
+    return $this->primary;
+  }
+  /**
+   * @param Google_Service_PeopleService_Source
+   */
+  public function setSource(Google_Service_PeopleService_Source $source)
+  {
+    $this->source = $source;
+  }
+  /**
+   * @return Google_Service_PeopleService_Source
+   */
+  public function getSource()
+  {
+    return $this->source;
+  }
+  public function setVerified($verified)
+  {
+    $this->verified = $verified;
+  }
+  public function getVerified()
+  {
+    return $this->verified;
+  }
 }

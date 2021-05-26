@@ -17,111 +17,111 @@
 
 class Google_Service_Compute_DiskType extends Google_Model
 {
-	public $creationTimestamp;
-	public $defaultDiskSizeGb;
-	protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
-	protected $deprecatedDataType = '';
-	public $description;
-	public $id;
-	public $kind;
-	public $name;
-	public $region;
-	public $selfLink;
-	public $validDiskSize;
-	public $zone;
+  public $creationTimestamp;
+  public $defaultDiskSizeGb;
+  protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
+  protected $deprecatedDataType = '';
+  public $description;
+  public $id;
+  public $kind;
+  public $name;
+  public $region;
+  public $selfLink;
+  public $validDiskSize;
+  public $zone;
 
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	public function setDefaultDiskSizeGb($defaultDiskSizeGb)
-	{
-		$this->defaultDiskSizeGb = $defaultDiskSizeGb;
-	}
-	public function getDefaultDiskSizeGb()
-	{
-		return $this->defaultDiskSizeGb;
-	}
-	/**
-	 * @param Google_Service_Compute_DeprecationStatus
-	 */
-	public function setDeprecated(Google_Service_Compute_DeprecationStatus $deprecated)
-	{
-		$this->deprecated = $deprecated;
-	}
-	/**
-	 * @return Google_Service_Compute_DeprecationStatus
-	 */
-	public function getDeprecated()
-	{
-		return $this->deprecated;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRegion($region)
-	{
-		$this->region = $region;
-	}
-	public function getRegion()
-	{
-		return $this->region;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setValidDiskSize($validDiskSize)
-	{
-		$this->validDiskSize = $validDiskSize;
-	}
-	public function getValidDiskSize()
-	{
-		return $this->validDiskSize;
-	}
-	public function setZone($zone)
-	{
-		$this->zone = $zone;
-	}
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  public function setDefaultDiskSizeGb($defaultDiskSizeGb)
+  {
+    $this->defaultDiskSizeGb = $defaultDiskSizeGb;
+  }
+  public function getDefaultDiskSizeGb()
+  {
+    return $this->defaultDiskSizeGb;
+  }
+  /**
+   * @param Google_Service_Compute_DeprecationStatus
+   */
+  public function setDeprecated(Google_Service_Compute_DeprecationStatus $deprecated)
+  {
+    $this->deprecated = $deprecated;
+  }
+  /**
+   * @return Google_Service_Compute_DeprecationStatus
+   */
+  public function getDeprecated()
+  {
+    return $this->deprecated;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRegion($region)
+  {
+    $this->region = $region;
+  }
+  public function getRegion()
+  {
+    return $this->region;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setValidDiskSize($validDiskSize)
+  {
+    $this->validDiskSize = $validDiskSize;
+  }
+  public function getValidDiskSize()
+  {
+    return $this->validDiskSize;
+  }
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

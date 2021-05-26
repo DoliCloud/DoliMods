@@ -17,48 +17,48 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaUpdateInstanceRequest extends Google_Model
 {
-	protected $instanceType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance';
-	protected $instanceDataType = '';
-	public $loggingEnabled;
-	public $name;
-	public $updateMask;
+  protected $instanceType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance';
+  protected $instanceDataType = '';
+  public $loggingEnabled;
+  public $name;
+  public $updateMask;
 
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
-	 */
-	public function setInstance(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance $instance)
-	{
-		$this->instance = $instance;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
-	 */
-	public function getInstance()
-	{
-		return $this->instance;
-	}
-	public function setLoggingEnabled($loggingEnabled)
-	{
-		$this->loggingEnabled = $loggingEnabled;
-	}
-	public function getLoggingEnabled()
-	{
-		return $this->loggingEnabled;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUpdateMask($updateMask)
-	{
-		$this->updateMask = $updateMask;
-	}
-	public function getUpdateMask()
-	{
-		return $this->updateMask;
-	}
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
+   */
+  public function setInstance(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance $instance)
+  {
+    $this->instance = $instance;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaInstance
+   */
+  public function getInstance()
+  {
+    return $this->instance;
+  }
+  public function setLoggingEnabled($loggingEnabled)
+  {
+    $this->loggingEnabled = $loggingEnabled;
+  }
+  public function getLoggingEnabled()
+  {
+    return $this->loggingEnabled;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
+  }
 }

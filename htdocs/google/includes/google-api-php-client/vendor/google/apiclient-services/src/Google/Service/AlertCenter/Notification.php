@@ -17,21 +17,21 @@
 
 class Google_Service_AlertCenter_Notification extends Google_Model
 {
-	protected $cloudPubsubTopicType = 'Google_Service_AlertCenter_CloudPubsubTopic';
-	protected $cloudPubsubTopicDataType = '';
+  protected $cloudPubsubTopicType = 'Google_Service_AlertCenter_CloudPubsubTopic';
+  protected $cloudPubsubTopicDataType = '';
 
-	/**
-	 * @param Google_Service_AlertCenter_CloudPubsubTopic
-	 */
-	public function setCloudPubsubTopic(Google_Service_AlertCenter_CloudPubsubTopic $cloudPubsubTopic)
-	{
-		$this->cloudPubsubTopic = $cloudPubsubTopic;
-	}
-	/**
-	 * @return Google_Service_AlertCenter_CloudPubsubTopic
-	 */
-	public function getCloudPubsubTopic()
-	{
-		return $this->cloudPubsubTopic;
-	}
+  /**
+   * @param Google_Service_AlertCenter_CloudPubsubTopic
+   */
+  public function setCloudPubsubTopic(Google_Service_AlertCenter_CloudPubsubTopic $cloudPubsubTopic)
+  {
+    $this->cloudPubsubTopic = $cloudPubsubTopic;
+  }
+  /**
+   * @return Google_Service_AlertCenter_CloudPubsubTopic
+   */
+  public function getCloudPubsubTopic()
+  {
+    return $this->cloudPubsubTopic;
+  }
 }

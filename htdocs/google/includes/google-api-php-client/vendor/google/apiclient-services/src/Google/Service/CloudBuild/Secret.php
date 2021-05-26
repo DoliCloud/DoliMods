@@ -17,23 +17,23 @@
 
 class Google_Service_CloudBuild_Secret extends Google_Model
 {
-	public $kmsKeyName;
-	public $secretEnv;
+  public $kmsKeyName;
+  public $secretEnv;
 
-	public function setKmsKeyName($kmsKeyName)
-	{
-		$this->kmsKeyName = $kmsKeyName;
-	}
-	public function getKmsKeyName()
-	{
-		return $this->kmsKeyName;
-	}
-	public function setSecretEnv($secretEnv)
-	{
-		$this->secretEnv = $secretEnv;
-	}
-	public function getSecretEnv()
-	{
-		return $this->secretEnv;
-	}
+  public function setKmsKeyName($kmsKeyName)
+  {
+    $this->kmsKeyName = $kmsKeyName;
+  }
+  public function getKmsKeyName()
+  {
+    return $this->kmsKeyName;
+  }
+  public function setSecretEnv($secretEnv)
+  {
+    $this->secretEnv = $secretEnv;
+  }
+  public function getSecretEnv()
+  {
+    return $this->secretEnv;
+  }
 }

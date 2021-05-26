@@ -17,41 +17,41 @@
 
 class Google_Service_Bigquery_RankingMetrics extends Google_Model
 {
-	public $averageRank;
-	public $meanAveragePrecision;
-	public $meanSquaredError;
-	public $normalizedDiscountedCumulativeGain;
+  public $averageRank;
+  public $meanAveragePrecision;
+  public $meanSquaredError;
+  public $normalizedDiscountedCumulativeGain;
 
-	public function setAverageRank($averageRank)
-	{
-		$this->averageRank = $averageRank;
-	}
-	public function getAverageRank()
-	{
-		return $this->averageRank;
-	}
-	public function setMeanAveragePrecision($meanAveragePrecision)
-	{
-		$this->meanAveragePrecision = $meanAveragePrecision;
-	}
-	public function getMeanAveragePrecision()
-	{
-		return $this->meanAveragePrecision;
-	}
-	public function setMeanSquaredError($meanSquaredError)
-	{
-		$this->meanSquaredError = $meanSquaredError;
-	}
-	public function getMeanSquaredError()
-	{
-		return $this->meanSquaredError;
-	}
-	public function setNormalizedDiscountedCumulativeGain($normalizedDiscountedCumulativeGain)
-	{
-		$this->normalizedDiscountedCumulativeGain = $normalizedDiscountedCumulativeGain;
-	}
-	public function getNormalizedDiscountedCumulativeGain()
-	{
-		return $this->normalizedDiscountedCumulativeGain;
-	}
+  public function setAverageRank($averageRank)
+  {
+    $this->averageRank = $averageRank;
+  }
+  public function getAverageRank()
+  {
+    return $this->averageRank;
+  }
+  public function setMeanAveragePrecision($meanAveragePrecision)
+  {
+    $this->meanAveragePrecision = $meanAveragePrecision;
+  }
+  public function getMeanAveragePrecision()
+  {
+    return $this->meanAveragePrecision;
+  }
+  public function setMeanSquaredError($meanSquaredError)
+  {
+    $this->meanSquaredError = $meanSquaredError;
+  }
+  public function getMeanSquaredError()
+  {
+    return $this->meanSquaredError;
+  }
+  public function setNormalizedDiscountedCumulativeGain($normalizedDiscountedCumulativeGain)
+  {
+    $this->normalizedDiscountedCumulativeGain = $normalizedDiscountedCumulativeGain;
+  }
+  public function getNormalizedDiscountedCumulativeGain()
+  {
+    return $this->normalizedDiscountedCumulativeGain;
+  }
 }

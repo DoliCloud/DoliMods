@@ -17,30 +17,30 @@
 
 class Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse extends Google_Model
 {
-	public $kind;
-	protected $orderType = 'Google_Service_ShoppingContent_Order';
-	protected $orderDataType = '';
+  public $kind;
+  protected $orderType = 'Google_Service_ShoppingContent_Order';
+  protected $orderDataType = '';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_Order
-	 */
-	public function setOrder(Google_Service_ShoppingContent_Order $order)
-	{
-		$this->order = $order;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_Order
-	 */
-	public function getOrder()
-	{
-		return $this->order;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_Order
+   */
+  public function setOrder(Google_Service_ShoppingContent_Order $order)
+  {
+    $this->order = $order;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_Order
+   */
+  public function getOrder()
+  {
+    return $this->order;
+  }
 }

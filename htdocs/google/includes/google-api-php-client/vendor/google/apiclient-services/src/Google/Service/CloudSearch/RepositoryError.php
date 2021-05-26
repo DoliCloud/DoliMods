@@ -17,32 +17,32 @@
 
 class Google_Service_CloudSearch_RepositoryError extends Google_Model
 {
-	public $errorMessage;
-	public $httpStatusCode;
-	public $type;
+  public $errorMessage;
+  public $httpStatusCode;
+  public $type;
 
-	public function setErrorMessage($errorMessage)
-	{
-		$this->errorMessage = $errorMessage;
-	}
-	public function getErrorMessage()
-	{
-		return $this->errorMessage;
-	}
-	public function setHttpStatusCode($httpStatusCode)
-	{
-		$this->httpStatusCode = $httpStatusCode;
-	}
-	public function getHttpStatusCode()
-	{
-		return $this->httpStatusCode;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setErrorMessage($errorMessage)
+  {
+    $this->errorMessage = $errorMessage;
+  }
+  public function getErrorMessage()
+  {
+    return $this->errorMessage;
+  }
+  public function setHttpStatusCode($httpStatusCode)
+  {
+    $this->httpStatusCode = $httpStatusCode;
+  }
+  public function getHttpStatusCode()
+  {
+    return $this->httpStatusCode;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

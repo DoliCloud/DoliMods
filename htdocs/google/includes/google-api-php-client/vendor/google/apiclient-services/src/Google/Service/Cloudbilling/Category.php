@@ -17,41 +17,41 @@
 
 class Google_Service_Cloudbilling_Category extends Google_Model
 {
-	public $resourceFamily;
-	public $resourceGroup;
-	public $serviceDisplayName;
-	public $usageType;
+  public $resourceFamily;
+  public $resourceGroup;
+  public $serviceDisplayName;
+  public $usageType;
 
-	public function setResourceFamily($resourceFamily)
-	{
-		$this->resourceFamily = $resourceFamily;
-	}
-	public function getResourceFamily()
-	{
-		return $this->resourceFamily;
-	}
-	public function setResourceGroup($resourceGroup)
-	{
-		$this->resourceGroup = $resourceGroup;
-	}
-	public function getResourceGroup()
-	{
-		return $this->resourceGroup;
-	}
-	public function setServiceDisplayName($serviceDisplayName)
-	{
-		$this->serviceDisplayName = $serviceDisplayName;
-	}
-	public function getServiceDisplayName()
-	{
-		return $this->serviceDisplayName;
-	}
-	public function setUsageType($usageType)
-	{
-		$this->usageType = $usageType;
-	}
-	public function getUsageType()
-	{
-		return $this->usageType;
-	}
+  public function setResourceFamily($resourceFamily)
+  {
+    $this->resourceFamily = $resourceFamily;
+  }
+  public function getResourceFamily()
+  {
+    return $this->resourceFamily;
+  }
+  public function setResourceGroup($resourceGroup)
+  {
+    $this->resourceGroup = $resourceGroup;
+  }
+  public function getResourceGroup()
+  {
+    return $this->resourceGroup;
+  }
+  public function setServiceDisplayName($serviceDisplayName)
+  {
+    $this->serviceDisplayName = $serviceDisplayName;
+  }
+  public function getServiceDisplayName()
+  {
+    return $this->serviceDisplayName;
+  }
+  public function setUsageType($usageType)
+  {
+    $this->usageType = $usageType;
+  }
+  public function getUsageType()
+  {
+    return $this->usageType;
+  }
 }

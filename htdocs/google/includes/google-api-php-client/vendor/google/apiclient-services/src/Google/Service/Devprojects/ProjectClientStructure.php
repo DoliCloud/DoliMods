@@ -17,34 +17,34 @@
 
 class Google_Service_Devprojects_ProjectClientStructure extends Google_Collection
 {
-	protected $collection_key = 'client';
-	protected $clientType = 'Google_Service_Devprojects_Client';
-	protected $clientDataType = 'array';
-	public $kind;
-	public $projectId;
+  protected $collection_key = 'client';
+  protected $clientType = 'Google_Service_Devprojects_Client';
+  protected $clientDataType = 'array';
+  public $kind;
+  public $projectId;
 
-	public function setClient($client)
-	{
-		$this->client = $client;
-	}
-	public function getClient()
-	{
-		return $this->client;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
+  public function setClient($client)
+  {
+    $this->client = $client;
+  }
+  public function getClient()
+  {
+    return $this->client;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
 }

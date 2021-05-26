@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SectionColumnProperties extends Google_Model
 {
-	protected $paddingEndType = 'Google_Service_Docs_Dimension';
-	protected $paddingEndDataType = '';
-	protected $widthType = 'Google_Service_Docs_Dimension';
-	protected $widthDataType = '';
+  protected $paddingEndType = 'Google_Service_Docs_Dimension';
+  protected $paddingEndDataType = '';
+  protected $widthType = 'Google_Service_Docs_Dimension';
+  protected $widthDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_Dimension
-	 */
-	public function setPaddingEnd(Google_Service_Docs_Dimension $paddingEnd)
-	{
-		$this->paddingEnd = $paddingEnd;
-	}
-	/**
-	 * @return Google_Service_Docs_Dimension
-	 */
-	public function getPaddingEnd()
-	{
-		return $this->paddingEnd;
-	}
-	/**
-	 * @param Google_Service_Docs_Dimension
-	 */
-	public function setWidth(Google_Service_Docs_Dimension $width)
-	{
-		$this->width = $width;
-	}
-	/**
-	 * @return Google_Service_Docs_Dimension
-	 */
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  /**
+   * @param Google_Service_Docs_Dimension
+   */
+  public function setPaddingEnd(Google_Service_Docs_Dimension $paddingEnd)
+  {
+    $this->paddingEnd = $paddingEnd;
+  }
+  /**
+   * @return Google_Service_Docs_Dimension
+   */
+  public function getPaddingEnd()
+  {
+    return $this->paddingEnd;
+  }
+  /**
+   * @param Google_Service_Docs_Dimension
+   */
+  public function setWidth(Google_Service_Docs_Dimension $width)
+  {
+    $this->width = $width;
+  }
+  /**
+   * @return Google_Service_Docs_Dimension
+   */
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

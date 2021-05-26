@@ -17,48 +17,48 @@
 
 class Google_Service_BinaryAuthorization_AttestorPublicKey extends Google_Model
 {
-	public $asciiArmoredPgpPublicKey;
-	public $comment;
-	public $id;
-	protected $pkixPublicKeyType = 'Google_Service_BinaryAuthorization_PkixPublicKey';
-	protected $pkixPublicKeyDataType = '';
+  public $asciiArmoredPgpPublicKey;
+  public $comment;
+  public $id;
+  protected $pkixPublicKeyType = 'Google_Service_BinaryAuthorization_PkixPublicKey';
+  protected $pkixPublicKeyDataType = '';
 
-	public function setAsciiArmoredPgpPublicKey($asciiArmoredPgpPublicKey)
-	{
-		$this->asciiArmoredPgpPublicKey = $asciiArmoredPgpPublicKey;
-	}
-	public function getAsciiArmoredPgpPublicKey()
-	{
-		return $this->asciiArmoredPgpPublicKey;
-	}
-	public function setComment($comment)
-	{
-		$this->comment = $comment;
-	}
-	public function getComment()
-	{
-		return $this->comment;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_BinaryAuthorization_PkixPublicKey
-	 */
-	public function setPkixPublicKey(Google_Service_BinaryAuthorization_PkixPublicKey $pkixPublicKey)
-	{
-		$this->pkixPublicKey = $pkixPublicKey;
-	}
-	/**
-	 * @return Google_Service_BinaryAuthorization_PkixPublicKey
-	 */
-	public function getPkixPublicKey()
-	{
-		return $this->pkixPublicKey;
-	}
+  public function setAsciiArmoredPgpPublicKey($asciiArmoredPgpPublicKey)
+  {
+    $this->asciiArmoredPgpPublicKey = $asciiArmoredPgpPublicKey;
+  }
+  public function getAsciiArmoredPgpPublicKey()
+  {
+    return $this->asciiArmoredPgpPublicKey;
+  }
+  public function setComment($comment)
+  {
+    $this->comment = $comment;
+  }
+  public function getComment()
+  {
+    return $this->comment;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_BinaryAuthorization_PkixPublicKey
+   */
+  public function setPkixPublicKey(Google_Service_BinaryAuthorization_PkixPublicKey $pkixPublicKey)
+  {
+    $this->pkixPublicKey = $pkixPublicKey;
+  }
+  /**
+   * @return Google_Service_BinaryAuthorization_PkixPublicKey
+   */
+  public function getPkixPublicKey()
+  {
+    return $this->pkixPublicKey;
+  }
 }

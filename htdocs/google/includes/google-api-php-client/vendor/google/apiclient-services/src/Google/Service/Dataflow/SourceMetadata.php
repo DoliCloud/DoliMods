@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_SourceMetadata extends Google_Model
 {
-	public $estimatedSizeBytes;
-	public $infinite;
-	public $producesSortedKeys;
+  public $estimatedSizeBytes;
+  public $infinite;
+  public $producesSortedKeys;
 
-	public function setEstimatedSizeBytes($estimatedSizeBytes)
-	{
-		$this->estimatedSizeBytes = $estimatedSizeBytes;
-	}
-	public function getEstimatedSizeBytes()
-	{
-		return $this->estimatedSizeBytes;
-	}
-	public function setInfinite($infinite)
-	{
-		$this->infinite = $infinite;
-	}
-	public function getInfinite()
-	{
-		return $this->infinite;
-	}
-	public function setProducesSortedKeys($producesSortedKeys)
-	{
-		$this->producesSortedKeys = $producesSortedKeys;
-	}
-	public function getProducesSortedKeys()
-	{
-		return $this->producesSortedKeys;
-	}
+  public function setEstimatedSizeBytes($estimatedSizeBytes)
+  {
+    $this->estimatedSizeBytes = $estimatedSizeBytes;
+  }
+  public function getEstimatedSizeBytes()
+  {
+    return $this->estimatedSizeBytes;
+  }
+  public function setInfinite($infinite)
+  {
+    $this->infinite = $infinite;
+  }
+  public function getInfinite()
+  {
+    return $this->infinite;
+  }
+  public function setProducesSortedKeys($producesSortedKeys)
+  {
+    $this->producesSortedKeys = $producesSortedKeys;
+  }
+  public function getProducesSortedKeys()
+  {
+    return $this->producesSortedKeys;
+  }
 }

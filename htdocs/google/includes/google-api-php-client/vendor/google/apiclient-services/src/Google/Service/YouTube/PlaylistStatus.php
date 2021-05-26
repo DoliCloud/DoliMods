@@ -17,14 +17,14 @@
 
 class Google_Service_YouTube_PlaylistStatus extends Google_Model
 {
-	public $privacyStatus;
+  public $privacyStatus;
 
-	public function setPrivacyStatus($privacyStatus)
-	{
-		$this->privacyStatus = $privacyStatus;
-	}
-	public function getPrivacyStatus()
-	{
-		return $this->privacyStatus;
-	}
+  public function setPrivacyStatus($privacyStatus)
+  {
+    $this->privacyStatus = $privacyStatus;
+  }
+  public function getPrivacyStatus()
+  {
+    return $this->privacyStatus;
+  }
 }

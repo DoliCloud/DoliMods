@@ -25,20 +25,20 @@
  */
 class Google_Service_Dfareporting_Resource_CreativeAssets extends Google_Service_Resource
 {
-	/**
-	 * Inserts a new creative asset. (creativeAssets.insert)
-	 *
-	 * @param string $profileId User profile ID associated with this request.
-	 * @param string $advertiserId Advertiser ID of this creative. This is a
-	 *                             required field.
-	 * @param Google_Service_Dfareporting_CreativeAssetMetadata $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Dfareporting_CreativeAssetMetadata
-	 */
-	public function insert($profileId, $advertiserId, Google_Service_Dfareporting_CreativeAssetMetadata $postBody, $optParams = array())
-	{
-		$params = array('profileId' => $profileId, 'advertiserId' => $advertiserId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_Dfareporting_CreativeAssetMetadata");
-	}
+  /**
+   * Inserts a new creative asset. (creativeAssets.insert)
+   *
+   * @param string $profileId User profile ID associated with this request.
+   * @param string $advertiserId Advertiser ID of this creative. This is a
+   * required field.
+   * @param Google_Service_Dfareporting_CreativeAssetMetadata $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dfareporting_CreativeAssetMetadata
+   */
+  public function insert($profileId, $advertiserId, Google_Service_Dfareporting_CreativeAssetMetadata $postBody, $optParams = array())
+  {
+    $params = array('profileId' => $profileId, 'advertiserId' => $advertiserId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Dfareporting_CreativeAssetMetadata");
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_CustomEventsBatchInsertRequest extends Google_Collection
 {
-	protected $collection_key = 'customEvents';
-	protected $customEventsType = 'Google_Service_Dfareporting_CustomEvent';
-	protected $customEventsDataType = 'array';
-	public $kind;
+  protected $collection_key = 'customEvents';
+  protected $customEventsType = 'Google_Service_Dfareporting_CustomEvent';
+  protected $customEventsDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_Dfareporting_CustomEvent
-	 */
-	public function setCustomEvents($customEvents)
-	{
-		$this->customEvents = $customEvents;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_CustomEvent
-	 */
-	public function getCustomEvents()
-	{
-		return $this->customEvents;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_Dfareporting_CustomEvent[]
+   */
+  public function setCustomEvents($customEvents)
+  {
+    $this->customEvents = $customEvents;
+  }
+  /**
+   * @return Google_Service_Dfareporting_CustomEvent[]
+   */
+  public function getCustomEvents()
+  {
+    return $this->customEvents;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

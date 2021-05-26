@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk extends Google_Model
 {
-	public $diskSizeGb;
-	public $interface;
+  public $diskSizeGb;
+  public $interface;
 
-	public function setDiskSizeGb($diskSizeGb)
-	{
-		$this->diskSizeGb = $diskSizeGb;
-	}
-	public function getDiskSizeGb()
-	{
-		return $this->diskSizeGb;
-	}
-	public function setInterface($interface)
-	{
-		$this->interface = $interface;
-	}
-	public function getInterface()
-	{
-		return $this->interface;
-	}
+  public function setDiskSizeGb($diskSizeGb)
+  {
+    $this->diskSizeGb = $diskSizeGb;
+  }
+  public function getDiskSizeGb()
+  {
+    return $this->diskSizeGb;
+  }
+  public function setInterface($interface)
+  {
+    $this->interface = $interface;
+  }
+  public function getInterface()
+  {
+    return $this->interface;
+  }
 }

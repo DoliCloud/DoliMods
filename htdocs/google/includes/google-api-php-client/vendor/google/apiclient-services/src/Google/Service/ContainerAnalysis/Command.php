@@ -17,60 +17,60 @@
 
 class Google_Service_ContainerAnalysis_Command extends Google_Collection
 {
-	protected $collection_key = 'waitFor';
-	public $args;
-	public $dir;
-	public $env;
-	public $id;
-	public $name;
-	public $waitFor;
+  protected $collection_key = 'waitFor';
+  public $args;
+  public $dir;
+  public $env;
+  public $id;
+  public $name;
+  public $waitFor;
 
-	public function setArgs($args)
-	{
-		$this->args = $args;
-	}
-	public function getArgs()
-	{
-		return $this->args;
-	}
-	public function setDir($dir)
-	{
-		$this->dir = $dir;
-	}
-	public function getDir()
-	{
-		return $this->dir;
-	}
-	public function setEnv($env)
-	{
-		$this->env = $env;
-	}
-	public function getEnv()
-	{
-		return $this->env;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setWaitFor($waitFor)
-	{
-		$this->waitFor = $waitFor;
-	}
-	public function getWaitFor()
-	{
-		return $this->waitFor;
-	}
+  public function setArgs($args)
+  {
+    $this->args = $args;
+  }
+  public function getArgs()
+  {
+    return $this->args;
+  }
+  public function setDir($dir)
+  {
+    $this->dir = $dir;
+  }
+  public function getDir()
+  {
+    return $this->dir;
+  }
+  public function setEnv($env)
+  {
+    $this->env = $env;
+  }
+  public function getEnv()
+  {
+    return $this->env;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setWaitFor($waitFor)
+  {
+    $this->waitFor = $waitFor;
+  }
+  public function getWaitFor()
+  {
+    return $this->waitFor;
+  }
 }

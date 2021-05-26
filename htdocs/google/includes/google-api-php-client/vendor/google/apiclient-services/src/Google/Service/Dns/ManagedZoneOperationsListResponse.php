@@ -17,56 +17,56 @@
 
 class Google_Service_Dns_ManagedZoneOperationsListResponse extends Google_Collection
 {
-	protected $collection_key = 'operations';
-	protected $headerType = 'Google_Service_Dns_ResponseHeader';
-	protected $headerDataType = '';
-	public $kind;
-	public $nextPageToken;
-	protected $operationsType = 'Google_Service_Dns_Operation';
-	protected $operationsDataType = 'array';
+  protected $collection_key = 'operations';
+  protected $headerType = 'Google_Service_Dns_ResponseHeader';
+  protected $headerDataType = '';
+  public $kind;
+  public $nextPageToken;
+  protected $operationsType = 'Google_Service_Dns_Operation';
+  protected $operationsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dns_ResponseHeader
-	 */
-	public function setHeader(Google_Service_Dns_ResponseHeader $header)
-	{
-		$this->header = $header;
-	}
-	/**
-	 * @return Google_Service_Dns_ResponseHeader
-	 */
-	public function getHeader()
-	{
-		return $this->header;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_Dns_Operation
-	 */
-	public function setOperations($operations)
-	{
-		$this->operations = $operations;
-	}
-	/**
-	 * @return Google_Service_Dns_Operation
-	 */
-	public function getOperations()
-	{
-		return $this->operations;
-	}
+  /**
+   * @param Google_Service_Dns_ResponseHeader
+   */
+  public function setHeader(Google_Service_Dns_ResponseHeader $header)
+  {
+    $this->header = $header;
+  }
+  /**
+   * @return Google_Service_Dns_ResponseHeader
+   */
+  public function getHeader()
+  {
+    return $this->header;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_Dns_Operation[]
+   */
+  public function setOperations($operations)
+  {
+    $this->operations = $operations;
+  }
+  /**
+   * @return Google_Service_Dns_Operation[]
+   */
+  public function getOperations()
+  {
+    return $this->operations;
+  }
 }

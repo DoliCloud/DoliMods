@@ -17,23 +17,23 @@
 
 class Google_Service_Manager_EnvVariable extends Google_Model
 {
-	public $hidden;
-	public $value;
+  public $hidden;
+  public $value;
 
-	public function setHidden($hidden)
-	{
-		$this->hidden = $hidden;
-	}
-	public function getHidden()
-	{
-		return $this->hidden;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setHidden($hidden)
+  {
+    $this->hidden = $hidden;
+  }
+  public function getHidden()
+  {
+    return $this->hidden;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

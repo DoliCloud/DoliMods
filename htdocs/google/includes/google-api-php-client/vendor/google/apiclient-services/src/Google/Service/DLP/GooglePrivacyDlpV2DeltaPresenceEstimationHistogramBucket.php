@@ -17,58 +17,58 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationHistogramBucket extends Google_Collection
 {
-	protected $collection_key = 'bucketValues';
-	public $bucketSize;
-	public $bucketValueCount;
-	protected $bucketValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationQuasiIdValues';
-	protected $bucketValuesDataType = 'array';
-	public $maxProbability;
-	public $minProbability;
+  protected $collection_key = 'bucketValues';
+  public $bucketSize;
+  public $bucketValueCount;
+  protected $bucketValuesType = 'Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationQuasiIdValues';
+  protected $bucketValuesDataType = 'array';
+  public $maxProbability;
+  public $minProbability;
 
-	public function setBucketSize($bucketSize)
-	{
-		$this->bucketSize = $bucketSize;
-	}
-	public function getBucketSize()
-	{
-		return $this->bucketSize;
-	}
-	public function setBucketValueCount($bucketValueCount)
-	{
-		$this->bucketValueCount = $bucketValueCount;
-	}
-	public function getBucketValueCount()
-	{
-		return $this->bucketValueCount;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationQuasiIdValues
-	 */
-	public function setBucketValues($bucketValues)
-	{
-		$this->bucketValues = $bucketValues;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationQuasiIdValues
-	 */
-	public function getBucketValues()
-	{
-		return $this->bucketValues;
-	}
-	public function setMaxProbability($maxProbability)
-	{
-		$this->maxProbability = $maxProbability;
-	}
-	public function getMaxProbability()
-	{
-		return $this->maxProbability;
-	}
-	public function setMinProbability($minProbability)
-	{
-		$this->minProbability = $minProbability;
-	}
-	public function getMinProbability()
-	{
-		return $this->minProbability;
-	}
+  public function setBucketSize($bucketSize)
+  {
+    $this->bucketSize = $bucketSize;
+  }
+  public function getBucketSize()
+  {
+    return $this->bucketSize;
+  }
+  public function setBucketValueCount($bucketValueCount)
+  {
+    $this->bucketValueCount = $bucketValueCount;
+  }
+  public function getBucketValueCount()
+  {
+    return $this->bucketValueCount;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationQuasiIdValues[]
+   */
+  public function setBucketValues($bucketValues)
+  {
+    $this->bucketValues = $bucketValues;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2DeltaPresenceEstimationQuasiIdValues[]
+   */
+  public function getBucketValues()
+  {
+    return $this->bucketValues;
+  }
+  public function setMaxProbability($maxProbability)
+  {
+    $this->maxProbability = $maxProbability;
+  }
+  public function getMaxProbability()
+  {
+    return $this->maxProbability;
+  }
+  public function setMinProbability($minProbability)
+  {
+    $this->minProbability = $minProbability;
+  }
+  public function getMinProbability()
+  {
+    return $this->minProbability;
+  }
 }

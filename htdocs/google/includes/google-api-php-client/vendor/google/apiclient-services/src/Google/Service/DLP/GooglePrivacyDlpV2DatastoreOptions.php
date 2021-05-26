@@ -17,37 +17,37 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2DatastoreOptions extends Google_Model
 {
-	protected $kindType = 'Google_Service_DLP_GooglePrivacyDlpV2KindExpression';
-	protected $kindDataType = '';
-	protected $partitionIdType = 'Google_Service_DLP_GooglePrivacyDlpV2PartitionId';
-	protected $partitionIdDataType = '';
+  protected $kindType = 'Google_Service_DLP_GooglePrivacyDlpV2KindExpression';
+  protected $kindDataType = '';
+  protected $partitionIdType = 'Google_Service_DLP_GooglePrivacyDlpV2PartitionId';
+  protected $partitionIdDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2KindExpression
-	 */
-	public function setKind(Google_Service_DLP_GooglePrivacyDlpV2KindExpression $kind)
-	{
-		$this->kind = $kind;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2KindExpression
-	 */
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2PartitionId
-	 */
-	public function setPartitionId(Google_Service_DLP_GooglePrivacyDlpV2PartitionId $partitionId)
-	{
-		$this->partitionId = $partitionId;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2PartitionId
-	 */
-	public function getPartitionId()
-	{
-		return $this->partitionId;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2KindExpression
+   */
+  public function setKind(Google_Service_DLP_GooglePrivacyDlpV2KindExpression $kind)
+  {
+    $this->kind = $kind;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2KindExpression
+   */
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2PartitionId
+   */
+  public function setPartitionId(Google_Service_DLP_GooglePrivacyDlpV2PartitionId $partitionId)
+  {
+    $this->partitionId = $partitionId;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2PartitionId
+   */
+  public function getPartitionId()
+  {
+    return $this->partitionId;
+  }
 }

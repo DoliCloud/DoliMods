@@ -17,40 +17,40 @@
 
 class Google_Service_Compute_TargetSslProxyListWarning extends Google_Collection
 {
-	protected $collection_key = 'data';
-	public $code;
-	protected $dataType = 'Google_Service_Compute_TargetSslProxyListWarningData';
-	protected $dataDataType = 'array';
-	public $message;
+  protected $collection_key = 'data';
+  public $code;
+  protected $dataType = 'Google_Service_Compute_TargetSslProxyListWarningData';
+  protected $dataDataType = 'array';
+  public $message;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	/**
-	 * @param Google_Service_Compute_TargetSslProxyListWarningData
-	 */
-	public function setData($data)
-	{
-		$this->data = $data;
-	}
-	/**
-	 * @return Google_Service_Compute_TargetSslProxyListWarningData
-	 */
-	public function getData()
-	{
-		return $this->data;
-	}
-	public function setMessage($message)
-	{
-		$this->message = $message;
-	}
-	public function getMessage()
-	{
-		return $this->message;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  /**
+   * @param Google_Service_Compute_TargetSslProxyListWarningData[]
+   */
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  /**
+   * @return Google_Service_Compute_TargetSslProxyListWarningData[]
+   */
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setMessage($message)
+  {
+    $this->message = $message;
+  }
+  public function getMessage()
+  {
+    return $this->message;
+  }
 }

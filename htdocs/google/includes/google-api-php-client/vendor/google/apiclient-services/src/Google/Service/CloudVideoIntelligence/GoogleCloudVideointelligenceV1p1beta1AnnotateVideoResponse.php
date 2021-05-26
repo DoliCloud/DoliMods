@@ -17,22 +17,22 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1AnnotateVideoResponse extends Google_Collection
 {
-	protected $collection_key = 'annotationResults';
-	protected $annotationResultsType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1VideoAnnotationResults';
-	protected $annotationResultsDataType = 'array';
+  protected $collection_key = 'annotationResults';
+  protected $annotationResultsType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1VideoAnnotationResults';
+  protected $annotationResultsDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1VideoAnnotationResults
-	 */
-	public function setAnnotationResults($annotationResults)
-	{
-		$this->annotationResults = $annotationResults;
-	}
-	/**
-	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1VideoAnnotationResults
-	 */
-	public function getAnnotationResults()
-	{
-		return $this->annotationResults;
-	}
+  /**
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1VideoAnnotationResults[]
+   */
+  public function setAnnotationResults($annotationResults)
+  {
+    $this->annotationResults = $annotationResults;
+  }
+  /**
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1VideoAnnotationResults[]
+   */
+  public function getAnnotationResults()
+  {
+    return $this->annotationResults;
+  }
 }

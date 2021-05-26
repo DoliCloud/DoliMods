@@ -17,31 +17,31 @@
 
 class Google_Service_DisplayVideo_ListCombinedAudiencesResponse extends Google_Collection
 {
-	protected $collection_key = 'combinedAudiences';
-	protected $combinedAudiencesType = 'Google_Service_DisplayVideo_CombinedAudience';
-	protected $combinedAudiencesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'combinedAudiences';
+  protected $combinedAudiencesType = 'Google_Service_DisplayVideo_CombinedAudience';
+  protected $combinedAudiencesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DisplayVideo_CombinedAudience
-	 */
-	public function setCombinedAudiences($combinedAudiences)
-	{
-		$this->combinedAudiences = $combinedAudiences;
-	}
-	/**
-	 * @return Google_Service_DisplayVideo_CombinedAudience
-	 */
-	public function getCombinedAudiences()
-	{
-		return $this->combinedAudiences;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DisplayVideo_CombinedAudience[]
+   */
+  public function setCombinedAudiences($combinedAudiences)
+  {
+    $this->combinedAudiences = $combinedAudiences;
+  }
+  /**
+   * @return Google_Service_DisplayVideo_CombinedAudience[]
+   */
+  public function getCombinedAudiences()
+  {
+    return $this->combinedAudiences;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

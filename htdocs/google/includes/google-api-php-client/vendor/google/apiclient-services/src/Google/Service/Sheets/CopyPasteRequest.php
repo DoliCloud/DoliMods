@@ -17,55 +17,55 @@
 
 class Google_Service_Sheets_CopyPasteRequest extends Google_Model
 {
-	protected $destinationType = 'Google_Service_Sheets_GridRange';
-	protected $destinationDataType = '';
-	public $pasteOrientation;
-	public $pasteType;
-	protected $sourceType = 'Google_Service_Sheets_GridRange';
-	protected $sourceDataType = '';
+  protected $destinationType = 'Google_Service_Sheets_GridRange';
+  protected $destinationDataType = '';
+  public $pasteOrientation;
+  public $pasteType;
+  protected $sourceType = 'Google_Service_Sheets_GridRange';
+  protected $sourceDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setDestination(Google_Service_Sheets_GridRange $destination)
-	{
-		$this->destination = $destination;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getDestination()
-	{
-		return $this->destination;
-	}
-	public function setPasteOrientation($pasteOrientation)
-	{
-		$this->pasteOrientation = $pasteOrientation;
-	}
-	public function getPasteOrientation()
-	{
-		return $this->pasteOrientation;
-	}
-	public function setPasteType($pasteType)
-	{
-		$this->pasteType = $pasteType;
-	}
-	public function getPasteType()
-	{
-		return $this->pasteType;
-	}
-	/**
-	 * @param Google_Service_Sheets_GridRange
-	 */
-	public function setSource(Google_Service_Sheets_GridRange $source)
-	{
-		$this->source = $source;
-	}
-	/**
-	 * @return Google_Service_Sheets_GridRange
-	 */
-	public function getSource()
-	{
-		return $this->source;
-	}
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setDestination(Google_Service_Sheets_GridRange $destination)
+  {
+    $this->destination = $destination;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getDestination()
+  {
+    return $this->destination;
+  }
+  public function setPasteOrientation($pasteOrientation)
+  {
+    $this->pasteOrientation = $pasteOrientation;
+  }
+  public function getPasteOrientation()
+  {
+    return $this->pasteOrientation;
+  }
+  public function setPasteType($pasteType)
+  {
+    $this->pasteType = $pasteType;
+  }
+  public function getPasteType()
+  {
+    return $this->pasteType;
+  }
+  /**
+   * @param Google_Service_Sheets_GridRange
+   */
+  public function setSource(Google_Service_Sheets_GridRange $source)
+  {
+    $this->source = $source;
+  }
+  /**
+   * @return Google_Service_Sheets_GridRange
+   */
+  public function getSource()
+  {
+    return $this->source;
+  }
 }

@@ -17,46 +17,46 @@
 
 class Google_Service_YouTube_MemberSnippet extends Google_Model
 {
-	public $creatorChannelId;
-	protected $memberDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
-	protected $memberDetailsDataType = '';
-	protected $membershipsDetailsType = 'Google_Service_YouTube_MembershipsDetails';
-	protected $membershipsDetailsDataType = '';
+  public $creatorChannelId;
+  protected $memberDetailsType = 'Google_Service_YouTube_ChannelProfileDetails';
+  protected $memberDetailsDataType = '';
+  protected $membershipsDetailsType = 'Google_Service_YouTube_MembershipsDetails';
+  protected $membershipsDetailsDataType = '';
 
-	public function setCreatorChannelId($creatorChannelId)
-	{
-		$this->creatorChannelId = $creatorChannelId;
-	}
-	public function getCreatorChannelId()
-	{
-		return $this->creatorChannelId;
-	}
-	/**
-	 * @param Google_Service_YouTube_ChannelProfileDetails
-	 */
-	public function setMemberDetails(Google_Service_YouTube_ChannelProfileDetails $memberDetails)
-	{
-		$this->memberDetails = $memberDetails;
-	}
-	/**
-	 * @return Google_Service_YouTube_ChannelProfileDetails
-	 */
-	public function getMemberDetails()
-	{
-		return $this->memberDetails;
-	}
-	/**
-	 * @param Google_Service_YouTube_MembershipsDetails
-	 */
-	public function setMembershipsDetails(Google_Service_YouTube_MembershipsDetails $membershipsDetails)
-	{
-		$this->membershipsDetails = $membershipsDetails;
-	}
-	/**
-	 * @return Google_Service_YouTube_MembershipsDetails
-	 */
-	public function getMembershipsDetails()
-	{
-		return $this->membershipsDetails;
-	}
+  public function setCreatorChannelId($creatorChannelId)
+  {
+    $this->creatorChannelId = $creatorChannelId;
+  }
+  public function getCreatorChannelId()
+  {
+    return $this->creatorChannelId;
+  }
+  /**
+   * @param Google_Service_YouTube_ChannelProfileDetails
+   */
+  public function setMemberDetails(Google_Service_YouTube_ChannelProfileDetails $memberDetails)
+  {
+    $this->memberDetails = $memberDetails;
+  }
+  /**
+   * @return Google_Service_YouTube_ChannelProfileDetails
+   */
+  public function getMemberDetails()
+  {
+    return $this->memberDetails;
+  }
+  /**
+   * @param Google_Service_YouTube_MembershipsDetails
+   */
+  public function setMembershipsDetails(Google_Service_YouTube_MembershipsDetails $membershipsDetails)
+  {
+    $this->membershipsDetails = $membershipsDetails;
+  }
+  /**
+   * @return Google_Service_YouTube_MembershipsDetails
+   */
+  public function getMembershipsDetails()
+  {
+    return $this->membershipsDetails;
+  }
 }

@@ -17,51 +17,51 @@
 
 class Google_Service_AndroidManagement_WebToken extends Google_Collection
 {
-	protected $collection_key = 'permissions';
-	public $enabledFeatures;
-	public $name;
-	public $parentFrameUrl;
-	public $permissions;
-	public $value;
+  protected $collection_key = 'permissions';
+  public $enabledFeatures;
+  public $name;
+  public $parentFrameUrl;
+  public $permissions;
+  public $value;
 
-	public function setEnabledFeatures($enabledFeatures)
-	{
-		$this->enabledFeatures = $enabledFeatures;
-	}
-	public function getEnabledFeatures()
-	{
-		return $this->enabledFeatures;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setParentFrameUrl($parentFrameUrl)
-	{
-		$this->parentFrameUrl = $parentFrameUrl;
-	}
-	public function getParentFrameUrl()
-	{
-		return $this->parentFrameUrl;
-	}
-	public function setPermissions($permissions)
-	{
-		$this->permissions = $permissions;
-	}
-	public function getPermissions()
-	{
-		return $this->permissions;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setEnabledFeatures($enabledFeatures)
+  {
+    $this->enabledFeatures = $enabledFeatures;
+  }
+  public function getEnabledFeatures()
+  {
+    return $this->enabledFeatures;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setParentFrameUrl($parentFrameUrl)
+  {
+    $this->parentFrameUrl = $parentFrameUrl;
+  }
+  public function getParentFrameUrl()
+  {
+    return $this->parentFrameUrl;
+  }
+  public function setPermissions($permissions)
+  {
+    $this->permissions = $permissions;
+  }
+  public function getPermissions()
+  {
+    return $this->permissions;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

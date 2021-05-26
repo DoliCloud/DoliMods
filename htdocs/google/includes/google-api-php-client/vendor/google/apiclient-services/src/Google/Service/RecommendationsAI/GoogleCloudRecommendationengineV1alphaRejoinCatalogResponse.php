@@ -17,14 +17,14 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1alphaRejoinCatalogResponse extends Google_Model
 {
-	public $rejoinedUserEventsCount;
+  public $rejoinedUserEventsCount;
 
-	public function setRejoinedUserEventsCount($rejoinedUserEventsCount)
-	{
-		$this->rejoinedUserEventsCount = $rejoinedUserEventsCount;
-	}
-	public function getRejoinedUserEventsCount()
-	{
-		return $this->rejoinedUserEventsCount;
-	}
+  public function setRejoinedUserEventsCount($rejoinedUserEventsCount)
+  {
+    $this->rejoinedUserEventsCount = $rejoinedUserEventsCount;
+  }
+  public function getRejoinedUserEventsCount()
+  {
+    return $this->rejoinedUserEventsCount;
+  }
 }

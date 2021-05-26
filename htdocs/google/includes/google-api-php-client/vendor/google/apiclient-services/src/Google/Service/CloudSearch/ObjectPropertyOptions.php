@@ -17,22 +17,22 @@
 
 class Google_Service_CloudSearch_ObjectPropertyOptions extends Google_Collection
 {
-	protected $collection_key = 'subobjectProperties';
-	protected $subobjectPropertiesType = 'Google_Service_CloudSearch_PropertyDefinition';
-	protected $subobjectPropertiesDataType = 'array';
+  protected $collection_key = 'subobjectProperties';
+  protected $subobjectPropertiesType = 'Google_Service_CloudSearch_PropertyDefinition';
+  protected $subobjectPropertiesDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudSearch_PropertyDefinition
-	 */
-	public function setSubobjectProperties($subobjectProperties)
-	{
-		$this->subobjectProperties = $subobjectProperties;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_PropertyDefinition
-	 */
-	public function getSubobjectProperties()
-	{
-		return $this->subobjectProperties;
-	}
+  /**
+   * @param Google_Service_CloudSearch_PropertyDefinition[]
+   */
+  public function setSubobjectProperties($subobjectProperties)
+  {
+    $this->subobjectProperties = $subobjectProperties;
+  }
+  /**
+   * @return Google_Service_CloudSearch_PropertyDefinition[]
+   */
+  public function getSubobjectProperties()
+  {
+    return $this->subobjectProperties;
+  }
 }

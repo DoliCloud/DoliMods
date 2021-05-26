@@ -25,17 +25,17 @@
  */
 class Google_Service_Calendar_Resource_Freebusy extends Google_Service_Resource
 {
-	/**
-	 * Returns free/busy information for a set of calendars. (freebusy.query)
-	 *
-	 * @param Google_Service_Calendar_FreeBusyRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Calendar_FreeBusyResponse
-	 */
-	public function query(Google_Service_Calendar_FreeBusyRequest $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('query', array($params), "Google_Service_Calendar_FreeBusyResponse");
-	}
+  /**
+   * Returns free/busy information for a set of calendars. (freebusy.query)
+   *
+   * @param Google_Service_Calendar_FreeBusyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Calendar_FreeBusyResponse
+   */
+  public function query(Google_Service_Calendar_FreeBusyRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('query', array($params), "Google_Service_Calendar_FreeBusyResponse");
+  }
 }

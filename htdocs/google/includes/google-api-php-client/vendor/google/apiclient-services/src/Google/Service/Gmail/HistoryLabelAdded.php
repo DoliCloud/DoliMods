@@ -17,31 +17,31 @@
 
 class Google_Service_Gmail_HistoryLabelAdded extends Google_Collection
 {
-	protected $collection_key = 'labelIds';
-	public $labelIds;
-	protected $messageType = 'Google_Service_Gmail_Message';
-	protected $messageDataType = '';
+  protected $collection_key = 'labelIds';
+  public $labelIds;
+  protected $messageType = 'Google_Service_Gmail_Message';
+  protected $messageDataType = '';
 
-	public function setLabelIds($labelIds)
-	{
-		$this->labelIds = $labelIds;
-	}
-	public function getLabelIds()
-	{
-		return $this->labelIds;
-	}
-	/**
-	 * @param Google_Service_Gmail_Message
-	 */
-	public function setMessage(Google_Service_Gmail_Message $message)
-	{
-		$this->message = $message;
-	}
-	/**
-	 * @return Google_Service_Gmail_Message
-	 */
-	public function getMessage()
-	{
-		return $this->message;
-	}
+  public function setLabelIds($labelIds)
+  {
+    $this->labelIds = $labelIds;
+  }
+  public function getLabelIds()
+  {
+    return $this->labelIds;
+  }
+  /**
+   * @param Google_Service_Gmail_Message
+   */
+  public function setMessage(Google_Service_Gmail_Message $message)
+  {
+    $this->message = $message;
+  }
+  /**
+   * @return Google_Service_Gmail_Message
+   */
+  public function getMessage()
+  {
+    return $this->message;
+  }
 }

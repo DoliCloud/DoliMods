@@ -17,41 +17,41 @@
 
 class Google_Service_DisplayVideo_ExitEvent extends Google_Model
 {
-	public $name;
-	public $reportingName;
-	public $type;
-	public $url;
+  public $name;
+  public $reportingName;
+  public $type;
+  public $url;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setReportingName($reportingName)
-	{
-		$this->reportingName = $reportingName;
-	}
-	public function getReportingName()
-	{
-		return $this->reportingName;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setReportingName($reportingName)
+  {
+    $this->reportingName = $reportingName;
+  }
+  public function getReportingName()
+  {
+    return $this->reportingName;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

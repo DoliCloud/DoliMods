@@ -17,42 +17,42 @@
 
 class Google_Service_Genomics_ComputeEngine extends Google_Collection
 {
-	protected $collection_key = 'diskNames';
-	public $diskNames;
-	public $instanceName;
-	public $machineType;
-	public $zone;
+  protected $collection_key = 'diskNames';
+  public $diskNames;
+  public $instanceName;
+  public $machineType;
+  public $zone;
 
-	public function setDiskNames($diskNames)
-	{
-		$this->diskNames = $diskNames;
-	}
-	public function getDiskNames()
-	{
-		return $this->diskNames;
-	}
-	public function setInstanceName($instanceName)
-	{
-		$this->instanceName = $instanceName;
-	}
-	public function getInstanceName()
-	{
-		return $this->instanceName;
-	}
-	public function setMachineType($machineType)
-	{
-		$this->machineType = $machineType;
-	}
-	public function getMachineType()
-	{
-		return $this->machineType;
-	}
-	public function setZone($zone)
-	{
-		$this->zone = $zone;
-	}
-	public function getZone()
-	{
-		return $this->zone;
-	}
+  public function setDiskNames($diskNames)
+  {
+    $this->diskNames = $diskNames;
+  }
+  public function getDiskNames()
+  {
+    return $this->diskNames;
+  }
+  public function setInstanceName($instanceName)
+  {
+    $this->instanceName = $instanceName;
+  }
+  public function getInstanceName()
+  {
+    return $this->instanceName;
+  }
+  public function setMachineType($machineType)
+  {
+    $this->machineType = $machineType;
+  }
+  public function getMachineType()
+  {
+    return $this->machineType;
+  }
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+  public function getZone()
+  {
+    return $this->zone;
+  }
 }

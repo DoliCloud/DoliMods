@@ -17,31 +17,31 @@
 
 class Google_Service_ContainerAnalysis_ListNoteOccurrencesResponse extends Google_Collection
 {
-	protected $collection_key = 'occurrences';
-	public $nextPageToken;
-	protected $occurrencesType = 'Google_Service_ContainerAnalysis_Occurrence';
-	protected $occurrencesDataType = 'array';
+  protected $collection_key = 'occurrences';
+  public $nextPageToken;
+  protected $occurrencesType = 'Google_Service_ContainerAnalysis_Occurrence';
+  protected $occurrencesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_ContainerAnalysis_Occurrence
-	 */
-	public function setOccurrences($occurrences)
-	{
-		$this->occurrences = $occurrences;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_Occurrence
-	 */
-	public function getOccurrences()
-	{
-		return $this->occurrences;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_ContainerAnalysis_Occurrence[]
+   */
+  public function setOccurrences($occurrences)
+  {
+    $this->occurrences = $occurrences;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_Occurrence[]
+   */
+  public function getOccurrences()
+  {
+    return $this->occurrences;
+  }
 }

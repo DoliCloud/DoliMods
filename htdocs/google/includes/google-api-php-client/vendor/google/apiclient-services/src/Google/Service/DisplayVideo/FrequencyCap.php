@@ -17,41 +17,41 @@
 
 class Google_Service_DisplayVideo_FrequencyCap extends Google_Model
 {
-	public $maxImpressions;
-	public $timeUnit;
-	public $timeUnitCount;
-	public $unlimited;
+  public $maxImpressions;
+  public $timeUnit;
+  public $timeUnitCount;
+  public $unlimited;
 
-	public function setMaxImpressions($maxImpressions)
-	{
-		$this->maxImpressions = $maxImpressions;
-	}
-	public function getMaxImpressions()
-	{
-		return $this->maxImpressions;
-	}
-	public function setTimeUnit($timeUnit)
-	{
-		$this->timeUnit = $timeUnit;
-	}
-	public function getTimeUnit()
-	{
-		return $this->timeUnit;
-	}
-	public function setTimeUnitCount($timeUnitCount)
-	{
-		$this->timeUnitCount = $timeUnitCount;
-	}
-	public function getTimeUnitCount()
-	{
-		return $this->timeUnitCount;
-	}
-	public function setUnlimited($unlimited)
-	{
-		$this->unlimited = $unlimited;
-	}
-	public function getUnlimited()
-	{
-		return $this->unlimited;
-	}
+  public function setMaxImpressions($maxImpressions)
+  {
+    $this->maxImpressions = $maxImpressions;
+  }
+  public function getMaxImpressions()
+  {
+    return $this->maxImpressions;
+  }
+  public function setTimeUnit($timeUnit)
+  {
+    $this->timeUnit = $timeUnit;
+  }
+  public function getTimeUnit()
+  {
+    return $this->timeUnit;
+  }
+  public function setTimeUnitCount($timeUnitCount)
+  {
+    $this->timeUnitCount = $timeUnitCount;
+  }
+  public function getTimeUnitCount()
+  {
+    return $this->timeUnitCount;
+  }
+  public function setUnlimited($unlimited)
+  {
+    $this->unlimited = $unlimited;
+  }
+  public function getUnlimited()
+  {
+    return $this->unlimited;
+  }
 }

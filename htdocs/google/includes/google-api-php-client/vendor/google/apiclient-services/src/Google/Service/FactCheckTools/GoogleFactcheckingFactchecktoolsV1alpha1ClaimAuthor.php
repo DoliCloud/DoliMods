@@ -17,41 +17,41 @@
 
 class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimAuthor extends Google_Model
 {
-	public $imageUrl;
-	public $jobTitle;
-	public $name;
-	public $sameAs;
+  public $imageUrl;
+  public $jobTitle;
+  public $name;
+  public $sameAs;
 
-	public function setImageUrl($imageUrl)
-	{
-		$this->imageUrl = $imageUrl;
-	}
-	public function getImageUrl()
-	{
-		return $this->imageUrl;
-	}
-	public function setJobTitle($jobTitle)
-	{
-		$this->jobTitle = $jobTitle;
-	}
-	public function getJobTitle()
-	{
-		return $this->jobTitle;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSameAs($sameAs)
-	{
-		$this->sameAs = $sameAs;
-	}
-	public function getSameAs()
-	{
-		return $this->sameAs;
-	}
+  public function setImageUrl($imageUrl)
+  {
+    $this->imageUrl = $imageUrl;
+  }
+  public function getImageUrl()
+  {
+    return $this->imageUrl;
+  }
+  public function setJobTitle($jobTitle)
+  {
+    $this->jobTitle = $jobTitle;
+  }
+  public function getJobTitle()
+  {
+    return $this->jobTitle;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSameAs($sameAs)
+  {
+    $this->sameAs = $sameAs;
+  }
+  public function getSameAs()
+  {
+    return $this->sameAs;
+  }
 }

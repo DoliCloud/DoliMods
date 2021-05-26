@@ -17,41 +17,41 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1DeploymentChangeReportRoutingDeployment extends Google_Model
 {
-	public $apiProxy;
-	public $basepath;
-	public $environment;
-	public $revision;
+  public $apiProxy;
+  public $basepath;
+  public $environment;
+  public $revision;
 
-	public function setApiProxy($apiProxy)
-	{
-		$this->apiProxy = $apiProxy;
-	}
-	public function getApiProxy()
-	{
-		return $this->apiProxy;
-	}
-	public function setBasepath($basepath)
-	{
-		$this->basepath = $basepath;
-	}
-	public function getBasepath()
-	{
-		return $this->basepath;
-	}
-	public function setEnvironment($environment)
-	{
-		$this->environment = $environment;
-	}
-	public function getEnvironment()
-	{
-		return $this->environment;
-	}
-	public function setRevision($revision)
-	{
-		$this->revision = $revision;
-	}
-	public function getRevision()
-	{
-		return $this->revision;
-	}
+  public function setApiProxy($apiProxy)
+  {
+    $this->apiProxy = $apiProxy;
+  }
+  public function getApiProxy()
+  {
+    return $this->apiProxy;
+  }
+  public function setBasepath($basepath)
+  {
+    $this->basepath = $basepath;
+  }
+  public function getBasepath()
+  {
+    return $this->basepath;
+  }
+  public function setEnvironment($environment)
+  {
+    $this->environment = $environment;
+  }
+  public function getEnvironment()
+  {
+    return $this->environment;
+  }
+  public function setRevision($revision)
+  {
+    $this->revision = $revision;
+  }
+  public function getRevision()
+  {
+    return $this->revision;
+  }
 }

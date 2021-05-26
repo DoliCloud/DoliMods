@@ -17,32 +17,32 @@
 
 class Google_Service_DisplayVideo_AdvertiserGeneralConfig extends Google_Model
 {
-	public $currencyCode;
-	public $domainUrl;
-	public $timeZone;
+  public $currencyCode;
+  public $domainUrl;
+  public $timeZone;
 
-	public function setCurrencyCode($currencyCode)
-	{
-		$this->currencyCode = $currencyCode;
-	}
-	public function getCurrencyCode()
-	{
-		return $this->currencyCode;
-	}
-	public function setDomainUrl($domainUrl)
-	{
-		$this->domainUrl = $domainUrl;
-	}
-	public function getDomainUrl()
-	{
-		return $this->domainUrl;
-	}
-	public function setTimeZone($timeZone)
-	{
-		$this->timeZone = $timeZone;
-	}
-	public function getTimeZone()
-	{
-		return $this->timeZone;
-	}
+  public function setCurrencyCode($currencyCode)
+  {
+    $this->currencyCode = $currencyCode;
+  }
+  public function getCurrencyCode()
+  {
+    return $this->currencyCode;
+  }
+  public function setDomainUrl($domainUrl)
+  {
+    $this->domainUrl = $domainUrl;
+  }
+  public function getDomainUrl()
+  {
+    return $this->domainUrl;
+  }
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  public function getTimeZone()
+  {
+    return $this->timeZone;
+  }
 }

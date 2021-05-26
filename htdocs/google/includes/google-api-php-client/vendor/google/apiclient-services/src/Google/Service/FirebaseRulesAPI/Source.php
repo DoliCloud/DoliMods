@@ -17,16 +17,16 @@
 
 class Google_Service_FirebaseRulesAPI_Source extends Google_Collection
 {
-	protected $collection_key = 'files';
-	protected $filesType = 'Google_Service_FirebaseRulesAPI_FirebaserulesFile';
-	protected $filesDataType = 'array';
+  protected $collection_key = 'files';
+  protected $filesType = 'Google_Service_FirebaseRulesAPI_FirebaserulesFile';
+  protected $filesDataType = 'array';
 
-	public function setFiles($files)
-	{
-		$this->files = $files;
-	}
-	public function getFiles()
-	{
-		return $this->files;
-	}
+  public function setFiles($files)
+  {
+    $this->files = $files;
+  }
+  public function getFiles()
+  {
+    return $this->files;
+  }
 }

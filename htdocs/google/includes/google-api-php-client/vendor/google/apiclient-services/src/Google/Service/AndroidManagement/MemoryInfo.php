@@ -17,23 +17,23 @@
 
 class Google_Service_AndroidManagement_MemoryInfo extends Google_Model
 {
-	public $totalInternalStorage;
-	public $totalRam;
+  public $totalInternalStorage;
+  public $totalRam;
 
-	public function setTotalInternalStorage($totalInternalStorage)
-	{
-		$this->totalInternalStorage = $totalInternalStorage;
-	}
-	public function getTotalInternalStorage()
-	{
-		return $this->totalInternalStorage;
-	}
-	public function setTotalRam($totalRam)
-	{
-		$this->totalRam = $totalRam;
-	}
-	public function getTotalRam()
-	{
-		return $this->totalRam;
-	}
+  public function setTotalInternalStorage($totalInternalStorage)
+  {
+    $this->totalInternalStorage = $totalInternalStorage;
+  }
+  public function getTotalInternalStorage()
+  {
+    return $this->totalInternalStorage;
+  }
+  public function setTotalRam($totalRam)
+  {
+    $this->totalRam = $totalRam;
+  }
+  public function getTotalRam()
+  {
+    return $this->totalRam;
+  }
 }

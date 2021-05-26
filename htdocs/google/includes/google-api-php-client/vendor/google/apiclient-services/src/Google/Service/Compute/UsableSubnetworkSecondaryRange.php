@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_UsableSubnetworkSecondaryRange extends Google_Model
 {
-	public $ipCidrRange;
-	public $rangeName;
+  public $ipCidrRange;
+  public $rangeName;
 
-	public function setIpCidrRange($ipCidrRange)
-	{
-		$this->ipCidrRange = $ipCidrRange;
-	}
-	public function getIpCidrRange()
-	{
-		return $this->ipCidrRange;
-	}
-	public function setRangeName($rangeName)
-	{
-		$this->rangeName = $rangeName;
-	}
-	public function getRangeName()
-	{
-		return $this->rangeName;
-	}
+  public function setIpCidrRange($ipCidrRange)
+  {
+    $this->ipCidrRange = $ipCidrRange;
+  }
+  public function getIpCidrRange()
+  {
+    return $this->ipCidrRange;
+  }
+  public function setRangeName($rangeName)
+  {
+    $this->rangeName = $rangeName;
+  }
+  public function getRangeName()
+  {
+    return $this->rangeName;
+  }
 }

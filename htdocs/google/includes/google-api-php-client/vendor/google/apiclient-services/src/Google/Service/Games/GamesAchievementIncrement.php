@@ -17,32 +17,32 @@
 
 class Google_Service_Games_GamesAchievementIncrement extends Google_Model
 {
-	public $kind;
-	public $requestId;
-	public $steps;
+  public $kind;
+  public $requestId;
+  public $steps;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setRequestId($requestId)
-	{
-		$this->requestId = $requestId;
-	}
-	public function getRequestId()
-	{
-		return $this->requestId;
-	}
-	public function setSteps($steps)
-	{
-		$this->steps = $steps;
-	}
-	public function getSteps()
-	{
-		return $this->steps;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setRequestId($requestId)
+  {
+    $this->requestId = $requestId;
+  }
+  public function getRequestId()
+  {
+    return $this->requestId;
+  }
+  public function setSteps($steps)
+  {
+    $this->steps = $steps;
+  }
+  public function getSteps()
+  {
+    return $this->steps;
+  }
 }

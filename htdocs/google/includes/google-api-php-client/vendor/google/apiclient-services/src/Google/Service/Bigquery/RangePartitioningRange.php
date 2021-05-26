@@ -17,32 +17,32 @@
 
 class Google_Service_Bigquery_RangePartitioningRange extends Google_Model
 {
-	public $end;
-	public $interval;
-	public $start;
+  public $end;
+  public $interval;
+  public $start;
 
-	public function setEnd($end)
-	{
-		$this->end = $end;
-	}
-	public function getEnd()
-	{
-		return $this->end;
-	}
-	public function setInterval($interval)
-	{
-		$this->interval = $interval;
-	}
-	public function getInterval()
-	{
-		return $this->interval;
-	}
-	public function setStart($start)
-	{
-		$this->start = $start;
-	}
-	public function getStart()
-	{
-		return $this->start;
-	}
+  public function setEnd($end)
+  {
+    $this->end = $end;
+  }
+  public function getEnd()
+  {
+    return $this->end;
+  }
+  public function setInterval($interval)
+  {
+    $this->interval = $interval;
+  }
+  public function getInterval()
+  {
+    return $this->interval;
+  }
+  public function setStart($start)
+  {
+    $this->start = $start;
+  }
+  public function getStart()
+  {
+    return $this->start;
+  }
 }

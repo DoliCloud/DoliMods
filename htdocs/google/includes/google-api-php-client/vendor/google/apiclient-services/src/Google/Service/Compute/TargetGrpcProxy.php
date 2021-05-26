@@ -17,95 +17,95 @@
 
 class Google_Service_Compute_TargetGrpcProxy extends Google_Model
 {
-	public $creationTimestamp;
-	public $description;
-	public $fingerprint;
-	public $id;
-	public $kind;
-	public $name;
-	public $selfLink;
-	public $selfLinkWithId;
-	public $urlMap;
-	public $validateForProxyless;
+  public $creationTimestamp;
+  public $description;
+  public $fingerprint;
+  public $id;
+  public $kind;
+  public $name;
+  public $selfLink;
+  public $selfLinkWithId;
+  public $urlMap;
+  public $validateForProxyless;
 
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setSelfLinkWithId($selfLinkWithId)
-	{
-		$this->selfLinkWithId = $selfLinkWithId;
-	}
-	public function getSelfLinkWithId()
-	{
-		return $this->selfLinkWithId;
-	}
-	public function setUrlMap($urlMap)
-	{
-		$this->urlMap = $urlMap;
-	}
-	public function getUrlMap()
-	{
-		return $this->urlMap;
-	}
-	public function setValidateForProxyless($validateForProxyless)
-	{
-		$this->validateForProxyless = $validateForProxyless;
-	}
-	public function getValidateForProxyless()
-	{
-		return $this->validateForProxyless;
-	}
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setSelfLinkWithId($selfLinkWithId)
+  {
+    $this->selfLinkWithId = $selfLinkWithId;
+  }
+  public function getSelfLinkWithId()
+  {
+    return $this->selfLinkWithId;
+  }
+  public function setUrlMap($urlMap)
+  {
+    $this->urlMap = $urlMap;
+  }
+  public function getUrlMap()
+  {
+    return $this->urlMap;
+  }
+  public function setValidateForProxyless($validateForProxyless)
+  {
+    $this->validateForProxyless = $validateForProxyless;
+  }
+  public function getValidateForProxyless()
+  {
+    return $this->validateForProxyless;
+  }
 }

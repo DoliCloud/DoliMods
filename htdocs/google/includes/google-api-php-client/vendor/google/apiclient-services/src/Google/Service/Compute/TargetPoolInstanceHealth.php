@@ -17,31 +17,31 @@
 
 class Google_Service_Compute_TargetPoolInstanceHealth extends Google_Collection
 {
-	protected $collection_key = 'healthStatus';
-	protected $healthStatusType = 'Google_Service_Compute_HealthStatus';
-	protected $healthStatusDataType = 'array';
-	public $kind;
+  protected $collection_key = 'healthStatus';
+  protected $healthStatusType = 'Google_Service_Compute_HealthStatus';
+  protected $healthStatusDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_Compute_HealthStatus
-	 */
-	public function setHealthStatus($healthStatus)
-	{
-		$this->healthStatus = $healthStatus;
-	}
-	/**
-	 * @return Google_Service_Compute_HealthStatus
-	 */
-	public function getHealthStatus()
-	{
-		return $this->healthStatus;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_Compute_HealthStatus[]
+   */
+  public function setHealthStatus($healthStatus)
+  {
+    $this->healthStatus = $healthStatus;
+  }
+  /**
+   * @return Google_Service_Compute_HealthStatus[]
+   */
+  public function getHealthStatus()
+  {
+    return $this->healthStatus;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

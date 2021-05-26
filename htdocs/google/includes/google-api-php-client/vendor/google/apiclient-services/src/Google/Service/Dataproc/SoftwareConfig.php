@@ -17,33 +17,33 @@
 
 class Google_Service_Dataproc_SoftwareConfig extends Google_Collection
 {
-	protected $collection_key = 'optionalComponents';
-	public $imageVersion;
-	public $optionalComponents;
-	public $properties;
+  protected $collection_key = 'optionalComponents';
+  public $imageVersion;
+  public $optionalComponents;
+  public $properties;
 
-	public function setImageVersion($imageVersion)
-	{
-		$this->imageVersion = $imageVersion;
-	}
-	public function getImageVersion()
-	{
-		return $this->imageVersion;
-	}
-	public function setOptionalComponents($optionalComponents)
-	{
-		$this->optionalComponents = $optionalComponents;
-	}
-	public function getOptionalComponents()
-	{
-		return $this->optionalComponents;
-	}
-	public function setProperties($properties)
-	{
-		$this->properties = $properties;
-	}
-	public function getProperties()
-	{
-		return $this->properties;
-	}
+  public function setImageVersion($imageVersion)
+  {
+    $this->imageVersion = $imageVersion;
+  }
+  public function getImageVersion()
+  {
+    return $this->imageVersion;
+  }
+  public function setOptionalComponents($optionalComponents)
+  {
+    $this->optionalComponents = $optionalComponents;
+  }
+  public function getOptionalComponents()
+  {
+    return $this->optionalComponents;
+  }
+  public function setProperties($properties)
+  {
+    $this->properties = $properties;
+  }
+  public function getProperties()
+  {
+    return $this->properties;
+  }
 }

@@ -17,39 +17,39 @@
 
 class Google_Service_Slides_Line extends Google_Model
 {
-	public $lineCategory;
-	protected $linePropertiesType = 'Google_Service_Slides_LineProperties';
-	protected $linePropertiesDataType = '';
-	public $lineType;
+  public $lineCategory;
+  protected $linePropertiesType = 'Google_Service_Slides_LineProperties';
+  protected $linePropertiesDataType = '';
+  public $lineType;
 
-	public function setLineCategory($lineCategory)
-	{
-		$this->lineCategory = $lineCategory;
-	}
-	public function getLineCategory()
-	{
-		return $this->lineCategory;
-	}
-	/**
-	 * @param Google_Service_Slides_LineProperties
-	 */
-	public function setLineProperties(Google_Service_Slides_LineProperties $lineProperties)
-	{
-		$this->lineProperties = $lineProperties;
-	}
-	/**
-	 * @return Google_Service_Slides_LineProperties
-	 */
-	public function getLineProperties()
-	{
-		return $this->lineProperties;
-	}
-	public function setLineType($lineType)
-	{
-		$this->lineType = $lineType;
-	}
-	public function getLineType()
-	{
-		return $this->lineType;
-	}
+  public function setLineCategory($lineCategory)
+  {
+    $this->lineCategory = $lineCategory;
+  }
+  public function getLineCategory()
+  {
+    return $this->lineCategory;
+  }
+  /**
+   * @param Google_Service_Slides_LineProperties
+   */
+  public function setLineProperties(Google_Service_Slides_LineProperties $lineProperties)
+  {
+    $this->lineProperties = $lineProperties;
+  }
+  /**
+   * @return Google_Service_Slides_LineProperties
+   */
+  public function getLineProperties()
+  {
+    return $this->lineProperties;
+  }
+  public function setLineType($lineType)
+  {
+    $this->lineType = $lineType;
+  }
+  public function getLineType()
+  {
+    return $this->lineType;
+  }
 }

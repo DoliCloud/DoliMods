@@ -17,23 +17,23 @@
 
 class Google_Service_Vision_ImageSource extends Google_Model
 {
-	public $gcsImageUri;
-	public $imageUri;
+  public $gcsImageUri;
+  public $imageUri;
 
-	public function setGcsImageUri($gcsImageUri)
-	{
-		$this->gcsImageUri = $gcsImageUri;
-	}
-	public function getGcsImageUri()
-	{
-		return $this->gcsImageUri;
-	}
-	public function setImageUri($imageUri)
-	{
-		$this->imageUri = $imageUri;
-	}
-	public function getImageUri()
-	{
-		return $this->imageUri;
-	}
+  public function setGcsImageUri($gcsImageUri)
+  {
+    $this->gcsImageUri = $gcsImageUri;
+  }
+  public function getGcsImageUri()
+  {
+    return $this->gcsImageUri;
+  }
+  public function setImageUri($imageUri)
+  {
+    $this->imageUri = $imageUri;
+  }
+  public function getImageUri()
+  {
+    return $this->imageUri;
+  }
 }

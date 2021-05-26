@@ -17,22 +17,22 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2Platform extends Google_Collection
 {
-	protected $collection_key = 'properties';
-	protected $propertiesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PlatformProperty';
-	protected $propertiesDataType = 'array';
+  protected $collection_key = 'properties';
+  protected $propertiesType = 'Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PlatformProperty';
+  protected $propertiesDataType = 'array';
 
-	/**
-	 * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PlatformProperty
-	 */
-	public function setProperties($properties)
-	{
-		$this->properties = $properties;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PlatformProperty
-	 */
-	public function getProperties()
-	{
-		return $this->properties;
-	}
+  /**
+   * @param Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PlatformProperty[]
+   */
+  public function setProperties($properties)
+  {
+    $this->properties = $properties;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2PlatformProperty[]
+   */
+  public function getProperties()
+  {
+    return $this->properties;
+  }
 }

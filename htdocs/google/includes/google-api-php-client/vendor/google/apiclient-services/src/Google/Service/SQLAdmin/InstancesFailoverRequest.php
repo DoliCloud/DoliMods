@@ -17,21 +17,21 @@
 
 class Google_Service_SQLAdmin_InstancesFailoverRequest extends Google_Model
 {
-	protected $failoverContextType = 'Google_Service_SQLAdmin_FailoverContext';
-	protected $failoverContextDataType = '';
+  protected $failoverContextType = 'Google_Service_SQLAdmin_FailoverContext';
+  protected $failoverContextDataType = '';
 
-	/**
-	 * @param Google_Service_SQLAdmin_FailoverContext
-	 */
-	public function setFailoverContext(Google_Service_SQLAdmin_FailoverContext $failoverContext)
-	{
-		$this->failoverContext = $failoverContext;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_FailoverContext
-	 */
-	public function getFailoverContext()
-	{
-		return $this->failoverContext;
-	}
+  /**
+   * @param Google_Service_SQLAdmin_FailoverContext
+   */
+  public function setFailoverContext(Google_Service_SQLAdmin_FailoverContext $failoverContext)
+  {
+    $this->failoverContext = $failoverContext;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_FailoverContext
+   */
+  public function getFailoverContext()
+  {
+    return $this->failoverContext;
+  }
 }

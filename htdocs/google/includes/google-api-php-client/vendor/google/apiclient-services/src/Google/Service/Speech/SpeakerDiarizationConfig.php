@@ -17,41 +17,41 @@
 
 class Google_Service_Speech_SpeakerDiarizationConfig extends Google_Model
 {
-	public $enableSpeakerDiarization;
-	public $maxSpeakerCount;
-	public $minSpeakerCount;
-	public $speakerTag;
+  public $enableSpeakerDiarization;
+  public $maxSpeakerCount;
+  public $minSpeakerCount;
+  public $speakerTag;
 
-	public function setEnableSpeakerDiarization($enableSpeakerDiarization)
-	{
-		$this->enableSpeakerDiarization = $enableSpeakerDiarization;
-	}
-	public function getEnableSpeakerDiarization()
-	{
-		return $this->enableSpeakerDiarization;
-	}
-	public function setMaxSpeakerCount($maxSpeakerCount)
-	{
-		$this->maxSpeakerCount = $maxSpeakerCount;
-	}
-	public function getMaxSpeakerCount()
-	{
-		return $this->maxSpeakerCount;
-	}
-	public function setMinSpeakerCount($minSpeakerCount)
-	{
-		$this->minSpeakerCount = $minSpeakerCount;
-	}
-	public function getMinSpeakerCount()
-	{
-		return $this->minSpeakerCount;
-	}
-	public function setSpeakerTag($speakerTag)
-	{
-		$this->speakerTag = $speakerTag;
-	}
-	public function getSpeakerTag()
-	{
-		return $this->speakerTag;
-	}
+  public function setEnableSpeakerDiarization($enableSpeakerDiarization)
+  {
+    $this->enableSpeakerDiarization = $enableSpeakerDiarization;
+  }
+  public function getEnableSpeakerDiarization()
+  {
+    return $this->enableSpeakerDiarization;
+  }
+  public function setMaxSpeakerCount($maxSpeakerCount)
+  {
+    $this->maxSpeakerCount = $maxSpeakerCount;
+  }
+  public function getMaxSpeakerCount()
+  {
+    return $this->maxSpeakerCount;
+  }
+  public function setMinSpeakerCount($minSpeakerCount)
+  {
+    $this->minSpeakerCount = $minSpeakerCount;
+  }
+  public function getMinSpeakerCount()
+  {
+    return $this->minSpeakerCount;
+  }
+  public function setSpeakerTag($speakerTag)
+  {
+    $this->speakerTag = $speakerTag;
+  }
+  public function getSpeakerTag()
+  {
+    return $this->speakerTag;
+  }
 }

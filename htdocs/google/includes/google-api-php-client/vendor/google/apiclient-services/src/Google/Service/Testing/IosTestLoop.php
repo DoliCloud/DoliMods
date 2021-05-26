@@ -17,40 +17,40 @@
 
 class Google_Service_Testing_IosTestLoop extends Google_Collection
 {
-	protected $collection_key = 'scenarios';
-	public $appBundleId;
-	protected $appIpaType = 'Google_Service_Testing_FileReference';
-	protected $appIpaDataType = '';
-	public $scenarios;
+  protected $collection_key = 'scenarios';
+  public $appBundleId;
+  protected $appIpaType = 'Google_Service_Testing_FileReference';
+  protected $appIpaDataType = '';
+  public $scenarios;
 
-	public function setAppBundleId($appBundleId)
-	{
-		$this->appBundleId = $appBundleId;
-	}
-	public function getAppBundleId()
-	{
-		return $this->appBundleId;
-	}
-	/**
-	 * @param Google_Service_Testing_FileReference
-	 */
-	public function setAppIpa(Google_Service_Testing_FileReference $appIpa)
-	{
-		$this->appIpa = $appIpa;
-	}
-	/**
-	 * @return Google_Service_Testing_FileReference
-	 */
-	public function getAppIpa()
-	{
-		return $this->appIpa;
-	}
-	public function setScenarios($scenarios)
-	{
-		$this->scenarios = $scenarios;
-	}
-	public function getScenarios()
-	{
-		return $this->scenarios;
-	}
+  public function setAppBundleId($appBundleId)
+  {
+    $this->appBundleId = $appBundleId;
+  }
+  public function getAppBundleId()
+  {
+    return $this->appBundleId;
+  }
+  /**
+   * @param Google_Service_Testing_FileReference
+   */
+  public function setAppIpa(Google_Service_Testing_FileReference $appIpa)
+  {
+    $this->appIpa = $appIpa;
+  }
+  /**
+   * @return Google_Service_Testing_FileReference
+   */
+  public function getAppIpa()
+  {
+    return $this->appIpa;
+  }
+  public function setScenarios($scenarios)
+  {
+    $this->scenarios = $scenarios;
+  }
+  public function getScenarios()
+  {
+    return $this->scenarios;
+  }
 }

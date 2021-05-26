@@ -17,23 +17,23 @@
 
 class Google_Service_Dataproc_EndpointConfig extends Google_Model
 {
-	public $enableHttpPortAccess;
-	public $httpPorts;
+  public $enableHttpPortAccess;
+  public $httpPorts;
 
-	public function setEnableHttpPortAccess($enableHttpPortAccess)
-	{
-		$this->enableHttpPortAccess = $enableHttpPortAccess;
-	}
-	public function getEnableHttpPortAccess()
-	{
-		return $this->enableHttpPortAccess;
-	}
-	public function setHttpPorts($httpPorts)
-	{
-		$this->httpPorts = $httpPorts;
-	}
-	public function getHttpPorts()
-	{
-		return $this->httpPorts;
-	}
+  public function setEnableHttpPortAccess($enableHttpPortAccess)
+  {
+    $this->enableHttpPortAccess = $enableHttpPortAccess;
+  }
+  public function getEnableHttpPortAccess()
+  {
+    return $this->enableHttpPortAccess;
+  }
+  public function setHttpPorts($httpPorts)
+  {
+    $this->httpPorts = $httpPorts;
+  }
+  public function getHttpPorts()
+  {
+    return $this->httpPorts;
+  }
 }

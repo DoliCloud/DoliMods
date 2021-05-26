@@ -17,41 +17,41 @@
 
 class Google_Service_ServiceNetworking_GoogleCloudServicenetworkingV1betaSubnetwork extends Google_Model
 {
-	public $ipCidrRange;
-	public $name;
-	public $network;
-	public $outsideAllocation;
+  public $ipCidrRange;
+  public $name;
+  public $network;
+  public $outsideAllocation;
 
-	public function setIpCidrRange($ipCidrRange)
-	{
-		$this->ipCidrRange = $ipCidrRange;
-	}
-	public function getIpCidrRange()
-	{
-		return $this->ipCidrRange;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setNetwork($network)
-	{
-		$this->network = $network;
-	}
-	public function getNetwork()
-	{
-		return $this->network;
-	}
-	public function setOutsideAllocation($outsideAllocation)
-	{
-		$this->outsideAllocation = $outsideAllocation;
-	}
-	public function getOutsideAllocation()
-	{
-		return $this->outsideAllocation;
-	}
+  public function setIpCidrRange($ipCidrRange)
+  {
+    $this->ipCidrRange = $ipCidrRange;
+  }
+  public function getIpCidrRange()
+  {
+    return $this->ipCidrRange;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNetwork($network)
+  {
+    $this->network = $network;
+  }
+  public function getNetwork()
+  {
+    return $this->network;
+  }
+  public function setOutsideAllocation($outsideAllocation)
+  {
+    $this->outsideAllocation = $outsideAllocation;
+  }
+  public function getOutsideAllocation()
+  {
+    return $this->outsideAllocation;
+  }
 }

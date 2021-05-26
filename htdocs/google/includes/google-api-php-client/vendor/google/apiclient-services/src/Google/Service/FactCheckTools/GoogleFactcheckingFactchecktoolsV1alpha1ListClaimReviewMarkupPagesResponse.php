@@ -17,31 +17,31 @@
 
 class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ListClaimReviewMarkupPagesResponse extends Google_Collection
 {
-	protected $collection_key = 'claimReviewMarkupPages';
-	protected $claimReviewMarkupPagesType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkupPage';
-	protected $claimReviewMarkupPagesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'claimReviewMarkupPages';
+  protected $claimReviewMarkupPagesType = 'Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkupPage';
+  protected $claimReviewMarkupPagesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkupPage
-	 */
-	public function setClaimReviewMarkupPages($claimReviewMarkupPages)
-	{
-		$this->claimReviewMarkupPages = $claimReviewMarkupPages;
-	}
-	/**
-	 * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkupPage
-	 */
-	public function getClaimReviewMarkupPages()
-	{
-		return $this->claimReviewMarkupPages;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkupPage[]
+   */
+  public function setClaimReviewMarkupPages($claimReviewMarkupPages)
+  {
+    $this->claimReviewMarkupPages = $claimReviewMarkupPages;
+  }
+  /**
+   * @return Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1ClaimReviewMarkupPage[]
+   */
+  public function getClaimReviewMarkupPages()
+  {
+    return $this->claimReviewMarkupPages;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

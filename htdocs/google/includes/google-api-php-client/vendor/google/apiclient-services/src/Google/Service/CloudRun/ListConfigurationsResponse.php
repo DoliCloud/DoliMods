@@ -17,65 +17,65 @@
 
 class Google_Service_CloudRun_ListConfigurationsResponse extends Google_Collection
 {
-	protected $collection_key = 'unreachable';
-	public $apiVersion;
-	protected $itemsType = 'Google_Service_CloudRun_Configuration';
-	protected $itemsDataType = 'array';
-	public $kind;
-	protected $metadataType = 'Google_Service_CloudRun_ListMeta';
-	protected $metadataDataType = '';
-	public $unreachable;
+  protected $collection_key = 'unreachable';
+  public $apiVersion;
+  protected $itemsType = 'Google_Service_CloudRun_Configuration';
+  protected $itemsDataType = 'array';
+  public $kind;
+  protected $metadataType = 'Google_Service_CloudRun_ListMeta';
+  protected $metadataDataType = '';
+  public $unreachable;
 
-	public function setApiVersion($apiVersion)
-	{
-		$this->apiVersion = $apiVersion;
-	}
-	public function getApiVersion()
-	{
-		return $this->apiVersion;
-	}
-	/**
-	 * @param Google_Service_CloudRun_Configuration
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
-	}
-	/**
-	 * @return Google_Service_CloudRun_Configuration
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_CloudRun_ListMeta
-	 */
-	public function setMetadata(Google_Service_CloudRun_ListMeta $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	/**
-	 * @return Google_Service_CloudRun_ListMeta
-	 */
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setUnreachable($unreachable)
-	{
-		$this->unreachable = $unreachable;
-	}
-	public function getUnreachable()
-	{
-		return $this->unreachable;
-	}
+  public function setApiVersion($apiVersion)
+  {
+    $this->apiVersion = $apiVersion;
+  }
+  public function getApiVersion()
+  {
+    return $this->apiVersion;
+  }
+  /**
+   * @param Google_Service_CloudRun_Configuration[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Google_Service_CloudRun_Configuration[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_CloudRun_ListMeta
+   */
+  public function setMetadata(Google_Service_CloudRun_ListMeta $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return Google_Service_CloudRun_ListMeta
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setUnreachable($unreachable)
+  {
+    $this->unreachable = $unreachable;
+  }
+  public function getUnreachable()
+  {
+    return $this->unreachable;
+  }
 }

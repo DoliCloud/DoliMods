@@ -17,23 +17,23 @@
 
 class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCreateTestReturnReturnItem extends Google_Model
 {
-	public $lineItemId;
-	public $quantity;
+  public $lineItemId;
+  public $quantity;
 
-	public function setLineItemId($lineItemId)
-	{
-		$this->lineItemId = $lineItemId;
-	}
-	public function getLineItemId()
-	{
-		return $this->lineItemId;
-	}
-	public function setQuantity($quantity)
-	{
-		$this->quantity = $quantity;
-	}
-	public function getQuantity()
-	{
-		return $this->quantity;
-	}
+  public function setLineItemId($lineItemId)
+  {
+    $this->lineItemId = $lineItemId;
+  }
+  public function getLineItemId()
+  {
+    return $this->lineItemId;
+  }
+  public function setQuantity($quantity)
+  {
+    $this->quantity = $quantity;
+  }
+  public function getQuantity()
+  {
+    return $this->quantity;
+  }
 }

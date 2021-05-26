@@ -17,94 +17,94 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1SpeechTranscriptionConfig extends Google_Collection
 {
-	protected $collection_key = 'speechContexts';
-	public $audioTracks;
-	public $diarizationSpeakerCount;
-	public $enableAutomaticPunctuation;
-	public $enableSpeakerDiarization;
-	public $enableWordConfidence;
-	public $filterProfanity;
-	public $languageCode;
-	public $maxAlternatives;
-	protected $speechContextsType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1SpeechContext';
-	protected $speechContextsDataType = 'array';
+  protected $collection_key = 'speechContexts';
+  public $audioTracks;
+  public $diarizationSpeakerCount;
+  public $enableAutomaticPunctuation;
+  public $enableSpeakerDiarization;
+  public $enableWordConfidence;
+  public $filterProfanity;
+  public $languageCode;
+  public $maxAlternatives;
+  protected $speechContextsType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1SpeechContext';
+  protected $speechContextsDataType = 'array';
 
-	public function setAudioTracks($audioTracks)
-	{
-		$this->audioTracks = $audioTracks;
-	}
-	public function getAudioTracks()
-	{
-		return $this->audioTracks;
-	}
-	public function setDiarizationSpeakerCount($diarizationSpeakerCount)
-	{
-		$this->diarizationSpeakerCount = $diarizationSpeakerCount;
-	}
-	public function getDiarizationSpeakerCount()
-	{
-		return $this->diarizationSpeakerCount;
-	}
-	public function setEnableAutomaticPunctuation($enableAutomaticPunctuation)
-	{
-		$this->enableAutomaticPunctuation = $enableAutomaticPunctuation;
-	}
-	public function getEnableAutomaticPunctuation()
-	{
-		return $this->enableAutomaticPunctuation;
-	}
-	public function setEnableSpeakerDiarization($enableSpeakerDiarization)
-	{
-		$this->enableSpeakerDiarization = $enableSpeakerDiarization;
-	}
-	public function getEnableSpeakerDiarization()
-	{
-		return $this->enableSpeakerDiarization;
-	}
-	public function setEnableWordConfidence($enableWordConfidence)
-	{
-		$this->enableWordConfidence = $enableWordConfidence;
-	}
-	public function getEnableWordConfidence()
-	{
-		return $this->enableWordConfidence;
-	}
-	public function setFilterProfanity($filterProfanity)
-	{
-		$this->filterProfanity = $filterProfanity;
-	}
-	public function getFilterProfanity()
-	{
-		return $this->filterProfanity;
-	}
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	public function setMaxAlternatives($maxAlternatives)
-	{
-		$this->maxAlternatives = $maxAlternatives;
-	}
-	public function getMaxAlternatives()
-	{
-		return $this->maxAlternatives;
-	}
-	/**
-	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1SpeechContext
-	 */
-	public function setSpeechContexts($speechContexts)
-	{
-		$this->speechContexts = $speechContexts;
-	}
-	/**
-	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1SpeechContext
-	 */
-	public function getSpeechContexts()
-	{
-		return $this->speechContexts;
-	}
+  public function setAudioTracks($audioTracks)
+  {
+    $this->audioTracks = $audioTracks;
+  }
+  public function getAudioTracks()
+  {
+    return $this->audioTracks;
+  }
+  public function setDiarizationSpeakerCount($diarizationSpeakerCount)
+  {
+    $this->diarizationSpeakerCount = $diarizationSpeakerCount;
+  }
+  public function getDiarizationSpeakerCount()
+  {
+    return $this->diarizationSpeakerCount;
+  }
+  public function setEnableAutomaticPunctuation($enableAutomaticPunctuation)
+  {
+    $this->enableAutomaticPunctuation = $enableAutomaticPunctuation;
+  }
+  public function getEnableAutomaticPunctuation()
+  {
+    return $this->enableAutomaticPunctuation;
+  }
+  public function setEnableSpeakerDiarization($enableSpeakerDiarization)
+  {
+    $this->enableSpeakerDiarization = $enableSpeakerDiarization;
+  }
+  public function getEnableSpeakerDiarization()
+  {
+    return $this->enableSpeakerDiarization;
+  }
+  public function setEnableWordConfidence($enableWordConfidence)
+  {
+    $this->enableWordConfidence = $enableWordConfidence;
+  }
+  public function getEnableWordConfidence()
+  {
+    return $this->enableWordConfidence;
+  }
+  public function setFilterProfanity($filterProfanity)
+  {
+    $this->filterProfanity = $filterProfanity;
+  }
+  public function getFilterProfanity()
+  {
+    return $this->filterProfanity;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  public function setMaxAlternatives($maxAlternatives)
+  {
+    $this->maxAlternatives = $maxAlternatives;
+  }
+  public function getMaxAlternatives()
+  {
+    return $this->maxAlternatives;
+  }
+  /**
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1SpeechContext[]
+   */
+  public function setSpeechContexts($speechContexts)
+  {
+    $this->speechContexts = $speechContexts;
+  }
+  /**
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1SpeechContext[]
+   */
+  public function getSpeechContexts()
+  {
+    return $this->speechContexts;
+  }
 }

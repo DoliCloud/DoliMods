@@ -17,78 +17,78 @@
 
 class Google_Service_Compute_CorsPolicy extends Google_Collection
 {
-	protected $collection_key = 'exposeHeaders';
-	public $allowCredentials;
-	public $allowHeaders;
-	public $allowMethods;
-	public $allowOriginRegexes;
-	public $allowOrigins;
-	public $disabled;
-	public $exposeHeaders;
-	public $maxAge;
+  protected $collection_key = 'exposeHeaders';
+  public $allowCredentials;
+  public $allowHeaders;
+  public $allowMethods;
+  public $allowOriginRegexes;
+  public $allowOrigins;
+  public $disabled;
+  public $exposeHeaders;
+  public $maxAge;
 
-	public function setAllowCredentials($allowCredentials)
-	{
-		$this->allowCredentials = $allowCredentials;
-	}
-	public function getAllowCredentials()
-	{
-		return $this->allowCredentials;
-	}
-	public function setAllowHeaders($allowHeaders)
-	{
-		$this->allowHeaders = $allowHeaders;
-	}
-	public function getAllowHeaders()
-	{
-		return $this->allowHeaders;
-	}
-	public function setAllowMethods($allowMethods)
-	{
-		$this->allowMethods = $allowMethods;
-	}
-	public function getAllowMethods()
-	{
-		return $this->allowMethods;
-	}
-	public function setAllowOriginRegexes($allowOriginRegexes)
-	{
-		$this->allowOriginRegexes = $allowOriginRegexes;
-	}
-	public function getAllowOriginRegexes()
-	{
-		return $this->allowOriginRegexes;
-	}
-	public function setAllowOrigins($allowOrigins)
-	{
-		$this->allowOrigins = $allowOrigins;
-	}
-	public function getAllowOrigins()
-	{
-		return $this->allowOrigins;
-	}
-	public function setDisabled($disabled)
-	{
-		$this->disabled = $disabled;
-	}
-	public function getDisabled()
-	{
-		return $this->disabled;
-	}
-	public function setExposeHeaders($exposeHeaders)
-	{
-		$this->exposeHeaders = $exposeHeaders;
-	}
-	public function getExposeHeaders()
-	{
-		return $this->exposeHeaders;
-	}
-	public function setMaxAge($maxAge)
-	{
-		$this->maxAge = $maxAge;
-	}
-	public function getMaxAge()
-	{
-		return $this->maxAge;
-	}
+  public function setAllowCredentials($allowCredentials)
+  {
+    $this->allowCredentials = $allowCredentials;
+  }
+  public function getAllowCredentials()
+  {
+    return $this->allowCredentials;
+  }
+  public function setAllowHeaders($allowHeaders)
+  {
+    $this->allowHeaders = $allowHeaders;
+  }
+  public function getAllowHeaders()
+  {
+    return $this->allowHeaders;
+  }
+  public function setAllowMethods($allowMethods)
+  {
+    $this->allowMethods = $allowMethods;
+  }
+  public function getAllowMethods()
+  {
+    return $this->allowMethods;
+  }
+  public function setAllowOriginRegexes($allowOriginRegexes)
+  {
+    $this->allowOriginRegexes = $allowOriginRegexes;
+  }
+  public function getAllowOriginRegexes()
+  {
+    return $this->allowOriginRegexes;
+  }
+  public function setAllowOrigins($allowOrigins)
+  {
+    $this->allowOrigins = $allowOrigins;
+  }
+  public function getAllowOrigins()
+  {
+    return $this->allowOrigins;
+  }
+  public function setDisabled($disabled)
+  {
+    $this->disabled = $disabled;
+  }
+  public function getDisabled()
+  {
+    return $this->disabled;
+  }
+  public function setExposeHeaders($exposeHeaders)
+  {
+    $this->exposeHeaders = $exposeHeaders;
+  }
+  public function getExposeHeaders()
+  {
+    return $this->exposeHeaders;
+  }
+  public function setMaxAge($maxAge)
+  {
+    $this->maxAge = $maxAge;
+  }
+  public function getMaxAge()
+  {
+    return $this->maxAge;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_RemoteBuildExecution_BuildBazelRemoteExecutionV2ExecutionPolicy extends Google_Model
 {
-	public $priority;
+  public $priority;
 
-	public function setPriority($priority)
-	{
-		$this->priority = $priority;
-	}
-	public function getPriority()
-	{
-		return $this->priority;
-	}
+  public function setPriority($priority)
+  {
+    $this->priority = $priority;
+  }
+  public function getPriority()
+  {
+    return $this->priority;
+  }
 }

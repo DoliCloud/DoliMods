@@ -17,58 +17,58 @@
 
 class Google_Service_CloudRun_RevisionStatus extends Google_Collection
 {
-	protected $collection_key = 'conditions';
-	protected $conditionsType = 'Google_Service_CloudRun_GoogleCloudRunV1Condition';
-	protected $conditionsDataType = 'array';
-	public $imageDigest;
-	public $logUrl;
-	public $observedGeneration;
-	public $serviceName;
+  protected $collection_key = 'conditions';
+  protected $conditionsType = 'Google_Service_CloudRun_GoogleCloudRunV1Condition';
+  protected $conditionsDataType = 'array';
+  public $imageDigest;
+  public $logUrl;
+  public $observedGeneration;
+  public $serviceName;
 
-	/**
-	 * @param Google_Service_CloudRun_GoogleCloudRunV1Condition
-	 */
-	public function setConditions($conditions)
-	{
-		$this->conditions = $conditions;
-	}
-	/**
-	 * @return Google_Service_CloudRun_GoogleCloudRunV1Condition
-	 */
-	public function getConditions()
-	{
-		return $this->conditions;
-	}
-	public function setImageDigest($imageDigest)
-	{
-		$this->imageDigest = $imageDigest;
-	}
-	public function getImageDigest()
-	{
-		return $this->imageDigest;
-	}
-	public function setLogUrl($logUrl)
-	{
-		$this->logUrl = $logUrl;
-	}
-	public function getLogUrl()
-	{
-		return $this->logUrl;
-	}
-	public function setObservedGeneration($observedGeneration)
-	{
-		$this->observedGeneration = $observedGeneration;
-	}
-	public function getObservedGeneration()
-	{
-		return $this->observedGeneration;
-	}
-	public function setServiceName($serviceName)
-	{
-		$this->serviceName = $serviceName;
-	}
-	public function getServiceName()
-	{
-		return $this->serviceName;
-	}
+  /**
+   * @param Google_Service_CloudRun_GoogleCloudRunV1Condition[]
+   */
+  public function setConditions($conditions)
+  {
+    $this->conditions = $conditions;
+  }
+  /**
+   * @return Google_Service_CloudRun_GoogleCloudRunV1Condition[]
+   */
+  public function getConditions()
+  {
+    return $this->conditions;
+  }
+  public function setImageDigest($imageDigest)
+  {
+    $this->imageDigest = $imageDigest;
+  }
+  public function getImageDigest()
+  {
+    return $this->imageDigest;
+  }
+  public function setLogUrl($logUrl)
+  {
+    $this->logUrl = $logUrl;
+  }
+  public function getLogUrl()
+  {
+    return $this->logUrl;
+  }
+  public function setObservedGeneration($observedGeneration)
+  {
+    $this->observedGeneration = $observedGeneration;
+  }
+  public function getObservedGeneration()
+  {
+    return $this->observedGeneration;
+  }
+  public function setServiceName($serviceName)
+  {
+    $this->serviceName = $serviceName;
+  }
+  public function getServiceName()
+  {
+    return $this->serviceName;
+  }
 }

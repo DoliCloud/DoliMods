@@ -30,92 +30,92 @@
  */
 class Google_Service_FirebaseDynamicLinks extends Google_Service
 {
-	/** View and administer all your Firebase data and settings. */
-	const FIREBASE =
-	  "https://www.googleapis.com/auth/firebase";
+  /** View and administer all your Firebase data and settings. */
+  const FIREBASE =
+      "https://www.googleapis.com/auth/firebase";
 
-	public $managedShortLinks;
-	public $shortLinks;
-	public $v1;
+  public $managedShortLinks;
+  public $shortLinks;
+  public $v1;
 
-	/**
-	 * Constructs the internal representation of the FirebaseDynamicLinks service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://firebasedynamiclinks.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch';
-		$this->version = 'v1';
-		$this->serviceName = 'firebasedynamiclinks';
+  /**
+   * Constructs the internal representation of the FirebaseDynamicLinks service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://firebasedynamiclinks.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v1';
+    $this->serviceName = 'firebasedynamiclinks';
 
-		$this->managedShortLinks = new Google_Service_FirebaseDynamicLinks_Resource_ManagedShortLinks(
-		$this,
-		$this->serviceName,
-		'managedShortLinks',
-		array(
-		  'methods' => array(
-			'create' => array(
-			  'path' => 'v1/managedShortLinks:create',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-		$this->shortLinks = new Google_Service_FirebaseDynamicLinks_Resource_ShortLinks(
-		$this,
-		$this->serviceName,
-		'shortLinks',
-		array(
-		  'methods' => array(
-			'create' => array(
-			  'path' => 'v1/shortLinks',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-		$this->v1 = new Google_Service_FirebaseDynamicLinks_Resource_V1(
-		$this,
-		$this->serviceName,
-		'v1',
-		array(
-		  'methods' => array(
-			'getLinkStats' => array(
-			  'path' => 'v1/{dynamicLink}/linkStats',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'dynamicLink' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'durationDays' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'sdkVersion' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'installAttribution' => array(
-			  'path' => 'v1/installAttribution',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'reopenAttribution' => array(
-			  'path' => 'v1/reopenAttribution',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-	}
+    $this->managedShortLinks = new Google_Service_FirebaseDynamicLinks_Resource_ManagedShortLinks(
+        $this,
+        $this->serviceName,
+        'managedShortLinks',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v1/managedShortLinks:create',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+    $this->shortLinks = new Google_Service_FirebaseDynamicLinks_Resource_ShortLinks(
+        $this,
+        $this->serviceName,
+        'shortLinks',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v1/shortLinks',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+    $this->v1 = new Google_Service_FirebaseDynamicLinks_Resource_V1(
+        $this,
+        $this->serviceName,
+        'v1',
+        array(
+          'methods' => array(
+            'getLinkStats' => array(
+              'path' => 'v1/{dynamicLink}/linkStats',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'dynamicLink' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'durationDays' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'sdkVersion' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'installAttribution' => array(
+              'path' => 'v1/installAttribution',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'reopenAttribution' => array(
+              'path' => 'v1/reopenAttribution',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+  }
 }

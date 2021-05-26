@@ -17,30 +17,30 @@
 
 class Google_Service_Doubleclicksearch_ReportRequestOrderBy extends Google_Model
 {
-	protected $columnType = 'Google_Service_Doubleclicksearch_ReportApiColumnSpec';
-	protected $columnDataType = '';
-	public $sortOrder;
+  protected $columnType = 'Google_Service_Doubleclicksearch_ReportApiColumnSpec';
+  protected $columnDataType = '';
+  public $sortOrder;
 
-	/**
-	 * @param Google_Service_Doubleclicksearch_ReportApiColumnSpec
-	 */
-	public function setColumn(Google_Service_Doubleclicksearch_ReportApiColumnSpec $column)
-	{
-		$this->column = $column;
-	}
-	/**
-	 * @return Google_Service_Doubleclicksearch_ReportApiColumnSpec
-	 */
-	public function getColumn()
-	{
-		return $this->column;
-	}
-	public function setSortOrder($sortOrder)
-	{
-		$this->sortOrder = $sortOrder;
-	}
-	public function getSortOrder()
-	{
-		return $this->sortOrder;
-	}
+  /**
+   * @param Google_Service_Doubleclicksearch_ReportApiColumnSpec
+   */
+  public function setColumn(Google_Service_Doubleclicksearch_ReportApiColumnSpec $column)
+  {
+    $this->column = $column;
+  }
+  /**
+   * @return Google_Service_Doubleclicksearch_ReportApiColumnSpec
+   */
+  public function getColumn()
+  {
+    return $this->column;
+  }
+  public function setSortOrder($sortOrder)
+  {
+    $this->sortOrder = $sortOrder;
+  }
+  public function getSortOrder()
+  {
+    return $this->sortOrder;
+  }
 }

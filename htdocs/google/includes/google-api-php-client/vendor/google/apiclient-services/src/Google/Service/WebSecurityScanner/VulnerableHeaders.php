@@ -17,38 +17,38 @@
 
 class Google_Service_WebSecurityScanner_VulnerableHeaders extends Google_Collection
 {
-	protected $collection_key = 'missingHeaders';
-	protected $headersType = 'Google_Service_WebSecurityScanner_Header';
-	protected $headersDataType = 'array';
-	protected $missingHeadersType = 'Google_Service_WebSecurityScanner_Header';
-	protected $missingHeadersDataType = 'array';
+  protected $collection_key = 'missingHeaders';
+  protected $headersType = 'Google_Service_WebSecurityScanner_Header';
+  protected $headersDataType = 'array';
+  protected $missingHeadersType = 'Google_Service_WebSecurityScanner_Header';
+  protected $missingHeadersDataType = 'array';
 
-	/**
-	 * @param Google_Service_WebSecurityScanner_Header
-	 */
-	public function setHeaders($headers)
-	{
-		$this->headers = $headers;
-	}
-	/**
-	 * @return Google_Service_WebSecurityScanner_Header
-	 */
-	public function getHeaders()
-	{
-		return $this->headers;
-	}
-	/**
-	 * @param Google_Service_WebSecurityScanner_Header
-	 */
-	public function setMissingHeaders($missingHeaders)
-	{
-		$this->missingHeaders = $missingHeaders;
-	}
-	/**
-	 * @return Google_Service_WebSecurityScanner_Header
-	 */
-	public function getMissingHeaders()
-	{
-		return $this->missingHeaders;
-	}
+  /**
+   * @param Google_Service_WebSecurityScanner_Header
+   */
+  public function setHeaders($headers)
+  {
+    $this->headers = $headers;
+  }
+  /**
+   * @return Google_Service_WebSecurityScanner_Header
+   */
+  public function getHeaders()
+  {
+    return $this->headers;
+  }
+  /**
+   * @param Google_Service_WebSecurityScanner_Header
+   */
+  public function setMissingHeaders($missingHeaders)
+  {
+    $this->missingHeaders = $missingHeaders;
+  }
+  /**
+   * @return Google_Service_WebSecurityScanner_Header
+   */
+  public function getMissingHeaders()
+  {
+    return $this->missingHeaders;
+  }
 }

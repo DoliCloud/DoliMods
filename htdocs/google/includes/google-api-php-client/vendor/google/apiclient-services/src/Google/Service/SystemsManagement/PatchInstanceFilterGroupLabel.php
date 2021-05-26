@@ -17,14 +17,14 @@
 
 class Google_Service_SystemsManagement_PatchInstanceFilterGroupLabel extends Google_Model
 {
-	public $labels;
+  public $labels;
 
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
 }

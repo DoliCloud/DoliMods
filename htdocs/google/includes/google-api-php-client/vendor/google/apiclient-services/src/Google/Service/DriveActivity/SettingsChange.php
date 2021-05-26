@@ -17,22 +17,22 @@
 
 class Google_Service_DriveActivity_SettingsChange extends Google_Collection
 {
-	protected $collection_key = 'restrictionChanges';
-	protected $restrictionChangesType = 'Google_Service_DriveActivity_RestrictionChange';
-	protected $restrictionChangesDataType = 'array';
+  protected $collection_key = 'restrictionChanges';
+  protected $restrictionChangesType = 'Google_Service_DriveActivity_RestrictionChange';
+  protected $restrictionChangesDataType = 'array';
 
-	/**
-	 * @param Google_Service_DriveActivity_RestrictionChange
-	 */
-	public function setRestrictionChanges($restrictionChanges)
-	{
-		$this->restrictionChanges = $restrictionChanges;
-	}
-	/**
-	 * @return Google_Service_DriveActivity_RestrictionChange
-	 */
-	public function getRestrictionChanges()
-	{
-		return $this->restrictionChanges;
-	}
+  /**
+   * @param Google_Service_DriveActivity_RestrictionChange[]
+   */
+  public function setRestrictionChanges($restrictionChanges)
+  {
+    $this->restrictionChanges = $restrictionChanges;
+  }
+  /**
+   * @return Google_Service_DriveActivity_RestrictionChange[]
+   */
+  public function getRestrictionChanges()
+  {
+    return $this->restrictionChanges;
+  }
 }

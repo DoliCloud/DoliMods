@@ -17,30 +17,30 @@
 
 class Google_Service_Script_GoogleAppsScriptTypeWebAppEntryPoint extends Google_Model
 {
-	protected $entryPointConfigType = 'Google_Service_Script_GoogleAppsScriptTypeWebAppConfig';
-	protected $entryPointConfigDataType = '';
-	public $url;
+  protected $entryPointConfigType = 'Google_Service_Script_GoogleAppsScriptTypeWebAppConfig';
+  protected $entryPointConfigDataType = '';
+  public $url;
 
-	/**
-	 * @param Google_Service_Script_GoogleAppsScriptTypeWebAppConfig
-	 */
-	public function setEntryPointConfig(Google_Service_Script_GoogleAppsScriptTypeWebAppConfig $entryPointConfig)
-	{
-		$this->entryPointConfig = $entryPointConfig;
-	}
-	/**
-	 * @return Google_Service_Script_GoogleAppsScriptTypeWebAppConfig
-	 */
-	public function getEntryPointConfig()
-	{
-		return $this->entryPointConfig;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  /**
+   * @param Google_Service_Script_GoogleAppsScriptTypeWebAppConfig
+   */
+  public function setEntryPointConfig(Google_Service_Script_GoogleAppsScriptTypeWebAppConfig $entryPointConfig)
+  {
+    $this->entryPointConfig = $entryPointConfig;
+  }
+  /**
+   * @return Google_Service_Script_GoogleAppsScriptTypeWebAppConfig
+   */
+  public function getEntryPointConfig()
+  {
+    return $this->entryPointConfig;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

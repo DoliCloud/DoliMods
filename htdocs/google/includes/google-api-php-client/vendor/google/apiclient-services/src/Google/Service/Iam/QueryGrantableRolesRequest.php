@@ -17,41 +17,41 @@
 
 class Google_Service_Iam_QueryGrantableRolesRequest extends Google_Model
 {
-	public $fullResourceName;
-	public $pageSize;
-	public $pageToken;
-	public $view;
+  public $fullResourceName;
+  public $pageSize;
+  public $pageToken;
+  public $view;
 
-	public function setFullResourceName($fullResourceName)
-	{
-		$this->fullResourceName = $fullResourceName;
-	}
-	public function getFullResourceName()
-	{
-		return $this->fullResourceName;
-	}
-	public function setPageSize($pageSize)
-	{
-		$this->pageSize = $pageSize;
-	}
-	public function getPageSize()
-	{
-		return $this->pageSize;
-	}
-	public function setPageToken($pageToken)
-	{
-		$this->pageToken = $pageToken;
-	}
-	public function getPageToken()
-	{
-		return $this->pageToken;
-	}
-	public function setView($view)
-	{
-		$this->view = $view;
-	}
-	public function getView()
-	{
-		return $this->view;
-	}
+  public function setFullResourceName($fullResourceName)
+  {
+    $this->fullResourceName = $fullResourceName;
+  }
+  public function getFullResourceName()
+  {
+    return $this->fullResourceName;
+  }
+  public function setPageSize($pageSize)
+  {
+    $this->pageSize = $pageSize;
+  }
+  public function getPageSize()
+  {
+    return $this->pageSize;
+  }
+  public function setPageToken($pageToken)
+  {
+    $this->pageToken = $pageToken;
+  }
+  public function getPageToken()
+  {
+    return $this->pageToken;
+  }
+  public function setView($view)
+  {
+    $this->view = $view;
+  }
+  public function getView()
+  {
+    return $this->view;
+  }
 }

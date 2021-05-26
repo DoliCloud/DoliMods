@@ -17,35 +17,35 @@
 
 class Google_Service_Devprojects_TosesAcceptRequest extends Google_Collection
 {
-	protected $collection_key = 'terms';
-	protected $contextType = 'Google_Service_Devprojects_TermsContext';
-	protected $contextDataType = 'array';
-	protected $termsType = 'Google_Service_Devprojects_TermsVersion';
-	protected $termsDataType = 'array';
-	public $whitelistId;
+  protected $collection_key = 'terms';
+  protected $contextType = 'Google_Service_Devprojects_TermsContext';
+  protected $contextDataType = 'array';
+  protected $termsType = 'Google_Service_Devprojects_TermsVersion';
+  protected $termsDataType = 'array';
+  public $whitelistId;
 
-	public function setContext($context)
-	{
-		$this->context = $context;
-	}
-	public function getContext()
-	{
-		return $this->context;
-	}
-	public function setTerms($terms)
-	{
-		$this->terms = $terms;
-	}
-	public function getTerms()
-	{
-		return $this->terms;
-	}
-	public function setWhitelistId($whitelistId)
-	{
-		$this->whitelistId = $whitelistId;
-	}
-	public function getWhitelistId()
-	{
-		return $this->whitelistId;
-	}
+  public function setContext($context)
+  {
+    $this->context = $context;
+  }
+  public function getContext()
+  {
+    return $this->context;
+  }
+  public function setTerms($terms)
+  {
+    $this->terms = $terms;
+  }
+  public function getTerms()
+  {
+    return $this->terms;
+  }
+  public function setWhitelistId($whitelistId)
+  {
+    $this->whitelistId = $whitelistId;
+  }
+  public function getWhitelistId()
+  {
+    return $this->whitelistId;
+  }
 }

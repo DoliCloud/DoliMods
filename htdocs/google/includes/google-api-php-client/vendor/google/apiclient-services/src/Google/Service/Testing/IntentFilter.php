@@ -17,33 +17,33 @@
 
 class Google_Service_Testing_IntentFilter extends Google_Collection
 {
-	protected $collection_key = 'categoryNames';
-	public $actionNames;
-	public $categoryNames;
-	public $mimeType;
+  protected $collection_key = 'categoryNames';
+  public $actionNames;
+  public $categoryNames;
+  public $mimeType;
 
-	public function setActionNames($actionNames)
-	{
-		$this->actionNames = $actionNames;
-	}
-	public function getActionNames()
-	{
-		return $this->actionNames;
-	}
-	public function setCategoryNames($categoryNames)
-	{
-		$this->categoryNames = $categoryNames;
-	}
-	public function getCategoryNames()
-	{
-		return $this->categoryNames;
-	}
-	public function setMimeType($mimeType)
-	{
-		$this->mimeType = $mimeType;
-	}
-	public function getMimeType()
-	{
-		return $this->mimeType;
-	}
+  public function setActionNames($actionNames)
+  {
+    $this->actionNames = $actionNames;
+  }
+  public function getActionNames()
+  {
+    return $this->actionNames;
+  }
+  public function setCategoryNames($categoryNames)
+  {
+    $this->categoryNames = $categoryNames;
+  }
+  public function getCategoryNames()
+  {
+    return $this->categoryNames;
+  }
+  public function setMimeType($mimeType)
+  {
+    $this->mimeType = $mimeType;
+  }
+  public function getMimeType()
+  {
+    return $this->mimeType;
+  }
 }

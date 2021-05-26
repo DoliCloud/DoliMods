@@ -17,102 +17,102 @@
 
 class Google_Service_Compute_License extends Google_Model
 {
-	public $chargesUseFee;
-	public $creationTimestamp;
-	public $description;
-	public $id;
-	public $kind;
-	public $licenseCode;
-	public $name;
-	protected $resourceRequirementsType = 'Google_Service_Compute_LicenseResourceRequirements';
-	protected $resourceRequirementsDataType = '';
-	public $selfLink;
-	public $transferable;
+  public $chargesUseFee;
+  public $creationTimestamp;
+  public $description;
+  public $id;
+  public $kind;
+  public $licenseCode;
+  public $name;
+  protected $resourceRequirementsType = 'Google_Service_Compute_LicenseResourceRequirements';
+  protected $resourceRequirementsDataType = '';
+  public $selfLink;
+  public $transferable;
 
-	public function setChargesUseFee($chargesUseFee)
-	{
-		$this->chargesUseFee = $chargesUseFee;
-	}
-	public function getChargesUseFee()
-	{
-		return $this->chargesUseFee;
-	}
-	public function setCreationTimestamp($creationTimestamp)
-	{
-		$this->creationTimestamp = $creationTimestamp;
-	}
-	public function getCreationTimestamp()
-	{
-		return $this->creationTimestamp;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLicenseCode($licenseCode)
-	{
-		$this->licenseCode = $licenseCode;
-	}
-	public function getLicenseCode()
-	{
-		return $this->licenseCode;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Compute_LicenseResourceRequirements
-	 */
-	public function setResourceRequirements(Google_Service_Compute_LicenseResourceRequirements $resourceRequirements)
-	{
-		$this->resourceRequirements = $resourceRequirements;
-	}
-	/**
-	 * @return Google_Service_Compute_LicenseResourceRequirements
-	 */
-	public function getResourceRequirements()
-	{
-		return $this->resourceRequirements;
-	}
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
-	public function getSelfLink()
-	{
-		return $this->selfLink;
-	}
-	public function setTransferable($transferable)
-	{
-		$this->transferable = $transferable;
-	}
-	public function getTransferable()
-	{
-		return $this->transferable;
-	}
+  public function setChargesUseFee($chargesUseFee)
+  {
+    $this->chargesUseFee = $chargesUseFee;
+  }
+  public function getChargesUseFee()
+  {
+    return $this->chargesUseFee;
+  }
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLicenseCode($licenseCode)
+  {
+    $this->licenseCode = $licenseCode;
+  }
+  public function getLicenseCode()
+  {
+    return $this->licenseCode;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Compute_LicenseResourceRequirements
+   */
+  public function setResourceRequirements(Google_Service_Compute_LicenseResourceRequirements $resourceRequirements)
+  {
+    $this->resourceRequirements = $resourceRequirements;
+  }
+  /**
+   * @return Google_Service_Compute_LicenseResourceRequirements
+   */
+  public function getResourceRequirements()
+  {
+    return $this->resourceRequirements;
+  }
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+  public function setTransferable($transferable)
+  {
+    $this->transferable = $transferable;
+  }
+  public function getTransferable()
+  {
+    return $this->transferable;
+  }
 }

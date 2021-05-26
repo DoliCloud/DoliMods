@@ -17,31 +17,31 @@
 
 class Google_Service_Classroom_ListCoursesResponse extends Google_Collection
 {
-	protected $collection_key = 'courses';
-	protected $coursesType = 'Google_Service_Classroom_Course';
-	protected $coursesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'courses';
+  protected $coursesType = 'Google_Service_Classroom_Course';
+  protected $coursesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Classroom_Course
-	 */
-	public function setCourses($courses)
-	{
-		$this->courses = $courses;
-	}
-	/**
-	 * @return Google_Service_Classroom_Course
-	 */
-	public function getCourses()
-	{
-		return $this->courses;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Classroom_Course[]
+   */
+  public function setCourses($courses)
+  {
+    $this->courses = $courses;
+  }
+  /**
+   * @return Google_Service_Classroom_Course[]
+   */
+  public function getCourses()
+  {
+    return $this->courses;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

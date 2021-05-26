@@ -17,64 +17,64 @@
 
 class Google_Service_BigtableAdmin_AppProfile extends Google_Model
 {
-	public $description;
-	public $etag;
-	protected $multiClusterRoutingUseAnyType = 'Google_Service_BigtableAdmin_MultiClusterRoutingUseAny';
-	protected $multiClusterRoutingUseAnyDataType = '';
-	public $name;
-	protected $singleClusterRoutingType = 'Google_Service_BigtableAdmin_SingleClusterRouting';
-	protected $singleClusterRoutingDataType = '';
+  public $description;
+  public $etag;
+  protected $multiClusterRoutingUseAnyType = 'Google_Service_BigtableAdmin_MultiClusterRoutingUseAny';
+  protected $multiClusterRoutingUseAnyDataType = '';
+  public $name;
+  protected $singleClusterRoutingType = 'Google_Service_BigtableAdmin_SingleClusterRouting';
+  protected $singleClusterRoutingDataType = '';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	/**
-	 * @param Google_Service_BigtableAdmin_MultiClusterRoutingUseAny
-	 */
-	public function setMultiClusterRoutingUseAny(Google_Service_BigtableAdmin_MultiClusterRoutingUseAny $multiClusterRoutingUseAny)
-	{
-		$this->multiClusterRoutingUseAny = $multiClusterRoutingUseAny;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_MultiClusterRoutingUseAny
-	 */
-	public function getMultiClusterRoutingUseAny()
-	{
-		return $this->multiClusterRoutingUseAny;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_BigtableAdmin_SingleClusterRouting
-	 */
-	public function setSingleClusterRouting(Google_Service_BigtableAdmin_SingleClusterRouting $singleClusterRouting)
-	{
-		$this->singleClusterRouting = $singleClusterRouting;
-	}
-	/**
-	 * @return Google_Service_BigtableAdmin_SingleClusterRouting
-	 */
-	public function getSingleClusterRouting()
-	{
-		return $this->singleClusterRouting;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param Google_Service_BigtableAdmin_MultiClusterRoutingUseAny
+   */
+  public function setMultiClusterRoutingUseAny(Google_Service_BigtableAdmin_MultiClusterRoutingUseAny $multiClusterRoutingUseAny)
+  {
+    $this->multiClusterRoutingUseAny = $multiClusterRoutingUseAny;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_MultiClusterRoutingUseAny
+   */
+  public function getMultiClusterRoutingUseAny()
+  {
+    return $this->multiClusterRoutingUseAny;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_BigtableAdmin_SingleClusterRouting
+   */
+  public function setSingleClusterRouting(Google_Service_BigtableAdmin_SingleClusterRouting $singleClusterRouting)
+  {
+    $this->singleClusterRouting = $singleClusterRouting;
+  }
+  /**
+   * @return Google_Service_BigtableAdmin_SingleClusterRouting
+   */
+  public function getSingleClusterRouting()
+  {
+    return $this->singleClusterRouting;
+  }
 }

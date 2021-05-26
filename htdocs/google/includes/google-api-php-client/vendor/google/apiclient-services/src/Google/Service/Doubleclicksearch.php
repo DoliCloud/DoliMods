@@ -31,174 +31,174 @@
  */
 class Google_Service_Doubleclicksearch extends Google_Service
 {
-	/** View and manage your advertising data in DoubleClick Search. */
-	const DOUBLECLICKSEARCH =
-	  "https://www.googleapis.com/auth/doubleclicksearch";
+  /** View and manage your advertising data in DoubleClick Search. */
+  const DOUBLECLICKSEARCH =
+      "https://www.googleapis.com/auth/doubleclicksearch";
 
-	public $conversion;
-	public $reports;
-	public $savedColumns;
+  public $conversion;
+  public $reports;
+  public $savedColumns;
 
-	/**
-	 * Constructs the internal representation of the Doubleclicksearch service.
-	 *
-	 * @param Google_Client $client The client used to deliver requests.
-	 * @param string $rootUrl The root URL used for requests to the service.
-	 */
-	public function __construct(Google_Client $client, $rootUrl = null)
-	{
-		parent::__construct($client);
-		$this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
-		$this->servicePath = '';
-		$this->batchPath = 'batch/doubleclicksearch/v2';
-		$this->version = 'v2';
-		$this->serviceName = 'doubleclicksearch';
+  /**
+   * Constructs the internal representation of the Doubleclicksearch service.
+   *
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
+   */
+  public function __construct(Google_Client $client, $rootUrl = null)
+  {
+    parent::__construct($client);
+    $this->rootUrl = $rootUrl ?: 'https://doubleclicksearch.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
+    $this->version = 'v2';
+    $this->serviceName = 'doubleclicksearch';
 
-		$this->conversion = new Google_Service_Doubleclicksearch_Resource_Conversion(
-		$this,
-		$this->serviceName,
-		'conversion',
-		array(
-		  'methods' => array(
-			'get' => array(
-			  'path' => 'doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/engine/{engineAccountId}/conversion',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'agencyId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'advertiserId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'engineAccountId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'endDate' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				  'required' => true,
-				),
-				'rowCount' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				  'required' => true,
-				),
-				'startDate' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				  'required' => true,
-				),
-				'startRow' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				  'required' => true,
-				),
-				'campaignId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'adId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'adGroupId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'criterionId' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),'insert' => array(
-			  'path' => 'doubleclicksearch/v2/conversion',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'update' => array(
-			  'path' => 'doubleclicksearch/v2/conversion',
-			  'httpMethod' => 'PUT',
-			  'parameters' => array(),
-			),'updateAvailability' => array(
-			  'path' => 'doubleclicksearch/v2/conversion/updateAvailability',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-		$this->reports = new Google_Service_Doubleclicksearch_Resource_Reports(
-		$this,
-		$this->serviceName,
-		'reports',
-		array(
-		  'methods' => array(
-			'generate' => array(
-			  'path' => 'doubleclicksearch/v2/reports/generate',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),'get' => array(
-			  'path' => 'doubleclicksearch/v2/reports/{reportId}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'reportId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'getFile' => array(
-			  'path' => 'doubleclicksearch/v2/reports/{reportId}/files/{reportFragment}',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'reportId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'reportFragment' => array(
-				  'location' => 'path',
-				  'type' => 'integer',
-				  'required' => true,
-				),
-			  ),
-			),'request' => array(
-			  'path' => 'doubleclicksearch/v2/reports',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-		$this->savedColumns = new Google_Service_Doubleclicksearch_Resource_SavedColumns(
-		$this,
-		$this->serviceName,
-		'savedColumns',
-		array(
-		  'methods' => array(
-			'list' => array(
-			  'path' => 'doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/savedcolumns',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'agencyId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'advertiserId' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->conversion = new Google_Service_Doubleclicksearch_Resource_Conversion(
+        $this,
+        $this->serviceName,
+        'conversion',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/engine/{engineAccountId}/conversion',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'agencyId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'advertiserId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'engineAccountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'endDate' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                  'required' => true,
+                ),
+                'rowCount' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                  'required' => true,
+                ),
+                'startDate' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                  'required' => true,
+                ),
+                'startRow' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                  'required' => true,
+                ),
+                'adGroupId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'adId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'campaignId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'criterionId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'insert' => array(
+              'path' => 'doubleclicksearch/v2/conversion',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'update' => array(
+              'path' => 'doubleclicksearch/v2/conversion',
+              'httpMethod' => 'PUT',
+              'parameters' => array(),
+            ),'updateAvailability' => array(
+              'path' => 'doubleclicksearch/v2/conversion/updateAvailability',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+    $this->reports = new Google_Service_Doubleclicksearch_Resource_Reports(
+        $this,
+        $this->serviceName,
+        'reports',
+        array(
+          'methods' => array(
+            'generate' => array(
+              'path' => 'doubleclicksearch/v2/reports/generate',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'get' => array(
+              'path' => 'doubleclicksearch/v2/reports/{reportId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'reportId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'getFile' => array(
+              'path' => 'doubleclicksearch/v2/reports/{reportId}/files/{reportFragment}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'reportId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'reportFragment' => array(
+                  'location' => 'path',
+                  'type' => 'integer',
+                  'required' => true,
+                ),
+              ),
+            ),'request' => array(
+              'path' => 'doubleclicksearch/v2/reports',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+    $this->savedColumns = new Google_Service_Doubleclicksearch_Resource_SavedColumns(
+        $this,
+        $this->serviceName,
+        'savedColumns',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/savedcolumns',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'agencyId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'advertiserId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

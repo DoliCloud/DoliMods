@@ -17,71 +17,71 @@
 
 class Google_Service_Monitoring_WindowsBasedSli extends Google_Model
 {
-	public $goodBadMetricFilter;
-	protected $goodTotalRatioThresholdType = 'Google_Service_Monitoring_PerformanceThreshold';
-	protected $goodTotalRatioThresholdDataType = '';
-	protected $metricMeanInRangeType = 'Google_Service_Monitoring_MetricRange';
-	protected $metricMeanInRangeDataType = '';
-	protected $metricSumInRangeType = 'Google_Service_Monitoring_MetricRange';
-	protected $metricSumInRangeDataType = '';
-	public $windowPeriod;
+  public $goodBadMetricFilter;
+  protected $goodTotalRatioThresholdType = 'Google_Service_Monitoring_PerformanceThreshold';
+  protected $goodTotalRatioThresholdDataType = '';
+  protected $metricMeanInRangeType = 'Google_Service_Monitoring_MetricRange';
+  protected $metricMeanInRangeDataType = '';
+  protected $metricSumInRangeType = 'Google_Service_Monitoring_MetricRange';
+  protected $metricSumInRangeDataType = '';
+  public $windowPeriod;
 
-	public function setGoodBadMetricFilter($goodBadMetricFilter)
-	{
-		$this->goodBadMetricFilter = $goodBadMetricFilter;
-	}
-	public function getGoodBadMetricFilter()
-	{
-		return $this->goodBadMetricFilter;
-	}
-	/**
-	 * @param Google_Service_Monitoring_PerformanceThreshold
-	 */
-	public function setGoodTotalRatioThreshold(Google_Service_Monitoring_PerformanceThreshold $goodTotalRatioThreshold)
-	{
-		$this->goodTotalRatioThreshold = $goodTotalRatioThreshold;
-	}
-	/**
-	 * @return Google_Service_Monitoring_PerformanceThreshold
-	 */
-	public function getGoodTotalRatioThreshold()
-	{
-		return $this->goodTotalRatioThreshold;
-	}
-	/**
-	 * @param Google_Service_Monitoring_MetricRange
-	 */
-	public function setMetricMeanInRange(Google_Service_Monitoring_MetricRange $metricMeanInRange)
-	{
-		$this->metricMeanInRange = $metricMeanInRange;
-	}
-	/**
-	 * @return Google_Service_Monitoring_MetricRange
-	 */
-	public function getMetricMeanInRange()
-	{
-		return $this->metricMeanInRange;
-	}
-	/**
-	 * @param Google_Service_Monitoring_MetricRange
-	 */
-	public function setMetricSumInRange(Google_Service_Monitoring_MetricRange $metricSumInRange)
-	{
-		$this->metricSumInRange = $metricSumInRange;
-	}
-	/**
-	 * @return Google_Service_Monitoring_MetricRange
-	 */
-	public function getMetricSumInRange()
-	{
-		return $this->metricSumInRange;
-	}
-	public function setWindowPeriod($windowPeriod)
-	{
-		$this->windowPeriod = $windowPeriod;
-	}
-	public function getWindowPeriod()
-	{
-		return $this->windowPeriod;
-	}
+  public function setGoodBadMetricFilter($goodBadMetricFilter)
+  {
+    $this->goodBadMetricFilter = $goodBadMetricFilter;
+  }
+  public function getGoodBadMetricFilter()
+  {
+    return $this->goodBadMetricFilter;
+  }
+  /**
+   * @param Google_Service_Monitoring_PerformanceThreshold
+   */
+  public function setGoodTotalRatioThreshold(Google_Service_Monitoring_PerformanceThreshold $goodTotalRatioThreshold)
+  {
+    $this->goodTotalRatioThreshold = $goodTotalRatioThreshold;
+  }
+  /**
+   * @return Google_Service_Monitoring_PerformanceThreshold
+   */
+  public function getGoodTotalRatioThreshold()
+  {
+    return $this->goodTotalRatioThreshold;
+  }
+  /**
+   * @param Google_Service_Monitoring_MetricRange
+   */
+  public function setMetricMeanInRange(Google_Service_Monitoring_MetricRange $metricMeanInRange)
+  {
+    $this->metricMeanInRange = $metricMeanInRange;
+  }
+  /**
+   * @return Google_Service_Monitoring_MetricRange
+   */
+  public function getMetricMeanInRange()
+  {
+    return $this->metricMeanInRange;
+  }
+  /**
+   * @param Google_Service_Monitoring_MetricRange
+   */
+  public function setMetricSumInRange(Google_Service_Monitoring_MetricRange $metricSumInRange)
+  {
+    $this->metricSumInRange = $metricSumInRange;
+  }
+  /**
+   * @return Google_Service_Monitoring_MetricRange
+   */
+  public function getMetricSumInRange()
+  {
+    return $this->metricSumInRange;
+  }
+  public function setWindowPeriod($windowPeriod)
+  {
+    $this->windowPeriod = $windowPeriod;
+  }
+  public function getWindowPeriod()
+  {
+    return $this->windowPeriod;
+  }
 }

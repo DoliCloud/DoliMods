@@ -17,40 +17,40 @@
 
 class Google_Service_Dfareporting_ChangeLogsListResponse extends Google_Collection
 {
-	protected $collection_key = 'changeLogs';
-	protected $changeLogsType = 'Google_Service_Dfareporting_ChangeLog';
-	protected $changeLogsDataType = 'array';
-	public $kind;
-	public $nextPageToken;
+  protected $collection_key = 'changeLogs';
+  protected $changeLogsType = 'Google_Service_Dfareporting_ChangeLog';
+  protected $changeLogsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dfareporting_ChangeLog
-	 */
-	public function setChangeLogs($changeLogs)
-	{
-		$this->changeLogs = $changeLogs;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_ChangeLog
-	 */
-	public function getChangeLogs()
-	{
-		return $this->changeLogs;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dfareporting_ChangeLog[]
+   */
+  public function setChangeLogs($changeLogs)
+  {
+    $this->changeLogs = $changeLogs;
+  }
+  /**
+   * @return Google_Service_Dfareporting_ChangeLog[]
+   */
+  public function getChangeLogs()
+  {
+    return $this->changeLogs;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

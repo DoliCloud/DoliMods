@@ -17,32 +17,32 @@
 
 class Google_Service_AndroidManagement_NonComplianceDetailCondition extends Google_Model
 {
-	public $nonComplianceReason;
-	public $packageName;
-	public $settingName;
+  public $nonComplianceReason;
+  public $packageName;
+  public $settingName;
 
-	public function setNonComplianceReason($nonComplianceReason)
-	{
-		$this->nonComplianceReason = $nonComplianceReason;
-	}
-	public function getNonComplianceReason()
-	{
-		return $this->nonComplianceReason;
-	}
-	public function setPackageName($packageName)
-	{
-		$this->packageName = $packageName;
-	}
-	public function getPackageName()
-	{
-		return $this->packageName;
-	}
-	public function setSettingName($settingName)
-	{
-		$this->settingName = $settingName;
-	}
-	public function getSettingName()
-	{
-		return $this->settingName;
-	}
+  public function setNonComplianceReason($nonComplianceReason)
+  {
+    $this->nonComplianceReason = $nonComplianceReason;
+  }
+  public function getNonComplianceReason()
+  {
+    return $this->nonComplianceReason;
+  }
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
+  public function setSettingName($settingName)
+  {
+    $this->settingName = $settingName;
+  }
+  public function getSettingName()
+  {
+    return $this->settingName;
+  }
 }

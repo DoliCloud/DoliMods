@@ -17,31 +17,31 @@
 
 class Google_Service_Dfareporting_PostalCodesListResponse extends Google_Collection
 {
-	protected $collection_key = 'postalCodes';
-	public $kind;
-	protected $postalCodesType = 'Google_Service_Dfareporting_PostalCode';
-	protected $postalCodesDataType = 'array';
+  protected $collection_key = 'postalCodes';
+  public $kind;
+  protected $postalCodesType = 'Google_Service_Dfareporting_PostalCode';
+  protected $postalCodesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_PostalCode
-	 */
-	public function setPostalCodes($postalCodes)
-	{
-		$this->postalCodes = $postalCodes;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_PostalCode
-	 */
-	public function getPostalCodes()
-	{
-		return $this->postalCodes;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dfareporting_PostalCode[]
+   */
+  public function setPostalCodes($postalCodes)
+  {
+    $this->postalCodes = $postalCodes;
+  }
+  /**
+   * @return Google_Service_Dfareporting_PostalCode[]
+   */
+  public function getPostalCodes()
+  {
+    return $this->postalCodes;
+  }
 }

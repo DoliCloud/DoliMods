@@ -17,121 +17,121 @@
 
 class Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Domain extends Google_Collection
 {
-	protected $collection_key = 'trusts';
-	public $admin;
-	public $authorizedNetworks;
-	public $createTime;
-	public $fqdn;
-	public $labels;
-	public $locations;
-	public $name;
-	public $reservedIpRange;
-	public $state;
-	public $statusMessage;
-	protected $trustsType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust';
-	protected $trustsDataType = 'array';
-	public $updateTime;
+  protected $collection_key = 'trusts';
+  public $admin;
+  public $authorizedNetworks;
+  public $createTime;
+  public $fqdn;
+  public $labels;
+  public $locations;
+  public $name;
+  public $reservedIpRange;
+  public $state;
+  public $statusMessage;
+  protected $trustsType = 'Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust';
+  protected $trustsDataType = 'array';
+  public $updateTime;
 
-	public function setAdmin($admin)
-	{
-		$this->admin = $admin;
-	}
-	public function getAdmin()
-	{
-		return $this->admin;
-	}
-	public function setAuthorizedNetworks($authorizedNetworks)
-	{
-		$this->authorizedNetworks = $authorizedNetworks;
-	}
-	public function getAuthorizedNetworks()
-	{
-		return $this->authorizedNetworks;
-	}
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setFqdn($fqdn)
-	{
-		$this->fqdn = $fqdn;
-	}
-	public function getFqdn()
-	{
-		return $this->fqdn;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setLocations($locations)
-	{
-		$this->locations = $locations;
-	}
-	public function getLocations()
-	{
-		return $this->locations;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setReservedIpRange($reservedIpRange)
-	{
-		$this->reservedIpRange = $reservedIpRange;
-	}
-	public function getReservedIpRange()
-	{
-		return $this->reservedIpRange;
-	}
-	public function setState($state)
-	{
-		$this->state = $state;
-	}
-	public function getState()
-	{
-		return $this->state;
-	}
-	public function setStatusMessage($statusMessage)
-	{
-		$this->statusMessage = $statusMessage;
-	}
-	public function getStatusMessage()
-	{
-		return $this->statusMessage;
-	}
-	/**
-	 * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust
-	 */
-	public function setTrusts($trusts)
-	{
-		$this->trusts = $trusts;
-	}
-	/**
-	 * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust
-	 */
-	public function getTrusts()
-	{
-		return $this->trusts;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setAdmin($admin)
+  {
+    $this->admin = $admin;
+  }
+  public function getAdmin()
+  {
+    return $this->admin;
+  }
+  public function setAuthorizedNetworks($authorizedNetworks)
+  {
+    $this->authorizedNetworks = $authorizedNetworks;
+  }
+  public function getAuthorizedNetworks()
+  {
+    return $this->authorizedNetworks;
+  }
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setFqdn($fqdn)
+  {
+    $this->fqdn = $fqdn;
+  }
+  public function getFqdn()
+  {
+    return $this->fqdn;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setLocations($locations)
+  {
+    $this->locations = $locations;
+  }
+  public function getLocations()
+  {
+    return $this->locations;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setReservedIpRange($reservedIpRange)
+  {
+    $this->reservedIpRange = $reservedIpRange;
+  }
+  public function getReservedIpRange()
+  {
+    return $this->reservedIpRange;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
+  }
+  public function setStatusMessage($statusMessage)
+  {
+    $this->statusMessage = $statusMessage;
+  }
+  public function getStatusMessage()
+  {
+    return $this->statusMessage;
+  }
+  /**
+   * @param Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust[]
+   */
+  public function setTrusts($trusts)
+  {
+    $this->trusts = $trusts;
+  }
+  /**
+   * @return Google_Service_ManagedServiceforMicrosoftActiveDirectoryConsumerAPI_Trust[]
+   */
+  public function getTrusts()
+  {
+    return $this->trusts;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

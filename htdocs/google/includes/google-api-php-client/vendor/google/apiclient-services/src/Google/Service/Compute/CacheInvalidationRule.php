@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_CacheInvalidationRule extends Google_Model
 {
-	public $host;
-	public $path;
+  public $host;
+  public $path;
 
-	public function setHost($host)
-	{
-		$this->host = $host;
-	}
-	public function getHost()
-	{
-		return $this->host;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
+  public function setHost($host)
+  {
+    $this->host = $host;
+  }
+  public function getHost()
+  {
+    return $this->host;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
 }

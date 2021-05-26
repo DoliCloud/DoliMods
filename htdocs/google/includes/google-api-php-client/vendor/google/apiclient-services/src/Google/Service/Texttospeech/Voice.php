@@ -17,42 +17,42 @@
 
 class Google_Service_Texttospeech_Voice extends Google_Collection
 {
-	protected $collection_key = 'languageCodes';
-	public $languageCodes;
-	public $name;
-	public $naturalSampleRateHertz;
-	public $ssmlGender;
+  protected $collection_key = 'languageCodes';
+  public $languageCodes;
+  public $name;
+  public $naturalSampleRateHertz;
+  public $ssmlGender;
 
-	public function setLanguageCodes($languageCodes)
-	{
-		$this->languageCodes = $languageCodes;
-	}
-	public function getLanguageCodes()
-	{
-		return $this->languageCodes;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setNaturalSampleRateHertz($naturalSampleRateHertz)
-	{
-		$this->naturalSampleRateHertz = $naturalSampleRateHertz;
-	}
-	public function getNaturalSampleRateHertz()
-	{
-		return $this->naturalSampleRateHertz;
-	}
-	public function setSsmlGender($ssmlGender)
-	{
-		$this->ssmlGender = $ssmlGender;
-	}
-	public function getSsmlGender()
-	{
-		return $this->ssmlGender;
-	}
+  public function setLanguageCodes($languageCodes)
+  {
+    $this->languageCodes = $languageCodes;
+  }
+  public function getLanguageCodes()
+  {
+    return $this->languageCodes;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNaturalSampleRateHertz($naturalSampleRateHertz)
+  {
+    $this->naturalSampleRateHertz = $naturalSampleRateHertz;
+  }
+  public function getNaturalSampleRateHertz()
+  {
+    return $this->naturalSampleRateHertz;
+  }
+  public function setSsmlGender($ssmlGender)
+  {
+    $this->ssmlGender = $ssmlGender;
+  }
+  public function getSsmlGender()
+  {
+    return $this->ssmlGender;
+  }
 }

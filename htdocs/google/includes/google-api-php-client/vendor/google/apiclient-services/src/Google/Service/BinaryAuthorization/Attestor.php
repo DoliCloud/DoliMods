@@ -17,48 +17,48 @@
 
 class Google_Service_BinaryAuthorization_Attestor extends Google_Model
 {
-	public $description;
-	public $name;
-	public $updateTime;
-	protected $userOwnedGrafeasNoteType = 'Google_Service_BinaryAuthorization_UserOwnedGrafeasNote';
-	protected $userOwnedGrafeasNoteDataType = '';
+  public $description;
+  public $name;
+  public $updateTime;
+  protected $userOwnedGrafeasNoteType = 'Google_Service_BinaryAuthorization_UserOwnedGrafeasNote';
+  protected $userOwnedGrafeasNoteDataType = '';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
-	/**
-	 * @param Google_Service_BinaryAuthorization_UserOwnedGrafeasNote
-	 */
-	public function setUserOwnedGrafeasNote(Google_Service_BinaryAuthorization_UserOwnedGrafeasNote $userOwnedGrafeasNote)
-	{
-		$this->userOwnedGrafeasNote = $userOwnedGrafeasNote;
-	}
-	/**
-	 * @return Google_Service_BinaryAuthorization_UserOwnedGrafeasNote
-	 */
-	public function getUserOwnedGrafeasNote()
-	{
-		return $this->userOwnedGrafeasNote;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
+  /**
+   * @param Google_Service_BinaryAuthorization_UserOwnedGrafeasNote
+   */
+  public function setUserOwnedGrafeasNote(Google_Service_BinaryAuthorization_UserOwnedGrafeasNote $userOwnedGrafeasNote)
+  {
+    $this->userOwnedGrafeasNote = $userOwnedGrafeasNote;
+  }
+  /**
+   * @return Google_Service_BinaryAuthorization_UserOwnedGrafeasNote
+   */
+  public function getUserOwnedGrafeasNote()
+  {
+    return $this->userOwnedGrafeasNote;
+  }
 }

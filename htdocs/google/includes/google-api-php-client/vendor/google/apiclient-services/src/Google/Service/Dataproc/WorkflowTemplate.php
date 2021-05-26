@@ -17,108 +17,108 @@
 
 class Google_Service_Dataproc_WorkflowTemplate extends Google_Collection
 {
-	protected $collection_key = 'parameters';
-	public $createTime;
-	public $id;
-	protected $jobsType = 'Google_Service_Dataproc_OrderedJob';
-	protected $jobsDataType = 'array';
-	public $labels;
-	public $name;
-	protected $parametersType = 'Google_Service_Dataproc_TemplateParameter';
-	protected $parametersDataType = 'array';
-	protected $placementType = 'Google_Service_Dataproc_WorkflowTemplatePlacement';
-	protected $placementDataType = '';
-	public $updateTime;
-	public $version;
+  protected $collection_key = 'parameters';
+  public $createTime;
+  public $id;
+  protected $jobsType = 'Google_Service_Dataproc_OrderedJob';
+  protected $jobsDataType = 'array';
+  public $labels;
+  public $name;
+  protected $parametersType = 'Google_Service_Dataproc_TemplateParameter';
+  protected $parametersDataType = 'array';
+  protected $placementType = 'Google_Service_Dataproc_WorkflowTemplatePlacement';
+  protected $placementDataType = '';
+  public $updateTime;
+  public $version;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_Dataproc_OrderedJob
-	 */
-	public function setJobs($jobs)
-	{
-		$this->jobs = $jobs;
-	}
-	/**
-	 * @return Google_Service_Dataproc_OrderedJob
-	 */
-	public function getJobs()
-	{
-		return $this->jobs;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Dataproc_TemplateParameter
-	 */
-	public function setParameters($parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	/**
-	 * @return Google_Service_Dataproc_TemplateParameter
-	 */
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
-	/**
-	 * @param Google_Service_Dataproc_WorkflowTemplatePlacement
-	 */
-	public function setPlacement(Google_Service_Dataproc_WorkflowTemplatePlacement $placement)
-	{
-		$this->placement = $placement;
-	}
-	/**
-	 * @return Google_Service_Dataproc_WorkflowTemplatePlacement
-	 */
-	public function getPlacement()
-	{
-		return $this->placement;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
-	public function setVersion($version)
-	{
-		$this->version = $version;
-	}
-	public function getVersion()
-	{
-		return $this->version;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_Dataproc_OrderedJob[]
+   */
+  public function setJobs($jobs)
+  {
+    $this->jobs = $jobs;
+  }
+  /**
+   * @return Google_Service_Dataproc_OrderedJob[]
+   */
+  public function getJobs()
+  {
+    return $this->jobs;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Dataproc_TemplateParameter[]
+   */
+  public function setParameters($parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  /**
+   * @return Google_Service_Dataproc_TemplateParameter[]
+   */
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
+  /**
+   * @param Google_Service_Dataproc_WorkflowTemplatePlacement
+   */
+  public function setPlacement(Google_Service_Dataproc_WorkflowTemplatePlacement $placement)
+  {
+    $this->placement = $placement;
+  }
+  /**
+   * @return Google_Service_Dataproc_WorkflowTemplatePlacement
+   */
+  public function getPlacement()
+  {
+    return $this->placement;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
+  }
 }

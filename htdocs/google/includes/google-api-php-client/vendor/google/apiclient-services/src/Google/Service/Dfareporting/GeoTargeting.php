@@ -17,95 +17,95 @@
 
 class Google_Service_Dfareporting_GeoTargeting extends Google_Collection
 {
-	protected $collection_key = 'regions';
-	protected $citiesType = 'Google_Service_Dfareporting_City';
-	protected $citiesDataType = 'array';
-	protected $countriesType = 'Google_Service_Dfareporting_Country';
-	protected $countriesDataType = 'array';
-	public $excludeCountries;
-	protected $metrosType = 'Google_Service_Dfareporting_Metro';
-	protected $metrosDataType = 'array';
-	protected $postalCodesType = 'Google_Service_Dfareporting_PostalCode';
-	protected $postalCodesDataType = 'array';
-	protected $regionsType = 'Google_Service_Dfareporting_Region';
-	protected $regionsDataType = 'array';
+  protected $collection_key = 'regions';
+  protected $citiesType = 'Google_Service_Dfareporting_City';
+  protected $citiesDataType = 'array';
+  protected $countriesType = 'Google_Service_Dfareporting_Country';
+  protected $countriesDataType = 'array';
+  public $excludeCountries;
+  protected $metrosType = 'Google_Service_Dfareporting_Metro';
+  protected $metrosDataType = 'array';
+  protected $postalCodesType = 'Google_Service_Dfareporting_PostalCode';
+  protected $postalCodesDataType = 'array';
+  protected $regionsType = 'Google_Service_Dfareporting_Region';
+  protected $regionsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Dfareporting_City
-	 */
-	public function setCities($cities)
-	{
-		$this->cities = $cities;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_City
-	 */
-	public function getCities()
-	{
-		return $this->cities;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Country
-	 */
-	public function setCountries($countries)
-	{
-		$this->countries = $countries;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Country
-	 */
-	public function getCountries()
-	{
-		return $this->countries;
-	}
-	public function setExcludeCountries($excludeCountries)
-	{
-		$this->excludeCountries = $excludeCountries;
-	}
-	public function getExcludeCountries()
-	{
-		return $this->excludeCountries;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Metro
-	 */
-	public function setMetros($metros)
-	{
-		$this->metros = $metros;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Metro
-	 */
-	public function getMetros()
-	{
-		return $this->metros;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_PostalCode
-	 */
-	public function setPostalCodes($postalCodes)
-	{
-		$this->postalCodes = $postalCodes;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_PostalCode
-	 */
-	public function getPostalCodes()
-	{
-		return $this->postalCodes;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Region
-	 */
-	public function setRegions($regions)
-	{
-		$this->regions = $regions;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Region
-	 */
-	public function getRegions()
-	{
-		return $this->regions;
-	}
+  /**
+   * @param Google_Service_Dfareporting_City[]
+   */
+  public function setCities($cities)
+  {
+    $this->cities = $cities;
+  }
+  /**
+   * @return Google_Service_Dfareporting_City[]
+   */
+  public function getCities()
+  {
+    return $this->cities;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Country[]
+   */
+  public function setCountries($countries)
+  {
+    $this->countries = $countries;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Country[]
+   */
+  public function getCountries()
+  {
+    return $this->countries;
+  }
+  public function setExcludeCountries($excludeCountries)
+  {
+    $this->excludeCountries = $excludeCountries;
+  }
+  public function getExcludeCountries()
+  {
+    return $this->excludeCountries;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Metro[]
+   */
+  public function setMetros($metros)
+  {
+    $this->metros = $metros;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Metro[]
+   */
+  public function getMetros()
+  {
+    return $this->metros;
+  }
+  /**
+   * @param Google_Service_Dfareporting_PostalCode[]
+   */
+  public function setPostalCodes($postalCodes)
+  {
+    $this->postalCodes = $postalCodes;
+  }
+  /**
+   * @return Google_Service_Dfareporting_PostalCode[]
+   */
+  public function getPostalCodes()
+  {
+    return $this->postalCodes;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Region[]
+   */
+  public function setRegions($regions)
+  {
+    $this->regions = $regions;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Region[]
+   */
+  public function getRegions()
+  {
+    return $this->regions;
+  }
 }

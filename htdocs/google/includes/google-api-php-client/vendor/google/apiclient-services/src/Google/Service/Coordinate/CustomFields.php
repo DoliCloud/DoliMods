@@ -17,25 +17,25 @@
 
 class Google_Service_Coordinate_CustomFields extends Google_Collection
 {
-	protected $collection_key = 'customField';
-	protected $customFieldType = 'Google_Service_Coordinate_CustomField';
-	protected $customFieldDataType = 'array';
-	public $kind;
+  protected $collection_key = 'customField';
+  protected $customFieldType = 'Google_Service_Coordinate_CustomField';
+  protected $customFieldDataType = 'array';
+  public $kind;
 
-	public function setCustomField($customField)
-	{
-		$this->customField = $customField;
-	}
-	public function getCustomField()
-	{
-		return $this->customField;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setCustomField($customField)
+  {
+    $this->customField = $customField;
+  }
+  public function getCustomField()
+  {
+    return $this->customField;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

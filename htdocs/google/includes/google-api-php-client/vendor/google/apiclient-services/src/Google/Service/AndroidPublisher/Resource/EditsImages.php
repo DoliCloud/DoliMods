@@ -25,80 +25,80 @@
  */
 class Google_Service_AndroidPublisher_Resource_EditsImages extends Google_Service_Resource
 {
-	/**
-	 * Deletes the image (specified by id) from the edit. (images.delete)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param string $language Language localization code (a BCP-47 language tag;
-	 *                         for example, "de-AT" for Austrian German).
-	 * @param string $imageType Type of the Image.
-	 * @param string $imageId Unique identifier an image within the set of images
-	 *                        attached to this edit.
-	 * @param array $optParams Optional parameters.
-	 */
-	public function delete($packageName, $editId, $language, $imageType, $imageId, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'language' => $language, 'imageType' => $imageType, 'imageId' => $imageId);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params));
-	}
-	/**
-	 * Deletes all images for the specified language and image type. Returns an
-	 * empty response if no images are found. (images.deleteall)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param string $language Language localization code (a BCP-47 language tag;
-	 *                         for example, "de-AT" for Austrian German). Providing a language that is not
-	 *                         supported by the App is a no-op.
-	 * @param string $imageType Type of the Image. Providing an image type that
-	 *                          refers to no images is a no-op.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_ImagesDeleteAllResponse
-	 */
-	public function deleteall($packageName, $editId, $language, $imageType, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'language' => $language, 'imageType' => $imageType);
-		$params = array_merge($params, $optParams);
-		return $this->call('deleteall', array($params), "Google_Service_AndroidPublisher_ImagesDeleteAllResponse");
-	}
-	/**
-	 * Lists all images. The response may be empty. (images.listEditsImages)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param string $language Language localization code (a BCP-47 language tag;
-	 *                         for example, "de-AT" for Austrian German). There must be a store listing for
-	 *                         the specified language.
-	 * @param string $imageType Type of the Image. Providing an image type that
-	 *                          refers to no images will return an empty response.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_ImagesListResponse
-	 */
-	public function listEditsImages($packageName, $editId, $language, $imageType, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'language' => $language, 'imageType' => $imageType);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AndroidPublisher_ImagesListResponse");
-	}
-	/**
-	 * Uploads an image of the specified language and image type, and adds to the
-	 * edit. (images.upload)
-	 *
-	 * @param string $packageName Package name of the app.
-	 * @param string $editId Identifier of the edit.
-	 * @param string $language Language localization code (a BCP-47 language tag;
-	 *                         for example, "de-AT" for Austrian German). Providing a language that is not
-	 *                         supported by the App is a no-op.
-	 * @param string $imageType Type of the Image.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AndroidPublisher_ImagesUploadResponse
-	 */
-	public function upload($packageName, $editId, $language, $imageType, $optParams = array())
-	{
-		$params = array('packageName' => $packageName, 'editId' => $editId, 'language' => $language, 'imageType' => $imageType);
-		$params = array_merge($params, $optParams);
-		return $this->call('upload', array($params), "Google_Service_AndroidPublisher_ImagesUploadResponse");
-	}
+  /**
+   * Deletes the image (specified by id) from the edit. (images.delete)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param string $language Language localization code (a BCP-47 language tag;
+   * for example, "de-AT" for Austrian German).
+   * @param string $imageType Type of the Image.
+   * @param string $imageId Unique identifier an image within the set of images
+   * attached to this edit.
+   * @param array $optParams Optional parameters.
+   */
+  public function delete($packageName, $editId, $language, $imageType, $imageId, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'language' => $language, 'imageType' => $imageType, 'imageId' => $imageId);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params));
+  }
+  /**
+   * Deletes all images for the specified language and image type. Returns an
+   * empty response if no images are found. (images.deleteall)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param string $language Language localization code (a BCP-47 language tag;
+   * for example, "de-AT" for Austrian German). Providing a language that is not
+   * supported by the App is a no-op.
+   * @param string $imageType Type of the Image. Providing an image type that
+   * refers to no images is a no-op.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_ImagesDeleteAllResponse
+   */
+  public function deleteall($packageName, $editId, $language, $imageType, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'language' => $language, 'imageType' => $imageType);
+    $params = array_merge($params, $optParams);
+    return $this->call('deleteall', array($params), "Google_Service_AndroidPublisher_ImagesDeleteAllResponse");
+  }
+  /**
+   * Lists all images. The response may be empty. (images.listEditsImages)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param string $language Language localization code (a BCP-47 language tag;
+   * for example, "de-AT" for Austrian German). There must be a store listing for
+   * the specified language.
+   * @param string $imageType Type of the Image. Providing an image type that
+   * refers to no images will return an empty response.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_ImagesListResponse
+   */
+  public function listEditsImages($packageName, $editId, $language, $imageType, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'language' => $language, 'imageType' => $imageType);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AndroidPublisher_ImagesListResponse");
+  }
+  /**
+   * Uploads an image of the specified language and image type, and adds to the
+   * edit. (images.upload)
+   *
+   * @param string $packageName Package name of the app.
+   * @param string $editId Identifier of the edit.
+   * @param string $language Language localization code (a BCP-47 language tag;
+   * for example, "de-AT" for Austrian German). Providing a language that is not
+   * supported by the App is a no-op.
+   * @param string $imageType Type of the Image.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_ImagesUploadResponse
+   */
+  public function upload($packageName, $editId, $language, $imageType, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'language' => $language, 'imageType' => $imageType);
+    $params = array_merge($params, $optParams);
+    return $this->call('upload', array($params), "Google_Service_AndroidPublisher_ImagesUploadResponse");
+  }
 }

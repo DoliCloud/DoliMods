@@ -17,21 +17,21 @@
 
 class Google_Service_HomeGraphService_QueryRequestInput extends Google_Model
 {
-	protected $payloadType = 'Google_Service_HomeGraphService_QueryRequestPayload';
-	protected $payloadDataType = '';
+  protected $payloadType = 'Google_Service_HomeGraphService_QueryRequestPayload';
+  protected $payloadDataType = '';
 
-	/**
-	 * @param Google_Service_HomeGraphService_QueryRequestPayload
-	 */
-	public function setPayload(Google_Service_HomeGraphService_QueryRequestPayload $payload)
-	{
-		$this->payload = $payload;
-	}
-	/**
-	 * @return Google_Service_HomeGraphService_QueryRequestPayload
-	 */
-	public function getPayload()
-	{
-		return $this->payload;
-	}
+  /**
+   * @param Google_Service_HomeGraphService_QueryRequestPayload
+   */
+  public function setPayload(Google_Service_HomeGraphService_QueryRequestPayload $payload)
+  {
+    $this->payload = $payload;
+  }
+  /**
+   * @return Google_Service_HomeGraphService_QueryRequestPayload
+   */
+  public function getPayload()
+  {
+    return $this->payload;
+  }
 }

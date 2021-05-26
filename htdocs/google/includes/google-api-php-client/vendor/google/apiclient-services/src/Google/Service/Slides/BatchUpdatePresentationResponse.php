@@ -17,47 +17,47 @@
 
 class Google_Service_Slides_BatchUpdatePresentationResponse extends Google_Collection
 {
-	protected $collection_key = 'replies';
-	public $presentationId;
-	protected $repliesType = 'Google_Service_Slides_Response';
-	protected $repliesDataType = 'array';
-	protected $writeControlType = 'Google_Service_Slides_WriteControl';
-	protected $writeControlDataType = '';
+  protected $collection_key = 'replies';
+  public $presentationId;
+  protected $repliesType = 'Google_Service_Slides_Response';
+  protected $repliesDataType = 'array';
+  protected $writeControlType = 'Google_Service_Slides_WriteControl';
+  protected $writeControlDataType = '';
 
-	public function setPresentationId($presentationId)
-	{
-		$this->presentationId = $presentationId;
-	}
-	public function getPresentationId()
-	{
-		return $this->presentationId;
-	}
-	/**
-	 * @param Google_Service_Slides_Response
-	 */
-	public function setReplies($replies)
-	{
-		$this->replies = $replies;
-	}
-	/**
-	 * @return Google_Service_Slides_Response
-	 */
-	public function getReplies()
-	{
-		return $this->replies;
-	}
-	/**
-	 * @param Google_Service_Slides_WriteControl
-	 */
-	public function setWriteControl(Google_Service_Slides_WriteControl $writeControl)
-	{
-		$this->writeControl = $writeControl;
-	}
-	/**
-	 * @return Google_Service_Slides_WriteControl
-	 */
-	public function getWriteControl()
-	{
-		return $this->writeControl;
-	}
+  public function setPresentationId($presentationId)
+  {
+    $this->presentationId = $presentationId;
+  }
+  public function getPresentationId()
+  {
+    return $this->presentationId;
+  }
+  /**
+   * @param Google_Service_Slides_Response[]
+   */
+  public function setReplies($replies)
+  {
+    $this->replies = $replies;
+  }
+  /**
+   * @return Google_Service_Slides_Response[]
+   */
+  public function getReplies()
+  {
+    return $this->replies;
+  }
+  /**
+   * @param Google_Service_Slides_WriteControl
+   */
+  public function setWriteControl(Google_Service_Slides_WriteControl $writeControl)
+  {
+    $this->writeControl = $writeControl;
+  }
+  /**
+   * @return Google_Service_Slides_WriteControl
+   */
+  public function getWriteControl()
+  {
+    return $this->writeControl;
+  }
 }

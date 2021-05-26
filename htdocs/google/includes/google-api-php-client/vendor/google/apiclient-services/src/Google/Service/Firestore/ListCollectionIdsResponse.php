@@ -17,24 +17,24 @@
 
 class Google_Service_Firestore_ListCollectionIdsResponse extends Google_Collection
 {
-	protected $collection_key = 'collectionIds';
-	public $collectionIds;
-	public $nextPageToken;
+  protected $collection_key = 'collectionIds';
+  public $collectionIds;
+  public $nextPageToken;
 
-	public function setCollectionIds($collectionIds)
-	{
-		$this->collectionIds = $collectionIds;
-	}
-	public function getCollectionIds()
-	{
-		return $this->collectionIds;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  public function setCollectionIds($collectionIds)
+  {
+    $this->collectionIds = $collectionIds;
+  }
+  public function getCollectionIds()
+  {
+    return $this->collectionIds;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

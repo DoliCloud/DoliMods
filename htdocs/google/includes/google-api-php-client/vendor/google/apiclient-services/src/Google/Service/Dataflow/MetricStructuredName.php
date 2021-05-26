@@ -17,32 +17,32 @@
 
 class Google_Service_Dataflow_MetricStructuredName extends Google_Model
 {
-	public $context;
-	public $name;
-	public $origin;
+  public $context;
+  public $name;
+  public $origin;
 
-	public function setContext($context)
-	{
-		$this->context = $context;
-	}
-	public function getContext()
-	{
-		return $this->context;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOrigin($origin)
-	{
-		$this->origin = $origin;
-	}
-	public function getOrigin()
-	{
-		return $this->origin;
-	}
+  public function setContext($context)
+  {
+    $this->context = $context;
+  }
+  public function getContext()
+  {
+    return $this->context;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOrigin($origin)
+  {
+    $this->origin = $origin;
+  }
+  public function getOrigin()
+  {
+    return $this->origin;
+  }
 }

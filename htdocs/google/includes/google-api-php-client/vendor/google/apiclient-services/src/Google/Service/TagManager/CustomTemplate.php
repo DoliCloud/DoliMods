@@ -17,102 +17,102 @@
 
 class Google_Service_TagManager_CustomTemplate extends Google_Model
 {
-	public $accountId;
-	public $containerId;
-	public $fingerprint;
-	protected $galleryReferenceType = 'Google_Service_TagManager_GalleryReference';
-	protected $galleryReferenceDataType = '';
-	public $name;
-	public $path;
-	public $tagManagerUrl;
-	public $templateData;
-	public $templateId;
-	public $workspaceId;
+  public $accountId;
+  public $containerId;
+  public $fingerprint;
+  protected $galleryReferenceType = 'Google_Service_TagManager_GalleryReference';
+  protected $galleryReferenceDataType = '';
+  public $name;
+  public $path;
+  public $tagManagerUrl;
+  public $templateData;
+  public $templateId;
+  public $workspaceId;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	public function setContainerId($containerId)
-	{
-		$this->containerId = $containerId;
-	}
-	public function getContainerId()
-	{
-		return $this->containerId;
-	}
-	public function setFingerprint($fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	/**
-	 * @param Google_Service_TagManager_GalleryReference
-	 */
-	public function setGalleryReference(Google_Service_TagManager_GalleryReference $galleryReference)
-	{
-		$this->galleryReference = $galleryReference;
-	}
-	/**
-	 * @return Google_Service_TagManager_GalleryReference
-	 */
-	public function getGalleryReference()
-	{
-		return $this->galleryReference;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
-	public function setTagManagerUrl($tagManagerUrl)
-	{
-		$this->tagManagerUrl = $tagManagerUrl;
-	}
-	public function getTagManagerUrl()
-	{
-		return $this->tagManagerUrl;
-	}
-	public function setTemplateData($templateData)
-	{
-		$this->templateData = $templateData;
-	}
-	public function getTemplateData()
-	{
-		return $this->templateData;
-	}
-	public function setTemplateId($templateId)
-	{
-		$this->templateId = $templateId;
-	}
-	public function getTemplateId()
-	{
-		return $this->templateId;
-	}
-	public function setWorkspaceId($workspaceId)
-	{
-		$this->workspaceId = $workspaceId;
-	}
-	public function getWorkspaceId()
-	{
-		return $this->workspaceId;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  public function setContainerId($containerId)
+  {
+    $this->containerId = $containerId;
+  }
+  public function getContainerId()
+  {
+    return $this->containerId;
+  }
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  /**
+   * @param Google_Service_TagManager_GalleryReference
+   */
+  public function setGalleryReference(Google_Service_TagManager_GalleryReference $galleryReference)
+  {
+    $this->galleryReference = $galleryReference;
+  }
+  /**
+   * @return Google_Service_TagManager_GalleryReference
+   */
+  public function getGalleryReference()
+  {
+    return $this->galleryReference;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
+  public function setTagManagerUrl($tagManagerUrl)
+  {
+    $this->tagManagerUrl = $tagManagerUrl;
+  }
+  public function getTagManagerUrl()
+  {
+    return $this->tagManagerUrl;
+  }
+  public function setTemplateData($templateData)
+  {
+    $this->templateData = $templateData;
+  }
+  public function getTemplateData()
+  {
+    return $this->templateData;
+  }
+  public function setTemplateId($templateId)
+  {
+    $this->templateId = $templateId;
+  }
+  public function getTemplateId()
+  {
+    return $this->templateId;
+  }
+  public function setWorkspaceId($workspaceId)
+  {
+    $this->workspaceId = $workspaceId;
+  }
+  public function getWorkspaceId()
+  {
+    return $this->workspaceId;
+  }
 }

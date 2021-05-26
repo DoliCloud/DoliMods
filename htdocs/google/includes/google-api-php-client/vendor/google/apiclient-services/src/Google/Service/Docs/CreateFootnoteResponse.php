@@ -17,14 +17,14 @@
 
 class Google_Service_Docs_CreateFootnoteResponse extends Google_Model
 {
-	public $footnoteId;
+  public $footnoteId;
 
-	public function setFootnoteId($footnoteId)
-	{
-		$this->footnoteId = $footnoteId;
-	}
-	public function getFootnoteId()
-	{
-		return $this->footnoteId;
-	}
+  public function setFootnoteId($footnoteId)
+  {
+    $this->footnoteId = $footnoteId;
+  }
+  public function getFootnoteId()
+  {
+    return $this->footnoteId;
+  }
 }

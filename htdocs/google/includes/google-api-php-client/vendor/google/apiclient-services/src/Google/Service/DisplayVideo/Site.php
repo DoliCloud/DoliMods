@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_Site extends Google_Model
 {
-	public $name;
-	public $urlOrAppId;
+  public $name;
+  public $urlOrAppId;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setUrlOrAppId($urlOrAppId)
-	{
-		$this->urlOrAppId = $urlOrAppId;
-	}
-	public function getUrlOrAppId()
-	{
-		return $this->urlOrAppId;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setUrlOrAppId($urlOrAppId)
+  {
+    $this->urlOrAppId = $urlOrAppId;
+  }
+  public function getUrlOrAppId()
+  {
+    return $this->urlOrAppId;
+  }
 }

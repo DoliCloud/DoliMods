@@ -17,37 +17,37 @@
 
 class Google_Service_Datastore_RunQueryResponse extends Google_Model
 {
-	protected $batchType = 'Google_Service_Datastore_QueryResultBatch';
-	protected $batchDataType = '';
-	protected $queryType = 'Google_Service_Datastore_Query';
-	protected $queryDataType = '';
+  protected $batchType = 'Google_Service_Datastore_QueryResultBatch';
+  protected $batchDataType = '';
+  protected $queryType = 'Google_Service_Datastore_Query';
+  protected $queryDataType = '';
 
-	/**
-	 * @param Google_Service_Datastore_QueryResultBatch
-	 */
-	public function setBatch(Google_Service_Datastore_QueryResultBatch $batch)
-	{
-		$this->batch = $batch;
-	}
-	/**
-	 * @return Google_Service_Datastore_QueryResultBatch
-	 */
-	public function getBatch()
-	{
-		return $this->batch;
-	}
-	/**
-	 * @param Google_Service_Datastore_Query
-	 */
-	public function setQuery(Google_Service_Datastore_Query $query)
-	{
-		$this->query = $query;
-	}
-	/**
-	 * @return Google_Service_Datastore_Query
-	 */
-	public function getQuery()
-	{
-		return $this->query;
-	}
+  /**
+   * @param Google_Service_Datastore_QueryResultBatch
+   */
+  public function setBatch(Google_Service_Datastore_QueryResultBatch $batch)
+  {
+    $this->batch = $batch;
+  }
+  /**
+   * @return Google_Service_Datastore_QueryResultBatch
+   */
+  public function getBatch()
+  {
+    return $this->batch;
+  }
+  /**
+   * @param Google_Service_Datastore_Query
+   */
+  public function setQuery(Google_Service_Datastore_Query $query)
+  {
+    $this->query = $query;
+  }
+  /**
+   * @return Google_Service_Datastore_Query
+   */
+  public function getQuery()
+  {
+    return $this->query;
+  }
 }

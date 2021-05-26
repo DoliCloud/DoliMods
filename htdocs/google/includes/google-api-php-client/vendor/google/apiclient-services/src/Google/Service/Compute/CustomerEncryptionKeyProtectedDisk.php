@@ -17,30 +17,30 @@
 
 class Google_Service_Compute_CustomerEncryptionKeyProtectedDisk extends Google_Model
 {
-	protected $diskEncryptionKeyType = 'Google_Service_Compute_CustomerEncryptionKey';
-	protected $diskEncryptionKeyDataType = '';
-	public $source;
+  protected $diskEncryptionKeyType = 'Google_Service_Compute_CustomerEncryptionKey';
+  protected $diskEncryptionKeyDataType = '';
+  public $source;
 
-	/**
-	 * @param Google_Service_Compute_CustomerEncryptionKey
-	 */
-	public function setDiskEncryptionKey(Google_Service_Compute_CustomerEncryptionKey $diskEncryptionKey)
-	{
-		$this->diskEncryptionKey = $diskEncryptionKey;
-	}
-	/**
-	 * @return Google_Service_Compute_CustomerEncryptionKey
-	 */
-	public function getDiskEncryptionKey()
-	{
-		return $this->diskEncryptionKey;
-	}
-	public function setSource($source)
-	{
-		$this->source = $source;
-	}
-	public function getSource()
-	{
-		return $this->source;
-	}
+  /**
+   * @param Google_Service_Compute_CustomerEncryptionKey
+   */
+  public function setDiskEncryptionKey(Google_Service_Compute_CustomerEncryptionKey $diskEncryptionKey)
+  {
+    $this->diskEncryptionKey = $diskEncryptionKey;
+  }
+  /**
+   * @return Google_Service_Compute_CustomerEncryptionKey
+   */
+  public function getDiskEncryptionKey()
+  {
+    return $this->diskEncryptionKey;
+  }
+  public function setSource($source)
+  {
+    $this->source = $source;
+  }
+  public function getSource()
+  {
+    return $this->source;
+  }
 }

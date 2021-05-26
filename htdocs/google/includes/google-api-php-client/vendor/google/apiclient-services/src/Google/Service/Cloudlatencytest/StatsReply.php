@@ -17,14 +17,14 @@
 
 class Google_Service_Cloudlatencytest_StatsReply extends Google_Model
 {
-	public $testValue;
+  public $testValue;
 
-	public function setTestValue($testValue)
-	{
-		$this->testValue = $testValue;
-	}
-	public function getTestValue()
-	{
-		return $this->testValue;
-	}
+  public function setTestValue($testValue)
+  {
+    $this->testValue = $testValue;
+  }
+  public function getTestValue()
+  {
+    return $this->testValue;
+  }
 }

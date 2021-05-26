@@ -17,60 +17,60 @@
 
 class Google_Service_CloudSpeechAPI_RecognitionConfig extends Google_Model
 {
-	public $encoding;
-	public $languageCode;
-	public $maxAlternatives;
-	public $profanityFilter;
-	public $sampleRate;
-	protected $speechContextType = 'Google_Service_CloudSpeechAPI_SpeechContext';
-	protected $speechContextDataType = '';
+  public $encoding;
+  public $languageCode;
+  public $maxAlternatives;
+  public $profanityFilter;
+  public $sampleRate;
+  protected $speechContextType = 'Google_Service_CloudSpeechAPI_SpeechContext';
+  protected $speechContextDataType = '';
 
-	public function setEncoding($encoding)
-	{
-		$this->encoding = $encoding;
-	}
-	public function getEncoding()
-	{
-		return $this->encoding;
-	}
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	public function setMaxAlternatives($maxAlternatives)
-	{
-		$this->maxAlternatives = $maxAlternatives;
-	}
-	public function getMaxAlternatives()
-	{
-		return $this->maxAlternatives;
-	}
-	public function setProfanityFilter($profanityFilter)
-	{
-		$this->profanityFilter = $profanityFilter;
-	}
-	public function getProfanityFilter()
-	{
-		return $this->profanityFilter;
-	}
-	public function setSampleRate($sampleRate)
-	{
-		$this->sampleRate = $sampleRate;
-	}
-	public function getSampleRate()
-	{
-		return $this->sampleRate;
-	}
-	public function setSpeechContext(Google_Service_CloudSpeechAPI_SpeechContext $speechContext)
-	{
-		$this->speechContext = $speechContext;
-	}
-	public function getSpeechContext()
-	{
-		return $this->speechContext;
-	}
+  public function setEncoding($encoding)
+  {
+    $this->encoding = $encoding;
+  }
+  public function getEncoding()
+  {
+    return $this->encoding;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  public function setMaxAlternatives($maxAlternatives)
+  {
+    $this->maxAlternatives = $maxAlternatives;
+  }
+  public function getMaxAlternatives()
+  {
+    return $this->maxAlternatives;
+  }
+  public function setProfanityFilter($profanityFilter)
+  {
+    $this->profanityFilter = $profanityFilter;
+  }
+  public function getProfanityFilter()
+  {
+    return $this->profanityFilter;
+  }
+  public function setSampleRate($sampleRate)
+  {
+    $this->sampleRate = $sampleRate;
+  }
+  public function getSampleRate()
+  {
+    return $this->sampleRate;
+  }
+  public function setSpeechContext(Google_Service_CloudSpeechAPI_SpeechContext $speechContext)
+  {
+    $this->speechContext = $speechContext;
+  }
+  public function getSpeechContext()
+  {
+    return $this->speechContext;
+  }
 }

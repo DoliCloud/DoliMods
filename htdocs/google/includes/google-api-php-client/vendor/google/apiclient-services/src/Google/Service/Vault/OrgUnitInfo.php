@@ -17,14 +17,14 @@
 
 class Google_Service_Vault_OrgUnitInfo extends Google_Model
 {
-	public $orgUnitId;
+  public $orgUnitId;
 
-	public function setOrgUnitId($orgUnitId)
-	{
-		$this->orgUnitId = $orgUnitId;
-	}
-	public function getOrgUnitId()
-	{
-		return $this->orgUnitId;
-	}
+  public function setOrgUnitId($orgUnitId)
+  {
+    $this->orgUnitId = $orgUnitId;
+  }
+  public function getOrgUnitId()
+  {
+    return $this->orgUnitId;
+  }
 }

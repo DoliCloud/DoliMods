@@ -17,23 +17,23 @@
 
 class Google_Service_Books_VolumeVolumeInfoReadingModes extends Google_Model
 {
-	public $image;
-	public $text;
+  public $image;
+  public $text;
 
-	public function setImage($image)
-	{
-		$this->image = $image;
-	}
-	public function getImage()
-	{
-		return $this->image;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  public function setImage($image)
+  {
+    $this->image = $image;
+  }
+  public function getImage()
+  {
+    return $this->image;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

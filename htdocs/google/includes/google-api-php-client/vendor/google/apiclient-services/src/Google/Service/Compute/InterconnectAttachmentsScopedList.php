@@ -17,38 +17,38 @@
 
 class Google_Service_Compute_InterconnectAttachmentsScopedList extends Google_Collection
 {
-	protected $collection_key = 'interconnectAttachments';
-	protected $interconnectAttachmentsType = 'Google_Service_Compute_InterconnectAttachment';
-	protected $interconnectAttachmentsDataType = 'array';
-	protected $warningType = 'Google_Service_Compute_InterconnectAttachmentsScopedListWarning';
-	protected $warningDataType = '';
+  protected $collection_key = 'interconnectAttachments';
+  protected $interconnectAttachmentsType = 'Google_Service_Compute_InterconnectAttachment';
+  protected $interconnectAttachmentsDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_InterconnectAttachmentsScopedListWarning';
+  protected $warningDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_InterconnectAttachment
-	 */
-	public function setInterconnectAttachments($interconnectAttachments)
-	{
-		$this->interconnectAttachments = $interconnectAttachments;
-	}
-	/**
-	 * @return Google_Service_Compute_InterconnectAttachment
-	 */
-	public function getInterconnectAttachments()
-	{
-		return $this->interconnectAttachments;
-	}
-	/**
-	 * @param Google_Service_Compute_InterconnectAttachmentsScopedListWarning
-	 */
-	public function setWarning(Google_Service_Compute_InterconnectAttachmentsScopedListWarning $warning)
-	{
-		$this->warning = $warning;
-	}
-	/**
-	 * @return Google_Service_Compute_InterconnectAttachmentsScopedListWarning
-	 */
-	public function getWarning()
-	{
-		return $this->warning;
-	}
+  /**
+   * @param Google_Service_Compute_InterconnectAttachment[]
+   */
+  public function setInterconnectAttachments($interconnectAttachments)
+  {
+    $this->interconnectAttachments = $interconnectAttachments;
+  }
+  /**
+   * @return Google_Service_Compute_InterconnectAttachment[]
+   */
+  public function getInterconnectAttachments()
+  {
+    return $this->interconnectAttachments;
+  }
+  /**
+   * @param Google_Service_Compute_InterconnectAttachmentsScopedListWarning
+   */
+  public function setWarning(Google_Service_Compute_InterconnectAttachmentsScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+  /**
+   * @return Google_Service_Compute_InterconnectAttachmentsScopedListWarning
+   */
+  public function getWarning()
+  {
+    return $this->warning;
+  }
 }

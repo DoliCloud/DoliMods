@@ -17,33 +17,33 @@
 
 class Google_Service_Testing_StartActivityIntent extends Google_Collection
 {
-	protected $collection_key = 'categories';
-	public $action;
-	public $categories;
-	public $uri;
+  protected $collection_key = 'categories';
+  public $action;
+  public $categories;
+  public $uri;
 
-	public function setAction($action)
-	{
-		$this->action = $action;
-	}
-	public function getAction()
-	{
-		return $this->action;
-	}
-	public function setCategories($categories)
-	{
-		$this->categories = $categories;
-	}
-	public function getCategories()
-	{
-		return $this->categories;
-	}
-	public function setUri($uri)
-	{
-		$this->uri = $uri;
-	}
-	public function getUri()
-	{
-		return $this->uri;
-	}
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  public function getAction()
+  {
+    return $this->action;
+  }
+  public function setCategories($categories)
+  {
+    $this->categories = $categories;
+  }
+  public function getCategories()
+  {
+    return $this->categories;
+  }
+  public function setUri($uri)
+  {
+    $this->uri = $uri;
+  }
+  public function getUri()
+  {
+    return $this->uri;
+  }
 }

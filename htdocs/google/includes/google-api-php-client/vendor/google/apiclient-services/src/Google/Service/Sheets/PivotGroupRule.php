@@ -17,53 +17,53 @@
 
 class Google_Service_Sheets_PivotGroupRule extends Google_Model
 {
-	protected $dateTimeRuleType = 'Google_Service_Sheets_DateTimeRule';
-	protected $dateTimeRuleDataType = '';
-	protected $histogramRuleType = 'Google_Service_Sheets_HistogramRule';
-	protected $histogramRuleDataType = '';
-	protected $manualRuleType = 'Google_Service_Sheets_ManualRule';
-	protected $manualRuleDataType = '';
+  protected $dateTimeRuleType = 'Google_Service_Sheets_DateTimeRule';
+  protected $dateTimeRuleDataType = '';
+  protected $histogramRuleType = 'Google_Service_Sheets_HistogramRule';
+  protected $histogramRuleDataType = '';
+  protected $manualRuleType = 'Google_Service_Sheets_ManualRule';
+  protected $manualRuleDataType = '';
 
-	/**
-	 * @param Google_Service_Sheets_DateTimeRule
-	 */
-	public function setDateTimeRule(Google_Service_Sheets_DateTimeRule $dateTimeRule)
-	{
-		$this->dateTimeRule = $dateTimeRule;
-	}
-	/**
-	 * @return Google_Service_Sheets_DateTimeRule
-	 */
-	public function getDateTimeRule()
-	{
-		return $this->dateTimeRule;
-	}
-	/**
-	 * @param Google_Service_Sheets_HistogramRule
-	 */
-	public function setHistogramRule(Google_Service_Sheets_HistogramRule $histogramRule)
-	{
-		$this->histogramRule = $histogramRule;
-	}
-	/**
-	 * @return Google_Service_Sheets_HistogramRule
-	 */
-	public function getHistogramRule()
-	{
-		return $this->histogramRule;
-	}
-	/**
-	 * @param Google_Service_Sheets_ManualRule
-	 */
-	public function setManualRule(Google_Service_Sheets_ManualRule $manualRule)
-	{
-		$this->manualRule = $manualRule;
-	}
-	/**
-	 * @return Google_Service_Sheets_ManualRule
-	 */
-	public function getManualRule()
-	{
-		return $this->manualRule;
-	}
+  /**
+   * @param Google_Service_Sheets_DateTimeRule
+   */
+  public function setDateTimeRule(Google_Service_Sheets_DateTimeRule $dateTimeRule)
+  {
+    $this->dateTimeRule = $dateTimeRule;
+  }
+  /**
+   * @return Google_Service_Sheets_DateTimeRule
+   */
+  public function getDateTimeRule()
+  {
+    return $this->dateTimeRule;
+  }
+  /**
+   * @param Google_Service_Sheets_HistogramRule
+   */
+  public function setHistogramRule(Google_Service_Sheets_HistogramRule $histogramRule)
+  {
+    $this->histogramRule = $histogramRule;
+  }
+  /**
+   * @return Google_Service_Sheets_HistogramRule
+   */
+  public function getHistogramRule()
+  {
+    return $this->histogramRule;
+  }
+  /**
+   * @param Google_Service_Sheets_ManualRule
+   */
+  public function setManualRule(Google_Service_Sheets_ManualRule $manualRule)
+  {
+    $this->manualRule = $manualRule;
+  }
+  /**
+   * @return Google_Service_Sheets_ManualRule
+   */
+  public function getManualRule()
+  {
+    return $this->manualRule;
+  }
 }

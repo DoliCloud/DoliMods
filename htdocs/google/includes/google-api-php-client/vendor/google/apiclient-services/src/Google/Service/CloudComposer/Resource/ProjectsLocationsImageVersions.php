@@ -25,23 +25,23 @@
  */
 class Google_Service_CloudComposer_Resource_ProjectsLocationsImageVersions extends Google_Service_Resource
 {
-	/**
-	 * List ImageVersions for provided location.
-	 * (imageVersions.listProjectsLocationsImageVersions)
-	 *
-	 * @param string $parent List ImageVersions in the given project and location,
-	 *                       in the form: "projects/{projectId}/locations/{locationId}"
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string pageToken The next_page_token value returned from a
-	 * previous List request, if any.
-	 * @opt_param int pageSize The maximum number of image_versions to return.
-	 * @return Google_Service_CloudComposer_ListImageVersionsResponse
-	 */
-	public function listProjectsLocationsImageVersions($parent, $optParams = array())
-	{
-		$params = array('parent' => $parent);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_CloudComposer_ListImageVersionsResponse");
-	}
+  /**
+   * List ImageVersions for provided location.
+   * (imageVersions.listProjectsLocationsImageVersions)
+   *
+   * @param string $parent List ImageVersions in the given project and location,
+   * in the form: "projects/{projectId}/locations/{locationId}"
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize The maximum number of image_versions to return.
+   * @opt_param string pageToken The next_page_token value returned from a
+   * previous List request, if any.
+   * @return Google_Service_CloudComposer_ListImageVersionsResponse
+   */
+  public function listProjectsLocationsImageVersions($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_CloudComposer_ListImageVersionsResponse");
+  }
 }

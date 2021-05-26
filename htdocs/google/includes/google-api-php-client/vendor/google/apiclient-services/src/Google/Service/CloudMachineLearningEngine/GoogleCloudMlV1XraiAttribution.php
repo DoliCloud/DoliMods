@@ -17,14 +17,14 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution extends Google_Model
 {
-	public $numIntegralSteps;
+  public $numIntegralSteps;
 
-	public function setNumIntegralSteps($numIntegralSteps)
-	{
-		$this->numIntegralSteps = $numIntegralSteps;
-	}
-	public function getNumIntegralSteps()
-	{
-		return $this->numIntegralSteps;
-	}
+  public function setNumIntegralSteps($numIntegralSteps)
+  {
+    $this->numIntegralSteps = $numIntegralSteps;
+  }
+  public function getNumIntegralSteps()
+  {
+    return $this->numIntegralSteps;
+  }
 }

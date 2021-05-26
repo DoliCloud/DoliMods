@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_AgeRangeAssignedTargetingOptionDetails extends Google_Model
 {
-	public $ageRange;
-	public $targetingOptionId;
+  public $ageRange;
+  public $targetingOptionId;
 
-	public function setAgeRange($ageRange)
-	{
-		$this->ageRange = $ageRange;
-	}
-	public function getAgeRange()
-	{
-		return $this->ageRange;
-	}
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
+  public function setAgeRange($ageRange)
+  {
+    $this->ageRange = $ageRange;
+  }
+  public function getAgeRange()
+  {
+    return $this->ageRange;
+  }
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
 }

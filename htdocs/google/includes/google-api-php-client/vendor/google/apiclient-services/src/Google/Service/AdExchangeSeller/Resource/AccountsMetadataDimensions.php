@@ -25,18 +25,18 @@
  */
 class Google_Service_AdExchangeSeller_Resource_AccountsMetadataDimensions extends Google_Service_Resource
 {
-	/**
-	 * List the metadata for the dimensions available to this AdExchange account.
-	 * (dimensions.listAccountsMetadataDimensions)
-	 *
-	 * @param string $accountId Account with visibility to the dimensions.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_AdExchangeSeller_Metadata
-	 */
-	public function listAccountsMetadataDimensions($accountId, $optParams = array())
-	{
-		$params = array('accountId' => $accountId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_AdExchangeSeller_Metadata");
-	}
+  /**
+   * List the metadata for the dimensions available to this AdExchange account.
+   * (dimensions.listAccountsMetadataDimensions)
+   *
+   * @param string $accountId Account with visibility to the dimensions.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AdExchangeSeller_Metadata
+   */
+  public function listAccountsMetadataDimensions($accountId, $optParams = array())
+  {
+    $params = array('accountId' => $accountId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AdExchangeSeller_Metadata");
+  }
 }

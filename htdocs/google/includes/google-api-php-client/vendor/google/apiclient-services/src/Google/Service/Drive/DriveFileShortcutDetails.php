@@ -17,23 +17,23 @@
 
 class Google_Service_Drive_DriveFileShortcutDetails extends Google_Model
 {
-	public $targetId;
-	public $targetMimeType;
+  public $targetId;
+  public $targetMimeType;
 
-	public function setTargetId($targetId)
-	{
-		$this->targetId = $targetId;
-	}
-	public function getTargetId()
-	{
-		return $this->targetId;
-	}
-	public function setTargetMimeType($targetMimeType)
-	{
-		$this->targetMimeType = $targetMimeType;
-	}
-	public function getTargetMimeType()
-	{
-		return $this->targetMimeType;
-	}
+  public function setTargetId($targetId)
+  {
+    $this->targetId = $targetId;
+  }
+  public function getTargetId()
+  {
+    return $this->targetId;
+  }
+  public function setTargetMimeType($targetMimeType)
+  {
+    $this->targetMimeType = $targetMimeType;
+  }
+  public function getTargetMimeType()
+  {
+    return $this->targetMimeType;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_Games_AchievementUpdateMultipleRequest extends Google_Collection
 {
-	protected $collection_key = 'updates';
-	public $kind;
-	protected $updatesType = 'Google_Service_Games_AchievementUpdateRequest';
-	protected $updatesDataType = 'array';
+  protected $collection_key = 'updates';
+  public $kind;
+  protected $updatesType = 'Google_Service_Games_AchievementUpdateRequest';
+  protected $updatesDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Games_AchievementUpdateRequest
-	 */
-	public function setUpdates($updates)
-	{
-		$this->updates = $updates;
-	}
-	/**
-	 * @return Google_Service_Games_AchievementUpdateRequest
-	 */
-	public function getUpdates()
-	{
-		return $this->updates;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Games_AchievementUpdateRequest[]
+   */
+  public function setUpdates($updates)
+  {
+    $this->updates = $updates;
+  }
+  /**
+   * @return Google_Service_Games_AchievementUpdateRequest[]
+   */
+  public function getUpdates()
+  {
+    return $this->updates;
+  }
 }

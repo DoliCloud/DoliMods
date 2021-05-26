@@ -17,41 +17,41 @@
 
 class Google_Service_CloudRun_VolumeMount extends Google_Model
 {
-	public $mountPath;
-	public $name;
-	public $readOnly;
-	public $subPath;
+  public $mountPath;
+  public $name;
+  public $readOnly;
+  public $subPath;
 
-	public function setMountPath($mountPath)
-	{
-		$this->mountPath = $mountPath;
-	}
-	public function getMountPath()
-	{
-		return $this->mountPath;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setReadOnly($readOnly)
-	{
-		$this->readOnly = $readOnly;
-	}
-	public function getReadOnly()
-	{
-		return $this->readOnly;
-	}
-	public function setSubPath($subPath)
-	{
-		$this->subPath = $subPath;
-	}
-	public function getSubPath()
-	{
-		return $this->subPath;
-	}
+  public function setMountPath($mountPath)
+  {
+    $this->mountPath = $mountPath;
+  }
+  public function getMountPath()
+  {
+    return $this->mountPath;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setReadOnly($readOnly)
+  {
+    $this->readOnly = $readOnly;
+  }
+  public function getReadOnly()
+  {
+    return $this->readOnly;
+  }
+  public function setSubPath($subPath)
+  {
+    $this->subPath = $subPath;
+  }
+  public function getSubPath()
+  {
+    return $this->subPath;
+  }
 }

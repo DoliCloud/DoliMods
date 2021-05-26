@@ -17,58 +17,58 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1EnvironmentGroupConfig extends Google_Collection
 {
-	protected $collection_key = 'routingRules';
-	public $hostnames;
-	public $name;
-	public $revisionId;
-	protected $routingRulesType = 'Google_Service_Apigee_GoogleCloudApigeeV1RoutingRule';
-	protected $routingRulesDataType = 'array';
-	public $uid;
+  protected $collection_key = 'routingRules';
+  public $hostnames;
+  public $name;
+  public $revisionId;
+  protected $routingRulesType = 'Google_Service_Apigee_GoogleCloudApigeeV1RoutingRule';
+  protected $routingRulesDataType = 'array';
+  public $uid;
 
-	public function setHostnames($hostnames)
-	{
-		$this->hostnames = $hostnames;
-	}
-	public function getHostnames()
-	{
-		return $this->hostnames;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setRevisionId($revisionId)
-	{
-		$this->revisionId = $revisionId;
-	}
-	public function getRevisionId()
-	{
-		return $this->revisionId;
-	}
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1RoutingRule
-	 */
-	public function setRoutingRules($routingRules)
-	{
-		$this->routingRules = $routingRules;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1RoutingRule
-	 */
-	public function getRoutingRules()
-	{
-		return $this->routingRules;
-	}
-	public function setUid($uid)
-	{
-		$this->uid = $uid;
-	}
-	public function getUid()
-	{
-		return $this->uid;
-	}
+  public function setHostnames($hostnames)
+  {
+    $this->hostnames = $hostnames;
+  }
+  public function getHostnames()
+  {
+    return $this->hostnames;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setRevisionId($revisionId)
+  {
+    $this->revisionId = $revisionId;
+  }
+  public function getRevisionId()
+  {
+    return $this->revisionId;
+  }
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1RoutingRule[]
+   */
+  public function setRoutingRules($routingRules)
+  {
+    $this->routingRules = $routingRules;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1RoutingRule[]
+   */
+  public function getRoutingRules()
+  {
+    return $this->routingRules;
+  }
+  public function setUid($uid)
+  {
+    $this->uid = $uid;
+  }
+  public function getUid()
+  {
+    return $this->uid;
+  }
 }

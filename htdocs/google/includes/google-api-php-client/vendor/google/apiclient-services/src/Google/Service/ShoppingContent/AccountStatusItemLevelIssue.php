@@ -17,77 +17,77 @@
 
 class Google_Service_ShoppingContent_AccountStatusItemLevelIssue extends Google_Model
 {
-	public $attributeName;
-	public $code;
-	public $description;
-	public $detail;
-	public $documentation;
-	public $numItems;
-	public $resolution;
-	public $servability;
+  public $attributeName;
+  public $code;
+  public $description;
+  public $detail;
+  public $documentation;
+  public $numItems;
+  public $resolution;
+  public $servability;
 
-	public function setAttributeName($attributeName)
-	{
-		$this->attributeName = $attributeName;
-	}
-	public function getAttributeName()
-	{
-		return $this->attributeName;
-	}
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setDetail($detail)
-	{
-		$this->detail = $detail;
-	}
-	public function getDetail()
-	{
-		return $this->detail;
-	}
-	public function setDocumentation($documentation)
-	{
-		$this->documentation = $documentation;
-	}
-	public function getDocumentation()
-	{
-		return $this->documentation;
-	}
-	public function setNumItems($numItems)
-	{
-		$this->numItems = $numItems;
-	}
-	public function getNumItems()
-	{
-		return $this->numItems;
-	}
-	public function setResolution($resolution)
-	{
-		$this->resolution = $resolution;
-	}
-	public function getResolution()
-	{
-		return $this->resolution;
-	}
-	public function setServability($servability)
-	{
-		$this->servability = $servability;
-	}
-	public function getServability()
-	{
-		return $this->servability;
-	}
+  public function setAttributeName($attributeName)
+  {
+    $this->attributeName = $attributeName;
+  }
+  public function getAttributeName()
+  {
+    return $this->attributeName;
+  }
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDetail($detail)
+  {
+    $this->detail = $detail;
+  }
+  public function getDetail()
+  {
+    return $this->detail;
+  }
+  public function setDocumentation($documentation)
+  {
+    $this->documentation = $documentation;
+  }
+  public function getDocumentation()
+  {
+    return $this->documentation;
+  }
+  public function setNumItems($numItems)
+  {
+    $this->numItems = $numItems;
+  }
+  public function getNumItems()
+  {
+    return $this->numItems;
+  }
+  public function setResolution($resolution)
+  {
+    $this->resolution = $resolution;
+  }
+  public function getResolution()
+  {
+    return $this->resolution;
+  }
+  public function setServability($servability)
+  {
+    $this->servability = $servability;
+  }
+  public function getServability()
+  {
+    return $this->servability;
+  }
 }

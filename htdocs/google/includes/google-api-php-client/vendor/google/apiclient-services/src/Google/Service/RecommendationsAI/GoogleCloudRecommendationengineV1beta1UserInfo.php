@@ -17,50 +17,50 @@
 
 class Google_Service_RecommendationsAI_GoogleCloudRecommendationengineV1beta1UserInfo extends Google_Model
 {
-	public $directUserRequest;
-	public $ipAddress;
-	public $userAgent;
-	public $userId;
-	public $visitorId;
+  public $directUserRequest;
+  public $ipAddress;
+  public $userAgent;
+  public $userId;
+  public $visitorId;
 
-	public function setDirectUserRequest($directUserRequest)
-	{
-		$this->directUserRequest = $directUserRequest;
-	}
-	public function getDirectUserRequest()
-	{
-		return $this->directUserRequest;
-	}
-	public function setIpAddress($ipAddress)
-	{
-		$this->ipAddress = $ipAddress;
-	}
-	public function getIpAddress()
-	{
-		return $this->ipAddress;
-	}
-	public function setUserAgent($userAgent)
-	{
-		$this->userAgent = $userAgent;
-	}
-	public function getUserAgent()
-	{
-		return $this->userAgent;
-	}
-	public function setUserId($userId)
-	{
-		$this->userId = $userId;
-	}
-	public function getUserId()
-	{
-		return $this->userId;
-	}
-	public function setVisitorId($visitorId)
-	{
-		$this->visitorId = $visitorId;
-	}
-	public function getVisitorId()
-	{
-		return $this->visitorId;
-	}
+  public function setDirectUserRequest($directUserRequest)
+  {
+    $this->directUserRequest = $directUserRequest;
+  }
+  public function getDirectUserRequest()
+  {
+    return $this->directUserRequest;
+  }
+  public function setIpAddress($ipAddress)
+  {
+    $this->ipAddress = $ipAddress;
+  }
+  public function getIpAddress()
+  {
+    return $this->ipAddress;
+  }
+  public function setUserAgent($userAgent)
+  {
+    $this->userAgent = $userAgent;
+  }
+  public function getUserAgent()
+  {
+    return $this->userAgent;
+  }
+  public function setUserId($userId)
+  {
+    $this->userId = $userId;
+  }
+  public function getUserId()
+  {
+    return $this->userId;
+  }
+  public function setVisitorId($visitorId)
+  {
+    $this->visitorId = $visitorId;
+  }
+  public function getVisitorId()
+  {
+    return $this->visitorId;
+  }
 }

@@ -17,24 +17,24 @@
 
 class Google_Service_People_Photo extends Google_Model
 {
-	protected $metadataType = 'Google_Service_People_FieldMetadata';
-	protected $metadataDataType = '';
-	public $url;
+  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataDataType = '';
+  public $url;
 
-	public function setMetadata(Google_Service_People_FieldMetadata $metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setUrl($url)
-	{
-		$this->url = $url;
-	}
-	public function getUrl()
-	{
-		return $this->url;
-	}
+  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }

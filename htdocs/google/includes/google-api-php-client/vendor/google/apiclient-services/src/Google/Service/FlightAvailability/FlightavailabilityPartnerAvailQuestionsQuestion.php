@@ -17,31 +17,31 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsQuestion extends Google_Collection
 {
-	protected $collection_key = 'segments';
-	public $journeyOriginCity;
-	protected $segmentsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment';
-	protected $segmentsDataType = 'array';
+  protected $collection_key = 'segments';
+  public $journeyOriginCity;
+  protected $segmentsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment';
+  protected $segmentsDataType = 'array';
 
-	public function setJourneyOriginCity($journeyOriginCity)
-	{
-		$this->journeyOriginCity = $journeyOriginCity;
-	}
-	public function getJourneyOriginCity()
-	{
-		return $this->journeyOriginCity;
-	}
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment
-	 */
-	public function setSegments($segments)
-	{
-		$this->segments = $segments;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment
-	 */
-	public function getSegments()
-	{
-		return $this->segments;
-	}
+  public function setJourneyOriginCity($journeyOriginCity)
+  {
+    $this->journeyOriginCity = $journeyOriginCity;
+  }
+  public function getJourneyOriginCity()
+  {
+    return $this->journeyOriginCity;
+  }
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment
+   */
+  public function setSegments($segments)
+  {
+    $this->segments = $segments;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment
+   */
+  public function getSegments()
+  {
+    return $this->segments;
+  }
 }

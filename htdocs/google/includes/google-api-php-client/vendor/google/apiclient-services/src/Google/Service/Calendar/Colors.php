@@ -17,55 +17,55 @@
 
 class Google_Service_Calendar_Colors extends Google_Model
 {
-	protected $calendarType = 'Google_Service_Calendar_ColorDefinition';
-	protected $calendarDataType = 'map';
-	protected $eventType = 'Google_Service_Calendar_ColorDefinition';
-	protected $eventDataType = 'map';
-	public $kind;
-	public $updated;
+  protected $calendarType = 'Google_Service_Calendar_ColorDefinition';
+  protected $calendarDataType = 'map';
+  protected $eventType = 'Google_Service_Calendar_ColorDefinition';
+  protected $eventDataType = 'map';
+  public $kind;
+  public $updated;
 
-	/**
-	 * @param Google_Service_Calendar_ColorDefinition
-	 */
-	public function setCalendar($calendar)
-	{
-		$this->calendar = $calendar;
-	}
-	/**
-	 * @return Google_Service_Calendar_ColorDefinition
-	 */
-	public function getCalendar()
-	{
-		return $this->calendar;
-	}
-	/**
-	 * @param Google_Service_Calendar_ColorDefinition
-	 */
-	public function setEvent($event)
-	{
-		$this->event = $event;
-	}
-	/**
-	 * @return Google_Service_Calendar_ColorDefinition
-	 */
-	public function getEvent()
-	{
-		return $this->event;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setUpdated($updated)
-	{
-		$this->updated = $updated;
-	}
-	public function getUpdated()
-	{
-		return $this->updated;
-	}
+  /**
+   * @param Google_Service_Calendar_ColorDefinition[]
+   */
+  public function setCalendar($calendar)
+  {
+    $this->calendar = $calendar;
+  }
+  /**
+   * @return Google_Service_Calendar_ColorDefinition[]
+   */
+  public function getCalendar()
+  {
+    return $this->calendar;
+  }
+  /**
+   * @param Google_Service_Calendar_ColorDefinition[]
+   */
+  public function setEvent($event)
+  {
+    $this->event = $event;
+  }
+  /**
+   * @return Google_Service_Calendar_ColorDefinition[]
+   */
+  public function getEvent()
+  {
+    return $this->event;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setUpdated($updated)
+  {
+    $this->updated = $updated;
+  }
+  public function getUpdated()
+  {
+    return $this->updated;
+  }
 }

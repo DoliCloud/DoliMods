@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyerII_ListClientUserInvitationsResponse extends Google_Collection
 {
-	protected $collection_key = 'invitations';
-	protected $invitationsType = 'Google_Service_AdExchangeBuyerII_ClientUserInvitation';
-	protected $invitationsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'invitations';
+  protected $invitationsType = 'Google_Service_AdExchangeBuyerII_ClientUserInvitation';
+  protected $invitationsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_AdExchangeBuyerII_ClientUserInvitation
-	 */
-	public function setInvitations($invitations)
-	{
-		$this->invitations = $invitations;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyerII_ClientUserInvitation
-	 */
-	public function getInvitations()
-	{
-		return $this->invitations;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyerII_ClientUserInvitation[]
+   */
+  public function setInvitations($invitations)
+  {
+    $this->invitations = $invitations;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_ClientUserInvitation[]
+   */
+  public function getInvitations()
+  {
+    return $this->invitations;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

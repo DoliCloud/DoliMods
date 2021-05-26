@@ -17,23 +17,23 @@
 
 class Google_Service_Compute_LicenseResourceRequirements extends Google_Model
 {
-	public $minGuestCpuCount;
-	public $minMemoryMb;
+  public $minGuestCpuCount;
+  public $minMemoryMb;
 
-	public function setMinGuestCpuCount($minGuestCpuCount)
-	{
-		$this->minGuestCpuCount = $minGuestCpuCount;
-	}
-	public function getMinGuestCpuCount()
-	{
-		return $this->minGuestCpuCount;
-	}
-	public function setMinMemoryMb($minMemoryMb)
-	{
-		$this->minMemoryMb = $minMemoryMb;
-	}
-	public function getMinMemoryMb()
-	{
-		return $this->minMemoryMb;
-	}
+  public function setMinGuestCpuCount($minGuestCpuCount)
+  {
+    $this->minGuestCpuCount = $minGuestCpuCount;
+  }
+  public function getMinGuestCpuCount()
+  {
+    return $this->minGuestCpuCount;
+  }
+  public function setMinMemoryMb($minMemoryMb)
+  {
+    $this->minMemoryMb = $minMemoryMb;
+  }
+  public function getMinMemoryMb()
+  {
+    return $this->minMemoryMb;
+  }
 }

@@ -17,47 +17,47 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2StoredInfoType extends Google_Collection
 {
-	protected $collection_key = 'pendingVersions';
-	protected $currentVersionType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion';
-	protected $currentVersionDataType = '';
-	public $name;
-	protected $pendingVersionsType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion';
-	protected $pendingVersionsDataType = 'array';
+  protected $collection_key = 'pendingVersions';
+  protected $currentVersionType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion';
+  protected $currentVersionDataType = '';
+  public $name;
+  protected $pendingVersionsType = 'Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion';
+  protected $pendingVersionsDataType = 'array';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion
-	 */
-	public function setCurrentVersion(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion $currentVersion)
-	{
-		$this->currentVersion = $currentVersion;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion
-	 */
-	public function getCurrentVersion()
-	{
-		return $this->currentVersion;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion
-	 */
-	public function setPendingVersions($pendingVersions)
-	{
-		$this->pendingVersions = $pendingVersions;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion
-	 */
-	public function getPendingVersions()
-	{
-		return $this->pendingVersions;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion
+   */
+  public function setCurrentVersion(Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion $currentVersion)
+  {
+    $this->currentVersion = $currentVersion;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion
+   */
+  public function getCurrentVersion()
+  {
+    return $this->currentVersion;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion[]
+   */
+  public function setPendingVersions($pendingVersions)
+  {
+    $this->pendingVersions = $pendingVersions;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeVersion[]
+   */
+  public function getPendingVersions()
+  {
+    return $this->pendingVersions;
+  }
 }

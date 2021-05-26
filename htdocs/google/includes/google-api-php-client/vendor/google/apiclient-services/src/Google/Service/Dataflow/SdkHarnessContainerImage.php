@@ -17,23 +17,23 @@
 
 class Google_Service_Dataflow_SdkHarnessContainerImage extends Google_Model
 {
-	public $containerImage;
-	public $useSingleCorePerContainer;
+  public $containerImage;
+  public $useSingleCorePerContainer;
 
-	public function setContainerImage($containerImage)
-	{
-		$this->containerImage = $containerImage;
-	}
-	public function getContainerImage()
-	{
-		return $this->containerImage;
-	}
-	public function setUseSingleCorePerContainer($useSingleCorePerContainer)
-	{
-		$this->useSingleCorePerContainer = $useSingleCorePerContainer;
-	}
-	public function getUseSingleCorePerContainer()
-	{
-		return $this->useSingleCorePerContainer;
-	}
+  public function setContainerImage($containerImage)
+  {
+    $this->containerImage = $containerImage;
+  }
+  public function getContainerImage()
+  {
+    return $this->containerImage;
+  }
+  public function setUseSingleCorePerContainer($useSingleCorePerContainer)
+  {
+    $this->useSingleCorePerContainer = $useSingleCorePerContainer;
+  }
+  public function getUseSingleCorePerContainer()
+  {
+    return $this->useSingleCorePerContainer;
+  }
 }

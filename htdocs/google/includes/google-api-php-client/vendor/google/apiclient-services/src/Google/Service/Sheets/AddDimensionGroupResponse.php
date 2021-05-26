@@ -17,22 +17,22 @@
 
 class Google_Service_Sheets_AddDimensionGroupResponse extends Google_Collection
 {
-	protected $collection_key = 'dimensionGroups';
-	protected $dimensionGroupsType = 'Google_Service_Sheets_DimensionGroup';
-	protected $dimensionGroupsDataType = 'array';
+  protected $collection_key = 'dimensionGroups';
+  protected $dimensionGroupsType = 'Google_Service_Sheets_DimensionGroup';
+  protected $dimensionGroupsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Sheets_DimensionGroup
-	 */
-	public function setDimensionGroups($dimensionGroups)
-	{
-		$this->dimensionGroups = $dimensionGroups;
-	}
-	/**
-	 * @return Google_Service_Sheets_DimensionGroup
-	 */
-	public function getDimensionGroups()
-	{
-		return $this->dimensionGroups;
-	}
+  /**
+   * @param Google_Service_Sheets_DimensionGroup[]
+   */
+  public function setDimensionGroups($dimensionGroups)
+  {
+    $this->dimensionGroups = $dimensionGroups;
+  }
+  /**
+   * @return Google_Service_Sheets_DimensionGroup[]
+   */
+  public function getDimensionGroups()
+  {
+    return $this->dimensionGroups;
+  }
 }

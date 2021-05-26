@@ -17,55 +17,55 @@
 
 class Google_Service_GameServices_DeployedFleet extends Google_Model
 {
-	public $fleet;
-	public $fleetSpec;
-	protected $specSourceType = 'Google_Service_GameServices_SpecSource';
-	protected $specSourceDataType = '';
-	protected $statusType = 'Google_Service_GameServices_DeployedFleetStatus';
-	protected $statusDataType = '';
+  public $fleet;
+  public $fleetSpec;
+  protected $specSourceType = 'Google_Service_GameServices_SpecSource';
+  protected $specSourceDataType = '';
+  protected $statusType = 'Google_Service_GameServices_DeployedFleetStatus';
+  protected $statusDataType = '';
 
-	public function setFleet($fleet)
-	{
-		$this->fleet = $fleet;
-	}
-	public function getFleet()
-	{
-		return $this->fleet;
-	}
-	public function setFleetSpec($fleetSpec)
-	{
-		$this->fleetSpec = $fleetSpec;
-	}
-	public function getFleetSpec()
-	{
-		return $this->fleetSpec;
-	}
-	/**
-	 * @param Google_Service_GameServices_SpecSource
-	 */
-	public function setSpecSource(Google_Service_GameServices_SpecSource $specSource)
-	{
-		$this->specSource = $specSource;
-	}
-	/**
-	 * @return Google_Service_GameServices_SpecSource
-	 */
-	public function getSpecSource()
-	{
-		return $this->specSource;
-	}
-	/**
-	 * @param Google_Service_GameServices_DeployedFleetStatus
-	 */
-	public function setStatus(Google_Service_GameServices_DeployedFleetStatus $status)
-	{
-		$this->status = $status;
-	}
-	/**
-	 * @return Google_Service_GameServices_DeployedFleetStatus
-	 */
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setFleet($fleet)
+  {
+    $this->fleet = $fleet;
+  }
+  public function getFleet()
+  {
+    return $this->fleet;
+  }
+  public function setFleetSpec($fleetSpec)
+  {
+    $this->fleetSpec = $fleetSpec;
+  }
+  public function getFleetSpec()
+  {
+    return $this->fleetSpec;
+  }
+  /**
+   * @param Google_Service_GameServices_SpecSource
+   */
+  public function setSpecSource(Google_Service_GameServices_SpecSource $specSource)
+  {
+    $this->specSource = $specSource;
+  }
+  /**
+   * @return Google_Service_GameServices_SpecSource
+   */
+  public function getSpecSource()
+  {
+    return $this->specSource;
+  }
+  /**
+   * @param Google_Service_GameServices_DeployedFleetStatus
+   */
+  public function setStatus(Google_Service_GameServices_DeployedFleetStatus $status)
+  {
+    $this->status = $status;
+  }
+  /**
+   * @return Google_Service_GameServices_DeployedFleetStatus
+   */
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

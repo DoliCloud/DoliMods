@@ -17,32 +17,32 @@
 
 class Google_Service_AndroidPublisher_Bundle extends Google_Model
 {
-	public $sha1;
-	public $sha256;
-	public $versionCode;
+  public $sha1;
+  public $sha256;
+  public $versionCode;
 
-	public function setSha1($sha1)
-	{
-		$this->sha1 = $sha1;
-	}
-	public function getSha1()
-	{
-		return $this->sha1;
-	}
-	public function setSha256($sha256)
-	{
-		$this->sha256 = $sha256;
-	}
-	public function getSha256()
-	{
-		return $this->sha256;
-	}
-	public function setVersionCode($versionCode)
-	{
-		$this->versionCode = $versionCode;
-	}
-	public function getVersionCode()
-	{
-		return $this->versionCode;
-	}
+  public function setSha1($sha1)
+  {
+    $this->sha1 = $sha1;
+  }
+  public function getSha1()
+  {
+    return $this->sha1;
+  }
+  public function setSha256($sha256)
+  {
+    $this->sha256 = $sha256;
+  }
+  public function getSha256()
+  {
+    return $this->sha256;
+  }
+  public function setVersionCode($versionCode)
+  {
+    $this->versionCode = $versionCode;
+  }
+  public function getVersionCode()
+  {
+    return $this->versionCode;
+  }
 }

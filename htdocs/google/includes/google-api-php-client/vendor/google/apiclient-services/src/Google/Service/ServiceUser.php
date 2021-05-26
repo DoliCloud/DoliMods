@@ -32,102 +32,102 @@
  */
 class Google_Service_ServiceUser extends Google_Service
 {
-	/** View and manage your data across Google Cloud Platform services. */
-	const CLOUD_PLATFORM =
-	  "https://www.googleapis.com/auth/cloud-platform";
-	/** View your data across Google Cloud Platform services. */
-	const CLOUD_PLATFORM_READ_ONLY =
-	  "https://www.googleapis.com/auth/cloud-platform.read-only";
-	/** Manage your Google API service configuration. */
-	const SERVICE_MANAGEMENT =
-	  "https://www.googleapis.com/auth/service.management";
+  /** View and manage your data across Google Cloud Platform services. */
+  const CLOUD_PLATFORM =
+      "https://www.googleapis.com/auth/cloud-platform";
+  /** View your data across Google Cloud Platform services. */
+  const CLOUD_PLATFORM_READ_ONLY =
+      "https://www.googleapis.com/auth/cloud-platform.read-only";
+  /** Manage your Google API service configuration. */
+  const SERVICE_MANAGEMENT =
+      "https://www.googleapis.com/auth/service.management";
 
-	public $projects_services;
-	public $services;
+  public $projects_services;
+  public $services;
+  
+  /**
+   * Constructs the internal representation of the ServiceUser service.
+   *
+   * @param Google_Client $client
+   */
+  public function __construct(Google_Client $client)
+  {
+    parent::__construct($client);
+    $this->rootUrl = 'https://serviceuser.googleapis.com/';
+    $this->servicePath = '';
+    $this->version = 'v1';
+    $this->serviceName = 'serviceuser';
 
-	/**
-	 * Constructs the internal representation of the ServiceUser service.
-	 *
-	 * @param Google_Client $client
-	 */
-	public function __construct(Google_Client $client)
-	{
-		parent::__construct($client);
-		$this->rootUrl = 'https://serviceuser.googleapis.com/';
-		$this->servicePath = '';
-		$this->version = 'v1';
-		$this->serviceName = 'serviceuser';
-
-		$this->projects_services = new Google_Service_ServiceUser_Resource_ProjectsServices(
-		$this,
-		$this->serviceName,
-		'services',
-		array(
-		  'methods' => array(
-			'disable' => array(
-			  'path' => 'v1/{+name}:disable',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'enable' => array(
-			  'path' => 'v1/{+name}:enable',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(
-				'name' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-			  ),
-			),'list' => array(
-			  'path' => 'v1/{+parent}/services',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'parent' => array(
-				  'location' => 'path',
-				  'type' => 'string',
-				  'required' => true,
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-		$this->services = new Google_Service_ServiceUser_Resource_Services(
-		$this,
-		$this->serviceName,
-		'services',
-		array(
-		  'methods' => array(
-			'search' => array(
-			  'path' => 'v1/services:search',
-			  'httpMethod' => 'GET',
-			  'parameters' => array(
-				'pageSize' => array(
-				  'location' => 'query',
-				  'type' => 'integer',
-				),
-				'pageToken' => array(
-				  'location' => 'query',
-				  'type' => 'string',
-				),
-			  ),
-			),
-		  )
-		)
-		);
-	}
+    $this->projects_services = new Google_Service_ServiceUser_Resource_ProjectsServices(
+        $this,
+        $this->serviceName,
+        'services',
+        array(
+          'methods' => array(
+            'disable' => array(
+              'path' => 'v1/{+name}:disable',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'enable' => array(
+              'path' => 'v1/{+name}:enable',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/{+parent}/services',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'parent' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->services = new Google_Service_ServiceUser_Resource_Services(
+        $this,
+        $this->serviceName,
+        'services',
+        array(
+          'methods' => array(
+            'search' => array(
+              'path' => 'v1/services:search',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
 }

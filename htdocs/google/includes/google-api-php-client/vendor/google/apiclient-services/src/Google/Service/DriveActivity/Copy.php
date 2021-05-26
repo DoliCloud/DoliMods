@@ -17,21 +17,21 @@
 
 class Google_Service_DriveActivity_Copy extends Google_Model
 {
-	protected $originalObjectType = 'Google_Service_DriveActivity_TargetReference';
-	protected $originalObjectDataType = '';
+  protected $originalObjectType = 'Google_Service_DriveActivity_TargetReference';
+  protected $originalObjectDataType = '';
 
-	/**
-	 * @param Google_Service_DriveActivity_TargetReference
-	 */
-	public function setOriginalObject(Google_Service_DriveActivity_TargetReference $originalObject)
-	{
-		$this->originalObject = $originalObject;
-	}
-	/**
-	 * @return Google_Service_DriveActivity_TargetReference
-	 */
-	public function getOriginalObject()
-	{
-		return $this->originalObject;
-	}
+  /**
+   * @param Google_Service_DriveActivity_TargetReference
+   */
+  public function setOriginalObject(Google_Service_DriveActivity_TargetReference $originalObject)
+  {
+    $this->originalObject = $originalObject;
+  }
+  /**
+   * @return Google_Service_DriveActivity_TargetReference
+   */
+  public function getOriginalObject()
+  {
+    return $this->originalObject;
+  }
 }

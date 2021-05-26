@@ -17,14 +17,14 @@
 
 class Google_Service_CloudKMS_UpdateCryptoKeyPrimaryVersionRequest extends Google_Model
 {
-	public $cryptoKeyVersionId;
+  public $cryptoKeyVersionId;
 
-	public function setCryptoKeyVersionId($cryptoKeyVersionId)
-	{
-		$this->cryptoKeyVersionId = $cryptoKeyVersionId;
-	}
-	public function getCryptoKeyVersionId()
-	{
-		return $this->cryptoKeyVersionId;
-	}
+  public function setCryptoKeyVersionId($cryptoKeyVersionId)
+  {
+    $this->cryptoKeyVersionId = $cryptoKeyVersionId;
+  }
+  public function getCryptoKeyVersionId()
+  {
+    return $this->cryptoKeyVersionId;
+  }
 }

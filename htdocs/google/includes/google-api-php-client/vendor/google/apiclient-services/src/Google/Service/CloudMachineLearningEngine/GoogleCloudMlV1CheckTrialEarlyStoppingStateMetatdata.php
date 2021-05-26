@@ -17,32 +17,32 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1CheckTrialEarlyStoppingStateMetatdata extends Google_Model
 {
-	public $createTime;
-	public $study;
-	public $trial;
+  public $createTime;
+  public $study;
+  public $trial;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setStudy($study)
-	{
-		$this->study = $study;
-	}
-	public function getStudy()
-	{
-		return $this->study;
-	}
-	public function setTrial($trial)
-	{
-		$this->trial = $trial;
-	}
-	public function getTrial()
-	{
-		return $this->trial;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setStudy($study)
+  {
+    $this->study = $study;
+  }
+  public function getStudy()
+  {
+    return $this->study;
+  }
+  public function setTrial($trial)
+  {
+    $this->trial = $trial;
+  }
+  public function getTrial()
+  {
+    return $this->trial;
+  }
 }

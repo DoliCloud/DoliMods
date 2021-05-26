@@ -17,32 +17,32 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2AnnotatedMessagePart extends Google_Model
 {
-	public $entityType;
-	public $formattedValue;
-	public $text;
+  public $entityType;
+  public $formattedValue;
+  public $text;
 
-	public function setEntityType($entityType)
-	{
-		$this->entityType = $entityType;
-	}
-	public function getEntityType()
-	{
-		return $this->entityType;
-	}
-	public function setFormattedValue($formattedValue)
-	{
-		$this->formattedValue = $formattedValue;
-	}
-	public function getFormattedValue()
-	{
-		return $this->formattedValue;
-	}
-	public function setText($text)
-	{
-		$this->text = $text;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+  public function setEntityType($entityType)
+  {
+    $this->entityType = $entityType;
+  }
+  public function getEntityType()
+  {
+    return $this->entityType;
+  }
+  public function setFormattedValue($formattedValue)
+  {
+    $this->formattedValue = $formattedValue;
+  }
+  public function getFormattedValue()
+  {
+    return $this->formattedValue;
+  }
+  public function setText($text)
+  {
+    $this->text = $text;
+  }
+  public function getText()
+  {
+    return $this->text;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_DisplayVideo_DayAndTimeAssignedTargetingOptionDetails extends Google_Model
 {
-	public $dayOfWeek;
-	public $endHour;
-	public $startHour;
-	public $timeZoneResolution;
+  public $dayOfWeek;
+  public $endHour;
+  public $startHour;
+  public $timeZoneResolution;
 
-	public function setDayOfWeek($dayOfWeek)
-	{
-		$this->dayOfWeek = $dayOfWeek;
-	}
-	public function getDayOfWeek()
-	{
-		return $this->dayOfWeek;
-	}
-	public function setEndHour($endHour)
-	{
-		$this->endHour = $endHour;
-	}
-	public function getEndHour()
-	{
-		return $this->endHour;
-	}
-	public function setStartHour($startHour)
-	{
-		$this->startHour = $startHour;
-	}
-	public function getStartHour()
-	{
-		return $this->startHour;
-	}
-	public function setTimeZoneResolution($timeZoneResolution)
-	{
-		$this->timeZoneResolution = $timeZoneResolution;
-	}
-	public function getTimeZoneResolution()
-	{
-		return $this->timeZoneResolution;
-	}
+  public function setDayOfWeek($dayOfWeek)
+  {
+    $this->dayOfWeek = $dayOfWeek;
+  }
+  public function getDayOfWeek()
+  {
+    return $this->dayOfWeek;
+  }
+  public function setEndHour($endHour)
+  {
+    $this->endHour = $endHour;
+  }
+  public function getEndHour()
+  {
+    return $this->endHour;
+  }
+  public function setStartHour($startHour)
+  {
+    $this->startHour = $startHour;
+  }
+  public function getStartHour()
+  {
+    return $this->startHour;
+  }
+  public function setTimeZoneResolution($timeZoneResolution)
+  {
+    $this->timeZoneResolution = $timeZoneResolution;
+  }
+  public function getTimeZoneResolution()
+  {
+    return $this->timeZoneResolution;
+  }
 }

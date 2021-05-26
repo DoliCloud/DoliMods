@@ -17,31 +17,31 @@
 
 class Google_Service_GameServices_FetchDeploymentStateResponse extends Google_Collection
 {
-	protected $collection_key = 'unavailable';
-	protected $clusterStateType = 'Google_Service_GameServices_DeployedClusterState';
-	protected $clusterStateDataType = 'array';
-	public $unavailable;
+  protected $collection_key = 'unavailable';
+  protected $clusterStateType = 'Google_Service_GameServices_DeployedClusterState';
+  protected $clusterStateDataType = 'array';
+  public $unavailable;
 
-	/**
-	 * @param Google_Service_GameServices_DeployedClusterState
-	 */
-	public function setClusterState($clusterState)
-	{
-		$this->clusterState = $clusterState;
-	}
-	/**
-	 * @return Google_Service_GameServices_DeployedClusterState
-	 */
-	public function getClusterState()
-	{
-		return $this->clusterState;
-	}
-	public function setUnavailable($unavailable)
-	{
-		$this->unavailable = $unavailable;
-	}
-	public function getUnavailable()
-	{
-		return $this->unavailable;
-	}
+  /**
+   * @param Google_Service_GameServices_DeployedClusterState[]
+   */
+  public function setClusterState($clusterState)
+  {
+    $this->clusterState = $clusterState;
+  }
+  /**
+   * @return Google_Service_GameServices_DeployedClusterState[]
+   */
+  public function getClusterState()
+  {
+    return $this->clusterState;
+  }
+  public function setUnavailable($unavailable)
+  {
+    $this->unavailable = $unavailable;
+  }
+  public function getUnavailable()
+  {
+    return $this->unavailable;
+  }
 }

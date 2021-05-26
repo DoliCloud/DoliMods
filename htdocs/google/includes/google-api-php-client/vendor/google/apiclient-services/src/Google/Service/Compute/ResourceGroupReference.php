@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_ResourceGroupReference extends Google_Model
 {
-	public $group;
+  public $group;
 
-	public function setGroup($group)
-	{
-		$this->group = $group;
-	}
-	public function getGroup()
-	{
-		return $this->group;
-	}
+  public function setGroup($group)
+  {
+    $this->group = $group;
+  }
+  public function getGroup()
+  {
+    return $this->group;
+  }
 }

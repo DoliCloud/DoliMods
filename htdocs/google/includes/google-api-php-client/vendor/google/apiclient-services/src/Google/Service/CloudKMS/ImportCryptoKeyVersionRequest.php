@@ -17,32 +17,32 @@
 
 class Google_Service_CloudKMS_ImportCryptoKeyVersionRequest extends Google_Model
 {
-	public $algorithm;
-	public $importJob;
-	public $rsaAesWrappedKey;
+  public $algorithm;
+  public $importJob;
+  public $rsaAesWrappedKey;
 
-	public function setAlgorithm($algorithm)
-	{
-		$this->algorithm = $algorithm;
-	}
-	public function getAlgorithm()
-	{
-		return $this->algorithm;
-	}
-	public function setImportJob($importJob)
-	{
-		$this->importJob = $importJob;
-	}
-	public function getImportJob()
-	{
-		return $this->importJob;
-	}
-	public function setRsaAesWrappedKey($rsaAesWrappedKey)
-	{
-		$this->rsaAesWrappedKey = $rsaAesWrappedKey;
-	}
-	public function getRsaAesWrappedKey()
-	{
-		return $this->rsaAesWrappedKey;
-	}
+  public function setAlgorithm($algorithm)
+  {
+    $this->algorithm = $algorithm;
+  }
+  public function getAlgorithm()
+  {
+    return $this->algorithm;
+  }
+  public function setImportJob($importJob)
+  {
+    $this->importJob = $importJob;
+  }
+  public function getImportJob()
+  {
+    return $this->importJob;
+  }
+  public function setRsaAesWrappedKey($rsaAesWrappedKey)
+  {
+    $this->rsaAesWrappedKey = $rsaAesWrappedKey;
+  }
+  public function getRsaAesWrappedKey()
+  {
+    return $this->rsaAesWrappedKey;
+  }
 }

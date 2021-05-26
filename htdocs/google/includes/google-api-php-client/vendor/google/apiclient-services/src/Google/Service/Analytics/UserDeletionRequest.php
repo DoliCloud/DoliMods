@@ -17,66 +17,66 @@
 
 class Google_Service_Analytics_UserDeletionRequest extends Google_Model
 {
-	public $deletionRequestTime;
-	public $firebaseProjectId;
-	protected $idType = 'Google_Service_Analytics_UserDeletionRequestId';
-	protected $idDataType = '';
-	public $kind;
-	public $propertyId;
-	public $webPropertyId;
+  public $deletionRequestTime;
+  public $firebaseProjectId;
+  protected $idType = 'Google_Service_Analytics_UserDeletionRequestId';
+  protected $idDataType = '';
+  public $kind;
+  public $propertyId;
+  public $webPropertyId;
 
-	public function setDeletionRequestTime($deletionRequestTime)
-	{
-		$this->deletionRequestTime = $deletionRequestTime;
-	}
-	public function getDeletionRequestTime()
-	{
-		return $this->deletionRequestTime;
-	}
-	public function setFirebaseProjectId($firebaseProjectId)
-	{
-		$this->firebaseProjectId = $firebaseProjectId;
-	}
-	public function getFirebaseProjectId()
-	{
-		return $this->firebaseProjectId;
-	}
-	/**
-	 * @param Google_Service_Analytics_UserDeletionRequestId
-	 */
-	public function setId(Google_Service_Analytics_UserDeletionRequestId $id)
-	{
-		$this->id = $id;
-	}
-	/**
-	 * @return Google_Service_Analytics_UserDeletionRequestId
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setPropertyId($propertyId)
-	{
-		$this->propertyId = $propertyId;
-	}
-	public function getPropertyId()
-	{
-		return $this->propertyId;
-	}
-	public function setWebPropertyId($webPropertyId)
-	{
-		$this->webPropertyId = $webPropertyId;
-	}
-	public function getWebPropertyId()
-	{
-		return $this->webPropertyId;
-	}
+  public function setDeletionRequestTime($deletionRequestTime)
+  {
+    $this->deletionRequestTime = $deletionRequestTime;
+  }
+  public function getDeletionRequestTime()
+  {
+    return $this->deletionRequestTime;
+  }
+  public function setFirebaseProjectId($firebaseProjectId)
+  {
+    $this->firebaseProjectId = $firebaseProjectId;
+  }
+  public function getFirebaseProjectId()
+  {
+    return $this->firebaseProjectId;
+  }
+  /**
+   * @param Google_Service_Analytics_UserDeletionRequestId
+   */
+  public function setId(Google_Service_Analytics_UserDeletionRequestId $id)
+  {
+    $this->id = $id;
+  }
+  /**
+   * @return Google_Service_Analytics_UserDeletionRequestId
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setPropertyId($propertyId)
+  {
+    $this->propertyId = $propertyId;
+  }
+  public function getPropertyId()
+  {
+    return $this->propertyId;
+  }
+  public function setWebPropertyId($webPropertyId)
+  {
+    $this->webPropertyId = $webPropertyId;
+  }
+  public function getWebPropertyId()
+  {
+    return $this->webPropertyId;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_SecretManager_ListSecretsResponse extends Google_Collection
 {
-	protected $collection_key = 'secrets';
-	public $nextPageToken;
-	protected $secretsType = 'Google_Service_SecretManager_Secret';
-	protected $secretsDataType = 'array';
-	public $totalSize;
+  protected $collection_key = 'secrets';
+  public $nextPageToken;
+  protected $secretsType = 'Google_Service_SecretManager_Secret';
+  protected $secretsDataType = 'array';
+  public $totalSize;
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_SecretManager_Secret
-	 */
-	public function setSecrets($secrets)
-	{
-		$this->secrets = $secrets;
-	}
-	/**
-	 * @return Google_Service_SecretManager_Secret
-	 */
-	public function getSecrets()
-	{
-		return $this->secrets;
-	}
-	public function setTotalSize($totalSize)
-	{
-		$this->totalSize = $totalSize;
-	}
-	public function getTotalSize()
-	{
-		return $this->totalSize;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_SecretManager_Secret[]
+   */
+  public function setSecrets($secrets)
+  {
+    $this->secrets = $secrets;
+  }
+  /**
+   * @return Google_Service_SecretManager_Secret[]
+   */
+  public function getSecrets()
+  {
+    return $this->secrets;
+  }
+  public function setTotalSize($totalSize)
+  {
+    $this->totalSize = $totalSize;
+  }
+  public function getTotalSize()
+  {
+    return $this->totalSize;
+  }
 }

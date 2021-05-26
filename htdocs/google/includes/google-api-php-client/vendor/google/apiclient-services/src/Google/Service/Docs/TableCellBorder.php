@@ -17,46 +17,46 @@
 
 class Google_Service_Docs_TableCellBorder extends Google_Model
 {
-	protected $colorType = 'Google_Service_Docs_OptionalColor';
-	protected $colorDataType = '';
-	public $dashStyle;
-	protected $widthType = 'Google_Service_Docs_Dimension';
-	protected $widthDataType = '';
+  protected $colorType = 'Google_Service_Docs_OptionalColor';
+  protected $colorDataType = '';
+  public $dashStyle;
+  protected $widthType = 'Google_Service_Docs_Dimension';
+  protected $widthDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_OptionalColor
-	 */
-	public function setColor(Google_Service_Docs_OptionalColor $color)
-	{
-		$this->color = $color;
-	}
-	/**
-	 * @return Google_Service_Docs_OptionalColor
-	 */
-	public function getColor()
-	{
-		return $this->color;
-	}
-	public function setDashStyle($dashStyle)
-	{
-		$this->dashStyle = $dashStyle;
-	}
-	public function getDashStyle()
-	{
-		return $this->dashStyle;
-	}
-	/**
-	 * @param Google_Service_Docs_Dimension
-	 */
-	public function setWidth(Google_Service_Docs_Dimension $width)
-	{
-		$this->width = $width;
-	}
-	/**
-	 * @return Google_Service_Docs_Dimension
-	 */
-	public function getWidth()
-	{
-		return $this->width;
-	}
+  /**
+   * @param Google_Service_Docs_OptionalColor
+   */
+  public function setColor(Google_Service_Docs_OptionalColor $color)
+  {
+    $this->color = $color;
+  }
+  /**
+   * @return Google_Service_Docs_OptionalColor
+   */
+  public function getColor()
+  {
+    return $this->color;
+  }
+  public function setDashStyle($dashStyle)
+  {
+    $this->dashStyle = $dashStyle;
+  }
+  public function getDashStyle()
+  {
+    return $this->dashStyle;
+  }
+  /**
+   * @param Google_Service_Docs_Dimension
+   */
+  public function setWidth(Google_Service_Docs_Dimension $width)
+  {
+    $this->width = $width;
+  }
+  /**
+   * @return Google_Service_Docs_Dimension
+   */
+  public function getWidth()
+  {
+    return $this->width;
+  }
 }

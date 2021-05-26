@@ -17,31 +17,31 @@
 
 class Google_Service_Compute_InstanceGroupManagersListManagedInstancesResponse extends Google_Collection
 {
-	protected $collection_key = 'managedInstances';
-	protected $managedInstancesType = 'Google_Service_Compute_ManagedInstance';
-	protected $managedInstancesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'managedInstances';
+  protected $managedInstancesType = 'Google_Service_Compute_ManagedInstance';
+  protected $managedInstancesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Compute_ManagedInstance
-	 */
-	public function setManagedInstances($managedInstances)
-	{
-		$this->managedInstances = $managedInstances;
-	}
-	/**
-	 * @return Google_Service_Compute_ManagedInstance
-	 */
-	public function getManagedInstances()
-	{
-		return $this->managedInstances;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Compute_ManagedInstance[]
+   */
+  public function setManagedInstances($managedInstances)
+  {
+    $this->managedInstances = $managedInstances;
+  }
+  /**
+   * @return Google_Service_Compute_ManagedInstance[]
+   */
+  public function getManagedInstances()
+  {
+    return $this->managedInstances;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

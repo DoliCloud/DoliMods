@@ -17,24 +17,24 @@
 
 class Google_Service_Compute_BackendBucketCdnPolicy extends Google_Collection
 {
-	protected $collection_key = 'signedUrlKeyNames';
-	public $signedUrlCacheMaxAgeSec;
-	public $signedUrlKeyNames;
+  protected $collection_key = 'signedUrlKeyNames';
+  public $signedUrlCacheMaxAgeSec;
+  public $signedUrlKeyNames;
 
-	public function setSignedUrlCacheMaxAgeSec($signedUrlCacheMaxAgeSec)
-	{
-		$this->signedUrlCacheMaxAgeSec = $signedUrlCacheMaxAgeSec;
-	}
-	public function getSignedUrlCacheMaxAgeSec()
-	{
-		return $this->signedUrlCacheMaxAgeSec;
-	}
-	public function setSignedUrlKeyNames($signedUrlKeyNames)
-	{
-		$this->signedUrlKeyNames = $signedUrlKeyNames;
-	}
-	public function getSignedUrlKeyNames()
-	{
-		return $this->signedUrlKeyNames;
-	}
+  public function setSignedUrlCacheMaxAgeSec($signedUrlCacheMaxAgeSec)
+  {
+    $this->signedUrlCacheMaxAgeSec = $signedUrlCacheMaxAgeSec;
+  }
+  public function getSignedUrlCacheMaxAgeSec()
+  {
+    return $this->signedUrlCacheMaxAgeSec;
+  }
+  public function setSignedUrlKeyNames($signedUrlKeyNames)
+  {
+    $this->signedUrlKeyNames = $signedUrlKeyNames;
+  }
+  public function getSignedUrlKeyNames()
+  {
+    return $this->signedUrlKeyNames;
+  }
 }

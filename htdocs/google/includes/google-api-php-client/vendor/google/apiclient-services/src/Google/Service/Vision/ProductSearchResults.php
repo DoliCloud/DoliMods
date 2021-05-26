@@ -17,47 +17,47 @@
 
 class Google_Service_Vision_ProductSearchResults extends Google_Collection
 {
-	protected $collection_key = 'results';
-	public $indexTime;
-	protected $productGroupedResultsType = 'Google_Service_Vision_GroupedResult';
-	protected $productGroupedResultsDataType = 'array';
-	protected $resultsType = 'Google_Service_Vision_Result';
-	protected $resultsDataType = 'array';
+  protected $collection_key = 'results';
+  public $indexTime;
+  protected $productGroupedResultsType = 'Google_Service_Vision_GroupedResult';
+  protected $productGroupedResultsDataType = 'array';
+  protected $resultsType = 'Google_Service_Vision_Result';
+  protected $resultsDataType = 'array';
 
-	public function setIndexTime($indexTime)
-	{
-		$this->indexTime = $indexTime;
-	}
-	public function getIndexTime()
-	{
-		return $this->indexTime;
-	}
-	/**
-	 * @param Google_Service_Vision_GroupedResult
-	 */
-	public function setProductGroupedResults($productGroupedResults)
-	{
-		$this->productGroupedResults = $productGroupedResults;
-	}
-	/**
-	 * @return Google_Service_Vision_GroupedResult
-	 */
-	public function getProductGroupedResults()
-	{
-		return $this->productGroupedResults;
-	}
-	/**
-	 * @param Google_Service_Vision_Result
-	 */
-	public function setResults($results)
-	{
-		$this->results = $results;
-	}
-	/**
-	 * @return Google_Service_Vision_Result
-	 */
-	public function getResults()
-	{
-		return $this->results;
-	}
+  public function setIndexTime($indexTime)
+  {
+    $this->indexTime = $indexTime;
+  }
+  public function getIndexTime()
+  {
+    return $this->indexTime;
+  }
+  /**
+   * @param Google_Service_Vision_GroupedResult[]
+   */
+  public function setProductGroupedResults($productGroupedResults)
+  {
+    $this->productGroupedResults = $productGroupedResults;
+  }
+  /**
+   * @return Google_Service_Vision_GroupedResult[]
+   */
+  public function getProductGroupedResults()
+  {
+    return $this->productGroupedResults;
+  }
+  /**
+   * @param Google_Service_Vision_Result[]
+   */
+  public function setResults($results)
+  {
+    $this->results = $results;
+  }
+  /**
+   * @return Google_Service_Vision_Result[]
+   */
+  public function getResults()
+  {
+    return $this->results;
+  }
 }

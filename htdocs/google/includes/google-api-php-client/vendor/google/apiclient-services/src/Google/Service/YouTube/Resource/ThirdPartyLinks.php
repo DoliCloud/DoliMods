@@ -25,72 +25,72 @@
  */
 class Google_Service_YouTube_Resource_ThirdPartyLinks extends Google_Service_Resource
 {
-	/**
-	 * Deletes a resource. (thirdPartyLinks.delete)
-	 *
-	 * @param string $linkingToken Delete the partner links with the given linking
-	 *                             token.
-	 * @param string $type Type of the link to be deleted.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string part Do not use. Required for compatibility.
-	 */
-	public function delete($linkingToken, $type, $optParams = array())
-	{
-		$params = array('linkingToken' => $linkingToken, 'type' => $type);
-		$params = array_merge($params, $optParams);
-		return $this->call('delete', array($params));
-	}
-	/**
-	 * Inserts a new resource into this collection. (thirdPartyLinks.insert)
-	 *
-	 * @param string|array $part The part parameter specifies the thirdPartyLink
-	 *                           resource parts that the API request and response will include. Supported
-	 *                           values are linkingToken, status, and snippet.
-	 * @param Google_Service_YouTube_ThirdPartyLink $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_YouTube_ThirdPartyLink
-	 */
-	public function insert($part, Google_Service_YouTube_ThirdPartyLink $postBody, $optParams = array())
-	{
-		$params = array('part' => $part, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_YouTube_ThirdPartyLink");
-	}
-	/**
-	 * Retrieves a list of resources, possibly filtered.
-	 * (thirdPartyLinks.listThirdPartyLinks)
-	 *
-	 * @param string|array $part The part parameter specifies the thirdPartyLink
-	 *                           resource parts that the API response will include. Supported values are
-	 *                           linkingToken, status, and snippet.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string linkingToken Get a third party link with the given linking
-	 * token.
-	 * @opt_param string type Get a third party link of the given type.
-	 * @return Google_Service_YouTube_ThirdPartyLink
-	 */
-	public function listThirdPartyLinks($part, $optParams = array())
-	{
-		$params = array('part' => $part);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_YouTube_ThirdPartyLink");
-	}
-	/**
-	 * Updates an existing resource. (thirdPartyLinks.update)
-	 *
-	 * @param string|array $part The part parameter specifies the thirdPartyLink
-	 *                           resource parts that the API request and response will include. Supported
-	 *                           values are linkingToken, status, and snippet.
-	 * @param Google_Service_YouTube_ThirdPartyLink $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_YouTube_ThirdPartyLink
-	 */
-	public function update($part, Google_Service_YouTube_ThirdPartyLink $postBody, $optParams = array())
-	{
-		$params = array('part' => $part, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_YouTube_ThirdPartyLink");
-	}
+  /**
+   * Deletes a resource. (thirdPartyLinks.delete)
+   *
+   * @param string $linkingToken Delete the partner links with the given linking
+   * token.
+   * @param string $type Type of the link to be deleted.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string part Do not use. Required for compatibility.
+   */
+  public function delete($linkingToken, $type, $optParams = array())
+  {
+    $params = array('linkingToken' => $linkingToken, 'type' => $type);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params));
+  }
+  /**
+   * Inserts a new resource into this collection. (thirdPartyLinks.insert)
+   *
+   * @param string|array $part The *part* parameter specifies the thirdPartyLink
+   * resource parts that the API request and response will include. Supported
+   * values are linkingToken, status, and snippet.
+   * @param Google_Service_YouTube_ThirdPartyLink $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_YouTube_ThirdPartyLink
+   */
+  public function insert($part, Google_Service_YouTube_ThirdPartyLink $postBody, $optParams = array())
+  {
+    $params = array('part' => $part, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_YouTube_ThirdPartyLink");
+  }
+  /**
+   * Retrieves a list of resources, possibly filtered.
+   * (thirdPartyLinks.listThirdPartyLinks)
+   *
+   * @param string|array $part The *part* parameter specifies the thirdPartyLink
+   * resource parts that the API response will include. Supported values are
+   * linkingToken, status, and snippet.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string linkingToken Get a third party link with the given linking
+   * token.
+   * @opt_param string type Get a third party link of the given type.
+   * @return Google_Service_YouTube_ThirdPartyLink
+   */
+  public function listThirdPartyLinks($part, $optParams = array())
+  {
+    $params = array('part' => $part);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_YouTube_ThirdPartyLink");
+  }
+  /**
+   * Updates an existing resource. (thirdPartyLinks.update)
+   *
+   * @param string|array $part The *part* parameter specifies the thirdPartyLink
+   * resource parts that the API request and response will include. Supported
+   * values are linkingToken, status, and snippet.
+   * @param Google_Service_YouTube_ThirdPartyLink $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_YouTube_ThirdPartyLink
+   */
+  public function update($part, Google_Service_YouTube_ThirdPartyLink $postBody, $optParams = array())
+  {
+    $params = array('part' => $part, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_YouTube_ThirdPartyLink");
+  }
 }

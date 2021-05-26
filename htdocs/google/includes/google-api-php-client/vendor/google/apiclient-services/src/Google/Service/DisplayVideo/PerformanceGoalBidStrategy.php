@@ -17,32 +17,41 @@
 
 class Google_Service_DisplayVideo_PerformanceGoalBidStrategy extends Google_Model
 {
-	public $maxAverageCpmBidAmountMicros;
-	public $performanceGoalAmountMicros;
-	public $performanceGoalType;
+  public $customBiddingAlgorithmId;
+  public $maxAverageCpmBidAmountMicros;
+  public $performanceGoalAmountMicros;
+  public $performanceGoalType;
 
-	public function setMaxAverageCpmBidAmountMicros($maxAverageCpmBidAmountMicros)
-	{
-		$this->maxAverageCpmBidAmountMicros = $maxAverageCpmBidAmountMicros;
-	}
-	public function getMaxAverageCpmBidAmountMicros()
-	{
-		return $this->maxAverageCpmBidAmountMicros;
-	}
-	public function setPerformanceGoalAmountMicros($performanceGoalAmountMicros)
-	{
-		$this->performanceGoalAmountMicros = $performanceGoalAmountMicros;
-	}
-	public function getPerformanceGoalAmountMicros()
-	{
-		return $this->performanceGoalAmountMicros;
-	}
-	public function setPerformanceGoalType($performanceGoalType)
-	{
-		$this->performanceGoalType = $performanceGoalType;
-	}
-	public function getPerformanceGoalType()
-	{
-		return $this->performanceGoalType;
-	}
+  public function setCustomBiddingAlgorithmId($customBiddingAlgorithmId)
+  {
+    $this->customBiddingAlgorithmId = $customBiddingAlgorithmId;
+  }
+  public function getCustomBiddingAlgorithmId()
+  {
+    return $this->customBiddingAlgorithmId;
+  }
+  public function setMaxAverageCpmBidAmountMicros($maxAverageCpmBidAmountMicros)
+  {
+    $this->maxAverageCpmBidAmountMicros = $maxAverageCpmBidAmountMicros;
+  }
+  public function getMaxAverageCpmBidAmountMicros()
+  {
+    return $this->maxAverageCpmBidAmountMicros;
+  }
+  public function setPerformanceGoalAmountMicros($performanceGoalAmountMicros)
+  {
+    $this->performanceGoalAmountMicros = $performanceGoalAmountMicros;
+  }
+  public function getPerformanceGoalAmountMicros()
+  {
+    return $this->performanceGoalAmountMicros;
+  }
+  public function setPerformanceGoalType($performanceGoalType)
+  {
+    $this->performanceGoalType = $performanceGoalType;
+  }
+  public function getPerformanceGoalType()
+  {
+    return $this->performanceGoalType;
+  }
 }

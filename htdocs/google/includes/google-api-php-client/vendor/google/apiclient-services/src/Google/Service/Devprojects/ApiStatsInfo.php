@@ -17,52 +17,52 @@
 
 class Google_Service_Devprojects_ApiStatsInfo extends Google_Collection
 {
-	protected $collection_key = 'statsInfo';
-	public $apiId;
-	public $apiName;
-	public $kind;
-	protected $statsInfoType = 'Google_Service_Devprojects_StatsInfo';
-	protected $statsInfoDataType = 'array';
-	public $supportsReferers;
+  protected $collection_key = 'statsInfo';
+  public $apiId;
+  public $apiName;
+  public $kind;
+  protected $statsInfoType = 'Google_Service_Devprojects_StatsInfo';
+  protected $statsInfoDataType = 'array';
+  public $supportsReferers;
 
-	public function setApiId($apiId)
-	{
-		$this->apiId = $apiId;
-	}
-	public function getApiId()
-	{
-		return $this->apiId;
-	}
-	public function setApiName($apiName)
-	{
-		$this->apiName = $apiName;
-	}
-	public function getApiName()
-	{
-		return $this->apiName;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setStatsInfo($statsInfo)
-	{
-		$this->statsInfo = $statsInfo;
-	}
-	public function getStatsInfo()
-	{
-		return $this->statsInfo;
-	}
-	public function setSupportsReferers($supportsReferers)
-	{
-		$this->supportsReferers = $supportsReferers;
-	}
-	public function getSupportsReferers()
-	{
-		return $this->supportsReferers;
-	}
+  public function setApiId($apiId)
+  {
+    $this->apiId = $apiId;
+  }
+  public function getApiId()
+  {
+    return $this->apiId;
+  }
+  public function setApiName($apiName)
+  {
+    $this->apiName = $apiName;
+  }
+  public function getApiName()
+  {
+    return $this->apiName;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setStatsInfo($statsInfo)
+  {
+    $this->statsInfo = $statsInfo;
+  }
+  public function getStatsInfo()
+  {
+    return $this->statsInfo;
+  }
+  public function setSupportsReferers($supportsReferers)
+  {
+    $this->supportsReferers = $supportsReferers;
+  }
+  public function getSupportsReferers()
+  {
+    return $this->supportsReferers;
+  }
 }

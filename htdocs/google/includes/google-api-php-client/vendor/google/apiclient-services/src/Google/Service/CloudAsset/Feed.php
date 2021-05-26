@@ -17,74 +17,74 @@
 
 class Google_Service_CloudAsset_Feed extends Google_Collection
 {
-	protected $collection_key = 'assetTypes';
-	public $assetNames;
-	public $assetTypes;
-	protected $conditionType = 'Google_Service_CloudAsset_Expr';
-	protected $conditionDataType = '';
-	public $contentType;
-	protected $feedOutputConfigType = 'Google_Service_CloudAsset_FeedOutputConfig';
-	protected $feedOutputConfigDataType = '';
-	public $name;
+  protected $collection_key = 'assetTypes';
+  public $assetNames;
+  public $assetTypes;
+  protected $conditionType = 'Google_Service_CloudAsset_Expr';
+  protected $conditionDataType = '';
+  public $contentType;
+  protected $feedOutputConfigType = 'Google_Service_CloudAsset_FeedOutputConfig';
+  protected $feedOutputConfigDataType = '';
+  public $name;
 
-	public function setAssetNames($assetNames)
-	{
-		$this->assetNames = $assetNames;
-	}
-	public function getAssetNames()
-	{
-		return $this->assetNames;
-	}
-	public function setAssetTypes($assetTypes)
-	{
-		$this->assetTypes = $assetTypes;
-	}
-	public function getAssetTypes()
-	{
-		return $this->assetTypes;
-	}
-	/**
-	 * @param Google_Service_CloudAsset_Expr
-	 */
-	public function setCondition(Google_Service_CloudAsset_Expr $condition)
-	{
-		$this->condition = $condition;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_Expr
-	 */
-	public function getCondition()
-	{
-		return $this->condition;
-	}
-	public function setContentType($contentType)
-	{
-		$this->contentType = $contentType;
-	}
-	public function getContentType()
-	{
-		return $this->contentType;
-	}
-	/**
-	 * @param Google_Service_CloudAsset_FeedOutputConfig
-	 */
-	public function setFeedOutputConfig(Google_Service_CloudAsset_FeedOutputConfig $feedOutputConfig)
-	{
-		$this->feedOutputConfig = $feedOutputConfig;
-	}
-	/**
-	 * @return Google_Service_CloudAsset_FeedOutputConfig
-	 */
-	public function getFeedOutputConfig()
-	{
-		return $this->feedOutputConfig;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setAssetNames($assetNames)
+  {
+    $this->assetNames = $assetNames;
+  }
+  public function getAssetNames()
+  {
+    return $this->assetNames;
+  }
+  public function setAssetTypes($assetTypes)
+  {
+    $this->assetTypes = $assetTypes;
+  }
+  public function getAssetTypes()
+  {
+    return $this->assetTypes;
+  }
+  /**
+   * @param Google_Service_CloudAsset_Expr
+   */
+  public function setCondition(Google_Service_CloudAsset_Expr $condition)
+  {
+    $this->condition = $condition;
+  }
+  /**
+   * @return Google_Service_CloudAsset_Expr
+   */
+  public function getCondition()
+  {
+    return $this->condition;
+  }
+  public function setContentType($contentType)
+  {
+    $this->contentType = $contentType;
+  }
+  public function getContentType()
+  {
+    return $this->contentType;
+  }
+  /**
+   * @param Google_Service_CloudAsset_FeedOutputConfig
+   */
+  public function setFeedOutputConfig(Google_Service_CloudAsset_FeedOutputConfig $feedOutputConfig)
+  {
+    $this->feedOutputConfig = $feedOutputConfig;
+  }
+  /**
+   * @return Google_Service_CloudAsset_FeedOutputConfig
+   */
+  public function getFeedOutputConfig()
+  {
+    return $this->feedOutputConfig;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

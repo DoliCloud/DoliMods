@@ -17,56 +17,56 @@
 
 class Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsParameters extends Google_Collection
 {
-	protected $collection_key = 'journeyDataSegments';
-	public $carrierPreferredAnswer;
-	protected $journeyDataSegmentsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment';
-	protected $journeyDataSegmentsDataType = 'array';
-	protected $pointOfSaleType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale';
-	protected $pointOfSaleDataType = '';
-	public $seamlessAdjustment;
+  protected $collection_key = 'journeyDataSegments';
+  public $carrierPreferredAnswer;
+  protected $journeyDataSegmentsType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment';
+  protected $journeyDataSegmentsDataType = 'array';
+  protected $pointOfSaleType = 'Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale';
+  protected $pointOfSaleDataType = '';
+  public $seamlessAdjustment;
 
-	public function setCarrierPreferredAnswer($carrierPreferredAnswer)
-	{
-		$this->carrierPreferredAnswer = $carrierPreferredAnswer;
-	}
-	public function getCarrierPreferredAnswer()
-	{
-		return $this->carrierPreferredAnswer;
-	}
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment
-	 */
-	public function setJourneyDataSegments($journeyDataSegments)
-	{
-		$this->journeyDataSegments = $journeyDataSegments;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment
-	 */
-	public function getJourneyDataSegments()
-	{
-		return $this->journeyDataSegments;
-	}
-	/**
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale
-	 */
-	public function setPointOfSale(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale $pointOfSale)
-	{
-		$this->pointOfSale = $pointOfSale;
-	}
-	/**
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale
-	 */
-	public function getPointOfSale()
-	{
-		return $this->pointOfSale;
-	}
-	public function setSeamlessAdjustment($seamlessAdjustment)
-	{
-		$this->seamlessAdjustment = $seamlessAdjustment;
-	}
-	public function getSeamlessAdjustment()
-	{
-		return $this->seamlessAdjustment;
-	}
+  public function setCarrierPreferredAnswer($carrierPreferredAnswer)
+  {
+    $this->carrierPreferredAnswer = $carrierPreferredAnswer;
+  }
+  public function getCarrierPreferredAnswer()
+  {
+    return $this->carrierPreferredAnswer;
+  }
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment
+   */
+  public function setJourneyDataSegments($journeyDataSegments)
+  {
+    $this->journeyDataSegments = $journeyDataSegments;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsSegment
+   */
+  public function getJourneyDataSegments()
+  {
+    return $this->journeyDataSegments;
+  }
+  /**
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale
+   */
+  public function setPointOfSale(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale $pointOfSale)
+  {
+    $this->pointOfSale = $pointOfSale;
+  }
+  /**
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestionsPointOfSale
+   */
+  public function getPointOfSale()
+  {
+    return $this->pointOfSale;
+  }
+  public function setSeamlessAdjustment($seamlessAdjustment)
+  {
+    $this->seamlessAdjustment = $seamlessAdjustment;
+  }
+  public function getSeamlessAdjustment()
+  {
+    return $this->seamlessAdjustment;
+  }
 }

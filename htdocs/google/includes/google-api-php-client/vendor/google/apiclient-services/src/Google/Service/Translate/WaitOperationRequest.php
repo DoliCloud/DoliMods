@@ -17,14 +17,14 @@
 
 class Google_Service_Translate_WaitOperationRequest extends Google_Model
 {
-	public $timeout;
+  public $timeout;
 
-	public function setTimeout($timeout)
-	{
-		$this->timeout = $timeout;
-	}
-	public function getTimeout()
-	{
-		return $this->timeout;
-	}
+  public function setTimeout($timeout)
+  {
+    $this->timeout = $timeout;
+  }
+  public function getTimeout()
+  {
+    return $this->timeout;
+  }
 }

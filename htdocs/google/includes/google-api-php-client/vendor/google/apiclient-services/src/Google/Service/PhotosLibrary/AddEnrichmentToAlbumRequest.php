@@ -17,37 +17,37 @@
 
 class Google_Service_PhotosLibrary_AddEnrichmentToAlbumRequest extends Google_Model
 {
-	protected $albumPositionType = 'Google_Service_PhotosLibrary_AlbumPosition';
-	protected $albumPositionDataType = '';
-	protected $newEnrichmentItemType = 'Google_Service_PhotosLibrary_NewEnrichmentItem';
-	protected $newEnrichmentItemDataType = '';
+  protected $albumPositionType = 'Google_Service_PhotosLibrary_AlbumPosition';
+  protected $albumPositionDataType = '';
+  protected $newEnrichmentItemType = 'Google_Service_PhotosLibrary_NewEnrichmentItem';
+  protected $newEnrichmentItemDataType = '';
 
-	/**
-	 * @param Google_Service_PhotosLibrary_AlbumPosition
-	 */
-	public function setAlbumPosition(Google_Service_PhotosLibrary_AlbumPosition $albumPosition)
-	{
-		$this->albumPosition = $albumPosition;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_AlbumPosition
-	 */
-	public function getAlbumPosition()
-	{
-		return $this->albumPosition;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_NewEnrichmentItem
-	 */
-	public function setNewEnrichmentItem(Google_Service_PhotosLibrary_NewEnrichmentItem $newEnrichmentItem)
-	{
-		$this->newEnrichmentItem = $newEnrichmentItem;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_NewEnrichmentItem
-	 */
-	public function getNewEnrichmentItem()
-	{
-		return $this->newEnrichmentItem;
-	}
+  /**
+   * @param Google_Service_PhotosLibrary_AlbumPosition
+   */
+  public function setAlbumPosition(Google_Service_PhotosLibrary_AlbumPosition $albumPosition)
+  {
+    $this->albumPosition = $albumPosition;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_AlbumPosition
+   */
+  public function getAlbumPosition()
+  {
+    return $this->albumPosition;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_NewEnrichmentItem
+   */
+  public function setNewEnrichmentItem(Google_Service_PhotosLibrary_NewEnrichmentItem $newEnrichmentItem)
+  {
+    $this->newEnrichmentItem = $newEnrichmentItem;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_NewEnrichmentItem
+   */
+  public function getNewEnrichmentItem()
+  {
+    return $this->newEnrichmentItem;
+  }
 }

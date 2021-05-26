@@ -17,22 +17,22 @@
 
 class Google_Service_Testing_ManualSharding extends Google_Collection
 {
-	protected $collection_key = 'testTargetsForShard';
-	protected $testTargetsForShardType = 'Google_Service_Testing_TestTargetsForShard';
-	protected $testTargetsForShardDataType = 'array';
+  protected $collection_key = 'testTargetsForShard';
+  protected $testTargetsForShardType = 'Google_Service_Testing_TestTargetsForShard';
+  protected $testTargetsForShardDataType = 'array';
 
-	/**
-	 * @param Google_Service_Testing_TestTargetsForShard
-	 */
-	public function setTestTargetsForShard($testTargetsForShard)
-	{
-		$this->testTargetsForShard = $testTargetsForShard;
-	}
-	/**
-	 * @return Google_Service_Testing_TestTargetsForShard
-	 */
-	public function getTestTargetsForShard()
-	{
-		return $this->testTargetsForShard;
-	}
+  /**
+   * @param Google_Service_Testing_TestTargetsForShard[]
+   */
+  public function setTestTargetsForShard($testTargetsForShard)
+  {
+    $this->testTargetsForShard = $testTargetsForShard;
+  }
+  /**
+   * @return Google_Service_Testing_TestTargetsForShard[]
+   */
+  public function getTestTargetsForShard()
+  {
+    return $this->testTargetsForShard;
+  }
 }

@@ -17,69 +17,69 @@
 
 class Google_Service_Reports_NestedParameter extends Google_Collection
 {
-	protected $collection_key = 'multiValue';
-	public $boolValue;
-	public $intValue;
-	public $multiBoolValue;
-	public $multiIntValue;
-	public $multiValue;
-	public $name;
-	public $value;
+  protected $collection_key = 'multiValue';
+  public $boolValue;
+  public $intValue;
+  public $multiBoolValue;
+  public $multiIntValue;
+  public $multiValue;
+  public $name;
+  public $value;
 
-	public function setBoolValue($boolValue)
-	{
-		$this->boolValue = $boolValue;
-	}
-	public function getBoolValue()
-	{
-		return $this->boolValue;
-	}
-	public function setIntValue($intValue)
-	{
-		$this->intValue = $intValue;
-	}
-	public function getIntValue()
-	{
-		return $this->intValue;
-	}
-	public function setMultiBoolValue($multiBoolValue)
-	{
-		$this->multiBoolValue = $multiBoolValue;
-	}
-	public function getMultiBoolValue()
-	{
-		return $this->multiBoolValue;
-	}
-	public function setMultiIntValue($multiIntValue)
-	{
-		$this->multiIntValue = $multiIntValue;
-	}
-	public function getMultiIntValue()
-	{
-		return $this->multiIntValue;
-	}
-	public function setMultiValue($multiValue)
-	{
-		$this->multiValue = $multiValue;
-	}
-	public function getMultiValue()
-	{
-		return $this->multiValue;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
-	public function getValue()
-	{
-		return $this->value;
-	}
+  public function setBoolValue($boolValue)
+  {
+    $this->boolValue = $boolValue;
+  }
+  public function getBoolValue()
+  {
+    return $this->boolValue;
+  }
+  public function setIntValue($intValue)
+  {
+    $this->intValue = $intValue;
+  }
+  public function getIntValue()
+  {
+    return $this->intValue;
+  }
+  public function setMultiBoolValue($multiBoolValue)
+  {
+    $this->multiBoolValue = $multiBoolValue;
+  }
+  public function getMultiBoolValue()
+  {
+    return $this->multiBoolValue;
+  }
+  public function setMultiIntValue($multiIntValue)
+  {
+    $this->multiIntValue = $multiIntValue;
+  }
+  public function getMultiIntValue()
+  {
+    return $this->multiIntValue;
+  }
+  public function setMultiValue($multiValue)
+  {
+    $this->multiValue = $multiValue;
+  }
+  public function getMultiValue()
+  {
+    return $this->multiValue;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
 }

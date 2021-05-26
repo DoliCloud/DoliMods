@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_TimerEvent extends Google_Model
 {
-	public $name;
-	public $reportingName;
+  public $name;
+  public $reportingName;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setReportingName($reportingName)
-	{
-		$this->reportingName = $reportingName;
-	}
-	public function getReportingName()
-	{
-		return $this->reportingName;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setReportingName($reportingName)
+  {
+    $this->reportingName = $reportingName;
+  }
+  public function getReportingName()
+  {
+    return $this->reportingName;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_SortOptions extends Google_Model
 {
-	public $operatorName;
-	public $sortOrder;
+  public $operatorName;
+  public $sortOrder;
 
-	public function setOperatorName($operatorName)
-	{
-		$this->operatorName = $operatorName;
-	}
-	public function getOperatorName()
-	{
-		return $this->operatorName;
-	}
-	public function setSortOrder($sortOrder)
-	{
-		$this->sortOrder = $sortOrder;
-	}
-	public function getSortOrder()
-	{
-		return $this->sortOrder;
-	}
+  public function setOperatorName($operatorName)
+  {
+    $this->operatorName = $operatorName;
+  }
+  public function getOperatorName()
+  {
+    return $this->operatorName;
+  }
+  public function setSortOrder($sortOrder)
+  {
+    $this->sortOrder = $sortOrder;
+  }
+  public function getSortOrder()
+  {
+    return $this->sortOrder;
+  }
 }

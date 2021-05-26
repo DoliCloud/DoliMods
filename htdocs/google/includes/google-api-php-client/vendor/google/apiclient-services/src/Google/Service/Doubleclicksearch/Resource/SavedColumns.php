@@ -25,19 +25,19 @@
  */
 class Google_Service_Doubleclicksearch_Resource_SavedColumns extends Google_Service_Resource
 {
-	/**
-	 * Retrieve the list of saved columns for a specified advertiser.
-	 * (savedColumns.listSavedColumns)
-	 *
-	 * @param string $agencyId DS ID of the agency.
-	 * @param string $advertiserId DS ID of the advertiser.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Doubleclicksearch_SavedColumnList
-	 */
-	public function listSavedColumns($agencyId, $advertiserId, $optParams = array())
-	{
-		$params = array('agencyId' => $agencyId, 'advertiserId' => $advertiserId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Doubleclicksearch_SavedColumnList");
-	}
+  /**
+   * Retrieve the list of saved columns for a specified advertiser.
+   * (savedColumns.listSavedColumns)
+   *
+   * @param string $agencyId DS ID of the agency.
+   * @param string $advertiserId DS ID of the advertiser.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Doubleclicksearch_SavedColumnList
+   */
+  public function listSavedColumns($agencyId, $advertiserId, $optParams = array())
+  {
+    $params = array('agencyId' => $agencyId, 'advertiserId' => $advertiserId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Doubleclicksearch_SavedColumnList");
+  }
 }

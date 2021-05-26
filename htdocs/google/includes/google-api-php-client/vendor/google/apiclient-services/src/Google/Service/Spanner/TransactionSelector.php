@@ -17,46 +17,46 @@
 
 class Google_Service_Spanner_TransactionSelector extends Google_Model
 {
-	protected $beginType = 'Google_Service_Spanner_TransactionOptions';
-	protected $beginDataType = '';
-	public $id;
-	protected $singleUseType = 'Google_Service_Spanner_TransactionOptions';
-	protected $singleUseDataType = '';
+  protected $beginType = 'Google_Service_Spanner_TransactionOptions';
+  protected $beginDataType = '';
+  public $id;
+  protected $singleUseType = 'Google_Service_Spanner_TransactionOptions';
+  protected $singleUseDataType = '';
 
-	/**
-	 * @param Google_Service_Spanner_TransactionOptions
-	 */
-	public function setBegin(Google_Service_Spanner_TransactionOptions $begin)
-	{
-		$this->begin = $begin;
-	}
-	/**
-	 * @return Google_Service_Spanner_TransactionOptions
-	 */
-	public function getBegin()
-	{
-		return $this->begin;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	/**
-	 * @param Google_Service_Spanner_TransactionOptions
-	 */
-	public function setSingleUse(Google_Service_Spanner_TransactionOptions $singleUse)
-	{
-		$this->singleUse = $singleUse;
-	}
-	/**
-	 * @return Google_Service_Spanner_TransactionOptions
-	 */
-	public function getSingleUse()
-	{
-		return $this->singleUse;
-	}
+  /**
+   * @param Google_Service_Spanner_TransactionOptions
+   */
+  public function setBegin(Google_Service_Spanner_TransactionOptions $begin)
+  {
+    $this->begin = $begin;
+  }
+  /**
+   * @return Google_Service_Spanner_TransactionOptions
+   */
+  public function getBegin()
+  {
+    return $this->begin;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  /**
+   * @param Google_Service_Spanner_TransactionOptions
+   */
+  public function setSingleUse(Google_Service_Spanner_TransactionOptions $singleUse)
+  {
+    $this->singleUse = $singleUse;
+  }
+  /**
+   * @return Google_Service_Spanner_TransactionOptions
+   */
+  public function getSingleUse()
+  {
+    return $this->singleUse;
+  }
 }

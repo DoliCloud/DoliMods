@@ -17,41 +17,50 @@
 
 class Google_Service_FirebaseManagement_FirebaseAppInfo extends Google_Model
 {
-	public $appId;
-	public $displayName;
-	public $name;
-	public $platform;
+  public $appId;
+  public $displayName;
+  public $name;
+  public $namespace;
+  public $platform;
 
-	public function setAppId($appId)
-	{
-		$this->appId = $appId;
-	}
-	public function getAppId()
-	{
-		return $this->appId;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPlatform($platform)
-	{
-		$this->platform = $platform;
-	}
-	public function getPlatform()
-	{
-		return $this->platform;
-	}
+  public function setAppId($appId)
+  {
+    $this->appId = $appId;
+  }
+  public function getAppId()
+  {
+    return $this->appId;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setNamespace($namespace)
+  {
+    $this->namespace = $namespace;
+  }
+  public function getNamespace()
+  {
+    return $this->namespace;
+  }
+  public function setPlatform($platform)
+  {
+    $this->platform = $platform;
+  }
+  public function getPlatform()
+  {
+    return $this->platform;
+  }
 }

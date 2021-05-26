@@ -17,21 +17,21 @@
 
 class Google_Service_Compute_SecurityPoliciesListPreconfiguredExpressionSetsResponse extends Google_Model
 {
-	protected $preconfiguredExpressionSetsType = 'Google_Service_Compute_SecurityPoliciesWafConfig';
-	protected $preconfiguredExpressionSetsDataType = '';
+  protected $preconfiguredExpressionSetsType = 'Google_Service_Compute_SecurityPoliciesWafConfig';
+  protected $preconfiguredExpressionSetsDataType = '';
 
-	/**
-	 * @param Google_Service_Compute_SecurityPoliciesWafConfig
-	 */
-	public function setPreconfiguredExpressionSets(Google_Service_Compute_SecurityPoliciesWafConfig $preconfiguredExpressionSets)
-	{
-		$this->preconfiguredExpressionSets = $preconfiguredExpressionSets;
-	}
-	/**
-	 * @return Google_Service_Compute_SecurityPoliciesWafConfig
-	 */
-	public function getPreconfiguredExpressionSets()
-	{
-		return $this->preconfiguredExpressionSets;
-	}
+  /**
+   * @param Google_Service_Compute_SecurityPoliciesWafConfig
+   */
+  public function setPreconfiguredExpressionSets(Google_Service_Compute_SecurityPoliciesWafConfig $preconfiguredExpressionSets)
+  {
+    $this->preconfiguredExpressionSets = $preconfiguredExpressionSets;
+  }
+  /**
+   * @return Google_Service_Compute_SecurityPoliciesWafConfig
+   */
+  public function getPreconfiguredExpressionSets()
+  {
+    return $this->preconfiguredExpressionSets;
+  }
 }

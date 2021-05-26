@@ -17,21 +17,21 @@
 
 class Google_Service_SQLAdmin_InstancesTruncateLogRequest extends Google_Model
 {
-	protected $truncateLogContextType = 'Google_Service_SQLAdmin_TruncateLogContext';
-	protected $truncateLogContextDataType = '';
+  protected $truncateLogContextType = 'Google_Service_SQLAdmin_TruncateLogContext';
+  protected $truncateLogContextDataType = '';
 
-	/**
-	 * @param Google_Service_SQLAdmin_TruncateLogContext
-	 */
-	public function setTruncateLogContext(Google_Service_SQLAdmin_TruncateLogContext $truncateLogContext)
-	{
-		$this->truncateLogContext = $truncateLogContext;
-	}
-	/**
-	 * @return Google_Service_SQLAdmin_TruncateLogContext
-	 */
-	public function getTruncateLogContext()
-	{
-		return $this->truncateLogContext;
-	}
+  /**
+   * @param Google_Service_SQLAdmin_TruncateLogContext
+   */
+  public function setTruncateLogContext(Google_Service_SQLAdmin_TruncateLogContext $truncateLogContext)
+  {
+    $this->truncateLogContext = $truncateLogContext;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_TruncateLogContext
+   */
+  public function getTruncateLogContext()
+  {
+    return $this->truncateLogContext;
+  }
 }

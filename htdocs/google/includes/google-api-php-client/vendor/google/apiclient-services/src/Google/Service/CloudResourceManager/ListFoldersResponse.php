@@ -17,31 +17,31 @@
 
 class Google_Service_CloudResourceManager_ListFoldersResponse extends Google_Collection
 {
-	protected $collection_key = 'folders';
-	protected $foldersType = 'Google_Service_CloudResourceManager_Folder';
-	protected $foldersDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'folders';
+  protected $foldersType = 'Google_Service_CloudResourceManager_Folder';
+  protected $foldersDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_CloudResourceManager_Folder
-	 */
-	public function setFolders($folders)
-	{
-		$this->folders = $folders;
-	}
-	/**
-	 * @return Google_Service_CloudResourceManager_Folder
-	 */
-	public function getFolders()
-	{
-		return $this->folders;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_CloudResourceManager_Folder[]
+   */
+  public function setFolders($folders)
+  {
+    $this->folders = $folders;
+  }
+  /**
+   * @return Google_Service_CloudResourceManager_Folder[]
+   */
+  public function getFolders()
+  {
+    return $this->folders;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,21 +17,21 @@
 
 class Google_Service_Dataflow_CreateTemplateVersionRequest extends Google_Model
 {
-	protected $templateVersionType = 'Google_Service_Dataflow_TemplateVersion';
-	protected $templateVersionDataType = '';
+  protected $templateVersionType = 'Google_Service_Dataflow_TemplateVersion';
+  protected $templateVersionDataType = '';
 
-	/**
-	 * @param Google_Service_Dataflow_TemplateVersion
-	 */
-	public function setTemplateVersion(Google_Service_Dataflow_TemplateVersion $templateVersion)
-	{
-		$this->templateVersion = $templateVersion;
-	}
-	/**
-	 * @return Google_Service_Dataflow_TemplateVersion
-	 */
-	public function getTemplateVersion()
-	{
-		return $this->templateVersion;
-	}
+  /**
+   * @param Google_Service_Dataflow_TemplateVersion
+   */
+  public function setTemplateVersion(Google_Service_Dataflow_TemplateVersion $templateVersion)
+  {
+    $this->templateVersion = $templateVersion;
+  }
+  /**
+   * @return Google_Service_Dataflow_TemplateVersion
+   */
+  public function getTemplateVersion()
+  {
+    return $this->templateVersion;
+  }
 }

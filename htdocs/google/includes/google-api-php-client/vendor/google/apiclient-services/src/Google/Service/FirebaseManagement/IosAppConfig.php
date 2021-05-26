@@ -17,23 +17,23 @@
 
 class Google_Service_FirebaseManagement_IosAppConfig extends Google_Model
 {
-	public $configFileContents;
-	public $configFilename;
+  public $configFileContents;
+  public $configFilename;
 
-	public function setConfigFileContents($configFileContents)
-	{
-		$this->configFileContents = $configFileContents;
-	}
-	public function getConfigFileContents()
-	{
-		return $this->configFileContents;
-	}
-	public function setConfigFilename($configFilename)
-	{
-		$this->configFilename = $configFilename;
-	}
-	public function getConfigFilename()
-	{
-		return $this->configFilename;
-	}
+  public function setConfigFileContents($configFileContents)
+  {
+    $this->configFileContents = $configFileContents;
+  }
+  public function getConfigFileContents()
+  {
+    return $this->configFileContents;
+  }
+  public function setConfigFilename($configFilename)
+  {
+    $this->configFilename = $configFilename;
+  }
+  public function getConfigFilename()
+  {
+    return $this->configFilename;
+  }
 }

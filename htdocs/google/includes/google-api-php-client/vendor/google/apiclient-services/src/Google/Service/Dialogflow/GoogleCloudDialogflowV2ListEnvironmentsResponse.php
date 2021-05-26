@@ -17,31 +17,31 @@
 
 class Google_Service_Dialogflow_GoogleCloudDialogflowV2ListEnvironmentsResponse extends Google_Collection
 {
-	protected $collection_key = 'environments';
-	protected $environmentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Environment';
-	protected $environmentsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'environments';
+  protected $environmentsType = 'Google_Service_Dialogflow_GoogleCloudDialogflowV2Environment';
+  protected $environmentsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Environment
-	 */
-	public function setEnvironments($environments)
-	{
-		$this->environments = $environments;
-	}
-	/**
-	 * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Environment
-	 */
-	public function getEnvironments()
-	{
-		return $this->environments;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_Dialogflow_GoogleCloudDialogflowV2Environment[]
+   */
+  public function setEnvironments($environments)
+  {
+    $this->environments = $environments;
+  }
+  /**
+   * @return Google_Service_Dialogflow_GoogleCloudDialogflowV2Environment[]
+   */
+  public function getEnvironments()
+  {
+    return $this->environments;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,72 +17,72 @@
 
 class Google_Service_Dataflow_ParDoInstruction extends Google_Collection
 {
-	protected $collection_key = 'sideInputs';
-	protected $inputType = 'Google_Service_Dataflow_InstructionInput';
-	protected $inputDataType = '';
-	protected $multiOutputInfosType = 'Google_Service_Dataflow_MultiOutputInfo';
-	protected $multiOutputInfosDataType = 'array';
-	public $numOutputs;
-	protected $sideInputsType = 'Google_Service_Dataflow_SideInputInfo';
-	protected $sideInputsDataType = 'array';
-	public $userFn;
+  protected $collection_key = 'sideInputs';
+  protected $inputType = 'Google_Service_Dataflow_InstructionInput';
+  protected $inputDataType = '';
+  protected $multiOutputInfosType = 'Google_Service_Dataflow_MultiOutputInfo';
+  protected $multiOutputInfosDataType = 'array';
+  public $numOutputs;
+  protected $sideInputsType = 'Google_Service_Dataflow_SideInputInfo';
+  protected $sideInputsDataType = 'array';
+  public $userFn;
 
-	/**
-	 * @param Google_Service_Dataflow_InstructionInput
-	 */
-	public function setInput(Google_Service_Dataflow_InstructionInput $input)
-	{
-		$this->input = $input;
-	}
-	/**
-	 * @return Google_Service_Dataflow_InstructionInput
-	 */
-	public function getInput()
-	{
-		return $this->input;
-	}
-	/**
-	 * @param Google_Service_Dataflow_MultiOutputInfo
-	 */
-	public function setMultiOutputInfos($multiOutputInfos)
-	{
-		$this->multiOutputInfos = $multiOutputInfos;
-	}
-	/**
-	 * @return Google_Service_Dataflow_MultiOutputInfo
-	 */
-	public function getMultiOutputInfos()
-	{
-		return $this->multiOutputInfos;
-	}
-	public function setNumOutputs($numOutputs)
-	{
-		$this->numOutputs = $numOutputs;
-	}
-	public function getNumOutputs()
-	{
-		return $this->numOutputs;
-	}
-	/**
-	 * @param Google_Service_Dataflow_SideInputInfo
-	 */
-	public function setSideInputs($sideInputs)
-	{
-		$this->sideInputs = $sideInputs;
-	}
-	/**
-	 * @return Google_Service_Dataflow_SideInputInfo
-	 */
-	public function getSideInputs()
-	{
-		return $this->sideInputs;
-	}
-	public function setUserFn($userFn)
-	{
-		$this->userFn = $userFn;
-	}
-	public function getUserFn()
-	{
-		return $this->userFn;
-	}
+  /**
+   * @param Google_Service_Dataflow_InstructionInput
+   */
+  public function setInput(Google_Service_Dataflow_InstructionInput $input)
+  {
+    $this->input = $input;
+  }
+  /**
+   * @return Google_Service_Dataflow_InstructionInput
+   */
+  public function getInput()
+  {
+    return $this->input;
+  }
+  /**
+   * @param Google_Service_Dataflow_MultiOutputInfo[]
+   */
+  public function setMultiOutputInfos($multiOutputInfos)
+  {
+    $this->multiOutputInfos = $multiOutputInfos;
+  }
+  /**
+   * @return Google_Service_Dataflow_MultiOutputInfo[]
+   */
+  public function getMultiOutputInfos()
+  {
+    return $this->multiOutputInfos;
+  }
+  public function setNumOutputs($numOutputs)
+  {
+    $this->numOutputs = $numOutputs;
+  }
+  public function getNumOutputs()
+  {
+    return $this->numOutputs;
+  }
+  /**
+   * @param Google_Service_Dataflow_SideInputInfo[]
+   */
+  public function setSideInputs($sideInputs)
+  {
+    $this->sideInputs = $sideInputs;
+  }
+  /**
+   * @return Google_Service_Dataflow_SideInputInfo[]
+   */
+  public function getSideInputs()
+  {
+    return $this->sideInputs;
+  }
+  public function setUserFn($userFn)
+  {
+    $this->userFn = $userFn;
+  }
+  public function getUserFn()
+  {
+    return $this->userFn;
+  }
 }

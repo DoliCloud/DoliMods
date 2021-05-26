@@ -17,47 +17,47 @@
 
 class Google_Service_Proximitybeacon_BeaconInfo extends Google_Collection
 {
-	protected $collection_key = 'attachments';
-	protected $advertisedIdType = 'Google_Service_Proximitybeacon_AdvertisedId';
-	protected $advertisedIdDataType = '';
-	protected $attachmentsType = 'Google_Service_Proximitybeacon_AttachmentInfo';
-	protected $attachmentsDataType = 'array';
-	public $beaconName;
+  protected $collection_key = 'attachments';
+  protected $advertisedIdType = 'Google_Service_Proximitybeacon_AdvertisedId';
+  protected $advertisedIdDataType = '';
+  protected $attachmentsType = 'Google_Service_Proximitybeacon_AttachmentInfo';
+  protected $attachmentsDataType = 'array';
+  public $beaconName;
 
-	/**
-	 * @param Google_Service_Proximitybeacon_AdvertisedId
-	 */
-	public function setAdvertisedId(Google_Service_Proximitybeacon_AdvertisedId $advertisedId)
-	{
-		$this->advertisedId = $advertisedId;
-	}
-	/**
-	 * @return Google_Service_Proximitybeacon_AdvertisedId
-	 */
-	public function getAdvertisedId()
-	{
-		return $this->advertisedId;
-	}
-	/**
-	 * @param Google_Service_Proximitybeacon_AttachmentInfo
-	 */
-	public function setAttachments($attachments)
-	{
-		$this->attachments = $attachments;
-	}
-	/**
-	 * @return Google_Service_Proximitybeacon_AttachmentInfo
-	 */
-	public function getAttachments()
-	{
-		return $this->attachments;
-	}
-	public function setBeaconName($beaconName)
-	{
-		$this->beaconName = $beaconName;
-	}
-	public function getBeaconName()
-	{
-		return $this->beaconName;
-	}
+  /**
+   * @param Google_Service_Proximitybeacon_AdvertisedId
+   */
+  public function setAdvertisedId(Google_Service_Proximitybeacon_AdvertisedId $advertisedId)
+  {
+    $this->advertisedId = $advertisedId;
+  }
+  /**
+   * @return Google_Service_Proximitybeacon_AdvertisedId
+   */
+  public function getAdvertisedId()
+  {
+    return $this->advertisedId;
+  }
+  /**
+   * @param Google_Service_Proximitybeacon_AttachmentInfo
+   */
+  public function setAttachments($attachments)
+  {
+    $this->attachments = $attachments;
+  }
+  /**
+   * @return Google_Service_Proximitybeacon_AttachmentInfo
+   */
+  public function getAttachments()
+  {
+    return $this->attachments;
+  }
+  public function setBeaconName($beaconName)
+  {
+    $this->beaconName = $beaconName;
+  }
+  public function getBeaconName()
+  {
+    return $this->beaconName;
+  }
 }

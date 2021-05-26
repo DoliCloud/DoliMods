@@ -17,32 +17,32 @@
 
 class Google_Service_CloudTasks_RateLimits extends Google_Model
 {
-	public $maxBurstSize;
-	public $maxConcurrentDispatches;
-	public $maxDispatchesPerSecond;
+  public $maxBurstSize;
+  public $maxConcurrentDispatches;
+  public $maxDispatchesPerSecond;
 
-	public function setMaxBurstSize($maxBurstSize)
-	{
-		$this->maxBurstSize = $maxBurstSize;
-	}
-	public function getMaxBurstSize()
-	{
-		return $this->maxBurstSize;
-	}
-	public function setMaxConcurrentDispatches($maxConcurrentDispatches)
-	{
-		$this->maxConcurrentDispatches = $maxConcurrentDispatches;
-	}
-	public function getMaxConcurrentDispatches()
-	{
-		return $this->maxConcurrentDispatches;
-	}
-	public function setMaxDispatchesPerSecond($maxDispatchesPerSecond)
-	{
-		$this->maxDispatchesPerSecond = $maxDispatchesPerSecond;
-	}
-	public function getMaxDispatchesPerSecond()
-	{
-		return $this->maxDispatchesPerSecond;
-	}
+  public function setMaxBurstSize($maxBurstSize)
+  {
+    $this->maxBurstSize = $maxBurstSize;
+  }
+  public function getMaxBurstSize()
+  {
+    return $this->maxBurstSize;
+  }
+  public function setMaxConcurrentDispatches($maxConcurrentDispatches)
+  {
+    $this->maxConcurrentDispatches = $maxConcurrentDispatches;
+  }
+  public function getMaxConcurrentDispatches()
+  {
+    return $this->maxConcurrentDispatches;
+  }
+  public function setMaxDispatchesPerSecond($maxDispatchesPerSecond)
+  {
+    $this->maxDispatchesPerSecond = $maxDispatchesPerSecond;
+  }
+  public function getMaxDispatchesPerSecond()
+  {
+    return $this->maxDispatchesPerSecond;
+  }
 }

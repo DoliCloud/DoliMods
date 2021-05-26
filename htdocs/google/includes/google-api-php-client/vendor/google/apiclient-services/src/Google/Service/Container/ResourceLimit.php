@@ -17,32 +17,32 @@
 
 class Google_Service_Container_ResourceLimit extends Google_Model
 {
-	public $maximum;
-	public $minimum;
-	public $resourceType;
+  public $maximum;
+  public $minimum;
+  public $resourceType;
 
-	public function setMaximum($maximum)
-	{
-		$this->maximum = $maximum;
-	}
-	public function getMaximum()
-	{
-		return $this->maximum;
-	}
-	public function setMinimum($minimum)
-	{
-		$this->minimum = $minimum;
-	}
-	public function getMinimum()
-	{
-		return $this->minimum;
-	}
-	public function setResourceType($resourceType)
-	{
-		$this->resourceType = $resourceType;
-	}
-	public function getResourceType()
-	{
-		return $this->resourceType;
-	}
+  public function setMaximum($maximum)
+  {
+    $this->maximum = $maximum;
+  }
+  public function getMaximum()
+  {
+    return $this->maximum;
+  }
+  public function setMinimum($minimum)
+  {
+    $this->minimum = $minimum;
+  }
+  public function getMinimum()
+  {
+    return $this->minimum;
+  }
+  public function setResourceType($resourceType)
+  {
+    $this->resourceType = $resourceType;
+  }
+  public function getResourceType()
+  {
+    return $this->resourceType;
+  }
 }

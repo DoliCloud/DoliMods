@@ -17,31 +17,31 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2ListInspectTemplatesResponse extends Google_Collection
 {
-	protected $collection_key = 'inspectTemplates';
-	protected $inspectTemplatesType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate';
-	protected $inspectTemplatesDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'inspectTemplates';
+  protected $inspectTemplatesType = 'Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate';
+  protected $inspectTemplatesDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
-	 */
-	public function setInspectTemplates($inspectTemplates)
-	{
-		$this->inspectTemplates = $inspectTemplates;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate
-	 */
-	public function getInspectTemplates()
-	{
-		return $this->inspectTemplates;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate[]
+   */
+  public function setInspectTemplates($inspectTemplates)
+  {
+    $this->inspectTemplates = $inspectTemplates;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectTemplate[]
+   */
+  public function getInspectTemplates()
+  {
+    return $this->inspectTemplates;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

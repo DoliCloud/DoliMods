@@ -17,39 +17,39 @@
 
 class Google_Service_Bigquery_QueryParameterTypeStructTypes extends Google_Model
 {
-	public $description;
-	public $name;
-	protected $typeType = 'Google_Service_Bigquery_QueryParameterType';
-	protected $typeDataType = '';
+  public $description;
+  public $name;
+  protected $typeType = 'Google_Service_Bigquery_QueryParameterType';
+  protected $typeDataType = '';
 
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Bigquery_QueryParameterType
-	 */
-	public function setType(Google_Service_Bigquery_QueryParameterType $type)
-	{
-		$this->type = $type;
-	}
-	/**
-	 * @return Google_Service_Bigquery_QueryParameterType
-	 */
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Bigquery_QueryParameterType
+   */
+  public function setType(Google_Service_Bigquery_QueryParameterType $type)
+  {
+    $this->type = $type;
+  }
+  /**
+   * @return Google_Service_Bigquery_QueryParameterType
+   */
+  public function getType()
+  {
+    return $this->type;
+  }
 }

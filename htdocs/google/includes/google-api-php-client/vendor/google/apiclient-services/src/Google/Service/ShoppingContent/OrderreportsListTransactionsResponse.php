@@ -17,40 +17,40 @@
 
 class Google_Service_ShoppingContent_OrderreportsListTransactionsResponse extends Google_Collection
 {
-	protected $collection_key = 'transactions';
-	public $kind;
-	public $nextPageToken;
-	protected $transactionsType = 'Google_Service_ShoppingContent_OrderReportTransaction';
-	protected $transactionsDataType = 'array';
+  protected $collection_key = 'transactions';
+  public $kind;
+  public $nextPageToken;
+  protected $transactionsType = 'Google_Service_ShoppingContent_OrderReportTransaction';
+  protected $transactionsDataType = 'array';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_OrderReportTransaction
-	 */
-	public function setTransactions($transactions)
-	{
-		$this->transactions = $transactions;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_OrderReportTransaction
-	 */
-	public function getTransactions()
-	{
-		return $this->transactions;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_OrderReportTransaction[]
+   */
+  public function setTransactions($transactions)
+  {
+    $this->transactions = $transactions;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_OrderReportTransaction[]
+   */
+  public function getTransactions()
+  {
+    return $this->transactions;
+  }
 }

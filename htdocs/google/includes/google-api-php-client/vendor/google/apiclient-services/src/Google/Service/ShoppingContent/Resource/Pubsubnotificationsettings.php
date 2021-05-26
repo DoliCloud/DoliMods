@@ -25,35 +25,35 @@
  */
 class Google_Service_ShoppingContent_Resource_Pubsubnotificationsettings extends Google_Service_Resource
 {
-	/**
-	 * Retrieves a Merchant Center account's pubsub notification settings.
-	 * (pubsubnotificationsettings.get)
-	 *
-	 * @param string $merchantId The ID of the account for which to get pubsub
-	 *                           notification settings.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ShoppingContent_PubsubNotificationSettings
-	 */
-	public function get($merchantId, $optParams = array())
-	{
-		$params = array('merchantId' => $merchantId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_ShoppingContent_PubsubNotificationSettings");
-	}
-	/**
-	 * Register a Merchant Center account for pubsub notifications. Note that cloud
-	 * topic name should not be provided as part of the request.
-	 * (pubsubnotificationsettings.update)
-	 *
-	 * @param string $merchantId The ID of the account.
-	 * @param Google_Service_ShoppingContent_PubsubNotificationSettings $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ShoppingContent_PubsubNotificationSettings
-	 */
-	public function update($merchantId, Google_Service_ShoppingContent_PubsubNotificationSettings $postBody, $optParams = array())
-	{
-		$params = array('merchantId' => $merchantId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_ShoppingContent_PubsubNotificationSettings");
-	}
+  /**
+   * Retrieves a Merchant Center account's pubsub notification settings.
+   * (pubsubnotificationsettings.get)
+   *
+   * @param string $merchantId The ID of the account for which to get pubsub
+   * notification settings.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ShoppingContent_PubsubNotificationSettings
+   */
+  public function get($merchantId, $optParams = array())
+  {
+    $params = array('merchantId' => $merchantId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_ShoppingContent_PubsubNotificationSettings");
+  }
+  /**
+   * Register a Merchant Center account for pubsub notifications. Note that cloud
+   * topic name should not be provided as part of the request.
+   * (pubsubnotificationsettings.update)
+   *
+   * @param string $merchantId The ID of the account.
+   * @param Google_Service_ShoppingContent_PubsubNotificationSettings $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ShoppingContent_PubsubNotificationSettings
+   */
+  public function update($merchantId, Google_Service_ShoppingContent_PubsubNotificationSettings $postBody, $optParams = array())
+  {
+    $params = array('merchantId' => $merchantId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_ShoppingContent_PubsubNotificationSettings");
+  }
 }

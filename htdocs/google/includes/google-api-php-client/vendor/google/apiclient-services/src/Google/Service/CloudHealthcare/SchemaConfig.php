@@ -17,23 +17,23 @@
 
 class Google_Service_CloudHealthcare_SchemaConfig extends Google_Model
 {
-	public $recursiveStructureDepth;
-	public $schemaType;
+  public $recursiveStructureDepth;
+  public $schemaType;
 
-	public function setRecursiveStructureDepth($recursiveStructureDepth)
-	{
-		$this->recursiveStructureDepth = $recursiveStructureDepth;
-	}
-	public function getRecursiveStructureDepth()
-	{
-		return $this->recursiveStructureDepth;
-	}
-	public function setSchemaType($schemaType)
-	{
-		$this->schemaType = $schemaType;
-	}
-	public function getSchemaType()
-	{
-		return $this->schemaType;
-	}
+  public function setRecursiveStructureDepth($recursiveStructureDepth)
+  {
+    $this->recursiveStructureDepth = $recursiveStructureDepth;
+  }
+  public function getRecursiveStructureDepth()
+  {
+    return $this->recursiveStructureDepth;
+  }
+  public function setSchemaType($schemaType)
+  {
+    $this->schemaType = $schemaType;
+  }
+  public function getSchemaType()
+  {
+    return $this->schemaType;
+  }
 }

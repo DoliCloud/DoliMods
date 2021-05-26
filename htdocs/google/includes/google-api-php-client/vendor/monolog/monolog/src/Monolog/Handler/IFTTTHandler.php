@@ -27,44 +27,44 @@ use Monolog\Utils;
  */
 class IFTTTHandler extends AbstractProcessingHandler
 {
-	private $eventName;
-	private $secretKey;
+    private $eventName;
+    private $secretKey;
 
-	/**
-	 * @param string $eventName The name of the IFTTT Maker event that should be triggered
-	 * @param string $secretKey A valid IFTTT secret key
-	 * @param int    $level     The minimum logging level at which this handler will be triggered
-	 * @param bool   $bubble    Whether the messages that are handled can bubble up the stack or not
-	 */
-	public function __construct($eventName, $secretKey, $level = Logger::ERROR, $bubble = true)
-	{
-		$this->eventName = $eventName;
-		$this->secretKey = $secretKey;
+    /**
+     * @param string $eventName The name of the IFTTT Maker event that should be triggered
+     * @param string $secretKey A valid IFTTT secret key
+     * @param int    $level     The minimum logging level at which this handler will be triggered
+     * @param bool   $bubble    Whether the messages that are handled can bubble up the stack or not
+     */
+    public function __construct($eventName, $secretKey, $level = Logger::ERROR, $bubble = true)
+    {
+        $this->eventName = $eventName;
+        $this->secretKey = $secretKey;
 
-		parent::__construct($level, $bubble);
-	}
+        parent::__construct($level, $bubble);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function write(array $record)
-	{
-		$postData = array(
-			"value1" => $record["channel"],
-			"value2" => $record["level_name"],
-			"value3" => $record["message"],
-		);
-		$postString = Utils::jsonEncode($postData);
+    /**
+     * {@inheritdoc}
+     */
+    public function write(array $record)
+    {
+        $postData = array(
+            "value1" => $record["channel"],
+            "value2" => $record["level_name"],
+            "value3" => $record["message"],
+        );
+        $postString = Utils::jsonEncode($postData);
 
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://maker.ifttt.com/trigger/" . $this->eventName . "/with/key/" . $this->secretKey);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $postString);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-			"Content-Type: application/json",
-		));
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://maker.ifttt.com/trigger/" . $this->eventName . "/with/key/" . $this->secretKey);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postString);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type: application/json",
+        ));
 
-		Curl\Util::execute($ch);
-	}
+        Curl\Util::execute($ch);
+    }
 }

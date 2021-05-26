@@ -17,24 +17,24 @@
 
 class Google_Service_AdExchangeBuyer_CreativeAdTechnologyProviders extends Google_Collection
 {
-	protected $collection_key = 'detectedProviderIds';
-	public $detectedProviderIds;
-	public $hasUnidentifiedProvider;
+  protected $collection_key = 'detectedProviderIds';
+  public $detectedProviderIds;
+  public $hasUnidentifiedProvider;
 
-	public function setDetectedProviderIds($detectedProviderIds)
-	{
-		$this->detectedProviderIds = $detectedProviderIds;
-	}
-	public function getDetectedProviderIds()
-	{
-		return $this->detectedProviderIds;
-	}
-	public function setHasUnidentifiedProvider($hasUnidentifiedProvider)
-	{
-		$this->hasUnidentifiedProvider = $hasUnidentifiedProvider;
-	}
-	public function getHasUnidentifiedProvider()
-	{
-		return $this->hasUnidentifiedProvider;
-	}
+  public function setDetectedProviderIds($detectedProviderIds)
+  {
+    $this->detectedProviderIds = $detectedProviderIds;
+  }
+  public function getDetectedProviderIds()
+  {
+    return $this->detectedProviderIds;
+  }
+  public function setHasUnidentifiedProvider($hasUnidentifiedProvider)
+  {
+    $this->hasUnidentifiedProvider = $hasUnidentifiedProvider;
+  }
+  public function getHasUnidentifiedProvider()
+  {
+    return $this->hasUnidentifiedProvider;
+  }
 }

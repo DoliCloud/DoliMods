@@ -17,48 +17,48 @@
 
 class Google_Service_HangoutsChat_ImageButton extends Google_Model
 {
-	public $icon;
-	public $iconUrl;
-	public $name;
-	protected $onClickType = 'Google_Service_HangoutsChat_OnClick';
-	protected $onClickDataType = '';
+  public $icon;
+  public $iconUrl;
+  public $name;
+  protected $onClickType = 'Google_Service_HangoutsChat_OnClick';
+  protected $onClickDataType = '';
 
-	public function setIcon($icon)
-	{
-		$this->icon = $icon;
-	}
-	public function getIcon()
-	{
-		return $this->icon;
-	}
-	public function setIconUrl($iconUrl)
-	{
-		$this->iconUrl = $iconUrl;
-	}
-	public function getIconUrl()
-	{
-		return $this->iconUrl;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_HangoutsChat_OnClick
-	 */
-	public function setOnClick(Google_Service_HangoutsChat_OnClick $onClick)
-	{
-		$this->onClick = $onClick;
-	}
-	/**
-	 * @return Google_Service_HangoutsChat_OnClick
-	 */
-	public function getOnClick()
-	{
-		return $this->onClick;
-	}
+  public function setIcon($icon)
+  {
+    $this->icon = $icon;
+  }
+  public function getIcon()
+  {
+    return $this->icon;
+  }
+  public function setIconUrl($iconUrl)
+  {
+    $this->iconUrl = $iconUrl;
+  }
+  public function getIconUrl()
+  {
+    return $this->iconUrl;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_HangoutsChat_OnClick
+   */
+  public function setOnClick(Google_Service_HangoutsChat_OnClick $onClick)
+  {
+    $this->onClick = $onClick;
+  }
+  /**
+   * @return Google_Service_HangoutsChat_OnClick
+   */
+  public function getOnClick()
+  {
+    return $this->onClick;
+  }
 }

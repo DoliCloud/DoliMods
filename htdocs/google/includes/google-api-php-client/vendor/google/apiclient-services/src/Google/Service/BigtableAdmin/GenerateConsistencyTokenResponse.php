@@ -17,14 +17,14 @@
 
 class Google_Service_BigtableAdmin_GenerateConsistencyTokenResponse extends Google_Model
 {
-	public $consistencyToken;
+  public $consistencyToken;
 
-	public function setConsistencyToken($consistencyToken)
-	{
-		$this->consistencyToken = $consistencyToken;
-	}
-	public function getConsistencyToken()
-	{
-		return $this->consistencyToken;
-	}
+  public function setConsistencyToken($consistencyToken)
+  {
+    $this->consistencyToken = $consistencyToken;
+  }
+  public function getConsistencyToken()
+  {
+    return $this->consistencyToken;
+  }
 }

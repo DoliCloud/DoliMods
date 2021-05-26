@@ -17,15 +17,40 @@
 
 class Google_Service_Sheets_PivotFilterCriteria extends Google_Collection
 {
-	protected $collection_key = 'visibleValues';
-	public $visibleValues;
+  protected $collection_key = 'visibleValues';
+  protected $conditionType = 'Google_Service_Sheets_BooleanCondition';
+  protected $conditionDataType = '';
+  public $visibleByDefault;
+  public $visibleValues;
 
-	public function setVisibleValues($visibleValues)
-	{
-		$this->visibleValues = $visibleValues;
-	}
-	public function getVisibleValues()
-	{
-		return $this->visibleValues;
-	}
+  /**
+   * @param Google_Service_Sheets_BooleanCondition
+   */
+  public function setCondition(Google_Service_Sheets_BooleanCondition $condition)
+  {
+    $this->condition = $condition;
+  }
+  /**
+   * @return Google_Service_Sheets_BooleanCondition
+   */
+  public function getCondition()
+  {
+    return $this->condition;
+  }
+  public function setVisibleByDefault($visibleByDefault)
+  {
+    $this->visibleByDefault = $visibleByDefault;
+  }
+  public function getVisibleByDefault()
+  {
+    return $this->visibleByDefault;
+  }
+  public function setVisibleValues($visibleValues)
+  {
+    $this->visibleValues = $visibleValues;
+  }
+  public function getVisibleValues()
+  {
+    return $this->visibleValues;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2CloudStoragePath extends Google_Model
 {
-	public $path;
+  public $path;
 
-	public function setPath($path)
-	{
-		$this->path = $path;
-	}
-	public function getPath()
-	{
-		return $this->path;
-	}
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+  public function getPath()
+  {
+    return $this->path;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_Compute_NetworkEndpointGroupsListEndpointsRequest extends Google_Model
 {
-	public $healthStatus;
+  public $healthStatus;
 
-	public function setHealthStatus($healthStatus)
-	{
-		$this->healthStatus = $healthStatus;
-	}
-	public function getHealthStatus()
-	{
-		return $this->healthStatus;
-	}
+  public function setHealthStatus($healthStatus)
+  {
+    $this->healthStatus = $healthStatus;
+  }
+  public function getHealthStatus()
+  {
+    return $this->healthStatus;
+  }
 }

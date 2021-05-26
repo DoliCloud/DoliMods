@@ -17,23 +17,23 @@
 
 class Google_Service_CivicInfo_Source extends Google_Model
 {
-	public $name;
-	public $official;
+  public $name;
+  public $official;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setOfficial($official)
-	{
-		$this->official = $official;
-	}
-	public function getOfficial()
-	{
-		return $this->official;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setOfficial($official)
+  {
+    $this->official = $official;
+  }
+  public function getOfficial()
+  {
+    return $this->official;
+  }
 }

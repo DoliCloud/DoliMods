@@ -17,23 +17,23 @@
 
 class Google_Service_Pubsub_RetryPolicy extends Google_Model
 {
-	public $maximumBackoff;
-	public $minimumBackoff;
+  public $maximumBackoff;
+  public $minimumBackoff;
 
-	public function setMaximumBackoff($maximumBackoff)
-	{
-		$this->maximumBackoff = $maximumBackoff;
-	}
-	public function getMaximumBackoff()
-	{
-		return $this->maximumBackoff;
-	}
-	public function setMinimumBackoff($minimumBackoff)
-	{
-		$this->minimumBackoff = $minimumBackoff;
-	}
-	public function getMinimumBackoff()
-	{
-		return $this->minimumBackoff;
-	}
+  public function setMaximumBackoff($maximumBackoff)
+  {
+    $this->maximumBackoff = $maximumBackoff;
+  }
+  public function getMaximumBackoff()
+  {
+    return $this->maximumBackoff;
+  }
+  public function setMinimumBackoff($minimumBackoff)
+  {
+    $this->minimumBackoff = $minimumBackoff;
+  }
+  public function getMinimumBackoff()
+  {
+    return $this->minimumBackoff;
+  }
 }

@@ -17,40 +17,40 @@
 
 class Google_Service_CloudDebugger_ListActiveBreakpointsResponse extends Google_Collection
 {
-	protected $collection_key = 'breakpoints';
-	protected $breakpointsType = 'Google_Service_CloudDebugger_Breakpoint';
-	protected $breakpointsDataType = 'array';
-	public $nextWaitToken;
-	public $waitExpired;
+  protected $collection_key = 'breakpoints';
+  protected $breakpointsType = 'Google_Service_CloudDebugger_Breakpoint';
+  protected $breakpointsDataType = 'array';
+  public $nextWaitToken;
+  public $waitExpired;
 
-	/**
-	 * @param Google_Service_CloudDebugger_Breakpoint
-	 */
-	public function setBreakpoints($breakpoints)
-	{
-		$this->breakpoints = $breakpoints;
-	}
-	/**
-	 * @return Google_Service_CloudDebugger_Breakpoint
-	 */
-	public function getBreakpoints()
-	{
-		return $this->breakpoints;
-	}
-	public function setNextWaitToken($nextWaitToken)
-	{
-		$this->nextWaitToken = $nextWaitToken;
-	}
-	public function getNextWaitToken()
-	{
-		return $this->nextWaitToken;
-	}
-	public function setWaitExpired($waitExpired)
-	{
-		$this->waitExpired = $waitExpired;
-	}
-	public function getWaitExpired()
-	{
-		return $this->waitExpired;
-	}
+  /**
+   * @param Google_Service_CloudDebugger_Breakpoint[]
+   */
+  public function setBreakpoints($breakpoints)
+  {
+    $this->breakpoints = $breakpoints;
+  }
+  /**
+   * @return Google_Service_CloudDebugger_Breakpoint[]
+   */
+  public function getBreakpoints()
+  {
+    return $this->breakpoints;
+  }
+  public function setNextWaitToken($nextWaitToken)
+  {
+    $this->nextWaitToken = $nextWaitToken;
+  }
+  public function getNextWaitToken()
+  {
+    return $this->nextWaitToken;
+  }
+  public function setWaitExpired($waitExpired)
+  {
+    $this->waitExpired = $waitExpired;
+  }
+  public function getWaitExpired()
+  {
+    return $this->waitExpired;
+  }
 }

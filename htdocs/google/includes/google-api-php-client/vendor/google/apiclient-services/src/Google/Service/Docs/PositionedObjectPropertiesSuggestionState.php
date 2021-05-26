@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_PositionedObjectPropertiesSuggestionState extends Google_Model
 {
-	protected $embeddedObjectSuggestionStateType = 'Google_Service_Docs_EmbeddedObjectSuggestionState';
-	protected $embeddedObjectSuggestionStateDataType = '';
-	protected $positioningSuggestionStateType = 'Google_Service_Docs_PositionedObjectPositioningSuggestionState';
-	protected $positioningSuggestionStateDataType = '';
+  protected $embeddedObjectSuggestionStateType = 'Google_Service_Docs_EmbeddedObjectSuggestionState';
+  protected $embeddedObjectSuggestionStateDataType = '';
+  protected $positioningSuggestionStateType = 'Google_Service_Docs_PositionedObjectPositioningSuggestionState';
+  protected $positioningSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_EmbeddedObjectSuggestionState
-	 */
-	public function setEmbeddedObjectSuggestionState(Google_Service_Docs_EmbeddedObjectSuggestionState $embeddedObjectSuggestionState)
-	{
-		$this->embeddedObjectSuggestionState = $embeddedObjectSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_EmbeddedObjectSuggestionState
-	 */
-	public function getEmbeddedObjectSuggestionState()
-	{
-		return $this->embeddedObjectSuggestionState;
-	}
-	/**
-	 * @param Google_Service_Docs_PositionedObjectPositioningSuggestionState
-	 */
-	public function setPositioningSuggestionState(Google_Service_Docs_PositionedObjectPositioningSuggestionState $positioningSuggestionState)
-	{
-		$this->positioningSuggestionState = $positioningSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_PositionedObjectPositioningSuggestionState
-	 */
-	public function getPositioningSuggestionState()
-	{
-		return $this->positioningSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_EmbeddedObjectSuggestionState
+   */
+  public function setEmbeddedObjectSuggestionState(Google_Service_Docs_EmbeddedObjectSuggestionState $embeddedObjectSuggestionState)
+  {
+    $this->embeddedObjectSuggestionState = $embeddedObjectSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_EmbeddedObjectSuggestionState
+   */
+  public function getEmbeddedObjectSuggestionState()
+  {
+    return $this->embeddedObjectSuggestionState;
+  }
+  /**
+   * @param Google_Service_Docs_PositionedObjectPositioningSuggestionState
+   */
+  public function setPositioningSuggestionState(Google_Service_Docs_PositionedObjectPositioningSuggestionState $positioningSuggestionState)
+  {
+    $this->positioningSuggestionState = $positioningSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_PositionedObjectPositioningSuggestionState
+   */
+  public function getPositioningSuggestionState()
+  {
+    return $this->positioningSuggestionState;
+  }
 }

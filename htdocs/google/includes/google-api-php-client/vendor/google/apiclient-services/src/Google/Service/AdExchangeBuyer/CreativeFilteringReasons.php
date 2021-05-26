@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyer_CreativeFilteringReasons extends Google_Collection
 {
-	protected $collection_key = 'reasons';
-	public $date;
-	protected $reasonsType = 'Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons';
-	protected $reasonsDataType = 'array';
+  protected $collection_key = 'reasons';
+  public $date;
+  protected $reasonsType = 'Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons';
+  protected $reasonsDataType = 'array';
 
-	public function setDate($date)
-	{
-		$this->date = $date;
-	}
-	public function getDate()
-	{
-		return $this->date;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons
-	 */
-	public function setReasons($reasons)
-	{
-		$this->reasons = $reasons;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons
-	 */
-	public function getReasons()
-	{
-		return $this->reasons;
-	}
+  public function setDate($date)
+  {
+    $this->date = $date;
+  }
+  public function getDate()
+  {
+    return $this->date;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons[]
+   */
+  public function setReasons($reasons)
+  {
+    $this->reasons = $reasons;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons[]
+   */
+  public function getReasons()
+  {
+    return $this->reasons;
+  }
 }

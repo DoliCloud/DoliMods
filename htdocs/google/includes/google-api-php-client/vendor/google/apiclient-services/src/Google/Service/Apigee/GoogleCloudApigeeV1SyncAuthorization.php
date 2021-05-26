@@ -17,24 +17,24 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1SyncAuthorization extends Google_Collection
 {
-	protected $collection_key = 'identities';
-	public $etag;
-	public $identities;
+  protected $collection_key = 'identities';
+  public $etag;
+  public $identities;
 
-	public function setEtag($etag)
-	{
-		$this->etag = $etag;
-	}
-	public function getEtag()
-	{
-		return $this->etag;
-	}
-	public function setIdentities($identities)
-	{
-		$this->identities = $identities;
-	}
-	public function getIdentities()
-	{
-		return $this->identities;
-	}
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  public function setIdentities($identities)
+  {
+    $this->identities = $identities;
+  }
+  public function getIdentities()
+  {
+    return $this->identities;
+  }
 }

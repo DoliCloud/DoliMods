@@ -17,49 +17,49 @@
 
 class Google_Service_Dfareporting_SiteCompanionSetting extends Google_Collection
 {
-	protected $collection_key = 'enabledSizes';
-	public $companionsDisabled;
-	protected $enabledSizesType = 'Google_Service_Dfareporting_Size';
-	protected $enabledSizesDataType = 'array';
-	public $imageOnly;
-	public $kind;
+  protected $collection_key = 'enabledSizes';
+  public $companionsDisabled;
+  protected $enabledSizesType = 'Google_Service_Dfareporting_Size';
+  protected $enabledSizesDataType = 'array';
+  public $imageOnly;
+  public $kind;
 
-	public function setCompanionsDisabled($companionsDisabled)
-	{
-		$this->companionsDisabled = $companionsDisabled;
-	}
-	public function getCompanionsDisabled()
-	{
-		return $this->companionsDisabled;
-	}
-	/**
-	 * @param Google_Service_Dfareporting_Size
-	 */
-	public function setEnabledSizes($enabledSizes)
-	{
-		$this->enabledSizes = $enabledSizes;
-	}
-	/**
-	 * @return Google_Service_Dfareporting_Size
-	 */
-	public function getEnabledSizes()
-	{
-		return $this->enabledSizes;
-	}
-	public function setImageOnly($imageOnly)
-	{
-		$this->imageOnly = $imageOnly;
-	}
-	public function getImageOnly()
-	{
-		return $this->imageOnly;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  public function setCompanionsDisabled($companionsDisabled)
+  {
+    $this->companionsDisabled = $companionsDisabled;
+  }
+  public function getCompanionsDisabled()
+  {
+    return $this->companionsDisabled;
+  }
+  /**
+   * @param Google_Service_Dfareporting_Size[]
+   */
+  public function setEnabledSizes($enabledSizes)
+  {
+    $this->enabledSizes = $enabledSizes;
+  }
+  /**
+   * @return Google_Service_Dfareporting_Size[]
+   */
+  public function getEnabledSizes()
+  {
+    return $this->enabledSizes;
+  }
+  public function setImageOnly($imageOnly)
+  {
+    $this->imageOnly = $imageOnly;
+  }
+  public function getImageOnly()
+  {
+    return $this->imageOnly;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

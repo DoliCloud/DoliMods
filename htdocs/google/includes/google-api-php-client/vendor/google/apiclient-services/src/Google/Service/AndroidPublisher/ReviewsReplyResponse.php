@@ -17,21 +17,21 @@
 
 class Google_Service_AndroidPublisher_ReviewsReplyResponse extends Google_Model
 {
-	protected $resultType = 'Google_Service_AndroidPublisher_ReviewReplyResult';
-	protected $resultDataType = '';
+  protected $resultType = 'Google_Service_AndroidPublisher_ReviewReplyResult';
+  protected $resultDataType = '';
 
-	/**
-	 * @param Google_Service_AndroidPublisher_ReviewReplyResult
-	 */
-	public function setResult(Google_Service_AndroidPublisher_ReviewReplyResult $result)
-	{
-		$this->result = $result;
-	}
-	/**
-	 * @return Google_Service_AndroidPublisher_ReviewReplyResult
-	 */
-	public function getResult()
-	{
-		return $this->result;
-	}
+  /**
+   * @param Google_Service_AndroidPublisher_ReviewReplyResult
+   */
+  public function setResult(Google_Service_AndroidPublisher_ReviewReplyResult $result)
+  {
+    $this->result = $result;
+  }
+  /**
+   * @return Google_Service_AndroidPublisher_ReviewReplyResult
+   */
+  public function getResult()
+  {
+    return $this->result;
+  }
 }

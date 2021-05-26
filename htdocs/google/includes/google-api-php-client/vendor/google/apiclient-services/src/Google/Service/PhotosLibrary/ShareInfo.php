@@ -17,39 +17,39 @@
 
 class Google_Service_PhotosLibrary_ShareInfo extends Google_Model
 {
-	public $shareToken;
-	public $shareableUrl;
-	protected $sharedAlbumOptionsType = 'Google_Service_PhotosLibrary_SharedAlbumOptions';
-	protected $sharedAlbumOptionsDataType = '';
+  public $shareToken;
+  public $shareableUrl;
+  protected $sharedAlbumOptionsType = 'Google_Service_PhotosLibrary_SharedAlbumOptions';
+  protected $sharedAlbumOptionsDataType = '';
 
-	public function setShareToken($shareToken)
-	{
-		$this->shareToken = $shareToken;
-	}
-	public function getShareToken()
-	{
-		return $this->shareToken;
-	}
-	public function setShareableUrl($shareableUrl)
-	{
-		$this->shareableUrl = $shareableUrl;
-	}
-	public function getShareableUrl()
-	{
-		return $this->shareableUrl;
-	}
-	/**
-	 * @param Google_Service_PhotosLibrary_SharedAlbumOptions
-	 */
-	public function setSharedAlbumOptions(Google_Service_PhotosLibrary_SharedAlbumOptions $sharedAlbumOptions)
-	{
-		$this->sharedAlbumOptions = $sharedAlbumOptions;
-	}
-	/**
-	 * @return Google_Service_PhotosLibrary_SharedAlbumOptions
-	 */
-	public function getSharedAlbumOptions()
-	{
-		return $this->sharedAlbumOptions;
-	}
+  public function setShareToken($shareToken)
+  {
+    $this->shareToken = $shareToken;
+  }
+  public function getShareToken()
+  {
+    return $this->shareToken;
+  }
+  public function setShareableUrl($shareableUrl)
+  {
+    $this->shareableUrl = $shareableUrl;
+  }
+  public function getShareableUrl()
+  {
+    return $this->shareableUrl;
+  }
+  /**
+   * @param Google_Service_PhotosLibrary_SharedAlbumOptions
+   */
+  public function setSharedAlbumOptions(Google_Service_PhotosLibrary_SharedAlbumOptions $sharedAlbumOptions)
+  {
+    $this->sharedAlbumOptions = $sharedAlbumOptions;
+  }
+  /**
+   * @return Google_Service_PhotosLibrary_SharedAlbumOptions
+   */
+  public function getSharedAlbumOptions()
+  {
+    return $this->sharedAlbumOptions;
+  }
 }

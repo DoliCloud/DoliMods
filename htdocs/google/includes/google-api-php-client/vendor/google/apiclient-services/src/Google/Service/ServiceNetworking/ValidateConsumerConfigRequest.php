@@ -17,55 +17,55 @@
 
 class Google_Service_ServiceNetworking_ValidateConsumerConfigRequest extends Google_Model
 {
-	public $consumerNetwork;
-	protected $consumerProjectType = 'Google_Service_ServiceNetworking_ConsumerProject';
-	protected $consumerProjectDataType = '';
-	protected $rangeReservationType = 'Google_Service_ServiceNetworking_RangeReservation';
-	protected $rangeReservationDataType = '';
-	public $validateNetwork;
+  public $consumerNetwork;
+  protected $consumerProjectType = 'Google_Service_ServiceNetworking_ConsumerProject';
+  protected $consumerProjectDataType = '';
+  protected $rangeReservationType = 'Google_Service_ServiceNetworking_RangeReservation';
+  protected $rangeReservationDataType = '';
+  public $validateNetwork;
 
-	public function setConsumerNetwork($consumerNetwork)
-	{
-		$this->consumerNetwork = $consumerNetwork;
-	}
-	public function getConsumerNetwork()
-	{
-		return $this->consumerNetwork;
-	}
-	/**
-	 * @param Google_Service_ServiceNetworking_ConsumerProject
-	 */
-	public function setConsumerProject(Google_Service_ServiceNetworking_ConsumerProject $consumerProject)
-	{
-		$this->consumerProject = $consumerProject;
-	}
-	/**
-	 * @return Google_Service_ServiceNetworking_ConsumerProject
-	 */
-	public function getConsumerProject()
-	{
-		return $this->consumerProject;
-	}
-	/**
-	 * @param Google_Service_ServiceNetworking_RangeReservation
-	 */
-	public function setRangeReservation(Google_Service_ServiceNetworking_RangeReservation $rangeReservation)
-	{
-		$this->rangeReservation = $rangeReservation;
-	}
-	/**
-	 * @return Google_Service_ServiceNetworking_RangeReservation
-	 */
-	public function getRangeReservation()
-	{
-		return $this->rangeReservation;
-	}
-	public function setValidateNetwork($validateNetwork)
-	{
-		$this->validateNetwork = $validateNetwork;
-	}
-	public function getValidateNetwork()
-	{
-		return $this->validateNetwork;
-	}
+  public function setConsumerNetwork($consumerNetwork)
+  {
+    $this->consumerNetwork = $consumerNetwork;
+  }
+  public function getConsumerNetwork()
+  {
+    return $this->consumerNetwork;
+  }
+  /**
+   * @param Google_Service_ServiceNetworking_ConsumerProject
+   */
+  public function setConsumerProject(Google_Service_ServiceNetworking_ConsumerProject $consumerProject)
+  {
+    $this->consumerProject = $consumerProject;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_ConsumerProject
+   */
+  public function getConsumerProject()
+  {
+    return $this->consumerProject;
+  }
+  /**
+   * @param Google_Service_ServiceNetworking_RangeReservation
+   */
+  public function setRangeReservation(Google_Service_ServiceNetworking_RangeReservation $rangeReservation)
+  {
+    $this->rangeReservation = $rangeReservation;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_RangeReservation
+   */
+  public function getRangeReservation()
+  {
+    return $this->rangeReservation;
+  }
+  public function setValidateNetwork($validateNetwork)
+  {
+    $this->validateNetwork = $validateNetwork;
+  }
+  public function getValidateNetwork()
+  {
+    return $this->validateNetwork;
+  }
 }

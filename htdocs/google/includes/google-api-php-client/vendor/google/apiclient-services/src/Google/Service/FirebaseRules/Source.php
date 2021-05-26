@@ -17,22 +17,22 @@
 
 class Google_Service_FirebaseRules_Source extends Google_Collection
 {
-	protected $collection_key = 'files';
-	protected $filesType = 'Google_Service_FirebaseRules_FirebaserulesFile';
-	protected $filesDataType = 'array';
+  protected $collection_key = 'files';
+  protected $filesType = 'Google_Service_FirebaseRules_FirebaserulesFile';
+  protected $filesDataType = 'array';
 
-	/**
-	 * @param Google_Service_FirebaseRules_FirebaserulesFile
-	 */
-	public function setFiles($files)
-	{
-		$this->files = $files;
-	}
-	/**
-	 * @return Google_Service_FirebaseRules_FirebaserulesFile
-	 */
-	public function getFiles()
-	{
-		return $this->files;
-	}
+  /**
+   * @param Google_Service_FirebaseRules_FirebaserulesFile[]
+   */
+  public function setFiles($files)
+  {
+    $this->files = $files;
+  }
+  /**
+   * @return Google_Service_FirebaseRules_FirebaserulesFile[]
+   */
+  public function getFiles()
+  {
+    return $this->files;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_PeopleService_ContactGroupMetadata extends Google_Model
 {
-	public $deleted;
-	public $updateTime;
+  public $deleted;
+  public $updateTime;
 
-	public function setDeleted($deleted)
-	{
-		$this->deleted = $deleted;
-	}
-	public function getDeleted()
-	{
-		return $this->deleted;
-	}
-	public function setUpdateTime($updateTime)
-	{
-		$this->updateTime = $updateTime;
-	}
-	public function getUpdateTime()
-	{
-		return $this->updateTime;
-	}
+  public function setDeleted($deleted)
+  {
+    $this->deleted = $deleted;
+  }
+  public function getDeleted()
+  {
+    return $this->deleted;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
+  }
 }

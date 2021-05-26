@@ -17,64 +17,64 @@
 
 class Google_Service_JobService_MatchingJob extends Google_Model
 {
-	protected $commuteInfoType = 'Google_Service_JobService_CommuteInfo';
-	protected $commuteInfoDataType = '';
-	protected $jobType = 'Google_Service_JobService_Job';
-	protected $jobDataType = '';
-	public $jobSummary;
-	public $jobTitleSnippet;
-	public $searchTextSnippet;
+  protected $commuteInfoType = 'Google_Service_JobService_CommuteInfo';
+  protected $commuteInfoDataType = '';
+  protected $jobType = 'Google_Service_JobService_Job';
+  protected $jobDataType = '';
+  public $jobSummary;
+  public $jobTitleSnippet;
+  public $searchTextSnippet;
 
-	/**
-	 * @param Google_Service_JobService_CommuteInfo
-	 */
-	public function setCommuteInfo(Google_Service_JobService_CommuteInfo $commuteInfo)
-	{
-		$this->commuteInfo = $commuteInfo;
-	}
-	/**
-	 * @return Google_Service_JobService_CommuteInfo
-	 */
-	public function getCommuteInfo()
-	{
-		return $this->commuteInfo;
-	}
-	/**
-	 * @param Google_Service_JobService_Job
-	 */
-	public function setJob(Google_Service_JobService_Job $job)
-	{
-		$this->job = $job;
-	}
-	/**
-	 * @return Google_Service_JobService_Job
-	 */
-	public function getJob()
-	{
-		return $this->job;
-	}
-	public function setJobSummary($jobSummary)
-	{
-		$this->jobSummary = $jobSummary;
-	}
-	public function getJobSummary()
-	{
-		return $this->jobSummary;
-	}
-	public function setJobTitleSnippet($jobTitleSnippet)
-	{
-		$this->jobTitleSnippet = $jobTitleSnippet;
-	}
-	public function getJobTitleSnippet()
-	{
-		return $this->jobTitleSnippet;
-	}
-	public function setSearchTextSnippet($searchTextSnippet)
-	{
-		$this->searchTextSnippet = $searchTextSnippet;
-	}
-	public function getSearchTextSnippet()
-	{
-		return $this->searchTextSnippet;
-	}
+  /**
+   * @param Google_Service_JobService_CommuteInfo
+   */
+  public function setCommuteInfo(Google_Service_JobService_CommuteInfo $commuteInfo)
+  {
+    $this->commuteInfo = $commuteInfo;
+  }
+  /**
+   * @return Google_Service_JobService_CommuteInfo
+   */
+  public function getCommuteInfo()
+  {
+    return $this->commuteInfo;
+  }
+  /**
+   * @param Google_Service_JobService_Job
+   */
+  public function setJob(Google_Service_JobService_Job $job)
+  {
+    $this->job = $job;
+  }
+  /**
+   * @return Google_Service_JobService_Job
+   */
+  public function getJob()
+  {
+    return $this->job;
+  }
+  public function setJobSummary($jobSummary)
+  {
+    $this->jobSummary = $jobSummary;
+  }
+  public function getJobSummary()
+  {
+    return $this->jobSummary;
+  }
+  public function setJobTitleSnippet($jobTitleSnippet)
+  {
+    $this->jobTitleSnippet = $jobTitleSnippet;
+  }
+  public function getJobTitleSnippet()
+  {
+    return $this->jobTitleSnippet;
+  }
+  public function setSearchTextSnippet($searchTextSnippet)
+  {
+    $this->searchTextSnippet = $searchTextSnippet;
+  }
+  public function getSearchTextSnippet()
+  {
+    return $this->searchTextSnippet;
+  }
 }

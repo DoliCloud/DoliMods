@@ -17,15 +17,15 @@
 
 class Google_Service_CloudNaturalLanguageAPI_AnalyzeSentimentRequest extends Google_Model
 {
-	protected $documentType = 'Google_Service_CloudNaturalLanguageAPI_Document';
-	protected $documentDataType = '';
+  protected $documentType = 'Google_Service_CloudNaturalLanguageAPI_Document';
+  protected $documentDataType = '';
 
-	public function setDocument(Google_Service_CloudNaturalLanguageAPI_Document $document)
-	{
-		$this->document = $document;
-	}
-	public function getDocument()
-	{
-		return $this->document;
-	}
+  public function setDocument(Google_Service_CloudNaturalLanguageAPI_Document $document)
+  {
+    $this->document = $document;
+  }
+  public function getDocument()
+  {
+    return $this->document;
+  }
 }

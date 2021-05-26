@@ -17,23 +17,23 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2Proximity extends Google_Model
 {
-	public $windowAfter;
-	public $windowBefore;
+  public $windowAfter;
+  public $windowBefore;
 
-	public function setWindowAfter($windowAfter)
-	{
-		$this->windowAfter = $windowAfter;
-	}
-	public function getWindowAfter()
-	{
-		return $this->windowAfter;
-	}
-	public function setWindowBefore($windowBefore)
-	{
-		$this->windowBefore = $windowBefore;
-	}
-	public function getWindowBefore()
-	{
-		return $this->windowBefore;
-	}
+  public function setWindowAfter($windowAfter)
+  {
+    $this->windowAfter = $windowAfter;
+  }
+  public function getWindowAfter()
+  {
+    return $this->windowAfter;
+  }
+  public function setWindowBefore($windowBefore)
+  {
+    $this->windowBefore = $windowBefore;
+  }
+  public function getWindowBefore()
+  {
+    return $this->windowBefore;
+  }
 }

@@ -15,41 +15,58 @@
  * the License.
  */
 
-class Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTranslation extends Google_Model
+class Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTranslation extends Google_Collection
 {
-	public $languageCode;
-	protected $textAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor';
-	protected $textAnchorDataType = '';
-	public $translatedText;
+  protected $collection_key = 'provenance';
+  public $languageCode;
+  protected $provenanceType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentProvenance';
+  protected $provenanceDataType = 'array';
+  protected $textAnchorType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor';
+  protected $textAnchorDataType = '';
+  public $translatedText;
 
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	/**
-	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor
-	 */
-	public function setTextAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor $textAnchor)
-	{
-		$this->textAnchor = $textAnchor;
-	}
-	/**
-	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor
-	 */
-	public function getTextAnchor()
-	{
-		return $this->textAnchor;
-	}
-	public function setTranslatedText($translatedText)
-	{
-		$this->translatedText = $translatedText;
-	}
-	public function getTranslatedText()
-	{
-		return $this->translatedText;
-	}
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentProvenance[]
+   */
+  public function setProvenance($provenance)
+  {
+    $this->provenance = $provenance;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentProvenance[]
+   */
+  public function getProvenance()
+  {
+    return $this->provenance;
+  }
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor
+   */
+  public function setTextAnchor(Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor $textAnchor)
+  {
+    $this->textAnchor = $textAnchor;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentTextAnchor
+   */
+  public function getTextAnchor()
+  {
+    return $this->textAnchor;
+  }
+  public function setTranslatedText($translatedText)
+  {
+    $this->translatedText = $translatedText;
+  }
+  public function getTranslatedText()
+  {
+    return $this->translatedText;
+  }
 }

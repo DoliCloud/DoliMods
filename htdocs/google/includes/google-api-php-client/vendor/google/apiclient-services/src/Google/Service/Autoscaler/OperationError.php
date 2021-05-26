@@ -17,16 +17,16 @@
 
 class Google_Service_Autoscaler_OperationError extends Google_Collection
 {
-	protected $collection_key = 'errors';
-	protected $errorsType = 'Google_Service_Autoscaler_OperationErrorErrors';
-	protected $errorsDataType = 'array';
+  protected $collection_key = 'errors';
+  protected $errorsType = 'Google_Service_Autoscaler_OperationErrorErrors';
+  protected $errorsDataType = 'array';
 
-	public function setErrors($errors)
-	{
-		$this->errors = $errors;
-	}
-	public function getErrors()
-	{
-		return $this->errors;
-	}
+  public function setErrors($errors)
+  {
+    $this->errors = $errors;
+  }
+  public function getErrors()
+  {
+    return $this->errors;
+  }
 }

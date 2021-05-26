@@ -17,22 +17,22 @@
 
 class Google_Service_AndroidEnterprise_GroupLicenseUsersListResponse extends Google_Collection
 {
-	protected $collection_key = 'user';
-	protected $userType = 'Google_Service_AndroidEnterprise_User';
-	protected $userDataType = 'array';
+  protected $collection_key = 'user';
+  protected $userType = 'Google_Service_AndroidEnterprise_User';
+  protected $userDataType = 'array';
 
-	/**
-	 * @param Google_Service_AndroidEnterprise_User
-	 */
-	public function setUser($user)
-	{
-		$this->user = $user;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_User
-	 */
-	public function getUser()
-	{
-		return $this->user;
-	}
+  /**
+   * @param Google_Service_AndroidEnterprise_User[]
+   */
+  public function setUser($user)
+  {
+    $this->user = $user;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_User[]
+   */
+  public function getUser()
+  {
+    return $this->user;
+  }
 }

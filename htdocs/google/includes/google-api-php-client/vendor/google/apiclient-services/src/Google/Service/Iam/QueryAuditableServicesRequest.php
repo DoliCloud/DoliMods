@@ -17,14 +17,14 @@
 
 class Google_Service_Iam_QueryAuditableServicesRequest extends Google_Model
 {
-	public $fullResourceName;
+  public $fullResourceName;
 
-	public function setFullResourceName($fullResourceName)
-	{
-		$this->fullResourceName = $fullResourceName;
-	}
-	public function getFullResourceName()
-	{
-		return $this->fullResourceName;
-	}
+  public function setFullResourceName($fullResourceName)
+  {
+    $this->fullResourceName = $fullResourceName;
+  }
+  public function getFullResourceName()
+  {
+    return $this->fullResourceName;
+  }
 }

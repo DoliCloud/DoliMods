@@ -17,24 +17,24 @@
 
 class Google_Service_Sasportal_SasPortalAssignment extends Google_Collection
 {
-	protected $collection_key = 'members';
-	public $members;
-	public $role;
+  protected $collection_key = 'members';
+  public $members;
+  public $role;
 
-	public function setMembers($members)
-	{
-		$this->members = $members;
-	}
-	public function getMembers()
-	{
-		return $this->members;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
+  public function setMembers($members)
+  {
+    $this->members = $members;
+  }
+  public function getMembers()
+  {
+    return $this->members;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
 }

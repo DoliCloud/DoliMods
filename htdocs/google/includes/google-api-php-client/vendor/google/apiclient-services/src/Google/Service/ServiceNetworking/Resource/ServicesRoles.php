@@ -25,23 +25,23 @@
  */
 class Google_Service_ServiceNetworking_Resource_ServicesRoles extends Google_Service_Resource
 {
-	/**
-	 * Service producers can use this method to add roles in the shared VPC host
-	 * project. Each role is bound to the provided member. Each role must be
-	 * selected from within a whitelisted set of roles. Each role is applied at only
-	 * the granularity specified in the whitelist. (roles.add)
-	 *
-	 * @param string $parent Required. This is in a form services/{service} where
-	 *                       {service} is the name of the private access management service. For example
-	 *                       'service-peering.example.com'.
-	 * @param Google_Service_ServiceNetworking_AddRolesRequest $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_ServiceNetworking_Operation
-	 */
-	public function add($parent, Google_Service_ServiceNetworking_AddRolesRequest $postBody, $optParams = array())
-	{
-		$params = array('parent' => $parent, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('add', array($params), "Google_Service_ServiceNetworking_Operation");
-	}
+  /**
+   * Service producers can use this method to add roles in the shared VPC host
+   * project. Each role is bound to the provided member. Each role must be
+   * selected from within an allowlisted set of roles. Each role is applied at
+   * only the granularity specified in the allowlist. (roles.add)
+   *
+   * @param string $parent Required. This is in a form services/{service} where
+   * {service} is the name of the private access management service. For example
+   * 'service-peering.example.com'.
+   * @param Google_Service_ServiceNetworking_AddRolesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ServiceNetworking_Operation
+   */
+  public function add($parent, Google_Service_ServiceNetworking_AddRolesRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('add', array($params), "Google_Service_ServiceNetworking_Operation");
+  }
 }

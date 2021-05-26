@@ -17,50 +17,50 @@
 
 class Google_Service_AdExchangeBuyerII_Note extends Google_Model
 {
-	public $createTime;
-	public $creatorRole;
-	public $note;
-	public $noteId;
-	public $proposalRevision;
+  public $createTime;
+  public $creatorRole;
+  public $note;
+  public $noteId;
+  public $proposalRevision;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setCreatorRole($creatorRole)
-	{
-		$this->creatorRole = $creatorRole;
-	}
-	public function getCreatorRole()
-	{
-		return $this->creatorRole;
-	}
-	public function setNote($note)
-	{
-		$this->note = $note;
-	}
-	public function getNote()
-	{
-		return $this->note;
-	}
-	public function setNoteId($noteId)
-	{
-		$this->noteId = $noteId;
-	}
-	public function getNoteId()
-	{
-		return $this->noteId;
-	}
-	public function setProposalRevision($proposalRevision)
-	{
-		$this->proposalRevision = $proposalRevision;
-	}
-	public function getProposalRevision()
-	{
-		return $this->proposalRevision;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setCreatorRole($creatorRole)
+  {
+    $this->creatorRole = $creatorRole;
+  }
+  public function getCreatorRole()
+  {
+    return $this->creatorRole;
+  }
+  public function setNote($note)
+  {
+    $this->note = $note;
+  }
+  public function getNote()
+  {
+    return $this->note;
+  }
+  public function setNoteId($noteId)
+  {
+    $this->noteId = $noteId;
+  }
+  public function getNoteId()
+  {
+    return $this->noteId;
+  }
+  public function setProposalRevision($proposalRevision)
+  {
+    $this->proposalRevision = $proposalRevision;
+  }
+  public function getProposalRevision()
+  {
+    return $this->proposalRevision;
+  }
 }

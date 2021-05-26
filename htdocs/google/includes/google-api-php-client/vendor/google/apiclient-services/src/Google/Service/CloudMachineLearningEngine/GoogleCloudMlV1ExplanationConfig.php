@@ -17,53 +17,53 @@
 
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplanationConfig extends Google_Model
 {
-	protected $integratedGradientsAttributionType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1IntegratedGradientsAttribution';
-	protected $integratedGradientsAttributionDataType = '';
-	protected $sampledShapleyAttributionType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution';
-	protected $sampledShapleyAttributionDataType = '';
-	protected $xraiAttributionType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution';
-	protected $xraiAttributionDataType = '';
+  protected $integratedGradientsAttributionType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1IntegratedGradientsAttribution';
+  protected $integratedGradientsAttributionDataType = '';
+  protected $sampledShapleyAttributionType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution';
+  protected $sampledShapleyAttributionDataType = '';
+  protected $xraiAttributionType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution';
+  protected $xraiAttributionDataType = '';
 
-	/**
-	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1IntegratedGradientsAttribution
-	 */
-	public function setIntegratedGradientsAttribution(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1IntegratedGradientsAttribution $integratedGradientsAttribution)
-	{
-		$this->integratedGradientsAttribution = $integratedGradientsAttribution;
-	}
-	/**
-	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1IntegratedGradientsAttribution
-	 */
-	public function getIntegratedGradientsAttribution()
-	{
-		return $this->integratedGradientsAttribution;
-	}
-	/**
-	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution
-	 */
-	public function setSampledShapleyAttribution(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution $sampledShapleyAttribution)
-	{
-		$this->sampledShapleyAttribution = $sampledShapleyAttribution;
-	}
-	/**
-	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution
-	 */
-	public function getSampledShapleyAttribution()
-	{
-		return $this->sampledShapleyAttribution;
-	}
-	/**
-	 * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution
-	 */
-	public function setXraiAttribution(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution $xraiAttribution)
-	{
-		$this->xraiAttribution = $xraiAttribution;
-	}
-	/**
-	 * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution
-	 */
-	public function getXraiAttribution()
-	{
-		return $this->xraiAttribution;
-	}
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1IntegratedGradientsAttribution
+   */
+  public function setIntegratedGradientsAttribution(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1IntegratedGradientsAttribution $integratedGradientsAttribution)
+  {
+    $this->integratedGradientsAttribution = $integratedGradientsAttribution;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1IntegratedGradientsAttribution
+   */
+  public function getIntegratedGradientsAttribution()
+  {
+    return $this->integratedGradientsAttribution;
+  }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution
+   */
+  public function setSampledShapleyAttribution(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution $sampledShapleyAttribution)
+  {
+    $this->sampledShapleyAttribution = $sampledShapleyAttribution;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1SampledShapleyAttribution
+   */
+  public function getSampledShapleyAttribution()
+  {
+    return $this->sampledShapleyAttribution;
+  }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution
+   */
+  public function setXraiAttribution(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution $xraiAttribution)
+  {
+    $this->xraiAttribution = $xraiAttribution;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1XraiAttribution
+   */
+  public function getXraiAttribution()
+  {
+    return $this->xraiAttribution;
+  }
 }

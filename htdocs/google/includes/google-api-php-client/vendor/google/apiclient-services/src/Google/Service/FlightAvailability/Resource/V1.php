@@ -25,18 +25,18 @@
  */
 class Google_Service_FlightAvailability_Resource_V1 extends Google_Service_Resource
 {
-	/**
-	 * Called by a partner: receives questions, each of which consists of one or
-	 * more segments, and returns answers with availability data. (v1.query)
-	 *
-	 * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestions $postBody
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswers
-	 */
-	public function query(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestions $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('query', array($params), "Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswers");
-	}
+  /**
+   * Called by a partner: receives questions, each of which consists of one or
+   * more segments, and returns answers with availability data. (v1.query)
+   *
+   * @param Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestions $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswers
+   */
+  public function query(Google_Service_FlightAvailability_FlightavailabilityPartnerAvailQuestions $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('query', array($params), "Google_Service_FlightAvailability_FlightavailabilityPartnerAvailAnswers");
+  }
 }

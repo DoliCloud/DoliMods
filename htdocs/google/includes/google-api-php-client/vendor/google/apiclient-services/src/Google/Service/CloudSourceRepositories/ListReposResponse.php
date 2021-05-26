@@ -17,31 +17,31 @@
 
 class Google_Service_CloudSourceRepositories_ListReposResponse extends Google_Collection
 {
-	protected $collection_key = 'repos';
-	public $nextPageToken;
-	protected $reposType = 'Google_Service_CloudSourceRepositories_Repo';
-	protected $reposDataType = 'array';
+  protected $collection_key = 'repos';
+  public $nextPageToken;
+  protected $reposType = 'Google_Service_CloudSourceRepositories_Repo';
+  protected $reposDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_CloudSourceRepositories_Repo
-	 */
-	public function setRepos($repos)
-	{
-		$this->repos = $repos;
-	}
-	/**
-	 * @return Google_Service_CloudSourceRepositories_Repo
-	 */
-	public function getRepos()
-	{
-		return $this->repos;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_CloudSourceRepositories_Repo[]
+   */
+  public function setRepos($repos)
+  {
+    $this->repos = $repos;
+  }
+  /**
+   * @return Google_Service_CloudSourceRepositories_Repo[]
+   */
+  public function getRepos()
+  {
+    return $this->repos;
+  }
 }

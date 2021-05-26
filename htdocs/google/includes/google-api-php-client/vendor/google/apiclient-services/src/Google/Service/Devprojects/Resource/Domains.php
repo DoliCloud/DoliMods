@@ -25,72 +25,72 @@
  */
 class Google_Service_Devprojects_Resource_Domains extends Google_Service_Resource
 {
-	/**
-	 * Retrieves the configuration data for a domain. (domains.get)
-	 *
-	 * @param string $domainsId The resource ID.
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string whitelistId The whitelist project ID. See
-	 * Projects.Insert.whitelist_id documentation for details.
-	 * @return Google_Service_Devprojects_DomainAccountData
-	 */
-	public function get($domainsId, $optParams = array())
-	{
-		$params = array('domainsId' => $domainsId);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_Devprojects_DomainAccountData");
-	}
-	/**
-	 * Creates a domain account. (domains.insert)
-	 *
-	 * @param Google_Service_Devprojects_DomainAccountData $postBody
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string whitelistId The whitelist project ID. See
-	 * Projects.Insert.whitelist_id documentation for details.
-	 * @return Google_Service_Devprojects_DomainAccountData
-	 */
-	public function insert(Google_Service_Devprojects_DomainAccountData $postBody, $optParams = array())
-	{
-		$params = array('postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('insert', array($params), "Google_Service_Devprojects_DomainAccountData");
-	}
-	/**
-	 * Updates a domain account. The resource will replace the current domain. This
-	 * method supports patch semantics. (domains.patch)
-	 *
-	 * @param string $domainsId The resource ID.
-	 * @param Google_Service_Devprojects_DomainAccountData $postBody
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string whitelistId The whitelist project ID. See
-	 * Projects.Insert.whitelist_id documentation for details.
-	 * @return Google_Service_Devprojects_DomainAccountData
-	 */
-	public function patch($domainsId, Google_Service_Devprojects_DomainAccountData $postBody, $optParams = array())
-	{
-		$params = array('domainsId' => $domainsId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('patch', array($params), "Google_Service_Devprojects_DomainAccountData");
-	}
-	/**
-	 * Updates a domain account. The resource will replace the current domain.
-	 * (domains.update)
-	 *
-	 * @param string $domainsId The resource ID.
-	 * @param Google_Service_Devprojects_DomainAccountData $postBody
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string whitelistId The whitelist project ID. See
-	 * Projects.Insert.whitelist_id documentation for details.
-	 * @return Google_Service_Devprojects_DomainAccountData
-	 */
-	public function update($domainsId, Google_Service_Devprojects_DomainAccountData $postBody, $optParams = array())
-	{
-		$params = array('domainsId' => $domainsId, 'postBody' => $postBody);
-		$params = array_merge($params, $optParams);
-		return $this->call('update', array($params), "Google_Service_Devprojects_DomainAccountData");
-	}
+  /**
+   * Retrieves the configuration data for a domain. (domains.get)
+   *
+   * @param string $domainsId The resource ID.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string whitelistId The whitelist project ID. See
+   * Projects.Insert.whitelist_id documentation for details.
+   * @return Google_Service_Devprojects_DomainAccountData
+   */
+  public function get($domainsId, $optParams = array())
+  {
+    $params = array('domainsId' => $domainsId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Devprojects_DomainAccountData");
+  }
+  /**
+   * Creates a domain account. (domains.insert)
+   *
+   * @param Google_Service_Devprojects_DomainAccountData $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string whitelistId The whitelist project ID. See
+   * Projects.Insert.whitelist_id documentation for details.
+   * @return Google_Service_Devprojects_DomainAccountData
+   */
+  public function insert(Google_Service_Devprojects_DomainAccountData $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Devprojects_DomainAccountData");
+  }
+  /**
+   * Updates a domain account. The resource will replace the current domain. This
+   * method supports patch semantics. (domains.patch)
+   *
+   * @param string $domainsId The resource ID.
+   * @param Google_Service_Devprojects_DomainAccountData $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string whitelistId The whitelist project ID. See
+   * Projects.Insert.whitelist_id documentation for details.
+   * @return Google_Service_Devprojects_DomainAccountData
+   */
+  public function patch($domainsId, Google_Service_Devprojects_DomainAccountData $postBody, $optParams = array())
+  {
+    $params = array('domainsId' => $domainsId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', array($params), "Google_Service_Devprojects_DomainAccountData");
+  }
+  /**
+   * Updates a domain account. The resource will replace the current domain.
+   * (domains.update)
+   *
+   * @param string $domainsId The resource ID.
+   * @param Google_Service_Devprojects_DomainAccountData $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string whitelistId The whitelist project ID. See
+   * Projects.Insert.whitelist_id documentation for details.
+   * @return Google_Service_Devprojects_DomainAccountData
+   */
+  public function update($domainsId, Google_Service_Devprojects_DomainAccountData $postBody, $optParams = array())
+  {
+    $params = array('domainsId' => $domainsId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_Devprojects_DomainAccountData");
+  }
 }

@@ -17,30 +17,30 @@
 
 class Google_Service_Recommender_GoogleCloudRecommenderV1CostProjection extends Google_Model
 {
-	protected $costType = 'Google_Service_Recommender_GoogleTypeMoney';
-	protected $costDataType = '';
-	public $duration;
+  protected $costType = 'Google_Service_Recommender_GoogleTypeMoney';
+  protected $costDataType = '';
+  public $duration;
 
-	/**
-	 * @param Google_Service_Recommender_GoogleTypeMoney
-	 */
-	public function setCost(Google_Service_Recommender_GoogleTypeMoney $cost)
-	{
-		$this->cost = $cost;
-	}
-	/**
-	 * @return Google_Service_Recommender_GoogleTypeMoney
-	 */
-	public function getCost()
-	{
-		return $this->cost;
-	}
-	public function setDuration($duration)
-	{
-		$this->duration = $duration;
-	}
-	public function getDuration()
-	{
-		return $this->duration;
-	}
+  /**
+   * @param Google_Service_Recommender_GoogleTypeMoney
+   */
+  public function setCost(Google_Service_Recommender_GoogleTypeMoney $cost)
+  {
+    $this->cost = $cost;
+  }
+  /**
+   * @return Google_Service_Recommender_GoogleTypeMoney
+   */
+  public function getCost()
+  {
+    return $this->cost;
+  }
+  public function setDuration($duration)
+  {
+    $this->duration = $duration;
+  }
+  public function getDuration()
+  {
+    return $this->duration;
+  }
 }

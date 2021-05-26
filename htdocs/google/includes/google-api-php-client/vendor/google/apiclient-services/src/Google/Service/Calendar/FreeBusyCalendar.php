@@ -17,38 +17,38 @@
 
 class Google_Service_Calendar_FreeBusyCalendar extends Google_Collection
 {
-	protected $collection_key = 'errors';
-	protected $busyType = 'Google_Service_Calendar_TimePeriod';
-	protected $busyDataType = 'array';
-	protected $errorsType = 'Google_Service_Calendar_Error';
-	protected $errorsDataType = 'array';
+  protected $collection_key = 'errors';
+  protected $busyType = 'Google_Service_Calendar_TimePeriod';
+  protected $busyDataType = 'array';
+  protected $errorsType = 'Google_Service_Calendar_Error';
+  protected $errorsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Calendar_TimePeriod
-	 */
-	public function setBusy($busy)
-	{
-		$this->busy = $busy;
-	}
-	/**
-	 * @return Google_Service_Calendar_TimePeriod
-	 */
-	public function getBusy()
-	{
-		return $this->busy;
-	}
-	/**
-	 * @param Google_Service_Calendar_Error
-	 */
-	public function setErrors($errors)
-	{
-		$this->errors = $errors;
-	}
-	/**
-	 * @return Google_Service_Calendar_Error
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
+  /**
+   * @param Google_Service_Calendar_TimePeriod[]
+   */
+  public function setBusy($busy)
+  {
+    $this->busy = $busy;
+  }
+  /**
+   * @return Google_Service_Calendar_TimePeriod[]
+   */
+  public function getBusy()
+  {
+    return $this->busy;
+  }
+  /**
+   * @param Google_Service_Calendar_Error[]
+   */
+  public function setErrors($errors)
+  {
+    $this->errors = $errors;
+  }
+  /**
+   * @return Google_Service_Calendar_Error[]
+   */
+  public function getErrors()
+  {
+    return $this->errors;
+  }
 }

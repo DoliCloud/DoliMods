@@ -17,60 +17,60 @@
 
 class Google_Service_Texttospeech_AudioConfig extends Google_Collection
 {
-	protected $collection_key = 'effectsProfileId';
-	public $audioEncoding;
-	public $effectsProfileId;
-	public $pitch;
-	public $sampleRateHertz;
-	public $speakingRate;
-	public $volumeGainDb;
+  protected $collection_key = 'effectsProfileId';
+  public $audioEncoding;
+  public $effectsProfileId;
+  public $pitch;
+  public $sampleRateHertz;
+  public $speakingRate;
+  public $volumeGainDb;
 
-	public function setAudioEncoding($audioEncoding)
-	{
-		$this->audioEncoding = $audioEncoding;
-	}
-	public function getAudioEncoding()
-	{
-		return $this->audioEncoding;
-	}
-	public function setEffectsProfileId($effectsProfileId)
-	{
-		$this->effectsProfileId = $effectsProfileId;
-	}
-	public function getEffectsProfileId()
-	{
-		return $this->effectsProfileId;
-	}
-	public function setPitch($pitch)
-	{
-		$this->pitch = $pitch;
-	}
-	public function getPitch()
-	{
-		return $this->pitch;
-	}
-	public function setSampleRateHertz($sampleRateHertz)
-	{
-		$this->sampleRateHertz = $sampleRateHertz;
-	}
-	public function getSampleRateHertz()
-	{
-		return $this->sampleRateHertz;
-	}
-	public function setSpeakingRate($speakingRate)
-	{
-		$this->speakingRate = $speakingRate;
-	}
-	public function getSpeakingRate()
-	{
-		return $this->speakingRate;
-	}
-	public function setVolumeGainDb($volumeGainDb)
-	{
-		$this->volumeGainDb = $volumeGainDb;
-	}
-	public function getVolumeGainDb()
-	{
-		return $this->volumeGainDb;
-	}
+  public function setAudioEncoding($audioEncoding)
+  {
+    $this->audioEncoding = $audioEncoding;
+  }
+  public function getAudioEncoding()
+  {
+    return $this->audioEncoding;
+  }
+  public function setEffectsProfileId($effectsProfileId)
+  {
+    $this->effectsProfileId = $effectsProfileId;
+  }
+  public function getEffectsProfileId()
+  {
+    return $this->effectsProfileId;
+  }
+  public function setPitch($pitch)
+  {
+    $this->pitch = $pitch;
+  }
+  public function getPitch()
+  {
+    return $this->pitch;
+  }
+  public function setSampleRateHertz($sampleRateHertz)
+  {
+    $this->sampleRateHertz = $sampleRateHertz;
+  }
+  public function getSampleRateHertz()
+  {
+    return $this->sampleRateHertz;
+  }
+  public function setSpeakingRate($speakingRate)
+  {
+    $this->speakingRate = $speakingRate;
+  }
+  public function getSpeakingRate()
+  {
+    return $this->speakingRate;
+  }
+  public function setVolumeGainDb($volumeGainDb)
+  {
+    $this->volumeGainDb = $volumeGainDb;
+  }
+  public function getVolumeGainDb()
+  {
+    return $this->volumeGainDb;
+  }
 }

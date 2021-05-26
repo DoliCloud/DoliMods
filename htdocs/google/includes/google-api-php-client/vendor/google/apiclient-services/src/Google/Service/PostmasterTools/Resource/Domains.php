@@ -25,42 +25,42 @@
  */
 class Google_Service_PostmasterTools_Resource_Domains extends Google_Service_Resource
 {
-	/**
-	 * Gets a specific domain registered by the client. Returns NOT_FOUND if the
-	 * domain does not exist. (domains.get)
-	 *
-	 * @param string $name The resource name of the domain. It should have the form
-	 *                     `domains/{domain_name}`, where domain_name is the fully qualified domain
-	 *                     name.
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_PostmasterTools_Domain
-	 */
-	public function get($name, $optParams = array())
-	{
-		$params = array('name' => $name);
-		$params = array_merge($params, $optParams);
-		return $this->call('get', array($params), "Google_Service_PostmasterTools_Domain");
-	}
-	/**
-	 * Lists the domains that have been registered by the client. The order of
-	 * domains in the response is unspecified and non-deterministic. Newly created
-	 * domains will not necessarily be added to the end of this list.
-	 * (domains.listDomains)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string pageToken The next_page_token value returned from a
-	 * previous List request, if any. This is the value of
-	 * ListDomainsResponse.next_page_token returned from the previous call to
-	 * `ListDomains` method.
-	 * @opt_param int pageSize Requested page size. Server may return fewer domains
-	 * than requested. If unspecified, server will pick an appropriate default.
-	 * @return Google_Service_PostmasterTools_ListDomainsResponse
-	 */
-	public function listDomains($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_PostmasterTools_ListDomainsResponse");
-	}
+  /**
+   * Gets a specific domain registered by the client. Returns NOT_FOUND if the
+   * domain does not exist. (domains.get)
+   *
+   * @param string $name The resource name of the domain. It should have the form
+   * `domains/{domain_name}`, where domain_name is the fully qualified domain
+   * name.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_PostmasterTools_Domain
+   */
+  public function get($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_PostmasterTools_Domain");
+  }
+  /**
+   * Lists the domains that have been registered by the client. The order of
+   * domains in the response is unspecified and non-deterministic. Newly created
+   * domains will not necessarily be added to the end of this list.
+   * (domains.listDomains)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize Requested page size. Server may return fewer domains
+   * than requested. If unspecified, server will pick an appropriate default.
+   * @opt_param string pageToken The next_page_token value returned from a
+   * previous List request, if any. This is the value of
+   * ListDomainsResponse.next_page_token returned from the previous call to
+   * `ListDomains` method.
+   * @return Google_Service_PostmasterTools_ListDomainsResponse
+   */
+  public function listDomains($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_PostmasterTools_ListDomainsResponse");
+  }
 }

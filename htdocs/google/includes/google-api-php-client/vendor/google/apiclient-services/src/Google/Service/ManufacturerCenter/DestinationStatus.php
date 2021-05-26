@@ -17,23 +17,23 @@
 
 class Google_Service_ManufacturerCenter_DestinationStatus extends Google_Model
 {
-	public $destination;
-	public $status;
+  public $destination;
+  public $status;
 
-	public function setDestination($destination)
-	{
-		$this->destination = $destination;
-	}
-	public function getDestination()
-	{
-		return $this->destination;
-	}
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
+  public function setDestination($destination)
+  {
+    $this->destination = $destination;
+  }
+  public function getDestination()
+  {
+    return $this->destination;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }

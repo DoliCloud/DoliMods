@@ -17,50 +17,50 @@
 
 class Google_Service_Games_ScoreSubmission extends Google_Model
 {
-	public $kind;
-	public $leaderboardId;
-	public $score;
-	public $scoreTag;
-	public $signature;
+  public $kind;
+  public $leaderboardId;
+  public $score;
+  public $scoreTag;
+  public $signature;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	public function setLeaderboardId($leaderboardId)
-	{
-		$this->leaderboardId = $leaderboardId;
-	}
-	public function getLeaderboardId()
-	{
-		return $this->leaderboardId;
-	}
-	public function setScore($score)
-	{
-		$this->score = $score;
-	}
-	public function getScore()
-	{
-		return $this->score;
-	}
-	public function setScoreTag($scoreTag)
-	{
-		$this->scoreTag = $scoreTag;
-	}
-	public function getScoreTag()
-	{
-		return $this->scoreTag;
-	}
-	public function setSignature($signature)
-	{
-		$this->signature = $signature;
-	}
-	public function getSignature()
-	{
-		return $this->signature;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setLeaderboardId($leaderboardId)
+  {
+    $this->leaderboardId = $leaderboardId;
+  }
+  public function getLeaderboardId()
+  {
+    return $this->leaderboardId;
+  }
+  public function setScore($score)
+  {
+    $this->score = $score;
+  }
+  public function getScore()
+  {
+    return $this->score;
+  }
+  public function setScoreTag($scoreTag)
+  {
+    $this->scoreTag = $scoreTag;
+  }
+  public function getScoreTag()
+  {
+    return $this->scoreTag;
+  }
+  public function setSignature($signature)
+  {
+    $this->signature = $signature;
+  }
+  public function getSignature()
+  {
+    return $this->signature;
+  }
 }

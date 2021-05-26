@@ -17,41 +17,41 @@
 
 class Google_Service_CloudResourceManager_FolderOperation extends Google_Model
 {
-	public $destinationParent;
-	public $displayName;
-	public $operationType;
-	public $sourceParent;
+  public $destinationParent;
+  public $displayName;
+  public $operationType;
+  public $sourceParent;
 
-	public function setDestinationParent($destinationParent)
-	{
-		$this->destinationParent = $destinationParent;
-	}
-	public function getDestinationParent()
-	{
-		return $this->destinationParent;
-	}
-	public function setDisplayName($displayName)
-	{
-		$this->displayName = $displayName;
-	}
-	public function getDisplayName()
-	{
-		return $this->displayName;
-	}
-	public function setOperationType($operationType)
-	{
-		$this->operationType = $operationType;
-	}
-	public function getOperationType()
-	{
-		return $this->operationType;
-	}
-	public function setSourceParent($sourceParent)
-	{
-		$this->sourceParent = $sourceParent;
-	}
-	public function getSourceParent()
-	{
-		return $this->sourceParent;
-	}
+  public function setDestinationParent($destinationParent)
+  {
+    $this->destinationParent = $destinationParent;
+  }
+  public function getDestinationParent()
+  {
+    return $this->destinationParent;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setOperationType($operationType)
+  {
+    $this->operationType = $operationType;
+  }
+  public function getOperationType()
+  {
+    return $this->operationType;
+  }
+  public function setSourceParent($sourceParent)
+  {
+    $this->sourceParent = $sourceParent;
+  }
+  public function getSourceParent()
+  {
+    return $this->sourceParent;
+  }
 }

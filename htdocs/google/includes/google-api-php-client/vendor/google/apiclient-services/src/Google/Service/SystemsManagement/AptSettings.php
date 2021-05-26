@@ -17,33 +17,33 @@
 
 class Google_Service_SystemsManagement_AptSettings extends Google_Collection
 {
-	protected $collection_key = 'exclusivePackages';
-	public $excludes;
-	public $exclusivePackages;
-	public $type;
+  protected $collection_key = 'exclusivePackages';
+  public $excludes;
+  public $exclusivePackages;
+  public $type;
 
-	public function setExcludes($excludes)
-	{
-		$this->excludes = $excludes;
-	}
-	public function getExcludes()
-	{
-		return $this->excludes;
-	}
-	public function setExclusivePackages($exclusivePackages)
-	{
-		$this->exclusivePackages = $exclusivePackages;
-	}
-	public function getExclusivePackages()
-	{
-		return $this->exclusivePackages;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setExcludes($excludes)
+  {
+    $this->excludes = $excludes;
+  }
+  public function getExcludes()
+  {
+    return $this->excludes;
+  }
+  public function setExclusivePackages($exclusivePackages)
+  {
+    $this->exclusivePackages = $exclusivePackages;
+  }
+  public function getExclusivePackages()
+  {
+    return $this->exclusivePackages;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

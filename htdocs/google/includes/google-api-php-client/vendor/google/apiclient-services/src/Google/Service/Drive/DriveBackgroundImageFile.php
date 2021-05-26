@@ -17,41 +17,41 @@
 
 class Google_Service_Drive_DriveBackgroundImageFile extends Google_Model
 {
-	public $id;
-	public $width;
-	public $xCoordinate;
-	public $yCoordinate;
+  public $id;
+  public $width;
+  public $xCoordinate;
+  public $yCoordinate;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setWidth($width)
-	{
-		$this->width = $width;
-	}
-	public function getWidth()
-	{
-		return $this->width;
-	}
-	public function setXCoordinate($xCoordinate)
-	{
-		$this->xCoordinate = $xCoordinate;
-	}
-	public function getXCoordinate()
-	{
-		return $this->xCoordinate;
-	}
-	public function setYCoordinate($yCoordinate)
-	{
-		$this->yCoordinate = $yCoordinate;
-	}
-	public function getYCoordinate()
-	{
-		return $this->yCoordinate;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
+  public function setXCoordinate($xCoordinate)
+  {
+    $this->xCoordinate = $xCoordinate;
+  }
+  public function getXCoordinate()
+  {
+    return $this->xCoordinate;
+  }
+  public function setYCoordinate($yCoordinate)
+  {
+    $this->yCoordinate = $yCoordinate;
+  }
+  public function getYCoordinate()
+  {
+    return $this->yCoordinate;
+  }
 }

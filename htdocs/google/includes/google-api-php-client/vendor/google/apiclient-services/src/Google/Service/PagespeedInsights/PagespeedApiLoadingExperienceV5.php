@@ -17,62 +17,62 @@
 
 class Google_Service_PagespeedInsights_PagespeedApiLoadingExperienceV5 extends Google_Model
 {
-	protected $internal_gapi_mappings = array(
-		"initialUrl" => "initial_url",
-		"originFallback" => "origin_fallback",
-		"overallCategory" => "overall_category",
-	);
-	public $id;
-	public $initialUrl;
-	protected $metricsType = 'Google_Service_PagespeedInsights_UserPageLoadMetricV5';
-	protected $metricsDataType = 'map';
-	public $originFallback;
-	public $overallCategory;
+  protected $internal_gapi_mappings = array(
+        "initialUrl" => "initial_url",
+        "originFallback" => "origin_fallback",
+        "overallCategory" => "overall_category",
+  );
+  public $id;
+  public $initialUrl;
+  protected $metricsType = 'Google_Service_PagespeedInsights_UserPageLoadMetricV5';
+  protected $metricsDataType = 'map';
+  public $originFallback;
+  public $overallCategory;
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setInitialUrl($initialUrl)
-	{
-		$this->initialUrl = $initialUrl;
-	}
-	public function getInitialUrl()
-	{
-		return $this->initialUrl;
-	}
-	/**
-	 * @param Google_Service_PagespeedInsights_UserPageLoadMetricV5
-	 */
-	public function setMetrics($metrics)
-	{
-		$this->metrics = $metrics;
-	}
-	/**
-	 * @return Google_Service_PagespeedInsights_UserPageLoadMetricV5
-	 */
-	public function getMetrics()
-	{
-		return $this->metrics;
-	}
-	public function setOriginFallback($originFallback)
-	{
-		$this->originFallback = $originFallback;
-	}
-	public function getOriginFallback()
-	{
-		return $this->originFallback;
-	}
-	public function setOverallCategory($overallCategory)
-	{
-		$this->overallCategory = $overallCategory;
-	}
-	public function getOverallCategory()
-	{
-		return $this->overallCategory;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setInitialUrl($initialUrl)
+  {
+    $this->initialUrl = $initialUrl;
+  }
+  public function getInitialUrl()
+  {
+    return $this->initialUrl;
+  }
+  /**
+   * @param Google_Service_PagespeedInsights_UserPageLoadMetricV5[]
+   */
+  public function setMetrics($metrics)
+  {
+    $this->metrics = $metrics;
+  }
+  /**
+   * @return Google_Service_PagespeedInsights_UserPageLoadMetricV5[]
+   */
+  public function getMetrics()
+  {
+    return $this->metrics;
+  }
+  public function setOriginFallback($originFallback)
+  {
+    $this->originFallback = $originFallback;
+  }
+  public function getOriginFallback()
+  {
+    return $this->originFallback;
+  }
+  public function setOverallCategory($overallCategory)
+  {
+    $this->overallCategory = $overallCategory;
+  }
+  public function getOverallCategory()
+  {
+    return $this->overallCategory;
+  }
 }

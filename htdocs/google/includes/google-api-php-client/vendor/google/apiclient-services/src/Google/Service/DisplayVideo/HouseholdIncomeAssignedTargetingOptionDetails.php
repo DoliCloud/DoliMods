@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_HouseholdIncomeAssignedTargetingOptionDetails extends Google_Model
 {
-	public $householdIncome;
-	public $targetingOptionId;
+  public $householdIncome;
+  public $targetingOptionId;
 
-	public function setHouseholdIncome($householdIncome)
-	{
-		$this->householdIncome = $householdIncome;
-	}
-	public function getHouseholdIncome()
-	{
-		return $this->householdIncome;
-	}
-	public function setTargetingOptionId($targetingOptionId)
-	{
-		$this->targetingOptionId = $targetingOptionId;
-	}
-	public function getTargetingOptionId()
-	{
-		return $this->targetingOptionId;
-	}
+  public function setHouseholdIncome($householdIncome)
+  {
+    $this->householdIncome = $householdIncome;
+  }
+  public function getHouseholdIncome()
+  {
+    return $this->householdIncome;
+  }
+  public function setTargetingOptionId($targetingOptionId)
+  {
+    $this->targetingOptionId = $targetingOptionId;
+  }
+  public function getTargetingOptionId()
+  {
+    return $this->targetingOptionId;
+  }
 }

@@ -17,31 +17,31 @@
 
 class Google_Service_BigQueryDataTransfer_ListTransferLogsResponse extends Google_Collection
 {
-	protected $collection_key = 'transferMessages';
-	public $nextPageToken;
-	protected $transferMessagesType = 'Google_Service_BigQueryDataTransfer_TransferMessage';
-	protected $transferMessagesDataType = 'array';
+  protected $collection_key = 'transferMessages';
+  public $nextPageToken;
+  protected $transferMessagesType = 'Google_Service_BigQueryDataTransfer_TransferMessage';
+  protected $transferMessagesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_BigQueryDataTransfer_TransferMessage
-	 */
-	public function setTransferMessages($transferMessages)
-	{
-		$this->transferMessages = $transferMessages;
-	}
-	/**
-	 * @return Google_Service_BigQueryDataTransfer_TransferMessage
-	 */
-	public function getTransferMessages()
-	{
-		return $this->transferMessages;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_BigQueryDataTransfer_TransferMessage[]
+   */
+  public function setTransferMessages($transferMessages)
+  {
+    $this->transferMessages = $transferMessages;
+  }
+  /**
+   * @return Google_Service_BigQueryDataTransfer_TransferMessage[]
+   */
+  public function getTransferMessages()
+  {
+    return $this->transferMessages;
+  }
 }

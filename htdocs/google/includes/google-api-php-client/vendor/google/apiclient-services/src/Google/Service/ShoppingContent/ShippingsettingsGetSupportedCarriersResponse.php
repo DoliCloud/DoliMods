@@ -17,31 +17,31 @@
 
 class Google_Service_ShoppingContent_ShippingsettingsGetSupportedCarriersResponse extends Google_Collection
 {
-	protected $collection_key = 'carriers';
-	protected $carriersType = 'Google_Service_ShoppingContent_CarriersCarrier';
-	protected $carriersDataType = 'array';
-	public $kind;
+  protected $collection_key = 'carriers';
+  protected $carriersType = 'Google_Service_ShoppingContent_CarriersCarrier';
+  protected $carriersDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_ShoppingContent_CarriersCarrier
-	 */
-	public function setCarriers($carriers)
-	{
-		$this->carriers = $carriers;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_CarriersCarrier
-	 */
-	public function getCarriers()
-	{
-		return $this->carriers;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_ShoppingContent_CarriersCarrier[]
+   */
+  public function setCarriers($carriers)
+  {
+    $this->carriers = $carriers;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_CarriersCarrier[]
+   */
+  public function getCarriers()
+  {
+    return $this->carriers;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

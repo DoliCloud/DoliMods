@@ -17,59 +17,59 @@
 
 class Google_Service_ServiceConsumerManagement_V1Beta1ProducerQuotaPolicy extends Google_Model
 {
-	public $container;
-	public $dimensions;
-	public $metric;
-	public $name;
-	public $policyValue;
-	public $unit;
+  public $container;
+  public $dimensions;
+  public $metric;
+  public $name;
+  public $policyValue;
+  public $unit;
 
-	public function setContainer($container)
-	{
-		$this->container = $container;
-	}
-	public function getContainer()
-	{
-		return $this->container;
-	}
-	public function setDimensions($dimensions)
-	{
-		$this->dimensions = $dimensions;
-	}
-	public function getDimensions()
-	{
-		return $this->dimensions;
-	}
-	public function setMetric($metric)
-	{
-		$this->metric = $metric;
-	}
-	public function getMetric()
-	{
-		return $this->metric;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPolicyValue($policyValue)
-	{
-		$this->policyValue = $policyValue;
-	}
-	public function getPolicyValue()
-	{
-		return $this->policyValue;
-	}
-	public function setUnit($unit)
-	{
-		$this->unit = $unit;
-	}
-	public function getUnit()
-	{
-		return $this->unit;
-	}
+  public function setContainer($container)
+  {
+    $this->container = $container;
+  }
+  public function getContainer()
+  {
+    return $this->container;
+  }
+  public function setDimensions($dimensions)
+  {
+    $this->dimensions = $dimensions;
+  }
+  public function getDimensions()
+  {
+    return $this->dimensions;
+  }
+  public function setMetric($metric)
+  {
+    $this->metric = $metric;
+  }
+  public function getMetric()
+  {
+    return $this->metric;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPolicyValue($policyValue)
+  {
+    $this->policyValue = $policyValue;
+  }
+  public function getPolicyValue()
+  {
+    return $this->policyValue;
+  }
+  public function setUnit($unit)
+  {
+    $this->unit = $unit;
+  }
+  public function getUnit()
+  {
+    return $this->unit;
+  }
 }

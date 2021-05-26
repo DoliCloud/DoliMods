@@ -17,23 +17,23 @@
 
 class Google_Service_Bigquery_JobStatisticsReservationUsage extends Google_Model
 {
-	public $name;
-	public $slotMs;
+  public $name;
+  public $slotMs;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setSlotMs($slotMs)
-	{
-		$this->slotMs = $slotMs;
-	}
-	public function getSlotMs()
-	{
-		return $this->slotMs;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setSlotMs($slotMs)
+  {
+    $this->slotMs = $slotMs;
+  }
+  public function getSlotMs()
+  {
+    return $this->slotMs;
+  }
 }

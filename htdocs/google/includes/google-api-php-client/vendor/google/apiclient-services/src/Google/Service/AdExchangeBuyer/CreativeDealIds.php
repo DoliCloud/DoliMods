@@ -17,31 +17,31 @@
 
 class Google_Service_AdExchangeBuyer_CreativeDealIds extends Google_Collection
 {
-	protected $collection_key = 'dealStatuses';
-	protected $dealStatusesType = 'Google_Service_AdExchangeBuyer_CreativeDealIdsDealStatuses';
-	protected $dealStatusesDataType = 'array';
-	public $kind;
+  protected $collection_key = 'dealStatuses';
+  protected $dealStatusesType = 'Google_Service_AdExchangeBuyer_CreativeDealIdsDealStatuses';
+  protected $dealStatusesDataType = 'array';
+  public $kind;
 
-	/**
-	 * @param Google_Service_AdExchangeBuyer_CreativeDealIdsDealStatuses
-	 */
-	public function setDealStatuses($dealStatuses)
-	{
-		$this->dealStatuses = $dealStatuses;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyer_CreativeDealIdsDealStatuses
-	 */
-	public function getDealStatuses()
-	{
-		return $this->dealStatuses;
-	}
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
+  /**
+   * @param Google_Service_AdExchangeBuyer_CreativeDealIdsDealStatuses[]
+   */
+  public function setDealStatuses($dealStatuses)
+  {
+    $this->dealStatuses = $dealStatuses;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyer_CreativeDealIdsDealStatuses[]
+   */
+  public function getDealStatuses()
+  {
+    return $this->dealStatuses;
+  }
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
 }

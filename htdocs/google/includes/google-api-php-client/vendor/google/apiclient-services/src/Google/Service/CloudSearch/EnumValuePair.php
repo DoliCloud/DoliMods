@@ -17,23 +17,23 @@
 
 class Google_Service_CloudSearch_EnumValuePair extends Google_Model
 {
-	public $integerValue;
-	public $stringValue;
+  public $integerValue;
+  public $stringValue;
 
-	public function setIntegerValue($integerValue)
-	{
-		$this->integerValue = $integerValue;
-	}
-	public function getIntegerValue()
-	{
-		return $this->integerValue;
-	}
-	public function setStringValue($stringValue)
-	{
-		$this->stringValue = $stringValue;
-	}
-	public function getStringValue()
-	{
-		return $this->stringValue;
-	}
+  public function setIntegerValue($integerValue)
+  {
+    $this->integerValue = $integerValue;
+  }
+  public function getIntegerValue()
+  {
+    return $this->integerValue;
+  }
+  public function setStringValue($stringValue)
+  {
+    $this->stringValue = $stringValue;
+  }
+  public function getStringValue()
+  {
+    return $this->stringValue;
+  }
 }

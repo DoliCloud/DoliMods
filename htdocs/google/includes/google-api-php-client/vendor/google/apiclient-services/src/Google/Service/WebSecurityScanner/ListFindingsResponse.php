@@ -17,31 +17,31 @@
 
 class Google_Service_WebSecurityScanner_ListFindingsResponse extends Google_Collection
 {
-	protected $collection_key = 'findings';
-	protected $findingsType = 'Google_Service_WebSecurityScanner_Finding';
-	protected $findingsDataType = 'array';
-	public $nextPageToken;
+  protected $collection_key = 'findings';
+  protected $findingsType = 'Google_Service_WebSecurityScanner_Finding';
+  protected $findingsDataType = 'array';
+  public $nextPageToken;
 
-	/**
-	 * @param Google_Service_WebSecurityScanner_Finding
-	 */
-	public function setFindings($findings)
-	{
-		$this->findings = $findings;
-	}
-	/**
-	 * @return Google_Service_WebSecurityScanner_Finding
-	 */
-	public function getFindings()
-	{
-		return $this->findings;
-	}
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
+  /**
+   * @param Google_Service_WebSecurityScanner_Finding
+   */
+  public function setFindings($findings)
+  {
+    $this->findings = $findings;
+  }
+  /**
+   * @return Google_Service_WebSecurityScanner_Finding
+   */
+  public function getFindings()
+  {
+    return $this->findings;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }

@@ -17,14 +17,14 @@
 
 class Google_Service_HangoutsChat_Thread extends Google_Model
 {
-	public $name;
+  public $name;
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
 }

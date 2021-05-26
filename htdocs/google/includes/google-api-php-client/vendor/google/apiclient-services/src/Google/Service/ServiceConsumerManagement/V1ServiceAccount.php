@@ -17,50 +17,50 @@
 
 class Google_Service_ServiceConsumerManagement_V1ServiceAccount extends Google_Model
 {
-	public $email;
-	public $iamAccountName;
-	public $name;
-	public $tag;
-	public $uniqueId;
+  public $email;
+  public $iamAccountName;
+  public $name;
+  public $tag;
+  public $uniqueId;
 
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	public function setIamAccountName($iamAccountName)
-	{
-		$this->iamAccountName = $iamAccountName;
-	}
-	public function getIamAccountName()
-	{
-		return $this->iamAccountName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setTag($tag)
-	{
-		$this->tag = $tag;
-	}
-	public function getTag()
-	{
-		return $this->tag;
-	}
-	public function setUniqueId($uniqueId)
-	{
-		$this->uniqueId = $uniqueId;
-	}
-	public function getUniqueId()
-	{
-		return $this->uniqueId;
-	}
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+  public function getEmail()
+  {
+    return $this->email;
+  }
+  public function setIamAccountName($iamAccountName)
+  {
+    $this->iamAccountName = $iamAccountName;
+  }
+  public function getIamAccountName()
+  {
+    return $this->iamAccountName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setTag($tag)
+  {
+    $this->tag = $tag;
+  }
+  public function getTag()
+  {
+    return $this->tag;
+  }
+  public function setUniqueId($uniqueId)
+  {
+    $this->uniqueId = $uniqueId;
+  }
+  public function getUniqueId()
+  {
+    return $this->uniqueId;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_DisplayVideo_ChannelAssignedTargetingOptionDetails extends Google_Model
 {
-	public $channelId;
-	public $negative;
+  public $channelId;
+  public $negative;
 
-	public function setChannelId($channelId)
-	{
-		$this->channelId = $channelId;
-	}
-	public function getChannelId()
-	{
-		return $this->channelId;
-	}
-	public function setNegative($negative)
-	{
-		$this->negative = $negative;
-	}
-	public function getNegative()
-	{
-		return $this->negative;
-	}
+  public function setChannelId($channelId)
+  {
+    $this->channelId = $channelId;
+  }
+  public function getChannelId()
+  {
+    return $this->channelId;
+  }
+  public function setNegative($negative)
+  {
+    $this->negative = $negative;
+  }
+  public function getNegative()
+  {
+    return $this->negative;
+  }
 }

@@ -17,48 +17,48 @@
 
 class Google_Service_AdExchangeBuyer_MarketplaceLabel extends Google_Model
 {
-	public $accountId;
-	public $createTimeMs;
-	protected $deprecatedMarketplaceDealPartyType = 'Google_Service_AdExchangeBuyer_MarketplaceDealParty';
-	protected $deprecatedMarketplaceDealPartyDataType = '';
-	public $label;
+  public $accountId;
+  public $createTimeMs;
+  protected $deprecatedMarketplaceDealPartyType = 'Google_Service_AdExchangeBuyer_MarketplaceDealParty';
+  protected $deprecatedMarketplaceDealPartyDataType = '';
+  public $label;
 
-	public function setAccountId($accountId)
-	{
-		$this->accountId = $accountId;
-	}
-	public function getAccountId()
-	{
-		return $this->accountId;
-	}
-	public function setCreateTimeMs($createTimeMs)
-	{
-		$this->createTimeMs = $createTimeMs;
-	}
-	public function getCreateTimeMs()
-	{
-		return $this->createTimeMs;
-	}
-	/**
-	 * @param Google_Service_AdExchangeBuyer_MarketplaceDealParty
-	 */
-	public function setDeprecatedMarketplaceDealParty(Google_Service_AdExchangeBuyer_MarketplaceDealParty $deprecatedMarketplaceDealParty)
-	{
-		$this->deprecatedMarketplaceDealParty = $deprecatedMarketplaceDealParty;
-	}
-	/**
-	 * @return Google_Service_AdExchangeBuyer_MarketplaceDealParty
-	 */
-	public function getDeprecatedMarketplaceDealParty()
-	{
-		return $this->deprecatedMarketplaceDealParty;
-	}
-	public function setLabel($label)
-	{
-		$this->label = $label;
-	}
-	public function getLabel()
-	{
-		return $this->label;
-	}
+  public function setAccountId($accountId)
+  {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId()
+  {
+    return $this->accountId;
+  }
+  public function setCreateTimeMs($createTimeMs)
+  {
+    $this->createTimeMs = $createTimeMs;
+  }
+  public function getCreateTimeMs()
+  {
+    return $this->createTimeMs;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyer_MarketplaceDealParty
+   */
+  public function setDeprecatedMarketplaceDealParty(Google_Service_AdExchangeBuyer_MarketplaceDealParty $deprecatedMarketplaceDealParty)
+  {
+    $this->deprecatedMarketplaceDealParty = $deprecatedMarketplaceDealParty;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyer_MarketplaceDealParty
+   */
+  public function getDeprecatedMarketplaceDealParty()
+  {
+    return $this->deprecatedMarketplaceDealParty;
+  }
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+  public function getLabel()
+  {
+    return $this->label;
+  }
 }

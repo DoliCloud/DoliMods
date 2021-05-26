@@ -17,22 +17,22 @@
 
 class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1NormalizedBoundingPoly extends Google_Collection
 {
-	protected $collection_key = 'vertices';
-	protected $verticesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1NormalizedVertex';
-	protected $verticesDataType = 'array';
+  protected $collection_key = 'vertices';
+  protected $verticesType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1NormalizedVertex';
+  protected $verticesDataType = 'array';
 
-	/**
-	 * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1NormalizedVertex
-	 */
-	public function setVertices($vertices)
-	{
-		$this->vertices = $vertices;
-	}
-	/**
-	 * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1NormalizedVertex
-	 */
-	public function getVertices()
-	{
-		return $this->vertices;
-	}
+  /**
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1NormalizedVertex[]
+   */
+  public function setVertices($vertices)
+  {
+    $this->vertices = $vertices;
+  }
+  /**
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1p1beta1NormalizedVertex[]
+   */
+  public function getVertices()
+  {
+    return $this->vertices;
+  }
 }

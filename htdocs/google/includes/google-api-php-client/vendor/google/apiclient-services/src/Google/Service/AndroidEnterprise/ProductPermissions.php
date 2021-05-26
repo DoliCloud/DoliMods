@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidEnterprise_ProductPermissions extends Google_Collection
 {
-	protected $collection_key = 'permission';
-	protected $permissionType = 'Google_Service_AndroidEnterprise_ProductPermission';
-	protected $permissionDataType = 'array';
-	public $productId;
+  protected $collection_key = 'permission';
+  protected $permissionType = 'Google_Service_AndroidEnterprise_ProductPermission';
+  protected $permissionDataType = 'array';
+  public $productId;
 
-	/**
-	 * @param Google_Service_AndroidEnterprise_ProductPermission
-	 */
-	public function setPermission($permission)
-	{
-		$this->permission = $permission;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_ProductPermission
-	 */
-	public function getPermission()
-	{
-		return $this->permission;
-	}
-	public function setProductId($productId)
-	{
-		$this->productId = $productId;
-	}
-	public function getProductId()
-	{
-		return $this->productId;
-	}
+  /**
+   * @param Google_Service_AndroidEnterprise_ProductPermission[]
+   */
+  public function setPermission($permission)
+  {
+    $this->permission = $permission;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_ProductPermission[]
+   */
+  public function getPermission()
+  {
+    return $this->permission;
+  }
+  public function setProductId($productId)
+  {
+    $this->productId = $productId;
+  }
+  public function getProductId()
+  {
+    return $this->productId;
+  }
 }

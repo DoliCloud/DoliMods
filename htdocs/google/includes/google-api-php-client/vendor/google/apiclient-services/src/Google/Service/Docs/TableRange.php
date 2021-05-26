@@ -17,39 +17,39 @@
 
 class Google_Service_Docs_TableRange extends Google_Model
 {
-	public $columnSpan;
-	public $rowSpan;
-	protected $tableCellLocationType = 'Google_Service_Docs_TableCellLocation';
-	protected $tableCellLocationDataType = '';
+  public $columnSpan;
+  public $rowSpan;
+  protected $tableCellLocationType = 'Google_Service_Docs_TableCellLocation';
+  protected $tableCellLocationDataType = '';
 
-	public function setColumnSpan($columnSpan)
-	{
-		$this->columnSpan = $columnSpan;
-	}
-	public function getColumnSpan()
-	{
-		return $this->columnSpan;
-	}
-	public function setRowSpan($rowSpan)
-	{
-		$this->rowSpan = $rowSpan;
-	}
-	public function getRowSpan()
-	{
-		return $this->rowSpan;
-	}
-	/**
-	 * @param Google_Service_Docs_TableCellLocation
-	 */
-	public function setTableCellLocation(Google_Service_Docs_TableCellLocation $tableCellLocation)
-	{
-		$this->tableCellLocation = $tableCellLocation;
-	}
-	/**
-	 * @return Google_Service_Docs_TableCellLocation
-	 */
-	public function getTableCellLocation()
-	{
-		return $this->tableCellLocation;
-	}
+  public function setColumnSpan($columnSpan)
+  {
+    $this->columnSpan = $columnSpan;
+  }
+  public function getColumnSpan()
+  {
+    return $this->columnSpan;
+  }
+  public function setRowSpan($rowSpan)
+  {
+    $this->rowSpan = $rowSpan;
+  }
+  public function getRowSpan()
+  {
+    return $this->rowSpan;
+  }
+  /**
+   * @param Google_Service_Docs_TableCellLocation
+   */
+  public function setTableCellLocation(Google_Service_Docs_TableCellLocation $tableCellLocation)
+  {
+    $this->tableCellLocation = $tableCellLocation;
+  }
+  /**
+   * @return Google_Service_Docs_TableCellLocation
+   */
+  public function getTableCellLocation()
+  {
+    return $this->tableCellLocation;
+  }
 }

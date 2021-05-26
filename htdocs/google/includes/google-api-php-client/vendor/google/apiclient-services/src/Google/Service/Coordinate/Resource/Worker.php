@@ -25,17 +25,17 @@
  */
 class Google_Service_Coordinate_Resource_Worker extends Google_Service_Resource
 {
-	/**
-	 * Retrieves a list of workers in a team. (worker.listWorker)
-	 *
-	 * @param string $teamId Team ID
-	 * @param array $optParams Optional parameters.
-	 * @return Google_Service_Coordinate_WorkerListResponse
-	 */
-	public function listWorker($teamId, $optParams = array())
-	{
-		$params = array('teamId' => $teamId);
-		$params = array_merge($params, $optParams);
-		return $this->call('list', array($params), "Google_Service_Coordinate_WorkerListResponse");
-	}
+  /**
+   * Retrieves a list of workers in a team. (worker.listWorker)
+   *
+   * @param string $teamId Team ID
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Coordinate_WorkerListResponse
+   */
+  public function listWorker($teamId, $optParams = array())
+  {
+    $params = array('teamId' => $teamId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Coordinate_WorkerListResponse");
+  }
 }

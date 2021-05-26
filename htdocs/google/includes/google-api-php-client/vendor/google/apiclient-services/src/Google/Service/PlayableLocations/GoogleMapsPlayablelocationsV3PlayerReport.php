@@ -17,42 +17,42 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3PlayerReport extends Google_Collection
 {
-	protected $collection_key = 'reasons';
-	public $languageCode;
-	public $locationName;
-	public $reasonDetails;
-	public $reasons;
+  protected $collection_key = 'reasons';
+  public $languageCode;
+  public $locationName;
+  public $reasonDetails;
+  public $reasons;
 
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
-	}
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
-	public function setLocationName($locationName)
-	{
-		$this->locationName = $locationName;
-	}
-	public function getLocationName()
-	{
-		return $this->locationName;
-	}
-	public function setReasonDetails($reasonDetails)
-	{
-		$this->reasonDetails = $reasonDetails;
-	}
-	public function getReasonDetails()
-	{
-		return $this->reasonDetails;
-	}
-	public function setReasons($reasons)
-	{
-		$this->reasons = $reasons;
-	}
-	public function getReasons()
-	{
-		return $this->reasons;
-	}
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  public function setLocationName($locationName)
+  {
+    $this->locationName = $locationName;
+  }
+  public function getLocationName()
+  {
+    return $this->locationName;
+  }
+  public function setReasonDetails($reasonDetails)
+  {
+    $this->reasonDetails = $reasonDetails;
+  }
+  public function getReasonDetails()
+  {
+    return $this->reasonDetails;
+  }
+  public function setReasons($reasons)
+  {
+    $this->reasons = $reasons;
+  }
+  public function getReasons()
+  {
+    return $this->reasons;
+  }
 }

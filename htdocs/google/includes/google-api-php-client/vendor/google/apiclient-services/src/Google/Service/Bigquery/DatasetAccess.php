@@ -17,75 +17,91 @@
 
 class Google_Service_Bigquery_DatasetAccess extends Google_Model
 {
-	public $domain;
-	public $groupByEmail;
-	public $iamMember;
-	public $role;
-	public $specialGroup;
-	public $userByEmail;
-	protected $viewType = 'Google_Service_Bigquery_TableReference';
-	protected $viewDataType = '';
+  public $domain;
+  public $groupByEmail;
+  public $iamMember;
+  public $role;
+  protected $routineType = 'Google_Service_Bigquery_RoutineReference';
+  protected $routineDataType = '';
+  public $specialGroup;
+  public $userByEmail;
+  protected $viewType = 'Google_Service_Bigquery_TableReference';
+  protected $viewDataType = '';
 
-	public function setDomain($domain)
-	{
-		$this->domain = $domain;
-	}
-	public function getDomain()
-	{
-		return $this->domain;
-	}
-	public function setGroupByEmail($groupByEmail)
-	{
-		$this->groupByEmail = $groupByEmail;
-	}
-	public function getGroupByEmail()
-	{
-		return $this->groupByEmail;
-	}
-	public function setIamMember($iamMember)
-	{
-		$this->iamMember = $iamMember;
-	}
-	public function getIamMember()
-	{
-		return $this->iamMember;
-	}
-	public function setRole($role)
-	{
-		$this->role = $role;
-	}
-	public function getRole()
-	{
-		return $this->role;
-	}
-	public function setSpecialGroup($specialGroup)
-	{
-		$this->specialGroup = $specialGroup;
-	}
-	public function getSpecialGroup()
-	{
-		return $this->specialGroup;
-	}
-	public function setUserByEmail($userByEmail)
-	{
-		$this->userByEmail = $userByEmail;
-	}
-	public function getUserByEmail()
-	{
-		return $this->userByEmail;
-	}
-	/**
-	 * @param Google_Service_Bigquery_TableReference
-	 */
-	public function setView(Google_Service_Bigquery_TableReference $view)
-	{
-		$this->view = $view;
-	}
-	/**
-	 * @return Google_Service_Bigquery_TableReference
-	 */
-	public function getView()
-	{
-		return $this->view;
-	}
+  public function setDomain($domain)
+  {
+    $this->domain = $domain;
+  }
+  public function getDomain()
+  {
+    return $this->domain;
+  }
+  public function setGroupByEmail($groupByEmail)
+  {
+    $this->groupByEmail = $groupByEmail;
+  }
+  public function getGroupByEmail()
+  {
+    return $this->groupByEmail;
+  }
+  public function setIamMember($iamMember)
+  {
+    $this->iamMember = $iamMember;
+  }
+  public function getIamMember()
+  {
+    return $this->iamMember;
+  }
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  public function getRole()
+  {
+    return $this->role;
+  }
+  /**
+   * @param Google_Service_Bigquery_RoutineReference
+   */
+  public function setRoutine(Google_Service_Bigquery_RoutineReference $routine)
+  {
+    $this->routine = $routine;
+  }
+  /**
+   * @return Google_Service_Bigquery_RoutineReference
+   */
+  public function getRoutine()
+  {
+    return $this->routine;
+  }
+  public function setSpecialGroup($specialGroup)
+  {
+    $this->specialGroup = $specialGroup;
+  }
+  public function getSpecialGroup()
+  {
+    return $this->specialGroup;
+  }
+  public function setUserByEmail($userByEmail)
+  {
+    $this->userByEmail = $userByEmail;
+  }
+  public function getUserByEmail()
+  {
+    return $this->userByEmail;
+  }
+  /**
+   * @param Google_Service_Bigquery_TableReference
+   */
+  public function setView(Google_Service_Bigquery_TableReference $view)
+  {
+    $this->view = $view;
+  }
+  /**
+   * @return Google_Service_Bigquery_TableReference
+   */
+  public function getView()
+  {
+    return $this->view;
+  }
 }

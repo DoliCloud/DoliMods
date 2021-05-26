@@ -17,21 +17,21 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2StoredInfoTypeStats extends Google_Model
 {
-	protected $largeCustomDictionaryType = 'Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats';
-	protected $largeCustomDictionaryDataType = '';
+  protected $largeCustomDictionaryType = 'Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats';
+  protected $largeCustomDictionaryDataType = '';
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats
-	 */
-	public function setLargeCustomDictionary(Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats $largeCustomDictionary)
-	{
-		$this->largeCustomDictionary = $largeCustomDictionary;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats
-	 */
-	public function getLargeCustomDictionary()
-	{
-		return $this->largeCustomDictionary;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats
+   */
+  public function setLargeCustomDictionary(Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats $largeCustomDictionary)
+  {
+    $this->largeCustomDictionary = $largeCustomDictionary;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2LargeCustomDictionaryStats
+   */
+  public function getLargeCustomDictionary()
+  {
+    return $this->largeCustomDictionary;
+  }
 }

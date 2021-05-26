@@ -17,14 +17,14 @@
 
 class Google_Service_Replicapool_ReplicasDeleteRequest extends Google_Model
 {
-	public $abandonInstance;
+  public $abandonInstance;
 
-	public function setAbandonInstance($abandonInstance)
-	{
-		$this->abandonInstance = $abandonInstance;
-	}
-	public function getAbandonInstance()
-	{
-		return $this->abandonInstance;
-	}
+  public function setAbandonInstance($abandonInstance)
+  {
+    $this->abandonInstance = $abandonInstance;
+  }
+  public function getAbandonInstance()
+  {
+    return $this->abandonInstance;
+  }
 }

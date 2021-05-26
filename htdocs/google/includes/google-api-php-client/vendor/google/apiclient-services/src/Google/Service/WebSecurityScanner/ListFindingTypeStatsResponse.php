@@ -17,22 +17,22 @@
 
 class Google_Service_WebSecurityScanner_ListFindingTypeStatsResponse extends Google_Collection
 {
-	protected $collection_key = 'findingTypeStats';
-	protected $findingTypeStatsType = 'Google_Service_WebSecurityScanner_FindingTypeStats';
-	protected $findingTypeStatsDataType = 'array';
+  protected $collection_key = 'findingTypeStats';
+  protected $findingTypeStatsType = 'Google_Service_WebSecurityScanner_FindingTypeStats';
+  protected $findingTypeStatsDataType = 'array';
 
-	/**
-	 * @param Google_Service_WebSecurityScanner_FindingTypeStats
-	 */
-	public function setFindingTypeStats($findingTypeStats)
-	{
-		$this->findingTypeStats = $findingTypeStats;
-	}
-	/**
-	 * @return Google_Service_WebSecurityScanner_FindingTypeStats
-	 */
-	public function getFindingTypeStats()
-	{
-		return $this->findingTypeStats;
-	}
+  /**
+   * @param Google_Service_WebSecurityScanner_FindingTypeStats
+   */
+  public function setFindingTypeStats($findingTypeStats)
+  {
+    $this->findingTypeStats = $findingTypeStats;
+  }
+  /**
+   * @return Google_Service_WebSecurityScanner_FindingTypeStats
+   */
+  public function getFindingTypeStats()
+  {
+    return $this->findingTypeStats;
+  }
 }

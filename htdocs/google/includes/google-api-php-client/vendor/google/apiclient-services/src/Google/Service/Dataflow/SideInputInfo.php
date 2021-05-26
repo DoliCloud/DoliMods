@@ -17,40 +17,40 @@
 
 class Google_Service_Dataflow_SideInputInfo extends Google_Collection
 {
-	protected $collection_key = 'sources';
-	public $kind;
-	protected $sourcesType = 'Google_Service_Dataflow_Source';
-	protected $sourcesDataType = 'array';
-	public $tag;
+  protected $collection_key = 'sources';
+  public $kind;
+  protected $sourcesType = 'Google_Service_Dataflow_Source';
+  protected $sourcesDataType = 'array';
+  public $tag;
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_Dataflow_Source
-	 */
-	public function setSources($sources)
-	{
-		$this->sources = $sources;
-	}
-	/**
-	 * @return Google_Service_Dataflow_Source
-	 */
-	public function getSources()
-	{
-		return $this->sources;
-	}
-	public function setTag($tag)
-	{
-		$this->tag = $tag;
-	}
-	public function getTag()
-	{
-		return $this->tag;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_Dataflow_Source[]
+   */
+  public function setSources($sources)
+  {
+    $this->sources = $sources;
+  }
+  /**
+   * @return Google_Service_Dataflow_Source[]
+   */
+  public function getSources()
+  {
+    return $this->sources;
+  }
+  public function setTag($tag)
+  {
+    $this->tag = $tag;
+  }
+  public function getTag()
+  {
+    return $this->tag;
+  }
 }

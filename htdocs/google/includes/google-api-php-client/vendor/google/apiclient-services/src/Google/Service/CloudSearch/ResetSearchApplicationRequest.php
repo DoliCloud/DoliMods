@@ -17,21 +17,21 @@
 
 class Google_Service_CloudSearch_ResetSearchApplicationRequest extends Google_Model
 {
-	protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
-	protected $debugOptionsDataType = '';
+  protected $debugOptionsType = 'Google_Service_CloudSearch_DebugOptions';
+  protected $debugOptionsDataType = '';
 
-	/**
-	 * @param Google_Service_CloudSearch_DebugOptions
-	 */
-	public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
-	{
-		$this->debugOptions = $debugOptions;
-	}
-	/**
-	 * @return Google_Service_CloudSearch_DebugOptions
-	 */
-	public function getDebugOptions()
-	{
-		return $this->debugOptions;
-	}
+  /**
+   * @param Google_Service_CloudSearch_DebugOptions
+   */
+  public function setDebugOptions(Google_Service_CloudSearch_DebugOptions $debugOptions)
+  {
+    $this->debugOptions = $debugOptions;
+  }
+  /**
+   * @return Google_Service_CloudSearch_DebugOptions
+   */
+  public function getDebugOptions()
+  {
+    return $this->debugOptions;
+  }
 }

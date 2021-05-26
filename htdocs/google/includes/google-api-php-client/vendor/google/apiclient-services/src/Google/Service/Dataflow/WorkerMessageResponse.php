@@ -17,53 +17,53 @@
 
 class Google_Service_Dataflow_WorkerMessageResponse extends Google_Model
 {
-	protected $workerHealthReportResponseType = 'Google_Service_Dataflow_WorkerHealthReportResponse';
-	protected $workerHealthReportResponseDataType = '';
-	protected $workerMetricsResponseType = 'Google_Service_Dataflow_ResourceUtilizationReportResponse';
-	protected $workerMetricsResponseDataType = '';
-	protected $workerShutdownNoticeResponseType = 'Google_Service_Dataflow_WorkerShutdownNoticeResponse';
-	protected $workerShutdownNoticeResponseDataType = '';
+  protected $workerHealthReportResponseType = 'Google_Service_Dataflow_WorkerHealthReportResponse';
+  protected $workerHealthReportResponseDataType = '';
+  protected $workerMetricsResponseType = 'Google_Service_Dataflow_ResourceUtilizationReportResponse';
+  protected $workerMetricsResponseDataType = '';
+  protected $workerShutdownNoticeResponseType = 'Google_Service_Dataflow_WorkerShutdownNoticeResponse';
+  protected $workerShutdownNoticeResponseDataType = '';
 
-	/**
-	 * @param Google_Service_Dataflow_WorkerHealthReportResponse
-	 */
-	public function setWorkerHealthReportResponse(Google_Service_Dataflow_WorkerHealthReportResponse $workerHealthReportResponse)
-	{
-		$this->workerHealthReportResponse = $workerHealthReportResponse;
-	}
-	/**
-	 * @return Google_Service_Dataflow_WorkerHealthReportResponse
-	 */
-	public function getWorkerHealthReportResponse()
-	{
-		return $this->workerHealthReportResponse;
-	}
-	/**
-	 * @param Google_Service_Dataflow_ResourceUtilizationReportResponse
-	 */
-	public function setWorkerMetricsResponse(Google_Service_Dataflow_ResourceUtilizationReportResponse $workerMetricsResponse)
-	{
-		$this->workerMetricsResponse = $workerMetricsResponse;
-	}
-	/**
-	 * @return Google_Service_Dataflow_ResourceUtilizationReportResponse
-	 */
-	public function getWorkerMetricsResponse()
-	{
-		return $this->workerMetricsResponse;
-	}
-	/**
-	 * @param Google_Service_Dataflow_WorkerShutdownNoticeResponse
-	 */
-	public function setWorkerShutdownNoticeResponse(Google_Service_Dataflow_WorkerShutdownNoticeResponse $workerShutdownNoticeResponse)
-	{
-		$this->workerShutdownNoticeResponse = $workerShutdownNoticeResponse;
-	}
-	/**
-	 * @return Google_Service_Dataflow_WorkerShutdownNoticeResponse
-	 */
-	public function getWorkerShutdownNoticeResponse()
-	{
-		return $this->workerShutdownNoticeResponse;
-	}
+  /**
+   * @param Google_Service_Dataflow_WorkerHealthReportResponse
+   */
+  public function setWorkerHealthReportResponse(Google_Service_Dataflow_WorkerHealthReportResponse $workerHealthReportResponse)
+  {
+    $this->workerHealthReportResponse = $workerHealthReportResponse;
+  }
+  /**
+   * @return Google_Service_Dataflow_WorkerHealthReportResponse
+   */
+  public function getWorkerHealthReportResponse()
+  {
+    return $this->workerHealthReportResponse;
+  }
+  /**
+   * @param Google_Service_Dataflow_ResourceUtilizationReportResponse
+   */
+  public function setWorkerMetricsResponse(Google_Service_Dataflow_ResourceUtilizationReportResponse $workerMetricsResponse)
+  {
+    $this->workerMetricsResponse = $workerMetricsResponse;
+  }
+  /**
+   * @return Google_Service_Dataflow_ResourceUtilizationReportResponse
+   */
+  public function getWorkerMetricsResponse()
+  {
+    return $this->workerMetricsResponse;
+  }
+  /**
+   * @param Google_Service_Dataflow_WorkerShutdownNoticeResponse
+   */
+  public function setWorkerShutdownNoticeResponse(Google_Service_Dataflow_WorkerShutdownNoticeResponse $workerShutdownNoticeResponse)
+  {
+    $this->workerShutdownNoticeResponse = $workerShutdownNoticeResponse;
+  }
+  /**
+   * @return Google_Service_Dataflow_WorkerShutdownNoticeResponse
+   */
+  public function getWorkerShutdownNoticeResponse()
+  {
+    return $this->workerShutdownNoticeResponse;
+  }
 }

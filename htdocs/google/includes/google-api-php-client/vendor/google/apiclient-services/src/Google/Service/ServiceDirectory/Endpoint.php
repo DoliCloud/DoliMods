@@ -17,41 +17,41 @@
 
 class Google_Service_ServiceDirectory_Endpoint extends Google_Model
 {
-	public $address;
-	public $metadata;
-	public $name;
-	public $port;
+  public $address;
+  public $metadata;
+  public $name;
+  public $port;
 
-	public function setAddress($address)
-	{
-		$this->address = $address;
-	}
-	public function getAddress()
-	{
-		return $this->address;
-	}
-	public function setMetadata($metadata)
-	{
-		$this->metadata = $metadata;
-	}
-	public function getMetadata()
-	{
-		return $this->metadata;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPort($port)
-	{
-		$this->port = $port;
-	}
-	public function getPort()
-	{
-		return $this->port;
-	}
+  public function setAddress($address)
+  {
+    $this->address = $address;
+  }
+  public function getAddress()
+  {
+    return $this->address;
+  }
+  public function setMetadata($metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPort($port)
+  {
+    $this->port = $port;
+  }
+  public function getPort()
+  {
+    return $this->port;
+  }
 }

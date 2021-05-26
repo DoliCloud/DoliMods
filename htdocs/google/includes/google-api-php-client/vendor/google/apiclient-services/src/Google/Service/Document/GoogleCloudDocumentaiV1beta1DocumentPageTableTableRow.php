@@ -17,22 +17,22 @@
 
 class Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentPageTableTableRow extends Google_Collection
 {
-	protected $collection_key = 'cells';
-	protected $cellsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentPageTableTableCell';
-	protected $cellsDataType = 'array';
+  protected $collection_key = 'cells';
+  protected $cellsType = 'Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentPageTableTableCell';
+  protected $cellsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentPageTableTableCell
-	 */
-	public function setCells($cells)
-	{
-		$this->cells = $cells;
-	}
-	/**
-	 * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentPageTableTableCell
-	 */
-	public function getCells()
-	{
-		return $this->cells;
-	}
+  /**
+   * @param Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentPageTableTableCell[]
+   */
+  public function setCells($cells)
+  {
+    $this->cells = $cells;
+  }
+  /**
+   * @return Google_Service_Document_GoogleCloudDocumentaiV1beta1DocumentPageTableTableCell[]
+   */
+  public function getCells()
+  {
+    return $this->cells;
+  }
 }

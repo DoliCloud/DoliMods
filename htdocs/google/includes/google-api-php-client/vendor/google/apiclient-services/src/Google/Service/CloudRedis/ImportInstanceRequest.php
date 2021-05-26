@@ -17,21 +17,21 @@
 
 class Google_Service_CloudRedis_ImportInstanceRequest extends Google_Model
 {
-	protected $inputConfigType = 'Google_Service_CloudRedis_InputConfig';
-	protected $inputConfigDataType = '';
+  protected $inputConfigType = 'Google_Service_CloudRedis_InputConfig';
+  protected $inputConfigDataType = '';
 
-	/**
-	 * @param Google_Service_CloudRedis_InputConfig
-	 */
-	public function setInputConfig(Google_Service_CloudRedis_InputConfig $inputConfig)
-	{
-		$this->inputConfig = $inputConfig;
-	}
-	/**
-	 * @return Google_Service_CloudRedis_InputConfig
-	 */
-	public function getInputConfig()
-	{
-		return $this->inputConfig;
-	}
+  /**
+   * @param Google_Service_CloudRedis_InputConfig
+   */
+  public function setInputConfig(Google_Service_CloudRedis_InputConfig $inputConfig)
+  {
+    $this->inputConfig = $inputConfig;
+  }
+  /**
+   * @return Google_Service_CloudRedis_InputConfig
+   */
+  public function getInputConfig()
+  {
+    return $this->inputConfig;
+  }
 }

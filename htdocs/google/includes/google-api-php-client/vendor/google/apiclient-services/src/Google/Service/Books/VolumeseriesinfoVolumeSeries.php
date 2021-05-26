@@ -17,49 +17,49 @@
 
 class Google_Service_Books_VolumeseriesinfoVolumeSeries extends Google_Collection
 {
-	protected $collection_key = 'issue';
-	protected $issueType = 'Google_Service_Books_VolumeseriesinfoVolumeSeriesIssue';
-	protected $issueDataType = 'array';
-	public $orderNumber;
-	public $seriesBookType;
-	public $seriesId;
+  protected $collection_key = 'issue';
+  protected $issueType = 'Google_Service_Books_VolumeseriesinfoVolumeSeriesIssue';
+  protected $issueDataType = 'array';
+  public $orderNumber;
+  public $seriesBookType;
+  public $seriesId;
 
-	/**
-	 * @param Google_Service_Books_VolumeseriesinfoVolumeSeriesIssue
-	 */
-	public function setIssue($issue)
-	{
-		$this->issue = $issue;
-	}
-	/**
-	 * @return Google_Service_Books_VolumeseriesinfoVolumeSeriesIssue
-	 */
-	public function getIssue()
-	{
-		return $this->issue;
-	}
-	public function setOrderNumber($orderNumber)
-	{
-		$this->orderNumber = $orderNumber;
-	}
-	public function getOrderNumber()
-	{
-		return $this->orderNumber;
-	}
-	public function setSeriesBookType($seriesBookType)
-	{
-		$this->seriesBookType = $seriesBookType;
-	}
-	public function getSeriesBookType()
-	{
-		return $this->seriesBookType;
-	}
-	public function setSeriesId($seriesId)
-	{
-		$this->seriesId = $seriesId;
-	}
-	public function getSeriesId()
-	{
-		return $this->seriesId;
-	}
+  /**
+   * @param Google_Service_Books_VolumeseriesinfoVolumeSeriesIssue[]
+   */
+  public function setIssue($issue)
+  {
+    $this->issue = $issue;
+  }
+  /**
+   * @return Google_Service_Books_VolumeseriesinfoVolumeSeriesIssue[]
+   */
+  public function getIssue()
+  {
+    return $this->issue;
+  }
+  public function setOrderNumber($orderNumber)
+  {
+    $this->orderNumber = $orderNumber;
+  }
+  public function getOrderNumber()
+  {
+    return $this->orderNumber;
+  }
+  public function setSeriesBookType($seriesBookType)
+  {
+    $this->seriesBookType = $seriesBookType;
+  }
+  public function getSeriesBookType()
+  {
+    return $this->seriesBookType;
+  }
+  public function setSeriesId($seriesId)
+  {
+    $this->seriesId = $seriesId;
+  }
+  public function getSeriesId()
+  {
+    return $this->seriesId;
+  }
 }

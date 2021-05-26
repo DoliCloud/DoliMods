@@ -17,56 +17,56 @@
 
 class Google_Service_ContainerAnalysis_Derived extends Google_Collection
 {
-	protected $collection_key = 'layerInfo';
-	public $baseResourceUrl;
-	public $distance;
-	protected $fingerprintType = 'Google_Service_ContainerAnalysis_Fingerprint';
-	protected $fingerprintDataType = '';
-	protected $layerInfoType = 'Google_Service_ContainerAnalysis_Layer';
-	protected $layerInfoDataType = 'array';
+  protected $collection_key = 'layerInfo';
+  public $baseResourceUrl;
+  public $distance;
+  protected $fingerprintType = 'Google_Service_ContainerAnalysis_Fingerprint';
+  protected $fingerprintDataType = '';
+  protected $layerInfoType = 'Google_Service_ContainerAnalysis_Layer';
+  protected $layerInfoDataType = 'array';
 
-	public function setBaseResourceUrl($baseResourceUrl)
-	{
-		$this->baseResourceUrl = $baseResourceUrl;
-	}
-	public function getBaseResourceUrl()
-	{
-		return $this->baseResourceUrl;
-	}
-	public function setDistance($distance)
-	{
-		$this->distance = $distance;
-	}
-	public function getDistance()
-	{
-		return $this->distance;
-	}
-	/**
-	 * @param Google_Service_ContainerAnalysis_Fingerprint
-	 */
-	public function setFingerprint(Google_Service_ContainerAnalysis_Fingerprint $fingerprint)
-	{
-		$this->fingerprint = $fingerprint;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_Fingerprint
-	 */
-	public function getFingerprint()
-	{
-		return $this->fingerprint;
-	}
-	/**
-	 * @param Google_Service_ContainerAnalysis_Layer
-	 */
-	public function setLayerInfo($layerInfo)
-	{
-		$this->layerInfo = $layerInfo;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_Layer
-	 */
-	public function getLayerInfo()
-	{
-		return $this->layerInfo;
-	}
+  public function setBaseResourceUrl($baseResourceUrl)
+  {
+    $this->baseResourceUrl = $baseResourceUrl;
+  }
+  public function getBaseResourceUrl()
+  {
+    return $this->baseResourceUrl;
+  }
+  public function setDistance($distance)
+  {
+    $this->distance = $distance;
+  }
+  public function getDistance()
+  {
+    return $this->distance;
+  }
+  /**
+   * @param Google_Service_ContainerAnalysis_Fingerprint
+   */
+  public function setFingerprint(Google_Service_ContainerAnalysis_Fingerprint $fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_Fingerprint
+   */
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+  /**
+   * @param Google_Service_ContainerAnalysis_Layer[]
+   */
+  public function setLayerInfo($layerInfo)
+  {
+    $this->layerInfo = $layerInfo;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_Layer[]
+   */
+  public function getLayerInfo()
+  {
+    return $this->layerInfo;
+  }
 }

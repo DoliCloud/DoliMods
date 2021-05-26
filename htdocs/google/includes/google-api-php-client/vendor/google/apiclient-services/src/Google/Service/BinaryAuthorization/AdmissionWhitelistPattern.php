@@ -17,14 +17,14 @@
 
 class Google_Service_BinaryAuthorization_AdmissionWhitelistPattern extends Google_Model
 {
-	public $namePattern;
+  public $namePattern;
 
-	public function setNamePattern($namePattern)
-	{
-		$this->namePattern = $namePattern;
-	}
-	public function getNamePattern()
-	{
-		return $this->namePattern;
-	}
+  public function setNamePattern($namePattern)
+  {
+    $this->namePattern = $namePattern;
+  }
+  public function getNamePattern()
+  {
+    return $this->namePattern;
+  }
 }

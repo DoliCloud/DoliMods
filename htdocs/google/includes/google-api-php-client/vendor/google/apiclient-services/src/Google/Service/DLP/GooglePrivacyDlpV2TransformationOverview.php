@@ -17,31 +17,31 @@
 
 class Google_Service_DLP_GooglePrivacyDlpV2TransformationOverview extends Google_Collection
 {
-	protected $collection_key = 'transformationSummaries';
-	protected $transformationSummariesType = 'Google_Service_DLP_GooglePrivacyDlpV2TransformationSummary';
-	protected $transformationSummariesDataType = 'array';
-	public $transformedBytes;
+  protected $collection_key = 'transformationSummaries';
+  protected $transformationSummariesType = 'Google_Service_DLP_GooglePrivacyDlpV2TransformationSummary';
+  protected $transformationSummariesDataType = 'array';
+  public $transformedBytes;
 
-	/**
-	 * @param Google_Service_DLP_GooglePrivacyDlpV2TransformationSummary
-	 */
-	public function setTransformationSummaries($transformationSummaries)
-	{
-		$this->transformationSummaries = $transformationSummaries;
-	}
-	/**
-	 * @return Google_Service_DLP_GooglePrivacyDlpV2TransformationSummary
-	 */
-	public function getTransformationSummaries()
-	{
-		return $this->transformationSummaries;
-	}
-	public function setTransformedBytes($transformedBytes)
-	{
-		$this->transformedBytes = $transformedBytes;
-	}
-	public function getTransformedBytes()
-	{
-		return $this->transformedBytes;
-	}
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2TransformationSummary[]
+   */
+  public function setTransformationSummaries($transformationSummaries)
+  {
+    $this->transformationSummaries = $transformationSummaries;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2TransformationSummary[]
+   */
+  public function getTransformationSummaries()
+  {
+    return $this->transformationSummaries;
+  }
+  public function setTransformedBytes($transformedBytes)
+  {
+    $this->transformedBytes = $transformedBytes;
+  }
+  public function getTransformedBytes()
+  {
+    return $this->transformedBytes;
+  }
 }

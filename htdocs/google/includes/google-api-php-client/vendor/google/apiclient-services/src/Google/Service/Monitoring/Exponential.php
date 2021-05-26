@@ -17,32 +17,32 @@
 
 class Google_Service_Monitoring_Exponential extends Google_Model
 {
-	public $growthFactor;
-	public $numFiniteBuckets;
-	public $scale;
+  public $growthFactor;
+  public $numFiniteBuckets;
+  public $scale;
 
-	public function setGrowthFactor($growthFactor)
-	{
-		$this->growthFactor = $growthFactor;
-	}
-	public function getGrowthFactor()
-	{
-		return $this->growthFactor;
-	}
-	public function setNumFiniteBuckets($numFiniteBuckets)
-	{
-		$this->numFiniteBuckets = $numFiniteBuckets;
-	}
-	public function getNumFiniteBuckets()
-	{
-		return $this->numFiniteBuckets;
-	}
-	public function setScale($scale)
-	{
-		$this->scale = $scale;
-	}
-	public function getScale()
-	{
-		return $this->scale;
-	}
+  public function setGrowthFactor($growthFactor)
+  {
+    $this->growthFactor = $growthFactor;
+  }
+  public function getGrowthFactor()
+  {
+    return $this->growthFactor;
+  }
+  public function setNumFiniteBuckets($numFiniteBuckets)
+  {
+    $this->numFiniteBuckets = $numFiniteBuckets;
+  }
+  public function getNumFiniteBuckets()
+  {
+    return $this->numFiniteBuckets;
+  }
+  public function setScale($scale)
+  {
+    $this->scale = $scale;
+  }
+  public function getScale()
+  {
+    return $this->scale;
+  }
 }

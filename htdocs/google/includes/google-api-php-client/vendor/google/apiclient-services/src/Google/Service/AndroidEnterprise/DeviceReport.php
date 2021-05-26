@@ -17,31 +17,31 @@
 
 class Google_Service_AndroidEnterprise_DeviceReport extends Google_Collection
 {
-	protected $collection_key = 'appState';
-	protected $appStateType = 'Google_Service_AndroidEnterprise_AppState';
-	protected $appStateDataType = 'array';
-	public $lastUpdatedTimestampMillis;
+  protected $collection_key = 'appState';
+  protected $appStateType = 'Google_Service_AndroidEnterprise_AppState';
+  protected $appStateDataType = 'array';
+  public $lastUpdatedTimestampMillis;
 
-	/**
-	 * @param Google_Service_AndroidEnterprise_AppState
-	 */
-	public function setAppState($appState)
-	{
-		$this->appState = $appState;
-	}
-	/**
-	 * @return Google_Service_AndroidEnterprise_AppState
-	 */
-	public function getAppState()
-	{
-		return $this->appState;
-	}
-	public function setLastUpdatedTimestampMillis($lastUpdatedTimestampMillis)
-	{
-		$this->lastUpdatedTimestampMillis = $lastUpdatedTimestampMillis;
-	}
-	public function getLastUpdatedTimestampMillis()
-	{
-		return $this->lastUpdatedTimestampMillis;
-	}
+  /**
+   * @param Google_Service_AndroidEnterprise_AppState[]
+   */
+  public function setAppState($appState)
+  {
+    $this->appState = $appState;
+  }
+  /**
+   * @return Google_Service_AndroidEnterprise_AppState[]
+   */
+  public function getAppState()
+  {
+    return $this->appState;
+  }
+  public function setLastUpdatedTimestampMillis($lastUpdatedTimestampMillis)
+  {
+    $this->lastUpdatedTimestampMillis = $lastUpdatedTimestampMillis;
+  }
+  public function getLastUpdatedTimestampMillis()
+  {
+    return $this->lastUpdatedTimestampMillis;
+  }
 }

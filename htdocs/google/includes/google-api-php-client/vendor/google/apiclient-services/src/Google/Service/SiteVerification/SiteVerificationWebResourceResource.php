@@ -17,40 +17,40 @@
 
 class Google_Service_SiteVerification_SiteVerificationWebResourceResource extends Google_Collection
 {
-	protected $collection_key = 'owners';
-	public $id;
-	public $owners;
-	protected $siteType = 'Google_Service_SiteVerification_SiteVerificationWebResourceResourceSite';
-	protected $siteDataType = '';
+  protected $collection_key = 'owners';
+  public $id;
+  public $owners;
+  protected $siteType = 'Google_Service_SiteVerification_SiteVerificationWebResourceResourceSite';
+  protected $siteDataType = '';
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setOwners($owners)
-	{
-		$this->owners = $owners;
-	}
-	public function getOwners()
-	{
-		return $this->owners;
-	}
-	/**
-	 * @param Google_Service_SiteVerification_SiteVerificationWebResourceResourceSite
-	 */
-	public function setSite(Google_Service_SiteVerification_SiteVerificationWebResourceResourceSite $site)
-	{
-		$this->site = $site;
-	}
-	/**
-	 * @return Google_Service_SiteVerification_SiteVerificationWebResourceResourceSite
-	 */
-	public function getSite()
-	{
-		return $this->site;
-	}
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setOwners($owners)
+  {
+    $this->owners = $owners;
+  }
+  public function getOwners()
+  {
+    return $this->owners;
+  }
+  /**
+   * @param Google_Service_SiteVerification_SiteVerificationWebResourceResourceSite
+   */
+  public function setSite(Google_Service_SiteVerification_SiteVerificationWebResourceResourceSite $site)
+  {
+    $this->site = $site;
+  }
+  /**
+   * @return Google_Service_SiteVerification_SiteVerificationWebResourceResourceSite
+   */
+  public function getSite()
+  {
+    return $this->site;
+  }
 }

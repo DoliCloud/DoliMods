@@ -17,23 +17,23 @@
 
 class Google_Service_CloudUserAccounts_LogConfigCounterOptions extends Google_Model
 {
-	public $field;
-	public $metric;
+  public $field;
+  public $metric;
 
-	public function setField($field)
-	{
-		$this->field = $field;
-	}
-	public function getField()
-	{
-		return $this->field;
-	}
-	public function setMetric($metric)
-	{
-		$this->metric = $metric;
-	}
-	public function getMetric()
-	{
-		return $this->metric;
-	}
+  public function setField($field)
+  {
+    $this->field = $field;
+  }
+  public function getField()
+  {
+    return $this->field;
+  }
+  public function setMetric($metric)
+  {
+    $this->metric = $metric;
+  }
+  public function getMetric()
+  {
+    return $this->metric;
+  }
 }

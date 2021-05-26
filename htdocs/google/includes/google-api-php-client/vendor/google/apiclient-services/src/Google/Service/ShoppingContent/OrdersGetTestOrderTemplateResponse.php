@@ -17,30 +17,30 @@
 
 class Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse extends Google_Model
 {
-	public $kind;
-	protected $templateType = 'Google_Service_ShoppingContent_TestOrder';
-	protected $templateDataType = '';
+  public $kind;
+  protected $templateType = 'Google_Service_ShoppingContent_TestOrder';
+  protected $templateDataType = '';
 
-	public function setKind($kind)
-	{
-		$this->kind = $kind;
-	}
-	public function getKind()
-	{
-		return $this->kind;
-	}
-	/**
-	 * @param Google_Service_ShoppingContent_TestOrder
-	 */
-	public function setTemplate(Google_Service_ShoppingContent_TestOrder $template)
-	{
-		$this->template = $template;
-	}
-	/**
-	 * @return Google_Service_ShoppingContent_TestOrder
-	 */
-	public function getTemplate()
-	{
-		return $this->template;
-	}
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Google_Service_ShoppingContent_TestOrder
+   */
+  public function setTemplate(Google_Service_ShoppingContent_TestOrder $template)
+  {
+    $this->template = $template;
+  }
+  /**
+   * @return Google_Service_ShoppingContent_TestOrder
+   */
+  public function getTemplate()
+  {
+    return $this->template;
+  }
 }

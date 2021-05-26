@@ -17,31 +17,31 @@
 
 class Google_Service_ServiceManagement_ConfigSource extends Google_Collection
 {
-	protected $collection_key = 'files';
-	protected $filesType = 'Google_Service_ServiceManagement_ConfigFile';
-	protected $filesDataType = 'array';
-	public $id;
+  protected $collection_key = 'files';
+  protected $filesType = 'Google_Service_ServiceManagement_ConfigFile';
+  protected $filesDataType = 'array';
+  public $id;
 
-	/**
-	 * @param Google_Service_ServiceManagement_ConfigFile
-	 */
-	public function setFiles($files)
-	{
-		$this->files = $files;
-	}
-	/**
-	 * @return Google_Service_ServiceManagement_ConfigFile
-	 */
-	public function getFiles()
-	{
-		return $this->files;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	public function getId()
-	{
-		return $this->id;
-	}
+  /**
+   * @param Google_Service_ServiceManagement_ConfigFile[]
+   */
+  public function setFiles($files)
+  {
+    $this->files = $files;
+  }
+  /**
+   * @return Google_Service_ServiceManagement_ConfigFile[]
+   */
+  public function getFiles()
+  {
+    return $this->files;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
 }

@@ -17,41 +17,41 @@
 
 class Google_Service_Appengine_DiskUtilization extends Google_Model
 {
-	public $targetReadBytesPerSecond;
-	public $targetReadOpsPerSecond;
-	public $targetWriteBytesPerSecond;
-	public $targetWriteOpsPerSecond;
+  public $targetReadBytesPerSecond;
+  public $targetReadOpsPerSecond;
+  public $targetWriteBytesPerSecond;
+  public $targetWriteOpsPerSecond;
 
-	public function setTargetReadBytesPerSecond($targetReadBytesPerSecond)
-	{
-		$this->targetReadBytesPerSecond = $targetReadBytesPerSecond;
-	}
-	public function getTargetReadBytesPerSecond()
-	{
-		return $this->targetReadBytesPerSecond;
-	}
-	public function setTargetReadOpsPerSecond($targetReadOpsPerSecond)
-	{
-		$this->targetReadOpsPerSecond = $targetReadOpsPerSecond;
-	}
-	public function getTargetReadOpsPerSecond()
-	{
-		return $this->targetReadOpsPerSecond;
-	}
-	public function setTargetWriteBytesPerSecond($targetWriteBytesPerSecond)
-	{
-		$this->targetWriteBytesPerSecond = $targetWriteBytesPerSecond;
-	}
-	public function getTargetWriteBytesPerSecond()
-	{
-		return $this->targetWriteBytesPerSecond;
-	}
-	public function setTargetWriteOpsPerSecond($targetWriteOpsPerSecond)
-	{
-		$this->targetWriteOpsPerSecond = $targetWriteOpsPerSecond;
-	}
-	public function getTargetWriteOpsPerSecond()
-	{
-		return $this->targetWriteOpsPerSecond;
-	}
+  public function setTargetReadBytesPerSecond($targetReadBytesPerSecond)
+  {
+    $this->targetReadBytesPerSecond = $targetReadBytesPerSecond;
+  }
+  public function getTargetReadBytesPerSecond()
+  {
+    return $this->targetReadBytesPerSecond;
+  }
+  public function setTargetReadOpsPerSecond($targetReadOpsPerSecond)
+  {
+    $this->targetReadOpsPerSecond = $targetReadOpsPerSecond;
+  }
+  public function getTargetReadOpsPerSecond()
+  {
+    return $this->targetReadOpsPerSecond;
+  }
+  public function setTargetWriteBytesPerSecond($targetWriteBytesPerSecond)
+  {
+    $this->targetWriteBytesPerSecond = $targetWriteBytesPerSecond;
+  }
+  public function getTargetWriteBytesPerSecond()
+  {
+    return $this->targetWriteBytesPerSecond;
+  }
+  public function setTargetWriteOpsPerSecond($targetWriteOpsPerSecond)
+  {
+    $this->targetWriteOpsPerSecond = $targetWriteOpsPerSecond;
+  }
+  public function getTargetWriteOpsPerSecond()
+  {
+    return $this->targetWriteOpsPerSecond;
+  }
 }

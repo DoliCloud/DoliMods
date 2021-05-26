@@ -17,46 +17,62 @@
 
 class Google_Service_Sheets_UpdateDimensionPropertiesRequest extends Google_Model
 {
-	public $fields;
-	protected $propertiesType = 'Google_Service_Sheets_DimensionProperties';
-	protected $propertiesDataType = '';
-	protected $rangeType = 'Google_Service_Sheets_DimensionRange';
-	protected $rangeDataType = '';
+  protected $dataSourceSheetRangeType = 'Google_Service_Sheets_DataSourceSheetDimensionRange';
+  protected $dataSourceSheetRangeDataType = '';
+  public $fields;
+  protected $propertiesType = 'Google_Service_Sheets_DimensionProperties';
+  protected $propertiesDataType = '';
+  protected $rangeType = 'Google_Service_Sheets_DimensionRange';
+  protected $rangeDataType = '';
 
-	public function setFields($fields)
-	{
-		$this->fields = $fields;
-	}
-	public function getFields()
-	{
-		return $this->fields;
-	}
-	/**
-	 * @param Google_Service_Sheets_DimensionProperties
-	 */
-	public function setProperties(Google_Service_Sheets_DimensionProperties $properties)
-	{
-		$this->properties = $properties;
-	}
-	/**
-	 * @return Google_Service_Sheets_DimensionProperties
-	 */
-	public function getProperties()
-	{
-		return $this->properties;
-	}
-	/**
-	 * @param Google_Service_Sheets_DimensionRange
-	 */
-	public function setRange(Google_Service_Sheets_DimensionRange $range)
-	{
-		$this->range = $range;
-	}
-	/**
-	 * @return Google_Service_Sheets_DimensionRange
-	 */
-	public function getRange()
-	{
-		return $this->range;
-	}
+  /**
+   * @param Google_Service_Sheets_DataSourceSheetDimensionRange
+   */
+  public function setDataSourceSheetRange(Google_Service_Sheets_DataSourceSheetDimensionRange $dataSourceSheetRange)
+  {
+    $this->dataSourceSheetRange = $dataSourceSheetRange;
+  }
+  /**
+   * @return Google_Service_Sheets_DataSourceSheetDimensionRange
+   */
+  public function getDataSourceSheetRange()
+  {
+    return $this->dataSourceSheetRange;
+  }
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  /**
+   * @param Google_Service_Sheets_DimensionProperties
+   */
+  public function setProperties(Google_Service_Sheets_DimensionProperties $properties)
+  {
+    $this->properties = $properties;
+  }
+  /**
+   * @return Google_Service_Sheets_DimensionProperties
+   */
+  public function getProperties()
+  {
+    return $this->properties;
+  }
+  /**
+   * @param Google_Service_Sheets_DimensionRange
+   */
+  public function setRange(Google_Service_Sheets_DimensionRange $range)
+  {
+    $this->range = $range;
+  }
+  /**
+   * @return Google_Service_Sheets_DimensionRange
+   */
+  public function getRange()
+  {
+    return $this->range;
+  }
 }

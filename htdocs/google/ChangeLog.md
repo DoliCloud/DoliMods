@@ -1,6 +1,12 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
+## 6.4
+
+- NEW Use Google PHP API v2.9.1
+- Better error message on error when generating the Oauth token
+
+
 ## 6.3
 
 - NEW Add filter on status "Active" for map of thirdparties.

@@ -32,34 +32,34 @@ class Google_Service_QPXExpress extends Google_Service
 {
 
 
-	public $trips;
+  public $trips;
+  
+  /**
+   * Constructs the internal representation of the QPXExpress service.
+   *
+   * @param Google_Client $client
+   */
+  public function __construct(Google_Client $client)
+  {
+    parent::__construct($client);
+    $this->rootUrl = 'https://www.googleapis.com/';
+    $this->servicePath = 'qpxExpress/v1/trips/';
+    $this->version = 'v1';
+    $this->serviceName = 'qpxExpress';
 
-	/**
-	 * Constructs the internal representation of the QPXExpress service.
-	 *
-	 * @param Google_Client $client
-	 */
-	public function __construct(Google_Client $client)
-	{
-		parent::__construct($client);
-		$this->rootUrl = 'https://www.googleapis.com/';
-		$this->servicePath = 'qpxExpress/v1/trips/';
-		$this->version = 'v1';
-		$this->serviceName = 'qpxExpress';
-
-		$this->trips = new Google_Service_QPXExpress_Resource_Trips(
-		$this,
-		$this->serviceName,
-		'trips',
-		array(
-		  'methods' => array(
-			'search' => array(
-			  'path' => 'search',
-			  'httpMethod' => 'POST',
-			  'parameters' => array(),
-			),
-		  )
-		)
-		);
-	}
+    $this->trips = new Google_Service_QPXExpress_Resource_Trips(
+        $this,
+        $this->serviceName,
+        'trips',
+        array(
+          'methods' => array(
+            'search' => array(
+              'path' => 'search',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),
+          )
+        )
+    );
+  }
 }

@@ -17,37 +17,37 @@
 
 class Google_Service_Docs_SuggestedTextStyle extends Google_Model
 {
-	protected $textStyleType = 'Google_Service_Docs_TextStyle';
-	protected $textStyleDataType = '';
-	protected $textStyleSuggestionStateType = 'Google_Service_Docs_TextStyleSuggestionState';
-	protected $textStyleSuggestionStateDataType = '';
+  protected $textStyleType = 'Google_Service_Docs_TextStyle';
+  protected $textStyleDataType = '';
+  protected $textStyleSuggestionStateType = 'Google_Service_Docs_TextStyleSuggestionState';
+  protected $textStyleSuggestionStateDataType = '';
 
-	/**
-	 * @param Google_Service_Docs_TextStyle
-	 */
-	public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
-	{
-		$this->textStyle = $textStyle;
-	}
-	/**
-	 * @return Google_Service_Docs_TextStyle
-	 */
-	public function getTextStyle()
-	{
-		return $this->textStyle;
-	}
-	/**
-	 * @param Google_Service_Docs_TextStyleSuggestionState
-	 */
-	public function setTextStyleSuggestionState(Google_Service_Docs_TextStyleSuggestionState $textStyleSuggestionState)
-	{
-		$this->textStyleSuggestionState = $textStyleSuggestionState;
-	}
-	/**
-	 * @return Google_Service_Docs_TextStyleSuggestionState
-	 */
-	public function getTextStyleSuggestionState()
-	{
-		return $this->textStyleSuggestionState;
-	}
+  /**
+   * @param Google_Service_Docs_TextStyle
+   */
+  public function setTextStyle(Google_Service_Docs_TextStyle $textStyle)
+  {
+    $this->textStyle = $textStyle;
+  }
+  /**
+   * @return Google_Service_Docs_TextStyle
+   */
+  public function getTextStyle()
+  {
+    return $this->textStyle;
+  }
+  /**
+   * @param Google_Service_Docs_TextStyleSuggestionState
+   */
+  public function setTextStyleSuggestionState(Google_Service_Docs_TextStyleSuggestionState $textStyleSuggestionState)
+  {
+    $this->textStyleSuggestionState = $textStyleSuggestionState;
+  }
+  /**
+   * @return Google_Service_Docs_TextStyleSuggestionState
+   */
+  public function getTextStyleSuggestionState()
+  {
+    return $this->textStyleSuggestionState;
+  }
 }

@@ -17,22 +17,22 @@
 
 class Google_Service_Sheets_ManualRule extends Google_Collection
 {
-	protected $collection_key = 'groups';
-	protected $groupsType = 'Google_Service_Sheets_ManualRuleGroup';
-	protected $groupsDataType = 'array';
+  protected $collection_key = 'groups';
+  protected $groupsType = 'Google_Service_Sheets_ManualRuleGroup';
+  protected $groupsDataType = 'array';
 
-	/**
-	 * @param Google_Service_Sheets_ManualRuleGroup
-	 */
-	public function setGroups($groups)
-	{
-		$this->groups = $groups;
-	}
-	/**
-	 * @return Google_Service_Sheets_ManualRuleGroup
-	 */
-	public function getGroups()
-	{
-		return $this->groups;
-	}
+  /**
+   * @param Google_Service_Sheets_ManualRuleGroup[]
+   */
+  public function setGroups($groups)
+  {
+    $this->groups = $groups;
+  }
+  /**
+   * @return Google_Service_Sheets_ManualRuleGroup[]
+   */
+  public function getGroups()
+  {
+    return $this->groups;
+  }
 }

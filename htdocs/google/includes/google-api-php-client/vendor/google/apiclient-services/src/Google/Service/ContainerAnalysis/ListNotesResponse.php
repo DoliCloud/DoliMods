@@ -17,31 +17,31 @@
 
 class Google_Service_ContainerAnalysis_ListNotesResponse extends Google_Collection
 {
-	protected $collection_key = 'notes';
-	public $nextPageToken;
-	protected $notesType = 'Google_Service_ContainerAnalysis_Note';
-	protected $notesDataType = 'array';
+  protected $collection_key = 'notes';
+  public $nextPageToken;
+  protected $notesType = 'Google_Service_ContainerAnalysis_Note';
+  protected $notesDataType = 'array';
 
-	public function setNextPageToken($nextPageToken)
-	{
-		$this->nextPageToken = $nextPageToken;
-	}
-	public function getNextPageToken()
-	{
-		return $this->nextPageToken;
-	}
-	/**
-	 * @param Google_Service_ContainerAnalysis_Note
-	 */
-	public function setNotes($notes)
-	{
-		$this->notes = $notes;
-	}
-	/**
-	 * @return Google_Service_ContainerAnalysis_Note
-	 */
-	public function getNotes()
-	{
-		return $this->notes;
-	}
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+  /**
+   * @param Google_Service_ContainerAnalysis_Note[]
+   */
+  public function setNotes($notes)
+  {
+    $this->notes = $notes;
+  }
+  /**
+   * @return Google_Service_ContainerAnalysis_Note[]
+   */
+  public function getNotes()
+  {
+    return $this->notes;
+  }
 }

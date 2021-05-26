@@ -17,22 +17,22 @@
 
 class Google_Service_Apigee_GoogleCloudApigeeV1ListOfDevelopersResponse extends Google_Collection
 {
-	protected $collection_key = 'developer';
-	protected $developerType = 'Google_Service_Apigee_GoogleCloudApigeeV1Developer';
-	protected $developerDataType = 'array';
+  protected $collection_key = 'developer';
+  protected $developerType = 'Google_Service_Apigee_GoogleCloudApigeeV1Developer';
+  protected $developerDataType = 'array';
 
-	/**
-	 * @param Google_Service_Apigee_GoogleCloudApigeeV1Developer
-	 */
-	public function setDeveloper($developer)
-	{
-		$this->developer = $developer;
-	}
-	/**
-	 * @return Google_Service_Apigee_GoogleCloudApigeeV1Developer
-	 */
-	public function getDeveloper()
-	{
-		return $this->developer;
-	}
+  /**
+   * @param Google_Service_Apigee_GoogleCloudApigeeV1Developer[]
+   */
+  public function setDeveloper($developer)
+  {
+    $this->developer = $developer;
+  }
+  /**
+   * @return Google_Service_Apigee_GoogleCloudApigeeV1Developer[]
+   */
+  public function getDeveloper()
+  {
+    return $this->developer;
+  }
 }

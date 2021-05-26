@@ -17,68 +17,68 @@
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyVerifyPhoneNumberRequest extends Google_Model
 {
-	public $code;
-	public $idToken;
-	public $operation;
-	public $phoneNumber;
-	public $sessionInfo;
-	public $temporaryProof;
-	public $verificationProof;
+  public $code;
+  public $idToken;
+  public $operation;
+  public $phoneNumber;
+  public $sessionInfo;
+  public $temporaryProof;
+  public $verificationProof;
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setIdToken($idToken)
-	{
-		$this->idToken = $idToken;
-	}
-	public function getIdToken()
-	{
-		return $this->idToken;
-	}
-	public function setOperation($operation)
-	{
-		$this->operation = $operation;
-	}
-	public function getOperation()
-	{
-		return $this->operation;
-	}
-	public function setPhoneNumber($phoneNumber)
-	{
-		$this->phoneNumber = $phoneNumber;
-	}
-	public function getPhoneNumber()
-	{
-		return $this->phoneNumber;
-	}
-	public function setSessionInfo($sessionInfo)
-	{
-		$this->sessionInfo = $sessionInfo;
-	}
-	public function getSessionInfo()
-	{
-		return $this->sessionInfo;
-	}
-	public function setTemporaryProof($temporaryProof)
-	{
-		$this->temporaryProof = $temporaryProof;
-	}
-	public function getTemporaryProof()
-	{
-		return $this->temporaryProof;
-	}
-	public function setVerificationProof($verificationProof)
-	{
-		$this->verificationProof = $verificationProof;
-	}
-	public function getVerificationProof()
-	{
-		return $this->verificationProof;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setIdToken($idToken)
+  {
+    $this->idToken = $idToken;
+  }
+  public function getIdToken()
+  {
+    return $this->idToken;
+  }
+  public function setOperation($operation)
+  {
+    $this->operation = $operation;
+  }
+  public function getOperation()
+  {
+    return $this->operation;
+  }
+  public function setPhoneNumber($phoneNumber)
+  {
+    $this->phoneNumber = $phoneNumber;
+  }
+  public function getPhoneNumber()
+  {
+    return $this->phoneNumber;
+  }
+  public function setSessionInfo($sessionInfo)
+  {
+    $this->sessionInfo = $sessionInfo;
+  }
+  public function getSessionInfo()
+  {
+    return $this->sessionInfo;
+  }
+  public function setTemporaryProof($temporaryProof)
+  {
+    $this->temporaryProof = $temporaryProof;
+  }
+  public function getTemporaryProof()
+  {
+    return $this->temporaryProof;
+  }
+  public function setVerificationProof($verificationProof)
+  {
+    $this->verificationProof = $verificationProof;
+  }
+  public function getVerificationProof()
+  {
+    return $this->verificationProof;
+  }
 }

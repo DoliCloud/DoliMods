@@ -17,30 +17,30 @@
 
 class Google_Service_Spanner_Field extends Google_Model
 {
-	public $name;
-	protected $typeType = 'Google_Service_Spanner_Type';
-	protected $typeDataType = '';
+  public $name;
+  protected $typeType = 'Google_Service_Spanner_Type';
+  protected $typeDataType = '';
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	/**
-	 * @param Google_Service_Spanner_Type
-	 */
-	public function setType(Google_Service_Spanner_Type $type)
-	{
-		$this->type = $type;
-	}
-	/**
-	 * @return Google_Service_Spanner_Type
-	 */
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  /**
+   * @param Google_Service_Spanner_Type
+   */
+  public function setType(Google_Service_Spanner_Type $type)
+  {
+    $this->type = $type;
+  }
+  /**
+   * @return Google_Service_Spanner_Type
+   */
+  public function getType()
+  {
+    return $this->type;
+  }
 }

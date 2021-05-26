@@ -17,62 +17,62 @@
 
 class Google_Service_Books_VolumeannotationContentRanges extends Google_Model
 {
-	protected $cfiRangeType = 'Google_Service_Books_BooksAnnotationsRange';
-	protected $cfiRangeDataType = '';
-	public $contentVersion;
-	protected $gbImageRangeType = 'Google_Service_Books_BooksAnnotationsRange';
-	protected $gbImageRangeDataType = '';
-	protected $gbTextRangeType = 'Google_Service_Books_BooksAnnotationsRange';
-	protected $gbTextRangeDataType = '';
+  protected $cfiRangeType = 'Google_Service_Books_BooksAnnotationsRange';
+  protected $cfiRangeDataType = '';
+  public $contentVersion;
+  protected $gbImageRangeType = 'Google_Service_Books_BooksAnnotationsRange';
+  protected $gbImageRangeDataType = '';
+  protected $gbTextRangeType = 'Google_Service_Books_BooksAnnotationsRange';
+  protected $gbTextRangeDataType = '';
 
-	/**
-	 * @param Google_Service_Books_BooksAnnotationsRange
-	 */
-	public function setCfiRange(Google_Service_Books_BooksAnnotationsRange $cfiRange)
-	{
-		$this->cfiRange = $cfiRange;
-	}
-	/**
-	 * @return Google_Service_Books_BooksAnnotationsRange
-	 */
-	public function getCfiRange()
-	{
-		return $this->cfiRange;
-	}
-	public function setContentVersion($contentVersion)
-	{
-		$this->contentVersion = $contentVersion;
-	}
-	public function getContentVersion()
-	{
-		return $this->contentVersion;
-	}
-	/**
-	 * @param Google_Service_Books_BooksAnnotationsRange
-	 */
-	public function setGbImageRange(Google_Service_Books_BooksAnnotationsRange $gbImageRange)
-	{
-		$this->gbImageRange = $gbImageRange;
-	}
-	/**
-	 * @return Google_Service_Books_BooksAnnotationsRange
-	 */
-	public function getGbImageRange()
-	{
-		return $this->gbImageRange;
-	}
-	/**
-	 * @param Google_Service_Books_BooksAnnotationsRange
-	 */
-	public function setGbTextRange(Google_Service_Books_BooksAnnotationsRange $gbTextRange)
-	{
-		$this->gbTextRange = $gbTextRange;
-	}
-	/**
-	 * @return Google_Service_Books_BooksAnnotationsRange
-	 */
-	public function getGbTextRange()
-	{
-		return $this->gbTextRange;
-	}
+  /**
+   * @param Google_Service_Books_BooksAnnotationsRange
+   */
+  public function setCfiRange(Google_Service_Books_BooksAnnotationsRange $cfiRange)
+  {
+    $this->cfiRange = $cfiRange;
+  }
+  /**
+   * @return Google_Service_Books_BooksAnnotationsRange
+   */
+  public function getCfiRange()
+  {
+    return $this->cfiRange;
+  }
+  public function setContentVersion($contentVersion)
+  {
+    $this->contentVersion = $contentVersion;
+  }
+  public function getContentVersion()
+  {
+    return $this->contentVersion;
+  }
+  /**
+   * @param Google_Service_Books_BooksAnnotationsRange
+   */
+  public function setGbImageRange(Google_Service_Books_BooksAnnotationsRange $gbImageRange)
+  {
+    $this->gbImageRange = $gbImageRange;
+  }
+  /**
+   * @return Google_Service_Books_BooksAnnotationsRange
+   */
+  public function getGbImageRange()
+  {
+    return $this->gbImageRange;
+  }
+  /**
+   * @param Google_Service_Books_BooksAnnotationsRange
+   */
+  public function setGbTextRange(Google_Service_Books_BooksAnnotationsRange $gbTextRange)
+  {
+    $this->gbTextRange = $gbTextRange;
+  }
+  /**
+   * @return Google_Service_Books_BooksAnnotationsRange
+   */
+  public function getGbTextRange()
+  {
+    return $this->gbTextRange;
+  }
 }

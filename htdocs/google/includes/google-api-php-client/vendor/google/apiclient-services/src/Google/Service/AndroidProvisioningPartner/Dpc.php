@@ -17,32 +17,32 @@
 
 class Google_Service_AndroidProvisioningPartner_Dpc extends Google_Model
 {
-	public $dpcName;
-	public $name;
-	public $packageName;
+  public $dpcName;
+  public $name;
+  public $packageName;
 
-	public function setDpcName($dpcName)
-	{
-		$this->dpcName = $dpcName;
-	}
-	public function getDpcName()
-	{
-		return $this->dpcName;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPackageName($packageName)
-	{
-		$this->packageName = $packageName;
-	}
-	public function getPackageName()
-	{
-		return $this->packageName;
-	}
+  public function setDpcName($dpcName)
+  {
+    $this->dpcName = $dpcName;
+  }
+  public function getDpcName()
+  {
+    return $this->dpcName;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
 }

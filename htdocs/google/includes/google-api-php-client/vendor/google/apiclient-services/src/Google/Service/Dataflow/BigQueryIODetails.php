@@ -17,41 +17,41 @@
 
 class Google_Service_Dataflow_BigQueryIODetails extends Google_Model
 {
-	public $dataset;
-	public $projectId;
-	public $query;
-	public $table;
+  public $dataset;
+  public $projectId;
+  public $query;
+  public $table;
 
-	public function setDataset($dataset)
-	{
-		$this->dataset = $dataset;
-	}
-	public function getDataset()
-	{
-		return $this->dataset;
-	}
-	public function setProjectId($projectId)
-	{
-		$this->projectId = $projectId;
-	}
-	public function getProjectId()
-	{
-		return $this->projectId;
-	}
-	public function setQuery($query)
-	{
-		$this->query = $query;
-	}
-	public function getQuery()
-	{
-		return $this->query;
-	}
-	public function setTable($table)
-	{
-		$this->table = $table;
-	}
-	public function getTable()
-	{
-		return $this->table;
-	}
+  public function setDataset($dataset)
+  {
+    $this->dataset = $dataset;
+  }
+  public function getDataset()
+  {
+    return $this->dataset;
+  }
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+  public function setQuery($query)
+  {
+    $this->query = $query;
+  }
+  public function getQuery()
+  {
+    return $this->query;
+  }
+  public function setTable($table)
+  {
+    $this->table = $table;
+  }
+  public function getTable()
+  {
+    return $this->table;
+  }
 }

@@ -17,23 +17,23 @@
 
 class Google_Service_CloudAsset_GcsDestination extends Google_Model
 {
-	public $uri;
-	public $uriPrefix;
+  public $uri;
+  public $uriPrefix;
 
-	public function setUri($uri)
-	{
-		$this->uri = $uri;
-	}
-	public function getUri()
-	{
-		return $this->uri;
-	}
-	public function setUriPrefix($uriPrefix)
-	{
-		$this->uriPrefix = $uriPrefix;
-	}
-	public function getUriPrefix()
-	{
-		return $this->uriPrefix;
-	}
+  public function setUri($uri)
+  {
+    $this->uri = $uri;
+  }
+  public function getUri()
+  {
+    return $this->uri;
+  }
+  public function setUriPrefix($uriPrefix)
+  {
+    $this->uriPrefix = $uriPrefix;
+  }
+  public function getUriPrefix()
+  {
+    return $this->uriPrefix;
+  }
 }

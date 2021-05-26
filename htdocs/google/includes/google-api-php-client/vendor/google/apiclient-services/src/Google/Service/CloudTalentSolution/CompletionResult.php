@@ -17,32 +17,32 @@
 
 class Google_Service_CloudTalentSolution_CompletionResult extends Google_Model
 {
-	public $imageUri;
-	public $suggestion;
-	public $type;
+  public $imageUri;
+  public $suggestion;
+  public $type;
 
-	public function setImageUri($imageUri)
-	{
-		$this->imageUri = $imageUri;
-	}
-	public function getImageUri()
-	{
-		return $this->imageUri;
-	}
-	public function setSuggestion($suggestion)
-	{
-		$this->suggestion = $suggestion;
-	}
-	public function getSuggestion()
-	{
-		return $this->suggestion;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	public function getType()
-	{
-		return $this->type;
-	}
+  public function setImageUri($imageUri)
+  {
+    $this->imageUri = $imageUri;
+  }
+  public function getImageUri()
+  {
+    return $this->imageUri;
+  }
+  public function setSuggestion($suggestion)
+  {
+    $this->suggestion = $suggestion;
+  }
+  public function getSuggestion()
+  {
+    return $this->suggestion;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
 }

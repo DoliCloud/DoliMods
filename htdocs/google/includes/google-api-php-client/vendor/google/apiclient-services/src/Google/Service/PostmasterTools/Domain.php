@@ -17,32 +17,32 @@
 
 class Google_Service_PostmasterTools_Domain extends Google_Model
 {
-	public $createTime;
-	public $name;
-	public $permission;
+  public $createTime;
+  public $name;
+  public $permission;
 
-	public function setCreateTime($createTime)
-	{
-		$this->createTime = $createTime;
-	}
-	public function getCreateTime()
-	{
-		return $this->createTime;
-	}
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-	public function getName()
-	{
-		return $this->name;
-	}
-	public function setPermission($permission)
-	{
-		$this->permission = $permission;
-	}
-	public function getPermission()
-	{
-		return $this->permission;
-	}
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setPermission($permission)
+  {
+    $this->permission = $permission;
+  }
+  public function getPermission()
+  {
+    return $this->permission;
+  }
 }

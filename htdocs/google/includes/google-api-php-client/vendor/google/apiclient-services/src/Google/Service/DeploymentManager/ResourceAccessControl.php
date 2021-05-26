@@ -17,14 +17,14 @@
 
 class Google_Service_DeploymentManager_ResourceAccessControl extends Google_Model
 {
-	public $gcpIamPolicy;
+  public $gcpIamPolicy;
 
-	public function setGcpIamPolicy($gcpIamPolicy)
-	{
-		$this->gcpIamPolicy = $gcpIamPolicy;
-	}
-	public function getGcpIamPolicy()
-	{
-		return $this->gcpIamPolicy;
-	}
+  public function setGcpIamPolicy($gcpIamPolicy)
+  {
+    $this->gcpIamPolicy = $gcpIamPolicy;
+  }
+  public function getGcpIamPolicy()
+  {
+    return $this->gcpIamPolicy;
+  }
 }

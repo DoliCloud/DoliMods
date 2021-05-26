@@ -17,30 +17,30 @@
 
 class Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationsResponse extends Google_Model
 {
-	protected $locationsPerGameObjectTypeType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationList';
-	protected $locationsPerGameObjectTypeDataType = 'map';
-	public $ttl;
+  protected $locationsPerGameObjectTypeType = 'Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationList';
+  protected $locationsPerGameObjectTypeDataType = 'map';
+  public $ttl;
 
-	/**
-	 * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationList
-	 */
-	public function setLocationsPerGameObjectType($locationsPerGameObjectType)
-	{
-		$this->locationsPerGameObjectType = $locationsPerGameObjectType;
-	}
-	/**
-	 * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationList
-	 */
-	public function getLocationsPerGameObjectType()
-	{
-		return $this->locationsPerGameObjectType;
-	}
-	public function setTtl($ttl)
-	{
-		$this->ttl = $ttl;
-	}
-	public function getTtl()
-	{
-		return $this->ttl;
-	}
+  /**
+   * @param Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationList[]
+   */
+  public function setLocationsPerGameObjectType($locationsPerGameObjectType)
+  {
+    $this->locationsPerGameObjectType = $locationsPerGameObjectType;
+  }
+  /**
+   * @return Google_Service_PlayableLocations_GoogleMapsPlayablelocationsV3SamplePlayableLocationList[]
+   */
+  public function getLocationsPerGameObjectType()
+  {
+    return $this->locationsPerGameObjectType;
+  }
+  public function setTtl($ttl)
+  {
+    $this->ttl = $ttl;
+  }
+  public function getTtl()
+  {
+    return $this->ttl;
+  }
 }

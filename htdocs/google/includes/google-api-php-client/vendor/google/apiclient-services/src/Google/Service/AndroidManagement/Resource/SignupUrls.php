@@ -25,25 +25,25 @@
  */
 class Google_Service_AndroidManagement_Resource_SignupUrls extends Google_Service_Resource
 {
-	/**
-	 * Creates an enterprise signup URL. (signupUrls.create)
-	 *
-	 * @param array $optParams Optional parameters.
-	 *
-	 * @opt_param string callbackUrl The callback URL that the admin will be
-	 * redirected to after successfully creating an enterprise. Before redirecting
-	 * there the system will add a query parameter to this URL named enterpriseToken
-	 * which will contain an opaque token to be used for the create enterprise
-	 * request. The URL will be parsed then reformatted in order to add the
-	 * enterpriseToken parameter, so there may be some minor formatting changes.
-	 * @opt_param string projectId The ID of the Google Cloud Platform project which
-	 * will own the enterprise.
-	 * @return Google_Service_AndroidManagement_SignupUrl
-	 */
-	public function create($optParams = array())
-	{
-		$params = array();
-		$params = array_merge($params, $optParams);
-		return $this->call('create', array($params), "Google_Service_AndroidManagement_SignupUrl");
-	}
+  /**
+   * Creates an enterprise signup URL. (signupUrls.create)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string callbackUrl The callback URL that the admin will be
+   * redirected to after successfully creating an enterprise. Before redirecting
+   * there the system will add a query parameter to this URL named enterpriseToken
+   * which will contain an opaque token to be used for the create enterprise
+   * request. The URL will be parsed then reformatted in order to add the
+   * enterpriseToken parameter, so there may be some minor formatting changes.
+   * @opt_param string projectId The ID of the Google Cloud Platform project which
+   * will own the enterprise.
+   * @return Google_Service_AndroidManagement_SignupUrl
+   */
+  public function create($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('create', array($params), "Google_Service_AndroidManagement_SignupUrl");
+  }
 }

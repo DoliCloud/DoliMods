@@ -17,42 +17,42 @@
 
 class Google_Service_Script_ExecutionRequest extends Google_Collection
 {
-	protected $collection_key = 'parameters';
-	public $devMode;
-	public $function;
-	public $parameters;
-	public $sessionState;
+  protected $collection_key = 'parameters';
+  public $devMode;
+  public $function;
+  public $parameters;
+  public $sessionState;
 
-	public function setDevMode($devMode)
-	{
-		$this->devMode = $devMode;
-	}
-	public function getDevMode()
-	{
-		return $this->devMode;
-	}
-	public function setFunction($function)
-	{
-		$this->function = $function;
-	}
-	public function getFunction()
-	{
-		return $this->function;
-	}
-	public function setParameters($parameters)
-	{
-		$this->parameters = $parameters;
-	}
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
-	public function setSessionState($sessionState)
-	{
-		$this->sessionState = $sessionState;
-	}
-	public function getSessionState()
-	{
-		return $this->sessionState;
-	}
+  public function setDevMode($devMode)
+  {
+    $this->devMode = $devMode;
+  }
+  public function getDevMode()
+  {
+    return $this->devMode;
+  }
+  public function setFunction($function)
+  {
+    $this->function = $function;
+  }
+  public function getFunction()
+  {
+    return $this->function;
+  }
+  public function setParameters($parameters)
+  {
+    $this->parameters = $parameters;
+  }
+  public function getParameters()
+  {
+    return $this->parameters;
+  }
+  public function setSessionState($sessionState)
+  {
+    $this->sessionState = $sessionState;
+  }
+  public function getSessionState()
+  {
+    return $this->sessionState;
+  }
 }

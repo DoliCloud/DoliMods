@@ -17,102 +17,118 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig extends Google_Model
 {
-	protected $acceleratorType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig';
-	protected $acceleratorDataType = '';
-	public $diskSizeGb;
-	public $diskType;
-	public $labels;
-	public $machineType;
-	public $maxConcurrentActions;
-	public $minCpuPlatform;
-	public $networkAccess;
-	public $reserved;
-	public $vmImage;
+  protected $acceleratorType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig';
+  protected $acceleratorDataType = '';
+  public $diskSizeGb;
+  public $diskType;
+  public $labels;
+  public $machineType;
+  public $maxConcurrentActions;
+  public $minCpuPlatform;
+  public $networkAccess;
+  public $reserved;
+  protected $soleTenancyType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaSoleTenancyConfig';
+  protected $soleTenancyDataType = '';
+  public $vmImage;
 
-	/**
-	 * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
-	 */
-	public function setAccelerator(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig $accelerator)
-	{
-		$this->accelerator = $accelerator;
-	}
-	/**
-	 * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
-	 */
-	public function getAccelerator()
-	{
-		return $this->accelerator;
-	}
-	public function setDiskSizeGb($diskSizeGb)
-	{
-		$this->diskSizeGb = $diskSizeGb;
-	}
-	public function getDiskSizeGb()
-	{
-		return $this->diskSizeGb;
-	}
-	public function setDiskType($diskType)
-	{
-		$this->diskType = $diskType;
-	}
-	public function getDiskType()
-	{
-		return $this->diskType;
-	}
-	public function setLabels($labels)
-	{
-		$this->labels = $labels;
-	}
-	public function getLabels()
-	{
-		return $this->labels;
-	}
-	public function setMachineType($machineType)
-	{
-		$this->machineType = $machineType;
-	}
-	public function getMachineType()
-	{
-		return $this->machineType;
-	}
-	public function setMaxConcurrentActions($maxConcurrentActions)
-	{
-		$this->maxConcurrentActions = $maxConcurrentActions;
-	}
-	public function getMaxConcurrentActions()
-	{
-		return $this->maxConcurrentActions;
-	}
-	public function setMinCpuPlatform($minCpuPlatform)
-	{
-		$this->minCpuPlatform = $minCpuPlatform;
-	}
-	public function getMinCpuPlatform()
-	{
-		return $this->minCpuPlatform;
-	}
-	public function setNetworkAccess($networkAccess)
-	{
-		$this->networkAccess = $networkAccess;
-	}
-	public function getNetworkAccess()
-	{
-		return $this->networkAccess;
-	}
-	public function setReserved($reserved)
-	{
-		$this->reserved = $reserved;
-	}
-	public function getReserved()
-	{
-		return $this->reserved;
-	}
-	public function setVmImage($vmImage)
-	{
-		$this->vmImage = $vmImage;
-	}
-	public function getVmImage()
-	{
-		return $this->vmImage;
-	}
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
+   */
+  public function setAccelerator(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig $accelerator)
+  {
+    $this->accelerator = $accelerator;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
+   */
+  public function getAccelerator()
+  {
+    return $this->accelerator;
+  }
+  public function setDiskSizeGb($diskSizeGb)
+  {
+    $this->diskSizeGb = $diskSizeGb;
+  }
+  public function getDiskSizeGb()
+  {
+    return $this->diskSizeGb;
+  }
+  public function setDiskType($diskType)
+  {
+    $this->diskType = $diskType;
+  }
+  public function getDiskType()
+  {
+    return $this->diskType;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setMachineType($machineType)
+  {
+    $this->machineType = $machineType;
+  }
+  public function getMachineType()
+  {
+    return $this->machineType;
+  }
+  public function setMaxConcurrentActions($maxConcurrentActions)
+  {
+    $this->maxConcurrentActions = $maxConcurrentActions;
+  }
+  public function getMaxConcurrentActions()
+  {
+    return $this->maxConcurrentActions;
+  }
+  public function setMinCpuPlatform($minCpuPlatform)
+  {
+    $this->minCpuPlatform = $minCpuPlatform;
+  }
+  public function getMinCpuPlatform()
+  {
+    return $this->minCpuPlatform;
+  }
+  public function setNetworkAccess($networkAccess)
+  {
+    $this->networkAccess = $networkAccess;
+  }
+  public function getNetworkAccess()
+  {
+    return $this->networkAccess;
+  }
+  public function setReserved($reserved)
+  {
+    $this->reserved = $reserved;
+  }
+  public function getReserved()
+  {
+    return $this->reserved;
+  }
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaSoleTenancyConfig
+   */
+  public function setSoleTenancy(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaSoleTenancyConfig $soleTenancy)
+  {
+    $this->soleTenancy = $soleTenancy;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaSoleTenancyConfig
+   */
+  public function getSoleTenancy()
+  {
+    return $this->soleTenancy;
+  }
+  public function setVmImage($vmImage)
+  {
+    $this->vmImage = $vmImage;
+  }
+  public function getVmImage()
+  {
+    return $this->vmImage;
+  }
 }

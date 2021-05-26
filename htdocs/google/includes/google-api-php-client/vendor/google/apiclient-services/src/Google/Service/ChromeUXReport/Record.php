@@ -17,37 +17,37 @@
 
 class Google_Service_ChromeUXReport_Record extends Google_Model
 {
-	protected $keyType = 'Google_Service_ChromeUXReport_Key';
-	protected $keyDataType = '';
-	protected $metricsType = 'Google_Service_ChromeUXReport_Metric';
-	protected $metricsDataType = 'map';
+  protected $keyType = 'Google_Service_ChromeUXReport_Key';
+  protected $keyDataType = '';
+  protected $metricsType = 'Google_Service_ChromeUXReport_Metric';
+  protected $metricsDataType = 'map';
 
-	/**
-	 * @param Google_Service_ChromeUXReport_Key
-	 */
-	public function setKey(Google_Service_ChromeUXReport_Key $key)
-	{
-		$this->key = $key;
-	}
-	/**
-	 * @return Google_Service_ChromeUXReport_Key
-	 */
-	public function getKey()
-	{
-		return $this->key;
-	}
-	/**
-	 * @param Google_Service_ChromeUXReport_Metric
-	 */
-	public function setMetrics($metrics)
-	{
-		$this->metrics = $metrics;
-	}
-	/**
-	 * @return Google_Service_ChromeUXReport_Metric
-	 */
-	public function getMetrics()
-	{
-		return $this->metrics;
-	}
+  /**
+   * @param Google_Service_ChromeUXReport_Key
+   */
+  public function setKey(Google_Service_ChromeUXReport_Key $key)
+  {
+    $this->key = $key;
+  }
+  /**
+   * @return Google_Service_ChromeUXReport_Key
+   */
+  public function getKey()
+  {
+    return $this->key;
+  }
+  /**
+   * @param Google_Service_ChromeUXReport_Metric[]
+   */
+  public function setMetrics($metrics)
+  {
+    $this->metrics = $metrics;
+  }
+  /**
+   * @return Google_Service_ChromeUXReport_Metric[]
+   */
+  public function getMetrics()
+  {
+    return $this->metrics;
+  }
 }

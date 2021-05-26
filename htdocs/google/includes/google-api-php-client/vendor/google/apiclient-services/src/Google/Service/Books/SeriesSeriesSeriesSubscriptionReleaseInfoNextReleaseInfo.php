@@ -17,41 +17,41 @@
 
 class Google_Service_Books_SeriesSeriesSeriesSubscriptionReleaseInfoNextReleaseInfo extends Google_Model
 {
-	public $amountInMicros;
-	public $currencyCode;
-	public $releaseNumber;
-	public $releaseTime;
+  public $amountInMicros;
+  public $currencyCode;
+  public $releaseNumber;
+  public $releaseTime;
 
-	public function setAmountInMicros($amountInMicros)
-	{
-		$this->amountInMicros = $amountInMicros;
-	}
-	public function getAmountInMicros()
-	{
-		return $this->amountInMicros;
-	}
-	public function setCurrencyCode($currencyCode)
-	{
-		$this->currencyCode = $currencyCode;
-	}
-	public function getCurrencyCode()
-	{
-		return $this->currencyCode;
-	}
-	public function setReleaseNumber($releaseNumber)
-	{
-		$this->releaseNumber = $releaseNumber;
-	}
-	public function getReleaseNumber()
-	{
-		return $this->releaseNumber;
-	}
-	public function setReleaseTime($releaseTime)
-	{
-		$this->releaseTime = $releaseTime;
-	}
-	public function getReleaseTime()
-	{
-		return $this->releaseTime;
-	}
+  public function setAmountInMicros($amountInMicros)
+  {
+    $this->amountInMicros = $amountInMicros;
+  }
+  public function getAmountInMicros()
+  {
+    return $this->amountInMicros;
+  }
+  public function setCurrencyCode($currencyCode)
+  {
+    $this->currencyCode = $currencyCode;
+  }
+  public function getCurrencyCode()
+  {
+    return $this->currencyCode;
+  }
+  public function setReleaseNumber($releaseNumber)
+  {
+    $this->releaseNumber = $releaseNumber;
+  }
+  public function getReleaseNumber()
+  {
+    return $this->releaseNumber;
+  }
+  public function setReleaseTime($releaseTime)
+  {
+    $this->releaseTime = $releaseTime;
+  }
+  public function getReleaseTime()
+  {
+    return $this->releaseTime;
+  }
 }

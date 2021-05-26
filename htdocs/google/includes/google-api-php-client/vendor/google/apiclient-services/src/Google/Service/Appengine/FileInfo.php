@@ -17,32 +17,32 @@
 
 class Google_Service_Appengine_FileInfo extends Google_Model
 {
-	public $mimeType;
-	public $sha1Sum;
-	public $sourceUrl;
+  public $mimeType;
+  public $sha1Sum;
+  public $sourceUrl;
 
-	public function setMimeType($mimeType)
-	{
-		$this->mimeType = $mimeType;
-	}
-	public function getMimeType()
-	{
-		return $this->mimeType;
-	}
-	public function setSha1Sum($sha1Sum)
-	{
-		$this->sha1Sum = $sha1Sum;
-	}
-	public function getSha1Sum()
-	{
-		return $this->sha1Sum;
-	}
-	public function setSourceUrl($sourceUrl)
-	{
-		$this->sourceUrl = $sourceUrl;
-	}
-	public function getSourceUrl()
-	{
-		return $this->sourceUrl;
-	}
+  public function setMimeType($mimeType)
+  {
+    $this->mimeType = $mimeType;
+  }
+  public function getMimeType()
+  {
+    return $this->mimeType;
+  }
+  public function setSha1Sum($sha1Sum)
+  {
+    $this->sha1Sum = $sha1Sum;
+  }
+  public function getSha1Sum()
+  {
+    return $this->sha1Sum;
+  }
+  public function setSourceUrl($sourceUrl)
+  {
+    $this->sourceUrl = $sourceUrl;
+  }
+  public function getSourceUrl()
+  {
+    return $this->sourceUrl;
+  }
 }

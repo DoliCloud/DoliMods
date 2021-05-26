@@ -17,23 +17,23 @@
 
 class Google_Service_Surveys_SurveyResults extends Google_Model
 {
-	public $status;
-	public $surveyUrlId;
+  public $status;
+  public $surveyUrlId;
 
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	public function getStatus()
-	{
-		return $this->status;
-	}
-	public function setSurveyUrlId($surveyUrlId)
-	{
-		$this->surveyUrlId = $surveyUrlId;
-	}
-	public function getSurveyUrlId()
-	{
-		return $this->surveyUrlId;
-	}
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function getStatus()
+  {
+    return $this->status;
+  }
+  public function setSurveyUrlId($surveyUrlId)
+  {
+    $this->surveyUrlId = $surveyUrlId;
+  }
+  public function getSurveyUrlId()
+  {
+    return $this->surveyUrlId;
+  }
 }

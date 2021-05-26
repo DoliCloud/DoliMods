@@ -17,55 +17,55 @@
 
 class Google_Service_PolyService_AssetImportMessage extends Google_Model
 {
-	public $code;
-	public $filePath;
-	protected $imageErrorType = 'Google_Service_PolyService_ImageError';
-	protected $imageErrorDataType = '';
-	protected $objParseErrorType = 'Google_Service_PolyService_ObjParseError';
-	protected $objParseErrorDataType = '';
+  public $code;
+  public $filePath;
+  protected $imageErrorType = 'Google_Service_PolyService_ImageError';
+  protected $imageErrorDataType = '';
+  protected $objParseErrorType = 'Google_Service_PolyService_ObjParseError';
+  protected $objParseErrorDataType = '';
 
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setFilePath($filePath)
-	{
-		$this->filePath = $filePath;
-	}
-	public function getFilePath()
-	{
-		return $this->filePath;
-	}
-	/**
-	 * @param Google_Service_PolyService_ImageError
-	 */
-	public function setImageError(Google_Service_PolyService_ImageError $imageError)
-	{
-		$this->imageError = $imageError;
-	}
-	/**
-	 * @return Google_Service_PolyService_ImageError
-	 */
-	public function getImageError()
-	{
-		return $this->imageError;
-	}
-	/**
-	 * @param Google_Service_PolyService_ObjParseError
-	 */
-	public function setObjParseError(Google_Service_PolyService_ObjParseError $objParseError)
-	{
-		$this->objParseError = $objParseError;
-	}
-	/**
-	 * @return Google_Service_PolyService_ObjParseError
-	 */
-	public function getObjParseError()
-	{
-		return $this->objParseError;
-	}
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+  public function getCode()
+  {
+    return $this->code;
+  }
+  public function setFilePath($filePath)
+  {
+    $this->filePath = $filePath;
+  }
+  public function getFilePath()
+  {
+    return $this->filePath;
+  }
+  /**
+   * @param Google_Service_PolyService_ImageError
+   */
+  public function setImageError(Google_Service_PolyService_ImageError $imageError)
+  {
+    $this->imageError = $imageError;
+  }
+  /**
+   * @return Google_Service_PolyService_ImageError
+   */
+  public function getImageError()
+  {
+    return $this->imageError;
+  }
+  /**
+   * @param Google_Service_PolyService_ObjParseError
+   */
+  public function setObjParseError(Google_Service_PolyService_ObjParseError $objParseError)
+  {
+    $this->objParseError = $objParseError;
+  }
+  /**
+   * @return Google_Service_PolyService_ObjParseError
+   */
+  public function getObjParseError()
+  {
+    return $this->objParseError;
+  }
 }
