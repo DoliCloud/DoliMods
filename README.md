@@ -1,4 +1,4 @@
-# DOLIMODS ARE a SET OF MODULES FOR DOLIBARR ERP/CRM DEVELOPED BY DOLICLOUD
+# DOLIMODS IS A SET OF MODULES FOR DOLIBARR ERP/CRM DEVELOPED BY DOLICLOUD
 
 This repository contains all modules for dolibarr ERP CRM software (https://www.dolibarr.org) developed by 
 DoliCloud (Dolibarr Preferred Partner since 2009 - https://www.dolicloud.com)
