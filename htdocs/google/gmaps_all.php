@@ -103,6 +103,20 @@ if (empty($mode) || $mode=='thirdparty') {
  * View
  */
 
+// Increase limit of time. Works only if we are not in safe mode
+$ExecTimeLimit = 600;	// Set it to 0 to not use a forced time limit
+if (!empty($ExecTimeLimit)) {
+	$err = error_reporting();
+	error_reporting(0); // Disable all errors
+	//error_reporting(E_ALL);
+	@set_time_limit($ExecTimeLimit); // Need more than 240 on Windows 7/64
+	error_reporting($err);
+}
+$MemoryLimit = 0;
+if (!empty($MemoryLimit)) {
+	@ini_set('memory_limit', $MemoryLimit);
+}
+
 $countrytable="c_pays";
 $countrylabelfield='libelle';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
@@ -433,6 +447,7 @@ if ($resql) {
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=25'.$param.'">'.$langs->trans("By25").'</a> &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=50'.$param.'">'.$langs->trans("By50").'</a> &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=100'.$param.'">'.$langs->trans("By100").'</a> &nbsp;';
+		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=250'.$param.'">'.$langs->trans("By250").'</a> &nbsp;';
 		//,min($num-$countgeoencodedall,$MAXADDRESS)).'</a>';
 		print '<br>';
 	}
