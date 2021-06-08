@@ -243,51 +243,56 @@ if ($user->rights->societe->client->voir && empty($socid)) {
 			print $langs->trans('ProspectCustomer'). ' : ';
 
 			$selected=$search_customer;
+			print '<div class="divsearchfield">';
 			print '<select class="flat" name="search_customer" id="customerprospect">';
 			print '<option value="-1">&nbsp;</option>';
 			if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
 			if (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print '<option value="1"'.($selected==1?' selected':'').'>'.$langs->trans('Customer').'</option>';
-			print '</select></td>';
+			print '</select>';
+			print '</div>';
 
 			if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire)) {
-				print ' &nbsp; &nbsp; &nbsp; '.$langs->trans('Supplier').' : ';
+				print '<div class="divsearchfield">'.$langs->trans('Supplier').' : ';
 				print $form->selectyesno("search_supplier", $search_supplier, 1, false, 1);
+				print '</div>';
 			}
 
 			// Status
-			print ' &nbsp; &nbsp; &nbsp; '.$form->editfieldkey('Status', 'search_status', '', $object, 0).' ';
-			print $form->selectarray('search_status', array('0'=>$langs->trans('ActivityCeased'), '1'=>$langs->trans('InActivity')), $search_status, 1);
-
-			print '<br>';
+			print '<div class="divsearchfield">'.$form->editfieldkey('Status', 'search_status', '', $object, 0).' ';
+			print $form->selectarray('search_status', array('0'=>$langs->trans('ActivityCeased'), '1'=>$langs->trans('InActivity')), $search_status, 1, 0, 0, '', 0, 0, 0, '', 'maxwidth250');
+			print '</div>';
 		}
 
 		if ($mode != 'member') {
 			print img_picto($langs->trans("ThirdPartiesOfSaleRepresentative"), 'company', 'class="paddingrightonly"');
-			print $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $langs->trans('ThirdPartiesOfSaleRepresentative'), 'maxwidth300');
+			print $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $langs->trans('ThirdPartiesOfSaleRepresentative'), 'maxwidth250');
 
 			if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE)) {
-				print ' &nbsp; &nbsp; &nbsp; ';
+				print '<div class="divsearchfield">';
 				print $langs->trans("State").': ';
 				print $formcompany->select_state($search_departement, 0, 'state_id');
+				print '</div>';
 			}
 
-			print ' &nbsp; &nbsp; &nbsp; ';
+			print '<div class="divsearchfield">';
 			print img_picto($langs->trans("CustomersCategoriesShort"), 'category', 'class="paddingrightonly"');
-			print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer', 0, $langs->trans("CustomersCategoriesShort"));
+			print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer', 0, $langs->trans("CustomersCategoriesShort"), 'maxwidth250');
+			print '</div>';
 
 			if (empty($mode) || $mode=='thirdparty') {
-				print ' &nbsp; &nbsp; &nbsp; ';
+				print '<div class="divsearchfield">';
 				print img_picto($langs->trans("SuppliersCategoriesShort"), 'category', 'class="paddingrightonly"');
-				print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier', 0, $langs->trans("SuppliersCategoriesShort"));
+				print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier', 0, $langs->trans("SuppliersCategoriesShort"), 'maxwidth250');
+				print '</div>';
 			}
 		} else {
+			print '<div class="divsearchfield">';
 			print img_picto($langs->trans("MembersCategoriesShort"), 'category', 'class="paddingrightonly"');
-			print $formother->select_categories(3, $search_tag_member, 'search_tag_member', 0, $langs->trans("MembersCategoriesShort"));
+			print $formother->select_categories(3, $search_tag_member, 'search_tag_member', 0, $langs->trans("MembersCategoriesShort"), 'maxwidth250');
+			print '</div>';
 		}
 
-		print ' &nbsp; &nbsp; &nbsp; ';
-
-		print ' <input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
+		print '<input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
 		print '</form>';
 	}
 }
