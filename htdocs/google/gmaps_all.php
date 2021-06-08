@@ -197,9 +197,9 @@ if (empty($mode) || $mode=='thirdparty') {
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
-	$sql.= " WHERE s.canvas='patient@cabinetmed'";
 	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
+	$sql.= " WHERE s.canvas='patient@cabinetmed'";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
 	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
@@ -248,8 +248,8 @@ if ($user->rights->societe->client->voir && empty($socid)) {
 		}
 
 		if ($mode != 'member') {
-			print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
-			print $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, 1, 'maxwidth300');
+			print img_picto($langs->trans("ThirdPartiesOfSaleRepresentative"), 'company', 'class="paddingrightonly"');
+			print $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $langs->trans('ThirdPartiesOfSaleRepresentative'), 'maxwidth300');
 
 			if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE)) {
 				print ' &nbsp; &nbsp; &nbsp; ';
@@ -258,17 +258,17 @@ if ($user->rights->societe->client->voir && empty($socid)) {
 			}
 
 			print ' &nbsp; &nbsp; &nbsp; ';
-			print $langs->trans("CustomersCategoriesShort").': ';
-			print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer');
+			print img_picto($langs->trans("CustomersCategoriesShort"), 'category', 'class="paddingrightonly"');
+			print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer', 0, $langs->trans("CustomersCategoriesShort"));
 
 			if (empty($mode) || $mode=='thirdparty') {
 				print ' &nbsp; &nbsp; &nbsp; ';
-				print $langs->trans("SuppliersCategoriesShort").': ';
-				print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier');
+				print img_picto($langs->trans("SuppliersCategoriesShort"), 'category', 'class="paddingrightonly"');
+				print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier', 0, $langs->trans("SuppliersCategoriesShort"));
 			}
 		} else {
-			print $langs->trans("MembersCategoriesShort").': ';
-			print $formother->select_categories(3, $search_tag_member, 'search_tag_member');
+			print img_picto($langs->trans("MembersCategoriesShort"), 'category', 'class="paddingrightonly"');
+			print $formother->select_categories(3, $search_tag_member, 'search_tag_member', 0, $langs->trans("MembersCategoriesShort"));
 		}
 
 		print ' &nbsp; &nbsp; &nbsp; ';
