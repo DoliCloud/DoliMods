@@ -91,6 +91,7 @@ By1=By 1
 By25=By 25
 By50=Byr 50
 By100=By 100
+By250=By 250
 ParametersForGoogleOAuth=Pour Google API OAuth 2.0
 ParametersForGoogleAPIv2Usage=For Google API %s V2
 ParametersForGoogleAPIv3Usage=For Google API %s V3
