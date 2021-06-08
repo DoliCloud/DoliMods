@@ -240,10 +240,9 @@ if ($user->rights->societe->client->voir && empty($socid)) {
 		print '<input type="hidden" name="mode" value="'.$mode.'">';
 
 		if ($mode != 'member' && (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS) || empty($conf->global->SOCIETE_DISABLE_PROSPECTS))) {
-			print $langs->trans('ProspectCustomer'). ' : ';
-
 			$selected=$search_customer;
 			print '<div class="divsearchfield">';
+			print $langs->trans('ProspectCustomer'). ' : ';
 			print '<select class="flat" name="search_customer" id="customerprospect">';
 			print '<option value="-1">&nbsp;</option>';
 			if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
@@ -264,8 +263,10 @@ if ($user->rights->societe->client->voir && empty($socid)) {
 		}
 
 		if ($mode != 'member') {
+			print '<div class="divsearchfield">';
 			print img_picto($langs->trans("ThirdPartiesOfSaleRepresentative"), 'company', 'class="paddingrightonly"');
 			print $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $langs->trans('ThirdPartiesOfSaleRepresentative'), 'maxwidth250');
+			print '</div>';
 
 			if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE)) {
 				print '<div class="divsearchfield">';
