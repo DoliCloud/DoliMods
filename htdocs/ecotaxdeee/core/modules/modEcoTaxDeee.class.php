@@ -150,7 +150,7 @@ class modEcoTaxDeee extends DolibarrModules
 		// Create extrafields
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
-		$result1=$extrafields->addExtraField('ecotaxdeee', $langs->trans("Ecotax"), 'double', 1, '24,8', 'product', 0, 0, '', '', 1);
+		$result1=$extrafields->addExtraField('ecotaxdeee', $langs->trans("Ecotax"), 'double', 41, '24,8', 'product', 0, 0, '', '', 1);
 		if (! $result1) {
 			$this->error=$extrafields->error;
 			return -1;
