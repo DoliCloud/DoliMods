@@ -366,8 +366,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 							$remise_percent = 0;
 							$fk_product = ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
-							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent,
-								'', '', '', 0, $price_base);
+							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
 							if ($ret < 0) {
 								$error++;
 								setEventMessage("ERROR: " . $facfou->error, 'errors');
