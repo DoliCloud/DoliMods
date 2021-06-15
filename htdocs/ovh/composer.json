@@ -1,10 +1,10 @@
 {
-    "name": "eldy/dolimods",
-    "description": "Modules developed for Dolibarr ERP CRM",
-    "require": {
-        "ovh/ovh": "dev-master"
-    },
-    "config": {
-        "vendor-dir": "includes"
-    }
+	"name" : "eldy/dolimods",
+	"description" : "Modules developed for Dolibarr ERP CRM",
+	"require" : {
+		"ovh/ovh" : "v3.0.0"
+	},
+	"config" : {
+		"vendor-dir" : "includes"
+	}
 }

@@ -40,11 +40,6 @@ function ovhadmin_prepare_head()
 	$head[$h][2] = 'common';
 	$h++;
 
-	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_sms_setup.php", 1);
-	$head[$h][1] = $langs->trans("Sms");
-	$head[$h][2] = 'sms';
-	$h++;
-
 	/*$head[$h][0] = dol_buildpath("/ovh/admin/ovh_listinfoserver.php",1);
 	$head[$h][1] = $langs->trans("OvhDedicated");
 	$head[$h][2] = 'listservers';
@@ -58,6 +53,11 @@ function ovhadmin_prepare_head()
 	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_click2dial.php", 1);
 	$head[$h][1] = $langs->trans("Click2Dial");
 	$head[$h][2] = 'click2dial';
+	$h++;
+
+	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_sms_setup.php", 1);
+	$head[$h][1] = $langs->trans("Sms");
+	$head[$h][2] = 'sms';
 	$h++;
 
 	$head[$h][0] = 'about.php';

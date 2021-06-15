@@ -162,9 +162,18 @@ if ($action == 'requestcredential' || $action == 'requestcredential2') {
 		dol_syslog("Request credential to endpoint ".$endpoint);
 		dol_syslog("applicationKey=".$applicationKey." applicationSecret=".$applicationKey);
 
-		$http_client = new GClient();
-		$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
-		$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+
+		if ('guzzle7.3' == 'guzzle7.3') {
+			$arrayconfig = array(
+				'connect_timeout'=>(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT),
+				'timeout'=>(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT)
+				);
+			$http_client = new GClient($arrayconfig);
+		} else {
+			$http_client = new GClient();
+			$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
+			$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+		}
 
 		$conn = new Api($applicationKey, $applicationSecret, $endpoint, null, $http_client);    // consumer_key is not set to force to get a new one
 		$credentials = $conn->requestCredentials($rights, $redirect_uri);

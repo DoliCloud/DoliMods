@@ -1,7 +1,8 @@
 # ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
-## 4.0.1 Unreleased
+## 4.1 Unreleased
 
+* Update ovh lib to v2.1.0 (php 5.6+) - guzzle v6.5.5
 * Support several OVH projects
 * Fix blank page with Dolidroid
 * Link the event ot thirdparty history with Dolibarr v12 

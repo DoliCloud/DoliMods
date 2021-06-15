@@ -187,9 +187,17 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 			//$resultcapa = $soap->dedicatedCapabilitiesGet($session, $server);
 		} else {
 			try {
-				$http_client = new GClient();
-				$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
-				$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+				if ('guzzle7.3' == 'guzzle7.3') {
+					$arrayconfig = array(
+						'connect_timeout'=>(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT),
+						'timeout'=>(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT)
+					);
+					$http_client = new GClient($arrayconfig);
+				} else {
+					$http_client = new GClient();
+					$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
+					$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+				}
 
 				$conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
 
@@ -445,9 +453,17 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 		if (! empty($conf->global->OVH_OLDAPI)) {
 			$resultofproject = array(1);
 		} else {
-			$http_client = new GClient();
-			$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
-			$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+			if ('guzzle7.3' == 'guzzle7.3') {
+				$arrayconfig = array(
+					'connect_timeout'=>(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT),
+					'timeout'=>(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT)
+				);
+				$http_client = new GClient($arrayconfig);
+			} else {
+				$http_client = new GClient();
+				$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
+				$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+			}
 
 			// Get servers list
 			$conn = new Api(
@@ -466,70 +482,74 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 
 		$tableshown = 0;
 
-		foreach ($resultofproject as $projectname) {
-			$result = null;
+		if (count($resultofproject)) {
+			foreach ($resultofproject as $projectname) {
+				$result = null;
 
-			//dedicatedList
-			if (! empty($conf->global->OVH_OLDAPI)) {
-				$result = $soap->dedicatedList($session);
-			} else {
-				if ($mode == 'publiccloud') {
-					if ($projectname) {
-						$result = $conn->get('/cloud/project/'.$projectname.'/instance', array('region' => null));
+				//dedicatedList
+				if (! empty($conf->global->OVH_OLDAPI)) {
+					$result = $soap->dedicatedList($session);
+				} else {
+					if ($mode == 'publiccloud') {
+						if ($projectname) {
+							$result = $conn->get('/cloud/project/'.$projectname.'/instance', array('region' => null));
+						}
+					} else {
+						$result = $conn->get('/dedicated/server/');
+					}
+				}
+
+				if (count($result)) {
+					if (empty($tableshown)) {
+						print '<div class="div-table-responsive-no-min">';
+						print '<table class="noborder tableovh centpercent">';
+						$tableshown = 1;
+					}
+
+					foreach ($result as $serverobj) {
+						if ($mode == 'publiccloud') {
+							$ovhserver=new OvhServer($db);
+							$ovhserver->id = $serverobj['id'];
+							$ovhserver->ref = $serverobj['name'];
+							$ovhserver->projectname = $projectname;
+							$ovhserver->status = $serverobj['status'];
+
+							print '<tr class="oddeven">';
+							print '<td>';
+							print $ovhserver->getNomUrl(1);
+							print '<br>'.$serverobj['region'];
+							print ' - '.$serverobj['id'];
+							print '</td>';
+							print '<td>OVH Project: '.$projectname.'</td>';
+							print '<td>';
+							if (is_array($serverobj['ipAddresses'])) {
+								foreach ($serverobj['ipAddresses'] as $val) {
+									print '* '.$val['ip'].' ('.$val['type'].' '.$val['version'].')<br>';
+									print $langs->trans("GatewayIp").' '.$val['gatewayIp'];
+									print '<br>';
+								}
+							}
+							print '</td>';
+							print '<td class="center">';
+							print $ovhserver->getLibStatut(5);
+							print '</td>';
+							print '<td class="center">';
+							print '<a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'&action=createsnapshot&name='.urlencode($serverobj['name']).'">'.$langs->trans("CreateSnapshot").'</a>';
+							print '</td>';
+							print '</tr>';
+						} else // dedicated
+						{
+							print '<tr class="oddeven">';
+							print '<td><a href="?mode=dedicated&server=' . $serverobj . '">' . img_object('', 'server.svg@ovh', 'class="classfortooltip"') . ' ' .$serverobj . '</a></td>';
+							print '</tr>';
+						}
 					}
 				} else {
-					$result = $conn->get('/dedicated/server/');
+					print $langs->trans("None");
 				}
 			}
-
-			if (count($result)) {
-				if (empty($tableshown)) {
-					print '<div class="div-table-responsive-no-min">';
-					print '<table class="noborder tableovh centpercent">';
-					$tableshown = 1;
-				}
-
-				foreach ($result as $serverobj) {
-					if ($mode == 'publiccloud') {
-						$ovhserver=new OvhServer($db);
-						$ovhserver->id = $serverobj['id'];
-						$ovhserver->ref = $serverobj['name'];
-						$ovhserver->projectname = $projectname;
-						$ovhserver->status = $serverobj['status'];
-
-						print '<tr class="oddeven">';
-						print '<td>';
-						print $ovhserver->getNomUrl(1);
-						print '<br>'.$serverobj['region'];
-						print ' - '.$serverobj['id'];
-						print '</td>';
-						print '<td>OVH Project: '.$projectname.'</td>';
-						print '<td>';
-						if (is_array($serverobj['ipAddresses'])) {
-							foreach ($serverobj['ipAddresses'] as $val) {
-								print '* '.$val['ip'].' ('.$val['type'].' '.$val['version'].')<br>';
-								print $langs->trans("GatewayIp").' '.$val['gatewayIp'];
-								print '<br>';
-							}
-						}
-						print '</td>';
-						print '<td class="center">';
-						print $ovhserver->getLibStatut(5);
-						print '</td>';
-						print '<td class="center">';
-						print '<a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'&action=createsnapshot&name='.urlencode($serverobj['name']).'">'.$langs->trans("CreateSnapshot").'</a>';
-						print '</td>';
-						print '</tr>';
-					} else // dedicated
-					{
-						print '<tr class="oddeven">';
-						print '<td><a href="?mode=dedicated&server=' . $serverobj . '">' . img_object('', 'server.svg@ovh', 'class="classfortooltip"') . ' ' .$serverobj . '</a></td>';
-						print '</tr>';
-					}
-				}
-			} else {
-				print $langs->trans("None");
-			}
+		} else {
+			print $langs->trans("None");
 		}
 
 		if (! empty($tableshown)) {

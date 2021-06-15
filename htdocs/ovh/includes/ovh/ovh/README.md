@@ -16,7 +16,7 @@ use \Ovh\Api;
 
 $ovh = new Api( $applicationKey,
                 $applicationSecret,
-                $endpoint_name,
+                $endpoint,
                 $consumer_key);
 echo "Welcome " . $ovh->get('/me')['firstname'];
 ?>
@@ -27,7 +27,11 @@ Quickstart
 
 To download this wrapper and integrate it inside your PHP application, you can use [Composer](https://getcomposer.org).
 
-Add the repository in your **composer.json** file or, if you don't already have 
+Quick integration with the following command:
+
+    composer require ovh/ovh
+
+Or add the repository in your **composer.json** file or, if you don't already have
 this file, create it at the root of your project with this content:
 
 ```json
@@ -48,12 +52,17 @@ Then, you can install OVH APIs wrapper and dependencies with:
 This will install ``ovh/ovh`` to ``./vendor``, along with other dependencies
 including ``autoload.php``.
 
+OVH cookbook
+------------
+
+Do you want to use OVH APIs? Maybe the script you want is already written in the [example part](examples/README.md) of this repository!
+
 How to login as a user?
 -----------------------
 
 To communicate with APIs, the SDK uses a token on each request to identify the
 user. This token is called *Consumer Key*. To have a validated *Consumer Key*,
-you need to redirect your user on specific authentication page. Once the user has 
+you need to redirect your user on specific authentication page. Once the user has
 logged in, the token is validated and user will be redirected on __$redirection__ url.
 
 ```php
@@ -157,7 +166,41 @@ $webHosting = $conn->get('/hosting/web/');
 
 foreach ($webHosting as $webHosting) {
         echo "One of our web hosting: " . $webHosting . "\n";
+}
+?>
 ```
+
+How to print API error details?
+-------------------------------
+
+Under the hood, ```php-ovh``` uses [GuzzlePHP 6](http://docs.guzzlephp.org/en/latest/quickstart.html) by default to issue API requests. If everything goes well, it will return the response directly as shown in the examples above. If there is an error like a missing endpoint or object (404), an authentication or authorization error (401 or 403) or a parameter error, the Guzzle will raise a ``GuzzleHttp\Exception\ClientException`` exception. For server-side errors (5xx), it will raise a ``GuzzleHttp\Exception\ServerException`` exception.
+
+You can get the error details with a code like:
+
+```php
+<?php
+/**
+ * # Instantiate. Visit https://api.ovh.com/createToken/index.cgi?GET=/me
+ * to get your credentials
+ */
+require __DIR__ . '/vendor/autoload.php';
+use \Ovh\Api;
+
+$ovh = new Api( $applicationKey,
+                $applicationSecret,
+                $endpoint,
+                $consumer_key);
+
+try {
+    echo "Welcome " . $ovh->get('/me')['firstname'];
+} catch (GuzzleHttp\Exception\ClientException $e) {
+    $response = $e->getResponse();
+    $responseBodyAsString = $response->getBody()->getContents();
+    echo $responseBodyAsString;
+}
+?>
+```
+
 
 How to build the documentation?
 -------------------------------
@@ -168,11 +211,10 @@ you can install local npm project in a clone a project
     git clone https://github.com/ovh/php-ovh.git
     cd php-ovh
     php composer.phar install
-    npm install
 
 To generate documentation, it's possible to use directly:
 
-    grunt default
+    vendor/bin/phing phpdocs
 
 Documentation is available in docs/ directory.
 
@@ -185,26 +227,39 @@ local npm project in a clone a project
     git https://github.com/ovh/php-ovh.git
     cd php-ovh
     php composer.phar install
-    npm install
 
 Edit **phpunit.xml** file with your credentials to pass functionals tests. Then,
-you can run directly unit and functionals tests with grunt.
+you can run directly unit and functionals tests with [phing](http://www.phing.info/).
 
-    grunt
+    vendor/bin/phing test
+
+To skip functionals and run unit tests only, you can use the `only.units` option :
+
+    vendor/bin/phing test -Donly.units=true
 
 Supported APIs
 --------------
 
 ## OVH Europe
 
+ * ```$endpoint = 'ovh-eu';```
  * Documentation: https://eu.api.ovh.com/
  * Community support: api-subscribe@ml.ovh.net
  * Console: https://eu.api.ovh.com/console
  * Create application credentials: https://eu.api.ovh.com/createApp/
  * Create script credentials (all keys at once): https://eu.api.ovh.com/createToken/
 
+## OVH US
+
+ * ```$endpoint = 'ovh-us';```
+ * Documentation: https://api.us.ovhcloud.com/
+ * Console: https://api.us.ovhcloud.com/console
+ * Create application credentials: https://api.us.ovhcloud.com/createApp/
+ * Create script credentials (all keys at once): https://api.us.ovhcloud.com/createToken/
+
 ## OVH North America
 
+ * ```$endpoint = 'ovh-ca';```
  * Documentation: https://ca.api.ovh.com/
  * Community support: api-subscribe@ml.ovh.net
  * Console: https://ca.api.ovh.com/console
@@ -213,6 +268,7 @@ Supported APIs
 
 ## So you Start Europe
 
+ * ```$endpoint = 'soyoustart-eu';```
  * Documentation: https://eu.api.soyoustart.com/
  * Community support: api-subscribe@ml.ovh.net
  * Console: https://eu.api.soyoustart.com/console/
@@ -221,6 +277,7 @@ Supported APIs
 
 ## So you Start North America
 
+ * ```$endpoint = 'soyoustart-ca';```
  * Documentation: https://ca.api.soyoustart.com/
  * Community support: api-subscribe@ml.ovh.net
  * Console: https://ca.api.soyoustart.com/console/
@@ -229,6 +286,7 @@ Supported APIs
 
 ## Kimsufi Europe
 
+ * ```$endpoint = 'kimsufi-eu';```
  * Documentation: https://eu.api.kimsufi.com/
  * Community support: api-subscribe@ml.ovh.net
  * Console: https://eu.api.kimsufi.com/console/
@@ -237,6 +295,7 @@ Supported APIs
 
 ## Kimsufi North America
 
+ * ```$endpoint = 'kimsufi-ca';```
  * Documentation: https://ca.api.kimsufi.com/
  * Community support: api-subscribe@ml.ovh.net
  * Console: https://ca.api.kimsufi.com/console/
@@ -245,6 +304,7 @@ Supported APIs
 
 ## Runabove
 
+ * ```$endpoint = 'runabove-ca';```
  * Documentation: https://community.runabove.com/kb/en/instances/how-to-use-runabove-api.html
  * Community support: https://community.runabove.com
  * Console: https://api.runabove.com/console/

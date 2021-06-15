@@ -263,9 +263,17 @@ class OvhServer extends CommonObject
 		$connect_timeout = empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT;
 		$timeout = empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT;
 
-		$http_client = new GClient();
-		$http_client->setDefaultOption('connect_timeout', $connect_timeout);  // Timeout by default of OVH is 5 and it is not enough
-		$http_client->setDefaultOption('timeout', $timeout);
+		if ('guzzle7.3' == 'guzzle7.3') {
+			$arrayconfig = array(
+				'connect_timeout'=>$connect_timeout,
+				'timeout'=>$timeout
+			);
+			$http_client = new GClient($arrayconfig);
+		} else {
+			$http_client = new GClient();
+			$http_client->setDefaultOption('connect_timeout',$connect_timeout);  // Timeout by default of OVH is 5 and it is not enough
+			$http_client->setDefaultOption('timeout', $timeout);
+		}
 
 		dol_syslog("createSnapshot endpoint=".$endpoint." connect_timeout=".$connect_timeout." timeout=".$timeout);
 
