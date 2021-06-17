@@ -348,13 +348,17 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							if ($d['domain']) {
 								$label .= $d['domain'] . '<br>';
 							}
+							$dtFrom='';
 							if ($d['periodStart'] && $d['periodStart'] != '0000-00-00' && $d['periodStart'] != '0000-00-00 00:00:00') {
 								$label .= $langs->trans("From") . ' ' . dol_print_date(strtotime($d['periodStart']),
 										'day');
+                                $dtFrom=strtotime($d['periodStart']);
 							}
+                            $dtTo='';
 							if ($d['periodEnd'] && $d['periodEnd'] != '0000-00-00' && $d['periodEnd'] != '0000-00-00 00:00:00') {
 								$label .= ($d['periodStart'] ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d['periodEnd']),
 										'day');
+								$dtTo=strtotime($d['periodEnd']);
 							}
 							$amount = $d['unitPrice'];
 							$qty = $d['quantity'];
@@ -366,7 +370,19 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 							$remise_percent = 0;
 							$fk_product = ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
-							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
+							$prod_type=1;
+							if (!empty($fk_product)) {
+								$product = new Product($db);
+								$product->fetch($fk_product);
+								if (!empty($product->id)) {
+									$prod_type=$product->type;
+								} else {
+									$prod_type=1;
+								}
+
+							}
+                            $ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent,
+								$dtFrom, $dtTo, '', 0, $price_base, $prod_type, -1, false, 0, null, 0, 0, $d['domain'] );
 							if ($ret < 0) {
 								$error++;
 								setEventMessage("ERROR: " . $facfou->error, 'errors');
