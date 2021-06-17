@@ -160,8 +160,7 @@ if ($action == 'requestcredential' || $action == 'requestcredential2') {
 	// Get credentials
 	try {
 		dol_syslog("Request credential to endpoint ".$endpoint);
-		dol_syslog("applicationKey=".$applicationKey." applicationSecret=".$applicationKey);
-
+		dol_syslog("applicationKey=".$applicationKey." applicationSecret=".$applicationKey." redirect_uri=".$redirect_uri);
 
 		if ('guzzle7.3' == 'guzzle7.3') {
 			$arrayconfig = array(
