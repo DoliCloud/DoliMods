@@ -322,15 +322,17 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				if ($facid > 0) {
 					if (!empty($conf->global->OVH_OLDAPI)) {
 						foreach ($r->info->details as $d) {
-							//var_dump($d->start);
-							//var_dump($d->end);
 							$label = '<strong>ref :' . $d->service . '</strong><br>' . $d->description . '<br>';
+							$dtFrom = '';
 							if ($d->start && $d->start != '0000-00-00' && $d->start != '0000-00-00 00:00:00') {
 								$label .= $langs->trans("From") . ' ' . dol_print_date(strtotime($d->start), 'day');
+								$dtFrom = strtotime($d->start);
 							}
+							$dtTo = '';
 							if ($d->end && $d->end != '0000-00-00' && $d->end != '0000-00-00 00:00:00') {
 								$label .= ($d->start ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d->end),
 										'day');
+								$dtFrom = strtotime($d->end);
 							}
 							$amount = $d->baseprice;
 							$qty = $d->quantity;
@@ -339,7 +341,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							$remise_percent = 0;
 							$fk_product = ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
 							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent,
-								'', '', '', 0, $price_base);
+								$dtFrom, $dtTo, '', 0, $price_base);
 							if ($ret < 0) {
 								$error++;
 								setEventMessage("ERROR: " . $facfou->error, 'errors');
@@ -348,8 +350,6 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 						}
 					} else {
 						foreach ($r['details'] as $d) {
-							//var_dump($d->start);
-							//var_dump($d->end);
 							$label = '<strong>ref :' . $d['billDetailId'] . '</strong><br>' . $d['description'] . '<br>';
 							if ($d['domain']) {
 								$label .= $d['domain'] . '<br>';
@@ -461,7 +461,7 @@ if ($ovhthirdparty->id <= 0) {
 
 
 print '<form name="refresh" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
-if ((float)DOL_VERSION >= 11.0) {
+if ((float) DOL_VERSION >= 11.0) {
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
 } else {
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
@@ -602,7 +602,7 @@ if ($action == 'refresh') {
 			print $langs->trans("NoRecordFound") . "<br><br>\n";
 		} else {
 			print '<form name="import" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
-			if ((float)DOL_VERSION >= 11.0) {
+			if ((float) DOL_VERSION >= 11.0) {
 				print '<input type="hidden" name="token" value="' . newToken() . '">';
 			} else {
 				print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
