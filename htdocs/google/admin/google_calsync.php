@@ -573,8 +573,8 @@ print '</div>';
 dol_fiche_end();
 
 print '<div align="center">';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</div>";
+print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
+print '</div>';
 
 print "</form>\n";
 
@@ -587,14 +587,14 @@ print '<div class="tabsActions">';
 
 print '<div class="synccal showifidagendaset">';
 if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($conf->global->GOOGLE_LOGIN)) {
-	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+	print '<a class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
-	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
+	print '<a class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
 } else {
-	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+	print '<a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
 	//print '<a class="butAction" title="Make a record at current date + '.$testoffset.'s" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
-	print '<a class="butAction" title="Make a record at 12:00" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
+	print '<a class="butAction small" title="Make a record at 12:00" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
 }
 print '</div>';
 
@@ -607,25 +607,22 @@ print '<div class="synccal showifidagendaset">';
 
 if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 	print '<br>';
-	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallevents">';
 	print $langs->trans("ExportEventsToGoogle", $max, $conf->global->GOOGLE_LOGIN)." ";
-	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'"';
+	print '<input type="submit" name="pushall" class="button small" value="'.$langs->trans("Run").'"';
 	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
 	print '>';
 	print "</form>\n";
-}
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallevents">';
 	print $langs->trans("DeleteAllGoogleEvents", $conf->global->GOOGLE_LOGIN)." ";
 	print '('.$langs->trans("OperationMayBeLong").') ';
-	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'"';
+	print '<input type="submit" name="cleanup" class="button small" value="'.$langs->trans("Run").'"';
 	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
 	print '>';
 	print "</form>\n";
@@ -639,7 +636,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 		print $langs->trans("ImportEventsFromGoogle", $max, $conf->global->GOOGLE_LOGIN)." ";
 		$now = dol_now() - ($notolderforsync * 24 * 3600);
 		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($conf->global->GOOGLE_LOGIN)?1:0);
-		print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
+		print '<input type="submit" name="getall" class="button small" value="'.$langs->trans("Run").'"';
 		if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
 		print '>';
 		print "</form>\n";

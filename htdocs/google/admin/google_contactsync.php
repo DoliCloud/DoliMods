@@ -859,7 +859,7 @@ print '</div>';
 dol_fiche_end();
 
 print '<div align="center">';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</div>";
 
 print "</form>\n";
@@ -872,13 +872,13 @@ if ($conf->societe->enabled) {
 	print '<div class="tabsActions syncthirdparties">';
 	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</font></a></div>";
+		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</font></a></div>";
 
-		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("ThirdParty").")</font></a></div>";
+		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("ThirdParty").")</font></a></div>";
 	} else {
-		print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</a></div>";
 
-		print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreatethirdparties">'.$langs->trans("TestCreate")." (".$langs->trans("ThirdParty").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testcreatethirdparties">'.$langs->trans("TestCreate")." (".$langs->trans("ThirdParty").")</a></div>";
 	}
 	print '</div>';
 }
@@ -888,13 +888,13 @@ if ($conf->societe->enabled) {
 	print '<div class="tabsActions synccontacts">';
 	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</font></a></div>";
+		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</font></a></div>";
 
-		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("Contact").")</font></a></div>";
+		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("Contact").")</font></a></div>";
 	} else {
-		print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</a></div>";
 
-		print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts">'.$langs->trans("TestCreate")." (".$langs->trans("Contact").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts">'.$langs->trans("TestCreate")." (".$langs->trans("Contact").")</a></div>";
 	}
 	print '</div>';
 }
@@ -904,19 +904,19 @@ if ($conf->adherent->enabled) {
 	print '<div class="tabsActions syncmembers">';
 	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</font></a></div>";
+		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</font></a></div>";
 
-		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("Member").")</font></a></div>";
+		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("Member").")</font></a></div>";
 	} else {
-		print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</a></div>";
 
-		print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreatemembers">'.$langs->trans("TestCreate")." (".$langs->trans("Member").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testcreatemembers">'.$langs->trans("TestCreate")." (".$langs->trans("Member").")</a></div>";
 	}
 	print '</div>';
 }
 
 
-print '<br><br>';
+print '<br>';
 
 if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
 	print '<div class="tabsActions syncthirdparties">';
@@ -926,14 +926,14 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && ! empty($conf-
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallthirdparties">';
 	print $langs->trans("ExportThirdpartiesToGoogle")." ";
-	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
+	print '<input type="submit" name="pushall" class="button small" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallthirdparties">';
 	print $langs->trans("DeleteAllGoogleThirdparties")." ";
-	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
+	print '<input type="submit" name="cleanup" class="button small" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 	print '</div>';
 }
@@ -946,14 +946,14 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && ! empty($conf->glo
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallcontacts">';
 	print $langs->trans("ExportContactToGoogle")." ";
-	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
+	print '<input type="submit" name="pushall" class="button small" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallcontacts">';
 	print $langs->trans("DeleteAllGoogleContacts")." ";
-	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
+	print '<input type="submit" name="cleanup" class="button small" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 	print '</div>';
 }
@@ -966,14 +966,14 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && ! empty($conf->glob
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallmembers">';
 	print $langs->trans("ExportMembersToGoogle")." ";
-	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
+	print '<input type="submit" name="pushall" class="button small" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallmembers">';
 	print $langs->trans("DeleteAllGoogleMembers")." ";
-	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
+	print '<input type="submit" name="cleanup" class="button small" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 
 	print '</div>';

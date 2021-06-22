@@ -188,6 +188,7 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 			} else {
 				// Event label can now include company and / or contact info, and url link to thirdparty or contact, see configuration
 				google_complete_label_and_note($object, $langs);
+				//var_dump($action.' '.$object->note_private.' '.$object->ref_ext);exit;
 
 				if ($action == 'ACTION_CREATE') {
 					$ret = createEvent($servicearray, $object, $userlogin);

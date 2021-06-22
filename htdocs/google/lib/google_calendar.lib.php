@@ -285,7 +285,7 @@ function createEvent($client, $object, $login = 'primary')
 	$event->setSummary(trim($object->label));
 	$event->setLocation($object->location);
 
-	$note = html_entity_decode(($object->note_public ? $object->note_public : $object->note), ENT_QUOTES);    // Because dol_string_nohtmltag does not convert simple quotes
+	$note = html_entity_decode(($object->note_private ? $object->note_private : $object->note), ENT_QUOTES);    // Because dol_string_nohtmltag does not convert simple quotes
 	$event->setDescription(dol_string_nohtmltag($note, 0));
 
 	// Transparency 0=available, 1=busy
@@ -362,9 +362,8 @@ function createEvent($client, $object, $login = 'primary')
 
 
 /**
- * Updates the title of the event with the specified ID to be
- * the title specified.  Also outputs the new and old title
- * with HTML br elements separating the lines
+ * Updates the event with the specified ID with the new properties. Also outputs the new and old title
+ * with HTML br elements separating the lines.
  *
  * @param  	array					$client   		Service array with authenticated client object (Not used if $service is provided)
  * @param  	string   				$eventId        The event ID string
@@ -421,7 +420,7 @@ function updateEvent($client, $eventId, $object, $login = 'primary', $service = 
 		$event->setSummary(trim($object->label));
 		$event->setLocation($object->location);
 
-		$note = html_entity_decode(($object->note_public ? $object->note_public : $object->note), ENT_QUOTES);    // Because dol_string_nohtmltag does not convert simple quotes
+		$note = html_entity_decode(($object->note_private ? $object->note_private : $object->note), ENT_QUOTES);    // Because dol_string_nohtmltag does not convert simple quotes
 		$event->setDescription(dol_string_nohtmltag($note, 2));
 
 		// Transparency 0=available, 1=busy
@@ -547,7 +546,7 @@ function deleteEventById($client, $eventId, $login = 'primary', $service = null)
 
 
 /**
- * Complete $object to change ->label and ->note_public before pushing event to Google Calendar.
+ * Complete $object to change ->label and ->note_private before pushing event to Google Calendar.
  *
  * @param 	Object		$object		Object event to complete
  * @param	Translate	$langs		Language object
@@ -578,10 +577,19 @@ function google_complete_label_and_note(&$object, $langs)
 			$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
 
 			$urltoelem=$urlwithroot.$pagename.'?socid='.$thirdparty->id;
-			$object->note_public = ($object->note_public ? $object->note_public : $object->note);    // For backward compatibility
+			$object->note = ($object->note_private ? $object->note_private : ($object->note ? $object->note : $object->note_public));    		// For backward compatibility
+			$object->note_public = ($object->note_private ? $object->note_private : ($object->note ? $object->note : $object->note_public));   	// For backward compatibility
+			$object->note_private = ($object->note_private ? $object->note_private : ($object->note ? $object->note : $object->note_public));
 
-			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
-			$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+			if (strpos($object->note, '-----+++++-----') === false) {
+				$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+			}
+			if (strpos($object->note_public, '-----+++++-----') === false) {
+				$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+			}
+			if (strpos($object->note_private, '-----+++++-----') === false) {
+				$object->note_private.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+			}
 		}
 	}
 	if (($object->contactid > 0 || $object->contact_id > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
@@ -599,10 +607,19 @@ function google_complete_label_and_note(&$object, $langs)
 			if (! empty($contact->fax)) $more.="\n".$langs->trans("Fax").': '.$contact->fax;
 
 			$urltoelem=$urlwithroot.'/contact/card.ph?id='.$contact->id;
-			$object->note_public = ($object->note_public ? $object->note_public : $object->note);    // For backward compatibility
+			$object->note = ($object->note_private ? $object->note_private : ($object->note ? $object->note : $object->note_public));    		// For backward compatibility
+			$object->note_public = ($object->note_private ? $object->note_private : ($object->note ? $object->note : $object->note_public));   	// For backward compatibility
+			$object->note_private = ($object->note_private ? $object->note_private : ($object->note ? $object->note : $object->note_public));
 
-			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
-			$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
+			if (strpos($object->note, '-----+++++-----') === false) {
+				$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
+			}
+			if (strpos($object->note_public, '-----+++++-----') === false) {
+				$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
+			}
+			if (strpos($object->note_private, '-----+++++-----') === false) {
+				$object->note_private.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
+			}
 		}
 	}
 	$object->label = $eventlabel;
@@ -733,6 +750,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						//$object->contact_id=$obj->fk_contact;
 						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
 						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
+						$object->note_private=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
 
 						// Organizer
 						/*$organizer=$event->getOrganizer();
@@ -807,8 +825,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						}
 
 						if ($status == 'cancelled') {
-							$conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE=1;
-							if (! empty($conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE)) {
+							$conf->global->GOOGLE_DELETEONDOL_WHEN_DELETEDONGOOGLE=1;
+							if (! empty($conf->global->GOOGLE_DELETEONDOL_WHEN_DELETEDONGOOGLE)) {
 								$result=$object->delete(1);
 								if ($result > 0) {
 									$nbdeleted++;
@@ -864,6 +882,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						$object->type_code='AC_OTH';
 						$object->code='AC_OTH';
 						$object->label=$event->getSummary();
+
 						$transtmp=$event->getTransparency();
 						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy = transparency to 1, 'transparent' = available
 						$object->priority=0;
@@ -873,6 +892,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						//$object->contactid=$obj->fk_contact;
 						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
 						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
+						$object->note_private=trim(preg_replace('/'.preg_quote('-----+++++-----', '/').'.*$/s', '', $event->getDescription()));
 
 						// Organizer
 						/*$organizer=$event->getOrganizer();
