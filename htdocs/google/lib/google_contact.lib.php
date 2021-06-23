@@ -336,7 +336,8 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 	global $conf, $db, $langs;
 	global $tag_debug;
 
-	$newcontactid=$contactId;
+	$newcontactid = $contactId;
+
 	$reg = array();
 	if (preg_match('/google\.com\/.*\/([^\/]+)$/', $contactId, $reg)) {
 		$newcontactid=$reg[1];
@@ -348,6 +349,11 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 	$tag_debug='updatecontact';
 
 	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext.' contactid='.$newcontactid);
+
+	if (empty($newcontactid)) {
+		dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext.' bad value for $contactId='.$contactId, LOG_WARNING);
+		return 0;
+	}
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
@@ -432,7 +438,14 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$xmlgcontact = simplexml_load_string($xmlStr, null, 0, 'gContact', true);
 		$xmlgd = simplexml_load_string($xmlStr, null, 0, 'gd', true);
 		$xml = simplexml_load_string($xmlStr);
-		//var_dump($xml);
+
+		if (get_class($xml) != 'SimpleXMLElement') {
+			dol_syslog('Failed to get Google record with ref='.$newcontactid." or parse it", LOG_WARNING);
+			$object->error = 'Failed to get Google record with ref='.$newcontactid.' or parse it, contactId='.$contactId;
+			return -1;
+		}
+
+		// Modify $xml
 		if ($object->element != 'societe' && $object->element != 'thirdparty') {
 			$fullNameToUse = $object->getFullName($langs);
 		} else {
@@ -507,7 +520,6 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$tmpnote=$object->note_public;
 		if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		$xml->content=google_html_convert_entities($tmpnote);
-
 
 		$xmlStr=$xml->saveXML();
 
