@@ -330,9 +330,8 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 							$dtTo = '';
 							if ($d->end && $d->end != '0000-00-00' && $d->end != '0000-00-00 00:00:00') {
-								$label .= ($d->start ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d->end),
-										'day');
-								$dtFrom = strtotime($d->end);
+								$label .= ($d->start ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d->end), 'day');
+								$dtTo = strtotime($d->end);
 							}
 							$amount = $d->baseprice;
 							$qty = $d->quantity;
@@ -340,8 +339,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							$tauxtva = vatrate($vatrate);
 							$remise_percent = 0;
 							$fk_product = ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
-							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent,
-								$dtFrom, $dtTo, '', 0, $price_base);
+							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, $dtFrom, $dtTo, '', 0, $price_base);
 							if ($ret < 0) {
 								$error++;
 								setEventMessage("ERROR: " . $facfou->error, 'errors');
