@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7431a11284e7d72eeaa2251be43782a8163af12b',
+    'reference' => 'cdd88f39f6547b75a87747c1431ebb882dffeda3',
     'name' => 'eldy/dolimods',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7431a11284e7d72eeaa2251be43782a8163af12b',
+      'reference' => 'cdd88f39f6547b75a87747c1431ebb882dffeda3',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -56,6 +56,15 @@
       ),
       'reference' => 'c473b3d67e5757c188b10e3048aba1ec43133653',
     ),
+    'paragonie/random_compat' => 
+    array (
+      'pretty_version' => 'v2.0.20',
+      'version' => '2.0.20.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0f1f60250fccffeaf5dda91eea1c018aed1adc2a',
+    ),
     'psr/http-message' => 
     array (
       'pretty_version' => '1.0.1',
@@ -83,30 +92,39 @@
     ),
     'symfony/polyfill-intl-idn' => 
     array (
-      'pretty_version' => 'v1.23.0',
-      'version' => '1.23.0.0',
+      'pretty_version' => 'v1.19.0',
+      'version' => '1.19.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '65bd267525e82759e7d8c4e8ceea44f398838e65',
+      'reference' => '4ad5115c0f5d5172a9fe8147675ec6de266d8826',
     ),
     'symfony/polyfill-intl-normalizer' => 
     array (
-      'pretty_version' => 'v1.23.0',
-      'version' => '1.23.0.0',
+      'pretty_version' => 'v1.19.0',
+      'version' => '1.19.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8590a5f561694770bdcd3f9b5c69dde6945028e8',
+      'reference' => '8db0ae7936b42feb370840cf24de1a144fb0ef27',
+    ),
+    'symfony/polyfill-php70' => 
+    array (
+      'pretty_version' => 'v1.19.0',
+      'version' => '1.19.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3fe414077251a81a1b15b1c709faf5c2fbae3d4e',
     ),
     'symfony/polyfill-php72' => 
     array (
-      'pretty_version' => 'v1.23.0',
-      'version' => '1.23.0.0',
+      'pretty_version' => 'v1.19.0',
+      'version' => '1.19.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9a142215a36a3888e30d0a9eeea9766764e96976',
+      'reference' => 'beecef6b463b06954638f02378f52496cb84bacc',
     ),
   ),
 );
