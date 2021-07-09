@@ -26,19 +26,25 @@
  */
 
 // Load Dolibarr environment
-$res=0;
+$res = 0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (!$res && !empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res = @include $_SERVER["CONTEXT_DOCUMENT_ROOT"] . "/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
-$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
-while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
-if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
-if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/main.inc.php";
+$tmp = empty($_SERVER['SCRIPT_FILENAME']) ? '' : $_SERVER['SCRIPT_FILENAME'];
+$tmp2 = realpath(__FILE__);
+$i = strlen($tmp) - 1;
+$j = strlen($tmp2) - 1;
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i] == $tmp2[$j]) {
+	$i--;
+	$j--;
+}
+if (!$res && $i > 0 && file_exists(substr($tmp, 0, ($i + 1)) . "/main.inc.php")) $res = @include substr($tmp, 0, ($i + 1)) . "/main.inc.php";
+if (!$res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i + 1))) . "/main.inc.php")) $res = @include dirname(substr($tmp, 0, ($i + 1))) . "/main.inc.php";
 // Try main.inc.php using relative path
-if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
-if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
-if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
-if (! $res) die("Include of main fails");
+if (!$res && file_exists("../main.inc.php")) $res = @include "../main.inc.php";
+if (!$res && file_exists("../../main.inc.php")) $res = @include "../../main.inc.php";
+if (!$res && file_exists("../../../main.inc.php")) $res = @include "../../../main.inc.php";
+if (!$res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT . '/user/class/user.class.php';
 require_once DOL_DOCUMENT_ROOT . '/fourn/class/paiementfourn.class.php';
@@ -56,7 +62,7 @@ require_once DOL_DOCUMENT_ROOT . '/compta/tva/class/tva.class.php';
 
 require __DIR__ . '/includes/autoload.php';
 
-use \Ovh\Api;
+use Ovh\Api;
 
 
 $langs->loadLangs(array("bills", "orders", "ovh@ovh"));
@@ -170,7 +176,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				//echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
 			} else {
 				$result = array();
-				if (! empty($conf->global->OVH_VAT_VALID_LIST)) {
+				if (!empty($conf->global->OVH_VAT_VALID_LIST)) {
 					$validVatList0 = explode(';', $conf->global->OVH_VAT_VALID_LIST);
 					foreach ($validVatList0 as $vatid) {
 						if ($vat = getTaxesFromId($vatid)) {
@@ -274,7 +280,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					if (count($validVatList)) {
 						$arrayDiffRate = array();
 						foreach ($validVatList as $vatK => $vat) {
-							$arrayDiffRate[abs($vat['rate']- $vatrate)] = $vat;
+							$arrayDiffRate[abs($vat['rate'] - $vatrate)] = $vat;
 						}
 						ksort($arrayDiffRate);
 						$vatRateNew = array_shift($arrayDiffRate);
@@ -316,15 +322,16 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				if ($facid > 0) {
 					if (!empty($conf->global->OVH_OLDAPI)) {
 						foreach ($r->info->details as $d) {
-							//var_dump($d->start);
-							//var_dump($d->end);
 							$label = '<strong>ref :' . $d->service . '</strong><br>' . $d->description . '<br>';
+							$dtFrom = '';
 							if ($d->start && $d->start != '0000-00-00' && $d->start != '0000-00-00 00:00:00') {
 								$label .= $langs->trans("From") . ' ' . dol_print_date(strtotime($d->start), 'day');
+								$dtFrom = strtotime($d->start);
 							}
+							$dtTo = '';
 							if ($d->end && $d->end != '0000-00-00' && $d->end != '0000-00-00 00:00:00') {
-								$label .= ($d->start ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d->end),
-										'day');
+								$label .= ($d->start ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d->end), 'day');
+								$dtTo = strtotime($d->end);
 							}
 							$amount = $d->baseprice;
 							$qty = $d->quantity;
@@ -332,8 +339,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							$tauxtva = vatrate($vatrate);
 							$remise_percent = 0;
 							$fk_product = ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
-							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent,
-								'', '', '', 0, $price_base);
+							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, $dtFrom, $dtTo, '', 0, $price_base);
 							if ($ret < 0) {
 								$error++;
 								setEventMessage("ERROR: " . $facfou->error, 'errors');
@@ -342,19 +348,21 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 						}
 					} else {
 						foreach ($r['details'] as $d) {
-							//var_dump($d->start);
-							//var_dump($d->end);
 							$label = '<strong>ref :' . $d['billDetailId'] . '</strong><br>' . $d['description'] . '<br>';
 							if ($d['domain']) {
 								$label .= $d['domain'] . '<br>';
 							}
+							$dtFrom = '';
 							if ($d['periodStart'] && $d['periodStart'] != '0000-00-00' && $d['periodStart'] != '0000-00-00 00:00:00') {
 								$label .= $langs->trans("From") . ' ' . dol_print_date(strtotime($d['periodStart']),
 										'day');
+								$dtFrom = strtotime($d['periodStart']);
 							}
+							$dtTo = '';
 							if ($d['periodEnd'] && $d['periodEnd'] != '0000-00-00' && $d['periodEnd'] != '0000-00-00 00:00:00') {
 								$label .= ($d['periodStart'] ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d['periodEnd']),
 										'day');
+								$dtTo = strtotime($d['periodEnd']);
 							}
 							$amount = $d['unitPrice'];
 							$qty = $d['quantity'];
@@ -366,7 +374,20 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 							$remise_percent = 0;
 							$fk_product = ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
-							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
+							$prod_type = 1;
+							if (!empty($fk_product)) {
+								$product = new Product($db);
+								$product->fetch($fk_product);
+								if (!empty($product->id)) {
+									$prod_type = $product->type;
+								} else {
+									$prod_type = 0;
+									$dtFrom = '';
+									$dtTo = '';
+								}
+							}
+							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent,
+								$dtFrom, $dtTo, '', 0, $price_base, $prod_type, -1, false, 0, null, 0, 0, $d['domain']);
 							if ($ret < 0) {
 								$error++;
 								setEventMessage("ERROR: " . $facfou->error, 'errors');
@@ -439,14 +460,14 @@ if ($ovhthirdparty->id <= 0) {
 
 print '<form name="refresh" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
 if ((float) DOL_VERSION >= 11.0) {
-	print '<input type="hidden" name="token" value="'.newToken().'">';
+	print '<input type="hidden" name="token" value="' . newToken() . '">';
 } else {
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 }
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
-print '<span class="opacitymedium">'.$langs->trans("OvhInvoiceImportDesc") . '</span><br><br>';
+print '<span class="opacitymedium">' . $langs->trans("OvhInvoiceImportDesc") . '</span><br><br>';
 
 //print $form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID, 'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID');
 //print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->OVHSMS_NICK.'</strong><br>';
@@ -479,17 +500,17 @@ print '<input type="checkbox" name="excludenullinvoice"' . ((!isset($_POST["excl
 print ' &nbsp; <input type="checkbox" name="excludenulllines"' . ((isset($_POST["excludenulllines"]) && GETPOST('excludenulllines')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullLines") . '<br>';
 print $langs->trans("FromThe") . ': ';
 print $form->selectDate($datefrom, 'datefrom');
-if (! empty($conf->global->OVH_USE_2_ACCOUNTS)) {
+if (!empty($conf->global->OVH_USE_2_ACCOUNTS)) {
 	print '<br>';
 	print $langs->trans("OVHAccount") . ': ';
-	$liste_opt='<select name="compte" class="flat">';
-	$liste_opt.='<option value="1">';
-	$liste_opt.='1-'.$conf->global->OVHAPPNAME;
-	$liste_opt.='</option>';
-	$liste_opt.='<option value="2">';
-	$liste_opt.='2-'.$conf->global->OVHAPPNAME2;
-	$liste_opt.='</option>';
-	$liste_opt.="</select>";
+	$liste_opt = '<select name="compte" class="flat">';
+	$liste_opt .= '<option value="1">';
+	$liste_opt .= '1-' . $conf->global->OVHAPPNAME;
+	$liste_opt .= '</option>';
+	$liste_opt .= '<option value="2">';
+	$liste_opt .= '2-' . $conf->global->OVHAPPNAME2;
+	$liste_opt .= '</option>';
+	$liste_opt .= "</select>";
 	print $liste_opt;
 	print '<br><br>';
 }
@@ -580,9 +601,9 @@ if ($action == 'refresh') {
 		} else {
 			print '<form name="import" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
 			if ((float) DOL_VERSION >= 11.0) {
-				print '<input type="hidden" name="token" value="'.newToken().'">';
+				print '<input type="hidden" name="token" value="' . newToken() . '">';
 			} else {
-				print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+				print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 			}
 
 			print '<div><div class="clearboth floatleft"><strong>' . $nbfound . '</strong> ' . $langs->trans("Invoices") . "</div>\n";
@@ -598,12 +619,12 @@ if ($action == 'refresh') {
 				//print '<br>';
 			}
 			print '<input type="hidden" name="action" value="import">';
-			print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+			print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 			print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
 			print '<input type="hidden" name="datefrommonth" value="' . dol_print_date($datefrom, '%m') . '">';
 			print '<input type="hidden" name="datefromyear" value="' . dol_print_date($datefrom, '%Y') . '">';
 
-			print '<input type="hidden" name="compte" value="' .GETPOST("compte", 'alpha'). '">';
+			print '<input type="hidden" name="compte" value="' . GETPOST("compte", 'alpha') . '">';
 
 			print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="' . $excludenullinvoice . '">';
 			print '<input type="hidden" id="excludenulllineshidden" name="excludenulllines" value="' . $excludenulllines . '">';
@@ -702,7 +723,7 @@ if ($action == 'refresh') {
 						//var_dump($upload_dir);
 						$file_name = ($upload_dir . "/" . $facfou->ref_supplier . ".pdf");
 						$file_name_bis = ($upload_dir . "/" . $facfou->ref . '-' . $facfou->ref_supplier . ".pdf");
-						$file_name_ter = ($upload_dir . "/" . $facfou->ref . '_' . $facfou->ref_supplier . ".pdf");		// Old version made import with this name
+						$file_name_ter = ($upload_dir . "/" . $facfou->ref . '_' . $facfou->ref_supplier . ".pdf");        // Old version made import with this name
 
 						$file_name_to_use = (empty($conf->global->MAIN_DISABLE_SUGGEST_REF_AS_PREFIX) ? $file_name_bis : $file_name);
 
