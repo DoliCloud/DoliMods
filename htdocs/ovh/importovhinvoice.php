@@ -650,8 +650,8 @@ if ($action == 'refresh') {
 
 				print '<tr class="oddeven">';
 				print '<td>' . $r['billnum'] . '</td><td align="center">' . dol_print_date($r['date'], 'day') . "</td>";
-				print '<td align="right">' . price($r['totalPrice']) . '</td>';
-				print '<td align="right">' . price($r['totalPriceWithVat']) . '</td>';
+				print '<td align="right amount">' . price($r['totalPrice']) . '</td>';
+				print '<td align="right amount">' . price($r['totalPriceWithVat']) . '</td>';
 				print '<td align="right">' . $r['currency'] . '</td>';
 				//print '<td align="right">'.vatrate($vatrate).'</td>';
 				print "<td>";
