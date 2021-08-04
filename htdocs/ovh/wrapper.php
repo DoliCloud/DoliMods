@@ -39,7 +39,7 @@ function llxHeader()
 {
 	print '<html>'."\n";
 	print '<head>'."\n";
-	print '<title>OVH redirection from Dolibarr - file ovh/wrapper.php ...</title>'."\n";
+	print '<title>OVH wrapper from Dolibarr - file ovh/wrapper.php ...</title>'."\n";
 	print '</head>'."\n";
 }
 
@@ -120,9 +120,7 @@ $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPO
  * View
  */
 
-llxHeader();
-
-if (! empty($conf->global->OVH_OLDAPI)) {
+if (!empty($conf->global->OVH_OLDAPI)) {
 	if (empty($login)) {
 		print '<div class="error">'.$langs->trans("ErrorClickToDialForUserNotDefined").'</div>';
 		llxFooter();
@@ -135,9 +133,9 @@ $pos=strpos($number, "local");
 
 //print "$login, $password, $caller, $number, $caller";
 if (! empty($number)) {
-	if ($pos===false) :
-		$errno=0 ;
-		$errstr=0 ;
+	if ($pos === false) {
+		$errno=0;
+		$errstr=0;
 		$strCallerId = "Dolibarr <".strtolower($caller).">" ;
 
 		try {
@@ -150,18 +148,27 @@ if (! empty($number)) {
 				$content = (object) array(
 				"calledNumber" => $called,  // who is called
 				"callingNumber"=> $caller,   // who calls
-				'intercom' => (empty($conf->global->OVH_CLICKTODIAL_NO_INTERCOM)?true:false)
+				'intercom' => (empty($conf->global->OVH_CLICKTODIAL_NO_INTERCOM) ? true : false)
 				);
 				$result = $conn->post('/telephony/'.$billingAccount.'/line/'.$serviceName.'/click2Call', $content);
 			}
 
+			llxHeader();
+
 			$txt="Call OVH SIP dialer for caller: ".$caller.", called: ".$called.", clicktodiallogin: ".$login.", password: ".preg_replace('/./', '*', $password);
 			dol_syslog($txt);
-			print '<body '.(empty($conf->global->OVH_DISABLE_HISTORYGOBACK) ? '' : 'x').'onload="javascript:history.go(-1);">'."\n";
+			print '<body ';
+			$historyback = (empty($conf->global->OVH_DISABLE_HISTORYGOBACK) ? 1 : 0);
+			if ($historyback) {
+				print 'onload="javascript:history.go(-1);"';
+			}
+			print '>'."\n";
 			print '<!-- '.$txt.' -->'."\n";
 			print '<!-- result = '.$result.' -->'."\n";
-			sleep(2);
+			sleep(1);
 			print '</body>'."\n";
+
+			llxFooter();
 		} catch (SoapFault $fault) {
 			/*print 'faultcode='.$fault->faultcode."\n";
 			print 'faultstring='.$fault->faultstring."\n";
@@ -179,14 +186,25 @@ if (! empty($number)) {
 				echo $fault;
 			}
 		} catch (Exception $e) {
+			http_response_code(500);
 			dol_syslog("Error: ".$e->getMessage());
 			echo 'Error: '.$e->getMessage()."\n";
+			/*
+			print '<body ';
+			$historyback = (empty($conf->global->OVH_DISABLE_HISTORYGOBACK) ? 1 : 0);
+			if ($historyback) {
+				print 'onload="javascript:history.go(-1);"';
+			}
+			print '>'."\n";
+			print '<!-- '.$txt.' -->'."\n";
+			print '<!-- result = '.$result.' -->'."\n";
+			sleep(1);
+			print '</body>'."\n";
+			*/
 		}
-	endif;
+	}
 } else {
 	print 'Bad parameters in URL. Must be '.$_SERVER['PHP_SELF'].'?caller=99999&called=99999&login=xxxxx&password=xxxxx';
 }
-
-llxFooter();
 
 $db->close();
