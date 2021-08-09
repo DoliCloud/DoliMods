@@ -101,13 +101,17 @@ if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an obje
 		print '<td>';
 		$sms->account=$accountlisted;
 		$result=$sms->SmsSenderList();
-		$i=0;
-		foreach ($result as $val) {
-			if (! empty($conf->global->OVH_OLDAPI)) print ($val->status=='enable'?'':'<strike>');
-			print $val->number.(empty($val->description)?'':' ('.$val->description.')');
-			if (! empty($conf->global->OVH_OLDAPI)) print ($val->status=='enable'?'':'</strike>');
-			$i++;
-			if ($i < count($result)) print ', ';
+		if ($result < 0) {
+			print $sms->error;
+		} else {
+			$i=0;
+			foreach ($result as $val) {
+				if (! empty($conf->global->OVH_OLDAPI)) print ($val->status=='enable'?'':'<strike>');
+				print $val->number.(empty($val->description)?'':' ('.$val->description.')');
+				if (! empty($conf->global->OVH_OLDAPI)) print ($val->status=='enable'?'':'</strike>');
+				$i++;
+				if ($i < count($result)) print ', ';
+			}
 		}
 		print '</td>';
 		print '<td align="right">';

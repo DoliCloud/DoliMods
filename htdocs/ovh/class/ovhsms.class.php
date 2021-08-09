@@ -275,6 +275,11 @@ class OvhSms extends CommonObject
 			$errmsg="Error ".$fault->faultstring;
 			dol_syslog(get_class($this)."::SmsSend ".$errmsg, LOG_ERR);
 			$this->error.=($this->error?', '.$errmsg:$errmsg);
+		} catch (Exception $e) {
+			$errmsg="Error ".$e->getMessage();
+			dol_syslog(get_class($this)."::SmsSend ".$errmsg, LOG_ERR);
+			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			return -1;
 		}
 		return -1;
 	}
@@ -315,7 +320,12 @@ class OvhSms extends CommonObject
 			}
 		} catch (SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
-			dol_syslog(get_class($this)."::SmsHistory ".$errmsg, LOG_ERR);
+			dol_syslog(get_class($this)."::getSmsListAccount ".$errmsg, LOG_ERR);
+			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			return -1;
+		} catch (Exception $e) {
+			$errmsg="Error ".$e->getMessage();
+			dol_syslog(get_class($this)."::getSmsListAccount ".$errmsg, LOG_ERR);
 			$this->error.=($this->error?', '.$errmsg:$errmsg);
 			return -1;
 		}
@@ -343,7 +353,12 @@ class OvhSms extends CommonObject
 			}
 		} catch (SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
-			dol_syslog(get_class($this)."::SmsHistory ".$errmsg, LOG_ERR);
+			dol_syslog(get_class($this)."::CreditLeft ".$errmsg, LOG_ERR);
+			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			return -1;
+		} catch (Exception $e) {
+			$errmsg="Error ".$e->getMessage();
+			dol_syslog(get_class($this)."::CreditLeft ".$errmsg, LOG_ERR);
 			$this->error.=($this->error?', '.$errmsg:$errmsg);
 			return -1;
 		}
@@ -370,6 +385,11 @@ class OvhSms extends CommonObject
 			}
 		} catch (SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
+			dol_syslog(get_class($this)."::SmsHistory ".$errmsg, LOG_ERR);
+			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			return -1;
+		} catch (Exception $e) {
+			$errmsg="Error ".$e->getMessage();
 			dol_syslog(get_class($this)."::SmsHistory ".$errmsg, LOG_ERR);
 			$this->error.=($this->error?', '.$errmsg:$errmsg);
 			return -1;
@@ -405,6 +425,11 @@ class OvhSms extends CommonObject
 			}
 		} catch (SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
+			dol_syslog(get_class($this)."::SmsSenderList ".$errmsg, LOG_ERR);
+			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			return -1;
+		} catch (Exception $e) {
+			$errmsg="Error ".$e->getMessage();
 			dol_syslog(get_class($this)."::SmsSenderList ".$errmsg, LOG_ERR);
 			$this->error.=($this->error?', '.$errmsg:$errmsg);
 			return -1;
