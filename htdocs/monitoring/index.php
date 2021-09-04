@@ -328,7 +328,7 @@ if (empty($id)) {
 	$sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
 	$sql.=" ORDER BY rowid";
 
-	dol_syslog("probes sql=".$sql, LOG_DEBUG);
+	dol_syslog("probes", LOG_DEBUG);
 	$resql=$db->query($sql);
 	if ($resql) {
 		$num =$db->num_rows($resql);
