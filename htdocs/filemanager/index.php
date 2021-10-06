@@ -303,7 +303,7 @@ if ($filemanagerroots->rootpath) {
                 closeOnEscape: false,
                 close: function(event, ui) {
                          if (choice == \'ok\') {
-                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=adddir&id='.$id.'&dir=\'+jQuery("#confirmdirname").val(); */
+                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=adddir&token='.newToken().'&id='.$id.'&dir=\'+jQuery("#confirmdirname").val(); */
                             url=\''.dol_buildpath('/filemanager/ajaxfileactions.php', 1).'?action=newdir&rootpath='.$filemanagerroots->id.'&modulepart=filemanager&type=auto&file=\'+urlencode(jQuery("#confirmdirname").val());
                             console.log(\'url=\'+url);
                             jQuery.post(url,
@@ -355,7 +355,7 @@ if ($filemanagerroots->rootpath) {
     		                closeOnEscape: false,
     		                close: function(event, ui) {
     		                         if (choice == \'ok\') {
-    		                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=addfile&id='.$id.'&dir=\'+jQuery("#confirmfilename").val(); */
+    		                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=addfile&token='.newToken().'&id='.$id.'&dir=\'+jQuery("#confirmfilename").val(); */
     		                            url=\''.dol_buildpath('/filemanager/ajaxfileactions.php', 1).'?action=newfile&rootpath='.$filemanagerroots->id.'&modulepart=filemanager&type=auto&file=\'+urlencode(jQuery("#confirmfilename").val());
     		                            console.log(\'url=\'+url);
     		                            jQuery.post(url,
@@ -488,7 +488,7 @@ if ($filemanagerroots->rootpath) {
 			{
 				// TODO Save content
 				//alert(content);
-				url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php', 1); ?>?action=save&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+				url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php', 1); ?>?action=save&token=<?php echo newToken(); ?>&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
 				// jQuery.post("test.php", $("#testform").serialize());
 				jQuery.post(url, { action: 'save', str: content, sizeofcontent: content.length, textformat: textformat },
 					function(data) {
@@ -513,7 +513,7 @@ if ($filemanagerroots->rootpath) {
 
 			if (filename != '')
 			{
-				url='<?php  echo dol_buildpath('/filemanager/ajaxfileactions.php', 1);  ?>?action=edit&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+				url='<?php  echo dol_buildpath('/filemanager/ajaxfileactions.php', 1);  ?>?action=edit&token=<?php echo newToken(); ?>&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
 				jQuery.get(url, function(data) {
 					// alert('Load of url '+url+' was performed : '+data);
 					  jQuery('#fileview').append(data);
