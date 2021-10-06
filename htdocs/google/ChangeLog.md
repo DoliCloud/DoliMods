@@ -5,7 +5,7 @@
 
 - NEW Use Google PHP API v2.9.1
 - Better error message on error when generating the Oauth token
-- Fix confusion between note/note_puclib/note_private into agenda events.
+- Fix confusion between note/note_public/note_private into agenda events.
 
 
 ## 6.3
