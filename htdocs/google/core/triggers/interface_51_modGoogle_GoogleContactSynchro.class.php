@@ -163,7 +163,9 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 				if ($action == 'COMPANY_CREATE' || $action == 'CONTACT_CREATE' || $action == 'MEMBER_CREATE') {
 					$ret = googleCreateContact($servicearray, $object, $userlogin);
 					if (! preg_match('/ERROR/', $ret)) {
-						if (! preg_match('/google\.com/', $ret)) $ret='google:'.$ret;
+						if ($ret && ! preg_match('/google\.com/', $ret)) {
+							$ret='google:'.$ret;
+						}
 						$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 						return 1;
 					} else {
@@ -181,7 +183,9 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 							//var_dump($ret); exit;
 
 							if (! preg_match('/ERROR/', $ret)) {
-								if (! preg_match('/google\.com/', $ret)) $ret='google:'.$ret;
+								if ($ret && ! preg_match('/google\.com/', $ret)) {
+									$ret='google:'.$ret;
+								}
 								$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 								return 1;
 							} else {
@@ -199,7 +203,9 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						//var_dump($ret); exit;
 
 						if (! preg_match('/ERROR/', $ret)) {
-							if (! preg_match('/google\.com/', $ret)) $ret='google:'.$ret;
+							if ($ret && ! preg_match('/google\.com/', $ret)) {
+								$ret='google:'.$ret;
+							}
 							$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 							return 1;
 						} else {
