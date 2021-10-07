@@ -116,8 +116,8 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 		$userlogin = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
 		if (empty($userlogin)) {	// We use setup of user
 			$fuser = new User($this->db);
-		} else // We use global setup
-		{
+			// TODO
+			// $userlogin = ...
 		}
 
 

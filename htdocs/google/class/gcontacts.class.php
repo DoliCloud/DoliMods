@@ -66,12 +66,17 @@ class GContact
 	 */
 	public function __construct($dolID, $type, $gdata)
 	{
+		global $conf;
+
 		if ($dolID) {
 			$this->from='dolibarr';
 			$this->dolID = $dolID;
-			if ($type == 'thirdparty') $this->fetchThirdpartyFromDolibarr($gdata);
-			elseif ($type == 'contact') $this->fetchContactFromDolibarr($gdata);
-			elseif ($type == 'member') $this->fetchMemberFromDolibarr($gdata);
+
+			$useremail = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+
+			if ($type == 'thirdparty') $this->fetchThirdpartyFromDolibarr($gdata, $useremail);
+			elseif ($type == 'contact') $this->fetchContactFromDolibarr($gdata, $useremail);
+			elseif ($type == 'member') $this->fetchMemberFromDolibarr($gdata, $useremail);
 			else dol_print_error('', 'Bad value for type');
 		} else {
 			$this->from='gmail';
@@ -232,13 +237,15 @@ class GContact
 	 *
 	 * @param	Gdata	$gdata		Gdata handler
 	 * @param 	string 	$groupName	Name of group
+	 * @param	string	$useremail	User email
 	 * @return	void
 	 */
-	private function appendGroup($gdata, $groupName)
+	private function appendGroup($gdata, $groupName, $useremail)
 	{
 		$el = $this->doc->createElement("gcontact:groupMembershipInfo");
 		$el->setAttribute("deleted", "false");
-		$el->setAttribute("href", self::getGoogleGroupID($gdata, $groupName));
+		$href = self::getGoogleGroupID($gdata, $groupName, $useremail);
+		$el->setAttribute("href", $href);
 		$this->atomEntry->appendChild($el);
 	}
 
@@ -246,9 +253,10 @@ class GContact
 	 * Fill the GContact class from a dolibarID
 	 *
 	 * @param	Gdata		$gdata		Gdata handler
+	 * @param	string		$useremail	User email
 	 * @return 	GContact
 	 */
-	private function fetchThirdpartyFromDolibarr($gdata)
+	private function fetchThirdpartyFromDolibarr($gdata, $useremail)
 	{
 		global $conf,$langs;
 
@@ -262,7 +270,7 @@ class GContact
 		if ($result==0)
 			throw new Exception('Internal error: Thirdparty with ID '.$this->dolID.' not found');
 		if ($result==0)
-			throw new Exception($dolContact->$error);
+			throw new Exception($dolContact->error);
 
 		// Fill object with thirdparty infos
 		$this->firstname = $dolContact->firstname;
@@ -345,7 +353,7 @@ class GContact
 		$this->atomEntry->appendChild($userdefined);
 
 		// Add tags
-		$this->appendGroup($gdata, getTagLabel('thirdparties'));
+		$this->appendGroup($gdata, getTagLabel('thirdparties'), $useremail);
 		$this->doc->appendChild($this->atomEntry);
 	}
 
@@ -354,9 +362,10 @@ class GContact
 	 * Note: It creates groups if it not exists.
 	 *
 	 * @param	GData	$gdata		GData
+	 * @param	string	$useremail	User email
 	 * @return 	GContact
 	 */
-	private function fetchContactFromDolibarr($gdata)
+	private function fetchContactFromDolibarr($gdata, $useremail)
 	{
 		global $conf,$langs;
 
@@ -370,7 +379,7 @@ class GContact
 		if ($result==0)
 			throw new Exception('Internal error: Contact with ID '.$this->dolID.' not found');
 		if ($result==0)
-			throw new Exception($dolContact->$error);
+			throw new Exception($dolContact->error);
 
 		// Fill object with contact infos
 		$this->firstname = $dolContact->firstname;
@@ -463,7 +472,7 @@ class GContact
 		$this->atomEntry->appendChild($userdefined);
 
 		// Add tags
-		$this->appendGroup($gdata, getTagLabel('contacts'));
+		$this->appendGroup($gdata, getTagLabel('contacts'), $useremail);
 		$this->doc->appendChild($this->atomEntry);
 	}
 
@@ -472,9 +481,10 @@ class GContact
 	 * Note: It creates groups if it not exists.
 	 *
 	 * @param	GData	$gdata		GData
+	 * @param	string	$useremail	User email
 	 * @return 	GContact
 	 */
-	private function fetchMemberFromDolibarr($gdata)
+	private function fetchMemberFromDolibarr($gdata, $useremail)
 	{
 		global $conf,$langs;
 
@@ -487,7 +497,7 @@ class GContact
 		if ($result==0)
 			throw new Exception('Internal error: Member with ID '.$this->dolID.' not found');
 		if ($result==0)
-			throw new Exception($dolContact->$error);
+			throw new Exception($dolContact->error);
 
 		// Fill object with contact infos
 		$this->firstname = $dolContact->firstname;
@@ -565,7 +575,7 @@ class GContact
 		$this->atomEntry->appendChild($userdefined);
 
 		// Add tags
-		$this->appendGroup($gdata, getTagLabel('members'));
+		$this->appendGroup($gdata, getTagLabel('members'), $useremail);
 		$this->doc->appendChild($this->atomEntry);
 	}
 
@@ -643,6 +653,7 @@ class GContact
 				//print $content."<br>";
 
 				// Detect if contact is qualified to be deleted
+				$reg = array();
 				if (preg_match('/'.preg_quote($tagtofind).'([0-9]+)\/'.$type.'/m', $content, $reg)) {
 					$googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
 					//$googleEMail = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");
@@ -690,11 +701,14 @@ class GContact
 	 *
 	 * @param	Gdata	$gdata			Gdata handler
 	 * @param 	string 	$groupName		Name of group to create
+	 * @param	string	$useremail		User email
 	 * @return 	string					googlegroupID
 	 */
-	private static function insertGContactGroup($gdata, $groupName)
+	private static function insertGContactGroup($gdata, $groupName, $useremail)
 	{
 		dol_syslog("insertGContactGroup Create Google group ".$groupName);
+
+		$groupid = '';
 
 		try {
 			$doc = new DOMDocument("1.0", 'utf-8');
@@ -714,55 +728,128 @@ class GContact
 			$doc->appendChild($entry);
 			$doc->formatOutput = true;
 			$xmlStr = $doc->saveXML();
+
 			// insert entry
-			$entryResult = $gdata->insertEntry($xmlStr, 'https://www.google.com/m8/feeds/groups/default/full');
-			dol_syslog(sprintf("Inserting gContact group %s in google contacts for user %s google ID = %s", $groupName, $googleUser, $entryResult->id));
+			//$entryResult = $gdata->insertEntry($xmlStr, 'https://www.google.com/m8/feeds/groups/default/full');
+			if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+				$access_token=$gdata['google_web_token']['access_token'];
+			} else {
+				$tmp=json_decode($gdata['google_web_token']);
+				$access_token=$tmp->access_token;
+			}
+			$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/atom+xml');
+			$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
+
+			// insert entry
+			//$entryResult = $gdata->insertEntry($xmlStr,	'https://www.google.com/m8/feeds/contacts/'.$useremail.'/full');
+			//$groupid = $entryResult->id;
+			$response = getURLContent('https://www.google.com/m8/feeds/groups/'.$useremail.'/full', 'POST', $xmlStr, 1, $addheaderscurl);
+
+			$xmlStr = $response['content'];
+
+			if (strpos($xmlStr, 'Contacts API is being deprecated') === 0) {
+				// $xmlStr may be the error message "Contacts API is being deprecated. Migrate to People API to retain programmatic access to Google Contacts. See https://developers.google.com/people/contacts-api-migration."
+				dol_syslog("getContactGroupsXml Failed because Google Contact API are now closed", LOG_WARNING);
+				return '';
+			}
+
+			try {
+				$document = new DOMDocument("1.0", 'utf-8');
+
+				$document->loadXML($xmlStr);
+				$xmlStr = $document->saveXML();
+
+				foreach ($document->documentElement->childNodes as $item) {
+					if ($item->nodeName == 'id') {
+						$groupidstring = $item->nodeValue;		// For example http://www.google.com/m8/feeds/groups/testldrdev%40gmail.com/base/1559baea0c3177e7
+						//$groupidarray = explode('/', $groupidstring);
+						//$groupid = $groupidarray[count($groupidarray) - 1];
+						$groupidstring = $groupidstring;
+						break;
+					}
+				}
+
+				//$groupid = $googleIDNodes->item(0)->textContent;
+				dol_syslog("getContactGroupsXml groupid=".$groupid, LOG_WARNING);
+			} catch(Exception $e) {
+				print 'Error when parsing result of group creation in insertGContactGroup. Can\'t find groupid created.';
+				return '';
+			}
+
+			//dol_syslog(sprintf("Inserting gContact group %s in google contacts for user %s google ID = %s", $groupName, $googleUser, $entryResult->id));
+			dol_syslog(sprintf("Inserting gContact group %s in google contacts", $groupName));
 		} catch (Exception $e) {
 			dol_syslog("Problem while inserting group", LOG_ERR);
 			throw new Exception(sprintf("Problem while inserting group %s : %s", $groupName, $e->getMessage()));
 		}
-		return($entryResult->id);
+		return($groupid);
 	}
 
 	/**
-	 * Retreive a googleGroupID given a groupName.
+	 * Retreive a googleGroupID for a given groupName.
 	 * If the groupName does not exist on Gmail account, it will be created as a side effect
 	 *
 	 * @param	Gdata	$gdata			Gdata handler
 	 * @param	string	$groupName		Name of group
-	 * @return 	array					Array of googleGroupID.
+	 * @param	string	$useremail		User email
+	 * @return 	array					Array of googleGroupID. Example: array(
+	 *									'System Group: My Contacts' => string 'http://www.google.com/m8/feeds/groups/testldrdev%40gmail.com/base/6' (length=67)
+	 *								  	'System Group: Friends' => string 'http://www.google.com/m8/feeds/groups/testldrdev%40gmail.com/base/d' (length=67)
+	 *								  	'System Group: Family' => string 'http://www.google.com/m8/feeds/groups/testldrdev%40gmail.com/base/e' (length=67)
+	 *								  	'System Group: Coworkers' => string 'http://www.google.com/m8/feeds/groups/testldrdev%40gmail.com/base/f' (length=67)
+	 *								  	'Starred in Android' => string 'http://www.google.com/m8/feeds/groups/testldrdev%40gmail.com/base/d2ad5ab8a27af3f' (length=81)
+	 *								  	'Dolibarr (Thirdparties)' => string 'http://www.google.com/m8/feeds/groups/testldrdev%40gmail.com/base/3e8259858aa42968' (length=82)
+	 *									);
 	 */
-	public static function getGoogleGroupID($gdata, $groupName)
+	public static function getGoogleGroupID($gdata, $groupName, $useremail)
 	{
 		global $conf;
 		static $googleGroups;
+
+		$error = 0;
 
 		// Search existing groups
 		if (!isset($googleGroups)) {
 			$document = new DOMDocument("1.0", "utf-8");
 			$xmlStr = getContactGroupsXml($gdata);
-			$document->loadXML($xmlStr);
-			$xmlStr = $document->saveXML();
-			$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
-			$n = $entries->length;
-			$googleGroups = array();
-			foreach ($entries as $entry) {
-				$titleNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "title");
-				if ($titleNodes->length == 1) {
-					$title = $titleNodes->item(0)->textContent;
-					$googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
-					if ($googleIDNodes->length == 1) {
-						$googleGroups[$title] = $googleIDNodes->item(0)->textContent;
+
+			if ($xmlStr) {
+				try {
+					$document->loadXML($xmlStr);
+					$xmlStr = $document->saveXML();
+
+					$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
+					$n = $entries->length;
+					$googleGroups = array();
+					foreach ($entries as $entry) {
+						$titleNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "title");
+						if ($titleNodes->length == 1) {
+							$title = $titleNodes->item(0)->textContent;
+							$googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
+							if ($googleIDNodes->length == 1) {
+								$googleGroups[$title] = $googleIDNodes->item(0)->textContent;
+							}
+						}
 					}
+				} catch(Exception $e) {
+					print 'Error when getting groups';
+					exit;
 				}
+			} else {
+				$error++;
 			}
 		}
 
-		// Create group if it not exists
-		if (!isset($googleGroups[$groupName])) {
-			$newGroupID = self::insertGContactGroup($gdata, $groupName);
+		// Create group if it does not exists
+		if (!$error && !isset($googleGroups[$groupName])) {
+			try {
+				$newGroupID = self::insertGContactGroup($gdata, $groupName, $useremail);
+			} catch(Exception $e) {
+				dol_syslog("Error in getGoogleGroupID", LOG_WARNING);
+			}
 			$googleGroups[$groupName] = $newGroupID;
 		}
+
 		return $googleGroups[$groupName];
 	}
 

@@ -1012,7 +1012,7 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups = array(), $userema
 
 
 /**
- * Retreive a Xml feed of contacts groups from Google
+ * Retreive a Xml string of groups of contacts from Google
  *
  * @param	array	$gdata			Array with tokens info
  * @param	string	$useremail		User email
@@ -1043,6 +1043,18 @@ function getContactGroupsXml($gdata, $useremail = 'default')
 
 		$result = getURLContent('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', '', 0, $addheaderscurl);
 		$xmlStr = $result['content'];
+
+		// uncomment for debugging :
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $xmlStr);
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		// you can view this file with 'xmlstarlet fo dolibarr_google_groups.xml' command
+
+		if (strpos($xmlStr, 'Contacts API is being deprecated') === 0) {
+			// $xmlStr may be the error message "Contacts API is being deprecated. Migrate to People API to retain programmatic access to Google Contacts. See https://developers.google.com/people/contacts-api-migration."
+			dol_syslog("getContactGroupsXml Failed because Google Contact API are now closed", LOG_WARNING);
+			return '';
+		}
+
 		try {
 			$document = new DOMDocument("1.0", "utf-8");
 			$resultloadxml = $document->loadXml($xmlStr);
@@ -1062,11 +1074,6 @@ function getContactGroupsXml($gdata, $useremail = 'default')
 			dol_syslog('getContactGroupsXml ERROR:'.$e->getMessage(), LOG_ERR);
 			return '';
 		}
-
-		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $xmlStr);
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-		// you can view this file with 'xmlstarlet fo dolibarr_google_groups.xml' command
 	} catch (Exception $e) {
 		dol_syslog(sprintf("getContactGroupsXml Error while getting feeds xml groups : %s", $e->getMessage()), LOG_ERR);
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $e->getMessage());
