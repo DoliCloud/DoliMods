@@ -954,7 +954,7 @@ function getTagLabel($s)
 
 /**
  * Retreive a googleGroupID for a groupName.
- * If the groupName does not exist on Gmail account, it will be created as a side effect
+ * If the groupName does not exist on Gmail account, it is also created. So this method should always return a group ID (except on technical error)
  *
  * @param	array	$gdata			Array with tokens info
  * @param	string	$groupName		Group name
@@ -1000,7 +1000,7 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups = array(), $userema
 		}
 	}
 
-	// Create group if it not exists
+	// Create group if it does not exists
 	if (! $error && !isset($googleGroups[$groupName])) {
 		$newGroupID = insertGContactGroup($gdata, $groupName, $useremail);
 		$googleGroups[$groupName] = $newGroupID;
@@ -1012,7 +1012,7 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups = array(), $userema
 
 
 /**
- * Retreive a Xml string of groups of contacts from Google
+ * Retreive a Xml string with list of all groups of contacts from Google
  *
  * @param	array	$gdata			Array with tokens info
  * @param	string	$useremail		User email
@@ -1091,7 +1091,7 @@ function getContactGroupsXml($gdata, $useremail = 'default')
  * @param	array	$gdata			Array with tokens info
  * @param 	string 	$groupName		Group name to create into Google Contact
  * @param	string	$useremail		User email
- * @return 	string					Ful URL group ID (http://...xxx)
+ * @return 	string					Ful URL of the group ID (http://...xxx)
  */
 function insertGContactGroup($gdata, $groupName, $useremail = 'default')
 {
