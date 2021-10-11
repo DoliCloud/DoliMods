@@ -76,6 +76,7 @@ class OvhSms extends CommonObject
 		$this->priority = '3';    // the priority of the message (0 to 3), default is 3
 		// Set the WebService URL
 		dol_syslog(get_class($this)."::OvhSms URL=".$conf->global->OVHSMS_SOAPURL);
+
 		if (! empty($conf->global->OVH_OLDAPI)) {
 			if (! empty($conf->global->OVHSMS_SOAPURL)) {
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -327,7 +328,7 @@ class OvhSms extends CommonObject
 			$errmsg="Error ".$e->getMessage();
 			dol_syslog(get_class($this)."::getSmsListAccount ".$errmsg, LOG_ERR);
 			$this->error.=($this->error?', '.$errmsg:$errmsg);
-			return -1;
+			return -2;
 		}
 	}
 

@@ -85,7 +85,10 @@ $var=true;
 $sms = new OvhSms($db);
 if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an object
 	//telephonySmsAccountList
-	$telephonySmsAccountList = $sms->getSmsListAccount($sms->session);
+	$telephonySmsAccountList = $sms->getSmsListAccount($sms->session);	// $this->session is used only when OVH_OLDAPI is set
+	if ($telephonySmsAccountList) {
+		print $sms->error;
+	}
 
 	print '<table class="liste     centpercent" width="100%">';
 	print '<tr class="liste_titre"><td>'.$langs->trans("Account").'</td>';
