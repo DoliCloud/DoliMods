@@ -125,7 +125,7 @@ print "</tr>";
 
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("PasswordToallowRead")."</td>";
-print '<td><input required="required" type="text" class="flat" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOSTISSET('IPPHONE_EXPORTKEY')?GETPOST('IPPHONE_EXPORTKEY', 'alpha'):$conf->global->IPPHONE_EXPORTKEY) . '">';
+print '<td><input required="required" type="text" class="flat minwidth300" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOSTISSET('IPPHONE_EXPORTKEY')?GETPOST('IPPHONE_EXPORTKEY', 'alpha'):$conf->global->IPPHONE_EXPORTKEY) . '">';
 if (! empty($conf->use_javascript_ajax))
 	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 print '</td>';
