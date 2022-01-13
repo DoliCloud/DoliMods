@@ -133,6 +133,7 @@ class modAWStats extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=awstats',
 								'type'=>'left',
 								'titre'=>'MenuAWStats',
+								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 								'mainmenu'=>'awstats',
 								'leftmenu'=>'awstats',
 								'url'=>'/awstats/index.php',

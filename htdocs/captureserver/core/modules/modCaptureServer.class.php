@@ -71,7 +71,8 @@ class modCaptureServer extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0';
 
-		//Url to the file with your last numberversion of this module
+		//Url to the file with yo								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
+		ur last numberversion of this module
 		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
 		// Key used in llx_const table to save module status enabled/disabled (where CAPTURESERVER is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
@@ -250,9 +251,10 @@ class modCaptureServer extends DolibarrModules
 		/* END MODULEBUILDER TOPMENU */
 
 		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */
-		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=tools',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		$this->menu[$r++]=array('fk_menu'=>'fk_mainmenu=tools',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'left',			                // This is a Left menu entry
 								'titre'=>'ListOfCapturedEvents',
+								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 								'mainmenu'=>'tools',
 								'leftmenu'=>'captureserver_list',
 								'url'=>'/captureserver/captureserver_list.php',

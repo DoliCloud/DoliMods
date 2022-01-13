@@ -246,9 +246,10 @@ class modPrestashopGet extends DolibarrModules
 		/* END MODULEBUILDER TOPMENU */
 
 		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */
-		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=tools',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		$this->menu[$r++]=array('fk_menu'=>'fk_mainmenu=tools',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'left',			                // This is a Left menu entry
 								'titre'=>'ListOfPrestaShopSales',
+								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 								'mainmenu'=>'tools',
 								'leftmenu'=>'prestashopget_index',
 								'url'=>'/prestashopget/index.php?mode=groupbyzoneandvatrate&search_fromday=1&search_frommonth=1&search_fromyear=__YEAR__',

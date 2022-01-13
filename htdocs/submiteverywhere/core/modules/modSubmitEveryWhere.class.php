@@ -147,6 +147,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy'
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'Submit Everywhere',
+									'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 									'mainmenu'=>'tools',
 									'leftmenu'=>'submiteverywhere',
 									'url'=>'/submiteverywhere/index.php',

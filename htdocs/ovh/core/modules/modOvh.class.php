@@ -73,7 +73,8 @@ class modOvh extends DolibarrModules
 		$this->module_parts = array(
 			'triggers' => 0,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
 			'login' => 0,                                    	// Set this to 1 if module has its own login method directory (core/login)
-			'substitutions' => 0,                            	// Set this to 1 if module has its own substitution function file (core/substitutions)
+			'substitutions' => 0,    								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
+			// Set this to 1 if module has its own substitution function file (core/substitutions)
 			'menus' => 0,                                    	// Set this to 1 if module has its own menus handler directory (core/menus)
 			'theme' => 0,                                    	// Set this to 1 if module has its own theme directory (theme)
 			'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
@@ -182,7 +183,7 @@ class modOvh extends DolibarrModules
 									'type'=>'left',			                // This is a Left menu entry
 									'titre'=>'OvhInvoiceImportShort',
 									'url'=>'/ovh/importovhinvoice.php',
-									'prefix'=>img_picto('', 'ovh@ovh', 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
+									'prefix'=>img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
 									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
@@ -195,7 +196,7 @@ class modOvh extends DolibarrModules
 									'type'=>'left',			                // This is a Left menu entry
 									'titre'=>'OvhServers',
 									'url'=>'/ovh/ovh_listinfoserver.php',
-									'prefix'=>img_picto('', 'ovh@ovh', 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
+									'prefix'=>img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
 									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
