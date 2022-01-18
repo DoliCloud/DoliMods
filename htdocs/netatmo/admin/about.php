@@ -39,7 +39,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
-require_once '../lib/captureserver.lib.php';
+require_once '../lib/netatmo.lib.php';
 
 
 if (!$user->admin) accessforbidden();
@@ -61,12 +61,12 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values
 print_fiche_titre($langs->trans("NetatmoSetup"), $linkback, 'object_netatmo@netatmo');
 
 // Configuration header
-$head = captureserverAdminPrepareHead();
+$head = netatmoAdminPrepareHead();
 dol_fiche_head($head, 'about', '', -1, "netatmo@netatmo");
 
 
 dol_include_once('/netatmo/core/modules/modNetatmo.class.php');
-$tmpmodule = new modCaptureServer($db);
+$tmpmodule = new modNetatmo($db);
 print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
