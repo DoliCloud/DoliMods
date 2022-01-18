@@ -44,7 +44,7 @@ require_once '../lib/netatmo.lib.php';
 require_once "../includes/src/Netatmo/autoload.php";
 
 // Translations
-$langs->loadLangs(array("admin", "netatmo@netatmo"));
+$langs->loadLangs(array("admin", "oauth", "netatmo@netatmo"));
 
 // Access control
 if (! $user->admin) accessforbidden();
@@ -96,14 +96,18 @@ if (isset($_GET['code'])) {
 		$_SESSION['netatmo_refresh_token_'.$conf->entity]=trim($refresh_token);
 		if (! $res > 0) $error++;
 
-		setEventMessages("TokenSaved", null, 'mesgs');
+		setEventMessages("HasAccessToken", null, 'mesgs');
 	} catch (Netatmo\Exceptions\NAClientException $ex) {
 		echo " An error occured while trying to retrieve your tokens \n";
 	}
 } elseif (isset($_GET['error'])) {
-	if ($_GET['error'] === 'access_denied')
+	if ($_GET['error'] === 'access_denied') {
 		echo "You refused that this application access your Netatmo Data";
-	else echo "An error occured \n";
+	} else {
+		echo "An error occured :".dol_escape_htmltag($_GET['error'])."\n";
+		/*var_dump($_POST);
+		var_dump($_GET);*/
+	}
 } elseif (GETPOST('action', 'alpha') == 'createtoken') {
 	$config = array();
 	$config['client_id'] = $conf->global->NETATMO_CLIENT_ID;
@@ -139,9 +143,9 @@ dol_fiche_head($head, 'settings', '', -1, "netatmo@netatmo");
 // Setup page goes here
 echo '<span class="opacitymedium">'.$langs->trans("NetatmoSetupPage").'</span><br><br>';
 
-$urlasredirecturi='<a href="'.dol_buildpath('/netatmo/admin/setup.php', 2).'" target="_blank">'.dol_buildpath('/netatmo/admin/setup.php', 2).'</a>';
+$urlasredirecturi='<a href="'.dol_buildpath('/netatmo/admin/setup.php', 2).'" target="_blank" rel="noopener">'.dol_buildpath('/netatmo/admin/setup.php', 2).'</a>';
 
-print 'Go on page to create an App: https://dev.netatmo.com/myaccount/<br>';
+print 'Go on page to create an App: <a href="https://dev.netatmo.com/myaccount/" target="_blank" rel="noopener">https://dev.netatmo.com/myaccount/</a><br>';
 print 'Create your Client ID / Secret ID using the following URL as Redirect URI: '.$urlasredirecturi.'<br>';
 
 print '<br>';
@@ -183,7 +187,7 @@ if ($action == 'edit') {
 		print '<td>'.$langs->trans("NETATMO_WEB_TOKEN")."</td>";
 		print '<td colspan="2">';
 		if (empty($conf->global->NETATMO_CLIENT_ID) || empty($conf->global->NETATMO_CLIENT_SECRET)) {
-			print $langs->trans("FillAndSaveGoogleAccount");
+			print $langs->trans("FillAndSaveAccountIdAndSecret");
 		} else {
 			$oauthurl = $_SERVER["PHP_SELF"].'?action=createtoken';
 
@@ -212,20 +216,18 @@ if ($action == 'edit') {
 				else print $langs->trans("None");
 				print '<br>';
 				print '<br>';
-				print $langs->trans("NetatmoRecreateToken").'<br>';
-				//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
-				print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+				print $langs->trans("RequestAccess").'<br>';
+				print '<a href="'.$completeoauthurl.'">'.$langs->trans("OAuthSetupForLogin").'</a>';
 				print '<br><br>';
-				print $langs->trans("NetatmoDeleteToken").'<br>';
-				print 'Go on your NetAtmo account';
+				print $langs->trans("DeleteAccess").'<br>';
+				print '<a href="https://dev.netatmo.com/myaccount/" target="_blank" rel="noopener">Go on your NetAtmo account</a>';
 				/*print '<br><br>';
 				print $langs->trans("NetatmoDeleteAuthorization").'<br>';
 				print '<a href="https://security.google.com/settings/security/permissions" target="_blank">https://security.google.com/settings/security/permissions</a>';
 				*/
 			} else {
 				print img_warning().' '.$langs->trans("NoTokenYet").'<br>';
-				//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
-				print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+				print '<a href="'.$completeoauthurl.'">'.$langs->trans("OAuthSetupForLogin").'</a>';
 			}
 		}
 		print '</td>';
@@ -243,9 +245,12 @@ if ($action == 'edit') {
 
 
 
-$message='';
-$url='<a href="'.dol_buildpath('/netatmo/public/netatmo.php', 3).'?key='.($conf->global->NETATMO_SECURITY_KEY?urlencode($conf->global->NETATMO_SECURITY_KEY):'...').'" target="_blank">'.dol_buildpath('/netatmo/public/netatmo.php', 3).'?key='.($conf->global->NETATMO_SECURITY_KEY?urlencode($conf->global->NETATMO_SECURITY_KEY):'KEYNOTDEFINED').'</a>';
-$message.=img_picto('', 'object_globe.png').' '.$langs->trans("EndPointOfNetatmoServer", $url);
+$message = '';
+//$url='<a href="'.dol_buildpath('/netatmo/public/netatmo.php', 3).'?key='.($conf->global->NETATMO_SECURITY_KEY?urlencode($conf->global->NETATMO_SECURITY_KEY):'...').'" target="_blank">';
+$url = dol_buildpath('/netatmo/public/netatmo.php', 3).'?key='.($conf->global->NETATMO_SECURITY_KEY?urlencode($conf->global->NETATMO_SECURITY_KEY):'KEYNOTDEFINED');
+//$url .= '</a>';
+$message .= img_picto('', 'object_globe.png').' '.$langs->trans("EndPointOfNetatmoServer");
+$message .= '<div class="urllink"><input type="text" id="onlinepaymenturl" class="quatrevingtpercentminusx" value="'.$url.'"></div>';
 
 print $message;
 
