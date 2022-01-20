@@ -107,7 +107,9 @@ class modOvh extends DolibarrModules
 		$this->const = array(0=>array('MAIN_MODULE_OVH_SMS','chaine','ovh','This is to enable OVH SMS module',0,'current',1),
 							 1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to enable OVH SMS engine',0,'current',1),
 							 2=>array('MAIN_SMS_DEBUG','chaine','1','This is to enable OVH SMS debug',1,'allentities',0),
-							 3=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1)
+							 3=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1),
+							 4=>array('MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
+						     5=>array('MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
 		);			// List of particular constants to add when module is enabled
 
 		// Array to add new pages in new tabs
@@ -221,7 +223,7 @@ class modOvh extends DolibarrModules
 	{
 		$sql = array();
 
-		//$result=$this->load_tables();
+		$result = $this->load_tables();
 
 		return $this->_init($sql, $options);
 	}

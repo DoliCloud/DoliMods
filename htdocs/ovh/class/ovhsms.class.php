@@ -43,9 +43,12 @@ class OvhSms extends CommonObject
 	public $account;
 
 	public $socid;
-	public $contactid;
+	public $contact_id;
+	public $member_id;
+
 	public $fk_project;
 
+	public $nostop;
 	public $expe;
 	public $dest;
 	public $message;
@@ -174,7 +177,7 @@ class OvhSms extends CommonObject
 		global $db, $conf, $langs, $user;
 
 		try {
-			if (! empty($conf->global->OVH_OLDAPI)) {
+			if (!empty($conf->global->OVH_OLDAPI)) {
 				// print "$this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority";
 				$resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority, 2, 'Dolibarr');
 				$this->soapDebug();
@@ -231,8 +234,15 @@ class OvhSms extends CommonObject
 					if ($resultPostJob['totalCreditsRemoved'] > 0) {
 						$object = new stdClass();
 						$trigger_name = 'SENTBYSMS';
+						if ($this->member_id > 0) {
+							$trigger_name = 'MEMBER_SENTBYSMS';
+							//$conf->global->MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS should be set from agenda setup
+						} elseif ($this->socid > 0) {
+							$trigger_name = 'COMPANY_SENTBYSMS';
+							//$conf->global->MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS should be set from agenda setup
+						}
 
-						// Force automatic event to ON if setup not done
+						// Force automatic event to ON for the generic trigger name
 						if (! isset($conf->global->MAIN_AGENDA_ACTIONAUTO_SENTBYSMS)) {
 							$conf->global->MAIN_AGENDA_ACTIONAUTO_SENTBYSMS = 1;	// Make trigger on
 						}
@@ -244,8 +254,11 @@ class OvhSms extends CommonObject
 
 							$actiontypecode='AC_OTH_AUTO'; // Event insert into agenda automatically
 
-							$object->socid			= $this->socid;	   // To link to a company
+							$object->socid			= $this->socid;	   		// To link to a company
+							$object->contact_id     = $this->contact_id;
+							$object->fk_adherent    = $this->member_id;
 							//$object->sendtoid		= $sendtoid;	   // To link to contacts/addresses. This is an array.
+
 							$object->actiontypecode	= $actiontypecode; // Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
 							$object->actionmsg2		= $langs->trans("SMSSentTo", $this->dest);
 							$object->actionmsg		= $langs->trans("SMSSentTo", $this->dest)."\n".$this->message.($this->nostop?'':"\n");

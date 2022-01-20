@@ -9,6 +9,7 @@
 * Link the event ot thirdparty history with Dolibarr v12 
 * Compatibility with v11 (newToken).
 * Add checkbox to exclude lines with null amount
+* Can enable log into agenda of automatic action "Sent by SMS"
 
 ## 4.0
 
