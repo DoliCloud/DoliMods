@@ -223,7 +223,7 @@ class ActionsConcatPdf
 					if ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key]) $concatpdffile[]=$val;
 				}
 			} else {
-				$concatpdffile = $parameters['object']->extraparams['concatpdf'];
+				$concatpdffile = empty($parameters['object']->extraparams['concatpdf']) ? '' : $parameters['object']->extraparams['concatpdf'];
 			}
 		}
 
