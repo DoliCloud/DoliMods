@@ -40,11 +40,11 @@ if (! $res) die("Include of main fails");
 
 $langs->load("phpsysinfo@phpsysinfo");
 
-$mainmenu=GETPOST("mainmenu");
+$mainmenu=GETPOST("mainmenu", "aZ09");
 $leftmenu=GETPOST("leftmenu", "aZ09");
-$idmenu=GETPOST("idmenu");
-$theme=GETPOST("theme");
-$codelang=GETPOST("lang");
+$idmenu=GETPOST("idmenu", "int");
+$theme=GETPOST('theme', "aZ09");
+$codelang=GETPOST("lang", "aZ09");
 
 print "
 <html>
