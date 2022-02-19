@@ -118,6 +118,7 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 					<div class="row">
 						<div class="col-md-4">
 							<form method="post" enctype="multipart/form-data">
+							<input type="hidden" name="token" value="<?php echo newToken(); ?>">
 								<div class="card">
 									<div class="card-header bg-info text-white">
 										Generate a PDF Factur-X from a PDF and Factur-X XML
@@ -148,6 +149,7 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 						</div>
 						<div class="col-md-4">
 							<form method="post" enctype="multipart/form-data">
+							<input type="hidden" name="token" value="<?php echo newToken(); ?>">
 								<div class="card">
 									<div class="card-header bg-info text-white">Extract Factur-X XML from a PDF</div>
 									<div class="card-body">
@@ -164,6 +166,7 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 						</div>
 						<div class="col-md-4">
 							<form method="post" enctype="multipart/form-data">
+							<input type="hidden" name="token" value="<?php echo newToken(); ?>">
 								<div class="card">
 									<div class="card-header bg-info text-white">Verify Factur-X XML file</div>
 									<div class="card-body">
