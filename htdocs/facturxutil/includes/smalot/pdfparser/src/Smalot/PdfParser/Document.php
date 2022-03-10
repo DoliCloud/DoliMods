@@ -6,6 +6,7 @@
  *
  * @author  Sébastien MALOT <sebastien@malot.fr>
  * @date    2017-01-03
+ *
  * @license LGPLv3
  * @url     <https://github.com/smalot/pdfparser>
  *
@@ -25,12 +26,9 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with this program.
  *  If not, see <http://www.pdfparser.org/sites/default/LICENSE.txt>.
- *
  */
 
 namespace Smalot\PdfParser;
-
-use Smalot\PdfParser\Element\ElementDate;
 
 /**
  * Technical references :
@@ -43,257 +41,247 @@ use Smalot\PdfParser\Element\ElementDate;
  * - http://cpansearch.perl.org/src/JV/PostScript-Font-1.10.02/lib/PostScript/WinAnsiEncoding.pm
  *
  * Class Document
- *
- * @package Smalot\PdfParser
  */
 class Document
 {
-	/**
-	 * @var PDFObject[]
-	 */
-	protected $objects = array();
+    /**
+     * @var PDFObject[]
+     */
+    protected $objects = [];
 
-	/**
-	 * @var array
-	 */
-	protected $dictionary = array();
+    /**
+     * @var array
+     */
+    protected $dictionary = [];
 
-	/**
-	 * @var Header
-	 */
-	protected $trailer = null;
+    /**
+     * @var Header
+     */
+    protected $trailer = null;
 
-	/**
-	 * @var array
-	 */
-	protected $details = null;
+    /**
+     * @var array
+     */
+    protected $details = null;
 
-	/**
-	 *
-	 */
-	public function __construct()
-	{
-		$this->trailer = new Header(array(), $this);
-	}
+    public function __construct()
+    {
+        $this->trailer = new Header([], $this);
+    }
 
-	/**
-	 *
-	 */
-	public function init()
-	{
-		$this->buildDictionary();
+    public function init()
+    {
+        $this->buildDictionary();
 
-		$this->buildDetails();
+        $this->buildDetails();
 
-		// Propagate init to objects.
-		foreach ($this->objects as $object) {
-			$object->init();
-		}
-	}
+        // Propagate init to objects.
+        foreach ($this->objects as $object) {
+            $object->getHeader()->init();
+            $object->init();
+        }
+    }
 
-	/**
-	 * Build dictionary based on type header field.
-	 */
-	protected function buildDictionary()
-	{
-		// Build dictionary.
-		$this->dictionary = array();
+    /**
+     * Build dictionary based on type header field.
+     */
+    protected function buildDictionary()
+    {
+        // Build dictionary.
+        $this->dictionary = [];
 
-		foreach ($this->objects as $id => $object) {
-			$type = $object->getHeader()->get('Type')->getContent();
+        foreach ($this->objects as $id => $object) {
+            $type = $object->getHeader()->get('Type')->getContent();
 
-			if (!empty($type)) {
-				$this->dictionary[$type][$id] = $id;
-			}
-		}
-	}
+            if (!empty($type)) {
+                $this->dictionary[$type][$id] = $id;
+            }
+        }
+    }
 
-	/**
-	 * Build details array.
-	 */
-	protected function buildDetails()
-	{
-		// Build details array.
-		$details = array();
+    /**
+     * Build details array.
+     */
+    protected function buildDetails()
+    {
+        // Build details array.
+        $details = [];
 
-		// Extract document info
-		if ($this->trailer->has('Info')) {
-			/** @var PDFObject $info */
-			$info = $this->trailer->get('Info');
-			// This could be an ElementMissing object, so we need to check for
-			// the getHeader method first.
-			if ($info !== null && method_exists($info, 'getHeader')) {
-				$details = $info->getHeader()->getDetails();
-			}
-		}
+        // Extract document info
+        if ($this->trailer->has('Info')) {
+            /** @var PDFObject $info */
+            $info = $this->trailer->get('Info');
+            // This could be an ElementMissing object, so we need to check for
+            // the getHeader method first.
+            if (null !== $info && method_exists($info, 'getHeader')) {
+                $details = $info->getHeader()->getDetails();
+            }
+        }
 
-		// Retrieve the page count
-		try {
-			$pages = $this->getPages();
-			$details['Pages'] = count($pages);
-		} catch (\Exception $e) {
-			$details['Pages'] = 0;
-		}
+        // Retrieve the page count
+        try {
+            $pages = $this->getPages();
+            $details['Pages'] = \count($pages);
+        } catch (\Exception $e) {
+            $details['Pages'] = 0;
+        }
 
-		$this->details = $details;
-	}
+        $this->details = $details;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getDictionary()
-	{
-		return $this->dictionary;
-	}
+    /**
+     * @return array
+     */
+    public function getDictionary()
+    {
+        return $this->dictionary;
+    }
 
-	/**
-	 * @param PDFObject[] $objects
-	 */
-	public function setObjects($objects = array())
-	{
-		$this->objects = (array) $objects;
+    /**
+     * @param PDFObject[] $objects
+     */
+    public function setObjects($objects = [])
+    {
+        $this->objects = (array) $objects;
 
-		$this->init();
-	}
+        $this->init();
+    }
 
-	/**
-	 * @return PDFObject[]
-	 */
-	public function getObjects()
-	{
-		return $this->objects;
-	}
+    /**
+     * @return PDFObject[]
+     */
+    public function getObjects()
+    {
+        return $this->objects;
+    }
 
-	/**
-	 * @param string $id
-	 *
-	 * @return PDFObject
-	 */
-	public function getObjectById($id)
-	{
-		if (isset($this->objects[$id])) {
-			return $this->objects[$id];
-		} else {
-			return null;
-		}
-	}
+    /**
+     * @param string $id
+     *
+     * @return PDFObject|Font|Page|Element|null
+     */
+    public function getObjectById($id)
+    {
+        if (isset($this->objects[$id])) {
+            return $this->objects[$id];
+        }
 
-	/**
-	 * @param string $type
-	 * @param string $subtype
-	 *
-	 * @return PDFObject[]
-	 */
-	public function getObjectsByType($type, $subtype = null)
-	{
-		$objects = array();
+        return null;
+    }
 
-		foreach ($this->objects as $id => $object) {
-			if ($object->getHeader()->get('Type') == $type &&
-				(is_null($subtype) || $object->getHeader()->get('Subtype') == $subtype)
-			) {
-				$objects[$id] = $object;
-			}
-		}
+    /**
+     * @param string $type
+     * @param string $subtype
+     *
+     * @return array
+     */
+    public function getObjectsByType($type, $subtype = null)
+    {
+        $objects = [];
 
-		return $objects;
-	}
+        foreach ($this->objects as $id => $object) {
+            if ($object->getHeader()->get('Type') == $type &&
+                (null === $subtype || $object->getHeader()->get('Subtype') == $subtype)
+            ) {
+                $objects[$id] = $object;
+            }
+        }
 
-	/**
-	 * @return PDFObject[]
-	 */
-	public function getFonts()
-	{
-		return $this->getObjectsByType('Font');
-	}
+        return $objects;
+    }
 
-	/**
-	 * @return Page[]
-	 * @throws \Exception
-	 */
-	public function getPages()
-	{
-		if (isset($this->dictionary['Catalog'])) {
-			// Search for catalog to list pages.
-			$id = reset($this->dictionary['Catalog']);
+    /**
+     * @return PDFObject[]
+     */
+    public function getFonts()
+    {
+        return $this->getObjectsByType('Font');
+    }
 
-			/** @var Pages $object */
-			$object = $this->objects[$id]->get('Pages');
-			if (method_exists($object, 'getPages')) {
-				$pages = $object->getPages(true);
-				return $pages;
-			}
-		}
+    /**
+     * @return Page[]
+     *
+     * @throws \Exception
+     */
+    public function getPages()
+    {
+        if (isset($this->dictionary['Catalog'])) {
+            // Search for catalog to list pages.
+            $id = reset($this->dictionary['Catalog']);
 
-		if (isset($this->dictionary['Pages'])) {
-			// Search for pages to list kids.
-			$pages = array();
+            /** @var Pages $object */
+            $object = $this->objects[$id]->get('Pages');
+            if (method_exists($object, 'getPages')) {
+                return $object->getPages(true);
+            }
+        }
 
-			/** @var Pages[] $objects */
-			$objects = $this->getObjectsByType('Pages');
-			foreach ($objects as $object) {
-				$pages = array_merge($pages, $object->getPages(true));
-			}
+        if (isset($this->dictionary['Pages'])) {
+            // Search for pages to list kids.
+            $pages = [];
 
-			return $pages;
-		}
+            /** @var Pages[] $objects */
+            $objects = $this->getObjectsByType('Pages');
+            foreach ($objects as $object) {
+                $pages = array_merge($pages, $object->getPages(true));
+            }
 
-		if (isset($this->dictionary['Page'])) {
-			// Search for 'page' (unordered pages).
-			$pages = $this->getObjectsByType('Page');
+            return $pages;
+        }
 
-			return array_values($pages);
-		}
+        if (isset($this->dictionary['Page'])) {
+            // Search for 'page' (unordered pages).
+            $pages = $this->getObjectsByType('Page');
 
-		throw new \Exception('Missing catalog.');
-	}
+            return array_values($pages);
+        }
 
-	/**
-	 * @param Page $page
-	 *
-	 * @return string
-	 */
-	public function getText(Page $page = null)
-	{
-		$texts = array();
-		$pages = $this->getPages();
+        throw new \Exception('Missing catalog.');
+    }
 
-		foreach ($pages as $index => $page) {
-			/**
-			 * In some cases, the $page variable may be null.
-			 */
-			if (is_null($page)) {
-				continue;
-			}
-			if ($text = trim($page->getText())) {
-				$texts[] = $text;
-			}
-		}
+    /**
+     * @param Page $page
+     *
+     * @return string
+     */
+    public function getText(Page $page = null)
+    {
+        $texts = [];
+        $pages = $this->getPages();
 
-		return implode("\n\n", $texts);
-	}
+        foreach ($pages as $index => $page) {
+            /**
+             * In some cases, the $page variable may be null.
+             */
+            if (null === $page) {
+                continue;
+            }
+            if ($text = trim($page->getText())) {
+                $texts[] = $text;
+            }
+        }
 
-	/**
-	 * @return Header
-	 */
-	public function getTrailer()
-	{
-		return $this->trailer;
-	}
+        return implode("\n\n", $texts);
+    }
 
-	/**
-	 * @param Header $trailer
-	 */
-	public function setTrailer(Header $trailer)
-	{
-		$this->trailer = $trailer;
-	}
+    /**
+     * @return Header
+     */
+    public function getTrailer()
+    {
+        return $this->trailer;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getDetails($deep = true)
-	{
-		return $this->details;
-	}
+    public function setTrailer(Header $trailer)
+    {
+        $this->trailer = $trailer;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDetails($deep = true)
+    {
+        return $this->details;
+    }
 }

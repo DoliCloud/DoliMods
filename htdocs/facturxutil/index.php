@@ -50,8 +50,9 @@ if ($_FILES['pdf_facturx_extract']) {
 	} catch (Exception $e) {
 		$resultBodyHtml .= '<pre>Error while retrieving XML Factur-X :'.$e.'</pre>';
 	}
+
 	if (!$result) {
-		$resultBodyHtml .= '<div class="alert alert-danger">No valid XML Factur-X found.</div>';
+		$resultBodyHtml .= '<div class="alert alert-danger">No valid XML Factur-X found (getFacturxXmlFromPdf return false).</div>';
 	} else {
 		$resultHeaderClass = 'success';
 		$doc = new DomDocument('1.0');

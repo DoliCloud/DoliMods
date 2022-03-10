@@ -13,19 +13,24 @@
     "support": {
         "issues": "https://github.com/smalot/pdfparser/issues"
     },
-    "homepage": "http://www.pdfparser.org",
+    "homepage": "https://www.pdfparser.org",
     "require": {
-        "php": ">=5.3.0",
-        "ext-mbstring": "*",
-        "ext-zlib": "*",
-        "tecnickcom/tcpdf": "~6.0"
+        "php": ">=5.6",
+        "symfony/polyfill-mbstring": "^1.18",
+        "ext-zlib": "*"
     },
     "require-dev": {
-        "atoum/atoum": "^2.8 | ^3.0"
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "symfony/phpunit-bridge": "^5.2"
     },
     "autoload": {
         "psr-0": {
             "Smalot\\PdfParser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Smalot\\PdfParser\\": "tests/"
         }
     },
     "config": {

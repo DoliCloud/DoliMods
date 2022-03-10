@@ -6,6 +6,7 @@
  *
  * @author  Sébastien MALOT <sebastien@malot.fr>
  * @date    2017-01-03
+ *
  * @license LGPLv3
  * @url     <https://github.com/smalot/pdfparser>
  *
@@ -25,56 +26,52 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with this program.
  *  If not, see <http://www.pdfparser.org/sites/default/LICENSE.txt>.
- *
  */
 
 namespace Smalot\PdfParser\Element;
 
-use Smalot\PdfParser\Element;
 use Smalot\PdfParser\Document;
+use Smalot\PdfParser\Element;
 use Smalot\PdfParser\Header;
 
 /**
  * Class ElementStruct
- *
- * @package Smalot\PdfParser\Element
  */
 class ElementStruct extends Element
 {
-	/**
-	 * @param string   $content
-	 * @param Document $document
-	 * @param int      $offset
-	 *
-	 * @return bool|ElementStruct
-	 */
-	public static function parse($content, Document $document = null, &$offset = 0)
-	{
-		if (preg_match('/^\s*<<(?P<struct>.*)/is', $content)) {
-			preg_match_all('/(.*?)(<<|>>)/s', trim($content), $matches);
+    /**
+     * @param string   $content
+     * @param Document $document
+     * @param int      $offset
+     *
+     * @return false|Header
+     */
+    public static function parse($content, Document $document = null, &$offset = 0)
+    {
+        if (preg_match('/^\s*<<(?P<struct>.*)/is', $content)) {
+            preg_match_all('/(.*?)(<<|>>)/s', trim($content), $matches);
 
-			$level = 0;
-			$sub   = '';
-			foreach ($matches[0] as $part) {
-				$sub .= $part;
-				$level += (strpos($part, '<<') !== false ? 1 : -1);
-				if ($level <= 0) {
-					break;
-				}
-			}
+            $level = 0;
+            $sub = '';
+            foreach ($matches[0] as $part) {
+                $sub .= $part;
+                $level += (false !== strpos($part, '<<') ? 1 : -1);
+                if ($level <= 0) {
+                    break;
+                }
+            }
 
-			$offset += strpos($content, '<<') + strlen(rtrim($sub));
+            $offset += strpos($content, '<<') + \strlen(rtrim($sub));
 
-			// Removes '<<' and '>>'.
-			$sub = trim(preg_replace('/^\s*<<(.*)>>\s*$/s', '\\1', $sub));
+            // Removes '<<' and '>>'.
+            $sub = trim((string) preg_replace('/^\s*<<(.*)>>\s*$/s', '\\1', $sub));
 
-			$position = 0;
-			$elements = Element::parse($sub, $document, $position);
-			$header   = new Header($elements, $document);
+            $position = 0;
+            $elements = Element::parse($sub, $document, $position);
 
-			return $header;
-		}
+            return new Header($elements, $document);
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

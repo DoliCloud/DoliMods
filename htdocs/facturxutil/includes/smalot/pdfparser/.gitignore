@@ -1,9 +1,0 @@
-/.idea/*
-/coverage/*
-/vendor/*
-/test*
-/xdebug/*
-/composer.phar
-/composer
-debug*
-composer.lock

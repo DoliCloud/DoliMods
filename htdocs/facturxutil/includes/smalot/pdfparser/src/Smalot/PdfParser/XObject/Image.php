@@ -6,6 +6,7 @@
  *
  * @author  Sébastien MALOT <sebastien@malot.fr>
  * @date    2017-01-03
+ *
  * @license LGPLv3
  * @url     <https://github.com/smalot/pdfparser>
  *
@@ -25,28 +26,25 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with this program.
  *  If not, see <http://www.pdfparser.org/sites/default/LICENSE.txt>.
- *
  */
 
 namespace Smalot\PdfParser\XObject;
 
-use Smalot\PdfParser\PDFObject;
 use Smalot\PdfParser\Page;
+use Smalot\PdfParser\PDFObject;
 
 /**
  * Class Image
- *
- * @package Smalot\PdfParser\XObject
  */
 class Image extends PDFObject
 {
-	/**
-	 * @param Page $page
-	 *
-	 * @return string
-	 */
-	public function getText(Page $page = null)
-	{
-		return '';
-	}
+    /**
+     * @param Page $page
+     *
+     * @return string
+     */
+    public function getText(Page $page = null)
+    {
+        return '';
+    }
 }
