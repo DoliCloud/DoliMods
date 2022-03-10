@@ -17,9 +17,9 @@
  */
 
 /**
- * \file    facturx/admin/setup.php
- * \ingroup facturx
- * \brief   FacturX setup page.
+ * \file    facturxutil/admin/setup.php
+ * \ingroup facturxutil
+ * \brief   FacturXUtil setup page.
  */
 
 // Load Dolibarr environment
@@ -40,11 +40,11 @@ global $langs, $user;
 
 // Libraries
 require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
-require_once '../lib/facturx.lib.php';
+require_once '../lib/facturxutil.lib.php';
 //require_once "../class/myclass.class.php";
 
 // Translations
-$langs->loadLangs(array("admin", "facturx@facturx"));
+$langs->loadLangs(array("admin", "facturxutil@facturxutil"));
 
 // Access control
 if (! $user->admin) accessforbidden();
@@ -77,11 +77,11 @@ llxHeader('', $langs->trans($page_name));
 // Subheader
 $linkback = '<a href="'.($backtopage?$backtopage:DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
 
-print load_fiche_titre($langs->trans($page_name), $linkback, 'object_facturx@facturx');
+print load_fiche_titre($langs->trans($page_name), $linkback, 'object_facturxutil@facturxutil');
 
 // Configuration header
-$head = facturxAdminPrepareHead();
-dol_fiche_head($head, 'settings', '', -1, "facturx@facturx");
+$head = facturxUtilAdminPrepareHead();
+dol_fiche_head($head, 'settings', '', -1, "facturxutil@facturxutil");
 
 // Setup page goes here
 echo '<span class="opacitymedium">'.$langs->trans("FacturXSetupPage").'</span><br><br>';

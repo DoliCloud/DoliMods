@@ -16,17 +16,17 @@
  */
 
 /**
- * \file    facturx/class/actions_facturx.class.php
- * \ingroup facturx
+ * \file    facturxutil/class/actions_facturx.class.php
+ * \ingroup facturxutil
  * \brief   Example hook overload.
  *
  * Put detailed description here.
  */
 
 /**
- * Class ActionsFacturX
+ * Class ActionsFacturXUtil
  */
-class ActionsFacturX
+class ActionsFacturXUtil
 {
 	/**
 	 * @var DoliDB Database handler.

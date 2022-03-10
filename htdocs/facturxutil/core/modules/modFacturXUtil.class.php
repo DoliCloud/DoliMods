@@ -18,11 +18,11 @@
  */
 
 /**
- * 	\defgroup   facturx     Module FacturX
+ * 	\defgroup   facturxutil     Module FacturX
  *  \brief      FacturX module descriptor.
  *
- *  \file       htdocs/facturx/core/modules/modFacturX.class.php
- *  \ingroup    facturx
+ *  \file       htdocs/facturxutil/core/modules/modFacturX.class.php
+ *  \ingroup    facturxutil
  *  \brief      Description and activation file for module FacturX
  */
 include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
@@ -31,7 +31,7 @@ include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 /**
  *  Description and activation class for module FacturX
  */
-class modFacturX extends DolibarrModules
+class modFacturXUtil extends DolibarrModules
 {
 	/**
 	 * Constructor. Define names, constants, directories, boxes, permissions
@@ -48,7 +48,7 @@ class modFacturX extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->numero = 101410;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'facturx';
+		$this->rights_class = 'facturxutil';
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
@@ -61,9 +61,9 @@ class modFacturX extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleFacturXName' not found (FacturX is name of module).
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleFacturXDesc' not found (FacturX is name of module).
-		$this->description = "FacturXDescription";
+		$this->description = "FacturX utility module";
 		// Used only if file README.md and README-LL.md not found.
-		$this->descriptionlong = "FacturX description (Long)";
+		$this->descriptionlong = "FacturX utility module";
 
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com';
@@ -97,18 +97,18 @@ class modFacturX extends DolibarrModules
 		);
 
 		// Data directories to create when module is enabled.
-		// Example: this->dirs = array("/facturx/temp","/facturx/subdir");
-		$this->dirs = array("/facturx/temp");
+		// Example: this->dirs = array("/facturxutil/temp","/facturxutil/subdir");
+		$this->dirs = array("/facturxutil/temp");
 
 		// Config pages. Put here list of php page, stored into facturx/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@facturx");
+		$this->config_page_url = array("setup.php@facturxutil");
 
 		// Dependencies
 		$this->hidden = false;			// A condition to hide module
 		$this->depends = array();		// List of module class names as string that must be enabled if this module is enabled. Example: array('always1'=>'modModuleToEnable1','always2'=>'modModuleToEnable2', 'FR1'=>'modModuleToEnableFR'...)
 		$this->requiredby = array();	// List of module class names as string to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
 		$this->conflictwith = array();	// List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
-		$this->langfiles = array("facturx@facturx");
+		$this->langfiles = array("facturxutil@facturxutil");
 		//$this->phpmin = array(5,4);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(4,0);		// Minimum version of Dolibarr required by module
 		$this->warnings_activation = array();			// Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
@@ -129,17 +129,17 @@ class modFacturX extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (! isset($conf->facturx) || ! isset($conf->facturx->enabled)) {
-			$conf->facturx=new stdClass();
-			$conf->facturx->enabled=0;
+		if (! isset($conf->facturxutil) || ! isset($conf->facturxutil->enabled)) {
+			$conf->facturxutil=new stdClass();
+			$conf->facturxutil->enabled=0;
 		}
 
 
 		// Array to add new pages in new tabs
 		$this->tabs = array();
 		// Example:
-		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@facturx:$user->rights->facturx->read:/facturx/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
-		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@facturx:$user->rights->othermodule->read:/facturx/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
+		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@facturxutil:$user->rights->facturxutil->read:/facturxutil/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
+		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@facturxutil:$user->rights->othermodule->read:/facturxutil/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
 		// $this->tabs[] = array('data'=>'objecttype:-tabname:NU:conditiontoremove');                                                     										// To remove an existing tab identified by code tabname
 		//
 		// Where objecttype can be
@@ -168,7 +168,7 @@ class modFacturX extends DolibarrModules
 		$this->dictionaries=array();
 		/* Example:
 		$this->dictionaries=array(
-			'langs'=>'mylangfile@facturx',
+			'langs'=>'mylangfile@facturxutil',
 			'tabname'=>array(MAIN_DB_PREFIX."table1",MAIN_DB_PREFIX."table2",MAIN_DB_PREFIX."table3"),		// List of tables we want to see into dictonnary editor
 			'tablib'=>array("Table1","Table2","Table3"),													// Label of tables
 			'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table1 as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table2 as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table3 as f'),	// Request to select fields
@@ -177,7 +177,7 @@ class modFacturX extends DolibarrModules
 			'tabfieldvalue'=>array("code,label","code,label","code,label"),																				// List of fields (list of fields to edit a record)
 			'tabfieldinsert'=>array("code,label","code,label","code,label"),																			// List of fields (list of fields for insert)
 			'tabrowid'=>array("rowid","rowid","rowid"),																									// Name of columns with primary key (try to always name it 'rowid')
-			'tabcond'=>array($conf->facturx->enabled,$conf->facturx->enabled,$conf->facturx->enabled)												// Condition to show each dictionary
+			'tabcond'=>array($conf->facturxutil->enabled,$conf->facturxutil->enabled,$conf->facturxutil->enabled)												// Condition to show each dictionary
 		);
 		*/
 
@@ -185,19 +185,19 @@ class modFacturX extends DolibarrModules
 		// Boxes/Widgets
 		// Add here list of php file(s) stored in facturx/core/boxes that contains class to show a widget.
 		$this->boxes = array(
-			//0=>array('file'=>'facturxwidget1.php@facturx','note'=>'Widget provided by FacturX','enabledbydefaulton'=>'Home'),
-			//1=>array('file'=>'facturxwidget2.php@facturx','note'=>'Widget provided by FacturX'),
-			//2=>array('file'=>'facturxwidget3.php@facturx','note'=>'Widget provided by FacturX')
+			//0=>array('file'=>'facturxwidget1.php@facturxutil','note'=>'Widget provided by FacturX','enabledbydefaulton'=>'Home'),
+			//1=>array('file'=>'facturxwidget2.php@facturxutil','note'=>'Widget provided by FacturX'),
+			//2=>array('file'=>'facturxwidget3.php@facturxutil','note'=>'Widget provided by FacturX')
 		);
 
 
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
 		$this->cronjobs = array(
-			//0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/facturx/class/myobject.class.php', 'objectname'=>'MyObject', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->facturx->enabled', 'priority'=>50)
+			//0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/facturxutil/class/myobject.class.php', 'objectname'=>'MyObject', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->facturxutil->enabled', 'priority'=>50)
 		);
-		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->facturx->enabled', 'priority'=>50),
-		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->facturx->enabled', 'priority'=>50)
+		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->facturxutil->enabled', 'priority'=>50),
+		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->facturxutil->enabled', 'priority'=>50)
 		// );
 
 
@@ -208,22 +208,22 @@ class modFacturX extends DolibarrModules
 		$this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read myobject of FacturX';	// Permission label
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->facturx->level1->level2)
-		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->facturx->level1->level2)
+		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->facturxutil->level1->level2)
+		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->facturxutil->level1->level2)
 
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update myobject of FacturX';	// Permission label
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'write';				// In php code, permission will be checked by test if ($user->rights->facturx->level1->level2)
-		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->facturx->level1->level2)
+		$this->rights[$r][4] = 'write';				// In php code, permission will be checked by test if ($user->rights->facturxutil->level1->level2)
+		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->facturxutil->level1->level2)
 
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete myobject of FacturX';	// Permission label
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'delete';				// In php code, permission will be checked by test if ($user->rights->facturx->level1->level2)
-		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->facturx->level1->level2)
+		$this->rights[$r][4] = 'delete';				// In php code, permission will be checked by test if ($user->rights->facturxutil->level1->level2)
+		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->facturxutil->level1->level2)
 
 
 		// Main menu entries
@@ -239,11 +239,11 @@ class modFacturX extends DolibarrModules
 								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 								'mainmenu'=>'billing',
 								'leftmenu'=>'',
-								'url'=>'/facturx/index.php',
-								'langs'=>'facturx@facturx',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+								'url'=>'/facturxutil/index.php',
+								'langs'=>'facturxutil@facturxutil',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->facturx->enabled',	// Define condition to show or hide menu entry. Use '$conf->facturx->enabled' if entry must be visible if module is enabled.
-								'perms'=>'1',			                // Use 'perms'=>'$user->rights->facturx->level1->level2' if you want your menu with a permission rules
+								'enabled'=>'$conf->facturxutil->enabled',	// Define condition to show or hide menu entry. Use '$conf->facturxutil->enabled' if entry must be visible if module is enabled.
+								'perms'=>'1',			                // Use 'perms'=>'$user->rights->facturxutil->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 
@@ -264,18 +264,18 @@ class modFacturX extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		$result=$this->_load_tables('/facturx/sql/');
+		$result=$this->_load_tables('/facturxutil/sql/');
 		if ($result < 0) return -1; // Do not activate module if not allowed errors found on module SQL queries (the _load_table run sql with run_sql with error allowed parameter to 'default')
 
 		// Create extrafields
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
 
-		//$result1=$extrafields->addExtraField('myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'facturx@facturx', '$conf->facturx->enabled');
-		//$result2=$extrafields->addExtraField('myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'facturx@facturx', '$conf->facturx->enabled');
-		//$result3=$extrafields->addExtraField('myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'facturx@facturx', '$conf->facturx->enabled');
-		//$result4=$extrafields->addExtraField('myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'facturx@facturx', '$conf->facturx->enabled');
-		//$result5=$extrafields->addExtraField('myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'facturx@facturx', '$conf->facturx->enabled');
+		//$result1=$extrafields->addExtraField('myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'facturxutil@facturxutil', '$conf->facturxutil->enabled');
+		//$result2=$extrafields->addExtraField('myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'facturxutil@facturxutil', '$conf->facturxutil->enabled');
+		//$result3=$extrafields->addExtraField('myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'facturxutil@facturxutil', '$conf->facturxutil->enabled');
+		//$result4=$extrafields->addExtraField('myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'facturxutil@facturxutil', '$conf->facturxutil->enabled');
+		//$result5=$extrafields->addExtraField('myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'facturxutil@facturxutil', '$conf->facturxutil->enabled');
 
 		$sql = array();
 

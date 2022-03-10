@@ -19,9 +19,9 @@
  */
 
 /**
- *	\file       htdocs/facturx/template/facturxindex.php
- *	\ingroup    facturx
- *	\brief      Home page of facturx top menu
+ *	\file       htdocs/facturxutil/template/facturxutilindex.php
+ *	\ingroup    facturxutil
+ *	\brief      Home page of facturxutil top menu
  */
 
 // Load Dolibarr environment

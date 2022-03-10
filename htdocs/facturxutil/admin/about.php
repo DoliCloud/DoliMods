@@ -17,7 +17,7 @@
  */
 
 /**
- *	    \file       htdocs/facturx/admin/about.php
+ *	    \file       htdocs/facturxutil/admin/about.php
  *      \ingroup    facturx
  *      \brief      Page about
  */
@@ -37,12 +37,12 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
-
+require_once '../lib/facturxutil.lib.php';
 
 if (!$user->admin) accessforbidden();
 
 
-$langs->loadLangs(array("admin", "other", "facturx@facturx"));
+$langs->loadLangs(array("admin", "other", "facturxutil@facturxutil"));
 
 
 /**
@@ -53,23 +53,14 @@ $help_url='';
 llxHeader('', '', $help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("FacturXSetup"), $linkback, 'object_facturx@facturx');
+print_fiche_titre($langs->trans("FacturXSetup"), $linkback, 'object_facturxutil@facturxutil');
 
-$h=0;
-$head[$h][0] = 'setup.php';
-$head[$h][1] = $langs->trans("Setup");
-$head[$h][2] = 'tabsetup';
-$h++;
 
-$head[$h][0] = $_SERVER["PHP_SELF"];
-$head[$h][1] = $langs->trans("About");
-$head[$h][2] = 'tababout';
-$h++;
-
+$head = facturxUtilAdminPrepareHead();
 dol_fiche_head($head, 'tababout', '');
 
-dol_include_once('/facturx/core/modules/modFacturX.class.php');
-$tmpmodule = new modFacturX($db);
+dol_include_once('/facturxutil/core/modules/modFacturXUtil.class.php');
+$tmpmodule = new modFacturXUtil($db);
 if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';

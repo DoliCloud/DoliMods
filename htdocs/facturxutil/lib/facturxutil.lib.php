@@ -26,20 +26,20 @@
  *
  * @return array
  */
-function facturxAdminPrepareHead()
+function facturxUtilAdminPrepareHead()
 {
 	global $langs, $conf;
 
-	$langs->load("facturx@facturx");
+	$langs->load("facturxutil@facturxutil");
 
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/facturx/admin/setup.php", 1);
+	$head[$h][0] = dol_buildpath("/facturxutil/admin/setup.php", 1);
 	$head[$h][1] = $langs->trans("Settings");
 	$head[$h][2] = 'settings';
 	$h++;
-	$head[$h][0] = dol_buildpath("/facturx/admin/about.php", 1);
+	$head[$h][0] = dol_buildpath("/facturxutil/admin/about.php", 1);
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'about';
 	$h++;
@@ -47,12 +47,12 @@ function facturxAdminPrepareHead()
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
 	//$this->tabs = array(
-	//	'entity:+tabname:Title:@facturx:/facturx/mypage.php?id=__ID__'
+	//	'entity:+tabname:Title:@facturxutil:/facturxutil/mypage.php?id=__ID__'
 	//); // to add new tab
 	//$this->tabs = array(
-	//	'entity:-tabname:Title:@facturx:/facturx/mypage.php?id=__ID__'
+	//	'entity:-tabname:Title:@facturxutil:/facturxutil/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'facturx');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'facturxutil');
 
 	return $head;
 }

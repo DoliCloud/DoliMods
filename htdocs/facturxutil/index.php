@@ -27,11 +27,11 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 $form=new Form($db);
 $formfile=new FormFile($db);
 
-$arrayofcss=array('/facturx/styles.css');
+$arrayofcss=array('/facturxutil/styles.css');
 
 llxHeader('', 'FacturX', '', '', 0, 0, '', $arrayofcss);
 
-mkdir($conf->facturx->dir_temp);
+mkdir($conf->facturxutil->dir_temp);
 
 include_once './includes/autoloader.php';
 include_once DOL_DOCUMENT_ROOT.'/includes/tecnickcom/tcpdf/tcpdf_parser.php';
@@ -97,7 +97,7 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 			);
 		}
 		$result = $facturx->generateFacturxFromFiles($pdf, $facturx_xml,
-			'autodetect', true, $conf->facturx->dir_temp.'/', $attachment_files, true);
+			'autodetect', true, $conf->facturxutil->dir_temp.'/', $attachment_files, true);
 	} catch (Exception $e) {
 		$resultBodyHtml = 'Error while generating the Factur-X :<pre>' . $e.'</pre>';
 	}
@@ -112,7 +112,7 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 		<div class="container-fluid">
 			<div class="card">
 				<div class="card-header bg-info text-white">
-					<h2>Factur-X Toolbox</h2>
+					<h2>Factur-X Utilities</h2>
 				</div>
 				<div class="card-body">
 					<div class="row">
