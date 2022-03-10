@@ -1,0 +1,9 @@
+{
+	"config" : {
+		"vendor-dir" : "includes"
+	},
+
+	"require" : {
+		"atgp/factur-x" : "^1.0"
+	}
+}
