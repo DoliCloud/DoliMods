@@ -120,36 +120,30 @@ if ($mesg) {
 }
 
 
-/*if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHC2C_ACCOUNT) || empty($WS_DOL_URL)))
-{
-	echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
-}
-else
-{*/
-   // Formulaire d'ajout de compte qui sera valable pour le click2dial
-	print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+// Formulaire d'ajout de compte qui sera valable pour le click2dial
+print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 if ((float) DOL_VERSION >= 11.0) {
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 } else {
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 }
-	print '<input type="hidden" name="action" value="setvalue_account">';
+print '<input type="hidden" name="action" value="setvalue_account">';
 
 
-	dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"), -1);
+dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"), -1);
 
 
-	print '<table class="noborder centpercent">';
+print '<table class="noborder centpercent">';
 
-	print '<tr class="liste_titre">';
-	print '<td width="200px">'.$langs->trans("Parameter").'</td>';
-	print '<td>'.$langs->trans("Value").'</td>';
-	print '<td>&nbsp;</td>';
-	print "</tr>\n";
+print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("Parameter").'</td>';
+print '<td>'.$langs->trans("Value").'</td>';
+print '<td>&nbsp;</td>';
+print "</tr>\n";
 
 
 if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORCLICK2DIAL)) {
-	print '<tr class="oddeven"><td width="200px" class="fieldrequired">';
+	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("OvhSmsNick").'</td><td>';
 	print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
 	print '</td><td>'.$langs->trans("Example").': AA123-OVH';
@@ -167,58 +161,60 @@ if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORC
 	print '</td></tr>';
 } else {
 	print '<tr class="oddeven"><td class="fieldrequired">';
-	print $langs->trans("OvhBillingAccount").'</td><td>';
+	$htmltext=$langs->trans("OvhTelAccountHelp");
+	print $form->textwithpicto($langs->trans("OvhBillingAccount"), $htmltext).'</td><td>';
 	print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
-	print '<br>'.$langs->trans("Example").': nh123-ovh-1';
-	print '</td><td></td></tr>';
+	print '</td><td><span class="opacitymedium">'.$langs->trans("Example").': nh123-ovh-1</span>';
+	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
 	$htmltext=$langs->trans("OvhServiceNameHelp");
 	print $form->textwithpicto($langs->trans("OvhServiceName"), $htmltext).'</td><td>';
 	print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
-	print '<br>'.$langs->trans("Example").': 0033123456789';
-	print '</td><td></td></tr>';
+	print '</td><td><span class="opacitymedium">'.$langs->trans("Example").': 0033123456789</span>';
+	print '</td></tr>';
 }
 
-	print '</table>';
+print '</table>';
 
 
-	print '<br>';
+print '<br>';
 
-	// Show message
-	$message='';
+// Show message
+$message='';
 
-	$tmpurl='/ovh/wrapper.php?caller=__PHONEFROM__&called=__PHONETO__';
+$tmpurl='/ovh/wrapper.php?caller=__PHONEFROM__&called=__PHONETO__';
 if (empty($conf->global->OVH_OLDAPI)) {
 	$tmpurl.='&billingaccount='.(empty($conf->global->OVHC2C_ACCOUNT)?'???':$conf->global->OVHC2C_ACCOUNT).'&servicename='.(empty($conf->global->OVHSN_ACCOUNT)?'SIPLineNumber':$conf->global->OVHSN_ACCOUNT);
 } else {
 	$tmpurl.='&login=__LOGIN__&password=__PASS__';
 }
 
-	print info_admin($langs->trans("IfYouChangeHereChangeAlsoClickToDial")).'<br>';
+print info_admin($langs->trans("IfYouChangeHereChangeAlsoClickToDial")).'<br>';
 
-	$url='<a href="'.dol_buildpath($tmpurl, 2).'" target="_blank">'.dol_buildpath($tmpurl, 2).'</a>';
-	$message.= '<span class="opacitymedium">'.$langs->trans("ClickToDialLink", 'OVH', '').'</span><br>';
-	$message.=img_picto('', 'object_globe.png').' <input type="text" class="quatrevingtpercent" id="url" name="url" value="'.dol_escape_htmltag(dol_buildpath($tmpurl, 2)).'">';
+$url='<a href="'.dol_buildpath($tmpurl, 2).'" target="_blank">'.dol_buildpath($tmpurl, 2).'</a>';
+
+print '<span class="opacitymedium">'.$langs->trans("ClickToDialLink", 'OVH', '').'</span>';
+
+print '<div class="urllink">';
+$message.=img_picto('', 'object_globe.png').' <input type="text" class="quatrevingtpercent" id="url" name="url" value="'.dol_escape_htmltag(dol_buildpath($tmpurl, 2)).'">';
 if (function_exists('ajax_autoselect')) {
 	$message.=ajax_autoselect('url');
 }
-	$message.='<br>';
-	$message.='<br>';
-	print $message;
+print $message;
+print '</div>';
+print '<br>';
 
-	print $langs->trans("ToGoOnClickToDialSetup").': <a href="'.DOL_URL_ROOT.'/admin/clicktodial.php" target="setup">'.$langs->trans("ClickHere").'</a><br>';
+print $langs->trans("ToGoOnClickToDialSetup").': <a href="'.DOL_URL_ROOT.'/admin/clicktodial.php" target="setup">'.$langs->trans("ClickHere").'</a><br>';
 
-	dol_fiche_end();
+dol_fiche_end();
 
-	print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
+print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
 
-	print '</form>';
-
-//}
-
+print '</form>';
 
 
 llxFooter();
 
 $db->close();
+
