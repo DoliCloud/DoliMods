@@ -1,6 +1,11 @@
 # ChangeLog MODULE EXTERNALBACKUP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.1.3
+
+- Dolibarr v15 compatibility: Fix error CSRF in setup.
+
+
 ## 4.1.2
 
 - Avoid duplicate line of ecotax when cloning an object with ecotax.
