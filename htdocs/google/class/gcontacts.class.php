@@ -286,11 +286,11 @@ class GContact
 			$this->addr->state = $dolContact->state;
 			$this->addr->country = $dolContact->country;
 		}
-		$this->phone_pro= $dolContact->phone;               // For thirdparty, phone is phone and not phone_pro
-		$this->phone_perso= $dolContact->phone_perso;       // For thirdparty, should be useless
-		$this->phone_mobile= $dolContact->phone_mobile;     // For thirdparty, should be useless
+		$this->phone_pro= !empty($dolContact->phone)?$dolContact->phone:"";               // For thirdparty, phone is phone and not phone_pro
+		$this->phone_perso= !empty($dolContact->phone_perso)?$dolContact->phone_perso:"";       // For thirdparty, should be useless
+		$this->phone_mobile= !empty($dolContact->phone_mobile)?$dolContact->phone_mobile:"";     // For thirdparty, should be useless
 		$this->fax= $dolContact->fax;
-		$this->socid= $dolContact->socid;
+		$this->socid= !empty($dolContact->socid)?$dolContact->socid:"";
 
 		$google_nltechno_tag=getCommentIDTag();
 		$idindolibarr=$this->dolID."/thirdparty";
@@ -353,8 +353,8 @@ class GContact
 		$this->atomEntry->appendChild($userdefined);
 
 		// Add tags
-		$this->appendGroup($gdata, getTagLabel('thirdparties'), $useremail);
-		$this->doc->appendChild($this->atomEntry);
+		//$this->appendGroup($gdata, getTagLabel('thirdparties'), $useremail);
+		//$this->doc->appendChild($this->atomEntry);
 	}
 
 	/**
@@ -604,13 +604,13 @@ class GContact
 			$access_token=$gdata['google_web_token']['access_token'];
 		} else {
 			$tmp=json_decode($gdata['google_web_token']);
-			$access_token=$tmp->access_token;
+			$access_token=!empty($tmp->access_token)?$tmp->access_token:"";
 		}
 		$addheaders=array('authorization'=>'Bearer '.$access_token);
-		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
+		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
 		//$useremail='default';
 
-		$queryString = 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
+		$queryString = 'https://people.googleapis.com/v1/people/me/connections?personFields=userDefined';
 		if (! empty($pattern)) $queryString .= '&q='.$pattern;
 		$response = getURLContent($queryString, 'GET', '', 0, $addheaderscurl);
 
@@ -618,27 +618,30 @@ class GContact
 			dol_syslog('Error http '.$response['http_code'], LOG_WARNING);
 			return -1;
 		}
-
+		$jsonStr = $response['content'];
 		$xmlStr=$response['content'];
 		if ($response['content']) {
-			$document = new DOMDocument("1.0", "utf-8");
+			$json = json_decode($jsonStr);
+			/*$document = new DOMDocument("1.0", "utf-8");
 			$document->loadXml($response['content']);
 
-			$errorselem = $document->getElementsByTagName("errors");
+			$errorselem = $document->getElementsByTagName("errors");*/
 			//var_dump($errorselem);
 			//var_dump($errorselem->length);
 			//var_dump(count($errorselem));
-			if ($errorselem->length) {
+			if (!empty($json->error)) {
 				dol_syslog($response['content'], LOG_ERR);
 				return -1;
 			}
 		}
 
 		// Split answers into entries array
-		$document->loadXML($xmlStr);
-		$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
+		$json = json_decode($jsonStr);
+		$entries = $json->connections;
+		//$document->loadXML($xmlStr);
+		//$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
 
-		$n = $entries->length;
+		$n = count($entries);
 		dol_syslog(get_class().'::getDolibarrContactsGoogleIDS '.$n.' contacts retrieved from google contacts');
 
 		$tagtofind=getCommentIDTag();
@@ -647,21 +650,24 @@ class GContact
 		foreach ($entries as $entry) {
 			// Try to qualify or not contact
 			// TODO Use the dolibarr-id instead of comment
-			$contentNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");	//<atom:content type="text"> = note
-			if ($contentNodes->length == 1) {
-				$content = $contentNodes->item(0)->textContent;
+			//$contentNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");	//<atom:content type="text"> = note
+			$contentNodes = !empty($entry->userDefined)?$entry->userDefined:null;
+			if (!empty($contentNodes) && count($contentNodes) == 1) {
+				$content = $contentNodes[0];
 				//print $content."<br>";
 
 				// Detect if contact is qualified to be deleted
 				$reg = array();
-				if (preg_match('/'.preg_quote($tagtofind).'([0-9]+)\/'.$type.'/m', $content, $reg)) {
-					$googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
+				if ($content->key == "dolibarr-id" && preg_match('/([0-9]+)\/'.$type.'/m', $content->value, $reg)) {
+					//$googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
 					//$googleEMail = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");
 					//var_dump($googleEMail->item(0)->nodeValue);
 					//$googleEMail = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");
 					//var_dump($googleEMail->item(0)->nodeValue);
-					if ($googleIDNodes->length == 1) {
-						$googleIDs[] = $googleIDNodes->item(0)->textContent;
+					$reg = array();
+					$googleIDNodes = $entry->resourceName;
+					if (!empty($googleIDNodes)) {
+						$googleIDs[] = $googleIDNodes;
 					}
 				}
 			}
@@ -818,7 +824,7 @@ class GContact
 					$document->loadXML($xmlStr);
 					$xmlStr = $document->saveXML();
 
-					$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
+					$entries = $document->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
 					$n = $entries->length;
 					$googleGroups = array();
 					foreach ($entries as $entry) {
@@ -983,7 +989,7 @@ class GContact
 					$firstIDs = $remainingIDs;
 					$remainingIDs = array();
 				}
-				$doc = new DOMDocument("1.0", "utf-8");
+				/*$doc = new DOMDocument("1.0", "utf-8");
 				$doc->formatOutput = true;
 				$feed = $doc->createElement("atom:feed");
 				$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
@@ -991,21 +997,29 @@ class GContact
 				$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 				$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
 				$feed->appendChild($doc->createElement("title", "The batch title: delete"));
-				$doc->appendChild($feed);
+				$doc->appendChild($feed);*/
+				$jsonData = '{"resourceNames" : [';
+				$nbentries = 1;
 				foreach ($firstIDs as $googleID) {
 					//$googleID = preg_replace('/http:\/\//','https://',$googleID);	// Force https
 
-					$entry = $doc->createElement("atom:entry");
+					/*$entry = $doc->createElement("atom:entry");
 					$entry->setAttribute("gdata:etag", "*");
 					$entry->appendChild($doc->createElement("atom:id", $googleID));
 					$el = $doc->createElement("batch:operation");
 					$el->setAttribute("type", "delete");
 					$entry->appendChild($el);
-					$feed->appendChild($entry);
+					$feed->appendChild($entry);*/
+					if ($nbentries > 1) {
+						$jsonData .= ",";
+					}
+					$jsonData .= json_encode($googleID);
+					$nbentries ++;
 				}
-				$xmlStr = $doc->saveXML();
+				$jsonData .= "]}";
+				//$xmlStr = $doc->saveXML();
 
-				dol_syslog(sprintf("Deleting %d google contacts for user %s", count($firstIDs), $googleUser));
+				dol_syslog(sprintf("Deleting %d google contacts for user %s", count($firstIDs), !empty($googleUser)?$googleUser:""));
 				try {
 					$tag_debug='massdelete';
 					//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
@@ -1018,21 +1032,22 @@ class GContact
 						$access_token=$tmp->access_token;
 					}
 					$addheaders=array('authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
-					$addheaderscurl=array('authorization: Bearer '.$access_token, 'If-Match: *');
+					$addheaderscurl=array('Content-Type: application/json','authorization: Bearer '.$access_token, 'If-Match: *');
 
 					//$request=new Google_Http_Request('https://www.google.com/m8/feeds/contacts/default/base/batch', 'POST', $addheaders, $xmlStr);
 					//$requestData = $gdata['client']->execute($request);
-					$result = getURLContent('https://www.google.com/m8/feeds/contacts/default/base/batch', 'POST', $xmlStr, 0, $addheaderscurl);
-					$xmlStr=$result['content'];
+					$result = getURLContent('https://people.googleapis.com/v1/people:batchDeleteContacts', 'POST', $jsonData, 0, $addheaderscurl);
+					$jsonStr=$result['content'];
 					try {
-						$document = new DOMDocument("1.0", "utf-8");
+						$json = json_decode($jsonStr);
+						/*$document = new DOMDocument("1.0", "utf-8");
 						$document->loadXml($result['content']);
 
-						$errorselem = $document->getElementsByTagName("errors");
+						$errorselem = $document->getElementsByTagName("errors");*/
 						//var_dump($errorselem);
 						//var_dump($errorselem->length);
 						//var_dump(count($errorselem));
-						if ($errorselem->length) {
+						if (!empty($json->error)) {
 							dol_syslog('ERROR:'.$result['content'], LOG_ERR);
 							return -1;
 						}
@@ -1040,8 +1055,6 @@ class GContact
 						dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
 						return -1;
 					}
-
-					$responseXml = $xmlStr;
 
 					//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", $responseXml);
 					//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));

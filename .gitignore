@@ -4,3 +4,4 @@ main.inc.php
 master.inc.php
 /.project
 /.pydevproject
+.vscode/launch.json
