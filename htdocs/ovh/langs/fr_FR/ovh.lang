@@ -36,6 +36,7 @@ OvhInvoiceImportDesc=Cet écran vous permet de lister les factures chez OVH et d
 SupplierToUseForImport=Fournisseur sur lequel importer les factures
 ScanOvhInvoices=Récuperer liste des factures
 ExcludeNullInvoices=Exclure les factures à montant nul
+ExcludeNullLines=Exclure les lignes de factures à montant nul
 NotFound=Not found
 ImportIt=Import it ?
 ToImport=Importer

@@ -13,3 +13,9 @@ source_file = htdocs/google/langs/en_US/google.lang
 source_lang = en_US
 type = MOZILLAPROPERTIES
 
+[ovh.ovh]
+file_filter = htdocs/ovh/langs/<lang>/ovh.lang
+source_file = htdocs/ovh/langs/en_US/ovh.lang
+source_lang = en_US
+type = MOZILLAPROPERTIES
+
