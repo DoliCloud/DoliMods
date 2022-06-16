@@ -611,7 +611,7 @@ if ($action == 'refresh') {
 			// Submit form to launch import
 			print '<div class="floatleft">';
 			// Project for invoices
-			if ($conf->projet->enabled) {
+			if ($conf->project->enabled) {
 				$disabled = 0;
 				//if ($action == 'refresh') $disabled=1;
 				print $langs->trans("ProjectForImport") . ': ';
