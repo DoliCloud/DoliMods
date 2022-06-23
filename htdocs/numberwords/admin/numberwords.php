@@ -139,27 +139,27 @@ print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="test">';
 
-print $langs->trans("NUMBERWORDS_USE_CURRENCY_SYMBOL");
+print $langs->trans("NUMBERWORDS_USE_CURRENCY_SYMBOL").' ';
 
 // Active
 if (! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
-	print '<a href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
+	print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
 	print img_picto($langs->trans("Enabled"), 'switch_on');
 	print '</a>';
 
 	print '<br>';
 
-	print $langs->trans("NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL");
+	print $langs->trans("NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL").' ';
 	// Active
 	if (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL)) {
-		print '<a href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
+		print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
 		print img_picto($langs->trans("Enabled"), 'switch_on');
 		print '</a>';
 	} else {
-		print '<a href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
+		print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
 	}
 } else {
-	print '<a href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
+	print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
 }
 print '<br>';
 
