@@ -111,10 +111,9 @@ llxHeader();
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("FileManagerSetup"), $linkback, 'setup');
-print '<br>';
 
 //if ($mesg) print '<div class="error">'.$langs->trans($mesg).'</div><br>';
-if ($mesg) print $mesg.'<br>';
+if ($mesg) print dol_escape_htmltag($mesg).'<br>';
 
 
 $h=0;
@@ -128,7 +127,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tabsetup', '');
+dol_fiche_head($head, 'tabsetup', '', -1);
 
 
 // Param
@@ -137,14 +136,14 @@ print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="setparam">';
 
-print '<table class="noborder" width="100%">';
+print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Parameter").'</td><td align="center">'.$langs->trans("Value").'</td>';
-print '<td>&nbsp;</td>';
+print '<td>'.$langs->trans("Parameter").'</td>';
+print '<td class="center">'.$langs->trans("Value").'</td>';
+print '<td></td>';
 print "</tr>\n";
 
-$var=!$var;
-print '<tr '.$bc[$var].'>';
+print '<tr class="oddeven">';
 print '<td>';
 print $langs->trans("UseColorSyntaxing");
 print '</td><td align="center">';
@@ -163,28 +162,29 @@ print '<br><br>';
 
 print '<div class="titre">'.$langs->trans("AddRootPath").'</div>';
 
+print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
+
 // Mode
 $var=true;
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="set">';
 
-print '<table class="noborder" width="100%">';
+print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
-print '<td width="40%">'.$langs->trans("Add").'</td><td>'.$langs->trans("Value").'</td>';
+print '<td>'.$langs->trans("Add").'</td><td>'.$langs->trans("Value").'</td>';
 print '<td>'.$langs->trans("Example").'</td>';
 print "</tr>\n";
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("LabelForRootFileManager").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("LabelForRootFileManager").'</td>';
 print '<td>';
 print '<input size="12" type="text" name="FILEMANAGER_ROOT_LABEL" value="'.$_POST["FILEMANAGER_ROOT_LABEL"].'">';
 print '</td><td>MyRoot</td></tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("PathForRootFileManager").'</td>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("PathForRootFileManager").'</td>';
 print '<td>';
 print '<input size="50" type="text" name="FILEMANAGER_ROOT_PATH" value="'.$_POST["FILEMANAGER_ROOT_PATH"].'">';
-print '</td><td>/home/mydir, c:/</td></tr>';
+print '</td><td>/home/mydir, c:/, '.DOL_DATA_ROOT.'</td></tr>';
 
 print '</table>';
 
@@ -200,10 +200,10 @@ print '<br>';
 
 print '<div class="titre">'.$langs->trans("ListForRootPath").'</div>';
 
-print '<table class="noborder" width="100%">';
+print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
-print '<td width="40%">'.$langs->trans("LabelForRootFileManager").'</td><td>'.$langs->trans("PathForRootFileManager").'</td>';
-print '<td align="right">&nbsp;</td>';
+print '<td>'.$langs->trans("LabelForRootFileManager").'</td><td>'.$langs->trans("PathForRootFileManager").'</td>';
+print '<td></td>';
 print "</tr>\n";
 
 $sql = "SELECT";
@@ -222,8 +222,7 @@ $resql=$db->query($sql);
 if ($resql) {
 	$var=false;
 	while ($obj=$db->fetch_object($resql)) {
-		$var=!$var;
-		print '<tr '.$bc[$var].'><td>'.$obj->rootlabel.'</td><td>'.$obj->rootpath.'</td><td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&id='.$obj->rowid.'">'.img_delete().'</a></td></tr>';
+		print '<tr class="oddeven"><td>'.$obj->rootlabel.'</td><td>'.$obj->rootpath.'</td><td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&id='.$obj->rowid.'">'.img_delete().'</a></td></tr>';
 	}
 } else {
 	dol_print_error($db);
@@ -231,8 +230,6 @@ if ($resql) {
 print '</table>';
 
 print '<br>';
-
-print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
 
 
 llxFooter();
