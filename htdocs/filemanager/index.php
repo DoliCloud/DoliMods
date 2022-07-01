@@ -231,7 +231,6 @@ llxHeader($morehead, $langs->trans("FileManager"), '', '', '', '', $morejs, $mor
 print_fiche_titre($langs->trans("FileManager"));
 
 $form=new Form($db);
-
 // Define root to scan
 $filemanagerroots=new FilemanagerRoots($db);
 
@@ -264,13 +263,13 @@ if (empty($id)) {
 	// No root selected
 	print $langs->trans("PleaseSelectARoot")."<br>\n";
 } else {
-	print $langs->trans("RootFileManager").': <b>'.$filemanagerroots->rootlabel.'</b> ('.$filemanagerroots->rootpath.')<br>'."\n";
+	print '<span class="opacitymedium">'.$langs->trans("RootFileManager").':</span> <b>'.$filemanagerroots->rootlabel.'</b> ('.$filemanagerroots->rootpath.')<br>'."\n";
 }
-print "<br>\n";
+//print "<br>\n";
 
 
-print '<div id="mesg" class="margin-bottom: 6px;">'.$mesg.'</div>';
-
+print '<div id="mesg" style="margin-bottom: 6px;">'.dol_escape_htmltag($mesg).'</div>';
+//setEventMessages($mesg, null);	$mesg contains a div class="ok" so setEventMessages does not work
 
 // Javascript part
 // ---------------------------------------------
@@ -290,10 +289,10 @@ if ($filemanagerroots->rootpath) {
 		// New code using jQuery only
 		$formconfirm= '
             var choice=\'ko\';
-            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("NewDir")).'\');
+            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->transnoentities("NewDir")).'\');
             jQuery("#dialog-confirm").empty();
-            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->trans("AddDirName")).' <input type="text" id="confirmdirname" name="dirname" value="\'+dirname+\'newdir">\');
-            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->trans("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
+            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("AddDirName")).' <input type="text" id="confirmdirname" name="dirname" value="\'+dirname+\'newdir">\');
+            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
             jQuery("#dialog-confirm").dialog({
                 autoOpen: true,
                 resizable: false,
@@ -342,10 +341,10 @@ if ($filemanagerroots->rootpath) {
 					// New code using jQuery only
 					$formconfirm= '
     		            var choice=\'ko\';
-    		            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("NewFile")).'\');
+    		            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->transnoentities("NewFile")).'\');
     		            jQuery("#dialog-confirm").empty();
-    		            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->trans("AddFileName")).' <input type="text" id="confirmfilename" name="filename" value="\'+filename+\'newfile.txt">\');
-    		            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->trans("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
+    		            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("AddFileName")).' <input type="text" id="confirmfilename" name="filename" value="\'+filename+\'newfile.txt">\');
+    		            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
     		            jQuery("#dialog-confirm").dialog({
     		                autoOpen: true,
     		                resizable: false,
@@ -396,10 +395,10 @@ if ($filemanagerroots->rootpath) {
 		// New code using jQuery only
 		$formconfirm= '
             var choice=\'ko\';
-            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("DeleteDir")).'\');
+            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->transnoentities("DeleteDir")).'\');
             jQuery("#dialog-confirm").empty();
-            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->trans("DeleteDirName")).' <b>\'+dirname+\'</b>\');
-            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->trans("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
+            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("DeleteDirName")).' <b>\'+dirname+\'</b>\');
+            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
             jQuery("#dialog-confirm").dialog({
                 autoOpen: true,
                 resizable: false,
@@ -454,7 +453,7 @@ if ($filemanagerroots->rootpath) {
 	                closeOnEscape: false,
 	                close: function(event, ui) {
 	                     if (choice == \'ok\') {
-                            location.href=\''.$_SERVER["PHP_SELF"].'?action=deletefile&token='.newToken().'&id='.$id.'&file=\'+urlencode(filename);
+                            location.href=\''.$_SERVER["PHP_SELF"].'?action=deletefile&token='.newToken().'&id='.((int) $id).'&file=\'+urlencode(filename);
 	                     }
 	                     if (choice == \'ko\') { }
 	                  },
