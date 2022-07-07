@@ -100,7 +100,7 @@ function googleCreateContact($client, $object, $useremail = 'default')
 
 		//<gdata:phoneNumber>
 		$newphone=!empty($object->phone)?$object->phone_pro:$object->phone;
-		if (!empty($newphone)){ 
+		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
@@ -135,7 +135,7 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		$tmpstate=($object->state_id>0?getState($object->state_id):'');
 		$tmpstate=dol_html_entity_decode($tmpstate, ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
 		$person_array["addresses"][0]["region"] = $tmpstate;
-		
+
 		//<gdata:email>
 		$person_array["emailAddresses"][0]["value"] = $object->email?$object->email:(strtolower(preg_replace('/\s/', '', (empty($object->name)?$object->lastname.$object->firstname:$object->name))).'@noemail.com');
 
@@ -327,7 +327,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 		//Phone
 		$newphone=empty($object->phone)?$object->phone_pro:$object->phone;
-		if (!empty($newphone)){ 
+		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
@@ -658,11 +658,11 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			$jsonData .='{"contactPerson": {';
 			//<gdata:name>
 			$jsonData .='"names":[';
-			$jsonData .='{"familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName).'}';
+			$jsonData .='{"familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName);
 			if (!empty($gContact->firstname)) {
-				$jsonData .=',{"givenName": '.json_encode($gContact->firstname).'}';
+				$jsonData .=',"givenName": '.json_encode($gContact->firstname);
 			}
-			$jsonData .='],';
+			$jsonData .='}],';
 			//<atom:content>
 			$jsonData .='"biographies": [';
 			$jsonData .='{ "value": '.json_encode($gContact->note_public).'}';
