@@ -618,6 +618,8 @@ class GContact
 			dol_syslog('Error http '.$response['http_code'], LOG_WARNING);
 			return -1;
 		}
+
+		// return $response['content'].'NEXTPAGE?????2'.json_decode($response['content'])->nextPageToken;
 		$jsonStr = $response['content'];
 		$xmlStr=$response['content'];
 		if ($response['content']) {
@@ -636,8 +638,42 @@ class GContact
 		}
 
 		// Split answers into entries array
-		$json = json_decode($jsonStr);
+		// $json = json_decode($jsonStr);
 		$entries = $json->connections;
+		$nextPageToken = $json->nextPageToken;
+		while (!empty($nextPageToken)) {
+			$queryString = 'https://people.googleapis.com/v1/people/me/connections?personFields=userDefined&pageToken='.$nextPageToken;
+			if (! empty($pattern)) $queryString .= '&q='.$pattern;
+			$response = getURLContent($queryString, 'GET', '', 0, $addheaderscurl);
+
+			if (is_array($response) && $response['http_code'] >= 400) {
+				dol_syslog('Error http '.$response['http_code'], LOG_WARNING);
+				return -1;
+			}
+
+			// return $response['content'].'NEXTPAGE?????2'.json_decode($response['content'])->nextPageToken;
+			$jsonStr = $response['content'];
+			$xmlStr=$response['content'];
+			if ($response['content']) {
+				$json = json_decode($jsonStr);
+				/*$document = new DOMDocument("1.0", "utf-8");
+				$document->loadXml($response['content']);
+
+				$errorselem = $document->getElementsByTagName("errors");*/
+				//var_dump($errorselem);
+				//var_dump($errorselem->length);
+				//var_dump(count($errorselem));
+				if (!empty($json->error)) {
+					dol_syslog($response['content'], LOG_ERR);
+					return -1;
+				}
+			}
+
+			// Split answers into entries array
+			// $json = json_decode($jsonStr);
+			$entries = array_merge($entries, $json->connections);
+			$nextPageToken = $json->nextPageToken;
+		}
 		//$document->loadXML($xmlStr);
 		//$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
 
@@ -691,7 +727,6 @@ class GContact
 	{
 		// Search for id
 		$googleIDs = self::getDolibarrContactsGoogleIDS($gdata, $pattern, $type);
-
 		if ($googleIDs != '-1') {
 			self::deleteEntries($gdata, $googleIDs, false);
 			return(count($googleIDs));

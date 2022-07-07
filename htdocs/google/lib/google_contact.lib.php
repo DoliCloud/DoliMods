@@ -100,7 +100,7 @@ function googleCreateContact($client, $object, $useremail = 'default')
 
 		//<gdata:phoneNumber>
 		$newphone=!empty($object->phone)?$object->phone_pro:$object->phone;
-		if (!empty($newphone)){ 
+		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
@@ -135,14 +135,18 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		$tmpstate=($object->state_id>0?getState($object->state_id):'');
 		$tmpstate=dol_html_entity_decode($tmpstate, ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
 		$person_array["addresses"][0]["region"] = $tmpstate;
-		
+
 		//<gdata:email>
 		$person_array["emailAddresses"][0]["value"] = $object->email?$object->email:(strtolower(preg_replace('/\s/', '', (empty($object->name)?$object->lastname.$object->firstname:$object->name))).'@noemail.com');
 
 		//<gcontact:userDefinedField>
 		if ($object->element == "societe") {
 			$element = "thirdparty";
-		}else {
+		} elseif ($object->element == "contact") {
+			$element = "contact";
+		} elseif ($object->element == "member") {
+			$element = "member";
+		} else {
 			$element = "unknown";
 		}
 		$person_array["userDefined"][0]["key"] = "dolibarr-id";
@@ -327,7 +331,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 		//Phone
 		$newphone=empty($object->phone)?$object->phone_pro:$object->phone;
-		if (!empty($newphone)){ 
+		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
@@ -658,11 +662,11 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			$jsonData .='{"contactPerson": {';
 			//<gdata:name>
 			$jsonData .='"names":[';
-			$jsonData .='{"familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName).'}';
+			$jsonData .='{"familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName);
 			if (!empty($gContact->firstname)) {
-				$jsonData .=',{"givenName": '.json_encode($gContact->firstname).'}';
+				$jsonData .=',"givenName": '.json_encode($gContact->firstname);
 			}
-			$jsonData .='],';
+			$jsonData .='}],';
 			//<atom:content>
 			$jsonData .='"biographies": [';
 			$jsonData .='{ "value": '.json_encode($gContact->note_public).'}';
@@ -722,7 +726,11 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			$jsonData .='{ "key": "dolibarr-id",';
 			if ($objectstatic->element == "societe") {
 				$element = "thirdparty";
-			}else {
+			} elseif ($objectstatic->element == "contact") {
+				$element = "contact";
+			} elseif ($objectstatic->element == "member") {
+				$element = "member";
+			} else {
 				$element = "unknown";
 			}
 			$jsonData .='"value": '.json_encode($gContact->dolID.'/'.$element).'}';

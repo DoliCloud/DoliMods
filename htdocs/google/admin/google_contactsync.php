@@ -490,7 +490,7 @@ if ($action == 'deleteallthirdparties') {
 			$mesg = $langs->trans("DeleteToGoogleSucess", $nbContacts);
 		} else {
 			$error++;
-			$errors[] = $langs->trans("Error");
+			$errors[] = $langs->trans("Error").' '.$nbContacts;
 		}
 	}
 }
