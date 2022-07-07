@@ -654,7 +654,6 @@ class GContact
 				return -1;
 			}
 
-			// return $response['content'].'NEXTPAGE?????2'.json_decode($response['content'])->nextPageToken;
 			$jsonStr = $response['content'];
 			$xmlStr=$response['content'];
 			if ($response['content']) {
