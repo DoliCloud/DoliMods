@@ -640,6 +640,9 @@ class GContact
 		// Split answers into entries array
 		// $json = json_decode($jsonStr);
 		$entries = $json->connections;
+
+
+		// A page of fetched contacts has a maximum size of 100, so we may need to iterate over the pages
 		$nextPageToken = $json->nextPageToken;
 		while (!empty($nextPageToken)) {
 			$queryString = 'https://people.googleapis.com/v1/people/me/connections?personFields=userDefined&pageToken='.$nextPageToken;
