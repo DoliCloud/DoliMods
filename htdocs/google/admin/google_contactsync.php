@@ -443,15 +443,26 @@ if ($action == 'pushallmembers') {
 			$i++;
 		}
 
-		$result=0;
-		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+		$resultEntries=0;
+		if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
 
-		if (is_numeric($result) && $result >= 0) {
+		if (is_numeric($result) && $resultEntries >= 0) {
 			$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
 		} else {
 			$error++;
-			$errors[] = $langs->trans("Error").' '.$result;
+			$errors[] = $langs->trans("Error").' '.$resultEntries;
 		}
+
+		$resultTags=0;
+		if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts);//'Les tontons flingueurs'
+
+		if (is_numeric($result) && $result >= 0) {
+			$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+		} else {
+			$error++;
+			$errors[] = $langs->trans("Error").' '.$resultTags;
+		}
+
 	}
 }
 
