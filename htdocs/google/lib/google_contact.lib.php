@@ -547,7 +547,8 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 }
 
 /**
- * Update group members in google contact for a given group ID
+ * Link a member to group in google contact
+ *
  * @param string  	$client 	Google client
  * @param string 	$groupID 	ID of group to update
  * @param string	$contactID 	ID of contact to update
@@ -577,8 +578,121 @@ function googleLinkGroup($client, $groupID, $contactID, $type) {
 	$jsonStr = $result['content'];
 	$json = json_decode($jsonStr);
 	if (!empty($json->error)) {
-		dol_syslog('updateGContactGroups Error:'.$json->error->message, LOG_ERR);
+		dol_syslog('Link group Error:'.$json->error->message, LOG_ERR);
+		return -1;
 	}
+	return 1;
+}
+
+/**
+ * Link a member to group in google contact
+ *
+ * @param string  	$client 	Google client
+ * @param string 	$groupID 	ID of group to update
+ * @param string	$contactID 	ID of contact to update
+ * @param string 	$type 		Type of contact to update
+ * @return int					<0 if KO, >0 if OK
+ */
+function googleUnlinkGroup($client, $groupID, $contactID, $type) {
+
+	// prepare json data
+	$jsonData = '{';
+	$jsonData .= '"resourceNamesToRemove": [';
+	$jsonData .= json_encode($contactID);
+	$jsonData .= ']';
+	$jsonData .= '}';
+
+	// prepare request
+	$gdata = $client;
+	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+		$access_token=$gdata['google_web_token']['access_token'];
+	} else {
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+	}
+	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID.'/members:modify', 'POST', $jsonData, 0, $addheaderscurl);
+	$jsonStr = $result['content'];
+	$json = json_decode($jsonStr);
+	if (!empty($json->error)) {
+		dol_syslog('Unlink group Error:'.$json->error->message, LOG_ERR);
+		return -1;
+	}
+	return 1;
+}
+
+
+/**
+ * Delete a group in google contact
+ *
+ * @param string  	$client 	Google client
+ * @param string 	$groupID 	ID of group to update
+ *
+ * @return int					<0 if KO, >0 if OK
+ */
+function googleDeleteGroup($client, $groupID) {
+
+	// prepare request
+	$gdata = $client;
+	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+		$access_token=$gdata['google_web_token']['access_token'];
+	} else {
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+	}
+	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'DELETE', array(), 0, $addheaderscurl);
+	$jsonStr = $result['content'];
+	$json = json_decode($jsonStr);
+	if (!empty($json->error)) {
+		dol_syslog('Delete group Error:'.$json->error->message, LOG_ERR);
+		return -1;
+	}
+	return 1;
+}
+
+/**
+ * Update a name of a group in google contact
+ *
+ * @param string  	$client 	Google client
+ * @param string 	$groupID 	ID of group to update
+ * @param string 	$name	 	New name of group
+ * @return int					<0 if KO, >0 if OK
+ */
+function googleUpdateGroup($client, $groupID, $name) {
+	//TODO 
+	// global $conf;
+	// $gdata = $client;
+	// // Send request to Google
+	// if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+	// 	$access_token=$gdata['google_web_token']['access_token'];
+	// } else {
+	// 	$tmp=json_decode($gdata['google_web_token']);
+	// 	$access_token=$tmp->access_token;
+	// }
+	// $addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+	// $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	// $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+	// $jsonStr = $result['content'];
+	// $json = json_decode($jsonStr);
+	// $json->name = $name;
+	// $json->formattedName = $name;
+	// $jsonData = '{';
+	// $jsonData .='"contactGroup":';
+	// $jsonData .= json_encode($json);
+	// $jsonData .= '}';
+	// $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'PUT', $jsonData, 0, $addheaderscurl);
+	// // return json_encode($result);
+	// $jsonStr = $result['content'];
+	// $json = json_decode($jsonStr);
+	// if (!empty($json->error)) {
+	// 	dol_syslog('googleUpdateGroup Error:'.$json->error->message, LOG_ERR);
+	// 	return "ERROR:".$json->error->message;
+	// }
+	return 1;
+
 }
 
 /**
@@ -1101,7 +1215,7 @@ function getTags($id, $type) {
 
 
 /**
-* Update groups of the contacts in google contact
+* Link groups of the contacts in google contact
  * @param	array	$gdata			Array with tokens info
  * @param 	array 	$gContacts		Array of object GContact
  * @param	string	$useremail		User email

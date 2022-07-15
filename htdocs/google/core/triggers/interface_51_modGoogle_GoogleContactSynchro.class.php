@@ -128,7 +128,8 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 		// Actions
 		if ($action == 'COMPANY_CREATE' || $action == 'COMPANY_MODIFY' || $action == 'COMPANY_DELETE'
 			|| $action == 'CONTACT_CREATE' || $action == 'CONTACT_MODIFY' || $action == 'CONTACT_DELETE'
-			|| $action == 'MEMBER_CREATE' || $action == 'MEMBER_MODIFY' || $action == 'MEMBER_DELETE' || $action == 'CATEGORY_LINK') {
+			|| $action == 'MEMBER_CREATE' || $action == 'MEMBER_MODIFY' || $action == 'MEMBER_DELETE'
+			|| $action == 'CATEGORY_LINK' || $action == 'CATEGORY_UNLINK' || $action == 'CATEGORY_DELETE' || $action == 'CATEGORY_MODIFY') {
 			if (preg_match('/^COMPANY_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES)) return 0;
 			if (preg_match('/^CONTACT_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS)) return 0;
 			if (preg_match('/^MEMBER_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS)) return 0;
@@ -244,7 +245,57 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					}
 					$this->error=$object->error;
 					$this->errors[]=$this->error;
-					return -1;	// We do not stop delete if error
+					return -1;
+				}
+
+				if ($action == 'CATEGORY_UNLINK') {
+					$type = $object->context['unlinkoff']->element ? $object->context['unlinkoff']->element : 'unknown';
+					$tag = array('id' => $object->id, 'label' => $object->label);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$contactID = $object->context['unlinkoff']->ref_ext;
+						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
+							$contactID = $reg[1];
+							$ret = googleUnlinkGroup($servicearray, $groupID, $contactID, $type);
+							if ($ret > 0) {
+								return 1;
+							}
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$this->error;
+					return -1;
+				}
+
+				if ($action == 'CATEGORY_DELETE') {
+					$tag = array('id' => $object->id, 'label' => $object->label);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$ret = googleDeleteGroup($servicearray, $groupID);
+						if ($ret > 0) {
+							return 1;
+
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$this->error;
+					return -1;
+				}
+
+				if ($action == 'CATEGORY_MODIFY') {
+					$newlabel = $object->label;
+					$tag = array('id' => $object->id, 'label' => $newlabel);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$ret = googleUpdateGroup($servicearray, $groupID, $newlabel);
+						if (is_numeric($ret) && $ret > 0) {
+							return 1;
+
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$ret;
+					return -1;
 				}
 			}
 		}
