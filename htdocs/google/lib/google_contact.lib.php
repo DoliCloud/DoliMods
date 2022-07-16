@@ -552,10 +552,10 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
  * @param string  	$client 	Google client
  * @param string 	$groupID 	ID of group to update
  * @param string	$contactID 	ID of contact to update
- * @param string 	$type 		Type of contact to update
  * @return int					<0 if KO, >0 if OK
  */
-function googleLinkGroup($client, $groupID, $contactID, $type) {
+function googleLinkGroup($client, $groupID, $contactID) {
+
 
 	// prepare json data
 	$jsonData = '{';
@@ -575,11 +575,15 @@ function googleLinkGroup($client, $groupID, $contactID, $type) {
 	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID.'/members:modify', 'POST', $jsonData, 0, $addheaderscurl);
+	if ($result['http_code'] == 404) {
+		dol_syslog('Failed to link contact to group: '.$result['http_code'], LOG_ERR);
+		return -1;
+	}
 	$jsonStr = $result['content'];
 	$json = json_decode($jsonStr);
 	if (!empty($json->error)) {
 		dol_syslog('Link group Error:'.$json->error->message, LOG_ERR);
-		return -1;
+		return $json->error->message.$contactID;
 	}
 	return 1;
 }
@@ -590,10 +594,9 @@ function googleLinkGroup($client, $groupID, $contactID, $type) {
  * @param string  	$client 	Google client
  * @param string 	$groupID 	ID of group to update
  * @param string	$contactID 	ID of contact to update
- * @param string 	$type 		Type of contact to update
  * @return int					<0 if KO, >0 if OK
  */
-function googleUnlinkGroup($client, $groupID, $contactID, $type) {
+function googleUnlinkGroup($client, $groupID, $contactID) {
 
 	// prepare json data
 	$jsonData = '{';
@@ -662,7 +665,7 @@ function googleDeleteGroup($client, $groupID) {
  * @return int					<0 if KO, >0 if OK
  */
 function googleUpdateGroup($client, $groupID, $name) {
-	//TODO 
+	//TODO
 	// global $conf;
 	// $gdata = $client;
 	// // Send request to Google
@@ -1064,15 +1067,26 @@ function getTagLabel($s)
 function getTags($id, $type) {
 
 	global $db;
+	if ($type == 'thirdparty') {
+		$sql = 'SELECT rowid, label FROM '.MAIN_DB_PREFIX.'categorie lc';
+		$sql .= ' JOIN '.MAIN_DB_PREFIX.'categorie_societe lcm ON lc.rowid = lcm.fk_categorie';
+		$sql .= ' WHERE lcm.fk_soc = '.$id;
+	} elseif ($type == 'contact') {
+		$sql = 'SELECT rowid, label FROM '.MAIN_DB_PREFIX.'categorie lc';
+		$sql .= ' JOIN '.MAIN_DB_PREFIX.'categorie_contact lcm ON lc.rowid = lcm.fk_categorie';
+		$sql .= ' WHERE lcm.fk_socpeople = '.$id;
+	} elseif ($type == 'member') {
+		$sql = 'SELECT rowid, label FROM '.MAIN_DB_PREFIX.'categorie lc';
+		$sql .= ' JOIN '.MAIN_DB_PREFIX.'categorie_member lcm ON lc.rowid = lcm.fk_categorie';
+		$sql .= ' WHERE lcm.fk_member = '.$id;
+	}
 
-	$sql = 'SELECT rowid, label FROM '.MAIN_DB_PREFIX.'categorie lc';
-	$sql .= ' JOIN '.MAIN_DB_PREFIX.'categorie_member lcm ON lc.rowid = lcm.fk_categorie';
-	$sql .= ' WHERE lcm.fk_member = '.$id;
+
 	$ressql = $db->query($sql);
 	$tags = array();
 	if ($ressql) {
 		while ($obj = $db->fetch_object($ressql)) {
-			$tags[] = array('id' => $obj->rowid, 'label' => $obj->label);
+			$tags[] = array('id' => $obj->rowid, 'label' => $obj->label, 'type' => $type);
 		}
 	}
 	return $tags;
@@ -1215,14 +1229,15 @@ function getTags($id, $type) {
 
 
 /**
-* Link groups of the contacts in google contact
+ * Link groups of the contacts in google contact
  * @param	array	$gdata			Array with tokens info
  * @param 	array 	$gContacts		Array of object GContact
+ * @param	string	$type			Type of contact ('thirdparty', 'contact' or 'member')
  * @param	string	$useremail		User email
  *
  * @return	int						>0 if OK, <0 if KO
  */
- function updateGContactGroups($gdata, $gContacts, $useremail = 'default') {
+function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default') {
 
 	global $db;
 
@@ -1232,7 +1247,16 @@ function getTags($id, $type) {
 		// Retreive google id from gContact
 		$dolID = $gContact->dolID;
 
-		$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'adherent la WHERE la.rowid = '.$dolID;
+		if ($type == 'thirdparty') {
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'societe WHERE rowid = '.$dolID;
+		} elseif ($type == 'contact') {
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'socpeople WHERE rowid = '.$dolID;
+		} elseif ($type == 'member') {
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'adherent WHERE rowid = '.$dolID;
+		} else {
+			return -1;
+		}
+
 		$ressql = $db->query($sql);
 		if ($ressql) {
 			$obj = $db->fetch_object($ressql);
@@ -1248,44 +1272,24 @@ function getTags($id, $type) {
 			return -1;
 		}
 
-	 	// Retreive groups names from gContact
+		// Retreive groups from gContact
 		$tags = $gContact->tags;
 		// For each group :
 		foreach ($tags as $tag) {
 			// Retreive groupe id from google contact (if not exist, create it)
 			$groupID = getGContactGroupID($gdata, $tag, $useremail);
-
-
 			if ($groupID < 0) {
 				dol_syslog('updateGContactGroups Error: groupID not found for tag='.$tag, LOG_ERR);
 				return $groupID;
 			}
 
-			// Add contact to group
+			// Link contact to group
 
 			// prepare json data
-			$jsonData = '{';
-			$jsonData .= '"resourceNamesToAdd": [';
-			$jsonData .= json_encode($googleID);
-			$jsonData .= ']';
-			$jsonData .= '}';
-
-
-			// prepare request
-			if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
-				$access_token=$gdata['google_web_token']['access_token'];
-			} else {
-				$tmp=json_decode($gdata['google_web_token']);
-				$access_token=$tmp->access_token;
-			}
-			$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
-			$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-			$result = getURLContent('https://people.googleapis.com/v1/'.$groupID.'/members:modify', 'POST', $jsonData, 0, $addheaderscurl);
-			$jsonStr = $result['content'];
-			$json = json_decode($jsonStr);
-			if (!empty($json->error)) {
-				dol_syslog('updateGContactGroups Error:'.$json->error->message, LOG_ERR);
-				return -1;
+			$ret = googleLinkGroup($gdata, $groupID, $googleID);
+			if (!is_numeric($ret) || $ret < 0) {
+				dol_syslog('updateGContactGroups Error: googleLinkGroup failed for googleID='.$googleID.' groupID='.$groupID, LOG_ERR);
+				return $ret;
 			}
 		}
 	}
@@ -1328,15 +1332,23 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 		$jsonStr = $result['content'];
 		$json = json_decode($jsonStr);
 		if (!empty($json->error)) {
+			if ($json->error->status == 'NOT_FOUND') {
 			// Group not found, we create it
 			$objectstatic = new Categorie($db);
 			$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
+			} else {
+				dol_syslog('getGContactGroupID Error:'.$json->error->message, LOG_ERR);
+				return -1;
+			}
 		}
-
 	} else {
 		// Create group
 		$objectstatic = new Categorie($db);
 		$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
+		if ($groupID < 0) {
+			dol_syslog('getGContactGroupID Error: insertGContactGroup failed for tag='.$tag, LOG_ERR);
+			return $groupID;
+		}
 	}
 
 	return $groupID;
@@ -1360,7 +1372,7 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 		 // Prepare json data for POST request
 		 $jsonData = '{';
 		 $jsonData .= '"contactGroup":{';
-		 $jsonData .= '"name": "'.$tag['label'].'"';
+		 $jsonData .= '"name": "'.$tag['label'].' dolibarr ('.$tag['type'].')"';
 		 $jsonData .= '}';
 		 $jsonData .= '}';
 
@@ -1376,13 +1388,12 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 		 $addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
 		 $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 		 $result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
-		 // return json_encode($result);
 		 $jsonStr = $result['content'];
 		 try {
 			 $json = json_decode($jsonStr);
 			 if (!empty($json->error)) {
 				 dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
-				 return $json->error->message;
+				 return -1;
 			 }
 		 } catch (Exception $e) {
 			 dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);

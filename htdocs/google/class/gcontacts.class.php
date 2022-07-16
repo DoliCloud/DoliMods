@@ -299,59 +299,62 @@ class GContact
 		$this->note_public = $dolContact->note_public;
 		if (strpos($this->note_public, $google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
-		// Prepare the DOM for google
-		$this->doc = new DOMDocument("1.0", "utf-8");
-		$this->doc->formatOutput = true;
-		$this->atomEntry = $this->doc->createElement('atom:entry');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+		$this->tags = getTags($dolContact->id, 'thirdparty');
 
-		// add name element
-		$el = $this->doc->createElement('gdata:name');
-		$this->appendTextElement($el, 'gdata:familyName', $this->lastname?$this->lastname:$this->name);
-		$this->appendTextElement($el, 'gdata:givenName', $this->firstname);
-		//$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
-		//$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
-		$this->atomEntry->appendChild($el);
 
-		$elfullName = $this->doc->createElement('gdata:fullName', google_html_convert_entities(dol_htmlentities($this->fullName)));
-		$el->appendChild($elfullName);
+		// // Prepare the DOM for google
+		// $this->doc = new DOMDocument("1.0", "utf-8");
+		// $this->doc->formatOutput = true;
+		// $this->atomEntry = $this->doc->createElement('atom:entry');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 
-		// Note as comment and a custom field
-		$this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities(dol_htmlentities($this->note_public))));
-		//$this->appendCustomField("Origin", 'Onelog');
+		// // add name element
+		// $el = $this->doc->createElement('gdata:name');
+		// $this->appendTextElement($el, 'gdata:familyName', $this->lastname?$this->lastname:$this->name);
+		// $this->appendTextElement($el, 'gdata:givenName', $this->firstname);
+		// //$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
+		// //$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
+		// $this->atomEntry->appendChild($el);
 
-		// Phones
-		$this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
-		$this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
-		$this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
-		$this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
-		$this->appendPostalAddress(self::REL_WORK, $this->addr);
-		$this->appendEmail(self::REL_WORK, $this->email, true);
-		// Data from linked company
-		if ($this->company) {
-				$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
-				$norm_phone_pro = preg_replace("/\s/", "", $this->phone_pro);
-				$norm_phone_pro = preg_replace("/\./", "", $norm_phone_pro);
-				$norm_phone_perso = preg_replace("/\s/", "", $this->phone_perso);
-				$norm_phone_perso = preg_replace("/\./", "", $norm_phone_perso);
-				if ($norm_phone_pro != $this->company->phone && $norm_phone_perso != $this->company->phone)
-					$this->appendPhoneNumber(null, $this->company->phone, false, $this->orgName);
-				$norm_fax = preg_replace("/\s/", "", $this->fax);
-				$norm_fax = preg_replace("/\./", "", $norm_fax);
-				if ($norm_fax != $this->company->fax)
-					$this->appendPhoneNumber(null, $this->company->fax, false, 'Fax '.$this->orgName);
-				if ($this->addr != $this->company->addr)
-					$this->appendPostalAddress(null /*rel*/, $this->company->addr, $this->orgName);
-				if ($this->company->email != $this->email)
-					$this->appendEmail(self::REL_WORK, $this->company->email, false, $this->orgName);
-		}
+		// $elfullName = $this->doc->createElement('gdata:fullName', google_html_convert_entities(dol_htmlentities($this->fullName)));
+		// $el->appendChild($elfullName);
 
-		$userdefined = $this->doc->createElement('gcontact:userDefinedField');
-		$userdefined->setAttribute('key', 'dolibarr-id');
-		$userdefined->setAttribute('value', $idindolibarr);
-		$this->atomEntry->appendChild($userdefined);
+		// // Note as comment and a custom field
+		// $this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities(dol_htmlentities($this->note_public))));
+		// //$this->appendCustomField("Origin", 'Onelog');
+
+		// // Phones
+		// $this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
+		// $this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
+		// $this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
+		// $this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
+		// $this->appendPostalAddress(self::REL_WORK, $this->addr);
+		// $this->appendEmail(self::REL_WORK, $this->email, true);
+		// // Data from linked company
+		// if ($this->company) {
+		// 		$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
+		// 		$norm_phone_pro = preg_replace("/\s/", "", $this->phone_pro);
+		// 		$norm_phone_pro = preg_replace("/\./", "", $norm_phone_pro);
+		// 		$norm_phone_perso = preg_replace("/\s/", "", $this->phone_perso);
+		// 		$norm_phone_perso = preg_replace("/\./", "", $norm_phone_perso);
+		// 		if ($norm_phone_pro != $this->company->phone && $norm_phone_perso != $this->company->phone)
+		// 			$this->appendPhoneNumber(null, $this->company->phone, false, $this->orgName);
+		// 		$norm_fax = preg_replace("/\s/", "", $this->fax);
+		// 		$norm_fax = preg_replace("/\./", "", $norm_fax);
+		// 		if ($norm_fax != $this->company->fax)
+		// 			$this->appendPhoneNumber(null, $this->company->fax, false, 'Fax '.$this->orgName);
+		// 		if ($this->addr != $this->company->addr)
+		// 			$this->appendPostalAddress(null /*rel*/, $this->company->addr, $this->orgName);
+		// 		if ($this->company->email != $this->email)
+		// 			$this->appendEmail(self::REL_WORK, $this->company->email, false, $this->orgName);
+		// }
+
+		// $userdefined = $this->doc->createElement('gcontact:userDefinedField');
+		// $userdefined->setAttribute('key', 'dolibarr-id');
+		// $userdefined->setAttribute('value', $idindolibarr);
+		// $this->atomEntry->appendChild($userdefined);
 
 		// Add tags
 		//$this->appendGroup($gdata, getTagLabel('thirdparties'), $useremail);
@@ -421,60 +424,63 @@ class GContact
 		$this->note_public = $dolContact->note_public;
 		if (strpos($this->note_public, $google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
-		// Prepare the DOM for google
-		$this->doc = new DOMDocument("1.0", "utf-8");
-		$this->doc->formatOutput = true;
-		$this->atomEntry = $this->doc->createElement('atom:entry');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
-
-		// Add name element
-		$el = $this->doc->createElement('gdata:name');
-		$this->appendTextElement($el, 'gdata:givenName', $this->firstname);
-		$this->appendTextElement($el, 'gdata:familyName', $this->lastname);
-		//$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
-		//$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
-		$this->atomEntry->appendChild($el);
-
-		$elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
-		$el->appendChild($elfullName);
-
-		// Add organization element (company + function)
-		if (! empty($this->orgName) && ! empty($this->poste)) {
-			$elorg = $this->doc->createElement('gdata:organization');
-			$elorg->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
-			if (! empty($this->orgName)) $this->appendTextElement($elorg, 'gdata:orgName', $this->orgName);
-			if (! empty($this->poste))   $this->appendTextElement($elorg, 'gdata:orgTitle', $this->poste);
-			$this->atomEntry->appendChild($elorg);
-		}
-
-		// Note as comment and a custom field
-		$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_public));
-		//$this->appendCustomField("Origin", 'Onelog');
-
-		// Phones
-		$this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
-		$this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
-		$this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
-		$this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
-		$this->appendPostalAddress(self::REL_WORK, $this->addr);
-		$this->appendEmail(self::REL_WORK, $this->email, true);
-		// Data from linked company
-		/*if ($this->company) {
-			$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
-		}*/
-		//$this->appendWebSite($doc, $this->atomEntry, '???');
+		$this->tags = getTags($dolContact->id, 'contact');
 
 
-		$userdefined = $this->doc->createElement('gcontact:userDefinedField');
-		$userdefined->setAttribute('key', 'dolibarr-id');
-		$userdefined->setAttribute('value', $idindolibarr);
-		$this->atomEntry->appendChild($userdefined);
+		// // Prepare the DOM for google
+		// $this->doc = new DOMDocument("1.0", "utf-8");
+		// $this->doc->formatOutput = true;
+		// $this->atomEntry = $this->doc->createElement('atom:entry');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 
-		// Add tags
-		$this->appendGroup($gdata, getTagLabel('contacts'), $useremail);
-		$this->doc->appendChild($this->atomEntry);
+		// // Add name element
+		// $el = $this->doc->createElement('gdata:name');
+		// $this->appendTextElement($el, 'gdata:givenName', $this->firstname);
+		// $this->appendTextElement($el, 'gdata:familyName', $this->lastname);
+		// //$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
+		// //$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
+		// $this->atomEntry->appendChild($el);
+
+		// $elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
+		// $el->appendChild($elfullName);
+
+		// // Add organization element (company + function)
+		// if (! empty($this->orgName) && ! empty($this->poste)) {
+		// 	$elorg = $this->doc->createElement('gdata:organization');
+		// 	$elorg->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+		// 	if (! empty($this->orgName)) $this->appendTextElement($elorg, 'gdata:orgName', $this->orgName);
+		// 	if (! empty($this->poste))   $this->appendTextElement($elorg, 'gdata:orgTitle', $this->poste);
+		// 	$this->atomEntry->appendChild($elorg);
+		// }
+
+		// // Note as comment and a custom field
+		// $this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_public));
+		// //$this->appendCustomField("Origin", 'Onelog');
+
+		// // Phones
+		// $this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
+		// $this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
+		// $this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
+		// $this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
+		// $this->appendPostalAddress(self::REL_WORK, $this->addr);
+		// $this->appendEmail(self::REL_WORK, $this->email, true);
+		// // Data from linked company
+		// /*if ($this->company) {
+		// 	$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
+		// }*/
+		// //$this->appendWebSite($doc, $this->atomEntry, '???');
+
+
+		// $userdefined = $this->doc->createElement('gcontact:userDefinedField');
+		// $userdefined->setAttribute('key', 'dolibarr-id');
+		// $userdefined->setAttribute('value', $idindolibarr);
+		// $this->atomEntry->appendChild($userdefined);
+
+		// // Add tags
+		// $this->appendGroup($gdata, getTagLabel('contacts'), $useremail);
+		// $this->doc->appendChild($this->atomEntry);
 	}
 
 	/**

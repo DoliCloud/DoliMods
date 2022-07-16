@@ -231,13 +231,13 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 				}
 				if ($action == 'CATEGORY_LINK') {
 					$type = $object->context['linkto']->element ? $object->context['linkto']->element : 'unknown';
-					$tag = array('id' => $object->id, 'label' => $object->label);
+					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
 					$groupID = getGContactGroupID($servicearray, $tag);
 					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
 						$contactID = $object->context['linkto']->ref_ext;
 						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
 							$contactID = $reg[1];
-							$ret = googleLinkGroup($servicearray, $groupID, $contactID, $type);
+							$ret = googleLinkGroup($servicearray, $groupID, $contactID);
 							if ($ret > 0) {
 								return 1;
 							}
@@ -250,13 +250,13 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 
 				if ($action == 'CATEGORY_UNLINK') {
 					$type = $object->context['unlinkoff']->element ? $object->context['unlinkoff']->element : 'unknown';
-					$tag = array('id' => $object->id, 'label' => $object->label);
+					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
 					$groupID = getGContactGroupID($servicearray, $tag);
 					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
 						$contactID = $object->context['unlinkoff']->ref_ext;
 						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
 							$contactID = $reg[1];
-							$ret = googleUnlinkGroup($servicearray, $groupID, $contactID, $type);
+							$ret = googleUnlinkGroup($servicearray, $groupID, $contactID);
 							if ($ret > 0) {
 								return 1;
 							}

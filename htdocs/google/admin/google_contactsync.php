@@ -317,14 +317,24 @@ if ($action == 'pushallthirdparties') {
 			$i++;
 		}
 
-		$result=0;
-		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+		$resultEntries=0;
+		if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
 
-		if (is_numeric($result) && $result >= 0) {
+		if (is_numeric($resultEntries) && $resultEntries >= 0) {
 			$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
 		} else {
 			$error++;
-			$errors[] = $langs->trans("Error").' '.$result;
+			$errors[] = $langs->trans("Error").' '.$resultEntries;
+		}
+
+		$resultTags=0;
+		if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'thirdparty');
+
+		if (is_numeric($resultTags) && $resultTags >= 0) {
+			$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+		} else {
+			$error++;
+			$errors[] = $langs->trans("Error").' '.$resultTags;
 		}
 	}
 }
@@ -383,14 +393,24 @@ if ($action == 'pushallcontacts') {
 			$i++;
 		}
 
-		$result=0;
-		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+		$resultEntries=0;
+		if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
 
-		if (is_numeric($result) && $result >= 0) {
+		if (is_numeric($resultEntries) && $resultEntries >= 0) {
 			$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
 		} else {
 			$error++;
-			$errors[] = $langs->trans("Error").' '.$result;
+			$errors[] = $langs->trans("Error").' '.$resultEntries;
+		}
+
+		$resultTags=0;
+		if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'contact');
+
+		if (is_numeric($resultTags) && $resultTags >= 0) {
+			$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+		} else {
+			$error++;
+			$errors[] = $langs->trans("Error").' '.$resultTags;
 		}
 	}
 }
@@ -427,7 +447,8 @@ if ($action == 'pushallmembers') {
 		$sql.= ' ORDER BY rowid';
 
 		$resql = $db->query($sql);
-		if (! $resql) {
+		if (! $resql) {		// Retreive groups from gContact
+			$tags = $gContact->tags;
 			dol_print_error($db);
 			exit;
 		}
@@ -446,7 +467,7 @@ if ($action == 'pushallmembers') {
 		$resultEntries=0;
 		if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
 
-		if (is_numeric($result) && $resultEntries >= 0) {
+		if (is_numeric($resultEntries) && $resultEntries >= 0) {
 			$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
 		} else {
 			$error++;
@@ -454,9 +475,9 @@ if ($action == 'pushallmembers') {
 		}
 
 		$resultTags=0;
-		if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts);//'Les tontons flingueurs'
+		if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'member');
 
-		if (is_numeric($result) && $result >= 0) {
+		if (is_numeric($resultTags) && $resultTags >= 0) {
 			$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
 		} else {
 			$error++;
