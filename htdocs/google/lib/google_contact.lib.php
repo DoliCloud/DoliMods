@@ -79,7 +79,6 @@ function googleCreateContact($client, $object, $useremail = 'default')
 	$google_nltechno_tag=getCommentIDTag();
 	$person_array = [];
 
-	$jsonData = "{";
 	try {
 		$gdata = $client;
 		//<gdata:name>
@@ -128,8 +127,6 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		}
 
 		//<gdata:structuredPostalAddress>
-		$jsonData .='"addresses": [';
-		$jsonData .='{"country": '.json_encode(getCountry($object->country_id,0,"",$langs,0)).'}';
 		$person_array["addresses"][0]["country"] = $object->country_id>0 ? getCountry($object->country_id, 0, '', $langs, 0) : '';
 		$person_array["addresses"][0]["postalCode"] = !empty($object->zip) ? $object->zip : "";
 		$person_array["addresses"][0]["streetAddress"] = !empty($object->address) ? $object->address : "";
@@ -161,9 +158,9 @@ function googleCreateContact($client, $object, $useremail = 'default')
 			];
 		}
 		$jsonData = json_encode($person_array);
-		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", $jsonData);
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		// // uncomment for debugging :
+		// file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", $jsonData);
+		// @chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_createcontact.xml' command
 
 		$id = '';
@@ -505,9 +502,9 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 		// $xmlStr=$doc->saveXML();
 		$jsonData .='}';
-		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", $jsonData);
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		// // uncomment for debugging :
+		// file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", $jsonData);
+		// @chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
 
 		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
