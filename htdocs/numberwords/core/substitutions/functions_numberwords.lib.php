@@ -68,7 +68,7 @@ function numberwords_completesubstitutionarray(&$substitutionarray, $outlangs, $
  *  Return full text translated to language label for a key. Store key-label in a cache.
  *
  *	@param		Translate	$outlangs	Language for output
- * 	@param		int		    $number		Number to encode in full text
+ * 	@param		int|string	$number		Number to encode in full text
  *  @param      string	    $isamount	''=it's just a number, '1'=It's an amount (default currency), 'currencycode'=It's an amount (foreign currency)
  *  @return     string				    Label translated in UTF8 (but without entities)
  * 									    10 if setDefaultLang was en_US => ten
@@ -84,6 +84,11 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 	}
 
 	dol_syslog("numberwords_getLabelFromNumber langs->defaultlang=".$outlangs->defaultlang." number=".$number." isamount=".$isamount);
+
+	if (is_null($number)) {
+		return '';
+	}
+
 	$outlangs->load("dict");
 
 	$outlang=$outlangs->defaultlang;	// Output language we want
