@@ -180,7 +180,7 @@ class Numbers_Words
 
 		@$obj = new $classname;
 
-		// @CHANGE. SEt the _currency_names that will be used by toCurrencyWords
+		// @CHANGE. Set the _currency_names that will be used by toCurrencyWords
 		global $conf;
 		$obj->_currency_names[$int_curr]=array(array($this->labelcurrencysing, $this->labelcurrency),array($this->labelcents));
 		$rounding=$conf->global->MAIN_MAX_DECIMALS_TOT;
@@ -189,7 +189,7 @@ class Numbers_Words
 		// @CHANGE
 		//if (is_float($num)) {
 			//$num = round($num, 2);
-			$num = round($num, $rounding);
+			$num = round((float) $num, $rounding);
 		//}
 
 		if (strpos($num, '.') === false) {

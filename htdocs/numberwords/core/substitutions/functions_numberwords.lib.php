@@ -38,28 +38,28 @@ function numberwords_completesubstitutionarray(&$substitutionarray, $outlangs, $
 	global $conf;
 
 	if (is_object($object) && ($object->id > 0 || $object->specimen)) {	// We do not add substitution entries if object is not instantiated (->id not > 0)
-		$numbertext=$outlangs->getLabelFromNumber($object->total_ttc, 1);
+		$numbertext=$outlangs->getLabelFromNumber((isset($object->total_ttc) ? $object->total_ttc : ''), 1);
 		//$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;    	// deprecated
 		$substitutionarray['__AMOUNT_TEXT__']=$numbertext;
-		$numbertext=$outlangs->getLabelFromNumber($object->multicurrency_total_ttc, $object->multicurrency_code);
+		$numbertext=$outlangs->getLabelFromNumber((isset($object->multicurrency_total_ttc) ? $object->multicurrency_total_ttc : ''), $object->multicurrency_code);
 		$substitutionarray['__AMOUNT_MULTICURRENCY_TEXT__']=($object->multicurrency_code ? $numbertext : '');
 
-		$numbertext=$outlangs->getLabelFromNumber($object->total_ht, 1);
+		$numbertext=$outlangs->getLabelFromNumber((isset($object->total_ht) ? $object->total_ht : ''), 1);
 		//$substitutionarray['__TOTAL_HT_WORDS__']=$numbertext;    	// deprecated
 		//$substitutionarray['__AMOUNT_WO_TAX_TEXT__']=$numbertext;	// deprecated
 		$substitutionarray['__AMOUNT_EXCL_TAX_TEXT__']=$numbertext;
-		$numbertext=$outlangs->getLabelFromNumber($object->multicurrency_total_ht, $object->multicurrency_code);
+		$numbertext=$outlangs->getLabelFromNumber((isset($object->multicurrency_total_ht) ? $object->multicurrency_total_ht : ''), $object->multicurrency_code);
 		//$substitutionarray['__AMOUNT_CURRENCY_WO_TAX_TEXT__']=$numbertext;
 		$substitutionarray['__AMOUNT_MULTICURRENCY_EXCL_TAX_TEXT__']=($object->multicurrency_code ? $numbertext : '');
 
-		$numbertext=$outlangs->getLabelFromNumber(((! empty($object->total_vat))?$object->total_vat:$object->total_tva), 1);
+		$numbertext=$outlangs->getLabelFromNumber((isset($object->total_vat) ? $object->total_vat : $object->total_tva), 1);
 		//$substitutionarray['__TOTAL_VAT_WORDS__']=$numbertext;    	// deprecated
 		$substitutionarray['__AMOUNT_VAT_TEXT__']=$numbertext;
-		$numbertext=$outlangs->getLabelFromNumber($object->multicurrency_total_tva, $object->multicurrency_code);
+		$numbertext=$outlangs->getLabelFromNumber((isset($object->multicurrency_total_tva) ? $object->multicurrency_total_tva : ''), $object->multicurrency_code);
 		$substitutionarray['__AMOUNT_MULTICURRENCY_VAT_TEXT__']=($object->multicurrency_code ? $numbertext : '');
 
 		// Use number words for property ->number of object with __NUMBER_WORDS__
-		$numbertext=$outlangs->getLabelFromNumber((! empty($object->number))?$object->number:'', 0);
+		$numbertext=$outlangs->getLabelFromNumber((isset($object->number) ? $object->number : ''), 0);
 		$substitutionarray['__NUMBER_WORDS__']=$numbertext;
 	}
 }
@@ -145,7 +145,10 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 		$transforsingnotfound=true;
 	}
 
-	list($whole, $decimal) = explode('.', $number);
+	$decimal = 0;
+	if (strpos($number, '.') !== false) {
+		list($whole, $decimal) = explode('.', $number);
+	}
 	//var_dump($number.'->'.$decimal);
 	if ($decimal > 1 || $transforsingnotfound) {
 		$labelcurrencycent=$outlangs->transnoentitiesnoconv("Currency".ucfirst($savlabelcents).$currencycode);
