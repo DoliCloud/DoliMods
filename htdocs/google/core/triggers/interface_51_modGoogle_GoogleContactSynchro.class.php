@@ -178,7 +178,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					$gid = preg_replace('/http:\/\//', 'https://', $object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) { // This record is linked with Google Contact
 						$ret = googleUpdateContact($servicearray, $gid, $object, $userlogin);
-						if ($ret == 0) { // Fails to update because not found, we try to create
+						if ($ret === 0) { // Fails to update because not found, we try to create
 							dol_syslog("Echec de la mise a jour, on force la création");
 							$ret = googleCreateContact($servicearray, $object, $userlogin);
 							//var_dump($ret); exit;
@@ -234,6 +234,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
 					$groupID = getGContactGroupID($servicearray, $tag);
 					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$object->update_ref_ext(substr('google:'.$groupID, 0, 255));
 						$contactID = $object->context['linkto']->ref_ext;
 						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
 							$contactID = $reg[1];

@@ -196,8 +196,115 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertNotEquals($contactID, '');
 		print __METHOD__." google contact ID:".$contactID."\n";
 
-		// Assure that the thirdparty is in the google contact
-		// Create client/token object
+		// Test if third party exists on google contact
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+		$force_do_not_use_session=false; // by default
+		$client=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+
+		if (is_array($client['google_web_token']) && key_exists('access_token', $client['google_web_token'])) {
+			$access_token=$client['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($client['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
+		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+		$personFields = "emailAddresses,names,phoneNumbers";
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+
+		$this->assertEquals($fund['http_code'], 200);
+
+		$ID = json_decode($fund['content'])->resourceName;
+		$firstName = json_decode($fund['content'])->names[0]['givenName'];
+		$lastName = json_decode($fund['content'])->names[0]['familyName'];
+		$email = json_decode($fund['content'])->emailAddresses[0]['value'];
+		$i = 0;
+		while (json_decode($fund['content'])->phoneNumbers[$i]['type'] != 'mobile' && $i < 10) {
+			$i++;
+		}
+		$this->assertEquals(json_decode($fund['content'])->phoneNumbers[$i]['type'], 'mobile');
+		$phone = json_decode($fund['content'])->phoneNumbers[$i]['value'];
+
+		$this->assertEquals($firstName, 'Joliprenom');
+		$this->assertEquals($lastName, 'Jolinom');
+		$this->assertEquals($email, 'adresse@mail.com');
+		$this->assertEquals($phone, '1123581321');
+
+		print __METHOD__." google contact found:".$firstName." ".$lastName." ".$email." ".$phone."\n";
+
+		// Test if update properly
+		$object->firstname = 'Joliprenom2';
+		$object->lastname = 'Jolinom2';
+		$object->email = 'adresse2@mail.com';
+		$object->phone_mobile = '1235813212';
+		$result = $object->update($object->id, $user);
+		$this->assertLessThan($result, 0);
+		print __METHOD__." updated:".$result."\n";
+
+		// Test if infos are corrects on google contact
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
+
+		$ID = json_decode($fund['content'])->resourceName;
+		$firstName = json_decode($fund['content'])->names[0]['givenName'];
+		$lastName = json_decode($fund['content'])->names[0]['familyName'];
+		$email = json_decode($fund['content'])->emailAddresses[0]['value'];
+		$i = 0;
+		while (json_decode($fund['content'])->phoneNumbers[$i]['type'] != 'mobile' && $i < 10) {
+			$i++;
+		}
+		$this->assertEquals(json_decode($fund['content'])->phoneNumbers[$i]['type'], 'mobile');
+		$phone = json_decode($fund['content'])->phoneNumbers[$i]['value'];
+
+		$this->assertEquals($firstName, 'Joliprenom2');
+		$this->assertEquals($lastName, 'Jolinom2');
+		$this->assertEquals($email, 'adresse2@mail.com');
+		$this->assertEquals($phone, '1235813212');
+
+		print __METHOD__." google contact updated:".$firstName." ".$lastName." ".$email." ".$phone."\n";
+
+		// Test if delete properly
+		$result = $object->delete($object->id, $user);
+		$this->assertLessThan($result, 0);
+		print __METHOD__." deleted:".$result."\n";
+
+		// Test if third party is not on google contact anymore
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 404);
+
+		print __METHOD__." google contact deleted\n";
+    }
+
+
+    /**
+     * testApiCreateUpdateDeleteContact
+     *
+     * @return void
+     */
+	public function testApiCreateUpdateDeleteContact() {
+		global $conf,$user,$langs,$db;
+        require_once dirname(__FILE__).'/../../../../../htdocs/contact/class/contact.class.php';
+        $object = new Contact($db);
+        $object->initAsSpecimen();
+		$object->firstname = 'Joliprenom';
+		$object->lastname = 'Jolinom';
+		$object->email = 'adresse@mail.com';
+		$object->phone_mobile = '1123581321';
+
+        $created=$object->create($user);
+		// Test if Thirdparty was created properly
+        $this->assertLessThan($created, 0);
+        print __METHOD__." created:".$result."\n";
+
+		// Get contact
+		$contactID = $object->ref_ext;
+		if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
+			$contactID = $reg[1];
+		}
+		$this->assertNotEquals($contactID, '');
+		print __METHOD__." google contact ID:".$contactID."\n";
+
+		// Test if third party exists on google contact
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
 		$force_do_not_use_session=false; // by default
 		$client=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
@@ -218,7 +325,13 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$firstName = json_decode($fund['content'])->names[0]['givenName'];
 		$lastName = json_decode($fund['content'])->names[0]['familyName'];
 		$email = json_decode($fund['content'])->emailAddresses[0]['value'];
-		$phone = json_decode($fund['content'])->phoneNumbers[0]['value'];
+		$i = 0;
+		while (json_decode($fund['content'])->phoneNumbers[$i]['type'] != 'mobile' && $i < 10) {
+			$i++;
+		}
+		$this->assertEquals(json_decode($fund['content'])->phoneNumbers[$i]['type'], 'mobile');
+		$phone = json_decode($fund['content'])->phoneNumbers[$i]['value'];
+
 		$this->assertEquals($firstName, 'Joliprenom');
 		$this->assertEquals($lastName, 'Jolinom');
 		$this->assertEquals($email, 'adresse@mail.com');
@@ -226,38 +339,449 @@ class gContactTest extends PHPUnit\Framework\TestCase
 
 		print __METHOD__." google contact found:".$firstName." ".$lastName." ".$email." ".$phone."\n";
 
-    }
+		// Test if update properly
+		$object->firstname = 'Joliprenom2';
+		$object->lastname = 'Jolinom2';
+		$object->email = 'adresse2@mail.com';
+		$object->phone_mobile = '1235813212';
+		$result = $object->update($object->id, $user);
+		$this->assertLessThan($result, 0);
+		print __METHOD__." updated:".$result."\n";
 
+		// Test if infos are corrects on google contact
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
 
-    /**
-     * testApiCreateUpdateDeleteContact
-     *
-     * @return void
-     */
+		$firstName = json_decode($fund['content'])->names[0]['givenName'];
+		$lastName = json_decode($fund['content'])->names[0]['familyName'];
+		$email = json_decode($fund['content'])->emailAddresses[0]['value'];
+		$i = 0;
+		while (json_decode($fund['content'])->phoneNumbers[$i]['type'] != 'mobile' && $i < 10) {
+			$i++;
+		}
+		$this->assertEquals(json_decode($fund['content'])->phoneNumbers[$i]['type'], 'mobile');
+		$phone = json_decode($fund['content'])->phoneNumbers[$i]['value'];
+
+		$this->assertEquals($firstName, 'Joliprenom2');
+		$this->assertEquals($lastName, 'Jolinom2');
+		$this->assertEquals($email, 'adresse2@mail.com');
+		$this->assertEquals($phone, '1235813212');
+
+		print __METHOD__." google contact updated:".$firstName." ".$lastName." ".$email." ".$phone."\n";
+
+		// Test if delete properly
+		$result = $object->delete();
+		$this->assertLessThan($result, 0);
+		print __METHOD__." deleted:".$result.$object->ref_ext."\n";
+
+		// Test if third party is not on google contact anymore
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 404);
+
+		print __METHOD__." google contact deleted\n";
+	}
 
     /**
      * testApiCreateUpdateDeleteMember
      *
      * @return void
      */
+	public function testApiCreateUpdateDeleteMember() {
+		global $conf,$user,$langs,$db;
+        require_once dirname(__FILE__).'/../../../../../htdocs/adherents/class/adherent.class.php';
+        $object = new Adherent($db);
+        $object->initAsSpecimen();
+		$object->firstname = 'Joliprenom';
+		$object->lastname = 'Jolinom';
+		$object->email = 'adresse@mail.com';
+		$object->phone_mobile = '1123581321';
+
+        $created=$object->create($user);
+		// Test if Thirdparty was created properly
+        $this->assertLessThan($created, 0);
+        print __METHOD__." created:".$result."\n";
+
+		// Get contact
+		$contactID = $object->ref_ext;
+		if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
+			$contactID = $reg[1];
+		}
+		$this->assertNotEquals($contactID, '');
+		print __METHOD__." google contact ID:".$contactID."\n";
+
+		// Test if third party exists on google contact
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+		$force_do_not_use_session=false; // by default
+		$client=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+
+		if (is_array($client['google_web_token']) && key_exists('access_token', $client['google_web_token'])) {
+			$access_token=$client['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($client['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
+		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+		$personFields = "emailAddresses,names,phoneNumbers";
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+
+		$this->assertEquals($fund['http_code'], 200);
+
+		$firstName = json_decode($fund['content'])->names[0]['givenName'];
+		$lastName = json_decode($fund['content'])->names[0]['familyName'];
+		$email = json_decode($fund['content'])->emailAddresses[0]['value'];
+		$i = 0;
+		while (json_decode($fund['content'])->phoneNumbers[$i]['type'] != 'mobile' && $i < 10) {
+			$i++;
+		}
+		$this->assertEquals(json_decode($fund['content'])->phoneNumbers[$i]['type'], 'mobile');
+		$phone = json_decode($fund['content'])->phoneNumbers[$i]['value'];
+
+		$this->assertEquals($firstName, 'Joliprenom');
+		$this->assertEquals($lastName, 'Jolinom');
+		$this->assertEquals($email, 'adresse@mail.com');
+		$this->assertEquals($phone, '1123581321');
+
+		print __METHOD__." google contact found:".$firstName." ".$lastName." ".$email." ".$phone."\n";
+
+		// Test if update properly
+		$object->firstname = 'Joliprenom2';
+		$object->lastname = 'Jolinom2';
+		$object->email = 'adresse2@mail.com';
+		$object->phone_mobile = '1235813212';
+		$result = $object->update($user);
+		$this->assertLessThan($result, 0);
+		print __METHOD__." updated:".$result."\n";
+
+		// Test if infos are corrects on google contact
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
+
+		$firstName = json_decode($fund['content'])->names[0]['givenName'];
+		$lastName = json_decode($fund['content'])->names[0]['familyName'];
+		$email = json_decode($fund['content'])->emailAddresses[0]['value'];
+		$i = 0;
+		while (json_decode($fund['content'])->phoneNumbers[$i]['type'] != 'mobile' && $i < 10) {
+			$i++;
+		}
+		$this->assertEquals(json_decode($fund['content'])->phoneNumbers[$i]['type'], 'mobile');
+		$phone = json_decode($fund['content'])->phoneNumbers[$i]['value'];
+
+		$this->assertEquals($firstName, 'Joliprenom2');
+		$this->assertEquals($lastName, 'Jolinom2');
+		$this->assertEquals($email, 'adresse2@mail.com');
+		$this->assertEquals($phone, '1235813212');
+
+		print __METHOD__." google contact updated:".$firstName." ".$lastName." ".$email." ".$phone."\n";
+
+		// Test if delete properly
+		$result = $object->delete($object->id, $user);
+		$this->assertLessThan($result, 0);
+		print __METHOD__." deleted:".$result.$object->ref_ext."\n";
+
+		// Test if third party is not on google contact anymore
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 404);
+
+		print __METHOD__." google contact deleted\n";
+	}
+
 
     /**
-     * testApiLinkToTag
+     * testApiLinkUnlinkDeleteTagThirdParty
      *
      * @return void
      */
+	public function testApiLinkUnlinkDeleteTagThirdParty() {
 
-    /**
-     * testApiUnlinkToTag
-     *
-     * @return void
-     */
+		global $conf, $user, $langs, $db;
 
-    /**
-     * testApiDeleteTag
-     *
-     * @return void
-     */
 
+		// Create third party
+        require_once dirname(__FILE__).'/../../../../../htdocs/societe/class/societe.class.php';
+		$object = new Societe($db);
+		$object->initAsSpecimen();
+
+		$created = $object->create($user);
+		$this->assertLessThan($created, 0);
+		print __METHOD__." third party created:".$object->id."\n";
+
+		// Create category
+		require_once dirname(__FILE__).'/../../../../../htdocs/categories/class/categorie.class.php';
+		$categ = new Categorie($db);
+		$categ->initAsSpecimen();
+		$created = $categ->create($user);
+		$this->assertLessThan($created, 0);
+		print __METHOD__." category created:".$categ->id."\n";
+
+		// Link third party to category
+		$result = $categ->add_type($object, 'supplier');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." third party linked to category:".$result."\n";
+
+		// See if we can find group in google contact
+		$groupID = $categ->ref_ext;
+		if (!empty($groupID) && preg_match('/google:(contactGroups\/.*)/', $groupID, $reg)) {
+			$groupID = $reg[1];
+		}
+		$this->assertNotEquals($groupID, '');
+
+
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+		$force_do_not_use_session=false; // by default
+		$client=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+
+		if (is_array($client['google_web_token']) && key_exists('access_token', $client['google_web_token'])) {
+			$access_token=$client['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($client['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
+		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group found\n";
+
+		// See if group contains one member
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 1);
+
+		// Remove thirdparty from group and see if group is empty
+		$result = $categ->del_type($object, 'supplier');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." third party unlinked from category:".$result."\n";
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group updated\n";
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 0);
+		print __METHOD__." group empty\n";
+
+		// Readd and delete thirdparty from group and see if group is empty
+		$result = $categ->add_type($object, 'supplier');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." third party re-linked to category:".$result."\n";
+
+		$deleted = $object->delete($object->id, $user);
+		$this->assertLessThan($deleted, 0);
+		print __METHOD__." third party deleted:".$deleted."\n";
+
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group updated\n";
+
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 0);
+		print __METHOD__." group empty\n";
+
+		// Delete category
+		$deleted = $categ->delete($user);
+		$this->assertLessThan($deleted, 0);
+		print __METHOD__." category deleted:".$deleted."\n";
+
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 404);
+		print __METHOD__." group deleted\n";
+	}
+
+	/**
+	 * testApiLinkUnlinkDeleteTagContact
+	 *
+	 * @return void
+	 */
+	public function testApiLinkUnlinkDeleteTagContact() {
+
+		global $conf, $user, $langs, $db;
+
+
+		// Create contact
+        require_once dirname(__FILE__).'/../../../../../htdocs/contact/class/contact.class.php';
+		$object = new Contact($db);
+		$object->initAsSpecimen();
+
+		$created = $object->create($user);
+		$this->assertLessThan($created, 0);
+		print __METHOD__." contact created:".$object->id."\n";
+
+		// Create category
+		require_once dirname(__FILE__).'/../../../../../htdocs/categories/class/categorie.class.php';
+		$categ = new Categorie($db);
+		$categ->initAsSpecimen();
+		$created = $categ->create($user);
+		$this->assertLessThan($created, 0);
+		print __METHOD__." category created:".$categ->id."\n";
+
+		// Link contact to category
+		$result = $categ->add_type($object, 'contact');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." contact linked to category:".$result."\n";
+
+		// See if we can find group in google contact
+		$groupID = $categ->ref_ext;
+		if (!empty($groupID) && preg_match('/google:(contactGroups\/.*)/', $groupID, $reg)) {
+			$groupID = $reg[1];
+		}
+		$this->assertNotEquals($groupID, '');
+
+
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+		$force_do_not_use_session=false; // by default
+		$client=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+
+		if (is_array($client['google_web_token']) && key_exists('access_token', $client['google_web_token'])) {
+			$access_token=$client['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($client['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
+		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group found\n";
+
+		// See if group contains one member
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 1);
+
+		// Remove contact from group and see if group is empty
+		$result = $categ->del_type($object, 'contact');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." contact unlinked from category:".$result."\n";
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group updated\n";
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 0);
+		print __METHOD__." group empty\n";
+
+		// Readd and delete contact from group and see if group is empty
+		$result = $categ->add_type($object, 'contact');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." contact re-linked to category:".$result."\n";
+
+		$deleted = $object->delete();
+		$this->assertLessThan($deleted, 0);
+		print __METHOD__." contact deleted:".$deleted."\n";
+
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group updated\n";
+
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 0);
+		print __METHOD__." group empty\n";
+
+		// Delete category
+		$deleted = $categ->delete($user);
+		$this->assertLessThan($deleted, 0);
+		print __METHOD__." category deleted:".$deleted."\n";
+
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 404);
+		print __METHOD__." group in google contact deleted\n";
+	}
+
+	/**
+	 * testApiLinkUnlinkDeleteTagMember
+	 *
+	 * @return void
+	 */
+	public function testApiLinkUnlinkDeleteTagMember() {
+
+		global $conf, $user, $langs, $db;
+
+
+		// Create contact
+        require_once dirname(__FILE__).'/../../../../../htdocs/adherents/class/adherent.class.php';
+		$object = new Adherent($db);
+		$object->initAsSpecimen();
+
+		$created = $object->create($user);
+		$this->assertLessThan($created, 0);
+		print __METHOD__." member created:".$object->id."\n";
+
+		// Create category
+		require_once dirname(__FILE__).'/../../../../../htdocs/categories/class/categorie.class.php';
+		$categ = new Categorie($db);
+		$categ->initAsSpecimen();
+		$created = $categ->create($user);
+		$this->assertLessThan($created, 0);
+		print __METHOD__." category created:".$categ->id."\n";
+
+		// Link member to category
+		$result = $categ->add_type($object, 'member');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." member linked to category:".$result."\n";
+
+		// See if we can find group in google contact
+		$groupID = $categ->ref_ext;
+		if (!empty($groupID) && preg_match('/google:(contactGroups\/.*)/', $groupID, $reg)) {
+			$groupID = $reg[1];
+		}
+		$this->assertNotEquals($groupID, '');
+
+
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+		$force_do_not_use_session=false; // by default
+		$client=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+
+		if (is_array($client['google_web_token']) && key_exists('access_token', $client['google_web_token'])) {
+			$access_token=$client['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($client['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
+		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group found\n";
+
+		// See if group contains one member
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 1);
+
+		// Remove member from group and see if group is empty
+		$result = $categ->del_type($object, 'member');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." member unlinked from category:".$result."\n";
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group updated\n";
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 0);
+		print __METHOD__." group empty\n";
+
+		// Readd and delete member from group and see if group is empty
+		$result = $categ->add_type($object, 'member');
+		$this->assertLessThan($result, 0);
+		print __METHOD__." member re-linked to category:".$result."\n";
+
+		$deleted = $object->delete($object->id, $user);
+		$this->assertLessThan($deleted, 0);
+		print __METHOD__." member deleted:".$deleted."\n";
+
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 200);
+		print __METHOD__." group updated\n";
+
+		$memberCount = json_decode($fund['content'])->memberCount;
+		$this->assertEquals($memberCount, 0);
+		print __METHOD__." group empty\n";
+
+		// Delete category
+		$deleted = $categ->delete($user);
+		$this->assertLessThan($deleted, 0);
+		print __METHOD__." category deleted:".$deleted."\n";
+
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$this->assertEquals($fund['http_code'], 404);
+		print __METHOD__." group in google contact deleted\n";
+	}
 
 }

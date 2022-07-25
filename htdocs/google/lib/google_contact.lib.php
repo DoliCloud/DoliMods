@@ -381,105 +381,105 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		//var_dump($xml->organization->asXml());    // $xml->organization is SimpleXMLElement but isset($xml->organization) and $xml->organization->asXml() may be set or not
 		// Company + Function
 		// if (isset($xml->organization)) {
-		// 	if ($object->element == 'contact') {
-		// 		unset($xml->organization->orgName);
-		// 		unset($xml->organization->orgTitle);
-		// 		$object->fetch_thirdparty();
-		// 		if (! empty($object->thirdparty->name) || ! empty($object->poste)) {
-		// 			$thirdpartyname=$object->thirdparty->name;
-		// 			$xml->organization['rel']="http://schemas.google.com/g/2005#other";
-		// 			if (! empty($object->thirdparty->name)) $xml->organization->orgName=$thirdpartyname;
-		// 			if (! empty($object->poste)) $xml->organization->orgTitle=$object->poste;
-		// 		}
-		// 	}
-		// 	if ($object->element == 'member') {
-		// 		unset($xml->organization->orgName);
-		// 		unset($xml->organization->orgTitle);
-		// 		if (! empty($object->company)) {
-		// 			$thirdpartyname=$object->company;
-		// 			$xml->organization['rel']="http://schemas.google.com/g/2005#other";
-		// 			if (! empty($object->company)) $xml->organization->orgName=$thirdpartyname;
-		// 		}
-		// 	}
-		// }
+			// 	if ($object->element == 'contact') {
+				// 		unset($xml->organization->orgName);
+				// 		unset($xml->organization->orgTitle);
+				// 		$object->fetch_thirdparty();
+				// 		if (! empty($object->thirdparty->name) || ! empty($object->poste)) {
+					// 			$thirdpartyname=$object->thirdparty->name;
+					// 			$xml->organization['rel']="http://schemas.google.com/g/2005#other";
+					// 			if (! empty($object->thirdparty->name)) $xml->organization->orgName=$thirdpartyname;
+					// 			if (! empty($object->poste)) $xml->organization->orgTitle=$object->poste;
+					// 		}
+					// 	}
+					// 	if ($object->element == 'member') {
+						// 		unset($xml->organization->orgName);
+						// 		unset($xml->organization->orgTitle);
+						// 		if (! empty($object->company)) {
+							// 			$thirdpartyname=$object->company;
+							// 			$xml->organization['rel']="http://schemas.google.com/g/2005#other";
+							// 			if (! empty($object->company)) $xml->organization->orgName=$thirdpartyname;
+							// 		}
+							// 	}
+							// }
 
 
-		// $xmlStr=$xml->saveXML();
+							// $xmlStr=$xml->saveXML();
 
 
-		// // Remove <gContact:groupMembershipInfo
-		// //print dol_escape_htmltag($xmlStr);
-		// $xmlStr = preg_replace('/<gContact:groupMembershipInfo[^>]*/', '', $xmlStr);
-		// //print dol_escape_htmltag($xmlStr);exit;
+							// // Remove <gContact:groupMembershipInfo
+							// //print dol_escape_htmltag($xmlStr);
+							// $xmlStr = preg_replace('/<gContact:groupMembershipInfo[^>]*/', '', $xmlStr);
+							// //print dol_escape_htmltag($xmlStr);exit;
 
 
-		// // Convert xml into DOM so we can use dom function to add website element
-		// $doc  = new DOMDocument("1.0", "utf-8");
-		// $doc->loadXML($xmlStr);
-		// $entries = $doc->getElementsByTagName('entry');
+							// // Convert xml into DOM so we can use dom function to add website element
+							// $doc  = new DOMDocument("1.0", "utf-8");
+							// $doc->loadXML($xmlStr);
+							// $entries = $doc->getElementsByTagName('entry');
 
-		// // Birthday (in namespace gdContact)
-		// if (! $xmlgcontact->birthday->asXml() && $object->birthday) {    // Not into current remote record, we add it if defined
-		// 	foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
-		// 		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
-		// 		$birthday = $doc->createElement('gcontact:birthday');
-		// 		$birthday->setAttribute('when', dol_print_date($object->birthday, 'dayrfc'));
-		// 		$entry->appendChild($birthday);
-		// 	}
-		// }
+							// // Birthday (in namespace gdContact)
+							// if (! $xmlgcontact->birthday->asXml() && $object->birthday) {    // Not into current remote record, we add it if defined
+								// 	foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
+									// 		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
+									// 		$birthday = $doc->createElement('gcontact:birthday');
+									// 		$birthday->setAttribute('when', dol_print_date($object->birthday, 'dayrfc'));
+									// 		$entry->appendChild($birthday);
+									// 	}
+									// }
 
-		// // URL
-		// $oldurl='';
-		// if (! empty($object->oldcopy->url)) $oldurl=$object->oldcopy->url;
-		// // Removed old url
-		// foreach ($doc->getElementsByTagName('website') as $nodewebsite) {
+									// // URL
+									// $oldurl='';
+									// if (! empty($object->oldcopy->url)) $oldurl=$object->oldcopy->url;
+									// // Removed old url
+									// foreach ($doc->getElementsByTagName('website') as $nodewebsite) {
 		// 	$linkurl = $nodewebsite->getAttribute('href');
 		// 	$labelurl = $nodewebsite->getAttribute('label');
 		// 	if ($linkurl == $oldurl) {	// Delete only if value on google match old value into Dolibarr
-		// 		$nodewebsite->parentNode->removeChild($nodewebsite);
-		// 	}
-		// }
-		// // Add new url
-		// if (! empty($object->url)) {
-		// 	foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
-		// 		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
-		// 		$el = $doc->createElement('gcontact:website');
-		// 		$el->setAttribute("label", "URL");
-		// 		$el->setAttribute("href", $object->url);
-		// 		$entry->appendChild($el);
-		// 	}
-		// }
+			// 		$nodewebsite->parentNode->removeChild($nodewebsite);
+			// 	}
+			// }
+			// // Add new url
+			// if (! empty($object->url)) {
+				// 	foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
+					// 		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
+					// 		$el = $doc->createElement('gcontact:website');
+					// 		$el->setAttribute("label", "URL");
+					// 		$el->setAttribute("href", $object->url);
+					// 		$entry->appendChild($el);
+					// 	}
+					// }
 
-		// // Add company if object organization did not exists (so it was not updated)
-		// if (! isset($xml->organization)) {
-		// 	// Company - Function
-		// 	if ($object->element == 'contact') {
-		// 		foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
-		// 			// Company
+					// // Add company if object organization did not exists (so it was not updated)
+					// if (! isset($xml->organization)) {
+						// 	// Company - Function
+						// 	if ($object->element == 'contact') {
+							// 		foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
+								// 			// Company
 		// 			$company = $doc->createElement('gd:organization');
 		// 			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
 		// 			$entry->appendChild($company);
 
 		// 			$object->fetch_thirdparty();
 		// 			if (! empty($object->thirdparty->name) || ! empty($object->poste)) {   // Job position and company name of contact
-		// 				$thirdpartyname=$object->thirdparty->name;
+			// 				$thirdpartyname=$object->thirdparty->name;
 
-		// 				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
-		// 				if (! empty($thirdpartyname)) $company->appendChild($orgName);
-		// 				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
-		// 				if (! empty($object->poste)) $company->appendChild($orgTitle);
-		// 			}
+			// 				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
+			// 				if (! empty($thirdpartyname)) $company->appendChild($orgName);
+			// 				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
+			// 				if (! empty($object->poste)) $company->appendChild($orgTitle);
+			// 			}
 		// 		}
 		// 	}
 		// 	if ($object->element == 'member') {
-		// 		foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
-		// 			// Company
-		// 			$company = $doc->createElement('gd:organization');
-		// 			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
-		// 			$entry->appendChild($company);
+			// 		foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
+				// 			// Company
+				// 			$company = $doc->createElement('gd:organization');
+				// 			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+				// 			$entry->appendChild($company);
 
-		// 			//$object->fetch_thirdparty();
-		// 			if (! empty($object->company)) {
+				// 			//$object->fetch_thirdparty();
+				// 			if (! empty($object->company)) {
 		// 				$thirdpartyname=$object->company;
 
 		// 				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
@@ -493,33 +493,33 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 		// /* Old code used when using SimpleXML object (not working)
 		// 	foreach ($xml->website as $key => $val) {	// $key='@attributes' $val is an array('href'=>,'label'=>), however to set href it we must do $xml->website['href'] (it's a SimpleXML object)
-		// 		$oldvalue=(string) $val['href'];
-		// 		if (! empty($object->url)) $xml->website['href'] = $object->url;
-		// 		else unset($xml->website);
-		// 	}
-		// */
-		// //var_dump($xmlStr);exit;
+			// 		$oldvalue=(string) $val['href'];
+			// 		if (! empty($object->url)) $xml->website['href'] = $object->url;
+			// 		else unset($xml->website);
+			// 	}
+			// */
+			// //var_dump($xmlStr);exit;
 
-		// $xmlStr=$doc->saveXML();
-		$jsonData .='}';
-		// // uncomment for debugging :
-		// file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", $jsonData);
-		// @chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-		// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
+			// $xmlStr=$doc->saveXML();
+			$jsonData .='}';
+			// // uncomment for debugging :
+				// file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", $jsonData);
+				// @chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+				// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
 
-		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
-			$access_token=$gdata['google_web_token']['access_token'];
-		} else {
-			$tmp=json_decode($gdata['google_web_token']);
-			$access_token=$tmp->access_token;
-		}
-		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
-		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
+				if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+					$access_token=$gdata['google_web_token']['access_token'];
+				} else {
+					$tmp=json_decode($gdata['google_web_token']);
+					$access_token=$tmp->access_token;
+				}
+				$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
+				$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
 
-		// update entry.'&updatePersonFields='.$updatePersonFields
-		//$client_google = new Google_Client($client);
-		$google = new Google_Service_PeopleService($gdata["client"]);
-		$person = new Google_Service_PeopleService_Person($person_array);
+				// update entry.'&updatePersonFields='.$updatePersonFields
+				//$client_google = new Google_Client($client);
+				$google = new Google_Service_PeopleService($gdata["client"]);
+				$person = new Google_Service_PeopleService_Person($person_array);
 		$personParam['updatePersonFields'] = $updatePersonFields;
 		$response = $google->people->UpdateContact($newcontactid,$person,$personParam);
 		try {
@@ -556,10 +556,9 @@ function googleLinkGroup($client, $groupID, $contactID) {
 
 	// prepare json data
 	$jsonData = '{';
-	$jsonData .= '"resourceNamesToAdd": [';
-	$jsonData .= json_encode($contactID);
-	$jsonData .= ']';
+	$jsonData .= '"resourceNamesToAdd":'. json_encode(array($contactID));
 	$jsonData .= '}';
+
 
 	// prepare request
 	$gdata = $client;
@@ -580,7 +579,7 @@ function googleLinkGroup($client, $groupID, $contactID) {
 	$json = json_decode($jsonStr);
 	if (!empty($json->error)) {
 		dol_syslog('Link group Error:'.$json->error->message, LOG_ERR);
-		return $json->error->message.$contactID;
+		return $json->error->message;
 	}
 	return 1;
 }
@@ -597,9 +596,7 @@ function googleUnlinkGroup($client, $groupID, $contactID) {
 
 	// prepare json data
 	$jsonData = '{';
-	$jsonData .= '"resourceNamesToRemove": [';
-	$jsonData .= json_encode($contactID);
-	$jsonData .= ']';
+	$jsonData .= '"resourceNamesToRemove":'.json_encode(array($contactID));
 	$jsonData .= '}';
 
 	// prepare request
@@ -1333,16 +1330,16 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 			// Group not found, we create it
 			$objectstatic = new Categorie($db);
 			$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
-			} else {
-				dol_syslog('getGContactGroupID Error:'.$json->error->message, LOG_ERR);
-				return -1;
-			}
+		} else {
+			dol_syslog('getGContactGroupID Error:'.$json->error->message, LOG_ERR);
+			return -1;
 		}
-	} else {
-		// Create group
-		$objectstatic = new Categorie($db);
-		$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
-		if ($groupID < 0) {
+	}
+} else {
+	// Create group
+	$objectstatic = new Categorie($db);
+	$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
+	if ($groupID < 0) {
 			dol_syslog('getGContactGroupID Error: insertGContactGroup failed for tag='.$tag, LOG_ERR);
 			return $groupID;
 		}
@@ -1396,14 +1393,13 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 			 dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);
 			 return -1;
 		 }
-		 // Now update each record into database with external ref
+		 // Now update record into database with external ref
 		 if (is_object($objectstatic)) {
 			 $json = json_decode($jsonStr);
 			 if (!empty($json)) {
 				 $groupID = $json->resourceName;
 				 $objectstatic->id = $tag['id'];
 				 $objectstatic->update_ref_ext("google:".$groupID);
-
 			 }
 		 }
 
