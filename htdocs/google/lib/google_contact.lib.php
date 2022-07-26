@@ -1486,7 +1486,7 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 		 // Prepare json data for POST request
 		 $jsonData = '{';
 		 $jsonData .= '"contactGroup":{';
-		 $jsonData .= '"name": "'.$tag['label'].' dolibarr ('.$tag['type'].')"';
+		 $jsonData .= '"name": "'.$tag['label'].'"';
 		 $jsonData .= '}';
 		 $jsonData .= '}';
 
