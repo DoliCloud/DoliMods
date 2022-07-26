@@ -1233,7 +1233,7 @@ function getTags($id, $type) {
  */
 function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default') {
 
-	global $db;
+	global $db, $conf;
 
 	// For each contact :
 	foreach ($gContacts as $gContact) {
@@ -1266,6 +1266,19 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 			return -1;
 		}
 
+		// Set group for element type
+		$typeGroupID = getGContactTypeGroupID($gdata, $type);
+		if (is_numeric($typeGroupID)) {
+			dol_syslog('updateGContactGroups Error: typeGroupID not found for type='.$type, LOG_ERR);
+			return -1;
+		}
+
+		$ret = googleLinkGroup($gdata, $typeGroupID, $googleID);
+		if (!is_numeric($ret) || $ret < 0) {
+			dol_syslog('updateGContactGroups Error: googleLinkGroup failed for googleID='.$googleID.' groupID='.$typeGroupID, LOG_ERR);
+			return $ret;
+		}
+
 		// Retreive groups from gContact
 		$tags = $gContact->tags;
 		// For each group :
@@ -1290,6 +1303,113 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 
 	return 1;
 }
+
+/**
+ * Get the group id of type label in google contact
+ *
+ * @param 	array 	$gdata 	Google data arraycontactGroups/3e236bd808953155google
+ * @param 	string 	$type 	type of element (thirdparty, contact or member)
+ *
+ * @return 	string 			group id
+ */
+function getGContactTypeGroupID($gdata, $type)
+{
+	require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
+	global $db, $conf;
+
+
+	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+		$access_token=$gdata['google_web_token']['access_token'];
+	} else {
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+	}
+
+	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+	if ($type === 'thirdparty') {
+		$label = empty($conf->global->GOOGLE_TAG_PREFIX) ? 'Dolibarr Thirdparties': $conf->global->GOOGLE_TAG_PREFIX;
+		// See if ref_ext exists and if it is a google group
+		if (!empty($conf->global->GOOGLE_TAG_REF_EXT) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT, $reg)) {
+			$groupID = $reg[1];
+		}
+	} else if ($type === 'contact') {
+		$label = empty($conf->global->GOOGLE_TAG_PREFIX_CONTACTS) ? 'Dolibarr contacts': $conf->global->GOOGLE_TAG_PREFIX_CONTACTS;
+		// See if ref_ext exists and if it is a google group
+		if (!empty($conf->global->GOOGLE_TAG_REF_EXT_CONTACTS) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_CONTACTS, $reg)) {
+			$groupID = $reg[1];
+		}
+	} else if ($type === 'member') {
+		$label = empty($conf->global->GOOGLE_TAG_PREFIX_MEMBERS) ? 'Dolibarr members': $conf->global->GOOGLE_TAG_PREFIX_MEMBERS;
+		// See if ref_ext exists and if it is a google group
+		if (!empty($conf->global->GOOGLE_TAG_REF_EXT_MEMBERS) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_MEMBERS, $reg)) {
+			$groupID = $reg[1];
+		}
+	} else {
+		return -1;
+	}
+
+	// return "HELO?".$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS."BYE?".$groupID;
+
+
+
+	// To be sur that group is in google contact
+	if ($groupID) {
+		$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$jsonStr = $result['content'];
+		$json = json_decode($jsonStr);
+		if (empty($json->error)) {
+			return $groupID;
+		}
+	}
+
+
+	// Group not found, we create it
+	// We create it
+	$jsonData = '{';
+	$jsonData .= '"contactGroup":{';
+	$jsonData .= '"name": "'.$label.'"';
+	$jsonData .= '}';
+	$jsonData .= '}';
+	$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
+	$jsonStr = $result['content'];
+	try {
+		$json = json_decode($jsonStr);
+		if (!empty($json->error)) {
+			dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
+			return $json->error->message.$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS;
+			return -1;
+		}
+	} catch (Exception $e) {
+		dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);
+		return -1;
+	}
+
+	// Now we set external ref in conf
+	$json = json_decode($jsonStr);
+	if (!empty($json)) {
+		$groupID = $json->resourceName;
+		$res = 0;
+		if ($type === 'thirdparty') {
+			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+		} else if ($type === 'contact') {
+			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_CONTACTS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+		} else if ($type === 'member') {
+			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_MEMBERS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+		}
+		if ($res > 0) {
+			return $groupID;
+		} else {
+			dol_syslog('insertGContactGroup Error:'.$db->lasterror(), LOG_ERR);
+			return -1;
+		}
+	} else {
+		dol_syslog('insertGContactGroup Error:'.$jsonStr, LOG_ERR);
+		return -1;
+	}
+
+}
+
 
 /**
  * Get group id from google contact
