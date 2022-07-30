@@ -1,7 +1,6 @@
 <?php
 /* Copyright (C) 2004-2018 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2018	   Nicolas ZABOURI 	<info@inovea-conseil.com>
- * Copyright (C) 2019 Emilianodfgfdgdfgfdgdfgdfhg gdf gdf gdfg Pappacena <pappacenafood@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
