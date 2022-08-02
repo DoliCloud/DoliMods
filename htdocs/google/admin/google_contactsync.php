@@ -327,14 +327,16 @@ if ($action == 'pushallthirdparties') {
 			$errors[] = $langs->trans("Error").' '.$resultEntries;
 		}
 
-		$resultTags=0;
-		if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'thirdparty');
+		if (!$error) {
+			$resultTags=0;
+			if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'thirdparty');
 
-		if (is_numeric($resultTags) && $resultTags >= 0) {
-			$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
-		} else {
-			$error++;
-			$errors[] = $langs->trans("Error").' '.$resultTags;
+			if (is_numeric($resultTags) && $resultTags >= 0) {
+				$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+			} else {
+				$error++;
+				$errors[] = $langs->trans("Error").' '.$resultTags;
+			}
 		}
 	}
 }
@@ -403,14 +405,16 @@ if ($action == 'pushallcontacts') {
 			$errors[] = $langs->trans("Error").' '.$resultEntries;
 		}
 
-		$resultTags=0;
-		if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'contact');
+		if (!$error) {
+			$resultTags=0;
+			if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'contact');
 
-		if (is_numeric($resultTags) && $resultTags >= 0) {
-			$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
-		} else {
-			$error++;
-			$errors[] = $langs->trans("Error").' '.$resultTags;
+			if (is_numeric($resultTags) && $resultTags >= 0) {
+				$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+			} else {
+				$error++;
+				$errors[] = $langs->trans("Error").' '.$resultTags;
+			}
 		}
 	}
 }
@@ -474,14 +478,16 @@ if ($action == 'pushallmembers') {
 			$errors[] = $langs->trans("Error").' '.$resultEntries;
 		}
 
-		$resultTags=0;
-		if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'member');
+		if (!$error) {
+			$resultTags=0;
+			if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'member');
 
-		if (is_numeric($resultTags) && $resultTags >= 0) {
-			$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
-		} else {
-			$error++;
-			$errors[] = $langs->trans("Error").' '.$resultTags;
+			if (is_numeric($resultTags) && $resultTags >= 0) {
+				$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+			} else {
+				$error++;
+				$errors[] = $langs->trans("Error").' '.$resultTags;
+			}
 		}
 
 	}
