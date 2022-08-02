@@ -128,7 +128,8 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 		// Actions
 		if ($action == 'COMPANY_CREATE' || $action == 'COMPANY_MODIFY' || $action == 'COMPANY_DELETE'
 			|| $action == 'CONTACT_CREATE' || $action == 'CONTACT_MODIFY' || $action == 'CONTACT_DELETE'
-			|| $action == 'MEMBER_CREATE' || $action == 'MEMBER_MODIFY' || $action == 'MEMBER_DELETE') {
+			|| $action == 'MEMBER_CREATE' || $action == 'MEMBER_MODIFY' || $action == 'MEMBER_DELETE'
+			|| $action == 'CATEGORY_LINK' || $action == 'CATEGORY_UNLINK' || $action == 'CATEGORY_DELETE' || $action == 'CATEGORY_MODIFY') {
 			if (preg_match('/^COMPANY_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES)) return 0;
 			if (preg_match('/^CONTACT_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS)) return 0;
 			if (preg_match('/^MEMBER_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS)) return 0;
@@ -167,7 +168,35 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 							$ret='google:'.$ret;
 						}
 						$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
-						return 1;
+						// Link to type group
+						$contactID = $object->ref_ext;
+						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
+							$contactID = $reg[1];
+							$type = $object->element ? $object->element : 'unknown';
+							$type = $type === 'societe' ? 'thirdparty' : $type;
+							$typeGroupID = getGContactTypeGroupID($servicearray, $type);
+							if ($typeGroupID && preg_match('/contactGroups\/.*/', $typeGroupID)) {
+								$ret = googleLinkGroup($servicearray, $typeGroupID, $contactID);
+								if ($ret > 0) {
+									return 1;
+								} else {
+									$this->error="Failed to link contact to group".$typeGroupID.$type;
+									dol_syslog($this->error, LOG_ERR);
+									$this->errors[]=$this->error;
+									return -1;
+								}
+							} else {
+								$this->error="Failed to get type group ID".$typeGroupID.$type;
+								dol_syslog($this->error, LOG_ERR);
+								$this->errors[]=$this->error;
+								return -1;
+							}
+						} else {
+							$this->error="Failed to get contact ID";
+							dol_syslog($this->error, LOG_ERR);
+							$this->errors[]=$this->error;
+							return -1;
+						}
 					} else {
 						$this->errors[]=$ret;
 						return -1;
@@ -177,7 +206,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					$gid = preg_replace('/http:\/\//', 'https://', $object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) { // This record is linked with Google Contact
 						$ret = googleUpdateContact($servicearray, $gid, $object, $userlogin);
-						if ($ret == 0) { // Fails to update because not found, we try to create
+						if ($ret === 0) { // Fails to update because not found, we try to create
 							dol_syslog("Echec de la mise a jour, on force la création");
 							$ret = googleCreateContact($servicearray, $object, $userlogin);
 							//var_dump($ret); exit;
@@ -227,6 +256,75 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						}
 					}
 					return 1;
+				}
+				if ($action == 'CATEGORY_LINK') {
+					$type = $object->context['linkto']->element ? $object->context['linkto']->element : 'unknown';
+					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$object->update_ref_ext(substr('google:'.$groupID, 0, 255));
+						$contactID = $object->context['linkto']->ref_ext;
+						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
+							$contactID = $reg[1];
+							$ret = googleLinkGroup($servicearray, $groupID, $contactID);
+							if ($ret > 0) {
+								return 1;
+							}
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$this->error;
+					return -1;
+				}
+
+				if ($action == 'CATEGORY_UNLINK') {
+					$type = $object->context['unlinkoff']->element ? $object->context['unlinkoff']->element : 'unknown';
+					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$contactID = $object->context['unlinkoff']->ref_ext;
+						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
+							$contactID = $reg[1];
+							$ret = googleUnlinkGroup($servicearray, $groupID, $contactID);
+							if ($ret > 0) {
+								return 1;
+							}
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$this->error;
+					return -1;
+				}
+
+				if ($action == 'CATEGORY_DELETE') {
+					$tag = array('id' => $object->id, 'label' => $object->label);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$ret = googleDeleteGroup($servicearray, $groupID);
+						if ($ret > 0) {
+							return 1;
+
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$this->error;
+					return -1;
+				}
+
+				if ($action == 'CATEGORY_MODIFY') {
+					$newlabel = $object->label;
+					$tag = array('id' => $object->id, 'label' => $newlabel);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$ret = googleUpdateGroup($servicearray, $groupID, $newlabel);
+						if (is_numeric($ret) && $ret > 0) {
+							return 1;
+
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$ret;
+					return -1;
 				}
 			}
 		}

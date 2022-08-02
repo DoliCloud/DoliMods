@@ -62,6 +62,8 @@ function getCommentIDTag()
  */
 function googleCreateContact($client, $object, $useremail = 'default')
 {
+
+
 	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
 	global $user;
@@ -77,7 +79,6 @@ function googleCreateContact($client, $object, $useremail = 'default')
 	$google_nltechno_tag=getCommentIDTag();
 	$person_array = [];
 
-	$jsonData = "{";
 	try {
 		$gdata = $client;
 		//<gdata:name>
@@ -100,7 +101,7 @@ function googleCreateContact($client, $object, $useremail = 'default')
 
 		//<gdata:phoneNumber>
 		$newphone=!empty($object->phone)?$object->phone_pro:$object->phone;
-		if (!empty($newphone)){ 
+		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
@@ -126,8 +127,6 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		}
 
 		//<gdata:structuredPostalAddress>
-		$jsonData .='"addresses": [';
-		$jsonData .='{"country": '.json_encode(getCountry($object->country_id,0,"",$langs,0)).'}';
 		$person_array["addresses"][0]["country"] = $object->country_id>0 ? getCountry($object->country_id, 0, '', $langs, 0) : '';
 		$person_array["addresses"][0]["postalCode"] = !empty($object->zip) ? $object->zip : "";
 		$person_array["addresses"][0]["streetAddress"] = !empty($object->address) ? $object->address : "";
@@ -135,14 +134,18 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		$tmpstate=($object->state_id>0?getState($object->state_id):'');
 		$tmpstate=dol_html_entity_decode($tmpstate, ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
 		$person_array["addresses"][0]["region"] = $tmpstate;
-		
+
 		//<gdata:email>
 		$person_array["emailAddresses"][0]["value"] = $object->email?$object->email:(strtolower(preg_replace('/\s/', '', (empty($object->name)?$object->lastname.$object->firstname:$object->name))).'@noemail.com');
 
 		//<gcontact:userDefinedField>
 		if ($object->element == "societe") {
 			$element = "thirdparty";
-		}else {
+		} elseif ($object->element == "contact") {
+			$element = "contact";
+		} elseif ($object->element == "member") {
+			$element = "member";
+		} else {
 			$element = "unknown";
 		}
 		$person_array["userDefined"][0]["key"] = "dolibarr-id";
@@ -155,9 +158,9 @@ function googleCreateContact($client, $object, $useremail = 'default')
 			];
 		}
 		$jsonData = json_encode($person_array);
-		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", $jsonData);
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		// // uncomment for debugging :
+		// file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", $jsonData);
+		// @chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_createcontact.xml' command
 
 		$id = '';
@@ -327,7 +330,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 		//Phone
 		$newphone=empty($object->phone)?$object->phone_pro:$object->phone;
-		if (!empty($newphone)){ 
+		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
@@ -378,105 +381,105 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		//var_dump($xml->organization->asXml());    // $xml->organization is SimpleXMLElement but isset($xml->organization) and $xml->organization->asXml() may be set or not
 		// Company + Function
 		// if (isset($xml->organization)) {
-		// 	if ($object->element == 'contact') {
-		// 		unset($xml->organization->orgName);
-		// 		unset($xml->organization->orgTitle);
-		// 		$object->fetch_thirdparty();
-		// 		if (! empty($object->thirdparty->name) || ! empty($object->poste)) {
-		// 			$thirdpartyname=$object->thirdparty->name;
-		// 			$xml->organization['rel']="http://schemas.google.com/g/2005#other";
-		// 			if (! empty($object->thirdparty->name)) $xml->organization->orgName=$thirdpartyname;
-		// 			if (! empty($object->poste)) $xml->organization->orgTitle=$object->poste;
-		// 		}
-		// 	}
-		// 	if ($object->element == 'member') {
-		// 		unset($xml->organization->orgName);
-		// 		unset($xml->organization->orgTitle);
-		// 		if (! empty($object->company)) {
-		// 			$thirdpartyname=$object->company;
-		// 			$xml->organization['rel']="http://schemas.google.com/g/2005#other";
-		// 			if (! empty($object->company)) $xml->organization->orgName=$thirdpartyname;
-		// 		}
-		// 	}
-		// }
+			// 	if ($object->element == 'contact') {
+				// 		unset($xml->organization->orgName);
+				// 		unset($xml->organization->orgTitle);
+				// 		$object->fetch_thirdparty();
+				// 		if (! empty($object->thirdparty->name) || ! empty($object->poste)) {
+					// 			$thirdpartyname=$object->thirdparty->name;
+					// 			$xml->organization['rel']="http://schemas.google.com/g/2005#other";
+					// 			if (! empty($object->thirdparty->name)) $xml->organization->orgName=$thirdpartyname;
+					// 			if (! empty($object->poste)) $xml->organization->orgTitle=$object->poste;
+					// 		}
+					// 	}
+					// 	if ($object->element == 'member') {
+						// 		unset($xml->organization->orgName);
+						// 		unset($xml->organization->orgTitle);
+						// 		if (! empty($object->company)) {
+							// 			$thirdpartyname=$object->company;
+							// 			$xml->organization['rel']="http://schemas.google.com/g/2005#other";
+							// 			if (! empty($object->company)) $xml->organization->orgName=$thirdpartyname;
+							// 		}
+							// 	}
+							// }
 
 
-		// $xmlStr=$xml->saveXML();
+							// $xmlStr=$xml->saveXML();
 
 
-		// // Remove <gContact:groupMembershipInfo
-		// //print dol_escape_htmltag($xmlStr);
-		// $xmlStr = preg_replace('/<gContact:groupMembershipInfo[^>]*/', '', $xmlStr);
-		// //print dol_escape_htmltag($xmlStr);exit;
+							// // Remove <gContact:groupMembershipInfo
+							// //print dol_escape_htmltag($xmlStr);
+							// $xmlStr = preg_replace('/<gContact:groupMembershipInfo[^>]*/', '', $xmlStr);
+							// //print dol_escape_htmltag($xmlStr);exit;
 
 
-		// // Convert xml into DOM so we can use dom function to add website element
-		// $doc  = new DOMDocument("1.0", "utf-8");
-		// $doc->loadXML($xmlStr);
-		// $entries = $doc->getElementsByTagName('entry');
+							// // Convert xml into DOM so we can use dom function to add website element
+							// $doc  = new DOMDocument("1.0", "utf-8");
+							// $doc->loadXML($xmlStr);
+							// $entries = $doc->getElementsByTagName('entry');
 
-		// // Birthday (in namespace gdContact)
-		// if (! $xmlgcontact->birthday->asXml() && $object->birthday) {    // Not into current remote record, we add it if defined
-		// 	foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
-		// 		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
-		// 		$birthday = $doc->createElement('gcontact:birthday');
-		// 		$birthday->setAttribute('when', dol_print_date($object->birthday, 'dayrfc'));
-		// 		$entry->appendChild($birthday);
-		// 	}
-		// }
+							// // Birthday (in namespace gdContact)
+							// if (! $xmlgcontact->birthday->asXml() && $object->birthday) {    // Not into current remote record, we add it if defined
+								// 	foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
+									// 		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
+									// 		$birthday = $doc->createElement('gcontact:birthday');
+									// 		$birthday->setAttribute('when', dol_print_date($object->birthday, 'dayrfc'));
+									// 		$entry->appendChild($birthday);
+									// 	}
+									// }
 
-		// // URL
-		// $oldurl='';
-		// if (! empty($object->oldcopy->url)) $oldurl=$object->oldcopy->url;
-		// // Removed old url
-		// foreach ($doc->getElementsByTagName('website') as $nodewebsite) {
+									// // URL
+									// $oldurl='';
+									// if (! empty($object->oldcopy->url)) $oldurl=$object->oldcopy->url;
+									// // Removed old url
+									// foreach ($doc->getElementsByTagName('website') as $nodewebsite) {
 		// 	$linkurl = $nodewebsite->getAttribute('href');
 		// 	$labelurl = $nodewebsite->getAttribute('label');
 		// 	if ($linkurl == $oldurl) {	// Delete only if value on google match old value into Dolibarr
-		// 		$nodewebsite->parentNode->removeChild($nodewebsite);
-		// 	}
-		// }
-		// // Add new url
-		// if (! empty($object->url)) {
-		// 	foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
-		// 		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
-		// 		$el = $doc->createElement('gcontact:website');
-		// 		$el->setAttribute("label", "URL");
-		// 		$el->setAttribute("href", $object->url);
-		// 		$entry->appendChild($el);
-		// 	}
-		// }
+			// 		$nodewebsite->parentNode->removeChild($nodewebsite);
+			// 	}
+			// }
+			// // Add new url
+			// if (! empty($object->url)) {
+				// 	foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
+					// 		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
+					// 		$el = $doc->createElement('gcontact:website');
+					// 		$el->setAttribute("label", "URL");
+					// 		$el->setAttribute("href", $object->url);
+					// 		$entry->appendChild($el);
+					// 	}
+					// }
 
-		// // Add company if object organization did not exists (so it was not updated)
-		// if (! isset($xml->organization)) {
-		// 	// Company - Function
-		// 	if ($object->element == 'contact') {
-		// 		foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
-		// 			// Company
+					// // Add company if object organization did not exists (so it was not updated)
+					// if (! isset($xml->organization)) {
+						// 	// Company - Function
+						// 	if ($object->element == 'contact') {
+							// 		foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
+								// 			// Company
 		// 			$company = $doc->createElement('gd:organization');
 		// 			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
 		// 			$entry->appendChild($company);
 
 		// 			$object->fetch_thirdparty();
 		// 			if (! empty($object->thirdparty->name) || ! empty($object->poste)) {   // Job position and company name of contact
-		// 				$thirdpartyname=$object->thirdparty->name;
+			// 				$thirdpartyname=$object->thirdparty->name;
 
-		// 				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
-		// 				if (! empty($thirdpartyname)) $company->appendChild($orgName);
-		// 				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
-		// 				if (! empty($object->poste)) $company->appendChild($orgTitle);
-		// 			}
+			// 				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
+			// 				if (! empty($thirdpartyname)) $company->appendChild($orgName);
+			// 				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
+			// 				if (! empty($object->poste)) $company->appendChild($orgTitle);
+			// 			}
 		// 		}
 		// 	}
 		// 	if ($object->element == 'member') {
-		// 		foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
-		// 			// Company
-		// 			$company = $doc->createElement('gd:organization');
-		// 			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
-		// 			$entry->appendChild($company);
+			// 		foreach ($entries as $entry) {	// We should have only one <entry>, loop is required to access first record of $entries.
+				// 			// Company
+				// 			$company = $doc->createElement('gd:organization');
+				// 			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+				// 			$entry->appendChild($company);
 
-		// 			//$object->fetch_thirdparty();
-		// 			if (! empty($object->company)) {
+				// 			//$object->fetch_thirdparty();
+				// 			if (! empty($object->company)) {
 		// 				$thirdpartyname=$object->company;
 
 		// 				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
@@ -490,33 +493,33 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 		// /* Old code used when using SimpleXML object (not working)
 		// 	foreach ($xml->website as $key => $val) {	// $key='@attributes' $val is an array('href'=>,'label'=>), however to set href it we must do $xml->website['href'] (it's a SimpleXML object)
-		// 		$oldvalue=(string) $val['href'];
-		// 		if (! empty($object->url)) $xml->website['href'] = $object->url;
-		// 		else unset($xml->website);
-		// 	}
-		// */
-		// //var_dump($xmlStr);exit;
+			// 		$oldvalue=(string) $val['href'];
+			// 		if (! empty($object->url)) $xml->website['href'] = $object->url;
+			// 		else unset($xml->website);
+			// 	}
+			// */
+			// //var_dump($xmlStr);exit;
 
-		// $xmlStr=$doc->saveXML();
-		$jsonData .='}';
-		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", $jsonData);
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-		// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
+			// $xmlStr=$doc->saveXML();
+			$jsonData .='}';
+			// // uncomment for debugging :
+				// file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", $jsonData);
+				// @chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+				// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
 
-		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
-			$access_token=$gdata['google_web_token']['access_token'];
-		} else {
-			$tmp=json_decode($gdata['google_web_token']);
-			$access_token=$tmp->access_token;
-		}
-		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
-		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
+				if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+					$access_token=$gdata['google_web_token']['access_token'];
+				} else {
+					$tmp=json_decode($gdata['google_web_token']);
+					$access_token=$tmp->access_token;
+				}
+				$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
+				$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
 
-		// update entry.'&updatePersonFields='.$updatePersonFields
-		//$client_google = new Google_Client($client);
-		$google = new Google_Service_PeopleService($gdata["client"]);
-		$person = new Google_Service_PeopleService_Person($person_array);
+				// update entry.'&updatePersonFields='.$updatePersonFields
+				//$client_google = new Google_Client($client);
+				$google = new Google_Service_PeopleService($gdata["client"]);
+				$person = new Google_Service_PeopleService_Person($person_array);
 		$personParam['updatePersonFields'] = $updatePersonFields;
 		$response = $google->people->UpdateContact($newcontactid,$person,$personParam);
 		try {
@@ -540,7 +543,154 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 	return $id;
 }
 
+/**
+ * Link a member to group in google contact
+ *
+ * @param string  	$client 	Google client
+ * @param string 	$groupID 	ID of group to update
+ * @param string	$contactID 	ID of contact to update
+ * @return int					<0 if KO, >0 if OK
+ */
+function googleLinkGroup($client, $groupID, $contactID) {
 
+
+	// prepare json data
+	$jsonData = '{';
+	$jsonData .= '"resourceNamesToAdd":'. json_encode(array($contactID));
+	$jsonData .= '}';
+
+
+	// prepare request
+	$gdata = $client;
+	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+		$access_token=$gdata['google_web_token']['access_token'];
+	} else {
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+	}
+	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID.'/members:modify', 'POST', $jsonData, 0, $addheaderscurl);
+	if ($result['http_code'] == 404) {
+		dol_syslog('Failed to link contact to group: '.$result['http_code'], LOG_ERR);
+		return -1;
+	}
+	$jsonStr = $result['content'];
+	$json = json_decode($jsonStr);
+	if (!empty($json->error)) {
+		dol_syslog('Link group Error:'.$json->error->message, LOG_ERR);
+		return $json->error->message;
+	}
+	return 1;
+}
+
+/**
+ * Link a member to group in google contact
+ *
+ * @param string  	$client 	Google client
+ * @param string 	$groupID 	ID of group to update
+ * @param string	$contactID 	ID of contact to update
+ * @return int					<0 if KO, >0 if OK
+ */
+function googleUnlinkGroup($client, $groupID, $contactID) {
+
+	// prepare json data
+	$jsonData = '{';
+	$jsonData .= '"resourceNamesToRemove":'.json_encode(array($contactID));
+	$jsonData .= '}';
+
+	// prepare request
+	$gdata = $client;
+	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+		$access_token=$gdata['google_web_token']['access_token'];
+	} else {
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+	}
+	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID.'/members:modify', 'POST', $jsonData, 0, $addheaderscurl);
+	$jsonStr = $result['content'];
+	$json = json_decode($jsonStr);
+	if (!empty($json->error)) {
+		dol_syslog('Unlink group Error:'.$json->error->message, LOG_ERR);
+		return -1;
+	}
+	return 1;
+}
+
+
+/**
+ * Delete a group in google contact
+ *
+ * @param string  	$client 	Google client
+ * @param string 	$groupID 	ID of group to update
+ *
+ * @return int					<0 if KO, >0 if OK
+ */
+function googleDeleteGroup($client, $groupID) {
+
+	// prepare request
+	$gdata = $client;
+	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+		$access_token=$gdata['google_web_token']['access_token'];
+	} else {
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+	}
+	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'DELETE', array(), 0, $addheaderscurl);
+	$jsonStr = $result['content'];
+	$json = json_decode($jsonStr);
+	if (!empty($json->error)) {
+		dol_syslog('Delete group Error:'.$json->error->message, LOG_ERR);
+		return -1;
+	}
+	return 1;
+}
+
+/**
+ * Update a name of a group in google contact
+ *
+ * @param string  	$client 	Google client
+ * @param string 	$groupID 	ID of group to update
+ * @param string 	$name	 	New name of group
+ * @return int					<0 if KO, >0 if OK
+ */
+function googleUpdateGroup($client, $groupID, $name) {
+	//TODO
+	// global $conf;
+	// $gdata = $client;
+	// // Send request to Google
+	// if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+	// 	$access_token=$gdata['google_web_token']['access_token'];
+	// } else {
+	// 	$tmp=json_decode($gdata['google_web_token']);
+	// 	$access_token=$tmp->access_token;
+	// }
+	// $addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+	// $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	// $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+	// $jsonStr = $result['content'];
+	// $json = json_decode($jsonStr);
+	// $json->name = $name;
+	// $json->formattedName = $name;
+	// $jsonData = '{';
+	// $jsonData .='"contactGroup":';
+	// $jsonData .= json_encode($json);
+	// $jsonData .= '}';
+	// $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'PUT', $jsonData, 0, $addheaderscurl);
+	// // return json_encode($result);
+	// $jsonStr = $result['content'];
+	// $json = json_decode($jsonStr);
+	// if (!empty($json->error)) {
+	// 	dol_syslog('googleUpdateGroup Error:'.$json->error->message, LOG_ERR);
+	// 	return "ERROR:".$json->error->message;
+	// }
+	return 1;
+
+}
 
 /**
  * Deletes the event specified by retrieving the atom entry object
@@ -658,11 +808,11 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			$jsonData .='{"contactPerson": {';
 			//<gdata:name>
 			$jsonData .='"names":[';
-			$jsonData .='{"familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName).'}';
-			if (!empty($gContact->firstname)) {
-				$jsonData .=',{"givenName": '.json_encode($gContact->firstname).'}';
-			}
-			$jsonData .='],';
+			$jsonData .='{"familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName);
+				if (!empty($gContact->firstname)) {
+					$jsonData .=',"givenName": '.json_encode($gContact->firstname);
+				}
+				$jsonData .='}],';
 			//<atom:content>
 			$jsonData .='"biographies": [';
 			$jsonData .='{ "value": '.json_encode($gContact->note_public).'}';
@@ -692,6 +842,19 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 				$jsonData .='{ "value": '.json_encode($gContact->fax).'}';
 				$jsonData .='],';
 			}
+			//<gdata:membership> (tags)
+			// $jsonData .='"contactGroups": [';
+			// $jsonData .='{ "contactGroupMembership": ';
+			// $jsonData .='{ "contactGroupResourceName": "aloooooo/2444444"}';
+			// $jsonData .='],';
+			//<gdata:event>
+			// $jsonData .='"events": [';
+			// $jsonData .='{ "date": ';
+			// $jsonData .='{ "year": "2021",';
+			// $jsonData .='"month": "10",';
+			// $jsonData .='"day": "21"},';
+			// $jsonData .='{ "type": "fête du village"';
+			// 	$jsonData .='}],';
 			//<gdata:structuredPostalAddress>
 			if (!empty($gContact->addr)) {
 				$addresses = $gContact->addr;
@@ -722,11 +885,16 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			$jsonData .='{ "key": "dolibarr-id",';
 			if ($objectstatic->element == "societe") {
 				$element = "thirdparty";
-			}else {
+			} elseif ($objectstatic->element == "contact") {
+				$element = "contact";
+			} elseif ($objectstatic->element == "member") {
+				$element = "member";
+			} else {
 				$element = "unknown";
 			}
 			$jsonData .='"value": '.json_encode($gContact->dolID.'/'.$element).'}';
 			$jsonData .='],';
+
 			$jsonData .='}}';
 			$nbcontacts ++;
 		}
@@ -800,7 +968,6 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 				dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
 				return -1;
 			}
-
 			$responseJson = $jsonStr;
 			// uncomment for debugging :
 			//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.json", $responseJson);
@@ -884,217 +1051,481 @@ function getTagLabel($s)
 	return $tag;
 }
 
+/**
+ * Retreive tags of an entity for google contacts
+ *
+ * @param 	int 	$id 	Entity id
+ * @param 	string	$type	Type of entity (thirdparty, contact or member)
+ * @return	array			Array of tags
+ */
+function getTags($id, $type) {
+
+	global $db;
+	if ($type == 'thirdparty') {
+		$sql = 'SELECT rowid, label FROM '.MAIN_DB_PREFIX.'categorie lc';
+		$sql .= ' JOIN '.MAIN_DB_PREFIX.'categorie_societe lcm ON lc.rowid = lcm.fk_categorie';
+		$sql .= ' WHERE lcm.fk_soc = '.$id;
+	} elseif ($type == 'contact') {
+		$sql = 'SELECT rowid, label FROM '.MAIN_DB_PREFIX.'categorie lc';
+		$sql .= ' JOIN '.MAIN_DB_PREFIX.'categorie_contact lcm ON lc.rowid = lcm.fk_categorie';
+		$sql .= ' WHERE lcm.fk_socpeople = '.$id;
+	} elseif ($type == 'member') {
+		$sql = 'SELECT rowid, label FROM '.MAIN_DB_PREFIX.'categorie lc';
+		$sql .= ' JOIN '.MAIN_DB_PREFIX.'categorie_member lcm ON lc.rowid = lcm.fk_categorie';
+		$sql .= ' WHERE lcm.fk_member = '.$id;
+	}
+
+
+	$ressql = $db->query($sql);
+	$tags = array();
+	if ($ressql) {
+		while ($obj = $db->fetch_object($ressql)) {
+			$tags[] = array('id' => $obj->rowid, 'label' => $obj->label, 'type' => $type);
+		}
+	}
+	return $tags;
+}
+
+
+
+
+// /**
+//  * Retreive a googleGroupID for a groupName.
+//  * If the groupName does not exist on Gmail account, it is also created. So this method should always return a group ID (except on technical error)
+//  *
+//  * @param	array	$gdata			Array with tokens info
+//  * @param	string	$groupName		Group name
+//  * @param	array	$googleGroups	Array of Google Group we know they already exists
+//  * @param	string	$useremail		User email
+//  * @return 	string					Google Group Full URL ID for groupName (also key in $googleGroups) or 'ErrorFailedToGetGroups'.
+//  */
+// function getGoogleGroupID($gdata, $groupName, &$googleGroups = array(), $useremail = 'default')
+// {
+// 	global $conf;
+
+// 	$error=0;
+
+// 	// Search existing groups
+// 	if (! is_array($googleGroups) || count($googleGroups) == 0) {
+// 		$document = new DOMDocument("1.0", "utf-8");
+// 		$xmlStr = getContactGroupsXml($gdata, $useremail);
+// 		if (! empty($xmlStr)) {
+// 			$resultloadxml = $document->loadXML($xmlStr);
+// 			if ($resultloadxml === false) {
+// 				dol_syslog("getGoogleGroupID Failed to parse xml string ".$xmlStr, LOG_WARNING);
+// 			} else {
+// 				$xmlStr = $document->saveXML();
+// 				$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
+// 				$n = $entries->length;
+// 				$googleGroups = array();
+// 				foreach ($entries as $entry) {
+// 					$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
+// 					if ($titleNodes->length == 1) {
+// 						$title = $titleNodes->item(0)->textContent;	// We got the title of a group (For example: 'System Group: My Contacts', 'System Group: Friend', 'Dolibarr (Thirdparties)', ...)
+// 						$googleIDNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "id");
+// 						if ($googleIDNodes->length == 1) {
+// 							$googleGroups[$title] = $googleIDNodes->item(0)->textContent;	// We get <id> of group
+// 						}
+// 					}
+// 				}
+// 				dol_syslog("getGoogleGroupID We found ".count($googleGroups)." groups", LOG_DEBUG);
+// 			}
+// 		} else {
+// 			$error++;
+// 			dol_syslog("getGoogleGroupID ErrorFailedToGetGroups", LOG_ERR);
+// 			return 'ErrorFailedToGetGroups';
+// 		}
+// 	}
+
+// 	// Create group if it does not exists
+// 	if (! $error && !isset($googleGroups[$groupName])) {
+// 		$newGroupID = insertGContactGroup($gdata, $groupName, $useremail);
+// 		$googleGroups[$groupName] = $newGroupID;
+// 	}
+
+// 	dol_syslog("Full URL ID found for group ".$groupName." = ".$googleGroups[$groupName], LOG_DEBUG);
+// 	return $googleGroups[$groupName];
+// }
+
+
+// /**
+//  * Retreive a Xml string with list of all groups of contacts from Google
+//  *
+//  * @param	array	$gdata			Array with tokens info
+//  * @param	string	$useremail		User email
+//  * @return	string					XML string with all groups, '' if error
+//  */
+// function getContactGroupsXml($gdata, $useremail = 'default')
+// {
+// 	global $conf;
+// 	global $tag_debug;
+
+// 	$tag_debug='groupgroups';
+
+// 	$xmlStr='';
+// 	try {
+// 		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+// 			$access_token=$gdata['google_web_token']['access_token'];
+// 		} else {
+// 			$tmp=json_decode($gdata['google_web_token']);
+// 			$access_token=$tmp->access_token;
+// 		}
+// 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
+// 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
+// 		//$useremail='default';
+
+// 		//$request=new Google_Http_Request('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', $addheaders, null);
+// 		//$result=$gdata['client']->execute($request);	// Return json_decoded string. May return an exception.
+// 		//$xmlStr=$result;
+
+// 		$result = getURLContent('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', '', 0, $addheaderscurl);
+// 		$xmlStr = $result['content'];
+
+// 		// uncomment for debugging :
+// 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $xmlStr);
+// 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+// 		// you can view this file with 'xmlstarlet fo dolibarr_google_groups.xml' command
+
+// 		if (strpos($xmlStr, 'Contacts API is being deprecated') === 0) {
+// 			// $xmlStr may be the error message "Contacts API is being deprecated. Migrate to People API to retain programmatic access to Google Contacts. See https://developers.google.com/people/contacts-api-migration."
+// 			dol_syslog("getContactGroupsXml Failed because Google Contact API are now closed", LOG_WARNING);
+// 			return '';
+// 		}
+
+// 		try {
+// 			$document = new DOMDocument("1.0", "utf-8");
+// 			$resultloadxml = $document->loadXml($xmlStr);
+// 			if ($resultloadxml === false) {
+// 				dol_syslog("getContactGroupsXml Failed to parse xml string ".$xmlStr, LOG_WARNING);
+// 			} else {
+// 				$errorselem = $document->getElementsByTagName("errors");
+// 				//var_dump($errorselem);
+// 				//var_dump($errorselem->length);
+// 				//var_dump(count($errorselem));
+// 				if ($errorselem->length) {
+// 					dol_syslog('getContactGroupsXml ERROR:'.$result['content'], LOG_ERR);
+// 					return '';
+// 				}
+// 			}
+// 		} catch (Exception $e) {
+// 			dol_syslog('getContactGroupsXml ERROR:'.$e->getMessage(), LOG_ERR);
+// 			return '';
+// 		}
+// 	} catch (Exception $e) {
+// 		dol_syslog(sprintf("getContactGroupsXml Error while getting feeds xml groups : %s", $e->getMessage()), LOG_ERR);
+// 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $e->getMessage());
+// 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+// 	}
+
+// 	return($xmlStr);
+// }
+
+
 
 /**
- * Retreive a googleGroupID for a groupName.
- * If the groupName does not exist on Gmail account, it is also created. So this method should always return a group ID (except on technical error)
- *
+ * Link groups of the contacts in google contact
  * @param	array	$gdata			Array with tokens info
- * @param	string	$groupName		Group name
- * @param	array	$googleGroups	Array of Google Group we know they already exists
+ * @param 	array 	$gContacts		Array of object GContact
+ * @param	string	$type			Type of contact ('thirdparty', 'contact' or 'member')
  * @param	string	$useremail		User email
- * @return 	string					Google Group Full URL ID for groupName (also key in $googleGroups) or 'ErrorFailedToGetGroups'.
+ *
+ * @return	int						>0 if OK, <0 if KO
  */
-function getGoogleGroupID($gdata, $groupName, &$googleGroups = array(), $useremail = 'default')
-{
-	global $conf;
+function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default') {
 
-	$error=0;
+	global $db, $conf;
 
-	// Search existing groups
-	if (! is_array($googleGroups) || count($googleGroups) == 0) {
-		$document = new DOMDocument("1.0", "utf-8");
-		$xmlStr = getContactGroupsXml($gdata, $useremail);
-		if (! empty($xmlStr)) {
-			$resultloadxml = $document->loadXML($xmlStr);
-			if ($resultloadxml === false) {
-				dol_syslog("getGoogleGroupID Failed to parse xml string ".$xmlStr, LOG_WARNING);
-			} else {
-				$xmlStr = $document->saveXML();
-				$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
-				$n = $entries->length;
-				$googleGroups = array();
-				foreach ($entries as $entry) {
-					$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
-					if ($titleNodes->length == 1) {
-						$title = $titleNodes->item(0)->textContent;	// We got the title of a group (For example: 'System Group: My Contacts', 'System Group: Friend', 'Dolibarr (Thirdparties)', ...)
-						$googleIDNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "id");
-						if ($googleIDNodes->length == 1) {
-							$googleGroups[$title] = $googleIDNodes->item(0)->textContent;	// We get <id> of group
-						}
-					}
-				}
-				dol_syslog("getGoogleGroupID We found ".count($googleGroups)." groups", LOG_DEBUG);
+	// For each contact :
+	foreach ($gContacts as $gContact) {
+
+		// Retreive google id from gContact
+		$dolID = $gContact->dolID;
+
+		if ($type == 'thirdparty') {
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'societe WHERE rowid = '.$dolID;
+		} elseif ($type == 'contact') {
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'socpeople WHERE rowid = '.$dolID;
+		} elseif ($type == 'member') {
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'adherent WHERE rowid = '.$dolID;
+		} else {
+			return -1;
+		}
+
+		$ressql = $db->query($sql);
+		if ($ressql) {
+			$obj = $db->fetch_object($ressql);
+			$googleID = $obj->ref_ext;
+			if (!empty($googleID) && preg_match('/google:(people\/.*)/', $googleID, $reg)) {
+				$googleID = $reg[1];
+			}
+			else {
+				dol_syslog('updateGContactGroups Error: invalid googleID for dolID='.$dolID, LOG_ERR);
 			}
 		} else {
-			$error++;
-			dol_syslog("getGoogleGroupID ErrorFailedToGetGroups", LOG_ERR);
-			return 'ErrorFailedToGetGroups';
+			dol_syslog('updateGContactGroups Error:'.$db->lasterror(), LOG_ERR);
+			return -1;
+		}
+
+		// Set group for element type
+		$typeGroupID = getGContactTypeGroupID($gdata, $type);
+		if (is_numeric($typeGroupID)) {
+			dol_syslog('updateGContactGroups Error: typeGroupID not found for type='.$type, LOG_ERR);
+			return -1;
+		}
+
+		$ret = googleLinkGroup($gdata, $typeGroupID, $googleID);
+		if (!is_numeric($ret) || $ret < 0) {
+			dol_syslog('updateGContactGroups Error: googleLinkGroup failed for googleID='.$googleID.' groupID='.$typeGroupID, LOG_ERR);
+			return $ret;
+		}
+
+		// Retreive groups from gContact
+		$tags = $gContact->tags;
+		// For each group :
+		foreach ($tags as $tag) {
+			// Retreive groupe id from google contact (if not exist, create it)
+			$groupID = getGContactGroupID($gdata, $tag, $useremail);
+			if ($groupID < 0) {
+				dol_syslog('updateGContactGroups Error: groupID not found for tag='.$tag, LOG_ERR);
+				return $groupID;
+			}
+
+			// Link contact to group
+
+			// prepare json data
+			$ret = googleLinkGroup($gdata, $groupID, $googleID);
+			if (!is_numeric($ret) || $ret < 0) {
+				dol_syslog('updateGContactGroups Error: googleLinkGroup failed for googleID='.$googleID.' groupID='.$groupID, LOG_ERR);
+				return $ret;
+			}
 		}
 	}
 
-	// Create group if it does not exists
-	if (! $error && !isset($googleGroups[$groupName])) {
-		$newGroupID = insertGContactGroup($gdata, $groupName, $useremail);
-		$googleGroups[$groupName] = $newGroupID;
+	return 1;
+}
+
+/**
+ * Get the group id of type label in google contact
+ *
+ * @param 	array 	$gdata 	Google data arraycontactGroups/3e236bd808953155google
+ * @param 	string 	$type 	type of element (thirdparty, contact or member)
+ *
+ * @return 	string 			group id
+ */
+function getGContactTypeGroupID($gdata, $type)
+{
+	require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
+	global $db, $conf;
+
+
+	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+		$access_token=$gdata['google_web_token']['access_token'];
+	} else {
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
 	}
 
-	dol_syslog("Full URL ID found for group ".$groupName." = ".$googleGroups[$groupName], LOG_DEBUG);
-	return $googleGroups[$groupName];
+	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+	if ($type === 'thirdparty') {
+		$label = empty($conf->global->GOOGLE_TAG_PREFIX) ? 'Dolibarr Thirdparties': $conf->global->GOOGLE_TAG_PREFIX;
+		// See if ref_ext exists and if it is a google group
+		if (!empty($conf->global->GOOGLE_TAG_REF_EXT) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT, $reg)) {
+			$groupID = $reg[1];
+		}
+	} else if ($type === 'contact') {
+		$label = empty($conf->global->GOOGLE_TAG_PREFIX_CONTACTS) ? 'Dolibarr contacts': $conf->global->GOOGLE_TAG_PREFIX_CONTACTS;
+		// See if ref_ext exists and if it is a google group
+		if (!empty($conf->global->GOOGLE_TAG_REF_EXT_CONTACTS) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_CONTACTS, $reg)) {
+			$groupID = $reg[1];
+		}
+	} else if ($type === 'member') {
+		$label = empty($conf->global->GOOGLE_TAG_PREFIX_MEMBERS) ? 'Dolibarr members': $conf->global->GOOGLE_TAG_PREFIX_MEMBERS;
+		// See if ref_ext exists and if it is a google group
+		if (!empty($conf->global->GOOGLE_TAG_REF_EXT_MEMBERS) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_MEMBERS, $reg)) {
+			$groupID = $reg[1];
+		}
+	} else {
+		return -1;
+	}
+
+	// return "HELO?".$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS."BYE?".$groupID;
+
+
+
+	// To be sur that group is in google contact
+	if ($groupID) {
+		$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$jsonStr = $result['content'];
+		$json = json_decode($jsonStr);
+		if (empty($json->error)) {
+			return $groupID;
+		}
+	}
+
+
+	// Group not found, we create it
+	// We create it
+	$jsonData = '{';
+	$jsonData .= '"contactGroup":{';
+	$jsonData .= '"name": "'.$label.'"';
+	$jsonData .= '}';
+	$jsonData .= '}';
+	$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
+	$jsonStr = $result['content'];
+	try {
+		$json = json_decode($jsonStr);
+		if (!empty($json->error)) {
+			dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
+			return $json->error->message.$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS;
+			return -1;
+		}
+	} catch (Exception $e) {
+		dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);
+		return -1;
+	}
+
+	// Now we set external ref in conf
+	$json = json_decode($jsonStr);
+	if (!empty($json)) {
+		$groupID = $json->resourceName;
+		$res = 0;
+		if ($type === 'thirdparty') {
+			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+		} else if ($type === 'contact') {
+			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_CONTACTS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+		} else if ($type === 'member') {
+			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_MEMBERS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+		}
+		if ($res > 0) {
+			return $groupID;
+		} else {
+			dol_syslog('insertGContactGroup Error:'.$db->lasterror(), LOG_ERR);
+			return -1;
+		}
+	} else {
+		dol_syslog('insertGContactGroup Error:'.$jsonStr, LOG_ERR);
+		return -1;
+	}
+
 }
 
 
 /**
- * Retreive a Xml string with list of all groups of contacts from Google
- *
+ * Get group id from google contact
  * @param	array	$gdata			Array with tokens info
+ * @param 	array 	$tag			tag to retreive or create into Google Contact
  * @param	string	$useremail		User email
- * @return	string					XML string with all groups, '' if error
+ * @return 	string					Group ID
  */
-function getContactGroupsXml($gdata, $useremail = 'default')
-{
-	global $conf;
-	global $tag_debug;
+function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 
-	$tag_debug='groupgroups';
+	global $db;
 
-	$xmlStr='';
-	try {
+	$tagID = $tag['id'];
+	$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'categorie la WHERE la.rowid = '.$tagID;
+	$ressql = $db->query($sql);
+	if (!$ressql) {
+		dol_syslog('getGContactGroupID Error:'.$db->lasterror(), LOG_ERR);
+		return -9;
+	}
+	$obj = $db->fetch_object($ressql);
+	$groupID = $obj->ref_ext;
+	if (!empty($groupID) && preg_match('/google:(contactGroups\/.*)/', $groupID, $reg)) {
+		$groupID = $reg[1];
+		// To be sur that group is in google contact
 		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
 			$access_token=$gdata['google_web_token']['access_token'];
 		} else {
 			$tmp=json_decode($gdata['google_web_token']);
 			$access_token=$tmp->access_token;
 		}
-		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
-		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
-		//$useremail='default';
-
-		//$request=new Google_Http_Request('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', $addheaders, null);
-		//$result=$gdata['client']->execute($request);	// Return json_decoded string. May return an exception.
-		//$xmlStr=$result;
-
-		$result = getURLContent('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', '', 0, $addheaderscurl);
-		$xmlStr = $result['content'];
-
-		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $xmlStr);
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-		// you can view this file with 'xmlstarlet fo dolibarr_google_groups.xml' command
-
-		if (strpos($xmlStr, 'Contacts API is being deprecated') === 0) {
-			// $xmlStr may be the error message "Contacts API is being deprecated. Migrate to People API to retain programmatic access to Google Contacts. See https://developers.google.com/people/contacts-api-migration."
-			dol_syslog("getContactGroupsXml Failed because Google Contact API are now closed", LOG_WARNING);
-			return '';
-		}
-
-		try {
-			$document = new DOMDocument("1.0", "utf-8");
-			$resultloadxml = $document->loadXml($xmlStr);
-			if ($resultloadxml === false) {
-				dol_syslog("getContactGroupsXml Failed to parse xml string ".$xmlStr, LOG_WARNING);
-			} else {
-				$errorselem = $document->getElementsByTagName("errors");
-				//var_dump($errorselem);
-				//var_dump($errorselem->length);
-				//var_dump(count($errorselem));
-				if ($errorselem->length) {
-					dol_syslog('getContactGroupsXml ERROR:'.$result['content'], LOG_ERR);
-					return '';
-				}
-			}
-		} catch (Exception $e) {
-			dol_syslog('getContactGroupsXml ERROR:'.$e->getMessage(), LOG_ERR);
-			return '';
-		}
-	} catch (Exception $e) {
-		dol_syslog(sprintf("getContactGroupsXml Error while getting feeds xml groups : %s", $e->getMessage()), LOG_ERR);
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $e->getMessage());
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-	}
-
-	return($xmlStr);
-}
-
-
-
-/**
- * Create a group/label into Google contact
- *
- * @param	array	$gdata			Array with tokens info
- * @param 	string 	$groupName		Group name to create into Google Contact
- * @param	string	$useremail		User email
- * @return 	string					Ful URL of the group ID (http://...xxx)
- */
-function insertGContactGroup($gdata, $groupName, $useremail = 'default')
-{
-	global $tag_debug;
-
-	$tag_debug='createcontact';
-
-	dol_syslog('insertGContactGroup create group '.$groupName.' into Google contact');
-
-	$id='';
-
-	try {
-		$doc = new DOMDocument("1.0", 'utf-8');
-		$entry = $doc->createElement("atom:entry");
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', constant('ATOM_NAME_SPACE'));
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
-		$el = $doc->createElement("atom:category");
-		$el->setAttribute("term", "http://schemas.google.com/contact/2008#group");
-		$el->setAttribute("scheme", "http://schemas.google.com/g/2005#kind");
-		$entry->appendChild($el);
-		$el = $doc->createElement("atom:title", $groupName);
-		$el->setAttribute("type", "text");
-		$entry->appendChild($el);
-		$el = $doc->createElement("atom:content", $groupName);
-		$el->setAttribute("type", "text");
-		$entry->appendChild($el);
-		$doc->appendChild($entry);
-		$doc->formatOutput = true;
-		$xmlStr = $doc->saveXML();
-
-		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
-			$access_token=$gdata['google_web_token']['access_token'];
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+		$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$jsonStr = $result['content'];
+		$json = json_decode($jsonStr);
+		if (!empty($json->error)) {
+			if ($json->error->status == 'NOT_FOUND') {
+			// Group not found, we create it
+			$objectstatic = new Categorie($db);
+			$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
 		} else {
-			$tmp=json_decode($gdata['google_web_token']);
-			$access_token=$tmp->access_token;
+			dol_syslog('getGContactGroupID Error:'.$json->error->message, LOG_ERR);
+			return -1;
 		}
-		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
-		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
-
-		// insert entry
-		//$entryResult = $gdata->insertEntry($xmlStr, 'https://www.google.com/m8/feeds/groups/'.$useremail.'/full');
-		$response = getURLContent('https://www.google.com/m8/feeds/groups/'.$useremail.'/full', 'POST', $xmlStr, 1, $addheaderscurl);
-		if ($response['content']) {
-			$document = new DOMDocument("1.0", "utf-8");
-			$document->loadXml($response['content']);
-
-			$errorselem = $document->getElementsByTagName("errors");
-			//var_dump($errorselem);
-			//var_dump($errorselem->length);
-			//var_dump(count($errorselem));
-			if ($errorselem->length) {
-				dol_syslog($response['content'], LOG_ERR);
-				return -1;
-			}
-
-			$entries = $document->getElementsByTagName("id");
-			foreach ($entries as $entry) {
-				$id = $entry->nodeValue;		// No basename here, we want full URL ID
-				break;
-			}
+	}
+} else {
+	// Create group
+	$objectstatic = new Categorie($db);
+	$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
+	if ($groupID < 0) {
+			dol_syslog('getGContactGroupID Error: insertGContactGroup failed for tag='.$tag, LOG_ERR);
+			return $groupID;
 		}
-
-		dol_syslog(sprintf("We have just created the google contact group '%s'. Its Full URL group ID is %s", $groupName, $id));
-	} catch (Exception $e) {
-		dol_syslog(sprintf("Problem while inserting group %s : %s", $groupName, $e->getMessage()), LOG_ERR);
 	}
 
-	return($id);
+	return $groupID;
 }
 
+
+
+
+
+	 /**
+	  * Create a group/label into Google contact
+	  *
+	  * @param	array	$gdata			Array with tokens info
+	  * @param 	string 	$groupName		Group name to create into Google Contact
+	  * @param	string	$useremail		User email
+	  * @return string					created group ID
+	  */
+	 function insertGContactGroup($gdata, $tag, $objectstatic, $useremail = 'default')
+	 {
+		 global $conf;
+		 // Prepare json data for POST request
+		 $jsonData = '{';
+		 $jsonData .= '"contactGroup":{';
+		 $jsonData .= '"name": "'.$tag['label'].'"';
+		 $jsonData .= '}';
+		 $jsonData .= '}';
+
+
+		 // Send request to Google
+		 if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			 $access_token=$gdata['google_web_token']['access_token'];
+		 } else {
+			 $tmp=json_decode($gdata['google_web_token']);
+			 $access_token=$tmp->access_token;
+		 }
+
+		 $addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
+		 $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+		 $result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
+		 $jsonStr = $result['content'];
+		 try {
+			 $json = json_decode($jsonStr);
+			 if (!empty($json->error)) {
+				 dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
+				 return -1;
+			 }
+		 } catch (Exception $e) {
+			 dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);
+			 return -1;
+		 }
+		 // Now update record into database with external ref
+		 if (is_object($objectstatic)) {
+			 $json = json_decode($jsonStr);
+			 if (!empty($json)) {
+				 $groupID = $json->resourceName;
+				 $objectstatic->id = $tag['id'];
+				 $objectstatic->update_ref_ext("google:".$groupID);
+			 }
+		 }
+
+		 return $groupID;
+
+	 }
 
 
 /**

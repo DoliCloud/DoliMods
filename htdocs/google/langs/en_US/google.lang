@@ -29,7 +29,7 @@ GOOGLE_EVENT_LABEL_INC_SOCIETE=Add thirdparty name into event label for thirdpar
 GOOGLE_EVENT_LABEL_INC_CONTACT=Add contact name into event label for contact events
 GOOGLE_CONTACT_LABEL=Label to tag contacts
 GOOGLE_INCLUDE_AUTO_EVENT=Sync also for events automatically created by Dolibarr (see setup of module Agenda for list of automatic events).<br>If no, only events entered manualy into agenda are syncrhonized.
-GOOGLE_INCLUDE_ATTENDEES=Add also list of attendees into event. Google may send emails to them when you create an event with attendees. Also sometimes Google does not allow use of the APIs when there is attendees. 
+GOOGLE_INCLUDE_ATTENDEES=Add also list of attendees into event. Google may send emails to them when you create an event with attendees. Also sometimes Google does not allow use of the APIs when there is attendees.
 MAIN_GOOGLE_AN_ID=Google analytics ID
 GoogleIDContact=Google Account
 GoogleNoTokenYet=You don't have any token yet. To create one, just authenticate to Google with the following link:
@@ -48,20 +48,20 @@ AllowGoogleToLoginWithKey=You must have a Google account and create your own key
 AllowGoogleToLoginWithClientID=You can create your <strong>Google Client ID and Secret</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Services" -> "Credentials". Click on "Create/Add a client ID OAuth 2.0" and choose "Web Application", set "Allowed Javascript origin" to empty and set "Redirect URI" to<br><strong>%s</strong><br>then click on button "Create". You will get a <strong>new client ID</strong> and a <strong>Secret code</strong>. You need here to enter the <strong>Client ID</strong> here and <strong>Client Secret</strong> on next line.
 AllowGoogleToLoginWithClientSecret=See note on previous line to know how to get your Google Client Secret.
 AllowGoogleToLoginWithServiceAccount=You can create your <strong>service account user/email</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Services" -> "Credentials". Click on "Create/Add a client ID" and choose "Service Account" then "Create". You will get a new service account with a <strong>Service account client ID</strong> and a <strong>Service account EMail</strong>. You need here to enter the <strong>Service account EMail</strong>.
-EnableAPI=You must also enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Click to enable API for "%s".  
-ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user". With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account. 
+EnableAPI=You must also enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Click to enable API for "%s".
+ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user". With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
 GOOGLE_API_SERVERKEY=API key (type "Server key")
 GoogleUserConf=Google setup
-GoogleSetupIsGlobal=Sync setup is done globally for all users to agenda ID <strong>%s</strong>. 
+GoogleSetupIsGlobal=Sync setup is done globally for all users to agenda ID <strong>%s</strong>.
 TestCreateUpdateDelete=Test create-update-delete
 TestCreateUpdate=Test create-update (to remove manually)
 TestCreate=Test create (to remove manually)
 TestSuccessfull=Test successful
 DueToGoogleLimitYouNeedToLogin=For security reasons imposed by Google, the Google calendar view will display correctly only if you are logged in to Google (this will work however for only one agenda ID).
 AllowGoogleToLoginSetupKey=To integrate this Google login process into your software (not required), it is possible to configure a key to allow the application to offer the Google Logon if you are not connected.
-AllowGoogleToLoginProp=You can get information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select "API & Services" -> "Credentials". Then Click on "Create an ID" and choose type "Web Application", enter as "Allowed redirect URL", the following URL <strong>%s</strong>. Check to not enter the "Client EMail" but "Client ID" into first field. 
+AllowGoogleToLoginProp=You can get information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select "API & Services" -> "Credentials". Then Click on "Create an ID" and choose type "Web Application", enter as "Allowed redirect URL", the following URL <strong>%s</strong>. Check to not enter the "Client EMail" but "Client ID" into first field.
 AllowGoogleToLoginWithAccountService=You can get information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select "API & Services" -> "Credentials". Then Click on "Create an ID" and choose type "account service".
-AllowGoogleToLoginWithServiceAccountP12=Once you have you created your service account user/email (see note on previous fields), you must download your <strong>security json file</strong> (not required if file was downloaded automatically during previous creation of account). If you don't have the JSON file, return on <a href="%s" target="_blank">%s</a> and select "API & Services" -> "Credentials". Find the line with your created "Account service". Click on the edit button, then tab "Keys" and "Create a key file - Format JSON". This will download a new JSON file automatically. Then upload the file using this form. 
+AllowGoogleToLoginWithServiceAccountP12=Once you have you created your service account user/email (see note on previous fields), you must download your <strong>security json file</strong> (not required if file was downloaded automatically during previous creation of account). If you don't have the JSON file, return on <a href="%s" target="_blank">%s</a> and select "API & Services" -> "Credentials". Find the line with your created "Account service". Click on the edit button, then tab "Keys" and "Create a key file - Format JSON". This will download a new JSON file automatically. Then upload the file using this form.
 ExportThirdpartiesToGoogle=Export all Dolibarr thirdparties to GMail contacts (warning, there is no check on duplicate record for mass export).
 ExportContactToGoogle=Export all Dolibarr contacts/addresses to GMail contacts (warning, there is no check on duplicate record for mass export).
 ExportMembersToGoogle=Export all Dolibarr members to GMail contacts (warning, there is no check on duplicate record for mass export).
@@ -71,6 +71,7 @@ DeleteAllGoogleContacts=Delete all contacts/addresses coming from Dolibarr on Gm
 DeleteAllGoogleMembers=Delete all members coming from Dolibarr on Gmail.
 DeleteAllGoogleEvents=Delete all events of Google calendar <strong>%s</strong> linked to a Dolibarr
 PushToGoogleSucess=Syncronising to Google contact finished for %s record(s).
+TagsCreatedSuccess=Synchronising groups to Google contact finished
 DeleteToGoogleSucess=%s contact(s) deleted into Google contact.
 GOOGLE_TAG_PREFIX=Label of group to tags Dolibarr thirdparties into Google contact
 GOOGLE_TAG_PREFIX_CONTACTS=Label of group to tags Dolibarr contacts/addresses into Google contact
@@ -108,7 +109,7 @@ GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account json file
 FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.

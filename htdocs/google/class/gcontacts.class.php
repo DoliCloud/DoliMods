@@ -54,6 +54,7 @@ class GContact
 	var $poste;
 	var $googleID;
 	var $lastMod;
+	var $tags;
 	public $doc;
 	public $atomEntry;
 
@@ -298,59 +299,62 @@ class GContact
 		$this->note_public = $dolContact->note_public;
 		if (strpos($this->note_public, $google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
-		// Prepare the DOM for google
-		$this->doc = new DOMDocument("1.0", "utf-8");
-		$this->doc->formatOutput = true;
-		$this->atomEntry = $this->doc->createElement('atom:entry');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+		$this->tags = getTags($dolContact->id, 'thirdparty');
 
-		// add name element
-		$el = $this->doc->createElement('gdata:name');
-		$this->appendTextElement($el, 'gdata:familyName', $this->lastname?$this->lastname:$this->name);
-		$this->appendTextElement($el, 'gdata:givenName', $this->firstname);
-		//$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
-		//$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
-		$this->atomEntry->appendChild($el);
 
-		$elfullName = $this->doc->createElement('gdata:fullName', google_html_convert_entities(dol_htmlentities($this->fullName)));
-		$el->appendChild($elfullName);
+		// // Prepare the DOM for google
+		// $this->doc = new DOMDocument("1.0", "utf-8");
+		// $this->doc->formatOutput = true;
+		// $this->atomEntry = $this->doc->createElement('atom:entry');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 
-		// Note as comment and a custom field
-		$this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities(dol_htmlentities($this->note_public))));
-		//$this->appendCustomField("Origin", 'Onelog');
+		// // add name element
+		// $el = $this->doc->createElement('gdata:name');
+		// $this->appendTextElement($el, 'gdata:familyName', $this->lastname?$this->lastname:$this->name);
+		// $this->appendTextElement($el, 'gdata:givenName', $this->firstname);
+		// //$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
+		// //$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
+		// $this->atomEntry->appendChild($el);
 
-		// Phones
-		$this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
-		$this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
-		$this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
-		$this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
-		$this->appendPostalAddress(self::REL_WORK, $this->addr);
-		$this->appendEmail(self::REL_WORK, $this->email, true);
-		// Data from linked company
-		if ($this->company) {
-				$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
-				$norm_phone_pro = preg_replace("/\s/", "", $this->phone_pro);
-				$norm_phone_pro = preg_replace("/\./", "", $norm_phone_pro);
-				$norm_phone_perso = preg_replace("/\s/", "", $this->phone_perso);
-				$norm_phone_perso = preg_replace("/\./", "", $norm_phone_perso);
-				if ($norm_phone_pro != $this->company->phone && $norm_phone_perso != $this->company->phone)
-					$this->appendPhoneNumber(null, $this->company->phone, false, $this->orgName);
-				$norm_fax = preg_replace("/\s/", "", $this->fax);
-				$norm_fax = preg_replace("/\./", "", $norm_fax);
-				if ($norm_fax != $this->company->fax)
-					$this->appendPhoneNumber(null, $this->company->fax, false, 'Fax '.$this->orgName);
-				if ($this->addr != $this->company->addr)
-					$this->appendPostalAddress(null /*rel*/, $this->company->addr, $this->orgName);
-				if ($this->company->email != $this->email)
-					$this->appendEmail(self::REL_WORK, $this->company->email, false, $this->orgName);
-		}
+		// $elfullName = $this->doc->createElement('gdata:fullName', google_html_convert_entities(dol_htmlentities($this->fullName)));
+		// $el->appendChild($elfullName);
 
-		$userdefined = $this->doc->createElement('gcontact:userDefinedField');
-		$userdefined->setAttribute('key', 'dolibarr-id');
-		$userdefined->setAttribute('value', $idindolibarr);
-		$this->atomEntry->appendChild($userdefined);
+		// // Note as comment and a custom field
+		// $this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities(dol_htmlentities($this->note_public))));
+		// //$this->appendCustomField("Origin", 'Onelog');
+
+		// // Phones
+		// $this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
+		// $this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
+		// $this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
+		// $this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
+		// $this->appendPostalAddress(self::REL_WORK, $this->addr);
+		// $this->appendEmail(self::REL_WORK, $this->email, true);
+		// // Data from linked company
+		// if ($this->company) {
+		// 		$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
+		// 		$norm_phone_pro = preg_replace("/\s/", "", $this->phone_pro);
+		// 		$norm_phone_pro = preg_replace("/\./", "", $norm_phone_pro);
+		// 		$norm_phone_perso = preg_replace("/\s/", "", $this->phone_perso);
+		// 		$norm_phone_perso = preg_replace("/\./", "", $norm_phone_perso);
+		// 		if ($norm_phone_pro != $this->company->phone && $norm_phone_perso != $this->company->phone)
+		// 			$this->appendPhoneNumber(null, $this->company->phone, false, $this->orgName);
+		// 		$norm_fax = preg_replace("/\s/", "", $this->fax);
+		// 		$norm_fax = preg_replace("/\./", "", $norm_fax);
+		// 		if ($norm_fax != $this->company->fax)
+		// 			$this->appendPhoneNumber(null, $this->company->fax, false, 'Fax '.$this->orgName);
+		// 		if ($this->addr != $this->company->addr)
+		// 			$this->appendPostalAddress(null /*rel*/, $this->company->addr, $this->orgName);
+		// 		if ($this->company->email != $this->email)
+		// 			$this->appendEmail(self::REL_WORK, $this->company->email, false, $this->orgName);
+		// }
+
+		// $userdefined = $this->doc->createElement('gcontact:userDefinedField');
+		// $userdefined->setAttribute('key', 'dolibarr-id');
+		// $userdefined->setAttribute('value', $idindolibarr);
+		// $this->atomEntry->appendChild($userdefined);
 
 		// Add tags
 		//$this->appendGroup($gdata, getTagLabel('thirdparties'), $useremail);
@@ -420,60 +424,63 @@ class GContact
 		$this->note_public = $dolContact->note_public;
 		if (strpos($this->note_public, $google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
-		// Prepare the DOM for google
-		$this->doc = new DOMDocument("1.0", "utf-8");
-		$this->doc->formatOutput = true;
-		$this->atomEntry = $this->doc->createElement('atom:entry');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
-
-		// Add name element
-		$el = $this->doc->createElement('gdata:name');
-		$this->appendTextElement($el, 'gdata:givenName', $this->firstname);
-		$this->appendTextElement($el, 'gdata:familyName', $this->lastname);
-		//$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
-		//$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
-		$this->atomEntry->appendChild($el);
-
-		$elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
-		$el->appendChild($elfullName);
-
-		// Add organization element (company + function)
-		if (! empty($this->orgName) && ! empty($this->poste)) {
-			$elorg = $this->doc->createElement('gdata:organization');
-			$elorg->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
-			if (! empty($this->orgName)) $this->appendTextElement($elorg, 'gdata:orgName', $this->orgName);
-			if (! empty($this->poste))   $this->appendTextElement($elorg, 'gdata:orgTitle', $this->poste);
-			$this->atomEntry->appendChild($elorg);
-		}
-
-		// Note as comment and a custom field
-		$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_public));
-		//$this->appendCustomField("Origin", 'Onelog');
-
-		// Phones
-		$this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
-		$this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
-		$this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
-		$this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
-		$this->appendPostalAddress(self::REL_WORK, $this->addr);
-		$this->appendEmail(self::REL_WORK, $this->email, true);
-		// Data from linked company
-		/*if ($this->company) {
-			$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
-		}*/
-		//$this->appendWebSite($doc, $this->atomEntry, '???');
+		$this->tags = getTags($dolContact->id, 'contact');
 
 
-		$userdefined = $this->doc->createElement('gcontact:userDefinedField');
-		$userdefined->setAttribute('key', 'dolibarr-id');
-		$userdefined->setAttribute('value', $idindolibarr);
-		$this->atomEntry->appendChild($userdefined);
+		// // Prepare the DOM for google
+		// $this->doc = new DOMDocument("1.0", "utf-8");
+		// $this->doc->formatOutput = true;
+		// $this->atomEntry = $this->doc->createElement('atom:entry');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 
-		// Add tags
-		$this->appendGroup($gdata, getTagLabel('contacts'), $useremail);
-		$this->doc->appendChild($this->atomEntry);
+		// // Add name element
+		// $el = $this->doc->createElement('gdata:name');
+		// $this->appendTextElement($el, 'gdata:givenName', $this->firstname);
+		// $this->appendTextElement($el, 'gdata:familyName', $this->lastname);
+		// //$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
+		// //$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
+		// $this->atomEntry->appendChild($el);
+
+		// $elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
+		// $el->appendChild($elfullName);
+
+		// // Add organization element (company + function)
+		// if (! empty($this->orgName) && ! empty($this->poste)) {
+		// 	$elorg = $this->doc->createElement('gdata:organization');
+		// 	$elorg->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+		// 	if (! empty($this->orgName)) $this->appendTextElement($elorg, 'gdata:orgName', $this->orgName);
+		// 	if (! empty($this->poste))   $this->appendTextElement($elorg, 'gdata:orgTitle', $this->poste);
+		// 	$this->atomEntry->appendChild($elorg);
+		// }
+
+		// // Note as comment and a custom field
+		// $this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_public));
+		// //$this->appendCustomField("Origin", 'Onelog');
+
+		// // Phones
+		// $this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
+		// $this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
+		// $this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
+		// $this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
+		// $this->appendPostalAddress(self::REL_WORK, $this->addr);
+		// $this->appendEmail(self::REL_WORK, $this->email, true);
+		// // Data from linked company
+		// /*if ($this->company) {
+		// 	$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
+		// }*/
+		// //$this->appendWebSite($doc, $this->atomEntry, '???');
+
+
+		// $userdefined = $this->doc->createElement('gcontact:userDefinedField');
+		// $userdefined->setAttribute('key', 'dolibarr-id');
+		// $userdefined->setAttribute('value', $idindolibarr);
+		// $this->atomEntry->appendChild($userdefined);
+
+		// // Add tags
+		// $this->appendGroup($gdata, getTagLabel('contacts'), $useremail);
+		// $this->doc->appendChild($this->atomEntry);
 	}
 
 	/**
@@ -525,58 +532,60 @@ class GContact
 		$this->note_public = $dolContact->note_public;
 		if (strpos($this->note_public, $google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
+		$this->tags = getTags($dolContact->id, 'member');
+
 		// Prepare the DOM for google
-		$this->doc = new DOMDocument("1.0", "utf-8");
-		$this->doc->formatOutput = true;
-		$this->atomEntry = $this->doc->createElement('atom:entry');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
-		$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+		// $this->doc = new DOMDocument("1.0", "utf-8");
+		// $this->doc->formatOutput = true;
+		// $this->atomEntry = $this->doc->createElement('atom:entry');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+		// $this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 
-		// Add name element
-		$el = $this->doc->createElement('gdata:name');
-		$this->appendTextElement($el, 'gdata:givenName', $this->firstname);
-		$this->appendTextElement($el, 'gdata:familyName', $this->lastname);
-		//$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
-		//$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
-		$this->atomEntry->appendChild($el);
+		// // Add name element
+		// $el = $this->doc->createElement('gdata:name');
+		// $this->appendTextElement($el, 'gdata:givenName', $this->firstname);
+		// $this->appendTextElement($el, 'gdata:familyName', $this->lastname);
+		// //$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
+		// //$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
+		// $this->atomEntry->appendChild($el);
 
-		$elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
-		$el->appendChild($elfullName);
+		// $elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
+		// $el->appendChild($elfullName);
 
-		// Add organization element (company + function)
-		if (! empty($this->orgName)) {
-			$elorg = $this->doc->createElement('gdata:organization');
-			$elorg->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
-			if (! empty($this->orgName)) $this->appendTextElement($elorg, 'gdata:orgName', $this->orgName);
-			$this->atomEntry->appendChild($elorg);
-		}
+		// // Add organization element (company + function)
+		// if (! empty($this->orgName)) {
+		// 	$elorg = $this->doc->createElement('gdata:organization');
+		// 	$elorg->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+		// 	if (! empty($this->orgName)) $this->appendTextElement($elorg, 'gdata:orgName', $this->orgName);
+		// 	$this->atomEntry->appendChild($elorg);
+		// }
 
-		// Note as comment and a custom field
-		$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_public));
-		//$this->appendCustomField("Origin", 'Onelog');
+		// // Note as comment and a custom field
+		// $this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_public));
+		// //$this->appendCustomField("Origin", 'Onelog');
 
-		// Phones
-		$this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
-		$this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
-		$this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
-		$this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
-		$this->appendPostalAddress(self::REL_WORK, $this->addr);
-		$this->appendEmail(self::REL_WORK, $this->email, true);
-		// Data from linked company
-		/*if ($this->company) {
-		 $this->appendWebSite($doc, $this->atomEntry, $this->company->url);
-		}*/
-		//$this->appendWebSite($doc, $this->atomEntry, '???');
+		// // Phones
+		// $this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
+		// $this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
+		// $this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
+		// $this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
+		// $this->appendPostalAddress(self::REL_WORK, $this->addr);
+		// $this->appendEmail(self::REL_WORK, $this->email, true);
+		// // Data from linked company
+		// /*if ($this->company) {
+		//  $this->appendWebSite($doc, $this->atomEntry, $this->company->url);
+		// }*/
+		// //$this->appendWebSite($doc, $this->atomEntry, '???');
 
-		$userdefined = $this->doc->createElement('gcontact:userDefinedField');
-		$userdefined->setAttribute('key', 'dolibarr-id');
-		$userdefined->setAttribute('value', $idindolibarr);
-		$this->atomEntry->appendChild($userdefined);
+		// $userdefined = $this->doc->createElement('gcontact:userDefinedField');
+		// $userdefined->setAttribute('key', 'dolibarr-id');
+		// $userdefined->setAttribute('value', $idindolibarr);
+		// $this->atomEntry->appendChild($userdefined);
 
-		// Add tags
-		$this->appendGroup($gdata, getTagLabel('members'), $useremail);
-		$this->doc->appendChild($this->atomEntry);
+		// // Add tags
+		// $this->appendGroup($gdata, getTagLabel('members'), $useremail);
+		// $this->doc->appendChild($this->atomEntry);
 	}
 
 	/**
@@ -618,6 +627,7 @@ class GContact
 			dol_syslog('Error http '.$response['http_code'], LOG_WARNING);
 			return -1;
 		}
+
 		$jsonStr = $response['content'];
 		$xmlStr=$response['content'];
 		if ($response['content']) {
@@ -636,8 +646,44 @@ class GContact
 		}
 
 		// Split answers into entries array
-		$json = json_decode($jsonStr);
+		// $json = json_decode($jsonStr);
 		$entries = $json->connections;
+
+
+		// A page of fetched contacts has a maximum size of 100, so we may need to iterate over the pages
+		$nextPageToken = $json->nextPageToken;
+		while (!empty($nextPageToken)) {
+			$queryString = 'https://people.googleapis.com/v1/people/me/connections?personFields=userDefined&pageToken='.$nextPageToken;
+			if (! empty($pattern)) $queryString .= '&q='.$pattern;
+			$response = getURLContent($queryString, 'GET', '', 0, $addheaderscurl);
+
+			if (is_array($response) && $response['http_code'] >= 400) {
+				dol_syslog('Error http '.$response['http_code'], LOG_WARNING);
+				return -1;
+			}
+
+			$jsonStr = $response['content'];
+			$xmlStr=$response['content'];
+			if ($response['content']) {
+				$json = json_decode($jsonStr);
+				/*$document = new DOMDocument("1.0", "utf-8");
+				$document->loadXml($response['content']);
+
+				$errorselem = $document->getElementsByTagName("errors");*/
+				//var_dump($errorselem);
+				//var_dump($errorselem->length);
+				//var_dump(count($errorselem));
+				if (!empty($json->error)) {
+					dol_syslog($response['content'], LOG_ERR);
+					return -1;
+				}
+			}
+
+			// Split answers into entries array
+			// $json = json_decode($jsonStr);
+			$entries = array_merge($entries, $json->connections);
+			$nextPageToken = $json->nextPageToken;
+		}
 		//$document->loadXML($xmlStr);
 		//$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
 
@@ -691,7 +737,6 @@ class GContact
 	{
 		// Search for id
 		$googleIDs = self::getDolibarrContactsGoogleIDS($gdata, $pattern, $type);
-
 		if ($googleIDs != '-1') {
 			self::deleteEntries($gdata, $googleIDs, false);
 			return(count($googleIDs));
@@ -860,74 +905,74 @@ class GContact
 	}
 
 
-	/**
-	 * Insert contacts into a google account
-	 *
-	 * @param	Mixed	$gdata			GData handler
-	 * @param 	array 	$gContacts		Array of GContact objects
-	 * @return	int						>0 if OK
-	 */
-	public static function insertGContactsEntries($gdata, array $gContacts)
-	{
-		$maxBatchLength = 98; //Google doc says max 100 entries.
-		$remainingContacts = $gContacts;
-		while (count($remainingContacts) > 0) {
-			if (count($remainingContacts) > $maxBatchLength) {
-				$firstContacts = array_slice($remainingContacts, 0, $maxBatchLength);
-				$remainingContacts = array_slice($remainingContacts, $maxBatchLength);
-			} else {
-				$firstContacts = $remainingContacts;
-				$remainingContacts = array();
-			}
-			$doc = new DOMDocument("1.0", "utf-8");
-			$doc->formatOutput = true;
-			$feed = $doc->createElement("atom:feed");
-			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
-			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
-			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
-			$feed->appendChild($doc->createElement("title", "Dolibarr mass insert into Google contacts"));
-			$doc->appendChild($feed);
-			foreach ($firstContacts as $gContact) {
-				$entry = $gContact->atomEntry;
-				$entry = $doc->importNode($entry, true);
-				$entry->setAttribute("gdata:etag", "*");
-				$entry = $feed->appendChild($entry);
-				$el = $doc->createElement("batch:operation");
-				$el->setAttribute("type", "insert");
-				$entry->appendChild($el);
-			}
-			$xmlStr = $doc->saveXML();
+	// /**
+	//  * Insert contacts into a google account
+	//  *
+	//  * @param	Mixed	$gdata			GData handler
+	//  * @param 	array 	$gContacts		Array of GContact objects
+	//  * @return	int						>0 if OK
+	//  */
+	// public static function insertGContactsEntries($gdata, array $gContacts)
+	// {
+	// 	$maxBatchLength = 98; //Google doc says max 100 entries.
+	// 	$remainingContacts = $gContacts;
+	// 	while (count($remainingContacts) > 0) {
+	// 		if (count($remainingContacts) > $maxBatchLength) {
+	// 			$firstContacts = array_slice($remainingContacts, 0, $maxBatchLength);
+	// 			$remainingContacts = array_slice($remainingContacts, $maxBatchLength);
+	// 		} else {
+	// 			$firstContacts = $remainingContacts;
+	// 			$remainingContacts = array();
+	// 		}
+	// 		$doc = new DOMDocument("1.0", "utf-8");
+	// 		$doc->formatOutput = true;
+	// 		$feed = $doc->createElement("atom:feed");
+	// 		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+	// 		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+	// 		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+	// 		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
+	// 		$feed->appendChild($doc->createElement("title", "Dolibarr mass insert into Google contacts"));
+	// 		$doc->appendChild($feed);
+	// 		foreach ($firstContacts as $gContact) {
+	// 			$entry = $gContact->atomEntry;
+	// 			$entry = $doc->importNode($entry, true);
+	// 			$entry->setAttribute("gdata:etag", "*");
+	// 			$entry = $feed->appendChild($entry);
+	// 			$el = $doc->createElement("batch:operation");
+	// 			$el->setAttribute("type", "insert");
+	// 			$entry->appendChild($el);
+	// 		}
+	// 		$xmlStr = $doc->saveXML();
 
-			// uncomment for debugging :
-			// file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.contacts.xml", $xmlStr);
-			// dump it with 'xmlstarlet fo gmail.contacts.xml' command
+	// 		// uncomment for debugging :
+	// 		// file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.contacts.xml", $xmlStr);
+	// 		// dump it with 'xmlstarlet fo gmail.contacts.xml' command
 
-			/* Be aware that Google API has some kind of side effect when you use either
-			 * https://www.google.com/m8/feeds/contacts/default/base/...
-			 * or
-			 * https://www.google.com/m8/feeds/contacts/default/full/...
-			 * Some Ids retrieved when accessing base may not be used with full and vice versa
-			 * When using base, you may not change the group membership
-			 */
-			try {
-				$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/default/full/batch");
-				$responseXml = $response->getBody();
-				// uncomment for debugging :
-				file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml", $responseXml);
-				// you can view this with 'xmlstarlet fo gmail.response.xml' command
-				$res=self::parseResponse($responseXml);
-				if ($res->count != count($firstContacts) || $res->errors) print sprintf("Google error : %s", $res->lastError);
+	// 		/* Be aware that Google API has some kind of side effect when you use either
+	// 		 * https://www.google.com/m8/feeds/contacts/default/base/...
+	// 		 * or
+	// 		 * https://www.google.com/m8/feeds/contacts/default/full/...
+	// 		 * Some Ids retrieved when accessing base may not be used with full and vice versa
+	// 		 * When using base, you may not change the group membership
+	// 		 */
+	// 		try {
+	// 			$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/default/full/batch");
+	// 			$responseXml = $response->getBody();
+	// 			// uncomment for debugging :
+	// 			file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml", $responseXml);
+	// 			// you can view this with 'xmlstarlet fo gmail.response.xml' command
+	// 			$res=self::parseResponse($responseXml);
+	// 			if ($res->count != count($firstContacts) || $res->errors) print sprintf("Google error : %s", $res->lastError);
 
-				dol_syslog(sprintf("Inserting %d google contacts", count($firstContacts)));
-			} catch (Exception $e) {
-				dol_syslog("Problem while inserting contact", LOG_ERR);
-				throw new Exception($e->getMessage());
-			}
-		}
+	// 			dol_syslog(sprintf("Inserting %d google contacts", count($firstContacts)));
+	// 		} catch (Exception $e) {
+	// 			dol_syslog("Problem while inserting contact", LOG_ERR);
+	// 			throw new Exception($e->getMessage());
+	// 		}
+	// 	}
 
-		return 1;
-	}
+	// 	return 1;
+	// }
 
 	private static function parseResponse($xmlStr)
 	{
