@@ -93,16 +93,16 @@ print '<span class="opacitymedium">'.$langs->trans("GoogleAddPubOnLogonPage").'<
 print '<br>';
 
 
-$var=false;
-print "<table class=\"noborder\" width=\"100%\">";
+print '<div class="div-table-responsive-no-min">';
+print '<table class="noborder centpercent">';
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print '<td width="140">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Example")."</td>";
 print "</tr>";
 // Client id
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AD_CLIENT")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_CLIENT" value="'.$conf->global->MAIN_GOOGLE_AD_CLIENT.'">';
@@ -110,8 +110,7 @@ print "</td>";
 print '<td>ca-pub-1071905880519467</td>';
 print "</tr>";
 // Slot id
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AD_SLOT")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_SLOT" value="'.$conf->global->MAIN_GOOGLE_AD_SLOT.'">';
@@ -128,8 +127,7 @@ print "</td>";
 print '<td>468</td>';
 print "</tr>";
 // Slot id
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AD_HEIGHT")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_HEIGHT" value="'.$conf->global->MAIN_GOOGLE_AD_HEIGHT.'">';
@@ -138,6 +136,7 @@ print '<td>60</td>';
 print "</tr>";
 
 print "</table>";
+print '</div>';
 
 print '</div>';
 

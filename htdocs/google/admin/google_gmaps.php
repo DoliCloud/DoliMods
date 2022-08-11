@@ -152,7 +152,8 @@ print '</table>';
 
 print '<br>';
 
-print "<table class=\"noborder\" width=\"100%\">";
+print '<div class="div-table-responsive-no-min">';
+print '<table class="noborder centpercent">';
 
 print "<tr class=\"liste_titre\">";
 print '<td class="titlefield">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Geocoding").')'."</td>";
@@ -163,7 +164,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="64" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
+print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
 print '</td>';
 print '<td>';
 //print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
@@ -172,6 +173,7 @@ print "</td>";
 print "</tr>";
 
 print '</table>';
+print '</div>';
 
 print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Google Maps Geocoding API, Google Maps Javascript API"));
 
@@ -185,8 +187,8 @@ print "</div>";
 
 print "</form>\n";
 
-
-print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=gmap_deleteerrors">'.$langs->trans("ResetGeoEncodingErrors").'</a><br>';
+print '<br>';
+print '<a class="butAction small" href="'.$_SERVER["PHP_SELF"].'?action=gmap_deleteerrors&token='.newToken().'">'.$langs->trans("ResetGeoEncodingErrors").'</a><br>';
 
 
 dol_htmloutput_mesg($mesg);

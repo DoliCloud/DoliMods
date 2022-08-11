@@ -560,8 +560,6 @@ print "</tr>";
 
 print "</table>";
 
-print '<br>';
-
 print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"), 0, 0, '1', 'showifidagendaset');
 
 print info_admin($langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda")), 0, 0, '1', 'showifidagendaset');
@@ -578,7 +576,7 @@ print '</div>';
 
 print "</form>\n";
 
-print '<br><br>';
+print '<br><br><br>';
 
 
 // Test area
@@ -586,10 +584,12 @@ print '<br><br>';
 print '<div class="tabsActions">';
 
 print '<div class="synccal showifidagendaset">';
-if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($conf->global->GOOGLE_LOGIN)) {
-	print '<a class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
-
-	print '<a class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
+if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_LOGIN)) {
+	// We do not show test buttons
+	if (!empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
+		print '<a class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+		print '<a class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
+	}
 } else {
 	print '<a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 

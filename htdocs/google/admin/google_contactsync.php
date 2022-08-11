@@ -642,6 +642,7 @@ if (! class_exists('DOMDocument')) print '<div class="warning">Warning: PHP Modu
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="save">';
+print '<input type="hidden" name="page_y" value="">';
 
 $head=googleadmin_prepare_head();
 
@@ -699,8 +700,8 @@ print '<div class="syncx">';
 print '<br><br>';
 
 
-$var=true;
-print "<table class=\"noborder\" width=\"100%\">";
+print '<div class="div-table-responsive-no-min">';
+print '<table class="noborder centpercent">';
 
 print "<tr class=\"liste_titre\">";
 print '<td class="titlefieldcreate">'.$langs->trans("Parameter")."</td>";
@@ -708,8 +709,7 @@ print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Label to use for thirdparties
 if ($conf->societe->enabled) {
-	$var=!$var;
-	print '<tr '.$bc[$var].' id="trsyncthirdparties">';
+	print '<tr class="oddeven" id="trsyncthirdparties">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX")."</td>";
 	print "<td>";
 	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX" value="'.dol_escape_htmltag(getTagLabel('thirdparties')).'">';
@@ -718,8 +718,7 @@ if ($conf->societe->enabled) {
 }
 // Label to use for contacts
 if ($conf->societe->enabled) {
-	$var=!$var;
-	print '<tr '.$bc[$var].' id="trsynccontacts">';
+	print '<tr class="oddeven" id="trsynccontacts">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."</td>";
 	print "<td>";
 	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_CONTACTS" value="'.dol_escape_htmltag(getTagLabel('contacts')).'">';
@@ -728,8 +727,7 @@ if ($conf->societe->enabled) {
 }
 // Label to use for members
 if ($conf->adherent->enabled) {
-	$var=!$var;
-	print '<tr '.$bc[$var].' id="trsyncmembers">';
+	print '<tr class="oddeven" id="trsyncmembers">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."</td>";
 	print "<td>";
 	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_MEMBERS" value="'.dol_escape_htmltag(getTagLabel('members')).'">';
@@ -737,6 +735,8 @@ if ($conf->adherent->enabled) {
 	print "</tr>";
 }
 print "</table>";
+print "</div>";
+
 print '<div class="opacitymedium">'.$langs->trans("GoogleContactSyncInfo").'</div><br>';
 
 
@@ -745,10 +745,10 @@ print "<br>";
 
 
 
-$var=false;
-print '<table class="noborder" width="100%">';
+print '<div class="div-table-responsive-no-min">';
+print '<table class="noborder centpercent">';
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print '<td class="titlefieldcreate">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Contact").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Note")."</td>";
@@ -885,6 +885,7 @@ print '</td>';
 print '</tr>';
 
 print "</table>";
+print "</div>";
 
 print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Contact API, People API"));
 
@@ -897,7 +898,7 @@ print '</div>';
 dol_fiche_end();
 
 print '<div align="center">';
-print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
+print '<input type="submit" name="save" class="button reposition" value="'.$langs->trans("Save").'">';
 print "</div>";
 
 print "</form>\n";
@@ -907,6 +908,7 @@ print '<br><br>';
 
 // Thirdparties
 if ($conf->societe->enabled) {
+	print '<br>';
 	print '<div class="tabsActions syncthirdparties">';
 	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
@@ -914,15 +916,16 @@ if ($conf->societe->enabled) {
 
 		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("ThirdParty").")</font></a></div>";
 	} else {
-		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</a></div>";
 
-		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testcreatethirdparties">'.$langs->trans("TestCreate")." (".$langs->trans("ThirdParty").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatethirdparties">'.$langs->trans("TestCreate")." (".$langs->trans("ThirdParty").")</a></div>";
 	}
 	print '</div>';
 }
 
 	// Contacts
 if ($conf->societe->enabled) {
+	print '<br>';
 	print '<div class="tabsActions synccontacts">';
 	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
@@ -930,15 +933,16 @@ if ($conf->societe->enabled) {
 
 		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("Contact").")</font></a></div>";
 	} else {
-		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</a></div>";
 
-		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts">'.$langs->trans("TestCreate")." (".$langs->trans("Contact").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts">'.$langs->trans("TestCreate")." (".$langs->trans("Contact").")</a></div>";
 	}
 	print '</div>';
 }
 
 // Members
 if ($conf->adherent->enabled) {
+	print '<br>';
 	print '<div class="tabsActions syncmembers">';
 	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
@@ -946,9 +950,9 @@ if ($conf->adherent->enabled) {
 
 		print '<div class="inline-block divButAction"><font class="butActionRefused small" href="#">'.$langs->trans("TestCreate")." (".$langs->trans("Member").")</font></a></div>";
 	} else {
-		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</a></div>";
 
-		print '<div class="inline-block divButAction"><a class="butAction small" href="'.$_SERVER['PHP_SELF'].'?action=testcreatemembers">'.$langs->trans("TestCreate")." (".$langs->trans("Member").")</a></div>";
+		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatemembers">'.$langs->trans("TestCreate")." (".$langs->trans("Member").")</a></div>";
 	}
 	print '</div>';
 }

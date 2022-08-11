@@ -89,12 +89,11 @@ print '<div class="fichecenter">';
 print '<span class="opacitymedium">'.$langs->trans("GoogleAddAnalyticsOnLogonPage").'</span><br>';
 print '<br>';
 
+print '<div class="div-table-responsive-no-min">';
+print '<table class="noborder centpercent">';
 
-$var=false;
-print "<table class=\"noborder\" width=\"100%\">";
-
-print "<tr class=\"liste_titre\">";
-print '<td width="140">'.$langs->trans("Parameter")."</td>";
+print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Example")."</td>";
 print "</tr>";
@@ -108,6 +107,7 @@ print '<td>UA-9049390-3</td>';
 print "</tr>";
 
 print "</table>";
+print '</div>';
 
 print '</div>';
 
