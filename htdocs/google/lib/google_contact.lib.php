@@ -1412,25 +1412,30 @@ function getGContactTypeGroupID($gdata, $type)
 
 
 /**
- * Get group id from google contact
- * @param	array	$gdata			Array with tokens info
- * @param 	array 	$tag			tag to retreive or create into Google Contact
- * @param	string	$useremail		User email
- * @return 	string					Group ID
+ * Get group id from google contact. Create it if not found.
+ *
+ * @param	array		$gdata			Array with tokens info
+ * @param 	array 		$tag			Array with tag info to retreive or create into Google Contact
+ * @param	string		$useremail		User email
+ * @return 	string|int					Google Group ID string or < 0 if KO
  */
 function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 
 	global $db;
 
 	$tagID = $tag['id'];
-	$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'categorie la WHERE la.rowid = '.$tagID;
+	$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'categorie as la WHERE la.rowid = '.((int) $tagID);
+
 	$ressql = $db->query($sql);
 	if (!$ressql) {
 		dol_syslog('getGContactGroupID Error:'.$db->lasterror(), LOG_ERR);
 		return -9;
 	}
+
 	$obj = $db->fetch_object($ressql);
 	$groupID = $obj->ref_ext;
+
+	$reg = array();
 	if (!empty($groupID) && preg_match('/google:(contactGroups\/.*)/', $groupID, $reg)) {
 		$groupID = $reg[1];
 		// To be sur that group is in google contact
@@ -1447,19 +1452,19 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 		$json = json_decode($jsonStr);
 		if (!empty($json->error)) {
 			if ($json->error->status == 'NOT_FOUND') {
-			// Group not found, we create it
-			$objectstatic = new Categorie($db);
-			$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
-		} else {
-			dol_syslog('getGContactGroupID Error:'.$json->error->message, LOG_ERR);
-			return -1;
+				// Group not found, we create it
+				$objectstatic = new Categorie($db);
+				$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
+			} else {
+				dol_syslog('getGContactGroupID Error:'.$json->error->message, LOG_ERR);
+				return -1;
+			}
 		}
-	}
-} else {
-	// Create group
-	$objectstatic = new Categorie($db);
-	$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
-	if ($groupID < 0) {
+	} else {
+		// Create group
+		$objectstatic = new Categorie($db);
+		$groupID = insertGContactGroup($gdata, $tag, $objectstatic, $useremail);
+		if ($groupID < 0) {
 			dol_syslog('getGContactGroupID Error: insertGContactGroup failed for tag='.$tag, LOG_ERR);
 			return $groupID;
 		}

@@ -267,16 +267,20 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					$type = $object->context['linkto']->element ? $object->context['linkto']->element : 'unknown';
 					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
 					$groupID = getGContactGroupID($servicearray, $tag);
-					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
-						$object->update_ref_ext(substr('google:'.$groupID, 0, 255));
-						$contactID = $object->context['linkto']->ref_ext;
-						$reg = array();
-						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
-							$contactID = $reg[1];
-							$ret = googleLinkGroup($servicearray, $groupID, $contactID);
-							if ($ret > 0) {
-								return 1;
+					if ($groupID) {
+						if (preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+							$object->update_ref_ext(substr('google:'.$groupID, 0, 255));
+							$contactID = $object->context['linkto']->ref_ext;
+							$reg = array();
+							if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
+								$contactID = $reg[1];
+								$ret = googleLinkGroup($servicearray, $groupID, $contactID);
+								if ($ret > 0) {
+									return 1;
+								}
 							}
+						} elseif (((int) $groupID) < 0) {
+							$object->error = "Failed to get/create category on Google";
 						}
 					}
 					$this->error=$object->error;
