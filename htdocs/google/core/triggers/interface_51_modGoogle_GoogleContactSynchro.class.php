@@ -109,7 +109,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
 
-		if (!$conf->google->enabled) return 0; // Module non actif
+		if (empty($conf->google->enabled)) return 0; // Module non actif
 
 		//var_dump($object); exit;
 
@@ -130,9 +130,15 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 			|| $action == 'CONTACT_CREATE' || $action == 'CONTACT_MODIFY' || $action == 'CONTACT_DELETE'
 			|| $action == 'MEMBER_CREATE' || $action == 'MEMBER_MODIFY' || $action == 'MEMBER_DELETE'
 			|| $action == 'CATEGORY_LINK' || $action == 'CATEGORY_UNLINK' || $action == 'CATEGORY_DELETE' || $action == 'CATEGORY_MODIFY') {
+			// We check if we must proceed the trigger code
 			if (preg_match('/^COMPANY_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES)) return 0;
 			if (preg_match('/^CONTACT_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS)) return 0;
 			if (preg_match('/^MEMBER_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS)) return 0;
+
+			if (preg_match('/^CATEGORY_/', $action) && in_array($object->type, array(Categorie::TYPE_CUSTOMER, Categorie::TYPE_SUPPLIER)) && empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES)) return 0;
+			if (preg_match('/^CATEGORY_/', $action) && $object->type == Categorie::TYPE_CONTACT && empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS)) return 0;
+			if (preg_match('/^CATEGORY_/', $action) && $object->type == Categorie::TYPE_MEMBER && empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS)) return 0;
+			if (preg_match('/^CATEGORY_/', $action) && !in_array($object->type, array(Categorie::TYPE_CUSTOMER, Categorie::TYPE_SUPPLIER, Categorie::TYPE_CONTACT, Categorie::TYPE_MEMBER))) return 0;
 
 			if ($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES == 'customersonly' && $object->client != 1 && $object->client != 3) return 0;
 			if ($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES == 'prospectsonly' && $object->client != 2 && $object->client != 3) return 0;
@@ -264,6 +270,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
 						$object->update_ref_ext(substr('google:'.$groupID, 0, 255));
 						$contactID = $object->context['linkto']->ref_ext;
+						$reg = array();
 						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
 							$contactID = $reg[1];
 							$ret = googleLinkGroup($servicearray, $groupID, $contactID);
@@ -283,6 +290,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					$groupID = getGContactGroupID($servicearray, $tag);
 					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
 						$contactID = $object->context['unlinkoff']->ref_ext;
+						$reg = array();
 						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
 							$contactID = $reg[1];
 							$ret = googleUnlinkGroup($servicearray, $groupID, $contactID);
@@ -312,6 +320,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 				}
 
 				if ($action == 'CATEGORY_MODIFY') {
+					// TODO Call the update in Google only if label has changed: $object->label != $object->oldcopy->label ?
 					$newlabel = $object->label;
 					$tag = array('id' => $object->id, 'label' => $newlabel);
 					$groupID = getGContactGroupID($servicearray, $tag);
