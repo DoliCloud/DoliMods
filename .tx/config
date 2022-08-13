@@ -1,19 +1,49 @@
 [main]
 host = https://www.transifex.com
 
-[awstats.awstats]
+[dolimods.awstats]
 file_filter = htdocs/awstats/langs/<lang>/awstats.lang
 source_file = htdocs/awstats/langs/en_US/awstats.lang
 source_lang = en_US
 type = MOZILLAPROPERTIES
 
-[google.google]
+[dolimods.billedonorders]
+file_filter = htdocs/billedonorders/langs/<lang>/billedonorders.lang
+source_file = htdocs/billedonorders/langs/en_US/billedonorders.lang
+source_lang = en_US
+type = MOZILLAPROPERTIES
+
+[dolimods.concatpdf]
+file_filter = htdocs/concatpdf/langs/<lang>/concatpdf.lang
+source_file = htdocs/concatpdf/langs/en_US/concatpdf.lang
+source_lang = en_US
+type = MOZILLAPROPERTIES
+
+[dolimods.ecotaxdeee]
+file_filter = htdocs/ecotaxdeee/langs/<lang>/ecotaxdeee.lang
+source_file = htdocs/ecotaxdeee/langs/en_US/ecotaxdeee.lang
+source_lang = en_US
+type = MOZILLAPROPERTIES
+
+[dolimods.filemanager]
+file_filter = htdocs/filemanager/langs/<lang>/filemanager.lang
+source_file = htdocs/filemanager/langs/en_US/filemanager.lang
+source_lang = en_US
+type = MOZILLAPROPERTIES
+
+[dolimods.google]
 file_filter = htdocs/google/langs/<lang>/google.lang
 source_file = htdocs/google/langs/en_US/google.lang
 source_lang = en_US
 type = MOZILLAPROPERTIES
 
-[ovh.ovh]
+[dolimods.numberwords]
+file_filter = htdocs/numberwords/langs/<lang>/numberwords.lang
+source_file = htdocs/numberwords/langs/en_US/numberwords.lang
+source_lang = en_US
+type = MOZILLAPROPERTIES
+
+[dolimods.ovh]
 file_filter = htdocs/ovh/langs/<lang>/ovh.lang
 source_file = htdocs/ovh/langs/en_US/ovh.lang
 source_lang = en_US
