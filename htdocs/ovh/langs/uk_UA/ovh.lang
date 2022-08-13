@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Налаштування модуля Овх
+OvhSmsRecap=Підсумковий основний рахунок
+OvhSmsNick=Нік Хендл для основного облікового запису
+OvhBillingAccount=Нік для основного облікового запису
+OvhServiceName=Сервісний обліковий запис OVH
+OvhSmsPass=Пароль
+OvhSmsLabelAccount=Обліковий запис SMS для використання
+OvhSmsLoginSuccessFull=Підключення успішне!
+OvhSmsNotConfigured=Модуль не налаштовано
+OvhAuthenticationPartNotConfigured=Дані автентифікації не налаштовано. Перейдіть до налаштування модуля OVH, спочатку вкладка «Аутентифікація».
+NbSmsLeft=Кількість SMS, що залишилася
+OvhSmsSoapUrl=URL-адреса служби OVH SOAP
+OvhSmsSend=Надіслати SMS
+OvhSmsAccountInfos=Інформація про обліковий запис SMS
+OvhSmsDestinataire=Цільова
+OvhSmsLabelTexteMessage=Текст повідомлення
+tabOvhSms=СМС
+OvhSmsStatutSent=Отримано повідомлення
+OvhSmsStatutSubmitted=Надіслано
+OvhSmsStatutWaiting=Очікування
+OvhSmsStatutFailed=Не вдалося
+OvhSmsBackToAdmin=Назад до адміністратора модуля
+OvhSmsHistory=Журнал останніх надсилань %s
+ListOfSmsAccountsForNH=Список облікових записів SMS для облікового запису, визначеного у вкладці «Автентифікація».
+ClickToDialLink=Це посилання для копіювання та вставлення в налаштування модуля ClickToDial, щоб використовувати %s Click2Dial: <br> %s
+TestSendSMS=Тест надсилання SMS
+TestLoginToApi=Перевірити підключення до API
+SendersAllowed=Відправники дозволені менеджером OVH
+ListOfDedicatedServers=Список ваших виділених серверів OVH
+ListOfPublicCloudServers=Список ваших серверів Public Cloud OVH
+OvhServers=Сервери OVH
+OvhDedicated=Виділені сервери
+OvhPublicCloud=Публічні хмарні сервери
+OvhGetInvoices=Імпорт рахунків OVH
+OvhInvoiceImportShort=Імпорт рахунків-фактур OVH
+OvhInvoiceImportDesc=На цій сторінці перелічено всі рахунки-фактури OVH і запропоновано спосіб їх імпорту. Натисніть спочатку кнопку «Отримати список рахунків». Потім для кожного рахунку-фактури, якого ще немає, поставте прапорець і натисніть кнопку «Імпортувати».
+SupplierToUseForImport=Постачальник для створення імпортованих рахунків-фактур
+ProductGenericToUseForImport=Продукт/послуга для імпортованих рядків рахунків-фактур
+ProjectForImport=Додайте імпортовані рахунки-фактури до проекту
+KeepEmptyToSaveLinesAsFreeLines=Залиште це поле порожнім, якщо ви не хочете бачити імпортовані рядки з використанням загального попередньо визначеного продукту/послуги
+ScanOvhInvoices=Отримати список рахунків-фактур
+ExcludeNullInvoices=Виключити рахунки-фактури з нульовою загальною сумою
+ExcludeNullLines=Виключити рядки рахунку-фактури з нульовою сумою
+NotFound=Не знайдено
+ImportIt=Імпортувати це?
+ToImport=Імпорт
+NoInvoicesSelected=Рахунки-фактури не вибрано
+FileDownloadedAndAttached=Файл <strong> %s </strong> завантажено та додано до рахунку-фактури
+InvoiceFoundIntoDolibarr=Рахунок-фактура знайдено в Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Рахунок-фактура+PDF знайдено в Dolibarr: %s
+ConnectionParameters=Параметри підключення
+TryToUseProxy=Використання проксі-сервера
+AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компанія-партнер Dolibarr).
+MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Натисніть тут, щоб переглянути повний список </a>
+MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Натисніть тут для отримання додаткової інформації </a>
+CompatibleWithDoliDroid=Ці модулі також сумісні з DoliDroid, програмою Android для Dolibarr.
+OvhApplicationName=Назва програми
+OvhApplicationDescription=Опис програми
+OvhApplicationKey=Ключ програми
+OvhApplicationSecret=Секрет програми
+OvhConsumerkey=Ключ споживача
+GoOnPageToCreateYourAPIKey=Спочатку перейдіть на сторінку <a href="%s" target="_blank"> %s </a>, щоб створити запис про програму OVH і отримати її ключ API та секрет, або створіть новий, якщо хочете, або якщо ви втратили ключ/секрет API, а потім заповніть цю інформацію на цій сторінці.
+ListOfExistingAPIApp=Примітка. Ви можете знайти список уже створених програм на сторінці <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Клацніть <a href="%s"> тут, щоб увійти та отримати новий споживчий ключ </a> (Ви повинні вибрати <strong> НЕОБМЕЖЕНИЙ термін дії </strong>)
+Authentication=Аутентифікація
+FromThe=Від
+PleaseFillOtherFieldFirst=Спочатку заповніть інші поля...
+IfYouChangeHereChangeAlsoClickToDial=Якщо ви змінюєте дані тут, не забудьте також оновити посилання в модулі ClickToDial
+ToGoOnClickToDialSetup=Щоб перейти до налаштування модуля ClickToDial
+OvhTelAccountHelp=Введіть тут назву свого платіжного рахунку OVH Telecom (НЕ свого облікового запису OVH)
+OvhServiceNameHelp=Введіть тут номер лінії SIP (має бути в міжнародному форматі, наприклад 0033123456789 для Франції). Зверніть увагу: якщо у вас є кілька номерів рядків для різних користувачів, залиште це поле порожнім і змініть значення «SIPLineNumber» на URL-адресу, яку потрібно вставити в поле URL-адреси ClickToDial на кожній картці користувача (див. нижче).
+OVHURLMustNotBeLocal=Попередження, URL-адреса, яку ви використовуєте для програми, має бути НЕ локальною URL-адресою, а URL-адресою, до якої можна отримати доступ з Інтернету, щоб це працювало.
+CreateSnapshot=Створити знімок
+SnapshotRequestSent=Запит на знімок під назвою "%s" успішно надіслано.
+NoneLabelOnOvhLineWillBeUsed=Немає (буде використано мітку рядка в рахунку-фактурі OVH)
+OVHAccount=Обліковий запис OVH
+OvhDefaultBankAccount=Банківський рахунок за замовчуванням у рахунках-фактурах
+OvhValidVatList=Перелік дійсних значень ПДВ
+OVHVatKeepEmptyToAcceptAll=Залиште це поле порожнім, якщо ви хочете прийняти всі значення ПДВ (авто). Попередження: OVH іноді повертає неправильно округлені ставки ПДВ, тому встановлення тут ставок ПДВ змушує програму використовувати найближче дійсне значення замість значення OVH.

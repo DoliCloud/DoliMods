@@ -1,0 +1,136 @@
+# Dolibarr language file - en_US - google
+CHARSET=UTF-8
+GoogleSetup=Налаштування інтеграції інструментів Google
+GoogleSetupHelp=Ідентифікатор порядку денного можна знайти на сторінці параметрів Google для порядку денного (перейдіть у свій календар Google, потім «Параметри» в колесах, потім вкладку «Порядок денний» або скористайтеся цим посиланням <a href="https://www.google.com/calendar/render#i"> https://www.google.com /calendar/render#i </a>, а потім клацніть назву або свій порядок денний). Ваш ідентифікатор порядку денного – це ідентифікатор, схожий на електронний лист.
+GoogleAgendaNb=Порядок денний nb %s
+GoogleIDAgenda=Порядок денний ID
+GoogleNbOfAgenda=Кількість порядків денних
+GoogleTools=Інструменти Google
+GoogleEnableThisTool=Додайте вкладку порядку денного Google у перегляді порядку денного
+GoogleEnableThisToolThirdParties=Активуйте ці інструменти на сторонніх картках
+GoogleEnableThisToolContacts=Активуйте ці інструменти на картках Контактів
+GoogleEnableThisToolMembers=Активуйте ці інструменти на картках учасників
+GoogleAddPubOnLogonPage=Додайте інформацію AdSense, щоб додати власне оголошення на сторінку входу (інакше залиште пустим)
+GoogleAddAnalyticsOnLogonPage=Додайте ідентифікатор Analytics, щоб додати теги Google Analytics на кожну сторінку (інакше залишайте пустим)
+GoogleZoomLevel=Рівень масштабування за замовчуванням (від 1 до 10)
+GoogleAddressNotDefined=Адреса недостатньо визначена для геолокалізації
+GoogleMapsAddressNotFound=Адреса не знайдена.
+GoogleAgendaToShow=Порядок денний для показу
+GoogleEnableSyncToCalendar=Створіть подію Google у Календарі Google під час створення події Dolibarr
+GoogleEnableSyncToThirdparties=Активуйте синхронізацію сторонніх контактів Google GMail
+GoogleEnableSyncToContacts=Активуйте синхронізацію контактів/адрес з контактами Google GMail
+GoogleEnableSyncToMembers=Активуйте синхронізацію учасників із контактами Google GMail
+AgendaView=Переглянути порядок денний Google
+AgendaSync=Синхронізувати з порядком денним Google
+ContactSync=Синхронізувати з контактом Google
+GOOGLE_LOGIN=Вхід Google
+GOOGLE_PASSWORD=Mot de passe
+GOOGLE_EVENT_LABEL_INC_SOCIETE=Додайте ім’я третьої сторони в мітку події для подій третьої сторони
+GOOGLE_EVENT_LABEL_INC_CONTACT=Додайте ім’я контакту до мітки події для контактних подій
+GOOGLE_CONTACT_LABEL=Мітки для позначення контактів
+GOOGLE_INCLUDE_AUTO_EVENT=Синхронізація також для подій, автоматично створених Dolibarr (перегляньте налаштування модуля Agenda для списку автоматичних подій). <br> Якщо ні, синхронізуються лише події, введені вручну до порядку денного.
+GOOGLE_INCLUDE_ATTENDEES=Додайте також список учасників до події. Google може надсилати їм електронні листи, коли ви створюєте подію з учасниками. Також іноді Google не дозволяє використовувати API, коли є учасники.
+MAIN_GOOGLE_AN_ID=Ідентифікатор Google Analytics
+GoogleIDContact=Обліковий запис Google
+GoogleNoTokenYet=У вас ще немає жетонів. Щоб створити його, просто пройдіть автентифікацію в Google за таким посиланням:
+GoogleRecreateToken=Щоб примусово повторно створити новий маркер, просто пройдіть автентифікацію в Google за таким посиланням:
+GoogleDeleteToken=Щоб видалити поточний маркер:
+GoogleDeleteAuthorization=Щоб прочитати/видалити збережену авторизацію Google:
+Module101110Name=Google
+Module101110Desc=Модуль для інтеграції інструментів Google із Dolibarr
+GoogleCalendarSyncConf=GoogleCalendarSyncConf
+TargetUser=Цільовий користувач
+KeepEmptyYoUseLoginPassOfEventUser=Залиште порожнім, якщо ви хочете синхронізувати кожного користувача. У такому випадку введіть ідентифікатор порядку денного на кожному рівні користувача. Визначте значення, якщо ви хочете, щоб усі події були синхронізовані в одному порядку денному Google.
+KeepEmptyYoUseLoginPassOfEventUserAssigned=Наразі це налаштування порожнє. Це означає, що цільовий порядок денний буде порядком денним користувача, який є власником події (ідентифікатор порядку денного повинен бути визначений для кожного користувача). Якщо не налаштовано ідентифікатор порядку денного для цього користувача, синхронізація не виконується.
+KeepEmptyYoUseLoginPassOfEventUserSaleRep=Цільовий порядок денний – це порядок денний першого торгового представника третьої сторони, з яким пов’язана подія. Якщо для події немає третьої сторони або торгового представника третьої сторони, синхронізація не виконується.
+KeepEmptyYoUsePublicQuotaOfAPI=Залиште порожнім, щоб використовувати загальнодоступну квоту API.
+AllowGoogleToLoginWithKey=Ви повинні мати обліковий запис Google і створити власний ключ зі сторінки <a href="%s" target="_blank"> %s </a> , меню «API та служби» -> «Облікові дані». Натисніть «Створити ключ» і виберіть «Ключ сервера», а потім «Створити». Ви отримаєте ключ свого сервера.
+AllowGoogleToLoginWithClientID=Ви можете створити свій <strong> ідентифікатор клієнта Google і секрет </strong> на сторінці <a href="%s" target="_blank"> %s </a> , вибрати проект або створити його, а потім у меню «API та служби» -> «Облікові дані». Натисніть «Створити/додати ідентифікатор клієнта OAuth 2.0» і виберіть «Веб-програма», встановіть «Дозволене походження Javascript» порожнім і встановіть «URI перенаправлення» на <br> <strong> %s </strong> a0342fccfda19bzC0, а потім натисніть кнопку «Створити». Ви отримаєте <strong> новий ідентифікатор клієнта </strong> і <strong> секретний код </strong>. Тут потрібно ввести ідентифікатор клієнта <strong> </strong> тут і секрет клієнта <strong> </strong> у наступному рядку.
+AllowGoogleToLoginWithClientSecret=Перегляньте примітку в попередньому рядку, щоб дізнатися, як отримати секрет клієнта Google.
+AllowGoogleToLoginWithServiceAccount=Ви можете створити обліковий запис служби <strong> користувача/електронну адресу </strong> зі сторінки <a href="%s" target="_blank"> %s </a> , вибрати проект або створити його, а потім у меню «API та служби» -> «Облікові дані». Натисніть «Створити/Додати ідентифікатор клієнта» та виберіть «Обліковий запис служби», а потім «Створити». Ви отримаєте новий обліковий запис служби з ідентифікатором клієнта облікового запису служби <strong> </strong> та електронною поштою облікового запису служби <strong> </strong> . Тут потрібно ввести <strong> обліковий запис служби EMail </strong> .
+EnableAPI=Ви також повинні ввімкнути API для свого облікового запису Google. Для цього перейдіть на сторінку <a href="%s" target="_blank"> %s </a> , меню «API & Services» -> «API». Натисніть, щоб увімкнути API для "%s".
+ShareCalendarWithServiceAccount=Ви також повинні поділитися порядком денним (усі дозволи) з користувачем облікового запису служби/електронною поштою <strong> %s </strong> : для цього перейдіть до календаря Google. Це має бути такий самий порядок денний, як той, який вибрано за параметром "%s". Виберіть «Параметри», а потім клацніть назву свого порядку денного, щоб показати посилання «Поділитися параметрами з...». Натисніть на нього та додайте користувача облікового запису служби як контакт, щоб поділитися з ним своїм планом. Виберіть дозвіл «Редагувати події» та підтвердьте, натиснувши «Додати користувача». З <strong> Google Suite </strong> (не потрібно для стандартного облікового запису gmail), дозволи можуть бути примусово «Лише готові» замість «Редагувати». Якщо ви не можете вибрати дозвіл «Редагувати», перейдіть на сторінку <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank"> https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing </a> і перевірте, чи параметр спільного доступу програми Agenda дозволяє ділитися з обліковим записом зовнішньої служби.
+GOOGLE_API_SERVERKEY=Ключ API (введіть "Ключ сервера")
+GoogleUserConf=Налаштування Google
+GoogleSetupIsGlobal=Налаштування синхронізації виконується глобально для всіх користувачів з ідентифікатором порядку денного <strong> %s </strong> .
+TestCreateUpdateDelete=Перевірте створити-оновити-видалити
+TestCreateUpdate=Тестове створення-оновлення (щоб видалити вручну)
+TestCreate=Тестове створення (для видалення вручну)
+TestSuccessfull=Тест успішний
+DueToGoogleLimitYouNeedToLogin=З міркувань безпеки, встановлених Google, перегляд календаря Google відображатиметься правильно, лише якщо ви ввійшли в систему Google (проте це працюватиме лише для одного ідентифікатора порядку денного).
+AllowGoogleToLoginSetupKey=Щоб інтегрувати цей процес входу Google у ваше програмне забезпечення (не обов’язково), можна налаштувати ключ, який дозволить програмі пропонувати вхід Google, якщо ви не підключені.
+AllowGoogleToLoginProp=Ви можете отримати інформацію для цієї сторінки налаштування, створивши ключ за цим посиланням <a href="%s" target="_blank"> %s </a> : виберіть «API та служби» -> «Облікові дані». Потім натисніть «Створити ідентифікатор» і виберіть тип «Веб-програма», введіть як «Дозволена URL-адреса переспрямування» наступну URL-адресу <strong> %s </strong> . Поставте прапорець, щоб у перше поле вводити не «електронну пошту клієнта», а «Ідентифікатор клієнта».
+AllowGoogleToLoginWithAccountService=Ви можете отримати інформацію для цієї сторінки налаштування, створивши ключ за цим посиланням <a href="%s" target="_blank"> %s </a> : виберіть «API та служби» -> «Облікові дані». Потім натисніть «Створити ідентифікатор» і виберіть тип «служба облікового запису».
+AllowGoogleToLoginWithServiceAccountP12=Після створення користувача/електронної адреси облікового запису служби (див. примітку щодо попередніх полів), ви повинні завантажити файл <strong> безпеки JSON </strong> (не потрібно, якщо файл було завантажено автоматично під час попереднього створення облікового запису). Якщо у вас немає файлу JSON, поверніться на <a href="%s" target="_blank"> %s </a> і виберіть «API & Services» -> «Credentials». Знайдіть рядок зі створеним вами «Акаунт сервісом». Натисніть кнопку редагування, потім вкладку «Ключі» та «Створити файл ключа – форматувати JSON». Це автоматично завантажить новий файл JSON. Потім завантажте файл за допомогою цієї форми.
+ExportThirdpartiesToGoogle=Експорт усіх сторонніх розробників Dolibarr до контактів GMail (застереження, для масового експорту не перевіряється дублікат запису).
+ExportContactToGoogle=Експортуйте всі контакти/адреси Dolibarr до контактів GMail (застереження, перевірка дублікатів записів для масового експорту не здійснюється).
+ExportMembersToGoogle=Експортуйте всіх учасників Dolibarr до контактів GMail (застереження, перевірка дублікатів записів для масового експорту не проводиться).
+ExportEventsToGoogle=Експортувати останні <strong> %s </strong> події Dolibarr до календаря Google <strong> %s </strong> (застереження, немає перевірки повторюваних записів для масового експорту)
+DeleteAllGoogleThirdparties=Видаліть усіх третіх сторін, які надходять із Dolibarr у Gmail.
+DeleteAllGoogleContacts=Видаліть усі контакти/адреси з Dolibarr у Gmail.
+DeleteAllGoogleMembers=Видалити всіх учасників із Dolibarr у Gmail.
+DeleteAllGoogleEvents=Видалити всі події календаря Google <strong> %s </strong> пов'язаних з Dolibarr
+PushToGoogleSucess=Синхронізацію з контактом Google для записів %s завершено.
+TagsCreatedSuccess=Синхронізацію груп із контактом Google завершено
+DeleteToGoogleSucess=%s контакт(ів) видалено в Google Contact.
+GOOGLE_TAG_PREFIX=Мітка групи для позначення сторонніх осіб Dolibarr у контактах Google
+GOOGLE_TAG_PREFIX_CONTACTS=Мітка групи для позначення контактів/адрес Dolibarr у контактах Google
+GOOGLE_TAG_PREFIX_MEMBERS=Мітка групи для позначення учасників Dolibarr у контакті Google
+ErrorLabelsMustDiffers=Помилка, значення для міток має бути унікальним
+BoxMaps=Список доступних карт
+MapOfThirdparties=Карта третіх осіб
+MapOfContactsAddresses=Карта контактів/адрес
+MapOfMembers=Карта учасників
+MapOfPatients=Карта пацієнтів
+NoAddressDefined=Адреси не визначено
+FollowingAddressCantBeLocalized=Наступні адреси не вдалося локалізувати на карті
+OnlyXAddressesAmongYWereGeoencoded=Через квоти Google (локалізація адрес здійснюється за розміром пакета %s), деякі адреси не представлені, оскільки ще не геокодовані.
+CountGeoTotal=Загальна кількість адрес %s - %s ще не геокодована - %s з помилкою = %s представлено.
+ClickHereToIncludeXMore=Натисніть тут, щоб геокодувати більше адрес
+ListOfMaps=Список доступних карт
+By1=До 1
+By25=До 25
+By50=Byr 50
+By100=До 100
+By250=До 250
+ParametersForGoogleOAuth=Залийте Google API OAuth 2.0
+ParametersForGoogleAPIv2Usage=Для Google API %s V2
+ParametersForGoogleAPIv3Usage=Для Google API %s V3
+GoogleClientId=ID клієнта
+GoogleClientSecret=Секрет клієнта
+GOOGLE_WEB_TOKEN=Поточний маркер
+GOOGLE_FIX_TZ=Виправлення часового поясу (Dolibarr -> Google)
+GOOGLE_FIX_TZ_G2D=Виправлення TimeZone (Google -> Dolibarr)
+GOOGLE_API_CLIENT_ID=Ідентифікатор клієнта Google
+GOOGLE_API_CLIENT_SECRET=Секрет клієнта Google
+GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Ідентифікатор клієнта облікового запису служби
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Електронна адреса облікового запису служби, яку потрібно дозволити (НЕ логін/електронна адреса облікового запису Google)
+GOOGLE_API_SERVICEACCOUNT_P12KEY=JSON-файл службового облікового запису
+FillThisOnlyIfRequired=Приклад: +2 (заповніть, лише якщо виникла проблема)
+AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компанія-партнер Dolibarr).
+MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Натисніть тут, щоб переглянути повний список </a>
+MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Натисніть тут для отримання додаткової інформації </a>
+CompatibleWithDoliDroid=Ці модулі також сумісні з DoliDroid, програмою Android для Dolibarr.
+LinkToThirdParty=Посилання на третю сторону
+LinkToContact=Посилання на контакт
+GoogleContactSyncInfo=Використовуйте тут будь-яку мітку на ваш вибір. Група буде створена в Google Contact, якщо вона не існує. Ви також можете використовувати мітку однієї з попередньо визначених системних груп Google, наприклад: <br> «Системна група: Мої контакти», «Системна група: Друг», «Системна група: Колега», «Системна група: Сім’я» <br> Зауважте також, що лише попередньо визначена системна група «Системна група: Мої контакти» використовується функцією «Делегувати контакти», доступною в Google Contact у Google Suite.
+XRecordDeleted= <strong> %s </strong> записи видалено
+ThisFieldIsAGlobalSetup=Це поле визначено в глобальних налаштуваннях модуля
+FillAndSaveGoogleAccount=Спочатку заповніть і збережіть обліковий запис Google і ідентифікатор клієнта Google
+LinkToOAuthPage=Посилання на сторінку Google OAuth2
+GoogleWebTokenNotDefinedDoALoginInitFirst=Маркер Google ніколи не генерувався. Попросіть свого адміністратора перейти на сторінку "Домашня сторінка - Налаштування - Модулі - Google - Налаштування синхронізації контактів" і згенерувати один раз маркер безпеки.
+ImportEventsFromGoogle=Імпорт останніх <strong> %s </strong> змінених подій Google із календаря Google <strong> %s </strong> та змінених після
+GetFromGoogleSucess=Успіх синхронізації з Google. <br> %s записи, вставлені в Dolibarr <br> %s записи, оновлені в Dolibarr <br> %s записи, видалені в Dolibarr.
+GetFromGoogleAlreadyDeleted=%s записи видалено в Google і не знайдено в Dolibarr.
+OperationMayBeLong=операція може тривати довго, перезапустіть, якщо виникне час очікування
+ErrorModuleGoogleKeyFileNotFound=Файл ключа Google %s не знайдено
+ClickToUpdateWithLastGoogleChanges=Натисніть, щоб оновити базу даних порядку денного з останніми змінами, внесеними в порядок денний Google %s з
+GoogleLimitBackTime=Через обмеження Google запити обмежуються максимум %s днів у минулому
+ResetGeoEncodingErrors=Скинути таблицю помилок геокодування
+RecordInGeoEncodingErrorDeleted=Усі записи з помилками геокодування було скинуто для повторної спроби геокодування.
+IconTiers=Використовуйте різні піктограми для потенційного клієнта, клієнта та постачальника
+CustomersOnly=Тільки клієнти
+ProspectsOnly=Тільки перспективи
+RefreshEventFromGoogle=Оновити події з Google

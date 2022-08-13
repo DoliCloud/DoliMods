@@ -1,0 +1,15 @@
+# Dolibarr language file - en_US - numberwords
+CHARSET=UTF-8
+Module101220Name=Числові слова
+Module101220Desc=Додайте можливості для перетворення сум і чисел у значення в повному тексті (підтримується лише кілька мов)
+NumberWordsSetup=Налаштування модуля Number Words
+DescNumberWords=Цей модуль надає функції для перетворення числа або суми в повні символи. Він також замінить наступний рядок, що відбувається __Amount_Text__, __Amount_Currency_Text__, __Amount_wo_tax_text__, __Amount_Currency_wo_tax_text__, __amount_vat_text__ або __amount_currency_vat_tex
+AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компанія-партнер Dolibarr).
+MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Натисніть тут, щоб переглянути повний список </a>
+MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Натисніть тут для отримання додаткової інформації </a>
+CompatibleWithDoliDroid=Ці модулі також сумісні з DoliDroid, програмою Android для Dolibarr.
+SetupToChange=Змінити сторінку налаштування
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Використовуйте символ замість повного тексту валюти
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Додайте короткий код валюти перед символом

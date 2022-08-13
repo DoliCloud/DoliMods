@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=Filbehandler
+FileManagerSetup=Oppsett av FileManager-modulen
+LabelForRootFileManager=Etikett for synlig rotbane/snarvei
+RootFileManager=Valgt rotbane/snarvei
+PathForRootFileManager=Plassering av rotbane/snarvei på disk
+NoteOnFileManagerPathLocation=Alle kataloger må ha tillatelse til å la webserveren din lese/skanne dem.
+ListForRootPath=Liste over synlig rotbane/snarveier
+PleaseSelectARoot=Vennligst velg en rotkatalog å skanne fra menyen...
+SelectAFile=Velg en katalog eller fil i venstre rute
+DateLastAccess=Dato siste tilgang
+DateLastChange=Dato siste endring
+FullPath=Full vei
+PreviewNotAvailableForThisType=Forhåndsvisning er ikke tilgjengelig for denne filtypen.
+NotEnoughMemoryForSyntaxColor=PHP-en din har ikke nok minne til å aktivere syntaksfarging ved forhåndsvisning av tekstfiler.
+YouMustSelectAFileToUseFileEditorTool=Du må velge en fil i venstre rute for å bruke filredigeringsverktøyet.
+NoEditorForThisFormat=Ingen redaktør for å redigere dette filformatet.
+DeleteDir=Slett katalog
+DeleteFileName=Slett følgende fil:
+DeleteDirName=Slett følgende katalog:
+NewDir=Ny katalog
+CreateNewDir=Opprett ny katalog
+NewFile=Ny fil
+AddRootPath=Legg til rotkataloger for filbehandler
+UseColorSyntaxing=Aktiver fargesyntaksing på funksjonen for visning av filinnhold (trenger mer minne. Deaktiver dette hvis du opplever en blank side når du viser innholdet i en tekstfil)
+ColoringDisabled=Syntaksfarging er ikke aktivert
+ServerMustHavePermission=Tillatelser på filsystemet for dette må gis til webserveren (%s/%s).
+AddDirName=Legg til dir-navn
+AddFileName=Legg til filnavn
+#####
+Module10600Name=Filbehandler
+Module10600Desc=En filbehandler for å skanne og vise innholdet på diskene på Dolibarr-serveren.
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
+MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klikk her for mer informasjon </a>
+CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=Brukerkontoen som brukes av webserveren har ingen tillatelse til å skrive

@@ -1,11 +1,20 @@
-# Dolibarr language file - it_IT - concatpdf 
+# Dolibarr language file - en_US - concatpdf
 CHARSET= UTF-8
-ConcatPdfSetup=Installazione modulo ConcatPDF
-ConcatPDfTakeFileFrom=Il modulo ConcatPDF ti suggerir� di concatenare:
-ConcatPDfTakeFileFrom2=Ai PDF di tipo <b>%s</b>, concatena qualsiasi PDF trovato in questa directory: <b>%s</b>
-ConcatPDfPutFileManually=I files PDF possono essere memorizzati qui utilizzando il tuo FileManager.
-NoPDFFileFound=Per il momento non sono stati trovati files PDF nella directory
-ConcatFile=Concatena file PDF
-EnableMultipleConcatenation=Abilita la possibilit� di concatenare molteplici files PDF.
+ConcatPdfSetup=Configurazione del modulo ConcatPDF
+ConcatPDfTakeFileFrom=Il modulo ConcatPDF suggerirà di concat:
+ConcatPDfTakeFileFrom2=Per generare PDF <b> %s </b> , qualsiasi file PDF trovato nella directory: <b> %s </b>
+ConcatPDfPutFileManually=I file PDF possono essere archiviati qui utilizzando il file manager.
+NoPDFFileFound=Nessun file PDF trovato nella directory per il momento
+ConcatFile=File PDF Concat
+EnableMultipleConcatenation=Abilita la possibilità di concatenare più documenti.
+ConcatPdf=Concat PDF
 Module101400Name=Concat PDF
-Module101400Desc=Modulo per concatenare PDF (per esempio: condizioni di vendita) a qualsiasi PDF generato (fatture, ordini o proposte)
+Module101400Desc=Modulo per contattare PDF (ad esempio condizioni di vendita) a qualsiasi PDF generato (fatture, ordini o proposte)
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
+ErrorFileMustBeAPdf=Errore, il file deve essere un file PDF
+WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF non è compatibile con l'opzione PDF: %s

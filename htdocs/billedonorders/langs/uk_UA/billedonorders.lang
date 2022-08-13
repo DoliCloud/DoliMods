@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Оплата за замовленнями
+BilledOnOrdersSetup=Налаштування модуля Billed On Orders
+Module101450Desc=Модуль для відображення виставленої суми та суми, що залишилася до виставлення рахунків відповідно до пов’язаних рахунків-фактур у списку замовлень клієнтів або постачальників
+AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компанія-партнер Dolibarr).
+MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Натисніть тут, щоб переглянути повний список </a>
+MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Натисніть тут для отримання додаткової інформації </a>
+BilledOnOrdersNothingToSetup=Немає нічого для налаштування. У списку замовлень клієнтів з'явилися нові поля.
+AmountBilledHT=Виставлена сума (без податку)
+AmountBilledTTC=Виставлена сума (включаючи податок)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Вимкнути стовпець «Сума в рахунку без податку»
+BILLEDONORDERS_DISABLE_BILLED=Вимкнути стовпець «Сума в рахунку з податком»
+BILLEDONORDERS_DISABLE_PAYED=Вимкнути стовпець «Сплачена сума»
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Вимкнути графу "Залишилося до оплати"
+AmountBilledDiffersFromAmountOnOrder=Сума рахунків-фактур, пов’язаних із замовленням, відрізняється від суми замовлення
+AmongAlreadyCreatedInvoices=Серед уже створених накладних

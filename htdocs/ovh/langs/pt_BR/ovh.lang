@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Setup of module Ovh
+OvhSmsRecap=Summary main account
+OvhSmsNick=Nick Handle for main account
+OvhBillingAccount=Nick handle for main account
+OvhServiceName=OVH service account
+OvhSmsPass=Password
+OvhSmsLabelAccount=SMS account to use
+OvhSmsLoginSuccessFull=Connection successfull!
+OvhSmsNotConfigured=Module not configured
+OvhAuthenticationPartNotConfigured=Authentication data not configured. Go onto setup of module OVH, tab "Authentication" first.
+NbSmsLeft=Number of remaining SMS
+OvhSmsSoapUrl=URL of OVH SOAP service
+OvhSmsSend=Send SMS
+OvhSmsAccountInfos=Information on SMS account
+OvhSmsDestinataire=Target
+OvhSmsLabelTexteMessage=Text of message
+tabOvhSms=sms
+OvhSmsStatutSent=Received message
+OvhSmsStatutSubmitted=Submited
+OvhSmsStatutWaiting=Waiting
+OvhSmsStatutFailed=Failed
+OvhSmsBackToAdmin=Back to module admin
+OvhSmsHistory=Log of last %s sendings
+ListOfSmsAccountsForNH=List of SMS accounts for account defined into "Authentication" tab
+ClickToDialLink=This is link to copy-paste into ClickToDial module setup to use the %s Click2Dial:<br>%s
+TestSendSMS=SMS Sending test
+TestLoginToApi=Test connection to API
+SendersAllowed=Senders allowed from OVH manager
+ListOfDedicatedServers=List of your dedicated OVH servers
+ListOfPublicCloudServers=List of your Public Cloud OVH servers
+OvhServers=OVH servers
+OvhDedicated=Dedicated servers
+OvhPublicCloud=Public cloud servers
+OvhGetInvoices=OVH invoices import
+OvhInvoiceImportShort=OVH invoices import
+OvhInvoiceImportDesc=This page list all OVH invoices and suggest a way to import them. Click first onto button "Get invoice list". Then for each invoice not already present, check box and click onto "Import button".
+SupplierToUseForImport=Supplier to create imported invoices on
+ProductGenericToUseForImport=Product/Service to use for imported lines of invoices
+ProjectForImport=Attach imported invoices to project
+KeepEmptyToSaveLinesAsFreeLines=Keep this field empty if you don't want to see imported lines using a generic predefined product/service
+ScanOvhInvoices=Get invoices list
+ExcludeNullInvoices=Exclude invoices with null total amount
+ExcludeNullLines=Exclude invoice lines with null amount
+NotFound=Not found
+ImportIt=Import it ?
+ToImport=Import
+NoInvoicesSelected=No invoices selected
+FileDownloadedAndAttached=File <strong>%s</strong> downloaded and attached to invoice
+InvoiceFoundIntoDolibarr=Invoice found into Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Invoice+PDF found into Dolibarr: %s
+ConnectionParameters=Connection parameters
+TryToUseProxy=Using proxy server
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+OvhApplicationName=Application name
+OvhApplicationDescription=Application description
+OvhApplicationKey=Application key
+OvhApplicationSecret=Application secret
+OvhConsumerkey=Consumer key
+GoOnPageToCreateYourAPIKey=First go on page <a href="%s" target="_blank">%s</a> to create your OVH application entry and get its API key and secret, or create a new one if you prefer or if you lost the API key/secret, then fill this page with this information.
+ListOfExistingAPIApp=Note: You can find list of already created application on page <a href="%s" target="_blank">%s</a>.
+ClickHereToLoginAndGetYourConsumerKey=Click <a href="%s"> here to login and get a new consumer key</a> (You must choose <strong>UNLIMITED</strong> validity)
+Authentication=Authentication
+FromThe=From the
+PleaseFillOtherFieldFirst=Please fill the other fields first...
+IfYouChangeHereChangeAlsoClickToDial=If you change data here, don't forget to update also the link into module ClickToDial
+ToGoOnClickToDialSetup=To go on ClickToDial module setup
+OvhTelAccountHelp=Put here the name of your OVH Telecom Billing account (NOT your OVH account)
+OvhServiceNameHelp=Put here the SIP line number (must be the international format like 0033123456789 for France). Note, if you have several line numbers for different users, keep this field empty and change the value of "SIPLineNumber" into the URL you have to paste into the ClickToDial URL field on each user card (see lower)
+OVHURLMustNotBeLocal=Warning, URL you use for the application must NOT be a local URL but an URL you can access from internet to have this working.
+CreateSnapshot=Create snapshot
+SnapshotRequestSent=Snapshot request under name '%s' was successfully sent.
+NoneLabelOnOvhLineWillBeUsed=None (label of line in OVH invoice will be used)
+OVHAccount=OVH Account
+OvhDefaultBankAccount=Default bank account on invoices
+OvhValidVatList=List of valid VAT values
+OVHVatKeepEmptyToAcceptAll=Keep this field empty if you want to accept all VAT values (auto). Warning: OVH return sometimes bad rounded VAT rates, so setting VAT rates here force application to use the nearest valid value instead of OVH value.

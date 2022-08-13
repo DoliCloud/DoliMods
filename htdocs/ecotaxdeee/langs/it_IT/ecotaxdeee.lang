@@ -1,0 +1,25 @@
+# Dolibarr language file - en_US - ecotaxdeee
+CHARSET=UTF-8
+EcoTaxDeee=Ecotassa RAEE
+EcoTaxDeeSetup=Configurazione del modulo RAEE per la tassa ecologica
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Aggiungi automaticamente una tassa ecologica WEEE sugli ordini dei clienti
+ECOTAXDEEE_USE_ON_PROPOSAL=Aggiungi automaticamente una tassa Eco RAEE sulle proposte commerciali
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Aggiungi automaticamente una tassa ecologica WEEE sulle fatture dei clienti
+ECOTAXDEEE_LABEL_LINE=Etichetta da utilizzare per la linea Eco tax
+ECOTAXDEEE_DOC_FOOTER=Contenuto della nuova pagina da aggiungere (vuoto=nessun allegato)
+EcoTaxDeeDocFooterExample=I prodotti hanno una tassa RAEE unitaria di 0,01€ per la categoria A, 0,02€ per la categoria B...
+ECOTAXDEEE_CATEGORY_REF=Rif della categoria di prodotto per rilevare i prodotti che necessitano di Eco tax WEEE
+Module101380Name=Ecotassa RAEE
+Module101380Desc=Modulo per aggiungere automaticamente linee di ecotassa
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
+EcoTaxAddedIfDesc=Una riga RAEE dell'imposta ecologica verrà calcolata e aggiunta automaticamente quando i prodotti con un'imposta ecologica vengono aggiunti ai seguenti oggetti: <b> %s </b> . <br> L'importo della tassa Eco deve essere definito prima nella scheda prodotto per ogni prodotto.
+EcoTaxAddedIfDescOld=Una riga RAEE dell'imposta ecologica verrà calcolata e aggiunta automaticamente quando i prodotti con un'imposta ecologica vengono aggiunti ai seguenti oggetti: <b> %s </b> . <br> L'importo della tassa Eco deve essere definito prima nella scheda prodotto per ogni prodotto. Per questo, vai nel setup del modulo "Prodotto" e aggiungi un campo complementare con formato float e con codice "ecotaxdeee". Potrai quindi inserire l'importo dell'imposta ecologica su ciascun prodotto.
+AddPageWithWEEEUnitPrices=Il modulo può anche aggiungere automaticamente una pagina al PDF generato per mostrare i prezzi unitari di Eco tax WEEE come allegato. In questo caso, compila qui le righe/categorie con i prezzi unitari che desideri mostrare.
+ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Prodotto/Servizio da utilizzare come linea RAEE Eco Tax
+OrLabelOfAFreeLine=o solo un'etichetta da usare
+WEEE_DISABLE_VAT_ON_ECOTAX=Disabilita l'IVA sulla riga Eco Tax (Nella maggior parte dei casi, l'Eco Tax necessita di un'IVA come qualsiasi altro servizio)

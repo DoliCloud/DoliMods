@@ -1,0 +1,25 @@
+# Dolibarr language file - en_US - ecotaxdeee
+CHARSET=UTF-8
+EcoTaxDeee=Impuesto ecológico RAEE
+EcoTaxDeeSetup=Configuración del módulo WEEE de impuestos ecológicos
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Agregue automáticamente un impuesto ecológico RAEE en los pedidos de los clientes
+ECOTAXDEEE_USE_ON_PROPOSAL=Añadir automáticamente una ecotasa RAEE en propuestas comerciales
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Añadir automáticamente una ecotasa RAEE en las facturas de los clientes
+ECOTAXDEEE_LABEL_LINE=Etiqueta para usar en la línea de impuestos ecológicos
+ECOTAXDEEE_DOC_FOOTER=Contenido de la nueva página para agregar (vacío = sin anexo)
+EcoTaxDeeDocFooterExample=Los productos tienen un impuesto RAEE unitario de 0,01€ para la categoría A, 0,02€ para la categoría B...
+ECOTAXDEEE_CATEGORY_REF=Ref de categoría de producto para detectar productos que necesitan Eco tax WEEE
+Module101380Name=Impuesto ecológico RAEE
+Module101380Desc=Módulo para agregar líneas de ecotasa automáticamente
+AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa socia preferida de Dolibarr).
+MoreModules=Otros módulos del mismo autor están disponibles en el mercado oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Haga clic aquí para ver la lista completa </a>
+MoreCloudHosting=Para usar Dolibarr en línea, elija el alojamiento seguro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Haga clic aquí para obtener más información </a>
+CompatibleWithDoliDroid=Este módulo también es compatible con DoliDroid, la aplicación de Android para Dolibarr.
+EcoTaxAddedIfDesc=Una línea WEEE de impuesto ecológico se calculará y agregará automáticamente cuando los productos con un impuesto ecológico se agreguen a los siguientes objetos: <b> %s </b>. <br> El monto del impuesto ecológico debe definirse antes en la tarjeta de producto para cada producto.
+EcoTaxAddedIfDescOld=Una línea WEEE de impuesto ecológico se calculará y agregará automáticamente cuando los productos con un impuesto ecológico se agreguen a los siguientes objetos: <b> %s </b>. <br> El monto del impuesto ecológico debe definirse antes en la tarjeta de producto para cada producto. Para ello, acceda al setup del módulo "Producto" y añada un campo complementario con formato float y con el código "ecotaxdeee". Luego podrá ingresar el monto del impuesto ecológico en cada producto.
+AddPageWithWEEEUnitPrices=El módulo también puede agregar automáticamente una página al PDF generado para mostrar los precios unitarios de los RAEE de impuestos ecológicos como un anexo. En este caso, solo complete aquí las líneas/categorías con los precios unitarios que desea mostrar.
+ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Producto/Servicio a utilizar como línea RAEE Eco Tax
+OrLabelOfAFreeLine=o simplemente una etiqueta para usar
+WEEE_DISABLE_VAT_ON_ECOTAX=Deshabilite el IVA en la línea Eco Tax (en la mayoría de los casos, Eco Tax necesita un IVA como cualquier otro servicio)

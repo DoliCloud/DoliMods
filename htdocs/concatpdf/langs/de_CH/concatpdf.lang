@@ -1,4 +1,4 @@
-# Dolibarr language file - de_CH - concatpdf 
+# Dolibarr language file - en_US - concatpdf
 CHARSET= UTF-8
 ConcatPdfSetup=ConcatPDF Modul Setup
 ConcatPDfTakeFileFrom=Das ConcatPDF Modul wird folgende Dokumente vorschlagen:
@@ -12,8 +12,9 @@ Module101400Name=Concat PDF
 Module101400Desc=Modul zum Verbinden von PDFs (AGBs zum Beispiel) mit jedem generierten PDF (Rechnung, Bestellung, Auftragsbestätigung)
 AboutInfo=Dieses Modul wird entwickelt und vertrieben durch Laurent Destailleur für NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Vom gleichen Author sind weitere Module im offiziellen DoliStore Onlineshop...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Klicken Sie hier für eine komplette Liste</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Klicken Sie hier für eine komplette Liste</a>
 MoreCloudHosting=Um Dolibarr online zu nutzen, wählen Sie das sichere DoliCloud Hosting.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Klicken Sie hier für weitere Informationen</a>
-CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid kompatibel, der Android App für Dolibarr.    
+CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid kompatibel, der Android App für Dolibarr.
 ErrorFileMustBeAPdf=Fehler, die Datei muss ein PDF sein
+WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF is not compatible with PDF option : %s

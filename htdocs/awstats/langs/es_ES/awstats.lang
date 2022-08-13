@@ -1,14 +1,20 @@
-# Dolibarr language file - es_ES - awstats
+# Dolibarr language file - en_EN - awstats
 CHARSET= UTF-8
 AWStatsSetup=Configuración del módulo AWStats
-AWStatsSummary=Resumen AWStats
-AWStatsSetupNotComplete=La configuración del módulo AWStats está incompleta
-AWSTATS_DATA_DIR=Directorio archivos de datos (ruta en disco)
-AWSTATS_CGI_PATH=URL acceso AWstats (en CGI)
-AWSTATS_PROG_PATH=Localización AWStats (ruta en disco)
-AWSTATS_LIMIT_CONF=Limitar las conf. mostradas en esta lista (vacío para no filtrar o usar "," como separador)
+AWStatsSummary=Resumen de AWStats
+AWStatsSetupNotComplete=La configuración de AWStats no está completa
+AWSTATS_DATA_DIR=Directorio de archivos de datos de AWStats (ruta en el disco)
+AWSTATS_CGI_PATH=URL de AWStats (CGI)
+AWSTATS_PROG_PATH=Localización del programa AWStats (ruta en disco)
+AWSTATS_LIMIT_CONF=Limite la configuración que se muestra en esta lista (vacía para no filtrar o usar "," como separador)
 ShowStats=Mostrar estadísticas detalladas
-FilterDomain=Filtrar en el perfil (archivo de configuración)
+FilterDomain=Filtrar por perfil (nombre de configuración)
 Module12000Name=AWStats
-Module12000Desc=Módulo para integrar los informes del analizador de logs AWStats en Dolibarr
-ErrorAWStatsDataDirMustEndWithASlash=El directorio debe terminar con / o \
+Module12000Desc=Módulo para integrar informes del analizador de registros de AWStats en Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=El directorio debe terminar con / o FilterDomain=Filtrar en el nombre de la configuración
+AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa socia preferida de Dolibarr).
+MoreModules=Otros módulos del mismo autor están disponibles en el mercado oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Haga clic aquí para ver la lista completa </a>
+MoreCloudHosting=Para usar Dolibarr en línea, elija el alojamiento seguro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Haga clic aquí para obtener más información </a>
+CompatibleWithDoliDroid=Este módulo también es compatible con DoliDroid, la aplicación de Android para Dolibarr.

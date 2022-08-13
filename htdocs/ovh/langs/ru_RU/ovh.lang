@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Настройка модуля Ovh
+OvhSmsRecap=Сводный основной счет
+OvhSmsNick=Ник Хэндл для основного аккаунта
+OvhBillingAccount=Ник для основного аккаунта
+OvhServiceName=сервисный аккаунт OVH
+OvhSmsPass=Пароль
+OvhSmsLabelAccount=Счет SMS для использования
+OvhSmsLoginSuccessFull=Подключение успешно!
+OvhSmsNotConfigured=Модуль не настроен
+OvhAuthenticationPartNotConfigured=Данные аутентификации не настроены. Перейдите к настройке модуля OVH, сначала вкладка «Аутентификация».
+NbSmsLeft=Количество оставшихся SMS
+OvhSmsSoapUrl=URL службы OVH SOAP
+OvhSmsSend=Отправить смс
+OvhSmsAccountInfos=Информация о смс-аккаунте
+OvhSmsDestinataire=Цель
+OvhSmsLabelTexteMessage=Текст сообщения
+tabOvhSms=смс
+OvhSmsStatutSent=Полученное сообщение
+OvhSmsStatutSubmitted=Отправлено
+OvhSmsStatutWaiting=Ожидающий
+OvhSmsStatutFailed=Не удалось
+OvhSmsBackToAdmin=Вернуться к администратору модуля
+OvhSmsHistory=Журнал последних отправок %s
+ListOfSmsAccountsForNH=Список учетных записей SMS для учетной записи, указанной на вкладке «Аутентификация»
+ClickToDialLink=Это ссылка для копирования и вставки в настройку модуля ClickToDial для использования Click2Dial %s: <br> %s
+TestSendSMS=Тест отправки смс
+TestLoginToApi=Тестовое подключение к API
+SendersAllowed=Отправители разрешены из менеджера OVH
+ListOfDedicatedServers=Список ваших выделенных серверов OVH
+ListOfPublicCloudServers=Список ваших серверов Public Cloud OVH
+OvhServers=ОВХ-серверы
+OvhDedicated=Выделенные серверы
+OvhPublicCloud=Общедоступные облачные серверы
+OvhGetInvoices=Импорт счетов OVH
+OvhInvoiceImportShort=Импорт счетов OVH
+OvhInvoiceImportDesc=На этой странице перечислены все счета OVH и предложен способ их импорта. Нажмите сначала на кнопку «Получить список счетов». Затем для каждого счета, которого еще нет, установите флажок и нажмите кнопку «Импорт».
+SupplierToUseForImport=Поставщик для создания импортированных счетов на
+ProductGenericToUseForImport=Продукт/услуга для использования в импортированных строках счетов-фактур
+ProjectForImport=Прикрепите импортированные счета к проекту
+KeepEmptyToSaveLinesAsFreeLines=Оставьте это поле пустым, если вы не хотите видеть импортированные строки, использующие общий предопределенный продукт/услугу.
+ScanOvhInvoices=Получить список счетов
+ExcludeNullInvoices=Исключить счета с нулевой общей суммой
+ExcludeNullLines=Исключить строки счета с нулевой суммой
+NotFound=Не найден
+ImportIt=Импортировать?
+ToImport=импорт
+NoInvoicesSelected=Счета не выбраны
+FileDownloadedAndAttached=Файл <strong> %s </strong> загружен и прикреплен к счету
+InvoiceFoundIntoDolibarr=Найден счет в Долибарре: %s
+InvoicePDFFoundIntoDolibarr=Счет+PDF найден в Долибарре: %s
+ConnectionParameters=Параметры подключения
+TryToUseProxy=Использование прокси-сервера
+AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
+MoreModules=Другие модули того же автора доступны на официальной торговой площадке DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Нажмите здесь, чтобы увидеть полный список </a>
+MoreCloudHosting=Чтобы использовать Dolibarr онлайн, выберите защищенный хостинг DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Щелкните здесь для получения дополнительной информации </a>
+CompatibleWithDoliDroid=Эти модули также совместимы с DoliDroid, Android-приложением для Dolibarr.
+OvhApplicationName=Имя приложения
+OvhApplicationDescription=Описание приложения
+OvhApplicationKey=Ключ приложения
+OvhApplicationSecret=Секрет приложения
+OvhConsumerkey=Потребительский ключ
+GoOnPageToCreateYourAPIKey=Сначала перейдите на страницу <a href="%s" target="_blank"> %s </a>, чтобы создать запись приложения OVH и получить его ключ и секрет API, или создайте новую, если хотите, или если вы потеряли ключ/секрет API, а затем заполните эту страницу этой информацией.
+ListOfExistingAPIApp=Примечание: Вы можете найти список уже созданных приложений на странице <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Щелкните здесь <a href="%s">, чтобы войти в систему и получить новый потребительский ключ </a> (вы должны выбрать <strong> НЕОГРАНИЧЕННЫЙ срок действия </strong>)
+Authentication=Аутентификация
+FromThe=От
+PleaseFillOtherFieldFirst=Сначала заполните другие поля...
+IfYouChangeHereChangeAlsoClickToDial=Если вы меняете здесь данные, не забудьте также обновить ссылку на модуль ClickToDial
+ToGoOnClickToDialSetup=Чтобы перейти к настройке модуля ClickToDial
+OvhTelAccountHelp=Укажите здесь имя вашей учетной записи OVH Telecom Billing (НЕ вашей учетной записи OVH)
+OvhServiceNameHelp=Укажите здесь номер линии SIP (должен быть в международном формате, например 0033123456789 для Франции). Обратите внимание: если у вас есть несколько номеров линий для разных пользователей, оставьте это поле пустым и измените значение «SIPLineNumber» на URL-адрес, который вы должны вставить в поле URL-адреса ClickToDial на каждой карточке пользователя (см. ниже).
+OVHURLMustNotBeLocal=Предупреждение, URL-адрес, который вы используете для приложения, НЕ должен быть локальным URL-адресом, а URL-адресом, к которому вы можете получить доступ из Интернета, чтобы это работало.
+CreateSnapshot=Создать снимок
+SnapshotRequestSent=Запрос моментального снимка под именем «%s» успешно отправлен.
+NoneLabelOnOvhLineWillBeUsed=Нет (будет использоваться метка строки в счете-фактуре OVH)
+OVHAccount=Аккаунт ОВХ
+OvhDefaultBankAccount=Банковский счет по умолчанию в счетах-фактурах
+OvhValidVatList=Список действительных значений НДС
+OVHVatKeepEmptyToAcceptAll=Оставьте это поле пустым, если вы хотите принять все значения НДС (автоматически). Предупреждение: OVH возвращает иногда неправильно округленные ставки НДС, поэтому установка здесь ставок НДС заставляет приложение использовать ближайшее допустимое значение вместо значения OVH.

@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=Gestore di file
+FileManagerSetup=Configurazione del modulo FileManager
+LabelForRootFileManager=Etichetta per percorso principale/scorciatoia visibile
+RootFileManager=Percorso principale/scorciatoia selezionato
+PathForRootFileManager=Posizione del percorso principale/scorciatoia su disco
+NoteOnFileManagerPathLocation=Tutte le directory devono avere l'autorizzazione per consentire al tuo server web di leggerle/scansionarle.
+ListForRootPath=Elenco di percorsi principali/scorciatoie visibili
+PleaseSelectARoot=Per favore, seleziona una directory principale da scansionare dal menu...
+SelectAFile=Seleziona una directory o un file nel riquadro di sinistra
+DateLastAccess=Data ultimo accesso
+DateLastChange=Data ultima modifica
+FullPath=Percorso completo
+PreviewNotAvailableForThisType=Anteprima non disponibile per questo tipo di file.
+NotEnoughMemoryForSyntaxColor=Il tuo PHP non ha memoria sufficiente per abilitare la colorazione della sintassi sull'anteprima dei file di testo.
+YouMustSelectAFileToUseFileEditorTool=È necessario selezionare un file nel riquadro sinistro per utilizzare lo strumento editor di file.
+NoEditorForThisFormat=Nessun editor per modificare questo formato di file.
+DeleteDir=Elimina directory
+DeleteFileName=Elimina il seguente file:
+DeleteDirName=Elimina la directory seguente:
+NewDir=Nuova directory
+CreateNewDir=Crea una nuova directory
+NewFile=Nuovo file
+AddRootPath=Aggiungi directory radice per filemanager
+UseColorSyntaxing=Abilita la sintassi del colore sulla funzione di visualizzazione del contenuto del file (è necessaria più memoria. Disattiva questa opzione se si verifica una pagina vuota durante la visualizzazione del contenuto di un file di testo)
+ColoringDisabled=Colorazione della sintassi non abilitata
+ServerMustHavePermission=Le autorizzazioni sul filesystem devono essere concesse al server web (%s/%s).
+AddDirName=Aggiungi il nome della directory
+AddFileName=Aggiungi il nome del file
+#####
+Module10600Name=Gestore di file
+Module10600Desc=Un file manager per scansionare e visualizzare il contenuto dei dischi del tuo server Dolibarr.
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=L'account utente utilizzato dal server web non ha il permesso di scrivere

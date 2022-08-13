@@ -1,8 +1,8 @@
-# Dolibarr language file - ca_ES - google
-CHARSET = UTF-8
+# Dolibarr language file - en_US - google
+CHARSET=UTF-8
 GoogleSetup=Configuració integració amb Google tools
 GoogleSetupHelp=Ajuda a definir els paràmetres que es troben amb la URL de configuració de google %s
-GoogleAgendaNb=Agenda nº %s 
+GoogleAgendaNb=Agenda nº %s
 GoogleIDAgenda=ID Agenda
 GoogleNbOfAgenda=Número de agendes
 GoogleTools=Eines Google
@@ -17,9 +17,120 @@ GoogleAddressNotDefined=No hi ha adreça o no està prou completa com per poder 
 GoogleMapsAddressNotFound=No s'ha pogut trobar l'adreça.
 GoogleAgendaToShow=Agenda a mostrar
 GoogleEnableSyncToCalendar=Crear un esdeveniment Google a Google Calendar a la creació d'un esdeveniment Dolibarr
+GoogleEnableSyncToThirdparties=Activa la sincronització de tercers amb els contactes de Google GMail
+GoogleEnableSyncToContacts=Activa la sincronització de contactes/adreces amb els contactes de Google GMail
+GoogleEnableSyncToMembers=Activa la sincronització dels membres amb els contactes de Google GMail
 AgendaView=Vista Google agenda
 AgendaSync=Sincronitzar a Google agenda
+ContactSync=Sincronitza amb el contacte de Google
 GOOGLE_LOGIN=Login Google
 GOOGLE_PASSWORD=Contrasenya
+GOOGLE_EVENT_LABEL_INC_SOCIETE=Afegiu el nom de tercers a l'etiqueta d'esdeveniments per a esdeveniments de tercers
+GOOGLE_EVENT_LABEL_INC_CONTACT=Afegiu el nom del contacte a l'etiqueta d'esdeveniment per als esdeveniments de contacte
+GOOGLE_CONTACT_LABEL=Etiqueta per etiquetar contactes
+GOOGLE_INCLUDE_AUTO_EVENT=Sincronitza també els esdeveniments creats automàticament per Dolibarr (vegeu la configuració del mòdul Agenda per a la llista d'esdeveniments automàtics). <br> Si no, només es sincronitzen els esdeveniments introduïts manualment a l'agenda.
+GOOGLE_INCLUDE_ATTENDEES=Afegiu també la llista d'assistents a l'esdeveniment. Google pot enviar-los correus electrònics quan creeu un esdeveniment amb els assistents. També de vegades Google no permet l'ús de les API quan hi ha assistents.
+MAIN_GOOGLE_AN_ID=Identificador de Google Analytics
+GoogleIDContact=Compte de Google
+GoogleNoTokenYet=Encara no tens cap testimoni. Per crear-ne un, només heu d'autenticar-vos a Google amb el següent enllaç:
+GoogleRecreateToken=Per forçar la creació d'un testimoni nou, només heu d'autenticar-vos a Google amb l'enllaç següent:
+GoogleDeleteToken=Per suprimir el testimoni actual:
+GoogleDeleteAuthorization=Per llegir/suprimir l'autorització desada de Google:
 Module101110Name=Google
 Module101110Desc=Mòdul per integrar les eines Google en Dolibarr
+GoogleCalendarSyncConf=GoogleCalendarSyncConf
+TargetUser=Usuari objectiu
+KeepEmptyYoUseLoginPassOfEventUser=Manteniu-lo en blanc si voleu una sincronització per usuari. En aquest cas, introduïu l'identificador de l'agenda a cada nivell d'usuari. Definiu un valor si voleu que tots els esdeveniments es sincronitzin a la mateixa agenda de Google.
+KeepEmptyYoUseLoginPassOfEventUserAssigned=Actualment, aquesta configuració està buida. Significa que l'agenda objectiu serà l'agenda de l'usuari que és el propietari de l'esdeveniment (la musa de l'agenda d'identificació es definirà a cada usuari). No es fa cap sincronització si no es fa la configuració de l'ID d'agenda per a aquest usuari.
+KeepEmptyYoUseLoginPassOfEventUserSaleRep=L'agenda objectiu és l'agenda del primer representant de venda del tercer al qual està vinculat l'esdeveniment. Si no hi ha cap tercer per a l'esdeveniment, ni cap representant de venda per a tercers, no es farà cap sincronització.
+KeepEmptyYoUsePublicQuotaOfAPI=Manteniu-lo buit per utilitzar la quota pública de l'API.
+AllowGoogleToLoginWithKey=Heu de tenir un compte de Google i crear la vostra pròpia clau des de la pàgina <a href="%s" target="_blank"> %s </a> , menú "API i serveis" -> "Credentials". Feu clic a "Crea una clau" i trieu "Clau del servidor" i després "Crea". Obtindreu la vostra clau del servidor.
+AllowGoogleToLoginWithClientID=Podeu crear el vostre <strong> Google Client ID i secret </strong> des de la pàgina <a href="%s" target="_blank"> %s </a> , seleccioneu un projecte o creeu-ne un i, a continuació, menú "C&APIRedentials". Feu clic a "Crea/Afegeix un identificador de client OAuth 2.0" i trieu "Aplicació web", configureu "Origen Javascript permès" per buidar i establiu "URI de redirecció" a <br> <strong> %s %s, després, feu clic al botó "a0a0f6f0fcda072f6f0fcda072fccfda19bz0". Obtindreu un nou identificador de client <strong> </strong> i un codi secret <strong> </strong> . Heu d'introduir aquí l'identificador de client <strong> </strong> i <strong> secret de client </strong> a la línia següent.
+AllowGoogleToLoginWithClientSecret=Consulteu la nota de la línia anterior per saber com obtenir el vostre secret de client de Google.
+AllowGoogleToLoginWithServiceAccount=Podeu crear el vostre compte de servei <strong> d'usuari/correu electrònic </strong> des de la pàgina <a href="%s" target="_blank"> %s </a> , seleccioneu un projecte o creeu-ne un, a continuació, menú "C&APIRedentials". Feu clic a "Crea/Afegeix un identificador de client" i trieu "Compte de servei" i després "Crea". Obtindreu un compte de servei nou amb un ID de client del compte de servei <strong> </strong> i un correu electrònic del compte de servei </strong> <strong> . Heu d'introduir aquí el correu electrònic del compte de servei <strong> </strong> .
+EnableAPI=També heu d'activar l'API per al vostre compte de Google. Per a això, aneu a la pàgina <a href="%s" target="_blank"> %s </a>, menú "API i serveis" -> "API". Feu clic per activar l'API per a "%s".
+ShareCalendarWithServiceAccount=També heu de compartir l'agenda (tots els permisos) amb l'usuari/correu electrònic del compte de servei <strong> %s </strong> : Per a això, aneu al calendari de Google. Ha de ser la mateixa agenda que l'escollida al paràmetre "%s". Trieu "Paràmetres" i feu clic al nom de l'agenda per mostrar l'enllaç "Comparteix els paràmetres amb...". Feu-hi clic i afegiu l'usuari del compte de servei com a contacte per compartir la vostra agenda. Trieu el permís "Edita esdeveniments" i valideu-lo fent clic a "Afegeix usuari". Amb <strong> Google Suite </strong> (no és necessari per al compte de Gmail estàndard), els permisos es poden forçar a "Només a punt" en lloc d'"Edita". Si no podeu triar el permís "Edita", aneu a <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank"> https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing </a> i comproveu que l'opció per compartir l'aplicació Agenda permet amb compte de servei extern.
+GOOGLE_API_SERVERKEY=Clau API (escriviu "Clau del servidor")
+GoogleUserConf=Configuració de Google
+GoogleSetupIsGlobal=La configuració de sincronització es fa de manera global per a tots els usuaris amb l'identificador de l'agenda <strong> %s </strong>.
+TestCreateUpdateDelete=Prova crear-actualitzar-eliminar
+TestCreateUpdate=Prova de crear-actualització (per eliminar manualment)
+TestCreate=Prova de creació (per eliminar manualment)
+TestSuccessfull=Prova reeixida
+DueToGoogleLimitYouNeedToLogin=Per motius de seguretat imposats per Google, la vista del calendari de Google només es mostrarà correctament si heu iniciat sessió a Google (això funcionarà, però, només per a un identificador d'agenda).
+AllowGoogleToLoginSetupKey=Per integrar aquest procés d'inici de sessió de Google al vostre programari (no és necessari), és possible configurar una clau per permetre que l'aplicació ofereixi l'inici de sessió de Google si no esteu connectat.
+AllowGoogleToLoginProp=Podeu obtenir informació per a aquesta pàgina de configuració si creeu una clau mitjançant aquest enllaç <a href="%s" target="_blank"> %s </a> : seleccioneu "API i serveis" -> "Credentials". A continuació, feu clic a "Crea un identificador" i trieu el tipus "Aplicació web", introduïu com a "URL de redirecció permès", l'URL següent <strong> %s </strong> . Marqueu per no introduir el "Correu electrònic del client" sinó "ID del client" al primer camp.
+AllowGoogleToLoginWithAccountService=Podeu obtenir informació per a aquesta pàgina de configuració si creeu una clau mitjançant aquest enllaç <a href="%s" target="_blank"> %s </a> : seleccioneu "API i serveis" -> "Credentials". A continuació, feu clic a "Crea un identificador" i trieu el tipus "servei de compte".
+AllowGoogleToLoginWithServiceAccountP12=Un cop hàgiu creat l'usuari/correu electrònic del vostre compte de servei (vegeu la nota als camps anteriors), heu de baixar el vostre fitxer json de seguretat <strong> </strong> (no és necessari si el fitxer es va descarregar automàticament durant la creació anterior del compte). Si no teniu el fitxer JSON, torneu a <a href="%s" target="_blank"> %s </a> i seleccioneu "API i serveis" -> "Credentials". Cerqueu la línia amb el vostre "Servei de comptes" creat. Feu clic al botó d'edició, després pestanya "Claus" i "Crea un fitxer de claus - Format JSON". Això baixarà automàticament un nou fitxer JSON. A continuació, carregueu el fitxer mitjançant aquest formulari.
+ExportThirdpartiesToGoogle=Exporteu tots els tercers de Dolibarr als contactes de Gmail (advertència, no hi ha cap comprovació del registre duplicat per a l'exportació massiva).
+ExportContactToGoogle=Exporteu tots els contactes/adreces de Dolibarr a contactes de Gmail (advertència, no hi ha cap comprovació del registre duplicat per a l'exportació massiva).
+ExportMembersToGoogle=Exporteu tots els membres de Dolibarr als contactes de Gmail (advertència, no hi ha cap comprovació del registre duplicat per a l'exportació massiva).
+ExportEventsToGoogle=Exporta els darrers esdeveniments <strong> %s </strong> Dolibarr al calendari de Google <strong> %s a0a65d071f per a la comprovació massiva, no hi ha registres duplicats per a la comprovació de la guerra6.
+DeleteAllGoogleThirdparties=Suprimeix tots els tercers procedents de Dolibarr a Gmail.
+DeleteAllGoogleContacts=Suprimeix tots els contactes/adreces procedents de Dolibarr a Gmail.
+DeleteAllGoogleMembers=Suprimeix tots els membres procedents de Dolibarr a Gmail.
+DeleteAllGoogleEvents=Suprimeix tots els esdeveniments del calendari de Google <strong> %s </strong> enllaçats a un Dolibarr
+PushToGoogleSucess=S'ha acabat la sincronització amb el contacte de Google per als registres %s.
+TagsCreatedSuccess=S'ha acabat la sincronització dels grups amb el contacte de Google
+DeleteToGoogleSucess=Els contactes %s s'han suprimit al contacte de Google.
+GOOGLE_TAG_PREFIX=Etiqueta del grup per etiquetar tercers Dolibarr al contacte de Google
+GOOGLE_TAG_PREFIX_CONTACTS=Etiqueta del grup per etiquetar els contactes/adreces de Dolibarr al contacte de Google
+GOOGLE_TAG_PREFIX_MEMBERS=Etiqueta del grup per etiquetar els membres de Dolibarr al contacte de Google
+ErrorLabelsMustDiffers=Error, el valor de les etiquetes ha de ser únic
+BoxMaps=Llistat de mapes disponibles
+MapOfThirdparties=Mapa de tercers
+MapOfContactsAddresses=Mapa de contactes/adreces
+MapOfMembers=Mapa dels membres
+MapOfPatients=Mapa de pacients
+NoAddressDefined=No s'han definit adreces
+FollowingAddressCantBeLocalized=Les adreces següents no s'han pogut localitzar al mapa
+OnlyXAddressesAmongYWereGeoencoded=A causa de les quotes de Google (la localització de les adreces es fa per la mida del paquet de %s), algunes adreces no estan representades perquè encara no estan geocodificades.
+CountGeoTotal=Adreces totals %s - %s encara no geocodificades - %s per error = %s representat.
+ClickHereToIncludeXMore=Feu clic aquí per geocodificar més adreces
+ListOfMaps=Llistat de mapes disponibles
+By1=Per 1
+By25=Als 25
+By50=Per 50
+By100=Als 100
+By250=Als 250
+ParametersForGoogleOAuth=Aboqui l'API de Google OAuth 2.0
+ParametersForGoogleAPIv2Usage=Per a l'API de Google %s V2
+ParametersForGoogleAPIv3Usage=Per a l'API de Google %s V3
+GoogleClientId=ID de client
+GoogleClientSecret=Secret del client
+GOOGLE_WEB_TOKEN=Fitxa actual
+GOOGLE_FIX_TZ=Correcció del fus horari (Dolibarr -> Google)
+GOOGLE_FIX_TZ_G2D=Correcció del fus horari (Google -> Dolibarr)
+GOOGLE_API_CLIENT_ID=ID de client de Google
+GOOGLE_API_CLIENT_SECRET=Secret del client de Google
+GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID de client del compte de servei
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Correu electrònic del compte de servei per permetre (NO l'inici de sessió/correu electrònic del vostre compte de Google)
+GOOGLE_API_SERVICEACCOUNT_P12KEY=Fitxer json del compte de servei
+FillThisOnlyIfRequired=Exemple: +2 (omple només si hi ha problemes)
+AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa de Dolibarr Preferred Partner).
+MoreModules=Altres mòduls del mateix autor estan disponibles al mercat oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Feu clic aquí per veure la llista completa </a>
+MoreCloudHosting=Per utilitzar Dolibarr en línia, trieu l'allotjament segur DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Feu clic aquí per obtenir més informació </a>
+CompatibleWithDoliDroid=Aquest mòdul també és compatible amb DoliDroid, l'aplicació d'Android per a Dolibarr.
+LinkToThirdParty=Enllaç a tercers
+LinkToContact=Enllaç al contacte
+GoogleContactSyncInfo=Utilitzeu aquí qualsevol etiqueta que trieu. El grup es crearà a Google Contact si no existeix. També podeu utilitzar l'etiqueta d'un dels grups de sistemes de Google predefinits com: <br> "Grup del sistema: Els meus contactes", "Grup del sistema: Amic", "Grup del sistema: CoWorker", "Grup del sistema: Família" <br> Tingueu en compte també que només el grup de sistema predefinit "Grup del sistema: els meus contactes" el comparteix la funció "Delega contactes" disponible a Google Contact de Google Suite.
+XRecordDeleted= <strong> %s </strong> registres suprimits
+ThisFieldIsAGlobalSetup=Aquest camp es defineix a la configuració global del mòdul
+FillAndSaveGoogleAccount=Primer ompliu i deseu el vostre compte de Google i l'identificador de client de Google
+LinkToOAuthPage=Enllaç a la pàgina de Google OAuth2
+GoogleWebTokenNotDefinedDoALoginInitFirst=El testimoni de Google mai es va generar. Demaneu al vostre administrador que vagi a "Inici - Configuració - Mòduls - Google - Pàgina de configuració de la sincronització de contactes" i que generi un testimoni de seguretat.
+ImportEventsFromGoogle=Importa els últims esdeveniments de Google modificats <strong> %s </strong> des del calendari de Google <strong> %s a0a65d071f6fc després
+GetFromGoogleSucess=Sincronització amb èxit de Google. <br> %s Registre(s) inserit(s) a Dolibarr <br> %s Registre(s) actualitzat(s) a Dolibarr <br> a0fccfda19bz0 a0fccfda19bz0 %s
+GetFromGoogleAlreadyDeleted=Els registres %s s'han suprimit a Google i no s'han trobat a Dolibarr.
+OperationMayBeLong=L'operació pot ser llarga, reinicieu si teniu temps d'espera
+ErrorModuleGoogleKeyFileNotFound=No s'ha trobat el fitxer de claus de Google %s
+ClickToUpdateWithLastGoogleChanges=Feu clic per actualitzar la base de dades de l'agenda amb els últims canvis fets a l'agenda de Google %s des de
+GoogleLimitBackTime=A causa d'un límit de Google, les sol·licituds es limiten a %s dies com a màxim en el passat
+ResetGeoEncodingErrors=Restableix la taula d'errors de geocodificació
+RecordInGeoEncodingErrorDeleted=Tots els registres amb errors de geocodificació es van restablir per a un altre intent de geocodificació.
+IconTiers=Utilitzeu un picto diferent per al client potencial, el client i el proveïdor
+CustomersOnly=Només clients
+ProspectsOnly=Només perspectives
+RefreshEventFromGoogle=Actualitza els esdeveniments de Google

@@ -1,0 +1,136 @@
+# Dolibarr language file - en_US - google
+CHARSET=UTF-8
+GoogleSetup=Google tools integration setup
+GoogleSetupHelp=ID of the Agenda can be found on the Google parameter page for the agenda (Go into your Google Calendar, then "Parameters" in the wheels, then tab "Agenda", or try this link <a href="https://www.google.com/calendar/render#i">https://www.google.com/calendar/render#i</a> and then click on name or your Agenda). You Agenda ID is an ID that looks like an email.
+GoogleAgendaNb=Agenda nb %s
+GoogleIDAgenda=ID Agenda
+GoogleNbOfAgenda=Number of agendas
+GoogleTools=Google tools
+GoogleEnableThisTool=Add Google agenda tab on agenda view
+GoogleEnableThisToolThirdParties=Activate this tools on Thirdparties cards
+GoogleEnableThisToolContacts=Activate this tools on Contacts cards
+GoogleEnableThisToolMembers=Activate this tools on Members cards
+GoogleAddPubOnLogonPage=Add AdSense information to add you own advert on logon page (otherwise keep empty)
+GoogleAddAnalyticsOnLogonPage=Add Analytics id to add the Google Analytics tags onto each page (otherwise keep empy)
+GoogleZoomLevel=Zoom level by default (1 to 10)
+GoogleAddressNotDefined=Address is not enough defined to be geolocalized
+GoogleMapsAddressNotFound=Address was not found.
+GoogleAgendaToShow=Agenda to show
+GoogleEnableSyncToCalendar=Create a Google event into Google Calendar when creating a Dolibarr event
+GoogleEnableSyncToThirdparties=Activate synchronization of thirdparties to Google GMail contacts
+GoogleEnableSyncToContacts=Activate synchronization of contacts/addresses to Google GMail contacts
+GoogleEnableSyncToMembers=Activate synchronization of members to Google GMail contacts
+AgendaView=View Google agenda
+AgendaSync=Sync to Google agenda
+ContactSync=Sync to Google contact
+GOOGLE_LOGIN=Login Google
+GOOGLE_PASSWORD=Mot de passe
+GOOGLE_EVENT_LABEL_INC_SOCIETE=Add thirdparty name into event label for thirdparty events
+GOOGLE_EVENT_LABEL_INC_CONTACT=Add contact name into event label for contact events
+GOOGLE_CONTACT_LABEL=Label to tag contacts
+GOOGLE_INCLUDE_AUTO_EVENT=Sync also for events automatically created by Dolibarr (see setup of module Agenda for list of automatic events).<br>If no, only events entered manualy into agenda are syncrhonized.
+GOOGLE_INCLUDE_ATTENDEES=Add also list of attendees into event. Google may send emails to them when you create an event with attendees. Also sometimes Google does not allow use of the APIs when there is attendees.
+MAIN_GOOGLE_AN_ID=Google analytics ID
+GoogleIDContact=Google Account
+GoogleNoTokenYet=You don't have any token yet. To create one, just authenticate to Google with the following link:
+GoogleRecreateToken=To force to recreate a new token, just authenticate to Google with the following link:
+GoogleDeleteToken=To delete current token:
+GoogleDeleteAuthorization=To read/delete saved authorization by Google:
+Module101110Name=Google
+Module101110Desc=Module to integrate Google tools with Dolibarr
+GoogleCalendarSyncConf=GoogleCalendarSyncConf
+TargetUser=Target user
+KeepEmptyYoUseLoginPassOfEventUser=Keep empty if you want a synchronization per user. In such a case, enter the Agenda ID at each user level. Define a value if you want all events be synchronized in the same Google agenda.
+KeepEmptyYoUseLoginPassOfEventUserAssigned=Currently, this setup is empty. It means that the targeted agenda will be the agenda of the user that is the owner of event (ID agenda muse be defined on each user). No synchronization is done if setup of Agenda ID for this user is not done.
+KeepEmptyYoUseLoginPassOfEventUserSaleRep=The targeted agenda is agenda of the first sale representative of thirdparty the event is linked to. If there is no thirdparty for event, nor sale representative for thirparty, no synchronization is done.
+KeepEmptyYoUsePublicQuotaOfAPI=Keep empty to use the public quota of API.
+AllowGoogleToLoginWithKey=You must have a Google account and create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "Credentials". Click on "Create a key" and choose "Server key" then "Create". You will get your server key.
+AllowGoogleToLoginWithClientID=You can create your <strong>Google Client ID and Secret</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Services" -> "Credentials". Click on "Create/Add a client ID OAuth 2.0" and choose "Web Application", set "Allowed Javascript origin" to empty and set "Redirect URI" to<br><strong>%s</strong><br>then click on button "Create". You will get a <strong>new client ID</strong> and a <strong>Secret code</strong>. You need here to enter the <strong>Client ID</strong> here and <strong>Client Secret</strong> on next line.
+AllowGoogleToLoginWithClientSecret=See note on previous line to know how to get your Google Client Secret.
+AllowGoogleToLoginWithServiceAccount=You can create your <strong>service account user/email</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Services" -> "Credentials". Click on "Create/Add a client ID" and choose "Service Account" then "Create". You will get a new service account with a <strong>Service account client ID</strong> and a <strong>Service account EMail</strong>. You need here to enter the <strong>Service account EMail</strong>.
+EnableAPI=You must also enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Click to enable API for "%s".
+ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user". With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
+GOOGLE_API_SERVERKEY=API key (type "Server key")
+GoogleUserConf=Google setup
+GoogleSetupIsGlobal=Sync setup is done globally for all users to agenda ID <strong>%s</strong>.
+TestCreateUpdateDelete=Test create-update-delete
+TestCreateUpdate=Test create-update (to remove manually)
+TestCreate=Test create (to remove manually)
+TestSuccessfull=Test successful
+DueToGoogleLimitYouNeedToLogin=For security reasons imposed by Google, the Google calendar view will display correctly only if you are logged in to Google (this will work however for only one agenda ID).
+AllowGoogleToLoginSetupKey=To integrate this Google login process into your software (not required), it is possible to configure a key to allow the application to offer the Google Logon if you are not connected.
+AllowGoogleToLoginProp=You can get information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select "API & Services" -> "Credentials". Then Click on "Create an ID" and choose type "Web Application", enter as "Allowed redirect URL", the following URL <strong>%s</strong>. Check to not enter the "Client EMail" but "Client ID" into first field.
+AllowGoogleToLoginWithAccountService=You can get information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select "API & Services" -> "Credentials". Then Click on "Create an ID" and choose type "account service".
+AllowGoogleToLoginWithServiceAccountP12=Once you have you created your service account user/email (see note on previous fields), you must download your <strong>security json file</strong> (not required if file was downloaded automatically during previous creation of account). If you don't have the JSON file, return on <a href="%s" target="_blank">%s</a> and select "API & Services" -> "Credentials". Find the line with your created "Account service". Click on the edit button, then tab "Keys" and "Create a key file - Format JSON". This will download a new JSON file automatically. Then upload the file using this form.
+ExportThirdpartiesToGoogle=Export all Dolibarr thirdparties to GMail contacts (warning, there is no check on duplicate record for mass export).
+ExportContactToGoogle=Export all Dolibarr contacts/addresses to GMail contacts (warning, there is no check on duplicate record for mass export).
+ExportMembersToGoogle=Export all Dolibarr members to GMail contacts (warning, there is no check on duplicate record for mass export).
+ExportEventsToGoogle=Export last <strong>%s</strong> Dolibarr events to Google calendar <strong>%s</strong> (warning, there is no check on duplicate record for mass export)
+DeleteAllGoogleThirdparties=Delete all thirdparties coming from Dolibarr on Gmail.
+DeleteAllGoogleContacts=Delete all contacts/addresses coming from Dolibarr on Gmail.
+DeleteAllGoogleMembers=Delete all members coming from Dolibarr on Gmail.
+DeleteAllGoogleEvents=Delete all events of Google calendar <strong>%s</strong> linked to a Dolibarr
+PushToGoogleSucess=Syncronising to Google contact finished for %s record(s).
+TagsCreatedSuccess=Synchronising groups to Google contact finished
+DeleteToGoogleSucess=%s contact(s) deleted into Google contact.
+GOOGLE_TAG_PREFIX=Label of group to tags Dolibarr thirdparties into Google contact
+GOOGLE_TAG_PREFIX_CONTACTS=Label of group to tags Dolibarr contacts/addresses into Google contact
+GOOGLE_TAG_PREFIX_MEMBERS=Label of group to tags Dolibarr members into Google contact
+ErrorLabelsMustDiffers=Error, value for labels must be unique
+BoxMaps=List of available maps
+MapOfThirdparties=Map of thirdparties
+MapOfContactsAddresses=Map of contacts/addresses
+MapOfMembers=Map of members
+MapOfPatients=Map of patients
+NoAddressDefined=No addresses defined
+FollowingAddressCantBeLocalized=Following addresses could not be localized onto the map
+OnlyXAddressesAmongYWereGeoencoded=Due to Google quotas (localization of addresses is done by packet size of %s), some addresses are not represented because not yet geoencoded.
+CountGeoTotal=Total addresses %s - %s not yet geoencoded - %s in error = %s represented.
+ClickHereToIncludeXMore=Click here to geoencode more addresses
+ListOfMaps=List of available maps
+By1=By 1
+By25=By 25
+By50=Byr 50
+By100=By 100
+By250=By 250
+ParametersForGoogleOAuth=Pour Google API OAuth 2.0
+ParametersForGoogleAPIv2Usage=For Google API %s V2
+ParametersForGoogleAPIv3Usage=For Google API %s V3
+GoogleClientId=Client ID
+GoogleClientSecret=Client secret
+GOOGLE_WEB_TOKEN=Current token
+GOOGLE_FIX_TZ=TimeZone fix (Dolibarr -> Google)
+GOOGLE_FIX_TZ_G2D=TimeZone fix (Google -> Dolibarr)
+GOOGLE_API_CLIENT_ID=Google Client ID
+GOOGLE_API_CLIENT_SECRET=Google Client Secret
+GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Service account Client ID
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account email to allow (NOT your Google account login/email)
+GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account json file
+FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+LinkToThirdParty=Link to thirdparty
+LinkToContact=Link to contact
+GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Note also that only the predefined system group "System Group: My Contacts" is shared by the "Delegate contacts" feature available in Google contact of Google Suite.
+XRecordDeleted=<strong>%s</strong> records deleted
+ThisFieldIsAGlobalSetup=This field is defined into global setup of module
+FillAndSaveGoogleAccount=Fill and save your Google account and Google Client ID first
+LinkToOAuthPage=Link to Google OAuth2 page
+GoogleWebTokenNotDefinedDoALoginInitFirst=Google token was never generated. Ask your administror to go onto 'Home - Setup - Modules - Google - Setup page of contact sync' and generated once a security token.
+ImportEventsFromGoogle=Import last <strong>%s</strong> modified Google events from Google calendar <strong>%s</strong> and modified after
+GetFromGoogleSucess=Sync from Google success.<br>%s record(s) inserted into Dolibarr<br>%s record(s) updated into Dolibarr<br>%s record(s) deleted into Dolibarr.
+GetFromGoogleAlreadyDeleted=%s record(s) deleted on Google and not found into Dolibarr.
+OperationMayBeLong=operation may be long, restart if you epxerience timeout
+ErrorModuleGoogleKeyFileNotFound=Google key file %s was not found
+ClickToUpdateWithLastGoogleChanges=Click to refresh agenda database with last changes done on Google agenda %s since
+GoogleLimitBackTime=Due to a Google limit, requests are limited to %s days max in the past
+ResetGeoEncodingErrors=Reset geoencoding errors table
+RecordInGeoEncodingErrorDeleted=All records with geoencoding errors were reset for another geoencoding try.
+IconTiers=Use a different picto for prospect, customer and supplier
+CustomersOnly=Customers only
+ProspectsOnly=Prospects only
+RefreshEventFromGoogle=Refresh events from Google

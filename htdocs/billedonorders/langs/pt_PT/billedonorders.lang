@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Cobrado em pedidos
+BilledOnOrdersSetup=Configuração do módulo Faturado em Pedidos
+Module101450Desc=Módulo para mostrar o valor faturado e o restante faturado de acordo com as faturas vinculadas na lista de pedidos de clientes ou fornecedores
+AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (Uma empresa Dolibarr Preferred Partner).
+MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clique aqui para ver a lista completa </a>
+MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clique aqui para mais informações </a>
+BilledOnOrdersNothingToSetup=Nada para configurar. Novos campos estão disponíveis na lista de pedidos de clientes.
+AmountBilledHT=Valor faturado (excluindo impostos)
+AmountBilledTTC=Valor faturado (incluindo impostos)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Desativar coluna "Valor faturado sem impostos"
+BILLEDONORDERS_DISABLE_BILLED=Desativar coluna "Valor faturado com imposto"
+BILLEDONORDERS_DISABLE_PAYED=Desativar coluna "Valor pago"
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Desativar coluna "Continuar a pagar"
+AmountBilledDiffersFromAmountOnOrder=O valor das faturas vinculadas ao pedido difere do valor do pedido
+AmongAlreadyCreatedInvoices=Entre as faturas já criadas

@@ -1,14 +1,20 @@
-# Dolibarr language file - ca_ES - awstats
+# Dolibarr language file - en_EN - awstats
 CHARSET= UTF-8
 AWStatsSetup=Configuració del mòdul AWStats
-AWStatsSummary=Resum AWStats
-AWStatsSetupNotComplete=La configuració del mòdul AWStats està incompleta
-AWSTATS_DATA_DIR=Directori arxius de dades (ruta en disc)
-AWSTATS_CGI_PATH=URL accés Awstats (en CGI)
-AWSTATS_PROG_PATH=Localització AWStats (ruta en disc)
-AWSTATS_LIMIT_CONF=Limitar les conf. mostrades en aquesta llista (buit per no filtrar o usar "," com a separador)
-ShowStats=Mostrar estadístiques detallades
-FilterDomain=Filtrar en el perfil (arxiu de configuració)
+AWStatsSummary=Resum d'AWStats
+AWStatsSetupNotComplete=La configuració d'AWStats no s'ha completat
+AWSTATS_DATA_DIR=Directori de fitxers de dades d'AWStats (camí al disc)
+AWSTATS_CGI_PATH=URL d'AWStats (CGI)
+AWSTATS_PROG_PATH=Localització del programa AWStats (camí al disc)
+AWSTATS_LIMIT_CONF=Limiteu la configuració mostrada a aquesta llista (buida si no hi ha cap filtre o utilitzeu "," com a separador)
+ShowStats=Mostra estadístiques detallades
+FilterDomain=Filtra pel perfil (nom de la configuració)
 Module12000Name=AWStats
-Module12000Desc=Mòdul per integrar els informes de l'analitzador de logs AWStats en Dolibarr
-ErrorAWStatsDataDirMustEndWithASlash=El directori ha d'acabar amb / o \
+Module12000Desc=Mòdul per integrar informes de l'analitzador de registres AWStats a Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=El directori ha d'acabar amb / o FilterDomain=Filtre el nom de la configuració
+AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa de Dolibarr Preferred Partner).
+MoreModules=Altres mòduls del mateix autor estan disponibles al mercat oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Feu clic aquí per veure la llista completa </a>
+MoreCloudHosting=Per utilitzar Dolibarr en línia, trieu l'allotjament segur DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Feu clic aquí per obtenir més informació </a>
+CompatibleWithDoliDroid=Aquest mòdul també és compatible amb DoliDroid, l'aplicació d'Android per a Dolibarr.

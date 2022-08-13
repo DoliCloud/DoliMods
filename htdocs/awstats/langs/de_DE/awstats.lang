@@ -1,0 +1,20 @@
+# Dolibarr language file - en_EN - awstats
+CHARSET= UTF-8
+AWStatsSetup=Einrichtung des AWStats-Moduls
+AWStatsSummary=AWStats-Zusammenfassung
+AWStatsSetupNotComplete=AWStats-Setup ist nicht abgeschlossen
+AWSTATS_DATA_DIR=Verzeichnis der AWStats-Datendateien (Pfad auf der Festplatte)
+AWSTATS_CGI_PATH=AWStats-URL (CGI)
+AWSTATS_PROG_PATH=Lokalisierung des AWStats-Programms (Pfad auf der Festplatte)
+AWSTATS_LIMIT_CONF=Angezeigte Konfiguration auf diese Liste beschränken (leer für keinen Filter oder "," als Trennzeichen verwenden)
+ShowStats=Detaillierte Statistiken anzeigen
+FilterDomain=Filtern nach Profil (Konfigurationsname)
+Module12000Name=AWStats
+Module12000Desc=Modul zur Integration von AWStats-Protokollanalyseberichten in Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=Das Verzeichnis muss mit / oder FilterDomain=Filter on configuration name enden
+AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+MoreModules=Weitere Module desselben Autors sind auf dem offiziellen DoliStore-Marktplatz verfügbar...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
+MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klicken Sie hier für weitere Informationen </a>
+CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.

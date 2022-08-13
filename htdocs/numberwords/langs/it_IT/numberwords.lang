@@ -1,0 +1,15 @@
+# Dolibarr language file - en_US - numberwords
+CHARSET=UTF-8
+Module101220Name=Numero di parole
+Module101220Desc=Aggiungi funzionalità per convertire importi e numeri in valore nel testo completo (solo poche lingue supportate)
+NumberWordsSetup=Configurazione del modulo Parole Numero
+DescNumberWords=Questo modulo fornisce funzioni per convertire il numero o l'importo in caratteri interi. Sostituirà anche le seguenti occorrenze di stringa __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ o __AMOUNT_CURRENCY_TEXT__ per totale al netto di tasse, totale senza tasse o totale di IVA in tutti i testi che li utilizzano
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
+SetupToChange=Pagina di configurazione de modificare
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Usa il simbolo invece del testo completo per la valuta
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Aggiungi il codice breve della valuta prima del simbolo

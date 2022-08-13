@@ -1,4 +1,4 @@
-# Dolibarr language file - es_ES - filemanager
+# Dolibarr language file - en_US - filemanager
 CHARSET=UTF-8
 FileManager=Administrador archivos
 FileManagerSetup=Configuración del módulo FileManager
@@ -18,13 +18,23 @@ YouMustSelectAFileToUseFileEditorTool=Debe seleccionar un archivo en el panel de
 NoEditorForThisFormat=Sin editor para este formato de archivo.
 DeleteDir=Eliminar directorio
 DeleteFileName=Eliminar el archivo:
-DeleteDirName=Eliminar el directorio: 
+DeleteDirName=Eliminar el directorio:
 NewDir=Nuevo directorio
+CreateNewDir=Crear nuevo directorio
 NewFile=Nuevo archivo
 AddRootPath=Añadir directorios iniciales al administrador de archivos
 UseColorSyntaxing=Activar la coloración de sintaxis en los archivos de texto (require más memoria. Desactivar en caso de página en blanco alintentar visualizar el contenido de un archivo).
 ColoringDisabled=Coloración de sintaxis desactivada
 ServerMustHavePermission=Los permisos de archivo deben de estar correctamente otorgados en el servidor web (%s/%s).
+AddDirName=Agregar nombre de directorio
+AddFileName=Agregar nombre de archivo
 #####
 Module10600Name=File manager
 Module10600Desc=Un administrador de archivos para navegar por el contenido de los discos del servidor Dolibarr
+AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa socia preferida de Dolibarr).
+MoreModules=Otros módulos del mismo autor están disponibles en el mercado oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Haga clic aquí para ver la lista completa </a>
+MoreCloudHosting=Para usar Dolibarr en línea, elija el alojamiento seguro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Haga clic aquí para obtener más información </a>
+CompatibleWithDoliDroid=Este módulo también es compatible con DoliDroid, la aplicación de Android para Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=La cuenta de usuario utilizada por el servidor web no tiene permiso para escribir

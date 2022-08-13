@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=Manager de fișiere
+FileManagerSetup=Configurarea modulului FileManager
+LabelForRootFileManager=Etichetă pentru calea rădăcină/comandă rapidă vizibilă
+RootFileManager=Calea rădăcină/comandă rapidă selectată
+PathForRootFileManager=Locația căii rădăcină/comandării rapide pe disc
+NoteOnFileManagerPathLocation=Toate directoarele trebuie să aibă permisiunea pentru a permite serverului dvs. web să le citească/scaneze.
+ListForRootPath=Lista de căi/comenzi rapide vizibile pentru rădăcină
+PleaseSelectARoot=Vă rugăm, selectați un director rădăcină pe care să îl scanați din meniu...
+SelectAFile=Selectați un director sau un fișier din panoul din stânga
+DateLastAccess=Data ultimului acces
+DateLastChange=Ultima modificare a datei
+FullPath=Calea plină
+PreviewNotAvailableForThisType=Previzualizarea nu este disponibilă pentru acest tip de fișier.
+NotEnoughMemoryForSyntaxColor=PHP-ul dvs. nu are suficientă memorie pentru a activa colorarea sintaxei la previzualizarea fișierelor text.
+YouMustSelectAFileToUseFileEditorTool=Trebuie să selectați un fișier în panoul din stânga pentru a utiliza instrumentul de editare de fișiere.
+NoEditorForThisFormat=Niciun editor care să editeze acest format de fișier.
+DeleteDir=Ștergeți directorul
+DeleteFileName=Ștergeți următorul fișier:
+DeleteDirName=Șterge următorul director:
+NewDir=Director nou
+CreateNewDir=Creați un director nou
+NewFile=Fișier nou
+AddRootPath=Adăugați directoare rădăcină pentru filemanager
+UseColorSyntaxing=Activați sintaxarea culorilor la caracteristica de vizualizare a conținutului fișierului (necesită mai multă memorie. Dezactivați această opțiune dacă aveți o pagină goală când vizualizați conținutul unui fișier text)
+ColoringDisabled=Colorarea sintaxelor nu este activată
+ServerMustHavePermission=Permisiunile pe sistemul de fișiere pentru acesta trebuie acordate serverului web (%s/%s).
+AddDirName=Adăugați numele directorului
+AddFileName=Adăugați numele fișierului
+#####
+Module10600Name=Manager de fișiere
+Module10600Desc=Un manager de fișiere pentru a scana și vizualiza conținutul discurilor serverului dvs. Dolibarr.
+AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (O companie Dolibarr Preferred Partner).
+MoreModules=Alte module ale aceluiași autor sunt disponibile pe piața oficială DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Faceți clic aici pentru a vedea lista completă </a>
+MoreCloudHosting=Pentru a utiliza Dolibarr online, alegeți găzduirea securizată DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Faceți clic aici pentru mai multe informații </a>
+CompatibleWithDoliDroid=Acest module este compatibil și cu DoliDroid, aplicația Android pentru Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=Contul de utilizator folosit de serverul web nu are permisiunea de a scrie

@@ -1,0 +1,20 @@
+# Dolibarr language file - en_US - concatpdf
+CHARSET= UTF-8
+ConcatPdfSetup=ConcatPDF module setup
+ConcatPDfTakeFileFrom=ConcatPDF module will suggest to concat:
+ConcatPDfTakeFileFrom2=To generated PDF <b>%s</b>, any PDF file found into directory: <b>%s</b>
+ConcatPDfPutFileManually=PDF files can be stored here using your file manager.
+NoPDFFileFound=No PDF files found into directory for the moment
+ConcatFile=Concat PDF file
+EnableMultipleConcatenation=Enable the ability to concatenate multiple documents.
+ConcatPdf=Concat PDF
+Module101400Name=Concat PDF
+Module101400Desc=Module to contact PDF (sells conditions for example) to any generated PDF (invoices, orders or proposals)
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+ErrorFileMustBeAPdf=Error, file must be a PDF file
+WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF is not compatible with PDF option : %s

@@ -1,5 +1,136 @@
-# Dolibarr language file - no_NB - google
+# Dolibarr language file - en_US - google
 CHARSET=UTF-8
 GoogleSetup=Oppsett av Google tools integrasjon
 GoogleSetupHelp=Hjelp til å angi parametere finnes på Google url %s
-GoogleAgendaNb=Agenda nb %s 
+GoogleAgendaNb=Agenda nb %s
+GoogleIDAgenda=ID-agenda
+GoogleNbOfAgenda=Antall agendaer
+GoogleTools=Google-verktøy
+GoogleEnableThisTool=Legg til Google agenda-fanen i agendavisning
+GoogleEnableThisToolThirdParties=Aktiver dette verktøyet på tredjepartskort
+GoogleEnableThisToolContacts=Aktiver dette verktøyet på kontaktkort
+GoogleEnableThisToolMembers=Aktiver dette verktøyet på medlemskort
+GoogleAddPubOnLogonPage=Legg til AdSense-informasjon for å legge til din egen annonse på påloggingssiden (eller hold tom)
+GoogleAddAnalyticsOnLogonPage=Legg til Analytics-ID for å legge til Google Analytics-taggene på hver side (ellers hold tom)
+GoogleZoomLevel=Zoomnivå som standard (1 til 10)
+GoogleAddressNotDefined=Adressen er ikke definert nok til å bli geolokalisert
+GoogleMapsAddressNotFound=Adressen ble ikke funnet.
+GoogleAgendaToShow=Agenda å vise
+GoogleEnableSyncToCalendar=Opprett en Google-hendelse i Google Kalender når du oppretter en Dolibarr-hendelse
+GoogleEnableSyncToThirdparties=Aktiver synkronisering av tredjeparter til Google Gmail-kontakter
+GoogleEnableSyncToContacts=Aktiver synkronisering av kontakter/adresser til Google Gmail-kontakter
+GoogleEnableSyncToMembers=Aktiver synkronisering av medlemmer til Google Gmail-kontakter
+AgendaView=Se Google-agenda
+AgendaSync=Synkroniser til Google-agenda
+ContactSync=Synkroniser med Google-kontakt
+GOOGLE_LOGIN=Logg på Google
+GOOGLE_PASSWORD=Mot de passe
+GOOGLE_EVENT_LABEL_INC_SOCIETE=Legg til tredjepartsnavn i hendelsesetiketten for tredjepartsarrangementer
+GOOGLE_EVENT_LABEL_INC_CONTACT=Legg til kontaktnavn i hendelsesetiketten for kontakthendelser
+GOOGLE_CONTACT_LABEL=Etikett for å merke kontakter
+GOOGLE_INCLUDE_AUTO_EVENT=Synkroniser også for hendelser automatisk opprettet av Dolibarr (se oppsett av modul Agenda for liste over automatiske hendelser). <br> Hvis nei, er det kun hendelser som er lagt inn manuelt i agendaen som synkroniseres.
+GOOGLE_INCLUDE_ATTENDEES=Legg også til en liste over deltakere i arrangementet. Google kan sende e-poster til dem når du oppretter et arrangement med deltakere. Noen ganger tillater ikke Google bruk av API-ene når det er deltakere.
+MAIN_GOOGLE_AN_ID=Google Analytics-ID
+GoogleIDContact=Google-konto
+GoogleNoTokenYet=Du har ikke noe token ennå. For å opprette en, autentiser deg til Google med følgende kobling:
+GoogleRecreateToken=For å tvinge til å gjenskape et nytt token, autentiser deg til Google med følgende kobling:
+GoogleDeleteToken=Slik sletter du gjeldende token:
+GoogleDeleteAuthorization=Slik leser/sletter du lagret autorisasjon fra Google:
+Module101110Name=Google
+Module101110Desc=Modul for å integrere Google-verktøy med Dolibarr
+GoogleCalendarSyncConf=GoogleCalendarSyncConf
+TargetUser=Målbruker
+KeepEmptyYoUseLoginPassOfEventUser=Hold tomt hvis du ønsker en synkronisering per bruker. I et slikt tilfelle, skriv inn Agenda-ID på hvert brukernivå. Definer en verdi hvis du vil at alle hendelser skal synkroniseres i samme Google-agenda.
+KeepEmptyYoUseLoginPassOfEventUserAssigned=For øyeblikket er dette oppsettet tomt. Det betyr at den målrettede agendaen vil være agendaen til brukeren som er eier av arrangementet (ID-agenda må defineres på hver bruker). Ingen synkronisering utføres hvis oppsett av Agenda ID for denne brukeren ikke er gjort.
+KeepEmptyYoUseLoginPassOfEventUserSaleRep=Den målrettede agendaen er agendaen til den første salgsrepresentanten til tredjeparten arrangementet er knyttet til. Hvis det ikke er noen tredjepart for arrangementet, eller salgsrepresentant for tredjepart, utføres ingen synkronisering.
+KeepEmptyYoUsePublicQuotaOfAPI=Hold tom for å bruke den offentlige kvoten til API.
+AllowGoogleToLoginWithKey=Du må ha en Google-konto og opprette din egen nøkkel fra side <a href="%s" target="_blank"> %s </a> , menyen "API & Services" -> "Legitningsinformasjon". Klikk på "Opprett en nøkkel" og velg "Servernøkkel" og deretter "Opprett". Du får servernøkkelen din.
+AllowGoogleToLoginWithClientID=Du kan opprette din <strong> Google-klient-ID og hemmelige </strong> fra side <a href="%s" target="_blank"> %s </a> , velg et prosjekt eller opprett en "API & Services" -entials>. Klikk på "Create/Add a client ID OAuth 2.0" og velg "Web Application", sett "Allowed Javascript origin" til å tømme og sett "Redirect URI" til <br> <strong> %s a0accb2ec87f49fz0 a01f634cfCrezda, klikk deretter på "A01f6349b0zf" knappen. Du vil få en <strong> ny klient-ID </strong> og en <strong> hemmelig kode </strong> . Her må du angi <strong> klient-ID </strong> her og <strong> klienthemmelighet </strong> på neste linje.
+AllowGoogleToLoginWithClientSecret=Se merknaden på forrige linje for å finne ut hvordan du får Google-klienthemmeligheten din.
+AllowGoogleToLoginWithServiceAccount=Du kan opprette din <strong>-tjenestekonto bruker/e-post </strong> fra side <a href="%s" target="_blank"> %s </a> , velg et prosjekt eller opprett en meny "API &C". Klikk på "Opprett/Legg til en klient-ID" og velg "Tjenestekonto" og deretter "Opprett". Du vil få en ny tjenestekonto med en <strong> tjenestekonto klient-ID </strong> og en <strong> tjenestekonto e-post </strong>. Her må du skrive inn <strong> tjenestekontoen e-post </strong> .
+EnableAPI=Du må også aktivere API for Google-kontoen din. For dette gå til side <a href="%s" target="_blank"> %s </a> , meny "API & Services" -> "API". Klikk for å aktivere API for "%s".
+ShareCalendarWithServiceAccount=Du må også dele agendaen (alle tillatelser) med tjenestekontobrukeren/e-posten <strong> %s </strong> : For dette, gå inn i Google-kalenderen. Det må være samme agenda enn den som er valgt på parameteren "%s". Velg "Parametere" og klikk deretter på agendanavnet ditt for å vise lenken "Del parametere med...". Klikk på den og legg til tjenestekontobrukeren som en kontakt å dele agendaen din med. Velg tillatelse "Rediger hendelser" og bekreft ved å klikke "Legg til bruker". Med <strong> Google Suite </strong> (ikke nødvendig for standard gmail-konto), kan tillatelser tvinges til "Kun klar" i stedet for "Rediger". Hvis du ikke kan velge "Rediger"-tillatelse, gå til <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank"> https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing </a> og sjekk at delingsalternativet for Agenda-applikasjonen tillater deling med ekstern tjenestekonto.
+GOOGLE_API_SERVERKEY=API-nøkkel (skriv "servernøkkel")
+GoogleUserConf=Google-oppsett
+GoogleSetupIsGlobal=Synkroniseringsoppsett gjøres globalt for alle brukere til agenda-ID <strong> %s </strong>.
+TestCreateUpdateDelete=Test create-update-delete
+TestCreateUpdate=Test opprettingsoppdatering (for å fjerne manuelt)
+TestCreate=Testoppretting (for å fjerne manuelt)
+TestSuccessfull=Testen var vellykket
+DueToGoogleLimitYouNeedToLogin=Av sikkerhetsgrunner pålagt av Google, vil Google-kalendervisningen bare vises riktig hvis du er logget på Google (dette vil imidlertid fungere for bare én agenda-ID).
+AllowGoogleToLoginSetupKey=For å integrere denne Google-påloggingsprosessen i programvaren din (ikke nødvendig), er det mulig å konfigurere en nøkkel for å tillate at applikasjonen tilbyr Google-pålogging hvis du ikke er tilkoblet.
+AllowGoogleToLoginProp=Du kan få informasjon for denne oppsettsiden ved å opprette en nøkkel ved å bruke denne lenken <a href="%s" target="_blank"> %s </a> : Velg "API & Services" -> "Legitimasjoner". Klikk deretter på "Opprett en ID" og velg skriv inn "Nettapplikasjon", skriv inn som "Tillatt omdirigerings-URL", følgende URL <strong> %s </strong> . Kryss av for ikke å skrive inn "Klient-e-post", men "Klient-ID" i det første feltet.
+AllowGoogleToLoginWithAccountService=Du kan få informasjon for denne oppsettsiden ved å opprette en nøkkel ved å bruke denne lenken <a href="%s" target="_blank"> %s </a> : Velg "API & Services" -> "Legitimasjoner". Klikk deretter på "Opprett en ID" og velg skriv "kontotjeneste".
+AllowGoogleToLoginWithServiceAccountP12=Når du har opprettet brukeren/e-posten for tjenestekontoen (se merknad om tidligere felt), må du laste ned <strong> sikkerhets-json-filen </strong> (ikke nødvendig hvis filen ble lastet ned automatisk under forrige opprettelse av kontoen). Hvis du ikke har JSON-filen, gå tilbake til <a href="%s" target="_blank"> %s </a> og velg "API & Services" -> "Legitimasjoner". Finn linjen med din opprettede "Kontotjeneste". Klikk på rediger-knappen, fanen "Nøkler" og "Opprett en nøkkelfil - Formater JSON". Dette vil automatisk laste ned en ny JSON-fil. Last deretter opp filen ved å bruke dette skjemaet.
+ExportThirdpartiesToGoogle=Eksporter alle Dolibarr-tredjeparter til Gmail-kontakter (advarsel, det er ingen kontroll på duplikatpost for masseeksport).
+ExportContactToGoogle=Eksporter alle Dolibarr-kontakter/adresser til Gmail-kontakter (advarsel, det er ingen kontroll på duplikatpost for masseeksport).
+ExportMembersToGoogle=Eksporter alle Dolibarr-medlemmer til Gmail-kontakter (advarsel, det er ingen kontroll på duplikatpost for masseeksport).
+ExportEventsToGoogle=Eksporter siste <strong> %s </strong> Dolibarr-hendelser til Google-kalenderen <strong> %s a0a65dc9z0, det er ingen sjekk for masseeksport (dupwar)
+DeleteAllGoogleThirdparties=Slett alle tredjeparter som kommer fra Dolibarr på Gmail.
+DeleteAllGoogleContacts=Slett alle kontakter/adresser som kommer fra Dolibarr på Gmail.
+DeleteAllGoogleMembers=Slett alle medlemmer som kommer fra Dolibarr på Gmail.
+DeleteAllGoogleEvents=Slett alle hendelser i Google-kalenderen <strong> %s </strong> knyttet til en Dolibarr
+PushToGoogleSucess=Synkronisering til Google-kontakt fullført for %s-post(er).
+TagsCreatedSuccess=Synkronisering av grupper til Google-kontakt fullført
+DeleteToGoogleSucess=%s kontakt(er) slettet i Google-kontakt.
+GOOGLE_TAG_PREFIX=Etikett på gruppen for å merke Dolibarr-tredjeparter i Google-kontakt
+GOOGLE_TAG_PREFIX_CONTACTS=Etikett på gruppen for å merke Dolibarr-kontakter/-adresser til Google-kontakt
+GOOGLE_TAG_PREFIX_MEMBERS=Etikett på gruppen som skal merke Dolibarr-medlemmer til Google-kontakt
+ErrorLabelsMustDiffers=Feil, verdien for etiketter må være unik
+BoxMaps=Liste over tilgjengelige kart
+MapOfThirdparties=Kart over tredjeparter
+MapOfContactsAddresses=Kart over kontakter/adresser
+MapOfMembers=Kart over medlemmer
+MapOfPatients=Kart over pasienter
+NoAddressDefined=Ingen adresser definert
+FollowingAddressCantBeLocalized=Følgende adresser kunne ikke lokaliseres på kartet
+OnlyXAddressesAmongYWereGeoencoded=På grunn av Google-kvoter (lokalisering av adresser gjøres etter pakkestørrelse på %s), er noen adresser ikke representert fordi de ikke er geokodet ennå.
+CountGeoTotal=Totale adresser %s - %s ennå ikke geokodet - %s feil = %s representert.
+ClickHereToIncludeXMore=Klikk her for å geokode flere adresser
+ListOfMaps=Liste over tilgjengelige kart
+By1=Innen 1
+By25=Innen 25
+By50=Byr 50
+By100=Ved 100
+By250=Innen 250
+ParametersForGoogleOAuth=Hell Google API OAuth 2.0
+ParametersForGoogleAPIv2Usage=For Google API %s V2
+ParametersForGoogleAPIv3Usage=For Google API %s V3
+GoogleClientId=klient-ID
+GoogleClientSecret=Klienthemmelighet
+GOOGLE_WEB_TOKEN=Gjeldende token
+GOOGLE_FIX_TZ=TimeZone fix (Dolibarr -> Google)
+GOOGLE_FIX_TZ_G2D=TimeZone fix (Google -> Dolibarr)
+GOOGLE_API_CLIENT_ID=Google Client ID
+GOOGLE_API_CLIENT_SECRET=Google-klienthemmelighet
+GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Tjenestekonto klient-ID
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Tjenestekontoens e-postadresse for å tillate (IKKE din Google-kontopålogging/e-post)
+GOOGLE_API_SERVICEACCOUNT_P12KEY=Tjenestekonto json-fil
+FillThisOnlyIfRequired=Eksempel: +2 (fyll bare ut hvis du har problemer)
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
+MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klikk her for mer informasjon </a>
+CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
+LinkToThirdParty=Link til tredjepart
+LinkToContact=Link til kontakt
+GoogleContactSyncInfo=Her kan du bruke hvilken som helst etikett. Gruppen opprettes i Google Kontakt hvis den ikke eksisterer. Du kan også bruke en etikett for en av forhåndsdefinerte Google-systemgrupper som: <br> "Systemgruppe: Mine kontakter", "Systemgruppe: Venn", "Systemgruppe: CoWorker", "Systemgruppe: Familie" <br> Merk også at kun den forhåndsdefinerte systemgruppen "Systemgruppe: Mine kontakter" deles av funksjonen "Delegert kontakter" som er tilgjengelig i Google-kontakt i Google Suite.
+XRecordDeleted= <strong> %s </strong> poster slettet
+ThisFieldIsAGlobalSetup=Dette feltet er definert i global oppsett av modulen
+FillAndSaveGoogleAccount=Fyll ut og lagre Google-kontoen din og Google Client ID først
+LinkToOAuthPage=Link til Google OAuth2-side
+GoogleWebTokenNotDefinedDoALoginInitFirst=Google-token ble aldri generert. Be administratoren din om å gå til "Hjem - Oppsett - Moduler - Google - Oppsettside for kontaktsynkronisering" og generert en sikkerhetstoken én gang.
+ImportEventsFromGoogle=Importer siste <strong> %s </strong> modifiserte Google-hendelser fra Google-kalender <strong> %s a0a65dc09zf6 modfc0710 og modifisert etter
+GetFromGoogleSucess=Synkronisering fra Google suksess. <br> %s-post(er) satt inn i Dolibarr <br> %s-post(er) oppdatert i Dolibarr a0342fccfda19b2ec80 %s-post(er) oppdatert i Dolibarr a0342fccfda19b2ec80 %s-poster
+GetFromGoogleAlreadyDeleted=%s oppføring(er) slettet på Google og ikke funnet i Dolibarr.
+OperationMayBeLong=operasjonen kan være lang, start på nytt hvis du opplever tidsavbrudd
+ErrorModuleGoogleKeyFileNotFound=Google-nøkkelfilen %s ble ikke funnet
+ClickToUpdateWithLastGoogleChanges=Klikk for å oppdatere agendadatabasen med siste endringer gjort på Google-agenda %s siden
+GoogleLimitBackTime=På grunn av en Google-grense er forespørsler begrenset til maks. %s dager i det siste
+ResetGeoEncodingErrors=Tilbakestill geokodingsfeiltabell
+RecordInGeoEncodingErrorDeleted=Alle poster med geokodingsfeil ble tilbakestilt for et nytt geokodingsforsøk.
+IconTiers=Bruk et annet bilde for prospekt, kunde og leverandør
+CustomersOnly=Kun kunder
+ProspectsOnly=Kun prospekter
+RefreshEventFromGoogle=Oppdater hendelser fra Google

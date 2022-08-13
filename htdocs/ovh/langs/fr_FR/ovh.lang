@@ -1,18 +1,21 @@
-# Dolibarr language file - fr_FR - ovh
+# Dolibarr language file - en_US - ovh
 CHARSET=UTF-8
 OvhSmsSetup=Configuration module Ovh
 OvhSmsRecap=Récapitulatif compte principal
 OvhSmsNick=Nick Handle du compte principal
+OvhBillingAccount=Nick handle pour le compte principal
+OvhServiceName=Compte service OVH
 OvhSmsPass=Mot de passe
 OvhSmsLabelAccount=Compte SMS à utiliser
 OvhSmsLoginSuccessFull=Connexion ok!
 OvhSmsNotConfigured=Module non configuré
+OvhAuthenticationPartNotConfigured=Données d'authentification non configurées. Allez dans la configuration du module OVH, onglet "Authentification" en premier.
 NbSmsLeft=Nombre SMS restant
 OvhSmsSoapUrl=URL du service SOAP OVH
 OvhSmsSend=Envoyer un SMS
 OvhSmsAccountInfos=Informations sur le compte SMS
 OvhSmsDestinataire=Destinataire
-OvhSmsLabelTexteMessage=Texte du message 
+OvhSmsLabelTexteMessage=Texte du message
 tabOvhSms=sms
 OvhSmsStatutSent=Message reçu
 OvhSmsStatutSubmitted=Soumis
@@ -23,8 +26,8 @@ OvhSmsHistory=Historique des %s derniers envois
 ListOfSmsAccountsForNH=Liste des comptes SMS pour les identifiants d'accès défini sur l'onglet "Authentification"
 ClickToDialLink=Voici le lien URL à copier-coller dans la configuration du module ClickToDial pour utiliser le ClickToDial %s:<br>%s
 TestSendSMS=Tester envoi SMS
-SendersAllowed=Emetteurs autorisés via le manager OVH
 TestLoginToApi=Tester connexion aux API
+SendersAllowed=Emetteurs autorisés via le manager OVH
 ListOfDedicatedServers=Liste de vos serveurs dédiés OVH
 ListOfPublicCloudServers=Liste de vos serveurs Public Cloud OVH
 OvhServers=Serveurs OVH
@@ -36,7 +39,7 @@ OvhInvoiceImportDesc=Cet écran vous permet de lister les factures chez OVH et d
 SupplierToUseForImport=Fournisseur sur lequel importer les factures
 ProductGenericToUseForImport=Produit/Service à utiliser pour les lignes de factures importées
 ProjectForImport=Lier les factures importées au projet
-KeepEmptyToSaveLinesAsFreeLines=Garder ce champ vide si vous ne voulez par voir les lignes importées utiliser un produit/service prédéfini générique 
+KeepEmptyToSaveLinesAsFreeLines=Garder ce champ vide si vous ne voulez par voir les lignes importées utiliser un produit/service prédéfini générique
 ScanOvhInvoices=Récuperer liste des factures
 ExcludeNullInvoices=Exclure les factures à montant nul
 ExcludeNullLines=Exclure les lignes de factures à montant nul
@@ -55,13 +58,26 @@ MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?se
 MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Cliquez ici pour plus d'information</a>
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
-Authentication=Authentification
 OvhApplicationName=Application name
 OvhApplicationDescription=Application description
 OvhApplicationKey=Application key
 OvhApplicationSecret=Application secret
 OvhConsumerkey=Consumer key
 GoOnPageToCreateYourAPIKey=D'abord aller sur la page <a href="%s" target="_blank">%s</a> pour créer une entrée d'application OVH et récupérer son API key et secret, ou créez en une nouvelle si vous préférez ou si vous avez perdu l'API key ou secret, ensuite remplissez cette page avec ces informations.
+ListOfExistingAPIApp=Remarque : Vous pouvez trouver la liste des applications déjà créées sur la page <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Cliquez <a href="%s"> ici pour vous connecter et obtenir une nouvelle clé consommateur </a> (vous devez choisir la validité <strong> UNLIMITED </strong>)
+Authentication=Authentification
+FromThe=Du
+PleaseFillOtherFieldFirst=Veuillez d'abord remplir les autres champs...
+IfYouChangeHereChangeAlsoClickToDial=Si vous modifiez les données ici, n'oubliez pas de mettre à jour également le lien vers le module ClickToDial
+ToGoOnClickToDialSetup=Pour continuer la configuration du module ClickToDial
+OvhTelAccountHelp=Mettez ici le nom de votre compte OVH Telecom Billing (PAS votre compte OVH)
+OvhServiceNameHelp=Mettez ici le numéro de la ligne SIP (doit être au format international comme 0033123456789 pour la France). Remarque, si vous avez plusieurs numéros de ligne pour différents utilisateurs, laissez ce champ vide et changez la valeur de "SIPLineNumber" dans l'URL que vous devez coller dans le champ URL ClickToDial sur chaque carte utilisateur (voir plus bas)
+OVHURLMustNotBeLocal=Attention, l'URL que vous utilisez pour l'application ne doit PAS être une URL locale mais une URL à laquelle vous pouvez accéder depuis Internet pour que cela fonctionne.
+CreateSnapshot=Créer un instantané
+SnapshotRequestSent=La demande d'instantané sous le nom "%s" a été envoyée avec succès.
+NoneLabelOnOvhLineWillBeUsed=Aucun (le libellé de la ligne dans la facture OVH sera utilisé)
+OVHAccount=Compte OVH
 OvhDefaultBankAccount=Banque par défaut pour les factures
 OvhValidVatList=Liste des taux de TVA valides
 OVHVatKeepEmptyToAcceptAll=Garder ce champ vide si vous voulez accepter tous les taux de TVA (calcule automatique)

@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Configurazione del modulo Ovh
+OvhSmsRecap=Riepilogo conto principale
+OvhSmsNick=Nick Handle per conto principale
+OvhBillingAccount=Nick handle per l'account principale
+OvhServiceName=Conto di servizio OVH
+OvhSmsPass=Parola d'ordine
+OvhSmsLabelAccount=Account SMS da utilizzare
+OvhSmsLoginSuccessFull=Connessione riuscita!
+OvhSmsNotConfigured=Modulo non configurato
+OvhAuthenticationPartNotConfigured=Dati di autenticazione non configurati. Vai al setup del modulo OVH, prima nella scheda "Autenticazione".
+NbSmsLeft=Numero di SMS rimanenti
+OvhSmsSoapUrl=URL del servizio SOAP OVH
+OvhSmsSend=Inviare SMS
+OvhSmsAccountInfos=Informazioni sull'account SMS
+OvhSmsDestinataire=Obbiettivo
+OvhSmsLabelTexteMessage=Testo del messaggio
+tabOvhSms=sms
+OvhSmsStatutSent=Messaggio ricevuto
+OvhSmsStatutSubmitted=Presentato
+OvhSmsStatutWaiting=In attesa
+OvhSmsStatutFailed=fallito
+OvhSmsBackToAdmin=Torna all'amministratore del modulo
+OvhSmsHistory=Registro degli ultimi invii %s
+ListOfSmsAccountsForNH=Elenco di account SMS per account definiti nella scheda "Autenticazione".
+ClickToDialLink=Questo è il collegamento per copiare e incollare nella configurazione del modulo ClickToDial per utilizzare %s Click2Dial: <br> %s
+TestSendSMS=Prova di invio SMS
+TestLoginToApi=Testare la connessione all'API
+SendersAllowed=Mittenti consentiti dal gestore OVH
+ListOfDedicatedServers=Elenco dei tuoi server OVH dedicati
+ListOfPublicCloudServers=Elenco dei tuoi server Public Cloud OVH
+OvhServers=Server OVH
+OvhDedicated=Server dedicati
+OvhPublicCloud=Server cloud pubblici
+OvhGetInvoices=Importazione fatture OVH
+OvhInvoiceImportShort=Importazione fatture OVH
+OvhInvoiceImportDesc=Questa pagina elenca tutte le fatture OVH e suggerisce un modo per importarle. Fare clic prima sul pulsante "Ottieni elenco fatture". Quindi per ogni fattura non già presente, spunta la casella e clicca su "Pulsante Importa".
+SupplierToUseForImport=Fornitore su cui creare fatture importate
+ProductGenericToUseForImport=Prodotto/servizio da utilizzare per le righe di fatture importate
+ProjectForImport=Allega fatture importate al progetto
+KeepEmptyToSaveLinesAsFreeLines=Lascia vuoto questo campo se non desideri visualizzare le righe importate utilizzando un prodotto/servizio predefinito generico
+ScanOvhInvoices=Ottieni l'elenco delle fatture
+ExcludeNullInvoices=Escludi fatture con importo totale nullo
+ExcludeNullLines=Escludi righe fattura con importo nullo
+NotFound=Non trovato
+ImportIt=Importarlo?
+ToImport=Importare
+NoInvoicesSelected=Nessuna fattura selezionata
+FileDownloadedAndAttached=File <strong> %s </strong> scaricato e allegato alla fattura
+InvoiceFoundIntoDolibarr=Fattura trovata in Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Fattura+PDF trovati in Dolibarr: %s
+ConnectionParameters=Parametri di connessione
+TryToUseProxy=Utilizzo del server proxy
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
+OvhApplicationName=Nome dell'applicazione
+OvhApplicationDescription=Descrizione dell'applicazione
+OvhApplicationKey=Chiave dell'applicazione
+OvhApplicationSecret=Segreto dell'applicazione
+OvhConsumerkey=Chiave del consumatore
+GoOnPageToCreateYourAPIKey=Per prima cosa vai alla pagina <a href="%s" target="_blank"> %s </a> per creare la voce della tua applicazione OVH e ottenere la sua chiave API e segreto, oppure creane una nuova se preferisci o se hai perso la chiave API/segreto, quindi riempi questa pagina con queste informazioni.
+ListOfExistingAPIApp=Nota: puoi trovare l'elenco delle applicazioni già create nella pagina <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Clicca <a href="%s"> qui per accedere e ottenere una nuova chiave consumatore </a> (devi scegliere <strong> UNLIMITED </strong> validità)
+Authentication=Autenticazione
+FromThe=Dal
+PleaseFillOtherFieldFirst=Si prega di compilare prima gli altri campi...
+IfYouChangeHereChangeAlsoClickToDial=Se modifichi i dati qui, non dimenticare di aggiornare anche il link nel modulo ClickToDial
+ToGoOnClickToDialSetup=Per andare alla configurazione del modulo ClickToDial
+OvhTelAccountHelp=Inserisci qui il nome del tuo account OVH Telecom Billing (NON il tuo account OVH)
+OvhServiceNameHelp=Inserisci qui il numero di linea SIP (deve essere il formato internazionale come 0033123456789 per la Francia). Nota, se hai più numeri di riga per utenti diversi, mantieni questo campo vuoto e cambia il valore di "SIPLineNumber" nell'URL che devi incollare nel campo URL ClickToDial su ogni scheda utente (vedi sotto)
+OVHURLMustNotBeLocal=Attenzione, l'URL che usi per l'applicazione NON deve essere un URL locale ma un URL a cui puoi accedere da Internet per farlo funzionare.
+CreateSnapshot=Crea istantanea
+SnapshotRequestSent=La richiesta di snapshot con il nome "%s" è stata inviata correttamente.
+NoneLabelOnOvhLineWillBeUsed=Nessuno (verrà utilizzata l'etichetta di riga nella fattura OVH)
+OVHAccount=Conto OVH
+OvhDefaultBankAccount=Conto bancario predefinito sulle fatture
+OvhValidVatList=Elenco dei valori IVA validi
+OVHVatKeepEmptyToAcceptAll=Lascia vuoto questo campo se vuoi accettare tutti i valori IVA (auto). Attenzione: a volte OVH restituisce aliquote IVA arrotondate in modo errato, quindi l'impostazione delle aliquote IVA qui obbliga l'applicazione a utilizzare il valore valido più vicino anziché il valore OVH.

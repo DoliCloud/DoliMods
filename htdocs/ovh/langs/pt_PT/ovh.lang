@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Configuração do módulo Ovh
+OvhSmsRecap=Resumo da conta principal
+OvhSmsNick=Nick Handle para conta principal
+OvhBillingAccount=Nick handle para conta principal
+OvhServiceName=Conta de serviço OVH
+OvhSmsPass=Senha
+OvhSmsLabelAccount=Conta SMS para usar
+OvhSmsLoginSuccessFull=Conexão bem-sucedida!
+OvhSmsNotConfigured=Módulo não configurado
+OvhAuthenticationPartNotConfigured=Dados de autenticação não configurados. Vá para a configuração do módulo OVH, guia "Autenticação" primeiro.
+NbSmsLeft=Número de SMS restantes
+OvhSmsSoapUrl=URL do serviço SOAP OVH
+OvhSmsSend=Enviar SMS
+OvhSmsAccountInfos=Informações sobre a conta SMS
+OvhSmsDestinataire=Alvo
+OvhSmsLabelTexteMessage=Texto da mensagem
+tabOvhSms=SMS
+OvhSmsStatutSent=Mensagem recebida
+OvhSmsStatutSubmitted=Enviado
+OvhSmsStatutWaiting=Espera
+OvhSmsStatutFailed=Fracassado
+OvhSmsBackToAdmin=Voltar para o administrador do módulo
+OvhSmsHistory=Log dos últimos envios %s
+ListOfSmsAccountsForNH=Lista de contas SMS para conta definida na guia "Autenticação"
+ClickToDialLink=Este é o link para copiar e colar na configuração do módulo ClickToDial para usar o %s Click2Dial: <br> %s
+TestSendSMS=Teste de envio de SMS
+TestLoginToApi=Testar conexão com a API
+SendersAllowed=Remetentes permitidos pelo gerente da OVH
+ListOfDedicatedServers=Lista dos seus servidores dedicados OVH
+ListOfPublicCloudServers=Lista dos seus servidores Public Cloud OVH
+OvhServers=Servidores OVH
+OvhDedicated=Servidores dedicados
+OvhPublicCloud=Servidores de nuvem pública
+OvhGetInvoices=Importação de faturas OVH
+OvhInvoiceImportShort=Importação de faturas OVH
+OvhInvoiceImportDesc=Esta página lista todas as faturas da OVH e sugere uma forma de as importar. Clique primeiro no botão "Obter lista de faturas". Em seguida, para cada fatura ainda não presente, marque a caixa e clique no botão "Importar".
+SupplierToUseForImport=Fornecedor para criar faturas importadas em
+ProductGenericToUseForImport=Produto/Serviço a ser usado para linhas de faturas importadas
+ProjectForImport=Anexar faturas importadas ao projeto
+KeepEmptyToSaveLinesAsFreeLines=Mantenha este campo vazio se não quiser ver linhas importadas usando um produto/serviço genérico predefinido
+ScanOvhInvoices=Obter lista de faturas
+ExcludeNullInvoices=Excluir faturas com valor total nulo
+ExcludeNullLines=Excluir linhas de fatura com valor nulo
+NotFound=Não encontrado
+ImportIt=Importá-lo?
+ToImport=Importar
+NoInvoicesSelected=Nenhuma fatura selecionada
+FileDownloadedAndAttached=Arquivo <strong> %s </strong> baixado e anexado à fatura
+InvoiceFoundIntoDolibarr=Fatura encontrada em Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Fatura+PDF encontrada em Dolibarr: %s
+ConnectionParameters=Parâmetros de conexão
+TryToUseProxy=Usando servidor proxy
+AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (Uma empresa Dolibarr Preferred Partner).
+MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clique aqui para ver a lista completa </a>
+MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clique aqui para mais informações </a>
+CompatibleWithDoliDroid=Este módulo também é compatível com DoliDroid, o aplicativo Android para Dolibarr.
+OvhApplicationName=Nome da Aplicação
+OvhApplicationDescription=Descrição do aplicativo
+OvhApplicationKey=Chave do aplicativo
+OvhApplicationSecret=Segredo do aplicativo
+OvhConsumerkey=Chave do consumidor
+GoOnPageToCreateYourAPIKey=Primeiro vá à página <a href="%s" target="_blank"> %s </a> para criar a sua entrada de aplicação OVH e obter a chave e segredo API, ou crie um novo se preferir ou se perdeu a chave/segredo API, preencha esta página com esta informação.
+ListOfExistingAPIApp=Nota: Você pode encontrar a lista de aplicativos já criados na página <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Clique <a href="%s"> aqui para fazer login e obter uma nova chave de consumidor </a> (Você deve escolher <strong> UNLIMITED </strong> validade)
+Authentication=Autenticação
+FromThe=De
+PleaseFillOtherFieldFirst=Por favor, preencha os outros campos primeiro...
+IfYouChangeHereChangeAlsoClickToDial=Se você alterar os dados aqui, não se esqueça de atualizar também o link no módulo ClickToDial
+ToGoOnClickToDialSetup=Para ir na configuração do módulo ClickToDial
+OvhTelAccountHelp=Coloque aqui o nome da sua conta OVH Telecom Billing (NÃO a sua conta OVH)
+OvhServiceNameHelp=Coloque aqui o número da linha SIP (deve ser o formato internacional como 0033123456789 para a França). Observe que, se você tiver vários números de linha para usuários diferentes, mantenha este campo vazio e altere o valor de "SIPLineNumber" no URL que você deve colar no campo URL ClickToDial em cada cartão de usuário (veja abaixo)
+OVHURLMustNotBeLocal=Atenção, a URL que você usa para o aplicativo NÃO deve ser uma URL local, mas uma URL que você pode acessar da Internet para que isso funcione.
+CreateSnapshot=Criar instantâneo
+SnapshotRequestSent=A solicitação de instantâneo com o nome '%s' foi enviada com sucesso.
+NoneLabelOnOvhLineWillBeUsed=Nenhuma (será utilizada a etiqueta da linha na fatura OVH)
+OVHAccount=Conta OVH
+OvhDefaultBankAccount=Conta bancária padrão nas faturas
+OvhValidVatList=Lista de valores de IVA válidos
+OVHVatKeepEmptyToAcceptAll=Mantenha este campo vazio se quiser aceitar todos os valores de IVA (automático). Atenção: a OVH devolve por vezes taxas de IVA mal arredondadas, pelo que a definição das taxas de IVA aqui obriga a aplicação a utilizar o valor válido mais próximo em vez do valor da OVH.

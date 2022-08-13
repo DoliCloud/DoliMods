@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=Gerenciador de arquivos
+FileManagerSetup=Configuração do módulo FileManager
+LabelForRootFileManager=Rótulo para caminho/atalho raiz visível
+RootFileManager=Caminho/atalho raiz selecionado
+PathForRootFileManager=Localização do caminho/atalho raiz no disco
+NoteOnFileManagerPathLocation=Todos os diretórios devem ter permissão para permitir que seu servidor web os leia/varre.
+ListForRootPath=Lista de caminhos/atalhos de raiz visíveis
+PleaseSelectARoot=Por favor, selecione um diretório raiz para escanear no menu...
+SelectAFile=Selecione um diretório ou arquivo no painel esquerdo
+DateLastAccess=Data do último acesso
+DateLastChange=Data da última alteração
+FullPath=Caminho completo
+PreviewNotAvailableForThisType=A visualização não está disponível para este tipo de arquivo.
+NotEnoughMemoryForSyntaxColor=Seu PHP não tem memória suficiente para habilitar a coloração de sintaxe na visualização de arquivos de texto.
+YouMustSelectAFileToUseFileEditorTool=Você deve selecionar um arquivo no painel esquerdo para usar a ferramenta de edição de arquivos.
+NoEditorForThisFormat=Nenhum editor para editar este formato de arquivo.
+DeleteDir=Excluir diretório
+DeleteFileName=Exclua o seguinte arquivo:
+DeleteDirName=Excluir o seguinte diretório:
+NewDir=Novo diretório
+CreateNewDir=Criar novo diretório
+NewFile=Novo arquivo
+AddRootPath=Adicionar diretórios raiz para o gerenciador de arquivos
+UseColorSyntaxing=Ative a sintaxe de cores no recurso de exibição de conteúdo do arquivo (precisa de mais memória. Desative isso se você tiver uma página em branco ao visualizar o conteúdo de um arquivo de texto)
+ColoringDisabled=Coloração de sintaxe não ativada
+ServerMustHavePermission=Permissões no sistema de arquivos para isso devem ser concedidas ao servidor web (%s/%s).
+AddDirName=Adicionar nome de diretório
+AddFileName=Adicionar nome de arquivo
+#####
+Module10600Name=Gerenciador de arquivos
+Module10600Desc=Um gerenciador de arquivos para escanear e visualizar o conteúdo dos discos do seu servidor Dolibarr.
+AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (Uma empresa Dolibarr Preferred Partner).
+MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clique aqui para ver a lista completa </a>
+MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clique aqui para mais informações </a>
+CompatibleWithDoliDroid=Este módulo também é compatível com DoliDroid, o aplicativo Android para Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=A conta de usuário usada pelo servidor web não tem permissão para escrever

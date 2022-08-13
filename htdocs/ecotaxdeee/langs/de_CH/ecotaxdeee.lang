@@ -1,0 +1,25 @@
+# Dolibarr language file - en_US - ecotaxdeee
+CHARSET=UTF-8
+EcoTaxDeee=Eco tax WEEE
+EcoTaxDeeSetup=Eco tax WEEE module setup
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Add automatically an Eco tax WEEE on customer orders
+ECOTAXDEEE_USE_ON_PROPOSAL=Add automatically an Eco tax WEEE on commercial proposals
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Add automatically an Eco tax WEEE on customer invoices
+ECOTAXDEEE_LABEL_LINE=Label to use for Eco tax line
+ECOTAXDEEE_DOC_FOOTER=Content of new page to add (empty=no annex)
+EcoTaxDeeDocFooterExample=Products have a unit WEEE tax of 0.01€ for category A, 0.02€ for category B...
+ECOTAXDEEE_CATEGORY_REF=Ref of product category to detect products that need Eco tax WEEE
+Module101380Name=Eco Tax WEEE
+Module101380Desc=Module to add ecotax lines automatically
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+EcoTaxAddedIfDesc=An Eco tax WEEE line will be automaticaly calculated and added when products with an eco tax are added to following objects: <b>%s</b>.<br>Amount of Eco tax must be defined before into product card for each product.
+EcoTaxAddedIfDescOld=An Eco tax WEEE line will be automaticaly calculated and added when products with an eco tax are added to following objects: <b>%s</b>.<br>Amount of Eco tax must be defined before into product card for each product. For this, go into setup of module "Product" and add a complementary field with float format and with code "ecotaxdeee". You will then be able to enter Eco tax amount on each product.
+AddPageWithWEEEUnitPrices=The module can also add automatically a page to generated PDF to show unit prices of Eco tax WEEE as an annex. In this case, just fill here lines/categories with unit prices you want to show.
+ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Product/Service to use as Eco Tax WEEE line
+OrLabelOfAFreeLine=or just a label to use
+WEEE_DISABLE_VAT_ON_ECOTAX=Disable VAT on Eco Tax line (In most cases, the Eco Tax needs a VAT like any other service)

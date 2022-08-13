@@ -1,0 +1,25 @@
+# Dolibarr language file - en_US - ecotaxdeee
+CHARSET=UTF-8
+EcoTaxDeee=Ökosteuer WEEE
+EcoTaxDeeSetup=Einrichtung des Ökosteuer-WEEE-Moduls
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Fügen Sie bei Kundenbestellungen automatisch eine Ökosteuer-WEEE hinzu
+ECOTAXDEEE_USE_ON_PROPOSAL=Fügen Sie kommerziellen Vorschlägen automatisch eine Ökosteuer-WEEE hinzu
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Fügt automatisch eine Ökosteuer-WEEE auf Kundenrechnungen hinzu
+ECOTAXDEEE_LABEL_LINE=Label zur Verwendung für die Eco-Steuerzeile
+ECOTAXDEEE_DOC_FOOTER=Inhalt der neu hinzuzufügenden Seite (leer=kein Anhang)
+EcoTaxDeeDocFooterExample=Produkte haben eine Einheits-WEEE-Steuer von 0,01 € für Kategorie A, 0,02 € für Kategorie B...
+ECOTAXDEEE_CATEGORY_REF=Ref der Produktkategorie, um Produkte zu erkennen, die Ökosteuer-WEEE benötigen
+Module101380Name=Ökosteuer WEEE
+Module101380Desc=Modul zum automatischen Hinzufügen von Ökosteuerzeilen
+AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+MoreModules=Andere Module desselben Autors sind auf dem offiziellen Marktplatz von DoliStore erhältlich...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
+MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klicken Sie hier für weitere Informationen </a>
+CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.
+EcoTaxAddedIfDesc=Eine Ökosteuer-WEEE-Zeile wird automatisch berechnet und hinzugefügt, wenn Produkte mit einer Ökosteuer zu folgenden Objekten hinzugefügt werden: <b> %s </b> . <br> Die Höhe der Ökosteuer muss zuvor in der Produktkarte für jedes Produkt definiert werden.
+EcoTaxAddedIfDescOld=Eine Ökosteuer-WEEE-Zeile wird automatisch berechnet und hinzugefügt, wenn Produkte mit einer Ökosteuer zu folgenden Objekten hinzugefügt werden: <b> %s </b> . <br> Die Höhe der Ökosteuer muss zuvor in der Produktkarte für jedes Produkt definiert werden. Gehen Sie dazu in das Setup des Moduls "Produkt" und fügen Sie ein ergänzendes Feld im Float-Format und mit dem Code "ecotaxdeee" hinzu. Sie können dann den Ökosteuerbetrag für jedes Produkt eingeben.
+AddPageWithWEEEUnitPrices=Das Modul kann auch automatisch eine Seite zum generierten PDF hinzufügen, um die Einheitspreise von Ökosteuer-WEEE als Anhang anzuzeigen. Füllen Sie in diesem Fall einfach hier die Zeilen/Kategorien mit den Einzelpreisen aus, die Sie anzeigen möchten.
+ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Produkt/Dienstleistung zur Verwendung als Ökosteuer-WEEE-Linie
+OrLabelOfAFreeLine=oder nur ein zu verwendendes Etikett
+WEEE_DISABLE_VAT_ON_ECOTAX=Deaktivieren Sie die Mehrwertsteuer in der Ökosteuerzeile (In den meisten Fällen benötigt die Ökosteuer eine Mehrwertsteuer wie jede andere Dienstleistung)

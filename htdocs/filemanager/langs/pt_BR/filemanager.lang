@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=File manager
+FileManagerSetup=Setup of FileManager module
+LabelForRootFileManager=Label for visible root path/shortcut
+RootFileManager=Selected root path/shortcut
+PathForRootFileManager=Location of root path/shortcut on disk
+NoteOnFileManagerPathLocation=All directories must have permission to allow your web server to read/scan them.
+ListForRootPath=List of visible root path/shortcuts
+PleaseSelectARoot=Please, select a root directory to scan from menu...
+SelectAFile=Select a directory or file on left pane
+DateLastAccess=Date last access
+DateLastChange=Date last change
+FullPath=Full path
+PreviewNotAvailableForThisType=Preview not available for this file type.
+NotEnoughMemoryForSyntaxColor=Your PHP does not have enough memory to enable the syntax coloring on preview of text files.
+YouMustSelectAFileToUseFileEditorTool=You must select a file on left pane to use the file editor tool.
+NoEditorForThisFormat=No editor to edit this file format.
+DeleteDir=Delete directory
+DeleteFileName=Delete following file:
+DeleteDirName=Delete folowing directory:
+NewDir=New directory
+CreateNewDir=Create new directory
+NewFile=New file
+AddRootPath=Add root directories for filemanager
+UseColorSyntaxing=Enable color syntaxing on view file content feature (need more memory. Disable this if you experience blank page when viewing content of a text file)
+ColoringDisabled=Syntax coloring not enabled
+ServerMustHavePermission=Permissions on filesystem for that must be granted to web server (%s/%s).
+AddDirName=Add dir name
+AddFileName=Add file name
+#####
+Module10600Name=File manager
+Module10600Desc=A file manager to scan and view contents of disks of your Dolibarr server.
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=The user account used by web server has no permission to write

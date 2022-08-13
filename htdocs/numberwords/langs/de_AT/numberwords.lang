@@ -1,0 +1,15 @@
+# Dolibarr language file - en_US - numberwords
+CHARSET=UTF-8
+Module101220Name=Number Words
+Module101220Desc=Add capabilities to convert amounts and numbers into value in full text (only few languages supported)
+NumberWordsSetup=Number Words module setup
+DescNumberWords=This module provide functions to convert number or amount in full characters. It will also replace the following string occurences __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ or __AMOUNT_CURRENCY_VAT_TEXT__ by total net of tax, total without tax, or total of vat into all textes that use them (free text on invoices, ...)
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+SetupToChange=Setup page de modify
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Use the symbol instead of full text for the currency
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Add the short code of currency before the symbol

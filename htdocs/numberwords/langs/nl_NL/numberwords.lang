@@ -1,0 +1,15 @@
+# Dolibarr language file - en_US - numberwords
+CHARSET=UTF-8
+Module101220Name=Cijferwoorden
+Module101220Desc=Voeg mogelijkheden toe om bedragen en getallen om te zetten in waarde in volledige tekst (slechts enkele talen ondersteund)
+NumberWordsSetup=Configuratie van de module Nummerwoorden
+DescNumberWords=Deze module biedt functies om een getal of bedrag in volledige tekens om te zetten. Het vervangt ook de volgende tekenreeksvoorvallen __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ of __AMOUNT_VAT_TEXT__ of __AMOUNT_CURRENCY_VAT_s
+AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klik hier om de volledige lijst te zien </a>
+MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klik hier voor meer informatie </a>
+CompatibleWithDoliDroid=Deze module is ook compatibel met DoliDroid, de Android-applicatie voor Dolibarr.
+SetupToChange=Instellingenpagina wijzigen
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Gebruik het symbool in plaats van de volledige tekst voor de valuta
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Voeg de korte valutacode toe vóór het symbool

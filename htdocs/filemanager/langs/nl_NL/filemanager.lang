@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=Bestandsbeheer
+FileManagerSetup=Installatie van de FileManager-module
+LabelForRootFileManager=Label voor zichtbaar hoofdpad/snelkoppeling
+RootFileManager=Geselecteerd hoofdpad/snelkoppeling
+PathForRootFileManager=Locatie van rootpad/snelkoppeling op schijf
+NoteOnFileManagerPathLocation=Alle mappen moeten toestemming hebben om uw webserver ze te laten lezen/scannen.
+ListForRootPath=Lijst met zichtbaar hoofdpad/snelkoppelingen
+PleaseSelectARoot=Selecteer een hoofdmap om te scannen uit het menu...
+SelectAFile=Selecteer een map of bestand in het linkerdeelvenster
+DateLastAccess=Datum laatste toegang
+DateLastChange=Datum laatste wijziging
+FullPath=Vol pad
+PreviewNotAvailableForThisType=Voorbeeld niet beschikbaar voor dit bestandstype.
+NotEnoughMemoryForSyntaxColor=Uw PHP heeft niet genoeg geheugen om de syntaxiskleuring bij voorbeeld van tekstbestanden in te schakelen.
+YouMustSelectAFileToUseFileEditorTool=U moet een bestand in het linkerdeelvenster selecteren om de bestandseditor te gebruiken.
+NoEditorForThisFormat=Geen editor om dit bestandsformaat te bewerken.
+DeleteDir=Directory verwijderen
+DeleteFileName=Verwijder het volgende bestand:
+DeleteDirName=Verwijder de volgende map:
+NewDir=Nieuwe map
+CreateNewDir=Nieuwe map maken
+NewFile=Nieuw bestand
+AddRootPath=Hoofdmappen toevoegen voor bestandsbeheer
+UseColorSyntaxing=Schakel kleursyntaxis in bij het bekijken van de inhoud van het bestand (meer geheugen nodig. Schakel dit uit als u een lege pagina ervaart bij het bekijken van de inhoud van een tekstbestand)
+ColoringDisabled=Syntaxiskleuren niet ingeschakeld
+ServerMustHavePermission=Hiervoor moeten machtigingen op het bestandssysteem worden verleend aan de webserver (%s/%s).
+AddDirName=Dir-naam toevoegen
+AddFileName=Bestandsnaam toevoegen
+#####
+Module10600Name=Bestandsbeheer
+Module10600Desc=Een bestandsbeheerder om de inhoud van schijven van uw Dolibarr-server te scannen en te bekijken.
+AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klik hier om de volledige lijst te zien </a>
+MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klik hier voor meer informatie </a>
+CompatibleWithDoliDroid=Deze module is ook compatibel met DoliDroid, de Android-applicatie voor Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=Het gebruikersaccount dat door de webserver wordt gebruikt, heeft geen toestemming om te schrijven

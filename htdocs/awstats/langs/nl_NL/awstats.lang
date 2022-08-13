@@ -1,5 +1,4 @@
-# Dolibarr language file - nl_NL - awstats
-#ATH Translated by Arjan ten Hoopen
+# Dolibarr language file - en_EN - awstats
 CHARSET= UTF-8
 AWStatsSetup=AWStats configuratie module
 AWStatsSummary=AWStats samenvatting
@@ -12,11 +11,10 @@ ShowStats=Weergave gedetaileerde statistieken
 FilterDomain=Filter op profiel (configuratie naam)
 Module12000Name=AWStats
 Module12000Desc=Module  om de AWStats log analyzer te integreren in Dolibarr
-ErrorAWStatsDataDirMustEndWithASlash=Map moet eindigen met een / of \
-FilterDomain=Filter on configuration name
+ErrorAWStatsDataDirMustEndWithASlash=Map moet eindigen met een / of FilterDomain=Filter on configuration name
 AboutInfo=Deze module is ontwikkeld en wordt gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (Een Dolibarr Preferred Partner bedrijf).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar in de officieele DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Klik hier voor de volledige lijst</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Klik hier voor de volledige lijst</a>
 MoreCloudHosting=Om Dolibar online te gebruiken, kies de veilige DoliCloud hosting.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Klik hier voor meer informatie</a>
-CompatibleWithDoliDroid=Deze module is tevens compatiebel met DoliDroid, de Android applicatie voor Dolibarr.    
+CompatibleWithDoliDroid=Deze module is tevens compatiebel met DoliDroid, de Android applicatie voor Dolibarr.

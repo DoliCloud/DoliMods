@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Facturat la comenzi
+BilledOnOrdersSetup=Configurarea modulului Facturat la comenzi
+Module101450Desc=Modul pentru a afișa suma facturată și a rămâne facturată conform facturilor asociate pe lista comenzilor clienților sau furnizorilor
+AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (O companie Dolibarr Preferred Partner).
+MoreModules=Alte module ale aceluiași autor sunt disponibile pe piața oficială DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Faceți clic aici pentru a vedea lista completă </a>
+MoreCloudHosting=Pentru a utiliza Dolibarr online, alegeți găzduirea securizată DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Faceți clic aici pentru mai multe informații </a>
+BilledOnOrdersNothingToSetup=Nimic de configurat. Câmpuri noi sunt disponibile în lista comenzilor clienților.
+AmountBilledHT=Suma facturată (fără taxe)
+AmountBilledTTC=Suma facturată (inclusiv taxe)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Dezactivați coloana „Suma facturată fără taxe”
+BILLEDONORDERS_DISABLE_BILLED=Dezactivați coloana „Suma facturată cu taxe”
+BILLEDONORDERS_DISABLE_PAYED=Dezactivați coloana „Suma plătită”
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Dezactivați coloana „Rămâne de plătit”
+AmountBilledDiffersFromAmountOnOrder=Suma facturilor asociate comenzii diferă de valoarea comenzii
+AmongAlreadyCreatedInvoices=Printre facturile deja create

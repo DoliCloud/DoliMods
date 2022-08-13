@@ -1,0 +1,25 @@
+# Dolibarr language file - en_US - ecotaxdeee
+CHARSET=UTF-8
+EcoTaxDeee=Eco imposto WEEE
+EcoTaxDeeSetup=Configuração do módulo WEEE de imposto ecológico
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Adicione automaticamente um imposto ecológico WEEE em pedidos de clientes
+ECOTAXDEEE_USE_ON_PROPOSAL=Adicione automaticamente um imposto ecológico WEEE em propostas comerciais
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Adicione automaticamente um imposto ecológico WEEE nas faturas dos clientes
+ECOTAXDEEE_LABEL_LINE=Rótulo a ser usado para a linha de imposto Eco
+ECOTAXDEEE_DOC_FOOTER=Conteúdo da nova página a ser adicionada (vazio=sem anexo)
+EcoTaxDeeDocFooterExample=Os produtos têm uma taxa REEE unitária de 0,01€ para a categoria A, 0,02€ para a categoria B...
+ECOTAXDEEE_CATEGORY_REF=Ref da categoria do produto para detectar produtos que precisam de Eco tax WEEE
+Module101380Name=Eco Tax WEEE
+Module101380Desc=Módulo para adicionar linhas de ecotaxa automaticamente
+AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (Uma empresa Dolibarr Preferred Partner).
+MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clique aqui para ver a lista completa </a>
+MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clique aqui para mais informações </a>
+CompatibleWithDoliDroid=Este módulo também é compatível com DoliDroid, o aplicativo Android para Dolibarr.
+EcoTaxAddedIfDesc=Uma linha Eco tax WEEE será automaticamente calculada e adicionada quando produtos com eco tax forem adicionados aos seguintes objetos: <b> %s </b> . <br> O valor do Eco tax deve ser definido antes no cartão do produto para cada produto.
+EcoTaxAddedIfDescOld=Uma linha Eco tax WEEE será automaticamente calculada e adicionada quando produtos com eco tax forem adicionados aos seguintes objetos: <b> %s </b> . <br> O valor do Eco tax deve ser definido antes no cartão do produto para cada produto. Para isso, entre no setup do módulo "Product" e adicione um campo complementar com formato float e com o código "ecotaxdeee". Você poderá então inserir o valor do imposto Eco em cada produto.
+AddPageWithWEEEUnitPrices=O módulo também pode adicionar automaticamente uma página ao PDF gerado para mostrar os preços unitários do Eco tax WEEE como um anexo. Neste caso, basta preencher aqui as linhas/categorias com os preços unitários que deseja mostrar.
+ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Produto/Serviço para uso como linha Eco Tax WEEE
+OrLabelOfAFreeLine=ou apenas um rótulo para usar
+WEEE_DISABLE_VAT_ON_ECOTAX=Desative o IVA na linha Eco Tax (na maioria dos casos, o Eco Tax precisa de um IVA como qualquer outro serviço)

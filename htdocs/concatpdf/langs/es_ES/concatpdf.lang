@@ -1,4 +1,4 @@
-# Dolibarr language file - es_ES - concatpdf 
+# Dolibarr language file - en_US - concatpdf
 CHARSET= UTF-8
 ConcatPdfSetup=Configuración del módulo concatPDF
 ConcatPDfTakeFileFrom=El módulo ConcatPDF permite concatenar:
@@ -6,5 +6,15 @@ ConcatPDfTakeFileFrom2=A <b>%s</b> PDF generados, cualquier archivo PDF encontra
 ConcatPDfPutFileManually=Los archivos PDF se pueden colocar manualmente con el administrador de archivos.
 NoPDFFileFound=Actualmente no existe ningún archivo PDF.
 ConcatFile=Concatenar el archivo PDF
+EnableMultipleConcatenation=Habilite la capacidad de concatenar varios documentos.
+ConcatPdf=Concatenar PDF
 Module101400Name=Concat PDF
 Module101400Desc=Módulo para concatenar PDF (condiciones de ventas, por ejemplo) todos los PDF generados (facturas, pedidos o presupuestos)
+AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa socia preferida de Dolibarr).
+MoreModules=Otros módulos del mismo autor están disponibles en el mercado oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Haga clic aquí para ver la lista completa </a>
+MoreCloudHosting=Para usar Dolibarr en línea, elija el alojamiento seguro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Haga clic aquí para obtener más información </a>
+CompatibleWithDoliDroid=Este módulo también es compatible con DoliDroid, la aplicación de Android para Dolibarr.
+ErrorFileMustBeAPdf=Error, el archivo debe ser un archivo PDF
+WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF no es compatible con la opción PDF: %s

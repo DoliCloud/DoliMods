@@ -1,0 +1,25 @@
+# Dolibarr language file - en_US - ecotaxdeee
+CHARSET=UTF-8
+EcoTaxDeee=Økoavgift EE-avfall
+EcoTaxDeeSetup=Eco tax WEEE-moduloppsett
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Legg automatisk til en miljøavgift WEEE på kundebestillinger
+ECOTAXDEEE_USE_ON_PROPOSAL=Legg automatisk til en miljøavgift WEEE på kommersielle forslag
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Legg automatisk til en Eco-avgift WEEE på kundefakturaer
+ECOTAXDEEE_LABEL_LINE=Etikett som skal brukes for Eco-skattelinjen
+ECOTAXDEEE_DOC_FOOTER=Innhold på ny side å legge til (tom=ingen vedlegg)
+EcoTaxDeeDocFooterExample=Produktene har en enhetsavgift for WEEE på 0,01€ for kategori A, 0,02€ for kategori B...
+ECOTAXDEEE_CATEGORY_REF=Ref for produktkategori for å oppdage produkter som trenger miljøavgift WEEE
+Module101380Name=Økoavgift WEEE
+Module101380Desc=Modul for å legge til økoavgiftslinjer automatisk
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
+MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klikk her for mer informasjon </a>
+CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
+EcoTaxAddedIfDesc=En Eco-avgift WEEE-linje vil automatisk bli beregnet og lagt til når produkter med en miljøavgift legges til følgende objekter: <b> %s </b> . <br> Økoavgiftsbeløpet må være definert på forhånd i produktkortet for hvert produkt.
+EcoTaxAddedIfDescOld=En Eco-avgift WEEE-linje vil automatisk bli beregnet og lagt til når produkter med en miljøavgift legges til følgende objekter: <b> %s </b> . <br> Økoavgiftsbeløpet må være definert på forhånd i produktkortet for hvert produkt. For dette, gå inn i oppsett av modul "Produkt" og legg til et utfyllende felt med flyteformat og med kode "ecotaxdeee". Du vil da kunne legge inn økoavgiftsbeløp på hvert produkt.
+AddPageWithWEEEUnitPrices=Modulen kan også automatisk legge til en side i generert PDF for å vise enhetspriser på EE-avgifter som et vedlegg. I dette tilfellet fyller du bare her linjer/kategorier med enhetspriser du ønsker å vise.
+ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Produkt/tjeneste som skal brukes som Eco Tax WEEE-linje
+OrLabelOfAFreeLine=eller bare en etikett å bruke
+WEEE_DISABLE_VAT_ON_ECOTAX=Deaktiver MVA på Eco Tax-linjen (I de fleste tilfeller trenger Eco Tax en moms som alle andre tjenester)

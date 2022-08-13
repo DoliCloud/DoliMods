@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Oppsett av modul Ovh
+OvhSmsRecap=Sammendrag hovedkonto
+OvhSmsNick=Nick Handle for hovedkonto
+OvhBillingAccount=Nick-håndtak for hovedkonto
+OvhServiceName=OVH servicekonto
+OvhSmsPass=Passord
+OvhSmsLabelAccount=SMS-konto å bruke
+OvhSmsLoginSuccessFull=Tilkoblingen var vellykket!
+OvhSmsNotConfigured=Modulen er ikke konfigurert
+OvhAuthenticationPartNotConfigured=Autentiseringsdata er ikke konfigurert. Gå til oppsett av modul OVH, fanen "Autentisering" først.
+NbSmsLeft=Antall gjenværende SMS
+OvhSmsSoapUrl=URL til OVH SOAP-tjenesten
+OvhSmsSend=Send tekstmelding
+OvhSmsAccountInfos=Informasjon om SMS-konto
+OvhSmsDestinataire=Mål
+OvhSmsLabelTexteMessage=Meldingstekst
+tabOvhSms=tekstmelding
+OvhSmsStatutSent=Mottatt melding
+OvhSmsStatutSubmitted=Sendt inn
+OvhSmsStatutWaiting=Venter
+OvhSmsStatutFailed=Mislyktes
+OvhSmsBackToAdmin=Tilbake til moduladmin
+OvhSmsHistory=Logg over siste %s-sendinger
+ListOfSmsAccountsForNH=Liste over SMS-kontoer for kontoen definert i kategorien "Autentisering".
+ClickToDialLink=Dette er en lenke for å kopiere og lime inn i ClickToDial-moduloppsettet for å bruke %s Click2Dial: <br> %s
+TestSendSMS=SMS Sending test
+TestLoginToApi=Test tilkobling til API
+SendersAllowed=Avsendere tillatt fra OVH-leder
+ListOfDedicatedServers=Liste over dine dedikerte OVH-servere
+ListOfPublicCloudServers=Liste over dine Public Cloud OVH-servere
+OvhServers=OVH-servere
+OvhDedicated=Dedikerte servere
+OvhPublicCloud=Offentlige skyservere
+OvhGetInvoices=OVH faktura import
+OvhInvoiceImportShort=OVH faktura import
+OvhInvoiceImportDesc=Denne siden viser alle OVH-fakturaer og foreslår en måte å importere dem på. Klikk først på knappen "Få fakturaliste". For hver faktura som ikke allerede er til stede, merk av i boksen og klikk på "Importer-knappen".
+SupplierToUseForImport=Leverandør å opprette importerte fakturaer på
+ProductGenericToUseForImport=Produkt/tjeneste som skal brukes for importerte fakturalinjer
+ProjectForImport=Legg ved importerte fakturaer til prosjektet
+KeepEmptyToSaveLinesAsFreeLines=Hold dette feltet tomt hvis du ikke vil se importerte linjer som bruker et generisk forhåndsdefinert produkt/tjeneste
+ScanOvhInvoices=Få fakturaliste
+ExcludeNullInvoices=Ekskluder fakturaer med null totalbeløp
+ExcludeNullLines=Ekskluder fakturalinjer med nullbeløp
+NotFound=Ikke funnet
+ImportIt=importere det?
+ToImport=Import
+NoInvoicesSelected=Ingen fakturaer er valgt
+FileDownloadedAndAttached=Fil <strong> %s </strong> lastet ned og vedlagt faktura
+InvoiceFoundIntoDolibarr=Faktura funnet i Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Faktura+PDF funnet i Dolibarr: %s
+ConnectionParameters=Tilkoblingsparametere
+TryToUseProxy=Bruker proxy-server
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
+MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klikk her for mer informasjon </a>
+CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
+OvhApplicationName=Programnavn
+OvhApplicationDescription=Søknadsbeskrivelse
+OvhApplicationKey=Søknadsnøkkel
+OvhApplicationSecret=Søknadshemmelighet
+OvhConsumerkey=Forbrukernøkkel
+GoOnPageToCreateYourAPIKey=Gå først til side <a href="%s" target="_blank"> %s </a> for å opprette OVH-applikasjonsoppføringen og få API-nøkkelen og hemmeligheten, eller opprett en ny hvis du foretrekker det eller hvis du mistet API-nøkkelen/hemmeligheten, fyll deretter denne siden med denne informasjonen.
+ListOfExistingAPIApp=Merk: Du kan finne listen over allerede opprettede applikasjoner på side <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Klikk <a href="%s"> her for å logge på og få en ny forbrukernøkkel </a> (Du må velge <strong> UBEGRENSET </strong> gyldighet)
+Authentication=Godkjenning
+FromThe=Fra
+PleaseFillOtherFieldFirst=Fyll ut de andre feltene først...
+IfYouChangeHereChangeAlsoClickToDial=Hvis du endrer data her, ikke glem å oppdatere også lenken til modulen ClickToDial
+ToGoOnClickToDialSetup=For å gå på ClickToDial-moduloppsett
+OvhTelAccountHelp=Skriv inn navnet på OVH Telecom Billing-kontoen din (IKKE OVH-kontoen din)
+OvhServiceNameHelp=Sett inn SIP-linjenummeret her (må være det internasjonale formatet som 0033123456789 for Frankrike). Merk, hvis du har flere linjenumre for forskjellige brukere, hold dette feltet tomt og endre verdien av "SIPLineNumber" til URL-en du må lime inn i ClickToDial URL-feltet på hvert brukerkort (se nederst)
+OVHURLMustNotBeLocal=Advarsel, URL du bruker for applikasjonen må IKKE være en lokal URL, men en URL du kan få tilgang til fra internett for å få dette til å fungere.
+CreateSnapshot=Lag et øyeblikksbilde
+SnapshotRequestSent=Øyeblikksbildeforespørsel under navnet '%s' ble sendt.
+NoneLabelOnOvhLineWillBeUsed=Ingen (etikett på linje i OVH-faktura vil bli brukt)
+OVHAccount=OVH-konto
+OvhDefaultBankAccount=Standard bankkonto på fakturaer
+OvhValidVatList=Liste over gyldige MVA-verdier
+OVHVatKeepEmptyToAcceptAll=Hold dette feltet tomt hvis du vil godta alle MVA-verdier (auto). Advarsel: OVH returnerer noen ganger dårlige avrundede MVA-satser, så å sette MVA-satser her tvinger søknaden til å bruke nærmeste gyldige verdi i stedet for OVH-verdi.

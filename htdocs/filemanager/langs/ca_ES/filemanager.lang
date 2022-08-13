@@ -1,4 +1,4 @@
-# Dolibarr language file - ca_ES - filemanager
+# Dolibarr language file - en_US - filemanager
 CHARSET=UTF-8
 FileManager=Administrador arxius
 FileManagerSetup=Configuració del mòdul FileManager
@@ -18,13 +18,23 @@ YouMustSelectAFileToUseFileEditorTool=Heu de seleccionar un arxiu en el panell d
 NoEditorForThisFormat=Sense editor per a aquest format d'arxiu.
 DeleteDir=Eliminar directori
 DeleteFileName=Eliminar l'arxiu:
-DeleteDirName=Eliminar el directori: 
+DeleteDirName=Eliminar el directori:
 NewDir=Nou directori
+CreateNewDir=Crea un directori nou
 NewFile=Nou arxiu
 AddRootPath=Afegir directoris inicials a l'administrador d'arxius
 UseColorSyntaxing=Activar la coloració de sintaxi en els arxius de text (requereix més memòria. Desactivar en cas de pàgina en blanc alintentar visualitzar el contingut d'un arxiu).
 ColoringDisabled=Coloració de sintaxis desactivada
 ServerMustHavePermission=Els permisos d'arxiu han d'estar correctament atorgats a la web (%s/%s).
+AddDirName=Afegeix el nom del directori
+AddFileName=Afegeix el nom del fitxer
 #####
 Module10600Name=File manager
 Module10600Desc=Un administrador d'arxius per navegar pel contingut dels discos del servidor Dolibarr
+AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa de Dolibarr Preferred Partner).
+MoreModules=Altres mòduls del mateix autor estan disponibles al mercat oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Feu clic aquí per veure la llista completa </a>
+MoreCloudHosting=Per utilitzar Dolibarr en línia, trieu l'allotjament segur DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Feu clic aquí per obtenir més informació </a>
+CompatibleWithDoliDroid=Aquest mòdul també és compatible amb DoliDroid, l'aplicació d'Android per a Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=El compte d'usuari utilitzat pel servidor web no té permís per escriure

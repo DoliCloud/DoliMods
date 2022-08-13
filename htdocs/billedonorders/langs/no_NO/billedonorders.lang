@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Fakturert på bestillinger
+BilledOnOrdersSetup=Oppsett av modulen Billed On Orders
+Module101450Desc=Modul for å vise fakturert beløp og gjenstår å fakturere i henhold til koblede fakturaer på listen over kunde- eller leverandørordrer
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
+MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klikk her for mer informasjon </a>
+BilledOnOrdersNothingToSetup=Ingenting å sette opp. Nye felt er tilgjengelige i listen over kundeordrer.
+AmountBilledHT=Fakturert beløp (ekskl. avgifter)
+AmountBilledTTC=Fakturert beløp (inkl. avgifter)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Deaktiver kolonnen «Beløp fakturert uten skatt»
+BILLEDONORDERS_DISABLE_BILLED=Deaktiver kolonnen «Beløp fakturert med skatt»
+BILLEDONORDERS_DISABLE_PAYED=Deaktiver kolonnen "Betalt beløp"
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Deaktiver kolonnen «Gjenstår å betale»
+AmountBilledDiffersFromAmountOnOrder=Antallet fakturaer knyttet til ordren avviker fra ordrebeløpet
+AmongAlreadyCreatedInvoices=Blant de allerede opprettede fakturaene

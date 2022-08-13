@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Aufbau des Moduls Ovh
+OvhSmsRecap=Zusammenfassung Hauptkonto
+OvhSmsNick=Nick Handle für den Hauptaccount
+OvhBillingAccount=Nick-Handle für den Hauptaccount
+OvhServiceName=OVH Servicekonto
+OvhSmsPass=Passwort
+OvhSmsLabelAccount=Zu verwendendes SMS-Konto
+OvhSmsLoginSuccessFull=Verbindung erfolgreich!
+OvhSmsNotConfigured=Modul nicht konfiguriert
+OvhAuthenticationPartNotConfigured=Authentifizierungsdaten nicht konfiguriert. Gehen Sie zuerst in das Setup des Moduls OVH, Reiter "Authentifizierung".
+NbSmsLeft=Anzahl der verbleibenden SMS
+OvhSmsSoapUrl=URL des OVH SOAP-Dienstes
+OvhSmsSend=SMS senden
+OvhSmsAccountInfos=Informationen zum SMS-Konto
+OvhSmsDestinataire=Ziel
+OvhSmsLabelTexteMessage=Text der Nachricht
+tabOvhSms=SMS
+OvhSmsStatutSent=Nachricht erhalten
+OvhSmsStatutSubmitted=Eingereicht
+OvhSmsStatutWaiting=Warten
+OvhSmsStatutFailed=Gescheitert
+OvhSmsBackToAdmin=Zurück zur Modulverwaltung
+OvhSmsHistory=Protokoll der letzten %s-Sendungen
+ListOfSmsAccountsForNH=Liste der SMS-Konten für das Konto, das auf der Registerkarte "Authentifizierung" definiert ist
+ClickToDialLink=Dies ist ein Link zum Kopieren und Einfügen in das ClickToDial-Modul-Setup, um %s Click2Dial zu verwenden: <br> %s
+TestSendSMS=SMS-Sendetest
+TestLoginToApi=Verbindung zur API testen
+SendersAllowed=Vom OVH-Manager zugelassene Absender
+ListOfDedicatedServers=Liste Ihrer dedizierten OVH Server
+ListOfPublicCloudServers=Liste Ihrer Public Cloud OVH Server
+OvhServers=OVH-Server
+OvhDedicated=Dedizierte Server
+OvhPublicCloud=Öffentliche Cloud-Server
+OvhGetInvoices=OVH Rechnungen importieren
+OvhInvoiceImportShort=OVH Rechnungen importieren
+OvhInvoiceImportDesc=Diese Seite listet alle OVH Rechnungen auf und schlägt eine Möglichkeit vor, sie zu importieren. Klicken Sie zunächst auf den Button „Rechnungsliste abrufen“. Aktivieren Sie dann für jede Rechnung, die noch nicht vorhanden ist, das Kontrollkästchen und klicken Sie auf die Schaltfläche „Importieren“.
+SupplierToUseForImport=Lieferant zum Erstellen importierter Rechnungen
+ProductGenericToUseForImport=Produkt/Dienstleistung für importierte Rechnungszeilen
+ProjectForImport=Hängen Sie importierte Rechnungen an das Projekt an
+KeepEmptyToSaveLinesAsFreeLines=Lassen Sie dieses Feld leer, wenn Sie keine importierten Positionen mit einem generischen vordefinierten Produkt/Service sehen möchten
+ScanOvhInvoices=Rechnungsliste abrufen
+ExcludeNullInvoices=Schließen Sie Rechnungen mit einem Gesamtbetrag von Null aus
+ExcludeNullLines=Rechnungszeilen mit Nullbetrag ausschließen
+NotFound=Nicht gefunden
+ImportIt=Importieren Sie es?
+ToImport=Importieren
+NoInvoicesSelected=Keine Rechnungen ausgewählt
+FileDownloadedAndAttached=Datei <strong> %s </strong> heruntergeladen und an Rechnung angehängt
+InvoiceFoundIntoDolibarr=Rechnung in Dolibarr gefunden: %s
+InvoicePDFFoundIntoDolibarr=Rechnung+PDF in Dolibarr gefunden: %s
+ConnectionParameters=Verbindungsparameter
+TryToUseProxy=Proxy-Server verwenden
+AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+MoreModules=Weitere Module desselben Autors sind auf dem offiziellen DoliStore-Marktplatz verfügbar...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
+MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klicken Sie hier für weitere Informationen </a>
+CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.
+OvhApplicationName=Anwendungsname
+OvhApplicationDescription=Anwendungsbeschreibung
+OvhApplicationKey=Anwendungsschlüssel
+OvhApplicationSecret=Anwendungsgeheimnis
+OvhConsumerkey=Verbraucherschlüssel
+GoOnPageToCreateYourAPIKey=Gehen Sie zuerst auf die Seite <a href="%s" target="_blank"> %s </a>, um Ihren OVH Anwendungseintrag zu erstellen und den API-Schlüssel und das Geheimnis abzurufen, oder erstellen Sie einen neuen, wenn Sie möchten, oder wenn Sie den API-Schlüssel/das Geheimnis verloren haben, und füllen Sie dann diese Seite mit diesen Informationen aus.
+ListOfExistingAPIApp=Hinweis: Eine Liste der bereits erstellten Anwendungen finden Sie auf Seite <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Klicken Sie hier auf <a href="%s">, um sich anzumelden und einen neuen Verbraucherschlüssel </a> zu erhalten (Sie müssen <strong> UNBEGRENZTE </strong>-Gültigkeit wählen)
+Authentication=Authentifizierung
+FromThe=Von dem
+PleaseFillOtherFieldFirst=Bitte füllen Sie zuerst die anderen Felder aus...
+IfYouChangeHereChangeAlsoClickToDial=Wenn Sie hier Daten ändern, vergessen Sie nicht, auch den Link zum Modul ClickToDial zu aktualisieren
+ToGoOnClickToDialSetup=Um mit der Einrichtung des ClickToDial-Moduls fortzufahren
+OvhTelAccountHelp=Geben Sie hier den Namen Ihres OVH Telecom Rechnungskontos ein (NICHT Ihr OVH Konto)
+OvhServiceNameHelp=Geben Sie hier die SIP-Leitungsnummer ein (muss das internationale Format haben, z. B. 0033123456789 für Frankreich). Beachten Sie, wenn Sie mehrere Leitungsnummern für verschiedene Benutzer haben, lassen Sie dieses Feld leer und ändern Sie den Wert von "SIPLineNumber" in die URL, die Sie in das ClickToDial-URL-Feld auf jeder Benutzerkarte einfügen müssen (siehe unten).
+OVHURLMustNotBeLocal=Achtung, die URL, die Sie für die Anwendung verwenden, darf KEINE lokale URL sein, sondern eine URL, auf die Sie über das Internet zugreifen können, damit dies funktioniert.
+CreateSnapshot=Schnappschuss erstellen
+SnapshotRequestSent=Snapshot-Anfrage unter dem Namen „%s“ wurde erfolgreich gesendet.
+NoneLabelOnOvhLineWillBeUsed=Keine (Etikett der Zeile in der OVH-Rechnung wird verwendet)
+OVHAccount=OVH-Konto
+OvhDefaultBankAccount=Standardbankkonto auf Rechnungen
+OvhValidVatList=Liste der gültigen Mehrwertsteuerwerte
+OVHVatKeepEmptyToAcceptAll=Lassen Sie dieses Feld leer, wenn Sie alle Mehrwertsteuerwerte akzeptieren möchten (automatisch). Warnung: OVH gibt manchmal schlecht gerundete Mehrwertsteuersätze zurück. Wenn Sie also hier Mehrwertsteuersätze festlegen, wird die Anwendung gezwungen, den nächsten gültigen Wert anstelle des OVH-Werts zu verwenden.

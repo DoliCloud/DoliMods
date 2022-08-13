@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - concatpdf 
+# Dolibarr language file - en_US - concatpdf
 CHARSET= UTF-8
 ConcatPdfSetup=Configuration du module concatPDF
 ConcatPDfTakeFileFrom=Le module ConcatPDF permet de Concaténer:

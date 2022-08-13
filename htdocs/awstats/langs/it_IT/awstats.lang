@@ -1,0 +1,20 @@
+# Dolibarr language file - en_EN - awstats
+CHARSET= UTF-8
+AWStatsSetup=Configurazione del modulo AWSstats
+AWStatsSummary=Riepilogo di AWSstats
+AWStatsSetupNotComplete=La configurazione di AWSstats non è completa
+AWSTATS_DATA_DIR=Directory dei file di dati di AWStats (percorso su disco)
+AWSTATS_CGI_PATH=URL di AWSstats (CGI)
+AWSTATS_PROG_PATH=Localizzazione del programma AWStats (percorso su disco)
+AWSTATS_LIMIT_CONF=Limita la configurazione mostrata a questo elenco (vuota per nessun filtro o usa "," come separatore)
+ShowStats=Mostra statistiche dettagliate
+FilterDomain=Filtra per profilo (nome configurazione)
+Module12000Name=AWSstats
+Module12000Desc=Modulo per integrare i report dell'analizzatore di log AWStats in Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=La directory deve terminare con / o FilterDomain=Filtro sul nome della configurazione
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.

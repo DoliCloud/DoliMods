@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - filemanager
+# Dolibarr language file - en_US - filemanager
 CHARSET=UTF-8
 FileManager=Gestionnaire fichier
 FileManagerSetup=Configuration module FileManager
@@ -18,7 +18,7 @@ YouMustSelectAFileToUseFileEditorTool=Vous devez sélectionner un fichier sur le
 NoEditorForThisFormat=Pas d'éditeur pour ce format de fichier.
 DeleteDir=Effacer répertoire
 DeleteFileName=Effacer le fichier suivant:
-DeleteDirName=Effacer le répertoire suivant: 
+DeleteDirName=Effacer le répertoire suivant:
 NewDir=Nouveau répertoire
 CreateNewDir=Créer nouveau répertoire
 NewFile=Nouveau fichier
@@ -26,6 +26,8 @@ AddRootPath=Ajouter des répertoires racines pour le gestionnaire de fichier
 UseColorSyntaxing=Activer la coloration syntaxique sur les fichiers textes (requiert plus de mémoire. A désactiver en cas de page blanche sur la visualisation du contenu d'un fichier).
 ColoringDisabled=Coloration syntaxique non active
 ServerMustHavePermission=Les permissions fichiers doivent être correctement accordées au serveur web pour cela (%s/%s).
+AddDirName=Ajouter le nom du répertoire
+AddFileName=Ajouter un nom de fichier
 #####
 Module10600Name=File manager
 Module10600Desc=Un gestionnaire de fichier pour parcourir le contenu des disques du serveur Dolibarr

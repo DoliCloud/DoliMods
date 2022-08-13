@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Facturado en pedidos
+BilledOnOrdersSetup=Configuración del módulo de pedidos facturados
+Module101450Desc=Módulo para mostrar el importe facturado y pendiente de facturar según facturas vinculadas en la lista de pedidos de clientes o proveedores
+AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa socia preferida de Dolibarr).
+MoreModules=Otros módulos del mismo autor están disponibles en el mercado oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Haga clic aquí para ver la lista completa </a>
+MoreCloudHosting=Para usar Dolibarr en línea, elija el alojamiento seguro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Haga clic aquí para obtener más información </a>
+BilledOnOrdersNothingToSetup=Nada que configurar. Los nuevos campos están disponibles en la lista de pedidos de clientes.
+AmountBilledHT=Importe facturado (sin impuestos)
+AmountBilledTTC=Importe facturado (impuestos incluidos)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Deshabilitar columna "Cantidad facturada sin impuestos"
+BILLEDONORDERS_DISABLE_BILLED=Deshabilitar columna "Cantidad facturada con impuestos"
+BILLEDONORDERS_DISABLE_PAYED=Deshabilitar columna "Cantidad pagada"
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Deshabilitar la columna "Quedarse por pagar"
+AmountBilledDiffersFromAmountOnOrder=El importe de las facturas vinculadas al pedido difiere del importe del pedido
+AmongAlreadyCreatedInvoices=Entre las facturas ya creadas

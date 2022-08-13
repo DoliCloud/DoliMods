@@ -1,6 +1,15 @@
-# Dolibarr language file - es_ES - numberwords
+# Dolibarr language file - en_US - numberwords
 CHARSET=UTF-8
 Module101220Name=Number Words
 Module101220Desc=Añade la posibilidad de convertir los importes o números en un valor escrito en texto alfabético (en los idiomas soportados)
 NumberWordsSetup=Configuración del módulo NumberWords
 DescNumberWords=Este módulo le ofrece convertir números o importes en cualquier cadena. También realiza la sustitución de las variables genéricas __TOTAL_TTC_WORDS__, __TOTAL_HT_WORDS__ o __TOTAL_VAT_WORDS__ por el valor de importes totales, base o del IVA, en cadena dentro del texto al que hacen referencia (texto libre de facturas, ...)
+AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa socia preferida de Dolibarr).
+MoreModules=Otros módulos del mismo autor están disponibles en el mercado oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Haga clic aquí para ver la lista completa </a>
+MoreCloudHosting=Para usar Dolibarr en línea, elija el alojamiento seguro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Haga clic aquí para obtener más información </a>
+CompatibleWithDoliDroid=Este módulo también es compatible con DoliDroid, la aplicación de Android para Dolibarr.
+SetupToChange=Configuración de la página de modificar
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Use el símbolo en lugar del texto completo para la moneda
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Agregue el código corto de moneda antes del símbolo

@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Opstelling van module Ovh
+OvhSmsRecap=Samenvatting hoofdaccount
+OvhSmsNick=Nick Handle voor hoofdaccount
+OvhBillingAccount=Nick-handle voor hoofdaccount
+OvhServiceName=OVH-serviceaccount
+OvhSmsPass=Wachtwoord
+OvhSmsLabelAccount=SMS-account om te gebruiken
+OvhSmsLoginSuccessFull=Verbinding succesvol!
+OvhSmsNotConfigured=Module niet geconfigureerd
+OvhAuthenticationPartNotConfigured=Verificatiegegevens niet geconfigureerd. Ga naar de configuratie van module OVH, tab "Authenticatie" eerst.
+NbSmsLeft=Aantal resterende sms'en
+OvhSmsSoapUrl=URL van OVH SOAP-service
+OvhSmsSend=Verstuur sms
+OvhSmsAccountInfos=Informatie over sms-account
+OvhSmsDestinataire=Doelwit
+OvhSmsLabelTexteMessage=Tekst van bericht
+tabOvhSms=sms
+OvhSmsStatutSent=Bericht ontvangen
+OvhSmsStatutSubmitted=Ingediend
+OvhSmsStatutWaiting=Aan het wachten
+OvhSmsStatutFailed=mislukt
+OvhSmsBackToAdmin=Terug naar modulebeheer
+OvhSmsHistory=Logboek van laatste %s verzendingen
+ListOfSmsAccountsForNH=Lijst met sms-accounts voor account gedefinieerd in het tabblad "Verificatie"
+ClickToDialLink=Dit is een link om te kopiëren en plakken in de installatie van de ClickToDial-module om de %s Click2Dial te gebruiken: <br> %s
+TestSendSMS=SMS-verzendtest
+TestLoginToApi=Test verbinding met API
+SendersAllowed=Afzenders toegestaan door OVH-manager
+ListOfDedicatedServers=Lijst met uw dedicated OVH-servers
+ListOfPublicCloudServers=Lijst van uw Public Cloud OVH-servers
+OvhServers=OVH-servers
+OvhDedicated=Toegewijde servers
+OvhPublicCloud=Openbare cloudservers
+OvhGetInvoices=OVH facturen importeren
+OvhInvoiceImportShort=OVH facturen importeren
+OvhInvoiceImportDesc=Deze pagina geeft een overzicht van alle OVH-facturen en stelt een manier voor om ze te importeren. Klik eerst op de knop "Factuurlijst ophalen". Vink vervolgens voor elke nog niet aanwezige factuur het vakje aan en klik op de knop "Importeren".
+SupplierToUseForImport=Leverancier om geïmporteerde facturen te maken op
+ProductGenericToUseForImport=Product/dienst om te gebruiken voor geïmporteerde factuurregels
+ProjectForImport=Geïmporteerde facturen toevoegen aan project
+KeepEmptyToSaveLinesAsFreeLines=Laat dit veld leeg als u geen geïmporteerde regels wilt zien met een generiek vooraf gedefinieerd product/dienst
+ScanOvhInvoices=Facturenlijst ophalen
+ExcludeNullInvoices=Facturen met een nul totaalbedrag uitsluiten
+ExcludeNullLines=Factuurregels met nulbedrag uitsluiten
+NotFound=Niet gevonden
+ImportIt=Importeer het?
+ToImport=Importeren
+NoInvoicesSelected=Geen facturen geselecteerd
+FileDownloadedAndAttached=Bestand <strong> %s </strong> gedownload en toegevoegd aan factuur
+InvoiceFoundIntoDolibarr=Factuur gevonden in Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Factuur+PDF gevonden in Dolibarr: %s
+ConnectionParameters=Verbindingsparameters:
+TryToUseProxy=Proxyserver gebruiken
+AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klik hier om de volledige lijst te zien </a>
+MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klik hier voor meer informatie </a>
+CompatibleWithDoliDroid=Deze module is ook compatibel met DoliDroid, de Android-applicatie voor Dolibarr.
+OvhApplicationName=Naam van de toepassing
+OvhApplicationDescription=Toepassingsbeschrijving:
+OvhApplicationKey=Applicatiesleutel
+OvhApplicationSecret=Toepassingsgeheim
+OvhConsumerkey=Gebruikers sleutel
+GoOnPageToCreateYourAPIKey=Ga eerst naar pagina <a href="%s" target="_blank"> %s </a> om uw OVH-toepassingsvermelding te maken en de API-sleutel en het geheim te krijgen, of maak een nieuwe aan als u dat wilt of als u de API-sleutel/het geheim bent kwijtgeraakt, vul dan deze pagina met deze informatie.
+ListOfExistingAPIApp=Opmerking: u kunt een lijst met reeds gemaakte toepassingen vinden op pagina <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Klik hier <a href="%s"> om in te loggen en een nieuwe consumentensleutel </a> te krijgen (u moet de geldigheid van <strong> onbeperkt </strong> kiezen)
+Authentication=authenticatie
+FromThe=Van de
+PleaseFillOtherFieldFirst=Vul eerst de andere velden in...
+IfYouChangeHereChangeAlsoClickToDial=Als u hier gegevens wijzigt, vergeet dan niet om ook de link naar module ClickToDial . bij te werken
+ToGoOnClickToDialSetup=Om verder te gaan met het instellen van de ClickToDial-module
+OvhTelAccountHelp=Zet hier de naam van uw OVH Telecom Billing account (NIET uw OVH account)
+OvhServiceNameHelp=Zet hier het SIP-regelnummer (moet het internationale formaat hebben, zoals 0033123456789 voor Frankrijk). Let op, als u meerdere regelnummers heeft voor verschillende gebruikers, laat dit veld dan leeg en verander de waarde van "SIPLineNumber" in de URL die u moet plakken in het ClickToDial URL-veld op elke gebruikerskaart (zie hieronder)
+OVHURLMustNotBeLocal=Waarschuwing, de URL die u voor de toepassing gebruikt, mag GEEN lokale URL zijn, maar een URL die u vanaf internet kunt openen om dit te laten werken.
+CreateSnapshot=Momentopname maken
+SnapshotRequestSent=Momentopnameverzoek onder de naam '%s' is succesvol verzonden.
+NoneLabelOnOvhLineWillBeUsed=Geen (label van regel in OVH-factuur wordt gebruikt)
+OVHAccount=OVH-account
+OvhDefaultBankAccount=Standaard bankrekening op facturen
+OvhValidVatList=Lijst met geldige btw-waarden
+OVHVatKeepEmptyToAcceptAll=Laat dit veld leeg als u alle btw-waarden wilt accepteren (auto). Waarschuwing: OVH retourneert soms slecht afgeronde btw-tarieven, dus als u hier btw-tarieven instelt, wordt de toepassing geforceerd om de dichtstbijzijnde geldige waarde te gebruiken in plaats van de OVH-waarde.

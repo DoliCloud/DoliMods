@@ -1,0 +1,15 @@
+# Dolibarr language file - en_US - numberwords
+CHARSET=UTF-8
+Module101220Name=Tallord
+Module101220Desc=Legg til muligheter for å konvertere beløp og tall til verdi i fulltekst (bare få språk støttes)
+NumberWordsSetup=Number Words-moduloppsett
+DescNumberWords=Denne modulen gir funksjoner for å konvertere tall eller beløp i hele tegn. Den vil også erstatte følgende strengforekomster __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ eller __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ eller __AMOUNT_CURRENCY_CURRENCY_VAT_TEXT__ av total tekst, total tekst uten skatt eller vo i total tekst, uten skatt, total tekst eller vo.
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
+MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klikk her for mer informasjon </a>
+CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
+SetupToChange=Oppsettside de endre
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Bruk symbolet i stedet for fulltekst for valutaen
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Legg til den korte koden for valuta før symbolet

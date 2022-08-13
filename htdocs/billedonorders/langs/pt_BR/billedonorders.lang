@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Billed on orders
+BilledOnOrdersSetup=Billed On Orders module setup
+Module101450Desc=Module to show the amount billed and remain to billed according to linked invoices on the list of customer or supplier orders
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+BilledOnOrdersNothingToSetup=Nothing to setup. New fields are available into list of customer orders.
+AmountBilledHT=Amount billed (excl. tax)
+AmountBilledTTC=Amount billed (inc. tax)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Disable column "Amount billed without tax"
+BILLEDONORDERS_DISABLE_BILLED=Disable column "Amount billed with tax"
+BILLEDONORDERS_DISABLE_PAYED=Disable column "Amount payed"
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Disable column "Remain to pay"
+AmountBilledDiffersFromAmountOnOrder=Amount of invoices linked to order differs from amount of order
+AmongAlreadyCreatedInvoices=Among the already created invoices

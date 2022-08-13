@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - numberwords
+# Dolibarr language file - en_US - numberwords
 CHARSET=UTF-8
 Module101220Name=Number Words
 Module101220Desc=Ajoute la possibilité de convertir des montants ou nombres en une valeur écrite en texte alphabétique (seuls quelques languages sont supportés)
@@ -11,3 +11,5 @@ MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'héberg
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Cliquez ici pour plus d'information</a>
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
 SetupToChange=Page de configuration pour modifier
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Utilisez le symbole au lieu du texte intégral pour la devise
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Ajoutez le code abrégé de la devise avant le symbole

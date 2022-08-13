@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=Файловий менеджер
+FileManagerSetup=Налаштування модуля FileManager
+LabelForRootFileManager=Мітка для видимого кореневого шляху/ярлика
+RootFileManager=Вибраний кореневий шлях/ярлик
+PathForRootFileManager=Розташування кореневого шляху/ярлика на диску
+NoteOnFileManagerPathLocation=Усі каталоги повинні мати дозвіл, щоб ваш веб-сервер міг читати/сканувати їх.
+ListForRootPath=Список видимих кореневих шляхів/ярликів
+PleaseSelectARoot=Будь ласка, виберіть кореневий каталог для сканування в меню...
+SelectAFile=Виберіть каталог або файл на лівій панелі
+DateLastAccess=Дата останнього доступу
+DateLastChange=Дата останньої зміни
+FullPath=Повний шлях
+PreviewNotAvailableForThisType=Попередній перегляд недоступний для цього типу файлу.
+NotEnoughMemoryForSyntaxColor=У вашому PHP недостатньо пам’яті, щоб увімкнути фарбування синтаксису під час попереднього перегляду текстових файлів.
+YouMustSelectAFileToUseFileEditorTool=Ви повинні вибрати файл на лівій панелі, щоб скористатися інструментом редактора файлів.
+NoEditorForThisFormat=Немає редактора для редагування цього формату файлу.
+DeleteDir=Видалити каталог
+DeleteFileName=Видалити наступний файл:
+DeleteDirName=Видалити наступний каталог:
+NewDir=Новий каталог
+CreateNewDir=Створити новий каталог
+NewFile=Новий файл
+AddRootPath=Додати кореневі каталоги для файлового менеджера
+UseColorSyntaxing=Увімкнути колірний синтаксис для функції перегляду вмісту файлу (потрібно більше пам’яті. Вимкніть це, якщо під час перегляду вмісту текстового файлу ви бачите пусту сторінку)
+ColoringDisabled=Фарбування синтаксису не ввімкнено
+ServerMustHavePermission=Дозволи на файлову систему для цього мають бути надані веб-серверу (%s/%s).
+AddDirName=Додайте назву каталогу
+AddFileName=Додайте назву файлу
+#####
+Module10600Name=Файловий менеджер
+Module10600Desc=Файловий менеджер для сканування та перегляду вмісту дисків вашого сервера Dolibarr.
+AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компанія-партнер Dolibarr).
+MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Натисніть тут, щоб переглянути повний список </a>
+MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Натисніть тут для отримання додаткової інформації </a>
+CompatibleWithDoliDroid=Ці модулі також сумісні з DoliDroid, програмою Android для Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=Обліковий запис користувача, який використовується веб-сервером, не має дозволу на запис

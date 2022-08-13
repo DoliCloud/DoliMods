@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - billedonorders 
+# Dolibarr language file - en_US - billedonorders
 CHARSET= UTF-8
 BilledOnOrders=Facturé sur les commandes
 BilledOnOrdersSetup=Configuration du module "Facturé sur les commandes"
@@ -16,3 +16,4 @@ BILLEDONORDERS_DISABLE_BILLED=Désactivé la colonne "Montant facturé TTC"
 BILLEDONORDERS_DISABLE_PAYED=Désactivé la colonne "Montant payé"
 BILLEDONORDERS_DISABLE_REMAINTOPAY=Désactivé la colonne "Reste à payer"
 AmountBilledDiffersFromAmountOnOrder=Le montant des factures liées à la commande diffère du montant de la commande
+AmongAlreadyCreatedInvoices=Parmi les factures déjà créées

@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Gefactureerd op bestellingen
+BilledOnOrdersSetup=Configuratie van de module Gefactureerd op bestellingen
+Module101450Desc=Module om het gefactureerde bedrag te tonen en te factureren volgens gekoppelde facturen op de lijst met klant- of leveranciersorders
+AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klik hier om de volledige lijst te zien </a>
+MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klik hier voor meer informatie </a>
+BilledOnOrdersNothingToSetup=Niets in te stellen. Nieuwe velden zijn beschikbaar in de lijst met klantorders.
+AmountBilledHT=Gefactureerd bedrag (excl. btw)
+AmountBilledTTC=Gefactureerd bedrag (incl. btw)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Schakel kolom "Bedrag gefactureerd zonder btw" uit
+BILLEDONORDERS_DISABLE_BILLED=Schakel kolom "Bedrag gefactureerd met belasting" uit
+BILLEDONORDERS_DISABLE_PAYED=Schakel kolom "Betaald bedrag" uit
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Schakel kolom "Te betalen" uit
+AmountBilledDiffersFromAmountOnOrder=Aantal facturen gekoppeld aan order verschilt van orderbedrag
+AmongAlreadyCreatedInvoices=Tussen de reeds aangemaakte facturen

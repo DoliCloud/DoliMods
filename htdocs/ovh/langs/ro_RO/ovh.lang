@@ -1,0 +1,83 @@
+# Dolibarr language file - en_US - ovh
+CHARSET=UTF-8
+OvhSmsSetup=Configurarea modulului Ovh
+OvhSmsRecap=Contul principal rezumat
+OvhSmsNick=Nick Handle pentru contul principal
+OvhBillingAccount=Nick handle pentru contul principal
+OvhServiceName=Cont de service OVH
+OvhSmsPass=Parola
+OvhSmsLabelAccount=Cont SMS de utilizat
+OvhSmsLoginSuccessFull=Conexiune reușită!
+OvhSmsNotConfigured=Modulul nu este configurat
+OvhAuthenticationPartNotConfigured=Datele de autentificare nu au fost configurate. Accesați configurarea modulului OVH, mai întâi fila „Autentificare”.
+NbSmsLeft=Numărul SMS-urilor rămase
+OvhSmsSoapUrl=Adresa URL a serviciului OVH SOAP
+OvhSmsSend=Trimite SMS
+OvhSmsAccountInfos=Informații despre contul SMS
+OvhSmsDestinataire=Ţintă
+OvhSmsLabelTexteMessage=Textul mesajului
+tabOvhSms=mesaj
+OvhSmsStatutSent=Mesaj primit
+OvhSmsStatutSubmitted=Trimis
+OvhSmsStatutWaiting=Aşteptare
+OvhSmsStatutFailed=A eșuat
+OvhSmsBackToAdmin=Înapoi la modulul de administrare
+OvhSmsHistory=Jurnalul ultimelor trimiteri %s
+ListOfSmsAccountsForNH=Lista de conturi SMS pentru contul definit în fila „Autentificare”.
+ClickToDialLink=Acesta este linkul pentru a copia și lipi în configurarea modulului ClickToDial pentru a utiliza %s Click2Dial: <br> %s
+TestSendSMS=Test de trimitere SMS
+TestLoginToApi=Testați conexiunea la API
+SendersAllowed=Expeditori permisi de la managerul OVH
+ListOfDedicatedServers=Lista serverelor dvs. dedicate OVH
+ListOfPublicCloudServers=Lista serverelor dvs. Public Cloud OVH
+OvhServers=servere OVH
+OvhDedicated=Servere dedicate
+OvhPublicCloud=Servere publice cloud
+OvhGetInvoices=Import facturi OVH
+OvhInvoiceImportShort=Import facturi OVH
+OvhInvoiceImportDesc=Această pagină listează toate facturile OVH și sugerează o modalitate de a le importa. Faceți mai întâi clic pe butonul „Obțineți lista de facturi”. Apoi, pentru fiecare factură care nu este deja prezentă, bifați caseta și faceți clic pe „Butonul Import”.
+SupplierToUseForImport=Furnizorul pentru a crea facturi importate
+ProductGenericToUseForImport=Produs/Servicii de utilizat pentru liniile de facturi importate
+ProjectForImport=Atașați facturile importate la proiect
+KeepEmptyToSaveLinesAsFreeLines=Păstrați acest câmp gol dacă nu doriți să vedeți linii importate folosind un produs/serviciu predefinit generic
+ScanOvhInvoices=Obțineți lista de facturi
+ExcludeNullInvoices=Excludeți facturile cu suma totală nulă
+ExcludeNullLines=Excludeți liniile de factură cu sumă nulă
+NotFound=Nu a fost gasit
+ImportIt=Importați-l?
+ToImport=Import
+NoInvoicesSelected=Nu au fost selectate facturi
+FileDownloadedAndAttached=Fișierul <strong> %s </strong> descărcat și atașat facturii
+InvoiceFoundIntoDolibarr=Factură găsită în Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Factură+PDF găsită în Dolibarr: %s
+ConnectionParameters=Parametrii de conectare
+TryToUseProxy=Utilizarea serverului proxy
+AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (O companie Dolibarr Preferred Partner).
+MoreModules=Alte module ale aceluiași autor sunt disponibile pe piața oficială DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Faceți clic aici pentru a vedea lista completă </a>
+MoreCloudHosting=Pentru a utiliza Dolibarr online, alegeți găzduirea securizată DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Faceți clic aici pentru mai multe informații </a>
+CompatibleWithDoliDroid=Acest module este compatibil și cu DoliDroid, aplicația Android pentru Dolibarr.
+OvhApplicationName=Numele aplicatiei
+OvhApplicationDescription=Descrierea aplicației
+OvhApplicationKey=Cheia aplicației
+OvhApplicationSecret=Secretul aplicației
+OvhConsumerkey=Cheia consumatorului
+GoOnPageToCreateYourAPIKey=Mai întâi accesați pagina <a href="%s" target="_blank"> %s </a> pentru a vă crea intrarea în aplicația OVH și pentru a obține cheia API și secretul acesteia, sau creați unul nou dacă preferați sau dacă ați pierdut cheia/secretul API, apoi completați această pagină cu aceste informații.
+ListOfExistingAPIApp=Notă: Puteți găsi lista aplicațiilor deja create pe pagina <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Faceți clic pe <a href="%s"> aici pentru a vă autentifica și a obține o nouă cheie de consum </a> (Trebuie să alegeți <strong> NELIMITAT </strong> valabilitate)
+Authentication=Autentificare
+FromThe=De la
+PleaseFillOtherFieldFirst=Vă rugăm să completați mai întâi celelalte câmpuri...
+IfYouChangeHereChangeAlsoClickToDial=Dacă modificați datele aici, nu uitați să actualizați și linkul în modulul ClickToDial
+ToGoOnClickToDialSetup=Pentru a merge la configurarea modulului ClickToDial
+OvhTelAccountHelp=Pune aici numele contului tău de facturare OVH Telecom (NU contul tău OVH)
+OvhServiceNameHelp=Puneți aici numărul liniei SIP (trebuie să fie formatul internațional ca 0033123456789 pentru Franța). Rețineți, dacă aveți mai multe numere de rând pentru utilizatori diferiți, păstrați acest câmp gol și modificați valoarea „SIPLineNumber” în adresa URL pe care trebuie să o inserați în câmpul URL ClickToDial de pe fiecare card de utilizator (vezi mai jos)
+OVHURLMustNotBeLocal=Atenție, adresa URL pe care o utilizați pentru aplicație NU trebuie să fie o adresă URL locală, ci o adresă URL pe care o puteți accesa de pe internet pentru a funcționa.
+CreateSnapshot=Creați un instantaneu
+SnapshotRequestSent=Solicitarea instantanee sub numele „%s” a fost trimisă cu succes.
+NoneLabelOnOvhLineWillBeUsed=Niciuna (se va folosi eticheta liniei din factura OVH)
+OVHAccount=Contul OVH
+OvhDefaultBankAccount=Cont bancar implicit pe facturi
+OvhValidVatList=Lista valorilor valide de TVA
+OVHVatKeepEmptyToAcceptAll=Păstrați acest câmp gol dacă doriți să acceptați toate valorile TVA (auto). Atenție: OVH returnează uneori cote de TVA rotunjite prost, așa că setarea cotelor de TVA aici obligă aplicația să folosească cea mai apropiată valoare valabilă în loc de valoarea OVH.

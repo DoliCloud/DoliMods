@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - ecotaxdeee
+# Dolibarr language file - en_US - ecotaxdeee
 CHARSET=UTF-8
 EcoTaxDeee=Eco taxe Recupel
 EcoTaxDeeSetup=Configuration du module eco tax Recupel
@@ -6,8 +6,20 @@ ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Ajouter une ligne eco tax Recupel automatiqueme
 ECOTAXDEEE_USE_ON_PROPOSAL=Ajouter une ligne eco tax Recupel automatiquement sur les propositions commerciales
 ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Ajouter une ligne eco tax Recupel automatiquement sur les factures clients
 ECOTAXDEEE_LABEL_LINE=Libellé à utiliser pour la ligne Eco tax Recupel
+ECOTAXDEEE_DOC_FOOTER=Content of new page to add (empty=no annex)
+EcoTaxDeeDocFooterExample=Products have a unit WEEE tax of 0.01€ for category A, 0.02€ for category B...
+ECOTAXDEEE_CATEGORY_REF=Ref of product category to detect products that need Eco tax WEEE
 Module101380Name=Eco Taxe DEEE
+Module101380Desc=Module to add ecotax lines automatically
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
 EcoTaxAddedIfDesc=Une ligne éco tax Recupel sera automatiquement calculée et ajoutée lorsque des produits soumis à l'éco taxe sont ajoutés dans les élémets suivants: <b>%s</b>.<br>Le montant de l'éco taxe doit être renseigné sur la fiche des produits pour chaque produit auparavant.
 EcoTaxAddedIfDescOld=Une ligne éco tax Recupel sera automatiquement calculée et ajoutée lorsque des produits soumis à l'éco taxe sont ajoutés dans les élémets suivants: <b>%s</b>.<br>Le montant de l'éco taxe doit être renseigné sur la fiche des produits pour chaque produit auparavant. Pour cela, allez dans la configuration du module "Produit" et ajoutez un champ complémentaire de type décimal et ayant pour code "ecotaxdeee". Vous pourrez alors ajouter le montant de l'éco taxe sur chaque produit concerné.
 AddPageWithWEEEUnitPrices=Le module peut aussi ajouter automatiquement une page suplémentaire aux PDF générés afin d'intégrer un annexe avec les couts unitaires de l'écotaxe Recupel. Dans ce cas, remplir ici les lignes/catégories à ajouter et leur cout unitaire.
 ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Product/Service to use as ecotax Recupel line
+OrLabelOfAFreeLine=or just a label to use
+WEEE_DISABLE_VAT_ON_ECOTAX=Disable VAT on Eco Tax line (In most cases, the Eco Tax needs a VAT like any other service)

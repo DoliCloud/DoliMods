@@ -1,18 +1,21 @@
-# Dolibarr language file - ca_ES - ovh
+# Dolibarr language file - en_US - ovh
 CHARSET=UTF-8
 OvhSmsSetup=Configuració del mòdul OVH
 OvhSmsRecap=Sumari compte principal
 OvhSmsNick=Nick Handle del compte principal
+OvhBillingAccount=Nick identificador per al compte principal
+OvhServiceName=Compte de servei d'OVH
 OvhSmsPass=Contrasenya
 OvhSmsLabelAccount=Compte SMS a usar
 OvhSmsLoginSuccessFull=Connexió ok!
 OvhSmsNotConfigured=Mòdul no configurat
+OvhAuthenticationPartNotConfigured=Les dades d'autenticació no estan configurades. Aneu a la configuració del mòdul OVH, primer a la pestanya "Autenticació".
 NbSmsLeft=Nombre SMS restants
 OvhSmsSoapUrl=URL del servei SOAP OVH
 OvhSmsSend=Enviar un SMS
 OvhSmsAccountInfos=Informació del compte SMS
 OvhSmsDestinataire=Destinatari
-OvhSmsLabelTexteMessage=Text del missatge 
+OvhSmsLabelTexteMessage=Text del missatge
 tabOvhSms=sms
 OvhSmsStatutSent=Missatge rebut
 OvhSmsStatutSubmitted=Enviat
@@ -23,8 +26,58 @@ OvhSmsHistory=Històric dels %s últims enviaments
 ListOfSmsAccountsForNH=Llistat de comptes SMS per aquest Nick Handle
 ClickToDialLink=Aquesta és la URL de l'enllaç per copiar i enganxar en la configuració del mòdul ClickToDial per utilitzar el ClickToDial %s:<br>%s
 TestSendSMS=Provar enviament SMS
-SendersAllowed=Emissors autoritzats via el mànager OVH
 TestLoginToApi=Provar la connexió a l'API
+SendersAllowed=Emissors autoritzats via el mànager OVH
 ListOfDedicatedServers=Llistat dels seus servidors dedicats OVH
+ListOfPublicCloudServers=Llista dels teus servidors OVH Public Cloud
+OvhServers=Servidors d'OVH
 OvhDedicated=Servidors dedicats
+OvhPublicCloud=Servidors de núvol públics
 OvhGetInvoices=Importar factures OVH
+OvhInvoiceImportShort=Importació de factures OVH
+OvhInvoiceImportDesc=Aquesta pàgina enumera totes les factures d'OVH i suggereix una manera d'importar-les. Feu clic primer al botó "Obtén la llista de factures". A continuació, per a cada factura que encara no estigui present, marqueu la casella i feu clic al botó "Importar".
+SupplierToUseForImport=Proveïdor per crear factures importades
+ProductGenericToUseForImport=Producte/Servei que s'utilitzarà per a línies de factures importades
+ProjectForImport=Adjunteu les factures importades al projecte
+KeepEmptyToSaveLinesAsFreeLines=Manteniu aquest camp buit si no voleu veure les línies importades amb un producte/servei predefinit genèric
+ScanOvhInvoices=Obteniu la llista de factures
+ExcludeNullInvoices=Exclou les factures amb un import total nul
+ExcludeNullLines=Exclou les línies de factura amb import nul
+NotFound=No trobat
+ImportIt=Importar-lo?
+ToImport=Importar
+NoInvoicesSelected=No s'ha seleccionat cap factura
+FileDownloadedAndAttached=Arxiu <strong> %s </strong> descarregat i adjunt a la factura
+InvoiceFoundIntoDolibarr=Factura trobada a Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Factura+PDF trobat a Dolibarr: %s
+ConnectionParameters=Paràmetres de connexió
+TryToUseProxy=Utilitzant el servidor proxy
+AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa de Dolibarr Preferred Partner).
+MoreModules=Altres mòduls del mateix autor estan disponibles al mercat oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Feu clic aquí per veure la llista completa </a>
+MoreCloudHosting=Per utilitzar Dolibarr en línia, trieu l'allotjament segur DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Feu clic aquí per obtenir més informació </a>
+CompatibleWithDoliDroid=Aquest mòdul també és compatible amb DoliDroid, l'aplicació d'Android per a Dolibarr.
+OvhApplicationName=Nom de l'aplicació
+OvhApplicationDescription=Descripció de l'aplicació
+OvhApplicationKey=Clau de l'aplicació
+OvhApplicationSecret=Secret de l'aplicació
+OvhConsumerkey=Clau del consumidor
+GoOnPageToCreateYourAPIKey=Primer aneu a la pàgina <a href="%s" target="_blank"> %s </a> per crear la vostra entrada de l'aplicació OVH i obtenir la seva clau API i secret, o creeu-ne una de nova si ho preferiu o si heu perdut la clau/secret de l'API, ompliu aquesta pàgina amb aquesta informació.
+ListOfExistingAPIApp=Nota: Podeu trobar la llista d'aplicacions ja creades a la pàgina <a href="%s" target="_blank"> %s </a> .
+ClickHereToLoginAndGetYourConsumerKey=Feu clic a <a href="%s"> aquí per iniciar sessió i obtenir una nova clau de consumidor </a> (heu de triar <strong> ILLIMITAT </strong> validesa)
+Authentication=Autenticació
+FromThe=Des del
+PleaseFillOtherFieldFirst=Si us plau, omple els altres camps primer...
+IfYouChangeHereChangeAlsoClickToDial=Si canvieu les dades aquí, no oblideu actualitzar també l'enllaç al mòdul ClickToDial
+ToGoOnClickToDialSetup=Per anar a la configuració del mòdul ClickToDial
+OvhTelAccountHelp=Posa aquí el nom del teu compte de facturació d'OVH Telecom (NO el teu compte d'OVH)
+OvhServiceNameHelp=Poseu aquí el número de línia SIP (ha de ser el format internacional com 0033123456789 per a França). Tingueu en compte que si teniu diversos números de línia per a usuaris diferents, manteniu aquest camp buit i canvieu el valor de "SIPLineNumber" a l'URL que heu d'enganxar al camp d'URL ClickToDial de cada targeta d'usuari (vegeu més avall)
+OVHURLMustNotBeLocal=Advertència, l'URL que utilitzeu per a l'aplicació NO ha de ser un URL local, sinó un URL al qual podeu accedir des d'Internet perquè funcioni.
+CreateSnapshot=Crea una instantània
+SnapshotRequestSent=La sol·licitud de captura d'instantània amb el nom "%s" s'ha enviat correctament.
+NoneLabelOnOvhLineWillBeUsed=Cap (s'utilitzarà l'etiqueta de la línia de la factura d'OVH)
+OVHAccount=Compte OVH
+OvhDefaultBankAccount=Compte bancari predeterminat a les factures
+OvhValidVatList=Llista de valors d'IVA vàlids
+OVHVatKeepEmptyToAcceptAll=Manteniu aquest camp buit si voleu acceptar tots els valors d'IVA (automàtic). Avís: OVH retorna de vegades els tipus d'IVA arrodonits malament, de manera que establir els tipus d'IVA aquí obliga l'aplicació a utilitzar el valor vàlid més proper en lloc del valor OVH.

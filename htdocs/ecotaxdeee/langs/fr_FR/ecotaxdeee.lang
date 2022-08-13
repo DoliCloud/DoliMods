@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - ecotaxdeee
+# Dolibarr language file - en_US - ecotaxdeee
 CHARSET=UTF-8
 EcoTaxDeee=Eco taxe DEEE
 EcoTaxDeeSetup=Configuration du module eco tax DEEE
@@ -22,4 +22,4 @@ EcoTaxAddedIfDescOld=Une ligne éco tax DEEE sera automatiquement calculée et a
 AddPageWithWEEEUnitPrices=Le module peut aussi ajouter automatiquement une page suplémentaire aux PDF générés afin d'intégrer un annexe avec les couts unitaires de l'écotaxe DEEE. Dans ce cas, remplir ici les lignes/catégories à ajouter et leur cout unitaire.
 ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Product/Service to use as ecotax DEEE line
 OrLabelOfAFreeLine=ou juste un libellé à utiliser
-WEEE_DISABLE_VAT_ON_ECOTAX=Désactiver la TVA sur la ligne Eco Tax (dans la plupart des cas, l'Eco Tax étant un service, la ligne Eco Tax est soumise à TVA) 
+WEEE_DISABLE_VAT_ON_ECOTAX=Désactiver la TVA sur la ligne Eco Tax (dans la plupart des cas, l'Eco Tax étant un service, la ligne Eco Tax est soumise à TVA)

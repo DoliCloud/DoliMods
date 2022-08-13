@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Fatturato sugli ordini
+BilledOnOrdersSetup=Configurazione del modulo Billed On Orders
+Module101450Desc=Modulo per mostrare l'importo fatturato e rimanere fatturato in base alle fatture collegate nell'elenco degli ordini cliente o fornitore
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+BilledOnOrdersNothingToSetup=Niente da configurare. Nuovi campi sono disponibili nell'elenco degli ordini dei clienti.
+AmountBilledHT=Importo fatturato (IVA esclusa)
+AmountBilledTTC=Importo fatturato (IVA inclusa)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Disattiva colonna "Importo fatturato senza tasse"
+BILLEDONORDERS_DISABLE_BILLED=Disattiva colonna "Importo fatturato con IVA"
+BILLEDONORDERS_DISABLE_PAYED=Disattiva colonna "Importo pagato"
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Disattiva la colonna "Resta da pagare"
+AmountBilledDiffersFromAmountOnOrder=L'importo delle fatture collegate all'ordine è diverso dall'importo dell'ordine
+AmongAlreadyCreatedInvoices=Tra le fatture già create

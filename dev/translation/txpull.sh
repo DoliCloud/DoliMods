@@ -16,7 +16,7 @@ then
 	echo "This pull remote transifex files to local dir."
 	echo "Note:  If you pull a language file (not source), file will be skipped if local file is newer."
 	echo "       Using -f will overwrite local file (does not work with 'all')."
-	echo "Usage: ./dev/translation/txpull.sh (all|xx_XX) [-r dolimed.file] [-f] [-s]"
+	echo "Usage: ./dev/translation/txpull.sh (all|xx_XX) [-r module.file] [-f] [-s]"
 	exit
 fi
 
@@ -29,9 +29,9 @@ fi
 
 if [ "x$1" = "xall" ]
 then
-	for dir in `find htdocs/*/langs/* -type d`
+	for dir in `find htdocs/*/langs/* -type d | cut -d '/' -f 4 | sort -u`
 	do
-	    fic=`basename $dir`
+	    fic=$dir
 	    if [ $fic != "en_US" ]
 	    then
 		    echo "tx pull -l $fic $2 $3"

@@ -1,0 +1,19 @@
+# Dolibarr language file - en_US - billedonorders
+CHARSET= UTF-8
+BilledOnOrders=Facturat per comandes
+BilledOnOrdersSetup=Configuració del mòdul Facturat per comandes
+Module101450Desc=Mòdul per mostrar l'import facturat i romandre a facturar segons factures enllaçades a la llista de comandes de clients o proveïdors
+AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa de Dolibarr Preferred Partner).
+MoreModules=Altres mòduls del mateix autor estan disponibles al mercat oficial de DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Feu clic aquí per veure la llista completa </a>
+MoreCloudHosting=Per utilitzar Dolibarr en línia, trieu l'allotjament segur DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Feu clic aquí per obtenir més informació </a>
+BilledOnOrdersNothingToSetup=Res a configurar. Nous camps estan disponibles a la llista de comandes de clients.
+AmountBilledHT=Import facturat (sense impostos)
+AmountBilledTTC=Import facturat (impostos inclosos)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Desactiva la columna "Import facturat sense impostos"
+BILLEDONORDERS_DISABLE_BILLED=Desactiva la columna "Import facturat amb impostos"
+BILLEDONORDERS_DISABLE_PAYED=Desactiva la columna "Import pagat"
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Desactiva la columna "Queda per pagar"
+AmountBilledDiffersFromAmountOnOrder=La quantitat de factures vinculades a la comanda difereix de la quantitat de la comanda
+AmongAlreadyCreatedInvoices=Entre les factures ja creades

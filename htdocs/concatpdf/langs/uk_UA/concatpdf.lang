@@ -1,0 +1,20 @@
+# Dolibarr language file - en_US - concatpdf
+CHARSET= UTF-8
+ConcatPdfSetup=Налаштування модуля ConcatPDF
+ConcatPDfTakeFileFrom=Модуль ConcatPDF запропонує concat:
+ConcatPDfTakeFileFrom2=Для створення PDF-файлу <b> %s </b> , будь-який PDF-файл, знайдений у каталозі: <b> %s </b>
+ConcatPDfPutFileManually=PDF-файли можна зберігати тут за допомогою файлового менеджера.
+NoPDFFileFound=На даний момент у каталозі не знайдено файлів PDF
+ConcatFile=Файл Concat PDF
+EnableMultipleConcatenation=Увімкніть можливість об’єднання кількох документів.
+ConcatPdf=Concat PDF
+Module101400Name=Concat PDF
+Module101400Desc=Модуль для зв’язку з PDF (наприклад, умови продажу) до будь-якого створеного PDF (рахунки-фактури, замовлення чи пропозиції)
+AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компанія-партнер Dolibarr).
+MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Натисніть тут, щоб переглянути повний список </a>
+MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Натисніть тут для отримання додаткової інформації </a>
+CompatibleWithDoliDroid=Ці модулі також сумісні з DoliDroid, програмою Android для Dolibarr.
+ErrorFileMustBeAPdf=Помилка, файл має бути файлом PDF
+WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF несумісний із опцією PDF: %s

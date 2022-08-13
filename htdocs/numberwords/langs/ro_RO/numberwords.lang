@@ -1,0 +1,15 @@
+# Dolibarr language file - en_US - numberwords
+CHARSET=UTF-8
+Module101220Name=Cuvinte numerice
+Module101220Desc=Adăugați capabilități de a converti sume și numere în valoare în text integral (suportate doar câteva limbi)
+NumberWordsSetup=Configurarea modulului Number Words
+DescNumberWords=Acest modul oferă funcții pentru a converti numărul sau suma în caractere întregi. De asemenea, va înlocui următoarele apariții de șir __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ sau __AMOUNT_VAT_TEXT__ sau __AMOUNT_VAT_TEXT__ sau __AMOUNT_AMOUNT_VAT_TEXT__ sau __AMOUNT_AMOUNT_VAT_TEXT__ sau totalul taxelor utilizate în text, totalul text, fără taxe, __CUR_RENCY_AMOUNT_ sau totalul textului net, fără taxe, __RENCY_AMOUNT_, textul net sau total fără taxe.
+AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (O companie Dolibarr Preferred Partner).
+MoreModules=Alte module ale aceluiași autor sunt disponibile pe piața oficială DoliStore...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Faceți clic aici pentru a vedea lista completă </a>
+MoreCloudHosting=Pentru a utiliza Dolibarr online, alegeți găzduirea securizată DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Faceți clic aici pentru mai multe informații </a>
+CompatibleWithDoliDroid=Acest module este compatibil și cu DoliDroid, aplicația Android pentru Dolibarr.
+SetupToChange=Pagina de configurare pentru modificare
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Utilizați simbolul în loc de textul complet pentru monedă
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Adăugați codul scurt al monedei înaintea simbolului

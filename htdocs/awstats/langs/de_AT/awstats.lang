@@ -1,0 +1,20 @@
+# Dolibarr language file - en_EN - awstats
+CHARSET= UTF-8
+AWStatsSetup=AWStats module setup
+AWStatsSummary=AWStats summary
+AWStatsSetupNotComplete=AWStats setup is not complete
+AWSTATS_DATA_DIR=AWStats data files directory (path on disk)
+AWSTATS_CGI_PATH=AWStats URL (CGI)
+AWSTATS_PROG_PATH=Localisation of AWStats program (path on disk)
+AWSTATS_LIMIT_CONF=Limit config shown to this list (empty for no filter or use "," as separator)
+ShowStats=Show detailed statistics
+FilterDomain=Filter on profile (configuration name)
+Module12000Name=AWStats
+Module12000Desc=Module to integrate AWStats log analyzer reports in Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=Directory must end with / or FilterDomain=Filter on configuration name
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.

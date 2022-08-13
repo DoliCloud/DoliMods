@@ -1,8 +1,8 @@
-# Dolibarr language file - es_ES - google
+# Dolibarr language file - en_US - google
 CHARSET=UTF-8
 GoogleSetup=Configuración del módulo Google
 GoogleSetupHelp=El ID de calendario es único para cada calendario y es visible en la página de configuración de Google Calendar. Este es un identificador que es similar a un e-mail.
-GoogleAgendaNb=Agenda nº %s 
+GoogleAgendaNb=Agenda nº %s
 GoogleIDAgenda=ID Agenda
 GoogleNbOfAgenda=Número de agendas
 GoogleTools=Herramientas Google
@@ -17,7 +17,6 @@ GoogleAddressNotDefined=No hay dirección o no está lo bastante completa como p
 GoogleMapsAddressNotFound=No se ha podido encontrar la dirección.
 GoogleAgendaToShow=Agenda a mostrar
 GoogleEnableSyncToCalendar=Crear un evento Google en Google Calendar en la creación de un evento Dolibarr
-GoogleActivateSyncToCalendar=Activar la sincronización del calendario
 GoogleEnableSyncToThirdparties=Activar la sincronización de terceros a los contactos de GMail
 GoogleEnableSyncToContacts=Activar la sincronización de contactos/direcciones a los contactos de GMail
 GoogleEnableSyncToMembers=Activar la sincronización de los miembros a los contactos de GMail
@@ -29,25 +28,40 @@ GOOGLE_PASSWORD=Contraseña
 GOOGLE_EVENT_LABEL_INC_SOCIETE=Incluir el nombre de la empresa en los eventos relacionados con un tercero
 GOOGLE_EVENT_LABEL_INC_CONTACT=Incluir el nombre del contacto en los eventos relacionados con un contacto
 GOOGLE_CONTACT_LABEL=Etiqueta para etiquetar los contactos
+GOOGLE_INCLUDE_AUTO_EVENT=Sincronización también para eventos creados automáticamente por Dolibarr (consulte la configuración del módulo Agenda para ver la lista de eventos automáticos). <br> Si no, solo se sincronizan los eventos ingresados manualmente en la agenda.
+GOOGLE_INCLUDE_ATTENDEES=Agregue también la lista de asistentes al evento. Google puede enviarles correos electrónicos cuando crea un evento con asistentes. Además, a veces Google no permite el uso de las API cuando hay asistentes.
 MAIN_GOOGLE_AN_ID=ID Google analytics
+GoogleIDContact=Cuenta Google
+GoogleNoTokenYet=Aún no tienes ningún token. Para crear uno, solo autentícate en Google con el siguiente enlace:
+GoogleRecreateToken=Para forzar la recreación de un nuevo token, simplemente autentíquese en Google con el siguiente enlace:
+GoogleDeleteToken=Para eliminar el token actual:
+GoogleDeleteAuthorization=Para leer/eliminar la autorización guardada por Google:
 Module101110Name=Google
 Module101110Desc=Módulo para integrar las herramientas Google en Dolibarr
 GoogleCalendarSyncConf=Configuración de la sincronización del calendario
+TargetUser=Usuario objetivo
 KeepEmptyYoUseLoginPassOfEventUser=Dejar en blanco para usar el ID Google Calendar definido por el usuario propietario del evento (configurado en la ficha de cada usuario)
+KeepEmptyYoUseLoginPassOfEventUserAssigned=Actualmente, esta configuración está vacía. Significa que la agenda de destino será la agenda del usuario que es el propietario del evento (la ID de la agenda debe definirse en cada usuario). No se realiza ninguna sincronización si no se realiza la configuración de ID de agenda para este usuario.
+KeepEmptyYoUseLoginPassOfEventUserSaleRep=La agenda de destino es la agenda del primer representante de ventas del tercero al que está vinculado el evento. Si no hay un tercero para el evento, ni un representante de ventas para un tercero, no se realiza la sincronización.
 KeepEmptyYoUsePublicQuotaOfAPI=Dejar en blanco para usar la cuota pública de esta API. (De lo contrario la clave puede crearse desde la página https://console.developers.google.com/apis/credentials. "API Access" para crear una "Server key" y "Services" para activar la API "%s")
 AllowGoogleToLoginWithKey=Debe crear una clave desde la página <a href="%s" target="_blank">%s</a>, menú "API & Authentification" -> "Indentification". Hacer clic en "Crear una clave" y escoger "Clave de servidor" y seguidamente "Crear". Obtendrá su clave de servidor.
+AllowGoogleToLoginWithClientID=Puede crear su ID de cliente de Google <strong> y el secreto </strong> desde la página <a href="%s" target="_blank"> %s </a>, seleccione un proyecto o cree uno, luego menú "API y servicios" -> "Credenciales". Haga clic en "Crear/Agregar un ID de cliente OAuth 2.0" y elija "Aplicación web", establezca "Origen Javascript permitido" en vacío y configure "Redirigir URI" en <br> <strong> %s </strong> <br> y luego haga clic en el botón "Crear". Obtendrá un nuevo ID de cliente <strong> </strong> y un código secreto <strong> </strong>. Aquí debe ingresar el ID de cliente <strong> </strong> y el secreto de cliente <strong> </strong> en la siguiente línea.
+AllowGoogleToLoginWithClientSecret=Consulte la nota en la línea anterior para saber cómo obtener su secreto de cliente de Google.
 AllowGoogleToLoginWithServiceAccount=Puede crear su <strong>cuenta de servicio usuario/email</strong> desde la página <a href="%s" target="_blank">%s</a>, menú "API & Authentification" -> "Identification" . Hacer clic en "Crear un ID de cliente" y escoger "Cuenta de servicio" seguidamente "Crear". Obtendrá su nueva cuenta de servicio con un <strong>ID cliente de cuenta de servicio</strong> y un <strong>Email de cuenta de servicio</strong>.
 EnableAPI=También debe habilitar la API para su cuenta de Google. Para ello, vaya a la página <a href="%s" target="_blank">%s</a>, menu "API & Authentification" -> "API". Haga clic en activar la API para "%s".
 ShareCalendarWithServiceAccount=También es necesario compartir el calendario (permisos completos con la cuenta de servicio <strong>%s</strong>. Para ello, vaya al calendario de Google, seleccione "Configuración" y  vaya a la pestaña "Calendarios" (acceso directo vía <a href="https://www.google.com/calendar/render?tab=mc#i">este enlace</a>). Haga clic en "compartidos: Ajustes" al final del calendario a actualizar (Este debe ser el mismo calendario que indicó en el ID de parámetro "%s".) a continuación, agregue la cuenta de servicio de usuario/email en el campo Email, seleccione los permisos más completos y confirme haciendo clic en "Añadir usuario".
-GOOGLE_API_SERVERKEY=
+GOOGLE_API_SERVERKEY=Clave API (escriba "Clave del servidor")
 GoogleUserConf=Configuración Google
 GoogleSetupIsGlobal=La sincronización se realiza a nivel global a el calendario <strong>%s</strong> para todo el mundo
 TestCreateUpdateDelete=Probar creación-actualización-eliminación
+TestCreateUpdate=Prueba crear-actualizar (para eliminar manualmente)
 TestCreate=Probar creación (eliminar a mano)
 TestSuccessfull=Prueba correcta
 DueToGoogleLimitYouNeedToLogin=Por razones de seguridad impuestas por Google, la vista de calendario de Google no se mostrará correctamente si se ha iniciado sesión en Google (sólo funciona para un ID de calendario).
 AllowGoogleToLoginSetupKey=Para integrar este proceso de acceso a Google en la aplicación (no es obligatorio), es posible configurar una clave para permitir a la aplicación ofrecer el inicio de sesión en Google, si no está conectado.
-AllowGoogleToLoginProp=Los datos a indicar aquí se obtienen creando una clave mediante este enlace <a href="%s" target="_blank">%s</a>: : Seleccione Acceso API y cree un ID de cliente del tipo Application Web, indicando como url de redirección (Redirect URI) la url <strong>%s</strong> 
+AllowGoogleToLoginProp=Los datos a indicar aquí se obtienen creando una clave mediante este enlace <a href="%s" target="_blank">%s</a>: : Seleccione Acceso API y cree un ID de cliente del tipo Application Web, indicando como url de redirección (Redirect URI) la url <strong>%s</strong>
+AllowGoogleToLoginWithAccountService=Puede obtener información para esta página de configuración creando una clave usando este enlace <a href="%s" target="_blank"> %s </a>: seleccione "API y servicios" -> "Credenciales". Luego haga clic en "Crear una identificación" y elija el tipo "servicio de cuenta".
+AllowGoogleToLoginWithServiceAccountP12=Una vez que haya creado el usuario/correo electrónico de su cuenta de servicio (consulte la nota en los campos anteriores), debe descargar su archivo json de seguridad <strong> </strong> (no es necesario si el archivo se descargó automáticamente durante la creación anterior de la cuenta). Si no tiene el archivo JSON, vuelva a <a href="%s" target="_blank"> %s </a> y seleccione "API y servicios" -> "Credenciales". Encuentre la línea con su "Servicio de cuenta" creado. Haga clic en el botón Editar, luego en la pestaña "Claves" y "Crear un archivo de clave - Formatear JSON". Esto descargará un nuevo archivo JSON automáticamente. Luego cargue el archivo usando este formulario.
 ExportThirdpartiesToGoogle=Exportar todos los terceros de Dolibarr a los contactos de GMail (Atención: No hay gestión de duplicidades en la exportación en masa).
 ExportContactToGoogle=Exportar todos los contactos/direcciones de Dolibarr a los contactos de GMail (Atención: No hay gestión de duplicidades en la exportación en masa).
 ExportMembersToGoogle=Exportar todos los miembros de Dolibarr a los contactos de GMail (Atención: No hay gestión de duplicidades en la exportación en masa).
@@ -57,6 +71,7 @@ DeleteAllGoogleContacts=Eliminar todos los contactos provenientes de Dolibarr en
 DeleteAllGoogleMembers=Eliminar todos los miembros provenientes de Dolibarr en GMail.
 DeleteAllGoogleEvents=Eliminar todos los eventos provenientes de Dolibarr en GMail.
 PushToGoogleSucess=Sincronización a los contactos de Google realizada, %sregistro(s).
+TagsCreatedSuccess=Sincronización de grupos con contactos de Google finalizada
 DeleteToGoogleSucess=%s contacto(s) eliminado(s) de los contactos de Google.
 GOOGLE_TAG_PREFIX=Etiqueta para marcar los terceros de Dolibarr en contactos de Google
 GOOGLE_TAG_PREFIX_CONTACTS=Etiqueta para marcar los contactos/direcciones de Dolibarr en contactos de Google
@@ -73,15 +88,21 @@ OnlyXAddressesAmongYWereGeoencoded=Por razones de limitación de Google, la loca
 CountGeoTotal=Total direcciones %s - %s aún no geocodificadas - %s en error=%s representadas
 ClickHereToIncludeXMore=Haga clic aquí para geocodificar más direcciones
 ListOfMaps=Listado de mapas disponibles
+By1=Por 1
 By25=Por 25
 By50=Por 50
 By100=Por 100
+By250=por 250
 ParametersForGoogleOAuth=Para Google API OAuth 2.0
 ParametersForGoogleAPIv2Usage=Para Google API %s V2
 ParametersForGoogleAPIv3Usage=Pour Google API %s V3
 GoogleClientId=ID cliente
 GoogleClientSecret=Client secret
+GOOGLE_WEB_TOKEN=ficha actual
 GOOGLE_FIX_TZ=Corrección de TimeZone
+GOOGLE_FIX_TZ_G2D=Corrección de zona horaria (Google -> Dolibarr)
+GOOGLE_API_CLIENT_ID=ID de cliente de Google
+GOOGLE_API_CLIENT_SECRET=Secreto del cliente de Google
 GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID cliente de cuenta de servicio
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Usuario/email de cuenta de servicio (NO es su cuenta login/email de Google)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Archivo de cuenta de servicio json
@@ -96,3 +117,20 @@ LinkToThirdParty=Enlace a terceros
 LinkToContact=Enlace a contactos
 GoogleContactSyncInfo=Use una etiqueta de grupo a su gusto. El grupo se creará en los contactos de Google si no existe. Puede usar una de las etiquetas de grupos predefinidas por Google, como: <br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Tenga en cuenta que solamente el grupo predefinido "System Group: My Contacts" es compartido por la función "Delegación de contactos" de contactos de Google (Google Suite).
 XRecordDeleted=<strong>%s</strong> registros eliminados
+ThisFieldIsAGlobalSetup=Este campo se define en la configuración global del módulo
+FillAndSaveGoogleAccount=Complete y guarde primero su cuenta de Google y su ID de cliente de Google
+LinkToOAuthPage=Enlace a la página de Google OAuth2
+GoogleWebTokenNotDefinedDoALoginInitFirst=El token de Google nunca se generó. Pídale a su administrador que vaya a 'Inicio - Configuración - Módulos - Google - Página de configuración de sincronización de contactos' y genere una vez un token de seguridad.
+ImportEventsFromGoogle=Importar los últimos eventos de Google modificados del calendario de Google <strong> %s </strong> y modificados después
+GetFromGoogleSucess=Sincronización de éxito de Google. <br> %s registro(s) insertado(s) en Dolibarr <br> %s registro(s) actualizado(s) en Dolibarr <br> %s registro(s) eliminado(s) en Dolibarr.
+GetFromGoogleAlreadyDeleted=%s registros eliminados en Google y no encontrados en Dolibarr.
+OperationMayBeLong=la operación puede ser larga, reinicie si experimenta un tiempo de espera
+ErrorModuleGoogleKeyFileNotFound=No se encontró el archivo de clave de Google %s
+ClickToUpdateWithLastGoogleChanges=Haga clic para actualizar la base de datos de la agenda con los últimos cambios realizados en la agenda de Google %s desde
+GoogleLimitBackTime=Debido a un límite de Google, las solicitudes se limitan a un máximo de %s días en el pasado
+ResetGeoEncodingErrors=Restablecer tabla de errores de geocodificación
+RecordInGeoEncodingErrorDeleted=Todos los registros con errores de geocodificación se reiniciaron para otro intento de geocodificación.
+IconTiers=Use un pictograma diferente para prospecto, cliente y proveedor
+CustomersOnly=solo clientes
+ProspectsOnly=Solo prospectos
+RefreshEventFromGoogle=Actualizar eventos de Google

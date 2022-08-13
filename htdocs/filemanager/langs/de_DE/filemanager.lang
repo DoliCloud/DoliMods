@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=Dateimanager
+FileManagerSetup=Einrichtung des FileManager-Moduls
+LabelForRootFileManager=Bezeichnung für sichtbaren Stammpfad/Verknüpfung
+RootFileManager=Ausgewählter Stammpfad/Verknüpfung
+PathForRootFileManager=Speicherort des Root-Pfads/Verknüpfung auf der Festplatte
+NoteOnFileManagerPathLocation=Alle Verzeichnisse müssen die Berechtigung haben, damit Ihr Webserver sie lesen/scannen kann.
+ListForRootPath=Liste der sichtbaren Stammpfade/Verknüpfungen
+PleaseSelectARoot=Bitte wählen Sie ein zu scannendes Stammverzeichnis aus dem Menü...
+SelectAFile=Wählen Sie im linken Bereich ein Verzeichnis oder eine Datei aus
+DateLastAccess=Datum letzter Zugriff
+DateLastChange=Datum letzte Änderung
+FullPath=Vollständigen Pfad
+PreviewNotAvailableForThisType=Vorschau für diesen Dateityp nicht verfügbar.
+NotEnoughMemoryForSyntaxColor=Ihr PHP verfügt nicht über genügend Speicher, um die Syntaxfärbung in der Vorschau von Textdateien zu aktivieren.
+YouMustSelectAFileToUseFileEditorTool=Sie müssen eine Datei im linken Bereich auswählen, um das Dateieditor-Tool zu verwenden.
+NoEditorForThisFormat=Kein Editor zum Bearbeiten dieses Dateiformats.
+DeleteDir=Verzeichnis löschen
+DeleteFileName=Folgende Datei löschen:
+DeleteDirName=Folgendes Verzeichnis löschen:
+NewDir=Neues Verzeichnis
+CreateNewDir=Neues Verzeichnis erstellen
+NewFile=Neue Datei
+AddRootPath=Fügen Sie Stammverzeichnisse für den Dateimanager hinzu
+UseColorSyntaxing=Aktivieren Sie die Farbsyntax für die Funktion zum Anzeigen von Dateiinhalten (benötigen Sie mehr Speicher. Deaktivieren Sie dies, wenn beim Anzeigen des Inhalts einer Textdatei eine leere Seite auftritt).
+ColoringDisabled=Syntaxhervorhebung nicht aktiviert
+ServerMustHavePermission=Berechtigungen für das Dateisystem müssen dem Webserver (%s/%s) erteilt werden.
+AddDirName=Verzeichnisnamen hinzufügen
+AddFileName=Dateinamen hinzufügen
+#####
+Module10600Name=Dateimanager
+Module10600Desc=Ein Dateimanager zum Scannen und Anzeigen des Inhalts von Festplatten Ihres Dolibarr-Servers.
+AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+MoreModules=Andere Module desselben Autors sind auf dem offiziellen Marktplatz von DoliStore erhältlich...
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
+MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klicken Sie hier für weitere Informationen </a>
+CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.
+ErrorFileManagerWebServerUserHasNotPermission=Das vom Webserver verwendete Benutzerkonto hat keine Schreibberechtigung
