@@ -397,9 +397,9 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 						// Vérification que le calcule de TVA est conforme :
 						if (price2num($facfou->total_ttc, 'MT') != price2num($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
 							//'0'=Force mode total of rounding, '1'=Force mode rounding of total
-							$facfou->update_price(0, 1);
+							$facfou->update_price(0, '1');
 							if (price2num($facfou->total_ttc, 'MT') != price2num($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
-								$facfou->update_price(0, 0);
+								$facfou->update_price(0, '0');
 								if (price2num($facfou->total_ttc, 'MT') != round($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
 									// ne set pas $error mais affiche le message
 									setEventMessage("ALERT: Amount of invoice {$facfou->libelle} is not correct.", 'warnings');
