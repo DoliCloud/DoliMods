@@ -286,7 +286,9 @@ class ActionsConcatPdf
 				}
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 
-				if ($conf->global->MAIN_DISABLE_PDF_COMPRESSION) $pdf->SetCompression(false);
+				if (!empty($conf->global->MAIN_DISABLE_PDF_COMPRESSION)) {
+					$pdf->SetCompression(false);
+				}
 				//$pdf->SetCompression(false);
 
 				$pagecount = $this->concat($pdf, $filetoconcat);
