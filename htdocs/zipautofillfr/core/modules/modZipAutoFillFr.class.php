@@ -83,7 +83,7 @@ class modZipAutoFillFr extends DolibarrModules
 		// Dictionnaries
 		$this->dictionnaries=array(
 			'langs'=>'',
-			'tabname'=>array(MAIN_DB_PREFIX."c_ziptown"),
+			'tabname'=>array("c_ziptown"),
 			'tablib'=>array("Zip and town"),
 			'tabsql'=>array('SELECT f.rowid, f.zip, f.town, f.fk_pays, c.code as country_code, c.label as country, f.active FROM '.MAIN_DB_PREFIX.'c_ziptown as f, '.MAIN_DB_PREFIX.'c_country as c WHERE f.fk_pays=c.rowid'),
 			'tabsqlsort'=>array("zip ASC, town ASC"),

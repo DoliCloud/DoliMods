@@ -42661,6 +42661,12 @@ INSERT IGNORE INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('59123', 'ZUYDCOOTE', NULL, 1),
 ('59670', 'ZUYTPEENE', NULL, 1);
 
+
+INSERT IGNORE INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
+('50160', 'Torigny-les-Villes', NULL, 1);
+
+
+
 -- Belgium
 INSERT IGNORE INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('1000', 'Brussel', NULL, 2),
@@ -50898,3 +50904,5 @@ INSERT IGNORE INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('1752', 'VILLARS-SUR-GLÂNE', NULL, 6),
 ('1752', 'VILLARS-SUR-GLÂNE 1', NULL, 6),
 ('1752', 'VILLARS-SUR-GLÂNE 2', NULL, 6);
+
+
