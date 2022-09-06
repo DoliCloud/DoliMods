@@ -129,10 +129,22 @@ if ($action == 'save') {
 			if (! $res > 0) $error++;
 			$res=dolibarr_set_const($db, 'GOOGLE_CONTACT_LABEL', trim(GETPOST("GOOGLE_CONTACT_LABEL")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
+
+			if (trim(GETPOST("GOOGLE_TAG_PREFIX")) != getDolGlobalString("GOOGLE_TAG_PREFIX")) {
+				$res=dolibarr_del_const($db, 'GOOGLE_TAG_REF_EXT', $conf->entity);
+			}
 			$res=dolibarr_set_const($db, 'GOOGLE_TAG_PREFIX', trim(GETPOST("GOOGLE_TAG_PREFIX")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
+
+			if (trim(GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")) != getDolGlobalString("GOOGLE_TAG_PREFIX_CONTACTS")) {
+				$res=dolibarr_del_const($db, 'GOOGLE_TAG_REF_EXT_CONTACTS', $conf->entity);
+			}
 			$res=dolibarr_set_const($db, 'GOOGLE_TAG_PREFIX_CONTACTS', trim(GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
+
+			if (trim(GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")) != getDolGlobalString("GOOGLE_TAG_PREFIX_MEMBERS")) {
+				$res=dolibarr_del_const($db, 'GOOGLE_TAG_REF_EXT_MEMBERS', $conf->entity);
+			}
 			$res=dolibarr_set_const($db, 'GOOGLE_TAG_PREFIX_MEMBERS', trim(GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
 

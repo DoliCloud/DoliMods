@@ -1305,10 +1305,10 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 }
 
 /**
- * Get the group id of type label in google contact
+ * Get the group id of Google that is stored into Dolibarr setup.
  *
- * @param 	array 	$gdata 	Google data arraycontactGroups/3e236bd808953155google
- * @param 	string 	$type 	type of element (thirdparty, contact or member)
+ * @param 	array 	$gdata 	Google data array for API use
+ * @param 	string 	$type 	type of element (thirdparty, contact or member) we search Google ID for
  *
  * @return 	string 			group id
  */
@@ -1327,6 +1327,8 @@ function getGContactTypeGroupID($gdata, $type)
 
 	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
+	$groupID = '';
+	$reg = array();
 	if ($type === 'thirdparty') {
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX) ? 'Dolibarr Thirdparties': $conf->global->GOOGLE_TAG_PREFIX;
 		// See if ref_ext exists and if it is a google group
@@ -1349,65 +1351,86 @@ function getGContactTypeGroupID($gdata, $type)
 		return -1;
 	}
 
-	// return "HELO?".$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS."BYE?".$groupID;
-
-
-
-	// To be sur that group is in google contact
+	// To be sur that group is in google contact, we search it.
+	// Note: a groupID must be a hex number or a value among [contactGroups/all, contactGroups/blocked, contactGroups/chatBuddies, contactGroups/coworkers, contactGroups/family, contactGroups/friends, contactGroups/myContacts, contactGroups/starred]
 	if ($groupID) {
-		$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
-		$jsonStr = $result['content'];
-		$json = json_decode($jsonStr);
-		if (empty($json->error)) {
-			return $groupID;
-		}
+		// We found the value of groupID into the cached constant GOOGLE_TAG_REF_EXT.... so we have it and we don't have to create it.
+		/* Removed, this is useless.
+		 // Check that the group exists
+		 $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		 $jsonStr = $result['content'];
+		 $json = json_decode($jsonStr);
+		 if (empty($json->error)) {
+		 return $groupID;
+		 }*/
+		return $groupID;
 	}
-
 
 	// Group not found, we create it
 	// We create it
-	$jsonData = '{';
-	$jsonData .= '"contactGroup":{';
-	$jsonData .= '"name": "'.$label.'"';
-	$jsonData .= '}';
-	$jsonData .= '}';
-	$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
-	$jsonStr = $result['content'];
-	try {
-		$json = json_decode($jsonStr);
-		if (!empty($json->error)) {
-			dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
-			return $json->error->message.$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS;
+	if (! in_array($label, array('contactGroups/all', 'contactGroups/blocked', 'contactGroups/chatBuddies', 'contactGroups/coworkers', 'contactGroups/family', 'contactGroups/friends', 'contactGroups/myContacts', 'contactGroups/starred'))) {
+		$jsonData = '{';
+		$jsonData .= '"contactGroup":{';
+		$jsonData .= '"name": "'.$label.'"';
+		$jsonData .= '}';
+		$jsonData .= '}';
+		$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
+		$jsonStr = $result['content'];
+		try {
+			$json = json_decode($jsonStr);
+			if (!empty($json->error)) {
+				if ($json->error->status == 'ALREADY_EXISTS') {
+					// Group already exists, we get its ID to save it in database
+					/*
+					var_dump($json);
+					$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+					$jsonStr = $result['content'];
+					$json = json_decode($jsonStr);
+					if (empty($json->error)) {
+						return $groupID;
+					}
+					*/
+					dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
+					return 'The group '.$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS.' seems to already exists';
+					return -1;
+				} else {
+					dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
+					return $json->error->message.' '.$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS;
+					return -1;
+				}
+			}
+		} catch (Exception $e) {
+			dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);
 			return -1;
 		}
-	} catch (Exception $e) {
-		dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);
-		return -1;
-	}
 
-	// Now we set external ref in conf
-	$json = json_decode($jsonStr);
-	if (!empty($json)) {
-		$groupID = $json->resourceName;
-		$res = 0;
-		if ($type === 'thirdparty') {
-			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT', "google:".$groupID, 'chaine', 0, '', $conf->entity);
-		} else if ($type === 'contact') {
-			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_CONTACTS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
-		} else if ($type === 'member') {
-			$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_MEMBERS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
-		}
-		if ($res > 0) {
-			return $groupID;
+		// Now we set external ref in conf
+		$json = json_decode($jsonStr);
+		if (!empty($json)) {
+			$groupID = $json->resourceName;
 		} else {
-			dol_syslog('insertGContactGroup Error:'.$db->lasterror(), LOG_ERR);
+			dol_syslog('insertGContactGroup Error:'.$jsonStr, LOG_ERR);
 			return -1;
 		}
 	} else {
-		dol_syslog('insertGContactGroup Error:'.$jsonStr, LOG_ERR);
-		return -1;
+		$groupID = $label;
 	}
 
+	$res = 0;
+	if ($type === 'thirdparty') {
+		$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+	} else if ($type === 'contact') {
+		$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_CONTACTS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+	} else if ($type === 'member') {
+		$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_MEMBERS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
+	}
+
+	if ($res > 0) {
+		return $groupID;
+	} else {
+		dol_syslog('insertGContactGroup Error:'.$db->lasterror(), LOG_ERR);
+		return -1;
+	}
 }
 
 

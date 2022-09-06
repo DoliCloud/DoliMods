@@ -115,7 +115,7 @@ MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click h
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
 LinkToThirdParty=Link to thirdparty
 LinkToContact=Link to contact
-GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Note also that only the predefined system group "System Group: My Contacts" is shared by the "Delegate contacts" feature available in Google contact of Google Suite.
+GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends"<br>Note also that only the predefined system group "contactGroups/myContacts" is shared by the "Delegate contacts" feature available in Google contact of Google suite.
 XRecordDeleted=<strong>%s</strong> records deleted
 ThisFieldIsAGlobalSetup=This field is defined into global setup of module
 FillAndSaveGoogleAccount=Fill and save your Google account and Google Client ID first
