@@ -1,6 +1,12 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
+## 6.5
+
+- Compatible with API People for contact sync.
+- Need Dolibarr 14+, PHP 7.0+
+
+
 ## 6.4
 
 - NEW Use Google PHP API v2.9.1

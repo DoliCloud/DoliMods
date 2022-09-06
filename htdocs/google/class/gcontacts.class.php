@@ -374,7 +374,9 @@ class GContact
 		global $conf,$langs;
 
 		if ($this->dolID==null) throw new Exception('Internal error: dolID is null');
+
 		global $db, $langs, $conf;
+
 		require_once DOL_DOCUMENT_ROOT."/contact/class/contact.class.php";
 		require_once DOL_DOCUMENT_ROOT."/societe/class/societe.class.php";
 
@@ -621,6 +623,8 @@ class GContact
 
 		$queryString = 'https://people.googleapis.com/v1/people/me/connections?personFields=userDefined';
 		if (! empty($pattern)) $queryString .= '&q='.$pattern;
+
+		dol_syslog("getDolibarrContactsGoogleIDS queryString = ".$queryString);
 		$response = getURLContent($queryString, 'GET', '', 0, $addheaderscurl);
 
 		if (is_array($response) && $response['http_code'] >= 400) {
@@ -691,7 +695,9 @@ class GContact
 		dol_syslog(get_class().'::getDolibarrContactsGoogleIDS '.$n.' contacts retrieved from google contacts');
 
 		$tagtofind=getCommentIDTag();
+
 		dol_syslog(get_class().'::getDolibarrContactsGoogleIDS Now search if contacts contains /'.preg_quote($tagtofind).'([0-9]+)\/'.$type.'/ regex');
+
 		$googleIDs = array();	// Nothing to delete by default
 		foreach ($entries as $entry) {
 			// Try to qualify or not contact
@@ -727,8 +733,8 @@ class GContact
 	/**
 	 * Delete contacts marqued as comming from dolibarr on Gmail account
 	 *
-	 * @param	Gdata	$gdata		Gdata handler
-	 * @param 	string 	$pattern	pattern : default is 'OnelogMarker' wich will supress all contacts comming from Dolibarr
+	 * @param	array	$gdata		Gdata handler
+	 * @param 	string 	$pattern	pattern : default is 'OnelogMarker' which will suppress all contacts comming from Dolibarr
 	 *                         		To delete a specific contact, use 'OnelogMarker:XX#' where XX is the dolibarr ID of the contact
 	 * @param	string	$type		'thirdparty' or 'contact'
 	 * @return 	int 				<0 if KO, >=0 nb of deleted contacts
@@ -737,8 +743,10 @@ class GContact
 	{
 		// Search for id
 		$googleIDs = self::getDolibarrContactsGoogleIDS($gdata, $pattern, $type);
-		if ($googleIDs != '-1') {
+		if (!is_numeric($googleIDs) || $googleIDs != -1) {
+			// If no error, we delete the array of entries
 			self::deleteEntries($gdata, $googleIDs, false);
+
 			return(count($googleIDs));
 		} else {
 			return -1;
@@ -999,10 +1007,10 @@ class GContact
 	 /**
 	  * Delete Google Contacts or Groups on Gmail account
 	  *
-	  * @param	Gdata	$gdata			Gdata handler
-	  * @param 	array	$googleIDs		Array of Google id to delete
-	  * @param 	boolean $groupFlag		Method of deletion (false=batch mode)
-	  * @return 	void
+	  * @param	array		$gdata			Gdata handler
+	  * @param 	array		$googleIDs		Array of Google id to delete
+	  * @param 	boolean 	$groupFlag		Method of deletion (false=batch mode)
+	  * @return void
 	  */
 	public static function deleteEntries($gdata, array $googleIDs, $groupFlag)
 	{
@@ -1067,8 +1075,11 @@ class GContact
 				dol_syslog(sprintf("Deleting %d google contacts for user %s", count($firstIDs), !empty($googleUser)?$googleUser:""));
 				try {
 					$tag_debug='massdelete';
-					//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
-					//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+
+					if (getDolGlobalInt('GOOGLE_DEBUG')) {
+						file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.json", $jsonData);
+						@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+					}
 
 					if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
 						$access_token=$gdata['google_web_token']['access_token'];
@@ -1101,8 +1112,10 @@ class GContact
 						return -1;
 					}
 
-					//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", $responseXml);
-					//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+					if (getDolGlobalInt('GOOGLE_DEBUG')) {
+						file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.json", $jsonStr);
+						@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+					}
 				} catch (Exception $e) {
 					dol_syslog("Problem while deleting contacts", LOG_ERR);
 					throw new Exception(sprintf("Problem while deleting contacts : %s", $e->getMessage()));

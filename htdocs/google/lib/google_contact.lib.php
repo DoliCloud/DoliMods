@@ -62,8 +62,6 @@ function getCommentIDTag()
  */
 function googleCreateContact($client, $object, $useremail = 'default')
 {
-
-
 	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
 	global $user;
@@ -158,10 +156,12 @@ function googleCreateContact($client, $object, $useremail = 'default')
 			];
 		}
 		$jsonData = json_encode($person_array);
-		// // uncomment for debugging :
-		// file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", $jsonData);
-		// @chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-		// you can view this file with 'xmlstarlet fo dolibarr_google_createcontact.xml' command
+
+		// uncomment for debugging :
+		if (getDolGlobalInt('GOOGLE_DEBUG')) {
+			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", $jsonData);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		}
 
 		$id = '';
 		// insert entry
@@ -502,24 +502,27 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 			// $xmlStr=$doc->saveXML();
 			$jsonData .='}';
-			// // uncomment for debugging :
-				// file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", $jsonData);
-				// @chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-				// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
 
-				if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
-					$access_token=$gdata['google_web_token']['access_token'];
-				} else {
-					$tmp=json_decode($gdata['google_web_token']);
-					$access_token=$tmp->access_token;
-				}
-				$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
-				$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
 
-				// update entry.'&updatePersonFields='.$updatePersonFields
-				//$client_google = new Google_Client($client);
-				$google = new Google_Service_PeopleService($gdata["client"]);
-				$person = new Google_Service_PeopleService_Person($person_array);
+		// uncomment for debugging :
+		if (getDolGlobalInt('GOOGLE_DEBUG')) {
+			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", $jsonData);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		}
+
+		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			$access_token=$gdata['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
+		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
+		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
+
+		// update entry.'&updatePersonFields='.$updatePersonFields
+		//$client_google = new Google_Client($client);
+		$google = new Google_Service_PeopleService($gdata["client"]);
+		$person = new Google_Service_PeopleService_Person($person_array);
 		$personParam['updatePersonFields'] = $updatePersonFields;
 		$response = $google->people->UpdateContact($newcontactid,$person,$personParam);
 		try {
@@ -753,7 +756,6 @@ function googleDeleteContactByRef($client, $ref, $useremail = 'default')
  * @param	mixed	$objectstatic	Object static to update ref_ext of records if success
  * @param	string	$useremail		User email
  * @return	int						>0 if OK, 'error string' if error
- * @see		insertGCalsEntries 		(same function for contacts)
  */
 function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 'default')
 {
@@ -794,9 +796,10 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 		//var_dump($xmlStr);exit;
 
 		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", $xmlStr);
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-		// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert.xml' command
+		if (getDolGlobalInt('GOOGLE_DEBUG')) {
+			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", $xmlStr);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		}
 */
 		//People call
 		$jsonData = '{"contacts": [';
@@ -901,6 +904,13 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 		$jsonData .= '],';
 		$jsonData .= '"readMask" : "userDefined"';
 		$jsonData .= '}';
+
+		// uncomment for debugging :
+		if (getDolGlobalInt('GOOGLE_DEBUG')) {
+			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert.json", $jsonData);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		}
+
 		//$jsonData = json_encode($jsonData);
 		/* Be aware that Google API has some kind of side effect when you use either
 		 * https://www.google.com/m8/feeds/contacts/default/base/...
@@ -969,10 +979,13 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 				return -1;
 			}
 			$responseJson = $jsonStr;
+
 			// uncomment for debugging :
-			//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.json", $responseJson);
-			//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-			// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert_response.xml' command
+			if (getDolGlobalInt('GOOGLE_DEBUG')) {
+				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.json", $responseJson);
+				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+			}
+
 			$res=parseResponse($responseJson);
 			if ($res->count != count($firstContacts) || $res->nbOfErrors) {
 				dol_syslog("Failed to batch insert count=".$res->count.", count(firstContacts)=".count($firstContacts).", nb of errors=".$res->nbOfErrors.", lasterror=".$res->lastError, LOG_ERR);
@@ -1042,12 +1055,15 @@ function getTagLabel($s)
 	global $conf,$langs;
 
 	$tag='UnknownType';
+
 	$tagthirdparties=empty($conf->global->GOOGLE_TAG_PREFIX)?'':$conf->global->GOOGLE_TAG_PREFIX;
 	$tagcontacts=empty($conf->global->GOOGLE_TAG_PREFIX_CONTACTS)?'':$conf->global->GOOGLE_TAG_PREFIX_CONTACTS;
 	$tagmembers=empty($conf->global->GOOGLE_TAG_PREFIX_MEMBERS)?'':$conf->global->GOOGLE_TAG_PREFIX_MEMBERS;
+
 	if ($s=='thirdparties') $tag=$tagthirdparties?$tagthirdparties:'Dolibarr ('.$langs->trans("Thirdparties").')';
 	if ($s=='contacts')     $tag=$tagcontacts?$tagcontacts:'Dolibarr ('.$langs->trans("Contacts").')';
 	if ($s=='members')      $tag=$tagmembers?$tagmembers:'Dolibarr ('.$langs->trans("Members").')';
+
 	return $tag;
 }
 
@@ -1074,7 +1090,6 @@ function getTags($id, $type) {
 		$sql .= ' JOIN '.MAIN_DB_PREFIX.'categorie_member lcm ON lc.rowid = lcm.fk_categorie';
 		$sql .= ' WHERE lcm.fk_member = '.$id;
 	}
-
 
 	$ressql = $db->query($sql);
 	$tags = array();
@@ -1242,11 +1257,11 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 		$dolID = $gContact->dolID;
 
 		if ($type == 'thirdparty') {
-			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'societe WHERE rowid = '.$dolID;
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'societe WHERE rowid = '.((int) $dolID);
 		} elseif ($type == 'contact') {
-			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'socpeople WHERE rowid = '.$dolID;
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'socpeople WHERE rowid = '.((int) $dolID);
 		} elseif ($type == 'member') {
-			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'adherent WHERE rowid = '.$dolID;
+			$sql = 'SELECT ref_ext FROM '.MAIN_DB_PREFIX.'adherent WHERE rowid = '.((int) $dolID);
 		} else {
 			return -1;
 		}
@@ -1255,6 +1270,7 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 		if ($ressql) {
 			$obj = $db->fetch_object($ressql);
 			$googleID = $obj->ref_ext;
+			$reg = array();
 			if (!empty($googleID) && preg_match('/google:(people\/.*)/', $googleID, $reg)) {
 				$googleID = $reg[1];
 			}
@@ -1266,9 +1282,11 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 			return -1;
 		}
 
+		//var_dump($type);
+
 		// Set group for element type
 		$typeGroupID = getGContactTypeGroupID($gdata, $type);
-		if (is_numeric($typeGroupID)) {
+		if (is_numeric($typeGroupID) && $typeGroupID < 0) {
 			dol_syslog('updateGContactGroups Error: typeGroupID not found for type='.$type, LOG_ERR);
 			return -1;
 		}
@@ -1279,24 +1297,26 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 			return $ret;
 		}
 
-		// Retreive groups from gContact
-		$tags = $gContact->tags;
-		// For each group :
-		foreach ($tags as $tag) {
-			// Retreive groupe id from google contact (if not exist, create it)
-			$groupID = getGContactGroupID($gdata, $tag, $useremail);
-			if ($groupID < 0) {
-				dol_syslog('updateGContactGroups Error: groupID not found for tag='.$tag, LOG_ERR);
-				return $groupID;
-			}
+		// Retreive tags/categories of object from gContact
+		if (getDolGlobalInt('GOOGLE_CONTACT_SYNC_ALL_TAGS')) {
+			$tags = $gContact->tags;
+			// For each tag/category :
+			foreach ($tags as $tag) {
+				// Retreive groupe id from google contact (if not exist, create it)
+				$groupID = getGContactGroupID($gdata, $tag, $useremail);
+				if ($groupID < 0) {
+					dol_syslog('updateGContactGroups Error: groupID not found for tag='.$tag, LOG_ERR);
+					return $groupID;
+				}
 
-			// Link contact to group
+				// Link contact to group
 
-			// prepare json data
-			$ret = googleLinkGroup($gdata, $groupID, $googleID);
-			if (!is_numeric($ret) || $ret < 0) {
-				dol_syslog('updateGContactGroups Error: googleLinkGroup failed for googleID='.$googleID.' groupID='.$groupID, LOG_ERR);
-				return $ret;
+				// prepare json data
+				$ret = googleLinkGroup($gdata, $groupID, $googleID);
+				if (!is_numeric($ret) || $ret < 0) {
+					dol_syslog('updateGContactGroups Error: googleLinkGroup failed for googleID='.$googleID.' groupID='.$groupID, LOG_ERR);
+					return $ret;
+				}
 			}
 		}
 	}
@@ -1309,8 +1329,7 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
  *
  * @param 	array 	$gdata 	Google data array for API use
  * @param 	string 	$type 	type of element (thirdparty, contact or member) we search Google ID for
- *
- * @return 	string 			group id
+ * @return 	string 			Group id or < 0 if error, 0 if already exists
  */
 function getGContactTypeGroupID($gdata, $type)
 {
@@ -1327,21 +1346,24 @@ function getGContactTypeGroupID($gdata, $type)
 
 	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
-	$groupID = '';
+	$groupID = ''; $tagprefix = '';
 	$reg = array();
 	if ($type === 'thirdparty') {
+		$tagprefix = 'GOOGLE_TAG_PREFIX';
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX) ? 'Dolibarr Thirdparties': $conf->global->GOOGLE_TAG_PREFIX;
 		// See if ref_ext exists and if it is a google group
 		if (!empty($conf->global->GOOGLE_TAG_REF_EXT) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT, $reg)) {
 			$groupID = $reg[1];
 		}
 	} else if ($type === 'contact') {
+		$tagprefix = 'GOOGLE_TAG_PREFIX_CONTACTS';
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX_CONTACTS) ? 'Dolibarr contacts': $conf->global->GOOGLE_TAG_PREFIX_CONTACTS;
 		// See if ref_ext exists and if it is a google group
 		if (!empty($conf->global->GOOGLE_TAG_REF_EXT_CONTACTS) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_CONTACTS, $reg)) {
 			$groupID = $reg[1];
 		}
 	} else if ($type === 'member') {
+		$tagprefix = 'GOOGLE_TAG_PREFIX_MEMBERS';
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX_MEMBERS) ? 'Dolibarr members': $conf->global->GOOGLE_TAG_PREFIX_MEMBERS;
 		// See if ref_ext exists and if it is a google group
 		if (!empty($conf->global->GOOGLE_TAG_REF_EXT_MEMBERS) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_MEMBERS, $reg)) {
@@ -1380,22 +1402,32 @@ function getGContactTypeGroupID($gdata, $type)
 			$json = json_decode($jsonStr);
 			if (!empty($json->error)) {
 				if ($json->error->status == 'ALREADY_EXISTS') {
-					// Group already exists, we get its ID to save it in database
-					/*
-					var_dump($json);
-					$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
-					$jsonStr = $result['content'];
-					$json = json_decode($jsonStr);
-					if (empty($json->error)) {
-						return $groupID;
+					// If we got an error saying it already exists, we get list of all existing groups
+					$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', array(), 0, $addheaderscurl);
+					$jsonStrListOfGrp = $result['content'];
+					$jsonListOfGrp = json_decode($jsonStrListOfGrp, true);
+					if (!empty($jsonListOfGrp['contactGroups'])) {
+						foreach($jsonListOfGrp['contactGroups'] as $key => $val) {
+							if ($val['name'] == $label) {
+								$groupID = $val['resourceName'];
+								break;
+							}
+						}
 					}
+					/*
+					var_dump($groupID);
+					var_dump($jsonData);
+					var_dump($json);exit;
 					*/
-					dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
-					return 'The group '.$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS.' seems to already exists';
-					return -1;
+					dol_syslog('insertGContactGroup The group '.getDolGlobalString($tagprefix).' seems to already exists', LOG_DEBUG);
+					//return 'The group '.getDolGlobalString($tagprefix).' seems to already exists';
+					if (empty($groupID)) {
+						dol_syslog('insertGContactGroup ...but we failed to find its ID.', LOG_DEBUG);
+						return 0;
+					}
 				} else {
-					dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
-					return $json->error->message.' '.$conf->global->GOOGLE_TAG_REF_EXT_CONTACTS;
+					dol_syslog('insertGContactGroup Error:'.$json->error->message.' '.getDolGlobalString($tagprefix), LOG_ERR);
+					//return $json->error->message.' '.getDolGlobalString($tagprefix);
 					return -1;
 				}
 			}
@@ -1405,17 +1437,20 @@ function getGContactTypeGroupID($gdata, $type)
 		}
 
 		// Now we set external ref in conf
-		$json = json_decode($jsonStr);
-		if (!empty($json)) {
-			$groupID = $json->resourceName;
-		} else {
-			dol_syslog('insertGContactGroup Error:'.$jsonStr, LOG_ERR);
-			return -1;
+		if (empty($groupID)) {
+			$json = json_decode($jsonStr);
+			if (!empty($json)) {
+				$groupID = $json->resourceName;
+			} else {
+				dol_syslog('insertGContactGroup Error:'.$jsonStr, LOG_ERR);
+				return -1;
+			}
 		}
 	} else {
 		$groupID = $label;
 	}
 
+	// Now we save the group ID for $type into database
 	$res = 0;
 	if ($type === 'thirdparty') {
 		$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT', "google:".$groupID, 'chaine', 0, '', $conf->entity);
@@ -1498,62 +1533,59 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 
 
 
+/**
+ * Create a group/label into Google contact
+ *
+ * @param	array	$gdata			Array with tokens info
+ * @param 	string 	$groupName		Group name to create into Google Contact
+ * @param	string	$useremail		User email
+ * @return string					created group ID
+ */
+function insertGContactGroup($gdata, $tag, $objectstatic, $useremail = 'default')
+{
+	global $conf;
+	// Prepare json data for POST request
+	$jsonData = '{';
+	$jsonData .= '"contactGroup":{';
+	$jsonData .= '"name": "'.$tag['label'].'"';
+	$jsonData .= '}';
+	$jsonData .= '}';
 
 
-	 /**
-	  * Create a group/label into Google contact
-	  *
-	  * @param	array	$gdata			Array with tokens info
-	  * @param 	string 	$groupName		Group name to create into Google Contact
-	  * @param	string	$useremail		User email
-	  * @return string					created group ID
-	  */
-	 function insertGContactGroup($gdata, $tag, $objectstatic, $useremail = 'default')
-	 {
-		 global $conf;
-		 // Prepare json data for POST request
-		 $jsonData = '{';
-		 $jsonData .= '"contactGroup":{';
-		 $jsonData .= '"name": "'.$tag['label'].'"';
-		 $jsonData .= '}';
-		 $jsonData .= '}';
+	// Send request to Google
+	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+		$access_token=$gdata['google_web_token']['access_token'];
+	} else {
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+	}
 
+	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
+	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
+	$jsonStr = $result['content'];
+	try {
+		$json = json_decode($jsonStr);
+		if (!empty($json->error)) {
+			dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
+			return -1;
+		}
+	} catch (Exception $e) {
+		dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);
+		return -1;
+	}
+	// Now update record into database with external ref
+	if (is_object($objectstatic)) {
+		$json = json_decode($jsonStr);
+		if (!empty($json)) {
+			$groupID = $json->resourceName;
+			$objectstatic->id = $tag['id'];
+			$objectstatic->update_ref_ext("google:".$groupID);
+		}
+	}
 
-		 // Send request to Google
-		 if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
-			 $access_token=$gdata['google_web_token']['access_token'];
-		 } else {
-			 $tmp=json_decode($gdata['google_web_token']);
-			 $access_token=$tmp->access_token;
-		 }
-
-		 $addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
-		 $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-		 $result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
-		 $jsonStr = $result['content'];
-		 try {
-			 $json = json_decode($jsonStr);
-			 if (!empty($json->error)) {
-				 dol_syslog('insertGContactGroup Error:'.$json->error->message, LOG_ERR);
-				 return -1;
-			 }
-		 } catch (Exception $e) {
-			 dol_syslog('insertGContactGroup Error:'.$e->getMessage(), LOG_ERR);
-			 return -1;
-		 }
-		 // Now update record into database with external ref
-		 if (is_object($objectstatic)) {
-			 $json = json_decode($jsonStr);
-			 if (!empty($json)) {
-				 $groupID = $json->resourceName;
-				 $objectstatic->id = $tag['id'];
-				 $objectstatic->update_ref_ext("google:".$groupID);
-			 }
-		 }
-
-		 return $groupID;
-
-	 }
+	return $groupID;
+}
 
 
 /**
