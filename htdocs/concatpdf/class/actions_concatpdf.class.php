@@ -130,24 +130,25 @@ class ActionsConcatPdf
 			}
 		}
 
-		if (empty($morefiles)) print "\n".'<!-- No files found for concat parameter[modulepart]='.$parameters['modulepart'].' -->'."\n";
-		else {
+		if (empty($morefiles)) {
+			print "\n".'<!-- No files found for concat parameter[modulepart]='.$parameters['modulepart'].' -->'."\n";
+		} else {
 			$colspan = (empty($parameters['colspan']) ? 4 : $parameters['colspan']);
 
 			$out.='<tr class="liste_titre">';
 			$out.='<td align="left" colspan="'.$colspan.'" class="formdoc">';
 			$out.='<div class="valignmiddle inline-block hideonsmartphone">'.$langs->trans("ConcatFile").'</div> ';
 
-			if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) {
+			if (!empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) {
 				$arraypreselected = explode(',', $preselected);
-
-				/*$out.='</td></tr>';
-				$out.='<tr>'; */
-				//$out.='<td id="selectconcatpdf" colspan="4" valign="top">';
+				foreach($arraypreselected as $tmpkey => $tmpval) {
+					$arraypreselected[$tmpkey] = preg_replace('/\.pdf$/i', '', $tmpval);
+				}
 				$out.='<div class="valignmiddle inline-block minwidth300imp">';
 				$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:$arraypreselected), 0, 0, 'minwidth100', 1, '95%');
 				$out.='</div>';
 			} else {
+				$preselected = preg_replace('/\.pdf$/i', '', $preselected);
 				$out.= '<!-- preselected value is '.$preselected.' (key to set preselected value in CONCATPDF_PRESELECTED_MODELS is '.$parameters['modulepart'].') -->';
 				$out.= $form->selectarray('concatpdffile', $morefiles, $preselected, 1, 0, 0);
 			}

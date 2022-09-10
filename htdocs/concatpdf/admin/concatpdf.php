@@ -44,23 +44,30 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 
 if (!$user->admin) accessforbidden();
 
-$langs->loadLangs(array("admin", "other", "concatpdf@concatpdf", "supplier_proposal"));
+$langs->loadLangs(array("admin", "other", "concatpdf@concatpdf", "supplier_proposal", "propal", "orders", "bills"));
 
 $def = array();
 $action=GETPOST('action', 'alpha');
 $confirm=GETPOST('confirm', 'alpha');
 $actionsave=GETPOST('save', 'alpha');
 
+// Define list of object supported
 $modules = array();
-if ($conf->propal->enabled) $modules['proposals']='Proposals';
-if ($conf->commande->enabled) $modules['orders']='Orders';
-if ($conf->facture->enabled) $modules['invoices']='Invoices';
-if ($conf->fournisseur->enabled) $modules['supplier_orders']='SuppliersOrders';
-if ($conf->fournisseur->enabled) $modules['supplier_invoices']='SuppliersInvoices';
-if ($conf->supplier_proposal->enabled) $modules['supplier_proposals']='SupplierProposals';
-if ($conf->contract->enabled) $modules['contracts']='Contracts';
+if (!empty($conf->propal->enabled)) $modules['proposals']=array('label'=>'Proposals', 'picto'=>img_picto('', 'propal', 'class="pictofixedwidth"'));
+if (!empty($conf->commande->enabled)) $modules['orders']=array('label'=>'Orders', 'picto'=>img_picto('', 'order', 'class="pictofixedwidth"'));
+if (!empty($conf->facture->enabled)) $modules['invoices']=array('label'=>'Invoices', 'picto'=>img_picto('', 'bill', 'class="pictofixedwidth"'));
+if (!empty($conf->supplier_proposal->enabled)) $modules['supplier_proposals']=array('label'=>'SupplierProposals', 'picto'=>img_picto('', 'supplier_proposal', 'class="pictofixedwidth"'));
+if (!empty($conf->fournisseur->enabled)) $modules['supplier_orders']=array('label'=>'SuppliersOrders', 'picto'=>img_picto('', 'supplier_order', 'class="pictofixedwidth"'));
+if (!empty($conf->fournisseur->enabled)) $modules['supplier_invoices']=array('label'=>'SuppliersInvoices', 'picto'=>img_picto('', 'supplier_invoice', 'class="pictofixedwidth"'));
+if (!empty($conf->contract->enabled)) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
+// Add key data-html
+foreach($modules as $key => $value) {
+	$modules[$key]['data-html'] = dol_escape_htmltag($value['picto'].$langs->transnoentitiesnoconv($value['label']));
+}
 
-if (empty($conf->concatpdf->enabled)) accessforbidden();
+if (empty($conf->concatpdf->enabled)) {
+	accessforbidden();
+}
 
 
 /*
@@ -151,6 +158,9 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes') {
 	exit;
 }
 
+if ($action == 'save') {
+	dolibarr_set_const($db, 'CONCATPDF_PRESELECTED_MODELS', GETPOST('CONCATPDF_PRESELECTED_MODELS'), 'chaine', 0, '', 0);
+}
 
 /*
  * View
@@ -163,7 +173,6 @@ llxHeader('', 'ConcatPdf', $linktohelp);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("ConcatPdfSetup"), $linkback, 'setup');
-print '<br>';
 
 clearstatcache();
 
@@ -197,18 +206,20 @@ if ($action == 'remove_file') {
 }
 
 // Show dir for each module
+print '<div class="opacitymedium">';
 print $langs->trans("ConcatPDfTakeFileFrom").'<br><br>';
-$langs->load("propal"); $langs->load("orders"); $langs->load("bills");
-foreach ($modules as $module => $moduletranskey) {
+foreach ($modules as $module => $moduletrans) {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
-	print '* '.$langs->trans("ConcatPDfTakeFileFrom2", $langs->transnoentitiesnoconv($moduletranskey), $outputdir).'<br>';
+	print '* '.str_replace('{s1}', $moduletrans['picto'], $langs->trans("ConcatPDfTakeFileFrom2", '{s1}'.$langs->transnoentitiesnoconv($moduletrans['label']), $outputdir));
+	print '<br>';
 }
+print '</div>';
 print '<br>';
 
-
 // Show for to add a file
-$select_module=$form->selectarray('module', $modules, GETPOST('module'), 1, 0, 0, '', 1);
-$formfile->form_attach_new_file($_SERVER['PHP_SELF'], '', 0, 0, 1, 50, '', $select_module, false, '', 0);
+$select_module = $form->selectarray('module', $modules, GETPOST('module'), 1, 0, 0, '', 1);
+
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("AddFilesToConcat"), 0, 0, 1, 50, '', $select_module, false, '', 0);
 
 
 // Show option for CONCATPDF_MULTIPLE_CONCATENATION_ENABLED
@@ -217,7 +228,7 @@ if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)) {
 
 	$form=new Form($db);
 	$var=true;
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre">';
 	print '<td>'.$langs->trans("Parameters").'</td>'."\n";
 	print '<td align="center" width="20">&nbsp;</td>';
@@ -259,16 +270,28 @@ foreach ($modules as $module => $moduletrans) {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	$listoffiles=dol_dir_list($outputdir, 'files', 0, '', array('^SPECIMEN\.pdf$'));
 	if (count($listoffiles)) {
-		print $formfile->showdocuments('concatpdf', $module, $outputdir, $_SERVER["PHP_SELF"].'?module='.$module, 0, $user->admin, '', 0, 0, 0, 0, 0, '', $langs->trans("PathDirectory").' '.$outputdir);
+		print $formfile->showdocuments('concatpdf', $module, $outputdir, $_SERVER["PHP_SELF"].'?module='.$module, 0, $user->admin, '', 0, 0, 0, 0, 0, '', $moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir);
 	} else {
-		print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
-		print $langs->trans("NoPDFFileFound").'<br>';
+		print '<div class="titre">'.$moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
+		print '<span class="opacitymedium">'.$langs->trans("NoPDFFileFound").'</span><br>';
 	}
 
 	print '<br><br>';
 }
 
+// TODO
+// Replace this with a checkbox on each file line
+print '<form action="'.$_SERVER["PHP_SELF"].'" mode="POST">';
+print '<input type="hidden" name="page_y">';
+print '<input type="hidden" name="action" value="save">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
+print '<div class="opacitymedium">';
+print 'CONCATPDF_PRESELECTED_MODELS = <input type="text" name="CONCATPDF_PRESELECTED_MODELS" value="'.getDolGlobalString('CONCATPDF_PRESELECTED_MODELS').'">';
+print '<input type="submit" class="button smallpaddingimp reposition" value="'.$langs->trans("Save").'">';
+print '</div>';
+print '</form>';
 
+print '<br><br>';
 
 // Footer
 llxFooter();
