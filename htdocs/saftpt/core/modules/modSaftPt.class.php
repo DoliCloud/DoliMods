@@ -64,7 +64,7 @@ class modSaftPt extends DolibarrModules
         // (where XXX is value of numeric property 'numero' of module)
         $this->description = "Saf-T PT MOSS"; //entry in admin.lang tag Module60101Desc= Module60101Name
         // Possible values for version are: 'development', 'experimental' or version
-        $this->version = '1.0.3';
+        $this->version = 'development';
         // Key used in llx_const table to save module status enabled/disabled
         // (where SaftPT is value of property name of module in uppercase)
         $this->const_name = 'MAIN_MODULE_' . strtoupper($this->name);
@@ -206,7 +206,7 @@ class modSaftPt extends DolibarrModules
           // Condition to show each dictionnary
           'tabcond'=>array($conf->saftpt->enabled,$conf->saftpt->enabled)
           );
-         
+
 
         // Boxes
         // Add here list of php file(s) stored in core/boxes that contains class to show a box.
@@ -224,7 +224,7 @@ class modSaftPt extends DolibarrModules
         // Permissions
         $this->rights = array(); // Permission array used by this module
         $r = 0;
-		
+
 		$this->rights[$r][0] = 60111;
 		$this->rights[$r][1] = 'Download Ficheiro Saf-t';
 		$this->rights[$r][2] = 'r';
@@ -241,13 +241,13 @@ class modSaftPt extends DolibarrModules
 		$this->rights[$r][5] = 'write';
 		$r++;
 		//translation in admin.lang tag Permission60111 and Permission60112
-		
+
 		// Left-Menu of saf-t
 		$r=0;
 		$r=1;
         $this->menus = array(); // List of menus to add
-        
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=accountancy',		  
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=accountancy',
 								'type'=>'left',
 								'titre'=>'MenuSaft',
 								'mainmenu'=>'accountancy',
@@ -255,13 +255,13 @@ class modSaftPt extends DolibarrModules
 								'url'=>'/saftpt/index.php?mainmenu=accountancy&leftmenu=toolssaft',
 								'langs'=>'saftpt@saftpt',
 								'position'=>200,
-                				'enabled'=>'$conf->saftpt->enabled',       
+                				'enabled'=>'$conf->saftpt->enabled',
 								'perms'=>'',
 								'target'=>'',
 								'user'=>0);
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=accountancy,fk_leftmenu=toolssaft',		  
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=accountancy,fk_leftmenu=toolssaft',
 								'type'=>'left',
 								'titre'=>'MenuSaftExport',
 								'mainmenu'=>'accountancy',
@@ -269,7 +269,7 @@ class modSaftPt extends DolibarrModules
 								'url'=>'/saftpt/exportsaft.php?mainmenu=accountancy&leftmenu=toolssaft',
 								'langs'=>'saftpt@saftpt',
 								'position'=>210,
-                				'enabled'=>'$conf->saftpt->enabled',   
+                				'enabled'=>'$conf->saftpt->enabled',
 								'perms'=>'',
 								'target'=>'',
 								'user'=>0);
@@ -290,7 +290,7 @@ class modSaftPt extends DolibarrModules
         $sql = array();
 
         $result = $this->loadTables();
-		
+
         return $this->_init($sql, $options);
     }
 
