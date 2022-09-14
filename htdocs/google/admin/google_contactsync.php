@@ -853,7 +853,7 @@ print '</tr>';
 		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 */
-$redirect_uri=dol_buildpath('/google/oauth2callback.php', ((float) DOL_VERSION >= 4.0)?3:2);
+$redirect_uri=dol_buildpath('/google/oauth2callback.php?', ((float) DOL_VERSION >= 4.0)?3:2);
 $jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
 
 $urltocreateidclientoauth = 'https://console.developers.google.com/apis/credentials';
@@ -885,16 +885,21 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 	print $langs->trans("FillAndSaveGoogleAccount");
 } else {
 	// https://developers.google.com/identity/protocols/OAuth2UserAgent
-	$completeoauthurl=$oauthurl;
-	$completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
-	$completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
-	$completeoauthurl.='&scope='.urlencode('https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly');
-	$completeoauthurl.='&state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
-	$completeoauthurl.='&access_type=offline';
-	$completeoauthurl.='&approval_prompt=force';
-	$completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
-	$completeoauthurl.='&include_granted_scopes=true';
+	// $completeoauthurl=$oauthurl;
+	// $completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
+	// $completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
+	// $completeoauthurl.='&scope='.urlencode('https://www.googleapis.com/auth/contacts');
+	// $completeoauthurl.='&state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
+	// $completeoauthurl.='&access_type=offline';
+	// $completeoauthurl.='&approval_prompt=force';
+	// $completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
+	// $completeoauthurl.='&include_granted_scopes=true';
 
+	$redirect_uri	.=	'state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
+	$redirect_uri	.=	'&scope='.urlencode('https://www.googleapis.com/auth/contacts');
+	$redirect_uri	.=	'&shortscope='.urlencode('contact');
+	$redirect_uri	.=	'&backtourl='.urlencode(DOL_URL_ROOT.'/custom/google/admin/google_contactsync.php');
+	$redirect_uri	.=	'&servicename='.urlencode("contact");
 	if (! empty($conf->global->GOOGLE_WEB_TOKEN) || ! empty($_SESSION['google_web_token_'.$conf->entity])) {
 		print 'Database token';
 		$sql="SELECT tms as token_date_last_update, entity from ".MAIN_DB_PREFIX."const where name = 'GOOGLE_WEB_TOKEN' and value = '".$db->escape($conf->global->GOOGLE_WEB_TOKEN)."'";
@@ -936,7 +941,8 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		print '<br>';
 		print $langs->trans("GoogleRecreateToken").'<br>';
 		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
-		print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		print '<a href="'.$redirect_uri.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		// print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
 		print '<br><br>';
 		print $langs->trans("GoogleDeleteToken").'<br>';
 		print '<a href="'.$_SERVER["PHP_SELF"].'?action=deletetoken&token='.newToken().'" target="_blank">'.$langs->trans("ClickHere").'</a>';
@@ -946,7 +952,8 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 	} else {
 		print img_warning().' '.$langs->trans("GoogleNoTokenYet").'<br>';
 		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
-		print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		print '<a href="'.$redirect_uri.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		// print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
 	}
 }
 print '</td>';
