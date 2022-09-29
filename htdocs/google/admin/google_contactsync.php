@@ -268,233 +268,281 @@ if (preg_match('/^test/', $action)) {
 }
 
 if ($action == 'pushallthirdparties') {
-	$objectstatic=new Societe($db);
-
-	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
-
-	// Create client object
-	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
-
-	// Create client/token object
-	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
-	$force_do_not_use_session=false; // by default
-	$servicearray=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
-
-	if (! is_array($servicearray) || $servicearray == null) {
-		$txterror="Failed to login to Google with current token";
-		dol_syslog($txterror, LOG_ERR);
-		$errors[]=$txterror;
-		return -1;
+	if ((GETPOST('fromidthirdparties') && !GETPOST('toidthirdparties') || !GETPOST('fromidthirdparties') && GETPOST('toidthirdparties'))) {
+		$txterror="ID range incomplete";
+		setEventMessage($txterror, 'errors');
 	} else {
-		$client = $servicearray;
-		$gdata = $client;
+		$objectstatic=new Societe($db);
 
-		dol_include_once('/google/class/gcontacts.class.php');
+		$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+		$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
-		//	$res = GContact::deleteDolibarrContacts();
-		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'societe';
-		$sql.= ' WHERE entity IN ('.getEntity('societe').')';
-		$sql.= ' ORDER BY rowid';
+		// Create client object
+		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+		//var_dump($client); exit;
 
-		$resql = $db->query($sql);
-		if (! $resql) {
-			dol_print_error($db);
-			exit;
-		}
+		// Create client/token object
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+		$force_do_not_use_session=false; // by default
+		$servicearray=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
 
-		// Sync from $conf->global->GOOGLE_SYNC_FROM_POSITION to $conf->global->GOOGLE_SYNC_TO_POSITION (1 to n)
-		$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
-		$i=0;
-		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
-			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
-				if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
-			}
-
-			try {
-				$gContacts[] = new GContact($obj->rowid, 'thirdparty', $gdata);
-			} catch (Exception $e) {
-				print "Error in constructor new GContact(".$obj->rowid.", 'thirdparty', ...)";
-			}
-
-			$i++;
-		}
-
-		$resultEntries=0;
-		if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
-
-		if (is_numeric($resultEntries) && $resultEntries >= 0) {
-			$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
+		if (! is_array($servicearray) || $servicearray == null) {
+			$txterror="Failed to login to Google with current token";
+			dol_syslog($txterror, LOG_ERR);
+			$errors[]=$txterror;
+			return -1;
 		} else {
-			$error++;
-			$errors[] = $langs->trans("Error").' '.$resultEntries;
-		}
+			$client = $servicearray;
+			$gdata = $client;
 
-		if (!$error) {
-			$resultTags=0;
-			if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'thirdparty');
+			dol_include_once('/google/class/gcontacts.class.php');
 
-			if (is_numeric($resultTags) && $resultTags >= 0) {
-				$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+
+			$fromidsql = '';
+			$toidsql = '';
+
+			if (GETPOST('fromidthirdparties') && GETPOST('toidthirdparties')) {
+				$fromid = min(GETPOST('fromidthirdparties'), GETPOST('toidthirdparties'));
+				$toid = max(GETPOST('fromidthirdparties'), GETPOST('toidthirdparties'));
+				$fromidsql = ' AND rowid >= '.$fromid;
+				$toidsql = ' AND rowid <= '.$toid;
+			}
+
+			//	$res = GContact::deleteDolibarrContacts();
+			$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'societe';
+			$sql.= ' WHERE entity IN ('.getEntity('societe').')'.$fromidsql.$toidsql;
+			$sql.= ' ORDER BY rowid';
+			$resql = $db->query($sql);
+			if (! $resql) {
+				dol_print_error($db);
+				exit;
+			}
+
+			// Sync from $conf->global->GOOGLE_SYNC_FROM_POSITION to $conf->global->GOOGLE_SYNC_TO_POSITION (1 to n)
+			$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+			$i=0;
+			$gContacts = array();
+			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
+				if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
+					if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
+				}
+
+				try {
+					$gContacts[] = new GContact($obj->rowid, 'thirdparty', $gdata);
+				} catch (Exception $e) {
+					print "Error in constructor new GContact(".$obj->rowid.", 'thirdparty', ...)";
+				}
+
+				$i++;
+			}
+
+			$resultEntries=0;
+
+			if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+
+			if (is_numeric($resultEntries) && $resultEntries >= 0) {
+				$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
 			} else {
 				$error++;
-				$errors[] = $langs->trans("Error").' '.$resultTags;
+				$errors[] = $langs->trans("Error").' '.$resultEntries;
+			}
+
+			if (!$error) {
+				$resultTags=0;
+				if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'thirdparty');
+
+				if (is_numeric($resultTags) && $resultTags >= 0) {
+					$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+				} else {
+					$error++;
+					$errors[] = $langs->trans("Error").' '.$resultTags;
+				}
 			}
 		}
 	}
 }
 
 if ($action == 'pushallcontacts') {
-	$objectstatic=new Contact($db);
-
-	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
-
-	// Create client object
-	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
-
-	// Create client/token object
-	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
-	$force_do_not_use_session=false; // by default
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
-
-	if (! is_array($servicearray) || $servicearray == null) {
-		$txterror="Failed to login to Google with current token";
-		dol_syslog($txterror, LOG_ERR);
-		$errors[]=$txterror;
-		return -1;
+	if ((GETPOST('fromidcontacts') && !GETPOST('toidcontacts') || !GETPOST('fromidcontacts') && GETPOST('toidcontacts'))) {
+		$txterror="ID range incomplete";
+		setEventMessage($txterror, 'errors');
 	} else {
-		$client = $servicearray;
-		$gdata = $client;
+		$objectstatic=new Contact($db);
 
-		dol_include_once('/google/class/gcontacts.class.php');
+		$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+		$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
-		//	$res = GContact::deleteDolibarrContacts();
-		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'socpeople';
-		$sql.= ' WHERE entity IN ('.getEntity('socpeople').')';
-		$sql.= ' ORDER BY rowid';
+		// Create client object
+		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+		//var_dump($client); exit;
 
-		$resql = $db->query($sql);
-		if (! $resql) {
-			dol_print_error($db);
-			exit;
-		}
+		// Create client/token object
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+		$force_do_not_use_session=false; // by default
+		$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
 
-		$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
-		$i=0;
-		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
-			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
-				if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
-			}
-
-			try {
-				$gContacts[] = new GContact($obj->rowid, 'contact', $gdata);
-			} catch (Exception $e) {
-				print "Error in constructor new GContact(".$obj->rowid.", 'contact', ...)";
-			}
-
-			$i++;
-		}
-
-		$resultEntries=0;
-		if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
-
-		if (is_numeric($resultEntries) && $resultEntries >= 0) {
-			$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
+		if (! is_array($servicearray) || $servicearray == null) {
+			$txterror="Failed to login to Google with current token";
+			dol_syslog($txterror, LOG_ERR);
+			$errors[]=$txterror;
+			return -1;
 		} else {
-			$error++;
-			$errors[] = $langs->trans("Error").' '.$resultEntries;
-		}
+			$client = $servicearray;
+			$gdata = $client;
 
-		if (!$error) {
-			$resultTags=0;
-			if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'contact');
+			dol_include_once('/google/class/gcontacts.class.php');
 
-			if (is_numeric($resultTags) && $resultTags >= 0) {
-				$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+			$fromidsql = '';
+			$toidsql = '';
+
+			if (GETPOST('fromidcontacts') && GETPOST('toidcontacts')) {
+				$fromid = min(GETPOST('fromidcontacts'), GETPOST('toidcontacts'));
+				$toid = max(GETPOST('fromidcontacts'), GETPOST('toidcontacts'));
+				$fromidsql = ' AND rowid >= '.$fromid;
+				$toidsql = ' AND rowid <= '.$toid;
+			}
+
+			//	$res = GContact::deleteDolibarrContacts();
+			$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'socpeople';
+			$sql.= ' WHERE entity IN ('.getEntity('socpeople').')'.$fromidsql.$toidsql;
+			$sql.= ' ORDER BY rowid';
+
+			$resql = $db->query($sql);
+			if (! $resql) {
+				dol_print_error($db);
+				exit;
+			}
+
+			$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+			$i=0;
+			$gContacts = array();
+			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
+				if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
+					if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
+				}
+
+				try {
+					$gContacts[] = new GContact($obj->rowid, 'contact', $gdata);
+				} catch (Exception $e) {
+					print "Error in constructor new GContact(".$obj->rowid.", 'contact', ...)";
+				}
+
+				$i++;
+			}
+
+			$resultEntries=0;
+			if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+
+			if (is_numeric($resultEntries) && $resultEntries >= 0) {
+				$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
 			} else {
 				$error++;
-				$errors[] = $langs->trans("Error").' '.$resultTags;
+				$errors[] = $langs->trans("Error").' '.$resultEntries;
+			}
+
+			if (!$error) {
+				$resultTags=0;
+				if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'contact');
+
+				if (is_numeric($resultTags) && $resultTags >= 0) {
+					$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+				} else {
+					$error++;
+					$errors[] = $langs->trans("Error").' '.$resultTags;
+				}
 			}
 		}
 	}
 }
 
 if ($action == 'pushallmembers') {
-	$objectstatic=new Adherent($db);
-
-	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
-
-	// Create client object
-	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
-
-	// Create client/token object
-	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
-	$force_do_not_use_session=false; // by default
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
-
-	if (! is_array($servicearray) || $servicearray == null) {
-		$txterror="Failed to login to Google with current token";
-		dol_syslog($txterror, LOG_ERR);
-		$errors[]=$txterror;
-		return -1;
+	if ((GETPOST('fromidmembers') && !GETPOST('toidmembers') || !GETPOST('fromidmembers') && GETPOST('toidmembers'))) {
+		$txterror="ID range incomplete";
+		setEventMessage($txterror, 'errors');
 	} else {
-		$client = $servicearray;
-		$gdata = $client;
+		$objectstatic=new Adherent($db);
 
-		dol_include_once('/google/class/gcontacts.class.php');
+		$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+		$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
-		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'adherent';
-		$sql.= ' WHERE entity IN ('.getEntity('adherent').')';
-		$sql.= ' ORDER BY rowid';
+		// Create client object
+		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+		//var_dump($client); exit;
 
-		$resql = $db->query($sql);
-		if (! $resql) {		// Retreive groups from gContact
-			$tags = $gContact->tags;
-			dol_print_error($db);
-			exit;
-		}
+		// Create client/token object
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+		$force_do_not_use_session=false; // by default
+		$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
 
-		$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
-		$i=0;
-		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
-			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
-				if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
+		if (! is_array($servicearray) || $servicearray == null) {
+			$txterror="Failed to login to Google with current token";
+			dol_syslog($txterror, LOG_ERR);
+			$errors[]=$txterror;
+			return -1;
+		} else {
+			$client = $servicearray;
+			$gdata = $client;
+
+			dol_include_once('/google/class/gcontacts.class.php');
+
+			$fromidsql = '';
+			$toidsql = '';
+
+			if (GETPOST('fromidmembers') && GETPOST('toidmembers')) {
+				$fromid = min(GETPOST('fromidmembers'), GETPOST('toidmembers'));
+				$toid = max(GETPOST('fromidmembers'), GETPOST('toidmembers'));
+				$fromidsql = ' AND rowid >= '.$fromid;
+				$toidsql = ' AND rowid <= '.$toid;
 			}
 
-			$gContacts[] = new GContact($obj->rowid, 'member', $gdata);
-			$i++;
-		}
+			$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'adherent';
+			$sql.= ' WHERE entity IN ('.getEntity('adherent').')'.$fromidsql.$toidsql;
+			$sql.= ' ORDER BY rowid';
 
-		$resultEntries=0;
-		if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+			$resql = $db->query($sql);
+			if (! $resql) {		// Retreive groups from gContact
+				$tags = $gContact->tags;
+				dol_print_error($db);
+				exit;
+			}
 
-		if (is_numeric($resultEntries) && $resultEntries >= 0) {
-			$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
-		} else {
-			$error++;
-			$errors[] = $langs->trans("Error").' '.$resultEntries;
-		}
+			$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+			$i=0;
+			$gContacts = array();
+			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
+				if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
+					if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
+				}
 
-		if (!$error) {
-			$resultTags=0;
-			if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'member');
+				$gContacts[] = new GContact($obj->rowid, 'member', $gdata);
+				$i++;
+			}
 
-			if (is_numeric($resultTags) && $resultTags >= 0) {
-				$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+			$resultEntries=0;
+			if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+
+			if (is_numeric($resultEntries) && $resultEntries >= 0) {
+				$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
 			} else {
 				$error++;
-				$errors[] = $langs->trans("Error").' '.$resultTags;
+				$errors[] = $langs->trans("Error").' '.$resultEntries;
+			}
+
+			if (!$error) {
+				$resultTags=0;
+				if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'member');
+
+				if (is_numeric($resultTags) && $resultTags >= 0) {
+					$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
+				} else {
+					$error++;
+					$errors[] = $langs->trans("Error").' '.$resultTags;
+				}
 			}
 		}
-
 	}
 }
 
@@ -945,13 +993,19 @@ if ($conf->societe->enabled) {
 		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="action" value="pushallthirdparties">';
 		print $langs->trans("ExportThirdpartiesToGoogle")." ";
+
 		$sql = 'SELECT COUNT(rowid) as nb FROM '.MAIN_DB_PREFIX.'societe WHERE entity IN ('.getEntity('societe').')';
 		$resql = $db->query($sql);
 		$obj = $db->fetch_object($resql);
 		if ($obj) {
-			print ' ('.$obj->nb.')';
+			print ' ('.$obj->nb.') ';
 		}
 		print '<input type="submit" name="pushall" class="button smallpaddingimp reposition" value="'.$langs->trans("Run").'">';
+		print $langs->trans("FromId")." ";
+		print '<input type="number" name=fromidthirdparties style="width:5%" min="1" value="'.(GETPOSTISSET('fromidthirdparties') ? GETPOST('fromidthirdparties') : '').'"/>';
+		print $langs->trans("ToId")." ";
+		print '<input type="number" name=toidthirdparties style="width:5%" min="1" value="'.(GETPOSTISSET('toidthirdparties') ? GETPOST('toidthirdparties') : '').'"/>';
+		print $form->textwithpicto("", $langs->trans("IdSelectOptional"));
 		print "</form>\n";
 
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -998,6 +1052,11 @@ if ($conf->societe->enabled) {
 			print ' ('.$obj->nb.')';
 		}
 		print '<input type="submit" name="pushall" class="button smallpaddingimp reposition" value="'.$langs->trans("Run").'">';
+		print $langs->trans("FromId")." ";
+		print '<input type="number" name=fromidcontacts style="width:5%" min="1" value="'.(GETPOSTISSET('fromidcontacts') ? GETPOST('fromidcontacts') : '').'"/>';
+		print $langs->trans("ToId")." ";
+		print '<input type="number" name=toidcontacts style="width:5%" min="1" value="'.(GETPOSTISSET('toidcontacts') ? GETPOST('toidcontacts') : '').'"/>';
+		print $form->textwithpicto("", $langs->trans("IdSelectOptional"));
 		print "</form>\n";
 
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -1044,6 +1103,11 @@ if ($conf->adherent->enabled) {
 			print ' ('.$obj->nb.')';
 		}
 		print '<input type="submit" name="pushall" class="button smallpaddingimp reposition" value="'.$langs->trans("Run").'">';
+		print $langs->trans("FromId")." ";
+		print '<input type="number" name=fromidmembers style="width:5%" min="1" value="'.(GETPOSTISSET('fromidmembers') ? GETPOST('fromidmembers') : '').'"/>';
+		print $langs->trans("ToId")." ";
+		print '<input type="number" name=toidmembers style="width:5%" min="1" value="'.(GETPOSTISSET('toidmembers') ? GETPOST('toidmembers') : '').'"/>';
+		print $form->textwithpicto("", $langs->trans("IdSelectOptional"));
 		print "</form>\n";
 
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
