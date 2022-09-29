@@ -969,23 +969,24 @@ print '<br><br>';
 
 // Thirdparties
 if ($conf->societe->enabled) {
-	print '<div class="syncthirdparties">';
-	print '<hr><br>';
-	print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("ThirdParties").'<br><br>';
-	print '<div class="tabsActions syncthirdparties">';
-	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-		print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
-
-		print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
-	} else {
-		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
-
-		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatethirdparties&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
-	}
-	print '</div>';
-
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+		print '<div class="syncthirdparties">';
+		print '<hr><br>';
+		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("ThirdParties").'<br><br>';
+		print '<div class="tabsActions syncthirdparties">';
+		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
+		} else {
+			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
+
+			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatethirdparties&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
+		}
+		print '</div>';
+
+
 		print '<div class="tabsActions syncthirdparties">';
 		print '<br>';
 
@@ -1015,29 +1016,31 @@ if ($conf->societe->enabled) {
 		print '<input type="submit" name="cleanup" class="button smallpaddingimp reposition" value="'.$langs->trans("Run").'">';
 		print "</form>\n";
 		print '</div>';
+
+		print '</div>';
 	}
-	print '</div>';
 }
 
 	// Contacts
 if ($conf->societe->enabled) {
-	print '<div class="synccontacts">';
-	print '<hr><br>';
-	print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Contacts").'<br><br>';
-	print '<div class="tabsActions synccontacts">';
-	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-		print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
-
-		print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
-	} else {
-		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
-
-		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
-	}
-	print '</div>';
-
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+		print '<div class="synccontacts">';
+		print '<hr><br>';
+		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Contacts").'<br><br>';
+		print '<div class="tabsActions synccontacts">';
+		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
+		} else {
+			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
+
+			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
+		}
+		print '</div>';
+
+
 		print '<div class="tabsActions synccontacts">';
 		print '<br>';
 
@@ -1066,29 +1069,31 @@ if ($conf->societe->enabled) {
 		print '<input type="submit" name="cleanup" class="button smallpaddingimp reposition" value="'.$langs->trans("Run").'">';
 		print "</form>\n";
 		print '</div>';
+
+		print '</div>';
 	}
-	print '</div>';
 }
 
 // Members
 if ($conf->adherent->enabled) {
-	print '<div class="syncmembers">';
-	print '<hr><br>';
-	print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Members").'<br><br>';
-	print '<div class="tabsActions syncmembers">';
-	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-		print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
-
-		print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
-	} else {
-		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
-
-		print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatemembers&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
-	}
-	print '</div>';
-
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+		print '<div class="syncmembers">';
+		print '<hr><br>';
+		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Members").'<br><br>';
+		print '<div class="tabsActions syncmembers">';
+		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
+		} else {
+			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
+
+			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatemembers&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
+		}
+		print '</div>';
+
+
 		print '<div class="tabsActions syncmembers">';
 		print '<br>';
 
@@ -1116,10 +1121,10 @@ if ($conf->adherent->enabled) {
 		print $langs->trans("DeleteAllGoogleMembers")." ";
 		print '<input type="submit" name="cleanup" class="button smallpaddingimp reposition" value="'.$langs->trans("Run").'">';
 		print "</form>\n";
+		print '</div>';
 
 		print '</div>';
 	}
-	print '</div>';
 }
 
 
