@@ -277,27 +277,6 @@ if ($action == 'pushallthirdparties') {
 	if ((GETPOST('fromidthirdparties') && !GETPOST('toidthirdparties') || !GETPOST('fromidthirdparties') && GETPOST('toidthirdparties'))) {
 		$txterror="ID range incomplete";
 		setEventMessage($txterror, 'errors');
-	// $objectstatic=new Societe($db);
-
-	// $googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-	// $googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
-
-	// // Create client object
-	// //$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	// //$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	// //var_dump($client); exit;
-
-	// // Create client/token object
-	// $key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
-	// $force_do_not_use_session=false; // by default
-	// $servicearray=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
-
-
-	// if (! is_array($servicearray) || $servicearray == null) {
-	// 	$txterror="Failed to login to Google with current token";
-	// 	dol_syslog($txterror, LOG_ERR);
-	// 	$errors[]=$txterror;
-	// 	return -1;
 	} else {
 		$objectstatic=new Societe($db);
 
@@ -1091,7 +1070,6 @@ if ($conf->societe->enabled) {
 			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
 		}
 		print '</div>';
-
 
 		print '<div class="tabsActions synccontacts">';
 		print '<br>';
