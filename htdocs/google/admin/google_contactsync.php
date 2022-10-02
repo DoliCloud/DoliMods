@@ -1000,6 +1000,7 @@ if ($conf->societe->enabled) {
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="action" value="pushallthirdparties">';
+		print '<input type="hidden" name="page_y" value="">';
 		print $langs->trans("ExportThirdpartiesToGoogle")." ";
 
 		$sql = 'SELECT COUNT(rowid) as nb FROM '.MAIN_DB_PREFIX.'societe WHERE entity IN ('.getEntity('societe').')';
@@ -1054,6 +1055,7 @@ if ($conf->societe->enabled) {
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="action" value="pushallcontacts">';
+		print '<input type="hidden" name="page_y" value="">';
 		print $langs->trans("ExportContactToGoogle");
 		$sql = 'SELECT COUNT(rowid) as nb FROM '.MAIN_DB_PREFIX.'socpeople WHERE entity IN ('.getEntity('contact').')';
 		$resql = $db->query($sql);
@@ -1107,6 +1109,7 @@ if ($conf->adherent->enabled) {
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="action" value="pushallmembers">';
+		print '<input type="hidden" name="page_y" value="">';
 		print $langs->trans("ExportMembersToGoogle");
 		$sql = 'SELECT COUNT(rowid) as nb FROM '.MAIN_DB_PREFIX.'adherent WHERE entity IN ('.getEntity('member').')';
 		$resql = $db->query($sql);
