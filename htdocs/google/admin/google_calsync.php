@@ -304,7 +304,7 @@ if ($action == 'pushallevents') {
 			$service = new Google_Service_Calendar($servicearray['client']);
 
 			// Search all events
-			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent, location, fk_soc, fk_contact, note';
+			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent, location, fk_soc, fk_contact, note as note_private';
 			$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
 			$sql.=$db->order('datep', 'DESC');
 			$sql.=$db->plimit($max);
@@ -332,8 +332,9 @@ if ($action == 'pushallevents') {
 				$objecttmp->socid=$obj->fk_soc;
 				$objecttmp->contactid=$obj->fk_contact;
 				$objecttmp->contact_id=$obj->fk_contact;
-				$objecttmp->note=$obj->note;
-				$objecttmp->note_public=$obj->note_public;
+				$objecttmp->note=$obj->note_private;
+				$objecttmp->note_private=$obj->note_private;
+				//$objecttmp->note_public=$obj->note_public;
 
 				// Event label can now include company and / or contact info, see configuration
 				google_complete_label_and_note($objecttmp, $langs);
@@ -455,16 +456,16 @@ if ($conf->use_javascript_ajax) {
 	print '</script>'."\n";
 }
 
-print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL", isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL, 1).'<br>';
+print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_GCAL") ? GETPOST("GOOGLE_DUPLICATE_INTO_GCAL") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL'), 1).'<br>';
 
 $var=false;
 
 print '<div class="synccal">';
 print '<br>';
 
-print "<table class=\"noborder\" width=\"100%\">";
+print '<table class="noborder centpercent">';
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
@@ -472,7 +473,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_FIX_TZ")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX" value="'.$conf->global->GOOGLE_CAL_TZ_FIX.'">';
+print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX" value="'.getDolGlobalString('GOOGLE_CAL_TZ_FIX').'">';
 print ' '.$form->textwithpicto('', $langs->trans("FillThisOnlyIfRequired"));
 print "</td>";
 print "</tr>";
@@ -480,7 +481,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_FIX_TZ_G2D")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX_G2D" value="'.$conf->global->GOOGLE_CAL_TZ_FIX_G2D.'">';
+print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX_G2D" value="'.getDolGlobalString('GOOGLE_CAL_TZ_FIX_G2D').'">';
 print ' '.$form->textwithpicto('', $langs->trans("FillThisOnlyIfRequired"));
 print "</td>";
 print "</tr>";
@@ -488,14 +489,14 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_INCLUDE_AUTO_EVENT")."</td>";
 print "<td>";
-print $form->selectyesno("GOOGLE_INCLUDE_AUTO_EVENT", $conf->global->GOOGLE_INCLUDE_AUTO_EVENT, 1);
+print $form->selectyesno("GOOGLE_INCLUDE_AUTO_EVENT", getDolGlobalString('GOOGLE_INCLUDE_AUTO_EVENT'), 1);
 print "</td>";
 print "</tr>";
 // Include attendees
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_INCLUDE_ATTENDEES")."</td>";
 print "<td>";
-print $form->selectyesno("GOOGLE_INCLUDE_ATTENDEES", $conf->global->GOOGLE_INCLUDE_ATTENDEES, 1);
+print $form->selectyesno("GOOGLE_INCLUDE_ATTENDEES", getDolGlobalString('GOOGLE_INCLUDE_ATTENDEES'), 1);
 print "</td>";
 print "</tr>";
 
@@ -516,7 +517,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
 print '<td>';
-print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'">';
+print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL').'">';
 print '</td>';
 print '<td class="aaa">';
 print $langs->trans("AllowGoogleToLoginWithServiceAccount", "https://console.developers.google.com/apis/credentials", "https://console.developers.google.com/apis/credentials").'<br>';
@@ -526,7 +527,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
 print '<td>';
-if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY.'<br>';
+if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY').'<br>';
 print '<input class="minwidth400" type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 print '</td>';
 print '<td class="aaa">';
@@ -538,7 +539,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GoogleIDAgenda")."</td>";
 print "<td>";
-print '<input id="GOOGLE_LOGIN" class="flat minwidth300" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
+print '<input id="GOOGLE_LOGIN" class="flat minwidth300" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.getDolGlobalString('GOOGLE_LOGIN').'">';
 print "</td>";
 print '<td class="aaa">';
 print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
@@ -611,7 +612,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallevents">';
-	print $langs->trans("ExportEventsToGoogle", $max, $conf->global->GOOGLE_LOGIN)." ";
+	print $langs->trans("ExportEventsToGoogle", $max, getDolGlobalString('GOOGLE_LOGIN'))." ";
 	print '<input type="submit" name="pushall" class="button small" value="'.$langs->trans("Run").'"';
 	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
 	print '>';
@@ -620,7 +621,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallevents">';
-	print $langs->trans("DeleteAllGoogleEvents", $conf->global->GOOGLE_LOGIN)." ";
+	print $langs->trans("DeleteAllGoogleEvents", getDolGlobalString('GOOGLE_LOGIN'))." ";
 	print '('.$langs->trans("OperationMayBeLong").') ';
 	print '<input type="submit" name="cleanup" class="button small" value="'.$langs->trans("Run").'"';
 	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
@@ -633,7 +634,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="action" value="syncfromgoogle">';
-		print $langs->trans("ImportEventsFromGoogle", $max, $conf->global->GOOGLE_LOGIN)." ";
+		print $langs->trans("ImportEventsFromGoogle", $max, getDolGlobalString('GOOGLE_LOGIN'))." ";
 		$now = dol_now() - ($notolderforsync * 24 * 3600);
 		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($conf->global->GOOGLE_LOGIN)?1:0);
 		print '<input type="submit" name="getall" class="button small" value="'.$langs->trans("Run").'"';

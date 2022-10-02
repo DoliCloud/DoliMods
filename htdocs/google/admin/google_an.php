@@ -34,8 +34,8 @@ $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$actiontest=$_POST["test"];
-$actionsave=$_POST["save"];
+$actiontest = GETPOST("test");
+$actionsave = GETPOST("save");
 
 
 
@@ -46,7 +46,7 @@ $actionsave=$_POST["save"];
 if ($actionsave) {
 	$db->begin();
 
-	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AN_ID', trim($_POST["MAIN_GOOGLE_AN_ID"]), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AN_ID', trim(GETPOST("MAIN_GOOGLE_AN_ID")), 'chaine', 0, '', $conf->entity);
 
 	if (! $error) {
 		$db->commit();
@@ -101,7 +101,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AN_ID")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AN_ID" value="'.$conf->global->MAIN_GOOGLE_AN_ID.'">';
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AN_ID" value="'.getDolGlobalString('MAIN_GOOGLE_AN_ID').'">';
 print "</td>";
 print '<td>UA-9049390-3</td>';
 print "</tr>";
@@ -114,7 +114,7 @@ print '</div>';
 dol_fiche_end();
 
 print '<div align="center">';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</div>";
 
 print "</form>\n";

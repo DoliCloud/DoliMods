@@ -36,9 +36,9 @@ $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$actiontest=$_POST["test"];
-$actionsave=$_POST["save"];
-$action=GETPOST('action');
+$actiontest = GETPOST("test");
+$actionsave = GETPOST("save");
+$action = GETPOST('action');
 
 
 /*
@@ -106,21 +106,21 @@ print '<div class="fichecenter">';
 
 print $langs->trans("GoogleEnableThisToolThirdParties").': ';
 if ($conf->societe->enabled) {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS", isset($_POST["GOOGLE_ENABLE_GMAPS"])?$_POST["GOOGLE_ENABLE_GMAPS"]:$conf->global->GOOGLE_ENABLE_GMAPS, 1);
+	print $form->selectyesno("GOOGLE_ENABLE_GMAPS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS") ? GETPOST("GOOGLE_ENABLE_GMAPS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS'), 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
 //print '<br>';
 print $langs->trans("GoogleEnableThisToolContacts").': ';
 if ($conf->societe->enabled) {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_CONTACTS", isset($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"])?$_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"]:$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS, 1);
+	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_CONTACTS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_CONTACTS") ? GETPOST("GOOGLE_ENABLE_GMAPS_CONTACTS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_CONTACTS'), 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
 //print '<br>';
 print $langs->trans("GoogleEnableThisToolMembers").': ';
 if ($conf->adherent->enabled) {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS", isset($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"])?$_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]:$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS, 1);
+	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_MEMBERS") ? GETPOST("GOOGLE_ENABLE_GMAPS_MEMBERS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_MEMBERS'), 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
 print '<br>';
 
@@ -136,13 +136,13 @@ print "</tr>";
 
 //print '<br>';
 print '<tr class="oddeven"><td>'.$langs->trans("GoogleZoomLevel").'</td><td>';
-print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(isset($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"])?$_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]:$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL).'" size="2">';
+print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(GETPOSTISSET("GOOGLE_GMAPS_ZOOM_LEVEL") ? GETPOST("GOOGLE_GMAPS_ZOOM_LEVEL") : getDolGlobalString('GOOGLE_GMAPS_ZOOM_LEVEL')).'" size="2">';
 print '</td></tr>';
 
 //ajout de la gestion des icones de status des Tiers : prospects/clients
 if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS) && ! empty($conf->societe->enabled)) {
 	print '<tr class="oddeven"><td>'.$langs->trans("IconTiers").'</td><td>';
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_TICON", isset($_POST["GOOGLE_ENABLE_GMAPS_TICON"])?$_POST["GOOGLE_ENABLE_GMAPS_TICON"]:$conf->global->GOOGLE_ENABLE_GMAPS_TICON, 1);
+	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_TICON", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_TICON") ? GETPOST("GOOGLE_ENABLE_GMAPS_TICON") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_TICON'), 1);
 	print '</td></tr>';
 }
 
@@ -164,7 +164,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
 print "<td>";
-print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
+print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVERKEY" value="'.getDolGlobalString('GOOGLE_API_SERVERKEY').'">';
 print '</td>';
 print '<td>';
 //print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
@@ -182,7 +182,7 @@ print '</div>';
 dol_fiche_end();
 
 print '<div align="center">';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</div>";
 
 print "</form>\n";

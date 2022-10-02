@@ -302,17 +302,20 @@ if ($action == 'pushallthirdparties') {
 			$fromidsql = '';
 			$toidsql = '';
 
-			if (GETPOST('fromidthirdparties') && GETPOST('toidthirdparties')) {
-				$fromid = min(GETPOST('fromidthirdparties'), GETPOST('toidthirdparties'));
-				$toid = max(GETPOST('fromidthirdparties'), GETPOST('toidthirdparties'));
-				$fromidsql = ' AND rowid >= '.$fromid;
-				$toidsql = ' AND rowid <= '.$toid;
+			if (GETPOST('fromidthirdparties', 'int') >= 0) {
+				$fromid = GETPOST('fromidthirdparties', 'int');
+				$fromidsql = ' AND rowid >= '.((int) $fromid);
+			}
+			if (GETPOST('toidthirdparties', 'int') > 0) {
+				$toid = GETPOST('toidthirdparties', 'int');
+				$toidsql = ' AND rowid <= '.((int) $toid);
 			}
 
 			//	$res = GContact::deleteDolibarrContacts();
 			$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'societe';
-			$sql.= ' WHERE entity IN ('.getEntity('societe').')'.$fromidsql.$toidsql;
-			$sql.= ' ORDER BY rowid';
+			$sql .= ' WHERE entity IN ('.getEntity('societe').')';
+			$sql .= $fromidsql.$toidsql;
+			$sql .= ' ORDER BY rowid';
 			$resql = $db->query($sql);
 			if (! $resql) {
 				dol_print_error($db);
@@ -899,8 +902,12 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		//print $sql;
 		if ($resql) {
 			$obj=$db->fetch_object($resql);
-			$token_date_last_update = $db->jdate($obj->token_date_last_update);
-			$token_entity = $obj->entity;
+			$token_date_last_update = '';
+			$token_entity = '';
+			if ($obj) {
+				$token_date_last_update = $db->jdate($obj->token_date_last_update);
+				$token_entity = $obj->entity;
+			}
 			print ' - '.$langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
 		} else {
 			dol_print_error($db);
@@ -972,7 +979,7 @@ if ($conf->societe->enabled) {
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
 		print '<div class="syncthirdparties">';
 		print '<hr><br>';
-		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("ThirdParties").'<br><br>';
+		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';
 		print '<div class="tabsActions syncthirdparties">';
 		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
@@ -1026,7 +1033,7 @@ if ($conf->societe->enabled) {
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
 		print '<div class="synccontacts">';
 		print '<hr><br>';
-		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Contacts").'<br><br>';
+		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Contacts").'<br><br>';
 		print '<div class="tabsActions synccontacts">';
 		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
@@ -1079,7 +1086,7 @@ if ($conf->adherent->enabled) {
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
 		print '<div class="syncmembers">';
 		print '<hr><br>';
-		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Members").'<br><br>';
+		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Members").'<br><br>';
 		print '<div class="tabsActions syncmembers">';
 		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {

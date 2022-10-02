@@ -35,8 +35,8 @@ $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$actiontest=$_POST["test"];
-$actionsave=$_POST["save"];
+$actiontest = GETPOST("test");
+$actionsave = GETPOST("save");
 
 
 
@@ -46,10 +46,10 @@ $actionsave=$_POST["save"];
 if ($actionsave) {
 	$db->begin();
 
-	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AD_CLIENT', trim($_POST["MAIN_GOOGLE_AD_CLIENT"]), 'chaine', 0, '', 0);	// Param for all env
-	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AD_SLOT', trim($_POST["MAIN_GOOGLE_AD_SLOT"]), 'chaine', 0, '', 0);	// Param for all env
-	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AD_WIDTH', trim($_POST["MAIN_GOOGLE_AD_WIDTH"]), 'chaine', 0, '', 0);	// Param for all env
-	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AD_HEIGHT', trim($_POST["MAIN_GOOGLE_AD_HEIGHT"]), 'chaine', 0, '', 0);	// Param for all env
+	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AD_CLIENT', trim(GETPOST("MAIN_GOOGLE_AD_CLIENT")), 'chaine', 0, '', 0);	// Param for all env
+	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AD_SLOT', trim(GETPOST("MAIN_GOOGLE_AD_SLOT")), 'chaine', 0, '', 0);	// Param for all env
+	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AD_WIDTH', trim(GETPOST("MAIN_GOOGLE_AD_WIDTH")), 'chaine', 0, '', 0);	// Param for all env
+	$res=dolibarr_set_const($db, 'MAIN_GOOGLE_AD_HEIGHT', trim(GETPOST("MAIN_GOOGLE_AD_HEIGHT")), 'chaine', 0, '', 0);	// Param for all env
 
 	if (! $error) {
 		$db->commit();
@@ -105,7 +105,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AD_CLIENT")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_CLIENT" value="'.$conf->global->MAIN_GOOGLE_AD_CLIENT.'">';
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_CLIENT" value="'.getDolGlobalString('MAIN_GOOGLE_AD_CLIENT').'">';
 print "</td>";
 print '<td>ca-pub-1071905880519467</td>';
 print "</tr>";
@@ -113,16 +113,15 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AD_SLOT")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_SLOT" value="'.$conf->global->MAIN_GOOGLE_AD_SLOT.'">';
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_SLOT" value="'.getDolGlobalString('MAIN_GOOGLE_AD_SLOT').'">';
 print "</td>";
 print '<td>1421205532</td>';
 print "</tr>";
 // Slot id
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AD_WIDTH")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_WIDTH" value="'.$conf->global->MAIN_GOOGLE_AD_WIDTH.'">';
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_WIDTH" value="'.getDolGlobalString('MAIN_GOOGLE_AD_WIDTH').'">';
 print "</td>";
 print '<td>468</td>';
 print "</tr>";
@@ -130,7 +129,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AD_HEIGHT")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_HEIGHT" value="'.$conf->global->MAIN_GOOGLE_AD_HEIGHT.'">';
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_HEIGHT" value="'.getDolGlobalString('MAIN_GOOGLE_AD_HEIGHT').'">';
 print "</td>";
 print '<td>60</td>';
 print "</tr>";
@@ -143,7 +142,7 @@ print '</div>';
 dol_fiche_end();
 
 print '<div align="center">';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</div>";
 
 print "</form>\n";
