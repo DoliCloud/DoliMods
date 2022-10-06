@@ -49,7 +49,7 @@ $fontlist='arial,tahoma,verdana,helvetica';
 
 /* For themes that use menu images */
 div.mainmenu.filemanager {
-	background-image: url(<?php echo DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/menus/globe.png' ?>);
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/file.png' ?>);
 }
 
 
