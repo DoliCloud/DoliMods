@@ -36,6 +36,9 @@ dol_include_once("/google/lib/google.lib.php");
 //$res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
 $res=dol_include_once('/google/includes/google-api-php-client/vendor/autoload.php');
 
+// Token
+require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
+use OAuth\Common\Storage\DoliStorage;
 //if (! class_exists('Google_Client')) dol_print_error('','Failed to load library file /nltechno/google/includes/google-api-php-client/autoload.php');
 
 /**
@@ -101,7 +104,7 @@ function getTokenFromWebApp($clientid, $clientsecret)
  */
 function getTokenFromServiceAccount($service_account_name, $key_file_location, $force_do_not_use_session = false, $mode = 'service', $user_to_impersonate = false)
 {
-	global $conf;
+	global $conf, $db;
 
 	$applicationname = "Dolibarr";
 
@@ -121,10 +124,26 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			dol_syslog("Get web token from session. google_web_token=".(is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",",$_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]));
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
-		if ((! isset($_SESSION['google_web_token_'.$conf->entity]) || ! empty($force_do_not_use_session)) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+
+
+		// Dolibarr storage
+		$storage = new DoliStorage($db, $conf);
+		try {
+			$servicename = isset($_SESSION['servicename']) ? $_SESSION['servicename'] : 'contact'; // We'll go for contact by default
+			$tokenobj = $storage->retrieveAccessToken("Google-".$servicename);
+		} catch (Exception $e) {
+			dol_syslog("Token does not exist yet".$e->getMessage(), LOG_INFO);
+		}
+
+
+		if ((! isset($_SESSION['google_web_token_'.$conf->entity]) || ! empty($force_do_not_use_session)) && is_object($tokenobj)) {
 			// Look into database
 			// $conf->global->GOOGLE_WEB_TOKEN = '{"access_token":"ya29.iQEPBPUAVLXeVq1-QnC6-SHydA9czPX3ySJ5SjkSo5ZIMfFEl5MTs62no8hZp5jUUsm3QVHTrBg7hw","expires_in":3600,"created":1433463453}';
-			$_SESSION['google_web_token_'.$conf->entity] = $conf->global->GOOGLE_WEB_TOKEN;
+			$_SESSION['google_web_token_'.$conf->entity] = array(
+				'access_token' => $tokenobj->getAccessToken(),
+				'expires_in' => ($tokenobj->getEndOfLife() - time()),
+				'created' => ($tokenobj->getEndOfLife() - 3600)
+			);
 			dol_syslog("Get service token from database and save into session. google_web_token=".$_SESSION['google_web_token_'.$conf->entity]);
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
@@ -136,20 +155,20 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
 
-		try {
-			dol_syslog("getTokenFromServiceAccount check isAccessTokenExpired", LOG_DEBUG);
-			$checktoken=$client->isAccessTokenExpired();
-			if ($checktoken) {
-				$tmp=json_decode($conf->global->GOOGLE_WEB_TOKEN, true);
-				$refreshtoken=$tmp['refresh_token'];
-				if (empty($refreshtoken)) $refreshtoken=$tmp['access_token'];
-				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
-				$client->refreshToken($refreshtoken);
-				$_SESSION['google_web_token_'.$conf->entity]= $client->getAccessToken();
-				dol_syslog("getTokenFromServiceAccount new token in session is now ".(is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",",$_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
-			} else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
-		} catch (Exception $e) {
-			return $e->getMessage();
+		if (is_object($tokenobj)){
+			try {
+				dol_syslog("getTokenFromServiceAccount check isAccessTokenExpired", LOG_DEBUG);
+				$checktoken=$client->isAccessTokenExpired();
+				if ($checktoken) {
+					$refreshtoken=$tokenobj->getRefreshToken();
+					dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
+					$client->refreshToken($refreshtoken);
+					$_SESSION['google_web_token_'.$conf->entity]= $client->getAccessToken();
+					dol_syslog("getTokenFromServiceAccount new token in session is now ".(is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",",$_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
+				} else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
 		}
 	}
 	if ($mode == 'service') {    // used to sync events-calendar

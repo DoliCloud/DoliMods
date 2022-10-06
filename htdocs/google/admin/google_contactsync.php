@@ -58,21 +58,27 @@ $langs->load("other");
 
 $def = array();
 $action=GETPOST("action", 'alpha');
-
+$servicename = "contact";
+$_SESSION['servicename'] = $servicename;
+$shortscope = "contact";
 $oauthurl='https://accounts.google.com/o/oauth2/auth';
 
+// Token
+require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
+use OAuth\Common\Storage\DoliStorage;
+
+// Dolibarr storage
+$storage = new DoliStorage($db, $conf);
+try {
+	$tokenobj = $storage->retrieveAccessToken("Google-".$servicename);
+} catch (Exception $e) {
+	dol_syslog("Token does not exist yet".$e->getMessage(), LOG_INFO);
+}
 
 /*
  * Actions
  */
 
-if ($action == 'deletetoken') {
-	$res=dolibarr_del_const($db, 'GOOGLE_WEB_TOKEN', $conf->entity);
-	unset($_SESSION['google_web_token_'.$conf->entity]);
-	if (! $res > 0) $error++;
-
-	$action='';
-}
 
 if ($action == 'save') {
 	$error=0;
@@ -271,6 +277,27 @@ if ($action == 'pushallthirdparties') {
 	if ((GETPOST('fromidthirdparties') && !GETPOST('toidthirdparties') || !GETPOST('fromidthirdparties') && GETPOST('toidthirdparties'))) {
 		$txterror="ID range incomplete";
 		setEventMessage($txterror, 'errors');
+	// $objectstatic=new Societe($db);
+
+	// $googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+	// $googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+
+	// // Create client object
+	// //$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	// //$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+	// //var_dump($client); exit;
+
+	// // Create client/token object
+	// $key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+	// $force_do_not_use_session=false; // by default
+	// $servicearray=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+
+
+	// if (! is_array($servicearray) || $servicearray == null) {
+	// 	$txterror="Failed to login to Google with current token";
+	// 	dol_syslog($txterror, LOG_ERR);
+	// 	$errors[]=$txterror;
+	// 	return -1;
 	} else {
 		$objectstatic=new Societe($db);
 
@@ -897,10 +924,13 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 
 	$redirect_uri	.=	'state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
 	$redirect_uri	.=	'&scope='.urlencode('https://www.googleapis.com/auth/contacts');
-	$redirect_uri	.=	'&shortscope='.urlencode('contact');
+	$redirect_uri	.=	'&shortscope='.urlencode($shortscope);
 	$redirect_uri	.=	'&backtourl='.urlencode(DOL_URL_ROOT.'/custom/google/admin/google_contactsync.php');
-	$redirect_uri	.=	'&servicename='.urlencode("contact");
-	if (! empty($conf->global->GOOGLE_WEB_TOKEN) || ! empty($_SESSION['google_web_token_'.$conf->entity])) {
+	$redirect_uri	.=	'&servicename='.urlencode($servicename);
+
+	$urltodelete = $redirect_uri.'&action=delete';
+	$urltodelete .= '&token='.newToken();
+	if (is_object($tokenobj) || ! empty($_SESSION['google_web_token_'.$conf->entity])) {
 		print 'Database token';
 		$sql="SELECT tms as token_date_last_update, entity from ".MAIN_DB_PREFIX."const where name = 'GOOGLE_WEB_TOKEN' and value = '".$db->escape($conf->global->GOOGLE_WEB_TOKEN)."'";
 		$resql=$db->query($sql);
@@ -917,9 +947,16 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		} else {
 			dol_print_error($db);
 		}
+		if (is_object($tokenobj)) {
+			$token_date_expire =$tokenobj->getEndOfLife();
+			// $token_date_last_update = $db->jdate($obj->token_date_last_update);
+			$token_entity = $conf->entity;
+			print ' - '.$langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
+		}
+
 		print ':<br>';
-		if (! empty($conf->global->GOOGLE_WEB_TOKEN)) {
-			print showValueWithClipboardCPButton($conf->global->GOOGLE_WEB_TOKEN, 0, dol_trunc($conf->global->GOOGLE_WEB_TOKEN, 100));
+		if (is_object($tokenobj)) {
+			print showValueWithClipboardCPButton($tokenobj->getAccessToken(), 0, dol_trunc($tokenobj->getAccessToken(), 100));
 			//print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$conf->global->GOOGLE_WEB_TOKEN.'</div>';
 		}
 		print '<br>';
@@ -945,7 +982,7 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		// print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
 		print '<br><br>';
 		print $langs->trans("GoogleDeleteToken").'<br>';
-		print '<a href="'.$_SERVER["PHP_SELF"].'?action=deletetoken&token='.newToken().'" target="_blank">'.$langs->trans("ClickHere").'</a>';
+		print '<a href="'.$urltodelete.'">'.$langs->trans("ClickHere").'</a>';
 		print '<br><br>';
 		print $langs->trans("GoogleDeleteAuthorization").'<br>';
 		print '<a href="https://security.google.com/settings/security/permissions" target="_blank">https://security.google.com/settings/security/permissions</a>';
@@ -983,7 +1020,7 @@ print '<br><br>';
 
 // Thirdparties
 if ($conf->societe->enabled) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && is_object($tokenobj)) {
 		print '<div class="syncthirdparties">';
 		print '<hr><br>';
 		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';
@@ -1038,7 +1075,7 @@ if ($conf->societe->enabled) {
 
 	// Contacts
 if ($conf->societe->enabled) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && is_object($tokenobj)) {
 		print '<div class="synccontacts">';
 		print '<hr><br>';
 		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Contacts").'<br><br>';
@@ -1092,7 +1129,7 @@ if ($conf->societe->enabled) {
 
 // Members
 if ($conf->adherent->enabled) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && is_object($tokenobj)) {
 		print '<div class="syncmembers">';
 		print '<hr><br>';
 		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Members").'<br><br>';

@@ -43,15 +43,14 @@ $redirect_uri=dol_buildpath('/google/oauth2callback.php', ((float) DOL_VERSION >
 
 
 
-
-$code = GETPOST("code");
+$action = GETPOST('action');
+$code = GETPOST('code');
 $state = GETPOST('state');
 $scope = GETPOST('scope');
 $backtourl = GETPOST('backtourl') ? GETPOST('backtourl') : $_SESSION['backtourlsavedbeforeoauthjump'];
 $shortscope = GETPOSTISSET('shortscope') ? GETPOST('shortscope') : $_SESSION['shortscopesavedbeforeoauthjump'];
 $servicename = GETPOSTISSET('servicename') ? GETPOST('servicename') : $_SESSION['servicenamesavedbeforeoauthjump'];
 $mesgs = '';
-
 
 
 
@@ -81,10 +80,14 @@ $apiService->setAccessType('offline');
 * Actions
 */
 
-// if action == delete
 
-// Ask token (possible only if inside an oauth google session)
-if (!$code) {	// If we are coming from Google contact admin page, we must ask a token
+if ($action == 'delete') {
+	$storage->clearToken('Google');
+	unset($_SESSION['google_web_token_'.$conf->entity]);
+	setEventMessages($langs->trans('TokenDeleted'), null, 'mesgs');
+	header('Location: '.$backtourl);
+	exit();
+} elseif (!$code) {	// If we are coming from Google contact admin page, we must ask a token
 	$_SESSION['backtourlsavedbeforeoauthjump'] = $backtourl;
 	$_SESSION['servicenamesavedbeforeoauthjump'] = $servicename;
 	$_SESSION['shortscopesavedbeforeoauthjump'] = $shortscope;
@@ -111,8 +114,12 @@ if (!$code) {	// If we are coming from Google contact admin page, we must ask a 
 	} else {
 		try {
 			// Save token into database using DoliStorage
-			$token = $apiService->requestAccessToken($code, $state);
-			$_SESSION['google_web_token_'.$conf->entity] = $code;
+			$tokenobj = $apiService->requestAccessToken($code, $state);
+
+			$_SESSION['google_web_token_'.$conf->entity] = array('access_token' => $tokenobj->getAccessToken(),
+			'expires_in' => ($tokenobj->getEndOfLife() - time()),
+			'created' => ($tokenobj->getEndOfLife() - 3600)
+		);
 
 			setEventMessages($langs->trans('NewTokenStored'), null, 'mesgs');
 
