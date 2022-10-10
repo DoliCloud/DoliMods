@@ -59,7 +59,7 @@ $langs->load("products");
 // Date range
 $year=GETPOST("year");
 if (empty($year)) {
-	$year_current = strftime("%Y", dol_now());
+	$year_current = dol_print_date(dol_now(), "%Y");
 	$year_start = $year_current;
 } else {
 	$year_current = $year;
@@ -72,7 +72,7 @@ if (empty($date_start) || empty($date_end)) { // We define date_start and date_e
 	$q=GETPOST("q");
 	if (empty($q)) {
 		if (isset($_REQUEST["month"])) { $date_start=dol_get_first_day($year_start, $_REQUEST["month"], false); $date_end=dol_get_last_day($year_start, $_REQUEST["month"], false); } else {
-			$month_current = strftime("%m", dol_now());
+			$month_current = dol_print_date(dol_now(), "%m");
 			if ($month_current >= 10) $q=4;
 			elseif ($month_current >= 7) $q=3;
 			elseif ($month_current >= 4) $q=2;

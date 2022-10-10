@@ -25,7 +25,7 @@
 /**
  *	Class to build Saf-t file (PT)
  */
- 
+
 class SaftPt
 {
 	var $db;
@@ -34,7 +34,7 @@ class SaftPt
     var $date_fim='';
 	var $outputfile='';
 	var $filexml='';
-	
+
 	//xml file
 	var $doc;
 	var $audit;
@@ -49,7 +49,7 @@ class SaftPt
 	{
 		$this->db=$db;
 	}
-	
+
 	/**
 	 *    check if company country is PT-Portugal
 	 *
@@ -58,13 +58,13 @@ class SaftPt
 	function country_pt()
     {
 		global $conf;
-		
+
 		$res=-1;
 		$countrypt=explode(":", ($conf->global->MAIN_INFO_SOCIETE_COUNTRY?$conf->global->MAIN_INFO_SOCIETE_COUNTRY:'PT' ));
 		if($countrypt[1]=='PT') $res=1;
 		return $res;
     }
-	
+
 	/**
 	 *    check if company currency is EUR
 	 *
@@ -73,19 +73,19 @@ class SaftPt
 	function currency_eur()
     {
 		global $conf;
-		
+
 		$res=-1;
 		if($conf->global->MAIN_MONNAIE=='EUR') $res=1;
 		return $res;
     }
-	
+
 	/**
 	 *    check if exist tax type wirhout classification
 	 *
 	 *    @return	int						>0 if OK, <0 if KO
 	 */
 	function taxtype_pt()
-    {	
+    {
 		$res=1;
 		$sql = "SELECT t.taux ";
         $sql.= "FROM ".MAIN_DB_PREFIX."c_tva as t WHERE t.taux>0 and t.fk_pays IN(SELECT rowid FROM ".MAIN_DB_PREFIX."c_pays WHERE code ='PT' ) AND t.taux NOT IN (SELECT c.code FROM ".MAIN_DB_PREFIX."c_taxtype as c)";
@@ -96,18 +96,18 @@ class SaftPt
 			if($num>0) $res=-1;
 		}
 		else {
-			dol_print_error($this->db);			
+			dol_print_error($this->db);
 		}
 		return $res;
     }
-	
+
 	/**
-	 *    check if the value of tax type is correct: RED INT NOR ISE 
+	 *    check if the value of tax type is correct: RED INT NOR ISE
 	 *
 	 *    @return	int						>0 if OK, <0 if KO
 	 */
 	function taxtype_val_pt()
-    {	
+    {
 		$res=1;
 		$sql = "SELECT t.label ";
         $sql.= "FROM ".MAIN_DB_PREFIX."c_taxtype as t WHERE t.label NOT IN ('RED','INT','NOR','ISE')";
@@ -118,12 +118,12 @@ class SaftPt
 			if($num>0) $res=-1;
 		}
 		else {
-			dol_print_error($this->db);			
+			dol_print_error($this->db);
 		}
 		return $res;
     }
-	
-	
+
+
 	/**
 	 *    method to create saf-t file
 	 *
@@ -133,16 +133,16 @@ class SaftPt
         global $conf;
 		$outputdir  = $conf->saftpt->dir_output.'/xml';
 		dol_mkdir($outputdir); //cria pasta
-		$file='Saft_103_'.strftime('%Y%m%d', $this->date_ini).'_'.strftime('%Y%m%d', $this->date_fim).'.xml';
+		$file='Saft_103_'.dol_print_date($this->date_ini, '%Y%m%d').'_'.dol_print_date($this->date_fim, '%Y%m%d').'.xml';
 		$this->outputfile = $outputdir.'/'.$file;
 		$res=$this->create_xml();
 		if ($res) $this->filexml=$file;
     }
-	
-	
+
+
 	/**
 	 *    build saf-t file
-	 *	 
+	 *
 	 *    @return	int						>0 if OK, <0 if KO
 	 */
 	private function create_xml()
@@ -153,7 +153,7 @@ class SaftPt
 		$this->audit = $this->doc->createElement( 'AuditFile' );
 		$this->audit->setAttribute( "xmlns", "urn:OECD:StandardAuditFile-Tax:PT_1.03_01" );
 		$this->audit->setAttribute( "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-		
+
 		$res=$this->saft_header();
 		if (!$res) return -1;
 		$this->master = $this->doc->createElement( 'MasterFiles' );
@@ -173,7 +173,7 @@ class SaftPt
 		$this->doc->save($this->outputfile);
 		return 1;
 	}
-	
+
 	/**
 	 *    build Header element
 	 *
@@ -183,13 +183,13 @@ class SaftPt
     {
 		global $conf;
         $head = $this->doc->createElement( 'Header' );
-		
+
 		$ele = $this->doc->createElement( 'AuditFileVersion','1.03_01' );
 		$head->appendChild( $ele );
 		//conservatoria + nummero ou nif
 		$ele = $this->doc->createElement( 'CompanyID',(! empty($conf->global->MAIN_INFO_RCS) ? $conf->global->MAIN_INFO_RCS : '') . ' '. (! empty($conf->global->MAIN_INFO_APE) ? $conf->global->MAIN_INFO_APE : (! empty($conf->global->MAIN_INFO_SIREN) ? $conf->global->MAIN_INFO_SIREN : '')) ); //conservatoria + num ou nif
 		$head->appendChild( $ele );
-		
+
 		$ele = $this->doc->createElement( 'TaxRegistrationNumber',(! empty($conf->global->MAIN_INFO_SIREN) ? $conf->global->MAIN_INFO_SIREN : '') ); //nif sem prefixo do pais
 		$head->appendChild( $ele );
 		$ele = $this->doc->createElement( 'TaxAccountingBasis','P' ); // considera sempre dados parciais
@@ -198,40 +198,40 @@ class SaftPt
 		$head->appendChild( $ele );
 		$ele = $this->doc->createElement( 'BusinessName',$conf->global->MAIN_INFO_SOCIETE_NOM ); // designacao comercial
 		$head->appendChild( $ele );
-		
+
 		$adre = $this->doc->createElement( 'CompanyAddress' );
-		
+
 		$ele = $this->doc->createElement( 'AddressDetail',($conf->global->MAIN_INFO_SOCIETE_ADDRESS?$conf->global->MAIN_INFO_SOCIETE_ADDRESS:'Omisso') );
 		$adre->appendChild( $ele );
 		$ele = $this->doc->createElement( 'City',($conf->global->MAIN_INFO_SOCIETE_TOWN?$conf->global->MAIN_INFO_SOCIETE_TOWN:'Omissao') );
 		$adre->appendChild( $ele );
 		$ele = $this->doc->createElement( 'PostalCode',$conf->global->MAIN_INFO_SOCIETE_ZIP );
 		$adre->appendChild( $ele );
-		
+
 		$countrypt=explode(":", ($conf->global->MAIN_INFO_SOCIETE_COUNTRY?$conf->global->MAIN_INFO_SOCIETE_COUNTRY:'PT' ));
-		
-		$ele = $this->doc->createElement( 'Country',$countrypt[1]); 
+
+		$ele = $this->doc->createElement( 'Country',$countrypt[1]);
 		$adre->appendChild( $ele );
-		
+
 		$head->appendChild( $adre );
-		
-		$ele = $this->doc->createElement( 'FiscalYear',strftime('%Y', $this->date_ini) );
+
+		$ele = $this->doc->createElement( 'FiscalYear', dol_print_date($this->date_ini, '%Y') );
 		$head->appendChild( $ele );
-		$ele = $this->doc->createElement( 'StartDate',strftime('%Y-%m-%d', $this->date_ini) );
+		$ele = $this->doc->createElement( 'StartDate',dol_print_date($this->date_ini, '%Y-%m-%d') );
 		$head->appendChild( $ele );
-		$ele = $this->doc->createElement( 'EndDate',strftime('%Y-%m-%d', $this->date_fim) );
+		$ele = $this->doc->createElement( 'EndDate',dol_print_date($this->date_fim, '%Y-%m-%d') );
 		$head->appendChild( $ele );
 		$ele = $this->doc->createElement( 'CurrencyCode','EUR' );
 		$head->appendChild( $ele );
-		$ele = $this->doc->createElement( 'DateCreated',strftime('%Y-%m-%d', dol_now()) );
+		$ele = $this->doc->createElement( 'DateCreated',dol_print_date(dol_now(), '%Y-%m-%d') );
 		$head->appendChild( $ele );
-		$ele = $this->doc->createElement( 'TaxEntity','Global' ); 
+		$ele = $this->doc->createElement( 'TaxEntity','Global' );
 		$head->appendChild( $ele );
 		$ele = $this->doc->createElement( 'ProductCompanyTaxID','999999990' ); //TaxID of company that developed the Dolibarr (TaxID final consumer)
 		$head->appendChild( $ele );
 		$ele = $this->doc->createElement( 'SoftwareCertificateNumber','0' ); //certification number or zero
 		$head->appendChild( $ele );
-		$ele = $this->doc->createElement( 'ProductID','Dolibarr / Comunidade Dolibarr' ); 
+		$ele = $this->doc->createElement( 'ProductID','Dolibarr / Comunidade Dolibarr' );
 		$head->appendChild( $ele );
 		$ele = $this->doc->createElement( 'ProductVersion',$conf->global->MAIN_VERSION_LAST_INSTALL );
 		$head->appendChild( $ele );
@@ -250,7 +250,7 @@ class SaftPt
 		$this->audit->appendChild( $head );
 		return 1;
     }
-	
+
 	/**
 	 *    build Customer element
 	 *
@@ -267,34 +267,34 @@ class SaftPt
 			while ($i < $num)
 			{
 				$obj = $this->db->fetch_object($result);
-				
+
 				$cust = $this->doc->createElement( 'Customer' );
-			
-				$ele = $this->doc->createElement( 'CustomerID',$obj->code_client ); 
+
+				$ele = $this->doc->createElement( 'CustomerID',$obj->code_client );
 				$cust->appendChild( $ele );
 				//no accounting accounts
 				$ele = $this->doc->createElement( 'AccountID','Desconhecido' );
 				$cust->appendChild( $ele );
-				$ele = $this->doc->createElement( 'CustomerTaxID',(! empty($obj->siren) ? $obj->siren : '999999990' ) ); 
+				$ele = $this->doc->createElement( 'CustomerTaxID',(! empty($obj->siren) ? $obj->siren : '999999990' ) );
 				$cust->appendChild( $ele );
-				$ele = $this->doc->createElement( 'CompanyName'); 
-				$ele->appendChild($this->doc->createCDATASection(  $obj->nom ));				
+				$ele = $this->doc->createElement( 'CompanyName');
+				$ele->appendChild($this->doc->createCDATASection(  $obj->nom ));
 				$cust->appendChild( $ele );
-			
+
 				$adre = $this->doc->createElement( 'BillingAddress' );
-			
+
 				$ele = $this->doc->createElement( 'AddressDetail',(! empty($obj->address) ? $obj->address : 'desconhecido' ) ); // no value = desconhecido
 				$adre->appendChild( $ele );
 				$ele = $this->doc->createElement( 'City',(! empty($obj->town) ? $obj->town : 'desconhecido' ) ); // no value = desconhecido
 				$adre->appendChild( $ele );
-				$ele = $this->doc->createElement( 'PostalCode',(! empty($obj->zip) ? $obj->zip : '0000-000' ) ); 
+				$ele = $this->doc->createElement( 'PostalCode',(! empty($obj->zip) ? $obj->zip : '0000-000' ) );
 				$adre->appendChild( $ele );
-				$ele = $this->doc->createElement( 'Country',$obj->country ); 
+				$ele = $this->doc->createElement( 'Country',$obj->country );
 				$adre->appendChild( $ele );
-			
+
 				$cust->appendChild( $adre );
 				// not required
-				if (! empty($obj->phone)) {			
+				if (! empty($obj->phone)) {
 					$ele = $this->doc->createElement( 'Telephone',$obj->phone );
 					$cust->appendChild( $ele );
 				}
@@ -306,10 +306,10 @@ class SaftPt
 					$ele = $this->doc->createElement( 'Email',$obj->email );
 					$cust->appendChild( $ele );
 				}
-			
+
 				$ele = $this->doc->createElement( 'SelfBillingIndicator','0' );
 				$cust->appendChild( $ele );
-			
+
 				$this->master->appendChild( $cust );
 				$i++;
 			}
@@ -337,7 +337,7 @@ class SaftPt
 			{
 				$obj = $this->db->fetch_object($result);
 				$prod = $this->doc->createElement( 'Product' );
-		
+
 				$ele = $this->doc->createElement( 'ProductType',($obj->fk_product_type==1 ? 'S' : 'P') ); // P-product S-services
 				$prod->appendChild( $ele );
 				$ele = $this->doc->createElement( 'ProductCode',$obj->ref );
@@ -349,7 +349,7 @@ class SaftPt
 				$prod->appendChild( $ele );
 				$ele = $this->doc->createElement( 'ProductNumberCode',(! empty($obj->barcode) ? $obj->barcode : $obj->ref ) ); // barcode code or ProductCode
 				$prod->appendChild( $ele );
-		
+
 				$this->master->appendChild( $prod );
 				$i++;
 			}
@@ -360,7 +360,7 @@ class SaftPt
 		}
 		return 1;
     }
-	
+
 	/**
 	 *    build product element
 	 *
@@ -387,11 +387,11 @@ class SaftPt
 			}
 		}
 		else {
-			dol_print_error($this->db);			
-		}				
+			dol_print_error($this->db);
+		}
 		return $out;
     }
-	
+
 	/**
 	 *    build TaxTable element
 	 *
@@ -409,10 +409,10 @@ class SaftPt
 			while ($i < $num)
 			{
 				$obj = $this->db->fetch_object($result);
-				
+
 				$taxent = $this->doc->createElement( 'TaxTableEntry' );
-		
-				$ele = $this->doc->createElement( 'TaxType','IVA' ); 
+
+				$ele = $this->doc->createElement( 'TaxType','IVA' );
 				$taxent->appendChild( $ele );
 				$ele = $this->doc->createElement( 'TaxCountryRegion','PT' ); //ISO 3166-1 alpha 1
 				$taxent->appendChild( $ele );
@@ -422,7 +422,7 @@ class SaftPt
 				$taxent->appendChild( $ele );
 				$ele = $this->doc->createElement( 'TaxPercentage',$obj->taux );
 				$taxent->appendChild( $ele );
-		
+
 				$tax->appendChild( $taxent );
 				$i++;
 			}
@@ -430,19 +430,19 @@ class SaftPt
 		else {
 			dol_print_error($this->db);
 			return -1;
-		}		
+		}
 		$this->master->appendChild( $tax );
 		return 1;
     }
-	
+
 	/**
-	 *    counter documents 
+	 *    counter documents
 	 *
 	 *    @return	int						counter documents if OK, <0 if KO
 	 */
 	private function invoices_number()
     {
-        $out=0;		
+        $out=0;
 		$sql = "SELECT COUNT(rowid) AS docsnumber ";
         $sql.= "FROM ".MAIN_DB_PREFIX."facture WHERE datef >= '".$this->db->idate($this->date_ini)."' AND datef <= '".$this->db->idate($this->date_fim)."' AND fk_statut>0";
 		$result = $this->db->query($sql);
@@ -458,10 +458,10 @@ class SaftPt
 		else {
 			dol_print_error($this->db);
 			$out=-1;
-		}				
+		}
 		return $out;
     }
-	
+
 	/**
 	 *    returm the net total of credits note
 	 *
@@ -469,7 +469,7 @@ class SaftPt
 	 */
 	private function invoices_debit()
     {
-        $out=0;		
+        $out=0;
 		$sql = "SELECT SUM(total) AS sumval "; //net value
         $sql.= "FROM ".MAIN_DB_PREFIX."facture WHERE type=2 AND datef >= '".$this->db->idate($this->date_ini)."' AND datef <= '".$this->db->idate($this->date_fim)."' AND fk_statut>0";
 		$result = $this->db->query($sql);
@@ -483,9 +483,9 @@ class SaftPt
 			}
 		}
 		else {
-			dol_print_error($this->db);	
+			dol_print_error($this->db);
 			$out=-1;
-		}				
+		}
 		return $out;
     }
 	/**
@@ -495,7 +495,7 @@ class SaftPt
 	 */
 	private function invoices_credit()
     {
-        $out=0;		
+        $out=0;
 		$sql = "SELECT SUM(total) AS sumval "; //net value
         $sql.= "FROM ".MAIN_DB_PREFIX."facture WHERE type!=2 AND datef >= '".$this->db->idate($this->date_ini)."' AND datef <= '".$this->db->idate($this->date_fim)."' AND fk_statut>0";
 		$result = $this->db->query($sql);
@@ -509,9 +509,9 @@ class SaftPt
 			}
 		}
 		else {
-			dol_print_error($this->db);	
+			dol_print_error($this->db);
 			$out=-1;
-		}				
+		}
 		return $out;
     }
 	/**
@@ -522,8 +522,8 @@ class SaftPt
 	 */
 	private function invoice_user($iduser)
     {
-        $out='';		
-		$sql = "SELECT login "; 
+        $out='';
+		$sql = "SELECT login ";
         $sql.= "FROM ".MAIN_DB_PREFIX."user WHERE rowid =".$iduser."";
 		$result = $this->db->query($sql);
 		if ($result)
@@ -532,15 +532,15 @@ class SaftPt
 			if ($num>0)
 			{
 				$obj = $this->db->fetch_object($result);
-				$out=$obj->login; 
+				$out=$obj->login;
 			}
 		}
 		else {
-			dol_print_error($this->db);			
-		}				
+			dol_print_error($this->db);
+		}
 		return $out;
     }
-	
+
 	/**
 	 *    returm the customer number
 	 *
@@ -549,9 +549,9 @@ class SaftPt
 	 */
 	private function invoice_cust($idcust)
     {
-        $out='';	
-		
-		$sql = "SELECT code_client "; 
+        $out='';
+
+		$sql = "SELECT code_client ";
         $sql.= "FROM ".MAIN_DB_PREFIX."societe WHERE rowid =".$idcust."";
 		$result = $this->db->query($sql);
 		if ($result)
@@ -560,30 +560,30 @@ class SaftPt
 			if ($num>0)
 			{
 				$obj = $this->db->fetch_object($result);
-				$out=$obj->code_client; 
+				$out=$obj->code_client;
 			}
 		}
 		else {
-			dol_print_error($this->db);			
-		}				
+			dol_print_error($this->db);
+		}
 		return $out;
     }
-	
+
 	/**
 	 *    returm the saf-t document type (FT FS FR ND NC)
-	 *    
+	 *
 	 *
 	 *    @param  	DoliDB		$invtype		Dolibarr document type
 	 *    @return	string					FT or NC
 	 */
 	private function invoice_type($invtype)
     {
-        $out='FT';	
+        $out='FT';
 		if ($invtype==2) $out='NC'; //nota de crédito
-		
+
 		return $out;
     }
-	
+
 	/**
 	 *    returm the invoice reference used in credit note
 	 *
@@ -592,9 +592,9 @@ class SaftPt
 	 */
 	private function invoice_ref($idfature)
     {
-        $out='';	
-		
-		$sql = "SELECT facnumber "; 
+        $out='';
+
+		$sql = "SELECT facnumber ";
         $sql.= "FROM ".MAIN_DB_PREFIX."facture WHERE rowid =".$idfature."";
 		$result = $this->db->query($sql);
 		if ($result)
@@ -603,15 +603,15 @@ class SaftPt
 			if ($num>0)
 			{
 				$obj = $this->db->fetch_object($result);
-				$out=$obj->facnumber; 
+				$out=$obj->facnumber;
 			}
 		}
 		else {
-			dol_print_error($this->db);			
-		}				
+			dol_print_error($this->db);
+		}
 		return $out;
     }
-	
+
 	/**
 	 *    build SourceDocuments element
 	 *
@@ -620,18 +620,18 @@ class SaftPt
 	private function saft_salesinvoices()
     {
 		$sdocs = $this->doc->createElement( 'SourceDocuments' );
-		
+
         $sinvs = $this->doc->createElement( 'SalesInvoices' );
-		
+
 		$ele = $this->doc->createElement( 'NumberOfEntries',$this->invoices_number() );
 		$sinvs->appendChild( $ele );
 		//credit note
-		$ele = $this->doc->createElement( 'TotalDebit',$this->invoices_debit() ); //sum total amount wirhout Invoicestatus=A or F 
+		$ele = $this->doc->createElement( 'TotalDebit',$this->invoices_debit() ); //sum total amount wirhout Invoicestatus=A or F
 		$sinvs->appendChild( $ele );
 		//invoices
-		$ele = $this->doc->createElement( 'TotalCredit',$this->invoices_credit() ); //sum total amount wirhout Invoicestatus=A or F 
+		$ele = $this->doc->createElement( 'TotalCredit',$this->invoices_credit() ); //sum total amount wirhout Invoicestatus=A or F
 		$sinvs->appendChild( $ele );
-		
+
 		//list of documents
 		$sql = "SELECT c.rowid, c.facnumber, c.type, c.fk_soc, c.datec, c.datef, c.tva, c.total, c.total_ttc, c.fk_statut, c.fk_user_valid, c.fk_facture_source ";
         $sql.= "FROM ".MAIN_DB_PREFIX."facture as c WHERE c.datef BETWEEN '".$this->db->idate($this->date_ini)."' AND '".$this->db->idate($this->date_fim)."' AND c.fk_statut>0";
@@ -642,12 +642,12 @@ class SaftPt
 			while ($i < $num)
 			{
 				$obj = $this->db->fetch_object($result);
-				
+
 				$sinv = $this->doc->createElement( 'Invoice' );
-				
+
 				$ele = $this->doc->createElement( 'InvoiceNo',$obj->facnumber ); //document type+space+serie+/+number doc
 				$sinv->appendChild( $ele );
-				
+
 				$sinvst = $this->doc->createElement( 'DocumentStatus' );
 				$ele = $this->doc->createElement( 'InvoiceStatus','N' ); //N (normal) A (canceled)
 				$sinvst->appendChild( $ele );
@@ -655,10 +655,10 @@ class SaftPt
 				$sinvst->appendChild( $ele );
 				$ele = $this->doc->createElement( 'SourceID',$this->invoice_user($obj->fk_user_valid) ); //user
 				$sinvst->appendChild( $ele );
-				$ele = $this->doc->createElement( 'SourceBilling','P' ); 
+				$ele = $this->doc->createElement( 'SourceBilling','P' );
 				$sinvst->appendChild( $ele );
 				$sinv->appendChild( $sinvst ); //end DocumentStatus
-				
+
 				$ele = $this->doc->createElement( 'Hash','0' ); // 0 no software certification
 				$sinv->appendChild( $ele );
 				//$ele = $this->doc->createElement( 'HashControl','0' ); //no required
@@ -667,27 +667,27 @@ class SaftPt
 				$sinv->appendChild( $ele );
 				$ele = $this->doc->createElement( 'InvoiceDate', dol_print_date($obj->datef,'%Y-%m-%d') ); //AAAA-MM-DD
 				$sinv->appendChild( $ele );
-				$ele = $this->doc->createElement( 'InvoiceType',$this->invoice_type($obj->type) ); // FT FS FR ND NC 
+				$ele = $this->doc->createElement( 'InvoiceType',$this->invoice_type($obj->type) ); // FT FS FR ND NC
 				$sinv->appendChild( $ele );
-				
+
 				$sinvsp = $this->doc->createElement( 'SpecialRegimes' );
-				$ele = $this->doc->createElement( 'SelfBillingIndicator','0' ); 
+				$ele = $this->doc->createElement( 'SelfBillingIndicator','0' );
 				$sinvsp->appendChild( $ele );
 				$ele = $this->doc->createElement( 'CashVATSchemeIndicator','0' );
 				$sinvsp->appendChild( $ele );
 				$ele = $this->doc->createElement( 'ThirdPartiesBillingIndicator','0' );
 				$sinvsp->appendChild( $ele );
 				$sinv->appendChild( $sinvsp ); //end SpecialRegimes
-				
+
 				$ele = $this->doc->createElement( 'SourceID',$this->invoice_user($obj->fk_user_valid) ); //user
 				$sinv->appendChild( $ele );
 				//$ele = $this->doc->createElement( 'EACCode','70450' ); //cae no required
 				//$sinv->appendChild( $ele );
 				$ele = $this->doc->createElement( 'SystemEntryDate',dol_print_date($obj->datec,'%Y-%m-%dT%H:%M:%S') ); //AAAA-MM-DDThh:mm:ss
 				$sinv->appendChild( $ele );
-				$ele = $this->doc->createElement( 'CustomerID',$this->invoice_cust($obj->fk_soc) ); //customer code 
+				$ele = $this->doc->createElement( 'CustomerID',$this->invoice_cust($obj->fk_soc) ); //customer code
 				$sinv->appendChild( $ele );
-				
+
 				// write invoice lines
 				$sqll = "SELECT f.rowid, f.fk_product, f.qty, f.tva_tx, f.total_ht, f.total_tva, f.subprice, p.ref, p.label ";
 				$sqll.= "FROM ".MAIN_DB_PREFIX."facturedet as f, ".MAIN_DB_PREFIX."product as p WHERE f.fk_product = p.rowid AND f.fk_facture = ".$obj->rowid." ";
@@ -699,7 +699,7 @@ class SaftPt
 					while ($il < $numl)
 					{
 						$objl = $this->db->fetch_object($resultl);
-				
+
 						$sinvln = $this->doc->createElement( 'Line' );
 						$ele = $this->doc->createElement( 'LineNumber',($il+1) ); //line number (counter)
 						$sinvln->appendChild( $ele );
@@ -719,7 +719,7 @@ class SaftPt
 						$sinvln->appendChild( $ele );
 						//reference of invoice in credit note
 						if ($obj->type==2 && $obj->fk_facture_source) { //if credit note
-							$refdoc = $this->doc->createElement( 'References' ); 							
+							$refdoc = $this->doc->createElement( 'References' );
 							$ele = $this->doc->createElement( 'Reference',$this->invoice_ref($obj->fk_facture_source) ); //invoice ref in credit note
 							$refdoc->appendChild( $ele );
 							$sinvln->appendChild( $refdoc );
@@ -734,7 +734,7 @@ class SaftPt
 							$sinvln->appendChild( $ele );
 						}
 						$sinvtax = $this->doc->createElement( 'Tax' );
-						$ele = $this->doc->createElement( 'TaxType','IVA' ); 
+						$ele = $this->doc->createElement( 'TaxType','IVA' );
 						$sinvtax->appendChild( $ele );
 						$ele = $this->doc->createElement( 'TaxCountryRegion','PT' ); //standards ISO 3166-1 alpha 1
 						$sinvtax->appendChild( $ele );
@@ -751,7 +751,7 @@ class SaftPt
 						$descln=(($objl->subprice<0?$objl->subprice*(-1):$objl->subprice)*$objl->qty)-($objl->total_ht<0?$objl->total_ht*(-1):$objl->total_ht);
 						$ele = $this->doc->createElement( 'SettlementAmount', $descln ); //valor desc. da linha+cab da linha
 						$sinvln->appendChild( $ele );
-						
+
 						$sinv->appendChild( $sinvln ); //end Line
 						$il++;
 					}
@@ -769,7 +769,7 @@ class SaftPt
 				$ele = $this->doc->createElement( 'GrossTotal',round(($obj->total_ttc<0?$obj->total_ttc*(-1):$obj->total_ttc),2) ); //total amount with tax
 				$sinvtot->appendChild( $ele );
 				$sinv->appendChild( $sinvtot ); //end DocumentTotals
-				
+
 				$sinvs->appendChild( $sinv ); //end invoice
 				$i++;
 			}
@@ -777,15 +777,15 @@ class SaftPt
 		else {
 			dol_print_error($this->db);
 			return -1;
-		}		
-				
+		}
+
 		$sdocs->appendChild( $sinvs );
-		$this->audit->appendChild( $sdocs ); 
-		
+		$this->audit->appendChild( $sdocs );
+
 		return 1;
     }
-	
-	
+
+
 
 
 }

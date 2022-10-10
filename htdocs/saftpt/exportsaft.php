@@ -50,15 +50,15 @@ $saft = new SaftPt($db);
 
 if ($action == 'create')
 {
-	
+
 	$taxexemption = GETPOST('taxexemption_code','alpha');
 	$date_ini = dol_mktime(0, 0, 0, GETPOST('date_ini_month'), GETPOST('date_ini_day'), GETPOST('date_ini_year'));
     $date_fim = dol_mktime(23, 59, 59, GETPOST('date_end_month'), GETPOST('date_end_day'), GETPOST('date_end_year'));
-	
-	
+
+
 	// no start date
     if (empty($date_ini))
-    {        
+    {
 		header('Location: exportsaft.php?action=request&error=nodateini');
         exit;
     }
@@ -82,17 +82,17 @@ if ($action == 'create')
         header('Location: exportsaft.php?action=request&error=datefim');
         exit;
     }
-	
-	
+
+
 	$saft->taxexemption = $taxexemption;
     $saft->date_ini = $date_ini;
     $saft->date_fim = $date_fim;
-	
-	
+
+
 	$saft->create_file();
-	
+
 	$step=2;
-	
+
 }
 
 /*
@@ -103,12 +103,12 @@ $form = new Form($db);
 
 $canbuild=1; //var control to show build saf-t button
 
-if ($step == 1 || $action == 'request' ) { //option to select the period 
+if ($step == 1 || $action == 'request' ) { //option to select the period
 
 	$formtaxexemption = new FormSaftPt($db);
-	
+
 	llxHeader("",$langs->trans("MenuSaftExport"),"");
-	
+
 	$h = 0;
 
     $head[$h][0] = DOL_URL_ROOT.'/saftpt/exportsaft.php?step=1';
@@ -129,7 +129,7 @@ if ($step == 1 || $action == 'request' ) { //option to select the period
             switch(GETPOST('error')) {
                 case 'datefim' :
                     $errors[] = $langs->trans('ErrorEndDateS');
-                    break;                
+                    break;
                 case 'nodateini' :
                     $errors[] = $langs->trans('NoDateIniP');
                     break;
@@ -147,11 +147,11 @@ if ($step == 1 || $action == 'request' ) { //option to select the period
 		if(!$saft->country_pt()){
 			print $langs->trans('ErrCountryPt').'<br>';
 			$canbuild=0;
-		}		
+		}
 		if(!$saft->currency_eur()){
-			print $langs->trans('ErrCurrencyEur').'<br>';			
+			print $langs->trans('ErrCurrencyEur').'<br>';
 			$canbuild=0;
-		}		
+		}
 		if(!$saft->taxtype_pt()){
 			print $langs->trans('ErrTaxType').'<br>';
 			$canbuild=0;
@@ -160,12 +160,12 @@ if ($step == 1 || $action == 'request' ) { //option to select the period
 			print $langs->trans('ErrTaxTypeVal').'<br>';
 			$canbuild=0;
 		}
-		
+
 		if ($canbuild) {
 			print '<table class="notopnoleftnoright" width="100%">';
 
 			print $langs->trans("SaftHit1").'<br>';
-			 
+
 			print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 			print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 			print '<input type="hidden" name="action" value="create">';
@@ -179,20 +179,20 @@ if ($step == 1 || $action == 'request' ) { //option to select the period
 			print "</tr>\n";
 
 			$var=!$var;
-			
+
 			print '<tr>';
 			print '<td class="fieldrequired">'.$langs->trans("DateSIni").'</td>';
 			print '<td>';
-			
+
 			if(!isset($_GET['datep'])) {
 				$form->select_date(-1,'date_ini_');
 			} else {
 				$tmpdate = dol_mktime(0, 0, 0, GETPOST('datepmonth'), GETPOST('datepday'), GETPOST('datepyear'));
 				$form->select_date($tmpdate,'date_ini_');
-			}    
+			}
 			print '</td>';
 			print '</tr>';
-			
+
 			print '<tr>';
 			print '<td class="fieldrequired">'.$langs->trans("DateSEnd").'</td>';
 			print '<td>';
@@ -211,7 +211,7 @@ if ($step == 1 || $action == 'request' ) { //option to select the period
 			//shows the combo list with the VAT exemption code
 			if (empty($conf->global->TAX_EXEMPTION_REASON)) print ' '.img_warning($langs->trans("TaxExemptionEmpty"));
 			print '</td></tr>';
-				
+
 			print '</table>';
 
 			print '<br>';
@@ -220,7 +220,7 @@ if ($step == 1 || $action == 'request' ) { //option to select the period
 			}
 
 			print '</form>';
-			
+
 			print '</table>';
 		}
 	}
@@ -232,11 +232,11 @@ if ($step == 2 ) {
 
 	$sortfield = GETPOST("sortfield",'alpha');
 	$sortorder = GETPOST("sortorder",'alpha');
-	if(!$sortorder) $sortorder='desc'; 
+	if(!$sortorder) $sortorder='desc';
 	if(!$sortfield) $sortfield='name';
-	
+
 	llxHeader("",$langs->trans("MenuSaftExport"),"");
-	
+
 	$h = 0;
 
     $head[$h][0] = DOL_URL_ROOT.'/saftpt/exportsaft.php?step=1';
@@ -247,20 +247,20 @@ if ($step == 2 ) {
     $head[$h][1] = $langs->trans("Step")." 2";
     $hselected=$h;
     $h++;
-	
+
 	dol_fiche_head($head, $hselected, $langs->trans("MenuSaft"));
-	
-	print $langs->trans("PeriodOf").' <b>'.strftime('%Y-%m-%d', $date_ini). '</b> '. $langs->trans("PeriodTo"). ' <b>'.strftime('%Y-%m-%d', $date_fim).'</b><br>';
+
+	print $langs->trans("PeriodOf").' <b>'.dol_print_date($date_ini, '%Y-%m-%d'). '</b> '. $langs->trans("PeriodTo"). ' <b>'.dol_print_date($date_fim, '%Y-%m-%d').'</b><br>';
 	print $langs->trans("TaxExemptionDef").': <b>'.$saft->taxexemption.'</b><br>';
 	print $langs->trans("FileSaft").': <b>'.$saft->filexml.'</b><br>';
-	
+
 	$formfile = new FormFile($db);
-	
+
 	print '</div>';
-	
+
 	$filearray=dol_dir_list($conf->saftpt->dir_output.'/xml','files',0,'','',$sortfield,(strtolower($sortorder)=='asc'?SORT_ASC:SORT_DESC),1);
 	$result=$formfile->list_of_documents($filearray,null,'saftpt','',1,'xml/',0,0,($langs->trans("NoSaftFileAvailable").'<br>'.$langs->trans("ToBuildBackupFileClickHere",DOL_URL_ROOT.'/saftpt/exportsaft.php')),0,$langs->trans("PreviousDumpFiles"));
-}  
+}
 
 llxFooter();
 
