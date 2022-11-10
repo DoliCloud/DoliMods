@@ -242,7 +242,7 @@ class ActionsConcatPdf
 
 		if (! empty($concatpdffile) && $concatpdffile[0] != -1) {
 			foreach ($concatpdffile as $concatfile) {
-				// We find which second file to add (or generate it if file to add as a name starting with pdf___)
+				// We search which second file to add (or generate it if file to add as a name starting with pdf___)
 				if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
 					require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 
@@ -263,11 +263,11 @@ class ActionsConcatPdf
 
 					$objectref = dol_sanitizeFileName($parameters['object']->ref);
 					$dir = $conf->concatpdf->dir_temp . "/" . $objectref;
-					$filetoconcat2[] = $dir . "/" . $objectref . (preg_match('/\.PDF$/', $objectref)?'':".pdf");
+					$filetoconcat2[] = $dir . "/" . $objectref . (preg_match('/\.pdf$/i', $objectref)?'':".pdf");
 
 					$deltemp[] = $dir;
 				} else {
-					$filetoconcat2[] = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.(preg_match('/\.PDF$/', $concatfile)?'':".pdf");
+					$filetoconcat2[] = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.(preg_match('/\.pdf$/i', $concatfile)?'':".pdf");
 				}
 			}
 

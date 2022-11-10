@@ -5,6 +5,7 @@
 
 FIX: Use page size in setup
 FIX: Minimum version is 8.0
+FIX: Failed to concat when var with name of file to concat ends with .PDF or .pdf
 
 ## 6.0.2
 
