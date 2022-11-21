@@ -335,25 +335,29 @@ class ActionsConcatPdf
 	{
 		$pagecount = 0;
 		foreach ($files as $file) {
-			$pagecounttmp = $pdf->setSourceFile($file);
-			if ($pagecounttmp) {
-				for ($i = 1; $i <= $pagecounttmp; $i++) {
-					try {
-						$tplidx = $pdf->ImportPage($i);
-						$s = $pdf->getTemplatesize($tplidx);
-						$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
-						$pdf->useTemplate($tplidx);
-					} catch (Exception $e) {
-						dol_syslog("Error when manipulating some PDF by concatpdf: ".$e->getMessage(), LOG_ERR);
-						$this->error = $e->getMessage();
-						$this->errors[] = $e->getMessage();
-						dol_print_error('', $this->error);  // Remove this when dolibarr is able to report on screen errors reported by this hook.
-						return -1;
+			if (dol_is_file($file)) {	// We ignore file if not found so if ile has been removed we can still generate the PDF.
+				$pagecounttmp = $pdf->setSourceFile($file);
+				if ($pagecounttmp) {
+					for ($i = 1; $i <= $pagecounttmp; $i++) {
+						try {
+							$tplidx = $pdf->ImportPage($i);
+							$s = $pdf->getTemplatesize($tplidx);
+							$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+							$pdf->useTemplate($tplidx);
+						} catch (Exception $e) {
+							dol_syslog("Error when manipulating some PDF by concatpdf: ".$e->getMessage(), LOG_ERR);
+							$this->error = $e->getMessage();
+							$this->errors[] = $e->getMessage();
+							dol_print_error('', $this->error);  // Remove this when dolibarr is able to report on screen errors reported by this hook.
+							return -1;
+						}
 					}
+					$pagecount += $pagecounttmp;
+				} else {
+					dol_syslog("Error: Can't read PDF content with setSourceFile, for file ".$file, LOG_ERR);
 				}
-				$pagecount += $pagecounttmp;
 			} else {
-				dol_syslog("Error: Can't read PDF content with setSourceFile, for file ".$file, LOG_ERR);
+				dol_syslog("Error: Can't find PDF file, for file ".$file, LOG_WARNING);
 			}
 		}
 
