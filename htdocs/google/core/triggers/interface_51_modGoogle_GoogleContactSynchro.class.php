@@ -179,15 +179,16 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						$reg = array();
 						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
 							$contactID = $reg[1];
-							$type = $object->element ? $object->element : 'unknown';
-							$type = $type === 'societe' ? 'thirdparty' : $type;
+							$type = ($object->element ? $object->element : 'unknown');
+							$type = ($type === 'societe' ? 'thirdparty' : $type);
+
 							$typeGroupID = getGContactTypeGroupID($servicearray, $type);
 							if ($typeGroupID && preg_match('/contactGroups\/.*/', $typeGroupID)) {
 								$ret = googleLinkGroup($servicearray, $typeGroupID, $contactID);
 								if ($ret > 0) {
 									return 1;
 								} else {
-									$this->error="Failed to link contact to group".$typeGroupID.$type;
+									$this->error="Failed to link contact to group for ".$type." - ".$typeGroupID;
 									dol_syslog($this->error, LOG_ERR);
 									$this->errors[]=$this->error;
 									return -1;

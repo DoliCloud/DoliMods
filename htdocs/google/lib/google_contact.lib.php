@@ -547,7 +547,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 }
 
 /**
- * Link a member to group in google contact
+ * Link a contact $contactID to group $groupID in google contact
  *
  * @param string  	$client 	Google client
  * @param string 	$groupID 	ID of group to update
@@ -1377,6 +1377,7 @@ function getGContactTypeGroupID($gdata, $type)
 	// Note: a groupID must be a hex number or a value among [contactGroups/all, contactGroups/blocked, contactGroups/chatBuddies, contactGroups/coworkers, contactGroups/family, contactGroups/friends, contactGroups/myContacts, contactGroups/starred]
 	if ($groupID) {
 		// We found the value of groupID into the cached constant GOOGLE_TAG_REF_EXT.... so we have it and we don't have to create it.
+		dol_syslog("We found the value of groupID into the cached constant GOOGLE_TAG_REF_EXT... = ".$groupID);
 		/* Removed, this is useless.
 		 // Check that the group exists
 		 $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
