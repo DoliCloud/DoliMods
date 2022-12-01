@@ -71,7 +71,7 @@ class modOvh extends DolibarrModules
 		// for specific path of parts (eg: /mymodule/core/modules/barcode)
 		// for specific css file (eg: /mymodule/css/mymodule.css.php)
 		$this->module_parts = array(
-			'triggers' => 0,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
+			'triggers' => 1,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
 			'login' => 0,                                    	// Set this to 1 if module has its own login method directory (core/login)
 			'substitutions' => 0,    								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 			// Set this to 1 if module has its own substitution function file (core/substitutions)
