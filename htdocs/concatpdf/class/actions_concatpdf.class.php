@@ -221,21 +221,25 @@ class ActionsConcatPdf
 				}
 				foreach ($tmparray2 as $key => $val) {
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
-					if ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key]) $concatpdffile[]=$val;
+					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key])) {
+						$concatpdffile[]=$val;
+					}
 				}
 			} else {
 				$concatpdffile = empty($parameters['object']->extraparams['concatpdf']) ? '' : $parameters['object']->extraparams['concatpdf'];
 			}
 		}
 
-		$element='';
-		if ($parameters['object']->element == 'propal')  $element='proposals';
-		if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $element='orders';
-		if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $element='invoices';
-		if ($parameters['object']->element == 'proposal_supplier' || $parameters['object']->element == 'supplier_proposal')  $element='supplier_proposals';
-		if ($parameters['object']->element == 'order_supplier' || $parameters['object']->element == 'commande_fournisseur')  $element='supplier_orders';
-		if ($parameters['object']->element == 'invoice_supplier' || $parameters['object']->element == 'facture_fournisseur')  $element='supplier_invoices';
-		if ($parameters['object']->element == 'contract' || $parameters['object']->element == 'contrat')  $element='contracts';
+		$element = '';
+		if (isset($parameters['object']->element)) {
+			if ($parameters['object']->element == 'propal')  $element='proposals';
+			if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $element='orders';
+			if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $element='invoices';
+			if ($parameters['object']->element == 'proposal_supplier' || $parameters['object']->element == 'supplier_proposal')  $element='supplier_proposals';
+			if ($parameters['object']->element == 'order_supplier' || $parameters['object']->element == 'commande_fournisseur')  $element='supplier_orders';
+			if ($parameters['object']->element == 'invoice_supplier' || $parameters['object']->element == 'facture_fournisseur')  $element='supplier_invoices';
+			if ($parameters['object']->element == 'contract' || $parameters['object']->element == 'contrat')  $element='contracts';
+		}
 
 		$filetoconcat1=array($parameters['file']);
 		$filetoconcat2=array();
