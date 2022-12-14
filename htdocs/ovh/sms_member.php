@@ -108,7 +108,11 @@ if ($action == 'send' && ! $_POST['cancel']) {
 
 		$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-		$smsfile->nostop=GETPOST('disablestop');
+		$smsfile->nostop = GETPOST('disablestop', 'int');
+		$smsfile->socid = 0;
+		$smsfile->contactid = 0;
+		$smsfile->contact_id = 0;
+		$smsfile->fk_project = 0;
 
 		$result=$smsfile->sendfile(); // This send SMS
 

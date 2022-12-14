@@ -130,7 +130,7 @@ if ($action == 'send' && ! $_POST['cancel']) {
 		//if (empty($sendcontext)) $sendcontext = 'standard';
 		$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-		$smsfile->nostop=GETPOST('disablestop');
+		$smsfile->nostop = GETPOST('disablestop', 'int');
 		$smsfile->socid = $socid;
 		$smsfile->contactid = 0;
 		$smsfile->contact_id = 0;
