@@ -660,29 +660,30 @@ if ($action == 'refresh') {
 				$s = '';
 				if (!empty($r['details'])) {
 					foreach ($r['details'] as $detobj) {
-						$s .= $detobj->description;
+						$s .= dol_escape_htmltag($detobj->description);
 						if (!empty($detobj->domain) && $olddomain != $detobj->domain) {
-							print ' (' . $detobj->domain . ') ';
+							$s .= ' (' . dol_escape_htmltag($detobj->domain) . ') ';
 						}
 						$olddomain = $detobj->domain;
 						//if (! empty($detobj->ordernum) && $oldordernum != $detobj->ordernum) print ' ('.$langs->trans("Order").': '.$detobj->ordernum.') ';
 						//$oldordernum=$detobj->ordernum;
-						$s .= "\n";
+						$s .= "<br>\n";
 						$x++;
 					}
 				}
 				if (!empty($r['description'])) {
-					$s .= $r['description'];
+					$s .= dol_escape_htmltag($r['description']);
 				}
 				if (!empty($r['ordernum'])) {
-					$s .= ' (' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
+					$s .= '<br>(' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
 				}
-				//if (! empty($r['serialized']))     { print ($x?'<br>':''); print $r['serialized'];	 $x++; }	// No more defined
 				if (!empty($r['url'])) {
-					$s .= ' (<a target="ovhinvoice" href="' . $r['url'] . '">' . $langs->trans("Link") . ' OVH</a>) ';
+					$s .= ' (<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a>) ';
 				}
-				print '<td class="twolinesmax" title="'.dol_escape_htmltag(dol_nl2br($s)).'">';
-				print dol_escape_htmltag($s);
+				print '<td title="'.dol_escape_htmltag(dol_nl2br($s)).'">';
+				print '<div class="twolinesmax">';
+				print $s;
+				print '</div>';
 				print "</td>\n";
 
 				// Link to invoice
