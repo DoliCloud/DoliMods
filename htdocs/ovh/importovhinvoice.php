@@ -650,41 +650,43 @@ if ($action == 'refresh') {
 
 				print '<tr class="oddeven">';
 				print '<td>' . $r['billnum'] . '</td><td align="center">' . dol_print_date($r['date'], 'day') . "</td>";
-				print '<td align="right amount">' . price($r['totalPrice']) . '</td>';
-				print '<td align="right amount">' . price($r['totalPriceWithVat']) . '</td>';
-				print '<td align="right">' . $r['currency'] . '</td>';
+				print '<td class="right amount">' . price($r['totalPrice']) . '</td>';
+				print '<td class="right amount">' . price($r['totalPriceWithVat']) . '</td>';
+				print '<td>' . $r['currency'] . '</td>';
 				//print '<td align="right">'.vatrate($vatrate).'</td>';
-				print "<td>";
 				$x = 0;
 				$olddomain = '';
 				$oldordernum = '';
+				$s = '';
 				if (!empty($r['details'])) {
 					foreach ($r['details'] as $detobj) {
-						print $detobj->description;
+						$s .= $detobj->description;
 						if (!empty($detobj->domain) && $olddomain != $detobj->domain) {
 							print ' (' . $detobj->domain . ') ';
 						}
 						$olddomain = $detobj->domain;
 						//if (! empty($detobj->ordernum) && $oldordernum != $detobj->ordernum) print ' ('.$langs->trans("Order").': '.$detobj->ordernum.') ';
 						//$oldordernum=$detobj->ordernum;
-						print "\n";
+						$s .= "\n";
 						$x++;
 					}
 				}
 				if (!empty($r['description'])) {
-					print $r['description'];
+					$s .= $r['description'];
 				}
 				if (!empty($r['ordernum'])) {
-					print ' (' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
+					$s .= ' (' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
 				}
 				//if (! empty($r['serialized']))     { print ($x?'<br>':''); print $r['serialized'];	 $x++; }	// No more defined
 				if (!empty($r['url'])) {
-					print ' (<a target="ovhinvoice" href="' . $r['url'] . '">' . $langs->trans("Link") . ' OVH</a>) ';
+					$s .= ' (<a target="ovhinvoice" href="' . $r['url'] . '">' . $langs->trans("Link") . ' OVH</a>) ';
 				}
+				print '<td class="twolinesmax" title="'.dol_escape_htmltag(dol_nl2br($s)).'">';
+				print dol_escape_htmltag($s);
 				print "</td>\n";
 
-				print '<td align="right" nowrap="nowrap">';
-
+				// Link to invoice
+				print '<td class="right" class="minwidth100">';
 
 				// Search if invoice already exists
 				$facid = 0;
