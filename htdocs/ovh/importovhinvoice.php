@@ -660,9 +660,9 @@ if ($action == 'refresh') {
 				$s = '';
 				if (!empty($r['details'])) {
 					foreach ($r['details'] as $detobj) {
-						$s .= dol_escape_htmltag($detobj->description);
+						$s .= dol_escape_htmltag($detobj->description, 1, 1);
 						if (!empty($detobj->domain) && $olddomain != $detobj->domain) {
-							$s .= ' (' . dol_escape_htmltag($detobj->domain) . ') ';
+							$s .= ' (' . dol_escape_htmltag($detobj->domain, 1, 1) . ') ';
 						}
 						$olddomain = $detobj->domain;
 						//if (! empty($detobj->ordernum) && $oldordernum != $detobj->ordernum) print ' ('.$langs->trans("Order").': '.$detobj->ordernum.') ';
@@ -672,7 +672,7 @@ if ($action == 'refresh') {
 					}
 				}
 				if (!empty($r['description'])) {
-					$s .= dol_escape_htmltag($r['description']);
+					$s .= dol_escape_htmltag($r['description'], 1, 1);
 				}
 				if (!empty($r['ordernum'])) {
 					$s .= '<br>(' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
@@ -680,14 +680,14 @@ if ($action == 'refresh') {
 				if (!empty($r['url'])) {
 					$s .= ' (<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a>) ';
 				}
-				print '<td title="'.dol_escape_htmltag(dol_nl2br($s)).'">';
+				print '<td title="'.dol_escape_htmltag($s).'">';
 				print '<div class="twolinesmax">';
 				print $s;
 				print '</div>';
 				print "</td>\n";
 
 				// Link to invoice
-				print '<td class="right" class="minwidth100">';
+				print '<td class="right minwidth200">';
 
 				// Search if invoice already exists
 				$facid = 0;
