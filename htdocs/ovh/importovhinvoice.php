@@ -606,6 +606,7 @@ if ($action == 'refresh') {
 			} else {
 				print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 			}
+			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<div><div class="clearboth floatleft"><strong>' . $nbfound . '</strong> ' . $langs->trans("Invoices") . "</div>\n";
 
