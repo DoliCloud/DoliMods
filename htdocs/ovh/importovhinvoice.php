@@ -623,6 +623,7 @@ if ($action == 'refresh') {
 			print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
 			print '<input type="hidden" name="datefrommonth" value="' . dol_print_date($datefrom, '%m') . '">';
 			print '<input type="hidden" name="datefromyear" value="' . dol_print_date($datefrom, '%Y') . '">';
+			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<input type="hidden" name="compte" value="' . GETPOST("compte", 'alpha') . '">';
 
