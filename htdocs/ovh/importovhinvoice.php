@@ -464,6 +464,7 @@ if ((float) DOL_VERSION >= 11.0) {
 } else {
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 }
+print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
