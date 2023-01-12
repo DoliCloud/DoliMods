@@ -13,11 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * or see http://www.gnu.org/
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -28,8 +24,15 @@
  *				http://mydolibarr/ipphone/public/service.php?search=...
  */
 
-define('NOCSRFCHECK', 1);
-define('NOLOGIN', 1);
+if (!defined('NOLOGIN')) {
+	define("NOLOGIN", 1); // This means this output page does not require to be logged.
+}
+if (!defined('NOCSRFCHECK')) {
+	define("NOCSRFCHECK", 1); // We accept to go on this page from external web site.
+}
+if (!defined('NOBROWSERNOTIF')) {
+	define('NOBROWSERNOTIF', '1');
+}
 
 // C'est un wrapper, donc header vierge
 /**
@@ -39,7 +42,8 @@ define('NOLOGIN', 1);
  */
 function llxHeaderVierge()
 {
-	print ''; }
+	top_htmlhead(''); // Show html headers
+}
 /**
  * Footer function
  *
@@ -47,7 +51,8 @@ function llxHeaderVierge()
  */
 function llxFooterVierge()
 {
-	print ''; }
+	print '';
+}
 
 
 // Load Dolibarr environment
@@ -69,9 +74,11 @@ $key = GETPOST("key", 'alpha');           		// security key
 $type = GETPOST("type", 'aZ09');					// type 'contacts', 'thirdparties', 'contacts,thirdparties'
 $format = GETPOST('format', 'alpha')?GETPOST('format', 'alpha'):'xml';
 
-$phonetag=($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory');	// May be also 'ThompsonDirectory, YeaLinkDirectory, ...'
+$phonetag = getDolGlobalString('IPPHONE_XMLTAG', 'CiscoIPPhoneDirectory');	// May be also 'ThompsonDirectory, YeaLinkDirectory, ...'
 
-if (empty($conf->ipphone->enabled)) accessforbidden('', 1, 1, 1);
+if (empty($conf->ipphone->enabled)) {
+	accessforbidden('', 1, 1, 1);
+}
 
 $langs->load("ipphone@ipphone");
 
@@ -93,18 +100,8 @@ if (! empty($conf->global->IPPHONE_EXPORTKEY)) {
 	}
 }
 
-// Check parameters
-/*if (empty($search) && $search == '')
-{
-	dol_print_error($db,'Parameter "search" not provided');
-	exit;
-}
-*/
 
-
-
-
-header("Content-type: text/".$format);
+top_httphead("text/".$format);
 header('Content-disposition: attachment; filename="phone_annuary.'.$format.'"');
 header("Connection: close");
 header("Expires: -1");
