@@ -98,13 +98,33 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		];
 
 		//<gdata:phoneNumber>
-		$newphone=!empty($object->phone)?$object->phone_pro:$object->phone;
+		$newphone = (empty($object->phone) ? (empty($object->phone_pro) ? '' : $object->phone_pro) : $object->phone);
 		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
 			];
 		}
+		/*
+		if (!empty($object->office_phone)) {
+			$person_array["phoneNumbers"][] = [
+				"value" => $object->office_phone,
+				"type" => "work",
+			];
+		}
+		if (!empty($object->user_mobile)) {
+			$person_array["phoneNumbers"][] = [
+				"value" => $object->user_mobile,
+				"type" => "work",
+			];
+		}
+		if (!empty($object->personal_mobile)) {
+			$person_array["phoneNumbers"][] = [
+				"value" => $object->personal_mobile,
+				"type" => "home",
+			];
+		}
+		*/
 		if (!empty($object->phone_perso)) {
 			$person_array["phoneNumbers"][] = [
 				"value" => $object->phone_perso,
@@ -120,6 +140,12 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		if (!empty($object->fax)) {
 			$person_array["phoneNumbers"][] = [
 				"value" => $object->fax,
+				"type" => "workFax",
+			];
+		}
+		if (!empty($object->office_fax)) {
+			$person_array["phoneNumbers"][] = [
+				"value" => $object->office_fax,
 				"type" => "workFax",
 			];
 		}
@@ -329,7 +355,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$updatePersonFields .= ",addresses";
 
 		//Phone
-		$newphone=empty($object->phone)?$object->phone_pro:$object->phone;
+		$newphone = (empty($object->phone) ? (empty($object->phone_pro) ? '' : $object->phone_pro) : $object->phone);
 		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
