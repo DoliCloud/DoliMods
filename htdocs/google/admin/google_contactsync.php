@@ -859,7 +859,7 @@ print '</tr>';
 		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 */
-$redirect_uri=dol_buildpath('/google/oauth2callback.php?', ((float) DOL_VERSION >= 4.0)?3:2);
+$redirect_uri=dol_buildpath('/google/oauth2callback.php?', 3);
 $jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
 
 $urltocreateidclientoauth = 'https://console.developers.google.com/apis/credentials';
