@@ -58,21 +58,27 @@ $langs->load("other");
 
 $def = array();
 $action=GETPOST("action", 'alpha');
-
+$servicename = "contact";
+$_SESSION['servicename'] = $servicename;
+$shortscope = "contact";
 $oauthurl='https://accounts.google.com/o/oauth2/auth';
 
+// Token
+require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
+use OAuth\Common\Storage\DoliStorage;
+
+// Dolibarr storage
+$storage = new DoliStorage($db, $conf);
+try {
+	$tokenobj = $storage->retrieveAccessToken("Google-".$servicename);
+} catch (Exception $e) {
+	dol_syslog("Token does not exist yet".$e->getMessage(), LOG_INFO);
+}
 
 /*
  * Actions
  */
 
-if ($action == 'deletetoken') {
-	$res=dolibarr_del_const($db, 'GOOGLE_WEB_TOKEN', $conf->entity);
-	unset($_SESSION['google_web_token_'.$conf->entity]);
-	if (! $res > 0) $error++;
-
-	$action='';
-}
 
 if ($action == 'save') {
 	$error=0;
@@ -853,7 +859,7 @@ print '</tr>';
 		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 */
-$redirect_uri=dol_buildpath('/google/oauth2callback.php', ((float) DOL_VERSION >= 4.0)?3:2);
+$redirect_uri=dol_buildpath('/google/oauth2callback.php?', 3);
 $jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
 
 $urltocreateidclientoauth = 'https://console.developers.google.com/apis/credentials';
@@ -885,17 +891,25 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 	print $langs->trans("FillAndSaveGoogleAccount");
 } else {
 	// https://developers.google.com/identity/protocols/OAuth2UserAgent
-	$completeoauthurl=$oauthurl;
-	$completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
-	$completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
-	$completeoauthurl.='&scope='.urlencode('https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly');
-	$completeoauthurl.='&state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
-	$completeoauthurl.='&access_type=offline';
-	$completeoauthurl.='&approval_prompt=force';
-	$completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
-	$completeoauthurl.='&include_granted_scopes=true';
+	// $completeoauthurl=$oauthurl;
+	// $completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
+	// $completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
+	// $completeoauthurl.='&scope='.urlencode('https://www.googleapis.com/auth/contacts');
+	// $completeoauthurl.='&state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
+	// $completeoauthurl.='&access_type=offline';
+	// $completeoauthurl.='&approval_prompt=force';
+	// $completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
+	// $completeoauthurl.='&include_granted_scopes=true';
 
-	if (! empty($conf->global->GOOGLE_WEB_TOKEN) || ! empty($_SESSION['google_web_token_'.$conf->entity])) {
+	$redirect_uri	.=	'state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
+	$redirect_uri	.=	'&scope='.urlencode('https://www.googleapis.com/auth/contacts');
+	$redirect_uri	.=	'&shortscope='.urlencode($shortscope);
+	$redirect_uri	.=	'&backtourl='.urlencode(DOL_URL_ROOT.'/custom/google/admin/google_contactsync.php');
+	$redirect_uri	.=	'&servicename='.urlencode($servicename);
+
+	$urltodelete = $redirect_uri.'&action=delete';
+	$urltodelete .= '&token='.newToken();
+	if (is_object($tokenobj) || ! empty($_SESSION['google_web_token_'.$conf->entity])) {
 		print 'Database token';
 		$sql="SELECT tms as token_date_last_update, entity from ".MAIN_DB_PREFIX."const where name = 'GOOGLE_WEB_TOKEN' and value = '".$db->escape($conf->global->GOOGLE_WEB_TOKEN)."'";
 		$resql=$db->query($sql);
@@ -912,9 +926,16 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		} else {
 			dol_print_error($db);
 		}
+		if (is_object($tokenobj)) {
+			$token_date_expire =$tokenobj->getEndOfLife();
+			// $token_date_last_update = $db->jdate($obj->token_date_last_update);
+			$token_entity = $conf->entity;
+			print ' - '.$langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
+		}
+
 		print ':<br>';
-		if (! empty($conf->global->GOOGLE_WEB_TOKEN)) {
-			print showValueWithClipboardCPButton($conf->global->GOOGLE_WEB_TOKEN, 0, dol_trunc($conf->global->GOOGLE_WEB_TOKEN, 100));
+		if (is_object($tokenobj)) {
+			print showValueWithClipboardCPButton($tokenobj->getAccessToken(), 0, dol_trunc($tokenobj->getAccessToken(), 100));
 			//print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$conf->global->GOOGLE_WEB_TOKEN.'</div>';
 		}
 		print '<br>';
@@ -936,17 +957,19 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		print '<br>';
 		print $langs->trans("GoogleRecreateToken").'<br>';
 		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
-		print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		print '<a href="'.$redirect_uri.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		// print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
 		print '<br><br>';
 		print $langs->trans("GoogleDeleteToken").'<br>';
-		print '<a href="'.$_SERVER["PHP_SELF"].'?action=deletetoken&token='.newToken().'" target="_blank">'.$langs->trans("ClickHere").'</a>';
+		print '<a href="'.$urltodelete.'">'.$langs->trans("ClickHere").'</a>';
 		print '<br><br>';
 		print $langs->trans("GoogleDeleteAuthorization").'<br>';
 		print '<a href="https://security.google.com/settings/security/permissions" target="_blank">https://security.google.com/settings/security/permissions</a>';
 	} else {
 		print img_warning().' '.$langs->trans("GoogleNoTokenYet").'<br>';
 		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
-		print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		print '<a href="'.$redirect_uri.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		// print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
 	}
 }
 print '</td>';
@@ -976,7 +999,7 @@ print '<br><br>';
 
 // Thirdparties
 if ($conf->societe->enabled) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && is_object($tokenobj)) {
 		print '<div class="syncthirdparties">';
 		print '<hr><br>';
 		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';
@@ -1031,7 +1054,7 @@ if ($conf->societe->enabled) {
 
 	// Contacts
 if ($conf->societe->enabled) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && is_object($tokenobj)) {
 		print '<div class="synccontacts">';
 		print '<hr><br>';
 		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Contacts").'<br><br>';
@@ -1047,7 +1070,6 @@ if ($conf->societe->enabled) {
 			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
 		}
 		print '</div>';
-
 
 		print '<div class="tabsActions synccontacts">';
 		print '<br>';
@@ -1085,7 +1107,7 @@ if ($conf->societe->enabled) {
 
 // Members
 if ($conf->adherent->enabled) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && ! empty($conf->global->GOOGLE_WEB_TOKEN)) {
+	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && is_object($tokenobj)) {
 		print '<div class="syncmembers">';
 		print '<hr><br>';
 		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Members").'<br><br>';

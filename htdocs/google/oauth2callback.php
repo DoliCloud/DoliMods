@@ -24,101 +24,116 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+
+require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
+use OAuth\Common\Storage\DoliStorage;
+use OAuth\Common\Consumer\Credentials;
+
 dol_include_once("/google/lib/google.lib.php");
 
 
 // You must allow Dolibarr to login to
 
-//$client_id='258042696143.apps.googleusercontent.com';
-//$client_secret='HdmLOMStzB9MBbAjCr87gz27';
-$client_id=$conf->global->GOOGLE_API_CLIENT_ID;
-$client_secret=$conf->global->GOOGLE_API_CLIENT_SECRET;
 
-//$redirect_uri='http://localhost/dolibarrnew/custom/google/oauth2callback.php?action=xxx'; // Does not work. Must be exact url
-//$redirect_uri='http://localhost/dolibarrnew/custom/google/oauth2callback.php';
-$redirect_uri=dol_buildpath('/google/oauth2callback.php', 2);
-
-$jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
-
-// This is used only if we want to login from this page for test purpose.
-$completeoauthurl='https://accounts.google.com/o/oauth2/auth';
-$completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
-$completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
-$completeoauthurl.='&scope='.urlencode('https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly');
-$completeoauthurl.='&state=dolibarrtokenrequest-oauth2callback';		// To know we are coming from this page
-$completeoauthurl.='&access_type=offline';
-$completeoauthurl.='&approval_prompt=force';
-$completeoauthurl.='&include_granted_scopes=true';
-$url=$completeoauthurl;
+$client_id = $conf->global->GOOGLE_API_CLIENT_ID;
+$client_secret = $conf->global->GOOGLE_API_CLIENT_SECRET;
+$client_login = $conf->global->GOOGLE_CONTACT_LOGIN;
+$redirect_uri=dol_buildpath('/google/oauth2callback.php', ((float) DOL_VERSION >= 4.0)?3:2);
 
 
-$code = GETPOST("code");
+
+
+$action = GETPOST('action');
+$code = GETPOST('code');
 $state = GETPOST('state');
 $scope = GETPOST('scope');
-
+$backtourl = GETPOST('backtourl') ? GETPOST('backtourl') : $_SESSION['backtourlsavedbeforeoauthjump'];
+$shortscope = GETPOSTISSET('shortscope') ? GETPOST('shortscope') : $_SESSION['shortscopesavedbeforeoauthjump'];
+$servicename = GETPOSTISSET('servicename') ? GETPOST('servicename') : $_SESSION['servicenamesavedbeforeoauthjump'];
 $mesgs = '';
 
 
-/*
- * Actions
- */
 
-// Ask token (possible only if inside an oauth google session)
-if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code) {		// We are not into a google session (google_web_token empty) or we come from a redirect of Google auth page
-	if (! $code) {	// If we are not coming from oauth page, we make a redirect to it
-		//print 'We are not coming from an oauth page and are not logged into google oauth, so we redirect to it';
-		header("Location: ".$url);
-		exit;
-	}
+$serviceFactory = new \OAuth\ServiceFactory();
+$httpClient = new \OAuth\Common\Http\Client\CurlClient();
+$serviceFactory->setHttpClient($httpClient);
 
-	// Information received from google are saved into parameter
-	// For success: state=security_token&code=....
-	// For error: error=access_denied
-	//var_dump($_GET);
-	dol_syslog('Return from Google oauth with $_GET = '.json_encode($_GET));
+// Setup the credentials for the requests
+$keyforparamid = 'GOOGLE_API_CLIENT_ID';
+$keyforparamsecret = 'GOOGLE_API_CLIENT_SECRET';
+$credentials = new Credentials(
+	$client_id,
+	$client_secret,
+	$redirect_uri
+);
 
-	// Forge the url auth part for calling google services
-	$fields=array(
-		'code'=>  urlencode($code),
-		'client_id'=>  urlencode($client_id),
-		'client_secret'=>  urlencode($client_secret),
-		'redirect_uri'=>  urlencode($redirect_uri),
-		'grant_type'=>  urlencode('authorization_code')
-	);
-	$post = '';
-	foreach ($fields as $key=>$value) {
-		$post .= $key.'='.$value.'&';
-	}
-	$post = rtrim($post, '&');
-
-
-	$result = getURLContent('https://accounts.google.com/o/oauth2/token', 'POST', $post);
-
-	$response=json_decode($result['content'], true);
-
-	// response should be an array like array('access_token' => , 'token_type' => 'Bearer', 'expires_in' => int 3600)
-	if (empty($response['access_token'])) {
-		$mesgs = $response['error'];
-		$mesgs .= "<br>\n".$response['error_description'];
-	} else {
-		// The token is the full string into $result['content'] like '{"access_token":"ya29.iQEPBPUAVLXeVq1-QnC6-SHydA9czPX3ySJ5SfYSo5ZIMfFEl5MTs62no8hZp5jUUsm3QVHTrBg7hw","expires_in":3600,"created":1433463453}';
-		//var_dump($response);
-
-		// Save token into database
-		require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
-		$res=dolibarr_set_const($db, 'GOOGLE_WEB_TOKEN', trim($result['content']), 'chaine', 0, '', $conf->entity);
-		$_SESSION['google_web_token_'.$conf->entity]=trim($result['content']);
-		if (! $res > 0) $error++;
-	}
-
-	// Redirect to original page
-	if ($state == 'dolibarrtokenrequest-googleadmincontactsync') {
-		header('Location: '.dol_buildpath('/google/admin/google_contactsync.php', 1));
-		exit;
-	}
-
-	//	$_SESSION['google_web_token_'.$conf->entity]=$response->access_token;
+if (empty($state)) {
+	print 'Error, parameter state is not defined';
+	exit;
 }
+
+$storage = new DoliStorage($db, $conf, $servicename);
+$apiService = $serviceFactory->createService('Google', $credentials, $storage, explode(' ', $shortscope));
+$apiService->setAccessType('offline');
+
+/*
+* Actions
+*/
+
+
+if ($action == 'delete') {
+	$storage->clearToken('Google');
+	unset($_SESSION['google_web_token_'.$conf->entity]);
+	setEventMessages($langs->trans('TokenDeleted'), null, 'mesgs');
+	header('Location: '.$backtourl);
+	exit();
+} elseif (!$code) {	// If we are coming from Google contact admin page, we must ask a token
+	$_SESSION['backtourlsavedbeforeoauthjump'] = $backtourl;
+	$_SESSION['servicenamesavedbeforeoauthjump'] = $servicename;
+	$_SESSION['shortscopesavedbeforeoauthjump'] = $shortscope;
+	$_SESSION['oauthstateanticsrf'] = $state;
+
+	$apiService->setApprouvalPrompt('force');
+
+	if ($state) {
+		$url = $apiService->getAuthorizationUri(array('state' => $state));
+	} else {
+		$url = $apiService->getAuthorizationUri(); // Parameter state will be randomly generated
+	}
+
+	header("Location: ".$url);
+	exit();
+}	else {
+	// Save token into database
+	$langs->load("oauth");
+
+	if (isset($_SESSION['oauthstateanticsrf']) && $state != $_SESSION['oauthstateanticsrf']) {
+		print 'Value for state = '.dol_escape_htmltag($state).' differs from value in $_SESSION["oauthstateanticsrf"]. Code is refused.';
+		unset($_SESSION['oauthstateanticsrf']);
+
+	} else {
+		try {
+			// Save token into database using DoliStorage
+			$tokenobj = $apiService->requestAccessToken($code, $state);
+
+			$_SESSION['google_web_token_'.$conf->entity] = array('access_token' => $tokenobj->getAccessToken(),
+			'expires_in' => ($tokenobj->getEndOfLife() - time()),
+			'created' => ($tokenobj->getEndOfLife() - 3600)
+		);
+
+			setEventMessages($langs->trans('NewTokenStored'), null, 'mesgs');
+
+			// Redirect to original page
+			header('Location: '.$backtourl);
+			exit();
+
+		}	catch (Exception $e) {
+			$error++;
+			$mesgs.= $e->getMessage();
+		}
+	}
+}
+
 
 
 
