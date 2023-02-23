@@ -708,7 +708,7 @@ print '<input type="hidden" name="page_y" value="">';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabcontactsync', $langs->trans("GoogleTools"), -1);
+dol_fiche_head($head, 'tabcontactsync', '', -1);
 
 print '<div class="fichecenter">';
 

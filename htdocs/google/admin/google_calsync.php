@@ -425,7 +425,7 @@ print '<input type="hidden" name="action" value="save">';
 $head=googleadmin_prepare_head();
 
 
-dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"), -1);
+dol_fiche_head($head, 'tabagendasync', '', -1);
 
 print '<div class="fichecenter">';
 

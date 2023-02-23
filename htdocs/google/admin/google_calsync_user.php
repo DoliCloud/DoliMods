@@ -368,7 +368,7 @@ print '<input type="hidden" name="id" value="'.$id.'">';
 
 
 $title = $langs->trans("User");
-dol_fiche_head($head, 'gsetup', $title, -1, 'user');
+dol_fiche_head($head, 'gsetup', '', -1, 'user');
 
 dol_banner_tab($object, 'id', '', $user->rights->user->user->lire || $user->admin);
 

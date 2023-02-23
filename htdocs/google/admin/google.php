@@ -124,7 +124,7 @@ print '<input type="hidden" name="action" value="save">';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabagenda', $langs->trans("GoogleTools"), -1);
+dol_fiche_head($head, 'tabagenda', '', -1);
 
 print '<div class="fichecenter">';
 

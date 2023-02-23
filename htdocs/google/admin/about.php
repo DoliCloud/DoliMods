@@ -63,7 +63,7 @@ print '<br>';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tababout', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tababout', '', -1);
 
 dol_include_once('/google/core/modules/modGoogle.class.php');
 $tmpmodule = new modGoogle($db);
