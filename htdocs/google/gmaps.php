@@ -32,7 +32,7 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/member.lib.php";
 require_once DOL_DOCUMENT_ROOT."/contact/class/contact.class.php";
 
-$langs->load("google@google");
+$langs->loadLangs(array("companies", "google@google"));
 
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id
 
