@@ -113,11 +113,11 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	//$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
 	if ($mode == 'web') {    // use to synch contact
-		if (empty($conf->global->GOOGLE_API_CLIENT_ID)) return 'ErrorModuleGoogleNoGoogleClientId';
-		if (empty($conf->global->GOOGLE_API_CLIENT_SECRET)) return 'ErrorModuleGoogleNoGoogleClientSecret';
+		if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID')) return 'ErrorModuleGoogleNoGoogleClientId';
+		if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET')) return 'ErrorModuleGoogleNoGoogleClientSecret';
 
-		$client->setClientId($conf->global->GOOGLE_API_CLIENT_ID);
-		$client->setClientSecret($conf->global->GOOGLE_API_CLIENT_SECRET);
+		$client->setClientId(getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID'));
+		$client->setClientSecret(getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET'));
 		$client->setAccessType('offline');
 
 		if (empty($force_do_not_use_session) && isset($_SESSION['google_web_token_'.$conf->entity])) {

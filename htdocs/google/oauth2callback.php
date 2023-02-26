@@ -35,9 +35,10 @@ dol_include_once("/google/lib/google.lib.php");
 // You must allow Dolibarr to login to
 
 
-$client_id = $conf->global->GOOGLE_API_CLIENT_ID;
-$client_secret = $conf->global->GOOGLE_API_CLIENT_SECRET;
-$client_login = $conf->global->GOOGLE_CONTACT_LOGIN;
+$client_id = getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID');
+$client_secret = getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET');
+$client_login = getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN');
+$shortscope = getDolGlobalString('OAUTH_GOOGLE-CONTACT_SCOPE');
 $redirect_uri=dol_buildpath('/google/oauth2callback.php', ((float) DOL_VERSION >= 4.0)?3:2);
 
 
@@ -48,7 +49,6 @@ $code = GETPOST('code');
 $state = GETPOST('state');
 $scope = GETPOST('scope');
 $backtourl = GETPOST('backtourl') ? GETPOST('backtourl') : $_SESSION['backtourlsavedbeforeoauthjump'];
-$shortscope = GETPOSTISSET('shortscope') ? GETPOST('shortscope') : $_SESSION['shortscopesavedbeforeoauthjump'];
 $servicename = GETPOSTISSET('servicename') ? GETPOST('servicename') : $_SESSION['servicenamesavedbeforeoauthjump'];
 $mesgs = '';
 
@@ -59,8 +59,8 @@ $httpClient = new \OAuth\Common\Http\Client\CurlClient();
 $serviceFactory->setHttpClient($httpClient);
 
 // Setup the credentials for the requests
-$keyforparamid = 'GOOGLE_API_CLIENT_ID';
-$keyforparamsecret = 'GOOGLE_API_CLIENT_SECRET';
+$keyforparamid = 'OAUTH_GOOGLE-CONTACT_ID';
+$keyforparamsecret = 'OAUTH_GOOGLE-CONTACT_SECRET';
 $credentials = new Credentials(
 	$client_id,
 	$client_secret,
@@ -73,7 +73,7 @@ if (empty($state)) {
 }
 
 $storage = new DoliStorage($db, $conf, $servicename);
-$apiService = $serviceFactory->createService('Google', $credentials, $storage, explode(' ', $shortscope));
+$apiService = $serviceFactory->createService('Google', $credentials, $storage, explode(',', $shortscope));
 $apiService->setAccessType('offline');
 
 /*
