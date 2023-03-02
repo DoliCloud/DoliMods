@@ -1,6 +1,14 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
+## 6.6
+
+- Fix sync of phone
+- Remove use of field punctual. Compatibility with
+- Save google oauth token into Dolibarr table.
+- Need Dolibarr 16+, PHP 7.2+
+
+
 ## 6.5
 
 - Compatible with API People for contact sync.
