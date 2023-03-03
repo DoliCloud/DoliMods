@@ -451,7 +451,7 @@ foreach ($arryofobj as $key => $obj) {
 	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="tdoverflowmax150"><span title="'.$obj->email.'">'.$obj->email.'</span></td>';
 
 	// Country code
-	print '<td>';
+	print '<td class="nowraponall">';
 	if ($mode == 'groupbyzoneandvatrate') {
 		if (strpos($key, '1_1') === 0) print $langs->trans("Country".$mysoc->country_code);
 		elseif (strpos($key, '1_0') === 0) print $langs->trans("RestOfEurope");
