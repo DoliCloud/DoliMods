@@ -60,9 +60,8 @@ $def = array();
 $action=GETPOST("action", 'alpha');
 $servicename = "contact";
 $_SESSION['servicename'] = $servicename;
-$shortscope = "contact";
 $oauthurl='https://accounts.google.com/o/oauth2/auth';
-
+$shortscope=getDolGlobalString('OAUTH_GOOGLE-CONTACT_SCOPE');
 // Token
 require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
 use OAuth\Common\Storage\DoliStorage;
@@ -83,6 +82,10 @@ try {
 if ($action == 'save') {
 	$error=0;
 
+	$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_SCOPE', "contact", 'chaine', 0, '', $conf->entity);
+	if (! $res > 0) $error++;
+
+
 	if (! GETPOST('GOOGLE_DUPLICATE_INTO_THIRDPARTIES') && ! GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') && ! GETPOST('GOOGLE_DUPLICATE_INTO_MEMBERS')) {
 		$db->begin();
 		//var_dump($conf->entity);
@@ -102,15 +105,15 @@ if ($action == 'save') {
 			setEventMessage($langs->trans("ErrorLabelsMustDiffers"), 'errors');
 			$error++;
 		}
-		if (! GETPOST('GOOGLE_CONTACT_LOGIN')) {
+		if (! GETPOST('OAUTH_GOOGLE-CONTACT_LOGIN')) {
 			$langs->load("errors");
-			dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN', $conf->entity);
+			dolibarr_del_const($db, 'OAUTH_GOOGLE-CONTACT_LOGIN', $conf->entity);
 			setEventMessage($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("GOOGLE_LOGIN")), 'errors');
 		}
 
-		$res=dolibarr_set_const($db, 'GOOGLE_API_CLIENT_ID', trim(GETPOST("GOOGLE_API_CLIENT_ID")), 'chaine', 0, '', $conf->entity);
+		$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_ID', trim(GETPOST("OAUTH_GOOGLE-CONTACT_ID")), 'chaine', 0, '', $conf->entity);
 		if (! $res > 0) $error++;
-		$res=dolibarr_set_const($db, 'GOOGLE_API_CLIENT_SECRET', trim(GETPOST("GOOGLE_API_CLIENT_SECRET")), 'chaine', 0, '', $conf->entity);
+		$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_SECRET', trim(GETPOST("OAUTH_GOOGLE-CONTACT_SECRET")), 'chaine', 0, '', $conf->entity);
 		if (! $res > 0) $error++;
 
 		if (! $error) {
@@ -122,7 +125,7 @@ if ($action == 'save') {
 			if (! $res > 0) $error++;
 			$res=dolibarr_set_const($db, 'GOOGLE_DUPLICATE_INTO_MEMBERS', trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
-			$res=dolibarr_set_const($db, 'GOOGLE_CONTACT_LOGIN', trim(GETPOST("GOOGLE_CONTACT_LOGIN")), 'chaine', 0, '', $conf->entity);
+			$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_LOGIN', trim(GETPOST("OAUTH_GOOGLE-CONTACT_LOGIN")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
 			$res=dolibarr_set_const($db, 'GOOGLE_CONTACT_PASSWORD', trim(GETPOST("GOOGLE_CONTACT_PASSWORD")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
@@ -820,7 +823,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GoogleIDContact")."</td>";
 print "<td>";
-print '<input class="flat minwidth300" type="text" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
+print '<input class="flat minwidth300" type="text" name="OAUTH_GOOGLE-CONTACT_LOGIN" autocomplete="off" value="'.getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN').'">';
 print "</td>";
 print '<td>';
 print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
@@ -867,7 +870,7 @@ $urltocreateidclientoauth = 'https://console.developers.google.com/apis/credenti
 print '<tr class="oddeven">';
 print '<td class="titlefieldcreate fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
 print '<td>';
-print '<input class="flat minwidth500" type="text" name="GOOGLE_API_CLIENT_ID" value="'.$conf->global->GOOGLE_API_CLIENT_ID.'">';
+print '<input class="flat minwidth500" type="text" name="OAUTH_GOOGLE-CONTACT_ID" value="'.getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID').'">';
 print '</td>';
 print '<td>';
 print $langs->trans("AllowGoogleToLoginWithClientID", $urltocreateidclientoauth, $urltocreateidclientoauth, $redirect_uri).'<br>';
@@ -877,7 +880,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_SECRET")."</td>";
 print '<td>';
-print '<input class="flat minwidth300" type="text" name="GOOGLE_API_CLIENT_SECRET" value="'.$conf->global->GOOGLE_API_CLIENT_SECRET.'">';
+print '<input class="flat minwidth300" type="text" name="OAUTH_GOOGLE-CONTACT_SECRET" value="'.getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET').'">';
 print '</td>';
 print '<td>';
 print $langs->trans("AllowGoogleToLoginWithClientSecret").'<br>';
@@ -887,7 +890,7 @@ print '</tr>';
 print '<tr class="oddeven nohover">';
 print '<td>'.$langs->trans("GOOGLE_WEB_TOKEN")."</td>";
 print '<td colspan="2">';
-if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_API_CLIENT_ID) || empty($conf->global->GOOGLE_API_CLIENT_SECRET)) {
+if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID') || !getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET')) {
 	print $langs->trans("FillAndSaveGoogleAccount");
 } else {
 	// https://developers.google.com/identity/protocols/OAuth2UserAgent
@@ -900,7 +903,7 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 	// $completeoauthurl.='&approval_prompt=force';
 	// $completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
 	// $completeoauthurl.='&include_granted_scopes=true';
-
+	
 	$redirect_uri	.=	'state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
 	$redirect_uri	.=	'&scope='.urlencode('https://www.googleapis.com/auth/contacts');
 	$redirect_uri	.=	'&shortscope='.urlencode($shortscope);
@@ -909,36 +912,17 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 
 	$urltodelete = $redirect_uri.'&action=delete';
 	$urltodelete .= '&token='.newToken();
-	if (is_object($tokenobj) || ! empty($_SESSION['google_web_token_'.$conf->entity])) {
-		print 'Database token';
-		$sql="SELECT tms as token_date_last_update, entity from ".MAIN_DB_PREFIX."const where name = 'GOOGLE_WEB_TOKEN' and value = '".$db->escape(getDolGlobalString('GOOGLE_WEB_TOKEN'))."'";
-		$resql=$db->query($sql);
-		//print $sql;
-		if ($resql) {
-			$obj=$db->fetch_object($resql);
-			$token_date_last_update = '';
-			$token_entity = '';
-			if ($obj) {
-				$token_date_last_update = $db->jdate($obj->token_date_last_update);
-				$token_entity = $obj->entity;
-			}
-			print ' - '.$langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
-		} else {
-			dol_print_error($db);
-		}
-		if (is_object($tokenobj)) {
-			$token_date_expire =$tokenobj->getEndOfLife();
-			// $token_date_last_update = $db->jdate($obj->token_date_last_update);
-			$token_entity = $conf->entity;
-			print ' - '.$langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
-		}
+	if (is_object($tokenobj)) {
+		$token_creation_entity = '';
+		$token_date_last_update = $_SESSION['google_web_token_'.$conf->entity]['created'] ?? $storage->date_modification;
+		$token_date_expire = $tokenobj->getEndOfLife();
+		$token = $_SESSION['google_web_token_'.$conf->entity]['access_token'] ?? $tokenobj->getAccessToken();
+		$token_entity = $conf->entity;
+		print $langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.(int)$token_entity;
+		print ' - '.$langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
 
-		print ':<br>';
-		if (is_object($tokenobj)) {
-			print showValueWithClipboardCPButton($tokenobj->getAccessToken(), 0, dol_trunc($tokenobj->getAccessToken(), 100));
-		}
 		print '<br>';
-
+		print $langs->trans("Token")."=";
 		print 'Current session token:<br>';
 		if (! empty($_SESSION['google_web_token_'.$conf->entity])) {
 			//print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">';
@@ -952,12 +936,9 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		} else {
 			print $langs->trans("None");
 		}
-		print '<br>';
-		print '<br>';
+		print '<br><br>';
 		print $langs->trans("GoogleRecreateToken").'<br>';
-		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
 		print '<a href="'.$redirect_uri.'">'.$langs->trans("LinkToOAuthPage").'</a>';
-		// print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
 		print '<br><br>';
 		print $langs->trans("GoogleDeleteToken").'<br>';
 		print '<a href="'.$urltodelete.'">'.$langs->trans("ClickHere").'</a>';
@@ -966,9 +947,7 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		print '<a href="https://security.google.com/settings/security/permissions" target="_blank">https://security.google.com/settings/security/permissions</a>';
 	} else {
 		print img_warning().' '.$langs->trans("GoogleNoTokenYet").'<br>';
-		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
 		print '<a href="'.$redirect_uri.'">'.$langs->trans("LinkToOAuthPage").'</a>';
-		// print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
 	}
 }
 print '</td>';
