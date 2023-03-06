@@ -893,6 +893,17 @@ print '<td colspan="2">';
 if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID') || !getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET')) {
 	print $langs->trans("FillAndSaveGoogleAccount");
 } else {
+	// https://developers.google.com/identity/protocols/OAuth2UserAgent
+	// $completeoauthurl=$oauthurl;
+	// $completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
+	// $completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
+	// $completeoauthurl.='&scope='.urlencode('https://www.googleapis.com/auth/contacts');
+	// $completeoauthurl.='&state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
+	// $completeoauthurl.='&access_type=offline';
+	// $completeoauthurl.='&approval_prompt=force';
+	// $completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
+	// $completeoauthurl.='&include_granted_scopes=true';
+	
 	$redirect_uri	.=	'state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
 	$redirect_uri	.=	'&scope='.urlencode('https://www.googleapis.com/auth/contacts');
 	$redirect_uri	.=	'&shortscope='.urlencode($shortscope);
