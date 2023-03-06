@@ -562,7 +562,11 @@ print "</table>";
 
 print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"), 0, 0, '1', 'showifidagendaset');
 
-print info_admin($langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda")), 0, 0, '1', 'showifidagendaset');
+$htmltext = $langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda"));
+$htmltext .= '<br>';
+$htmltext .= $langs->trans("ShareCalendarWithServiceAccount2");
+print info_admin($htmltext, 0, 0, '1', 'showifidagendaset');
+
 
 print '</div>';
 
