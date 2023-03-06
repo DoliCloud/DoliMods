@@ -261,7 +261,7 @@ if ($action == 'pushallevents') {
 			$service = new Google_Service_Calendar($servicearray['client']);
 
 			// Search all events
-			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent, location, fk_soc, fk_contact, note';
+			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, percent, location, fk_soc, fk_contact, note';
 			$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
 			$sql.=$db->order('datep', 'DESC');
 			$sql.=$db->plimit($max);
@@ -283,7 +283,6 @@ if ($action == 'pushallevents') {
 				$objecttmp->transparency=$obj->transparency;
 				$objecttmp->priority=$obj->priority;
 				$objecttmp->fulldayevent=$obj->fulldayevent;
-				$objecttmp->punctual=$obj->punctual;
 				$objecttmp->percent=$obj->percent;
 				$objecttmp->location=$obj->location;
 				$objecttmp->socid=$obj->fk_soc;

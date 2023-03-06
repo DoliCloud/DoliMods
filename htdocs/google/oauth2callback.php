@@ -82,6 +82,8 @@ $apiService->setAccessType('offline');
 
 
 if ($action == 'delete') {
+	$langs->load("oauth");
+
 	$storage->clearToken('Google');
 	unset($_SESSION['google_web_token_'.$conf->entity]);
 	setEventMessages($langs->trans('TokenDeleted'), null, 'mesgs');

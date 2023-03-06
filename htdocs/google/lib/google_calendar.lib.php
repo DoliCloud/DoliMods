@@ -728,8 +728,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						if ($ds) $datest=$ds->getDateTime();
 						if ($de) $dateet=$de->getDateTime();
 
-						$object->punctual=0;
-
 						if ($datest) {
 							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T12:00:00 in TZ +2
 							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
@@ -744,7 +742,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 							$object->datep=(dol_stringtotime($datest, 1) - ($tzs*3600) - ($tzfix*3600));
 							$object->datef=(dol_stringtotime($dateet, 1) - ($tze*3600) - ($tzfix*3600));
 							$object->fulldayevent=0;
-							if ($object->datep == $object->datef) $object->punctual=1;
 							//print dol_print_date($object->datep, 'dayhour', 'tzserver');
 						} elseif ($dates) {
 							$object->datep=(dol_stringtotime($dates, 0));
@@ -875,8 +872,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						if ($ds) $datest=$ds->getDateTime();
 						if ($de) $dateet=$de->getDateTime();
 
-						$object->punctual=0;
-
 						if ($datest) {
 							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T08:00:00
 							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
@@ -891,7 +886,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 							$object->datep=(dol_stringtotime($datest, 1) - ($tzs*3600) - ($tzfix*3600));
 							$object->datef=(dol_stringtotime($dateet, 1) - ($tze*3600) - ($tzfix*3600));
 							$object->fulldayevent=0;
-							if ($object->datep == $object->datef) $object->punctual=1;
 							//print dol_print_date($object->datep, 'dayhour', 'tzserver');
 						} elseif ($dates) {
 							$object->datep=(dol_stringtotime($dates, 0));

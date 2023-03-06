@@ -909,9 +909,22 @@ if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN') ||  !getDolGlobalString('O
 		$token_entity = $conf->entity;
 		print $langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.(int)$token_entity;
 		print ' - '.$langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
+
 		print '<br>';
 		print $langs->trans("Token")."=";
-		print showValueWithClipboardCPButton($token, 0, dol_trunc($token, 100));
+		print 'Current session token:<br>';
+		if (! empty($_SESSION['google_web_token_'.$conf->entity])) {
+			//print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">';
+			if (is_array($_SESSION['google_web_token_'.$conf->entity]) && key_exists('access_token', $_SESSION['google_web_token_'.$conf->entity])) {
+				$valuetoshow = dol_json_encode($_SESSION['google_web_token_'.$conf->entity]);
+			} else {
+				$valuetoshow = $_SESSION['google_web_token_'.$conf->entity];
+			}
+			print showValueWithClipboardCPButton($valuetoshow, 0, dol_trunc($valuetoshow, 100));
+			//print '</div>';
+		} else {
+			print $langs->trans("None");
+		}
 		print '<br><br>';
 		print $langs->trans("GoogleRecreateToken").'<br>';
 		print '<a href="'.$redirect_uri.'">'.$langs->trans("LinkToOAuthPage").'</a>';
@@ -958,7 +971,6 @@ if ($conf->societe->enabled) {
 		print '<hr><br>';
 		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';
 		print '<div class="tabsActions syncthirdparties">';
-		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
@@ -1013,7 +1025,6 @@ if ($conf->societe->enabled) {
 		print '<hr><br>';
 		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Contacts").'<br><br>';
 		print '<div class="tabsActions synccontacts">';
-		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
@@ -1066,7 +1077,6 @@ if ($conf->adherent->enabled) {
 		print '<hr><br>';
 		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Members").'<br><br>';
 		print '<div class="tabsActions syncmembers">';
-		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
