@@ -911,7 +911,7 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 	$urltodelete .= '&token='.newToken();
 	if (is_object($tokenobj) || ! empty($_SESSION['google_web_token_'.$conf->entity])) {
 		print 'Database token';
-		$sql="SELECT tms as token_date_last_update, entity from ".MAIN_DB_PREFIX."const where name = 'GOOGLE_WEB_TOKEN' and value = '".$db->escape($conf->global->GOOGLE_WEB_TOKEN)."'";
+		$sql="SELECT tms as token_date_last_update, entity from ".MAIN_DB_PREFIX."const where name = 'GOOGLE_WEB_TOKEN' and value = '".$db->escape(getDolGlobalString('GOOGLE_WEB_TOKEN'))."'";
 		$resql=$db->query($sql);
 		//print $sql;
 		if ($resql) {
@@ -936,7 +936,6 @@ if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_AP
 		print ':<br>';
 		if (is_object($tokenobj)) {
 			print showValueWithClipboardCPButton($tokenobj->getAccessToken(), 0, dol_trunc($tokenobj->getAccessToken(), 100));
-			//print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$conf->global->GOOGLE_WEB_TOKEN.'</div>';
 		}
 		print '<br>';
 
@@ -1004,7 +1003,6 @@ if ($conf->societe->enabled) {
 		print '<hr><br>';
 		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';
 		print '<div class="tabsActions syncthirdparties">';
-		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
@@ -1059,7 +1057,6 @@ if ($conf->societe->enabled) {
 		print '<hr><br>';
 		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Contacts").'<br><br>';
 		print '<div class="tabsActions synccontacts">';
-		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
@@ -1112,7 +1109,6 @@ if ($conf->adherent->enabled) {
 		print '<hr><br>';
 		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Members").'<br><br>';
 		print '<div class="tabsActions syncmembers">';
-		//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
