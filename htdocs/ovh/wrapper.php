@@ -33,6 +33,7 @@ if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL', '1');
 if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU', '1');
 if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML', '1');
 if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX', '1');
+//if (! defined('XFRAMEOPTIONS_ALLOWALL'))   define('XFRAMEOPTIONS_ALLOWALL', '1');
 
 // C'est un wrapper, donc header vierge
 function llxHeader()
@@ -120,8 +121,15 @@ $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPO
  * View
  */
 
+top_httphead();
+
+//header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Methods: GET, POST');
+
+
 if (!empty($conf->global->OVH_OLDAPI)) {
 	if (empty($login)) {
+		llxHeader();
 		print '<div class="error">'.$langs->trans("ErrorClickToDialForUserNotDefined").'</div>';
 		llxFooter();
 		exit;
