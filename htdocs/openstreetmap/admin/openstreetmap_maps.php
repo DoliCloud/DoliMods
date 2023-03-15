@@ -36,8 +36,8 @@ $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$actiontest=$_POST["test"];
-$actionsave=$_POST["save"];
+$actiontest=isset($_POST["test"]) ? $_POST["test"] : false;
+$actionsave=isset($_POST["save"]) ? $_POST["save"] : false;
 
 
 
