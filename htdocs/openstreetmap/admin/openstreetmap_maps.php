@@ -49,10 +49,10 @@ if ($actionsave) {
 	$db->begin();
 
 	$res=0;
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS', trim($_POST["OPENSTREETMAP_ENABLE_MAPS"]), 'chaine', 0);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_CONTACTS', trim($_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"]), 'chaine', 0);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_MEMBERS', trim($_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"]), 'chaine', 0);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MAPS_ZOOM_LEVEL', trim($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]), 'chaine', 0);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS"]:'0'), 'chaine', 0);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_CONTACTS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"]:'0'), 'chaine', 0);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_MEMBERS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"]:'0'), 'chaine', 0);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MAPS_ZOOM_LEVEL', trim(isset($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"])?$_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]:'0'), 'chaine', 0);
 
 	if ($res == 4) {
 		$db->commit();
