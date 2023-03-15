@@ -80,6 +80,11 @@ if (isset($object->logo) && !is_null($object->logo)){
 }else{
 	$showlogo = false;
 }
+if (isset($object->barcode_type) && !is_null($object->barcode_type)){
+	$showbarcode = true;
+}else{  
+	$showbarcode = false;
+}
 
 /*
  * View
