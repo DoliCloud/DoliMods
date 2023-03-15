@@ -91,21 +91,21 @@ print '<form name="openstreetmapconfig" action="'.$_SERVER["PHP_SELF"].'" method
 dol_fiche_head($head, 'maps', $langs->trans("OpenStreetMapTools"));
 
 print $langs->trans("OpenStreetMapEnableThisToolThirdParties").': ';
-if ($conf->societe->enabled) {
+if (isset($conf->societe->enabled) && $conf->societe->enabled) {
 	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS", isset($_POST["OPENSTREETMAP_ENABLE_MAPS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS, 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
 //print '<br>';
 print $langs->trans("OpenStreetMapEnableThisToolContacts").': ';
-if ($conf->societe->enabled) {
+if (isset($conf->societe->enabled) && $conf->societe->enabled) {
 	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_CONTACTS", isset($_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS_CONTACTS, 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
 //print '<br>';
 print $langs->trans("OpenStreetMapEnableThisToolMembers").': ';
-if ($conf->adherent->enabled) {
+if (isset($conf->adherent->enabled) && $conf->adherent->enabled) {
 	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_MEMBERS", isset($_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS_MEMBERS, 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
 print '<br>';
