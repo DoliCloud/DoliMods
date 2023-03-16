@@ -29,16 +29,16 @@ require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
  */
 class ActionsConcatPdf
 {
-	var $db;
-	var $error;
-	var $errors=array();
+	public $db;
+	public $error;
+	public $errors=array();
 
 	/**
 	 *	Constructor
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -53,7 +53,7 @@ class ActionsConcatPdf
 	 *                          		=0 if OK but we want to process standard actions too,
 	 *  	                            >0 if OK and we want to replace standard actions.
 	 */
-	function formBuilddocOptions($parameters, &$object)
+	public function formBuilddocOptions($parameters, &$object)
 	{
 		global $langs, $user, $conf, $form;
 
@@ -172,7 +172,7 @@ class ActionsConcatPdf
 	 *                          		=0 if OK but we want to process standard actions too,
 	 *  	                            >0 if OK and we want to replace standard actions.
 	 */
-	function afterPDFCreation($parameters, &$pdfhandler, &$action)
+	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
 		global $langs,$conf;
 		global $hookmanager;
@@ -335,8 +335,9 @@ class ActionsConcatPdf
 	 * @param 	array	$files  Array of files to concat.
 	 * @return	int				Number of files
 	 */
-	function concat(&$pdf, $files)
+	public function concat(&$pdf, $files)
 	{
+		require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 		$pagecount = 0;
 		foreach ($files as $file) {
 			if (dol_is_file($file)) {	// We ignore file if not found so if ile has been removed we can still generate the PDF.
