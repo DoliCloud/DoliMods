@@ -132,9 +132,9 @@ class modOvh extends DolibarrModules
 		// 'group'            to add a tab in group view
 		// 'contact'          to add a tab in contact view
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
-		$this->tabs = array('thirdparty:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_thirdparty.php?id=__ID__',
-							//'contact:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_contact.php?id=__ID__',  // This is done from thirdparty tab
-							'member:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_member.php?id=__ID__');
+		$this->tabs = array('thirdparty:+tabSMS:SMS:ovh@ovh:! empty($user->rights->ovh->send):/ovh/sms_thirdparty.php?id=__ID__',
+							//'contact:+tabSMS:SMS:ovh@ovh:! empty($user->rights->ovh->send):/ovh/sms_contact.php?id=__ID__',  // This is done from thirdparty tab
+							'member:+tabSMS:SMS:ovh@ovh:! empty($user->rights->ovh->send):/ovh/sms_member.php?id=__ID__');
 
 
 
@@ -188,8 +188,8 @@ class modOvh extends DolibarrModules
 									'prefix'=>img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
-									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-									'perms'=>'$user->rights->ovh->importinvoice',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'! empty($conf->ovh->enabled)',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+									'perms'=>'! empty($user->rights->ovh->importinvoice)',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -201,8 +201,8 @@ class modOvh extends DolibarrModules
 									'prefix'=>img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
-									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-									'perms'=>'$user->rights->ovh->sysadmin',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'! empty($conf->ovh->enabled)',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+									'perms'=>'! empty($user->rights->ovh->sysadmin)',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		$r++;

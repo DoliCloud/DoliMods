@@ -99,11 +99,11 @@ if ($action == 'setvalue' && $user->admin) {
 
 $form = new Form($db);
 
-$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
+$WS_DOL_URL = empty($conf->global->OVHSMS_SOAPURL) ? '' : strval($conf->global->OVHSMS_SOAPURL);
 dol_syslog("Will use URL=" . $WS_DOL_URL, LOG_DEBUG);
 
-$login = $conf->global->OVHSMS_NICK;
-$password = $conf->global->OVH_SMS_PASS;
+$login = empty($conf->global->OVHSMS_NICK) ? '' : $conf->global->OVHSMS_NICK;
+$password = empty($conf->global->OVH_SMS_PASS) ? '' : $conf->global->OVH_SMS_PASS;
 
 $logindol = $user->login;
 
@@ -164,7 +164,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	print '<td>';
 	print '</td></tr>';
 
-	if ($conf->product->enabled || $conf->service->enabled) {
+	if (! empty($conf->product->enabled) || ! empty($conf->service->enabled)) {
 		print '<tr class="oddeven"><td>';
 		print $langs->trans("ProductGenericToUseForImport") . '</td><td>';
 		$form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID,
@@ -174,7 +174,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 		print '</td></tr>';
 	}
 
-	if ($conf->banque->enabled) {
+	if (! empty($conf->banque->enabled)) {
 		print '<tr class="oddeven"><td>';
 		print $langs->trans("OvhDefaultBankAccount") . '</td><td>';
 		$form->select_comptes($conf->global->OVH_DEFAULT_BANK_ACCOUNT, 'OVH_DEFAULT_BANK_ACCOUNT', 0, '', 1);
