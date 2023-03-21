@@ -109,7 +109,7 @@ class ActionsConcatPdf
 				if (! empty($tmp[1])) $tmparray2[$tmp[0]]=$tmp[1];
 			}
 			foreach ($tmparray2 as $key => $val) {
-				if ($modulepart == $key || $modulepart == $altkey[$key]) $preselected=$val;		// $preselected is 'mytemplate' or 'mytemplate1,mytemplate2'
+				if ($modulepart == $key || (array_key_exists($key, $altkey) && $modulepart == $altkey[$key])) $preselected=$val;		// $preselected is 'mytemplate' or 'mytemplate1,mytemplate2'
 			}
 		}
 
