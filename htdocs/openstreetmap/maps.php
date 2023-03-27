@@ -35,7 +35,16 @@ require_once DOL_DOCUMENT_ROOT."/contact/class/contact.class.php";
 $langs->load("openstreetmap@openstreetmap");
 
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id
-
+//avoid mixing protocol on modern browsers
+if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+  $protocol = 'https://';
+}
+else {
+  $protocol = 'http://';
+}
 
 $mode=GETPOST('mode');
 $address='';
@@ -66,6 +75,16 @@ if ($mode=='member') {
 	$address = $object->getFullAddress(1, ', ');
 }
 
+if (isset($object->logo) && !is_null($object->logo)){
+	$showlogo = true;
+}else{
+	$showlogo = false;
+}
+if (isset($object->barcode_type) && !is_null($object->barcode_type)){
+	$showbarcode = true;
+}else{  
+	$showbarcode = false;
+}
 
 /*
  * View
@@ -106,7 +125,7 @@ print '<table class="border" width="100%">';
 // Name
 print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
 print '<td colspan="3">';
-print $form->showrefnav($object, 'id', '', ($user->societe_id?0:1), 'rowid', 'nom', '', '&mode='.$mode);
+print $form->showrefnav($object, 'id', '', (isset($user->societe_id) && $user->societe_id ? 0:1), 'rowid', 'nom', '', '&mode='.$mode);
 print '</td>';
 print '</tr>';
 
@@ -116,7 +135,7 @@ print '<tr><td>'.$langs->trans("Status").'</td>';
 print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
 print $object->getLibStatut(2);
 print '</td>';
-print $htmllogobar; $htmllogobar='';
+// print $htmllogobar; $htmllogobar='';
 print '</tr>';
 
 // Address
@@ -159,11 +178,11 @@ if ($address && $address != $object->country) {
 
 		$result = getURLContent($url);
 
-		$delay=($micro_end_time-$micro_start_time);
-
 		list($usec, $sec) = explode(" ", microtime());
 		$micro_end_time=((float) $usec + (float) $sec);
 		$end_time=((float) $sec);
+
+		$delay=($micro_end_time-$micro_start_time);
 
 		if (! function_exists('json_decode')) {    // Test with no response
 			print 'Error: function json_decode does not exists. Check PHP module json is loaded.';
@@ -178,11 +197,11 @@ if ($address && $address != $object->country) {
 		if (! $error) {
 			//var_dump($result['content']);
 			$array = json_decode($result['content'], true);
-			$lat=$array[0]['lat'];
-			$lon=$array[0]['lon'];
+			$lat=isset($array[0]['lat']) ? $array[0]['lat'] : false;
+            $lon=isset($array[0]['lon']) ? $array[0]['lon'] : false;
 			if ($lat && $lon) {
 				// See example on page http://wiki.openstreetmap.org/wiki/OpenLayers_Marker
-				print '<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+				print '<script src="'.$protocol.'openlayers.org/api/OpenLayers.js"></script>
                     <script>
 
              		map = new OpenLayers.Map("map", {
