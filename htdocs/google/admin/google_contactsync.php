@@ -862,7 +862,7 @@ print '</tr>';
 		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 */
-$redirect_uri=dol_buildpath('/google/oauth2callback.php?', 3);
+$redirect_uri=dol_buildpath('/google/oauth2callback.php', 3);
 $jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
 
 $urltocreateidclientoauth = 'https://console.developers.google.com/apis/credentials';
@@ -904,7 +904,7 @@ if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN') ||  !getDolGlobalString('O
 	// $completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
 	// $completeoauthurl.='&include_granted_scopes=true';
 
-	$redirect_uri	.=	'state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
+	$redirect_uri	.=	'?state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
 	$redirect_uri	.=	'&scope='.urlencode('https://www.googleapis.com/auth/contacts');
 	$redirect_uri	.=	'&shortscope='.urlencode($shortscope);
 	$redirect_uri	.=	'&backtourl='.urlencode(DOL_URL_ROOT.'/custom/google/admin/google_contactsync.php');
