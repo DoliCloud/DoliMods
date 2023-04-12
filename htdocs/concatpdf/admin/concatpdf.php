@@ -169,7 +169,8 @@ if ($action == 'save') {
 $form=new Form($db);
 $formfile=new FormFile($db);
 
-llxHeader('', 'ConcatPdf', $linktohelp);
+$help_url='EN:Module_Concat_PDF;FR:Module_Concat_PDF_FR;ES:Módulo_Concat_PDF';
+llxHeader('', 'ConcatPdf', $help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("ConcatPdfSetup"), $linkback, 'setup');
