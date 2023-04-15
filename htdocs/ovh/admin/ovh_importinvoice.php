@@ -164,7 +164,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	print '<td>';
 	print '</td></tr>';
 
-	if ($conf->product->enabled || $conf->service->enabled) {
+	if (isModEnabled("product") || isModEnabled("service")) {
 		print '<tr class="oddeven"><td>';
 		print $langs->trans("ProductGenericToUseForImport") . '</td><td>';
 		$form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID,
@@ -174,7 +174,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 		print '</td></tr>';
 	}
 
-	if ($conf->banque->enabled) {
+	if (isModEnabled("banque")) {
 		print '<tr class="oddeven"><td>';
 		print $langs->trans("OvhDefaultBankAccount") . '</td><td>';
 		$form->select_comptes($conf->global->OVH_DEFAULT_BANK_ACCOUNT, 'OVH_DEFAULT_BANK_ACCOUNT', 0, '', 1);

@@ -97,7 +97,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
-		if (empty($conf->ecotaxdeee->enabled)) {
+		if (isModEnabled("ecotaxdeee")) {
 			return 0;
 		}
 		if (isset($object->special_code) && $object->special_code == 2) {

@@ -77,7 +77,7 @@ use \Ovh\Api;
 
 
 // Security check
-if (! $conf->clicktodial->enabled) {
+if (!isModEnabled("clicktodial")) {
 	accessforbidden();
 	exit;
 }

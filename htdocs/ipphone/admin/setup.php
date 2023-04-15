@@ -81,7 +81,7 @@ $help_url='EN:Module_ThomsonPhoneBook_EN|FR:Module_ThomsonPhoneBook|ES:M&oacute;
 
 llxHeader('', '', $help_url);
 
-if (empty($conf->ipphone->enabled)) {
+if (!isModEnabled("ipphone")) {
 	dol_print_error($db, 'Module was not enabled');
 	exit;
 }

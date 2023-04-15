@@ -88,7 +88,7 @@ $max=3;
 
 /* BEGIN MODULEBUILDER LASTMODIFIED MYOBJECT
 // Last modified myobject
-if (! empty($conf->captureserver->enabled) && $user->rights->captureserver->read)
+if (isModEnabled("captureserver") && $user->rights->captureserver->read)
 {
 	$sql = "SELECT s.rowid, s.nom as name, s.client, s.datec, s.tms, s.canvas";
 	$sql.= ", s.code_client";
