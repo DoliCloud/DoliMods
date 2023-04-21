@@ -99,11 +99,11 @@ if ($action == 'setvalue' && $user->admin) {
 
 $form = new Form($db);
 
-$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
+$WS_DOL_URL = empty($conf->global->OVHSMS_SOAPURL) ? '' : strval($conf->global->OVHSMS_SOAPURL);
 dol_syslog("Will use URL=" . $WS_DOL_URL, LOG_DEBUG);
 
-$login = $conf->global->OVHSMS_NICK;
-$password = $conf->global->OVH_SMS_PASS;
+$login = empty($conf->global->OVHSMS_NICK) ? '' : $conf->global->OVHSMS_NICK;
+$password = empty($conf->global->OVH_SMS_PASS) ? '' : $conf->global->OVH_SMS_PASS;
 
 $logindol = $user->login;
 
