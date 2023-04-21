@@ -132,7 +132,7 @@ print "</tr>";
 
 // GETPOST("ECOTAXDEEE_LABEL_LINE")
 print '<tr class="oddeven">';
-if (! empty($conf->produit->enabled) || ! empty($conf->service->enabled)) {
+if (isModEnabled("produit") || isModEnabled("service")) {
 	print "<td>".$langs->trans("ECOTAXDEEE_PRODUCT_OR_LABEL_LINE")."</td>";
 	print "<td>";
 	print $form->select_produits($conf->global->WEEE_PRODUCT_ID, 'WEEE_PRODUCT_ID', '');

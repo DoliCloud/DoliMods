@@ -90,11 +90,11 @@ class InterfaceOvhTriggers extends DolibarrTriggers
 	 */
 	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
-		if (empty($conf->ovh) || empty($conf->ovh->enabled)) {
+		if (!isModEnabled("ovh")) {
 			return 0; // If module is not enabled, we do nothing
 		}
 
-		if (preg_match('SENTBYSMS', $action)) {
+		if (preg_match('/SENTBYSMS/', $action)) {
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
 			require_once DOL_DOCUMENT_ROOT . '/comm/action/class/actioncomm.class.php';
 			$now = dol_now();

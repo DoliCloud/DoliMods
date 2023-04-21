@@ -118,10 +118,6 @@ class modIFTTT extends DolibarrModules
 		$this->tabs = array();
 
 		// Dictionaries
-		if (! isset($conf->ifttt->enabled)) {
-			$conf->ifttt=new stdClass();
-			$conf->ifttt->enabled=0;
-		}
 		$this->dictionaries=array();
 
 		// Boxes
@@ -159,7 +155,7 @@ class modIFTTT extends DolibarrModules
 		//							'url'=>'/api/pagetop.php',
 		//							'langs'=>'mylangfile@api',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'$conf->ifttt->enabled',	// Define condition to show or hide menu entry. Use '$conf->ifttt->enabled' if entry must be visible if module is enabled.
+		//							'enabled'=>'isModEnabled("ifttt")',
 		//							'perms'=>'1',			                // Use 'perms'=>'$user->rights->ifttt->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -174,7 +170,7 @@ class modIFTTT extends DolibarrModules
 		//							'url'=>'/api/pagelevel2.php',
 		//							'langs'=>'mylangfile@api',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'$conf->ifttt->enabled',  // Define condition to show or hide menu entry. Use '$conf->ifttt->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+		//							'enabled'=>'isModEnabled("ifttt")',
 		//							'perms'=>'1',			                // Use 'perms'=>'$user->rights->ifttt->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both

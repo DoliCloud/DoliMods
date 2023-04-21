@@ -91,7 +91,7 @@ class modZipAutoFillFr extends DolibarrModules
 			'tabfieldvalue'=>array("zip,town,country"),
 			'tabfieldinsert'=>array("zip,town,fk_pays"),
 			'tabrowid'=>array(),
-			'tabcond'=>array(empty($conf->zipautofillfr->enabled)?0:$conf->zipautofillfr->enabled)
+			'tabcond'=>array(isModEnabled("zipautofillfr")?1:0)
 		);
 
 		// Boxes

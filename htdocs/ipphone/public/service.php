@@ -76,7 +76,7 @@ $format = GETPOST('format', 'alpha')?GETPOST('format', 'alpha'):'xml';
 
 $phonetag = getDolGlobalString('IPPHONE_XMLTAG', 'CiscoIPPhoneDirectory');	// May be also 'ThompsonDirectory, YeaLinkDirectory, ...'
 
-if (empty($conf->ipphone->enabled)) {
+if (!isModEnabled("ipphone")) {
 	accessforbidden('', 1, 1, 1);
 }
 

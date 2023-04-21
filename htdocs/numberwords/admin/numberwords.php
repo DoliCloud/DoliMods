@@ -57,7 +57,7 @@ $value=GETPOST('value', 'nohtml');
 $valuetest=GETPOST('valuetest', 'nohtml');
 $level=GETPOST('level', 'int');
 
-if (empty($conf->numberwords->enabled)) {
+if (!isModEnabled("numberwords")) {
 	print "Error: Module is not enabled\n";
 	exit;
 }
