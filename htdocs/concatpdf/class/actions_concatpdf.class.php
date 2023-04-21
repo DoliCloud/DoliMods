@@ -179,8 +179,6 @@ class ActionsConcatPdf
 
 		$outputlangs=$langs;
 
-		//var_dump($parameters['object']);
-
 		$ret=0; $deltemp=array();
 		dol_syslog(get_class($this).'::executeHooks action='.$action);
 
@@ -198,7 +196,6 @@ class ActionsConcatPdf
 			else $concatpdffile = array();
 		}
 
-
 		// Defined $preselected value
 		$preselected=(isset($parameters['object']->extraparams['concatpdf'][0])?$parameters['object']->extraparams['concatpdf'][0]:-1);	// string with preselected string
 
@@ -208,6 +205,7 @@ class ActionsConcatPdf
 		if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection) {
 			//var_dump($conf->global->CONCATPDF_PRESELECTED_MODELS);
 			if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS)) {
+
 				// List of value key into setup -> value for modulepart
 				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
@@ -222,7 +220,10 @@ class ActionsConcatPdf
 				foreach ($tmparray2 as $key => $val) {
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
 					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key])) {
-						$concatpdffile[]=$val;
+						$tmpval = explode(',', $val);
+						foreach($tmpval as $val2) {
+							$concatpdffile[]=$val2;
+						}
 					}
 				}
 			} else {
