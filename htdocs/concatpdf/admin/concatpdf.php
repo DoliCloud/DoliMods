@@ -59,7 +59,7 @@ if (isModEnabled("facture")) $modules['invoices']=array('label'=>'Invoices', 'pi
 if (isModEnabled("supplier_proposal")) $modules['supplier_proposals']=array('label'=>'SupplierProposals', 'picto'=>img_picto('', 'supplier_proposal', 'class="pictofixedwidth"'));
 if (isModEnabled("fournisseur")) $modules['supplier_orders']=array('label'=>'SuppliersOrders', 'picto'=>img_picto('', 'supplier_order', 'class="pictofixedwidth"'));
 if (isModEnabled("fournisseur")) $modules['supplier_invoices']=array('label'=>'SuppliersInvoices', 'picto'=>img_picto('', 'supplier_invoice', 'class="pictofixedwidth"'));
-if (isModEnabled("contract")) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
+if (isModEnabled("contrat")) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
 // Add key data-html
 foreach($modules as $key => $value) {
 	$modules[$key]['data-html'] = dol_escape_htmltag($value['picto'].$langs->transnoentitiesnoconv($value['label']));
