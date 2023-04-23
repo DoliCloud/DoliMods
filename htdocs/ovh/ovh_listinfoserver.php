@@ -76,17 +76,17 @@ if (!empty($_GET['type'])) {
 }
 
 // Protection if external user
-if ($user->societe_id > 0) accessforbidden();
+if ($user->socid > 0) accessforbidden();
 
 if (empty($user->rights->ovh->sysadmin)) accessforbidden();
 
 $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
 
-$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
+$WS_DOL_URL = ! empty($conf->global->OVHSMS_SOAPURL) ? strval($conf->global->OVHSMS_SOAPURL) : '';
 dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
-$login = $conf->global->OVHSMS_NICK;
-$password = $conf->global->OVH_SMS_PASS;
+$login = ! empty($conf->global->OVHSMS_NICK) ? strval($conf->global->OVHSMS_NICK) : '';
+$password = ! empty($conf->global->OVH_SMS_PASS) ? strval($conf->global->OVH_SMS_PASS) : '';
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 $params=getSoapParams();
@@ -143,7 +143,7 @@ $linkback='';
 
 //print_fiche_titre($langs->trans('OvhServers'),$linkback,'setup');
 
-print '<!-- OVH_OLDAPI = '.$conf->global->OVH_OLDAPI.' -->';
+print '<!-- OVH_OLDAPI = '.(isset($conf->global->OVH_OLDAPI) ? var_export($conf->global->OVH_OLDAPI, true) : '(unset)').' -->';
 
 $head=ovhsysadmin_prepare_head();
 

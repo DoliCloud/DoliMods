@@ -78,7 +78,7 @@ class OvhSms extends CommonObject
 		$this->deferred = '60';   // the time -in minute(s)- to wait before sending the message, default is 0
 		$this->priority = '3';    // the priority of the message (0 to 3), default is 3
 		// Set the WebService URL
-		dol_syslog(get_class($this)."::OvhSms URL=".$conf->global->OVHSMS_SOAPURL);
+		dol_syslog(get_class($this)."::OvhSms URL=".(! empty($conf->global->OVHSMS_SOAPURL) ? $conf->global->OVHSMS_SOAPURL : '(NULL)'));
 
 		if (! empty($conf->global->OVH_OLDAPI)) {
 			if (! empty($conf->global->OVHSMS_SOAPURL)) {

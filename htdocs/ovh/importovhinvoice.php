@@ -290,6 +290,8 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				$facfou = new FactureFournisseur($db);
 
+				$facfou->special_code = null; // Prevent PHP8 warning over unset property
+
 				// Get default payment conditions and terms of supplier
 				if (is_object($fourn)) {
 					$facfou->cond_reglement_id = $fourn->cond_reglement_supplier_id;
@@ -749,7 +751,7 @@ if ($action == 'refresh') {
 								include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 								$resultget = getURLContent($url);
 								if ($resultget['http_code'] == 200) {
-									$resultput = file_put_contents($file_name_to_use, $resultget);
+									$resultput = file_put_contents($file_name_to_use, $resultget['content']);
 									print "<br>" . $langs->trans("FileDownloadedAndAttached", basename($file_name_to_use)) . "\n";
 								} else {
 									print "<br>" . $langs->trans("FailedToDownloadedFile", basename($file_name_to_use)) . "\n";

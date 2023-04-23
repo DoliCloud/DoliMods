@@ -57,7 +57,7 @@ $action = GETPOST('action', 'aZ09');
 $mesg='';
 
 // Protection if external user
-if ($user->societe_id > 0) {
+if ($user->socid > 0) {
 	accessforbidden();
 }
 
@@ -212,7 +212,7 @@ if ($socid) {
 		}
 	}
 
-	dol_banner_tab($object, 'id', '', $user->rights->user->user->lire || $user->admin);
+	dol_banner_tab($object, 'id', '', ! empty($user->rights->user->user->lire) || ! empty($user->admin));
 
 	print '<div class="underbanner clearboth"></div>';
 

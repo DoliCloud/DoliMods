@@ -61,7 +61,7 @@ accessforbidden();
 $action=GETPOST('action', 'aZ09');
 
 // Protection if external user
-if ($user->societe_id > 0) {
+if ($user->socid > 0) {
 	//accessforbidden();
 }
 
@@ -187,9 +187,10 @@ if ($action == 'send' && ! $_POST['cancel']) {
  * View
  */
 
-$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
+$WS_DOL_URL = empty($conf->global->OVHSMS_SOAPURL) ? '' : strval($conf->global->OVHSMS_SOAPURL);
 dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
+$smsAccount = empty($conf->global->OVHSMS_ACCOUNT) ? '' : strval($conf->global->OVHSMS_ACCOUNT) ;
 
 llxHeader('', $langs->trans('OvhSmsSetup'), '', '');
 
@@ -231,7 +232,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("OvhSmsLabelAccount").'</td><td>';
-	print '<input type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
+	print '<input type="text" name="OVHSMS_ACCOUNT" value="'.$smsAccount.'">';
 	print '<br><span class="opacitymedium">'.$langs->trans("Example").': sms-aa123-1</span>';
 	print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
 	print '</td></tr>';
@@ -248,7 +249,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 
 	if ($action != 'testsms') {
 		print '<br>';
-		if (! empty($conf->global->OVHSMS_ACCOUNT)) {
+		if (! empty($smsAccount)) {
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=testsms">'.$langs->trans("DoTestSend").'</a>';
 		} else {
 			print '<a class="butActionRefused" href="#">'.$langs->trans("DoTestSend").'</a>';
