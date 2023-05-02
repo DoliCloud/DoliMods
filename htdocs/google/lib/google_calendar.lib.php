@@ -283,24 +283,27 @@ function createEvent($client, $object, $login = 'primary')
 	$end = new Google_Service_Calendar_EventDateTime();
 
 	$tzfix=0;
-	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) {
+	if (!empty($conf->global->GOOGLE_CAL_TZ_FIX)) {
 		$tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
 	}
 	if (empty($object->fulldayevent)) {
-		$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
-		$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');
-
-		if (!empty($tzfix) && preg_match('/^[+-]\d\d:\d\d$/', $tzfix)) {
+		$reg = array();
+		if (!empty($tzfix) && preg_match('/^[+-](\d\d):\d\d$/', $tzfix, $reg)) {
 			// When tzfix is '+02:00', we use tz in date to get date string '2015-07-30T08:00:00+02:00' instead of '2015-07-30T08:00:00Z'
+			$startTime = dol_print_date(((int) $reg[1] * 3600) + $object->datep, "dayhourrfc", 'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
+			$endTime = dol_print_date(((int) $reg[1] * 3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');
 			$startTime = preg_replace('/Z$/', $tzfix, $startTime);
 			$endTime = preg_replace('/Z$/', $tzfix, $startTime);
+		} else {
+			$startTime = dol_print_date(((int) $tzfix * 3600) + $object->datep, "dayhourrfc", 'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
+			$endTime = dol_print_date(((int) $tzfix * 3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');
 		}
 
 		$start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 		$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
 	} else {
-		$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayrfc");
-		$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+		$startTime = dol_print_date(((int) $tzfix*3600) + $object->datep, "dayrfc");
+		$endTime = dol_print_date(((int) $tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
 
 		$start->setDate($startTime);	// '2011-06-03'
 		$end->setDate($endTime);		// '2011-06-03'
@@ -439,20 +442,32 @@ function updateEvent($client, $eventId, $object, $login = 'primary', $service = 
 		$end = new Google_Service_Calendar_EventDateTime();
 
 		$tzfix=0;
-		if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+		if (! empty($conf->global->GOOGLE_CAL_TZ_FIX)) {
+			$tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+		}
 		if (empty($object->fulldayevent)) {
-			$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
-			$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+			$reg = array();
+			if (!empty($tzfix) && preg_match('/^[+-](\d\d):\d\d$/', $tzfix, $reg)) {
+				// When tzfix is '+02:00', we use tz in date to get date string '2015-07-30T08:00:00+02:00' instead of '2015-07-30T08:00:00Z'
+				$startTime = dol_print_date(((int) $reg[1] * 3600) + $object->datep, "dayhourrfc", 'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
+				$endTime = dol_print_date(((int) $reg[1] * 3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');
+				$startTime = preg_replace('/Z$/', $tzfix, $startTime);
+				$endTime = preg_replace('/Z$/', $tzfix, $startTime);
+			} else {
+				$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+				$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+			}
 
 			$start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 			$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
 		} else {
-			$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayrfc");
-			$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+			$startTime = dol_print_date(((int) $tzfix * 3600) + $object->datep, "dayrfc");
+			$endTime = dol_print_date(((int) $tzfix * 3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
 
 			$start->setDate($startTime);	// '2011-06-03'
 			$end->setDate($endTime);		// '2011-06-03'
 		}
+
 		$event->setStart($start);
 		$event->setEnd($end);
 
@@ -680,7 +695,9 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 	global $dolibarr_main_url_root;
 
 	$tzfix=0;
-	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX_G2D) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX_G2D)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX_G2D;
+	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX_G2D) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX_G2D)) {
+		$tzfix=$conf->global->GOOGLE_CAL_TZ_FIX_G2D;
+	}
 
 	$nbinserted=0;
 	$nbupdated=0;
@@ -751,6 +768,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						if ($datest) {
 							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T12:00:00 in TZ +2
 							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
+							$reg = array();
 							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i', $datest, $reg)) {
 								$datest = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
 								$tzs=(int) ($reg[7].$reg[8]);
