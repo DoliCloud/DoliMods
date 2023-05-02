@@ -302,8 +302,8 @@ function createEvent($client, $object, $login = 'primary')
 		$start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 		$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
 	} else {
-		$startTime = dol_print_date(((int) $tzfix*3600) + $object->datep, "dayrfc");
-		$endTime = dol_print_date(((int) $tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+		$startTime = dol_print_date(((int) $tzfix * 3600) + $object->datep, "dayrfc");
+		$endTime = dol_print_date(((int) $tzfix * 3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
 
 		$start->setDate($startTime);	// '2011-06-03'
 		$end->setDate($endTime);		// '2011-06-03'
@@ -454,8 +454,8 @@ function updateEvent($client, $eventId, $object, $login = 'primary', $service = 
 				$startTime = preg_replace('/Z$/', $tzfix, $startTime);
 				$endTime = preg_replace('/Z$/', $tzfix, $startTime);
 			} else {
-				$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
-				$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+				$startTime = dol_print_date(($tzfix * 3600) + $object->datep, "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+				$endTime = dol_print_date(($tzfix * 3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
 			}
 
 			$start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
