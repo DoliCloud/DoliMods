@@ -1,10 +1,14 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
+## 6.7
+
+- GOOGLE_CAL_TZ_FIX accept +00:0x format
+
 
 ## 6.6
 
 - Fix sync of phone
-- Remove use of field punctual. Compatibility with
+- Remove use of field punctual.
 - Save google oauth token into Dolibarr table.
 - Need Dolibarr 16+, PHP 7.2+
 

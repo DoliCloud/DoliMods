@@ -283,10 +283,18 @@ function createEvent($client, $object, $login = 'primary')
 	$end = new Google_Service_Calendar_EventDateTime();
 
 	$tzfix=0;
-	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) {
+		$tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+	}
 	if (empty($object->fulldayevent)) {
 		$startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
 		$endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');
+
+		if (!empty($tzfix) && preg_match('/^[+-]\d\d:\d\d$/', $tzfix)) {
+			// When tzfix is '+02:00', we use tz in date to get date string '2015-07-30T08:00:00+02:00' instead of '2015-07-30T08:00:00Z'
+			$startTime = preg_replace('/Z$/', $tzfix, $startTime);
+			$endTime = preg_replace('/Z$/', $tzfix, $startTime);
+		}
 
 		$start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 		$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
@@ -300,6 +308,12 @@ function createEvent($client, $object, $login = 'primary')
 
 	$event->setStart($start);
 	$event->setEnd($end);
+
+	// TODO Manage color
+	// Retrieve color definitions for calendars and events
+	//$colors = $client->colors->get();
+	//$object->type_color;
+	//$event->setColorId($colorId);
 
 	$event->setSummary(trim($object->label));
 	$event->setLocation($object->location);
@@ -333,6 +347,12 @@ function createEvent($client, $object, $login = 'primary')
 
 	$event->setStatus('confirmed');		// tentative, cancelled
 	$event->setVisibility('default');	// default, public, private (view by attendees only), confidential (do not use)
+
+	// TODO Manage recurring events
+	//$event->setRecurrence($recurrence);
+
+	// TODO Manage reminders
+	//$event->setReminders();
 
 	$event->setGuestsCanModify(false);
 	$event->setGuestsCanInviteOthers(true);
