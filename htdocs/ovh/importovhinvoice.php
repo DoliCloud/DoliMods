@@ -89,7 +89,7 @@ $fuser = $user;
 $now = dol_now();
 $datefrom = dol_mktime(0, 0, 0, GETPOST('datefrommonth', 'int'), GETPOST('datefromday', 'int'), GETPOST('datefromyear', 'int'));
 if (!$datefrom) {
-	$datefrom = dol_time_plus_duree($now, -6, 'm');
+	$datefrom = dol_time_plus_duree($now, -4, 'm');
 }
 
 /*
@@ -655,8 +655,8 @@ if ($action == 'refresh') {
 
 				print '<tr class="oddeven">';
 				print '<td>' . $r['billnum'] . '</td><td align="center">' . dol_print_date($r['date'], 'day') . "</td>";
-				print '<td class="right amount">' . price($r['totalPrice']) . '</td>';
-				print '<td class="right amount">' . price($r['totalPriceWithVat']) . '</td>';
+				print '<td class="right amount nowraponall">' . price($r['totalPrice']) . '</td>';
+				print '<td class="right amount nowraponall">' . price($r['totalPriceWithVat']) . '</td>';
 				print '<td>' . $r['currency'] . '</td>';
 				//print '<td align="right">'.vatrate($vatrate).'</td>';
 				$x = 0;
