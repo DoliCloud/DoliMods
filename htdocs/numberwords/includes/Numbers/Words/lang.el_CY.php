@@ -1,18 +1,24 @@
 <?php
-/* Copyright (C) 2023       Nick Fragoulis
+/**
+ * Numbers_Words
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
+ * PHP version 4
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Copyright (c) 1997-2006 The PHP Group
  *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * This source file is subject to version 3.0 of the PHP license,
+ * that is bundled with this package in the file LICENSE, and is
+ * available at through the world-wide-web at
+ * http://www.php.net/license/3_0.txt.
+ * If you did not receive a copy of the PHP license and are unable to
+ * obtain it through the world-wide-web, please send a note to
+ * license@php.net so we can mail you a copy immediately.
+ *
+ * @category Numbers
+ * @package  Numbers_Words
+ * @author   Nick Fragoulis
+ * @license  PHP 3.0 http://www.php.net/license/3_0.txt
+ * 
  */
 
 /**
@@ -87,24 +93,24 @@ class Numbers_Words_el_CY extends Numbers_Words
 		'Πέντε', 'Έξι', 'Επτά', 'Οκτώ', 'Εννιά'
 	);
 	
-    private static $_proper_pronunciation = [
+    	private static $_proper_pronunciation = [
 		'Εκατό '           => 'Εκατόν ',
-        ' Ένα Χιλιάδες'    => ' Μία Χιλιάδες',
+        	' Ένα Χιλιάδες'    => ' Μία Χιλιάδες',
 		'Τρία Χιλιάδες'    => 'Τρείς Χιλιάδες',
 		'Τέσσερα Χιλιάδες' => 'Τέσσερις Χιλιάδες',
 		'Εκατόν Χιλιάδες'  => 'Εκατό Χιλιάδες',
         ];
     
-    private static $_hundreds_plural = [
-        'Διακόσια'   => 'Διακόσιες',
-        'Τριακόσια'  => 'Τριακόσιες',
-        'Τετρακόσια' => 'Τετρακόσιες',
-        'Πεντακόσια' => 'Πεντακόσιες',
-        'Εξακόσια'   => 'Εξακόσιες',
-        'Επτακόσια'  => 'Επτακόσιες',
-        'Οκτακόσια'  => 'Οκτακόσιες',
-        'Εννιακόσια' => 'Εννιακόσιες',
-        ];    
+	private static $_hundreds_plural = [
+        	'Διακόσια'   => 'Διακόσιες',
+        	'Τριακόσια'  => 'Τριακόσιες',
+        	'Τετρακόσια' => 'Τετρακόσιες',
+        	'Πεντακόσια' => 'Πεντακόσιες',
+        	'Εξακόσια'   => 'Εξακόσιες',
+        	'Επτακόσια'  => 'Επτακόσιες',
+        	'Οκτακόσια'  => 'Οκτακόσιες',
+        	'Εννιακόσια' => 'Εννιακόσιες',
+	];    
     
 	/**
 	 * The word separator
@@ -339,8 +345,8 @@ class Numbers_Words_el_CY extends Numbers_Words
 		}
 			$ret = strtr($ret, self::$_proper_pronunciation);
 			if ($power > 1)  {
-            $ret = strtr($ret, self::$_hundreds_plural);
-            }
+			$ret = strtr($ret, self::$_hundreds_plural);
+			}
 		return $ret;
 	}
 
