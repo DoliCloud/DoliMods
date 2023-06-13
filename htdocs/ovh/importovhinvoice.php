@@ -191,10 +191,6 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					}
 				}
 			}
-			$fourn = new Fournisseur($db);
-			if (!$fourn->fetch($idovhsupplier)) {
-				$fourn = null;
-			}
 
 			foreach ($listofref as $key => $val) {
 				$billnum = $val;
@@ -299,9 +295,9 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				$facfou->special_code = null; // Prevent PHP8 warning over unset property
 
 				// Get default payment conditions and terms of supplier
-				if (is_object($fourn)) {
-					$facfou->cond_reglement_id = $fourn->cond_reglement_supplier_id;
-					$facfou->mode_reglement_id = $fourn->mode_reglement_supplier_id;
+				if (is_object($ovhthirdparty)) {
+					$facfou->cond_reglement_id = $ovhthirdparty->cond_reglement_supplier_id;
+					$facfou->mode_reglement_id = $ovhthirdparty->mode_reglement_supplier_id;
 				}
 
 				// Get default bank account
@@ -310,7 +306,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				}
 
 				$facfou->ref_supplier = $billnum;
-				$facfou->socid = $idovhsupplier;
+				$facfou->socid = $ovhthirdparty->id;
 				$facfou->libelle = "OVH " . $billnum;
 				if (!empty($conf->global->OVH_OLDAPI)) {
 					$facfou->date = dol_stringtotime($r->date, 1);
@@ -633,6 +629,8 @@ if ($action == 'refresh') {
 			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<input type="hidden" name="compte" value="' . GETPOST("compte", 'alpha') . '">';
+			print '<input type="hidden" name="idovhsupplier" value="' . $ovhthirdparty->id . '">';
+			print '<input type="hidden" name="idovhproduct" value="' . $ovhproduct->id . '">';
 
 			print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="' . $excludenullinvoice . '">';
 			print '<input type="hidden" id="excludenulllineshidden" name="excludenulllines" value="' . $excludenulllines . '">';
