@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2022 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2024 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,6 +62,7 @@ $servicename = "contact";
 $_SESSION['servicename'] = $servicename;
 $oauthurl='https://accounts.google.com/o/oauth2/auth';
 $shortscope=getDolGlobalString('OAUTH_GOOGLE-CONTACT_SCOPE');
+
 // Token
 require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
 use OAuth\Common\Storage\DoliStorage;
@@ -82,7 +83,7 @@ try {
 if ($action == 'save') {
 	$error=0;
 
-	$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_SCOPE', "contact", 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_SCOPE', "contact,https://www.googleapis.com/auth/contacts", 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
 
 
@@ -105,10 +106,10 @@ if ($action == 'save') {
 			setEventMessage($langs->trans("ErrorLabelsMustDiffers"), 'errors');
 			$error++;
 		}
-		if (! GETPOST('OAUTH_GOOGLE-CONTACT_LOGIN')) {
+		if (! GETPOST('GOOGLE_CONTACT_LOGIN')) {
 			$langs->load("errors");
-			dolibarr_del_const($db, 'OAUTH_GOOGLE-CONTACT_LOGIN', $conf->entity);
-			setEventMessage($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("GOOGLE_LOGIN")), 'errors');
+			dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN', $conf->entity);
+			setEventMessage($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("GOOGLE_CONTACT_LOGIN")), 'errors');
 		}
 
 		$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_ID', trim(GETPOST("OAUTH_GOOGLE-CONTACT_ID")), 'chaine', 0, '', $conf->entity);
@@ -125,7 +126,7 @@ if ($action == 'save') {
 			if (! $res > 0) $error++;
 			$res=dolibarr_set_const($db, 'GOOGLE_DUPLICATE_INTO_MEMBERS', trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
-			$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_LOGIN', trim(GETPOST("OAUTH_GOOGLE-CONTACT_LOGIN")), 'chaine', 0, '', $conf->entity);
+			$res=dolibarr_set_const($db, 'GOOGLE_CONTACT_LOGIN', trim(GETPOST("GOOGLE_CONTACT_LOGIN")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
 			$res=dolibarr_set_const($db, 'GOOGLE_CONTACT_PASSWORD', trim(GETPOST("GOOGLE_CONTACT_PASSWORD")), 'chaine', 0, '', $conf->entity);
 			if (! $res > 0) $error++;
@@ -823,7 +824,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GoogleIDContact")."</td>";
 print "<td>";
-print '<input class="flat minwidth300" type="text" name="OAUTH_GOOGLE-CONTACT_LOGIN" autocomplete="off" value="'.getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN').'">';
+print '<input class="flat minwidth300" type="text" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.getDolGlobalString('GOOGLE_CONTACT_LOGIN').'">';
 print "</td>";
 print '<td>';
 print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
@@ -890,7 +891,9 @@ print '</tr>';
 print '<tr class="oddeven nohover">';
 print '<td>'.$langs->trans("GOOGLE_WEB_TOKEN")."</td>";
 print '<td colspan="2">';
-if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID') || !getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET')) {
+// Login is in GOOGLE_CONTACT_LOGIN (only in module Google)
+// ID and SECRET are OAUTH_GOOGLE-CONTACT_ID and OAUTH_GOOGLE-CONTACT_SECRET so shared with OAuth module.
+if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID') || !getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET')) {
 	print $langs->trans("FillAndSaveGoogleAccount");
 } else {
 	// https://developers.google.com/identity/protocols/OAuth2UserAgent
@@ -975,7 +978,7 @@ print '<br><br>';
 
 
 // Thirdparties
-if ($conf->societe->enabled) {
+if (!empty($conf->societe->enabled)) {
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && is_object($tokenobj)) {
 		print '<div class="syncthirdparties">';
 		print '<hr><br>';
@@ -1028,8 +1031,8 @@ if ($conf->societe->enabled) {
 	}
 }
 
-	// Contacts
-if ($conf->societe->enabled) {
+// Contacts
+if (!empty($conf->societe->enabled)) {
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && is_object($tokenobj)) {
 		print '<div class="synccontacts">';
 		print '<hr><br>';
@@ -1081,7 +1084,7 @@ if ($conf->societe->enabled) {
 }
 
 // Members
-if ($conf->adherent->enabled) {
+if (!empty($conf->adherent->enabled)) {
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && is_object($tokenobj)) {
 		print '<div class="syncmembers">';
 		print '<hr><br>';

@@ -2,6 +2,7 @@
 
 ## 6.7
 
+- FIX OAUth2 module for Google with scopes for people and calendar
 - GOOGLE_CAL_TZ_FIX accept +00:0x format
 
 

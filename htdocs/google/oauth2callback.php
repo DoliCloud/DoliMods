@@ -35,9 +35,9 @@ dol_include_once("/google/lib/google.lib.php");
 // You must allow Dolibarr to login to
 
 
+$client_login = getDolGlobalString('GOOGLE-CONTACT_LOGIN');	// Into module Google only
 $client_id = getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID');
 $client_secret = getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET');
-$client_login = getDolGlobalString('OAUTH_GOOGLE-CONTACT_LOGIN');
 $shortscope = getDolGlobalString('OAUTH_GOOGLE-CONTACT_SCOPE');
 $redirect_uri=dol_buildpath('/google/oauth2callback.php', ((float) DOL_VERSION >= 4.0)?3:2);
 
