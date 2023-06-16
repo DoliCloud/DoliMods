@@ -62,6 +62,7 @@ $servicename = "contact";
 $_SESSION['servicename'] = $servicename;
 $oauthurl='https://accounts.google.com/o/oauth2/auth';
 $shortscope=getDolGlobalString('OAUTH_GOOGLE-CONTACT_SCOPE');
+
 // Token
 require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
 use OAuth\Common\Storage\DoliStorage;
@@ -82,7 +83,7 @@ try {
 if ($action == 'save') {
 	$error=0;
 
-	$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_SCOPE', "contact", 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'OAUTH_GOOGLE-CONTACT_SCOPE', "contact,https://www.googleapis.com/auth/contacts", 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
 
 
