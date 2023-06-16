@@ -648,7 +648,7 @@ if ($action == 'refresh') {
 			print '<td align="right">' . $langs->trans("Currency") . '</td>';
 			//print '<td align="right">'.$langs->trans("VATRate").'</td>';
 			print '<td>' . $langs->trans("Description") . '</td>';
-			print '<td align="right">' . $langs->trans("Action") . '</td>';
+			print '<td align="right">' . $form->showCheckAddButtons('checkforselect', 1) . '</td>';
 			print '</tr>';
 
 			foreach ($arrayinvoice as $i => $r) {
@@ -710,7 +710,7 @@ if ($action == 'refresh') {
 				}
 				if ($num == 0) {
 					print '<label>' . $langs->trans("NotFound") . '. ' . $langs->trans("ImportIt");
-					print ' <input class="flat" type="checkbox" name="billnum[]" value="' . $r['billnum'] . '"></label>';
+					print ' <input class="flat checkforselect" type="checkbox" name="billnum[]" value="' . $r['billnum'] . '"></label>';
 					print '<input type="hidden" name="billingCountry[]" value="' . $r['billingCountry'] . '">';
 					//print ' '.$langs->trans("VATRate").' <input class="flat" type="text" name="vat[]" value="'.vatrate($vatrate).'" size="3">';
 				} else {
