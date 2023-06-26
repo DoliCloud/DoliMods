@@ -2,6 +2,7 @@
 
 ## 4.1 Unreleased
 
+* FIX : Compatiblity Dolibarr 18 
 * NEW : add a select all checkbox in the list
 * NEW : add supplier and product selection in form
 * Better PHP 8.2 compatibility 
