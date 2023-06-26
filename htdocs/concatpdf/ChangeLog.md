@@ -3,6 +3,7 @@
 
 # 6.0.3
 
+FIX: 
 FIX: Use page size in setup
 FIX: Minimum version is Dolibarr 15.0
 FIX: Failed to concat when var with name of file to concat ends with .PDF or .pdf

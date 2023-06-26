@@ -317,14 +317,20 @@ class ActionsConcatPdf
 
 				// Save selected files into extraparams
 				$params['concatpdf'] = $concatpdffile;
-				$parameters['object']->extraparams = array_merge($parameters['object']->extraparams, $params);
+				if (is_object($parameters['object'])) {
+					$parameters['object']->extraparams = array_merge(is_array($parameters['object']->extraparams) ? $parameters['object']->extraparams : array(), $params);
+				}
 			}
 		} else {
 			// Remove extraparams for concatpdf
-			if (isset($parameters['object']->extraparams['concatpdf'])) unset($parameters['object']->extraparams['concatpdf']);
+			if (isset($parameters['object']->extraparams['concatpdf'])) {
+				unset($parameters['object']->extraparams['concatpdf']);
+			}
 		}
 
-		if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) $result=$parameters['object']->setExtraParameters();
+		if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) {
+			$result = $parameters['object']->setExtraParameters();
+		}
 
 		return $ret;
 	}
