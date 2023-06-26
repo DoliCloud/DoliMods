@@ -476,23 +476,29 @@ print '<span class="opacitymedium">' . $langs->trans("OvhInvoiceImportDesc") . '
 
 // Thirdparty to import on
 print $langs->trans("SupplierToUseForImport") . ': ';
+/*
 if ($ovhthirdparty->id > 0) {
 	print $ovhthirdparty->getNomUrl(1, 'supplier');
 } else {
 	print '<strong>' . $langs->trans("NotDefined") . '</strong>';
 }
-print '<br>' . $langs->trans('OrSelectAnotherOne') . ': ';
+*/
+//print '<br>' . $langs->trans('OrSelectAnotherOne') . ': ';
+print img_picto('', 'company', 'class="pictofixedwidth"');
 print $form->select_company($ovhthirdparty->id, 'idovhsupplier', '(s.fournisseur = 1 AND s.status=1)');
 print '<br><br>';
 
 // Product to import on
 print $langs->trans("ProductGenericToUseForImport") . ': ';
+/*
 if ($ovhproduct->id > 0) {
 	print $ovhproduct->getNomUrl(1) . ' - ' . $ovhproduct->label;
 } else {
 	print '<strong>' . $langs->trans("NoneLabelOnOvhLineWillBeUsed") . '</strong>';
 }
-print '<br>' . $langs->trans('OrSelectAnotherOne') . ': ';
+*/
+//print '<br>' . $langs->trans('OrSelectAnotherOne') . ': ';
+print img_picto('', 'product', 'class="pictofixedwidth"');
 print $form->select_produits($ovhproduct->id, 'idovhproduct', '', 0, 0, -1, 2, '', 1);
 print '<br><br>';
 
