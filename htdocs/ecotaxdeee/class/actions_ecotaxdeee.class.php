@@ -73,9 +73,13 @@ class ActionsEcotaxdeee
 		// If there is no ecotax lines.
 		$noecotax=1;
 		foreach ($parameters['object']->lines as $key => $line) {
-			if ($line->special_code == 2) $noecotax=0;
+			if ($line->special_code == 2) {
+				$noecotax=0;
+			}
 		}
-		if ($noecotax) return 0;
+		if ($noecotax) {
+			return 0;
+		}
 
 		$outputlangs=$parameters['outputlangs'];
 		$concatpdffile = 'tmpecotaxdeee'.(empty($user->id)?'':'_'.$user->id);

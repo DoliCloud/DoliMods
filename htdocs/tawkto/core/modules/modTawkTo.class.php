@@ -141,10 +141,10 @@ class modTawkTo extends DolibarrModules
 			$conf->tawkto=new stdClass();
 			$conf->tawkto->enabled=0;
 		}
-		$this->dictionnaries=array();
+		$this->dictionaries=array();
 		/* Example:
 		if (! isset($conf->mymodule->enabled)) $conf->mymodule->enabled=0;	// This is to avoid warnings
-		$this->dictionnaries=array(
+		$this->dictionaries=array(
 			'langs'=>'mylangfile@mymodule',
 			'tabname'=>array(MAIN_DB_PREFIX."table1",MAIN_DB_PREFIX."table2",MAIN_DB_PREFIX."table3"),		// List of tables we want to see into dictonnary editor
 			'tablib'=>array("Table1","Table2","Table3"),													// Label of tables

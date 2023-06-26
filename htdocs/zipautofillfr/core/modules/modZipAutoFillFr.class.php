@@ -81,7 +81,7 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->const = array(0=>array('MAIN_USE_ZIPTOWN_DICTIONNARY','chaine','1','Constant to enable usage of zip-town table',0,'current',1));
 
 		// Dictionnaries
-		$this->dictionnaries=array(
+		$this->dictionaries=array(
 			'langs'=>'',
 			'tabname'=>array("c_ziptown"),
 			'tablib'=>array("Zip and town"),

@@ -68,9 +68,6 @@ class modSaftPt extends DolibarrModules
         // Key used in llx_const table to save module status enabled/disabled
         // (where SaftPT is value of property name of module in uppercase)
         $this->const_name = 'MAIN_MODULE_' . strtoupper($this->name);
-        // Where to store the module in setup page
-        // (0=common,1=interface,2=others,3=very specific)
-        $this->special = 0;
         // Name of image file used for this module.
         // If file is in theme/yourtheme/img directory under name object_pictovalue.png
         // use this->picto='pictovalue'
@@ -177,10 +174,10 @@ class modSaftPt extends DolibarrModules
             $conf->saftpt=new stdClass();
             $conf->saftpt->enabled = 0;
         }
-        //$this->dictionnaries = array();
-          // This is to avoid warnings
-          if (! isset($conf->saftpt->enabled)) $conf->saftpt->enabled=0;
-        $this->dictionnaries=array(
+
+        // This is to avoid warnings
+        if (! isset($conf->saftpt->enabled)) $conf->saftpt->enabled=0;
+        $this->dictionaries=array(
           'langs'=>'saftpt@saftpt',
           // List of tables we want to see into dictonnary editor
           'tabname'=>array(MAIN_DB_PREFIX."c_taxexemption", MAIN_DB_PREFIX."c_taxtype"),
@@ -245,7 +242,7 @@ class modSaftPt extends DolibarrModules
 		// Left-Menu of saf-t
 		$r=0;
 		$r=1;
-        $this->menus = array(); // List of menus to add
+        $this->menu = array(); // List of menus to add
 
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=accountancy',
 								'type'=>'left',

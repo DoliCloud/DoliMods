@@ -136,7 +136,7 @@ class modSkinColorEditor extends DolibarrModules
 		// $r++;
 
 		// Main menu entries
-		$this->menus = array();         // List of menus to add
+		$this->menu = array();         // List of menus to add
 		$r=0;
 
 		// Exports

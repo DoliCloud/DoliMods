@@ -64,8 +64,6 @@ class modBitTorrent extends DolibarrModules
 		$this->version = '3.4.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 1;
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
 		$this->picto='bittorrent@bittorrent';
@@ -119,7 +117,7 @@ class modBitTorrent extends DolibarrModules
 
 
 		// Main menu entries
-		$this->menus = array();			// List of menus to add
+		$this->menu = array();			// List of menus to add
 		$r=0;
 
 		// Add here entries to declare new menus
