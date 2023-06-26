@@ -485,7 +485,11 @@ if ($ovhthirdparty->id > 0) {
 */
 //print '<br>' . $langs->trans('OrSelectAnotherOne') . ': ';
 print img_picto('', 'company', 'class="pictofixedwidth"');
-print $form->select_company($ovhthirdparty->id, 'idovhsupplier', '(s.fournisseur = 1 AND s.status=1)');
+if ((float) DOL_VERSION < 18.0) {
+	print $form->select_company($ovhthirdparty->id, 'idovhsupplier', '(s.fournisseur = 1 AND  s.status = 1)');
+} else {
+	print $form->select_company($ovhthirdparty->id, 'idovhsupplier', '(s.fournisseur:=:1) AND (s.status:=:1)');
+}
 print '<br><br>';
 
 // Product to import on
